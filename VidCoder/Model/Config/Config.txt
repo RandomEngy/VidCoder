@@ -65,6 +65,7 @@ WorkerProcessPriority|string|"BelowNormal"
 LogVerbosity|int|1
 CopyLogToOutputFolder|bool|false
 AutoPauseProcesses|string|""
+MaxSimultaneousEncodes|int|1
 PreviewCount|int|10
 PreviewDisplay|string|"FitToWindow"
 UseCustomPreviewFolder|bool|false

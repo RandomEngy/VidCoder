@@ -439,6 +439,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Maximum simultaneous encoding jobs:.
+        /// </summary>
+        public static string MaxSimultaneousEncodesLabel {
+            get {
+                return ResourceManager.GetString("MaxSimultaneousEncodesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is how many simultaneous encode jobs are allowed. Useful for machines with many CPU cores..
+        /// </summary>
+        public static string MaxSimultaneousEncodesToolTip {
+            get {
+                return ResourceManager.GetString("MaxSimultaneousEncodesToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Minimize to system tray.
         /// </summary>
         public static string MinimizeToSystemTrayRadioButton {

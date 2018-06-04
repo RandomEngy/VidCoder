@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Reactive.Linq;
 using HandBrake.ApplicationServices.Interop;
 using ReactiveUI;
 using VidCoder.DragDropUtils;
@@ -29,11 +31,10 @@ namespace VidCoder.ViewModel
 		public EncodeJobViewModel(VCJob job)
 		{
 			this.job = job;
-
 			// ShowProgressBar
-			this.WhenAnyValue(x => x.Encoding, x => x.IsOnlyItem, (encoding, isOnlyItem) =>
+			this.WhenAnyValue(x => x.Encoding, x => x.ProcessingService.EncodeQueue.Count, (encoding, queueCount) =>
 			{
-				return encoding && !isOnlyItem;
+				return encoding && queueCount != 1;
 			}).ToProperty(this, x => x.ShowProgressBar, out this.showProgressBar);
 
 			// ProgressToolTip
@@ -64,6 +65,54 @@ namespace VidCoder.ViewModel
 				}
 			}).ToProperty(this, x => x.ProgressBarColor, out this.progressBarColor);
 
+			// PercentComplete
+			this.WhenAnyValue(x => x.FractionComplete).Select(fractionComplete =>
+			{
+				return this.fractionComplete * 100.0;
+			}).ToProperty(this, x => x.PercentComplete, out this.percentComplete);
+
+			// PassProgressPercent
+			this.WhenAnyValue(x => x.PassProgressFraction).Select(passProgressFraction =>
+			{
+				return this.passProgressFraction * 100.0;
+			}).ToProperty(this, x => x.PassProgressPercent, out this.passProgressPercent);
+
+			// FileSizeDisplay
+			this.WhenAnyValue(x => x.FileSizeBytes).Select(fileSizeBytes =>
+			{
+				return Utilities.FormatFileSize(fileSizeBytes);
+			}).ToProperty(this, x => x.FileSizeDisplay, out this.fileSizeDisplay);
+
+			// EncodeTimeDisplay
+			this.WhenAnyValue(x => x.EncodeTime).Select(encodeTime =>
+			{
+				return Utilities.FormatTimeSpan(encodeTime);
+			}).ToProperty(this, x => x.EncodeTimeDisplay, out this.encodeTimeDisplay);
+
+			// EtaDisplay
+			this.WhenAnyValue(x => x.Eta).Select(eta =>
+			{
+				return Utilities.FormatTimeSpan(eta);
+			}).ToProperty(this, x => x.EtaDisplay, out this.etaDisplay);
+
+			// PassProgressDisplay
+			this.WhenAnyValue(x => x.CurrentPassId).Select(passId =>
+			{
+				switch (passId)
+				{
+					case -1:
+						return EncodeDetailsRes.ScanPassLabel;
+					case 0:
+						return EncodeDetailsRes.EncodePassLabel;
+					case 1:
+						return EncodeDetailsRes.FirstPassLabel;
+					case 2:
+						return EncodeDetailsRes.SecondPassLabel;
+					default:
+						return null;
+				}
+			}).ToProperty(this, x => x.PassProgressDisplay, out this.passProgressDisplay);
+
 			this.EditQueueJob = ReactiveCommand.Create(this.WhenAnyValue(
 				x => x.Encoding, 
 				x => x.MainViewModel.VideoSourceState, 
@@ -78,6 +127,22 @@ namespace VidCoder.ViewModel
 				return !encoding;
 			}));
 			this.RemoveQueueJob.Subscribe(_ => this.RemoveQueueJobImpl());
+		}
+
+		private bool initializedForEncoding = false;
+		private void InitializeForEncoding()
+		{
+			if (!this.initializedForEncoding)
+			{
+				// ShowFps
+				this.ProcessingService.WhenAnyValue(x => x.EncodingJobList.Count).Select(encodingJobCount =>
+				//this.ProcessingService.EncodingJobList.CountChanged.Select(encodingJobCount =>
+				{
+					return encodingJobCount > 1;
+				}).ToProperty(this, x => x.ShowFps, out this.showFps);
+
+				this.initializedForEncoding = true;
+			}
 		}
 
 		public VCJob Job
@@ -136,6 +201,10 @@ namespace VidCoder.ViewModel
 
 		public string PresetName { get; set; }
 
+		public string ShortFileName => Path.GetFileName(this.Job.OutputPath);
+
+		public IEncodeProxy EncodeProxy { get; set; }
+
 		private bool isSelected;
 		public bool IsSelected
 		{
@@ -159,13 +228,6 @@ namespace VidCoder.ViewModel
 
 		private ObservableAsPropertyHelper<System.Windows.Media.Brush> progressBarColor;
 		public System.Windows.Media.Brush ProgressBarColor => this.progressBarColor.Value;
-
-		private bool isOnlyItem;
-		public bool IsOnlyItem
-		{
-			get { return this.isOnlyItem; }
-			set { this.RaiseAndSetIfChanged(ref this.isOnlyItem, value); }
-		}
 
 		/// <summary>
 		/// Returns true if a subtitle scan will be performed on this job.
@@ -215,6 +277,14 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private ObservableAsPropertyHelper<string> encodeTimeDisplay;
+		public string EncodeTimeDisplay => this.encodeTimeDisplay.Value;
+
+		public void RefreshEncodeTimeDisplay()
+		{
+			this.RaisePropertyChanged(nameof(this.EncodeTime));
+		}
+
 		private ObservableAsPropertyHelper<bool> showQueueEditButtons;
 		public bool ShowQueueEditButtons => this.showQueueEditButtons.Value;
 
@@ -228,14 +298,76 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.eta, value); }
 		}
 
+		private ObservableAsPropertyHelper<string> etaDisplay;
+		public string EtaDisplay => this.etaDisplay.Value;
+
 		private ObservableAsPropertyHelper<string> progressToolTip;
 		public string ProgressToolTip => this.progressToolTip.Value;
 
-		private int percentComplete;
-		public int PercentComplete
+		private double fractionComplete;
+		public double FractionComplete
 		{
-			get { return this.percentComplete; }
-			set { this.RaiseAndSetIfChanged(ref this.percentComplete, value); }
+			get { return this.fractionComplete; }
+			set { this.RaiseAndSetIfChanged(ref this.fractionComplete, value); }
+		}
+
+		private ObservableAsPropertyHelper<double> percentComplete;
+		public double PercentComplete => this.percentComplete.Value;
+
+		private int currentPassId;
+		public int CurrentPassId
+		{
+			get { return this.currentPassId; }
+			set { this.RaiseAndSetIfChanged(ref this.currentPassId, value); }
+		}
+
+		private ObservableAsPropertyHelper<string> passProgressDisplay;
+		public string PassProgressDisplay => this.passProgressDisplay.Value;
+
+		private double passProgressFraction;
+		public double PassProgressFraction
+		{
+			get { return this.passProgressFraction; }
+			set { this.RaiseAndSetIfChanged(ref this.passProgressFraction, value); }
+		}
+
+		private ObservableAsPropertyHelper<double> passProgressPercent;
+		public double PassProgressPercent => this.passProgressPercent.Value;
+
+		public bool ShowPassProgress => this.SubtitleScan || this.Profile.VideoEncodeRateType != VCVideoEncodeRateType.ConstantQuality;
+
+		private long fileSizeBytes;
+		public long FileSizeBytes
+		{
+			get { return this.fileSizeBytes; }
+			set { this.RaiseAndSetIfChanged(ref this.fileSizeBytes, value); }
+		}
+
+		private ObservableAsPropertyHelper<string> fileSizeDisplay;
+		public string FileSizeDisplay => this.fileSizeDisplay.Value;
+
+		/// <summary>
+		/// Gets or sets the amount of completed work on the job (roughly in seconds of video converted)
+		/// </summary>
+		public double CompletedWork { get; set; }
+
+		public bool EncodeSpeedDetailsAvailable { get; set; }
+
+		private ObservableAsPropertyHelper<bool> showFps;
+		public bool ShowFps => this.showFps.Value;
+
+		private double currentFps;
+		public double CurrentFps
+		{
+			get { return this.currentFps; }
+			set { this.RaiseAndSetIfChanged(ref this.currentFps, value); }
+		}
+
+		private double averageFps;
+		public double AverageFps
+		{
+			get { return this.averageFps; }
+			set { this.RaiseAndSetIfChanged(ref this.averageFps, value); }
 		}
 
 		public string RangeDisplay
@@ -374,10 +506,10 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public void ReportEncodeStart(bool newIsOnlyItem)
+		public void ReportEncodeStart()
 		{
+			this.InitializeForEncoding();
 			this.Encoding = true;
-			this.IsOnlyItem = newIsOnlyItem;
 			this.encodeTimeStopwatch = Stopwatch.StartNew();
 		}
 

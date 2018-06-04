@@ -1,230 +1,275 @@
 ﻿<Window
-    x:Class="VidCoder.View.EncodeDetailsWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Resources="clr-namespace:VidCoder.Resources"
-    Title="{x:Static Resources:EncodeDetailsRes.EncodeDetailsWindowTitle}"
-    Width="360"
-    Height="374"
-    MinWidth="200"
-    MinHeight="300"
-    ShowInTaskbar="False"
-    Style="{StaticResource NormalWindow}"
-    WindowStyle="ToolWindow">
-    <Window.Resources>
-        <Style x:Key="ItemLabel" TargetType="TextBlock">
-            <Setter Property="Margin" Value="4" />
-        </Style>
-        <Style x:Key="ItemValue" TargetType="TextBlock">
-            <Setter Property="Margin" Value="4" />
-        </Style>
-        <Style x:Key="EncodeDetailsProgress" TargetType="ProgressBar">
-            <Setter Property="Margin" Value="0 0 10 0" />
-            <Setter Property="Foreground" Value="{StaticResource ProgressBarBrush}" />
-        </Style>
-    </Window.Resources>
-    <StackPanel Margin="10 10 0 0" Orientation="Vertical">
-        <Grid Margin="0 0 0 10">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <TextBlock
-                Grid.Row="0"
-                Grid.Column="0"
-                Style="{StaticResource SectionHeader}"
-                Text="{x:Static Resources:EncodeDetailsRes.QueueSectionHeader}" />
+	x:Class="VidCoder.View.EncodeDetailsWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:Resources="clr-namespace:VidCoder.Resources"
+	xmlns:viewModel="clr-namespace:VidCoder.ViewModel"
+	Title="{x:Static Resources:EncodeDetailsRes.EncodeDetailsWindowTitle}"
+	Width="360"
+	Height="374"
+	MinWidth="200"
+	MinHeight="300"
+	ShowInTaskbar="False"
+	Style="{StaticResource NormalWindow}"
+	WindowStyle="ToolWindow">
+	<Window.Resources>
+		<Style x:Key="ItemLabel" TargetType="TextBlock">
+			<Setter Property="Margin" Value="4" />
+		</Style>
+		<Style x:Key="ItemValue" TargetType="TextBlock">
+			<Setter Property="Margin" Value="4" />
+		</Style>
+		<Style x:Key="EncodeDetailsProgress" TargetType="ProgressBar">
+			<Setter Property="Margin" Value="0 0 10 0" />
+			<Setter Property="Foreground" Value="{StaticResource ProgressBarBrush}" />
+		</Style>
+	</Window.Resources>
+	<ScrollViewer VerticalScrollBarVisibility="Auto">
+		<StackPanel Margin="10 10 0 0" Orientation="Vertical">
+			<Grid Margin="0">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<TextBlock
+					Grid.Row="0"
+					Grid.Column="0"
+					Style="{StaticResource SectionHeader}"
+					Text="{x:Static Resources:EncodeDetailsRes.QueueSectionHeader}" />
 
-            <TextBlock
-                Grid.Row="1"
-                Grid.Column="0"
-                Style="{StaticResource ItemLabel}"
-                Text="{x:Static Resources:EncodeDetailsRes.JobLabel}" />
-            <TextBlock
-                Grid.Row="1"
-                Grid.Column="1"
-                Style="{StaticResource ItemValue}"
-                Text="{Binding TaskNumberDisplay}" />
+				<TextBlock
+					Grid.Row="1"
+					Grid.Column="0"
+					Style="{StaticResource ItemLabel}"
+					Text="{x:Static Resources:EncodeDetailsRes.JobLabel}" />
+				<TextBlock
+					Grid.Row="1"
+					Grid.Column="1"
+					Style="{StaticResource ItemValue}"
+					Text="{Binding TaskNumberDisplay}" />
 
-            <TextBlock
-                Grid.Row="2"
-                Grid.Column="0"
-                Style="{StaticResource ItemLabel}"
-                Text="{x:Static Resources:EncodeDetailsRes.ProgressLabel}" />
-            <Grid Grid.Row="2" Grid.Column="1">
-                <ProgressBar
-                    Height="15"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource EncodeDetailsProgress}"
-                    Value="{Binding OverallProgressPercent,
-                                    Mode=OneWay}" />
-                <TextBlock
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource ItemValue}"
-                    Text="{Binding OverallProgressPercent,
-                                   Converter={StaticResource PercentDisplayConverter}}" />
-            </Grid>
-
-
-            <TextBlock
-                Grid.Row="3"
-                Grid.Column="0"
-                Style="{StaticResource ItemLabel}"
-                Text="{x:Static Resources:EncodeDetailsRes.ElapsedTimeLabel}" />
-            <TextBlock
-                Grid.Row="3"
-                Grid.Column="1"
-                Style="{StaticResource ItemValue}"
-                Text="{Binding OverallElapsedTime}" />
-
-            <TextBlock
-                Grid.Row="4"
-                Grid.Column="0"
-                Style="{StaticResource ItemLabel}"
-                Text="{x:Static Resources:EncodeDetailsRes.EtaLabel}" />
-            <TextBlock
-                Grid.Row="4"
-                Grid.Column="1"
-                Style="{StaticResource ItemValue}"
-                Text="{Binding OverallEta}" />
-        </Grid>
-
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <TextBlock
-                Grid.Row="0"
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
-                Style="{StaticResource SectionHeader}"
-                Text="{Binding FileName}" />
-
-            <TextBlock
-                Grid.Row="1"
-                Grid.Column="0"
-                Style="{StaticResource ItemLabel}"
-                Text="{x:Static Resources:EncodeDetailsRes.FileProgressLabel}" />
-            <Grid Grid.Row="1" Grid.Column="1">
-                <ProgressBar
-                    Height="15"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource EncodeDetailsProgress}"
-                    Value="{Binding FileProgressPercent,
-                                    Mode=OneWay}" />
-                <TextBlock
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource ItemValue}"
-                    Text="{Binding FileProgressPercent,
-                                   Converter={StaticResource PercentDisplayConverter}}" />
-            </Grid>
+				<TextBlock
+					Grid.Row="2"
+					Grid.Column="0"
+					Style="{StaticResource ItemLabel}"
+					Text="{x:Static Resources:EncodeDetailsRes.ProgressLabel}" />
+				<Grid Grid.Row="2" Grid.Column="1">
+					<ProgressBar
+						Height="15"
+						VerticalAlignment="Center"
+						Style="{StaticResource EncodeDetailsProgress}"
+						Value="{Binding ProcessingService.OverallEncodeProgressPercent,
+						                Mode=OneWay}" />
+					<TextBlock
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						Style="{StaticResource ItemValue}"
+						Text="{Binding ProcessingService.OverallEncodeProgressPercent,
+						               Converter={StaticResource PercentDisplayConverter}}" />
+				</Grid>
 
 
-            <TextBlock
-                Grid.Row="2"
-                Grid.Column="0"
-                Style="{StaticResource ItemLabel}"
-                Text="{Binding PassProgressLabel}"
-                Visibility="{Binding ShowPassProgress,
-                                     Converter={StaticResource VisibilityConverter}}" />
-            <Grid
-                Grid.Row="2"
-                Grid.Column="1"
-                Visibility="{Binding ShowPassProgress,
-                                     Converter={StaticResource VisibilityConverter}}">
-                <ProgressBar
-                    Height="15"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource EncodeDetailsProgress}"
-                    Value="{Binding PassProgressPercent,
-                                    Mode=OneWay}" />
-                <TextBlock
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource ItemValue}"
-                    Text="{Binding PassProgressPercent,
-                                   Converter={StaticResource PercentDisplayConverter}}" />
-            </Grid>
+				<TextBlock
+					Grid.Row="3"
+					Grid.Column="0"
+					Style="{StaticResource ItemLabel}"
+					Text="{x:Static Resources:EncodeDetailsRes.ElapsedTimeLabel}" />
+				<TextBlock
+					Grid.Row="3"
+					Grid.Column="1"
+					Style="{StaticResource ItemValue}"
+					Text="{Binding OverallEncodeTime}" />
+
+				<TextBlock
+					Grid.Row="4"
+					Grid.Column="0"
+					Style="{StaticResource ItemLabel}"
+					Text="{x:Static Resources:EncodeDetailsRes.EtaLabel}" />
+				<TextBlock
+					Grid.Row="4"
+					Grid.Column="1"
+					Style="{StaticResource ItemValue}"
+					Text="{Binding OverallEta}" />
+
+				<TextBlock
+					Grid.Row="5"
+					Grid.Column="0"
+					Style="{StaticResource ItemLabel}"
+					Text="{x:Static Resources:EncodeDetailsRes.CurrentFpsLabel}" />
+				<TextBlock
+					Grid.Row="5"
+					Grid.Column="1"
+					Style="{StaticResource ItemValue}"
+					Text="{Binding ProcessingService.CurrentFps,
+					               Mode=OneWay,
+					               Converter={StaticResource DoubleDisplayConverter}}" />
+
+				<TextBlock
+					Grid.Row="6"
+					Grid.Column="0"
+					Style="{StaticResource ItemLabel}"
+					Text="{x:Static Resources:EncodeDetailsRes.AverageFpsLabel}" />
+				<TextBlock
+					Grid.Row="6"
+					Grid.Column="1"
+					Style="{StaticResource ItemValue}"
+					Text="{Binding ProcessingService.AverageFps,
+					               Mode=OneWay,
+					               Converter={StaticResource DoubleDisplayConverter}}" />
+			</Grid>
+
+			<ItemsControl ItemsSource="{Binding ProcessingService.EncodingJobList}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate DataType="viewModel:EncodeJobViewModel">
+						<Grid Margin="0 10 0 0">
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition />
+								<RowDefinition />
+								<RowDefinition />
+								<RowDefinition />
+								<RowDefinition />
+								<RowDefinition />
+								<RowDefinition />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+							<TextBlock
+								Grid.Row="0"
+								Grid.Column="0"
+								Grid.ColumnSpan="2"
+								Style="{StaticResource SectionHeader}"
+								Text="{Binding ShortFileName}" />
+
+							<TextBlock
+								Grid.Row="1"
+								Grid.Column="0"
+								Style="{StaticResource ItemLabel}"
+								Text="{x:Static Resources:EncodeDetailsRes.FileProgressLabel}" />
+							<Grid Grid.Row="1" Grid.Column="1">
+								<ProgressBar
+									Height="15"
+									VerticalAlignment="Center"
+									Style="{StaticResource EncodeDetailsProgress}"
+									Value="{Binding PercentComplete,
+									                Mode=OneWay}" />
+								<TextBlock
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									Style="{StaticResource ItemValue}"
+									Text="{Binding PercentComplete,
+									               Converter={StaticResource PercentDisplayConverter}}" />
+							</Grid>
 
 
-            <TextBlock
-                Grid.Row="3"
-                Grid.Column="0"
-                Style="{StaticResource ItemLabel}"
-                Text="{x:Static Resources:EncodeDetailsRes.FileSizeLabel}" />
-            <TextBlock
-                Grid.Row="3"
-                Grid.Column="1"
-                Style="{StaticResource ItemValue}"
-                Text="{Binding FileSize}" />
+							<TextBlock
+								Grid.Row="2"
+								Grid.Column="0"
+								Style="{StaticResource ItemLabel}"
+								Text="{Binding PassProgressDisplay}"
+								Visibility="{Binding ShowPassProgress,
+								                     Converter={StaticResource VisibilityConverter}}" />
+							<Grid
+								Grid.Row="2"
+								Grid.Column="1"
+								Visibility="{Binding ShowPassProgress,
+								                     Converter={StaticResource VisibilityConverter}}">
+								<ProgressBar
+									Height="15"
+									VerticalAlignment="Center"
+									Style="{StaticResource EncodeDetailsProgress}"
+									Value="{Binding PassProgressPercent,
+									                Mode=OneWay}" />
+								<TextBlock
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									Style="{StaticResource ItemValue}"
+									Text="{Binding PassProgressPercent,
+									               Converter={StaticResource PercentDisplayConverter}}" />
+							</Grid>
 
-            <TextBlock
-                Grid.Row="4"
-                Grid.Column="0"
-                Style="{StaticResource ItemLabel}"
-                Text="{x:Static Resources:EncodeDetailsRes.ElapsedTimeLabel}" />
-            <TextBlock
-                Grid.Row="4"
-                Grid.Column="1"
-                Style="{StaticResource ItemValue}"
-                Text="{Binding FileElapsedTime}" />
 
-            <TextBlock
-                Grid.Row="5"
-                Grid.Column="0"
-                Style="{StaticResource ItemLabel}"
-                Text="{x:Static Resources:EncodeDetailsRes.EtaLabel}" />
-            <TextBlock
-                Grid.Row="5"
-                Grid.Column="1"
-                Style="{StaticResource ItemValue}"
-                Text="{Binding FileEta}" />
+							<TextBlock
+								Grid.Row="3"
+								Grid.Column="0"
+								Style="{StaticResource ItemLabel}"
+								Text="{x:Static Resources:EncodeDetailsRes.FileSizeLabel}" />
+							<TextBlock
+								Grid.Row="3"
+								Grid.Column="1"
+								Style="{StaticResource ItemValue}"
+								Text="{Binding FileSizeDisplay}" />
 
-            <TextBlock
-                Grid.Row="6"
-                Grid.Column="0"
-                Style="{StaticResource ItemLabel}"
-                Text="{x:Static Resources:EncodeDetailsRes.CurrentFpsLabel}" />
-            <TextBlock
-                Grid.Row="6"
-                Grid.Column="1"
-                Style="{StaticResource ItemValue}"
-                Text="{Binding CurrentFps,
-                               Mode=OneWay,
-                               Converter={StaticResource DoubleDisplayConverter}}" />
+							<TextBlock
+								Grid.Row="4"
+								Grid.Column="0"
+								Style="{StaticResource ItemLabel}"
+								Text="{x:Static Resources:EncodeDetailsRes.ElapsedTimeLabel}" />
+							<TextBlock
+								Grid.Row="4"
+								Grid.Column="1"
+								Style="{StaticResource ItemValue}"
+								Text="{Binding EncodeTimeDisplay}" />
 
-            <TextBlock
-                Grid.Row="7"
-                Grid.Column="0"
-                Style="{StaticResource ItemLabel}"
-                Text="{x:Static Resources:EncodeDetailsRes.AverageFpsLabel}" />
-            <TextBlock
-                Grid.Row="7"
-                Grid.Column="1"
-                Style="{StaticResource ItemValue}"
-                Text="{Binding AverageFps,
-                               Mode=OneWay,
-                               Converter={StaticResource DoubleDisplayConverter}}" />
-        </Grid>
-    </StackPanel>
+							<TextBlock
+								Grid.Row="5"
+								Grid.Column="0"
+								Style="{StaticResource ItemLabel}"
+								Text="{x:Static Resources:EncodeDetailsRes.EtaLabel}" />
+							<TextBlock
+								Grid.Row="5"
+								Grid.Column="1"
+								Style="{StaticResource ItemValue}"
+								Text="{Binding EtaDisplay}" />
+
+							<TextBlock
+								Grid.Row="6"
+								Grid.Column="0"
+								Style="{StaticResource ItemLabel}"
+								Text="{x:Static Resources:EncodeDetailsRes.CurrentFpsLabel}"
+								Visibility="{Binding ShowFps,
+								                     Converter={StaticResource VisibilityConverter}}" />
+							<TextBlock
+								Grid.Row="6"
+								Grid.Column="1"
+								Style="{StaticResource ItemValue}"
+								Text="{Binding CurrentFps,
+								               Mode=OneWay,
+								               Converter={StaticResource DoubleDisplayConverter}}"
+								Visibility="{Binding ShowFps,
+								                     Converter={StaticResource VisibilityConverter}}" />
+
+							<TextBlock
+								Grid.Row="7"
+								Grid.Column="0"
+								Style="{StaticResource ItemLabel}"
+								Text="{x:Static Resources:EncodeDetailsRes.AverageFpsLabel}"
+								Visibility="{Binding ShowFps,
+								                     Converter={StaticResource VisibilityConverter}}" />
+							<TextBlock
+								Grid.Row="7"
+								Grid.Column="1"
+								Style="{StaticResource ItemValue}"
+								Text="{Binding AverageFps,
+								               Mode=OneWay,
+								               Converter={StaticResource DoubleDisplayConverter}}"
+								Visibility="{Binding ShowFps,
+								                     Converter={StaticResource VisibilityConverter}}" />
+						</Grid>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</StackPanel>
+	</ScrollViewer>
 </Window>

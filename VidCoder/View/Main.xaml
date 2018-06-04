@@ -191,7 +191,7 @@
 					ToolTipService.ShowDuration="120000"
 					Visibility="{Binding ShowProgressBar,
 					                     Converter={StaticResource VisibilityConverter}}"
-					Value="{Binding PercentComplete}" />
+					Value="{Binding PercentComplete, Mode=OneWay}" />
 			</Grid>
 		</DataTemplate>
 		<ContextMenu x:Key="CompletedItemContextMenu" d:DataContext="{d:DesignInstance viewmodel:EncodeResultViewModel}">
@@ -1167,8 +1167,7 @@
 						</TabItem.Header>
 						<ListView
 							Name="queueView"
-							VidCoderDragDrop:DragDropHelper.AllowDropAtTop="{Binding ProcessingService.Encoding,
-							                                                         Converter={StaticResource InverseBoolConverter}}"
+							VidCoderDragDrop:DragDropHelper.BlockedTopSpaces="{Binding ProcessingService.JobsEncodingCount}"
 							VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource QueueDragTemplate}"
 							VidCoderDragDrop:DragDropHelper.IsDragSource="True"
 							VidCoderDragDrop:DragDropHelper.IsDropTarget="True"

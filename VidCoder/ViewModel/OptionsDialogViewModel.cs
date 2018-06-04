@@ -173,6 +173,8 @@ namespace VidCoder.ViewModel
 				this.cpuThrottlingCores = this.CpuThrottlingMaxCores;
 			}
 
+			this.maxSimultaneousEncodes = Config.MaxSimultaneousEncodes;
+
 			List<string> autoPauseList = CustomConfig.AutoPauseProcesses;
 			if (autoPauseList != null)
 			{
@@ -598,6 +600,13 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private int maxSimultaneousEncodes;
+		public int MaxSimultaneousEncodes
+		{
+			get { return this.maxSimultaneousEncodes; }
+			set { this.RaiseAndSetIfChanged(ref this.maxSimultaneousEncodes, value); }
+		}
+
 		private ObservableAsPropertyHelper<string> cpuThrottlingDisplay;
 		public string CpuThrottlingDisplay => this.cpuThrottlingDisplay.Value;
 
@@ -668,6 +677,7 @@ namespace VidCoder.ViewModel
 				Config.MinimumTitleLengthSeconds = this.MinimumTitleLengthSeconds;
 				Config.VideoFileExtensions = this.VideoFileExtensions;
 				Config.CpuThrottlingFraction = (double)this.CpuThrottlingCores / this.CpuThrottlingMaxCores;
+				Config.MaxSimultaneousEncodes = this.MaxSimultaneousEncodes;
 
 				Config.PreferredPlayer = this.selectedPlayer.Id;
 

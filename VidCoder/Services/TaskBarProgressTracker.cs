@@ -16,12 +16,10 @@ namespace VidCoder.Services
 
 			// Set up some observables for properties we care about.
 			var isEncodingObservable = processingService
-				.WhenAnyValue(x => x.EncodeProgress)
-				.Select(encodeProgress => encodeProgress != null && encodeProgress.Encoding);
+				.WhenAnyValue(x => x.Encoding);
 
 			var encodeProgressFractionObservable = processingService
-				.WhenAnyValue(x => x.EncodeProgress)
-				.Select(encodeProgress => encodeProgress == null ? 0 : encodeProgress.OverallProgressFraction);
+				.WhenAnyValue(x => x.OverallEncodeProgressFraction);
 
 			var isEncodePausedObservable = processingService.WhenAnyValue(x => x.Paused);
 			var videoSourceStateObservable = mainViewModel.WhenAnyValue(x => x.VideoSourceState);

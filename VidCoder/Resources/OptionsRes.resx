@@ -382,4 +382,10 @@
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Use built-in player for previews</value>
   </data>
+  <data name="MaxSimultaneousEncodesLabel" xml:space="preserve">
+    <value>Maximum simultaneous encoding jobs:</value>
+  </data>
+  <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
+    <value>This is how many simultaneous encode jobs are allowed. Useful for machines with many CPU cores.</value>
+  </data>
 </root>

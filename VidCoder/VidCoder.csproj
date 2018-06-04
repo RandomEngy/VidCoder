@@ -391,9 +391,9 @@
     <Compile Include="Extensions\WindowExtensions.cs" />
     <Compile Include="Model\Config\ConfigObservable.cs" />
     <Compile Include="Model\EncodeJobsXml.cs" />
-    <Compile Include="Model\EncodeProgress.cs" />
     <Compile Include="Model\EncodeResultStatus.cs" />
     <Compile Include="Model\EncodeCompleteReason.cs" />
+    <Compile Include="Model\FileEncodeProgress.cs" />
     <Compile Include="Model\FolderType.cs" />
     <Compile Include="Model\PresetFolder.cs" />
     <Compile Include="Model\PresetFolderStorage.cs" />

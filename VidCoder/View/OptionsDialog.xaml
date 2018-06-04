@@ -120,7 +120,7 @@
 									Content="{x:Static res:OptionsRes.UseSystemPlayer}"
 									GroupName="customVideo1"
 									IsChecked="{Binding UseCustomVideoPlayer,
-								                    Converter={StaticResource InverseBoolConverter}}" />
+									                    Converter={StaticResource InverseBoolConverter}}" />
 								<Grid
 									Margin="20 6 0 0"
 									HorizontalAlignment="Stretch"
@@ -440,6 +440,21 @@
 									SelectedValuePath="Value" />
 							</StackPanel>
 
+							<StackPanel
+								Margin="0 6 0 0"
+								Orientation="Horizontal"
+								ToolTip="{x:Static res:OptionsRes.MaxSimultaneousEncodesToolTip}">
+								<TextBlock Text="{x:Static res:OptionsRes.MaxSimultaneousEncodesLabel}" VerticalAlignment="Center" />
+								<my:NumberBox
+									Width="35"
+									Height="23"
+									Margin="10 0 0 0"
+									Maximum="4"
+									Minimum="1"
+									VerticalAlignment="Center"
+									Number="{Binding MaxSimultaneousEncodes, Mode=TwoWay}" />
+							</StackPanel>
+
 							<Grid Margin="0 6 0 0" ToolTip="{x:Static res:OptionsRes.CpuThrottlingToolTip}">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="Auto" />
@@ -646,12 +661,6 @@
 								Command="{Binding OpenLogFolder}"
 								Content="{x:Static res:OptionsRes.OpenLogFolderButton}" />
 						</StackPanel>
-
-						<!--  Video  -->
-						<!--<TextBlock
-							Style="{StaticResource ConfigSectionHeader}"
-							Text="{x:Static res:OptionsRes.VideoSection}"
-							TextWrapping="Wrap" />-->
 
 						<!--  DVD reading  -->
 						<TextBlock

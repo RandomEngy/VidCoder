@@ -88,18 +88,18 @@ namespace VidCoder.DragDropUtils
 		public static readonly DependencyProperty DragDropTemplateProperty =
 			DependencyProperty.RegisterAttached("DragDropTemplate", typeof(DataTemplate), typeof(DragDropHelper), new UIPropertyMetadata(null));
 
-		public static bool GetAllowDropAtTop(DependencyObject obj)
+		public static int GetBlockedTopSpaces(DependencyObject obj)
 		{
-			return (bool)obj.GetValue(AllowDropAtTopProperty);
+			return (int)obj.GetValue(BlockedTopSpacesProperty);
 		}
 
-		public static void SetAllowDropAtTop(DependencyObject obj, DataTemplate value)
+		public static void SetBlockedTopSpaces(DependencyObject obj, DataTemplate value)
 		{
-			obj.SetValue(AllowDropAtTopProperty, value);
+			obj.SetValue(BlockedTopSpacesProperty, value);
 		}
 
-		public static readonly DependencyProperty AllowDropAtTopProperty =
-			DependencyProperty.RegisterAttached("AllowDropAtTop", typeof(bool), typeof(DragDropHelper), new UIPropertyMetadata(true));
+		public static readonly DependencyProperty BlockedTopSpacesProperty =
+			DependencyProperty.RegisterAttached("BlockedTopSpaces", typeof(int), typeof(DragDropHelper), new UIPropertyMetadata(0));
 
 		private static void IsDragSourceChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
 		{
@@ -401,7 +401,7 @@ namespace VidCoder.DragDropUtils
 						this.insertionIndex = targetItemsControlCount;
 					}
 
-					if (this.insertionIndex == 0 && !GetAllowDropAtTop(this.sourceItemsControl))
+					if (this.insertionIndex < GetBlockedTopSpaces(this.sourceItemsControl))
 					{
 						this.targetItemContainer = null;
 						this.insertionIndex = -1;
