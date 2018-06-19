@@ -61,15 +61,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No subtitles on the source video..
-        /// </summary>
-        public static string AddSourceNoSubtitlesToolTip {
-            get {
-                return ResourceManager.GetString("AddSourceNoSubtitlesToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Burn In.
         /// </summary>
         public static string BurnedInColumn {

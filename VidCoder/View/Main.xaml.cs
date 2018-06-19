@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -68,6 +69,8 @@ namespace VidCoder.View
 		{
 			Ioc.Container.RegisterInstance(typeof(Main), this, new ContainerControlledLifetimeManager());
 			this.InitializeComponent();
+
+			this.sourceRow.Height = new GridLength(Config.SourcePaneHeight);
 
 			this.Activated += (sender, args) =>
 			{
@@ -202,6 +205,20 @@ namespace VidCoder.View
 		{
 			this.viewModel = (MainViewModel)this.DataContext;
 			this.viewModel.View = this;
+			this.viewModel.WhenAnyValue(x => x.SubtitlesExpanded).Subscribe(expanded =>
+			{
+				if (expanded)
+				{
+					ResizeGridViewColumn(this.sourceSelectedColumn);
+					ResizeGridViewColumn(this.sourceNameColumn);
+					ResizeGridViewColumn(this.sourceDefaultColumn);
+					ResizeGridViewColumn(this.sourceForcedColumn);
+					ResizeGridViewColumn(this.sourceBurnedColumn);
+					ResizeGridViewColumn(this.sourceRemoveDuplicateColumn);
+					ResizeGridViewColumn(this.srtCharCodeColumn);
+					ResizeGridViewColumn(this.srtLanguageColumn);
+				}
+			});
 			this.RefreshDiscMenuItems();
 
 			this.notifyIcon.Text = this.viewModel.TrayIconToolTip;
@@ -219,6 +236,22 @@ namespace VidCoder.View
 			    };
 
 			this.RefreshQueueTabs();
+
+			this.sourceSubtitles = this.viewModel.SourceSubtitles;
+			this.srtSubtitles = this.viewModel.SrtSubtitles;
+
+			foreach (SourceSubtitleViewModel sourceVM in this.sourceSubtitles)
+			{
+				sourceVM.PropertyChanged += this.sourceVM_PropertyChanged;
+			}
+
+			foreach (SrtSubtitleViewModel srtVM in this.srtSubtitles)
+			{
+				srtVM.PropertyChanged += this.srtVM_PropertyChanged;
+			}
+
+			this.sourceSubtitles.CollectionChanged += this.sourceSubtitles_CollectionChanged;
+			this.srtSubtitles.CollectionChanged += this.srtSubtitles_CollectionChanged;
 		}
 
 		void IMainView.SaveQueueColumns()
@@ -570,6 +603,104 @@ namespace VidCoder.View
 		private void OnPickerItemMouseUp(object sender, MouseEventArgs e)
 		{
 			this.pickerButton.IsDropDownOpen = false;
+		}
+
+		private ReactiveList<SourceSubtitleViewModel> sourceSubtitles;
+		private ReactiveList<SrtSubtitleViewModel> srtSubtitles;
+
+		private void SourceSubtitleItemClick(object sender, MouseButtonEventArgs e)
+		{
+			var listItem = sender as ListViewItem;
+			var subtitleVM = listItem.DataContext as SourceSubtitleViewModel;
+			subtitleVM.Selected = !subtitleVM.Selected;
+		}
+
+		private void sourceSubtitles_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		{
+			ResizeGridViewColumn(this.sourceNameColumn);
+
+			if (e.Action == NotifyCollectionChangedAction.Add)
+			{
+				foreach (SourceSubtitleViewModel sourceVM in e.NewItems)
+				{
+					sourceVM.PropertyChanged += this.sourceVM_PropertyChanged;
+				}
+			}
+			else if (e.Action == NotifyCollectionChangedAction.Remove)
+			{
+				foreach (SourceSubtitleViewModel sourceVM in e.OldItems)
+				{
+					sourceVM.PropertyChanged -= this.sourceVM_PropertyChanged;
+				}
+			}
+		}
+
+		private void srtSubtitles_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		{
+			ResizeGridViewColumn(this.srtCharCodeColumn);
+			ResizeGridViewColumn(this.srtLanguageColumn);
+
+			if (e.Action == NotifyCollectionChangedAction.Add)
+			{
+				foreach (SrtSubtitleViewModel srtVM in e.NewItems)
+				{
+					srtVM.PropertyChanged += this.srtVM_PropertyChanged;
+				}
+			}
+			else if (e.Action == NotifyCollectionChangedAction.Remove)
+			{
+				foreach (SrtSubtitleViewModel srtVM in e.OldItems)
+				{
+					srtVM.PropertyChanged -= this.srtVM_PropertyChanged;
+				}
+			}
+		}
+
+		private void sourceVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			var vm = sender as SourceSubtitleViewModel;
+
+			if (e.PropertyName == nameof(vm.Selected))
+			{
+				ResizeGridViewColumn(this.sourceNameColumn);
+				ResizeGridViewColumn(this.sourceDefaultColumn);
+				ResizeGridViewColumn(this.sourceForcedColumn);
+				ResizeGridViewColumn(this.sourceBurnedColumn);
+			}
+		}
+
+		private void srtVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			var vm = sender as SrtSubtitleViewModel;
+
+			if (e.PropertyName == nameof(vm.CharacterCode))
+			{
+				ResizeGridViewColumn(this.srtCharCodeColumn);
+			}
+			else if (e.PropertyName == nameof(vm.LanguageCode))
+			{
+				ResizeGridViewColumn(this.srtLanguageColumn);
+			}
+		}
+
+		private static void ResizeGridViewColumn(GridViewColumn column)
+		{
+			if (double.IsNaN(column.Width))
+			{
+				column.Width = column.ActualWidth;
+			}
+
+			column.Width = double.NaN;
+		}
+
+		private void Main_OnClosing(object sender, CancelEventArgs e)
+		{
+			using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
+			{
+				Config.SourcePaneHeight = this.sourceRow.ActualHeight;
+
+				transaction.Commit();
+			}
 		}
 	}
 }

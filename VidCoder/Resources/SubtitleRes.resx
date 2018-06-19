@@ -165,13 +165,10 @@
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Foreign Audio Search</value>
   </data>
-  <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
-    <value>No subtitles on the source video.</value>
-  </data>
   <data name="SrtFilePickerText" xml:space="preserve">
     <value>Add subtitles file</value>
   </data>
-	<data name="DuplicateSubtitleTrack" xml:space="preserve">
+  <data name="DuplicateSubtitleTrack" xml:space="preserve">
     <value>Duplicate this track</value>
   </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">

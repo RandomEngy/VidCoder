@@ -88,20 +88,16 @@ namespace VidCoder.Services.Windows
 
 				new WindowDefinition
 				{
-					ViewModelType = typeof(SubtitleDialogViewModel),
-					PlacementConfigKey = "SubtitlesDialogPlacement"
-				},
-
-				new WindowDefinition
-				{
 					ViewModelType = typeof(ChapterMarkersDialogViewModel),
 					PlacementConfigKey = "ChapterMarkersDialogPlacement"
 				},
+
 				new WindowDefinition
 				{
 					ViewModelType = typeof(QueueTitlesWindowViewModel),
 					PlacementConfigKey = "QueueTitlesDialogPlacement2"
 				},
+
 				new WindowDefinition
 				{
 					ViewModelType = typeof(AddAutoPauseProcessDialogViewModel),

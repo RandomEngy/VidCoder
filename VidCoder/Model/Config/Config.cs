@@ -52,7 +52,6 @@ namespace VidCoder
 			cache.Add("OptionsDialogLastTab", DatabaseConfig.Get("OptionsDialogLastTab", 0, connection));
 			cache.Add("CollapsedBuiltInFolders", DatabaseConfig.Get("CollapsedBuiltInFolders", "", connection));
 			cache.Add("MainWindowPlacement", DatabaseConfig.Get("MainWindowPlacement", "", connection));
-			cache.Add("SubtitlesDialogPlacement", DatabaseConfig.Get("SubtitlesDialogPlacement", "", connection));
 			cache.Add("EncodingDialogPlacement", DatabaseConfig.Get("EncodingDialogPlacement", "", connection));
 			cache.Add("ChapterMarkersDialogPlacement", DatabaseConfig.Get("ChapterMarkersDialogPlacement", "", connection));
 			cache.Add("PreviewWindowPlacement", DatabaseConfig.Get("PreviewWindowPlacement", "", connection));
@@ -67,6 +66,7 @@ namespace VidCoder
 			cache.Add("LogWindowOpen", DatabaseConfig.Get("LogWindowOpen", false, connection));
 			cache.Add("EncodeDetailsWindowOpen", DatabaseConfig.Get("EncodeDetailsWindowOpen", false, connection));
 			cache.Add("PickerWindowOpen", DatabaseConfig.Get("PickerWindowOpen", false, connection));
+			cache.Add("SubtitlesExpanded", DatabaseConfig.Get("SubtitlesExpanded", false, connection));
 			cache.Add("UpdatesEnabled", DatabaseConfig.Get("UpdatesEnabled", true, connection));
 			cache.Add("UpdatesDisabled32BitOSWarningDisplayed", DatabaseConfig.Get("UpdatesDisabled32BitOSWarningDisplayed", false, connection));
 			cache.Add("PreviewSeconds", DatabaseConfig.Get("PreviewSeconds", 10, connection));
@@ -74,6 +74,7 @@ namespace VidCoder
 			cache.Add("QueueColumns", DatabaseConfig.Get("QueueColumns", "Source:200|Title:35|Range:106|Destination:200", connection));
 			cache.Add("QueueLastColumnWidth", DatabaseConfig.Get("QueueLastColumnWidth", 75.0, connection));
 			cache.Add("CompletedColumnWidths", DatabaseConfig.Get("CompletedColumnWidths", "", connection));
+			cache.Add("SourcePaneHeight", DatabaseConfig.Get("SourcePaneHeight", 260.0, connection));
 			cache.Add("PickerListPaneWidth", DatabaseConfig.Get("PickerListPaneWidth", 135.0, connection));
 			cache.Add("EncodingListPaneOpen", DatabaseConfig.Get("EncodingListPaneOpen", true, connection));
 			cache.Add("EncodingListPaneWidth", DatabaseConfig.Get("EncodingListPaneWidth", 150.0, connection));
@@ -282,11 +283,6 @@ namespace VidCoder
 			get { return (string)cache["MainWindowPlacement"]; }
 			set { Set("MainWindowPlacement", value); }
 		}
-		public static string SubtitlesDialogPlacement
-		{
-			get { return (string)cache["SubtitlesDialogPlacement"]; }
-			set { Set("SubtitlesDialogPlacement", value); }
-		}
 		public static string EncodingDialogPlacement
 		{
 			get { return (string)cache["EncodingDialogPlacement"]; }
@@ -357,6 +353,11 @@ namespace VidCoder
 			get { return (bool)cache["PickerWindowOpen"]; }
 			set { Set("PickerWindowOpen", value); }
 		}
+		public static bool SubtitlesExpanded
+		{
+			get { return (bool)cache["SubtitlesExpanded"]; }
+			set { Set("SubtitlesExpanded", value); }
+		}
 		public static bool UpdatesEnabled
 		{
 			get { return (bool)cache["UpdatesEnabled"]; }
@@ -391,6 +392,11 @@ namespace VidCoder
 		{
 			get { return (string)cache["CompletedColumnWidths"]; }
 			set { Set("CompletedColumnWidths", value); }
+		}
+		public static double SourcePaneHeight
+		{
+			get { return (double)cache["SourcePaneHeight"]; }
+			set { Set("SourcePaneHeight", value); }
 		}
 		public static double PickerListPaneWidth
 		{
@@ -717,7 +723,6 @@ namespace VidCoder
 			public static IObservable<int> OptionsDialogLastTab => GetObservable<int>("OptionsDialogLastTab");
 			public static IObservable<string> CollapsedBuiltInFolders => GetObservable<string>("CollapsedBuiltInFolders");
 			public static IObservable<string> MainWindowPlacement => GetObservable<string>("MainWindowPlacement");
-			public static IObservable<string> SubtitlesDialogPlacement => GetObservable<string>("SubtitlesDialogPlacement");
 			public static IObservable<string> EncodingDialogPlacement => GetObservable<string>("EncodingDialogPlacement");
 			public static IObservable<string> ChapterMarkersDialogPlacement => GetObservable<string>("ChapterMarkersDialogPlacement");
 			public static IObservable<string> PreviewWindowPlacement => GetObservable<string>("PreviewWindowPlacement");
@@ -732,6 +737,7 @@ namespace VidCoder
 			public static IObservable<bool> LogWindowOpen => GetObservable<bool>("LogWindowOpen");
 			public static IObservable<bool> EncodeDetailsWindowOpen => GetObservable<bool>("EncodeDetailsWindowOpen");
 			public static IObservable<bool> PickerWindowOpen => GetObservable<bool>("PickerWindowOpen");
+			public static IObservable<bool> SubtitlesExpanded => GetObservable<bool>("SubtitlesExpanded");
 			public static IObservable<bool> UpdatesEnabled => GetObservable<bool>("UpdatesEnabled");
 			public static IObservable<bool> UpdatesDisabled32BitOSWarningDisplayed => GetObservable<bool>("UpdatesDisabled32BitOSWarningDisplayed");
 			public static IObservable<int> PreviewSeconds => GetObservable<int>("PreviewSeconds");
@@ -739,6 +745,7 @@ namespace VidCoder
 			public static IObservable<string> QueueColumns => GetObservable<string>("QueueColumns");
 			public static IObservable<double> QueueLastColumnWidth => GetObservable<double>("QueueLastColumnWidth");
 			public static IObservable<string> CompletedColumnWidths => GetObservable<string>("CompletedColumnWidths");
+			public static IObservable<double> SourcePaneHeight => GetObservable<double>("SourcePaneHeight");
 			public static IObservable<double> PickerListPaneWidth => GetObservable<double>("PickerListPaneWidth");
 			public static IObservable<bool> EncodingListPaneOpen => GetObservable<bool>("EncodingListPaneOpen");
 			public static IObservable<double> EncodingListPaneWidth => GetObservable<double>("EncodingListPaneWidth");

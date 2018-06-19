@@ -27,7 +27,6 @@ OptionsDialogLastTab|int|0
 CollapsedBuiltInFolders|string|""
 
 MainWindowPlacement|string|""
-SubtitlesDialogPlacement|string|""
 EncodingDialogPlacement|string|""
 ChapterMarkersDialogPlacement|string|""
 PreviewWindowPlacement|string|""
@@ -44,6 +43,8 @@ LogWindowOpen|bool|false
 EncodeDetailsWindowOpen|bool|false
 PickerWindowOpen|bool|false
 
+SubtitlesExpanded|bool|false
+
 UpdatesEnabled|bool|true
 UpdatesDisabled32BitOSWarningDisplayed|bool|false
 
@@ -55,6 +56,7 @@ QueueLastColumnWidth|double|75.0
 
 CompletedColumnWidths|string|""
 
+SourcePaneHeight|double|260.0
 PickerListPaneWidth|double|135.0
 EncodingListPaneOpen|bool|true
 EncodingListPaneWidth|double|150.0

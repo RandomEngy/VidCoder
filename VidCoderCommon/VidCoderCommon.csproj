@@ -95,7 +95,7 @@
     <Compile Include="Model\SourceSubtitle.cs" />
     <Compile Include="Model\SourceType.cs" />
     <Compile Include="Model\SrtSubtitle.cs" />
-    <Compile Include="Model\Subtitles.cs" />
+    <Compile Include="Model\VCSubtitles.cs" />
     <Compile Include="Model\VCAnamorphic.cs" />
     <Compile Include="Model\VCContainer.cs" />
     <Compile Include="Model\VCCropping.cs" />

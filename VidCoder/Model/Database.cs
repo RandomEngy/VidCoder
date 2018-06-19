@@ -416,7 +416,6 @@ namespace VidCoder.Model
 			var windowPlacementKeys = new []
 			{
 				"MainWindowPlacement", 
-				"SubtitlesDialogPlacement", 
 				"EncodingDialogPlacement", 
 				"ChapterMarkersDialogPlacement", 
 				"PreviewWindowPlacement", 

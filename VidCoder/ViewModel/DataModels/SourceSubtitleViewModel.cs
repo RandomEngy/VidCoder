@@ -14,19 +14,18 @@ namespace VidCoder.ViewModel
 	{
 		private SourceSubtitle subtitle;
 
-		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 		private PresetsService presetsService = Ioc.Get<PresetsService>();
 
 		private SourceSubtitleTrack inputSubtitle; 
 
-		public SourceSubtitleViewModel(SubtitleDialogViewModel subtitleDialogViewModel, SourceSubtitle subtitle)
+		public SourceSubtitleViewModel(MainViewModel mainViewModel, SourceSubtitle subtitle)
 		{
-			this.SubtitleDialogViewModel = subtitleDialogViewModel;
+			this.MainViewModel = mainViewModel;
 			this.subtitle = subtitle;
 
 			if (subtitle.TrackNumber != 0)
 			{
-				this.inputSubtitle = this.mainViewModel.SelectedTitle.SubtitleList[subtitle.TrackNumber - 1];
+				this.inputSubtitle = this.MainViewModel.SelectedTitle.SubtitleList[subtitle.TrackNumber - 1];
 			}
 
 			// CanPass
@@ -74,11 +73,11 @@ namespace VidCoder.ViewModel
 			this.RemoveSubtitle.Subscribe(_ => this.RemoveSubtitleImpl());
 		}
 
-		public SubtitleDialogViewModel SubtitleDialogViewModel { get; set; }
+		public MainViewModel MainViewModel { get; }
 
 		public List<SourceSubtitleTrack> InputSubtitles
 		{
-			get { return this.mainViewModel.SelectedTitle.SubtitleList; }
+			get { return this.MainViewModel.SelectedTitle.SubtitleList; }
 		}
 
 		public SourceSubtitle Subtitle
@@ -101,8 +100,8 @@ namespace VidCoder.ViewModel
 			{
 				this.selected = value;
 				this.RaisePropertyChanged();
-				this.SubtitleDialogViewModel.UpdateBoxes(this);
-				this.SubtitleDialogViewModel.UpdateWarningVisibility();
+				this.MainViewModel.UpdateSourceSubtitleBoxes(this);
+				this.MainViewModel.UpdateSubtitleWarningVisibility();
 			}
 		}
 
@@ -145,7 +144,7 @@ namespace VidCoder.ViewModel
 
 				if (value)
 				{
-					this.SubtitleDialogViewModel.ReportDefault(this);
+					this.MainViewModel.ReportDefaultSubtitle(this);
 				}
 			}
 		}
@@ -201,11 +200,11 @@ namespace VidCoder.ViewModel
 
 				if (value)
 				{
-					this.SubtitleDialogViewModel.ReportBurned(this);
+					this.MainViewModel.ReportBurnedSubtitle(this);
 				}
 
-				this.SubtitleDialogViewModel.UpdateBoxes();
-				this.SubtitleDialogViewModel.UpdateWarningVisibility();
+				this.MainViewModel.UpdateSourceSubtitleBoxes();
+				this.MainViewModel.UpdateSubtitleWarningVisibility();
 			}
 		}
 
@@ -219,7 +218,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.SubtitleDialogViewModel.HasMultipleSourceTracks(this.TrackNumber);
+				return this.MainViewModel.HasMultipleSourceSubtitleTracks(this.TrackNumber);
 			}
 		}
 
@@ -227,7 +226,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return !this.SubtitleDialogViewModel.HasMultipleSourceTracks(this.TrackNumber);
+				return !this.MainViewModel.HasMultipleSourceSubtitleTracks(this.TrackNumber);
 			}
 		}
 
@@ -253,13 +252,13 @@ namespace VidCoder.ViewModel
 		public ReactiveCommand<object> DuplicateSubtitle { get; }
 		private void DuplicateSubtitleImpl()
 		{
-			this.SubtitleDialogViewModel.DuplicateSourceSubtitle(this);
+			this.MainViewModel.DuplicateSourceSubtitle(this);
 		}
 
 		public ReactiveCommand<object> RemoveSubtitle { get; }
 		private void RemoveSubtitleImpl()
 		{
-			this.SubtitleDialogViewModel.RemoveSourceSubtitle(this);
+			this.MainViewModel.RemoveSourceSubtitle(this);
 		}
 
 		public void Deselect()

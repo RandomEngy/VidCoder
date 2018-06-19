@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
+using HandBrake.ApplicationServices.Interop.Model.Encoding;
 using Microsoft.Practices.Unity;
 using ReactiveUI;
 using VidCoder.Automation;
@@ -53,9 +54,6 @@ namespace VidCoder.ViewModel
 		private List<ComboChoice<VideoRangeType>> rangeTypeChoices;
 		private TimeSpan timeBaseline;
 		private int framesBaseline;
-
-		private ReactiveList<AudioChoiceViewModel> audioChoices;
-
 		private IDriveService driveService;
 		private IList<DriveInformation> driveCollection;
 		private string pendingScan;
@@ -68,6 +66,8 @@ namespace VidCoder.ViewModel
 		public MainViewModel()
 		{
 			Ioc.Container.RegisterInstance(typeof(MainViewModel), this, new ContainerControlledLifetimeManager());
+
+			this.SubtitlesExpanded = Config.SubtitlesExpanded;
 
 			// HasVideoSource
 			this.WhenAnyValue(
@@ -298,6 +298,14 @@ namespace VidCoder.ViewModel
 
 			canCloseVideoSourceObservable.ToProperty(this, x => x.CanCloseVideoSource, out this.canCloseVideoSource);
 
+			// HasSourceSubtitles
+			this.SourceSubtitles.CountChanged.Select(count => count > 0)
+				.ToProperty(this, x => x.HasSourceSubtitles, out this.hasSourceSubtitles, initialValue: this.SourceSubtitles.Count > 0);
+
+			// HasSrtSubtitles
+			this.SrtSubtitles.CountChanged.Select(count => count > 0)
+				.ToProperty(this, x => x.HasSrtSubtitles, out this.hasSrtSubtitles, initialValue: this.SrtSubtitles.Count > 0);
+
 			this.CloseVideoSource = ReactiveCommand.Create(canCloseVideoSourceObservable);
 			this.CloseVideoSource.Subscribe(_ => this.CloseVideoSourceImpl());
 
@@ -323,14 +331,14 @@ namespace VidCoder.ViewModel
 			this.OpenUpdates = ReactiveCommand.Create();
 			this.OpenUpdates.Subscribe(_ => this.OpenUpdatesImpl());
 
-			this.OpenSubtitlesDialog = ReactiveCommand.Create();
-			this.OpenSubtitlesDialog.Subscribe(_ => this.OpenSubtitlesDialogImpl());
-
 			this.OpenChaptersDialog = ReactiveCommand.Create();
 			this.OpenChaptersDialog.Subscribe(_ => this.OpenChaptersDialogImpl());
 
 			this.OpenAboutDialog = ReactiveCommand.Create();
 			this.OpenAboutDialog.Subscribe(_ => this.OpenAboutDialogImpl());
+
+			this.AddSrtSubtitle = ReactiveCommand.Create();
+			this.AddSrtSubtitle.Subscribe(_ => this.AddSrtSubtitleImpl());
 
 			this.CancelScan = ReactiveCommand.Create();
 			this.CancelScan.Subscribe(_ => this.CancelScanImpl());
@@ -430,16 +438,16 @@ namespace VidCoder.ViewModel
 
 			this.DriveCollection = this.driveService.GetDiscInformation();
 
-			this.audioChoices = new ReactiveList<AudioChoiceViewModel>();
-			this.audioChoices.ChangeTrackingEnabled = true;
+			this.AudioChoices = new ReactiveList<AudioChoiceViewModel>();
+			this.AudioChoices.ChangeTrackingEnabled = true;
 
-			this.audioChoices.Changed
+			this.AudioChoices.Changed
 				.Subscribe(_ =>
 				{
 					this.AudioChoiceChanged?.Invoke(this, EventArgs.Empty);
 				});
 
-			this.audioChoices.ItemChanged
+			this.AudioChoices.ItemChanged
 				.Subscribe(_ =>
 				{
 					this.AudioChoiceChanged?.Invoke(this, EventArgs.Empty);
@@ -547,9 +555,6 @@ namespace VidCoder.ViewModel
 								{
 									this.CurrentSubtitles.SrtSubtitles.Add(subtitle);
 									Ioc.Get<IMessageBoxService>().Show(this, string.Format(MainRes.AddedSubtitleFromFile, item));
-
-									// Hack to get subtitles re-evaluated. Remove after moving subtitle picker to accordion control
-									this.CurrentSubtitles = new VCSubtitles {SourceSubtitles = this.CurrentSubtitles.SourceSubtitles, SrtSubtitles = this.CurrentSubtitles.SrtSubtitles};
 								}
 							}
 						}
@@ -992,7 +997,6 @@ namespace VidCoder.ViewModel
 
 					// Save old subtitles
 					VCSubtitles oldSubtitles = this.CurrentSubtitles;
-					this.CurrentSubtitles = new VCSubtitles { SourceSubtitles = new List<SourceSubtitle>(), SrtSubtitles = new List<SrtSubtitle>() };
 
 					Picker picker = this.pickersService.SelectedPicker.Picker;
 
@@ -1047,50 +1051,8 @@ namespace VidCoder.ViewModel
 						}
 					}
 
-					switch (picker.SubtitleSelectionMode)
-					{
-						case SubtitleSelectionMode.Disabled:
-							// If no auto-selection is done, try and keep selections from previous title
-							if (this.oldTitle != null && oldSubtitles != null)
-							{
-								if (this.selectedTitle.SubtitleList.Count > 0)
-								{
-									// Keep source subtitles when changing title, but not specific SRT files.
-									var keptSourceSubtitles = new List<SourceSubtitle>();
-									foreach (SourceSubtitle sourceSubtitle in oldSubtitles.SourceSubtitles)
-									{
-										if (sourceSubtitle.TrackNumber == 0)
-										{
-											keptSourceSubtitles.Add(sourceSubtitle);
-										}
-										else if (sourceSubtitle.TrackNumber - 1 < this.selectedTitle.SubtitleList.Count &&
-											this.oldTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode == this.selectedTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode)
-										{
-											keptSourceSubtitles.Add(sourceSubtitle);
-										}
-									}
-
-									foreach (SourceSubtitle sourceSubtitle in keptSourceSubtitles)
-									{
-										this.CurrentSubtitles.SourceSubtitles.Add(sourceSubtitle);
-									}
-								}
-							}
-							break;
-						case SubtitleSelectionMode.None:
-						case SubtitleSelectionMode.First:
-						case SubtitleSelectionMode.ForeignAudioSearch:
-						case SubtitleSelectionMode.Language:
-						case SubtitleSelectionMode.All:
-							this.CurrentSubtitles.SourceSubtitles.AddRange(ProcessingService.ChooseSubtitles(
-								this.selectedTitle,
-								picker,
-								this.AudioChoices.Count > 0 ? this.AudioChoices[0].SelectedIndex + 1 : -1));
-							break;
-
-						default:
-							throw new ArgumentOutOfRangeException();
-					}
+					// Subtitle list build
+					this.BuildSubtitleViewModelList(oldSubtitles);
 
 					this.UseDefaultChapterNames = true;
 					this.PopulateChapterSelectLists();
@@ -1106,7 +1068,6 @@ namespace VidCoder.ViewModel
 					TimeSpan titleDuration = this.selectedTitle.Duration.ToSpan();
 					this.timeRangeEndBar = titleDuration;
 					this.timeRangeEnd = TimeSpan.FromSeconds(Math.Floor(titleDuration.TotalSeconds));
-					//this.SetRangeTimeEnd(this.selectedTitle.Duration.ToSpan());
 					this.RaisePropertyChanged(nameof(this.TimeRangeStart));
 					this.RaisePropertyChanged(nameof(this.TimeRangeStartBar));
 					this.RaisePropertyChanged(nameof(this.TimeRangeEnd));
@@ -1182,12 +1143,368 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private VCSubtitles currentSubtitles;
+		private bool subtitlesExpanded;
+		public bool SubtitlesExpanded
+		{
+			get { return this.subtitlesExpanded; }
+			set
+			{
+				if (this.RaiseAndSetIfChanged(ref this.subtitlesExpanded, value))
+				{
+					Config.SubtitlesExpanded = value;
+				}
+			}
+		}
+
 		public VCSubtitles CurrentSubtitles
 		{
-			get { return this.currentSubtitles; }
-			set { this.RaiseAndSetIfChanged(ref this.currentSubtitles, value); }
+			get
+			{
+				var result = new VCSubtitles
+				{
+					SourceSubtitles = this.SourceSubtitles.Where(s => s.Selected).Select(s => s.Subtitle.Clone()).ToList(),
+					SrtSubtitles = this.SrtSubtitles.Select(s => s.Subtitle.Clone()).ToList()
+				};
+
+				return result;
+			}
 		}
+
+		public ReactiveList<SourceSubtitleViewModel> SourceSubtitles { get; } = new ReactiveList<SourceSubtitleViewModel>();
+		public ReactiveList<SrtSubtitleViewModel> SrtSubtitles { get; } = new ReactiveList<SrtSubtitleViewModel>();
+
+		private void BuildSubtitleViewModelList(VCSubtitles oldSubtitles)
+		{
+			Picker picker = this.pickersService.SelectedPicker.Picker;
+
+			this.SourceSubtitles.Clear();
+
+			// Subtitle selection
+			switch (picker.SubtitleSelectionMode)
+			{
+				case SubtitleSelectionMode.Disabled:
+					// If no auto-selection is done, try and keep selections from previous title
+					var keptSourceSubtitles = new List<SourceSubtitle>();
+
+					if (this.oldTitle != null && oldSubtitles != null)
+					{
+						if (this.selectedTitle.SubtitleList.Count > 0)
+						{
+							// Keep source subtitles when changing title, but not specific SRT files.
+							foreach (SourceSubtitle sourceSubtitle in oldSubtitles.SourceSubtitles)
+							{
+								if (sourceSubtitle.TrackNumber == 0)
+								{
+									keptSourceSubtitles.Add(sourceSubtitle);
+								}
+								else if (sourceSubtitle.TrackNumber - 1 < this.selectedTitle.SubtitleList.Count &&
+								         this.oldTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode == this.selectedTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode)
+								{
+									keptSourceSubtitles.Add(sourceSubtitle);
+								}
+							}
+						}
+					}
+
+					this.PopulateSourceSubtitles(keptSourceSubtitles);
+					break;
+
+				case SubtitleSelectionMode.None:
+				case SubtitleSelectionMode.First:
+				case SubtitleSelectionMode.ForeignAudioSearch:
+				case SubtitleSelectionMode.Language:
+				case SubtitleSelectionMode.All:
+					var selectedSubtitles = ProcessingService.ChooseSubtitles(
+						this.selectedTitle,
+						picker,
+						this.AudioChoices.Count > 0 ? this.AudioChoices[0].SelectedIndex + 1 : -1);
+
+					this.PopulateSourceSubtitles(selectedSubtitles);
+					break;
+
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
+
+		private void PopulateSourceSubtitles(IList<SourceSubtitle> selectedSubtitles)
+		{
+			foreach (SourceSubtitle sourceSubtitle in selectedSubtitles)
+			{
+				this.SourceSubtitles.Add(new SourceSubtitleViewModel(this, sourceSubtitle) { Selected = true });
+			}
+
+			// Fill in remaining unselected source subtitles
+			for (int i = 1; i <= this.SelectedTitle.SubtitleList.Count; i++)
+			{
+				if (selectedSubtitles.All(s => s.TrackNumber != i))
+				{
+					var newSubtitle = new SourceSubtitle
+					{
+						TrackNumber = i,
+						Default = false,
+						ForcedOnly = false,
+						BurnedIn = false
+					};
+
+					this.SourceSubtitles.Add(new SourceSubtitleViewModel(this, newSubtitle));
+				}
+			}
+		}
+
+		// Update state of checked boxes after a change
+		public void UpdateSourceSubtitleBoxes(SourceSubtitleViewModel updatedSubtitle = null)
+		{
+			this.DeselectDefaultSubtitles();
+
+			if (updatedSubtitle != null && updatedSubtitle.Selected)
+			{
+				if (!updatedSubtitle.CanPass)
+				{
+					// If we just selected a burn-in only subtitle, deselect all other subtitles.
+					foreach (SourceSubtitleViewModel sourceSub in this.SourceSubtitles)
+					{
+						if (sourceSub != updatedSubtitle)
+						{
+							sourceSub.Deselect();
+						}
+					}
+				}
+				else
+				{
+					// We selected a soft subtitle. Deselect any burn-in-only subtitles.
+					foreach (SourceSubtitleViewModel sourceSub in this.SourceSubtitles)
+					{
+						if (!sourceSub.CanPass)
+						{
+							sourceSub.Deselect();
+						}
+					}
+				}
+			}
+		}
+
+		public void UpdateSubtitleWarningVisibility()
+		{
+			bool textSubtitleVisible = false;
+			VCProfile profile = this.presetsService.SelectedPreset.Preset.EncodingProfile;
+			HBContainer profileContainer = HandBrakeEncoderHelpers.GetContainer(profile.ContainerName);
+			if (profileContainer.DefaultExtension == "mp4" && profile.PreferredExtension == VCOutputExtension.Mp4)
+			{
+				foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
+				{
+					if (sourceVM.Selected && sourceVM.SubtitleName.Contains("(Text)"))
+					{
+						textSubtitleVisible = true;
+						break;
+					}
+				}
+			}
+
+			this.TextSubtitleWarningVisible = textSubtitleVisible;
+
+			bool anyBurned = false;
+			int totalTracks = 0;
+			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
+			{
+				if (sourceVM.Selected)
+				{
+					totalTracks++;
+					if (sourceVM.BurnedIn)
+					{
+						anyBurned = true;
+					}
+				}
+			}
+
+			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles)
+			{
+				totalTracks++;
+				if (srtVM.BurnedIn)
+				{
+					anyBurned = true;
+				}
+			}
+
+			this.BurnedOverlapWarningVisible = anyBurned && totalTracks > 1;
+		}
+
+		public void ReportDefaultSubtitle(object viewModel)
+		{
+			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
+			{
+				if (sourceVM != viewModel)
+				{
+					sourceVM.Default = false;
+				}
+			}
+
+			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles)
+			{
+				if (srtVM != viewModel)
+				{
+					srtVM.Default = false;
+				}
+			}
+		}
+
+		public void ReportBurnedSubtitle(SourceSubtitleViewModel subtitleViewModel)
+		{
+			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
+			{
+				if (sourceVM != subtitleViewModel)
+				{
+					sourceVM.BurnedIn = false;
+				}
+			}
+
+			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles)
+			{
+				srtVM.BurnedIn = false;
+			}
+		}
+
+		public void ReportBurnedSubtitle(SrtSubtitleViewModel subtitleViewModel)
+		{
+			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
+			{
+				sourceVM.BurnedIn = false;
+			}
+
+			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles)
+			{
+				if (srtVM != subtitleViewModel)
+				{
+					srtVM.BurnedIn = false;
+				}
+			}
+		}
+
+		public bool HasMultipleSourceSubtitleTracks(int trackNumber)
+		{
+			return this.SourceSubtitles.Count(s => s.TrackNumber == trackNumber) > 1;
+		}
+
+		public void RemoveSourceSubtitle(SourceSubtitleViewModel subtitleViewModel)
+		{
+			this.SourceSubtitles.Remove(subtitleViewModel);
+			this.UpdateSourceSubtitleBoxes();
+			this.UpdateSourceSubtitleButtonVisibility();
+			this.UpdateSubtitleWarningVisibility();
+		}
+
+		public void RemoveSrtSubtitle(SrtSubtitleViewModel subtitleViewModel)
+		{
+			this.SrtSubtitles.Remove(subtitleViewModel);
+			this.UpdateSubtitleWarningVisibility();
+		}
+
+		public void DuplicateSourceSubtitle(SourceSubtitleViewModel sourceSubtitleViewModel)
+		{
+			sourceSubtitleViewModel.Selected = true;
+			if (sourceSubtitleViewModel.BurnedIn)
+			{
+				sourceSubtitleViewModel.BurnedIn = false;
+			}
+
+			var newSubtitle = new SourceSubtitleViewModel(
+				this,
+				new SourceSubtitle
+				{
+					BurnedIn = false,
+					Default = false,
+					ForcedOnly = !sourceSubtitleViewModel.ForcedOnly,
+					TrackNumber = sourceSubtitleViewModel.TrackNumber
+				});
+			newSubtitle.Selected = true;
+
+			this.SourceSubtitles.Insert(
+				this.SourceSubtitles.IndexOf(sourceSubtitleViewModel) + 1,
+				newSubtitle);
+			this.UpdateSourceSubtitleBoxes();
+			this.UpdateSourceSubtitleButtonVisibility();
+			this.UpdateSubtitleWarningVisibility();
+		}
+
+		private void UpdateSourceSubtitleButtonVisibility()
+		{
+			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
+			{
+				sourceVM.UpdateButtonVisiblity();
+			}
+		}
+
+		private void DeselectDefaultSubtitles()
+		{
+			bool anyBurned = this.SourceSubtitles.Any(sourceSub => sourceSub.BurnedIn) || this.SrtSubtitles.Any(sourceSub => sourceSub.BurnedIn);
+			this.DefaultSubtitlesEnabled = !anyBurned;
+
+			if (!this.DefaultSubtitlesEnabled)
+			{
+				foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
+				{
+					sourceVM.Default = false;
+				}
+
+				foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles)
+				{
+					srtVM.Default = false;
+				}
+			}
+		}
+
+		public ReactiveCommand<object> AddSrtSubtitle { get; }
+		private void AddSrtSubtitleImpl()
+		{
+			string srtFile = FileService.Instance.GetFileNameLoad(
+				Config.RememberPreviousFiles ? Config.LastSrtFolder : null,
+				SubtitleRes.SrtFilePickerText,
+				Utilities.GetFilePickerFilter("srt"));
+
+			if (srtFile != null)
+			{
+				if (Config.RememberPreviousFiles)
+				{
+					Config.LastSrtFolder = Path.GetDirectoryName(srtFile);
+				}
+
+				SrtSubtitle newSubtitle = Ioc.Get<SubtitlesService>().LoadSrtSubtitle(srtFile);
+
+				if (newSubtitle != null)
+				{
+					this.SrtSubtitles.Add(new SrtSubtitleViewModel(this, newSubtitle));
+				}
+			}
+
+			this.UpdateSubtitleWarningVisibility();
+		}
+
+		private bool defaultSubtitlesEnabled;
+		public bool DefaultSubtitlesEnabled
+		{
+			get { return this.defaultSubtitlesEnabled; }
+			set { this.RaiseAndSetIfChanged(ref this.defaultSubtitlesEnabled, value); }
+		}
+
+		private bool textSubtitleWarningVisible;
+		public bool TextSubtitleWarningVisible
+		{
+			get { return this.textSubtitleWarningVisible; }
+			set { this.RaiseAndSetIfChanged(ref this.textSubtitleWarningVisible, value); }
+		}
+
+		private bool burnedOverlapWarningVisible;
+		public bool BurnedOverlapWarningVisible
+		{
+			get { return this.burnedOverlapWarningVisible; }
+			set { this.RaiseAndSetIfChanged(ref this.burnedOverlapWarningVisible, value); }
+		}
+
+		private ObservableAsPropertyHelper<bool> hasSourceSubtitles;
+		public bool HasSourceSubtitles => this.hasSourceSubtitles.Value;
+
+		private ObservableAsPropertyHelper<bool> hasSrtSubtitles;
+		public bool HasSrtSubtitles => this.hasSrtSubtitles.Value;
 
 		private ObservableAsPropertyHelper<string> subtitlesSummary;
 		public string SubtitlesSummary => this.subtitlesSummary.Value;
@@ -1728,13 +2045,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveList<AudioChoiceViewModel> AudioChoices
-		{
-			get
-			{
-				return this.audioChoices;
-			}
-		}
+		public ReactiveList<AudioChoiceViewModel> AudioChoices { get; }
 
 		public List<AudioTrackViewModel> InputTracks
 		{
@@ -1806,18 +2117,6 @@ namespace VidCoder.ViewModel
 		{
 			Config.OptionsDialogLastTab = OptionsDialogViewModel.UpdatesTabIndex;
 			this.windowManager.OpenDialog<OptionsDialogViewModel>();
-		}
-
-		public ReactiveCommand<object> OpenSubtitlesDialog { get; }
-		private void OpenSubtitlesDialogImpl()
-		{
-			var subtitleViewModel = new SubtitleDialogViewModel(this.CurrentSubtitles);
-			this.windowManager.OpenDialog(subtitleViewModel);
-
-			if (subtitleViewModel.DialogResult)
-			{
-				this.CurrentSubtitles = subtitleViewModel.ChosenSubtitles;
-			}
 		}
 
 		public ReactiveCommand<object> OpenChaptersDialog { get; }

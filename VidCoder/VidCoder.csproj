@@ -132,10 +132,6 @@
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\System.Windows.Interactivity.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -327,16 +323,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\SubtitleDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Automation\AutomationHost.cs" />
     <Compile Include="Automation\VidCoderAutomation.cs" />
+    <Compile Include="Behaviors\IgnoreMouseWheelBehavior.cs" />
     <Compile Include="Controls\PaddingFrame.xaml.cs">
       <DependentUpon>PaddingFrame.xaml</DependentUpon>
     </Compile>
@@ -767,7 +760,6 @@
     <Compile Include="ViewModel\DataModels\SrtSubtitleViewModel.cs" />
     <Compile Include="ViewModel\OptionsDialogViewModel.cs" />
     <Compile Include="ViewModel\PreviewWindowViewModel.cs" />
-    <Compile Include="ViewModel\SubtitleDialogViewModel.cs" />
     <Compile Include="View\ApplyUpdateConfirmation.xaml.cs">
       <DependentUpon>ApplyUpdateConfirmation.xaml</DependentUpon>
     </Compile>
@@ -788,9 +780,6 @@
     </Compile>
     <Compile Include="View\ShutdownWarningWindow.xaml.cs">
       <DependentUpon>ShutdownWarningWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\SubtitleDialog.xaml.cs">
-      <DependentUpon>SubtitleDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Panels\VideoFiltersPanel.xaml.cs">
       <DependentUpon>VideoFiltersPanel.xaml</DependentUpon>
