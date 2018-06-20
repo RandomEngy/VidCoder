@@ -125,13 +125,13 @@
 本程序随附 GNU 通用公共许可证的完整副本以供参考。</value>
   </data>
   <data name="BurnedSubtitleToolTip" xml:space="preserve">
-    <value>将字幕嵌入画面。若使用内嵌字幕，播放时将无法取消字幕。</value>
+    <value>将字幕嵌入图像。若使用内嵌字幕，播放时将无法取消字幕。</value>
   </data>
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
-    <value>标记此字幕轨为默认。此字幕轨播放时将默认显示直到选中另一条字幕轨。</value>
+    <value>标记为默认字幕。播放时将默认显示除非选择其他字幕。</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>仅从特定轨(s) 强制显示字幕。通常用于少量外语对话。</value>
+    <value>仅在强制选中时显示字幕。通常用于少量外语对话。</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>提前或退后给定字幕出现时间的值。</value>
@@ -253,16 +253,16 @@
     <value>文件处理错误</value>
   </data>
   <data name="OverrideNameFormatCheckBox" xml:space="preserve">
-    <value>覆写命名格式：</value>
+    <value>改变命名格式：</value>
   </data>
   <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>可行则输出至源目录</value>
+    <value>尝试输出至源目录</value>
   </data>
   <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>批处理编码时保留目录结构</value>
+    <value>批处理编码时保留文件夹结构</value>
   </data>
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>若您正编码一个文件夹中的所有文件，编码后的文件将输出至具有源目录结构的子文件夹中。</value>
+    <value>若编码某文件夹中的所有文件，编码文件将输出至匹配源目录结构的子文件夹中。</value>
   </data>
   <data name="DismissMessage" xml:space="preserve">
     <value>忽略消息</value>
@@ -277,7 +277,7 @@
     <comment>File dialog description of a .vjqueue file: JSON file that stores an exported queue.</comment>
   </data>
   <data name="First" xml:space="preserve">
-    <value>第一项</value>
+    <value>首项</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
   <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">

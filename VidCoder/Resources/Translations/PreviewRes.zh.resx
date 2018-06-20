@@ -202,5 +202,7 @@
   <data name="VideoErrorTitle" xml:space="preserve">
     <value>视频错误</value>
   </data>
-  
+  <data name="PlaySourceDisabledAppxToolTip" xml:space="preserve">
+    <value>Windows 商店版本因不允许启动其他进程而无法播放 DVD 或 Blu-ray 源文件。</value>
+  </data>
 </root>

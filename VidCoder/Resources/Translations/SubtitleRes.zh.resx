@@ -121,10 +121,10 @@
     <value>字幕</value>
   </data>
   <data name="RemoveSubtitleTrack" xml:space="preserve">
-    <value>移除此字幕轨</value>
+    <value>移除该字幕</value>
   </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
-    <value>字幕来源：</value>
+    <value>源文件字幕：</value>
   </data>
   <data name="QuickTimeSubtitlesWarning" xml:space="preserve">
     <value>文本字幕不会在 Quicktime 中显示，除非使用 .m4v 扩展名。</value>
@@ -136,7 +136,7 @@
     <value>默认</value>
   </data>
   <data name="ForcedOnlyColumn" xml:space="preserve">
-    <value>仅强制</value>
+    <value>可选</value>
   </data>
   <data name="BurnedInColumn" xml:space="preserve">
     <value>嵌入</value>

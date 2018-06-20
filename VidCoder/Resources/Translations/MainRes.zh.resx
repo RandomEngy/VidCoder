@@ -124,7 +124,7 @@
     <value>设置</value>
   </data>
   <data name="AddToQueueLabel" xml:space="preserve">
-    <value>添加到队列</value>
+    <value>加入队列</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
     <value>将多个标题添加至队列...</value>
@@ -163,7 +163,7 @@
     <value>编辑</value>
   </data>
   <data name="OpenContainingFolder" xml:space="preserve">
-    <value>打开所在的文件夹</value>
+    <value>打开所在文件夹</value>
   </data>
   <data name="ClearCompleted" xml:space="preserve">
     <value>清除已完成项目</value>
@@ -200,7 +200,7 @@
     <value>选择视频源：</value>
   </data>
   <data name="SourceLabel" xml:space="preserve">
-    <value>来源：</value>
+    <value>源文件：</value>
   </data>
   <data name="ScanningSourceLabel" xml:space="preserve">
     <value>正在扫描源...</value>
@@ -224,7 +224,7 @@
     <value>字幕：</value>
   </data>
   <data name="AddTrackButton" xml:space="preserve">
-    <value>新增音轨</value>
+    <value>添加音轨</value>
   </data>
   <data name="ChapterMarkersLabel" xml:space="preserve">
     <value>章节标记：</value>
@@ -236,7 +236,7 @@
     <value>输出位置：</value>
   </data>
   <data name="DestinationToolTip" xml:space="preserve">
-    <value>点击以编辑编码输出位置。</value>
+    <value>点击编辑编码输出位置。</value>
   </data>
   <data name="SelectOutputPathButton" xml:space="preserve">
     <value>选择输出路径...</value>
@@ -293,7 +293,7 @@
     <value>光盘已移除，无法加载供编辑。</value>
   </data>
   <data name="PresetNameRestoredFromQueue" xml:space="preserve">
-    <value>从队列中恢复</value>
+    <value>从队列恢复</value>
   </data>
   <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
     <value>从完成队列中还原</value>
@@ -352,7 +352,7 @@
     <value>编码已开始</value>
   </data>
   <data name="DirectoryCreateErrorMessage" xml:space="preserve">
-    <value>无法建立输出文件夹。错误详情：
+    <value>无法建立输出目录。错误详情：
 
  {0}</value>
   </data>
@@ -369,7 +369,7 @@
     <value>VidCoder 已完编码队列。</value>
   </data>
   <data name="OutputFolderRequiredMessage" xml:space="preserve">
-    <value>添加编码任务未设定默认输出文件夹，请点击确定选择文件夹。</value>
+    <value>未设定默认输出文件夹无法添加编码任务，请点击确定来进行选择。</value>
   </data>
   <data name="OutputFolderRequiredTitle" xml:space="preserve">
     <value>必须设置默认输出文件夹</value>
@@ -435,10 +435,10 @@
     <value>导出预设</value>
   </data>
   <data name="SaveChangesPickerMessage" xml:space="preserve">
-    <value>保存更改到当前选取器吗？</value>
+    <value>保存对当前选择器的更改吗？</value>
   </data>
   <data name="SaveChangesPickerTitle" xml:space="preserve">
-    <value>保存当前选取器吗？</value>
+    <value>是否保存当前选择器？</value>
   </data>
   <data name="RevertConfirmMessage" xml:space="preserve">
     <value>确定重置所有未保存的更改吗？</value>
@@ -456,7 +456,7 @@
     <value>配置损坏无法加载。您的部分设置可能会被重置。</value>
   </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
-    <value>选择编码视频文件的输出目录。</value>
+    <value>选择编码视频文件输出目录。</value>
   </data>
   <data name="LengthPreviewLabel" xml:space="preserve">
     <value>({0})</value>
@@ -483,7 +483,7 @@
     <value>自动CBR</value>
   </data>
   <data name="RangeBarToolTip" xml:space="preserve">
-    <value>左键单击设置开始时间，右键单击设置结束时间。</value>
+    <value>单击左键设置开始时间，单击右键设置结束时间。</value>
   </data>
   <data name="QueueFormat_Chapters" xml:space="preserve">
     <value>Ch {0}</value>
@@ -510,7 +510,7 @@
     <value>放弃更改吗？</value>
   </data>
   <data name="RemoveAudioTrackToolTip" xml:space="preserve">
-    <value>删除音轨</value>
+    <value>移除音轨</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
     <value>从队列中移除</value>
@@ -572,13 +572,13 @@
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
   <data name="PickerMenuItem" xml:space="preserve">
-    <value>选取器</value>
+    <value>选择器</value>
   </data>
   <data name="CouldNotLoadPickerMessage" xml:space="preserve">
-    <value>无法加载选取器: </value>
+    <value>无法加载选择器： </value>
   </data>
   <data name="PickerNameTemplate" xml:space="preserve">
-    <value>选取器 {0}</value>
+    <value>选择器 {0}</value>
     <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
   </data>
   <data name="SimilarTitlesToolTip" xml:space="preserve">
@@ -600,11 +600,17 @@
     <value>警告： 尺寸调整界面已更新至 2.0 版本，因此您的预设可能已发生变化。您可检查并确保其仍正确设置。</value>
   </data>
   <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
-    <value>视频队列文件夹...</value>
+    <value>将视频文件夹加入队列...</value>
   </data>
   <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
     <value>以下文件因扫描错误未被加入到队列：{0}</value>
   </data>
-  
-  
+  <data name="FileSizeColumnHeader" xml:space="preserve">
+    <value>大小</value>
+    <comment>Used on the "completed encodes" tab, to label the column that shows the final output file size.</comment>
+  </data>
+  <data name="OpenAppDataFolder" xml:space="preserve">
+    <value>打开程序资料文件夹</value>
+    <comment>Menu choice for opening the application data folder (that holds the VidCoder database file, logs, etc)</comment>
+  </data>
 </root>
