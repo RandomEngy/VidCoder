@@ -129,62 +129,6 @@ namespace VidCoder.ViewModel
 				return similarTitles > 12;
 			}).ToProperty(this, x => x.TitleWarningVisible, out this.titleWarningVisible);
 
-			// SubtitlesSummary
-			this.WhenAnyValue(x => x.VideoSourceState, x => x.CurrentSubtitles, x => x.SelectedTitle, (videoSourceState, currentSubtitles, selectedTitle) =>
-			{
-				if (videoSourceState != VideoSourceState.ScannedSource ||
-					currentSubtitles == null || 
-					selectedTitle == null ||
-					((currentSubtitles.SourceSubtitles == null || currentSubtitles.SourceSubtitles.Count == 0) && 
-						(currentSubtitles.SrtSubtitles == null || currentSubtitles.SrtSubtitles.Count == 0)))
-				{
-					return MainRes.NoneParen;
-				}
-
-				List<string> trackSummaries = new List<string>();
-
-				if (currentSubtitles.SourceSubtitles != null)
-				{
-					foreach (SourceSubtitle sourceSubtitle in currentSubtitles.SourceSubtitles)
-					{
-						if (sourceSubtitle.TrackNumber == 0)
-						{
-							trackSummaries.Add(MainRes.ForeignAudioSearch);
-						}
-						else if (selectedTitle.SubtitleList != null && sourceSubtitle.TrackNumber <= selectedTitle.SubtitleList.Count)
-						{
-							trackSummaries.Add(selectedTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].Language);
-						}
-					}
-				}
-
-				if (currentSubtitles.SrtSubtitles != null)
-				{
-					foreach (SrtSubtitle srtSubtitle in currentSubtitles.SrtSubtitles)
-					{
-						trackSummaries.Add(HandBrakeLanguagesHelper.Get(srtSubtitle.LanguageCode).EnglishName);
-					}
-				}
-
-				if (trackSummaries.Count > 3)
-				{
-					return string.Format(MainRes.TracksSummaryMultiple, trackSummaries.Count);
-				}
-
-				StringBuilder summaryBuilder = new StringBuilder();
-				for (int i = 0; i < trackSummaries.Count; i++)
-				{
-					summaryBuilder.Append(trackSummaries[i]);
-
-					if (i != trackSummaries.Count - 1)
-					{
-						summaryBuilder.Append(", ");
-					}
-				}
-
-				return summaryBuilder.ToString();
-			}).ToProperty(this, x => x.SubtitlesSummary, out this.subtitlesSummary);
-
 			// UsingChaptersRange
 			this.WhenAnyValue(x => x.RangeType, rangeType =>
 			{
@@ -305,6 +249,15 @@ namespace VidCoder.ViewModel
 			// HasSrtSubtitles
 			this.SrtSubtitles.CountChanged.Select(count => count > 0)
 				.ToProperty(this, x => x.HasSrtSubtitles, out this.hasSrtSubtitles, initialValue: this.SrtSubtitles.Count > 0);
+
+			// ShowSourceSubtitlesLabel
+			Observable.CombineLatest(
+				this.SourceSubtitles.CountChanged,
+				this.SrtSubtitles.CountChanged).Select(
+				countList =>
+				{
+					return countList[0] > 0 && countList[1] > 0;
+				}).ToProperty(this, x => x.ShowSourceSubtitlesLabel, out this.showSourceSubtitlesLabel);
 
 			this.CloseVideoSource = ReactiveCommand.Create(canCloseVideoSourceObservable);
 			this.CloseVideoSource.Subscribe(_ => this.CloseVideoSourceImpl());
@@ -1112,6 +1065,7 @@ namespace VidCoder.ViewModel
 				this.previewUpdateService.RefreshPreview();
 
 				this.RefreshRangePreview();
+				this.RefreshSubtitleSummary();
 			}
 		}
 
@@ -1391,12 +1345,14 @@ namespace VidCoder.ViewModel
 			this.UpdateSourceSubtitleBoxes();
 			this.UpdateSourceSubtitleButtonVisibility();
 			this.UpdateSubtitleWarningVisibility();
+			this.RefreshSubtitleSummary();
 		}
 
 		public void RemoveSrtSubtitle(SrtSubtitleViewModel subtitleViewModel)
 		{
 			this.SrtSubtitles.Remove(subtitleViewModel);
 			this.UpdateSubtitleWarningVisibility();
+			this.RefreshSubtitleSummary();
 		}
 
 		public void DuplicateSourceSubtitle(SourceSubtitleViewModel sourceSubtitleViewModel)
@@ -1424,6 +1380,7 @@ namespace VidCoder.ViewModel
 			this.UpdateSourceSubtitleBoxes();
 			this.UpdateSourceSubtitleButtonVisibility();
 			this.UpdateSubtitleWarningVisibility();
+			this.RefreshSubtitleSummary();
 		}
 
 		private void UpdateSourceSubtitleButtonVisibility()
@@ -1477,6 +1434,7 @@ namespace VidCoder.ViewModel
 			}
 
 			this.UpdateSubtitleWarningVisibility();
+			this.RefreshSubtitleSummary();
 		}
 
 		private bool defaultSubtitlesEnabled;
@@ -1506,8 +1464,68 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<bool> hasSrtSubtitles;
 		public bool HasSrtSubtitles => this.hasSrtSubtitles.Value;
 
-		private ObservableAsPropertyHelper<string> subtitlesSummary;
-		public string SubtitlesSummary => this.subtitlesSummary.Value;
+		public void RefreshSubtitleSummary()
+		{
+			if (this.SelectedTitle == null)
+			{
+				this.SubtitlesSummary = string.Empty;
+				return;
+			}
+
+			var summaryParts = new List<string>();
+
+			if (this.SourceSubtitles.Count > 0)
+			{
+				List<SourceSubtitleViewModel> selectedSubtitles = this.SourceSubtitles.Where(s => s.Selected).ToList();
+
+				int selectedCount = selectedSubtitles.Count;
+				string sourceDescription = string.Format(CultureInfo.CurrentCulture, SubtitleRes.SubtitleSelectedOverTotalTracksFormat, selectedCount, this.SourceSubtitles.Count);
+
+				if (selectedCount > 0 && selectedCount <= 3)
+				{
+					List<string> trackSummaries = new List<string>();
+					foreach (SourceSubtitleViewModel subtitle in selectedSubtitles)
+					{
+						if (subtitle.TrackNumber == 0)
+						{
+							trackSummaries.Add(MainRes.ForeignAudioSearch);
+						}
+						else if (this.SelectedTitle.SubtitleList != null && subtitle.TrackNumber <= this.SelectedTitle.SubtitleList.Count)
+						{
+							trackSummaries.Add(this.SelectedTitle.SubtitleList[subtitle.TrackNumber - 1].Language);
+						}
+					}
+
+					sourceDescription += $" ({string.Join(", ", trackSummaries)})";
+				}
+
+				summaryParts.Add(sourceDescription);
+			}
+
+			if (this.SrtSubtitles.Count > 0)
+			{
+				summaryParts.Add(string.Format(SubtitleRes.ExternalSubtitlesSummaryFormat, this.SrtSubtitles.Count));
+			}
+
+			if (summaryParts.Count == 0)
+			{
+				this.SubtitlesSummary = MainRes.NoneParen;
+			}
+			else
+			{
+				this.SubtitlesSummary = string.Join(" - ", summaryParts);
+			}
+		}
+
+		private string subtitlesSummary;
+		public string SubtitlesSummary
+		{
+			get { return this.subtitlesSummary; }
+			set { this.RaiseAndSetIfChanged(ref this.subtitlesSummary, value); }
+		}
+
+		private ObservableAsPropertyHelper<bool> showSourceSubtitlesLabel;
+		public bool ShowSourceSubtitlesLabel => this.showSourceSubtitlesLabel.Value;
 
 		private bool useDefaultChapterNames;
 		public bool UseDefaultChapterNames

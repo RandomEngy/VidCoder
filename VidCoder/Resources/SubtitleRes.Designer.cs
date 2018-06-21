@@ -115,6 +115,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} external.
+        /// </summary>
+        public static string ExternalSubtitlesSummaryFormat {
+            get {
+                return ResourceManager.GetString("ExternalSubtitlesSummaryFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File.
         /// </summary>
         public static string FileColumn {
@@ -169,6 +178,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No subtitles on the source video..
+        /// </summary>
+        public static string NoSubtitlesText {
+            get {
+                return ResourceManager.GetString("NoSubtitlesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Offset (ms).
         /// </summary>
         public static string OffsetColumn {
@@ -210,6 +228,15 @@ namespace VidCoder.Resources {
         public static string SubtitleCharsetDetectionFailedMessage {
             get {
                 return ResourceManager.GetString("SubtitleCharsetDetectionFailedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}/{1} track(s).
+        /// </summary>
+        public static string SubtitleSelectedOverTotalTracksFormat {
+            get {
+                return ResourceManager.GetString("SubtitleSelectedOverTotalTracksFormat", resourceCulture);
             }
         }
         

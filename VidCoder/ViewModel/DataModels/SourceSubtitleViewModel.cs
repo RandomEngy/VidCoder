@@ -102,6 +102,7 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged();
 				this.MainViewModel.UpdateSourceSubtitleBoxes(this);
 				this.MainViewModel.UpdateSubtitleWarningVisibility();
+				this.MainViewModel.RefreshSubtitleSummary();
 			}
 		}
 
