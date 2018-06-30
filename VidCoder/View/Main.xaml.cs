@@ -219,6 +219,17 @@ namespace VidCoder.View
 					ResizeGridViewColumn(this.srtLanguageColumn);
 				}
 			});
+
+			this.viewModel.WhenAnyValue(x => x.AudioExpanded).Subscribe(expanded =>
+			{
+				if (expanded)
+				{
+					ResizeGridViewColumn(this.audioSelectedColumn);
+					ResizeGridViewColumn(this.audioNameColumn);
+					ResizeGridViewColumn(this.audioRemoveDuplicateColumn);
+				}
+			});
+
 			this.RefreshDiscMenuItems();
 
 			this.notifyIcon.Text = this.viewModel.TrayIconToolTip;
@@ -605,13 +616,20 @@ namespace VidCoder.View
 			this.pickerButton.IsDropDownOpen = false;
 		}
 
+		private void AudioItemClick(object sender, MouseButtonEventArgs e)
+		{
+			var listItem = sender as ListViewItem;
+			var audioTrackViewModel = (AudioTrackViewModel)listItem.DataContext;
+			audioTrackViewModel.Selected = !audioTrackViewModel.Selected;
+		}
+
 		private ReactiveList<SourceSubtitleViewModel> sourceSubtitles;
 		private ReactiveList<SrtSubtitleViewModel> srtSubtitles;
 
 		private void SourceSubtitleItemClick(object sender, MouseButtonEventArgs e)
 		{
 			var listItem = sender as ListViewItem;
-			var subtitleVM = listItem.DataContext as SourceSubtitleViewModel;
+			var subtitleVM = (SourceSubtitleViewModel)listItem.DataContext;
 			subtitleVM.Selected = !subtitleVM.Selected;
 		}
 

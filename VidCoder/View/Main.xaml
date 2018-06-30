@@ -64,6 +64,13 @@
 				</DataTrigger>
 			</Style.Triggers>
 		</Style>
+		<Style x:Key="SourceTrack" TargetType="TextBlock">
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding Selected}" Value="True">
+					<Setter Property="FontWeight" Value="Bold" />
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
 		<Style x:Key="DropDownContainer" TargetType="Grid">
 			<Setter Property="Background" Value="Transparent" />
 			<Style.Triggers>
@@ -825,8 +832,10 @@
 							<RowDefinition />
 							<RowDefinition />
 							<RowDefinition />
+							<RowDefinition />
 						</Grid.RowDefinitions>
 
+						<!--  Video Header  -->
 						<TextBlock
 							Grid.Row="0"
 							Grid.Column="0"
@@ -1008,21 +1017,19 @@
 
 						</StackPanel>
 
-						<TextBlock
+						<!--  Audio Header  -->
+						<ToggleButton
 							Grid.Row="1"
 							Grid.Column="0"
-							Margin="0 9 10 0"
-							HorizontalAlignment="Right"
-							VerticalAlignment="Top"
-							Style="{StaticResource EmphasizedTitle}"
-							Text="{x:Static res:MainRes.AudioLabel}" />
-						<StackPanel
+							IsChecked="{Binding AudioExpanded}"
+							Style="{StaticResource SourceSectionToggleButton}">
+							<TextBlock FontWeight="Bold" Text="{x:Static res:MainRes.AudioLabel}" />
+						</ToggleButton>
+						<!--<StackPanel
 							Grid.Row="1"
 							Grid.Column="1"
 							Orientation="Horizontal">
 							<ItemsControl
-								Grid.Row="1"
-								Grid.Column="1"
 								MinWidth="210"
 								MinHeight="31"
 								MaxHeight="58"
@@ -1035,7 +1042,7 @@
 											<ComboBox
 												MinWidth="180"
 												Margin="2"
-												ItemsSource="{Binding MainViewModel.InputTracks}"
+												ItemsSource="{Binding MainViewModel.AudioTracks}"
 												SelectedIndex="{Binding SelectedIndex}" />
 											<Button
 												Width="25"
@@ -1062,33 +1069,100 @@
 									</ControlTemplate>
 								</ItemsControl.Template>
 							</ItemsControl>
-							<Button
-								Name="button1"
-								Grid.Row="1"
-								Grid.Column="1"
-								Height="23"
-								Margin="5 7 0 0"
-								Padding="5 0"
-								HorizontalAlignment="Left"
-								VerticalAlignment="Top"
-								Command="{Binding AddTrack}"
-								UseLayoutRounding="True">
-								<StackPanel Orientation="Horizontal">
-									<Polygon Style="{StaticResource PlusSign}" />
-									<TextBlock Text="{x:Static res:MainRes.AddTrackButton}" />
-								</StackPanel>
-							</Button>
-						</StackPanel>
+						</StackPanel>-->
+
+						<!-- Audio detail -->
+						<ListView
+							Grid.Row="2"
+							Grid.Column="0"
+							Grid.ColumnSpan="2"
+							Margin="28 0 0 8"
+							VerticalAlignment="Top"
+							VidCoderDragDrop:DragDropHelper.IsDragSource="True"
+							VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
+							ItemsSource="{Binding AudioTracks}"
+							UseLayoutRounding="True"
+							Visibility="{Binding AudioExpanded,
+									                     Converter={StaticResource VisibilityConverter}}">
+							<VidCoderDragDrop:DragDropHelper.DragDropTemplate>
+								<DataTemplate>
+									<TextBlock Background="White" Text="{Binding Mode=OneWay}" />
+								</DataTemplate>
+							</VidCoderDragDrop:DragDropHelper.DragDropTemplate>
+							<i:Interaction.Behaviors>
+								<behaviors:IgnoreMouseWheelBehavior />
+							</i:Interaction.Behaviors>
+							<ListView.ItemContainerStyle>
+								<Style TargetType="{x:Type ListViewItem}">
+									<EventSetter Event="MouseLeftButtonUp" Handler="AudioItemClick" />
+								</Style>
+							</ListView.ItemContainerStyle>
+							<ListView.View>
+								<GridView>
+									<GridView.Columns>
+										<GridViewColumn x:Name="audioSelectedColumn">
+											<GridViewColumn.CellTemplate>
+												<DataTemplate DataType="viewmodel:AudioTrackViewModel">
+													<CheckBox
+														Width="22"
+														Height="22"
+														HorizontalAlignment="Stretch"
+														VerticalAlignment="Stretch"
+														IsChecked="{Binding Selected}"
+														Style="{StaticResource CenteredCheckBox}" />
+												</DataTemplate>
+											</GridViewColumn.CellTemplate>
+										</GridViewColumn>
+										<GridViewColumn
+											Header="{x:Static res:SubtitleRes.NameColumn}"
+											x:Name="audioNameColumn">
+											<GridViewColumn.CellTemplate>
+												<DataTemplate DataType="viewmodel:AudioTrackViewModel">
+													<Grid Height="22">
+														<TextBlock
+															VerticalAlignment="Center"
+															Style="{StaticResource SourceTrack}"
+															Text="{Binding}" />
+													</Grid>
+												</DataTemplate>
+											</GridViewColumn.CellTemplate>
+										</GridViewColumn>
+										<GridViewColumn x:Name="audioRemoveDuplicateColumn">
+											<GridViewColumn.CellTemplate>
+												<DataTemplate DataType="viewmodel:AudioTrackViewModel">
+													<Grid>
+														<!--<Button
+															VerticalAlignment="Center"
+															Command="{Binding RemoveTrack}"
+															Content="{x:Static res:SubtitleRes.RemoveSubtitleTrack}"
+															Style="{StaticResource RemoveButtonStyle}"
+															Visibility="{Binding RemoveVisible,
+																	 Converter={StaticResource VisibilityConverter}}" />
+														<Button
+															VerticalContentAlignment="Center"
+															Command="{Binding DuplicateTrack}"
+															Content="{x:Static res:SubtitleRes.DuplicateSubtitleTrack}"
+															Style="{StaticResource AddButtonStyle}"
+															Visibility="{Binding DuplicateVisible,
+																	 Converter={StaticResource VisibilityConverter}}" />-->
+													</Grid>
+												</DataTemplate>
+											</GridViewColumn.CellTemplate>
+										</GridViewColumn>
+									</GridView.Columns>
+								</GridView>
+							</ListView.View>
+						</ListView>
 
 						<!--  Subtitles header  -->
 						<ToggleButton
-							Grid.Row="2"
+							Grid.Row="3"
 							Grid.Column="0"
 							IsChecked="{Binding SubtitlesExpanded}"
 							Style="{StaticResource SourceSectionToggleButton}">
 							<TextBlock FontWeight="Bold" Text="{x:Static res:MainRes.SubtitlesLabel}" />
 						</ToggleButton>
-						<Grid Grid.Row="2" Grid.Column="1">
+						<Grid Grid.Row="3" Grid.Column="1">
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
@@ -1106,27 +1180,15 @@
 								Command="{Binding AddSrtSubtitle}"
 								Content="{x:Static res:SubtitleRes.ImportSrtButton}" />
 						</Grid>
-						<StackPanel
-							Grid.Row="2"
-							Grid.Column="1"
-							Orientation="Horizontal" />
 
 						<!--  Subtitles detail  -->
 						<Grid
-							Grid.Row="3"
+							Grid.Row="4"
 							Grid.Column="0"
 							Grid.ColumnSpan="2"
 							Visibility="{Binding SubtitlesExpanded,
 							                     Converter={StaticResource VisibilityConverter}}">
 							<Grid.Resources>
-								<Style x:Key="SubtitleTrack" TargetType="TextBlock">
-									<Style.Triggers>
-										<DataTrigger Binding="{Binding Selected}" Value="True">
-											<Setter Property="FontWeight" Value="Bold" />
-										</DataTrigger>
-									</Style.Triggers>
-								</Style>
-
 								<Style x:Key="SubtitleControl" TargetType="{x:Type FrameworkElement}">
 									<Setter Property="Margin" Value="4 0 4 2" />
 									<Setter Property="HorizontalAlignment" Value="Center" />
@@ -1148,7 +1210,7 @@
 									<Grid Height="22">
 										<TextBlock
 											VerticalAlignment="Center"
-											Style="{StaticResource SubtitleTrack}"
+											Style="{StaticResource SourceTrack}"
 											Text="{Binding SubtitleName}" />
 									</Grid>
 								</DataTemplate>
@@ -1262,15 +1324,15 @@
 									Visibility="{Binding HasSourceSubtitles,
 									                     Converter={StaticResource InverseVisibilityConverter}}" />
 								<TextBlock
+									Margin="0 0 0 2"
 									HorizontalAlignment="Left"
 									VerticalAlignment="Top"
-									Margin="0 0 0 2"
 									Text="{x:Static res:SubtitleRes.SubtitlesFromSourceLabel}"
 									Visibility="{Binding ShowSourceSubtitlesLabel,
 									                     Converter={StaticResource VisibilityConverter}}" />
 
 								<ListView
-									Margin="0 0 0 0"
+									Margin="0"
 									VerticalAlignment="Top"
 									VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource SourceDragTemplate}"
 									VidCoderDragDrop:DragDropHelper.IsDragSource="True"
@@ -1349,7 +1411,7 @@
 									VerticalAlignment="Top"
 									Text="{x:Static res:SubtitleRes.ExternalSubtitlesLabel}"
 									Visibility="{Binding HasSrtSubtitles,
-								                     Converter={StaticResource VisibilityConverter}}" />
+									                     Converter={StaticResource VisibilityConverter}}" />
 
 								<ListView
 									Margin="0 0 0 5"
@@ -1391,8 +1453,9 @@
 
 						</Grid>
 
+						<!--  Chapters header  -->
 						<Grid
-							Grid.Row="4"
+							Grid.Row="5"
 							Grid.Column="0"
 							Visibility="{Binding ShowChapterMarkerUI,
 							                     Converter={StaticResource VisibilityConverter}}">
@@ -1406,7 +1469,7 @@
 								Text="{x:Static res:MainRes.ChapterMarkersLabel}" />
 						</Grid>
 						<StackPanel
-							Grid.Row="4"
+							Grid.Row="5"
 							Grid.Column="1"
 							Orientation="Horizontal"
 							Visibility="{Binding ShowChapterMarkerUI,

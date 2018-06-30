@@ -53,7 +53,8 @@ namespace VidCoder.ViewModel
 
 		private IDisposable containerSubscription;
 		private IDisposable presetChangeSubscription;
-		private IDisposable selectedTitleSubscrption;
+		private IDisposable selectedTitleSubscription;
+		private IDisposable audioTrackChangedSubscription;
 
 		static AudioEncodingViewModel()
 		{
@@ -359,14 +360,17 @@ namespace VidCoder.ViewModel
 			this.RemoveAudioEncoding = ReactiveCommand.Create();
 			this.RemoveAudioEncoding.Subscribe(_ => this.RemoveAudioEncodingImpl());
 
-			this.selectedTitleSubscrption = this.main.WhenAnyValue(x => x.SelectedTitle)
+			this.selectedTitleSubscription = this.main.WhenAnyValue(x => x.SelectedTitle)
 				.Skip(1)
 				.Subscribe(_ =>
 				{
 					this.RefreshFromNewInput();
 				});
 
-			this.main.AudioChoiceChanged += this.OnMainAudioChoiceChanged;
+			this.audioTrackChangedSubscription = this.main.AudioTracks.ItemChanged.Subscribe(_ =>
+			{
+				this.RefreshFromNewInput();
+			});
 
 			Config.Observables.ShowAudioTrackNameField.ToProperty(this, x => x.NameVisible, out this.nameVisible);
 
@@ -375,21 +379,17 @@ namespace VidCoder.ViewModel
 
 		public void Dispose()
 		{
-			this.main.AudioChoiceChanged -= this.OnMainAudioChoiceChanged;
-
 			this.containerSubscription?.Dispose();
 			this.containerSubscription = null;
 
 			this.presetChangeSubscription?.Dispose();
 			this.presetChangeSubscription = null;
 
-			this.selectedTitleSubscrption?.Dispose();
-			this.selectedTitleSubscrption = null;
-		}
+			this.selectedTitleSubscription?.Dispose();
+			this.selectedTitleSubscription = null;
 
-		private void OnMainAudioChoiceChanged(object sender, EventArgs args)
-		{
-			this.RefreshFromNewInput();
+			this.audioTrackChangedSubscription?.Dispose();
+			this.audioTrackChangedSubscription = null;
 		}
 
 		private void RefreshFromNewInput()

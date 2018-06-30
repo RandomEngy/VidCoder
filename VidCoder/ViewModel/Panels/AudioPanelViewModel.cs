@@ -62,10 +62,10 @@ namespace VidCoder.ViewModel
 					this.NotifyAudioInputChanged();
 				});
 
-			this.main.AudioChoiceChanged += (o, e) =>
+			this.main.AudioTracks.ItemChanged.Subscribe(_ =>
 			{
 				this.NotifyAudioInputChanged();
-			};
+			});
 
 			this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.ContainerName)
 				.Skip(1)
@@ -355,10 +355,10 @@ namespace VidCoder.ViewModel
 						{
 							if (audioVM.TargetStreamIndex == 0)
 							{
-								foreach (AudioChoiceViewModel audioChoice in this.MainViewModel.AudioChoices)
+								foreach (AudioTrackViewModel audioTrack in this.MainViewModel.AudioTracks.Where(t => t.Selected))
 								{
 									AudioOutputPreview audioPreview = this.GetAudioPreview(
-										this.SelectedTitle.AudioList[audioChoice.SelectedIndex], audioVM);
+										this.SelectedTitle.AudioList[audioTrack.TrackIndex], audioVM);
 									if (audioPreview != null)
 									{
 										outputPreviews.Add(audioPreview);

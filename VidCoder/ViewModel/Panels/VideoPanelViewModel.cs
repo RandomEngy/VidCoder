@@ -362,10 +362,10 @@ namespace VidCoder.ViewModel
 					this.RefreshEncoderSettings(applyDefaults: false);
 				});
 
-			this.main.AudioChoiceChanged += (o, e) =>
+			this.main.AudioTracks.ItemChanged.Subscribe(_ =>
 			{
 				this.NotifyAudioChanged();
-			};
+			});
 
 			this.main.WhenAnyValue(x => x.SelectedTitle)
 				.Skip(1)

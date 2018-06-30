@@ -1943,9 +1943,9 @@ namespace VidCoder.Services
 						if (useCurrentContext)
 						{
 							// With previous context, pick similarly
-							foreach (AudioChoiceViewModel audioVM in this.main.AudioChoices)
+							foreach (AudioTrackViewModel audioVM in this.main.AudioTracks.Where(t => t.Selected))
 							{
-								int audioIndex = audioVM.SelectedIndex;
+								int audioIndex = audioVM.TrackIndex;
 
 								if (title.AudioList.Count > audioIndex && this.main.SelectedTitle.AudioList[audioIndex].LanguageCode == title.AudioList[audioIndex].LanguageCode)
 								{
@@ -1954,7 +1954,7 @@ namespace VidCoder.Services
 							}
 
 							// If we didn't manage to match any existing audio tracks, use the first audio track.
-							if (this.main.AudioChoices.Count > 0 && job.ChosenAudioTracks.Count == 0)
+							if (job.ChosenAudioTracks.Count == 0)
 							{
 								job.ChosenAudioTracks.Add(1);
 							}
@@ -2127,7 +2127,7 @@ namespace VidCoder.Services
 		/// </summary>
 		/// <param name="title">The title to pick from.</param>
 		/// <param name="picker">The picker to use.</param>
-		/// <param name="chosenAudioTrack">The (1-based) main audio track currently selected.</param>
+		/// <param name="chosenAudioTrack">The (1-based) main audio track currently selected, or -1 if no audio track is selected.</param>
 		/// <returns></returns>
 		public static IList<SourceSubtitle> ChooseSubtitles(SourceTitle title, Picker picker, int chosenAudioTrack)
 		{

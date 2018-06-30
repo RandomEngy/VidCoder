@@ -61,12 +61,13 @@ namespace VidCoder.ViewModel
 
 		public event EventHandler<EventArgs<string>> AnimationStarted;
 		public event EventHandler ScanCancelled;
-		public event EventHandler AudioChoiceChanged;
 
 		public MainViewModel()
 		{
 			Ioc.Container.RegisterInstance(typeof(MainViewModel), this, new ContainerControlledLifetimeManager());
 
+			this.VideoExpanded = Config.VideoExpanded;
+			this.AudioExpanded = Config.AudioExpanded;
 			this.SubtitlesExpanded = Config.SubtitlesExpanded;
 
 			// HasVideoSource
@@ -262,19 +263,6 @@ namespace VidCoder.ViewModel
 			this.CloseVideoSource = ReactiveCommand.Create(canCloseVideoSourceObservable);
 			this.CloseVideoSource.Subscribe(_ => this.CloseVideoSourceImpl());
 
-			this.AddTrack = ReactiveCommand.Create(this
-				.WhenAnyValue(x => x.SelectedTitle)
-				.Select(selectedTitle =>
-				{
-					if (selectedTitle == null)
-					{
-						return true;
-					}
-
-					return selectedTitle.AudioList.Count > 0;
-				}));
-			this.AddTrack.Subscribe(_ => this.AddTrackImpl());
-
 			this.OpenEncodingWindow = ReactiveCommand.Create();
 			this.OpenEncodingWindow.Subscribe(_ => this.OpenEncodingWindowImpl());
 
@@ -389,22 +377,9 @@ namespace VidCoder.ViewModel
 
 			this.driveService = Ioc.Get<IDriveService>();
 
+			this.AudioTracks.ChangeTrackingEnabled = true;
+
 			this.DriveCollection = this.driveService.GetDiscInformation();
-
-			this.AudioChoices = new ReactiveList<AudioChoiceViewModel>();
-			this.AudioChoices.ChangeTrackingEnabled = true;
-
-			this.AudioChoices.Changed
-				.Subscribe(_ =>
-				{
-					this.AudioChoiceChanged?.Invoke(this, EventArgs.Empty);
-				});
-
-			this.AudioChoices.ItemChanged
-				.Subscribe(_ =>
-				{
-					this.AudioChoiceChanged?.Invoke(this, EventArgs.Empty);
-				});
 
 			this.WindowMenuItems = new List<WindowMenuItemViewModel>();
 			foreach (var definition in WindowManager.Definitions.Where(d => d.InMenu))
@@ -948,65 +923,13 @@ namespace VidCoder.ViewModel
 						this.OutputPathService.SourceParentFolder = null;
 					}
 
-					// Save old subtitles
-					VCSubtitles oldSubtitles = this.CurrentSubtitles;
-
-					Picker picker = this.pickersService.SelectedPicker.Picker;
-
-					// Audio selection
-					using (this.AudioChoices.SuppressChangeNotifications())
-					{
-						switch (picker.AudioSelectionMode)
-						{
-							case AudioSelectionMode.Disabled:
-								// If no auto-selection is done, keep audio from previous selection.
-								if (this.oldTitle != null)
-								{
-									var keptAudioChoices = new List<AudioChoiceViewModel>();
-									foreach (AudioChoiceViewModel audioChoiceVM in this.AudioChoices)
-									{
-										if (audioChoiceVM.SelectedIndex < this.selectedTitle.AudioList.Count &&
-											this.oldTitle.AudioList[audioChoiceVM.SelectedIndex].Language == this.selectedTitle.AudioList[audioChoiceVM.SelectedIndex].Language)
-										{
-											keptAudioChoices.Add(audioChoiceVM);
-										}
-									}
-
-									this.AudioChoices.Clear();
-									foreach (AudioChoiceViewModel audioChoiceVM in keptAudioChoices)
-									{
-										this.AudioChoices.Add(audioChoiceVM);
-									}
-								}
-								else
-								{
-									this.AudioChoices.Clear();
-								}
-
-								break;
-							case AudioSelectionMode.First:
-							case AudioSelectionMode.Language:
-							case AudioSelectionMode.All:
-								this.AudioChoices.Clear();
-								this.AudioChoices.AddRange(ProcessingService
-									.ChooseAudioTracks(this.selectedTitle.AudioList, picker)
-									.Select(i => new AudioChoiceViewModel(i)));
-
-								break;
-							default:
-								throw new ArgumentOutOfRangeException();
-						}
-
-						// If nothing got selected, add the first one.
-						if (this.selectedTitle.AudioList.Count > 0 && this.AudioChoices.Count == 0)
-						{
-							this.AudioChoices.Add(new AudioChoiceViewModel(0));
-						}
-					}
+					// Audio list build
+					this.BuildAudioViewModelList();
 
 					// Subtitle list build
-					this.BuildSubtitleViewModelList(oldSubtitles);
+					this.BuildSubtitleViewModelList();
 
+					// Chapter build
 					this.UseDefaultChapterNames = true;
 					this.PopulateChapterSelectLists();
 
@@ -1097,6 +1020,100 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private bool videoExpanded;
+		public bool VideoExpanded
+		{
+			get { return this.videoExpanded; }
+			set
+			{
+				if (this.RaiseAndSetIfChanged(ref this.videoExpanded, value))
+				{
+					Config.VideoExpanded = value;
+				}
+			}
+		}
+
+		private bool audioExpanded;
+		public bool AudioExpanded
+		{
+			get { return this.audioExpanded; }
+			set
+			{
+				if (this.RaiseAndSetIfChanged(ref this.audioExpanded, value))
+				{
+					Config.AudioExpanded = value;
+				}
+			}
+		}
+
+		private void BuildAudioViewModelList()
+		{
+			Picker picker = this.pickersService.SelectedPicker.Picker;
+
+			List<AudioTrackViewModel> oldTracks = this.AudioTracks.Where(t => t.Selected).ToList();
+
+			using (this.AudioTracks.SuppressChangeNotifications())
+			{
+				this.AudioTracks.Clear();
+
+				for (int i = 0; i < this.SelectedTitle.AudioList.Count; i++)
+				{
+					SourceAudioTrack track = this.SelectedTitle.AudioList[i];
+					this.AudioTracks.Add(new AudioTrackViewModel(track, (i + 1)));
+				}
+
+				switch (picker.AudioSelectionMode)
+				{
+					case AudioSelectionMode.Disabled:
+						// If no auto-selection is done, keep audio from previous selection.
+						if (oldTracks.Count > 0)
+						{
+							foreach (AudioTrackViewModel audioTrackVM in oldTracks)
+							{
+								if (audioTrackVM.TrackIndex < this.selectedTitle.AudioList.Count &&
+								    audioTrackVM.AudioTrack.Language == this.selectedTitle.AudioList[audioTrackVM.TrackIndex].Language)
+								{
+									this.AudioTracks.Add(new AudioTrackViewModel(this.selectedTitle.AudioList[audioTrackVM.TrackIndex], audioTrackVM.TrackNumber));
+								}
+							}
+						}
+
+						break;
+					case AudioSelectionMode.First:
+					case AudioSelectionMode.Language:
+					case AudioSelectionMode.All:
+						this.AudioTracks.AddRange(ProcessingService
+							.ChooseAudioTracks(this.selectedTitle.AudioList, picker)
+							.Select(i => new AudioTrackViewModel(this.selectedTitle.AudioList[i], i + 1)));
+
+						break;
+					default:
+						throw new ArgumentOutOfRangeException();
+				}
+
+				// If nothing got selected, add the first one.
+				if (this.selectedTitle.AudioList.Count > 0 && this.AudioTracks.Count == 0)
+				{
+					this.AudioTracks.Add(new AudioTrackViewModel(this.selectedTitle.AudioList[0], 1) { Selected = true });
+				}
+
+				// Fill in rest of unselected audio tracks
+				this.FillInUnselectedAudioTracks();
+			}
+		}
+
+		private void FillInUnselectedAudioTracks()
+		{
+			for (int i = 0; i < this.SelectedTitle.AudioList.Count; i++)
+			{
+				SourceAudioTrack track = this.SelectedTitle.AudioList[i];
+				if (this.AudioTracks.All(t => t.AudioTrack != track))
+				{
+					this.AudioTracks.Add(new AudioTrackViewModel(track, i + 1));
+				}
+			}
+		}
+
 		private bool subtitlesExpanded;
 		public bool SubtitlesExpanded
 		{
@@ -1127,8 +1144,10 @@ namespace VidCoder.ViewModel
 		public ReactiveList<SourceSubtitleViewModel> SourceSubtitles { get; } = new ReactiveList<SourceSubtitleViewModel>();
 		public ReactiveList<SrtSubtitleViewModel> SrtSubtitles { get; } = new ReactiveList<SrtSubtitleViewModel>();
 
-		private void BuildSubtitleViewModelList(VCSubtitles oldSubtitles)
+		private void BuildSubtitleViewModelList()
 		{
+			VCSubtitles oldSubtitles = this.CurrentSubtitles;
+
 			Picker picker = this.pickersService.SelectedPicker.Picker;
 
 			this.SourceSubtitles.Clear();
@@ -1168,10 +1187,12 @@ namespace VidCoder.ViewModel
 				case SubtitleSelectionMode.ForeignAudioSearch:
 				case SubtitleSelectionMode.Language:
 				case SubtitleSelectionMode.All:
+					AudioTrackViewModel firstSelectedAudio = this.AudioTracks.FirstOrDefault(t => t.Selected);
+
 					var selectedSubtitles = ProcessingService.ChooseSubtitles(
 						this.selectedTitle,
 						picker,
-						this.AudioChoices.Count > 0 ? this.AudioChoices[0].SelectedIndex + 1 : -1);
+						firstSelectedAudio != null ? firstSelectedAudio.TrackNumber : -1);
 
 					this.PopulateSourceSubtitles(selectedSubtitles);
 					break;
@@ -1496,7 +1517,7 @@ namespace VidCoder.ViewModel
 						}
 					}
 
-					sourceDescription += $" ({string.Join(", ", trackSummaries)})";
+					sourceDescription += $": {string.Join(", ", trackSummaries)}";
 				}
 
 				summaryParts.Add(sourceDescription);
@@ -1504,7 +1525,20 @@ namespace VidCoder.ViewModel
 
 			if (this.SrtSubtitles.Count > 0)
 			{
-				summaryParts.Add(string.Format(SubtitleRes.ExternalSubtitlesSummaryFormat, this.SrtSubtitles.Count));
+				string externalSubtitlesDescription = string.Format(SubtitleRes.ExternalSubtitlesSummaryFormat, this.SrtSubtitles.Count);
+
+				if (this.SrtSubtitles.Count <= 3)
+				{
+					List<string> trackSummaries = new List<string>();
+					foreach (SrtSubtitleViewModel subtitle in this.SrtSubtitles)
+					{
+						trackSummaries.Add(HandBrakeLanguagesHelper.Get(subtitle.LanguageCode).Display);
+					}
+
+					externalSubtitlesDescription += $": {string.Join(", ", trackSummaries)}";
+				}
+
+				summaryParts.Add(externalSubtitlesDescription);
 			}
 
 			if (summaryParts.Count == 0)
@@ -2063,28 +2097,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveList<AudioChoiceViewModel> AudioChoices { get; }
-
-		public List<AudioTrackViewModel> InputTracks
-		{
-			get
-			{
-				if (this.SourceData != null)
-				{
-					var result = new List<AudioTrackViewModel>();
-
-					for (int i = 0; i < this.SelectedTitle.AudioList.Count; i++)
-					{
-						SourceAudioTrack track = this.SelectedTitle.AudioList[i];
-						result.Add(new AudioTrackViewModel(track, (i + 1)));
-					}
-
-					return result;
-				}
-
-				return null;
-			}
-		}
+		public ReactiveList<AudioTrackViewModel> AudioTracks { get; } = new ReactiveList<AudioTrackViewModel>();
 
 		// Populated when a scan finishes and cleared out when a new scan starts
 		private VideoSource sourceData;
@@ -2109,13 +2122,6 @@ namespace VidCoder.ViewModel
 			{
 				return "VidCoder " + Utilities.CurrentVersion.ToShortString();
 			}
-		}
-
-		public ReactiveCommand<object> AddTrack { get; }
-		private void AddTrackImpl()
-		{
-			var newAudioChoice = new AudioChoiceViewModel(this.GetFirstUnusedAudioTrack());
-			this.AudioChoices.Add(newAudioChoice);
 		}
 
 		public ReactiveCommand<object> OpenEncodingWindow { get; }
@@ -2414,11 +2420,6 @@ namespace VidCoder.ViewModel
 
 		public IList<EncodeJobViewModel> SelectedJobs => this.View.SelectedJobs;
 
-		public void RemoveAudioChoice(AudioChoiceViewModel choice)
-		{
-			this.AudioChoices.Remove(choice);
-		}
-
 		// Brings up specified job for editing, doing a scan if necessary.
 		public void EditJob(EncodeJobViewModel jobVM, bool isQueueItem = true)
 		{
@@ -2547,9 +2548,9 @@ namespace VidCoder.ViewModel
 		{
 			var tracks = new List<int>();
 
-			foreach (AudioChoiceViewModel audioChoiceVM in this.AudioChoices)
+			foreach (AudioTrackViewModel audioTrackVM in this.AudioTracks)
 			{
-				tracks.Add(audioChoiceVM.SelectedIndex + 1);
+				tracks.Add(audioTrackVM.TrackNumber);
 			}
 
 			return tracks;
@@ -2846,14 +2847,16 @@ namespace VidCoder.ViewModel
 			}
 
 			// Audio tracks
-			this.AudioChoices.Clear();
+			this.AudioTracks.Clear();
 			foreach (int chosenTrack in job.ChosenAudioTracks)
 			{
 				if (chosenTrack <= this.selectedTitle.AudioList.Count)
 				{
-					this.AudioChoices.Add(new AudioChoiceViewModel(chosenTrack - 1 ));
+					this.AudioTracks.Add(new AudioTrackViewModel(this.selectedTitle.AudioList[chosenTrack - 1], chosenTrack));
 				}
 			}
+
+			this.FillInUnselectedAudioTracks();
 
 			// Subtitles (standard+SRT)
 			this.CurrentSubtitles.SourceSubtitles = new List<SourceSubtitle>();
@@ -3021,31 +3024,6 @@ namespace VidCoder.ViewModel
 					}
 				}
 			});
-		}
-
-		private int GetFirstUnusedAudioTrack()
-		{
-			List<int> unusedTracks = new List<int>();
-
-			for (int i = 0; i < this.SelectedTitle.AudioList.Count; i++)
-			{
-				unusedTracks.Add(i);
-			}
-
-			foreach (AudioChoiceViewModel audioChoiceVM in this.AudioChoices)
-			{
-				if (unusedTracks.Contains(audioChoiceVM.SelectedIndex))
-				{
-					unusedTracks.Remove(audioChoiceVM.SelectedIndex);
-				}
-			}
-
-			if (unusedTracks.Count > 0)
-			{
-				return unusedTracks[0];
-			}
-
-			return 0;
 		}
 
 		private void OnRangeControlGotFocus(object sender, RangeFocusEventArgs eventArgs)

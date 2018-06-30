@@ -43,6 +43,8 @@ LogWindowOpen|bool|false
 EncodeDetailsWindowOpen|bool|false
 PickerWindowOpen|bool|false
 
+VideoExpanded|bool|false
+AudioExpanded|bool|false
 SubtitlesExpanded|bool|false
 
 UpdatesEnabled|bool|true

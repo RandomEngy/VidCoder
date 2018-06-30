@@ -752,7 +752,6 @@
     </Compile>
     <Compile Include="Model\VideoSource.cs" />
     <Compile Include="IDialog.cs" />
-    <Compile Include="ViewModel\DataModels\AudioChoiceViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\OkCancelDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\SourceOptionViewModel.cs" />
