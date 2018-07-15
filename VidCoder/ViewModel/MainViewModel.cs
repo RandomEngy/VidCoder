@@ -1057,12 +1057,6 @@ namespace VidCoder.ViewModel
 			{
 				this.AudioTracks.Clear();
 
-				for (int i = 0; i < this.SelectedTitle.AudioList.Count; i++)
-				{
-					SourceAudioTrack track = this.SelectedTitle.AudioList[i];
-					this.AudioTracks.Add(new AudioTrackViewModel(this, track, (i + 1)));
-				}
-
 				switch (picker.AudioSelectionMode)
 				{
 					case AudioSelectionMode.Disabled:
@@ -1074,7 +1068,7 @@ namespace VidCoder.ViewModel
 								if (audioTrackVM.TrackIndex < this.selectedTitle.AudioList.Count &&
 								    audioTrackVM.AudioTrack.Language == this.selectedTitle.AudioList[audioTrackVM.TrackIndex].Language)
 								{
-									this.AudioTracks.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[audioTrackVM.TrackIndex], audioTrackVM.TrackNumber));
+									this.AudioTracks.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[audioTrackVM.TrackIndex], audioTrackVM.TrackNumber) { Selected = true });
 								}
 							}
 						}
@@ -1085,7 +1079,7 @@ namespace VidCoder.ViewModel
 					case AudioSelectionMode.All:
 						this.AudioTracks.AddRange(ProcessingService
 							.ChooseAudioTracks(this.selectedTitle.AudioList, picker)
-							.Select(i => new AudioTrackViewModel(this, this.selectedTitle.AudioList[i], i + 1)));
+							.Select(i => new AudioTrackViewModel(this, this.selectedTitle.AudioList[i], i + 1) { Selected = true }));
 
 						break;
 					default:
