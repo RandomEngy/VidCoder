@@ -989,6 +989,7 @@ namespace VidCoder.ViewModel
 
 				this.RefreshRangePreview();
 				this.RefreshSubtitleSummary();
+				this.RefreshAudioSummary();
 			}
 		}
 
@@ -1156,9 +1157,48 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private string audioSummary;
+		public string AudioSummary
+		{
+			get { return this.audioSummary; }
+			set { this.RaiseAndSetIfChanged(ref this.audioSummary, value); }
+		}
+
 		public void RefreshAudioSummary()
 		{
-			// TODO
+			if (this.SelectedTitle == null)
+			{
+				this.AudioSummary = string.Empty;
+				return;
+			}
+
+			if (this.AudioTracks.Count > 0)
+			{
+				List<AudioTrackViewModel> selectedTracks = this.AudioTracks.Where(s => s.Selected).ToList();
+
+				int selectedCount = selectedTracks.Count;
+				string sourceDescription = string.Format(CultureInfo.CurrentCulture, CommonRes.SelectedOverTotalTracksFormat, selectedCount, this.AudioTracks.Count);
+
+				if (selectedCount > 0 && selectedCount <= 3)
+				{
+					List<string> trackSummaries = new List<string>();
+					foreach (AudioTrackViewModel track in selectedTracks)
+					{
+						if (this.SelectedTitle.AudioList != null && track.TrackNumber <= this.SelectedTitle.AudioList.Count)
+						{
+							trackSummaries.Add(this.SelectedTitle.AudioList[track.TrackNumber - 1].Language);
+						}
+					}
+
+					sourceDescription += $": {string.Join(", ", trackSummaries)}";
+				}
+
+				this.AudioSummary = sourceDescription;
+			}
+			else
+			{
+				this.AudioSummary = MainRes.NoneParen;
+			}
 		}
 
 		private bool subtitlesExpanded;
@@ -1547,7 +1587,7 @@ namespace VidCoder.ViewModel
 				List<SourceSubtitleViewModel> selectedSubtitles = this.SourceSubtitles.Where(s => s.Selected).ToList();
 
 				int selectedCount = selectedSubtitles.Count;
-				string sourceDescription = string.Format(CultureInfo.CurrentCulture, SubtitleRes.SubtitleSelectedOverTotalTracksFormat, selectedCount, this.SourceSubtitles.Count);
+				string sourceDescription = string.Format(CultureInfo.CurrentCulture, CommonRes.SelectedOverTotalTracksFormat, selectedCount, this.SourceSubtitles.Count);
 
 				if (selectedCount > 0 && selectedCount <= 3)
 				{

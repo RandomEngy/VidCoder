@@ -31,7 +31,11 @@ namespace VidCoder.ViewModel
 		public bool Selected
 		{
 			get { return this.selected; }
-			set { this.RaiseAndSetIfChanged(ref this.selected, value); }
+			set
+			{
+				this.RaiseAndSetIfChanged(ref this.selected, value);
+				this.mainViewModel.RefreshAudioSummary();
+			}
 		}
 
 		public bool RemoveVisible

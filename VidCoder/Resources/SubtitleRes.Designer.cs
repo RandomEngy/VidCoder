@@ -97,15 +97,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Duplicate this track.
-        /// </summary>
-        public static string DuplicateSubtitleTrack {
-            get {
-                return ResourceManager.GetString("DuplicateSubtitleTrack", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to External subtitles:.
         /// </summary>
         public static string ExternalSubtitlesLabel {
@@ -205,15 +196,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove this track.
-        /// </summary>
-        public static string RemoveSubtitleTrack {
-            get {
-                return ResourceManager.GetString("RemoveSubtitleTrack", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Add subtitles file.
         /// </summary>
         public static string SrtFilePickerText {
@@ -228,15 +210,6 @@ namespace VidCoder.Resources {
         public static string SubtitleCharsetDetectionFailedMessage {
             get {
                 return ResourceManager.GetString("SubtitleCharsetDetectionFailedMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}/{1} track(s).
-        /// </summary>
-        public static string SubtitleSelectedOverTotalTracksFormat {
-            get {
-                return ResourceManager.GetString("SubtitleSelectedOverTotalTracksFormat", resourceCulture);
             }
         }
         

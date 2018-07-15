@@ -200,6 +200,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Duplicate this track.
+        /// </summary>
+        public static string DuplicateTrack {
+            get {
+                return ResourceManager.GetString("DuplicateTrack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed.
         /// </summary>
         public static string Failed {
@@ -475,6 +484,24 @@ namespace VidCoder.Resources {
         public static string Remove {
             get {
                 return ResourceManager.GetString("Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove this track.
+        /// </summary>
+        public static string RemoveTrack {
+            get {
+                return ResourceManager.GetString("RemoveTrack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}/{1} track(s).
+        /// </summary>
+        public static string SelectedOverTotalTracksFormat {
+            get {
+                return ResourceManager.GetString("SelectedOverTotalTracksFormat", resourceCulture);
             }
         }
         

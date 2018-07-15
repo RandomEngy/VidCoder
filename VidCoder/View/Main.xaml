@@ -1025,51 +1025,12 @@
 							Style="{StaticResource SourceSectionToggleButton}">
 							<TextBlock FontWeight="Bold" Text="{x:Static res:MainRes.AudioLabel}" />
 						</ToggleButton>
-						<!--<StackPanel
+						<TextBlock
 							Grid.Row="1"
 							Grid.Column="1"
-							Orientation="Horizontal">
-							<ItemsControl
-								MinWidth="210"
-								MinHeight="31"
-								MaxHeight="58"
-								HorizontalAlignment="Left"
-								ItemsSource="{Binding AudioChoices}"
-								Style="{StaticResource RightGridItem}">
-								<ItemsControl.ItemTemplate>
-									<DataTemplate>
-										<StackPanel Orientation="Horizontal">
-											<ComboBox
-												MinWidth="180"
-												Margin="2"
-												ItemsSource="{Binding MainViewModel.AudioTracks}"
-												SelectedIndex="{Binding SelectedIndex}" />
-											<Button
-												Width="25"
-												Height="25"
-												Margin="0"
-												Command="{Binding Remove}"
-												Content="{x:Static res:MainRes.RemoveAudioTrackToolTip}"
-												Style="{StaticResource RemoveButtonStyle}" />
-										</StackPanel>
-									</DataTemplate>
-								</ItemsControl.ItemTemplate>
-								<ItemsControl.Template>
-									<ControlTemplate>
-										<ScrollViewer
-											Margin="0"
-											Focusable="False"
-											HorizontalScrollBarVisibility="Disabled"
-											VerticalScrollBarVisibility="Auto">
-											<StackPanel
-												Margin="2"
-												IsItemsHost="True"
-												Orientation="Vertical" />
-										</ScrollViewer>
-									</ControlTemplate>
-								</ItemsControl.Template>
-							</ItemsControl>
-						</StackPanel>-->
+							Margin="4 3 0 3"
+							Text="{Binding AudioSummary}"
+							TextTrimming="CharacterEllipsis" />
 
 						<!-- Audio detail -->
 						<ListView
@@ -1134,14 +1095,14 @@
 														<Button
 															VerticalAlignment="Center"
 															Command="{Binding Remove}"
-															Content="{x:Static res:SubtitleRes.RemoveSubtitleTrack}"
+															Content="{x:Static res:CommonRes.RemoveTrack}"
 															Style="{StaticResource RemoveButtonStyle}"
 															Visibility="{Binding RemoveVisible,
 																	 Converter={StaticResource VisibilityConverter}}" />
 														<Button
 															VerticalContentAlignment="Center"
 															Command="{Binding Duplicate}"
-															Content="{x:Static res:SubtitleRes.DuplicateSubtitleTrack}"
+															Content="{x:Static res:CommonRes.DuplicateTrack}"
 															Style="{StaticResource AddButtonStyle}"
 															Visibility="{Binding DuplicateVisible,
 																	 Converter={StaticResource VisibilityConverter}}" />
@@ -1286,7 +1247,7 @@
 									<Button
 										VerticalAlignment="Center"
 										Command="{Binding RemoveSubtitle}"
-										Content="{x:Static res:SubtitleRes.RemoveSubtitleTrack}"
+										Content="{x:Static res:CommonRes.RemoveTrack}"
 										Style="{StaticResource RemoveButtonStyle}" />
 								</DataTemplate>
 								<DataTemplate x:Key="RemoveDuplicateTemplate" DataType="viewmodel:SourceSubtitleViewModel">
@@ -1294,14 +1255,14 @@
 										<Button
 											VerticalAlignment="Center"
 											Command="{Binding RemoveSubtitle}"
-											Content="{x:Static res:SubtitleRes.RemoveSubtitleTrack}"
+											Content="{x:Static res:CommonRes.RemoveTrack}"
 											Style="{StaticResource RemoveButtonStyle}"
 											Visibility="{Binding RemoveVisible,
 											                     Converter={StaticResource VisibilityConverter}}" />
 										<Button
 											VerticalContentAlignment="Center"
 											Command="{Binding DuplicateSubtitle}"
-											Content="{x:Static res:SubtitleRes.DuplicateSubtitleTrack}"
+											Content="{x:Static res:CommonRes.DuplicateTrack}"
 											Style="{StaticResource AddButtonStyle}"
 											Visibility="{Binding DuplicateVisible,
 											                     Converter={StaticResource VisibilityConverter}}" />

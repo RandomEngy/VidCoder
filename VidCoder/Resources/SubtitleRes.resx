@@ -120,9 +120,6 @@
   <data name="SubtitlesWindowTitle" xml:space="preserve">
     <value>Subtitles</value>
   </data>
-  <data name="RemoveSubtitleTrack" xml:space="preserve">
-    <value>Remove this track</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>Subtitles from source:</value>
   </data>
@@ -168,9 +165,6 @@
   <data name="SrtFilePickerText" xml:space="preserve">
     <value>Add subtitles file</value>
   </data>
-  <data name="DuplicateSubtitleTrack" xml:space="preserve">
-    <value>Duplicate this track</value>
-  </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Could not detect the encoding of the subtitle file. To make sure the subtitles show up correctly, re-save the file as UTF-8.</value>
   </data>
@@ -180,9 +174,5 @@
   <data name="ExternalSubtitlesSummaryFormat" xml:space="preserve">
     <value>{0} external</value>
     <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
-  </data>
-  <data name="SubtitleSelectedOverTotalTracksFormat" xml:space="preserve">
-    <value>{0}/{1} track(s)</value>
-    <comment>{0} is the number of selected subtitle tracks and {1} is the number of total subtitle tracks on the source.</comment>
   </data>
 </root>
