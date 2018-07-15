@@ -1059,7 +1059,7 @@ namespace VidCoder.ViewModel
 				for (int i = 0; i < this.SelectedTitle.AudioList.Count; i++)
 				{
 					SourceAudioTrack track = this.SelectedTitle.AudioList[i];
-					this.AudioTracks.Add(new AudioTrackViewModel(track, (i + 1)));
+					this.AudioTracks.Add(new AudioTrackViewModel(this, track, (i + 1)));
 				}
 
 				switch (picker.AudioSelectionMode)
@@ -1073,7 +1073,7 @@ namespace VidCoder.ViewModel
 								if (audioTrackVM.TrackIndex < this.selectedTitle.AudioList.Count &&
 								    audioTrackVM.AudioTrack.Language == this.selectedTitle.AudioList[audioTrackVM.TrackIndex].Language)
 								{
-									this.AudioTracks.Add(new AudioTrackViewModel(this.selectedTitle.AudioList[audioTrackVM.TrackIndex], audioTrackVM.TrackNumber));
+									this.AudioTracks.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[audioTrackVM.TrackIndex], audioTrackVM.TrackNumber));
 								}
 							}
 						}
@@ -1084,7 +1084,7 @@ namespace VidCoder.ViewModel
 					case AudioSelectionMode.All:
 						this.AudioTracks.AddRange(ProcessingService
 							.ChooseAudioTracks(this.selectedTitle.AudioList, picker)
-							.Select(i => new AudioTrackViewModel(this.selectedTitle.AudioList[i], i + 1)));
+							.Select(i => new AudioTrackViewModel(this, this.selectedTitle.AudioList[i], i + 1)));
 
 						break;
 					default:
@@ -1094,7 +1094,7 @@ namespace VidCoder.ViewModel
 				// If nothing got selected, add the first one.
 				if (this.selectedTitle.AudioList.Count > 0 && this.AudioTracks.Count == 0)
 				{
-					this.AudioTracks.Add(new AudioTrackViewModel(this.selectedTitle.AudioList[0], 1) { Selected = true });
+					this.AudioTracks.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[0], 1) { Selected = true });
 				}
 
 				// Fill in rest of unselected audio tracks
@@ -1109,9 +1109,56 @@ namespace VidCoder.ViewModel
 				SourceAudioTrack track = this.SelectedTitle.AudioList[i];
 				if (this.AudioTracks.All(t => t.AudioTrack != track))
 				{
-					this.AudioTracks.Add(new AudioTrackViewModel(track, i + 1));
+					this.AudioTracks.Add(new AudioTrackViewModel(this, track, i + 1));
 				}
 			}
+		}
+
+		/// <summary>
+		/// Determines if the given track has a duplicate.
+		/// </summary>
+		/// <param name="trackNumber">The 1-based track number.</param>
+		/// <returns>True if the track has a duplicate.</returns>
+		public bool HasMultipleAudioTracks(int trackNumber)
+		{
+			return this.AudioTracks.Count(s => s.TrackNumber == trackNumber) > 1;
+		}
+
+		public void RemoveAudioTrack(AudioTrackViewModel audioTrackViewModel)
+		{
+			this.AudioTracks.Remove(audioTrackViewModel);
+			this.UpdateAudioTrackButtonVisibility();
+			this.RefreshAudioSummary();
+		}
+
+		public void DuplicateAudioTrack(AudioTrackViewModel audioTrackViewModel)
+		{
+			audioTrackViewModel.Selected = true;
+
+			var newTrack = new AudioTrackViewModel(
+				this,
+				audioTrackViewModel.AudioTrack,
+				audioTrackViewModel.TrackNumber);
+			newTrack.Selected = true;
+
+			this.AudioTracks.Insert(
+				this.AudioTracks.IndexOf(audioTrackViewModel) + 1,
+				newTrack);
+			this.UpdateAudioTrackButtonVisibility();
+			this.RefreshAudioSummary();
+		}
+
+		private void UpdateAudioTrackButtonVisibility()
+		{
+			foreach (AudioTrackViewModel audioTrackViewModel in this.AudioTracks)
+			{
+				audioTrackViewModel.UpdateButtonVisiblity();
+			}
+		}
+
+		public void RefreshAudioSummary()
+		{
+			// TODO
 		}
 
 		private bool subtitlesExpanded;
@@ -2852,7 +2899,7 @@ namespace VidCoder.ViewModel
 			{
 				if (chosenTrack <= this.selectedTitle.AudioList.Count)
 				{
-					this.AudioTracks.Add(new AudioTrackViewModel(this.selectedTitle.AudioList[chosenTrack - 1], chosenTrack));
+					this.AudioTracks.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[chosenTrack - 1], chosenTrack));
 				}
 			}
 

@@ -1,19 +1,30 @@
-﻿using HandBrake.ApplicationServices.Interop.Json.Scan;
+﻿using System;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
 using ReactiveUI;
 
 namespace VidCoder.ViewModel
 {
 	public class AudioTrackViewModel : ReactiveObject
 	{
+		private readonly MainViewModel mainViewModel;
+
 		/// <summary>
 		/// Creates an instance of the AudioTrackViewModel class.
 		/// </summary>
+		/// <param name="mainViewModel">An instance of the main viewmodel.</param>
 		/// <param name="audioTrack">The audio track to wrap.</param>
 		/// <param name="trackNumber">The (1-based) track number.</param>
-		public AudioTrackViewModel(SourceAudioTrack audioTrack, int trackNumber)
+		public AudioTrackViewModel(MainViewModel mainViewModel, SourceAudioTrack audioTrack, int trackNumber)
 		{
+			this.mainViewModel = mainViewModel;
 			this.AudioTrack = audioTrack;
 			this.TrackNumber = trackNumber;
+
+			this.Duplicate = ReactiveCommand.Create();
+			this.Duplicate.Subscribe(_ => this.DuplicateImpl());
+
+			this.Remove = ReactiveCommand.Create();
+			this.Remove.Subscribe(_ => this.RemoveImpl());
 		}
 
 		private bool selected;
@@ -21,6 +32,34 @@ namespace VidCoder.ViewModel
 		{
 			get { return this.selected; }
 			set { this.RaiseAndSetIfChanged(ref this.selected, value); }
+		}
+
+		public bool RemoveVisible
+		{
+			get
+			{
+				return this.mainViewModel.HasMultipleAudioTracks(this.TrackNumber);
+			}
+		}
+
+		public bool DuplicateVisible
+		{
+			get
+			{
+				return !this.mainViewModel.HasMultipleAudioTracks(this.TrackNumber);
+			}
+		}
+
+		public ReactiveCommand<object> Duplicate { get; }
+		private void DuplicateImpl()
+		{
+			this.mainViewModel.DuplicateAudioTrack(this);
+		}
+
+		public ReactiveCommand<object> Remove { get; }
+		private void RemoveImpl()
+		{
+			this.mainViewModel.RemoveAudioTrack(this);
 		}
 
 		/// <summary>
@@ -39,5 +78,11 @@ namespace VidCoder.ViewModel
 	    {
             return this.TrackNumber + " " + this.AudioTrack.Description;
         }
+
+		public void UpdateButtonVisiblity()
+		{
+			this.RaisePropertyChanged(nameof(this.DuplicateVisible));
+			this.RaisePropertyChanged(nameof(this.RemoveVisible));
+		}
 	}
 }

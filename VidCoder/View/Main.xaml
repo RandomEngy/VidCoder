@@ -1131,20 +1131,20 @@
 											<GridViewColumn.CellTemplate>
 												<DataTemplate DataType="viewmodel:AudioTrackViewModel">
 													<Grid>
-														<!--<Button
+														<Button
 															VerticalAlignment="Center"
-															Command="{Binding RemoveTrack}"
+															Command="{Binding Remove}"
 															Content="{x:Static res:SubtitleRes.RemoveSubtitleTrack}"
 															Style="{StaticResource RemoveButtonStyle}"
 															Visibility="{Binding RemoveVisible,
 																	 Converter={StaticResource VisibilityConverter}}" />
 														<Button
 															VerticalContentAlignment="Center"
-															Command="{Binding DuplicateTrack}"
+															Command="{Binding Duplicate}"
 															Content="{x:Static res:SubtitleRes.DuplicateSubtitleTrack}"
 															Style="{StaticResource AddButtonStyle}"
 															Visibility="{Binding DuplicateVisible,
-																	 Converter={StaticResource VisibilityConverter}}" />-->
+																	 Converter={StaticResource VisibilityConverter}}" />
 													</Grid>
 												</DataTemplate>
 											</GridViewColumn.CellTemplate>
