@@ -377,6 +377,18 @@ namespace VidCoder.ViewModel
 
 			this.driveService = Ioc.Get<IDriveService>();
 
+			// When an item is checked, resize the grid columns
+			this.AudioTracks.ItemChanged
+				.Where(x => x.PropertyName == nameof(AudioTrackViewModel.Selected))
+				.Select(x => x.Sender)
+				.Subscribe(audioTrackViewModel =>
+			{
+				if (audioTrackViewModel.Selected)
+				{
+					this.View.ResizeAudioColumns();
+				}
+			});
+
 			this.AudioTracks.ChangeTrackingEnabled = true;
 
 			this.DriveCollection = this.driveService.GetDiscInformation();
@@ -2629,7 +2641,7 @@ namespace VidCoder.ViewModel
 		{
 			var tracks = new List<int>();
 
-			foreach (AudioTrackViewModel audioTrackVM in this.AudioTracks)
+			foreach (AudioTrackViewModel audioTrackVM in this.AudioTracks.Where(track => track.Selected))
 			{
 				tracks.Add(audioTrackVM.TrackNumber);
 			}

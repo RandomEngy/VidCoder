@@ -17,5 +17,6 @@ namespace VidCoder.ViewModel
 		IList<EncodeJobViewModel> SelectedJobs { get; }
 
 		void RefreshDiscMenuItems();
+		void ResizeAudioColumns();
 	}
 }

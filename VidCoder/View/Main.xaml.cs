@@ -224,9 +224,7 @@ namespace VidCoder.View
 			{
 				if (expanded)
 				{
-					ResizeGridViewColumn(this.audioSelectedColumn);
-					ResizeGridViewColumn(this.audioNameColumn);
-					ResizeGridViewColumn(this.audioRemoveDuplicateColumn);
+					this.ResizeAudioColumns();
 				}
 			});
 
@@ -263,6 +261,13 @@ namespace VidCoder.View
 
 			this.sourceSubtitles.CollectionChanged += this.sourceSubtitles_CollectionChanged;
 			this.srtSubtitles.CollectionChanged += this.srtSubtitles_CollectionChanged;
+		}
+
+		public void ResizeAudioColumns()
+		{
+			ResizeGridViewColumn(this.audioSelectedColumn);
+			ResizeGridViewColumn(this.audioNameColumn);
+			ResizeGridViewColumn(this.audioRemoveDuplicateColumn);
 		}
 
 		void IMainView.SaveQueueColumns()
