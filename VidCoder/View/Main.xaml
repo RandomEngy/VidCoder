@@ -300,6 +300,7 @@
 		<Style x:Key="SourceSectionToggleButton" TargetType="{x:Type ToggleButton}">
 			<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
 			<Setter Property="Background" Value="Transparent" />
+			<Setter Property="Height" Value="30" />
 			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
 			<Setter Property="BorderThickness" Value="0" />
 			<Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -1029,6 +1030,7 @@
 							Grid.Row="1"
 							Grid.Column="1"
 							Margin="4 3 0 3"
+							VerticalAlignment="Center"
 							Text="{Binding AudioSummary}"
 							TextTrimming="CharacterEllipsis" />
 
@@ -1047,7 +1049,7 @@
 									                     Converter={StaticResource VisibilityConverter}}">
 							<VidCoderDragDrop:DragDropHelper.DragDropTemplate>
 								<DataTemplate>
-									<TextBlock Background="White" Text="{Binding Mode=OneWay}" />
+									<TextBlock Background="White" Text="{Binding Display, Mode=OneWay}" />
 								</DataTemplate>
 							</VidCoderDragDrop:DragDropHelper.DragDropTemplate>
 							<i:Interaction.Behaviors>
@@ -1130,6 +1132,7 @@
 							</Grid.ColumnDefinitions>
 							<TextBlock
 								Margin="4 3 16 3"
+								VerticalAlignment="Center"
 								Text="{Binding SubtitlesSummary}"
 								TextTrimming="CharacterEllipsis" />
 							<Button
@@ -1276,7 +1279,7 @@
 
 							<StackPanel
 								Grid.Row="0"
-								Margin="28 6 0 4"
+								Margin="28 0 0 4"
 								Orientation="Vertical">
 								<TextBlock
 									HorizontalAlignment="Left"

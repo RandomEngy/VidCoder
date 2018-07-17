@@ -83,6 +83,8 @@ namespace VidCoder.ViewModel
             return this.TrackNumber + " " + this.AudioTrack.Description;
         }
 
+		public string Display => this.ToString();
+
 		public void UpdateButtonVisiblity()
 		{
 			this.RaisePropertyChanged(nameof(this.DuplicateVisible));
