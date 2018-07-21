@@ -26,6 +26,7 @@
 	Deactivated="OnWindowDeactivated"
 	MouseDown="Window_MouseDown"
 	StateChanged="Window_StateChanged"
+	SizeChanged="Main_OnSizeChanged"
 	Style="{StaticResource NormalWindow}"
 	TextOptions.TextFormattingMode="Display"
 	mc:Ignorable="d">
@@ -779,12 +780,18 @@
 						</ToggleButton>
 						<Grid Grid.Row="0" Grid.Column="1">
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition />
+								<ColumnDefinition Name="videoSummaryColumn" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<StackPanel Orientation="Horizontal">
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition />
+								</Grid.ColumnDefinitions>
 								<!--  Source  -->
 								<Image
+									Grid.Column="0"
 									Width="16"
 									Height="16"
 									Margin="0 0 0 0"
@@ -794,56 +801,60 @@
 									Visibility="{Binding SourceIconVisible,
 									                     Converter={StaticResource VisibilityConverter}}" />
 								<controls:PathTextBlock
+									Grid.Column="1"
 									Margin="4 0 4 0"
+									x:Name="sourceText"
 									VerticalAlignment="Center"
 									Style="{StaticResource SourceDescription}"
 									Text="{Binding SourceText,
 									               Mode=OneWay}" />
-								
-								<!--  Title  -->
-								<StackPanel Orientation="Horizontal" Visibility="{Binding TitleVisible, Converter={StaticResource VisibilityConverter}}">
-									<Polygon Style="{StaticResource ArrowSeparator}" />
-									<TextBlock
-										Margin="0 0 4 0"
-										VerticalAlignment="Center"
-										Text="{x:Static res:MainRes.TitleLabel}" />
-									<ComboBox
-										Height="23"
-										MinWidth="102"
-										VerticalAlignment="Center"
-										ItemsSource="{Binding Titles}"
-										SelectedItem="{Binding SelectedTitle}">
-										<ComboBox.ItemTemplate>
-											<DataTemplate>
-												<TextBlock Style="{StaticResource PlainTitle}" Text="{Binding Converter={StaticResource TitleDisplayConverter}}" />
-											</DataTemplate>
-										</ComboBox.ItemTemplate>
-									</ComboBox>
 
-									<Image
-										Height="18"
-										Margin="6 0 0 0"
-										VerticalAlignment="Center"
-										Source="/Icons/warning.png"
-										ToolTip="{Binding TitleWarning}"
-										ToolTipService.InitialShowDelay="0"
-										Visibility="{Binding TitleWarningVisible,
+								<StackPanel Grid.Column="2" Orientation="Horizontal" SizeChanged="VideoTitleAngle_OnSizeChanged" Name="videoTitleAngle" HorizontalAlignment="Left">
+									<!--  Title  -->
+									<StackPanel Orientation="Horizontal" Visibility="{Binding TitleVisible, Converter={StaticResource VisibilityConverter}}">
+										<Polygon Style="{StaticResource ArrowSeparator}" />
+										<TextBlock
+											Margin="0 0 4 0"
+											VerticalAlignment="Center"
+											Text="{x:Static res:MainRes.TitleLabel}" />
+										<ComboBox
+											Height="23"
+											MinWidth="102"
+											VerticalAlignment="Center"
+											ItemsSource="{Binding Titles}"
+											SelectedItem="{Binding SelectedTitle}">
+											<ComboBox.ItemTemplate>
+												<DataTemplate>
+													<TextBlock Style="{StaticResource PlainTitle}" Text="{Binding Converter={StaticResource TitleDisplayConverter}}" />
+												</DataTemplate>
+											</ComboBox.ItemTemplate>
+										</ComboBox>
+
+										<Image
+											Height="18"
+											Margin="6 0 0 0"
+											VerticalAlignment="Center"
+											Source="/Icons/warning.png"
+											ToolTip="{Binding TitleWarning}"
+											ToolTipService.InitialShowDelay="0"
+											Visibility="{Binding TitleWarningVisible,
 										                     Converter={StaticResource VisibilityConverter}}" />
 
-								</StackPanel>
+									</StackPanel>
 
-								<!--  Angle  -->
-								<StackPanel Orientation="Horizontal" Visibility="{Binding AngleVisible, Converter={StaticResource VisibilityConverter}}">
-									<Polygon Style="{StaticResource ArrowSeparator}" />
-									<TextBlock VerticalAlignment="Center" Text="{x:Static res:MainRes.AngleLabel}" />
-									<ComboBox
-										Height="23"
-										Margin="4 0 0 0"
-										VerticalAlignment="Center"
-										ItemsSource="{Binding Angles}"
-										SelectedItem="{Binding Angle}" />
+									<!--  Angle  -->
+									<StackPanel Orientation="Horizontal" Visibility="{Binding AngleVisible, Converter={StaticResource VisibilityConverter}}">
+										<Polygon Style="{StaticResource ArrowSeparator}" />
+										<TextBlock VerticalAlignment="Center" Text="{x:Static res:MainRes.AngleLabel}" />
+										<ComboBox
+											Height="23"
+											Margin="4 0 0 0"
+											VerticalAlignment="Center"
+											ItemsSource="{Binding Angles}"
+											SelectedItem="{Binding Angle}" />
+									</StackPanel>
 								</StackPanel>
-							</StackPanel>
+							</Grid>
 
 							<!--  Close video source button  -->
 							<Button

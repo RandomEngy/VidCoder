@@ -725,5 +725,29 @@ namespace VidCoder.View
 				transaction.Commit();
 			}
 		}
+
+		private void Main_OnSizeChanged(object sender, SizeChangedEventArgs e)
+		{
+			this.UpdateSourceTextMaxLength();
+		}
+
+		private void VideoTitleAngle_OnSizeChanged(object sender, SizeChangedEventArgs e)
+		{
+			this.UpdateSourceTextMaxLength();
+		}
+
+		private void UpdateSourceTextMaxLength()
+		{
+			double summaryWidth = this.videoSummaryColumn.ActualWidth;
+			double titleAngleWidth = this.videoTitleAngle.ActualWidth;
+
+			// 16 for image icon width, 8 for margin on path block.
+			double maxPathWidth = summaryWidth - titleAngleWidth - 24;
+
+			if (maxPathWidth > 0)
+			{
+				this.sourceText.SetManualMaxWidth(maxPathWidth); 
+			}
+		}
 	}
 }
