@@ -872,134 +872,156 @@
 						</Grid>
 
 						<!--  Video Detail -->
-						<Grid
-							Grid.Row="1"
-							Visibility="{Binding VideoExpanded, Converter={StaticResource VisibilityConverter}}"
-							Grid.Column="0"
-							Grid.ColumnSpan="2"
-							Margin="26 4 16 8">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto" />
-								<ColumnDefinition />
-								<ColumnDefinition Width="Auto" />
-							</Grid.ColumnDefinitions>
-							<StackPanel
-								Name="rangeUI"
-								Grid.Column="0"
-								Background="Transparent"
-								Orientation="Horizontal">
-								<!--  Range type  -->
-								<ComboBox
-									Height="23"
-									MinWidth="92"
-									Margin="0 0 10 0"
-									HorizontalAlignment="Left"
-									VerticalAlignment="Center"
-									ItemsSource="{Binding RangeTypeChoices}"
-									SelectedValue="{Binding RangeType}"
-									SelectedValuePath="Value" />
-
-								<!--  Chapters range  -->
-								<StackPanel Orientation="Horizontal" Visibility="{Binding RangeType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static common:VideoRangeType.Chapters}}">
-									<ComboBox
-										MinWidth="40"
-										ItemContainerStyle="{StaticResource ChapterComboBoxItem}"
-										ItemsSource="{Binding StartChapters}"
-										SelectedItem="{Binding SelectedStartChapter}"
-										Style="{StaticResource ChapterComboBox}" />
-									<TextBlock Style="{StaticResource PlainTitle}" Text="-" />
-									<ComboBox
-										MinWidth="40"
-										ItemContainerStyle="{StaticResource ChapterComboBoxItem}"
-										ItemsSource="{Binding EndChapters}"
-										SelectedItem="{Binding SelectedEndChapter}"
-										Style="{StaticResource ChapterComboBox}" />
-								</StackPanel>
-
-								<!--  Time range  -->
+						<StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+							<Grid
+								Visibility="{Binding VideoExpanded, Converter={StaticResource VisibilityConverter}}"
+								Margin="26 4 16 8">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
 								<StackPanel
-									VerticalAlignment="Center"
-									Orientation="Horizontal"
-									Visibility="{Binding RangeType,
+									Name="rangeUI"
+									Grid.Column="0"
+									Background="Transparent"
+									Orientation="Horizontal">
+									<!--  Range type  -->
+									<ComboBox
+										Height="23"
+										MinWidth="92"
+										Margin="0 0 10 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										ItemsSource="{Binding RangeTypeChoices}"
+										SelectedValue="{Binding RangeType}"
+										SelectedValuePath="Value" />
+
+									<!--  Chapters range  -->
+									<StackPanel Orientation="Horizontal" Visibility="{Binding RangeType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static common:VideoRangeType.Chapters}}">
+										<ComboBox
+											MinWidth="40"
+											ItemContainerStyle="{StaticResource ChapterComboBoxItem}"
+											ItemsSource="{Binding StartChapters}"
+											SelectedItem="{Binding SelectedStartChapter}"
+											Style="{StaticResource ChapterComboBox}" />
+										<TextBlock Style="{StaticResource PlainTitle}" Text="-" />
+										<ComboBox
+											MinWidth="40"
+											ItemContainerStyle="{StaticResource ChapterComboBoxItem}"
+											ItemsSource="{Binding EndChapters}"
+											SelectedItem="{Binding SelectedEndChapter}"
+											Style="{StaticResource ChapterComboBox}" />
+									</StackPanel>
+
+									<!--  Time range  -->
+									<StackPanel
+										VerticalAlignment="Center"
+										Orientation="Horizontal"
+										Visibility="{Binding RangeType,
 									                     Converter={StaticResource EnumVisibilityConverter},
 									                     ConverterParameter={x:Static common:VideoRangeType.Seconds}}">
-									<controls:TimeBox
-										Width="46"
-										Height="22"
-										GotFocus="StartTimeGotFocus"
-										Maximum="{Binding SelectedTitle.Duration}"
-										Style="{StaticResource RangeNumberBox}"
-										Time="{Binding TimeRangeStart,
+										<controls:TimeBox
+											Width="46"
+											Height="22"
+											GotFocus="StartTimeGotFocus"
+											Maximum="{Binding SelectedTitle.Duration}"
+											Style="{StaticResource RangeNumberBox}"
+											Time="{Binding TimeRangeStart,
 										               Mode=TwoWay}" />
-									<TextBlock Style="{StaticResource PlainTitle}" Text="-" />
-									<controls:TimeBox
-										Width="46"
-										Height="22"
-										GotFocus="EndTimeGotFocus"
-										Maximum="{Binding SelectedTitle.Duration}"
-										Style="{StaticResource RangeNumberBox}"
-										Time="{Binding TimeRangeEnd,
+										<TextBlock Style="{StaticResource PlainTitle}" Text="-" />
+										<controls:TimeBox
+											Width="46"
+											Height="22"
+											GotFocus="EndTimeGotFocus"
+											Maximum="{Binding SelectedTitle.Duration}"
+											Style="{StaticResource RangeNumberBox}"
+											Time="{Binding TimeRangeEnd,
 										               Mode=TwoWay}" />
-								</StackPanel>
+									</StackPanel>
 
-								<!--  Frames range  -->
-								<StackPanel Orientation="Horizontal" Visibility="{Binding RangeType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static common:VideoRangeType.Frames}}">
-									<controls:NumberBox
-										Width="65"
-										AllowEmpty="False"
-										GotFocus="FramesStartGotFocus"
-										Minimum="0"
-										Number="{Binding FramesRangeStart,
+									<!--  Frames range  -->
+									<StackPanel Orientation="Horizontal" Visibility="{Binding RangeType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static common:VideoRangeType.Frames}}">
+										<controls:NumberBox
+											Width="65"
+											AllowEmpty="False"
+											GotFocus="FramesStartGotFocus"
+											Minimum="0"
+											Number="{Binding FramesRangeStart,
 										                 Mode=TwoWay}"
-										Style="{StaticResource RangeNumberBox}" />
-									<TextBlock Style="{StaticResource PlainTitle}" Text="-" />
-									<controls:NumberBox
-										Width="65"
-										AllowEmpty="False"
-										GotFocus="FramesEndGotFocus"
-										Minimum="1"
-										Number="{Binding FramesRangeEnd,
+											Style="{StaticResource RangeNumberBox}" />
+										<TextBlock Style="{StaticResource PlainTitle}" Text="-" />
+										<controls:NumberBox
+											Width="65"
+											AllowEmpty="False"
+											GotFocus="FramesEndGotFocus"
+											Minimum="1"
+											Number="{Binding FramesRangeEnd,
 										                 Mode=TwoWay}"
-										Style="{StaticResource RangeNumberBox}" />
+											Style="{StaticResource RangeNumberBox}" />
+									</StackPanel>
+									<TextBlock Style="{StaticResource PlainTitle}" Text="{Binding TotalChaptersText}" />
 								</StackPanel>
-								<TextBlock Style="{StaticResource PlainTitle}" Text="{Binding TotalChaptersText}" />
-							</StackPanel>
-							<controls:RangeBar
-								Title="{Binding SelectedTitle}"
-								Grid.Column="1"
-								Margin="6 0 0 0"
-								Height="20"
-								HorizontalAlignment="Stretch"
-								VerticalAlignment="Center"
-								ChaptersEnabled="{Binding UsingChaptersRange}"
-								EndChapter="{Binding ChapterPreviewEnd,
+								<controls:RangeBar
+									Title="{Binding SelectedTitle}"
+									Grid.Column="1"
+									Margin="6 0 0 0"
+									Height="20"
+									HorizontalAlignment="Stretch"
+									VerticalAlignment="Center"
+									ChaptersEnabled="{Binding UsingChaptersRange}"
+									EndChapter="{Binding ChapterPreviewEnd,
 								                     Mode=TwoWay}"
-								EndTime="{Binding TimeRangeEndBar,
+									EndTime="{Binding TimeRangeEndBar,
 								                  Mode=TwoWay}"
-								StartChapter="{Binding ChapterPreviewStart,
+									StartChapter="{Binding ChapterPreviewStart,
 								                       Mode=TwoWay}"
-								StartTime="{Binding TimeRangeStartBar,
+									StartTime="{Binding TimeRangeStartBar,
 								                    Mode=TwoWay}"
-								ToolTip="{x:Static res:MainRes.RangeBarToolTip}"
-								Visibility="{Binding RangeBarVisible,
+									ToolTip="{x:Static res:MainRes.RangeBarToolTip}"
+									Visibility="{Binding RangeBarVisible,
 								                     Converter={StaticResource VisibilityConverter}}" />
 
-							<!--  Range preview text  -->
-							<StackPanel
-								Grid.Column="2"
-								Margin="6 0 0 0"
-								HorizontalAlignment="Right"
-								VerticalAlignment="Center"
-								Orientation="Horizontal"
-								Visibility="{Binding RangeBarVisible,
+								<!--  Range preview text  -->
+								<StackPanel
+									Grid.Column="2"
+									Margin="6 0 0 0"
+									HorizontalAlignment="Right"
+									VerticalAlignment="Center"
+									Orientation="Horizontal"
+									Visibility="{Binding RangeBarVisible,
 								                     Converter={StaticResource VisibilityConverter}}">
-								<TextBlock VerticalAlignment="Bottom" Text="{Binding RangePreviewText}" />
-								<TextBlock
-									Margin="10 0 0 0"
-									VerticalAlignment="Bottom"
-									Text="{Binding RangePreviewLengthText}" />
-							</StackPanel>
-						</Grid>
+									<TextBlock VerticalAlignment="Bottom" Text="{Binding RangePreviewText}" />
+									<TextBlock
+										Margin="10 0 0 0"
+										VerticalAlignment="Bottom"
+										Text="{Binding RangePreviewLengthText}" />
+								</StackPanel>
+							</Grid>
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition />
+								</Grid.ColumnDefinitions>
+								
+								<ItemsControl ItemsSource="{Binding VideoDetails}">
+									<ItemsControl.ItemsPanel>
+										<ItemsPanelTemplate>
+											<WrapPanel Orientation="Vertical" />
+										</ItemsPanelTemplate>
+									</ItemsControl.ItemsPanel>
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding Label}" />
+												<TextBlock Text="{Binding Value}" Margin="4 0 0 0" />
+											</StackPanel>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+							</Grid>
+						</StackPanel>
+						
 
 						<!--  Audio Header  -->
 						<ToggleButton
@@ -1337,7 +1359,7 @@
 									</ListView.View>
 								</ListView>
 								<controls:InlineWarning
-									Margin="0 6 0 0"
+									Margin="16 6 16 0"
 									Visibility="{Binding TextSubtitleWarningVisible,
 									                     Converter={StaticResource VisibilityConverter}}"
 									WarningText="{x:Static res:SubtitleRes.QuickTimeSubtitlesWarning}" />
@@ -1391,7 +1413,7 @@
 								</ListView>
 
 								<controls:InlineWarning
-									Margin="0 6 0 0"
+									Margin="16 6 16 0"
 									Visibility="{Binding BurnedOverlapWarningVisible,
 									                     Converter={StaticResource VisibilityConverter}}"
 									WarningText="{x:Static res:SubtitleRes.BurnedOverlapWarning}" />

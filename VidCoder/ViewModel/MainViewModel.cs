@@ -22,6 +22,7 @@ using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.Services.Notifications;
 using VidCoder.Services.Windows;
+using VidCoder.ViewModel.DataModels;
 using VidCoderCommon;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
@@ -242,6 +243,25 @@ namespace VidCoder.ViewModel
 			});
 
 			canCloseVideoSourceObservable.ToProperty(this, x => x.CanCloseVideoSource, out this.canCloseVideoSource);
+
+			// VideoDetails
+			this.WhenAnyValue(x => x.SelectedTitle).Select(selectedTitle =>
+			{
+				if (selectedTitle == null)
+				{
+					return new List<InfoLineViewModel>();
+				}
+
+				List<InfoLineViewModel> lines = ResolutionUtilities.GetResolutionInfoLines(selectedTitle);
+
+				string videoCodec = DisplayConversions.DisplayVideoCodecName(selectedTitle.VideoCodec);
+				lines.Add(new InfoLineViewModel(EncodingRes.CodecLabel, videoCodec));
+
+				string framerate = string.Format(EncodingRes.FpsFormat, selectedTitle.FrameRate.ToDouble());
+				lines.Add(new InfoLineViewModel(EncodingRes.ShortFramerateLabel, framerate));
+
+				return lines;
+			}).ToProperty(this, x => x.VideoDetails, out this.videoDetails);
 
 			// HasSourceSubtitles
 			this.SourceSubtitles.CountChanged.Select(count => count > 0)
@@ -1045,6 +1065,9 @@ namespace VidCoder.ViewModel
 				}
 			}
 		}
+
+		private ObservableAsPropertyHelper<List<InfoLineViewModel>> videoDetails;
+		public List<InfoLineViewModel> VideoDetails => this.videoDetails.Value;
 
 		private bool audioExpanded;
 		public bool AudioExpanded

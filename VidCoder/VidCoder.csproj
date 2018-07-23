@@ -570,6 +570,7 @@
     <Compile Include="Services\ProcessingService.cs" />
     <Compile Include="Services\WindowXamlHelper.cs" />
     <Compile Include="Services\Notifications\StableNotificationActivator.cs" />
+    <Compile Include="Utilities\ResolutionUtilities.cs" />
     <Compile Include="Utilities\XamlStatics.cs" />
     <Compile Include="ViewModel\CustomMessageDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\AdvancedChoices.cs" />
@@ -583,7 +584,7 @@
     <Compile Include="ViewModel\DataModels\PickerViewModel.cs" />
     <Compile Include="ViewModel\DataModels\PresetFolderViewModel.cs" />
     <Compile Include="ViewModel\DataModels\RotationViewModel.cs" />
-    <Compile Include="ViewModel\DataModels\SizingPreviewLineViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\InfoLineViewModel.cs" />
     <Compile Include="ViewModel\DataModels\VideoEncoderViewModel.cs" />
     <Compile Include="ViewModel\EncodeDetailsWindowViewModel.cs" />
     <Compile Include="ViewModel\DataModels\InterfaceLanguage.cs" />

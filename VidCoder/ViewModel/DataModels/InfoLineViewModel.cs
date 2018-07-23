@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace VidCoder.ViewModel.DataModels
 {
-	public class SizingPreviewLineViewModel
+	public class InfoLineViewModel
 	{
-		public SizingPreviewLineViewModel(string label, string value)
+		public InfoLineViewModel(string label, string value)
 		{
 			this.Label = label;
 			this.Value = value;
