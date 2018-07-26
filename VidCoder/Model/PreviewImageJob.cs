@@ -10,7 +10,10 @@ namespace VidCoder.Model
 
 		public int UpdateVersion { get; set; }
 
-		public int PreviewNumber { get; set; }
+		/// <summary>
+		/// Gets or sets the 0-based preview index for the job.
+		/// </summary>
+		public int PreviewIndex { get; set; }
 
 		/// <summary>
 		/// Gets or sets the object to lock on before accessing the file cache image.

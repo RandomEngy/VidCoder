@@ -82,6 +82,8 @@ namespace VidCoderCommon.Model
 				   this.Padding == otherOutputSize.Padding;
 		}
 
+		public int DisplayWidth => (int)Math.Round(this.OutputWidth * ((double)this.Par.Num / this.Par.Den));
+
 		public override int GetHashCode()
 		{
 			unchecked

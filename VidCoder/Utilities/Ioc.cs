@@ -47,6 +47,7 @@ namespace VidCoder
 			Container.RegisterType<EncodingWindowViewModel>(Singleton);
 			Container.RegisterType<StatusService>(Singleton);
 			Container.RegisterType<PreviewUpdateService>(Singleton);
+			Container.RegisterType<PreviewImageService>(Singleton);
 
 			ServiceLocator.SetLocatorProvider(() => new UnityServiceLocator(Container));
 		}

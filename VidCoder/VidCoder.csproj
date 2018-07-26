@@ -510,6 +510,9 @@
     <Compile Include="Services\Notifications\ToastNotificationService.cs" />
     <Compile Include="Services\OutputSizeService.cs" />
     <Compile Include="Services\PendingAutoChange.cs" />
+    <Compile Include="Services\PreviewImageLoadInfo.cs" />
+    <Compile Include="Services\PreviewImageService.cs" />
+    <Compile Include="Services\PreviewImageServiceClient.cs" />
     <Compile Include="Services\PreviewUpdateService.cs" />
     <Compile Include="Services\StatusService.cs" />
     <Compile Include="Services\StubLogger.cs" />

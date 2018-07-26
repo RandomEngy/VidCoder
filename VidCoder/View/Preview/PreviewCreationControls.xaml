@@ -22,7 +22,7 @@
 			Height="24"
 			HorizontalAlignment="Stretch"
 			IsEnabled="{Binding SeekBarEnabled}"
-			NumSlots="{Binding PreviewCount,
+			NumSlots="{Binding PreviewImageService.PreviewCount,
 			                   Mode=OneWay}"
 			Slot="{Binding SelectedPreview,
 			               Mode=TwoWay}" />

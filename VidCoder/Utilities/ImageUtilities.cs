@@ -11,51 +11,37 @@ namespace VidCoder
 {
 	public static class ImageUtilities
 	{
-		// DPI factors for the OS. Used to scale back down the images so they display at native resolution.
-		// Normal DPI: 1.0
-		// 120 DPI: 1.25
-		// 144 DPI: 1.5
-		private static double dpiXFactor, dpiYFactor;
-
 		static ImageUtilities()
 		{
 			// Get system DPI
 			Matrix m = PresentationSource.FromVisual(Application.Current.MainWindow).CompositionTarget.TransformToDevice;
 			if (m.M11 > 0 && m.M22 > 0)
 			{
-				dpiXFactor = m.M11;
-				dpiYFactor = m.M22;
+				DpiXFactor = m.M11;
+				DpiYFactor = m.M22;
 			}
 			else
 			{
 				// Sometimes this can return a matrix with 0s. Fall back to assuming normal DPI in this case.
 				Ioc.Get<IAppLogger>().Log("Could not read DPI. Assuming default DPI.");
-				dpiXFactor = 1;
-				dpiYFactor = 1;
+				DpiXFactor = 1;
+				DpiYFactor = 1;
 			}
 		}
 
-		public static double DpiXFactor
-		{
-			get
-			{
-				return dpiXFactor;
-			}
-		}
+		// DPI factors for the OS. Used to scale back down the images so they display at native resolution.
+		// Normal DPI: 1.0
+		// 120 DPI: 1.25
+		// 144 DPI: 1.5
+		public static double DpiXFactor { get; }
 
-		public static double DpiYFactor
-		{
-			get
-			{
-				return dpiYFactor;
-			}
-		}
+		public static double DpiYFactor { get; }
 
 		public static void UpdatePreviewHolderSize(FrameworkElement holder, Grid previewArea, double widthPixels, double heightPixels, bool showOneToOneWhenSmaller)
 		{
 			// Convert pixels to WPF length units: we want to keep native image resolution.
-			double width = widthPixels / dpiXFactor;
-			double height = heightPixels / dpiYFactor;
+			double width = widthPixels / DpiXFactor;
+			double height = heightPixels / DpiYFactor;
 
 			double availableWidth = previewArea.ActualWidth;
 			double availableHeight = previewArea.ActualHeight;
@@ -69,8 +55,8 @@ namespace VidCoder
 				double top = (availableHeight - height) / 2;
 
 				// Round to nearest pixel
-				left = Math.Floor(left * dpiXFactor) / dpiXFactor;
-				top = Math.Floor(top * dpiYFactor) / dpiYFactor;
+				left = Math.Floor(left * DpiXFactor) / DpiXFactor;
+				top = Math.Floor(top * DpiYFactor) / DpiYFactor;
 
 				holder.Margin = new Thickness(left, top, 0, 0);
 				return;
@@ -90,7 +76,7 @@ namespace VidCoder
 				double top = (availableHeight - resizedHeight) / 2;
 
 				// Round to nearest pixel
-				top = Math.Floor(top * dpiYFactor) / dpiYFactor;
+				top = Math.Floor(top * DpiYFactor) / DpiYFactor;
 
 				holder.Margin = new Thickness(0, top, 0, 0);
 			}
@@ -105,7 +91,7 @@ namespace VidCoder
 				double left = (availableWidth - resizedWidth) / 2;
 
 				// Round to nearest pixel
-				left = Math.Floor(left * dpiXFactor) / dpiXFactor;
+				left = Math.Floor(left * DpiXFactor) / DpiXFactor;
 
 				holder.Margin = new Thickness(left, 0, 0, 0);
 			}

@@ -18,6 +18,7 @@ using VidCoder.Services;
 using VidCoder.Services.Windows;
 using VidCoder.View.Preview;
 using VidCoder.ViewModel;
+using VidCoderCommon.Model;
 
 namespace VidCoder.View
 {
@@ -273,28 +274,36 @@ namespace VidCoder.View
 			var previewVM = (PreviewWindowViewModel) this.DataContext;
 			PreviewFit fitControl;
 
-			switch (previewVM.MainDisplay)
+			OutputSizeInfo outputSize = previewVM.PreviewImageService.OutputSizeInfo;
+
+			if (outputSize != null)
 			{
-				case PreviewMainDisplay.Default:
-					fitControl = this.MainContent as PreviewFit;
-					fitControl?.ResizeHolder(this.previewArea, previewVM.PreviewDisplayWidth, previewVM.PreviewDisplayHeight, showOneToOneWhenSmaller: true);
+				int displayHeight = outputSize.OutputHeight;
+				int displayWidth = outputSize.DisplayWidth;
 
-					break;
-				case PreviewMainDisplay.FitToWindow:
-					fitControl = this.MainContent as PreviewFit;
-					fitControl?.ResizeHolder(this.previewArea, previewVM.PreviewDisplayWidth, previewVM.PreviewDisplayHeight, showOneToOneWhenSmaller: false);
+				switch (previewVM.MainDisplay)
+				{
+					case PreviewMainDisplay.Default:
+						fitControl = this.MainContent as PreviewFit;
+						fitControl?.ResizeHolder(this.previewArea, displayWidth, displayHeight, showOneToOneWhenSmaller: true);
 
-					break;
-				case PreviewMainDisplay.OneToOne:
-					var oneToOneControl = this.MainContent as PreviewOneToOne;
-					oneToOneControl?.ResizeHolder(previewVM.PreviewDisplayWidth, previewVM.PreviewDisplayHeight);
+						break;
+					case PreviewMainDisplay.FitToWindow:
+						fitControl = this.MainContent as PreviewFit;
+						fitControl?.ResizeHolder(this.previewArea, displayWidth, displayHeight, showOneToOneWhenSmaller: false);
 
-					break;
-				case PreviewMainDisplay.StillCorners:
-					var cornersControl = this.MainContent as PreviewCorners;
-					cornersControl?.UpdateCornerImages();
+						break;
+					case PreviewMainDisplay.OneToOne:
+						var oneToOneControl = this.MainContent as PreviewOneToOne;
+						oneToOneControl?.ResizeHolder(displayWidth, displayHeight);
 
-					break;
+						break;
+					case PreviewMainDisplay.StillCorners:
+						var cornersControl = this.MainContent as PreviewCorners;
+						cornersControl?.UpdateCornerImages();
+
+						break;
+				}
 			}
 		}
 

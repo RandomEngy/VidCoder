@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -24,14 +25,9 @@ namespace VidCoder.ViewModel
 {
 	public class PreviewWindowViewModel : ReactiveObject, IClosableWindow
 	{
-		private const int PreviewImageCacheDistance = 1;
 		private const double SubtitleScanCost = 1 / EncodeJobViewModel.SubtitleScanCostFactor;
 
-		private static readonly TimeSpan MinPreviewImageRefreshInterval = TimeSpan.FromSeconds(0.5);
-		private static int updateVersion;
-
 		private VCJob job;
-		private HandBrakeInstance originalScanInstance;
 		private IEncodeProxy encodeProxy;
 		private IAppLogger logger = Ioc.Get<IAppLogger>();
 		private int selectedPreview;
@@ -39,35 +35,22 @@ namespace VidCoder.ViewModel
 		private bool cancelPending;
 		private bool encodeCancelled;
 		private int previewSeconds;
-		private int previewCount;
 
-		private IDisposable presetsSubscription;
+		private PreviewImageServiceClient serviceClient = new PreviewImageServiceClient();
 
-		private DateTime lastImageRefreshTime;
-		private System.Timers.Timer previewImageRefreshTimer;
-		private bool waitingOnRefresh;
-		private BitmapSource[] previewImageCache;
-		private Queue<PreviewImageJob> previewImageWorkQueue = new Queue<PreviewImageJob>();
-		private bool previewImageQueueProcessing;
-		private object imageSync = new object();
-		private List<object> imageFileSync;
-		private string imageFileCacheFolder;
+		private HandBrakeInstance originalScanInstance;
+
 		private BitmapSource previewBitmapSource;
 		private DispatcherTimer seekBarUpdateTimer;
 		private bool positionSetByNonUser;
 
+		private readonly OutputSizeService outputSizeService = Ioc.Get<OutputSizeService>();
 		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
-		private OutputSizeService outputSizeService = Ioc.Get<OutputSizeService>();
 		private PreviewUpdateService previewUpdateService = Ioc.Get<PreviewUpdateService>();
 
 		public PreviewWindowViewModel()
 		{
 			this.previewUpdateService.PreviewInputChanged += this.OnPreviewInputChanged;
-
-			this.presetsSubscription = this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile).Skip(1).Subscribe(x =>
-			{
-				this.RequestRefreshPreviews();
-			});
 
 			this.mainViewModel.WhenAnyValue(x => x.SourceData)
 				.Skip(1)
@@ -80,7 +63,7 @@ namespace VidCoder.ViewModel
 				});
 
 			// PlayAvailable
-			this.WhenAnyValue(x => x.MainViewModel.SourcePath, x => x.HasPreview, (sourcePath, hasPreview) =>
+			this.WhenAnyValue(x => x.MainViewModel.SourcePath, x => x.PreviewImageService.HasPreview, (sourcePath, hasPreview) =>
 			{
 				if (!hasPreview || sourcePath == null)
 				{
@@ -111,13 +94,13 @@ namespace VidCoder.ViewModel
 			}).ToProperty(this, x => x.PlayAvailable, out this.playAvailable);
 
 			// SeekBarEnabled
-			this.WhenAnyValue(x => x.HasPreview, x => x.GeneratingPreview, (hasPreview, generatingPreview) =>
+			this.WhenAnyValue(x => x.PreviewImageService.HasPreview, x => x.GeneratingPreview, (hasPreview, generatingPreview) =>
 			{
 				return hasPreview && !generatingPreview;
 			}).ToProperty(this, x => x.SeekBarEnabled, out this.seekBarEnabled);
 
 			// PlaySourceToolTip
-			this.WhenAnyValue(x => x.HasPreview, x => x.MainViewModel.SourcePath, (hasPreview, sourcePath) =>
+			this.WhenAnyValue(x => x.PreviewImageService.HasPreview, x => x.MainViewModel.SourcePath, (hasPreview, sourcePath) =>
 			{
 				if (!hasPreview || sourcePath == null)
 				{
@@ -164,7 +147,7 @@ namespace VidCoder.ViewModel
 				.ToProperty(this, x => x.PreviewAvailable, out this.previewAvailable);
 
 			// MainDisplay
-			this.MainDisplayObservable = this.WhenAnyValue(x => x.HasPreview, x => x.DisplayType, x => x.PlayingPreview, (hasPreview, displayType, playingPreview) =>
+			this.MainDisplayObservable = this.WhenAnyValue(x => x.PreviewImageService.HasPreview, x => x.DisplayType, x => x.PlayingPreview, (hasPreview, displayType, playingPreview) =>
 			{
 				if (!hasPreview)
 				{
@@ -216,13 +199,45 @@ namespace VidCoder.ViewModel
 				.Select(encodeState => encodeState == PreviewEncodeState.EncodeStarting || encodeState == PreviewEncodeState.Encoding)
 				.ToProperty(this, x => x.GeneratingPreview, out this.generatingPreview);
 
+			// Title
+			this.outputSizeService.WhenAnyValue(x => x.Size)
+				.Select(outputSize =>
+				{
+					if (outputSize == null)
+					{
+						return PreviewRes.NoVideoSourceTitle;
+					}
+
+					return this.CreateTitle(outputSize);
+				}).ToProperty(this, x => x.Title, out this.title);
+
+			this.MainViewModel.WhenAnyValue(x => x.HasVideoSource).Subscribe(hasVideoSource =>
+			{
+				if (!hasVideoSource)
+				{
+					this.TryCancelPreviewEncode();
+				}
+			});
+
+			this.outputSizeService.WhenAnyValue(x => x.Size).Subscribe(size =>
+			{
+				if (size == null)
+				{
+					this.TryCancelPreviewEncode();
+				}
+			});
+
+			this.PreviewImageService.RegisterClient(this.serviceClient);
+
+			this.PreviewImageService.ImageLoaded += this.OnImageLoaded;
+
 			this.PlaySource = ReactiveCommand.Create(this.WhenAnyValue(x => x.PlayAvailable));
 			this.PlaySource.Subscribe(_ => this.PlaySourceImpl());
 
 			this.ReopenPreview = ReactiveCommand.Create();
 			this.ReopenPreview.Subscribe(_ => this.ReopenPreviewImpl());
 
-			this.GeneratePreview = ReactiveCommand.Create(this.WhenAnyValue(x => x.HasPreview));
+			this.GeneratePreview = ReactiveCommand.Create(this.PreviewImageService.WhenAnyValue(x => x.HasPreview));
 			this.GeneratePreview.Subscribe(_ => this.GeneratePreviewImpl());
 
 			this.CancelPreview = ReactiveCommand.Create(
@@ -244,14 +259,39 @@ namespace VidCoder.ViewModel
 			this.previewSeconds = Config.PreviewSeconds;
 			this.displayType = CustomConfig.PreviewDisplay;
 			this.selectedPreview = 1;
-			this.Title = PreviewRes.NoVideoSourceTitle;
 
-			this.RequestRefreshPreviews();
+			this.View?.RefreshImageSize();
+		}
+
+		private void OnImageLoaded(object sender, PreviewImageLoadInfo e)
+		{
+			// If the image that loaded happens to be on our slot, show it.
+			if (this.SelectedPreview == e.PreviewIndex)
+			{
+				this.previewBitmapSource = e.PreviewImage;
+				this.RefreshFromBitmapImage();
+			}
 		}
 
 		private void OnPreviewInputChanged(object sender, EventArgs eventArgs)
 		{
-			this.RequestRefreshPreviews();
+			if (!this.mainViewModel.HasVideoSource || this.outputSizeService.Size == null)
+			{
+				this.TryCancelPreviewEncode();
+				return;
+			}
+
+			if (this.originalScanInstance != this.ScanInstance || (this.job != null && this.job.Title != this.mainViewModel.EncodeJob.Title))
+			{
+				this.TryCancelPreviewEncode();
+			}
+
+			this.View?.RefreshImageSize();
+		}
+
+		public HandBrakeInstance ScanInstance
+		{
+			get { return this.mainViewModel.ScanInstance; }
 		}
 
 		public IPreviewView View { get; set; }
@@ -259,7 +299,7 @@ namespace VidCoder.ViewModel
 		public bool OnClosing()
 		{
 			this.previewUpdateService.PreviewInputChanged -= this.OnPreviewInputChanged;
-			this.presetsSubscription.Dispose();
+			this.PreviewImageService.RemoveClient(this.serviceClient);
 
 			if (this.GeneratingPreview)
 			{
@@ -274,24 +314,15 @@ namespace VidCoder.ViewModel
 			get { return this.mainViewModel; }
 		}
 
+		public PreviewImageService PreviewImageService { get; } = Ioc.Get<PreviewImageService>();
+
 		public ProcessingService ProcessingService { get; } = Ioc.Get<ProcessingService>();
 
-		public PresetsService PresetsService { get; } = Ioc.Get<PresetsService>();
 
 		public OutputPathService OutputPathService { get; } = Ioc.Get<OutputPathService>();
 
-		private OutputSizeService OutputSizeService
-		{
-			get { return this.outputSizeService; }
-		}
-
-		private string title;
-
-		public string Title
-		{
-			get { return this.title; }
-			set { this.RaiseAndSetIfChanged(ref this.title, value); }
-		}
+		private ObservableAsPropertyHelper<string> title;
+		public string Title => this.title.Value;
 
 		private BitmapSource previewImage;
 
@@ -299,28 +330,9 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				lock (this.imageSync)
-				{
-					return this.previewImage;
-				}
+				return this.previewImage;
 			}
 			set { this.RaiseAndSetIfChanged(ref this.previewImage, value); }
-		}
-
-		private OutputSizeInfo outputSizeInfo;
-
-		public OutputSizeInfo OutputSizeInfo
-		{
-			get { return this.outputSizeInfo; }
-			set { this.RaiseAndSetIfChanged(ref this.outputSizeInfo, value); }
-		}
-
-		private Color padColor;
-
-		public Color PadColor
-		{
-			get { return this.padColor; }
-			set { this.RaiseAndSetIfChanged(ref this.padColor, value); }
 		}
 
 		public string PreviewFilePath => this.previewFilePath;
@@ -435,14 +447,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private bool hasPreview;
-
-		public bool HasPreview
-		{
-			get { return this.hasPreview; }
-			set { this.RaiseAndSetIfChanged(ref this.hasPreview, value); }
-		}
-
 		public int SelectedPreview
 		{
 			get { return this.selectedPreview; }
@@ -450,58 +454,24 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.selectedPreview = value;
+				this.serviceClient.PreviewIndex = value;
 				this.RaisePropertyChanged();
 
-				if (this.DisplayType == PreviewDisplay.Corners)
-				{
-					this.RequestRefreshPreviews();
-				}
-				else
-				{
-					lock (this.imageSync)
-					{
-						this.previewBitmapSource = this.previewImageCache[value];
-						this.RefreshFromBitmapImage();
-						this.ClearOutOfRangeItems();
-						this.BeginBackgroundImageLoad();
-					}
-				}
+				this.previewBitmapSource = this.PreviewImageService.TryGetPreviewImage(value);
+				this.RefreshFromBitmapImage();
 			}
 		}
-
-		/// <summary>
-		/// Gets or sets the display width of the preview image in pixels.
-		/// </summary>
-		public double PreviewDisplayWidth { get; set; }
-
-		/// <summary>
-		/// Gets or sets the display height of the preview image in pixels.
-		/// </summary>
-		public double PreviewDisplayHeight { get; set; }
 
 		public int SliderMax
 		{
 			get
 			{
-				if (this.previewCount > 0)
+				if (this.PreviewImageService.PreviewCount > 0)
 				{
-					return this.previewCount - 1;
+					return this.PreviewImageService.PreviewCount - 1;
 				}
 
 				return Config.PreviewCount - 1;
-			}
-		}
-
-		public int PreviewCount
-		{
-			get
-			{
-				if (this.previewCount > 0)
-				{
-					return this.previewCount;
-				}
-
-				return Config.PreviewCount;
 			}
 		}
 
@@ -526,20 +496,22 @@ namespace VidCoder.ViewModel
 
 					CustomConfig.PreviewDisplay = value;
 
-					this.RequestRefreshPreviews();
+					DispatchUtilities.BeginInvoke(
+						() =>
+						{
+							this.View?.RefreshImageSize();
+						},
+						DispatcherPriority.Background);
 				}
 			}
 		}
 
-		public HandBrakeInstance ScanInstance
-		{
-			get { return this.mainViewModel.ScanInstance; }
-		}
 
 		public ReactiveCommand<object> GeneratePreview { get; }
 		private void GeneratePreviewImpl()
 		{
 			this.job = this.mainViewModel.EncodeJob;
+			this.originalScanInstance = this.ScanInstance;
 
 			this.PreviewPercentComplete = 0;
 			this.EncodeState = PreviewEncodeState.EncodeStarting;
@@ -819,49 +791,10 @@ namespace VidCoder.ViewModel
 
 		public void ShowNextPreview()
 		{
-			if (this.SelectedPreview < this.previewCount - 1)
+			if (this.SelectedPreview < this.PreviewImageService.PreviewCount - 1)
 			{
 				this.SelectedPreview++;
 			}
-		}
-
-		private void RequestRefreshPreviews()
-		{
-			if (!this.mainViewModel.HasVideoSource || this.outputSizeService.Size == null)
-			{
-				this.HasPreview = false;
-				this.Title = PreviewRes.NoVideoSourceTitle;
-				this.TryCancelPreviewEncode();
-				return;
-			}
-
-			if (this.originalScanInstance != this.ScanInstance || (this.job != null && this.job.Title != this.mainViewModel.EncodeJob.Title))
-			{
-				this.TryCancelPreviewEncode();
-			}
-
-			if (this.waitingOnRefresh)
-			{
-				return;
-			}
-
-			DateTime now = DateTime.Now;
-			TimeSpan timeSinceLastRefresh = now - this.lastImageRefreshTime;
-			if (timeSinceLastRefresh < MinPreviewImageRefreshInterval)
-			{
-				this.waitingOnRefresh = true;
-				TimeSpan timeUntilNextRefresh = MinPreviewImageRefreshInterval - timeSinceLastRefresh;
-				this.previewImageRefreshTimer = new System.Timers.Timer(timeUntilNextRefresh.TotalMilliseconds);
-				this.previewImageRefreshTimer.Elapsed += this.previewImageRefreshTimer_Elapsed;
-				this.previewImageRefreshTimer.AutoReset = false;
-				this.previewImageRefreshTimer.Start();
-
-				return;
-			}
-
-			this.lastImageRefreshTime = now;
-
-			this.RefreshPreviews();
 		}
 
 		private void StopAndWait()
@@ -870,149 +803,31 @@ namespace VidCoder.ViewModel
 			this.encodeProxy.StopAndWait();
 		}
 
-		private void previewImageRefreshTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-		{
-			this.waitingOnRefresh = false;
-			this.lastImageRefreshTime = DateTime.MinValue;
-			DispatchUtilities.BeginInvoke(this.RefreshPreviews);
-		}
-
-		private void RefreshPreviews()
-		{
-			this.originalScanInstance = this.ScanInstance;
-			this.job = this.mainViewModel.EncodeJob;
-
-			OutputSizeInfo newOutputSizeInfo = this.outputSizeService.Size;
-
-			int width = newOutputSizeInfo.OutputWidth;
-			int height = newOutputSizeInfo.OutputHeight;
-			int parWidth = newOutputSizeInfo.Par.Num;
-			int parHeight = newOutputSizeInfo.Par.Den;
-
-			if (parWidth <= 0 || parHeight <= 0)
-			{
-				this.HasPreview = false;
-				this.Title = PreviewRes.NoVideoSourceTitle;
-
-				Ioc.Get<IAppLogger>().LogError("HandBrake returned a negative pixel aspect ratio. Cannot show preview.");
-				return;
-			}
-
-			if (width < 100 || height < 100)
-			{
-				this.HasPreview = false;
-				this.UpdateTitle(newOutputSizeInfo);
-
-				return;
-			}
-
-			this.PreviewDisplayHeight = height;
-			this.PreviewDisplayWidth = width * ((double)parWidth / parHeight);
-
-			this.OutputSizeInfo = newOutputSizeInfo;
-
-			var profile = this.PresetsService.SelectedPreset.Preset.EncodingProfile;
-			this.PadColor = ColorUtilities.ToWindowsColor(profile.PadColor);
-
-			// Update the number of previews.
-			this.previewCount = this.ScanInstance.PreviewCount;
-			if (this.selectedPreview >= this.previewCount)
-			{
-				this.selectedPreview = this.previewCount - 1;
-				this.RaisePropertyChanged(nameof(this.SelectedPreview));
-			}
-
-			this.RaisePropertyChanged(nameof(this.PreviewCount));
-
-			this.HasPreview = true;
-
-			lock (this.imageSync)
-			{
-				this.previewImageCache = new BitmapSource[this.previewCount];
-				updateVersion++;
-
-				// Clear main work queue.
-				this.previewImageWorkQueue.Clear();
-
-				this.imageFileCacheFolder = Path.Combine(
-					Utilities.ImageCacheFolder, 
-					Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture), 
-					updateVersion.ToString(CultureInfo.InvariantCulture));
-				if (!Directory.Exists(this.imageFileCacheFolder))
-				{
-					Directory.CreateDirectory(this.imageFileCacheFolder);
-				}
-
-				// Clear old images out of the file cache.
-				this.ClearImageFileCache();
-
-				this.imageFileSync = new List<object>(this.previewCount);
-				for (int i = 0; i < this.previewCount; i++)
-				{
-					this.imageFileSync.Add(new object());
-				}
-
-				this.BeginBackgroundImageLoad();
-
-				this.View?.RefreshImageSize();
-			}
-
-			this.UpdateTitle(newOutputSizeInfo);
-		}
-
-		private void UpdateTitle(OutputSizeInfo size)
+		private string CreateTitle(OutputSizeInfo size)
 		{
 			if (size.Par.Num == size.Par.Den)
 			{
-				this.Title = string.Format(PreviewRes.PreviewWindowTitleSimple, size.OutputWidth, size.OutputHeight);
+				return string.Format(PreviewRes.PreviewWindowTitleSimple, size.OutputWidth, size.OutputHeight);
 			}
 			else
 			{
-				this.Title = string.Format(
+				int width = size.OutputWidth;
+				int height = size.OutputHeight;
+				int parWidth = size.Par.Num;
+				int parHeight = size.Par.Den;
+
+				if (parWidth <= 0 || parHeight <= 0)
+				{
+					Ioc.Get<IAppLogger>().LogError("HandBrake returned a negative pixel aspect ratio. Cannot show preview.");
+					return PreviewRes.NoVideoSourceTitle;
+				}
+
+				return string.Format(
 					PreviewRes.PreviewWindowTitleComplex,
-					Math.Round(this.PreviewDisplayWidth), 
-					Math.Round(this.PreviewDisplayHeight),
-					size.OutputWidth, 
-					size.OutputHeight);
-			}
-		}
-
-		private void ClearImageFileCache()
-		{
-			try
-			{
-				string processCacheFolder = Path.Combine(Utilities.ImageCacheFolder, Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture));
-				if (!Directory.Exists(processCacheFolder))
-				{
-					return;
-				}
-
-				int lowestUpdate = -1;
-				for (int i = updateVersion - 1; i >= 1; i--)
-				{
-					if (Directory.Exists(Path.Combine(processCacheFolder, i.ToString(CultureInfo.InvariantCulture))))
-					{
-						lowestUpdate = i;
-					}
-					else
-					{
-						break;
-					}
-				}
-
-				if (lowestUpdate == -1)
-				{
-					return;
-				}
-
-				for (int i = lowestUpdate; i <= updateVersion - 1; i++)
-				{
-					FileUtilities.DeleteDirectory(Path.Combine(processCacheFolder, i.ToString(CultureInfo.InvariantCulture)));
-				}
-			}
-			catch (Exception)
-			{
-				// Ignore. Later checks will clear the cache.
+					Math.Round(width * ((double)parWidth / parHeight)),
+					height,
+					width,
+					height);
 			}
 		}
 
@@ -1033,226 +848,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private void ClearOutOfRangeItems()
-		{
-			// Remove out of range items from work queue
-			var newWorkQueue = new Queue<PreviewImageJob>();
-			while (this.previewImageWorkQueue.Count > 0)
-			{
-				PreviewImageJob job = this.previewImageWorkQueue.Dequeue();
-				if (Math.Abs(job.PreviewNumber - this.SelectedPreview) <= PreviewImageCacheDistance)
-				{
-					newWorkQueue.Enqueue(job);
-				}
-			}
-
-			// Remove out of range cache entries
-			for (int i = 0; i < this.previewCount; i++)
-			{
-				if (Math.Abs(i - this.SelectedPreview) > PreviewImageCacheDistance)
-				{
-					this.previewImageCache[i] = null;
-				}
-			}
-		}
-
-		private void BeginBackgroundImageLoad()
-		{
-			int currentPreview = this.SelectedPreview;
-
-			if (!ImageLoadedOrLoading(currentPreview))
-			{
-				this.EnqueueWork(currentPreview);
-			}
-
-			for (int i = 1; i <= PreviewImageCacheDistance; i++)
-			{
-				if (currentPreview - i >= 0 && !ImageLoadedOrLoading(currentPreview - i))
-				{
-					EnqueueWork(currentPreview - i);
-				}
-
-				if (currentPreview + i < this.previewCount && !ImageLoadedOrLoading(currentPreview + i))
-				{
-					EnqueueWork(currentPreview + i);
-				}
-			}
-
-			// Start a queue processing thread if one is not going already.
-			if (!this.previewImageQueueProcessing && this.previewImageWorkQueue.Count > 0)
-			{
-				ThreadPool.QueueUserWorkItem(this.ProcessPreviewImageWork);
-				this.previewImageQueueProcessing = true;
-			}
-		}
-
-		private bool ImageLoadedOrLoading(int previewNumber)
-		{
-			if (this.previewImageCache[previewNumber] != null)
-			{
-				return true;
-			}
-
-			if (this.previewImageWorkQueue.Count(j => j.PreviewNumber == previewNumber) > 0)
-			{
-				return true;
-			}
-
-			return false;
-		}
-
-		private void EnqueueWork(int previewNumber)
-		{
-			this.previewImageWorkQueue.Enqueue(new PreviewImageJob
-			{
-				UpdateVersion = updateVersion,
-				ScanInstance = this.ScanInstance,
-				PreviewNumber = previewNumber,
-				Profile = this.job.EncodingProfile,
-				Title = this.MainViewModel.SelectedTitle,
-				ImageFileSync = this.imageFileSync[previewNumber]
-			});
-		}
-
-		private void ProcessPreviewImageWork(object state)
-		{
-			PreviewImageJob imageJob;
-			bool workLeft = true;
-
-			while (workLeft)
-			{
-				lock (this.imageSync)
-				{
-					if (this.previewImageWorkQueue.Count == 0)
-					{
-						this.previewImageQueueProcessing = false;
-						return;
-					}
-
-					imageJob = this.previewImageWorkQueue.Dequeue();
-					while (imageJob.UpdateVersion < updateVersion)
-					{
-						if (this.previewImageWorkQueue.Count == 0)
-						{
-							this.previewImageQueueProcessing = false;
-							return;
-						}
-
-						imageJob = this.previewImageWorkQueue.Dequeue();
-					}
-				}
-
-				string imagePath = Path.Combine(
-                    Utilities.ImageCacheFolder,
-                    Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture), 
-                    imageJob.UpdateVersion.ToString(CultureInfo.InvariantCulture), 
-                    imageJob.PreviewNumber.ToString(CultureInfo.InvariantCulture) + ".bmp");
-				BitmapSource imageSource = null;
-
-				// Check the disc cache for the image
-				lock (imageJob.ImageFileSync)
-				{
-					if (File.Exists(imagePath))
-					{
-					    Uri imageUri;
-					    if (Uri.TryCreate(imagePath, UriKind.Absolute, out imageUri))
-					    {
-					        // When we read from disc cache the image is already transformed.
-					        var bitmapImage = new BitmapImage();
-					        bitmapImage.BeginInit();
-					        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-					        bitmapImage.UriSource = imageUri;
-					        bitmapImage.EndInit();
-					        bitmapImage.Freeze();
-
-					        imageSource = bitmapImage;
-					    }
-					    else
-					    {
-					        Ioc.Get<IAppLogger>().LogError($"Could not load cached preview image from {imagePath} . Did not parse as a URI.");
-					    }
-					}
-				}
-
-				if (imageSource == null && !imageJob.ScanInstance.IsDisposed)
-				{
-					// Make a HandBrake call to get the image
-					imageSource = BitmapUtilities.ConvertToBitmapImage(imageJob.ScanInstance.GetPreview(imageJob.Profile.CreatePreviewSettings(imageJob.Title), imageJob.PreviewNumber, imageJob.Profile.DeinterlaceType != VCDeinterlace.Off));
-
-					// Transform the image as per rotation and reflection settings
-					VCProfile profile = imageJob.Profile;
-					if (profile.FlipHorizontal || profile.FlipVertical || profile.Rotation != VCPictureRotation.None)
-					{
-						imageSource = CreateTransformedBitmap(imageSource, profile);
-					}
-
-					// Start saving the image file in the background and continue to process the queue.
-					ThreadPool.QueueUserWorkItem(this.BackgroundFileSave, new SaveImageJob
-					{
-						PreviewNumber = imageJob.PreviewNumber,
-						UpdateVersion = imageJob.UpdateVersion,
-						FilePath = imagePath,
-						Image = imageSource,
-						ImageFileSync = imageJob.ImageFileSync
-					});
-				}
-
-				lock (this.imageSync)
-				{
-					if (imageJob.UpdateVersion == updateVersion)
-					{
-						this.previewImageCache[imageJob.PreviewNumber] = imageSource;
-						if (this.SelectedPreview == imageJob.PreviewNumber)
-						{
-							DispatchUtilities.BeginInvoke(() =>
-							{
-								this.previewBitmapSource = imageSource;
-								this.RefreshFromBitmapImage();
-							});
-						}
-					}
-
-					if (this.previewImageWorkQueue.Count == 0)
-					{
-						workLeft = false;
-						this.previewImageQueueProcessing = false;
-					}
-				}
-			}
-		}
-
-		private static TransformedBitmap CreateTransformedBitmap(BitmapSource source, VCProfile profile)
-		{
-			var transformedBitmap = new TransformedBitmap();
-			transformedBitmap.BeginInit();
-			transformedBitmap.Source = source;
-			var transformGroup = new TransformGroup();
-			transformGroup.Children.Add(new ScaleTransform(profile.FlipHorizontal ? -1 : 1, profile.FlipVertical ? -1 : 1));
-			transformGroup.Children.Add(new RotateTransform(ConvertRotationToDegrees(profile.Rotation)));
-			transformedBitmap.Transform = transformGroup;
-			transformedBitmap.EndInit();
-			transformedBitmap.Freeze();
-
-			return transformedBitmap;
-		}
-
-		private static double ConvertRotationToDegrees(VCPictureRotation rotation)
-		{
-			switch (rotation)
-			{
-				case VCPictureRotation.None:
-					return 0;
-				case VCPictureRotation.Clockwise90:
-					return 90;
-				case VCPictureRotation.Clockwise180:
-					return 180;
-				case VCPictureRotation.Clockwise270:
-					return 270;
-			}
-
-			return 0;
-		}
-
 		/// <summary>
 		/// Refreshes the view using this.previewBitmapSource.
 		/// </summary>
@@ -1264,43 +859,6 @@ namespace VidCoder.ViewModel
 			}
 
 			this.PreviewImage = this.previewBitmapSource;
-		}
-
-		private void BackgroundFileSave(object state)
-		{
-			var job = state as SaveImageJob;
-
-			lock (this.imageSync)
-			{
-				if (job.UpdateVersion < updateVersion)
-				{
-					return;
-				}
-			}
-
-			lock (job.ImageFileSync)
-			{
-				try
-				{
-					using (var memoryStream = new MemoryStream())
-					{
-						// Write the bitmap out to a memory stream before saving so that we won't be holding
-						// a write lock on the BitmapImage for very long; it's used in the UI.
-						var encoder = new BmpBitmapEncoder();
-						encoder.Frames.Add(BitmapFrame.Create(job.Image));
-						encoder.Save(memoryStream);
-
-						using (var fileStream = new FileStream(job.FilePath, FileMode.Create))
-						{
-							fileStream.Write(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
-						}
-					}
-				}
-				catch (IOException)
-				{
-					// Directory may have been deleted. Ignore.
-				}
-			}
 		}
 
 		public void OnVideoCompleted()
