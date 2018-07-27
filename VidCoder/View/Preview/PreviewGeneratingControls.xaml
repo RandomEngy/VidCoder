@@ -15,9 +15,9 @@
 			Height="24"
 			HorizontalAlignment="Stretch"
 			IsEnabled="{Binding SeekBarEnabled}"
-			NumSlots="{Binding PreviewCount,
+			NumSlots="{Binding PreviewImageService.PreviewCount,
 			                   Mode=OneWay}"
-			Slot="{Binding SelectedPreview,
+			Slot="{Binding PreviewImageServiceClient.PreviewIndex,
 			               Mode=TwoWay}" />
 		<Grid Margin="12 8" VerticalAlignment="Center">
 			<Grid.ColumnDefinitions>

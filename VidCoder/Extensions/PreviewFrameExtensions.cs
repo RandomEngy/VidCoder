@@ -31,7 +31,7 @@ namespace VidCoder.Extensions
 			PreviewWindowViewModel viewModel;
 
 			var paddingFrame = new PaddingFrame();
-			paddingFrame.SetBinding(PaddingFrame.SourceProperty, nameof(viewModel.PreviewImage));
+			paddingFrame.SetBinding(PaddingFrame.SourceProperty, nameof(viewModel.PreviewImageServiceClient) + "." + nameof(viewModel.PreviewImageServiceClient.PreviewImage));
 			paddingFrame.SetBinding(PaddingFrame.OutputSizeProperty, nameof(viewModel.PreviewImageService) + "." + nameof(viewModel.PreviewImageService.OutputSizeInfo));
 			paddingFrame.SetBinding(PaddingFrame.PadColorProperty, nameof(viewModel.PreviewImageService) + "." + nameof(viewModel.PreviewImageService.PadColor));
 

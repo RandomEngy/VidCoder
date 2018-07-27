@@ -323,11 +323,11 @@ namespace VidCoder.View
 		{
 			if (e.Delta > 0)
 			{
-				this.viewModel.ShowPreviousPreview();
+				this.viewModel.PreviewImageServiceClient.ShowPreviousPreview();
 			}
 			else
 			{
-				this.viewModel.ShowNextPreview();
+				this.viewModel.PreviewImageServiceClient.ShowNextPreview();
 			}
 		}
 
@@ -335,12 +335,12 @@ namespace VidCoder.View
 		{
 			if (e.Key == Key.Left)
 			{
-				this.viewModel.ShowPreviousPreview();
+				this.viewModel.PreviewImageServiceClient.ShowPreviousPreview();
 				e.Handled = true;
 			}
 			else if (e.Key == Key.Right)
 			{
-				this.viewModel.ShowNextPreview();
+				this.viewModel.PreviewImageServiceClient.ShowNextPreview();
 				e.Handled = true;
 			}
 		}

@@ -30,17 +30,14 @@ namespace VidCoder.ViewModel
 		private VCJob job;
 		private IEncodeProxy encodeProxy;
 		private IAppLogger logger = Ioc.Get<IAppLogger>();
-		private int selectedPreview;
 		private string previewFilePath;
 		private bool cancelPending;
 		private bool encodeCancelled;
 		private int previewSeconds;
 
-		private PreviewImageServiceClient serviceClient = new PreviewImageServiceClient();
 
 		private HandBrakeInstance originalScanInstance;
 
-		private BitmapSource previewBitmapSource;
 		private DispatcherTimer seekBarUpdateTimer;
 		private bool positionSetByNonUser;
 
@@ -227,9 +224,8 @@ namespace VidCoder.ViewModel
 				}
 			});
 
-			this.PreviewImageService.RegisterClient(this.serviceClient);
+			this.PreviewImageService.RegisterClient(this.PreviewImageServiceClient);
 
-			this.PreviewImageService.ImageLoaded += this.OnImageLoaded;
 
 			this.PlaySource = ReactiveCommand.Create(this.WhenAnyValue(x => x.PlayAvailable));
 			this.PlaySource.Subscribe(_ => this.PlaySourceImpl());
@@ -258,19 +254,8 @@ namespace VidCoder.ViewModel
 
 			this.previewSeconds = Config.PreviewSeconds;
 			this.displayType = CustomConfig.PreviewDisplay;
-			this.selectedPreview = 1;
 
 			this.View?.RefreshImageSize();
-		}
-
-		private void OnImageLoaded(object sender, PreviewImageLoadInfo e)
-		{
-			// If the image that loaded happens to be on our slot, show it.
-			if (this.SelectedPreview == e.PreviewIndex)
-			{
-				this.previewBitmapSource = e.PreviewImage;
-				this.RefreshFromBitmapImage();
-			}
 		}
 
 		private void OnPreviewInputChanged(object sender, EventArgs eventArgs)
@@ -299,7 +284,7 @@ namespace VidCoder.ViewModel
 		public bool OnClosing()
 		{
 			this.previewUpdateService.PreviewInputChanged -= this.OnPreviewInputChanged;
-			this.PreviewImageService.RemoveClient(this.serviceClient);
+			this.PreviewImageService.RemoveClient(this.PreviewImageServiceClient);
 
 			if (this.GeneratingPreview)
 			{
@@ -316,6 +301,8 @@ namespace VidCoder.ViewModel
 
 		public PreviewImageService PreviewImageService { get; } = Ioc.Get<PreviewImageService>();
 
+		public PreviewImageServiceClient PreviewImageServiceClient { get; } = new PreviewImageServiceClient();
+
 		public ProcessingService ProcessingService { get; } = Ioc.Get<ProcessingService>();
 
 
@@ -323,17 +310,6 @@ namespace VidCoder.ViewModel
 
 		private ObservableAsPropertyHelper<string> title;
 		public string Title => this.title.Value;
-
-		private BitmapSource previewImage;
-
-		public BitmapSource PreviewImage
-		{
-			get
-			{
-				return this.previewImage;
-			}
-			set { this.RaiseAndSetIfChanged(ref this.previewImage, value); }
-		}
 
 		public string PreviewFilePath => this.previewFilePath;
 
@@ -444,21 +420,6 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged();
 
 				Config.PreviewSeconds = value;
-			}
-		}
-
-		public int SelectedPreview
-		{
-			get { return this.selectedPreview; }
-
-			set
-			{
-				this.selectedPreview = value;
-				this.serviceClient.PreviewIndex = value;
-				this.RaisePropertyChanged();
-
-				this.previewBitmapSource = this.PreviewImageService.TryGetPreviewImage(value);
-				this.RefreshFromBitmapImage();
 			}
 		}
 
@@ -641,9 +602,9 @@ namespace VidCoder.ViewModel
 			this.logger.Log("Generating preview clip");
 			this.logger.Log("  Path: " + this.job.OutputPath);
 			this.logger.Log("  Title: " + this.job.Title);
-			this.logger.Log("  Preview #: " + this.SelectedPreview);
+			this.logger.Log("  Preview #: " + this.PreviewImageServiceClient.PreviewIndex);
 
-			this.encodeProxy.StartEncode(this.job, this.logger, true, this.SelectedPreview, this.PreviewSeconds, this.job.Length.TotalSeconds);
+			this.encodeProxy.StartEncode(this.job, this.logger, true, this.PreviewImageServiceClient.PreviewIndex, this.PreviewSeconds, this.job.Length.TotalSeconds);
 		}
 
 		private void PlayPreview()
@@ -781,22 +742,6 @@ namespace VidCoder.ViewModel
 			this.PlayingPreview = false;
 		}
 
-		public void ShowPreviousPreview()
-		{
-			if (this.SelectedPreview > 0)
-			{
-				this.SelectedPreview--;
-			}
-		}
-
-		public void ShowNextPreview()
-		{
-			if (this.SelectedPreview < this.PreviewImageService.PreviewCount - 1)
-			{
-				this.SelectedPreview++;
-			}
-		}
-
 		private void StopAndWait()
 		{
 			this.encodeCancelled = true;
@@ -846,19 +791,6 @@ namespace VidCoder.ViewModel
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
-		}
-
-		/// <summary>
-		/// Refreshes the view using this.previewBitmapSource.
-		/// </summary>
-		private void RefreshFromBitmapImage()
-		{
-			if (this.previewBitmapSource == null)
-			{
-				return;
-			}
-
-			this.PreviewImage = this.previewBitmapSource;
 		}
 
 		public void OnVideoCompleted()

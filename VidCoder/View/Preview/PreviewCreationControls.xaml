@@ -24,7 +24,7 @@
 			IsEnabled="{Binding SeekBarEnabled}"
 			NumSlots="{Binding PreviewImageService.PreviewCount,
 			                   Mode=OneWay}"
-			Slot="{Binding SelectedPreview,
+			Slot="{Binding PreviewImageServiceClient.PreviewIndex,
 			               Mode=TwoWay}" />
 		<WrapPanel
 			Margin="4"
