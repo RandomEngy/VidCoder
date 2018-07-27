@@ -25,8 +25,8 @@
 	Closing="Main_OnClosing"
 	Deactivated="OnWindowDeactivated"
 	MouseDown="Window_MouseDown"
-	StateChanged="Window_StateChanged"
 	SizeChanged="Main_OnSizeChanged"
+	StateChanged="Window_StateChanged"
 	Style="{StaticResource NormalWindow}"
 	TextOptions.TextFormattingMode="Display"
 	mc:Ignorable="d">
@@ -801,15 +801,20 @@
 									Visibility="{Binding SourceIconVisible,
 									                     Converter={StaticResource VisibilityConverter}}" />
 								<controls:PathTextBlock
+									x:Name="sourceText"
 									Grid.Column="1"
 									Margin="4 0 4 0"
-									x:Name="sourceText"
 									VerticalAlignment="Center"
 									Style="{StaticResource SourceDescription}"
 									Text="{Binding SourceText,
 									               Mode=OneWay}" />
 
-								<StackPanel Grid.Column="2" Orientation="Horizontal" SizeChanged="VideoTitleAngle_OnSizeChanged" Name="videoTitleAngle" HorizontalAlignment="Left">
+								<StackPanel
+									Name="videoTitleAngle"
+									Grid.Column="2"
+									HorizontalAlignment="Left"
+									Orientation="Horizontal"
+									SizeChanged="VideoTitleAngle_OnSizeChanged">
 									<!--  Title  -->
 									<StackPanel Orientation="Horizontal" Visibility="{Binding TitleVisible, Converter={StaticResource VisibilityConverter}}">
 										<Polygon Style="{StaticResource ArrowSeparator}" />
@@ -838,7 +843,7 @@
 											ToolTip="{Binding TitleWarning}"
 											ToolTipService.InitialShowDelay="0"
 											Visibility="{Binding TitleWarningVisible,
-										                     Converter={StaticResource VisibilityConverter}}" />
+											                     Converter={StaticResource VisibilityConverter}}" />
 
 									</StackPanel>
 
@@ -871,19 +876,37 @@
 								                     Converter={StaticResource VisibilityConverter}}" />
 						</Grid>
 
-						<!--  Video Detail -->
-						<StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-							<Grid
-								Visibility="{Binding VideoExpanded, Converter={StaticResource VisibilityConverter}}"
-								Margin="26 4 16 8">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto" />
-									<ColumnDefinition />
-									<ColumnDefinition Width="Auto" />
-								</Grid.ColumnDefinitions>
+						<!--  Video Detail  -->
+						<Grid
+							Grid.Row="1"
+							Grid.Column="0"
+							Grid.ColumnSpan="2"
+							Height="110"
+							Margin="0 0 10 0"
+							Visibility="{Binding VideoExpanded,
+							                     Converter={StaticResource VisibilityConverter}}">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+
+							<controls:PaddingFrame
+								Grid.Column="0"
+								Width="200"
+								OutputSize="{Binding OutputSizeService.Size}"
+								PadColor="{Binding PreviewImageService.PadColor}"
+								Source="{Binding PreviewImageServiceClient.PreviewImage}" />
+
+							<Grid Grid.Column="1" Margin="8 3 0 0">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition />
+								</Grid.RowDefinitions>
+
 								<StackPanel
+									Grid.Row="0"
 									Name="rangeUI"
-									Grid.Column="0"
 									Background="Transparent"
 									Orientation="Horizontal">
 									<!--  Range type  -->
@@ -919,8 +942,8 @@
 										VerticalAlignment="Center"
 										Orientation="Horizontal"
 										Visibility="{Binding RangeType,
-									                     Converter={StaticResource EnumVisibilityConverter},
-									                     ConverterParameter={x:Static common:VideoRangeType.Seconds}}">
+										                     Converter={StaticResource EnumVisibilityConverter},
+										                     ConverterParameter={x:Static common:VideoRangeType.Seconds}}">
 										<controls:TimeBox
 											Width="46"
 											Height="22"
@@ -928,7 +951,7 @@
 											Maximum="{Binding SelectedTitle.Duration}"
 											Style="{StaticResource RangeNumberBox}"
 											Time="{Binding TimeRangeStart,
-										               Mode=TwoWay}" />
+											               Mode=TwoWay}" />
 										<TextBlock Style="{StaticResource PlainTitle}" Text="-" />
 										<controls:TimeBox
 											Width="46"
@@ -937,7 +960,7 @@
 											Maximum="{Binding SelectedTitle.Duration}"
 											Style="{StaticResource RangeNumberBox}"
 											Time="{Binding TimeRangeEnd,
-										               Mode=TwoWay}" />
+											               Mode=TwoWay}" />
 									</StackPanel>
 
 									<!--  Frames range  -->
@@ -948,7 +971,7 @@
 											GotFocus="FramesStartGotFocus"
 											Minimum="0"
 											Number="{Binding FramesRangeStart,
-										                 Mode=TwoWay}"
+											                 Mode=TwoWay}"
 											Style="{StaticResource RangeNumberBox}" />
 										<TextBlock Style="{StaticResource PlainTitle}" Text="-" />
 										<controls:NumberBox
@@ -957,71 +980,76 @@
 											GotFocus="FramesEndGotFocus"
 											Minimum="1"
 											Number="{Binding FramesRangeEnd,
-										                 Mode=TwoWay}"
+											                 Mode=TwoWay}"
 											Style="{StaticResource RangeNumberBox}" />
 									</StackPanel>
 									<TextBlock Style="{StaticResource PlainTitle}" Text="{Binding TotalChaptersText}" />
 								</StackPanel>
-								<controls:RangeBar
-									Title="{Binding SelectedTitle}"
-									Grid.Column="1"
-									Margin="6 0 0 0"
-									Height="20"
-									HorizontalAlignment="Stretch"
-									VerticalAlignment="Center"
-									ChaptersEnabled="{Binding UsingChaptersRange}"
-									EndChapter="{Binding ChapterPreviewEnd,
-								                     Mode=TwoWay}"
-									EndTime="{Binding TimeRangeEndBar,
-								                  Mode=TwoWay}"
-									StartChapter="{Binding ChapterPreviewStart,
-								                       Mode=TwoWay}"
-									StartTime="{Binding TimeRangeStartBar,
-								                    Mode=TwoWay}"
-									ToolTip="{x:Static res:MainRes.RangeBarToolTip}"
-									Visibility="{Binding RangeBarVisible,
-								                     Converter={StaticResource VisibilityConverter}}" />
+								<Grid Grid.Row="1">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition />
+										<ColumnDefinition Width="Auto" />
+									</Grid.ColumnDefinitions>
 
-								<!--  Range preview text  -->
-								<StackPanel
-									Grid.Column="2"
-									Margin="6 0 0 0"
-									HorizontalAlignment="Right"
-									VerticalAlignment="Center"
-									Orientation="Horizontal"
-									Visibility="{Binding RangeBarVisible,
-								                     Converter={StaticResource VisibilityConverter}}">
-									<TextBlock VerticalAlignment="Bottom" Text="{Binding RangePreviewText}" />
-									<TextBlock
-										Margin="10 0 0 0"
-										VerticalAlignment="Bottom"
-										Text="{Binding RangePreviewLengthText}" />
-								</StackPanel>
+									<controls:RangeBar
+										Title="{Binding SelectedTitle}"
+										Grid.Column="0"
+										Height="20"
+										Margin="0 6 0 0"
+										HorizontalAlignment="Stretch"
+										VerticalAlignment="Center"
+										ChaptersEnabled="{Binding UsingChaptersRange}"
+										EndChapter="{Binding ChapterPreviewEnd,
+										                     Mode=TwoWay}"
+										EndTime="{Binding TimeRangeEndBar,
+										                  Mode=TwoWay}"
+										StartChapter="{Binding ChapterPreviewStart,
+										                       Mode=TwoWay}"
+										StartTime="{Binding TimeRangeStartBar,
+										                    Mode=TwoWay}"
+										ToolTip="{x:Static res:MainRes.RangeBarToolTip}"
+										Visibility="{Binding RangeBarVisible,
+										                     Converter={StaticResource VisibilityConverter}}" />
+
+									<!--  Range preview text  -->
+									<StackPanel
+										Grid.Column="1"
+										Margin="6 0 0 0"
+										HorizontalAlignment="Right"
+										VerticalAlignment="Center"
+										Orientation="Horizontal"
+										Visibility="{Binding RangeBarVisible,
+										                     Converter={StaticResource VisibilityConverter}}">
+										<TextBlock VerticalAlignment="Bottom" Text="{Binding RangePreviewText}" />
+										<TextBlock
+											Margin="10 0 0 0"
+											VerticalAlignment="Bottom"
+											Text="{Binding RangePreviewLengthText}" />
+									</StackPanel>
+								</Grid>
+								<Grid Grid.Row="2" Margin="0 6 0 0">
+									<ItemsControl Margin="0 0 0 0" ItemsSource="{Binding VideoDetails}">
+										<ItemsControl.ItemsPanel>
+											<ItemsPanelTemplate>
+												<WrapPanel Orientation="Vertical" />
+											</ItemsPanelTemplate>
+										</ItemsControl.ItemsPanel>
+										<ItemsControl.ItemTemplate>
+											<DataTemplate>
+												<StackPanel Orientation="Horizontal">
+													<TextBlock Text="{Binding Label}" />
+													<TextBlock FontWeight="SemiBold" Margin="4 0 12 0" Text="{Binding Value}" />
+												</StackPanel>
+											</DataTemplate>
+										</ItemsControl.ItemTemplate>
+									</ItemsControl>
+								</Grid>
 							</Grid>
-							<Grid>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto" />
-									<ColumnDefinition />
-								</Grid.ColumnDefinitions>
-								
-								<ItemsControl ItemsSource="{Binding VideoDetails}">
-									<ItemsControl.ItemsPanel>
-										<ItemsPanelTemplate>
-											<WrapPanel Orientation="Vertical" />
-										</ItemsPanelTemplate>
-									</ItemsControl.ItemsPanel>
-									<ItemsControl.ItemTemplate>
-										<DataTemplate>
-											<StackPanel Orientation="Horizontal">
-												<TextBlock Text="{Binding Label}" />
-												<TextBlock Text="{Binding Value}" Margin="4 0 0 0" />
-											</StackPanel>
-										</DataTemplate>
-									</ItemsControl.ItemTemplate>
-								</ItemsControl>
-							</Grid>
-						</StackPanel>
-						
+						</Grid>
+
+
+
+
 
 						<!--  Audio Header  -->
 						<ToggleButton
@@ -1423,9 +1451,9 @@
 
 						<!--  Chapters header  -->
 						<Grid
-							Height="30"
 							Grid.Row="6"
 							Grid.Column="0"
+							Height="30"
 							Visibility="{Binding ShowChapterMarkerUI,
 							                     Converter={StaticResource VisibilityConverter}}">
 							<TextBlock

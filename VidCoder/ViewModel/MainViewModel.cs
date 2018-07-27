@@ -35,15 +35,8 @@ namespace VidCoder.ViewModel
 
 		private IUpdater updater = Ioc.Get<IUpdater>();
 		private IAppLogger logger = Ioc.Get<IAppLogger>();
-		private OutputPathService outputPathService;
-		private OutputSizeService outputSizeService;
-		private PresetsService presetsService;
-		private PickersService pickersService;
 		private PreviewUpdateService previewUpdateService;
-		private ProcessingService processingService;
 		private IWindowManager windowManager;
-		private TaskBarProgressTracker taskBarProgressTracker;
-
 		private ObservableCollection<SourceOptionViewModel> sourceOptions;
 		private ObservableCollection<SourceOptionViewModel> recentSourceOptions;
 
@@ -334,14 +327,14 @@ namespace VidCoder.ViewModel
 			this.Exit = ReactiveCommand.Create();
 			this.Exit.Subscribe(_ => this.ExitImpl());
 
-			this.outputPathService = Ioc.Get<OutputPathService>();
-			this.outputSizeService = Ioc.Get<OutputSizeService>();
-			this.processingService = Ioc.Get<ProcessingService>();
-			this.presetsService = Ioc.Get<PresetsService>();
-			this.pickersService = Ioc.Get<PickersService>();
+			this.OutputPathService = Ioc.Get<OutputPathService>();
+			this.OutputSizeService = Ioc.Get<OutputSizeService>();
+			this.ProcessingService = Ioc.Get<ProcessingService>();
+			this.PresetsService = Ioc.Get<PresetsService>();
+			this.PickersService = Ioc.Get<PickersService>();
 			this.windowManager = Ioc.Get<IWindowManager>();
 			this.previewUpdateService = Ioc.Get<PreviewUpdateService>();
-			this.taskBarProgressTracker = new TaskBarProgressTracker();
+			this.TaskBarProgressTracker = new TaskBarProgressTracker();
 
 			// EncodingPresetButtonText
 			this.PresetsService
@@ -350,7 +343,7 @@ namespace VidCoder.ViewModel
 				.ToProperty(this, x => x.EncodingPresetButtonText, out this.encodingPresetButtonText);
 
 			// WindowTitle
-			this.processingService.WhenAnyValue(x => x.Encoding, x => x.OverallEncodeProgressFraction, (encoding, progressFraction) =>
+			this.ProcessingService.WhenAnyValue(x => x.Encoding, x => x.OverallEncodeProgressFraction, (encoding, progressFraction) =>
 			{
 				double progressPercent = progressFraction * 100;
 				var titleBuilder = new StringBuilder("VidCoder");
@@ -369,7 +362,7 @@ namespace VidCoder.ViewModel
 			}).ToProperty(this, x => x.WindowTitle, out this.windowTitle);
 
 			// ShowChapterMarkerUI
-			this.presetsService
+			this.PresetsService
 				.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.IncludeChapterMarkers)
 				.ToProperty(this, x => x.ShowChapterMarkerUI, out this.showChapterMarkerUI);
 
@@ -728,7 +721,7 @@ namespace VidCoder.ViewModel
 		/// <returns>True if the form can close.</returns>
 		public bool OnClosing()
 		{
-			if (this.processingService.Encoding)
+			if (this.ProcessingService.Encoding)
 			{
 				MessageBoxResult result = Utilities.MessageBox.Show(
 					this,
@@ -748,10 +741,10 @@ namespace VidCoder.ViewModel
 			this.view.SaveCompletedColumnWidths();
 
 			// If we're quitting, see if the encode is still going.
-			if (this.processingService.Encoding)
+			if (this.ProcessingService.Encoding)
 			{
 				// If so, stop it.
-				this.processingService.Stop(EncodeCompleteReason.AppExit);
+				this.ProcessingService.Stop(EncodeCompleteReason.AppExit);
 			}
 
 			this.windowManager.CloseTrackedWindows();
@@ -796,29 +789,45 @@ namespace VidCoder.ViewModel
 
 		public string SourceName { get; private set; }
 
-		public OutputPathService OutputPathService
+		public OutputPathService OutputPathService { get; }
+
+		public OutputSizeService OutputSizeService { get; }
+
+		public PresetsService PresetsService { get; }
+
+		public PickersService PickersService { get; }
+
+		public ProcessingService ProcessingService { get; }
+
+		public TaskBarProgressTracker TaskBarProgressTracker { get; }
+
+		private PreviewImageService previewImageService;
+		public PreviewImageService PreviewImageService
 		{
-			get { return this.outputPathService; }
+			get
+			{
+				if (this.previewImageService == null)
+				{
+					this.previewImageService = Ioc.Get<PreviewImageService>();
+				}
+
+				return this.previewImageService;
+			}
+			
 		}
 
-		public PresetsService PresetsService
+		private PreviewImageServiceClient previewImageServiceClient;
+		public PreviewImageServiceClient PreviewImageServiceClient
 		{
-			get { return this.presetsService; }
-		}
+			get
+			{
+				if (this.previewImageServiceClient == null)
+				{
+					this.previewImageServiceClient = new PreviewImageServiceClient();
+				}
 
-		public PickersService PickersService
-		{
-			get { return this.pickersService; }
-		}
-
-		public ProcessingService ProcessingService
-		{
-			get { return this.processingService; }
-		}
-
-		public TaskBarProgressTracker TaskBarProgressTracker
-		{
-			get { return this.taskBarProgressTracker; }
+				return this.previewImageServiceClient;
+			}
 		}
 
 		public IList<DriveInformation> DriveCollection
@@ -1016,7 +1025,7 @@ namespace VidCoder.ViewModel
 
 				this.RaisePropertyChanged(nameof(this.SelectedTitle));
 
-				this.outputSizeService.Refresh();
+				this.OutputSizeService.Refresh();
 				this.previewUpdateService.RefreshPreview();
 
 				this.RefreshRangePreview();
@@ -1084,7 +1093,7 @@ namespace VidCoder.ViewModel
 
 		private void BuildAudioViewModelList()
 		{
-			Picker picker = this.pickersService.SelectedPicker.Picker;
+			Picker picker = this.PickersService.SelectedPicker.Picker;
 
 			List<AudioTrackViewModel> oldTracks = this.AudioTracks.Where(t => t.Selected).ToList();
 
@@ -1264,7 +1273,7 @@ namespace VidCoder.ViewModel
 		{
 			VCSubtitles oldSubtitles = this.CurrentSubtitles;
 
-			Picker picker = this.pickersService.SelectedPicker.Picker;
+			Picker picker = this.PickersService.SelectedPicker.Picker;
 
 			this.SourceSubtitles.Clear();
 
@@ -1378,7 +1387,7 @@ namespace VidCoder.ViewModel
 		public void UpdateSubtitleWarningVisibility()
 		{
 			bool textSubtitleVisible = false;
-			VCProfile profile = this.presetsService.SelectedPreset.Preset.EncodingProfile;
+			VCProfile profile = this.PresetsService.SelectedPreset.Preset.EncodingProfile;
 			HBContainer profileContainer = HandBrakeEncoderHelpers.GetContainer(profile.ContainerName);
 			if (profileContainer.DefaultExtension == "mp4" && profile.PreferredExtension == VCOutputExtension.Mp4)
 			{
@@ -2358,7 +2367,7 @@ namespace VidCoder.ViewModel
 		public ReactiveCommand<object> ExportPreset { get; }
 		private void ExportPresetImpl()
 		{
-			Ioc.Get<IPresetImportExport>().ExportPreset(this.presetsService.SelectedPreset.Preset);
+			Ioc.Get<IPresetImportExport>().ExportPreset(this.PresetsService.SelectedPreset.Preset);
 		}
 
 		public ReactiveCommand<object> OpenHomepage { get; }
@@ -2771,12 +2780,12 @@ namespace VidCoder.ViewModel
 								SourceHistory.AddToHistory(this.SourcePath);
 							}
 
-							Picker picker = this.pickersService.SelectedPicker.Picker;
+							Picker picker = this.PickersService.SelectedPicker.Picker;
 							if (picker.AutoQueueOnScan)
 							{
-								if (this.processingService.TryQueue() && picker.AutoEncodeOnScan && !this.processingService.Encoding)
+								if (this.ProcessingService.TryQueue() && picker.AutoEncodeOnScan && !this.ProcessingService.Encoding)
 								{
-									this.processingService.Encode.Execute(null);
+									this.ProcessingService.Encode.Execute(null);
 								}
 							}
 						}

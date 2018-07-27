@@ -28,7 +28,6 @@ namespace VidCoder.Services
 		private const string CustomFolderKey = "custom";
 		private const string BuiltInFolderKey = "builtIn";
 
-		private MainViewModel main = Ioc.Get<MainViewModel>();
 		private OutputPathService outputPathService;
 
 		private PresetViewModel selectedPreset;
@@ -233,7 +232,7 @@ namespace VidCoder.Services
 				}
 
 				MessageBoxResult dialogResult = Utilities.MessageBox.Show(
-					this.main,
+					Ioc.Get<MainViewModel>(),
 					dialogMessage,
 					dialogTitle,
 					buttons);

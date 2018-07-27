@@ -14,7 +14,6 @@ namespace VidCoder.Services
 	public class OutputSizeService : ReactiveObject
 	{
 		private PresetsService presetsService = Ioc.Get<PresetsService>();
-		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 
 		public OutputSizeService()
 		{
@@ -37,11 +36,13 @@ namespace VidCoder.Services
 
 		public void Refresh()
 		{
-			if (this.mainViewModel.SelectedTitle != null)
+			MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
+
+			if (mainViewModel.SelectedTitle != null)
 			{
 				var profile = this.presetsService.SelectedPreset.Preset.EncodingProfile;
 
-				OutputSizeInfo outputSizeInfo = JsonEncodeFactory.GetOutputSize(profile, this.mainViewModel.SelectedTitle);
+				OutputSizeInfo outputSizeInfo = JsonEncodeFactory.GetOutputSize(profile, mainViewModel.SelectedTitle);
 
 				if (this.Size == null || !outputSizeInfo.Equals(this.Size))
 				{

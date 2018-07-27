@@ -23,7 +23,7 @@ namespace VidCoder.Services
 	/// </summary>
 	public class OutputPathService : ReactiveObject
 	{
-		private MainViewModel main = Ioc.Get<MainViewModel>();
+		private Lazy<MainViewModel> mainViewModel = new Lazy<MainViewModel>(() => Ioc.Get<MainViewModel>());
 		private ProcessingService processingService;
 		private PresetsService presetsService;
 		private PickersService pickersService;
@@ -300,7 +300,7 @@ namespace VidCoder.Services
 			else
 			{
 				// If it's not a valid path, revert the change.
-				if (this.main.HasVideoSource && string.IsNullOrEmpty(Path.GetFileName(oldOutputPath)))
+				if (this.mainViewModel.Value.HasVideoSource && string.IsNullOrEmpty(Path.GetFileName(oldOutputPath)))
 				{
 					// If we've got a video source now and the old path was blank, generate a file name
 					this.GenerateOutputFileName();
@@ -323,6 +323,8 @@ namespace VidCoder.Services
 		{
 			string fileName;
 
+			MainViewModel main = this.mainViewModel.Value;
+
 			// If our original path was empty and we're editing it at the moment, don't clobber
 			// whatever the user is typing.
 			if (string.IsNullOrEmpty(Path.GetFileName(this.OldOutputPath)) && this.EditingDestination)
@@ -338,7 +340,7 @@ namespace VidCoder.Services
 				return;
 			}
 
-			if (!this.main.HasVideoSource)
+			if (!main.HasVideoSource)
 			{
 				string outputFolder = this.PickerOutputFolder;
 				if (outputFolder != null)
@@ -349,7 +351,7 @@ namespace VidCoder.Services
 				return;
 			}
 
-			if (this.main.SourceName == null || this.main.SelectedStartChapter == null || this.main.SelectedEndChapter == null)
+			if (main.SourceName == null || main.SelectedStartChapter == null || main.SelectedEndChapter == null)
 			{
 				return;
 			}
@@ -374,26 +376,26 @@ namespace VidCoder.Services
 			}
 
 			fileName = this.BuildOutputFileName(
-				this.main.SourcePath,
+				main.SourcePath,
 				// Change casing on DVD titles to be a little more friendly
 				GetTranslatedSourceName(),
-				this.main.SelectedTitle.Index,
-				this.main.SelectedTitle.Duration.ToSpan(),
-				this.main.RangeType,
-				this.main.SelectedStartChapter.ChapterNumber,
-				this.main.SelectedEndChapter.ChapterNumber,
-				this.main.SelectedTitle.ChapterList.Count,
-				this.main.TimeRangeStart,
-				this.main.TimeRangeEnd,
-				this.main.FramesRangeStart,
-				this.main.FramesRangeEnd,
+				main.SelectedTitle.Index,
+				main.SelectedTitle.Duration.ToSpan(),
+				main.RangeType,
+				main.SelectedStartChapter.ChapterNumber,
+				main.SelectedEndChapter.ChapterNumber,
+				main.SelectedTitle.ChapterList.Count,
+				main.TimeRangeStart,
+				main.TimeRangeEnd,
+				main.FramesRangeStart,
+				main.FramesRangeEnd,
 				nameFormat,
-				multipleTitlesOnSource: this.main.ScanInstance.Titles.TitleList.Count > 1,
+				multipleTitlesOnSource: main.ScanInstance.Titles.TitleList.Count > 1,
 				picker: null);
 
 			string extension = this.GetOutputExtension();
 
-			this.OutputPath = this.BuildOutputPath(fileName, extension, sourcePath: this.main.SourcePath);
+			this.OutputPath = this.BuildOutputPath(fileName, extension, sourcePath: main.SourcePath);
 
 			// If we've pushed a new name into the destination text box, we need to update the "baseline" name so the
 			// auto-generated name doesn't get mistakenly labeled as manual when focus leaves it
@@ -571,6 +573,8 @@ namespace VidCoder.Services
 		/// </summary>
 		private string GetTranslatedSourceName()
 		{
+			MainViewModel main = this.mainViewModel.Value;
+
 			if ((main.SelectedSource.Type == SourceType.Disc || main.SelectedSource.Type == SourceType.DiscVideoFolder) && !string.IsNullOrWhiteSpace(main.SourceName))
 			{
 				return TranslateDiscSourceName(main.SourceName);
@@ -580,6 +584,8 @@ namespace VidCoder.Services
 
 		public string ReplaceArguments(string nameFormat, Picker picker = null)
 		{
+			MainViewModel main = this.mainViewModel.Value;
+
 			return ReplaceArguments(
 				main.SourcePath,
 				GetTranslatedSourceName(),
@@ -594,7 +600,7 @@ namespace VidCoder.Services
 				main.FramesRangeStart,
 				main.FramesRangeEnd,
 				nameFormat,
-				multipleTitlesOnSource: this.main.ScanInstance.Titles.TitleList.Count > 1,
+				multipleTitlesOnSource: main.ScanInstance.Titles.TitleList.Count > 1,
 				picker: picker);
 		}
 
