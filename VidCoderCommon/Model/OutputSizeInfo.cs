@@ -84,6 +84,8 @@ namespace VidCoderCommon.Model
 
 		public int DisplayWidth => (int)Math.Round(this.OutputWidth * ((double)this.Par.Num / this.Par.Den));
 
+		public double OutputAspectRatio => ((double)this.OutputWidth / this.OutputHeight) * ((double)this.Par.Num / this.Par.Den);
+
 		public override int GetHashCode()
 		{
 			unchecked

@@ -882,22 +882,15 @@
 							Grid.Column="0"
 							Grid.ColumnSpan="2"
 							Height="110"
-							Margin="0 0 10 0"
+							Margin="0 0 0 0"
 							Visibility="{Binding VideoExpanded,
 							                     Converter={StaticResource VisibilityConverter}}">
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto" />
 								<ColumnDefinition />
+								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
 
-							<controls:PaddingFrame
-								Grid.Column="0"
-								Width="200"
-								OutputSize="{Binding OutputSizeService.Size}"
-								PadColor="{Binding PreviewImageService.PadColor}"
-								Source="{Binding PreviewImageServiceClient.PreviewImage}" />
-
-							<Grid Grid.Column="1" Margin="8 3 0 0">
+							<Grid Grid.Column="0" Margin="16 3 10 0">
 								<Grid.RowDefinitions>
 									<RowDefinition Height="Auto" />
 									<RowDefinition Height="Auto" />
@@ -905,8 +898,8 @@
 								</Grid.RowDefinitions>
 
 								<StackPanel
-									Grid.Row="0"
 									Name="rangeUI"
+									Grid.Row="0"
 									Background="Transparent"
 									Orientation="Horizontal">
 									<!--  Range type  -->
@@ -1038,17 +1031,25 @@
 											<DataTemplate>
 												<StackPanel Orientation="Horizontal">
 													<TextBlock Text="{Binding Label}" />
-													<TextBlock FontWeight="SemiBold" Margin="4 0 12 0" Text="{Binding Value}" />
+													<TextBlock
+														Margin="4 0 12 0"
+														FontWeight="SemiBold"
+														Text="{Binding Value}" />
 												</StackPanel>
 											</DataTemplate>
 										</ItemsControl.ItemTemplate>
 									</ItemsControl>
 								</Grid>
 							</Grid>
+
+							<controls:PaddingFrame
+								x:Name="miniPreviewFrame"
+								Grid.Column="1"
+								Width="200"
+								OutputSize="{Binding OutputSizeService.Size}"
+								PadColor="{Binding PreviewImageService.PadColor}"
+								Source="{Binding PreviewImageServiceClient.PreviewImage}" />
 						</Grid>
-
-
-
 
 
 						<!--  Audio Header  -->

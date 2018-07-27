@@ -261,6 +261,21 @@ namespace VidCoder.View
 
 			this.sourceSubtitles.CollectionChanged += this.sourceSubtitles_CollectionChanged;
 			this.srtSubtitles.CollectionChanged += this.srtSubtitles_CollectionChanged;
+			this.viewModel.OutputSizeService
+				.WhenAnyValue(x => x.Size)
+				.Subscribe(size =>
+				{
+					if (size != null)
+					{
+						// Update this.miniPreviewFrame width
+						double aspectRatio = size.OutputAspectRatio;
+						aspectRatio = Math.Min(aspectRatio, 3.0);
+
+						double desiredWidth = this.miniPreviewFrame.ActualHeight * aspectRatio;
+						this.miniPreviewFrame.Width = desiredWidth;
+					}
+				});
+
 		}
 
 		public void ResizeAudioColumns()
