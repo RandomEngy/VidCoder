@@ -327,6 +327,18 @@ namespace VidCoder.ViewModel
 			this.Exit = ReactiveCommand.Create();
 			this.Exit.Subscribe(_ => this.ExitImpl());
 
+			this.ShowPreviousPreview = ReactiveCommand.Create(this.PreviewImageServiceClient
+				.WhenAnyValue(x => x.PreviewIndex)
+				.Select(previewIndex => previewIndex > 0));
+			this.ShowPreviousPreview.Subscribe(_ => this.ShowPreviousPreviewImpl());
+
+			this.ShowNextPreview = ReactiveCommand.Create(this.WhenAnyValue(x => x.PreviewImageServiceClient.PreviewIndex, x => x.PreviewImageService.PreviewCount,
+				(previewIndex, previewCount) =>
+				{
+					return previewIndex < previewCount - 1;
+				}));
+			this.ShowNextPreview.Subscribe(_ => this.ShowNextPreviewImpl());
+
 			this.OutputPathService = Ioc.Get<OutputPathService>();
 			this.OutputSizeService = Ioc.Get<OutputSizeService>();
 			this.ProcessingService = Ioc.Get<ProcessingService>();
@@ -824,6 +836,7 @@ namespace VidCoder.ViewModel
 				if (this.previewImageServiceClient == null)
 				{
 					this.previewImageServiceClient = new PreviewImageServiceClient();
+					this.PreviewImageService.RegisterClient(this.previewImageServiceClient);
 				}
 
 				return this.previewImageServiceClient;
@@ -2392,6 +2405,18 @@ namespace VidCoder.ViewModel
 		private void ExitImpl()
 		{
 			this.windowManager.Close(this);
+		}
+
+		public ReactiveCommand<object> ShowPreviousPreview { get; }
+		private void ShowPreviousPreviewImpl()
+		{
+			this.PreviewImageServiceClient.ShowPreviousPreview();
+		}
+
+		public ReactiveCommand<object> ShowNextPreview { get; }
+		private void ShowNextPreviewImpl()
+		{
+			this.PreviewImageServiceClient.ShowNextPreview();
 		}
 
 		public void StartAnimation(string animationKey)

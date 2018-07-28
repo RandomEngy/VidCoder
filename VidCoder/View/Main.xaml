@@ -1042,13 +1042,73 @@
 								</Grid>
 							</Grid>
 
-							<controls:PaddingFrame
-								x:Name="miniPreviewFrame"
-								Grid.Column="1"
-								Width="200"
-								OutputSize="{Binding OutputSizeService.Size}"
-								PadColor="{Binding PreviewImageService.PadColor}"
-								Source="{Binding PreviewImageServiceClient.PreviewImage}" />
+							<Grid Name="miniPreviewFrameHolder" Grid.Column="1">
+								<Grid.Resources>
+									<Style x:Key="MiniPreviewPaddleButton" TargetType="Button">
+										<Setter Property="Width" Value="40" />
+										<Setter Property="Visibility" Value="Collapsed" />
+										<Setter Property="Foreground" Value="White" />
+										<Setter Property="FontSize" Value="30" />
+										<Setter Property="FontWeight" Value="Bold" />
+										<Setter Property="Template">
+											<Setter.Value>
+												<ControlTemplate TargetType="{x:Type Button}">
+													<Border
+														x:Name="border"
+														Background="#44000000"
+														BorderThickness="0"
+														SnapsToDevicePixels="true">
+														<ContentPresenter
+															x:Name="contentPresenter"
+															Margin="{TemplateBinding Padding}"
+															HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+															VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+															Focusable="False"
+															RecognizesAccessKey="True"
+															SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+													</Border>
+													<ControlTemplate.Triggers>
+														<Trigger Property="IsMouseOver" Value="true">
+															<Setter TargetName="border" Property="Background" Value="#AA000000" />
+														</Trigger>
+														<Trigger Property="IsPressed" Value="true">
+															<Setter TargetName="border" Property="Background" Value="Black" />
+														</Trigger>
+														<Trigger Property="IsEnabled" Value="false">
+															<Setter TargetName="border" Property="Visibility" Value="Collapsed" />
+														</Trigger>
+													</ControlTemplate.Triggers>
+												</ControlTemplate>
+											</Setter.Value>
+										</Setter>
+										<Style.Triggers>
+											<DataTrigger Binding="{Binding IsMouseOver, ElementName=miniPreviewFrameHolder}" Value="True">
+												<Setter Property="Visibility" Value="Visible" />
+											</DataTrigger>
+										</Style.Triggers>
+									</Style>
+								</Grid.Resources>
+								<controls:PaddingFrame
+									x:Name="miniPreviewFrame"
+									Width="200"
+									HorizontalAlignment="Stretch"
+									HorizontalContentAlignment="Stretch"
+									OutputSize="{Binding OutputSizeService.Size}"
+									PadColor="{Binding PreviewImageService.PadColor}"
+									Source="{Binding PreviewImageServiceClient.PreviewImage}" />
+
+								<Button
+									HorizontalAlignment="Left"
+									Command="{Binding ShowPreviousPreview}"
+									Content="‹"
+									Style="{StaticResource MiniPreviewPaddleButton}" />
+								<Button
+									HorizontalAlignment="Right"
+									Command="{Binding ShowNextPreview}"
+									Content="›"
+									Style="{StaticResource MiniPreviewPaddleButton}" />
+							</Grid>
+
 						</Grid>
 
 
