@@ -215,6 +215,9 @@ namespace VidCoder.View
 					ResizeGridViewColumn(this.sourceForcedColumn);
 					ResizeGridViewColumn(this.sourceBurnedColumn);
 					ResizeGridViewColumn(this.sourceRemoveDuplicateColumn);
+					ResizeGridViewColumn(this.srtFileColumn);
+					ResizeGridViewColumn(this.srtDefaultColumn);
+					ResizeGridViewColumn(this.srtBurnedInColumn);
 					ResizeGridViewColumn(this.srtCharCodeColumn);
 					ResizeGridViewColumn(this.srtLanguageColumn);
 				}

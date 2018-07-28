@@ -1506,9 +1506,9 @@
 									<ListView.View>
 										<GridView>
 											<GridView.Columns>
-												<GridViewColumn CellTemplate="{StaticResource FileNameTemplate}" Header="{x:Static res:SubtitleRes.FileColumn}" />
-												<GridViewColumn CellTemplate="{StaticResource DefaultTemplate}" Header="{x:Static res:SubtitleRes.DefaultColumn}" />
-												<GridViewColumn CellTemplate="{StaticResource BurnedInTemplate}" Header="{x:Static res:SubtitleRes.BurnedInColumn}" />
+												<GridViewColumn x:Name="srtFileColumn" CellTemplate="{StaticResource FileNameTemplate}" Header="{x:Static res:SubtitleRes.FileColumn}" />
+												<GridViewColumn x:Name="srtDefaultColumn" CellTemplate="{StaticResource DefaultTemplate}" Header="{x:Static res:SubtitleRes.DefaultColumn}" />
+												<GridViewColumn x:Name="srtBurnedInColumn" CellTemplate="{StaticResource BurnedInTemplate}" Header="{x:Static res:SubtitleRes.BurnedInColumn}" />
 												<GridViewColumn
 													x:Name="srtLanguageColumn"
 													CellTemplate="{StaticResource LanguageTemplate}"
