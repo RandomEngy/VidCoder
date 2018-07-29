@@ -70,7 +70,7 @@ namespace VidCoder.View
 			Ioc.Container.RegisterInstance(typeof(Main), this, new ContainerControlledLifetimeManager());
 			this.InitializeComponent();
 
-			this.sourceRow.Height = new GridLength(Config.SourcePaneHeight);
+			this.queueRow.Height = new GridLength(Config.QueuePaneHeight);
 
 			this.Activated += (sender, args) =>
 			{
@@ -740,7 +740,7 @@ namespace VidCoder.View
 		{
 			using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
 			{
-				Config.SourcePaneHeight = this.sourceRow.ActualHeight;
+				Config.QueuePaneHeight = this.queueRow.ActualHeight;
 
 				transaction.Commit();
 			}

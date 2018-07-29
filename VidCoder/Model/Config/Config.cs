@@ -76,7 +76,7 @@ namespace VidCoder
 			cache.Add("QueueColumns", DatabaseConfig.Get("QueueColumns", "Source:200|Title:35|Range:106|Destination:200", connection));
 			cache.Add("QueueLastColumnWidth", DatabaseConfig.Get("QueueLastColumnWidth", 75.0, connection));
 			cache.Add("CompletedColumnWidths", DatabaseConfig.Get("CompletedColumnWidths", "", connection));
-			cache.Add("SourcePaneHeight", DatabaseConfig.Get("SourcePaneHeight", 260.0, connection));
+			cache.Add("QueuePaneHeight", DatabaseConfig.Get("QueuePaneHeight", 158.0, connection));
 			cache.Add("PickerListPaneWidth", DatabaseConfig.Get("PickerListPaneWidth", 135.0, connection));
 			cache.Add("EncodingListPaneOpen", DatabaseConfig.Get("EncodingListPaneOpen", true, connection));
 			cache.Add("EncodingListPaneWidth", DatabaseConfig.Get("EncodingListPaneWidth", 150.0, connection));
@@ -405,10 +405,10 @@ namespace VidCoder
 			get { return (string)cache["CompletedColumnWidths"]; }
 			set { Set("CompletedColumnWidths", value); }
 		}
-		public static double SourcePaneHeight
+		public static double QueuePaneHeight
 		{
-			get { return (double)cache["SourcePaneHeight"]; }
-			set { Set("SourcePaneHeight", value); }
+			get { return (double)cache["QueuePaneHeight"]; }
+			set { Set("QueuePaneHeight", value); }
 		}
 		public static double PickerListPaneWidth
 		{
@@ -759,7 +759,7 @@ namespace VidCoder
 			public static IObservable<string> QueueColumns => GetObservable<string>("QueueColumns");
 			public static IObservable<double> QueueLastColumnWidth => GetObservable<double>("QueueLastColumnWidth");
 			public static IObservable<string> CompletedColumnWidths => GetObservable<string>("CompletedColumnWidths");
-			public static IObservable<double> SourcePaneHeight => GetObservable<double>("SourcePaneHeight");
+			public static IObservable<double> QueuePaneHeight => GetObservable<double>("QueuePaneHeight");
 			public static IObservable<double> PickerListPaneWidth => GetObservable<double>("PickerListPaneWidth");
 			public static IObservable<bool> EncodingListPaneOpen => GetObservable<bool>("EncodingListPaneOpen");
 			public static IObservable<double> EncodingListPaneWidth => GetObservable<double>("EncodingListPaneWidth");
