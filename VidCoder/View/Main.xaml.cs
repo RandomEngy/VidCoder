@@ -288,6 +288,8 @@ namespace VidCoder.View
 			ResizeGridViewColumn(this.audioRemoveDuplicateColumn);
 		}
 
+		public double SourceAreaHeight => this.sourceScrollViewer.ActualHeight;
+
 		void IMainView.SaveQueueColumns()
 		{
 			this.SaveQueueColumns();

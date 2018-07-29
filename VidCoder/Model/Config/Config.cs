@@ -66,9 +66,9 @@ namespace VidCoder
 			cache.Add("LogWindowOpen", DatabaseConfig.Get("LogWindowOpen", false, connection));
 			cache.Add("EncodeDetailsWindowOpen", DatabaseConfig.Get("EncodeDetailsWindowOpen", false, connection));
 			cache.Add("PickerWindowOpen", DatabaseConfig.Get("PickerWindowOpen", false, connection));
-			cache.Add("VideoExpanded", DatabaseConfig.Get("VideoExpanded", false, connection));
-			cache.Add("AudioExpanded", DatabaseConfig.Get("AudioExpanded", false, connection));
-			cache.Add("SubtitlesExpanded", DatabaseConfig.Get("SubtitlesExpanded", false, connection));
+			cache.Add("VideoExpanded", DatabaseConfig.Get("VideoExpanded", true, connection));
+			cache.Add("AudioExpanded", DatabaseConfig.Get("AudioExpanded", true, connection));
+			cache.Add("SubtitlesExpanded", DatabaseConfig.Get("SubtitlesExpanded", true, connection));
 			cache.Add("UpdatesEnabled", DatabaseConfig.Get("UpdatesEnabled", true, connection));
 			cache.Add("UpdatesDisabled32BitOSWarningDisplayed", DatabaseConfig.Get("UpdatesDisabled32BitOSWarningDisplayed", false, connection));
 			cache.Add("PreviewSeconds", DatabaseConfig.Get("PreviewSeconds", 10, connection));

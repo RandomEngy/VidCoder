@@ -565,6 +565,7 @@
 
 		<!--  Source area  -->
 		<ScrollViewer
+			Name="sourceScrollViewer"
 			Grid.Row="1"
 			MinHeight="138"
 			Margin="0 0 0 4"
@@ -1506,9 +1507,18 @@
 									<ListView.View>
 										<GridView>
 											<GridView.Columns>
-												<GridViewColumn x:Name="srtFileColumn" CellTemplate="{StaticResource FileNameTemplate}" Header="{x:Static res:SubtitleRes.FileColumn}" />
-												<GridViewColumn x:Name="srtDefaultColumn" CellTemplate="{StaticResource DefaultTemplate}" Header="{x:Static res:SubtitleRes.DefaultColumn}" />
-												<GridViewColumn x:Name="srtBurnedInColumn" CellTemplate="{StaticResource BurnedInTemplate}" Header="{x:Static res:SubtitleRes.BurnedInColumn}" />
+												<GridViewColumn
+													x:Name="srtFileColumn"
+													CellTemplate="{StaticResource FileNameTemplate}"
+													Header="{x:Static res:SubtitleRes.FileColumn}" />
+												<GridViewColumn
+													x:Name="srtDefaultColumn"
+													CellTemplate="{StaticResource DefaultTemplate}"
+													Header="{x:Static res:SubtitleRes.DefaultColumn}" />
+												<GridViewColumn
+													x:Name="srtBurnedInColumn"
+													CellTemplate="{StaticResource BurnedInTemplate}"
+													Header="{x:Static res:SubtitleRes.BurnedInColumn}" />
 												<GridViewColumn
 													x:Name="srtLanguageColumn"
 													CellTemplate="{StaticResource LanguageTemplate}"

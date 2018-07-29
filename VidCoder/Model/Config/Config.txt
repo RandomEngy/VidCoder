@@ -43,9 +43,9 @@ LogWindowOpen|bool|false
 EncodeDetailsWindowOpen|bool|false
 PickerWindowOpen|bool|false
 
-VideoExpanded|bool|false
-AudioExpanded|bool|false
-SubtitlesExpanded|bool|false
+VideoExpanded|bool|true
+AudioExpanded|bool|true
+SubtitlesExpanded|bool|true
 
 UpdatesEnabled|bool|true
 UpdatesDisabled32BitOSWarningDisplayed|bool|false

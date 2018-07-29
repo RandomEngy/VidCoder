@@ -1044,6 +1044,9 @@ namespace VidCoder.ViewModel
 				this.RefreshRangePreview();
 				this.RefreshSubtitleSummary();
 				this.RefreshAudioSummary();
+
+				// Expand/collapse sections to keep everything visible
+				this.SetSectionExpansion();
 			}
 		}
 
@@ -1075,16 +1078,145 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		[Flags]
+		private enum SourceSection
+		{
+			None = 0,
+			Video = 1,
+			Audio = 2,
+			Subtitles = 4
+		}
+
+		private static readonly List<SourceSection> SourceSectionPriority = new List<SourceSection>
+		{
+			SourceSection.Video,
+			SourceSection.Audio,
+			SourceSection.Subtitles
+		};
+
+		private void SetSectionExpansion()
+		{
+			SourceSection expansion = this.GetSectionExpansion();
+			this.ApplySectionExpansion(expansion);
+		}
+
+		private void ApplySectionExpansion(SourceSection expansion)
+		{
+			this.videoExpanded = expansion.HasFlag(SourceSection.Video);
+			this.RaisePropertyChanged(nameof(this.VideoExpanded));
+
+			this.audioExpanded = expansion.HasFlag(SourceSection.Audio);
+			this.RaisePropertyChanged(nameof(this.AudioExpanded));
+
+			this.subtitlesExpanded = expansion.HasFlag(SourceSection.Subtitles);
+			this.RaisePropertyChanged(nameof(this.SubtitlesExpanded));
+		}
+
+		private SourceSection GetSectionExpansion()
+		{
+			double availableHeight = this.View.SourceAreaHeight;
+			SourceSection userCollapsedSections = GetUserCollapsedSections();
+
+			// Start with nothing expanded
+			SourceSection sections = SourceSection.None;
+
+			// First pass try to open sections user has not collapsed.
+			foreach (SourceSection newSection in SourceSectionPriority)
+			{
+				if (!userCollapsedSections.HasFlag(newSection))
+				{
+					SourceSection sectionsWithNewExpansion = sections | newSection;
+					if (this.GetTotalHeight(sectionsWithNewExpansion) > availableHeight)
+					{
+						// Failed to open section. Bail with current list.
+						return sections;
+					}
+
+					sections = sections | newSection;
+				}
+			}
+
+			// Second pass see if we can open more sections.
+			foreach (SourceSection newSection in SourceSectionPriority)
+			{
+				if (userCollapsedSections.HasFlag(newSection))
+				{
+					SourceSection sectionsWithNewExpansion = sections | newSection;
+					if (this.GetTotalHeight(sectionsWithNewExpansion) > availableHeight)
+					{
+						// Failed to open section. Bail with current list.
+						return sections;
+					}
+
+					sections = sections | newSection;
+				}
+			}
+
+			return sections;
+		}
+
+		private static SourceSection GetUserCollapsedSections()
+		{
+			SourceSection sections = SourceSection.None;
+			if (!Config.VideoExpanded)
+			{
+				sections = sections | SourceSection.Video;
+			}
+
+			if (!Config.AudioExpanded)
+			{
+				sections = sections | SourceSection.Audio;
+			}
+
+			if (!Config.SubtitlesExpanded)
+			{
+				sections = sections | SourceSection.Subtitles;
+			}
+
+			return sections;
+		}
+
+		private double GetTotalHeight(SourceSection expandedSections)
+		{
+			double height = 98;
+
+			if (expandedSections.HasFlag(SourceSection.Video))
+			{
+				height += 110;
+			}
+
+			int audioCount = this.SelectedTitle.AudioList.Count;
+			if (audioCount > 0 && expandedSections.HasFlag(SourceSection.Audio))
+			{
+				height += 24;
+				height += audioCount * 27;
+			}
+
+			int subtitleCount = this.SelectedTitle.SubtitleList.Count;
+			if (subtitleCount > 0 && expandedSections.HasFlag(SourceSection.Subtitles))
+			{
+				height += 24;
+				height += subtitleCount * 27;
+			}
+
+			if (this.PresetsService.SelectedPreset.Preset.EncodingProfile.IncludeChapterMarkers 
+				&& this.SelectedTitle.ChapterList != null 
+				&& this.SelectedTitle.ChapterList.Count > 0)
+			{
+				height += 31;
+			}
+
+			return height;
+		}
+
 		private bool videoExpanded;
 		public bool VideoExpanded
 		{
 			get { return this.videoExpanded; }
 			set
 			{
-				if (this.RaiseAndSetIfChanged(ref this.videoExpanded, value))
-				{
-					Config.VideoExpanded = value;
-				}
+				this.RaiseAndSetIfChanged(ref this.videoExpanded, value);
+				Config.VideoExpanded = value;
 			}
 		}
 
@@ -1097,10 +1229,8 @@ namespace VidCoder.ViewModel
 			get { return this.audioExpanded; }
 			set
 			{
-				if (this.RaiseAndSetIfChanged(ref this.audioExpanded, value))
-				{
-					Config.AudioExpanded = value;
-				}
+				this.RaiseAndSetIfChanged(ref this.audioExpanded, value);
+				Config.AudioExpanded = value;
 			}
 		}
 
@@ -1258,10 +1388,8 @@ namespace VidCoder.ViewModel
 			get { return this.subtitlesExpanded; }
 			set
 			{
-				if (this.RaiseAndSetIfChanged(ref this.subtitlesExpanded, value))
-				{
-					Config.SubtitlesExpanded = value;
-				}
+				this.RaiseAndSetIfChanged(ref this.subtitlesExpanded, value);
+				Config.SubtitlesExpanded = value;
 			}
 		}
 
