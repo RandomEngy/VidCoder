@@ -1105,10 +1105,10 @@ namespace VidCoder.ViewModel
 			this.videoExpanded = expansion.HasFlag(SourceSection.Video);
 			this.RaisePropertyChanged(nameof(this.VideoExpanded));
 
-			this.audioExpanded = expansion.HasFlag(SourceSection.Audio);
+			this.audioExpanded = expansion.HasFlag(SourceSection.Audio) && this.SelectedTitle.AudioList != null && this.SelectedTitle.AudioList.Count > 0;
 			this.RaisePropertyChanged(nameof(this.AudioExpanded));
 
-			this.subtitlesExpanded = expansion.HasFlag(SourceSection.Subtitles);
+			this.subtitlesExpanded = expansion.HasFlag(SourceSection.Subtitles) && this.SelectedTitle.SubtitleList != null && this.SelectedTitle.SubtitleList.Count > 0;
 			this.RaisePropertyChanged(nameof(this.SubtitlesExpanded));
 		}
 
