@@ -1096,6 +1096,11 @@ namespace VidCoder.ViewModel
 
 		private void SetSectionExpansion()
 		{
+			if (this.SelectedTitle == null)
+			{
+				return;
+			}
+
 			SourceSection expansion = this.GetSectionExpansion();
 			this.ApplySectionExpansion(expansion);
 		}

@@ -397,7 +397,7 @@
 			<!--  Source  -->
 			<RowDefinition Height="*" />
 			<!--  Below source pane  -->
-			<RowDefinition Height="Auto" Name="queueRow" />
+			<RowDefinition Name="queueRow" Height="Auto" />
 		</Grid.RowDefinitions>
 
 		<!--  Ribbon  -->
@@ -572,50 +572,8 @@
 					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
 
-				<!--  Source choices/scanning/titles+video+audio+etc  -->
+				<!--  Source choices/titles+video+audio+etc  -->
 				<Grid Grid.Row="1">
-					<!--  Scan progress  -->
-					<Grid
-						Margin="26 25 40 0"
-						VerticalAlignment="Top"
-						Visibility="{Binding VideoSourceState,
-						                     Converter={StaticResource EnumVisibilityConverter},
-						                     ConverterParameter={x:Static model:VideoSourceState.Scanning}}">
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto" />
-							<RowDefinition />
-						</Grid.RowDefinitions>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition />
-							<ColumnDefinition Width="Auto" />
-						</Grid.ColumnDefinitions>
-						<TextBlock
-							Grid.Row="0"
-							Grid.Column="0"
-							Grid.ColumnSpan="2"
-							HorizontalAlignment="Center"
-							Style="{StaticResource ScanStatus}"
-							Text="{x:Static res:MainRes.ScanningSourceLabel}" />
-						<ProgressBar
-							Grid.Row="1"
-							Height="22"
-							Margin="6 0 0 0"
-							VerticalAlignment="Center"
-							Maximum="1"
-							Minimum="0"
-							Value="{Binding ScanProgressFraction}" />
-						<Button
-							Grid.Row="1"
-							Grid.Column="1"
-							Height="25"
-							MinWidth="55"
-							Margin="10 0 0 0"
-							Padding="5 0"
-							VerticalAlignment="Center"
-							Command="{Binding CancelScan}"
-							Content="{x:Static res:CommonRes.Cancel}" />
-					</Grid>
-
 					<!--  Video choices on load  -->
 					<Grid
 						MinWidth="220"
@@ -1582,6 +1540,50 @@
 			</Grid>
 		</ScrollViewer>
 
+		<!--  Scan progress  -->
+		<Grid
+			Grid.Row="1"
+			Margin="26 0 40 0"
+			VerticalAlignment="Center"
+			Visibility="{Binding VideoSourceState,
+			                     Converter={StaticResource EnumVisibilityConverter},
+			                     ConverterParameter={x:Static model:VideoSourceState.Scanning}}">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+			<TextBlock
+				Grid.Row="0"
+				Grid.Column="0"
+				Grid.ColumnSpan="2"
+				HorizontalAlignment="Center"
+				Style="{StaticResource ScanStatus}"
+				Text="{x:Static res:MainRes.ScanningSourceLabel}" />
+			<ProgressBar
+				Grid.Row="1"
+				Grid.Column="0"
+				Height="22"
+				Margin="6 0 0 0"
+				VerticalAlignment="Center"
+				Maximum="1"
+				Minimum="0"
+				Value="{Binding ScanProgressFraction}" />
+			<Button
+				Grid.Row="1"
+				Grid.Column="1"
+				Height="25"
+				MinWidth="55"
+				Margin="10 0 0 0"
+				Padding="5 0"
+				VerticalAlignment="Center"
+				Command="{Binding CancelScan}"
+				Content="{x:Static res:CommonRes.Cancel}" />
+		</Grid>
+
 		<GridSplitter
 			Grid.Row="1"
 			Grid.Column="0"
@@ -1623,7 +1625,7 @@
 					Margin="6 8 6 8"
 					VerticalAlignment="Center"
 					Visibility="{Binding OutputPathService.OutputFolderChosen,
-				                     Converter={StaticResource VisibilityConverter}}">
+					                     Converter={StaticResource VisibilityConverter}}">
 					<TextBox
 						Name="destinationEditBox"
 						VerticalContentAlignment="Center"
@@ -1631,7 +1633,7 @@
 						LostFocus="DestinationEditBoxLostFocus"
 						PreviewKeyDown="DestinationEditBoxPreviewKeyDown"
 						Text="{Binding OutputPathService.OutputPath,
-					               UpdateSourceTrigger=PropertyChanged}" />
+						               UpdateSourceTrigger=PropertyChanged}" />
 					<Grid
 						Name="destinationReadCover"
 						Margin="0"
@@ -1640,15 +1642,15 @@
 						MouseLeftButtonDown="DestinationReadCoverMouseLeftButtonDown"
 						ToolTip="{x:Static res:MainRes.DestinationToolTip}"
 						Visibility="{Binding OutputPathService.EditingDestination,
-					                     Converter={StaticResource InverseVisibilityConverter}}">
+						                     Converter={StaticResource InverseVisibilityConverter}}">
 						<Image
 							Height="20"
 							Margin="0 0 4 0"
 							HorizontalAlignment="Right"
 							Source="/Icons/edit_2.png"
 							Visibility="{Binding IsMouseOver,
-						                     ElementName=destinationReadCover,
-						                     Converter={StaticResource VisibilityConverter}}" />
+							                     ElementName=destinationReadCover,
+							                     Converter={StaticResource VisibilityConverter}}" />
 					</Grid>
 				</Grid>
 
@@ -1659,7 +1661,7 @@
 					VerticalAlignment="Center"
 					Command="{Binding OutputPathService.PickDefaultOutputFolder}"
 					Visibility="{Binding OutputPathService.OutputFolderChosen,
-				                     Converter={StaticResource InverseVisibilityConverter}}">
+					                     Converter={StaticResource InverseVisibilityConverter}}">
 					<StackPanel Margin="4 2" Orientation="Horizontal">
 						<Image
 							Width="16"
@@ -1682,7 +1684,7 @@
 					VerticalAlignment="Center"
 					Command="{Binding OutputPathService.PickOutputPath}"
 					Visibility="{Binding OutputPathService.OutputFolderChosen,
-				                     Converter={StaticResource VisibilityConverter}}">
+					                     Converter={StaticResource VisibilityConverter}}">
 					<TextBlock Text="{x:Static res:CommonRes.Browse}" />
 				</Button>
 			</Grid>
@@ -1899,7 +1901,7 @@
 				Grid.Row="2"
 				Height="28"
 				Visibility="{Binding ProcessingService.Encoding,
-			                     Converter={StaticResource VisibilityConverter}}">
+				                     Converter={StaticResource VisibilityConverter}}">
 				<Grid.Background>
 					<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
 				</Grid.Background>
@@ -1917,20 +1919,20 @@
 					MouseEnter="ProgressMouseEnter"
 					MouseLeave="ProgressMouseLeave"
 					Visibility="{Binding ProcessingService.Encoding,
-				                     Converter={StaticResource VisibilityConverter}}">
+					                     Converter={StaticResource VisibilityConverter}}">
 					<ProgressBar
 						Name="overallEncodeProgressBar"
 						Height="24"
 						VerticalAlignment="Top"
 						Foreground="{Binding ProcessingService.ProgressBarColor}"
 						Value="{Binding ProcessingService.OverallEncodeProgressPercent,
-					                Mode=OneWay}" />
+						                Mode=OneWay}" />
 					<TextBlock
 						HorizontalAlignment="Center"
 						VerticalAlignment="Center"
 						Text="{Binding ProcessingService.OverallEncodeProgressPercent,
-					               Mode=OneWay,
-					               Converter={StaticResource PercentDisplayConverter}}" />
+						               Mode=OneWay,
+						               Converter={StaticResource PercentDisplayConverter}}" />
 					<Popup
 						Name="encodeProgressDetailsPopup"
 						AllowsTransparency="True"
@@ -1958,8 +1960,8 @@
 									Grid.Column="1"
 									Style="{StaticResource EncodeDetailsText}"
 									Text="{Binding ProcessingService.CurrentFps,
-								               Mode=OneWay,
-								               Converter={StaticResource DoubleDisplayConverter}}"
+									               Mode=OneWay,
+									               Converter={StaticResource DoubleDisplayConverter}}"
 									TextAlignment="Center" />
 								<TextBlock
 									Grid.Row="1"
@@ -1971,8 +1973,8 @@
 									Grid.Column="1"
 									Style="{StaticResource EncodeDetailsText}"
 									Text="{Binding ProcessingService.AverageFps,
-								               Mode=OneWay,
-								               Converter={StaticResource DoubleDisplayConverter}}"
+									               Mode=OneWay,
+									               Converter={StaticResource DoubleDisplayConverter}}"
 									TextAlignment="Center" />
 							</Grid>
 						</ContentControl>
@@ -1990,7 +1992,7 @@
 						Text="{x:Static res:MainRes.EtaLabel}"
 						ToolTip="{x:Static res:CommonRes.QueueEtaToolTip}"
 						Visibility="{Binding ProcessingService.EncodeSpeedDetailsAvailable,
-					                     Converter={StaticResource VisibilityConverter}}" />
+						                     Converter={StaticResource VisibilityConverter}}" />
 					<TextBlock
 						Margin="3 0 0 0"
 						HorizontalAlignment="Right"
@@ -1998,7 +2000,7 @@
 						Text="{Binding ProcessingService.EstimatedTimeRemaining}"
 						ToolTip="{x:Static res:CommonRes.QueueEtaToolTip}"
 						Visibility="{Binding ProcessingService.EncodeSpeedDetailsAvailable,
-					                     Converter={StaticResource VisibilityConverter}}" />
+						                     Converter={StaticResource VisibilityConverter}}" />
 					<TextBlock
 						Margin="8 0 3 0"
 						HorizontalAlignment="Right"
