@@ -32,7 +32,18 @@ namespace VidCoder.Services.Windows
 				new WindowDefinition
 				{
 					ViewModelType = typeof(MainViewModel), 
-					PlacementConfigKey = "MainWindowPlacement"
+					PlacementConfigKey = "MainWindowPlacement",
+					InitialSizeOverride = () =>
+					{
+						Rect workArea = SystemParameters.WorkArea;
+
+						double fillHeight = workArea.Height - 500;
+						double minHeight = 548;
+
+						double desiredHeight = Math.Max(fillHeight, minHeight);
+
+						return new Size(0, desiredHeight);
+					}
 				},
 
 				new WindowDefinition
@@ -435,6 +446,20 @@ namespace VidCoder.Services.Windows
 					}
 					else
 					{
+						if (windowDefinition.InitialSizeOverride != null && string.IsNullOrEmpty(placementJson))
+						{
+							Size? initialSizeOverride = windowDefinition.InitialSizeOverride();
+							if (initialSizeOverride.Value.Width > 0)
+							{
+								windowToOpen.Width = initialSizeOverride.Value.Width;
+							}
+
+							if (initialSizeOverride.Value.Height > 0)
+							{
+								windowToOpen.Height = initialSizeOverride.Value.Height;
+							}
+						}
+
 						windowToOpen.PlaceDynamic(placementJson);
 					}
 				};
