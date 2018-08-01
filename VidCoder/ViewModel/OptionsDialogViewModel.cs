@@ -97,40 +97,6 @@ namespace VidCoder.ViewModel
 				return currentFraction.ToString("p0");
 			}).ToProperty(this, x => x.CpuThrottlingDisplay, out this.cpuThrottlingDisplay);
 
-			this.SaveSettings = ReactiveCommand.Create();
-			this.SaveSettings.Subscribe(_ => this.SaveSettingsImpl());
-
-			this.BrowseVideoPlayer = ReactiveCommand.Create(this.WhenAnyValue(x => x.UseCustomVideoPlayer));
-			this.BrowseVideoPlayer.Subscribe(_ => this.BrowseVideoPlayerImpl());
-
-			this.BrowseCompletionSound = ReactiveCommand.Create(this.WhenAnyValue(x => x.UseCustomCompletionSound));
-			this.BrowseCompletionSound.Subscribe(_ => this.BrowseCompletionSoundImpl());
-
-			this.BrowsePath = ReactiveCommand.Create();
-			this.BrowsePath.Subscribe(_ => this.BrowsePathImpl());
-
-			this.BrowsePreviewFolder = ReactiveCommand.Create();
-			this.BrowsePreviewFolder.Subscribe(_ => this.BrowsePreviewFolderImpl());
-
-			this.OpenAddProcessDialog = ReactiveCommand.Create();
-			this.OpenAddProcessDialog.Subscribe(_ => this.OpenAddProcessDialogImpl());
-
-			this.RemoveProcess = ReactiveCommand.Create(this.WhenAnyValue(x => x.SelectedProcess).Select(selectedProcess => selectedProcess != null));
-			this.RemoveProcess.Subscribe(_ => this.RemoveProcessImpl());
-
-			bool logFolderExists = Directory.Exists(Utilities.LogsFolder);
-			this.OpenLogFolder = ReactiveCommand.Create(MvvmUtilities.CreateConstantObservable(logFolderExists));
-			this.OpenLogFolder.Subscribe(_ => this.OpenLogFolderImpl());
-
-			this.CheckUpdate = ReactiveCommand.Create(this.updater.WhenAnyValue(x => x.State).Select(state =>
-			{
-				return Config.UpdatesEnabled &&
-					(state == UpdateState.Failed ||
-					state == UpdateState.NotStarted ||
-					state == UpdateState.UpToDate);
-			}));
-			this.CheckUpdate.Subscribe(_ => this.CheckUpdateImpl());
-
 			this.updatesEnabledConfig = Config.UpdatesEnabled;
 			this.defaultPath = Config.AutoNameOutputFolder;
 			this.customFormat = Config.AutoNameCustomFormat;
@@ -610,172 +576,242 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<string> cpuThrottlingDisplay;
 		public string CpuThrottlingDisplay => this.cpuThrottlingDisplay.Value;
 
-		public ReactiveCommand<object> SaveSettings { get; }
-		private void SaveSettingsImpl()
+		private ReactiveCommand saveSettings;
+		public ReactiveCommand SaveSettings
 		{
-			using (SQLiteTransaction transaction = Database.Connection.BeginTransaction())
+			get
 			{
-				if (Config.UpdatesEnabled != this.UpdatesEnabledConfig)
+				return this.saveSettings ?? (this.saveSettings = ReactiveCommand.Create(() =>
 				{
-					Config.UpdatesEnabled = this.UpdatesEnabledConfig;
-					this.updater.HandleUpdatedSettings(this.UpdatesEnabledConfig);
-				}
+					using (SQLiteTransaction transaction = Database.Connection.BeginTransaction())
+					{
+						if (Config.UpdatesEnabled != this.UpdatesEnabledConfig)
+						{
+							Config.UpdatesEnabled = this.UpdatesEnabledConfig;
+							this.updater.HandleUpdatedSettings(this.UpdatesEnabledConfig);
+						}
 
-				if (Config.InterfaceLanguageCode != this.InterfaceLanguage.CultureCode)
+						if (Config.InterfaceLanguageCode != this.InterfaceLanguage.CultureCode)
+						{
+							Config.InterfaceLanguageCode = this.InterfaceLanguage.CultureCode;
+							Ioc.Get<IMessageBoxService>().Show(this, OptionsRes.NewLanguageRestartDialogMessage);
+						}
+
+						Config.AutoNameOutputFolder = this.DefaultPath;
+						Config.AutoNameCustomFormat = this.CustomFormat;
+						Config.AutoNameCustomFormatString = this.CustomFormatString;
+						Config.OutputToSourceDirectory = this.OutputToSourceDirectory;
+						Config.PreserveFolderStructureInBatch = this.PreserveFolderStructureInBatch;
+						Config.UseCustomPreviewFolder = this.UseCustomPreviewFolder;
+						Config.PreviewOutputFolder = this.PreviewOutputFolder;
+						CustomConfig.WhenFileExists = this.WhenFileExists;
+						CustomConfig.WhenFileExistsBatch = this.WhenFileExistsBatch;
+						Config.MinimizeToTray = this.MinimizeToTray;
+						Config.UseCustomVideoPlayer = this.UseCustomVideoPlayer;
+						Config.CustomVideoPlayer = this.CustomVideoPlayer;
+						Config.UseBuiltInPlayerForPreviews = this.UseBuiltInPlayerForPreviews;
+						Config.PlaySoundOnCompletion = this.PlaySoundOnCompletion;
+						Config.UseCustomCompletionSound = this.UseCustomCompletionSound;
+						Config.CustomCompletionSound = this.CustomCompletionSound;
+						Config.WorkerProcessPriority = this.WorkerProcessPriority;
+						Config.LogVerbosity = this.LogVerbosity;
+						Config.CopyLogToOutputFolder = this.CopyLogToOutputFolder;
+						var autoPauseList = new List<string>();
+						foreach (string process in this.AutoPauseProcesses)
+						{
+							autoPauseList.Add(process);
+						}
+
+						CustomConfig.AutoPauseProcesses = autoPauseList;
+						Config.PreviewCount = this.PreviewCount;
+						Config.RememberPreviousFiles = this.RememberPreviousFiles;
+						// Clear out any file/folder history when this is disabled.
+						if (!this.RememberPreviousFiles)
+						{
+							Config.LastCsvFolder = null;
+							Config.LastInputFileFolder = null;
+							Config.LastOutputFolder = null;
+							Config.LastPresetExportFolder = null;
+							Config.LastSrtFolder = null;
+							Config.LastVideoTSFolder = null;
+
+							Config.SourceHistory = null;
+						}
+
+						Config.ShowAudioTrackNameField = this.ShowAudioTrackNameField;
+						Config.EnableLibDvdNav = this.EnableLibDvdNav;
+						Config.DeleteSourceFilesOnClearingCompleted = this.DeleteSourceFilesOnClearingCompleted;
+						Config.PreserveModifyTimeFiles = this.PreserveModifyTimeFiles;
+						Config.ResumeEncodingOnRestart = this.ResumeEncodingOnRestart;
+						Config.UseWorkerProcess = this.UseWorkerProcess;
+						Config.MinimumTitleLengthSeconds = this.MinimumTitleLengthSeconds;
+						Config.VideoFileExtensions = this.VideoFileExtensions;
+						Config.CpuThrottlingFraction = (double)this.CpuThrottlingCores / this.CpuThrottlingMaxCores;
+						Config.MaxSimultaneousEncodes = this.MaxSimultaneousEncodes;
+
+						Config.PreferredPlayer = this.selectedPlayer.Id;
+
+						transaction.Commit();
+					}
+
+					this.Accept.Execute(null);
+				}));
+			}
+		}
+
+		private ReactiveCommand browseVideoPlayer;
+		public ReactiveCommand BrowseVideoPlayer
+		{
+			get
+			{
+				return this.browseVideoPlayer ?? (this.browseVideoPlayer = ReactiveCommand.Create(
+					() =>
+					{
+						string fileName = FileService.Instance.GetFileNameLoad(
+							title: OptionsRes.VideoPlayerFilePickTitle,
+							filter: Utilities.GetFilePickerFilter("exe"));
+
+						if (fileName != null)
+						{
+							this.CustomVideoPlayer = fileName;
+						}
+					},
+					this.WhenAnyValue(x => x.UseCustomVideoPlayer)));
+			}
+		}
+
+		private ReactiveCommand browseCompletionSound;
+		public ReactiveCommand BrowseCompletionSound
+		{
+			get
+			{
+				return this.browseCompletionSound ?? (this.browseCompletionSound = ReactiveCommand.Create(
+					() =>
+					{
+						string fileName = FileService.Instance.GetFileNameLoad(
+							title: OptionsRes.CompletionWavFilePickTitle,
+							filter: Utilities.GetFilePickerFilter("wav"));
+
+						if (fileName != null)
+						{
+							this.CustomCompletionSound = fileName;
+						}
+					},
+					this.WhenAnyValue(x => x.UseCustomCompletionSound)));
+			}
+		}
+
+		private ReactiveCommand browsePath;
+		public ReactiveCommand BrowsePath
+		{
+			get
+			{
+				return this.browsePath ?? (this.browsePath = ReactiveCommand.Create(() =>
 				{
-					Config.InterfaceLanguageCode = this.InterfaceLanguage.CultureCode;
-					Ioc.Get<IMessageBoxService>().Show(this, OptionsRes.NewLanguageRestartDialogMessage);
-				}
+					string initialDirectory = null;
+					if (Directory.Exists(this.DefaultPath))
+					{
+						initialDirectory = this.DefaultPath;
+					}
 
-				Config.AutoNameOutputFolder = this.DefaultPath;
-				Config.AutoNameCustomFormat = this.CustomFormat;
-				Config.AutoNameCustomFormatString = this.CustomFormatString;
-				Config.OutputToSourceDirectory = this.OutputToSourceDirectory;
-				Config.PreserveFolderStructureInBatch = this.PreserveFolderStructureInBatch;
-				Config.UseCustomPreviewFolder = this.UseCustomPreviewFolder;
-				Config.PreviewOutputFolder = this.PreviewOutputFolder;
-				CustomConfig.WhenFileExists = this.WhenFileExists;
-				CustomConfig.WhenFileExistsBatch = this.WhenFileExistsBatch;
-				Config.MinimizeToTray = this.MinimizeToTray;
-				Config.UseCustomVideoPlayer = this.UseCustomVideoPlayer;
-				Config.CustomVideoPlayer = this.CustomVideoPlayer;
-				Config.UseBuiltInPlayerForPreviews = this.UseBuiltInPlayerForPreviews;
-				Config.PlaySoundOnCompletion = this.PlaySoundOnCompletion;
-				Config.UseCustomCompletionSound = this.UseCustomCompletionSound;
-				Config.CustomCompletionSound = this.CustomCompletionSound;
-				Config.WorkerProcessPriority = this.WorkerProcessPriority;
-				Config.LogVerbosity = this.LogVerbosity;
-				Config.CopyLogToOutputFolder = this.CopyLogToOutputFolder;
-				var autoPauseList = new List<string>();
-				foreach (string process in this.AutoPauseProcesses)
+					string newFolder = FileService.Instance.GetFolderName(initialDirectory, OptionsRes.ChooseDefaultOutputFolder);
+					if (newFolder != null)
+					{
+						this.DefaultPath = newFolder;
+					}
+				}));
+			}
+		}
+
+		private ReactiveCommand browsePreviewFolder;
+		public ReactiveCommand BrowsePreviewFolder
+		{
+			get
+			{
+				return this.browsePreviewFolder ?? (this.browsePreviewFolder = ReactiveCommand.Create(() =>
 				{
-					autoPauseList.Add(process);
-				}
+					string newFolder = FileService.Instance.GetFolderName(null);
+					if (newFolder != null)
+					{
+						this.PreviewOutputFolder = newFolder;
+					}
+				}));
+			}
+		}
 
-				CustomConfig.AutoPauseProcesses = autoPauseList;
-				Config.PreviewCount = this.PreviewCount;
-				Config.RememberPreviousFiles = this.RememberPreviousFiles;
-				// Clear out any file/folder history when this is disabled.
-				if (!this.RememberPreviousFiles)
+		private ReactiveCommand openAddProcessDialog;
+		public ReactiveCommand OpenAddProcessDialog
+		{
+			get
+			{
+				return this.openAddProcessDialog ?? (this.openAddProcessDialog = ReactiveCommand.Create(() =>
 				{
-					Config.LastCsvFolder = null;
-					Config.LastInputFileFolder = null;
-					Config.LastOutputFolder = null;
-					Config.LastPresetExportFolder = null;
-					Config.LastSrtFolder = null;
-					Config.LastVideoTSFolder = null;
+					var addProcessVM = new AddAutoPauseProcessDialogViewModel();
+					Ioc.Get<IWindowManager>().OpenDialog(addProcessVM, this);
 
-					Config.SourceHistory = null;
-				}
-
-				Config.ShowAudioTrackNameField = this.ShowAudioTrackNameField;
-				Config.EnableLibDvdNav = this.EnableLibDvdNav;
-				Config.DeleteSourceFilesOnClearingCompleted = this.DeleteSourceFilesOnClearingCompleted;
-				Config.PreserveModifyTimeFiles = this.PreserveModifyTimeFiles;
-				Config.ResumeEncodingOnRestart = this.ResumeEncodingOnRestart;
-				Config.UseWorkerProcess = this.UseWorkerProcess;
-				Config.MinimumTitleLengthSeconds = this.MinimumTitleLengthSeconds;
-				Config.VideoFileExtensions = this.VideoFileExtensions;
-				Config.CpuThrottlingFraction = (double)this.CpuThrottlingCores / this.CpuThrottlingMaxCores;
-				Config.MaxSimultaneousEncodes = this.MaxSimultaneousEncodes;
-
-				Config.PreferredPlayer = this.selectedPlayer.Id;
-
-				transaction.Commit();
+					if (addProcessVM.DialogResult)
+					{
+						string newProcessName = addProcessVM.ProcessName; ;
+						if (!string.IsNullOrWhiteSpace(newProcessName) && !this.AutoPauseProcesses.Contains(newProcessName))
+						{
+							this.AutoPauseProcesses.Add(addProcessVM.ProcessName);
+						}
+					}
+				}));
 			}
-
-			this.Accept.Execute(null);
 		}
 
-		public ReactiveCommand<object> BrowseVideoPlayer { get; }
-		private void BrowseVideoPlayerImpl()
+		private ReactiveCommand removeProcess;
+		public ReactiveCommand RemoveProcess
 		{
-			string fileName = FileService.Instance.GetFileNameLoad(
-				title: OptionsRes.VideoPlayerFilePickTitle,
-				filter: Utilities.GetFilePickerFilter("exe"));
-
-			if (fileName != null)
+			get
 			{
-				this.CustomVideoPlayer = fileName;
+				return this.removeProcess ?? (this.removeProcess = ReactiveCommand.Create(
+					() =>
+					{
+						this.AutoPauseProcesses.Remove(this.SelectedProcess);
+					},
+					this.WhenAnyValue(x => x.SelectedProcess).Select(selectedProcess => selectedProcess != null)));
 			}
 		}
 
-		public ReactiveCommand<object> BrowseCompletionSound { get; }
-		private void BrowseCompletionSoundImpl()
+		private ReactiveCommand openLogFolder;
+		public ReactiveCommand OpenLogFolder
 		{
-			string fileName = FileService.Instance.GetFileNameLoad(
-				title: OptionsRes.CompletionWavFilePickTitle,
-				filter: Utilities.GetFilePickerFilter("wav"));
-
-			if (fileName != null)
+			get
 			{
-				this.CustomCompletionSound = fileName;
+				return this.openLogFolder ?? (this.openLogFolder = ReactiveCommand.Create(
+					() =>
+					{
+						string logFolder = Utilities.LogsFolder;
+
+						if (Directory.Exists(logFolder))
+						{
+							FileService.Instance.LaunchFile(logFolder);
+						}
+					},
+					MvvmUtilities.CreateConstantObservable(Directory.Exists(Utilities.LogsFolder))));
 			}
 		}
 
-		public ReactiveCommand<object> BrowsePath { get; }
-		private void BrowsePathImpl()
+		private ReactiveCommand checkUpdate;
+		public ReactiveCommand CheckUpdate
 		{
-			string initialDirectory = null;
-			if (Directory.Exists(this.DefaultPath))
+			get
 			{
-				initialDirectory = this.DefaultPath;
+				return this.checkUpdate ?? (this.checkUpdate = ReactiveCommand.Create(
+					() =>
+					{
+						this.updater.CheckUpdates();
+					},
+					this.updater.WhenAnyValue(x => x.State).Select(state =>
+					{
+						return Config.UpdatesEnabled &&
+						        (state == UpdateState.Failed ||
+						        state == UpdateState.NotStarted ||
+						        state == UpdateState.UpToDate);
+					})));
 			}
-
-			string newFolder = FileService.Instance.GetFolderName(initialDirectory, OptionsRes.ChooseDefaultOutputFolder);
-			if (newFolder != null)
-			{
-				this.DefaultPath = newFolder;
-			}
-		}
-
-		public ReactiveCommand<object> BrowsePreviewFolder { get; }
-		private void BrowsePreviewFolderImpl()
-		{
-			string newFolder = FileService.Instance.GetFolderName(null);
-			if (newFolder != null)
-			{
-				this.PreviewOutputFolder = newFolder;
-			}
-		}
-
-		public ReactiveCommand<object> OpenAddProcessDialog { get; }
-		private void OpenAddProcessDialogImpl()
-		{
-			var addProcessVM = new AddAutoPauseProcessDialogViewModel();
-			Ioc.Get<IWindowManager>().OpenDialog(addProcessVM, this);
-
-			if (addProcessVM.DialogResult)
-			{
-				string newProcessName = addProcessVM.ProcessName; ;
-				if (!string.IsNullOrWhiteSpace(newProcessName) && !this.AutoPauseProcesses.Contains(newProcessName))
-				{
-					this.AutoPauseProcesses.Add(addProcessVM.ProcessName);
-				}
-			}
-		}
-
-		public ReactiveCommand<object> RemoveProcess { get; }
-		private void RemoveProcessImpl()
-		{
-			this.AutoPauseProcesses.Remove(this.SelectedProcess);
-		}
-
-		public ReactiveCommand<object> OpenLogFolder { get; }
-		private void OpenLogFolderImpl()
-		{
-			string logFolder = Utilities.LogsFolder;
-
-			if (Directory.Exists(logFolder))
-			{
-				FileService.Instance.LaunchFile(logFolder);
-			}
-		}
-
-		public ReactiveCommand<object> CheckUpdate { get; }
-		private void CheckUpdateImpl()
-		{
-			this.updater.CheckUpdates();
 		}
 	}
 }

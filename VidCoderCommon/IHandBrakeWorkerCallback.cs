@@ -1,5 +1,4 @@
 ﻿using System;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
 
 namespace VidCoderCommon
 {

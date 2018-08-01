@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using HandBrake.ApplicationServices.Interop;
+using HandBrake.Interop.Interop;
 using VidCoder.Extensions;
 
 namespace VidCoder.ViewModel

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HandBrake.ApplicationServices.Interop;
-using HandBrake.ApplicationServices.Interop.Model;
+using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.Model;
 using ReactiveUI;
 
 namespace VidCoder.ViewModel.DataModels
@@ -16,12 +16,6 @@ namespace VidCoder.ViewModel.DataModels
 		public LanguageViewModel(PickerWindowViewModel pickerWindowViewModel)
 		{
 			this.pickerWindowViewModel = pickerWindowViewModel;
-
-			this.RemoveAudioLanguage = ReactiveCommand.Create();
-			this.RemoveAudioLanguage.Subscribe(_ => this.RemoveAudioLanguageImpl());
-
-			this.RemoveSubtitleLanguage = ReactiveCommand.Create();
-			this.RemoveSubtitleLanguage.Subscribe(_ => this.RemoveSubtitleLanguageImpl());
 		}
 
 		private string code;
@@ -33,16 +27,28 @@ namespace VidCoder.ViewModel.DataModels
 
 		public PickerWindowViewModel PickerWindowViewModel => this.pickerWindowViewModel;
 
-		public ReactiveCommand<object> RemoveAudioLanguage { get; }
-		private void RemoveAudioLanguageImpl()
+		private ReactiveCommand removeAudioLanguage;
+		public ReactiveCommand RemoveAudioLanguage
 		{
-			this.pickerWindowViewModel.RemoveAudioLanguage(this);
+			get
+			{
+				return this.removeAudioLanguage ?? (this.removeAudioLanguage = ReactiveCommand.Create(() =>
+				{
+					this.pickerWindowViewModel.RemoveAudioLanguage(this);
+				}));
+			}
 		}
 
-		public ReactiveCommand<object> RemoveSubtitleLanguage { get; }
-		private void RemoveSubtitleLanguageImpl()
+		private ReactiveCommand removeSubtitleLanguage;
+		public ReactiveCommand RemoveSubtitleLanguage
 		{
-			this.pickerWindowViewModel.RemoveSubtitleLanguage(this);
+			get
+			{
+				return this.removeSubtitleLanguage ?? (this.removeSubtitleLanguage = ReactiveCommand.Create(() =>
+				{
+					this.pickerWindowViewModel.RemoveSubtitleLanguage(this);
+				}));
+			}
 		}
 
 		public IList<Language> Languages

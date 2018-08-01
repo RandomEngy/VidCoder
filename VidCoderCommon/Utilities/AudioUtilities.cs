@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HandBrake.ApplicationServices.Interop;
-using HandBrake.ApplicationServices.Interop.Json.Encode;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
-using HandBrake.ApplicationServices.Interop.Model.Encoding;
+using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.Json.Scan;
+using HandBrake.Interop.Interop.Model.Encoding;
 using VidCoderCommon.Model;
 
 namespace VidCoderCommon

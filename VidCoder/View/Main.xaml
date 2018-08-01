@@ -837,8 +837,6 @@
 								                     Converter={StaticResource VisibilityConverter}}" />
 						</Grid>
 
-
-
 						<!--  Video Detail  -->
 						<Grid
 							Grid.Row="1"
@@ -1074,7 +1072,7 @@
 
 						</Grid>
 
-
+						
 						<!--  Audio Header  -->
 						<ToggleButton
 							Grid.Row="2"
@@ -1098,7 +1096,6 @@
 									TextTrimming="CharacterEllipsis" />
 							</Grid>
 						</ToggleButton>
-
 
 						<!--  Audio detail  -->
 						<ListView
@@ -1181,6 +1178,7 @@
 							</ListView.View>
 						</ListView>
 
+						
 						<!--  Subtitles header  -->
 						<ToggleButton
 							Grid.Row="4"
@@ -1497,6 +1495,7 @@
 
 						</Grid>
 
+						
 						<!--  Chapters header  -->
 						<Grid
 							Grid.Row="6"

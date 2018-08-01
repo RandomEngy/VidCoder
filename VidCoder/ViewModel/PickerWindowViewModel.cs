@@ -8,7 +8,6 @@ using System.Reactive.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
-using HandBrake.ApplicationServices.Interop.Model;
 using Omu.ValueInjecter;
 using ReactiveUI;
 using VidCoder.Model;
@@ -281,33 +280,6 @@ namespace VidCoder.ViewModel
 
 					this.userModifyingEncodingPreset = false;
 				});
-
-				this.DismissMessage = ReactiveCommand.Create();
-				this.DismissMessage.Subscribe(_ => { this.ShowHelpMessage = false; });
-
-				this.Save = ReactiveCommand.Create(this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsDefault).Select(isDefault => !isDefault));
-				this.Save.Subscribe(_ => { this.pickersService.SavePicker(); });
-
-				this.SaveAs = ReactiveCommand.Create();
-				this.SaveAs.Subscribe(_ => this.SaveAsImpl());
-
-				this.Rename = ReactiveCommand.Create();
-				this.Rename.Subscribe(_ => this.RenameImpl());
-
-				this.Delete = ReactiveCommand.Create(this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsModified, x => x.SelectedPicker.Picker.IsDefault, (isModified, isDefault) => isModified || !isDefault));
-				this.Delete.Subscribe(_ => this.DeleteImpl());
-
-				this.PickOutputDirectory = ReactiveCommand.Create();
-				this.PickOutputDirectory.Subscribe(_ => this.PickOutputDirectoryImpl());
-
-				this.AddAudioLanguage = ReactiveCommand.Create();
-				this.AddAudioLanguage.Subscribe(_ => this.AddAudioLanguageImpl());
-
-				this.AddSubtitleLanguage = ReactiveCommand.Create();
-				this.AddSubtitleLanguage.Subscribe(_ => this.AddSubtitleLanguageImpl());
-
-				this.PickPostEncodeExecutable = ReactiveCommand.Create();
-				this.PickPostEncodeExecutable.Subscribe(_ => this.PickPostEncodeExecutableImpl());
 			}
 		}
 
@@ -694,92 +666,150 @@ namespace VidCoder.ViewModel
 			set { this.UpdatePickerProperty(nameof(this.Picker.PostEncodeArguments), value); }
 		}
 
-		public ReactiveCommand<object> DismissMessage { get; }
-
-		public ReactiveCommand<object> Save { get; }
-
-		public ReactiveCommand<object> SaveAs { get; }
-
-		private void SaveAsImpl()
+		private ReactiveCommand dismissMessage;
+		public ReactiveCommand DismissMessage
 		{
-			var dialogVM = new ChooseNameViewModel(MiscRes.ChooseNamePicker, this.pickersService.Pickers.Skip(1).Select(p => p.Picker.Name));
-			dialogVM.Name = this.Picker.DisplayName;
-			Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
-
-			if (dialogVM.DialogResult)
+			get
 			{
-				string newPickerName = dialogVM.Name;
-
-				this.pickersService.SavePickerAs(newPickerName);
-			}
-		}
-
-		public ReactiveCommand<object> Rename { get; }
-
-		private void RenameImpl()
-		{
-			var dialogVM = new ChooseNameViewModel(MiscRes.ChooseNamePicker, this.pickersService.Pickers.Skip(1).Select(p => p.Picker.Name));
-			dialogVM.Name = this.Picker.DisplayName;
-			Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
-
-			if (dialogVM.DialogResult)
-			{
-				string newPickerName = dialogVM.Name;
-				this.pickersService.SelectedPicker.Picker.Name = newPickerName;
-
-				this.pickersService.SavePicker();
-			}
-		}
-
-		public ReactiveCommand<object> Delete { get; }
-
-		private void DeleteImpl()
-		{
-			if (this.Picker.IsModified)
-			{
-				// Revert
-				MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, MainRes.RevertConfirmMessage, MainRes.RevertConfirmTitle, MessageBoxButton.YesNo);
-				if (dialogResult == MessageBoxResult.Yes)
+				return this.dismissMessage ?? (this.dismissMessage = ReactiveCommand.Create(() =>
 				{
-					this.pickersService.RevertPicker();
-				}
+					this.ShowHelpMessage = false;
+				}));
 			}
-			else
+		}
+
+		private ReactiveCommand save;
+		public ReactiveCommand Save
+		{
+			get
 			{
-				// Delete
-				MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, MainRes.RemoveConfirmMessage, MainRes.RemoveConfirmTitle, MessageBoxButton.YesNo);
-				if (dialogResult == MessageBoxResult.Yes)
+				return this.save ?? (this.save = ReactiveCommand.Create(
+					() =>
+					{
+						this.pickersService.SavePicker();
+					},
+					this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsDefault).Select(isDefault => !isDefault)));
+			}
+		}
+
+
+		private ReactiveCommand saveAs;
+		public ReactiveCommand SaveAs
+		{
+			get
+			{
+				return this.saveAs ?? (this.saveAs = ReactiveCommand.Create(() =>
 				{
-					this.pickersService.DeletePicker();
-				}
+					var dialogVM = new ChooseNameViewModel(MiscRes.ChooseNamePicker, this.pickersService.Pickers.Skip(1).Select(p => p.Picker.Name));
+					dialogVM.Name = this.Picker.DisplayName;
+					Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
+
+					if (dialogVM.DialogResult)
+					{
+						string newPickerName = dialogVM.Name;
+
+						this.pickersService.SavePickerAs(newPickerName);
+					}
+				}));
 			}
 		}
 
-		public ReactiveCommand<object> PickOutputDirectory { get; private set; }
-
-		private void PickOutputDirectoryImpl()
+		private ReactiveCommand rename;
+		public ReactiveCommand Rename
 		{
-			string overrideFolder = FileService.Instance.GetFolderName(this.OutputDirectoryOverride, MainRes.OutputDirectoryPickerText);
-			if (overrideFolder != null)
+			get
 			{
-				this.OutputDirectoryOverride = overrideFolder;
+				return this.rename ?? (this.rename = ReactiveCommand.Create(() =>
+				{
+					var dialogVM = new ChooseNameViewModel(MiscRes.ChooseNamePicker, this.pickersService.Pickers.Skip(1).Select(p => p.Picker.Name));
+					dialogVM.Name = this.Picker.DisplayName;
+					Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
+
+					if (dialogVM.DialogResult)
+					{
+						string newPickerName = dialogVM.Name;
+						this.pickersService.SelectedPicker.Picker.Name = newPickerName;
+
+						this.pickersService.SavePicker();
+					}
+				}));
 			}
 		}
 
-		public ReactiveCommand<object> AddAudioLanguage { get; }
-
-		private void AddAudioLanguageImpl()
+		private ReactiveCommand delete;
+		public ReactiveCommand Delete
 		{
-			this.AddLanguage(this.AudioLanguages);
-			this.HandleAudioLanguageUpdate();
+			get
+			{
+				return this.delete ?? (this.delete = ReactiveCommand.Create(
+					() =>
+					{
+						if (this.Picker.IsModified)
+						{
+							// Revert
+							MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, MainRes.RevertConfirmMessage, MainRes.RevertConfirmTitle, MessageBoxButton.YesNo);
+							if (dialogResult == MessageBoxResult.Yes)
+							{
+								this.pickersService.RevertPicker();
+							}
+						}
+						else
+						{
+							// Delete
+							MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, MainRes.RemoveConfirmMessage, MainRes.RemoveConfirmTitle, MessageBoxButton.YesNo);
+							if (dialogResult == MessageBoxResult.Yes)
+							{
+								this.pickersService.DeletePicker();
+							}
+						}
+					},
+					this.pickersService.WhenAnyValue(
+						x => x.SelectedPicker.Picker.IsModified,
+						x => x.SelectedPicker.Picker.IsDefault,
+						(isModified, isDefault) => isModified || !isDefault)));
+			}
 		}
 
-		public ReactiveCommand<object> AddSubtitleLanguage { get; }
-
-		private void AddSubtitleLanguageImpl()
+		private ReactiveCommand pickOutputDirectory;
+		public ReactiveCommand PickOutputDirectory
 		{
-			this.AddLanguage(this.SubtitleLanguages);
-			this.HandleSubtitleLanguageUpdate();
+			get
+			{
+				return this.pickOutputDirectory ?? (this.pickOutputDirectory = ReactiveCommand.Create(() =>
+				{
+					string overrideFolder = FileService.Instance.GetFolderName(this.OutputDirectoryOverride, MainRes.OutputDirectoryPickerText);
+					if (overrideFolder != null)
+					{
+						this.OutputDirectoryOverride = overrideFolder;
+					}
+				}));
+			}
+		}
+
+		private ReactiveCommand addAudioLanguage;
+		public ReactiveCommand AddAudioLanguage
+		{
+			get
+			{
+				return this.addAudioLanguage ?? (this.addAudioLanguage = ReactiveCommand.Create(() =>
+				{
+					this.AddLanguage(this.AudioLanguages);
+					this.HandleAudioLanguageUpdate();
+				}));
+			}
+		}
+
+		private ReactiveCommand addSubtitleLanguage;
+		public ReactiveCommand AddSubtitleLanguage
+		{
+			get
+			{
+				return this.addSubtitleLanguage ?? (this.addSubtitleLanguage = ReactiveCommand.Create(() =>
+				{
+					this.AddLanguage(this.SubtitleLanguages);
+					this.HandleSubtitleLanguageUpdate();
+				}));
+			}
 		}
 
 		private void AddLanguage(ReactiveList<LanguageViewModel> list)
@@ -787,27 +817,32 @@ namespace VidCoder.ViewModel
 			list.Add(new LanguageViewModel(this) { Code = LanguageUtilities.GetDefaultLanguageCode(list.Select(l => l.Code).ToList()) });
 		}
 
-		public ReactiveCommand<object> PickPostEncodeExecutable { get; }
-
-		private void PickPostEncodeExecutableImpl()
+		private ReactiveCommand pickPostEncodeExecutable;
+		public ReactiveCommand PickPostEncodeExecutable
 		{
-			string initialDirectory = null;
-			if (!string.IsNullOrEmpty(this.PostEncodeExecutable))
+			get
 			{
-				try
+				return this.pickPostEncodeExecutable ?? (this.pickPostEncodeExecutable = ReactiveCommand.Create(() =>
 				{
-					initialDirectory = Path.GetDirectoryName(this.PostEncodeExecutable);
-				}
-				catch (Exception)
-				{
-					// Ignore and use null
-				}
-			}
+					string initialDirectory = null;
+					if (!string.IsNullOrEmpty(this.PostEncodeExecutable))
+					{
+						try
+						{
+							initialDirectory = Path.GetDirectoryName(this.PostEncodeExecutable);
+						}
+						catch (Exception)
+						{
+							// Ignore and use null
+						}
+					}
 
-			string executablePath = FileService.Instance.GetFileNameLoad(initialDirectory: initialDirectory);
-			if (executablePath != null)
-			{
-				this.PostEncodeExecutable = executablePath;
+					string executablePath = FileService.Instance.GetFileNameLoad(initialDirectory: initialDirectory);
+					if (executablePath != null)
+					{
+						this.PostEncodeExecutable = executablePath;
+					}
+				}));
 			}
 		}
 

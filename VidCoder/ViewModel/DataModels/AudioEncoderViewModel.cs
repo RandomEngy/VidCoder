@@ -1,5 +1,5 @@
 ﻿using System.Resources;
-using HandBrake.ApplicationServices.Interop.Model.Encoding;
+using HandBrake.Interop.Interop.Model.Encoding;
 using ReactiveUI;
 using VidCoder.Resources;
 

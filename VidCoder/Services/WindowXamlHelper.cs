@@ -29,14 +29,12 @@ namespace VidCoder
 				}
 			};
 
-			this.OpenPreviewWindow = ReactiveCommand.Create();
-			this.OpenPreviewWindow.Subscribe(_ =>
+			this.OpenPreviewWindow = ReactiveCommand.Create(() =>
 			{
 				this.windowManager.OpenOrFocusWindow(typeof(PreviewWindowViewModel));
 			});
 
-			this.OpenPickerWindow = ReactiveCommand.Create();
-			this.OpenPickerWindow.Subscribe(_ =>
+			this.OpenPickerWindow = ReactiveCommand.Create(() =>
 			{
 				this.windowManager.OpenOrFocusWindow(typeof(PickerWindowViewModel));
 			});
@@ -49,7 +47,7 @@ namespace VidCoder
 			set { this.RaiseAndSetIfChanged(ref this.previewWindowOpen, value); }
 		}
 
-		public ReactiveCommand<object> OpenPreviewWindow { get; private set; }
-		public ReactiveCommand<object> OpenPickerWindow { get; private set; }
+		public ReactiveCommand OpenPreviewWindow { get; private set; }
+		public ReactiveCommand OpenPickerWindow { get; private set; }
 	}
 }

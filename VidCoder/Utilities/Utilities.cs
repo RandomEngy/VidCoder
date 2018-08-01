@@ -11,7 +11,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Interop;
 using Windows.Foundation.Metadata;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
+using HandBrake.Interop.Interop.Json.Scan;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Resources;

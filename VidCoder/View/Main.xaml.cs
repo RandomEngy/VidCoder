@@ -22,7 +22,7 @@ using System.Windows.Interop;
 using System.Windows.Media.Animation;
 using System.Windows.Resources;
 using Fluent;
-using HandBrake.ApplicationServices.Interop.Json.Encode;
+using HandBrake.Interop.Interop.Json.Encode;
 using Microsoft.Practices.Unity;
 using Newtonsoft.Json;
 using ReactiveUI;

@@ -28,8 +28,7 @@ namespace VidCoder.Extensions
 
 				        var key = (Key)converter.ConvertFrom(parts[1]);
 
-				        ReactiveCommand<object> openCommand = ReactiveCommand.Create();
-				        openCommand.Subscribe(_ =>
+				        ReactiveCommand openCommand = ReactiveCommand.Create(() =>
 				        {
 							windowManager.OpenOrFocusWindow(windowViewModelType);
 						});

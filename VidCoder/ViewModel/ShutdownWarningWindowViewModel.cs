@@ -21,9 +21,6 @@ namespace VidCoder.ViewModel
 		{
 			this.actionType = actionType;
 
-			this.CancelOperation = ReactiveCommand.Create();
-			this.CancelOperation.Subscribe(_ => this.CancelOperationImpl());
-
 			this.timer = new DispatcherTimer();
 			this.timer.Interval = TimeSpan.FromSeconds(1);
 			this.timer.Tick += (o, e) =>
@@ -106,11 +103,17 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveCommand<object> CancelOperation { get; }
-		private void CancelOperationImpl()
+		private ReactiveCommand cancelOperation;
+		public ReactiveCommand CancelOperation
 		{
-			this.timer.Stop();
-			this.Cancel.Execute(null);
+			get
+			{
+				return this.cancelOperation ?? (this.cancelOperation = ReactiveCommand.Create(() =>
+				{
+					this.timer.Stop();
+					this.Cancel.Execute(null);
+				}));
+			}
 		}
 	}
 }

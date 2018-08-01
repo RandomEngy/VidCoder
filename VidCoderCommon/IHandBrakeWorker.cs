@@ -1,7 +1,6 @@
 ﻿using System.ServiceModel;
 using System.Threading;
 using System.Threading.Tasks;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
 using VidCoderCommon.Model;
 
 namespace VidCoderCommon

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using HandBrake.ApplicationServices.Interop;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
+using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.Json.Scan;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Resources;
@@ -65,12 +65,6 @@ namespace VidCoder.ViewModel
 			{
 				this.RaisePropertyChanged(nameof(this.BurnedIn));
 			});
-
-			this.DuplicateSubtitle = ReactiveCommand.Create();
-			this.DuplicateSubtitle.Subscribe(_ => this.DuplicateSubtitleImpl());
-
-			this.RemoveSubtitle = ReactiveCommand.Create();
-			this.RemoveSubtitle.Subscribe(_ => this.RemoveSubtitleImpl());
 		}
 
 		public MainViewModel MainViewModel { get; }
@@ -250,16 +244,28 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveCommand<object> DuplicateSubtitle { get; }
-		private void DuplicateSubtitleImpl()
+		private ReactiveCommand duplicateSubtitle;
+		public ReactiveCommand DuplicateSubtitle
 		{
-			this.MainViewModel.DuplicateSourceSubtitle(this);
+			get
+			{
+				return this.duplicateSubtitle ?? (this.duplicateSubtitle = ReactiveCommand.Create(() =>
+				{
+					this.MainViewModel.DuplicateSourceSubtitle(this);
+				}));
+			}
 		}
 
-		public ReactiveCommand<object> RemoveSubtitle { get; }
-		private void RemoveSubtitleImpl()
+		private ReactiveCommand removeSubtitle;
+		public ReactiveCommand RemoveSubtitle
 		{
-			this.MainViewModel.RemoveSourceSubtitle(this);
+			get
+			{
+				return this.removeSubtitle ?? (this.removeSubtitle = ReactiveCommand.Create(() =>
+				{
+					this.MainViewModel.RemoveSourceSubtitle(this);
+				}));
+			}
 		}
 
 		public void Deselect()

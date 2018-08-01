@@ -7,11 +7,11 @@ using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Windows.Media;
-using HandBrake.ApplicationServices.Interop;
-using HandBrake.ApplicationServices.Interop.HbLib;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
-using HandBrake.ApplicationServices.Interop.Model;
-using HandBrake.ApplicationServices.Interop.Model.Encoding;
+using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.HbLib;
+using HandBrake.Interop.Interop.Json.Scan;
+using HandBrake.Interop.Interop.Model;
+using HandBrake.Interop.Interop.Model.Encoding;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Model;
@@ -356,9 +356,6 @@ namespace VidCoder.ViewModel
 			{
 				return audioEncoder.IsPassthrough;
 			}).ToProperty(this, x => x.PassthroughChoicesVisible, out this.passthroughChoicesVisible);
-
-			this.RemoveAudioEncoding = ReactiveCommand.Create();
-			this.RemoveAudioEncoding.Subscribe(_ => this.RemoveAudioEncodingImpl());
 
 			this.selectedTitleSubscription = this.main.WhenAnyValue(x => x.SelectedTitle)
 				.Skip(1)
@@ -894,10 +891,16 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveCommand<object> RemoveAudioEncoding { get; }
-		private void RemoveAudioEncodingImpl()
+		private ReactiveCommand removeAudioEncoding;
+		public ReactiveCommand RemoveAudioEncoding
 		{
-			this.audioPanelVM.RemoveAudioEncoding(this);
+			get
+			{
+				return this.removeAudioEncoding ?? (this.removeAudioEncoding = ReactiveCommand.Create(() =>
+				{
+					this.audioPanelVM.RemoveAudioEncoding(this);
+				}));
+			}
 		}
 
 		public void SetChosenTracks(List<int> chosenAudioTracks, SourceTitle selectedTitle)

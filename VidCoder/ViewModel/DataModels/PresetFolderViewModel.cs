@@ -31,20 +31,6 @@ namespace VidCoder.ViewModel.DataModels
 			this.presetsService = presetsService;
 			this.isExpanded = isExpanded;
 
-			IObservable<bool> canRemove = this.WhenAnyValue(x => x.SubFolders.Count, x => x.Items.Count, (numSubfolders, numItems) =>
-			{
-				return numSubfolders == 0 && numItems == 0 && this.Id != 0;
-			});
-
-			this.CreateSubfolder = ReactiveCommand.Create();
-			this.CreateSubfolder.Subscribe(_ => this.CreateSubfolderImpl());
-
-			this.RenameFolder = ReactiveCommand.Create();
-			this.RenameFolder.Subscribe(_ => this.RenameFolderImpl());
-
-			this.RemoveFolder = ReactiveCommand.Create(canRemove);
-			this.RemoveFolder.Subscribe(_ => this.RemoveFolderImpl());
-
 			this.WhenAnyValue(x => x.IsExpanded)
 				.Skip(1)
 				.Subscribe(isExp =>
@@ -191,22 +177,45 @@ namespace VidCoder.ViewModel.DataModels
 			this.AllItems.Remove(presetViewModel);
 		}
 
-		public ReactiveCommand<object> CreateSubfolder { get; }
-		private void CreateSubfolderImpl()
+		private ReactiveCommand createSubfolder;
+		public ReactiveCommand CreateSubfolder
 		{
-			this.presetsService.CreateSubFolder(this);
+			get
+			{
+				return this.createSubfolder ?? (this.createSubfolder = ReactiveCommand.Create(() =>
+				{
+					this.presetsService.CreateSubFolder(this);
+				}));
+			}
 		}
 
-		public ReactiveCommand<object> RenameFolder { get; }
-		private void RenameFolderImpl()
+		private ReactiveCommand renameFolder;
+		public ReactiveCommand RenameFolder
 		{
-			this.presetsService.RenameFolder(this);
+			get
+			{
+				return this.renameFolder ?? (this.renameFolder = ReactiveCommand.Create(() =>
+				{
+					this.presetsService.RenameFolder(this);
+				}));
+			}
 		}
 
-		public ReactiveCommand<object> RemoveFolder { get; }
-		private void RemoveFolderImpl()
+		private ReactiveCommand removeFolder;
+		public ReactiveCommand RemoveFolder
 		{
-			this.presetsService.RemoveFolder(this);
+			get
+			{
+				return this.removeFolder ?? (this.removeFolder = ReactiveCommand.Create(
+					() =>
+					{
+						this.presetsService.RemoveFolder(this);
+					},
+					this.WhenAnyValue(x => x.SubFolders.Count, x => x.Items.Count, (numSubfolders, numItems) =>
+					{
+						return numSubfolders == 0 && numItems == 0 && this.Id != 0;
+					})));
+			}
 		}
 
 		private bool ReselectPresetOnExpanded(PresetFolderViewModel presetFolderViewModel)

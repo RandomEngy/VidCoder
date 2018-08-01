@@ -5,7 +5,7 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Media;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
+using HandBrake.Interop.Interop.Json.Scan;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -39,12 +39,6 @@ namespace VidCoder.ViewModel
 
 			this.titles = new ReactiveList<TitleSelectionViewModel>();
 			this.RefreshTitles();
-
-			this.Play = ReactiveCommand.Create(MvvmUtilities.CreateConstantObservable(!Utilities.IsRunningAsAppx && Players.Installed.Count > 0));
-			this.Play.Subscribe(_ => this.PlayImpl());
-
-			this.AddToQueue = ReactiveCommand.Create();
-			this.AddToQueue.Subscribe(_ => this.AddToQueueImpl());
 
 			this.main.WhenAnyValue(x => x.SourceData)
 				.Skip(1)
@@ -103,7 +97,7 @@ namespace VidCoder.ViewModel
 								EncodingProfile = previewProfile
 							};
 
-						this.PreviewImage = BitmapUtilities.ConvertToBitmapImage(this.main.ScanInstance.GetPreview(previewProfile.CreatePreviewSettings(title), 2, deinterlace: false));
+						this.PreviewImage = BitmapUtilities.ConvertToBitmapImage(BitmapUtilities.ConvertByteArrayToBitmap(this.main.ScanInstance.GetPreview(previewProfile.CreatePreviewSettings(title), 2, deinterlace: false)));
 						this.RaisePropertyChanged(nameof(this.TitleText));
 					}
 			    };
@@ -203,49 +197,64 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveCommand<object> Play { get; }
-		private void PlayImpl()
+		private ReactiveCommand play;
+		public ReactiveCommand Play
 		{
-			IVideoPlayer player = Players.Installed.FirstOrDefault(p => p.Id == Config.PreferredPlayer);
-			if (player == null)
+			get
 			{
-				player = Players.Installed[0];
-			}
+				return this.play ?? (this.play = ReactiveCommand.Create(
+					() =>
+					{
+						IVideoPlayer player = Players.Installed.FirstOrDefault(p => p.Id == Config.PreferredPlayer);
+						if (player == null)
+						{
+							player = Players.Installed[0];
+						}
 
-			player.PlayTitle(this.main.SourcePath, this.selectedTitles[0].Title.Index);
+						player.PlayTitle(this.main.SourcePath, this.selectedTitles[0].Title.Index);
+					},
+					MvvmUtilities.CreateConstantObservable(!Utilities.IsRunningAsAppx && Players.Installed.Count > 0)));
+			}
 		}
 
-		public ReactiveCommand<object> AddToQueue { get; }
-		private void AddToQueueImpl()
+		private ReactiveCommand addToQueue;
+		public ReactiveCommand AddToQueue
 		{
-			this.DialogResult = true;
-
-			string nameOverrideLocal;
-			if (this.NameOverrideEnabled)
+			get
 			{
-				nameOverrideLocal = this.NameOverride;
-			}
-			else
-			{
-				var picker = this.PickersService.SelectedPicker.Picker;
-				if (picker.NameFormatOverrideEnabled)
+				return this.addToQueue ?? (this.addToQueue = ReactiveCommand.Create(() =>
 				{
-					nameOverrideLocal = picker.NameFormatOverride;
-				}
-				else
-				{
-					nameOverrideLocal = null;
-				}
+					this.DialogResult = true;
+
+					string nameOverrideLocal;
+					if (this.NameOverrideEnabled)
+					{
+						nameOverrideLocal = this.NameOverride;
+					}
+					else
+					{
+						var picker = this.PickersService.SelectedPicker.Picker;
+						if (picker.NameFormatOverrideEnabled)
+						{
+							nameOverrideLocal = picker.NameFormatOverride;
+						}
+						else
+						{
+							nameOverrideLocal = null;
+						}
+					}
+
+					var processingService = Ioc.Get<ProcessingService>();
+					processingService.QueueTitles(
+						this.CheckedTitles,
+						this.TitleStartOverrideEnabled ? this.TitleStartOverride : -1,
+						nameOverrideLocal);
+
+					this.windowManager.Close(this);
+				}));
 			}
-
-			var processingService = Ioc.Get<ProcessingService>();
-			processingService.QueueTitles(
-				this.CheckedTitles,
-				this.TitleStartOverrideEnabled ? this.TitleStartOverride : -1,
-				nameOverrideLocal);
-
-			this.windowManager.Close(this);
 		}
+
 
 		public override bool OnClosing()
 		{

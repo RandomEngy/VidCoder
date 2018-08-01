@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using HandBrake.ApplicationServices.Interop.Model.Encoding;
 using VidCoder.Model;
 
 namespace VidCoder

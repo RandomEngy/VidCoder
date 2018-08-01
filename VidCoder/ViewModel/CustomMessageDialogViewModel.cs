@@ -48,9 +48,6 @@ namespace VidCoder.ViewModel
 
 			this.IsDefault = type == ButtonType.Default;
 			this.IsCancel = type == ButtonType.Cancel;
-
-			this.Choose = ReactiveCommand.Create();
-			this.Choose.Subscribe(_ => this.ChooseImpl());
 		}
 
 		public T Value { get; }
@@ -63,10 +60,16 @@ namespace VidCoder.ViewModel
 
 		public CustomMessageDialogViewModel<T> Parent { get; set; }
 
-		public ReactiveCommand<object> Choose { get; }
-		private void ChooseImpl()
+		private ReactiveCommand choose;
+		public ReactiveCommand Choose
 		{
-			this.Parent.SetResult(this.Value);
+			get
+			{
+				return this.choose ?? (this.choose = ReactiveCommand.Create(() =>
+				{
+					this.Parent.SetResult(this.Value);
+				}));
+			}
 		}
 	}
 

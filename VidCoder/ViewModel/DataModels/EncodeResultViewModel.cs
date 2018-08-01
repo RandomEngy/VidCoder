@@ -21,24 +21,6 @@ namespace VidCoder.ViewModel
 		{
 			this.encodeResult = result;
 			this.job = job;
-
-			this.Play = ReactiveCommand.Create();
-			this.Play.Subscribe(_ => this.PlayImpl());
-
-			this.OpenContainingFolder = ReactiveCommand.Create();
-			this.OpenContainingFolder.Subscribe(_ => this.OpenContainingFolderImpl());
-
-			this.Edit = ReactiveCommand.Create(this.WhenAnyValue(x => x.MainViewModel.VideoSourceState, videoSourceState =>
-			{
-				return videoSourceState != VideoSourceState.Scanning;
-			}));
-			this.Edit.Subscribe(_ => this.EditImpl());
-
-			this.OpenLog = ReactiveCommand.Create();
-			this.OpenLog.Subscribe(_ => this.OpenLogImpl());
-
-			this.CopyLog = ReactiveCommand.Create();
-			this.CopyLog.Subscribe(_ => this.CopyLogImpl());
 		}
 
 		public MainViewModel MainViewModel
@@ -115,56 +97,91 @@ namespace VidCoder.ViewModel
 
 		public string OutputFileSize => Utilities.FormatFileSize(this.encodeResult.SizeBytes);
 
-		public ReactiveCommand<object> Play { get; }
-		private void PlayImpl()
+		private ReactiveCommand play;
+		public ReactiveCommand Play
 		{
-			Ioc.Get<StatusService>().Show(MainRes.PlayingVideoStatus);
-			FileService.Instance.PlayVideo(this.encodeResult.Destination);
-		}
-
-		public ReactiveCommand<object> OpenContainingFolder { get; }
-		private void OpenContainingFolderImpl()
-		{
-			Ioc.Get<StatusService>().Show(MainRes.OpeningFolderStatus);
-			FileUtilities.OpenFolderAndSelectItem(this.encodeResult.Destination);
-		}
-
-		public ReactiveCommand<object> Edit { get; }
-		private void EditImpl()
-		{
-			this.main.EditJob(this.job, isQueueItem: false);
-		}
-
-		public ReactiveCommand<object> OpenLog { get; }
-		private void OpenLogImpl()
-		{
-			if (this.encodeResult.LogPath != null)
+			get
 			{
-				FileService.Instance.LaunchFile(this.encodeResult.LogPath);
+				return this.play ?? (this.play = ReactiveCommand.Create(() =>
+				{
+					Ioc.Get<StatusService>().Show(MainRes.PlayingVideoStatus);
+					FileService.Instance.PlayVideo(this.encodeResult.Destination);
+				}));
 			}
 		}
 
-		public ReactiveCommand<object> CopyLog { get; }
-		private void CopyLogImpl()
+		private ReactiveCommand openContainingFolder;
+		public ReactiveCommand OpenContainingFolder
 		{
-			if (this.encodeResult.LogPath == null)
+			get
 			{
-				return;
+				return this.openContainingFolder ?? (this.openContainingFolder = ReactiveCommand.Create(() =>
+				{
+					Ioc.Get<StatusService>().Show(MainRes.OpeningFolderStatus);
+					FileUtilities.OpenFolderAndSelectItem(this.encodeResult.Destination);
+				}));
 			}
+		}
 
-			try
+		private ReactiveCommand edit;
+		public ReactiveCommand Edit
+		{
+			get
 			{
-				string logText = File.ReadAllText(this.encodeResult.LogPath);
+				return this.edit ?? (this.edit = ReactiveCommand.Create(
+					() =>
+					{
+						this.main.EditJob(this.job, isQueueItem: false);
+					},
+					this.WhenAnyValue(x => x.MainViewModel.VideoSourceState, videoSourceState =>
+					{
+						return videoSourceState != VideoSourceState.Scanning;
+					})));
+			}
+		}
 
-				Ioc.Get<ClipboardService>().SetText(logText);
-			}
-			catch (IOException exception)
+		private ReactiveCommand openLog;
+		public ReactiveCommand OpenLog
+		{
+			get
 			{
-				Ioc.Get<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
+				return this.openLog ?? (this.openLog = ReactiveCommand.Create(() =>
+				{
+					if (this.encodeResult.LogPath != null)
+					{
+						FileService.Instance.LaunchFile(this.encodeResult.LogPath);
+					}
+				}));
 			}
-			catch (UnauthorizedAccessException exception)
+		}
+
+		private ReactiveCommand copyLog;
+		public ReactiveCommand CopyLog
+		{
+			get
 			{
-				Ioc.Get<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
+				return this.copyLog ?? (this.copyLog = ReactiveCommand.Create(() =>
+				{
+					if (this.encodeResult.LogPath == null)
+					{
+						return;
+					}
+
+					try
+					{
+						string logText = File.ReadAllText(this.encodeResult.LogPath);
+
+						Ioc.Get<ClipboardService>().SetText(logText);
+					}
+					catch (IOException exception)
+					{
+						Ioc.Get<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
+					}
+					catch (UnauthorizedAccessException exception)
+					{
+						Ioc.Get<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
+					}
+				}));
 			}
 		}
 	}

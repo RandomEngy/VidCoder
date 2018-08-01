@@ -60,27 +60,6 @@ namespace VidCoder.ViewModel
 					}
 				});
 
-			this.TogglePresetPanel = ReactiveCommand.Create();
-			this.TogglePresetPanel.Subscribe(_ => this.TogglePresetPanelImpl());
-
-			this.Save = ReactiveCommand.Create(this.WhenAnyValue(x => x.IsBuiltIn, isBuiltIn => !isBuiltIn));
-			this.Save.Subscribe(_ => this.SaveImpl());
-
-			this.SaveAs = ReactiveCommand.Create();
-			this.SaveAs.Subscribe(_ => this.SaveAsImpl());
-
-			this.Rename = ReactiveCommand.Create(this.WhenAnyValue(x => x.IsBuiltIn, isBuiltIn => !isBuiltIn));
-			this.Rename.Subscribe(_ => this.RenameImpl());
-
-			this.DeletePreset = ReactiveCommand.Create(this.PresetsService.WhenAnyValue(
-				x => x.SelectedPreset.Preset.IsBuiltIn,
-				x => x.SelectedPreset.Preset.IsModified,
-				(isBuiltIn, isModified) =>
-				{
-					return !isBuiltIn || isModified;
-				}));
-			this.DeletePreset.Subscribe(_ => this.DeletePresetImpl());
-
 			this.ContainerPanelViewModel = new ContainerPanelViewModel(this);
 			this.SizingPanelViewModel = new SizingPanelViewModel(this);
 			this.VideoFiltersPanelViewModel = new VideoFiltersPanelViewModel(this);
@@ -132,77 +111,116 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.presetPanelOpen, value); }
 		}
 
-		public ReactiveCommand<object> TogglePresetPanel { get; }
-		private void TogglePresetPanelImpl()
+		private ReactiveCommand togglePresetPanel;
+		public ReactiveCommand TogglePresetPanel
 		{
-			this.PresetPanelOpen = !this.PresetPanelOpen;
-			Config.EncodingListPaneOpen = this.PresetPanelOpen;
-		}
-
-		public ReactiveCommand<object> Save { get; }
-		private void SaveImpl()
-		{
-			this.PresetsService.SavePreset();
-		}
-
-		public ReactiveCommand<object> SaveAs { get; }
-
-		private void SaveAsImpl()
-		{
-			var dialogVM = new ChooseNameViewModel(MiscRes.ChooseNamePreset, this.PresetsService.AllPresets.Where(preset => !preset.Preset.IsBuiltIn).Select(preset => preset.Preset.Name));
-			dialogVM.Name = this.PresetsService.SelectedPreset.DisplayName;
-			Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
-
-			if (dialogVM.DialogResult)
+			get
 			{
-				string newPresetName = dialogVM.Name;
-
-				this.PresetsService.SavePresetAs(newPresetName);
-			}
-		}
-
-		public ReactiveCommand<object> Rename { get; }
-
-		private void RenameImpl()
-		{
-			var dialogVM = new ChooseNameViewModel(MiscRes.ChooseNamePreset, this.PresetsService.AllPresets.Where(preset => !preset.Preset.IsBuiltIn).Select(preset => preset.Preset.Name));
-			dialogVM.Name = this.PresetsService.SelectedPreset.DisplayName;
-			Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
-
-			if (dialogVM.DialogResult)
-			{
-				string newPresetName = dialogVM.Name;
-				this.PresetsService.RenamePreset(newPresetName);
-			}
-		}
-
-		public ReactiveCommand<object> DeletePreset { get; }
-
-		private void DeletePresetImpl()
-		{
-			if (this.Preset.IsModified)
-			{
-				MessageBoxResult dialogResult = Utilities.MessageBox.Show(
-					this,
-					MainRes.RevertConfirmMessage,
-					MainRes.RevertConfirmTitle,
-					MessageBoxButton.YesNo);
-				if (dialogResult == MessageBoxResult.Yes)
+				return this.togglePresetPanel ?? (this.togglePresetPanel = ReactiveCommand.Create(() =>
 				{
-					this.PresetsService.RevertPreset(true);
-				}
+					this.PresetPanelOpen = !this.PresetPanelOpen;
+					Config.EncodingListPaneOpen = this.PresetPanelOpen;
+				}));
 			}
-			else
+		}
+
+		private ReactiveCommand save;
+		public ReactiveCommand Save
+		{
+			get
 			{
-				MessageBoxResult dialogResult = Utilities.MessageBox.Show(
-					this,
-					MainRes.RemoveConfirmMessage,
-					MainRes.RemoveConfirmTitle,
-					MessageBoxButton.YesNo);
-				if (dialogResult == MessageBoxResult.Yes)
+				return this.save ?? (this.save = ReactiveCommand.Create(
+					() =>
+					{
+						this.PresetsService.SavePreset();
+					},
+					this.WhenAnyValue(x => x.IsBuiltIn, isBuiltIn => !isBuiltIn)));
+			}
+		}
+
+		private ReactiveCommand saveAs;
+		public ReactiveCommand SaveAs
+		{
+			get
+			{
+				return this.saveAs ?? (this.saveAs = ReactiveCommand.Create(() =>
 				{
-					this.PresetsService.DeletePreset();
-				}
+					var dialogVM = new ChooseNameViewModel(MiscRes.ChooseNamePreset, this.PresetsService.AllPresets.Where(preset => !preset.Preset.IsBuiltIn).Select(preset => preset.Preset.Name));
+					dialogVM.Name = this.PresetsService.SelectedPreset.DisplayName;
+					Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
+
+					if (dialogVM.DialogResult)
+					{
+						string newPresetName = dialogVM.Name;
+
+						this.PresetsService.SavePresetAs(newPresetName);
+					}
+				}));
+			}
+		}
+
+		private ReactiveCommand rename;
+		public ReactiveCommand Rename
+		{
+			get
+			{
+				return this.rename ?? (this.rename = ReactiveCommand.Create(
+					() =>
+					{
+						var dialogVM = new ChooseNameViewModel(MiscRes.ChooseNamePreset, this.PresetsService.AllPresets.Where(preset => !preset.Preset.IsBuiltIn).Select(preset => preset.Preset.Name));
+						dialogVM.Name = this.PresetsService.SelectedPreset.DisplayName;
+						Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
+
+						if (dialogVM.DialogResult)
+						{
+							string newPresetName = dialogVM.Name;
+							this.PresetsService.RenamePreset(newPresetName);
+						}
+					},
+					this.WhenAnyValue(x => x.IsBuiltIn, isBuiltIn => !isBuiltIn)));
+			}
+		}
+
+		private ReactiveCommand deletePreset;
+		public ReactiveCommand DeletePreset
+		{
+			get
+			{
+				return this.deletePreset ?? (this.deletePreset = ReactiveCommand.Create(
+					() =>
+					{
+						if (this.Preset.IsModified)
+						{
+							MessageBoxResult dialogResult = Utilities.MessageBox.Show(
+								this,
+								MainRes.RevertConfirmMessage,
+								MainRes.RevertConfirmTitle,
+								MessageBoxButton.YesNo);
+							if (dialogResult == MessageBoxResult.Yes)
+							{
+								this.PresetsService.RevertPreset(true);
+							}
+						}
+						else
+						{
+							MessageBoxResult dialogResult = Utilities.MessageBox.Show(
+								this,
+								MainRes.RemoveConfirmMessage,
+								MainRes.RemoveConfirmTitle,
+								MessageBoxButton.YesNo);
+							if (dialogResult == MessageBoxResult.Yes)
+							{
+								this.PresetsService.DeletePreset();
+							}
+						}
+					},
+					this.PresetsService.WhenAnyValue(
+						x => x.SelectedPreset.Preset.IsBuiltIn,
+						x => x.SelectedPreset.Preset.IsModified,
+						(isBuiltIn, isModified) =>
+						{
+							return !isBuiltIn || isModified;
+						})));
 			}
 		}
 

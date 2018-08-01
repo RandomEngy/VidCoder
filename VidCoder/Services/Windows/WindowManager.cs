@@ -302,8 +302,7 @@ namespace VidCoder.Services.Windows
 		/// <returns>The command.</returns>
 		public ICommand CreateOpenCommand(Type viewModelType, bool openAsDialog = false)
 		{
-			var command = ReactiveCommand.Create();
-			command.Subscribe(_ =>
+			var command = ReactiveCommand.Create(() =>
 			{
 				if (openAsDialog)
 				{

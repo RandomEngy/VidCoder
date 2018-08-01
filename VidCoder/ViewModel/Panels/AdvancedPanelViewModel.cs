@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using HandBrake.ApplicationServices.Interop;
+using HandBrake.Interop.Interop;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Services;
@@ -88,7 +88,7 @@ namespace VidCoder.ViewModel
 			// PsychovisualTrellisVisible
 			this.WhenAnyValue(x => x.CabacEntropyCoding, x => x.Trellis, (cabacEntropyCoding, trellis) =>
 			{
-				return cabacEntropyCoding && trellis.Value != "0";
+				return cabacEntropyCoding && trellis != null && trellis.Value != "0";
 			}).ToProperty(this, x => x.PsychovisualTrellisVisible, out this.psychovisualTrellisVisible);
 
 			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.VideoOptions)

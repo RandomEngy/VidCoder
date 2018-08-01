@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
+using HandBrake.Interop.Interop.Json.Scan;
 using VidCoder.Extensions;
 
 namespace VidCoder.Converters

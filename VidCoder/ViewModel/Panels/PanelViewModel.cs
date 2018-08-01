@@ -1,4 +1,4 @@
-﻿using HandBrake.ApplicationServices.Interop.Json.Scan;
+﻿using HandBrake.Interop.Interop.Json.Scan;
 
 namespace VidCoder.ViewModel
 {

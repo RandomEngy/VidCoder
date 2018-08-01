@@ -5,8 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Text.RegularExpressions;
-using HandBrake.ApplicationServices.Interop;
-using HandBrake.ApplicationServices.Interop.Model.Encoding;
+using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.Model.Encoding;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Model;
@@ -39,12 +39,6 @@ namespace VidCoder.Services
 				{
 					return !string.IsNullOrEmpty(defaultOutputFolder);
 				}).ToProperty(this, x => x.OutputFolderChosen, out this.outputFolderChosen);
-
-			this.PickDefaultOutputFolder = ReactiveCommand.Create();
-			this.PickDefaultOutputFolder.Subscribe(_ => this.PickDefaultOutputFolderImpl());
-
-			this.PickOutputPath = ReactiveCommand.Create(this.WhenAnyValue(x => x.OutputFolderChosen));
-			this.PickOutputPath.Subscribe(_ => this.PickOutputPathImpl());
 		}
 
 		public ProcessingService ProcessingService
@@ -119,7 +113,16 @@ namespace VidCoder.Services
 		private ObservableAsPropertyHelper<bool> outputFolderChosen;
 		public bool OutputFolderChosen => this.outputFolderChosen.Value;
 
-		public ReactiveCommand<object> PickDefaultOutputFolder { get; }
+
+		private ReactiveCommand pickDefaultOutputFolder;
+		public ReactiveCommand PickDefaultOutputFolder
+		{
+			get
+			{
+				return this.pickDefaultOutputFolder ?? (this.pickDefaultOutputFolder = ReactiveCommand.Create(() => { return this.PickDefaultOutputFolderImpl(); }));
+			}
+		}
+
 		public bool PickDefaultOutputFolderImpl()
 		{
 			string newOutputFolder = FileService.Instance.GetFolderName(null, MainRes.OutputDirectoryPickerText);
@@ -133,26 +136,34 @@ namespace VidCoder.Services
 			return newOutputFolder != null;
 		}
 
-		public ReactiveCommand<object> PickOutputPath { get; }
-		private void PickOutputPathImpl()
+		private ReactiveCommand pickOutputPath;
+		public ReactiveCommand PickOutputPath
 		{
-			string extensionDot = this.GetOutputExtension();
-			string extension = this.GetOutputExtension(includeDot: false);
-			string extensionLabel = extension.ToUpperInvariant();
-
-			string initialFileName = null;
-			if (!string.IsNullOrWhiteSpace(this.OutputPath) && !this.OutputPath.EndsWith("\\", StringComparison.Ordinal))
+			get
 			{
-				initialFileName = Path.GetFileName(this.OutputPath);
-			}
+				return this.pickOutputPath ?? (this.pickOutputPath = ReactiveCommand.Create(
+					() =>
+					{
+						string extensionDot = this.GetOutputExtension();
+						string extension = this.GetOutputExtension(includeDot: false);
+						string extensionLabel = extension.ToUpperInvariant();
 
-			string newOutputPath = FileService.Instance.GetFileNameSave(
-				Config.RememberPreviousFiles ? Config.LastOutputFolder : null,
-				"Encode output location",
-				initialFileName,
-				extension,
-				string.Format("{0} Files|*{1}", extensionLabel, extensionDot));
-			this.SetManualOutputPath(newOutputPath, this.OutputPath);
+						string initialFileName = null;
+						if (!string.IsNullOrWhiteSpace(this.OutputPath) && !this.OutputPath.EndsWith("\\", StringComparison.Ordinal))
+						{
+							initialFileName = Path.GetFileName(this.OutputPath);
+						}
+
+						string newOutputPath = FileService.Instance.GetFileNameSave(
+							Config.RememberPreviousFiles ? Config.LastOutputFolder : null,
+							"Encode output location",
+							initialFileName,
+							extension,
+							string.Format("{0} Files|*{1}", extensionLabel, extensionDot));
+						this.SetManualOutputPath(newOutputPath, this.OutputPath);
+					},
+					this.WhenAnyValue(x => x.OutputFolderChosen)));
+			}
 		}
 
 		// Resolves any conflicts for the given output path.

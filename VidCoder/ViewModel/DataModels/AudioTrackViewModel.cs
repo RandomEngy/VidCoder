@@ -1,5 +1,5 @@
 ﻿using System;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
+using HandBrake.Interop.Interop.Json.Scan;
 using ReactiveUI;
 
 namespace VidCoder.ViewModel
@@ -19,12 +19,6 @@ namespace VidCoder.ViewModel
 			this.mainViewModel = mainViewModel;
 			this.AudioTrack = audioTrack;
 			this.TrackNumber = trackNumber;
-
-			this.Duplicate = ReactiveCommand.Create();
-			this.Duplicate.Subscribe(_ => this.DuplicateImpl());
-
-			this.Remove = ReactiveCommand.Create();
-			this.Remove.Subscribe(_ => this.RemoveImpl());
 		}
 
 		private bool selected;
@@ -54,16 +48,28 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveCommand<object> Duplicate { get; }
-		private void DuplicateImpl()
+		private ReactiveCommand duplicate;
+		public ReactiveCommand Duplicate
 		{
-			this.mainViewModel.DuplicateAudioTrack(this);
+			get
+			{
+				return this.duplicate ?? (this.duplicate = ReactiveCommand.Create(() =>
+				{
+					this.mainViewModel.DuplicateAudioTrack(this);
+				}));
+			}
 		}
 
-		public ReactiveCommand<object> Remove { get; }
-		private void RemoveImpl()
+		private ReactiveCommand remove;
+		public ReactiveCommand Remove
 		{
-			this.mainViewModel.RemoveAudioTrack(this);
+			get
+			{
+				return this.remove ?? (this.remove = ReactiveCommand.Create(() =>
+				{
+					this.mainViewModel.RemoveAudioTrack(this);
+				}));
+			}
 		}
 
 		/// <summary>

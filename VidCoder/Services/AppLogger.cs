@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using HandBrake.ApplicationServices.Interop;
 using System.IO;
-using HandBrake.ApplicationServices.Interop.EventArgs;
+using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.EventArgs;
 using VidCoder.Model;
 
 namespace VidCoder.Services

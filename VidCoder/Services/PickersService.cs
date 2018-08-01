@@ -38,8 +38,11 @@ namespace VidCoder.Services
 			Picker modifiedPicker = storedPickers.FirstOrDefault(picker => picker.IsModified);
 			int modifiedPickerIndex = -1;
 
-			Picker nonePicker = new Picker();
-			nonePicker.IsDefault = true;
+			Picker nonePicker = new Picker
+			{
+				IsDefault = true,
+				Name = ""
+			};
 			this.pickers.Add(new PickerViewModel(nonePicker));
 
 			this.WhenAnyValue(x => x.SelectedPicker.DisplayNameWithStar)
@@ -203,10 +206,9 @@ namespace VidCoder.Services
 			}
 		}
 
-		public ReactiveCommand<object> CreateSelectPickerCommand(PickerViewModel picker)
+		public ReactiveCommand CreateSelectPickerCommand(PickerViewModel picker)
 		{
-			var selectPickerCommand = ReactiveCommand.Create();
-			selectPickerCommand.Subscribe(_ =>
+			var selectPickerCommand = ReactiveCommand.Create(() => 
 			{
 				if (picker != this.SelectedPicker)
 				{

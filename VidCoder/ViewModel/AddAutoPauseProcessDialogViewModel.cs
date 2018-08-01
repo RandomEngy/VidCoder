@@ -22,9 +22,6 @@ namespace VidCoder.ViewModel
 			this.processes = Ioc.Get<IProcesses>();
 			this.currentProcesses = new ObservableCollection<string>();
 			this.RefreshCurrentProcessesImpl();
-
-			this.RefreshCurrentProcesses = ReactiveCommand.Create();
-			this.RefreshCurrentProcesses.Subscribe(_ => this.RefreshCurrentProcessesImpl());
 		}
 
 		private string processName;
@@ -57,7 +54,15 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveCommand<object> RefreshCurrentProcesses { get; }
+		private ReactiveCommand refreshCurrentProcesses;
+		public ReactiveCommand RefreshCurrentProcesses
+		{
+			get
+			{
+				return this.refreshCurrentProcesses ?? (this.refreshCurrentProcesses = ReactiveCommand.Create(() => { this.RefreshCurrentProcessesImpl(); }));
+			}
+		}
+
 		private void RefreshCurrentProcessesImpl()
 		{
 			Process[] processes = this.processes.GetProcesses();

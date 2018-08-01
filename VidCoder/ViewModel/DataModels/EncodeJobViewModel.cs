@@ -5,7 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
-using HandBrake.ApplicationServices.Interop;
+using HandBrake.Interop.Interop;
 using ReactiveUI;
 using VidCoder.DragDropUtils;
 using VidCoder.Model;
@@ -112,21 +112,6 @@ namespace VidCoder.ViewModel
 						return null;
 				}
 			}).ToProperty(this, x => x.PassProgressDisplay, out this.passProgressDisplay);
-
-			this.EditQueueJob = ReactiveCommand.Create(this.WhenAnyValue(
-				x => x.Encoding, 
-				x => x.MainViewModel.VideoSourceState, 
-				(isEncoding, videoSourceState) =>
-				{
-					return !isEncoding && videoSourceState != VideoSourceState.Scanning;
-				}));
-			this.EditQueueJob.Subscribe(_ => this.EditQueueJobImpl());
-
-			this.RemoveQueueJob = ReactiveCommand.Create(this.WhenAnyValue(x => x.Encoding, encoding =>
-			{
-				return !encoding;
-			}));
-			this.RemoveQueueJob.Subscribe(_ => this.RemoveQueueJobImpl());
 		}
 
 		private bool initializedForEncoding = false;
@@ -486,16 +471,41 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveCommand<object> EditQueueJob { get; }
-		private void EditQueueJobImpl()
+		private ReactiveCommand editQueueJob;
+		public ReactiveCommand EditQueueJob
 		{
-			this.main.EditJob(this);
+			get
+			{
+				return this.editQueueJob ?? (this.editQueueJob = ReactiveCommand.Create(
+					() =>
+					{
+						this.main.EditJob(this);
+					},
+					this.WhenAnyValue(
+						x => x.Encoding,
+						x => x.MainViewModel.VideoSourceState,
+						(isEncoding, videoSourceState) =>
+						{
+							return !isEncoding && videoSourceState != VideoSourceState.Scanning;
+						})));
+			}
 		}
 
-		public ReactiveCommand<object> RemoveQueueJob { get; }
-		private void RemoveQueueJobImpl()
+		private ReactiveCommand removeQueueJob;
+		public ReactiveCommand RemoveQueueJob
 		{
-			this.ProcessingService.RemoveQueueJobAndOthersIfSelected(this);
+			get
+			{
+				return this.removeQueueJob ?? (this.removeQueueJob = ReactiveCommand.Create(
+					() =>
+					{
+						this.ProcessingService.RemoveQueueJobAndOthersIfSelected(this);
+					},
+					this.WhenAnyValue(x => x.Encoding, encoding =>
+					{
+						return !encoding;
+					})));
+			}
 		}
 
 		public bool CanDrag

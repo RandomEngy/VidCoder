@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using HandBrake.ApplicationServices.Interop;
-using HandBrake.ApplicationServices.Interop.Model;
+using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.Model;
 using ReactiveUI;
 using VidCoder.Model;
 using VidCoderCommon.Model;
@@ -17,9 +17,6 @@ namespace VidCoder.ViewModel
 		{
 			this.MainViewModel = mainViewModel;
 			this.subtitle = subtitle;
-
-			this.RemoveSubtitle = ReactiveCommand.Create();
-			this.RemoveSubtitle.Subscribe(_ => this.RemoveSubtitleImpl());
 		}
 
 		public MainViewModel MainViewModel { get; }
@@ -161,10 +158,16 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveCommand<object> RemoveSubtitle { get; }
-		private void RemoveSubtitleImpl()
+		private ReactiveCommand removeSubtitle;
+		public ReactiveCommand RemoveSubtitle
 		{
-			this.MainViewModel.RemoveSrtSubtitle(this);
+			get
+			{
+				return this.removeSubtitle ?? (this.removeSubtitle = ReactiveCommand.Create(() =>
+				{
+					this.MainViewModel.RemoveSrtSubtitle(this);
+				}));
+			}
 		}
 	}
 }

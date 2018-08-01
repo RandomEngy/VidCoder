@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reactive.Linq;
 using System.Windows.Media;
-using HandBrake.ApplicationServices.Interop.Json.Shared;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;

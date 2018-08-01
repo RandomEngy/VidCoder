@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using HandBrake.ApplicationServices.Interop;
-using HandBrake.ApplicationServices.Interop.EventArgs;
-using HandBrake.ApplicationServices.Interop.Json.Encode;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
 using Newtonsoft.Json;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoderCommon.Model;
 using System.Threading;
 using System.Xml.Serialization;
+using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.EventArgs;
+using HandBrake.Interop.Interop.Json.Encode;
+using HandBrake.Interop.Interop.Json.Scan;
 using VidCoderCommon.Utilities;
 
 namespace VidCoder

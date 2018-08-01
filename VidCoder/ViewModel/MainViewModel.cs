@@ -10,9 +10,9 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using HandBrake.ApplicationServices.Interop;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
-using HandBrake.ApplicationServices.Interop.Model.Encoding;
+using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.Json.Scan;
+using HandBrake.Interop.Interop.Model.Encoding;
 using Microsoft.Practices.Unity;
 using ReactiveUI;
 using VidCoder.Automation;
@@ -52,6 +52,9 @@ namespace VidCoder.ViewModel
 		private IList<DriveInformation> driveCollection;
 		private string pendingScan;
 		private bool scanCancelledFlag;
+
+		private IObservable<bool> canCloseVideoSourceObservable;
+		private IObservable<bool> notScanningObservable;
 
 		public event EventHandler<EventArgs<string>> AnimationStarted;
 		public event EventHandler ScanCancelled;
@@ -220,7 +223,7 @@ namespace VidCoder.ViewModel
 			}).ToProperty(this, x => x.TotalChaptersText, out this.totalChaptersText);
 
 			// CanCloseVideoSource
-			IObservable<bool> canCloseVideoSourceObservable = this.WhenAnyValue(x => x.SelectedSource, x => x.VideoSourceState, (selectedSource, videoSourceState) =>
+			this.canCloseVideoSourceObservable = this.WhenAnyValue(x => x.SelectedSource, x => x.VideoSourceState, (selectedSource, videoSourceState) =>
 			{
 				if (selectedSource == null)
 				{
@@ -235,7 +238,7 @@ namespace VidCoder.ViewModel
 				return true;
 			});
 
-			canCloseVideoSourceObservable.ToProperty(this, x => x.CanCloseVideoSource, out this.canCloseVideoSource);
+			this.canCloseVideoSourceObservable.ToProperty(this, x => x.CanCloseVideoSource, out this.canCloseVideoSource);
 
 			// VideoDetails
 			this.WhenAnyValue(x => x.SelectedTitle).Select(selectedTitle =>
@@ -273,71 +276,9 @@ namespace VidCoder.ViewModel
 					return countList[0] > 0 && countList[1] > 0;
 				}).ToProperty(this, x => x.ShowSourceSubtitlesLabel, out this.showSourceSubtitlesLabel);
 
-			this.CloseVideoSource = ReactiveCommand.Create(canCloseVideoSourceObservable);
-			this.CloseVideoSource.Subscribe(_ => this.CloseVideoSourceImpl());
-
-			this.OpenEncodingWindow = ReactiveCommand.Create();
-			this.OpenEncodingWindow.Subscribe(_ => this.OpenEncodingWindowImpl());
-
-			this.OpenOptions = ReactiveCommand.Create();
-			this.OpenOptions.Subscribe(_ => this.OpenOptionsImpl());
-
-			this.OpenUpdates = ReactiveCommand.Create();
-			this.OpenUpdates.Subscribe(_ => this.OpenUpdatesImpl());
-
-			this.OpenChaptersDialog = ReactiveCommand.Create();
-			this.OpenChaptersDialog.Subscribe(_ => this.OpenChaptersDialogImpl());
-
-			this.OpenAboutDialog = ReactiveCommand.Create();
-			this.OpenAboutDialog.Subscribe(_ => this.OpenAboutDialogImpl());
-
-			this.AddSrtSubtitle = ReactiveCommand.Create();
-			this.AddSrtSubtitle.Subscribe(_ => this.AddSrtSubtitleImpl());
-
-			this.CancelScan = ReactiveCommand.Create();
-			this.CancelScan.Subscribe(_ => this.CancelScanImpl());
-
-			var notScanningObservable = this
+			this.notScanningObservable = this
 				.WhenAnyValue(x => x.VideoSourceState)
 				.Select(videoSourceState => videoSourceState != VideoSourceState.Scanning);
-			this.OpenFile = ReactiveCommand.Create(notScanningObservable);
-			this.OpenFile.Subscribe(_ => this.OpenFileImpl());
-
-			this.OpenFolder = ReactiveCommand.Create(notScanningObservable);
-			this.OpenFolder.Subscribe(_ => this.OpenFolderImpl());
-
-			this.CustomizeQueueColumns = ReactiveCommand.Create();
-			this.CustomizeQueueColumns.Subscribe(_ => this.CustomizeQueueColumnsImpl());
-
-			this.ImportPreset = ReactiveCommand.Create();
-			this.ImportPreset.Subscribe(_ => this.ImportPresetImpl());
-
-			this.ExportPreset = ReactiveCommand.Create();
-			this.ExportPreset.Subscribe(_ => this.ExportPresetImpl());
-
-			this.OpenHomepage = ReactiveCommand.Create();
-			this.OpenHomepage.Subscribe(_ => this.OpenHomepageImpl());
-
-			this.ReportBug = ReactiveCommand.Create();
-			this.ReportBug.Subscribe(_ => this.ReportBugImpl());
-
-			this.OpenAppData = ReactiveCommand.Create();
-			this.OpenAppData.Subscribe(_ => this.OpenAppDataImpl());
-
-			this.Exit = ReactiveCommand.Create();
-			this.Exit.Subscribe(_ => this.ExitImpl());
-
-			this.ShowPreviousPreview = ReactiveCommand.Create(this.PreviewImageServiceClient
-				.WhenAnyValue(x => x.PreviewIndex)
-				.Select(previewIndex => previewIndex > 0));
-			this.ShowPreviousPreview.Subscribe(_ => this.ShowPreviousPreviewImpl());
-
-			this.ShowNextPreview = ReactiveCommand.Create(this.WhenAnyValue(x => x.PreviewImageServiceClient.PreviewIndex, x => x.PreviewImageService.PreviewCount,
-				(previewIndex, previewCount) =>
-				{
-					return previewIndex < previewCount - 1;
-				}));
-			this.ShowNextPreview.Subscribe(_ => this.ShowNextPreviewImpl());
 
 			this.OutputPathService = Ioc.Get<OutputPathService>();
 			this.OutputSizeService = Ioc.Get<OutputSizeService>();
@@ -1702,31 +1643,37 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveCommand<object> AddSrtSubtitle { get; }
-		private void AddSrtSubtitleImpl()
+		private ReactiveCommand addSrtSubtitle;
+		public ReactiveCommand AddSrtSubtitle
 		{
-			string srtFile = FileService.Instance.GetFileNameLoad(
-				Config.RememberPreviousFiles ? Config.LastSrtFolder : null,
-				SubtitleRes.SrtFilePickerText,
-				Utilities.GetFilePickerFilter("srt"));
-
-			if (srtFile != null)
+			get
 			{
-				if (Config.RememberPreviousFiles)
+				return this.addSrtSubtitle ?? (this.addSrtSubtitle = ReactiveCommand.Create(() =>
 				{
-					Config.LastSrtFolder = Path.GetDirectoryName(srtFile);
-				}
+					string srtFile = FileService.Instance.GetFileNameLoad(
+						Config.RememberPreviousFiles ? Config.LastSrtFolder : null,
+						SubtitleRes.SrtFilePickerText,
+						Utilities.GetFilePickerFilter("srt"));
 
-				SrtSubtitle newSubtitle = Ioc.Get<SubtitlesService>().LoadSrtSubtitle(srtFile);
+					if (srtFile != null)
+					{
+						if (Config.RememberPreviousFiles)
+						{
+							Config.LastSrtFolder = Path.GetDirectoryName(srtFile);
+						}
 
-				if (newSubtitle != null)
-				{
-					this.SrtSubtitles.Add(new SrtSubtitleViewModel(this, newSubtitle));
-				}
+						SrtSubtitle newSubtitle = Ioc.Get<SubtitlesService>().LoadSrtSubtitle(srtFile);
+
+						if (newSubtitle != null)
+						{
+							this.SrtSubtitles.Add(new SrtSubtitleViewModel(this, newSubtitle));
+						}
+					}
+
+					this.UpdateSubtitleWarningVisibility();
+					this.RefreshSubtitleSummary();
+				}));
 			}
-
-			this.UpdateSubtitleWarningVisibility();
-			this.RefreshSubtitleSummary();
 		}
 
 		private bool defaultSubtitlesEnabled;
@@ -2395,161 +2342,289 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveCommand<object> OpenEncodingWindow { get; }
-		private void OpenEncodingWindowImpl()
+		private ReactiveCommand openEncodingWindow;
+		public ReactiveCommand OpenEncodingWindow
 		{
-			this.windowManager.OpenOrFocusWindow(typeof(EncodingWindowViewModel));
-		}
-
-		public ReactiveCommand<object> OpenOptions { get; }
-		private void OpenOptionsImpl()
-		{
-			this.windowManager.OpenDialog<OptionsDialogViewModel>();
-		}
-
-		public ReactiveCommand<object> OpenUpdates { get; }
-		private void OpenUpdatesImpl()
-		{
-			Config.OptionsDialogLastTab = OptionsDialogViewModel.UpdatesTabIndex;
-			this.windowManager.OpenDialog<OptionsDialogViewModel>();
-		}
-
-		public ReactiveCommand<object> OpenChaptersDialog { get; }
-		private void OpenChaptersDialogImpl()
-		{
-			var chaptersVM = new ChapterMarkersDialogViewModel(this.SelectedTitle.ChapterList, this.CustomChapterNames, this.UseDefaultChapterNames);
-			this.windowManager.OpenDialog(chaptersVM);
-
-			if (chaptersVM.DialogResult)
+			get
 			{
-				this.UseDefaultChapterNames = chaptersVM.UseDefaultNames;
-				if (!chaptersVM.UseDefaultNames)
+				return this.openEncodingWindow ?? (this.openEncodingWindow = ReactiveCommand.Create(() =>
 				{
-					this.CustomChapterNames = chaptersVM.ChapterNamesList;
-				}
+					this.windowManager.OpenOrFocusWindow(typeof(EncodingWindowViewModel));
+				}));
 			}
 		}
 
-		public ReactiveCommand<object> OpenAboutDialog { get; }
-		private void OpenAboutDialogImpl()
+		private ReactiveCommand openOptions;
+		public ReactiveCommand OpenOptions
 		{
-			this.windowManager.OpenDialog(new AboutDialogViewModel());
-		}
-
-		public ReactiveCommand<object> CancelScan { get; }
-		private void CancelScanImpl()
-		{
-			this.scanCancelledFlag = true;
-			this.ScanInstance.StopScan();
-		}
-
-		public ReactiveCommand<object> OpenFile { get; }
-		private void OpenFileImpl()
-		{
-			this.SetSourceFromFile();
-		}
-
-		public ReactiveCommand<object> OpenFolder { get; }
-		private void OpenFolderImpl()
-		{
-			this.SetSourceFromFolder();
-		}
-
-		public ReactiveCommand<object> CloseVideoSource { get; }
-		private void CloseVideoSourceImpl()
-		{
-			this.VideoSourceState = VideoSourceState.Choices;
-			this.SourceData = null;
-			this.SelectedSource = null;
-
-			this.RefreshRecentSourceOptions();
-
-			this.SelectedTitle = null;
-
-			HandBrakeInstance oldInstance = this.scanInstance;
-			this.scanInstance = null;
-			oldInstance?.Dispose();
-		}
-
-		public ReactiveCommand<object> CustomizeQueueColumns { get; }
-		private void CustomizeQueueColumnsImpl()
-		{
-			// Send a request that the view save the column sizes
-			this.View.SaveQueueColumns();
-
-			// Show the queue columns dialog
-			var queueDialog = new QueueColumnsDialogViewModel();
-			this.windowManager.OpenDialog(queueDialog);
-
-			if (queueDialog.DialogResult)
+			get
 			{
-				// Apply new columns
-				Config.QueueColumns = queueDialog.NewColumns;
-				this.View.ApplyQueueColumns();
+				return this.openOptions ?? (this.openOptions = ReactiveCommand.Create(() =>
+				{
+					this.windowManager.OpenDialog<OptionsDialogViewModel>();
+				}));
 			}
 		}
 
-		public ReactiveCommand<object> ImportPreset { get; }
-		private void ImportPresetImpl()
+		private ReactiveCommand openUpdates;
+		public ReactiveCommand OpenUpdates
 		{
-			string presetFileName = FileService.Instance.GetFileNameLoad(
-				null,
-				MainRes.ImportPresetFilePickerTitle,
-				CommonRes.PresetFileFilter + "|*.xml;*.vjpreset");
-			if (presetFileName != null)
+			get
 			{
-				try
+				return this.openUpdates ?? (this.openUpdates = ReactiveCommand.Create(() =>
 				{
-					Preset preset = Ioc.Get<IPresetImportExport>().ImportPreset(presetFileName);
-					Ioc.Get<IMessageBoxService>().Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
-				}
-				catch (Exception)
-				{
-					Ioc.Get<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
-				}
+					Config.OptionsDialogLastTab = OptionsDialogViewModel.UpdatesTabIndex;
+					this.windowManager.OpenDialog<OptionsDialogViewModel>();
+				}));
 			}
 		}
 
-		public ReactiveCommand<object> ExportPreset { get; }
-		private void ExportPresetImpl()
+		private ReactiveCommand openChaptersDialog;
+		public ReactiveCommand OpenChaptersDialog
 		{
-			Ioc.Get<IPresetImportExport>().ExportPreset(this.PresetsService.SelectedPreset.Preset);
+			get
+			{
+				return this.openChaptersDialog ?? (this.openChaptersDialog = ReactiveCommand.Create(() =>
+				{
+					var chaptersVM = new ChapterMarkersDialogViewModel(this.SelectedTitle.ChapterList, this.CustomChapterNames, this.UseDefaultChapterNames);
+					this.windowManager.OpenDialog(chaptersVM);
+
+					if (chaptersVM.DialogResult)
+					{
+						this.UseDefaultChapterNames = chaptersVM.UseDefaultNames;
+						if (!chaptersVM.UseDefaultNames)
+						{
+							this.CustomChapterNames = chaptersVM.ChapterNamesList;
+						}
+					}
+				}));
+			}
 		}
 
-		public ReactiveCommand<object> OpenHomepage { get; }
-		private void OpenHomepageImpl()
+		private ReactiveCommand openAboutDialog;
+		public ReactiveCommand OpenAboutDialog
 		{
-			FileService.Instance.LaunchUrl("http://vidcoder.net/");
+			get
+			{
+				return this.openAboutDialog ?? (this.openAboutDialog = ReactiveCommand.Create(() =>
+				{
+					this.windowManager.OpenDialog(new AboutDialogViewModel());
+				}));
+			}
 		}
 
-		public ReactiveCommand<object> ReportBug { get; }
-		private void ReportBugImpl()
+		private ReactiveCommand cancelScan;
+		public ReactiveCommand CancelScan
 		{
-			FileService.Instance.LaunchUrl("https://github.com/RandomEngy/VidCoder/issues/new");
+			get { return this.CancelScanImpl(); }
 		}
 
-		public ReactiveCommand<object> OpenAppData { get; }
-		private void OpenAppDataImpl()
+		private ReactiveCommand CancelScanImpl()
 		{
-			FileUtilities.OpenFolderAndSelectItem(FileUtilities.GetRealFilePath(Database.DatabaseFile));
+			return this.cancelScan ?? (this.cancelScan = ReactiveCommand.Create(() =>
+			{
+				this.scanCancelledFlag = true;
+				this.ScanInstance.StopScan();
+			}));
 		}
 
-		public ReactiveCommand<object> Exit { get; }
-		private void ExitImpl()
+		private ReactiveCommand openFile;
+		public ReactiveCommand OpenFile
 		{
-			this.windowManager.Close(this);
+			get
+			{
+				return this.openFile ?? (this.openFile = ReactiveCommand.Create(
+					() =>
+					{
+						this.SetSourceFromFile();
+					},
+					this.notScanningObservable));
+			}
 		}
 
-		public ReactiveCommand<object> ShowPreviousPreview { get; }
-		private void ShowPreviousPreviewImpl()
+		private ReactiveCommand openFolder;
+		public ReactiveCommand OpenFolder
 		{
-			this.PreviewImageServiceClient.ShowPreviousPreview();
+			get
+			{
+				return this.openFolder ?? (this.openFolder = ReactiveCommand.Create(
+					() =>
+					{
+						this.SetSourceFromFolder();
+					},
+					this.notScanningObservable));
+			}
 		}
 
-		public ReactiveCommand<object> ShowNextPreview { get; }
-		private void ShowNextPreviewImpl()
+		private ReactiveCommand closeVideoSource;
+		public ReactiveCommand CloseVideoSource
 		{
-			this.PreviewImageServiceClient.ShowNextPreview();
+			get
+			{
+				return this.closeVideoSource ?? (this.closeVideoSource = ReactiveCommand.Create(
+					() =>
+					{
+						this.VideoSourceState = VideoSourceState.Choices;
+						this.SourceData = null;
+						this.SelectedSource = null;
+
+						this.RefreshRecentSourceOptions();
+
+						this.SelectedTitle = null;
+
+						HandBrakeInstance oldInstance = this.scanInstance;
+						this.scanInstance = null;
+						oldInstance?.Dispose();
+					},
+					this.canCloseVideoSourceObservable));
+			}
+		}
+
+		private ReactiveCommand customizeQueueColumns;
+		public ReactiveCommand CustomizeQueueColumns
+		{
+			get
+			{
+				return this.customizeQueueColumns ?? (this.customizeQueueColumns = ReactiveCommand.Create(() =>
+				{
+					// Send a request that the view save the column sizes
+					this.View.SaveQueueColumns();
+
+					// Show the queue columns dialog
+					var queueDialog = new QueueColumnsDialogViewModel();
+					this.windowManager.OpenDialog(queueDialog);
+
+					if (queueDialog.DialogResult)
+					{
+						// Apply new columns
+						Config.QueueColumns = queueDialog.NewColumns;
+						this.View.ApplyQueueColumns();
+					}
+				}));
+			}
+		}
+
+		private ReactiveCommand importPreset;
+		public ReactiveCommand ImportPreset
+		{
+			get
+			{
+				return this.importPreset ?? (this.importPreset = ReactiveCommand.Create(() =>
+				{
+					string presetFileName = FileService.Instance.GetFileNameLoad(
+						null,
+						MainRes.ImportPresetFilePickerTitle,
+						CommonRes.PresetFileFilter + "|*.xml;*.vjpreset");
+					if (presetFileName != null)
+					{
+						try
+						{
+							Preset preset = Ioc.Get<IPresetImportExport>().ImportPreset(presetFileName);
+							Ioc.Get<IMessageBoxService>().Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
+						}
+						catch (Exception)
+						{
+							Ioc.Get<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
+						}
+					}
+				}));
+			}
+		}
+
+		private ReactiveCommand exportPreset;
+		public ReactiveCommand ExportPreset
+		{
+			get
+			{
+				return this.exportPreset ?? (this.exportPreset = ReactiveCommand.Create(() =>
+				{
+					Ioc.Get<IPresetImportExport>().ExportPreset(this.PresetsService.SelectedPreset.Preset);
+				}));
+			}
+		}
+
+		private ReactiveCommand openHomepage;
+		public ReactiveCommand OpenHomepage
+		{
+			get
+			{
+				return this.openHomepage ?? (this.openHomepage = ReactiveCommand.Create(() =>
+				{
+					FileService.Instance.LaunchUrl("http://vidcoder.net/");
+				}));
+			}
+		}
+
+		private ReactiveCommand reportBug;
+		public ReactiveCommand ReportBug
+		{
+			get
+			{
+				return this.reportBug ?? (this.reportBug = ReactiveCommand.Create(() =>
+				{
+					FileService.Instance.LaunchUrl("https://github.com/RandomEngy/VidCoder/issues/new");
+				}));
+			}
+		}
+
+		private ReactiveCommand openAppData;
+		public ReactiveCommand OpenAppData
+		{
+			get
+			{
+				return this.openAppData ?? (this.openAppData = ReactiveCommand.Create(() =>
+				{
+					FileUtilities.OpenFolderAndSelectItem(FileUtilities.GetRealFilePath(Database.DatabaseFile));
+				}));
+			}
+		}
+
+		private ReactiveCommand exit;
+		public ReactiveCommand Exit
+		{
+			get
+			{
+				return this.exit ?? (this.exit = ReactiveCommand.Create(() =>
+				{
+					this.windowManager.Close(this);
+				}));
+			}
+		}
+
+		private ReactiveCommand showPreviousPreview;
+		public ReactiveCommand ShowPreviousPreview
+		{
+			get
+			{
+				return this.showPreviousPreview ?? (this.showPreviousPreview = ReactiveCommand.Create(
+					() =>
+					{
+						this.PreviewImageServiceClient.ShowPreviousPreview();
+					},
+					this.PreviewImageServiceClient
+						.WhenAnyValue(x => x.PreviewIndex)
+						.Select(previewIndex => previewIndex > 0)));
+			}
+		}
+
+		private ReactiveCommand showNextPreview;
+		public ReactiveCommand ShowNextPreview
+		{
+			get
+			{
+				return this.showNextPreview ?? (this.showNextPreview = ReactiveCommand.Create(
+					() =>
+					{
+						this.PreviewImageServiceClient.ShowNextPreview();
+					},
+					this.WhenAnyValue(
+						x => x.PreviewImageServiceClient.PreviewIndex,
+						x => x.PreviewImageService.PreviewCount,
+						(previewIndex, previewCount) =>
+						{
+							return previewIndex < previewCount - 1;
+						})));
+			}
 		}
 
 		public void StartAnimation(string animationKey)
@@ -2810,6 +2885,7 @@ namespace VidCoder.ViewModel
 			{
 				// If we're scanning already, cancel the scan and set a pending scan for the new path.
 				this.pendingScan = sourcePath;
+				((System.Windows.Input.ICommand)this.CancelScan).Execute(null);
 				this.CancelScanImpl();
 			}
 			else

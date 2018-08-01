@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
 using System.IO;
+using HandBrake.Interop.Interop.Json.Scan;
 using VidCoder.Services;
 using VidCoderCommon.Extensions;
 using ReactiveUI;
@@ -51,9 +51,6 @@ namespace VidCoder.ViewModel
 			}
 
 			this.useDefaultNames = useDefaultNames;
-
-			this.ImportCsvFile = ReactiveCommand.Create();
-			this.ImportCsvFile.Subscribe(_ => this.ImportCsvFileImpl());
 		}
 
 		private bool useDefaultNames;
@@ -85,59 +82,65 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveCommand<object> ImportCsvFile { get; }
-		private void ImportCsvFileImpl()
+		private ReactiveCommand importCsvFile;
+		public ReactiveCommand ImportCsvFile
 		{
-			string csvFile = FileService.Instance.GetFileNameLoad(
-				Config.RememberPreviousFiles ? Config.LastCsvFolder : null,
-				"Import chapters file",
-				"CSV Files|*.csv");
-			if (csvFile != null)
+			get
 			{
-				if (Config.RememberPreviousFiles)
+				return this.importCsvFile ?? (this.importCsvFile = ReactiveCommand.Create(() =>
 				{
-					Config.LastCsvFolder = Path.GetDirectoryName(csvFile);
-				}
-
-				bool success = false;
-				var chapterMap = new Dictionary<int, string>();
-
-				try
-				{
-					string[] lines = File.ReadAllLines(csvFile);
-
-					foreach (string line in lines)
+					string csvFile = FileService.Instance.GetFileNameLoad(
+						Config.RememberPreviousFiles ? Config.LastCsvFolder : null,
+						"Import chapters file",
+						"CSV Files|*.csv");
+					if (csvFile != null)
 					{
-						int commaIndex = line.IndexOf(',');
-						if (commaIndex > 0)
+						if (Config.RememberPreviousFiles)
 						{
-							int number;
-							if (int.TryParse(line.Substring(0, commaIndex), out number) && !chapterMap.ContainsKey(number))
+							Config.LastCsvFolder = Path.GetDirectoryName(csvFile);
+						}
+
+						bool success = false;
+						var chapterMap = new Dictionary<int, string>();
+
+						try
+						{
+							string[] lines = File.ReadAllLines(csvFile);
+
+							foreach (string line in lines)
 							{
-								chapterMap.Add(number, line.Substring(commaIndex + 1));
+								int commaIndex = line.IndexOf(',');
+								if (commaIndex > 0)
+								{
+									int number;
+									if (int.TryParse(line.Substring(0, commaIndex), out number) && !chapterMap.ContainsKey(number))
+									{
+										chapterMap.Add(number, line.Substring(commaIndex + 1));
+									}
+								}
 							}
+
+							success = true;
 						}
-					}
-
-					success = true;
-				}
-				catch (IOException)
-				{
-					Utilities.MessageBox.Show(ChapterMarkersRes.CouldNotReadFileMessage);
-				}
-
-				if (success)
-				{
-					for (int i = 0; i < this.chapters.Count; i++)
-					{
-						if (chapterMap.ContainsKey(i + 1))
+						catch (IOException)
 						{
-							this.chapterNames[i].Title = chapterMap[i + 1];
+							Utilities.MessageBox.Show(ChapterMarkersRes.CouldNotReadFileMessage);
+						}
+
+						if (success)
+						{
+							for (int i = 0; i < this.chapters.Count; i++)
+							{
+								if (chapterMap.ContainsKey(i + 1))
+								{
+									this.chapterNames[i].Title = chapterMap[i + 1];
+								}
+							}
+
+							this.UseDefaultNames = false;
 						}
 					}
-
-					this.UseDefaultNames = false;
-				}
+				}));
 			}
 		}
 	}

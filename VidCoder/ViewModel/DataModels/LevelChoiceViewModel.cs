@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Reactive.Linq;
-using HandBrake.ApplicationServices.Interop;
 using ReactiveUI;
 using VidCoder.Services;
 

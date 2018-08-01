@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using HandBrake.ApplicationServices.Interop;
+using HandBrake.Interop.Interop;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Model;
@@ -459,7 +459,7 @@ namespace VidCoder.Services
 			    if (imageSource == null && !imageJob.ScanInstance.IsDisposed)
 			    {
 				    // Make a HandBrake call to get the image
-				    imageSource = BitmapUtilities.ConvertToBitmapImage(imageJob.ScanInstance.GetPreview(imageJob.Profile.CreatePreviewSettings(imageJob.Title), imageJob.PreviewIndex, imageJob.Profile.DeinterlaceType != VCDeinterlace.Off));
+				    imageSource = BitmapUtilities.ConvertToBitmapImage(BitmapUtilities.ConvertByteArrayToBitmap(imageJob.ScanInstance.GetPreview(imageJob.Profile.CreatePreviewSettings(imageJob.Title), imageJob.PreviewIndex, imageJob.Profile.DeinterlaceType != VCDeinterlace.Off)));
 
 				    // Transform the image as per rotation and reflection settings
 				    VCProfile profile = imageJob.Profile;

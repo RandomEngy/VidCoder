@@ -11,8 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using HandBrake.ApplicationServices.Interop;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
+using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.Json.Scan;
 using VidCoder.Extensions;
 using VidCoderCommon.Extensions;
 

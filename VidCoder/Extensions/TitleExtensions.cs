@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
+using HandBrake.Interop.Interop.Json.Scan;
 using VidCoder.Model;
 using VidCoderCommon.Extensions;
 

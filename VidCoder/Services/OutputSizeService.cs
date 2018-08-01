@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HandBrake.ApplicationServices.Interop.Json.Shared;
 using ReactiveUI;
 using VidCoder.ViewModel;
 using VidCoderCommon.Model;

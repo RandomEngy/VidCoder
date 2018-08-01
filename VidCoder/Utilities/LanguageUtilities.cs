@@ -4,8 +4,8 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HandBrake.ApplicationServices.Interop;
-using HandBrake.ApplicationServices.Interop.Model;
+using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.Model;
 
 namespace VidCoder
 {

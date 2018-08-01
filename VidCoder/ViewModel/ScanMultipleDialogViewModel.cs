@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using HandBrake.ApplicationServices.Interop;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
+using HandBrake.Interop.Interop.Json.Scan;
 using Newtonsoft.Json;
 using VidCoder.Extensions;
 using VidCoder.Model;
