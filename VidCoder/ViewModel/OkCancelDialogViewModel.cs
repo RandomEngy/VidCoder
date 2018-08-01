@@ -11,19 +11,6 @@ namespace VidCoder.ViewModel
 
 		protected OkCancelDialogViewModel()
 		{
-			this.Cancel = ReactiveCommand.Create(() =>
-			{
-				this.DialogResult = false;
-				this.windowManager.Close(this);
-			});
-
-			this.Accept = ReactiveCommand.Create(
-				() =>
-				{
-					this.DialogResult = true;
-					this.windowManager.Close(this);
-				},
-				this.WhenAnyValue(x => x.CanClose));
 		}
 
 		public virtual bool CanClose
@@ -41,7 +28,32 @@ namespace VidCoder.ViewModel
 
 		public bool DialogResult { get; set; }
 
-		public ICommand Cancel { get; private set; }
-		public ICommand Accept { get; private set; }
+		private ReactiveCommand cancel;
+		public ICommand Cancel
+		{
+			get
+			{
+				return this.cancel ?? (this.cancel = ReactiveCommand.Create(() =>
+				{
+					this.DialogResult = false;
+					this.windowManager.Close(this);
+				}));
+			}
+		}
+
+		private ReactiveCommand accept;
+		public ICommand Accept
+		{
+			get
+			{
+				return this.accept ?? (this.accept = ReactiveCommand.Create(
+					() =>
+					{
+						this.DialogResult = true;
+						this.windowManager.Close(this);
+					},
+					this.WhenAnyValue(x => x.CanClose)));
+			}
+		}
 	}
 }

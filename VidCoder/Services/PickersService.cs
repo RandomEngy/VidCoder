@@ -50,7 +50,7 @@ namespace VidCoder.Services
 				{
 					return string.Format(PickerRes.PickerButtonFormat, displayName);
 				})
-				.ToProperty(this, x => x.PickerButtonText, out this.pickerButtonText);
+				.ToProperty(this, x => x.PickerButtonText, out this.pickerButtonText, deferSubscription: true);
 
 			this.WhenAnyValue(x => x.SelectedPicker.Picker.UseEncodingPreset)
 				.Select(useEncodingPreset =>
