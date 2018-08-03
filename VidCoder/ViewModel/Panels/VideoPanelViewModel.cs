@@ -774,23 +774,47 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private string videoProfileTempOverride;
 		public string VideoProfile
 		{
-			get { return this.Profile.VideoProfile; }
+			get
+			{
+				if (this.videoProfileTempOverride != null)
+				{
+					return this.videoProfileTempOverride;
+				}
+
+				return this.Profile.VideoProfile;
+			}
 			set { this.UpdateProfileProperty(nameof(this.Profile.VideoProfile), value); }
 		}
 
+		private string videoLevelTempOverride;
 		public string VideoLevel
 		{
-			get { return this.Profile.VideoLevel; }
+			get
+			{
+				if (this.videoLevelTempOverride != null)
+				{
+					return this.videoLevelTempOverride;
+				}
+
+				return this.Profile.VideoLevel;
+			}
 			set { this.UpdateProfileProperty(nameof(this.Profile.VideoLevel), value); }
 		}
 
+		private string tuneTempOverride;
 		private string tune;
 		public string Tune
 		{
 			get
 			{
+				if (this.tuneTempOverride != null)
+				{
+					return this.tuneTempOverride;
+				}
+
 				return tune;
 			}
 
@@ -1039,11 +1063,54 @@ namespace VidCoder.ViewModel
 			// Notify of the new values
 			this.RaisePropertyChanged(nameof(this.PresetIndex));
 
-			this.RaisePropertyChanged(nameof(this.VideoProfile));
+			// Temporary workaround for ReactiveUI8 issue: we have to change it to another valid choice, then change back to get it to pick the correct option.
+			if (this.profileChoices.Count > 1)
+			{
+				if (this.profileChoices[this.profileChoices.Count - 1].Value != this.VideoProfile)
+				{
+					this.videoProfileTempOverride = this.profileChoices[this.profileChoices.Count - 1].Value;
+				}
+				else
+				{
+					this.videoProfileTempOverride = this.profileChoices[this.profileChoices.Count - 2].Value;
+				}
 
-			this.RaisePropertyChanged(nameof(this.Tune));
+				this.RaisePropertyChanged(nameof(this.VideoProfile));
+				this.videoProfileTempOverride = null;
+				this.RaisePropertyChanged(nameof(this.VideoProfile));
+			}
 
-			this.RaisePropertyChanged(nameof(this.VideoLevel));
+			if (this.tuneChoices.Count > 1)
+			{
+				if (this.tuneChoices[this.tuneChoices.Count - 1].Value != this.Tune)
+				{
+					this.tuneTempOverride = this.tuneChoices[this.tuneChoices.Count - 1].Value;
+				}
+				else
+				{
+					this.tuneTempOverride = this.tuneChoices[this.tuneChoices.Count - 2].Value;
+				}
+
+				this.RaisePropertyChanged(nameof(this.Tune));
+				this.tuneTempOverride = null;
+				this.RaisePropertyChanged(nameof(this.Tune));
+			}
+
+			if (this.levelChoices.Count > 1)
+			{
+				if (this.levelChoices[this.levelChoices.Count - 1].Value != this.VideoLevel)
+				{
+					this.videoLevelTempOverride = this.levelChoices[this.levelChoices.Count - 1].Value;
+				}
+				else
+				{
+					this.videoLevelTempOverride = this.levelChoices[this.levelChoices.Count - 2].Value;
+				}
+
+				this.RaisePropertyChanged(nameof(this.VideoLevel));
+				this.videoLevelTempOverride = null;
+				this.RaisePropertyChanged(nameof(this.VideoLevel));
+			}
 
 			this.EncodingWindowViewModel.AutomaticChange = false;
 		}

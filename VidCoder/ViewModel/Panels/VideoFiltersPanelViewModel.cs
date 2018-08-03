@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Resources;
 using System.Text;
+using System.Threading.Tasks;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.HbLib;
 using HandBrake.Interop.Interop.Model.Encoding;
@@ -17,7 +20,7 @@ using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	public class VideoFiltersPanelViewModel : PanelViewModel
+	public class VideoFiltersPanelViewModel : PanelViewModel, INotifyPropertyChanged
 	{
 		private const string CustomDenoisePreset = "custom";
 		private const int MinDeblock = 5;
@@ -218,23 +221,29 @@ namespace VidCoder.ViewModel
 			}).ToProperty(this, x => x.DeblockText, out this.deblockText);
 
 			// The deinterlace and denoise presets need another nudge to change after the lists have changed.
-			this.WhenAnyValue(x => x.DeinterlaceType)
-				.Subscribe(_ =>
-				{
-					DispatchUtilities.BeginInvoke(() =>
-					{
-						this.RaisePropertyChanged(nameof(this.DeinterlacePreset));
-					});
-				});
+			//this.WhenAnyValue(x => x.DeinterlaceType)
+			//	.Subscribe(_ =>
+			//	{
+			//		DispatchUtilities.BeginInvoke(() =>
+			//		{
+			//			this.RaisePropertyChanged(nameof(this.DeinterlacePreset));
+			//			var oldValue = this.DeinterlacePreset;
+			//			this.DeinterlacePreset = "";
+			//			this.DeinterlacePreset = oldValue;
+			//		});
+			//	});
 
-			this.WhenAnyValue(x => x.DenoiseType)
-				.Subscribe(_ =>
-				{
-					DispatchUtilities.BeginInvoke(() =>
-					{
-						this.RaisePropertyChanged(nameof(this.DenoisePreset));
-					});
-				});
+			//this.WhenAnyValue(x => x.DenoiseType)
+			//	.Subscribe(_ =>
+			//	{
+			//		DispatchUtilities.BeginInvoke(() =>
+			//		{
+			//			this.RaisePropertyChanged(nameof(this.DenoisePreset));
+			//			var oldValue = this.DenoisePreset;
+			//			this.DenoisePreset = "";
+			//			this.DenoisePreset = oldValue;
+			//		});
+			//	});
 
 			this.AutomaticChange = false;
 		}
@@ -264,6 +273,11 @@ namespace VidCoder.ViewModel
 						this.CombDetect = "off";
 					}
 				}
+
+				// Needs a kick to actually get it to change
+				var oldPreset = this.DeinterlacePreset;
+				this.DeinterlacePreset = string.Empty;
+				this.DeinterlacePreset = oldPreset;
 
 				this.previewUpdateService.RefreshPreview();
 			});
@@ -305,6 +319,11 @@ namespace VidCoder.ViewModel
 				{
 					this.CustomDenoise = GetDefaultCustomFilterString(GetDenoiseFilter(this.DenoiseType));
 				}
+
+				// Needs a kick to actually get it to change
+				var oldPreset = this.DenoisePreset;
+				this.DenoisePreset = string.Empty;
+				this.DenoisePreset = oldPreset;
 			});
 
 			this.RegisterProfileProperty(nameof(this.DenoisePreset), () =>
@@ -341,6 +360,11 @@ namespace VidCoder.ViewModel
 				{
 					this.CustomSharpen = GetDefaultCustomFilterString(GetSharpenFilter(this.SharpenType));
 				}
+
+				// Needs a kick to actually get it to change
+				var oldPreset = this.SharpenPreset;
+				this.SharpenPreset = string.Empty;
+				this.SharpenPreset = oldPreset;
 			});
 
 			this.RegisterProfileProperty(nameof(this.SharpenPreset), () =>

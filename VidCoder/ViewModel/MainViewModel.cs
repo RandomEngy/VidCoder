@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -68,12 +69,11 @@ namespace VidCoder.ViewModel
 			this.SubtitlesExpanded = Config.SubtitlesExpanded;
 
 			// HasVideoSource
-			this.WhenAnyValue(
-				x => x.VideoSourceState,
-				(videoSourceState) =>
+			this.WhenAnyValue(x => x.VideoSourceState)
+				.Select(videoSourceState =>
 				{
 					return videoSourceState == VideoSourceState.ScannedSource;
-				}).ToProperty(this, x => x.HasVideoSource, out this.hasVideoSource);
+				}).ToProperty(this, x => x.HasVideoSource, out this.hasVideoSource, scheduler: Scheduler.Immediate);
 
 			// Titles
 			this.WhenAnyValue(x => x.SourceData)

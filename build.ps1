@@ -183,6 +183,7 @@ $outputDirectoryFiles = @(
     "Splat.dll",
     "DesktopBridge.Helpers.dll",
     "System.Data.SQLite.dll",
+    "System.Reactive.dll",
     "System.Reactive.Core.dll",
     "System.Reactive.Interfaces.dll",
     "System.Reactive.Linq.dll",
@@ -204,8 +205,8 @@ CopyFromOutputArchSpecific "SQLite.Interop.dll" $buildFlavor
 
 # General files
 $generalFiles = @(
-    ".\Lib\HandBrake.ApplicationServices.dll",
-    ".\Lib\HandBrake.ApplicationServices.pdb",
+    ".\Lib\HandBrake.Interop.dll",
+    ".\Lib\HandBrake.Interop.pdb",
     ".\Lib\Ookii.Dialogs.Wpf.dll",
     ".\Lib\Ookii.Dialogs.Wpf.pdb",
     ".\VidCoder\Encode_Complete.wav",
