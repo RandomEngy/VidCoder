@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Text;
 using VidCoder.Model;
@@ -29,7 +30,7 @@ namespace VidCoder.ViewModel
 					}
 
 					return this.existingNames.All(existingName => existingName != name);
-				}).ToProperty(this, x => x.CanClose, out this.canClose);
+				}).ToProperty(this, x => x.CanClose, out this.canClose, scheduler: Scheduler.Immediate);
 		}
 
 		private ObservableAsPropertyHelper<bool> canClose; 
