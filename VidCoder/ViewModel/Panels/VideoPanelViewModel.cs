@@ -304,7 +304,7 @@ namespace VidCoder.ViewModel
 					case "quality":
 						return EncodingRes.QsvPreset_Quality;
 					default:
-						return string.Empty;
+						return currentPresetName;
 				}
 			}).ToProperty(this, x => x.PresetName, out this.presetName);
 
@@ -1064,7 +1064,7 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(nameof(this.PresetIndex));
 
 			// Temporary workaround for ReactiveUI8 issue: we have to change it to another valid choice, then change back to get it to pick the correct option.
-			if (this.profileChoices.Count > 1)
+			if (this.profileChoices != null && this.profileChoices.Count > 1)
 			{
 				if (this.profileChoices[this.profileChoices.Count - 1].Value != this.VideoProfile)
 				{
@@ -1080,7 +1080,7 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(nameof(this.VideoProfile));
 			}
 
-			if (this.tuneChoices.Count > 1)
+			if (this.tuneChoices != null && this.tuneChoices.Count > 1)
 			{
 				if (this.tuneChoices[this.tuneChoices.Count - 1].Value != this.Tune)
 				{
@@ -1096,7 +1096,7 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(nameof(this.Tune));
 			}
 
-			if (this.levelChoices.Count > 1)
+			if (this.levelChoices != null && this.levelChoices.Count > 1)
 			{
 				if (this.levelChoices[this.levelChoices.Count - 1].Value != this.VideoLevel)
 				{

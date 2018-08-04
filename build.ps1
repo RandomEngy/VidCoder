@@ -180,6 +180,7 @@ $outputDirectoryFiles = @(
     "Newtonsoft.Json.dll",
     "Microsoft.Practices.Unity.dll",
     "ReactiveUI.dll",
+    "ReactiveUI.WPF.dll",
     "Splat.dll",
     "DesktopBridge.Helpers.dll",
     "System.Data.SQLite.dll",
