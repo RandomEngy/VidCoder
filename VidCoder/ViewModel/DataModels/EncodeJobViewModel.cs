@@ -121,7 +121,6 @@ namespace VidCoder.ViewModel
 			{
 				// ShowFps
 				this.ProcessingService.WhenAnyValue(x => x.EncodingJobList.Count).Select(encodingJobCount =>
-				//this.ProcessingService.EncodingJobList.CountChanged.Select(encodingJobCount =>
 				{
 					return encodingJobCount > 1;
 				}).ToProperty(this, x => x.ShowFps, out this.showFps);

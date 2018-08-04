@@ -68,17 +68,16 @@ namespace VidCoder.Services
 			this.EncodeQueue = new ReactiveList<EncodeJobViewModel>();
 			this.EncodingJobList = new ReactiveList<EncodeJobViewModel>();
 
-			IList<EncodeJobWithMetadata> jobs = EncodeJobStorage.EncodeJobs;
-			foreach (EncodeJobWithMetadata job in jobs)
+			DispatchUtilities.BeginInvoke(() =>
 			{
-				this.EncodeQueue.Add(new EncodeJobViewModel(job.Job) { SourceParentFolder = job.SourceParentFolder, ManualOutputPath = job.ManualOutputPath, NameFormatOverride = job.NameFormatOverride, PresetName = job.PresetName});
-			}
+				IList<EncodeJobWithMetadata> jobs = EncodeJobStorage.EncodeJobs;
+				foreach (EncodeJobWithMetadata job in jobs)
+				{
+					this.EncodeQueue.Add(new EncodeJobViewModel(job.Job) { SourceParentFolder = job.SourceParentFolder, ManualOutputPath = job.ManualOutputPath, NameFormatOverride = job.NameFormatOverride, PresetName = job.PresetName });
+				}
 
-			this.autoPause.PauseEncoding += this.AutoPauseEncoding;
-			this.autoPause.ResumeEncoding += this.AutoResumeEncoding;
-
-			this.EncodeQueue.CollectionChanged +=
-				(o, e) =>
+				this.EncodeQueue.CollectionChanged +=
+					(o, e) =>
 					{
 						this.SaveEncodeQueue();
 
@@ -87,6 +86,10 @@ namespace VidCoder.Services
 							this.RefreshEncodeCompleteActions();
 						}
 					};
+			});
+
+			this.autoPause.PauseEncoding += this.AutoPauseEncoding;
+			this.autoPause.ResumeEncoding += this.AutoResumeEncoding;
 
 			this.presetsService.PresetChanged += (o, e) =>
 			{
