@@ -821,6 +821,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open {0}.
+        /// </summary>
+        public static string OpenFormat {
+            get {
+                return ResourceManager.GetString("OpenFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opening folder....
         /// </summary>
         public static string OpeningFolderStatus {

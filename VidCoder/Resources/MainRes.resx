@@ -626,4 +626,8 @@
   <data name="AddedSubtitleFromFile" xml:space="preserve">
     <value>Successfully added subtitle from file {0}</value>
   </data>
+  <data name="OpenFormat" xml:space="preserve">
+    <value>Open {0}</value>
+    <comment>Format for opening a source. For example: "Open E:\ - THE_INCREDIBLES"</comment>
+  </data>
 </root>

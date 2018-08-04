@@ -432,14 +432,14 @@ namespace VidCoder.View
 				}
 			}
 
-			int insertionIndex = 3;
+			int insertionIndex = 2;
 
 			// Add new discs
 			foreach (DriveInformation driveInfo in this.viewModel.DriveCollection)
 			{
 				var menuItem = new Fluent.MenuItem
 				{
-					Header = driveInfo.DisplayText,
+					Header = string.Format(MainRes.OpenFormat, driveInfo.DisplayText),
 					Tag = DiscMenuItemTag
 				};
 
@@ -459,12 +459,6 @@ namespace VidCoder.View
 
 				this.openSourceButton.Items.Insert(insertionIndex, menuItem);
 				insertionIndex++;
-			}
-
-			// Add group separator at
-			if (this.viewModel.DriveCollection.Count > 0)
-			{
-				this.openSourceButton.Items.Insert(insertionIndex, new Rectangle { Style = (Style)this.Resources["MenuSeparatorStyle"], Tag = DiscMenuItemTag });
 			}
 		}
 
