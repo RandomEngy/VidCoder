@@ -214,7 +214,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CPU throttling:.
+        ///   Looks up a localized string similar to CPU throttling - Allowed Cores:.
         /// </summary>
         public static string CpuThrottlingLabel {
             get {
