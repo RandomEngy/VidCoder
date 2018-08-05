@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
+using System.Reactive.Concurrency;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Resources;
@@ -76,7 +77,7 @@ namespace VidCoder.ViewModel
 							throw new ArgumentOutOfRangeException();
 					}
 				})
-				.ToProperty(this, x => x.UpdateStatus, out this.updateStatus);
+				.ToProperty(this, x => x.UpdateStatus, out this.updateStatus, scheduler: Scheduler.Immediate);
 
 			// UpdateDownloading
 			this.updater
@@ -804,13 +805,16 @@ namespace VidCoder.ViewModel
 					{
 						this.updater.CheckUpdates();
 					},
-					this.updater.WhenAnyValue(x => x.State).Select(state =>
-					{
-						return Config.UpdatesEnabled &&
-						        (state == UpdateState.Failed ||
-						        state == UpdateState.NotStarted ||
-						        state == UpdateState.UpToDate);
-					})));
+					this.updater
+						.WhenAnyValue(x => x.State)
+						.Select(state =>
+						{
+							return Config.UpdatesEnabled &&
+									(state == UpdateState.Failed ||
+									state == UpdateState.NotStarted ||
+									state == UpdateState.UpToDate);
+						})
+						.ObserveOnDispatcher()));
 			}
 		}
 	}
