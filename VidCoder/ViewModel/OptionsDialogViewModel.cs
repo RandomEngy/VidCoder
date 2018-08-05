@@ -96,7 +96,7 @@ namespace VidCoder.ViewModel
 			{
 				double currentFraction = (double)cores / maxCores;
 				return currentFraction.ToString("p0");
-			}).ToProperty(this, x => x.CpuThrottlingDisplay, out this.cpuThrottlingDisplay);
+			}).ToProperty(this, x => x.CpuThrottlingDisplay, out this.cpuThrottlingDisplay, deferSubscription:true, scheduler: Scheduler.Immediate);
 
 			this.updatesEnabledConfig = Config.UpdatesEnabled;
 			this.defaultPath = Config.AutoNameOutputFolder;
