@@ -910,6 +910,9 @@
     <Content Include="Encode_Complete.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\ChapterMarkers.png" />
+    <Resource Include="Icons\Subtitles.png" />
+    <Resource Include="Icons\Audio.png" />
     <Resource Include="Icons\ImportExport.png" />
     <Resource Include="Icons\VidCoder32.png" />
     <Resource Include="Icons\Help.png" />

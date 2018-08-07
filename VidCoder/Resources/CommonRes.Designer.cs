@@ -497,11 +497,20 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}/{1} track(s).
+        ///   Looks up a localized string similar to {0}/{1} audio track(s).
         /// </summary>
-        public static string SelectedOverTotalTracksFormat {
+        public static string SelectedOverTotalAudioTracksFormat {
             get {
-                return ResourceManager.GetString("SelectedOverTotalTracksFormat", resourceCulture);
+                return ResourceManager.GetString("SelectedOverTotalAudioTracksFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}/{1} subtitle track(s).
+        /// </summary>
+        public static string SelectedOverTotalSubtitleTracksFormat {
+            get {
+                return ResourceManager.GetString("SelectedOverTotalSubtitleTracksFormat", resourceCulture);
             }
         }
         

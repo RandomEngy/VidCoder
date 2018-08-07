@@ -1304,7 +1304,7 @@ namespace VidCoder.ViewModel
 				List<AudioTrackViewModel> selectedTracks = this.AudioTracks.Where(s => s.Selected).ToList();
 
 				int selectedCount = selectedTracks.Count;
-				string sourceDescription = string.Format(CultureInfo.CurrentCulture, CommonRes.SelectedOverTotalTracksFormat, selectedCount, this.AudioTracks.Count);
+				string sourceDescription = string.Format(CultureInfo.CurrentCulture, CommonRes.SelectedOverTotalAudioTracksFormat, selectedCount, this.AudioTracks.Count);
 
 				if (selectedCount > 0 && selectedCount <= 3)
 				{
@@ -1718,7 +1718,7 @@ namespace VidCoder.ViewModel
 				List<SourceSubtitleViewModel> selectedSubtitles = this.SourceSubtitles.Where(s => s.Selected).ToList();
 
 				int selectedCount = selectedSubtitles.Count;
-				string sourceDescription = string.Format(CultureInfo.CurrentCulture, CommonRes.SelectedOverTotalTracksFormat, selectedCount, this.SourceSubtitles.Count);
+				string sourceDescription = string.Format(CultureInfo.CurrentCulture, CommonRes.SelectedOverTotalSubtitleTracksFormat, selectedCount, this.SourceSubtitles.Count);
 
 				if (selectedCount > 0 && selectedCount <= 3)
 				{

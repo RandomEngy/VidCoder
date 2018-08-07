@@ -58,13 +58,6 @@
 			<Setter Property="HorizontalAlignment" Value="Stretch" />
 			<Setter Property="Margin" Value="30 3 0 3" />
 		</Style>
-		<Style x:Key="SourceDescription" TargetType="controls:PathTextBlock">
-			<Style.Triggers>
-				<DataTrigger Binding="{Binding VideoSourceState}" Value="{x:Static model:VideoSourceState.Scanning}">
-					<Setter Property="Foreground" Value="{StaticResource DisabledBrush}" />
-				</DataTrigger>
-			</Style.Triggers>
-		</Style>
 		<Style x:Key="SourceTrack" TargetType="TextBlock">
 			<Style.Triggers>
 				<DataTrigger Binding="{Binding Selected}" Value="True">
@@ -74,6 +67,7 @@
 		</Style>
 		<Style x:Key="SourceSectionText" TargetType="TextBlock">
 			<Setter Property="FontWeight" Value="Bold" />
+			<Setter Property="FontSize" Value="14" />
 			<Setter Property="VerticalAlignment" Value="Center" />
 			<Setter Property="Margin" Value="0 0 8 0" />
 		</Style>
@@ -395,7 +389,7 @@
 			<!--  Ribbon  -->
 			<RowDefinition Height="Auto" />
 			<!--  Source  -->
-			<RowDefinition MinHeight="150" Height="*" />
+			<RowDefinition Height="*" MinHeight="150" />
 			<!--  Below source pane  -->
 			<RowDefinition Name="queueRow" Height="Auto" />
 		</Grid.RowDefinitions>
@@ -722,45 +716,42 @@
 						<ToggleButton
 							Grid.Column="0"
 							IsChecked="{Binding VideoExpanded}"
-							Style="{StaticResource SourceSectionToggleButton}">
+							Style="{StaticResource SourceSectionToggleButton}"
+							UseLayoutRounding="True">
 							<Grid Grid.Row="0" Grid.Column="1">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="Auto" />
 									<ColumnDefinition Name="videoSummaryColumn" />
 								</Grid.ColumnDefinitions>
-								<TextBlock
+								<Image
 									Grid.Column="0"
-									Style="{StaticResource SourceSectionText}"
-									Text="{x:Static res:MainRes.VideoLabel}" />
+									Width="16"
+									Height="16"
+									Margin="0 0 0 0"
+									VerticalAlignment="Center"
+									Source="{Binding SourceIcon}"
+									Visibility="{Binding SourceIconVisible,
+									                     Converter={StaticResource VisibilityConverter}}" />
+
 								<Grid Grid.Column="1">
 									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="Auto" />
 										<ColumnDefinition Width="Auto" />
 										<ColumnDefinition />
 									</Grid.ColumnDefinitions>
 									<!--  Source  -->
-									<Image
-										Grid.Column="0"
-										Width="16"
-										Height="16"
-										Margin="0 0 0 0"
-										VerticalAlignment="Center"
-										Source="{Binding SourceIcon}"
-										UseLayoutRounding="True"
-										Visibility="{Binding SourceIconVisible,
-										                     Converter={StaticResource VisibilityConverter}}" />
 									<controls:PathTextBlock
 										x:Name="sourceText"
-										Grid.Column="1"
+										Grid.Column="0"
 										Margin="4 0 4 0"
 										VerticalAlignment="Center"
-										Style="{StaticResource SourceDescription}"
+										FontSize="14"
+										FontWeight="Bold"
 										Text="{Binding SourceText,
 										               Mode=OneWay}" />
 
 									<StackPanel
 										Name="videoTitleAngle"
-										Grid.Column="2"
+										Grid.Column="1"
 										HorizontalAlignment="Left"
 										Orientation="Horizontal"
 										SizeChanged="VideoTitleAngle_OnSizeChanged">
@@ -1077,13 +1068,14 @@
 								<ColumnDefinition Width="Auto" />
 								<ColumnDefinition />
 							</Grid.ColumnDefinitions>
-							<TextBlock
-								Grid.Column="0"
-								Style="{StaticResource SourceSectionText}"
-								Text="{x:Static res:MainRes.AudioLabel}" />
+							<Image
+								Width="16"
+								Height="16"
+								Source="/Icons/Audio.png" />
 							<TextBlock
 								Grid.Column="1"
-								VerticalAlignment="Center"
+								Margin="6 0 0 2"
+								Style="{StaticResource SourceSectionText}"
 								Text="{Binding AudioSummary}"
 								TextTrimming="CharacterEllipsis" />
 						</Grid>
@@ -1184,14 +1176,14 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<TextBlock
-								Grid.Column="0"
-								Style="{StaticResource SourceSectionText}"
-								Text="{x:Static res:MainRes.SubtitlesLabel}" />
+							<Image
+								Width="16"
+								Height="16"
+								Source="/Icons/Subtitles.png" />
 							<TextBlock
 								Grid.Column="1"
-								Margin="4 3 16 3"
-								VerticalAlignment="Center"
+								Margin="6 0 16 2"
+								Style="{StaticResource SourceSectionText}"
 								Text="{Binding SubtitlesSummary}"
 								TextTrimming="CharacterEllipsis" />
 							<Button
@@ -1494,31 +1486,33 @@
 						Grid.Column="0"
 						Height="30"
 						Visibility="{Binding ShowChapterMarkerUI,
-						                     Converter={StaticResource VisibilityConverter}}">
-						<TextBlock
-							Margin="16 0 0 0"
-							Padding="0 0 5 0"
-							HorizontalAlignment="Left"
-							VerticalAlignment="Center"
-							Style="{StaticResource EmphasizedTitle}"
-							Text="{x:Static res:MainRes.ChapterMarkersLabel}" />
-					</Grid>
+						                     Converter={StaticResource VisibilityConverter}}" />
 					<StackPanel
 						Grid.Row="6"
-						Grid.Column="1"
+						Grid.Column="0"
+						Grid.ColumnSpan="2"
+						Margin="26 0 0 0"
 						Orientation="Horizontal"
 						Visibility="{Binding ShowChapterMarkerUI,
 						                     Converter={StaticResource VisibilityConverter}}">
+						<Image
+							Width="16"
+							Height="16"
+							Source="/Icons/ChapterMarkers.png" />
+						<TextBlock
+							Margin="6 0 0 0"
+							HorizontalAlignment="Left"
+							Style="{StaticResource SourceSectionText}"
+							Text="{x:Static res:MainRes.ChapterMarkersLabel}" />
 						<TextBlock
 							MinWidth="48"
-							Margin="4 0 0 0"
-							HorizontalAlignment="Right"
-							VerticalAlignment="Center"
+							Margin="6 0 0 0"
+							Style="{StaticResource SourceSectionText}"
 							Text="{Binding ChapterMarkersSummary}" />
 						<Button
 							Height="23"
 							MinWidth="53"
-							Margin="3 0 0 0"
+							Margin="16 0 0 0"
 							Padding="5 0"
 							HorizontalAlignment="Right"
 							VerticalAlignment="Center"

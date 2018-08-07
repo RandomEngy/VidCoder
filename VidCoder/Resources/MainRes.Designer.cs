@@ -115,15 +115,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Audio:.
-        /// </summary>
-        public static string AudioLabel {
-            get {
-                return ResourceManager.GetString("AudioLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Close the current file and open the disc?.
         /// </summary>
         public static string AutoplayDiscConfirmationMessage {
@@ -1435,15 +1426,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Subtitles:.
-        /// </summary>
-        public static string SubtitlesLabel {
-            get {
-                return ResourceManager.GetString("SubtitlesLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Title:.
         /// </summary>
         public static string TitleLabel {
@@ -1512,15 +1494,6 @@ namespace VidCoder.Resources {
         public static string VidCoderHomepageMenuItem {
             get {
                 return ResourceManager.GetString("VidCoderHomepageMenuItem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Video:.
-        /// </summary>
-        public static string VideoLabel {
-            get {
-                return ResourceManager.GetString("VideoLabel", resourceCulture);
             }
         }
         

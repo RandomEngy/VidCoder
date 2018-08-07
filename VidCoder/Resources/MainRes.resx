@@ -199,15 +199,6 @@
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>An error occurred while scanning.</value>
   </data>
-  <data name="AudioLabel" xml:space="preserve">
-    <value>Audio:</value>
-  </data>
-  <data name="VideoLabel" xml:space="preserve">
-    <value>Video:</value>
-  </data>
-  <data name="SubtitlesLabel" xml:space="preserve">
-    <value>Subtitles:</value>
-  </data>
   <data name="AddTrackButton" xml:space="preserve">
     <value>Add Track</value>
   </data>
