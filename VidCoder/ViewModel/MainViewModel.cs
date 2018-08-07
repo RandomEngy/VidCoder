@@ -148,7 +148,7 @@ namespace VidCoder.ViewModel
 				}
 
 				return CommonRes.Custom;
-			}).ToProperty(this, x => x.ChapterMarkersSummary, out this.chapterMarkersSummary);
+			}).ToProperty(this, x => x.ChapterMarkersSummary, out this.chapterMarkersSummary, deferSubscription: true);
 
 			// SourceIcon
 			this.WhenAnyValue(x => x.SelectedSource, selectedSource =>
