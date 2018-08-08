@@ -67,7 +67,7 @@
 		</Style>
 		<Style x:Key="SourceSectionText" TargetType="TextBlock">
 			<Setter Property="FontWeight" Value="Bold" />
-			<Setter Property="FontSize" Value="14" />
+			<Setter Property="FontSize" Value="13" />
 			<Setter Property="VerticalAlignment" Value="Center" />
 			<Setter Property="Margin" Value="0 0 8 0" />
 		</Style>
@@ -744,7 +744,7 @@
 										Grid.Column="0"
 										Margin="4 0 4 0"
 										VerticalAlignment="Center"
-										FontSize="14"
+										FontSize="13"
 										FontWeight="Bold"
 										Text="{Binding SourceText,
 										               Mode=OneWay}" />

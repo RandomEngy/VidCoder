@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using ReactiveUI;
 using VidCoder.Extensions;
@@ -498,7 +499,10 @@ namespace VidCoder.Services.Windows
 			if (data != null && data.ContainsFileDropList())
 			{
 				StringCollection itemList = data.GetFileDropList();
-                Ioc.Get<MainViewModel>().HandlePaths(itemList.Cast<string>().ToList());
+				var listView = dragEventArgs.Source as ListView;
+				bool alwaysQueue = listView?.Name == "queueView";
+
+				Ioc.Get<MainViewModel>().HandlePaths(itemList.Cast<string>().ToList(), alwaysQueue);
 			}
 		}
 

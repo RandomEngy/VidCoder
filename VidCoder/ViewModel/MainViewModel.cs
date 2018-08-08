@@ -422,7 +422,8 @@ namespace VidCoder.ViewModel
         /// Handles a list of paths given by drag/drop
         /// </summary>
         /// <param name="paths">The paths to process.</param>
-	    public void HandlePaths(IList<string> paths)
+        /// <param name="alwaysQueue">True if the items dragged should always be queued, and never opened as source.</param>
+	    public void HandlePaths(IList<string> paths, bool alwaysQueue = false)
 	    {
             if (paths.Count > 0)
             {
@@ -467,29 +468,36 @@ namespace VidCoder.ViewModel
 						else if (Utilities.IsDiscFolder(item))
 						{
 							// It's a disc folder or disc
-							this.SetSource(item);
+							if (alwaysQueue)
+							{
+								this.ProcessingService.QueueMultiple(new []{ item });
+							}
+							else
+							{
+								this.SetSource(item);
+							}
 						}
 						else
 						{
 							// It is a video file or folder full of video files
-							this.HandleDropAsPaths(paths);
+							this.HandleDropAsPaths(paths, alwaysQueue);
 						}
 					}
 					else
 					{
 						// With multiple items, treat it as a list video files/disc folders or folders full of those items
-						this.HandleDropAsPaths(paths);
+						this.HandleDropAsPaths(paths, alwaysQueue);
 					}
 				});
             }
         }
 
-        private void HandleDropAsPaths(IList<string> itemList)
+        private void HandleDropAsPaths(IList<string> itemList, bool alwaysQueue)
         {
             List<SourcePath> fileList = GetPathList(itemList);
             if (fileList.Count > 0)
             {
-                if (fileList.Count == 1)
+                if (fileList.Count == 1 && !alwaysQueue)
                 {
                     this.SetSourceFromFile(fileList[0].Path);
                 }
