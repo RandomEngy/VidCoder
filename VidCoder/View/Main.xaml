@@ -1082,85 +1082,98 @@
 					</ToggleButton>
 
 					<!--  Audio detail  -->
-					<ListView
+					<StackPanel
 						Grid.Row="3"
 						Grid.Column="0"
 						Grid.ColumnSpan="2"
-						Margin="-1 0 -1 0"
-						VerticalAlignment="Top"
-						VidCoderDragDrop:DragDropHelper.IsDragSource="True"
-						VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
-						ItemsSource="{Binding AudioTracks}"
-						UseLayoutRounding="True"
+						Orientation="Vertical"
 						Visibility="{Binding AudioExpanded,
 						                     Converter={StaticResource VisibilityConverter}}">
-						<VidCoderDragDrop:DragDropHelper.DragDropTemplate>
-							<DataTemplate>
-								<TextBlock Background="White" Text="{Binding Display, Mode=OneWay}" />
-							</DataTemplate>
-						</VidCoderDragDrop:DragDropHelper.DragDropTemplate>
-						<i:Interaction.Behaviors>
-							<behaviors:IgnoreMouseWheelBehavior />
-						</i:Interaction.Behaviors>
-						<ListView.ItemContainerStyle>
-							<Style TargetType="{x:Type ListViewItem}">
-								<EventSetter Event="MouseLeftButtonUp" Handler="AudioItemClick" />
-							</Style>
-						</ListView.ItemContainerStyle>
-						<ListView.View>
-							<GridView>
-								<GridView.Columns>
-									<GridViewColumn x:Name="audioSelectedColumn">
-										<GridViewColumn.CellTemplate>
-											<DataTemplate DataType="viewmodel:AudioTrackViewModel">
-												<CheckBox
-													Width="22"
-													Height="22"
-													HorizontalAlignment="Stretch"
-													VerticalAlignment="Stretch"
-													IsChecked="{Binding Selected}"
-													Style="{StaticResource CenteredCheckBox}" />
-											</DataTemplate>
-										</GridViewColumn.CellTemplate>
-									</GridViewColumn>
-									<GridViewColumn x:Name="audioNameColumn" Header="{x:Static res:SubtitleRes.NameColumn}">
-										<GridViewColumn.CellTemplate>
-											<DataTemplate DataType="viewmodel:AudioTrackViewModel">
-												<Grid Height="22">
-													<TextBlock
-														VerticalAlignment="Center"
-														Style="{StaticResource SourceTrack}"
-														Text="{Binding}" />
-												</Grid>
-											</DataTemplate>
-										</GridViewColumn.CellTemplate>
-									</GridViewColumn>
-									<GridViewColumn x:Name="audioRemoveDuplicateColumn">
-										<GridViewColumn.CellTemplate>
-											<DataTemplate DataType="viewmodel:AudioTrackViewModel">
-												<Grid>
-													<Button
-														VerticalAlignment="Center"
-														Command="{Binding Remove}"
-														Content="{x:Static res:CommonRes.RemoveTrack}"
-														Style="{StaticResource RemoveButtonStyle}"
-														Visibility="{Binding RemoveVisible,
-														                     Converter={StaticResource VisibilityConverter}}" />
-													<Button
-														VerticalContentAlignment="Center"
-														Command="{Binding Duplicate}"
-														Content="{x:Static res:CommonRes.DuplicateTrack}"
-														Style="{StaticResource AddButtonStyle}"
-														Visibility="{Binding DuplicateVisible,
-														                     Converter={StaticResource VisibilityConverter}}" />
-												</Grid>
-											</DataTemplate>
-										</GridViewColumn.CellTemplate>
-									</GridViewColumn>
-								</GridView.Columns>
-							</GridView>
-						</ListView.View>
-					</ListView>
+						<TextBlock
+							Margin="16 0 0 0"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Top"
+							Text="{x:Static res:MainRes.NoAudioDescription}"
+							Visibility="{Binding HasAudio,
+							                     Converter={StaticResource InverseVisibilityConverter}}" />
+						<ListView
+							Margin="-1 0 -1 0"
+							VerticalAlignment="Top"
+							VidCoderDragDrop:DragDropHelper.IsDragSource="True"
+							VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
+							ItemsSource="{Binding AudioTracks}"
+							UseLayoutRounding="True"
+							Visibility="{Binding HasAudio,
+							                     Converter={StaticResource VisibilityConverter}}">
+							<VidCoderDragDrop:DragDropHelper.DragDropTemplate>
+								<DataTemplate>
+									<TextBlock Background="White" Text="{Binding Display, Mode=OneWay}" />
+								</DataTemplate>
+							</VidCoderDragDrop:DragDropHelper.DragDropTemplate>
+							<i:Interaction.Behaviors>
+								<behaviors:IgnoreMouseWheelBehavior />
+							</i:Interaction.Behaviors>
+							<ListView.ItemContainerStyle>
+								<Style TargetType="{x:Type ListViewItem}">
+									<EventSetter Event="MouseLeftButtonUp" Handler="AudioItemClick" />
+								</Style>
+							</ListView.ItemContainerStyle>
+							<ListView.View>
+								<GridView>
+									<GridView.Columns>
+										<GridViewColumn x:Name="audioSelectedColumn">
+											<GridViewColumn.CellTemplate>
+												<DataTemplate DataType="viewmodel:AudioTrackViewModel">
+													<CheckBox
+														Width="22"
+														Height="22"
+														HorizontalAlignment="Stretch"
+														VerticalAlignment="Stretch"
+														IsChecked="{Binding Selected}"
+														Style="{StaticResource CenteredCheckBox}" />
+												</DataTemplate>
+											</GridViewColumn.CellTemplate>
+										</GridViewColumn>
+										<GridViewColumn x:Name="audioNameColumn" Header="{x:Static res:SubtitleRes.NameColumn}">
+											<GridViewColumn.CellTemplate>
+												<DataTemplate DataType="viewmodel:AudioTrackViewModel">
+													<Grid Height="22">
+														<TextBlock
+															VerticalAlignment="Center"
+															Style="{StaticResource SourceTrack}"
+															Text="{Binding}" />
+													</Grid>
+												</DataTemplate>
+											</GridViewColumn.CellTemplate>
+										</GridViewColumn>
+										<GridViewColumn x:Name="audioRemoveDuplicateColumn">
+											<GridViewColumn.CellTemplate>
+												<DataTemplate DataType="viewmodel:AudioTrackViewModel">
+													<Grid>
+														<Button
+															VerticalAlignment="Center"
+															Command="{Binding Remove}"
+															Content="{x:Static res:CommonRes.RemoveTrack}"
+															Style="{StaticResource RemoveButtonStyle}"
+															Visibility="{Binding RemoveVisible,
+															                     Converter={StaticResource VisibilityConverter}}" />
+														<Button
+															VerticalContentAlignment="Center"
+															Command="{Binding Duplicate}"
+															Content="{x:Static res:CommonRes.DuplicateTrack}"
+															Style="{StaticResource AddButtonStyle}"
+															Visibility="{Binding DuplicateVisible,
+															                     Converter={StaticResource VisibilityConverter}}" />
+													</Grid>
+												</DataTemplate>
+											</GridViewColumn.CellTemplate>
+										</GridViewColumn>
+									</GridView.Columns>
+								</GridView>
+							</ListView.View>
+						</ListView>
+					</StackPanel>
+
 
 
 					<!--  Subtitles header  -->

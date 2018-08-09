@@ -621,4 +621,15 @@
     <value>Open {0}</value>
     <comment>Format for opening a source. For example: "Open E:\ - THE_INCREDIBLES"</comment>
   </data>
+  <data name="NoAudioDescription" xml:space="preserve">
+    <value>No audio found on source.</value>
+  </data>
+  <data name="NoAudioSummary" xml:space="preserve">
+    <value>No audio</value>
+    <comment>Summary text for when no audio tracks are found on the source</comment>
+  </data>
+  <data name="NoSubtitlesSummary" xml:space="preserve">
+    <value>No subtitles</value>
+    <comment>Summary text for when no subtitle tracks are found on the source and no external subtitles have been added</comment>
+  </data>
 </root>

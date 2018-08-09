@@ -169,7 +169,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No subtitles on the source video..
+        ///   Looks up a localized string similar to No subtitles found on source..
         /// </summary>
         public static string NoSubtitlesText {
             get {

@@ -169,7 +169,7 @@
     <value>Could not detect the encoding of the subtitle file. To make sure the subtitles show up correctly, re-save the file as UTF-8.</value>
   </data>
   <data name="NoSubtitlesText" xml:space="preserve">
-    <value>No subtitles on the source video.</value>
+    <value>No subtitles found on source.</value>
   </data>
   <data name="ExternalSubtitlesSummaryFormat" xml:space="preserve">
     <value>{0} external</value>

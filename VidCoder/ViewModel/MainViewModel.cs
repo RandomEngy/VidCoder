@@ -259,6 +259,10 @@ namespace VidCoder.ViewModel
 				return lines;
 			}).ToProperty(this, x => x.VideoDetails, out this.videoDetails);
 
+			// HasAudio
+			this.AudioTracks.CountChanged.Select(count => count > 0)
+				.ToProperty(this, x => x.HasAudio, out this.hasAudio, initialValue: this.AudioTracks.Count > 0);
+
 			// HasSourceSubtitles
 			this.SourceSubtitles.CountChanged.Select(count => count > 0)
 				.ToProperty(this, x => x.HasSourceSubtitles, out this.hasSourceSubtitles, initialValue: this.SourceSubtitles.Count > 0);
@@ -315,9 +319,14 @@ namespace VidCoder.ViewModel
 			}).ToProperty(this, x => x.WindowTitle, out this.windowTitle);
 
 			// ShowChapterMarkerUI
-			this.PresetsService
-				.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.IncludeChapterMarkers)
-				.ToProperty(this, x => x.ShowChapterMarkerUI, out this.showChapterMarkerUI);
+			this.WhenAnyValue(x => x.PresetsService.SelectedPreset.Preset.EncodingProfile.IncludeChapterMarkers, x => x.SelectedTitle, (includeChapterMarkers, selectedTitle) =>
+			{
+				return includeChapterMarkers && selectedTitle != null && selectedTitle.ChapterList != null && selectedTitle.ChapterList.Count > 1;
+			}).ToProperty(this, x => x.ShowChapterMarkerUI, out this.showChapterMarkerUI);
+
+			//this.PresetsService
+			//	.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.IncludeChapterMarkers)
+			//	.ToProperty(this, x => x.ShowChapterMarkerUI, out this.showChapterMarkerUI);
 
 			this.updater.CheckUpdates();
 
@@ -1188,6 +1197,9 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private ObservableAsPropertyHelper<bool> hasAudio;
+		public bool HasAudio => this.hasAudio.Value;
+
 		private void BuildAudioViewModelList()
 		{
 			Picker picker = this.PickersService.SelectedPicker.Picker;
@@ -1332,7 +1344,7 @@ namespace VidCoder.ViewModel
 			}
 			else
 			{
-				this.AudioSummary = MainRes.NoneParen;
+				this.AudioSummary = MainRes.NoAudioSummary;
 			}
 		}
 
@@ -1769,7 +1781,7 @@ namespace VidCoder.ViewModel
 
 			if (summaryParts.Count == 0)
 			{
-				this.SubtitlesSummary = MainRes.NoneParen;
+				this.SubtitlesSummary = MainRes.NoSubtitlesSummary;
 			}
 			else
 			{

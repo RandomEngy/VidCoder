@@ -776,11 +776,38 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No audio found on source..
+        /// </summary>
+        public static string NoAudioDescription {
+            get {
+                return ResourceManager.GetString("NoAudioDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No audio.
+        /// </summary>
+        public static string NoAudioSummary {
+            get {
+                return ResourceManager.GetString("NoAudioSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to (None).
         /// </summary>
         public static string NoneParen {
             get {
                 return ResourceManager.GetString("NoneParen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No subtitles.
+        /// </summary>
+        public static string NoSubtitlesSummary {
+            get {
+                return ResourceManager.GetString("NoSubtitlesSummary", resourceCulture);
             }
         }
         
