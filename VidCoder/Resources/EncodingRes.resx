@@ -1126,4 +1126,28 @@ Lapsharp sharpens using convolution kernels approximating Laplacian edge filters
   <data name="ChooseNewFolderName" xml:space="preserve">
     <value>Choose a new name for the folder:</value>
   </data>
+  <data name="NVEncPreset_losslesshp" xml:space="preserve">
+    <value>High Performance Lossless</value>
+  </data>
+  <data name="NVEncPreset_lossless" xml:space="preserve">
+    <value>Lossless</value>
+  </data>
+  <data name="NVEncPreset_llhp" xml:space="preserve">
+    <value>High Performance Low Latency</value>
+  </data>
+  <data name="NVEncPreset_llhq" xml:space="preserve">
+    <value>High Quality Low Latency</value>
+  </data>
+  <data name="NVEncPreset_ll" xml:space="preserve">
+    <value>Low Latency</value>
+  </data>
+  <data name="NVEncPreset_bd" xml:space="preserve">
+    <value>Bluray Disk</value>
+  </data>
+  <data name="NVEncPreset_hq" xml:space="preserve">
+    <value>High Quality</value>
+  </data>
+  <data name="NVEncPreset_hp" xml:space="preserve">
+    <value>High Performance</value>
+  </data>
 </root>

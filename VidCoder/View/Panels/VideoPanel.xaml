@@ -426,7 +426,7 @@
 						Value="{Binding PresetIndex, Mode=TwoWay}" />
 					<TextBlock
 						Grid.Column="2"
-						MinWidth="100"
+						MinWidth="150"
 						VerticalAlignment="Center"
 						Text="{Binding PresetName}"
 						TextAlignment="Center" />

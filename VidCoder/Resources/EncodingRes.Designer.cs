@@ -1496,6 +1496,78 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bluray Disk.
+        /// </summary>
+        public static string NVEncPreset_bd {
+            get {
+                return ResourceManager.GetString("NVEncPreset_bd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to High Performance.
+        /// </summary>
+        public static string NVEncPreset_hp {
+            get {
+                return ResourceManager.GetString("NVEncPreset_hp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to High Quality.
+        /// </summary>
+        public static string NVEncPreset_hq {
+            get {
+                return ResourceManager.GetString("NVEncPreset_hq", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Low Latency.
+        /// </summary>
+        public static string NVEncPreset_ll {
+            get {
+                return ResourceManager.GetString("NVEncPreset_ll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to High Performance Low Latency.
+        /// </summary>
+        public static string NVEncPreset_llhp {
+            get {
+                return ResourceManager.GetString("NVEncPreset_llhp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to High Quality Low Latency.
+        /// </summary>
+        public static string NVEncPreset_llhq {
+            get {
+                return ResourceManager.GetString("NVEncPreset_llhq", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lossless.
+        /// </summary>
+        public static string NVEncPreset_lossless {
+            get {
+                return ResourceManager.GetString("NVEncPreset_lossless", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to High Performance Lossless.
+        /// </summary>
+        public static string NVEncPreset_losslesshp {
+            get {
+                return ResourceManager.GetString("NVEncPreset_losslesshp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open the presets list.
         /// </summary>
         public static string OpenPresetsListToolTip {

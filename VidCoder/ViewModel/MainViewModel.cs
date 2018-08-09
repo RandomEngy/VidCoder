@@ -324,10 +324,6 @@ namespace VidCoder.ViewModel
 				return includeChapterMarkers && selectedTitle != null && selectedTitle.ChapterList != null && selectedTitle.ChapterList.Count > 1;
 			}).ToProperty(this, x => x.ShowChapterMarkerUI, out this.showChapterMarkerUI);
 
-			//this.PresetsService
-			//	.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.IncludeChapterMarkers)
-			//	.ToProperty(this, x => x.ShowChapterMarkerUI, out this.showChapterMarkerUI);
-
 			this.updater.CheckUpdates();
 
 			this.JobCreationAvailable = false;
