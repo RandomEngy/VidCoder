@@ -76,7 +76,8 @@ namespace VidCoder
 			cache.Add("QueueColumns", DatabaseConfig.Get("QueueColumns", "Source:200|Title:35|Range:106|Destination:200", connection));
 			cache.Add("QueueLastColumnWidth", DatabaseConfig.Get("QueueLastColumnWidth", 75.0, connection));
 			cache.Add("CompletedColumnWidths", DatabaseConfig.Get("CompletedColumnWidths", "", connection));
-			cache.Add("QueuePaneHeight", DatabaseConfig.Get("QueuePaneHeight", 158.0, connection));
+			cache.Add("SourcePaneHeightStar", DatabaseConfig.Get("SourcePaneHeightStar", 2.0, connection));
+			cache.Add("QueuePaneHeightStar", DatabaseConfig.Get("QueuePaneHeightStar", 1.0, connection));
 			cache.Add("PickerListPaneWidth", DatabaseConfig.Get("PickerListPaneWidth", 135.0, connection));
 			cache.Add("EncodingListPaneOpen", DatabaseConfig.Get("EncodingListPaneOpen", true, connection));
 			cache.Add("EncodingListPaneWidth", DatabaseConfig.Get("EncodingListPaneWidth", 150.0, connection));
@@ -405,10 +406,15 @@ namespace VidCoder
 			get { return (string)cache["CompletedColumnWidths"]; }
 			set { Set("CompletedColumnWidths", value); }
 		}
-		public static double QueuePaneHeight
+		public static double SourcePaneHeightStar
 		{
-			get { return (double)cache["QueuePaneHeight"]; }
-			set { Set("QueuePaneHeight", value); }
+			get { return (double)cache["SourcePaneHeightStar"]; }
+			set { Set("SourcePaneHeightStar", value); }
+		}
+		public static double QueuePaneHeightStar
+		{
+			get { return (double)cache["QueuePaneHeightStar"]; }
+			set { Set("QueuePaneHeightStar", value); }
 		}
 		public static double PickerListPaneWidth
 		{
@@ -759,7 +765,8 @@ namespace VidCoder
 			public static IObservable<string> QueueColumns => GetObservable<string>("QueueColumns");
 			public static IObservable<double> QueueLastColumnWidth => GetObservable<double>("QueueLastColumnWidth");
 			public static IObservable<string> CompletedColumnWidths => GetObservable<string>("CompletedColumnWidths");
-			public static IObservable<double> QueuePaneHeight => GetObservable<double>("QueuePaneHeight");
+			public static IObservable<double> SourcePaneHeightStar => GetObservable<double>("SourcePaneHeightStar");
+			public static IObservable<double> QueuePaneHeightStar => GetObservable<double>("QueuePaneHeightStar");
 			public static IObservable<double> PickerListPaneWidth => GetObservable<double>("PickerListPaneWidth");
 			public static IObservable<bool> EncodingListPaneOpen => GetObservable<bool>("EncodingListPaneOpen");
 			public static IObservable<double> EncodingListPaneWidth => GetObservable<double>("EncodingListPaneWidth");

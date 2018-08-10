@@ -58,7 +58,8 @@ QueueLastColumnWidth|double|75.0
 
 CompletedColumnWidths|string|""
 
-QueuePaneHeight|double|158.0
+SourcePaneHeightStar|double|2.0
+QueuePaneHeightStar|double|1.0
 PickerListPaneWidth|double|135.0
 EncodingListPaneOpen|bool|true
 EncodingListPaneWidth|double|150.0

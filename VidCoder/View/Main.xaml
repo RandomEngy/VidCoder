@@ -388,10 +388,15 @@
 		<Grid.RowDefinitions>
 			<!--  Ribbon  -->
 			<RowDefinition Height="Auto" />
+			
 			<!--  Source  -->
-			<RowDefinition Height="*" MinHeight="150" />
+			<RowDefinition Name="sourceRow" Height="2*" MinHeight="150" />
+
+			<!--  GridSplitter  -->
+			<RowDefinition Height="4" />
+
 			<!--  Below source pane  -->
-			<RowDefinition Name="queueRow" Height="Auto" />
+			<RowDefinition Name="queueRow" Height="*" MinHeight="110" />
 		</Grid.RowDefinitions>
 
 		<!--  Ribbon  -->
@@ -558,7 +563,7 @@
 			Name="sourceScrollViewer"
 			Grid.Row="1"
 			MinHeight="138"
-			Margin="0 0 0 4"
+			Margin="0"
 			VerticalScrollBarVisibility="Auto">
 			<Grid Background="{StaticResource SectionBackground}">
 				<!--  Video choices on load  -->
@@ -1582,17 +1587,17 @@
 		</Grid>
 
 		<GridSplitter
-			Grid.Row="1"
+			Grid.Row="2"
 			Grid.Column="0"
 			Height="4"
 			HorizontalAlignment="Stretch"
-			VerticalAlignment="Bottom"
+			VerticalAlignment="Center"
 			Background="{StaticResource SplitterBrush}"
 			Canvas.ZIndex="4"
 			ShowsPreview="True" />
 
 		<!--  Below source - Destination / queue / Encode progress  -->
-		<Grid Grid.Row="2">
+		<Grid Grid.Row="3">
 			<Grid.RowDefinitions>
 				<!--  Destination  -->
 				<RowDefinition Height="Auto" />
