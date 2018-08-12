@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Permissions;
 using System.Text;
+using Microsoft.AnyContainer;
 using VidCoderCommon.Services;
 
 namespace VidCoder
@@ -31,7 +32,7 @@ namespace VidCoder
 
 			if (nativeFolder == IntPtr.Zero)
 			{
-				Ioc.Get<ILogger>().LogError($"Could not find folder {folderPath}");
+				Resolver.Resolve<ILogger>().LogError($"Could not find folder {folderPath}");
 
 				return;
 			}
@@ -42,7 +43,7 @@ namespace VidCoder
 			IntPtr[] fileArray;
 			if (nativeFile == IntPtr.Zero)
 			{
-				Ioc.Get<ILogger>().LogError($"Could not find file {Path.Combine(folderPath, file)}");
+				Resolver.Resolve<ILogger>().LogError($"Could not find file {Path.Combine(folderPath, file)}");
 
 				fileArray = new IntPtr[0];
 			}

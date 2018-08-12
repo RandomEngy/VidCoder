@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.HbLib;
 using HandBrake.Interop.Interop.Model.Encoding;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -27,7 +28,7 @@ namespace VidCoder.ViewModel
 
 		private static readonly ResourceManager EnumResourceManager = new ResourceManager(typeof(EnumsRes));
 
-		private PreviewUpdateService previewUpdateService = Ioc.Get<PreviewUpdateService>();
+		private PreviewUpdateService previewUpdateService = Resolver.Resolve<PreviewUpdateService>();
 
 		public VideoFiltersPanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
 			: base(encodingWindowViewModel)

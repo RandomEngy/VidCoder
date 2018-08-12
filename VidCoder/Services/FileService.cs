@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.ComponentModel;
 using System.Windows;
+using Microsoft.AnyContainer;
 using Ookii.Dialogs.Wpf;
 
 namespace VidCoder.Services
@@ -18,7 +19,7 @@ namespace VidCoder.Services
 		{
 			get
 			{
-				return Ioc.Get<IFileService>();
+				return Resolver.Resolve<IFileService>();
 			}
 		}
 
@@ -40,7 +41,7 @@ namespace VidCoder.Services
 				}
 				catch (NotSupportedException)
 				{
-					Ioc.Get<IAppLogger>().Log("Could not recognize initial directory " + initialDirectory);
+					Resolver.Resolve<IAppLogger>().Log("Could not recognize initial directory " + initialDirectory);
 				}
 			}
 

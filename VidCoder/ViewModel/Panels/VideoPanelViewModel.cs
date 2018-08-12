@@ -6,6 +6,7 @@ using System.Reactive.Linq;
 using System.Resources;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.Model.Encoding;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Model;
@@ -25,8 +26,8 @@ namespace VidCoder.ViewModel
 
 		private ResourceManager resourceManager = new ResourceManager(typeof(EncodingRes));
 
-		private OutputPathService outputPathService = Ioc.Get<OutputPathService>();
-		private MainViewModel main = Ioc.Get<MainViewModel>();
+		private OutputPathService outputPathService = Resolver.Resolve<OutputPathService>();
+		private MainViewModel main = Resolver.Resolve<MainViewModel>();
 
 		private List<VideoEncoderViewModel> encoderChoices;
 

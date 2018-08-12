@@ -23,6 +23,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Resources;
 using Fluent;
 using HandBrake.Interop.Interop.Json.Encode;
+using Microsoft.AnyContainer;
 using Newtonsoft.Json;
 using ReactiveUI;
 using Unity;
@@ -55,10 +56,10 @@ namespace VidCoder.View
 		private readonly NotifyIcon notifyIcon;
 
 		private MainViewModel viewModel;
-		private ProcessingService processingService = Ioc.Get<ProcessingService>();
-		private OutputPathService outputVM = Ioc.Get<OutputPathService>();
-		private StatusService statusService = Ioc.Get<StatusService>();
-		private IToastNotificationService toastNotificationService = Ioc.Get<IToastNotificationService>();
+		private ProcessingService processingService = Resolver.Resolve<ProcessingService>();
+		private OutputPathService outputVM = Resolver.Resolve<OutputPathService>();
+		private StatusService statusService = Resolver.Resolve<StatusService>();
+		private IToastNotificationService toastNotificationService = Resolver.Resolve<IToastNotificationService>();
 
 		private bool tabsVisible = false;
 
@@ -68,7 +69,7 @@ namespace VidCoder.View
 
 		public Main()
 		{
-			Ioc.Container.RegisterInstance(typeof(Main), this, new ContainerControlledLifetimeManager());
+			Ioc.Container.RegisterSingleton<Main>(() => this);
 			this.InitializeComponent();
 
 			this.sourceRow.Height = new GridLength(Config.SourcePaneHeightStar, GridUnitType.Star);
@@ -110,7 +111,7 @@ namespace VidCoder.View
 				{
 					if (!this.viewModel.HasVideoSource)
 					{
-						Ioc.Get<IMessageBoxService>().Show("Must open source before adding queue job from JSON");
+						Resolver.Resolve<IMessageBoxService>().Show("Must open source before adding queue job from JSON");
 						return;
 					}
 

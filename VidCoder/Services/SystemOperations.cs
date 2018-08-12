@@ -8,13 +8,14 @@ using System.Runtime.InteropServices;
 using System.Text;
 using VidCoder.Model;
 using System.Windows.Forms;
+using Microsoft.AnyContainer;
 
 
 namespace VidCoder.Services
 {
 	public class SystemOperations : ISystemOperations
 	{
-		private static IAppLogger logger = Ioc.Get<IAppLogger>();
+		private static IAppLogger logger = Resolver.Resolve<IAppLogger>();
 
 		[Flags]
 		private enum ExitWindows : uint

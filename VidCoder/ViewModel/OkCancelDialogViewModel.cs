@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Services.Windows;
 
@@ -7,7 +8,7 @@ namespace VidCoder.ViewModel
 {
 	public abstract class OkCancelDialogViewModel : ReactiveObject, IClosableWindow
 	{
-		private IWindowManager windowManager = Ioc.Get<IWindowManager>();
+		private IWindowManager windowManager = Resolver.Resolve<IWindowManager>();
 
 		protected OkCancelDialogViewModel()
 		{

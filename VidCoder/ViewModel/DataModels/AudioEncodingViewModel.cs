@@ -12,6 +12,7 @@ using HandBrake.Interop.Interop.HbLib;
 using HandBrake.Interop.Interop.Json.Scan;
 using HandBrake.Interop.Interop.Model;
 using HandBrake.Interop.Interop.Model.Encoding;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Model;
@@ -30,8 +31,8 @@ namespace VidCoder.ViewModel
 		private AudioPanelViewModel audioPanelVM;
 		private bool initializing;
 
-		private MainViewModel main = Ioc.Get<MainViewModel>();
-		private PresetsService presetsService = Ioc.Get<PresetsService>();
+		private MainViewModel main = Resolver.Resolve<MainViewModel>();
+		private PresetsService presetsService = Resolver.Resolve<PresetsService>();
 
 		private ObservableCollection<TargetStreamViewModel> targetStreams;
 		private int targetStreamIndex;

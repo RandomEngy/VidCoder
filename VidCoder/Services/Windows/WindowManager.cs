@@ -9,6 +9,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Model;
@@ -95,7 +96,7 @@ namespace VidCoder.Services.Windows
 					PlacementConfigKey = "EncodeDetailsWindowPlacement",
 					IsOpenConfigKey = "EncodeDetailsWindowOpen", 
 					MenuLabel = MainRes.EncodeDetailsMenuItem,
-					CanOpen = () => Ioc.Get<ProcessingService>().WhenAnyValue(x => x.Encoding)
+					CanOpen = () => Resolver.Resolve<ProcessingService>().WhenAnyValue(x => x.Encoding)
 				},
 
 				new WindowDefinition
@@ -184,8 +185,9 @@ namespace VidCoder.Services.Windows
 		/// <typeparam name="T">The type of the viewmodel.</typeparam>
 		/// <param name="ownerViewModel">The viewmodel of the owner window.</param>
 		public void OpenDialog<T>(object ownerViewModel = null)
+			where T : class
 		{
-			this.OpenDialog(Ioc.Get<T>(), ownerViewModel);
+			this.OpenDialog(Resolver.Resolve<T>(), ownerViewModel);
 		}
 
 		/// <summary>
@@ -211,7 +213,7 @@ namespace VidCoder.Services.Windows
 
 				if (canOpen && Config.Get<bool>(definition.IsOpenConfigKey))
 				{
-					this.OpenWindow(Ioc.Get(definition.ViewModelType), userInitiated: false);
+					this.OpenWindow(Resolver.Resolve(definition.ViewModelType), userInitiated: false);
 					windowOpened = true;
 				}
 			}
@@ -254,7 +256,7 @@ namespace VidCoder.Services.Windows
 
 			if (viewModel == null)
 			{
-				viewModel = Ioc.Get(viewModelType);
+				viewModel = Resolver.Resolve(viewModelType);
 				if (ownerViewModel == null)
 				{
 					ownerViewModel = this.mainViewModel;
@@ -307,7 +309,7 @@ namespace VidCoder.Services.Windows
 			{
 				if (openAsDialog)
 				{
-					this.OpenDialog(Ioc.Get(viewModelType));
+					this.OpenDialog(Resolver.Resolve(viewModelType));
 				}
 				else
 				{
@@ -502,7 +504,7 @@ namespace VidCoder.Services.Windows
 				var listView = dragEventArgs.Source as ListView;
 				bool alwaysQueue = listView?.Name == "queueView";
 
-				Ioc.Get<MainViewModel>().HandlePaths(itemList.Cast<string>().ToList(), alwaysQueue);
+				Resolver.Resolve<MainViewModel>().HandlePaths(itemList.Cast<string>().ToList(), alwaysQueue);
 			}
 		}
 

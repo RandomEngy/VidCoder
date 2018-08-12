@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using HandBrake.Interop.Interop.Json.Scan;
+using Microsoft.AnyContainer;
 using Newtonsoft.Json;
 using VidCoder.Extensions;
 using VidCoder.Model;
@@ -96,7 +97,7 @@ namespace VidCoder.ViewModel
                 }
             };
 
-            scanProxy.StartScan(path.Path, Ioc.Get<IAppLogger>());
+            scanProxy.StartScan(path.Path, Resolver.Resolve<IAppLogger>());
 		}
 
 	    public class ScanResult

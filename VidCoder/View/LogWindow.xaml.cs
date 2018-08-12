@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
+using Microsoft.AnyContainer;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Services;
@@ -21,7 +22,7 @@ namespace VidCoder.View
 		// The maximum number of lines to add to log window in a single dispatcher call
 		private const int MaxLinesPerDispatch = 100;
 
-		private IAppLogger logger = Ioc.Get<IAppLogger>();
+		private IAppLogger logger = Resolver.Resolve<IAppLogger>();
 
 		private Queue<LogEntry> pendingEntries = new Queue<LogEntry>();
 		private bool workerRunning;

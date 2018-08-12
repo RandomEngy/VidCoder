@@ -6,6 +6,7 @@ using VidCoder.Model;
 using VidCoder.ViewModel;
 using System.IO;
 using System.Management;
+using Microsoft.AnyContainer;
 
 namespace VidCoder.Services
 {
@@ -13,7 +14,7 @@ namespace VidCoder.Services
 
 	public class DriveService : IDriveService
 	{
-		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
+		private MainViewModel mainViewModel = Resolver.Resolve<MainViewModel>();
 		private ManagementEventWatcher watcher;
 
 		public DriveService()

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using HandBrake.Interop.Interop;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Model;
@@ -30,7 +31,7 @@ namespace VidCoder.ViewModel
 
 		private VCJob job;
 		private IEncodeProxy encodeProxy;
-		private IAppLogger logger = Ioc.Get<IAppLogger>();
+		private IAppLogger logger = Resolver.Resolve<IAppLogger>();
 		private string previewFilePath;
 		private bool cancelPending;
 		private bool encodeCancelled;
@@ -42,9 +43,9 @@ namespace VidCoder.ViewModel
 		private DispatcherTimer seekBarUpdateTimer;
 		private bool positionSetByNonUser;
 
-		private readonly OutputSizeService outputSizeService = Ioc.Get<OutputSizeService>();
-		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
-		private PreviewUpdateService previewUpdateService = Ioc.Get<PreviewUpdateService>();
+		private readonly OutputSizeService outputSizeService = Resolver.Resolve<OutputSizeService>();
+		private MainViewModel mainViewModel = Resolver.Resolve<MainViewModel>();
+		private PreviewUpdateService previewUpdateService = Resolver.Resolve<PreviewUpdateService>();
 
 		public PreviewWindowViewModel()
 		{
@@ -274,14 +275,14 @@ namespace VidCoder.ViewModel
 			get { return this.mainViewModel; }
 		}
 
-		public PreviewImageService PreviewImageService { get; } = Ioc.Get<PreviewImageService>();
+		public PreviewImageService PreviewImageService { get; } = Resolver.Resolve<PreviewImageService>();
 
 		public PreviewImageServiceClient PreviewImageServiceClient { get; } = new PreviewImageServiceClient();
 
-		public ProcessingService ProcessingService { get; } = Ioc.Get<ProcessingService>();
+		public ProcessingService ProcessingService { get; } = Resolver.Resolve<ProcessingService>();
 
 
-		public OutputPathService OutputPathService { get; } = Ioc.Get<OutputPathService>();
+		public OutputPathService OutputPathService { get; } = Resolver.Resolve<OutputPathService>();
 
 		private ObservableAsPropertyHelper<string> title;
 		public string Title => this.title.Value;
@@ -793,7 +794,7 @@ namespace VidCoder.ViewModel
 
 				if (parWidth <= 0 || parHeight <= 0)
 				{
-					Ioc.Get<IAppLogger>().LogError("HandBrake returned a negative pixel aspect ratio. Cannot show preview.");
+					Resolver.Resolve<IAppLogger>().LogError("HandBrake returned a negative pixel aspect ratio. Cannot show preview.");
 					return PreviewRes.NoVideoSourceTitle;
 				}
 
@@ -831,7 +832,7 @@ namespace VidCoder.ViewModel
 		public void OnVideoFailed()
 		{
 			this.PlayingPreview = false;
-			MessageBoxResult result = Ioc.Get<IMessageBoxService>().Show(this, PreviewRes.VideoErrorMessage, PreviewRes.VideoErrorTitle, MessageBoxButton.YesNo);
+			MessageBoxResult result = Resolver.Resolve<IMessageBoxService>().Show(this, PreviewRes.VideoErrorMessage, PreviewRes.VideoErrorTitle, MessageBoxButton.YesNo);
 			if (result == MessageBoxResult.Yes)
 			{
 				FileService.Instance.PlayVideo(this.previewFilePath);

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using HandBrake.Interop.Interop;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Model;
@@ -43,9 +44,9 @@ namespace VidCoder.Services
 		private object imageSync = new object();
 	    private List<object> imageFileSync;
 
-		private readonly OutputSizeService outputSizeService = Ioc.Get<OutputSizeService>();
-	    private readonly MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
-	    private readonly PreviewUpdateService previewUpdateService = Ioc.Get<PreviewUpdateService>();
+		private readonly OutputSizeService outputSizeService = Resolver.Resolve<OutputSizeService>();
+	    private readonly MainViewModel mainViewModel = Resolver.Resolve<MainViewModel>();
+	    private readonly PreviewUpdateService previewUpdateService = Resolver.Resolve<PreviewUpdateService>();
 
 		public PreviewImageService()
 	    {
@@ -71,7 +72,7 @@ namespace VidCoder.Services
 
 		public event EventHandler<PreviewImageLoadInfo> ImageLoaded;
 
-		public PresetsService PresetsService { get; } = Ioc.Get<PresetsService>();
+		public PresetsService PresetsService { get; } = Resolver.Resolve<PresetsService>();
 
 
 		private OutputSizeInfo outputSizeInfo;
@@ -205,7 +206,7 @@ namespace VidCoder.Services
 		    {
 			    this.HasPreview = false;
 
-			    Ioc.Get<IAppLogger>().LogError("HandBrake returned a negative pixel aspect ratio. Cannot show preview.");
+			    Resolver.Resolve<IAppLogger>().LogError("HandBrake returned a negative pixel aspect ratio. Cannot show preview.");
 			    return;
 		    }
 
@@ -451,7 +452,7 @@ namespace VidCoder.Services
 					    }
 					    else
 					    {
-						    Ioc.Get<IAppLogger>().LogError($"Could not load cached preview image from {imagePath} . Did not parse as a URI.");
+						    Resolver.Resolve<IAppLogger>().LogError($"Could not load cached preview image from {imagePath} . Did not parse as a URI.");
 					    }
 				    }
 			    }

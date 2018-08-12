@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Services.Windows;
 
@@ -10,7 +11,7 @@ namespace VidCoder.ViewModel
 {
 	public class CustomMessageDialogViewModel<T>
 	{
-		private IWindowManager windowManager = Ioc.Get<IWindowManager>();
+		private IWindowManager windowManager = Resolver.Resolve<IWindowManager>();
 
 		public CustomMessageDialogViewModel(string title, string message, IEnumerable<CustomDialogButton<T>> buttons)
 		{

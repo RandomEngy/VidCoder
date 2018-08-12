@@ -14,6 +14,7 @@ using System.Windows;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.Json.Scan;
 using HandBrake.Interop.Interop.Model.Encoding;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using Unity;
 using Unity.Lifetime;
@@ -35,8 +36,8 @@ namespace VidCoder.ViewModel
 	{
 		private HandBrakeInstance scanInstance;
 
-		private IUpdater updater = Ioc.Get<IUpdater>();
-		private IAppLogger logger = Ioc.Get<IAppLogger>();
+		private IUpdater updater = Resolver.Resolve<IUpdater>();
+		private IAppLogger logger = Resolver.Resolve<IAppLogger>();
 		private PreviewUpdateService previewUpdateService;
 		private IWindowManager windowManager;
 		private ObservableCollection<SourceOptionViewModel> sourceOptions;
@@ -63,7 +64,7 @@ namespace VidCoder.ViewModel
 
 		public MainViewModel()
 		{
-			Ioc.Container.RegisterInstance(typeof(MainViewModel), this, new ContainerControlledLifetimeManager());
+			Ioc.Container.RegisterSingleton<MainViewModel>(() => this);
 
 			this.VideoExpanded = Config.VideoExpanded;
 			this.AudioExpanded = Config.AudioExpanded;
@@ -285,13 +286,13 @@ namespace VidCoder.ViewModel
 				.WhenAnyValue(x => x.VideoSourceState)
 				.Select(videoSourceState => videoSourceState != VideoSourceState.Scanning);
 
-			this.OutputPathService = Ioc.Get<OutputPathService>();
-			this.OutputSizeService = Ioc.Get<OutputSizeService>();
-			this.ProcessingService = Ioc.Get<ProcessingService>();
-			this.PresetsService = Ioc.Get<PresetsService>();
-			this.PickersService = Ioc.Get<PickersService>();
-			this.windowManager = Ioc.Get<IWindowManager>();
-			this.previewUpdateService = Ioc.Get<PreviewUpdateService>();
+			this.OutputPathService = Resolver.Resolve<OutputPathService>();
+			this.OutputSizeService = Resolver.Resolve<OutputSizeService>();
+			this.ProcessingService = Resolver.Resolve<ProcessingService>();
+			this.PresetsService = Resolver.Resolve<PresetsService>();
+			this.PickersService = Resolver.Resolve<PickersService>();
+			this.windowManager = Resolver.Resolve<IWindowManager>();
+			this.previewUpdateService = Resolver.Resolve<PreviewUpdateService>();
 			this.TaskBarProgressTracker = new TaskBarProgressTracker();
 
 			// EncodingPresetButtonText
@@ -347,7 +348,7 @@ namespace VidCoder.ViewModel
 
 			this.useDefaultChapterNames = true;
 
-			this.driveService = Ioc.Get<IDriveService>();
+			this.driveService = Resolver.Resolve<IDriveService>();
 
 			// When an item is checked, resize the grid columns
 			this.AudioTracks.ItemChanged
@@ -450,24 +451,24 @@ namespace VidCoder.ViewModel
 							// It's a preset
 							try
 							{
-								Preset preset = Ioc.Get<IPresetImportExport>().ImportPreset(paths[0]);
-								Ioc.Get<IMessageBoxService>().Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
+								Preset preset = Resolver.Resolve<IPresetImportExport>().ImportPreset(paths[0]);
+								Resolver.Resolve<IMessageBoxService>().Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
 							}
 							catch (Exception)
 							{
-								Ioc.Get<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
+								Resolver.Resolve<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
 							}
 						}
 						else if (extension == ".srt")
 						{
 							if (this.HasVideoSource)
 							{
-								SrtSubtitle subtitle = Ioc.Get<SubtitlesService>().LoadSrtSubtitle(item);
+								SrtSubtitle subtitle = Resolver.Resolve<SubtitlesService>().LoadSrtSubtitle(item);
 
 								if (subtitle != null)
 								{
 									this.CurrentSubtitles.SrtSubtitles.Add(subtitle);
-									Ioc.Get<IMessageBoxService>().Show(this, string.Format(MainRes.AddedSubtitleFromFile, item));
+									Resolver.Resolve<IMessageBoxService>().Show(this, string.Format(MainRes.AddedSubtitleFromFile, item));
 								}
 							}
 						}
@@ -509,7 +510,7 @@ namespace VidCoder.ViewModel
                 }
                 else
                 {
-                    Ioc.Get<ProcessingService>().QueueMultiple(fileList);
+                    Resolver.Resolve<ProcessingService>().QueueMultiple(fileList);
                 }
             }
         }
@@ -568,7 +569,7 @@ namespace VidCoder.ViewModel
 	            }
 	            catch (Exception exception)
 	            {
-		            Ioc.Get<IAppLogger>().LogError($"Could not process {item} : " + Environment.NewLine + exception);
+		            Resolver.Resolve<IAppLogger>().LogError($"Could not process {item} : " + Environment.NewLine + exception);
 	            }
             }
 
@@ -735,7 +736,7 @@ namespace VidCoder.ViewModel
 				AutomationHost.StopListening();
 			}
 
-			Ioc.Get<IToastNotificationService>().Clear();
+			Resolver.Resolve<IToastNotificationService>().Clear();
 
 			this.updater.PromptToApplyUpdate();
 
@@ -775,7 +776,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.previewImageService == null)
 				{
-					this.previewImageService = Ioc.Get<PreviewImageService>();
+					this.previewImageService = Resolver.Resolve<PreviewImageService>();
 				}
 
 				return this.previewImageService;
@@ -1679,7 +1680,7 @@ namespace VidCoder.ViewModel
 							Config.LastSrtFolder = Path.GetDirectoryName(srtFile);
 						}
 
-						SrtSubtitle newSubtitle = Ioc.Get<SubtitlesService>().LoadSrtSubtitle(srtFile);
+						SrtSubtitle newSubtitle = Resolver.Resolve<SubtitlesService>().LoadSrtSubtitle(srtFile);
 
 						if (newSubtitle != null)
 						{
@@ -2536,12 +2537,12 @@ namespace VidCoder.ViewModel
 					{
 						try
 						{
-							Preset preset = Ioc.Get<IPresetImportExport>().ImportPreset(presetFileName);
-							Ioc.Get<IMessageBoxService>().Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
+							Preset preset = Resolver.Resolve<IPresetImportExport>().ImportPreset(presetFileName);
+							Resolver.Resolve<IMessageBoxService>().Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
 						}
 						catch (Exception)
 						{
-							Ioc.Get<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
+							Resolver.Resolve<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
 						}
 					}
 				}));
@@ -2555,7 +2556,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.exportPreset ?? (this.exportPreset = ReactiveCommand.Create(() =>
 				{
-					Ioc.Get<IPresetImportExport>().ExportPreset(this.PresetsService.SelectedPreset.Preset);
+					Resolver.Resolve<IPresetImportExport>().ExportPreset(this.PresetsService.SelectedPreset.Preset);
 				}));
 			}
 		}
@@ -2835,7 +2836,7 @@ namespace VidCoder.ViewModel
 						DriveInformation driveInfo = this.DriveCollection.FirstOrDefault(d => string.Compare(d.RootDirectory, jobRoot, StringComparison.OrdinalIgnoreCase) == 0);
 						if (driveInfo == null)
 						{
-							Ioc.Get<IMessageBoxService>().Show(MainRes.DiscNotInDriveError);
+							Resolver.Resolve<IMessageBoxService>().Show(MainRes.DiscNotInDriveError);
 							return;
 						}
 
@@ -2887,7 +2888,7 @@ namespace VidCoder.ViewModel
 
 			if (this.VideoSourceState == VideoSourceState.ScannedSource)
 			{
-				var messageResult = Ioc.Get<IMessageBoxService>().Show(
+				var messageResult = Resolver.Resolve<IMessageBoxService>().Show(
 					this,
 					MainRes.AutoplayDiscConfirmationMessage,
 					CommonRes.ConfirmDialogTitle,
@@ -3079,7 +3080,7 @@ namespace VidCoder.ViewModel
 				this.VideoSourceState = VideoSourceState.Choices;
 
 				// Raise error
-				Ioc.Get<IMessageBoxService>().Show(this, MainRes.ScanErrorLabel);
+				Resolver.Resolve<IMessageBoxService>().Show(this, MainRes.ScanErrorLabel);
 			}
 		}
 

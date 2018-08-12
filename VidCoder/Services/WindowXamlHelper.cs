@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
@@ -10,7 +11,7 @@ namespace VidCoder
 	/// </summary>
 	public class WindowXamlHelper : ReactiveObject
 	{
-		private IWindowManager windowManager = Ioc.Get<IWindowManager>();
+		private IWindowManager windowManager = Resolver.Resolve<IWindowManager>();
 
 		public WindowXamlHelper()
 		{

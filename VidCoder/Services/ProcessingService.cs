@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Shell;
 using HandBrake.Interop.Interop.EventArgs;
 using HandBrake.Interop.Interop.Json.Scan;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Model;
@@ -40,16 +41,16 @@ namespace VidCoder.Services
 
 		private const double StopWarningThresholdMinutes = 5;
 
-		private IAppLogger logger = Ioc.Get<IAppLogger>();
-		private IProcessAutoPause autoPause = Ioc.Get<IProcessAutoPause>();
-		private ISystemOperations systemOperations = Ioc.Get<ISystemOperations>();
-		private IMessageBoxService messageBoxService = Ioc.Get<IMessageBoxService>();
-		private MainViewModel main = Ioc.Get<MainViewModel>();
-		private OutputPathService outputVM = Ioc.Get<OutputPathService>();
-		private PresetsService presetsService = Ioc.Get<PresetsService>();
-		private PickersService pickersService = Ioc.Get<PickersService>();
-		private IWindowManager windowManager = Ioc.Get<IWindowManager>();
-		private IToastNotificationService toastNotificationService = Ioc.Get<IToastNotificationService>();
+		private IAppLogger logger = Resolver.Resolve<IAppLogger>();
+		private IProcessAutoPause autoPause = Resolver.Resolve<IProcessAutoPause>();
+		private ISystemOperations systemOperations = Resolver.Resolve<ISystemOperations>();
+		private IMessageBoxService messageBoxService = Resolver.Resolve<IMessageBoxService>();
+		private MainViewModel main = Resolver.Resolve<MainViewModel>();
+		private OutputPathService outputVM = Resolver.Resolve<OutputPathService>();
+		private PresetsService presetsService = Resolver.Resolve<PresetsService>();
+		private PickersService pickersService = Resolver.Resolve<PickersService>();
+		private IWindowManager windowManager = Resolver.Resolve<IWindowManager>();
+		private IToastNotificationService toastNotificationService = Resolver.Resolve<IToastNotificationService>();
 		private bool encoding;
 		private bool paused;
 		private EncodeCompleteReason encodeCompleteReason;
@@ -409,7 +410,7 @@ namespace VidCoder.Services
 								// If the encoding profile has changed since the last time we queued an item, we'll prompt to apply the current
 								// encoding profile to all queued items.
 
-								var messageBoxService = Ioc.Get<IMessageBoxService>();
+								var messageBoxService = Resolver.Resolve<IMessageBoxService>();
 								MessageBoxResult result = messageBoxService.Show(
 									this.main,
 									MainRes.EncodingSettingsChangedMessage,
@@ -615,7 +616,7 @@ namespace VidCoder.Services
 					{
 						try
 						{
-							Ioc.Get<IQueueImportExport>().Import(presetFileName);
+							Resolver.Resolve<IQueueImportExport>().Import(presetFileName);
 							this.messageBoxService.Show(MainRes.QueueImportSuccessMessage, CommonRes.Success, System.Windows.MessageBoxButton.OK);
 						}
 						catch (Exception)
@@ -648,7 +649,7 @@ namespace VidCoder.Services
 							});
 					}
 
-					Ioc.Get<IQueueImportExport>().Export(encodeJobs);
+					Resolver.Resolve<IQueueImportExport>().Export(encodeJobs);
 				}));
 			}
 		}
@@ -1672,7 +1673,7 @@ namespace VidCoder.Services
 
 						if (!Utilities.IsInForeground)
 						{
-							Ioc.Get<TrayService>().ShowBalloonMessage(MainRes.EncodeCompleteBalloonTitle, MainRes.EncodeCompleteBalloonMessage);
+							Resolver.Resolve<TrayService>().ShowBalloonMessage(MainRes.EncodeCompleteBalloonTitle, MainRes.EncodeCompleteBalloonMessage);
 							if (this.toastNotificationService.ToastEnabled)
 							{
 								const string toastFormat =
@@ -1892,7 +1893,7 @@ namespace VidCoder.Services
 				return true;
 			}
 
-			var messageService = Ioc.Get<IMessageBoxService>();
+			var messageService = Resolver.Resolve<IMessageBoxService>();
 			var messageResult = messageService.Show(
 				this.main,
 				MainRes.OutputFolderRequiredMessage, 
@@ -1915,7 +1916,7 @@ namespace VidCoder.Services
 				return true;
 			}
 
-			Ioc.Get<IMessageBoxService>().Show(
+			Resolver.Resolve<IMessageBoxService>().Show(
 				MainRes.OutputPathNotValidMessage,
 				MainRes.OutputPathNotValidTitle, 
 				MessageBoxButton.OK,

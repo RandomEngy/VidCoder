@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using HandBrake.Interop.Interop;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.DragDropUtils;
 using VidCoder.Model;
@@ -22,7 +23,7 @@ namespace VidCoder.ViewModel
 		/// </summary>
 		public const double SubtitleScanCostFactor = 5.0;
 
-		private MainViewModel main = Ioc.Get<MainViewModel>();
+		private MainViewModel main = Resolver.Resolve<MainViewModel>();
 		private ProcessingService processingService;
 
 		private VCJob job;
@@ -162,7 +163,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.processingService == null)
 				{
-					this.processingService = Ioc.Get<ProcessingService>();
+					this.processingService = Resolver.Resolve<ProcessingService>();
 				}
 
 				return this.processingService;

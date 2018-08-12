@@ -10,6 +10,7 @@ using System.Windows.Input;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.Json.Scan;
 using HandBrake.Interop.Interop.Model.Encoding;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Resources;
@@ -28,9 +29,9 @@ namespace VidCoder.ViewModel
 		private List<AudioEncoderViewModel> fallbackEncoderChoices;
 		private AudioEncoderViewModel audioEncoderFallback;
 
-		private MainViewModel main = Ioc.Get<MainViewModel>();
+		private MainViewModel main = Resolver.Resolve<MainViewModel>();
 
-		private PresetsService presetsService = Ioc.Get<PresetsService>();
+		private PresetsService presetsService = Resolver.Resolve<PresetsService>();
 
 		private bool userUpdatingFallbackEncoder;
 		private bool userUpdatingCopyMask;

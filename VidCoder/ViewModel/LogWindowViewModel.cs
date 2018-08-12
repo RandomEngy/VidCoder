@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Windows.Input;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.Services;
@@ -9,8 +10,8 @@ namespace VidCoder.ViewModel
 {
 	public class LogWindowViewModel : ReactiveObject
 	{
-		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
-		private IAppLogger logger = Ioc.Get<IAppLogger>();
+		private MainViewModel mainViewModel = Resolver.Resolve<MainViewModel>();
+		private IAppLogger logger = Resolver.Resolve<IAppLogger>();
 
 		public MainViewModel MainViewModel
 		{
@@ -51,7 +52,7 @@ namespace VidCoder.ViewModel
 							logTextBuilder.AppendLine(entry.Text);
 						}
 
-						Ioc.Get<ClipboardService>().SetText(logTextBuilder.ToString());
+						Resolver.Resolve<ClipboardService>().SetText(logTextBuilder.ToString());
 					}
 				}));
 			}

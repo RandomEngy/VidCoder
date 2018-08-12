@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.AnyContainer;
 using VidCoder.Model;
 using VidCoderCommon.Model;
 
@@ -13,7 +14,7 @@ namespace VidCoder.Services
 	{
 		private IFileService fileService;
 		private IMessageBoxService messageBoxService;
-		private PresetsService presetsService = Ioc.Get<PresetsService>();
+		private PresetsService presetsService = Resolver.Resolve<PresetsService>();
 		private IAppLogger logger;
 
 		public PresetImportExport(IFileService fileService, IMessageBoxService messageBoxService, IAppLogger logger)

@@ -8,6 +8,7 @@ using System.Reactive.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
+using Microsoft.AnyContainer;
 using Omu.ValueInjecter;
 using ReactiveUI;
 using VidCoder.Model;
@@ -23,9 +24,9 @@ namespace VidCoder.ViewModel
 	{
 		private const string NameTokenList = "{source} {title} {range} {preset} {date} {time} {quality} {parent} {titleduration}";
 
-		private readonly PickersService pickersService = Ioc.Get<PickersService>();
-		private readonly PresetsService presetsService = Ioc.Get<PresetsService>();
-		private readonly OutputPathService outputPathService = Ioc.Get<OutputPathService>();
+		private readonly PickersService pickersService = Resolver.Resolve<PickersService>();
+		private readonly PresetsService presetsService = Resolver.Resolve<PresetsService>();
+		private readonly OutputPathService outputPathService = Resolver.Resolve<OutputPathService>();
 
 		private AutoChangeTracker autoChangeTracker = new AutoChangeTracker();
 
@@ -702,7 +703,7 @@ namespace VidCoder.ViewModel
 				{
 					var dialogVM = new ChooseNameViewModel(MiscRes.ChooseNamePicker, this.pickersService.Pickers.Skip(1).Select(p => p.Picker.Name));
 					dialogVM.Name = this.Picker.DisplayName;
-					Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
+					Resolver.Resolve<IWindowManager>().OpenDialog(dialogVM, this);
 
 					if (dialogVM.DialogResult)
 					{
@@ -723,7 +724,7 @@ namespace VidCoder.ViewModel
 				{
 					var dialogVM = new ChooseNameViewModel(MiscRes.ChooseNamePicker, this.pickersService.Pickers.Skip(1).Select(p => p.Picker.Name));
 					dialogVM.Name = this.Picker.DisplayName;
-					Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
+					Resolver.Resolve<IWindowManager>().OpenDialog(dialogVM, this);
 
 					if (dialogVM.DialogResult)
 					{

@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Microsoft.AnyContainer;
 using VidCoder.Services;
 
 namespace VidCoder
@@ -23,7 +24,7 @@ namespace VidCoder
 			else
 			{
 				// Sometimes this can return a matrix with 0s. Fall back to assuming normal DPI in this case.
-				Ioc.Get<IAppLogger>().Log("Could not read DPI. Assuming default DPI.");
+				Resolver.Resolve<IAppLogger>().Log("Could not read DPI. Assuming default DPI.");
 				DpiXFactor = 1;
 				DpiYFactor = 1;
 			}

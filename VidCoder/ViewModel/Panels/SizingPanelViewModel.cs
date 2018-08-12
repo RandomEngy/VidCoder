@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reactive.Linq;
 using System.Windows.Media;
+using Microsoft.AnyContainer;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -16,8 +17,8 @@ namespace VidCoder.ViewModel
 	{
 		private const int DimensionsAutoSetModulus = 2;
 
-		private OutputSizeService outputSizeService = Ioc.Get<OutputSizeService>();
-		private PreviewUpdateService previewUpdateService = Ioc.Get<PreviewUpdateService>();
+		private OutputSizeService outputSizeService = Resolver.Resolve<OutputSizeService>();
+		private PreviewUpdateService previewUpdateService = Resolver.Resolve<PreviewUpdateService>();
 
 		public SizingPanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
 			: base(encodingWindowViewModel)

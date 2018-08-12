@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Reactive.Linq;
 using System.Windows.Input;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 
 namespace VidCoder.Services.Windows
@@ -12,7 +13,7 @@ namespace VidCoder.Services.Windows
 
 		public WindowMenuItemViewModel(WindowDefinition definition)
 		{
-			var windowManager = Ioc.Get<IWindowManager>();
+			var windowManager = Resolver.Resolve<IWindowManager>();
 			this.Definition = definition;
 
 			if (definition.CanOpen == null)

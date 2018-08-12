@@ -17,6 +17,7 @@ using VidCoder.ViewModel;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows.Controls.Primitives;
+using Microsoft.AnyContainer;
 using VidCoder.DragDropUtils;
 using VidCoder.Services.Windows;
 using VidCoder.ViewModel.DataModels;
@@ -102,7 +103,7 @@ namespace VidCoder.View
 
 		private void OnPresetTreeKeyDown(object sender, KeyEventArgs e)
 		{
-			Ioc.Get<PresetsService>().HandleKey(e);
+			Resolver.Resolve<PresetsService>().HandleKey(e);
 		}
 	}
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.AnyContainer;
 using Omu.ValueInjecter;
 using ReactiveUI;
 using VidCoder.Model;
@@ -22,9 +23,9 @@ namespace VidCoder.Services
 	/// </summary>
 	public class PickersService : ReactiveObject
 	{
-		private MainViewModel main = Ioc.Get<MainViewModel>();
-		private IWindowManager windowManager = Ioc.Get<IWindowManager>();
-		private OutputPathService outputPathService = Ioc.Get<OutputPathService>();
+		private MainViewModel main = Resolver.Resolve<MainViewModel>();
+		private IWindowManager windowManager = Resolver.Resolve<IWindowManager>();
+		private OutputPathService outputPathService = Resolver.Resolve<OutputPathService>();
 
 		private PickerViewModel selectedPicker;
 
@@ -64,7 +65,7 @@ namespace VidCoder.Services
 			{
 				if (pickerPreset != null)
 				{
-					var presetsService = Ioc.Get<PresetsService>();
+					var presetsService = Resolver.Resolve<PresetsService>();
 					PresetViewModel preset = presetsService.AllPresets.FirstOrDefault(p => p.Preset.Name == pickerPreset);
 					if (preset == null)
 					{

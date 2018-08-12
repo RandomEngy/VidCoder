@@ -1,5 +1,7 @@
 ﻿using System;
 using CommonServiceLocator;
+using Microsoft.AnyContainer;
+using Microsoft.AnyContainer.Unity;
 using Unity;
 using Unity.Injection;
 using Unity.Lifetime;
@@ -14,59 +16,48 @@ namespace VidCoder
 {
 	public static class Ioc
 	{
-		static Ioc()
+		public static void SetUp()
 		{
-			Container = new UnityContainer();
-			Container.RegisterType<IDriveService, DriveService>(Singleton);
+			var container = new UnityAnyContainer();
+			container.RegisterSingleton<IDriveService, DriveService>();
 
 			if (Utilities.IsRunningAsAppx)
 			{
-				Container.RegisterType<IToastNotificationService, ToastNotificationService>(Singleton);
+				container.RegisterSingleton<IToastNotificationService, ToastNotificationService>();
 			}
 			else
 			{
-				Container.RegisterType<IToastNotificationService, StubToastNotificationService>(Singleton);
+				container.RegisterSingleton<IToastNotificationService, StubToastNotificationService>();
 			}
 
-			Container.RegisterType<IUpdater, Updater>(Singleton);
-			Container.RegisterType<IMessageBoxService, MessageBoxService>(Singleton);
-			Container.RegisterType<AppLogger>(Singleton, new InjectionFactory(c => new AppLogger()));
-			Container.RegisterType<IAppLogger, AppLogger>(Singleton);
-			Container.RegisterType<ILogger, AppLogger>(Singleton);
-			Container.RegisterType<IFileService, FileService>(Singleton);
-			Container.RegisterType<IPresetImportExport, PresetImportExport>(Singleton);
-			Container.RegisterType<IQueueImportExport, QueueImportExport>(Singleton);
-			Container.RegisterType<IProcesses, Processes>(Singleton);
-			Container.RegisterType<IProcessAutoPause, ProcessAutoPause>(Singleton);
-			Container.RegisterType<ISystemOperations, SystemOperations>(Singleton);
-			Container.RegisterType<IWindowManager, WindowManager>(Singleton);
+			container.RegisterSingleton<IUpdater, Updater>();
+			container.RegisterSingleton<IMessageBoxService, MessageBoxService>();
+			container.RegisterSingleton<AppLogger>(() => new AppLogger());
+			container.RegisterSingleton<IAppLogger, AppLogger>();
+			container.RegisterSingleton<ILogger, AppLogger>();
+			container.RegisterSingleton<IFileService, FileService>();
+			container.RegisterSingleton<IPresetImportExport, PresetImportExport>();
+			container.RegisterSingleton<IQueueImportExport, QueueImportExport>();
+			container.RegisterSingleton<IProcesses, Processes>();
+			container.RegisterSingleton<IProcessAutoPause, ProcessAutoPause>();
+			container.RegisterSingleton<ISystemOperations, SystemOperations>();
+			container.RegisterSingleton<IWindowManager, WindowManager>();
 
-			Container.RegisterType<OutputPathService>(Singleton);
-			Container.RegisterType<OutputSizeService>(Singleton);
-			Container.RegisterType<PresetsService>(Singleton);
-			Container.RegisterType<PickersService>(Singleton);
-			Container.RegisterType<ProcessingService>(Singleton);
-			Container.RegisterType<SubtitlesService>(Singleton);
-			Container.RegisterType<EncodingWindowViewModel>(Singleton);
-			Container.RegisterType<StatusService>(Singleton);
-			Container.RegisterType<PreviewUpdateService>(Singleton);
-			Container.RegisterType<PreviewImageService>(Singleton);
+			container.RegisterSingleton<OutputPathService>();
+			container.RegisterSingleton<OutputSizeService>();
+			container.RegisterSingleton<PresetsService>();
+			container.RegisterSingleton<PickersService>();
+			container.RegisterSingleton<ProcessingService>();
+			container.RegisterSingleton<SubtitlesService>();
+			container.RegisterSingleton<EncodingWindowViewModel>();
+			container.RegisterSingleton<StatusService>();
+			container.RegisterSingleton<PreviewUpdateService>();
+			container.RegisterSingleton<PreviewImageService>();
 
-			ServiceLocator.SetLocatorProvider(() => new UnityServiceLocator(Container));
+			Resolver.SetResolver(container);
+			Container = container;
 		}
 
-		public static UnityContainer Container { get; set; }
-
-		public static T Get<T>()
-		{
-			return Container.Resolve<T>();
-		}
-
-		public static object Get(Type type)
-		{
-			return Container.Resolve(type);
-		}
-
-		public static ContainerControlledLifetimeManager Singleton => new ContainerControlledLifetimeManager();
+		public static AnyContainerBase Container { get; set; }
 	}
 }

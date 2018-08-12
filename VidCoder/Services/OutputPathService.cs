@@ -7,6 +7,7 @@ using System.Reactive.Linq;
 using System.Text.RegularExpressions;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.Model.Encoding;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Model;
@@ -23,11 +24,11 @@ namespace VidCoder.Services
 	/// </summary>
 	public class OutputPathService : ReactiveObject
 	{
-		private Lazy<MainViewModel> mainViewModel = new Lazy<MainViewModel>(() => Ioc.Get<MainViewModel>());
+		private Lazy<MainViewModel> mainViewModel = new Lazy<MainViewModel>(() => Resolver.Resolve<MainViewModel>());
 		private ProcessingService processingService;
 		private PresetsService presetsService;
 		private PickersService pickersService;
-		private IDriveService driveService = Ioc.Get<IDriveService>();
+		private IDriveService driveService = Resolver.Resolve<IDriveService>();
 
 		public OutputPathService()
 		{
@@ -47,7 +48,7 @@ namespace VidCoder.Services
 			{
 				if (this.processingService == null)
 				{
-					this.processingService = Ioc.Get<ProcessingService>();
+					this.processingService = Resolver.Resolve<ProcessingService>();
 				}
 
 				return this.processingService;
@@ -60,7 +61,7 @@ namespace VidCoder.Services
 			{
 				if (this.presetsService == null)
 				{
-					this.presetsService = Ioc.Get<PresetsService>();
+					this.presetsService = Resolver.Resolve<PresetsService>();
 				}
 
 				return this.presetsService;
@@ -73,7 +74,7 @@ namespace VidCoder.Services
 			{
 				if (this.pickersService == null)
 				{
-					this.pickersService = Ioc.Get<PickersService>();
+					this.pickersService = Resolver.Resolve<PickersService>();
 				}
 
 				return this.pickersService;
@@ -224,7 +225,7 @@ namespace VidCoder.Services
 					new CustomDialogButton<FileConflictResolution>(FileConflictResolution.Cancel, CommonRes.Cancel, ButtonType.Cancel),
 				});
 
-			Ioc.Get<IWindowManager>().OpenDialog(conflictDialog);
+			Resolver.Resolve<IWindowManager>().OpenDialog(conflictDialog);
 
 			switch (conflictDialog.Result)
 			{

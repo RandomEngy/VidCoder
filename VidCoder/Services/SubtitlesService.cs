@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AnyContainer;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoderCommon.Model;
@@ -46,7 +47,7 @@ namespace VidCoder.Services
 
 					if (characterCode == null)
 					{
-						Ioc.Get<IMessageBoxService>().Show(this, SubtitleRes.SubtitleCharsetDetectionFailedMessage);
+						Resolver.Resolve<IMessageBoxService>().Show(this, SubtitleRes.SubtitleCharsetDetectionFailedMessage);
 						characterCode = "UTF-8";
 					}
 				}

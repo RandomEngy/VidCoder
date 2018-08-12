@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.ViewModel;
 using VidCoderCommon.Model;
@@ -12,7 +13,7 @@ namespace VidCoder.Services
 {
 	public class OutputSizeService : ReactiveObject
 	{
-		private PresetsService presetsService = Ioc.Get<PresetsService>();
+		private PresetsService presetsService = Resolver.Resolve<PresetsService>();
 
 		public OutputSizeService()
 		{
@@ -35,7 +36,7 @@ namespace VidCoder.Services
 
 		public void Refresh()
 		{
-			MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
+			MainViewModel mainViewModel = Resolver.Resolve<MainViewModel>();
 
 			if (mainViewModel.SelectedTitle != null)
 			{

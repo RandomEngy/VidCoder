@@ -10,6 +10,7 @@ using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Resources;
 using System.Threading.Tasks;
+using Microsoft.AnyContainer;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -248,7 +249,7 @@ namespace VidCoder.ViewModel
 
 			if (this.DialogResult)
 			{
-				Ioc.Get<OutputPathService>().NotifyDefaultOutputFolderChanged();
+				Resolver.Resolve<OutputPathService>().NotifyDefaultOutputFolderChanged();
 			}
 
 			return base.OnClosing();
@@ -595,7 +596,7 @@ namespace VidCoder.ViewModel
 						if (Config.InterfaceLanguageCode != this.InterfaceLanguage.CultureCode)
 						{
 							Config.InterfaceLanguageCode = this.InterfaceLanguage.CultureCode;
-							Ioc.Get<IMessageBoxService>().Show(this, OptionsRes.NewLanguageRestartDialogMessage);
+							Resolver.Resolve<IMessageBoxService>().Show(this, OptionsRes.NewLanguageRestartDialogMessage);
 						}
 
 						Config.AutoNameOutputFolder = this.DefaultPath;
@@ -748,7 +749,7 @@ namespace VidCoder.ViewModel
 				return this.openAddProcessDialog ?? (this.openAddProcessDialog = ReactiveCommand.Create(() =>
 				{
 					var addProcessVM = new AddAutoPauseProcessDialogViewModel();
-					Ioc.Get<IWindowManager>().OpenDialog(addProcessVM, this);
+					Resolver.Resolve<IWindowManager>().OpenDialog(addProcessVM, this);
 
 					if (addProcessVM.DialogResult)
 					{

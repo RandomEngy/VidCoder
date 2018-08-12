@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.Model.Encoding;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.Services;
@@ -60,7 +61,7 @@ namespace VidCoder.ViewModel.Panels
 			this.RegisterProfileProperty(nameof(this.IncludeChapterMarkers));
 		}
 
-		public OutputPathService OutputPathService { get; } = Ioc.Get<OutputPathService>();
+		public OutputPathService OutputPathService { get; } = Resolver.Resolve<OutputPathService>();
 
 		public string ContainerName
 		{

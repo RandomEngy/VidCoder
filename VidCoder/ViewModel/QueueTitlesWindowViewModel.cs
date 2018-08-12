@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Media;
 using HandBrake.Interop.Interop.Json.Scan;
+using Microsoft.AnyContainer;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -27,9 +28,9 @@ namespace VidCoder.ViewModel
 
 		public QueueTitlesWindowViewModel()
 		{
-			this.main = Ioc.Get<MainViewModel>();
-			this.PickersService = Ioc.Get<PickersService>();
-			this.windowManager = Ioc.Get<IWindowManager>();
+			this.main = Resolver.Resolve<MainViewModel>();
+			this.PickersService = Resolver.Resolve<PickersService>();
+			this.windowManager = Resolver.Resolve<IWindowManager>();
 
 			this.selectedTitles = new ReactiveList<TitleSelectionViewModel>();
 			this.titleStartOverrideEnabled = Config.QueueTitlesUseTitleOverride;
@@ -244,7 +245,7 @@ namespace VidCoder.ViewModel
 						}
 					}
 
-					var processingService = Ioc.Get<ProcessingService>();
+					var processingService = Resolver.Resolve<ProcessingService>();
 					processingService.QueueTitles(
 						this.CheckedTitles,
 						this.TitleStartOverrideEnabled ? this.TitleStartOverride : -1,

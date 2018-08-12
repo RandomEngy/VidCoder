@@ -8,6 +8,7 @@ using VidCoder.Services;
 using System.Windows.Input;
 using ReactiveUI;
 using System.Reactive.Linq;
+using Microsoft.AnyContainer;
 
 namespace VidCoder.ViewModel
 {
@@ -19,7 +20,7 @@ namespace VidCoder.ViewModel
 
 		public AddAutoPauseProcessDialogViewModel()
 		{
-			this.processes = Ioc.Get<IProcesses>();
+			this.processes = Resolver.Resolve<IProcesses>();
 			this.currentProcesses = new ObservableCollection<string>();
 			this.RefreshCurrentProcessesImpl();
 		}

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Threading;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Model;
@@ -13,7 +14,7 @@ namespace VidCoder.ViewModel
 	{
 		private EncodeCompleteActionType actionType;
 
-		private ISystemOperations systemOperations = Ioc.Get<ISystemOperations>();
+		private ISystemOperations systemOperations = Resolver.Resolve<ISystemOperations>();
 		private int secondsRemaining = 30;
 		private DispatcherTimer timer;
 

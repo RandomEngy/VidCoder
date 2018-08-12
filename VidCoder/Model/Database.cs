@@ -12,6 +12,7 @@ using System.Threading;
 using System.Windows;
 using System.Xml;
 using System.Xml.Serialization;
+using Microsoft.AnyContainer;
 using Newtonsoft.Json;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -129,7 +130,7 @@ namespace VidCoder.Model
 					Environment.NewLine,
 					messageLine2);
 
-				var messageService = Ioc.Get<IMessageBoxService>();
+				var messageService = Resolver.Resolve<IMessageBoxService>();
 				messageService.Show(message, MainRes.IncompatibleDatabaseFileTitle, MessageBoxButton.YesNo);
 
 				if (messageService.Show(
@@ -173,7 +174,7 @@ namespace VidCoder.Model
 					Environment.NewLine,
 					messageLine2);
 
-				var messageService = Ioc.Get<IMessageBoxService>();
+				var messageService = Resolver.Resolve<IMessageBoxService>();
 				messageService.Show(message, MainRes.IncompatibleDatabaseFileTitle, MessageBoxButton.YesNo);
 				if (messageService.Show(
 					message,
@@ -228,7 +229,7 @@ namespace VidCoder.Model
 			}
 			catch (Exception exception)
 			{
-				Ioc.Get<IAppLogger>().Log("Could not backup database file:" + Environment.NewLine + exception);
+				Resolver.Resolve<IAppLogger>().Log("Could not backup database file:" + Environment.NewLine + exception);
 			}
 		}
 
@@ -440,8 +441,8 @@ namespace VidCoder.Model
 		private static void UpgradeDatabaseTo33()
 		{
 			string message = MainRes.SizingPresetUpgradeWarning;
-			Ioc.Get<IMessageBoxService>().Show(message);
-			Ioc.Get<IMessageBoxService>().Show(message);
+			Resolver.Resolve<IMessageBoxService>().Show(message);
+			Resolver.Resolve<IMessageBoxService>().Show(message);
 		}
 
 		private static void UpgradeDatabaseTo35()
@@ -528,7 +529,7 @@ namespace VidCoder.Model
 
 		private static void HandleCriticalFileError()
 		{
-			var messageService = Ioc.Get<IMessageBoxService>();
+			var messageService = Resolver.Resolve<IMessageBoxService>();
 
 			messageService.Show(CommonRes.FileFailureErrorMessage, CommonRes.FileFailureErrorTitle, MessageBoxButton.OK);
 			Environment.Exit(1);

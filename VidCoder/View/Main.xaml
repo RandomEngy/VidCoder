@@ -388,15 +388,21 @@
 		<Grid.RowDefinitions>
 			<!--  Ribbon  -->
 			<RowDefinition Height="Auto" />
-			
+
 			<!--  Source  -->
-			<RowDefinition Name="sourceRow" Height="2*" MinHeight="150" />
+			<RowDefinition
+				Name="sourceRow"
+				Height="2*"
+				MinHeight="150" />
 
 			<!--  GridSplitter  -->
 			<RowDefinition Height="4" />
 
 			<!--  Below source pane  -->
-			<RowDefinition Name="queueRow" Height="*" MinHeight="110" />
+			<RowDefinition
+				Name="queueRow"
+				Height="*"
+				MinHeight="110" />
 		</Grid.RowDefinitions>
 
 		<!--  Ribbon  -->
@@ -694,10 +700,6 @@
 					Visibility="{Binding VideoSourceState,
 					                     Converter={StaticResource EnumVisibilityConverter},
 					                     ConverterParameter={x:Static model:VideoSourceState.ScannedSource}}">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto" />
-						<ColumnDefinition />
-					</Grid.ColumnDefinitions>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" MinHeight="0" />
 						<RowDefinition Height="Auto" />
@@ -709,10 +711,7 @@
 					</Grid.RowDefinitions>
 
 					<!--  Video Header  -->
-					<Grid
-						Grid.Row="0"
-						Grid.Column="0"
-						Grid.ColumnSpan="2">
+					<Grid Grid.Row="0">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition />
 							<ColumnDefinition Width="Auto" />
@@ -828,8 +827,6 @@
 					<!--  Video Detail  -->
 					<Grid
 						Grid.Row="1"
-						Grid.Column="0"
-						Grid.ColumnSpan="2"
 						Height="110"
 						Margin="0 0 0 0"
 						Visibility="{Binding VideoExpanded,
@@ -1064,8 +1061,6 @@
 					<!--  Audio Header  -->
 					<ToggleButton
 						Grid.Row="2"
-						Grid.Column="0"
-						Grid.ColumnSpan="2"
 						IsChecked="{Binding AudioExpanded}"
 						Style="{StaticResource SourceSectionToggleButton}">
 						<Grid>
@@ -1089,8 +1084,6 @@
 					<!--  Audio detail  -->
 					<StackPanel
 						Grid.Row="3"
-						Grid.Column="0"
-						Grid.ColumnSpan="2"
 						Orientation="Vertical"
 						Visibility="{Binding AudioExpanded,
 						                     Converter={StaticResource VisibilityConverter}}">
@@ -1184,8 +1177,6 @@
 					<!--  Subtitles header  -->
 					<ToggleButton
 						Grid.Row="4"
-						Grid.Column="0"
-						Grid.ColumnSpan="2"
 						IsChecked="{Binding SubtitlesExpanded}"
 						Style="{StaticResource SourceSectionToggleButton}">
 						<Grid>
@@ -1216,12 +1207,7 @@
 					</ToggleButton>
 
 					<!--  Subtitles detail  -->
-					<Grid
-						Grid.Row="5"
-						Grid.Column="0"
-						Grid.ColumnSpan="2"
-						Visibility="{Binding SubtitlesExpanded,
-						                     Converter={StaticResource VisibilityConverter}}">
+					<Grid Grid.Row="5" Visibility="{Binding SubtitlesExpanded, Converter={StaticResource VisibilityConverter}}">
 						<Grid.Resources>
 							<Style x:Key="SubtitleControl" TargetType="{x:Type FrameworkElement}">
 								<Setter Property="Margin" Value="4 0 4 2" />
@@ -1501,14 +1487,11 @@
 					<!--  Chapters header  -->
 					<Grid
 						Grid.Row="6"
-						Grid.Column="0"
 						Height="30"
 						Visibility="{Binding ShowChapterMarkerUI,
 						                     Converter={StaticResource VisibilityConverter}}" />
 					<StackPanel
 						Grid.Row="6"
-						Grid.Column="0"
-						Grid.ColumnSpan="2"
 						Margin="26 0 0 0"
 						Orientation="Horizontal"
 						Visibility="{Binding ShowChapterMarkerUI,

@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Microsoft.AnyContainer;
 using VidCoder.DragDropUtils;
 using VidCoder.Extensions;
 using VidCoder.Services;
@@ -28,7 +29,7 @@ namespace VidCoder.Controls
     /// </summary>
     public partial class PresetTreeViewContainer : UserControl
     {
-	    private PresetsService presetsService = Ioc.Get<PresetsService>();
+	    private PresetsService presetsService = Resolver.Resolve<PresetsService>();
 
         public PresetTreeViewContainer()
         {
@@ -139,7 +140,7 @@ namespace VidCoder.Controls
 			    this.DecideDropTarget(e);
 			    if (this.dropTarget != null)
 			    {
-				    Ioc.Get<PresetsService>().MovePresetToFolder(this.draggedPreset, (PresetFolderViewModel)this.dropTarget.Header);
+				    Resolver.Resolve<PresetsService>().MovePresetToFolder(this.draggedPreset, (PresetFolderViewModel)this.dropTarget.Header);
 			    }
 
 			    this.RemoveFolderMoveAdorner();
@@ -177,7 +178,7 @@ namespace VidCoder.Controls
 
 				    if (this.draggedPreset != null)
 				    {
-					    var windowManager = Ioc.Get<IWindowManager>();
+					    var windowManager = Resolver.Resolve<IWindowManager>();
 
 					    windowManager.SuspendDropOnWindows();
 					    DragDrop.DoDragDrop((DependencyObject)sender, this.presetTreeView.SelectedItem, DragDropEffects.Move);

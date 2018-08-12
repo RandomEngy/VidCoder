@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.Json.Scan;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Resources;
@@ -14,7 +15,7 @@ namespace VidCoder.ViewModel
 	{
 		private SourceSubtitle subtitle;
 
-		private PresetsService presetsService = Ioc.Get<PresetsService>();
+		private PresetsService presetsService = Resolver.Resolve<PresetsService>();
 
 		private SourceSubtitleTrack inputSubtitle; 
 

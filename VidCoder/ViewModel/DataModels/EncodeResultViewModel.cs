@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -11,8 +12,8 @@ namespace VidCoder.ViewModel
 {
 	public class EncodeResultViewModel : ReactiveObject
 	{
-		private MainViewModel main = Ioc.Get<MainViewModel>();
-		private ProcessingService processingService = Ioc.Get<ProcessingService>();
+		private MainViewModel main = Resolver.Resolve<MainViewModel>();
+		private ProcessingService processingService = Resolver.Resolve<ProcessingService>();
 
 		private EncodeResult encodeResult;
 		private EncodeJobViewModel job;
@@ -104,7 +105,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.play ?? (this.play = ReactiveCommand.Create(() =>
 				{
-					Ioc.Get<StatusService>().Show(MainRes.PlayingVideoStatus);
+					Resolver.Resolve<StatusService>().Show(MainRes.PlayingVideoStatus);
 					FileService.Instance.PlayVideo(this.encodeResult.Destination);
 				}));
 			}
@@ -117,7 +118,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.openContainingFolder ?? (this.openContainingFolder = ReactiveCommand.Create(() =>
 				{
-					Ioc.Get<StatusService>().Show(MainRes.OpeningFolderStatus);
+					Resolver.Resolve<StatusService>().Show(MainRes.OpeningFolderStatus);
 					FileUtilities.OpenFolderAndSelectItem(this.encodeResult.Destination);
 				}));
 			}
@@ -171,15 +172,15 @@ namespace VidCoder.ViewModel
 					{
 						string logText = File.ReadAllText(this.encodeResult.LogPath);
 
-						Ioc.Get<ClipboardService>().SetText(logText);
+						Resolver.Resolve<ClipboardService>().SetText(logText);
 					}
 					catch (IOException exception)
 					{
-						Ioc.Get<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
+						Resolver.Resolve<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
 					}
 					catch (UnauthorizedAccessException exception)
 					{
-						Ioc.Get<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
+						Resolver.Resolve<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
 					}
 				}));
 			}

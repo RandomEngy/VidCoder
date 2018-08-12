@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Input;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.Json.Presets;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder;
 using VidCoder.Model;
@@ -174,7 +175,7 @@ namespace VidCoder.Services
 			{
 				if (this.outputPathService == null)
 				{
-					this.outputPathService = Ioc.Get<OutputPathService>();
+					this.outputPathService = Resolver.Resolve<OutputPathService>();
 				}
 
 				return this.outputPathService;
@@ -232,7 +233,7 @@ namespace VidCoder.Services
 				}
 
 				MessageBoxResult dialogResult = Utilities.MessageBox.Show(
-					Ioc.Get<MainViewModel>(),
+					Resolver.Resolve<MainViewModel>(),
 					dialogMessage,
 					dialogTitle,
 					buttons);
@@ -422,7 +423,7 @@ namespace VidCoder.Services
 		{
 			var dialogVM = new ChooseNameViewModel(EncodingRes.ChooseNameSubfolder, new List<string>());
 			dialogVM.Name = EncodingRes.DefaultPresetFolderName;
-			var windowManager = Ioc.Get<IWindowManager>();
+			var windowManager = Resolver.Resolve<IWindowManager>();
 			windowManager.OpenDialog(dialogVM, windowManager.Find<EncodingWindowViewModel>());
 
 			if (dialogVM.DialogResult)
@@ -438,7 +439,7 @@ namespace VidCoder.Services
 		{
 			var dialogVM = new ChooseNameViewModel(EncodingRes.ChooseNewFolderName, new List<string>());
 			dialogVM.Name = folderViewModel.Name;
-			var windowManager = Ioc.Get<IWindowManager>();
+			var windowManager = Resolver.Resolve<IWindowManager>();
 			windowManager.OpenDialog(dialogVM, windowManager.Find<EncodingWindowViewModel>());
 
 			if (dialogVM.DialogResult)

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using HandBrake.Interop.Interop;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Services;
@@ -13,7 +14,7 @@ namespace VidCoder.ViewModel
 {
 	public class AdvancedPanelViewModel : PanelViewModel
 	{
-		private PresetsService presetsService = Ioc.Get<PresetsService>();
+		private PresetsService presetsService = Resolver.Resolve<PresetsService>();
 
 		private AdvancedChoice referenceFrames;
 		private AdvancedChoice bFrames;

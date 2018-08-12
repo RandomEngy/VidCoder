@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
@@ -12,7 +13,7 @@ namespace VidCoder.Extensions
 {
     public static class WindowExtensions
     {
-	    private static IWindowManager windowManager = Ioc.Get<IWindowManager>();
+	    private static IWindowManager windowManager = Resolver.Resolve<IWindowManager>();
 
         public static void RegisterGlobalHotkeys(this Window window)
         {

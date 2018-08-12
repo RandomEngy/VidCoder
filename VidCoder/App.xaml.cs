@@ -26,6 +26,7 @@ namespace VidCoder
 	using System.Globalization;
 	using System.Threading;
 	using Automation;
+	using Microsoft.AnyContainer;
 	using Resources;
 
 	/// <summary>
@@ -98,6 +99,8 @@ namespace VidCoder
 				CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 			}
 
+			Ioc.SetUp();
+
 			if (Config.UseCustomPreviewFolder && FileUtilities.HasWriteAccessOnFolder(Config.PreviewOutputFolder))
 			{
 				Environment.SetEnvironmentVariable("TMP", Config.PreviewOutputFolder, EnvironmentVariableTarget.Process);
@@ -105,7 +108,7 @@ namespace VidCoder
 				FileUtilities.TempFolderOverride = Config.PreviewOutputFolder;
 			}
 
-			var updater = Ioc.Get<IUpdater>();
+			var updater = Resolver.Resolve<IUpdater>();
 			updater.HandlePendingUpdate();
 
 			try
@@ -120,7 +123,7 @@ namespace VidCoder
 			this.GlobalInitialize();
 
 			var mainVM = new MainViewModel();
-			Ioc.Get<IWindowManager>().OpenWindow(mainVM);
+			Resolver.Resolve<IWindowManager>().OpenWindow(mainVM);
 			mainVM.OnLoaded();
 
 			if (e.Args.Length > 0)

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AnyContainer;
 using VidCoder.View;
 
 namespace VidCoder.Services.Notifications
@@ -16,11 +17,11 @@ namespace VidCoder.Services.Notifications
 	{
 		public void Activate(string appUserModelId, string invokedArgs, NOTIFICATION_USER_INPUT_DATA[] data, uint dataCount)
 		{
-			Ioc.Get<Main>().RestoreWindow();
+			Resolver.Resolve<Main>().RestoreWindow();
 
 			DispatchUtilities.BeginInvoke(() =>
 			{
-				Ioc.Get<Main>().Activate();
+				Resolver.Resolve<Main>().Activate();
 			});
 		}
 

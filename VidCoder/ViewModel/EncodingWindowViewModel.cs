@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -74,9 +75,9 @@ namespace VidCoder.ViewModel
 			this.AutomaticChange = false;
 		}
 
-		public ProcessingService ProcessingService { get; } = Ioc.Get<ProcessingService>();
-		public OutputPathService OutputPathService { get; } = Ioc.Get<OutputPathService>();
-		public PickersService PickersService { get; } = Ioc.Get<PickersService>();
+		public ProcessingService ProcessingService { get; } = Resolver.Resolve<ProcessingService>();
+		public OutputPathService OutputPathService { get; } = Resolver.Resolve<OutputPathService>();
+		public PickersService PickersService { get; } = Resolver.Resolve<PickersService>();
 
 		public ContainerPanelViewModel ContainerPanelViewModel { get; set; }
 		public SizingPanelViewModel SizingPanelViewModel { get; set; }
@@ -147,7 +148,7 @@ namespace VidCoder.ViewModel
 				{
 					var dialogVM = new ChooseNameViewModel(MiscRes.ChooseNamePreset, this.PresetsService.AllPresets.Where(preset => !preset.Preset.IsBuiltIn).Select(preset => preset.Preset.Name));
 					dialogVM.Name = this.PresetsService.SelectedPreset.DisplayName;
-					Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
+					Resolver.Resolve<IWindowManager>().OpenDialog(dialogVM, this);
 
 					if (dialogVM.DialogResult)
 					{
@@ -169,7 +170,7 @@ namespace VidCoder.ViewModel
 					{
 						var dialogVM = new ChooseNameViewModel(MiscRes.ChooseNamePreset, this.PresetsService.AllPresets.Where(preset => !preset.Preset.IsBuiltIn).Select(preset => preset.Preset.Name));
 						dialogVM.Name = this.PresetsService.SelectedPreset.DisplayName;
-						Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
+						Resolver.Resolve<IWindowManager>().OpenDialog(dialogVM, this);
 
 						if (dialogVM.DialogResult)
 						{

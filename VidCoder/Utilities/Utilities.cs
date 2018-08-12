@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Interop;
 using Windows.Foundation.Metadata;
 using HandBrake.Interop.Interop.Json.Scan;
+using Microsoft.AnyContainer;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -493,7 +494,7 @@ namespace VidCoder
 		{
 			get
 			{
-				return Ioc.Get<IMessageBoxService>();
+				return Resolver.Resolve<IMessageBoxService>();
 			}
 		}
 
@@ -584,7 +585,7 @@ namespace VidCoder
 			FileAttributes attributes = File.GetAttributes(sourcePath);
 			if ((attributes & FileAttributes.Directory) == FileAttributes.Directory)
 			{
-				var driveService = Ioc.Get<IDriveService>();
+				var driveService = Resolver.Resolve<IDriveService>();
 				if (driveService.PathIsDrive(sourcePath))
 				{
 					return SourceType.Disc;
@@ -607,7 +608,7 @@ namespace VidCoder
 				case SourceType.DiscVideoFolder:
 					return GetSourceNameFolder(sourcePath);
 				case SourceType.Disc:
-					var driveService = Ioc.Get<IDriveService>();
+					var driveService = Resolver.Resolve<IDriveService>();
 					DriveInformation info = driveService.GetDriveInformationFromPath(sourcePath);
 					if (info != null)
 					{
@@ -682,7 +683,7 @@ namespace VidCoder
 			}
 			catch (UnauthorizedAccessException ex)
 			{
-				Ioc.Get<IAppLogger>().Log("Could not determine folder type: " + ex);
+				Resolver.Resolve<IAppLogger>().Log("Could not determine folder type: " + ex);
 			}
 
 			return FolderType.VideoFiles;

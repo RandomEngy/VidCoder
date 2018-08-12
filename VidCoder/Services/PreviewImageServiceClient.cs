@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 
 namespace VidCoder.Services
@@ -15,7 +16,7 @@ namespace VidCoder.Services
 	{
 		private BitmapSource previewBitmapSource;
 
-		private readonly PreviewImageService previewImageService = Ioc.Get<PreviewImageService>();
+		private readonly PreviewImageService previewImageService = Resolver.Resolve<PreviewImageService>();
 
 		public PreviewImageServiceClient()
 		{

@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using System.Drawing;
 using System.Windows.Interop;
 using System.Runtime.InteropServices;
+using Microsoft.AnyContainer;
 using VidCoder.Resources;
 using VidCoder.Services;
 
@@ -39,7 +40,7 @@ namespace VidCoder.View
 
 		private void copyButton_Click(object sender, RoutedEventArgs e)
 		{
-			Ioc.Get<ClipboardService>().SetText(this.exception.ToString());
+			Resolver.Resolve<ClipboardService>().SetText(this.exception.ToString());
 		}
 	}
 }

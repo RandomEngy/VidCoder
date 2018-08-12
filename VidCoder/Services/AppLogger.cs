@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.EventArgs;
+using Microsoft.AnyContainer;
 using VidCoder.Model;
 
 namespace VidCoder.Services
@@ -154,7 +155,7 @@ namespace VidCoder.Services
 
 		public void ShowStatus(string message)
 		{
-			Ioc.Get<StatusService>().Show(message);
+			Resolver.Resolve<StatusService>().Show(message);
 		}
 
 		/// <summary>

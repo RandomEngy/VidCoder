@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Reactive.Linq;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -28,7 +29,7 @@ namespace VidCoder.ViewModel
 			}).ToProperty(this, x => x.OverallEta, out this.overallEta);
 		}
 
-		public ProcessingService ProcessingService { get; } = Ioc.Get<ProcessingService>();
+		public ProcessingService ProcessingService { get; } = Resolver.Resolve<ProcessingService>();
 
 		private readonly ObservableAsPropertyHelper<string> taskNumberDisplay;
 		public string TaskNumberDisplay => this.taskNumberDisplay.Value;

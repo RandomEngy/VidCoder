@@ -89,6 +89,12 @@
     <PackageReference Include="Fluent.Ribbon">
       <Version>6.1.0.326</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.AnyContainer">
+      <Version>1.0.0-beta201808122</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AnyContainer.Unity">
+      <Version>1.0.0-beta201808122</Version>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="reactiveui" Version="8.5.1" />
     <PackageReference Include="ReactiveUI.WPF">

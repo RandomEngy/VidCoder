@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reactive.Linq;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -112,7 +113,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.chooseSource ?? (this.chooseSource = ReactiveCommand.Create(() =>
 				{
-					var mainVM = Ioc.Get<MainViewModel>();
+					var mainVM = Resolver.Resolve<MainViewModel>();
 
 					switch (this.SourceOption.Type)
 					{

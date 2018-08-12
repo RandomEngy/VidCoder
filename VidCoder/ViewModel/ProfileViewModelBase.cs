@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
+using Microsoft.AnyContainer;
 using Omu.ValueInjecter;
 using ReactiveUI;
 using VidCoder.Services;
@@ -12,8 +13,8 @@ namespace VidCoder.ViewModel
 {
 	public class ProfileViewModelBase : ReactiveObject
 	{
-		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
-		private PresetsService presetsService = Ioc.Get<PresetsService>();
+		private MainViewModel mainViewModel = Resolver.Resolve<MainViewModel>();
+		private PresetsService presetsService = Resolver.Resolve<PresetsService>();
 
 		private Dictionary<string, Action<object>> profileProperties;
 

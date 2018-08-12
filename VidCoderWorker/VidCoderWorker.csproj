@@ -58,7 +58,6 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.108" />
-    <PackageReference Include="Unity" Version="5.8.6" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="HandBrake.Interop">
@@ -82,7 +81,6 @@
   <ItemGroup>
     <Compile Include="EncodeState.cs" />
     <Compile Include="HandBrakeWorker.cs" />
-    <Compile Include="Ioc.cs" />
     <Compile Include="PreviewImage.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
