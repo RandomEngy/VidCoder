@@ -57,8 +57,8 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.105.1" />
-    <PackageReference Include="Unity" Version="4.0.1" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.108" />
+    <PackageReference Include="Unity" Version="5.8.6" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="HandBrake.Interop">

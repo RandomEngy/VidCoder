@@ -1,6 +1,9 @@
 ﻿using System;
-using Microsoft.Practices.ServiceLocation;
-using Microsoft.Practices.Unity;
+using CommonServiceLocator;
+using Unity;
+using Unity.Injection;
+using Unity.Lifetime;
+using Unity.ServiceLocation;
 using VidCoder.Services;
 using VidCoder.Services.Notifications;
 using VidCoder.Services.Windows;
