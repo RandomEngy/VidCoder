@@ -32,7 +32,7 @@ namespace VidCoder
 
 			if (nativeFolder == IntPtr.Zero)
 			{
-				Resolver.Resolve<ILogger>().LogError($"Could not find folder {folderPath}");
+				StaticResolver.Resolve<ILogger>().LogError($"Could not find folder {folderPath}");
 
 				return;
 			}
@@ -43,7 +43,7 @@ namespace VidCoder
 			IntPtr[] fileArray;
 			if (nativeFile == IntPtr.Zero)
 			{
-				Resolver.Resolve<ILogger>().LogError($"Could not find file {Path.Combine(folderPath, file)}");
+				StaticResolver.Resolve<ILogger>().LogError($"Could not find file {Path.Combine(folderPath, file)}");
 
 				fileArray = new IntPtr[0];
 			}

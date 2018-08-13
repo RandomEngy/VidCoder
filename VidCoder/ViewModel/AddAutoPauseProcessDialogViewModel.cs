@@ -20,7 +20,7 @@ namespace VidCoder.ViewModel
 
 		public AddAutoPauseProcessDialogViewModel()
 		{
-			this.processes = Resolver.Resolve<IProcesses>();
+			this.processes = StaticResolver.Resolve<IProcesses>();
 			this.currentProcesses = new ObservableCollection<string>();
 			this.RefreshCurrentProcessesImpl();
 		}

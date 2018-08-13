@@ -13,7 +13,7 @@ namespace VidCoder.Services.Windows
 
 		public WindowMenuItemViewModel(WindowDefinition definition)
 		{
-			var windowManager = Resolver.Resolve<IWindowManager>();
+			var windowManager = StaticResolver.Resolve<IWindowManager>();
 			this.Definition = definition;
 
 			if (definition.CanOpen == null)

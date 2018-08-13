@@ -23,9 +23,9 @@ namespace VidCoder.Services
 	/// </summary>
 	public class PickersService : ReactiveObject
 	{
-		private MainViewModel main = Resolver.Resolve<MainViewModel>();
-		private IWindowManager windowManager = Resolver.Resolve<IWindowManager>();
-		private OutputPathService outputPathService = Resolver.Resolve<OutputPathService>();
+		private MainViewModel main = StaticResolver.Resolve<MainViewModel>();
+		private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
+		private OutputPathService outputPathService = StaticResolver.Resolve<OutputPathService>();
 
 		private PickerViewModel selectedPicker;
 
@@ -65,7 +65,7 @@ namespace VidCoder.Services
 			{
 				if (pickerPreset != null)
 				{
-					var presetsService = Resolver.Resolve<PresetsService>();
+					var presetsService = StaticResolver.Resolve<PresetsService>();
 					PresetViewModel preset = presetsService.AllPresets.FirstOrDefault(p => p.Preset.Name == pickerPreset);
 					if (preset == null)
 					{

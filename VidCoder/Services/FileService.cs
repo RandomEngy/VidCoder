@@ -19,7 +19,7 @@ namespace VidCoder.Services
 		{
 			get
 			{
-				return Resolver.Resolve<IFileService>();
+				return StaticResolver.Resolve<IFileService>();
 			}
 		}
 
@@ -41,7 +41,7 @@ namespace VidCoder.Services
 				}
 				catch (NotSupportedException)
 				{
-					Resolver.Resolve<IAppLogger>().Log("Could not recognize initial directory " + initialDirectory);
+					StaticResolver.Resolve<IAppLogger>().Log("Could not recognize initial directory " + initialDirectory);
 				}
 			}
 

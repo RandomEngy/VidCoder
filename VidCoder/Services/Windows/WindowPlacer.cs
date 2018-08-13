@@ -19,7 +19,7 @@ namespace VidCoder.Services.Windows
 	{
 		private const double Spacing = 4;
 
-		private IWindowManager windowManager = Resolver.Resolve<IWindowManager>();
+		private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
 
 		public Rect? PlaceWindow(Window window)
 		{

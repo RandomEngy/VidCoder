@@ -61,7 +61,7 @@ namespace VidCoder.ViewModel.Panels
 			this.RegisterProfileProperty(nameof(this.IncludeChapterMarkers));
 		}
 
-		public OutputPathService OutputPathService { get; } = Resolver.Resolve<OutputPathService>();
+		public OutputPathService OutputPathService { get; } = StaticResolver.Resolve<OutputPathService>();
 
 		public string ContainerName
 		{

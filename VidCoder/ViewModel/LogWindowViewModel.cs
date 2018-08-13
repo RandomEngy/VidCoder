@@ -10,8 +10,8 @@ namespace VidCoder.ViewModel
 {
 	public class LogWindowViewModel : ReactiveObject
 	{
-		private MainViewModel mainViewModel = Resolver.Resolve<MainViewModel>();
-		private IAppLogger logger = Resolver.Resolve<IAppLogger>();
+		private MainViewModel mainViewModel = StaticResolver.Resolve<MainViewModel>();
+		private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
 
 		public MainViewModel MainViewModel
 		{
@@ -52,7 +52,7 @@ namespace VidCoder.ViewModel
 							logTextBuilder.AppendLine(entry.Text);
 						}
 
-						Resolver.Resolve<ClipboardService>().SetText(logTextBuilder.ToString());
+						StaticResolver.Resolve<ClipboardService>().SetText(logTextBuilder.ToString());
 					}
 				}));
 			}

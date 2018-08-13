@@ -13,7 +13,7 @@ namespace VidCoder.Services
 {
 	public class OutputSizeService : ReactiveObject
 	{
-		private PresetsService presetsService = Resolver.Resolve<PresetsService>();
+		private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
 
 		public OutputSizeService()
 		{
@@ -36,7 +36,7 @@ namespace VidCoder.Services
 
 		public void Refresh()
 		{
-			MainViewModel mainViewModel = Resolver.Resolve<MainViewModel>();
+			MainViewModel mainViewModel = StaticResolver.Resolve<MainViewModel>();
 
 			if (mainViewModel.SelectedTitle != null)
 			{

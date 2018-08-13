@@ -31,7 +31,7 @@ namespace VidCoder.Services
 
 		private CancellationTokenSource updateDownloadCancellationTokenSource;
 
-		private IAppLogger logger = Resolver.Resolve<IAppLogger>();
+		private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
 		private bool processDownloadsUpdates = true;
 
 		private UpdateState state;
@@ -73,7 +73,7 @@ namespace VidCoder.Services
 					{
 						// An update is ready, to give a prompt to apply it.
 						var updateConfirmation = new ApplyUpdateConfirmation();
-						updateConfirmation.Owner = Resolver.Resolve<View.Main>();
+						updateConfirmation.Owner = StaticResolver.Resolve<View.Main>();
 						updateConfirmation.ShowDialog();
 
 						if (updateConfirmation.Result == "Yes")
@@ -420,7 +420,7 @@ namespace VidCoder.Services
 			}
 			catch (Exception exception)
 			{
-				Resolver.Resolve<IAppLogger>().Log("Could not get update info." + Environment.NewLine + exception);
+				StaticResolver.Resolve<IAppLogger>().Log("Could not get update info." + Environment.NewLine + exception);
 
 				return null;
 			}

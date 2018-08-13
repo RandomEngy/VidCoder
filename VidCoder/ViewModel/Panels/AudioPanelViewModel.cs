@@ -29,9 +29,9 @@ namespace VidCoder.ViewModel
 		private List<AudioEncoderViewModel> fallbackEncoderChoices;
 		private AudioEncoderViewModel audioEncoderFallback;
 
-		private MainViewModel main = Resolver.Resolve<MainViewModel>();
+		private MainViewModel main = StaticResolver.Resolve<MainViewModel>();
 
-		private PresetsService presetsService = Resolver.Resolve<PresetsService>();
+		private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
 
 		private bool userUpdatingFallbackEncoder;
 		private bool userUpdatingCopyMask;

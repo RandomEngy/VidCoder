@@ -24,11 +24,11 @@ namespace VidCoder.Services
 	/// </summary>
 	public class OutputPathService : ReactiveObject
 	{
-		private Lazy<MainViewModel> mainViewModel = new Lazy<MainViewModel>(() => Resolver.Resolve<MainViewModel>());
+		private Lazy<MainViewModel> mainViewModel = new Lazy<MainViewModel>(() => StaticResolver.Resolve<MainViewModel>());
 		private ProcessingService processingService;
 		private PresetsService presetsService;
 		private PickersService pickersService;
-		private IDriveService driveService = Resolver.Resolve<IDriveService>();
+		private IDriveService driveService = StaticResolver.Resolve<IDriveService>();
 
 		public OutputPathService()
 		{
@@ -48,7 +48,7 @@ namespace VidCoder.Services
 			{
 				if (this.processingService == null)
 				{
-					this.processingService = Resolver.Resolve<ProcessingService>();
+					this.processingService = StaticResolver.Resolve<ProcessingService>();
 				}
 
 				return this.processingService;
@@ -61,7 +61,7 @@ namespace VidCoder.Services
 			{
 				if (this.presetsService == null)
 				{
-					this.presetsService = Resolver.Resolve<PresetsService>();
+					this.presetsService = StaticResolver.Resolve<PresetsService>();
 				}
 
 				return this.presetsService;
@@ -74,7 +74,7 @@ namespace VidCoder.Services
 			{
 				if (this.pickersService == null)
 				{
-					this.pickersService = Resolver.Resolve<PickersService>();
+					this.pickersService = StaticResolver.Resolve<PickersService>();
 				}
 
 				return this.pickersService;
@@ -225,7 +225,7 @@ namespace VidCoder.Services
 					new CustomDialogButton<FileConflictResolution>(FileConflictResolution.Cancel, CommonRes.Cancel, ButtonType.Cancel),
 				});
 
-			Resolver.Resolve<IWindowManager>().OpenDialog(conflictDialog);
+			StaticResolver.Resolve<IWindowManager>().OpenDialog(conflictDialog);
 
 			switch (conflictDialog.Result)
 			{

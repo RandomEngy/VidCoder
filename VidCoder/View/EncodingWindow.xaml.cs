@@ -103,7 +103,7 @@ namespace VidCoder.View
 
 		private void OnPresetTreeKeyDown(object sender, KeyEventArgs e)
 		{
-			Resolver.Resolve<PresetsService>().HandleKey(e);
+			StaticResolver.Resolve<PresetsService>().HandleKey(e);
 		}
 	}
 }

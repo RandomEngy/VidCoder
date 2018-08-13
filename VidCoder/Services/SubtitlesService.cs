@@ -47,7 +47,7 @@ namespace VidCoder.Services
 
 					if (characterCode == null)
 					{
-						Resolver.Resolve<IMessageBoxService>().Show(this, SubtitleRes.SubtitleCharsetDetectionFailedMessage);
+						StaticResolver.Resolve<IMessageBoxService>().Show(this, SubtitleRes.SubtitleCharsetDetectionFailedMessage);
 						characterCode = "UTF-8";
 					}
 				}

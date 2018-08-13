@@ -14,7 +14,7 @@ namespace VidCoder.Services
 
 	public class DriveService : IDriveService
 	{
-		private MainViewModel mainViewModel = Resolver.Resolve<MainViewModel>();
+		private MainViewModel mainViewModel = StaticResolver.Resolve<MainViewModel>();
 		private ManagementEventWatcher watcher;
 
 		public DriveService()

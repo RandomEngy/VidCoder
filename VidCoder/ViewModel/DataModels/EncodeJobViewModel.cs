@@ -23,7 +23,7 @@ namespace VidCoder.ViewModel
 		/// </summary>
 		public const double SubtitleScanCostFactor = 5.0;
 
-		private MainViewModel main = Resolver.Resolve<MainViewModel>();
+		private MainViewModel main = StaticResolver.Resolve<MainViewModel>();
 		private ProcessingService processingService;
 
 		private VCJob job;
@@ -163,7 +163,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.processingService == null)
 				{
-					this.processingService = Resolver.Resolve<ProcessingService>();
+					this.processingService = StaticResolver.Resolve<ProcessingService>();
 				}
 
 				return this.processingService;

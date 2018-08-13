@@ -28,7 +28,7 @@ namespace VidCoder.ViewModel
 
 		private static readonly ResourceManager EnumResourceManager = new ResourceManager(typeof(EnumsRes));
 
-		private PreviewUpdateService previewUpdateService = Resolver.Resolve<PreviewUpdateService>();
+		private PreviewUpdateService previewUpdateService = StaticResolver.Resolve<PreviewUpdateService>();
 
 		public VideoFiltersPanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
 			: base(encodingWindowViewModel)

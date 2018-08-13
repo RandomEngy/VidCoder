@@ -113,7 +113,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.chooseSource ?? (this.chooseSource = ReactiveCommand.Create(() =>
 				{
-					var mainVM = Resolver.Resolve<MainViewModel>();
+					var mainVM = StaticResolver.Resolve<MainViewModel>();
 
 					switch (this.SourceOption.Type)
 					{

@@ -17,11 +17,11 @@ namespace VidCoder.Services.Notifications
 	{
 		public void Activate(string appUserModelId, string invokedArgs, NOTIFICATION_USER_INPUT_DATA[] data, uint dataCount)
 		{
-			Resolver.Resolve<Main>().RestoreWindow();
+			StaticResolver.Resolve<Main>().RestoreWindow();
 
 			DispatchUtilities.BeginInvoke(() =>
 			{
-				Resolver.Resolve<Main>().Activate();
+				StaticResolver.Resolve<Main>().Activate();
 			});
 		}
 

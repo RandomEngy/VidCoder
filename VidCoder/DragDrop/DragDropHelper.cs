@@ -226,13 +226,13 @@ namespace VidCoder.DragDropUtils
 					catch (COMException exception)
 					{
 						// Not sure what's going on here, can't reproduce. Hopefully this will allow the next drag operation to succeed.
-						Resolver.Resolve<IAppLogger>().LogError("Error during drag operation:" + Environment.NewLine + Environment.NewLine + exception);
+						StaticResolver.Resolve<IAppLogger>().LogError("Error during drag operation:" + Environment.NewLine + Environment.NewLine + exception);
 						this.draggedData = null;
 
 						return;
 					}
 
-					var windowManager = Resolver.Resolve<IWindowManager>();
+					var windowManager = StaticResolver.Resolve<IWindowManager>();
 					windowManager.SuspendDropOnWindows();
 
 					// Adding events to the window to make sure dragged adorner comes up when mouse is not over a drop target.

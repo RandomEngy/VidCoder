@@ -26,8 +26,8 @@ namespace VidCoder.ViewModel
 
 		private ResourceManager resourceManager = new ResourceManager(typeof(EncodingRes));
 
-		private OutputPathService outputPathService = Resolver.Resolve<OutputPathService>();
-		private MainViewModel main = Resolver.Resolve<MainViewModel>();
+		private OutputPathService outputPathService = StaticResolver.Resolve<OutputPathService>();
+		private MainViewModel main = StaticResolver.Resolve<MainViewModel>();
 
 		private List<VideoEncoderViewModel> encoderChoices;
 

@@ -8,9 +8,9 @@ namespace VidCoder.ViewModel
 {
 	public class LevelChoiceViewModel : ReactiveObject
 	{
-		private MainViewModel main = Resolver.Resolve<MainViewModel>();
-		private PresetsService presetsService = Resolver.Resolve<PresetsService>();
-		private OutputSizeService outputSizeService = Resolver.Resolve<OutputSizeService>();
+		private MainViewModel main = StaticResolver.Resolve<MainViewModel>();
+		private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
+		private OutputSizeService outputSizeService = StaticResolver.Resolve<OutputSizeService>();
 
 		public LevelChoiceViewModel(string value)
 		{

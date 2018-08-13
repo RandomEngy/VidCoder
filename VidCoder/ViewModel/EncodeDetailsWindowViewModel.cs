@@ -29,7 +29,7 @@ namespace VidCoder.ViewModel
 			}).ToProperty(this, x => x.OverallEta, out this.overallEta);
 		}
 
-		public ProcessingService ProcessingService { get; } = Resolver.Resolve<ProcessingService>();
+		public ProcessingService ProcessingService { get; } = StaticResolver.Resolve<ProcessingService>();
 
 		private readonly ObservableAsPropertyHelper<string> taskNumberDisplay;
 		public string TaskNumberDisplay => this.taskNumberDisplay.Value;

@@ -130,7 +130,7 @@ namespace VidCoder.Model
 					Environment.NewLine,
 					messageLine2);
 
-				var messageService = Resolver.Resolve<IMessageBoxService>();
+				var messageService = StaticResolver.Resolve<IMessageBoxService>();
 				messageService.Show(message, MainRes.IncompatibleDatabaseFileTitle, MessageBoxButton.YesNo);
 
 				if (messageService.Show(
@@ -174,7 +174,7 @@ namespace VidCoder.Model
 					Environment.NewLine,
 					messageLine2);
 
-				var messageService = Resolver.Resolve<IMessageBoxService>();
+				var messageService = StaticResolver.Resolve<IMessageBoxService>();
 				messageService.Show(message, MainRes.IncompatibleDatabaseFileTitle, MessageBoxButton.YesNo);
 				if (messageService.Show(
 					message,
@@ -229,7 +229,7 @@ namespace VidCoder.Model
 			}
 			catch (Exception exception)
 			{
-				Resolver.Resolve<IAppLogger>().Log("Could not backup database file:" + Environment.NewLine + exception);
+				StaticResolver.Resolve<IAppLogger>().Log("Could not backup database file:" + Environment.NewLine + exception);
 			}
 		}
 
@@ -441,8 +441,8 @@ namespace VidCoder.Model
 		private static void UpgradeDatabaseTo33()
 		{
 			string message = MainRes.SizingPresetUpgradeWarning;
-			Resolver.Resolve<IMessageBoxService>().Show(message);
-			Resolver.Resolve<IMessageBoxService>().Show(message);
+			StaticResolver.Resolve<IMessageBoxService>().Show(message);
+			StaticResolver.Resolve<IMessageBoxService>().Show(message);
 		}
 
 		private static void UpgradeDatabaseTo35()
@@ -529,7 +529,7 @@ namespace VidCoder.Model
 
 		private static void HandleCriticalFileError()
 		{
-			var messageService = Resolver.Resolve<IMessageBoxService>();
+			var messageService = StaticResolver.Resolve<IMessageBoxService>();
 
 			messageService.Show(CommonRes.FileFailureErrorMessage, CommonRes.FileFailureErrorTitle, MessageBoxButton.OK);
 			Environment.Exit(1);

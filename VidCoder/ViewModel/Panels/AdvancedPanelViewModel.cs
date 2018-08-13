@@ -14,7 +14,7 @@ namespace VidCoder.ViewModel
 {
 	public class AdvancedPanelViewModel : PanelViewModel
 	{
-		private PresetsService presetsService = Resolver.Resolve<PresetsService>();
+		private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
 
 		private AdvancedChoice referenceFrames;
 		private AdvancedChoice bFrames;

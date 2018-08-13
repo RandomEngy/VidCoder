@@ -41,16 +41,16 @@ namespace VidCoder.Services
 
 		private const double StopWarningThresholdMinutes = 5;
 
-		private IAppLogger logger = Resolver.Resolve<IAppLogger>();
-		private IProcessAutoPause autoPause = Resolver.Resolve<IProcessAutoPause>();
-		private ISystemOperations systemOperations = Resolver.Resolve<ISystemOperations>();
-		private IMessageBoxService messageBoxService = Resolver.Resolve<IMessageBoxService>();
-		private MainViewModel main = Resolver.Resolve<MainViewModel>();
-		private OutputPathService outputVM = Resolver.Resolve<OutputPathService>();
-		private PresetsService presetsService = Resolver.Resolve<PresetsService>();
-		private PickersService pickersService = Resolver.Resolve<PickersService>();
-		private IWindowManager windowManager = Resolver.Resolve<IWindowManager>();
-		private IToastNotificationService toastNotificationService = Resolver.Resolve<IToastNotificationService>();
+		private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
+		private IProcessAutoPause autoPause = StaticResolver.Resolve<IProcessAutoPause>();
+		private ISystemOperations systemOperations = StaticResolver.Resolve<ISystemOperations>();
+		private IMessageBoxService messageBoxService = StaticResolver.Resolve<IMessageBoxService>();
+		private MainViewModel main = StaticResolver.Resolve<MainViewModel>();
+		private OutputPathService outputVM = StaticResolver.Resolve<OutputPathService>();
+		private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
+		private PickersService pickersService = StaticResolver.Resolve<PickersService>();
+		private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
+		private IToastNotificationService toastNotificationService = StaticResolver.Resolve<IToastNotificationService>();
 		private bool encoding;
 		private bool paused;
 		private EncodeCompleteReason encodeCompleteReason;
@@ -410,7 +410,7 @@ namespace VidCoder.Services
 								// If the encoding profile has changed since the last time we queued an item, we'll prompt to apply the current
 								// encoding profile to all queued items.
 
-								var messageBoxService = Resolver.Resolve<IMessageBoxService>();
+								var messageBoxService = StaticResolver.Resolve<IMessageBoxService>();
 								MessageBoxResult result = messageBoxService.Show(
 									this.main,
 									MainRes.EncodingSettingsChangedMessage,
@@ -616,7 +616,7 @@ namespace VidCoder.Services
 					{
 						try
 						{
-							Resolver.Resolve<IQueueImportExport>().Import(presetFileName);
+							StaticResolver.Resolve<IQueueImportExport>().Import(presetFileName);
 							this.messageBoxService.Show(MainRes.QueueImportSuccessMessage, CommonRes.Success, System.Windows.MessageBoxButton.OK);
 						}
 						catch (Exception)
@@ -649,7 +649,7 @@ namespace VidCoder.Services
 							});
 					}
 
-					Resolver.Resolve<IQueueImportExport>().Export(encodeJobs);
+					StaticResolver.Resolve<IQueueImportExport>().Export(encodeJobs);
 				}));
 			}
 		}
@@ -1673,7 +1673,7 @@ namespace VidCoder.Services
 
 						if (!Utilities.IsInForeground)
 						{
-							Resolver.Resolve<TrayService>().ShowBalloonMessage(MainRes.EncodeCompleteBalloonTitle, MainRes.EncodeCompleteBalloonMessage);
+							StaticResolver.Resolve<TrayService>().ShowBalloonMessage(MainRes.EncodeCompleteBalloonTitle, MainRes.EncodeCompleteBalloonMessage);
 							if (this.toastNotificationService.ToastEnabled)
 							{
 								const string toastFormat =
@@ -1893,7 +1893,7 @@ namespace VidCoder.Services
 				return true;
 			}
 
-			var messageService = Resolver.Resolve<IMessageBoxService>();
+			var messageService = StaticResolver.Resolve<IMessageBoxService>();
 			var messageResult = messageService.Show(
 				this.main,
 				MainRes.OutputFolderRequiredMessage, 
@@ -1916,7 +1916,7 @@ namespace VidCoder.Services
 				return true;
 			}
 
-			Resolver.Resolve<IMessageBoxService>().Show(
+			StaticResolver.Resolve<IMessageBoxService>().Show(
 				MainRes.OutputPathNotValidMessage,
 				MainRes.OutputPathNotValidTitle, 
 				MessageBoxButton.OK,

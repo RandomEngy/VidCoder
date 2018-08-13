@@ -494,7 +494,7 @@ namespace VidCoder
 		{
 			get
 			{
-				return Resolver.Resolve<IMessageBoxService>();
+				return StaticResolver.Resolve<IMessageBoxService>();
 			}
 		}
 
@@ -585,7 +585,7 @@ namespace VidCoder
 			FileAttributes attributes = File.GetAttributes(sourcePath);
 			if ((attributes & FileAttributes.Directory) == FileAttributes.Directory)
 			{
-				var driveService = Resolver.Resolve<IDriveService>();
+				var driveService = StaticResolver.Resolve<IDriveService>();
 				if (driveService.PathIsDrive(sourcePath))
 				{
 					return SourceType.Disc;
@@ -608,7 +608,7 @@ namespace VidCoder
 				case SourceType.DiscVideoFolder:
 					return GetSourceNameFolder(sourcePath);
 				case SourceType.Disc:
-					var driveService = Resolver.Resolve<IDriveService>();
+					var driveService = StaticResolver.Resolve<IDriveService>();
 					DriveInformation info = driveService.GetDriveInformationFromPath(sourcePath);
 					if (info != null)
 					{
@@ -683,7 +683,7 @@ namespace VidCoder
 			}
 			catch (UnauthorizedAccessException ex)
 			{
-				Resolver.Resolve<IAppLogger>().Log("Could not determine folder type: " + ex);
+				StaticResolver.Resolve<IAppLogger>().Log("Could not determine folder type: " + ex);
 			}
 
 			return FolderType.VideoFiles;

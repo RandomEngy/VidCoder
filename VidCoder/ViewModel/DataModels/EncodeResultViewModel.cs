@@ -12,8 +12,8 @@ namespace VidCoder.ViewModel
 {
 	public class EncodeResultViewModel : ReactiveObject
 	{
-		private MainViewModel main = Resolver.Resolve<MainViewModel>();
-		private ProcessingService processingService = Resolver.Resolve<ProcessingService>();
+		private MainViewModel main = StaticResolver.Resolve<MainViewModel>();
+		private ProcessingService processingService = StaticResolver.Resolve<ProcessingService>();
 
 		private EncodeResult encodeResult;
 		private EncodeJobViewModel job;
@@ -105,7 +105,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.play ?? (this.play = ReactiveCommand.Create(() =>
 				{
-					Resolver.Resolve<StatusService>().Show(MainRes.PlayingVideoStatus);
+					StaticResolver.Resolve<StatusService>().Show(MainRes.PlayingVideoStatus);
 					FileService.Instance.PlayVideo(this.encodeResult.Destination);
 				}));
 			}
@@ -118,7 +118,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.openContainingFolder ?? (this.openContainingFolder = ReactiveCommand.Create(() =>
 				{
-					Resolver.Resolve<StatusService>().Show(MainRes.OpeningFolderStatus);
+					StaticResolver.Resolve<StatusService>().Show(MainRes.OpeningFolderStatus);
 					FileUtilities.OpenFolderAndSelectItem(this.encodeResult.Destination);
 				}));
 			}
@@ -172,15 +172,15 @@ namespace VidCoder.ViewModel
 					{
 						string logText = File.ReadAllText(this.encodeResult.LogPath);
 
-						Resolver.Resolve<ClipboardService>().SetText(logText);
+						StaticResolver.Resolve<ClipboardService>().SetText(logText);
 					}
 					catch (IOException exception)
 					{
-						Resolver.Resolve<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
+						StaticResolver.Resolve<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
 					}
 					catch (UnauthorizedAccessException exception)
 					{
-						Resolver.Resolve<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
+						StaticResolver.Resolve<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
 					}
 				}));
 			}

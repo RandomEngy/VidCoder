@@ -12,8 +12,8 @@ namespace VidCoder.Services
 	{
 		public TaskBarProgressTracker()
 		{
-			ProcessingService processingService = Resolver.Resolve<ProcessingService>();
-			MainViewModel mainViewModel = Resolver.Resolve<MainViewModel>();
+			ProcessingService processingService = StaticResolver.Resolve<ProcessingService>();
+			MainViewModel mainViewModel = StaticResolver.Resolve<MainViewModel>();
 
 			// Set up some observables for properties we care about.
 			var isEncodingObservable = processingService

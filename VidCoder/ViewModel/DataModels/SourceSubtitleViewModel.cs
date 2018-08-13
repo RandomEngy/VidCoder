@@ -15,7 +15,7 @@ namespace VidCoder.ViewModel
 	{
 		private SourceSubtitle subtitle;
 
-		private PresetsService presetsService = Resolver.Resolve<PresetsService>();
+		private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
 
 		private SourceSubtitleTrack inputSubtitle; 
 

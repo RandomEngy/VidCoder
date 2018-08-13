@@ -40,7 +40,7 @@ namespace VidCoder.View
 
 		private void copyButton_Click(object sender, RoutedEventArgs e)
 		{
-			Resolver.Resolve<ClipboardService>().SetText(this.exception.ToString());
+			StaticResolver.Resolve<ClipboardService>().SetText(this.exception.ToString());
 		}
 	}
 }

@@ -8,7 +8,7 @@ namespace VidCoder.ViewModel
 {
 	public abstract class OkCancelDialogViewModel : ReactiveObject, IClosableWindow
 	{
-		private IWindowManager windowManager = Resolver.Resolve<IWindowManager>();
+		private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
 
 		protected OkCancelDialogViewModel()
 		{

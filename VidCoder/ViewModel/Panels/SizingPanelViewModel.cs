@@ -17,8 +17,8 @@ namespace VidCoder.ViewModel
 	{
 		private const int DimensionsAutoSetModulus = 2;
 
-		private OutputSizeService outputSizeService = Resolver.Resolve<OutputSizeService>();
-		private PreviewUpdateService previewUpdateService = Resolver.Resolve<PreviewUpdateService>();
+		private OutputSizeService outputSizeService = StaticResolver.Resolve<OutputSizeService>();
+		private PreviewUpdateService previewUpdateService = StaticResolver.Resolve<PreviewUpdateService>();
 
 		public SizingPanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
 			: base(encodingWindowViewModel)

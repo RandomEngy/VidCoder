@@ -34,7 +34,7 @@ namespace VidCoder.Model
 				string message = string.Format(
 					MiscRes.CouldNotFindVideoPlayerError,
 					this.Display);
-				Resolver.Resolve<IMessageBoxService>().Show(message);
+				StaticResolver.Resolve<IMessageBoxService>().Show(message);
 				return;
 			}
 
@@ -51,7 +51,7 @@ namespace VidCoder.Model
 			{
 				string message = 
 					MiscRes.ErrorPlayingSource + Environment.NewLine + Environment.NewLine + exception.Message;
-				Resolver.Resolve<IMessageBoxService>().Show(message);
+				StaticResolver.Resolve<IMessageBoxService>().Show(message);
 			}
 		}
 

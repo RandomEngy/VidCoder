@@ -249,7 +249,7 @@ namespace VidCoder.ViewModel
 
 			if (this.DialogResult)
 			{
-				Resolver.Resolve<OutputPathService>().NotifyDefaultOutputFolderChanged();
+				StaticResolver.Resolve<OutputPathService>().NotifyDefaultOutputFolderChanged();
 			}
 
 			return base.OnClosing();
@@ -596,7 +596,7 @@ namespace VidCoder.ViewModel
 						if (Config.InterfaceLanguageCode != this.InterfaceLanguage.CultureCode)
 						{
 							Config.InterfaceLanguageCode = this.InterfaceLanguage.CultureCode;
-							Resolver.Resolve<IMessageBoxService>().Show(this, OptionsRes.NewLanguageRestartDialogMessage);
+							StaticResolver.Resolve<IMessageBoxService>().Show(this, OptionsRes.NewLanguageRestartDialogMessage);
 						}
 
 						Config.AutoNameOutputFolder = this.DefaultPath;
@@ -749,7 +749,7 @@ namespace VidCoder.ViewModel
 				return this.openAddProcessDialog ?? (this.openAddProcessDialog = ReactiveCommand.Create(() =>
 				{
 					var addProcessVM = new AddAutoPauseProcessDialogViewModel();
-					Resolver.Resolve<IWindowManager>().OpenDialog(addProcessVM, this);
+					StaticResolver.Resolve<IWindowManager>().OpenDialog(addProcessVM, this);
 
 					if (addProcessVM.DialogResult)
 					{

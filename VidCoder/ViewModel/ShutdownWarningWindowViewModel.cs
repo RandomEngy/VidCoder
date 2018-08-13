@@ -14,7 +14,7 @@ namespace VidCoder.ViewModel
 	{
 		private EncodeCompleteActionType actionType;
 
-		private ISystemOperations systemOperations = Resolver.Resolve<ISystemOperations>();
+		private ISystemOperations systemOperations = StaticResolver.Resolve<ISystemOperations>();
 		private int secondsRemaining = 30;
 		private DispatcherTimer timer;
 

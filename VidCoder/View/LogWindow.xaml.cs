@@ -22,7 +22,7 @@ namespace VidCoder.View
 		// The maximum number of lines to add to log window in a single dispatcher call
 		private const int MaxLinesPerDispatch = 100;
 
-		private IAppLogger logger = Resolver.Resolve<IAppLogger>();
+		private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
 
 		private Queue<LogEntry> pendingEntries = new Queue<LogEntry>();
 		private bool workerRunning;

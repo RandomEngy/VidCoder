@@ -29,7 +29,7 @@ namespace VidCoder.Controls
     /// </summary>
     public partial class PresetTreeViewContainer : UserControl
     {
-	    private PresetsService presetsService = Resolver.Resolve<PresetsService>();
+	    private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
 
         public PresetTreeViewContainer()
         {
@@ -140,7 +140,7 @@ namespace VidCoder.Controls
 			    this.DecideDropTarget(e);
 			    if (this.dropTarget != null)
 			    {
-				    Resolver.Resolve<PresetsService>().MovePresetToFolder(this.draggedPreset, (PresetFolderViewModel)this.dropTarget.Header);
+				    StaticResolver.Resolve<PresetsService>().MovePresetToFolder(this.draggedPreset, (PresetFolderViewModel)this.dropTarget.Header);
 			    }
 
 			    this.RemoveFolderMoveAdorner();
@@ -178,7 +178,7 @@ namespace VidCoder.Controls
 
 				    if (this.draggedPreset != null)
 				    {
-					    var windowManager = Resolver.Resolve<IWindowManager>();
+					    var windowManager = StaticResolver.Resolve<IWindowManager>();
 
 					    windowManager.SuspendDropOnWindows();
 					    DragDrop.DoDragDrop((DependencyObject)sender, this.presetTreeView.SelectedItem, DragDropEffects.Move);

@@ -54,7 +54,7 @@ namespace VidCoder
 			container.RegisterSingleton<PreviewUpdateService>();
 			container.RegisterSingleton<PreviewImageService>();
 
-			Resolver.SetResolver(container);
+			StaticResolver.SetResolver(container);
 			Container = container;
 		}
 

@@ -11,7 +11,7 @@ namespace VidCoder.Services
 	{
 		public void ShowBalloonMessage(string title, string message)
 		{
-			Resolver.Resolve<Main>().ShowBalloonMessage(title, message);
+			StaticResolver.Resolve<Main>().ShowBalloonMessage(title, message);
 		}
 	}
 }

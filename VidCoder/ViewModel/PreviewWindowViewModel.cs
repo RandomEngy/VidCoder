@@ -31,7 +31,7 @@ namespace VidCoder.ViewModel
 
 		private VCJob job;
 		private IEncodeProxy encodeProxy;
-		private IAppLogger logger = Resolver.Resolve<IAppLogger>();
+		private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
 		private string previewFilePath;
 		private bool cancelPending;
 		private bool encodeCancelled;
@@ -43,9 +43,9 @@ namespace VidCoder.ViewModel
 		private DispatcherTimer seekBarUpdateTimer;
 		private bool positionSetByNonUser;
 
-		private readonly OutputSizeService outputSizeService = Resolver.Resolve<OutputSizeService>();
-		private MainViewModel mainViewModel = Resolver.Resolve<MainViewModel>();
-		private PreviewUpdateService previewUpdateService = Resolver.Resolve<PreviewUpdateService>();
+		private readonly OutputSizeService outputSizeService = StaticResolver.Resolve<OutputSizeService>();
+		private MainViewModel mainViewModel = StaticResolver.Resolve<MainViewModel>();
+		private PreviewUpdateService previewUpdateService = StaticResolver.Resolve<PreviewUpdateService>();
 
 		public PreviewWindowViewModel()
 		{
@@ -275,14 +275,14 @@ namespace VidCoder.ViewModel
 			get { return this.mainViewModel; }
 		}
 
-		public PreviewImageService PreviewImageService { get; } = Resolver.Resolve<PreviewImageService>();
+		public PreviewImageService PreviewImageService { get; } = StaticResolver.Resolve<PreviewImageService>();
 
 		public PreviewImageServiceClient PreviewImageServiceClient { get; } = new PreviewImageServiceClient();
 
-		public ProcessingService ProcessingService { get; } = Resolver.Resolve<ProcessingService>();
+		public ProcessingService ProcessingService { get; } = StaticResolver.Resolve<ProcessingService>();
 
 
-		public OutputPathService OutputPathService { get; } = Resolver.Resolve<OutputPathService>();
+		public OutputPathService OutputPathService { get; } = StaticResolver.Resolve<OutputPathService>();
 
 		private ObservableAsPropertyHelper<string> title;
 		public string Title => this.title.Value;
@@ -794,7 +794,7 @@ namespace VidCoder.ViewModel
 
 				if (parWidth <= 0 || parHeight <= 0)
 				{
-					Resolver.Resolve<IAppLogger>().LogError("HandBrake returned a negative pixel aspect ratio. Cannot show preview.");
+					StaticResolver.Resolve<IAppLogger>().LogError("HandBrake returned a negative pixel aspect ratio. Cannot show preview.");
 					return PreviewRes.NoVideoSourceTitle;
 				}
 
@@ -832,7 +832,7 @@ namespace VidCoder.ViewModel
 		public void OnVideoFailed()
 		{
 			this.PlayingPreview = false;
-			MessageBoxResult result = Resolver.Resolve<IMessageBoxService>().Show(this, PreviewRes.VideoErrorMessage, PreviewRes.VideoErrorTitle, MessageBoxButton.YesNo);
+			MessageBoxResult result = StaticResolver.Resolve<IMessageBoxService>().Show(this, PreviewRes.VideoErrorMessage, PreviewRes.VideoErrorTitle, MessageBoxButton.YesNo);
 			if (result == MessageBoxResult.Yes)
 			{
 				FileService.Instance.PlayVideo(this.previewFilePath);

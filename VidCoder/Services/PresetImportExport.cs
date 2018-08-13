@@ -14,7 +14,7 @@ namespace VidCoder.Services
 	{
 		private IFileService fileService;
 		private IMessageBoxService messageBoxService;
-		private PresetsService presetsService = Resolver.Resolve<PresetsService>();
+		private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
 		private IAppLogger logger;
 
 		public PresetImportExport(IFileService fileService, IMessageBoxService messageBoxService, IAppLogger logger)

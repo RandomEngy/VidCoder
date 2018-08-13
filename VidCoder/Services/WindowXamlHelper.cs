@@ -11,7 +11,7 @@ namespace VidCoder
 	/// </summary>
 	public class WindowXamlHelper : ReactiveObject
 	{
-		private IWindowManager windowManager = Resolver.Resolve<IWindowManager>();
+		private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
 
 		public WindowXamlHelper()
 		{

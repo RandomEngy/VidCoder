@@ -16,7 +16,7 @@ namespace VidCoder.Services
 	{
 		private BitmapSource previewBitmapSource;
 
-		private readonly PreviewImageService previewImageService = Resolver.Resolve<PreviewImageService>();
+		private readonly PreviewImageService previewImageService = StaticResolver.Resolve<PreviewImageService>();
 
 		public PreviewImageServiceClient()
 		{

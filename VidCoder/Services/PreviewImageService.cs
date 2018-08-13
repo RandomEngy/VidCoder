@@ -44,9 +44,9 @@ namespace VidCoder.Services
 		private object imageSync = new object();
 	    private List<object> imageFileSync;
 
-		private readonly OutputSizeService outputSizeService = Resolver.Resolve<OutputSizeService>();
-	    private readonly MainViewModel mainViewModel = Resolver.Resolve<MainViewModel>();
-	    private readonly PreviewUpdateService previewUpdateService = Resolver.Resolve<PreviewUpdateService>();
+		private readonly OutputSizeService outputSizeService = StaticResolver.Resolve<OutputSizeService>();
+	    private readonly MainViewModel mainViewModel = StaticResolver.Resolve<MainViewModel>();
+	    private readonly PreviewUpdateService previewUpdateService = StaticResolver.Resolve<PreviewUpdateService>();
 
 		public PreviewImageService()
 	    {
@@ -72,7 +72,7 @@ namespace VidCoder.Services
 
 		public event EventHandler<PreviewImageLoadInfo> ImageLoaded;
 
-		public PresetsService PresetsService { get; } = Resolver.Resolve<PresetsService>();
+		public PresetsService PresetsService { get; } = StaticResolver.Resolve<PresetsService>();
 
 
 		private OutputSizeInfo outputSizeInfo;
@@ -206,7 +206,7 @@ namespace VidCoder.Services
 		    {
 			    this.HasPreview = false;
 
-			    Resolver.Resolve<IAppLogger>().LogError("HandBrake returned a negative pixel aspect ratio. Cannot show preview.");
+			    StaticResolver.Resolve<IAppLogger>().LogError("HandBrake returned a negative pixel aspect ratio. Cannot show preview.");
 			    return;
 		    }
 
@@ -452,7 +452,7 @@ namespace VidCoder.Services
 					    }
 					    else
 					    {
-						    Resolver.Resolve<IAppLogger>().LogError($"Could not load cached preview image from {imagePath} . Did not parse as a URI.");
+						    StaticResolver.Resolve<IAppLogger>().LogError($"Could not load cached preview image from {imagePath} . Did not parse as a URI.");
 					    }
 				    }
 			    }

@@ -12,7 +12,7 @@ namespace VidCoder.Services
 	{
 		private IFileService fileService;
 		private IMessageBoxService messageBoxService;
-		private ProcessingService processingService = Resolver.Resolve<ProcessingService>();
+		private ProcessingService processingService = StaticResolver.Resolve<ProcessingService>();
 		private IAppLogger logger;
 
 		public QueueImportExport(IFileService fileService, IMessageBoxService messageBoxService, IAppLogger logger)

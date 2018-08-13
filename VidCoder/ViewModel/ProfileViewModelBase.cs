@@ -13,8 +13,8 @@ namespace VidCoder.ViewModel
 {
 	public class ProfileViewModelBase : ReactiveObject
 	{
-		private MainViewModel mainViewModel = Resolver.Resolve<MainViewModel>();
-		private PresetsService presetsService = Resolver.Resolve<PresetsService>();
+		private MainViewModel mainViewModel = StaticResolver.Resolve<MainViewModel>();
+		private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
 
 		private Dictionary<string, Action<object>> profileProperties;
 

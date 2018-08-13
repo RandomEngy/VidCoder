@@ -28,9 +28,9 @@ namespace VidCoder.ViewModel
 
 		public QueueTitlesWindowViewModel()
 		{
-			this.main = Resolver.Resolve<MainViewModel>();
-			this.PickersService = Resolver.Resolve<PickersService>();
-			this.windowManager = Resolver.Resolve<IWindowManager>();
+			this.main = StaticResolver.Resolve<MainViewModel>();
+			this.PickersService = StaticResolver.Resolve<PickersService>();
+			this.windowManager = StaticResolver.Resolve<IWindowManager>();
 
 			this.selectedTitles = new ReactiveList<TitleSelectionViewModel>();
 			this.titleStartOverrideEnabled = Config.QueueTitlesUseTitleOverride;
@@ -245,7 +245,7 @@ namespace VidCoder.ViewModel
 						}
 					}
 
-					var processingService = Resolver.Resolve<ProcessingService>();
+					var processingService = StaticResolver.Resolve<ProcessingService>();
 					processingService.QueueTitles(
 						this.CheckedTitles,
 						this.TitleStartOverrideEnabled ? this.TitleStartOverride : -1,

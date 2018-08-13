@@ -155,7 +155,7 @@ namespace VidCoder.Services
 
 		public void ShowStatus(string message)
 		{
-			Resolver.Resolve<StatusService>().Show(message);
+			StaticResolver.Resolve<StatusService>().Show(message);
 		}
 
 		/// <summary>

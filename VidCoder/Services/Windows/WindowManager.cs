@@ -96,7 +96,7 @@ namespace VidCoder.Services.Windows
 					PlacementConfigKey = "EncodeDetailsWindowPlacement",
 					IsOpenConfigKey = "EncodeDetailsWindowOpen", 
 					MenuLabel = MainRes.EncodeDetailsMenuItem,
-					CanOpen = () => Resolver.Resolve<ProcessingService>().WhenAnyValue(x => x.Encoding)
+					CanOpen = () => StaticResolver.Resolve<ProcessingService>().WhenAnyValue(x => x.Encoding)
 				},
 
 				new WindowDefinition
@@ -187,7 +187,7 @@ namespace VidCoder.Services.Windows
 		public void OpenDialog<T>(object ownerViewModel = null)
 			where T : class
 		{
-			this.OpenDialog(Resolver.Resolve<T>(), ownerViewModel);
+			this.OpenDialog(StaticResolver.Resolve<T>(), ownerViewModel);
 		}
 
 		/// <summary>
@@ -213,7 +213,7 @@ namespace VidCoder.Services.Windows
 
 				if (canOpen && Config.Get<bool>(definition.IsOpenConfigKey))
 				{
-					this.OpenWindow(Resolver.Resolve(definition.ViewModelType), userInitiated: false);
+					this.OpenWindow(StaticResolver.Resolve(definition.ViewModelType), userInitiated: false);
 					windowOpened = true;
 				}
 			}
@@ -256,7 +256,7 @@ namespace VidCoder.Services.Windows
 
 			if (viewModel == null)
 			{
-				viewModel = Resolver.Resolve(viewModelType);
+				viewModel = StaticResolver.Resolve(viewModelType);
 				if (ownerViewModel == null)
 				{
 					ownerViewModel = this.mainViewModel;
@@ -309,7 +309,7 @@ namespace VidCoder.Services.Windows
 			{
 				if (openAsDialog)
 				{
-					this.OpenDialog(Resolver.Resolve(viewModelType));
+					this.OpenDialog(StaticResolver.Resolve(viewModelType));
 				}
 				else
 				{
@@ -504,7 +504,7 @@ namespace VidCoder.Services.Windows
 				var listView = dragEventArgs.Source as ListView;
 				bool alwaysQueue = listView?.Name == "queueView";
 
-				Resolver.Resolve<MainViewModel>().HandlePaths(itemList.Cast<string>().ToList(), alwaysQueue);
+				StaticResolver.Resolve<MainViewModel>().HandlePaths(itemList.Cast<string>().ToList(), alwaysQueue);
 			}
 		}
 

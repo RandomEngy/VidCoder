@@ -56,10 +56,10 @@ namespace VidCoder.View
 		private readonly NotifyIcon notifyIcon;
 
 		private MainViewModel viewModel;
-		private ProcessingService processingService = Resolver.Resolve<ProcessingService>();
-		private OutputPathService outputVM = Resolver.Resolve<OutputPathService>();
-		private StatusService statusService = Resolver.Resolve<StatusService>();
-		private IToastNotificationService toastNotificationService = Resolver.Resolve<IToastNotificationService>();
+		private ProcessingService processingService = StaticResolver.Resolve<ProcessingService>();
+		private OutputPathService outputVM = StaticResolver.Resolve<OutputPathService>();
+		private StatusService statusService = StaticResolver.Resolve<StatusService>();
+		private IToastNotificationService toastNotificationService = StaticResolver.Resolve<IToastNotificationService>();
 
 		private bool tabsVisible = false;
 
@@ -111,7 +111,7 @@ namespace VidCoder.View
 				{
 					if (!this.viewModel.HasVideoSource)
 					{
-						Resolver.Resolve<IMessageBoxService>().Show("Must open source before adding queue job from JSON");
+						StaticResolver.Resolve<IMessageBoxService>().Show("Must open source before adding queue job from JSON");
 						return;
 					}
 

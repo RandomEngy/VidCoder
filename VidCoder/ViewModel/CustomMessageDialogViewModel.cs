@@ -11,7 +11,7 @@ namespace VidCoder.ViewModel
 {
 	public class CustomMessageDialogViewModel<T>
 	{
-		private IWindowManager windowManager = Resolver.Resolve<IWindowManager>();
+		private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
 
 		public CustomMessageDialogViewModel(string title, string message, IEnumerable<CustomDialogButton<T>> buttons)
 		{

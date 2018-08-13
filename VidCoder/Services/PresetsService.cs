@@ -175,7 +175,7 @@ namespace VidCoder.Services
 			{
 				if (this.outputPathService == null)
 				{
-					this.outputPathService = Resolver.Resolve<OutputPathService>();
+					this.outputPathService = StaticResolver.Resolve<OutputPathService>();
 				}
 
 				return this.outputPathService;
@@ -233,7 +233,7 @@ namespace VidCoder.Services
 				}
 
 				MessageBoxResult dialogResult = Utilities.MessageBox.Show(
-					Resolver.Resolve<MainViewModel>(),
+					StaticResolver.Resolve<MainViewModel>(),
 					dialogMessage,
 					dialogTitle,
 					buttons);
@@ -423,7 +423,7 @@ namespace VidCoder.Services
 		{
 			var dialogVM = new ChooseNameViewModel(EncodingRes.ChooseNameSubfolder, new List<string>());
 			dialogVM.Name = EncodingRes.DefaultPresetFolderName;
-			var windowManager = Resolver.Resolve<IWindowManager>();
+			var windowManager = StaticResolver.Resolve<IWindowManager>();
 			windowManager.OpenDialog(dialogVM, windowManager.Find<EncodingWindowViewModel>());
 
 			if (dialogVM.DialogResult)
@@ -439,7 +439,7 @@ namespace VidCoder.Services
 		{
 			var dialogVM = new ChooseNameViewModel(EncodingRes.ChooseNewFolderName, new List<string>());
 			dialogVM.Name = folderViewModel.Name;
-			var windowManager = Resolver.Resolve<IWindowManager>();
+			var windowManager = StaticResolver.Resolve<IWindowManager>();
 			windowManager.OpenDialog(dialogVM, windowManager.Find<EncodingWindowViewModel>());
 
 			if (dialogVM.DialogResult)

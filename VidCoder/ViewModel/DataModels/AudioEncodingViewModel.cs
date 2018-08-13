@@ -31,8 +31,8 @@ namespace VidCoder.ViewModel
 		private AudioPanelViewModel audioPanelVM;
 		private bool initializing;
 
-		private MainViewModel main = Resolver.Resolve<MainViewModel>();
-		private PresetsService presetsService = Resolver.Resolve<PresetsService>();
+		private MainViewModel main = StaticResolver.Resolve<MainViewModel>();
+		private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
 
 		private ObservableCollection<TargetStreamViewModel> targetStreams;
 		private int targetStreamIndex;

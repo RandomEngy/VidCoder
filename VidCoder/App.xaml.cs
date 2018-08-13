@@ -108,7 +108,7 @@ namespace VidCoder
 				FileUtilities.TempFolderOverride = Config.PreviewOutputFolder;
 			}
 
-			var updater = Resolver.Resolve<IUpdater>();
+			var updater = StaticResolver.Resolve<IUpdater>();
 			updater.HandlePendingUpdate();
 
 			try
@@ -123,7 +123,7 @@ namespace VidCoder
 			this.GlobalInitialize();
 
 			var mainVM = new MainViewModel();
-			Resolver.Resolve<IWindowManager>().OpenWindow(mainVM);
+			StaticResolver.Resolve<IWindowManager>().OpenWindow(mainVM);
 			mainVM.OnLoaded();
 
 			if (e.Args.Length > 0)

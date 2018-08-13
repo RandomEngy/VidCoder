@@ -97,7 +97,7 @@ namespace VidCoder.ViewModel
                 }
             };
 
-            scanProxy.StartScan(path.Path, Resolver.Resolve<IAppLogger>());
+            scanProxy.StartScan(path.Path, StaticResolver.Resolve<IAppLogger>());
 		}
 
 	    public class ScanResult

@@ -13,7 +13,7 @@ namespace VidCoder.Extensions
 {
     public static class WindowExtensions
     {
-	    private static IWindowManager windowManager = Resolver.Resolve<IWindowManager>();
+	    private static IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
 
         public static void RegisterGlobalHotkeys(this Window window)
         {
