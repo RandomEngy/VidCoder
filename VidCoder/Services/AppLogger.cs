@@ -23,10 +23,6 @@ namespace VidCoder.Services
 		public event EventHandler<EventArgs<LogEntry>> EntryLogged;
 		public event EventHandler Cleared;
 
-		public AppLogger() : this(null, null)
-		{
-		}
-
 		public AppLogger(IAppLogger parent, string baseFileName)
 		{
 			this.parent = parent;

@@ -99,6 +99,8 @@ namespace VidCoder
 				CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 			}
 
+			Stopwatch sw = Stopwatch.StartNew();
+
 			Ioc.SetUp();
 
 			if (Config.UseCustomPreviewFolder && FileUtilities.HasWriteAccessOnFolder(Config.PreviewOutputFolder))
@@ -109,6 +111,10 @@ namespace VidCoder
 			}
 
 			var updater = StaticResolver.Resolve<IUpdater>();
+
+			sw.Stop();
+			System.Diagnostics.Debug.WriteLine("Startup time: " + sw.Elapsed);
+
 			updater.HandlePendingUpdate();
 
 			try

@@ -16,8 +16,6 @@ using HandBrake.Interop.Interop.Json.Scan;
 using HandBrake.Interop.Interop.Model.Encoding;
 using Microsoft.AnyContainer;
 using ReactiveUI;
-using Unity;
-using Unity.Lifetime;
 using VidCoder.Automation;
 using VidCoder.Extensions;
 using VidCoder.Model;

@@ -26,8 +26,6 @@ using HandBrake.Interop.Interop.Json.Encode;
 using Microsoft.AnyContainer;
 using Newtonsoft.Json;
 using ReactiveUI;
-using Unity;
-using Unity.Lifetime;
 using VidCoder.Controls;
 using VidCoder.Extensions;
 using VidCoder.Model;

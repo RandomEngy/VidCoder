@@ -1,11 +1,6 @@
 ﻿using System;
-using CommonServiceLocator;
 using Microsoft.AnyContainer;
-using Microsoft.AnyContainer.Unity;
-using Unity;
-using Unity.Injection;
-using Unity.Lifetime;
-using Unity.ServiceLocation;
+using Microsoft.AnyContainer.DryIoc;
 using VidCoder.Services;
 using VidCoder.Services.Notifications;
 using VidCoder.Services.Windows;
@@ -18,7 +13,7 @@ namespace VidCoder
 	{
 		public static void SetUp()
 		{
-			var container = new UnityAnyContainer();
+			var container = new DryIocAnyContainer();
 			container.RegisterSingleton<IDriveService, DriveService>();
 
 			if (Utilities.IsRunningAsAppx)
@@ -32,8 +27,7 @@ namespace VidCoder
 
 			container.RegisterSingleton<IUpdater, Updater>();
 			container.RegisterSingleton<IMessageBoxService, MessageBoxService>();
-			container.RegisterSingleton<AppLogger>(() => new AppLogger());
-			container.RegisterSingleton<IAppLogger, AppLogger>();
+			container.RegisterSingleton<IAppLogger, MainAppLogger>();
 			container.RegisterSingleton<ILogger, AppLogger>();
 			container.RegisterSingleton<IFileService, FileService>();
 			container.RegisterSingleton<IPresetImportExport, PresetImportExport>();
@@ -49,10 +43,18 @@ namespace VidCoder
 			container.RegisterSingleton<PickersService>();
 			container.RegisterSingleton<ProcessingService>();
 			container.RegisterSingleton<SubtitlesService>();
-			container.RegisterSingleton<EncodingWindowViewModel>();
 			container.RegisterSingleton<StatusService>();
 			container.RegisterSingleton<PreviewUpdateService>();
 			container.RegisterSingleton<PreviewImageService>();
+
+			container.RegisterSingleton<EncodingWindowViewModel>();
+
+			container.RegisterTransient<PreviewWindowViewModel>();
+			container.RegisterTransient<PickerWindowViewModel>();
+			container.RegisterTransient<OptionsDialogViewModel>();
+			container.RegisterTransient<LogWindowViewModel>();
+			container.RegisterTransient<QueueTitlesWindowViewModel>();
+			container.RegisterTransient<EncodeDetailsWindowViewModel>();
 
 			StaticResolver.SetResolver(container);
 			Container = container;
