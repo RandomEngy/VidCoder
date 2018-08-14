@@ -278,7 +278,7 @@ namespace VidCoder.View
 						aspectRatio = Math.Min(aspectRatio, 3.0);
 
 						double desiredWidth = this.miniPreviewFrame.ActualHeight * aspectRatio;
-						this.miniPreviewFrame.Width = desiredWidth;
+						this.miniPreviewFrame.Width = Math.Max(0, desiredWidth);
 					}
 				});
 
