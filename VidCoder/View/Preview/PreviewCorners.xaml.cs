@@ -44,26 +44,16 @@ namespace VidCoder.View.Preview
 			this.viewModel = newViewModel;
 			if (newViewModel == null)
 			{
-				//this.viewModel.PropertyChanged -= this.OnPropertyChanged;
 				this.updateCornerImageSubscription?.Dispose();
 			}
 			else
 			{
-				//newViewModel.PropertyChanged += this.OnPropertyChanged;
 				this.updateCornerImageSubscription = newViewModel.PreviewImageServiceClient.WhenAnyValue(x => x.PreviewImage).Subscribe(_ =>
 				{
 					this.UpdateCornerImages();
 				});
 			}
 		}
-
-		//private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
-		//{
-		//	if (e.PropertyName == nameof(this.viewModel.PreviewImage))
-		//	{
-		//		this.UpdateCornerImages();
-		//	}
-		//}
 
 		public void UpdateCornerImages()
 		{

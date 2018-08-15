@@ -3227,7 +3227,7 @@ namespace VidCoder.ViewModel
 			{
 				if (chosenTrack <= this.selectedTitle.AudioList.Count)
 				{
-					this.AudioTracks.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[chosenTrack - 1], chosenTrack));
+					this.AudioTracks.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[chosenTrack - 1], chosenTrack) { Selected = true });
 				}
 			}
 
