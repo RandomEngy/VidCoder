@@ -40,6 +40,8 @@ namespace VidCoder.View.Preview
 		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
 			var newViewModel = e.NewValue as PreviewWindowViewModel;
+
+			this.viewModel = newViewModel;
 			if (newViewModel == null)
 			{
 				//this.viewModel.PropertyChanged -= this.OnPropertyChanged;
@@ -53,8 +55,6 @@ namespace VidCoder.View.Preview
 					this.UpdateCornerImages();
 				});
 			}
-
-			this.viewModel = newViewModel;
 		}
 
 		//private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)

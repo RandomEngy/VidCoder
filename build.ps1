@@ -182,7 +182,7 @@ $outputDirectoryFiles = @(
     "Fluent.dll",
     "Fluent.pdb",
     "Microsoft.AnyContainer.dll",
-    "Microsoft.AnyContainer.Unity.dll",
+    "Microsoft.AnyContainer.DryIoc.dll",
     "Newtonsoft.Json.dll",
     "Omu.ValueInjecter.dll",
     "ReactiveUI.dll",
