@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
@@ -30,6 +31,10 @@ namespace VidCoder.View
 	public partial class PreviewWindow : Window, IPreviewView
 	{
 		private PreviewWindowViewModel viewModel;
+
+		private IDisposable controlsUpdateSubscription;
+		private IDisposable mainDisplayUpdateSubscription;
+		private IDisposable previewPausedSubscription;
 
 		public PreviewWindow()
 		{
@@ -66,7 +71,7 @@ namespace VidCoder.View
 			this.viewModel = (PreviewWindowViewModel)this.DataContext;
 			this.viewModel.View = this;
 
-			Observable.CombineLatest(
+			this.mainDisplayUpdateSubscription = Observable.CombineLatest(
 				this.viewModel.MainDisplayObservable, 
 				this.viewModel.WhenAnyValue(x => x.PlayingPreview),
 				(mainDisplay, playingPreview) =>
@@ -78,13 +83,13 @@ namespace VidCoder.View
 					this.OnMainDisplayUpdate(x.mainDisplay, x.playingPreview);
 				});
 
-			this.viewModel.ControlsObservable
+			this.controlsUpdateSubscription = this.viewModel.ControlsObservable
 				.Subscribe(controls =>
 				{
 					this.OnControlsUpdate(controls);
 				});
 
-			this.viewModel.WhenAnyValue(x => x.PreviewPaused)
+			this.previewPausedSubscription = this.viewModel.WhenAnyValue(x => x.PreviewPaused)
 				.Subscribe(paused =>
 				{
 					var previewholder = this.MainContent as IPreviewFrame;
@@ -343,6 +348,13 @@ namespace VidCoder.View
 				this.viewModel.PreviewImageServiceClient.ShowNextPreview();
 				e.Handled = true;
 			}
+		}
+
+		private void PreviewWindow_OnClosing(object sender, CancelEventArgs e)
+		{
+			this.mainDisplayUpdateSubscription?.Dispose();
+			this.previewPausedSubscription?.Dispose();
+			this.controlsUpdateSubscription?.Dispose();
 		}
 	}
 }

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -50,6 +51,9 @@ namespace VidCoder.ViewModel
 		public PreviewWindowViewModel()
 		{
 			this.previewUpdateService.PreviewInputChanged += this.OnPreviewInputChanged;
+
+			this.displayType = CustomConfig.PreviewDisplay;
+			this.previewSeconds = Config.PreviewSeconds;
 
 			this.mainViewModel.WhenAnyValue(x => x.SourceData)
 				.Skip(1)
@@ -173,7 +177,7 @@ namespace VidCoder.ViewModel
 				}
 			});
 
-			this.MainDisplayObservable.ToProperty(this, x => x.MainDisplay, out this.mainDisplay);
+			this.MainDisplayObservable.ToProperty(this, x => x.MainDisplay, out this.mainDisplay, scheduler: Scheduler.Immediate);
 
 			// Controls
 			this.ControlsObservable = this.WhenAnyValue(x => x.GeneratingPreview, x => x.PlayingPreview, (generatingPreview, playingPreview) =>
@@ -227,9 +231,6 @@ namespace VidCoder.ViewModel
 			});
 
 			this.PreviewImageService.RegisterClient(this.PreviewImageServiceClient);
-
-			this.previewSeconds = Config.PreviewSeconds;
-			this.displayType = CustomConfig.PreviewDisplay;
 
 			this.View?.RefreshImageSize();
 		}

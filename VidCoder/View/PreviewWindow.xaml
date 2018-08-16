@@ -14,7 +14,7 @@
 	MinHeight="200"
 	ShowInTaskbar="False"
 	TextOptions.TextFormattingMode="Display"
-	WindowStyle="ToolWindow">
+	WindowStyle="ToolWindow" Closing="PreviewWindow_OnClosing">
 	<Window.InputBindings>
 		<KeyBinding
 			Key="Q"
