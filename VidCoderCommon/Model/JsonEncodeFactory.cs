@@ -1431,22 +1431,16 @@ namespace VidCoderCommon.Model
 				// Calculate PAR from final picture size
 				if (profile.Rotation == VCPictureRotation.Clockwise90 || profile.Rotation == VCPictureRotation.Clockwise270)
 				{
-					outputPar = new PAR
-					{
-						Num = croppedSourceHeight * sourceParHeight * pictureOutputHeight,
-						Den = croppedSourceWidth * sourceParWidth * pictureOutputWidth
-					};
+					outputPar = MathUtilities.CreatePar(
+						(long)croppedSourceHeight * sourceParHeight * pictureOutputHeight,
+						(long)croppedSourceWidth * sourceParWidth * pictureOutputWidth);
 				}
 				else
 				{
-					outputPar = new PAR
-					{
-						Num = croppedSourceWidth * sourceParWidth * pictureOutputHeight,
-						Den = croppedSourceHeight * sourceParHeight * pictureOutputWidth
-					};
+					outputPar = MathUtilities.CreatePar(
+						(long)croppedSourceWidth * sourceParWidth * pictureOutputHeight,
+						(long)croppedSourceHeight * sourceParHeight * pictureOutputWidth);
 				}
-
-				outputPar.Simplify();
 			}
 			else
 			{

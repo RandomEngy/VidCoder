@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HandBrake.Interop.Interop.Json.Scan;
+using HandBrake.Interop.Interop.Json.Shared;
 using VidCoder.Resources;
 using VidCoder.ViewModel.DataModels;
 
