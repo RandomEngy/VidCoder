@@ -2530,7 +2530,7 @@ namespace VidCoder.ViewModel
 					string presetFileName = FileService.Instance.GetFileNameLoad(
 						null,
 						MainRes.ImportPresetFilePickerTitle,
-						CommonRes.PresetFileFilter + "|*.xml;*.vjpreset");
+						CommonRes.PresetFileFilter + "|*.vjpreset");
 					if (presetFileName != null)
 					{
 						try

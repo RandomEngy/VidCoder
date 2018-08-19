@@ -149,9 +149,6 @@ UpdateAppxManifest "VidCoderPackage\$manifestBaseFileName.appxmanifest" $version
 # Build VidCoder.sln
 & $MsBuildExe VidCoder.sln /t:rebuild "/p:Configuration=$configuration;Platform=x64;UapAppxPackageBuildMode=StoreUpload"; ExitIfFailed
 
-# Run sgen to create *.XmlSerializers.dll
-& ($NetToolsFolder + "\x64\sgen.exe") /f /a:"VidCoder\bin\$buildFlavor\VidCoderCommon.dll"; ExitIfFailed
-
 
 # Copy install files to staging folder
 $dest = ".\Installer\Files"
@@ -167,7 +164,6 @@ $outputDirectoryFiles = @(
     "VidCoder.exe.config",
     "VidCoderCommon.dll",
     "VidCoderCommon.pdb",
-    "VidCoderCommon.XmlSerializers.dll",
     "VidCoderWorker.exe",
     "VidCoderWorker.exe.config",
     "VidCoderWorker.pdb",

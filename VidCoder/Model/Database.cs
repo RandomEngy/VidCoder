@@ -10,8 +10,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
-using System.Xml;
-using System.Xml.Serialization;
 using Microsoft.AnyContainer;
 using Newtonsoft.Json;
 using VidCoder.Resources;
@@ -38,7 +36,7 @@ namespace VidCoder.Model
 
 		private static Lazy<string> lazyDatabaseFile = new Lazy<string>(GetDatabaseFilePath); 
 
-		static Database()
+		public static void Initialize()
 		{
 			mainThreadId = Thread.CurrentThread.ManagedThreadId;
 
@@ -58,29 +56,12 @@ namespace VidCoder.Model
 			using (SQLiteTransaction transaction = Connection.BeginTransaction())
 			{
 				// Update DB schema
-				if (databaseVersion < 18)
-				{
-					UpgradeDatabaseTo18();
-				}
-
-                if (databaseVersion < 27)
-                {
-                    UpgradeDatabaseTo27();
-                }
-
-				if (databaseVersion < 28)
-				{
-					UpgradeDatabaseTo28(oldDatabaseVersion: databaseVersion);
-				}
-
-				if (databaseVersion < 33)
-				{
-					UpgradeDatabaseTo33();
-				}
-
 				if (databaseVersion < 35)
 				{
-					UpgradeDatabaseTo35();
+					string message = string.Format(CultureInfo.CurrentCulture, MainRes.DataTooOldRunVidCoderVersion, "3.15");
+					StaticResolver.Resolve<IMessageBoxService>().Show(message);
+					StaticResolver.Resolve<IMessageBoxService>().Show(message);
+					throw new InvalidOperationException("Database too old");
 				}
 
 				if (databaseVersion < 36)
@@ -90,7 +71,7 @@ namespace VidCoder.Model
 
 				// Update encoding profiles if we need to. Everything is at least 28 now from the JSON upgrade.
 				int oldDatabaseVersion = Math.Max(databaseVersion, 28);
-                if (oldDatabaseVersion < Utilities.LastUpdatedEncodingProfileDatabaseVersion)
+				if (oldDatabaseVersion < Utilities.LastUpdatedEncodingProfileDatabaseVersion)
 				{
 					UpgradeEncodingProfiles(oldDatabaseVersion);
 				}
@@ -283,181 +264,6 @@ namespace VidCoder.Model
 			return ConfigDatabaseFileWithoutExtension + "-v" + databaseVersion + ConfigDatabaseFileExtension;
 		}
 
-		private static void UpgradeDatabaseTo18()
-		{
-			ExecuteNonQuery(
-				"CREATE TABLE workerLogs (" +
-				"workerGuid TEXT, " +
-				"message TEXT, " +
-				"level INTEGER, " +
-				"time TEXT)", connection);
-		}
-
-		private static void UpgradeDatabaseTo27()
-		{
-			ExecuteNonQuery("CREATE TABLE pickersJson (json TEXT)", connection);
-
-			Config.EnsureInitialized(connection);
-
-			// If the user has chosen some auto audio or subtitle picker options, migrate them to a new picker
-			if (CustomConfig.AutoAudio != AudioSelectionMode.Disabled || CustomConfig.AutoSubtitle != SubtitleSelectionMode.Disabled)
-			{
-				using (var pickerInsertCommand = new SQLiteCommand("INSERT INTO pickersJson(json) VALUES (?)", connection))
-				{
-					var pickerParameter = new SQLiteParameter();
-					pickerInsertCommand.Parameters.Add(pickerParameter);
-
-					var convertedPicker = new Picker
-					{
-						Name = string.Format(MainRes.PickerNameTemplate, 1),
-						AudioSelectionMode = CustomConfig.AutoAudio,
-						AudioLanguageCode = Config.AudioLanguageCode,
-						AudioLanguageAll = Config.AutoAudioAll,
-						SubtitleSelectionMode = CustomConfig.AutoSubtitle,
-						SubtitleForeignBurnIn = Config.AutoSubtitleBurnIn,
-						SubtitleLanguageCode = Config.SubtitleLanguageCode,
-						SubtitleLanguageAll = Config.AutoSubtitleAll,
-						SubtitleLanguageBurnIn = Config.AutoSubtitleLanguageBurnIn,
-						SubtitleLanguageDefault = Config.AutoSubtitleLanguageDefault,
-						SubtitleLanguageOnlyIfDifferent = Config.AutoSubtitleOnlyIfDifferent
-					};
-
-					pickerParameter.Value = PickerStorage.SerializePicker(convertedPicker);
-					pickerInsertCommand.ExecuteNonQuery();
-				}
-
-				Config.LastPickerIndex = 1;
-			}
-		}
-
-		private static void UpgradeDatabaseTo28(int oldDatabaseVersion)
-		{
-			// Upgrade from XML to JSON
-			Config.EnsureInitialized(connection);
-
-			// Presets
-			ExecuteNonQuery("CREATE TABLE presetsJson (json TEXT)", connection);
-
-			var selectPresetsCommand = new SQLiteCommand("SELECT * FROM presetsXml", connection);
-
-			using (SQLiteDataReader reader = selectPresetsCommand.ExecuteReader())
-			using (var presetInsertCommand = new SQLiteCommand("INSERT INTO presetsJson(json) VALUES (?)", connection))
-			{
-				var presetParameter = new SQLiteParameter();
-				presetInsertCommand.Parameters.Add(presetParameter);
-
-				XmlSerializer presetSerializer = new XmlSerializer(typeof(Preset));
-				while (reader.Read())
-				{
-					string presetXml = reader.GetString("xml");
-					var preset = PresetStorage.ParsePresetXml(presetXml, presetSerializer);
-
-					// Bring them all up to 28. The preset upgrade will cover them after that.
-					PresetStorage.UpgradeEncodingProfile(preset.EncodingProfile, oldDatabaseVersion, 28);
-
-					presetParameter.Value = PresetStorage.SerializePreset(preset);
-					presetInsertCommand.ExecuteNonQuery();
-				}
-			}
-
-			ExecuteNonQuery("DROP TABLE presetsXml", connection);
-
-			// Pickers
-			if (oldDatabaseVersion >= 27)
-			{
-				ExecuteNonQuery("CREATE TABLE pickersJson (json TEXT)", connection);
-
-				var selectPickersCommand = new SQLiteCommand("SELECT * FROM pickersXml", connection);
-
-				using (SQLiteDataReader reader = selectPickersCommand.ExecuteReader())
-				using (var pickerInsertCommand = new SQLiteCommand("INSERT INTO pickersJson(json) VALUES (?)", connection))
-				{
-					var pickerParameter = new SQLiteParameter();
-					pickerInsertCommand.Parameters.Add(pickerParameter);
-
-					XmlSerializer pickerSerializer = new XmlSerializer(typeof(Picker));
-					while (reader.Read())
-					{
-						string pickerXml = reader.GetString("xml");
-						var picker = PickerStorage.ParsePickerXml(pickerXml, pickerSerializer);
-
-						pickerParameter.Value = PickerStorage.SerializePicker(picker);
-						pickerInsertCommand.ExecuteNonQuery();
-					}
-				}
-
-				ExecuteNonQuery("DROP TABLE pickersXml", connection);
-			}
-
-			// Saved jobs on queue
-			string xmlEncodeJobs = Config.EncodeJobs2;
-			if (!string.IsNullOrEmpty(xmlEncodeJobs))
-			{
-				XmlSerializer encodeJobSerializer = new XmlSerializer(typeof(EncodeJobPersistGroup));
-
-				using (var stringReader = new StringReader(xmlEncodeJobs))
-				using (var xmlReader = new XmlTextReader(stringReader))
-				{
-					IList<EncodeJobWithMetadata> convertedJobs = new List<EncodeJobWithMetadata>();
-
-					var jobPersistGroup = encodeJobSerializer.Deserialize(xmlReader) as EncodeJobPersistGroup;
-					if (jobPersistGroup != null)
-					{
-						foreach (var job in jobPersistGroup.EncodeJobs)
-						{
-							convertedJobs.Add(job);
-						}
-					}
-
-					Config.SetLegacy("EncodeJobs2", EncodeJobStorage.SerializeJobs(convertedJobs));
-				}
-			}
-
-			// Window placement
-			var windowPlacementKeys = new []
-			{
-				"MainWindowPlacement", 
-				"EncodingDialogPlacement", 
-				"ChapterMarkersDialogPlacement", 
-				"PreviewWindowPlacement", 
-				"QueueTitlesDialogPlacement2", 
-				"AddAutoPauseProcessDialogPlacement",
-				"OptionsDialogPlacement",
-				"EncodeDetailsWindowPlacement",
-				"PickerWindowPlacement",
-				"LogWindowPlacement"
-			};
-
-			Encoding encoding = new UTF8Encoding();
-			XmlSerializer serializer = new XmlSerializer(typeof(WINDOWPLACEMENT));
-			foreach (string key in windowPlacementKeys)
-			{
-				UpgradeWindowPlacementConfig(key, encoding, serializer);
-			}
-
-			Config.EnsureInitialized(connection);
-		}
-
-		private static void UpgradeDatabaseTo33()
-		{
-			string message = MainRes.SizingPresetUpgradeWarning;
-			StaticResolver.Resolve<IMessageBoxService>().Show(message);
-			StaticResolver.Resolve<IMessageBoxService>().Show(message);
-		}
-
-		private static void UpgradeDatabaseTo35()
-		{
-			// Move settings into a new table with PRIMARY KEY constraint on name
-			ExecuteNonQuery("ALTER TABLE settings RENAME TO settingsOld", connection);
-			ExecuteNonQuery(
-				"CREATE TABLE settings (" +
-				"name TEXT PRIMARY KEY, " +
-				"value TEXT)", connection);
-
-			ExecuteNonQuery("INSERT INTO settings SELECT * FROM settingsOld", connection);
-			ExecuteNonQuery("DROP TABLE settingsOld", connection);
-		}
-
 		private static void UpgradeDatabaseTo36()
 		{
 			ExecuteNonQuery(
@@ -466,22 +272,6 @@ namespace VidCoder.Model
 				"name TEXT, " +
 				"parentId INTEGER, " +
 				"isExpanded INTEGER)", connection);
-		}
-
-		private static void UpgradeWindowPlacementConfig(string configKey, Encoding encoding, XmlSerializer serializer)
-		{
-			string oldValue = DatabaseConfig.Get(configKey, string.Empty, connection);
-			if (!string.IsNullOrEmpty(oldValue))
-			{
-				WINDOWPLACEMENT placement;
-				byte[] xmlBytes = encoding.GetBytes(oldValue);
-				using (MemoryStream memoryStream = new MemoryStream(xmlBytes))
-				{
-					placement = (WINDOWPLACEMENT)serializer.Deserialize(memoryStream);
-				}
-
-				Config.SetLegacy(configKey, JsonConvert.SerializeObject(placement));
-			}
 		}
 
 		private static void UpgradeEncodingProfiles(int databaseVersion)

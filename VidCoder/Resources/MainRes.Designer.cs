@@ -306,6 +306,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your data is too old to upgrade. Run VidCoder {0} once to upgrade it to a compatible version, then try this version again..
+        /// </summary>
+        public static string DataTooOldRunVidCoderVersion {
+            get {
+                return ResourceManager.GetString("DataTooOldRunVidCoderVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete {0} source file(s)/folder(s)?.
         /// </summary>
         public static string DeleteSourceFilesConfirmationMessage {

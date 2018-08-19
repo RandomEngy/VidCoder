@@ -632,4 +632,7 @@
     <value>No subtitles</value>
     <comment>Summary text for when no subtitle tracks are found on the source and no external subtitles have been added</comment>
   </data>
+  <data name="DataTooOldRunVidCoderVersion" xml:space="preserve">
+    <value>Your data is too old to upgrade. Run VidCoder {0} once to upgrade it to a compatible version, then try this version again.</value>
+  </data>
 </root>

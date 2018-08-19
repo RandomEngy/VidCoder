@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml.Serialization;
 using Newtonsoft.Json;
 using VidCoderCommon.JsonConverters;
 
@@ -11,15 +10,6 @@ namespace VidCoderCommon.Model
 	/// </summary>
 	public class VCJob
 	{
-		[JsonIgnore]
-		[XmlElement("SourceType")]
-		public string XmlSourceType
-		{
-			get { return this.SourceType.ToString(); }
-			set { this.SourceType = SourceTypeConverter.ParseSourceTypeString(value); }
-		}
-
-		[XmlIgnore]
 		public SourceType SourceType { get; set; }
 		public string SourcePath { get; set; }
 
@@ -56,15 +46,6 @@ namespace VidCoderCommon.Model
 		public VCProfile EncodingProfile { get; set; }
 
 		// The length of video to encode.
-		[XmlIgnore]
 		public TimeSpan Length { get; set; }
-
-		[JsonIgnore]
-		[XmlElement("Length")]
-		public string XmlLength
-		{
-			get { return this.Length.ToString(); }
-			set { this.Length = TimeSpan.Parse(value); }
-		}
 	}
 }

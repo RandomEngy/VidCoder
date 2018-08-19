@@ -34,7 +34,7 @@ namespace VidCoder.Services
 				}
 
 				Preset preset = PresetStorage.LoadPresetFile(presetFile);
-				if (preset == null || string.IsNullOrWhiteSpace(preset.Name))
+				if (string.IsNullOrWhiteSpace(preset?.Name))
 				{
 					throw new ArgumentException("Preset file was invalid.");
 				}

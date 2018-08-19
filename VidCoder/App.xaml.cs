@@ -86,7 +86,17 @@ namespace VidCoder
 
 			JsonSettings.SetDefaultSerializationSettings();
 
-			// Takes about 50ms
+			Ioc.SetUp();
+
+			try
+			{
+				Database.Initialize();
+			}
+			catch (Exception)
+			{
+				Environment.Exit(0);
+			}
+
 			Config.EnsureInitialized(Database.Connection);
 
 			var interfaceLanguageCode = Config.InterfaceLanguageCode;
@@ -100,8 +110,6 @@ namespace VidCoder
 			}
 
 			Stopwatch sw = Stopwatch.StartNew();
-
-			Ioc.SetUp();
 
 			if (Config.UseCustomPreviewFolder && FileUtilities.HasWriteAccessOnFolder(Config.PreviewOutputFolder))
 			{

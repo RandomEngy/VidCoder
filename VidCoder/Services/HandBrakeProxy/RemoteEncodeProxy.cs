@@ -8,14 +8,12 @@ using System.Linq;
 using System.ServiceModel;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
 using HandBrake.Interop.Interop.EventArgs;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoderCommon;
 using VidCoderCommon.Model;
-using Timer = System.Timers.Timer;
 
 namespace VidCoder
 {
@@ -35,9 +33,6 @@ namespace VidCoder
 
 		private ManualResetEventSlim encodeStartEvent;
 		private ManualResetEventSlim encodeEndEvent;
-
-		[XmlIgnore]
-		public bool IsEncodeStarted { get; private set; }
 
 		public void StartEncode(
 			VCJob job,
@@ -135,7 +130,6 @@ namespace VidCoder
 
 		public void OnEncodeStarted()
 		{
-			this.IsEncodeStarted = true;
 			this.EncodeStarted?.Invoke(this, EventArgs.Empty);
 
 			this.encodeStartEvent.Set();

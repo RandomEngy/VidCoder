@@ -611,7 +611,7 @@ namespace VidCoder.Services
 					string presetFileName = FileService.Instance.GetFileNameLoad(
 						null,
 						MainRes.ImportQueueFilePickerTitle,
-						CommonRes.QueueFileFilter + "|*.xml;*.vjqueue");
+						CommonRes.QueueFileFilter + "|*.vjqueue");
 					if (presetFileName != null)
 					{
 						try
