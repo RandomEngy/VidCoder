@@ -63,12 +63,16 @@ namespace VidCoderCommon.Model
 		public VCPadding Padding
 		{
 			get { return this.padding; }
-
 			set { this.padding = value ?? new VCPadding(); }
 		}
 
+		private string padColor;
 		[JsonProperty]
-		public string PadColor { get; set; }
+		public string PadColor
+		{
+			get => this.padColor;
+			set => this.RaiseAndSetIfChanged(ref this.padColor, value);
+		}
 
 		[JsonProperty]
 		public VCPaddingMode PaddingMode { get; set; }

@@ -84,8 +84,10 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="ColorPickerWPF">
+      <Version>1.0.9</Version>
+    </PackageReference>
     <PackageReference Include="DesktopBridge.Helpers" Version="1.1" />
-    <PackageReference Include="Extended.Wpf.Toolkit" Version="2.9" />
     <PackageReference Include="Fluent.Ribbon">
       <Version>6.1.0.326</Version>
     </PackageReference>

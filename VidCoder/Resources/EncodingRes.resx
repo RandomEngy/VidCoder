@@ -1150,4 +1150,7 @@ Lapsharp sharpens using convolution kernels approximating Laplacian edge filters
   <data name="NVEncPreset_hp" xml:space="preserve">
     <value>High Performance</value>
   </data>
+  <data name="PickColorButton" xml:space="preserve">
+    <value>Pick color...</value>
+  </data>
 </root>

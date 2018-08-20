@@ -376,20 +376,23 @@
 
 				<StackPanel
 					Margin="0 10 0 0"
+					VerticalAlignment="Center"
 					Orientation="Horizontal"
 					Visibility="{Binding PadColorEnabled,
 					                     Converter={StaticResource VisibilityConverter}}">
 					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.PadColorLabel}" />
-					<xctk:ColorPicker
-						Name="colorPicker"
-						Width="75"
-						Margin="6 0 0 0"
+					<Grid
+						Width="20"
+						Height="20"
+						Margin="8 0 0 0"
 						VerticalAlignment="Center"
-						AdvancedButtonHeader="{x:Static res:EncodingRes.ColorPickerAdvancedButton}"
-						SelectedColor="{Binding PadColor}"
-						ShowAvailableColors="False"
-						StandardButtonHeader="{x:Static res:EncodingRes.ColorPickerStandardButton}"
-						StandardColorsHeader="{x:Static res:EncodingRes.ColorPickerStandardColorsHeader}" />
+						Background="{Binding PadBrush}" />
+
+					<Button
+						Margin="8 0 0 0"
+						Padding="6 2"
+						Command="{Binding PickPadColor}"
+						Content="{x:Static res:EncodingRes.PickColorButton}" />
 				</StackPanel>
 			</StackPanel>
 
@@ -436,44 +439,6 @@
 									</DataTemplate>
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
-
-							<!--<Grid Grid.Column="1">
-								<Grid.RowDefinitions>
-									<RowDefinition Height="Auto" />
-									<RowDefinition Height="Auto" />
-									<RowDefinition Height="Auto" />
-								</Grid.RowDefinitions>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto" />
-									<ColumnDefinition Width="4" />
-									<ColumnDefinition Width="173*" />
-								</Grid.ColumnDefinitions>
-								<TextBlock
-									Grid.Row="0"
-									Grid.Column="0"
-									Text="{x:Static res:EncodingRes.StorageResolutionLabel}" />
-								<TextBlock
-									Grid.Row="1"
-									Grid.Column="0"
-									Text="{x:Static res:EncodingRes.PixelAspectRatioLabel}" />
-								<TextBlock
-									Grid.Row="2"
-									Grid.Column="0"
-									Text="{x:Static res:EncodingRes.DisplayResolutionLabel}" />
-
-								<TextBlock
-									Grid.Row="0"
-									Grid.Column="2"
-									Text="{Binding InputSourceResolution}" />
-								<TextBlock
-									Grid.Row="1"
-									Grid.Column="2"
-									Text="{Binding InputPixelAspectRatio}" />
-								<TextBlock
-									Grid.Row="2"
-									Grid.Column="2"
-									Text="{Binding InputDisplayResolution}" />
-							</Grid>-->
 						</Grid>
 					</Border>
 				</Grid>
@@ -517,44 +482,6 @@
 									</DataTemplate>
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
-
-							<!--<Grid Grid.Column="1">
-								<Grid.RowDefinitions>
-									<RowDefinition Height="Auto" />
-									<RowDefinition Height="Auto" />
-									<RowDefinition Height="Auto" />
-								</Grid.RowDefinitions>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto" />
-									<ColumnDefinition Width="4" />
-									<ColumnDefinition Width="173*" />
-								</Grid.ColumnDefinitions>
-								<TextBlock
-									Grid.Row="0"
-									Grid.Column="0"
-									Text="{x:Static res:EncodingRes.StorageResolutionLabel}" />
-								<TextBlock
-									Grid.Row="1"
-									Grid.Column="0"
-									Text="{x:Static res:EncodingRes.PixelAspectRatioLabel}" />
-								<TextBlock
-									Grid.Row="2"
-									Grid.Column="0"
-									Text="{x:Static res:EncodingRes.DisplayResolutionLabel}" />
-
-								<TextBlock
-									Grid.Row="0"
-									Grid.Column="2"
-									Text="{Binding OutputSourceResolution}" />
-								<TextBlock
-									Grid.Row="1"
-									Grid.Column="2"
-									Text="{Binding OutputPixelAspectRatio}" />
-								<TextBlock
-									Grid.Row="2"
-									Grid.Column="2"
-									Text="{Binding OutputDisplayResolution}" />
-							</Grid>-->
 						</Grid>
 					</Border>
 				</Grid>

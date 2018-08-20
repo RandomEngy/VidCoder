@@ -171,6 +171,7 @@ $outputDirectoryFiles = @(
     "VidCoderCLI.pdb",
     "VidCoderWindowlessCLI.exe",
     "VidCoderWindowlessCLI.pdb",
+    "ColorPickerWPF.dll",
     "ControlzEx.dll",
     "ControlzEx.pdb",
     "DesktopBridge.Helpers.dll",
@@ -193,6 +194,7 @@ $outputDirectoryFiles = @(
     "System.Reactive.Windows.Threading.dll",
     "System.Windows.Interactivity.dll",
     "Ude.dll",
+    "WriteableBitmapEx.Wpf.dll",
     "Xceed.Wpf.Toolkit.dll")
 
 foreach ($outputDirectoryFile in $outputDirectoryFiles) {

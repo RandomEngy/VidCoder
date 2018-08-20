@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reactive.Linq;
+using System.Windows.Input;
 using System.Windows.Media;
+using ColorPickerWPF;
 using Microsoft.AnyContainer;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -172,6 +174,13 @@ namespace VidCoder.ViewModel
 			{
 				return paddingMode != VCPaddingMode.None;
 			}).ToProperty(this, x => x.PadColorEnabled, out this.padColorEnabled);
+
+			// PadBrush
+			this.WhenAnyValue(x => x.Profile.PadColor)
+				.Select(padColor =>
+				{
+					return new SolidColorBrush(ColorUtilities.ToWindowsColor(this.Profile.PadColor));
+				}).ToProperty(this, x => x.PadBrush, out this.padBrush);
 
 			// CroppingUIEnabled
 			this.WhenAnyValue(x => x.CroppingType, croppingType =>
@@ -560,8 +569,26 @@ namespace VidCoder.ViewModel
 			set { this.UpdateProfileProperty(nameof(this.Profile.PadColor), ColorUtilities.ToHexString(value)); }
 		}
 
+		private ObservableAsPropertyHelper<Brush> padBrush;
+		public Brush PadBrush => this.padBrush.Value;
+
 		private ObservableAsPropertyHelper<bool> padColorEnabled;
 		public bool PadColorEnabled => this.padColorEnabled.Value;
+
+		private ReactiveCommand pickPadColor;
+		public ICommand PickPadColor
+		{
+			get
+			{
+				return this.pickPadColor ?? (this.pickPadColor = ReactiveCommand.Create(() =>
+				{
+					if (ColorPickerWindow.ShowDialog(out Color color))
+					{
+						this.UpdateProfileProperty(nameof(this.Profile.PadColor), ColorUtilities.ToHexString(color));
+					}
+				}));
+			}
+		}
 
 		public int Modulus
 		{

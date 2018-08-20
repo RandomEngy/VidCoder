@@ -1775,6 +1775,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pick color....
+        /// </summary>
+        public static string PickColorButton {
+            get {
+                return ResourceManager.GetString("PickColorButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pixel Aspect Ratio:.
         /// </summary>
         public static string PixelAspectRatioLabel {
