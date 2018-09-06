@@ -1329,6 +1329,8 @@ namespace VidCoder.Services
 					break;
 			}
 
+			encodeLogger.Log("  Preset: " + jobViewModel.PresetName);
+
 			jobViewModel.EncodeProxy = Utilities.CreateEncodeProxy();
 			jobViewModel.EncodeProxy.EncodeProgress += (sender, args) =>
 			{
