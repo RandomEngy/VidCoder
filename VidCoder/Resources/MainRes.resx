@@ -635,4 +635,10 @@
   <data name="DataTooOldRunVidCoderVersion" xml:space="preserve">
     <value>Your data is too old to upgrade. Run VidCoder {0} once to upgrade it to a compatible version, then try this version again.</value>
   </data>
+  <data name="BitrateColumn" xml:space="preserve">
+    <value>Bitrate</value>
+  </data>
+  <data name="SampleRateColumn" xml:space="preserve">
+    <value>Sample Rate</value>
+  </data>
 </root>

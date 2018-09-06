@@ -24,11 +24,6 @@
 	WindowStartupLocation="CenterOwner"
 	mc:Ignorable="d">
 	<Window.Resources>
-		<Style x:Key="EmphasizedTitle" TargetType="TextBlock">
-			<Setter Property="VerticalAlignment" Value="Center" />
-			<Setter Property="Margin" Value="4 2 4 2" />
-			<Setter Property="FontWeight" Value="Bold" />
-		</Style>
 		<converters:IntVisibilityConverter x:Key="IntVisibilityConverter" />
 	</Window.Resources>
 	<Grid>

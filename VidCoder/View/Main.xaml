@@ -31,6 +31,7 @@
 	TextOptions.TextFormattingMode="Display"
 	mc:Ignorable="d">
 	<Window.Resources>
+		<converters:SampleRateDisplayConverter x:Key="SampleRateDisplayConverter" />
 		<converters:ChapterVMConverter x:Key="ChapterVMConverter" />
 		<Color x:Key="SectionBackgroundTopColor">#F5F5F5</Color>
 		<Color x:Key="SectionBackgroundBottomColor">#EAEAEA</Color>
@@ -38,7 +39,7 @@
 			<GradientStop Offset="0.0" Color="{StaticResource SectionBackgroundTopColor}" />
 			<GradientStop Offset="1.0" Color="{StaticResource SectionBackgroundBottomColor}" />
 		</LinearGradientBrush>
-		<Style x:Key="SectionHeader" TargetType="TextBlock">
+		<Style x:Key="MainSectionHeader" TargetType="TextBlock">
 			<Setter Property="FontWeight" Value="Bold" />
 			<Setter Property="FontSize" Value="14" />
 			<Setter Property="Margin" Value="4" />
@@ -47,11 +48,6 @@
 			<Setter Property="VerticalAlignment" Value="Center" />
 			<Setter Property="Margin" Value="4 2 4 2" />
 		</Style>
-		<Style x:Key="EmphasizedTitle" TargetType="TextBlock">
-			<Setter Property="VerticalAlignment" Value="Center" />
-			<Setter Property="Margin" Value="4 2 4 2" />
-			<Setter Property="FontWeight" Value="Bold" />
-		</Style>
 		<Style x:Key="MenuSeparatorStyle" TargetType="Rectangle">
 			<Setter Property="Height" Value="1" />
 			<Setter Property="Fill" Value="#CCCCCC" />
@@ -59,6 +55,7 @@
 			<Setter Property="Margin" Value="30 3 0 3" />
 		</Style>
 		<Style x:Key="SourceTrack" TargetType="TextBlock">
+			<Setter Property="Margin" Value="0 0 0 1" />
 			<Style.Triggers>
 				<DataTrigger Binding="{Binding Selected}" Value="True">
 					<Setter Property="FontWeight" Value="Bold" />
@@ -1135,12 +1132,33 @@
 										<GridViewColumn x:Name="audioNameColumn" Header="{x:Static res:SubtitleRes.NameColumn}">
 											<GridViewColumn.CellTemplate>
 												<DataTemplate DataType="viewmodel:AudioTrackViewModel">
-													<Grid Height="22">
-														<TextBlock
-															VerticalAlignment="Center"
-															Style="{StaticResource SourceTrack}"
-															Text="{Binding}" />
-													</Grid>
+													<TextBlock
+														VerticalAlignment="Center"
+														Style="{StaticResource SourceTrack}"
+														Text="{Binding}" />
+												</DataTemplate>
+											</GridViewColumn.CellTemplate>
+										</GridViewColumn>
+										<GridViewColumn x:Name="audioBitrateColumn" Header="{x:Static res:MainRes.BitrateColumn}">
+											<GridViewColumn.CellTemplate>
+												<DataTemplate DataType="viewmodel:AudioTrackViewModel">
+													<TextBlock
+														MinWidth="40"
+														VerticalAlignment="Center"
+														Style="{StaticResource SourceTrack}"
+														Text="{Binding SourceBitrate}" />
+												</DataTemplate>
+											</GridViewColumn.CellTemplate>
+										</GridViewColumn>
+										<GridViewColumn x:Name="audioSampleRateColumn" Header="{x:Static res:MainRes.SampleRateColumn}">
+											<GridViewColumn.CellTemplate>
+												<DataTemplate DataType="viewmodel:AudioTrackViewModel">
+													<TextBlock
+														MinWidth="65"
+														VerticalAlignment="Center"
+														Style="{StaticResource SourceTrack}"
+														Text="{Binding AudioTrack.SampleRate,
+														               Converter={StaticResource SampleRateDisplayConverter}}" />
 												</DataTemplate>
 											</GridViewColumn.CellTemplate>
 										</GridViewColumn>
@@ -1602,7 +1620,7 @@
 					Margin="12 8 0 8"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Center"
-					Style="{StaticResource SectionHeader}"
+					Style="{StaticResource MainSectionHeader}"
 					Text="{x:Static res:MainRes.DestinationLabel}" />
 				<Grid
 					Grid.Column="1"

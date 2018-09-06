@@ -286,6 +286,8 @@ namespace VidCoder.View
 		{
 			ResizeGridViewColumn(this.audioSelectedColumn);
 			ResizeGridViewColumn(this.audioNameColumn);
+			ResizeGridViewColumn(this.audioBitrateColumn);
+			ResizeGridViewColumn(this.audioSampleRateColumn);
 			ResizeGridViewColumn(this.audioRemoveDuplicateColumn);
 		}
 

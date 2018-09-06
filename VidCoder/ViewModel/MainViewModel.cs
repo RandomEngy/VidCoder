@@ -1001,6 +1001,11 @@ namespace VidCoder.ViewModel
 
 				// Expand/collapse sections to keep everything visible
 				this.SetSectionExpansion();
+
+				if (this.AudioExpanded)
+				{
+					this.View.ResizeAudioColumns();
+				}
 			}
 		}
 

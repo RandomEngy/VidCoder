@@ -84,7 +84,9 @@ namespace VidCoder.ViewModel
 
 		public SourceAudioTrack AudioTrack { get; set; }
 
-	    public override string ToString()
+		public string SourceBitrate => (this.AudioTrack.BitRate / 1000).ToString();
+
+		public override string ToString()
 	    {
             return this.TrackNumber + " " + this.AudioTrack.Description;
         }

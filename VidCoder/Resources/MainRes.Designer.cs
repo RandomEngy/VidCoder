@@ -133,6 +133,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bitrate.
+        /// </summary>
+        public static string BitrateColumn {
+            get {
+                return ResourceManager.GetString("BitrateColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CBR Auto.
         /// </summary>
         public static string CbrAuto {
@@ -1296,6 +1305,15 @@ namespace VidCoder.Resources {
         public static string RibbonSettingsGroupLabel {
             get {
                 return ResourceManager.GetString("RibbonSettingsGroupLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sample Rate.
+        /// </summary>
+        public static string SampleRateColumn {
+            get {
+                return ResourceManager.GetString("SampleRateColumn", resourceCulture);
             }
         }
         
