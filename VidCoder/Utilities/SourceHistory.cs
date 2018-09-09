@@ -7,7 +7,7 @@ namespace VidCoder
 {
 	public static class SourceHistory
 	{
-		private const int MaxHistoryLength = 2;
+		private const int MaxHistoryLength = 4;
 
 		public static void AddToHistory(string sourcePath)
 		{
@@ -23,7 +23,10 @@ namespace VidCoder
 
 			if (history.Count > MaxHistoryLength)
 			{
-				history.RemoveAt(history.Count - 1);
+				for (int i = history.Count - 1; i >= MaxHistoryLength; i--)
+				{
+					history.RemoveAt(i);
+				}
 			}
 
 			Config.SourceHistory = string.Join("|", history);
@@ -41,6 +44,14 @@ namespace VidCoder
 			}
 			
 			return new List<string>(historySetting.Split('|'));
-		} 
+		}
+
+		/// <summary>
+		/// Clears the source history.
+		/// </summary>
+		public static void Clear()
+		{
+			Config.SourceHistory = "";
+		}
 	}
 }

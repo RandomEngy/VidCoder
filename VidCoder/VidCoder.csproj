@@ -402,6 +402,7 @@
     <Compile Include="Extensions\VCProfileExtensions.cs" />
     <Compile Include="Extensions\VersionExtensions.cs" />
     <Compile Include="Extensions\WindowExtensions.cs" />
+    <Compile Include="LayoutPanels\TruncatePanel.cs" />
     <Compile Include="Model\Config\ConfigObservable.cs" />
     <Compile Include="Model\EncodeJobsXml.cs" />
     <Compile Include="Model\EncodeResultStatus.cs" />

@@ -641,4 +641,11 @@
   <data name="SampleRateColumn" xml:space="preserve">
     <value>Sample Rate</value>
   </data>
+  <data name="ClearRecentFilesButtonToolTip" xml:space="preserve">
+    <value>Clear recent files</value>
+  </data>
+  <data name="OpenSourceLabel" xml:space="preserve">
+    <value>Open</value>
+    <comment>Label on top of the different options for opening video source on the startup screen.</comment>
+  </data>
 </root>

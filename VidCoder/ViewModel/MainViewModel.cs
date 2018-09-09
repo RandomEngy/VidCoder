@@ -11,6 +11,7 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.Json.Scan;
 using HandBrake.Interop.Interop.Model.Encoding;
@@ -2477,6 +2478,19 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private ReactiveCommand clearRecentFiles;
+		public ICommand ClearRecentFiles
+		{
+			get
+			{
+				return this.clearRecentFiles ?? (this.clearRecentFiles = ReactiveCommand.Create(() =>
+				{
+					SourceHistory.Clear();
+					this.RefreshRecentSourceOptions();
+				}));
+			}
+		}
+
 		private ReactiveCommand closeVideoSource;
 		public ReactiveCommand CloseVideoSource
 		{
@@ -3477,6 +3491,8 @@ namespace VidCoder.ViewModel
 					this.recentSourceOptions.Add(new SourceOptionViewModel(new SourceOption { Type = SourceType.DiscVideoFolder }, recentSourcePath));
 				}
 			}
+
+			this.RaisePropertyChanged(nameof(this.RecentSourcesVisible));
 		}
 
 		private TimeSpan GetChapterRangeDuration(int startChapter, int endChapter)

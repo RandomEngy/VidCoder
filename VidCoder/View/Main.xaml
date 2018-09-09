@@ -10,6 +10,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:fluent="urn:fluent-ribbon"
 	xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+	xmlns:layoutPanels="clr-namespace:VidCoder.LayoutPanels"
 	xmlns:local="clr-namespace:VidCoder"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:model="clr-namespace:VidCoder.Model"
@@ -390,7 +391,7 @@
 			<RowDefinition
 				Name="sourceRow"
 				Height="2*"
-				MinHeight="150" />
+				MinHeight="160" />
 
 			<!--  GridSplitter  -->
 			<RowDefinition Height="4" />
@@ -561,142 +562,169 @@
 			</fluent:RibbonTabItem>
 		</fluent:Ribbon>
 
+		<!--  Video choices on load  -->
+		<Grid
+			Grid.Row="1"
+			MinWidth="220"
+			Margin="0"
+			VerticalAlignment="Stretch"
+			Visibility="{Binding VideoSourceState,
+			                     Converter={StaticResource EnumVisibilityConverter},
+			                     ConverterParameter={x:Static model:VideoSourceState.Choices}}">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+
+				<TextBlock
+					Margin="22 16 0 1"
+					Style="{StaticResource DescriptiveText}"
+					Text="{x:Static res:MainRes.OpenSourceLabel}" />
+				<ItemsControl
+					Grid.Row="1"
+					MinWidth="220"
+					MinHeight="105"
+					ItemsSource="{Binding SourceOptions}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Button
+								Padding="16 6 16 6"
+								HorizontalContentAlignment="Left"
+								Command="{Binding ChooseSource}"
+								Style="{StaticResource BorderlessButtonStyle}"
+								UseLayoutRounding="True">
+								<StackPanel Orientation="Horizontal">
+									<Image
+										Width="16"
+										Height="16"
+										Margin="0 2 0 2"
+										Source="{Binding Image}"
+										Visibility="{Binding ImageVisible,
+										                     Converter={StaticResource VisibilityConverter}}" />
+									<TextBlock
+										Margin="6 0 0 0"
+										FontSize="14"
+										Style="{StaticResource PlainTitle}"
+										Text="{Binding Text}" />
+								</StackPanel>
+							</Button>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+					<ItemsControl.Template>
+						<ControlTemplate>
+							<StackPanel
+								Margin="2"
+								IsItemsHost="True"
+								Orientation="Vertical" />
+						</ControlTemplate>
+					</ItemsControl.Template>
+				</ItemsControl>
+			</Grid>
+
+			<Grid
+				Grid.Column="1"
+				Grid.Row="0"
+				Margin="8 14 0 0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition MinHeight="20" />
+				</Grid.RowDefinitions>
+
+				<StackPanel Orientation="Horizontal" Visibility="{Binding RecentSourcesVisible, Converter={StaticResource VisibilityConverter}}">
+					<TextBlock
+						Margin="10 0 0 1"
+						Style="{StaticResource DescriptiveText}"
+						Text="{x:Static res:MainRes.Recent}" />
+
+					<Button
+						Width="20"
+						Height="20"
+						Margin="4 0 0 0"
+						HorizontalAlignment="Right"
+						VerticalAlignment="Top"
+						Command="{Binding ClearRecentFiles}"
+						Content="{x:Static res:MainRes.ClearRecentFilesButtonToolTip}"
+						Style="{StaticResource RemoveButtonStyle}" />
+				</StackPanel>
+
+				<ItemsControl
+					Grid.Row="1"
+					MinWidth="220"
+					ItemsSource="{Binding RecentSourceOptions}"
+					Visibility="{Binding RecentSourcesVisible,
+					                     Converter={StaticResource VisibilityConverter}}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Button
+								Padding="0 0 16 0"
+								HorizontalContentAlignment="Left"
+								Command="{Binding ChooseSource}"
+								Style="{StaticResource BorderlessButtonStyle}">
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition />
+									</Grid.ColumnDefinitions>
+									<Image
+										Grid.Column="0"
+										Width="16"
+										Height="16"
+										Margin="4 2 0 2"
+										Source="{Binding Image}"
+										UseLayoutRounding="True"
+										Visibility="{Binding ImageVisible,
+										                     Converter={StaticResource VisibilityConverter}}" />
+									<controls:PathTextBlock
+										Grid.Column="1"
+										Margin="4"
+										Text="{Binding Text,
+										               Mode=OneWay}" />
+								</Grid>
+							</Button>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+					<ItemsControl.Template>
+						<ControlTemplate>
+							<StackPanel IsItemsHost="True" Orientation="Vertical" />
+						</ControlTemplate>
+					</ItemsControl.Template>
+				</ItemsControl>
+			</Grid>
+			<TextBlock
+				Grid.Row="1"
+				Grid.Column="0"
+				Grid.ColumnSpan="2"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center"
+				Style="{StaticResource DescriptiveText}"
+				Text="{x:Static res:MainRes.DragFilesHereLabel}" />
+		</Grid>
+
 		<!--  Source area  -->
 		<ScrollViewer
 			Name="sourceScrollViewer"
 			Grid.Row="1"
 			MinHeight="138"
 			Margin="0"
-			VerticalScrollBarVisibility="Auto">
+			VerticalScrollBarVisibility="Auto"
+			Visibility="{Binding VideoSourceState,
+			                     Converter={StaticResource EnumVisibilityConverter},
+			                     ConverterParameter={x:Static model:VideoSourceState.ScannedSource}}">
 			<Grid Background="{StaticResource SectionBackground}">
-				<!--  Video choices on load  -->
-				<Grid
-					MinWidth="220"
-					MinHeight="105"
-					Margin="26 0"
-					VerticalAlignment="Center"
-					Visibility="{Binding VideoSourceState,
-					                     Converter={StaticResource EnumVisibilityConverter},
-					                     ConverterParameter={x:Static model:VideoSourceState.Choices}}">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto" />
-						<ColumnDefinition />
-					</Grid.ColumnDefinitions>
-					<ItemsControl
-						MinWidth="220"
-						MinHeight="105"
-						ItemsSource="{Binding SourceOptions}">
-						<ItemsControl.ItemTemplate>
-							<DataTemplate>
-								<Button
-									HorizontalContentAlignment="Left"
-									Command="{Binding ChooseSource}"
-									UseLayoutRounding="True">
-									<StackPanel Orientation="Horizontal">
-										<Image
-											Width="16"
-											Height="16"
-											Margin="4 2 0 2"
-											Source="{Binding Image}"
-											Visibility="{Binding ImageVisible,
-											                     Converter={StaticResource VisibilityConverter}}" />
-										<TextBlock
-											Margin="4"
-											Style="{StaticResource PlainTitle}"
-											Text="{Binding Text}" />
-									</StackPanel>
-								</Button>
-							</DataTemplate>
-						</ItemsControl.ItemTemplate>
-						<ItemsControl.Template>
-							<ControlTemplate>
-								<StackPanel
-									Margin="2"
-									IsItemsHost="True"
-									Orientation="Vertical" />
-							</ControlTemplate>
-						</ItemsControl.Template>
-					</ItemsControl>
-					<Grid Grid.Column="1">
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto" />
-							<RowDefinition />
-						</Grid.RowDefinitions>
 
-						<!--  Recently opened sources  -->
-						<Grid
-							Margin="0 0 0 0"
-							HorizontalAlignment="Center"
-							UseLayoutRounding="True"
-							Visibility="{Binding RecentSourcesVisible,
-							                     Converter={StaticResource VisibilityConverter}}">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto" />
-								<RowDefinition />
-							</Grid.RowDefinitions>
-							<TextBlock
-								Margin="10 0 0 0"
-								Style="{StaticResource DescriptiveText}"
-								Text="{x:Static res:MainRes.Recent}" />
-
-							<ItemsControl
-								Grid.Row="1"
-								MinWidth="220"
-								ItemsSource="{Binding RecentSourceOptions}">
-								<ItemsControl.ItemTemplate>
-									<DataTemplate>
-										<Button HorizontalContentAlignment="Left" Command="{Binding ChooseSource}">
-											<Grid>
-												<Grid.ColumnDefinitions>
-													<ColumnDefinition Width="Auto" />
-													<ColumnDefinition />
-												</Grid.ColumnDefinitions>
-												<Image
-													Grid.Column="0"
-													Width="16"
-													Height="16"
-													Margin="4 2 0 2"
-													Source="{Binding Image}"
-													UseLayoutRounding="True"
-													Visibility="{Binding ImageVisible,
-													                     Converter={StaticResource VisibilityConverter}}" />
-												<controls:PathTextBlock
-													Grid.Column="1"
-													Margin="4"
-													Text="{Binding Text,
-													               Mode=OneWay}" />
-											</Grid>
-										</Button>
-									</DataTemplate>
-								</ItemsControl.ItemTemplate>
-								<ItemsControl.Template>
-									<ControlTemplate>
-										<StackPanel
-											Margin="2"
-											IsItemsHost="True"
-											Orientation="Vertical" />
-									</ControlTemplate>
-								</ItemsControl.Template>
-							</ItemsControl>
-						</Grid>
-
-						<TextBlock
-							Grid.Row="1"
-							HorizontalAlignment="Center"
-							VerticalAlignment="Center"
-							Style="{StaticResource DescriptiveText}"
-							Text="{x:Static res:MainRes.DragFilesHereLabel}" />
-					</Grid>
-
-				</Grid>
 
 				<!--  Video, audio, subtitles, chapters grid  -->
-				<Grid
-					Margin="0 8 0 0"
-					VerticalAlignment="Top"
-					Visibility="{Binding VideoSourceState,
-					                     Converter={StaticResource EnumVisibilityConverter},
-					                     ConverterParameter={x:Static model:VideoSourceState.ScannedSource}}">
+				<Grid Margin="0 8 0 0" VerticalAlignment="Top">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" MinHeight="0" />
 						<RowDefinition Height="Auto" />

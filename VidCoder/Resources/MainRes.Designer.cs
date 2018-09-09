@@ -187,6 +187,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear recent files.
+        /// </summary>
+        public static string ClearRecentFilesButtonToolTip {
+            get {
+                return ResourceManager.GetString("ClearRecentFilesButtonToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close Video Source.
         /// </summary>
         public static string CloseVideoSourceMenuItem {
@@ -880,6 +889,15 @@ namespace VidCoder.Resources {
         public static string OpenLog {
             get {
                 return ResourceManager.GetString("OpenLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open.
+        /// </summary>
+        public static string OpenSourceLabel {
+            get {
+                return ResourceManager.GetString("OpenSourceLabel", resourceCulture);
             }
         }
         
