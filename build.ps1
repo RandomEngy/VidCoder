@@ -194,8 +194,7 @@ $outputDirectoryFiles = @(
     "System.Reactive.Windows.Threading.dll",
     "System.Windows.Interactivity.dll",
     "Ude.dll",
-    "WriteableBitmapEx.Wpf.dll",
-    "Xceed.Wpf.Toolkit.dll")
+    "WriteableBitmapEx.Wpf.dll")
 
 foreach ($outputDirectoryFile in $outputDirectoryFiles) {
     CopyFromOutput $outputDirectoryFile $buildFlavor

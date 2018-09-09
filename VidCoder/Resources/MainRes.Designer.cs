@@ -1381,11 +1381,11 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scanning source....
+        ///   Looks up a localized string similar to Scanning {0}....
         /// </summary>
-        public static string ScanningSourceLabel {
+        public static string ScanningSourceLabelFormat {
             get {
-                return ResourceManager.GetString("ScanningSourceLabel", resourceCulture);
+                return ResourceManager.GetString("ScanningSourceLabelFormat", resourceCulture);
             }
         }
         

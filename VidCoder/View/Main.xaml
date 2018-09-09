@@ -1593,7 +1593,8 @@
 				Grid.ColumnSpan="2"
 				HorizontalAlignment="Center"
 				Style="{StaticResource ScanStatus}"
-				Text="{x:Static res:MainRes.ScanningSourceLabel}" />
+				Text="{Binding ScanningSourceLabel}"
+				TextWrapping="Wrap"/>
 			<ProgressBar
 				Grid.Row="1"
 				Grid.Column="0"

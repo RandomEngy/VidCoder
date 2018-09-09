@@ -187,9 +187,6 @@
   <data name="SourceLabel" xml:space="preserve">
     <value>Source:</value>
   </data>
-  <data name="ScanningSourceLabel" xml:space="preserve">
-    <value>Scanning source...</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>Recent</value>
   </data>
@@ -647,5 +644,9 @@
   <data name="OpenSourceLabel" xml:space="preserve">
     <value>Open</value>
     <comment>Label on top of the different options for opening video source on the startup screen.</comment>
+  </data>
+  <data name="ScanningSourceLabelFormat" xml:space="preserve">
+    <value>Scanning {0}...</value>
+    <comment>{0} is the name of the source being scanned.</comment>
   </data>
 </root>

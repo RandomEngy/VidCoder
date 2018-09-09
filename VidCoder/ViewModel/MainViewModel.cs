@@ -281,6 +281,13 @@ namespace VidCoder.ViewModel
 					return countList[0] > 0 && countList[1] > 0;
 				}).ToProperty(this, x => x.ShowSourceSubtitlesLabel, out this.showSourceSubtitlesLabel);
 
+			// ScanningSourceLabel
+			this.WhenAnyValue(x => x.SourceName)
+				.Select(sourceName =>
+				{
+					return string.Format(MainRes.ScanningSourceLabelFormat, sourceName);
+				}).ToProperty(this, x => x.ScanningSourceLabel, out this.scanningSourceLabel);
+
 			this.notScanningObservable = this
 				.WhenAnyValue(x => x.VideoSourceState)
 				.Select(videoSourceState => videoSourceState != VideoSourceState.Scanning);
@@ -754,7 +761,15 @@ namespace VidCoder.ViewModel
 			private set { this.RaiseAndSetIfChanged(ref this.sourcePath, value); }
 		}
 
-		public string SourceName { get; private set; }
+		private string sourceName;
+		public string SourceName
+		{
+			get { return this.sourceName; }
+			set { this.RaiseAndSetIfChanged(ref this.sourceName, value); }
+		}
+
+		private ObservableAsPropertyHelper<string> scanningSourceLabel;
+		public string ScanningSourceLabel => this.scanningSourceLabel.Value;
 
 		public OutputPathService OutputPathService { get; }
 
