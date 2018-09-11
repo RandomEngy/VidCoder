@@ -202,5 +202,7 @@
   <data name="VideoErrorTitle" xml:space="preserve">
     <value>Greška s videom</value>
   </data>
-  
+  <data name="PlaySourceDisabledAppxToolTip" xml:space="preserve">
+    <value>Verzija Windows trgovine ne može pokrenuti DVD ili Blu-ray izvor jer joj nije dozvoljeno pokretanje drugih procesa.</value>
+  </data>
 </root>

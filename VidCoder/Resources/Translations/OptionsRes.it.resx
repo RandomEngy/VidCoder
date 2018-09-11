@@ -229,7 +229,7 @@
     <value>State eseguendo una versione Beta. Questa può funzionare contemporaneamente alla versione stabile.</value>
   </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
-    <value>Iscriviti al programma Beta per ottenre aggiornamenti più frequenti</value>
+    <value>Iscriviti al programma Beta per ottenere aggiornamenti più frequenti</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
     <value>Aggiornamento alla {0} pronto. Verrà installato quando si esce dal programma.</value>

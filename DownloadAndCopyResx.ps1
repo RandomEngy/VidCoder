@@ -1,5 +1,5 @@
 # Download Crowdin zip
-Invoke-WebRequest -Uri "https://crowdin.com/download/project/vidcoder.zip" -OutFile ".\Import\VidCoderResources.zip"
+Invoke-WebRequest -Uri "https://crowdin.com/backend/download/project/vidcoder.zip" -OutFile ".\Import\VidCoderResources.zip"
 
 # Extract files from Crowdin zip
 if (Test-Path .\Import\Resources) {

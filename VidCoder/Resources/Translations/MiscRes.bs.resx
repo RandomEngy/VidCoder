@@ -255,5 +255,7 @@
   <data name="ChooseNamePicker" xml:space="preserve">
     <value>Odaberite ime za Izabirač:</value>
   </data>
-  
+  <data name="ExceptionDialogSubTextReported" xml:space="preserve">
+    <value>Program se mora zatvoriti, ali će greška biti automatski prijavljena.</value>
+  </data>
 </root>
