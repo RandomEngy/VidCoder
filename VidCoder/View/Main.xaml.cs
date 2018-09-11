@@ -747,6 +747,26 @@ namespace VidCoder.View
 		private void Main_OnSizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			this.UpdateSourceTextMaxLength();
+
+			double totalHeightMinusQueue = 0;
+			foreach (RowDefinition rowDefinition in this.contentGrid.RowDefinitions)
+			{
+				if (rowDefinition != this.queueRow)
+				{
+					totalHeightMinusQueue += rowDefinition.ActualHeight;
+				}
+			}
+
+			double totalHeight = this.rootGrid.ActualHeight;
+
+			double queueRowOldHeight = this.queueRow.ActualHeight;
+			double queueRowDesiredHeight = totalHeight - totalHeightMinusQueue;
+
+			if (queueRowDesiredHeight < queueRowOldHeight)
+			{
+				this.sourceRow.Height = new GridLength(this.sourceRow.ActualHeight, GridUnitType.Star);
+				this.queueRow.Height = new GridLength(queueRowDesiredHeight, GridUnitType.Star);
+			}
 		}
 
 		private void VideoTitleAngle_OnSizeChanged(object sender, SizeChangedEventArgs e)

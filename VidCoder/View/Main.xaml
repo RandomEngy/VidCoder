@@ -382,347 +382,349 @@
 			Modifiers="Control" />
 	</Window.InputBindings>
 
-	<Grid>
-		<Grid.RowDefinitions>
-			<!--  Ribbon  -->
-			<RowDefinition Height="Auto" />
-
-			<!--  Source  -->
-			<RowDefinition
-				Name="sourceRow"
-				Height="2*"
-				MinHeight="160" />
-
-			<!--  GridSplitter  -->
-			<RowDefinition Height="4" />
-
-			<!--  Below source pane  -->
-			<RowDefinition
-				Name="queueRow"
-				Height="*"
-				MinHeight="110" />
-		</Grid.RowDefinitions>
-
-		<!--  Ribbon  -->
-		<fluent:Ribbon
-			Grid.Row="0"
-			Margin="0 -23 0 0"
-			CanMinimize="False"
-			IsQuickAccessToolBarVisible="False">
-			<fluent:RibbonTabItem Header="Generic tab header">
-				<fluent:RibbonGroupBox>
-					<fluent:DropDownButton
-						x:Name="openSourceButton"
-						Header="{x:Static res:MainRes.OpenSourceRibbonButton}"
-						LargeIcon="/Icons/Disc64.png">
-						<fluent:MenuItem
-							Command="{Binding OpenFile}"
-							Header="{x:Static res:MainRes.OpenVideoFile}"
-							Icon="/Icons/video-file.png"
-							InputGestureText="Ctrl+O" />
-						<fluent:MenuItem
-							Command="{Binding OpenFolder}"
-							Header="{x:Static res:MainRes.OpenDiscFolder}"
-							Icon="/Icons/dvd_folder.png"
-							InputGestureText="Ctrl+F" />
-						<Rectangle Style="{StaticResource MenuSeparatorStyle}" />
-						<fluent:MenuItem
-							Command="{Binding OpenFolder}"
-							Header="{x:Static res:MainRes.EnqueueFolderOfVideoFiles}"
-							Icon="/Icons/video_files_folder.png" />
-						<fluent:MenuItem
-							Command="{Binding ProcessingService.QueueFiles}"
-							Header="{x:Static res:MainRes.EnqueueMultipleFiles}"
-							InputGestureText="Ctrl+Shift+O" />
-					</fluent:DropDownButton>
-				</fluent:RibbonGroupBox>
-				<fluent:RibbonGroupBox Header="{x:Static res:MainRes.RibbonSettingsGroupLabel}">
-					<fluent:Button
-						Command="{Binding OpenOptions}"
-						Header="{x:Static res:MainRes.GlobalOptionsLabel}"
-						LargeIcon="/Icons/Options.png" />
-					<fluent:SplitButton
-						x:Name="presetButton"
-						Command="{Binding OpenEncodingWindow}"
-						Header="{Binding EncodingPresetButtonText}"
-						LargeIcon="/Icons/EncodingSettings.png"
-						ToolTip="{x:Static res:MainRes.EncodingSettingsButtonToolTip}">
-						<controls:PresetTreeViewContainer x:Name="presetTreeViewContainer" MinWidth="250" />
-					</fluent:SplitButton>
-					<fluent:SplitButton
-						x:Name="pickerButton"
-						Command="{Binding OpenPickerWindow,
-						                  Source={StaticResource WindowXamlHelper}}"
-						Header="{Binding PickersService.PickerButtonText}"
-						LargeIcon="/Icons/Picker.png"
-						ToolTip="{x:Static res:PickerRes.PickerHelpText}">
-						<controls:PickerList MinWidth="250" ItemMouseUp="OnPickerItemMouseUp" />
-					</fluent:SplitButton>
-				</fluent:RibbonGroupBox>
-				<fluent:RibbonGroupBox Header="{x:Static res:MainRes.RibbonEncodingGroupLabel}">
-					<fluent:Button
-						Command="{Binding OpenPreviewWindow,
-						                  Source={StaticResource WindowXamlHelper}}"
-						Header="{x:Static res:CommonRes.PreviewLabel}"
-						LargeIcon="/Icons/Preview64.png"
-						Visibility="{Binding PreviewWindowOpen,
-						                     Source={StaticResource WindowXamlHelper},
-						                     Converter={StaticResource InverseVisibilityConverter}}" />
-					<fluent:SplitButton
-						Command="{Binding ProcessingService.AddToQueue}"
-						Header="{x:Static res:MainRes.AddToQueueLabel}"
-						LargeIcon="/Icons/AddToQueue.png"
-						SizeDefinition="Large"
-						Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
-						                     Converter={StaticResource VisibilityConverter}}">
-						<fluent:MenuItem Command="{Binding ProcessingService.AddToQueue}" Header="{x:Static res:MainRes.AddToQueueLabel}" />
-						<fluent:MenuItem
-							Command="{Binding ProcessingService.QueueTitlesAction}"
-							Header="{x:Static res:MainRes.AddMultipleTitlesToQueueLabel}"
-							InputGestureText="Ctrl+T" />
-					</fluent:SplitButton>
-					<fluent:Button
-						Command="{Binding ProcessingService.AddToQueue}"
-						Header="{x:Static res:MainRes.AddToQueueLabel}"
-						LargeIcon="/Icons/AddToQueue.png"
-						SizeDefinition="Large"
-						Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
-						                     Converter={StaticResource InverseVisibilityConverter}}" />
-					<fluent:Button
-						Command="{Binding ProcessingService.Encode}"
-						Header="{Binding ProcessingService.EncodeButtonText}"
-						LargeIcon="/Icons/Encode.png"
-						SizeDefinition="Large"
-						Visibility="{Binding ProcessingService.PauseVisible,
-						                     Converter={StaticResource InverseVisibilityConverter}}" />
-
-					<fluent:Button
-						Command="{Binding ProcessingService.Pause}"
-						Header="{x:Static res:MainRes.Pause}"
-						LargeIcon="/Icons/Pause.png"
-						SizeDefinition="Large"
-						Visibility="{Binding ProcessingService.PauseVisible,
-						                     Converter={StaticResource VisibilityConverter}}" />
-
-					<fluent:Button
-						Command="{Binding ProcessingService.StopEncode}"
-						Header="{x:Static res:MainRes.Stop}"
-						LargeIcon="/Icons/Stop.png"
-						Visibility="{Binding ProcessingService.Encoding,
-						                     Converter={StaticResource VisibilityConverter}}" />
-				</fluent:RibbonGroupBox>
-				<fluent:RibbonGroupBox x:Name="toolsRibbonGroupBox" Header="{x:Static res:MainRes.ToolsMenu}">
-					<fluent:DropDownButton
-						x:Name="windowsRibbonButton"
-						Header="{x:Static res:MainRes.WindowsMenu}"
-						ItemsSource="{Binding WindowMenuItems}"
-						LargeIcon="/Icons/Windows.png"
-						Size="Large">
-						<fluent:DropDownButton.ItemContainerStyle>
-							<Style TargetType="fluent:MenuItem">
-								<Setter Property="Header" Value="{Binding Definition.MenuLabel}" />
-								<Setter Property="IsCheckable" Value="True" />
-								<Setter Property="IsChecked" Value="{Binding IsOpen}" />
-								<Setter Property="IsEnabled" Value="{Binding CanOpen}" />
-								<Setter Property="InputGestureText" Value="{Binding Definition.InputGestureText}" />
-								<Setter Property="Command" Value="{Binding Command}" />
-							</Style>
-						</fluent:DropDownButton.ItemContainerStyle>
-					</fluent:DropDownButton>
-					<fluent:DropDownButton Header="{x:Static res:MainRes.ImportExportRibbonButton}" LargeIcon="/Icons/ImportExport.png">
-						<fluent:MenuItem Command="{Binding ImportPreset}" Header="{x:Static res:MainRes.ImportPreset}" />
-						<fluent:MenuItem Command="{Binding ExportPreset}" Header="{x:Static res:MainRes.ExportPreset}" />
-						<Rectangle Style="{StaticResource MenuSeparatorStyle}" />
-						<fluent:MenuItem Command="{Binding ProcessingService.ImportQueue}" Header="{x:Static res:MainRes.ImportQueue}" />
-						<fluent:MenuItem
-							Command="{Binding ProcessingService.ExportQueue}"
-							Header="{x:Static res:MainRes.ExportQueue}"
-							IsEnabled="{Binding ProcessingService.QueueHasItems}" />
-					</fluent:DropDownButton>
-					<fluent:DropDownButton
-						Header="{x:Static res:MainRes.HelpMenu}"
-						LargeIcon="/Icons/Help.png"
-						Size="Large">
-						<fluent:MenuItem Command="{Binding OpenHomepage}" Header="{x:Static res:MainRes.VidCoderHomepageMenuItem}" />
-						<fluent:MenuItem Command="{Binding ReportBug}" Header="{x:Static res:MainRes.ReportABugMenuItem}" />
-						<fluent:MenuItem Command="{Binding OpenAppData}" Header="{x:Static res:MainRes.OpenAppDataFolder}" />
-						<Rectangle Style="{StaticResource MenuSeparatorStyle}" Visibility="{Binding ShowUpdateMenuItem, Converter={StaticResource VisibilityConverter}}" />
-						<fluent:MenuItem
-							Command="{Binding OpenUpdates}"
-							Header="{x:Static res:MainRes.UpdatesMenuItem}"
-							Visibility="{Binding ShowUpdateMenuItem,
-							                     Converter={StaticResource VisibilityConverter}}" />
-						<Rectangle Style="{StaticResource MenuSeparatorStyle}" />
-						<fluent:MenuItem
-							Command="{Binding OpenAboutDialog}"
-							Header="{x:Static res:MainRes.AboutVidCoderMenuItem}"
-							Icon="/Icons/VidCoder32.png" />
-					</fluent:DropDownButton>
-				</fluent:RibbonGroupBox>
-			</fluent:RibbonTabItem>
-		</fluent:Ribbon>
-
-		<!--  Video choices on load  -->
-		<Grid
-			Grid.Row="1"
-			MinWidth="220"
-			Margin="0"
-			VerticalAlignment="Stretch"
-			Visibility="{Binding VideoSourceState,
-			                     Converter={StaticResource EnumVisibilityConverter},
-			                     ConverterParameter={x:Static model:VideoSourceState.Choices}}">
+	<!--  We need a separate root grid and content grid because the content can outgrow the
+	original allocated size for it. We need to keep track of the window client area so we
+	know how to restore it in a way that fits.  -->
+	<Grid Name="rootGrid">
+		<Grid Name="contentGrid">
 			<Grid.RowDefinitions>
+				<!--  Ribbon  -->
 				<RowDefinition Height="Auto" />
-				<RowDefinition />
+
+				<!--  Source  -->
+				<RowDefinition
+					Name="sourceRow"
+					Height="2*"
+					MinHeight="160" />
+
+				<!--  GridSplitter  -->
+				<RowDefinition Height="4" />
+
+				<!--  Below source pane  -->
+				<RowDefinition
+					Name="queueRow"
+					Height="*"
+					MinHeight="110" />
 			</Grid.RowDefinitions>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition />
-			</Grid.ColumnDefinitions>
-			<Grid>
+
+			<!--  Ribbon  -->
+			<fluent:Ribbon
+				Grid.Row="0"
+				Margin="0 -23 0 0"
+				CanMinimize="False"
+				IsQuickAccessToolBarVisible="False">
+				<fluent:RibbonTabItem Header="Generic tab header">
+					<fluent:RibbonGroupBox>
+						<fluent:DropDownButton
+							x:Name="openSourceButton"
+							Header="{x:Static res:MainRes.OpenSourceRibbonButton}"
+							LargeIcon="/Icons/Disc64.png">
+							<fluent:MenuItem
+								Command="{Binding OpenFile}"
+								Header="{x:Static res:MainRes.OpenVideoFile}"
+								Icon="/Icons/video-file.png"
+								InputGestureText="Ctrl+O" />
+							<fluent:MenuItem
+								Command="{Binding OpenFolder}"
+								Header="{x:Static res:MainRes.OpenDiscFolder}"
+								Icon="/Icons/dvd_folder.png"
+								InputGestureText="Ctrl+F" />
+							<Rectangle Style="{StaticResource MenuSeparatorStyle}" />
+							<fluent:MenuItem
+								Command="{Binding OpenFolder}"
+								Header="{x:Static res:MainRes.EnqueueFolderOfVideoFiles}"
+								Icon="/Icons/video_files_folder.png" />
+							<fluent:MenuItem
+								Command="{Binding ProcessingService.QueueFiles}"
+								Header="{x:Static res:MainRes.EnqueueMultipleFiles}"
+								InputGestureText="Ctrl+Shift+O" />
+						</fluent:DropDownButton>
+					</fluent:RibbonGroupBox>
+					<fluent:RibbonGroupBox Header="{x:Static res:MainRes.RibbonSettingsGroupLabel}">
+						<fluent:Button
+							Command="{Binding OpenOptions}"
+							Header="{x:Static res:MainRes.GlobalOptionsLabel}"
+							LargeIcon="/Icons/Options.png" />
+						<fluent:SplitButton
+							x:Name="presetButton"
+							Command="{Binding OpenEncodingWindow}"
+							Header="{Binding EncodingPresetButtonText}"
+							LargeIcon="/Icons/EncodingSettings.png"
+							ToolTip="{x:Static res:MainRes.EncodingSettingsButtonToolTip}">
+							<controls:PresetTreeViewContainer x:Name="presetTreeViewContainer" MinWidth="250" />
+						</fluent:SplitButton>
+						<fluent:SplitButton
+							x:Name="pickerButton"
+							Command="{Binding OpenPickerWindow,
+							                  Source={StaticResource WindowXamlHelper}}"
+							Header="{Binding PickersService.PickerButtonText}"
+							LargeIcon="/Icons/Picker.png"
+							ToolTip="{x:Static res:PickerRes.PickerHelpText}">
+							<controls:PickerList MinWidth="250" ItemMouseUp="OnPickerItemMouseUp" />
+						</fluent:SplitButton>
+					</fluent:RibbonGroupBox>
+					<fluent:RibbonGroupBox Header="{x:Static res:MainRes.RibbonEncodingGroupLabel}">
+						<fluent:Button
+							Command="{Binding OpenPreviewWindow,
+							                  Source={StaticResource WindowXamlHelper}}"
+							Header="{x:Static res:CommonRes.PreviewLabel}"
+							LargeIcon="/Icons/Preview64.png"
+							Visibility="{Binding PreviewWindowOpen,
+							                     Source={StaticResource WindowXamlHelper},
+							                     Converter={StaticResource InverseVisibilityConverter}}" />
+						<fluent:SplitButton
+							Command="{Binding ProcessingService.AddToQueue}"
+							Header="{x:Static res:MainRes.AddToQueueLabel}"
+							LargeIcon="/Icons/AddToQueue.png"
+							SizeDefinition="Large"
+							Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
+							                     Converter={StaticResource VisibilityConverter}}">
+							<fluent:MenuItem Command="{Binding ProcessingService.AddToQueue}" Header="{x:Static res:MainRes.AddToQueueLabel}" />
+							<fluent:MenuItem
+								Command="{Binding ProcessingService.QueueTitlesAction}"
+								Header="{x:Static res:MainRes.AddMultipleTitlesToQueueLabel}"
+								InputGestureText="Ctrl+T" />
+						</fluent:SplitButton>
+						<fluent:Button
+							Command="{Binding ProcessingService.AddToQueue}"
+							Header="{x:Static res:MainRes.AddToQueueLabel}"
+							LargeIcon="/Icons/AddToQueue.png"
+							SizeDefinition="Large"
+							Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
+							                     Converter={StaticResource InverseVisibilityConverter}}" />
+						<fluent:Button
+							Command="{Binding ProcessingService.Encode}"
+							Header="{Binding ProcessingService.EncodeButtonText}"
+							LargeIcon="/Icons/Encode.png"
+							SizeDefinition="Large"
+							Visibility="{Binding ProcessingService.PauseVisible,
+							                     Converter={StaticResource InverseVisibilityConverter}}" />
+
+						<fluent:Button
+							Command="{Binding ProcessingService.Pause}"
+							Header="{x:Static res:MainRes.Pause}"
+							LargeIcon="/Icons/Pause.png"
+							SizeDefinition="Large"
+							Visibility="{Binding ProcessingService.PauseVisible,
+							                     Converter={StaticResource VisibilityConverter}}" />
+
+						<fluent:Button
+							Command="{Binding ProcessingService.StopEncode}"
+							Header="{x:Static res:MainRes.Stop}"
+							LargeIcon="/Icons/Stop.png"
+							Visibility="{Binding ProcessingService.Encoding,
+							                     Converter={StaticResource VisibilityConverter}}" />
+					</fluent:RibbonGroupBox>
+					<fluent:RibbonGroupBox x:Name="toolsRibbonGroupBox" Header="{x:Static res:MainRes.ToolsMenu}">
+						<fluent:DropDownButton
+							x:Name="windowsRibbonButton"
+							Header="{x:Static res:MainRes.WindowsMenu}"
+							ItemsSource="{Binding WindowMenuItems}"
+							LargeIcon="/Icons/Windows.png"
+							Size="Large">
+							<fluent:DropDownButton.ItemContainerStyle>
+								<Style TargetType="fluent:MenuItem">
+									<Setter Property="Header" Value="{Binding Definition.MenuLabel}" />
+									<Setter Property="IsCheckable" Value="True" />
+									<Setter Property="IsChecked" Value="{Binding IsOpen}" />
+									<Setter Property="IsEnabled" Value="{Binding CanOpen}" />
+									<Setter Property="InputGestureText" Value="{Binding Definition.InputGestureText}" />
+									<Setter Property="Command" Value="{Binding Command}" />
+								</Style>
+							</fluent:DropDownButton.ItemContainerStyle>
+						</fluent:DropDownButton>
+						<fluent:DropDownButton Header="{x:Static res:MainRes.ImportExportRibbonButton}" LargeIcon="/Icons/ImportExport.png">
+							<fluent:MenuItem Command="{Binding ImportPreset}" Header="{x:Static res:MainRes.ImportPreset}" />
+							<fluent:MenuItem Command="{Binding ExportPreset}" Header="{x:Static res:MainRes.ExportPreset}" />
+							<Rectangle Style="{StaticResource MenuSeparatorStyle}" />
+							<fluent:MenuItem Command="{Binding ProcessingService.ImportQueue}" Header="{x:Static res:MainRes.ImportQueue}" />
+							<fluent:MenuItem
+								Command="{Binding ProcessingService.ExportQueue}"
+								Header="{x:Static res:MainRes.ExportQueue}"
+								IsEnabled="{Binding ProcessingService.QueueHasItems}" />
+						</fluent:DropDownButton>
+						<fluent:DropDownButton
+							Header="{x:Static res:MainRes.HelpMenu}"
+							LargeIcon="/Icons/Help.png"
+							Size="Large">
+							<fluent:MenuItem Command="{Binding OpenHomepage}" Header="{x:Static res:MainRes.VidCoderHomepageMenuItem}" />
+							<fluent:MenuItem Command="{Binding ReportBug}" Header="{x:Static res:MainRes.ReportABugMenuItem}" />
+							<fluent:MenuItem Command="{Binding OpenAppData}" Header="{x:Static res:MainRes.OpenAppDataFolder}" />
+							<Rectangle Style="{StaticResource MenuSeparatorStyle}" Visibility="{Binding ShowUpdateMenuItem, Converter={StaticResource VisibilityConverter}}" />
+							<fluent:MenuItem
+								Command="{Binding OpenUpdates}"
+								Header="{x:Static res:MainRes.UpdatesMenuItem}"
+								Visibility="{Binding ShowUpdateMenuItem,
+								                     Converter={StaticResource VisibilityConverter}}" />
+							<Rectangle Style="{StaticResource MenuSeparatorStyle}" />
+							<fluent:MenuItem
+								Command="{Binding OpenAboutDialog}"
+								Header="{x:Static res:MainRes.AboutVidCoderMenuItem}"
+								Icon="/Icons/VidCoder32.png" />
+						</fluent:DropDownButton>
+					</fluent:RibbonGroupBox>
+				</fluent:RibbonTabItem>
+			</fluent:Ribbon>
+
+			<!--  Video choices on load  -->
+			<Grid
+				Grid.Row="1"
+				MinWidth="220"
+				Margin="0"
+				VerticalAlignment="Stretch"
+				Visibility="{Binding VideoSourceState,
+				                     Converter={StaticResource EnumVisibilityConverter},
+				                     ConverterParameter={x:Static model:VideoSourceState.Choices}}">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 					<RowDefinition />
 				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition />
+					</Grid.RowDefinitions>
 
-				<TextBlock
-					Margin="22 16 0 1"
-					Style="{StaticResource DescriptiveText}"
-					Text="{x:Static res:MainRes.OpenSourceLabel}" />
-				<ItemsControl
-					Grid.Row="1"
-					MinWidth="220"
-					MinHeight="105"
-					ItemsSource="{Binding SourceOptions}">
-					<ItemsControl.ItemTemplate>
-						<DataTemplate>
-							<Button
-								Padding="16 6 16 6"
-								HorizontalContentAlignment="Left"
-								Command="{Binding ChooseSource}"
-								Style="{StaticResource BorderlessButtonStyle}"
-								UseLayoutRounding="True">
-								<StackPanel Orientation="Horizontal">
-									<Image
-										Width="16"
-										Height="16"
-										Margin="0 2 0 2"
-										Source="{Binding Image}"
-										Visibility="{Binding ImageVisible,
-										                     Converter={StaticResource VisibilityConverter}}" />
-									<TextBlock
-										Margin="6 0 0 0"
-										FontSize="14"
-										Style="{StaticResource PlainTitle}"
-										Text="{Binding Text}" />
-								</StackPanel>
-							</Button>
-						</DataTemplate>
-					</ItemsControl.ItemTemplate>
-					<ItemsControl.Template>
-						<ControlTemplate>
-							<StackPanel
-								Margin="2"
-								IsItemsHost="True"
-								Orientation="Vertical" />
-						</ControlTemplate>
-					</ItemsControl.Template>
-				</ItemsControl>
-			</Grid>
-
-			<Grid
-				Grid.Column="1"
-				Grid.Row="0"
-				Margin="8 14 0 0">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition MinHeight="20" />
-				</Grid.RowDefinitions>
-
-				<StackPanel Orientation="Horizontal" Visibility="{Binding RecentSourcesVisible, Converter={StaticResource VisibilityConverter}}">
 					<TextBlock
-						Margin="10 0 0 1"
+						Margin="22 16 0 1"
 						Style="{StaticResource DescriptiveText}"
-						Text="{x:Static res:MainRes.Recent}" />
+						Text="{x:Static res:MainRes.OpenSourceLabel}" />
+					<ItemsControl
+						Grid.Row="1"
+						MinWidth="220"
+						MinHeight="105"
+						ItemsSource="{Binding SourceOptions}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Button
+									Padding="16 6 16 6"
+									HorizontalContentAlignment="Left"
+									Command="{Binding ChooseSource}"
+									Style="{StaticResource BorderlessButtonStyle}"
+									UseLayoutRounding="True">
+									<StackPanel Orientation="Horizontal">
+										<Image
+											Width="16"
+											Height="16"
+											Margin="0 2 0 2"
+											Source="{Binding Image}"
+											Visibility="{Binding ImageVisible,
+											                     Converter={StaticResource VisibilityConverter}}" />
+										<TextBlock
+											Margin="6 0 0 0"
+											FontSize="14"
+											Style="{StaticResource PlainTitle}"
+											Text="{Binding Text}" />
+									</StackPanel>
+								</Button>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+						<ItemsControl.Template>
+							<ControlTemplate>
+								<StackPanel
+									Margin="2"
+									IsItemsHost="True"
+									Orientation="Vertical" />
+							</ControlTemplate>
+						</ItemsControl.Template>
+					</ItemsControl>
+				</Grid>
 
-					<Button
-						Width="20"
-						Height="20"
-						Margin="4 0 0 0"
-						HorizontalAlignment="Right"
-						VerticalAlignment="Top"
-						Command="{Binding ClearRecentFiles}"
-						Content="{x:Static res:MainRes.ClearRecentFilesButtonToolTip}"
-						Style="{StaticResource RemoveButtonStyle}" />
-				</StackPanel>
+				<Grid
+					Grid.Row="0"
+					Grid.Column="1"
+					Margin="8 14 0 0">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition MinHeight="20" />
+					</Grid.RowDefinitions>
 
-				<ItemsControl
+					<StackPanel Orientation="Horizontal" Visibility="{Binding RecentSourcesVisible, Converter={StaticResource VisibilityConverter}}">
+						<TextBlock
+							Margin="10 0 0 1"
+							Style="{StaticResource DescriptiveText}"
+							Text="{x:Static res:MainRes.Recent}" />
+
+						<Button
+							Width="20"
+							Height="20"
+							Margin="4 0 0 0"
+							HorizontalAlignment="Right"
+							VerticalAlignment="Top"
+							Command="{Binding ClearRecentFiles}"
+							Content="{x:Static res:MainRes.ClearRecentFilesButtonToolTip}"
+							Style="{StaticResource RemoveButtonStyle}" />
+					</StackPanel>
+
+					<ItemsControl
+						Grid.Row="1"
+						MinWidth="220"
+						Margin="0 4 0 0"
+						ItemsSource="{Binding RecentSourceOptions}"
+						Visibility="{Binding RecentSourcesVisible,
+						                     Converter={StaticResource VisibilityConverter}}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Button
+									Padding="0 0 16 0"
+									HorizontalContentAlignment="Left"
+									Command="{Binding ChooseSource}"
+									Style="{StaticResource BorderlessButtonStyle}">
+									<Grid>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="Auto" />
+											<ColumnDefinition />
+										</Grid.ColumnDefinitions>
+										<Image
+											Grid.Column="0"
+											Width="16"
+											Height="16"
+											Margin="4 2 0 2"
+											Source="{Binding Image}"
+											UseLayoutRounding="True"
+											Visibility="{Binding ImageVisible,
+											                     Converter={StaticResource VisibilityConverter}}" />
+										<controls:PathTextBlock
+											Grid.Column="1"
+											Margin="4"
+											Text="{Binding Text,
+											               Mode=OneWay}" />
+									</Grid>
+								</Button>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+						<ItemsControl.Template>
+							<ControlTemplate>
+								<StackPanel IsItemsHost="True" Orientation="Vertical" />
+							</ControlTemplate>
+						</ItemsControl.Template>
+					</ItemsControl>
+				</Grid>
+				<TextBlock
 					Grid.Row="1"
-					MinWidth="220"
-					ItemsSource="{Binding RecentSourceOptions}"
-					Visibility="{Binding RecentSourcesVisible,
-					                     Converter={StaticResource VisibilityConverter}}">
-					<ItemsControl.ItemTemplate>
-						<DataTemplate>
-							<Button
-								Padding="0 0 16 0"
-								HorizontalContentAlignment="Left"
-								Command="{Binding ChooseSource}"
-								Style="{StaticResource BorderlessButtonStyle}">
-								<Grid>
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="Auto" />
-										<ColumnDefinition />
-									</Grid.ColumnDefinitions>
-									<Image
-										Grid.Column="0"
-										Width="16"
-										Height="16"
-										Margin="4 2 0 2"
-										Source="{Binding Image}"
-										UseLayoutRounding="True"
-										Visibility="{Binding ImageVisible,
-										                     Converter={StaticResource VisibilityConverter}}" />
-									<controls:PathTextBlock
-										Grid.Column="1"
-										Margin="4"
-										Text="{Binding Text,
-										               Mode=OneWay}" />
-								</Grid>
-							</Button>
-						</DataTemplate>
-					</ItemsControl.ItemTemplate>
-					<ItemsControl.Template>
-						<ControlTemplate>
-							<StackPanel IsItemsHost="True" Orientation="Vertical" />
-						</ControlTemplate>
-					</ItemsControl.Template>
-				</ItemsControl>
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					HorizontalAlignment="Center"
+					VerticalAlignment="Center"
+					Style="{StaticResource DescriptiveText}"
+					Text="{x:Static res:MainRes.DragFilesHereLabel}" />
 			</Grid>
-			<TextBlock
+
+			<!--  Source area  -->
+			<ScrollViewer
+				Name="sourceScrollViewer"
 				Grid.Row="1"
-				Grid.Column="0"
-				Grid.ColumnSpan="2"
-				HorizontalAlignment="Center"
-				VerticalAlignment="Center"
-				Style="{StaticResource DescriptiveText}"
-				Text="{x:Static res:MainRes.DragFilesHereLabel}" />
-		</Grid>
-
-		<!--  Source area  -->
-		<ScrollViewer
-			Name="sourceScrollViewer"
-			Grid.Row="1"
-			MinHeight="138"
-			Margin="0"
-			VerticalScrollBarVisibility="Auto"
-			Visibility="{Binding VideoSourceState,
-			                     Converter={StaticResource EnumVisibilityConverter},
-			                     ConverterParameter={x:Static model:VideoSourceState.ScannedSource}}">
-			<Grid Background="{StaticResource SectionBackground}">
-
-
+				Margin="0"
+				Background="{StaticResource SectionBackground}"
+				VerticalScrollBarVisibility="Auto"
+				Visibility="{Binding VideoSourceState,
+				                     Converter={StaticResource EnumVisibilityConverter},
+				                     ConverterParameter={x:Static model:VideoSourceState.ScannedSource}}">
 				<!--  Video, audio, subtitles, chapters grid  -->
 				<Grid Margin="0 8 0 0" VerticalAlignment="Top">
 					<Grid.RowDefinitions>
@@ -1568,258 +1570,309 @@
 							Style="{StaticResource RightGridItem}" />
 					</StackPanel>
 				</Grid>
-			</Grid>
-		</ScrollViewer>
+			</ScrollViewer>
 
-		<!--  Scan progress  -->
-		<Grid
-			Grid.Row="1"
-			Margin="26 0 40 0"
-			VerticalAlignment="Center"
-			Visibility="{Binding VideoSourceState,
-			                     Converter={StaticResource EnumVisibilityConverter},
-			                     ConverterParameter={x:Static model:VideoSourceState.Scanning}}">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto" />
-				<RowDefinition />
-			</Grid.RowDefinitions>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition />
-				<ColumnDefinition Width="Auto" />
-			</Grid.ColumnDefinitions>
-			<TextBlock
-				Grid.Row="0"
-				Grid.Column="0"
-				Grid.ColumnSpan="2"
-				HorizontalAlignment="Center"
-				Style="{StaticResource ScanStatus}"
-				Text="{Binding ScanningSourceLabel}"
-				TextWrapping="Wrap"/>
-			<ProgressBar
+			<!--  Scan progress  -->
+			<Grid
 				Grid.Row="1"
-				Grid.Column="0"
-				Height="22"
-				Margin="6 0 0 0"
+				Margin="26 0 40 0"
 				VerticalAlignment="Center"
-				Maximum="1"
-				Minimum="0"
-				Value="{Binding ScanProgressFraction}" />
-			<Button
-				Grid.Row="1"
-				Grid.Column="1"
-				Height="25"
-				MinWidth="55"
-				Margin="10 0 0 0"
-				Padding="5 0"
-				VerticalAlignment="Center"
-				Command="{Binding CancelScan}"
-				Content="{x:Static res:CommonRes.Cancel}" />
-		</Grid>
-
-		<GridSplitter
-			Grid.Row="2"
-			Grid.Column="0"
-			Height="4"
-			HorizontalAlignment="Stretch"
-			VerticalAlignment="Center"
-			Background="{StaticResource SplitterBrush}"
-			Canvas.ZIndex="4"
-			ShowsPreview="True" />
-
-		<!--  Below source - Destination / queue / Encode progress  -->
-		<Grid Grid.Row="3">
-			<Grid.RowDefinitions>
-				<!--  Destination  -->
-				<RowDefinition Height="Auto" />
-				<!--  Queue  -->
-				<RowDefinition Height="*" />
-				<!--  Encode progress  -->
-				<RowDefinition Height="Auto" />
-			</Grid.RowDefinitions>
-
-			<!--  Destination section  -->
-			<Grid Grid.Row="0" Background="{StaticResource SectionBackground}">
+				Visibility="{Binding VideoSourceState,
+				                     Converter={StaticResource EnumVisibilityConverter},
+				                     ConverterParameter={x:Static model:VideoSourceState.Scanning}}">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition />
+				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition />
 					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
 				<TextBlock
-					Height="19"
-					Margin="12 8 0 8"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Center"
-					Style="{StaticResource MainSectionHeader}"
-					Text="{x:Static res:MainRes.DestinationLabel}" />
-				<Grid
-					Grid.Column="1"
+					Grid.Row="0"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					HorizontalAlignment="Center"
+					Style="{StaticResource ScanStatus}"
+					Text="{Binding ScanningSourceLabel}"
+					TextWrapping="Wrap" />
+				<ProgressBar
+					Grid.Row="1"
+					Grid.Column="0"
 					Height="22"
-					Margin="6 8 6 8"
+					Margin="6 0 0 0"
 					VerticalAlignment="Center"
-					Visibility="{Binding OutputPathService.OutputFolderChosen,
-					                     Converter={StaticResource VisibilityConverter}}">
-					<TextBox
-						Name="destinationEditBox"
-						VerticalContentAlignment="Center"
-						GotFocus="DestinationEditBoxGotFocus"
-						LostFocus="DestinationEditBoxLostFocus"
-						PreviewKeyDown="DestinationEditBoxPreviewKeyDown"
-						Text="{Binding OutputPathService.OutputPath,
-						               UpdateSourceTrigger=PropertyChanged}" />
-					<Grid
-						Name="destinationReadCover"
-						Margin="0"
-						Background="Transparent"
-						Cursor="Hand"
-						MouseLeftButtonDown="DestinationReadCoverMouseLeftButtonDown"
-						ToolTip="{x:Static res:MainRes.DestinationToolTip}"
-						Visibility="{Binding OutputPathService.EditingDestination,
-						                     Converter={StaticResource InverseVisibilityConverter}}">
-						<Image
-							Height="20"
-							Margin="0 0 4 0"
-							HorizontalAlignment="Right"
-							Source="/Icons/edit_2.png"
-							Visibility="{Binding IsMouseOver,
-							                     ElementName=destinationReadCover,
-							                     Converter={StaticResource VisibilityConverter}}" />
-					</Grid>
-				</Grid>
-
+					Maximum="1"
+					Minimum="0"
+					Value="{Binding ScanProgressFraction}" />
 				<Button
+					Grid.Row="1"
 					Grid.Column="1"
-					Margin="10 8 0 8"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Center"
-					Command="{Binding OutputPathService.PickDefaultOutputFolder}"
-					Visibility="{Binding OutputPathService.OutputFolderChosen,
-					                     Converter={StaticResource InverseVisibilityConverter}}">
-					<StackPanel Margin="4 2" Orientation="Horizontal">
-						<Image
-							Width="16"
-							Height="16"
-							Source="/Icons/win7foldericon.png" />
-						<TextBlock
-							Margin="7 0 0 0"
-							VerticalAlignment="Center"
-							Text="{x:Static res:MainRes.SelectOutputPathButton}" />
-					</StackPanel>
-				</Button>
-
-				<Button
-					Name="outputPathBrowseButton"
-					Grid.Column="2"
-					Height="22"
-					Margin="0 8 12 8"
+					Height="25"
+					MinWidth="55"
+					Margin="10 0 0 0"
 					Padding="5 0"
-					HorizontalAlignment="Right"
 					VerticalAlignment="Center"
-					Command="{Binding OutputPathService.PickOutputPath}"
-					Visibility="{Binding OutputPathService.OutputFolderChosen,
-					                     Converter={StaticResource VisibilityConverter}}">
-					<TextBlock Text="{x:Static res:CommonRes.Browse}" />
-				</Button>
+					Command="{Binding CancelScan}"
+					Content="{x:Static res:CommonRes.Cancel}" />
 			</Grid>
 
-			<!--  Queue section  -->
-			<Grid Grid.Row="1" Canvas.ZIndex="2">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="3*" />
-					<ColumnDefinition Width="14*" />
-				</Grid.ColumnDefinitions>
-				<Grid.Background>
-					<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
-				</Grid.Background>
+			<GridSplitter
+				Grid.Row="2"
+				Grid.Column="0"
+				Height="4"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Center"
+				Background="{StaticResource SplitterBrush}"
+				Canvas.ZIndex="4"
+				ShowsPreview="True" />
 
-				<Grid
-					Name="tabsArea"
-					Grid.ColumnSpan="2"
-					Margin="0">
+			<!--  Below source - Destination / queue / Encode progress  -->
+			<Grid Grid.Row="3">
+				<Grid.RowDefinitions>
+					<!--  Destination  -->
+					<RowDefinition Height="Auto" />
+					<!--  Queue  -->
+					<RowDefinition Height="*" />
+					<!--  Encode progress  -->
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+
+				<!--  Destination section  -->
+				<Grid Grid.Row="0" Background="{StaticResource SectionBackground}">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+					<TextBlock
+						Height="19"
+						Margin="12 8 0 8"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Center"
+						Style="{StaticResource MainSectionHeader}"
+						Text="{x:Static res:MainRes.DestinationLabel}" />
+					<Grid
+						Grid.Column="1"
+						Height="22"
+						Margin="6 8 6 8"
+						VerticalAlignment="Center"
+						Visibility="{Binding OutputPathService.OutputFolderChosen,
+						                     Converter={StaticResource VisibilityConverter}}">
+						<TextBox
+							Name="destinationEditBox"
+							VerticalContentAlignment="Center"
+							GotFocus="DestinationEditBoxGotFocus"
+							LostFocus="DestinationEditBoxLostFocus"
+							PreviewKeyDown="DestinationEditBoxPreviewKeyDown"
+							Text="{Binding OutputPathService.OutputPath,
+							               UpdateSourceTrigger=PropertyChanged}" />
+						<Grid
+							Name="destinationReadCover"
+							Margin="0"
+							Background="Transparent"
+							Cursor="Hand"
+							MouseLeftButtonDown="DestinationReadCoverMouseLeftButtonDown"
+							ToolTip="{x:Static res:MainRes.DestinationToolTip}"
+							Visibility="{Binding OutputPathService.EditingDestination,
+							                     Converter={StaticResource InverseVisibilityConverter}}">
+							<Image
+								Height="20"
+								Margin="0 0 4 0"
+								HorizontalAlignment="Right"
+								Source="/Icons/edit_2.png"
+								Visibility="{Binding IsMouseOver,
+								                     ElementName=destinationReadCover,
+								                     Converter={StaticResource VisibilityConverter}}" />
+						</Grid>
+					</Grid>
+
+					<Button
+						Grid.Column="1"
+						Margin="10 8 0 8"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Center"
+						Command="{Binding OutputPathService.PickDefaultOutputFolder}"
+						Visibility="{Binding OutputPathService.OutputFolderChosen,
+						                     Converter={StaticResource InverseVisibilityConverter}}">
+						<StackPanel Margin="4 2" Orientation="Horizontal">
+							<Image
+								Width="16"
+								Height="16"
+								Source="/Icons/win7foldericon.png" />
+							<TextBlock
+								Margin="7 0 0 0"
+								VerticalAlignment="Center"
+								Text="{x:Static res:MainRes.SelectOutputPathButton}" />
+						</StackPanel>
+					</Button>
+
+					<Button
+						Name="outputPathBrowseButton"
+						Grid.Column="2"
+						Height="22"
+						Margin="0 8 12 8"
+						Padding="5 0"
+						HorizontalAlignment="Right"
+						VerticalAlignment="Center"
+						Command="{Binding OutputPathService.PickOutputPath}"
+						Visibility="{Binding OutputPathService.OutputFolderChosen,
+						                     Converter={StaticResource VisibilityConverter}}">
+						<TextBlock Text="{x:Static res:CommonRes.Browse}" />
+					</Button>
+				</Grid>
+
+				<!--  Queue section  -->
+				<Grid Grid.Row="1" Canvas.ZIndex="2">
 					<Grid.Background>
 						<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
 					</Grid.Background>
-					<TabControl
-						Name="queueItemsTabControl"
-						Padding="0"
-						BorderThickness="0"
-						SelectedIndex="{Binding ProcessingService.SelectedTabIndex}">
-						<TabControl.Background>
+
+					<Grid Name="tabsArea" Margin="0">
+						<Grid.Background>
 							<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
-						</TabControl.Background>
-						<TabItem Name="queueTab" Visibility="Collapsed">
-							<TabItem.Header>
-								<TextBlock Text="{Binding ProcessingService.QueuedTabHeader}" />
-							</TabItem.Header>
-							<ListView
-								Name="queueView"
-								VidCoderDragDrop:DragDropHelper.BlockedTopSpaces="{Binding ProcessingService.JobsEncodingCount}"
-								VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource QueueDragTemplate}"
-								VidCoderDragDrop:DragDropHelper.IsDragSource="True"
-								VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
-								BorderBrush="#F5F5F5"
-								BorderThickness="0"
-								ItemsSource="{Binding ProcessingService.EncodeQueue}">
-								<ListView.ItemContainerStyle>
-									<Style TargetType="ListViewItem">
-										<Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}" />
-										<Setter Property="HorizontalContentAlignment" Value="Stretch" />
-										<Setter Property="ContextMenu">
-											<Setter.Value>
-												<ContextMenu>
-													<MenuItem Command="{Binding ProcessingService.MoveSelectedJobsToTop}" Header="{x:Static res:MainRes.MoveToTopMenuItem}" />
-													<MenuItem Command="{Binding ProcessingService.MoveSelectedJobsToBottom}" Header="{x:Static res:MainRes.MoveToBottomMenuItem}" />
-													<Separator />
-													<MenuItem Command="{Binding EditQueueJob}" Header="{x:Static res:MainRes.Edit}">
-														<MenuItem.Icon>
-															<Image
-																Width="16"
-																Height="16"
-																Source="/Icons/edit_16x16.png" />
-														</MenuItem.Icon>
-													</MenuItem>
-													<MenuItem Command="{Binding ProcessingService.RemoveSelectedJobs}" Header="{x:Static res:CommonRes.Delete}">
-														<MenuItem.Icon>
-															<Image
-																Width="16"
-																Height="16"
-																Source="/Icons/delete.png" />
-														</MenuItem.Icon>
-													</MenuItem>
-													<Separator />
-													<MenuItem Command="{Binding ProcessingService.ImportQueue}" Header="{x:Static res:MainRes.ImportQueue}" />
-													<MenuItem
-														Command="{Binding ProcessingService.ExportQueue}"
-														Header="{x:Static res:MainRes.ExportQueue}"
-														IsEnabled="{Binding ProcessingService.QueueHasItems}" />
-												</ContextMenu>
-											</Setter.Value>
-										</Setter>
-									</Style>
-								</ListView.ItemContainerStyle>
-								<ListView.View>
-									<GridView x:Name="queueGridView">
-										<GridView.Columns>
-											<GridViewColumn Width="75" CellTemplate="{StaticResource QueueRemoveTemplate}" />
-										</GridView.Columns>
-									</GridView>
-								</ListView.View>
-								<ListView.ContextMenu>
-									<ContextMenu>
-										<MenuItem Command="{Binding CustomizeQueueColumns}" Header="{x:Static res:MainRes.CustomizeColumnsMenuItem}" />
-										<Separator />
-										<MenuItem Command="{Binding ProcessingService.ImportQueue}" Header="{x:Static res:MainRes.ImportQueue}" />
-										<MenuItem
-											Command="{Binding ProcessingService.ExportQueue}"
-											Header="{x:Static res:MainRes.ExportQueue}"
-											IsEnabled="{Binding ProcessingService.QueueHasItems}" />
-									</ContextMenu>
-								</ListView.ContextMenu>
-							</ListView>
-						</TabItem>
-						<TabItem Name="completedTab" Visibility="Collapsed">
-							<TabItem.Header>
-								<TextBlock Text="{Binding ProcessingService.CompletedTabHeader}">
-									<TextBlock.ContextMenu>
+						</Grid.Background>
+						<TabControl
+							Name="queueItemsTabControl"
+							Padding="0"
+							BorderThickness="0"
+							SelectedIndex="{Binding ProcessingService.SelectedTabIndex}">
+							<TabControl.Background>
+								<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
+							</TabControl.Background>
+							<TabItem Name="queueTab" Visibility="Collapsed">
+								<TabItem.Header>
+									<TextBlock Text="{Binding ProcessingService.QueuedTabHeader}" />
+								</TabItem.Header>
+								<ListView
+									Name="queueView"
+									VidCoderDragDrop:DragDropHelper.BlockedTopSpaces="{Binding ProcessingService.JobsEncodingCount}"
+									VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource QueueDragTemplate}"
+									VidCoderDragDrop:DragDropHelper.IsDragSource="True"
+									VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
+									BorderBrush="#F5F5F5"
+									BorderThickness="0"
+									ItemsSource="{Binding ProcessingService.EncodeQueue}">
+									<ListView.ItemContainerStyle>
+										<Style TargetType="ListViewItem">
+											<Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}" />
+											<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+											<Setter Property="ContextMenu">
+												<Setter.Value>
+													<ContextMenu>
+														<MenuItem Command="{Binding ProcessingService.MoveSelectedJobsToTop}" Header="{x:Static res:MainRes.MoveToTopMenuItem}" />
+														<MenuItem Command="{Binding ProcessingService.MoveSelectedJobsToBottom}" Header="{x:Static res:MainRes.MoveToBottomMenuItem}" />
+														<Separator />
+														<MenuItem Command="{Binding EditQueueJob}" Header="{x:Static res:MainRes.Edit}">
+															<MenuItem.Icon>
+																<Image
+																	Width="16"
+																	Height="16"
+																	Source="/Icons/edit_16x16.png" />
+															</MenuItem.Icon>
+														</MenuItem>
+														<MenuItem Command="{Binding ProcessingService.RemoveSelectedJobs}" Header="{x:Static res:CommonRes.Delete}">
+															<MenuItem.Icon>
+																<Image
+																	Width="16"
+																	Height="16"
+																	Source="/Icons/delete.png" />
+															</MenuItem.Icon>
+														</MenuItem>
+														<Separator />
+														<MenuItem Command="{Binding ProcessingService.ImportQueue}" Header="{x:Static res:MainRes.ImportQueue}" />
+														<MenuItem
+															Command="{Binding ProcessingService.ExportQueue}"
+															Header="{x:Static res:MainRes.ExportQueue}"
+															IsEnabled="{Binding ProcessingService.QueueHasItems}" />
+													</ContextMenu>
+												</Setter.Value>
+											</Setter>
+										</Style>
+									</ListView.ItemContainerStyle>
+									<ListView.View>
+										<GridView x:Name="queueGridView">
+											<GridView.Columns>
+												<GridViewColumn Width="75" CellTemplate="{StaticResource QueueRemoveTemplate}" />
+											</GridView.Columns>
+										</GridView>
+									</ListView.View>
+									<ListView.ContextMenu>
+										<ContextMenu>
+											<MenuItem Command="{Binding CustomizeQueueColumns}" Header="{x:Static res:MainRes.CustomizeColumnsMenuItem}" />
+											<Separator />
+											<MenuItem Command="{Binding ProcessingService.ImportQueue}" Header="{x:Static res:MainRes.ImportQueue}" />
+											<MenuItem
+												Command="{Binding ProcessingService.ExportQueue}"
+												Header="{x:Static res:MainRes.ExportQueue}"
+												IsEnabled="{Binding ProcessingService.QueueHasItems}" />
+										</ContextMenu>
+									</ListView.ContextMenu>
+								</ListView>
+							</TabItem>
+							<TabItem Name="completedTab" Visibility="Collapsed">
+								<TabItem.Header>
+									<TextBlock Text="{Binding ProcessingService.CompletedTabHeader}">
+										<TextBlock.ContextMenu>
+											<ContextMenu>
+												<MenuItem Command="{Binding ProcessingService.ClearCompleted}" Header="{x:Static res:MainRes.ClearCompleted}">
+													<MenuItem.Icon>
+														<Image
+															Width="16"
+															Height="16"
+															Source="/Icons/delete.png" />
+													</MenuItem.Icon>
+												</MenuItem>
+											</ContextMenu>
+										</TextBlock.ContextMenu>
+									</TextBlock>
+								</TabItem.Header>
+								<ListView
+									BorderBrush="#F5F5F5"
+									BorderThickness="0"
+									ItemContainerStyle="{StaticResource CompletedItemStyle}"
+									ItemsSource="{Binding ProcessingService.CompletedJobs}">
+									<ListView.View>
+										<GridView x:Name="completedGridView">
+											<GridView.Columns>
+												<GridViewColumn Width="300" Header="{x:Static res:MainRes.DestinationColumnHeader}">
+													<GridViewColumn.CellTemplate>
+														<DataTemplate>
+															<controls:PathTextBlock Text="{Binding EncodeResult.Destination}" />
+														</DataTemplate>
+													</GridViewColumn.CellTemplate>
+												</GridViewColumn>
+												<GridViewColumn Width="120" Header="{x:Static res:MainRes.StatusColumnHeader}">
+													<GridViewColumn.CellTemplate>
+														<DataTemplate>
+															<StackPanel Orientation="Horizontal">
+																<Image
+																	Width="16"
+																	Height="16"
+																	Source="{Binding StatusImage}" />
+																<TextBlock Margin="4 0 0 0" Text="{Binding StatusText}" />
+															</StackPanel>
+														</DataTemplate>
+													</GridViewColumn.CellTemplate>
+												</GridViewColumn>
+												<GridViewColumn Width="90" Header="{x:Static res:MainRes.ElapsedTimeColumnHeader}">
+													<GridViewColumn.CellTemplate>
+														<DataTemplate>
+															<TextBlock Text="{Binding TimeDisplay}" />
+														</DataTemplate>
+													</GridViewColumn.CellTemplate>
+												</GridViewColumn>
+												<GridViewColumn Width="80" Header="{x:Static res:MainRes.FileSizeColumnHeader}">
+													<GridViewColumn.CellTemplate>
+														<DataTemplate>
+															<TextBlock Text="{Binding OutputFileSize}" />
+														</DataTemplate>
+													</GridViewColumn.CellTemplate>
+												</GridViewColumn>
+											</GridView.Columns>
+										</GridView>
+									</ListView.View>
+									<ListView.ContextMenu>
 										<ContextMenu>
 											<MenuItem Command="{Binding ProcessingService.ClearCompleted}" Header="{x:Static res:MainRes.ClearCompleted}">
 												<MenuItem.Icon>
@@ -1830,222 +1883,164 @@
 												</MenuItem.Icon>
 											</MenuItem>
 										</ContextMenu>
-									</TextBlock.ContextMenu>
-								</TextBlock>
-							</TabItem.Header>
-							<ListView
-								BorderBrush="#F5F5F5"
-								BorderThickness="0"
-								ItemContainerStyle="{StaticResource CompletedItemStyle}"
-								ItemsSource="{Binding ProcessingService.CompletedJobs}">
-								<ListView.View>
-									<GridView x:Name="completedGridView">
-										<GridView.Columns>
-											<GridViewColumn Width="300" Header="{x:Static res:MainRes.DestinationColumnHeader}">
-												<GridViewColumn.CellTemplate>
-													<DataTemplate>
-														<controls:PathTextBlock Text="{Binding EncodeResult.Destination}" />
-													</DataTemplate>
-												</GridViewColumn.CellTemplate>
-											</GridViewColumn>
-											<GridViewColumn Width="120" Header="{x:Static res:MainRes.StatusColumnHeader}">
-												<GridViewColumn.CellTemplate>
-													<DataTemplate>
-														<StackPanel Orientation="Horizontal">
-															<Image
-																Width="16"
-																Height="16"
-																Source="{Binding StatusImage}" />
-															<TextBlock Margin="4 0 0 0" Text="{Binding StatusText}" />
-														</StackPanel>
-													</DataTemplate>
-												</GridViewColumn.CellTemplate>
-											</GridViewColumn>
-											<GridViewColumn Width="90" Header="{x:Static res:MainRes.ElapsedTimeColumnHeader}">
-												<GridViewColumn.CellTemplate>
-													<DataTemplate>
-														<TextBlock Text="{Binding TimeDisplay}" />
-													</DataTemplate>
-												</GridViewColumn.CellTemplate>
-											</GridViewColumn>
-											<GridViewColumn Width="80" Header="{x:Static res:MainRes.FileSizeColumnHeader}">
-												<GridViewColumn.CellTemplate>
-													<DataTemplate>
-														<TextBlock Text="{Binding OutputFileSize}" />
-													</DataTemplate>
-												</GridViewColumn.CellTemplate>
-											</GridViewColumn>
-										</GridView.Columns>
-									</GridView>
-								</ListView.View>
-								<ListView.ContextMenu>
-									<ContextMenu>
-										<MenuItem Command="{Binding ProcessingService.ClearCompleted}" Header="{x:Static res:MainRes.ClearCompleted}">
-											<MenuItem.Icon>
-												<Image
-													Width="16"
-													Height="16"
-													Source="/Icons/delete.png" />
-											</MenuItem.Icon>
-										</MenuItem>
-									</ContextMenu>
-								</ListView.ContextMenu>
-							</ListView>
-						</TabItem>
-					</TabControl>
+									</ListView.ContextMenu>
+								</ListView>
+							</TabItem>
+						</TabControl>
 
-					<Button
-						Name="clearCompletedQueueItemsButton"
-						Margin="0 2 4 0"
-						HorizontalAlignment="Right"
-						VerticalAlignment="Top"
-						Command="{Binding ProcessingService.ClearCompleted}"
-						Style="{StaticResource RemoveButtonStyle}"
-						Visibility="Collapsed">
-						Clear completed queue items
-					</Button>
+						<Button
+							Name="clearCompletedQueueItemsButton"
+							Margin="0 2 4 0"
+							HorizontalAlignment="Right"
+							VerticalAlignment="Top"
+							Command="{Binding ProcessingService.ClearCompleted}"
+							Style="{StaticResource RemoveButtonStyle}"
+							Visibility="Collapsed">
+							Clear completed queue items
+						</Button>
 
-					<Border
-						Name="statusText"
-						HorizontalAlignment="Right"
-						VerticalAlignment="Bottom"
-						BorderBrush="DarkGray"
-						BorderThickness="1 1 0 0"
-						CornerRadius="4,0,0,0"
-						Visibility="Collapsed">
-						<Border.Background>
-							<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-								<GradientStop Offset="0.0" Color="White" />
-								<GradientStop Offset="1.0" Color="LightGray" />
-							</LinearGradientBrush>
-						</Border.Background>
-						<TextBlock
-							Name="statusTextBlock"
-							Margin="3 1 5 3"
-							FontSize="14"
-							Text="Status message" />
-					</Border>
+						<Border
+							Name="statusText"
+							HorizontalAlignment="Right"
+							VerticalAlignment="Bottom"
+							BorderBrush="DarkGray"
+							BorderThickness="1 1 0 0"
+							CornerRadius="4,0,0,0"
+							Visibility="Collapsed">
+							<Border.Background>
+								<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+									<GradientStop Offset="0.0" Color="White" />
+									<GradientStop Offset="1.0" Color="LightGray" />
+								</LinearGradientBrush>
+							</Border.Background>
+							<TextBlock
+								Name="statusTextBlock"
+								Margin="3 1 5 3"
+								FontSize="14"
+								Text="Status message" />
+						</Border>
+					</Grid>
 				</Grid>
-			</Grid>
 
-			<!--  Encode progress section  -->
-			<Grid
-				Grid.Row="2"
-				Height="28"
-				Visibility="{Binding ProcessingService.Encoding,
-				                     Converter={StaticResource VisibilityConverter}}">
-				<Grid.Background>
-					<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
-				</Grid.Background>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="Auto" />
-				</Grid.ColumnDefinitions>
-
-				<!--  Progress bar  -->
+				<!--  Encode progress section  -->
 				<Grid
-					Grid.Column="0"
-					Height="24"
-					Margin="3 0 0 0"
-					VerticalAlignment="Center"
-					MouseEnter="ProgressMouseEnter"
-					MouseLeave="ProgressMouseLeave"
+					Grid.Row="2"
+					Height="28"
 					Visibility="{Binding ProcessingService.Encoding,
 					                     Converter={StaticResource VisibilityConverter}}">
-					<ProgressBar
-						Name="overallEncodeProgressBar"
+					<Grid.Background>
+						<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
+					</Grid.Background>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+
+					<!--  Progress bar  -->
+					<Grid
+						Grid.Column="0"
 						Height="24"
-						VerticalAlignment="Top"
-						Foreground="{Binding ProcessingService.ProgressBarColor}"
-						Value="{Binding ProcessingService.OverallEncodeProgressPercent,
-						                Mode=OneWay}" />
-					<TextBlock
-						HorizontalAlignment="Center"
-						VerticalAlignment="Center"
-						Text="{Binding ProcessingService.OverallEncodeProgressPercent,
-						               Mode=OneWay,
-						               Converter={StaticResource PercentDisplayConverter}}" />
-					<Popup
-						Name="encodeProgressDetailsPopup"
-						AllowsTransparency="True"
-						IsOpen="False"
-						Placement="Center"
-						PlacementTarget="{Binding ElementName=overallEncodeProgressBar}"
-						VerticalOffset="-36">
-						<ContentControl Template="{StaticResource PopupInfoTemplate}">
-							<Grid Margin="7 2 7 2">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto" />
-									<ColumnDefinition Width="40" />
-								</Grid.ColumnDefinitions>
-								<Grid.RowDefinitions>
-									<RowDefinition Height="Auto" />
-									<RowDefinition Height="Auto" />
-								</Grid.RowDefinitions>
-								<TextBlock
-									Grid.Row="0"
-									Grid.Column="0"
-									Style="{StaticResource EncodeDetailsHeader}"
-									Text="{x:Static res:MainRes.CurrentFpsLabel}" />
-								<TextBlock
-									Grid.Row="0"
-									Grid.Column="1"
-									Style="{StaticResource EncodeDetailsText}"
-									Text="{Binding ProcessingService.CurrentFps,
-									               Mode=OneWay,
-									               Converter={StaticResource DoubleDisplayConverter}}"
-									TextAlignment="Center" />
-								<TextBlock
-									Grid.Row="1"
-									Grid.Column="0"
-									Style="{StaticResource EncodeDetailsHeader}"
-									Text="{x:Static res:MainRes.AverageFpsLabel}" />
-								<TextBlock
-									Grid.Row="1"
-									Grid.Column="1"
-									Style="{StaticResource EncodeDetailsText}"
-									Text="{Binding ProcessingService.AverageFps,
-									               Mode=OneWay,
-									               Converter={StaticResource DoubleDisplayConverter}}"
-									TextAlignment="Center" />
-							</Grid>
-						</ContentControl>
-					</Popup>
-				</Grid>
-
-				<StackPanel
-					Grid.Column="1"
-					HorizontalAlignment="Right"
-					Orientation="Horizontal">
-					<TextBlock
-						Margin="6 0 0 0"
-						HorizontalAlignment="Right"
-						VerticalAlignment="Center"
-						Text="{x:Static res:MainRes.EtaLabel}"
-						ToolTip="{x:Static res:CommonRes.QueueEtaToolTip}"
-						Visibility="{Binding ProcessingService.EncodeSpeedDetailsAvailable,
-						                     Converter={StaticResource VisibilityConverter}}" />
-					<TextBlock
 						Margin="3 0 0 0"
-						HorizontalAlignment="Right"
 						VerticalAlignment="Center"
-						Text="{Binding ProcessingService.EstimatedTimeRemaining}"
-						ToolTip="{x:Static res:CommonRes.QueueEtaToolTip}"
-						Visibility="{Binding ProcessingService.EncodeSpeedDetailsAvailable,
-						                     Converter={StaticResource VisibilityConverter}}" />
-					<TextBlock
-						Margin="8 0 3 0"
-						HorizontalAlignment="Right"
-						VerticalAlignment="Center"
-						Text="{x:Static res:MainRes.WhenDoneLabel}" />
+						MouseEnter="ProgressMouseEnter"
+						MouseLeave="ProgressMouseLeave"
+						Visibility="{Binding ProcessingService.Encoding,
+						                     Converter={StaticResource VisibilityConverter}}">
+						<ProgressBar
+							Name="overallEncodeProgressBar"
+							Height="24"
+							VerticalAlignment="Top"
+							Foreground="{Binding ProcessingService.ProgressBarColor}"
+							Value="{Binding ProcessingService.OverallEncodeProgressPercent,
+							                Mode=OneWay}" />
+						<TextBlock
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							Text="{Binding ProcessingService.OverallEncodeProgressPercent,
+							               Mode=OneWay,
+							               Converter={StaticResource PercentDisplayConverter}}" />
+						<Popup
+							Name="encodeProgressDetailsPopup"
+							AllowsTransparency="True"
+							IsOpen="False"
+							Placement="Center"
+							PlacementTarget="{Binding ElementName=overallEncodeProgressBar}"
+							VerticalOffset="-36">
+							<ContentControl Template="{StaticResource PopupInfoTemplate}">
+								<Grid Margin="7 2 7 2">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="40" />
+									</Grid.ColumnDefinitions>
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+									</Grid.RowDefinitions>
+									<TextBlock
+										Grid.Row="0"
+										Grid.Column="0"
+										Style="{StaticResource EncodeDetailsHeader}"
+										Text="{x:Static res:MainRes.CurrentFpsLabel}" />
+									<TextBlock
+										Grid.Row="0"
+										Grid.Column="1"
+										Style="{StaticResource EncodeDetailsText}"
+										Text="{Binding ProcessingService.CurrentFps,
+										               Mode=OneWay,
+										               Converter={StaticResource DoubleDisplayConverter}}"
+										TextAlignment="Center" />
+									<TextBlock
+										Grid.Row="1"
+										Grid.Column="0"
+										Style="{StaticResource EncodeDetailsHeader}"
+										Text="{x:Static res:MainRes.AverageFpsLabel}" />
+									<TextBlock
+										Grid.Row="1"
+										Grid.Column="1"
+										Style="{StaticResource EncodeDetailsText}"
+										Text="{Binding ProcessingService.AverageFps,
+										               Mode=OneWay,
+										               Converter={StaticResource DoubleDisplayConverter}}"
+										TextAlignment="Center" />
+								</Grid>
+							</ContentControl>
+						</Popup>
+					</Grid>
 
-					<ComboBox
-						Margin="0 0 3 0"
+					<StackPanel
+						Grid.Column="1"
 						HorizontalAlignment="Right"
-						VerticalAlignment="Center"
-						ItemsSource="{Binding ProcessingService.EncodeCompleteActions}"
-						SelectedValue="{Binding ProcessingService.EncodeCompleteAction}" />
-				</StackPanel>
+						Orientation="Horizontal">
+						<TextBlock
+							Margin="6 0 0 0"
+							HorizontalAlignment="Right"
+							VerticalAlignment="Center"
+							Text="{x:Static res:MainRes.EtaLabel}"
+							ToolTip="{x:Static res:CommonRes.QueueEtaToolTip}"
+							Visibility="{Binding ProcessingService.EncodeSpeedDetailsAvailable,
+							                     Converter={StaticResource VisibilityConverter}}" />
+						<TextBlock
+							Margin="3 0 0 0"
+							HorizontalAlignment="Right"
+							VerticalAlignment="Center"
+							Text="{Binding ProcessingService.EstimatedTimeRemaining}"
+							ToolTip="{x:Static res:CommonRes.QueueEtaToolTip}"
+							Visibility="{Binding ProcessingService.EncodeSpeedDetailsAvailable,
+							                     Converter={StaticResource VisibilityConverter}}" />
+						<TextBlock
+							Margin="8 0 3 0"
+							HorizontalAlignment="Right"
+							VerticalAlignment="Center"
+							Text="{x:Static res:MainRes.WhenDoneLabel}" />
+
+						<ComboBox
+							Margin="0 0 3 0"
+							HorizontalAlignment="Right"
+							VerticalAlignment="Center"
+							ItemsSource="{Binding ProcessingService.EncodeCompleteActions}"
+							SelectedValue="{Binding ProcessingService.EncodeCompleteAction}" />
+					</StackPanel>
+				</Grid>
 			</Grid>
 		</Grid>
 	</Grid>
