@@ -171,8 +171,18 @@ namespace VidCoder.Services
 		// Returns a non-conflicting output path.
 		// May return the same value if there are no conflicts.
 		// null means cancel.
-		public string ResolveOutputPathConflicts(string initialOutputPath, HashSet<string> excludedPaths, bool isBatch)
+		public string ResolveOutputPathConflicts(string initialOutputPath, string sourcePath, HashSet<string> excludedPaths, bool isBatch)
 		{
+			// If the output is going to be the same as the source path, add (Encoded) to it
+			if (string.Compare(initialOutputPath, sourcePath, StringComparison.InvariantCultureIgnoreCase) == 0)
+			{
+				string outputFolder = Path.GetDirectoryName(initialOutputPath);
+				string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(initialOutputPath);
+				string extension = Path.GetExtension(initialOutputPath);
+
+				initialOutputPath = Path.Combine(outputFolder, fileNameWithoutExtension + " (Encoded)" + extension);
+			}
+
 			HashSet<string> queuedFiles = excludedPaths;
 			bool? conflict = Utilities.FileExists(initialOutputPath, queuedFiles);
 
@@ -240,9 +250,9 @@ namespace VidCoder.Services
 			}
 		}
 
-		public string ResolveOutputPathConflicts(string initialOutputPath, bool isBatch)
+		public string ResolveOutputPathConflicts(string initialOutputPath, string sourcePath, bool isBatch)
 		{
-			return ResolveOutputPathConflicts(initialOutputPath, this.ProcessingService.GetQueuedFiles(), isBatch);
+			return this.ResolveOutputPathConflicts(initialOutputPath, sourcePath, this.ProcessingService.GetQueuedFiles(), isBatch);
 		}
 
 		/// <summary>
@@ -540,13 +550,7 @@ namespace VidCoder.Services
 
 			if (!string.IsNullOrEmpty(outputFolder))
 			{
-				string result = Path.Combine(outputFolder, fileName + extension);
-				if (result == sourcePath)
-				{
-					result = Path.Combine(outputFolder, fileName + " (Encoded)" + extension);
-				}
-
-				return result;
+				return Path.Combine(outputFolder, fileName + extension);
 			}
 
 			return null;

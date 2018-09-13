@@ -857,7 +857,7 @@ namespace VidCoder.Services
 						picker: picker);
 					string outputExtension = this.outputVM.GetOutputExtension();
 					string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
-					queueOutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, excludedPaths, isBatch: true);
+					queueOutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, source, excludedPaths, isBatch: true);
 
 					job.OutputPath = queueOutputPath;
 				}
@@ -887,7 +887,7 @@ namespace VidCoder.Services
 
 			var newEncodeJobVM = this.main.CreateEncodeJobVM();
 
-			string resolvedOutputPath = this.outputVM.ResolveOutputPathConflicts(newEncodeJobVM.Job.OutputPath, isBatch: false);
+			string resolvedOutputPath = this.outputVM.ResolveOutputPathConflicts(newEncodeJobVM.Job.OutputPath, newEncodeJobVM.Job.SourcePath, isBatch: false);
 			if (resolvedOutputPath == null)
 			{
 				return false;
@@ -991,7 +991,7 @@ namespace VidCoder.Services
 				string extension = this.outputVM.GetOutputExtension();
 				string queueOutputPath = this.outputVM.BuildOutputPath(queueOutputFileName, extension, sourcePath: null, outputFolder: outputDirectoryOverride);
 
-				job.OutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, isBatch: true);
+				job.OutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, this.main.SourcePath, isBatch: true);
 
 				var jobVM = new EncodeJobViewModel(job)
 				{
@@ -1130,7 +1130,7 @@ namespace VidCoder.Services
 					multipleTitlesOnSource: titles.Count > 1);
 				string outputExtension = this.outputVM.GetOutputExtension();
 				string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
-				queueOutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, excludedPaths, isBatch: true);
+				queueOutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, fileToQueue, excludedPaths, isBatch: true);
 
 				job.OutputPath = queueOutputPath;
 
