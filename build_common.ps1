@@ -79,8 +79,7 @@ function DeleteFileIfExists($fileName)
     if (Test-Path $fileName) { Remove-Item $fileName }
 }
 
-#$VSFolder = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional"
-$VSFolder = "C:\Program Files (x86)\Microsoft Visual Studio\Preview\Professional"
+$VSFolder = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional"
 $MsBuildExe = "$VSFolder\MSBuild\15.0\Bin\MSBuild.exe"
 $NetToolsFolder = "C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6 Tools"
 $InnoSetupExe = "C:\Program Files (x86)\Inno Setup 5\ISCC.exe"
