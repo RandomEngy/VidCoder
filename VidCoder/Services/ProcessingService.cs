@@ -1331,6 +1331,21 @@ namespace VidCoder.Services
 
 			encodeLogger.Log("  Preset: " + jobViewModel.PresetName);
 
+			string destinationDirectory = Path.GetDirectoryName(job.OutputPath);
+			if (!Directory.Exists(destinationDirectory))
+			{
+				try
+				{
+					Directory.CreateDirectory(destinationDirectory);
+				}
+				catch (Exception exception)
+				{
+					encodeLogger.LogError(string.Format(MainRes.DirectoryCreateErrorMessage, exception));
+					this.OnEncodeCompleted(jobViewModel, error: true);
+					return;
+				}
+			}
+
 			jobViewModel.EncodeProxy = Utilities.CreateEncodeProxy();
 			jobViewModel.EncodeProxy.EncodeProgress += (sender, args) =>
 			{
@@ -1341,23 +1356,6 @@ namespace VidCoder.Services
 				this.OnEncodeCompleted(jobViewModel, args.Error);
 			};
 			jobViewModel.EncodeProxy.EncodeStarted += this.OnEncodeStarted;
-
-			string destinationDirectory = Path.GetDirectoryName(job.OutputPath);
-			if (!Directory.Exists(destinationDirectory))
-			{
-				try
-				{
-					Directory.CreateDirectory(destinationDirectory);
-				}
-				catch (IOException exception)
-				{
-					Utilities.MessageBox.Show(
-						string.Format(MainRes.DirectoryCreateErrorMessage, exception),
-						MainRes.DirectoryCreateErrorTitle,
-						MessageBoxButton.OK,
-						MessageBoxImage.Error);
-				}
-			}
 
 			this.CanPauseOrStop = false;
 
