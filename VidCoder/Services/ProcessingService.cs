@@ -682,6 +682,47 @@ namespace VidCoder.Services
 			}
 		}
 
+		private void RefreshHasFailedItems()
+		{
+			this.HasFailedItems = this.CompletedJobs.Any(job => !job.EncodeResult.Succeeded);
+		}
+
+		private bool hasFailedItems;
+		public bool HasFailedItems
+		{
+			get { return this.hasFailedItems; }
+			set { this.RaiseAndSetIfChanged(ref this.hasFailedItems, value); }
+		}
+
+		private ReactiveCommand retryFailed;
+		public ICommand RetryFailed
+		{
+			get
+			{
+				return this.retryFailed ?? (this.retryFailed = ReactiveCommand.Create(() =>
+				{
+					int oldEncodeQueueCount = this.EncodeQueue.Count;
+
+					for (int i = this.CompletedJobs.Count - 1; i >= 0 ; i--)
+					{
+						EncodeResultViewModel completedItem = this.CompletedJobs[i];
+						if (!completedItem.EncodeResult.Succeeded)
+						{
+							this.Queue(completedItem.Job);
+							this.CompletedJobs.RemoveAt(i);
+						}
+					}
+
+					this.HasFailedItems = false;
+
+					if (oldEncodeQueueCount == 0)
+					{
+						this.StartEncodeQueue();
+					}
+				}));
+			}
+		}
+
 		private ReactiveCommand clearCompleted;
 		public ReactiveCommand ClearCompleted
 		{
@@ -691,6 +732,7 @@ namespace VidCoder.Services
 				{
 					var removedItems = new List<EncodeResultViewModel>(this.CompletedJobs);
 					this.CompletedJobs.Clear();
+					this.HasFailedItems = false;
 					var deletionCandidates = new List<string>();
 
 					foreach (var removedItem in removedItems)
@@ -1642,6 +1684,11 @@ namespace VidCoder.Services
 							SizeBytes = outputFileLength
 						},
 						finishedJobViewModel));
+
+					if (status != EncodeResultStatus.Succeeded)
+					{
+						this.HasFailedItems = true;
+					}
 
 					this.EncodeQueue.Remove(finishedJobViewModel);
 

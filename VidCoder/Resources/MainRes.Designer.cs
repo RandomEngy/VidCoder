@@ -1291,6 +1291,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Retry all failed items.
+        /// </summary>
+        public static string RetryFailedItemsMenuItem {
+            get {
+                return ResourceManager.GetString("RetryFailedItemsMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to revert all unsaved changes?.
         /// </summary>
         public static string RevertConfirmMessage {

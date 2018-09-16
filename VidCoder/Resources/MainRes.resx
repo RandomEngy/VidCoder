@@ -649,4 +649,7 @@
     <value>Scanning {0}...</value>
     <comment>{0} is the name of the source being scanned.</comment>
   </data>
+  <data name="RetryFailedItemsMenuItem" xml:space="preserve">
+    <value>Retry all failed items</value>
+  </data>
 </root>

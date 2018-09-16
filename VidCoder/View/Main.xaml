@@ -228,6 +228,18 @@
 				</MenuItem.Icon>
 			</MenuItem>
 			<Separator />
+			<MenuItem
+				Command="{Binding ProcessingService.RetryFailed}"
+				Header="{x:Static res:MainRes.RetryFailedItemsMenuItem}"
+				Visibility="{Binding ProcessingService.HasFailedItems,
+				                     Converter={StaticResource VisibilityConverter}}">
+				<MenuItem.Icon>
+					<Image
+						Width="16"
+						Height="16"
+						Source="/Icons/Reload.png" />
+				</MenuItem.Icon>
+			</MenuItem>
 			<MenuItem Command="{Binding ProcessingService.ClearCompleted}" Header="{x:Static res:MainRes.ClearCompleted}">
 				<MenuItem.Icon>
 					<Image
@@ -382,9 +394,11 @@
 			Modifiers="Control" />
 	</Window.InputBindings>
 
-	<!--  We need a separate root grid and content grid because the content can outgrow the
-	original allocated size for it. We need to keep track of the window client area so we
-	know how to restore it in a way that fits.  -->
+	<!--
+		We need a separate root grid and content grid because the content can outgrow the
+		original allocated size for it. We need to keep track of the window client area so we
+		know how to restore it in a way that fits.
+	-->
 	<Grid Name="rootGrid">
 		<Grid Name="contentGrid">
 			<Grid.RowDefinitions>
@@ -1815,6 +1829,18 @@
 									<TextBlock Text="{Binding ProcessingService.CompletedTabHeader}">
 										<TextBlock.ContextMenu>
 											<ContextMenu>
+												<MenuItem
+													Command="{Binding ProcessingService.RetryFailed}"
+													Header="{x:Static res:MainRes.RetryFailedItemsMenuItem}"
+													Visibility="{Binding ProcessingService.HasFailedItems,
+													                     Converter={StaticResource VisibilityConverter}}">
+													<MenuItem.Icon>
+														<Image
+															Width="16"
+															Height="16"
+															Source="/Icons/Reload.png" />
+													</MenuItem.Icon>
+												</MenuItem>
 												<MenuItem Command="{Binding ProcessingService.ClearCompleted}" Header="{x:Static res:MainRes.ClearCompleted}">
 													<MenuItem.Icon>
 														<Image
@@ -1874,6 +1900,18 @@
 									</ListView.View>
 									<ListView.ContextMenu>
 										<ContextMenu>
+											<MenuItem
+												Command="{Binding ProcessingService.RetryFailed}"
+												Header="{x:Static res:MainRes.RetryFailedItemsMenuItem}"
+												Visibility="{Binding ProcessingService.HasFailedItems,
+												                     Converter={StaticResource VisibilityConverter}}">
+												<MenuItem.Icon>
+													<Image
+														Width="16"
+														Height="16"
+														Source="/Icons/Reload.png" />
+												</MenuItem.Icon>
+											</MenuItem>
 											<MenuItem Command="{Binding ProcessingService.ClearCompleted}" Header="{x:Static res:MainRes.ClearCompleted}">
 												<MenuItem.Icon>
 													<Image
