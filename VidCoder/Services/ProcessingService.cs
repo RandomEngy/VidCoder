@@ -425,7 +425,7 @@ namespace VidCoder.Services
 									{
 										VCProfile newProfile = this.presetsService.SelectedPreset.Preset.EncodingProfile;
 										job.Job.EncodingProfile = newProfile;
-										job.Job.OutputPath = Path.ChangeExtension(job.Job.OutputPath, OutputPathService.GetExtensionForProfile(newProfile));
+										job.Job.FinalOutputPath = Path.ChangeExtension(job.Job.FinalOutputPath, OutputPathService.GetExtensionForProfile(newProfile));
 
 										newJobs.Add(job);
 									}
@@ -854,7 +854,7 @@ namespace VidCoder.Services
 					RangeType = VideoRangeType.All,
 					EncodingProfile = profile,
 					ChosenAudioTracks = new List<int> { 1 },
-					OutputPath = destination,
+					FinalOutputPath = destination,
 					UseDefaultChapterNames = true,
 				});
 
@@ -901,7 +901,7 @@ namespace VidCoder.Services
 					string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
 					queueOutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, source, excludedPaths, isBatch: true);
 
-					job.OutputPath = queueOutputPath;
+					job.FinalOutputPath = queueOutputPath;
 				}
 
 				this.Queue(jobVM);
@@ -929,13 +929,13 @@ namespace VidCoder.Services
 
 			var newEncodeJobVM = this.main.CreateEncodeJobVM();
 
-			string resolvedOutputPath = this.outputVM.ResolveOutputPathConflicts(newEncodeJobVM.Job.OutputPath, newEncodeJobVM.Job.SourcePath, isBatch: false);
+			string resolvedOutputPath = this.outputVM.ResolveOutputPathConflicts(newEncodeJobVM.Job.FinalOutputPath, newEncodeJobVM.Job.SourcePath, isBatch: false);
 			if (resolvedOutputPath == null)
 			{
 				return false;
 			}
 
-			newEncodeJobVM.Job.OutputPath = resolvedOutputPath;
+			newEncodeJobVM.Job.FinalOutputPath = resolvedOutputPath;
 
 			this.Queue(newEncodeJobVM);
 			return true;
@@ -1033,7 +1033,7 @@ namespace VidCoder.Services
 				string extension = this.outputVM.GetOutputExtension();
 				string queueOutputPath = this.outputVM.BuildOutputPath(queueOutputFileName, extension, sourcePath: null, outputFolder: outputDirectoryOverride);
 
-				job.OutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, this.main.SourcePath, isBatch: true);
+				job.FinalOutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, this.main.SourcePath, isBatch: true);
 
 				var jobVM = new EncodeJobViewModel(job)
 				{
@@ -1174,7 +1174,7 @@ namespace VidCoder.Services
 				string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
 				queueOutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, fileToQueue, excludedPaths, isBatch: true);
 
-				job.OutputPath = queueOutputPath;
+				job.FinalOutputPath = queueOutputPath;
 
 				excludedPaths.Add(queueOutputPath);
 
@@ -1266,7 +1266,7 @@ namespace VidCoder.Services
 
 		public HashSet<string> GetQueuedFiles()
 		{
-			return new HashSet<string>(this.EncodeQueue.Select(j => j.Job.OutputPath), StringComparer.OrdinalIgnoreCase);
+			return new HashSet<string>(this.EncodeQueue.Select(j => j.Job.FinalOutputPath), StringComparer.OrdinalIgnoreCase);
 		}
 
 		private void RunForAllEncodeProxies(Action<IEncodeProxy> proxyAction)
@@ -1347,7 +1347,7 @@ namespace VidCoder.Services
 		{
 			VCJob job = jobViewModel.Job;
 
-			var encodeLogger = new AppLogger(this.logger, Path.GetFileName(job.OutputPath));
+			var encodeLogger = new AppLogger(this.logger, Path.GetFileName(job.FinalOutputPath));
 			jobViewModel.Logger = encodeLogger;
 			jobViewModel.EncodeSpeedDetailsAvailable = false;
 
@@ -1373,7 +1373,7 @@ namespace VidCoder.Services
 
 			encodeLogger.Log("  Preset: " + jobViewModel.PresetName);
 
-			string destinationDirectory = Path.GetDirectoryName(job.OutputPath);
+			string destinationDirectory = Path.GetDirectoryName(job.FinalOutputPath);
 			if (!Directory.Exists(destinationDirectory))
 			{
 				try
@@ -1386,6 +1386,15 @@ namespace VidCoder.Services
 					this.OnEncodeCompleted(jobViewModel, error: true);
 					return;
 				}
+			}
+
+			try
+			{
+				job.PartOutputPath = GetPartFilePath(job.FinalOutputPath);
+			}
+			catch (Exception exception)
+			{
+				encodeLogger.Log("Could not use temporary encoding path. Will instead output directly." + Environment.NewLine + exception);
 			}
 
 			jobViewModel.EncodeProxy = Utilities.CreateEncodeProxy();
@@ -1511,7 +1520,7 @@ namespace VidCoder.Services
 
 			try
 			{
-				var outputFileInfo = new FileInfo(jobViewModel.Job.OutputPath);
+				var outputFileInfo = new FileInfo(jobViewModel.Job.InProgressOutputPath);
 				jobViewModel.FileSizeBytes = outputFileInfo.Length;
 			}
 			catch (Exception)
@@ -1606,7 +1615,8 @@ namespace VidCoder.Services
 			DispatchUtilities.BeginInvoke(() =>
 			{
 				IAppLogger encodeLogger = finishedJobViewModel.Logger;
-				string outputPath = finishedJobViewModel.Job.OutputPath;
+				string finalOutputPath = finishedJobViewModel.Job.FinalOutputPath;
+				var directOutputFileInfo = new FileInfo(finishedJobViewModel.Job.InProgressOutputPath);
 
 				this.CanPauseOrStop = false;
 
@@ -1614,6 +1624,10 @@ namespace VidCoder.Services
 				{
 					// If the encode was stopped manually
 					this.StopEncodingAndReport();
+
+					// Try to clean up the failed file
+					TryCleanFailedFile(directOutputFileInfo, encodeLogger);
+
 					finishedJobViewModel.ReportEncodeEnd();
 
 					if (this.TotalTasks == 1 && this.encodeCompleteReason == EncodeCompleteReason.Manual)
@@ -1628,23 +1642,23 @@ namespace VidCoder.Services
 					// If the encode completed successfully
 					this.completedQueueWork += finishedJobViewModel.Cost;
 
-					var outputFileInfo = new FileInfo(finishedJobViewModel.Job.OutputPath);
+					EncodeResultStatus status = EncodeResultStatus.Succeeded;
 					long outputFileLength = 0;
 
-					EncodeResultStatus status = EncodeResultStatus.Succeeded;
+
 					if (error)
 					{
 						status = EncodeResultStatus.Failed;
 						encodeLogger.LogError("Encode failed.");
 					}
-					else if (!outputFileInfo.Exists)
+					else if (!directOutputFileInfo.Exists)
 					{
 						status = EncodeResultStatus.Failed;
 						encodeLogger.LogError("Encode failed. HandBrake reported no error but the expected output file was not found.");
 					}
 					else
 					{
-						outputFileLength = outputFileInfo.Length;
+						outputFileLength = directOutputFileInfo.Length;
 						if (outputFileLength == 0)
 						{
 							status = EncodeResultStatus.Failed;
@@ -1652,7 +1666,30 @@ namespace VidCoder.Services
 						}
 					}
 
-					if (Config.PreserveModifyTimeFiles)
+					if (status == EncodeResultStatus.Succeeded && finishedJobViewModel.Job.PartOutputPath != null)
+					{
+						// Rename from in progress path to final path
+						try
+						{
+							if (File.Exists(finishedJobViewModel.Job.FinalOutputPath))
+							{
+								File.Delete(finishedJobViewModel.Job.FinalOutputPath);
+							}
+
+							File.Move(finishedJobViewModel.Job.PartOutputPath, finishedJobViewModel.Job.FinalOutputPath);
+						}
+						catch (Exception exception)
+						{
+							status = EncodeResultStatus.Failed;
+							encodeLogger.LogError($"Could not rename to final output path. Output is left as '{finishedJobViewModel.Job.PartOutputPath}'" + Environment.NewLine + exception);
+						}
+					}
+					else if (status != EncodeResultStatus.Succeeded)
+					{
+						TryCleanFailedFile(directOutputFileInfo, encodeLogger);
+					}
+
+					if (status == EncodeResultStatus.Succeeded && Config.PreserveModifyTimeFiles)
 					{
 						try
 						{
@@ -1660,8 +1697,8 @@ namespace VidCoder.Services
 							{
 								FileInfo info = new FileInfo(finishedJobViewModel.Job.SourcePath);
 
-								File.SetCreationTimeUtc(finishedJobViewModel.Job.OutputPath, info.CreationTimeUtc);
-								File.SetLastWriteTimeUtc(finishedJobViewModel.Job.OutputPath, info.LastWriteTimeUtc);
+								File.SetCreationTimeUtc(finishedJobViewModel.Job.FinalOutputPath, info.CreationTimeUtc);
+								File.SetLastWriteTimeUtc(finishedJobViewModel.Job.FinalOutputPath, info.LastWriteTimeUtc);
 							}
 						}
 						catch (IOException exception)
@@ -1671,13 +1708,13 @@ namespace VidCoder.Services
 						catch (UnauthorizedAccessException exception)
 						{
 							encodeLogger.LogError("Could not set create/modify dates on file: " + exception);
-						} 
+						}
 					}
 
 					this.CompletedJobs.Add(new EncodeResultViewModel(
 						new EncodeResult
 						{
-							Destination = finishedJobViewModel.Job.OutputPath,
+							Destination = finishedJobViewModel.Job.FinalOutputPath,
 							Status = status,
 							EncodeTime = finishedJobViewModel.EncodeTime,
 							LogPath = encodeLogger.LogPath,
@@ -1696,8 +1733,8 @@ namespace VidCoder.Services
 					if (status == EncodeResultStatus.Succeeded && !Utilities.IsRunningAsAppx && picker.PostEncodeActionEnabled && !string.IsNullOrWhiteSpace(picker.PostEncodeExecutable))
 					{
 						string arguments = outputVM.ReplaceArguments(picker.PostEncodeArguments, picker)
-                            .Replace("{file}", outputPath)
-                            .Replace("{folder}", Path.GetDirectoryName(outputPath));
+                            .Replace("{file}", finalOutputPath)
+                            .Replace("{folder}", Path.GetDirectoryName(finalOutputPath));
 
 						var process = new ProcessStartInfo(
 							picker.PostEncodeExecutable,
@@ -1812,7 +1849,7 @@ namespace VidCoder.Services
 
 				if (Config.CopyLogToOutputFolder && encodeLogPath != null)
 				{
-					string logCopyPath = Path.Combine(Path.GetDirectoryName(outputPath), Path.GetFileName(encodeLogPath));
+					string logCopyPath = Path.Combine(Path.GetDirectoryName(finalOutputPath), Path.GetFileName(encodeLogPath));
 
 					try
 					{
@@ -1828,6 +1865,18 @@ namespace VidCoder.Services
 					}
 				}
 			});
+		}
+
+		private static void TryCleanFailedFile(FileInfo directOutputFileInfo, IAppLogger encodeLogger)
+		{
+			try
+			{
+				directOutputFileInfo.Delete();
+			}
+			catch (Exception exception)
+			{
+				encodeLogger.Log($"Could not clean up failed file '{directOutputFileInfo.FullName}'." + Environment.NewLine + exception);
+			}
 		}
 
 		private void PauseEncoding()
@@ -2007,6 +2056,28 @@ namespace VidCoder.Services
 			}
 
 			return result;
+		}
+
+		/// <summary>
+		/// Gets the .part file path given the final output path.
+		/// </summary>
+		/// <param name="outputFilePath"></param>
+		/// <returns>The .part file path.</returns>
+		/// <exception cref="PathTooLongException">Thrown when path is too long.</exception>
+		/// <exception cref="IOException">Thrown when unable to delete old part file.</exception>
+		private static string GetPartFilePath(string outputFilePath)
+		{
+			string partPath = outputFilePath + ".part";
+
+			// This will throw if the path is too long.
+			partPath = Path.GetFullPath(partPath);
+
+			if (File.Exists(partPath))
+			{
+				File.Delete(partPath);
+			}
+
+			return partPath;
 		}
 
 		private void AutoPauseEncoding(object sender, EventArgs e)

@@ -186,7 +186,7 @@ namespace VidCoder.ViewModel
 
 		public string PresetName { get; set; }
 
-		public string ShortFileName => Path.GetFileName(this.Job.OutputPath);
+		public string ShortFileName => Path.GetFileName(this.Job.FinalOutputPath);
 
 		public IEncodeProxy EncodeProxy { get; set; }
 

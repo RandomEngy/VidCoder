@@ -462,7 +462,7 @@ namespace VidCoder.ViewModel
 
 						this.SetPreviewFilePath();
 
-						this.job.OutputPath = this.previewFilePath;
+						this.job.FinalOutputPath = this.previewFilePath;
 
 						if (this.job.Subtitles?.SourceSubtitles != null)
 						{
@@ -581,7 +581,7 @@ namespace VidCoder.ViewModel
 						};
 
 						this.logger.Log("Generating preview clip");
-						this.logger.Log("  Path: " + this.job.OutputPath);
+						this.logger.Log("  Path: " + this.job.FinalOutputPath);
 						this.logger.Log("  Title: " + this.job.Title);
 						this.logger.Log("  Preview #: " + this.PreviewImageServiceClient.PreviewIndex);
 

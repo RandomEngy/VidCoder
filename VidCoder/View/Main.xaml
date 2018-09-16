@@ -143,7 +143,7 @@
 			<TextBlock Style="{StaticResource QueueText}" Text="{Binding RangeDisplay}" />
 		</DataTemplate>
 		<DataTemplate x:Key="QueueTemplateDestination" DataType="viewmodel:EncodeJobViewModel">
-			<controls:PathTextBlock Style="{StaticResource QueuePathText}" Text="{Binding Job.OutputPath}" />
+			<controls:PathTextBlock Style="{StaticResource QueuePathText}" Text="{Binding Job.FinalOutputPath}" />
 		</DataTemplate>
 		<DataTemplate x:Key="QueueTemplateVideoEncoder" DataType="viewmodel:EncodeJobViewModel">
 			<TextBlock Style="{StaticResource QueueText}" Text="{Binding VideoEncoderDisplay}" />

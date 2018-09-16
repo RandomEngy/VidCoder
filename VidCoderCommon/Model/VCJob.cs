@@ -41,7 +41,20 @@ namespace VidCoderCommon.Model
 		public bool UseDefaultChapterNames { get; set; }
 		public List<string> CustomChapterNames { get; set; }
 
-		public string OutputPath { get; set; }
+		/// <summary>
+		/// Gets or sets the final output path for the result.
+		/// </summary>
+		public string FinalOutputPath { get; set; }
+
+		/// <summary>
+		/// Gets or sets the ".part" output path variant to use. Null if we are directly using the final output path to encode.
+		/// </summary>
+		public string PartOutputPath { get; set; }
+
+		/// <summary>
+		/// Gets the output path used for the in-progress encode.
+		/// </summary>
+		public string InProgressOutputPath => this.PartOutputPath ?? this.FinalOutputPath;
 
 		public VCProfile EncodingProfile { get; set; }
 

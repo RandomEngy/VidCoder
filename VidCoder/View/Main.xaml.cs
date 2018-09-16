@@ -124,7 +124,7 @@ namespace VidCoder.View
 							JsonEncodeObject encodeObject = JsonConvert.DeserializeObject<JsonEncodeObject>(dialog.EncodeJson);
 
 							jobViewModel.DebugEncodeJsonOverride = dialog.EncodeJson;
-							jobViewModel.Job.OutputPath = encodeObject.Destination.File;
+							jobViewModel.Job.FinalOutputPath = encodeObject.Destination.File;
 							jobViewModel.Job.SourcePath = encodeObject.Source.Path;
 
 							this.processingService.Queue(jobViewModel);

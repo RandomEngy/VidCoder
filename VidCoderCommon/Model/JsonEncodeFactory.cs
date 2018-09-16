@@ -332,7 +332,7 @@ namespace VidCoderCommon.Model
 
 			var destination = new Destination
 			{
-				File = job.OutputPath,
+				File = job.PartOutputPath ?? job.FinalOutputPath,
 				AlignAVStart = profile.AlignAVStart,
 				Mp4Options = new Mp4Options
 				{

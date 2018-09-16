@@ -2720,7 +2720,7 @@ namespace VidCoder.ViewModel
 				{
 					SourceType = type,
 					SourcePath = this.SourcePath,
-					OutputPath = outputPath,
+					FinalOutputPath = outputPath,
 					EncodingProfile = encodingProfile,
 					Title = title,
 					Angle = this.Angle,
@@ -3305,7 +3305,7 @@ namespace VidCoder.ViewModel
 			}
 
 			// Output path
-			this.OutputPathService.OutputPath = job.OutputPath;
+			this.OutputPathService.OutputPath = job.FinalOutputPath;
 			this.OutputPathService.SourceParentFolder = jobVM.SourceParentFolder;
 			this.OutputPathService.ManualOutputPath = jobVM.ManualOutputPath;
 			this.OutputPathService.NameFormatOverride = jobVM.NameFormatOverride;
