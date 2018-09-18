@@ -422,7 +422,10 @@
 								VerticalAlignment="Top"
 								Style="{StaticResource SectionHeader}"
 								Text="{x:Static res:EncodingRes.Input}" />
-							<ItemsControl Grid.Column="1" ItemsSource="{Binding InputPreview}">
+							<ItemsControl
+								Grid.Column="1"
+								Focusable="False"
+								ItemsSource="{Binding InputPreview}">
 								<ItemsControl.ItemTemplate>
 									<DataTemplate>
 										<Grid>
@@ -465,7 +468,10 @@
 								Style="{StaticResource SectionHeader}"
 								Text="{x:Static res:EncodingRes.OutputLabel}" />
 
-							<ItemsControl Grid.Column="1" ItemsSource="{Binding OutputPreview}">
+							<ItemsControl
+								Grid.Column="1"
+								Focusable="False"
+								ItemsSource="{Binding OutputPreview}">
 								<ItemsControl.ItemTemplate>
 									<DataTemplate>
 										<Grid>

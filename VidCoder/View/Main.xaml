@@ -611,6 +611,7 @@
 						Grid.Row="1"
 						MinWidth="220"
 						MinHeight="105"
+						Focusable="False"
 						ItemsSource="{Binding SourceOptions}">
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
@@ -679,6 +680,7 @@
 						Grid.Row="1"
 						MinWidth="220"
 						Margin="0 4 0 0"
+						Focusable="False"
 						ItemsSource="{Binding RecentSourceOptions}"
 						Visibility="{Binding RecentSourcesVisible,
 						                     Converter={StaticResource VisibilityConverter}}">

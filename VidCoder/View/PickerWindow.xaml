@@ -25,7 +25,10 @@
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
 
-		<controls:PickerList Grid.Column="0" HorizontalAlignment="Stretch" Background="WhiteSmoke" />
+		<controls:PickerList
+			Grid.Column="0"
+			HorizontalAlignment="Stretch"
+			Background="WhiteSmoke" />
 
 		<GridSplitter
 			Grid.Column="1"
@@ -51,7 +54,10 @@
 				UseLayoutRounding="True"
 				Visibility="{Binding PickersService.SelectedPicker.Picker.IsDefault,
 				                     Converter={StaticResource InverseVisibilityConverter}}">
-				<ToolBar Loaded="ToolBar_Loaded" ToolBarTray.IsLocked="True">
+				<ToolBar
+					KeyboardNavigation.TabNavigation="Continue"
+					Loaded="ToolBar_Loaded"
+					ToolBarTray.IsLocked="True">
 					<ToolBar.Background>
 						<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
 							<GradientStop Offset="0.0" Color="#EEE" />

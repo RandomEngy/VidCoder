@@ -89,9 +89,12 @@
 			<ToolBarPanel
 				Margin="-5 0 -14 0"
 				HorizontalAlignment="Stretch"
-				VerticalAlignment="Top"
+				VerticalAlignment="Top"	
 				UseLayoutRounding="True">
-				<ToolBar Loaded="ToolBar_Loaded" ToolBarTray.IsLocked="True">
+				<ToolBar
+					KeyboardNavigation.TabNavigation="Continue"
+					Loaded="ToolBar_Loaded"
+					ToolBarTray.IsLocked="True">
 					<ToolBar.Background>
 						<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
 							<GradientStop Offset="0.0" Color="#EEE" />
