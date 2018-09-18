@@ -276,7 +276,7 @@ namespace VidCoder.Services
 				// If we're switching away from a temporary queue preset, remove it.
 				if (previouslySelectedPreset != null && previouslySelectedPreset.Preset.IsQueue && previouslySelectedPreset != value)
 				{
-					this.AllPresets.Remove(previouslySelectedPreset);
+					this.RemovePresetFromTreeAndList(previouslySelectedPreset);
 				}
 			}
 
@@ -397,13 +397,18 @@ namespace VidCoder.Services
 		{
 			PresetViewModel presetToDelete = this.SelectedPreset;
 
-			this.RemovePresetFromTree(presetToDelete);
-			this.AllPresets.Remove(presetToDelete);
+			this.RemovePresetFromTreeAndList(presetToDelete);
 
 			this.selectedPreset = null;
 			this.SelectedPreset = this.AllPresets[0];
 
 			this.SaveUserPresets();
+		}
+
+		private void RemovePresetFromTreeAndList(PresetViewModel presetToRemove)
+		{
+			this.RemovePresetFromTree(presetToRemove);
+			this.AllPresets.Remove(presetToRemove);
 		}
 
 		public void MovePresetToFolder(PresetViewModel presetViewModel, PresetFolderViewModel targetFolder)
@@ -698,18 +703,19 @@ namespace VidCoder.Services
 		public void InsertQueuePreset(PresetViewModel queuePreset)
 		{
 			// Bring in encoding profile and put in a placeholder preset.
+
 			if (this.AllPresets[0].Preset.IsQueue)
 			{
-				this.AllPresets.RemoveAt(0);
+				this.RemovePresetFromTreeAndList(this.AllPresets[0]);
 			}
 
-			this.AllPresets.Insert(0, queuePreset);
+			this.InsertNewPreset(queuePreset, insertAtStart: true);
 
-			this.selectedPreset = queuePreset;
-			this.NotifySelectedPresetChanged();
+			this.selectedPreset = null;
+			this.SelectedPreset = queuePreset;
 		}
 
-		private void InsertNewPreset(PresetViewModel presetVM)
+		private void InsertNewPreset(PresetViewModel presetVM, bool insertAtStart = false)
 		{
 			this.customPresetFolder.AddItem(presetVM);
 
@@ -717,6 +723,11 @@ namespace VidCoder.Services
 			if (!this.AllPresetsTree.Contains(this.customPresetFolder))
 			{
 				this.AllPresetsTree.Insert(0, this.customPresetFolder);
+			}
+
+			if (insertAtStart)
+			{
+				this.AllPresets.Insert(0, presetVM);
 			}
 
 			for (int i = 0; i < this.AllPresets.Count; i++)
