@@ -58,19 +58,15 @@ namespace VidCoder
 		protected bool Running { get; set; }
 
 		// Executes the given proxy operation, stopping the encode and logging if a communication problem occurs.
-		protected void ExecuteProxyOperation(Action action)
+		protected void ExecuteProxyOperation(Action action, string operationName)
 		{
 			try
 			{
 				action();
 			}
-			catch (CommunicationException exception)
+			catch (Exception exception)
 			{
-				this.HandleWorkerCommunicationError(exception);
-			}
-			catch (TimeoutException exception)
-			{
-				this.HandleWorkerCommunicationError(exception);
+				this.HandleWorkerCommunicationError(exception, operationName);
 			}
 		}
 
@@ -110,10 +106,12 @@ namespace VidCoder
 		// TODO: Is this only needed for encoding?
 		public abstract void StopAndWait();
 
-		private void HandleWorkerCommunicationError(Exception exception)
+		private void HandleWorkerCommunicationError(Exception exception, string operationName)
 		{
 			if (!this.Running)
 			{
+				this.Logger.LogError($"Operation '{operationName}' failed, encode is not running.");
+
 				return;
 			}
 
@@ -128,19 +126,23 @@ namespace VidCoder
 
 					if (errors > 0)
 					{
-						this.Logger.LogError("Worker process crashed. Details:");
+						this.Logger.LogError($"Operation '{operationName}' failed. Worker process crashed. Details:");
 						this.Logger.Log(logs);
 					}
 					else
 					{
-						this.Logger.LogError("Worker process exited unexpectedly with code " + this.worker.ExitCode + ". This may be due to a HandBrake engine crash.");
+						this.Logger.LogError($"Operation '{operationName}' failed. Worker process exited unexpectedly with code " + this.worker.ExitCode + ". This may be due to a HandBrake engine crash.");
 					}
 				}
 				else
 				{
-					this.Logger.LogError("Lost communication with worker process: " + exception);
+					this.Logger.LogError($"Operation '{operationName}' failed. Lost communication with worker process: " + exception);
 					this.LogAndClearWorkerMessages();
 				}
+			}
+			else
+			{
+				this.Logger.LogError($"Operation '{operationName}' failed, worker process has crashed.");
 			}
 
 			this.EndOperation(error: true);
@@ -205,7 +207,7 @@ namespace VidCoder
 				// update from it in 10 seconds we assume something is wrong.
 				if (this.worker.HasExited || this.LastWorkerCommunication < DateTimeOffset.UtcNow - LastUpdateTimeoutWindow)
 				{
-					this.HandleWorkerCommunicationError(exception);
+					this.HandleWorkerCommunicationError(exception, "Ping");
 				}
 			}
 		}
@@ -264,7 +266,7 @@ namespace VidCoder
 						// After we do StartEncode (which can take a while), switch the timeout down to normal level to do pings
 						var contextChannel = (IContextChannel)this.Channel;
 						contextChannel.OperationTimeout = OperationTimeout;
-					});
+					}, "Connect");
 				}
 
 				if (!connectionSucceeded)
@@ -318,13 +320,17 @@ namespace VidCoder
 			task.Start();
 		}
 
-		protected void ExecuteWorkerCall(Action<IHandBrakeWorker> action)
+		protected void ExecuteWorkerCall(Action<IHandBrakeWorker> action, string operationName)
 		{
 			lock (this.ProcessLock)
 			{
 				if (this.Channel != null)
 				{
-					this.ExecuteProxyOperation(() => action(this.Channel));
+					this.ExecuteProxyOperation(() => action(this.Channel), operationName);
+				}
+				else
+				{
+					this.Logger.LogError($"Could not execute operation '{operationName}', Channel does not exist.");
 				}
 			}
 		}
@@ -406,6 +412,5 @@ namespace VidCoder
 			this.Logger.LogError("Worker process crashed. Please report this error so it can be fixed in the future:" + Environment.NewLine + exceptionString);
 			this.crashLogged = true;
 		}
-
 	}
 }

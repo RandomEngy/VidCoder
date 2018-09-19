@@ -73,17 +73,17 @@ namespace VidCoder
 
 		public void PauseEncode()
 		{
-			this.ExecuteWorkerCall(channel => channel.PauseEncode());
+			this.ExecuteWorkerCall(channel => channel.PauseEncode(), nameof(this.Channel.PauseEncode));
 		}
 
 		public void ResumeEncode()
 		{
-			this.ExecuteWorkerCall(channel => channel.ResumeEncode());
+			this.ExecuteWorkerCall(channel => channel.ResumeEncode(), nameof(this.Channel.ResumeEncode));
 		}
 
 		public void StopEncode()
 		{
-			this.ExecuteWorkerCall(channel => channel.StopEncode());
+			this.ExecuteWorkerCall(channel => channel.StopEncode(), nameof(this.Channel.StopEncode));
 		}
 
 		// This can be called at any time: it will stop the encode ASAP and wait for encode to be stopped before returning.
@@ -105,7 +105,7 @@ namespace VidCoder
 
 				if (this.Running && connected)
 				{
-					this.ExecuteProxyOperation(() => this.Channel.StopEncode());
+					this.ExecuteProxyOperation(() => this.Channel.StopEncode(), nameof(this.Channel));
 
 					// If stopping the encode failed, don't wait for the encode to end.
 					waitForEnd = this.Running;
