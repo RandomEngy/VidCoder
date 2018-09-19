@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using VidCoderCommon.JsonConverters;
 
@@ -41,6 +42,10 @@ namespace VidCoderCommon.Model
 		public bool UseDefaultChapterNames { get; set; }
 		public List<string> CustomChapterNames { get; set; }
 
+		[Obsolete("Use FinalOutputPath instead")]
+		[DeserializeOnly]
+		public string OutputPath { get; set; }
+
 		/// <summary>
 		/// Gets or sets the final output path for the result.
 		/// </summary>
@@ -60,5 +65,16 @@ namespace VidCoderCommon.Model
 
 		// The length of video to encode.
 		public TimeSpan Length { get; set; }
+
+		[OnDeserialized]
+		internal void OnDeserializedMethod(StreamingContext context)
+		{
+#pragma warning disable 618
+			if (this.OutputPath != null && this.FinalOutputPath == null)
+			{
+				this.FinalOutputPath = this.OutputPath;
+			}
+#pragma warning restore 618
+		}
 	}
 }
