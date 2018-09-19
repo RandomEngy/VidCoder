@@ -28,7 +28,6 @@ namespace VidCoder
 			container.RegisterSingleton<IUpdater, Updater>();
 			container.RegisterSingleton<IMessageBoxService, MessageBoxService>();
 			container.RegisterSingleton<IAppLogger, MainAppLogger>();
-			container.RegisterSingleton<ILogger, AppLogger>();
 			container.RegisterSingleton<IFileService, FileService>();
 			container.RegisterSingleton<IPresetImportExport, PresetImportExport>();
 			container.RegisterSingleton<IQueueImportExport, QueueImportExport>();
