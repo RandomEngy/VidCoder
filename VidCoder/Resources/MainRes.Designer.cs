@@ -434,6 +434,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit chapters.
+        /// </summary>
+        public static string EditChaptersButtonHelpText {
+            get {
+                return ResourceManager.GetString("EditChaptersButtonHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Elapsed Time.
         /// </summary>
         public static string ElapsedTimeColumnHeader {
@@ -556,6 +565,15 @@ namespace VidCoder.Resources {
         public static string EncodingSettingsMenuItem {
             get {
                 return ResourceManager.GetString("EncodingSettingsMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End chapter.
+        /// </summary>
+        public static string EndChapterHelpText {
+            get {
+                return ResourceManager.GetString("EndChapterHelpText", resourceCulture);
             }
         }
         
@@ -1449,6 +1467,15 @@ namespace VidCoder.Resources {
         public static string SourceOption_VideoFile {
             get {
                 return ResourceManager.GetString("SourceOption_VideoFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start chapter.
+        /// </summary>
+        public static string StartChapterHelpText {
+            get {
+                return ResourceManager.GetString("StartChapterHelpText", resourceCulture);
             }
         }
         

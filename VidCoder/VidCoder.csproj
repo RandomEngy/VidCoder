@@ -89,7 +89,7 @@
     </PackageReference>
     <PackageReference Include="DesktopBridge.Helpers" Version="1.1" />
     <PackageReference Include="Fluent.Ribbon">
-      <Version>6.1.0.326</Version>
+      <Version>7.0.0-alpha0419</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AnyContainer">
       <Version>1.0.0-beta201808141</Version>

@@ -652,4 +652,16 @@
   <data name="RetryFailedItemsMenuItem" xml:space="preserve">
     <value>Retry all failed items</value>
   </data>
+  <data name="StartChapterHelpText" xml:space="preserve">
+    <value>Start chapter</value>
+    <comment>Narrator label for the chapter start combo box</comment>
+  </data>
+  <data name="EndChapterHelpText" xml:space="preserve">
+    <value>End chapter</value>
+    <comment>Narrator label for the end chapter combo box</comment>
+  </data>
+  <data name="EditChaptersButtonHelpText" xml:space="preserve">
+    <value>Edit chapters</value>
+    <comment>Help text for screen readers for the Edit chapters button</comment>
+  </data>
 </root>

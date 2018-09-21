@@ -13,12 +13,14 @@ using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Resources;
 using Fluent;
@@ -640,9 +642,24 @@ namespace VidCoder.View
 
 		private void AudioItemClick(object sender, MouseButtonEventArgs e)
 		{
-			var listItem = sender as ListViewItem;
+			var listItem = (ListViewItem)sender;
 			var audioTrackViewModel = (AudioTrackViewModel)listItem.DataContext;
 			audioTrackViewModel.Selected = !audioTrackViewModel.Selected;
+		}
+
+		private void OnAudioItemKeyPress(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Space || e.Key == Key.Enter)
+			{
+				var listItem = (ListViewItem)sender;
+				var audioTrackViewModel = (AudioTrackViewModel)listItem.DataContext;
+				audioTrackViewModel.Selected = !audioTrackViewModel.Selected;
+
+				var audioCheckbox = UIUtilities.FindDescendant<System.Windows.Controls.CheckBox>(listItem);
+
+				var peer = UIElementAutomationPeer.FromElement(audioCheckbox);
+				peer?.RaiseAutomationEvent(AutomationEvents.LiveRegionChanged);
+			}
 		}
 
 		private ReactiveList<SourceSubtitleViewModel> sourceSubtitles;
@@ -650,9 +667,24 @@ namespace VidCoder.View
 
 		private void SourceSubtitleItemClick(object sender, MouseButtonEventArgs e)
 		{
-			var listItem = sender as ListViewItem;
+			var listItem = (ListViewItem)sender;
 			var subtitleVM = (SourceSubtitleViewModel)listItem.DataContext;
 			subtitleVM.Selected = !subtitleVM.Selected;
+		}
+
+		private void OnSourceSubtitleKeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Space || e.Key == Key.Enter)
+			{
+				var listItem = (ListViewItem)sender;
+				var subtitleViewModel = (SourceSubtitleViewModel)listItem.DataContext;
+				subtitleViewModel.Selected = !subtitleViewModel.Selected;
+
+				var subtitleCheckbox = UIUtilities.FindDescendant<System.Windows.Controls.CheckBox>(listItem);
+
+				var peer = UIElementAutomationPeer.FromElement(subtitleCheckbox);
+				peer?.RaiseAutomationEvent(AutomationEvents.LiveRegionChanged);
+			}
 		}
 
 		private void sourceSubtitles_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

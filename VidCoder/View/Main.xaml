@@ -426,7 +426,8 @@
 				Grid.Row="0"
 				Margin="0 -23 0 0"
 				CanMinimize="False"
-				IsQuickAccessToolBarVisible="False">
+				IsQuickAccessToolBarVisible="False"
+				IsToolBarVisible="False">
 				<fluent:RibbonTabItem Header="Generic tab header">
 					<fluent:RibbonGroupBox>
 						<fluent:DropDownButton
@@ -456,6 +457,7 @@
 					</fluent:RibbonGroupBox>
 					<fluent:RibbonGroupBox Header="{x:Static res:MainRes.RibbonSettingsGroupLabel}">
 						<fluent:Button
+							AutomationProperties.Name="{x:Static res:MainRes.GlobalOptionsLabel}"
 							Command="{Binding OpenOptions}"
 							Header="{x:Static res:MainRes.GlobalOptionsLabel}"
 							LargeIcon="/Icons/Options.png" />
@@ -618,6 +620,7 @@
 								<Button
 									Padding="16 6 16 6"
 									HorizontalContentAlignment="Left"
+									AutomationProperties.Name="{Binding Text}"
 									Command="{Binding ChooseSource}"
 									Style="{StaticResource BorderlessButtonStyle}"
 									UseLayoutRounding="True">
@@ -689,6 +692,7 @@
 								<Button
 									Padding="0 0 16 0"
 									HorizontalContentAlignment="Left"
+									AutomationProperties.Name="{Binding Text}"
 									Command="{Binding ChooseSource}"
 									Style="{StaticResource BorderlessButtonStyle}">
 									<Grid>
@@ -762,6 +766,7 @@
 
 						<ToggleButton
 							Grid.Column="0"
+							AutomationProperties.Name="{Binding SourceText}"
 							IsChecked="{Binding VideoExpanded}"
 							Style="{StaticResource SourceSectionToggleButton}"
 							UseLayoutRounding="True">
@@ -906,6 +911,7 @@
 								<StackPanel Orientation="Horizontal" Visibility="{Binding RangeType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static common:VideoRangeType.Chapters}}">
 									<ComboBox
 										MinWidth="40"
+										AutomationProperties.HelpText="{x:Static res:MainRes.StartChapterHelpText}"
 										ItemContainerStyle="{StaticResource ChapterComboBoxItem}"
 										ItemsSource="{Binding StartChapters}"
 										SelectedItem="{Binding SelectedStartChapter}"
@@ -913,6 +919,7 @@
 									<TextBlock Style="{StaticResource PlainTitle}" Text="-" />
 									<ComboBox
 										MinWidth="40"
+										AutomationProperties.HelpText="{x:Static res:MainRes.EndChapterHelpText}"
 										ItemContainerStyle="{StaticResource ChapterComboBoxItem}"
 										ItemsSource="{Binding EndChapters}"
 										SelectedItem="{Binding SelectedEndChapter}"
@@ -1010,7 +1017,7 @@
 								</StackPanel>
 							</Grid>
 							<Grid Grid.Row="2" Margin="0 6 0 0">
-								<ItemsControl Margin="0 0 0 0" ItemsSource="{Binding VideoDetails}">
+								<ItemsControl Margin="0 0 0 0" ItemsSource="{Binding VideoDetails}" Focusable="False">
 									<ItemsControl.ItemsPanel>
 										<ItemsPanelTemplate>
 											<WrapPanel Orientation="Vertical" />
@@ -1104,6 +1111,7 @@
 					<!--  Audio Header  -->
 					<ToggleButton
 						Grid.Row="2"
+						AutomationProperties.Name="{Binding AudioSummary}"
 						IsChecked="{Binding AudioExpanded}"
 						Style="{StaticResource SourceSectionToggleButton}">
 						<Grid>
@@ -1157,6 +1165,7 @@
 							<ListView.ItemContainerStyle>
 								<Style TargetType="{x:Type ListViewItem}">
 									<EventSetter Event="MouseLeftButtonUp" Handler="AudioItemClick" />
+									<EventSetter Event="KeyDown" Handler="OnAudioItemKeyPress" />
 								</Style>
 							</ListView.ItemContainerStyle>
 							<ListView.View>
@@ -1168,6 +1177,7 @@
 													<CheckBox
 														Width="22"
 														Height="22"
+														AutomationProperties.LiveSetting="Assertive"
 														HorizontalAlignment="Stretch"
 														VerticalAlignment="Stretch"
 														IsChecked="{Binding Selected}"
@@ -1241,6 +1251,7 @@
 					<!--  Subtitles header  -->
 					<ToggleButton
 						Grid.Row="4"
+						AutomationProperties.Name="{Binding SubtitlesSummary}"
 						IsChecked="{Binding SubtitlesExpanded}"
 						Style="{StaticResource SourceSectionToggleButton}">
 						<Grid>
@@ -1287,6 +1298,7 @@
 									Height="22"
 									HorizontalAlignment="Stretch"
 									VerticalAlignment="Stretch"
+									AutomationProperties.LiveSetting="Assertive"
 									IsChecked="{Binding Selected}"
 									Style="{StaticResource CenteredCheckBox}" />
 							</DataTemplate>
@@ -1432,6 +1444,7 @@
 								<ListView.ItemContainerStyle>
 									<Style TargetType="{x:Type ListViewItem}">
 										<EventSetter Event="MouseLeftButtonUp" Handler="SourceSubtitleItemClick" />
+										<EventSetter Event="KeyDown" Handler="OnSourceSubtitleKeyDown" />
 									</Style>
 								</ListView.ItemContainerStyle>
 								<ListView.View>
@@ -1581,6 +1594,7 @@
 							Padding="5 0"
 							HorizontalAlignment="Right"
 							VerticalAlignment="Center"
+							AutomationProperties.Name="{x:Static res:MainRes.EditChaptersButtonHelpText}"
 							Command="{Binding OpenChaptersDialog}"
 							Content="{x:Static res:MainRes.EditButton}"
 							Style="{StaticResource RightGridItem}" />

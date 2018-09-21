@@ -30,5 +30,10 @@ namespace VidCoder.ViewModel
 			get { return this.isHighlighted; }
 			set { this.RaiseAndSetIfChanged(ref this.isHighlighted, value); }
 		}
+
+		public override string ToString()
+		{
+			return this.ChapterNumber.ToString();
+		}
 	}
 }

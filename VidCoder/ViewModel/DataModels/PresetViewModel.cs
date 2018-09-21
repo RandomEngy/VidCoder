@@ -50,5 +50,10 @@ namespace VidCoder.ViewModel
 
 		private ObservableAsPropertyHelper<string> displayNameWithStar;
 		public string DisplayNameWithStar => this.displayNameWithStar.Value;
+
+		public override string ToString()
+		{
+			return this.DisplayName;
+		}
 	}
 }
