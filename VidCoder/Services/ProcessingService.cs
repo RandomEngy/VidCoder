@@ -87,6 +87,14 @@ namespace VidCoder.Services
 							this.RefreshEncodeCompleteActions();
 						}
 					};
+
+				if (Config.ResumeEncodingOnRestart && this.EncodeQueue.Count > 0)
+				{
+					DispatchUtilities.BeginInvoke(() =>
+					{
+						this.StartEncodeQueue();
+					});
+				}
 			});
 
 			this.autoPause.PauseEncoding += this.AutoPauseEncoding;
@@ -191,14 +199,6 @@ namespace VidCoder.Services
 			this.EncodingJobList.CountChanged.StartWith(0).ToProperty(this, x => x.JobsEncodingCount, out this.jobsEncodingCount);
 
 			this.canPauseOrStopObservable = this.WhenAnyValue(x => x.CanPauseOrStop);
-
-			if (Config.ResumeEncodingOnRestart && this.EncodeQueue.Count > 0)
-			{
-				DispatchUtilities.BeginInvoke(() =>
-					{
-						this.StartEncodeQueue();
-					});
-			}
 		}
 
 		public ReactiveList<EncodeJobViewModel> EncodeQueue { get; }
@@ -1241,7 +1241,7 @@ namespace VidCoder.Services
 			this.Paused = false;
 
 			// If the encode is stopped we will change
-			this.encodeCompleteReason = EncodeCompleteReason.Succeeded;
+			this.encodeCompleteReason = EncodeCompleteReason.Finished;
 			this.autoPause.ReportStart();
 
 			this.EncodeNextJobs();
@@ -1290,7 +1290,7 @@ namespace VidCoder.Services
 
 		public void Stop(EncodeCompleteReason reason)
 		{
-			if (reason == EncodeCompleteReason.Succeeded)
+			if (reason == EncodeCompleteReason.Finished)
 			{
 				throw new ArgumentOutOfRangeException(nameof(reason));
 			}
@@ -1620,7 +1620,7 @@ namespace VidCoder.Services
 
 				this.CanPauseOrStop = false;
 
-				if (this.encodeCompleteReason != EncodeCompleteReason.Succeeded)
+				if (this.encodeCompleteReason != EncodeCompleteReason.Finished)
 				{
 					// If the encode was stopped manually
 					this.StopEncodingAndReport();
@@ -1639,7 +1639,7 @@ namespace VidCoder.Services
 				}
 				else
 				{
-					// If the encode completed successfully
+					// If the encode finished naturally
 					this.completedQueueWork += finishedJobViewModel.Cost;
 
 					EncodeResultStatus status = EncodeResultStatus.Succeeded;
