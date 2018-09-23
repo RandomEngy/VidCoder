@@ -308,7 +308,7 @@ namespace VidCoder.ViewModel
 				.ToProperty(this, x => x.EncodingPresetButtonText, out this.encodingPresetButtonText);
 
 			// WindowTitle
-			this.ProcessingService.WhenAnyValue(x => x.Encoding, x => x.OverallEncodeProgressFraction, (encoding, progressFraction) =>
+			this.ProcessingService.WhenAnyValue(x => x.Encoding, x => x.WorkTracker.OverallEncodeProgressFraction, (encoding, progressFraction) =>
 			{
 				double progressPercent = progressFraction * 100;
 				var titleBuilder = new StringBuilder("VidCoder");

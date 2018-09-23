@@ -19,7 +19,7 @@ namespace VidCoder.Services
 			var isEncodingObservable = processingService
 				.WhenAnyValue(x => x.Encoding);
 
-			var encodeProgressFractionObservable = processingService
+			var encodeProgressFractionObservable = processingService.WorkTracker
 				.WhenAnyValue(x => x.OverallEncodeProgressFraction);
 
 			var isEncodePausedObservable = processingService.WhenAnyValue(x => x.Paused);

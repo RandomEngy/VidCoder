@@ -113,6 +113,17 @@ namespace VidCoder.ViewModel
 						return null;
 				}
 			}).ToProperty(this, x => x.PassProgressDisplay, out this.passProgressDisplay);
+
+			this.work = new Lazy<JobWork>(() =>
+			{
+				if (this.Job.Length <= TimeSpan.Zero)
+				{
+					this.Logger.LogError($"Invalid length '{this.Job.Length}' on job {this.Job.FinalOutputPath}");
+				}
+
+				var profile = this.Job.EncodingProfile;
+				return new JobWork(this.Job.Length, profile.VideoEncodeRateType != VCVideoEncodeRateType.ConstantQuality && profile.TwoPass, this.SubtitleScan);
+			});
 		}
 
 		private bool initializedForEncoding = false;
@@ -225,29 +236,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		/// <summary>
-		/// Gets the job cost. Cost is roughly proportional to the amount of time it takes to encode 1 second
-		/// of video.
-		/// </summary>
-		public double Cost
-		{
-			get
-			{
-				double cost = this.Job.Length.TotalSeconds;
-
-                if (this.Job.EncodingProfile.VideoEncodeRateType != VCVideoEncodeRateType.ConstantQuality && this.Job.EncodingProfile.TwoPass)
-				{
-					cost += this.Job.Length.TotalSeconds;
-				}
-
-				if (this.SubtitleScan)
-				{
-					cost += this.Job.Length.TotalSeconds / SubtitleScanCostFactor;
-				}
-
-				return cost;
-			}
-		}
+		private readonly Lazy<JobWork> work;
+		public JobWork Work => this.work.Value;
 
 		public TimeSpan EncodeTime
 		{
@@ -330,11 +320,6 @@ namespace VidCoder.ViewModel
 
 		private ObservableAsPropertyHelper<string> fileSizeDisplay;
 		public string FileSizeDisplay => this.fileSizeDisplay.Value;
-
-		/// <summary>
-		/// Gets or sets the amount of completed work on the job (roughly in seconds of video converted)
-		/// </summary>
-		public double CompletedWork { get; set; }
 
 		public bool EncodeSpeedDetailsAvailable { get; set; }
 

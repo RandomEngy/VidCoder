@@ -18,12 +18,12 @@ namespace VidCoder.ViewModel
 				return taskNumber + "/" + totalTasks;
 			}).ToProperty(this, x => x.TaskNumberDisplay, out this.taskNumberDisplay);
 
-			this.ProcessingService.WhenAnyValue(x => x.OverallEncodeTime).Select(overallEncodeTime =>
+			this.ProcessingService.WorkTracker.WhenAnyValue(x => x.OverallEncodeTime).Select(overallEncodeTime =>
 			{
 				return Utilities.FormatTimeSpan(overallEncodeTime);
 			}).ToProperty(this, x => x.OverallEncodeTime, out this.overallEncodeTime);
 
-			this.ProcessingService.WhenAnyValue(x => x.OverallEta).Select(overallEta =>
+			this.ProcessingService.WorkTracker.WhenAnyValue(x => x.OverallEta).Select(overallEta =>
 			{
 				return Utilities.FormatTimeSpan(overallEta);
 			}).ToProperty(this, x => x.OverallEta, out this.overallEta);

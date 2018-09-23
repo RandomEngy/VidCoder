@@ -51,17 +51,9 @@ namespace VidCoder.Services
 		private PickersService pickersService = StaticResolver.Resolve<PickersService>();
 		private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
 		private IToastNotificationService toastNotificationService = StaticResolver.Resolve<IToastNotificationService>();
-		private bool encoding;
 		private bool paused;
 		private EncodeCompleteReason encodeCompleteReason;
-		private Stopwatch elapsedQueueEncodeTime;
-		private long pollCount;
-		private double completedQueueWork;
-		private double totalQueueCost;
-		private TimeSpan overallEtaSpan;
 		private List<EncodeCompleteAction> encodeCompleteActions;
-		private bool canShowEta;
-		private double overallWorkCompletionRate;
 		private bool profileEditedSinceLastQueue;
 
 		public ProcessingService()
@@ -138,7 +130,7 @@ namespace VidCoder.Services
 				}).ToProperty(this, x => x.ProgressBarColor, out this.progressBarColor);
 
 			// OverallEncodeProgressPercent
-			this.WhenAnyValue(x => x.OverallEncodeProgressFraction)
+			this.WorkTracker.WhenAnyValue(x => x.OverallEncodeProgressFraction)
 				.Select(progressFraction => progressFraction * 100)
 				.ToProperty(this, x => x.OverallEncodeProgressPercent, out this.overallEncodeProgressPercent);
 
@@ -201,6 +193,8 @@ namespace VidCoder.Services
 			this.canPauseOrStopObservable = this.WhenAnyValue(x => x.CanPauseOrStop);
 		}
 
+		public QueueWorkTracker WorkTracker { get; } = new QueueWorkTracker();
+
 		public ReactiveList<EncodeJobViewModel> EncodeQueue { get; }
 
 		public ReactiveList<EncodeJobViewModel> EncodingJobList { get; }
@@ -210,6 +204,7 @@ namespace VidCoder.Services
 		private ObservableAsPropertyHelper<int> completedItemsCount;
 		public int CompletedItemsCount => this.completedItemsCount.Value;
 
+		private bool encoding;
 		public bool Encoding
 		{
 			get
@@ -220,19 +215,6 @@ namespace VidCoder.Services
 			set
 			{
 				this.encoding = value;
-
-				if (value)
-				{
-					SystemSleepManagement.PreventSleep();
-					this.elapsedQueueEncodeTime = Stopwatch.StartNew();
-				}
-				else
-				{
-					this.EncodeSpeedDetailsAvailable = false;
-					SystemSleepManagement.AllowSleep();
-					this.elapsedQueueEncodeTime.Stop();
-				}
-
 				this.RaisePropertyChanged();
 			}
 		}
@@ -251,16 +233,13 @@ namespace VidCoder.Services
 			{
 				this.paused = value;
 
-				if (this.elapsedQueueEncodeTime != null)
+				if (value)
 				{
-					if (value)
-					{
-						this.elapsedQueueEncodeTime.Stop();
-					}
-					else
-					{
-						this.elapsedQueueEncodeTime.Start();
-					}
+					this.WorkTracker.ReportEncodePause();
+				}
+				else
+				{
+					this.WorkTracker.ReportEncodeResume();
 				}
 
 				this.RaisePropertyChanged();
@@ -279,20 +258,6 @@ namespace VidCoder.Services
 		{
 			get { return this.taskNumber; }
 			set { this.RaiseAndSetIfChanged(ref this.taskNumber, value); }
-		}
-
-		private TimeSpan overallEncodeTime;
-		public TimeSpan OverallEncodeTime
-		{
-			get { return this.overallEncodeTime; }
-			set { this.RaiseAndSetIfChanged(ref this.overallEncodeTime, value); }
-		}
-
-		private TimeSpan overallEta;
-		public TimeSpan OverallEta
-		{
-			get { return this.overallEta; }
-			set { this.RaiseAndSetIfChanged(ref this.overallEta, value); }
 		}
 
 		private ObservableAsPropertyHelper<string> encodeButtonText;
@@ -318,13 +283,6 @@ namespace VidCoder.Services
 		{
 			get { return this.encodeSpeedDetailsAvailable; }
 			set { this.RaiseAndSetIfChanged(ref this.encodeSpeedDetailsAvailable, value); }
-		}
-
-		private string estimatedTimeRemaining;
-		public string EstimatedTimeRemaining
-		{
-			get { return this.estimatedTimeRemaining; }
-			set { this.RaiseAndSetIfChanged(ref this.estimatedTimeRemaining, value); }
 		}
 
 		public List<EncodeCompleteAction> EncodeCompleteActions
@@ -354,13 +312,6 @@ namespace VidCoder.Services
 		{
 			get { return this.averageFps; }
 			set { this.RaiseAndSetIfChanged(ref this.averageFps, value); }
-		}
-
-		private double overallEncodeProgressFraction;
-		public double OverallEncodeProgressFraction
-		{
-			get { return this.overallEncodeProgressFraction; }
-			set { this.RaiseAndSetIfChanged(ref this.overallEncodeProgressFraction, value); }
 		}
 
 		private ObservableAsPropertyHelper<double> overallEncodeProgressPercent;
@@ -676,7 +627,7 @@ namespace VidCoder.Services
 					if (this.Encoding)
 					{
 						this.TotalTasks--;
-						this.totalQueueCost -= selectedJob.Cost;
+						this.WorkTracker.ReportRemovedFromQueue(selectedJob.Work);
 					}
 				}
 			}
@@ -950,7 +901,7 @@ namespace VidCoder.Services
 			if (this.Encoding)
 			{
 				this.TotalTasks++;
-				this.totalQueueCost += encodeJobVM.Cost;
+				this.WorkTracker.ReportAddedToQueue(encodeJobVM.Work);
 			}
 
 			Picker picker = this.pickersService.SelectedPicker.Picker;
@@ -1212,7 +1163,7 @@ namespace VidCoder.Services
 			if (this.Encoding)
 			{
 				this.TotalTasks--;
-				this.totalQueueCost -= job.Cost;
+				this.WorkTracker.ReportRemovedFromQueue(job.Work);
 			}
 		}
 
@@ -1224,20 +1175,10 @@ namespace VidCoder.Services
 
 			this.TotalTasks = this.EncodeQueue.Count;
 			this.TaskNumber = 0;
-			this.canShowEta = false;
-			this.overallWorkCompletionRate = 0;
 
-			this.completedQueueWork = 0.0;
-			this.totalQueueCost = 0.0;
-			foreach (EncodeJobViewModel jobVM in this.EncodeQueue)
-			{
-				this.totalQueueCost += jobVM.Cost;
-			}
-
-			this.OverallEncodeProgressFraction = 0;
-
-			this.pollCount = 0;
 			this.Encoding = true;
+			this.WorkTracker.ReportEncodeStart(this.EncodeQueue.Select(job => job.Work));
+			SystemSleepManagement.PreventSleep();
 			this.Paused = false;
 
 			// If the encode is stopped we will change
@@ -1490,13 +1431,13 @@ namespace VidCoder.Services
 				}
 			}
 
-			jobViewModel.CompletedWork = jobCompletedWork;
+			jobViewModel.Work.CompletedWork = jobCompletedWork;
 
-			if (this.canShowEta)
+			if (this.WorkTracker.CanShowEta)
 			{
-				double jobRemainingWork = jobViewModel.Cost - jobCompletedWork;
+				double jobRemainingWork = jobViewModel.Work.Cost - jobCompletedWork;
 
-				if (this.overallWorkCompletionRate == 0)
+				if (this.WorkTracker.OverallWorkCompletionRate == 0)
 				{
 					jobViewModel.Eta = TimeSpan.MaxValue;
 				}
@@ -1504,7 +1445,7 @@ namespace VidCoder.Services
 				{
 					try
 					{
-						jobViewModel.Eta = TimeSpan.FromSeconds(jobRemainingWork / this.overallWorkCompletionRate);
+						jobViewModel.Eta = TimeSpan.FromSeconds(jobRemainingWork / this.WorkTracker.OverallWorkCompletionRate);
 					}
 					catch (OverflowException)
 					{
@@ -1513,7 +1454,7 @@ namespace VidCoder.Services
 				}
 			}
 
-			jobViewModel.FractionComplete = jobCompletedWork / jobViewModel.Cost;
+			jobViewModel.FractionComplete = jobCompletedWork / jobViewModel.Work.Cost;
 			jobViewModel.CurrentPassId = e.PassId;
 			jobViewModel.PassProgressFraction = e.FractionComplete;
 			jobViewModel.RefreshEncodeTimeDisplay();
@@ -1542,53 +1483,10 @@ namespace VidCoder.Services
 			double inProgressJobsCompletedWork = 0;
 			this.RunForAllEncodingJobs(job =>
 			{
-				inProgressJobsCompletedWork += job.CompletedWork;
+				inProgressJobsCompletedWork += job.Work.CompletedWork;
 			});
 
-			double totalCompletedWork = this.completedQueueWork + inProgressJobsCompletedWork;
-
-			this.OverallEncodeProgressFraction = this.totalQueueCost > 0 ? totalCompletedWork / this.totalQueueCost : 0;
-
-			double queueElapsedSeconds = this.elapsedQueueEncodeTime.Elapsed.TotalSeconds;
-			this.overallWorkCompletionRate = queueElapsedSeconds > 0 ? totalCompletedWork / queueElapsedSeconds : 0;
-
-			// Only update encode time every 5th update.
-			if (Interlocked.Increment(ref this.pollCount) % 5 == 1)
-			{
-				if (!this.canShowEta && this.elapsedQueueEncodeTime != null && queueElapsedSeconds > 0.5 && this.OverallEncodeProgressFraction != 0.0)
-				{
-					this.canShowEta = true;
-				}
-
-				if (this.canShowEta)
-				{
-					if (this.OverallEncodeProgressFraction == 1.0)
-					{
-						this.EstimatedTimeRemaining = Utilities.FormatTimeSpan(TimeSpan.Zero);
-					}
-					else
-					{
-						if (this.OverallEncodeProgressFraction == 0)
-						{
-							this.overallEtaSpan = TimeSpan.MaxValue;
-						}
-						else
-						{
-							try
-							{
-								this.overallEtaSpan =
-									TimeSpan.FromSeconds((long)(((1.0 - this.OverallEncodeProgressFraction) * queueElapsedSeconds) / this.OverallEncodeProgressFraction));
-							}
-							catch (OverflowException)
-							{
-								this.overallEtaSpan = TimeSpan.MaxValue;
-							}
-						}
-
-						this.EstimatedTimeRemaining = Utilities.FormatTimeSpan(this.overallEtaSpan);
-					}
-				}
-			}
+			this.WorkTracker.CalculateOverallEncodeProgress(inProgressJobsCompletedWork);
 
 			double currentFps = 0;
 			double averageFps = 0;
@@ -1605,9 +1503,6 @@ namespace VidCoder.Services
 				this.CurrentFps = currentFps;
 				this.AverageFps = averageFps;
 			}
-
-			this.OverallEncodeTime = this.elapsedQueueEncodeTime.Elapsed;
-			this.OverallEta = this.overallEtaSpan;
 		}
 
 		private void OnEncodeCompleted(EncodeJobViewModel finishedJobViewModel, bool error)
@@ -1640,7 +1535,7 @@ namespace VidCoder.Services
 				else
 				{
 					// If the encode finished naturally
-					this.completedQueueWork += finishedJobViewModel.Cost;
+					this.WorkTracker.ReportFinished(finishedJobViewModel.Work);
 
 					EncodeResultStatus status = EncodeResultStatus.Succeeded;
 					long outputFileLength = 0;
@@ -1900,7 +1795,10 @@ namespace VidCoder.Services
 		private void StopEncodingAndReport()
 		{
 			this.EncodeProgressState = TaskbarItemProgressState.None;
+			this.WorkTracker.ReportEncodeStop();
 			this.Encoding = false;
+			this.EncodeSpeedDetailsAvailable = false;
+			SystemSleepManagement.AllowSleep();
 			this.autoPause.ReportStop();
 		}
 

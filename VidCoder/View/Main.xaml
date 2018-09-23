@@ -2077,7 +2077,7 @@
 							Margin="3 0 0 0"
 							HorizontalAlignment="Right"
 							VerticalAlignment="Center"
-							Text="{Binding ProcessingService.EstimatedTimeRemaining}"
+							Text="{Binding ProcessingService.WorkTracker.EstimatedTimeRemaining}"
 							ToolTip="{x:Static res:CommonRes.QueueEtaToolTip}"
 							Visibility="{Binding ProcessingService.EncodeSpeedDetailsAvailable,
 							                     Converter={StaticResource VisibilityConverter}}" />

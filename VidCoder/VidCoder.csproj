@@ -409,6 +409,7 @@
     <Compile Include="Model\EncodeCompleteReason.cs" />
     <Compile Include="Model\FileEncodeProgress.cs" />
     <Compile Include="Model\FolderType.cs" />
+    <Compile Include="Model\JobWork.cs" />
     <Compile Include="Model\PresetFolder.cs" />
     <Compile Include="Model\PresetFolderStorage.cs" />
     <Compile Include="Model\PresetWrapper.cs" />
@@ -558,6 +559,7 @@
     <Compile Include="Services\Windows\WindowManager.cs" />
     <Compile Include="Services\Windows\WindowMenuItemViewModel.cs" />
     <Compile Include="Services\Windows\WindowPlacer.cs" />
+    <Compile Include="Services\QueueWorkTracker.cs" />
     <Compile Include="Utilities\AdvancedOptionsParsing.cs" />
     <Compile Include="Utilities\BitmapUtilities.cs" />
     <Compile Include="Utilities\CodecUtilities.cs" />

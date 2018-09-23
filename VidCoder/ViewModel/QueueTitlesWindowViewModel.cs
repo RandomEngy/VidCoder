@@ -90,14 +90,6 @@ namespace VidCoder.ViewModel
 								AudioEncodings = new List<AudioEncoding>()
 							};
 
-						var previewJob =
-							new VCJob
-							{
-								RangeType = VideoRangeType.All,
-								Title = title.Index,
-								EncodingProfile = previewProfile
-							};
-
 						this.PreviewImage = BitmapUtilities.ConvertToBitmapImage(BitmapUtilities.ConvertByteArrayToBitmap(this.main.ScanInstance.GetPreview(previewProfile.CreatePreviewSettings(title), 2, deinterlace: false)));
 						this.RaisePropertyChanged(nameof(this.TitleText));
 					}
