@@ -103,11 +103,13 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.play ?? (this.play = ReactiveCommand.Create(() =>
-				{
-					StaticResolver.Resolve<StatusService>().Show(MainRes.PlayingVideoStatus);
-					FileService.Instance.PlayVideo(this.encodeResult.Destination);
-				}));
+				return this.play ?? (this.play = ReactiveCommand.Create(
+					() =>
+					{
+						StaticResolver.Resolve<StatusService>().Show(MainRes.PlayingVideoStatus);
+						FileService.Instance.PlayVideo(this.encodeResult.Destination);
+					},
+					this.WhenAnyValue(x => x.EncodeResult.Succeeded)));
 			}
 		}
 
@@ -116,11 +118,13 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.openContainingFolder ?? (this.openContainingFolder = ReactiveCommand.Create(() =>
-				{
-					StaticResolver.Resolve<StatusService>().Show(MainRes.OpeningFolderStatus);
-					FileUtilities.OpenFolderAndSelectItem(this.encodeResult.Destination);
-				}));
+				return this.openContainingFolder ?? (this.openContainingFolder = ReactiveCommand.Create(
+					() =>
+					{
+						StaticResolver.Resolve<StatusService>().Show(MainRes.OpeningFolderStatus);
+						FileUtilities.OpenFolderAndSelectItem(this.encodeResult.Destination);
+					},
+					this.WhenAnyValue(x => x.EncodeResult.Succeeded)));
 			}
 		}
 

@@ -1017,7 +1017,10 @@
 								</StackPanel>
 							</Grid>
 							<Grid Grid.Row="2" Margin="0 6 0 0">
-								<ItemsControl Margin="0 0 0 0" ItemsSource="{Binding VideoDetails}" Focusable="False">
+								<ItemsControl
+									Margin="0 0 0 0"
+									Focusable="False"
+									ItemsSource="{Binding VideoDetails}">
 									<ItemsControl.ItemsPanel>
 										<ItemsPanelTemplate>
 											<WrapPanel Orientation="Vertical" />
@@ -1177,9 +1180,9 @@
 													<CheckBox
 														Width="22"
 														Height="22"
-														AutomationProperties.LiveSetting="Assertive"
 														HorizontalAlignment="Stretch"
 														VerticalAlignment="Stretch"
+														AutomationProperties.LiveSetting="Assertive"
 														IsChecked="{Binding Selected}"
 														Style="{StaticResource CenteredCheckBox}" />
 												</DataTemplate>
@@ -1944,7 +1947,8 @@
 
 						<Button
 							Name="clearCompletedQueueItemsButton"
-							Margin="0 2 4 0"
+							Width="20"
+							Height="20"
 							HorizontalAlignment="Right"
 							VerticalAlignment="Top"
 							Command="{Binding ProcessingService.ClearCompleted}"

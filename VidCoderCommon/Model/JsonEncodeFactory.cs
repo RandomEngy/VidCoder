@@ -387,7 +387,7 @@ namespace VidCoderCommon.Model
 				JToken settings;
 				if (profile.DeinterlacePreset == "custom")
 				{
-					settings = this.GetFilterSettingsPresetOnly(filterId, "custom", profile.CustomDeinterlace);
+					settings = this.GetFilterSettingsCustom(filterId, profile.CustomDeinterlace);
 				}
 				else
 				{
@@ -407,7 +407,7 @@ namespace VidCoderCommon.Model
 				JToken settings;
 				if (profile.CombDetect == "custom")
 				{
-					settings = this.GetFilterSettingsPresetOnly(hb_filter_ids.HB_FILTER_COMB_DETECT, "custom", profile.CustomCombDetect);
+					settings = this.GetFilterSettingsCustom(hb_filter_ids.HB_FILTER_COMB_DETECT, profile.CustomCombDetect);
 				}
 				else
 				{
@@ -479,7 +479,7 @@ namespace VidCoderCommon.Model
 				JToken settings;
 				if (profile.DenoisePreset == "custom")
 				{
-					settings = this.GetFilterSettingsPresetOnly(filterId, "custom", profile.CustomDenoise);
+					settings = this.GetFilterSettingsCustom(filterId, profile.CustomDenoise);
 				}
 				else
 				{
@@ -503,7 +503,7 @@ namespace VidCoderCommon.Model
 				JToken settings;
 				if (profile.SharpenPreset == "custom")
 				{
-					settings = this.GetFilterSettingsPresetOnly(filterId, "custom", profile.CustomSharpen);
+					settings = this.GetFilterSettingsCustom(filterId, profile.CustomSharpen);
 				}
 				else
 				{
