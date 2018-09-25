@@ -6,6 +6,7 @@ using System.Reactive.Linq;
 using System.Resources;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.Model.Encoding;
+using HandBrake.Interop.Utilities;
 using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Extensions;
@@ -594,7 +595,7 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<bool> x264SettingsVisible;
 		public bool X264SettingsVisible => this.x264SettingsVisible.Value;
 
-		public bool QsvSettingsVisible => HandBrakeUtils.QsvAvailable;
+		public bool QsvSettingsVisible => SystemInfo.IsQsvAvailable;
 
 		private ObservableAsPropertyHelper<bool> basicEncoderSettingsVisible;
 		public bool BasicEncoderSettingsVisible => this.basicEncoderSettingsVisible.Value;
