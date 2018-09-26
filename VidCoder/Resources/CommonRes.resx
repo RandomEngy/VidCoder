@@ -296,4 +296,14 @@ A full copy of the GNU General Public License has been included along with this 
     <value>{0}/{1} subtitle track(s)</value>
     <comment>{0} is the number of selected subtitle tracks and {1} is the number of total tracks on the source.</comment>
   </data>
+  <data name="NumberBoxIncreaseButtonAutomationTextFormat" xml:space="preserve">
+    <value>Increase {0}</value>
+    <comment>Automation text for the increase button on the number box.
+{0} - The name of the value the control is changing, for example "width"</comment>
+  </data>
+  <data name="NumberBoxDecreaseButtonAutomationTextFormat" xml:space="preserve">
+    <value>Decrease {0}</value>
+    <comment>Automation text for the decrease button on the number box.
+{0} - The name of the value the control is changing, for example "width"</comment>
+  </data>
 </root>

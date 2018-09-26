@@ -169,6 +169,33 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filter titles by duration.
+        /// </summary>
+        public static string DurationFilterCheckBoxAutomationName {
+            get {
+                return ResourceManager.GetString("DurationFilterCheckBoxAutomationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duration filter end minutes.
+        /// </summary>
+        public static string DurationFilterEndAutomationName {
+            get {
+                return ResourceManager.GetString("DurationFilterEndAutomationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duration filter start minutes.
+        /// </summary>
+        public static string DurationFilterStartAutomationName {
+            get {
+                return ResourceManager.GetString("DurationFilterStartAutomationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Encoding.
         /// </summary>
         public static string EncodingSection {

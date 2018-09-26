@@ -290,6 +290,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Decrease {0}.
+        /// </summary>
+        public static string NumberBoxDecreaseButtonAutomationTextFormat {
+            get {
+                return ResourceManager.GetString("NumberBoxDecreaseButtonAutomationTextFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Increase {0}.
+        /// </summary>
+        public static string NumberBoxIncreaseButtonAutomationTextFormat {
+            get {
+                return ResourceManager.GetString("NumberBoxIncreaseButtonAutomationTextFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Off.
         /// </summary>
         public static string Off {

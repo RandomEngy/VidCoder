@@ -1,9 +1,13 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Globalization;
 using System.Threading;
 using System.Windows;
+using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using VidCoder.Resources;
 
 namespace VidCoder.Controls
 {
@@ -28,7 +32,21 @@ namespace VidCoder.Controls
 			this.ShowIncrementButtons = true;
 			this.SelectAllOnClick = true;
 
-			InitializeComponent();
+			this.InitializeComponent();
+
+			var descriptor = DependencyPropertyDescriptor.FromProperty(AutomationProperties.NameProperty, typeof(NumberBox));
+			descriptor.AddValueChanged(this, (sender, args) =>
+			{
+				string newName = (string)this.GetValue(AutomationProperties.NameProperty);
+
+				if (!string.IsNullOrEmpty(newName))
+				{
+					this.numberBox.SetValue(AutomationProperties.NameProperty, newName);
+
+					this.increaseButton.SetValue(AutomationProperties.NameProperty, string.Format(CultureInfo.CurrentCulture, CommonRes.NumberBoxIncreaseButtonAutomationTextFormat, newName));
+					this.decreaseButton.SetValue(AutomationProperties.NameProperty, string.Format(CultureInfo.CurrentCulture, CommonRes.NumberBoxDecreaseButtonAutomationTextFormat, newName));
+				}
+			});
 
 			this.RefreshNumberBox();
 		}
@@ -369,6 +387,14 @@ namespace VidCoder.Controls
 			if (e.Key == Key.Space)
 			{
 				e.Handled = true;
+			}
+			else if (e.Key == Key.Up)
+			{
+				this.IncrementNumber();
+			}
+			else if (e.Key == Key.Down)
+			{
+				this.DecrementNumber();
 			}
 		}
 

@@ -56,21 +56,12 @@ namespace VidCoder.Controls
 		/// Selected item of the TreeView
 		/// </summary>
 		public new object SelectedItem
-	    {
-		    get { return (object)GetValue(SelectedItemProperty); }
-		    set { SetValue(SelectedItemProperty, value); }
-	    }
+		{
+			get => this.GetValue(SelectedItemProperty);
+			set => this.SetValue(SelectedItemProperty, value);
+		}
 
-	    public new static readonly DependencyProperty SelectedItemProperty =
-		    DependencyProperty.Register("SelectedItem", typeof(object), typeof(PresetComboBox), new PropertyMetadata(null, new PropertyChangedCallback(OnSelectedItemChanged)));
-
-	    private static void OnSelectedItemChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-	    {
-		    ((PresetComboBox)sender).UpdateSelectedItem();
-	    }
-
-		private void UpdateSelectedItem()
-	    {
-	    }
+		public new static readonly DependencyProperty SelectedItemProperty =
+			DependencyProperty.Register("SelectedItem", typeof(object), typeof(PresetComboBox), new PropertyMetadata(null));
 	}
 }

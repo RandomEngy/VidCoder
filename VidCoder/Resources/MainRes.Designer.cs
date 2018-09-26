@@ -436,9 +436,9 @@ namespace VidCoder.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Edit chapters.
         /// </summary>
-        public static string EditChaptersButtonHelpText {
+        public static string EditChaptersButtonAutomationName {
             get {
-                return ResourceManager.GetString("EditChaptersButtonHelpText", resourceCulture);
+                return ResourceManager.GetString("EditChaptersButtonAutomationName", resourceCulture);
             }
         }
         
@@ -571,9 +571,9 @@ namespace VidCoder.Resources {
         /// <summary>
         ///   Looks up a localized string similar to End chapter.
         /// </summary>
-        public static string EndChapterHelpText {
+        public static string EndChapterAutomationName {
             get {
-                return ResourceManager.GetString("EndChapterHelpText", resourceCulture);
+                return ResourceManager.GetString("EndChapterAutomationName", resourceCulture);
             }
         }
         
@@ -1473,9 +1473,9 @@ namespace VidCoder.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Start chapter.
         /// </summary>
-        public static string StartChapterHelpText {
+        public static string StartChapterAutomationName {
             get {
-                return ResourceManager.GetString("StartChapterHelpText", resourceCulture);
+                return ResourceManager.GetString("StartChapterAutomationName", resourceCulture);
             }
         }
         
@@ -1530,6 +1530,15 @@ namespace VidCoder.Resources {
         public static string StoppedEncoding {
             get {
                 return ResourceManager.GetString("StoppedEncoding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title filter range start minutes.
+        /// </summary>
+        public static string TitleFilterRangeStartAutomationName {
+            get {
+                return ResourceManager.GetString("TitleFilterRangeStartAutomationName", resourceCulture);
             }
         }
         

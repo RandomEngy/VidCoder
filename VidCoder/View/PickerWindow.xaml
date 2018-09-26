@@ -278,7 +278,10 @@
 					<!--  Title selection  -->
 					<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.TitleSelection}" />
 					<StackPanel Style="{StaticResource ConfigSectionStack}">
-						<CheckBox HorizontalAlignment="Left" IsChecked="{Binding TitleRangeSelectEnabled}">
+						<CheckBox
+							HorizontalAlignment="Left"
+							AutomationProperties.Name="{x:Static res:PickerRes.DurationFilterCheckBoxAutomationName}"
+							IsChecked="{Binding TitleRangeSelectEnabled}">
 							<StackPanel Orientation="Horizontal">
 								<TextBlock
 									Margin="0 0 4 0"
@@ -287,6 +290,7 @@
 								<controls:NumberBox
 									Width="46"
 									AllowEmpty="False"
+									AutomationProperties.Name="{x:Static res:PickerRes.DurationFilterStartAutomationName}"
 									IsEnabled="{Binding TitleRangeSelectEnabled}"
 									Minimum="0"
 									Number="{Binding TitleRangeSelectStartMinutes,
@@ -298,6 +302,7 @@
 								<controls:NumberBox
 									Width="46"
 									AllowEmpty="False"
+									AutomationProperties.Name="{x:Static res:PickerRes.DurationFilterEndAutomationName}"
 									IsEnabled="{Binding TitleRangeSelectEnabled}"
 									Minimum="0"
 									Number="{Binding TitleRangeSelectEndMinutes,

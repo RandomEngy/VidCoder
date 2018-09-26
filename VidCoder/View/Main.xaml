@@ -911,7 +911,7 @@
 								<StackPanel Orientation="Horizontal" Visibility="{Binding RangeType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static common:VideoRangeType.Chapters}}">
 									<ComboBox
 										MinWidth="40"
-										AutomationProperties.HelpText="{x:Static res:MainRes.StartChapterHelpText}"
+										AutomationProperties.Name="{x:Static res:MainRes.StartChapterAutomationName}"
 										ItemContainerStyle="{StaticResource ChapterComboBoxItem}"
 										ItemsSource="{Binding StartChapters}"
 										SelectedItem="{Binding SelectedStartChapter}"
@@ -919,7 +919,7 @@
 									<TextBlock Style="{StaticResource PlainTitle}" Text="-" />
 									<ComboBox
 										MinWidth="40"
-										AutomationProperties.HelpText="{x:Static res:MainRes.EndChapterHelpText}"
+										AutomationProperties.Name="{x:Static res:MainRes.EndChapterAutomationName}"
 										ItemContainerStyle="{StaticResource ChapterComboBoxItem}"
 										ItemsSource="{Binding EndChapters}"
 										SelectedItem="{Binding SelectedEndChapter}"
@@ -1597,7 +1597,7 @@
 							Padding="5 0"
 							HorizontalAlignment="Right"
 							VerticalAlignment="Center"
-							AutomationProperties.Name="{x:Static res:MainRes.EditChaptersButtonHelpText}"
+							AutomationProperties.Name="{x:Static res:MainRes.EditChaptersButtonAutomationName}"
 							Command="{Binding OpenChaptersDialog}"
 							Content="{x:Static res:MainRes.EditButton}"
 							Style="{StaticResource RightGridItem}" />

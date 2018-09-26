@@ -263,4 +263,18 @@
   <data name="OverrideNameFormatLabel" xml:space="preserve">
     <value>Available options: {0}</value>
   </data>
+  <data name="DurationFilterStartAutomationName" xml:space="preserve">
+    <value>Duration filter start minutes</value>
+    <comment>Screen reader text for number box that represents the start of the filter range in minutes. The number chosen in this box represents the minimum title length in minutes that will be chosen.
+</comment>
+  </data>
+  <data name="DurationFilterEndAutomationName" xml:space="preserve">
+    <value>Duration filter end minutes</value>
+    <comment>Screen reader text for number box that represents the end of the filter range in minutes. The number chosen in this box represents the maximum title length in minutes that will be chosen.
+</comment>
+  </data>
+  <data name="DurationFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>Filter titles by duration</value>
+    <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
+  </data>
 </root>
