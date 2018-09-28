@@ -14,6 +14,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shell;
+using Windows.ApplicationModel.Contacts;
 using HandBrake.Interop.Interop.EventArgs;
 using HandBrake.Interop.Interop.Json.Scan;
 using Microsoft.AnyContainer;
@@ -1512,8 +1513,10 @@ namespace VidCoder.Services
 				IAppLogger encodeLogger = finishedJobViewModel.Logger;
 				string finalOutputPath = finishedJobViewModel.Job.FinalOutputPath;
 				var directOutputFileInfo = new FileInfo(finishedJobViewModel.Job.InProgressOutputPath);
+				EncodeResultViewModel addedResult = null;
 
 				this.CanPauseOrStop = false;
+				EncodeResultStatus status = EncodeResultStatus.Succeeded;
 
 				if (this.encodeCompleteReason != EncodeCompleteReason.Finished)
 				{
@@ -1537,9 +1540,7 @@ namespace VidCoder.Services
 					// If the encode finished naturally
 					this.WorkTracker.ReportFinished(finishedJobViewModel.Work);
 
-					EncodeResultStatus status = EncodeResultStatus.Succeeded;
 					long outputFileLength = 0;
-
 
 					if (error)
 					{
@@ -1742,6 +1743,23 @@ namespace VidCoder.Services
 				string encodeLogPath = encodeLogger.LogPath;
 				encodeLogger.Dispose();
 
+				string logAffix;
+				if (this.encodeCompleteReason != EncodeCompleteReason.Finished)
+				{
+					logAffix = "aborted";
+				}
+				else
+				{
+					logAffix = status == EncodeResultStatus.Succeeded ? "succeeded" : "failed";
+				}
+
+				string finalLogPath = ApplyStatusAffixToLogPath(encodeLogger.LogPath, logAffix);
+
+				if (addedResult != null)
+				{
+					addedResult.EncodeResult.LogPath = finalLogPath;
+				}
+
 				if (Config.CopyLogToOutputFolder && encodeLogPath != null)
 				{
 					string logCopyPath = Path.Combine(Path.GetDirectoryName(finalOutputPath), Path.GetFileName(encodeLogPath));
@@ -1760,6 +1778,29 @@ namespace VidCoder.Services
 					}
 				}
 			});
+		}
+
+		private static string ApplyStatusAffixToLogPath(string encodeLogPath, string affix)
+		{
+			if (encodeLogPath != null)
+			{
+				string directory = Path.GetDirectoryName(encodeLogPath);
+				string logBaseName = Path.GetFileNameWithoutExtension(encodeLogPath);
+				string extension = Path.GetExtension(encodeLogPath);
+
+				string newEncodeLogPath = Path.Combine(directory, logBaseName + "-" + affix + extension);
+				try
+				{
+					File.Move(encodeLogPath, newEncodeLogPath);
+					return newEncodeLogPath;
+				}
+				catch
+				{
+					// Don't worry about it if moving failed.
+				}
+			}
+
+			return encodeLogPath;
 		}
 
 		private static void TryCleanFailedFile(FileInfo directOutputFileInfo, IAppLogger encodeLogger)

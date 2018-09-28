@@ -36,17 +36,17 @@ namespace VidCoder.Services
 				Directory.CreateDirectory(logFolder);
 			}
 
-			string logFileNamePrefix;
+			string logFileNameAffix;
 			if (baseFileName != null)
 			{
-				logFileNamePrefix = baseFileName + " ";
+				logFileNameAffix = " " + baseFileName;
 			}
 			else
 			{
-				logFileNamePrefix = string.Empty;
+				logFileNameAffix = string.Empty;
 			}
 
-			this.LogPath = Path.Combine(logFolder, logFileNamePrefix + DateTimeOffset.Now.ToString("yyyy-MM-dd HH.mm.ss") + ".txt");
+			this.LogPath = Path.Combine(logFolder, DateTimeOffset.Now.ToString("yyyy-MM-dd HH.mm.ss") + logFileNameAffix + ".txt");
 
 			try
 			{
