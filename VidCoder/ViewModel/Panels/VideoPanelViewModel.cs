@@ -59,7 +59,7 @@ namespace VidCoder.ViewModel
 			}
 
 			// InputType
-			this.WhenAnyValue(x => x.HasSourceData, x => x.MainViewModel.SelectedTitle.Type, (hasSourceData, titleType) =>
+			this.WhenAnyValue(x => x.HasSourceData, x => x.MainViewModel.SelectedTitle.Title.Type, (hasSourceData, titleType) =>
 			{
 				if (hasSourceData)
 				{
@@ -666,7 +666,7 @@ namespace VidCoder.ViewModel
 					{
 						JsonEncodeFactory factory = new JsonEncodeFactory(new StubLogger());
 
-						double estimatedSizeBytes = factory.CalculateFileSize(this.MainViewModel.EncodeJob, this.MainViewModel.SelectedTitle, this.VideoBitrate);
+						double estimatedSizeBytes = factory.CalculateFileSize(this.MainViewModel.EncodeJob, this.MainViewModel.SelectedTitle.Title, this.VideoBitrate);
 						this.displayTargetSize = (int)Math.Round(estimatedSizeBytes);
 					}
 					else
@@ -700,7 +700,7 @@ namespace VidCoder.ViewModel
 					if (this.MainViewModel.HasVideoSource && this.MainViewModel.JobCreationAvailable && this.TargetSize > 0)
 					{
 						JsonEncodeFactory factory = new JsonEncodeFactory(new StubLogger());
-						this.displayVideoBitrate = factory.CalculateBitrate(this.MainViewModel.EncodeJob, this.MainViewModel.SelectedTitle, this.TargetSize);
+						this.displayVideoBitrate = factory.CalculateBitrate(this.MainViewModel.EncodeJob, this.MainViewModel.SelectedTitle.Title, this.TargetSize);
 					}
 					else
 					{

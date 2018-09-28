@@ -388,7 +388,6 @@
     <Compile Include="Converters\PercentDisplayConverter.cs" />
     <Compile Include="Converters\SampleRateDisplayConverter.cs" />
     <Compile Include="Converters\ChapterVMConverter.cs" />
-    <Compile Include="Converters\TitleDisplayConverter.cs" />
     <Compile Include="DataReaderExtensions.cs" />
     <Compile Include="DragDrop\MoveToFolderAdorner.cs" />
     <Compile Include="EnumStringConverter.cs" />
@@ -611,6 +610,7 @@
     <Compile Include="ViewModel\DataModels\PresetFolderViewModel.cs" />
     <Compile Include="ViewModel\DataModels\RotationViewModel.cs" />
     <Compile Include="ViewModel\DataModels\InfoLineViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\SourceTitleViewModel.cs" />
     <Compile Include="ViewModel\DataModels\VideoEncoderViewModel.cs" />
     <Compile Include="ViewModel\EncodeDetailsWindowViewModel.cs" />
     <Compile Include="ViewModel\DataModels\InterfaceLanguage.cs" />

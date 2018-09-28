@@ -655,6 +655,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bottom.
+        /// </summary>
+        public static string Bottom {
+            get {
+                return ResourceManager.GetString("Bottom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CABAC:.
         /// </summary>
         public static string CabacLabel {
@@ -1224,6 +1233,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Left.
+        /// </summary>
+        public static string Left {
+            get {
+                return ResourceManager.GetString("Left", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Level:.
         /// </summary>
         public static string LevelLabel {
@@ -1784,11 +1802,29 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pixel aspect ratio denominator.
+        /// </summary>
+        public static string PixelAspectRatioDenominatorAutomationName {
+            get {
+                return ResourceManager.GetString("PixelAspectRatioDenominatorAutomationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pixel Aspect Ratio:.
         /// </summary>
         public static string PixelAspectRatioLabel {
             get {
                 return ResourceManager.GetString("PixelAspectRatioLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pixel aspect ratio numerator.
+        /// </summary>
+        public static string PixelAspectRatioNumeratorAutomationName {
+            get {
+                return ResourceManager.GetString("PixelAspectRatioNumeratorAutomationName", resourceCulture);
             }
         }
         
@@ -2151,6 +2187,15 @@ namespace VidCoder.Resources {
         public static string Revert {
             get {
                 return ResourceManager.GetString("Revert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Right.
+        /// </summary>
+        public static string Right {
+            get {
+                return ResourceManager.GetString("Right", resourceCulture);
             }
         }
         
@@ -2579,6 +2624,15 @@ namespace VidCoder.Resources {
         public static string TargetWidthLabel {
             get {
                 return ResourceManager.GetString("TargetWidthLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top.
+        /// </summary>
+        public static string Top {
+            get {
+                return ResourceManager.GetString("Top", resourceCulture);
             }
         }
         

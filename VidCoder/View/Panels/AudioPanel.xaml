@@ -45,6 +45,7 @@
 				<Button
 					Margin="3 6 0 0"
 					HorizontalAlignment="Left"
+					AutomationProperties.Name="{x:Static res:EncodingRes.AddAudioEncodingButton}"
 					Command="{Binding AddAudioEncoding}">
 					<StackPanel Margin="2" Orientation="Horizontal">
 						<Polygon Style="{StaticResource PlusSign}" />
@@ -61,7 +62,10 @@
 
 					<StackPanel Margin="20 4 0 0" Orientation="Vertical">
 						<TextBlock Text="{x:Static res:EncodingRes.PassthroughMaskLabel}" />
-						<ItemsControl Margin="0 4 0 0" ItemsSource="{Binding CopyMaskChoices}">
+						<ItemsControl
+							Margin="0 4 0 0"
+							Focusable="False"
+							ItemsSource="{Binding CopyMaskChoices}">
 							<ItemsControl.ItemsPanel>
 								<ItemsPanelTemplate>
 									<WrapPanel />
@@ -78,6 +82,7 @@
 						</ItemsControl>
 						<StackPanel Margin="0 10 0 0" Orientation="Horizontal">
 							<TextBlock
+								Name="autoPassthroughFallbackLabel"
 								Margin="0 0 6 0"
 								VerticalAlignment="Center"
 								Text="{x:Static res:EncodingRes.AutoPassthroughFallbackLabel}"
@@ -88,6 +93,7 @@
 							</TextBlock>
 							<ComboBox
 								MinWidth="110"
+								AutomationProperties.LabeledBy="{Binding ElementName=autoPassthroughFallbackLabel}"
 								ItemsSource="{Binding FallbackEncoderChoices}"
 								SelectedItem="{Binding AudioEncoderFallback}"
 								ToolTipService.ShowDuration="20000">
@@ -123,6 +129,7 @@
 									Visibility="{Binding HasAudioTracks,
 									                     Converter={StaticResource InverseVisibilityConverter}}" />
 								<ItemsControl
+									Focusable="False"
 									Grid.IsSharedSizeScope="True"
 									ItemsSource="{Binding AudioOutputPreviews}"
 									Visibility="{Binding HasAudioTracks,

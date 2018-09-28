@@ -421,6 +421,11 @@
 					MinHeight="110" />
 			</Grid.RowDefinitions>
 
+			<TextBlock
+				x:Name="screenReaderText"
+				Height="0"
+				AutomationProperties.LiveSetting="Assertive" />
+
 			<!--  Ribbon  -->
 			<fluent:Ribbon
 				Grid.Row="0"
@@ -820,11 +825,11 @@
 												VerticalAlignment="Center"
 												ItemsSource="{Binding Titles}"
 												SelectedItem="{Binding SelectedTitle}">
-												<ComboBox.ItemTemplate>
+												<!--<ComboBox.ItemTemplate>
 													<DataTemplate>
-														<TextBlock Style="{StaticResource PlainTitle}" Text="{Binding Converter={StaticResource TitleDisplayConverter}}" />
+														<TextBlock Style="{StaticResource PlainTitle}" Text="{Binding}" />
 													</DataTemplate>
-												</ComboBox.ItemTemplate>
+												</ComboBox.ItemTemplate>-->
 											</ComboBox>
 
 											<Image
@@ -981,7 +986,7 @@
 								</Grid.ColumnDefinitions>
 
 								<controls:RangeBar
-									Title="{Binding SelectedTitle}"
+									Title="{Binding SelectedTitle.Title}"
 									Grid.Column="0"
 									Height="20"
 									Margin="0 6 0 0"

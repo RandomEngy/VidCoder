@@ -53,5 +53,10 @@ namespace VidCoder.ViewModel
 			this.selected = newValue;
 			this.RaisePropertyChanged(nameof(this.Selected));
 		}
+
+		public override string ToString()
+		{
+			return this.Text;
+		}
 	}
 }

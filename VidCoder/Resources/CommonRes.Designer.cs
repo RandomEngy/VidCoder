@@ -335,6 +335,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open split button.
+        /// </summary>
+        public static string OpenSplitButtonAutomationName {
+            get {
+                return ResourceManager.GetString("OpenSplitButtonAutomationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Output to the source directory if possible.
         /// </summary>
         public static string OutputToSourceDirCheckBox {

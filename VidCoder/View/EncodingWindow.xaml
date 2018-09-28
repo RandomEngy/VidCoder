@@ -66,8 +66,10 @@
 			                     Converter={StaticResource VisibilityConverter}}">
 			<controls:PresetTreeViewContainer
 				EnableFolderActions="True"
+				Focusable="True"
 				IsEnabled="{Binding PickersService.SelectedPicker.Picker.UseEncodingPreset,
 				                    Converter={StaticResource InverseBoolConverter}}"
+				IsTabStop="True"
 				PreviewKeyDown="OnPresetTreeKeyDown" />
 		</ScrollViewer>
 
@@ -89,7 +91,7 @@
 			<ToolBarPanel
 				Margin="-5 0 -14 0"
 				HorizontalAlignment="Stretch"
-				VerticalAlignment="Top"	
+				VerticalAlignment="Top"
 				UseLayoutRounding="True">
 				<ToolBar
 					KeyboardNavigation.TabNavigation="Continue"
@@ -105,6 +107,7 @@
 						Height="24"
 						Margin="4 0 0 0"
 						Padding="5 0"
+						AutomationProperties.Name="{x:Static res:EncodingRes.ClosePresetsListToolTip}"
 						Command="{Binding TogglePresetPanel}"
 						ToolTip="{x:Static res:EncodingRes.ClosePresetsListToolTip}"
 						Visibility="{Binding PresetPanelOpen,
@@ -115,6 +118,7 @@
 						Height="24"
 						Margin="4 0 0 0"
 						Padding="5 0"
+						AutomationProperties.Name="{x:Static res:EncodingRes.OpenPresetsListToolTip}"
 						Command="{Binding TogglePresetPanel}"
 						ToolTip="{x:Static res:EncodingRes.OpenPresetsListToolTip}"
 						Visibility="{Binding PresetPanelOpen,
@@ -126,6 +130,7 @@
 						MinWidth="70"
 						Margin="4 0 0 0"
 						Padding="5 0"
+						AutomationProperties.Name="{x:Static res:EncodingRes.Save}"
 						Command="{Binding Save}"
 						Visibility="{Binding SaveRenameButtonsVisible,
 						                     Converter={StaticResource VisibilityConverter}}">
@@ -155,6 +160,7 @@
 						Height="24"
 						MinWidth="70"
 						Padding="5 0"
+						AutomationProperties.Name="{x:Static res:EncodingRes.Revert}"
 						Command="{Binding DeletePreset}"
 						Visibility="{Binding PresetsService.SelectedPreset.Preset.IsModified,
 						                     Converter={StaticResource VisibilityConverter}}">
@@ -170,6 +176,7 @@
 						Height="24"
 						MinWidth="70"
 						Padding="5 0"
+						AutomationProperties.Name="{x:Static res:CommonRes.Delete}"
 						Command="{Binding DeletePreset}"
 						Visibility="{Binding DeleteButtonVisible,
 						                     Converter={StaticResource VisibilityConverter}}">
@@ -199,6 +206,7 @@
 						Height="24"
 						MinWidth="70"
 						Padding="5 0"
+						AutomationProperties.Name="{x:Static res:CommonRes.PreviewLabel}"
 						Command="{Binding OpenPreviewWindow,
 						                  Source={StaticResource WindowXamlHelper}}"
 						IsEnabled="{Binding HasSourceData}"

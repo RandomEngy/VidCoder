@@ -33,6 +33,7 @@
 			<Button
 				Height="23"
 				Margin="4 4 0 4"
+				AutomationProperties.Name="{x:Static res:PreviewRes.EncodePreviewClipButton}"
 				Command="{Binding GeneratePreview}"
 				Style="{StaticResource GrayOnDisabledControl}"
 				ToolTip="{x:Static res:PreviewRes.EncodePreviewClipToolTip}">
@@ -53,6 +54,7 @@
 					Width="45"
 					Height="22"
 					Margin="10 4 0 4"
+					AutomationProperties.LabeledBy="{Binding ElementName=secondsLabel}"
 					SelectedValue="{Binding PreviewSeconds}"
 					SelectedValuePath="Content">
 					<ComboBoxItem>5</ComboBoxItem>
@@ -63,32 +65,35 @@
 					<ComboBoxItem>120</ComboBoxItem>
 				</ComboBox>
 				<TextBlock
+					Name="secondsLabel"
 					Margin="7 4 0 4"
 					VerticalAlignment="Center"
 					Style="{StaticResource PreviewText}"
 					Text="{x:Static res:PreviewRes.Seconds}" />
 			</StackPanel>
 
-            <Button
+			<Button
 				Height="23"
 				Margin="20 4 0 4"
+				AutomationProperties.Name="{x:Static res:PreviewRes.ReplayPreviewButton}"
 				Command="{Binding ReopenPreview}"
 				Visibility="{Binding PreviewAvailable,
 				                     Converter={StaticResource VisibilityConverter}}">
-                <StackPanel Margin="4 0" Orientation="Horizontal">
-                    <Image
+				<StackPanel Margin="4 0" Orientation="Horizontal">
+					<Image
 						Height="16"
 						VerticalAlignment="Center"
 						Source="/Icons/redo.png" />
-                    <TextBlock
+					<TextBlock
 						Margin="5 0 0 0"
 						VerticalAlignment="Center"
 						Text="{x:Static res:PreviewRes.ReplayPreviewButton}" />
-                </StackPanel>
-            </Button>
+				</StackPanel>
+			</Button>
 
-            <StackPanel Orientation="Horizontal">
+			<StackPanel Orientation="Horizontal">
 				<TextBlock
+					Name="viewLabel"
 					Margin="20 4 0 4"
 					VerticalAlignment="Center"
 					Style="{StaticResource PreviewText}"
@@ -96,30 +101,32 @@
 				<ComboBox
 					MinWidth="100"
 					Margin="6 4 0 4"
+					AutomationProperties.LabeledBy="{Binding ElementName=viewLabel}"
 					ItemsSource="{Binding DisplayNames,
 					                      Source={StaticResource DisplayChoices}}"
 					SelectedValue="{Binding DisplayType,
 					                        Converter={StaticResource DisplayChoices}}" />
 			</StackPanel>
 
-            <Button
+			<Button
 				Height="23"
 				Margin="20 4 0 4"
+				AutomationProperties.Name="{x:Static res:PreviewRes.PlaySourceButton}"
 				Command="{Binding PlaySource}"
 				Style="{StaticResource GrayOnDisabledControl}"
 				ToolTip="{Binding PlaySourceToolTip}"
 				ToolTipService.ShowOnDisabled="True">
-                <StackPanel Margin="4 0" Orientation="Horizontal">
-                    <Image
+				<StackPanel Margin="4 0" Orientation="Horizontal">
+					<Image
 						Height="15"
 						VerticalAlignment="Center"
 						Source="/Icons/blue_play_80.png" />
-                    <TextBlock
+					<TextBlock
 						Margin="5 0 0 0"
 						VerticalAlignment="Center"
 						Text="{x:Static res:PreviewRes.PlaySourceButton}" />
-                </StackPanel>
-            </Button>
-        </WrapPanel>
+				</StackPanel>
+			</Button>
+		</WrapPanel>
 	</StackPanel>
 </UserControl>

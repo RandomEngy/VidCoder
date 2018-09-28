@@ -140,7 +140,7 @@ namespace VidCoder.ViewModel
 			// InputPreview
 			this.MainViewModel.WhenAnyValue(x => x.SelectedTitle).Select(selectedTitle =>
 			{
-				return ResolutionUtilities.GetResolutionInfoLines(selectedTitle);
+				return ResolutionUtilities.GetResolutionInfoLines(selectedTitle?.Title);
 			}).ToProperty(this, x => x.InputPreview, out this.inputPreview);
 
 			// OutputPreview
@@ -388,7 +388,7 @@ namespace VidCoder.ViewModel
 						else
 						{
 							// Calculate the correct padding from input variables
-							OutputSizeInfo outputSize = JsonEncodeFactory.GetOutputSize(this.Profile, x.selectedTitle);
+							OutputSizeInfo outputSize = JsonEncodeFactory.GetOutputSize(this.Profile, x.selectedTitle.Title);
 							this.PadTop = outputSize.Padding.Top;
 							this.PadBottom = outputSize.Padding.Bottom;
 							this.PadLeft = outputSize.Padding.Left;

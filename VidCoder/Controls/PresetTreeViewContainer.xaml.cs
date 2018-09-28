@@ -19,6 +19,7 @@ using VidCoder.DragDropUtils;
 using VidCoder.Extensions;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
+using VidCoder.View;
 using VidCoder.ViewModel;
 using VidCoder.ViewModel.DataModels;
 
@@ -54,7 +55,7 @@ namespace VidCoder.Controls
 	        };
         }
 
-	    private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+		private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
 	    {
 		    object selectedItem = e.NewValue;
 
@@ -73,7 +74,11 @@ namespace VidCoder.Controls
 			DispatchUtilities.BeginInvoke(() =>
 			{
 				// This might be in the layout phase. Invoke on dispatcher to process cleanly.
-				this.presetsService.SelectedPreset = (PresetViewModel)selectedItem;
+				var newSelectedPreset = (PresetViewModel)selectedItem;
+				if (this.presetsService.TryUpdateSelectedPreset(newSelectedPreset))
+				{
+					StaticResolver.Resolve<Main>().ReadTextToScreenReader(newSelectedPreset.DisplayName);
+				}
 			});
 	    }
 

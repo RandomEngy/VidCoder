@@ -392,7 +392,7 @@ namespace VidCoder.Services
 			    ScanInstance = this.ScanInstance,
 			    PreviewIndex = previewNumber,
 			    Profile = this.job.EncodingProfile,
-			    Title = this.mainViewModel.SelectedTitle,
+			    Title = this.mainViewModel.SelectedTitle.Title,
 			    ImageFileSync = this.imageFileSync[previewNumber]
 		    });
 	    }

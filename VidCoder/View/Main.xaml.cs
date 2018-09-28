@@ -196,6 +196,16 @@ namespace VidCoder.View
 
 		public WindowState RestoredWindowState { get; set; }
 
+		public void ReadTextToScreenReader(string text)
+		{
+			var peer = UIElementAutomationPeer.FromElement(this.screenReaderText);
+			if (peer != null)
+			{
+				this.screenReaderText.Text = text;
+				peer.RaiseAutomationEvent(AutomationEvents.LiveRegionChanged);
+			}
+		}
+
 		public void ShowBalloonMessage(string title, string message)
 		{
 			if (this.notifyIcon.Visible)

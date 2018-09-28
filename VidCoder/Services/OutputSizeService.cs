@@ -42,7 +42,7 @@ namespace VidCoder.Services
 			{
 				var profile = this.presetsService.SelectedPreset.Preset.EncodingProfile;
 
-				OutputSizeInfo outputSizeInfo = JsonEncodeFactory.GetOutputSize(profile, mainViewModel.SelectedTitle);
+				OutputSizeInfo outputSizeInfo = JsonEncodeFactory.GetOutputSize(profile, mainViewModel.SelectedTitle.Title);
 
 				if (this.Size == null || !outputSizeInfo.Equals(this.Size))
 				{

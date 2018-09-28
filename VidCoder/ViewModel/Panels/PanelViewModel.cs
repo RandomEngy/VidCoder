@@ -26,7 +26,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.encodingWindowViewModel.MainViewModel.SelectedTitle;
+				return this.encodingWindowViewModel.MainViewModel.SelectedTitle?.Title;
 			}
 		}
 	}

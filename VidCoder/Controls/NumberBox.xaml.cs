@@ -34,8 +34,8 @@ namespace VidCoder.Controls
 
 			this.InitializeComponent();
 
-			var descriptor = DependencyPropertyDescriptor.FromProperty(AutomationProperties.NameProperty, typeof(NumberBox));
-			descriptor.AddValueChanged(this, (sender, args) =>
+			var automationNameDescriptor = DependencyPropertyDescriptor.FromProperty(AutomationProperties.NameProperty, typeof(NumberBox));
+			automationNameDescriptor.AddValueChanged(this, (sender, args) =>
 			{
 				string newName = (string)this.GetValue(AutomationProperties.NameProperty);
 
@@ -45,6 +45,17 @@ namespace VidCoder.Controls
 
 					this.increaseButton.SetValue(AutomationProperties.NameProperty, string.Format(CultureInfo.CurrentCulture, CommonRes.NumberBoxIncreaseButtonAutomationTextFormat, newName));
 					this.decreaseButton.SetValue(AutomationProperties.NameProperty, string.Format(CultureInfo.CurrentCulture, CommonRes.NumberBoxDecreaseButtonAutomationTextFormat, newName));
+				}
+			});
+
+			var automationHelpTextDescriptor = DependencyPropertyDescriptor.FromProperty(AutomationProperties.HelpTextProperty, typeof(NumberBox));
+			automationHelpTextDescriptor.AddValueChanged(this, (sender, args) =>
+			{
+				string newName = (string)this.GetValue(AutomationProperties.HelpTextProperty);
+
+				if (!string.IsNullOrEmpty(newName))
+				{
+					this.numberBox.SetValue(AutomationProperties.HelpTextProperty, newName);
 				}
 			});
 

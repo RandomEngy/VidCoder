@@ -24,7 +24,6 @@
 			<converters:InverseBoolConverter x:Key="InverseBoolConverter" />
 			<converters:PercentDisplayConverter x:Key="PercentDisplayConverter" />
 			<converters:DoubleDisplayConverter x:Key="DoubleDisplayConverter" />
-			<converters:TitleDisplayConverter x:Key="TitleDisplayConverter" />
 			<converters:BoolRadioConverter x:Key="BoolRadioConverter" />
 			<converters:BoolRadioConverter x:Key="InverseBoolRadioConverter" Inverse="True" />
 

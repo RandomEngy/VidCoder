@@ -71,6 +71,7 @@
 
 			<!--  Detelecine  -->
 			<TextBlock
+				Name="detelecineLabel"
 				Grid.Row="0"
 				Grid.Column="0"
 				Style="{StaticResource FilterLabel}"
@@ -82,6 +83,7 @@
 			<ComboBox
 				Grid.Row="0"
 				Grid.Column="1"
+				AutomationProperties.LabeledBy="{Binding ElementName=detelecineLabel}"
 				ItemsSource="{Binding DetelecineChoices}"
 				SelectedValue="{Binding Detelecine}"
 				SelectedValuePath="Value"
@@ -103,6 +105,7 @@
 
 			<!--  Deinterlace  -->
 			<TextBlock
+				Name="deinterlaceLabel"
 				Grid.Row="1"
 				Grid.Column="0"
 				Margin="0 5 6 0"
@@ -117,6 +120,7 @@
 				Grid.Row="1"
 				Grid.Column="1"
 				VerticalAlignment="Top"
+				AutomationProperties.LabeledBy="{Binding ElementName=deinterlaceLabel}"
 				ItemsSource="{Binding DisplayNames,
 				                      Source={StaticResource DeinterlaceChoices}}"
 				SelectedValue="{Binding DeinterlaceType,
@@ -146,6 +150,7 @@
 							<ColumnDefinition Width="*" />
 						</Grid.ColumnDefinitions>
 						<TextBlock
+							Name="deinterlacePresetLabel"
 							Grid.Row="0"
 							Grid.Column="0"
 							Margin="0 2 6 0"
@@ -157,6 +162,7 @@
 							Grid.Column="1"
 							MinWidth="70"
 							VerticalAlignment="Center"
+							AutomationProperties.LabeledBy="{Binding ElementName=deinterlacePresetLabel}"
 							ItemsSource="{Binding DeinterlacePresetChoices}"
 							SelectedValue="{Binding DeinterlacePreset}"
 							SelectedValuePath="Value" />
@@ -185,6 +191,7 @@
 						</Grid.ColumnDefinitions>
 
 						<TextBlock
+							Name="interlaceDetectionLabel"
 							Grid.Row="0"
 							Grid.Column="0"
 							Margin="0 2 6 0"
@@ -196,6 +203,7 @@
 							Grid.Column="1"
 							MinWidth="70"
 							VerticalAlignment="Center"
+							AutomationProperties.LabeledBy="{Binding ElementName=interlaceDetectionLabel}"
 							ItemsSource="{Binding CombDetectChoices}"
 							SelectedValue="{Binding CombDetect}"
 							SelectedValuePath="Value" />
@@ -217,6 +225,7 @@
 
 			<!--  Denoise  -->
 			<TextBlock
+				Name="denoiseLabel"
 				Grid.Row="2"
 				Grid.Column="0"
 				Style="{StaticResource FilterLabel}"
@@ -228,6 +237,7 @@
 			<ComboBox
 				Grid.Row="2"
 				Grid.Column="1"
+				AutomationProperties.LabeledBy="{Binding ElementName=denoiseLabel}"
 				ItemsSource="{Binding DenoiseChoices}"
 				SelectedValue="{Binding DenoiseType}"
 				SelectedValuePath="Value"
@@ -253,12 +263,16 @@
 					Orientation="Horizontal"
 					Visibility="{Binding DenoisePresetVisible,
 					                     Converter={StaticResource VisibilityConverter}}">
-					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.PresetLabel}" />
+					<TextBlock
+						Name="denoisePresetLabel"
+						VerticalAlignment="Center"
+						Text="{x:Static res:EncodingRes.PresetLabel}" />
 
 					<ComboBox
 						MinWidth="70"
 						Margin="6 0 0 0"
 						VerticalAlignment="Center"
+						AutomationProperties.LabeledBy="{Binding ElementName=denoisePresetLabel}"
 						ItemsSource="{Binding DenoisePresetChoices}"
 						SelectedValue="{Binding DenoisePreset}"
 						SelectedValuePath="Value" />
@@ -270,12 +284,16 @@
 					Orientation="Horizontal"
 					Visibility="{Binding DenoiseTuneVisible,
 					                     Converter={StaticResource VisibilityConverter}}">
-					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.TuneLabel}" />
+					<TextBlock
+						Name="denoiseTuneLabel"
+						VerticalAlignment="Center"
+						Text="{x:Static res:EncodingRes.TuneLabel}" />
 
 					<ComboBox
 						MinWidth="70"
 						Margin="6 0 0 0"
 						VerticalAlignment="Center"
+						AutomationProperties.LabeledBy="{Binding ElementName=denoiseTuneLabel}"
 						ItemsSource="{Binding DenoiseTuneChoices}"
 						SelectedValue="{Binding DenoiseTune}"
 						SelectedValuePath="Value" />
@@ -293,6 +311,7 @@
 
 			<!--  Sharpen  -->
 			<TextBlock
+				Name="sharpenLabel"
 				Grid.Row="3"
 				Grid.Column="0"
 				Style="{StaticResource FilterLabel}"
@@ -304,6 +323,7 @@
 			<ComboBox
 				Grid.Row="3"
 				Grid.Column="1"
+				AutomationProperties.LabeledBy="{Binding ElementName=sharpenLabel}"
 				ItemsSource="{Binding SharpenChoices}"
 				SelectedValue="{Binding SharpenType}"
 				SelectedValuePath="Value"
@@ -329,12 +349,16 @@
 					Orientation="Horizontal"
 					Visibility="{Binding SharpenPresetVisible,
 					                     Converter={StaticResource VisibilityConverter}}">
-					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.PresetLabel}" />
+					<TextBlock
+						Name="sharpenPresetLabel"
+						VerticalAlignment="Center"
+						Text="{x:Static res:EncodingRes.PresetLabel}" />
 
 					<ComboBox
 						MinWidth="70"
 						Margin="6 0 0 0"
 						VerticalAlignment="Center"
+						AutomationProperties.LabeledBy="{Binding ElementName=sharpenPresetLabel}"
 						ItemsSource="{Binding SharpenPresetChoices}"
 						SelectedValue="{Binding SharpenPreset}"
 						SelectedValuePath="Value" />
@@ -346,12 +370,16 @@
 					Orientation="Horizontal"
 					Visibility="{Binding SharpenTuneVisible,
 					                     Converter={StaticResource VisibilityConverter}}">
-					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.TuneLabel}" />
+					<TextBlock
+						Name="sharpenTuneLabel"
+						VerticalAlignment="Center"
+						Text="{x:Static res:EncodingRes.TuneLabel}" />
 
 					<ComboBox
 						MinWidth="70"
 						Margin="6 0 0 0"
 						VerticalAlignment="Center"
+						AutomationProperties.LabeledBy="{Binding ElementName=sharpenTuneLabel}"
 						ItemsSource="{Binding SharpenTuneChoices}"
 						SelectedValue="{Binding SharpenTune}"
 						SelectedValuePath="Value" />
@@ -369,6 +397,7 @@
 
 			<!--  Deblock  -->
 			<TextBlock
+				Name="deblockLabel"
 				Grid.Row="4"
 				Grid.Column="0"
 				Style="{StaticResource FilterLabel}"
@@ -394,6 +423,7 @@
 					TextAlignment="Center" />
 				<Slider
 					Width="155"
+					AutomationProperties.LabeledBy="{Binding ElementName=deblockLabel}"
 					IsSnapToTickEnabled="True"
 					Maximum="15"
 					Minimum="4"

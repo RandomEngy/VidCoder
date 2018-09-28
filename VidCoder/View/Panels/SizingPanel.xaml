@@ -34,6 +34,7 @@
 					Margin="0 27 0 0"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Top"
+					AutomationProperties.HelpText="{x:Static res:EncodingRes.CroppingLabel}"
 					Content="{x:Static res:CommonRes.Automatic}"
 					GroupName="cropping1"
 					IsChecked="{Binding CroppingType,
@@ -43,6 +44,7 @@
 					Margin="0 49 0 0"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Top"
+					AutomationProperties.HelpText="{x:Static res:EncodingRes.CroppingLabel}"
 					Content="{x:Static res:CommonRes.None}"
 					GroupName="cropping2"
 					IsChecked="{Binding CroppingType,
@@ -52,6 +54,7 @@
 					Margin="0 71 0 0"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Top"
+					AutomationProperties.HelpText="{x:Static res:EncodingRes.CroppingLabel}"
 					Content="{x:Static res:CommonRes.Custom}"
 					GroupName="cropping3"
 					IsChecked="{Binding CroppingType,
@@ -69,23 +72,14 @@
 						HorizontalAlignment="Center"
 						VerticalAlignment="Top"
 						AllowEmpty="False"
+						AutomationProperties.HelpText="{x:Static res:EncodingRes.CroppingLabel}"
+						AutomationProperties.Name="{x:Static res:EncodingRes.Top}"
 						IsEnabled="{Binding CroppingUIEnabled}"
 						Minimum="0"
 						Modulus="2"
 						Number="{Binding CropTop,
 						                 Mode=TwoWay}" />
-					<controls:NumberBox
-						Width="45"
-						Height="22.96"
-						Margin="74 56 0 0"
-						HorizontalAlignment="Left"
-						VerticalAlignment="Top"
-						AllowEmpty="False"
-						IsEnabled="{Binding CroppingUIEnabled}"
-						Minimum="0"
-						Modulus="2"
-						Number="{Binding CropRight,
-						                 Mode=TwoWay}" />
+
 					<controls:NumberBox
 						Width="45"
 						Height="23"
@@ -93,11 +87,29 @@
 						HorizontalAlignment="Left"
 						VerticalAlignment="Top"
 						AllowEmpty="False"
+						AutomationProperties.HelpText="{x:Static res:EncodingRes.CroppingLabel}"
+						AutomationProperties.Name="{x:Static res:EncodingRes.Left}"
 						IsEnabled="{Binding CroppingUIEnabled}"
 						Minimum="0"
 						Modulus="2"
 						Number="{Binding CropLeft,
 						                 Mode=TwoWay}" />
+
+					<controls:NumberBox
+						Width="45"
+						Height="22.96"
+						Margin="74 56 0 0"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Top"
+						AllowEmpty="False"
+						AutomationProperties.HelpText="{x:Static res:EncodingRes.CroppingLabel}"
+						AutomationProperties.Name="{x:Static res:EncodingRes.Right}"
+						IsEnabled="{Binding CroppingUIEnabled}"
+						Minimum="0"
+						Modulus="2"
+						Number="{Binding CropRight,
+						                 Mode=TwoWay}" />
+
 					<controls:NumberBox
 						Width="45"
 						Height="23"
@@ -105,6 +117,8 @@
 						HorizontalAlignment="Center"
 						VerticalAlignment="Top"
 						AllowEmpty="False"
+						AutomationProperties.HelpText="{x:Static res:EncodingRes.CroppingLabel}"
+						AutomationProperties.Name="{x:Static res:EncodingRes.Bottom}"
 						IsEnabled="{Binding CroppingUIEnabled}"
 						Minimum="0"
 						Modulus="2"
@@ -128,11 +142,15 @@
 					Margin="0 4 0 0"
 					Orientation="Horizontal"
 					ToolTip="{x:Static res:EncodingRes.SizingModeToolTip}">
-					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.ModeLabel}" />
+					<TextBlock
+						Name="modeLabel"
+						VerticalAlignment="Center"
+						Text="{x:Static res:EncodingRes.ModeLabel}" />
 
 					<ComboBox
 						Margin="6 0 0 0"
 						VerticalAlignment="Center"
+						AutomationProperties.LabeledBy="{Binding ElementName=modeLabel}"
 						ItemsSource="{Binding SizingModeChoices}"
 						SelectedValue="{Binding SizingMode}"
 						SelectedValuePath="Value" />
@@ -147,6 +165,7 @@
 						Margin="6 0 0 0"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
+						AutomationProperties.Name="{Binding WidthLabel}"
 						AllowEmpty="{Binding AllowEmptyResolution}"
 						Maximum="8192"
 						Minimum="46"
@@ -166,6 +185,7 @@
 						Margin="6 0 0 0"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
+						AutomationProperties.Name="{Binding HeightLabel}"
 						AllowEmpty="{Binding AllowEmptyResolution}"
 						Maximum="4608"
 						Minimum="46"
@@ -192,6 +212,7 @@
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
 						AllowEmpty="False"
+						AutomationProperties.Name="{x:Static res:EncodingRes.PixelAspectRatioNumeratorAutomationName}"
 						IsEnabled="{Binding UseDisplayWidth,
 						                    Converter={StaticResource InverseBoolConverter}}"
 						Minimum="1"
@@ -208,6 +229,7 @@
 						Height="23"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
+						AutomationProperties.Name="{x:Static res:EncodingRes.PixelAspectRatioDenominatorAutomationName}"
 						AllowEmpty="False"
 						IsEnabled="{Binding UseDisplayWidth,
 						                    Converter={StaticResource InverseBoolConverter}}"
@@ -232,11 +254,15 @@
 					Visibility="{Binding SizingMode,
 					                     Converter={StaticResource EnumVisibilityConverter},
 					                     ConverterParameter={x:Static commonModel:VCSizingMode.Automatic}}">
-					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.ScalingModeLabel}" />
+					<TextBlock
+						Name="scalingModeLabel"
+						VerticalAlignment="Center"
+						Text="{x:Static res:EncodingRes.ScalingModeLabel}" />
 
 					<ComboBox
 						Margin="6 0 0 0"
 						VerticalAlignment="Center"
+						AutomationProperties.LabeledBy="{Binding ElementName=scalingModeLabel}"
 						ItemsSource="{Binding ScalingModeChoices}"
 						SelectedValue="{Binding ScalingMode}"
 						SelectedValuePath="Value" />
@@ -303,6 +329,7 @@
 			<!--  Padding section  -->
 			<StackPanel Style="{StaticResource SizingSectionStyle}">
 				<TextBlock
+					Name="paddingLabel"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Top"
 					Style="{StaticResource SectionHeader}"
@@ -312,6 +339,7 @@
 					Margin="0 4 0 0"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Center"
+					AutomationProperties.LabeledBy="{Binding ElementName=paddingLabel}"
 					ItemsSource="{Binding PaddingModeChoices}"
 					SelectedValue="{Binding PaddingMode}"
 					SelectedValuePath="Value"
@@ -331,23 +359,14 @@
 						HorizontalAlignment="Center"
 						VerticalAlignment="Top"
 						AllowEmpty="False"
+						AutomationProperties.HelpText="{x:Static res:EncodingRes.PaddingLabel}"
+						AutomationProperties.Name="{x:Static res:EncodingRes.Top}"
 						IsEnabled="{Binding PaddingUIEnabled}"
 						Minimum="0"
 						Modulus="2"
 						Number="{Binding PadTop,
 						                 Mode=TwoWay}" />
-					<controls:NumberBox
-						Width="45"
-						Height="22.96"
-						Margin="74 28 0 0"
-						HorizontalAlignment="Left"
-						VerticalAlignment="Top"
-						AllowEmpty="False"
-						IsEnabled="{Binding PaddingUIEnabled}"
-						Minimum="0"
-						Modulus="2"
-						Number="{Binding PadRight,
-						                 Mode=TwoWay}" />
+
 					<controls:NumberBox
 						Width="45"
 						Height="23"
@@ -355,11 +374,29 @@
 						HorizontalAlignment="Left"
 						VerticalAlignment="Top"
 						AllowEmpty="False"
+						AutomationProperties.HelpText="{x:Static res:EncodingRes.PaddingLabel}"
+						AutomationProperties.Name="{x:Static res:EncodingRes.Left}"
 						IsEnabled="{Binding PaddingUIEnabled}"
 						Minimum="0"
 						Modulus="2"
 						Number="{Binding PadLeft,
 						                 Mode=TwoWay}" />
+
+					<controls:NumberBox
+						Width="45"
+						Height="22.96"
+						Margin="74 28 0 0"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Top"
+						AllowEmpty="False"
+						AutomationProperties.HelpText="{x:Static res:EncodingRes.PaddingLabel}"
+						AutomationProperties.Name="{x:Static res:EncodingRes.Right}"
+						IsEnabled="{Binding PaddingUIEnabled}"
+						Minimum="0"
+						Modulus="2"
+						Number="{Binding PadRight,
+						                 Mode=TwoWay}" />
+
 					<controls:NumberBox
 						Width="45"
 						Height="23"
@@ -367,6 +404,8 @@
 						HorizontalAlignment="Center"
 						VerticalAlignment="Top"
 						AllowEmpty="False"
+						AutomationProperties.HelpText="{x:Static res:EncodingRes.PaddingLabel}"
+						AutomationProperties.Name="{x:Static res:EncodingRes.Bottom}"
 						IsEnabled="{Binding PaddingUIEnabled}"
 						Minimum="0"
 						Modulus="2"

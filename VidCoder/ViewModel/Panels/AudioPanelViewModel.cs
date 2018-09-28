@@ -254,7 +254,7 @@ namespace VidCoder.ViewModel
 						Drc = 0.0
 					};
 
-					this.AudioEncodings.Add(new AudioEncodingViewModel(newAudioEncoding, this.MainViewModel.SelectedTitle, this.MainViewModel.GetChosenAudioTracks(), this));
+					this.AudioEncodings.Add(new AudioEncodingViewModel(newAudioEncoding, this.MainViewModel.SelectedTitle?.Title, this.MainViewModel.GetChosenAudioTracks(), this));
 					this.RefreshAudioPreview();
 					this.UpdateAudioEncodings();
 				}));
@@ -569,7 +569,7 @@ namespace VidCoder.ViewModel
 			this.audioEncodings.Clear();
 			foreach (AudioEncoding audioEncoding in this.Profile.AudioEncodings)
 			{
-				this.audioEncodings.Add(new AudioEncodingViewModel(audioEncoding, this.MainViewModel.SelectedTitle, this.MainViewModel.GetChosenAudioTracks(), this));
+				this.audioEncodings.Add(new AudioEncodingViewModel(audioEncoding, this.MainViewModel.SelectedTitle?.Title, this.MainViewModel.GetChosenAudioTracks(), this));
 			}
 
 			this.audioOutputPreviews.Clear();
@@ -598,7 +598,7 @@ namespace VidCoder.ViewModel
 
 			foreach (AudioEncodingViewModel encodingVM in this.AudioEncodings)
 			{
-				encodingVM.SetChosenTracks(this.MainViewModel.GetChosenAudioTracks(), this.MainViewModel.SelectedTitle);
+				encodingVM.SetChosenTracks(this.MainViewModel.GetChosenAudioTracks(), this.MainViewModel.SelectedTitle?.Title);
 			}
 		}
 	}

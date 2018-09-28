@@ -9,5 +9,10 @@ namespace VidCoder.ViewModel.DataModels
 		public string Display { get; set; }
 
 		public bool ShowImage { get; set; } = true;
+
+		public override string ToString()
+		{
+			return this.Display;
+		}
 	}
 }

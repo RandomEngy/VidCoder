@@ -42,8 +42,7 @@ namespace VidCoder.ViewModel
 		private ObservableCollection<SourceOptionViewModel> sourceOptions;
 		private ObservableCollection<SourceOptionViewModel> recentSourceOptions;
 
-		private SourceTitle selectedTitle;
-		private SourceTitle oldTitle;
+		private SourceTitleViewModel oldTitle;
 		private List<int> angles;
 
 		private VideoRangeType rangeType;
@@ -80,7 +79,12 @@ namespace VidCoder.ViewModel
 			this.WhenAnyValue(x => x.SourceData)
 				.Select(sourceData =>
 				{
-					return sourceData?.Titles;
+					if (sourceData == null)
+					{
+						return null;
+					}
+
+					return sourceData.Titles.Select(title => new SourceTitleViewModel(title)).ToList();
 				}).ToProperty(this, x => x.Titles, out this.titles);
 
 			// TitleVisible
@@ -98,7 +102,7 @@ namespace VidCoder.ViewModel
 
 				int similarTitles = 0;
 
-				TimeSpan duration = selectedTitle.Duration.ToSpan();
+				TimeSpan duration = selectedTitle.Duration;
 				foreach (var title in titles)
 				{
 					if (title == selectedTitle)
@@ -106,7 +110,7 @@ namespace VidCoder.ViewModel
 						continue;
 					}
 
-					TimeSpan difference = duration - title.Duration.ToSpan();
+					TimeSpan difference = duration - title.Duration;
 					if (Math.Abs(difference.TotalMinutes) <= 5)
 					{
 						similarTitles++;
@@ -209,7 +213,7 @@ namespace VidCoder.ViewModel
 			this.WhenAnyValue(x => x.SelectedTitle)
 				.Select(selectedTitle =>
 				{
-					return selectedTitle != null && this.SelectedTitle.AngleCount > 1;
+					return selectedTitle != null && this.SelectedTitle.Title.AngleCount > 1;
 				}).ToProperty(this, x => x.AngleVisible, out this.angleVisible);
 
 			// TotalChaptersText
@@ -249,7 +253,7 @@ namespace VidCoder.ViewModel
 					return new List<InfoLineViewModel>();
 				}
 
-				List<InfoLineViewModel> lines = ResolutionUtilities.GetResolutionInfoLines(selectedTitle);
+				List<InfoLineViewModel> lines = ResolutionUtilities.GetResolutionInfoLines(selectedTitle.Title);
 
 				string videoCodec = DisplayConversions.DisplayVideoCodecName(selectedTitle.VideoCodec);
 				lines.Add(new InfoLineViewModel(EncodingRes.CodecLabel, videoCodec));
@@ -916,10 +920,11 @@ namespace VidCoder.ViewModel
 
 		public bool ShowUpdateMenuItem => Utilities.SupportsUpdates;
 
-		private ObservableAsPropertyHelper<List<SourceTitle>> titles;
-		public List<SourceTitle> Titles => this.titles.Value;
+		private ObservableAsPropertyHelper<List<SourceTitleViewModel>> titles;
+		public List<SourceTitleViewModel> Titles => this.titles.Value;
 
-		public SourceTitle SelectedTitle
+		private SourceTitleViewModel selectedTitle;
+		public SourceTitleViewModel SelectedTitle
 		{
 			get
 			{
@@ -965,7 +970,7 @@ namespace VidCoder.ViewModel
 
 					this.SetRangeTimeStart(TimeSpan.Zero);
 
-					TimeSpan titleDuration = this.selectedTitle.Duration.ToSpan();
+					TimeSpan titleDuration = this.selectedTitle.Duration;
 					this.timeRangeEndBar = titleDuration;
 					this.timeRangeEnd = TimeSpan.FromSeconds(Math.Floor(titleDuration.TotalSeconds));
 					this.RaisePropertyChanged(nameof(this.TimeRangeStart));
@@ -974,7 +979,7 @@ namespace VidCoder.ViewModel
 					this.RaisePropertyChanged(nameof(this.TimeRangeEndBar));
 
 					this.framesRangeStart = 0;
-					this.framesRangeEnd = this.selectedTitle.GetEstimatedFrames();
+					this.framesRangeEnd = this.selectedTitle.EstimatedFrames;
 					this.RaisePropertyChanged(nameof(this.FramesRangeStart));
 					this.RaisePropertyChanged(nameof(this.FramesRangeEnd));
 
@@ -1439,7 +1444,7 @@ namespace VidCoder.ViewModel
 					AudioTrackViewModel firstSelectedAudio = this.AudioTracks.FirstOrDefault(t => t.Selected);
 
 					var selectedSubtitles = ProcessingService.ChooseSubtitles(
-						this.selectedTitle,
+						this.selectedTitle.Title,
 						picker,
 						firstSelectedAudio != null ? firstSelectedAudio.TrackNumber : -1);
 
@@ -1950,7 +1955,7 @@ namespace VidCoder.ViewModel
 			{
 				this.timeRangeStart = value;
 
-				TimeSpan maxTime = this.SelectedTitle.Duration.ToSpan();
+				TimeSpan maxTime = this.SelectedTitle.Duration;
 				if (this.timeRangeStart > maxTime - Constants.TimeRangeBuffer)
 				{
 					this.timeRangeStart = maxTime - Constants.TimeRangeBuffer;
@@ -1993,7 +1998,7 @@ namespace VidCoder.ViewModel
 			{
 				this.timeRangeEnd = value;
 
-				TimeSpan maxTime = this.SelectedTitle.Duration.ToSpan();
+				TimeSpan maxTime = this.SelectedTitle.Duration;
 
 				if (this.timeRangeEnd > maxTime)
 				{
@@ -2291,7 +2296,7 @@ namespace VidCoder.ViewModel
 				switch (this.RangeType)
 				{
 					case VideoRangeType.All:
-						return this.SelectedTitle.Duration.ToSpan();
+						return this.SelectedTitle.Duration;
 					case VideoRangeType.Chapters:
 						if (this.SelectedStartChapter == null || this.SelectedEndChapter == null)
 						{
@@ -2764,7 +2769,7 @@ namespace VidCoder.ViewModel
 					case VideoRangeType.Seconds:
 						TimeSpan timeRangeStart = this.TimeRangeStart;
 						TimeSpan timeRangeEnd = this.TimeRangeEnd;
-						TimeSpan titleDuration = this.SelectedTitle.Duration.ToSpan();
+						TimeSpan titleDuration = this.SelectedTitle.Duration;
 
 						// We start the range end on a whole second value so if it's within 1 second of the title duration, count it as being exactly at the end.
 						bool rangeAtEnd = timeRangeEnd == titleDuration || (titleDuration - timeRangeEnd < TimeSpan.FromSeconds(1) && timeRangeEnd.Milliseconds == 0);
@@ -3104,7 +3109,7 @@ namespace VidCoder.ViewModel
 				this.SourceData = videoSource;
 				this.VideoSourceState = VideoSourceState.ScannedSource;
 
-				this.SelectedTitle = selectTitle;
+				this.SelectedTitle = this.Titles.Single(title => title.Title == selectTitle);
 			}
 			else
 			{
@@ -3148,10 +3153,10 @@ namespace VidCoder.ViewModel
 			VCJob job = jobVM.Job;
 
 			// Title
-			SourceTitle newTitle = this.sourceData.Titles.FirstOrDefault(t => t.Index == job.Title);
+			SourceTitleViewModel newTitle = this.Titles.FirstOrDefault(t => t.Index == job.Title);
 			if (newTitle == null)
 			{
-				newTitle = this.sourceData.Titles[0];
+				newTitle = this.Titles[0];
 			}
 
 			this.selectedTitle = newTitle;
@@ -3159,7 +3164,7 @@ namespace VidCoder.ViewModel
 			// Angle
 			this.PopulateAnglesList();
 
-			if (job.Angle <= this.selectedTitle.AngleCount)
+			if (job.Angle <= this.selectedTitle.Title.AngleCount)
 			{
 				this.angle = job.Angle;
 			}
@@ -3202,7 +3207,7 @@ namespace VidCoder.ViewModel
 
 					break;
 				case VideoRangeType.Seconds:
-					TimeSpan titleDuration = this.selectedTitle.Duration.ToSpan();
+					TimeSpan titleDuration = this.selectedTitle.Duration;
 
 					if (titleDuration == TimeSpan.Zero)
 					{
@@ -3369,7 +3374,7 @@ namespace VidCoder.ViewModel
 		private void PopulateAnglesList()
 		{
 			this.angles = new List<int>();
-			for (int i = 1; i <= this.selectedTitle.AngleCount; i++)
+			for (int i = 1; i <= this.selectedTitle.Title.AngleCount; i++)
 			{
 				this.angles.Add(i);
 			}

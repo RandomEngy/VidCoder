@@ -306,4 +306,8 @@ A full copy of the GNU General Public License has been included along with this 
     <comment>Automation text for the decrease button on the number box.
 {0} - The name of the value the control is changing, for example "width"</comment>
   </data>
+  <data name="OpenSplitButtonAutomationName" xml:space="preserve">
+    <value>Open split button</value>
+    <comment>Automation name for screen readers for the "open" arrow on a split button</comment>
+  </data>
 </root>
