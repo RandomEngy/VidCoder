@@ -2091,6 +2091,7 @@
 							Visibility="{Binding ProcessingService.EncodeSpeedDetailsAvailable,
 							                     Converter={StaticResource VisibilityConverter}}" />
 						<TextBlock
+							Name="whenDoneLabel"
 							Margin="8 0 3 0"
 							HorizontalAlignment="Right"
 							VerticalAlignment="Center"
@@ -2100,6 +2101,7 @@
 							Margin="0 0 3 0"
 							HorizontalAlignment="Right"
 							VerticalAlignment="Center"
+							AutomationProperties.LabeledBy="{Binding ElementName=whenDoneLabel}"
 							ItemsSource="{Binding ProcessingService.EncodeCompleteActions}"
 							SelectedValue="{Binding ProcessingService.EncodeCompleteAction}" />
 					</StackPanel>

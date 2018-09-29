@@ -189,5 +189,10 @@ namespace VidCoder.ViewModel
 				}));
 			}
 		}
+
+		public override string ToString()
+		{
+			return this.Job.Job.FinalOutputPath + " " + this.StatusText;
+		}
 	}
 }

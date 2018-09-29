@@ -525,5 +525,10 @@ namespace VidCoder.ViewModel
 			this.Encoding = false;
 			this.encodeTimeStopwatch.Stop();
 		}
+
+		public override string ToString()
+		{
+			return this.Job.FinalOutputPath;
+		}
 	}
 }
