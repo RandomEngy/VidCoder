@@ -176,6 +176,7 @@ $outputDirectoryFiles = @(
     "ControlzEx.pdb",
     "DesktopBridge.Helpers.dll",
     "DryIoc.dll",
+    "DynamicData.dll",
     "Fluent.dll",
     "Fluent.pdb",
     "Microsoft.AnyContainer.dll",

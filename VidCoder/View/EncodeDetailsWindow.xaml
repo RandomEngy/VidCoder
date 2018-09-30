@@ -127,7 +127,7 @@
 					               Converter={StaticResource DoubleDisplayConverter}}" />
 			</Grid>
 
-			<ItemsControl ItemsSource="{Binding ProcessingService.EncodingJobList}">
+			<ItemsControl ItemsSource="{Binding ProcessingService.EncodingJobListBindable}">
 				<ItemsControl.ItemTemplate>
 					<DataTemplate DataType="viewModel:EncodeJobViewModel">
 						<Grid Margin="0 10 0 0">

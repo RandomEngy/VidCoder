@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.Json.Scan;
 using HandBrake.Interop.Interop.Model.Encoding;
@@ -1020,13 +1021,18 @@ namespace VidCoder.ViewModel
 				this.RefreshSubtitleSummary();
 				this.RefreshAudioSummary();
 
-				// Expand/collapse sections to keep everything visible
-				this.SetSectionExpansion();
+				DispatchUtilities.BeginInvoke(
+					() =>
+					{
+						// Expand/collapse sections to keep everything visible
+						this.SetSectionExpansion();
 
-				if (this.AudioExpanded)
-				{
-					this.View.ResizeAudioColumns();
-				}
+						if (this.AudioExpanded)
+						{
+							this.View.ResizeAudioColumns();
+						}
+					},
+					DispatcherPriority.Background);
 			}
 		}
 

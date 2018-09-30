@@ -32,11 +32,20 @@ namespace VidCoder.ViewModel
 		public EncodeJobViewModel(VCJob job)
 		{
 			this.job = job;
+
 			// ShowProgressBar
-			this.WhenAnyValue(x => x.Encoding, x => x.ProcessingService.EncodeQueue.Count, (encoding, queueCount) =>
-			{
-				return encoding && queueCount != 1;
-			}).ToProperty(this, x => x.ShowProgressBar, out this.showProgressBar);
+			Observable.CombineLatest(
+				this.WhenAnyValue(x => x.Encoding),
+				this.ProcessingService.QueueCountObservable,
+				(encoding, queueCount) =>
+				{
+					return encoding && queueCount != 1;
+				}).ToProperty(this, x => x.ShowProgressBar, out this.showProgressBar);
+
+			//this.WhenAnyValue(x => x.Encoding, x => x.ProcessingService.EncodeQueue.Count, (encoding, queueCount) =>
+			//{
+			//	return encoding && queueCount != 1;
+			//}).ToProperty(this, x => x.ShowProgressBar, out this.showProgressBar);
 
 			// ProgressToolTip
 			this.WhenAnyValue(x => x.Eta, eta =>
@@ -132,7 +141,7 @@ namespace VidCoder.ViewModel
 			if (!this.initializedForEncoding)
 			{
 				// ShowFps
-				this.ProcessingService.WhenAnyValue(x => x.EncodingJobList.Count).Select(encodingJobCount =>
+				this.ProcessingService.EncodingJobsCountObservable.Select(encodingJobCount =>
 				{
 					return encodingJobCount > 1;
 				}).ToProperty(this, x => x.ShowFps, out this.showFps);

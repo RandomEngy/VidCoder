@@ -51,11 +51,11 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="reactiveui" Version="8.5.1" />
+    <PackageReference Include="reactiveui" Version="8.7.2" />
     <PackageReference Include="ReactiveUI.WPF">
-      <Version>8.5.1</Version>
+      <Version>8.7.2</Version>
     </PackageReference>
-    <PackageReference Include="Splat" Version="4.0.2" />
+    <PackageReference Include="Splat" Version="5.0.2" />
     <PackageReference Include="System.Reactive.Core">
       <Version>4.0.0</Version>
     </PackageReference>
