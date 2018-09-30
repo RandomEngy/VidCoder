@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
+using DynamicData;
+using DynamicData.Binding;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.Json.Scan;
 using HandBrake.Interop.Interop.Model.Encoding;
@@ -68,6 +70,9 @@ namespace VidCoder.ViewModel
 			this.VideoExpanded = Config.VideoExpanded;
 			this.AudioExpanded = Config.AudioExpanded;
 			this.SubtitlesExpanded = Config.SubtitlesExpanded;
+
+			this.SourceSubtitles.Connect().Bind(this.SourceSubtitlesBindable).Subscribe();
+			this.SrtSubtitles.Connect().Bind(this.SrtSubtitlesBindable).Subscribe();
 
 			// HasVideoSource
 			this.WhenAnyValue(x => x.VideoSourceState)
@@ -1393,16 +1398,19 @@ namespace VidCoder.ViewModel
 			{
 				var result = new VCSubtitles
 				{
-					SourceSubtitles = this.SourceSubtitles.Where(s => s.Selected).Select(s => s.Subtitle.Clone()).ToList(),
-					SrtSubtitles = this.SrtSubtitles.Select(s => s.Subtitle.Clone()).ToList()
+					SourceSubtitles = this.SourceSubtitles.Items.Where(s => s.Selected).Select(s => s.Subtitle.Clone()).ToList(),
+					SrtSubtitles = this.SrtSubtitles.Items.Select(s => s.Subtitle.Clone()).ToList()
 				};
 
 				return result;
 			}
 		}
 
-		public ReactiveList<SourceSubtitleViewModel> SourceSubtitles { get; } = new ReactiveList<SourceSubtitleViewModel>();
-		public ReactiveList<SrtSubtitleViewModel> SrtSubtitles { get; } = new ReactiveList<SrtSubtitleViewModel>();
+		public SourceList<SourceSubtitleViewModel> SourceSubtitles { get; } = new SourceList<SourceSubtitleViewModel>();
+		public ObservableCollectionExtended<SourceSubtitleViewModel> SourceSubtitlesBindable { get; } = new ObservableCollectionExtended<SourceSubtitleViewModel>();
+
+		public SourceList<SrtSubtitleViewModel> SrtSubtitles { get; } = new SourceList<SrtSubtitleViewModel>();
+		public ObservableCollectionExtended<SrtSubtitleViewModel> SrtSubtitlesBindable { get; } = new ObservableCollectionExtended<SrtSubtitleViewModel>();
 
 		private void BuildSubtitleViewModelList()
 		{
@@ -1497,7 +1505,7 @@ namespace VidCoder.ViewModel
 				if (!updatedSubtitle.CanPass)
 				{
 					// If we just selected a burn-in only subtitle, deselect all other subtitles.
-					foreach (SourceSubtitleViewModel sourceSub in this.SourceSubtitles)
+					foreach (SourceSubtitleViewModel sourceSub in this.SourceSubtitles.Items)
 					{
 						if (sourceSub != updatedSubtitle)
 						{
@@ -1508,7 +1516,7 @@ namespace VidCoder.ViewModel
 				else
 				{
 					// We selected a soft subtitle. Deselect any burn-in-only subtitles.
-					foreach (SourceSubtitleViewModel sourceSub in this.SourceSubtitles)
+					foreach (SourceSubtitleViewModel sourceSub in this.SourceSubtitles.Items)
 					{
 						if (!sourceSub.CanPass)
 						{
@@ -1526,7 +1534,7 @@ namespace VidCoder.ViewModel
 			HBContainer profileContainer = HandBrakeEncoderHelpers.GetContainer(profile.ContainerName);
 			if (profileContainer.DefaultExtension == "mp4" && profile.PreferredExtension == VCOutputExtension.Mp4)
 			{
-				foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
+				foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles.Items)
 				{
 					if (sourceVM.Selected && sourceVM.SubtitleName.Contains("(Text)"))
 					{
@@ -1540,7 +1548,7 @@ namespace VidCoder.ViewModel
 
 			bool anyBurned = false;
 			int totalTracks = 0;
-			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
+			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles.Items)
 			{
 				if (sourceVM.Selected)
 				{
@@ -1552,7 +1560,7 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles)
+			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles.Items)
 			{
 				totalTracks++;
 				if (srtVM.BurnedIn)
@@ -1566,7 +1574,7 @@ namespace VidCoder.ViewModel
 
 		public void ReportDefaultSubtitle(object viewModel)
 		{
-			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
+			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles.Items)
 			{
 				if (sourceVM != viewModel)
 				{
@@ -1574,7 +1582,7 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles)
+			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles.Items)
 			{
 				if (srtVM != viewModel)
 				{
@@ -1585,7 +1593,7 @@ namespace VidCoder.ViewModel
 
 		public void ReportBurnedSubtitle(SourceSubtitleViewModel subtitleViewModel)
 		{
-			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
+			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles.Items)
 			{
 				if (sourceVM != subtitleViewModel)
 				{
@@ -1593,7 +1601,7 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles)
+			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles.Items)
 			{
 				srtVM.BurnedIn = false;
 			}
@@ -1601,12 +1609,12 @@ namespace VidCoder.ViewModel
 
 		public void ReportBurnedSubtitle(SrtSubtitleViewModel subtitleViewModel)
 		{
-			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
+			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles.Items)
 			{
 				sourceVM.BurnedIn = false;
 			}
 
-			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles)
+			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles.Items)
 			{
 				if (srtVM != subtitleViewModel)
 				{
@@ -1617,7 +1625,7 @@ namespace VidCoder.ViewModel
 
 		public bool HasMultipleSourceSubtitleTracks(int trackNumber)
 		{
-			return this.SourceSubtitles.Count(s => s.TrackNumber == trackNumber) > 1;
+			return this.SourceSubtitles.Items.Count(s => s.TrackNumber == trackNumber) > 1;
 		}
 
 		public void RemoveSourceSubtitle(SourceSubtitleViewModel subtitleViewModel)
@@ -1656,7 +1664,7 @@ namespace VidCoder.ViewModel
 			newSubtitle.Selected = true;
 
 			this.SourceSubtitles.Insert(
-				this.SourceSubtitles.IndexOf(sourceSubtitleViewModel) + 1,
+				this.SourceSubtitles.Items.IndexOf(sourceSubtitleViewModel) + 1,
 				newSubtitle);
 			this.UpdateSourceSubtitleBoxes();
 			this.UpdateSourceSubtitleButtonVisibility();
@@ -1666,7 +1674,7 @@ namespace VidCoder.ViewModel
 
 		private void UpdateSourceSubtitleButtonVisibility()
 		{
-			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
+			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles.Items)
 			{
 				sourceVM.UpdateButtonVisiblity();
 			}
@@ -1674,17 +1682,17 @@ namespace VidCoder.ViewModel
 
 		private void DeselectDefaultSubtitles()
 		{
-			bool anyBurned = this.SourceSubtitles.Any(sourceSub => sourceSub.BurnedIn) || this.SrtSubtitles.Any(sourceSub => sourceSub.BurnedIn);
+			bool anyBurned = this.SourceSubtitles.Items.Any(sourceSub => sourceSub.BurnedIn) || this.SrtSubtitles.Items.Any(sourceSub => sourceSub.BurnedIn);
 			this.DefaultSubtitlesEnabled = !anyBurned;
 
 			if (!this.DefaultSubtitlesEnabled)
 			{
-				foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
+				foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles.Items)
 				{
 					sourceVM.Default = false;
 				}
 
-				foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles)
+				foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles.Items)
 				{
 					srtVM.Default = false;
 				}
@@ -1763,7 +1771,7 @@ namespace VidCoder.ViewModel
 
 			if (this.SourceSubtitles.Count > 0)
 			{
-				List<SourceSubtitleViewModel> selectedSubtitles = this.SourceSubtitles.Where(s => s.Selected).ToList();
+				List<SourceSubtitleViewModel> selectedSubtitles = this.SourceSubtitles.Items.Where(s => s.Selected).ToList();
 
 				int selectedCount = selectedSubtitles.Count;
 				string sourceDescription = string.Format(CultureInfo.CurrentCulture, CommonRes.SelectedOverTotalSubtitleTracksFormat, selectedCount, this.SourceSubtitles.Count);
@@ -1796,7 +1804,7 @@ namespace VidCoder.ViewModel
 				if (this.SrtSubtitles.Count <= 3)
 				{
 					List<string> trackSummaries = new List<string>();
-					foreach (SrtSubtitleViewModel subtitle in this.SrtSubtitles)
+					foreach (SrtSubtitleViewModel subtitle in this.SrtSubtitles.Items)
 					{
 						trackSummaries.Add(HandBrakeLanguagesHelper.Get(subtitle.LanguageCode).Display);
 					}

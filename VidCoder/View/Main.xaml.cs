@@ -23,6 +23,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Resources;
+using DynamicData;
 using Fluent;
 using HandBrake.Interop.Interop.Json.Encode;
 using Microsoft.AnyContainer;
@@ -265,18 +266,40 @@ namespace VidCoder.View
 			this.sourceSubtitles = this.viewModel.SourceSubtitles;
 			this.srtSubtitles = this.viewModel.SrtSubtitles;
 
-			foreach (SourceSubtitleViewModel sourceVM in this.sourceSubtitles)
+			var sourceSubtitlesObservable = this.sourceSubtitles.Connect();
+			sourceSubtitlesObservable
+				.WhenValueChanged(subtitle => subtitle.Selected)
+				.Subscribe(_ =>
 			{
-				sourceVM.PropertyChanged += this.sourceVM_PropertyChanged;
-			}
+				this.ResizeSourceSubtitleColumns();
+			});
 
-			foreach (SrtSubtitleViewModel srtVM in this.srtSubtitles)
+			var srtSubtitlesObservable = this.srtSubtitles.Connect();
+			srtSubtitlesObservable
+				.WhenValueChanged(subtitle => subtitle.CharacterCode)
+				.Subscribe(_ =>
+				{
+					ResizeGridViewColumn(this.srtCharCodeColumn);
+				});
+
+			srtSubtitlesObservable
+				.WhenValueChanged(subtitle => subtitle.LanguageCode)
+				.Subscribe(_ =>
+				{
+					ResizeGridViewColumn(this.srtLanguageColumn);
+				});
+
+			sourceSubtitlesObservable.Subscribe(changeSet =>
 			{
-				srtVM.PropertyChanged += this.srtVM_PropertyChanged;
-			}
+				ResizeGridViewColumn(this.sourceNameColumn);
+			});
 
-			this.sourceSubtitles.CollectionChanged += this.sourceSubtitles_CollectionChanged;
-			this.srtSubtitles.CollectionChanged += this.srtSubtitles_CollectionChanged;
+			srtSubtitlesObservable.Subscribe(changeSet =>
+			{
+				ResizeGridViewColumn(this.srtCharCodeColumn);
+				ResizeGridViewColumn(this.srtLanguageColumn);
+			});
+
 			this.viewModel.OutputSizeService
 				.WhenAnyValue(x => x.Size)
 				.Subscribe(size =>
@@ -672,8 +695,8 @@ namespace VidCoder.View
 			}
 		}
 
-		private ReactiveList<SourceSubtitleViewModel> sourceSubtitles;
-		private ReactiveList<SrtSubtitleViewModel> srtSubtitles;
+		private SourceList<SourceSubtitleViewModel> sourceSubtitles;
+		private SourceList<SrtSubtitleViewModel> srtSubtitles;
 
 		private void SourceSubtitleItemClick(object sender, MouseButtonEventArgs e)
 		{
@@ -697,72 +720,12 @@ namespace VidCoder.View
 			}
 		}
 
-		private void sourceSubtitles_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		private void ResizeSourceSubtitleColumns()
 		{
 			ResizeGridViewColumn(this.sourceNameColumn);
-
-			if (e.Action == NotifyCollectionChangedAction.Add)
-			{
-				foreach (SourceSubtitleViewModel sourceVM in e.NewItems)
-				{
-					sourceVM.PropertyChanged += this.sourceVM_PropertyChanged;
-				}
-			}
-			else if (e.Action == NotifyCollectionChangedAction.Remove)
-			{
-				foreach (SourceSubtitleViewModel sourceVM in e.OldItems)
-				{
-					sourceVM.PropertyChanged -= this.sourceVM_PropertyChanged;
-				}
-			}
-		}
-
-		private void srtSubtitles_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-		{
-			ResizeGridViewColumn(this.srtCharCodeColumn);
-			ResizeGridViewColumn(this.srtLanguageColumn);
-
-			if (e.Action == NotifyCollectionChangedAction.Add)
-			{
-				foreach (SrtSubtitleViewModel srtVM in e.NewItems)
-				{
-					srtVM.PropertyChanged += this.srtVM_PropertyChanged;
-				}
-			}
-			else if (e.Action == NotifyCollectionChangedAction.Remove)
-			{
-				foreach (SrtSubtitleViewModel srtVM in e.OldItems)
-				{
-					srtVM.PropertyChanged -= this.srtVM_PropertyChanged;
-				}
-			}
-		}
-
-		private void sourceVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			var vm = sender as SourceSubtitleViewModel;
-
-			if (e.PropertyName == nameof(vm.Selected))
-			{
-				ResizeGridViewColumn(this.sourceNameColumn);
-				ResizeGridViewColumn(this.sourceDefaultColumn);
-				ResizeGridViewColumn(this.sourceForcedColumn);
-				ResizeGridViewColumn(this.sourceBurnedColumn);
-			}
-		}
-
-		private void srtVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			var vm = sender as SrtSubtitleViewModel;
-
-			if (e.PropertyName == nameof(vm.CharacterCode))
-			{
-				ResizeGridViewColumn(this.srtCharCodeColumn);
-			}
-			else if (e.PropertyName == nameof(vm.LanguageCode))
-			{
-				ResizeGridViewColumn(this.srtLanguageColumn);
-			}
+			ResizeGridViewColumn(this.sourceDefaultColumn);
+			ResizeGridViewColumn(this.sourceForcedColumn);
+			ResizeGridViewColumn(this.sourceBurnedColumn);
 		}
 
 		private static void ResizeGridViewColumn(GridViewColumn column)

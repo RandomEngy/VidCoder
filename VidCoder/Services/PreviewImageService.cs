@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using DynamicData;
 using HandBrake.Interop.Interop;
 using Microsoft.AnyContainer;
 using ReactiveUI;
@@ -39,7 +40,7 @@ namespace VidCoder.Services
 
 	    private IDisposable presetsSubscription;
 
-		private readonly ReactiveList<PreviewImageServiceClient> clients = new ReactiveList<PreviewImageServiceClient>();
+		private readonly SourceList<PreviewImageServiceClient> clients = new SourceList<PreviewImageServiceClient>();
 
 		private object imageSync = new object();
 	    private List<object> imageFileSync;
@@ -57,14 +58,14 @@ namespace VidCoder.Services
 			    this.RequestRefreshPreviews();
 		    });
 
-		    this.clients.ChangeTrackingEnabled = true;
-		    this.clients.ItemChanged
-			    .Where(x => x.PropertyName == nameof(PreviewImageServiceClient.PreviewIndex))
-			    .Select(x => x.Sender)
-			    .Subscribe(client =>
-			    {
+			this.clients
+				.Connect()
+				.WhenValueChanged(client => client.PreviewIndex)
+				.Skip(1)
+				.Subscribe(client =>
+				{
 					this.ClearOutOfRangeItems();
-				    this.BeginBackgroundImageLoad();
+					this.BeginBackgroundImageLoad();
 				});
 
 			this.RequestRefreshPreviews();
@@ -224,7 +225,7 @@ namespace VidCoder.Services
 
 		    // Update the number of previews.
 		    this.previewCount = this.ScanInstance.PreviewCount;
-		    foreach (PreviewImageServiceClient client in this.clients)
+		    foreach (PreviewImageServiceClient client in this.clients.Items)
 		    {
 			    if (client.PreviewIndex >= this.previewCount)
 			    {
@@ -298,9 +299,14 @@ namespace VidCoder.Services
 
 	    private void ClearOutOfRangeItems()
 	    {
+		    if (this.previewCount <= 0)
+		    {
+			    return;
+		    } 
+
 			// Determine which slots are in range of a client
 		    bool[] inRange = new bool[this.previewCount];
-		    foreach (PreviewImageServiceClient client in this.clients)
+		    foreach (PreviewImageServiceClient client in this.clients.Items)
 		    {
 			    inRange[client.PreviewIndex] = true;
 			    for (int i = 1; i <= PreviewImageCacheDistance; i++)
@@ -340,7 +346,12 @@ namespace VidCoder.Services
 
 	    private void BeginBackgroundImageLoad()
 	    {
-		    foreach (PreviewImageServiceClient client in this.clients)
+		    if (this.previewCount <= 0)
+		    {
+			    return;
+		    }
+
+		    foreach (PreviewImageServiceClient client in this.clients.Items)
 		    {
 			    if (!this.ImageLoadedOrLoading(client.PreviewIndex))
 			    {

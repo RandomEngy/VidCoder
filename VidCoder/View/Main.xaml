@@ -1365,7 +1365,7 @@
 							</DataTemplate>
 							<DataTemplate x:Key="LanguageTemplate" DataType="viewmodel:SrtSubtitleViewModel">
 								<ComboBox
-									Width="80"
+									MinWidth="80"
 									DisplayMemberPath="Display"
 									ItemsSource="{Binding Languages}"
 									SelectedValue="{Binding LanguageCode}"
@@ -1389,6 +1389,8 @@
 							<DataTemplate x:Key="RemoveTemplate" DataType="viewmodel:SourceSubtitleViewModel">
 								<Button
 									VerticalAlignment="Center"
+									Width="24"
+									Height="24"
 									Command="{Binding RemoveSubtitle}"
 									Content="{x:Static res:CommonRes.RemoveTrack}"
 									Style="{StaticResource RemoveButtonStyle}" />
@@ -1442,7 +1444,7 @@
 								VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource SourceDragTemplate}"
 								VidCoderDragDrop:DragDropHelper.IsDragSource="True"
 								VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
-								ItemsSource="{Binding SourceSubtitles}"
+								ItemsSource="{Binding SourceSubtitlesBindable}"
 								UseLayoutRounding="True"
 								Visibility="{Binding HasSourceSubtitles,
 								                     Converter={StaticResource VisibilityConverter}}">
@@ -1525,7 +1527,7 @@
 								VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource SrtDragTemplate}"
 								VidCoderDragDrop:DragDropHelper.IsDragSource="True"
 								VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
-								ItemsSource="{Binding SrtSubtitles}">
+								ItemsSource="{Binding SrtSubtitlesBindable}">
 								<i:Interaction.Behaviors>
 									<behaviors:IgnoreMouseWheelBehavior />
 								</i:Interaction.Behaviors>
@@ -1553,7 +1555,7 @@
 												CellTemplate="{StaticResource CharCodeTemplate}"
 												Header="{x:Static res:SubtitleRes.CharCodeColumn}" />
 											<GridViewColumn CellTemplate="{StaticResource OffsetTemplate}" Header="{x:Static res:SubtitleRes.OffsetColumn}" />
-											<GridViewColumn CellTemplate="{StaticResource RemoveTemplate}" />
+											<GridViewColumn CellTemplate="{StaticResource RemoveTemplate}" Width="36" />
 										</GridView.Columns>
 									</GridView>
 								</ListView.View>
