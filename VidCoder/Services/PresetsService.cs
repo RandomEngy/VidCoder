@@ -80,18 +80,17 @@ namespace VidCoder.Services
 			}
 
 			// Populate the custom preset folder before built-in presets are added to AllPresets collection.
-			this.customPresetFolder = new PresetFolderViewModel(this, !this.collapsedBuiltInFolders.Contains(CustomFolderKey)) { Name = EncodingRes.PresetFolder_Custom, Id = 0, IsBuiltIn = false};
+			this.customPresetFolder = new PresetFolderViewModel(this, !this.collapsedBuiltInFolders.Contains(CustomFolderKey), isBuiltIn: false, id: 0) { Name = EncodingRes.PresetFolder_Custom };
 			this.PopulateCustomFolder(this.customPresetFolder);
 
 			// Populate built-in folder from HandBrake presets
 			IList<PresetCategory> handBrakePresets = HandBrakePresetService.GetBuiltInPresets();
-			this.builtInFolder = new PresetFolderViewModel(this, !this.collapsedBuiltInFolders.Contains(BuiltInFolderKey)) { Name = EncodingRes.PresetFolder_BuiltIn, IsBuiltIn = true};
+			this.builtInFolder = new PresetFolderViewModel(this, !this.collapsedBuiltInFolders.Contains(BuiltInFolderKey), isBuiltIn: true) { Name = EncodingRes.PresetFolder_BuiltIn };
 			foreach (PresetCategory handbrakePresetCategory in handBrakePresets)
 			{
-				var builtInSubfolder = new PresetFolderViewModel(this, !this.collapsedBuiltInFolders.Contains(handbrakePresetCategory.PresetName))
+				var builtInSubfolder = new PresetFolderViewModel(this, !this.collapsedBuiltInFolders.Contains(handbrakePresetCategory.PresetName), isBuiltIn: true)
 				{
 					Name = handbrakePresetCategory.PresetName,
-					IsBuiltIn = true,
 				};
 
 				this.builtInFolder.AddSubfolder(builtInSubfolder);
@@ -577,7 +576,7 @@ namespace VidCoder.Services
 				return currentFolder;
 			}
 
-			foreach (PresetFolderViewModel subFolder in currentFolder.SubFolders)
+			foreach (PresetFolderViewModel subFolder in currentFolder.SubFolders.Items)
 			{
 				PresetFolderViewModel childResult = this.FindFolderRecursive(subFolder, folderId);
 				if (childResult != null)
@@ -591,13 +590,13 @@ namespace VidCoder.Services
 
 		private bool RemoveFolderFromTree(PresetFolderViewModel folderToSearchIn, PresetFolderViewModel folderToRemove)
 		{
-			if (folderToSearchIn.SubFolders.Contains(folderToRemove))
+			if (folderToSearchIn.SubFolders.Items.Contains(folderToRemove))
 			{
 				folderToSearchIn.RemoveSubfolder(folderToRemove);
 				return true;
 			}
 
-			foreach (PresetFolderViewModel folder in folderToSearchIn.SubFolders)
+			foreach (PresetFolderViewModel folder in folderToSearchIn.SubFolders.Items)
 			{
 				if (this.RemoveFolderFromTree(folder, folderToRemove))
 				{
@@ -621,13 +620,13 @@ namespace VidCoder.Services
 
 		private bool RemovePresetFromFolder(PresetFolderViewModel folder, PresetViewModel presetViewModel)
 		{
-			if (folder.Items.Contains(presetViewModel))
+			if (folder.Items.Items.Contains(presetViewModel))
 			{
 				folder.RemoveItem(presetViewModel);
 				return true;
 			}
 
-			foreach (var subFolder in folder.SubFolders)
+			foreach (var subFolder in folder.SubFolders.Items)
 			{
 				if (this.RemovePresetFromFolder(subFolder, presetViewModel))
 				{

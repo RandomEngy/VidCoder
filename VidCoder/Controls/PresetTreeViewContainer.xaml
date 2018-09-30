@@ -305,7 +305,7 @@
 		<TreeView.ItemTemplateSelector>
 			<selectors:PresetTreeTemplateSelector>
 				<selectors:PresetTreeTemplateSelector.FolderTemplate>
-					<HierarchicalDataTemplate ItemsSource="{Binding AllItems}">
+					<HierarchicalDataTemplate ItemsSource="{Binding AllItemsBindable}">
 						<TextBlock
 							Margin="5"
 							FontSize="14"
