@@ -362,7 +362,7 @@
 								<ItemsControl
 									Margin="10 0 0 0"
 									HorizontalAlignment="Left"
-									ItemsSource="{Binding AudioLanguages}">
+									ItemsSource="{Binding AudioLanguagesBindable}">
 									<ItemsControl.ItemTemplate>
 										<DataTemplate>
 											<StackPanel Margin="0 0 0 4" Orientation="Horizontal">
@@ -449,7 +449,7 @@
 							<ItemsControl
 								Margin="10 0 0 0"
 								HorizontalAlignment="Left"
-								ItemsSource="{Binding AudioLanguages}">
+								ItemsSource="{Binding AudioLanguagesBindable}">
 								<ItemsControl.ItemTemplate>
 									<DataTemplate>
 										<StackPanel Margin="0 0 0 4" Orientation="Horizontal">
@@ -551,7 +551,7 @@
 								<ItemsControl
 									Margin="10 0 0 0"
 									HorizontalAlignment="Left"
-									ItemsSource="{Binding SubtitleLanguages}">
+									ItemsSource="{Binding SubtitleLanguagesBindable}">
 									<ItemsControl.ItemTemplate>
 										<DataTemplate>
 											<StackPanel Margin="0 0 0 4" Orientation="Horizontal">
@@ -640,7 +640,7 @@
 							<ItemsControl
 								Margin="10 0 0 0"
 								HorizontalAlignment="Left"
-								ItemsSource="{Binding SubtitleLanguages}">
+								ItemsSource="{Binding SubtitleLanguagesBindable}">
 								<ItemsControl.ItemTemplate>
 									<DataTemplate>
 										<StackPanel Margin="0 0 0 4" Orientation="Horizontal">

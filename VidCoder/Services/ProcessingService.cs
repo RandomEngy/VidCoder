@@ -2120,7 +2120,7 @@ namespace VidCoder.Services
 						if (useCurrentContext)
 						{
 							// With previous context, pick similarly
-							foreach (AudioTrackViewModel audioVM in this.main.AudioTracks.Where(t => t.Selected))
+							foreach (AudioTrackViewModel audioVM in this.main.AudioTracks.Items.Where(t => t.Selected))
 							{
 								int audioIndex = audioVM.TrackIndex;
 

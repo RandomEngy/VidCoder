@@ -7,6 +7,9 @@ using System.Reactive;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Windows.Input;
+using DynamicData;
+using DynamicData.Aggregation;
+using DynamicData.Binding;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.Json.Scan;
 using HandBrake.Interop.Interop.Model.Encoding;
@@ -23,9 +26,6 @@ namespace VidCoder.ViewModel
 {
 	public class AudioPanelViewModel : PanelViewModel
 	{
-		private ReactiveList<AudioEncodingViewModel> audioEncodings;
-		private ReactiveList<AudioOutputPreview> audioOutputPreviews;
-
 		private List<AudioEncoderViewModel> fallbackEncoderChoices;
 		private AudioEncoderViewModel audioEncoderFallback;
 
@@ -39,18 +39,20 @@ namespace VidCoder.ViewModel
 		public AudioPanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
 			: base(encodingWindowViewModel)
 		{
-			this.audioOutputPreviews = new ReactiveList<AudioOutputPreview>();
-			this.audioEncodings = new ReactiveList<AudioEncodingViewModel>();
-			this.audioEncodings.ChangeTrackingEnabled = true;
-
 			this.fallbackEncoderChoices = new List<AudioEncoderViewModel>();
 
-			this.audioOutputPreviews.CountChanged
+			IObservable<IChangeSet<AudioEncodingViewModel>> audioEncodingsObservable = this.audioEncodings.Connect();
+			audioEncodingsObservable.Bind(this.AudioEncodingsBindable).Subscribe();
+
+			IObservable<IChangeSet<AudioOutputPreview>> audioOutputPreviewObservable = this.audioOutputPreviews.Connect();
+			audioOutputPreviewObservable.Bind(this.AudioOutputPreviewsBindable).Subscribe();
+
+			// HasAudioTracks
+			audioOutputPreviewObservable
+				.Count()
+				.StartWith(this.audioOutputPreviews.Count)
 				.Select(c => c > 0)
-				.Subscribe(hasAudioTracks =>
-				{
-					this.HasAudioTracks = hasAudioTracks;
-				});
+				.ToProperty(this, x => x.HasAudioTracks, out this.hasAudioTracks);
 
 			this.main.WhenAnyValue(x => x.SelectedTitle)
 				.Skip(1)
@@ -59,10 +61,13 @@ namespace VidCoder.ViewModel
 					this.NotifyAudioInputChanged();
 				});
 
-			this.main.AudioTracks.ItemChanged.Subscribe(_ =>
-			{
-				this.NotifyAudioInputChanged();
-			});
+			this.main.AudioTracks
+				.Connect()
+				.WhenAnyPropertyChanged()
+				.Subscribe(_ =>
+				{
+					this.NotifyAudioInputChanged();
+				});
 
 			this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.ContainerName)
 				.Skip(1)
@@ -79,18 +84,20 @@ namespace VidCoder.ViewModel
 				}));
 
 			// AutoPassthroughSettingsVisible
-			AudioEncodingViewModel audioEncodingViewModel;
-			this.audioEncodings.ItemChanged
-				.Where(x => x.PropertyName == nameof(audioEncodingViewModel.SelectedAudioEncoder) || x.PropertyName == nameof(audioEncodingViewModel.SelectedPassthrough))
+			audioEncodingsObservable
+				.WhenAnyPropertyChanged(nameof(AudioEncodingViewModel.SelectedAudioEncoder), nameof(AudioEncodingViewModel.SelectedPassthrough))
 				.Subscribe(_ =>
 				{
 					this.RaisePropertyChanged(nameof(this.AutoPassthroughSettingsVisible));
 				});
-			this.audioEncodings.Changed
-				.Subscribe(_ =>
+
+			audioEncodingsObservable.Subscribe(changeSet =>
+			{
+				if (changeSet.Adds > 0 || changeSet.Removes > 0)
 				{
 					this.RaisePropertyChanged(nameof(this.AutoPassthroughSettingsVisible));
-				});
+				}
+			});
 
 			this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.AudioEncoderFallback)
 				.Subscribe(audioEncoderFallback =>
@@ -108,18 +115,16 @@ namespace VidCoder.ViewModel
 				});
 
 			// Make user updates change the profile
-			CopyMaskChoiceViewModel copyMaskChoiceViewModel;
-			this.CopyMaskChoices.ChangeTrackingEnabled = true;
-			this.CopyMaskChoices.ItemChanged
-				.Where(x => x.PropertyName == nameof(copyMaskChoiceViewModel.Enabled))
-				.Subscribe(_ =>
-				{
-					this.userUpdatingCopyMask = true;
-					this.SaveCopyMasksToProfile();
-					this.userUpdatingCopyMask = false;
+			IObservable<IChangeSet<CopyMaskChoiceViewModel>> copyMaskChoicesObservable = this.copyMaskChoices.Connect();
+			copyMaskChoicesObservable.Bind(this.CopyMaskChoicesBindable).Subscribe();
+			copyMaskChoicesObservable.WhenValueChanged(choice => choice.Enabled, notifyOnInitialValue: false).Subscribe(_ =>
+			{
+				this.userUpdatingCopyMask = true;
+				this.SaveCopyMasksToProfile();
+				this.userUpdatingCopyMask = false;
 
-					this.RefreshAudioPreview();
-				});
+				this.RefreshAudioPreview();
+			});
 
 			// Make profile changes update the local mask choices
 			this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.AudioCopyMask)
@@ -130,9 +135,9 @@ namespace VidCoder.ViewModel
 						return;
 					}
 
-					using (this.CopyMaskChoices.SuppressChangeNotifications())
+					this.copyMaskChoices.Edit(copyMaskChoicesInnerList =>
 					{
-						this.CopyMaskChoices.Clear();
+						copyMaskChoicesInnerList.Clear();
 
 						HBContainer container = HandBrakeEncoderHelpers.GetContainer(this.EncodingWindowViewModel.Profile.ContainerName);
 						foreach (HBAudioEncoder encoder in HandBrakeEncoderHelpers.AudioEncoders)
@@ -151,10 +156,10 @@ namespace VidCoder.ViewModel
 									}
 								}
 
-								this.CopyMaskChoices.Add(new CopyMaskChoiceViewModel(codec, enabled));
+								copyMaskChoicesInnerList.Add(new CopyMaskChoiceViewModel(codec, enabled));
 							}
 						}
-					}
+					});
 
 					this.RefreshAudioPreview();
 				});
@@ -171,21 +176,11 @@ namespace VidCoder.ViewModel
 
 		public bool SuppressProfileEdits { get; set; }
 
-		public ReactiveList<AudioEncodingViewModel> AudioEncodings
-		{
-			get
-			{
-				return this.audioEncodings;
-			}
-		}
+		private readonly SourceList<AudioEncodingViewModel> audioEncodings = new SourceList<AudioEncodingViewModel>();
+		public ObservableCollectionExtended<AudioEncodingViewModel> AudioEncodingsBindable { get; } = new ObservableCollectionExtended<AudioEncodingViewModel>();
 
-		public ReactiveList<AudioOutputPreview> AudioOutputPreviews
-		{
-			get
-			{
-				return this.audioOutputPreviews;
-			}
-		}
+		private readonly SourceList<AudioOutputPreview> audioOutputPreviews = new SourceList<AudioOutputPreview>();
+		public ObservableCollectionExtended<AudioOutputPreview> AudioOutputPreviewsBindable { get; } = new ObservableCollectionExtended<AudioOutputPreview>();
 
 		public List<AudioEncoderViewModel> FallbackEncoderChoices
 		{
@@ -222,19 +217,15 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.audioEncodings.Any(a => a.SelectedAudioEncoder.IsPassthrough && a.SelectedPassthrough == AudioEncodingViewModel.AutoPassthroughEncoder);
+				return this.audioEncodings.Items.Any(a => a.SelectedAudioEncoder.IsPassthrough && a.SelectedPassthrough == AudioEncodingViewModel.AutoPassthroughEncoder);
 			}
 		}
 
-		public ReactiveList<CopyMaskChoiceViewModel> CopyMaskChoices { get; } = new ReactiveList<CopyMaskChoiceViewModel>();
+		private readonly SourceList<CopyMaskChoiceViewModel> copyMaskChoices = new SourceList<CopyMaskChoiceViewModel>();
+		public ObservableCollectionExtended<CopyMaskChoiceViewModel> CopyMaskChoicesBindable { get; } = new ObservableCollectionExtended<CopyMaskChoiceViewModel>();
 
-		// This would normally be an output property but a bug is stopping this from working. May be fixed in Reactive UI 7
-		private bool hasAudioTracks;
-		public bool HasAudioTracks
-		{
-			get { return this.hasAudioTracks; }
-			set { this.RaiseAndSetIfChanged(ref this.hasAudioTracks, value); }
-		}
+		private readonly ObservableAsPropertyHelper<bool> hasAudioTracks;
+		public bool HasAudioTracks => this.hasAudioTracks.Value;
 
 		private ReactiveCommand addAudioEncoding;
 		public ReactiveCommand AddAudioEncoding
@@ -254,7 +245,7 @@ namespace VidCoder.ViewModel
 						Drc = 0.0
 					};
 
-					this.AudioEncodings.Add(new AudioEncodingViewModel(newAudioEncoding, this.MainViewModel.SelectedTitle?.Title, this.MainViewModel.GetChosenAudioTracks(), this));
+					this.audioEncodings.Add(new AudioEncodingViewModel(newAudioEncoding, this.MainViewModel.SelectedTitle?.Title, this.MainViewModel.GetChosenAudioTracks(), this));
 					this.RefreshAudioPreview();
 					this.UpdateAudioEncodings();
 				}));
@@ -263,7 +254,7 @@ namespace VidCoder.ViewModel
 
 		public void RemoveAudioEncoding(AudioEncodingViewModel audioEncodingVM)
 		{
-			this.AudioEncodings.Remove(audioEncodingVM);
+			this.audioEncodings.Remove(audioEncodingVM);
 			audioEncodingVM.Dispose();
 
 			this.RefreshAudioPreview();
@@ -310,11 +301,11 @@ namespace VidCoder.ViewModel
 
 		private void RefreshCopyMaskChoices()
 		{
-			List<CopyMaskChoiceViewModel> oldChoices = new List<CopyMaskChoiceViewModel>(this.CopyMaskChoices);
+			List<CopyMaskChoiceViewModel> oldChoices = new List<CopyMaskChoiceViewModel>(this.copyMaskChoices.Items);
 
-			using (this.CopyMaskChoices.SuppressChangeNotifications())
+			this.copyMaskChoices.Edit(copyMaskChoicesInnerList =>
 			{
-				this.CopyMaskChoices.Clear();
+				copyMaskChoicesInnerList.Clear();
 
 				HBContainer container = HandBrakeEncoderHelpers.GetContainer(this.EncodingWindowViewModel.Profile.ContainerName);
 				foreach (HBAudioEncoder encoder in HandBrakeEncoderHelpers.AudioEncoders)
@@ -329,15 +320,15 @@ namespace VidCoder.ViewModel
 							enabled = oldChoice.Enabled;
 						}
 
-						this.CopyMaskChoices.Add(new CopyMaskChoiceViewModel(codec, enabled));
+						copyMaskChoicesInnerList.Add(new CopyMaskChoiceViewModel(codec, enabled));
 					}
 				}
-			}
+			});
 		}
 
 		private void SaveCopyMasksToProfile()
 		{
-			List<CopyMaskChoice> choices = this.CopyMaskChoices.Select(choice => new CopyMaskChoice { Codec = choice.Codec, Enabled = choice.Enabled }).ToList();
+			List<CopyMaskChoice> choices = this.copyMaskChoices.Items.Select(choice => new CopyMaskChoice { Codec = choice.Codec, Enabled = choice.Enabled }).ToList();
 			this.UpdateProfileProperty(nameof(this.Profile.AudioCopyMask), choices, raisePropertyChanged: false);
 		}
 
@@ -345,20 +336,20 @@ namespace VidCoder.ViewModel
 		{
 			if (this.SelectedTitle != null)
 			{
-				using (this.AudioOutputPreviews.SuppressChangeNotifications())
+				this.audioOutputPreviews.Edit(audioOutputPreviewsInnerList =>
 				{
-					this.AudioOutputPreviews.Clear();
+					audioOutputPreviewsInnerList.Clear();
 
 					List<int> chosenAudioTracks = this.MainViewModel.GetChosenAudioTracks();
 					var outputPreviews = new List<AudioOutputPreview>();
 
-					foreach (AudioEncodingViewModel audioVM in this.AudioEncodings)
+					foreach (AudioEncodingViewModel audioVM in this.audioEncodings.Items)
 					{
 						if (audioVM.IsValid)
 						{
 							if (audioVM.TargetStreamIndex == 0)
 							{
-								foreach (AudioTrackViewModel audioTrack in this.MainViewModel.AudioTracks.Where(t => t.Selected))
+								foreach (AudioTrackViewModel audioTrack in this.MainViewModel.AudioTracks.Items.Where(t => t.Selected))
 								{
 									AudioOutputPreview audioPreview = this.GetAudioPreview(
 										this.SelectedTitle.AudioList[audioTrack.TrackIndex], audioVM);
@@ -373,7 +364,7 @@ namespace VidCoder.ViewModel
 								int titleAudioIndex = chosenAudioTracks[audioVM.TargetStreamIndex - 1];
 
 								AudioOutputPreview audioPreview = this.GetAudioPreview(this.SelectedTitle.AudioList[titleAudioIndex - 1],
-																					   audioVM);
+									audioVM);
 								if (audioPreview != null)
 								{
 									outputPreviews.Add(audioPreview);
@@ -385,13 +376,13 @@ namespace VidCoder.ViewModel
 					for (int i = 0; i < outputPreviews.Count; i++)
 					{
 						outputPreviews[i].TrackNumber = "#" + (i + 1);
-						this.AudioOutputPreviews.Add(outputPreviews[i]);
+						audioOutputPreviewsInnerList.Add(outputPreviews[i]);
 					}
 
 					// Add the header row
-					if (this.AudioOutputPreviews.Count > 0)
+					if (audioOutputPreviewsInnerList.Count > 0)
 					{
-						this.AudioOutputPreviews.Insert(0, new AudioOutputPreview
+						audioOutputPreviewsInnerList.Insert(0, new AudioOutputPreview
 						{
 							TrackNumber = EncodingRes.Track,
 							Name = EncodingRes.Source,
@@ -402,7 +393,7 @@ namespace VidCoder.ViewModel
 							Modifiers = EncodingRes.Modifiers
 						});
 					}
-				}
+				});
 			}
 		}
 
@@ -427,7 +418,7 @@ namespace VidCoder.ViewModel
 
 			if (encoder.ShortName == "copy")
 			{
-				if (this.CopyMaskChoices.Any(
+				if (this.copyMaskChoices.Items.Any(
 					choice =>
 					{
 						if (!choice.Enabled)
@@ -554,25 +545,27 @@ namespace VidCoder.ViewModel
 		{
 			if (!this.SuppressProfileEdits)
 			{
-				var newAudioEncodings = this.AudioEncodings.Select(e => e.NewAudioEncoding).ToList();
+				var newAudioEncodings = this.audioEncodings.Items.Select(e => e.NewAudioEncoding).ToList();
 				this.UpdateProfileProperty(nameof(this.Profile.AudioEncodings), newAudioEncodings);
 			}
 		}
 
 		private void OnProfileChanged()
 		{
-			foreach (var audioEncodingViewModel in this.audioEncodings)
+			foreach (var audioEncodingViewModel in this.audioEncodings.Items)
 			{
 				audioEncodingViewModel.Dispose();
 			}
 
-			this.audioEncodings.Clear();
-			foreach (AudioEncoding audioEncoding in this.Profile.AudioEncodings)
+			this.audioEncodings.Edit(audioEncodingsInnerList =>
 			{
-				this.audioEncodings.Add(new AudioEncodingViewModel(audioEncoding, this.MainViewModel.SelectedTitle?.Title, this.MainViewModel.GetChosenAudioTracks(), this));
-			}
+				audioEncodingsInnerList.Clear();
+				foreach (AudioEncoding audioEncoding in this.Profile.AudioEncodings)
+				{
+					audioEncodingsInnerList.Add(new AudioEncodingViewModel(audioEncoding, this.MainViewModel.SelectedTitle?.Title, this.MainViewModel.GetChosenAudioTracks(), this));
+				}
+			});
 
-			this.audioOutputPreviews.Clear();
 			this.RefreshAudioPreview();
 			this.RefreshFallbackEncoderChoices();
 			this.RefreshCopyMaskChoices();
@@ -596,7 +589,7 @@ namespace VidCoder.ViewModel
 		{
 			this.RefreshAudioPreview();
 
-			foreach (AudioEncodingViewModel encodingVM in this.AudioEncodings)
+			foreach (AudioEncodingViewModel encodingVM in this.audioEncodings.Items)
 			{
 				encodingVM.SetChosenTracks(this.MainViewModel.GetChosenAudioTracks(), this.MainViewModel.SelectedTitle?.Title);
 			}

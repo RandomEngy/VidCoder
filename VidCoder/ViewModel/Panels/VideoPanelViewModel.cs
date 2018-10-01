@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Resources;
+using DynamicData;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.Model.Encoding;
 using HandBrake.Interop.Utilities;
@@ -382,10 +383,13 @@ namespace VidCoder.ViewModel
 					this.RefreshEncoderSettings(applyDefaults: false);
 				});
 
-			this.main.AudioTracks.ItemChanged.Subscribe(_ =>
-			{
-				this.NotifyAudioChanged();
-			});
+			this.main.AudioTracks
+				.Connect()
+				.WhenAnyPropertyChanged()
+				.Subscribe(_ =>
+				{
+					this.NotifyAudioChanged();
+				});
 
 			this.main.WhenAnyValue(x => x.SelectedTitle)
 				.Skip(1)

@@ -367,18 +367,17 @@ namespace VidCoder.ViewModel
 			this.driveService = StaticResolver.Resolve<IDriveService>();
 
 			// When an item is checked, resize the grid columns
-			this.AudioTracks.ItemChanged
-				.Where(x => x.PropertyName == nameof(AudioTrackViewModel.Selected))
-				.Select(x => x.Sender)
-				.Subscribe(audioTrackViewModel =>
+			IObservable<IChangeSet<AudioTrackViewModel>> audioTracksObservable = this.AudioTracks.Connect();
+			audioTracksObservable.Bind(this.AudioTracksBindable).Subscribe();
+			audioTracksObservable
+				.WhenValueChanged(track => track.Selected)
+				.Subscribe(selected =>
 			{
-				if (audioTrackViewModel.Selected)
+				if (selected)
 				{
 					this.View.ResizeAudioColumns();
 				}
 			});
-
-			this.AudioTracks.ChangeTrackingEnabled = true;
 
 			this.DriveCollection = this.driveService.GetDiscInformation();
 
@@ -1237,11 +1236,11 @@ namespace VidCoder.ViewModel
 		{
 			Picker picker = this.PickersService.SelectedPicker.Picker;
 
-			List<AudioTrackViewModel> oldTracks = this.AudioTracks.Where(t => t.Selected).ToList();
+			List<AudioTrackViewModel> oldTracks = this.AudioTracks.Items.Where(t => t.Selected).ToList();
 
-			using (this.AudioTracks.SuppressChangeNotifications())
+			this.AudioTracks.Edit(audioTracksInnerList =>
 			{
-				this.AudioTracks.Clear();
+				audioTracksInnerList.Clear();
 
 				switch (picker.AudioSelectionMode)
 				{
@@ -1254,7 +1253,7 @@ namespace VidCoder.ViewModel
 								if (audioTrackVM.TrackIndex < this.selectedTitle.AudioList.Count &&
 								    audioTrackVM.AudioTrack.Language == this.selectedTitle.AudioList[audioTrackVM.TrackIndex].Language)
 								{
-									this.AudioTracks.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[audioTrackVM.TrackIndex], audioTrackVM.TrackNumber) { Selected = true });
+									audioTracksInnerList.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[audioTrackVM.TrackIndex], audioTrackVM.TrackNumber) { Selected = true });
 								}
 							}
 						}
@@ -1263,7 +1262,7 @@ namespace VidCoder.ViewModel
 					case AudioSelectionMode.First:
 					case AudioSelectionMode.Language:
 					case AudioSelectionMode.All:
-						this.AudioTracks.AddRange(ProcessingService
+						audioTracksInnerList.AddRange(ProcessingService
 							.ChooseAudioTracks(this.selectedTitle.AudioList, picker)
 							.Select(i => new AudioTrackViewModel(this, this.selectedTitle.AudioList[i], i + 1) { Selected = true }));
 
@@ -1275,22 +1274,22 @@ namespace VidCoder.ViewModel
 				// If nothing got selected, add the first one.
 				if (this.selectedTitle.AudioList.Count > 0 && this.AudioTracks.Count == 0)
 				{
-					this.AudioTracks.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[0], 1) { Selected = true });
+					audioTracksInnerList.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[0], 1) { Selected = true });
 				}
 
 				// Fill in rest of unselected audio tracks
-				this.FillInUnselectedAudioTracks();
-			}
+				this.FillInUnselectedAudioTracks(audioTracksInnerList);
+			});
 		}
 
-		private void FillInUnselectedAudioTracks()
+		private void FillInUnselectedAudioTracks(IList<AudioTrackViewModel> listToAddTo)
 		{
 			for (int i = 0; i < this.SelectedTitle.AudioList.Count; i++)
 			{
 				SourceAudioTrack track = this.SelectedTitle.AudioList[i];
-				if (this.AudioTracks.All(t => t.AudioTrack != track))
+				if (listToAddTo.All(t => t.AudioTrack != track))
 				{
-					this.AudioTracks.Add(new AudioTrackViewModel(this, track, i + 1));
+					listToAddTo.Add(new AudioTrackViewModel(this, track, i + 1));
 				}
 			}
 		}
@@ -1302,7 +1301,7 @@ namespace VidCoder.ViewModel
 		/// <returns>True if the track has a duplicate.</returns>
 		public bool HasMultipleAudioTracks(int trackNumber)
 		{
-			return this.AudioTracks.Count(s => s.TrackNumber == trackNumber) > 1;
+			return this.AudioTracks.Items.Count(s => s.TrackNumber == trackNumber) > 1;
 		}
 
 		public void RemoveAudioTrack(AudioTrackViewModel audioTrackViewModel)
@@ -1323,7 +1322,7 @@ namespace VidCoder.ViewModel
 			newTrack.Selected = true;
 
 			this.AudioTracks.Insert(
-				this.AudioTracks.IndexOf(audioTrackViewModel) + 1,
+				this.AudioTracks.Items.IndexOf(audioTrackViewModel) + 1,
 				newTrack);
 			this.UpdateAudioTrackButtonVisibility();
 			this.RefreshAudioSummary();
@@ -1331,7 +1330,7 @@ namespace VidCoder.ViewModel
 
 		private void UpdateAudioTrackButtonVisibility()
 		{
-			foreach (AudioTrackViewModel audioTrackViewModel in this.AudioTracks)
+			foreach (AudioTrackViewModel audioTrackViewModel in this.AudioTracks.Items)
 			{
 				audioTrackViewModel.UpdateButtonVisiblity();
 			}
@@ -1354,7 +1353,7 @@ namespace VidCoder.ViewModel
 
 			if (this.AudioTracks.Count > 0)
 			{
-				List<AudioTrackViewModel> selectedTracks = this.AudioTracks.Where(s => s.Selected).ToList();
+				List<AudioTrackViewModel> selectedTracks = this.AudioTracks.Items.Where(s => s.Selected).ToList();
 
 				int selectedCount = selectedTracks.Count;
 				string sourceDescription = string.Format(CultureInfo.CurrentCulture, CommonRes.SelectedOverTotalAudioTracksFormat, selectedCount, this.AudioTracks.Count);
@@ -1455,7 +1454,7 @@ namespace VidCoder.ViewModel
 				case SubtitleSelectionMode.ForeignAudioSearch:
 				case SubtitleSelectionMode.Language:
 				case SubtitleSelectionMode.All:
-					AudioTrackViewModel firstSelectedAudio = this.AudioTracks.FirstOrDefault(t => t.Selected);
+					AudioTrackViewModel firstSelectedAudio = this.AudioTracks.Items.FirstOrDefault(t => t.Selected);
 
 					var selectedSubtitles = ProcessingService.ChooseSubtitles(
 						this.selectedTitle.Title,
@@ -1899,15 +1898,15 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<bool> rangeBarVisible;
 		public bool RangeBarVisible => this.rangeBarVisible.Value;
 
-		private ReactiveList<ChapterViewModel> startChapters;
-		public ReactiveList<ChapterViewModel> StartChapters
+		private List<ChapterViewModel> startChapters;
+		public List<ChapterViewModel> StartChapters
 		{
 			get { return this.startChapters; }
 			set { this.RaiseAndSetIfChanged(ref this.startChapters, value); }
 		}
 
-		private ReactiveList<ChapterViewModel> endChapters;
-		public ReactiveList<ChapterViewModel> EndChapters
+		private List<ChapterViewModel> endChapters;
+		public List<ChapterViewModel> EndChapters
 		{
 			get { return this.endChapters; }
 			set { this.RaiseAndSetIfChanged(ref this.endChapters, value); }
@@ -2371,7 +2370,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveList<AudioTrackViewModel> AudioTracks { get; } = new ReactiveList<AudioTrackViewModel>();
+		public SourceList<AudioTrackViewModel> AudioTracks { get; } = new SourceList<AudioTrackViewModel>();
+		public ObservableCollectionExtended<AudioTrackViewModel> AudioTracksBindable { get; } = new ObservableCollectionExtended<AudioTrackViewModel>();
 
 		// Populated when a scan finishes and cleared out when a new scan starts
 		private VideoSource sourceData;
@@ -2976,7 +2976,7 @@ namespace VidCoder.ViewModel
 		{
 			var tracks = new List<int>();
 
-			foreach (AudioTrackViewModel audioTrackVM in this.AudioTracks.Where(track => track.Selected))
+			foreach (AudioTrackViewModel audioTrackVM in this.AudioTracks.Items.Where(track => track.Selected))
 			{
 				tracks.Add(audioTrackVM.TrackNumber);
 			}
@@ -3275,16 +3275,19 @@ namespace VidCoder.ViewModel
 			}
 
 			// Audio tracks
-			this.AudioTracks.Clear();
-			foreach (int chosenTrack in job.ChosenAudioTracks)
+			this.AudioTracks.Edit(audioTracksInnerList =>
 			{
-				if (chosenTrack <= this.selectedTitle.AudioList.Count)
+				audioTracksInnerList.Clear();
+				foreach (int chosenTrack in job.ChosenAudioTracks)
 				{
-					this.AudioTracks.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[chosenTrack - 1], chosenTrack) { Selected = true });
+					if (chosenTrack <= this.selectedTitle.AudioList.Count)
+					{
+						audioTracksInnerList.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[chosenTrack - 1], chosenTrack) { Selected = true });
+					}
 				}
-			}
 
-			this.FillInUnselectedAudioTracks();
+				this.FillInUnselectedAudioTracks(audioTracksInnerList);
+			});
 
 			// Subtitles (standard+SRT)
 			this.CurrentSubtitles.SourceSubtitles = new List<SourceSubtitle>();
@@ -3352,37 +3355,34 @@ namespace VidCoder.ViewModel
 
 		private void PopulateChapterSelectLists()
 		{
-			var newStartChapterList = new ReactiveList<ChapterViewModel>();
-			var newEndChapterList = new ReactiveList<ChapterViewModel>();
+			var newStartChapterList = new List<ChapterViewModel>();
+			var newEndChapterList = new List<ChapterViewModel>();
 
 			for (int i = 0; i < this.selectedTitle.ChapterList.Count; i++)
 			{
 				SourceChapter chapter = this.selectedTitle.ChapterList[i];
 
-				newStartChapterList.Add(new ChapterViewModel(chapter, i + 1));
-				newEndChapterList.Add(new ChapterViewModel(chapter, i + 1));
+				var startChapterViewModel = new ChapterViewModel(chapter, i + 1);
+				var endChapterViewModel = new ChapterViewModel(chapter, i + 1);
+
+				startChapterViewModel.PropertyChanged += this.OnChapterViewModelPropertyChanged;
+				endChapterViewModel.PropertyChanged += this.OnChapterViewModelPropertyChanged;
+
+				newStartChapterList.Add(startChapterViewModel);
+				newEndChapterList.Add(endChapterViewModel);
 			}
-
-			newStartChapterList.ChangeTrackingEnabled = true;
-			newEndChapterList.ChangeTrackingEnabled = true;
-
-			newStartChapterList.ItemChanged
-				.Where(x => x.PropertyName == nameof(ChapterViewModel.IsHighlighted))
-				.Subscribe(_ =>
-				{
-					this.RefreshRangePreview();
-				});
-
-			newEndChapterList.ItemChanged
-				.Where(x => x.PropertyName == nameof(ChapterViewModel.IsHighlighted))
-				.Subscribe(_ =>
-				{
-					this.RefreshRangePreview();
-				});
 
 			// We can't re-use the same list because the ComboBox control flyout sizes itself once and doesn't update when items are added.
 			this.StartChapters = newStartChapterList;
 			this.EndChapters = newEndChapterList;
+		}
+
+		private void OnChapterViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName == nameof(ChapterViewModel.IsHighlighted))
+			{
+				this.RefreshRangePreview();
+			}
 		}
 
 		private void PopulateAnglesList()

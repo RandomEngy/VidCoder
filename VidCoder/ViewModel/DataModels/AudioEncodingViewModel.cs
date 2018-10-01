@@ -7,6 +7,7 @@ using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Windows.Media;
+using DynamicData;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.HbLib;
 using HandBrake.Interop.Interop.Json.Scan;
@@ -365,7 +366,7 @@ namespace VidCoder.ViewModel
 					this.RefreshFromNewInput();
 				});
 
-			this.audioTrackChangedSubscription = this.main.AudioTracks.ItemChanged.Subscribe(_ =>
+			this.audioTrackChangedSubscription = this.main.AudioTracks.Connect().WhenAnyPropertyChanged().Subscribe(_ =>
 			{
 				this.RefreshFromNewInput();
 			});

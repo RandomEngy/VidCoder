@@ -23,7 +23,7 @@
 				Name="audioPanelStack"
 				VerticalAlignment="Top"
 				Orientation="Vertical">
-				<ItemsControl HorizontalAlignment="Stretch" ItemsSource="{Binding AudioEncodings}">
+				<ItemsControl HorizontalAlignment="Stretch" ItemsSource="{Binding AudioEncodingsBindable}">
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
 							<panels:AudioEncodingPanel />
@@ -65,7 +65,7 @@
 						<ItemsControl
 							Margin="0 4 0 0"
 							Focusable="False"
-							ItemsSource="{Binding CopyMaskChoices}">
+							ItemsSource="{Binding CopyMaskChoicesBindable}">
 							<ItemsControl.ItemsPanel>
 								<ItemsPanelTemplate>
 									<WrapPanel />
@@ -131,7 +131,7 @@
 								<ItemsControl
 									Focusable="False"
 									Grid.IsSharedSizeScope="True"
-									ItemsSource="{Binding AudioOutputPreviews}"
+									ItemsSource="{Binding AudioOutputPreviewsBindable}"
 									Visibility="{Binding HasAudioTracks,
 									                     Converter={StaticResource VisibilityConverter}}">
 									<ItemsControl.ItemTemplate>

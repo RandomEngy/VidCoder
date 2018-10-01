@@ -20,8 +20,6 @@ namespace VidCoder.ViewModel
 {
 	public class QueueTitlesWindowViewModel : OkCancelDialogViewModel
 	{
-		private ReactiveList<TitleSelectionViewModel> titles;
-		private ReactiveList<TitleSelectionViewModel> selectedTitles;
 		private IWindowManager windowManager;
 
 		private MainViewModel main;
@@ -32,13 +30,11 @@ namespace VidCoder.ViewModel
 			this.PickersService = StaticResolver.Resolve<PickersService>();
 			this.windowManager = StaticResolver.Resolve<IWindowManager>();
 
-			this.selectedTitles = new ReactiveList<TitleSelectionViewModel>();
 			this.titleStartOverrideEnabled = Config.QueueTitlesUseTitleOverride;
 			this.titleStartOverride = Config.QueueTitlesTitleOverride;
 			this.nameOverrideEnabled = Config.QueueTitlesUseNameOverride;
 			this.nameOverride = Config.QueueTitlesNameOverride;
 
-			this.titles = new ReactiveList<TitleSelectionViewModel>();
 			this.RefreshTitles();
 
 			this.main.WhenAnyValue(x => x.SourceData)
@@ -69,16 +65,14 @@ namespace VidCoder.ViewModel
 					this.SetSelectedFromRange();
 				});
 
-			this.selectedTitles.CountChanged
-				.Select(count => count == 1)
-				.ToProperty(this, x => x.TitleDetailsVisible, out this.titleDetailsVisible, initialValue: false);
-
-			this.selectedTitles.CollectionChanged +=
+			this.SelectedTitles.CollectionChanged +=
 				(sender, args) =>
 			    {
-					if (this.selectedTitles.Count == 1)
+				    this.RaisePropertyChanged(nameof(this.TitleDetailsVisible));
+
+					if (this.SelectedTitles.Count == 1)
 					{
-						SourceTitle title = this.selectedTitles[0].Title;
+						SourceTitle title = this.SelectedTitles[0].Title;
 
 						// Do preview
 						var previewProfile =
@@ -98,24 +92,17 @@ namespace VidCoder.ViewModel
 
 		public PickersService PickersService { get; }
 
-		public ReactiveList<TitleSelectionViewModel> Titles
+		public ObservableCollection<TitleSelectionViewModel> Titles { get; } = new ObservableCollection<TitleSelectionViewModel>();
+
+		public ObservableCollection<TitleSelectionViewModel> SelectedTitles { get; } = new ObservableCollection<TitleSelectionViewModel>();
+
+		public bool TitleDetailsVisible
 		{
 			get
 			{
-				return this.titles;
+				return this.SelectedTitles.Count == 1;
 			}
 		}
-
-		public ReactiveList<TitleSelectionViewModel> SelectedTitles
-		{
-			get
-			{
-				return this.selectedTitles;
-			}
-		}
-
-		private ObservableAsPropertyHelper<bool> titleDetailsVisible;
-		public bool TitleDetailsVisible => this.titleDetailsVisible.Value;
 
 		public string TitleText
 		{
@@ -126,7 +113,7 @@ namespace VidCoder.ViewModel
 					return string.Empty;
 				}
 
-				return string.Format(QueueTitlesRes.TitleFormat, this.selectedTitles[0].Title.Index);
+				return string.Format(QueueTitlesRes.TitleFormat, this.SelectedTitles[0].Title.Index);
 			}
 		}
 
@@ -178,7 +165,7 @@ namespace VidCoder.ViewModel
 			get
 			{
 				List<SourceTitle> checkedTitles = new List<SourceTitle>();
-				foreach (TitleSelectionViewModel titleVM in this.titles)
+				foreach (TitleSelectionViewModel titleVM in this.Titles)
 				{
 					if (titleVM.Selected)
 					{
@@ -204,7 +191,7 @@ namespace VidCoder.ViewModel
 							player = Players.Installed[0];
 						}
 
-						player.PlayTitle(this.main.SourcePath, this.selectedTitles[0].Title.Index);
+						player.PlayTitle(this.main.SourcePath, this.SelectedTitles[0].Title.Index);
 					},
 					MvvmUtilities.CreateConstantObservable(!Utilities.IsRunningAsAppx && Players.Installed.Count > 0)));
 			}
@@ -280,14 +267,14 @@ namespace VidCoder.ViewModel
 
 		private void RefreshTitles()
 		{
-			this.titles.Clear();
+			this.Titles.Clear();
 
 			if (this.main.SourceData != null)
 			{
 				foreach (SourceTitle title in this.main.SourceData.Titles)
 				{
 					var titleVM = new TitleSelectionViewModel(title, this);
-					this.titles.Add(titleVM);
+					this.Titles.Add(titleVM);
 				}
 
 				// Perform range selection if enabled.
@@ -304,7 +291,7 @@ namespace VidCoder.ViewModel
 				TimeSpan lowerBound = TimeSpan.FromMinutes(picker.TitleRangeSelectStartMinutes);
 				TimeSpan upperBound = TimeSpan.FromMinutes(picker.TitleRangeSelectEndMinutes);
 
-				foreach (TitleSelectionViewModel titleVM in this.titles)
+				foreach (TitleSelectionViewModel titleVM in this.Titles)
 				{
 					TimeSpan titleDuration = titleVM.Title.Duration.ToSpan();
 					if (titleDuration >= lowerBound && titleDuration <= upperBound)
@@ -322,7 +309,7 @@ namespace VidCoder.ViewModel
 			}
 			else
 			{
-				foreach (TitleSelectionViewModel titleVM in this.titles)
+				foreach (TitleSelectionViewModel titleVM in this.Titles)
 				{
 					if (titleVM.Selected)
 					{

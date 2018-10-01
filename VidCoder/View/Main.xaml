@@ -1158,7 +1158,7 @@
 							VerticalAlignment="Top"
 							VidCoderDragDrop:DragDropHelper.IsDragSource="True"
 							VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
-							ItemsSource="{Binding AudioTracks}"
+							ItemsSource="{Binding AudioTracksBindable}"
 							UseLayoutRounding="True"
 							Visibility="{Binding HasAudio,
 							                     Converter={StaticResource VisibilityConverter}}">
