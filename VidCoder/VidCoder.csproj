@@ -92,7 +92,7 @@
       <Version>6.5.1.2479</Version>
     </PackageReference>
     <PackageReference Include="Fluent.Ribbon">
-      <Version>7.0.0-alpha0419</Version>
+      <Version>7.0.0-alpha0456</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AnyContainer">
       <Version>1.0.0-beta201808141</Version>

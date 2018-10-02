@@ -146,7 +146,7 @@ namespace VidCoder.Services
 				.Select(progressFraction => progressFraction * 100)
 				.ToProperty(this, x => x.OverallEncodeProgressPercent, out this.overallEncodeProgressPercent);
 
-			this.QueueCountObservable = encodeQueueObservable.Count();
+			this.QueueCountObservable = encodeQueueObservable.Count().StartWith(this.encodeQueue.Count);
 
 			// QueuedTabHeader
 			this.QueueCountObservable

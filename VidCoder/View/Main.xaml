@@ -429,8 +429,8 @@
 			<!--  Ribbon  -->
 			<fluent:Ribbon
 				Grid.Row="0"
-				Margin="0 -23 0 0"
 				CanMinimize="False"
+				AreTabHeadersVisible="False"
 				IsQuickAccessToolBarVisible="False"
 				IsToolBarVisible="False">
 				<fluent:RibbonTabItem Header="Generic tab header">
