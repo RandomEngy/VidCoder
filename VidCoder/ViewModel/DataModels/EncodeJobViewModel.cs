@@ -532,7 +532,7 @@ namespace VidCoder.ViewModel
 		public void ReportEncodeEnd()
 		{
 			this.Encoding = false;
-			this.encodeTimeStopwatch.Stop();
+			this.encodeTimeStopwatch?.Stop();
 		}
 
 		public override string ToString()
