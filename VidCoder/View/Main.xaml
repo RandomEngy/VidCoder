@@ -34,18 +34,16 @@
 	<Window.Resources>
 		<converters:SampleRateDisplayConverter x:Key="SampleRateDisplayConverter" />
 		<converters:ChapterVMConverter x:Key="ChapterVMConverter" />
-		<Color x:Key="SectionBackgroundTopColor">#F5F5F5</Color>
-		<Color x:Key="SectionBackgroundBottomColor">#EAEAEA</Color>
-		<LinearGradientBrush x:Key="SectionBackground" StartPoint="0,0" EndPoint="0,1">
-			<GradientStop Offset="0.0" Color="{StaticResource SectionBackgroundTopColor}" />
-			<GradientStop Offset="1.0" Color="{StaticResource SectionBackgroundBottomColor}" />
-		</LinearGradientBrush>
-		<Style x:Key="MainSectionHeader" TargetType="TextBlock">
+		<Style
+			x:Key="MainSectionHeader"
+			TargetType="TextBlock">
 			<Setter Property="FontWeight" Value="Bold" />
 			<Setter Property="FontSize" Value="14" />
 			<Setter Property="Margin" Value="4" />
 		</Style>
-		<Style x:Key="PlainTitle" TargetType="TextBlock">
+		<Style
+			x:Key="PlainTitle"
+			TargetType="TextBlock">
 			<Setter Property="VerticalAlignment" Value="Center" />
 			<Setter Property="Margin" Value="4 2 4 2" />
 		</Style>
@@ -429,8 +427,8 @@
 			<!--  Ribbon  -->
 			<fluent:Ribbon
 				Grid.Row="0"
-				CanMinimize="False"
 				AreTabHeadersVisible="False"
+				CanMinimize="False"
 				IsQuickAccessToolBarVisible="False"
 				IsToolBarVisible="False">
 				<fluent:RibbonTabItem Header="Generic tab header">
@@ -593,6 +591,7 @@
 				MinWidth="220"
 				Margin="0"
 				VerticalAlignment="Stretch"
+				Background="{DynamicResource AlternateBackgroundBrush}"
 				Visibility="{Binding VideoSourceState,
 				                     Converter={StaticResource EnumVisibilityConverter},
 				                     ConverterParameter={x:Static model:VideoSourceState.Choices}}">
@@ -745,7 +744,7 @@
 				Name="sourceScrollViewer"
 				Grid.Row="1"
 				Margin="0"
-				Background="{StaticResource SectionBackground}"
+				Background="{DynamicResource AlternateBackgroundBrush}"
 				VerticalScrollBarVisibility="Auto"
 				Visibility="{Binding VideoSourceState,
 				                     Converter={StaticResource EnumVisibilityConverter},
@@ -1388,9 +1387,9 @@
 							</DataTemplate>
 							<DataTemplate x:Key="RemoveTemplate" DataType="viewmodel:SourceSubtitleViewModel">
 								<Button
-									VerticalAlignment="Center"
 									Width="24"
 									Height="24"
+									VerticalAlignment="Center"
 									Command="{Binding RemoveSubtitle}"
 									Content="{x:Static res:CommonRes.RemoveTrack}"
 									Style="{StaticResource RemoveButtonStyle}" />
@@ -1555,7 +1554,7 @@
 												CellTemplate="{StaticResource CharCodeTemplate}"
 												Header="{x:Static res:SubtitleRes.CharCodeColumn}" />
 											<GridViewColumn CellTemplate="{StaticResource OffsetTemplate}" Header="{x:Static res:SubtitleRes.OffsetColumn}" />
-											<GridViewColumn CellTemplate="{StaticResource RemoveTemplate}" Width="36" />
+											<GridViewColumn Width="36" CellTemplate="{StaticResource RemoveTemplate}" />
 										</GridView.Columns>
 									</GridView>
 								</ListView.View>
@@ -1679,7 +1678,7 @@
 				</Grid.RowDefinitions>
 
 				<!--  Destination section  -->
-				<Grid Grid.Row="0" Background="{StaticResource SectionBackground}">
+				<Grid Grid.Row="0" Background="{DynamicResource AlternateBackgroundBrush}">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto" />
 						<ColumnDefinition />
@@ -1764,22 +1763,12 @@
 
 				<!--  Queue section  -->
 				<Grid Grid.Row="1" Canvas.ZIndex="2">
-					<Grid.Background>
-						<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
-					</Grid.Background>
-
 					<Grid Name="tabsArea" Margin="0">
-						<Grid.Background>
-							<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
-						</Grid.Background>
 						<TabControl
 							Name="queueItemsTabControl"
 							Padding="0"
 							BorderThickness="0"
 							SelectedIndex="{Binding ProcessingService.SelectedTabIndex}">
-							<TabControl.Background>
-								<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
-							</TabControl.Background>
 							<TabItem Name="queueTab" Visibility="Collapsed">
 								<TabItem.Header>
 									<TextBlock Text="{Binding ProcessingService.QueuedTabHeader}" />
@@ -1993,9 +1982,6 @@
 					Height="28"
 					Visibility="{Binding ProcessingService.Encoding,
 					                     Converter={StaticResource VisibilityConverter}}">
-					<Grid.Background>
-						<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
-					</Grid.Background>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*" />
 						<ColumnDefinition Width="Auto" />

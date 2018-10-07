@@ -732,7 +732,7 @@ namespace VidCoder.ViewModel
 
 			this.windowManager.CloseTrackedWindows();
 
-			this.driveService.Close();
+			this.driveService.Dispose();
 
 			if (this.scanInstance != null)
 			{

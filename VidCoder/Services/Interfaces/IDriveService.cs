@@ -7,10 +7,9 @@ using VidCoder.Model;
 
 namespace VidCoder.Services
 {
-	public interface IDriveService
+	public interface IDriveService : IDisposable
 	{
 		IList<DriveInformation> GetDiscInformation();
-		void Close();
 		IList<DriveInfo> GetDriveInformation();
 		bool PathIsDrive(string sourcePath);
 		DriveInformation GetDriveInformationFromPath(string sourcePath);

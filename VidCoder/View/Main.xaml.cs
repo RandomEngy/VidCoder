@@ -140,6 +140,16 @@ namespace VidCoder.View
 				};
 
 				debugDropDown.Items.Add(queueFromJsonItem);
+
+				var doAnActionItem = new Fluent.MenuItem {Header = "Perform action"};
+				doAnActionItem.Click += (sender, args) =>
+				{
+					var app = (App)System.Windows.Application.Current;
+					app.ChangeTheme(new Uri("/Themes/Dark.xaml", UriKind.Relative));
+				};
+
+				debugDropDown.Items.Add(doAnActionItem);
+
 				this.toolsRibbonGroupBox.Items.Add(debugDropDown);
 			}
 

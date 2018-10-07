@@ -12,6 +12,7 @@
 	<Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="/Themes/Light.xaml" />
 				<ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 
@@ -33,11 +34,9 @@
 			<Color x:Key="PresetGlowColor">#1696FF</Color>
 
 			<SolidColorBrush x:Key="DismissableMessageBrush" Color="{StaticResource DismissableMessageColor}" />
-			<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#B8E0F3" />
-			<SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
 			<SolidColorBrush x:Key="ProgressBarBrush" Color="#00C800" />
 
-			<Style x:Key="GrayOnDisabledControl" TargetType="{x:Type Control}">
+			<Style x:Key="GrayOnDisabledControl" TargetType="Control">
 				<Style.Triggers>
 					<DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
 						<Setter Property="Foreground" Value="#999999" />
@@ -45,7 +44,7 @@
 				</Style.Triggers>
 			</Style>
 
-			<Style x:Key="BorderlessButtonStyle" TargetType="{x:Type Button}">
+			<Style x:Key="BorderlessButtonStyle" TargetType="Button">
 				<Setter Property="Background" Value="Transparent" />
 				<Setter Property="BorderThickness" Value="0" />
 			</Style>
@@ -510,7 +509,6 @@
 			<Style x:Key="NormalWindow" TargetType="{x:Type Window}">
 				<Setter Property="Background" Value="WhiteSmoke" />
 			</Style>
-			<SolidColorBrush x:Key="AlternateBackground" Color="#FEFEFE" />
 			<Style x:Key="DescriptiveText" TargetType="{x:Type TextBlock}">
 				<Setter Property="VerticalAlignment" Value="Center" />
 				<Setter Property="Foreground" Value="Gray" />

@@ -5,8 +5,8 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Resources;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 using DynamicData;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.HbLib;
@@ -813,8 +813,8 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				Brush disabledBrush = Brushes.Gray;
-				Brush enabledBrush = Brushes.Black;
+				Brush disabledBrush = (Brush)Application.Current.Resources[System.Windows.SystemColors.GrayTextBrushKey];
+				Brush enabledBrush = (Brush)Application.Current.Resources[System.Windows.SystemColors.ControlTextBrushKey];
 
 				if (!this.main.HasVideoSource)
 				{

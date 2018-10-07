@@ -14,8 +14,11 @@ using VidCoder.ViewModel;
 using System.IO.Pipes;
 using System.IO;
 using System.ComponentModel;
+using System.Management;
 using System.Runtime.InteropServices;
+using System.Security.Principal;
 using HandBrake.Interop.Interop;
+using Microsoft.Win32;
 using VidCoder.Services.Notifications;
 using VidCoder.View;
 using VidCoderCommon;
@@ -37,6 +40,10 @@ namespace VidCoder
 		public static bool IsPrimaryInstance { get; private set; }
 
 		private static Mutex mutex;
+
+		private IAppThemeService appThemeService;
+
+		private AppTheme currentTheme = AppTheme.Light;
 
 		static App()
 		{
@@ -136,6 +143,16 @@ namespace VidCoder
 
 			this.GlobalInitialize();
 
+			this.appThemeService = StaticResolver.Resolve<IAppThemeService>();
+			this.appThemeService.AppThemeObservable.Subscribe(appTheme =>
+			{
+				if (appTheme != this.currentTheme)
+				{
+					this.currentTheme = appTheme;
+					this.ChangeTheme(new Uri($"/Themes/{appTheme}.xaml", UriKind.Relative));
+				}
+			});
+
 			var mainVM = new MainViewModel();
 			StaticResolver.Resolve<IWindowManager>().OpenWindow(mainVM);
 			mainVM.OnLoaded();
@@ -165,11 +182,18 @@ namespace VidCoder
 				{
 				}
 			}
+
+			this.appThemeService?.Dispose();
 		}
 
 		private void GlobalInitialize()
 		{
 			HandBrakeUtils.SetDvdNav(Config.EnableLibDvdNav);
+		}
+
+		public void ChangeTheme(Uri uri)
+		{
+			this.Resources.MergedDictionaries[0].Source = uri;
 		}
 
 		private void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

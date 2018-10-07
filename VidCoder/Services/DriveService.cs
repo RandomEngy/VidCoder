@@ -123,11 +123,11 @@ namespace VidCoder.Services
 			return new List<DriveInfo>(DriveInfo.GetDrives());
 		}
 
-		public void Close()
+		public void Dispose()
 		{
 			try
 			{
-				this.watcher.Stop();
+				this.watcher?.Dispose();
 			}
 			catch (COMException)
 			{

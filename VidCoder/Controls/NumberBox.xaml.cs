@@ -25,6 +25,11 @@ namespace VidCoder.Controls
 		private DateTime lastFocusMouseDown;
 		private bool suppressRefresh;
 
+		//static NumberBox()
+		//{
+		//	DefaultStyleKeyProperty.OverrideMetadata(typeof(NumberBox), new FrameworkPropertyMetadata(typeof(NumberBox)));
+		//}
+
 		public NumberBox()
 		{
 			this.noneCaption = "(none)";
@@ -253,7 +258,7 @@ namespace VidCoder.Controls
 		{
 			if (this.numberBox.Text == this.NoneCaption)
 			{
-				this.numberBox.Foreground = new SolidColorBrush(Colors.Gray);
+				this.numberBox.Foreground = (Brush)Application.Current.Resources[SystemColors.GrayTextBrushKey];
 			}
 			else
 			{
@@ -263,7 +268,7 @@ namespace VidCoder.Controls
 				}
 				else
 				{
-					this.numberBox.Foreground = new SolidColorBrush(Colors.Black);
+					this.numberBox.SetResourceReference(Control.ForegroundProperty, "ControlTextBrush");
 				}
 			}
 		}
@@ -361,7 +366,7 @@ namespace VidCoder.Controls
 				}
 				else
 				{
-					this.numberBox.Foreground = new SolidColorBrush(Colors.Black);
+					this.numberBox.SetResourceReference(Control.ForegroundProperty, "ControlTextBrush");
 				}
 			}
 		}

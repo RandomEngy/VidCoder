@@ -230,6 +230,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Dark.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\HighContrast.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Light.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AddAutoPauseProcessDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -523,6 +535,7 @@
     <Compile Include="Services\HandBrakeProxy\LocalScanProxy.cs" />
     <Compile Include="Services\HandBrakeProxy\RemoteProxyBase.cs" />
     <Compile Include="Services\HandBrakeProxy\RemoteScanProxy.cs" />
+    <Compile Include="Services\Interfaces\IAppThemeService.cs" />
     <Compile Include="Services\MainAppLogger.cs" />
     <Compile Include="Services\Notifications\BetaNotificationActivator.cs" />
     <Compile Include="Services\Notifications\BridgeToastNotificationDispatchService.cs" />
@@ -541,6 +554,8 @@
     <Compile Include="Services\StatusService.cs" />
     <Compile Include="Services\StubLogger.cs" />
     <Compile Include="Services\SubtitlesService.cs" />
+    <Compile Include="Services\AppTheme.cs" />
+    <Compile Include="Services\AppThemeService.cs" />
     <Compile Include="Services\Windows\IClosableWindow.cs" />
     <Compile Include="Services\Interfaces\IAppLogger.cs" />
     <Compile Include="Services\Interfaces\IPresetImportExport.cs" />

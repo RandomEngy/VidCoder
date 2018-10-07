@@ -15,6 +15,7 @@ namespace VidCoder
 		{
 			var container = new DryIocAnyContainer();
 			container.RegisterSingleton<IDriveService, DriveService>();
+			container.RegisterSingleton<IAppThemeService, AppThemeService>();
 
 			if (Utilities.IsRunningAsAppx)
 			{
