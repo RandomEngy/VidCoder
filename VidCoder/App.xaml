@@ -507,7 +507,7 @@
 				<Setter Property="Margin" Value="10 0 0 0" />
 			</Style>
 			<Style x:Key="NormalWindow" TargetType="{x:Type Window}">
-				<Setter Property="Background" Value="WhiteSmoke" />
+				<Setter Property="Background" Value="{DynamicResource AlternateBackgroundBrush}" />
 			</Style>
 			<Style x:Key="DescriptiveText" TargetType="{x:Type TextBlock}">
 				<Setter Property="VerticalAlignment" Value="Center" />

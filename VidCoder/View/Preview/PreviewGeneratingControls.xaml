@@ -10,7 +10,7 @@
 	d:DesignHeight="300"
 	d:DesignWidth="300"
 	mc:Ignorable="d">
-	<StackPanel Orientation="Vertical" Background="WhiteSmoke">
+	<StackPanel Orientation="Vertical" Background="{DynamicResource AlternateBackgroundBrush}">
 		<controls:SlotSeekBar
 			Height="24"
 			HorizontalAlignment="Stretch"

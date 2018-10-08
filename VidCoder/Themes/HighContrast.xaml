@@ -4,4 +4,7 @@
 	xmlns:local="clr-namespace:VidCoder.Themes">
 	<SolidColorBrush x:Key="AlternateBackgroundBrush" Color="{x:Static SystemColors.WindowColor}" />
 	<SolidColorBrush x:Key="ControlTextBrush" Color="{x:Static SystemColors.ControlTextColor}" />
+	<SolidColorBrush x:Key="ToolBarBackgroundBrush" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="WindowBrush" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="WindowTextBrush" Color="{x:Static SystemColors.WindowTextColor}" />
 </ResourceDictionary>

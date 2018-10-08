@@ -17,6 +17,7 @@ using System.ComponentModel;
 using System.Management;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
+using Fluent;
 using HandBrake.Interop.Interop;
 using Microsoft.Win32;
 using VidCoder.Services.Notifications;
@@ -150,6 +151,9 @@ namespace VidCoder
 				{
 					this.currentTheme = appTheme;
 					this.ChangeTheme(new Uri($"/Themes/{appTheme}.xaml", UriKind.Relative));
+
+					string fluentTheme = appTheme == AppTheme.Dark ? "Dark" : "Light";
+					ThemeManager.ChangeTheme(this, fluentTheme + ".Cobalt");
 				}
 			});
 

@@ -297,7 +297,7 @@
 		x:Name="presetTreeView"
 		HorizontalAlignment="Stretch"
 		AllowDrop="True"
-		Background="WhiteSmoke"
+		Background="{DynamicResource AlternateBackgroundBrush}"
 		BorderThickness="0"
 		Canvas.ZIndex="3"
 		ItemsSource="{Binding PresetsService.AllPresetsTree}"

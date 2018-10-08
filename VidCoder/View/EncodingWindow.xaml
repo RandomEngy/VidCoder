@@ -87,7 +87,7 @@
 		<Grid
 			Name="mainGrid"
 			Grid.Column="1"
-			Background="#BBB">
+			Background="{DynamicResource ToolBarBackgroundBrush}">
 			<ToolBarPanel
 				Margin="-5 0 -14 0"
 				HorizontalAlignment="Stretch"
@@ -96,13 +96,8 @@
 				<ToolBar
 					KeyboardNavigation.TabNavigation="Continue"
 					Loaded="ToolBar_Loaded"
+					Background="{DynamicResource ToolBarBackgroundBrush}"
 					ToolBarTray.IsLocked="True">
-					<ToolBar.Background>
-						<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-							<GradientStop Offset="0.0" Color="#EEE" />
-							<GradientStop Offset="1.0" Color="#BBB" />
-						</LinearGradientBrush>
-					</ToolBar.Background>
 					<Button
 						Height="24"
 						Margin="4 0 0 0"

@@ -11,7 +11,7 @@
 	d:DesignWidth="300"
 	mc:Ignorable="d">
 	<StackPanel
-		Background="WhiteSmoke"
+		Background="{DynamicResource AlternateBackgroundBrush}"
 		Orientation="Vertical"
 		UseLayoutRounding="True">
 		<controls:VideoSeekBar

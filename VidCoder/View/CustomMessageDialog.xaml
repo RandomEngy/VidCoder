@@ -8,7 +8,7 @@
 	Title="{Binding Title}"
 	Width="377"
 	Height="186"
-	Background="WhiteSmoke"
+	Background="{DynamicResource AlternateBackgroundBrush}"
 	ResizeMode="NoResize"
 	TextOptions.TextFormattingMode="Display"
 	WindowStartupLocation="CenterOwner"

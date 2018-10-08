@@ -28,7 +28,7 @@
 		<controls:PickerList
 			Grid.Column="0"
 			HorizontalAlignment="Stretch"
-			Background="WhiteSmoke" />
+			Background="{DynamicResource AlternateBackgroundBrush}" />
 
 		<GridSplitter
 			Grid.Column="1"
@@ -57,13 +57,8 @@
 				<ToolBar
 					KeyboardNavigation.TabNavigation="Continue"
 					Loaded="ToolBar_Loaded"
+					Background="{DynamicResource ToolBarBackgroundBrush}"
 					ToolBarTray.IsLocked="True">
-					<ToolBar.Background>
-						<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-							<GradientStop Offset="0.0" Color="#EEE" />
-							<GradientStop Offset="1.0" Color="#BBB" />
-						</LinearGradientBrush>
-					</ToolBar.Background>
 					<Button
 						Height="24"
 						MinWidth="70"

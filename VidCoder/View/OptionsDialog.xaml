@@ -17,7 +17,6 @@
 	MinWidth="450"
 	MinHeight="300"
 	d:DataContext="{d:DesignInstance vm:OptionsDialogViewModel}"
-	Background="White"
 	Closed="Window_Closed"
 	Style="{StaticResource NormalWindow}"
 	TextOptions.TextFormattingMode="Display"
@@ -35,7 +34,7 @@
 			<ColumnDefinition Width="Auto" MinWidth="130" />
 			<ColumnDefinition />
 		</Grid.ColumnDefinitions>
-		<Grid Grid.RowSpan="2" Background="WhiteSmoke">
+		<Grid Grid.RowSpan="2" Background="{DynamicResource AlternateBackgroundBrush}">
 			<ListBox
 				Background="Transparent"
 				BorderThickness="0"
@@ -65,7 +64,7 @@
 			Grid.Row="0"
 			Grid.Column="1"
 			Margin="0 0 0 0">
-			<ScrollViewer Background="White" VerticalScrollBarVisibility="Auto">
+			<ScrollViewer Background="{DynamicResource WindowBrush}" VerticalScrollBarVisibility="Auto">
 				<Grid Margin="15 8 10 5">
 					<!--  General  -->
 					<StackPanel

@@ -17,7 +17,7 @@
 			<Setter Property="Foreground" Value="Black" />
 		</Style>
 	</UserControl.Resources>
-	<StackPanel Background="WhiteSmoke" Orientation="Vertical">
+	<StackPanel Background="{DynamicResource AlternateBackgroundBrush}" Orientation="Vertical">
 		<controls:SlotSeekBar
 			Height="24"
 			HorizontalAlignment="Stretch"
