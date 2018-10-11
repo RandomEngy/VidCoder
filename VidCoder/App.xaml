@@ -296,13 +296,13 @@
 													<ControlTemplate TargetType="{x:Type ToggleButton}">
 														<Border
 															x:Name="templateRoot"
-															BorderBrush="#FFACACAC"
+															BorderBrush="#ACACAC"
 															BorderThickness="{TemplateBinding BorderThickness}"
 															SnapsToDevicePixels="True">
 															<Border.Background>
 																<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-																	<GradientStop Offset="0" Color="#FFF0F0F0" />
-																	<GradientStop Offset="1" Color="#FFE5E5E5" />
+																	<GradientStop Offset="0" Color="#F0F0F0" />
+																	<GradientStop Offset="1" Color="#E5E5E5" />
 																</LinearGradientBrush>
 															</Border.Background>
 															<Border
@@ -319,7 +319,7 @@
 																	HorizontalAlignment="Center"
 																	VerticalAlignment="Center"
 																	Data="F1M0,0L2.667,2.66665 5.3334,0 5.3334,-1.78168 2.6667,0.88501 0,-1.78168 0,0z"
-																	Fill="#FF606060" />
+																	Fill="#606060" />
 															</Border>
 														</Border>
 														<ControlTemplate.Triggers>
@@ -333,12 +333,12 @@
 																<Setter TargetName="templateRoot" Property="Background">
 																	<Setter.Value>
 																		<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-																			<GradientStop Offset="0" Color="#FFECF4FC" />
-																			<GradientStop Offset="1" Color="#FFDCECFC" />
+																			<GradientStop Offset="0" Color="#ECF4FC" />
+																			<GradientStop Offset="1" Color="#DCECFC" />
 																		</LinearGradientBrush>
 																	</Setter.Value>
 																</Setter>
-																<Setter TargetName="templateRoot" Property="BorderBrush" Value="#FF7EB4EA" />
+																<Setter TargetName="templateRoot" Property="BorderBrush" Value="#7EB4EA" />
 															</MultiDataTrigger>
 															<Trigger Property="IsPressed" Value="True">
 																<Setter TargetName="Arrow" Property="Fill" Value="Black" />

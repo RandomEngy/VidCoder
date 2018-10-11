@@ -15,14 +15,6 @@
 	mc:Ignorable="d">
 	<UserControl.Resources>
 		<local:EnumDisplayer x:Key="DeinterlaceChoices" Type="{x:Type commonModel:VCDeinterlace}" />
-		<Style x:Key="NormalComboBox" TargetType="ComboBox">
-			<Setter Property="Height" Value="22" />
-			<Setter Property="MinWidth" Value="80" />
-			<Setter Property="Margin" Value="0 3" />
-			<Setter Property="HorizontalAlignment" Value="Left" />
-			<Setter Property="VerticalAlignment" Value="Center" />
-			<Setter Property="ToolTipService.ShowDuration" Value="20000" />
-		</Style>
 		<Style x:Key="CustomFilterBox" TargetType="TextBox">
 			<Setter Property="Margin" Value="6 0 0 0" />
 			<Setter Property="VerticalAlignment" Value="Center" />
@@ -83,11 +75,16 @@
 			<ComboBox
 				Grid.Row="0"
 				Grid.Column="1"
+				Height="22"
+				MinWidth="80"
+				Margin="0 3"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Center"
 				AutomationProperties.LabeledBy="{Binding ElementName=detelecineLabel}"
 				ItemsSource="{Binding DetelecineChoices}"
 				SelectedValue="{Binding Detelecine}"
 				SelectedValuePath="Value"
-				Style="{StaticResource NormalComboBox}">
+				ToolTipService.ShowDuration="20000">
 				<ComboBox.ToolTip>
 					<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.DetelecineToolTip}" />
 				</ComboBox.ToolTip>
@@ -119,13 +116,17 @@
 			<ComboBox
 				Grid.Row="1"
 				Grid.Column="1"
+				Height="22"
+				MinWidth="80"
+				Margin="0 3"
+				HorizontalAlignment="Left"
 				VerticalAlignment="Top"
 				AutomationProperties.LabeledBy="{Binding ElementName=deinterlaceLabel}"
 				ItemsSource="{Binding DisplayNames,
 				                      Source={StaticResource DeinterlaceChoices}}"
 				SelectedValue="{Binding DeinterlaceType,
 				                        Converter={StaticResource DeinterlaceChoices}}"
-				Style="{StaticResource NormalComboBox}">
+				ToolTipService.ShowDuration="20000">
 				<ComboBox.ToolTip>
 					<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.DeinterlaceToolTip}" />
 				</ComboBox.ToolTip>
@@ -237,11 +238,16 @@
 			<ComboBox
 				Grid.Row="2"
 				Grid.Column="1"
+				Height="22"
+				MinWidth="80"
+				Margin="0 3"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Center"
 				AutomationProperties.LabeledBy="{Binding ElementName=denoiseLabel}"
 				ItemsSource="{Binding DenoiseChoices}"
 				SelectedValue="{Binding DenoiseType}"
 				SelectedValuePath="Value"
-				Style="{StaticResource NormalComboBox}">
+				ToolTipService.ShowDuration="20000">
 				<ComboBox.ToolTip>
 					<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.DenoiseToolTip}" />
 				</ComboBox.ToolTip>
@@ -323,11 +329,16 @@
 			<ComboBox
 				Grid.Row="3"
 				Grid.Column="1"
+				Height="22"
+				MinWidth="80"
+				Margin="0 3"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Center"
 				AutomationProperties.LabeledBy="{Binding ElementName=sharpenLabel}"
 				ItemsSource="{Binding SharpenChoices}"
 				SelectedValue="{Binding SharpenType}"
 				SelectedValuePath="Value"
-				Style="{StaticResource NormalComboBox}">
+				ToolTipService.ShowDuration="20000">
 				<ComboBox.ToolTip>
 					<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.SharpenToolTip}" />
 				</ComboBox.ToolTip>

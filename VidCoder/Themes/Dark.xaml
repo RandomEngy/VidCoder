@@ -9,11 +9,17 @@
 	<SolidColorBrush x:Key="WindowBrush" Color="Black" />
 	<SolidColorBrush x:Key="WindowTextBrush" Color="White" />
 	<SolidColorBrush x:Key="SplitterBrush" Color="#636363" />
+	<SolidColorBrush x:Key="SpecialTextBrush" Color="#A6BBE0" />
+	<SolidColorBrush x:Key="SpecialTextHighlightedBrush" Color="#A6BBE0" />
+	<SolidColorBrush x:Key="MouseOverBackgroundBrush" Color="#1E4B60" />
 	<SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="Black" />
 	<SolidColorBrush x:Key="{x:Static SystemColors.WindowTextBrushKey}" Color="White" />
 	<SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#333333" />
 	<SolidColorBrush x:Key="ControlTextBrush" Color="White" />
 	<SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="White" />
+	<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#1B5D77" />
+	<SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="White" />
+	<SolidColorBrush x:Key="{x:Static SystemColors.GrayTextBrushKey}" Color="#999999" />
 
 
 
@@ -29,9 +35,6 @@
 	<SolidColorBrush x:Key="{x:Static SystemColors.AppWorkspaceBrushKey}" Color="Purple" />
 	<SolidColorBrush x:Key="{x:Static SystemColors.GradientActiveCaptionBrushKey}" Color="LightGreen" />
 	<SolidColorBrush x:Key="{x:Static SystemColors.GradientInactiveCaptionBrushKey}" Color="Yellow" />
-	<SolidColorBrush x:Key="{x:Static SystemColors.GrayTextBrushKey}" Color="GreenYellow" />
-	<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Yellow" />
-	<SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Indigo" />
 	<SolidColorBrush x:Key="{x:Static SystemColors.HotTrackBrushKey}" Color="SaddleBrown" />
 	<SolidColorBrush x:Key="{x:Static SystemColors.InactiveBorderBrushKey}" Color="SeaGreen" />
 	<SolidColorBrush x:Key="{x:Static SystemColors.InactiveCaptionBrushKey}" Color="Snow" />
@@ -471,7 +474,7 @@
 			</Trigger>
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
-	<Style TargetType="{x:Type ComboBox}">
+	<Style TargetType="ComboBox">
 		<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
 		<Setter Property="Background" Value="{StaticResource ComboBox.Static.Background}" />
 		<Setter Property="BorderBrush" Value="{StaticResource ComboBox.Static.Border}" />
@@ -493,7 +496,7 @@
 		</Style.Triggers>
 	</Style>
 
-
+	
 
 	<SolidColorBrush x:Key="TabItem.Selected.Background" Color="Black"/>
 	<SolidColorBrush x:Key="TabItem.Selected.Border" Color="#6B6B6B"/>

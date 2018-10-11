@@ -8,6 +8,9 @@
 	<SolidColorBrush x:Key="WindowBrush" Color="White" />
 	<SolidColorBrush x:Key="WindowTextBrush" Color="Black" />
 	<SolidColorBrush x:Key="SplitterBrush" Color="#BCBCBC" />
+	<SolidColorBrush x:Key="SpecialTextBrush" Color="#0B4BC2" />
+	<SolidColorBrush x:Key="SpecialTextHighlightedBrush" Color="#0B4BC2" />
+	<SolidColorBrush x:Key="MouseOverBackgroundBrush" Color="#BEE6FD" />
 	<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#B8E0F3" />
 	<SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
 

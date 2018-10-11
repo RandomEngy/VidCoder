@@ -267,7 +267,7 @@
 
 						<ControlTemplate.Triggers>
 							<Trigger Property="IsMouseOver" Value="True">
-								<Setter TargetName="Bd" Property="Background" Value="#DCEBF2" />
+								<Setter TargetName="Bd" Property="Background" Value="{DynamicResource MouseOverBackgroundBrush}" />
 							</Trigger>
 							<Trigger Property="IsSelected" Value="True">
 								<Setter TargetName="Bd" Property="Background" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
@@ -322,16 +322,22 @@
 								<Style TargetType="TextBlock">
 									<Style.Triggers>
 										<DataTrigger Binding="{Binding Preset.IsBuiltIn}" Value="False">
-											<Setter Property="Foreground" Value="#0B4BC2" />
+											<Setter Property="Foreground" Value="{DynamicResource SpecialTextBrush}" />
 											<Setter Property="FontWeight" Value="SemiBold" />
 										</DataTrigger>
 										<DataTrigger Binding="{Binding Preset.IsQueue}" Value="True">
-											<Setter Property="Foreground" Value="#222222" />
 											<Setter Property="FontWeight" Value="Normal" />
 										</DataTrigger>
 										<DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TreeViewItem}}" Value="True">
 											<Setter Property="FontWeight" Value="Bold" />
 										</DataTrigger>
+										<MultiDataTrigger>
+											<MultiDataTrigger.Conditions>
+												<Condition Binding="{Binding Preset.IsBuiltIn}" Value="False" />
+												<Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TreeViewItem}}" Value="True" />
+											</MultiDataTrigger.Conditions>
+											<Setter Property="Foreground" Value="{DynamicResource SpecialTextHighlightedBrush}" />
+										</MultiDataTrigger>
 									</Style.Triggers>
 								</Style>
 							</TextBlock.Style>

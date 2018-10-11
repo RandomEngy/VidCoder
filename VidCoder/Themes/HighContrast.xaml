@@ -8,4 +8,7 @@
 	<SolidColorBrush x:Key="WindowBrush" Color="{x:Static SystemColors.WindowColor}" />
 	<SolidColorBrush x:Key="WindowTextBrush" Color="{x:Static SystemColors.WindowTextColor}" />
 	<SolidColorBrush x:Key="SplitterBrush" Color="{x:Static SystemColors.ControlDarkColor}" />
+	<SolidColorBrush x:Key="SpecialTextBrush" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="SpecialTextHighlightedBrush" Color="{x:Static SystemColors.HighlightTextColor}" />
+	<SolidColorBrush x:Key="MouseOverBackgroundBrush" Color="{x:Static SystemColors.WindowColor}" />
 </ResourceDictionary>

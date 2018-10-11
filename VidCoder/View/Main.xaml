@@ -280,13 +280,11 @@
 				</Setter.Value>
 			</Setter>
 		</Style>
-		<SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD" />
-		<SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6" />
 		<PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,6 L6,0 z" />
-		<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Fill" Color="#FFFFFFFF" />
-		<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Stroke" Color="#FF818181" />
-		<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Fill" Color="#FF595959" />
-		<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Stroke" Color="#FF262626" />
+		<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Fill" Color="#FFFFFF" />
+		<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Stroke" Color="#818181" />
+		<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Fill" Color="#595959" />
+		<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Stroke" Color="#262626" />
 		<Style x:Key="SourceSectionToggleButton" TargetType="{x:Type ToggleButton}">
 			<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
 			<Setter Property="Background" Value="Transparent" />
@@ -347,10 +345,10 @@
 								<Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
 							</Trigger>
 							<Trigger Property="IsMouseOver" Value="true">
-								<Setter TargetName="border" Property="Background" Value="{StaticResource Button.MouseOver.Background}" />
+								<Setter TargetName="border" Property="Background" Value="{DynamicResource MouseOverBackgroundBrush}" />
 							</Trigger>
 							<Trigger Property="IsPressed" Value="true">
-								<Setter TargetName="border" Property="Background" Value="{StaticResource Button.Pressed.Background}" />
+								<Setter TargetName="border" Property="Background" Value="{DynamicResource MouseOverBackgroundBrush}" />
 							</Trigger>
 						</ControlTemplate.Triggers>
 					</ControlTemplate>
