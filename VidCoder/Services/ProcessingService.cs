@@ -1824,13 +1824,13 @@ namespace VidCoder.Services
 					addedResult.EncodeResult.LogPath = finalLogPath;
 				}
 
-				if (Config.CopyLogToOutputFolder && encodeLogPath != null)
+				if (Config.CopyLogToOutputFolder && finalLogPath != null)
 				{
-					string logCopyPath = Path.Combine(Path.GetDirectoryName(finalOutputPath), Path.GetFileName(encodeLogPath));
+					string logCopyPath = Path.Combine(Path.GetDirectoryName(finalOutputPath), Path.GetFileName(finalLogPath));
 
 					try
 					{
-						File.Copy(encodeLogPath, logCopyPath);
+						File.Copy(finalLogPath, logCopyPath);
 					}
 					catch (IOException exception)
 					{

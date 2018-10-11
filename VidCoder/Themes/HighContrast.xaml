@@ -7,4 +7,5 @@
 	<SolidColorBrush x:Key="ToolBarBackgroundBrush" Color="{x:Static SystemColors.WindowColor}" />
 	<SolidColorBrush x:Key="WindowBrush" Color="{x:Static SystemColors.WindowColor}" />
 	<SolidColorBrush x:Key="WindowTextBrush" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="SplitterBrush" Color="{x:Static SystemColors.ControlDarkColor}" />
 </ResourceDictionary>

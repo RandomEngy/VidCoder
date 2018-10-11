@@ -13,9 +13,6 @@
 	mc:Ignorable="d">
 	<UserControl.Resources>
 		<local:EnumDisplayer x:Key="DisplayChoices" Type="{x:Type localmodel:PreviewDisplay}" />
-		<Style x:Key="PreviewText" TargetType="TextBlock">
-			<Setter Property="Foreground" Value="Black" />
-		</Style>
 	</UserControl.Resources>
 	<StackPanel Background="{DynamicResource AlternateBackgroundBrush}" Orientation="Vertical">
 		<controls:SlotSeekBar
@@ -35,7 +32,6 @@
 				Margin="4 4 0 4"
 				AutomationProperties.Name="{x:Static res:PreviewRes.EncodePreviewClipButton}"
 				Command="{Binding GeneratePreview}"
-				Style="{StaticResource GrayOnDisabledControl}"
 				ToolTip="{x:Static res:PreviewRes.EncodePreviewClipToolTip}">
 				<StackPanel Margin="4 0" Orientation="Horizontal">
 					<Image
@@ -68,7 +64,6 @@
 					Name="secondsLabel"
 					Margin="7 4 0 4"
 					VerticalAlignment="Center"
-					Style="{StaticResource PreviewText}"
 					Text="{x:Static res:PreviewRes.Seconds}" />
 			</StackPanel>
 
@@ -96,7 +91,6 @@
 					Name="viewLabel"
 					Margin="20 4 0 4"
 					VerticalAlignment="Center"
-					Style="{StaticResource PreviewText}"
 					Text="{x:Static res:PreviewRes.ViewLabel}" />
 				<ComboBox
 					MinWidth="100"
@@ -113,7 +107,6 @@
 				Margin="20 4 0 4"
 				AutomationProperties.Name="{x:Static res:PreviewRes.PlaySourceButton}"
 				Command="{Binding PlaySource}"
-				Style="{StaticResource GrayOnDisabledControl}"
 				ToolTip="{Binding PlaySourceToolTip}"
 				ToolTipService.ShowOnDisabled="True">
 				<StackPanel Margin="4 0" Orientation="Horizontal">

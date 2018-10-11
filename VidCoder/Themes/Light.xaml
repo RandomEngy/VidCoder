@@ -1,12 +1,21 @@
 ﻿<ResourceDictionary
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:local="clr-namespace:VidCoder.Themes">
+	xmlns:local="clr-namespace:VidCoder.Themes" xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
 	<SolidColorBrush x:Key="AlternateBackgroundBrush" Color="#F5F5F5" />
 	<SolidColorBrush x:Key="ToolBarBackgroundBrush" Color="#CCC" />
 	<SolidColorBrush x:Key="ControlTextBrush" Color="{x:Static SystemColors.ControlTextColor}" />
 	<SolidColorBrush x:Key="WindowBrush" Color="White" />
 	<SolidColorBrush x:Key="WindowTextBrush" Color="Black" />
+	<SolidColorBrush x:Key="SplitterBrush" Color="#BCBCBC" />
 	<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#B8E0F3" />
 	<SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+
+	<Style TargetType="Button">
+		<Style.Triggers>
+			<DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
+				<Setter Property="Foreground" Value="#999999" />
+			</DataTrigger>
+		</Style.Triggers>
+	</Style>
 </ResourceDictionary>

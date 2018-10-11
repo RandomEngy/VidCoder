@@ -36,6 +36,10 @@
 			<SolidColorBrush x:Key="DismissableMessageBrush" Color="{StaticResource DismissableMessageColor}" />
 			<SolidColorBrush x:Key="ProgressBarBrush" Color="#00C800" />
 
+			<!--<Style TargetType="TextBlock">
+				<Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
+			</Style>-->
+
 			<Style x:Key="GrayOnDisabledControl" TargetType="Control">
 				<Style.Triggers>
 					<DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
@@ -472,22 +476,26 @@
 				</Style.Triggers>
 			</Style>
 
-			<Style x:Key="SectionHeader" TargetType="{x:Type TextBlock}">
+			<Style x:Key="TextBlockBaseStyle" TargetType="TextBlock">
+				<Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
+			</Style>
+			
+			<Style x:Key="SectionHeader" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBaseStyle}">
 				<Setter Property="FontWeight" Value="Bold" />
 			</Style>
-			<Style x:Key="InputOutputInfoSection" TargetType="{x:Type Border}">
+			<Style x:Key="InputOutputInfoSection" TargetType="Border">
 				<Setter Property="Padding" Value="3" />
 				<Setter Property="CornerRadius" Value="10" />
 				<Setter Property="BorderThickness" Value="1" />
 				<Setter Property="BorderBrush" Value="#999999" />
 			</Style>
 
-			<Style x:Key="ConfigSectionStack" TargetType="{x:Type StackPanel}">
+			<Style x:Key="ConfigSectionStack" TargetType="StackPanel">
 				<Setter Property="Margin" Value="20 0 0 20" />
 				<Setter Property="Orientation" Value="Vertical" />
 				<Setter Property="HorizontalAlignment" Value="Stretch" />
 			</Style>
-			<Style x:Key="ConfigSectionHeader" TargetType="{x:Type TextBlock}">
+			<Style x:Key="ConfigSectionHeader" TargetType="TextBlock">
 				<Setter Property="FontSize" Value="14" />
 				<Setter Property="Margin" Value="0 0 0 6" />
 				<Setter Property="HorizontalAlignment" Value="Left" />
@@ -717,8 +725,6 @@
 					<ContentPresenter />
 				</Border>
 			</ControlTemplate>
-
-			<Brush x:Key="SplitterBrush">#BCBCBC</Brush>
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>

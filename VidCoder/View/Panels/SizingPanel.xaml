@@ -165,8 +165,8 @@
 						Margin="6 0 0 0"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
-						AutomationProperties.Name="{Binding WidthLabel}"
 						AllowEmpty="{Binding AllowEmptyResolution}"
+						AutomationProperties.Name="{Binding WidthLabel}"
 						Maximum="8192"
 						Minimum="46"
 						Modulus="2"
@@ -185,8 +185,8 @@
 						Margin="6 0 0 0"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
-						AutomationProperties.Name="{Binding HeightLabel}"
 						AllowEmpty="{Binding AllowEmptyResolution}"
+						AutomationProperties.Name="{Binding HeightLabel}"
 						Maximum="4608"
 						Minimum="46"
 						Modulus="2"
@@ -229,8 +229,8 @@
 						Height="23"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
-						AutomationProperties.Name="{x:Static res:EncodingRes.PixelAspectRatioDenominatorAutomationName}"
 						AllowEmpty="False"
+						AutomationProperties.Name="{x:Static res:EncodingRes.PixelAspectRatioDenominatorAutomationName}"
 						IsEnabled="{Binding UseDisplayWidth,
 						                    Converter={StaticResource InverseBoolConverter}}"
 						Minimum="1"
@@ -287,7 +287,7 @@
 					ItemsSource="{Binding RotationChoices}"
 					SelectedValue="{Binding Rotation}"
 					SelectedValuePath="Rotation"
-					Style="{StaticResource LongToolTipHolder}">
+					ToolTipService.ShowDuration="20000">
 					<ComboBox.ItemTemplate>
 						<DataTemplate>
 							<StackPanel d:DataContext="{d:DesignInstance dataModels:RotationViewModel}" Orientation="Horizontal">

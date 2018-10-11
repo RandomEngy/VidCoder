@@ -78,7 +78,7 @@
 			Width="4"
 			HorizontalAlignment="Right"
 			VerticalAlignment="Stretch"
-			Background="{StaticResource SplitterBrush}"
+			Background="{DynamicResource SplitterBrush}"
 			Canvas.ZIndex="4"
 			ShowsPreview="True"
 			Visibility="{Binding PresetPanelOpen,
