@@ -44,7 +44,7 @@
 						Margin="10 3 0 6"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Top"
-						Background="{StaticResource InputBrush}"
+						Background="{DynamicResource InputBrush}"
 						Effect="{StaticResource InfoBoxShadow}"
 						Style="{StaticResource InputOutputInfoSection}">
 						<Grid>

@@ -112,7 +112,7 @@
 					                     Converter={StaticResource VisibilityConverter}}">
 					<Border
 						Margin="0 0 0 0"
-						Background="{StaticResource OutputBrush}"
+						Background="{DynamicResource OutputBrush}"
 						Effect="{StaticResource InfoBoxShadow}"
 						Style="{StaticResource InputOutputInfoSection}">
 						<Grid Margin="2">

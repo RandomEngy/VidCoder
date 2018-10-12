@@ -28,6 +28,13 @@
 			<Setter Property="Margin" Value="2" />
 			<Setter Property="HorizontalAlignment" Value="Left" />
 		</Style>
+		<Style
+			x:Key="AudioComboBox"
+			BasedOn="{StaticResource ComboBoxBaseStyle}"
+			TargetType="ComboBox">
+			<Setter Property="Margin" Value="2" />
+			<Setter Property="HorizontalAlignment" Value="Left" />
+		</Style>
 	</UserControl.Resources>
 	<Grid d:DataContext="{d:DesignInstance viewModel:AudioEncodingViewModel}">
 		<Border
@@ -63,7 +70,7 @@
 									<Border
 										Margin="10 1 1 1"
 										Padding="3 1 3 1"
-										Background="{StaticResource InputBrush}"
+										Background="{DynamicResource InputBrush}"
 										CornerRadius="3"
 										Visibility="{Binding HasTrackDetails,
 										                     Converter={StaticResource VisibilityConverter}}">
@@ -101,11 +108,10 @@
 						Grid.Row="0"
 						Grid.Column="1"
 						MinWidth="95"
-						Margin="2"
-						HorizontalAlignment="Left"
 						AutomationProperties.LabeledBy="{Binding ElementName=codecLabel}"
 						ItemsSource="{Binding AudioEncoders}"
-						SelectedItem="{Binding SelectedAudioEncoder}" />
+						SelectedItem="{Binding SelectedAudioEncoder}"
+						Style="{StaticResource AudioComboBox}" />
 
 					<!--  Passthrough type  -->
 					<TextBlock
@@ -125,12 +131,11 @@
 						Grid.Row="1"
 						Grid.Column="1"
 						MinWidth="95"
-						Margin="2"
-						HorizontalAlignment="Left"
 						AutomationProperties.LabeledBy="{Binding ElementName=typeLabel}"
 						ItemsSource="{Binding PassthroughChoices}"
 						SelectedValue="{Binding SelectedPassthrough}"
 						SelectedValuePath="Value"
+						Style="{StaticResource AudioComboBox}"
 						ToolTipService.ShowDuration="20000"
 						Visibility="{Binding PassthroughChoicesVisible,
 						                     Converter={StaticResource VisibilityConverter}}">
@@ -152,12 +157,11 @@
 						Grid.Row="1"
 						Grid.Column="1"
 						MinWidth="125"
-						Margin="2"
-						HorizontalAlignment="Left"
 						AutomationProperties.LabeledBy="{Binding ElementName=mixdownLabel}"
 						ItemContainerStyle="{StaticResource GrayNonCompatible}"
 						ItemsSource="{Binding MixdownChoices}"
 						SelectedItem="{Binding SelectedMixdown}"
+						Style="{StaticResource AudioComboBox}"
 						Visibility="{Binding EncoderSettingsVisible,
 						                     Converter={StaticResource VisibilityConverter}}" />
 
@@ -174,11 +178,10 @@
 						Grid.Row="2"
 						Grid.Column="1"
 						MinWidth="80"
-						Margin="2"
-						HorizontalAlignment="Left"
 						AutomationProperties.LabeledBy="{Binding ElementName=sampleRateLabel}"
 						ItemsSource="{Binding SampleRateChoices}"
 						SelectedValue="{Binding SampleRate}"
+						Style="{StaticResource AudioComboBox}"
 						Visibility="{Binding EncoderSettingsVisible,
 						                     Converter={StaticResource VisibilityConverter}}">
 						<ComboBox.ItemTemplate>
@@ -244,12 +247,11 @@
 							Grid.Row="0"
 							Grid.Column="1"
 							MinWidth="45"
-							Margin="2"
-							HorizontalAlignment="Left"
 							AutomationProperties.LabeledBy="{Binding ElementName=bitrateLabel}"
 							ItemContainerStyle="{StaticResource GrayNonCompatible}"
 							ItemsSource="{Binding BitrateChoices}"
 							SelectedValue="{Binding SelectedBitrate}"
+							Style="{StaticResource AudioComboBox}"
 							Visibility="{Binding BitrateVisible,
 							                     Converter={StaticResource VisibilityConverter}}" />
 

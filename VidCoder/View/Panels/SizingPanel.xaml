@@ -447,7 +447,7 @@
 						MinWidth="230"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Top"
-						Background="{StaticResource InputBrush}"
+						Background="{DynamicResource InputBrush}"
 						Effect="{StaticResource InfoBoxShadow}"
 						Style="{StaticResource InputOutputInfoSection}">
 						<Grid IsSharedSizeScope="True">
@@ -492,7 +492,7 @@
 						Margin="0 10 0 0"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Top"
-						Background="{StaticResource OutputBrush}"
+						Background="{DynamicResource OutputBrush}"
 						Effect="{StaticResource InfoBoxShadow}"
 						Style="{StaticResource InputOutputInfoSection}">
 						<Grid IsSharedSizeScope="True">

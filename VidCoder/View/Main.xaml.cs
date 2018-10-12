@@ -161,7 +161,7 @@ namespace VidCoder.View
 			NameScope.SetNameScope(this, new NameScope());
 			this.RegisterName("StatusText", this.statusText);
 
-			var storyboard = (Storyboard)this.FindResource("statusTextStoryboard");
+			var storyboard = (Storyboard)this.FindResource("StatusTextStoryboard");
 			storyboard.Completed += (sender, args) =>
 				{
 					this.statusText.Visibility = Visibility.Collapsed;
@@ -636,7 +636,7 @@ namespace VidCoder.View
 			    {
 			        this.statusTextBlock.Text = message;
 					this.statusText.Visibility = Visibility.Visible;
-			        var storyboard = (Storyboard) this.FindResource("statusTextStoryboard");
+			        var storyboard = (Storyboard) this.FindResource("StatusTextStoryboard");
 					storyboard.Stop();
 			        storyboard.Begin();
 			    });

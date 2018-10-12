@@ -34,16 +34,12 @@
 	<Window.Resources>
 		<converters:SampleRateDisplayConverter x:Key="SampleRateDisplayConverter" />
 		<converters:ChapterVMConverter x:Key="ChapterVMConverter" />
-		<Style
-			x:Key="MainSectionHeader"
-			TargetType="TextBlock">
+		<Style x:Key="MainSectionHeader" TargetType="TextBlock">
 			<Setter Property="FontWeight" Value="Bold" />
 			<Setter Property="FontSize" Value="14" />
 			<Setter Property="Margin" Value="4" />
 		</Style>
-		<Style
-			x:Key="PlainTitle"
-			TargetType="TextBlock">
+		<Style x:Key="PlainTitle" TargetType="TextBlock">
 			<Setter Property="VerticalAlignment" Value="Center" />
 			<Setter Property="Margin" Value="4 2 4 2" />
 		</Style>
@@ -73,10 +69,10 @@
 			<Setter Property="Margin" Value="8 0 8 0" />
 			<Setter Property="VerticalAlignment" Value="Center" />
 		</Style>
-		<Style x:Key="RightGridItem" TargetType="FrameworkElement">
-			<Setter Property="Margin" Value="0 3 0 3" />
-		</Style>
-		<Style x:Key="ChapterComboBox" TargetType="ComboBox">
+		<Style
+			x:Key="ChapterComboBox"
+			BasedOn="{StaticResource ComboBoxBaseStyle}"
+			TargetType="ComboBox">
 			<Setter Property="ItemTemplate">
 				<Setter.Value>
 					<DataTemplate>
@@ -174,6 +170,7 @@
 				<ProgressBar
 					Height="12"
 					VerticalAlignment="Center"
+					Background="{DynamicResource WindowBrush}"
 					Foreground="{Binding ProgressBarColor}"
 					ToolTip="{Binding ProgressToolTip}"
 					ToolTipService.ShowDuration="120000"
@@ -251,7 +248,7 @@
 			<EventSetter Event="MouseDoubleClick" Handler="HandleCompletedItemDoubleClick" />
 			<Setter Property="ContextMenu" Value="{StaticResource CompletedItemContextMenu}" />
 		</Style>
-		<Storyboard x:Key="statusTextStoryboard">
+		<Storyboard x:Key="StatusTextStoryboard">
 			<DoubleAnimation
 				Storyboard.TargetName="StatusText"
 				Storyboard.TargetProperty="Opacity"
@@ -281,10 +278,6 @@
 			</Setter>
 		</Style>
 		<PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,6 L6,0 z" />
-		<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Fill" Color="#FFFFFF" />
-		<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Stroke" Color="#818181" />
-		<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Fill" Color="#595959" />
-		<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Stroke" Color="#262626" />
 		<Style x:Key="SourceSectionToggleButton" TargetType="{x:Type ToggleButton}">
 			<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
 			<Setter Property="Background" Value="Transparent" />
@@ -313,8 +306,8 @@
 									HorizontalAlignment="Left"
 									VerticalAlignment="Center"
 									Data="{StaticResource TreeArrow}"
-									Fill="{StaticResource TreeViewItem.TreeArrow.Static.Fill}"
-									Stroke="{StaticResource TreeViewItem.TreeArrow.Static.Stroke}"
+									Fill="{DynamicResource TreeViewItem.TreeArrow.Static.Fill}"
+									Stroke="{DynamicResource TreeViewItem.TreeArrow.Static.Stroke}"
 									UseLayoutRounding="True">
 									<Path.RenderTransform>
 										<RotateTransform Angle="135" CenterX="3" CenterY="3" />
@@ -338,8 +331,8 @@
 										<RotateTransform Angle="180" CenterX="3" CenterY="3" />
 									</Setter.Value>
 								</Setter>
-								<Setter TargetName="ExpandPath" Property="Fill" Value="{StaticResource TreeViewItem.TreeArrow.Static.Checked.Fill}" />
-								<Setter TargetName="ExpandPath" Property="Stroke" Value="{StaticResource TreeViewItem.TreeArrow.Static.Checked.Stroke}" />
+								<Setter TargetName="ExpandPath" Property="Fill" Value="{DynamicResource TreeViewItem.TreeArrow.Static.Checked.Fill}" />
+								<Setter TargetName="ExpandPath" Property="Stroke" Value="{DynamicResource TreeViewItem.TreeArrow.Static.Checked.Stroke}" />
 							</Trigger>
 							<Trigger Property="Button.IsDefaulted" Value="true">
 								<Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
@@ -821,13 +814,7 @@
 												MinWidth="102"
 												VerticalAlignment="Center"
 												ItemsSource="{Binding Titles}"
-												SelectedItem="{Binding SelectedTitle}">
-												<!--<ComboBox.ItemTemplate>
-													<DataTemplate>
-														<TextBlock Style="{StaticResource PlainTitle}" Text="{Binding}" />
-													</DataTemplate>
-												</ComboBox.ItemTemplate>-->
-											</ComboBox>
+												SelectedItem="{Binding SelectedTitle}" />
 
 											<Image
 												Height="18"
@@ -1603,8 +1590,7 @@
 							VerticalAlignment="Center"
 							AutomationProperties.Name="{x:Static res:MainRes.EditChaptersButtonAutomationName}"
 							Command="{Binding OpenChaptersDialog}"
-							Content="{x:Static res:MainRes.EditButton}"
-							Style="{StaticResource RightGridItem}" />
+							Content="{x:Static res:MainRes.EditButton}" />
 					</StackPanel>
 				</Grid>
 			</ScrollViewer>
@@ -1639,6 +1625,7 @@
 					Height="22"
 					Margin="6 0 0 0"
 					VerticalAlignment="Center"
+					Background="{DynamicResource WindowBrush}"
 					Maximum="1"
 					Minimum="0"
 					Value="{Binding ScanProgressFraction}" />
@@ -1999,6 +1986,7 @@
 							Name="overallEncodeProgressBar"
 							Height="24"
 							VerticalAlignment="Top"
+							Background="{DynamicResource WindowBrush}"
 							Foreground="{Binding ProcessingService.ProgressBarColor}"
 							Value="{Binding ProcessingService.OverallEncodeProgressPercent,
 							                Mode=OneWay}" />

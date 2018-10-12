@@ -20,15 +20,7 @@
 				</Setter.Value>
 			</Setter>
 		</Style>
-		<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Fill" Color="#FF595959" />
-		<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Stroke" Color="#FF262626" />
-		<SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Stroke" Color="#FF27C7F7" />
-		<SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Fill" Color="#FFCCEEFB" />
-		<SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Stroke" Color="#FF1CC4F7" />
-		<SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Fill" Color="#FF82DFFB" />
 		<PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,6 L6,0 z" />
-		<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Fill" Color="#FFFFFFFF" />
-		<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Stroke" Color="#FF818181" />
 		<Style x:Key="ExpandCollapseToggleStyle" TargetType="{x:Type ToggleButton}">
 			<Setter Property="Focusable" Value="False" />
 			<Setter Property="Template">
@@ -46,8 +38,8 @@
 									HorizontalAlignment="Left"
 									VerticalAlignment="Center"
 									Data="{StaticResource TreeArrow}"
-									Fill="{StaticResource TreeViewItem.TreeArrow.Static.Fill}"
-									Stroke="{StaticResource TreeViewItem.TreeArrow.Static.Stroke}"
+									Fill="{DynamicResource TreeViewItem.TreeArrow.Static.Fill}"
+									Stroke="{DynamicResource TreeViewItem.TreeArrow.Static.Stroke}"
 									UseLayoutRounding="True">
 									<Path.RenderTransform>
 										<RotateTransform Angle="135" CenterX="3" CenterY="3" />
@@ -63,20 +55,20 @@
 										<RotateTransform Angle="180" CenterX="3" CenterY="3" />
 									</Setter.Value>
 								</Setter>
-								<Setter TargetName="ExpandPath" Property="Fill" Value="{StaticResource TreeViewItem.TreeArrow.Static.Checked.Fill}" />
-								<Setter TargetName="ExpandPath" Property="Stroke" Value="{StaticResource TreeViewItem.TreeArrow.Static.Checked.Stroke}" />
+								<Setter TargetName="ExpandPath" Property="Fill" Value="{DynamicResource TreeViewItem.TreeArrow.Static.Checked.Fill}" />
+								<Setter TargetName="ExpandPath" Property="Stroke" Value="{DynamicResource TreeViewItem.TreeArrow.Static.Checked.Stroke}" />
 							</Trigger>
 							<Trigger Property="IsMouseOver" Value="True">
-								<Setter TargetName="ExpandPath" Property="Stroke" Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Stroke}" />
-								<Setter TargetName="ExpandPath" Property="Fill" Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Fill}" />
+								<Setter TargetName="ExpandPath" Property="Stroke" Value="{DynamicResource TreeViewItem.TreeArrow.MouseOver.Stroke}" />
+								<Setter TargetName="ExpandPath" Property="Fill" Value="{DynamicResource TreeViewItem.TreeArrow.MouseOver.Fill}" />
 							</Trigger>
 							<MultiTrigger>
 								<MultiTrigger.Conditions>
 									<Condition Property="IsMouseOver" Value="True" />
 									<Condition Property="IsChecked" Value="True" />
 								</MultiTrigger.Conditions>
-								<Setter TargetName="ExpandPath" Property="Stroke" Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Checked.Stroke}" />
-								<Setter TargetName="ExpandPath" Property="Fill" Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Checked.Fill}" />
+								<Setter TargetName="ExpandPath" Property="Stroke" Value="{DynamicResource TreeViewItem.TreeArrow.MouseOver.Checked.Stroke}" />
+								<Setter TargetName="ExpandPath" Property="Fill" Value="{DynamicResource TreeViewItem.TreeArrow.MouseOver.Checked.Fill}" />
 							</MultiTrigger>
 						</ControlTemplate.Triggers>
 					</ControlTemplate>
