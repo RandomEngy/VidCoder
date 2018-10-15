@@ -406,25 +406,9 @@
 
 			<!--  END Preset combo box styles  -->
 
-			<Color x:Key="BorderLightColor">#FFCCCCCC</Color>
-			<Color x:Key="BorderDarkColor">#FF444444</Color>
-			<Color x:Key="ControlLightColor">White</Color>
-			<Color x:Key="ControlMediumColor">#FF7381F9</Color>
-			<Color x:Key="ControlDarkColor">#FF211AA9</Color>
 			<Style x:Key="GridViewColumnHeaderGripper" TargetType="Thumb">
 				<Setter Property="Width" Value="18" />
-				<Setter Property="Background" Value="{DynamicResource WindowTextBrush}">
-					<!--<Setter.Value>
-						<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-							<LinearGradientBrush.GradientStops>
-								<GradientStopCollection>
-									<GradientStop Offset="0.0" Color="{DynamicResource BorderLightColor}" />
-									<GradientStop Offset="1.0" Color="{DynamicResource BorderDarkColor}" />
-								</GradientStopCollection>
-							</LinearGradientBrush.GradientStops>
-						</LinearGradientBrush>
-					</Setter.Value>-->
-				</Setter>
+				<Setter Property="Background" Value="{DynamicResource GridViewHeaderBorderBrush}" />
 				<Setter Property="Template">
 					<Setter.Value>
 						<ControlTemplate TargetType="{x:Type Thumb}">
@@ -437,14 +421,7 @@
 						</ControlTemplate>
 					</Setter.Value>
 				</Setter>
-				<Setter Property="BorderBrush" Value="{DynamicResource WindowTextBrush}">
-					<!--<Setter.Value>
-						<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-							<GradientStop Offset="0" Color="Black" />
-							<GradientStop Offset="1" Color="White" />
-						</LinearGradientBrush>
-					</Setter.Value>-->
-				</Setter>
+				<Setter Property="BorderBrush" Value="{DynamicResource GridViewHeaderBorderBrush}" />
 			</Style>
 			<Style TargetType="GridViewColumnHeader">
 				<Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -453,33 +430,18 @@
 				<Setter Property="Template">
 					<Setter.Value>
 						<ControlTemplate TargetType="GridViewColumnHeader">
+							<!--<ControlTemplate.Triggers>
+								<Trigger Property="IsMouseOver" Value="true">
+									<Setter TargetName="HeaderBorder" Property="Background" Value="{DynamicResource Button.MouseOver.Background}" />
+								</Trigger>
+							</ControlTemplate.Triggers>-->
 							<Grid>
 								<Border
 									x:Name="HeaderBorder"
 									Padding="2 0 2 0"
 									Background="{DynamicResource WindowBrush}"
-									BorderBrush="{DynamicResource WindowTextBrush}"
+									BorderBrush="{DynamicResource GridViewHeaderBorderBrush}"
 									BorderThickness="0 1 0 1">
-									<!--<Border.BorderBrush>
-										<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-											<LinearGradientBrush.GradientStops>
-												<GradientStopCollection>
-													<GradientStop Offset="0.0" Color="{DynamicResource BorderLightColor}" />
-													<GradientStop Offset="1.0" Color="{DynamicResource BorderDarkColor}" />
-												</GradientStopCollection>
-											</LinearGradientBrush.GradientStops>
-										</LinearGradientBrush>
-									</Border.BorderBrush>-->
-									<!--<Border.Background>
-										<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-											<LinearGradientBrush.GradientStops>
-												<GradientStopCollection>
-													<GradientStop Offset="0.0" Color="{DynamicResource ControlLightColor}" />
-													<GradientStop Offset="1.0" Color="{DynamicResource ControlMediumColor}" />
-												</GradientStopCollection>
-											</LinearGradientBrush.GradientStops>
-										</LinearGradientBrush>
-									</Border.Background>-->
 									<ContentPresenter
 										x:Name="HeaderContent"
 										Margin="0 0 0 1"
@@ -493,20 +455,6 @@
 									Margin="0 0 -9 0"
 									HorizontalAlignment="Right"
 									Style="{StaticResource GridViewColumnHeaderGripper}" />
-								<!--<VisualStateManager.VisualStateGroups>
-									<VisualStateGroup x:Name="CommonStates">
-										<VisualState x:Name="Normal" />
-										<VisualState x:Name="MouseOver">
-											<Storyboard>
-												<ColorAnimationUsingKeyFrames Storyboard.TargetName="HeaderBorder" Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)">
-													<EasingColorKeyFrame KeyTime="0" Value="#3843C4" />
-												</ColorAnimationUsingKeyFrames>
-											</Storyboard>
-										</VisualState>
-										<VisualState x:Name="Pressed" />
-										<VisualState x:Name="Disabled" />
-									</VisualStateGroup>
-								</VisualStateManager.VisualStateGroups>-->
 							</Grid>
 						</ControlTemplate>
 					</Setter.Value>
@@ -533,21 +481,12 @@
 								<ControlTemplate TargetType="GridViewColumnHeader">
 									<Border
 										Name="HeaderBorder"
-										BorderBrush="{DynamicResource WindowTextBrush}"
+										Background="{DynamicResource WindowBrush}"
+										BorderBrush="{DynamicResource GridViewHeaderBorderBrush}"
 										BorderThickness="0 1 0 1">
-										<Border.Background>
+										<!--<Border.Background>
 											<SolidColorBrush Color="{DynamicResource ControlLightColor}" />
-										</Border.Background>
-										<!--<Border.BorderBrush>
-											<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-												<LinearGradientBrush.GradientStops>
-													<GradientStopCollection>
-														<GradientStop Offset="0.0" Color="{DynamicResource BorderLightColor}" />
-														<GradientStop Offset="1.0" Color="{DynamicResource BorderDarkColor}" />
-													</GradientStopCollection>
-												</LinearGradientBrush.GradientStops>
-											</LinearGradientBrush>
-										</Border.BorderBrush>-->
+										</Border.Background>-->
 									</Border>
 								</ControlTemplate>
 							</Setter.Value>
@@ -871,6 +810,8 @@
 			</ControlTemplate>
 
 
+			<!--  START Button style  -->
+			
 			<Style x:Key="ButtonBaseStyle" TargetType="Button">
 				<Style.Triggers>
 					<DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
@@ -926,6 +867,11 @@
 				</Setter>
 			</Style>
 			<Style BasedOn="{StaticResource ButtonBaseStyle}" TargetType="Button" />
+
+			<!--  END Button style  -->
+
+
+
 
 
 			<!--  START ComboBox style  -->

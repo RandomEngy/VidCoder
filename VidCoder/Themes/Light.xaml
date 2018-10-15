@@ -21,6 +21,7 @@
 		<GradientStop Offset="0.0" Color="#CCFFC9" />
 		<GradientStop Offset="1.0" Color="#B7E0B3" />
 	</LinearGradientBrush>
+	<SolidColorBrush x:Key="GridViewHeaderBorderBrush" Color="#DFDFDF"></SolidColorBrush>
 
 	<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#B8E0F3" />
 	<SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />

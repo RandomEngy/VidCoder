@@ -15,6 +15,7 @@
 	<SolidColorBrush x:Key="DisabledControlTextBrush" Color="{x:Static SystemColors.GrayTextColor}" />
 	<SolidColorBrush x:Key="InputBrush" Color="{x:Static SystemColors.WindowColor}" />
 	<SolidColorBrush x:Key="OutputBrush" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="GridViewHeaderBorderBrush" Color="{x:Static SystemColors.WindowTextColor}" />
 
 
 	<SolidColorBrush x:Key="Button.Static.Background" Color="{x:Static SystemColors.ControlColor}"/>
