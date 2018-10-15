@@ -44,11 +44,6 @@
 				</Style.Triggers>
 			</Style>
 
-			<Style x:Key="BorderlessButtonStyle" TargetType="Button">
-				<Setter Property="Background" Value="Transparent" />
-				<Setter Property="BorderThickness" Value="0" />
-			</Style>
-
 			<DataTemplate x:Key="PresetTemplate">
 				<StackPanel Orientation="Horizontal">
 					<TextBlock VerticalAlignment="Center" Text="{Binding DisplayName}">
@@ -811,7 +806,7 @@
 
 
 			<!--  START Button style  -->
-			
+
 			<Style x:Key="ButtonBaseStyle" TargetType="Button">
 				<Style.Triggers>
 					<DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
@@ -871,6 +866,13 @@
 			<!--  END Button style  -->
 
 
+			<Style
+				x:Key="BorderlessButtonStyle"
+				BasedOn="{StaticResource ButtonBaseStyle}"
+				TargetType="Button">
+				<Setter Property="Background" Value="Transparent" />
+				<Setter Property="BorderThickness" Value="0" />
+			</Style>
 
 
 
@@ -1231,6 +1233,118 @@
 				TargetType="{x:Type Button}" />
 
 			<!--  END ComboBox style  -->
+
+			<Style x:Key="ListViewItemNoSelectionStyle" TargetType="ListViewItem">
+				<Setter Property="SnapsToDevicePixels" Value="true" />
+				<Setter Property="OverridesDefaultStyle" Value="true" />
+				<Setter Property="VerticalContentAlignment" Value="Center" />
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="ListBoxItem">
+							<Border
+								x:Name="Border"
+								Padding="2"
+								Background="Transparent"
+								SnapsToDevicePixels="true">
+								<GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+								<!--<VisualStateManager.VisualStateGroups>
+									<VisualStateGroup x:Name="CommonStates">
+										<VisualState x:Name="Normal" />
+										<VisualState x:Name="MouseOver" />
+										<VisualState x:Name="Disabled" />
+									</VisualStateGroup>
+									<VisualStateGroup x:Name="SelectionStates">
+										<VisualState x:Name="Unselected" />
+										<VisualState x:Name="Selected">
+											<Storyboard>
+												<ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background).                     (SolidColorBrush.Color)">
+													<EasingColorKeyFrame KeyTime="0" Value="{StaticResource SelectedBackgroundColor}" />
+												</ColorAnimationUsingKeyFrames>
+											</Storyboard>
+										</VisualState>
+										<VisualState x:Name="SelectedUnfocused">
+											<Storyboard>
+												<ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background).                     (SolidColorBrush.Color)">
+													<EasingColorKeyFrame KeyTime="0" Value="{StaticResource SelectedUnfocusedColor}" />
+												</ColorAnimationUsingKeyFrames>
+											</Storyboard>
+										</VisualState>
+									</VisualStateGroup>
+								</VisualStateManager.VisualStateGroups>-->
+							</Border>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsMouseOver" Value="True">
+									<Setter TargetName="Border" Property="Background" Value="{DynamicResource MouseOverBackgroundBrush}" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+
+			<Style x:Key="ListViewItemBaseStyle" TargetType="ListViewItem">
+				<Setter Property="SnapsToDevicePixels" Value="true" />
+				<Setter Property="OverridesDefaultStyle" Value="true" />
+				<Setter Property="VerticalContentAlignment" Value="Center" />
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="ListBoxItem">
+							<Border
+								x:Name="Border"
+								Background="Transparent"
+								SnapsToDevicePixels="true">
+								<Border
+									x:Name="InnerGrid"
+									Padding="2"
+									Background="Transparent">
+									<GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+								</Border>
+								<!--<VisualStateManager.VisualStateGroups>
+									<VisualStateGroup x:Name="CommonStates">
+										<VisualState x:Name="Normal" />
+										<VisualState x:Name="MouseOver">
+											<Storyboard>
+												<controls:BrushAnimation
+													Storyboard.TargetName="InnerGrid"
+													Storyboard.TargetProperty="(Panel.Background)"
+													To="{DynamicResource MouseOverBackgroundBrush}" />
+											</Storyboard>
+										</VisualState>
+										<VisualState x:Name="Disabled" />
+									</VisualStateGroup>
+									<VisualStateGroup x:Name="SelectionStates">
+										<VisualState x:Name="Unselected" />
+										<VisualState x:Name="Selected">
+											<Storyboard>
+												<controls:BrushAnimation
+													Storyboard.TargetName="Border"
+													Storyboard.TargetProperty="(Panel.Background)"
+													To="{DynamicResource SelectedBackgroundBrush}" />
+											</Storyboard>
+										</VisualState>
+										<VisualState x:Name="SelectedUnfocused">
+											<Storyboard>
+												<controls:BrushAnimation
+													Storyboard.TargetName="Border"
+													Storyboard.TargetProperty="(Panel.Background)"
+													To="{DynamicResource SelectedBackgroundBrush}" />
+											</Storyboard>
+										</VisualState>
+									</VisualStateGroup>
+								</VisualStateManager.VisualStateGroups>-->
+							</Border>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsMouseOver" Value="True">
+									<Setter TargetName="InnerGrid" Property="Background" Value="{DynamicResource MouseOverBackgroundBrush}" />
+								</Trigger>
+								<Trigger Property="IsSelected" Value="True">
+									<Setter TargetName="Border" Property="Background" Value="{DynamicResource SelectedBackgroundBrush}" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>

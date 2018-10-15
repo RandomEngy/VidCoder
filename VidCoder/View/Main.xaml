@@ -51,6 +51,7 @@
 		</Style>
 		<Style x:Key="SourceTrack" TargetType="TextBlock">
 			<Setter Property="Margin" Value="0 0 0 1" />
+			<Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
 			<Style.Triggers>
 				<DataTrigger Binding="{Binding Selected}" Value="True">
 					<Setter Property="FontWeight" Value="Bold" />
@@ -92,17 +93,19 @@
 		</Style>
 
 		<Style x:Key="QueueText" TargetType="TextBlock">
+			<Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
 			<Style.Triggers>
 				<DataTrigger Binding="{Binding Encoding}" Value="True">
-					<Setter Property="Foreground" Value="DarkGreen" />
+					<Setter Property="Foreground" Value="{DynamicResource EncodingQueueItemTextBrush}" />
 					<Setter Property="FontWeight" Value="Bold" />
 				</DataTrigger>
 			</Style.Triggers>
 		</Style>
 		<Style x:Key="QueuePathText" TargetType="{x:Type controls:PathTextBlock}">
+			<Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
 			<Style.Triggers>
 				<DataTrigger Binding="{Binding Encoding}" Value="True">
-					<Setter Property="Foreground" Value="DarkGreen" />
+					<Setter Property="Foreground" Value="{DynamicResource EncodingQueueItemTextBrush}" />
 					<Setter Property="FontWeight" Value="Bold" />
 				</DataTrigger>
 			</Style.Triggers>
@@ -244,7 +247,10 @@
 				</MenuItem.Icon>
 			</MenuItem>
 		</ContextMenu>
-		<Style x:Key="CompletedItemStyle" TargetType="{x:Type ListViewItem}">
+		<Style
+			x:Key="CompletedItemStyle"
+			BasedOn="{StaticResource ListViewItemBaseStyle}"
+			TargetType="ListViewItem">
 			<EventSetter Event="MouseDoubleClick" Handler="HandleCompletedItemDoubleClick" />
 			<Setter Property="ContextMenu" Value="{StaticResource CompletedItemContextMenu}" />
 		</Style>
@@ -1155,7 +1161,7 @@
 								<behaviors:IgnoreMouseWheelBehavior />
 							</i:Interaction.Behaviors>
 							<ListView.ItemContainerStyle>
-								<Style TargetType="{x:Type ListViewItem}">
+								<Style BasedOn="{StaticResource ListViewItemNoSelectionStyle}" TargetType="ListViewItem">
 									<EventSetter Event="MouseLeftButtonUp" Handler="AudioItemClick" />
 									<EventSetter Event="KeyDown" Handler="OnAudioItemKeyPress" />
 								</Style>
@@ -1436,7 +1442,7 @@
 									<behaviors:IgnoreMouseWheelBehavior />
 								</i:Interaction.Behaviors>
 								<ListView.ItemContainerStyle>
-									<Style TargetType="{x:Type ListViewItem}">
+									<Style BasedOn="{StaticResource ListViewItemNoSelectionStyle}" TargetType="ListViewItem">
 										<EventSetter Event="MouseLeftButtonUp" Handler="SourceSubtitleItemClick" />
 										<EventSetter Event="KeyDown" Handler="OnSourceSubtitleKeyDown" />
 									</Style>
@@ -1768,7 +1774,7 @@
 									BorderThickness="0"
 									ItemsSource="{Binding ProcessingService.EncodeQueueBindable}">
 									<ListView.ItemContainerStyle>
-										<Style TargetType="ListViewItem">
+										<Style BasedOn="{StaticResource ListViewItemBaseStyle}" TargetType="ListViewItem">
 											<Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}" />
 											<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 											<Setter Property="ContextMenu">

@@ -13,6 +13,7 @@
 	<SolidColorBrush x:Key="DisabledControlTextBrush" Color="#999999" />
 	<SolidColorBrush x:Key="DescriptiveTextBrush" Color="Gray" />
 	<SolidColorBrush x:Key="MouseOverBackgroundBrush" Color="#BEE6FD" />
+	<SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#A6DEFC" />
 	<LinearGradientBrush x:Key="InputBrush" StartPoint="0,0" EndPoint="0,1">
 		<GradientStop Offset="0.0" Color="#C1E6FF" />
 		<GradientStop Offset="1.0" Color="#ABC6D8" />
@@ -21,7 +22,8 @@
 		<GradientStop Offset="0.0" Color="#CCFFC9" />
 		<GradientStop Offset="1.0" Color="#B7E0B3" />
 	</LinearGradientBrush>
-	<SolidColorBrush x:Key="GridViewHeaderBorderBrush" Color="#DFDFDF"></SolidColorBrush>
+	<SolidColorBrush x:Key="GridViewHeaderBorderBrush" Color="#DFDFDF" />
+	<SolidColorBrush x:Key="EncodingQueueItemTextBrush" Color="Green" />
 
 	<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#B8E0F3" />
 	<SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
@@ -93,5 +95,5 @@
 	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Fill" Color="#FF82DFFB" />
 	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Fill" Color="#FFFFFFFF" />
 	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Stroke" Color="#FF818181" />
-	
+
 </ResourceDictionary>

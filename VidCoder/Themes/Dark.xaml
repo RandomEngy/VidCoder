@@ -13,6 +13,7 @@
 	<SolidColorBrush x:Key="SpecialTextHighlightedBrush" Color="#A6BBE0" />
 	<SolidColorBrush x:Key="DescriptiveTextBrush" Color="#999999" />
 	<SolidColorBrush x:Key="MouseOverBackgroundBrush" Color="#1E4B60" />
+	<SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#2A6884" />
 	<SolidColorBrush x:Key="DisabledControlTextBrush" Color="#AFAFAF" />
 	<LinearGradientBrush x:Key="InputBrush" StartPoint="0,0" EndPoint="0,1">
 		<GradientStop Offset="0.0" Color="#2584C4" />
@@ -23,6 +24,7 @@
 		<GradientStop Offset="1.0" Color="#287223" />
 	</LinearGradientBrush>
 	<SolidColorBrush x:Key="GridViewHeaderBorderBrush" Color="#212121" />
+	<SolidColorBrush x:Key="EncodingQueueItemTextBrush" Color="LightGreen" />
 
 	<SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="Black" />
 	<SolidColorBrush x:Key="{x:Static SystemColors.WindowTextBrushKey}" Color="White" />
