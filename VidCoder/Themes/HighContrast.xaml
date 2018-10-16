@@ -11,13 +11,23 @@
 	<SolidColorBrush x:Key="SpecialTextBrush" Color="{x:Static SystemColors.WindowTextColor}" />
 	<SolidColorBrush x:Key="SpecialTextHighlightedBrush" Color="{x:Static SystemColors.HighlightTextColor}" />
 	<SolidColorBrush x:Key="DescriptiveTextBrush" Color="{x:Static SystemColors.WindowTextColor}" />
-	<SolidColorBrush x:Key="MouseOverBackgroundBrush" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="MouseOverBackgroundBrush" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="MouseOverOverlayBackgroundBrush" Color="{x:Static SystemColors.HighlightColor}" />
 	<SolidColorBrush x:Key="SelectedBackgroundBrush" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="PopupInfoBackgroundBrush" Color="{x:Static SystemColors.WindowColor}" />
 	<SolidColorBrush x:Key="DisabledControlTextBrush" Color="{x:Static SystemColors.GrayTextColor}" />
 	<SolidColorBrush x:Key="InputBrush" Color="{x:Static SystemColors.WindowColor}" />
 	<SolidColorBrush x:Key="OutputBrush" Color="{x:Static SystemColors.WindowColor}" />
 	<SolidColorBrush x:Key="GridViewHeaderBorderBrush" Color="{x:Static SystemColors.WindowTextColor}" />
 	<SolidColorBrush x:Key="EncodingQueueItemTextBrush" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="RedFill" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="BlueFill" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="BlueHoverFill" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="BluePressFill" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="GreenHoverFill" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="GreenPressFill" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="SeekBarBackgroundBrush" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="SeekBarFilledBackgroundBrush" Color="{x:Static SystemColors.WindowTextColor}" />
 
 
 	<SolidColorBrush x:Key="Button.Static.Background" Color="{x:Static SystemColors.ControlColor}"/>

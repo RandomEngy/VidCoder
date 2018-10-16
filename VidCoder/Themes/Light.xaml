@@ -13,7 +13,9 @@
 	<SolidColorBrush x:Key="DisabledControlTextBrush" Color="#999999" />
 	<SolidColorBrush x:Key="DescriptiveTextBrush" Color="Gray" />
 	<SolidColorBrush x:Key="MouseOverBackgroundBrush" Color="#BEE6FD" />
+	<SolidColorBrush x:Key="MouseOverOverlayBackgroundBrush" Color="#33000000" />
 	<SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#A6DEFC" />
+	<SolidColorBrush x:Key="PopupInfoBackgroundBrush" Color="#EEEEEE" />
 	<LinearGradientBrush x:Key="InputBrush" StartPoint="0,0" EndPoint="0,1">
 		<GradientStop Offset="0.0" Color="#C1E6FF" />
 		<GradientStop Offset="1.0" Color="#ABC6D8" />
@@ -24,6 +26,34 @@
 	</LinearGradientBrush>
 	<SolidColorBrush x:Key="GridViewHeaderBorderBrush" Color="#DFDFDF" />
 	<SolidColorBrush x:Key="EncodingQueueItemTextBrush" Color="Green" />
+	<RadialGradientBrush x:Key="RedFill" Center="7,1.5" GradientOrigin="7,1.5" MappingMode="Absolute" RadiusX="10" RadiusY="10">
+		<GradientStop Offset="0" Color="#DD0008" />
+		<GradientStop Offset="1" Color="#A30008" />
+	</RadialGradientBrush>
+	<RadialGradientBrush x:Key="BlueFill" Center="7,1.5" GradientOrigin="7,1.5" MappingMode="Absolute" RadiusX="10" RadiusY="10">
+		<GradientStop Offset="0" Color="#176DC4" />
+		<!--  Center  -->
+		<GradientStop Offset="1" Color="#176DC4" />
+		<!--  Edges  -->
+	</RadialGradientBrush>
+	<RadialGradientBrush x:Key="BlueHoverFill" Center="7,1.5" GradientOrigin="7,1.5" MappingMode="Absolute" RadiusX="10" RadiusY="10">
+		<GradientStop Offset="0" Color="#3D9EFF" />
+		<GradientStop Offset="1" Color="#3D9EFF" />
+	</RadialGradientBrush>
+	<RadialGradientBrush x:Key="BluePressFill" Center="7,1.5" GradientOrigin="7,1.5" MappingMode="Absolute" RadiusX="10" RadiusY="10">
+		<GradientStop Offset="0" Color="#125599" />
+		<GradientStop Offset="1" Color="#125599" />
+	</RadialGradientBrush>
+	<SolidColorBrush x:Key="GreenHoverFill" Color="#00AF00" />
+	<SolidColorBrush x:Key="GreenPressFill" Color="DarkGreen" />
+	<LinearGradientBrush x:Key="SeekBarBackgroundBrush" StartPoint="0,0" EndPoint="0,1">
+		<GradientStop Offset="0" Color="#E6E6E6" />
+		<GradientStop Offset="1" Color="#E0E0E0" />
+	</LinearGradientBrush>
+	<LinearGradientBrush x:Key="SeekBarFilledBackgroundBrush"  StartPoint="0,0" EndPoint="0,1">
+		<GradientStop Offset="0.0" Color="#8FBCF7" />
+		<GradientStop Offset="1.0" Color="#569CF7" />
+	</LinearGradientBrush>
 
 	<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#B8E0F3" />
 	<SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />

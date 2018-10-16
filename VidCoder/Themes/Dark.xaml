@@ -13,7 +13,9 @@
 	<SolidColorBrush x:Key="SpecialTextHighlightedBrush" Color="#A6BBE0" />
 	<SolidColorBrush x:Key="DescriptiveTextBrush" Color="#999999" />
 	<SolidColorBrush x:Key="MouseOverBackgroundBrush" Color="#1E4B60" />
+	<SolidColorBrush x:Key="MouseOverOverlayBackgroundBrush" Color="#33FFFFFF" />
 	<SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#2A6884" />
+	<SolidColorBrush x:Key="PopupInfoBackgroundBrush" Color="#333333" />
 	<SolidColorBrush x:Key="DisabledControlTextBrush" Color="#AFAFAF" />
 	<LinearGradientBrush x:Key="InputBrush" StartPoint="0,0" EndPoint="0,1">
 		<GradientStop Offset="0.0" Color="#2584C4" />
@@ -25,6 +27,15 @@
 	</LinearGradientBrush>
 	<SolidColorBrush x:Key="GridViewHeaderBorderBrush" Color="#212121" />
 	<SolidColorBrush x:Key="EncodingQueueItemTextBrush" Color="LightGreen" />
+	<SolidColorBrush x:Key="RedFill" Color="Red" />
+	<SolidColorBrush x:Key="BlueFill" Color="#92BDE5" />
+	<SolidColorBrush x:Key="BlueHoverFill" Color="#AAC8E2" />
+	<SolidColorBrush x:Key="BluePressFill" Color="#BACFE0" />
+	<SolidColorBrush x:Key="GreenHoverFill" Color="#00AF00" />
+	<SolidColorBrush x:Key="GreenPressFill" Color="LightGreen" />
+	<SolidColorBrush x:Key="SeekBarBackgroundBrush" Color="#202020" />
+	<SolidColorBrush x:Key="SeekBarFilledBackgroundBrush" Color="#4083D6" />
+
 
 	<SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="Black" />
 	<SolidColorBrush x:Key="{x:Static SystemColors.WindowTextBrushKey}" Color="White" />
