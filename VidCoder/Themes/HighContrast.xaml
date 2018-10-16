@@ -28,7 +28,10 @@
 	<SolidColorBrush x:Key="GreenPressFill" Color="{x:Static SystemColors.HighlightColor}" />
 	<SolidColorBrush x:Key="SeekBarBackgroundBrush" Color="{x:Static SystemColors.WindowColor}" />
 	<SolidColorBrush x:Key="SeekBarFilledBackgroundBrush" Color="{x:Static SystemColors.WindowTextColor}" />
-
+	<SolidColorBrush x:Key="LogErrorBrush" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="LogVidCoderBrush" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="LogVidCoderWorkerBrush" Color="{x:Static SystemColors.WindowTextColor}" />
+	
 
 	<SolidColorBrush x:Key="Button.Static.Background" Color="{x:Static SystemColors.ControlColor}"/>
 	<SolidColorBrush x:Key="Button.Static.Border" Color="{x:Static SystemColors.ControlDarkColor}"/>

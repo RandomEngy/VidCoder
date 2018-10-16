@@ -1948,16 +1948,11 @@
 							Name="statusText"
 							HorizontalAlignment="Right"
 							VerticalAlignment="Bottom"
+							Background="{DynamicResource WindowBrush}"
 							BorderBrush="DarkGray"
 							BorderThickness="1 1 0 0"
 							CornerRadius="4,0,0,0"
 							Visibility="Collapsed">
-							<Border.Background>
-								<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-									<GradientStop Offset="0.0" Color="White" />
-									<GradientStop Offset="1.0" Color="LightGray" />
-								</LinearGradientBrush>
-							</Border.Background>
 							<TextBlock
 								Name="statusTextBlock"
 								Margin="3 1 5 3"

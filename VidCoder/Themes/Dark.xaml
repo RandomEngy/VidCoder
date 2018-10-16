@@ -35,6 +35,9 @@
 	<SolidColorBrush x:Key="GreenPressFill" Color="LightGreen" />
 	<SolidColorBrush x:Key="SeekBarBackgroundBrush" Color="#202020" />
 	<SolidColorBrush x:Key="SeekBarFilledBackgroundBrush" Color="#4083D6" />
+	<SolidColorBrush x:Key="LogErrorBrush" Color="Red" />
+	<SolidColorBrush x:Key="LogVidCoderBrush" Color="LightBlue" />
+	<SolidColorBrush x:Key="LogVidCoderWorkerBrush" Color="LightGreen" />
 
 
 	<SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="Black" />
