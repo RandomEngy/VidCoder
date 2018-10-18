@@ -1770,6 +1770,7 @@
 									VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource QueueDragTemplate}"
 									VidCoderDragDrop:DragDropHelper.IsDragSource="True"
 									VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
+									VidCoderDragDrop:DragDropHelper.SourceList="{Binding ProcessingService.EncodeQueue}"
 									BorderBrush="#F5F5F5"
 									BorderThickness="0"
 									ItemsSource="{Binding ProcessingService.EncodeQueueBindable}">

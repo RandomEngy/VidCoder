@@ -63,7 +63,7 @@ namespace VidCoder.Services
 
 		public ProcessingService()
 		{
-			IObservable<IChangeSet<EncodeJobViewModel>> encodeQueueObservable = this.encodeQueue.Connect();
+			IObservable<IChangeSet<EncodeJobViewModel>> encodeQueueObservable = this.EncodeQueue.Connect();
 			encodeQueueObservable.Bind(this.EncodeQueueBindable).Subscribe();
 
 			IObservable<IChangeSet<EncodeJobViewModel>> encodingJobsObservable = this.encodingJobList.Connect();
@@ -73,7 +73,7 @@ namespace VidCoder.Services
 			{
 				IList<EncodeJobWithMetadata> jobs = EncodeJobStorage.EncodeJobs;
 
-				this.encodeQueue.Edit(encodeQueueInnerList =>
+				this.EncodeQueue.Edit(encodeQueueInnerList =>
 				{
 					foreach (EncodeJobWithMetadata job in jobs)
 					{
@@ -90,7 +90,7 @@ namespace VidCoder.Services
 					}
 				});
 
-				if (Config.ResumeEncodingOnRestart && this.encodeQueue.Count > 0)
+				if (Config.ResumeEncodingOnRestart && this.EncodeQueue.Count > 0)
 				{
 					DispatchUtilities.BeginInvoke(() =>
 					{
@@ -146,7 +146,7 @@ namespace VidCoder.Services
 				.Select(progressFraction => progressFraction * 100)
 				.ToProperty(this, x => x.OverallEncodeProgressPercent, out this.overallEncodeProgressPercent);
 
-			this.QueueCountObservable = encodeQueueObservable.Count().StartWith(this.encodeQueue.Count);
+			this.QueueCountObservable = encodeQueueObservable.Count().StartWith(this.EncodeQueue.Count);
 
 			// QueuedTabHeader
 			this.QueueCountObservable
@@ -208,7 +208,7 @@ namespace VidCoder.Services
 
 		public QueueWorkTracker WorkTracker { get; } = new QueueWorkTracker();
 
-		private readonly SourceList<EncodeJobViewModel> encodeQueue = new SourceList<EncodeJobViewModel>();
+		public SourceList<EncodeJobViewModel> EncodeQueue { get; } = new SourceList<EncodeJobViewModel>();
 
 		public IObservable<int> QueueCountObservable { get; }
 
@@ -372,7 +372,7 @@ namespace VidCoder.Services
 						}
 						else
 						{
-							if (this.encodeQueue.Count == 0)
+							if (this.EncodeQueue.Count == 0)
 							{
 								if (!this.TryQueue())
 								{
@@ -395,7 +395,7 @@ namespace VidCoder.Services
 								{
 									var newJobs = new List<EncodeJobViewModel>();
 
-									foreach (EncodeJobViewModel job in this.encodeQueue.Items)
+									foreach (EncodeJobViewModel job in this.EncodeQueue.Items)
 									{
 										VCProfile newProfile = this.presetsService.SelectedPreset.Preset.EncodingProfile;
 										job.Job.EncodingProfile = newProfile;
@@ -405,7 +405,7 @@ namespace VidCoder.Services
 									}
 
 									// Clear out the queue and re-add the updated jobs so all the changes get reflected.
-									this.encodeQueue.Edit(encodeQueueInnerList =>
+									this.EncodeQueue.Edit(encodeQueueInnerList =>
 									{
 										encodeQueueInnerList.Clear();
 										encodeQueueInnerList.AddRange(newJobs);
@@ -507,7 +507,7 @@ namespace VidCoder.Services
 				return this.stopEncode ?? (this.stopEncode = ReactiveCommand.Create(
 					() =>
 					{
-						if (this.encodeQueue.Items.First().EncodeTime > TimeSpan.FromMinutes(StopWarningThresholdMinutes))
+						if (this.EncodeQueue.Items.First().EncodeTime > TimeSpan.FromMinutes(StopWarningThresholdMinutes))
 						{
 							MessageBoxResult dialogResult = Utilities.MessageBox.Show(
 								MainRes.StopEncodeConfirmationMessage,
@@ -535,7 +535,7 @@ namespace VidCoder.Services
 					List<EncodeJobViewModel> jobsToMove = this.main.SelectedJobs.Where(j => !j.Encoding).ToList();
 					if (jobsToMove.Count > 0)
 					{
-						this.encodeQueue.Edit(encodeQueueInnerList =>
+						this.EncodeQueue.Edit(encodeQueueInnerList =>
 						{
 							foreach (EncodeJobViewModel jobToMove in jobsToMove)
 							{
@@ -564,7 +564,7 @@ namespace VidCoder.Services
 					List<EncodeJobViewModel> jobsToMove = this.main.SelectedJobs.Where(j => !j.Encoding).ToList();
 					if (jobsToMove.Count > 0)
 					{
-						this.encodeQueue.Edit(encodeQueueInnerList =>
+						this.EncodeQueue.Edit(encodeQueueInnerList =>
 						{
 							foreach (EncodeJobViewModel jobToMove in jobsToMove)
 							{
@@ -616,7 +616,7 @@ namespace VidCoder.Services
 				return this.exportQueue ?? (this.exportQueue = ReactiveCommand.Create(() =>
 				{
 					var encodeJobs = new List<EncodeJobWithMetadata>();
-					foreach (EncodeJobViewModel jobVM in this.encodeQueue.Items)
+					foreach (EncodeJobViewModel jobVM in this.EncodeQueue.Items)
 					{
 						encodeJobs.Add(
 							new EncodeJobWithMetadata
@@ -647,7 +647,7 @@ namespace VidCoder.Services
 		{
 			IList<EncodeJobViewModel> selectedJobs = this.main.SelectedJobs;
 
-			this.encodeQueue.Edit(encodeQueueInnerList =>
+			this.EncodeQueue.Edit(encodeQueueInnerList =>
 			{
 				foreach (EncodeJobViewModel selectedJob in selectedJobs)
 				{
@@ -679,7 +679,7 @@ namespace VidCoder.Services
 			{
 				return this.retryFailed ?? (this.retryFailed = ReactiveCommand.Create(() =>
 				{
-					int oldEncodeQueueCount = this.encodeQueue.Count;
+					int oldEncodeQueueCount = this.EncodeQueue.Count;
 
 					var completedItemsList = this.completedJobs.Items.ToList();
 
@@ -734,7 +734,7 @@ namespace VidCoder.Services
 							if (fileInfo.Exists && !fileInfo.IsReadOnly || directoryInfo.Exists && !directoryInfo.Attributes.HasFlag(FileAttributes.ReadOnly))
 							{
 								// And if it's not currently scanned or in the encode queue
-								bool sourceInEncodeQueue = this.encodeQueue.Items.Any(job => string.Compare(job.Job.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) == 0);
+								bool sourceInEncodeQueue = this.EncodeQueue.Items.Any(job => string.Compare(job.Job.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) == 0);
 								if (!sourceInEncodeQueue &&
 								    (!this.main.HasVideoSource || string.Compare(this.main.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) != 0))
 								{
@@ -1035,7 +1035,7 @@ namespace VidCoder.Services
 				overridePresetViewModel = this.presetsService.AllPresets.FirstOrDefault(p => p.Preset.Name == picker.EncodingPreset);
 			}
 
-			this.encodeQueue.Edit(encodeQueueInnerList =>
+			this.EncodeQueue.Edit(encodeQueueInnerList =>
 			{
 				foreach (var encodeJobViewModel in encodeJobList)
 				{
@@ -1219,7 +1219,7 @@ namespace VidCoder.Services
 
 		public void RemoveQueueJob(EncodeJobViewModel job)
 		{
-			this.encodeQueue.Remove(job);
+			this.EncodeQueue.Remove(job);
 
 			if (this.Encoding)
 			{
@@ -1234,11 +1234,11 @@ namespace VidCoder.Services
 			this.logger.Log("Starting queue");
 			this.logger.ShowStatus(MainRes.StartedEncoding);
 
-			this.TotalTasks = this.encodeQueue.Count;
+			this.TotalTasks = this.EncodeQueue.Count;
 			this.TaskNumber = 0;
 
 			this.Encoding = true;
-			this.WorkTracker.ReportEncodeStart(this.encodeQueue.Items.Select(job => job.Work));
+			this.WorkTracker.ReportEncodeStart(this.EncodeQueue.Items.Select(job => job.Work));
 			SystemSleepManagement.PreventSleep();
 			this.Paused = false;
 
@@ -1262,7 +1262,7 @@ namespace VidCoder.Services
 			this.encodingJobList.Edit(encodingJobInnerList =>
 			{
 				encodingJobInnerList.Clear();
-				foreach (var encodeJobViewModel in this.encodeQueue.Items.Where(j => j.Encoding))
+				foreach (var encodeJobViewModel in this.EncodeQueue.Items.Where(j => j.Encoding))
 				{
 					encodingJobInnerList.Add(encodeJobViewModel);
 				}
@@ -1271,12 +1271,12 @@ namespace VidCoder.Services
 
 		public HashSet<string> GetQueuedFiles()
 		{
-			return new HashSet<string>(this.encodeQueue.Items.Select(j => j.Job.FinalOutputPath), StringComparer.OrdinalIgnoreCase);
+			return new HashSet<string>(this.EncodeQueue.Items.Select(j => j.Job.FinalOutputPath), StringComparer.OrdinalIgnoreCase);
 		}
 
 		private void RunForAllEncodeProxies(Action<IEncodeProxy> proxyAction)
 		{
-			foreach (var encodeProxy in this.encodeQueue.Items.Where(j => j.Encoding).Select(j => j.EncodeProxy))
+			foreach (var encodeProxy in this.EncodeQueue.Items.Where(j => j.Encoding).Select(j => j.EncodeProxy))
 			{
 				if (encodeProxy != null)
 				{
@@ -1287,7 +1287,7 @@ namespace VidCoder.Services
 
 		private void RunForAllEncodingJobs(Action<EncodeJobViewModel> jobAction)
 		{
-			foreach (var jobViewModel in this.encodeQueue.Items.Where(j => j.Encoding))
+			foreach (var jobViewModel in this.EncodeQueue.Items.Where(j => j.Encoding))
 			{
 				jobAction(jobViewModel);
 			}
@@ -1317,7 +1317,7 @@ namespace VidCoder.Services
 		public IList<EncodeJobWithMetadata> GetQueueStorageJobs()
 		{
 			var jobs = new List<EncodeJobWithMetadata>();
-			foreach (EncodeJobViewModel jobVM in this.encodeQueue.Items)
+			foreach (EncodeJobViewModel jobVM in this.EncodeQueue.Items)
 			{
 				jobs.Add(
 					new EncodeJobWithMetadata
@@ -1336,8 +1336,8 @@ namespace VidCoder.Services
 		private void EncodeNextJobs()
 		{
 			// Make sure the top N jobs are encoding.
-			var encodeQueueList = this.encodeQueue.Items.ToList();
-			for (int i = 0; i < Config.MaxSimultaneousEncodes && i < this.encodeQueue.Count; i++)
+			var encodeQueueList = this.EncodeQueue.Items.ToList();
+			for (int i = 0; i < Config.MaxSimultaneousEncodes && i < this.EncodeQueue.Count; i++)
 			{
 				EncodeJobViewModel jobViewModel = encodeQueueList[i];
 
@@ -1448,7 +1448,7 @@ namespace VidCoder.Services
 
 		private void OnEncodeProgress(EncodeJobViewModel jobViewModel, EncodeProgressEventArgs e)
 		{
-			if (this.encodeQueue.Count == 0)
+			if (this.EncodeQueue.Count == 0)
 			{
 				return;
 			}
@@ -1556,7 +1556,7 @@ namespace VidCoder.Services
 			double currentFps = 0;
 			double averageFps = 0;
 
-			foreach (var jobViewModel in this.encodeQueue.Items.Where(jobViewModel => jobViewModel.Encoding && jobViewModel.EncodeSpeedDetailsAvailable))
+			foreach (var jobViewModel in this.EncodeQueue.Items.Where(jobViewModel => jobViewModel.Encoding && jobViewModel.EncodeSpeedDetailsAvailable))
 			{
 				currentFps += jobViewModel.CurrentFps;
 				averageFps += jobViewModel.AverageFps;
@@ -1594,7 +1594,7 @@ namespace VidCoder.Services
 
 					if (this.TotalTasks == 1 && this.encodeCompleteReason == EncodeCompleteReason.Manual)
 					{
-						this.encodeQueue.Clear();
+						this.EncodeQueue.Clear();
 					}
 
 					encodeLogger.Log("Encoding stopped");
@@ -1687,7 +1687,7 @@ namespace VidCoder.Services
 						this.HasFailedItems = true;
 					}
 
-					this.encodeQueue.Remove(finishedJobViewModel);
+					this.EncodeQueue.Remove(finishedJobViewModel);
 
 					var picker = this.pickersService.SelectedPicker.Picker;
 					if (status == EncodeResultStatus.Succeeded && !Utilities.IsRunningAsAppx && picker.PostEncodeActionEnabled && !string.IsNullOrWhiteSpace(picker.PostEncodeExecutable))
@@ -1706,7 +1706,7 @@ namespace VidCoder.Services
 					
 					encodeLogger.Log("Job completed (Elapsed Time: " + Utilities.FormatTimeSpan(finishedJobViewModel.EncodeTime) + ")");
 
-					if (this.encodeQueue.Count == 0)
+					if (this.EncodeQueue.Count == 0)
 					{
 						this.SelectedTabIndex = CompletedTabIndex;
 						this.StopEncodingAndReport();
@@ -1799,7 +1799,7 @@ namespace VidCoder.Services
 
 				this.RebuildEncodingJobsList();
 
-				if (this.encodeCompleteReason == EncodeCompleteReason.Manual || this.encodeQueue.Count == 0)
+				if (this.encodeCompleteReason == EncodeCompleteReason.Manual || this.EncodeQueue.Count == 0)
 				{
 					this.windowManager.Close<EncodeDetailsWindowViewModel>(userInitiated: false);
 				}
@@ -1934,7 +1934,7 @@ namespace VidCoder.Services
 
 			// Applicable drives to eject are those in the queue or completed items list
 			var applicableDrives = new HashSet<string>();
-			foreach (EncodeJobViewModel job in this.encodeQueue.Items)
+			foreach (EncodeJobViewModel job in this.EncodeQueue.Items)
 			{
 				if (job.Job.SourceType == SourceType.Disc)
 				{

@@ -102,6 +102,19 @@ namespace VidCoder.DragDropUtils
 		public static readonly DependencyProperty BlockedTopSpacesProperty =
 			DependencyProperty.RegisterAttached("BlockedTopSpaces", typeof(int), typeof(DragDropHelper), new UIPropertyMetadata(0));
 
+		public static object GetSourceList(DependencyObject obj)
+		{
+			return obj.GetValue(SourceListProperty);
+		}
+
+		public static void SetSourceList(DependencyObject obj, DataTemplate value)
+		{
+			obj.SetValue(SourceListProperty, value);
+		}
+
+		public static readonly DependencyProperty SourceListProperty =
+			DependencyProperty.RegisterAttached("SourceList", typeof(object), typeof(DragDropHelper), new UIPropertyMetadata(null));
+
 		private static void IsDragSourceChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
 		{
 			var dragSource = obj as ItemsControl;
@@ -308,7 +321,7 @@ namespace VidCoder.DragDropUtils
 			{
 				if ((e.Effects & DragDropEffects.Move) != 0)
 				{
-					indiciesRemoved = DragDropUtilities.RemoveItemsFromItemsControl(this.sourceItemsControl, draggedItems);
+					indiciesRemoved = DragDropUtilities.RemoveItemsFromItemsControl(this.sourceItemsControl, GetSourceList(this.sourceItemsControl), draggedItems);
 				}
 
 				// If we're dragging to the same list, adjust the insertion point to account for removed items.
@@ -318,7 +331,7 @@ namespace VidCoder.DragDropUtils
 					this.insertionIndex -= itemCountBeforeInsertionPoint;
 				}
 
-				DragDropUtilities.InsertItemsInItemsControl(this.targetItemsControl, draggedItems, this.insertionIndex);
+				DragDropUtilities.InsertItemsInItemsControl(this.targetItemsControl, GetSourceList(this.targetItemsControl), draggedItems, this.insertionIndex);
 
 				this.RemoveDraggedAdorner();
 				this.RemoveInsertionAdorner();
