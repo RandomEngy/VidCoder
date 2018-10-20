@@ -38,20 +38,6 @@
 		</StackPanel>
 	</DataTemplate>
 
-	<Style x:Key="ComboBoxFocusVisual">
-		<Setter Property="Control.Template">
-			<Setter.Value>
-				<ControlTemplate>
-					<Rectangle
-						Margin="4 4 21 4"
-						SnapsToDevicePixels="true"
-						Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
-						StrokeDashArray="1 2"
-						StrokeThickness="1" />
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
 	<LinearGradientBrush x:Key="ButtonNormalBackground" StartPoint="0,0" EndPoint="0,1">
 		<GradientStop Offset="0" Color="#F3F3F3" />
 		<GradientStop Offset="0.5" Color="#EBEBEB" />
@@ -165,7 +151,6 @@
 	</Style>
 
 	<Style TargetType="{x:Type controls:PresetComboBox}">
-		<Setter Property="FocusVisualStyle" Value="{StaticResource ComboBoxFocusVisual}" />
 		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" />
 		<Setter Property="Background" Value="{StaticResource ButtonNormalBackground}" />
 		<Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}" />

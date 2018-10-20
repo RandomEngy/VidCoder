@@ -8,7 +8,6 @@
 				<Setter Property="Foreground" Value="{DynamicResource DisabledControlTextBrush}" />
 			</DataTrigger>
 		</Style.Triggers>
-		<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
 		<Setter Property="Background" Value="{DynamicResource Button.Static.Background}" />
 		<Setter Property="BorderBrush" Value="{DynamicResource Button.Static.Border}" />
 		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />

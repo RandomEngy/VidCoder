@@ -99,7 +99,6 @@
 			x:Key="QueueText"
 			BasedOn="{StaticResource ListViewTextBlockBaseStyle}"
 			TargetType="TextBlock">
-			<!--<Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />-->
 			<Style.Triggers>
 				<DataTrigger Binding="{Binding Encoding}" Value="True">
 					<Setter Property="Foreground" Value="{DynamicResource EncodingQueueItemTextBrush}" />
@@ -122,14 +121,7 @@
 			x:Key="QueuePathText"
 			BasedOn="{StaticResource ListViewPathText}"
 			TargetType="{x:Type controls:PathTextBlock}">
-			<Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
 			<Style.Triggers>
-				<!--<DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
-					<Setter Property="Foreground" Value="{DynamicResource HighlightTextBrush}" />
-				</DataTrigger>
-				<DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
-					<Setter Property="Foreground" Value="{DynamicResource HighlightTextBrush}" />
-				</DataTrigger>-->
 				<DataTrigger Binding="{Binding Encoding}" Value="True">
 					<Setter Property="Foreground" Value="{DynamicResource EncodingQueueItemTextBrush}" />
 					<Setter Property="FontWeight" Value="Bold" />
@@ -295,23 +287,8 @@
 				To="0"
 				Duration="0:0:4" />
 		</Storyboard>
-		<Style x:Key="FocusVisual">
-			<Setter Property="Control.Template">
-				<Setter.Value>
-					<ControlTemplate>
-						<Rectangle
-							Margin="2"
-							SnapsToDevicePixels="true"
-							Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
-							StrokeDashArray="1 2"
-							StrokeThickness="1" />
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
 		<PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,6 L6,0 z" />
 		<Style x:Key="SourceSectionToggleButton" TargetType="{x:Type ToggleButton}">
-			<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
 			<Setter Property="Background" Value="Transparent" />
 			<Setter Property="Height" Value="30" />
 			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
@@ -1310,7 +1287,7 @@
 						<Grid.Resources>
 							<Style x:Key="SubtitleControl" TargetType="{x:Type FrameworkElement}">
 								<Setter Property="Margin" Value="4 0 4 2" />
-								<Setter Property="HorizontalAlignment" Value="Center" />
+								<Setter Property="HorizontalAlignment" Value="CenBter" />
 							</Style>
 
 							<DataTemplate x:Key="SourceDragTemplate">
