@@ -29,7 +29,6 @@
 				Grid.Column="0"
 				HorizontalAlignment="Left"
 				VerticalAlignment="Center"
-				Foreground="Black"
 				Text="{x:Static res:PreviewRes.GeneratingPreview}" />
 			<ProgressBar
 				Grid.Column="1"

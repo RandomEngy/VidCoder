@@ -438,15 +438,16 @@
 								Margin="0 6 0 0"
 								Orientation="Horizontal"
 								ToolTip="{x:Static res:OptionsRes.MaxSimultaneousEncodesToolTip}">
-								<TextBlock Text="{x:Static res:OptionsRes.MaxSimultaneousEncodesLabel}" VerticalAlignment="Center" />
+								<TextBlock VerticalAlignment="Center" Text="{x:Static res:OptionsRes.MaxSimultaneousEncodesLabel}" />
 								<my:NumberBox
 									Width="35"
 									Height="23"
 									Margin="10 0 0 0"
+									VerticalAlignment="Center"
 									Maximum="4"
 									Minimum="1"
-									VerticalAlignment="Center"
-									Number="{Binding MaxSimultaneousEncodes, Mode=TwoWay}" />
+									Number="{Binding MaxSimultaneousEncodes,
+									                 Mode=TwoWay}" />
 							</StackPanel>
 
 							<Grid Margin="0 6 0 0" ToolTip="{x:Static res:OptionsRes.CpuThrottlingToolTip}">
@@ -482,6 +483,7 @@
 							<ListBox
 								MinHeight="60"
 								Margin="0 0 0 0"
+								Background="{DynamicResource WindowBrush}"
 								ItemsSource="{Binding AutoPauseProcesses}"
 								SelectedItem="{Binding SelectedProcess}" />
 							<StackPanel

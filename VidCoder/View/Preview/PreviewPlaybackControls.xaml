@@ -24,7 +24,6 @@
 				<TextBlock
 					Name="volumeLabel"
 					VerticalAlignment="Center"
-					Foreground="Black"
 					Text="{x:Static res:PreviewRes.VolumeSliderLabel}" />
 				<Slider
 					Width="100"

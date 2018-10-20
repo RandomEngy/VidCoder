@@ -41,6 +41,7 @@
 				Width="188"
 				HorizontalAlignment="Left"
 				local:MultiSelectorBehaviors.SynchronizedSelectedItems="{Binding SelectedTitles}"
+				Background="{DynamicResource WindowBrush}"
 				ItemsSource="{Binding Titles}"
 				SelectionMode="Extended">
 				<ListView.ItemTemplate>
@@ -50,6 +51,7 @@
 							<TextBlock
 								Margin="8 0 0 0"
 								VerticalAlignment="Center"
+								Style="{StaticResource TextBlockBaseStyle}"
 								Text="{Binding Text}" />
 						</StackPanel>
 					</DataTemplate>

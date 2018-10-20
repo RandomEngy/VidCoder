@@ -63,17 +63,17 @@ namespace VidCoder.ViewModel
 				.ToProperty(this, x => x.ShowQueueEditButtons, out this.showQueueEditButtons);
 
 			// ProgressBarColor
-			this.WhenAnyValue(x => x.IsPaused, isPaused =>
-			{
-				if (isPaused)
-				{
-					return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 230, 0));
-				}
-				else
-				{
-					return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 200, 0));
-				}
-			}).ToProperty(this, x => x.ProgressBarColor, out this.progressBarColor);
+			//this.WhenAnyValue(x => x.IsPaused, isPaused =>
+			//{
+			//	if (isPaused)
+			//	{
+			//		return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 230, 0));
+			//	}
+			//	else
+			//	{
+			//		return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 200, 0));
+			//	}
+			//}).ToProperty(this, x => x.ProgressBarColor, out this.progressBarColor);
 
 			// PercentComplete
 			this.WhenAnyValue(x => x.FractionComplete).Select(fractionComplete =>
@@ -231,8 +231,8 @@ namespace VidCoder.ViewModel
 			private set { this.RaiseAndSetIfChanged(ref this.isPaused, value); }
 		}
 
-		private ObservableAsPropertyHelper<System.Windows.Media.Brush> progressBarColor;
-		public System.Windows.Media.Brush ProgressBarColor => this.progressBarColor.Value;
+		//private ObservableAsPropertyHelper<System.Windows.Media.Brush> progressBarColor;
+		//public System.Windows.Media.Brush ProgressBarColor => this.progressBarColor.Value;
 
 		/// <summary>
 		/// Returns true if a subtitle scan will be performed on this job.

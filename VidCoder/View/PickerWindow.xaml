@@ -55,9 +55,9 @@
 				Visibility="{Binding PickersService.SelectedPicker.Picker.IsDefault,
 				                     Converter={StaticResource InverseVisibilityConverter}}">
 				<ToolBar
+					Background="{DynamicResource ToolBarBackgroundBrush}"
 					KeyboardNavigation.TabNavigation="Continue"
 					Loaded="ToolBar_Loaded"
-					Background="{DynamicResource ToolBarBackgroundBrush}"
 					ToolBarTray.IsLocked="True">
 					<Button
 						Height="24"
@@ -137,16 +137,21 @@
 
 			<Grid
 				Grid.Row="1"
-				Background="{StaticResource DismissableMessageBrush}"
+				Background="{DynamicResource DismissableMessageBrush}"
 				Visibility="{Binding ShowHelpMessage,
 				                     Converter={StaticResource VisibilityConverter}}">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition />
 					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
-				<TextBlock Margin="10" Text="{x:Static res:PickerRes.PickerHelpText}" />
+				<TextBlock
+					Margin="10 0"
+					VerticalAlignment="Center"
+					Text="{x:Static res:PickerRes.PickerHelpText}" />
 				<Button
 					Grid.Column="1"
+					Width="35"
+					Height="35"
 					Padding="5"
 					HorizontalAlignment="Right"
 					VerticalAlignment="Top"

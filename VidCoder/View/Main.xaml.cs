@@ -141,6 +141,14 @@ namespace VidCoder.View
 
 				debugDropDown.Items.Add(queueFromJsonItem);
 
+				var throwExceptionItem = new Fluent.MenuItem { Header = "Throw exception" };
+				throwExceptionItem.Click += (sender, args) =>
+				{
+					throw new InvalidOperationException("Rats.");
+				};
+
+				debugDropDown.Items.Add(throwExceptionItem);
+
 				var doAnActionItem = new Fluent.MenuItem {Header = "Perform action"};
 				doAnActionItem.Click += (sender, args) =>
 				{

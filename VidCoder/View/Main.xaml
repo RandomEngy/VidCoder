@@ -53,6 +53,9 @@
 			<Setter Property="Margin" Value="0 0 0 1" />
 			<Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
 			<Style.Triggers>
+				<DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
+					<Setter Property="Foreground" Value="{DynamicResource HighlightTextBrush}" />
+				</DataTrigger>
 				<DataTrigger Binding="{Binding Selected}" Value="True">
 					<Setter Property="FontWeight" Value="Bold" />
 				</DataTrigger>
@@ -92,8 +95,11 @@
 			<Setter Property="FontSize" Value="16" />
 		</Style>
 
-		<Style x:Key="QueueText" TargetType="TextBlock">
-			<Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
+		<Style
+			x:Key="QueueText"
+			BasedOn="{StaticResource ListViewTextBlockBaseStyle}"
+			TargetType="TextBlock">
+			<!--<Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />-->
 			<Style.Triggers>
 				<DataTrigger Binding="{Binding Encoding}" Value="True">
 					<Setter Property="Foreground" Value="{DynamicResource EncodingQueueItemTextBrush}" />
@@ -101,9 +107,29 @@
 				</DataTrigger>
 			</Style.Triggers>
 		</Style>
-		<Style x:Key="QueuePathText" TargetType="{x:Type controls:PathTextBlock}">
+		<Style x:Key="ListViewPathText" TargetType="{x:Type controls:PathTextBlock}">
 			<Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
 			<Style.Triggers>
+				<DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
+					<Setter Property="Foreground" Value="{DynamicResource HighlightTextBrush}" />
+				</DataTrigger>
+				<DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
+					<Setter Property="Foreground" Value="{DynamicResource HighlightTextBrush}" />
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
+		<Style
+			x:Key="QueuePathText"
+			BasedOn="{StaticResource ListViewPathText}"
+			TargetType="{x:Type controls:PathTextBlock}">
+			<Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
+			<Style.Triggers>
+				<!--<DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
+					<Setter Property="Foreground" Value="{DynamicResource HighlightTextBrush}" />
+				</DataTrigger>
+				<DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
+					<Setter Property="Foreground" Value="{DynamicResource HighlightTextBrush}" />
+				</DataTrigger>-->
 				<DataTrigger Binding="{Binding Encoding}" Value="True">
 					<Setter Property="Foreground" Value="{DynamicResource EncodingQueueItemTextBrush}" />
 					<Setter Property="FontWeight" Value="Bold" />
@@ -174,7 +200,7 @@
 					Height="12"
 					VerticalAlignment="Center"
 					Background="{DynamicResource WindowBrush}"
-					Foreground="{Binding ProgressBarColor}"
+					Foreground="{Binding ProcessingService.ProgressBarBrush}"
 					ToolTip="{Binding ProgressToolTip}"
 					ToolTipService.ShowDuration="120000"
 					Visibility="{Binding ShowProgressBar,
@@ -1871,7 +1897,7 @@
 												<GridViewColumn Width="300" Header="{x:Static res:MainRes.DestinationColumnHeader}">
 													<GridViewColumn.CellTemplate>
 														<DataTemplate>
-															<controls:PathTextBlock Text="{Binding EncodeResult.Destination}" />
+															<controls:PathTextBlock Style="{StaticResource ListViewPathText}" Text="{Binding EncodeResult.Destination}" />
 														</DataTemplate>
 													</GridViewColumn.CellTemplate>
 												</GridViewColumn>
@@ -1883,7 +1909,10 @@
 																	Width="16"
 																	Height="16"
 																	Source="{Binding StatusImage}" />
-																<TextBlock Margin="4 0 0 0" Text="{Binding StatusText}" />
+																<TextBlock
+																	Margin="4 0 0 0"
+																	Style="{DynamicResource ListViewTextBlockBaseStyle}"
+																	Text="{Binding StatusText}" />
 															</StackPanel>
 														</DataTemplate>
 													</GridViewColumn.CellTemplate>
@@ -1891,14 +1920,14 @@
 												<GridViewColumn Width="90" Header="{x:Static res:MainRes.ElapsedTimeColumnHeader}">
 													<GridViewColumn.CellTemplate>
 														<DataTemplate>
-															<TextBlock Text="{Binding TimeDisplay}" />
+															<TextBlock Style="{DynamicResource ListViewTextBlockBaseStyle}" Text="{Binding TimeDisplay}" />
 														</DataTemplate>
 													</GridViewColumn.CellTemplate>
 												</GridViewColumn>
 												<GridViewColumn Width="80" Header="{x:Static res:MainRes.FileSizeColumnHeader}">
 													<GridViewColumn.CellTemplate>
 														<DataTemplate>
-															<TextBlock Text="{Binding OutputFileSize}" />
+															<TextBlock Style="{DynamicResource ListViewTextBlockBaseStyle}" Text="{Binding OutputFileSize}" />
 														</DataTemplate>
 													</GridViewColumn.CellTemplate>
 												</GridViewColumn>
@@ -1989,7 +2018,7 @@
 							Height="24"
 							VerticalAlignment="Top"
 							Background="{DynamicResource WindowBrush}"
-							Foreground="{Binding ProcessingService.ProgressBarColor}"
+							Foreground="{Binding ProcessingService.ProgressBarBrush}"
 							Value="{Binding ProcessingService.OverallEncodeProgressPercent,
 							                Mode=OneWay}" />
 						<TextBlock

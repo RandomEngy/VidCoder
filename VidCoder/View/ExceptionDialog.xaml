@@ -40,7 +40,7 @@
 		<TextBox
 			Name="exceptionTextBox"
 			Margin="12 84 12 42"
-			Background="#EAEAEA"
+			Background="{DynamicResource WindowBrush}"
 			HorizontalScrollBarVisibility="Auto"
 			IsReadOnly="True"
 			VerticalScrollBarVisibility="Auto" />

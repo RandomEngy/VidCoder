@@ -57,8 +57,12 @@
 	<SolidColorBrush x:Key="LogErrorBrush" Color="Red" />
 	<SolidColorBrush x:Key="LogVidCoderBrush" Color="DarkBlue" />
 	<SolidColorBrush x:Key="LogVidCoderWorkerBrush" Color="DarkGreen" />
+	<SolidColorBrush x:Key="ProgressBarBrush" Color="#00C800" />
+	<SolidColorBrush x:Key="ProgressBarPausedBrush" Color="#FFE600" />
+	<SolidColorBrush x:Key="DismissableMessageBrush" Color="#B5EDFF" />
 
 	<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#B8E0F3" />
+	<SolidColorBrush x:Key="HighlightTextBrush" Color="Black" />
 	<SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
 
 
@@ -128,5 +132,4 @@
 	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Fill" Color="#FF82DFFB" />
 	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Fill" Color="#FFFFFFFF" />
 	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Stroke" Color="#FF818181" />
-
 </ResourceDictionary>

@@ -18,6 +18,7 @@
 				<ResourceDictionary Source="/XamlResources/Button.xaml" />
 				<ResourceDictionary Source="/XamlResources/ComboBox.xaml" />
 				<ResourceDictionary Source="/XamlResources/GridViewColumnHeader.xaml" />
+				<ResourceDictionary Source="/XamlResources/ListView.xaml" />
 				<ResourceDictionary Source="/XamlResources/ListViewItem.xaml" />
 				<ResourceDictionary Source="/XamlResources/PresetComboBox.xaml" />
 			</ResourceDictionary.MergedDictionaries>
@@ -36,11 +37,8 @@
 
 			<vidCoder:WindowXamlHelper x:Key="WindowXamlHelper" />
 
-			<Color x:Key="DismissableMessageColor">#B5EDFF</Color>
 			<Color x:Key="PresetGlowColor">#1696FF</Color>
 
-			<SolidColorBrush x:Key="DismissableMessageBrush" Color="{StaticResource DismissableMessageColor}" />
-			<SolidColorBrush x:Key="ProgressBarBrush" Color="#00C800" />
 
 			<Style x:Key="GrayOnDisabledControl" TargetType="{x:Type Control}">
 				<Style.Triggers>
@@ -49,11 +47,6 @@
 					</DataTrigger>
 				</Style.Triggers>
 			</Style>
-
-
-
-
-
 
 
 			<Style x:Key="CenteredCheckBox" TargetType="{x:Type CheckBox}">
@@ -122,8 +115,20 @@
 				</Style.Triggers>
 			</Style>
 
-			<Style x:Key="TextBlockBaseStyle" TargetType="{x:Type TextBlock}">
+			<Style x:Key="TextBlockBaseStyle" TargetType="TextBlock">
 				<Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
+			</Style>
+
+			<Style x:Key="ListViewTextBlockBaseStyle" TargetType="TextBlock">
+				<Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
+				<Style.Triggers>
+					<DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
+						<Setter Property="Foreground" Value="{DynamicResource HighlightTextBrush}" />
+					</DataTrigger>
+					<DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
+						<Setter Property="Foreground" Value="{DynamicResource HighlightTextBrush}" />
+					</DataTrigger>
+				</Style.Triggers>
 			</Style>
 
 			<Style

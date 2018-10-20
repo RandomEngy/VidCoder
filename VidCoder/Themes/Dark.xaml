@@ -38,6 +38,9 @@
 	<SolidColorBrush x:Key="LogErrorBrush" Color="Red" />
 	<SolidColorBrush x:Key="LogVidCoderBrush" Color="LightBlue" />
 	<SolidColorBrush x:Key="LogVidCoderWorkerBrush" Color="LightGreen" />
+	<SolidColorBrush x:Key="ProgressBarBrush" Color="#009B00" />
+	<SolidColorBrush x:Key="ProgressBarPausedBrush" Color="#C1AE00" />
+	<SolidColorBrush x:Key="DismissableMessageBrush" Color="#4A7B89" />
 
 
 	<SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="Black" />
@@ -46,37 +49,9 @@
 	<SolidColorBrush x:Key="ControlTextBrush" Color="White" />
 	<SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="White" />
 	<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#1B5D77" />
+	<SolidColorBrush x:Key="HighlightTextBrush" Color="White" />
 	<SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="White" />
 	<SolidColorBrush x:Key="{x:Static SystemColors.GrayTextBrushKey}" Color="#999999" />
-
-
-
-
-	<!--  Test zone!  -->
-	<SolidColorBrush x:Key="{x:Static SystemColors.ControlDarkBrushKey}" Color="Red" />
-	<SolidColorBrush x:Key="{x:Static SystemColors.ControlDarkDarkBrushKey}" Color="Blue" />
-	<SolidColorBrush x:Key="{x:Static SystemColors.ControlLightBrushKey}" Color="Green" />
-	<SolidColorBrush x:Key="{x:Static SystemColors.ControlLightLightBrushKey}" Color="LightCyan" />
-	<SolidColorBrush x:Key="{x:Static SystemColors.ActiveBorderBrushKey}" Color="Pink" />
-	<SolidColorBrush x:Key="{x:Static SystemColors.ActiveCaptionBrushKey}" Color="DarkGoldenrod" />
-	<SolidColorBrush x:Key="{x:Static SystemColors.ActiveCaptionTextBrush}" Color="DarkKhaki" />
-	<SolidColorBrush x:Key="{x:Static SystemColors.AppWorkspaceBrushKey}" Color="Purple" />
-	<SolidColorBrush x:Key="{x:Static SystemColors.GradientActiveCaptionBrushKey}" Color="LightGreen" />
-	<SolidColorBrush x:Key="{x:Static SystemColors.GradientInactiveCaptionBrushKey}" Color="Yellow" />
-	<SolidColorBrush x:Key="{x:Static SystemColors.HotTrackBrushKey}" Color="SaddleBrown" />
-	<SolidColorBrush x:Key="{x:Static SystemColors.InactiveBorderBrushKey}" Color="SeaGreen" />
-	<SolidColorBrush x:Key="{x:Static SystemColors.InactiveCaptionBrushKey}" Color="Snow" />
-	<SolidColorBrush x:Key="{x:Static SystemColors.InactiveCaptionTextBrushKey}" Color="Salmon" />
-	<SolidColorBrush x:Key="{x:Static SystemColors.InfoBrushKey}" Color="Honeydew" />
-	<SolidColorBrush x:Key="{x:Static SystemColors.InfoTextBrushKey}" Color="Chartreuse" />
-	<SolidColorBrush x:Key="{x:Static SystemColors.MenuBrushKey}" Color="Coral" />
-	<SolidColorBrush x:Key="{x:Static SystemColors.MenuBarBrushKey}" Color="PaleGoldenrod" />
-	<SolidColorBrush x:Key="{x:Static SystemColors.MenuHighlightBrushKey}" Color="BlueViolet" />
-	<SolidColorBrush x:Key="{x:Static SystemColors.MenuTextBrushKey}" Color="PaleVioletRed" />
-	<SolidColorBrush x:Key="{x:Static SystemColors.ScrollBarBrushKey}" Color="CadetBlue" />
-
-
-
 
 
 

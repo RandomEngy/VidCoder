@@ -65,9 +65,10 @@ namespace VidCoder
 				return;
 			}
 
-#if !DEBUG
-			this.DispatcherUnhandledException += this.OnDispatcherUnhandledException;
-#endif
+			if (!Debugger.IsAttached)
+			{
+				this.DispatcherUnhandledException += this.OnDispatcherUnhandledException;
+			}
 
 			OperatingSystem OS = Environment.OSVersion;
 			if (OS.Version.Major <= 5)

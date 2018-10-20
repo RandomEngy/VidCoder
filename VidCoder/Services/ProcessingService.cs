@@ -56,6 +56,7 @@ namespace VidCoder.Services
 		private PickersService pickersService = StaticResolver.Resolve<PickersService>();
 		private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
 		private IToastNotificationService toastNotificationService = StaticResolver.Resolve<IToastNotificationService>();
+		private IAppThemeService appThemeService = StaticResolver.Resolve<IAppThemeService>();
 		private bool paused;
 		private EncodeCompleteReason encodeCompleteReason;
 		private List<EncodeCompleteAction> encodeCompleteActions;
@@ -128,18 +129,22 @@ namespace VidCoder.Services
 			}).ToProperty(this, x => x.PauseVisible, out this.pauseVisible);
 
 			// ProgressBarColor
-			this.WhenAnyValue(x => x.Paused)
-				.Select(paused =>
+			IObservable<bool> pausedObservable = this.WhenAnyValue(x => x.Paused);
+			IObservable<AppTheme> themeObservable = this.appThemeService.AppThemeObservable;
+			Observable.CombineLatest(
+				pausedObservable,
+				themeObservable,
+				(paused, theme) =>
 				{
-					if (this.Paused)
+					if (paused)
 					{
-						return new SolidColorBrush(Color.FromRgb(255, 230, 0));
+						return (Brush)Application.Current.Resources["ProgressBarPausedBrush"];
 					}
 					else
 					{
-						return new SolidColorBrush(Color.FromRgb(0, 200, 0));
+						return (Brush)Application.Current.Resources["ProgressBarBrush"];
 					}
-				}).ToProperty(this, x => x.ProgressBarColor, out this.progressBarColor);
+				}).ToProperty(this, x => x.ProgressBarBrush, out this.progressBarBrush);
 
 			// OverallEncodeProgressPercent
 			this.WorkTracker.WhenAnyValue(x => x.OverallEncodeProgressFraction)
@@ -347,8 +352,8 @@ namespace VidCoder.Services
 			set { this.RaiseAndSetIfChanged(ref this.encodeProgressState, value); }
 		}
 
-		private ObservableAsPropertyHelper<Brush> progressBarColor;
-		public Brush ProgressBarColor => this.progressBarColor.Value;
+		private ObservableAsPropertyHelper<Brush> progressBarBrush;
+		public Brush ProgressBarBrush => this.progressBarBrush.Value;
 
 		private int selectedTabIndex;
 		public int SelectedTabIndex
