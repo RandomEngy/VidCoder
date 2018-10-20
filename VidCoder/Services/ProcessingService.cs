@@ -730,39 +730,42 @@ namespace VidCoder.Services
 				return this.clearCompleted ?? (this.clearCompleted = ReactiveCommand.Create(() =>
 				{
 					var removedItems = new List<EncodeResultViewModel>(this.completedJobs.Items);
-					this.completedJobs.Clear();
-					this.HasFailedItems = false;
 					var deletionCandidates = new List<string>();
 
-					foreach (var removedItem in removedItems)
+					if (Config.DeleteSourceFilesOnClearingCompleted)
 					{
-						// Delete file if setting is enabled and item succeeded
-						if (Config.DeleteSourceFilesOnClearingCompleted && removedItem.EncodeResult.Succeeded)
+						foreach (var removedItem in removedItems)
 						{
-							// And if file exists and is not read-only
-							string sourcePath = removedItem.Job.Job.SourcePath;
-							var fileInfo = new FileInfo(sourcePath);
-							var directoryInfo = new DirectoryInfo(sourcePath);
-
-							if (fileInfo.Exists && !fileInfo.IsReadOnly || directoryInfo.Exists && !directoryInfo.Attributes.HasFlag(FileAttributes.ReadOnly))
+							// Mark for deletion if item succeeded
+							if (removedItem.EncodeResult.Succeeded)
 							{
-								// And if it's not currently scanned or in the encode queue
-								bool sourceInEncodeQueue = this.EncodeQueue.Items.Any(job => string.Compare(job.Job.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) == 0);
-								if (!sourceInEncodeQueue &&
-								    (!this.main.HasVideoSource || string.Compare(this.main.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) != 0))
+								// And if file exists and is not read-only
+								string sourcePath = removedItem.Job.Job.SourcePath;
+								var fileInfo = new FileInfo(sourcePath);
+								var directoryInfo = new DirectoryInfo(sourcePath);
+
+								if (fileInfo.Exists && !fileInfo.IsReadOnly || directoryInfo.Exists && !directoryInfo.Attributes.HasFlag(FileAttributes.ReadOnly))
 								{
-									deletionCandidates.Add(sourcePath);
+									// And if it's not currently scanned or in the encode queue
+									bool sourceInEncodeQueue = this.EncodeQueue.Items.Any(job => string.Compare(job.Job.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) == 0);
+									if (!sourceInEncodeQueue &&
+									    (!this.main.HasVideoSource || string.Compare(this.main.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) != 0))
+									{
+										deletionCandidates.Add(sourcePath);
+									}
 								}
 							}
 						}
 					}
+
+					bool clearItems = true;
 
 					if (deletionCandidates.Count > 0)
 					{
 						MessageBoxResult dialogResult = Utilities.MessageBox.Show(
 							string.Format(MainRes.DeleteSourceFilesConfirmationMessage, deletionCandidates.Count),
 							MainRes.DeleteSourceFilesConfirmationTitle,
-							MessageBoxButton.YesNo);
+							MessageBoxButton.YesNoCancel);
 						if (dialogResult == MessageBoxResult.Yes)
 						{
 							foreach (string pathToDelete in deletionCandidates)
@@ -784,6 +787,16 @@ namespace VidCoder.Services
 								}
 							}
 						}
+						else if (dialogResult == MessageBoxResult.Cancel)
+						{
+							clearItems = false;
+						}
+					}
+
+					if (clearItems)
+					{
+						this.completedJobs.Clear();
+						this.HasFailedItems = false;
 					}
 				}));
 			}
