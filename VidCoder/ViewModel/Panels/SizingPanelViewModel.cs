@@ -584,7 +584,12 @@ namespace VidCoder.ViewModel
 				{
 					if (ColorPickerWindow.ShowDialog(out Color color))
 					{
-						this.UpdateProfileProperty(nameof(this.Profile.PadColor), ColorUtilities.ToHexString(color));
+						this.UpdateProfileProperty(
+							() => this.Profile,
+							nameof(this.Profile.PadColor),
+							nameof(this.PadColor),
+							ColorUtilities.ToHexString(color),
+							raisePropertyChanged: true);
 					}
 				}));
 			}

@@ -420,12 +420,15 @@
 					Visibility="{Binding PadColorEnabled,
 					                     Converter={StaticResource VisibilityConverter}}">
 					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.PadColorLabel}" />
-					<Grid
+					<Border
 						Width="20"
 						Height="20"
 						Margin="8 0 0 0"
 						VerticalAlignment="Center"
-						Background="{Binding PadBrush}" />
+						Background="{Binding PadBrush}"
+						BorderBrush="#808080"
+						BorderThickness="1"
+						SnapsToDevicePixels="True" />
 
 					<Button
 						Margin="8 0 0 0"
