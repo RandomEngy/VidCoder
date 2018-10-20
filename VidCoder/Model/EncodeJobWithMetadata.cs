@@ -14,5 +14,9 @@ namespace VidCoder.Model
 		public string NameFormatOverride { get; set; }
 
 		public string PresetName { get; set; }
+
+		public VideoSource VideoSource { get; set; }
+
+		public VideoSourceMetadata VideoSourceMetadata { get; set; }
 	}
 }

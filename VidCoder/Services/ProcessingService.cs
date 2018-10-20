@@ -51,7 +51,7 @@ namespace VidCoder.Services
 		private ISystemOperations systemOperations = StaticResolver.Resolve<ISystemOperations>();
 		private IMessageBoxService messageBoxService = StaticResolver.Resolve<IMessageBoxService>();
 		private MainViewModel main = StaticResolver.Resolve<MainViewModel>();
-		private OutputPathService outputVM = StaticResolver.Resolve<OutputPathService>();
+		private OutputPathService outputPathService = StaticResolver.Resolve<OutputPathService>();
 		private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
 		private PickersService pickersService = StaticResolver.Resolve<PickersService>();
 		private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
@@ -78,7 +78,15 @@ namespace VidCoder.Services
 				{
 					foreach (EncodeJobWithMetadata job in jobs)
 					{
-						 encodeQueueInnerList.Add(new EncodeJobViewModel(job.Job) { SourceParentFolder = job.SourceParentFolder, ManualOutputPath = job.ManualOutputPath, NameFormatOverride = job.NameFormatOverride, PresetName = job.PresetName });
+						 encodeQueueInnerList.Add(new EncodeJobViewModel(job.Job)
+						 {
+							 SourceParentFolder = job.SourceParentFolder,
+							 ManualOutputPath = job.ManualOutputPath,
+							 NameFormatOverride = job.NameFormatOverride,
+							 PresetName = job.PresetName,
+							 VideoSource = job.VideoSource,
+							 VideoSourceMetadata = job.VideoSourceMetadata
+						 });
 					}
 				});
 
@@ -879,8 +887,8 @@ namespace VidCoder.Services
 					string pathToQueue = job.SourcePath;
 
 					excludedPaths.Add(pathToQueue);
-					string outputFolder = this.outputVM.GetOutputFolder(pathToQueue, null, picker);
-					string outputFileName = this.outputVM.BuildOutputFileName(
+					string outputFolder = this.outputPathService.GetOutputFolder(pathToQueue, null, picker);
+					string outputFileName = this.outputPathService.BuildOutputFileName(
 						pathToQueue,
 						Utilities.GetSourceName(pathToQueue),
 						job.Title, 
@@ -888,9 +896,9 @@ namespace VidCoder.Services
 						title.ChapterList.Count,
 						multipleTitlesOnSource: videoSource.Titles.Count > 1,
 						picker: picker);
-					string outputExtension = this.outputVM.GetOutputExtension();
+					string outputExtension = this.outputPathService.GetOutputExtension();
 					string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
-					queueOutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, source, excludedPaths, isBatch: true);
+					queueOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, source, excludedPaths, isBatch: true);
 
 					job.FinalOutputPath = queueOutputPath;
 				}
@@ -920,7 +928,7 @@ namespace VidCoder.Services
 
 			var newEncodeJobVM = this.main.CreateEncodeJobVM();
 
-			string resolvedOutputPath = this.outputVM.ResolveOutputPathConflicts(newEncodeJobVM.Job.FinalOutputPath, newEncodeJobVM.Job.SourcePath, isBatch: false);
+			string resolvedOutputPath = this.outputPathService.ResolveOutputPathConflicts(newEncodeJobVM.Job.FinalOutputPath, newEncodeJobVM.Job.SourcePath, isBatch: false);
 			if (resolvedOutputPath == null)
 			{
 				return false;
@@ -955,7 +963,7 @@ namespace VidCoder.Services
 				string queueSourceName = this.main.SourceName;
 				if (this.main.SelectedSource.Type == SourceType.Disc)
 				{
-					queueSourceName = this.outputVM.TranslateDiscSourceName(queueSourceName);
+					queueSourceName = this.outputPathService.TranslateDiscSourceName(queueSourceName);
 				}
 
 				int titleNumber = title.Index;
@@ -986,7 +994,7 @@ namespace VidCoder.Services
 				this.AutoPickAudio(job, title, useCurrentContext: true);
 				this.AutoPickSubtitles(job, title, useCurrentContext: true);
 
-				string queueOutputFileName = this.outputVM.BuildOutputFileName(
+				string queueOutputFileName = this.outputPathService.BuildOutputFileName(
 					this.main.SourcePath,
 					queueSourceName,
 					titleNumber,
@@ -995,10 +1003,10 @@ namespace VidCoder.Services
 					nameFormatOverride,
 					multipleTitlesOnSource: true);
 
-				string extension = this.outputVM.GetOutputExtension();
-				string queueOutputPath = this.outputVM.BuildOutputPath(queueOutputFileName, extension, sourcePath: null, outputFolder: outputDirectoryOverride);
+				string extension = this.outputPathService.GetOutputExtension();
+				string queueOutputPath = this.outputPathService.BuildOutputPath(queueOutputFileName, extension, sourcePath: null, outputFolder: outputDirectoryOverride);
 
-				job.FinalOutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, this.main.SourcePath, isBatch: true);
+				job.FinalOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, this.main.SourcePath, isBatch: true);
 
 				var jobVM = new EncodeJobViewModel(job)
 				{
@@ -1179,17 +1187,17 @@ namespace VidCoder.Services
 				string fileToQueue = job.SourcePath;
 
 				excludedPaths.Add(fileToQueue);
-				string outputFolder = this.outputVM.GetOutputFolder(fileToQueue, jobViewModel.SourceParentFolder);
-				string outputFileName = this.outputVM.BuildOutputFileName(
+				string outputFolder = this.outputPathService.GetOutputFolder(fileToQueue, jobViewModel.SourceParentFolder);
+				string outputFileName = this.outputPathService.BuildOutputFileName(
 					fileToQueue, 
 					Utilities.GetSourceNameFile(fileToQueue),
 					job.Title, 
 					title.Duration.ToSpan(),
 					title.ChapterList.Count,
 					multipleTitlesOnSource: titles.Count > 1);
-				string outputExtension = this.outputVM.GetOutputExtension();
+				string outputExtension = this.outputPathService.GetOutputExtension();
 				string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
-				queueOutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, fileToQueue, excludedPaths, isBatch: true);
+				queueOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, fileToQueue, excludedPaths, isBatch: true);
 
 				job.FinalOutputPath = queueOutputPath;
 
@@ -1331,7 +1339,9 @@ namespace VidCoder.Services
 						SourceParentFolder = jobVM.SourceParentFolder,
 						ManualOutputPath = jobVM.ManualOutputPath,
 						NameFormatOverride = jobVM.NameFormatOverride,
-						PresetName = jobVM.PresetName
+						PresetName = jobVM.PresetName,
+						VideoSource = jobVM.VideoSource,
+						VideoSourceMetadata = jobVM.VideoSourceMetadata
 					});
 			}
 
@@ -1697,7 +1707,7 @@ namespace VidCoder.Services
 					var picker = this.pickersService.SelectedPicker.Picker;
 					if (status == EncodeResultStatus.Succeeded && !Utilities.IsRunningAsAppx && picker.PostEncodeActionEnabled && !string.IsNullOrWhiteSpace(picker.PostEncodeExecutable))
 					{
-						string arguments = outputVM.ReplaceArguments(picker.PostEncodeArguments, picker)
+						string arguments = this.outputPathService.ReplaceArguments(picker.PostEncodeArguments, picker, finishedJobViewModel)
                             .Replace("{file}", finalOutputPath)
                             .Replace("{folder}", Path.GetDirectoryName(finalOutputPath));
 
@@ -2010,12 +2020,12 @@ namespace VidCoder.Services
 				return false;
 			}
 
-			return this.outputVM.PickDefaultOutputFolderImpl();
+			return this.outputPathService.PickDefaultOutputFolderImpl();
 		}
 
 		private bool EnsureValidOutputPath()
 		{
-			if (this.outputVM.PathIsValid())
+			if (this.outputPathService.PathIsValid())
 			{
 				return true;
 			}

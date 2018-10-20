@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Text.RegularExpressions;
 using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.Json.Scan;
 using HandBrake.Interop.Interop.Model.Encoding;
 using Microsoft.AnyContainer;
 using ReactiveUI;
@@ -585,7 +586,7 @@ namespace VidCoder.Services
 		}
 
 		/// <summary>
-		///		Change casing on DVD titles to be a little more friendly
+		///	Change casing on DVD titles to be a little more friendly
 		/// </summary>
 		private string GetTranslatedSourceName()
 		{
@@ -593,18 +594,25 @@ namespace VidCoder.Services
 
 			if ((main.SelectedSource.Type == SourceType.Disc || main.SelectedSource.Type == SourceType.DiscVideoFolder) && !string.IsNullOrWhiteSpace(main.SourceName))
 			{
-				return TranslateDiscSourceName(main.SourceName);
+				return this.TranslateDiscSourceName(main.SourceName);
 			}
+
 			return main.SourceName;
 		}
 
+		/// <summary>
+		/// Replace arguments with the currently loaded source.
+		/// </summary>
+		/// <param name="nameFormat">The name format to use.</param>
+		/// <param name="picker">The picker.</param>
+		/// <returns>The new name with arguments replaced.</returns>
 		public string ReplaceArguments(string nameFormat, Picker picker = null)
 		{
 			MainViewModel main = this.mainViewModel.Value;
 
-			return ReplaceArguments(
+			return this.ReplaceArguments(
 				main.SourcePath,
-				GetTranslatedSourceName(),
+				this.GetTranslatedSourceName(),
 				main.SelectedTitle.Index,
 				main.SelectedTitle.Duration,
 				main.RangeType,
@@ -618,6 +626,43 @@ namespace VidCoder.Services
 				nameFormat,
 				multipleTitlesOnSource: main.ScanInstance.Titles.TitleList.Count > 1,
 				picker: picker);
+		}
+
+		/// <summary>
+		/// Replace arguments with the given job information.
+		/// </summary>
+		/// <param name="nameFormat">The name format to use.</param>
+		/// <param name="picker">The picker.</param>
+		/// <param name="jobViewModel">The job to pick information from.</param>
+		/// <returns>The string with arguments replaced.</returns>
+		public string ReplaceArguments(string nameFormat, Picker picker, EncodeJobViewModel jobViewModel)
+		{
+			// The jobViewModel might have null VideoSource and VideoSourceMetadata from an earlier version < 4.17.
+
+			VCJob job = jobViewModel.Job;
+			SourceTitle title = jobViewModel.VideoSource?.Titles.Single(t => t.Index == job.Title);
+
+			string sourceName = jobViewModel.VideoSourceMetadata != null ? jobViewModel.VideoSourceMetadata.Name : string.Empty;
+			TimeSpan titleDuration = title?.Duration.ToSpan() ?? TimeSpan.Zero;
+			int chapterCount = title?.ChapterList.Count ?? 0;
+			bool hasMultipleTitles = jobViewModel.VideoSource != null && jobViewModel.VideoSource.Titles.Count > 1;
+
+			return this.ReplaceArguments(
+				job.SourcePath,
+				sourceName,
+				job.Title,
+				titleDuration,
+				job.RangeType,
+				job.ChapterStart,
+				job.ChapterEnd,
+				chapterCount,
+				TimeSpan.FromSeconds(job.SecondsStart),
+				TimeSpan.FromSeconds(job.SecondsEnd),
+				job.FramesStart,
+				job.FramesEnd,
+				nameFormat,
+				hasMultipleTitles,
+				picker);
 		}
 
 		private string ReplaceArguments(
