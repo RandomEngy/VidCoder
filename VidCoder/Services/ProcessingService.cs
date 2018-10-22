@@ -1620,7 +1620,12 @@ namespace VidCoder.Services
 					// Try to clean up the failed file
 					TryCleanFailedFile(directOutputFileInfo, encodeLogger);
 
-					if (this.TotalTasks == 1 && this.encodeCompleteReason == EncodeCompleteReason.Manual)
+					// If the user still has the video source up, clear the queue so they can change settings and try again.
+					// If the source isn't loaded they probably want to keep it in the queue.
+					if (this.TotalTasks == 1 
+						&& this.encodeCompleteReason == EncodeCompleteReason.Manual 
+						&& this.main.HasVideoSource 
+						&& this.main.SourcePath == this.EncodeQueue.Items.First().Job.SourcePath)
 					{
 						this.EncodeQueue.Clear();
 					}
