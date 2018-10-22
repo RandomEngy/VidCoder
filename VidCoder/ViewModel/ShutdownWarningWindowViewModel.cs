@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Threading;
 using Microsoft.AnyContainer;
 using ReactiveUI;
@@ -87,6 +88,9 @@ namespace VidCoder.ViewModel
 
 		private void ExecuteAction()
 		{
+			var processingService = StaticResolver.Resolve<ProcessingService>();
+			processingService.EncodeCompleteAction = processingService.EncodeCompleteActions.Single(a => a.ActionType == EncodeCompleteActionType.DoNothing);
+
 			switch (actionType)
 			{
 				case EncodeCompleteActionType.Sleep:
