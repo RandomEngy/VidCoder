@@ -87,12 +87,14 @@ namespace VidCoder.Services
 		private static WindowsTheme GetWindowsTheme()
 		{
 			RegistryKey key = Registry.CurrentUser.OpenSubKey(RegistryKeyPath);
-			if (key == null)
+
+			object registryValueObject = key?.GetValue(RegistryValueName);
+			if (registryValueObject == null)
 			{
 				return WindowsTheme.Light;
 			}
 
-			int registryValue = (int)key.GetValue(RegistryValueName);
+			int registryValue = (int)registryValueObject;
 
 			return registryValue > 0 ? WindowsTheme.Light : WindowsTheme.Dark;
 		}

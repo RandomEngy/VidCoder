@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:local="clr-namespace:VidCoder.Themes" xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<SolidColorBrush x:Key="AlternateBackgroundBrush" Color="#F5F5F5" />
 	<SolidColorBrush x:Key="ToolBarBackgroundBrush" Color="#CCC" />
 	<SolidColorBrush x:Key="ControlTextBrush" Color="{x:Static SystemColors.ControlTextColor}" />
@@ -50,7 +49,7 @@
 		<GradientStop Offset="0" Color="#E6E6E6" />
 		<GradientStop Offset="1" Color="#E0E0E0" />
 	</LinearGradientBrush>
-	<LinearGradientBrush x:Key="SeekBarFilledBackgroundBrush"  StartPoint="0,0" EndPoint="0,1">
+	<LinearGradientBrush x:Key="SeekBarFilledBackgroundBrush" StartPoint="0,0" EndPoint="0,1">
 		<GradientStop Offset="0.0" Color="#8FBCF7" />
 		<GradientStop Offset="1.0" Color="#569CF7" />
 	</LinearGradientBrush>
@@ -67,18 +66,18 @@
 
 
 
-	<SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
-	<SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
-	<SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
-	<SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
-	<SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
-	<SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
-	<SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
-	<SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
-	<SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+	<SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD" />
+	<SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070" />
+	<SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD" />
+	<SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1" />
+	<SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6" />
+	<SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B" />
+	<SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4" />
+	<SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5" />
+	<SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383" />
 
 
-	
+
 	<LinearGradientBrush x:Key="ComboBox.Static.Background" StartPoint="0,0" EndPoint="0,1">
 		<GradientStop Offset="0.0" Color="#FFF0F0F0" />
 		<GradientStop Offset="1.0" Color="#FFE5E5E5" />
