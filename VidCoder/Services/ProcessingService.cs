@@ -1047,10 +1047,6 @@ namespace VidCoder.Services
 			if (this.Encoding)
 			{
 				this.TotalTasks += encodeJobList.Count;
-				foreach (var encodeJobViewModel in encodeJobList)
-				{
-					this.WorkTracker.ReportAddedToQueue(encodeJobViewModel.Work);
-				}
 			}
 
 			Picker picker = this.pickersService.SelectedPicker.Picker;
@@ -1065,7 +1061,10 @@ namespace VidCoder.Services
 			{
 				foreach (var encodeJobViewModel in encodeJobList)
 				{
-					this.WorkTracker.ReportAddedToQueue(encodeJobViewModel.Work);
+					if (this.Encoding)
+					{
+						this.WorkTracker.ReportAddedToQueue(encodeJobViewModel.Work);
+					}
 
 					if (overridePresetViewModel != null)
 					{
@@ -1600,6 +1599,11 @@ namespace VidCoder.Services
 
 		private void OnEncodeCompleted(EncodeJobViewModel finishedJobViewModel, bool error)
 		{
+			if (finishedJobViewModel == null)
+			{
+				throw new ArgumentNullException(nameof(finishedJobViewModel));
+			}
+
 			DispatchUtilities.BeginInvoke(() =>
 			{
 				IAppLogger encodeLogger = finishedJobViewModel.Logger;
@@ -1850,7 +1854,7 @@ namespace VidCoder.Services
 					logAffix = status == EncodeResultStatus.Succeeded ? "succeeded" : "failed";
 				}
 
-				string finalLogPath = ApplyStatusAffixToLogPath(encodeLogger.LogPath, logAffix);
+				string finalLogPath = ApplyStatusAffixToLogPath(encodeLogPath, logAffix);
 
 				if (addedResult != null)
 				{

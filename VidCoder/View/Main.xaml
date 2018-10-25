@@ -1287,7 +1287,7 @@
 						<Grid.Resources>
 							<Style x:Key="SubtitleControl" TargetType="{x:Type FrameworkElement}">
 								<Setter Property="Margin" Value="4 0 4 2" />
-								<Setter Property="HorizontalAlignment" Value="CenBter" />
+								<Setter Property="HorizontalAlignment" Value="Center" />
 							</Style>
 
 							<DataTemplate x:Key="SourceDragTemplate">
