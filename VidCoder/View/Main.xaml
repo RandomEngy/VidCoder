@@ -1795,6 +1795,7 @@
 																	Source="/Icons/edit_16x16.png" />
 															</MenuItem.Icon>
 														</MenuItem>
+														<MenuItem Command="{Binding ProcessingService.ApplyCurrentPresetToSelectedJobs}" Header="{x:Static res:MainRes.ApplyCurrentEncodingSettings}" />
 														<MenuItem Command="{Binding ProcessingService.RemoveSelectedJobs}" Header="{x:Static res:CommonRes.Delete}">
 															<MenuItem.Icon>
 																<Image

@@ -115,6 +115,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apply current encoding settings.
+        /// </summary>
+        public static string ApplyCurrentEncodingSettings {
+            get {
+                return ResourceManager.GetString("ApplyCurrentEncodingSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close the current file and open the disc?.
         /// </summary>
         public static string AutoplayDiscConfirmationMessage {

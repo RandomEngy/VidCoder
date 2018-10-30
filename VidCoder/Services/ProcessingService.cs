@@ -497,26 +497,49 @@ namespace VidCoder.Services
 				{
 					var newJobs = new List<EncodeJobViewModel>();
 
+					Preset newPreset = this.presetsService.SelectedPreset.Preset;
+
 					foreach (EncodeJobViewModel job in this.EncodeQueue.Items)
 					{
-						Preset newPreset = this.presetsService.SelectedPreset.Preset;
-						VCProfile newProfile = newPreset.EncodingProfile;
-						job.PresetName = newPreset.Name;
-						job.Job.EncodingProfile = newProfile;
-						job.Job.FinalOutputPath = Path.ChangeExtension(job.Job.FinalOutputPath, OutputPathService.GetExtensionForProfile(newProfile));
-
-						newJobs.Add(job);
+						if (!job.Encoding)
+						{
+							this.ApplyPresetToJob(job, newPreset);
+							newJobs.Add(job);
+						}
 					}
 
 					// Clear out the queue and re-add the updated jobs so all the changes get reflected.
 					this.EncodeQueue.Edit(encodeQueueInnerList =>
 					{
-						encodeQueueInnerList.Clear();
+						// Remove everything that's not encoding
+						int encodingJobsCount = this.encodingJobList.Count;
+						encodeQueueInnerList.RemoveRange(encodingJobsCount, encodeQueueInnerList.Count - encodingJobsCount);
+
+						// Add the changed jobs back
 						encodeQueueInnerList.AddRange(newJobs);
 					});
 
 					this.ShowApplyToQueueButton = false;
 				}));
+			}
+		}
+
+		private void ApplyPresetToJob(EncodeJobViewModel job, Preset newPreset)
+		{
+			if (this.Encoding)
+			{
+				this.WorkTracker.ReportRemovedFromQueue(job.Work);
+			}
+
+			VCProfile newProfile = newPreset.EncodingProfile;
+			job.PresetName = newPreset.Name;
+			job.Job.EncodingProfile = newProfile;
+			job.Job.FinalOutputPath = Path.ChangeExtension(job.Job.FinalOutputPath, OutputPathService.GetExtensionForProfile(newProfile));
+			job.CalculateWork();
+
+			if (this.Encoding)
+			{
+				this.WorkTracker.ReportAddedToQueue(job.Work);
 			}
 		}
 
@@ -666,6 +689,36 @@ namespace VidCoder.Services
 					}
 
 					StaticResolver.Resolve<IQueueImportExport>().Export(encodeJobs);
+				}));
+			}
+		}
+
+		private ReactiveCommand applyCurrentPresetToSelectedJobs;
+		public ICommand ApplyCurrentPresetToSelectedJobs
+		{
+			get
+			{
+				return this.applyCurrentPresetToSelectedJobs ?? (this.applyCurrentPresetToSelectedJobs = ReactiveCommand.Create(() =>
+				{
+					IList<EncodeJobViewModel> selectedJobs = this.main.SelectedJobs;
+					Preset newPreset = this.presetsService.SelectedPreset.Preset;
+
+
+					this.EncodeQueue.Edit(encodeQueueInnerList =>
+					{
+						foreach (EncodeJobViewModel selectedJob in selectedJobs)
+						{
+							if (!selectedJob.Encoding)
+							{
+								int jobIndex = encodeQueueInnerList.IndexOf(selectedJob);
+								encodeQueueInnerList.RemoveAt(jobIndex);
+
+								this.ApplyPresetToJob(selectedJob, newPreset);
+
+								encodeQueueInnerList.Insert(jobIndex, selectedJob);
+							}
+						}
+					});
 				}));
 			}
 		}

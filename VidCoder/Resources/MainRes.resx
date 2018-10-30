@@ -662,4 +662,7 @@
     <value>Title filter range start minutes</value>
     <comment>Screen reader text for number box that represents the start of the filter range in minutes. The number chosen in this box represents the minimum title length in minutes that will be chosen.</comment>
   </data>
+  <data name="ApplyCurrentEncodingSettings" xml:space="preserve">
+    <value>Apply current encoding settings</value>
+  </data>
 </root>
