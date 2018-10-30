@@ -60,7 +60,6 @@ namespace VidCoder.Services
 		private bool paused;
 		private EncodeCompleteReason encodeCompleteReason;
 		private List<EncodeCompleteAction> encodeCompleteActions;
-		private bool profileEditedSinceLastQueue;
 
 		public ProcessingService()
 		{
@@ -113,8 +112,13 @@ namespace VidCoder.Services
 
 			this.presetsService.PresetChanged += (o, e) =>
 			{
-				this.profileEditedSinceLastQueue = true;
+				if (this.EncodeQueue.Count > 0)
+				{
+					this.ShowApplyToQueueButton = true;
+				}
 			};
+
+			
 
 			this.completedJobs = new SourceList<EncodeResultViewModel>();
 			IObservable<IChangeSet<EncodeResultViewModel>> completedJobsObservable = this.completedJobs.Connect();
@@ -160,6 +164,22 @@ namespace VidCoder.Services
 				.ToProperty(this, x => x.OverallEncodeProgressPercent, out this.overallEncodeProgressPercent);
 
 			this.QueueCountObservable = encodeQueueObservable.Count().StartWith(this.EncodeQueue.Count);
+
+			this.QueueCountObservable.Subscribe(newCount =>
+			{
+				if (newCount == 0)
+				{
+					this.ShowApplyToQueueButton = false;
+				}
+			});
+
+			this.presetsService.WhenAnyValue(x => x.SelectedPreset).Skip(1).Subscribe(_ =>
+			{
+				if (this.EncodeQueue.Count > 0)
+				{
+					this.ShowApplyToQueueButton = true;
+				}
+			});
 
 			// QueuedTabHeader
 			this.QueueCountObservable
@@ -296,6 +316,13 @@ namespace VidCoder.Services
 			set { this.RaiseAndSetIfChanged(ref this.taskNumber, value); }
 		}
 
+		private bool showApplyToQueueButton;
+		public bool ShowApplyToQueueButton
+		{
+			get { return this.showApplyToQueueButton; }
+			set { this.RaiseAndSetIfChanged(ref this.showApplyToQueueButton, value); }
+		}
+
 		private ObservableAsPropertyHelper<string> encodeButtonText;
 		public string EncodeButtonText => this.encodeButtonText.Value;
 
@@ -385,45 +412,9 @@ namespace VidCoder.Services
 						}
 						else
 						{
-							if (this.EncodeQueue.Count == 0)
+							if (this.EncodeQueue.Count == 0 && !this.TryQueue())
 							{
-								if (!this.TryQueue())
-								{
-									return;
-								}
-							}
-							else if (profileEditedSinceLastQueue)
-							{
-								// If the encoding profile has changed since the last time we queued an item, we'll prompt to apply the current
-								// encoding profile to all queued items.
-
-								var messageBoxService = StaticResolver.Resolve<IMessageBoxService>();
-								MessageBoxResult result = messageBoxService.Show(
-									this.main,
-									MainRes.EncodingSettingsChangedMessage,
-									MainRes.EncodingSettingsChangedTitle,
-									MessageBoxButton.YesNo);
-
-								if (result == MessageBoxResult.Yes)
-								{
-									var newJobs = new List<EncodeJobViewModel>();
-
-									foreach (EncodeJobViewModel job in this.EncodeQueue.Items)
-									{
-										VCProfile newProfile = this.presetsService.SelectedPreset.Preset.EncodingProfile;
-										job.Job.EncodingProfile = newProfile;
-										job.Job.FinalOutputPath = Path.ChangeExtension(job.Job.FinalOutputPath, OutputPathService.GetExtensionForProfile(newProfile));
-
-										newJobs.Add(job);
-									}
-
-									// Clear out the queue and re-add the updated jobs so all the changes get reflected.
-									this.EncodeQueue.Edit(encodeQueueInnerList =>
-									{
-										encodeQueueInnerList.Clear();
-										encodeQueueInnerList.AddRange(newJobs);
-									});
-								}
+								return;
 							}
 
 							this.SelectedTabIndex = QueuedTabIndex;
@@ -497,6 +488,38 @@ namespace VidCoder.Services
 			}
 		}
 		
+		private ReactiveCommand applyCurrentPresetToQueue;
+		public ICommand ApplyCurrentPresetToQueue
+		{
+			get
+			{
+				return this.applyCurrentPresetToQueue ?? (this.applyCurrentPresetToQueue = ReactiveCommand.Create(() =>
+				{
+					var newJobs = new List<EncodeJobViewModel>();
+
+					foreach (EncodeJobViewModel job in this.EncodeQueue.Items)
+					{
+						Preset newPreset = this.presetsService.SelectedPreset.Preset;
+						VCProfile newProfile = newPreset.EncodingProfile;
+						job.PresetName = newPreset.Name;
+						job.Job.EncodingProfile = newProfile;
+						job.Job.FinalOutputPath = Path.ChangeExtension(job.Job.FinalOutputPath, OutputPathService.GetExtensionForProfile(newProfile));
+
+						newJobs.Add(job);
+					}
+
+					// Clear out the queue and re-add the updated jobs so all the changes get reflected.
+					this.EncodeQueue.Edit(encodeQueueInnerList =>
+					{
+						encodeQueueInnerList.Clear();
+						encodeQueueInnerList.AddRange(newJobs);
+					});
+
+					this.ShowApplyToQueueButton = false;
+				}));
+			}
+		}
+
 		private ReactiveCommand pause;
 		public ReactiveCommand Pause
 		{
@@ -1075,8 +1098,6 @@ namespace VidCoder.Services
 					encodeQueueInnerList.Add(encodeJobViewModel);
 				}
 			});
-
-			this.profileEditedSinceLastQueue = false;
 
 			// Select the Queued tab.
 			if (this.SelectedTabIndex != QueuedTabIndex)

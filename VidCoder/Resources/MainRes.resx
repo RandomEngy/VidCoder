@@ -527,12 +527,6 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>Encode Details</value>
   </data>
-  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
-    <value>Encoding settings have changed since you last added an item to the queue. Do you want to apply the current encoding settings to all items in the queue?</value>
-  </data>
-  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
-    <value>Settings have changed</value>
-  </data>
   <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>Do you want to rename the existing file and start with a new one?</value>
   </data>

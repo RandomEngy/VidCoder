@@ -462,6 +462,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apply to queue.
+        /// </summary>
+        public static string ApplyToQueueButton {
+            get {
+                return ResourceManager.GetString("ApplyToQueueButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to High values mean high compression: better quality/smaller size but longer encode times..
         /// </summary>
         public static string AscendingCompressionToolTip {

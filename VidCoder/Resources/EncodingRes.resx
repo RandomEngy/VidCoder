@@ -1173,4 +1173,7 @@ Lapsharp sharpens using convolution kernels approximating Laplacian edge filters
     <value>Pixel aspect ratio denominator</value>
     <comment>Name for the pixel aspect ratio denominator box for screen readers</comment>
   </data>
+  <data name="ApplyToQueueButton" xml:space="preserve">
+    <value>Apply to queue</value>
+  </data>
 </root>
