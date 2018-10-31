@@ -982,6 +982,8 @@ namespace VidCoderCommon.Model
 
 				HBAudioEncoder audioEncoder = HandBrakeEncoderHelpers.GetAudioEncoder(encoding.Encoder);
 
+				this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Encoder: {encoding.Encoder}");
+
 				if (audioEncoder.IsPassthrough)
 				{
 				    if (audioEncoder.ShortName == "copy")
