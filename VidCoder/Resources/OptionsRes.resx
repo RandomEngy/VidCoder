@@ -270,9 +270,6 @@
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
     <value>Beware: this version is more likely to have bugs and crashes.</value>
   </data>
-  <data name="LanguagesSection" xml:space="preserve">
-    <value>Languages</value>
-  </data>
   <data name="PlayersSection" xml:space="preserve">
     <value>Players</value>
   </data>
@@ -387,5 +384,12 @@
   </data>
   <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
     <value>This is how many simultaneous encode jobs are allowed. Useful for machines with many CPU cores.</value>
+  </data>
+  <data name="GeneralSection" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="ThemeLabel" xml:space="preserve">
+    <value>Theme</value>
+    <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
 </root>

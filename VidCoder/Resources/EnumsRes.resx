@@ -129,6 +129,15 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>Strict</value>
   </data>
+  <data name="AppThemeChoice_Auto" xml:space="preserve">
+    <value>Use OS theme</value>
+  </data>
+  <data name="AppThemeChoice_Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="AppThemeChoice_Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
   <data name="CombDetect_fast" xml:space="preserve">
     <value>Fast</value>
   </data>

@@ -106,6 +106,7 @@ VideoFileExtensions|string|"avi, mkv, mp4, m4v, mpg, mpeg, mov, wmv"
 PreferredPlayer|string|"vlc"
 BetaUpdates|bool|false
 InterfaceLanguageCode|string|""
+AppTheme|string|"Auto"
 CpuThrottlingFraction|double|1.0
 UseBuiltInPlayerForPreviews|bool|true
 PreviewVolume|double|0.5

@@ -97,6 +97,33 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use OS theme.
+        /// </summary>
+        public static string AppThemeChoice_Auto {
+            get {
+                return ResourceManager.GetString("AppThemeChoice_Auto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dark.
+        /// </summary>
+        public static string AppThemeChoice_Dark {
+            get {
+                return ResourceManager.GetString("AppThemeChoice_Dark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Light.
+        /// </summary>
+        public static string AppThemeChoice_Light {
+            get {
+                return ResourceManager.GetString("AppThemeChoice_Light", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fast.
         /// </summary>
         public static string CombDetect_fast {

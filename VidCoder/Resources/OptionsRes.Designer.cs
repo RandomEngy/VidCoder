@@ -387,6 +387,15 @@ namespace VidCoder.Resources {
         /// <summary>
         ///   Looks up a localized string similar to General.
         /// </summary>
+        public static string GeneralSection {
+            get {
+                return ResourceManager.GetString("GeneralSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
         public static string GeneralTab {
             get {
                 return ResourceManager.GetString("GeneralTab", resourceCulture);
@@ -408,15 +417,6 @@ namespace VidCoder.Resources {
         public static string JoinBetaTrackCheckBox {
             get {
                 return ResourceManager.GetString("JoinBetaTrackCheckBox", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Languages.
-        /// </summary>
-        public static string LanguagesSection {
-            get {
-                return ResourceManager.GetString("LanguagesSection", resourceCulture);
             }
         }
         
@@ -723,6 +723,15 @@ namespace VidCoder.Resources {
         public static string SystemTraySection {
             get {
                 return ResourceManager.GetString("SystemTraySection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme.
+        /// </summary>
+        public static string ThemeLabel {
+            get {
+                return ResourceManager.GetString("ThemeLabel", resourceCulture);
             }
         }
         

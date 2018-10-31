@@ -122,6 +122,7 @@ namespace VidCoder
 			cache.Add("PreferredPlayer", DatabaseConfig.Get("PreferredPlayer", "vlc", connection));
 			cache.Add("BetaUpdates", DatabaseConfig.Get("BetaUpdates", false, connection));
 			cache.Add("InterfaceLanguageCode", DatabaseConfig.Get("InterfaceLanguageCode", "", connection));
+			cache.Add("AppTheme", DatabaseConfig.Get("AppTheme", "Auto", connection));
 			cache.Add("CpuThrottlingFraction", DatabaseConfig.Get("CpuThrottlingFraction", 1.0, connection));
 			cache.Add("UseBuiltInPlayerForPreviews", DatabaseConfig.Get("UseBuiltInPlayerForPreviews", true, connection));
 			cache.Add("PreviewVolume", DatabaseConfig.Get("PreviewVolume", 0.5, connection));
@@ -636,6 +637,11 @@ namespace VidCoder
 			get { return (string)cache["InterfaceLanguageCode"]; }
 			set { Set("InterfaceLanguageCode", value); }
 		}
+		public static string AppTheme
+		{
+			get { return (string)cache["AppTheme"]; }
+			set { Set("AppTheme", value); }
+		}
 		public static double CpuThrottlingFraction
 		{
 			get { return (double)cache["CpuThrottlingFraction"]; }
@@ -811,6 +817,7 @@ namespace VidCoder
 			public static IObservable<string> PreferredPlayer => GetObservable<string>("PreferredPlayer");
 			public static IObservable<bool> BetaUpdates => GetObservable<bool>("BetaUpdates");
 			public static IObservable<string> InterfaceLanguageCode => GetObservable<string>("InterfaceLanguageCode");
+			public static IObservable<string> AppTheme => GetObservable<string>("AppTheme");
 			public static IObservable<double> CpuThrottlingFraction => GetObservable<double>("CpuThrottlingFraction");
 			public static IObservable<bool> UseBuiltInPlayerForPreviews => GetObservable<bool>("UseBuiltInPlayerForPreviews");
 			public static IObservable<double> PreviewVolume => GetObservable<double>("PreviewVolume");

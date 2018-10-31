@@ -25,12 +25,6 @@ namespace VidCoder.ViewModel
 	{
 		public const int UpdatesTabIndex = 4;
 
-		private ObservableCollection<string> autoPauseProcesses;
-
-		private List<IVideoPlayer> playerChoices;
-		private List<InterfaceLanguage> languageChoices;
-		private List<ComboChoice> priorityChoices;
-
 #pragma warning disable 169
 		private UpdateInfo betaInfo;
 		private bool betaInfoAvailable;
@@ -128,7 +122,7 @@ namespace VidCoder.ViewModel
 			this.resumeEncodingOnRestart = Config.ResumeEncodingOnRestart;
 			this.useWorkerProcess = Config.UseWorkerProcess;
 			this.minimumTitleLengthSeconds = Config.MinimumTitleLengthSeconds;
-			this.autoPauseProcesses = new ObservableCollection<string>();
+			this.AutoPauseProcesses = new ObservableCollection<string>();
 			this.videoFileExtensions = Config.VideoFileExtensions;
 			this.cpuThrottlingCores = (int)Math.Round(this.CpuThrottlingMaxCores * Config.CpuThrottlingFraction);
 			if (this.cpuThrottlingCores < 1)
@@ -148,13 +142,13 @@ namespace VidCoder.ViewModel
 			{
 				foreach (string process in autoPauseList)
 				{
-					this.autoPauseProcesses.Add(process);
+					this.AutoPauseProcesses.Add(process);
 				}
 			}
 
 			// List of language codes and names: http://msdn.microsoft.com/en-us/goglobal/bb896001.aspx
 
-			this.languageChoices =
+			this.LanguageChoices =
 				new List<InterfaceLanguage>
 					{
 						new InterfaceLanguage { CultureCode = string.Empty, Display = OptionsRes.UseOSLanguage },
@@ -181,7 +175,20 @@ namespace VidCoder.ViewModel
 						new InterfaceLanguage { CultureCode =  "ja-JP", Display = "日本語 / Japanese" },
 					};
 
-			this.priorityChoices = new List<ComboChoice>
+			this.AppThemeChoices = 
+				new List<ComboChoice<AppThemeChoice>>
+				{
+					new ComboChoice<AppThemeChoice>(AppThemeChoice.Auto, EnumsRes.AppThemeChoice_Auto),
+					new ComboChoice<AppThemeChoice>(AppThemeChoice.Light, EnumsRes.AppThemeChoice_Light),
+					new ComboChoice<AppThemeChoice>(AppThemeChoice.Dark, EnumsRes.AppThemeChoice_Dark),
+				};
+			this.appTheme = this.AppThemeChoices.FirstOrDefault(t => t.Value == CustomConfig.AppTheme);
+			if (this.appTheme == null)
+			{
+				this.appTheme = this.AppThemeChoices[0];
+			}
+
+			this.PriorityChoices = new List<ComboChoice>
 				{
 					new ComboChoice("High", OptionsRes.Priority_High),
 					new ComboChoice("AboveNormal", OptionsRes.Priority_AboveNormal),
@@ -190,18 +197,18 @@ namespace VidCoder.ViewModel
 					new ComboChoice("Idle", OptionsRes.Priority_Idle),
 				};
 
-			this.interfaceLanguage = this.languageChoices.FirstOrDefault(l => l.CultureCode == Config.InterfaceLanguageCode);
+			this.interfaceLanguage = this.LanguageChoices.FirstOrDefault(l => l.CultureCode == Config.InterfaceLanguageCode);
 			if (this.interfaceLanguage == null)
 			{
-				this.interfaceLanguage = this.languageChoices[0];
+				this.interfaceLanguage = this.LanguageChoices[0];
 			}
 
-			this.playerChoices = Players.All;
-			if (this.playerChoices.Count > 0)
+			this.PlayerChoices = Players.All;
+			if (this.PlayerChoices.Count > 0)
 			{
-				this.selectedPlayer = this.playerChoices[0];
+				this.selectedPlayer = this.PlayerChoices[0];
 
-				foreach (IVideoPlayer player in this.playerChoices)
+				foreach (IVideoPlayer player in this.PlayerChoices)
 				{
 					if (player.Id == Config.PreferredPlayer)
 					{
@@ -264,21 +271,19 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.selectedTabIndex, value); }
 		}
 
-		public List<InterfaceLanguage> LanguageChoices
+		public List<InterfaceLanguage> LanguageChoices { get; }
+
+		public List<ComboChoice<AppThemeChoice>> AppThemeChoices { get; }
+
+		private ComboChoice<AppThemeChoice> appTheme;
+
+		public ComboChoice<AppThemeChoice> AppTheme
 		{
-			get
-			{
-				return this.languageChoices;
-			}
+			get { return this.appTheme; }
+			set { this.RaiseAndSetIfChanged(ref this.appTheme, value); }
 		}
 
-		public List<ComboChoice> PriorityChoices
-		{
-			get
-			{
-				return this.priorityChoices;
-			}
-		}
+		public List<ComboChoice> PriorityChoices { get; }
 
 		private InterfaceLanguage interfaceLanguage;
 		public InterfaceLanguage InterfaceLanguage
@@ -317,7 +322,7 @@ namespace VidCoder.ViewModel
 
 		public bool BetaSectionVisible => CommonUtilities.Beta || this.betaInfoAvailable;
 
-		public List<IVideoPlayer> PlayerChoices => this.playerChoices;
+		public List<IVideoPlayer> PlayerChoices { get; }
 
 		private IVideoPlayer selectedPlayer;
 		public IVideoPlayer SelectedPlayer
@@ -461,13 +466,7 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.copyLogToOutputFolder, value); }
 		}
 
-		public ObservableCollection<string> AutoPauseProcesses
-		{
-			get
-			{
-				return this.autoPauseProcesses;
-			}
-		}
+		public ObservableCollection<string> AutoPauseProcesses { get; }
 
 		private string selectedProcess;
 		public string SelectedProcess
@@ -599,6 +598,7 @@ namespace VidCoder.ViewModel
 							StaticResolver.Resolve<IMessageBoxService>().Show(this, OptionsRes.NewLanguageRestartDialogMessage);
 						}
 
+						CustomConfig.AppTheme = this.AppTheme.Value;
 						Config.AutoNameOutputFolder = this.DefaultPath;
 						Config.AutoNameCustomFormat = this.CustomFormat;
 						Config.AutoNameCustomFormatString = this.CustomFormatString;

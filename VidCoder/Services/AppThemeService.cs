@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Win32;
+using VidCoder.Model;
 
 namespace VidCoder.Services
 {
@@ -71,14 +72,22 @@ namespace VidCoder.Services
 			this.AppThemeObservable = Observable.CombineLatest(
 				windowsThemeSubject,
 				highContrastSubject,
-				(windowsTheme, highContrast) =>
+				Config.Observables.AppTheme,
+				(windowsTheme, highContrast, appThemeChoiceString) =>
 				{
 					if (highContrast)
 					{
 						return AppTheme.HighContrast;
 					}
 
-					return windowsTheme == WindowsTheme.Light ? AppTheme.Light : AppTheme.Dark;
+					var appThemeChoice = (AppThemeChoice)Enum.Parse(typeof(AppThemeChoice), appThemeChoiceString);
+
+					if (appThemeChoice == AppThemeChoice.Auto)
+					{
+						return windowsTheme == WindowsTheme.Light ? AppTheme.Light : AppTheme.Dark;
+					}
+
+					return appThemeChoice == AppThemeChoice.Light ? AppTheme.Light : AppTheme.Dark;
 				});
 		}
 
