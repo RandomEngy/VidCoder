@@ -310,4 +310,8 @@ A full copy of the GNU General Public License has been included along with this 
     <value>Open split button</value>
     <comment>Automation name for screen readers for the "open" arrow on a split button</comment>
   </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Unknown</value>
+    <comment>Used when a value is not known.</comment>
+  </data>
 </root>

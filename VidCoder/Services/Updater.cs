@@ -277,6 +277,19 @@ namespace VidCoder.Services
 							this.logger.Log("Downloaded update (" + updateInstallerLocation + ") could not be found. Re-downloading it.");
 						}
 
+						// If we have an installer downloaded, but there's a newer one out, clear out the downloaded update metadata
+						if (Config.UpdateInstallerLocation != string.Empty 
+							&& Version.TryParse(Config.UpdateVersion, out Version downloadedUpdateVersion)
+							&& downloadedUpdateVersion.FillInWithZeroes() < updateVersion.FillInWithZeroes())
+						{
+							using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
+							{
+								ClearUpdateMetadata();
+
+								transaction.Commit();
+							}
+						}
+
 						// If we have not finished the download update yet, start/resume the download.
 						if (Config.UpdateInstallerLocation == string.Empty)
 						{
@@ -367,15 +380,8 @@ namespace VidCoder.Services
 							}
 							finally
 							{
-								if (responseStream != null)
-								{
-									responseStream.Close();
-								}
-
-								if (fileStream != null)
-								{
-									fileStream.Close();
-								}
+								responseStream?.Close();
+								fileStream?.Close();
 							}
 						}
 						else

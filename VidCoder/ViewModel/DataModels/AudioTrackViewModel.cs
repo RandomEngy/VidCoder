@@ -1,6 +1,7 @@
 ﻿using System;
 using HandBrake.Interop.Interop.Json.Scan;
 using ReactiveUI;
+using VidCoder.Resources;
 
 namespace VidCoder.ViewModel
 {
@@ -84,7 +85,19 @@ namespace VidCoder.ViewModel
 
 		public SourceAudioTrack AudioTrack { get; set; }
 
-		public string SourceBitrate => (this.AudioTrack.BitRate / 1000).ToString();
+		public string SourceBitrate
+		{
+			get
+			{
+				int bitRateKbps = (this.AudioTrack.BitRate / 1000);
+				if (bitRateKbps == 0)
+				{
+					return CommonRes.Unknown;
+				}
+
+				return bitRateKbps.ToString();
+			}
+		} 
 
 		public override string ToString()
 	    {
