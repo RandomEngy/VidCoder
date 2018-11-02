@@ -397,7 +397,7 @@ namespace VidCoder.Services
 				catch (Exception exception)
 				{
 					this.State = UpdateState.Failed;
-					this.logger.Log("Update download failed: " + exception.Message);
+					this.logger.Log("Update download failed." + Environment.NewLine + exception);
 				}
 				finally
 				{
