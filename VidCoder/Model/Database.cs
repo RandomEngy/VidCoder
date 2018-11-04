@@ -293,7 +293,7 @@ namespace VidCoder.Model
 			string jobsJson = Config.EncodeJobs2;
 			if (!string.IsNullOrEmpty(jobsJson))
 			{
-				IList<EncodeJobWithMetadata> jobs = EncodeJobStorage.ParseJobsJson(jobsJson);
+				IList<EncodeJobWithMetadata> jobs = EncodeJobStorage.ParseAndErrorCheckJobsJson(jobsJson);
 				foreach (EncodeJobWithMetadata job in jobs)
 				{
 					PresetStorage.UpgradeEncodingProfile(job.Job.EncodingProfile, databaseVersion);

@@ -430,7 +430,42 @@ namespace VidCoder.ViewModel
 			this.RegisterProfileProperty(nameof(this.Profile.Modulus), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.Profile.PixelAspectX), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.Profile.PixelAspectY), this.RefreshOutputSize);
-			this.RegisterProfileProperty(nameof(this.Profile.CroppingType), this.RefreshOutputSize);
+			this.RegisterProfileProperty(nameof(this.Profile.CroppingType), () =>
+			{
+				// When changed to Custom, write the currently selected Crop values to the profile so they stay in sync
+				if (this.CroppingType == VCCroppingType.Custom)
+				{
+					this.UpdateProfileProperty(
+						() => this.Profile.Cropping,
+						nameof(this.Profile.Cropping.Top),
+						nameof(this.CropTop),
+						this.CropTop,
+						raisePropertyChanged: false);
+
+					this.UpdateProfileProperty(
+						() => this.Profile.Cropping,
+						nameof(this.Profile.Cropping.Bottom),
+						nameof(this.CropBottom),
+						this.CropBottom,
+						raisePropertyChanged: false);
+
+					this.UpdateProfileProperty(
+						() => this.Profile.Cropping,
+						nameof(this.Profile.Cropping.Left),
+						nameof(this.CropLeft),
+						this.CropLeft,
+						raisePropertyChanged: false);
+
+					this.UpdateProfileProperty(
+						() => this.Profile.Cropping,
+						nameof(this.Profile.Cropping.Right),
+						nameof(this.CropRight),
+						this.CropRight,
+						raisePropertyChanged: false);
+				}
+
+				this.RefreshOutputSize();
+			});
 			this.RegisterProfileProperty(nameof(this.CropTop), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.CropBottom), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.CropLeft), this.RefreshOutputSize);

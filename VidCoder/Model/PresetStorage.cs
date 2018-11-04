@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Markup.Localizer;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.HbLib;
+using HandBrake.Interop.Interop.Model.Encoding;
 using Microsoft.AnyContainer;
 using Newtonsoft.Json;
 using Omu.ValueInjecter;
@@ -225,23 +226,42 @@ namespace VidCoder.Model
 
 		private static void ErrorCheckPreset(Preset preset)
 		{
+			ErrorCheckEncodingProfile(preset.EncodingProfile);
+		}
+
+		public static void ErrorCheckEncodingProfile(VCProfile profile)
+		{
 			// mp4v2 only available on x86
-			string containerName = preset.EncodingProfile.ContainerName;
+			string containerName = profile.ContainerName;
 			if (HandBrakeEncoderHelpers.GetContainer(containerName) == null)
 			{
 				if (containerName == "mp4v2")
 				{
-					preset.EncodingProfile.ContainerName = "av_mp4";
+					profile.ContainerName = "av_mp4";
 				}
 			}
 
 			// QSV H.264 only available on systems with the right hardware.
-			string videoEncoderName = preset.EncodingProfile.VideoEncoder;
+			string videoEncoderName = profile.VideoEncoder;
 			if (HandBrakeEncoderHelpers.GetVideoEncoder(videoEncoderName) == null)
 			{
 				if (videoEncoderName == "qsv_h264")
 				{
-					preset.EncodingProfile.VideoEncoder = "x264";
+					profile.VideoEncoder = "x264";
+				}
+			}
+
+			foreach (var audioEncoding in profile.AudioEncodings)
+			{
+				if (audioEncoding.Encoder == "fdk_aac")
+				{
+					// Make sure this version of VidCoder recognizes the encoder
+					HBAudioEncoder encoder = HandBrakeEncoderHelpers.GetAudioEncoder(audioEncoding.Encoder);
+					if (encoder == null)
+					{
+						audioEncoding.Encoder = "av_aac";
+						StaticResolver.Resolve<IAppLogger>().Log("Preset specified fdk_aac but it is not supported in this build of VidCoder. Fell back to av_aac.");
+					}
 				}
 			}
 		}

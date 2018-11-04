@@ -18,7 +18,7 @@ namespace VidCoder.Model
 					return new List<EncodeJobWithMetadata>();
 				}
 
-				return ParseJobsJson(jobsJson);
+				return ParseAndErrorCheckJobsJson(jobsJson);
 			}
 
 			set
@@ -50,7 +50,7 @@ namespace VidCoder.Model
 				throw new ArgumentException("Queue file could not be found.");
 			}
 
-			return ParseJobsJson(File.ReadAllText(queueFile));
+			return ParseAndErrorCheckJobsJson(File.ReadAllText(queueFile));
 		}
 
 		public static bool SaveQueueToFile(IList<EncodeJobWithMetadata> jobs, string filePath)
@@ -74,7 +74,7 @@ namespace VidCoder.Model
 			return JsonConvert.SerializeObject(jobs);
 		}
 
-		internal static IList<EncodeJobWithMetadata> ParseJobsJson(string jobsJson)
+		internal static IList<EncodeJobWithMetadata> ParseAndErrorCheckJobsJson(string jobsJson)
 		{
 			try
 			{
@@ -85,6 +85,11 @@ namespace VidCoder.Model
 				}
 				else
 				{
+					foreach (var encodeJobWithMetadata in jobsList)
+					{
+						PresetStorage.ErrorCheckEncodingProfile(encodeJobWithMetadata.Job.EncodingProfile);
+					}
+
 					return jobsList;
 				}
 			}
