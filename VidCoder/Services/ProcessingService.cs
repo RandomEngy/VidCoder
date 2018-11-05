@@ -60,6 +60,7 @@ namespace VidCoder.Services
 		private bool paused;
 		private EncodeCompleteReason encodeCompleteReason;
 		private List<EncodeCompleteAction> encodeCompleteActions;
+		private ScanMultipleDialogViewModel scanMultipleDialogViewModel;
 
 		public ProcessingService()
 		{
@@ -1184,22 +1185,31 @@ namespace VidCoder.Services
 			}
 
 			List<SourcePath> sourcePathList = sourcePaths.ToList();
-			//List<string> sourcePathStrings = sourcePathList.Select(p => p.Path).ToList();
+
+			if (this.scanMultipleDialogViewModel != null)
+			{
+				if (this.scanMultipleDialogViewModel.TryAddScanPaths(sourcePathList))
+				{
+					return;
+				}
+			}
 
 			// This dialog will scan the items in the list, calculating length.
-			var scanMultipleDialog = new ScanMultipleDialogViewModel(sourcePathList);
-			this.windowManager.OpenDialog(scanMultipleDialog);
+			this.scanMultipleDialogViewModel = new ScanMultipleDialogViewModel(sourcePathList);
+			this.windowManager.OpenDialog(this.scanMultipleDialogViewModel);
 
-			if (scanMultipleDialog.CancelPending)
+			if (this.scanMultipleDialogViewModel.CancelPending)
 			{
 				// Scan dialog was closed before it could complete. Abort.
 				this.logger.Log("Batch scan cancelled. Aborting queue operation.");
+				this.scanMultipleDialogViewModel = null;
 				return;
 			}
 
-            List<ScanMultipleDialogViewModel.ScanResult> scanResults = scanMultipleDialog.ScanResults;
+            List<ScanMultipleDialogViewModel.ScanResult> scanResults = this.scanMultipleDialogViewModel.ScanResults;
+			this.scanMultipleDialogViewModel = null;
 
-            var itemsToQueue = new List<EncodeJobViewModel>();
+			var itemsToQueue = new List<EncodeJobViewModel>();
 			var failedFiles = new List<string>();
 
 			foreach (ScanMultipleDialogViewModel.ScanResult scanResult in scanResults)
