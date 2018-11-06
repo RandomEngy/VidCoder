@@ -103,63 +103,81 @@ namespace VidCoder.View
 			this.RefreshQueueColumns();
 			this.LoadCompletedColumnWidths();
 
-			if (CommonUtilities.DebugMode)
+#if DEBUG
+			var debugDropDown = new DropDownButton { Header = "Debug" };
+			var queueFromJsonItem = new Fluent.MenuItem {Header = "Queue job from JSON..."};
+
+			queueFromJsonItem.Click += (sender, args) =>
 			{
-				var debugDropDown = new DropDownButton { Header = "Debug" };
-				var queueFromJsonItem = new Fluent.MenuItem {Header = "Queue job from JSON..."};
-
-				queueFromJsonItem.Click += (sender, args) =>
+				if (!this.viewModel.HasVideoSource)
 				{
-					if (!this.viewModel.HasVideoSource)
+					StaticResolver.Resolve<IMessageBoxService>().Show("Must open source before adding queue job from JSON");
+					return;
+				}
+
+				EncodeJobViewModel jobViewModel = this.viewModel.CreateEncodeJobVM();
+				DebugEncodeJsonDialog dialog = new DebugEncodeJsonDialog();
+				dialog.ShowDialog();
+
+				if (!string.IsNullOrWhiteSpace(dialog.EncodeJson))
+				{
+					try
 					{
-						StaticResolver.Resolve<IMessageBoxService>().Show("Must open source before adding queue job from JSON");
-						return;
+						JsonEncodeObject encodeObject = JsonConvert.DeserializeObject<JsonEncodeObject>(dialog.EncodeJson);
+
+						jobViewModel.DebugEncodeJsonOverride = dialog.EncodeJson;
+						jobViewModel.Job.FinalOutputPath = encodeObject.Destination.File;
+						jobViewModel.Job.SourcePath = encodeObject.Source.Path;
+
+						this.processingService.Queue(jobViewModel);
 					}
-
-					EncodeJobViewModel jobViewModel = this.viewModel.CreateEncodeJobVM();
-					DebugEncodeJsonDialog dialog = new DebugEncodeJsonDialog();
-					dialog.ShowDialog();
-
-					if (!string.IsNullOrWhiteSpace(dialog.EncodeJson))
+					catch (Exception exception)
 					{
-						try
-						{
-							JsonEncodeObject encodeObject = JsonConvert.DeserializeObject<JsonEncodeObject>(dialog.EncodeJson);
-
-							jobViewModel.DebugEncodeJsonOverride = dialog.EncodeJson;
-							jobViewModel.Job.FinalOutputPath = encodeObject.Destination.File;
-							jobViewModel.Job.SourcePath = encodeObject.Source.Path;
-
-							this.processingService.Queue(jobViewModel);
-						}
-						catch (Exception exception)
-						{
-							MessageBox.Show(this, "Could not parse encode JSON:" + Environment.NewLine + Environment.NewLine + exception.ToString());
-						}
+						MessageBox.Show(this, "Could not parse encode JSON:" + Environment.NewLine + Environment.NewLine + exception.ToString());
 					}
-				};
+				}
+			};
 
-				debugDropDown.Items.Add(queueFromJsonItem);
+			debugDropDown.Items.Add(queueFromJsonItem);
 
-				var throwExceptionItem = new Fluent.MenuItem { Header = "Throw exception" };
-				throwExceptionItem.Click += (sender, args) =>
+			var throwExceptionItem = new Fluent.MenuItem { Header = "Throw exception" };
+			throwExceptionItem.Click += (sender, args) =>
+			{
+				throw new InvalidOperationException("Rats.");
+			};
+
+			debugDropDown.Items.Add(throwExceptionItem);
+
+			var addLogItem = new Fluent.MenuItem { Header = "Add 1 log item" };
+			addLogItem.Click += (sender, args) =>
+			{
+				StaticResolver.Resolve<IAppLogger>().Log("This is a log item");
+			};
+
+			debugDropDown.Items.Add(addLogItem);
+
+			var addTenLogItems = new Fluent.MenuItem { Header = "Add 10 log items" };
+			addTenLogItems.Click += (sender, args) =>
+			{
+				for (int i = 0; i < 10; i++)
 				{
-					throw new InvalidOperationException("Rats.");
-				};
+					StaticResolver.Resolve<IAppLogger>().Log("This is a log item");
+				}
+			};
 
-				debugDropDown.Items.Add(throwExceptionItem);
+			debugDropDown.Items.Add(addTenLogItems);
 
-				var doAnActionItem = new Fluent.MenuItem {Header = "Perform action"};
-				doAnActionItem.Click += (sender, args) =>
-				{
-					var app = (App)System.Windows.Application.Current;
-					app.ChangeTheme(new Uri("/Themes/Dark.xaml", UriKind.Relative));
-				};
+			var doAnActionItem = new Fluent.MenuItem {Header = "Perform action"};
+			doAnActionItem.Click += (sender, args) =>
+			{
+				var app = (App)System.Windows.Application.Current;
+				app.ChangeTheme(new Uri("/Themes/Dark.xaml", UriKind.Relative));
+			};
 
-				debugDropDown.Items.Add(doAnActionItem);
+			debugDropDown.Items.Add(doAnActionItem);
 
-				this.toolsRibbonGroupBox.Items.Add(debugDropDown);
-			}
+			this.toolsRibbonGroupBox.Items.Add(debugDropDown);
+#endif
 
 			this.DataContextChanged += this.OnDataContextChanged;
 			TheDispatcher = this.Dispatcher;

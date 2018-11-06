@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
+using System.Windows.Threading;
 using Microsoft.AnyContainer;
 using VidCoder.Extensions;
 using VidCoder.Model;
@@ -136,13 +137,10 @@ namespace VidCoder.View
 			{
 				if (this.pendingEntries.Count == 0)
 				{
-					// If there are no items left, scroll to the end if we're already there, then bail
-					if (this.logTextBox.VerticalOffset + this.logTextBox.ViewportHeight >= this.logTextBox.ExtentHeight)
+					// If we are already at the bottom, scroll to the end, which will fire after the entries have been added to the UI.
+					if (this.logTextBox.VerticalOffset + this.logTextBox.ViewportHeight >= this.logTextBox.ExtentHeight) 
 					{
-						this.Dispatcher.BeginInvoke(new Action(() =>
-						{
-							this.logTextBox.ScrollToEnd();
-						}));
+						this.logTextBox.ScrollToEnd();
 					}
 
 					this.workerRunning = false;
@@ -170,7 +168,7 @@ namespace VidCoder.View
 			}
 
 			this.AddLogGroups(entryGroups);
-			this.Dispatcher.BeginInvoke(new Action(this.ProcessPendingEntries));
+			this.ProcessPendingEntries();
 		}
 
 		private void OnCleared(object sender, EventArgs e)
