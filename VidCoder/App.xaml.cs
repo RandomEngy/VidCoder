@@ -17,6 +17,7 @@ using System.ComponentModel;
 using System.Management;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
+using System.Windows.Media;
 using Fluent;
 using HandBrake.Interop.Interop;
 using Microsoft.Win32;
@@ -153,8 +154,13 @@ namespace VidCoder
 					this.currentTheme = appTheme;
 					this.ChangeTheme(new Uri($"/Themes/{appTheme}.xaml", UriKind.Relative));
 
-					string fluentTheme = appTheme == AppTheme.Dark ? "Dark" : "Light";
+					bool isDark = appTheme == AppTheme.Dark;
+
+					string fluentTheme = isDark ? "Dark" : "Light";
 					ThemeManager.ChangeTheme(this, fluentTheme + ".Cobalt");
+
+					Color ribbonTextColor = isDark ? Colors.White : Colors.Black;
+					this.Resources["Fluent.Ribbon.Brushes.LabelTextBrush"] = new SolidColorBrush(ribbonTextColor);
 				}
 			});
 

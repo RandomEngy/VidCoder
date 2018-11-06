@@ -23,6 +23,9 @@
 				<ResourceDictionary Source="/XamlResources/PresetComboBox.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 
+			<!--  Special case color, can't set in theme dictionary; need to change programatically  -->
+			<SolidColorBrush x:Key="Fluent.Ribbon.Brushes.LabelTextBrush" Color="Black" />
+			
 			<converters:VisibilityConverter x:Key="VisibilityConverter" />
 			<converters:VisibilityConverter x:Key="InverseVisibilityConverter" Inverse="True" />
 			<converters:EnumBoolConverter x:Key="EnumBoolConverter" />
