@@ -902,6 +902,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open source folder.
+        /// </summary>
+        public static string OpenSourceFolderOption {
+            get {
+                return ResourceManager.GetString("OpenSourceFolderOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open.
         /// </summary>
         public static string OpenSourceLabel {

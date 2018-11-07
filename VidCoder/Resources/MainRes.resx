@@ -665,4 +665,8 @@
   <data name="ApplyCurrentEncodingSettings" xml:space="preserve">
     <value>Apply current encoding settings</value>
   </data>
+  <data name="OpenSourceFolderOption" xml:space="preserve">
+    <value>Open source folder</value>
+    <comment>Menu option to open the folder of the source file in the queue</comment>
+  </data>
 </root>

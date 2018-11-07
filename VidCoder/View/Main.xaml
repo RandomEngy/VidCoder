@@ -1805,6 +1805,15 @@
 															</MenuItem.Icon>
 														</MenuItem>
 														<Separator />
+														<MenuItem Command="{Binding OpenSourceFolder}" Header="{x:Static res:MainRes.OpenSourceFolderOption}">
+															<MenuItem.Icon>
+																<Image
+																	Width="16"
+																	Height="16"
+																	Source="/Icons/win7foldericon.png" />
+															</MenuItem.Icon>
+														</MenuItem>
+														<Separator />
 														<MenuItem Command="{Binding ProcessingService.ImportQueue}" Header="{x:Static res:MainRes.ImportQueue}" />
 														<MenuItem
 															Command="{Binding ProcessingService.ExportQueue}"

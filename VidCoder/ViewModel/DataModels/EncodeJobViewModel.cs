@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Windows.Input;
 using HandBrake.Interop.Interop;
 using Microsoft.AnyContainer;
 using ReactiveUI;
@@ -489,6 +490,32 @@ namespace VidCoder.ViewModel
 					{
 						return !encoding;
 					})));
+			}
+		}
+
+		private ReactiveCommand openSourceFolder;
+		public ICommand OpenSourceFolder
+		{
+			get
+			{
+				return this.openSourceFolder ?? (this.openSourceFolder = ReactiveCommand.Create(() =>
+				{
+					try
+					{
+						if (FileUtilities.IsDirectory(this.Job.SourcePath))
+						{
+							Process.Start(this.Job.SourcePath);
+						}
+						else
+						{
+							FileUtilities.OpenFolderAndSelectItem(this.Job.SourcePath);
+						}
+					}
+					catch (Exception exception)
+					{
+						this.Logger.LogError("Could not open folder:" + Environment.NewLine + exception);
+					}
+				}));
 			}
 		}
 
