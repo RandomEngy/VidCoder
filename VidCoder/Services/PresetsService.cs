@@ -36,6 +36,8 @@ namespace VidCoder.Services
 		private PresetFolderViewModel customPresetFolder;
 		private PresetFolderViewModel builtInFolder;
 
+		private bool tryChangePresetDialogOpen;
+
 		/// <summary>
 		/// List of folders from the database. Only used when first building the tree.
 		/// </summary>
@@ -204,7 +206,7 @@ namespace VidCoder.Services
 
 		public bool TryUpdateSelectedPreset(PresetViewModel value)
 		{
-			if (value == null || this.selectedPreset == value)
+			if (value == null || this.selectedPreset == value || this.tryChangePresetDialogOpen)
 			{
 				return false;
 			}
@@ -231,11 +233,16 @@ namespace VidCoder.Services
 					buttons = MessageBoxButton.YesNoCancel;
 				}
 
+				this.tryChangePresetDialogOpen = true;
+
 				MessageBoxResult dialogResult = Utilities.MessageBox.Show(
 					StaticResolver.Resolve<MainViewModel>(),
 					dialogMessage,
 					dialogTitle,
 					buttons);
+
+				this.tryChangePresetDialogOpen = false;
+
 				if (dialogResult == MessageBoxResult.Yes)
 				{
 					// Yes, we wanted to save changes
