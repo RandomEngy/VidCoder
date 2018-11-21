@@ -39,14 +39,14 @@ namespace VidCoder.Services
 			string logFileNameAffix;
 			if (baseFileName != null)
 			{
-				logFileNameAffix = " " + baseFileName;
+				logFileNameAffix = baseFileName;
 			}
 			else
 			{
-				logFileNameAffix = string.Empty;
+				logFileNameAffix = "VidCoderApplication";
 			}
 
-			this.LogPath = Path.Combine(logFolder, DateTimeOffset.Now.ToString("yyyy-MM-dd HH.mm.ss") + logFileNameAffix + ".txt");
+			this.LogPath = Path.Combine(logFolder, DateTimeOffset.Now.ToString("yyyy-MM-dd HH.mm.ss ") + logFileNameAffix + ".txt");
 
 			try
 			{
