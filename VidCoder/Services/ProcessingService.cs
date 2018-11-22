@@ -1490,6 +1490,8 @@ namespace VidCoder.Services
 
 			encodeLogger.Log("  Preset: " + jobViewModel.PresetName);
 
+			jobViewModel.ReportEncodeStart();
+
 			string destinationDirectory = Path.GetDirectoryName(job.FinalOutputPath);
 			if (!Directory.Exists(destinationDirectory))
 			{
@@ -1526,8 +1528,6 @@ namespace VidCoder.Services
 			jobViewModel.EncodeProxy.EncodeStarted += this.OnEncodeStarted;
 
 			this.CanPauseOrStop = false;
-
-			jobViewModel.ReportEncodeStart();
 
 			if (!string.IsNullOrWhiteSpace(jobViewModel.DebugEncodeJsonOverride))
 			{
