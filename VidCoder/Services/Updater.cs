@@ -321,6 +321,7 @@ namespace VidCoder.Services
 
 							try
 							{
+								ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
 								HttpClient client = new HttpClient();
 								HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, downloadLocation);
 

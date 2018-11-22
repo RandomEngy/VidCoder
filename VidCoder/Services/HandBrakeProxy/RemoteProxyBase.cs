@@ -33,7 +33,7 @@ namespace VidCoder
 #else
 		private static readonly TimeSpan OperationTimeout = TimeSpan.FromSeconds(5);
 		private static readonly TimeSpan PipeTimeout = TimeSpan.FromSeconds(10);
-		private static readonly TimeSpan LastUpdateTimeoutWindow = TimeSpan.FromSeconds(20); // Do not check in
+		private static readonly TimeSpan LastUpdateTimeoutWindow = TimeSpan.FromSeconds(20);
 #endif
 
 		private DuplexChannelFactory<IHandBrakeWorker> pipeFactory;
