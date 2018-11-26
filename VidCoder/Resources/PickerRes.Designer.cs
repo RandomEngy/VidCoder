@@ -403,6 +403,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select time range.
+        /// </summary>
+        public static string SelectTimeRangeCheckBox {
+            get {
+                return ResourceManager.GetString("SelectTimeRangeCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send file to:.
         /// </summary>
         public static string SendFileToLabel {
@@ -462,6 +471,15 @@ namespace VidCoder.Resources {
         public static string SubtitleSelection {
             get {
                 return ResourceManager.GetString("SubtitleSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time range selection.
+        /// </summary>
+        public static string TimeRangeSelection {
+            get {
+                return ResourceManager.GetString("TimeRangeSelection", resourceCulture);
             }
         }
         

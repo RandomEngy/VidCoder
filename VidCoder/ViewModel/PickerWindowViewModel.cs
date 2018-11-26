@@ -349,6 +349,9 @@ namespace VidCoder.ViewModel
 			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectEnabled));
 			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectStartMinutes));
 			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectEndMinutes));
+			this.RegisterPickerProperty(nameof(this.Picker.TimeRangeSelectEnabled));
+			this.RegisterPickerProperty(nameof(this.Picker.TimeRangeStart));
+			this.RegisterPickerProperty(nameof(this.Picker.TimeRangeEnd));
 			this.RegisterPickerProperty(nameof(this.Picker.AudioSelectionMode), () =>
 			{
 				if (this.AudioSelectionMode == AudioSelectionMode.All)
@@ -520,6 +523,24 @@ namespace VidCoder.ViewModel
 		{
 			get { return this.Picker.TitleRangeSelectEndMinutes; }
 			set { this.UpdatePickerProperty(nameof(this.Picker.TitleRangeSelectEndMinutes), value); }
+		}
+
+		public bool TimeRangeSelectEnabled
+		{
+			get { return this.Picker.TimeRangeSelectEnabled; }
+			set { this.UpdatePickerProperty(nameof(this.Picker.TimeRangeSelectEnabled), value); }
+		}
+
+		public TimeSpan TimeRangeStart
+		{
+			get { return this.Picker.TimeRangeStart; }
+			set { this.UpdatePickerProperty(nameof(this.Picker.TimeRangeStart), value); }
+		}
+
+		public TimeSpan TimeRangeEnd
+		{
+			get { return this.Picker.TimeRangeEnd; }
+			set { this.UpdatePickerProperty(nameof(this.Picker.TimeRangeEnd), value); }
 		}
 
 		public AudioSelectionMode AudioSelectionMode

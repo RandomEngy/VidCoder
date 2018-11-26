@@ -318,6 +318,36 @@
 						</CheckBox>
 					</StackPanel>
 
+					<!--  Time range selection  -->
+					<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.TimeRangeSelection}" />
+					<StackPanel Style="{StaticResource ConfigSectionStack}">
+						<CheckBox
+							HorizontalAlignment="Left"
+							Content="{x:Static res:PickerRes.SelectTimeRangeCheckBox}"
+							IsChecked="{Binding TimeRangeSelectEnabled}" />
+						<StackPanel Margin="20 4 0 0" Orientation="Horizontal">
+							<controls:TimeBox
+								Width="46"
+								Height="22"
+								HorizontalAlignment="Left"
+								IsEnabled="{Binding TimeRangeSelectEnabled}"
+								Time="{Binding TimeRangeStart,
+								               Mode=TwoWay}" />
+							<TextBlock
+								Margin="5 0"
+								VerticalAlignment="Center"
+								Text="-" />
+							<controls:TimeBox
+								Width="46"
+								Height="22"
+								HorizontalAlignment="Left"
+								IsEnabled="{Binding TimeRangeSelectEnabled}"
+								Time="{Binding TimeRangeEnd,
+								               Mode=TwoWay}" />
+						</StackPanel>
+					</StackPanel>
+
+
 					<!--  Audio selection  -->
 					<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.AudioSelection}" />
 					<StackPanel Style="{StaticResource ConfigSectionStack}">

@@ -973,11 +973,22 @@ namespace VidCoder.ViewModel
 					this.RaisePropertyChanged(nameof(this.SelectedStartChapter));
 					this.RaisePropertyChanged(nameof(this.SelectedEndChapter));
 
-					this.SetRangeTimeStart(TimeSpan.Zero);
+					Picker picker = this.PickersService.SelectedPicker.Picker;
 
-					TimeSpan titleDuration = this.selectedTitle.Duration;
-					this.timeRangeEndBar = titleDuration;
-					this.timeRangeEnd = TimeSpan.FromSeconds(Math.Floor(titleDuration.TotalSeconds));
+					TimeSpan localTimeRangeEnd;
+					if (picker.TimeRangeSelectEnabled)
+					{
+						var range = this.ProcessingService.GetRangeFromPicker(value.Title, picker);
+						this.SetRangeTimeStart(range.start);
+						localTimeRangeEnd = range.end;
+					}
+					else
+					{
+						this.SetRangeTimeStart(TimeSpan.Zero);
+						localTimeRangeEnd = this.selectedTitle.Duration;
+					}
+					this.timeRangeEndBar = localTimeRangeEnd;
+					this.timeRangeEnd = TimeSpan.FromSeconds(Math.Floor(localTimeRangeEnd.TotalSeconds));
 					this.RaisePropertyChanged(nameof(this.TimeRangeStart));
 					this.RaisePropertyChanged(nameof(this.TimeRangeStartBar));
 					this.RaisePropertyChanged(nameof(this.TimeRangeEnd));
@@ -997,7 +1008,11 @@ namespace VidCoder.ViewModel
 
 
 					// Change range type based on whether or not we have any chapters
-					if (this.selectedTitle.ChapterList.Count > 1)
+					if (picker.TimeRangeSelectEnabled)
+					{
+						this.RangeType = VideoRangeType.Seconds;
+					}
+					else if (this.selectedTitle.ChapterList.Count > 1)
 					{
 						this.RangeType = VideoRangeType.Chapters;
 					}

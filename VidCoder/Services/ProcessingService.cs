@@ -956,6 +956,9 @@ namespace VidCoder.Services
 				SourceTitle title = jobVM.VideoSource.Titles.Single(t => t.Index == titleNumber);
 				jobVM.Job.Length = title.Duration.ToSpan();
 
+				// Choose the correct range based on picker settings
+				this.AutoPickRange(job, title);
+
 				// Choose the correct audio/subtitle tracks based on settings
 				this.AutoPickAudio(job, title);
 				this.AutoPickSubtitles(job, title);
@@ -1077,9 +1080,10 @@ namespace VidCoder.Services
 					Title = title.Index,
 					ChapterStart = 1,
 					ChapterEnd = title.ChapterList.Count,
-					UseDefaultChapterNames = true,
-					Length = title.Duration.ToSpan()
+					UseDefaultChapterNames = true
 				};
+
+				this.AutoPickRange(job, title);
 
 				this.AutoPickAudio(job, title, useCurrentContext: true);
 				this.AutoPickSubtitles(job, title, useCurrentContext: true);
@@ -1229,7 +1233,6 @@ namespace VidCoder.Services
 			                SourcePath = sourcePath.Path,
 			                EncodingProfile = this.presetsService.SelectedPreset.Preset.EncodingProfile.Clone(),
 			                Title = titleNumber,
-			                RangeType = VideoRangeType.All,
 			                UseDefaultChapterNames = true
 			            };
 
@@ -1274,6 +1277,9 @@ namespace VidCoder.Services
 				VCJob job = jobViewModel.Job;
 				SourceTitle title = titles.Single(t => t.Index == job.Title);
 				job.Length = title.Duration.ToSpan();
+
+				// Choose the correct range based on picker settings
+				this.AutoPickRange(job, title);
 
 				// Choose the correct audio/subtitle tracks based on settings
 				this.AutoPickAudio(job, title);
@@ -2583,6 +2589,63 @@ namespace VidCoder.Services
 			}
 
 			return result;
-		} 
+		}
+
+		/// <summary>
+		/// Populates range and length information on job.
+		/// </summary>
+		/// <param name="job">The job to pick the range on.</param>
+		/// <param name="title">The title the job is applied to.</param>
+		private void AutoPickRange(VCJob job, SourceTitle title)
+		{
+			Picker picker = this.pickersService.SelectedPicker.Picker;
+			if (!picker.TimeRangeSelectEnabled)
+			{
+				job.RangeType = VideoRangeType.All;
+				job.Length = title.Duration.ToSpan();
+				return;
+			}
+
+			TimeSpan rangeStart = picker.TimeRangeStart;
+			TimeSpan rangeEnd = picker.TimeRangeEnd;
+
+			if (rangeStart >= rangeEnd)
+			{
+				job.RangeType = VideoRangeType.All;
+				job.Length = title.Duration.ToSpan();
+				return;
+			}
+
+			job.RangeType = VideoRangeType.Seconds;
+			var range = this.GetRangeFromPicker(title, picker);
+
+			job.SecondsStart = range.start.TotalSeconds;
+			job.SecondsEnd = range.end.TotalSeconds;
+			job.Length = range.end - range.start;
+		}
+
+		public (TimeSpan start, TimeSpan end) GetRangeFromPicker(SourceTitle title, Picker picker)
+		{
+			TimeSpan titleDuration = title.Duration.ToSpan();
+			TimeSpan rangeStart = picker.TimeRangeStart;
+			TimeSpan rangeEnd = picker.TimeRangeEnd;
+
+			TimeSpan duration = rangeEnd - rangeStart;
+
+			// Make sure the end of the range doesn't go past the video end.
+			// If it does, preserve the duration of the same clip and move toward the start
+			if (rangeEnd > title.Duration.ToSpan())
+			{
+				rangeEnd = titleDuration;
+				rangeStart = titleDuration - duration;
+
+				if (rangeStart < TimeSpan.Zero)
+				{
+					rangeStart = TimeSpan.Zero;
+				}
+			}
+
+			return (rangeStart, rangeEnd);
+		}
 	}
 }

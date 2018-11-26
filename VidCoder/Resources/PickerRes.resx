@@ -277,4 +277,10 @@
     <value>Filter titles by duration</value>
     <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
   </data>
+  <data name="TimeRangeSelection" xml:space="preserve">
+    <value>Time range selection</value>
+  </data>
+  <data name="SelectTimeRangeCheckBox" xml:space="preserve">
+    <value>Select time range</value>
+  </data>
 </root>
