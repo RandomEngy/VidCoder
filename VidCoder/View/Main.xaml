@@ -1825,7 +1825,7 @@
 										</Style>
 									</ListView.ItemContainerStyle>
 									<ListView.View>
-										<GridView x:Name="queueGridView">
+										<GridView x:Name="queueGridView" AllowsColumnReorder="False">
 											<GridView.Columns>
 												<GridViewColumn Width="75" CellTemplate="{StaticResource QueueRemoveTemplate}" />
 											</GridView.Columns>

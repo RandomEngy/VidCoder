@@ -56,20 +56,6 @@ namespace VidCoder
 		    }
 		}
 
-		private static Dictionary<string, double> defaultQueueColumnSizes = new Dictionary<string, double>
-		{
-			{"Source", 200},
-			{"Title", 35},
-			{"Range", 60},
-			{"Destination", 200},
-			{"VideoEncoder", 100},
-			{"AudioEncoder", 100},
-			{"VideoQuality", 80},
-			{"Duration", 60},
-			{"AudioQuality", 80},
-			{"Preset", 120}
-		};
-
 		public static Version CurrentVersion
 		{
 			get { return Assembly.GetExecutingAssembly().GetName().Version; }
@@ -325,13 +311,19 @@ namespace VidCoder
 			}
 		}
 
-		public static Dictionary<string, double> DefaultQueueColumnSizes
+		public static Dictionary<string, double> DefaultQueueColumnSizes { get; } = new Dictionary<string, double>
 		{
-			get
-			{
-				return defaultQueueColumnSizes;
-			}
-		}
+			{"Source", 200},
+			{"Title", 35},
+			{"Range", 60},
+			{"Destination", 200},
+			{"VideoEncoder", 100},
+			{"AudioEncoder", 100},
+			{"VideoQuality", 80},
+			{"Duration", 60},
+			{"AudioQuality", 80},
+			{"Preset", 120}
+		};
 
 		public static string GetAppFolder(bool beta)
 		{
@@ -352,7 +344,7 @@ namespace VidCoder
 
 		public static bool IsValidQueueColumn(string columnId)
 		{
-			return defaultQueueColumnSizes.ContainsKey(columnId);
+			return DefaultQueueColumnSizes.ContainsKey(columnId);
 		}
 
 		public static IEncodeProxy CreateEncodeProxy()
