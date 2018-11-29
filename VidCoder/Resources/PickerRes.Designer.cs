@@ -484,6 +484,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Title capitalization:.
+        /// </summary>
+        public static string TitleCaptializationLabel {
+            get {
+                return ResourceManager.GetString("TitleCaptializationLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title selection.
         /// </summary>
         public static string TitleSelection {

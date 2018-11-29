@@ -259,4 +259,10 @@
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>Time Range</value>
   </data>
+  <data name="TitleCapitalizationChoice_EveryWord" xml:space="preserve">
+    <value>Every Word</value>
+  </data>
+  <data name="TitleCapitalizationChoice_FirstWord" xml:space="preserve">
+    <value>First word</value>
+  </data>
 </root>

@@ -66,6 +66,9 @@ namespace VidCoder.Model
 		public string NameFormatOverride { get; set; }
 
 		[JsonProperty]
+		public TitleCapitalizationChoice TitleCapitalization { get; set; } = TitleCapitalizationChoice.EveryWord;
+
+		[JsonProperty]
 		public bool? OutputToSourceDirectory { get; set; }
 
 		[JsonProperty]

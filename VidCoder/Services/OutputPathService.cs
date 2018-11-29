@@ -401,7 +401,7 @@ namespace VidCoder.Services
 			fileName = this.BuildOutputFileName(
 				main.SourcePath,
 				// Change casing on DVD titles to be a little more friendly
-				GetTranslatedSourceName(),
+				this.GetTranslatedSourceName(),
 				main.SelectedTitle.Title.Index,
 				main.SelectedTitle.Duration,
 				main.RangeType,
@@ -445,6 +445,9 @@ namespace VidCoder.Services
 			string[] titleWords = dvdSourceName.Split('_');
 			var translatedTitleWords = new List<string>();
 			bool reachedModifiers = false;
+			bool firstWord = true;
+
+			Picker picker = this.PickersService.SelectedPicker.Picker;
 
 			foreach (string titleWord in titleWords)
 			{
@@ -462,9 +465,21 @@ namespace VidCoder.Services
 				{
 					if (titleWord.Length > 0)
 					{
-						translatedTitleWords.Add(titleWord[0] + titleWord.Substring(1).ToLower());
+						string translatedTitleWord;
+						if (picker.TitleCapitalization == TitleCapitalizationChoice.EveryWord || firstWord)
+						{
+							translatedTitleWord = titleWord[0] + titleWord.Substring(1).ToLower();
+						}
+						else
+						{
+							translatedTitleWord = titleWord.ToLower();
+						}
+
+						translatedTitleWords.Add(translatedTitleWord);
 					}
 				}
+
+				firstWord = false;
 			}
 
 			return string.Join(" ", translatedTitleWords);

@@ -283,4 +283,7 @@
   <data name="SelectTimeRangeCheckBox" xml:space="preserve">
     <value>Select time range</value>
   </data>
+  <data name="TitleCaptializationLabel" xml:space="preserve">
+    <value>Title capitalization:</value>
+  </data>
 </root>

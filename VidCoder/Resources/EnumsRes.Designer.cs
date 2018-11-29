@@ -412,6 +412,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Every Word.
+        /// </summary>
+        public static string TitleCapitalizationChoice_EveryWord {
+            get {
+                return ResourceManager.GetString("TitleCapitalizationChoice_EveryWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First word.
+        /// </summary>
+        public static string TitleCapitalizationChoice_FirstWord {
+            get {
+                return ResourceManager.GetString("TitleCapitalizationChoice_FirstWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Blu-ray.
         /// </summary>
         public static string TitleType_Bluray {

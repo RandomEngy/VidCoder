@@ -344,6 +344,7 @@ namespace VidCoder.ViewModel
 				}
 			});
 			this.RegisterPickerProperty(nameof(this.Picker.NameFormatOverride));
+			this.RegisterPickerProperty(nameof(this.Picker.TitleCapitalization));
 			this.RegisterPickerProperty(nameof(this.Picker.OutputToSourceDirectory));
 			this.RegisterPickerProperty(nameof(this.Picker.PreserveFolderStructureInBatch));
 			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectEnabled));
@@ -493,6 +494,18 @@ namespace VidCoder.ViewModel
 		{
 			get { return this.nameFormatOverride; }
 			set { this.RaiseAndSetIfChanged(ref this.nameFormatOverride, value); }
+		}
+
+		public List<ComboChoice<TitleCapitalizationChoice>> TitleCaptializationChoices { get; } = new List<ComboChoice<TitleCapitalizationChoice>>
+		{
+			new ComboChoice<TitleCapitalizationChoice>(TitleCapitalizationChoice.EveryWord, EnumsRes.TitleCapitalizationChoice_EveryWord),
+			new ComboChoice<TitleCapitalizationChoice>(TitleCapitalizationChoice.FirstWord, EnumsRes.TitleCapitalizationChoice_FirstWord),
+		};
+
+		public TitleCapitalizationChoice TitleCapitalization
+		{
+			get { return this.Picker.TitleCapitalization; }
+			set { this.UpdatePickerProperty(nameof(this.Picker.TitleCapitalization), value);}
 		}
 
 		public bool? OutputToSourceDirectory
