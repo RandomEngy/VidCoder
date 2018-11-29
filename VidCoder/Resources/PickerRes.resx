@@ -286,4 +286,10 @@
   <data name="TitleCaptializationLabel" xml:space="preserve">
     <value>Title capitalization:</value>
   </data>
+  <data name="TimeRangeStartAutomationName" xml:space="preserve">
+    <value>Time range start</value>
+  </data>
+  <data name="TimeRangeEndAutomationName" xml:space="preserve">
+    <value>Time range end</value>
+  </data>
 </root>

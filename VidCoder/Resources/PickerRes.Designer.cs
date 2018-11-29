@@ -475,11 +475,29 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Time range end.
+        /// </summary>
+        public static string TimeRangeEndAutomationName {
+            get {
+                return ResourceManager.GetString("TimeRangeEndAutomationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time range selection.
         /// </summary>
         public static string TimeRangeSelection {
             get {
                 return ResourceManager.GetString("TimeRangeSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time range start.
+        /// </summary>
+        public static string TimeRangeStartAutomationName {
+            get {
+                return ResourceManager.GetString("TimeRangeStartAutomationName", resourceCulture);
             }
         }
         

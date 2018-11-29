@@ -350,6 +350,7 @@
 								Width="46"
 								Height="22"
 								HorizontalAlignment="Left"
+								AutomationProperties.Name="{x:Static res:PickerRes.TimeRangeStartAutomationName}"
 								IsEnabled="{Binding TimeRangeSelectEnabled}"
 								Time="{Binding TimeRangeStart,
 								               Mode=TwoWay}" />
@@ -361,6 +362,7 @@
 								Width="46"
 								Height="22"
 								HorizontalAlignment="Left"
+								AutomationProperties.Name="{x:Static res:PickerRes.TimeRangeEndAutomationName}"
 								IsEnabled="{Binding TimeRangeSelectEnabled}"
 								Time="{Binding TimeRangeEnd,
 								               Mode=TwoWay}" />
