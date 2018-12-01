@@ -19,6 +19,15 @@
 	ShowInTaskbar="False"
 	WindowStyle="ToolWindow"
 	mc:Ignorable="d">
+	<Window.Resources>
+		<Style x:Key="TrackIndicesStyle" TargetType="TextBox">
+			<Setter Property="Width" Value="60" />
+			<Setter Property="Margin" Value="6 0 0 0" />
+		</Style>
+		<Style x:Key="TrackIndicesHelpTextStyle" TargetType="TextBlock">
+			<Setter Property="Margin" Value="15 0 0 0" />
+		</Style>
+	</Window.Resources>
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition
@@ -392,6 +401,30 @@
 							                    Converter={StaticResource EnumBoolConverter},
 							                    ConverterParameter={x:Static model:AudioSelectionMode.First}}"
 							ToolTip="{x:Static res:PickerRes.AudioFirstToolTip}" />
+						<RadioButton
+							Margin="0 6 0 0"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Top"
+							Content="{x:Static res:PickerRes.ByIndexRadioButton}"
+							GroupName="autoAudio3"
+							IsChecked="{Binding AudioSelectionMode,
+							                    Converter={StaticResource EnumBoolConverter},
+							                    ConverterParameter={x:Static model:AudioSelectionMode.ByIndex}}" />
+						<StackPanel
+							Margin="20 6 0 0"
+							Orientation="Vertical"
+							Visibility="{Binding AudioSelectionMode,
+							                     Converter={StaticResource EnumVisibilityConverter},
+							                     ConverterParameter={x:Static model:AudioSelectionMode.ByIndex}}">
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Name="audioIndicesLabel" Text="{x:Static res:PickerRes.SelectTracksLabel}" />
+								<TextBox
+									AutomationProperties.LabeledBy="{Binding ElementName=audioIndicesLabel}"
+									Style="{StaticResource TrackIndicesStyle}"
+									Text="{Binding AudioIndices}" />
+								<TextBlock Style="{StaticResource TrackIndicesHelpTextStyle}" Text="{x:Static res:PickerRes.SelectTracksHelpText}" />
+							</StackPanel>
+						</StackPanel>
 						<StackPanel
 							Margin="0 6 0 0"
 							HorizontalAlignment="Left"
@@ -401,7 +434,7 @@
 								HorizontalAlignment="Left"
 								VerticalAlignment="Top"
 								Content="{x:Static res:PickerRes.LanguagesRadioButton}"
-								GroupName="autoAudio3"
+								GroupName="autoAudio4"
 								IsChecked="{Binding AudioSelectionMode,
 								                    Converter={StaticResource EnumBoolConverter},
 								                    ConverterParameter={x:Static model:AudioSelectionMode.Language}}" />
@@ -474,7 +507,7 @@
 							HorizontalAlignment="Left"
 							VerticalAlignment="Top"
 							Content="{x:Static res:CommonRes.All}"
-							GroupName="autoAudio4"
+							GroupName="autoAudio5"
 							IsChecked="{Binding AudioSelectionMode,
 							                    Converter={StaticResource EnumBoolConverter},
 							                    ConverterParameter={x:Static model:AudioSelectionMode.All}}"
@@ -573,8 +606,46 @@
 							Margin="0 6 0 0"
 							HorizontalAlignment="Left"
 							VerticalAlignment="Top"
-							Content="{x:Static res:PickerRes.ForeignAudioSearchRadioButton}"
+							Content="{x:Static res:PickerRes.ByIndexRadioButton}"
 							GroupName="autoSubtitle3"
+							IsChecked="{Binding SubtitleSelectionMode,
+							                    Converter={StaticResource EnumBoolConverter},
+							                    ConverterParameter={x:Static model:SubtitleSelectionMode.ByIndex}}" />
+						<StackPanel
+							Margin="20 6 0 0"
+							Orientation="Vertical"
+							Visibility="{Binding SubtitleSelectionMode,
+							                     Converter={StaticResource EnumVisibilityConverter},
+							                     ConverterParameter={x:Static model:SubtitleSelectionMode.ByIndex}}">
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Name="subtitleIndicesLabel" Text="{x:Static res:PickerRes.SelectTracksLabel}" />
+								<TextBox
+									AutomationProperties.LabeledBy="{Binding ElementName=subtitleIndicesLabel}"
+									Style="{StaticResource TrackIndicesStyle}"
+									Text="{Binding SubtitleIndices}" />
+								<TextBlock Style="{StaticResource TrackIndicesHelpTextStyle}" Text="{x:Static res:PickerRes.SelectTracksHelpText}" />
+							</StackPanel>
+							<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
+								<TextBlock VerticalAlignment="Center" Text="{x:Static res:CommonRes.DefaultLabel}" />
+								<controls:NumberBox
+									MinWidth="25"
+									Margin="6 0 0 0"
+									AllowEmpty="True"
+									AutomationProperties.Name="{x:Static res:CommonRes.DefaultLabel}"
+									Minimum="0"
+									NoneCaption="{x:Static res:EncodingRes.NoneCaption}"
+									Number="{Binding SubtitleDefaultIndex,
+									                 Mode=TwoWay}"
+									ShowIncrementButtons="False"
+									UpdateBindingOnTextChange="True" />
+							</StackPanel>
+						</StackPanel>
+						<RadioButton
+							Margin="0 6 0 0"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Top"
+							Content="{x:Static res:PickerRes.ForeignAudioSearchRadioButton}"
+							GroupName="autoSubtitle4"
 							IsChecked="{Binding SubtitleSelectionMode,
 							                    Converter={StaticResource EnumBoolConverter},
 							                    ConverterParameter={x:Static model:SubtitleSelectionMode.ForeignAudioSearch}}"
@@ -589,7 +660,7 @@
 								HorizontalAlignment="Left"
 								VerticalAlignment="Top"
 								Content="{x:Static res:PickerRes.LanguagesRadioButton}"
-								GroupName="autoSubtitle4"
+								GroupName="autoSubtitle5"
 								IsChecked="{Binding SubtitleSelectionMode,
 								                    Converter={StaticResource EnumBoolConverter},
 								                    ConverterParameter={x:Static model:SubtitleSelectionMode.Language}}" />
@@ -665,7 +736,7 @@
 						<RadioButton
 							Margin="0 6 0 0"
 							Content="{x:Static res:CommonRes.All}"
-							GroupName="autoSubtitle5"
+							GroupName="autoSubtitle6"
 							IsChecked="{Binding SubtitleSelectionMode,
 							                    Converter={StaticResource EnumBoolConverter},
 							                    ConverterParameter={x:Static model:SubtitleSelectionMode.All}}"
@@ -732,11 +803,11 @@
 							Content="{x:Static res:PickerRes.ForcedOnlyCheckBox}"
 							IsChecked="{Binding SubtitleForcedOnly}"
 							ToolTip="{x:Static res:CommonRes.ForcedSubtitleToolTip}"
-							Visibility="{Binding SubtitleModChoices,
+							Visibility="{Binding SubtitleQuantityClass,
 							                     Converter={StaticResource EnumVisibilityInverseConverter},
-							                     ConverterParameter={x:Static viewModel:SubtitleModifierChoices.None}}" />
+							                     ConverterParameter={x:Static viewModel:SubtitleQuantityClass.None}}" />
 
-						<StackPanel Orientation="Vertical" Visibility="{Binding SubtitleModChoices, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static viewModel:SubtitleModifierChoices.Single}}">
+						<StackPanel Orientation="Vertical" Visibility="{Binding SubtitleQuantityClass, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static viewModel:SubtitleQuantityClass.Single}}">
 							<CheckBox
 								Margin="0 6 0 0"
 								Content="{x:Static res:PickerRes.DefaultCheckBox}"
@@ -755,9 +826,8 @@
 							Content="{x:Static res:PickerRes.FirstAsDefaultCheckBox}"
 							IsChecked="{Binding SubtitleDefault}"
 							ToolTip="{x:Static res:PickerRes.MultipleSubtitleDefaultToolTip}"
-							Visibility="{Binding SubtitleModChoices,
-							                     Converter={StaticResource EnumVisibilityConverter},
-							                     ConverterParameter={x:Static viewModel:SubtitleModifierChoices.Multiple}}" />
+							Visibility="{Binding ShowMarkFirstAsDefaultCheckBox,
+							                     Converter={StaticResource VisibilityConverter}}" />
 					</StackPanel>
 
 					<!--  Encoding  -->

@@ -185,30 +185,38 @@ namespace VidCoder.ViewModel
 					.Select(count => count == 0)
 					.ToProperty(this, x => x.HasNoSubtitleLanguages, out this.hasNoSubtitleLanguages);
 
-				// SubtitleModChoices
-				this.WhenAnyValue(x => x.SubtitleSelectionMode, x => x.HasMultipleSubtitleLanguages, x => x.SubtitleLanguageAll, (selectionMode, hasMultipleLanguages, subtitleLanguageAll) =>
+				// SubtitleQuantityClass
+				this.WhenAnyValue(x => x.SubtitleSelectionMode, x => x.SubtitleIndices, x => x.HasMultipleSubtitleLanguages, x => x.SubtitleLanguageAll, (selectionMode, subtitleIndices, hasMultipleLanguages, subtitleLanguageAll) =>
 				{
 					switch (selectionMode)
 					{
 						case SubtitleSelectionMode.Disabled:
 						case SubtitleSelectionMode.None:
-							return SubtitleModifierChoices.None;
+							return SubtitleQuantityClass.None;
 						case SubtitleSelectionMode.First:
 						case SubtitleSelectionMode.ForeignAudioSearch:
-							return SubtitleModifierChoices.Single;
+							return SubtitleQuantityClass.Single;
+						case SubtitleSelectionMode.ByIndex:
+							return ParseUtilities.ParseCommaSeparatedListToPositiveIntegers(subtitleIndices).Count > 1 ? SubtitleQuantityClass.Multiple : SubtitleQuantityClass.Single;
 						case SubtitleSelectionMode.Language:
 							if (hasMultipleLanguages)
 							{
-								return SubtitleModifierChoices.Multiple;
+								return SubtitleQuantityClass.Multiple;
 							}
 
-							return subtitleLanguageAll ? SubtitleModifierChoices.Multiple : SubtitleModifierChoices.Single;
+							return subtitleLanguageAll ? SubtitleQuantityClass.Multiple : SubtitleQuantityClass.Single;
 						case SubtitleSelectionMode.All:
-							return SubtitleModifierChoices.Multiple;
+							return SubtitleQuantityClass.Multiple;
 						default:
 							throw new ArgumentOutOfRangeException(nameof(selectionMode), selectionMode, null);
 					}
-				}).ToProperty(this, x => x.SubtitleModChoices, out this.subtitleModChoices);
+				}).ToProperty(this, x => x.SubtitleQuantityClass, out this.subtitleQuantityClass);
+
+				// ShowMarkFirstAsDefaultCheckBox
+				this.WhenAnyValue(x => x.SubtitleQuantityClass, x => x.SubtitleSelectionMode, (subtitleQuantityClass, selectionMode) =>
+				{
+					return subtitleQuantityClass == SubtitleQuantityClass.Multiple && selectionMode != SubtitleSelectionMode.ByIndex;
+				}).ToProperty(this, x => x.ShowMarkFirstAsDefaultCheckBox, out this.showMarkFirstAsDefaultCheckBox);
 
 				this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsDefault, x => x.SelectedPicker.Picker.IsModified, (isDefault, isModified) => !isDefault && !isModified).ToProperty(this, x => x.DeleteButtonVisible, out this.deleteButtonVisible);
 
@@ -371,6 +379,7 @@ namespace VidCoder.ViewModel
 				}
 			});
 			this.RegisterPickerProperty(nameof(this.Picker.AudioLanguageCodes));
+			this.RegisterPickerProperty(nameof(this.Picker.AudioIndices));
 			this.RegisterPickerProperty(nameof(this.Picker.AudioLanguageAll));
 			this.RegisterPickerProperty(nameof(this.Picker.SubtitleSelectionMode), () =>
 			{
@@ -389,6 +398,8 @@ namespace VidCoder.ViewModel
 					this.HandleSubtitleLanguageUpdate();
 				}
 			});
+			this.RegisterPickerProperty(nameof(this.Picker.SubtitleIndices));
+			this.RegisterPickerProperty(nameof(this.Picker.SubtitleDefaultIndex));
 			this.RegisterPickerProperty(nameof(this.Picker.SubtitleLanguageCodes));
 			this.RegisterPickerProperty(nameof(this.Picker.SubtitleLanguageOnlyIfDifferent));
 			this.RegisterPickerProperty(nameof(this.Picker.SubtitleLanguageAll));
@@ -562,6 +573,12 @@ namespace VidCoder.ViewModel
 			set { this.UpdatePickerProperty(nameof(this.Picker.AudioSelectionMode), value); }
 		}
 
+		public string AudioIndices
+		{
+			get { return this.Picker.AudioIndices; }
+			set { this.UpdatePickerProperty(nameof(this.Picker.AudioIndices), value); }
+		}
+
 		private readonly SourceList<LanguageViewModel> audioLanguages = new SourceList<LanguageViewModel>();
 		public ObservableCollectionExtended<LanguageViewModel> AudioLanguagesBindable { get; } = new ObservableCollectionExtended<LanguageViewModel>();
 
@@ -587,6 +604,18 @@ namespace VidCoder.ViewModel
 		{
 			get { return this.Picker.SubtitleSelectionMode; }
 			set { this.UpdatePickerProperty(nameof(this.Picker.SubtitleSelectionMode), value); }
+		}
+
+		public string SubtitleIndices
+		{
+			get { return this.Picker.SubtitleIndices; }
+			set { this.UpdatePickerProperty(nameof(this.Picker.SubtitleIndices), value); }
+		}
+
+		public int? SubtitleDefaultIndex
+		{
+			get { return this.Picker.SubtitleDefaultIndex; }
+			set { this.UpdatePickerProperty(nameof(this.Picker.SubtitleDefaultIndex), value); }
 		}
 
 		private readonly SourceList<LanguageViewModel> subtitleLanguages = new SourceList<LanguageViewModel>();
@@ -616,8 +645,11 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<string> subtitleAllTracksLabel;
 		public string SubtitleAllTracksLabel => this.subtitleAllTracksLabel.Value;
 
-		private ObservableAsPropertyHelper<SubtitleModifierChoices> subtitleModChoices;
-		public SubtitleModifierChoices SubtitleModChoices => this.subtitleModChoices.Value;
+		private ObservableAsPropertyHelper<SubtitleQuantityClass> subtitleQuantityClass;
+		public SubtitleQuantityClass SubtitleQuantityClass => this.subtitleQuantityClass.Value;
+
+		private ObservableAsPropertyHelper<bool> showMarkFirstAsDefaultCheckBox;
+		public bool ShowMarkFirstAsDefaultCheckBox => this.showMarkFirstAsDefaultCheckBox.Value;
 
 		public bool SubtitleDefault
 		{
@@ -993,7 +1025,7 @@ namespace VidCoder.ViewModel
 		}
 	}
 
-	public enum SubtitleModifierChoices
+	public enum SubtitleQuantityClass
 	{
 		None,
 		Single,

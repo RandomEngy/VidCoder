@@ -1275,6 +1275,7 @@ namespace VidCoder.ViewModel
 
 						break;
 					case AudioSelectionMode.First:
+					case AudioSelectionMode.ByIndex:
 					case AudioSelectionMode.Language:
 					case AudioSelectionMode.All:
 						audioTracksInnerList.AddRange(ProcessingService
@@ -1286,8 +1287,8 @@ namespace VidCoder.ViewModel
 						throw new ArgumentOutOfRangeException();
 				}
 
-				// If nothing got selected, add the first one.
-				if (this.selectedTitle.AudioList.Count > 0 && this.AudioTracks.Count == 0)
+				// If nothing got selected and we have not explicitly left it out, add the first one.
+				if (this.selectedTitle.AudioList.Count > 0 && this.AudioTracks.Count == 0 && picker.AudioSelectionMode != AudioSelectionMode.ByIndex)
 				{
 					audioTracksInnerList.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[0], 1) { Selected = true });
 				}
@@ -1466,6 +1467,7 @@ namespace VidCoder.ViewModel
 
 				case SubtitleSelectionMode.None:
 				case SubtitleSelectionMode.First:
+				case SubtitleSelectionMode.ByIndex:
 				case SubtitleSelectionMode.ForeignAudioSearch:
 				case SubtitleSelectionMode.Language:
 				case SubtitleSelectionMode.All:

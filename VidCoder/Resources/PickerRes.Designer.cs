@@ -160,6 +160,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to By index.
+        /// </summary>
+        public static string ByIndexRadioButton {
+            get {
+                return ResourceManager.GetString("ByIndexRadioButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Default.
         /// </summary>
         public static string DefaultCheckBox {
@@ -408,6 +417,24 @@ namespace VidCoder.Resources {
         public static string SelectTimeRangeCheckBox {
             get {
                 return ResourceManager.GetString("SelectTimeRangeCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comma separated - ex. 2,5.
+        /// </summary>
+        public static string SelectTracksHelpText {
+            get {
+                return ResourceManager.GetString("SelectTracksHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select tracks:.
+        /// </summary>
+        public static string SelectTracksLabel {
+            get {
+                return ResourceManager.GetString("SelectTracksLabel", resourceCulture);
             }
         }
         

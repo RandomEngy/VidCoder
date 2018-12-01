@@ -314,4 +314,7 @@ A full copy of the GNU General Public License has been included along with this 
     <value>Unknown</value>
     <comment>Used when a value is not known.</comment>
   </data>
+  <data name="DefaultLabel" xml:space="preserve">
+    <value>Default:</value>
+  </data>
 </root>

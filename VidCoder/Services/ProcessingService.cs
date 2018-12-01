@@ -2272,6 +2272,7 @@ namespace VidCoder.Services
 
 					break;
 				case AudioSelectionMode.First:
+				case AudioSelectionMode.ByIndex:
 				case AudioSelectionMode.Language:
 				case AudioSelectionMode.All:
 					job.ChosenAudioTracks.AddRange(ChooseAudioTracks(title.AudioList, picker).Select(i => i + 1));
@@ -2309,6 +2310,14 @@ namespace VidCoder.Services
 					}
 
 					break;
+				case AudioSelectionMode.ByIndex:
+					// 1-based
+					chosenAudioTrackIndices = ParseUtilities.ParseCommaSeparatedListToPositiveIntegers(picker.AudioIndices);
+
+					// Filter out indices that are out of range and adjust from 1-based to 0-based
+					result.AddRange(chosenAudioTrackIndices.Where(i => i <= audioTracks.Count).Select(i => i - 1));
+
+					break;
 				case AudioSelectionMode.Language:
 					chosenAudioTrackIndices = ChooseAudioTracksFromLanguages(audioTracks, picker.AudioLanguageCodes, picker.AudioLanguageAll);
 					result.AddRange(chosenAudioTrackIndices);
@@ -2343,8 +2352,8 @@ namespace VidCoder.Services
 					throw new ArgumentOutOfRangeException(nameof(picker), picker, null);
 			}
 
-			// If none are chosen, add the first one.
-			if (result.Count == 0 && audioTracks.Count > 0)
+			// If none are chosen and we have not explicitly left it out, add the first one.
+			if (result.Count == 0 && audioTracks.Count > 0 && picker.AudioSelectionMode != AudioSelectionMode.ByIndex)
 			{
 				result.Add(0);
 			}
@@ -2412,6 +2421,7 @@ namespace VidCoder.Services
 					break;
 				case SubtitleSelectionMode.None:
 				case SubtitleSelectionMode.First:
+				case SubtitleSelectionMode.ByIndex:
 				case SubtitleSelectionMode.ForeignAudioSearch:
 				case SubtitleSelectionMode.Language:
 				case SubtitleSelectionMode.All:
@@ -2457,6 +2467,45 @@ namespace VidCoder.Services
 						});
 					}
 					
+					break;
+				case SubtitleSelectionMode.ByIndex:
+					// 1-based
+					chosenSubtitleIndices = ParseUtilities.ParseCommaSeparatedListToPositiveIntegers(picker.SubtitleIndices);
+					var filteredSubtitleIndices = chosenSubtitleIndices.Where(i => i <= title.SubtitleList.Count).ToList();
+					int? defaultSubtitleIndex = picker.SubtitleDefaultIndex;
+
+					if (filteredSubtitleIndices.Count > 1)
+					{
+						bool defaultChosen = false;
+						foreach (int trackNumber in filteredSubtitleIndices)
+						{
+							bool isDefault = false;
+							if (!defaultChosen && defaultSubtitleIndex != null && defaultSubtitleIndex.Value == trackNumber)
+							{
+								isDefault = true;
+								defaultChosen = true;
+							}
+
+							result.Add(new SourceSubtitle
+							{
+								TrackNumber = trackNumber,
+								BurnedIn = false,
+								ForcedOnly = picker.SubtitleForcedOnly,
+								Default = isDefault
+							});
+						}
+					}
+					else if (filteredSubtitleIndices.Count > 0)
+					{
+						result.Add(new SourceSubtitle
+						{
+							TrackNumber = filteredSubtitleIndices[0],
+							BurnedIn = picker.SubtitleBurnIn,
+							ForcedOnly = picker.SubtitleForcedOnly,
+							Default = defaultSubtitleIndex != null && defaultSubtitleIndex.Value == filteredSubtitleIndices[0]
+						});
+					}
+
 					break;
 				case SubtitleSelectionMode.ForeignAudioSearch:
 					result.Add(new SourceSubtitle

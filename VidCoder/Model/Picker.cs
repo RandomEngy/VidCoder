@@ -125,6 +125,9 @@ namespace VidCoder.Model
 		[JsonProperty]
 		public AudioSelectionMode AudioSelectionMode { get; set; } = AudioSelectionMode.Disabled;
 
+	    [JsonProperty]
+	    public string AudioIndices { get; set; } = "1";
+
 		// Applies only with AutoAudioType.Language
 		private List<string> audioLanguageCodes;
 		[JsonProperty]
@@ -140,6 +143,12 @@ namespace VidCoder.Model
 
 		[JsonProperty]
 		public SubtitleSelectionMode SubtitleSelectionMode { get; set; } = SubtitleSelectionMode.Disabled;
+
+	    [JsonProperty]
+	    public string SubtitleIndices { get; set; } = "1";
+
+	    [JsonProperty]
+		public int? SubtitleDefaultIndex { get; set; }
 
 		// Applies only with AutoSubtitleType.Language
 		private List<string> subtitleLanguageCodes;

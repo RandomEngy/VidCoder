@@ -604,6 +604,7 @@
     <Compile Include="Utilities\MvvmUtilities.cs" />
     <Compile Include="Utilities\NativeMethods.cs" />
     <Compile Include="Utilities\ParentProcessUtilities.cs" />
+    <Compile Include="Utilities\ParseUtilities.cs" />
     <Compile Include="Utilities\PresetConverter.cs" />
     <Compile Include="Utilities\PseudoLocalizer.cs" />
     <Compile Include="Utilities\RefireControl.cs" />

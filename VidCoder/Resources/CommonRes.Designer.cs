@@ -164,6 +164,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default:.
+        /// </summary>
+        public static string DefaultLabel {
+            get {
+                return ResourceManager.GetString("DefaultLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mark this subtitle track as the default. This will show up during playback until another track is picked..
         /// </summary>
         public static string DefaultSubtitleToolTip {

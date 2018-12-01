@@ -292,4 +292,14 @@
   <data name="TimeRangeEndAutomationName" xml:space="preserve">
     <value>Time range end</value>
   </data>
+  <data name="ByIndexRadioButton" xml:space="preserve">
+    <value>By index</value>
+    <comment>Label for the choice to choose audio or subtitle tracks by index</comment>
+  </data>
+  <data name="SelectTracksLabel" xml:space="preserve">
+    <value>Select tracks:</value>
+  </data>
+  <data name="SelectTracksHelpText" xml:space="preserve">
+    <value>Comma separated - ex. 2,5</value>
+  </data>
 </root>
