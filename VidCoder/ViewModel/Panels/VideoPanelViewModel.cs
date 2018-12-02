@@ -162,11 +162,20 @@ namespace VidCoder.ViewModel
 				}
 			}).ToProperty(this, x => x.VfrChoiceText, out this.vfrChoiceText);
 
-			// TwoPassEnabled
-			this.WhenAnyValue(x => x.VideoEncodeRateType, videoEncodeRateType =>
+			// TwoPassVisible
+			this.WhenAnyValue(x => x.VideoEncodeRateType, x => x.SelectedEncoder, (videoEncodeRateType, selectedEncoder) =>
 			{
+				if (selectedEncoder != null)
+				{
+					var encoderShortName = selectedEncoder.Encoder.ShortName;
+					if (!EncoderSupportsTwoPass(encoderShortName))
+					{
+						return false;
+					}
+				}
+
 				return videoEncodeRateType != VCVideoEncodeRateType.ConstantQuality;
-			}).ToProperty(this, x => x.TwoPassEnabled, out this.twoPassEnabled);
+			}).ToProperty(this, x => x.TwoPassVisible, out this.twoPassVisible);
 
 			// TurboFirstPassEnabled
 			this.WhenAnyValue(x => x.VideoEncodeRateType, x => x.TwoPass, (videoEncodeRateType, twoPass) =>
@@ -403,7 +412,14 @@ namespace VidCoder.ViewModel
 
 		private void RegisterProfileProperties()
 		{
-			this.RegisterProfileProperty(nameof(this.Profile.VideoEncoder));
+			this.RegisterProfileProperty(nameof(this.Profile.VideoEncoder), () =>
+			{
+				if (!EncoderSupportsTwoPass(this.Profile.VideoEncoder))
+				{
+					this.TwoPass = false;
+					this.TurboFirstPass = false;
+				}
+			});
 
 			this.RegisterProfileProperty(nameof(this.Profile.Framerate));
 			this.RegisterProfileProperty(nameof(this.Profile.ConstantFramerate));
@@ -539,6 +555,11 @@ namespace VidCoder.ViewModel
 			this.RegisterProfileProperty(nameof(this.Profile.VideoTunes));
 		}
 
+		private static bool EncoderSupportsTwoPass(string shortEncoderName)
+		{
+			return !shortEncoderName.StartsWith("nvenc_", StringComparison.Ordinal) && !shortEncoderName.StartsWith("vce_", StringComparison.Ordinal);
+		}
+
 		private ObservableAsPropertyHelper<string> inputType;
 		public string InputType => this.inputType.Value;
 
@@ -639,8 +660,8 @@ namespace VidCoder.ViewModel
 			set { this.UpdateProfileProperty(nameof(this.Profile.TwoPass), value); }
 		}
 
-		private ObservableAsPropertyHelper<bool> twoPassEnabled;
-		public bool TwoPassEnabled => this.twoPassEnabled.Value;
+		private ObservableAsPropertyHelper<bool> twoPassVisible;
+		public bool TwoPassVisible => this.twoPassVisible.Value;
 
 		public bool TurboFirstPass
 		{

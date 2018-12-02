@@ -337,10 +337,8 @@
 						VerticalAlignment="Top"
 						Content="{x:Static res:EncodingRes.TwoPassEncodingCheckBox}"
 						IsChecked="{Binding TwoPass}"
-						IsEnabled="{Binding TwoPassEnabled}"
-						Visibility="{Binding VideoEncodeRateType,
-						                     Converter={StaticResource EnumVisibilityInverseConverter},
-						                     ConverterParameter={x:Static model:VCVideoEncodeRateType.ConstantQuality}}" />
+						Visibility="{Binding TwoPassVisible,
+						                     Converter={StaticResource VisibilityConverter}}" />
 					<CheckBox
 						Grid.Column="1"
 						Margin="36 26 0 0"
