@@ -91,7 +91,7 @@ namespace VidCoder.ViewModel
 					}
 
 					return sourceData.Titles.Select(title => new SourceTitleViewModel(title)).ToList();
-				}).ToProperty(this, x => x.Titles, out this.titles);
+				}).ToProperty(this, x => x.Titles, out this.titles, scheduler: Scheduler.Immediate);
 
 			// TitleVisible
 			this.WhenAnyValue(x => x.HasVideoSource, x => x.SourceData, (hasVideoSource, sourceData) =>

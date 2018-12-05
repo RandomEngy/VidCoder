@@ -597,12 +597,20 @@ namespace VidCoder.Services
 					{
 						this.EncodeQueue.Edit(encodeQueueInnerList =>
 						{
+							int insertPosition = 0;
+							for (int i = 0; i < encodeQueueInnerList.Count; i++)
+							{
+								if (!encodeQueueInnerList[i].Encoding)
+								{
+									insertPosition = i;
+									break;
+								}
+							}
+
 							foreach (EncodeJobViewModel jobToMove in jobsToMove)
 							{
 								encodeQueueInnerList.Remove(jobToMove);
 							}
-
-							int insertPosition = this.Encoding ? 1 : 0;
 
 							for (int i = jobsToMove.Count - 1; i >= 0; i--)
 							{
