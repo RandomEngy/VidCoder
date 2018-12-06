@@ -347,6 +347,7 @@
 						Content="{x:Static res:EncodingRes.TurboFirstPassCheckBox}"
 						IsChecked="{Binding TurboFirstPass}"
 						IsEnabled="{Binding TurboFirstPassEnabled}"
+						Style="{StaticResource GrayOnDisabledControl}"
 						Visibility="{Binding TurboFirstPassVisible,
 						                     Converter={StaticResource VisibilityConverter}}" />
 				</Grid>
