@@ -38,7 +38,6 @@ namespace VidCoder.ViewModel
 		private int displayTargetSize;
 		private int displayVideoBitrate;
 
-		private List<string> presets;
 		private List<ComboChoice> profileChoices;
 		private List<LevelChoiceViewModel> levelChoices;
 		private List<ComboChoice> tuneChoices;
@@ -268,7 +267,7 @@ namespace VidCoder.ViewModel
 			}).ToProperty(this, x => x.QualitySliderRightText, out this.qualitySliderRightText);
 
 			// PresetName
-			this.WhenAnyValue(x => x.SelectedEncoder, x => x.PresetIndex, (selectedEncoder, presetIndex) =>
+			this.WhenAnyValue(x => x.SelectedEncoder, x => x.Presets, x => x.PresetIndex, (selectedEncoder, localPresets, presetIndex) =>
 			{
 				if (selectedEncoder == null)
 				{
@@ -276,9 +275,9 @@ namespace VidCoder.ViewModel
 				}
 
 				string currentPresetName = null;
-				if (this.presets != null && presetIndex >= 0 && presetIndex < this.presets.Count)
+				if (localPresets != null && presetIndex >= 0 && presetIndex < localPresets.Count)
 				{
-					currentPresetName = this.presets[presetIndex];
+					currentPresetName = localPresets[presetIndex];
 				}
 
 				if (string.IsNullOrEmpty(currentPresetName))
@@ -893,6 +892,13 @@ namespace VidCoder.ViewModel
 			set { this.UpdateProfileProperty(nameof(this.Profile.QsvDecode), value); }
 		}
 
+		private List<string> presets;
+		public List<string> Presets
+		{
+			get { return this.presets; }
+			set { this.RaiseAndSetIfChanged(ref this.presets, value); }
+		}
+
 		public int PresetIndex
 		{
 			get
@@ -1215,7 +1221,7 @@ namespace VidCoder.ViewModel
 				return;
 			}
 
-			this.presets = this.SelectedEncoder.Encoder.Presets;
+			this.Presets = this.SelectedEncoder.Encoder.Presets;
 		}
 
 		private void RefreshProfileChoices()
