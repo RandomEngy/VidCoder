@@ -3048,6 +3048,9 @@ namespace VidCoder.ViewModel
 			this.VideoSourceState = VideoSourceState.Scanning;
 			this.ClearVideoSource();
 
+			// With a new source we don't want to keep around old subtitles
+			this.SrtSubtitles.Clear();
+
 			this.ScanProgressFraction = 0;
 			HandBrakeInstance oldInstance = this.scanInstance;
 
