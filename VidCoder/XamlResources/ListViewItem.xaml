@@ -38,6 +38,37 @@
 		</Setter>
 	</Style>
 
+	<Style x:Key="ListViewItemNoSelectionNoHoverStyle" TargetType="ListViewItem">
+		<Setter Property="SnapsToDevicePixels" Value="true" />
+		<Setter Property="OverridesDefaultStyle" Value="true" />
+		<Setter Property="VerticalContentAlignment" Value="Center" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ListBoxItem">
+					<Border
+						x:Name="Border"
+						Padding="2"
+						Background="Transparent"
+						SnapsToDevicePixels="true">
+						<GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+						<VisualStateManager.VisualStateGroups>
+							<VisualStateGroup x:Name="CommonStates">
+								<VisualState x:Name="Normal" />
+								<VisualState x:Name="MouseOver" />
+								<VisualState x:Name="Disabled" />
+							</VisualStateGroup>
+							<VisualStateGroup x:Name="SelectionStates">
+								<VisualState x:Name="Unselected" />
+								<VisualState x:Name="Selected" />
+								<VisualState x:Name="SelectedUnfocused" />
+							</VisualStateGroup>
+						</VisualStateManager.VisualStateGroups>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
 	<Style x:Key="ListViewItemBaseStyle" TargetType="ListViewItem">
 		<Setter Property="SnapsToDevicePixels" Value="true" />
 		<Setter Property="OverridesDefaultStyle" Value="true" />

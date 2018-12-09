@@ -1339,10 +1339,9 @@
 								<TextBox Text="{Binding FileName, Mode=OneWay}" />
 							</DataTemplate>
 							<DataTemplate x:Key="FileNameTemplate" DataType="viewmodel:SrtSubtitleViewModel">
-								<TextBlock
-									MaxWidth="350"
+								<controls:PathTextBlock
+									Foreground="{DynamicResource WindowTextBrush}"
 									Text="{Binding FileName}"
-									TextTrimming="CharacterEllipsis"
 									ToolTipService.ToolTip="{Binding FileName}" />
 							</DataTemplate>
 							<DataTemplate x:Key="DefaultTemplate" DataType="viewmodel:SourceSubtitleViewModel">
@@ -1367,9 +1366,9 @@
 							</DataTemplate>
 							<DataTemplate x:Key="CharCodeTemplate" DataType="viewmodel:SrtSubtitleViewModel">
 								<ComboBox
+									Margin="4 0 4 2"
 									ItemsSource="{Binding CharCodes}"
-									SelectedItem="{Binding CharacterCode}"
-									Style="{StaticResource SubtitleControl}" />
+									SelectedItem="{Binding CharacterCode}" />
 							</DataTemplate>
 							<DataTemplate x:Key="OffsetTemplate" DataType="viewmodel:SrtSubtitleViewModel">
 								<controls:NumberBox
@@ -1522,6 +1521,7 @@
 								VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource SrtDragTemplate}"
 								VidCoderDragDrop:DragDropHelper.IsDragSource="True"
 								VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
+								ItemContainerStyle="{StaticResource ListViewItemNoSelectionNoHoverStyle}"
 								ItemsSource="{Binding SrtSubtitlesBindable}">
 								<i:Interaction.Behaviors>
 									<behaviors:IgnoreMouseWheelBehavior />

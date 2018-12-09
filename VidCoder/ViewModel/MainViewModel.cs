@@ -1484,6 +1484,8 @@ namespace VidCoder.ViewModel
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+
+			this.UpdateSourceSubtitleBoxes();
 		}
 
 		private void PopulateSourceSubtitles(IList<SourceSubtitle> selectedSubtitles)
@@ -1514,7 +1516,7 @@ namespace VidCoder.ViewModel
 		// Update state of checked boxes after a change
 		public void UpdateSourceSubtitleBoxes(SourceSubtitleViewModel updatedSubtitle = null)
 		{
-			this.DeselectDefaultSubtitles();
+			this.DeselectDefaultSubtitlesIfAnyBurned();
 
 			if (updatedSubtitle != null && updatedSubtitle.Selected)
 			{
@@ -1696,7 +1698,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private void DeselectDefaultSubtitles()
+		private void DeselectDefaultSubtitlesIfAnyBurned()
 		{
 			bool anyBurned = this.SourceSubtitles.Items.Any(sourceSub => sourceSub.BurnedIn) || this.SrtSubtitles.Items.Any(sourceSub => sourceSub.BurnedIn);
 			this.DefaultSubtitlesEnabled = !anyBurned;
@@ -1748,7 +1750,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private bool defaultSubtitlesEnabled;
+		private bool defaultSubtitlesEnabled = true;
 		public bool DefaultSubtitlesEnabled
 		{
 			get { return this.defaultSubtitlesEnabled; }

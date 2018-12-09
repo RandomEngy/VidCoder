@@ -15,6 +15,7 @@
 	<SolidColorBrush x:Key="MouseOverOverlayBackgroundBrush" Color="#33000000" />
 	<SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#A6DEFC" />
 	<SolidColorBrush x:Key="PopupInfoBackgroundBrush" Color="#EEEEEE" />
+	<SolidColorBrush x:Key="InlineWarningBackgroundBrush" Color="#F7F7CD" />
 	<LinearGradientBrush x:Key="InputBrush" StartPoint="0,0" EndPoint="0,1">
 		<GradientStop Offset="0.0" Color="#C1E6FF" />
 		<GradientStop Offset="1.0" Color="#ABC6D8" />

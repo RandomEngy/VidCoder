@@ -14,7 +14,7 @@
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="/Themes/Light.xaml" />
 				<ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
-				
+
 				<ResourceDictionary Source="/XamlResources/Button.xaml" />
 				<ResourceDictionary Source="/XamlResources/ComboBox.xaml" />
 				<ResourceDictionary Source="/XamlResources/GridViewColumnHeader.xaml" />
@@ -25,7 +25,7 @@
 
 			<!--  Special case color, can't set in theme dictionary; need to change programatically  -->
 			<SolidColorBrush x:Key="Fluent.Ribbon.Brushes.LabelTextBrush" Color="Black" />
-			
+
 			<converters:VisibilityConverter x:Key="VisibilityConverter" />
 			<converters:VisibilityConverter x:Key="InverseVisibilityConverter" Inverse="True" />
 			<converters:EnumBoolConverter x:Key="EnumBoolConverter" />
@@ -222,8 +222,8 @@
 								</Grid.ToolTip>
 								<Border
 									x:Name="hoverBorder"
-									BorderThickness="0"
 									Background="{DynamicResource Button.MouseOver.Background}"
+									BorderThickness="0"
 									Visibility="Collapsed" />
 								<Grid
 									Width="15"
@@ -319,10 +319,10 @@
 
 			<ControlTemplate x:Key="PopupInfoTemplate" TargetType="{x:Type ContentControl}">
 				<Border
+					Background="{DynamicResource PopupInfoBackgroundBrush}"
 					BorderBrush="Gray"
 					BorderThickness="1"
-					CornerRadius="4"
-					Background="{DynamicResource PopupInfoBackgroundBrush}">
+					CornerRadius="4">
 					<Border.Effect>
 						<DropShadowEffect
 							BlurRadius="3"
