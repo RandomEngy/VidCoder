@@ -265,4 +265,7 @@
   <data name="TitleCapitalizationChoice_FirstWord" xml:space="preserve">
     <value>First word</value>
   </data>
+  <data name="EncodeCompleteActionType_StopEncoding" xml:space="preserve">
+    <value>Stop encoding</value>
+  </data>
 </root>

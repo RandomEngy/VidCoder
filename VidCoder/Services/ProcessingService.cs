@@ -1357,6 +1357,12 @@ namespace VidCoder.Services
 			this.logger.Log("Starting queue");
 			this.logger.ShowStatus(MainRes.StartedEncoding);
 
+			// If we had a "when done with current jobs" complete action last time, reset it to nothing.
+			if (this.EncodeCompleteAction.Trigger == EncodeCompleteTrigger.DoneWithCurrentJobs)
+			{
+				this.EncodeCompleteAction = this.EncodeCompleteActions.Single(a => a.ActionType == EncodeCompleteActionType.DoNothing);
+			}
+
 			this.TotalTasks = this.EncodeQueue.Count;
 			this.TaskNumber = 0;
 
@@ -1460,6 +1466,11 @@ namespace VidCoder.Services
 
 		private void EncodeNextJobs()
 		{
+			if (this.EncodeCompleteAction.Trigger == EncodeCompleteTrigger.DoneWithCurrentJobs)
+			{
+				return;
+			}
+
 			// Make sure the top N jobs are encoding.
 			var encodeQueueList = this.EncodeQueue.Items.ToList();
 			for (int i = 0; i < Config.MaxSimultaneousEncodes && i < this.EncodeQueue.Count; i++)
@@ -1472,6 +1483,8 @@ namespace VidCoder.Services
 					this.StartEncode(jobViewModel);
 				}
 			}
+
+			this.RefreshEncodeCompleteActions();
 		}
 
 		private void StartEncode(EncodeJobViewModel jobViewModel)
@@ -1708,6 +1721,7 @@ namespace VidCoder.Services
 				string finalOutputPath = finishedJobViewModel.Job.FinalOutputPath;
 				var directOutputFileInfo = new FileInfo(finishedJobViewModel.Job.InProgressOutputPath);
 				EncodeResultViewModel addedResult = null;
+				bool encodingStopped = false;
 
 				this.CanPauseOrStop = false;
 				EncodeResultStatus status = EncodeResultStatus.Succeeded;
@@ -1732,6 +1746,7 @@ namespace VidCoder.Services
 						this.EncodeQueue.Clear();
 					}
 
+					encodingStopped = true;
 					encodeLogger.Log("Encoding stopped");
 				}
 				else
@@ -1850,81 +1865,23 @@ namespace VidCoder.Services
 						this.logger.ShowStatus(MainRes.EncodeCompleted);
 						this.logger.Log("");
 
-						if (!Utilities.IsInForeground)
+						this.TriggerQueueCompleteNotificationIfBackground();
+
+						if (Config.PlaySoundOnCompletion && this.EncodeCompleteAction.Trigger == EncodeCompleteTrigger.None)
 						{
-							StaticResolver.Resolve<TrayService>().ShowBalloonMessage(MainRes.EncodeCompleteBalloonTitle, MainRes.EncodeCompleteBalloonMessage);
-							if (this.toastNotificationService.ToastEnabled)
-							{
-								const string toastFormat =
-									"<?xml version=\"1.0\" encoding=\"utf-8\"?><toast><visual><binding template=\"ToastGeneric\"><text>{0}</text><text>{1}</text></binding></visual></toast>";
-
-								string toastString = string.Format(toastFormat, SecurityElement.Escape(MainRes.EncodeCompleteBalloonTitle), SecurityElement.Escape(MainRes.EncodeCompleteBalloonMessage));
-
-								this.toastNotificationService.Clear();
-								this.toastNotificationService.ShowToast(toastString);
-							}
+							this.PlayEncodeCompleteSound();
 						}
 
-						EncodeCompleteActionType actionType = this.EncodeCompleteAction.ActionType;
-						if (Config.PlaySoundOnCompletion &&
-							actionType != EncodeCompleteActionType.CloseProgram && 
-							actionType != EncodeCompleteActionType.Sleep && 
-							actionType != EncodeCompleteActionType.LogOff &&
-							actionType != EncodeCompleteActionType.Shutdown &&
-							actionType != EncodeCompleteActionType.Hibernate)
-						{
-							string soundPath = null;
-							if (Config.UseCustomCompletionSound)
-							{
-								if (File.Exists(Config.CustomCompletionSound))
-								{
-									soundPath = Config.CustomCompletionSound;
-								}
-								else
-								{
-									this.logger.LogError(string.Format("Cound not find custom completion sound \"{0}\" . Using default.", Config.CustomCompletionSound));
-								}
-							}
+						encodingStopped = true;
+						this.TriggerEncodeCompleteAction();
+					}
+					else if (this.EncodeCompleteAction.Trigger == EncodeCompleteTrigger.DoneWithCurrentJobs && !this.EncodeQueue.Items.Any(j => j.Encoding))
+					{
+						this.SelectedTabIndex = CompletedTabIndex;
+						this.StopEncodingAndReport();
 
-							if (soundPath == null)
-							{
-								soundPath = Path.Combine(Utilities.ProgramFolder, "Encode_Complete.wav");
-							}
-
-							var soundPlayer = new SoundPlayer(soundPath);
-
-							try
-							{
-								soundPlayer.Play();
-							}
-							catch (InvalidOperationException)
-							{
-								this.logger.LogError(string.Format("Completion sound \"{0}\" was not a supported WAV file.", soundPath));
-							}
-						}
-
-						switch (actionType)
-						{
-							case EncodeCompleteActionType.DoNothing:
-								break;
-							case EncodeCompleteActionType.EjectDisc:
-								this.systemOperations.Eject(this.EncodeCompleteAction.DriveLetter);
-								break;
-							case EncodeCompleteActionType.CloseProgram:
-								if (this.completedJobs.Items.All(job => job.EncodeResult.Succeeded))
-								{
-									this.windowManager.Close(this.main);
-								}
-								break;
-							case EncodeCompleteActionType.Sleep:
-							case EncodeCompleteActionType.LogOff:
-							case EncodeCompleteActionType.Shutdown:
-							case EncodeCompleteActionType.Hibernate:
-								this.windowManager.OpenWindow(new ShutdownWarningWindowViewModel(actionType));
-								break;
-							default:
-								throw new ArgumentOutOfRangeException();
-						}
+						encodingStopped = true;
+						this.TriggerEncodeCompleteAction();
 					}
 					else
 					{
@@ -1934,7 +1891,7 @@ namespace VidCoder.Services
 
 				this.RebuildEncodingJobsList();
 
-				if (this.encodeCompleteReason == EncodeCompleteReason.Manual || this.EncodeQueue.Count == 0)
+				if (encodingStopped)
 				{
 					this.windowManager.Close<EncodeDetailsWindowViewModel>(userInitiated: false);
 				}
@@ -1977,6 +1934,83 @@ namespace VidCoder.Services
 					}
 				}
 			});
+		}
+
+		private void TriggerQueueCompleteNotificationIfBackground()
+		{
+			if (!Utilities.IsInForeground)
+			{
+				StaticResolver.Resolve<TrayService>().ShowBalloonMessage(MainRes.EncodeCompleteBalloonTitle, MainRes.EncodeCompleteBalloonMessage);
+				if (this.toastNotificationService.ToastEnabled)
+				{
+					const string toastFormat =
+						"<?xml version=\"1.0\" encoding=\"utf-8\"?><toast><visual><binding template=\"ToastGeneric\"><text>{0}</text><text>{1}</text></binding></visual></toast>";
+
+					string toastString = string.Format(toastFormat, SecurityElement.Escape(MainRes.EncodeCompleteBalloonTitle), SecurityElement.Escape(MainRes.EncodeCompleteBalloonMessage));
+
+					this.toastNotificationService.Clear();
+					this.toastNotificationService.ShowToast(toastString);
+				}
+			}
+		}
+
+		private void PlayEncodeCompleteSound()
+		{
+			string soundPath = null;
+			if (Config.UseCustomCompletionSound)
+			{
+				if (File.Exists(Config.CustomCompletionSound))
+				{
+					soundPath = Config.CustomCompletionSound;
+				}
+				else
+				{
+					this.logger.LogError(string.Format("Cound not find custom completion sound \"{0}\" . Using default.", Config.CustomCompletionSound));
+				}
+			}
+
+			if (soundPath == null)
+			{
+				soundPath = Path.Combine(Utilities.ProgramFolder, "Encode_Complete.wav");
+			}
+
+			var soundPlayer = new SoundPlayer(soundPath);
+
+			try
+			{
+				soundPlayer.Play();
+			}
+			catch (InvalidOperationException)
+			{
+				this.logger.LogError(string.Format("Completion sound \"{0}\" was not a supported WAV file.", soundPath));
+			}
+		}
+
+		private void TriggerEncodeCompleteAction()
+		{
+			switch (this.EncodeCompleteAction.ActionType)
+			{
+				case EncodeCompleteActionType.DoNothing:
+				case EncodeCompleteActionType.StopEncoding:
+					break;
+				case EncodeCompleteActionType.EjectDisc:
+					this.systemOperations.Eject(this.EncodeCompleteAction.DriveLetter);
+					break;
+				case EncodeCompleteActionType.CloseProgram:
+					if (this.completedJobs.Items.All(job => job.EncodeResult.Succeeded))
+					{
+						this.windowManager.Close(this.main);
+					}
+					break;
+				case EncodeCompleteActionType.Sleep:
+				case EncodeCompleteActionType.LogOff:
+				case EncodeCompleteActionType.Shutdown:
+				case EncodeCompleteActionType.Hibernate:
+					this.windowManager.OpenWindow(new ShutdownWarningWindowViewModel(this.EncodeCompleteAction.ActionType));
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
 		}
 
 		private static string ApplyStatusAffixToLogPath(string encodeLogPath, string affix)
@@ -2056,16 +2090,42 @@ namespace VidCoder.Services
 
 			EncodeCompleteAction oldCompleteAction = this.EncodeCompleteAction;
 
-			this.encodeCompleteActions =
-				new List<EncodeCompleteAction>
-				{
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.DoNothing },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.CloseProgram },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Sleep },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.LogOff },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Hibernate },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Shutdown },
-				};
+			if (this.EncodeQueue.Items.Any(j => !j.Encoding))
+			{
+				// If any items are not encoding yet, show both "when done with current items" choices and "when done with queue" choices
+
+				this.encodeCompleteActions =
+					new List<EncodeCompleteAction>
+					{
+						new EncodeCompleteAction { ActionType = EncodeCompleteActionType.DoNothing, Trigger = EncodeCompleteTrigger.None },
+						new EncodeCompleteAction { ActionType = EncodeCompleteActionType.CloseProgram, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
+						new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Sleep, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
+						new EncodeCompleteAction { ActionType = EncodeCompleteActionType.LogOff, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
+						new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Hibernate, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
+						new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Shutdown, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
+						new EncodeCompleteAction { ActionType = EncodeCompleteActionType.StopEncoding, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
+						new EncodeCompleteAction { ActionType = EncodeCompleteActionType.CloseProgram, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
+						new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Sleep, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
+						new EncodeCompleteAction { ActionType = EncodeCompleteActionType.LogOff, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
+						new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Hibernate, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
+						new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Shutdown, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
+					};
+			}
+			else
+			{
+				// If all items are encoding, only show queue options
+
+				this.encodeCompleteActions =
+					new List<EncodeCompleteAction>
+					{
+						new EncodeCompleteAction { ActionType = EncodeCompleteActionType.DoNothing },
+						new EncodeCompleteAction { ActionType = EncodeCompleteActionType.CloseProgram, Trigger = EncodeCompleteTrigger.DoneWithQueue },
+						new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Sleep, Trigger = EncodeCompleteTrigger.DoneWithQueue },
+						new EncodeCompleteAction { ActionType = EncodeCompleteActionType.LogOff, Trigger = EncodeCompleteTrigger.DoneWithQueue },
+						new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Hibernate, Trigger = EncodeCompleteTrigger.DoneWithQueue },
+						new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Shutdown, Trigger = EncodeCompleteTrigger.DoneWithQueue },
+					};
+			}
 
 			// Applicable drives to eject are those in the queue or completed items list
 			var applicableDrives = new HashSet<string>();
@@ -2101,19 +2161,35 @@ namespace VidCoder.Services
 
 			foreach (string drive in orderedDrives)
 			{
-				this.encodeCompleteActions.Insert(1, new EncodeCompleteAction { ActionType = EncodeCompleteActionType.EjectDisc, DriveLetter = drive });
+				this.encodeCompleteActions.Insert(1, new EncodeCompleteAction { ActionType = EncodeCompleteActionType.EjectDisc, DriveLetter = drive, Trigger = EncodeCompleteTrigger.DoneWithQueue });
 			}
 
 			this.RaisePropertyChanged(nameof(this.EncodeCompleteActions));
 
-			// Transfer over the previously selected item
+			// Transfer over the previously selected item. First look for exact match.
 			this.encodeCompleteAction = this.encodeCompleteActions[0];
+			bool foundMatch = false;
 			for (int i = 1; i < this.encodeCompleteActions.Count; i++)
 			{
 				if (this.encodeCompleteActions[i].Equals(oldCompleteAction))
 				{
 					this.encodeCompleteAction = this.encodeCompleteActions[i];
+					foundMatch = true;
 					break;
+				}
+			}
+
+			// If no exact match, try again but ignore the trigger
+			if (!foundMatch && oldCompleteAction != null)
+			{
+				for (int i = 1; i < this.encodeCompleteActions.Count; i++)
+				{
+					EncodeCompleteAction action = this.encodeCompleteActions[i];
+					if (action.ActionType == oldCompleteAction.ActionType && action.DriveLetter == oldCompleteAction.DriveLetter)
+					{
+						this.encodeCompleteAction = this.encodeCompleteActions[i];
+						break;
+					}
 				}
 			}
 

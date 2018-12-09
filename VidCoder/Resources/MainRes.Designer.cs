@@ -1624,7 +1624,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When done:.
+        ///   Looks up a localized string similar to When done.
         /// </summary>
         public static string WhenDoneLabel {
             get {
@@ -1638,6 +1638,24 @@ namespace VidCoder.Resources {
         public static string WindowsMenu {
             get {
                 return ResourceManager.GetString("WindowsMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to with current job(s): {0}.
+        /// </summary>
+        public static string WithCurrentJobsFormat {
+            get {
+                return ResourceManager.GetString("WithCurrentJobsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to with queue: {0}.
+        /// </summary>
+        public static string WithQueueFormat {
+            get {
+                return ResourceManager.GetString("WithQueueFormat", resourceCulture);
             }
         }
     }

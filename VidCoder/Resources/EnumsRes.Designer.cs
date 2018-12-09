@@ -385,6 +385,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stop encoding.
+        /// </summary>
+        public static string EncodeCompleteActionType_StopEncoding {
+            get {
+                return ResourceManager.GetString("EncodeCompleteActionType_StopEncoding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Off.
         /// </summary>
         public static string Off {

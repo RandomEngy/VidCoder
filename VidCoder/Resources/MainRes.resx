@@ -363,7 +363,7 @@
     <value>ETA:</value>
   </data>
   <data name="WhenDoneLabel" xml:space="preserve">
-    <value>When done:</value>
+    <value>When done</value>
   </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>Video File...</value>
@@ -668,5 +668,15 @@
   <data name="OpenSourceFolderOption" xml:space="preserve">
     <value>Open source folder</value>
     <comment>Menu option to open the folder of the source file in the queue</comment>
+  </data>
+  <data name="WithCurrentJobsFormat" xml:space="preserve">
+    <value>with current job(s): {0}</value>
+    <comment>Shown as options for the "When done" combo box for actions that trigger when currently encoding job(s) complete.
+{0} is the encode complete action, ex "Shut down"</comment>
+  </data>
+  <data name="WithQueueFormat" xml:space="preserve">
+    <value>with queue: {0}</value>
+    <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion.
+{0} is the encode complete action, ex "Shut down"</comment>
   </data>
 </root>
