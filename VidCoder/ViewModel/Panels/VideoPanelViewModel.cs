@@ -1189,9 +1189,14 @@ namespace VidCoder.ViewModel
 				return "balanced";
 			}
 
-			if (encoderName.StartsWith("x26", StringComparison.Ordinal) || encoderName.StartsWith("VP", StringComparison.Ordinal))
+			if (encoderName.StartsWith("x26", StringComparison.Ordinal) || encoderName.StartsWith("VP", StringComparison.Ordinal) || encoderName.StartsWith("nvenc", StringComparison.Ordinal))
 			{
 				return "medium";
+			}
+
+			if (encoderName.StartsWith("vce", StringComparison.Ordinal))
+			{
+				return "main";
 			}
 
 			return null;
