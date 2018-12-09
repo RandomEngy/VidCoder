@@ -709,11 +709,23 @@ namespace VidCoder.View
 			this.pickerButton.IsDropDownOpen = false;
 		}
 
-		private void AudioItemClick(object sender, MouseButtonEventArgs e)
+		private void AudioMouseDown(object sender, MouseButtonEventArgs e)
 		{
 			var listItem = (ListViewItem)sender;
 			var audioTrackViewModel = (AudioTrackViewModel)listItem.DataContext;
-			audioTrackViewModel.Selected = !audioTrackViewModel.Selected;
+			audioTrackViewModel.LastMouseDownTime = DateTimeOffset.UtcNow;
+		}
+
+		private void AudioMouseUp(object sender, MouseButtonEventArgs e)
+		{
+			var listItem = (ListViewItem)sender;
+			var audioTrackViewModel = (AudioTrackViewModel)listItem.DataContext;
+
+			// Ensure we aren't just picking up a stray mouse up after a dialog closed
+			if (audioTrackViewModel.LastMouseDownTime != null && audioTrackViewModel.LastMouseDownTime > DateTimeOffset.UtcNow - TimeSpan.FromSeconds(3))
+			{
+				audioTrackViewModel.Selected = !audioTrackViewModel.Selected;
+			}
 		}
 
 		private void OnAudioItemKeyPress(object sender, KeyEventArgs e)
@@ -734,11 +746,23 @@ namespace VidCoder.View
 		private SourceList<SourceSubtitleViewModel> sourceSubtitles;
 		private SourceList<SrtSubtitleViewModel> srtSubtitles;
 
-		private void SourceSubtitleItemClick(object sender, MouseButtonEventArgs e)
+		private void SourceSubtitleMouseDown(object sender, MouseButtonEventArgs e)
 		{
 			var listItem = (ListViewItem)sender;
 			var subtitleVM = (SourceSubtitleViewModel)listItem.DataContext;
-			subtitleVM.Selected = !subtitleVM.Selected;
+			subtitleVM.LastMouseDownTime = DateTimeOffset.UtcNow;
+		}
+
+		private void SourceSubtitleMouseUp(object sender, MouseButtonEventArgs e)
+		{
+			var listItem = (ListViewItem)sender;
+			var subtitleVM = (SourceSubtitleViewModel)listItem.DataContext;
+
+			// Ensure we aren't just picking up a stray mouse up after a dialog closed
+			if (subtitleVM.LastMouseDownTime != null && subtitleVM.LastMouseDownTime >= DateTimeOffset.UtcNow - TimeSpan.FromSeconds(3))
+			{
+				subtitleVM.Selected = !subtitleVM.Selected;
+			}
 		}
 
 		private void OnSourceSubtitleKeyDown(object sender, KeyEventArgs e)

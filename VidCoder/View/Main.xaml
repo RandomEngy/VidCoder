@@ -1165,7 +1165,8 @@
 							</i:Interaction.Behaviors>
 							<ListView.ItemContainerStyle>
 								<Style BasedOn="{StaticResource ListViewItemNoSelectionStyle}" TargetType="ListViewItem">
-									<EventSetter Event="MouseLeftButtonUp" Handler="AudioItemClick" />
+									<EventSetter Event="PreviewMouseLeftButtonDown" Handler="AudioMouseDown" />
+									<EventSetter Event="MouseLeftButtonUp" Handler="AudioMouseUp" />
 									<EventSetter Event="KeyDown" Handler="OnAudioItemKeyPress" />
 								</Style>
 							</ListView.ItemContainerStyle>
@@ -1446,7 +1447,8 @@
 								</i:Interaction.Behaviors>
 								<ListView.ItemContainerStyle>
 									<Style BasedOn="{StaticResource ListViewItemNoSelectionStyle}" TargetType="ListViewItem">
-										<EventSetter Event="MouseLeftButtonUp" Handler="SourceSubtitleItemClick" />
+										<EventSetter Event="PreviewMouseLeftButtonDown" Handler="SourceSubtitleMouseDown" />
+										<EventSetter Event="MouseLeftButtonUp" Handler="SourceSubtitleMouseUp" />
 										<EventSetter Event="KeyDown" Handler="OnSourceSubtitleKeyDown" />
 									</Style>
 								</ListView.ItemContainerStyle>

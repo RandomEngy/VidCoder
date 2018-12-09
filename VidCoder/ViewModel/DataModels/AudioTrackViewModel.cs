@@ -33,6 +33,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public DateTimeOffset? LastMouseDownTime { get; set; }
+
 		public bool RemoveVisible
 		{
 			get

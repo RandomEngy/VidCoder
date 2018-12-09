@@ -101,6 +101,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public DateTimeOffset? LastMouseDownTime { get; set; }
+
 		public string SubtitleName
 		{
 			get
