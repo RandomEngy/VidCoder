@@ -374,7 +374,12 @@ namespace VidCoder.Services
 				return;
 			}
 
-			if (main.SourceName == null || main.SelectedStartChapter == null || main.SelectedEndChapter == null)
+			if (main.SourceName == null)
+			{
+				return;
+			}
+
+			if (main.RangeType == VideoRangeType.Chapters && (main.SelectedStartChapter == null || main.SelectedEndChapter == null))
 			{
 				return;
 			}
@@ -405,8 +410,8 @@ namespace VidCoder.Services
 				main.SelectedTitle.Title.Index,
 				main.SelectedTitle.Duration,
 				main.RangeType,
-				main.SelectedStartChapter.ChapterNumber,
-				main.SelectedEndChapter.ChapterNumber,
+				main.SelectedStartChapter?.ChapterNumber ?? 0,
+				main.SelectedEndChapter?.ChapterNumber ?? 0,
 				main.SelectedTitle.ChapterList.Count,
 				main.TimeRangeStart,
 				main.TimeRangeEnd,
