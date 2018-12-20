@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reactive;
+using System.Windows.Input;
 using HandBrake.Interop.Interop.Json.Scan;
 using ReactiveUI;
 using VidCoder.Resources;
@@ -51,8 +53,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand duplicate;
-		public ReactiveCommand Duplicate
+		private ReactiveCommand<Unit, Unit> duplicate;
+		public ICommand Duplicate
 		{
 			get
 			{
@@ -63,8 +65,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand remove;
-		public ReactiveCommand Remove
+		private ReactiveCommand<Unit, Unit> remove;
+		public ICommand Remove
 		{
 			get
 			{

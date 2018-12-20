@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reactive;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
@@ -29,7 +30,7 @@ namespace VidCoder.Extensions
 
 				        var key = (Key)converter.ConvertFrom(parts[1]);
 
-				        ReactiveCommand openCommand = ReactiveCommand.Create(() =>
+				        ReactiveCommand<Unit, Unit> openCommand = ReactiveCommand.Create(() =>
 				        {
 							windowManager.OpenOrFocusWindow(windowViewModelType);
 						});

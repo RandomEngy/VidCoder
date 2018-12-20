@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SQLite;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
+using System.Windows.Input;
 using System.Windows.Media;
 using HandBrake.Interop.Interop.Json.Scan;
 using Microsoft.AnyContainer;
@@ -177,8 +179,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand play;
-		public ReactiveCommand Play
+		private ReactiveCommand<Unit, Unit> play;
+		public ICommand Play
 		{
 			get
 			{
@@ -197,8 +199,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand addToQueue;
-		public ReactiveCommand AddToQueue
+		private ReactiveCommand<Unit, Unit> addToQueue;
+		public ICommand AddToQueue
 		{
 			get
 			{

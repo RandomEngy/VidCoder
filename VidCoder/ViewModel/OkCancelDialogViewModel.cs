@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive;
 using System.Windows.Input;
 using Microsoft.AnyContainer;
 using ReactiveUI;
@@ -29,7 +30,7 @@ namespace VidCoder.ViewModel
 
 		public bool DialogResult { get; set; }
 
-		private ReactiveCommand cancel;
+		private ReactiveCommand<Unit, Unit> cancel;
 		public ICommand Cancel
 		{
 			get
@@ -42,7 +43,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand accept;
+		private ReactiveCommand<Unit, Unit> accept;
 		public ICommand Accept
 		{
 			get

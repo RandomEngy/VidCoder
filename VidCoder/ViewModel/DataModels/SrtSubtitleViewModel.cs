@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reactive;
+using System.Windows.Input;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.Model;
 using ReactiveUI;
@@ -158,8 +160,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand removeSubtitle;
-		public ReactiveCommand RemoveSubtitle
+		private ReactiveCommand<Unit, Unit> removeSubtitle;
+		public ICommand RemoveSubtitle
 		{
 			get
 			{

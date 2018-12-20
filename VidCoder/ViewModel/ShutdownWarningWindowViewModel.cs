@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Reactive;
+using System.Windows.Input;
 using System.Windows.Threading;
 using Microsoft.AnyContainer;
 using ReactiveUI;
@@ -108,8 +110,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand cancelOperation;
-		public ReactiveCommand CancelOperation
+		private ReactiveCommand<Unit, Unit> cancelOperation;
+		public ICommand CancelOperation
 		{
 			get
 			{

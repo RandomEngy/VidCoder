@@ -5,11 +5,13 @@ using System.ComponentModel;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Concurrency;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Resources;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Microsoft.AnyContainer;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -577,8 +579,8 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<string> cpuThrottlingDisplay;
 		public string CpuThrottlingDisplay => this.cpuThrottlingDisplay.Value;
 
-		private ReactiveCommand saveSettings;
-		public ReactiveCommand SaveSettings
+		private ReactiveCommand<Unit, Unit> saveSettings;
+		public ICommand SaveSettings
 		{
 			get
 			{
@@ -661,8 +663,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand browseVideoPlayer;
-		public ReactiveCommand BrowseVideoPlayer
+		private ReactiveCommand<Unit, Unit> browseVideoPlayer;
+		public ICommand BrowseVideoPlayer
 		{
 			get
 			{
@@ -682,8 +684,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand browseCompletionSound;
-		public ReactiveCommand BrowseCompletionSound
+		private ReactiveCommand<Unit, Unit> browseCompletionSound;
+		public ICommand BrowseCompletionSound
 		{
 			get
 			{
@@ -703,8 +705,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand browsePath;
-		public ReactiveCommand BrowsePath
+		private ReactiveCommand<Unit, Unit> browsePath;
+		public ICommand BrowsePath
 		{
 			get
 			{
@@ -725,8 +727,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand browsePreviewFolder;
-		public ReactiveCommand BrowsePreviewFolder
+		private ReactiveCommand<Unit, Unit> browsePreviewFolder;
+		public ICommand BrowsePreviewFolder
 		{
 			get
 			{
@@ -741,8 +743,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand openAddProcessDialog;
-		public ReactiveCommand OpenAddProcessDialog
+		private ReactiveCommand<Unit, Unit> openAddProcessDialog;
+		public ICommand OpenAddProcessDialog
 		{
 			get
 			{
@@ -763,8 +765,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand removeProcess;
-		public ReactiveCommand RemoveProcess
+		private ReactiveCommand<Unit, Unit> removeProcess;
+		public ICommand RemoveProcess
 		{
 			get
 			{
@@ -777,8 +779,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand openLogFolder;
-		public ReactiveCommand OpenLogFolder
+		private ReactiveCommand<Unit, Unit> openLogFolder;
+		public ICommand OpenLogFolder
 		{
 			get
 			{
@@ -796,8 +798,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand checkUpdate;
-		public ReactiveCommand CheckUpdate
+		private ReactiveCommand<Unit, Unit> checkUpdate;
+		public ICommand CheckUpdate
 		{
 			get
 			{

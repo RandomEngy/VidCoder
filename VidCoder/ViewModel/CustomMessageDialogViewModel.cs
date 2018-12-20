@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Services.Windows;
@@ -61,8 +63,8 @@ namespace VidCoder.ViewModel
 
 		public CustomMessageDialogViewModel<T> Parent { get; set; }
 
-		private ReactiveCommand choose;
-		public ReactiveCommand Choose
+		private ReactiveCommand<Unit, Unit> choose;
+		public ICommand Choose
 		{
 			get
 			{

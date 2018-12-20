@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
+using System.Reactive;
+using System.Windows.Input;
 using HandBrake.Interop.Interop.Json.Scan;
 using VidCoder.Services;
 using VidCoderCommon.Extensions;
@@ -82,8 +84,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand importCsvFile;
-		public ReactiveCommand ImportCsvFile
+		private ReactiveCommand<Unit, Unit> importCsvFile;
+		public ICommand ImportCsvFile
 		{
 			get
 			{

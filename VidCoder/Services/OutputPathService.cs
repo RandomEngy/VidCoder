@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Text.RegularExpressions;
 using HandBrake.Interop.Interop;
@@ -116,8 +117,8 @@ namespace VidCoder.Services
 		public bool OutputFolderChosen => this.outputFolderChosen.Value;
 
 
-		private ReactiveCommand pickDefaultOutputFolder;
-		public ReactiveCommand PickDefaultOutputFolder
+		private ReactiveCommand<Unit, bool> pickDefaultOutputFolder;
+		public ReactiveCommand<Unit, bool> PickDefaultOutputFolder
 		{
 			get
 			{
@@ -138,8 +139,8 @@ namespace VidCoder.Services
 			return newOutputFolder != null;
 		}
 
-		private ReactiveCommand pickOutputPath;
-		public ReactiveCommand PickOutputPath
+		private ReactiveCommand<Unit, Unit> pickOutputPath;
+		public ReactiveCommand<Unit, Unit> PickOutputPath
 		{
 			get
 			{

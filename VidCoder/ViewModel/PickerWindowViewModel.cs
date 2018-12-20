@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Reflection;
 using System.Windows;
@@ -742,8 +743,8 @@ namespace VidCoder.ViewModel
 			set { this.UpdatePickerProperty(nameof(this.Picker.PostEncodeArguments), value); }
 		}
 
-		private ReactiveCommand dismissMessage;
-		public ReactiveCommand DismissMessage
+		private ReactiveCommand<Unit, Unit> dismissMessage;
+		public ICommand DismissMessage
 		{
 			get
 			{
@@ -754,8 +755,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand save;
-		public ReactiveCommand Save
+		private ReactiveCommand<Unit, Unit> save;
+		public ICommand Save
 		{
 			get
 			{
@@ -769,8 +770,8 @@ namespace VidCoder.ViewModel
 		}
 
 
-		private ReactiveCommand saveAs;
-		public ReactiveCommand SaveAs
+		private ReactiveCommand<Unit, Unit> saveAs;
+		public ICommand SaveAs
 		{
 			get
 			{
@@ -790,8 +791,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand rename;
-		public ReactiveCommand Rename
+		private ReactiveCommand<Unit, Unit> rename;
+		public ICommand Rename
 		{
 			get
 			{
@@ -812,8 +813,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand delete;
-		public ReactiveCommand Delete
+		private ReactiveCommand<Unit, Unit> delete;
+		public ICommand Delete
 		{
 			get
 			{
@@ -846,8 +847,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand pickOutputDirectory;
-		public ReactiveCommand PickOutputDirectory
+		private ReactiveCommand<Unit, Unit> pickOutputDirectory;
+		public ICommand PickOutputDirectory
 		{
 			get
 			{
@@ -862,8 +863,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand addAudioLanguage;
-		public ReactiveCommand AddAudioLanguage
+		private ReactiveCommand<Unit, Unit> addAudioLanguage;
+		public ICommand AddAudioLanguage
 		{
 			get
 			{
@@ -875,8 +876,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand addSubtitleLanguage;
-		public ReactiveCommand AddSubtitleLanguage
+		private ReactiveCommand<Unit, Unit> addSubtitleLanguage;
+		public ICommand AddSubtitleLanguage
 		{
 			get
 			{
@@ -893,8 +894,8 @@ namespace VidCoder.ViewModel
 			list.Add(new LanguageViewModel(this) { Code = LanguageUtilities.GetDefaultLanguageCode(list.Items.Select(l => l.Code).ToList()) });
 		}
 
-		private ReactiveCommand pickPostEncodeExecutable;
-		public ReactiveCommand PickPostEncodeExecutable
+		private ReactiveCommand<Unit, Unit> pickPostEncodeExecutable;
+		public ICommand PickPostEncodeExecutable
 		{
 			get
 			{

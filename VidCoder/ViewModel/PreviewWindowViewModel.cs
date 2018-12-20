@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Threading;
@@ -444,7 +445,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand generatePreview;
+		private ReactiveCommand<Unit, Unit> generatePreview;
 		public ICommand GeneratePreview
 		{
 			get
@@ -655,7 +656,7 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(nameof(this.PreviewFilePath));
 		}
 
-		private ReactiveCommand playSource;
+		private ReactiveCommand<Unit, Unit> playSource;
 		public ICommand PlaySource
 		{
 			get
@@ -693,7 +694,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand reopenPreview;
+		private ReactiveCommand<Unit, Unit> reopenPreview;
 		public ICommand ReopenPreview
 		{
 			get
@@ -708,7 +709,7 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<bool> previewAvailable;
 		public bool PreviewAvailable => this.previewAvailable.Value;
 
-		private ReactiveCommand cancelPreview;
+		private ReactiveCommand<Unit, Unit> cancelPreview;
 		public ICommand CancelPreview
 		{
 			get
@@ -725,7 +726,7 @@ namespace VidCoder.ViewModel
 			this.encodeProxy.StopEncode();
 		}
 
-		private ReactiveCommand pause;
+		private ReactiveCommand<Unit, Unit> pause;
 		public ICommand Pause
 		{
 			get
@@ -737,7 +738,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand play;
+		private ReactiveCommand<Unit, Unit> play;
 		public ICommand Play
 		{
 			get
@@ -749,7 +750,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand openInSystemPlayer;
+		private ReactiveCommand<Unit, Unit> openInSystemPlayer;
 		public ICommand OpenInSystemPlayer
 		{
 			get
@@ -762,7 +763,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand closeVideo;
+		private ReactiveCommand<Unit, Unit> closeVideo;
 		public ICommand CloseVideo
 		{
 			get

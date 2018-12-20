@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive;
 using System.Text;
 using System.Windows.Input;
 using Microsoft.AnyContainer;
@@ -21,8 +22,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand clearLog;
-		public ReactiveCommand ClearLog
+		private ReactiveCommand<Unit, Unit> clearLog;
+		public ICommand ClearLog
 		{
 			get
 			{
@@ -36,8 +37,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand copy;
-		public ReactiveCommand Copy
+		private ReactiveCommand<Unit, Unit> copy;
+		public ICommand Copy
 		{
 			get
 			{

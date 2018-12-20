@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -610,7 +611,7 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<bool> padColorEnabled;
 		public bool PadColorEnabled => this.padColorEnabled.Value;
 
-		private ReactiveCommand pickPadColor;
+		private ReactiveCommand<Unit, Unit> pickPadColor;
 		public ICommand PickPadColor
 		{
 			get

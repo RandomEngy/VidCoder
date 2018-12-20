@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -207,7 +208,7 @@ namespace VidCoder.Services
 			}
 		}
 
-		public ReactiveCommand CreateSelectPickerCommand(PickerViewModel picker)
+		public ReactiveCommand<Unit, Unit> CreateSelectPickerCommand(PickerViewModel picker)
 		{
 			var selectPickerCommand = ReactiveCommand.Create(() => 
 			{

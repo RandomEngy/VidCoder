@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive;
 using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Services.Windows;
@@ -48,7 +49,7 @@ namespace VidCoder
 			set { this.RaiseAndSetIfChanged(ref this.previewWindowOpen, value); }
 		}
 
-		public ReactiveCommand OpenPreviewWindow { get; private set; }
-		public ReactiveCommand OpenPickerWindow { get; private set; }
+		public ReactiveCommand<Unit, Unit> OpenPreviewWindow { get; private set; }
+		public ReactiveCommand<Unit, Unit> OpenPickerWindow { get; private set; }
 	}
 }

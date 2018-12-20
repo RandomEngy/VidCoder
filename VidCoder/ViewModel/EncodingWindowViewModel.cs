@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows;
+using System.Windows.Input;
 using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Model;
@@ -112,8 +114,8 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.presetPanelOpen, value); }
 		}
 
-		private ReactiveCommand togglePresetPanel;
-		public ReactiveCommand TogglePresetPanel
+		private ReactiveCommand<Unit, Unit> togglePresetPanel;
+		public ICommand TogglePresetPanel
 		{
 			get
 			{
@@ -125,8 +127,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand save;
-		public ReactiveCommand Save
+		private ReactiveCommand<Unit, Unit> save;
+		public ICommand Save
 		{
 			get
 			{
@@ -139,8 +141,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand saveAs;
-		public ReactiveCommand SaveAs
+		private ReactiveCommand<Unit, Unit> saveAs;
+		public ICommand SaveAs
 		{
 			get
 			{
@@ -160,8 +162,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand rename;
-		public ReactiveCommand Rename
+		private ReactiveCommand<Unit, Unit> rename;
+		public ICommand Rename
 		{
 			get
 			{
@@ -182,8 +184,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand deletePreset;
-		public ReactiveCommand DeletePreset
+		private ReactiveCommand<Unit, Unit> deletePreset;
+		public ICommand DeletePreset
 		{
 			get
 			{

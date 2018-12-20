@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using DynamicData;
 using DynamicData.Aggregation;
 using DynamicData.Binding;
@@ -190,8 +192,8 @@ namespace VidCoder.ViewModel.DataModels
 			this.AllItems.Remove(presetViewModel);
 		}
 
-		private ReactiveCommand createSubfolder;
-		public ReactiveCommand CreateSubfolder
+		private ReactiveCommand<Unit, Unit> createSubfolder;
+		public ICommand CreateSubfolder
 		{
 			get
 			{
@@ -202,8 +204,8 @@ namespace VidCoder.ViewModel.DataModels
 			}
 		}
 
-		private ReactiveCommand renameFolder;
-		public ReactiveCommand RenameFolder
+		private ReactiveCommand<Unit, Unit> renameFolder;
+		public ICommand RenameFolder
 		{
 			get
 			{
@@ -215,8 +217,8 @@ namespace VidCoder.ViewModel.DataModels
 		}
 
 		private IObservable<bool> canRemoveFolderObservable;
-		private ReactiveCommand removeFolder;
-		public ReactiveCommand RemoveFolder
+		private ReactiveCommand<Unit, Unit> removeFolder;
+		public ICommand RemoveFolder
 		{
 			get
 			{

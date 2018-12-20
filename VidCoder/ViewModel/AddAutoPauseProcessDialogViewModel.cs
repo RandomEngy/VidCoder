@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Reactive;
 using VidCoder.Services;
 using System.Windows.Input;
 using ReactiveUI;
@@ -55,8 +56,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand refreshCurrentProcesses;
-		public ReactiveCommand RefreshCurrentProcesses
+		private ReactiveCommand<Unit, Unit> refreshCurrentProcesses;
+		public ICommand RefreshCurrentProcesses
 		{
 			get
 			{

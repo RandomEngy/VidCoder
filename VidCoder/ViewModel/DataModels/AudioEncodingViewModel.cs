@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Resources;
 using System.Runtime.CompilerServices;
@@ -893,8 +894,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand removeAudioEncoding;
-		public ReactiveCommand RemoveAudioEncoding
+		private ReactiveCommand<Unit, Unit> removeAudioEncoding;
+		public ReactiveCommand<Unit, Unit> RemoveAudioEncoding
 		{
 			get
 			{

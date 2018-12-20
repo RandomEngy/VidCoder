@@ -227,8 +227,8 @@ namespace VidCoder.ViewModel
 		private readonly ObservableAsPropertyHelper<bool> hasAudioTracks;
 		public bool HasAudioTracks => this.hasAudioTracks.Value;
 
-		private ReactiveCommand addAudioEncoding;
-		public ReactiveCommand AddAudioEncoding
+		private ReactiveCommand<Unit, Unit> addAudioEncoding;
+		public ICommand AddAudioEncoding
 		{
 			get
 			{

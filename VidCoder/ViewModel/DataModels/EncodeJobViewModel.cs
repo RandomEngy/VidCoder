@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows.Input;
 using HandBrake.Interop.Interop;
@@ -456,8 +457,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand editQueueJob;
-		public ReactiveCommand EditQueueJob
+		private ReactiveCommand<Unit, Unit> editQueueJob;
+		public ICommand EditQueueJob
 		{
 			get
 			{
@@ -476,8 +477,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand removeQueueJob;
-		public ReactiveCommand RemoveQueueJob
+		private ReactiveCommand<Unit, Unit> removeQueueJob;
+		public ICommand RemoveQueueJob
 		{
 			get
 			{
@@ -493,7 +494,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand openSourceFolder;
+		private ReactiveCommand<Unit, Unit> openSourceFolder;
 		public ICommand OpenSourceFolder
 		{
 			get

@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Text;
@@ -1717,8 +1718,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand addSrtSubtitle;
-		public ReactiveCommand AddSrtSubtitle
+		private ReactiveCommand<Unit, Unit> addSrtSubtitle;
+		public ICommand AddSrtSubtitle
 		{
 			get
 			{
@@ -2417,8 +2418,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand openEncodingWindow;
-		public ReactiveCommand OpenEncodingWindow
+		private ReactiveCommand<Unit, Unit> openEncodingWindow;
+		public ICommand OpenEncodingWindow
 		{
 			get
 			{
@@ -2429,8 +2430,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand openOptions;
-		public ReactiveCommand OpenOptions
+		private ReactiveCommand<Unit, Unit> openOptions;
+		public ICommand OpenOptions
 		{
 			get
 			{
@@ -2441,8 +2442,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand openUpdates;
-		public ReactiveCommand OpenUpdates
+		private ReactiveCommand<Unit, Unit> openUpdates;
+		public ICommand OpenUpdates
 		{
 			get
 			{
@@ -2454,8 +2455,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand openChaptersDialog;
-		public ReactiveCommand OpenChaptersDialog
+		private ReactiveCommand<Unit, Unit> openChaptersDialog;
+		public ICommand OpenChaptersDialog
 		{
 			get
 			{
@@ -2476,8 +2477,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand openAboutDialog;
-		public ReactiveCommand OpenAboutDialog
+		private ReactiveCommand<Unit, Unit> openAboutDialog;
+		public ICommand OpenAboutDialog
 		{
 			get
 			{
@@ -2488,13 +2489,13 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand cancelScan;
-		public ReactiveCommand CancelScan
+		private ReactiveCommand<Unit, Unit> cancelScan;
+		public ICommand CancelScan
 		{
 			get { return this.CancelScanImpl(); }
 		}
 
-		private ReactiveCommand CancelScanImpl()
+		private ReactiveCommand<Unit, Unit> CancelScanImpl()
 		{
 			return this.cancelScan ?? (this.cancelScan = ReactiveCommand.Create(() =>
 			{
@@ -2503,8 +2504,8 @@ namespace VidCoder.ViewModel
 			}));
 		}
 
-		private ReactiveCommand openFile;
-		public ReactiveCommand OpenFile
+		private ReactiveCommand<Unit, Unit> openFile;
+		public ICommand OpenFile
 		{
 			get
 			{
@@ -2517,8 +2518,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand openFolder;
-		public ReactiveCommand OpenFolder
+		private ReactiveCommand<Unit, Unit> openFolder;
+		public ICommand OpenFolder
 		{
 			get
 			{
@@ -2531,7 +2532,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand clearRecentFiles;
+		private ReactiveCommand<Unit, Unit> clearRecentFiles;
 		public ICommand ClearRecentFiles
 		{
 			get
@@ -2544,8 +2545,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand closeVideoSource;
-		public ReactiveCommand CloseVideoSource
+		private ReactiveCommand<Unit, Unit> closeVideoSource;
+		public ICommand CloseVideoSource
 		{
 			get
 			{
@@ -2568,8 +2569,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand customizeQueueColumns;
-		public ReactiveCommand CustomizeQueueColumns
+		private ReactiveCommand<Unit, Unit> customizeQueueColumns;
+		public ICommand CustomizeQueueColumns
 		{
 			get
 			{
@@ -2592,8 +2593,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand importPreset;
-		public ReactiveCommand ImportPreset
+		private ReactiveCommand<Unit, Unit> importPreset;
+		public ICommand ImportPreset
 		{
 			get
 			{
@@ -2619,8 +2620,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand exportPreset;
-		public ReactiveCommand ExportPreset
+		private ReactiveCommand<Unit, Unit> exportPreset;
+		public ICommand ExportPreset
 		{
 			get
 			{
@@ -2631,8 +2632,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand openHomepage;
-		public ReactiveCommand OpenHomepage
+		private ReactiveCommand<Unit, Unit> openHomepage;
+		public ICommand OpenHomepage
 		{
 			get
 			{
@@ -2643,8 +2644,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand reportBug;
-		public ReactiveCommand ReportBug
+		private ReactiveCommand<Unit, Unit> reportBug;
+		public ICommand ReportBug
 		{
 			get
 			{
@@ -2655,8 +2656,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand openAppData;
-		public ReactiveCommand OpenAppData
+		private ReactiveCommand<Unit, Unit> openAppData;
+		public ICommand OpenAppData
 		{
 			get
 			{
@@ -2667,8 +2668,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand exit;
-		public ReactiveCommand Exit
+		private ReactiveCommand<Unit, Unit> exit;
+		public ICommand Exit
 		{
 			get
 			{
@@ -2679,8 +2680,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand showPreviousPreview;
-		public ReactiveCommand ShowPreviousPreview
+		private ReactiveCommand<Unit, Unit> showPreviousPreview;
+		public ICommand ShowPreviousPreview
 		{
 			get
 			{
@@ -2695,8 +2696,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand showNextPreview;
-		public ReactiveCommand ShowNextPreview
+		private ReactiveCommand<Unit, Unit> showNextPreview;
+		public ICommand ShowNextPreview
 		{
 			get
 			{

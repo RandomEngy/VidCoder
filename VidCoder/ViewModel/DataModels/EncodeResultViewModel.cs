@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Reactive;
+using System.Windows.Input;
 using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Model;
@@ -98,8 +100,8 @@ namespace VidCoder.ViewModel
 
 		public string OutputFileSize => Utilities.FormatFileSize(this.encodeResult.SizeBytes);
 
-		private ReactiveCommand play;
-		public ReactiveCommand Play
+		private ReactiveCommand<Unit, Unit> play;
+		public ICommand Play
 		{
 			get
 			{
@@ -113,8 +115,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand openContainingFolder;
-		public ReactiveCommand OpenContainingFolder
+		private ReactiveCommand<Unit, Unit> openContainingFolder;
+		public ICommand OpenContainingFolder
 		{
 			get
 			{
@@ -128,8 +130,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand edit;
-		public ReactiveCommand Edit
+		private ReactiveCommand<Unit, Unit> edit;
+		public ICommand Edit
 		{
 			get
 			{
@@ -145,8 +147,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand openLog;
-		public ReactiveCommand OpenLog
+		private ReactiveCommand<Unit, Unit> openLog;
+		public ICommand OpenLog
 		{
 			get
 			{
@@ -160,8 +162,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand copyLog;
-		public ReactiveCommand CopyLog
+		private ReactiveCommand<Unit, Unit> copyLog;
+		public ICommand CopyLog
 		{
 			get
 			{

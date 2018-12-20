@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Reactive;
 using System.Reactive.Linq;
+using System.Windows.Input;
 using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Model;
@@ -106,8 +108,8 @@ namespace VidCoder.ViewModel
 			get { return this.sourceOption; }
 		}
 
-		private ReactiveCommand chooseSource;
-		public ReactiveCommand ChooseSource
+		private ReactiveCommand<Unit, Unit> chooseSource;
+		public ICommand ChooseSource
 		{
 			get
 			{

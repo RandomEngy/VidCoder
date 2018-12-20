@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reactive;
+using System.Windows.Input;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.Json.Scan;
 using Microsoft.AnyContainer;
@@ -247,8 +249,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand duplicateSubtitle;
-		public ReactiveCommand DuplicateSubtitle
+		private ReactiveCommand<Unit, Unit> duplicateSubtitle;
+		public ICommand DuplicateSubtitle
 		{
 			get
 			{
@@ -259,8 +261,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand removeSubtitle;
-		public ReactiveCommand RemoveSubtitle
+		private ReactiveCommand<Unit, Unit> removeSubtitle;
+		public ICommand RemoveSubtitle
 		{
 			get
 			{

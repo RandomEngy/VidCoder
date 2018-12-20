@@ -8,6 +8,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Media;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Security;
 using System.Threading;
@@ -398,7 +399,7 @@ namespace VidCoder.Services
 			set { this.RaiseAndSetIfChanged(ref this.selectedTabIndex, value); }
 		}
 
-		private ReactiveCommand encode;
+		private ReactiveCommand<Unit, Unit> encode;
 		public ICommand Encode
 		{
 			get
@@ -433,8 +434,8 @@ namespace VidCoder.Services
 			}
 		}
 
-		private ReactiveCommand addToQueue;
-		public ReactiveCommand AddToQueue
+		private ReactiveCommand<Unit, Unit> addToQueue;
+		public ICommand AddToQueue
 		{
 			get
 			{
@@ -447,8 +448,8 @@ namespace VidCoder.Services
 			}
 		}
 
-		private ReactiveCommand queueFiles;
-		public ReactiveCommand QueueFiles
+		private ReactiveCommand<Unit, Unit> queueFiles;
+		public ICommand QueueFiles
 		{
 			get
 			{
@@ -470,8 +471,8 @@ namespace VidCoder.Services
 			}
 		}
 
-		private ReactiveCommand queueTitlesAction;
-		public ReactiveCommand QueueTitlesAction
+		private ReactiveCommand<Unit, Unit> queueTitlesAction;
+		public ICommand QueueTitlesAction
 		{
 			get
 			{
@@ -489,7 +490,7 @@ namespace VidCoder.Services
 			}
 		}
 		
-		private ReactiveCommand applyCurrentPresetToQueue;
+		private ReactiveCommand<Unit, Unit> applyCurrentPresetToQueue;
 		public ICommand ApplyCurrentPresetToQueue
 		{
 			get
@@ -544,8 +545,8 @@ namespace VidCoder.Services
 			}
 		}
 
-		private ReactiveCommand pause;
-		public ReactiveCommand Pause
+		private ReactiveCommand<Unit, Unit> pause;
+		public ICommand Pause
 		{
 			get
 			{
@@ -559,8 +560,8 @@ namespace VidCoder.Services
 			}
 		}
 
-		private ReactiveCommand stopEncode;
-		public ReactiveCommand StopEncode
+		private ReactiveCommand<Unit, Unit> stopEncode;
+		public ICommand StopEncode
 		{
 			get
 			{
@@ -585,8 +586,8 @@ namespace VidCoder.Services
 			}
 		}
 
-		private ReactiveCommand moveSelectedJobsToTop;
-		public ReactiveCommand MoveSelectedJobsToTop
+		private ReactiveCommand<Unit, Unit> moveSelectedJobsToTop;
+		public ICommand MoveSelectedJobsToTop
 		{
 			get
 			{
@@ -622,8 +623,8 @@ namespace VidCoder.Services
 			}
 		}
 
-		private ReactiveCommand moveSelectedJobsToBottom;
-		public ReactiveCommand MoveSelectedJobsToBottom
+		private ReactiveCommand<Unit, Unit> moveSelectedJobsToBottom;
+		public ICommand MoveSelectedJobsToBottom
 		{
 			get
 			{
@@ -649,8 +650,8 @@ namespace VidCoder.Services
 			}
 		}
 
-		private ReactiveCommand importQueue;
-		public ReactiveCommand ImportQueue
+		private ReactiveCommand<Unit, Unit> importQueue;
+		public ICommand ImportQueue
 		{
 			get
 			{
@@ -676,8 +677,8 @@ namespace VidCoder.Services
 			}
 		}
 
-		private ReactiveCommand exportQueue;
-		public ReactiveCommand ExportQueue
+		private ReactiveCommand<Unit, Unit> exportQueue;
+		public ICommand ExportQueue
 		{
 			get
 			{
@@ -702,7 +703,7 @@ namespace VidCoder.Services
 			}
 		}
 
-		private ReactiveCommand applyCurrentPresetToSelectedJobs;
+		private ReactiveCommand<Unit, Unit> applyCurrentPresetToSelectedJobs;
 		public ICommand ApplyCurrentPresetToSelectedJobs
 		{
 			get
@@ -732,8 +733,8 @@ namespace VidCoder.Services
 			}
 		}
 
-		private ReactiveCommand removeSelectedJobs;
-		public ReactiveCommand RemoveSelectedJobs
+		private ReactiveCommand<Unit, Unit> removeSelectedJobs;
+		public ICommand RemoveSelectedJobs
 		{
 			get
 			{
@@ -770,7 +771,7 @@ namespace VidCoder.Services
 			set { this.RaiseAndSetIfChanged(ref this.hasFailedItems, value); }
 		}
 
-		private ReactiveCommand retryFailed;
+		private ReactiveCommand<Unit, Unit> retryFailed;
 		public ICommand RetryFailed
 		{
 			get
@@ -807,8 +808,8 @@ namespace VidCoder.Services
 			}
 		}
 
-		private ReactiveCommand clearCompleted;
-		public ReactiveCommand ClearCompleted
+		private ReactiveCommand<Unit, Unit> clearCompleted;
+		public ICommand ClearCompleted
 		{
 			get
 			{

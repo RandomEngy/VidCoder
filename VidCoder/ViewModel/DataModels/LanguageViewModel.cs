@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.Model;
 using ReactiveUI;
@@ -27,8 +29,8 @@ namespace VidCoder.ViewModel.DataModels
 
 		public PickerWindowViewModel PickerWindowViewModel => this.pickerWindowViewModel;
 
-		private ReactiveCommand removeAudioLanguage;
-		public ReactiveCommand RemoveAudioLanguage
+		private ReactiveCommand<Unit, Unit> removeAudioLanguage;
+		public ICommand RemoveAudioLanguage
 		{
 			get
 			{
@@ -39,8 +41,8 @@ namespace VidCoder.ViewModel.DataModels
 			}
 		}
 
-		private ReactiveCommand removeSubtitleLanguage;
-		public ReactiveCommand RemoveSubtitleLanguage
+		private ReactiveCommand<Unit, Unit> removeSubtitleLanguage;
+		public ICommand RemoveSubtitleLanguage
 		{
 			get
 			{
