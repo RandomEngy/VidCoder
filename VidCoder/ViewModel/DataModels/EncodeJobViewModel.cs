@@ -231,12 +231,22 @@ namespace VidCoder.ViewModel
 
 		public void CalculateWork()
 		{
+			if (this.Job == null)
+			{
+				throw new InvalidOperationException("Job cannot be null.");
+			}
+
 			if (this.Job.Length <= TimeSpan.Zero)
 			{
 				this.Logger.LogError($"Invalid length '{this.Job.Length}' on job {this.Job.FinalOutputPath}");
 			}
 
 			var profile = this.Job.EncodingProfile;
+			if (profile == null)
+			{
+				throw new InvalidOperationException("Encoding profile cannot be null.");
+			}
+
 			this.work = new JobWork(this.Job.Length, profile.VideoEncodeRateType != VCVideoEncodeRateType.ConstantQuality && profile.TwoPass, this.SubtitleScan);
 		}
 
