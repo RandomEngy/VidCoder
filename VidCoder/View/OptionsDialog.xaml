@@ -694,12 +694,33 @@
 						<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.UpdatesSection}" />
 						<StackPanel Style="{StaticResource ConfigSectionStack}">
 							<TextBlock Margin="0 0 0 6" Text="{Binding CurrentVersion}" />
-							<CheckBox
+							<StackPanel
 								Margin="0 0 0 6"
 								HorizontalAlignment="Left"
 								VerticalAlignment="Top"
-								Content="{x:Static res:OptionsRes.AutomaticUpdatesCheckBox}"
-								IsChecked="{Binding UpdatesEnabledConfig}" />
+								Orientation="Horizontal">
+								<CheckBox
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									Content="{x:Static res:OptionsRes.AutomaticUpdatesCheckBox}"
+									IsChecked="{Binding UpdatesEnabledConfig}" />
+								<TextBlock
+									Margin="16 0 0 0"
+									VerticalAlignment="Center"
+									Text="{x:Static res:OptionsRes.PromptForUpdatesLabel}"
+									Visibility="{Binding UpdatesEnabledConfig,
+									                     Converter={StaticResource VisibilityConverter}}" />
+								<ComboBox
+									Margin="6 0 0 0"
+									VerticalAlignment="Center"
+									DisplayMemberPath="Display"
+									ItemsSource="{Binding UpdatePromptTimingChoices}"
+									SelectedValue="{Binding UpdatePromptTiming}"
+									SelectedValuePath="Value"
+									Visibility="{Binding UpdatesEnabledConfig,
+									                     Converter={StaticResource VisibilityConverter}}" />
+							</StackPanel>
+
 							<Button
 								Padding="3"
 								HorizontalAlignment="Left"

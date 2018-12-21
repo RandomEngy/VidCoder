@@ -268,4 +268,10 @@
   <data name="EncodeCompleteActionType_StopEncoding" xml:space="preserve">
     <value>Stop encoding</value>
   </data>
+  <data name="UpdatePromptTiming_OnExit" xml:space="preserve">
+    <value>On exit</value>
+  </data>
+  <data name="UpdatePromptTiming_OnLaunch" xml:space="preserve">
+    <value>On launch</value>
+  </data>
 </root>

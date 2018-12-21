@@ -437,6 +437,7 @@
     <Compile Include="Model\PreviewControls.cs" />
     <Compile Include="Model\PreviewEncodeState.cs" />
     <Compile Include="Model\PreviewMainDisplay.cs" />
+    <Compile Include="Model\UpdatePromptTiming.cs" />
     <Compile Include="Model\VideoSourceState.cs" />
     <Compile Include="Model\TitleType.cs" />
     <Compile Include="Model\Picker.cs">

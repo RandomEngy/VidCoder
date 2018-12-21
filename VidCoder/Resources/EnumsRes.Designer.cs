@@ -466,6 +466,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to On exit.
+        /// </summary>
+        public static string UpdatePromptTiming_OnExit {
+            get {
+                return ResourceManager.GetString("UpdatePromptTiming_OnExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On launch.
+        /// </summary>
+        public static string UpdatePromptTiming_OnLaunch {
+            get {
+                return ResourceManager.GetString("UpdatePromptTiming_OnLaunch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chapters.
         /// </summary>
         public static string VideoRangeType_Chapters {

@@ -48,6 +48,7 @@ AudioExpanded|bool|true
 SubtitlesExpanded|bool|true
 
 UpdatesEnabled|bool|true
+UpdatePromptTiming|string|"OnExit"
 UpdatesDisabled32BitOSWarningDisplayed|bool|false
 
 PreviewSeconds|int|10

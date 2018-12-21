@@ -664,6 +664,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Prompt for updates:.
+        /// </summary>
+        public static string PromptForUpdatesLabel {
+            get {
+                return ResourceManager.GetString("PromptForUpdatesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recognized Extensions:.
         /// </summary>
         public static string RecognizedExtensionsLabel {

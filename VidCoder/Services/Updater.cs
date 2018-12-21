@@ -18,6 +18,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using ReactiveUI;
 using VidCoder.Extensions;
+using VidCoder.ViewModel;
 using VidCoderCommon;
 
 namespace VidCoder.Services
@@ -49,7 +50,7 @@ namespace VidCoder.Services
 
 		public Version LatestVersion { get; set; }
 
-		public void PromptToApplyUpdate()
+		public bool PromptToApplyUpdate(bool relaunchWhenComplete)
 		{
 			if (Utilities.SupportsUpdates)
 			{
@@ -63,7 +64,7 @@ namespace VidCoder.Services
 						// If we already have the newer version clear all the update info and cancel
 						ClearUpdateMetadata();
 						DeleteUpdatesFolder();
-						return;
+						return false;
 					}
 
 					string installerPath = Config.UpdateInstallerLocation;
@@ -77,7 +78,8 @@ namespace VidCoder.Services
 
 						if (updateConfirmation.Result == "Yes")
 						{
-							this.ApplyUpdate();
+							this.ApplyUpdate(relaunchWhenComplete);
+							return true;
 						}
 						else if (updateConfirmation.Result == "Disable")
 						{
@@ -90,9 +92,11 @@ namespace VidCoder.Services
 					}
 				}
 			}
+
+			return false;
 		}
 
-		public void ApplyUpdate()
+		public void ApplyUpdate(bool relaunchWhenComplete)
 		{
 			// Re-check the process count in case another one was opened while the prompt was active.
 			if (Utilities.CurrentProcessInstances == 1)
@@ -102,10 +106,11 @@ namespace VidCoder.Services
 				Config.UpdateInProgress = true;
 
 				var installerProcess = new Process();
-				installerProcess.StartInfo = new ProcessStartInfo { FileName = installerPath, Arguments = "/silent /noicons /showSuccessDialog=\"yes\" /dir=\"" + Utilities.ProgramFolder + "\"" };
+				string extraParameter = relaunchWhenComplete ? "/launchWhenDone=\"yes\"" : "/showSuccessDialog=\"yes\"";
+				installerProcess.StartInfo = new ProcessStartInfo { FileName = installerPath, Arguments = "/silent /noicons " + extraParameter + " /dir=\"" + Utilities.ProgramFolder + "\"" };
 				installerProcess.Start();
 
-				// Let the program close on its own. This method is called on exiting.
+				// Caller will handle exiting
 			}
 		}
 
@@ -404,6 +409,17 @@ namespace VidCoder.Services
 				{
 					this.updateDownloadCancellationTokenSource?.Dispose();
 					this.updateDownloadCancellationTokenSource = null;
+				}
+
+				if (this.State == UpdateState.InstallerReady && CustomConfig.UpdatePromptTiming == UpdatePromptTiming.OnLaunch)
+				{
+					DispatchUtilities.BeginInvoke(() =>
+					{
+						if (this.PromptToApplyUpdate(relaunchWhenComplete: true))
+						{
+							StaticResolver.Resolve<MainViewModel>().Exit.Execute(null);
+						}
+					});
 				}
 			});
 		}

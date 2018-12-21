@@ -96,6 +96,7 @@ namespace VidCoder.ViewModel
 			}).ToProperty(this, x => x.CpuThrottlingDisplay, out this.cpuThrottlingDisplay, deferSubscription:true, scheduler: Scheduler.Immediate);
 
 			this.updatesEnabledConfig = Config.UpdatesEnabled;
+			this.updatePromptTiming = CustomConfig.UpdatePromptTiming;
 			this.defaultPath = Config.AutoNameOutputFolder;
 			this.customFormat = Config.AutoNameCustomFormat;
 			this.customFormatString = Config.AutoNameCustomFormatString;
@@ -307,6 +308,19 @@ namespace VidCoder.ViewModel
 		{
 			get { return this.updatesEnabledConfig; }
 			set { this.RaiseAndSetIfChanged(ref this.updatesEnabledConfig, value); }
+		}
+
+		public List<ComboChoice<UpdatePromptTiming>> UpdatePromptTimingChoices { get; } = new List<ComboChoice<UpdatePromptTiming>>
+		{
+			new ComboChoice<UpdatePromptTiming>(UpdatePromptTiming.OnExit, EnumsRes.UpdatePromptTiming_OnExit),
+			new ComboChoice<UpdatePromptTiming>(UpdatePromptTiming.OnLaunch, EnumsRes.UpdatePromptTiming_OnLaunch)
+		};
+
+		private UpdatePromptTiming updatePromptTiming;
+		public UpdatePromptTiming UpdatePromptTiming
+		{
+			get { return this.updatePromptTiming; }
+			set { this.RaiseAndSetIfChanged(ref this.updatePromptTiming, value); }
 		}
 
 		private ObservableAsPropertyHelper<string> updateStatus;
@@ -593,6 +607,8 @@ namespace VidCoder.ViewModel
 							Config.UpdatesEnabled = this.UpdatesEnabledConfig;
 							this.updater.HandleUpdatedSettings(this.UpdatesEnabledConfig);
 						}
+
+						CustomConfig.UpdatePromptTiming = this.UpdatePromptTiming;
 
 						if (Config.InterfaceLanguageCode != this.InterfaceLanguage.CultureCode)
 						{
