@@ -705,6 +705,7 @@
 									Content="{x:Static res:OptionsRes.AutomaticUpdatesCheckBox}"
 									IsChecked="{Binding UpdatesEnabledConfig}" />
 								<TextBlock
+									Name="promptForUpdatesLabel"
 									Margin="16 0 0 0"
 									VerticalAlignment="Center"
 									Text="{x:Static res:OptionsRes.PromptForUpdatesLabel}"
@@ -713,6 +714,7 @@
 								<ComboBox
 									Margin="6 0 0 0"
 									VerticalAlignment="Center"
+									AutomationProperties.LabeledBy="{Binding ElementName=promptForUpdatesLabel}"
 									DisplayMemberPath="Display"
 									ItemsSource="{Binding UpdatePromptTimingChoices}"
 									SelectedValue="{Binding UpdatePromptTiming}"
