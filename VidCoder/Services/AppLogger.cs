@@ -12,7 +12,6 @@ namespace VidCoder.Services
 {
 	public class AppLogger : IDisposable, IAppLogger
 	{
-		private List<LogEntry> logEntries = new List<LogEntry>();
 		private StreamWriter logFile;
 		private bool disposed;
 		private IAppLogger parent;
@@ -82,13 +81,7 @@ namespace VidCoder.Services
 			}
 		}
 
-		public List<LogEntry> LogEntries
-		{
-			get
-			{
-				return this.logEntries;
-			}
-		}
+		public List<LogEntry> LogEntries { get; } = new List<LogEntry>();
 
 		public void Log(string message)
 		{
@@ -143,10 +136,7 @@ namespace VidCoder.Services
 				this.LogEntries.Clear();
 			}
 
-			if (this.Cleared != null)
-			{
-				this.Cleared(this, EventArgs.Empty);
-			}
+			this.Cleared?.Invoke(this, EventArgs.Empty);
 		}
 
 		public void ShowStatus(string message)
@@ -184,10 +174,7 @@ namespace VidCoder.Services
 				this.LogEntries.Add(entry);
 			}
 
-			if (this.EntryLogged != null)
-			{
-				this.EntryLogged(this, new EventArgs<LogEntry>(entry));
-			}
+			this.EntryLogged?.Invoke(this, new EventArgs<LogEntry>(entry));
 
 			try
 			{

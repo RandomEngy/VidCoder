@@ -156,7 +156,14 @@ namespace VidCoder.ViewModel
 				{
 					if (this.encodeResult.LogPath != null)
 					{
-						FileService.Instance.LaunchFile(this.encodeResult.LogPath);
+						try
+						{
+							FileService.Instance.LaunchFile(this.encodeResult.LogPath);
+						}
+						catch (Exception exception)
+						{
+							StaticResolver.Resolve<IAppLogger>().LogError("Could not open log file " + this.encodeResult.LogPath + Environment.NewLine + exception);
+						}
 					}
 				}));
 			}
