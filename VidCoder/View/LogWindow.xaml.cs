@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reactive.Linq;
 using System.Text;
 using System.Windows;
@@ -78,33 +79,47 @@ namespace VidCoder.View
 		{
 			lock (this.logger.LogLock)
 			{
-				// Add all existing log entries
-				ColoredLogGroup currentGroup = null;
-				foreach (LogEntry entry in this.logger.LogEntries)
+				this.logger.SuspendWriter();
+
+				try
 				{
-					LogColor entryColor = GetEntryColor(entry);
-
-					// If we need to start a new group
-					if (currentGroup == null || entryColor != currentGroup.Color)
+					// Add all existing log entries
+					ColoredLogGroup currentGroup = null;
+					using (var reader = new StreamReader(new FileStream(this.logger.LogPath, FileMode.Open, FileAccess.Read)))
 					{
-						// Write out the last group (if it exists)
-						if (currentGroup != null)
+						string line;
+						while ((line = reader.ReadLine()) != null)
 						{
-							this.AddLogGroup(currentGroup);
-						}
+							LogColor color = LogEntryClassificationUtilities.GetLineColor(line);
+							bool isContinuation = LogEntryClassificationUtilities.LineIsContinuation(line);
 
-						// Start the new group
-						currentGroup = new ColoredLogGroup(entryColor);
+							// If we need to start a new group
+							if (currentGroup == null || color != currentGroup.Color && !isContinuation)
+							{
+								// Write out the last group (if it exists)
+								if (currentGroup != null)
+								{
+									this.AddLogGroup(currentGroup);
+								}
+
+								// Start the new group
+								currentGroup = new ColoredLogGroup(color);
+							}
+
+							// Add the entry
+							currentGroup.Entries.Add(line);
+						}
 					}
 
-					// Add the entry
-					currentGroup.Entries.Add(entry);
+					// Add any items in the last group
+					if (currentGroup != null)
+					{
+						this.AddLogGroup(currentGroup);
+					}
 				}
-
-				// Add any items in the last group
-				if (currentGroup != null)
+				finally
 				{
-					this.AddLogGroup(currentGroup);
+					this.logger.ResumeWriter();
 				}
 			}
 		}
@@ -155,14 +170,14 @@ namespace VidCoder.View
 				while (this.pendingEntries.Count > 0 && entryGroups.Count < MaxRunsPerDispatch && currentLines < MaxLinesPerDispatch)
 				{
 					LogEntry entry = this.pendingEntries.Dequeue();
-					LogColor entryColor = GetEntryColor(entry);
+					LogColor entryColor = LogEntryClassificationUtilities.GetEntryColor(entry);
 					if (currentGroup == null || entryColor != currentGroup.Color)
 					{
 						currentGroup = new ColoredLogGroup(entryColor);
 						entryGroups.Add(currentGroup);
 					}
 
-					currentGroup.Entries.Add(entry);
+					currentGroup.Entries.Add(entry.Text);
 					currentLines++;
 				}
 			}
@@ -192,9 +207,9 @@ namespace VidCoder.View
 			Brush brush = this.logColorBrushMapping[group.Color];
 			StringBuilder runText = new StringBuilder();
 
-			foreach (LogEntry entry in group.Entries)
+			foreach (string entry in group.Entries)
 			{
-				runText.AppendLine(entry.Text);
+				runText.AppendLine(entry);
 			}
 
 			var run = new Run(runText.ToString());
@@ -203,48 +218,17 @@ namespace VidCoder.View
 			this.logParagraph.Inlines.Add(run);
 		}
 
-		private static LogColor GetEntryColor(LogEntry entry)
-		{
-			if (entry.LogType == LogType.Error)
-			{
-				return LogColor.Error;
-				//return Colors.Red;
-			}
-			else if (entry.Source == LogSource.VidCoder)
-			{
-				return LogColor.VidCoder;
-				//return Colors.DarkBlue;
-			}
-			else if (entry.Source == LogSource.VidCoderWorker)
-			{
-				return LogColor.VidCoderWorker;
-				//return Colors.DarkGreen;
-			}
-
-
-			return LogColor.Normal;
-			//return Colors.Black;
-		}
-
 		private class ColoredLogGroup
 		{
 			public ColoredLogGroup(LogColor color)
 			{
-				this.Entries = new List<LogEntry>();
+				this.Entries = new List<string>();
 				this.Color = color;
 			}
 
-			public IList<LogEntry> Entries { get; }
+			public IList<string> Entries { get; }
 
 			public LogColor Color { get; }
-		}
-
-		private enum LogColor
-		{
-			Error,
-			VidCoder,
-			VidCoderWorker,
-			Normal
 		}
 	}
 }

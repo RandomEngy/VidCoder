@@ -12,7 +12,7 @@ namespace VidCoder.Services
 {
 	public class AppLogger : IDisposable, IAppLogger
 	{
-		private StreamWriter logFile;
+		private StreamWriter logFileWriter;
 		private bool disposed;
 		private IAppLogger parent;
 
@@ -47,28 +47,33 @@ namespace VidCoder.Services
 
 			this.LogPath = Path.Combine(logFolder, DateTimeOffset.Now.ToString("yyyy-MM-dd HH.mm.ss ") + logFileNameAffix + ".txt");
 
+			this.TryCreateLogFileWriter();
+
+			var initialEntry = new LogEntry
+			{
+				LogType = LogType.Message,
+				Source = LogSource.VidCoder,
+				Text = "# VidCoder " + Utilities.VersionString
+			};
+
+			this.AddEntry(initialEntry);
+		}
+
+		private void TryCreateLogFileWriter()
+		{
 			try
 			{
-				this.logFile = new StreamWriter(this.LogPath);
+				this.logFileWriter = new StreamWriter(new FileStream(this.LogPath, FileMode.Append, FileAccess.Write));
 			}
 			catch (PathTooLongException)
 			{
-				parent.LogError("Could not create logger for encode. File path was too long.");
+				this.parent?.LogError("Could not create logger for encode. File path was too long.");
 				// We won't have an underlying log file.
 			}
 			catch (IOException exception)
 			{
 				this.LogError("Could not open file for logger." + Environment.NewLine + exception);
 			}
-
-			var initialEntry = new LogEntry
-			{
-				LogType = LogType.Message,
-				Source = LogSource.VidCoder,
-				Text = "## VidCoder " + Utilities.VersionString
-			};
-
-			this.AddEntry(initialEntry);
 		}
 
 		public string LogPath { get; set; }
@@ -79,6 +84,22 @@ namespace VidCoder.Services
 			{
 				return logLock;
 			}
+		}
+
+		/// <summary>
+		/// Suspends the file writer. Should be called while holding the LogLock
+		/// </summary>
+		public void SuspendWriter()
+		{
+			this.logFileWriter?.Close();
+		}
+
+		/// <summary>
+		/// Resumes the file writer. Should be called while holding the LogLock
+		/// </summary>
+		public void ResumeWriter()
+		{
+			this.TryCreateLogFileWriter();
 		}
 
 		public List<LogEntry> LogEntries { get; } = new List<LogEntry>();
@@ -111,7 +132,7 @@ namespace VidCoder.Services
 			{
 				LogType = LogType.Error,
 				Source = LogSource.VidCoder,
-				Text = "# " + message
+				Text = "ERROR: " + message
 			};
 
 			this.AddEntry(entry);
@@ -119,11 +140,13 @@ namespace VidCoder.Services
 
 		public void LogWorker(string message, bool isError)
 		{
+			var logType = isError ? LogType.Error : LogType.Message;
+
 			var entry = new LogEntry
 			{
-				LogType = isError ? LogType.Error : LogType.Message,
+				LogType = logType,
 				Source = LogSource.VidCoderWorker,
-				Text = "* " + message
+				Text = LogEntryClassificationUtilities.GetEntryPrefix(logType, LogSource.VidCoderWorker) + message
 			};
 
 			this.AddEntry(entry);
@@ -150,11 +173,12 @@ namespace VidCoder.Services
 		public void Dispose()
 		{
 			lock (this.disposeLock)
+			lock (this.LogLock)
 			{
 				if (!this.disposed)
 				{
 					this.disposed = true;
-					this.logFile?.Close();
+					this.logFileWriter?.Close();
 				}
 			}
 		}
@@ -171,23 +195,40 @@ namespace VidCoder.Services
 
 			lock (this.LogLock)
 			{
-				this.LogEntries.Add(entry);
-			}
-
-			this.EntryLogged?.Invoke(this, new EventArgs<LogEntry>(entry));
-
-			try
-			{
-				this.logFile?.WriteLine(entry.Text);
-				this.logFile?.Flush();
-
-				if (this.parent != null && logParent)
+				// See if log line needs to have continuation markers added
+				string[] entryLines = entry.Text.Split(new[] {"\r\n", "\r", "\n"}, StringSplitOptions.None);
+				if (entryLines.Length > 1)
 				{
-					this.parent.AddEntry(entry);
+					var builder = new StringBuilder(entryLines[0]);
+					for (int i = 1; i < entryLines.Length; i++)
+					{
+						var entryLine = entryLines[i];
+
+						builder.AppendLine();
+						builder.Append("｜");
+						builder.Append(entryLine);
+					}
+
+					entry.Text = builder.ToString();
 				}
-			}
-			catch (ObjectDisposedException)
-			{
+
+				this.LogEntries.Add(entry);
+
+				this.EntryLogged?.Invoke(this, new EventArgs<LogEntry>(entry));
+
+				try
+				{
+					this.logFileWriter?.WriteLine(entry.Text);
+					this.logFileWriter?.Flush();
+
+					if (this.parent != null && logParent)
+					{
+						this.parent.AddEntry(entry);
+					}
+				}
+				catch (ObjectDisposedException)
+				{
+				}
 			}
 		}
 

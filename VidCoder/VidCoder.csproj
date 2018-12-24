@@ -423,6 +423,7 @@
     <Compile Include="LayoutPanels\TruncatePanel.cs" />
     <Compile Include="Model\AppThemeChoice.cs" />
     <Compile Include="Model\EncodeCompleteTrigger.cs" />
+    <Compile Include="Model\LogColor.cs" />
     <Compile Include="Model\TitleCapitalizationChoice.cs" />
     <Compile Include="Model\Config\ConfigObservable.cs" />
     <Compile Include="Model\EncodeJobsXml.cs" />
@@ -602,6 +603,7 @@
     <Compile Include="Utilities\ListSynchronizer\MultiSelectorBehaviors.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Utilities\ListSynchronizer\TwoListSynchronizer.cs" />
+    <Compile Include="Utilities\LogEntryClassificationUtilities.cs" />
     <Compile Include="Utilities\MathUtilities.cs" />
     <Compile Include="Utilities\MvvmUtilities.cs" />
     <Compile Include="Utilities\NativeMethods.cs" />
