@@ -546,6 +546,8 @@
     <Compile Include="Services\HandBrakeProxy\RemoteProxyBase.cs" />
     <Compile Include="Services\HandBrakeProxy\RemoteScanProxy.cs" />
     <Compile Include="Services\Interfaces\IAppThemeService.cs" />
+    <Compile Include="Services\LocalScanAppLogger.cs" />
+    <Compile Include="Services\LogCoordinator.cs" />
     <Compile Include="Services\MainAppLogger.cs" />
     <Compile Include="Services\Notifications\BetaNotificationActivator.cs" />
     <Compile Include="Services\Notifications\BridgeToastNotificationDispatchService.cs" />

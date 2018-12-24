@@ -22,5 +22,17 @@ namespace VidCoder.Services
 				return this.logger;
 			}
 		}
+
+		public IAppLogger ResolveScanLogger()
+		{
+			if (CustomConfig.UseWorkerProcess)
+			{
+				return new LocalScanAppLogger(this.logger, "Scan");
+			}
+			else
+			{
+				return this.logger;
+			}
+		}
 	}
 }

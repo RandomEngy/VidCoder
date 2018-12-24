@@ -26,9 +26,6 @@ namespace VidCoder.Services
 		{
 			this.parent = parent;
 
-			HandBrakeUtils.MessageLogged += this.OnMessageLogged;
-			HandBrakeUtils.ErrorLogged += this.OnErrorLogged;
-
 			string logFolder = Path.Combine(Utilities.AppFolder, "Logs");
 			if (!Directory.Exists(logFolder))
 			{
@@ -56,7 +53,7 @@ namespace VidCoder.Services
 				Text = "# VidCoder " + Utilities.VersionString
 			};
 
-			this.AddEntry(initialEntry);
+			this.AddEntry(initialEntry, logParent: false);
 		}
 
 		private void TryCreateLogFileWriter()
@@ -167,10 +164,7 @@ namespace VidCoder.Services
 			StaticResolver.Resolve<StatusService>().Show(message);
 		}
 
-		/// <summary>
-		/// Frees any resources associated with this object.
-		/// </summary>
-		public void Dispose()
+		protected virtual void Dispose(bool disposing)
 		{
 			lock (this.disposeLock)
 			lock (this.LogLock)
@@ -178,9 +172,18 @@ namespace VidCoder.Services
 				if (!this.disposed)
 				{
 					this.disposed = true;
-					this.logFileWriter?.Close();
+					if (disposing)
+					{
+						this.logFileWriter?.Dispose();
+					}
 				}
 			}
+		}
+
+		public void Dispose()
+		{
+			this.Dispose(true);
+			GC.SuppressFinalize(this);
 		}
 
 		public void AddEntry(LogEntry entry, bool logParent = true)
@@ -230,32 +233,6 @@ namespace VidCoder.Services
 				{
 				}
 			}
-		}
-
-		private void OnMessageLogged(object sender, MessageLoggedEventArgs e)
-		{
-			var entry = new LogEntry
-			{
-				LogType = LogType.Message,
-				Source = LogSource.HandBrake,
-				Text = e.Message
-			};
-
-			// Parent will also get this message
-			this.AddEntry(entry, logParent: false);
-		}
-
-		private void OnErrorLogged(object sender, MessageLoggedEventArgs e)
-		{
-			var entry = new LogEntry
-			{
-				LogType = LogType.Error,
-				Source = LogSource.HandBrake,
-				Text = "ERROR: " + e.Message
-			};
-
-			// Parent will also get this message
-			this.AddEntry(entry, logParent: false);
 		}
 	}
 }
