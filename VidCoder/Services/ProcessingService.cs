@@ -1492,7 +1492,7 @@ namespace VidCoder.Services
 		{
 			VCJob job = jobViewModel.Job;
 
-			var encodeLogger = new AppLogger(this.logger, Path.GetFileName(job.FinalOutputPath));
+			var encodeLogger = StaticResolver.Resolve<AppLoggerFactory>().ResolveJobLogger(Path.GetFileName(job.FinalOutputPath));
 			jobViewModel.Logger = encodeLogger;
 			jobViewModel.EncodeSpeedDetailsAvailable = false;
 
@@ -1910,7 +1910,15 @@ namespace VidCoder.Services
 					logAffix = status == EncodeResultStatus.Succeeded ? "succeeded" : "failed";
 				}
 
-				string finalLogPath = ApplyStatusAffixToLogPath(encodeLogPath, logAffix);
+				string finalLogPath;
+				if (CustomConfig.UseWorkerProcess)
+				{
+					finalLogPath = ApplyStatusAffixToLogPath(encodeLogPath, logAffix);
+				}
+				else
+				{
+					finalLogPath = encodeLogPath;
+				}
 
 				if (addedResult != null)
 				{
@@ -1919,19 +1927,26 @@ namespace VidCoder.Services
 
 				if (Config.CopyLogToOutputFolder && finalLogPath != null)
 				{
-					string logCopyPath = Path.Combine(Path.GetDirectoryName(finalOutputPath), Path.GetFileName(finalLogPath));
+					if (CustomConfig.UseWorkerProcess)
+					{
+						string logCopyPath = Path.Combine(Path.GetDirectoryName(finalOutputPath), Path.GetFileName(finalLogPath));
 
-					try
-					{
-						File.Copy(finalLogPath, logCopyPath);
+						try
+						{
+							File.Copy(finalLogPath, logCopyPath);
+						}
+						catch (IOException exception)
+						{
+							this.logger.LogError("Could not copy log file to output directory: " + exception);
+						}
+						catch (UnauthorizedAccessException exception)
+						{
+							this.logger.LogError("Could not copy log file to output directory: " + exception);
+						}
 					}
-					catch (IOException exception)
+					else
 					{
-						this.logger.LogError("Could not copy log file to output directory: " + exception);
-					}
-					catch (UnauthorizedAccessException exception)
-					{
-						this.logger.LogError("Could not copy log file to output directory: " + exception);
+						this.logger.LogError("Cannot copy log to output folder: encode logs are only supported when using worker process.");
 					}
 				}
 			});

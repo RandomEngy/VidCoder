@@ -887,5 +887,14 @@ namespace VidCoder.Resources {
                 return ResourceManager.GetString("WorkerProcessPriorityLabel", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The worker process option will take effect after you exit and restart VidCoder..
+        /// </summary>
+        public static string WorkerProcessRestartDialogMessage {
+            get {
+                return ResourceManager.GetString("WorkerProcessRestartDialogMessage", resourceCulture);
+            }
+        }
     }
 }

@@ -616,6 +616,17 @@ namespace VidCoder.ViewModel
 							StaticResolver.Resolve<IMessageBoxService>().Show(this, OptionsRes.NewLanguageRestartDialogMessage);
 						}
 
+						if (Config.UseWorkerProcess != this.UseWorkerProcess)
+						{
+							// Override the value that the app uses with the old choice
+							CustomConfig.SetWorkerProcessOverride(Config.UseWorkerProcess);
+
+							// Set the stored value to the new choice
+							Config.UseWorkerProcess = this.UseWorkerProcess;
+
+							StaticResolver.Resolve<IMessageBoxService>().Show(this, OptionsRes.WorkerProcessRestartDialogMessage);
+						}
+
 						CustomConfig.AppTheme = this.AppTheme.Value;
 						Config.AutoNameOutputFolder = this.DefaultPath;
 						Config.AutoNameCustomFormat = this.CustomFormat;
@@ -663,7 +674,6 @@ namespace VidCoder.ViewModel
 						Config.DeleteSourceFilesOnClearingCompleted = this.DeleteSourceFilesOnClearingCompleted;
 						Config.PreserveModifyTimeFiles = this.PreserveModifyTimeFiles;
 						Config.ResumeEncodingOnRestart = this.ResumeEncodingOnRestart;
-						Config.UseWorkerProcess = this.UseWorkerProcess;
 						Config.MinimumTitleLengthSeconds = this.MinimumTitleLengthSeconds;
 						Config.VideoFileExtensions = this.VideoFileExtensions;
 						Config.CpuThrottlingFraction = (double)this.CpuThrottlingCores / this.CpuThrottlingMaxCores;

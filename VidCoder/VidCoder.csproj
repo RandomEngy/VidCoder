@@ -537,6 +537,7 @@
     <Compile Include="Model\VideoSourceMetadata.cs" />
     <Compile Include="Model\Players\VlcPlayer.cs" />
     <Compile Include="Model\WhenFileExists.cs" />
+    <Compile Include="Services\AppLoggerFactory.cs" />
     <Compile Include="Services\AutoChangeTracker.cs" />
     <Compile Include="Services\ClipboardService.cs" />
     <Compile Include="Services\HandBrakeProxy\IScanProxy.cs" />

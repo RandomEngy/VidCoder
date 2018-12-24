@@ -395,4 +395,7 @@
   <data name="PromptForUpdatesLabel" xml:space="preserve">
     <value>Prompt for updates:</value>
   </data>
+  <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
+    <value>The worker process option will take effect after you exit and restart VidCoder.</value>
+  </data>
 </root>
