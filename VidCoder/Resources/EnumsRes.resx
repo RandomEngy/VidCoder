@@ -274,4 +274,10 @@
   <data name="UpdatePromptTiming_OnLaunch" xml:space="preserve">
     <value>On launch</value>
   </data>
+  <data name="LogOperationType_Encode" xml:space="preserve">
+    <value>Encode</value>
+  </data>
+  <data name="LogOperationType_Scan" xml:space="preserve">
+    <value>Scan</value>
+  </data>
 </root>

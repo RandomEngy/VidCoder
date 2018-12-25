@@ -10,7 +10,7 @@ using VidCoder.Model;
 
 namespace VidCoder.Services
 {
-	public class AppLogger : IDisposable, IAppLogger
+	public class AppLogger : IAppLogger
 	{
 		private StreamWriter logFileWriter;
 		private bool disposed;

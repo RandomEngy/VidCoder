@@ -49,6 +49,7 @@ namespace VidCoder
 			container.RegisterSingleton<ClipboardService>();
 			container.RegisterSingleton<TrayService>();
 			container.RegisterSingleton<AppLoggerFactory>();
+			container.RegisterSingleton<LogCoordinator>();
 
 			container.RegisterSingleton<EncodingWindowViewModel>();
 

@@ -98,7 +98,7 @@ namespace VidCoder.ViewModel
                 }
             };
 
-			var scanLogger = StaticResolver.Resolve<AppLoggerFactory>().ResolveJobLogger("Scan");
+			var scanLogger = StaticResolver.Resolve<AppLoggerFactory>().ResolveRemoteScanLogger(path.Path);
 
             scanProxy.StartScan(path.Path, scanLogger);
 		}

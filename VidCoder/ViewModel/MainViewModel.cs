@@ -3060,7 +3060,7 @@ namespace VidCoder.ViewModel
 			this.ScanProgressFraction = 0;
 			HandBrakeInstance oldInstance = this.scanInstance;
 
-			IAppLogger scanLogger = StaticResolver.Resolve<AppLoggerFactory>().ResolveScanLogger();
+			IAppLogger scanLogger = StaticResolver.Resolve<AppLoggerFactory>().ResolveLocalScanLogger(path);
 			scanLogger.Log("Starting scan: " + path);
 
 			this.scanInstance = new HandBrakeInstance();

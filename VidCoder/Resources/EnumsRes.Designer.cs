@@ -394,6 +394,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Encode.
+        /// </summary>
+        public static string LogOperationType_Encode {
+            get {
+                return ResourceManager.GetString("LogOperationType_Encode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scan.
+        /// </summary>
+        public static string LogOperationType_Scan {
+            get {
+                return ResourceManager.GetString("LogOperationType_Scan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Off.
         /// </summary>
         public static string Off {

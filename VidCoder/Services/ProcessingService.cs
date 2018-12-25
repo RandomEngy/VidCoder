@@ -1492,7 +1492,7 @@ namespace VidCoder.Services
 		{
 			VCJob job = jobViewModel.Job;
 
-			var encodeLogger = StaticResolver.Resolve<AppLoggerFactory>().ResolveJobLogger(Path.GetFileName(job.FinalOutputPath));
+			var encodeLogger = StaticResolver.Resolve<AppLoggerFactory>().ResolveEncodeLogger(job.FinalOutputPath);
 			jobViewModel.Logger = encodeLogger;
 			jobViewModel.EncodeSpeedDetailsAvailable = false;
 

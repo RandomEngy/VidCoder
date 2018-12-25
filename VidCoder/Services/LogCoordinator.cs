@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DynamicData;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.EventArgs;
 using Microsoft.AnyContainer;
 using VidCoder.Model;
+using VidCoder.ViewModel.DataModels;
 
 namespace VidCoder.Services
 {
@@ -22,6 +24,13 @@ namespace VidCoder.Services
 				HandBrakeUtils.MessageLogged += this.OnMessageLoggedLocal;
 				HandBrakeUtils.ErrorLogged += this.OnErrorLoggedLocal;
 			}
+		}
+
+		public SourceList<LogViewModel> Logs { get; } = new SourceList<LogViewModel>();
+
+		public void AddLogger(IAppLogger logger, LogOperationType logOperationType, string operationPath)
+		{
+			this.Logs.Add(new LogViewModel(logger) { OperationPath = operationPath, OperationType = logOperationType });
 		}
 
 		private void OnMessageLoggedLocal(object sender, MessageLoggedEventArgs e)
