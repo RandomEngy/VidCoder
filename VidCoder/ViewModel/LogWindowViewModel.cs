@@ -22,6 +22,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public LogCoordinator LogCoordinator { get; } = StaticResolver.Resolve<LogCoordinator>();
+
 		private ReactiveCommand<Unit, Unit> clearLog;
 		public ICommand ClearLog
 		{

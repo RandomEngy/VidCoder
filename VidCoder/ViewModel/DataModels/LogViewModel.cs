@@ -26,12 +26,8 @@ namespace VidCoder.ViewModel.DataModels
 		{
 			get
 			{
-				if (this.OperationType == LogOperationType.Scan)
-				{
-					return EnumsRes.LogOperationType_Scan;
-				}
-
-				return EnumsRes.LogOperationType_Encode;
+				string translatedValue = this.OperationType == LogOperationType.Scan ? EnumsRes.LogOperationType_Scan : EnumsRes.LogOperationType_Encode;
+				return translatedValue + " - ";
 			}
 		}
 	}

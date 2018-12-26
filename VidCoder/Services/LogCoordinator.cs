@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DynamicData;
+using DynamicData.Binding;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.EventArgs;
 using Microsoft.AnyContainer;
@@ -18,6 +19,8 @@ namespace VidCoder.Services
 
 		public LogCoordinator()
 		{
+			this.logs.Connect().Bind(this.LogsBindable).Subscribe();
+
 			if (!CustomConfig.UseWorkerProcess)
 			{
 				// The central logger always listens for messages when encoding locally
@@ -26,11 +29,12 @@ namespace VidCoder.Services
 			}
 		}
 
-		public SourceList<LogViewModel> Logs { get; } = new SourceList<LogViewModel>();
+		private readonly SourceList<LogViewModel> logs = new SourceList<LogViewModel>();
+		public IObservableCollection<LogViewModel> LogsBindable { get; } = new ObservableCollectionExtended<LogViewModel>();
 
 		public void AddLogger(IAppLogger logger, LogOperationType logOperationType, string operationPath)
 		{
-			this.Logs.Add(new LogViewModel(logger) { OperationPath = operationPath, OperationType = logOperationType });
+			this.logs.Add(new LogViewModel(logger) { OperationPath = operationPath, OperationType = logOperationType });
 		}
 
 		private void OnMessageLoggedLocal(object sender, MessageLoggedEventArgs e)

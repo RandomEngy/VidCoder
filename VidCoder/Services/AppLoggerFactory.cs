@@ -46,7 +46,9 @@ namespace VidCoder.Services
 		{
 			if (CustomConfig.UseWorkerProcess)
 			{
-				return new LocalScanAppLogger(this.logger, "Scan");
+				var newLogger = new LocalScanAppLogger(this.logger, "Scan");
+				this.logCoordinator.AddLogger(newLogger, LogOperationType.Scan, sourcePath);
+				return newLogger;
 			}
 			else
 			{
