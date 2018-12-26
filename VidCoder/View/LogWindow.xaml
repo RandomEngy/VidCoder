@@ -28,7 +28,8 @@
 		<ListBox
 			Background="{DynamicResource AlternateBackgroundBrush}"
 			ItemsSource="{Binding LogCoordinator.LogsBindable}"
-			ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+			ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+			SelectedItem="{Binding LogCoordinator.SelectedLog}">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<Grid>

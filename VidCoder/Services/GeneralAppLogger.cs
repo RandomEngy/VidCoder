@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace VidCoder.Services
 {
-	public class MainAppLogger : AppLogger
-	{
-		public MainAppLogger() : base(null, null)
-		{
-		}
-	}
+    public class GeneralAppLogger : AppLogger
+    {
+	    public GeneralAppLogger(IAppLogger parent) 
+			: base(parent, "General")
+	    {
+	    }
+    }
 }

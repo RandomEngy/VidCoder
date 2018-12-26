@@ -28,7 +28,6 @@ namespace VidCoder
 
 			container.RegisterSingleton<IUpdater, Updater>();
 			container.RegisterSingleton<IMessageBoxService, MessageBoxService>();
-			container.RegisterSingleton<IAppLogger, MainAppLogger>();
 			container.RegisterSingleton<IFileService, FileService>();
 			container.RegisterSingleton<IPresetImportExport, PresetImportExport>();
 			container.RegisterSingleton<IQueueImportExport, QueueImportExport>();
@@ -36,6 +35,19 @@ namespace VidCoder
 			container.RegisterSingleton<IProcessAutoPause, ProcessAutoPause>();
 			container.RegisterSingleton<ISystemOperations, SystemOperations>();
 			container.RegisterSingleton<IWindowManager, WindowManager>();
+			container.RegisterSingleton<IAppLogger>(() =>
+			{
+				var allAppLogger = container.Resolve<AllAppLogger>();
+
+				if (CustomConfig.UseWorkerProcess)
+				{
+					return new GeneralAppLogger(allAppLogger);
+				}
+				else
+				{
+					return allAppLogger;
+				}
+			});
 
 			container.RegisterSingleton<OutputPathService>();
 			container.RegisterSingleton<OutputSizeService>();
@@ -50,6 +62,7 @@ namespace VidCoder
 			container.RegisterSingleton<TrayService>();
 			container.RegisterSingleton<AppLoggerFactory>();
 			container.RegisterSingleton<LogCoordinator>();
+			container.RegisterSingleton<AllAppLogger>();
 
 			container.RegisterSingleton<EncodingWindowViewModel>();
 

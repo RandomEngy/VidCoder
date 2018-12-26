@@ -541,6 +541,7 @@
     <Compile Include="Services\AppLoggerFactory.cs" />
     <Compile Include="Services\AutoChangeTracker.cs" />
     <Compile Include="Services\ClipboardService.cs" />
+    <Compile Include="Services\GeneralAppLogger.cs" />
     <Compile Include="Services\HandBrakeProxy\IScanProxy.cs" />
     <Compile Include="Services\HandBrakeProxy\LocalEncodeProxy.cs" />
     <Compile Include="Services\HandBrakeProxy\LocalScanProxy.cs" />
@@ -549,7 +550,7 @@
     <Compile Include="Services\Interfaces\IAppThemeService.cs" />
     <Compile Include="Services\LocalScanAppLogger.cs" />
     <Compile Include="Services\LogCoordinator.cs" />
-    <Compile Include="Services\MainAppLogger.cs" />
+    <Compile Include="Services\AllAppLogger.cs" />
     <Compile Include="Services\Notifications\BetaNotificationActivator.cs" />
     <Compile Include="Services\Notifications\BridgeToastNotificationDispatchService.cs" />
     <Compile Include="Services\Notifications\DesktopToastNotificationDispatchService.cs" />

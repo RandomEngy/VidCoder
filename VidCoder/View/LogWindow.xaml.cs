@@ -7,7 +7,9 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Threading;
+using DynamicData;
 using Microsoft.AnyContainer;
+using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Services;
@@ -25,12 +27,14 @@ namespace VidCoder.View
 		// The maximum number of lines to add to log window in a single dispatcher call
 		private const int MaxLinesPerDispatch = 100;
 
-		private readonly IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
 		private readonly IAppThemeService appThemeService = StaticResolver.Resolve<IAppThemeService>();
+		private readonly LogCoordinator logCoordinator = StaticResolver.Resolve<LogCoordinator>();
 
 		private readonly Queue<LogEntry> pendingEntries = new Queue<LogEntry>();
 		private bool workerRunning;
 		private readonly object pendingEntriesLock = new object();
+
+		private IAppLogger logger;
 
 		private readonly Dictionary<LogColor, Brush> logColorBrushMapping = new Dictionary<LogColor, Brush>();
 
@@ -39,16 +43,27 @@ namespace VidCoder.View
 			this.InitializeComponent();
 
 			this.PopulateLogColorBrushMapping();
-			this.AddExistingLogEntries();
 
 			this.Loaded += (sender, e) =>
 			{
 				this.logTextBox.ScrollToEnd();
 			};
 
-			// Subscribe to events
-			this.logger.EntryLogged += this.OnEntryLogged;
-			this.logger.Cleared += this.OnCleared;
+			this.logCoordinator.Logs
+				.Connect()
+				.OnItemAdded(addedLogViewModel =>
+				{
+					
+				});
+
+			this.logCoordinator.WhenAnyValue(x => x.SelectedLog).Subscribe(selectedLog =>
+			{
+				if (selectedLog != null)
+				{
+					this.DisconnectFromLogger();
+					this.ConnectToLogger(selectedLog.Logger);
+				}
+			});
 
 			this.appThemeService.AppThemeObservable.Skip(1).Subscribe(_ =>
 			{
@@ -59,6 +74,24 @@ namespace VidCoder.View
 					this.AddExistingLogEntries();
 				}));
 			});
+		}
+
+		private void ConnectToLogger(IAppLogger newLogger)
+		{
+			this.logger = newLogger;
+			this.logParagraph.Inlines.Clear();
+			this.AddExistingLogEntries();
+			newLogger.EntryLogged += this.OnEntryLogged;
+			this.logTextBox.ScrollToEnd();
+		}
+
+		private void DisconnectFromLogger()
+		{
+			if (this.logger != null)
+			{
+				this.logger.EntryLogged -= this.OnEntryLogged;
+				this.logger = null;
+			}
 		}
 
 		private void PopulateLogColorBrushMapping()
@@ -153,7 +186,7 @@ namespace VidCoder.View
 				if (this.pendingEntries.Count == 0)
 				{
 					// If we are already at the bottom, scroll to the end, which will fire after the entries have been added to the UI.
-					if (this.logTextBox.VerticalOffset + this.logTextBox.ViewportHeight >= this.logTextBox.ExtentHeight) 
+					if (this.ScrolledToEnd()) 
 					{
 						this.logTextBox.ScrollToEnd();
 					}
@@ -184,6 +217,11 @@ namespace VidCoder.View
 
 			this.AddLogGroups(entryGroups);
 			this.ProcessPendingEntries();
+		}
+
+		private bool ScrolledToEnd()
+		{
+			return this.logTextBox.VerticalOffset + this.logTextBox.ViewportHeight >= this.logTextBox.ExtentHeight;
 		}
 
 		private void OnCleared(object sender, EventArgs e)

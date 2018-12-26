@@ -1914,6 +1914,7 @@ namespace VidCoder.Services
 				if (CustomConfig.UseWorkerProcess)
 				{
 					finalLogPath = ApplyStatusAffixToLogPath(encodeLogPath, logAffix);
+					encodeLogger.LogPath = finalLogPath;
 				}
 				else
 				{

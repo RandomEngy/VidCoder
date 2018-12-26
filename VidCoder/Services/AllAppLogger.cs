@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoder.Model
+namespace VidCoder.Services
 {
-	public enum LogOperationType
+	public class AllAppLogger : AppLogger
 	{
-		Scan,
-		Encode,
-		General
+		public AllAppLogger() 
+			: base(null, null)
+		{
+		}
 	}
 }

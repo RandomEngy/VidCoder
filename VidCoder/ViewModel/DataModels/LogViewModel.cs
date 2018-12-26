@@ -26,6 +26,11 @@ namespace VidCoder.ViewModel.DataModels
 		{
 			get
 			{
+				if (this.OperationType == LogOperationType.General)
+				{
+					return LogRes.GeneralLogLabel;
+				}
+
 				string translatedValue = this.OperationType == LogOperationType.Scan ? EnumsRes.LogOperationType_Scan : EnumsRes.LogOperationType_Encode;
 				return translatedValue + " - ";
 			}

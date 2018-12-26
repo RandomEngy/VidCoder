@@ -123,4 +123,7 @@
   <data name="LogWindowTitle" xml:space="preserve">
     <value>Log</value>
   </data>
+  <data name="GeneralLogLabel" xml:space="preserve">
+    <value>General</value>
+  </data>
 </root>
