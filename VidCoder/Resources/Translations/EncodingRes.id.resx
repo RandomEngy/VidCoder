@@ -1032,25 +1032,130 @@ Bicubic: Ini adalah sebuah OpenCL algoritma penskalaan akselerasi piranti keras.
     <value>Kunci:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="PaddingLabel" xml:space="preserve">
+    <value>Lapisan</value>
+  </data>
+  <data name="AlignAVStartCheckBox" xml:space="preserve">
+    <value>Sesuaikan awal suara-gambar</value>
+  </data>
+  <data name="AlignAVStartCheckBoxToolTip" xml:space="preserve">
+    <value>Sesuaikan waktu mulai semua suara dan gambar dengan memasukkan kerangka kosong atau membuang kerangka. Dapat memperbaiki kesesuaian suara/gambar untuk pemain yang buta akan daftar suntingan MP4.</value>
+  </data>
+  <data name="TabHeader_Container" xml:space="preserve">
+    <value>Wadah</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Encoding preset: {0}</value>
+    <comment>Label for the encoding settings window.</comment>
+  </data>
+  <data name="AudioEncoder_none" xml:space="preserve">
+    <value>Tidak satupun</value>
+    <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
+  </data>
+  <data name="SizingModeToolTip" xml:space="preserve">
+    <value>Otomatis akan memilihkan ukuran berdasarkan batasan yang ditentukan. Manual akan membolehkan Anda memasukkan ukuran tertentu dan rasio aspek pixel.</value>
+  </data>
+  <data name="SharpenLabel" xml:space="preserve">
+    <value>Tajamkan</value>
+  </data>
+  <data name="DeblockToolTip" xml:space="preserve">
+    <value>Deblock mengurangi artifak yang membuat blok yang disebabkan oleh kompresi gambar kualitas rendah.</value>
+  </data>
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>Deinterlace membuang artifak garis - garis dari gambar.</value>
+  </data>
+  <data name="DenoiseToolTip" xml:space="preserve">
+    <value>Denoise mengurangi atau membuang tampilan kotor dan bertitik-titik. Ini akan memperbaiki efisiensi kompresi dan membuat gambar dengan kualitas lebih tinggi pada ukuran berkas lebih kecil.
+Terlalu banyak pada pengaturan denoise akan merusak kualitas gambar karena banyak detail hilang.
+
+NLMeans adalah filter denoise kualitas tinggi dengan membayar pada kecepatan. Gunakan di mana kualitas lebih penting daripada kecepatan.
+
+HQDN3D adalah filter low-pass adaptif, lebih cepat daripada NLMeans tapi lebih kurang efektif dalam menjaga detail halus.</value>
+  </data>
+  <data name="DetelecineToolTip" xml:space="preserve">
+    <value>Filter ini membuang artifak 'combing' sebagai hasil dari telecining.
+
+Telecining adalah proses yang menyesuaikan frame rate dari 24 fps ke NTSC yang 30 fps.</value>
+  </data>
+  <data name="SharpenToolTip" xml:space="preserve">
+    <value>Sharpening memperbaiki tampilan detail, terutama pinggiran. Jika terlalu kuat akan merusak kualitas gambar dan membuat artifak cincin dan menambah noise, yang akan mengurangi efisiensi kompresi.
+
+Unsharp adalah filter masking penggunaan umum. Ini menajamkan dengan membuat buram, kemudian menghitung perbedaan antara gambar yang diburamkan dan aslinya.
+
+Lapsharp menajamkan menggunakan kernel konvolusi dengan mengaproksimasi filter pinggir Laplacian, kadang menghasilkan hasil dengan kualitas lebih tinggi daripada unsharp.</value>
+  </data>
+  <data name="PresetFolder_Custom" xml:space="preserve">
+    <value>Khusus</value>
+  </data>
+  <data name="PresetFolder_BuiltIn" xml:space="preserve">
+    <value>Bawaan</value>
+  </data>
+  <data name="PresetFolderCreateSubfolderMenuItem" xml:space="preserve">
+    <value>Buat sub-berkas</value>
+  </data>
+  <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
+    <value>Ganti nama berkas</value>
+  </data>
+  <data name="PresetFolderRemoveFolderMenuItem" xml:space="preserve">
+    <value>Hilangkan berkas</value>
+  </data>
+  <data name="DefaultPresetFolderName" xml:space="preserve">
+    <value>Berkas baru</value>
+  </data>
+  <data name="ChooseNameSubfolder" xml:space="preserve">
+    <value>Pilih nama untuk sub-berkas:</value>
+  </data>
+  <data name="ChooseNewFolderName" xml:space="preserve">
+    <value>Pilih nama untuk berkas:</value>
+  </data>
+  <data name="NVEncPreset_losslesshp" xml:space="preserve">
+    <value>High Performance Lossless</value>
+  </data>
+  <data name="NVEncPreset_lossless" xml:space="preserve">
+    <value>Lossless</value>
+  </data>
+  <data name="NVEncPreset_llhp" xml:space="preserve">
+    <value>High Performance Low Latency</value>
+  </data>
+  <data name="NVEncPreset_llhq" xml:space="preserve">
+    <value>High Quality Low Latency</value>
+  </data>
+  <data name="NVEncPreset_ll" xml:space="preserve">
+    <value>Low Latency</value>
+  </data>
+  <data name="NVEncPreset_bd" xml:space="preserve">
+    <value>Bluray Disk</value>
+  </data>
+  <data name="NVEncPreset_hq" xml:space="preserve">
+    <value>Kualitas tinggi</value>
+  </data>
+  <data name="NVEncPreset_hp" xml:space="preserve">
+    <value>Kinerja tinggi</value>
+  </data>
+  <data name="PickColorButton" xml:space="preserve">
+    <value>Memilih warna...</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>Bawah</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Kiri</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Kanan</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Atas</value>
+  </data>
+  <data name="PixelAspectRatioNumeratorAutomationName" xml:space="preserve">
+    <value>Pixel rasio aspek pembilang</value>
+    <comment>Name for the pixel aspect ratio numerator box for screen readers</comment>
+  </data>
+  <data name="PixelAspectRatioDenominatorAutomationName" xml:space="preserve">
+    <value>Pixel rasio aspek penyebut</value>
+    <comment>Name for the pixel aspect ratio denominator box for screen readers</comment>
+  </data>
+  <data name="ApplyToQueueButton" xml:space="preserve">
+    <value>Tambahkan ke antrian</value>
+  </data>
 </root>

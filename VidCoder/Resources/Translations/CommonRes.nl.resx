@@ -278,7 +278,13 @@ Dit programma is gedistribueerd in de hoop dat het nuttig zal zijn, maar zonder 
     <value>Eerste</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
-  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
-    <value>Updates zijn uitgeschakeld omdat nieuwe versies niet langer ondersteuning voor 32-bits besturingssystemen.</value>
-  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

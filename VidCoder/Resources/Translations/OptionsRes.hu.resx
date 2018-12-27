@@ -270,9 +270,6 @@
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
     <value>Figyelem: ebben a verzióban valószínűleg még több hiba és összeomlás is előfordulhat.</value>
   </data>
-  <data name="LanguagesSection" xml:space="preserve">
-    <value>Nyelvek</value>
-  </data>
   <data name="PlayersSection" xml:space="preserve">
     <value>Lejátszók</value>
   </data>
@@ -372,14 +369,16 @@
   <data name="ProcessOptionsLabel" xml:space="preserve">
     <value>Folyamat beállításai</value>
   </data>
-  <data name="CpuThrottlingLabel" xml:space="preserve">
-    <value>CPU elfojtás:</value>
-    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
-  </data>
+  
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>CPU elfojtás használata a VidCoder által, a kódoláskor használt processzormagok számának korlátozásához.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Beépített lejátszó használata az előnézetekhez</value>
   </data>
+  
+  
+  
+  
+  
 </root>

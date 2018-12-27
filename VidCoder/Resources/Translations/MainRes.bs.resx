@@ -120,17 +120,11 @@
   <data name="TitleLabel" xml:space="preserve">
     <value>Naslov:</value>
   </data>
-  <data name="SettingsLabel" xml:space="preserve">
-    <value>Postavke</value>
-  </data>
   <data name="AddToQueueLabel" xml:space="preserve">
     <value>Dodaj u Red</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
     <value>Dodaj više naslova u Red...</value>
-  </data>
-  <data name="FileMenu" xml:space="preserve">
-    <value>Fajl</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
     <value>Otvorite video datoteku...</value>
@@ -141,9 +135,6 @@
   <data name="EnqueueMultipleFiles" xml:space="preserve">
     <value>Dodaj višestruke fajlove u red...</value>
   </data>
-  <data name="EnqueueMultipleTitles" xml:space="preserve">
-    <value>Dodaj višestruke naslove u red...</value>
-  </data>
   <data name="ToolsMenu" xml:space="preserve">
     <value>Alati</value>
   </data>
@@ -152,9 +143,6 @@
   </data>
   <data name="ExportPreset" xml:space="preserve">
     <value>Izvezi šablon...</value>
-  </data>
-  <data name="OptionsMenuItem" xml:space="preserve">
-    <value>Opcije...</value>
   </data>
   <data name="Play" xml:space="preserve">
     <value>Reproduciraj</value>
@@ -167,9 +155,6 @@
   </data>
   <data name="ClearCompleted" xml:space="preserve">
     <value>Ukloni završene</value>
-  </data>
-  <data name="ExitMenuItem" xml:space="preserve">
-    <value>Izlaz</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Prozori</value>
@@ -202,9 +187,6 @@
   <data name="SourceLabel" xml:space="preserve">
     <value>Izvor:</value>
   </data>
-  <data name="ScanningSourceLabel" xml:space="preserve">
-    <value>Skeniranje izvora...</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>Nedavni</value>
   </data>
@@ -213,15 +195,6 @@
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>Tokom skeniranje došlo je do greške.</value>
-  </data>
-  <data name="AudioLabel" xml:space="preserve">
-    <value>Audio:</value>
-  </data>
-  <data name="VideoLabel" xml:space="preserve">
-    <value>Video:</value>
-  </data>
-  <data name="SubtitlesLabel" xml:space="preserve">
-    <value>Podnaslovi:</value>
   </data>
   <data name="AddTrackButton" xml:space="preserve">
     <value>Dodan zapis</value>
@@ -387,9 +360,7 @@
   <data name="EtaLabel" xml:space="preserve">
     <value>Preostalo vrijeme:</value>
   </data>
-  <data name="WhenDoneLabel" xml:space="preserve">
-    <value>Kada završi:</value>
-  </data>
+  
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>Video datoteka...</value>
   </data>
@@ -552,12 +523,6 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>Detalji enkodiranja</value>
   </data>
-  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
-    <value>Postavke enkodiranja su se promjenile od kad ste dodali stavku u red. Da li želite koristiti trenutne postavke enkodiranja za sve stavke u redu?</value>
-  </data>
-  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
-    <value>Postavke su promjenjene</value>
-  </data>
   <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>Želite li preimenovati postojeći fajl ili započeti sa novim?</value>
   </data>
@@ -605,6 +570,39 @@
 
 {0}</value>
   </data>
+  <data name="FileSizeColumnHeader" xml:space="preserve">
+    <value>Veličina</value>
+    <comment>Used on the "completed encodes" tab, to label the column that shows the final output file size.</comment>
+  </data>
+  <data name="OpenAppDataFolder" xml:space="preserve">
+    <value>Otvori mapu sa datotekama aplikacije</value>
+    <comment>Menu choice for opening the application data folder (that holds the VidCoder database file, logs, etc)</comment>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
 </root>

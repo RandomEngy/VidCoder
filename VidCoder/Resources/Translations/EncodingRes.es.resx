@@ -1056,24 +1056,125 @@ BICUBIC: Esté es un algoritmo OpenCL de escalamiento acelerado por hardware.</v
   <data name="PaddingLabel" xml:space="preserve">
     <value>Relleno</value>
   </data>
+  <data name="AlignAVStartCheckBox" xml:space="preserve">
+    <value>Alinear inicio de audio y vídeo</value>
+  </data>
+  <data name="AlignAVStartCheckBoxToolTip" xml:space="preserve">
+    <value>Alinea las marcas de tiempo iniciales de todos los flujos de audio y video insertando cuadros en blanco o eliminándolos. Puede mejorar la sincronía de audio y video en reproductores que no respetan las listas de edición MP4.</value>
+  </data>
+  <data name="TabHeader_Container" xml:space="preserve">
+    <value>Contenedor</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Preajuste de codificación: {0}</value>
+    <comment>Label for the encoding settings window.</comment>
+  </data>
+  <data name="AudioEncoder_none" xml:space="preserve">
+    <value>Ninguno</value>
+    <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
+  </data>
+  <data name="SizingModeToolTip" xml:space="preserve">
+    <value>«Automático» escoge el tamaño según límites establecidos. «Manual» permite especificar tamaño y razón de aspecto.</value>
+  </data>
+  <data name="SharpenLabel" xml:space="preserve">
+    <value>Enfocar</value>
+  </data>
+  <data name="DeblockToolTip" xml:space="preserve">
+    <value>Reduce los artefactos de bloque causado por la compresión de vídeo de baja calidad.</value>
+  </data>
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>Deinterlace elimina los residuos de entrelazado de la imagen.
+
+Yadif es un rápido y popular filtro de dentrelazado.
+
+Decomb alterna entre varios algoritmos de interpolación para obtener calidad y velocidad.</value>
+  </data>
+  <data name="DenoiseToolTip" xml:space="preserve">
+    <value>Denoise reduce o elimina la apariencia de ruido y grano, mejorando la compresión y consiguiente un video de mayor calidad a un tamaño menor.
+Aplicar un fuerte Denoise puede llevar a una perdida de calidad de imagen.
+
+NLMeans es un filtro de alta calidad pero lento. Aplíquese cuando la calidad sea más importante que la velocidad.
+
+HQDN3D es un filtro adaptable low-pass, mas rápido que NLMeans pero menos efectivo para conservar detalle fino.</value>
+  </data>
+  <data name="DetelecineToolTip" xml:space="preserve">
+    <value>Este filtro elimina defectos del 'combinado' que resultan del telecine.
+
+Telecinado es un proceso que ajusta la velocidad de reproducción del video de 24 a 30 cuadros por segundo.</value>
+  </data>
+  <data name="SharpenToolTip" xml:space="preserve">
+    <value>El Sharpening mejora la apariencia del detalle, particularmente los bordes. Excederse en las configuraciones puede dañar la calidad de la imagen creando artefactos en los bordes y ruido, reduciendo la compresión del video.
+
+Unsharp es un filtro de uso general. Mejora la imagen aplicando desenfoque par posteriormente calcula la diferencia entre la imagen con desenfoque y la original.
+
+Lapsharp funciona usando núcleos de circunvolución que se aproximan a los filtros de borde laplacianos, dando en ocasiones, mejores resultados que Unsharp.</value>
+  </data>
+  <data name="PresetFolder_Custom" xml:space="preserve">
+    <value>Personalizado</value>
+  </data>
+  <data name="PresetFolder_BuiltIn" xml:space="preserve">
+    <value>Incorporado</value>
+  </data>
+  <data name="PresetFolderCreateSubfolderMenuItem" xml:space="preserve">
+    <value>Crear subcarpeta</value>
+  </data>
+  <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
+    <value>Cambiar nombre de carpeta</value>
+  </data>
+  <data name="PresetFolderRemoveFolderMenuItem" xml:space="preserve">
+    <value>Eliminar carpeta</value>
+  </data>
+  <data name="DefaultPresetFolderName" xml:space="preserve">
+    <value>Nueva carpeta</value>
+  </data>
+  <data name="ChooseNameSubfolder" xml:space="preserve">
+    <value>Nombre de subcarpeta:</value>
+  </data>
+  <data name="ChooseNewFolderName" xml:space="preserve">
+    <value>Nuevo nombre de carpeta:</value>
+  </data>
+  <data name="NVEncPreset_losslesshp" xml:space="preserve">
+    <value>Alto rendimiento sin pérdida</value>
+  </data>
+  <data name="NVEncPreset_lossless" xml:space="preserve">
+    <value>Sin pérdidas</value>
+  </data>
+  <data name="NVEncPreset_llhp" xml:space="preserve">
+    <value>Baja latencia de alto rendimiento</value>
+  </data>
+  <data name="NVEncPreset_llhq" xml:space="preserve">
+    <value>Baja latencia de alta calidad</value>
+  </data>
+  <data name="NVEncPreset_ll" xml:space="preserve">
+    <value>Baja latencia</value>
+  </data>
+  <data name="NVEncPreset_bd" xml:space="preserve">
+    <value>Disco Bluray</value>
+  </data>
+  <data name="NVEncPreset_hq" xml:space="preserve">
+    <value>Alta calidad</value>
+  </data>
+  <data name="NVEncPreset_hp" xml:space="preserve">
+    <value>Alto Rendimiento</value>
+  </data>
+  <data name="PickColorButton" xml:space="preserve">
+    <value>Elegir color...</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>Abajo</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Izquierda</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Derecha</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Arriba</value>
+  </data>
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="ApplyToQueueButton" xml:space="preserve">
+    <value>Agregar a la cola</value>
+  </data>
 </root>

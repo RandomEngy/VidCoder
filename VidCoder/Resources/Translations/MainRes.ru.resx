@@ -120,17 +120,11 @@
   <data name="TitleLabel" xml:space="preserve">
     <value>Название:</value>
   </data>
-  <data name="SettingsLabel" xml:space="preserve">
-    <value>Настройки</value>
-  </data>
   <data name="AddToQueueLabel" xml:space="preserve">
     <value>Добавить в очередь</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
     <value>Добавить несколько заголовков в очередь...</value>
-  </data>
-  <data name="FileMenu" xml:space="preserve">
-    <value>Файл</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
     <value>Открыть файл...</value>
@@ -141,9 +135,6 @@
   <data name="EnqueueMultipleFiles" xml:space="preserve">
     <value>Поставить в очередь несколько файлов...</value>
   </data>
-  <data name="EnqueueMultipleTitles" xml:space="preserve">
-    <value>Поставить в очередь несколько заголовков...</value>
-  </data>
   <data name="ToolsMenu" xml:space="preserve">
     <value>Инструменты</value>
   </data>
@@ -152,9 +143,6 @@
   </data>
   <data name="ExportPreset" xml:space="preserve">
     <value>Сохранить профиль...</value>
-  </data>
-  <data name="OptionsMenuItem" xml:space="preserve">
-    <value>Параметры...</value>
   </data>
   <data name="Play" xml:space="preserve">
     <value>Воспроизвести</value>
@@ -167,9 +155,6 @@
   </data>
   <data name="ClearCompleted" xml:space="preserve">
     <value>Очистить выполненные</value>
-  </data>
-  <data name="ExitMenuItem" xml:space="preserve">
-    <value>Выход</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Окна</value>
@@ -202,9 +187,6 @@
   <data name="SourceLabel" xml:space="preserve">
     <value>Источник:</value>
   </data>
-  <data name="ScanningSourceLabel" xml:space="preserve">
-    <value>Сканирование источника...</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>Последние</value>
   </data>
@@ -213,15 +195,6 @@
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>Ошибка сканирования.</value>
-  </data>
-  <data name="AudioLabel" xml:space="preserve">
-    <value>Аудио:</value>
-  </data>
-  <data name="VideoLabel" xml:space="preserve">
-    <value>Видео:</value>
-  </data>
-  <data name="SubtitlesLabel" xml:space="preserve">
-    <value>Субтитры:</value>
   </data>
   <data name="AddTrackButton" xml:space="preserve">
     <value>Добавить дорожку</value>
@@ -385,9 +358,7 @@
   <data name="EtaLabel" xml:space="preserve">
     <value>ETA:</value>
   </data>
-  <data name="WhenDoneLabel" xml:space="preserve">
-    <value>Когда сделано:</value>
-  </data>
+  
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>Видео-файл...</value>
   </data>
@@ -550,12 +521,6 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>Детали Кодирования</value>
   </data>
-  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
-    <value>Настройки кодирования были изменены с момента последнего добавленный элементов в очередь. Вы хотите применить текущие настройки кодирования для всех элементов в очереди?</value>
-  </data>
-  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
-    <value>Изменение параметров</value>
-  </data>
   <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>Вы хотите переименовать существующий файл или начать с нового?</value>
   </data>
@@ -601,6 +566,33 @@
   <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
     <value>Обнаружены ошибки при сканировании некоторых файлов и они не были добавлены в очередь:{0}</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
 </root>

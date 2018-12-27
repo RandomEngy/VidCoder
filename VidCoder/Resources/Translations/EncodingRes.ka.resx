@@ -1118,4 +1118,54 @@ HQDN3D-ი ადაპტური დაბალი ხარისხის 
   <data name="ChooseNewFolderName" xml:space="preserve">
     <value>აირჩიეთ ახალი სახელი ფოლდერისთვის:</value>
   </data>
+  <data name="NVEncPreset_losslesshp" xml:space="preserve">
+    <value>მაღალი ქმედითუნარიანობა ხარისხის დაუკარგავად</value>
+  </data>
+  <data name="NVEncPreset_lossless" xml:space="preserve">
+    <value>ხარისხის დაუკარგავად</value>
+  </data>
+  <data name="NVEncPreset_llhp" xml:space="preserve">
+    <value>მაღალი ქმედითუნარიანობა დაბალი შეყოვნებით</value>
+  </data>
+  <data name="NVEncPreset_llhq" xml:space="preserve">
+    <value>მაღალი ხარისხი დაბალი შეყოვნებით</value>
+  </data>
+  <data name="NVEncPreset_ll" xml:space="preserve">
+    <value>დაბალი შეყოვნება</value>
+  </data>
+  <data name="NVEncPreset_bd" xml:space="preserve">
+    <value>Blu-Ray დისკი</value>
+  </data>
+  <data name="NVEncPreset_hq" xml:space="preserve">
+    <value>მაღალი ხარისხი</value>
+  </data>
+  <data name="NVEncPreset_hp" xml:space="preserve">
+    <value>მაღალი ქმედითუნარიანობა</value>
+  </data>
+  <data name="PickColorButton" xml:space="preserve">
+    <value>აირჩეთ ფერი...</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>ქვევით</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>მარცხნივ</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>მარჯვნივ</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>ზევით</value>
+  </data>
+  <data name="PixelAspectRatioNumeratorAutomationName" xml:space="preserve">
+    <value>დიაპაზონის განზომილების მრიცხველი</value>
+    <comment>Name for the pixel aspect ratio numerator box for screen readers</comment>
+  </data>
+  <data name="PixelAspectRatioDenominatorAutomationName" xml:space="preserve">
+    <value>დიაპაზონის განზომილების აღმრიცხველი</value>
+    <comment>Name for the pixel aspect ratio denominator box for screen readers</comment>
+  </data>
+  <data name="ApplyToQueueButton" xml:space="preserve">
+    <value>დავალებაზე გამოყენება</value>
+  </data>
 </root>

@@ -129,6 +129,15 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>Preciso</value>
   </data>
+  <data name="AppThemeChoice_Auto" xml:space="preserve">
+    <value>Utilizza il tema del SO</value>
+  </data>
+  <data name="AppThemeChoice_Dark" xml:space="preserve">
+    <value>Scuro</value>
+  </data>
+  <data name="AppThemeChoice_Light" xml:space="preserve">
+    <value>Chiaro</value>
+  </data>
   <data name="CombDetect_fast" xml:space="preserve">
     <value>Veloce</value>
   </data>
@@ -223,6 +232,7 @@
   </data>
   <data name="Sharpen_LapSharp" xml:space="preserve">
     <value>Nitidezza circolare</value>
+    <comment>The name for the "LapSharp" sharpen filter.</comment>
   </data>
   <data name="Sharpen_UnSharp" xml:space="preserve">
     <value>Opacizza</value>
@@ -248,5 +258,20 @@
   </data>
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>Intervallo di tempo</value>
+  </data>
+  <data name="TitleCapitalizationChoice_EveryWord" xml:space="preserve">
+    <value>Ogni parola</value>
+  </data>
+  <data name="TitleCapitalizationChoice_FirstWord" xml:space="preserve">
+    <value>Prima parola</value>
+  </data>
+  <data name="EncodeCompleteActionType_StopEncoding" xml:space="preserve">
+    <value>Interrompi la codifica</value>
+  </data>
+  <data name="UpdatePromptTiming_OnExit" xml:space="preserve">
+    <value>All'uscita</value>
+  </data>
+  <data name="UpdatePromptTiming_OnLaunch" xml:space="preserve">
+    <value>All'avvio</value>
   </data>
 </root>

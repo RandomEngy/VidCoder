@@ -202,5 +202,7 @@
   <data name="VideoErrorTitle" xml:space="preserve">
     <value>Error de video</value>
   </data>
-  
+  <data name="PlaySourceDisabledAppxToolTip" xml:space="preserve">
+    <value>La versión de la tienda de Windows no puede reproducir fuentes DVD o Blu-ray y no tiene permitido ejecutar otros procesos.</value>
+  </data>
 </root>

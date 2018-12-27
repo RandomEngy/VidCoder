@@ -124,7 +124,7 @@
     <value>刷新</value>
   </data>
   <data name="ChooseFromProcessesLabel" xml:space="preserve">
-    <value>从已有进程中选取：</value>
+    <value>从现有进程中选取：</value>
   </data>
   <data name="AddAutoPauseProcessDialogTitle" xml:space="preserve">
     <value>添加自动暂停进程</value>
@@ -186,14 +186,7 @@
   <data name="Copyright" xml:space="preserve">
     <value>© {0} VidCoder 开发人员</value>
   </data>
-  <data name="VersionFormat" xml:space="preserve">
-    <value>{0} ({1})</value>
-    <comment>First is version, second is architecture. For example: 1.4.2 (x64)</comment>
-  </data>
-  <data name="BetaVersionFormat" xml:space="preserve">
-    <value>{0} Beta ({1})</value>
-    <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
-  </data>
+  
   <data name="NameDialogTitle" xml:space="preserve">
     <value>名称</value>
     <comment>Title for dialog when  naming a preset or  picker</comment>
@@ -253,7 +246,9 @@
     <value>立即休眠</value>
   </data>
   <data name="ChooseNamePicker" xml:space="preserve">
-    <value>为选取器取名：</value>
+    <value>为选择器取名：</value>
   </data>
-  
+  <data name="ExceptionDialogSubTextReported" xml:space="preserve">
+    <value>本程序需关闭，错误将被自动报告。</value>
+  </data>
 </root>

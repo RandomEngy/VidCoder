@@ -120,9 +120,6 @@
   <data name="SubtitlesWindowTitle" xml:space="preserve">
     <value>Subtítulos</value>
   </data>
-  <data name="RemoveSubtitleTrack" xml:space="preserve">
-    <value>Quitar esta pista</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>Subtítulos de la fuente:</value>
   </data>
@@ -165,16 +162,12 @@
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Busqueda de Audio Externo</value>
   </data>
-  <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
-    <value>La fuente de video no tiene subtítulos.</value>
-  </data>
   <data name="SrtFilePickerText" xml:space="preserve">
     <value>Agregar archivo de subtítulos</value>
-  </data>
-	<data name="DuplicateSubtitleTrack" xml:space="preserve">
-    <value>Duplicar esta pista</value>
   </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>No se pudo detectar la codificación del archivo de subtítulos. Para asegurarse de que los subtítulos aparecen correctamente, vuelva a guardar el archivo con formato UTF-8.</value>
   </data>
+  
+  
 </root>

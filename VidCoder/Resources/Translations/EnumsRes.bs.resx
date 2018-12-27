@@ -129,6 +129,9 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>Strogo</value>
   </data>
+  
+  
+  
   <data name="CombDetect_fast" xml:space="preserve">
     <value>Brzo</value>
   </data>
@@ -221,8 +224,14 @@
   <data name="Off" xml:space="preserve">
     <value>Isključeno</value>
   </data>
-  
-  
+  <data name="Sharpen_LapSharp" xml:space="preserve">
+    <value>LapSharp</value>
+    <comment>The name for the "LapSharp" sharpen filter.</comment>
+  </data>
+  <data name="Sharpen_UnSharp" xml:space="preserve">
+    <value>UnSharp</value>
+    <comment>The name for the "UnSharp" sharpen filter.</comment>
+  </data>
   <data name="TitleType_Bluray" xml:space="preserve">
     <value>Blu-Ray</value>
     <comment>What to display when the source is a Blu-ray</comment>
@@ -244,4 +253,9 @@
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>Vremenski raspon</value>
   </data>
+  
+  
+  
+  
+  
 </root>

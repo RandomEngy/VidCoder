@@ -761,7 +761,7 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Codificatore</value>
   </data>
   <data name="ChannelLayout" xml:space="preserve">
-    <value>Canale Layout</value>
+    <value>Modalità canali</value>
   </data>
   <data name="SampleRate" xml:space="preserve">
     <value>Frequenza di campionamento</value>
@@ -799,10 +799,10 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Rimuovere la codifica audio</value>
   </data>
   <data name="AutoPassthroughFallbackLabel" xml:space="preserve">
-    <value>Fallback:</value>
+    <value>Ripiega su:</value>
   </data>
   <data name="AutoPassthroughFallbackToolTip" xml:space="preserve">
-    <value>Passthrough non funziona su tutti i codec audio. Questo specifica l'encoder per ripiegare se la traccia non può essere passata attraverso.</value>
+    <value>La funzione Passante non è disponibile per tutti i codificatori audio. Qui potete specificare il codificatore da utilizzare se la traccia audio non può essere passata così com'è.</value>
   </data>
   <data name="EncoderSettings" xml:space="preserve">
     <value>Impostazioni codificatore</value>
@@ -838,7 +838,7 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Automatico</value>
   </data>
   <data name="PassthroughScopeToolTip" xml:space="preserve">
-    <value>Specifica il codec che il passthrough applicherà all'input.</value>
+    <value>Specifica a quali codificatori in ingresso si può applicare la funzione di Passante.</value>
   </data>
   <data name="FlipHorizontalCheckBox" xml:space="preserve">
     <value>Rifletti orizzontalmente</value>
@@ -865,10 +865,10 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Capovolge l'immagine verticalmente. Questo è applicato prima di qualsiasi rotazione.</value>
   </data>
   <data name="PassthroughIfPossibleCheckBox" xml:space="preserve">
-    <value>Passthrough se possibile</value>
+    <value>Passante se possibile</value>
   </data>
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
-    <value>Se all'ingresso della pista corrisponde il codec, verrà passato attraverso anziché codificato.</value>
+    <value>Se il codificatore della traccia d'ingresso corrisponde a questi, la traccia sarà passata direttamente senza essere ri-codificata.</value>
   </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>Rotazione:</value>
@@ -887,7 +887,7 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Configurazione Passante</value>
   </data>
   <data name="PassthroughMaskLabel" xml:space="preserve">
-    <value>Permetti il Passante per:</value>
+    <value>Permetti la funzione di Passante per:</value>
   </data>
   <data name="Passthrough_aac" xml:space="preserve">
     <value>AAC</value>
@@ -1060,5 +1060,55 @@ NitidezzaCircolare rende più nitida l'immagine utilizzando il filtro con "nocci
   </data>
   <data name="ChooseNewFolderName" xml:space="preserve">
     <value>Scegli un nuovo nome per la sottocartella:</value>
+  </data>
+  <data name="NVEncPreset_losslesshp" xml:space="preserve">
+    <value>Prestazioni elevate senza perdita di dati</value>
+  </data>
+  <data name="NVEncPreset_lossless" xml:space="preserve">
+    <value>Senza perdita di dati</value>
+  </data>
+  <data name="NVEncPreset_llhp" xml:space="preserve">
+    <value>Bassa latenza ed alte prestazioni</value>
+  </data>
+  <data name="NVEncPreset_llhq" xml:space="preserve">
+    <value>Bassa latenza ed alta qualità</value>
+  </data>
+  <data name="NVEncPreset_ll" xml:space="preserve">
+    <value>Bassa latenza</value>
+  </data>
+  <data name="NVEncPreset_bd" xml:space="preserve">
+    <value>Disco Bluray</value>
+  </data>
+  <data name="NVEncPreset_hq" xml:space="preserve">
+    <value>Alta qualità</value>
+  </data>
+  <data name="NVEncPreset_hp" xml:space="preserve">
+    <value>Alte prestazioni</value>
+  </data>
+  <data name="PickColorButton" xml:space="preserve">
+    <value>Scegli il colore...</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>Basso</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Sinistra</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Destra</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Alto</value>
+  </data>
+  <data name="PixelAspectRatioNumeratorAutomationName" xml:space="preserve">
+    <value>Numeratore del rapporto dei pixel</value>
+    <comment>Name for the pixel aspect ratio numerator box for screen readers</comment>
+  </data>
+  <data name="PixelAspectRatioDenominatorAutomationName" xml:space="preserve">
+    <value>Denominatore del rapporto dei pixel</value>
+    <comment>Name for the pixel aspect ratio denominator box for screen readers</comment>
+  </data>
+  <data name="ApplyToQueueButton" xml:space="preserve">
+    <value>Applica alla coda</value>
   </data>
 </root>

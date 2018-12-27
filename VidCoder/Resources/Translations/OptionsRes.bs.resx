@@ -270,9 +270,6 @@
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
     <value>Upozorenje: ova verzija može da ima više bugova ili se može rušiti.</value>
   </data>
-  <data name="LanguagesSection" xml:space="preserve">
-    <value>Jezici</value>
-  </data>
   <data name="PlayersSection" xml:space="preserve">
     <value>Playeri</value>
   </data>
@@ -372,14 +369,16 @@
   <data name="ProcessOptionsLabel" xml:space="preserve">
     <value>Opcije procesa</value>
   </data>
-  <data name="CpuThrottlingLabel" xml:space="preserve">
-    <value>CPU throttling:</value>
-    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
-  </data>
+  
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>Koristi CPU throttling da bi ograničio broj procesorskih jezgri koje VidCoder može koristiti prilikom enkodiranja.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Koristi ugrađeni player za preglede</value>
   </data>
+  
+  
+  
+  
+  
 </root>

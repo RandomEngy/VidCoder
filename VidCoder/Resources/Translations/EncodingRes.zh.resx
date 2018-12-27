@@ -144,21 +144,21 @@ x264 仅耗费少量时间 (可获得小幅压缩增益) 为每帧画面选择�
     <value>自适应量化控制编码器如何分配帧的比特流。设置更高的值将使边缘和复杂区域的比特流用于更精微的细节。</value>
   </data>
   <data name="Advanced_AnalysisToolTip" xml:space="preserve">
-    <value>此选项可调整动态搜寻的各种模式。
-开启越多的选项表示您可用更长的编码时间换取更好的编码效果。</value>
+    <value>模式判断是在调用许多选项来进行判断：此选项用来选择调用哪些选项。
+选项分解越少编码越快，但可能会出现更差的判断，因此最好别开启这个选项。</value>
   </data>
   <data name="Advanced_BFramesToolTip" xml:space="preserve">
     <value>合理值为 2 至 5。  
 此项控制编码器可连续使用的 B 帧最大值。
- 除非 B 帧适应性设定为优化模式，否则调大此数值并无明显帮助。 
+ 除非 自适应B 帧设定为优化模式，否则调大此数值并无明显帮助。 
 赛璐璐动画素材及 B-pyramid 更导致了无需设置较高数值。 
-iPod 等设备所使用的 Baseline 模式需将 B-frames 设置为0 (off)。</value>
+iPod 等设备所要求的基本档次需将 B-frames 设置为0 (off)。</value>
   </data>
   <data name="Advanced_CabacToolTip" xml:space="preserve">
-    <value>编码器完成工作后，有大量数据需像 ZIP 或 RAR 一样被无损压缩。H.264 提供了两种压缩方式：CAVLC 及 CABAC。CABAC 解码速度较慢但压缩率较好 (10% 至 30%)，特别是低比特率视频。若您想降低解码时的 CPU 占用，请停用此选项。iPod 等设备所使用的 Baseline 模式需禁用 CABAC。</value>
+    <value>编码器完成工作后，有大量数据需像 ZIP 或 RAR 一样被无损压缩。H.264 提供了两种压缩方式：CAVLC 及 CABAC。CABAC 解码速度较慢但压缩率较好 (10% 至 30%)，特别是低比特率视频。若您想降低解码时的 CPU 占用，请停用此选项。iPod 等设备所要求的基本档次需禁用 CABAC。</value>
   </data>
   <data name="Advanced_DeblockingToolTip" xml:space="preserve">
-    <value>H.264 内建的去块滤镜对每帧的方块效应进行平滑处理。这不仅能提高视觉质量，也能大幅改善压缩率。
+    <value>H.264 内建的去块滤镜对每帧的块状瑕疵进行平滑处理。这不仅能提高视觉质量，也能大幅改善压缩率。
 去块滤镜占用大量 CPU 资源，若您想最小化视频播放时的 CPU 占用，请停用此选项。
 
 去块滤镜有两个可调整参数，“强度”和“阈值”。 
@@ -166,12 +166,12 @@ iPod 等设备所使用的 Baseline 模式需将 B-frames 设置为0 (off)。</v
 值越小表示越少去块，值越大表示越多去块。两个参数的默认值皆为 0 (一般强度)。</value>
   </data>
   <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
-    <value>8x8 转换是最最有效的 x264 压缩速率。 
+    <value>8x8 转换是 x264 在压缩效率方面最最有用的特性。 
 此方法仅需少量时间便可提升至少 5% 压缩率，并在其压缩比基础上取得非常好的视觉质量。
 但此方法需使用配置“高”，许多设备可能并不支持。</value>
   </data>
   <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
-    <value>此选项控制运动侦测的方式。运动侦测是编码器侦测每帧中像素移动的方法。 
+    <value>此选项控制运动侦测的方式。运动侦测是编码器侦测每帧中每个像素块移动的方法。 
 较好的侦测方式降低速度以改善压缩率。
 
 菱形：使用菱形模式进行十分简单快速的搜寻。
@@ -192,7 +192,7 @@ iPod 等设备所使用的 Baseline 模式需将 B-frames 设置为0 (off)。</v
 菱形模式及六边形模式有效值为 4 至 16、其他侦测模式的有效值为 4 至 64。</value>
   </data>
   <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
-    <value>x264 通常会将接近空白的数据区块全数归零以节省数据位另作他用。  
+    <value>x264 通常会将接近空白的数据块全数归零以节省数据位另作他用。  
 但此特性在保留轻微颗粒感及抖动效果上会产生负面影响。 
 除非您遇到条纹问题或无法保留良噪，否则不建议更改此设定。</value>
   </data>
@@ -220,26 +220,26 @@ B 帧最大值需大于 1 以启用此功能；强烈建议搭配最优自适应
 请注意许多硬件支持的参考帧数量有限，若您要为手持设备或独立播放器编码文件，不要更改此选项除非您十分清楚接下来的操作。</value>
   </data>
   <data name="Advanced_SubpixelMotionEstimationToolTip" xml:space="preserve">
-    <value>此选项控制次像素动态侦测和模式决策模式。
+    <value>此选项控制次像素动态侦测和模式判断方法。
 
 次像素动态侦测能使动态侦测精度超越像素级别并改善压缩率。
 
-模式决策用以决定如何编码帧中的每个区块：此决策影响甚大。
+模式判断用以选择如何编码帧里的每个块：一个非常重要的判断。
 
 SAD 是速度最快的算法，接着是 SATD、RD、细化RD 及最慢的 QPRD。
 强烈建议设定为 6 以上的值：Psy-RD 在保留细节方面是十分有效的心理视觉优化方式，需搭配 RD使用。
 10 为最有效但最慢的的选项，需设置网格数为2。</value>
   </data>
   <data name="Advanced_TrellisToolTip" xml:space="preserve">
-    <value>网格编码牺牲速度并微调转换系数来提高 3% 至 5% 的压缩率。
-“总是”选项会在分析与编码时全都使用网格编码，虽可进一步改善压缩率但会大幅降低速度。
+    <value>网格编码牺牲速度并微调交流变换系数来提高 3% 至 5% 的压缩率。
+“总是”选项不仅在编码过程中时启用网格编码，也会在分析时启用，虽可进一步提高压缩率但会大幅降低速度。
 
 高比特率文件网格编码将速度更慢。</value>
   </data>
   <data name="Advanced_WeightPToolTip" xml:space="preserve">
-    <value>进行额外分析来调整每帧的权重。 
+    <value>进行额外分析来调整每帧的权重参数。 
 此选项可稍微提升整体压缩率并大幅提高淡入淡出效果。
-iPod 等设备所使用的 Baseline 模式需禁用加权 P 帧。  
+iPod 等设备所要求的基本档次需禁用加权 P 帧。  
 请注意部分设备或播放器即使支持一般配置， 
 但处理加权 P 帧侦测时仍可能产生问题：例如 Apple TV 完全无法兼容。</value>
   </data>
@@ -254,13 +254,13 @@ iPod 等设备所使用的 Baseline 模式需禁用加权 P 帧。
     <value>编码前增强或减弱源音频音量。有效值为 -20 至 +20 dB。</value>
   </data>
   <data name="IncludeChapterMarkersToolTip" xml:space="preserve">
-    <value>嵌入来源视频的章节标记至编码视频中。</value>
+    <value>编码视频中包含源视频章节标记。</value>
   </data>
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>应用特殊标记使文件能支持旧的 iPod之前需要他们允许 H.264 视频同步。</value>
   </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
-    <value>手动指定像素长宽比。</value>
+    <value>手动指定像素宽高比。</value>
   </data>
   <data name="Video_QualityTargetToolTip" xml:space="preserve">
     <value>设定需要的质量参数。各个视频编码器使用的参数量级不尽相同。</value>
@@ -269,9 +269,9 @@ iPod 等设备所使用的 Baseline 模式需禁用加权 P 帧。
     <value>针对渐进式下载的播放优化。</value>
   </data>
   <data name="ProfileToolTip" xml:space="preserve">
-    <value>限制输出流配置。如果您指定一个配置文件，将覆盖所有其他设置。若您启用此选项，您需确保选择可兼容的流。
+    <value>请限制输出流档次。选定某个档次将覆盖其他所有设置，一旦选定将确保得到兼容的流。
 
-当您确认您的播放设备只支持某个配置文件时再启用此选项。</value>
+确认您的播放设备仅支持某个档次时再进行设置。</value>
   </data>
   <data name="X264TuneToolTip" xml:space="preserve">
     <value>依输入内容微调选项以优化编码结果。若您指定微调设置，优先级将低于预设值但高于全部其他参数。</value>
@@ -322,7 +322,7 @@ iPod 等设备所使用的 Baseline 模式需禁用加权 P 帧。
     <value>存储分辨率：</value>
   </data>
   <data name="PixelAspectRatioLabel" xml:space="preserve">
-    <value>像素长宽比：</value>
+    <value>像素宽高比：</value>
   </data>
   <data name="DisplayResolutionLabel" xml:space="preserve">
     <value>显示分辨率：</value>
@@ -358,7 +358,7 @@ iPod 等设备所使用的 Baseline 模式需禁用加权 P 帧。
     <value>反交错：</value>
   </data>
   <data name="DeinterlaceLabel" xml:space="preserve">
-    <value>逐行扫描：</value>
+    <value>反交错：</value>
   </data>
   <data name="DenoiseLabel" xml:space="preserve">
     <value>降噪：</value>
@@ -406,7 +406,7 @@ iPod 等设备所使用的 Baseline 模式需禁用加权 P 帧。
     <value>x264 基本设置</value>
   </data>
   <data name="ProfileLabel" xml:space="preserve">
-    <value>配置文件：</value>
+    <value>档次：</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
     <value>预设：</value>
@@ -415,10 +415,10 @@ iPod 等设备所使用的 Baseline 模式需禁用加权 P 帧。
     <value>微调：</value>
   </data>
   <data name="Profile_baseline" xml:space="preserve">
-    <value>Baseline</value>
+    <value>基本</value>
   </data>
   <data name="Profile_main" xml:space="preserve">
-    <value>Main</value>
+    <value>主要</value>
   </data>
   <data name="Profile_high" xml:space="preserve">
     <value>高</value>
@@ -487,13 +487,13 @@ iPod 等设备所使用的 Baseline 模式需禁用加权 P 帧。
     <value>使用固定帧率。</value>
   </data>
   <data name="VfrSameAsSourceToolTip" xml:space="preserve">
-    <value>允许动态帧率。若源文件为动态帧率，此设定将保留原帧率。请注意部分播放器不支持动态帧率。</value>
+    <value>允许可变帧率。若源文件为可变帧率，此设定将保留原帧率。请注意部分播放器不支持可变帧率。</value>
   </data>
   <data name="VfrPeakFramerateToolTip" xml:space="preserve">
-    <value>允许动态帧率并指定帧率最大值。若源文件为动态帧率，此设定将保留原帧率。请注意部分播放器不支持动态帧率。</value>
+    <value>允许可变帧率并指定帧率最大值。若源文件为动态帧率，此设定将保留原帧率。请注意部分播放器不支持可变帧率。</value>
   </data>
   <data name="VfrChoice" xml:space="preserve">
-    <value>动态帧率</value>
+    <value>可变帧率</value>
   </data>
   <data name="VfrPeakChoice" xml:space="preserve">
     <value>最高帧率 (VFR)</value>
@@ -517,7 +517,7 @@ iPod 等设备所使用的 Baseline 模式需禁用加权 P 帧。
     <value>目标流</value>
   </data>
   <data name="MixdownLabel" xml:space="preserve">
-    <value>缩混:</value>
+    <value>混音：</value>
   </data>
   <data name="SampleRateLabel" xml:space="preserve">
     <value>采样率：</value>
@@ -599,7 +599,7 @@ iPod 等设备所使用的 Baseline 模式需禁用加权 P 帧。
     <value>立体声</value>
   </data>
   <data name="Bitrate" xml:space="preserve">
-    <value>位元率</value>
+    <value>比特率</value>
   </data>
   <data name="Encoding" xml:space="preserve">
     <value>编码</value>
@@ -773,9 +773,9 @@ iPod 等设备所使用的 Baseline 模式需禁用加权 P 帧。
     <value>额外的高级 x264 选项:</value>
   </data>
   <data name="LevelToolTip" xml:space="preserve">
-    <value>设定并确保遵守指定的编码器等级规范。
+    <value>设置并确保符合指定的编码器级别。
 
-此设定会覆盖其他设定。</value>
+覆盖所有其他设置。</value>
   </data>
   <data name="Profile_high444" xml:space="preserve">
     <value>高度 4:4:4 预测</value>
@@ -864,7 +864,7 @@ iPod 等设备所使用的 Baseline 模式需禁用加权 P 帧。
     <value>直通模式并非对所有音频编解码器有效。如音轨不能直通，此参数将指定编码器回退模式。</value>
   </data>
   <data name="EncoderSettings" xml:space="preserve">
-    <value>编码设置</value>
+    <value>编码器设置</value>
   </data>
   <data name="QsvDecodingLabel" xml:space="preserve">
     <value>QSV 解码</value>
@@ -974,7 +974,7 @@ Bicubic： 一种 OpenCL 硬件加速缩放算法。</value>
     <value>TrueHD</value>
   </data>
   <data name="InterlaceDetectionLabel" xml:space="preserve">
-    <value>隔行扫描检测：</value>
+    <value>交错检测：</value>
   </data>
   <data name="ModeLabel" xml:space="preserve">
     <value>模式：</value>
@@ -1045,11 +1045,86 @@ Bicubic： 一种 OpenCL 硬件加速缩放算法。</value>
     <value>关键字：</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
-  
-  
-  
-  
-  
+  <data name="PaddingLabel" xml:space="preserve">
+    <value>填充</value>
+  </data>
+  <data name="AlignAVStartCheckBox" xml:space="preserve">
+    <value>对齐音视频起点</value>
+  </data>
+  <data name="AlignAVStartCheckBoxToolTip" xml:space="preserve">
+    <value>以加入空白帧或减少帧的方式对齐所有音频和视频流起始时间戳。可以在不允许MP4列表编辑的破播放器上加强音视频同步。</value>
+  </data>
+  <data name="TabHeader_Container" xml:space="preserve">
+    <value>容器</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>编码预设: {0}</value>
+    <comment>Label for the encoding settings window.</comment>
+  </data>
+  <data name="AudioEncoder_none" xml:space="preserve">
+    <value>无</value>
+    <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
+  </data>
+  <data name="SizingModeToolTip" xml:space="preserve">
+    <value>自动选项将根据现有条件选择尺寸。手动选项将允许用户输入特定尺寸和像素宽高比。</value>
+  </data>
+  <data name="SharpenLabel" xml:space="preserve">
+    <value>锐化</value>
+  </data>
+  <data name="DeblockToolTip" xml:space="preserve">
+    <value>去块能减少因低质量视频压缩造成的块状瑕疵。</value>
+  </data>
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>反交错去除图像中的梳状瑕疵。
+
+Yadif 是一种流行且快速的反交错器。
+
+Decomb 为速度和质量在多种插补算法中切换。</value>
+  </data>
+  <data name="DenoiseToolTip" xml:space="preserve">
+    <value>降噪减少或去除噪点和颗粒的出现。可以提高压缩质量并在更小的文件尺寸基础上获得更高品质的视频。 
+过强的降噪设置将因丧失细节而损害画面质量。
+         
+NLMeans 是一种高质量的慢速降噪滤镜。在质量比速度需求更大时选用。
+         
+HQDN3D 是一种自适应低通滤镜，比 NLMeans速度快但在保留细节方面效果差些。</value>
+  </data>
+  <data name="DetelecineToolTip" xml:space="preserve">
+    <value>此滤镜移除因胶卷过带造成的梳状瑕疵。
+
+胶卷过带是指将帧率 24fps 的电影胶卷转换成帧率 30fps 的 NTSC 视频的过程。</value>
+  </data>
+  <data name="SharpenToolTip" xml:space="preserve">
+    <value>锐化提高细节的表现，尤其是边缘。过强的锐化设置可能会造成振荡效应和噪点强化从而损害画面质量，还会降低压缩效率。
+
+Unsharp 是一种通用的非锐化掩蔽滤镜。它以模糊图像再计算模糊图像与原始图像差异的方式进行锐化。
+
+Lapsharp 利用卷积核来近似拉普拉斯边缘滤镜进行锐化，有时比非锐化掩蔽的结果质量更好。</value>
+  </data>
+  <data name="PresetFolder_Custom" xml:space="preserve">
+    <value>自定义</value>
+  </data>
+  <data name="PresetFolder_BuiltIn" xml:space="preserve">
+    <value>内置</value>
+  </data>
+  <data name="PresetFolderCreateSubfolderMenuItem" xml:space="preserve">
+    <value>创建子文件夹</value>
+  </data>
+  <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
+    <value>重命名文件夹</value>
+  </data>
+  <data name="PresetFolderRemoveFolderMenuItem" xml:space="preserve">
+    <value>移除文件夹</value>
+  </data>
+  <data name="DefaultPresetFolderName" xml:space="preserve">
+    <value>新文件夹</value>
+  </data>
+  <data name="ChooseNameSubfolder" xml:space="preserve">
+    <value>为子文件夹命名</value>
+  </data>
+  <data name="ChooseNewFolderName" xml:space="preserve">
+    <value>为文件夹重新命名</value>
+  </data>
   
   
   

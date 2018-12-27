@@ -120,11 +120,8 @@
   <data name="SubtitlesWindowTitle" xml:space="preserve">
     <value>字幕</value>
   </data>
-  <data name="RemoveSubtitleTrack" xml:space="preserve">
-    <value>移除此字幕轨</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
-    <value>字幕来源：</value>
+    <value>源文件字幕：</value>
   </data>
   <data name="QuickTimeSubtitlesWarning" xml:space="preserve">
     <value>文本字幕不会在 Quicktime 中显示，除非使用 .m4v 扩展名。</value>
@@ -136,7 +133,7 @@
     <value>默认</value>
   </data>
   <data name="ForcedOnlyColumn" xml:space="preserve">
-    <value>仅强制</value>
+    <value>可选</value>
   </data>
   <data name="BurnedInColumn" xml:space="preserve">
     <value>嵌入</value>
@@ -165,16 +162,12 @@
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>搜索外语音频</value>
   </data>
-  <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
-    <value>源视频中无字幕。</value>
-  </data>
   <data name="SrtFilePickerText" xml:space="preserve">
     <value>添加字幕文件</value>
-  </data>
-	<data name="DuplicateSubtitleTrack" xml:space="preserve">
-    <value>复制此轨</value>
   </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>无法检测字幕编码。若要保证字幕正确显示，请将文件重新保存为 UTF-8 编码。</value>
   </data>
+  
+  
 </root>

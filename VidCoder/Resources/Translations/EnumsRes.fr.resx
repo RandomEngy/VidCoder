@@ -131,6 +131,9 @@
   </data>
   
   
+  
+  
+  
   <data name="Custom" xml:space="preserve">
     <value>Personnalisé</value>
   </data>
@@ -210,4 +213,9 @@
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>Plage de temps (s)</value>
   </data>
+  
+  
+  
+  
+  
 </root>

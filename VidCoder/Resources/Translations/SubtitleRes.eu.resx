@@ -120,9 +120,6 @@
   <data name="SubtitlesWindowTitle" xml:space="preserve">
     <value>Azpidatziak</value>
   </data>
-  <data name="RemoveSubtitleTrack" xml:space="preserve">
-    <value>Kendu bide hau</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>Iturburutiko azpidatziak:</value>
   </data>
@@ -165,16 +162,17 @@
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Beste Hizkuntzako Audio Bilaketa</value>
   </data>
-  <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
-    <value>Ez dago azpidatzirik iturburu bideoan.</value>
-  </data>
   <data name="SrtFilePickerText" xml:space="preserve">
     <value>Gehitu azpidatzi agiria</value>
   </data>
-	<data name="DuplicateSubtitleTrack" xml:space="preserve">
-    <value>Bikoiztu bide hau</value>
-  </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Ezin da azpidatzi agiriaren kodeaketa atzeman. Azpidatziak zuzen erakusten direla zihurtatzeko, gorde berriro agiria UTF-8 bezala.</value>
+  </data>
+  <data name="NoSubtitlesText" xml:space="preserve">
+    <value>Ez da azpidatzirik aurkitu iturburuan.</value>
+  </data>
+  <data name="ExternalSubtitlesSummaryFormat" xml:space="preserve">
+    <value>{0} kanpokoa</value>
+    <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
   </data>
 </root>

@@ -1042,6 +1042,26 @@ Kettős köbös: Ez egy OpenCL hardveres gyorsítású méretezési algoritmus.<
     <value>Kulcsok:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
+  <data name="PaddingLabel" xml:space="preserve">
+    <value>Kitöltés</value>
+  </data>
+  <data name="AlignAVStartCheckBox" xml:space="preserve">
+    <value>A/V kezdés egyeztetése</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

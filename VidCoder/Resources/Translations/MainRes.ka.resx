@@ -120,17 +120,11 @@
   <data name="TitleLabel" xml:space="preserve">
     <value>ფაილი:</value>
   </data>
-  <data name="SettingsLabel" xml:space="preserve">
-    <value>პარამეტრები</value>
-  </data>
   <data name="AddToQueueLabel" xml:space="preserve">
     <value>დავალების დამატება</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
     <value>მრავალი ფაილის დამატება...</value>
-  </data>
-  <data name="FileMenu" xml:space="preserve">
-    <value>ფაილი</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
     <value>ვიდეო ფაილის გახსნა...</value>
@@ -141,9 +135,6 @@
   <data name="EnqueueMultipleFiles" xml:space="preserve">
     <value>მრავალი ფაილის დავალებებში დამატება...</value>
   </data>
-  <data name="EnqueueMultipleTitles" xml:space="preserve">
-    <value>მრავალი ფაილის დავალებებში დამატება...</value>
-  </data>
   <data name="ToolsMenu" xml:space="preserve">
     <value>ხელსაწყოები</value>
   </data>
@@ -152,9 +143,6 @@
   </data>
   <data name="ExportPreset" xml:space="preserve">
     <value>შაბლონის გატანა...</value>
-  </data>
-  <data name="OptionsMenuItem" xml:space="preserve">
-    <value>პარამეტრები...</value>
   </data>
   <data name="Play" xml:space="preserve">
     <value>რეპროდუქცია</value>
@@ -167,9 +155,6 @@
   </data>
   <data name="ClearCompleted" xml:space="preserve">
     <value>დასრულებულის გასუფთავება</value>
-  </data>
-  <data name="ExitMenuItem" xml:space="preserve">
-    <value>დასრულება</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>ფანჯრები</value>
@@ -202,9 +187,6 @@
   <data name="SourceLabel" xml:space="preserve">
     <value>წყარო:</value>
   </data>
-  <data name="ScanningSourceLabel" xml:space="preserve">
-    <value>წყაროს სკანირება...</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>ბოლოს გახსნილი</value>
   </data>
@@ -213,15 +195,6 @@
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>სკანირებისას შეცდომა დაფიქსირდა.</value>
-  </data>
-  <data name="AudioLabel" xml:space="preserve">
-    <value>აუდიო:</value>
-  </data>
-  <data name="VideoLabel" xml:space="preserve">
-    <value>ვიდეო:</value>
-  </data>
-  <data name="SubtitlesLabel" xml:space="preserve">
-    <value>ტიტრი:</value>
   </data>
   <data name="AddTrackButton" xml:space="preserve">
     <value>წყაროს დამატება</value>
@@ -390,7 +363,7 @@
     <value>სავარაუდო დრო:</value>
   </data>
   <data name="WhenDoneLabel" xml:space="preserve">
-    <value>დასრულებისას:</value>
+    <value>დასრულებისას</value>
   </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>ვიდეო ფაილი...</value>
@@ -554,12 +527,6 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>კოდირების დეტალები</value>
   </data>
-  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
-    <value>კოდირების პარამეტრები შეიცვალა ბოლო ფაილის დავალების სიაში დამატებისას. გსურთ აქტუალური კოდირების პარამეტრების გამოყენება, დავალების სიაში არსებულ ყველა ფაილისთვის?</value>
-  </data>
-  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
-    <value>პარამეტრები შეიცვალა</value>
-  </data>
   <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>გსურთ არსებული ფაილის სახელის შეცვლა და სხვა ახალის დაწყება?</value>
   </data>
@@ -614,5 +581,102 @@
   <data name="OpenAppDataFolder" xml:space="preserve">
     <value>მონაცემთა ფოლდერის გახსნა</value>
     <comment>Menu choice for opening the application data folder (that holds the VidCoder database file, logs, etc)</comment>
+  </data>
+  <data name="RibbonEncodingGroupLabel" xml:space="preserve">
+    <value>კოდირება</value>
+  </data>
+  <data name="RibbonSettingsGroupLabel" xml:space="preserve">
+    <value>პარამეტრები</value>
+  </data>
+  <data name="GlobalOptionsLabel" xml:space="preserve">
+    <value>ძირითადი პარამეტრები</value>
+  </data>
+  <data name="EncodingSettingsButton" xml:space="preserve">
+    <value>კოდირების პარამეტრები: {0}</value>
+    <comment>{0} is a placeholder for the name of the encoding preset currently selected.</comment>
+  </data>
+  <data name="EncodingSettingsButtonToolTip" xml:space="preserve">
+    <value>ვიდეო და აუდიო კოდეკი, განზომილება, ფილტრი, შემცველობა</value>
+  </data>
+  <data name="OpenSourceRibbonButton" xml:space="preserve">
+    <value>წყაროს გახსნა</value>
+  </data>
+  <data name="ImportExportRibbonButton" xml:space="preserve">
+    <value>შემოტანა/გატანა</value>
+    <comment>Label for ribbon button to import or export presets or queues</comment>
+  </data>
+  <data name="AddedSubtitleFromFile" xml:space="preserve">
+    <value>ტიტრი {0} ფაილიდან წარმატების დაემატა</value>
+  </data>
+  <data name="OpenFormat" xml:space="preserve">
+    <value>გახსნა {0}</value>
+    <comment>Format for opening a source. For example: "Open E:\ - THE_INCREDIBLES"</comment>
+  </data>
+  <data name="NoAudioDescription" xml:space="preserve">
+    <value>ვიდეო არ შეიცავს აუდიოს.</value>
+  </data>
+  <data name="NoAudioSummary" xml:space="preserve">
+    <value>აუდიოს გარეშეა</value>
+    <comment>Summary text for when no audio tracks are found on the source</comment>
+  </data>
+  <data name="NoSubtitlesSummary" xml:space="preserve">
+    <value>ტიტრის გარეშეა</value>
+    <comment>Summary text for when no subtitle tracks are found on the source and no external subtitles have been added</comment>
+  </data>
+  <data name="DataTooOldRunVidCoderVersion" xml:space="preserve">
+    <value>მონაცემთა ბაზა განსანახლებლად ძალიან ძველია. ჩართეთ Run VidCoder-ი {0} შეთავსებადი ვერსიის განახლებისთვის, შემდეგ კი სინჯეთ ეს ვერსია ხელახლა.</value>
+  </data>
+  <data name="BitrateColumn" xml:space="preserve">
+    <value>ბიტრეიტი</value>
+  </data>
+  <data name="SampleRateColumn" xml:space="preserve">
+    <value>სიხშირე</value>
+  </data>
+  <data name="ClearRecentFilesButtonToolTip" xml:space="preserve">
+    <value>ბოლოების გასუფთავება</value>
+  </data>
+  <data name="OpenSourceLabel" xml:space="preserve">
+    <value>გახსნა</value>
+    <comment>Label on top of the different options for opening video source on the startup screen.</comment>
+  </data>
+  <data name="ScanningSourceLabelFormat" xml:space="preserve">
+    <value>სკანირება {0}...</value>
+    <comment>{0} is the name of the source being scanned.</comment>
+  </data>
+  <data name="RetryFailedItemsMenuItem" xml:space="preserve">
+    <value>წარუმატებლების ხელახლა განმეორება</value>
+  </data>
+  <data name="StartChapterAutomationName" xml:space="preserve">
+    <value>თავის მნიშვნელის დაწყება</value>
+    <comment>Narrator label for the chapter start combo box</comment>
+  </data>
+  <data name="EndChapterAutomationName" xml:space="preserve">
+    <value>თავის მნიშვნელის დასრულება</value>
+    <comment>Narrator label for the end chapter combo box</comment>
+  </data>
+  <data name="EditChaptersButtonAutomationName" xml:space="preserve">
+    <value>თავის მნიშვნელის დამუშავება</value>
+    <comment>Help text for screen readers for the Edit chapters button</comment>
+  </data>
+  <data name="TitleFilterRangeStartAutomationName" xml:space="preserve">
+    <value>სახელის ფილტრის წუთების დაწყება</value>
+    <comment>Screen reader text for number box that represents the start of the filter range in minutes. The number chosen in this box represents the minimum title length in minutes that will be chosen.</comment>
+  </data>
+  <data name="ApplyCurrentEncodingSettings" xml:space="preserve">
+    <value>აქტუალური კოდირების პარამეტრების გამოყენება</value>
+  </data>
+  <data name="OpenSourceFolderOption" xml:space="preserve">
+    <value>წყაროს ფოლდერის გახსნა</value>
+    <comment>Menu option to open the folder of the source file in the queue</comment>
+  </data>
+  <data name="WithCurrentJobsFormat" xml:space="preserve">
+    <value>{0}: მიმდინარე სამუშაო (ებით)</value>
+    <comment>Shown as options for the "When done" combo box for actions that trigger when currently encoding job(s) complete.
+{0} is the encode complete action, ex "Shut down"</comment>
+  </data>
+  <data name="WithQueueFormat" xml:space="preserve">
+    <value>სამუშაო: {0}</value>
+    <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion.
+{0} is the encode complete action, ex "Shut down"</comment>
   </data>
 </root>

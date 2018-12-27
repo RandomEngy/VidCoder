@@ -193,7 +193,7 @@
     <value>კადრის რაოდენობის სკანირება წარმოსახვისთვის:</value>
   </data>
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
-    <value>ბოლოს გამოყენებული ფაილის და ფილდერის დამახსოვრება</value>
+    <value>ბოლოს გამოყენებული ფაილის და ფოლდერის დამახსოვრება</value>
   </data>
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>პერსონალური სახელი აუდოზე (რეპროდუქტორების მხარდაჭერა შეზღუდულია)</value>
@@ -269,9 +269,6 @@
   </data>
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
     <value>გაფრთხილება: ეს ვერსია ხშირად პრობლემურია.</value>
-  </data>
-  <data name="LanguagesSection" xml:space="preserve">
-    <value>ენა</value>
   </data>
   <data name="PlayersSection" xml:space="preserve">
     <value>რეპროდუქტორი</value>
@@ -373,13 +370,29 @@
     <value>პროცესის პარამეტრები</value>
   </data>
   <data name="CpuThrottlingLabel" xml:space="preserve">
-    <value>პროცესორის დატვირთვა:</value>
-    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+    <value>პროცესორის დატვირთვა - ბირთვის ლიმიტი:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use. It labels a slider that controls the percentage of allowed cores, where the max is 100%.</comment>
   </data>
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>გამოიყენბს პროცესორის ბირთვის დატვირთვის ლიმიტს, რომელსაც VidCoder-ი მოიხმარს კოდირებისას.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>წარმოსახვისთვის დაშენებული რეპროდუქტორის გამოყენება</value>
+  </data>
+  <data name="MaxSimultaneousEncodesLabel" xml:space="preserve">
+    <value>მაქსიმალური ერთდროული კოდირების დავალებები:</value>
+  </data>
+  <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
+    <value>ეს არის, თუ რამდენი ერთდროულად კოდირების დავალებები დაიშვება, გამოსადეგია რამოდენიმე ბირთვიანი პროცესორისთვის.</value>
+  </data>
+  <data name="GeneralSection" xml:space="preserve">
+    <value>ძირითადი</value>
+  </data>
+  <data name="ThemeLabel" xml:space="preserve">
+    <value>თემა</value>
+    <comment>Label for the app theme (auto, light, dark)</comment>
+  </data>
+  <data name="PromptForUpdatesLabel" xml:space="preserve">
+    <value>აქტუალიზირებისთვის შემოთავაზება:</value>
   </data>
 </root>

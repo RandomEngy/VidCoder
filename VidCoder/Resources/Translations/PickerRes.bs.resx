@@ -190,7 +190,10 @@
     <value>Argumenti:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  
+  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
+    <value>Argumenti koji će biti proslijeđeni programu. Koristi {file} za putanju izlazne datoteke, {folder} za putanju do mape ili druge opcije putanje kao {title} i {date} (pogledaj format nazivanja).</value>
+    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>Izabirač je odredio šablon enkodiranja.</value>
   </data>
@@ -247,6 +250,26 @@
     <value>Samo obavezne</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
+  <data name="AudioDefaultToolTip" xml:space="preserve">
+    <value>Odabire zadnje označeni zvučni zapis ako je utvrđeno podudaranje, inače bira prvi.</value>
+  </data>
+  <data name="LastSelectedRadioButton" xml:space="preserve">
+    <value>Posljednje označeno</value>
+  </data>
+  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
+    <value>Odabire zadnje označene podnaslove ako je utvrđeno podudaranje, inače neće biti odabrano ništa.</value>
+    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
+  </data>
+  <data name="OverrideNameFormatLabel" xml:space="preserve">
+    <value>Dostupne opcije: {0}</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
   
   
   

@@ -120,9 +120,6 @@
   <data name="SubtitlesWindowTitle" xml:space="preserve">
     <value>자막</value>
   </data>
-  <data name="RemoveSubtitleTrack" xml:space="preserve">
-    <value>이 트랙 제거하기</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>소스의 자막:</value>
   </data>
@@ -165,16 +162,12 @@
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>외국어 오디오 검색</value>
   </data>
-  <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
-    <value>소스 비디오에 자막이 없습니다.</value>
-  </data>
   <data name="SrtFilePickerText" xml:space="preserve">
     <value>자막 파일 추가하기</value>
-  </data>
-	<data name="DuplicateSubtitleTrack" xml:space="preserve">
-    <value>이 트랙 복제하기</value>
   </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>자막 파일의 인코딩을 감지할 수 없습니다. 자막이 바르게 나오는지 확인하려면, 자막 파일을 UTF-8로 다시 저장하세요.</value>
   </data>
+  
+  
 </root>

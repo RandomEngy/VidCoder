@@ -130,7 +130,7 @@
     <value>队列完成播放声音</value>
   </data>
   <data name="PreferredDvdPlayerLabel" xml:space="preserve">
-    <value>首选 DVD 播放设备：</value>
+    <value>首选 DVD 播放器：</value>
   </data>
   <data name="PreferredDvdPlayerToolTip" xml:space="preserve">
     <value>选择您想用来使用 DVD 的播放器。</value>
@@ -172,7 +172,7 @@
     <value>覆盖文件不提示</value>
   </data>
   <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>自动换用其他名称</value>
+    <value>自动重命名</value>
   </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
     <value>批量编码文件：</value>
@@ -190,10 +190,10 @@
     <value>添加...</value>
   </data>
   <data name="PreviewCountLabel" xml:space="preserve">
-    <value>预览画面扫描数量：</value>
+    <value>预览图像扫描数量：</value>
   </data>
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
-    <value>记住用过的文件和文件夹</value>
+    <value>记忆曾用文件和文件夹</value>
   </data>
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>允许自定义音轨名称 (部分播放器都支持)</value>
@@ -214,7 +214,7 @@
     <value>可识别扩展名：</value>
   </data>
   <data name="RecognizedExtensionsToolTip" xml:space="preserve">
-    <value>搜寻文件夹时新增列表中扩展名的文件。 (以半角逗点分隔)</value>
+    <value>扫描文件夹中视频文件时，添加以下扩展名文件。(以半角逗点分隔)</value>
   </data>
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>选项</value>
@@ -241,7 +241,7 @@
     <value>VidCoder 已是最新版本。</value>
   </data>
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
-    <value>选择编码视频文件的默认输出目录。</value>
+    <value>选择编码视频文件默认输出目录。</value>
   </data>
   <data name="InterfaceLanguageLabel" xml:space="preserve">
     <value>界面语言：</value>
@@ -269,9 +269,6 @@
   </data>
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
     <value>注意： 此版本更可能出现 bug 或崩溃。</value>
-  </data>
-  <data name="LanguagesSection" xml:space="preserve">
-    <value>语言</value>
   </data>
   <data name="PlayersSection" xml:space="preserve">
     <value>播放器</value>
@@ -322,7 +319,7 @@
     <value>视频文件：</value>
   </data>
   <data name="CustomVideoPlayerToolTip" xml:space="preserve">
-    <value>指定预览文件用的视频播放器路径。</value>
+    <value>指定视频播放器路径。</value>
   </data>
   <data name="VideoPlayerFilePickTitle" xml:space="preserve">
     <value>选择视频播放器。</value>
@@ -349,7 +346,7 @@
     <value>低</value>
   </data>
   <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
-    <value>复制编码日志到编码文件目录</value>
+    <value>复制编码日志到编码目录</value>
   </data>
   <data name="OpenLogFolderButton" xml:space="preserve">
     <value>打开日志文件夹</value>
@@ -358,7 +355,7 @@
     <value>重启时自动继续编码</value>
   </data>
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
-    <value>使用辅助进程进行编码</value>
+    <value>使用工作进程进行编码</value>
   </data>
   <data name="VideoSection" xml:space="preserve">
     <value>视频</value>
@@ -367,19 +364,21 @@
     <value>转换文件时保留创建和修改时间</value>
   </data>
   <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
-    <value>自定义预览目录</value>
+    <value>自定义预览文件夹</value>
   </data>
   <data name="ProcessOptionsLabel" xml:space="preserve">
     <value>进程选项</value>
   </data>
-  <data name="CpuThrottlingLabel" xml:space="preserve">
-    <value>CPU 限制:</value>
-    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
-  </data>
+  
   <data name="CpuThrottlingToolTip" xml:space="preserve">
-    <value>使用 CPU 限制功能来限制 VidCoder 编码时可使用的处理器核心数量。</value>
+    <value>使用 CPU 节流来限制 VidCoder 编码时可使用的处理器核心数量。</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
-    <value>使用内置播放器进行预览</value>
+    <value>使用内置播放器预览</value>
   </data>
+  
+  
+  
+  
+  
 </root>

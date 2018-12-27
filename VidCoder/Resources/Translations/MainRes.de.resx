@@ -120,17 +120,11 @@
   <data name="TitleLabel" xml:space="preserve">
     <value>Titel:</value>
   </data>
-  <data name="SettingsLabel" xml:space="preserve">
-    <value>Einstellungen</value>
-  </data>
   <data name="AddToQueueLabel" xml:space="preserve">
     <value>Zur Warteschlange hinzufügen</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
     <value>Mehrere Titel zur Warteschlange hinzufügen...</value>
-  </data>
-  <data name="FileMenu" xml:space="preserve">
-    <value>Datei</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
     <value>Öffne Videodatei...</value>
@@ -141,9 +135,6 @@
   <data name="EnqueueMultipleFiles" xml:space="preserve">
     <value>Mehrere Dateien in Warteschlange einreihen...</value>
   </data>
-  <data name="EnqueueMultipleTitles" xml:space="preserve">
-    <value>Mehrere Titel in Warteschlange einreihen...</value>
-  </data>
   <data name="ToolsMenu" xml:space="preserve">
     <value>Einstellungen</value>
   </data>
@@ -152,9 +143,6 @@
   </data>
   <data name="ExportPreset" xml:space="preserve">
     <value>Voreinstellung exportieren...</value>
-  </data>
-  <data name="OptionsMenuItem" xml:space="preserve">
-    <value>Optionen...</value>
   </data>
   <data name="Play" xml:space="preserve">
     <value>Wiedergeben</value>
@@ -167,9 +155,6 @@
   </data>
   <data name="ClearCompleted" xml:space="preserve">
     <value>Abgeschlossene entfernen</value>
-  </data>
-  <data name="ExitMenuItem" xml:space="preserve">
-    <value>Beenden</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Fenster</value>
@@ -202,9 +187,6 @@
   <data name="SourceLabel" xml:space="preserve">
     <value>Quelle:</value>
   </data>
-  <data name="ScanningSourceLabel" xml:space="preserve">
-    <value>Scanne Quelle...</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>Zuletzt geöffnet</value>
   </data>
@@ -213,15 +195,6 @@
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>Es ist ein Fehler beim Scannen aufgetreten.</value>
-  </data>
-  <data name="AudioLabel" xml:space="preserve">
-    <value>Audio:</value>
-  </data>
-  <data name="VideoLabel" xml:space="preserve">
-    <value>Video:</value>
-  </data>
-  <data name="SubtitlesLabel" xml:space="preserve">
-    <value>Untertitel:</value>
   </data>
   <data name="AddTrackButton" xml:space="preserve">
     <value>Tonspur hinzufügen</value>
@@ -385,9 +358,7 @@
   <data name="EtaLabel" xml:space="preserve">
     <value>ETA:</value>
   </data>
-  <data name="WhenDoneLabel" xml:space="preserve">
-    <value>Nach Abschluss:</value>
-  </data>
+  
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>Video-Datei...</value>
   </data>
@@ -550,12 +521,6 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>Encodierungsdetails</value>
   </data>
-  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
-    <value>Die Encodierungseinstellungen haben sich geändert, seitdem Sie das letzte Mal ein Element zur Warteschlange hinzugefügt haben. Wollen Sie die aktuellen Encodierungseinstellungen auf alle Elemente der Warteschlange anwenden?</value>
-  </data>
-  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
-    <value>Einstellungen wurden geändert</value>
-  </data>
   <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>Möchten Sie die vorhandene Datei umbenennen und mit einer neuen beginnen?</value>
   </data>
@@ -611,4 +576,31 @@
     <value>AppData Ordner öffnen</value>
     <comment>Menu choice for opening the application data folder (that holds the VidCoder database file, logs, etc)</comment>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

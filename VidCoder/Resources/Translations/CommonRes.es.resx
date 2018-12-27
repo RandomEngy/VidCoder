@@ -280,7 +280,24 @@ Una copia completa de la Licencia Publica General de GNU se ha incluido junto co
     <value>Primero</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
-  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
-    <value>Se deshabilitaron las actualizaciones ya que, nuevas versiones no admiten sistemas operativos de 32 bits.</value>
+  <data name="DuplicateTrack" xml:space="preserve">
+    <value>Duplicar esta pista</value>
+    <comment>Tip to duplicate the audio or subtitle track.</comment>
+  </data>
+  <data name="RemoveTrack" xml:space="preserve">
+    <value>Quitar esta pista</value>
+    <comment>Tip for button to remove the audio or subtitle track.</comment>
+  </data>
+  
+  
+  
+  
+  
+  <data name="Unknown" xml:space="preserve">
+    <value>Desconocido</value>
+    <comment>Used when a value is not known.</comment>
+  </data>
+  <data name="DefaultLabel" xml:space="preserve">
+    <value>Predeterminado:</value>
   </data>
 </root>

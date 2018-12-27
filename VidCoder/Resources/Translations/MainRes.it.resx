@@ -120,17 +120,11 @@
   <data name="TitleLabel" xml:space="preserve">
     <value>Titolo:</value>
   </data>
-  <data name="SettingsLabel" xml:space="preserve">
-    <value>Impostazioni</value>
-  </data>
   <data name="AddToQueueLabel" xml:space="preserve">
     <value>Aggiungi alla coda</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
     <value>Aggiungere più titoli all coda...</value>
-  </data>
-  <data name="FileMenu" xml:space="preserve">
-    <value>File</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
     <value>Apri file video...</value>
@@ -141,9 +135,6 @@
   <data name="EnqueueMultipleFiles" xml:space="preserve">
     <value>Accoda più file...</value>
   </data>
-  <data name="EnqueueMultipleTitles" xml:space="preserve">
-    <value>Accoda più titoli...</value>
-  </data>
   <data name="ToolsMenu" xml:space="preserve">
     <value>Strumenti</value>
   </data>
@@ -152,9 +143,6 @@
   </data>
   <data name="ExportPreset" xml:space="preserve">
     <value>Esporta preimpostazione...</value>
-  </data>
-  <data name="OptionsMenuItem" xml:space="preserve">
-    <value>Opzioni...</value>
   </data>
   <data name="Play" xml:space="preserve">
     <value>Riproduci</value>
@@ -167,9 +155,6 @@
   </data>
   <data name="ClearCompleted" xml:space="preserve">
     <value>Pulisci elenco processi completati</value>
-  </data>
-  <data name="ExitMenuItem" xml:space="preserve">
-    <value>Esci</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Finestre</value>
@@ -202,9 +187,6 @@
   <data name="SourceLabel" xml:space="preserve">
     <value>Origine:</value>
   </data>
-  <data name="ScanningSourceLabel" xml:space="preserve">
-    <value>Scansione sorgente...</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>Recenti</value>
   </data>
@@ -213,15 +195,6 @@
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>Si è verificato un errore durante la scansione.</value>
-  </data>
-  <data name="AudioLabel" xml:space="preserve">
-    <value>Audio:</value>
-  </data>
-  <data name="VideoLabel" xml:space="preserve">
-    <value>Video:</value>
-  </data>
-  <data name="SubtitlesLabel" xml:space="preserve">
-    <value>Sottotitoli:</value>
   </data>
   <data name="AddTrackButton" xml:space="preserve">
     <value>Aggiungere una traccia</value>
@@ -371,7 +344,7 @@
     <value>Cartella di produzione predefinita necessaria</value>
   </data>
   <data name="OutputPathNotValidMessage" xml:space="preserve">
-    <value>Il percorso di uscita non è valido.</value>
+    <value>Il percorso di destinazione non è valido.</value>
   </data>
   <data name="OutputPathNotValidTitle" xml:space="preserve">
     <value>Percorso non valido</value>
@@ -386,7 +359,7 @@
     <value>Rimanente:</value>
   </data>
   <data name="WhenDoneLabel" xml:space="preserve">
-    <value>Quando concluso:</value>
+    <value>Quando concluso</value>
   </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>File video...</value>
@@ -395,7 +368,7 @@
     <value>Cartella DVD/Blu-ray...</value>
   </data>
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
-    <value>Versione {0} disponibile. Prelievo aggiornamento iniziato.</value>
+    <value>È disponibile la versione {0}. Avviato il prelievo dell'aggiornamento.</value>
   </data>
   <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
     <value>Versione {0} finita di scaricare e installare sull'uscita.</value>
@@ -550,12 +523,6 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>Dettagli della codifica</value>
   </data>
-  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
-    <value>Impostazioni di codifica sono cambiate da quando l'ultima aggiunto un elemento alla coda. Si desidera applicare le impostazioni di codifica corrente a tutti gli elementi nella coda?</value>
-  </data>
-  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
-    <value>Le impostazioni sono state cambiate</value>
-  </data>
   <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>Si desidera rinominare il file esistente e iniziare con uno nuovo?</value>
   </data>
@@ -610,5 +577,103 @@
   <data name="OpenAppDataFolder" xml:space="preserve">
     <value>Apri la cartella dati del programma</value>
     <comment>Menu choice for opening the application data folder (that holds the VidCoder database file, logs, etc)</comment>
+  </data>
+  <data name="RibbonEncodingGroupLabel" xml:space="preserve">
+    <value>Codifica</value>
+  </data>
+  <data name="RibbonSettingsGroupLabel" xml:space="preserve">
+    <value>Configurazione</value>
+  </data>
+  <data name="GlobalOptionsLabel" xml:space="preserve">
+    <value>Opzioni globali</value>
+  </data>
+  <data name="EncodingSettingsButton" xml:space="preserve">
+    <value>Profilo di codifica: {0}</value>
+    <comment>{0} is a placeholder for the name of the encoding preset currently selected.</comment>
+  </data>
+  <data name="EncodingSettingsButtonToolTip" xml:space="preserve">
+    <value>Codificatori audio e video, dimensionamento, filtri, contenitore</value>
+  </data>
+  <data name="OpenSourceRibbonButton" xml:space="preserve">
+    <value>Apri la sorgente</value>
+  </data>
+  <data name="ImportExportRibbonButton" xml:space="preserve">
+    <value>Importa/Esporta</value>
+    <comment>Label for ribbon button to import or export presets or queues</comment>
+  </data>
+  <data name="AddedSubtitleFromFile" xml:space="preserve">
+    <value>Aggiunti con successo i sottotitoli dal file {0}</value>
+  </data>
+  <data name="OpenFormat" xml:space="preserve">
+    <value>Apertura {0}</value>
+    <comment>Format for opening a source. For example: "Open E:\ - THE_INCREDIBLES"</comment>
+  </data>
+  <data name="NoAudioDescription" xml:space="preserve">
+    <value>Nessun audio trovato nel sorgente.</value>
+  </data>
+  <data name="NoAudioSummary" xml:space="preserve">
+    <value>Nessun audio</value>
+    <comment>Summary text for when no audio tracks are found on the source</comment>
+  </data>
+  <data name="NoSubtitlesSummary" xml:space="preserve">
+    <value>Nessun sottotitolo</value>
+    <comment>Summary text for when no subtitle tracks are found on the source and no external subtitles have been added</comment>
+  </data>
+  <data name="DataTooOldRunVidCoderVersion" xml:space="preserve">
+    <value>I dati sono troppo vecchi per eseguirne l'aggiornamento. Esegui VidCoder {0} una sola volta per aggiornarli ad una versione compatibile, quindi riprova di nuovo con questa versione.</value>
+  </data>
+  <data name="BitrateColumn" xml:space="preserve">
+    <value>Velocità di flusso</value>
+  </data>
+  <data name="SampleRateColumn" xml:space="preserve">
+    <value>Frequenza di campionamento</value>
+  </data>
+  <data name="ClearRecentFilesButtonToolTip" xml:space="preserve">
+    <value>Cancella i file recenti</value>
+  </data>
+  <data name="OpenSourceLabel" xml:space="preserve">
+    <value>Apri</value>
+    <comment>Label on top of the different options for opening video source on the startup screen.</comment>
+  </data>
+  <data name="ScanningSourceLabelFormat" xml:space="preserve">
+    <value>Scansione {0}...</value>
+    <comment>{0} is the name of the source being scanned.</comment>
+  </data>
+  <data name="RetryFailedItemsMenuItem" xml:space="preserve">
+    <value>Risottometti tutte le azioni fallite</value>
+  </data>
+  <data name="StartChapterAutomationName" xml:space="preserve">
+    <value>Capitolo d'Inizio</value>
+    <comment>Narrator label for the chapter start combo box</comment>
+  </data>
+  <data name="EndChapterAutomationName" xml:space="preserve">
+    <value>Capitolo di Fine</value>
+    <comment>Narrator label for the end chapter combo box</comment>
+  </data>
+  <data name="EditChaptersButtonAutomationName" xml:space="preserve">
+    <value>Modificare i capitoli</value>
+    <comment>Help text for screen readers for the Edit chapters button</comment>
+  </data>
+  <data name="TitleFilterRangeStartAutomationName" xml:space="preserve">
+    <value>Gamma di filtri di titolo avviare minuti
+Minuti d'Inizio dell'intervallo per il filtro dei titoli</value>
+    <comment>Screen reader text for number box that represents the start of the filter range in minutes. The number chosen in this box represents the minimum title length in minutes that will be chosen.</comment>
+  </data>
+  <data name="ApplyCurrentEncodingSettings" xml:space="preserve">
+    <value>Applica le impostazioni di codifica corrente</value>
+  </data>
+  <data name="OpenSourceFolderOption" xml:space="preserve">
+    <value>Apri la cartella di origine</value>
+    <comment>Menu option to open the folder of the source file in the queue</comment>
+  </data>
+  <data name="WithCurrentJobsFormat" xml:space="preserve">
+    <value>con il lavoro corrente/i: {0}</value>
+    <comment>Shown as options for the "When done" combo box for actions that trigger when currently encoding job(s) complete.
+{0} is the encode complete action, ex "Shut down"</comment>
+  </data>
+  <data name="WithQueueFormat" xml:space="preserve">
+    <value>con la coda: {0}</value>
+    <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion.
+{0} is the encode complete action, ex "Shut down"</comment>
   </data>
 </root>

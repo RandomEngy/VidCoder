@@ -270,9 +270,6 @@
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
     <value>Kontuz: zihurragoa da bertsio honek akatsak eta matxurak izatea.</value>
   </data>
-  <data name="LanguagesSection" xml:space="preserve">
-    <value>Hizkuntzak</value>
-  </data>
   <data name="PlayersSection" xml:space="preserve">
     <value>Irakurgailuak</value>
   </data>
@@ -373,13 +370,29 @@
     <value>Prozesu aukerak</value>
   </data>
   <data name="CpuThrottlingLabel" xml:space="preserve">
-    <value>CPU itopena:</value>
-    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+    <value>CPU itopena - Ahalbidetutako Nukleoak:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use. It labels a slider that controls the percentage of allowed cores, where the max is 100%.</comment>
   </data>
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>Erabili CPU itopena VidCoder-ek kodeatzerakoan erabili ditzakeen prozesagailu nukleo zenbatekoa mugatzeko.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Erabili barne-bildutako irakurgailua aurreikuspenetarako</value>
+  </data>
+  <data name="MaxSimultaneousEncodesLabel" xml:space="preserve">
+    <value>Gehienezko aldibereko kodeaketa lanak:</value>
+  </data>
+  <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
+    <value>Hau aldibereko kodeaketa lanak nola ahalbidetzen diren da. Erabilgarria nukleo ugariko CPU-a duten makinentzat.</value>
+  </data>
+  <data name="GeneralSection" xml:space="preserve">
+    <value>Orokorra</value>
+  </data>
+  <data name="ThemeLabel" xml:space="preserve">
+    <value>Azalgaia</value>
+    <comment>Label for the app theme (auto, light, dark)</comment>
+  </data>
+  <data name="PromptForUpdatesLabel" xml:space="preserve">
+    <value>Galdetu eguneraketak:</value>
   </data>
 </root>

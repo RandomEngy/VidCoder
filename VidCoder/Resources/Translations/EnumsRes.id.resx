@@ -129,6 +129,15 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>Ketat</value>
   </data>
+  <data name="AppThemeChoice_Auto" xml:space="preserve">
+    <value>Menggunakan tema OS</value>
+  </data>
+  <data name="AppThemeChoice_Dark" xml:space="preserve">
+    <value>Gelap</value>
+  </data>
+  <data name="AppThemeChoice_Light" xml:space="preserve">
+    <value>Terang</value>
+  </data>
   <data name="CombDetect_fast" xml:space="preserve">
     <value>Cepat</value>
   </data>
@@ -221,8 +230,14 @@
   <data name="Off" xml:space="preserve">
     <value>Mati</value>
   </data>
-  
-  
+  <data name="Sharpen_LapSharp" xml:space="preserve">
+    <value>LapSharp</value>
+    <comment>The name for the "LapSharp" sharpen filter.</comment>
+  </data>
+  <data name="Sharpen_UnSharp" xml:space="preserve">
+    <value>UnSharp</value>
+    <comment>The name for the "UnSharp" sharpen filter.</comment>
+  </data>
   <data name="TitleType_Bluray" xml:space="preserve">
     <value>Blu-ray</value>
     <comment>What to display when the source is a Blu-ray</comment>
@@ -243,5 +258,20 @@
   </data>
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>Rentang waktu</value>
+  </data>
+  <data name="TitleCapitalizationChoice_EveryWord" xml:space="preserve">
+    <value>Setiap Kata</value>
+  </data>
+  <data name="TitleCapitalizationChoice_FirstWord" xml:space="preserve">
+    <value>Kata pertama</value>
+  </data>
+  <data name="EncodeCompleteActionType_StopEncoding" xml:space="preserve">
+    <value>Hentikan penyandian</value>
+  </data>
+  <data name="UpdatePromptTiming_OnExit" xml:space="preserve">
+    <value>Saat keluar</value>
+  </data>
+  <data name="UpdatePromptTiming_OnLaunch" xml:space="preserve">
+    <value>Saat diluncurkan</value>
   </data>
 </root>

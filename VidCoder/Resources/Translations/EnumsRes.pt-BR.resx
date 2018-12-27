@@ -129,6 +129,15 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>Preciso</value>
   </data>
+  <data name="AppThemeChoice_Auto" xml:space="preserve">
+    <value>Usar tema do SO</value>
+  </data>
+  <data name="AppThemeChoice_Dark" xml:space="preserve">
+    <value>Escuro</value>
+  </data>
+  <data name="AppThemeChoice_Light" xml:space="preserve">
+    <value>Claro</value>
+  </data>
   <data name="CombDetect_fast" xml:space="preserve">
     <value>Rápido</value>
   </data>
@@ -221,8 +230,14 @@
   <data name="Off" xml:space="preserve">
     <value>Desligar</value>
   </data>
-  
-  
+  <data name="Sharpen_LapSharp" xml:space="preserve">
+    <value>LapSharp</value>
+    <comment>The name for the "LapSharp" sharpen filter.</comment>
+  </data>
+  <data name="Sharpen_UnSharp" xml:space="preserve">
+    <value>UnSharp</value>
+    <comment>The name for the "UnSharp" sharpen filter.</comment>
+  </data>
   <data name="TitleType_Bluray" xml:space="preserve">
     <value>Blu-ray</value>
     <comment>What to display when the source is a Blu-ray</comment>
@@ -243,5 +258,20 @@
   </data>
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>Intervalo de tempo</value>
+  </data>
+  <data name="TitleCapitalizationChoice_EveryWord" xml:space="preserve">
+    <value>Cada hora</value>
+  </data>
+  <data name="TitleCapitalizationChoice_FirstWord" xml:space="preserve">
+    <value>Primeira palavra</value>
+  </data>
+  <data name="EncodeCompleteActionType_StopEncoding" xml:space="preserve">
+    <value>Parar codificação</value>
+  </data>
+  <data name="UpdatePromptTiming_OnExit" xml:space="preserve">
+    <value>Ao sair</value>
+  </data>
+  <data name="UpdatePromptTiming_OnLaunch" xml:space="preserve">
+    <value>Ao iniciar</value>
   </data>
 </root>

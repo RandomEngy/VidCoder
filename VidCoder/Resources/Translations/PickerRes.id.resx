@@ -190,7 +190,10 @@
     <value>Argumen:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  
+  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
+    <value>Parameter yang diberikan ke program. Gunakan {file} untuk path berkas keluaran, {folder} sebagai wadah path folder atau pilihan path lain seperti {title} dan {date} (lihat Format Penamaan).</value>
+    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>Picker telah ditentukan dengan preset encoding.</value>
   </data>
@@ -247,8 +250,56 @@
     <value>Hanya 'Forced'</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
-  
-  
-  
-  
+  <data name="AudioDefaultToolTip" xml:space="preserve">
+    <value>Pilih trek audio yang terakhir dipilih jika ada yang cocok, selain itu pilih yang pertama.</value>
+  </data>
+  <data name="LastSelectedRadioButton" xml:space="preserve">
+    <value>Pilihan terakhir</value>
+  </data>
+  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
+    <value>Pilih trek subtitle terakhir jika ada yang cocok, selain itu tidak ada trek.</value>
+    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
+  </data>
+  <data name="OverrideNameFormatLabel" xml:space="preserve">
+    <value>Pilihan yang tersedia: {0}</value>
+  </data>
+  <data name="DurationFilterStartAutomationName" xml:space="preserve">
+    <value>Menit mulai untuk filter durasi</value>
+    <comment>Screen reader text for number box that represents the start of the filter range in minutes. The number chosen in this box represents the minimum title length in minutes that will be chosen.
+</comment>
+  </data>
+  <data name="DurationFilterEndAutomationName" xml:space="preserve">
+    <value>Menit selesai untuk filter durasi</value>
+    <comment>Screen reader text for number box that represents the end of the filter range in minutes. The number chosen in this box represents the maximum title length in minutes that will be chosen.
+</comment>
+  </data>
+  <data name="DurationFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>Filter judul dengan durasi</value>
+    <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
+  </data>
+  <data name="TimeRangeSelection" xml:space="preserve">
+    <value>Pemilihan jangka waktu</value>
+  </data>
+  <data name="SelectTimeRangeCheckBox" xml:space="preserve">
+    <value>Pilih jangka waktu</value>
+  </data>
+  <data name="TitleCaptializationLabel" xml:space="preserve">
+    <value>Kapitalisasi Judul:</value>
+  </data>
+  <data name="TimeRangeStartAutomationName" xml:space="preserve">
+    <value>Jangka waktu mulai</value>
+  </data>
+  <data name="TimeRangeEndAutomationName" xml:space="preserve">
+    <value>Jangka waktu selesai</value>
+  </data>
+  <data name="ByIndexRadioButton" xml:space="preserve">
+    <value>Dengan indeks</value>
+    <comment>Label for the choice to choose audio or subtitle tracks by index</comment>
+  </data>
+  <data name="SelectTracksLabel" xml:space="preserve">
+    <value>Pilih trek:</value>
+  </data>
+  <data name="SelectTracksHelpText" xml:space="preserve">
+    <value>Terpisah koma - co. 2,5</value>
+  </data>
 </root>

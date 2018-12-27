@@ -120,9 +120,6 @@
   <data name="SubtitlesWindowTitle" xml:space="preserve">
     <value>Legendas</value>
   </data>
-  <data name="RemoveSubtitleTrack" xml:space="preserve">
-    <value>Remover esta faixa</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>Legendas da origem:</value>
   </data>
@@ -165,16 +162,17 @@
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Pesquisa de áudio externo</value>
   </data>
-  <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
-    <value>Sem legendas no vídeo de origem.</value>
-  </data>
   <data name="SrtFilePickerText" xml:space="preserve">
     <value>Add arquivo de legendas</value>
   </data>
-	<data name="DuplicateSubtitleTrack" xml:space="preserve">
-    <value>Duplicar esta faixa</value>
-  </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Não foi possível detectar a codificação do arquivo de legenda. Para assegurar que as legendas apareçam corretamente, converta o arquivo para o formato UTF-8.</value>
+  </data>
+  <data name="NoSubtitlesText" xml:space="preserve">
+    <value>Não foram encontradas legendas na fonte.</value>
+  </data>
+  <data name="ExternalSubtitlesSummaryFormat" xml:space="preserve">
+    <value>{0} externo</value>
+    <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
   </data>
 </root>

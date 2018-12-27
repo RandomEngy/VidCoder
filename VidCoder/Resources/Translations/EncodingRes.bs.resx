@@ -1012,11 +1012,57 @@ Bicubic: OpenCL hardverski ubrzani algoritam za skaliranje.</value>
     <value>Ključevi:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
+  <data name="PaddingLabel" xml:space="preserve">
+    <value>Ispunjavanje</value>
+  </data>
+  <data name="AlignAVStartCheckBox" xml:space="preserve">
+    <value>Usklađivanje A/V pokretanja</value>
+  </data>
+  
+  <data name="TabHeader_Container" xml:space="preserve">
+    <value>Kontejner</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Šablon enkodiranja: {0}</value>
+    <comment>Label for the encoding settings window.</comment>
+  </data>
+  <data name="AudioEncoder_none" xml:space="preserve">
+    <value>Ništa</value>
+    <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
+  </data>
+  
+  <data name="SharpenLabel" xml:space="preserve">
+    <value>Izoštravanje</value>
+  </data>
   
   
   
   
   
+  <data name="PresetFolder_Custom" xml:space="preserve">
+    <value>Prilagođeno</value>
+  </data>
+  <data name="PresetFolder_BuiltIn" xml:space="preserve">
+    <value>Ugrađeni</value>
+  </data>
+  <data name="PresetFolderCreateSubfolderMenuItem" xml:space="preserve">
+    <value>Napravi podmapu</value>
+  </data>
+  <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
+    <value>Preimenuj mapu</value>
+  </data>
+  <data name="PresetFolderRemoveFolderMenuItem" xml:space="preserve">
+    <value>Ukloni mapu</value>
+  </data>
+  <data name="DefaultPresetFolderName" xml:space="preserve">
+    <value>Nova mapa</value>
+  </data>
+  <data name="ChooseNameSubfolder" xml:space="preserve">
+    <value>Unesite naziva za podmapu:</value>
+  </data>
+  <data name="ChooseNewFolderName" xml:space="preserve">
+    <value>Unesite novi naziv za mapu:</value>
+  </data>
   
   
   

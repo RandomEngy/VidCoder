@@ -263,4 +263,43 @@
   <data name="OverrideNameFormatLabel" xml:space="preserve">
     <value>დაშვებული პარამეტრებია: {0}</value>
   </data>
+  <data name="DurationFilterStartAutomationName" xml:space="preserve">
+    <value>საწყისი წუთების ფილტრის ხანგრძლივობა</value>
+    <comment>Screen reader text for number box that represents the start of the filter range in minutes. The number chosen in this box represents the minimum title length in minutes that will be chosen.
+</comment>
+  </data>
+  <data name="DurationFilterEndAutomationName" xml:space="preserve">
+    <value>დასასრული წუთების ფილტრის ხანგრძლივობა</value>
+    <comment>Screen reader text for number box that represents the end of the filter range in minutes. The number chosen in this box represents the maximum title length in minutes that will be chosen.
+</comment>
+  </data>
+  <data name="DurationFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>გაფილტვრა ხანგრძლივობით</value>
+    <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
+  </data>
+  <data name="TimeRangeSelection" xml:space="preserve">
+    <value>დროის ინტერვალის არჩევა</value>
+  </data>
+  <data name="SelectTimeRangeCheckBox" xml:space="preserve">
+    <value>დროის ინტერვალის მონიშვნა</value>
+  </data>
+  <data name="TitleCaptializationLabel" xml:space="preserve">
+    <value>ფაილის მნიშვნელი:</value>
+  </data>
+  <data name="TimeRangeStartAutomationName" xml:space="preserve">
+    <value>დროის ინტერვალის საწყისი</value>
+  </data>
+  <data name="TimeRangeEndAutomationName" xml:space="preserve">
+    <value>დროის ინტერვალის დასასრული</value>
+  </data>
+  <data name="ByIndexRadioButton" xml:space="preserve">
+    <value>ინდექსით</value>
+    <comment>Label for the choice to choose audio or subtitle tracks by index</comment>
+  </data>
+  <data name="SelectTracksLabel" xml:space="preserve">
+    <value>წყაროს არჩევა:</value>
+  </data>
+  <data name="SelectTracksHelpText" xml:space="preserve">
+    <value>მძიმით გამოყოფა - მაგ. 2,5</value>
+  </data>
 </root>

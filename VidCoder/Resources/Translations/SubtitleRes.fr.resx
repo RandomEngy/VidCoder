@@ -120,9 +120,6 @@
   <data name="SubtitlesWindowTitle" xml:space="preserve">
     <value>Sous-titres</value>
   </data>
-  <data name="RemoveSubtitleTrack" xml:space="preserve">
-    <value>Supprimer cette piste</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>Source de sous-titres  :</value>
   </data>
@@ -165,16 +162,12 @@
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Recherche piste audio étrangère</value>
   </data>
-  <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
-    <value>Pas de sous-titres sur la vidéo source.</value>
-  </data>
   <data name="SrtFilePickerText" xml:space="preserve">
     <value>Ajoutez le fichier de sous-titres</value>
-  </data>
-	<data name="DuplicateSubtitleTrack" xml:space="preserve">
-    <value>Dupliquer cette piste</value>
   </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Ne pouvait pas détecter l’encodage du fichier sous-titre. Pour s’assurer que les sous-titres apparaissent correctement, ré-enregistrez le fichier au format UTF-8.</value>
   </data>
+  
+  
 </root>

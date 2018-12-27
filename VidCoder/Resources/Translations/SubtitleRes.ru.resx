@@ -120,9 +120,6 @@
   <data name="SubtitlesWindowTitle" xml:space="preserve">
     <value>Субтитры</value>
   </data>
-  <data name="RemoveSubtitleTrack" xml:space="preserve">
-    <value>Удалить этот трек</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>Субтитры из источника:</value>
   </data>
@@ -165,16 +162,12 @@
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>По поиску иностранного звука</value>
   </data>
-  <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
-    <value>Нет субтитров на исходном видео.</value>
-  </data>
   <data name="SrtFilePickerText" xml:space="preserve">
     <value>Добавить файл субтитров</value>
-  </data>
-	<data name="DuplicateSubtitleTrack" xml:space="preserve">
-    <value>Дублируйте этот трек</value>
   </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Не удалось обнаружить кодировку файла субтитров. Чтобы убедиться, что субтитры отображаются корректно, повторно сохранить файл как UTF-8.</value>
   </data>
+  
+  
 </root>

@@ -280,7 +280,13 @@ Kompletna kopija GNU General Public License dolazi sa ovim programom.</value>
     <value>Prvi</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
-  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
-    <value>Osvježavanja su onemogućena jer nove verzije više ne podržavaju 32-bitne sisteme.</value>
-  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

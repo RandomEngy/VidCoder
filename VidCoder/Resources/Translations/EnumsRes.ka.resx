@@ -129,6 +129,15 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>ზუსტი</value>
   </data>
+  <data name="AppThemeChoice_Auto" xml:space="preserve">
+    <value>ოპერატიული სისტემის თემა</value>
+  </data>
+  <data name="AppThemeChoice_Dark" xml:space="preserve">
+    <value>მუქი</value>
+  </data>
+  <data name="AppThemeChoice_Light" xml:space="preserve">
+    <value>მსუბუქი</value>
+  </data>
   <data name="CombDetect_fast" xml:space="preserve">
     <value>ჩქარი</value>
   </data>
@@ -223,6 +232,7 @@
   </data>
   <data name="Sharpen_LapSharp" xml:space="preserve">
     <value>ლაფშარპი</value>
+    <comment>The name for the "LapSharp" sharpen filter.</comment>
   </data>
   <data name="Sharpen_UnSharp" xml:space="preserve">
     <value>სიბაცე</value>
@@ -248,5 +258,20 @@
   </data>
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>დროის ინტერვალი</value>
+  </data>
+  <data name="TitleCapitalizationChoice_EveryWord" xml:space="preserve">
+    <value>ყოველი სიტყვა</value>
+  </data>
+  <data name="TitleCapitalizationChoice_FirstWord" xml:space="preserve">
+    <value>პირველი სიტყვა</value>
+  </data>
+  <data name="EncodeCompleteActionType_StopEncoding" xml:space="preserve">
+    <value>კოდირება შეწყვეტა</value>
+  </data>
+  <data name="UpdatePromptTiming_OnExit" xml:space="preserve">
+    <value>გასვლისას</value>
+  </data>
+  <data name="UpdatePromptTiming_OnLaunch" xml:space="preserve">
+    <value>ჩართვისას</value>
   </data>
 </root>

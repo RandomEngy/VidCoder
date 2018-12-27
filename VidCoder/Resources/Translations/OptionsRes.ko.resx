@@ -270,9 +270,6 @@
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
     <value>주의: 이 버전은 버그나 충돌이 더 일어날 수 있습니다.</value>
   </data>
-  <data name="LanguagesSection" xml:space="preserve">
-    <value>언어</value>
-  </data>
   <data name="PlayersSection" xml:space="preserve">
     <value>재생기</value>
   </data>
@@ -372,14 +369,16 @@
   <data name="ProcessOptionsLabel" xml:space="preserve">
     <value>프로세스 옵션</value>
   </data>
-  <data name="CpuThrottlingLabel" xml:space="preserve">
-    <value>CPU 쓰로틀링:</value>
-    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
-  </data>
+  
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>인코딩시 VidCoder가 사용할 프로세스 코어 개수를 제한하려면 CPU 쓰로틀링을 사용합니다.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>미리 보기에 내장된 재생기를 사용합니다</value>
   </data>
+  
+  
+  
+  
+  
 </root>

@@ -280,7 +280,13 @@ A full copy of the GNU General Public License has been included along with this 
     <value>最初</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
-  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
-    <value>新しいバージョンから32bit OSは更新プログラムはサポートされません</value>
-  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

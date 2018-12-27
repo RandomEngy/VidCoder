@@ -270,9 +270,6 @@
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
     <value>Achtung: Diese Version kann Fehler beinhalten und abstürzen.</value>
   </data>
-  <data name="LanguagesSection" xml:space="preserve">
-    <value>Sprachen</value>
-  </data>
   <data name="PlayersSection" xml:space="preserve">
     <value>Wiedergabe-Programme</value>
   </data>
@@ -372,14 +369,16 @@
   <data name="ProcessOptionsLabel" xml:space="preserve">
     <value>Prozesseinstellungen</value>
   </data>
-  <data name="CpuThrottlingLabel" xml:space="preserve">
-    <value>CPU Drosselung:</value>
-    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
-  </data>
+  
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>Drosseln Sie Ihre CPU, um die Anzahl an Prozessorkernen zu begrenzen, die VidCoder zur Encodierung verwenden kann.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Eingebautes Wiedergabe-Programm für die Vorschau verwenden</value>
   </data>
+  
+  
+  
+  
+  
 </root>

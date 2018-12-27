@@ -280,7 +280,13 @@ GNU 일반 공중 사용 허가서의 사본이 이 프로그램에 포함되어
     <value>처음</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
-  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
-    <value>새 버전이 더 이상 32비트 운영 체계를 지원하지 않아서 업데이트를 비활성화했습니다.</value>
-  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

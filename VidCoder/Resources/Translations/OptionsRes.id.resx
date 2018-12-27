@@ -270,9 +270,6 @@
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
     <value>Berhati-hatilah: versi ini sangat mungkin masih memiliki bug dan crash.</value>
   </data>
-  <data name="LanguagesSection" xml:space="preserve">
-    <value>Pengelolaan Bahasa</value>
-  </data>
   <data name="PlayersSection" xml:space="preserve">
     <value>Pemutar</value>
   </data>
@@ -373,13 +370,29 @@
     <value>Pilihan Proses</value>
   </data>
   <data name="CpuThrottlingLabel" xml:space="preserve">
-    <value>CPU throttling:</value>
-    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+    <value>Pengaturan CPU - Inti yang dibolehkan:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use. It labels a slider that controls the percentage of allowed cores, where the max is 100%.</comment>
   </data>
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>Gunakan CPU throttling untuk membatasi jumlah Core prosesor yang dapat digunakan oleh VidCoder ketika melakukan pengkodean.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Gunakan pemutar built-in untuk preview</value>
+  </data>
+  <data name="MaxSimultaneousEncodesLabel" xml:space="preserve">
+    <value>Maksimum jumlah pekerjaan menyandi bersamaan:</value>
+  </data>
+  <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
+    <value>Ini adalah jumlah proses menyandi secara bersamaan yang diperbolehkan. Berguna untuk mesin dengan banyak inti CPU.</value>
+  </data>
+  <data name="GeneralSection" xml:space="preserve">
+    <value>Umum</value>
+  </data>
+  <data name="ThemeLabel" xml:space="preserve">
+    <value>Tema</value>
+    <comment>Label for the app theme (auto, light, dark)</comment>
+  </data>
+  <data name="PromptForUpdatesLabel" xml:space="preserve">
+    <value>Tanyakan Pembaharuan:</value>
   </data>
 </root>

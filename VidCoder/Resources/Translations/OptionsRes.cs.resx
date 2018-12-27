@@ -270,9 +270,6 @@
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
     <value>Upozornění: Tato verze může obsahovat chyby vedoucí až k pádu aplikace.</value>
   </data>
-  <data name="LanguagesSection" xml:space="preserve">
-    <value>Jazyky</value>
-  </data>
   <data name="PlayersSection" xml:space="preserve">
     <value>Přehrávače</value>
   </data>
@@ -372,14 +369,16 @@
   <data name="ProcessOptionsLabel" xml:space="preserve">
     <value>Možnosti procesu</value>
   </data>
-  <data name="CpuThrottlingLabel" xml:space="preserve">
-    <value>Výkon CPU:</value>
-    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
-  </data>
+  
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>Použít řízení výkonu CPU k omezení počtu procesorových jader který může VidCoder použít při enkódování.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Použít vestavěný přehrávač pro náhledy</value>
   </data>
+  
+  
+  
+  
+  
 </root>

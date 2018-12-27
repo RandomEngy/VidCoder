@@ -129,6 +129,15 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>嚴格</value>
   </data>
+  <data name="AppThemeChoice_Auto" xml:space="preserve">
+    <value>使用作業系統主題</value>
+  </data>
+  <data name="AppThemeChoice_Dark" xml:space="preserve">
+    <value>深色</value>
+  </data>
+  <data name="AppThemeChoice_Light" xml:space="preserve">
+    <value>亮色</value>
+  </data>
   <data name="CombDetect_fast" xml:space="preserve">
     <value>快速</value>
   </data>
@@ -223,6 +232,7 @@
   </data>
   <data name="Sharpen_LapSharp" xml:space="preserve">
     <value>LapSharp</value>
+    <comment>The name for the "LapSharp" sharpen filter.</comment>
   </data>
   <data name="Sharpen_UnSharp" xml:space="preserve">
     <value>UnSharp</value>
@@ -248,5 +258,20 @@
   </data>
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>時間範圍</value>
+  </data>
+  <data name="TitleCapitalizationChoice_EveryWord" xml:space="preserve">
+    <value>每個字</value>
+  </data>
+  <data name="TitleCapitalizationChoice_FirstWord" xml:space="preserve">
+    <value>首字</value>
+  </data>
+  <data name="EncodeCompleteActionType_StopEncoding" xml:space="preserve">
+    <value>停止編碼</value>
+  </data>
+  <data name="UpdatePromptTiming_OnExit" xml:space="preserve">
+    <value>離開時</value>
+  </data>
+  <data name="UpdatePromptTiming_OnLaunch" xml:space="preserve">
+    <value>啟動時</value>
   </data>
 </root>

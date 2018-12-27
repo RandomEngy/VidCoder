@@ -129,6 +129,9 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>Szigorú</value>
   </data>
+  
+  
+  
   <data name="CombDetect_fast" xml:space="preserve">
     <value>Gyors</value>
   </data>
@@ -244,4 +247,9 @@
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>Idő hatókör</value>
   </data>
+  
+  
+  
+  
+  
 </root>

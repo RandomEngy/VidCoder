@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AudioSelection" xml:space="preserve">
-    <value>选择音频</value>
+    <value>音频选择</value>
   </data>
   <data name="BurnInCheckBox" xml:space="preserve">
     <value>嵌入</value>
@@ -143,26 +143,26 @@
     <value>字幕选择</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>选取器：{0}</value>
+    <value>选择器：{0}</value>
   </data>
   <data name="TitleSelection" xml:space="preserve">
     <value>标题选择</value>
   </data>
   <data name="PickerButtonFormat" xml:space="preserve">
-    <value>选取器：{0}</value>
+    <value>选择器：{0}</value>
     <comment>{0} is the name of the picker. This string shows up on the picker split button.</comment>
   </data>
   <data name="OutputLocation" xml:space="preserve">
     <value>输出位置</value>
   </data>
   <data name="OverrideDirectoryCheckBox" xml:space="preserve">
-    <value>覆盖目录：</value>
+    <value>改变目录：</value>
   </data>
   <data name="PickerHelpText" xml:space="preserve">
     <value>自动提取标题、 音频、 字幕和区域</value>
   </data>
   <data name="AutoQueueOnScanCheckBox" xml:space="preserve">
-    <value>自动扫描队列</value>
+    <value>扫描后自动加入队列</value>
   </data>
   <data name="AutoEncodeOnScanCheckBox" xml:space="preserve">
     <value>扫描后开始编码</value>
@@ -172,7 +172,7 @@
     <comment>Label for the "indeterminate" checkbox state that lets the user know that this will fall back to the global setting</comment>
   </data>
   <data name="PresetOverrideToolTip" xml:space="preserve">
-    <value>这将覆盖主窗口中已选取的预设。</value>
+    <value>这将取代主窗口中选择的预设。</value>
   </data>
   <data name="EncodingSection" xml:space="preserve">
     <value>编码</value>
@@ -190,9 +190,12 @@
     <value>参数：</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  
+  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
+    <value>传递给程序的参数。使用 {file} 来指代文件输出路径， {folder} 指代存储文件夹路径或像 {title} and {date} 等其他路径选项 (查阅命名格式)。</value>
+    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
-    <value>选取器已指定编码预设。</value>
+    <value>选择器已指定编码预设。</value>
   </data>
   <data name="AddLanguageButton" xml:space="preserve">
     <value>添加语言</value>
@@ -204,10 +207,10 @@
     <value>此语言的所有轨道</value>
   </data>
   <data name="FirstTrackOfEachLanguageRadioButton" xml:space="preserve">
-    <value>每种语言的第一条轨道</value>
+    <value>每种语言的一号轨</value>
   </data>
   <data name="FirstTrackRadioButton" xml:space="preserve">
-    <value>第一条轨道</value>
+    <value>一号轨</value>
   </data>
   <data name="SingleSubtitleDefaultToolTip" xml:space="preserve">
     <value>标记该字幕轨道为默认，播放视频时就自动显示。</value>
@@ -244,9 +247,29 @@
     <value>置顶此语言(s)：</value>
   </data>
   <data name="ForcedOnlyCheckBox" xml:space="preserve">
-    <value>仅强制</value>
+    <value>可选</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
+  <data name="AudioDefaultToolTip" xml:space="preserve">
+    <value>若发现匹配项就选择最后选定的音轨，其他情况选择一号音轨。</value>
+  </data>
+  <data name="LastSelectedRadioButton" xml:space="preserve">
+    <value>最后选定</value>
+  </data>
+  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
+    <value>若发现匹配项就选择最后选定的字幕，其他情况不加字幕。</value>
+    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
+  </data>
+  <data name="OverrideNameFormatLabel" xml:space="preserve">
+    <value>可用选项：{0}</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
   
   
   
