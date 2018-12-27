@@ -181,6 +181,7 @@ $outputDirectoryFiles = @(
     "Fluent.pdb",
     "Microsoft.AnyContainer.dll",
     "Microsoft.AnyContainer.DryIoc.dll",
+    "Microsoft.Xaml.Behaviors.dll",
     "Newtonsoft.Json.dll",
     "Omu.ValueInjecter.dll",
     "ReactiveUI.dll",
@@ -199,7 +200,6 @@ $outputDirectoryFiles = @(
     "System.Reactive.Windows.Threading.dll",
     "System.Runtime.WindowsRuntime.dll",
     "System.ValueTuple.dll",
-    "System.Windows.Interactivity.dll",
     "Ude.dll",
     "WriteableBitmapEx.Wpf.dll")
 
