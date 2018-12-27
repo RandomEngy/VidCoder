@@ -1497,7 +1497,8 @@ namespace VidCoder.Services
 			jobViewModel.EncodeSpeedDetailsAvailable = false;
 
 			encodeLogger.Log("Starting job " + this.TaskNumber + "/" + this.TotalTasks);
-			encodeLogger.Log("  Path: " + job.SourcePath);
+			encodeLogger.Log("  Source path: " + job.SourcePath);
+			encodeLogger.Log("  Destination path: " + job.FinalOutputPath);
 			encodeLogger.Log("  Title: " + job.Title);
 
 			switch (job.RangeType)

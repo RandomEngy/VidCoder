@@ -26,6 +26,8 @@
 		</Grid.ColumnDefinitions>
 
 		<ListBox
+			Name="logsListBox"
+			Margin="0 0 4 0"
 			Background="{DynamicResource AlternateBackgroundBrush}"
 			ItemsSource="{Binding LogCoordinator.LogsBindable}"
 			ScrollViewer.HorizontalScrollBarVisibility="Disabled"

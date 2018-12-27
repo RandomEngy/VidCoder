@@ -20,13 +20,16 @@ namespace VidCoder.Services
 
 		public LogCoordinator()
 		{
-			this.Logs.Add(
-				new LogViewModel(StaticResolver.Resolve<IAppLogger>())
-				{
-					OperationType = LogOperationType.General
-				});
+			var generalAppLogger = new LogViewModel(StaticResolver.Resolve<IAppLogger>())
+			{
+				OperationType = LogOperationType.General
+			};
+
+			this.Logs.Add(generalAppLogger);
 
 			this.Logs.Connect().Bind(this.LogsBindable).Subscribe();
+
+			this.selectedLog = generalAppLogger;
 
 			if (!CustomConfig.UseWorkerProcess)
 			{
@@ -48,8 +51,7 @@ namespace VidCoder.Services
 
 		public void AddLogger(IAppLogger logger, LogOperationType logOperationType, string operationPath)
 		{
-			this.Logs.Insert(
-				this.Logs.Count - 1,
+			this.Logs.Add(
 				new LogViewModel(logger) { OperationPath = operationPath, OperationType = logOperationType });
 		}
 
