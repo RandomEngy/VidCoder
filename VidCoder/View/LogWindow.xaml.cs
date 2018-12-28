@@ -153,6 +153,12 @@ namespace VidCoder.View
 						this.AddLogGroup(currentGroup);
 					}
 				}
+				catch (Exception exception)
+				{
+					var errorLogGroup = new ColoredLogGroup(LogColor.Error);
+					errorLogGroup.Entries.Add($"Could not load log file {this.logger.LogPath}" + Environment.NewLine + exception);
+					this.AddLogGroup(errorLogGroup);
+				}
 				finally
 				{
 					this.logger.ResumeWriter();
