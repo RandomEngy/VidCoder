@@ -470,6 +470,13 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.customCompletionSound, value); }
 		}
 
+		public List<ComboChoice<int>> LogVerbosityChoices { get; } = new List<ComboChoice<int>>
+		{
+			new ComboChoice<int>(0, LogRes.LogVerbosity_Minimized),
+			new ComboChoice<int>(1, LogRes.LogVerbosity_Standard),
+			new ComboChoice<int>(2, LogRes.LogVerbosity_Extended),
+		};
+
 		private int logVerbosity;
 		public int LogVerbosity
 		{

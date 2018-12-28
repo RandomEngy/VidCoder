@@ -70,6 +70,33 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Extended.
+        /// </summary>
+        public static string LogVerbosity_Extended {
+            get {
+                return ResourceManager.GetString("LogVerbosity_Extended", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimized.
+        /// </summary>
+        public static string LogVerbosity_Minimized {
+            get {
+                return ResourceManager.GetString("LogVerbosity_Minimized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Standard.
+        /// </summary>
+        public static string LogVerbosity_Standard {
+            get {
+                return ResourceManager.GetString("LogVerbosity_Standard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log.
         /// </summary>
         public static string LogWindowTitle {

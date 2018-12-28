@@ -643,17 +643,15 @@
 									VerticalAlignment="Center"
 									Text="{x:Static res:OptionsRes.LoggingVerbosityLabel}" />
 								<ComboBox
-									Width="42"
 									Height="23"
+									MinWidth="90"
 									Margin="6 0 0 0"
 									HorizontalAlignment="Left"
 									VerticalAlignment="Center"
+									DisplayMemberPath="Display"
+									ItemsSource="{Binding LogVerbosityChoices}"
 									SelectedValue="{Binding LogVerbosity}"
-									SelectedValuePath="Content">
-									<ComboBoxItem Content="0" />
-									<ComboBoxItem Content="1" />
-									<ComboBoxItem Content="2" />
-								</ComboBox>
+									SelectedValuePath="Value" />
 							</StackPanel>
 							<CheckBox
 								Margin="0 6 0 0"

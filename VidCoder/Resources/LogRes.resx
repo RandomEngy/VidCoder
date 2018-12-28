@@ -123,4 +123,13 @@
   <data name="GeneralLogLabel" xml:space="preserve">
     <value>General</value>
   </data>
+  <data name="LogVerbosity_Minimized" xml:space="preserve">
+    <value>Minimized</value>
+  </data>
+  <data name="LogVerbosity_Standard" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="LogVerbosity_Extended" xml:space="preserve">
+    <value>Extended</value>
+  </data>
 </root>
