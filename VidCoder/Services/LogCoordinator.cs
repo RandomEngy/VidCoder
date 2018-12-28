@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using DynamicData;
 using DynamicData.Binding;
 using HandBrake.Interop.Interop;
@@ -47,6 +50,25 @@ namespace VidCoder.Services
 		{
 			get => this.selectedLog;
 			set => this.RaiseAndSetIfChanged(ref this.selectedLog, value);
+		}
+
+		private ReactiveCommand<Unit, Unit> openLogFolder;
+		public ICommand OpenLogFolder
+		{
+			get
+			{
+				return this.openLogFolder ?? (this.openLogFolder = ReactiveCommand.Create(
+					       () =>
+					       {
+						       string logFolder = Utilities.LogsFolder;
+
+						       if (Directory.Exists(logFolder))
+						       {
+							       FileService.Instance.LaunchFile(logFolder);
+						       }
+					       },
+					       MvvmUtilities.CreateConstantObservable(Directory.Exists(Utilities.LogsFolder))));
+			}
 		}
 
 		public void AddLogger(IAppLogger logger, LogOperationType logOperationType, string operationPath)

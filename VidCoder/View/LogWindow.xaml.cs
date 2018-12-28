@@ -4,6 +4,7 @@ using System.IO;
 using System.Reactive.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -162,7 +163,6 @@ namespace VidCoder.View
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			this.logger.EntryLogged -= this.OnEntryLogged;
-			this.logger.Cleared -= this.OnCleared;
 		}
 
 		private void OnEntryLogged(object sender, EventArgs<LogEntry> e)
@@ -226,14 +226,6 @@ namespace VidCoder.View
 			return this.logTextBox.VerticalOffset + this.logTextBox.ViewportHeight >= this.logTextBox.ExtentHeight;
 		}
 
-		private void OnCleared(object sender, EventArgs e)
-		{
-			this.Dispatcher.BeginInvoke(new Action(() =>
-			{
-				this.logParagraph.Inlines.Clear();
-			}));
-		}
-
 		private void AddLogGroups(IEnumerable<ColoredLogGroup> groups)
 		{
 			foreach (ColoredLogGroup group in groups)
@@ -269,6 +261,11 @@ namespace VidCoder.View
 			public IList<string> Entries { get; }
 
 			public LogColor Color { get; }
+		}
+
+		private void ToolBar_Loaded(object sender, RoutedEventArgs e)
+		{
+			UIUtilities.HideOverflowGrid(sender as ToolBar);
 		}
 	}
 }

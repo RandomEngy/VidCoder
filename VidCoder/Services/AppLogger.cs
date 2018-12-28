@@ -14,13 +14,10 @@ namespace VidCoder.Services
 	{
 		private StreamWriter logFileWriter;
 		private bool disposed;
-		private IAppLogger parent;
-
-		private object logLock = new object();
-		private object disposeLock = new object();
+		private readonly IAppLogger parent;
+		private readonly object disposeLock = new object();
 
 		public event EventHandler<EventArgs<LogEntry>> EntryLogged;
-		public event EventHandler Cleared;
 
 		public AppLogger(IAppLogger parent, string baseFileName)
 		{
@@ -75,13 +72,7 @@ namespace VidCoder.Services
 
 		public string LogPath { get; set; }
 
-		public object LogLock
-		{
-			get
-			{
-				return logLock;
-			}
-		}
+		public object LogLock { get; } = new object();
 
 		/// <summary>
 		/// Suspends the file writer. Should be called while holding the LogLock
@@ -89,6 +80,7 @@ namespace VidCoder.Services
 		public void SuspendWriter()
 		{
 			this.logFileWriter?.Close();
+			this.logFileWriter = null;
 		}
 
 		/// <summary>
@@ -96,10 +88,11 @@ namespace VidCoder.Services
 		/// </summary>
 		public void ResumeWriter()
 		{
-			this.TryCreateLogFileWriter();
+			if (!this.disposed)
+			{
+				this.TryCreateLogFileWriter();
+			}
 		}
-
-		public List<LogEntry> LogEntries { get; } = new List<LogEntry>();
 
 		public void Log(string message)
 		{
@@ -149,16 +142,6 @@ namespace VidCoder.Services
 			this.AddEntry(entry);
 		}
 
-		public void ClearLog()
-		{
-			lock (this.LogLock)
-			{
-				this.LogEntries.Clear();
-			}
-
-			this.Cleared?.Invoke(this, EventArgs.Empty);
-		}
-
 		public void ShowStatus(string message)
 		{
 			StaticResolver.Resolve<StatusService>().Show(message);
@@ -175,6 +158,7 @@ namespace VidCoder.Services
 					if (disposing)
 					{
 						this.logFileWriter?.Dispose();
+						this.logFileWriter = null;
 					}
 				}
 			}
@@ -214,8 +198,6 @@ namespace VidCoder.Services
 
 					entry.Text = builder.ToString();
 				}
-
-				this.LogEntries.Add(entry);
 
 				this.EntryLogged?.Invoke(this, new EventArgs<LogEntry>(entry));
 

@@ -1519,6 +1519,8 @@ namespace VidCoder.Services
 
 			encodeLogger.Log("  Preset: " + jobViewModel.PresetName);
 
+			this.logger.Log("Starting encode: " + job.FinalOutputPath);
+
 			jobViewModel.ReportEncodeStart();
 
 			string destinationDirectory = Path.GetDirectoryName(job.FinalOutputPath);
@@ -1750,6 +1752,7 @@ namespace VidCoder.Services
 
 					encodingStopped = true;
 					encodeLogger.Log("Encoding stopped");
+					this.logger.Log("Encoding stopped");
 				}
 				else
 				{
@@ -1857,6 +1860,7 @@ namespace VidCoder.Services
 					}
 					
 					encodeLogger.Log("Job completed (Elapsed Time: " + Utilities.FormatTimeSpan(finishedJobViewModel.EncodeTime) + ")");
+					this.logger.Log("Job completed: " + finishedJobViewModel.Job.FinalOutputPath);
 
 					if (this.EncodeQueue.Count == 0)
 					{

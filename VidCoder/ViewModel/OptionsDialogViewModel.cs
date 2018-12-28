@@ -274,6 +274,8 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.selectedTabIndex, value); }
 		}
 
+		public LogCoordinator LogCoordinator { get; } = StaticResolver.Resolve<LogCoordinator>();
+
 		public List<InterfaceLanguage> LanguageChoices { get; }
 
 		public List<ComboChoice<AppThemeChoice>> AppThemeChoices { get; }
@@ -802,25 +804,6 @@ namespace VidCoder.ViewModel
 						this.AutoPauseProcesses.Remove(this.SelectedProcess);
 					},
 					this.WhenAnyValue(x => x.SelectedProcess).Select(selectedProcess => selectedProcess != null)));
-			}
-		}
-
-		private ReactiveCommand<Unit, Unit> openLogFolder;
-		public ICommand OpenLogFolder
-		{
-			get
-			{
-				return this.openLogFolder ?? (this.openLogFolder = ReactiveCommand.Create(
-					() =>
-					{
-						string logFolder = Utilities.LogsFolder;
-
-						if (Directory.Exists(logFolder))
-						{
-							FileService.Instance.LaunchFile(logFolder);
-						}
-					},
-					MvvmUtilities.CreateConstantObservable(Directory.Exists(Utilities.LogsFolder))));
 			}
 		}
 

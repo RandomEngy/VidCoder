@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reactive;
 using System.Text;
 using System.Windows.Input;
@@ -24,21 +25,6 @@ namespace VidCoder.ViewModel
 
 		public LogCoordinator LogCoordinator { get; } = StaticResolver.Resolve<LogCoordinator>();
 
-		private ReactiveCommand<Unit, Unit> clearLog;
-		public ICommand ClearLog
-		{
-			get
-			{
-				return this.clearLog ?? (this.clearLog = ReactiveCommand.Create(() =>
-				{
-					lock (this.logger.LogLock)
-					{
-						this.logger.ClearLog();
-					}
-				}));
-			}
-		}
-
 		private ReactiveCommand<Unit, Unit> copy;
 		public ICommand Copy
 		{
@@ -46,16 +32,21 @@ namespace VidCoder.ViewModel
 			{
 				return this.copy ?? (this.copy = ReactiveCommand.Create(() =>
 				{
-					lock (this.logger.LogLock)
+					var selectedLogger = this.LogCoordinator.SelectedLog.Logger;
+
+					lock (selectedLogger.LogLock)
 					{
-						var logTextBuilder = new StringBuilder();
+						selectedLogger.SuspendWriter();
 
-						foreach (LogEntry entry in this.logger.LogEntries)
+						try
 						{
-							logTextBuilder.AppendLine(entry.Text);
+							string logText = File.ReadAllText(selectedLogger.LogPath);
+							StaticResolver.Resolve<ClipboardService>().SetText(logText);
 						}
-
-						StaticResolver.Resolve<ClipboardService>().SetText(logTextBuilder.ToString());
+						finally
+						{
+							selectedLogger.ResumeWriter();
+						}
 					}
 				}));
 			}

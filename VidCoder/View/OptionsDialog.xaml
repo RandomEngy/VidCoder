@@ -663,7 +663,7 @@
 								Margin="0 8 0 0"
 								Padding="3"
 								HorizontalAlignment="Left"
-								Command="{Binding OpenLogFolder}"
+								Command="{Binding LogCoordinator.OpenLogFolder}"
 								Content="{x:Static res:OptionsRes.OpenLogFolderButton}" />
 						</StackPanel>
 

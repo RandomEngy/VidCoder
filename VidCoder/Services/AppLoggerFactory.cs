@@ -18,7 +18,7 @@ namespace VidCoder.Services
 		{
 			if (CustomConfig.UseWorkerProcess)
 			{
-				var newLogger = new AppLogger(this.allAppLogger, Path.GetFileName(outputPath));
+				var newLogger = new AppLogger(this.allAppLogger, "Encode " + Path.GetFileName(outputPath));
 				this.logCoordinator.AddLogger(newLogger, LogOperationType.Encode, outputPath);
 				return newLogger;
 			}
@@ -32,7 +32,7 @@ namespace VidCoder.Services
 		{
 			if (CustomConfig.UseWorkerProcess)
 			{
-				var newLogger = new AppLogger(this.allAppLogger, "Scan");
+				var newLogger = new AppLogger(this.allAppLogger, GetJobDescriptionFromSourcePath(sourcePath));
 				this.logCoordinator.AddLogger(newLogger, LogOperationType.Scan, sourcePath);
 				return newLogger;
 			}
@@ -46,13 +46,36 @@ namespace VidCoder.Services
 		{
 			if (CustomConfig.UseWorkerProcess)
 			{
-				var newLogger = new LocalScanAppLogger(this.allAppLogger, "Scan");
+				var newLogger = new LocalScanAppLogger(this.allAppLogger, GetJobDescriptionFromSourcePath(sourcePath));
 				this.logCoordinator.AddLogger(newLogger, LogOperationType.Scan, sourcePath);
 				return newLogger;
 			}
 			else
 			{
 				return this.allAppLogger;
+			}
+		}
+
+		private static string GetJobDescriptionFromSourcePath(string sourcePath)
+		{
+			try
+			{
+				string fileNameCleaned;
+				if (FileUtilities.IsDirectory(sourcePath))
+				{
+					var info = new DirectoryInfo(sourcePath);
+					fileNameCleaned = FileUtilities.CleanFileName(info.Name);
+				}
+				else
+				{
+					fileNameCleaned = Path.GetFileNameWithoutExtension(sourcePath);
+				}
+
+				return "Scan " + fileNameCleaned;
+			}
+			catch (Exception)
+			{
+				return "Scan";
 			}
 		}
 	}
