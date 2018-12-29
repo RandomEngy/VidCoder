@@ -36,7 +36,7 @@ namespace VidCoder.Services
 			}
 			else
 			{
-				logFileNameAffix = "VidCoderApplication";
+				logFileNameAffix = "Combined";
 			}
 
 			this.LogPath = Path.Combine(logFolder, DateTimeOffset.Now.ToString("yyyy-MM-dd HH.mm.ss ") + logFileNameAffix + ".txt");

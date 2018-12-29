@@ -657,6 +657,24 @@
 								Margin="0 6 0 0"
 								Content="{x:Static res:OptionsRes.CopyLogToOutputFolderLabel}"
 								IsChecked="{Binding CopyLogToOutputFolder}" />
+							<CheckBox
+								Margin="0 6 0 0"
+								Content="{x:Static res:OptionsRes.CopyLogToCustomFolderLabel}"
+								IsChecked="{Binding CopyLogToCustomFolder}" />
+							<Grid Margin="20 6 0 0">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+								<TextBox Text="{Binding LogCustomFolder}" IsEnabled="{Binding CopyLogToCustomFolder}" VerticalContentAlignment="Center" />
+								<Button
+									Grid.Column="1"
+									Margin="6 0 0 0"
+									Padding="6 2"
+									IsEnabled="{Binding CopyLogToCustomFolder}"
+									Command="{Binding PickLogCustomFolder}"
+									Content="{x:Static res:CommonRes.Browse}" />
+							</Grid>
 							<Button
 								Margin="0 8 0 0"
 								Padding="3"

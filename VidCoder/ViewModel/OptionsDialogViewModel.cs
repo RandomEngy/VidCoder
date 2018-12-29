@@ -116,6 +116,8 @@ namespace VidCoder.ViewModel
 			this.workerProcessPriority = Config.WorkerProcessPriority;
 			this.logVerbosity = Config.LogVerbosity;
 			this.copyLogToOutputFolder = Config.CopyLogToOutputFolder;
+			this.copyLogToCustomFolder = Config.CopyLogToCustomFolder;
+			this.logCustomFolder = Config.LogCustomFolder;
 			this.previewCount = Config.PreviewCount;
 			this.rememberPreviousFiles = Config.RememberPreviousFiles;
 			this.showAudioTrackNameField = Config.ShowAudioTrackNameField;
@@ -491,6 +493,22 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.copyLogToOutputFolder, value); }
 		}
 
+		private bool copyLogToCustomFolder;
+
+		public bool CopyLogToCustomFolder
+		{
+			get { return this.copyLogToCustomFolder; }
+			set { this.RaiseAndSetIfChanged(ref this.copyLogToCustomFolder, value); }
+		}
+
+		private string logCustomFolder;
+
+		public string LogCustomFolder
+		{
+			get { return this.logCustomFolder; }
+			set { this.RaiseAndSetIfChanged(ref this.logCustomFolder, value); }
+		}
+
 		public ObservableCollection<string> AutoPauseProcesses { get; }
 
 		private string selectedProcess;
@@ -656,6 +674,8 @@ namespace VidCoder.ViewModel
 						Config.WorkerProcessPriority = this.WorkerProcessPriority;
 						Config.LogVerbosity = this.LogVerbosity;
 						Config.CopyLogToOutputFolder = this.CopyLogToOutputFolder;
+						Config.CopyLogToCustomFolder = this.CopyLogToCustomFolder;
+						Config.LogCustomFolder = this.LogCustomFolder;
 						var autoPauseList = new List<string>();
 						foreach (string process in this.AutoPauseProcesses)
 						{
@@ -757,6 +777,22 @@ namespace VidCoder.ViewModel
 					if (newFolder != null)
 					{
 						this.DefaultPath = newFolder;
+					}
+				}));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> pickLogCustomFolder;
+		public ICommand PickLogCustomFolder
+		{
+			get
+			{
+				return this.pickLogCustomFolder ?? (this.pickLogCustomFolder = ReactiveCommand.Create(() =>
+				{
+					string newFolder = FileService.Instance.GetFolderName(null);
+					if (newFolder != null)
+					{
+						this.LogCustomFolder = newFolder;
 					}
 				}));
 			}

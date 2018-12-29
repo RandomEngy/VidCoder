@@ -1931,28 +1931,46 @@ namespace VidCoder.Services
 					addedResult.EncodeResult.LogPath = finalLogPath;
 				}
 
-				if (Config.CopyLogToOutputFolder && finalLogPath != null)
+				if (finalLogPath != null)
 				{
-					if (CustomConfig.UseWorkerProcess)
+					if (Config.CopyLogToOutputFolder)
 					{
-						string logCopyPath = Path.Combine(Path.GetDirectoryName(finalOutputPath), Path.GetFileName(finalLogPath));
+						if (CustomConfig.UseWorkerProcess)
+						{
+							string logCopyPath = Path.Combine(Path.GetDirectoryName(finalOutputPath), Path.GetFileName(finalLogPath));
 
-						try
-						{
-							File.Copy(finalLogPath, logCopyPath);
+							try
+							{
+								File.Copy(finalLogPath, logCopyPath);
+							}
+							catch (Exception exception)
+							{
+								this.logger.LogError("Could not copy log file to output directory: " + exception);
+							}
 						}
-						catch (IOException exception)
+						else
 						{
-							this.logger.LogError("Could not copy log file to output directory: " + exception);
-						}
-						catch (UnauthorizedAccessException exception)
-						{
-							this.logger.LogError("Could not copy log file to output directory: " + exception);
+							this.logger.LogError("Cannot copy log to output folder: encode logs are only supported when using worker process.");
 						}
 					}
-					else
+				}
+
+				if (Config.CopyLogToCustomFolder)
+				{
+					try
 					{
-						this.logger.LogError("Cannot copy log to output folder: encode logs are only supported when using worker process.");
+						if (!Directory.Exists(Config.LogCustomFolder))
+						{
+							Directory.CreateDirectory(Config.LogCustomFolder);
+						}
+
+						string logCopyPath = Path.Combine(Config.LogCustomFolder, Path.GetFileName(finalLogPath));
+
+						File.Copy(finalLogPath, logCopyPath);
+					}
+					catch (Exception exception)
+					{
+						this.logger.LogError("Could not copy log file to output directory: " + exception);
 					}
 				}
 			});

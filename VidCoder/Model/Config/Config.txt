@@ -70,6 +70,8 @@ ShowPickerWindowMessage|bool|true
 WorkerProcessPriority|string|"BelowNormal"
 LogVerbosity|int|1
 CopyLogToOutputFolder|bool|false
+CopyLogToCustomFolder|bool|false
+LogCustomFolder|string|""
 AutoPauseProcesses|string|""
 MaxSimultaneousEncodes|int|1
 PreviewCount|int|10

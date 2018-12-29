@@ -205,6 +205,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy the encode log to a custom directory:.
+        /// </summary>
+        public static string CopyLogToCustomFolderLabel {
+            get {
+                return ResourceManager.GetString("CopyLogToCustomFolderLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy the encode log to the same directory as the encoded video.
         /// </summary>
         public static string CopyLogToOutputFolderLabel {

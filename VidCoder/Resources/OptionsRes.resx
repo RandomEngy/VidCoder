@@ -398,4 +398,7 @@
   <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
     <value>The worker process option will take effect after you exit and restart VidCoder.</value>
   </data>
+  <data name="CopyLogToCustomFolderLabel" xml:space="preserve">
+    <value>Copy the encode log to a custom directory:</value>
+  </data>
 </root>
