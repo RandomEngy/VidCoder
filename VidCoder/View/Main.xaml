@@ -243,6 +243,7 @@
 						Source="/Icons/copy.png" />
 				</MenuItem.Icon>
 			</MenuItem>
+			<MenuItem Command="{Binding CopyLogToPastebin}" Header="{x:Static res:LogRes.CopyToPastebinButton}" />
 			<Separator />
 			<MenuItem
 				Command="{Binding ProcessingService.RetryFailed}"

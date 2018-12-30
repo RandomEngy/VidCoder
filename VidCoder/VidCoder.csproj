@@ -560,6 +560,7 @@
     <Compile Include="Services\Notifications\StubToastNotificationService.cs" />
     <Compile Include="Services\Notifications\ToastNotificationService.cs" />
     <Compile Include="Services\OutputSizeService.cs" />
+    <Compile Include="Services\PastebinService.cs" />
     <Compile Include="Services\PendingAutoChange.cs" />
     <Compile Include="Services\PreviewImageLoadInfo.cs" />
     <Compile Include="Services\PreviewImageService.cs" />

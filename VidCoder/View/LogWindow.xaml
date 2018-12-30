@@ -104,6 +104,11 @@
 					</Button>
 					<Button
 						Height="24"
+						Padding="5 0"
+						Command="{Binding CopyToPastebin}"
+						Content="{x:Static res:LogRes.CopyToPastebinButton}" />
+					<Button
+						Height="24"
 						MinWidth="70"
 						Padding="5 0"
 						Command="{Binding LogCoordinator.OpenLogFolder}"

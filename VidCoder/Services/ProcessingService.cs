@@ -1826,7 +1826,7 @@ namespace VidCoder.Services
 						}
 					}
 
-					this.completedJobs.Add(new EncodeResultViewModel(
+					addedResult = new EncodeResultViewModel(
 						new EncodeResult
 						{
 							Destination = finishedJobViewModel.Job.FinalOutputPath,
@@ -1835,7 +1835,8 @@ namespace VidCoder.Services
 							LogPath = encodeLogger.LogPath,
 							SizeBytes = outputFileLength
 						},
-						finishedJobViewModel));
+						finishedJobViewModel);
+					this.completedJobs.Add(addedResult);
 
 					if (status != EncodeResultStatus.Succeeded)
 					{

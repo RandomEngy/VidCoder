@@ -63,6 +63,7 @@ namespace VidCoder
 			container.RegisterSingleton<AppLoggerFactory>();
 			container.RegisterSingleton<LogCoordinator>();
 			container.RegisterSingleton<AllAppLogger>();
+			container.RegisterSingleton<PastebinService>();
 
 			container.RegisterSingleton<EncodingWindowViewModel>();
 
