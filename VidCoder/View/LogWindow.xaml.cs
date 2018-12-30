@@ -44,6 +44,7 @@ namespace VidCoder.View
 			this.InitializeComponent();
 
 			this.PopulateLogColorBrushMapping();
+			this.listColumn.Width = new GridLength(Config.LogListPaneWidth);
 
 			this.Loaded += (sender, e) =>
 			{
@@ -169,6 +170,7 @@ namespace VidCoder.View
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			this.logger.EntryLogged -= this.OnEntryLogged;
+			Config.LogListPaneWidth = this.listColumn.ActualWidth;
 		}
 
 		private void OnEntryLogged(object sender, EventArgs<LogEntry> e)
