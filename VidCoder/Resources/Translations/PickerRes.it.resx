@@ -143,17 +143,17 @@
     <value>Selezione dei sottotitoli</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>Selezione: {0}</value>
+    <value>Profilo di selezione: {0}</value>
   </data>
   <data name="TitleSelection" xml:space="preserve">
     <value>Scelta del titolo</value>
   </data>
   <data name="PickerButtonFormat" xml:space="preserve">
-    <value>Selezione: {0}</value>
+    <value>Profilo di selezione: {0}</value>
     <comment>{0} is the name of the picker. This string shows up on the picker split button.</comment>
   </data>
   <data name="OutputLocation" xml:space="preserve">
-    <value>Percorso di output</value>
+    <value>Percorso di salvataggio</value>
   </data>
   <data name="OverrideDirectoryCheckBox" xml:space="preserve">
     <value>Cartella imposta:</value>
@@ -238,7 +238,7 @@
     <value>Includi solo il primo sottotitolo.</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>Utilizzare preset:</value>
+    <value>Utilizzare profilo di codifica:</value>
   </data>
   <data name="RemoveLanguageToolTip" xml:space="preserve">
     <value>Rimuovere questa lingua.</value>

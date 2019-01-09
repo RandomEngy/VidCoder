@@ -316,10 +316,10 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Tipologia:</value>
   </data>
   <data name="ShortFramerateLabel" xml:space="preserve">
-    <value>Framerate:</value>
+    <value>Fotogrammi al secondo:</value>
   </data>
   <data name="CodecLabel" xml:space="preserve">
-    <value>Codec:</value>
+    <value>Codificatore:</value>
   </data>
   <data name="FramerateLabel" xml:space="preserve">
     <value>Framerate (FPS):</value>
