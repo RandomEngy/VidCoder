@@ -4,11 +4,9 @@ using System.Linq;
 using System.ServiceModel;
 using System.Threading;
 using System.Threading.Tasks;
-using HandBrake.ApplicationServices.Interop;
-using HandBrake.ApplicationServices.Interop.Json.Encode;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
-using Microsoft.Practices.ServiceLocation;
-using Microsoft.Practices.Unity;
+using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.Json.Encode;
+using HandBrake.Interop.Interop.Json.Scan;
 using Newtonsoft.Json;
 using VidCoderCommon;
 using VidCoderCommon.Model;
@@ -34,6 +32,7 @@ namespace VidCoderWorker
 		private int passedPreviewCount;
 		private double passedMinTitleDurationSeconds;
 		private double passedCpuThrottlingFraction;
+		private ILogger logger;
 
 		// True if we are encoding (not scanning)
 		private EncodeState state = EncodeState.NotStarted;
@@ -58,7 +57,7 @@ namespace VidCoderWorker
 			CurrentWorker = this;
 			this.callback = OperationContext.Current.GetCallbackChannel<IHandBrakeWorkerCallback>();
 
-			Ioc.Container.RegisterInstance<ILogger>(new WorkerLogger(this.callback));
+			this.logger = new WorkerLogger(this.callback);
 
 			try
 			{
@@ -147,7 +146,7 @@ namespace VidCoderWorker
                     SourceTitle encodeTitle = scanObject.TitleList.FirstOrDefault(title => title.Index == job.Title);
                     if (encodeTitle != null)
                     {
-                        JsonEncodeFactory factory = new JsonEncodeFactory(ServiceLocator.Current.GetInstance<ILogger>());
+                        JsonEncodeFactory factory = new JsonEncodeFactory(this.logger);
 
                         JsonEncodeObject encodeObject = factory.CreateJsonObject(
                             job,

@@ -130,15 +130,15 @@
     <value>Quelle abspielen</value>
   </data>
   <data name="LengthRangePre" xml:space="preserve">
-    <value>Alle Titel von</value>
+    <value>Alle Titel mit</value>
     <comment>Goes before the first number box in the length range specification.</comment>
   </data>
   <data name="LengthRangeMid" xml:space="preserve">
-    <value>zu</value>
+    <value>bis</value>
     <comment>Goes in between the two number boxes in the length range specification.</comment>
   </data>
   <data name="LengthRangePost" xml:space="preserve">
-    <value>Minuten</value>
+    <value>Minuten Laufzeit</value>
     <comment>Goes after the second number box in the length range specification.</comment>
   </data>
   <data name="OverrideTitleCheckBox" xml:space="preserve">

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
+using HandBrake.Interop.Interop.Json.Scan;
 using VidCoder.Model;
 using VidCoderCommon.Extensions;
 
@@ -8,11 +8,6 @@ namespace VidCoder.Extensions
 {
 	public static class TitleExtensions
 	{
-		public static int GetEstimatedFrames(this SourceTitle title)
-		{
-			return (int)Math.Ceiling(title.Duration.ToSpan().TotalSeconds * title.FrameRate.ToDouble());
-		}
-
 		public static string GetDisplayString(this SourceTitle title)
 		{
 			if (title == null)

@@ -63,12 +63,16 @@ namespace VidCoderCommon.Model
 		public VCPadding Padding
 		{
 			get { return this.padding; }
-
 			set { this.padding = value ?? new VCPadding(); }
 		}
 
+		private string padColor;
 		[JsonProperty]
-		public string PadColor { get; set; }
+		public string PadColor
+		{
+			get => this.padColor;
+			set => this.RaiseAndSetIfChanged(ref this.padColor, value);
+		}
 
 		[JsonProperty]
 		public VCPaddingMode PaddingMode { get; set; }
@@ -345,7 +349,7 @@ namespace VidCoderCommon.Model
 		public VCProfile Clone()
 		{
 			var profile = new VCProfile();
-			profile.InjectFrom<FastDeepCloneInjection>(this);
+			profile.InjectFrom<CloneInjection>(this);
 
 			return profile;
 		}

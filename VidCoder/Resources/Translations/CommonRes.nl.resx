@@ -146,6 +146,7 @@ Dit programma is gedistribueerd in de hoop dat het nuttig zal zijn, maar zonder 
   </data>
   <data name="QueueColumnNameTitle" xml:space="preserve">
     <value>Titel</value>
+    <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
   <data name="QueueColumnNameAudioQuality" xml:space="preserve">
     <value>Geluidskwaliteit</value>
@@ -278,7 +279,13 @@ Dit programma is gedistribueerd in de hoop dat het nuttig zal zijn, maar zonder 
     <value>Eerste</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
-  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
-    <value>Updates zijn uitgeschakeld omdat nieuwe versies niet langer ondersteuning voor 32-bits besturingssystemen.</value>
-  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

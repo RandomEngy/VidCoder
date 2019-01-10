@@ -270,9 +270,6 @@
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
     <value>Внимание: Данная версия может содержать ошибки и аварии.</value>
   </data>
-  <data name="LanguagesSection" xml:space="preserve">
-    <value>Языки</value>
-  </data>
   <data name="PlayersSection" xml:space="preserve">
     <value>Игроки</value>
   </data>
@@ -372,14 +369,16 @@
   <data name="ProcessOptionsLabel" xml:space="preserve">
     <value>Настройки процессов</value>
   </data>
-  <data name="CpuThrottlingLabel" xml:space="preserve">
-    <value>ЦП регулирования:</value>
-    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
-  </data>
+  
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>Использование ЦП, регулирования для ограничения числа процессорных ядер, VidCoder можно использовать при кодировании.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Использовать встроенный проигрыватель для просмотра</value>
   </data>
+  
+  
+  
+  
+  
 </root>

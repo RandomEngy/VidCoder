@@ -129,6 +129,9 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>Strogo</value>
   </data>
+  
+  
+  
   <data name="CombDetect_fast" xml:space="preserve">
     <value>Brzo</value>
   </data>
@@ -223,6 +226,7 @@
   </data>
   <data name="Sharpen_LapSharp" xml:space="preserve">
     <value>LapSharp</value>
+    <comment>The name for the "LapSharp" sharpen filter.</comment>
   </data>
   <data name="Sharpen_UnSharp" xml:space="preserve">
     <value>UnSharp</value>
@@ -249,4 +253,9 @@
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>Vremenski raspon</value>
   </data>
+  
+  
+  
+  
+  
 </root>

@@ -15,5 +15,11 @@ namespace VidCoder.ViewModel
 		void ApplyQueueColumns();
 
 		IList<EncodeJobViewModel> SelectedJobs { get; }
+
+		void RefreshDiscMenuItems();
+
+		void ResizeAudioColumns();
+
+		double SourceAreaHeight { get; }
 	}
 }

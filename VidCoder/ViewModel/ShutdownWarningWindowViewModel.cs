@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
+using System.Reactive;
+using System.Windows.Input;
 using System.Windows.Threading;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Model;
@@ -13,16 +17,13 @@ namespace VidCoder.ViewModel
 	{
 		private EncodeCompleteActionType actionType;
 
-		private ISystemOperations systemOperations = Ioc.Get<ISystemOperations>();
+		private ISystemOperations systemOperations = StaticResolver.Resolve<ISystemOperations>();
 		private int secondsRemaining = 30;
 		private DispatcherTimer timer;
 
 		public ShutdownWarningWindowViewModel(EncodeCompleteActionType actionType)
 		{
 			this.actionType = actionType;
-
-			this.CancelOperation = ReactiveCommand.Create();
-			this.CancelOperation.Subscribe(_ => this.CancelOperationImpl());
 
 			this.timer = new DispatcherTimer();
 			this.timer.Interval = TimeSpan.FromSeconds(1);
@@ -89,6 +90,9 @@ namespace VidCoder.ViewModel
 
 		private void ExecuteAction()
 		{
+			var processingService = StaticResolver.Resolve<ProcessingService>();
+			processingService.EncodeCompleteAction = processingService.EncodeCompleteActions.Single(a => a.ActionType == EncodeCompleteActionType.DoNothing);
+
 			switch (actionType)
 			{
 				case EncodeCompleteActionType.Sleep:
@@ -106,11 +110,17 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveCommand<object> CancelOperation { get; }
-		private void CancelOperationImpl()
+		private ReactiveCommand<Unit, Unit> cancelOperation;
+		public ICommand CancelOperation
 		{
-			this.timer.Stop();
-			this.Cancel.Execute(null);
+			get
+			{
+				return this.cancelOperation ?? (this.cancelOperation = ReactiveCommand.Create(() =>
+				{
+					this.timer.Stop();
+					this.Cancel.Execute(null);
+				}));
+			}
 		}
 	}
 }

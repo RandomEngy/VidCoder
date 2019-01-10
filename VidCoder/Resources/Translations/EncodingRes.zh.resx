@@ -379,7 +379,7 @@ iPod 等设备所要求的基本档次需禁用加权 P 帧。
     <value>编解码器：</value>
   </data>
   <data name="FramerateLabel" xml:space="preserve">
-    <value>帧率 (FPS):</value>
+    <value>帧率 (FPS)：</value>
   </data>
   <data name="ConstantFramerateRadioButton" xml:space="preserve">
     <value>固定帧率</value>
@@ -767,10 +767,10 @@ iPod 等设备所要求的基本档次需禁用加权 P 帧。
     <value>{0} (默认)</value>
   </data>
   <data name="EncodingWindowTitle" xml:space="preserve">
-    <value>编码预设: {0}</value>
+    <value>编码预设：{0}</value>
   </data>
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
-    <value>额外的高级 x264 选项:</value>
+    <value>额外的高级 x264 选项：</value>
   </data>
   <data name="LevelToolTip" xml:space="preserve">
     <value>设置并确保符合指定的编码器级别。
@@ -1058,7 +1058,7 @@ Bicubic： 一种 OpenCL 硬件加速缩放算法。</value>
     <value>容器</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>编码预设: {0}</value>
+    <value>编码预设：{0}</value>
     <comment>Label for the encoding settings window.</comment>
   </data>
   <data name="AudioEncoder_none" xml:space="preserve">
@@ -1124,5 +1124,55 @@ Lapsharp 利用卷积核来近似拉普拉斯边缘滤镜进行锐化，有时�
   </data>
   <data name="ChooseNewFolderName" xml:space="preserve">
     <value>为文件夹重新命名</value>
+  </data>
+  <data name="NVEncPreset_losslesshp" xml:space="preserve">
+    <value>高性能无损</value>
+  </data>
+  <data name="NVEncPreset_lossless" xml:space="preserve">
+    <value>无损</value>
+  </data>
+  <data name="NVEncPreset_llhp" xml:space="preserve">
+    <value>高性能低延迟</value>
+  </data>
+  <data name="NVEncPreset_llhq" xml:space="preserve">
+    <value>高质量低延迟</value>
+  </data>
+  <data name="NVEncPreset_ll" xml:space="preserve">
+    <value>低延迟</value>
+  </data>
+  <data name="NVEncPreset_bd" xml:space="preserve">
+    <value>蓝光光盘</value>
+  </data>
+  <data name="NVEncPreset_hq" xml:space="preserve">
+    <value>高质量</value>
+  </data>
+  <data name="NVEncPreset_hp" xml:space="preserve">
+    <value>高性能</value>
+  </data>
+  <data name="PickColorButton" xml:space="preserve">
+    <value>选择颜色...</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>底部</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>左侧</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>右侧</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>顶部</value>
+  </data>
+  <data name="PixelAspectRatioNumeratorAutomationName" xml:space="preserve">
+    <value>像素长宽比分子</value>
+    <comment>Name for the pixel aspect ratio numerator box for screen readers</comment>
+  </data>
+  <data name="PixelAspectRatioDenominatorAutomationName" xml:space="preserve">
+    <value>像素长宽比分母</value>
+    <comment>Name for the pixel aspect ratio denominator box for screen readers</comment>
+  </data>
+  <data name="ApplyToQueueButton" xml:space="preserve">
+    <value>应用到队列</value>
   </data>
 </root>

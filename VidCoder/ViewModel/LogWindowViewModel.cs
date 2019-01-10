@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Reactive;
 using System.Text;
 using System.Windows.Input;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.Services;
@@ -9,17 +11,8 @@ namespace VidCoder.ViewModel
 {
 	public class LogWindowViewModel : ReactiveObject
 	{
-		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
-		private IAppLogger logger = Ioc.Get<IAppLogger>();
-
-		public LogWindowViewModel()
-		{
-			this.ClearLog = ReactiveCommand.Create();
-			this.ClearLog.Subscribe(_ => this.ClearLogImpl());
-
-			this.Copy = ReactiveCommand.Create();
-			this.Copy.Subscribe(_ => this.CopyImpl());
-		}
+		private MainViewModel mainViewModel = StaticResolver.Resolve<MainViewModel>();
+		private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
 
 		public MainViewModel MainViewModel
 		{
@@ -29,25 +22,40 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveCommand<object> ClearLog { get; }
-		private void ClearLogImpl()
+		private ReactiveCommand<Unit, Unit> clearLog;
+		public ICommand ClearLog
 		{
-			this.logger.ClearLog();
+			get
+			{
+				return this.clearLog ?? (this.clearLog = ReactiveCommand.Create(() =>
+				{
+					lock (this.logger.LogLock)
+					{
+						this.logger.ClearLog();
+					}
+				}));
+			}
 		}
 
-		public ReactiveCommand<object> Copy { get; }
-		private void CopyImpl()
+		private ReactiveCommand<Unit, Unit> copy;
+		public ICommand Copy
 		{
-			lock (this.logger.LogLock)
+			get
 			{
-				var logTextBuilder = new StringBuilder();
-
-				foreach (LogEntry entry in this.logger.LogEntries)
+				return this.copy ?? (this.copy = ReactiveCommand.Create(() =>
 				{
-					logTextBuilder.AppendLine(entry.Text);
-				}
+					lock (this.logger.LogLock)
+					{
+						var logTextBuilder = new StringBuilder();
 
-				Ioc.Get<ClipboardService>().SetText(logTextBuilder.ToString());
+						foreach (LogEntry entry in this.logger.LogEntries)
+						{
+							logTextBuilder.AppendLine(entry.Text);
+						}
+
+						StaticResolver.Resolve<ClipboardService>().SetText(logTextBuilder.ToString());
+					}
+				}));
 			}
 		}
 	}

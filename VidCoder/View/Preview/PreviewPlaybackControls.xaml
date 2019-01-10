@@ -11,7 +11,7 @@
 	d:DesignWidth="300"
 	mc:Ignorable="d">
 	<StackPanel
-		Background="WhiteSmoke"
+		Background="{DynamicResource AlternateBackgroundBrush}"
 		Orientation="Vertical"
 		UseLayoutRounding="True">
 		<controls:VideoSeekBar
@@ -22,13 +22,14 @@
 		<WrapPanel Margin="4" HorizontalAlignment="Center">
 			<StackPanel Margin="0 0 20 0" Orientation="Horizontal">
 				<TextBlock
+					Name="volumeLabel"
 					VerticalAlignment="Center"
-					Foreground="Black"
 					Text="{x:Static res:PreviewRes.VolumeSliderLabel}" />
 				<Slider
 					Width="100"
 					Margin="3 0 0 0"
 					VerticalAlignment="Center"
+					AutomationProperties.LabeledBy="{Binding ElementName=volumeLabel}"
 					Maximum="1"
 					Minimum="0"
 					Value="{Binding Volume}" />
@@ -37,6 +38,7 @@
 			<Button
 				Height="23"
 				Margin="0 4"
+				AutomationProperties.Name="{x:Static res:MainRes.Pause}"
 				Command="{Binding Pause}"
 				Visibility="{Binding PreviewPaused,
 				                     Converter={StaticResource InverseVisibilityConverter}}">
@@ -44,7 +46,7 @@
 					<Image
 						Height="15"
 						VerticalAlignment="Center"
-						Source="/Icons/pause2.png" />
+						Source="/Icons/Pause.png" />
 					<TextBlock
 						Margin="5 0 0 0"
 						VerticalAlignment="Center"
@@ -54,6 +56,7 @@
 			<Button
 				Height="23"
 				Margin="0 4"
+				AutomationProperties.Name="{x:Static res:MainRes.Play}"
 				Command="{Binding Play}"
 				Visibility="{Binding PreviewPaused,
 				                     Converter={StaticResource VisibilityConverter}}">
@@ -72,6 +75,7 @@
 			<Button
 				Height="23"
 				Margin="20 4 0 4"
+				AutomationProperties.Name="{x:Static res:PreviewRes.OpenInSystemPlayerButton}"
 				Command="{Binding OpenInSystemPlayer}">
 				<StackPanel Margin="4 0" Orientation="Horizontal">
 					<Image
@@ -88,6 +92,7 @@
 			<Button
 				Height="23"
 				Margin="20 4 0 4"
+				AutomationProperties.Name="{x:Static res:PreviewRes.CloseVideoButton}"
 				Command="{Binding CloseVideo}">
 				<StackPanel Margin="4 0" Orientation="Horizontal">
 					<Image

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reactive.Linq;
-using HandBrake.ApplicationServices.Interop;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Services;
 
@@ -8,9 +8,9 @@ namespace VidCoder.ViewModel
 {
 	public class LevelChoiceViewModel : ReactiveObject
 	{
-		private MainViewModel main = Ioc.Get<MainViewModel>();
-		private PresetsService presetsService = Ioc.Get<PresetsService>();
-		private OutputSizeService outputSizeService = Ioc.Get<OutputSizeService>();
+		private MainViewModel main = StaticResolver.Resolve<MainViewModel>();
+		private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
+		private OutputSizeService outputSizeService = StaticResolver.Resolve<OutputSizeService>();
 
 		public LevelChoiceViewModel(string value)
 		{

@@ -120,9 +120,6 @@
   <data name="SubtitlesWindowTitle" xml:space="preserve">
     <value>Feliratok</value>
   </data>
-  <data name="RemoveSubtitleTrack" xml:space="preserve">
-    <value>Feliratsáv eltávolítása</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>Felirat forrása:</value>
   </data>
@@ -165,16 +162,12 @@
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Idegen hangkeresés</value>
   </data>
-  <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
-    <value>A forrásvideón nem található felirat.</value>
-  </data>
   <data name="SrtFilePickerText" xml:space="preserve">
     <value>Feliratfájl hozzáadása</value>
-  </data>
-	<data name="DuplicateSubtitleTrack" xml:space="preserve">
-    <value>Duplikálja ezt a sávot</value>
   </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>A felirat fájl kódolása nem érzékelhető. A feliratok helyes megjelenéséhez kérlek mentsd el újra UTF-8 kódolással.</value>
   </data>
+  
+  
 </root>

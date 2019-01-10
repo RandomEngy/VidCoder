@@ -66,6 +66,9 @@ namespace VidCoder.Model
 		public string NameFormatOverride { get; set; }
 
 		[JsonProperty]
+		public TitleCapitalizationChoice TitleCapitalization { get; set; } = TitleCapitalizationChoice.EveryWord;
+
+		[JsonProperty]
 		public bool? OutputToSourceDirectory { get; set; }
 
 		[JsonProperty]
@@ -95,8 +98,35 @@ namespace VidCoder.Model
 			set { this.RaiseAndSetIfChanged(ref this.titleRangeSelectEndMinutes, value); }
 		}
 
+	    private bool timeRangeSelectEnabled;
+	    [JsonProperty]
+	    public bool TimeRangeSelectEnabled
+	    {
+		    get { return this.timeRangeSelectEnabled; }
+		    set { this.RaiseAndSetIfChanged(ref this.timeRangeSelectEnabled, value); }
+	    }
+
+	    private TimeSpan timeRangeStart;
+	    [JsonProperty]
+	    public TimeSpan TimeRangeStart
+	    {
+		    get { return this.timeRangeStart; }
+		    set { this.RaiseAndSetIfChanged(ref this.timeRangeStart, value); }
+		}
+
+	    private TimeSpan timeRangeEnd = TimeSpan.FromMinutes(10);
+	    [JsonProperty]
+	    public TimeSpan TimeRangeEnd
+	    {
+		    get { return this.timeRangeEnd; }
+		    set { this.RaiseAndSetIfChanged(ref this.timeRangeEnd, value); }
+	    }
+
 		[JsonProperty]
 		public AudioSelectionMode AudioSelectionMode { get; set; } = AudioSelectionMode.Disabled;
+
+	    [JsonProperty]
+	    public string AudioIndices { get; set; } = "1";
 
 		// Applies only with AutoAudioType.Language
 		private List<string> audioLanguageCodes;
@@ -113,6 +143,12 @@ namespace VidCoder.Model
 
 		[JsonProperty]
 		public SubtitleSelectionMode SubtitleSelectionMode { get; set; } = SubtitleSelectionMode.Disabled;
+
+	    [JsonProperty]
+	    public string SubtitleIndices { get; set; } = "1";
+
+	    [JsonProperty]
+		public int? SubtitleDefaultIndex { get; set; }
 
 		// Applies only with AutoSubtitleType.Language
 		private List<string> subtitleLanguageCodes;

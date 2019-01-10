@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HandBrake.ApplicationServices.Interop.Json.Shared;
+using HandBrake.Interop.Interop.Json.Shared;
 
 namespace VidCoderCommon.Model
 {
@@ -81,6 +81,10 @@ namespace VidCoderCommon.Model
 				   this.Par.Den == otherOutputSize.Par.Den &&
 				   this.Padding == otherOutputSize.Padding;
 		}
+
+		public int DisplayWidth => (int)Math.Round(this.OutputWidth * ((double)this.Par.Num / this.Par.Den));
+
+		public double OutputAspectRatio => ((double)this.OutputWidth / this.OutputHeight) * ((double)this.Par.Num / this.Par.Den);
 
 		public override int GetHashCode()
 		{

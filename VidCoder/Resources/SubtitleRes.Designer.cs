@@ -61,15 +61,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No subtitles on the source video..
-        /// </summary>
-        public static string AddSourceNoSubtitlesToolTip {
-            get {
-                return ResourceManager.GetString("AddSourceNoSubtitlesToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Burn In.
         /// </summary>
         public static string BurnedInColumn {
@@ -106,20 +97,20 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Duplicate this track.
-        /// </summary>
-        public static string DuplicateSubtitleTrack {
-            get {
-                return ResourceManager.GetString("DuplicateSubtitleTrack", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to External subtitles:.
         /// </summary>
         public static string ExternalSubtitlesLabel {
             get {
                 return ResourceManager.GetString("ExternalSubtitlesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} external.
+        /// </summary>
+        public static string ExternalSubtitlesSummaryFormat {
+            get {
+                return ResourceManager.GetString("ExternalSubtitlesSummaryFormat", resourceCulture);
             }
         }
         
@@ -178,6 +169,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No subtitles found on source..
+        /// </summary>
+        public static string NoSubtitlesText {
+            get {
+                return ResourceManager.GetString("NoSubtitlesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Offset (ms).
         /// </summary>
         public static string OffsetColumn {
@@ -192,15 +192,6 @@ namespace VidCoder.Resources {
         public static string QuickTimeSubtitlesWarning {
             get {
                 return ResourceManager.GetString("QuickTimeSubtitlesWarning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Remove this track.
-        /// </summary>
-        public static string RemoveSubtitleTrack {
-            get {
-                return ResourceManager.GetString("RemoveSubtitleTrack", resourceCulture);
             }
         }
         

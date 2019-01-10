@@ -10,14 +10,14 @@
 	d:DesignHeight="300"
 	d:DesignWidth="300"
 	mc:Ignorable="d">
-	<StackPanel Orientation="Vertical" Background="WhiteSmoke">
+	<StackPanel Orientation="Vertical" Background="{DynamicResource AlternateBackgroundBrush}">
 		<controls:SlotSeekBar
 			Height="24"
 			HorizontalAlignment="Stretch"
 			IsEnabled="{Binding SeekBarEnabled}"
-			NumSlots="{Binding PreviewCount,
+			NumSlots="{Binding PreviewImageService.PreviewCount,
 			                   Mode=OneWay}"
-			Slot="{Binding SelectedPreview,
+			Slot="{Binding PreviewImageServiceClient.PreviewIndex,
 			               Mode=TwoWay}" />
 		<Grid Margin="12 8" VerticalAlignment="Center">
 			<Grid.ColumnDefinitions>
@@ -29,7 +29,6 @@
 				Grid.Column="0"
 				HorizontalAlignment="Left"
 				VerticalAlignment="Center"
-				Foreground="Black"
 				Text="{x:Static res:PreviewRes.GeneratingPreview}" />
 			<ProgressBar
 				Grid.Column="1"

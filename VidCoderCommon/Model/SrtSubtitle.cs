@@ -26,7 +26,7 @@ namespace VidCoderCommon.Model
         public SrtSubtitle Clone()
         {
 	        var subtitle = new SrtSubtitle();
-	        subtitle.InjectFrom<FastDeepCloneInjection>(this);
+	        subtitle.InjectFrom<CloneInjection>(this);
 
 	        return subtitle;
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
@@ -18,6 +19,7 @@ using VidCoder.Services;
 using VidCoder.Services.Windows;
 using VidCoder.View.Preview;
 using VidCoder.ViewModel;
+using VidCoderCommon.Model;
 
 namespace VidCoder.View
 {
@@ -29,6 +31,10 @@ namespace VidCoder.View
 	public partial class PreviewWindow : Window, IPreviewView
 	{
 		private PreviewWindowViewModel viewModel;
+
+		private IDisposable controlsUpdateSubscription;
+		private IDisposable mainDisplayUpdateSubscription;
+		private IDisposable previewPausedSubscription;
 
 		public PreviewWindow()
 		{
@@ -65,7 +71,7 @@ namespace VidCoder.View
 			this.viewModel = (PreviewWindowViewModel)this.DataContext;
 			this.viewModel.View = this;
 
-			Observable.CombineLatest(
+			this.mainDisplayUpdateSubscription = Observable.CombineLatest(
 				this.viewModel.MainDisplayObservable, 
 				this.viewModel.WhenAnyValue(x => x.PlayingPreview),
 				(mainDisplay, playingPreview) =>
@@ -77,13 +83,13 @@ namespace VidCoder.View
 					this.OnMainDisplayUpdate(x.mainDisplay, x.playingPreview);
 				});
 
-			this.viewModel.ControlsObservable
+			this.controlsUpdateSubscription = this.viewModel.ControlsObservable
 				.Subscribe(controls =>
 				{
 					this.OnControlsUpdate(controls);
 				});
 
-			this.viewModel.WhenAnyValue(x => x.PreviewPaused)
+			this.previewPausedSubscription = this.viewModel.WhenAnyValue(x => x.PreviewPaused)
 				.Subscribe(paused =>
 				{
 					var previewholder = this.MainContent as IPreviewFrame;
@@ -273,28 +279,36 @@ namespace VidCoder.View
 			var previewVM = (PreviewWindowViewModel) this.DataContext;
 			PreviewFit fitControl;
 
-			switch (previewVM.MainDisplay)
+			OutputSizeInfo outputSize = previewVM.PreviewImageService.OutputSizeInfo;
+
+			if (outputSize != null)
 			{
-				case PreviewMainDisplay.Default:
-					fitControl = this.MainContent as PreviewFit;
-					fitControl?.ResizeHolder(this.previewArea, previewVM.PreviewDisplayWidth, previewVM.PreviewDisplayHeight, showOneToOneWhenSmaller: true);
+				int displayHeight = outputSize.OutputHeight;
+				int displayWidth = outputSize.DisplayWidth;
 
-					break;
-				case PreviewMainDisplay.FitToWindow:
-					fitControl = this.MainContent as PreviewFit;
-					fitControl?.ResizeHolder(this.previewArea, previewVM.PreviewDisplayWidth, previewVM.PreviewDisplayHeight, showOneToOneWhenSmaller: false);
+				switch (previewVM.MainDisplay)
+				{
+					case PreviewMainDisplay.Default:
+						fitControl = this.MainContent as PreviewFit;
+						fitControl?.ResizeHolder(this.previewArea, displayWidth, displayHeight, showOneToOneWhenSmaller: true);
 
-					break;
-				case PreviewMainDisplay.OneToOne:
-					var oneToOneControl = this.MainContent as PreviewOneToOne;
-					oneToOneControl?.ResizeHolder(previewVM.PreviewDisplayWidth, previewVM.PreviewDisplayHeight);
+						break;
+					case PreviewMainDisplay.FitToWindow:
+						fitControl = this.MainContent as PreviewFit;
+						fitControl?.ResizeHolder(this.previewArea, displayWidth, displayHeight, showOneToOneWhenSmaller: false);
 
-					break;
-				case PreviewMainDisplay.StillCorners:
-					var cornersControl = this.MainContent as PreviewCorners;
-					cornersControl?.UpdateCornerImages();
+						break;
+					case PreviewMainDisplay.OneToOne:
+						var oneToOneControl = this.MainContent as PreviewOneToOne;
+						oneToOneControl?.ResizeHolder(displayWidth, displayHeight);
 
-					break;
+						break;
+					case PreviewMainDisplay.StillCorners:
+						var cornersControl = this.MainContent as PreviewCorners;
+						cornersControl?.UpdateCornerImages();
+
+						break;
+				}
 			}
 		}
 
@@ -314,11 +328,11 @@ namespace VidCoder.View
 		{
 			if (e.Delta > 0)
 			{
-				this.viewModel.ShowPreviousPreview();
+				this.viewModel.PreviewImageServiceClient.ShowPreviousPreview();
 			}
 			else
 			{
-				this.viewModel.ShowNextPreview();
+				this.viewModel.PreviewImageServiceClient.ShowNextPreview();
 			}
 		}
 
@@ -326,14 +340,21 @@ namespace VidCoder.View
 		{
 			if (e.Key == Key.Left)
 			{
-				this.viewModel.ShowPreviousPreview();
+				this.viewModel.PreviewImageServiceClient.ShowPreviousPreview();
 				e.Handled = true;
 			}
 			else if (e.Key == Key.Right)
 			{
-				this.viewModel.ShowNextPreview();
+				this.viewModel.PreviewImageServiceClient.ShowNextPreview();
 				e.Handled = true;
 			}
+		}
+
+		private void PreviewWindow_OnClosing(object sender, CancelEventArgs e)
+		{
+			this.mainDisplayUpdateSubscription?.Dispose();
+			this.previewPausedSubscription?.Dispose();
+			this.controlsUpdateSubscription?.Dispose();
 		}
 	}
 }

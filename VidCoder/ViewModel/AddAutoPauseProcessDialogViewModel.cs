@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Reactive;
 using VidCoder.Services;
 using System.Windows.Input;
 using ReactiveUI;
 using System.Reactive.Linq;
+using Microsoft.AnyContainer;
 
 namespace VidCoder.ViewModel
 {
@@ -19,12 +21,9 @@ namespace VidCoder.ViewModel
 
 		public AddAutoPauseProcessDialogViewModel()
 		{
-			this.processes = Ioc.Get<IProcesses>();
+			this.processes = StaticResolver.Resolve<IProcesses>();
 			this.currentProcesses = new ObservableCollection<string>();
 			this.RefreshCurrentProcessesImpl();
-
-			this.RefreshCurrentProcesses = ReactiveCommand.Create();
-			this.RefreshCurrentProcesses.Subscribe(_ => this.RefreshCurrentProcessesImpl());
 		}
 
 		private string processName;
@@ -57,7 +56,15 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveCommand<object> RefreshCurrentProcesses { get; }
+		private ReactiveCommand<Unit, Unit> refreshCurrentProcesses;
+		public ICommand RefreshCurrentProcesses
+		{
+			get
+			{
+				return this.refreshCurrentProcesses ?? (this.refreshCurrentProcesses = ReactiveCommand.Create(() => { this.RefreshCurrentProcessesImpl(); }));
+			}
+		}
+
 		private void RefreshCurrentProcessesImpl()
 		{
 			Process[] processes = this.processes.GetProcesses();

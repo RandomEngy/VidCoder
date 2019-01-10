@@ -241,7 +241,7 @@
     <value>VidCoder is up to date.</value>
   </data>
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
-    <value>Choose the default output directory for encoded video files.</value>
+    <value>Choose the default output folder for encoded video files.</value>
   </data>
   <data name="InterfaceLanguageLabel" xml:space="preserve">
     <value>Interface Language:</value>
@@ -269,9 +269,6 @@
   </data>
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
     <value>Beware: this version is more likely to have bugs and crashes.</value>
-  </data>
-  <data name="LanguagesSection" xml:space="preserve">
-    <value>Languages</value>
   </data>
   <data name="PlayersSection" xml:space="preserve">
     <value>Players</value>
@@ -349,7 +346,7 @@
     <value>Low</value>
   </data>
   <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
-    <value>Copy the encode log to the same directory as the encoded video</value>
+    <value>Copy the encode log to the same folder as the encoded video</value>
   </data>
   <data name="OpenLogFolderButton" xml:space="preserve">
     <value>Open Log Folder</value>
@@ -373,13 +370,29 @@
     <value>Process options</value>
   </data>
   <data name="CpuThrottlingLabel" xml:space="preserve">
-    <value>CPU throttling:</value>
-    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+    <value>CPU throttling - Allowed Cores:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use. It labels a slider that controls the percentage of allowed cores, where the max is 100%.</comment>
   </data>
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>Use CPU throttling to limit the number of processor cores VidCoder can use when encoding.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Use built-in player for previews</value>
+  </data>
+  <data name="MaxSimultaneousEncodesLabel" xml:space="preserve">
+    <value>Maximum simultaneous encoding jobs:</value>
+  </data>
+  <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
+    <value>This is how many simultaneous encode jobs are allowed. Useful for machines with many CPU cores.</value>
+  </data>
+  <data name="GeneralSection" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="ThemeLabel" xml:space="preserve">
+    <value>Theme</value>
+    <comment>Label for the app theme (auto, light, dark)</comment>
+  </data>
+  <data name="PromptForUpdatesLabel" xml:space="preserve">
+    <value>Prompt for updates:</value>
   </data>
 </root>

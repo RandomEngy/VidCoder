@@ -120,17 +120,11 @@
   <data name="TitleLabel" xml:space="preserve">
     <value>제목:</value>
   </data>
-  <data name="SettingsLabel" xml:space="preserve">
-    <value>설정</value>
-  </data>
   <data name="AddToQueueLabel" xml:space="preserve">
     <value>대기열에 추가</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
     <value>대기열에 여러 타이틀 추가하기...</value>
-  </data>
-  <data name="FileMenu" xml:space="preserve">
-    <value>파일</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
     <value>비디오 파일 열기...</value>
@@ -141,9 +135,6 @@
   <data name="EnqueueMultipleFiles" xml:space="preserve">
     <value>여러 파일 대기열에 넣기...</value>
   </data>
-  <data name="EnqueueMultipleTitles" xml:space="preserve">
-    <value>여러 타이틀 대기열에 넣기...</value>
-  </data>
   <data name="ToolsMenu" xml:space="preserve">
     <value>도구</value>
   </data>
@@ -152,9 +143,6 @@
   </data>
   <data name="ExportPreset" xml:space="preserve">
     <value>프리셋 내보내기...</value>
-  </data>
-  <data name="OptionsMenuItem" xml:space="preserve">
-    <value>설정...</value>
   </data>
   <data name="Play" xml:space="preserve">
     <value>재생</value>
@@ -167,9 +155,6 @@
   </data>
   <data name="ClearCompleted" xml:space="preserve">
     <value>완료항목 지우기</value>
-  </data>
-  <data name="ExitMenuItem" xml:space="preserve">
-    <value>종료</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>윈도우</value>
@@ -202,9 +187,6 @@
   <data name="SourceLabel" xml:space="preserve">
     <value>소스:</value>
   </data>
-  <data name="ScanningSourceLabel" xml:space="preserve">
-    <value>검색 소스...</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>최근</value>
   </data>
@@ -213,15 +195,6 @@
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>검색하는 동안 오류가 발생했습니다.</value>
-  </data>
-  <data name="AudioLabel" xml:space="preserve">
-    <value>오디오:</value>
-  </data>
-  <data name="VideoLabel" xml:space="preserve">
-    <value>비디오:</value>
-  </data>
-  <data name="SubtitlesLabel" xml:space="preserve">
-    <value>자막:</value>
   </data>
   <data name="AddTrackButton" xml:space="preserve">
     <value>트랙 추가</value>
@@ -389,9 +362,7 @@
   <data name="EtaLabel" xml:space="preserve">
     <value>남은 시간:</value>
   </data>
-  <data name="WhenDoneLabel" xml:space="preserve">
-    <value>완료시 동작:</value>
-  </data>
+  
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>비디오 파일...</value>
   </data>
@@ -554,12 +525,6 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>인코드 세부 사항</value>
   </data>
-  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
-    <value>대기열에 항목을 마지막으로 추가한 이후 인코딩 설정이 변경되었습니다. 현재 인코딩 설정을 대기열의 모든 항목에 적용할까요?</value>
-  </data>
-  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
-    <value>설정을 변경했습니다다</value>
-  </data>
   <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>기존 파일의 이름을 바꾸고 새 이름으로 시작할까요?</value>
   </data>
@@ -607,6 +572,33 @@
 
 {0}</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
 </root>

@@ -97,6 +97,33 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use OS theme.
+        /// </summary>
+        public static string AppThemeChoice_Auto {
+            get {
+                return ResourceManager.GetString("AppThemeChoice_Auto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dark.
+        /// </summary>
+        public static string AppThemeChoice_Dark {
+            get {
+                return ResourceManager.GetString("AppThemeChoice_Dark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Light.
+        /// </summary>
+        public static string AppThemeChoice_Light {
+            get {
+                return ResourceManager.GetString("AppThemeChoice_Light", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fast.
         /// </summary>
         public static string CombDetect_fast {
@@ -358,6 +385,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stop encoding.
+        /// </summary>
+        public static string EncodeCompleteActionType_StopEncoding {
+            get {
+                return ResourceManager.GetString("EncodeCompleteActionType_StopEncoding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Off.
         /// </summary>
         public static string Off {
@@ -385,6 +421,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Every Word.
+        /// </summary>
+        public static string TitleCapitalizationChoice_EveryWord {
+            get {
+                return ResourceManager.GetString("TitleCapitalizationChoice_EveryWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First word.
+        /// </summary>
+        public static string TitleCapitalizationChoice_FirstWord {
+            get {
+                return ResourceManager.GetString("TitleCapitalizationChoice_FirstWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Blu-ray.
         /// </summary>
         public static string TitleType_Bluray {
@@ -408,6 +462,24 @@ namespace VidCoder.Resources {
         public static string TitleType_Stream {
             get {
                 return ResourceManager.GetString("TitleType_Stream", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On exit.
+        /// </summary>
+        public static string UpdatePromptTiming_OnExit {
+            get {
+                return ResourceManager.GetString("UpdatePromptTiming_OnExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On launch.
+        /// </summary>
+        public static string UpdatePromptTiming_OnLaunch {
+            get {
+                return ResourceManager.GetString("UpdatePromptTiming_OnLaunch", resourceCulture);
             }
         }
         

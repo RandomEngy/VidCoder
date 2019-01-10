@@ -186,14 +186,7 @@
   <data name="Copyright" xml:space="preserve">
     <value>© {0} VidCoder fejlesztők</value>
   </data>
-  <data name="VersionFormat" xml:space="preserve">
-    <value>{0} ({1})</value>
-    <comment>First is version, second is architecture. For example: 1.4.2 (x64)</comment>
-  </data>
-  <data name="BetaVersionFormat" xml:space="preserve">
-    <value>{0} Béta ({1})</value>
-    <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
-  </data>
+  
   <data name="NameDialogTitle" xml:space="preserve">
     <value>Név</value>
     <comment>Title for dialog when  naming a preset or  picker</comment>

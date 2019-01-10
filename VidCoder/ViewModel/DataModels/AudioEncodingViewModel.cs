@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Resources;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using HandBrake.ApplicationServices.Interop;
-using HandBrake.ApplicationServices.Interop.HbLib;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
-using HandBrake.ApplicationServices.Interop.Model;
-using HandBrake.ApplicationServices.Interop.Model.Encoding;
+using DynamicData;
+using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.HbLib;
+using HandBrake.Interop.Interop.Json.Scan;
+using HandBrake.Interop.Interop.Model;
+using HandBrake.Interop.Interop.Model.Encoding;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Model;
@@ -30,8 +33,8 @@ namespace VidCoder.ViewModel
 		private AudioPanelViewModel audioPanelVM;
 		private bool initializing;
 
-		private MainViewModel main = Ioc.Get<MainViewModel>();
-		private PresetsService presetsService = Ioc.Get<PresetsService>();
+		private MainViewModel main = StaticResolver.Resolve<MainViewModel>();
+		private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
 
 		private ObservableCollection<TargetStreamViewModel> targetStreams;
 		private int targetStreamIndex;
@@ -53,7 +56,8 @@ namespace VidCoder.ViewModel
 
 		private IDisposable containerSubscription;
 		private IDisposable presetChangeSubscription;
-		private IDisposable selectedTitleSubscrption;
+		private IDisposable selectedTitleSubscription;
+		private IDisposable audioTrackChangedSubscription;
 
 		static AudioEncodingViewModel()
 		{
@@ -356,17 +360,17 @@ namespace VidCoder.ViewModel
 				return audioEncoder.IsPassthrough;
 			}).ToProperty(this, x => x.PassthroughChoicesVisible, out this.passthroughChoicesVisible);
 
-			this.RemoveAudioEncoding = ReactiveCommand.Create();
-			this.RemoveAudioEncoding.Subscribe(_ => this.RemoveAudioEncodingImpl());
-
-			this.selectedTitleSubscrption = this.main.WhenAnyValue(x => x.SelectedTitle)
+			this.selectedTitleSubscription = this.main.WhenAnyValue(x => x.SelectedTitle)
 				.Skip(1)
 				.Subscribe(_ =>
 				{
 					this.RefreshFromNewInput();
 				});
 
-			this.main.AudioChoiceChanged += this.OnMainAudioChoiceChanged;
+			this.audioTrackChangedSubscription = this.main.AudioTracks.Connect().WhenAnyPropertyChanged().Subscribe(_ =>
+			{
+				this.RefreshFromNewInput();
+			});
 
 			Config.Observables.ShowAudioTrackNameField.ToProperty(this, x => x.NameVisible, out this.nameVisible);
 
@@ -375,21 +379,17 @@ namespace VidCoder.ViewModel
 
 		public void Dispose()
 		{
-			this.main.AudioChoiceChanged -= this.OnMainAudioChoiceChanged;
-
 			this.containerSubscription?.Dispose();
 			this.containerSubscription = null;
 
 			this.presetChangeSubscription?.Dispose();
 			this.presetChangeSubscription = null;
 
-			this.selectedTitleSubscrption?.Dispose();
-			this.selectedTitleSubscrption = null;
-		}
+			this.selectedTitleSubscription?.Dispose();
+			this.selectedTitleSubscription = null;
 
-		private void OnMainAudioChoiceChanged(object sender, EventArgs args)
-		{
-			this.RefreshFromNewInput();
+			this.audioTrackChangedSubscription?.Dispose();
+			this.audioTrackChangedSubscription = null;
 		}
 
 		private void RefreshFromNewInput()
@@ -814,8 +814,8 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				Brush disabledBrush = Brushes.Gray;
-				Brush enabledBrush = Brushes.Black;
+				Brush disabledBrush = (Brush)Application.Current.Resources[System.Windows.SystemColors.GrayTextBrushKey];
+				Brush enabledBrush = (Brush)Application.Current.Resources[System.Windows.SystemColors.ControlTextBrushKey];
 
 				if (!this.main.HasVideoSource)
 				{
@@ -894,10 +894,16 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveCommand<object> RemoveAudioEncoding { get; }
-		private void RemoveAudioEncodingImpl()
+		private ReactiveCommand<Unit, Unit> removeAudioEncoding;
+		public ReactiveCommand<Unit, Unit> RemoveAudioEncoding
 		{
-			this.audioPanelVM.RemoveAudioEncoding(this);
+			get
+			{
+				return this.removeAudioEncoding ?? (this.removeAudioEncoding = ReactiveCommand.Create(() =>
+				{
+					this.audioPanelVM.RemoveAudioEncoding(this);
+				}));
+			}
 		}
 
 		public void SetChosenTracks(List<int> chosenAudioTracks, SourceTitle selectedTitle)

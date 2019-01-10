@@ -1,0 +1,92 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="clr-namespace:VidCoder.Themes">
+	<SolidColorBrush x:Key="AlternateBackgroundBrush" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="ControlTextBrush" Color="{x:Static SystemColors.ControlTextColor}" />
+	<SolidColorBrush x:Key="ToolBarBackgroundBrush" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="WindowBrush" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="WindowTextBrush" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="SplitterBrush" Color="{x:Static SystemColors.ControlDarkColor}" />
+	<SolidColorBrush x:Key="SpecialTextBrush" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="SpecialTextHighlightedBrush" Color="{x:Static SystemColors.HighlightTextColor}" />
+	<SolidColorBrush x:Key="DescriptiveTextBrush" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="MouseOverBackgroundBrush" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="MouseOverOverlayBackgroundBrush" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="SelectedBackgroundBrush" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="PopupInfoBackgroundBrush" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="InlineWarningBackgroundBrush" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="DisabledControlTextBrush" Color="{x:Static SystemColors.GrayTextColor}" />
+	<SolidColorBrush x:Key="InputBrush" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="OutputBrush" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="GridViewHeaderBorderBrush" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="EncodingQueueItemTextBrush" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="RedFill" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="BlueFill" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="BlueHoverFill" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="BluePressFill" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="GreenHoverFill" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="GreenPressFill" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="SeekBarBackgroundBrush" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="SeekBarFilledBackgroundBrush" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="LogErrorBrush" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="LogVidCoderBrush" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="LogVidCoderWorkerBrush" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="ProgressBarBrush" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="ProgressBarPausedBrush" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="DismissableMessageBrush" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="HighlightTextBrush" Color="{x:Static SystemColors.HighlightTextColor}" />
+
+
+	<SolidColorBrush x:Key="Button.Static.Background" Color="{x:Static SystemColors.ControlColor}"/>
+	<SolidColorBrush x:Key="Button.Static.Border" Color="{x:Static SystemColors.ControlDarkColor}"/>
+	<SolidColorBrush x:Key="Button.MouseOver.Background" Color="{x:Static SystemColors.HighlightColor}"/>
+	<SolidColorBrush x:Key="Button.MouseOver.Border" Color="{x:Static SystemColors.HighlightColor}"/>
+	<SolidColorBrush x:Key="Button.Pressed.Background" Color="{x:Static SystemColors.HighlightColor}"/>
+	<SolidColorBrush x:Key="Button.Pressed.Border" Color="{x:Static SystemColors.HighlightColor}"/>
+	<SolidColorBrush x:Key="Button.Disabled.Background" Color="{x:Static SystemColors.ControlColor}"/>
+	<SolidColorBrush x:Key="Button.Disabled.Border" Color="{x:Static SystemColors.ControlDarkColor}"/>
+	<SolidColorBrush x:Key="Button.Disabled.Foreground" Color="{x:Static SystemColors.GrayTextColor}"/>
+
+
+
+	<SolidColorBrush x:Key="ComboBox.Static.Background" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="ComboBox.Static.Border" Color="{x:Static SystemColors.ControlDarkColor}" />
+	<SolidColorBrush x:Key="ComboBox.Static.Editable.Background" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="ComboBox.Static.Editable.Border" Color="{x:Static SystemColors.ControlDarkColor}" />
+	<SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Background" Color="Transparent" />
+	<SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Border" Color="Transparent" />
+	<SolidColorBrush x:Key="ComboBox.MouseOver.Glyph" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="ComboBox.MouseOver.Background" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="ComboBox.MouseOver.Border" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Background" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Border" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Button.Background" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Button.Border" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="ComboBox.Pressed.Glyph" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="ComboBox.Pressed.Background" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="ComboBox.Pressed.Border" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="ComboBox.Pressed.Editable.Background" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="ComboBox.Pressed.Editable.Border" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="ComboBox.Pressed.Editable.Button.Background" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="ComboBox.Pressed.Editable.Button.Border" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="ComboBox.Disabled.Glyph" Color="{x:Static SystemColors.GrayTextColor}" />
+	<SolidColorBrush x:Key="ComboBox.Disabled.Background" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="ComboBox.Disabled.Border" Color="{x:Static SystemColors.ControlDarkColor}" />
+	<SolidColorBrush x:Key="ComboBox.Disabled.Editable.Background" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="ComboBox.Disabled.Editable.Border" Color="{x:Static SystemColors.ControlDarkColor}" />
+	<SolidColorBrush x:Key="ComboBox.Disabled.Editable.Button.Background" Color="Transparent" />
+	<SolidColorBrush x:Key="ComboBox.Disabled.Editable.Button.Border" Color="Transparent" />
+	<SolidColorBrush x:Key="ComboBox.Static.Glyph" Color="{x:Static SystemColors.WindowTextColor}" />
+
+
+
+	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Fill" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Stroke" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Stroke" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Fill" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Stroke" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Fill" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Fill" Color="{x:Static SystemColors.GrayTextColor}" />
+	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Stroke" Color="{x:Static SystemColors.WindowTextColor}" />
+</ResourceDictionary>

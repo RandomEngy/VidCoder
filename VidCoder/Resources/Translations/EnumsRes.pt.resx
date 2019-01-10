@@ -129,6 +129,16 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>Preciso</value>
   </data>
+  <data name="AppThemeChoice_Auto" xml:space="preserve">
+    <value>Usar tema do SO</value>
+    <comment>Windows 10 you can choose Light or Dark for the app theme. This will cause VidCoder to respect that choice.</comment>
+  </data>
+  <data name="AppThemeChoice_Dark" xml:space="preserve">
+    <value>Escuro</value>
+  </data>
+  <data name="AppThemeChoice_Light" xml:space="preserve">
+    <value>Claro</value>
+  </data>
   <data name="CombDetect_fast" xml:space="preserve">
     <value>Rápido</value>
   </data>
@@ -223,6 +233,7 @@
   </data>
   <data name="Sharpen_LapSharp" xml:space="preserve">
     <value>LapSharp</value>
+    <comment>The name for the "LapSharp" sharpen filter.</comment>
   </data>
   <data name="Sharpen_UnSharp" xml:space="preserve">
     <value>UnSharp</value>
@@ -248,5 +259,22 @@
   </data>
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>Intervalo de tempo</value>
+  </data>
+  <data name="TitleCapitalizationChoice_EveryWord" xml:space="preserve">
+    <value>Todas as palavras</value>
+    <comment>This will make Blu-ray and DVD titles capitalize every word</comment>
+  </data>
+  <data name="TitleCapitalizationChoice_FirstWord" xml:space="preserve">
+    <value>Primeira palavra</value>
+    <comment>This will make Blu-ray and DVD titles capitalize only the first word</comment>
+  </data>
+  <data name="EncodeCompleteActionType_StopEncoding" xml:space="preserve">
+    <value>Parar codificação</value>
+  </data>
+  <data name="UpdatePromptTiming_OnExit" xml:space="preserve">
+    <value>Ao sair</value>
+  </data>
+  <data name="UpdatePromptTiming_OnLaunch" xml:space="preserve">
+    <value>Ao iniciar</value>
   </data>
 </root>

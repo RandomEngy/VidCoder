@@ -148,6 +148,7 @@ Kompletna kopija GNU General Public License dolazi sa ovim programom.</value>
   </data>
   <data name="QueueColumnNameTitle" xml:space="preserve">
     <value>Naslov</value>
+    <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
   <data name="QueueColumnNameAudioQuality" xml:space="preserve">
     <value>Kvaliteta audia</value>
@@ -280,7 +281,13 @@ Kompletna kopija GNU General Public License dolazi sa ovim programom.</value>
     <value>Prvi</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
-  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
-    <value>Osvježavanja su onemogućena jer nove verzije više ne podržavaju 32-bitne sisteme.</value>
-  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

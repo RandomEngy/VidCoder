@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using Microsoft.AnyContainer;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Model.WindowPlacer;
@@ -18,7 +19,7 @@ namespace VidCoder.Services.Windows
 	{
 		private const double Spacing = 4;
 
-		private IWindowManager windowManager = Ioc.Get<IWindowManager>();
+		private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
 
 		public Rect? PlaceWindow(Window window)
 		{

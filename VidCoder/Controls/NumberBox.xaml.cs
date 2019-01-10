@@ -1,9 +1,13 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Globalization;
 using System.Threading;
 using System.Windows;
+using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using VidCoder.Resources;
 
 namespace VidCoder.Controls
 {
@@ -21,6 +25,11 @@ namespace VidCoder.Controls
 		private DateTime lastFocusMouseDown;
 		private bool suppressRefresh;
 
+		//static NumberBox()
+		//{
+		//	DefaultStyleKeyProperty.OverrideMetadata(typeof(NumberBox), new FrameworkPropertyMetadata(typeof(NumberBox)));
+		//}
+
 		public NumberBox()
 		{
 			this.noneCaption = "(none)";
@@ -28,7 +37,32 @@ namespace VidCoder.Controls
 			this.ShowIncrementButtons = true;
 			this.SelectAllOnClick = true;
 
-			InitializeComponent();
+			this.InitializeComponent();
+
+			var automationNameDescriptor = DependencyPropertyDescriptor.FromProperty(AutomationProperties.NameProperty, typeof(NumberBox));
+			automationNameDescriptor.AddValueChanged(this, (sender, args) =>
+			{
+				string newName = (string)this.GetValue(AutomationProperties.NameProperty);
+
+				if (!string.IsNullOrEmpty(newName))
+				{
+					this.numberBox.SetValue(AutomationProperties.NameProperty, newName);
+
+					this.increaseButton.SetValue(AutomationProperties.NameProperty, string.Format(CultureInfo.CurrentCulture, CommonRes.NumberBoxIncreaseButtonAutomationTextFormat, newName));
+					this.decreaseButton.SetValue(AutomationProperties.NameProperty, string.Format(CultureInfo.CurrentCulture, CommonRes.NumberBoxDecreaseButtonAutomationTextFormat, newName));
+				}
+			});
+
+			var automationHelpTextDescriptor = DependencyPropertyDescriptor.FromProperty(AutomationProperties.HelpTextProperty, typeof(NumberBox));
+			automationHelpTextDescriptor.AddValueChanged(this, (sender, args) =>
+			{
+				string newName = (string)this.GetValue(AutomationProperties.HelpTextProperty);
+
+				if (!string.IsNullOrEmpty(newName))
+				{
+					this.numberBox.SetValue(AutomationProperties.HelpTextProperty, newName);
+				}
+			});
 
 			this.RefreshNumberBox();
 		}
@@ -224,7 +258,7 @@ namespace VidCoder.Controls
 		{
 			if (this.numberBox.Text == this.NoneCaption)
 			{
-				this.numberBox.Foreground = new SolidColorBrush(Colors.Gray);
+				this.numberBox.Foreground = (Brush)Application.Current.Resources[SystemColors.GrayTextBrushKey];
 			}
 			else
 			{
@@ -234,7 +268,7 @@ namespace VidCoder.Controls
 				}
 				else
 				{
-					this.numberBox.Foreground = new SolidColorBrush(Colors.Black);
+					this.numberBox.SetResourceReference(Control.ForegroundProperty, "ControlTextBrush");
 				}
 			}
 		}
@@ -247,10 +281,7 @@ namespace VidCoder.Controls
 
 		private void UpButtonMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
-			if (this.refireControl != null)
-			{
-				this.refireControl.Stop();
-			}
+			this.refireControl?.Stop();
 		}
 
 		private void DownButtonMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -261,10 +292,7 @@ namespace VidCoder.Controls
 
 		private void DownButtonMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
-			if (this.refireControl != null)
-			{
-				this.refireControl.Stop();
-			}
+			this.refireControl?.Stop();
 		}
 
 		private void IncrementNumber()
@@ -338,7 +366,7 @@ namespace VidCoder.Controls
 				}
 				else
 				{
-					this.numberBox.Foreground = new SolidColorBrush(Colors.Black);
+					this.numberBox.SetResourceReference(Control.ForegroundProperty, "ControlTextBrush");
 				}
 			}
 		}
@@ -375,6 +403,14 @@ namespace VidCoder.Controls
 			if (e.Key == Key.Space)
 			{
 				e.Handled = true;
+			}
+			else if (e.Key == Key.Up)
+			{
+				this.IncrementNumber();
+			}
+			else if (e.Key == Key.Down)
+			{
+				this.DecrementNumber();
 			}
 		}
 

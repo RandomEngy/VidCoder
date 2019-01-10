@@ -316,10 +316,10 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Tipologia:</value>
   </data>
   <data name="ShortFramerateLabel" xml:space="preserve">
-    <value>Framerate:</value>
+    <value>Fotogrammi al secondo:</value>
   </data>
   <data name="CodecLabel" xml:space="preserve">
-    <value>Codec:</value>
+    <value>Codificatore:</value>
   </data>
   <data name="FramerateLabel" xml:space="preserve">
     <value>Framerate (FPS):</value>
@@ -1060,5 +1060,55 @@ NitidezzaCircolare rende più nitida l'immagine utilizzando il filtro con "nocci
   </data>
   <data name="ChooseNewFolderName" xml:space="preserve">
     <value>Scegli un nuovo nome per la sottocartella:</value>
+  </data>
+  <data name="NVEncPreset_losslesshp" xml:space="preserve">
+    <value>Prestazioni elevate senza perdita di dati</value>
+  </data>
+  <data name="NVEncPreset_lossless" xml:space="preserve">
+    <value>Senza perdita di dati</value>
+  </data>
+  <data name="NVEncPreset_llhp" xml:space="preserve">
+    <value>Bassa latenza ed alte prestazioni</value>
+  </data>
+  <data name="NVEncPreset_llhq" xml:space="preserve">
+    <value>Bassa latenza ed alta qualità</value>
+  </data>
+  <data name="NVEncPreset_ll" xml:space="preserve">
+    <value>Bassa latenza</value>
+  </data>
+  <data name="NVEncPreset_bd" xml:space="preserve">
+    <value>Disco Bluray</value>
+  </data>
+  <data name="NVEncPreset_hq" xml:space="preserve">
+    <value>Alta qualità</value>
+  </data>
+  <data name="NVEncPreset_hp" xml:space="preserve">
+    <value>Alte prestazioni</value>
+  </data>
+  <data name="PickColorButton" xml:space="preserve">
+    <value>Scegli il colore...</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>Basso</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Sinistra</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Destra</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Alto</value>
+  </data>
+  <data name="PixelAspectRatioNumeratorAutomationName" xml:space="preserve">
+    <value>Numeratore del rapporto dei pixel</value>
+    <comment>Name for the pixel aspect ratio numerator box for screen readers</comment>
+  </data>
+  <data name="PixelAspectRatioDenominatorAutomationName" xml:space="preserve">
+    <value>Denominatore del rapporto dei pixel</value>
+    <comment>Name for the pixel aspect ratio denominator box for screen readers</comment>
+  </data>
+  <data name="ApplyToQueueButton" xml:space="preserve">
+    <value>Applica alla coda</value>
   </data>
 </root>

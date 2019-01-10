@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
-using HandBrake.ApplicationServices.Interop;
-using HandBrake.ApplicationServices.Interop.HbLib;
-using HandBrake.ApplicationServices.Interop.Json.Anamorphic;
-using HandBrake.ApplicationServices.Interop.Json.Encode;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
-using HandBrake.ApplicationServices.Interop.Json.Shared;
-using HandBrake.ApplicationServices.Interop.Model.Encoding;
+using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.HbLib;
+using HandBrake.Interop.Interop.Json.Encode;
+using HandBrake.Interop.Interop.Json.Scan;
+using HandBrake.Interop.Interop.Json.Shared;
+using HandBrake.Interop.Interop.Model.Encoding;
 using Newtonsoft.Json.Linq;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Services;
 using VidCoderCommon.Utilities;
-using Audio = HandBrake.ApplicationServices.Interop.Json.Encode.Audio;
-using Metadata = HandBrake.ApplicationServices.Interop.Json.Encode.Metadata;
-using Source = HandBrake.ApplicationServices.Interop.Json.Encode.Source;
+using Audio = HandBrake.Interop.Interop.Json.Encode.Audio;
+using Metadata = HandBrake.Interop.Interop.Json.Encode.Metadata;
+using Source = HandBrake.Interop.Interop.Json.Encode.Source;
 
 namespace VidCoderCommon.Model
 {
@@ -98,7 +97,7 @@ namespace VidCoderCommon.Model
 			// If using auto-passthrough, set the fallback
 			if (profile.AudioEncodings.Any(e => e.Encoder == "copy"))
 			{
-			    audio.FallbackEncoder = GetFallbackAudioEncoder(profile).Id;
+			    audio.FallbackEncoder = GetFallbackAudioEncoder(profile).ShortName;
 			}
 
 			if (profile.AudioCopyMask != null && profile.AudioCopyMask.Any())
@@ -121,21 +120,21 @@ namespace VidCoderCommon.Model
 
 						return profileChoice.Enabled;
 					})
-					.Select(e => (uint)e.Id)
+					.Select(e => e.ShortName)
 					.ToArray();
 			}
 			else
 			{
-				int anyCodec = 0;
+				var copyCodecs = new List<string>();
 				foreach (var audioEncoder in HandBrakeEncoderHelpers.AudioEncoders)
 				{
 					if (audioEncoder.IsPassthrough && audioEncoder.ShortName.Contains(":"))
 					{
-						anyCodec |= audioEncoder.Id;
+						copyCodecs.Add(audioEncoder.ShortName);
 					}
 				}
 
-				audio.CopyMask = new uint[] { (uint)anyCodec };
+				audio.CopyMask = copyCodecs.ToArray();
 			}
 
 			audio.AudioList = new List<AudioTrack>();
@@ -179,7 +178,7 @@ namespace VidCoderCommon.Model
 				var audioTrack = new AudioTrack
 				{
 					Track = trackNumber - 1,
-					Encoder = (int)outputCodec,
+					Encoder = HandBrakeEncoderHelpers.GetAudioEncoder((int)outputCodec).ShortName,
 				};
 
 				if (!string.IsNullOrEmpty(encoding.Name))
@@ -333,14 +332,14 @@ namespace VidCoderCommon.Model
 
 			var destination = new Destination
 			{
-				File = job.OutputPath,
+				File = job.PartOutputPath ?? job.FinalOutputPath,
 				AlignAVStart = profile.AlignAVStart,
 				Mp4Options = new Mp4Options
 				{
 					IpodAtom = profile.IPod5GSupport,
 					Mp4Optimize = profile.Optimize
 				},
-				Mux = HBFunctions.hb_container_get_from_name(profile.ContainerName),
+				Mux = profile.ContainerName,
 				ChapterMarkers = profile.IncludeChapterMarkers,
 				ChapterList = chapterList
 			};
@@ -388,7 +387,7 @@ namespace VidCoderCommon.Model
 				JToken settings;
 				if (profile.DeinterlacePreset == "custom")
 				{
-					settings = this.GetFilterSettingsPresetOnly(filterId, "custom", profile.CustomDeinterlace);
+					settings = this.GetFilterSettingsCustom(filterId, profile.CustomDeinterlace);
 				}
 				else
 				{
@@ -408,7 +407,7 @@ namespace VidCoderCommon.Model
 				JToken settings;
 				if (profile.CombDetect == "custom")
 				{
-					settings = this.GetFilterSettingsPresetOnly(hb_filter_ids.HB_FILTER_COMB_DETECT, "custom", profile.CustomCombDetect);
+					settings = this.GetFilterSettingsCustom(hb_filter_ids.HB_FILTER_COMB_DETECT, profile.CustomCombDetect);
 				}
 				else
 				{
@@ -480,7 +479,7 @@ namespace VidCoderCommon.Model
 				JToken settings;
 				if (profile.DenoisePreset == "custom")
 				{
-					settings = this.GetFilterSettingsPresetOnly(filterId, "custom", profile.CustomDenoise);
+					settings = this.GetFilterSettingsCustom(filterId, profile.CustomDenoise);
 				}
 				else
 				{
@@ -504,7 +503,7 @@ namespace VidCoderCommon.Model
 				JToken settings;
 				if (profile.SharpenPreset == "custom")
 				{
-					settings = this.GetFilterSettingsPresetOnly(filterId, "custom", profile.CustomSharpen);
+					settings = this.GetFilterSettingsCustom(filterId, profile.CustomSharpen);
 				}
 				else
 				{
@@ -773,7 +772,7 @@ namespace VidCoderCommon.Model
 				throw new ArgumentException("Video encoder " + profile.VideoEncoder + " not recognized.");
 			}
 
-			video.Encoder = videoEncoder.Id;
+			video.Encoder = videoEncoder.ShortName;
 			video.QSV = new QSV
 			{
 				Decode = profile.QsvDecode
@@ -785,10 +784,10 @@ namespace VidCoderCommon.Model
 			}
 			else
 			{
-				video.Level = profile.VideoLevel;
+				video.Level = profile.VideoLevel ?? "auto";
 				video.Options = profile.VideoOptions;
 				video.Preset = profile.VideoPreset;
-				video.Profile = profile.VideoProfile;
+				video.Profile = profile.VideoProfile ?? "auto";
 			}
 
 			switch (profile.VideoEncodeRateType)
@@ -982,6 +981,8 @@ namespace VidCoderCommon.Model
 				int audioBitrate;
 
 				HBAudioEncoder audioEncoder = HandBrakeEncoderHelpers.GetAudioEncoder(encoding.Encoder);
+
+				this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Encoder: {encoding.Encoder}");
 
 				if (audioEncoder.IsPassthrough)
 				{
@@ -1432,22 +1433,16 @@ namespace VidCoderCommon.Model
 				// Calculate PAR from final picture size
 				if (profile.Rotation == VCPictureRotation.Clockwise90 || profile.Rotation == VCPictureRotation.Clockwise270)
 				{
-					outputPar = new PAR
-					{
-						Num = croppedSourceHeight * sourceParHeight * pictureOutputHeight,
-						Den = croppedSourceWidth * sourceParWidth * pictureOutputWidth
-					};
+					outputPar = MathUtilities.CreatePar(
+						(long)croppedSourceHeight * sourceParHeight * pictureOutputHeight,
+						(long)croppedSourceWidth * sourceParWidth * pictureOutputWidth);
 				}
 				else
 				{
-					outputPar = new PAR
-					{
-						Num = croppedSourceWidth * sourceParWidth * pictureOutputHeight,
-						Den = croppedSourceHeight * sourceParHeight * pictureOutputWidth
-					};
+					outputPar = MathUtilities.CreatePar(
+						(long)croppedSourceWidth * sourceParWidth * pictureOutputHeight,
+						(long)croppedSourceHeight * sourceParHeight * pictureOutputWidth);
 				}
-
-				outputPar.Simplify();
 			}
 			else
 			{

@@ -120,9 +120,6 @@
   <data name="SubtitlesWindowTitle" xml:space="preserve">
     <value>字幕</value>
   </data>
-  <data name="RemoveSubtitleTrack" xml:space="preserve">
-    <value>このトラックを削除します</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>ソースからの字幕：</value>
   </data>
@@ -165,16 +162,12 @@
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>強制字幕検索</value>
   </data>
-  <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
-    <value>ソースファイルには字幕がありません。</value>
-  </data>
   <data name="SrtFilePickerText" xml:space="preserve">
     <value>字幕ファイル追加</value>
-  </data>
-	<data name="DuplicateSubtitleTrack" xml:space="preserve">
-    <value>このトラックを複製します</value>
   </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>字幕ファイルの文字コードを検出できませんでした。字幕が正しく表示されていることを確認し、UTF-8でファイルを保存してください。</value>
   </data>
+  
+  
 </root>

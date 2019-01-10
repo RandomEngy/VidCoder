@@ -1123,4 +1123,54 @@ Lapsharp konboluzio kernelak erabiliz zorrozten du Laplacian herz iragazkien ant
   <data name="ChooseNewFolderName" xml:space="preserve">
     <value>Hautatu izen berri bat azpiagiritegiarentzat:</value>
   </data>
+  <data name="NVEncPreset_losslesshp" xml:space="preserve">
+    <value>Egintza Hoberena Galeragabe</value>
+  </data>
+  <data name="NVEncPreset_lossless" xml:space="preserve">
+    <value>Galeragabe</value>
+  </data>
+  <data name="NVEncPreset_llhp" xml:space="preserve">
+    <value>Egintza Hoberena Atzerapen Apalarekin</value>
+  </data>
+  <data name="NVEncPreset_llhq" xml:space="preserve">
+    <value>Ontasun Handia Atzerapen Apalarekin</value>
+  </data>
+  <data name="NVEncPreset_ll" xml:space="preserve">
+    <value>Atzerapen Apala</value>
+  </data>
+  <data name="NVEncPreset_bd" xml:space="preserve">
+    <value>Bluray Diska</value>
+  </data>
+  <data name="NVEncPreset_hq" xml:space="preserve">
+    <value>Ontasun Handia</value>
+  </data>
+  <data name="NVEncPreset_hp" xml:space="preserve">
+    <value>Egintza Hoberena</value>
+  </data>
+  <data name="PickColorButton" xml:space="preserve">
+    <value>Hautatu margoa...</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>Behean</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Ezkerrean</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Eskuinean</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Goian</value>
+  </data>
+  <data name="PixelAspectRatioNumeratorAutomationName" xml:space="preserve">
+    <value>Pixel ikuspegi maila zenbatzailea</value>
+    <comment>Name for the pixel aspect ratio numerator box for screen readers</comment>
+  </data>
+  <data name="PixelAspectRatioDenominatorAutomationName" xml:space="preserve">
+    <value>Pixel ikuspegi maila izendatzailea</value>
+    <comment>Name for the pixel aspect ratio denominator box for screen readers</comment>
+  </data>
+  <data name="ApplyToQueueButton" xml:space="preserve">
+    <value>Ezarri lerroari</value>
+  </data>
 </root>

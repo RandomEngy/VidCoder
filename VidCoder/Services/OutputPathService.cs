@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Text.RegularExpressions;
-using HandBrake.ApplicationServices.Interop;
-using HandBrake.ApplicationServices.Interop.Model.Encoding;
+using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.Json.Scan;
+using HandBrake.Interop.Interop.Model.Encoding;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Model;
@@ -23,11 +26,11 @@ namespace VidCoder.Services
 	/// </summary>
 	public class OutputPathService : ReactiveObject
 	{
-		private MainViewModel main = Ioc.Get<MainViewModel>();
+		private Lazy<MainViewModel> mainViewModel = new Lazy<MainViewModel>(() => StaticResolver.Resolve<MainViewModel>());
 		private ProcessingService processingService;
 		private PresetsService presetsService;
 		private PickersService pickersService;
-		private IDriveService driveService = Ioc.Get<IDriveService>();
+		private IDriveService driveService = StaticResolver.Resolve<IDriveService>();
 
 		public OutputPathService()
 		{
@@ -39,12 +42,6 @@ namespace VidCoder.Services
 				{
 					return !string.IsNullOrEmpty(defaultOutputFolder);
 				}).ToProperty(this, x => x.OutputFolderChosen, out this.outputFolderChosen);
-
-			this.PickDefaultOutputFolder = ReactiveCommand.Create();
-			this.PickDefaultOutputFolder.Subscribe(_ => this.PickDefaultOutputFolderImpl());
-
-			this.PickOutputPath = ReactiveCommand.Create(this.WhenAnyValue(x => x.OutputFolderChosen));
-			this.PickOutputPath.Subscribe(_ => this.PickOutputPathImpl());
 		}
 
 		public ProcessingService ProcessingService
@@ -53,7 +50,7 @@ namespace VidCoder.Services
 			{
 				if (this.processingService == null)
 				{
-					this.processingService = Ioc.Get<ProcessingService>();
+					this.processingService = StaticResolver.Resolve<ProcessingService>();
 				}
 
 				return this.processingService;
@@ -66,7 +63,7 @@ namespace VidCoder.Services
 			{
 				if (this.presetsService == null)
 				{
-					this.presetsService = Ioc.Get<PresetsService>();
+					this.presetsService = StaticResolver.Resolve<PresetsService>();
 				}
 
 				return this.presetsService;
@@ -79,7 +76,7 @@ namespace VidCoder.Services
 			{
 				if (this.pickersService == null)
 				{
-					this.pickersService = Ioc.Get<PickersService>();
+					this.pickersService = StaticResolver.Resolve<PickersService>();
 				}
 
 				return this.pickersService;
@@ -119,7 +116,16 @@ namespace VidCoder.Services
 		private ObservableAsPropertyHelper<bool> outputFolderChosen;
 		public bool OutputFolderChosen => this.outputFolderChosen.Value;
 
-		public ReactiveCommand<object> PickDefaultOutputFolder { get; }
+
+		private ReactiveCommand<Unit, bool> pickDefaultOutputFolder;
+		public ReactiveCommand<Unit, bool> PickDefaultOutputFolder
+		{
+			get
+			{
+				return this.pickDefaultOutputFolder ?? (this.pickDefaultOutputFolder = ReactiveCommand.Create(() => { return this.PickDefaultOutputFolderImpl(); }));
+			}
+		}
+
 		public bool PickDefaultOutputFolderImpl()
 		{
 			string newOutputFolder = FileService.Instance.GetFolderName(null, MainRes.OutputDirectoryPickerText);
@@ -133,34 +139,52 @@ namespace VidCoder.Services
 			return newOutputFolder != null;
 		}
 
-		public ReactiveCommand<object> PickOutputPath { get; }
-		private void PickOutputPathImpl()
+		private ReactiveCommand<Unit, Unit> pickOutputPath;
+		public ReactiveCommand<Unit, Unit> PickOutputPath
 		{
-			string extensionDot = this.GetOutputExtension();
-			string extension = this.GetOutputExtension(includeDot: false);
-			string extensionLabel = extension.ToUpperInvariant();
-
-			string initialFileName = null;
-			if (!string.IsNullOrWhiteSpace(this.OutputPath) && !this.OutputPath.EndsWith("\\", StringComparison.Ordinal))
+			get
 			{
-				initialFileName = Path.GetFileName(this.OutputPath);
-			}
+				return this.pickOutputPath ?? (this.pickOutputPath = ReactiveCommand.Create(
+					() =>
+					{
+						string extensionDot = this.GetOutputExtension();
+						string extension = this.GetOutputExtension(includeDot: false);
+						string extensionLabel = extension.ToUpperInvariant();
 
-			string newOutputPath = FileService.Instance.GetFileNameSave(
-				Config.RememberPreviousFiles ? Config.LastOutputFolder : null,
-				"Encode output location",
-				initialFileName,
-				extension,
-				string.Format("{0} Files|*{1}", extensionLabel, extensionDot));
-			this.SetManualOutputPath(newOutputPath, this.OutputPath);
+						string initialFileName = null;
+						if (!string.IsNullOrWhiteSpace(this.OutputPath) && !this.OutputPath.EndsWith("\\", StringComparison.Ordinal))
+						{
+							initialFileName = Path.GetFileName(this.OutputPath);
+						}
+
+						string newOutputPath = FileService.Instance.GetFileNameSave(
+							Config.RememberPreviousFiles ? Config.LastOutputFolder : null,
+							"Encode output location",
+							initialFileName,
+							extension,
+							string.Format("{0} Files|*{1}", extensionLabel, extensionDot));
+						this.SetManualOutputPath(newOutputPath, this.OutputPath);
+					},
+					this.WhenAnyValue(x => x.OutputFolderChosen)));
+			}
 		}
 
 		// Resolves any conflicts for the given output path.
 		// Returns a non-conflicting output path.
 		// May return the same value if there are no conflicts.
 		// null means cancel.
-		public string ResolveOutputPathConflicts(string initialOutputPath, HashSet<string> excludedPaths, bool isBatch)
+		public string ResolveOutputPathConflicts(string initialOutputPath, string sourcePath, HashSet<string> excludedPaths, bool isBatch)
 		{
+			// If the output is going to be the same as the source path, add (Encoded) to it
+			if (string.Compare(initialOutputPath, sourcePath, StringComparison.InvariantCultureIgnoreCase) == 0)
+			{
+				string outputFolder = Path.GetDirectoryName(initialOutputPath);
+				string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(initialOutputPath);
+				string extension = Path.GetExtension(initialOutputPath);
+
+				initialOutputPath = Path.Combine(outputFolder, fileNameWithoutExtension + " (Encoded)" + extension);
+			}
+
 			HashSet<string> queuedFiles = excludedPaths;
 			bool? conflict = Utilities.FileExists(initialOutputPath, queuedFiles);
 
@@ -213,7 +237,7 @@ namespace VidCoder.Services
 					new CustomDialogButton<FileConflictResolution>(FileConflictResolution.Cancel, CommonRes.Cancel, ButtonType.Cancel),
 				});
 
-			Ioc.Get<IWindowManager>().OpenDialog(conflictDialog);
+			StaticResolver.Resolve<IWindowManager>().OpenDialog(conflictDialog);
 
 			switch (conflictDialog.Result)
 			{
@@ -228,9 +252,9 @@ namespace VidCoder.Services
 			}
 		}
 
-		public string ResolveOutputPathConflicts(string initialOutputPath, bool isBatch)
+		public string ResolveOutputPathConflicts(string initialOutputPath, string sourcePath, bool isBatch)
 		{
-			return ResolveOutputPathConflicts(initialOutputPath, this.ProcessingService.GetQueuedFiles(), isBatch);
+			return this.ResolveOutputPathConflicts(initialOutputPath, sourcePath, this.ProcessingService.GetQueuedFiles(), isBatch);
 		}
 
 		/// <summary>
@@ -300,7 +324,7 @@ namespace VidCoder.Services
 			else
 			{
 				// If it's not a valid path, revert the change.
-				if (this.main.HasVideoSource && string.IsNullOrEmpty(Path.GetFileName(oldOutputPath)))
+				if (this.mainViewModel.Value.HasVideoSource && string.IsNullOrEmpty(Path.GetFileName(oldOutputPath)))
 				{
 					// If we've got a video source now and the old path was blank, generate a file name
 					this.GenerateOutputFileName();
@@ -323,6 +347,8 @@ namespace VidCoder.Services
 		{
 			string fileName;
 
+			MainViewModel main = this.mainViewModel.Value;
+
 			// If our original path was empty and we're editing it at the moment, don't clobber
 			// whatever the user is typing.
 			if (string.IsNullOrEmpty(Path.GetFileName(this.OldOutputPath)) && this.EditingDestination)
@@ -338,7 +364,7 @@ namespace VidCoder.Services
 				return;
 			}
 
-			if (!this.main.HasVideoSource)
+			if (!main.HasVideoSource)
 			{
 				string outputFolder = this.PickerOutputFolder;
 				if (outputFolder != null)
@@ -349,7 +375,12 @@ namespace VidCoder.Services
 				return;
 			}
 
-			if (this.main.SourceName == null || this.main.SelectedStartChapter == null || this.main.SelectedEndChapter == null)
+			if (main.SourceName == null)
+			{
+				return;
+			}
+
+			if (main.RangeType == VideoRangeType.Chapters && (main.SelectedStartChapter == null || main.SelectedEndChapter == null))
 			{
 				return;
 			}
@@ -374,26 +405,26 @@ namespace VidCoder.Services
 			}
 
 			fileName = this.BuildOutputFileName(
-				this.main.SourcePath,
+				main.SourcePath,
 				// Change casing on DVD titles to be a little more friendly
-				GetTranslatedSourceName(),
-				this.main.SelectedTitle.Index,
-				this.main.SelectedTitle.Duration.ToSpan(),
-				this.main.RangeType,
-				this.main.SelectedStartChapter.ChapterNumber,
-				this.main.SelectedEndChapter.ChapterNumber,
-				this.main.SelectedTitle.ChapterList.Count,
-				this.main.TimeRangeStart,
-				this.main.TimeRangeEnd,
-				this.main.FramesRangeStart,
-				this.main.FramesRangeEnd,
+				this.GetTranslatedSourceName(),
+				main.SelectedTitle.Title.Index,
+				main.SelectedTitle.Duration,
+				main.RangeType,
+				main.SelectedStartChapter?.ChapterNumber ?? 0,
+				main.SelectedEndChapter?.ChapterNumber ?? 0,
+				main.SelectedTitle.ChapterList.Count,
+				main.TimeRangeStart,
+				main.TimeRangeEnd,
+				main.FramesRangeStart,
+				main.FramesRangeEnd,
 				nameFormat,
-				multipleTitlesOnSource: this.main.ScanInstance.Titles.TitleList.Count > 1,
+				multipleTitlesOnSource: main.ScanInstance.Titles.TitleList.Count > 1,
 				picker: null);
 
 			string extension = this.GetOutputExtension();
 
-			this.OutputPath = this.BuildOutputPath(fileName, extension, sourcePath: this.main.SourcePath);
+			this.OutputPath = this.BuildOutputPath(fileName, extension, sourcePath: main.SourcePath);
 
 			// If we've pushed a new name into the destination text box, we need to update the "baseline" name so the
 			// auto-generated name doesn't get mistakenly labeled as manual when focus leaves it
@@ -420,6 +451,9 @@ namespace VidCoder.Services
 			string[] titleWords = dvdSourceName.Split('_');
 			var translatedTitleWords = new List<string>();
 			bool reachedModifiers = false;
+			bool firstWord = true;
+
+			Picker picker = this.PickersService.SelectedPicker.Picker;
 
 			foreach (string titleWord in titleWords)
 			{
@@ -437,9 +471,21 @@ namespace VidCoder.Services
 				{
 					if (titleWord.Length > 0)
 					{
-						translatedTitleWords.Add(titleWord[0] + titleWord.Substring(1).ToLower());
+						string translatedTitleWord;
+						if (picker.TitleCapitalization == TitleCapitalizationChoice.EveryWord || firstWord)
+						{
+							translatedTitleWord = titleWord[0] + titleWord.Substring(1).ToLower();
+						}
+						else
+						{
+							translatedTitleWord = titleWord.ToLower();
+						}
+
+						translatedTitleWords.Add(translatedTitleWord);
 					}
 				}
+
+				firstWord = false;
 			}
 
 			return string.Join(" ", translatedTitleWords);
@@ -526,13 +572,7 @@ namespace VidCoder.Services
 
 			if (!string.IsNullOrEmpty(outputFolder))
 			{
-				string result = Path.Combine(outputFolder, fileName + extension);
-				if (result == sourcePath)
-				{
-					result = Path.Combine(outputFolder, fileName + " (Encoded)" + extension);
-				}
-
-				return result;
+				return Path.Combine(outputFolder, fileName + extension);
 			}
 
 			return null;
@@ -567,24 +607,35 @@ namespace VidCoder.Services
 		}
 
 		/// <summary>
-		///		Change casing on DVD titles to be a little more friendly
+		///	Change casing on DVD titles to be a little more friendly
 		/// </summary>
 		private string GetTranslatedSourceName()
 		{
+			MainViewModel main = this.mainViewModel.Value;
+
 			if ((main.SelectedSource.Type == SourceType.Disc || main.SelectedSource.Type == SourceType.DiscVideoFolder) && !string.IsNullOrWhiteSpace(main.SourceName))
 			{
-				return TranslateDiscSourceName(main.SourceName);
+				return this.TranslateDiscSourceName(main.SourceName);
 			}
+
 			return main.SourceName;
 		}
 
+		/// <summary>
+		/// Replace arguments with the currently loaded source.
+		/// </summary>
+		/// <param name="nameFormat">The name format to use.</param>
+		/// <param name="picker">The picker.</param>
+		/// <returns>The new name with arguments replaced.</returns>
 		public string ReplaceArguments(string nameFormat, Picker picker = null)
 		{
-			return ReplaceArguments(
+			MainViewModel main = this.mainViewModel.Value;
+
+			return this.ReplaceArguments(
 				main.SourcePath,
-				GetTranslatedSourceName(),
+				this.GetTranslatedSourceName(),
 				main.SelectedTitle.Index,
-				main.SelectedTitle.Duration.ToSpan(),
+				main.SelectedTitle.Duration,
 				main.RangeType,
 				main.SelectedStartChapter.ChapterNumber,
 				main.SelectedEndChapter.ChapterNumber,
@@ -594,8 +645,45 @@ namespace VidCoder.Services
 				main.FramesRangeStart,
 				main.FramesRangeEnd,
 				nameFormat,
-				multipleTitlesOnSource: this.main.ScanInstance.Titles.TitleList.Count > 1,
+				multipleTitlesOnSource: main.ScanInstance.Titles.TitleList.Count > 1,
 				picker: picker);
+		}
+
+		/// <summary>
+		/// Replace arguments with the given job information.
+		/// </summary>
+		/// <param name="nameFormat">The name format to use.</param>
+		/// <param name="picker">The picker.</param>
+		/// <param name="jobViewModel">The job to pick information from.</param>
+		/// <returns>The string with arguments replaced.</returns>
+		public string ReplaceArguments(string nameFormat, Picker picker, EncodeJobViewModel jobViewModel)
+		{
+			// The jobViewModel might have null VideoSource and VideoSourceMetadata from an earlier version < 4.17.
+
+			VCJob job = jobViewModel.Job;
+			SourceTitle title = jobViewModel.VideoSource?.Titles.Single(t => t.Index == job.Title);
+
+			string sourceName = jobViewModel.VideoSourceMetadata != null ? jobViewModel.VideoSourceMetadata.Name : string.Empty;
+			TimeSpan titleDuration = title?.Duration.ToSpan() ?? TimeSpan.Zero;
+			int chapterCount = title?.ChapterList.Count ?? 0;
+			bool hasMultipleTitles = jobViewModel.VideoSource != null && jobViewModel.VideoSource.Titles.Count > 1;
+
+			return this.ReplaceArguments(
+				job.SourcePath,
+				sourceName,
+				job.Title,
+				titleDuration,
+				job.RangeType,
+				job.ChapterStart,
+				job.ChapterEnd,
+				chapterCount,
+				TimeSpan.FromSeconds(job.SecondsStart),
+				TimeSpan.FromSeconds(job.SecondsEnd),
+				job.FramesStart,
+				job.FramesEnd,
+				nameFormat,
+				hasMultipleTitles,
+				picker);
 		}
 
 		private string ReplaceArguments(

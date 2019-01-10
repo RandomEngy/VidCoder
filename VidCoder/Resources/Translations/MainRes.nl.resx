@@ -120,17 +120,11 @@
   <data name="TitleLabel" xml:space="preserve">
     <value>Titel:</value>
   </data>
-  <data name="SettingsLabel" xml:space="preserve">
-    <value>Instellingen</value>
-  </data>
   <data name="AddToQueueLabel" xml:space="preserve">
     <value>Voeg toe aan wachtrij</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
     <value>Voeg meerdere titels toe aan wachtrij...</value>
-  </data>
-  <data name="FileMenu" xml:space="preserve">
-    <value>Bestand</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
     <value>Open video bestand...</value>
@@ -141,9 +135,6 @@
   <data name="EnqueueMultipleFiles" xml:space="preserve">
     <value>Zet meerdere bestanden in wachtrij...</value>
   </data>
-  <data name="EnqueueMultipleTitles" xml:space="preserve">
-    <value>Zet meerdere titels in wachtrij...</value>
-  </data>
   <data name="ToolsMenu" xml:space="preserve">
     <value>Hulpprogramma's</value>
   </data>
@@ -152,9 +143,6 @@
   </data>
   <data name="ExportPreset" xml:space="preserve">
     <value>Voorkeursinstelling exporteren...</value>
-  </data>
-  <data name="OptionsMenuItem" xml:space="preserve">
-    <value>Opties...</value>
   </data>
   <data name="Play" xml:space="preserve">
     <value>Afspelen</value>
@@ -167,9 +155,6 @@
   </data>
   <data name="ClearCompleted" xml:space="preserve">
     <value>Wis voltooide</value>
-  </data>
-  <data name="ExitMenuItem" xml:space="preserve">
-    <value>Afsluiten</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Windows</value>
@@ -202,9 +187,6 @@
   <data name="SourceLabel" xml:space="preserve">
     <value>Bron:</value>
   </data>
-  <data name="ScanningSourceLabel" xml:space="preserve">
-    <value>Bron scannen...</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>Recent</value>
   </data>
@@ -213,15 +195,6 @@
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>Er is een fout opgetreden tijdens het scannen.</value>
-  </data>
-  <data name="AudioLabel" xml:space="preserve">
-    <value>Audio:</value>
-  </data>
-  <data name="VideoLabel" xml:space="preserve">
-    <value>Video:</value>
-  </data>
-  <data name="SubtitlesLabel" xml:space="preserve">
-    <value>Ondertitels:</value>
   </data>
   <data name="AddTrackButton" xml:space="preserve">
     <value>Spoor toevoegen</value>
@@ -389,9 +362,7 @@
   <data name="EtaLabel" xml:space="preserve">
     <value>ETA:</value>
   </data>
-  <data name="WhenDoneLabel" xml:space="preserve">
-    <value>Zodra alles voltooid:</value>
-  </data>
+  
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>Video bestand...</value>
   </data>
@@ -554,12 +525,6 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>Encodeer details</value>
   </data>
-  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
-    <value>Instellingen voor encodering zijn veranderd sinds de laatste keer dat je iets aan de wachtrij hebt toegevoegd. Wil je de huidige encoderingsinstellingen toepassen op alles in de wachtrij?</value>
-  </data>
-  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
-    <value>Instellingen zijn veranderd</value>
-  </data>
   <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>Wil je het bestaande bestand hernoemen en beginnen met een nieuwe?</value>
   </data>
@@ -615,4 +580,31 @@
     <value>Open App Data map</value>
     <comment>Menu choice for opening the application data folder (that holds the VidCoder database file, logs, etc)</comment>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

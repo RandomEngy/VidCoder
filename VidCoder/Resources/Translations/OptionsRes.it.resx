@@ -235,7 +235,7 @@
     <value>Aggiornamento alla {0} pronto. Verrà installato quando si esce dal programma.</value>
   </data>
   <data name="DownloadingStatus" xml:space="preserve">
-    <value>Prelievo aggiornamento {0}:</value>
+    <value>Prelievo aggiornamento alla versione {0}:</value>
   </data>
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder è aggiornato.</value>
@@ -269,9 +269,6 @@
   </data>
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
     <value>Attenzione: è probabile che questa versione sia affetta da problemi e blocchi.</value>
-  </data>
-  <data name="LanguagesSection" xml:space="preserve">
-    <value>Lingua</value>
   </data>
   <data name="PlayersSection" xml:space="preserve">
     <value>Riproduttori</value>
@@ -373,13 +370,29 @@
     <value>Opzioni processo</value>
   </data>
   <data name="CpuThrottlingLabel" xml:space="preserve">
-    <value>Limitazione quantità CPU:</value>
-    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+    <value>Limitazione della CPU - processori ammessi:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use. It labels a slider that controls the percentage of allowed cores, where the max is 100%.</comment>
   </data>
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>Utilizza la "Limitazione quantità CPU" per limitare il numero di core del processore che VidCoder può utilizzare durante la codifica.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Utilizza il riproduttore incorporato per le anteprime</value>
+  </data>
+  <data name="MaxSimultaneousEncodesLabel" xml:space="preserve">
+    <value>Massimo numero di processori di codifica simultanei:</value>
+  </data>
+  <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
+    <value>Potete indicare quanti processori di codifica simultanei sono permessi. Utile per macchine con CPU a più processori.</value>
+  </data>
+  <data name="GeneralSection" xml:space="preserve">
+    <value>Generale</value>
+  </data>
+  <data name="ThemeLabel" xml:space="preserve">
+    <value>Tema</value>
+    <comment>Label for the app theme (auto, light, dark)</comment>
+  </data>
+  <data name="PromptForUpdatesLabel" xml:space="preserve">
+    <value>Richiesta per gli aggiornamenti:</value>
   </data>
 </root>

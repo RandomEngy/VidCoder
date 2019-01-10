@@ -1,4 +1,4 @@
-﻿using HandBrake.ApplicationServices.Interop.Model;
+﻿using HandBrake.Interop.Interop.Model;
 using VidCoderCommon.Model;
 
 namespace VidCoder.Extensions

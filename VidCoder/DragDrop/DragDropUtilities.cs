@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Collections;
+using System.Reflection;
+using System.Windows;
+using DynamicData;
+using Expression = System.Linq.Expressions.Expression;
 
 namespace VidCoder.DragDropUtils
 {
@@ -74,48 +77,69 @@ namespace VidCoder.DragDropUtils
 
 				if ((stackPanel = panel as StackPanel) != null)
 				{
-					hasVerticalOrientation = (stackPanel.Orientation == Orientation.Vertical);
+					hasVerticalOrientation = stackPanel.Orientation == Orientation.Vertical;
 				}
 				else if ((wrapPanel = panel as WrapPanel) != null)
 				{
-					hasVerticalOrientation = (wrapPanel.Orientation == Orientation.Vertical);
+					hasVerticalOrientation = wrapPanel.Orientation == Orientation.Vertical;
 				}
 				// You can add support for more panel types here.
 			}
 			return hasVerticalOrientation;
 		}
 
-		public static void InsertItemsInItemsControl(ItemsControl itemsControl, List<object> itemsToInsert, int insertionIndex)
+		public static void InsertItemsInItemsControl(ItemsControl itemsControl, object sourceList, List<object> itemsToInsert, int insertionIndex)
 		{
 			if (itemsToInsert != null)
 			{
-				IEnumerable itemsSource = itemsControl.ItemsSource;
-
-				for (int i = itemsToInsert.Count - 1; i >= 0; i--)
+				if (sourceList != null)
 				{
-					if (itemsSource == null)
+					// If we have an associated SourceList, insert the items into there as it's the master list
+					Type sourceListType = sourceList.GetType();
+
+					Action<dynamic> action = innerList =>
 					{
-						itemsControl.Items.Insert(insertionIndex, itemsToInsert[i]);
-					}
-					// Is the ItemsSource IList or IList<T>? If so, insert the dragged item in the list.
-					else if (itemsSource is IList)
-					{
-						((IList)itemsSource).Insert(insertionIndex, itemsToInsert[i]);
-					}
-					else
-					{
-						Type type = itemsSource.GetType();
-						Type genericIListType = type.GetInterface("IList`1");
-						if (genericIListType != null)
+						for (int i = itemsToInsert.Count - 1; i >= 0; i--)
 						{
-							type.GetMethod("Insert").Invoke(itemsSource, new object[] { insertionIndex, itemsToInsert[i] });
+							dynamic itemAsDynamic = itemsToInsert[i];
+							innerList.Insert(insertionIndex, itemAsDynamic);
+						}
+					};
+
+					MethodInfo editMethod = sourceListType.GetMethod("Edit");
+					editMethod.Invoke(sourceList, new[] {action});
+				}
+				else
+				{
+					// Otherwise check the ItemsSource
+					IEnumerable itemsSource = itemsControl.ItemsSource;
+
+					for (int i = itemsToInsert.Count - 1; i >= 0; i--)
+					{
+						if (itemsSource == null)
+						{
+							itemsControl.Items.Insert(insertionIndex, itemsToInsert[i]);
+						}
+						// Is the ItemsSource IList or IList<T>? If so, insert the dragged item in the list.
+						else if (itemsSource is IList)
+						{
+							((IList)itemsSource).Insert(insertionIndex, itemsToInsert[i]);
+						}
+						else
+						{
+							Type type = itemsSource.GetType();
+							Type genericIListType = type.GetInterface("IList`1");
+							if (genericIListType != null)
+							{
+								type.GetMethod("Insert").Invoke(itemsSource, new object[] { insertionIndex, itemsToInsert[i] });
+							}
 						}
 					}
 				}
 			}
 		}
 
-		public static List<int> RemoveItemsFromItemsControl(ItemsControl itemsControl, List<object> itemsToRemove)
+		public static List<int> RemoveItemsFromItemsControl(ItemsControl itemsControl, object sourceList, List<object> itemsToRemove)
 		{
 			var indiciesToBeRemoved = new List<int>();
 			if (itemsToRemove != null)
@@ -123,25 +147,45 @@ namespace VidCoder.DragDropUtils
 				indiciesToBeRemoved.AddRange(itemsToRemove.Select(t => itemsControl.Items.IndexOf(t)).Where(t2 => t2 >= 0));
 				indiciesToBeRemoved.Sort();
 
-				for (int i = indiciesToBeRemoved.Count - 1; i >= 0; i--)
+				if (sourceList != null)
 				{
-					IEnumerable itemsSource = itemsControl.ItemsSource;
-					if (itemsSource == null)
+					// If we have an associated SourceList, remove the items from there as it's the master list
+					Type sourceListType = sourceList.GetType();
+
+					Action<dynamic> action = innerList =>
 					{
-						itemsControl.Items.RemoveAt(indiciesToBeRemoved[i]);
-					}
-						// Is the ItemsSource IList or IList<T>? If so, remove the item from the list.
-					else if (itemsSource is IList)
-					{
-						((IList)itemsSource).RemoveAt(indiciesToBeRemoved[i]);
-					}
-					else
-					{
-						Type type = itemsSource.GetType();
-						Type genericIListType = type.GetInterface("IList`1");
-						if (genericIListType != null)
+						for (int i = indiciesToBeRemoved.Count - 1; i >= 0; i--)
 						{
-							type.GetMethod("RemoveAt").Invoke(itemsSource, new object[] { indiciesToBeRemoved[i] });
+							innerList.RemoveAt(indiciesToBeRemoved[i]);
+						}
+					};
+
+					MethodInfo editMethod = sourceListType.GetMethod("Edit");
+					editMethod.Invoke(sourceList, new[] {action});
+				}
+				else
+				{
+					// Otherwise check the ItemsSource
+					for (int i = indiciesToBeRemoved.Count - 1; i >= 0; i--)
+					{
+						IEnumerable itemsSource = itemsControl.ItemsSource;
+						if (itemsSource == null)
+						{
+							itemsControl.Items.RemoveAt(indiciesToBeRemoved[i]);
+						}
+						// Is the ItemsSource IList or IList<T>? If so, remove the item from the list.
+						else if (itemsSource is IList)
+						{
+							((IList)itemsSource).RemoveAt(indiciesToBeRemoved[i]);
+						}
+						else
+						{
+							Type type = itemsSource.GetType();
+							Type genericIListType = type.GetInterface("IList`1");
+							if (genericIListType != null)
+							{
+								type.GetMethod("RemoveAt").Invoke(itemsSource, new object[] { indiciesToBeRemoved[i] });
+							}
 						}
 					}
 				}

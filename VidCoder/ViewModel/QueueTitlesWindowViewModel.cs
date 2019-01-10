@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SQLite;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
+using System.Windows.Input;
 using System.Windows.Media;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
+using HandBrake.Interop.Interop.Json.Scan;
+using Microsoft.AnyContainer;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -19,32 +22,22 @@ namespace VidCoder.ViewModel
 {
 	public class QueueTitlesWindowViewModel : OkCancelDialogViewModel
 	{
-		private ReactiveList<TitleSelectionViewModel> titles;
-		private ReactiveList<TitleSelectionViewModel> selectedTitles;
 		private IWindowManager windowManager;
 
 		private MainViewModel main;
 
 		public QueueTitlesWindowViewModel()
 		{
-			this.main = Ioc.Get<MainViewModel>();
-			this.PickersService = Ioc.Get<PickersService>();
-			this.windowManager = Ioc.Get<IWindowManager>();
+			this.main = StaticResolver.Resolve<MainViewModel>();
+			this.PickersService = StaticResolver.Resolve<PickersService>();
+			this.windowManager = StaticResolver.Resolve<IWindowManager>();
 
-			this.selectedTitles = new ReactiveList<TitleSelectionViewModel>();
 			this.titleStartOverrideEnabled = Config.QueueTitlesUseTitleOverride;
 			this.titleStartOverride = Config.QueueTitlesTitleOverride;
 			this.nameOverrideEnabled = Config.QueueTitlesUseNameOverride;
 			this.nameOverride = Config.QueueTitlesNameOverride;
 
-			this.titles = new ReactiveList<TitleSelectionViewModel>();
 			this.RefreshTitles();
-
-			this.Play = ReactiveCommand.Create(MvvmUtilities.CreateConstantObservable(!Utilities.IsRunningAsAppx && Players.Installed.Count > 0));
-			this.Play.Subscribe(_ => this.PlayImpl());
-
-			this.AddToQueue = ReactiveCommand.Create();
-			this.AddToQueue.Subscribe(_ => this.AddToQueueImpl());
 
 			this.main.WhenAnyValue(x => x.SourceData)
 				.Skip(1)
@@ -74,16 +67,14 @@ namespace VidCoder.ViewModel
 					this.SetSelectedFromRange();
 				});
 
-			this.selectedTitles.CountChanged
-				.Select(count => count == 1)
-				.ToProperty(this, x => x.TitleDetailsVisible, out this.titleDetailsVisible, initialValue: false);
-
-			this.selectedTitles.CollectionChanged +=
+			this.SelectedTitles.CollectionChanged +=
 				(sender, args) =>
 			    {
-					if (this.selectedTitles.Count == 1)
+				    this.RaisePropertyChanged(nameof(this.TitleDetailsVisible));
+
+					if (this.SelectedTitles.Count == 1)
 					{
-						SourceTitle title = this.selectedTitles[0].Title;
+						SourceTitle title = this.SelectedTitles[0].Title;
 
 						// Do preview
 						var previewProfile =
@@ -95,15 +86,7 @@ namespace VidCoder.ViewModel
 								AudioEncodings = new List<AudioEncoding>()
 							};
 
-						var previewJob =
-							new VCJob
-							{
-								RangeType = VideoRangeType.All,
-								Title = title.Index,
-								EncodingProfile = previewProfile
-							};
-
-						this.PreviewImage = BitmapUtilities.ConvertToBitmapImage(this.main.ScanInstance.GetPreview(previewProfile.CreatePreviewSettings(title), 2, deinterlace: false));
+						this.PreviewImage = BitmapUtilities.ConvertToBitmapImage(BitmapUtilities.ConvertByteArrayToBitmap(this.main.ScanInstance.GetPreview(previewProfile.CreatePreviewSettings(title), 2, deinterlace: false)));
 						this.RaisePropertyChanged(nameof(this.TitleText));
 					}
 			    };
@@ -111,24 +94,17 @@ namespace VidCoder.ViewModel
 
 		public PickersService PickersService { get; }
 
-		public ReactiveList<TitleSelectionViewModel> Titles
+		public ObservableCollection<TitleSelectionViewModel> Titles { get; } = new ObservableCollection<TitleSelectionViewModel>();
+
+		public ObservableCollection<TitleSelectionViewModel> SelectedTitles { get; } = new ObservableCollection<TitleSelectionViewModel>();
+
+		public bool TitleDetailsVisible
 		{
 			get
 			{
-				return this.titles;
+				return this.SelectedTitles.Count == 1;
 			}
 		}
-
-		public ReactiveList<TitleSelectionViewModel> SelectedTitles
-		{
-			get
-			{
-				return this.selectedTitles;
-			}
-		}
-
-		private ObservableAsPropertyHelper<bool> titleDetailsVisible;
-		public bool TitleDetailsVisible => this.titleDetailsVisible.Value;
 
 		public string TitleText
 		{
@@ -139,7 +115,7 @@ namespace VidCoder.ViewModel
 					return string.Empty;
 				}
 
-				return string.Format(QueueTitlesRes.TitleFormat, this.selectedTitles[0].Title.Index);
+				return string.Format(QueueTitlesRes.TitleFormat, this.SelectedTitles[0].Title.Index);
 			}
 		}
 
@@ -191,7 +167,7 @@ namespace VidCoder.ViewModel
 			get
 			{
 				List<SourceTitle> checkedTitles = new List<SourceTitle>();
-				foreach (TitleSelectionViewModel titleVM in this.titles)
+				foreach (TitleSelectionViewModel titleVM in this.Titles)
 				{
 					if (titleVM.Selected)
 					{
@@ -203,49 +179,64 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveCommand<object> Play { get; }
-		private void PlayImpl()
+		private ReactiveCommand<Unit, Unit> play;
+		public ICommand Play
 		{
-			IVideoPlayer player = Players.Installed.FirstOrDefault(p => p.Id == Config.PreferredPlayer);
-			if (player == null)
+			get
 			{
-				player = Players.Installed[0];
-			}
+				return this.play ?? (this.play = ReactiveCommand.Create(
+					() =>
+					{
+						IVideoPlayer player = Players.Installed.FirstOrDefault(p => p.Id == Config.PreferredPlayer);
+						if (player == null)
+						{
+							player = Players.Installed[0];
+						}
 
-			player.PlayTitle(this.main.SourcePath, this.selectedTitles[0].Title.Index);
+						player.PlayTitle(this.main.SourcePath, this.SelectedTitles[0].Title.Index);
+					},
+					MvvmUtilities.CreateConstantObservable(!Utilities.IsRunningAsAppx && Players.Installed.Count > 0)));
+			}
 		}
 
-		public ReactiveCommand<object> AddToQueue { get; }
-		private void AddToQueueImpl()
+		private ReactiveCommand<Unit, Unit> addToQueue;
+		public ICommand AddToQueue
 		{
-			this.DialogResult = true;
-
-			string nameOverrideLocal;
-			if (this.NameOverrideEnabled)
+			get
 			{
-				nameOverrideLocal = this.NameOverride;
-			}
-			else
-			{
-				var picker = this.PickersService.SelectedPicker.Picker;
-				if (picker.NameFormatOverrideEnabled)
+				return this.addToQueue ?? (this.addToQueue = ReactiveCommand.Create(() =>
 				{
-					nameOverrideLocal = picker.NameFormatOverride;
-				}
-				else
-				{
-					nameOverrideLocal = null;
-				}
+					this.DialogResult = true;
+
+					string nameOverrideLocal;
+					if (this.NameOverrideEnabled)
+					{
+						nameOverrideLocal = this.NameOverride;
+					}
+					else
+					{
+						var picker = this.PickersService.SelectedPicker.Picker;
+						if (picker.NameFormatOverrideEnabled)
+						{
+							nameOverrideLocal = picker.NameFormatOverride;
+						}
+						else
+						{
+							nameOverrideLocal = null;
+						}
+					}
+
+					var processingService = StaticResolver.Resolve<ProcessingService>();
+					processingService.QueueTitles(
+						this.CheckedTitles,
+						this.TitleStartOverrideEnabled ? this.TitleStartOverride : -1,
+						nameOverrideLocal);
+
+					this.windowManager.Close(this);
+				}));
 			}
-
-			var processingService = Ioc.Get<ProcessingService>();
-			processingService.QueueTitles(
-				this.CheckedTitles,
-				this.TitleStartOverrideEnabled ? this.TitleStartOverride : -1,
-				nameOverrideLocal);
-
-			this.windowManager.Close(this);
 		}
+
 
 		public override bool OnClosing()
 		{
@@ -278,14 +269,14 @@ namespace VidCoder.ViewModel
 
 		private void RefreshTitles()
 		{
-			this.titles.Clear();
+			this.Titles.Clear();
 
 			if (this.main.SourceData != null)
 			{
 				foreach (SourceTitle title in this.main.SourceData.Titles)
 				{
 					var titleVM = new TitleSelectionViewModel(title, this);
-					this.titles.Add(titleVM);
+					this.Titles.Add(titleVM);
 				}
 
 				// Perform range selection if enabled.
@@ -302,7 +293,7 @@ namespace VidCoder.ViewModel
 				TimeSpan lowerBound = TimeSpan.FromMinutes(picker.TitleRangeSelectStartMinutes);
 				TimeSpan upperBound = TimeSpan.FromMinutes(picker.TitleRangeSelectEndMinutes);
 
-				foreach (TitleSelectionViewModel titleVM in this.titles)
+				foreach (TitleSelectionViewModel titleVM in this.Titles)
 				{
 					TimeSpan titleDuration = titleVM.Title.Duration.ToSpan();
 					if (titleDuration >= lowerBound && titleDuration <= upperBound)
@@ -320,7 +311,7 @@ namespace VidCoder.ViewModel
 			}
 			else
 			{
-				foreach (TitleSelectionViewModel titleVM in this.titles)
+				foreach (TitleSelectionViewModel titleVM in this.Titles)
 				{
 					if (titleVM.Selected)
 					{

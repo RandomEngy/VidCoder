@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ServiceModel;
+using Microsoft.AnyContainer;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
@@ -13,7 +14,7 @@ namespace VidCoder.Automation
 	{
 		public void Encode(string source, string destination, string preset, string picker)
 		{
-			var processingService = Ioc.Get<ProcessingService>();
+			var processingService = StaticResolver.Resolve<ProcessingService>();
 			DispatchUtilities.Invoke(() =>
 			{
 				try
@@ -29,7 +30,7 @@ namespace VidCoder.Automation
 
 		public void Scan(string source)
 		{
-			var mainVM = Ioc.Get<MainViewModel>();
+			var mainVM = StaticResolver.Resolve<MainViewModel>();
 			DispatchUtilities.Invoke(() =>
 			{
 				try
@@ -45,7 +46,7 @@ namespace VidCoder.Automation
 
 		public void ImportPreset(string filePath)
 		{
-			var presetImporter = Ioc.Get<IPresetImportExport>();
+			var presetImporter = StaticResolver.Resolve<IPresetImportExport>();
 			DispatchUtilities.Invoke(() =>
 			{
 				try
@@ -63,7 +64,7 @@ namespace VidCoder.Automation
 
 		public void ImportQueue(string filePath)
 		{
-			var queueImporter = Ioc.Get<IQueueImportExport>();
+			var queueImporter = StaticResolver.Resolve<IQueueImportExport>();
 			DispatchUtilities.Invoke(() =>
 			{
 				try
@@ -81,8 +82,8 @@ namespace VidCoder.Automation
 
 		private void ShowMessage(string message)
 		{
-			Ioc.Get<StatusService>().Show(message);
-			Ioc.Get<IWindowManager>().Activate(Ioc.Get<MainViewModel>());
+			StaticResolver.Resolve<StatusService>().Show(message);
+			StaticResolver.Resolve<IWindowManager>().Activate(StaticResolver.Resolve<MainViewModel>());
 		}
 	}
 }

@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Reactive;
 using System.Reactive.Linq;
+using System.Windows.Input;
 using System.Windows.Media;
-using HandBrake.ApplicationServices.Interop.Json.Shared;
+using ColorPickerWPF;
+using Microsoft.AnyContainer;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -17,8 +20,8 @@ namespace VidCoder.ViewModel
 	{
 		private const int DimensionsAutoSetModulus = 2;
 
-		private OutputSizeService outputSizeService = Ioc.Get<OutputSizeService>();
-		private PreviewUpdateService previewUpdateService = Ioc.Get<PreviewUpdateService>();
+		private OutputSizeService outputSizeService = StaticResolver.Resolve<OutputSizeService>();
+		private PreviewUpdateService previewUpdateService = StaticResolver.Resolve<PreviewUpdateService>();
 
 		public SizingPanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
 			: base(encodingWindowViewModel)
@@ -138,38 +141,13 @@ namespace VidCoder.ViewModel
 			// InputPreview
 			this.MainViewModel.WhenAnyValue(x => x.SelectedTitle).Select(selectedTitle =>
 			{
-				var previewLines = new List<SizingPreviewLineViewModel>();
-				if (selectedTitle == null)
-				{
-					return previewLines;
-				}
-
-				string inputStorageResolutionString = selectedTitle.Geometry.Width + " x " + selectedTitle.Geometry.Height;
-				if (selectedTitle.Geometry.PAR.Num == selectedTitle.Geometry.PAR.Den)
-				{
-					previewLines.Add(new SizingPreviewLineViewModel(EncodingRes.ResolutionLabel, inputStorageResolutionString));
-				}
-				else
-				{
-					previewLines.Add(new SizingPreviewLineViewModel(EncodingRes.StorageResolutionLabel, inputStorageResolutionString));
-					previewLines.Add(new SizingPreviewLineViewModel(EncodingRes.PixelAspectRatioLabel, CreateParDisplayString(selectedTitle.Geometry.PAR.Num, selectedTitle.Geometry.PAR.Den)));
-
-					double pixelAspectRatio = ((double)selectedTitle.Geometry.PAR.Num) / selectedTitle.Geometry.PAR.Den;
-					double displayWidth = selectedTitle.Geometry.Width * pixelAspectRatio;
-					int displayWidthRounded = (int)Math.Round(displayWidth);
-
-					string displayResolutionString = displayWidthRounded + " x " + selectedTitle.Geometry.Height;
-
-					previewLines.Add(new SizingPreviewLineViewModel(EncodingRes.DisplayResolutionLabel, displayResolutionString));
-				}
-
-				return previewLines;
+				return ResolutionUtilities.GetResolutionInfoLines(selectedTitle?.Title);
 			}).ToProperty(this, x => x.InputPreview, out this.inputPreview);
 
 			// OutputPreview
 			this.outputSizeService.WhenAnyValue(x => x.Size).Select(size =>
 			{
-				var previewLines = new List<SizingPreviewLineViewModel>();
+				var previewLines = new List<InfoLineViewModel>();
 				if (size == null)
 				{
 					return previewLines;
@@ -178,15 +156,15 @@ namespace VidCoder.ViewModel
 				string outputStorageResolutionString = size.OutputWidth + " x " + size.OutputHeight;
 				if (size.Par.Num == size.Par.Den)
 				{
-					previewLines.Add(new SizingPreviewLineViewModel(EncodingRes.ResolutionLabel, outputStorageResolutionString));
+					previewLines.Add(new InfoLineViewModel(EncodingRes.ResolutionLabel, outputStorageResolutionString));
 				}
 				else
 				{
-					previewLines.Add(new SizingPreviewLineViewModel(EncodingRes.StorageResolutionLabel, outputStorageResolutionString));
-					previewLines.Add(new SizingPreviewLineViewModel(EncodingRes.PixelAspectRatioLabel, CreateParDisplayString(size.Par.Num, size.Par.Den)));
+					previewLines.Add(new InfoLineViewModel(EncodingRes.StorageResolutionLabel, outputStorageResolutionString));
+					previewLines.Add(new InfoLineViewModel(EncodingRes.PixelAspectRatioLabel, ResolutionUtilities.CreateParDisplayString(size.Par.Num, size.Par.Den)));
 
 					string displayResolutionString = Math.Round(size.OutputWidth * (((double)size.Par.Num) / size.Par.Den)) + " x " + size.OutputHeight;
-					previewLines.Add(new SizingPreviewLineViewModel(EncodingRes.DisplayResolutionLabel, displayResolutionString));
+					previewLines.Add(new InfoLineViewModel(EncodingRes.DisplayResolutionLabel, displayResolutionString));
 				}
 
 				return previewLines;
@@ -197,6 +175,13 @@ namespace VidCoder.ViewModel
 			{
 				return paddingMode != VCPaddingMode.None;
 			}).ToProperty(this, x => x.PadColorEnabled, out this.padColorEnabled);
+
+			// PadBrush
+			this.WhenAnyValue(x => x.Profile.PadColor)
+				.Select(padColor =>
+				{
+					return new SolidColorBrush(ColorUtilities.ToWindowsColor(this.Profile.PadColor));
+				}).ToProperty(this, x => x.PadBrush, out this.padBrush);
 
 			// CroppingUIEnabled
 			this.WhenAnyValue(x => x.CroppingType, croppingType =>
@@ -404,7 +389,7 @@ namespace VidCoder.ViewModel
 						else
 						{
 							// Calculate the correct padding from input variables
-							OutputSizeInfo outputSize = JsonEncodeFactory.GetOutputSize(this.Profile, x.selectedTitle);
+							OutputSizeInfo outputSize = JsonEncodeFactory.GetOutputSize(this.Profile, x.selectedTitle.Title);
 							this.PadTop = outputSize.Padding.Top;
 							this.PadBottom = outputSize.Padding.Bottom;
 							this.PadLeft = outputSize.Padding.Left;
@@ -446,7 +431,42 @@ namespace VidCoder.ViewModel
 			this.RegisterProfileProperty(nameof(this.Profile.Modulus), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.Profile.PixelAspectX), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.Profile.PixelAspectY), this.RefreshOutputSize);
-			this.RegisterProfileProperty(nameof(this.Profile.CroppingType), this.RefreshOutputSize);
+			this.RegisterProfileProperty(nameof(this.Profile.CroppingType), () =>
+			{
+				// When changed to Custom, write the currently selected Crop values to the profile so they stay in sync
+				if (this.CroppingType == VCCroppingType.Custom)
+				{
+					this.UpdateProfileProperty(
+						() => this.Profile.Cropping,
+						nameof(this.Profile.Cropping.Top),
+						nameof(this.CropTop),
+						this.CropTop,
+						raisePropertyChanged: false);
+
+					this.UpdateProfileProperty(
+						() => this.Profile.Cropping,
+						nameof(this.Profile.Cropping.Bottom),
+						nameof(this.CropBottom),
+						this.CropBottom,
+						raisePropertyChanged: false);
+
+					this.UpdateProfileProperty(
+						() => this.Profile.Cropping,
+						nameof(this.Profile.Cropping.Left),
+						nameof(this.CropLeft),
+						this.CropLeft,
+						raisePropertyChanged: false);
+
+					this.UpdateProfileProperty(
+						() => this.Profile.Cropping,
+						nameof(this.Profile.Cropping.Right),
+						nameof(this.CropRight),
+						this.CropRight,
+						raisePropertyChanged: false);
+				}
+
+				this.RefreshOutputSize();
+			});
 			this.RegisterProfileProperty(nameof(this.CropTop), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.CropBottom), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.CropLeft), this.RefreshOutputSize);
@@ -491,11 +511,11 @@ namespace VidCoder.ViewModel
 			});
 		}
 
-		private ObservableAsPropertyHelper<List<SizingPreviewLineViewModel>> inputPreview;
-		public List<SizingPreviewLineViewModel> InputPreview => this.inputPreview.Value;
+		private ObservableAsPropertyHelper<List<InfoLineViewModel>> inputPreview;
+		public List<InfoLineViewModel> InputPreview => this.inputPreview.Value;
 
-		private ObservableAsPropertyHelper<List<SizingPreviewLineViewModel>> outputPreview;
-		public List<SizingPreviewLineViewModel> OutputPreview => this.outputPreview.Value;
+		private ObservableAsPropertyHelper<List<InfoLineViewModel>> outputPreview;
+		public List<InfoLineViewModel> OutputPreview => this.outputPreview.Value;
 
 		public List<ComboChoice<VCSizingMode>> SizingModeChoices { get; }
 
@@ -585,8 +605,31 @@ namespace VidCoder.ViewModel
 			set { this.UpdateProfileProperty(nameof(this.Profile.PadColor), ColorUtilities.ToHexString(value)); }
 		}
 
+		private ObservableAsPropertyHelper<Brush> padBrush;
+		public Brush PadBrush => this.padBrush.Value;
+
 		private ObservableAsPropertyHelper<bool> padColorEnabled;
 		public bool PadColorEnabled => this.padColorEnabled.Value;
+
+		private ReactiveCommand<Unit, Unit> pickPadColor;
+		public ICommand PickPadColor
+		{
+			get
+			{
+				return this.pickPadColor ?? (this.pickPadColor = ReactiveCommand.Create(() =>
+				{
+					if (ColorPickerWindow.ShowDialog(out Color color))
+					{
+						this.UpdateProfileProperty(
+							() => this.Profile,
+							nameof(this.Profile.PadColor),
+							nameof(this.PadColor),
+							ColorUtilities.ToHexString(color),
+							raisePropertyChanged: true);
+					}
+				}));
+			}
+		}
 
 		public int Modulus
 		{
@@ -688,12 +731,6 @@ namespace VidCoder.ViewModel
 				this.Width = JsonEncodeFactory.DefaultMaxWidth;
 				this.Height = JsonEncodeFactory.DefaultMaxHeight;
 			}
-		}
-
-		private static string CreateParDisplayString(int parWidth, int parHeight)
-		{
-			double pixelAspectRatio = (double)parWidth / parHeight;
-			return pixelAspectRatio.ToString("F2") + " (" + parWidth + "/" + parHeight + ")";
 		}
 	}
 }

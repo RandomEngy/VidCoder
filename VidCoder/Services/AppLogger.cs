@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using HandBrake.ApplicationServices.Interop;
 using System.IO;
-using HandBrake.ApplicationServices.Interop.EventArgs;
+using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.EventArgs;
+using Microsoft.AnyContainer;
 using VidCoder.Model;
 
 namespace VidCoder.Services
 {
 	public class AppLogger : IDisposable, IAppLogger
 	{
-		private List<LogEntry> logEntries = new List<LogEntry>();
 		private StreamWriter logFile;
 		private bool disposed;
 		private IAppLogger parent;
@@ -21,10 +21,6 @@ namespace VidCoder.Services
 
 		public event EventHandler<EventArgs<LogEntry>> EntryLogged;
 		public event EventHandler Cleared;
-
-		public AppLogger() : this(null, null)
-		{
-		}
 
 		public AppLogger(IAppLogger parent, string baseFileName)
 		{
@@ -39,17 +35,17 @@ namespace VidCoder.Services
 				Directory.CreateDirectory(logFolder);
 			}
 
-			string logFileNamePrefix;
+			string logFileNameAffix;
 			if (baseFileName != null)
 			{
-				logFileNamePrefix = baseFileName + " ";
+				logFileNameAffix = baseFileName;
 			}
 			else
 			{
-				logFileNamePrefix = string.Empty;
+				logFileNameAffix = "VidCoderApplication";
 			}
 
-			this.LogPath = Path.Combine(logFolder, logFileNamePrefix + DateTimeOffset.Now.ToString("yyyy-MM-dd HH.mm.ss") + ".txt");
+			this.LogPath = Path.Combine(logFolder, DateTimeOffset.Now.ToString("yyyy-MM-dd HH.mm.ss ") + logFileNameAffix + ".txt");
 
 			try
 			{
@@ -85,13 +81,7 @@ namespace VidCoder.Services
 			}
 		}
 
-		public List<LogEntry> LogEntries
-		{
-			get
-			{
-				return this.logEntries;
-			}
-		}
+		public List<LogEntry> LogEntries { get; } = new List<LogEntry>();
 
 		public void Log(string message)
 		{
@@ -146,15 +136,12 @@ namespace VidCoder.Services
 				this.LogEntries.Clear();
 			}
 
-			if (this.Cleared != null)
-			{
-				this.Cleared(this, EventArgs.Empty);
-			}
+			this.Cleared?.Invoke(this, EventArgs.Empty);
 		}
 
 		public void ShowStatus(string message)
 		{
-			Ioc.Get<StatusService>().Show(message);
+			StaticResolver.Resolve<StatusService>().Show(message);
 		}
 
 		/// <summary>
@@ -187,10 +174,7 @@ namespace VidCoder.Services
 				this.LogEntries.Add(entry);
 			}
 
-			if (this.EntryLogged != null)
-			{
-				this.EntryLogged(this, new EventArgs<LogEntry>(entry));
-			}
+			this.EntryLogged?.Invoke(this, new EventArgs<LogEntry>(entry));
 
 			try
 			{

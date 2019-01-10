@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.ViewModel;
 
@@ -27,6 +28,8 @@ namespace VidCoder.View.Preview
 
 		private PreviewWindowViewModel viewModel;
 
+		private IDisposable updateCornerImageSubscription;
+
 		public PreviewCorners()
 		{
 			this.InitializeComponent();
@@ -37,42 +40,37 @@ namespace VidCoder.View.Preview
 		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
 			var newViewModel = e.NewValue as PreviewWindowViewModel;
+
+			this.viewModel = newViewModel;
 			if (newViewModel == null)
 			{
-				this.viewModel.PropertyChanged -= this.OnPropertyChanged;
+				this.updateCornerImageSubscription?.Dispose();
 			}
 			else
 			{
-				newViewModel.PropertyChanged += this.OnPropertyChanged;
-			}
-
-			this.viewModel = newViewModel;
-		}
-
-		private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName == nameof(this.viewModel.PreviewImage))
-			{
-				this.UpdateCornerImages();
+				this.updateCornerImageSubscription = newViewModel.PreviewImageServiceClient.WhenAnyValue(x => x.PreviewImage).Subscribe(_ =>
+				{
+					this.UpdateCornerImages();
+				});
 			}
 		}
 
 		public void UpdateCornerImages()
 		{
-			if (this.viewModel.PreviewImage != null)
+			if (this.viewModel.PreviewImageServiceClient.PreviewImage != null)
 			{
 				// Top left
 				UpdateCornerImage(
 					this.topLeftImage,
 					this.topLeftImageHolder,
-					this.viewModel.PreviewImage,
+					this.viewModel.PreviewImageServiceClient.PreviewImage,
 					(imageWidth, imageHeight, regionWidth, regionHeight) => new Int32Rect(0, 0, regionWidth, regionHeight));
 
 				// Bottom right
 				UpdateCornerImage(
 					this.bottomRightImage,
 					this.bottomRightImageHolder,
-					this.viewModel.PreviewImage,
+					this.viewModel.PreviewImageServiceClient.PreviewImage,
 					(imageWidth, imageHeight, regionWidth, regionHeight) => new Int32Rect(imageWidth - regionWidth, imageHeight - regionHeight, regionWidth, regionHeight));
 			}
 		}

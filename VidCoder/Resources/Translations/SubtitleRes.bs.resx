@@ -120,9 +120,6 @@
   <data name="SubtitlesWindowTitle" xml:space="preserve">
     <value>Podnaslovi</value>
   </data>
-  <data name="RemoveSubtitleTrack" xml:space="preserve">
-    <value>Ukoloni ovaj zapis</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>Podnaslovi iz izvora:</value>
   </data>
@@ -165,16 +162,12 @@
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Traženje stranog audia</value>
   </data>
-  <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
-    <value>Nema podnaslova u izvornom videu.</value>
-  </data>
   <data name="SrtFilePickerText" xml:space="preserve">
     <value>Dodaj fajl s podnaslovima</value>
-  </data>
-	<data name="DuplicateSubtitleTrack" xml:space="preserve">
-    <value>Kopiraj ovaj zapis</value>
   </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Kodiranje fajla s podnaslovima nije prepoznato. Da bi se podnaslov ispravno prikazivao, molimo da fajl spremite kao UTF-8.</value>
   </data>
+  
+  
 </root>

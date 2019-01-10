@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Services.Windows;
 
@@ -10,7 +13,7 @@ namespace VidCoder.ViewModel
 {
 	public class CustomMessageDialogViewModel<T>
 	{
-		private IWindowManager windowManager = Ioc.Get<IWindowManager>();
+		private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
 
 		public CustomMessageDialogViewModel(string title, string message, IEnumerable<CustomDialogButton<T>> buttons)
 		{
@@ -48,9 +51,6 @@ namespace VidCoder.ViewModel
 
 			this.IsDefault = type == ButtonType.Default;
 			this.IsCancel = type == ButtonType.Cancel;
-
-			this.Choose = ReactiveCommand.Create();
-			this.Choose.Subscribe(_ => this.ChooseImpl());
 		}
 
 		public T Value { get; }
@@ -63,10 +63,16 @@ namespace VidCoder.ViewModel
 
 		public CustomMessageDialogViewModel<T> Parent { get; set; }
 
-		public ReactiveCommand<object> Choose { get; }
-		private void ChooseImpl()
+		private ReactiveCommand<Unit, Unit> choose;
+		public ICommand Choose
 		{
-			this.Parent.SetResult(this.Value);
+			get
+			{
+				return this.choose ?? (this.choose = ReactiveCommand.Create(() =>
+				{
+					this.Parent.SetResult(this.Value);
+				}));
+			}
 		}
 	}
 

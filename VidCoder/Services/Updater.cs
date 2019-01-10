@@ -4,7 +4,6 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
-using System.Xml.Linq;
 using System.IO;
 using System.Net;
 using System.Windows;
@@ -14,10 +13,12 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AnyContainer;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using ReactiveUI;
 using VidCoder.Extensions;
+using VidCoder.ViewModel;
 using VidCoderCommon;
 
 namespace VidCoder.Services
@@ -30,7 +31,7 @@ namespace VidCoder.Services
 
 		private CancellationTokenSource updateDownloadCancellationTokenSource;
 
-		private IAppLogger logger = Ioc.Get<IAppLogger>();
+		private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
 		private bool processDownloadsUpdates = true;
 
 		private UpdateState state;
@@ -49,7 +50,7 @@ namespace VidCoder.Services
 
 		public Version LatestVersion { get; set; }
 
-		public void PromptToApplyUpdate()
+		public bool PromptToApplyUpdate(bool relaunchWhenComplete)
 		{
 			if (Utilities.SupportsUpdates)
 			{
@@ -63,7 +64,7 @@ namespace VidCoder.Services
 						// If we already have the newer version clear all the update info and cancel
 						ClearUpdateMetadata();
 						DeleteUpdatesFolder();
-						return;
+						return false;
 					}
 
 					string installerPath = Config.UpdateInstallerLocation;
@@ -72,12 +73,13 @@ namespace VidCoder.Services
 					{
 						// An update is ready, to give a prompt to apply it.
 						var updateConfirmation = new ApplyUpdateConfirmation();
-						updateConfirmation.Owner = Ioc.Get<View.Main>();
+						updateConfirmation.Owner = StaticResolver.Resolve<View.Main>();
 						updateConfirmation.ShowDialog();
 
 						if (updateConfirmation.Result == "Yes")
 						{
-							this.ApplyUpdate();
+							this.ApplyUpdate(relaunchWhenComplete);
+							return true;
 						}
 						else if (updateConfirmation.Result == "Disable")
 						{
@@ -90,9 +92,11 @@ namespace VidCoder.Services
 					}
 				}
 			}
+
+			return false;
 		}
 
-		public void ApplyUpdate()
+		public void ApplyUpdate(bool relaunchWhenComplete)
 		{
 			// Re-check the process count in case another one was opened while the prompt was active.
 			if (Utilities.CurrentProcessInstances == 1)
@@ -102,10 +106,11 @@ namespace VidCoder.Services
 				Config.UpdateInProgress = true;
 
 				var installerProcess = new Process();
-				installerProcess.StartInfo = new ProcessStartInfo { FileName = installerPath, Arguments = "/silent /noicons /showSuccessDialog=\"yes\" /dir=\"" + Utilities.ProgramFolder + "\"" };
+				string extraParameter = relaunchWhenComplete ? "/launchWhenDone=\"yes\"" : "/showSuccessDialog=\"yes\"";
+				installerProcess.StartInfo = new ProcessStartInfo { FileName = installerPath, Arguments = "/silent /noicons " + extraParameter + " /dir=\"" + Utilities.ProgramFolder + "\"" };
 				installerProcess.Start();
 
-				// Let the program close on its own. This method is called on exiting.
+				// Caller will handle exiting
 			}
 		}
 
@@ -277,6 +282,19 @@ namespace VidCoder.Services
 							this.logger.Log("Downloaded update (" + updateInstallerLocation + ") could not be found. Re-downloading it.");
 						}
 
+						// If we have an installer downloaded, but there's a newer one out, clear out the downloaded update metadata
+						if (Config.UpdateInstallerLocation != string.Empty 
+							&& Version.TryParse(Config.UpdateVersion, out Version downloadedUpdateVersion)
+							&& downloadedUpdateVersion.FillInWithZeroes() < updateVersion.FillInWithZeroes())
+						{
+							using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
+							{
+								ClearUpdateMetadata();
+
+								transaction.Commit();
+							}
+						}
+
 						// If we have not finished the download update yet, start/resume the download.
 						if (Config.UpdateInstallerLocation == string.Empty)
 						{
@@ -308,6 +326,7 @@ namespace VidCoder.Services
 
 							try
 							{
+								ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
 								HttpClient client = new HttpClient();
 								HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, downloadLocation);
 
@@ -367,15 +386,8 @@ namespace VidCoder.Services
 							}
 							finally
 							{
-								if (responseStream != null)
-								{
-									responseStream.Close();
-								}
-
-								if (fileStream != null)
-								{
-									fileStream.Close();
-								}
+								responseStream?.Close();
+								fileStream?.Close();
 							}
 						}
 						else
@@ -391,12 +403,23 @@ namespace VidCoder.Services
 				catch (Exception exception)
 				{
 					this.State = UpdateState.Failed;
-					this.logger.Log("Update download failed: " + exception.Message);
+					this.logger.Log("Update download failed." + Environment.NewLine + exception);
 				}
 				finally
 				{
 					this.updateDownloadCancellationTokenSource?.Dispose();
 					this.updateDownloadCancellationTokenSource = null;
+				}
+
+				if (this.State == UpdateState.InstallerReady && CustomConfig.UpdatePromptTiming == UpdatePromptTiming.OnLaunch)
+				{
+					DispatchUtilities.BeginInvoke(() =>
+					{
+						if (this.PromptToApplyUpdate(relaunchWhenComplete: true))
+						{
+							StaticResolver.Resolve<MainViewModel>().Exit.Execute(null);
+						}
+					});
 				}
 			});
 		}
@@ -419,7 +442,7 @@ namespace VidCoder.Services
 			}
 			catch (Exception exception)
 			{
-				Ioc.Get<IAppLogger>().Log("Could not get update info." + Environment.NewLine + exception);
+				StaticResolver.Resolve<IAppLogger>().Log("Could not get update info." + Environment.NewLine + exception);
 
 				return null;
 			}

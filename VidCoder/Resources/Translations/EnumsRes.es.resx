@@ -129,6 +129,13 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>Strict</value>
   </data>
+  
+  <data name="AppThemeChoice_Dark" xml:space="preserve">
+    <value>Oscuro</value>
+  </data>
+  <data name="AppThemeChoice_Light" xml:space="preserve">
+    <value>Claro</value>
+  </data>
   <data name="CombDetect_fast" xml:space="preserve">
     <value>Fast</value>
   </data>
@@ -221,8 +228,14 @@
   <data name="Off" xml:space="preserve">
     <value>Desactivado</value>
   </data>
-  
-  
+  <data name="Sharpen_LapSharp" xml:space="preserve">
+    <value>LapSharp</value>
+    <comment>The name for the "LapSharp" sharpen filter.</comment>
+  </data>
+  <data name="Sharpen_UnSharp" xml:space="preserve">
+    <value>UnSharp</value>
+    <comment>The name for the "UnSharp" sharpen filter.</comment>
+  </data>
   <data name="TitleType_Bluray" xml:space="preserve">
     <value>Blu-ray</value>
     <comment>What to display when the source is a Blu-ray</comment>
@@ -243,5 +256,22 @@
   </data>
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>Intervalo de tiempo</value>
+  </data>
+  <data name="TitleCapitalizationChoice_EveryWord" xml:space="preserve">
+    <value>Cada palabra</value>
+    <comment>This will make Blu-ray and DVD titles capitalize every word</comment>
+  </data>
+  <data name="TitleCapitalizationChoice_FirstWord" xml:space="preserve">
+    <value>Primera palabra</value>
+    <comment>This will make Blu-ray and DVD titles capitalize only the first word</comment>
+  </data>
+  <data name="EncodeCompleteActionType_StopEncoding" xml:space="preserve">
+    <value>Detener codificación</value>
+  </data>
+  <data name="UpdatePromptTiming_OnExit" xml:space="preserve">
+    <value>Al salir</value>
+  </data>
+  <data name="UpdatePromptTiming_OnLaunch" xml:space="preserve">
+    <value>Al iniciar</value>
   </data>
 </root>

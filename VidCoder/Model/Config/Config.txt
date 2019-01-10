@@ -27,7 +27,6 @@ OptionsDialogLastTab|int|0
 CollapsedBuiltInFolders|string|""
 
 MainWindowPlacement|string|""
-SubtitlesDialogPlacement|string|""
 EncodingDialogPlacement|string|""
 ChapterMarkersDialogPlacement|string|""
 PreviewWindowPlacement|string|""
@@ -44,7 +43,12 @@ LogWindowOpen|bool|false
 EncodeDetailsWindowOpen|bool|false
 PickerWindowOpen|bool|false
 
+VideoExpanded|bool|true
+AudioExpanded|bool|true
+SubtitlesExpanded|bool|true
+
 UpdatesEnabled|bool|true
+UpdatePromptTiming|string|"OnExit"
 UpdatesDisabled32BitOSWarningDisplayed|bool|false
 
 PreviewSeconds|int|10
@@ -55,6 +59,8 @@ QueueLastColumnWidth|double|75.0
 
 CompletedColumnWidths|string|""
 
+SourcePaneHeightStar|double|2.0
+QueuePaneHeightStar|double|1.0
 PickerListPaneWidth|double|135.0
 EncodingListPaneOpen|bool|true
 EncodingListPaneWidth|double|150.0
@@ -65,6 +71,7 @@ WorkerProcessPriority|string|"BelowNormal"
 LogVerbosity|int|1
 CopyLogToOutputFolder|bool|false
 AutoPauseProcesses|string|""
+MaxSimultaneousEncodes|int|1
 PreviewCount|int|10
 PreviewDisplay|string|"FitToWindow"
 UseCustomPreviewFolder|bool|false
@@ -100,6 +107,7 @@ VideoFileExtensions|string|"avi, mkv, mp4, m4v, mpg, mpeg, mov, wmv"
 PreferredPlayer|string|"vlc"
 BetaUpdates|bool|false
 InterfaceLanguageCode|string|""
+AppTheme|string|"Auto"
 CpuThrottlingFraction|double|1.0
 UseBuiltInPlayerForPreviews|bool|true
 PreviewVolume|double|0.5

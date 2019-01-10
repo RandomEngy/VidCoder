@@ -92,7 +92,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Browse....
+        ///   Looks up a localized string similar to Browse….
         /// </summary>
         public static string Browse {
             get {
@@ -164,6 +164,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default:.
+        /// </summary>
+        public static string DefaultLabel {
+            get {
+                return ResourceManager.GetString("DefaultLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mark this subtitle track as the default. This will show up during playback until another track is picked..
         /// </summary>
         public static string DefaultSubtitleToolTip {
@@ -196,6 +205,15 @@ namespace VidCoder.Resources {
         public static string DismissMessage {
             get {
                 return ResourceManager.GetString("DismissMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duplicate this track.
+        /// </summary>
+        public static string DuplicateTrack {
+            get {
+                return ResourceManager.GetString("DuplicateTrack", resourceCulture);
             }
         }
         
@@ -281,6 +299,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Decrease {0}.
+        /// </summary>
+        public static string NumberBoxDecreaseButtonAutomationTextFormat {
+            get {
+                return ResourceManager.GetString("NumberBoxDecreaseButtonAutomationTextFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Increase {0}.
+        /// </summary>
+        public static string NumberBoxIncreaseButtonAutomationTextFormat {
+            get {
+                return ResourceManager.GetString("NumberBoxIncreaseButtonAutomationTextFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Off.
         /// </summary>
         public static string Off {
@@ -308,7 +344,16 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Output to the source directory if possible.
+        ///   Looks up a localized string similar to Open split button.
+        /// </summary>
+        public static string OpenSplitButtonAutomationName {
+            get {
+                return ResourceManager.GetString("OpenSplitButtonAutomationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output to the source folder if possible.
         /// </summary>
         public static string OutputToSourceDirCheckBox {
             get {
@@ -479,6 +524,33 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove this track.
+        /// </summary>
+        public static string RemoveTrack {
+            get {
+                return ResourceManager.GetString("RemoveTrack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}/{1} audio track(s).
+        /// </summary>
+        public static string SelectedOverTotalAudioTracksFormat {
+            get {
+                return ResourceManager.GetString("SelectedOverTotalAudioTracksFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}/{1} subtitle track(s).
+        /// </summary>
+        public static string SelectedOverTotalSubtitleTracksFormat {
+            get {
+                return ResourceManager.GetString("SelectedOverTotalSubtitleTracksFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stream {0}.
         /// </summary>
         public static string StreamChoice {
@@ -502,6 +574,15 @@ namespace VidCoder.Resources {
         public static string Success {
             get {
                 return ResourceManager.GetString("Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown.
+        /// </summary>
+        public static string Unknown {
+            get {
+                return ResourceManager.GetString("Unknown", resourceCulture);
             }
         }
         

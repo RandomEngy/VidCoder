@@ -1,82 +1,83 @@
 ﻿<Window
-    x:Class="VidCoder.View.AddAutoPauseProcessDialog"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:prop="clr-namespace:VidCoder.Properties"
-    xmlns:res="clr-namespace:VidCoder.Resources"
-    Title="{x:Static res:MiscRes.AddAutoPauseProcessDialogTitle}"
-    Width="400"
-    Height="371"
-    MinWidth="244"
-    MinHeight="244"
-    TextOptions.TextFormattingMode="Display"
-    WindowStartupLocation="CenterOwner">
-    <Grid>
-        <Grid Margin="7 12 12 0" VerticalAlignment="Top">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Label
-                Grid.Column="0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Content="{x:Static res:MiscRes.ProcessNameLabel}" />
-            <TextBox
-                Grid.Column="1"
-                Height="23"
-                VerticalAlignment="Center"
-                VerticalContentAlignment="Center"
-                Text="{Binding ProcessName}" />
-        </Grid>
+	x:Class="VidCoder.View.AddAutoPauseProcessDialog"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:prop="clr-namespace:VidCoder.Properties"
+	xmlns:res="clr-namespace:VidCoder.Resources"
+	Title="{x:Static res:MiscRes.AddAutoPauseProcessDialogTitle}"
+	Width="400"
+	Height="371"
+	MinWidth="244"
+	MinHeight="244"
+	TextOptions.TextFormattingMode="Display"
+	WindowStartupLocation="CenterOwner">
+	<Grid>
+		<Grid Margin="7 12 12 0" VerticalAlignment="Top">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<Label
+				Grid.Column="0"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Center"
+				Content="{x:Static res:MiscRes.ProcessNameLabel}" />
+			<TextBox
+				Grid.Column="1"
+				Height="23"
+				VerticalAlignment="Center"
+				VerticalContentAlignment="Center"
+				Text="{Binding ProcessName}" />
+		</Grid>
 
-        <TextBlock
-            Height="23"
-            Margin="12 55 12 0"
-            VerticalAlignment="Top"
-            Text="{x:Static res:MiscRes.ChooseFromProcessesLabel}" />
-        <ListBox
-            Margin="12 75 17 73"
-            ItemsSource="{Binding CurrentProcesses}"
-            SelectedItem="{Binding SelectedProcess}">
-            <ListBox.ItemContainerStyle>
-                <Style BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="{x:Type ListBoxItem}">
-                    <EventSetter Event="MouseDoubleClick" Handler="ListBoxItem_MouseDoubleClick" />
-                </Style>
-            </ListBox.ItemContainerStyle>
+		<TextBlock
+			Height="23"
+			Margin="12 55 12 0"
+			VerticalAlignment="Top"
+			Text="{x:Static res:MiscRes.ChooseFromProcessesLabel}" />
+		<ListBox
+			Margin="12 75 17 73"
+			Background="{DynamicResource WindowBrush}"
+			ItemsSource="{Binding CurrentProcesses}"
+			SelectedItem="{Binding SelectedProcess}">
+			<ListBox.ItemContainerStyle>
+				<Style BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="{x:Type ListBoxItem}">
+					<EventSetter Event="MouseDoubleClick" Handler="ListBoxItem_MouseDoubleClick" />
+				</Style>
+			</ListBox.ItemContainerStyle>
 
-        </ListBox>
-        <Button
-            Height="23"
-            MinWidth="75"
-            Margin="12 0 0 44"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Bottom"
-            Command="{Binding RefreshCurrentProcesses}"
-            Content="{x:Static res:MiscRes.RefreshButton}" />
+		</ListBox>
+		<Button
+			Height="23"
+			MinWidth="75"
+			Margin="12 0 0 44"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Bottom"
+			Command="{Binding RefreshCurrentProcesses}"
+			Content="{x:Static res:MiscRes.RefreshButton}" />
 
-        <StackPanel
-            Margin="0 0 12 12"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Orientation="Horizontal">
-            <Button
-                Height="23"
-                MinWidth="75"
-                Margin="0 0 6 0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Command="{Binding Accept}"
-                Content="{x:Static res:MiscRes.AddButton}"
-                IsDefault="True" />
-            <Button
-                Height="23"
-                MinWidth="75"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Command="{Binding Cancel}"
-                Content="{x:Static res:CommonRes.Cancel}"
-                IsCancel="True" />
-        </StackPanel>
-    </Grid>
+		<StackPanel
+			Margin="0 0 12 12"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Bottom"
+			Orientation="Horizontal">
+			<Button
+				Height="23"
+				MinWidth="75"
+				Margin="0 0 6 0"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Bottom"
+				Command="{Binding Accept}"
+				Content="{x:Static res:MiscRes.AddButton}"
+				IsDefault="True" />
+			<Button
+				Height="23"
+				MinWidth="75"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Bottom"
+				Command="{Binding Cancel}"
+				Content="{x:Static res:CommonRes.Cancel}"
+				IsCancel="True" />
+		</StackPanel>
+	</Grid>
 </Window>

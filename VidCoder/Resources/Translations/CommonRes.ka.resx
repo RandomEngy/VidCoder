@@ -146,6 +146,7 @@
   </data>
   <data name="QueueColumnNameTitle" xml:space="preserve">
     <value>ფაილი</value>
+    <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
   <data name="QueueColumnNameAudioQuality" xml:space="preserve">
     <value>აუდიო ხარისხი</value>
@@ -278,7 +279,41 @@
     <value>პირველი</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
-  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
-    <value>აქტუალიზირება დეაქტივირებულია რამდენადაც, 32 ბიტიანი სისტემის მხარდაჭერა შეწყვეტილია.</value>
+  <data name="DuplicateTrack" xml:space="preserve">
+    <value>წყაროს დუბლირება</value>
+    <comment>Tip to duplicate the audio or subtitle track.</comment>
+  </data>
+  <data name="RemoveTrack" xml:space="preserve">
+    <value>წყაროს წაშლა</value>
+    <comment>Tip for button to remove the audio or subtitle track.</comment>
+  </data>
+  <data name="SelectedOverTotalAudioTracksFormat" xml:space="preserve">
+    <value>{0}/{1} აუდიოს წყარო(ები)</value>
+    <comment>{0} is the number of selected audio tracks and {1} is the number of total tracks on the source.</comment>
+  </data>
+  <data name="SelectedOverTotalSubtitleTracksFormat" xml:space="preserve">
+    <value>{0}/{1} ტიტრის წყარო(ები)</value>
+    <comment>{0} is the number of selected subtitle tracks and {1} is the number of total tracks on the source.</comment>
+  </data>
+  <data name="NumberBoxIncreaseButtonAutomationTextFormat" xml:space="preserve">
+    <value>გაზრდა {0}</value>
+    <comment>Automation text for the increase button on the number box.
+{0} - The name of the value the control is changing, for example "width"</comment>
+  </data>
+  <data name="NumberBoxDecreaseButtonAutomationTextFormat" xml:space="preserve">
+    <value>შემცირება {0}</value>
+    <comment>Automation text for the decrease button on the number box.
+{0} - The name of the value the control is changing, for example "width"</comment>
+  </data>
+  <data name="OpenSplitButtonAutomationName" xml:space="preserve">
+    <value>გამყოფი ღილაკის გახსნა</value>
+    <comment>Automation name for screen readers for the "open" arrow on a split button</comment>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>უცნობია</value>
+    <comment>Used when a value is not known.</comment>
+  </data>
+  <data name="DefaultLabel" xml:space="preserve">
+    <value>სტანდარტი:</value>
   </data>
 </root>

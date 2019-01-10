@@ -120,17 +120,11 @@
   <data name="TitleLabel" xml:space="preserve">
     <value>Titul:</value>
   </data>
-  <data name="SettingsLabel" xml:space="preserve">
-    <value>Nastavení</value>
-  </data>
   <data name="AddToQueueLabel" xml:space="preserve">
     <value>Přidat do fronty</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
     <value>Přidat více titulů do fronty...</value>
-  </data>
-  <data name="FileMenu" xml:space="preserve">
-    <value>Soubor</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
     <value>Otevřít video soubor...</value>
@@ -141,9 +135,6 @@
   <data name="EnqueueMultipleFiles" xml:space="preserve">
     <value>Přiřadit více souborů...</value>
   </data>
-  <data name="EnqueueMultipleTitles" xml:space="preserve">
-    <value>Přiřadit více titulů...</value>
-  </data>
   <data name="ToolsMenu" xml:space="preserve">
     <value>Nástroje</value>
   </data>
@@ -152,9 +143,6 @@
   </data>
   <data name="ExportPreset" xml:space="preserve">
     <value>Exportovat přednastavení...</value>
-  </data>
-  <data name="OptionsMenuItem" xml:space="preserve">
-    <value>Možnosti...</value>
   </data>
   <data name="Play" xml:space="preserve">
     <value>Přehrát</value>
@@ -167,9 +155,6 @@
   </data>
   <data name="ClearCompleted" xml:space="preserve">
     <value>Odstranění dokončeno</value>
-  </data>
-  <data name="ExitMenuItem" xml:space="preserve">
-    <value>Ukončit</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Okna</value>
@@ -202,9 +187,6 @@
   <data name="SourceLabel" xml:space="preserve">
     <value>Zdroj:</value>
   </data>
-  <data name="ScanningSourceLabel" xml:space="preserve">
-    <value>Načítání zdroje...</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>Nedávné</value>
   </data>
@@ -213,15 +195,6 @@
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>Při načítání došlo k chybě.</value>
-  </data>
-  <data name="AudioLabel" xml:space="preserve">
-    <value>Audio:</value>
-  </data>
-  <data name="VideoLabel" xml:space="preserve">
-    <value>Video:</value>
-  </data>
-  <data name="SubtitlesLabel" xml:space="preserve">
-    <value>Titulky:</value>
   </data>
   <data name="AddTrackButton" xml:space="preserve">
     <value>Přidat stopu</value>
@@ -385,9 +358,7 @@
   <data name="EtaLabel" xml:space="preserve">
     <value>ETA:</value>
   </data>
-  <data name="WhenDoneLabel" xml:space="preserve">
-    <value>Po dokončení:</value>
-  </data>
+  
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>Video soubor...</value>
   </data>
@@ -550,12 +521,6 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>Detaily enkódování</value>
   </data>
-  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
-    <value>Nastavení enkódování bylo změněno od posledního přidání položky do fronty. Chcete použít stávající nastavení enkódování pro všechny položky ve frontě?</value>
-  </data>
-  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
-    <value>Došlo ke změně nastavení</value>
-  </data>
   <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>Chcete přejmenovat existující soubor a začít s novým?</value>
   </data>
@@ -601,6 +566,33 @@
   <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
     <value>Došlo k chybě při načítání některých souborů a nebyly přidány do fronty: {0}</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
 </root>

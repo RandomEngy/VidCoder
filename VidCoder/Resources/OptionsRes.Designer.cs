@@ -187,7 +187,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose the default output directory for encoded video files..
+        ///   Looks up a localized string similar to Choose the default output folder for encoded video files..
         /// </summary>
         public static string ChooseDefaultOutputFolder {
             get {
@@ -205,7 +205,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copy the encode log to the same directory as the encoded video.
+        ///   Looks up a localized string similar to Copy the encode log to the same folder as the encoded video.
         /// </summary>
         public static string CopyLogToOutputFolderLabel {
             get {
@@ -214,7 +214,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CPU throttling:.
+        ///   Looks up a localized string similar to CPU throttling - Allowed Cores:.
         /// </summary>
         public static string CpuThrottlingLabel {
             get {
@@ -387,6 +387,15 @@ namespace VidCoder.Resources {
         /// <summary>
         ///   Looks up a localized string similar to General.
         /// </summary>
+        public static string GeneralSection {
+            get {
+                return ResourceManager.GetString("GeneralSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
         public static string GeneralTab {
             get {
                 return ResourceManager.GetString("GeneralTab", resourceCulture);
@@ -412,15 +421,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Languages.
-        /// </summary>
-        public static string LanguagesSection {
-            get {
-                return ResourceManager.GetString("LanguagesSection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Logging.
         /// </summary>
         public static string LoggingSection {
@@ -435,6 +435,24 @@ namespace VidCoder.Resources {
         public static string LoggingVerbosityLabel {
             get {
                 return ResourceManager.GetString("LoggingVerbosityLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum simultaneous encoding jobs:.
+        /// </summary>
+        public static string MaxSimultaneousEncodesLabel {
+            get {
+                return ResourceManager.GetString("MaxSimultaneousEncodesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is how many simultaneous encode jobs are allowed. Useful for machines with many CPU cores..
+        /// </summary>
+        public static string MaxSimultaneousEncodesToolTip {
+            get {
+                return ResourceManager.GetString("MaxSimultaneousEncodesToolTip", resourceCulture);
             }
         }
         
@@ -646,6 +664,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Prompt for updates:.
+        /// </summary>
+        public static string PromptForUpdatesLabel {
+            get {
+                return ResourceManager.GetString("PromptForUpdatesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recognized Extensions:.
         /// </summary>
         public static string RecognizedExtensionsLabel {
@@ -705,6 +732,15 @@ namespace VidCoder.Resources {
         public static string SystemTraySection {
             get {
                 return ResourceManager.GetString("SystemTraySection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme.
+        /// </summary>
+        public static string ThemeLabel {
+            get {
+                return ResourceManager.GetString("ThemeLabel", resourceCulture);
             }
         }
         

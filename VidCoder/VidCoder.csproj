@@ -10,7 +10,8 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>VidCoder</RootNamespace>
     <AssemblyName>VidCoder</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -42,7 +43,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <CodeAnalysisLogFile>bin\Debug\VidCoder.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
@@ -83,34 +84,62 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="ColorPickerWPF">
+      <Version>1.0.9</Version>
+    </PackageReference>
     <PackageReference Include="DesktopBridge.Helpers" Version="1.1" />
-    <PackageReference Include="Extended.Wpf.Toolkit" Version="2.9" />
-    <PackageReference Include="FastMember" Version="1.0.0.11" />
-    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.0.8" />
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
-    <PackageReference Include="reactiveui" Version="6.5.0" />
-    <PackageReference Include="reactiveui-core" Version="6.5.0" />
-    <PackageReference Include="Rx-Core" Version="2.2.5" />
-    <PackageReference Include="Rx-Interfaces" Version="2.2.5" />
-    <PackageReference Include="Rx-Linq" Version="2.2.5" />
-    <PackageReference Include="Rx-Main" Version="2.2.5" />
-    <PackageReference Include="Rx-PlatformServices" Version="2.2.5" />
-    <PackageReference Include="Rx-XAML" Version="2.2.5" />
-    <PackageReference Include="Splat" Version="1.6.2" />
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.105.1" />
+    <PackageReference Include="DynamicData">
+      <Version>6.7.1.2534</Version>
+    </PackageReference>
+    <PackageReference Include="Fluent.Ribbon">
+      <Version>7.0.0-alpha0532</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AnyContainer">
+      <Version>1.0.0-beta201808141</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AnyContainer.DryIoc">
+      <Version>1.0.0-beta201808141</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CSharp">
+      <Version>4.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="reactiveui" Version="9.4.1" />
+    <PackageReference Include="ReactiveUI.WPF">
+      <Version>9.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="Splat" Version="5.1.4" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.109.2" />
+    <PackageReference Include="System.Reactive">
+      <Version>4.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Reactive.Core">
+      <Version>4.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Reactive.Interfaces">
+      <Version>4.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Reactive.Linq">
+      <Version>4.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Reactive.PlatformServices">
+      <Version>4.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Reactive.Windows.Threading">
+      <Version>4.0.0</Version>
+    </PackageReference>
     <PackageReference Include="UDE.CSharp" Version="1.1.0" />
-    <PackageReference Include="Unity" Version="4.0.1" />
-    <PackageReference Include="valueinjecter" Version="3.1.1.3" />
+    <PackageReference Include="valueinjecter" Version="3.1.3" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="HandBrake.ApplicationServices, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\HandBrake.ApplicationServices.dll</HintPath>
+    <Reference Include="HandBrake.Interop">
+      <HintPath>..\Lib\HandBrake.Interop.dll</HintPath>
     </Reference>
     <Reference Include="Ookii.Dialogs.Wpf">
       <HintPath>..\Lib\Ookii.Dialogs.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -123,6 +152,10 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.WindowsRuntime, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETCore\v4.5\System.Runtime.WindowsRuntime.dll</HintPath>
+    </Reference>
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Forms" />
@@ -137,6 +170,10 @@
     <Reference Include="System.Xml" />
     <Reference Include="UIAutomationProvider">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Windows, Version=255.255.255.255, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Windows Kits\10\UnionMetadata\Windows.winmd</HintPath>
     </Reference>
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
@@ -154,6 +191,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\PaddingFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PickerList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -190,6 +231,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\VideoSeekBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Dark.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\HighContrast.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Light.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -309,18 +362,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\SubtitleDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Automation\AutomationHost.cs" />
     <Compile Include="Automation\VidCoderAutomation.cs" />
+    <Compile Include="Behaviors\IgnoreMouseWheelBehavior.cs" />
     <Compile Include="Controls\PaddingFrame.xaml.cs">
       <DependentUpon>PaddingFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PickerList.xaml.cs">
+      <DependentUpon>PickerList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PresetComboBox.cs" />
     <Compile Include="Controls\PresetTreeView.cs" />
@@ -354,7 +407,6 @@
     <Compile Include="Converters\PercentDisplayConverter.cs" />
     <Compile Include="Converters\SampleRateDisplayConverter.cs" />
     <Compile Include="Converters\ChapterVMConverter.cs" />
-    <Compile Include="Converters\TitleDisplayConverter.cs" />
     <Compile Include="DataReaderExtensions.cs" />
     <Compile Include="DragDrop\MoveToFolderAdorner.cs" />
     <Compile Include="EnumStringConverter.cs" />
@@ -368,18 +420,24 @@
     <Compile Include="Extensions\VCProfileExtensions.cs" />
     <Compile Include="Extensions\VersionExtensions.cs" />
     <Compile Include="Extensions\WindowExtensions.cs" />
+    <Compile Include="LayoutPanels\TruncatePanel.cs" />
+    <Compile Include="Model\AppThemeChoice.cs" />
+    <Compile Include="Model\EncodeCompleteTrigger.cs" />
+    <Compile Include="Model\TitleCapitalizationChoice.cs" />
     <Compile Include="Model\Config\ConfigObservable.cs" />
     <Compile Include="Model\EncodeJobsXml.cs" />
-    <Compile Include="Model\EncodeProgress.cs" />
     <Compile Include="Model\EncodeResultStatus.cs" />
     <Compile Include="Model\EncodeCompleteReason.cs" />
+    <Compile Include="Model\FileEncodeProgress.cs" />
     <Compile Include="Model\FolderType.cs" />
+    <Compile Include="Model\JobWork.cs" />
     <Compile Include="Model\PresetFolder.cs" />
     <Compile Include="Model\PresetFolderStorage.cs" />
     <Compile Include="Model\PresetWrapper.cs" />
     <Compile Include="Model\PreviewControls.cs" />
     <Compile Include="Model\PreviewEncodeState.cs" />
     <Compile Include="Model\PreviewMainDisplay.cs" />
+    <Compile Include="Model\UpdatePromptTiming.cs" />
     <Compile Include="Model\VideoSourceState.cs" />
     <Compile Include="Model\TitleType.cs" />
     <Compile Include="Model\Picker.cs">
@@ -463,7 +521,6 @@
     <Compile Include="Model\DatabaseConfig.cs" />
     <Compile Include="Model\EncodeCompleteAction.cs" />
     <Compile Include="Model\EncodeCompleteActionType.cs" />
-    <Compile Include="Model\EncodeJobCollection.cs" />
     <Compile Include="Model\EncodeJobPersistGroup.cs" />
     <Compile Include="Model\EncodeJobWithMetadata.cs" />
     <Compile Include="Model\EncodeResult.cs" />
@@ -486,11 +543,27 @@
     <Compile Include="Services\HandBrakeProxy\LocalScanProxy.cs" />
     <Compile Include="Services\HandBrakeProxy\RemoteProxyBase.cs" />
     <Compile Include="Services\HandBrakeProxy\RemoteScanProxy.cs" />
+    <Compile Include="Services\Interfaces\IAppThemeService.cs" />
+    <Compile Include="Services\MainAppLogger.cs" />
+    <Compile Include="Services\Notifications\BetaNotificationActivator.cs" />
+    <Compile Include="Services\Notifications\BridgeToastNotificationDispatchService.cs" />
+    <Compile Include="Services\Notifications\DesktopToastNotificationDispatchService.cs" />
+    <Compile Include="Services\Notifications\IToastNotificationDispatchService.cs" />
+    <Compile Include="Services\Notifications\IToastNotificationService.cs" />
+    <Compile Include="Services\Notifications\NotificationActivator.cs" />
+    <Compile Include="Services\Notifications\StubToastNotificationService.cs" />
+    <Compile Include="Services\Notifications\ToastNotificationService.cs" />
     <Compile Include="Services\OutputSizeService.cs" />
     <Compile Include="Services\PendingAutoChange.cs" />
+    <Compile Include="Services\PreviewImageLoadInfo.cs" />
+    <Compile Include="Services\PreviewImageService.cs" />
+    <Compile Include="Services\PreviewImageServiceClient.cs" />
     <Compile Include="Services\PreviewUpdateService.cs" />
     <Compile Include="Services\StatusService.cs" />
     <Compile Include="Services\StubLogger.cs" />
+    <Compile Include="Services\SubtitlesService.cs" />
+    <Compile Include="Services\AppTheme.cs" />
+    <Compile Include="Services\AppThemeService.cs" />
     <Compile Include="Services\Windows\IClosableWindow.cs" />
     <Compile Include="Services\Interfaces\IAppLogger.cs" />
     <Compile Include="Services\Interfaces\IPresetImportExport.cs" />
@@ -511,6 +584,7 @@
     <Compile Include="Services\Windows\WindowManager.cs" />
     <Compile Include="Services\Windows\WindowMenuItemViewModel.cs" />
     <Compile Include="Services\Windows\WindowPlacer.cs" />
+    <Compile Include="Services\QueueWorkTracker.cs" />
     <Compile Include="Utilities\AdvancedOptionsParsing.cs" />
     <Compile Include="Utilities\BitmapUtilities.cs" />
     <Compile Include="Utilities\CodecUtilities.cs" />
@@ -532,6 +606,7 @@
     <Compile Include="Utilities\MvvmUtilities.cs" />
     <Compile Include="Utilities\NativeMethods.cs" />
     <Compile Include="Utilities\ParentProcessUtilities.cs" />
+    <Compile Include="Utilities\ParseUtilities.cs" />
     <Compile Include="Utilities\PresetConverter.cs" />
     <Compile Include="Utilities\PseudoLocalizer.cs" />
     <Compile Include="Utilities\RefireControl.cs" />
@@ -546,6 +621,8 @@
     <Compile Include="Services\PresetsService.cs" />
     <Compile Include="Services\ProcessingService.cs" />
     <Compile Include="Services\WindowXamlHelper.cs" />
+    <Compile Include="Services\Notifications\StableNotificationActivator.cs" />
+    <Compile Include="Utilities\ResolutionUtilities.cs" />
     <Compile Include="Utilities\XamlStatics.cs" />
     <Compile Include="ViewModel\CustomMessageDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\AdvancedChoices.cs" />
@@ -559,7 +636,8 @@
     <Compile Include="ViewModel\DataModels\PickerViewModel.cs" />
     <Compile Include="ViewModel\DataModels\PresetFolderViewModel.cs" />
     <Compile Include="ViewModel\DataModels\RotationViewModel.cs" />
-    <Compile Include="ViewModel\DataModels\SizingPreviewLineViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\InfoLineViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\SourceTitleViewModel.cs" />
     <Compile Include="ViewModel\DataModels\VideoEncoderViewModel.cs" />
     <Compile Include="ViewModel\EncodeDetailsWindowViewModel.cs" />
     <Compile Include="ViewModel\DataModels\InterfaceLanguage.cs" />
@@ -606,7 +684,6 @@
     <Compile Include="View\Preview\PreviewPlaybackControls.xaml.cs">
       <DependentUpon>PreviewPlaybackControls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\RestoreWindowCommand.cs" />
     <Compile Include="Utilities\SourceHistory.cs" />
     <Compile Include="Utilities\SystemSleepManagement.cs" />
     <Compile Include="Utilities\UIUtilities.cs" />
@@ -672,6 +749,30 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="XamlResources\Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XamlResources\ComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XamlResources\GridViewColumnHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XamlResources\ListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XamlResources\ListViewItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XamlResources\PresetComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
@@ -729,7 +830,6 @@
     </Compile>
     <Compile Include="Model\VideoSource.cs" />
     <Compile Include="IDialog.cs" />
-    <Compile Include="ViewModel\DataModels\AudioChoiceViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\OkCancelDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\SourceOptionViewModel.cs" />
@@ -737,7 +837,6 @@
     <Compile Include="ViewModel\DataModels\SrtSubtitleViewModel.cs" />
     <Compile Include="ViewModel\OptionsDialogViewModel.cs" />
     <Compile Include="ViewModel\PreviewWindowViewModel.cs" />
-    <Compile Include="ViewModel\SubtitleDialogViewModel.cs" />
     <Compile Include="View\ApplyUpdateConfirmation.xaml.cs">
       <DependentUpon>ApplyUpdateConfirmation.xaml</DependentUpon>
     </Compile>
@@ -759,9 +858,6 @@
     <Compile Include="View\ShutdownWarningWindow.xaml.cs">
       <DependentUpon>ShutdownWarningWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\SubtitleDialog.xaml.cs">
-      <DependentUpon>SubtitleDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Panels\VideoFiltersPanel.xaml.cs">
       <DependentUpon>VideoFiltersPanel.xaml</DependentUpon>
     </Compile>
@@ -775,7 +871,6 @@
     <Resource Include="Icons\video_files_folder.png" />
     <Resource Include="Icons\Empty.png" />
     <Resource Include="Icons\redo.png" />
-    <Resource Include="Icons\Hammer.png" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ChapterMarkersRes.Designer.cs</LastGenOutput>
@@ -861,15 +956,6 @@
     <Resource Include="Icons\warning.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\downarrow_shadow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\pause2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\stop_shadow.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="..\Lib\hb.dll">
       <Link>hb.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -885,6 +971,23 @@
     <Content Include="Encode_Complete.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\Reload.png" />
+    <Resource Include="Icons\ChapterMarkers.png" />
+    <Resource Include="Icons\Subtitles.png" />
+    <Resource Include="Icons\Audio.png" />
+    <Resource Include="Icons\ImportExport.png" />
+    <Resource Include="Icons\VidCoder32.png" />
+    <Resource Include="Icons\Help.png" />
+    <Resource Include="Icons\Preview64.png" />
+    <Resource Include="Icons\Disc64.png" />
+    <Resource Include="Icons\Windows.png" />
+    <Resource Include="Icons\Picker.png" />
+    <Resource Include="Icons\EncodingSettings.png" />
+    <Resource Include="Icons\Options.png" />
+    <Resource Include="Icons\Stop.png" />
+    <Resource Include="Icons\Pause.png" />
+    <Resource Include="Icons\Encode.png" />
+    <Resource Include="Icons\AddToQueue.png" />
     <Resource Include="Icons\add_folder.png" />
     <Resource Include="Icons\delete_folder.png" />
     <Resource Include="Icons\rename_folder.png" />
@@ -898,7 +1001,6 @@
     <Resource Include="Icons\edit_16x16.png" />
     <SplashScreen Include="splash.png" />
     <Resource Include="Icons\video-file.png" />
-    <Resource Include="Icons\encode_160.png" />
     <Resource Include="Icons\bludisc.png" />
     <Resource Include="Icons\edit_2.png" />
     <Resource Include="Icons\play_clip.png" />
@@ -907,11 +1009,7 @@
     <Resource Include="Icons\failed.png" />
     <Resource Include="Icons\succeeded.png" />
     <Resource Include="Icons\undo_16x16.png" />
-    <Resource Include="Icons\help_16.png" />
-    <Resource Include="Icons\VidCoder_small.png" />
-    <Resource Include="Icons\preview.png" />
     <Resource Include="Icons\VidCoder.png" />
-    <Resource Include="Icons\error.png" />
     <Resource Include="Icons\copy.png" />
     <Resource Include="Icons\save.png" />
     <Resource Include="VidCoder_icon.ico" />
@@ -962,6 +1060,6 @@
   <Target Name="BeforeBuild">
   </Target> -->
   <Target Name="AfterBuild" DependsOnTargets="AssignTargetPaths;Compile;ResolveKeySource" Inputs="$(MSBuildAllProjects);@(IntermediateAssembly)" Outputs="$(OutputPath)$(_SGenDllName)">
-    <Copy SourceFiles="..\Lib\HandBrake.ApplicationServices.pdb" DestinationFolder="$(OutDir)" />
+    <Copy SourceFiles="..\Lib\HandBrake.Interop.pdb" DestinationFolder="$(OutDir)" />
   </Target>
 </Project>

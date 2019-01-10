@@ -1123,4 +1123,54 @@ Lapsharp 銳利化使用卷積核預估拉普拉斯邊緣濾波器，有時可�
   <data name="ChooseNewFolderName" xml:space="preserve">
     <value>選取資料夾的新名稱:</value>
   </data>
+  <data name="NVEncPreset_losslesshp" xml:space="preserve">
+    <value>高性能無損</value>
+  </data>
+  <data name="NVEncPreset_lossless" xml:space="preserve">
+    <value>無損</value>
+  </data>
+  <data name="NVEncPreset_llhp" xml:space="preserve">
+    <value>高性能低延遲</value>
+  </data>
+  <data name="NVEncPreset_llhq" xml:space="preserve">
+    <value>高品質低延遲</value>
+  </data>
+  <data name="NVEncPreset_ll" xml:space="preserve">
+    <value>低延遲</value>
+  </data>
+  <data name="NVEncPreset_bd" xml:space="preserve">
+    <value>藍光碟片</value>
+  </data>
+  <data name="NVEncPreset_hq" xml:space="preserve">
+    <value>高品質</value>
+  </data>
+  <data name="NVEncPreset_hp" xml:space="preserve">
+    <value>高效能</value>
+  </data>
+  <data name="PickColorButton" xml:space="preserve">
+    <value>選擇顏色...</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>底部</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>左側</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>右側</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>頂部</value>
+  </data>
+  <data name="PixelAspectRatioNumeratorAutomationName" xml:space="preserve">
+    <value>長寬比分子</value>
+    <comment>Name for the pixel aspect ratio numerator box for screen readers</comment>
+  </data>
+  <data name="PixelAspectRatioDenominatorAutomationName" xml:space="preserve">
+    <value>長寬比分母</value>
+    <comment>Name for the pixel aspect ratio denominator box for screen readers</comment>
+  </data>
+  <data name="ApplyToQueueButton" xml:space="preserve">
+    <value>套用至佇列</value>
+  </data>
 </root>

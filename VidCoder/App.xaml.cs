@@ -5,7 +5,6 @@ using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
-using HandBrake.ApplicationServices.Interop;
 using Newtonsoft.Json;
 using VidCoder.Model;
 using VidCoder.Properties;
@@ -15,6 +14,14 @@ using VidCoder.ViewModel;
 using System.IO.Pipes;
 using System.IO;
 using System.ComponentModel;
+using System.Management;
+using System.Runtime.InteropServices;
+using System.Security.Principal;
+using System.Windows.Media;
+using Fluent;
+using HandBrake.Interop.Interop;
+using Microsoft.Win32;
+using VidCoder.Services.Notifications;
 using VidCoder.View;
 using VidCoderCommon;
 using VidCoderCommon.Utilities;
@@ -24,6 +31,7 @@ namespace VidCoder
 	using System.Globalization;
 	using System.Threading;
 	using Automation;
+	using Microsoft.AnyContainer;
 	using Resources;
 
 	/// <summary>
@@ -34,6 +42,10 @@ namespace VidCoder
 		public static bool IsPrimaryInstance { get; private set; }
 
 		private static Mutex mutex;
+
+		private IAppThemeService appThemeService;
+
+		private AppTheme currentTheme = AppTheme.Light;
 
 		static App()
 		{
@@ -49,10 +61,15 @@ namespace VidCoder
 
 		protected override void OnStartup(StartupEventArgs e)
 		{
-#if !DEBUG
-			this.DispatcherUnhandledException += this.OnDispatcherUnhandledException;
-#endif
-			base.OnStartup(e);
+			if (e.Args.Contains("-ToastActivated"))
+			{
+				return;
+			}
+
+			if (!Debugger.IsAttached)
+			{
+				this.DispatcherUnhandledException += this.OnDispatcherUnhandledException;
+			}
 
 			OperatingSystem OS = Environment.OSVersion;
 			if (OS.Version.Major <= 5)
@@ -79,7 +96,17 @@ namespace VidCoder
 
 			JsonSettings.SetDefaultSerializationSettings();
 
-			// Takes about 50ms
+			Ioc.SetUp();
+
+			try
+			{
+				Database.Initialize();
+			}
+			catch (Exception)
+			{
+				Environment.Exit(0);
+			}
+
 			Config.EnsureInitialized(Database.Connection);
 
 			var interfaceLanguageCode = Config.InterfaceLanguageCode;
@@ -92,6 +119,8 @@ namespace VidCoder
 				CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 			}
 
+			Stopwatch sw = Stopwatch.StartNew();
+
 			if (Config.UseCustomPreviewFolder && FileUtilities.HasWriteAccessOnFolder(Config.PreviewOutputFolder))
 			{
 				Environment.SetEnvironmentVariable("TMP", Config.PreviewOutputFolder, EnvironmentVariableTarget.Process);
@@ -99,7 +128,11 @@ namespace VidCoder
 				FileUtilities.TempFolderOverride = Config.PreviewOutputFolder;
 			}
 
-			var updater = Ioc.Get<IUpdater>();
+			var updater = StaticResolver.Resolve<IUpdater>();
+
+			sw.Stop();
+			System.Diagnostics.Debug.WriteLine("Startup time: " + sw.Elapsed);
+
 			updater.HandlePendingUpdate();
 
 			try
@@ -113,8 +146,26 @@ namespace VidCoder
 
 			this.GlobalInitialize();
 
+			this.appThemeService = StaticResolver.Resolve<IAppThemeService>();
+			this.appThemeService.AppThemeObservable.Subscribe(appTheme =>
+			{
+				if (appTheme != this.currentTheme)
+				{
+					this.currentTheme = appTheme;
+					this.ChangeTheme(new Uri($"/Themes/{appTheme}.xaml", UriKind.Relative));
+
+					bool isDark = appTheme == AppTheme.Dark;
+
+					string fluentTheme = isDark ? "Dark" : "Light";
+					ThemeManager.ChangeTheme(this, fluentTheme + ".Cobalt");
+
+					Color ribbonTextColor = isDark ? Colors.White : Colors.Black;
+					this.Resources["Fluent.Ribbon.Brushes.LabelTextBrush"] = new SolidColorBrush(ribbonTextColor);
+				}
+			});
+
 			var mainVM = new MainViewModel();
-			Ioc.Get<IWindowManager>().OpenWindow(mainVM);
+			StaticResolver.Resolve<IWindowManager>().OpenWindow(mainVM);
 			mainVM.OnLoaded();
 
 			if (e.Args.Length > 0)
@@ -126,6 +177,8 @@ namespace VidCoder
 			{
 				AutomationHost.StartListening();
 			}
+
+			base.OnStartup(e);
 		}
 
 		protected override void OnExit(ExitEventArgs e)
@@ -140,11 +193,18 @@ namespace VidCoder
 				{
 				}
 			}
+
+			this.appThemeService?.Dispose();
 		}
 
 		private void GlobalInitialize()
 		{
 			HandBrakeUtils.SetDvdNav(Config.EnableLibDvdNav);
+		}
+
+		public void ChangeTheme(Uri uri)
+		{
+			this.Resources.MergedDictionaries[0].Source = uri;
 		}
 
 		private void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

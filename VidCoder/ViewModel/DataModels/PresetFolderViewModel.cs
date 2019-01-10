@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using DynamicData;
+using DynamicData.Aggregation;
+using DynamicData.Binding;
 using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.Services;
@@ -17,33 +22,24 @@ namespace VidCoder.ViewModel.DataModels
 
 		public static PresetFolderViewModel FromPresetFolder(PresetFolder folder, PresetsService passedPresetsService)
 		{
-			return new PresetFolderViewModel(passedPresetsService, folder.IsExpanded)
+			return new PresetFolderViewModel(passedPresetsService, folder.IsExpanded, isBuiltIn: false, id: folder.Id)
 			{
 				Name = folder.Name,
-				Id = folder.Id,
-				ParentId = folder.ParentId,
-				IsBuiltIn = false,
+				ParentId = folder.ParentId
 			};
 		}
 
-		public PresetFolderViewModel(PresetsService presetsService, bool isExpanded)
+		public PresetFolderViewModel(PresetsService presetsService, bool isExpanded, bool isBuiltIn, long id = 0)
 		{
 			this.presetsService = presetsService;
 			this.isExpanded = isExpanded;
+			this.IsBuiltIn = isBuiltIn;
+			this.Id = id;
 
-			IObservable<bool> canRemove = this.WhenAnyValue(x => x.SubFolders.Count, x => x.Items.Count, (numSubfolders, numItems) =>
-			{
-				return numSubfolders == 0 && numItems == 0 && this.Id != 0;
-			});
-
-			this.CreateSubfolder = ReactiveCommand.Create();
-			this.CreateSubfolder.Subscribe(_ => this.CreateSubfolderImpl());
-
-			this.RenameFolder = ReactiveCommand.Create();
-			this.RenameFolder.Subscribe(_ => this.RenameFolderImpl());
-
-			this.RemoveFolder = ReactiveCommand.Create(canRemove);
-			this.RemoveFolder.Subscribe(_ => this.RemoveFolderImpl());
+			this.AllItems
+				.Connect()
+				.Bind(this.AllItemsBindable)
+				.Subscribe();
 
 			this.WhenAnyValue(x => x.IsExpanded)
 				.Skip(1)
@@ -66,13 +62,13 @@ namespace VidCoder.ViewModel.DataModels
 			set { this.RaiseAndSetIfChanged(ref this.name, value); }
 		}
 
-		public long Id { get; set; }
+		public long Id { get; }
 
 		public long ParentId { get; set; }
 
 		public PresetFolderViewModel Parent { get; set; }
 
-		public bool IsBuiltIn { get; set; }
+		public bool IsBuiltIn { get; }
 
 		public bool IsNotRoot => this.Id != 0;
 
@@ -80,11 +76,16 @@ namespace VidCoder.ViewModel.DataModels
 		/// The flat list of both subfolders and items.
 		/// </summary>
 		/// <remarks>Subfolders are before items, and everything is alphabetical.</remarks>
-		public ReactiveList<object> AllItems { get; } = new ReactiveList<object>();
+		public SourceList<object> AllItems { get; } = new SourceList<object>();
+		public ObservableCollectionExtended<object> AllItemsBindable { get; } = new ObservableCollectionExtended<object>();
 
-		public ReactiveList<PresetFolderViewModel> SubFolders { get; } = new ReactiveList<PresetFolderViewModel>();
+		public SourceList<PresetFolderViewModel> SubFolders { get; } = new SourceList<PresetFolderViewModel>();
 
-		public ReactiveList<PresetViewModel> Items { get; } = new ReactiveList<PresetViewModel>();
+		//private readonly IObservable<int> subFolderCountObservable;
+
+		public SourceList<PresetViewModel> Items { get; } = new SourceList<PresetViewModel>();
+
+		//private readonly IObservable<int> itemsCountObservable;
 
 		private bool isExpanded;
 		public bool IsExpanded
@@ -117,7 +118,7 @@ namespace VidCoder.ViewModel.DataModels
 				}
 
 				// If we made it to the presets, add there at end of folder list.
-				object item = this.AllItems[insertionIndex];
+				object item = this.AllItems.Items.ElementAt(insertionIndex);
 				var preset = item as PresetViewModel;
 				if (preset != null)
 				{
@@ -167,7 +168,7 @@ namespace VidCoder.ViewModel.DataModels
 				}
 
 				// If we are still on folders, keep going
-				object item = this.AllItems[insertionIndex];
+				object item = this.AllItems.Items.ElementAt(insertionIndex);
 				var folder = item as PresetFolderViewModel;
 				if (folder != null)
 				{
@@ -191,22 +192,56 @@ namespace VidCoder.ViewModel.DataModels
 			this.AllItems.Remove(presetViewModel);
 		}
 
-		public ReactiveCommand<object> CreateSubfolder { get; }
-		private void CreateSubfolderImpl()
+		private ReactiveCommand<Unit, Unit> createSubfolder;
+		public ICommand CreateSubfolder
 		{
-			this.presetsService.CreateSubFolder(this);
+			get
+			{
+				return this.createSubfolder ?? (this.createSubfolder = ReactiveCommand.Create(() =>
+				{
+					this.presetsService.CreateSubFolder(this);
+				}));
+			}
 		}
 
-		public ReactiveCommand<object> RenameFolder { get; }
-		private void RenameFolderImpl()
+		private ReactiveCommand<Unit, Unit> renameFolder;
+		public ICommand RenameFolder
 		{
-			this.presetsService.RenameFolder(this);
+			get
+			{
+				return this.renameFolder ?? (this.renameFolder = ReactiveCommand.Create(() =>
+				{
+					this.presetsService.RenameFolder(this);
+				}));
+			}
 		}
 
-		public ReactiveCommand<object> RemoveFolder { get; }
-		private void RemoveFolderImpl()
+		private IObservable<bool> canRemoveFolderObservable;
+		private ReactiveCommand<Unit, Unit> removeFolder;
+		public ICommand RemoveFolder
 		{
-			this.presetsService.RemoveFolder(this);
+			get
+			{
+				if (this.removeFolder == null)
+				{
+					this.canRemoveFolderObservable = Observable.CombineLatest(
+						this.SubFolders.Connect().Count().StartWith(this.SubFolders.Count),
+						this.Items.Connect().Count().StartWith(this.Items.Count),
+						(numSubfolders, numItems) =>
+						{
+							return numSubfolders == 0 && numItems == 0 && this.Id != 0;
+						});
+
+					this.removeFolder = ReactiveCommand.Create(
+						() =>
+						{
+							this.presetsService.RemoveFolder(this);
+						},
+						this.canRemoveFolderObservable);
+				}
+
+				return this.removeFolder;
+			}
 		}
 
 		private bool ReselectPresetOnExpanded(PresetFolderViewModel presetFolderViewModel)
@@ -216,13 +251,13 @@ namespace VidCoder.ViewModel.DataModels
 				return false;
 			}
 
-			if (presetFolderViewModel.Items.Contains(this.presetsService.SelectedPreset))
+			if (presetFolderViewModel.Items.Items.Contains(this.presetsService.SelectedPreset))
 			{
 				this.presetsService.SelectedPreset.IsSelected = true;
 				return true;
 			}
 
-			foreach (var subFolder in presetFolderViewModel.SubFolders)
+			foreach (var subFolder in presetFolderViewModel.SubFolders.Items)
 			{
 				if (this.ReselectPresetOnExpanded(subFolder))
 				{

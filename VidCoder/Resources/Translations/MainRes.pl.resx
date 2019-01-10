@@ -120,17 +120,11 @@
   <data name="TitleLabel" xml:space="preserve">
     <value>Tytuł:</value>
   </data>
-  <data name="SettingsLabel" xml:space="preserve">
-    <value>Ustawienia</value>
-  </data>
   <data name="AddToQueueLabel" xml:space="preserve">
     <value>Dodaj do Kolejki</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
     <value>Dodaj kilka tytułów do kolejki...</value>
-  </data>
-  <data name="FileMenu" xml:space="preserve">
-    <value>Plik</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
     <value>Otwórz plik wideo...</value>
@@ -141,9 +135,6 @@
   <data name="EnqueueMultipleFiles" xml:space="preserve">
     <value>Dodaj do kolejki kilka plików...</value>
   </data>
-  <data name="EnqueueMultipleTitles" xml:space="preserve">
-    <value>Dodaj do kolejki kilka plików...</value>
-  </data>
   <data name="ToolsMenu" xml:space="preserve">
     <value>Narzędzia</value>
   </data>
@@ -152,9 +143,6 @@
   </data>
   <data name="ExportPreset" xml:space="preserve">
     <value>Eksportuj Ustawienia...</value>
-  </data>
-  <data name="OptionsMenuItem" xml:space="preserve">
-    <value>Opcje...</value>
   </data>
   <data name="Play" xml:space="preserve">
     <value>Odtwórz</value>
@@ -167,9 +155,6 @@
   </data>
   <data name="ClearCompleted" xml:space="preserve">
     <value>Wyczyść Ukończone</value>
-  </data>
-  <data name="ExitMenuItem" xml:space="preserve">
-    <value>Wyjście</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Okna programu</value>
@@ -202,9 +187,6 @@
   <data name="SourceLabel" xml:space="preserve">
     <value>Źródło:</value>
   </data>
-  <data name="ScanningSourceLabel" xml:space="preserve">
-    <value>Skanowanie źródła...</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>Ostatnie</value>
   </data>
@@ -213,15 +195,6 @@
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>Wystąpił błąd podczas skanowania.</value>
-  </data>
-  <data name="AudioLabel" xml:space="preserve">
-    <value>Audio:</value>
-  </data>
-  <data name="VideoLabel" xml:space="preserve">
-    <value>Wideo:</value>
-  </data>
-  <data name="SubtitlesLabel" xml:space="preserve">
-    <value>Napisy:</value>
   </data>
   <data name="AddTrackButton" xml:space="preserve">
     <value>Dodać Ścieżkę</value>
@@ -385,9 +358,7 @@
   <data name="EtaLabel" xml:space="preserve">
     <value>ETA:</value>
   </data>
-  <data name="WhenDoneLabel" xml:space="preserve">
-    <value>Po zakończeniu:</value>
-  </data>
+  
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>Plik wideo...</value>
   </data>
@@ -546,12 +517,6 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>Szczegóły kompresji</value>
   </data>
-  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
-    <value>Ustawienia enkodowania uległy zmianie od ostatnio dodanego elementu kolejki. Czy chcesz zastosować bieżące ustawienia kodowania dla wszystkich elementów w kolejce?</value>
-  </data>
-  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
-    <value>Ustawienia zostały zmienione</value>
-  </data>
   <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>Czy chcesz zmienić nazwę istniejącego pliku i rozpocząć z nowym?</value>
   </data>
@@ -581,6 +546,33 @@
     <value>Nie można odnaleźć odtwarzacza wideo w {0}.</value>
     <comment>{0} is the path to the custom video player.</comment>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

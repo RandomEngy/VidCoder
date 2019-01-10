@@ -11,6 +11,7 @@ namespace VidCoder.Model
 		Disabled = 0,
 		None = 4,
 		First = 5,
+		ByIndex = 6,
 		ForeignAudioSearch = 1,
 		Language = 2,
 		All = 3

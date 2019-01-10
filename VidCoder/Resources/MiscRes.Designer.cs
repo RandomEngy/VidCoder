@@ -124,11 +124,11 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} Beta ({1}).
+        ///   Looks up a localized string similar to {0} Beta.
         /// </summary>
-        public static string BetaVersionFormat {
+        public static string BetaVersionFormat2 {
             get {
-                return ResourceManager.GetString("BetaVersionFormat", resourceCulture);
+                return ResourceManager.GetString("BetaVersionFormat2", resourceCulture);
             }
         }
         
@@ -453,15 +453,6 @@ namespace VidCoder.Resources {
         public static string Version {
             get {
                 return ResourceManager.GetString("Version", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} ({1}).
-        /// </summary>
-        public static string VersionFormat {
-            get {
-                return ResourceManager.GetString("VersionFormat", resourceCulture);
             }
         }
         

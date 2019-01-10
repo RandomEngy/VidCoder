@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reactive;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
@@ -10,7 +12,7 @@ namespace VidCoder
 	/// </summary>
 	public class WindowXamlHelper : ReactiveObject
 	{
-		private IWindowManager windowManager = Ioc.Get<IWindowManager>();
+		private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
 
 		public WindowXamlHelper()
 		{
@@ -29,14 +31,12 @@ namespace VidCoder
 				}
 			};
 
-			this.OpenPreviewWindow = ReactiveCommand.Create();
-			this.OpenPreviewWindow.Subscribe(_ =>
+			this.OpenPreviewWindow = ReactiveCommand.Create(() =>
 			{
 				this.windowManager.OpenOrFocusWindow(typeof(PreviewWindowViewModel));
 			});
 
-			this.OpenPickerWindow = ReactiveCommand.Create();
-			this.OpenPickerWindow.Subscribe(_ =>
+			this.OpenPickerWindow = ReactiveCommand.Create(() =>
 			{
 				this.windowManager.OpenOrFocusWindow(typeof(PickerWindowViewModel));
 			});
@@ -49,7 +49,7 @@ namespace VidCoder
 			set { this.RaiseAndSetIfChanged(ref this.previewWindowOpen, value); }
 		}
 
-		public ReactiveCommand<object> OpenPreviewWindow { get; private set; }
-		public ReactiveCommand<object> OpenPickerWindow { get; private set; }
+		public ReactiveCommand<Unit, Unit> OpenPreviewWindow { get; private set; }
+		public ReactiveCommand<Unit, Unit> OpenPickerWindow { get; private set; }
 	}
 }

@@ -148,6 +148,7 @@ Diesem Programm wurde eine vollständige Kopie der GNU General Public beigelegt.
   </data>
   <data name="QueueColumnNameTitle" xml:space="preserve">
     <value>Titel</value>
+    <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
   <data name="QueueColumnNameAudioQuality" xml:space="preserve">
     <value>Audio Qualität</value>
@@ -162,10 +163,10 @@ Diesem Programm wurde eine vollständige Kopie der GNU General Public beigelegt.
     <value>Video Qualität</value>
   </data>
   <data name="QueueEtaToolTip" xml:space="preserve">
-    <value>Voraussichtliche Zeit bis zur Fertigstellung aller Jobs in der Warteschlange.</value>
+    <value>Voraussichtliche Zeit bis zur Fertigstellung aller Aufträge in der Warteschlange.</value>
   </data>
   <data name="QueueColumnNameDuration" xml:space="preserve">
-    <value>Dauer</value>
+    <value>Laufzeit</value>
   </data>
   <data name="ForeignAudioSearchToolTip" xml:space="preserve">
     <value>Durchsucht und filtert Untertitelspuren, welche ausländische Dialoge enthalten könnten. Gut für Filme in Ihrer Muttersprache.</value>
@@ -280,7 +281,41 @@ Diesem Programm wurde eine vollständige Kopie der GNU General Public beigelegt.
     <value>Erste Spur</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
-  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
-    <value>Die Updates wurden deaktiviert, da die neuen Versionen kein 32-Bit Betriebssystem mehr unterstützen.</value>
+  <data name="DuplicateTrack" xml:space="preserve">
+    <value>Diese Spur duplizieren</value>
+    <comment>Tip to duplicate the audio or subtitle track.</comment>
+  </data>
+  <data name="RemoveTrack" xml:space="preserve">
+    <value>Diese Spur entfernen</value>
+    <comment>Tip for button to remove the audio or subtitle track.</comment>
+  </data>
+  <data name="SelectedOverTotalAudioTracksFormat" xml:space="preserve">
+    <value>{0}/{1} Audiospur(en)</value>
+    <comment>{0} is the number of selected audio tracks and {1} is the number of total tracks on the source.</comment>
+  </data>
+  <data name="SelectedOverTotalSubtitleTracksFormat" xml:space="preserve">
+    <value>{0}/{1} Untertitelspur(en)</value>
+    <comment>{0} is the number of selected subtitle tracks and {1} is the number of total tracks on the source.</comment>
+  </data>
+  <data name="NumberBoxIncreaseButtonAutomationTextFormat" xml:space="preserve">
+    <value>{0} vergrößern</value>
+    <comment>Automation text for the increase button on the number box.
+{0} - The name of the value the control is changing, for example "width"</comment>
+  </data>
+  <data name="NumberBoxDecreaseButtonAutomationTextFormat" xml:space="preserve">
+    <value>{0} verkleinern</value>
+    <comment>Automation text for the decrease button on the number box.
+{0} - The name of the value the control is changing, for example "width"</comment>
+  </data>
+  <data name="OpenSplitButtonAutomationName" xml:space="preserve">
+    <value>Weitere Aktionen</value>
+    <comment>Automation name for screen readers for the "open" arrow on a split button</comment>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Unbekannt</value>
+    <comment>Used when a value is not known.</comment>
+  </data>
+  <data name="DefaultLabel" xml:space="preserve">
+    <value>Standard:</value>
   </data>
 </root>

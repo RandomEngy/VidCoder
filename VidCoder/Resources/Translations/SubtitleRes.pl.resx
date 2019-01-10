@@ -120,9 +120,6 @@
   <data name="SubtitlesWindowTitle" xml:space="preserve">
     <value>Napisy</value>
   </data>
-  <data name="RemoveSubtitleTrack" xml:space="preserve">
-    <value>Usuń tą ścieżkę</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>Napisy ze źródła:</value>
   </data>
@@ -165,16 +162,12 @@
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Wyszukiwanie Zagranicznych Ścieżek Audio</value>
   </data>
-  <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
-    <value>Brak napisów w źródłowym pliku wideo.</value>
-  </data>
   <data name="SrtFilePickerText" xml:space="preserve">
     <value>Dodaj plik napisów</value>
-  </data>
-	<data name="DuplicateSubtitleTrack" xml:space="preserve">
-    <value>Duplikuj ścieżkę</value>
   </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Nie można wykryć kodowania napisów dialogowych. Aby upewnić się, że napisy są wyświetlane poprawnie, należy ponownie zapisać plik jako UTF-8.</value>
   </data>
+  
+  
 </root>

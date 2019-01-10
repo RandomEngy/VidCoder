@@ -117,7 +117,7 @@ function UpdateLatestJson($latestFile, $versionShort, $versionTag, $installerFil
 }
 
 # Master switch for if this branch is beta
-$beta = $false
+$beta = $true
 
 if ($debugBuild) {
     $buildFlavor = "Debug"
@@ -149,9 +149,6 @@ UpdateAppxManifest "VidCoderPackage\$manifestBaseFileName.appxmanifest" $version
 # Build VidCoder.sln
 & $MsBuildExe VidCoder.sln /t:rebuild "/p:Configuration=$configuration;Platform=x64;UapAppxPackageBuildMode=StoreUpload"; ExitIfFailed
 
-# Run sgen to create *.XmlSerializers.dll
-& ($NetToolsFolder + "\x64\sgen.exe") /f /a:"VidCoder\bin\$buildFlavor\VidCoderCommon.dll"; ExitIfFailed
-
 
 # Copy install files to staging folder
 $dest = ".\Installer\Files"
@@ -167,31 +164,44 @@ $outputDirectoryFiles = @(
     "VidCoder.exe.config",
     "VidCoderCommon.dll",
     "VidCoderCommon.pdb",
-    "VidCoderCommon.XmlSerializers.dll",
     "VidCoderWorker.exe",
     "VidCoderWorker.exe.config",
     "VidCoderWorker.pdb",
-    "Omu.ValueInjecter.dll",
     "VidCoderCLI.exe",
     "VidCoderCLI.pdb",
     "VidCoderWindowlessCLI.exe",
     "VidCoderWindowlessCLI.pdb",
-    "Microsoft.Practices.ServiceLocation.dll",
-    "Hardcodet.Wpf.TaskbarNotification.dll",
-    "Newtonsoft.Json.dll",
-    "FastMember.dll",
-    "Microsoft.Practices.Unity.dll",
-    "ReactiveUI.dll",
-    "Splat.dll",
+    "ColorPickerWPF.dll",
+    "ControlzEx.dll",
+    "ControlzEx.pdb",
     "DesktopBridge.Helpers.dll",
+    "DryIoc.dll",
+    "DynamicData.dll",
+    "Fluent.dll",
+    "Fluent.pdb",
+    "Microsoft.AnyContainer.dll",
+    "Microsoft.AnyContainer.DryIoc.dll",
+    "Microsoft.Xaml.Behaviors.dll",
+    "Newtonsoft.Json.dll",
+    "Omu.ValueInjecter.dll",
+    "ReactiveUI.dll",
+    "ReactiveUI.WPF.dll",
+    "Splat.dll",
     "System.Data.SQLite.dll",
+    "System.Reactive.dll",
     "System.Reactive.Core.dll",
+    "System.Reactive.Experimental.dll",
     "System.Reactive.Interfaces.dll",
     "System.Reactive.Linq.dll",
     "System.Reactive.PlatformServices.dll",
+    "System.Reactive.Providers.dll",
+    "System.Reactive.Runtime.Remoting.dll",
+    "System.Reactive.Windows.Forms.dll",
     "System.Reactive.Windows.Threading.dll",
+    "System.Runtime.WindowsRuntime.dll",
+    "System.ValueTuple.dll",
     "Ude.dll",
-    "Xceed.Wpf.Toolkit.dll")
+    "WriteableBitmapEx.Wpf.dll")
 
 foreach ($outputDirectoryFile in $outputDirectoryFiles) {
     CopyFromOutput $outputDirectoryFile $buildFlavor
@@ -201,8 +211,8 @@ CopyFromOutputArchSpecific "SQLite.Interop.dll" $buildFlavor
 
 # General files
 $generalFiles = @(
-    ".\Lib\HandBrake.ApplicationServices.dll",
-    ".\Lib\HandBrake.ApplicationServices.pdb",
+    ".\Lib\HandBrake.Interop.dll",
+    ".\Lib\HandBrake.Interop.pdb",
     ".\Lib\Ookii.Dialogs.Wpf.dll",
     ".\Lib\Ookii.Dialogs.Wpf.pdb",
     ".\VidCoder\Encode_Complete.wav",

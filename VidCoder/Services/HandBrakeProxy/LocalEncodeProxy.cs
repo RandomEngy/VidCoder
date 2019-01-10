@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using HandBrake.ApplicationServices.Interop;
-using HandBrake.ApplicationServices.Interop.EventArgs;
-using HandBrake.ApplicationServices.Interop.Json.Encode;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
 using Newtonsoft.Json;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoderCommon.Model;
 using System.Threading;
-using System.Xml.Serialization;
+using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.EventArgs;
+using HandBrake.Interop.Interop.Json.Encode;
+using HandBrake.Interop.Interop.Json.Scan;
 using VidCoderCommon.Utilities;
 
 namespace VidCoder
@@ -33,8 +32,6 @@ namespace VidCoder
 		public event EventHandler<EncodeProgressEventArgs> EncodeProgress;
 		public event EventHandler<EncodeCompletedEventArgs> EncodeCompleted;
 
-		[XmlIgnore]
-		public bool IsEncodeStarted { get; private set; }
 		public void StartEncode(
 			VCJob job,
 			IAppLogger logger,
@@ -104,7 +101,6 @@ namespace VidCoder
 						lock (this.encoderLock)
 						{
 							this.instance.StartEncode(encodeJson);
-							this.IsEncodeStarted = true;
 							this.EncodeStarted?.Invoke(this, EventArgs.Empty);
 
 							this.encodeStartEvent.Set();

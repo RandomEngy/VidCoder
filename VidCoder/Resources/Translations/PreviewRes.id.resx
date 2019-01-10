@@ -202,5 +202,7 @@
   <data name="VideoErrorTitle" xml:space="preserve">
     <value>Video Error</value>
   </data>
-  
+  <data name="PlaySourceDisabledAppxToolTip" xml:space="preserve">
+    <value>Versi Windows Store tidak dapat memainkan sumber DVD atau Blu-ray karena tidak diijinkan untuk meluncurkan proses lain.</value>
+  </data>
 </root>

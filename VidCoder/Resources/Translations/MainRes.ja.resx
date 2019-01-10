@@ -120,17 +120,11 @@
   <data name="TitleLabel" xml:space="preserve">
     <value>タイトル:</value>
   </data>
-  <data name="SettingsLabel" xml:space="preserve">
-    <value>設定</value>
-  </data>
   <data name="AddToQueueLabel" xml:space="preserve">
     <value>キューへ追加</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
     <value>キューに複数のタイトルを追加</value>
-  </data>
-  <data name="FileMenu" xml:space="preserve">
-    <value>ファイル</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
     <value>動画ファイルを開く</value>
@@ -141,9 +135,6 @@
   <data name="EnqueueMultipleFiles" xml:space="preserve">
     <value>複数のファイルをキューに入れる</value>
   </data>
-  <data name="EnqueueMultipleTitles" xml:space="preserve">
-    <value>複数のタイトルをキューに入れる</value>
-  </data>
   <data name="ToolsMenu" xml:space="preserve">
     <value>ツール</value>
   </data>
@@ -152,9 +143,6 @@
   </data>
   <data name="ExportPreset" xml:space="preserve">
     <value>プリセットをエクスポート</value>
-  </data>
-  <data name="OptionsMenuItem" xml:space="preserve">
-    <value>オプション</value>
   </data>
   <data name="Play" xml:space="preserve">
     <value>再生</value>
@@ -167,9 +155,6 @@
   </data>
   <data name="ClearCompleted" xml:space="preserve">
     <value>クリア完了</value>
-  </data>
-  <data name="ExitMenuItem" xml:space="preserve">
-    <value>終了</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>ウィンドウ</value>
@@ -202,9 +187,6 @@
   <data name="SourceLabel" xml:space="preserve">
     <value>入力元：</value>
   </data>
-  <data name="ScanningSourceLabel" xml:space="preserve">
-    <value>ソースをスキャンしています...</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>最近利用したソース</value>
   </data>
@@ -213,15 +195,6 @@
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>スキャン中にエラーが発生しました。</value>
-  </data>
-  <data name="AudioLabel" xml:space="preserve">
-    <value>音声:</value>
-  </data>
-  <data name="VideoLabel" xml:space="preserve">
-    <value>ビデオ：</value>
-  </data>
-  <data name="SubtitlesLabel" xml:space="preserve">
-    <value>字幕：</value>
   </data>
   <data name="AddTrackButton" xml:space="preserve">
     <value>トラック追加</value>
@@ -387,9 +360,7 @@
   <data name="EtaLabel" xml:space="preserve">
     <value>所要時間：</value>
   </data>
-  <data name="WhenDoneLabel" xml:space="preserve">
-    <value>終了時の処理：</value>
-  </data>
+  
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>動画ファイル...</value>
   </data>
@@ -552,12 +523,6 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>エンコードの詳細</value>
   </data>
-  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
-    <value>キューに追加後にエンコードの設定が変更されています。現在の設定をキュー内のすべてのアイテムに適用しますか？</value>
-  </data>
-  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
-    <value>設定が変更されました</value>
-  </data>
   <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>既存のファイルの名前を変更し、新しいファイルを作成しますか？</value>
   </data>
@@ -597,6 +562,33 @@
   <data name="SizingPresetUpgradeWarning" xml:space="preserve">
     <value>警告: Ver2.0でサイズ変更の設定画面が変更ました。そのためプリセットも変更された可能性があります。チェックし正しく設定されているか確認してください。</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

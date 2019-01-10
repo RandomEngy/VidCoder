@@ -11,6 +11,7 @@ using System.Windows.Documents;
 using System.Reflection;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using Microsoft.AnyContainer;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
 
@@ -88,18 +89,31 @@ namespace VidCoder.DragDropUtils
 		public static readonly DependencyProperty DragDropTemplateProperty =
 			DependencyProperty.RegisterAttached("DragDropTemplate", typeof(DataTemplate), typeof(DragDropHelper), new UIPropertyMetadata(null));
 
-		public static bool GetAllowDropAtTop(DependencyObject obj)
+		public static int GetBlockedTopSpaces(DependencyObject obj)
 		{
-			return (bool)obj.GetValue(AllowDropAtTopProperty);
+			return (int)obj.GetValue(BlockedTopSpacesProperty);
 		}
 
-		public static void SetAllowDropAtTop(DependencyObject obj, DataTemplate value)
+		public static void SetBlockedTopSpaces(DependencyObject obj, DataTemplate value)
 		{
-			obj.SetValue(AllowDropAtTopProperty, value);
+			obj.SetValue(BlockedTopSpacesProperty, value);
 		}
 
-		public static readonly DependencyProperty AllowDropAtTopProperty =
-			DependencyProperty.RegisterAttached("AllowDropAtTop", typeof(bool), typeof(DragDropHelper), new UIPropertyMetadata(true));
+		public static readonly DependencyProperty BlockedTopSpacesProperty =
+			DependencyProperty.RegisterAttached("BlockedTopSpaces", typeof(int), typeof(DragDropHelper), new UIPropertyMetadata(0));
+
+		public static object GetSourceList(DependencyObject obj)
+		{
+			return obj.GetValue(SourceListProperty);
+		}
+
+		public static void SetSourceList(DependencyObject obj, DataTemplate value)
+		{
+			obj.SetValue(SourceListProperty, value);
+		}
+
+		public static readonly DependencyProperty SourceListProperty =
+			DependencyProperty.RegisterAttached("SourceList", typeof(object), typeof(DragDropHelper), new UIPropertyMetadata(null));
 
 		private static void IsDragSourceChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
 		{
@@ -225,13 +239,13 @@ namespace VidCoder.DragDropUtils
 					catch (COMException exception)
 					{
 						// Not sure what's going on here, can't reproduce. Hopefully this will allow the next drag operation to succeed.
-						Ioc.Get<IAppLogger>().LogError("Error during drag operation:" + Environment.NewLine + Environment.NewLine + exception);
+						StaticResolver.Resolve<IAppLogger>().LogError("Error during drag operation:" + Environment.NewLine + Environment.NewLine + exception);
 						this.draggedData = null;
 
 						return;
 					}
 
-					var windowManager = Ioc.Get<IWindowManager>();
+					var windowManager = StaticResolver.Resolve<IWindowManager>();
 					windowManager.SuspendDropOnWindows();
 
 					// Adding events to the window to make sure dragged adorner comes up when mouse is not over a drop target.
@@ -307,7 +321,7 @@ namespace VidCoder.DragDropUtils
 			{
 				if ((e.Effects & DragDropEffects.Move) != 0)
 				{
-					indiciesRemoved = DragDropUtilities.RemoveItemsFromItemsControl(this.sourceItemsControl, draggedItems);
+					indiciesRemoved = DragDropUtilities.RemoveItemsFromItemsControl(this.sourceItemsControl, GetSourceList(this.sourceItemsControl), draggedItems);
 				}
 
 				// If we're dragging to the same list, adjust the insertion point to account for removed items.
@@ -317,7 +331,7 @@ namespace VidCoder.DragDropUtils
 					this.insertionIndex -= itemCountBeforeInsertionPoint;
 				}
 
-				DragDropUtilities.InsertItemsInItemsControl(this.targetItemsControl, draggedItems, this.insertionIndex);
+				DragDropUtilities.InsertItemsInItemsControl(this.targetItemsControl, GetSourceList(this.targetItemsControl), draggedItems, this.insertionIndex);
 
 				this.RemoveDraggedAdorner();
 				this.RemoveInsertionAdorner();
@@ -401,7 +415,7 @@ namespace VidCoder.DragDropUtils
 						this.insertionIndex = targetItemsControlCount;
 					}
 
-					if (this.insertionIndex == 0 && !GetAllowDropAtTop(this.sourceItemsControl))
+					if (this.insertionIndex < GetBlockedTopSpaces(this.sourceItemsControl))
 					{
 						this.targetItemContainer = null;
 						this.insertionIndex = -1;

@@ -4,8 +4,6 @@ using System.Data;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
-using System.Xml;
-using System.Xml.Serialization;
 using Newtonsoft.Json;
 using VidCoder.Resources;
 
@@ -19,39 +17,6 @@ namespace VidCoder.Model
         public static string SerializePicker(Picker picker)
         {
 	        return JsonConvert.SerializeObject(picker);
-        }
-
-        /// <summary>
-        /// Load in a picker from an XML string.
-        /// </summary>
-        /// <param name="pickerXml">The XML of the picker to load in.</param>
-        /// <param name="serializer">The XML serializer to use.</param>
-        /// <returns>The loaded Picker.</returns>
-        public static Picker ParsePickerXml(string pickerXml, XmlSerializer serializer)
-        {
-            try
-            {
-                using (var stringReader = new StringReader(pickerXml))
-                {
-                    using (var xmlReader = new XmlTextReader(stringReader))
-                    {
-						var picker = serializer.Deserialize(xmlReader) as Picker;
-
-                        return picker;
-                    }
-                }
-            }
-            catch (XmlException exception)
-            {
-                System.Windows.MessageBox.Show(
-                    MainRes.CouldNotLoadPickerMessage +
-                    exception +
-                    Environment.NewLine +
-                    Environment.NewLine +
-                    pickerXml);
-            }
-
-            return null;
         }
 
 		/// <summary>

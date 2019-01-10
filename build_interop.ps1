@@ -7,12 +7,12 @@
 $HandBrakeFolder = "..\HandBrake\win\CS"
 
 $HandBrakeSolution = $HandBrakeFolder + "\HandBrake.sln"
-$HandBrakeAppServicesFolder = $HandBrakeFolder + "\HandBrake.ApplicationServices"
-$HandBrakeAppServiceProject = $HandBrakeAppServicesFolder + "\HandBrake.ApplicationServices.csproj"
+$HandBrakeInteropFolder = $HandBrakeFolder + "\HandBrake.Interop"
+$HandBrakeInteropProject = $HandBrakeInteropFolder + "\HandBrake.Interop.csproj"
 
-& $MsBuildExe $HandBrakeAppServiceProject /t:rebuild "/p:Configuration=Release;Platform=x64"; ExitIfFailed
-copy ($HandBrakeAppServicesFolder + "\bin\Release\HandBrake.ApplicationServices.dll") Lib -force
-copy ($HandBrakeAppServicesFolder + "\bin\Release\HandBrake.ApplicationServices.pdb") Lib -force
+& $MsBuildExe $HandBrakeInteropProject /t:rebuild "/p:Configuration=Release;Platform=x64"; ExitIfFailed
+copy ($HandBrakeInteropFolder + "\bin\Release\HandBrake.Interop.dll") Lib -force
+copy ($HandBrakeInteropFolder + "\bin\Release\HandBrake.Interop.pdb") Lib -force
 "Files copied."
 
 WriteSuccess

@@ -4,12 +4,15 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
-using FastMember;
-using HandBrake.ApplicationServices.Interop.Model;
+using DynamicData;
+using DynamicData.Aggregation;
+using DynamicData.Binding;
+using Microsoft.AnyContainer;
 using Omu.ValueInjecter;
 using ReactiveUI;
 using VidCoder.Model;
@@ -25,11 +28,9 @@ namespace VidCoder.ViewModel
 	{
 		private const string NameTokenList = "{source} {title} {range} {preset} {date} {time} {quality} {parent} {titleduration}";
 
-		private static TypeAccessor typeAccessor = TypeAccessor.Create(typeof(Picker));
-
-		private readonly PickersService pickersService = Ioc.Get<PickersService>();
-		private readonly PresetsService presetsService = Ioc.Get<PresetsService>();
-		private readonly OutputPathService outputPathService = Ioc.Get<OutputPathService>();
+		private readonly PickersService pickersService = StaticResolver.Resolve<PickersService>();
+		private readonly PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
+		private readonly OutputPathService outputPathService = StaticResolver.Resolve<OutputPathService>();
 
 		private AutoChangeTracker autoChangeTracker = new AutoChangeTracker();
 
@@ -73,61 +74,64 @@ namespace VidCoder.ViewModel
 				{
 					using (this.autoChangeTracker.TrackAutoChange())
 					{
-						using (this.AudioLanguages.SuppressChangeNotifications())
+						this.audioLanguages.Edit(audioLanguagesInnerList =>
 						{
-							this.AudioLanguages.Clear();
+							audioLanguagesInnerList.Clear();
 
 							if (audioLanguageCodes == null)
 							{
-								this.AudioLanguages.Add(new LanguageViewModel(this) { Code = LanguageUtilities.GetDefaultLanguageCode() });
+								audioLanguagesInnerList.Add(new LanguageViewModel(this) { Code = LanguageUtilities.GetDefaultLanguageCode() });
 								return;
 							}
 
-							this.AudioLanguages.AddRange(audioLanguageCodes.Select(l => new LanguageViewModel(this) { Code = l }));
-						}
+							audioLanguagesInnerList.AddRange(audioLanguageCodes.Select(l => new LanguageViewModel(this) { Code = l }));
+						});
 					}
 				});
 
-				this.AudioLanguages.ChangeTrackingEnabled = true;
-				this.AudioLanguages.ItemChanged
-					.Subscribe(_ =>
+				var audioLanguagesObservable = this.audioLanguages.Connect();
+				audioLanguagesObservable.Bind(this.AudioLanguagesBindable).Subscribe();
+				audioLanguagesObservable.WhenAnyPropertyChanged().Subscribe(_ =>
+				{
+					if (!this.autoChangeTracker.OperationInProgress)
 					{
-						if (!this.autoChangeTracker.OperationInProgress)
-						{
-							this.HandleAudioLanguageUpdate();
-						}
-					});
+						this.HandleAudioLanguageUpdate();
+					}
+				});
 
 				this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.SubtitleLanguageCodes).Subscribe(subtitleLanguageCodes =>
 				{
 					using (this.autoChangeTracker.TrackAutoChange())
-					using (this.SubtitleLanguages.SuppressChangeNotifications())
 					{
-						this.SubtitleLanguages.Clear();
-
-						if (subtitleLanguageCodes == null)
+						this.subtitleLanguages.Edit(subtitleLanguagesInnerList =>
 						{
-							this.SubtitleLanguages.Add(new LanguageViewModel(this) { Code = LanguageUtilities.GetDefaultLanguageCode() });
-							return;
-						}
+							subtitleLanguagesInnerList.Clear();
 
-						this.SubtitleLanguages.AddRange(subtitleLanguageCodes.Select(l => new LanguageViewModel(this) { Code = l }));
+							if (subtitleLanguageCodes == null)
+							{
+								subtitleLanguagesInnerList.Add(new LanguageViewModel(this) { Code = LanguageUtilities.GetDefaultLanguageCode() });
+								return;
+							}
+
+							subtitleLanguagesInnerList.AddRange(subtitleLanguageCodes.Select(l => new LanguageViewModel(this) { Code = l }));
+						});
 					}
 				});
 
-				this.SubtitleLanguages.ChangeTrackingEnabled = true;
-				this.SubtitleLanguages.ItemChanged
-					.Subscribe(_ =>
+				var subtitleLanguagesObservable = this.subtitleLanguages.Connect();
+				subtitleLanguagesObservable.Bind(this.SubtitleLanguagesBindable).Subscribe();
+				subtitleLanguagesObservable.WhenAnyPropertyChanged().Subscribe(_ =>
+				{
+					if (!this.autoChangeTracker.OperationInProgress)
 					{
-						if (!this.autoChangeTracker.OperationInProgress)
-						{
-							this.HandleSubtitleLanguageUpdate();
-						}
-					});
+						this.HandleSubtitleLanguageUpdate();
+					}
+				});
 
 				// HasMultipleAudioLanguages
-				IObservable<int> audioLanguageCountObservable = this.AudioLanguages.CountChanged
-					.StartWith(this.AudioLanguages.Count);
+				IObservable<int> audioLanguageCountObservable = audioLanguagesObservable
+					.Count()
+					.StartWith(this.audioLanguages.Count);
 				IObservable<bool> hasMultipleAudioLanguagesObservable = audioLanguageCountObservable
 					.Select(count => count > 1);
 				hasMultipleAudioLanguagesObservable.ToProperty(this, x => x.HasMultipleAudioLanguages, out this.hasMultipleAudioLanguages);
@@ -154,8 +158,9 @@ namespace VidCoder.ViewModel
 					.ToProperty(this, x => x.HasNoAudioLanguages, out this.hasNoAudioLanguages);
 
 				// HasMultipleSubtitleLanguages
-				IObservable<int> subtitleLanguageCountObservable = this.SubtitleLanguages.CountChanged
-					.StartWith(this.SubtitleLanguages.Count);
+				IObservable<int> subtitleLanguageCountObservable = subtitleLanguagesObservable
+					.Count()
+					.StartWith(this.subtitleLanguages.Count);
 				IObservable<bool> hasMultipleSubtitleLanguagesObservable = subtitleLanguageCountObservable
 					.Select(count => count > 1);
 				hasMultipleSubtitleLanguagesObservable.ToProperty(this, x => x.HasMultipleSubtitleLanguages, out this.hasMultipleSubtitleLanguages);
@@ -181,30 +186,38 @@ namespace VidCoder.ViewModel
 					.Select(count => count == 0)
 					.ToProperty(this, x => x.HasNoSubtitleLanguages, out this.hasNoSubtitleLanguages);
 
-				// SubtitleModChoices
-				this.WhenAnyValue(x => x.SubtitleSelectionMode, x => x.HasMultipleSubtitleLanguages, x => x.SubtitleLanguageAll, (selectionMode, hasMultipleLanguages, subtitleLanguageAll) =>
+				// SubtitleQuantityClass
+				this.WhenAnyValue(x => x.SubtitleSelectionMode, x => x.SubtitleIndices, x => x.HasMultipleSubtitleLanguages, x => x.SubtitleLanguageAll, (selectionMode, subtitleIndices, hasMultipleLanguages, subtitleLanguageAll) =>
 				{
 					switch (selectionMode)
 					{
 						case SubtitleSelectionMode.Disabled:
 						case SubtitleSelectionMode.None:
-							return SubtitleModifierChoices.None;
+							return SubtitleQuantityClass.None;
 						case SubtitleSelectionMode.First:
 						case SubtitleSelectionMode.ForeignAudioSearch:
-							return SubtitleModifierChoices.Single;
+							return SubtitleQuantityClass.Single;
+						case SubtitleSelectionMode.ByIndex:
+							return ParseUtilities.ParseCommaSeparatedListToPositiveIntegers(subtitleIndices).Count > 1 ? SubtitleQuantityClass.Multiple : SubtitleQuantityClass.Single;
 						case SubtitleSelectionMode.Language:
 							if (hasMultipleLanguages)
 							{
-								return SubtitleModifierChoices.Multiple;
+								return SubtitleQuantityClass.Multiple;
 							}
 
-							return subtitleLanguageAll ? SubtitleModifierChoices.Multiple : SubtitleModifierChoices.Single;
+							return subtitleLanguageAll ? SubtitleQuantityClass.Multiple : SubtitleQuantityClass.Single;
 						case SubtitleSelectionMode.All:
-							return SubtitleModifierChoices.Multiple;
+							return SubtitleQuantityClass.Multiple;
 						default:
 							throw new ArgumentOutOfRangeException(nameof(selectionMode), selectionMode, null);
 					}
-				}).ToProperty(this, x => x.SubtitleModChoices, out this.subtitleModChoices);
+				}).ToProperty(this, x => x.SubtitleQuantityClass, out this.subtitleQuantityClass);
+
+				// ShowMarkFirstAsDefaultCheckBox
+				this.WhenAnyValue(x => x.SubtitleQuantityClass, x => x.SubtitleSelectionMode, (subtitleQuantityClass, selectionMode) =>
+				{
+					return subtitleQuantityClass == SubtitleQuantityClass.Multiple && selectionMode != SubtitleSelectionMode.ByIndex;
+				}).ToProperty(this, x => x.ShowMarkFirstAsDefaultCheckBox, out this.showMarkFirstAsDefaultCheckBox);
 
 				this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsDefault, x => x.SelectedPicker.Picker.IsModified, (isDefault, isModified) => !isDefault && !isModified).ToProperty(this, x => x.DeleteButtonVisible, out this.deleteButtonVisible);
 
@@ -284,33 +297,6 @@ namespace VidCoder.ViewModel
 
 					this.userModifyingEncodingPreset = false;
 				});
-
-				this.DismissMessage = ReactiveCommand.Create();
-				this.DismissMessage.Subscribe(_ => { this.ShowHelpMessage = false; });
-
-				this.Save = ReactiveCommand.Create(this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsDefault).Select(isDefault => !isDefault));
-				this.Save.Subscribe(_ => { this.pickersService.SavePicker(); });
-
-				this.SaveAs = ReactiveCommand.Create();
-				this.SaveAs.Subscribe(_ => this.SaveAsImpl());
-
-				this.Rename = ReactiveCommand.Create();
-				this.Rename.Subscribe(_ => this.RenameImpl());
-
-				this.Delete = ReactiveCommand.Create(this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsModified, x => x.SelectedPicker.Picker.IsDefault, (isModified, isDefault) => isModified || !isDefault));
-				this.Delete.Subscribe(_ => this.DeleteImpl());
-
-				this.PickOutputDirectory = ReactiveCommand.Create();
-				this.PickOutputDirectory.Subscribe(_ => this.PickOutputDirectoryImpl());
-
-				this.AddAudioLanguage = ReactiveCommand.Create();
-				this.AddAudioLanguage.Subscribe(_ => this.AddAudioLanguageImpl());
-
-				this.AddSubtitleLanguage = ReactiveCommand.Create();
-				this.AddSubtitleLanguage.Subscribe(_ => this.AddSubtitleLanguageImpl());
-
-				this.PickPostEncodeExecutable = ReactiveCommand.Create();
-				this.PickPostEncodeExecutable.Subscribe(_ => this.PickPostEncodeExecutableImpl());
 			}
 		}
 
@@ -367,47 +353,54 @@ namespace VidCoder.ViewModel
 				}
 			});
 			this.RegisterPickerProperty(nameof(this.Picker.NameFormatOverride));
+			this.RegisterPickerProperty(nameof(this.Picker.TitleCapitalization));
 			this.RegisterPickerProperty(nameof(this.Picker.OutputToSourceDirectory));
 			this.RegisterPickerProperty(nameof(this.Picker.PreserveFolderStructureInBatch));
 			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectEnabled));
 			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectStartMinutes));
 			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectEndMinutes));
+			this.RegisterPickerProperty(nameof(this.Picker.TimeRangeSelectEnabled));
+			this.RegisterPickerProperty(nameof(this.Picker.TimeRangeStart));
+			this.RegisterPickerProperty(nameof(this.Picker.TimeRangeEnd));
 			this.RegisterPickerProperty(nameof(this.Picker.AudioSelectionMode), () =>
 			{
 				if (this.AudioSelectionMode == AudioSelectionMode.All)
 				{
-					this.AudioLanguages.Clear();
+					this.audioLanguages.Clear();
 
 					this.HandleAudioLanguageUpdate();
 				}
 
 				if (this.AudioSelectionMode == AudioSelectionMode.Language)
 				{
-					this.AudioLanguages.Clear();
-					this.AudioLanguages.Add(new LanguageViewModel(this) { Code = LanguageUtilities.GetDefaultLanguageCode() });
+					this.audioLanguages.Clear();
+					this.audioLanguages.Add(new LanguageViewModel(this) { Code = LanguageUtilities.GetDefaultLanguageCode() });
 
 					this.HandleAudioLanguageUpdate();
 				}
 			});
 			this.RegisterPickerProperty(nameof(this.Picker.AudioLanguageCodes));
+			this.RegisterPickerProperty(nameof(this.Picker.AudioIndices));
 			this.RegisterPickerProperty(nameof(this.Picker.AudioLanguageAll));
 			this.RegisterPickerProperty(nameof(this.Picker.SubtitleSelectionMode), () =>
 			{
 				if (this.SubtitleSelectionMode == SubtitleSelectionMode.All)
 				{
-					this.SubtitleLanguages.Clear();
+					this.subtitleLanguages.Clear();
 
 					this.HandleSubtitleLanguageUpdate();
 				}
 
 				if (this.SubtitleSelectionMode == SubtitleSelectionMode.Language)
 				{
-					this.SubtitleLanguages.Clear();
-					this.SubtitleLanguages.Add(new LanguageViewModel(this) { Code = LanguageUtilities.GetDefaultLanguageCode() });
+					this.subtitleLanguages.Clear();
+					this.subtitleLanguages.Add(new LanguageViewModel(this) { Code = LanguageUtilities.GetDefaultLanguageCode() });
 
 					this.HandleSubtitleLanguageUpdate();
 				}
 			});
+			this.RegisterPickerProperty(nameof(this.Picker.SubtitleIndices));
+			this.RegisterPickerProperty(nameof(this.Picker.SubtitleDefaultIndex));
 			this.RegisterPickerProperty(nameof(this.Picker.SubtitleLanguageCodes));
 			this.RegisterPickerProperty(nameof(this.Picker.SubtitleLanguageOnlyIfDifferent));
 			this.RegisterPickerProperty(nameof(this.Picker.SubtitleLanguageAll));
@@ -515,6 +508,18 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.nameFormatOverride, value); }
 		}
 
+		public List<ComboChoice<TitleCapitalizationChoice>> TitleCaptializationChoices { get; } = new List<ComboChoice<TitleCapitalizationChoice>>
+		{
+			new ComboChoice<TitleCapitalizationChoice>(TitleCapitalizationChoice.EveryWord, EnumsRes.TitleCapitalizationChoice_EveryWord),
+			new ComboChoice<TitleCapitalizationChoice>(TitleCapitalizationChoice.FirstWord, EnumsRes.TitleCapitalizationChoice_FirstWord),
+		};
+
+		public TitleCapitalizationChoice TitleCapitalization
+		{
+			get { return this.Picker.TitleCapitalization; }
+			set { this.UpdatePickerProperty(nameof(this.Picker.TitleCapitalization), value);}
+		}
+
 		public bool? OutputToSourceDirectory
 		{
 			get { return this.Picker.OutputToSourceDirectory; }
@@ -545,13 +550,38 @@ namespace VidCoder.ViewModel
 			set { this.UpdatePickerProperty(nameof(this.Picker.TitleRangeSelectEndMinutes), value); }
 		}
 
+		public bool TimeRangeSelectEnabled
+		{
+			get { return this.Picker.TimeRangeSelectEnabled; }
+			set { this.UpdatePickerProperty(nameof(this.Picker.TimeRangeSelectEnabled), value); }
+		}
+
+		public TimeSpan TimeRangeStart
+		{
+			get { return this.Picker.TimeRangeStart; }
+			set { this.UpdatePickerProperty(nameof(this.Picker.TimeRangeStart), value); }
+		}
+
+		public TimeSpan TimeRangeEnd
+		{
+			get { return this.Picker.TimeRangeEnd; }
+			set { this.UpdatePickerProperty(nameof(this.Picker.TimeRangeEnd), value); }
+		}
+
 		public AudioSelectionMode AudioSelectionMode
 		{
 			get { return this.Picker.AudioSelectionMode; }
 			set { this.UpdatePickerProperty(nameof(this.Picker.AudioSelectionMode), value); }
 		}
 
-		public ReactiveList<LanguageViewModel> AudioLanguages { get; } = new ReactiveList<LanguageViewModel>();
+		public string AudioIndices
+		{
+			get { return this.Picker.AudioIndices; }
+			set { this.UpdatePickerProperty(nameof(this.Picker.AudioIndices), value); }
+		}
+
+		private readonly SourceList<LanguageViewModel> audioLanguages = new SourceList<LanguageViewModel>();
+		public ObservableCollectionExtended<LanguageViewModel> AudioLanguagesBindable { get; } = new ObservableCollectionExtended<LanguageViewModel>();
 
 		private ObservableAsPropertyHelper<bool> hasMultipleAudioLanguages;
 		public bool HasMultipleAudioLanguages => this.hasMultipleAudioLanguages.Value;
@@ -577,7 +607,20 @@ namespace VidCoder.ViewModel
 			set { this.UpdatePickerProperty(nameof(this.Picker.SubtitleSelectionMode), value); }
 		}
 
-		public ReactiveList<LanguageViewModel> SubtitleLanguages { get; } = new ReactiveList<LanguageViewModel>();
+		public string SubtitleIndices
+		{
+			get { return this.Picker.SubtitleIndices; }
+			set { this.UpdatePickerProperty(nameof(this.Picker.SubtitleIndices), value); }
+		}
+
+		public int? SubtitleDefaultIndex
+		{
+			get { return this.Picker.SubtitleDefaultIndex; }
+			set { this.UpdatePickerProperty(nameof(this.Picker.SubtitleDefaultIndex), value); }
+		}
+
+		private readonly SourceList<LanguageViewModel> subtitleLanguages = new SourceList<LanguageViewModel>();
+		public ObservableCollectionExtended<LanguageViewModel> SubtitleLanguagesBindable { get; } = new ObservableCollectionExtended<LanguageViewModel>();
 
 		private ObservableAsPropertyHelper<bool> hasMultipleSubtitleLanguages;
 		public bool HasMultipleSubtitleLanguages => this.hasMultipleSubtitleLanguages.Value;
@@ -603,8 +646,11 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<string> subtitleAllTracksLabel;
 		public string SubtitleAllTracksLabel => this.subtitleAllTracksLabel.Value;
 
-		private ObservableAsPropertyHelper<SubtitleModifierChoices> subtitleModChoices;
-		public SubtitleModifierChoices SubtitleModChoices => this.subtitleModChoices.Value;
+		private ObservableAsPropertyHelper<SubtitleQuantityClass> subtitleQuantityClass;
+		public SubtitleQuantityClass SubtitleQuantityClass => this.subtitleQuantityClass.Value;
+
+		private ObservableAsPropertyHelper<bool> showMarkFirstAsDefaultCheckBox;
+		public bool ShowMarkFirstAsDefaultCheckBox => this.showMarkFirstAsDefaultCheckBox.Value;
 
 		public bool SubtitleDefault
 		{
@@ -697,120 +743,183 @@ namespace VidCoder.ViewModel
 			set { this.UpdatePickerProperty(nameof(this.Picker.PostEncodeArguments), value); }
 		}
 
-		public ReactiveCommand<object> DismissMessage { get; }
-
-		public ReactiveCommand<object> Save { get; }
-
-		public ReactiveCommand<object> SaveAs { get; }
-
-		private void SaveAsImpl()
+		private ReactiveCommand<Unit, Unit> dismissMessage;
+		public ICommand DismissMessage
 		{
-			var dialogVM = new ChooseNameViewModel(MiscRes.ChooseNamePicker, this.pickersService.Pickers.Skip(1).Select(p => p.Picker.Name));
-			dialogVM.Name = this.Picker.DisplayName;
-			Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
-
-			if (dialogVM.DialogResult)
+			get
 			{
-				string newPickerName = dialogVM.Name;
-
-				this.pickersService.SavePickerAs(newPickerName);
-			}
-		}
-
-		public ReactiveCommand<object> Rename { get; }
-
-		private void RenameImpl()
-		{
-			var dialogVM = new ChooseNameViewModel(MiscRes.ChooseNamePicker, this.pickersService.Pickers.Skip(1).Select(p => p.Picker.Name));
-			dialogVM.Name = this.Picker.DisplayName;
-			Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
-
-			if (dialogVM.DialogResult)
-			{
-				string newPickerName = dialogVM.Name;
-				this.pickersService.SelectedPicker.Picker.Name = newPickerName;
-
-				this.pickersService.SavePicker();
-			}
-		}
-
-		public ReactiveCommand<object> Delete { get; }
-
-		private void DeleteImpl()
-		{
-			if (this.Picker.IsModified)
-			{
-				// Revert
-				MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, MainRes.RevertConfirmMessage, MainRes.RevertConfirmTitle, MessageBoxButton.YesNo);
-				if (dialogResult == MessageBoxResult.Yes)
+				return this.dismissMessage ?? (this.dismissMessage = ReactiveCommand.Create(() =>
 				{
-					this.pickersService.RevertPicker();
-				}
+					this.ShowHelpMessage = false;
+				}));
 			}
-			else
+		}
+
+		private ReactiveCommand<Unit, Unit> save;
+		public ICommand Save
+		{
+			get
 			{
-				// Delete
-				MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, MainRes.RemoveConfirmMessage, MainRes.RemoveConfirmTitle, MessageBoxButton.YesNo);
-				if (dialogResult == MessageBoxResult.Yes)
+				return this.save ?? (this.save = ReactiveCommand.Create(
+					() =>
+					{
+						this.pickersService.SavePicker();
+					},
+					this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsDefault).Select(isDefault => !isDefault)));
+			}
+		}
+
+
+		private ReactiveCommand<Unit, Unit> saveAs;
+		public ICommand SaveAs
+		{
+			get
+			{
+				return this.saveAs ?? (this.saveAs = ReactiveCommand.Create(() =>
 				{
-					this.pickersService.DeletePicker();
-				}
+					var dialogVM = new ChooseNameViewModel(MiscRes.ChooseNamePicker, this.pickersService.Pickers.Skip(1).Select(p => p.Picker.Name));
+					dialogVM.Name = this.Picker.DisplayName;
+					StaticResolver.Resolve<IWindowManager>().OpenDialog(dialogVM, this);
+
+					if (dialogVM.DialogResult)
+					{
+						string newPickerName = dialogVM.Name;
+
+						this.pickersService.SavePickerAs(newPickerName);
+					}
+				}));
 			}
 		}
 
-		public ReactiveCommand<object> PickOutputDirectory { get; private set; }
-
-		private void PickOutputDirectoryImpl()
+		private ReactiveCommand<Unit, Unit> rename;
+		public ICommand Rename
 		{
-			string overrideFolder = FileService.Instance.GetFolderName(this.OutputDirectoryOverride, MainRes.OutputDirectoryPickerText);
-			if (overrideFolder != null)
+			get
 			{
-				this.OutputDirectoryOverride = overrideFolder;
-			}
-		}
-
-		public ReactiveCommand<object> AddAudioLanguage { get; }
-
-		private void AddAudioLanguageImpl()
-		{
-			this.AddLanguage(this.AudioLanguages);
-			this.HandleAudioLanguageUpdate();
-		}
-
-		public ReactiveCommand<object> AddSubtitleLanguage { get; }
-
-		private void AddSubtitleLanguageImpl()
-		{
-			this.AddLanguage(this.SubtitleLanguages);
-			this.HandleSubtitleLanguageUpdate();
-		}
-
-		private void AddLanguage(ReactiveList<LanguageViewModel> list)
-		{
-			list.Add(new LanguageViewModel(this) { Code = LanguageUtilities.GetDefaultLanguageCode(list.Select(l => l.Code).ToList()) });
-		}
-
-		public ReactiveCommand<object> PickPostEncodeExecutable { get; }
-
-		private void PickPostEncodeExecutableImpl()
-		{
-			string initialDirectory = null;
-			if (!string.IsNullOrEmpty(this.PostEncodeExecutable))
-			{
-				try
+				return this.rename ?? (this.rename = ReactiveCommand.Create(() =>
 				{
-					initialDirectory = Path.GetDirectoryName(this.PostEncodeExecutable);
-				}
-				catch (Exception)
-				{
-					// Ignore and use null
-				}
-			}
+					var dialogVM = new ChooseNameViewModel(MiscRes.ChooseNamePicker, this.pickersService.Pickers.Skip(1).Select(p => p.Picker.Name));
+					dialogVM.Name = this.Picker.DisplayName;
+					StaticResolver.Resolve<IWindowManager>().OpenDialog(dialogVM, this);
 
-			string executablePath = FileService.Instance.GetFileNameLoad(initialDirectory: initialDirectory);
-			if (executablePath != null)
+					if (dialogVM.DialogResult)
+					{
+						string newPickerName = dialogVM.Name;
+						this.pickersService.SelectedPicker.Picker.Name = newPickerName;
+
+						this.pickersService.SavePicker();
+					}
+				}));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> delete;
+		public ICommand Delete
+		{
+			get
 			{
-				this.PostEncodeExecutable = executablePath;
+				return this.delete ?? (this.delete = ReactiveCommand.Create(
+					() =>
+					{
+						if (this.Picker.IsModified)
+						{
+							// Revert
+							MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, MainRes.RevertConfirmMessage, MainRes.RevertConfirmTitle, MessageBoxButton.YesNo);
+							if (dialogResult == MessageBoxResult.Yes)
+							{
+								this.pickersService.RevertPicker();
+							}
+						}
+						else
+						{
+							// Delete
+							MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, MainRes.RemoveConfirmMessage, MainRes.RemoveConfirmTitle, MessageBoxButton.YesNo);
+							if (dialogResult == MessageBoxResult.Yes)
+							{
+								this.pickersService.DeletePicker();
+							}
+						}
+					},
+					this.pickersService.WhenAnyValue(
+						x => x.SelectedPicker.Picker.IsModified,
+						x => x.SelectedPicker.Picker.IsDefault,
+						(isModified, isDefault) => isModified || !isDefault)));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> pickOutputDirectory;
+		public ICommand PickOutputDirectory
+		{
+			get
+			{
+				return this.pickOutputDirectory ?? (this.pickOutputDirectory = ReactiveCommand.Create(() =>
+				{
+					string overrideFolder = FileService.Instance.GetFolderName(this.OutputDirectoryOverride, MainRes.OutputDirectoryPickerText);
+					if (overrideFolder != null)
+					{
+						this.OutputDirectoryOverride = overrideFolder;
+					}
+				}));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> addAudioLanguage;
+		public ICommand AddAudioLanguage
+		{
+			get
+			{
+				return this.addAudioLanguage ?? (this.addAudioLanguage = ReactiveCommand.Create(() =>
+				{
+					this.AddLanguage(this.audioLanguages);
+					this.HandleAudioLanguageUpdate();
+				}));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> addSubtitleLanguage;
+		public ICommand AddSubtitleLanguage
+		{
+			get
+			{
+				return this.addSubtitleLanguage ?? (this.addSubtitleLanguage = ReactiveCommand.Create(() =>
+				{
+					this.AddLanguage(this.subtitleLanguages);
+					this.HandleSubtitleLanguageUpdate();
+				}));
+			}
+		}
+
+		private void AddLanguage(SourceList<LanguageViewModel> list)
+		{
+			list.Add(new LanguageViewModel(this) { Code = LanguageUtilities.GetDefaultLanguageCode(list.Items.Select(l => l.Code).ToList()) });
+		}
+
+		private ReactiveCommand<Unit, Unit> pickPostEncodeExecutable;
+		public ICommand PickPostEncodeExecutable
+		{
+			get
+			{
+				return this.pickPostEncodeExecutable ?? (this.pickPostEncodeExecutable = ReactiveCommand.Create(() =>
+				{
+					string initialDirectory = null;
+					if (!string.IsNullOrEmpty(this.PostEncodeExecutable))
+					{
+						try
+						{
+							initialDirectory = Path.GetDirectoryName(this.PostEncodeExecutable);
+						}
+						catch (Exception)
+						{
+							// Ignore and use null
+						}
+					}
+
+					string executablePath = FileService.Instance.GetFileNameLoad(initialDirectory: initialDirectory);
+					if (executablePath != null)
+					{
+						this.PostEncodeExecutable = executablePath;
+					}
+				}));
 			}
 		}
 
@@ -829,13 +938,13 @@ namespace VidCoder.ViewModel
 
 		private void HandleAudioLanguageUpdate()
 		{
-			IList<string> languages = GetLanguageList(this.AudioLanguages);
+			IList<string> languages = GetLanguageList(this.audioLanguages.Items);
 			this.UpdatePickerProperty(nameof(this.Picker.AudioLanguageCodes), languages, raisePropertyChanged: false);
 		}
 
 		private void HandleSubtitleLanguageUpdate()
 		{
-			IList<string> languages = GetLanguageList(this.SubtitleLanguages);
+			IList<string> languages = GetLanguageList(this.subtitleLanguages.Items);
 			this.UpdatePickerProperty(nameof(this.Picker.SubtitleLanguageCodes), languages, raisePropertyChanged: false);
 		}
 
@@ -846,13 +955,13 @@ namespace VidCoder.ViewModel
 
 		public void RemoveAudioLanguage(LanguageViewModel viewModel)
 		{
-			this.AudioLanguages.Remove(viewModel);
+			this.audioLanguages.Remove(viewModel);
 			this.HandleAudioLanguageUpdate();
 		}
 
 		public void RemoveSubtitleLanguage(LanguageViewModel viewModel)
 		{
-			this.SubtitleLanguages.Remove(viewModel);
+			this.subtitleLanguages.Remove(viewModel);
 			this.HandleSubtitleLanguageUpdate();
 		}
 
@@ -882,7 +991,7 @@ namespace VidCoder.ViewModel
 				{
 					// Clone the picker so we modify a different copy.
 					Picker newPicker = new Picker();
-					newPicker.InjectFrom<FastDeepCloneInjection>(this.Picker);
+					newPicker.InjectFrom<CloneInjection>(this.Picker);
 
 					if (!newPicker.IsModified)
 					{
@@ -892,7 +1001,7 @@ namespace VidCoder.ViewModel
 			}
 
 			// Update the value and raise PropertyChanged
-			typeAccessor[this.Picker, propertyName] = value;
+			typeof(Picker).GetProperty(propertyName).SetValue(this.Picker, value);
 
 			if (raisePropertyChanged)
 			{
@@ -917,7 +1026,7 @@ namespace VidCoder.ViewModel
 		}
 	}
 
-	public enum SubtitleModifierChoices
+	public enum SubtitleQuantityClass
 	{
 		None,
 		Single,

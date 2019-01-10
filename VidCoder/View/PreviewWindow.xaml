@@ -12,6 +12,7 @@
 	Height="514"
 	MinWidth="405"
 	MinHeight="200"
+	Closing="PreviewWindow_OnClosing"
 	ShowInTaskbar="False"
 	TextOptions.TextFormattingMode="Display"
 	WindowStyle="ToolWindow">
@@ -53,7 +54,11 @@
 			MouseDown="OnVideoClick"
 			Visibility="{Binding PlayingPreview,
 			                     Converter={StaticResource VisibilityConverter}}" />
-		<Grid Name="previewControls" Grid.Row="1">
+		<Grid
+			Name="previewControls"
+			Grid.Row="1"
+			Visibility="{Binding PreviewImageService.HasPreview,
+			                     Converter={StaticResource VisibilityConverter}}">
 			<preview:PreviewCreationControls />
 		</Grid>
 	</Grid>

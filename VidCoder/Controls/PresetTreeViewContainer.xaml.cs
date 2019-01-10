@@ -14,10 +14,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Microsoft.AnyContainer;
 using VidCoder.DragDropUtils;
 using VidCoder.Extensions;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
+using VidCoder.View;
 using VidCoder.ViewModel;
 using VidCoder.ViewModel.DataModels;
 
@@ -28,7 +30,7 @@ namespace VidCoder.Controls
     /// </summary>
     public partial class PresetTreeViewContainer : UserControl
     {
-	    private PresetsService presetsService = Ioc.Get<PresetsService>();
+	    private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
 
         public PresetTreeViewContainer()
         {
@@ -40,9 +42,6 @@ namespace VidCoder.Controls
 		        {
 			        return viewItem.Header == model;
 		        });
-		        //var item = this.presetTreeView.ContainerFromItem(model);
-
-				// TODO: Find the TreeViewItem for the PresetFolderViewModel
 
 		        if (item != null)
 		        {
@@ -56,7 +55,7 @@ namespace VidCoder.Controls
 	        };
         }
 
-	    private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+		private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
 	    {
 		    object selectedItem = e.NewValue;
 
@@ -75,7 +74,11 @@ namespace VidCoder.Controls
 			DispatchUtilities.BeginInvoke(() =>
 			{
 				// This might be in the layout phase. Invoke on dispatcher to process cleanly.
-				this.presetsService.SelectedPreset = (PresetViewModel)selectedItem;
+				var newSelectedPreset = (PresetViewModel)selectedItem;
+				if (this.presetsService.TryUpdateSelectedPreset(newSelectedPreset))
+				{
+					StaticResolver.Resolve<Main>().ReadTextToScreenReader(newSelectedPreset.DisplayName);
+				}
 			});
 	    }
 
@@ -142,7 +145,7 @@ namespace VidCoder.Controls
 			    this.DecideDropTarget(e);
 			    if (this.dropTarget != null)
 			    {
-				    Ioc.Get<PresetsService>().MovePresetToFolder(this.draggedPreset, (PresetFolderViewModel)this.dropTarget.Header);
+				    StaticResolver.Resolve<PresetsService>().MovePresetToFolder(this.draggedPreset, (PresetFolderViewModel)this.dropTarget.Header);
 			    }
 
 			    this.RemoveFolderMoveAdorner();
@@ -180,7 +183,7 @@ namespace VidCoder.Controls
 
 				    if (this.draggedPreset != null)
 				    {
-					    var windowManager = Ioc.Get<IWindowManager>();
+					    var windowManager = StaticResolver.Resolve<IWindowManager>();
 
 					    windowManager.SuspendDropOnWindows();
 					    DragDrop.DoDragDrop((DependencyObject)sender, this.presetTreeView.SelectedItem, DragDropEffects.Move);

@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Xceed.Wpf.Toolkit;
 
 namespace VidCoder.View
 {
@@ -24,12 +23,6 @@ namespace VidCoder.View
 		public SizingPanel()
 		{
 			this.InitializeComponent();
-
-			this.colorPicker.StandardColors = new ObservableCollection<ColorItem>
-			{
-				new ColorItem(Colors.Black, "Black"),
-				new ColorItem(Colors.White, "White")
-			};
 		}
 	}
 }

@@ -6,7 +6,7 @@
     Title="{Binding Title}"
     Width="399"
     Height="205"
-    Background="WhiteSmoke"
+    Background="{DynamicResource AlternateBackgroundBrush}"
     ResizeMode="NoResize"
     Topmost="True"
     WindowStartupLocation="CenterScreen">

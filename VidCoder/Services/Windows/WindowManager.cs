@@ -7,7 +7,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Model;
@@ -32,7 +34,18 @@ namespace VidCoder.Services.Windows
 				new WindowDefinition
 				{
 					ViewModelType = typeof(MainViewModel), 
-					PlacementConfigKey = "MainWindowPlacement"
+					PlacementConfigKey = "MainWindowPlacement",
+					InitialSizeOverride = () =>
+					{
+						Rect workArea = SystemParameters.WorkArea;
+
+						double fillHeight = workArea.Height - 500;
+						double minHeight = 548;
+
+						double desiredHeight = Math.Max(fillHeight, minHeight);
+
+						return new Size(0, desiredHeight);
+					}
 				},
 
 				new WindowDefinition
@@ -83,13 +96,7 @@ namespace VidCoder.Services.Windows
 					PlacementConfigKey = "EncodeDetailsWindowPlacement",
 					IsOpenConfigKey = "EncodeDetailsWindowOpen", 
 					MenuLabel = MainRes.EncodeDetailsMenuItem,
-					CanOpen = () => Ioc.Get<ProcessingService>().WhenAnyValue(x => x.Encoding)
-				},
-
-				new WindowDefinition
-				{
-					ViewModelType = typeof(SubtitleDialogViewModel),
-					PlacementConfigKey = "SubtitlesDialogPlacement"
+					CanOpen = () => StaticResolver.Resolve<ProcessingService>().WhenAnyValue(x => x.Encoding)
 				},
 
 				new WindowDefinition
@@ -97,11 +104,13 @@ namespace VidCoder.Services.Windows
 					ViewModelType = typeof(ChapterMarkersDialogViewModel),
 					PlacementConfigKey = "ChapterMarkersDialogPlacement"
 				},
+
 				new WindowDefinition
 				{
 					ViewModelType = typeof(QueueTitlesWindowViewModel),
 					PlacementConfigKey = "QueueTitlesDialogPlacement2"
 				},
+
 				new WindowDefinition
 				{
 					ViewModelType = typeof(AddAutoPauseProcessDialogViewModel),
@@ -176,8 +185,9 @@ namespace VidCoder.Services.Windows
 		/// <typeparam name="T">The type of the viewmodel.</typeparam>
 		/// <param name="ownerViewModel">The viewmodel of the owner window.</param>
 		public void OpenDialog<T>(object ownerViewModel = null)
+			where T : class
 		{
-			this.OpenDialog(Ioc.Get<T>(), ownerViewModel);
+			this.OpenDialog(StaticResolver.Resolve<T>(), ownerViewModel);
 		}
 
 		/// <summary>
@@ -203,7 +213,7 @@ namespace VidCoder.Services.Windows
 
 				if (canOpen && Config.Get<bool>(definition.IsOpenConfigKey))
 				{
-					this.OpenWindow(Ioc.Get(definition.ViewModelType), userInitiated: false);
+					this.OpenWindow(StaticResolver.Resolve(definition.ViewModelType), userInitiated: false);
 					windowOpened = true;
 				}
 			}
@@ -246,7 +256,7 @@ namespace VidCoder.Services.Windows
 
 			if (viewModel == null)
 			{
-				viewModel = Ioc.Get(viewModelType);
+				viewModel = StaticResolver.Resolve(viewModelType);
 				if (ownerViewModel == null)
 				{
 					ownerViewModel = this.mainViewModel;
@@ -295,12 +305,11 @@ namespace VidCoder.Services.Windows
 		/// <returns>The command.</returns>
 		public ICommand CreateOpenCommand(Type viewModelType, bool openAsDialog = false)
 		{
-			var command = ReactiveCommand.Create();
-			command.Subscribe(_ =>
+			var command = ReactiveCommand.Create(() =>
 			{
 				if (openAsDialog)
 				{
-					this.OpenDialog(Ioc.Get(viewModelType));
+					this.OpenDialog(StaticResolver.Resolve(viewModelType));
 				}
 				else
 				{
@@ -439,6 +448,20 @@ namespace VidCoder.Services.Windows
 					}
 					else
 					{
+						if (windowDefinition.InitialSizeOverride != null && string.IsNullOrEmpty(placementJson))
+						{
+							Size? initialSizeOverride = windowDefinition.InitialSizeOverride();
+							if (initialSizeOverride.Value.Width > 0)
+							{
+								windowToOpen.Width = initialSizeOverride.Value.Width;
+							}
+
+							if (initialSizeOverride.Value.Height > 0)
+							{
+								windowToOpen.Height = initialSizeOverride.Value.Height;
+							}
+						}
+
 						windowToOpen.PlaceDynamic(placementJson);
 					}
 				};
@@ -478,7 +501,10 @@ namespace VidCoder.Services.Windows
 			if (data != null && data.ContainsFileDropList())
 			{
 				StringCollection itemList = data.GetFileDropList();
-                Ioc.Get<MainViewModel>().HandlePaths(itemList.Cast<string>().ToList());
+				var listView = dragEventArgs.Source as ListView;
+				bool alwaysQueue = listView?.Name == "queueView";
+
+				StaticResolver.Resolve<MainViewModel>().HandlePaths(itemList.Cast<string>().ToList(), alwaysQueue);
 			}
 		}
 

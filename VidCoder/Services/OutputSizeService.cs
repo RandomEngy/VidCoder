@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HandBrake.ApplicationServices.Interop.Json.Shared;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.ViewModel;
 using VidCoderCommon.Model;
@@ -13,8 +13,7 @@ namespace VidCoder.Services
 {
 	public class OutputSizeService : ReactiveObject
 	{
-		private PresetsService presetsService = Ioc.Get<PresetsService>();
-		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
+		private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
 
 		public OutputSizeService()
 		{
@@ -37,11 +36,13 @@ namespace VidCoder.Services
 
 		public void Refresh()
 		{
-			if (this.mainViewModel.SelectedTitle != null)
+			MainViewModel mainViewModel = StaticResolver.Resolve<MainViewModel>();
+
+			if (mainViewModel.SelectedTitle != null)
 			{
 				var profile = this.presetsService.SelectedPreset.Preset.EncodingProfile;
 
-				OutputSizeInfo outputSizeInfo = JsonEncodeFactory.GetOutputSize(profile, this.mainViewModel.SelectedTitle);
+				OutputSizeInfo outputSizeInfo = JsonEncodeFactory.GetOutputSize(profile, mainViewModel.SelectedTitle.Title);
 
 				if (this.Size == null || !outputSizeInfo.Equals(this.Size))
 				{

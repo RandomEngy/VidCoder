@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using HandBrake.ApplicationServices.Interop;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
+using DynamicData;
+using HandBrake.Interop.Interop.Json.Scan;
+using Microsoft.AnyContainer;
 using Newtonsoft.Json;
 using VidCoder.Extensions;
 using VidCoder.Model;
@@ -51,7 +52,7 @@ namespace VidCoder.ViewModel
 
 		public List<ScanResult> ScanResults { get; private set; }
 
-		public void ScanNextJob()
+		private void ScanNextJob()
 		{
 			SourcePath path = this.pathsToScan[this.currentJobIndex];
 
@@ -97,7 +98,25 @@ namespace VidCoder.ViewModel
                 }
             };
 
-            scanProxy.StartScan(path.Path, Ioc.Get<IAppLogger>());
+			var scanLogger = new AppLogger(StaticResolver.Resolve<IAppLogger>(), "Scan");
+
+            scanProxy.StartScan(path.Path, scanLogger);
+		}
+
+		public bool TryAddScanPaths(IList<SourcePath> additionalPaths)
+		{
+			lock (this.currentJobIndexLock)
+			{
+				if (this.ScanFinished)
+				{
+					return false;
+				}
+
+				this.pathsToScan.AddRange(additionalPaths);
+				this.RaisePropertyChanged(nameof(this.Progress));
+
+				return true;
+			}
 		}
 
 	    public class ScanResult

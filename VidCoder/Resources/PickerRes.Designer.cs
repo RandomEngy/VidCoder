@@ -160,11 +160,47 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to By index.
+        /// </summary>
+        public static string ByIndexRadioButton {
+            get {
+                return ResourceManager.GetString("ByIndexRadioButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Default.
         /// </summary>
         public static string DefaultCheckBox {
             get {
                 return ResourceManager.GetString("DefaultCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter titles by duration.
+        /// </summary>
+        public static string DurationFilterCheckBoxAutomationName {
+            get {
+                return ResourceManager.GetString("DurationFilterCheckBoxAutomationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duration filter end minutes.
+        /// </summary>
+        public static string DurationFilterEndAutomationName {
+            get {
+                return ResourceManager.GetString("DurationFilterEndAutomationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duration filter start minutes.
+        /// </summary>
+        public static string DurationFilterStartAutomationName {
+            get {
+                return ResourceManager.GetString("DurationFilterStartAutomationName", resourceCulture);
             }
         }
         
@@ -277,7 +313,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Override directory:.
+        ///   Looks up a localized string similar to Override folder:.
         /// </summary>
         public static string OverrideDirectoryCheckBox {
             get {
@@ -376,6 +412,33 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select time range.
+        /// </summary>
+        public static string SelectTimeRangeCheckBox {
+            get {
+                return ResourceManager.GetString("SelectTimeRangeCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comma separated - ex. 2,5.
+        /// </summary>
+        public static string SelectTracksHelpText {
+            get {
+                return ResourceManager.GetString("SelectTracksHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select tracks:.
+        /// </summary>
+        public static string SelectTracksLabel {
+            get {
+                return ResourceManager.GetString("SelectTracksLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send file to:.
         /// </summary>
         public static string SendFileToLabel {
@@ -435,6 +498,42 @@ namespace VidCoder.Resources {
         public static string SubtitleSelection {
             get {
                 return ResourceManager.GetString("SubtitleSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time range end.
+        /// </summary>
+        public static string TimeRangeEndAutomationName {
+            get {
+                return ResourceManager.GetString("TimeRangeEndAutomationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time range selection.
+        /// </summary>
+        public static string TimeRangeSelection {
+            get {
+                return ResourceManager.GetString("TimeRangeSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time range start.
+        /// </summary>
+        public static string TimeRangeStartAutomationName {
+            get {
+                return ResourceManager.GetString("TimeRangeStartAutomationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title capitalization:.
+        /// </summary>
+        public static string TitleCaptializationLabel {
+            get {
+                return ResourceManager.GetString("TitleCaptializationLabel", resourceCulture);
             }
         }
         

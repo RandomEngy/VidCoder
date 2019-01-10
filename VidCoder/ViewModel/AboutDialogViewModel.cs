@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using HandBrake.ApplicationServices.Interop;
+using HandBrake.Interop.Interop;
+using HandBrake.Interop.Utilities;
 using VidCoder.Extensions;
 
 namespace VidCoder.ViewModel
@@ -18,11 +19,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				using (var hbInstance = new HandBrakeInstance())
-				{
-					hbInstance.Initialize(1);
-					return string.Format(MiscRes.BasedOnHandBrake, hbInstance.Version);
-				}
+				return string.Format(MiscRes.BasedOnHandBrake, VersionHelper.Version);
 			}
 		}
 

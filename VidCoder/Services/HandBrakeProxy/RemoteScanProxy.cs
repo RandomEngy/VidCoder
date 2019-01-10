@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
 using VidCoderCommon;
 
 namespace VidCoder.Services.HandBrakeProxy

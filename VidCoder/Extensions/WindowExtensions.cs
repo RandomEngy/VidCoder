@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
+using System.Reactive;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
@@ -12,7 +14,7 @@ namespace VidCoder.Extensions
 {
     public static class WindowExtensions
     {
-	    private static IWindowManager windowManager = Ioc.Get<IWindowManager>();
+	    private static IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
 
         public static void RegisterGlobalHotkeys(this Window window)
         {
@@ -28,8 +30,7 @@ namespace VidCoder.Extensions
 
 				        var key = (Key)converter.ConvertFrom(parts[1]);
 
-				        ReactiveCommand<object> openCommand = ReactiveCommand.Create();
-				        openCommand.Subscribe(_ =>
+				        ReactiveCommand<Unit, Unit> openCommand = ReactiveCommand.Create(() =>
 				        {
 							windowManager.OpenOrFocusWindow(windowViewModelType);
 						});

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reactive.Linq;
 using System.Windows.Shell;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.ViewModel;
@@ -11,17 +12,15 @@ namespace VidCoder.Services
 	{
 		public TaskBarProgressTracker()
 		{
-			ProcessingService processingService = Ioc.Get<ProcessingService>();
-			MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
+			ProcessingService processingService = StaticResolver.Resolve<ProcessingService>();
+			MainViewModel mainViewModel = StaticResolver.Resolve<MainViewModel>();
 
 			// Set up some observables for properties we care about.
 			var isEncodingObservable = processingService
-				.WhenAnyValue(x => x.EncodeProgress)
-				.Select(encodeProgress => encodeProgress != null && encodeProgress.Encoding);
+				.WhenAnyValue(x => x.Encoding);
 
-			var encodeProgressFractionObservable = processingService
-				.WhenAnyValue(x => x.EncodeProgress)
-				.Select(encodeProgress => encodeProgress == null ? 0 : encodeProgress.OverallProgressFraction);
+			var encodeProgressFractionObservable = processingService.WorkTracker
+				.WhenAnyValue(x => x.OverallEncodeProgressFraction);
 
 			var isEncodePausedObservable = processingService.WhenAnyValue(x => x.Paused);
 			var videoSourceStateObservable = mainViewModel.WhenAnyValue(x => x.VideoSourceState);

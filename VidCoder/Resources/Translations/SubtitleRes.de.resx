@@ -120,9 +120,6 @@
   <data name="SubtitlesWindowTitle" xml:space="preserve">
     <value>Untertitel</value>
   </data>
-  <data name="RemoveSubtitleTrack" xml:space="preserve">
-    <value>Diese Untertitelspur entfernen</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>Untertitel aus Quelle:</value>
   </data>
@@ -165,16 +162,17 @@
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Ausländische Dialoge extrahieren</value>
   </data>
-  <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
-    <value>Das ursprüngliche Video enthält keine Untertitel.</value>
-  </data>
   <data name="SrtFilePickerText" xml:space="preserve">
     <value>Füge Untertitel-Datei hinzu</value>
   </data>
-	<data name="DuplicateSubtitleTrack" xml:space="preserve">
-    <value>Diese Untertitelspur duplizieren</value>
-  </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Konnte die Encodierung der Untertiteldatei nicht erkennen. Versuchen Sie die Datei erneut abzuspeichern und zwar als UTF-8.</value>
+  </data>
+  <data name="NoSubtitlesText" xml:space="preserve">
+    <value>Es wurden keine Untertitelspuren in der Quelle gefunden.</value>
+  </data>
+  <data name="ExternalSubtitlesSummaryFormat" xml:space="preserve">
+    <value>{0} externe</value>
+    <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
   </data>
 </root>

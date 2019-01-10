@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.AnyContainer;
 using Omu.ValueInjecter;
 using ReactiveUI;
 using VidCoder.Model;
@@ -22,9 +24,9 @@ namespace VidCoder.Services
 	/// </summary>
 	public class PickersService : ReactiveObject
 	{
-		private MainViewModel main = Ioc.Get<MainViewModel>();
-		private IWindowManager windowManager = Ioc.Get<IWindowManager>();
-		private OutputPathService outputPathService = Ioc.Get<OutputPathService>();
+		private MainViewModel main = StaticResolver.Resolve<MainViewModel>();
+		private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
+		private OutputPathService outputPathService = StaticResolver.Resolve<OutputPathService>();
 
 		private PickerViewModel selectedPicker;
 
@@ -38,8 +40,11 @@ namespace VidCoder.Services
 			Picker modifiedPicker = storedPickers.FirstOrDefault(picker => picker.IsModified);
 			int modifiedPickerIndex = -1;
 
-			Picker nonePicker = new Picker();
-			nonePicker.IsDefault = true;
+			Picker nonePicker = new Picker
+			{
+				IsDefault = true,
+				Name = ""
+			};
 			this.pickers.Add(new PickerViewModel(nonePicker));
 
 			this.WhenAnyValue(x => x.SelectedPicker.DisplayNameWithStar)
@@ -47,7 +52,7 @@ namespace VidCoder.Services
 				{
 					return string.Format(PickerRes.PickerButtonFormat, displayName);
 				})
-				.ToProperty(this, x => x.PickerButtonText, out this.pickerButtonText);
+				.ToProperty(this, x => x.PickerButtonText, out this.pickerButtonText, deferSubscription: true);
 
 			this.WhenAnyValue(x => x.SelectedPicker.Picker.UseEncodingPreset)
 				.Select(useEncodingPreset =>
@@ -61,7 +66,7 @@ namespace VidCoder.Services
 			{
 				if (pickerPreset != null)
 				{
-					var presetsService = Ioc.Get<PresetsService>();
+					var presetsService = StaticResolver.Resolve<PresetsService>();
 					PresetViewModel preset = presetsService.AllPresets.FirstOrDefault(p => p.Preset.Name == pickerPreset);
 					if (preset == null)
 					{
@@ -203,10 +208,9 @@ namespace VidCoder.Services
 			}
 		}
 
-		public ReactiveCommand<object> CreateSelectPickerCommand(PickerViewModel picker)
+		public ReactiveCommand<Unit, Unit> CreateSelectPickerCommand(PickerViewModel picker)
 		{
-			var selectPickerCommand = ReactiveCommand.Create();
-			selectPickerCommand.Subscribe(_ =>
+			var selectPickerCommand = ReactiveCommand.Create(() => 
 			{
 				if (picker != this.SelectedPicker)
 				{
@@ -225,17 +229,14 @@ namespace VidCoder.Services
 				this.SelectedPicker.Picker.IsModified = false;
 			}
 
-			//this.SelectedPicker.RefreshView();
 			this.RefreshPickerButton();
 			this.SavePickersToStorage();
-
-			this.main.StartAnimation("PickerGlowHighlight");
 		}
 
 		public void SavePickerAs(string newName)
 		{
 			var newPicker = new Picker();
-			newPicker.InjectFrom<FastDeepCloneInjection>(this.SelectedPicker.Picker);
+			newPicker.InjectFrom<CloneInjection>(this.SelectedPicker.Picker);
 			newPicker.Name = newName;
 			newPicker.IsModified = false;
 
@@ -252,8 +253,6 @@ namespace VidCoder.Services
 			this.SelectedPicker = newPickerVM;
 
 			this.SavePickersToStorage();
-
-			this.main.StartAnimation("PickerGlowHighlight");
 		}
 
 		public void AddPicker(Picker newPicker)
@@ -287,8 +286,6 @@ namespace VidCoder.Services
 			this.SelectedPicker.Picker.IsModified = false;
 
 			this.SavePickersToStorage();
-
-			this.main.StartAnimation("PickerGlowHighlight");
 		}
 
 		public void DeletePicker()
@@ -298,8 +295,6 @@ namespace VidCoder.Services
 			this.SelectedPicker = this.Pickers[0];
 
 			this.SavePickersToStorage();
-
-			this.main.StartAnimation("PickerGlowHighlight");
 		}
 
 		public void AutoCreatePicker()
@@ -367,7 +362,7 @@ namespace VidCoder.Services
 						if (pickerVM.OriginalPicker != null)
 						{
 							var originalPicker = new Picker();
-							originalPicker.InjectFrom<FastDeepCloneInjection>(pickerVM.OriginalPicker);
+							originalPicker.InjectFrom<CloneInjection>(pickerVM.OriginalPicker);
 							originalPicker.IsModified = false;
 
 							storagePickers.Add(originalPicker);

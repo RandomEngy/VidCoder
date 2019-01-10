@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using HandBrake.ApplicationServices.Interop;
-using HandBrake.ApplicationServices.Interop.Model;
+using System.Reactive;
+using System.Windows.Input;
+using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.Model;
 using ReactiveUI;
 using VidCoder.Model;
 using VidCoderCommon.Model;
@@ -13,16 +15,13 @@ namespace VidCoder.ViewModel
 	{
 		private SrtSubtitle subtitle;
 
-		public SrtSubtitleViewModel(SubtitleDialogViewModel subtitleDialogViewModel, SrtSubtitle subtitle)
+		public SrtSubtitleViewModel(MainViewModel mainViewModel, SrtSubtitle subtitle)
 		{
-			this.SubtitleDialogViewModel = subtitleDialogViewModel;
+			this.MainViewModel = mainViewModel;
 			this.subtitle = subtitle;
-
-			this.RemoveSubtitle = ReactiveCommand.Create();
-			this.RemoveSubtitle.Subscribe(_ => this.RemoveSubtitleImpl());
 		}
 
-		public SubtitleDialogViewModel SubtitleDialogViewModel { get; set; }
+		public MainViewModel MainViewModel { get; }
 
 		public SrtSubtitle Subtitle
 		{
@@ -48,7 +47,7 @@ namespace VidCoder.ViewModel
 
 					if (value)
 					{
-						this.SubtitleDialogViewModel.ReportDefault(this);
+						this.MainViewModel.ReportDefaultSubtitle(this);
 					}
 				}
 			}
@@ -73,11 +72,11 @@ namespace VidCoder.ViewModel
 
 				if (value)
 				{
-					this.SubtitleDialogViewModel.ReportBurned(this);
+					this.MainViewModel.ReportBurnedSubtitle(this);
 				}
 
-				this.SubtitleDialogViewModel.UpdateBoxes();
-				this.SubtitleDialogViewModel.UpdateWarningVisibility();
+				this.MainViewModel.UpdateSourceSubtitleBoxes();
+				this.MainViewModel.UpdateSubtitleWarningVisibility();
 			}
 		}
 
@@ -161,10 +160,16 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveCommand<object> RemoveSubtitle { get; }
-		private void RemoveSubtitleImpl()
+		private ReactiveCommand<Unit, Unit> removeSubtitle;
+		public ICommand RemoveSubtitle
 		{
-			this.SubtitleDialogViewModel.RemoveSrtSubtitle(this);
+			get
+			{
+				return this.removeSubtitle ?? (this.removeSubtitle = ReactiveCommand.Create(() =>
+				{
+					this.MainViewModel.RemoveSrtSubtitle(this);
+				}));
+			}
 		}
 	}
 }

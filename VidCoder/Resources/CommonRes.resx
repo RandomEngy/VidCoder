@@ -148,6 +148,7 @@ A full copy of the GNU General Public License has been included along with this 
   </data>
   <data name="QueueColumnNameTitle" xml:space="preserve">
     <value>Title</value>
+    <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
   <data name="QueueColumnNameAudioQuality" xml:space="preserve">
     <value>Audio Quality</value>
@@ -179,7 +180,7 @@ A full copy of the GNU General Public License has been included along with this 
     <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="Browse" xml:space="preserve">
-    <value>Browse...</value>
+    <value>Browse…</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
@@ -256,7 +257,7 @@ A full copy of the GNU General Public License has been included along with this 
     <value>Override naming format:</value>
   </data>
   <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Output to the source directory if possible</value>
+    <value>Output to the source folder if possible</value>
   </data>
   <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
     <value>Preserve folder structure in batch encodes</value>
@@ -279,5 +280,42 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="First" xml:space="preserve">
     <value>First</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
+  </data>
+  <data name="DuplicateTrack" xml:space="preserve">
+    <value>Duplicate this track</value>
+    <comment>Tip to duplicate the audio or subtitle track.</comment>
+  </data>
+  <data name="RemoveTrack" xml:space="preserve">
+    <value>Remove this track</value>
+    <comment>Tip for button to remove the audio or subtitle track.</comment>
+  </data>
+  <data name="SelectedOverTotalAudioTracksFormat" xml:space="preserve">
+    <value>{0}/{1} audio track(s)</value>
+    <comment>{0} is the number of selected audio tracks and {1} is the number of total tracks on the source.</comment>
+  </data>
+  <data name="SelectedOverTotalSubtitleTracksFormat" xml:space="preserve">
+    <value>{0}/{1} subtitle track(s)</value>
+    <comment>{0} is the number of selected subtitle tracks and {1} is the number of total tracks on the source.</comment>
+  </data>
+  <data name="NumberBoxIncreaseButtonAutomationTextFormat" xml:space="preserve">
+    <value>Increase {0}</value>
+    <comment>Automation text for the increase button on the number box.
+{0} - The name of the value the control is changing, for example "width"</comment>
+  </data>
+  <data name="NumberBoxDecreaseButtonAutomationTextFormat" xml:space="preserve">
+    <value>Decrease {0}</value>
+    <comment>Automation text for the decrease button on the number box.
+{0} - The name of the value the control is changing, for example "width"</comment>
+  </data>
+  <data name="OpenSplitButtonAutomationName" xml:space="preserve">
+    <value>Open split button</value>
+    <comment>Automation name for screen readers for the "open" arrow on a split button</comment>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Unknown</value>
+    <comment>Used when a value is not known.</comment>
+  </data>
+  <data name="DefaultLabel" xml:space="preserve">
+    <value>Default:</value>
   </data>
 </root>

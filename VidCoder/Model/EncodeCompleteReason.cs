@@ -2,13 +2,19 @@
 {
 	public enum EncodeCompleteReason
 	{
-		// User hit stop button
+		/// <summary>
+		/// User hit stop button
+		/// </summary>
 		Manual,
 
-		// User exited app
+		/// <summary>
+		/// User exited app
+		/// </summary>
 		AppExit,
 
-		// The encode finished successfully
-		Succeeded
+		/// <summary>
+		/// The encode finished (successfully or unsuccessfully)
+		/// </summary>
+		Finished
 	}
 }

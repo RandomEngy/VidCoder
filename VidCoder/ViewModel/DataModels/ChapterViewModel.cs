@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
+using HandBrake.Interop.Interop.Json.Scan;
 using ReactiveUI;
 
 namespace VidCoder.ViewModel
@@ -29,6 +29,11 @@ namespace VidCoder.ViewModel
 		{
 			get { return this.isHighlighted; }
 			set { this.RaiseAndSetIfChanged(ref this.isHighlighted, value); }
+		}
+
+		public override string ToString()
+		{
+			return this.ChapterNumber.ToString();
 		}
 	}
 }

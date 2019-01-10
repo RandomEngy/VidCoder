@@ -34,6 +34,7 @@
 					Margin="0 27 0 0"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Top"
+					AutomationProperties.HelpText="{x:Static res:EncodingRes.CroppingLabel}"
 					Content="{x:Static res:CommonRes.Automatic}"
 					GroupName="cropping1"
 					IsChecked="{Binding CroppingType,
@@ -43,6 +44,7 @@
 					Margin="0 49 0 0"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Top"
+					AutomationProperties.HelpText="{x:Static res:EncodingRes.CroppingLabel}"
 					Content="{x:Static res:CommonRes.None}"
 					GroupName="cropping2"
 					IsChecked="{Binding CroppingType,
@@ -52,6 +54,7 @@
 					Margin="0 71 0 0"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Top"
+					AutomationProperties.HelpText="{x:Static res:EncodingRes.CroppingLabel}"
 					Content="{x:Static res:CommonRes.Custom}"
 					GroupName="cropping3"
 					IsChecked="{Binding CroppingType,
@@ -69,23 +72,14 @@
 						HorizontalAlignment="Center"
 						VerticalAlignment="Top"
 						AllowEmpty="False"
+						AutomationProperties.HelpText="{x:Static res:EncodingRes.CroppingLabel}"
+						AutomationProperties.Name="{x:Static res:EncodingRes.Top}"
 						IsEnabled="{Binding CroppingUIEnabled}"
 						Minimum="0"
 						Modulus="2"
 						Number="{Binding CropTop,
 						                 Mode=TwoWay}" />
-					<controls:NumberBox
-						Width="45"
-						Height="22.96"
-						Margin="74 56 0 0"
-						HorizontalAlignment="Left"
-						VerticalAlignment="Top"
-						AllowEmpty="False"
-						IsEnabled="{Binding CroppingUIEnabled}"
-						Minimum="0"
-						Modulus="2"
-						Number="{Binding CropRight,
-						                 Mode=TwoWay}" />
+
 					<controls:NumberBox
 						Width="45"
 						Height="23"
@@ -93,11 +87,29 @@
 						HorizontalAlignment="Left"
 						VerticalAlignment="Top"
 						AllowEmpty="False"
+						AutomationProperties.HelpText="{x:Static res:EncodingRes.CroppingLabel}"
+						AutomationProperties.Name="{x:Static res:EncodingRes.Left}"
 						IsEnabled="{Binding CroppingUIEnabled}"
 						Minimum="0"
 						Modulus="2"
 						Number="{Binding CropLeft,
 						                 Mode=TwoWay}" />
+
+					<controls:NumberBox
+						Width="45"
+						Height="22.96"
+						Margin="74 56 0 0"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Top"
+						AllowEmpty="False"
+						AutomationProperties.HelpText="{x:Static res:EncodingRes.CroppingLabel}"
+						AutomationProperties.Name="{x:Static res:EncodingRes.Right}"
+						IsEnabled="{Binding CroppingUIEnabled}"
+						Minimum="0"
+						Modulus="2"
+						Number="{Binding CropRight,
+						                 Mode=TwoWay}" />
+
 					<controls:NumberBox
 						Width="45"
 						Height="23"
@@ -105,6 +117,8 @@
 						HorizontalAlignment="Center"
 						VerticalAlignment="Top"
 						AllowEmpty="False"
+						AutomationProperties.HelpText="{x:Static res:EncodingRes.CroppingLabel}"
+						AutomationProperties.Name="{x:Static res:EncodingRes.Bottom}"
 						IsEnabled="{Binding CroppingUIEnabled}"
 						Minimum="0"
 						Modulus="2"
@@ -128,11 +142,15 @@
 					Margin="0 4 0 0"
 					Orientation="Horizontal"
 					ToolTip="{x:Static res:EncodingRes.SizingModeToolTip}">
-					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.ModeLabel}" />
+					<TextBlock
+						Name="modeLabel"
+						VerticalAlignment="Center"
+						Text="{x:Static res:EncodingRes.ModeLabel}" />
 
 					<ComboBox
 						Margin="6 0 0 0"
 						VerticalAlignment="Center"
+						AutomationProperties.LabeledBy="{Binding ElementName=modeLabel}"
 						ItemsSource="{Binding SizingModeChoices}"
 						SelectedValue="{Binding SizingMode}"
 						SelectedValuePath="Value" />
@@ -148,6 +166,7 @@
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
 						AllowEmpty="{Binding AllowEmptyResolution}"
+						AutomationProperties.Name="{Binding WidthLabel}"
 						Maximum="8192"
 						Minimum="46"
 						Modulus="2"
@@ -167,6 +186,7 @@
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
 						AllowEmpty="{Binding AllowEmptyResolution}"
+						AutomationProperties.Name="{Binding HeightLabel}"
 						Maximum="4608"
 						Minimum="46"
 						Modulus="2"
@@ -192,6 +212,7 @@
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
 						AllowEmpty="False"
+						AutomationProperties.Name="{x:Static res:EncodingRes.PixelAspectRatioNumeratorAutomationName}"
 						IsEnabled="{Binding UseDisplayWidth,
 						                    Converter={StaticResource InverseBoolConverter}}"
 						Minimum="1"
@@ -209,6 +230,7 @@
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
 						AllowEmpty="False"
+						AutomationProperties.Name="{x:Static res:EncodingRes.PixelAspectRatioDenominatorAutomationName}"
 						IsEnabled="{Binding UseDisplayWidth,
 						                    Converter={StaticResource InverseBoolConverter}}"
 						Minimum="1"
@@ -232,11 +254,15 @@
 					Visibility="{Binding SizingMode,
 					                     Converter={StaticResource EnumVisibilityConverter},
 					                     ConverterParameter={x:Static commonModel:VCSizingMode.Automatic}}">
-					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.ScalingModeLabel}" />
+					<TextBlock
+						Name="scalingModeLabel"
+						VerticalAlignment="Center"
+						Text="{x:Static res:EncodingRes.ScalingModeLabel}" />
 
 					<ComboBox
 						Margin="6 0 0 0"
 						VerticalAlignment="Center"
+						AutomationProperties.LabeledBy="{Binding ElementName=scalingModeLabel}"
 						ItemsSource="{Binding ScalingModeChoices}"
 						SelectedValue="{Binding ScalingMode}"
 						SelectedValuePath="Value" />
@@ -261,7 +287,7 @@
 					ItemsSource="{Binding RotationChoices}"
 					SelectedValue="{Binding Rotation}"
 					SelectedValuePath="Rotation"
-					Style="{StaticResource LongToolTipHolder}">
+					ToolTipService.ShowDuration="20000">
 					<ComboBox.ItemTemplate>
 						<DataTemplate>
 							<StackPanel d:DataContext="{d:DesignInstance dataModels:RotationViewModel}" Orientation="Horizontal">
@@ -303,6 +329,7 @@
 			<!--  Padding section  -->
 			<StackPanel Style="{StaticResource SizingSectionStyle}">
 				<TextBlock
+					Name="paddingLabel"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Top"
 					Style="{StaticResource SectionHeader}"
@@ -312,6 +339,7 @@
 					Margin="0 4 0 0"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Center"
+					AutomationProperties.LabeledBy="{Binding ElementName=paddingLabel}"
 					ItemsSource="{Binding PaddingModeChoices}"
 					SelectedValue="{Binding PaddingMode}"
 					SelectedValuePath="Value"
@@ -331,23 +359,14 @@
 						HorizontalAlignment="Center"
 						VerticalAlignment="Top"
 						AllowEmpty="False"
+						AutomationProperties.HelpText="{x:Static res:EncodingRes.PaddingLabel}"
+						AutomationProperties.Name="{x:Static res:EncodingRes.Top}"
 						IsEnabled="{Binding PaddingUIEnabled}"
 						Minimum="0"
 						Modulus="2"
 						Number="{Binding PadTop,
 						                 Mode=TwoWay}" />
-					<controls:NumberBox
-						Width="45"
-						Height="22.96"
-						Margin="74 28 0 0"
-						HorizontalAlignment="Left"
-						VerticalAlignment="Top"
-						AllowEmpty="False"
-						IsEnabled="{Binding PaddingUIEnabled}"
-						Minimum="0"
-						Modulus="2"
-						Number="{Binding PadRight,
-						                 Mode=TwoWay}" />
+
 					<controls:NumberBox
 						Width="45"
 						Height="23"
@@ -355,11 +374,29 @@
 						HorizontalAlignment="Left"
 						VerticalAlignment="Top"
 						AllowEmpty="False"
+						AutomationProperties.HelpText="{x:Static res:EncodingRes.PaddingLabel}"
+						AutomationProperties.Name="{x:Static res:EncodingRes.Left}"
 						IsEnabled="{Binding PaddingUIEnabled}"
 						Minimum="0"
 						Modulus="2"
 						Number="{Binding PadLeft,
 						                 Mode=TwoWay}" />
+
+					<controls:NumberBox
+						Width="45"
+						Height="22.96"
+						Margin="74 28 0 0"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Top"
+						AllowEmpty="False"
+						AutomationProperties.HelpText="{x:Static res:EncodingRes.PaddingLabel}"
+						AutomationProperties.Name="{x:Static res:EncodingRes.Right}"
+						IsEnabled="{Binding PaddingUIEnabled}"
+						Minimum="0"
+						Modulus="2"
+						Number="{Binding PadRight,
+						                 Mode=TwoWay}" />
+
 					<controls:NumberBox
 						Width="45"
 						Height="23"
@@ -367,6 +404,8 @@
 						HorizontalAlignment="Center"
 						VerticalAlignment="Top"
 						AllowEmpty="False"
+						AutomationProperties.HelpText="{x:Static res:EncodingRes.PaddingLabel}"
+						AutomationProperties.Name="{x:Static res:EncodingRes.Bottom}"
 						IsEnabled="{Binding PaddingUIEnabled}"
 						Minimum="0"
 						Modulus="2"
@@ -376,20 +415,24 @@
 
 				<StackPanel
 					Margin="0 10 0 0"
+					VerticalAlignment="Center"
 					Orientation="Horizontal"
 					Visibility="{Binding PadColorEnabled,
 					                     Converter={StaticResource VisibilityConverter}}">
 					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.PadColorLabel}" />
-					<xctk:ColorPicker
-						Name="colorPicker"
-						Width="75"
-						Margin="6 0 0 0"
+					<Grid
+						Width="20"
+						Height="20"
+						Margin="8 0 0 0"
 						VerticalAlignment="Center"
-						AdvancedButtonHeader="{x:Static res:EncodingRes.ColorPickerAdvancedButton}"
-						SelectedColor="{Binding PadColor}"
-						ShowAvailableColors="False"
-						StandardButtonHeader="{x:Static res:EncodingRes.ColorPickerStandardButton}"
-						StandardColorsHeader="{x:Static res:EncodingRes.ColorPickerStandardColorsHeader}" />
+						Background="{Binding PadBrush}"
+						SnapsToDevicePixels="True" />
+
+					<Button
+						Margin="8 0 0 0"
+						Padding="6 2"
+						Command="{Binding PickPadColor}"
+						Content="{x:Static res:EncodingRes.PickColorButton}" />
 				</StackPanel>
 			</StackPanel>
 
@@ -405,7 +448,7 @@
 						MinWidth="230"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Top"
-						Background="{StaticResource InputBrush}"
+						Background="{DynamicResource InputBrush}"
 						Effect="{StaticResource InfoBoxShadow}"
 						Style="{StaticResource InputOutputInfoSection}">
 						<Grid IsSharedSizeScope="True">
@@ -419,7 +462,10 @@
 								VerticalAlignment="Top"
 								Style="{StaticResource SectionHeader}"
 								Text="{x:Static res:EncodingRes.Input}" />
-							<ItemsControl Grid.Column="1" ItemsSource="{Binding InputPreview}">
+							<ItemsControl
+								Grid.Column="1"
+								Focusable="False"
+								ItemsSource="{Binding InputPreview}">
 								<ItemsControl.ItemTemplate>
 									<DataTemplate>
 										<Grid>
@@ -436,44 +482,6 @@
 									</DataTemplate>
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
-
-							<!--<Grid Grid.Column="1">
-								<Grid.RowDefinitions>
-									<RowDefinition Height="Auto" />
-									<RowDefinition Height="Auto" />
-									<RowDefinition Height="Auto" />
-								</Grid.RowDefinitions>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto" />
-									<ColumnDefinition Width="4" />
-									<ColumnDefinition Width="173*" />
-								</Grid.ColumnDefinitions>
-								<TextBlock
-									Grid.Row="0"
-									Grid.Column="0"
-									Text="{x:Static res:EncodingRes.StorageResolutionLabel}" />
-								<TextBlock
-									Grid.Row="1"
-									Grid.Column="0"
-									Text="{x:Static res:EncodingRes.PixelAspectRatioLabel}" />
-								<TextBlock
-									Grid.Row="2"
-									Grid.Column="0"
-									Text="{x:Static res:EncodingRes.DisplayResolutionLabel}" />
-
-								<TextBlock
-									Grid.Row="0"
-									Grid.Column="2"
-									Text="{Binding InputSourceResolution}" />
-								<TextBlock
-									Grid.Row="1"
-									Grid.Column="2"
-									Text="{Binding InputPixelAspectRatio}" />
-								<TextBlock
-									Grid.Row="2"
-									Grid.Column="2"
-									Text="{Binding InputDisplayResolution}" />
-							</Grid>-->
 						</Grid>
 					</Border>
 				</Grid>
@@ -485,7 +493,7 @@
 						Margin="0 10 0 0"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Top"
-						Background="{StaticResource OutputBrush}"
+						Background="{DynamicResource OutputBrush}"
 						Effect="{StaticResource InfoBoxShadow}"
 						Style="{StaticResource InputOutputInfoSection}">
 						<Grid IsSharedSizeScope="True">
@@ -500,7 +508,10 @@
 								Style="{StaticResource SectionHeader}"
 								Text="{x:Static res:EncodingRes.OutputLabel}" />
 
-							<ItemsControl Grid.Column="1" ItemsSource="{Binding OutputPreview}">
+							<ItemsControl
+								Grid.Column="1"
+								Focusable="False"
+								ItemsSource="{Binding OutputPreview}">
 								<ItemsControl.ItemTemplate>
 									<DataTemplate>
 										<Grid>
@@ -517,44 +528,6 @@
 									</DataTemplate>
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
-
-							<!--<Grid Grid.Column="1">
-								<Grid.RowDefinitions>
-									<RowDefinition Height="Auto" />
-									<RowDefinition Height="Auto" />
-									<RowDefinition Height="Auto" />
-								</Grid.RowDefinitions>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto" />
-									<ColumnDefinition Width="4" />
-									<ColumnDefinition Width="173*" />
-								</Grid.ColumnDefinitions>
-								<TextBlock
-									Grid.Row="0"
-									Grid.Column="0"
-									Text="{x:Static res:EncodingRes.StorageResolutionLabel}" />
-								<TextBlock
-									Grid.Row="1"
-									Grid.Column="0"
-									Text="{x:Static res:EncodingRes.PixelAspectRatioLabel}" />
-								<TextBlock
-									Grid.Row="2"
-									Grid.Column="0"
-									Text="{x:Static res:EncodingRes.DisplayResolutionLabel}" />
-
-								<TextBlock
-									Grid.Row="0"
-									Grid.Column="2"
-									Text="{Binding OutputSourceResolution}" />
-								<TextBlock
-									Grid.Row="1"
-									Grid.Column="2"
-									Text="{Binding OutputPixelAspectRatio}" />
-								<TextBlock
-									Grid.Row="2"
-									Grid.Column="2"
-									Text="{Binding OutputDisplayResolution}" />
-							</Grid>-->
 						</Grid>
 					</Border>
 				</Grid>

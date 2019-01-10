@@ -9,12 +9,16 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
+using System.Windows.Interop;
+using Windows.Foundation.Metadata;
+using HandBrake.Interop.Interop.Json.Scan;
+using Microsoft.AnyContainer;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.Services.HandBrakeProxy;
+using VidCoder.View;
 using VidCoderCommon;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
@@ -52,20 +56,6 @@ namespace VidCoder
 		    }
 		}
 
-		private static Dictionary<string, double> defaultQueueColumnSizes = new Dictionary<string, double>
-		{
-			{"Source", 200},
-			{"Title", 35},
-			{"Range", 60},
-			{"Destination", 200},
-			{"VideoEncoder", 100},
-			{"AudioEncoder", 100},
-			{"VideoQuality", 80},
-			{"Duration", 60},
-			{"AudioQuality", 80},
-			{"Preset", 120}
-		};
-
 		public static Version CurrentVersion
 		{
 			get { return Assembly.GetExecutingAssembly().GetName().Version; }
@@ -80,31 +70,60 @@ namespace VidCoder
 			{
 				if (CommonUtilities.Beta)
 				{
-					return string.Format(MiscRes.BetaVersionFormat, CurrentVersion.ToShortString(), Architecture);
+					return string.Format(MiscRes.BetaVersionFormat2, CurrentVersion.ToShortString());
 				}
 				else
 				{
-					return string.Format(MiscRes.VersionFormat, CurrentVersion.ToShortString(), Architecture);
+					return CurrentVersion.ToShortString();
 				}
-			}
-		}
-
-		public static string Architecture
-		{
-			get
-			{
-				if (IntPtr.Size == 4)
-				{
-					return "x86";
-				}
-
-				return "x64";
 			}
 		}
 
 		public static bool IsPortable { get; }
 
 		public static bool IsRunningAsAppx { get; }
+
+		public static bool UwpApisAvailable
+		{
+			get
+			{
+				try
+				{
+					return IsApiContractPresent();
+				}
+				catch (Exception)
+				{
+					// The method call will throw if ApiInformation type is not found, which means we are not on Windows 10.
+					return false;
+				}
+			}
+		}
+
+		private static bool IsApiContractPresent()
+		{
+			return ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 1, 0);
+		}
+
+		[System.Runtime.InteropServices.DllImport("user32.dll")]
+		private static extern IntPtr GetForegroundWindow();
+
+		public static bool IsInForeground
+		{
+			get
+			{
+				IntPtr foregroundWindow = GetForegroundWindow();
+
+				foreach (var window in Application.Current.Windows.OfType<Window>())
+				{
+					if (foregroundWindow == new WindowInteropHelper(window).Handle)
+					{
+						return true;
+					}
+				}
+
+				return false;
+			}
+		}
 
 		public static string PackageFamilyName
 		{
@@ -292,13 +311,19 @@ namespace VidCoder
 			}
 		}
 
-		public static Dictionary<string, double> DefaultQueueColumnSizes
+		public static Dictionary<string, double> DefaultQueueColumnSizes { get; } = new Dictionary<string, double>
 		{
-			get
-			{
-				return defaultQueueColumnSizes;
-			}
-		}
+			{"Source", 200},
+			{"Title", 35},
+			{"Range", 60},
+			{"Destination", 200},
+			{"VideoEncoder", 100},
+			{"AudioEncoder", 100},
+			{"VideoQuality", 80},
+			{"Duration", 60},
+			{"AudioQuality", 80},
+			{"Preset", 120}
+		};
 
 		public static string GetAppFolder(bool beta)
 		{
@@ -319,7 +344,7 @@ namespace VidCoder
 
 		public static bool IsValidQueueColumn(string columnId)
 		{
-			return defaultQueueColumnSizes.ContainsKey(columnId);
+			return DefaultQueueColumnSizes.ContainsKey(columnId);
 		}
 
 		public static IEncodeProxy CreateEncodeProxy()
@@ -461,7 +486,7 @@ namespace VidCoder
 		{
 			get
 			{
-				return Ioc.Get<IMessageBoxService>();
+				return StaticResolver.Resolve<IMessageBoxService>();
 			}
 		}
 
@@ -552,7 +577,7 @@ namespace VidCoder
 			FileAttributes attributes = File.GetAttributes(sourcePath);
 			if ((attributes & FileAttributes.Directory) == FileAttributes.Directory)
 			{
-				var driveService = Ioc.Get<IDriveService>();
+				var driveService = StaticResolver.Resolve<IDriveService>();
 				if (driveService.PathIsDrive(sourcePath))
 				{
 					return SourceType.Disc;
@@ -575,7 +600,7 @@ namespace VidCoder
 				case SourceType.DiscVideoFolder:
 					return GetSourceNameFolder(sourcePath);
 				case SourceType.Disc:
-					var driveService = Ioc.Get<IDriveService>();
+					var driveService = StaticResolver.Resolve<IDriveService>();
 					DriveInformation info = driveService.GetDriveInformationFromPath(sourcePath);
 					if (info != null)
 					{
@@ -650,7 +675,7 @@ namespace VidCoder
 			}
 			catch (UnauthorizedAccessException ex)
 			{
-				Ioc.Get<IAppLogger>().Log("Could not determine folder type: " + ex);
+				StaticResolver.Resolve<IAppLogger>().Log("Could not determine folder type: " + ex);
 			}
 
 			return FolderType.VideoFiles;

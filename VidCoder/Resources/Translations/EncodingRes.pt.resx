@@ -1054,4 +1054,54 @@ Lapsharp actua usando núcleos de convolução próximos dos filtro de bordo Lap
   <data name="ChooseNewFolderName" xml:space="preserve">
     <value>Escolha um novo nome para a pasta:</value>
   </data>
+  <data name="NVEncPreset_losslesshp" xml:space="preserve">
+    <value>Sem perdas de alto desempenho</value>
+  </data>
+  <data name="NVEncPreset_lossless" xml:space="preserve">
+    <value>Sem perdas</value>
+  </data>
+  <data name="NVEncPreset_llhp" xml:space="preserve">
+    <value>Alto desempenho de baixa latência</value>
+  </data>
+  <data name="NVEncPreset_llhq" xml:space="preserve">
+    <value>Baixa latência de alta qualidade</value>
+  </data>
+  <data name="NVEncPreset_ll" xml:space="preserve">
+    <value>Baixa latência</value>
+  </data>
+  <data name="NVEncPreset_bd" xml:space="preserve">
+    <value>Disco BluRay</value>
+  </data>
+  <data name="NVEncPreset_hq" xml:space="preserve">
+    <value>Alta qualidade</value>
+  </data>
+  <data name="NVEncPreset_hp" xml:space="preserve">
+    <value>Alto Desempenho</value>
+  </data>
+  <data name="PickColorButton" xml:space="preserve">
+    <value>Seleccionar cor...</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>Inferior</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Esquerda</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Direita</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Superior</value>
+  </data>
+  <data name="PixelAspectRatioNumeratorAutomationName" xml:space="preserve">
+    <value>Numerador de proporções de pixel</value>
+    <comment>Name for the pixel aspect ratio numerator box for screen readers</comment>
+  </data>
+  <data name="PixelAspectRatioDenominatorAutomationName" xml:space="preserve">
+    <value>Denominador de proporções de pixel</value>
+    <comment>Name for the pixel aspect ratio denominator box for screen readers</comment>
+  </data>
+  <data name="ApplyToQueueButton" xml:space="preserve">
+    <value>Aplicar à fila</value>
+  </data>
 </root>

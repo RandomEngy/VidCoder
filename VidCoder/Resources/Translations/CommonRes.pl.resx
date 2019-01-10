@@ -148,6 +148,7 @@ Pełna kopia licencji GNU General Public została dołączona do tego programu.<
   </data>
   <data name="QueueColumnNameTitle" xml:space="preserve">
     <value>Tytuł</value>
+    <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
   <data name="QueueColumnNameAudioQuality" xml:space="preserve">
     <value>Jakość dźwięku</value>
@@ -280,7 +281,13 @@ Pełna kopia licencji GNU General Public została dołączona do tego programu.<
     <value>Pierwsza</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
-  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
-    <value>Aktualizacje zostały wyłączone, ponieważ nowe wersje nie obsługują 32-bitowych systemów operacyjnych.</value>
-  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

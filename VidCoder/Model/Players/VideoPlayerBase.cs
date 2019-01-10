@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Microsoft.AnyContainer;
 using VidCoder.Resources;
 using VidCoder.Services;
 
@@ -33,7 +34,7 @@ namespace VidCoder.Model
 				string message = string.Format(
 					MiscRes.CouldNotFindVideoPlayerError,
 					this.Display);
-				Ioc.Get<IMessageBoxService>().Show(message);
+				StaticResolver.Resolve<IMessageBoxService>().Show(message);
 				return;
 			}
 
@@ -50,7 +51,7 @@ namespace VidCoder.Model
 			{
 				string message = 
 					MiscRes.ErrorPlayingSource + Environment.NewLine + Environment.NewLine + exception.Message;
-				Ioc.Get<IMessageBoxService>().Show(message);
+				StaticResolver.Resolve<IMessageBoxService>().Show(message);
 			}
 		}
 

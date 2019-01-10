@@ -462,6 +462,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apply to queue.
+        /// </summary>
+        public static string ApplyToQueueButton {
+            get {
+                return ResourceManager.GetString("ApplyToQueueButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to High values mean high compression: better quality/smaller size but longer encode times..
         /// </summary>
         public static string AscendingCompressionToolTip {
@@ -651,6 +660,15 @@ namespace VidCoder.Resources {
         public static string BitrateLabel {
             get {
                 return ResourceManager.GetString("BitrateLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bottom.
+        /// </summary>
+        public static string Bottom {
+            get {
+                return ResourceManager.GetString("Bottom", resourceCulture);
             }
         }
         
@@ -1224,6 +1242,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Left.
+        /// </summary>
+        public static string Left {
+            get {
+                return ResourceManager.GetString("Left", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Level:.
         /// </summary>
         public static string LevelLabel {
@@ -1496,6 +1523,78 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bluray Disk.
+        /// </summary>
+        public static string NVEncPreset_bd {
+            get {
+                return ResourceManager.GetString("NVEncPreset_bd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to High Performance.
+        /// </summary>
+        public static string NVEncPreset_hp {
+            get {
+                return ResourceManager.GetString("NVEncPreset_hp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to High Quality.
+        /// </summary>
+        public static string NVEncPreset_hq {
+            get {
+                return ResourceManager.GetString("NVEncPreset_hq", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Low Latency.
+        /// </summary>
+        public static string NVEncPreset_ll {
+            get {
+                return ResourceManager.GetString("NVEncPreset_ll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to High Performance Low Latency.
+        /// </summary>
+        public static string NVEncPreset_llhp {
+            get {
+                return ResourceManager.GetString("NVEncPreset_llhp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to High Quality Low Latency.
+        /// </summary>
+        public static string NVEncPreset_llhq {
+            get {
+                return ResourceManager.GetString("NVEncPreset_llhq", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lossless.
+        /// </summary>
+        public static string NVEncPreset_lossless {
+            get {
+                return ResourceManager.GetString("NVEncPreset_lossless", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to High Performance Lossless.
+        /// </summary>
+        public static string NVEncPreset_losslesshp {
+            get {
+                return ResourceManager.GetString("NVEncPreset_losslesshp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open the presets list.
         /// </summary>
         public static string OpenPresetsListToolTip {
@@ -1703,11 +1802,38 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pick color….
+        /// </summary>
+        public static string PickColorButton {
+            get {
+                return ResourceManager.GetString("PickColorButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pixel aspect ratio denominator.
+        /// </summary>
+        public static string PixelAspectRatioDenominatorAutomationName {
+            get {
+                return ResourceManager.GetString("PixelAspectRatioDenominatorAutomationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pixel Aspect Ratio:.
         /// </summary>
         public static string PixelAspectRatioLabel {
             get {
                 return ResourceManager.GetString("PixelAspectRatioLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pixel aspect ratio numerator.
+        /// </summary>
+        public static string PixelAspectRatioNumeratorAutomationName {
+            get {
+                return ResourceManager.GetString("PixelAspectRatioNumeratorAutomationName", resourceCulture);
             }
         }
         
@@ -2070,6 +2196,15 @@ namespace VidCoder.Resources {
         public static string Revert {
             get {
                 return ResourceManager.GetString("Revert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Right.
+        /// </summary>
+        public static string Right {
+            get {
+                return ResourceManager.GetString("Right", resourceCulture);
             }
         }
         
@@ -2498,6 +2633,15 @@ namespace VidCoder.Resources {
         public static string TargetWidthLabel {
             get {
                 return ResourceManager.GetString("TargetWidthLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top.
+        /// </summary>
+        public static string Top {
+            get {
+                return ResourceManager.GetString("Top", resourceCulture);
             }
         }
         

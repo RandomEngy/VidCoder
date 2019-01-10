@@ -9,6 +9,19 @@ namespace VidCoder
 {
 	public static class CustomConfig
 	{
+		public static UpdatePromptTiming UpdatePromptTiming
+		{
+			get
+			{
+				return (UpdatePromptTiming)Enum.Parse(typeof(UpdatePromptTiming), Config.UpdatePromptTiming);
+			}
+
+			set
+			{
+				Config.UpdatePromptTiming = value.ToString();
+			}
+		}
+
 		public static List<string> AutoPauseProcesses
 		{
 			get
@@ -89,15 +102,14 @@ namespace VidCoder
 
 		public static PreviewDisplay PreviewDisplay
 		{
-			get
-			{
-				return (PreviewDisplay) Enum.Parse(typeof (PreviewDisplay), Config.PreviewDisplay);
-			}
+			get => (PreviewDisplay) Enum.Parse(typeof (PreviewDisplay), Config.PreviewDisplay);
+			set => Config.PreviewDisplay = value.ToString();
+		}
 
-			set
-			{
-				Config.PreviewDisplay = value.ToString();
-			}
+		public static AppThemeChoice AppTheme
+		{
+			get => (AppThemeChoice)Enum.Parse(typeof(AppThemeChoice), Config.AppTheme);
+			set => Config.AppTheme = value.ToString();
 		}
 
 		public static ProcessPriorityClass WorkerProcessPriority

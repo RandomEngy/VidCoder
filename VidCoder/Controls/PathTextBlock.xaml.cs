@@ -20,6 +20,8 @@ namespace VidCoder.Controls
 	/// </summary>
 	public partial class PathTextBlock : UserControl
 	{
+		private double? manualMaxWidth;
+
 		public PathTextBlock()
 		{
 			InitializeComponent();
@@ -27,9 +29,24 @@ namespace VidCoder.Controls
 
 		protected override Size MeasureOverride(Size constraint)
 		{
-			string shortenedText = this.GetShortText(constraint.Width);
+			double widthConstraint = constraint.Width;
+			if (this.manualMaxWidth != null)
+			{
+				widthConstraint = this.manualMaxWidth.Value;
+			}
+
+			string shortenedText = this.GetShortText(widthConstraint);
 			this.textBlock.Text = shortenedText;
-			if (shortenedText == this.Text)
+			this.UpdateToolTip();
+
+			Size textSize = this.MeasureString(shortenedText);
+
+			return new Size(Math.Min(constraint.Width, textSize.Width), Math.Min(constraint.Height, textSize.Height));
+		}
+
+		private void UpdateToolTip()
+		{
+			if (this.textBlock.Text == this.Text)
 			{
 				this.textBlock.ToolTip = null;
 			}
@@ -37,10 +54,6 @@ namespace VidCoder.Controls
 			{
 				this.textBlock.ToolTip = this.Text;
 			}
-
-			Size textSize = this.MeasureString(shortenedText);
-
-			return new Size(Math.Min(constraint.Width, textSize.Width), Math.Min(constraint.Height, textSize.Height));
 		}
 
 		public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
@@ -61,7 +74,13 @@ namespace VidCoder.Controls
 			}
 		}
 
-	    private static void OnTextChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+		public void SetManualMaxWidth(double maxWidth)
+		{
+			this.manualMaxWidth = maxWidth;
+            this.InvalidateMeasure();
+		}
+
+		private static void OnTextChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
 	    {
 	        var block = dependencyObject as PathTextBlock;
             block.InvalidateMeasure();

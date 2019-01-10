@@ -4,7 +4,7 @@ using System.Linq;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
-using HandBrake.ApplicationServices.Interop;
+using HandBrake.Interop.Interop;
 using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.Resources;

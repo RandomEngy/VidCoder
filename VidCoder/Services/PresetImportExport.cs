@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.AnyContainer;
 using VidCoder.Model;
 using VidCoderCommon.Model;
 
@@ -13,7 +14,7 @@ namespace VidCoder.Services
 	{
 		private IFileService fileService;
 		private IMessageBoxService messageBoxService;
-		private PresetsService presetsService = Ioc.Get<PresetsService>();
+		private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
 		private IAppLogger logger;
 
 		public PresetImportExport(IFileService fileService, IMessageBoxService messageBoxService, IAppLogger logger)
@@ -33,7 +34,7 @@ namespace VidCoder.Services
 				}
 
 				Preset preset = PresetStorage.LoadPresetFile(presetFile);
-				if (preset == null || string.IsNullOrWhiteSpace(preset.Name))
+				if (string.IsNullOrWhiteSpace(preset?.Name))
 				{
 					throw new ArgumentException("Preset file was invalid.");
 				}

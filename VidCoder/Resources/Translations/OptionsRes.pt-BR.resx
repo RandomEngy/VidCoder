@@ -270,9 +270,6 @@
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
     <value>Cuidado: esta versão é mais propensa a ter erros e falhas.</value>
   </data>
-  <data name="LanguagesSection" xml:space="preserve">
-    <value>Idiomas</value>
-  </data>
   <data name="PlayersSection" xml:space="preserve">
     <value>Reprodutores de vídeo</value>
   </data>
@@ -373,13 +370,29 @@
     <value>Opções de processo</value>
   </data>
   <data name="CpuThrottlingLabel" xml:space="preserve">
-    <value>Otimização de CPU:</value>
-    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+    <value>Escalonamento do CPU - Núcleos Permitidos:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use. It labels a slider that controls the percentage of allowed cores, where the max is 100%.</comment>
   </data>
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>Use a otimização de CPU para limitar o número de núcleos de processador que o VidCoder pode usar na codificação.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Use o reprodutor embutido para pré-visualizações</value>
+  </data>
+  <data name="MaxSimultaneousEncodesLabel" xml:space="preserve">
+    <value>Máximo de trabalhos de codificação permitidos:</value>
+  </data>
+  <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
+    <value>Isto define o número de trabalhos simultâneos de codificação que são permitidos. Útil para máquinas com muitos núcleos de CPU.</value>
+  </data>
+  <data name="GeneralSection" xml:space="preserve">
+    <value>Geral</value>
+  </data>
+  <data name="ThemeLabel" xml:space="preserve">
+    <value>Tema</value>
+    <comment>Label for the app theme (auto, light, dark)</comment>
+  </data>
+  <data name="PromptForUpdatesLabel" xml:space="preserve">
+    <value>Alertas para atualizações:</value>
   </data>
 </root>

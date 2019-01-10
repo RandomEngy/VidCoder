@@ -270,9 +270,6 @@
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
     <value>注意： ベータバージョンはバグが有りクラッシュする可能性もあります。</value>
   </data>
-  <data name="LanguagesSection" xml:space="preserve">
-    <value>言語</value>
-  </data>
   <data name="PlayersSection" xml:space="preserve">
     <value>再生設定</value>
   </data>
@@ -372,14 +369,16 @@
   <data name="ProcessOptionsLabel" xml:space="preserve">
     <value>プロセスオプション</value>
   </data>
-  <data name="CpuThrottlingLabel" xml:space="preserve">
-    <value>CPU利用率：</value>
-    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
-  </data>
+  
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>エンコード時に使用するプロセッサーコアの数を制限する設定</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>プレビューに内蔵のプレーヤーを使用する</value>
   </data>
+  
+  
+  
+  
+  
 </root>

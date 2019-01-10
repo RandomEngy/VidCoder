@@ -120,9 +120,6 @@
   <data name="SubtitlesWindowTitle" xml:space="preserve">
     <value>Subjudul</value>
   </data>
-  <data name="RemoveSubtitleTrack" xml:space="preserve">
-    <value>Hapus trek ini</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>Subjudul dari sumber:</value>
   </data>
@@ -165,16 +162,17 @@
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Cari Audio Bahasa Asing</value>
   </data>
-  <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
-    <value>Tidak ada sub judul di video sumber.</value>
-  </data>
   <data name="SrtFilePickerText" xml:space="preserve">
     <value>Tambahkan file sub judul</value>
   </data>
-	<data name="DuplicateSubtitleTrack" xml:space="preserve">
-    <value>Duplikat trek ini</value>
-  </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Tidak bisa mendeteksi penyandian file subjudul. Untuk memastikan bahwa subjudul tersebut ditampilkan dengan benar, simpan lagi berkas tersebut sebagai UTF-8.</value>
+  </data>
+  <data name="NoSubtitlesText" xml:space="preserve">
+    <value>Tdak menemukan subtitle pada sumber.</value>
+  </data>
+  <data name="ExternalSubtitlesSummaryFormat" xml:space="preserve">
+    <value>{0} eksternal</value>
+    <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
   </data>
 </root>

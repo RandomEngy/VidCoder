@@ -120,9 +120,6 @@
   <data name="SubtitlesWindowTitle" xml:space="preserve">
     <value>Altyazılar</value>
   </data>
-  <data name="RemoveSubtitleTrack" xml:space="preserve">
-    <value>Bu hattı kaldır</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>Altyazı kaynağı:</value>
   </data>
@@ -165,16 +162,12 @@
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Yabancı Ses Araması</value>
   </data>
-  <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
-    <value>Kaynak video üzerinde altyazı yok.</value>
-  </data>
   <data name="SrtFilePickerText" xml:space="preserve">
     <value>Altyazı dosyası ekle</value>
-  </data>
-	<data name="DuplicateSubtitleTrack" xml:space="preserve">
-    <value>Bu altyazı hattını çoğalt</value>
   </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Altyazı dosyasının karakter kodlaması algılanamadı. Altyazıların doğru gösterileceğinden emin olmak için dosyayı UTF-8 olarak yeniden kaydedin.</value>
   </data>
+  
+  
 </root>

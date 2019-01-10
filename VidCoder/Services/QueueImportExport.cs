@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Microsoft.AnyContainer;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.ViewModel;
@@ -11,7 +12,7 @@ namespace VidCoder.Services
 	{
 		private IFileService fileService;
 		private IMessageBoxService messageBoxService;
-		private ProcessingService processingService = Ioc.Get<ProcessingService>();
+		private ProcessingService processingService = StaticResolver.Resolve<ProcessingService>();
 		private IAppLogger logger;
 
 		public QueueImportExport(IFileService fileService, IMessageBoxService messageBoxService, IAppLogger logger)

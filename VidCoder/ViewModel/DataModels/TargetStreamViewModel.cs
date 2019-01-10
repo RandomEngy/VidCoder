@@ -17,5 +17,10 @@ namespace VidCoder.ViewModel
 				return this.TrackDetails != null;
 			}
 		}
+
+		public override string ToString()
+		{
+			return this.Text;
+		}
 	}
 }

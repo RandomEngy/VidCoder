@@ -6,21 +6,29 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reactive;
+using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Xml.Serialization;
-using HandBrake.ApplicationServices.Interop;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
-using Microsoft.Practices.Unity;
-using Newtonsoft.Json;
+using System.Windows.Input;
+using System.Windows.Threading;
+using DynamicData;
+using DynamicData.Binding;
+using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.Json.Scan;
+using HandBrake.Interop.Interop.Model.Encoding;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Automation;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
+using VidCoder.Services.Notifications;
 using VidCoder.Services.Windows;
+using VidCoder.ViewModel.DataModels;
 using VidCoderCommon;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
@@ -31,58 +39,60 @@ namespace VidCoder.ViewModel
 	{
 		private HandBrakeInstance scanInstance;
 
-		private IUpdater updater = Ioc.Get<IUpdater>();
-		private IAppLogger logger = Ioc.Get<IAppLogger>();
-		private OutputPathService outputPathService;
-		private OutputSizeService outputSizeService;
-		private PresetsService presetsService;
-		private PickersService pickersService;
+		private IUpdater updater = StaticResolver.Resolve<IUpdater>();
+		private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
 		private PreviewUpdateService previewUpdateService;
-		private ProcessingService processingService;
 		private IWindowManager windowManager;
-		private TaskBarProgressTracker taskBarProgressTracker;
-
 		private ObservableCollection<SourceOptionViewModel> sourceOptions;
 		private ObservableCollection<SourceOptionViewModel> recentSourceOptions;
 
-		private SourceTitle selectedTitle;
-		private SourceTitle oldTitle;
+		private SourceTitleViewModel oldTitle;
 		private List<int> angles;
 
 		private VideoRangeType rangeType;
 		private List<ComboChoice<VideoRangeType>> rangeTypeChoices;
 		private TimeSpan timeBaseline;
 		private int framesBaseline;
-
-		private ReactiveList<AudioChoiceViewModel> audioChoices;
-
 		private IDriveService driveService;
 		private IList<DriveInformation> driveCollection;
 		private string pendingScan;
 		private bool scanCancelledFlag;
 
+		private IObservable<bool> canCloseVideoSourceObservable;
+		private IObservable<bool> notScanningObservable;
+
 		public event EventHandler<EventArgs<string>> AnimationStarted;
 		public event EventHandler ScanCancelled;
-		public event EventHandler AudioChoiceChanged;
 
 		public MainViewModel()
 		{
-			Ioc.Container.RegisterInstance(typeof(MainViewModel), this, new ContainerControlledLifetimeManager());
+			Ioc.Container.RegisterSingleton<MainViewModel>(() => this);
+
+			this.VideoExpanded = Config.VideoExpanded;
+			this.AudioExpanded = Config.AudioExpanded;
+			this.SubtitlesExpanded = Config.SubtitlesExpanded;
+
+			this.SourceSubtitles.Connect().Bind(this.SourceSubtitlesBindable).Subscribe();
+			this.SrtSubtitles.Connect().Bind(this.SrtSubtitlesBindable).Subscribe();
 
 			// HasVideoSource
-			this.WhenAnyValue(
-				x => x.VideoSourceState,
-				(videoSourceState) =>
+			this.WhenAnyValue(x => x.VideoSourceState)
+				.Select(videoSourceState =>
 				{
 					return videoSourceState == VideoSourceState.ScannedSource;
-				}).ToProperty(this, x => x.HasVideoSource, out this.hasVideoSource);
+				}).ToProperty(this, x => x.HasVideoSource, out this.hasVideoSource, scheduler: Scheduler.Immediate);
 
 			// Titles
 			this.WhenAnyValue(x => x.SourceData)
 				.Select(sourceData =>
 				{
-					return sourceData?.Titles;
-				}).ToProperty(this, x => x.Titles, out this.titles);
+					if (sourceData == null)
+					{
+						return null;
+					}
+
+					return sourceData.Titles.Select(title => new SourceTitleViewModel(title)).ToList();
+				}).ToProperty(this, x => x.Titles, out this.titles, scheduler: Scheduler.Immediate);
 
 			// TitleVisible
 			this.WhenAnyValue(x => x.HasVideoSource, x => x.SourceData, (hasVideoSource, sourceData) =>
@@ -99,7 +109,7 @@ namespace VidCoder.ViewModel
 
 				int similarTitles = 0;
 
-				TimeSpan duration = selectedTitle.Duration.ToSpan();
+				TimeSpan duration = selectedTitle.Duration;
 				foreach (var title in titles)
 				{
 					if (title == selectedTitle)
@@ -107,7 +117,7 @@ namespace VidCoder.ViewModel
 						continue;
 					}
 
-					TimeSpan difference = duration - title.Duration.ToSpan();
+					TimeSpan difference = duration - title.Duration;
 					if (Math.Abs(difference.TotalMinutes) <= 5)
 					{
 						similarTitles++;
@@ -128,62 +138,6 @@ namespace VidCoder.ViewModel
 			{
 				return similarTitles > 12;
 			}).ToProperty(this, x => x.TitleWarningVisible, out this.titleWarningVisible);
-
-			// SubtitlesSummary
-			this.WhenAnyValue(x => x.VideoSourceState, x => x.CurrentSubtitles, x => x.SelectedTitle, (videoSourceState, currentSubtitles, selectedTitle) =>
-			{
-				if (videoSourceState != VideoSourceState.ScannedSource ||
-					currentSubtitles == null || 
-					selectedTitle == null ||
-					((currentSubtitles.SourceSubtitles == null || currentSubtitles.SourceSubtitles.Count == 0) && 
-						(currentSubtitles.SrtSubtitles == null || currentSubtitles.SrtSubtitles.Count == 0)))
-				{
-					return MainRes.NoneParen;
-				}
-
-				List<string> trackSummaries = new List<string>();
-
-				if (currentSubtitles.SourceSubtitles != null)
-				{
-					foreach (SourceSubtitle sourceSubtitle in currentSubtitles.SourceSubtitles)
-					{
-						if (sourceSubtitle.TrackNumber == 0)
-						{
-							trackSummaries.Add(MainRes.ForeignAudioSearch);
-						}
-						else if (selectedTitle.SubtitleList != null && sourceSubtitle.TrackNumber <= selectedTitle.SubtitleList.Count)
-						{
-							trackSummaries.Add(selectedTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].Language);
-						}
-					}
-				}
-
-				if (currentSubtitles.SrtSubtitles != null)
-				{
-					foreach (SrtSubtitle srtSubtitle in currentSubtitles.SrtSubtitles)
-					{
-						trackSummaries.Add(HandBrakeLanguagesHelper.Get(srtSubtitle.LanguageCode).EnglishName);
-					}
-				}
-
-				if (trackSummaries.Count > 3)
-				{
-					return string.Format(MainRes.TracksSummaryMultiple, trackSummaries.Count);
-				}
-
-				StringBuilder summaryBuilder = new StringBuilder();
-				for (int i = 0; i < trackSummaries.Count; i++)
-				{
-					summaryBuilder.Append(trackSummaries[i]);
-
-					if (i != trackSummaries.Count - 1)
-					{
-						summaryBuilder.Append(", ");
-					}
-				}
-
-				return summaryBuilder.ToString();
-			}).ToProperty(this, x => x.SubtitlesSummary, out this.subtitlesSummary);
 
 			// UsingChaptersRange
 			this.WhenAnyValue(x => x.RangeType, rangeType =>
@@ -206,7 +160,7 @@ namespace VidCoder.ViewModel
 				}
 
 				return CommonRes.Custom;
-			}).ToProperty(this, x => x.ChapterMarkersSummary, out this.chapterMarkersSummary);
+			}).ToProperty(this, x => x.ChapterMarkersSummary, out this.chapterMarkersSummary, deferSubscription: true);
 
 			// SourceIcon
 			this.WhenAnyValue(x => x.SelectedSource, selectedSource =>
@@ -266,7 +220,7 @@ namespace VidCoder.ViewModel
 			this.WhenAnyValue(x => x.SelectedTitle)
 				.Select(selectedTitle =>
 				{
-					return selectedTitle != null && this.SelectedTitle.AngleCount > 1;
+					return selectedTitle != null && this.SelectedTitle.Title.AngleCount > 1;
 				}).ToProperty(this, x => x.AngleVisible, out this.angleVisible);
 
 			// TotalChaptersText
@@ -281,7 +235,7 @@ namespace VidCoder.ViewModel
 			}).ToProperty(this, x => x.TotalChaptersText, out this.totalChaptersText);
 
 			// CanCloseVideoSource
-			IObservable<bool> canCloseVideoSourceObservable = this.WhenAnyValue(x => x.SelectedSource, x => x.VideoSourceState, (selectedSource, videoSourceState) =>
+			this.canCloseVideoSourceObservable = this.WhenAnyValue(x => x.SelectedSource, x => x.VideoSourceState, (selectedSource, videoSourceState) =>
 			{
 				if (selectedSource == null)
 				{
@@ -296,91 +250,76 @@ namespace VidCoder.ViewModel
 				return true;
 			});
 
-			canCloseVideoSourceObservable.ToProperty(this, x => x.CanCloseVideoSource, out this.canCloseVideoSource);
+			this.canCloseVideoSourceObservable.ToProperty(this, x => x.CanCloseVideoSource, out this.canCloseVideoSource);
 
-			this.CloseVideoSource = ReactiveCommand.Create(canCloseVideoSourceObservable);
-			this.CloseVideoSource.Subscribe(_ => this.CloseVideoSourceImpl());
-
-			this.AddTrack = ReactiveCommand.Create(this
-				.WhenAnyValue(x => x.SelectedTitle)
-				.Select(selectedTitle =>
+			// VideoDetails
+			this.WhenAnyValue(x => x.SelectedTitle).Select(selectedTitle =>
+			{
+				if (selectedTitle == null)
 				{
-					if (selectedTitle == null)
-					{
-						return true;
-					}
+					return new List<InfoLineViewModel>();
+				}
 
-					return selectedTitle.AudioList.Count > 0;
-				}));
-			this.AddTrack.Subscribe(_ => this.AddTrackImpl());
+				List<InfoLineViewModel> lines = ResolutionUtilities.GetResolutionInfoLines(selectedTitle.Title);
 
-			this.OpenEncodingWindow = ReactiveCommand.Create();
-			this.OpenEncodingWindow.Subscribe(_ => this.OpenEncodingWindowImpl());
+				string videoCodec = DisplayConversions.DisplayVideoCodecName(selectedTitle.VideoCodec);
+				lines.Add(new InfoLineViewModel(EncodingRes.CodecLabel, videoCodec));
 
-			this.OpenOptions = ReactiveCommand.Create();
-			this.OpenOptions.Subscribe(_ => this.OpenOptionsImpl());
+				string framerate = string.Format(EncodingRes.FpsFormat, selectedTitle.FrameRate.ToDouble());
+				lines.Add(new InfoLineViewModel(EncodingRes.ShortFramerateLabel, framerate));
 
-			this.OpenUpdates = ReactiveCommand.Create();
-			this.OpenUpdates.Subscribe(_ => this.OpenUpdatesImpl());
+				return lines;
+			}).ToProperty(this, x => x.VideoDetails, out this.videoDetails);
 
-			this.ToggleSourceMenu = ReactiveCommand.Create(this
-				.WhenAnyValue(x => x.VideoSourceState)
-				.Select(videoSourceState => videoSourceState != VideoSourceState.Scanning));
-			this.ToggleSourceMenu.Subscribe(_ => this.ToggleSourceMenuImpl());
+			// HasAudio
+			this.AudioTracks.CountChanged.Select(count => count > 0)
+				.ToProperty(this, x => x.HasAudio, out this.hasAudio, initialValue: this.AudioTracks.Count > 0);
 
-			this.OpenSubtitlesDialog = ReactiveCommand.Create();
-			this.OpenSubtitlesDialog.Subscribe(_ => this.OpenSubtitlesDialogImpl());
+			// HasSourceSubtitles
+			this.SourceSubtitles.CountChanged.Select(count => count > 0)
+				.ToProperty(this, x => x.HasSourceSubtitles, out this.hasSourceSubtitles, initialValue: this.SourceSubtitles.Count > 0);
 
-			this.OpenChaptersDialog = ReactiveCommand.Create();
-			this.OpenChaptersDialog.Subscribe(_ => this.OpenChaptersDialogImpl());
+			// HasSrtSubtitles
+			this.SrtSubtitles.CountChanged.Select(count => count > 0)
+				.ToProperty(this, x => x.HasSrtSubtitles, out this.hasSrtSubtitles, initialValue: this.SrtSubtitles.Count > 0);
 
-			this.OpenAboutDialog = ReactiveCommand.Create();
-			this.OpenAboutDialog.Subscribe(_ => this.OpenAboutDialogImpl());
+			// ShowSourceSubtitlesLabel
+			Observable.CombineLatest(
+				this.SourceSubtitles.CountChanged,
+				this.SrtSubtitles.CountChanged).Select(
+				countList =>
+				{
+					return countList[0] > 0 && countList[1] > 0;
+				}).ToProperty(this, x => x.ShowSourceSubtitlesLabel, out this.showSourceSubtitlesLabel);
 
-			this.CancelScan = ReactiveCommand.Create();
-			this.CancelScan.Subscribe(_ => this.CancelScanImpl());
+			// ScanningSourceLabel
+			this.WhenAnyValue(x => x.SourceName)
+				.Select(sourceName =>
+				{
+					return string.Format(MainRes.ScanningSourceLabelFormat, sourceName);
+				}).ToProperty(this, x => x.ScanningSourceLabel, out this.scanningSourceLabel);
 
-			var notScanningObservable = this
+			this.notScanningObservable = this
 				.WhenAnyValue(x => x.VideoSourceState)
 				.Select(videoSourceState => videoSourceState != VideoSourceState.Scanning);
-			this.OpenFile = ReactiveCommand.Create(notScanningObservable);
-			this.OpenFile.Subscribe(_ => this.OpenFileImpl());
 
-			this.OpenFolder = ReactiveCommand.Create(notScanningObservable);
-			this.OpenFolder.Subscribe(_ => this.OpenFolderImpl());
+			this.OutputPathService = StaticResolver.Resolve<OutputPathService>();
+			this.OutputSizeService = StaticResolver.Resolve<OutputSizeService>();
+			this.ProcessingService = StaticResolver.Resolve<ProcessingService>();
+			this.PresetsService = StaticResolver.Resolve<PresetsService>();
+			this.PickersService = StaticResolver.Resolve<PickersService>();
+			this.windowManager = StaticResolver.Resolve<IWindowManager>();
+			this.previewUpdateService = StaticResolver.Resolve<PreviewUpdateService>();
+			this.TaskBarProgressTracker = new TaskBarProgressTracker();
 
-			this.CustomizeQueueColumns = ReactiveCommand.Create();
-			this.CustomizeQueueColumns.Subscribe(_ => this.CustomizeQueueColumnsImpl());
-
-			this.ImportPreset = ReactiveCommand.Create();
-			this.ImportPreset.Subscribe(_ => this.ImportPresetImpl());
-
-			this.ExportPreset = ReactiveCommand.Create();
-			this.ExportPreset.Subscribe(_ => this.ExportPresetImpl());
-
-			this.OpenHomepage = ReactiveCommand.Create();
-			this.OpenHomepage.Subscribe(_ => this.OpenHomepageImpl());
-
-			this.ReportBug = ReactiveCommand.Create();
-			this.ReportBug.Subscribe(_ => this.ReportBugImpl());
-
-			this.OpenAppData = ReactiveCommand.Create();
-			this.OpenAppData.Subscribe(_ => this.OpenAppDataImpl());
-
-			this.Exit = ReactiveCommand.Create();
-			this.Exit.Subscribe(_ => this.ExitImpl());
-
-			this.outputPathService = Ioc.Get<OutputPathService>();
-			this.outputSizeService = Ioc.Get<OutputSizeService>();
-			this.processingService = Ioc.Get<ProcessingService>();
-			this.presetsService = Ioc.Get<PresetsService>();
-			this.pickersService = Ioc.Get<PickersService>();
-			this.windowManager = Ioc.Get<IWindowManager>();
-			this.previewUpdateService = Ioc.Get<PreviewUpdateService>();
-			this.taskBarProgressTracker = new TaskBarProgressTracker();
+			// EncodingPresetButtonText
+			this.PresetsService
+				.WhenAnyValue(x => x.SelectedPreset.DisplayNameWithStar)
+				.Select(presetNameWithStar => string.Format(CultureInfo.CurrentCulture, MainRes.EncodingSettingsButton, presetNameWithStar))
+				.ToProperty(this, x => x.EncodingPresetButtonText, out this.encodingPresetButtonText);
 
 			// WindowTitle
-			this.processingService.WhenAnyValue(x => x.Encoding, x => x.OverallEncodeProgressFraction, (encoding, progressFraction) =>
+			this.ProcessingService.WhenAnyValue(x => x.Encoding, x => x.WorkTracker.OverallEncodeProgressFraction, (encoding, progressFraction) =>
 			{
 				double progressPercent = progressFraction * 100;
 				var titleBuilder = new StringBuilder("VidCoder");
@@ -399,9 +338,10 @@ namespace VidCoder.ViewModel
 			}).ToProperty(this, x => x.WindowTitle, out this.windowTitle);
 
 			// ShowChapterMarkerUI
-			this.presetsService
-				.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.IncludeChapterMarkers)
-				.ToProperty(this, x => x.ShowChapterMarkerUI, out this.showChapterMarkerUI);
+			this.WhenAnyValue(x => x.PresetsService.SelectedPreset.Preset.EncodingProfile.IncludeChapterMarkers, x => x.SelectedTitle, (includeChapterMarkers, selectedTitle) =>
+			{
+				return includeChapterMarkers && selectedTitle != null && selectedTitle.ChapterList != null && selectedTitle.ChapterList.Count > 1;
+			}).ToProperty(this, x => x.ShowChapterMarkerUI, out this.showChapterMarkerUI);
 
 			this.updater.CheckUpdates();
 
@@ -425,24 +365,22 @@ namespace VidCoder.ViewModel
 
 			this.useDefaultChapterNames = true;
 
-			this.driveService = Ioc.Get<IDriveService>();
+			this.driveService = StaticResolver.Resolve<IDriveService>();
+
+			// When an item is checked, resize the grid columns
+			IObservable<IChangeSet<AudioTrackViewModel>> audioTracksObservable = this.AudioTracks.Connect();
+			audioTracksObservable.Bind(this.AudioTracksBindable).Subscribe();
+			audioTracksObservable
+				.WhenValueChanged(track => track.Selected)
+				.Subscribe(selected =>
+			{
+				if (selected)
+				{
+					this.View.ResizeAudioColumns();
+				}
+			});
 
 			this.DriveCollection = this.driveService.GetDiscInformation();
-
-			this.audioChoices = new ReactiveList<AudioChoiceViewModel>();
-			this.audioChoices.ChangeTrackingEnabled = true;
-
-			this.audioChoices.Changed
-				.Subscribe(_ =>
-				{
-					this.AudioChoiceChanged?.Invoke(this, EventArgs.Empty);
-				});
-
-			this.audioChoices.ItemChanged
-				.Subscribe(_ =>
-				{
-					this.AudioChoiceChanged?.Invoke(this, EventArgs.Empty);
-				});
 
 			this.WindowMenuItems = new List<WindowMenuItemViewModel>();
 			foreach (var definition in WindowManager.Definitions.Where(d => d.InMenu))
@@ -500,13 +438,15 @@ namespace VidCoder.ViewModel
 			}
 
 			this.DriveCollection = newDriveCollection;
+			this.View.RefreshDiscMenuItems();
 		}
 
         /// <summary>
         /// Handles a list of paths given by drag/drop
         /// </summary>
         /// <param name="paths">The paths to process.</param>
-	    public void HandlePaths(IList<string> paths)
+        /// <param name="alwaysQueue">True if the items dragged should always be queued, and never opened as source.</param>
+	    public void HandlePaths(IList<string> paths, bool alwaysQueue = false)
 	    {
             if (paths.Count > 0)
             {
@@ -527,46 +467,66 @@ namespace VidCoder.ViewModel
 							// It's a preset
 							try
 							{
-								Preset preset = Ioc.Get<IPresetImportExport>().ImportPreset(paths[0]);
-								Ioc.Get<IMessageBoxService>().Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
+								Preset preset = StaticResolver.Resolve<IPresetImportExport>().ImportPreset(paths[0]);
+								StaticResolver.Resolve<IMessageBoxService>().Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
 							}
 							catch (Exception)
 							{
-								Ioc.Get<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
+								StaticResolver.Resolve<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
+							}
+						}
+						else if (extension == ".srt")
+						{
+							if (this.HasVideoSource)
+							{
+								SrtSubtitle subtitle = StaticResolver.Resolve<SubtitlesService>().LoadSrtSubtitle(item);
+
+								if (subtitle != null)
+								{
+									this.CurrentSubtitles.SrtSubtitles.Add(subtitle);
+									StaticResolver.Resolve<IMessageBoxService>().Show(this, string.Format(MainRes.AddedSubtitleFromFile, item));
+								}
 							}
 						}
 						else if (Utilities.IsDiscFolder(item))
 						{
 							// It's a disc folder or disc
-							this.SetSource(item);
+							if (alwaysQueue)
+							{
+								this.ProcessingService.QueueMultiple(new []{ item });
+							}
+							else
+							{
+								this.SetSource(item);
+							}
 						}
 						else
 						{
 							// It is a video file or folder full of video files
-							this.HandleDropAsPaths(paths);
+							this.HandleDropAsPaths(paths, alwaysQueue);
 						}
 					}
 					else
 					{
 						// With multiple items, treat it as a list video files/disc folders or folders full of those items
-						this.HandleDropAsPaths(paths);
+						this.HandleDropAsPaths(paths, alwaysQueue);
 					}
 				});
             }
         }
 
-        private void HandleDropAsPaths(IList<string> itemList)
+        private void HandleDropAsPaths(IList<string> itemList, bool alwaysQueue)
         {
             List<SourcePath> fileList = GetPathList(itemList);
             if (fileList.Count > 0)
             {
-                if (fileList.Count == 1)
+                if (fileList.Count == 1 && !alwaysQueue)
                 {
                     this.SetSourceFromFile(fileList[0].Path);
                 }
                 else
                 {
-                    Ioc.Get<ProcessingService>().QueueMultiple(fileList);
+                    StaticResolver.Resolve<ProcessingService>().QueueMultiple(fileList);
                 }
             }
         }
@@ -625,7 +585,7 @@ namespace VidCoder.ViewModel
 	            }
 	            catch (Exception exception)
 	            {
-		            Ioc.Get<IAppLogger>().LogError($"Could not process {item} : " + Environment.NewLine + exception);
+		            StaticResolver.Resolve<IAppLogger>().LogError($"Could not process {item} : " + Environment.NewLine + exception);
 	            }
             }
 
@@ -634,11 +594,6 @@ namespace VidCoder.ViewModel
 
         public bool SetSourceFromFile()
 		{
-			if (this.SourceSelectionExpanded)
-			{
-				this.SourceSelectionExpanded = false;
-			}
-
 			string videoFile = FileService.Instance.GetFileNameLoad(
 				Config.RememberPreviousFiles ? Config.LastInputFileFolder : null,
 				"Load video file");
@@ -668,11 +623,6 @@ namespace VidCoder.ViewModel
 
 		public bool SetSourceFromFolder()
 		{
-			if (this.SourceSelectionExpanded)
-			{
-				this.SourceSelectionExpanded = false;
-			}
-
 			string folderPath = FileService.Instance.GetFolderName(
 				Config.RememberPreviousFiles ? Config.LastVideoTSFolder : null,
 				MainRes.PickDiscFolderHelpText);
@@ -711,11 +661,6 @@ namespace VidCoder.ViewModel
 			if (driveInfo.Empty)
 			{
 				return false;
-			}
-
-			if (this.SourceSelectionExpanded)
-			{
-				this.SourceSelectionExpanded = false;
 			}
 
 			this.SourceName = driveInfo.VolumeLabel;
@@ -760,7 +705,7 @@ namespace VidCoder.ViewModel
 		/// <returns>True if the form can close.</returns>
 		public bool OnClosing()
 		{
-			if (this.processingService.Encoding)
+			if (this.ProcessingService.Encoding)
 			{
 				MessageBoxResult result = Utilities.MessageBox.Show(
 					this,
@@ -780,15 +725,15 @@ namespace VidCoder.ViewModel
 			this.view.SaveCompletedColumnWidths();
 
 			// If we're quitting, see if the encode is still going.
-			if (this.processingService.Encoding)
+			if (this.ProcessingService.Encoding)
 			{
 				// If so, stop it.
-				this.processingService.Stop(EncodeCompleteReason.AppExit);
+				this.ProcessingService.Stop(EncodeCompleteReason.AppExit);
 			}
 
 			this.windowManager.CloseTrackedWindows();
 
-			this.driveService.Close();
+			this.driveService.Dispose();
 
 			if (this.scanInstance != null)
 			{
@@ -807,7 +752,12 @@ namespace VidCoder.ViewModel
 				AutomationHost.StopListening();
 			}
 
-			this.updater.PromptToApplyUpdate();
+			StaticResolver.Resolve<IToastNotificationService>().Clear();
+
+			if (CustomConfig.UpdatePromptTiming == UpdatePromptTiming.OnExit)
+			{
+				this.updater.PromptToApplyUpdate(relaunchWhenComplete: false);
+			}
 
 			this.logger.Dispose();
 
@@ -824,31 +774,56 @@ namespace VidCoder.ViewModel
 			private set { this.RaiseAndSetIfChanged(ref this.sourcePath, value); }
 		}
 
-		public string SourceName { get; private set; }
-
-		public OutputPathService OutputPathService
+		private string sourceName;
+		public string SourceName
 		{
-			get { return this.outputPathService; }
+			get { return this.sourceName; }
+			set { this.RaiseAndSetIfChanged(ref this.sourceName, value); }
 		}
 
-		public PresetsService PresetsService
+		private ObservableAsPropertyHelper<string> scanningSourceLabel;
+		public string ScanningSourceLabel => this.scanningSourceLabel.Value;
+
+		public OutputPathService OutputPathService { get; }
+
+		public OutputSizeService OutputSizeService { get; }
+
+		public PresetsService PresetsService { get; }
+
+		public PickersService PickersService { get; }
+
+		public ProcessingService ProcessingService { get; }
+
+		public TaskBarProgressTracker TaskBarProgressTracker { get; }
+
+		private PreviewImageService previewImageService;
+		public PreviewImageService PreviewImageService
 		{
-			get { return this.presetsService; }
+			get
+			{
+				if (this.previewImageService == null)
+				{
+					this.previewImageService = StaticResolver.Resolve<PreviewImageService>();
+				}
+
+				return this.previewImageService;
+			}
+			
 		}
 
-		public PickersService PickersService
+		private PreviewImageServiceClient previewImageServiceClient;
+		public PreviewImageServiceClient PreviewImageServiceClient
 		{
-			get { return this.pickersService; }
-		}
+			get
+			{
+				if (this.previewImageServiceClient == null)
+				{
+					this.previewImageServiceClient = new PreviewImageServiceClient();
+					this.PreviewImageService.RegisterClient(this.previewImageServiceClient);
+				}
 
-		public ProcessingService ProcessingService
-		{
-			get { return this.processingService; }
-		}
-
-		public TaskBarProgressTracker TaskBarProgressTracker
-		{
-			get { return this.taskBarProgressTracker; }
+				return this.previewImageServiceClient;
+			}
 		}
 
 		public IList<DriveInformation> DriveCollection
@@ -890,13 +865,6 @@ namespace VidCoder.ViewModel
 		{
 			get { return this.videoSourceState; }
 			set { this.RaiseAndSetIfChanged(ref this.videoSourceState, value); }
-		}
-
-		private bool sourceSelectionExpanded;
-		public bool SourceSelectionExpanded
-		{
-			get { return this.sourceSelectionExpanded; }
-			set { this.RaiseAndSetIfChanged(ref this.sourceSelectionExpanded, value); }
 		}
 
 		private ObservableAsPropertyHelper<string> sourceIcon;
@@ -961,10 +929,11 @@ namespace VidCoder.ViewModel
 
 		public bool ShowUpdateMenuItem => Utilities.SupportsUpdates;
 
-		private ObservableAsPropertyHelper<List<SourceTitle>> titles;
-		public List<SourceTitle> Titles => this.titles.Value;
+		private ObservableAsPropertyHelper<List<SourceTitleViewModel>> titles;
+		public List<SourceTitleViewModel> Titles => this.titles.Value;
 
-		public SourceTitle SelectedTitle
+		private SourceTitleViewModel selectedTitle;
+		public SourceTitleViewModel SelectedTitle
 		{
 			get
 			{
@@ -992,108 +961,13 @@ namespace VidCoder.ViewModel
 						this.OutputPathService.SourceParentFolder = null;
 					}
 
-					// Save old subtitles
-					VCSubtitles oldSubtitles = this.CurrentSubtitles;
-					this.CurrentSubtitles = new VCSubtitles { SourceSubtitles = new List<SourceSubtitle>(), SrtSubtitles = new List<SrtSubtitle>() };
+					// Audio list build
+					this.BuildAudioViewModelList();
 
-					Picker picker = this.pickersService.SelectedPicker.Picker;
+					// Subtitle list build
+					this.BuildSubtitleViewModelList();
 
-					// Audio selection
-					using (this.AudioChoices.SuppressChangeNotifications())
-					{
-						switch (picker.AudioSelectionMode)
-						{
-							case AudioSelectionMode.Disabled:
-								// If no auto-selection is done, keep audio from previous selection.
-								if (this.oldTitle != null)
-								{
-									var keptAudioChoices = new List<AudioChoiceViewModel>();
-									foreach (AudioChoiceViewModel audioChoiceVM in this.AudioChoices)
-									{
-										if (audioChoiceVM.SelectedIndex < this.selectedTitle.AudioList.Count &&
-											this.oldTitle.AudioList[audioChoiceVM.SelectedIndex].Language == this.selectedTitle.AudioList[audioChoiceVM.SelectedIndex].Language)
-										{
-											keptAudioChoices.Add(audioChoiceVM);
-										}
-									}
-
-									this.AudioChoices.Clear();
-									foreach (AudioChoiceViewModel audioChoiceVM in keptAudioChoices)
-									{
-										this.AudioChoices.Add(audioChoiceVM);
-									}
-								}
-								else
-								{
-									this.AudioChoices.Clear();
-								}
-
-								break;
-							case AudioSelectionMode.First:
-							case AudioSelectionMode.Language:
-							case AudioSelectionMode.All:
-								this.AudioChoices.Clear();
-								this.AudioChoices.AddRange(ProcessingService
-									.ChooseAudioTracks(this.selectedTitle.AudioList, picker)
-									.Select(i => new AudioChoiceViewModel(i)));
-
-								break;
-							default:
-								throw new ArgumentOutOfRangeException();
-						}
-
-						// If nothing got selected, add the first one.
-						if (this.selectedTitle.AudioList.Count > 0 && this.AudioChoices.Count == 0)
-						{
-							this.AudioChoices.Add(new AudioChoiceViewModel(0));
-						}
-					}
-
-					switch (picker.SubtitleSelectionMode)
-					{
-						case SubtitleSelectionMode.Disabled:
-							// If no auto-selection is done, try and keep selections from previous title
-							if (this.oldTitle != null && oldSubtitles != null)
-							{
-								if (this.selectedTitle.SubtitleList.Count > 0)
-								{
-									// Keep source subtitles when changing title, but not specific SRT files.
-									var keptSourceSubtitles = new List<SourceSubtitle>();
-									foreach (SourceSubtitle sourceSubtitle in oldSubtitles.SourceSubtitles)
-									{
-										if (sourceSubtitle.TrackNumber == 0)
-										{
-											keptSourceSubtitles.Add(sourceSubtitle);
-										}
-										else if (sourceSubtitle.TrackNumber - 1 < this.selectedTitle.SubtitleList.Count &&
-											this.oldTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode == this.selectedTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode)
-										{
-											keptSourceSubtitles.Add(sourceSubtitle);
-										}
-									}
-
-									foreach (SourceSubtitle sourceSubtitle in keptSourceSubtitles)
-									{
-										this.CurrentSubtitles.SourceSubtitles.Add(sourceSubtitle);
-									}
-								}
-							}
-							break;
-						case SubtitleSelectionMode.None:
-						case SubtitleSelectionMode.First:
-						case SubtitleSelectionMode.ForeignAudioSearch:
-						case SubtitleSelectionMode.Language:
-						case SubtitleSelectionMode.All:
-							this.CurrentSubtitles.SourceSubtitles.AddRange(ProcessingService.ChooseSubtitles(
-								this.selectedTitle,
-								picker,
-								this.AudioChoices.Count > 0 ? this.AudioChoices[0].SelectedIndex + 1 : -1));
-							break;
-
-						default:
-							throw new ArgumentOutOfRangeException();
-					}
-
+					// Chapter build
 					this.UseDefaultChapterNames = true;
 					this.PopulateChapterSelectLists();
 
@@ -1103,19 +977,29 @@ namespace VidCoder.ViewModel
 					this.RaisePropertyChanged(nameof(this.SelectedStartChapter));
 					this.RaisePropertyChanged(nameof(this.SelectedEndChapter));
 
-					this.SetRangeTimeStart(TimeSpan.Zero);
+					Picker picker = this.PickersService.SelectedPicker.Picker;
 
-					TimeSpan titleDuration = this.selectedTitle.Duration.ToSpan();
-					this.timeRangeEndBar = titleDuration;
-					this.timeRangeEnd = TimeSpan.FromSeconds(Math.Floor(titleDuration.TotalSeconds));
-					//this.SetRangeTimeEnd(this.selectedTitle.Duration.ToSpan());
+					TimeSpan localTimeRangeEnd;
+					if (picker.TimeRangeSelectEnabled)
+					{
+						var range = this.ProcessingService.GetRangeFromPicker(value.Title, picker);
+						this.SetRangeTimeStart(range.start);
+						localTimeRangeEnd = range.end;
+					}
+					else
+					{
+						this.SetRangeTimeStart(TimeSpan.Zero);
+						localTimeRangeEnd = this.selectedTitle.Duration;
+					}
+					this.timeRangeEndBar = localTimeRangeEnd;
+					this.timeRangeEnd = TimeSpan.FromSeconds(Math.Floor(localTimeRangeEnd.TotalSeconds));
 					this.RaisePropertyChanged(nameof(this.TimeRangeStart));
 					this.RaisePropertyChanged(nameof(this.TimeRangeStartBar));
 					this.RaisePropertyChanged(nameof(this.TimeRangeEnd));
 					this.RaisePropertyChanged(nameof(this.TimeRangeEndBar));
 
 					this.framesRangeStart = 0;
-					this.framesRangeEnd = this.selectedTitle.GetEstimatedFrames();
+					this.framesRangeEnd = this.selectedTitle.EstimatedFrames;
 					this.RaisePropertyChanged(nameof(this.FramesRangeStart));
 					this.RaisePropertyChanged(nameof(this.FramesRangeEnd));
 
@@ -1128,7 +1012,11 @@ namespace VidCoder.ViewModel
 
 
 					// Change range type based on whether or not we have any chapters
-					if (this.selectedTitle.ChapterList.Count > 1)
+					if (picker.TimeRangeSelectEnabled)
+					{
+						this.RangeType = VideoRangeType.Seconds;
+					}
+					else if (this.selectedTitle.ChapterList.Count > 1)
 					{
 						this.RangeType = VideoRangeType.Chapters;
 					}
@@ -1149,10 +1037,25 @@ namespace VidCoder.ViewModel
 
 				this.RaisePropertyChanged(nameof(this.SelectedTitle));
 
-				this.outputSizeService.Refresh();
+				this.OutputSizeService.Refresh();
 				this.previewUpdateService.RefreshPreview();
 
 				this.RefreshRangePreview();
+				this.RefreshSubtitleSummary();
+				this.RefreshAudioSummary();
+
+				DispatchUtilities.BeginInvoke(
+					() =>
+					{
+						// Expand/collapse sections to keep everything visible
+						this.SetSectionExpansion();
+
+						if (this.AudioExpanded)
+						{
+							this.View.ResizeAudioColumns();
+						}
+					},
+					DispatcherPriority.Background);
 			}
 		}
 
@@ -1184,15 +1087,775 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private VCSubtitles currentSubtitles;
-		public VCSubtitles CurrentSubtitles
+		[Flags]
+		private enum SourceSection
 		{
-			get { return this.currentSubtitles; }
-			set { this.RaiseAndSetIfChanged(ref this.currentSubtitles, value); }
+			None = 0,
+			Video = 1,
+			Audio = 2,
+			Subtitles = 4
 		}
 
-		private ObservableAsPropertyHelper<string> subtitlesSummary;
-		public string SubtitlesSummary => this.subtitlesSummary.Value;
+		private static readonly List<SourceSection> SourceSectionPriority = new List<SourceSection>
+		{
+			SourceSection.Video,
+			SourceSection.Audio,
+			SourceSection.Subtitles
+		};
+
+		private void SetSectionExpansion()
+		{
+			if (this.SelectedTitle == null)
+			{
+				return;
+			}
+
+			SourceSection expansion = this.GetSectionExpansion();
+			this.ApplySectionExpansion(expansion);
+		}
+
+		private void ApplySectionExpansion(SourceSection expansion)
+		{
+			this.videoExpanded = expansion.HasFlag(SourceSection.Video);
+			this.RaisePropertyChanged(nameof(this.VideoExpanded));
+
+			this.audioExpanded = expansion.HasFlag(SourceSection.Audio) && this.SelectedTitle.AudioList != null && this.SelectedTitle.AudioList.Count > 0;
+			this.RaisePropertyChanged(nameof(this.AudioExpanded));
+
+			this.subtitlesExpanded = expansion.HasFlag(SourceSection.Subtitles) && this.SelectedTitle.SubtitleList != null && this.SelectedTitle.SubtitleList.Count > 0;
+			this.RaisePropertyChanged(nameof(this.SubtitlesExpanded));
+		}
+
+		private SourceSection GetSectionExpansion()
+		{
+			double availableHeight = this.View.SourceAreaHeight;
+			SourceSection userCollapsedSections = GetUserCollapsedSections();
+
+			// Start with nothing expanded
+			SourceSection sections = SourceSection.None;
+
+			// First pass try to open sections user has not collapsed.
+			foreach (SourceSection newSection in SourceSectionPriority)
+			{
+				if (!userCollapsedSections.HasFlag(newSection))
+				{
+					SourceSection sectionsWithNewExpansion = sections | newSection;
+					if (this.GetTotalHeight(sectionsWithNewExpansion) > availableHeight)
+					{
+						// Failed to open section. Bail with current list.
+						return sections;
+					}
+
+					sections = sections | newSection;
+				}
+			}
+
+			// Second pass see if we can open more sections.
+			foreach (SourceSection newSection in SourceSectionPriority)
+			{
+				if (userCollapsedSections.HasFlag(newSection))
+				{
+					SourceSection sectionsWithNewExpansion = sections | newSection;
+					if (this.GetTotalHeight(sectionsWithNewExpansion) > availableHeight)
+					{
+						// Failed to open section. Bail with current list.
+						return sections;
+					}
+
+					sections = sections | newSection;
+				}
+			}
+
+			return sections;
+		}
+
+		private static SourceSection GetUserCollapsedSections()
+		{
+			SourceSection sections = SourceSection.None;
+			if (!Config.VideoExpanded)
+			{
+				sections = sections | SourceSection.Video;
+			}
+
+			if (!Config.AudioExpanded)
+			{
+				sections = sections | SourceSection.Audio;
+			}
+
+			if (!Config.SubtitlesExpanded)
+			{
+				sections = sections | SourceSection.Subtitles;
+			}
+
+			return sections;
+		}
+
+		private double GetTotalHeight(SourceSection expandedSections)
+		{
+			double height = 98;
+
+			if (expandedSections.HasFlag(SourceSection.Video))
+			{
+				height += 110;
+			}
+
+			int audioCount = this.SelectedTitle.AudioList.Count;
+			if (audioCount > 0 && expandedSections.HasFlag(SourceSection.Audio))
+			{
+				height += 24;
+				height += audioCount * 27;
+			}
+
+			int subtitleCount = this.SelectedTitle.SubtitleList.Count;
+			if (subtitleCount > 0 && expandedSections.HasFlag(SourceSection.Subtitles))
+			{
+				height += 24;
+				height += subtitleCount * 27;
+			}
+
+			if (this.PresetsService.SelectedPreset.Preset.EncodingProfile.IncludeChapterMarkers 
+				&& this.SelectedTitle.ChapterList != null 
+				&& this.SelectedTitle.ChapterList.Count > 0)
+			{
+				height += 31;
+			}
+
+			return height;
+		}
+
+		private bool videoExpanded;
+		public bool VideoExpanded
+		{
+			get { return this.videoExpanded; }
+			set
+			{
+				this.RaiseAndSetIfChanged(ref this.videoExpanded, value);
+				Config.VideoExpanded = value;
+			}
+		}
+
+		private ObservableAsPropertyHelper<List<InfoLineViewModel>> videoDetails;
+		public List<InfoLineViewModel> VideoDetails => this.videoDetails.Value;
+
+		private bool audioExpanded;
+		public bool AudioExpanded
+		{
+			get { return this.audioExpanded; }
+			set
+			{
+				this.RaiseAndSetIfChanged(ref this.audioExpanded, value);
+				Config.AudioExpanded = value;
+			}
+		}
+
+		private ObservableAsPropertyHelper<bool> hasAudio;
+		public bool HasAudio => this.hasAudio.Value;
+
+		private void BuildAudioViewModelList()
+		{
+			Picker picker = this.PickersService.SelectedPicker.Picker;
+
+			List<AudioTrackViewModel> oldTracks = this.AudioTracks.Items.Where(t => t.Selected).ToList();
+
+			this.AudioTracks.Edit(audioTracksInnerList =>
+			{
+				audioTracksInnerList.Clear();
+
+				switch (picker.AudioSelectionMode)
+				{
+					case AudioSelectionMode.Disabled:
+						// If no auto-selection is done, keep audio from previous selection.
+						if (oldTracks.Count > 0)
+						{
+							foreach (AudioTrackViewModel audioTrackVM in oldTracks)
+							{
+								if (audioTrackVM.TrackIndex < this.selectedTitle.AudioList.Count &&
+								    audioTrackVM.AudioTrack.Language == this.selectedTitle.AudioList[audioTrackVM.TrackIndex].Language)
+								{
+									audioTracksInnerList.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[audioTrackVM.TrackIndex], audioTrackVM.TrackNumber) { Selected = true });
+								}
+							}
+						}
+
+						break;
+					case AudioSelectionMode.First:
+					case AudioSelectionMode.ByIndex:
+					case AudioSelectionMode.Language:
+					case AudioSelectionMode.All:
+						audioTracksInnerList.AddRange(ProcessingService
+							.ChooseAudioTracks(this.selectedTitle.AudioList, picker)
+							.Select(i => new AudioTrackViewModel(this, this.selectedTitle.AudioList[i], i + 1) { Selected = true }));
+
+						break;
+					default:
+						throw new ArgumentOutOfRangeException();
+				}
+
+				// If nothing got selected and we have not explicitly left it out, add the first one.
+				if (this.selectedTitle.AudioList.Count > 0 && this.AudioTracks.Count == 0 && picker.AudioSelectionMode != AudioSelectionMode.ByIndex)
+				{
+					audioTracksInnerList.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[0], 1) { Selected = true });
+				}
+
+				// Fill in rest of unselected audio tracks
+				this.FillInUnselectedAudioTracks(audioTracksInnerList);
+			});
+		}
+
+		private void FillInUnselectedAudioTracks(IList<AudioTrackViewModel> listToAddTo)
+		{
+			for (int i = 0; i < this.SelectedTitle.AudioList.Count; i++)
+			{
+				SourceAudioTrack track = this.SelectedTitle.AudioList[i];
+				if (listToAddTo.All(t => t.AudioTrack != track))
+				{
+					listToAddTo.Add(new AudioTrackViewModel(this, track, i + 1));
+				}
+			}
+		}
+
+		/// <summary>
+		/// Determines if the given track has a duplicate.
+		/// </summary>
+		/// <param name="trackNumber">The 1-based track number.</param>
+		/// <returns>True if the track has a duplicate.</returns>
+		public bool HasMultipleAudioTracks(int trackNumber)
+		{
+			return this.AudioTracks.Items.Count(s => s.TrackNumber == trackNumber) > 1;
+		}
+
+		public void RemoveAudioTrack(AudioTrackViewModel audioTrackViewModel)
+		{
+			this.AudioTracks.Remove(audioTrackViewModel);
+			this.UpdateAudioTrackButtonVisibility();
+			this.RefreshAudioSummary();
+		}
+
+		public void DuplicateAudioTrack(AudioTrackViewModel audioTrackViewModel)
+		{
+			audioTrackViewModel.Selected = true;
+
+			var newTrack = new AudioTrackViewModel(
+				this,
+				audioTrackViewModel.AudioTrack,
+				audioTrackViewModel.TrackNumber);
+			newTrack.Selected = true;
+
+			this.AudioTracks.Insert(
+				this.AudioTracks.Items.IndexOf(audioTrackViewModel) + 1,
+				newTrack);
+			this.UpdateAudioTrackButtonVisibility();
+			this.RefreshAudioSummary();
+		}
+
+		private void UpdateAudioTrackButtonVisibility()
+		{
+			foreach (AudioTrackViewModel audioTrackViewModel in this.AudioTracks.Items)
+			{
+				audioTrackViewModel.UpdateButtonVisiblity();
+			}
+		}
+
+		private string audioSummary;
+		public string AudioSummary
+		{
+			get { return this.audioSummary; }
+			set { this.RaiseAndSetIfChanged(ref this.audioSummary, value); }
+		}
+
+		public void RefreshAudioSummary()
+		{
+			if (this.SelectedTitle == null)
+			{
+				this.AudioSummary = string.Empty;
+				return;
+			}
+
+			if (this.AudioTracks.Count > 0)
+			{
+				List<AudioTrackViewModel> selectedTracks = this.AudioTracks.Items.Where(s => s.Selected).ToList();
+
+				int selectedCount = selectedTracks.Count;
+				string sourceDescription = string.Format(CultureInfo.CurrentCulture, CommonRes.SelectedOverTotalAudioTracksFormat, selectedCount, this.AudioTracks.Count);
+
+				if (selectedCount > 0 && selectedCount <= 3)
+				{
+					List<string> trackSummaries = new List<string>();
+					foreach (AudioTrackViewModel track in selectedTracks)
+					{
+						if (this.SelectedTitle.AudioList != null && track.TrackNumber <= this.SelectedTitle.AudioList.Count)
+						{
+							trackSummaries.Add(this.SelectedTitle.AudioList[track.TrackNumber - 1].Language);
+						}
+					}
+
+					sourceDescription += $": {string.Join(", ", trackSummaries)}";
+				}
+
+				this.AudioSummary = sourceDescription;
+			}
+			else
+			{
+				this.AudioSummary = MainRes.NoAudioSummary;
+			}
+		}
+
+		private bool subtitlesExpanded;
+		public bool SubtitlesExpanded
+		{
+			get { return this.subtitlesExpanded; }
+			set
+			{
+				this.RaiseAndSetIfChanged(ref this.subtitlesExpanded, value);
+				Config.SubtitlesExpanded = value;
+			}
+		}
+
+		public VCSubtitles CurrentSubtitles
+		{
+			get
+			{
+				var result = new VCSubtitles
+				{
+					SourceSubtitles = this.SourceSubtitles.Items.Where(s => s.Selected).Select(s => s.Subtitle.Clone()).ToList(),
+					SrtSubtitles = this.SrtSubtitles.Items.Select(s => s.Subtitle.Clone()).ToList()
+				};
+
+				return result;
+			}
+		}
+
+		public SourceList<SourceSubtitleViewModel> SourceSubtitles { get; } = new SourceList<SourceSubtitleViewModel>();
+		public ObservableCollectionExtended<SourceSubtitleViewModel> SourceSubtitlesBindable { get; } = new ObservableCollectionExtended<SourceSubtitleViewModel>();
+
+		public SourceList<SrtSubtitleViewModel> SrtSubtitles { get; } = new SourceList<SrtSubtitleViewModel>();
+		public ObservableCollectionExtended<SrtSubtitleViewModel> SrtSubtitlesBindable { get; } = new ObservableCollectionExtended<SrtSubtitleViewModel>();
+
+		private void BuildSubtitleViewModelList()
+		{
+			VCSubtitles oldSubtitles = this.CurrentSubtitles;
+
+			Picker picker = this.PickersService.SelectedPicker.Picker;
+
+			this.SourceSubtitles.Clear();
+
+			// Subtitle selection
+			switch (picker.SubtitleSelectionMode)
+			{
+				case SubtitleSelectionMode.Disabled:
+					// If no auto-selection is done, try and keep selections from previous title
+					var keptSourceSubtitles = new List<SourceSubtitle>();
+
+					if (this.oldTitle != null && oldSubtitles != null)
+					{
+						if (this.selectedTitle.SubtitleList.Count > 0)
+						{
+							// Keep source subtitles when changing title, but not specific SRT files.
+							foreach (SourceSubtitle sourceSubtitle in oldSubtitles.SourceSubtitles)
+							{
+								if (sourceSubtitle.TrackNumber == 0)
+								{
+									keptSourceSubtitles.Add(sourceSubtitle);
+								}
+								else if (sourceSubtitle.TrackNumber - 1 < this.selectedTitle.SubtitleList.Count &&
+								         this.oldTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode == this.selectedTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode)
+								{
+									keptSourceSubtitles.Add(sourceSubtitle);
+								}
+							}
+						}
+					}
+
+					this.PopulateSourceSubtitles(keptSourceSubtitles);
+					break;
+
+				case SubtitleSelectionMode.None:
+				case SubtitleSelectionMode.First:
+				case SubtitleSelectionMode.ByIndex:
+				case SubtitleSelectionMode.ForeignAudioSearch:
+				case SubtitleSelectionMode.Language:
+				case SubtitleSelectionMode.All:
+					AudioTrackViewModel firstSelectedAudio = this.AudioTracks.Items.FirstOrDefault(t => t.Selected);
+
+					var selectedSubtitles = ProcessingService.ChooseSubtitles(
+						this.selectedTitle.Title,
+						picker,
+						firstSelectedAudio != null ? firstSelectedAudio.TrackNumber : -1);
+
+					this.PopulateSourceSubtitles(selectedSubtitles);
+					break;
+
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+
+			this.UpdateSourceSubtitleBoxes();
+		}
+
+		private void PopulateSourceSubtitles(IList<SourceSubtitle> selectedSubtitles)
+		{
+			foreach (SourceSubtitle sourceSubtitle in selectedSubtitles)
+			{
+				this.SourceSubtitles.Add(new SourceSubtitleViewModel(this, sourceSubtitle) { Selected = true });
+			}
+
+			// Fill in remaining unselected source subtitles
+			for (int i = 1; i <= this.SelectedTitle.SubtitleList.Count; i++)
+			{
+				if (selectedSubtitles.All(s => s.TrackNumber != i))
+				{
+					var newSubtitle = new SourceSubtitle
+					{
+						TrackNumber = i,
+						Default = false,
+						ForcedOnly = false,
+						BurnedIn = false
+					};
+
+					this.SourceSubtitles.Add(new SourceSubtitleViewModel(this, newSubtitle));
+				}
+			}
+		}
+
+		// Update state of checked boxes after a change
+		public void UpdateSourceSubtitleBoxes(SourceSubtitleViewModel updatedSubtitle = null)
+		{
+			this.DeselectDefaultSubtitlesIfAnyBurned();
+
+			if (updatedSubtitle != null && updatedSubtitle.Selected)
+			{
+				if (!updatedSubtitle.CanPass)
+				{
+					// If we just selected a burn-in only subtitle, deselect all other subtitles.
+					foreach (SourceSubtitleViewModel sourceSub in this.SourceSubtitles.Items)
+					{
+						if (sourceSub != updatedSubtitle)
+						{
+							sourceSub.Deselect();
+						}
+					}
+				}
+				else
+				{
+					// We selected a soft subtitle. Deselect any burn-in-only subtitles.
+					foreach (SourceSubtitleViewModel sourceSub in this.SourceSubtitles.Items)
+					{
+						if (!sourceSub.CanPass)
+						{
+							sourceSub.Deselect();
+						}
+					}
+				}
+			}
+		}
+
+		public void UpdateSubtitleWarningVisibility()
+		{
+			bool textSubtitleVisible = false;
+			VCProfile profile = this.PresetsService.SelectedPreset.Preset.EncodingProfile;
+			HBContainer profileContainer = HandBrakeEncoderHelpers.GetContainer(profile.ContainerName);
+			if (profileContainer.DefaultExtension == "mp4" && profile.PreferredExtension == VCOutputExtension.Mp4)
+			{
+				foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles.Items)
+				{
+					if (sourceVM.Selected && sourceVM.SubtitleName.Contains("(Text)"))
+					{
+						textSubtitleVisible = true;
+						break;
+					}
+				}
+			}
+
+			this.TextSubtitleWarningVisible = textSubtitleVisible;
+
+			bool anyBurned = false;
+			int totalTracks = 0;
+			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles.Items)
+			{
+				if (sourceVM.Selected)
+				{
+					totalTracks++;
+					if (sourceVM.BurnedIn)
+					{
+						anyBurned = true;
+					}
+				}
+			}
+
+			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles.Items)
+			{
+				totalTracks++;
+				if (srtVM.BurnedIn)
+				{
+					anyBurned = true;
+				}
+			}
+
+			this.BurnedOverlapWarningVisible = anyBurned && totalTracks > 1;
+		}
+
+		public void ReportDefaultSubtitle(object viewModel)
+		{
+			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles.Items)
+			{
+				if (sourceVM != viewModel)
+				{
+					sourceVM.Default = false;
+				}
+			}
+
+			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles.Items)
+			{
+				if (srtVM != viewModel)
+				{
+					srtVM.Default = false;
+				}
+			}
+		}
+
+		public void ReportBurnedSubtitle(SourceSubtitleViewModel subtitleViewModel)
+		{
+			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles.Items)
+			{
+				if (sourceVM != subtitleViewModel)
+				{
+					sourceVM.BurnedIn = false;
+				}
+			}
+
+			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles.Items)
+			{
+				srtVM.BurnedIn = false;
+			}
+		}
+
+		public void ReportBurnedSubtitle(SrtSubtitleViewModel subtitleViewModel)
+		{
+			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles.Items)
+			{
+				sourceVM.BurnedIn = false;
+			}
+
+			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles.Items)
+			{
+				if (srtVM != subtitleViewModel)
+				{
+					srtVM.BurnedIn = false;
+				}
+			}
+		}
+
+		public bool HasMultipleSourceSubtitleTracks(int trackNumber)
+		{
+			return this.SourceSubtitles.Items.Count(s => s.TrackNumber == trackNumber) > 1;
+		}
+
+		public void RemoveSourceSubtitle(SourceSubtitleViewModel subtitleViewModel)
+		{
+			this.SourceSubtitles.Remove(subtitleViewModel);
+			this.UpdateSourceSubtitleBoxes();
+			this.UpdateSourceSubtitleButtonVisibility();
+			this.UpdateSubtitleWarningVisibility();
+			this.RefreshSubtitleSummary();
+		}
+
+		public void RemoveSrtSubtitle(SrtSubtitleViewModel subtitleViewModel)
+		{
+			this.SrtSubtitles.Remove(subtitleViewModel);
+			this.UpdateSubtitleWarningVisibility();
+			this.RefreshSubtitleSummary();
+		}
+
+		public void DuplicateSourceSubtitle(SourceSubtitleViewModel sourceSubtitleViewModel)
+		{
+			sourceSubtitleViewModel.Selected = true;
+			if (sourceSubtitleViewModel.BurnedIn)
+			{
+				sourceSubtitleViewModel.BurnedIn = false;
+			}
+
+			var newSubtitle = new SourceSubtitleViewModel(
+				this,
+				new SourceSubtitle
+				{
+					BurnedIn = false,
+					Default = false,
+					ForcedOnly = !sourceSubtitleViewModel.ForcedOnly,
+					TrackNumber = sourceSubtitleViewModel.TrackNumber
+				});
+			newSubtitle.Selected = true;
+
+			this.SourceSubtitles.Insert(
+				this.SourceSubtitles.Items.IndexOf(sourceSubtitleViewModel) + 1,
+				newSubtitle);
+			this.UpdateSourceSubtitleBoxes();
+			this.UpdateSourceSubtitleButtonVisibility();
+			this.UpdateSubtitleWarningVisibility();
+			this.RefreshSubtitleSummary();
+		}
+
+		private void UpdateSourceSubtitleButtonVisibility()
+		{
+			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles.Items)
+			{
+				sourceVM.UpdateButtonVisiblity();
+			}
+		}
+
+		private void DeselectDefaultSubtitlesIfAnyBurned()
+		{
+			bool anyBurned = this.SourceSubtitles.Items.Any(sourceSub => sourceSub.BurnedIn) || this.SrtSubtitles.Items.Any(sourceSub => sourceSub.BurnedIn);
+			this.DefaultSubtitlesEnabled = !anyBurned;
+
+			if (!this.DefaultSubtitlesEnabled)
+			{
+				foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles.Items)
+				{
+					sourceVM.Default = false;
+				}
+
+				foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles.Items)
+				{
+					srtVM.Default = false;
+				}
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> addSrtSubtitle;
+		public ICommand AddSrtSubtitle
+		{
+			get
+			{
+				return this.addSrtSubtitle ?? (this.addSrtSubtitle = ReactiveCommand.Create(() =>
+				{
+					string srtFile = FileService.Instance.GetFileNameLoad(
+						Config.RememberPreviousFiles ? Config.LastSrtFolder : null,
+						SubtitleRes.SrtFilePickerText,
+						Utilities.GetFilePickerFilter("srt"));
+
+					if (srtFile != null)
+					{
+						if (Config.RememberPreviousFiles)
+						{
+							Config.LastSrtFolder = Path.GetDirectoryName(srtFile);
+						}
+
+						SrtSubtitle newSubtitle = StaticResolver.Resolve<SubtitlesService>().LoadSrtSubtitle(srtFile);
+
+						if (newSubtitle != null)
+						{
+							this.SrtSubtitles.Add(new SrtSubtitleViewModel(this, newSubtitle));
+						}
+					}
+
+					this.UpdateSubtitleWarningVisibility();
+					this.RefreshSubtitleSummary();
+				}));
+			}
+		}
+
+		private bool defaultSubtitlesEnabled = true;
+		public bool DefaultSubtitlesEnabled
+		{
+			get { return this.defaultSubtitlesEnabled; }
+			set { this.RaiseAndSetIfChanged(ref this.defaultSubtitlesEnabled, value); }
+		}
+
+		private bool textSubtitleWarningVisible;
+		public bool TextSubtitleWarningVisible
+		{
+			get { return this.textSubtitleWarningVisible; }
+			set { this.RaiseAndSetIfChanged(ref this.textSubtitleWarningVisible, value); }
+		}
+
+		private bool burnedOverlapWarningVisible;
+		public bool BurnedOverlapWarningVisible
+		{
+			get { return this.burnedOverlapWarningVisible; }
+			set { this.RaiseAndSetIfChanged(ref this.burnedOverlapWarningVisible, value); }
+		}
+
+		private ObservableAsPropertyHelper<bool> hasSourceSubtitles;
+		public bool HasSourceSubtitles => this.hasSourceSubtitles.Value;
+
+		private ObservableAsPropertyHelper<bool> hasSrtSubtitles;
+		public bool HasSrtSubtitles => this.hasSrtSubtitles.Value;
+
+		public void RefreshSubtitleSummary()
+		{
+			if (this.SelectedTitle == null)
+			{
+				this.SubtitlesSummary = string.Empty;
+				return;
+			}
+
+			var summaryParts = new List<string>();
+
+			if (this.SourceSubtitles.Count > 0)
+			{
+				List<SourceSubtitleViewModel> selectedSubtitles = this.SourceSubtitles.Items.Where(s => s.Selected).ToList();
+
+				int selectedCount = selectedSubtitles.Count;
+				string sourceDescription = string.Format(CultureInfo.CurrentCulture, CommonRes.SelectedOverTotalSubtitleTracksFormat, selectedCount, this.SourceSubtitles.Count);
+
+				if (selectedCount > 0 && selectedCount <= 3)
+				{
+					List<string> trackSummaries = new List<string>();
+					foreach (SourceSubtitleViewModel subtitle in selectedSubtitles)
+					{
+						if (subtitle.TrackNumber == 0)
+						{
+							trackSummaries.Add(MainRes.ForeignAudioSearch);
+						}
+						else if (this.SelectedTitle.SubtitleList != null && subtitle.TrackNumber <= this.SelectedTitle.SubtitleList.Count)
+						{
+							trackSummaries.Add(this.SelectedTitle.SubtitleList[subtitle.TrackNumber - 1].Language);
+						}
+					}
+
+					sourceDescription += $": {string.Join(", ", trackSummaries)}";
+				}
+
+				summaryParts.Add(sourceDescription);
+			}
+
+			if (this.SrtSubtitles.Count > 0)
+			{
+				string externalSubtitlesDescription = string.Format(SubtitleRes.ExternalSubtitlesSummaryFormat, this.SrtSubtitles.Count);
+
+				if (this.SrtSubtitles.Count <= 3)
+				{
+					List<string> trackSummaries = new List<string>();
+					foreach (SrtSubtitleViewModel subtitle in this.SrtSubtitles.Items)
+					{
+						trackSummaries.Add(HandBrakeLanguagesHelper.Get(subtitle.LanguageCode).Display);
+					}
+
+					externalSubtitlesDescription += $": {string.Join(", ", trackSummaries)}";
+				}
+
+				summaryParts.Add(externalSubtitlesDescription);
+			}
+
+			if (summaryParts.Count == 0)
+			{
+				this.SubtitlesSummary = MainRes.NoSubtitlesSummary;
+			}
+			else
+			{
+				this.SubtitlesSummary = string.Join(" - ", summaryParts);
+			}
+		}
+
+		private string subtitlesSummary;
+		public string SubtitlesSummary
+		{
+			get { return this.subtitlesSummary; }
+			set { this.RaiseAndSetIfChanged(ref this.subtitlesSummary, value); }
+		}
+
+		private ObservableAsPropertyHelper<bool> showSourceSubtitlesLabel;
+		public bool ShowSourceSubtitlesLabel => this.showSourceSubtitlesLabel.Value;
 
 		private bool useDefaultChapterNames;
 		public bool UseDefaultChapterNames
@@ -1219,6 +1882,9 @@ namespace VidCoder.ViewModel
 		{
 			get { return this.titleVisible.Value; }
 		}
+
+		private ObservableAsPropertyHelper<string> encodingPresetButtonText;
+		public string EncodingPresetButtonText => this.encodingPresetButtonText.Value;
 
 		public VideoRangeType RangeType
 		{
@@ -1255,15 +1921,15 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<bool> rangeBarVisible;
 		public bool RangeBarVisible => this.rangeBarVisible.Value;
 
-		private ReactiveList<ChapterViewModel> startChapters;
-		public ReactiveList<ChapterViewModel> StartChapters
+		private List<ChapterViewModel> startChapters;
+		public List<ChapterViewModel> StartChapters
 		{
 			get { return this.startChapters; }
 			set { this.RaiseAndSetIfChanged(ref this.startChapters, value); }
 		}
 
-		private ReactiveList<ChapterViewModel> endChapters;
-		public ReactiveList<ChapterViewModel> EndChapters
+		private List<ChapterViewModel> endChapters;
+		public List<ChapterViewModel> EndChapters
 		{
 			get { return this.endChapters; }
 			set { this.RaiseAndSetIfChanged(ref this.endChapters, value); }
@@ -1325,7 +1991,7 @@ namespace VidCoder.ViewModel
 			{
 				this.timeRangeStart = value;
 
-				TimeSpan maxTime = this.SelectedTitle.Duration.ToSpan();
+				TimeSpan maxTime = this.SelectedTitle.Duration;
 				if (this.timeRangeStart > maxTime - Constants.TimeRangeBuffer)
 				{
 					this.timeRangeStart = maxTime - Constants.TimeRangeBuffer;
@@ -1368,7 +2034,7 @@ namespace VidCoder.ViewModel
 			{
 				this.timeRangeEnd = value;
 
-				TimeSpan maxTime = this.SelectedTitle.Duration.ToSpan();
+				TimeSpan maxTime = this.SelectedTitle.Duration;
 
 				if (this.timeRangeEnd > maxTime)
 				{
@@ -1666,7 +2332,7 @@ namespace VidCoder.ViewModel
 				switch (this.RangeType)
 				{
 					case VideoRangeType.All:
-						return this.SelectedTitle.Duration.ToSpan();
+						return this.SelectedTitle.Duration;
 					case VideoRangeType.Chapters:
 						if (this.SelectedStartChapter == null || this.SelectedEndChapter == null)
 						{
@@ -1727,34 +2393,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveList<AudioChoiceViewModel> AudioChoices
-		{
-			get
-			{
-				return this.audioChoices;
-			}
-		}
-
-		public List<AudioTrackViewModel> InputTracks
-		{
-			get
-			{
-				if (this.SourceData != null)
-				{
-					var result = new List<AudioTrackViewModel>();
-
-					for (int i = 0; i < this.SelectedTitle.AudioList.Count; i++)
-					{
-						SourceAudioTrack track = this.SelectedTitle.AudioList[i];
-						result.Add(new AudioTrackViewModel(track, (i + 1)));
-					}
-
-					return result;
-				}
-
-				return null;
-			}
-		}
+		public SourceList<AudioTrackViewModel> AudioTracks { get; } = new SourceList<AudioTrackViewModel>();
+		public ObservableCollectionExtended<AudioTrackViewModel> AudioTracksBindable { get; } = new ObservableCollectionExtended<AudioTrackViewModel>();
 
 		// Populated when a scan finishes and cleared out when a new scan starts
 		private VideoSource sourceData;
@@ -1781,175 +2421,302 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveCommand<object> AddTrack { get; }
-		private void AddTrackImpl()
+		private ReactiveCommand<Unit, Unit> openEncodingWindow;
+		public ICommand OpenEncodingWindow
 		{
-			var newAudioChoice = new AudioChoiceViewModel(this.GetFirstUnusedAudioTrack());
-			this.AudioChoices.Add(newAudioChoice);
-		}
-
-		public ReactiveCommand<object> OpenEncodingWindow { get; }
-		private void OpenEncodingWindowImpl()
-		{
-			this.windowManager.OpenOrFocusWindow(typeof(EncodingWindowViewModel));
-		}
-
-		public ReactiveCommand<object> OpenOptions { get; }
-		private void OpenOptionsImpl()
-		{
-			this.windowManager.OpenDialog<OptionsDialogViewModel>();
-		}
-
-		public ReactiveCommand<object> OpenUpdates { get; }
-		private void OpenUpdatesImpl()
-		{
-			Config.OptionsDialogLastTab = OptionsDialogViewModel.UpdatesTabIndex;
-			this.windowManager.OpenDialog<OptionsDialogViewModel>();
-		}
-
-		public ReactiveCommand<object> ToggleSourceMenu { get; }
-		private void ToggleSourceMenuImpl()
-		{
-			this.SourceSelectionExpanded = !this.SourceSelectionExpanded;
-		}
-
-		public ReactiveCommand<object> OpenSubtitlesDialog { get; }
-		private void OpenSubtitlesDialogImpl()
-		{
-			var subtitleViewModel = new SubtitleDialogViewModel(this.CurrentSubtitles);
-			this.windowManager.OpenDialog(subtitleViewModel);
-
-			if (subtitleViewModel.DialogResult)
+			get
 			{
-				this.CurrentSubtitles = subtitleViewModel.ChosenSubtitles;
-			}
-		}
-
-		public ReactiveCommand<object> OpenChaptersDialog { get; }
-		private void OpenChaptersDialogImpl()
-		{
-			var chaptersVM = new ChapterMarkersDialogViewModel(this.SelectedTitle.ChapterList, this.CustomChapterNames, this.UseDefaultChapterNames);
-			this.windowManager.OpenDialog(chaptersVM);
-
-			if (chaptersVM.DialogResult)
-			{
-				this.UseDefaultChapterNames = chaptersVM.UseDefaultNames;
-				if (!chaptersVM.UseDefaultNames)
+				return this.openEncodingWindow ?? (this.openEncodingWindow = ReactiveCommand.Create(() =>
 				{
-					this.CustomChapterNames = chaptersVM.ChapterNamesList;
-				}
+					this.windowManager.OpenOrFocusWindow(typeof(EncodingWindowViewModel));
+				}));
 			}
 		}
 
-		public ReactiveCommand<object> OpenAboutDialog { get; }
-		private void OpenAboutDialogImpl()
+		private ReactiveCommand<Unit, Unit> openOptions;
+		public ICommand OpenOptions
 		{
-			this.windowManager.OpenDialog(new AboutDialogViewModel());
-		}
-
-		public ReactiveCommand<object> CancelScan { get; }
-		private void CancelScanImpl()
-		{
-			this.scanCancelledFlag = true;
-			this.ScanInstance.StopScan();
-		}
-
-		public ReactiveCommand<object> OpenFile { get; }
-		private void OpenFileImpl()
-		{
-			this.SetSourceFromFile();
-		}
-
-		public ReactiveCommand<object> OpenFolder { get; }
-		private void OpenFolderImpl()
-		{
-			this.SetSourceFromFolder();
-		}
-
-		public ReactiveCommand<object> CloseVideoSource { get; }
-		private void CloseVideoSourceImpl()
-		{
-			this.VideoSourceState = VideoSourceState.Choices;
-			this.SourceData = null;
-			this.SelectedSource = null;
-			this.SourceSelectionExpanded = false;
-
-			this.RefreshRecentSourceOptions();
-
-			this.SelectedTitle = null;
-
-			HandBrakeInstance oldInstance = this.scanInstance;
-			this.scanInstance = null;
-			oldInstance?.Dispose();
-		}
-
-		public ReactiveCommand<object> CustomizeQueueColumns { get; }
-		private void CustomizeQueueColumnsImpl()
-		{
-			// Send a request that the view save the column sizes
-			this.View.SaveQueueColumns();
-
-			// Show the queue columns dialog
-			var queueDialog = new QueueColumnsDialogViewModel();
-			this.windowManager.OpenDialog(queueDialog);
-
-			if (queueDialog.DialogResult)
+			get
 			{
-				// Apply new columns
-				Config.QueueColumns = queueDialog.NewColumns;
-				this.View.ApplyQueueColumns();
+				return this.openOptions ?? (this.openOptions = ReactiveCommand.Create(() =>
+				{
+					this.windowManager.OpenDialog<OptionsDialogViewModel>();
+				}));
 			}
 		}
 
-		public ReactiveCommand<object> ImportPreset { get; }
-		private void ImportPresetImpl()
+		private ReactiveCommand<Unit, Unit> openUpdates;
+		public ICommand OpenUpdates
 		{
-			string presetFileName = FileService.Instance.GetFileNameLoad(
-				null,
-				MainRes.ImportPresetFilePickerTitle,
-				CommonRes.PresetFileFilter + "|*.xml;*.vjpreset");
-			if (presetFileName != null)
+			get
 			{
-				try
+				return this.openUpdates ?? (this.openUpdates = ReactiveCommand.Create(() =>
 				{
-					Preset preset = Ioc.Get<IPresetImportExport>().ImportPreset(presetFileName);
-					Ioc.Get<IMessageBoxService>().Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
-				}
-				catch (Exception)
-				{
-					Ioc.Get<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
-				}
+					Config.OptionsDialogLastTab = OptionsDialogViewModel.UpdatesTabIndex;
+					this.windowManager.OpenDialog<OptionsDialogViewModel>();
+				}));
 			}
 		}
 
-		public ReactiveCommand<object> ExportPreset { get; }
-		private void ExportPresetImpl()
+		private ReactiveCommand<Unit, Unit> openChaptersDialog;
+		public ICommand OpenChaptersDialog
 		{
-			Ioc.Get<IPresetImportExport>().ExportPreset(this.presetsService.SelectedPreset.Preset);
+			get
+			{
+				return this.openChaptersDialog ?? (this.openChaptersDialog = ReactiveCommand.Create(() =>
+				{
+					var chaptersVM = new ChapterMarkersDialogViewModel(this.SelectedTitle.ChapterList, this.CustomChapterNames, this.UseDefaultChapterNames);
+					this.windowManager.OpenDialog(chaptersVM);
+
+					if (chaptersVM.DialogResult)
+					{
+						this.UseDefaultChapterNames = chaptersVM.UseDefaultNames;
+						if (!chaptersVM.UseDefaultNames)
+						{
+							this.CustomChapterNames = chaptersVM.ChapterNamesList;
+						}
+					}
+				}));
+			}
 		}
 
-		public ReactiveCommand<object> OpenHomepage { get; }
-		private void OpenHomepageImpl()
+		private ReactiveCommand<Unit, Unit> openAboutDialog;
+		public ICommand OpenAboutDialog
 		{
-			FileService.Instance.LaunchUrl("http://vidcoder.net/");
+			get
+			{
+				return this.openAboutDialog ?? (this.openAboutDialog = ReactiveCommand.Create(() =>
+				{
+					this.windowManager.OpenDialog(new AboutDialogViewModel());
+				}));
+			}
 		}
 
-		public ReactiveCommand<object> ReportBug { get; }
-		private void ReportBugImpl()
+		private ReactiveCommand<Unit, Unit> cancelScan;
+		public ICommand CancelScan
 		{
-			FileService.Instance.LaunchUrl("https://github.com/RandomEngy/VidCoder/issues/new");
+			get { return this.CancelScanImpl(); }
 		}
 
-		public ReactiveCommand<object> OpenAppData { get; }
-		private void OpenAppDataImpl()
+		private ReactiveCommand<Unit, Unit> CancelScanImpl()
 		{
-			FileUtilities.OpenFolderAndSelectItem(FileUtilities.GetRealFilePath(Database.DatabaseFile));
+			return this.cancelScan ?? (this.cancelScan = ReactiveCommand.Create(() =>
+			{
+				this.scanCancelledFlag = true;
+				this.ScanInstance.StopScan();
+			}));
 		}
 
-		public ReactiveCommand<object> Exit { get; }
-		private void ExitImpl()
+		private ReactiveCommand<Unit, Unit> openFile;
+		public ICommand OpenFile
 		{
-			this.windowManager.Close(this);
+			get
+			{
+				return this.openFile ?? (this.openFile = ReactiveCommand.Create(
+					() =>
+					{
+						this.SetSourceFromFile();
+					},
+					this.notScanningObservable));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> openFolder;
+		public ICommand OpenFolder
+		{
+			get
+			{
+				return this.openFolder ?? (this.openFolder = ReactiveCommand.Create(
+					() =>
+					{
+						this.SetSourceFromFolder();
+					},
+					this.notScanningObservable));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> clearRecentFiles;
+		public ICommand ClearRecentFiles
+		{
+			get
+			{
+				return this.clearRecentFiles ?? (this.clearRecentFiles = ReactiveCommand.Create(() =>
+				{
+					SourceHistory.Clear();
+					this.RefreshRecentSourceOptions();
+				}));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> closeVideoSource;
+		public ICommand CloseVideoSource
+		{
+			get
+			{
+				return this.closeVideoSource ?? (this.closeVideoSource = ReactiveCommand.Create(
+					() =>
+					{
+						this.VideoSourceState = VideoSourceState.Choices;
+						this.SourceData = null;
+						this.SelectedSource = null;
+
+						this.RefreshRecentSourceOptions();
+
+						this.SelectedTitle = null;
+
+						HandBrakeInstance oldInstance = this.scanInstance;
+						this.scanInstance = null;
+						oldInstance?.Dispose();
+					},
+					this.canCloseVideoSourceObservable));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> customizeQueueColumns;
+		public ICommand CustomizeQueueColumns
+		{
+			get
+			{
+				return this.customizeQueueColumns ?? (this.customizeQueueColumns = ReactiveCommand.Create(() =>
+				{
+					// Send a request that the view save the column sizes
+					this.View.SaveQueueColumns();
+
+					// Show the queue columns dialog
+					var queueDialog = new QueueColumnsDialogViewModel();
+					this.windowManager.OpenDialog(queueDialog);
+
+					if (queueDialog.DialogResult)
+					{
+						// Apply new columns
+						Config.QueueColumns = queueDialog.NewColumns;
+						this.View.ApplyQueueColumns();
+					}
+				}));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> importPreset;
+		public ICommand ImportPreset
+		{
+			get
+			{
+				return this.importPreset ?? (this.importPreset = ReactiveCommand.Create(() =>
+				{
+					string presetFileName = FileService.Instance.GetFileNameLoad(
+						null,
+						MainRes.ImportPresetFilePickerTitle,
+						CommonRes.PresetFileFilter + "|*.vjpreset");
+					if (presetFileName != null)
+					{
+						try
+						{
+							Preset preset = StaticResolver.Resolve<IPresetImportExport>().ImportPreset(presetFileName);
+							StaticResolver.Resolve<IMessageBoxService>().Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
+						}
+						catch (Exception)
+						{
+							StaticResolver.Resolve<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
+						}
+					}
+				}));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> exportPreset;
+		public ICommand ExportPreset
+		{
+			get
+			{
+				return this.exportPreset ?? (this.exportPreset = ReactiveCommand.Create(() =>
+				{
+					StaticResolver.Resolve<IPresetImportExport>().ExportPreset(this.PresetsService.SelectedPreset.Preset);
+				}));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> openHomepage;
+		public ICommand OpenHomepage
+		{
+			get
+			{
+				return this.openHomepage ?? (this.openHomepage = ReactiveCommand.Create(() =>
+				{
+					FileService.Instance.LaunchUrl("http://vidcoder.net/");
+				}));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> reportBug;
+		public ICommand ReportBug
+		{
+			get
+			{
+				return this.reportBug ?? (this.reportBug = ReactiveCommand.Create(() =>
+				{
+					FileService.Instance.LaunchUrl("https://github.com/RandomEngy/VidCoder/issues/new");
+				}));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> openAppData;
+		public ICommand OpenAppData
+		{
+			get
+			{
+				return this.openAppData ?? (this.openAppData = ReactiveCommand.Create(() =>
+				{
+					FileUtilities.OpenFolderAndSelectItem(FileUtilities.GetRealFilePath(Database.DatabaseFile));
+				}));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> exit;
+		public ICommand Exit
+		{
+			get
+			{
+				return this.exit ?? (this.exit = ReactiveCommand.Create(() =>
+				{
+					this.windowManager.Close(this);
+				}));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> showPreviousPreview;
+		public ICommand ShowPreviousPreview
+		{
+			get
+			{
+				return this.showPreviousPreview ?? (this.showPreviousPreview = ReactiveCommand.Create(
+					() =>
+					{
+						this.PreviewImageServiceClient.ShowPreviousPreview();
+					},
+					this.PreviewImageServiceClient
+						.WhenAnyValue(x => x.PreviewIndex)
+						.Select(previewIndex => previewIndex > 0)));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> showNextPreview;
+		public ICommand ShowNextPreview
+		{
+			get
+			{
+				return this.showNextPreview ?? (this.showNextPreview = ReactiveCommand.Create(
+					() =>
+					{
+						this.PreviewImageServiceClient.ShowNextPreview();
+					},
+					this.WhenAnyValue(
+						x => x.PreviewImageServiceClient.PreviewIndex,
+						x => x.PreviewImageService.PreviewCount,
+						(previewIndex, previewCount) =>
+						{
+							return previewIndex < previewCount - 1;
+						})));
+			}
 		}
 
 		public void StartAnimation(string animationKey)
@@ -1995,7 +2762,7 @@ namespace VidCoder.ViewModel
 				{
 					SourceType = type,
 					SourcePath = this.SourcePath,
-					OutputPath = outputPath,
+					FinalOutputPath = outputPath,
 					EncodingProfile = encodingProfile,
 					Title = title,
 					Angle = this.Angle,
@@ -2039,7 +2806,7 @@ namespace VidCoder.ViewModel
 					case VideoRangeType.Seconds:
 						TimeSpan timeRangeStart = this.TimeRangeStart;
 						TimeSpan timeRangeEnd = this.TimeRangeEnd;
-						TimeSpan titleDuration = this.SelectedTitle.Duration.ToSpan();
+						TimeSpan titleDuration = this.SelectedTitle.Duration;
 
 						// We start the range end on a whole second value so if it's within 1 second of the title duration, count it as being exactly at the end.
 						bool rangeAtEnd = timeRangeEnd == titleDuration || (titleDuration - timeRangeEnd < TimeSpan.FromSeconds(1) && timeRangeEnd.Milliseconds == 0);
@@ -2103,11 +2870,6 @@ namespace VidCoder.ViewModel
 
 		public IList<EncodeJobViewModel> SelectedJobs => this.View.SelectedJobs;
 
-		public void RemoveAudioChoice(AudioChoiceViewModel choice)
-		{
-			this.AudioChoices.Remove(choice);
-		}
-
 		// Brings up specified job for editing, doing a scan if necessary.
 		public void EditJob(EncodeJobViewModel jobVM, bool isQueueItem = true)
 		{
@@ -2148,7 +2910,7 @@ namespace VidCoder.ViewModel
 						DriveInformation driveInfo = this.DriveCollection.FirstOrDefault(d => string.Compare(d.RootDirectory, jobRoot, StringComparison.OrdinalIgnoreCase) == 0);
 						if (driveInfo == null)
 						{
-							Ioc.Get<IMessageBoxService>().Show(MainRes.DiscNotInDriveError);
+							StaticResolver.Resolve<IMessageBoxService>().Show(MainRes.DiscNotInDriveError);
 							return;
 						}
 
@@ -2200,7 +2962,7 @@ namespace VidCoder.ViewModel
 
 			if (this.VideoSourceState == VideoSourceState.ScannedSource)
 			{
-				var messageResult = Ioc.Get<IMessageBoxService>().Show(
+				var messageResult = StaticResolver.Resolve<IMessageBoxService>().Show(
 					this,
 					MainRes.AutoplayDiscConfirmationMessage,
 					CommonRes.ConfirmDialogTitle,
@@ -2215,6 +2977,7 @@ namespace VidCoder.ViewModel
 			{
 				// If we're scanning already, cancel the scan and set a pending scan for the new path.
 				this.pendingScan = sourcePath;
+				((System.Windows.Input.ICommand)this.CancelScan).Execute(null);
 				this.CancelScanImpl();
 			}
 			else
@@ -2236,9 +2999,9 @@ namespace VidCoder.ViewModel
 		{
 			var tracks = new List<int>();
 
-			foreach (AudioChoiceViewModel audioChoiceVM in this.AudioChoices)
+			foreach (AudioTrackViewModel audioTrackVM in this.AudioTracks.Items.Where(track => track.Selected))
 			{
-				tracks.Add(audioChoiceVM.SelectedIndex + 1);
+				tracks.Add(audioTrackVM.TrackNumber);
 			}
 
 			return tracks;
@@ -2290,6 +3053,9 @@ namespace VidCoder.ViewModel
 		{
 			this.VideoSourceState = VideoSourceState.Scanning;
 			this.ClearVideoSource();
+
+			// With a new source we don't want to keep around old subtitles
+			this.SrtSubtitles.Clear();
 
 			this.ScanProgressFraction = 0;
 			HandBrakeInstance oldInstance = this.scanInstance;
@@ -2343,12 +3109,12 @@ namespace VidCoder.ViewModel
 								SourceHistory.AddToHistory(this.SourcePath);
 							}
 
-							Picker picker = this.pickersService.SelectedPicker.Picker;
+							Picker picker = this.PickersService.SelectedPicker.Picker;
 							if (picker.AutoQueueOnScan)
 							{
-								if (this.processingService.TryQueue() && picker.AutoEncodeOnScan && !this.processingService.Encoding)
+								if (this.ProcessingService.TryQueue() && picker.AutoEncodeOnScan && !this.ProcessingService.Encoding)
 								{
-									this.processingService.Encode.Execute(null);
+									this.ProcessingService.Encode.Execute(null);
 								}
 							}
 						}
@@ -2383,7 +3149,7 @@ namespace VidCoder.ViewModel
 				this.SourceData = videoSource;
 				this.VideoSourceState = VideoSourceState.ScannedSource;
 
-				this.SelectedTitle = selectTitle;
+				this.SelectedTitle = this.Titles.Single(title => title.Title == selectTitle);
 			}
 			else
 			{
@@ -2391,14 +3157,13 @@ namespace VidCoder.ViewModel
 				this.VideoSourceState = VideoSourceState.Choices;
 
 				// Raise error
-				Ioc.Get<IMessageBoxService>().Show(this, MainRes.ScanErrorLabel);
+				StaticResolver.Resolve<IMessageBoxService>().Show(this, MainRes.ScanErrorLabel);
 			}
 		}
 
 		private void ClearVideoSource()
 		{
 			this.SourceData = null;
-			this.SourceSelectionExpanded = false;
 		}
 
 		private void LoadVideoSourceMetadata(VCJob job, VideoSourceMetadata metadata)
@@ -2428,10 +3193,10 @@ namespace VidCoder.ViewModel
 			VCJob job = jobVM.Job;
 
 			// Title
-			SourceTitle newTitle = this.sourceData.Titles.FirstOrDefault(t => t.Index == job.Title);
+			SourceTitleViewModel newTitle = this.Titles.FirstOrDefault(t => t.Index == job.Title);
 			if (newTitle == null)
 			{
-				newTitle = this.sourceData.Titles[0];
+				newTitle = this.Titles[0];
 			}
 
 			this.selectedTitle = newTitle;
@@ -2439,7 +3204,7 @@ namespace VidCoder.ViewModel
 			// Angle
 			this.PopulateAnglesList();
 
-			if (job.Angle <= this.selectedTitle.AngleCount)
+			if (job.Angle <= this.selectedTitle.Title.AngleCount)
 			{
 				this.angle = job.Angle;
 			}
@@ -2482,7 +3247,7 @@ namespace VidCoder.ViewModel
 
 					break;
 				case VideoRangeType.Seconds:
-					TimeSpan titleDuration = this.selectedTitle.Duration.ToSpan();
+					TimeSpan titleDuration = this.selectedTitle.Duration;
 
 					if (titleDuration == TimeSpan.Zero)
 					{
@@ -2536,14 +3301,19 @@ namespace VidCoder.ViewModel
 			}
 
 			// Audio tracks
-			this.AudioChoices.Clear();
-			foreach (int chosenTrack in job.ChosenAudioTracks)
+			this.AudioTracks.Edit(audioTracksInnerList =>
 			{
-				if (chosenTrack <= this.selectedTitle.AudioList.Count)
+				audioTracksInnerList.Clear();
+				foreach (int chosenTrack in job.ChosenAudioTracks)
 				{
-					this.AudioChoices.Add(new AudioChoiceViewModel(chosenTrack - 1 ));
+					if (chosenTrack <= this.selectedTitle.AudioList.Count)
+					{
+						audioTracksInnerList.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[chosenTrack - 1], chosenTrack) { Selected = true });
+					}
 				}
-			}
+
+				this.FillInUnselectedAudioTracks(audioTracksInnerList);
+			});
 
 			// Subtitles (standard+SRT)
 			this.CurrentSubtitles.SourceSubtitles = new List<SourceSubtitle>();
@@ -2583,7 +3353,7 @@ namespace VidCoder.ViewModel
 			}
 
 			// Output path
-			this.OutputPathService.OutputPath = job.OutputPath;
+			this.OutputPathService.OutputPath = job.FinalOutputPath;
 			this.OutputPathService.SourceParentFolder = jobVM.SourceParentFolder;
 			this.OutputPathService.ManualOutputPath = jobVM.ManualOutputPath;
 			this.OutputPathService.NameFormatOverride = jobVM.NameFormatOverride;
@@ -2611,43 +3381,40 @@ namespace VidCoder.ViewModel
 
 		private void PopulateChapterSelectLists()
 		{
-			var newStartChapterList = new ReactiveList<ChapterViewModel>();
-			var newEndChapterList = new ReactiveList<ChapterViewModel>();
+			var newStartChapterList = new List<ChapterViewModel>();
+			var newEndChapterList = new List<ChapterViewModel>();
 
 			for (int i = 0; i < this.selectedTitle.ChapterList.Count; i++)
 			{
 				SourceChapter chapter = this.selectedTitle.ChapterList[i];
 
-				newStartChapterList.Add(new ChapterViewModel(chapter, i + 1));
-				newEndChapterList.Add(new ChapterViewModel(chapter, i + 1));
+				var startChapterViewModel = new ChapterViewModel(chapter, i + 1);
+				var endChapterViewModel = new ChapterViewModel(chapter, i + 1);
+
+				startChapterViewModel.PropertyChanged += this.OnChapterViewModelPropertyChanged;
+				endChapterViewModel.PropertyChanged += this.OnChapterViewModelPropertyChanged;
+
+				newStartChapterList.Add(startChapterViewModel);
+				newEndChapterList.Add(endChapterViewModel);
 			}
-
-			newStartChapterList.ChangeTrackingEnabled = true;
-			newEndChapterList.ChangeTrackingEnabled = true;
-
-			newStartChapterList.ItemChanged
-				.Where(x => x.PropertyName == nameof(ChapterViewModel.IsHighlighted))
-				.Subscribe(_ =>
-				{
-					this.RefreshRangePreview();
-				});
-
-			newEndChapterList.ItemChanged
-				.Where(x => x.PropertyName == nameof(ChapterViewModel.IsHighlighted))
-				.Subscribe(_ =>
-				{
-					this.RefreshRangePreview();
-				});
 
 			// We can't re-use the same list because the ComboBox control flyout sizes itself once and doesn't update when items are added.
 			this.StartChapters = newStartChapterList;
 			this.EndChapters = newEndChapterList;
 		}
 
+		private void OnChapterViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName == nameof(ChapterViewModel.IsHighlighted))
+			{
+				this.RefreshRangePreview();
+			}
+		}
+
 		private void PopulateAnglesList()
 		{
 			this.angles = new List<int>();
-			for (int i = 1; i <= this.selectedTitle.AngleCount; i++)
+			for (int i = 1; i <= this.selectedTitle.Title.AngleCount; i++)
 			{
 				this.angles.Add(i);
 			}
@@ -2711,31 +3478,6 @@ namespace VidCoder.ViewModel
 					}
 				}
 			});
-		}
-
-		private int GetFirstUnusedAudioTrack()
-		{
-			List<int> unusedTracks = new List<int>();
-
-			for (int i = 0; i < this.SelectedTitle.AudioList.Count; i++)
-			{
-				unusedTracks.Add(i);
-			}
-
-			foreach (AudioChoiceViewModel audioChoiceVM in this.AudioChoices)
-			{
-				if (unusedTracks.Contains(audioChoiceVM.SelectedIndex))
-				{
-					unusedTracks.Remove(audioChoiceVM.SelectedIndex);
-				}
-			}
-
-			if (unusedTracks.Count > 0)
-			{
-				return unusedTracks[0];
-			}
-
-			return 0;
 		}
 
 		private void OnRangeControlGotFocus(object sender, RangeFocusEventArgs eventArgs)
@@ -2809,6 +3551,8 @@ namespace VidCoder.ViewModel
 					this.recentSourceOptions.Add(new SourceOptionViewModel(new SourceOption { Type = SourceType.DiscVideoFolder }, recentSourcePath));
 				}
 			}
+
+			this.RaisePropertyChanged(nameof(this.RecentSourcesVisible));
 		}
 
 		private TimeSpan GetChapterRangeDuration(int startChapter, int endChapter)

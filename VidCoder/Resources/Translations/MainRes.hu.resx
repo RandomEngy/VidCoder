@@ -120,17 +120,11 @@
   <data name="TitleLabel" xml:space="preserve">
     <value>Cím:</value>
   </data>
-  <data name="SettingsLabel" xml:space="preserve">
-    <value>Beállítások</value>
-  </data>
   <data name="AddToQueueLabel" xml:space="preserve">
     <value>Hozzáadás a sorhoz</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
     <value>Több cím hozzáadása a sorhoz...</value>
-  </data>
-  <data name="FileMenu" xml:space="preserve">
-    <value>Fájl</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
     <value>Videófájl megnyitása...</value>
@@ -141,9 +135,6 @@
   <data name="EnqueueMultipleFiles" xml:space="preserve">
     <value>Több fájl sorba állítása...</value>
   </data>
-  <data name="EnqueueMultipleTitles" xml:space="preserve">
-    <value>Több cím sorba állítása...</value>
-  </data>
   <data name="ToolsMenu" xml:space="preserve">
     <value>Eszközök</value>
   </data>
@@ -152,9 +143,6 @@
   </data>
   <data name="ExportPreset" xml:space="preserve">
     <value>Séma exportálása...</value>
-  </data>
-  <data name="OptionsMenuItem" xml:space="preserve">
-    <value>Beállítás...</value>
   </data>
   <data name="Play" xml:space="preserve">
     <value>Lejátszás</value>
@@ -167,9 +155,6 @@
   </data>
   <data name="ClearCompleted" xml:space="preserve">
     <value>Teljesítettek eltávolítása</value>
-  </data>
-  <data name="ExitMenuItem" xml:space="preserve">
-    <value>Kilépés</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Windows</value>
@@ -202,9 +187,6 @@
   <data name="SourceLabel" xml:space="preserve">
     <value>Forrás:</value>
   </data>
-  <data name="ScanningSourceLabel" xml:space="preserve">
-    <value>Forrás vizsgálata...</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>Legutóbbi</value>
   </data>
@@ -213,15 +195,6 @@
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>Hiba történt a vizsgálat során.</value>
-  </data>
-  <data name="AudioLabel" xml:space="preserve">
-    <value>Hang.</value>
-  </data>
-  <data name="VideoLabel" xml:space="preserve">
-    <value>Videó:</value>
-  </data>
-  <data name="SubtitlesLabel" xml:space="preserve">
-    <value>Feliratok:</value>
   </data>
   <data name="AddTrackButton" xml:space="preserve">
     <value>Sáv hozzáadása</value>
@@ -389,9 +362,7 @@
   <data name="EtaLabel" xml:space="preserve">
     <value>Hátravan:</value>
   </data>
-  <data name="WhenDoneLabel" xml:space="preserve">
-    <value>Amikor végez:</value>
-  </data>
+  
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>Videófájl...</value>
   </data>
@@ -554,12 +525,6 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>Konvertálás részletei</value>
   </data>
-  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
-    <value>A konvertálási beállítások megváltoztak, amióta egy elemet a várólistához adtál. Szeretnéd alkalmazni az aktuális konvertálási beállításokat a várólista összes eleméhez?</value>
-  </data>
-  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
-    <value>A beállítások megváltoztak</value>
-  </data>
   <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>Szeretnéd átnevezni a létező fájlt és újat indítani?</value>
   </data>
@@ -607,6 +572,33 @@
 
 {0}</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
 </root>

@@ -120,17 +120,11 @@
   <data name="TitleLabel" xml:space="preserve">
     <value>Titre:</value>
   </data>
-  <data name="SettingsLabel" xml:space="preserve">
-    <value>Paramètres</value>
-  </data>
   <data name="AddToQueueLabel" xml:space="preserve">
     <value>Ajouter à la file d'attente</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
     <value>Ajouter plusieurs titres à la file d'attente...</value>
-  </data>
-  <data name="FileMenu" xml:space="preserve">
-    <value>Fichier</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
     <value>Ouvrir un fichier vidéo...</value>
@@ -141,9 +135,6 @@
   <data name="EnqueueMultipleFiles" xml:space="preserve">
     <value>Ajouter plusieurs fichiers...</value>
   </data>
-  <data name="EnqueueMultipleTitles" xml:space="preserve">
-    <value>Ajouter plusieurs titres...</value>
-  </data>
   <data name="ToolsMenu" xml:space="preserve">
     <value>Outils</value>
   </data>
@@ -152,9 +143,6 @@
   </data>
   <data name="ExportPreset" xml:space="preserve">
     <value>Exporter un Pré-réglage...</value>
-  </data>
-  <data name="OptionsMenuItem" xml:space="preserve">
-    <value>Options...</value>
   </data>
   <data name="Play" xml:space="preserve">
     <value>Lire</value>
@@ -167,9 +155,6 @@
   </data>
   <data name="ClearCompleted" xml:space="preserve">
     <value>Effacement terminé</value>
-  </data>
-  <data name="ExitMenuItem" xml:space="preserve">
-    <value>Quitter</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Fenêtres</value>
@@ -202,9 +187,6 @@
   <data name="SourceLabel" xml:space="preserve">
     <value>Source:</value>
   </data>
-  <data name="ScanningSourceLabel" xml:space="preserve">
-    <value>Analyse de la source...</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>Récents</value>
   </data>
@@ -213,15 +195,6 @@
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>Une erreur s'est produite pendant l'analyse.</value>
-  </data>
-  <data name="AudioLabel" xml:space="preserve">
-    <value>Audio:</value>
-  </data>
-  <data name="VideoLabel" xml:space="preserve">
-    <value>Vidéo:</value>
-  </data>
-  <data name="SubtitlesLabel" xml:space="preserve">
-    <value>Sous-titres :</value>
   </data>
   <data name="AddTrackButton" xml:space="preserve">
     <value>Ajouter une piste</value>
@@ -387,9 +360,7 @@
   <data name="EtaLabel" xml:space="preserve">
     <value>ETA:</value>
   </data>
-  <data name="WhenDoneLabel" xml:space="preserve">
-    <value>Quand terminé :</value>
-  </data>
+  
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>Fichier vidéo...</value>
   </data>
@@ -552,12 +523,6 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>Détails d'encodage</value>
   </data>
-  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
-    <value>Les paramètres d'encodage sont changés depuis votre dernier ajout d'élément à la file d'attente. Vous voulez appliquer les paramètres d'encodage actuels à tous les éléments dans la file d'attente ?</value>
-  </data>
-  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
-    <value>Les paramètres ont été modifiés</value>
-  </data>
   <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>Voulez-vous renommer le fichier existant et démarrer avec un nouveau ?</value>
   </data>
@@ -583,6 +548,33 @@
     <value>{0} autres titres ont une durée proche de celui-ci.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

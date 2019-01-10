@@ -120,17 +120,11 @@
   <data name="TitleLabel" xml:space="preserve">
     <value>Başlık:</value>
   </data>
-  <data name="SettingsLabel" xml:space="preserve">
-    <value>Ayarlar</value>
-  </data>
   <data name="AddToQueueLabel" xml:space="preserve">
     <value>Kuyruğa Ekle</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
     <value>Kuyruğa Birden Çok Başlık Ekle...</value>
-  </data>
-  <data name="FileMenu" xml:space="preserve">
-    <value>Dosya</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
     <value>Video Dosyası Aç...</value>
@@ -141,9 +135,6 @@
   <data name="EnqueueMultipleFiles" xml:space="preserve">
     <value>Birden Çok Dosyayı Kuyruğa Al...</value>
   </data>
-  <data name="EnqueueMultipleTitles" xml:space="preserve">
-    <value>Birden Çok Dosyayı Kuyruğa Al...</value>
-  </data>
   <data name="ToolsMenu" xml:space="preserve">
     <value>Araçlar</value>
   </data>
@@ -152,9 +143,6 @@
   </data>
   <data name="ExportPreset" xml:space="preserve">
     <value>Hazır Ayarı Dışa Aktar...</value>
-  </data>
-  <data name="OptionsMenuItem" xml:space="preserve">
-    <value>Seçenekler...</value>
   </data>
   <data name="Play" xml:space="preserve">
     <value>Oynat</value>
@@ -167,9 +155,6 @@
   </data>
   <data name="ClearCompleted" xml:space="preserve">
     <value>Tamamlananları Kaldır</value>
-  </data>
-  <data name="ExitMenuItem" xml:space="preserve">
-    <value>Çık</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Windows</value>
@@ -202,9 +187,6 @@
   <data name="SourceLabel" xml:space="preserve">
     <value>Kaynak:</value>
   </data>
-  <data name="ScanningSourceLabel" xml:space="preserve">
-    <value>Kaynak inceleniyor...</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>Son</value>
   </data>
@@ -213,15 +195,6 @@
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>İnceleme sırasında bir hata oluştu.</value>
-  </data>
-  <data name="AudioLabel" xml:space="preserve">
-    <value>Ses:</value>
-  </data>
-  <data name="VideoLabel" xml:space="preserve">
-    <value>Video:</value>
-  </data>
-  <data name="SubtitlesLabel" xml:space="preserve">
-    <value>Altyazılar:</value>
   </data>
   <data name="AddTrackButton" xml:space="preserve">
     <value>Parça Ekle</value>
@@ -389,9 +362,7 @@
   <data name="EtaLabel" xml:space="preserve">
     <value>TAHMİNİ TAMAMLANMA SÜRESİ:</value>
   </data>
-  <data name="WhenDoneLabel" xml:space="preserve">
-    <value>Bittiğinde:</value>
-  </data>
+  
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>Video Dosyası...</value>
   </data>
@@ -548,12 +519,6 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>Kodlama Ayrıntıları</value>
   </data>
-  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
-    <value>En son görev sıralamasına bir öğe eklemenizden sonra kodlama işlem ayarları değişmiş. Görev sıralamasındaki tüm öğeler için mevcut kodlama işlem ayarlarını uygulamak istiyor musunuz?</value>
-  </data>
-  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
-    <value>Ayarlar değiştirildi</value>
-  </data>
   <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>Varolan dosyayı yeniden adlandırmak ve yeni bir dosyayla işleme başlamak istiyor musunuz?</value>
   </data>
@@ -590,6 +555,33 @@
 
 {0}</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
 </root>

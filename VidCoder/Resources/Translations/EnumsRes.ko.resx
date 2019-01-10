@@ -129,6 +129,9 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>엄격한</value>
   </data>
+  
+  
+  
   <data name="CombDetect_fast" xml:space="preserve">
     <value>빠르게</value>
   </data>
@@ -244,4 +247,9 @@
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>시간 범위</value>
   </data>
+  
+  
+  
+  
+  
 </root>
