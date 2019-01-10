@@ -621,6 +621,7 @@
   </data>
   <data name="DataTooOldRunVidCoderVersion" xml:space="preserve">
     <value>您的資料太舊無法升級，請執行 VidCoder {0} 並升級至相容版本後再使用此版本。</value>
+    <comment>This is shown on app start when old data is detected.</comment>
   </data>
   <data name="BitrateColumn" xml:space="preserve">
     <value>位元率</value>
@@ -667,12 +668,12 @@
   </data>
   <data name="WithCurrentJobsFormat" xml:space="preserve">
     <value>目前工作: {0}</value>
-    <comment>Shown as options for the "When done" combo box for actions that trigger when currently encoding job(s) complete.
+    <comment>Shown as options for the "When done" combo box for actions that trigger when currently encoding job(s) complete. This string is only used when there are multiple items queued.
 {0} is the encode complete action, ex "Shut down"</comment>
   </data>
   <data name="WithQueueFormat" xml:space="preserve">
     <value>佇列 {0}</value>
-    <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion.
+    <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion. This string is only used when there are multiple items queued.
 {0} is the encode complete action, ex "Shut down"</comment>
   </data>
 </root>

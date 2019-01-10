@@ -131,6 +131,7 @@
   </data>
   <data name="AppThemeChoice_Auto" xml:space="preserve">
     <value>使用作業系統主題</value>
+    <comment>Windows 10 you can choose Light or Dark for the app theme. This will cause VidCoder to respect that choice.</comment>
   </data>
   <data name="AppThemeChoice_Dark" xml:space="preserve">
     <value>深色</value>
@@ -261,9 +262,11 @@
   </data>
   <data name="TitleCapitalizationChoice_EveryWord" xml:space="preserve">
     <value>每個字</value>
+    <comment>This will make Blu-ray and DVD titles capitalize every word</comment>
   </data>
   <data name="TitleCapitalizationChoice_FirstWord" xml:space="preserve">
     <value>首字</value>
+    <comment>This will make Blu-ray and DVD titles capitalize only the first word</comment>
   </data>
   <data name="EncodeCompleteActionType_StopEncoding" xml:space="preserve">
     <value>停止編碼</value>

@@ -263,15 +263,43 @@
   <data name="OverrideNameFormatLabel" xml:space="preserve">
     <value>可用选项：{0}</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="DurationFilterStartAutomationName" xml:space="preserve">
+    <value>持续筛选器起始时间（分）</value>
+    <comment>Screen reader text for number box that represents the start of the filter range in minutes. The number chosen in this box represents the minimum title length in minutes that will be chosen.
+</comment>
+  </data>
+  <data name="DurationFilterEndAutomationName" xml:space="preserve">
+    <value>持续筛选器结束时间（分钟）</value>
+    <comment>Screen reader text for number box that represents the end of the filter range in minutes. The number chosen in this box represents the maximum title length in minutes that will be chosen.
+</comment>
+  </data>
+  <data name="DurationFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>持续筛选标题</value>
+    <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
+  </data>
+  <data name="TimeRangeSelection" xml:space="preserve">
+    <value>时间范围选择</value>
+  </data>
+  <data name="SelectTimeRangeCheckBox" xml:space="preserve">
+    <value>选择时间范围</value>
+  </data>
+  <data name="TitleCaptializationLabel" xml:space="preserve">
+    <value>标题大写：</value>
+  </data>
+  <data name="TimeRangeStartAutomationName" xml:space="preserve">
+    <value>时间范围起始</value>
+  </data>
+  <data name="TimeRangeEndAutomationName" xml:space="preserve">
+    <value>时间范围结束</value>
+  </data>
+  <data name="ByIndexRadioButton" xml:space="preserve">
+    <value>按索引</value>
+    <comment>Label for the choice to choose audio or subtitle tracks by index</comment>
+  </data>
+  <data name="SelectTracksLabel" xml:space="preserve">
+    <value>选择轨道：</value>
+  </data>
+  <data name="SelectTracksHelpText" xml:space="preserve">
+    <value>逗号分隔 - 例如 2,5</value>
+  </data>
 </root>

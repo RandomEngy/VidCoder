@@ -129,9 +129,16 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>Strikt</value>
   </data>
-  
-  
-  
+  <data name="AppThemeChoice_Auto" xml:space="preserve">
+    <value>Systemtheme verwenden</value>
+    <comment>Windows 10 you can choose Light or Dark for the app theme. This will cause VidCoder to respect that choice.</comment>
+  </data>
+  <data name="AppThemeChoice_Dark" xml:space="preserve">
+    <value>Dunkel</value>
+  </data>
+  <data name="AppThemeChoice_Light" xml:space="preserve">
+    <value>Hell</value>
+  </data>
   <data name="CombDetect_fast" xml:space="preserve">
     <value>Schnell</value>
   </data>
@@ -253,9 +260,21 @@
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>Zeitbereich</value>
   </data>
-  
-  
-  
-  
-  
+  <data name="TitleCapitalizationChoice_EveryWord" xml:space="preserve">
+    <value>Jedes Wort</value>
+    <comment>This will make Blu-ray and DVD titles capitalize every word</comment>
+  </data>
+  <data name="TitleCapitalizationChoice_FirstWord" xml:space="preserve">
+    <value>Das erste Wort</value>
+    <comment>This will make Blu-ray and DVD titles capitalize only the first word</comment>
+  </data>
+  <data name="EncodeCompleteActionType_StopEncoding" xml:space="preserve">
+    <value>Encodierung stoppen</value>
+  </data>
+  <data name="UpdatePromptTiming_OnExit" xml:space="preserve">
+    <value>Beim Schließen</value>
+  </data>
+  <data name="UpdatePromptTiming_OnLaunch" xml:space="preserve">
+    <value>Beim Programmstart</value>
+  </data>
 </root>

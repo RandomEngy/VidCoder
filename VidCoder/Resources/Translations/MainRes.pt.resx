@@ -619,6 +619,7 @@
   </data>
   <data name="DataTooOldRunVidCoderVersion" xml:space="preserve">
     <value>Os seus dados são demasiado antigos para actualizar. Execute primeiro o VidCoder {0} para actualizá-lo para uma versão compatível e, depois, tente esta versão novamente.</value>
+    <comment>This is shown on app start when old data is detected.</comment>
   </data>
   <data name="BitrateColumn" xml:space="preserve">
     <value>Taxa de Bits</value>
@@ -665,12 +666,12 @@
   </data>
   <data name="WithCurrentJobsFormat" xml:space="preserve">
     <value>com o(s) trabalho(s) atual (ais): {0}</value>
-    <comment>Shown as options for the "When done" combo box for actions that trigger when currently encoding job(s) complete.
+    <comment>Shown as options for the "When done" combo box for actions that trigger when currently encoding job(s) complete. This string is only used when there are multiple items queued.
 {0} is the encode complete action, ex "Shut down"</comment>
   </data>
   <data name="WithQueueFormat" xml:space="preserve">
     <value>com a fila: {0}</value>
-    <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion.
+    <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion. This string is only used when there are multiple items queued.
 {0} is the encode complete action, ex "Shut down"</comment>
   </data>
 </root>

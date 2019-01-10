@@ -259,9 +259,11 @@
   </data>
   <data name="TitleCapitalizationChoice_EveryWord" xml:space="preserve">
     <value>Cada palabra</value>
+    <comment>This will make Blu-ray and DVD titles capitalize every word</comment>
   </data>
   <data name="TitleCapitalizationChoice_FirstWord" xml:space="preserve">
     <value>Primera palabra</value>
+    <comment>This will make Blu-ray and DVD titles capitalize only the first word</comment>
   </data>
   <data name="EncodeCompleteActionType_StopEncoding" xml:space="preserve">
     <value>Detener codificación</value>

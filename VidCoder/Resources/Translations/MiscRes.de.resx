@@ -151,10 +151,10 @@
     <value>Auto-Umbenennen</value>
   </data>
   <data name="FileConflictWarning" xml:space="preserve">
-    <value>Unter {0} ist bereits eine Datei mit diesem Namen vorhanden. Möchten Sie die Datei überschreiben, automatisch einen neuen Ausgabepfad für den Encodierungs-Auftrag finden oder den Vorgang abbrechen?</value>
+    <value>Unter {0} ist bereits eine Datei mit diesem Namen vorhanden. Möchten Sie die Datei überschreiben, automatisch einen neuen Ausgabepfad für den Encodierungsauftrag finden oder den Vorgang abbrechen?</value>
   </data>
   <data name="QueueFileConflictWarning" xml:space="preserve">
-    <value>Ein Auftrag aus der Warteschlangen nutzt bereits denselben Ausgabepfad {0}. Möchten Sie die Datei überschreiben, automatisch einen neuen Ausgabepfad für den Encodierungs-Auftrag finden oder den Vorgang abbrechen?</value>
+    <value>Ein Auftrag aus der Warteschlangen nutzt bereits denselben Ausgabepfad {0}. Möchten Sie die Datei überschreiben, automatisch einen neuen Ausgabepfad für den Encodierungsauftrag finden oder den Vorgang abbrechen?</value>
   </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>Warteschlange: Spalten</value>
@@ -186,7 +186,10 @@
   <data name="Copyright" xml:space="preserve">
     <value>© {0} VidCoder Entwickler</value>
   </data>
-  
+  <data name="BetaVersionFormat2" xml:space="preserve">
+    <value>Beta {0}</value>
+    <comment>{0} is a placeholder for version. For example: 1.4.2 Beta</comment>
+  </data>
   <data name="NameDialogTitle" xml:space="preserve">
     <value>Benennen</value>
     <comment>Title for dialog when  naming a preset or  picker</comment>
@@ -210,7 +213,7 @@
     <value>Mitteilung</value>
   </data>
   <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder wird auf Ihrem Betriebssystem nicht unterstützt. Windows XP und Server 2003 funktionieren nicht mehr. Bitte installieren Sie VidCoder 1.4 oder rüsten Sie Ihr Betriebssystem auf.</value>
+    <value>VidCoder wird von Ihrem Betriebssystem nicht unterstützt. Windows XP und Server 2003 funktionieren nicht länger. Bitte installieren Sie VidCoder 1.4 oder spendieren Sie Ihrem Betriebssystem ein Upgrade.</value>
   </data>
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>Umschalten in den Standby-Modus steht unmittelbar bevor</value>

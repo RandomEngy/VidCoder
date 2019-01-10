@@ -1118,20 +1118,54 @@ LapSharp verwendet Faltungsmatrizen, welche Laplace-Kanten-Filter annähern, zum
   <data name="ChooseNewFolderName" xml:space="preserve">
     <value>Wählen Sie einen Namen für den Ordner:</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="NVEncPreset_losslesshp" xml:space="preserve">
+    <value>Hoher Durchsatz, verlustfrei</value>
+  </data>
+  <data name="NVEncPreset_lossless" xml:space="preserve">
+    <value>Verlustfrei</value>
+  </data>
+  <data name="NVEncPreset_llhp" xml:space="preserve">
+    <value>Hoher Durchsatz, geringe Latenz</value>
+  </data>
+  <data name="NVEncPreset_llhq" xml:space="preserve">
+    <value>Hohe Qualität, geringe Latenz</value>
+  </data>
+  <data name="NVEncPreset_ll" xml:space="preserve">
+    <value>Geringe Latenz</value>
+  </data>
+  <data name="NVEncPreset_bd" xml:space="preserve">
+    <value>Blu-ray-Disk</value>
+  </data>
+  <data name="NVEncPreset_hq" xml:space="preserve">
+    <value>Hohe Qualität</value>
+  </data>
+  <data name="NVEncPreset_hp" xml:space="preserve">
+    <value>Hoher Durchsatz</value>
+  </data>
+  <data name="PickColorButton" xml:space="preserve">
+    <value>Farbe auswählen…</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>Unten</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Links</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Rechts</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Oben</value>
+  </data>
+  <data name="PixelAspectRatioNumeratorAutomationName" xml:space="preserve">
+    <value>Zähler des Pixelseitenverhältnisses</value>
+    <comment>Name for the pixel aspect ratio numerator box for screen readers</comment>
+  </data>
+  <data name="PixelAspectRatioDenominatorAutomationName" xml:space="preserve">
+    <value>Nenner des Pixelseitenverhältnisses</value>
+    <comment>Name for the pixel aspect ratio denominator box for screen readers</comment>
+  </data>
+  <data name="ApplyToQueueButton" xml:space="preserve">
+    <value>Auf die Warteschlange anwenden</value>
+  </data>
 </root>

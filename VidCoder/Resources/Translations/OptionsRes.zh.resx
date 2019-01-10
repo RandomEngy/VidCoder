@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
-    <value>常规​​​​​</value>
+    <value>通用</value>
   </data>
   <data name="MinimizeToTaskBarRadioButton" xml:space="preserve">
     <value>最小化到任务栏</value>
@@ -208,7 +208,7 @@
     <value>日志详细度：</value>
   </data>
   <data name="MinScanLengthLabel" xml:space="preserve">
-    <value>标题的最小扫描长度 (秒)：</value>
+    <value>标题最小扫描长度（秒）：</value>
   </data>
   <data name="RecognizedExtensionsLabel" xml:space="preserve">
     <value>可识别扩展名：</value>
@@ -340,7 +340,7 @@
     <value>低于正常</value>
   </data>
   <data name="WorkerProcessPriorityLabel" xml:space="preserve">
-    <value>工作进程优先级:</value>
+    <value>工作进程优先级：</value>
   </data>
   <data name="Priority_Idle" xml:space="preserve">
     <value>低</value>
@@ -369,16 +369,30 @@
   <data name="ProcessOptionsLabel" xml:space="preserve">
     <value>进程选项</value>
   </data>
-  
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>CPU 限制 - 可用内核：</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use. It labels a slider that controls the percentage of allowed cores, where the max is 100%.</comment>
+  </data>
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>使用 CPU 节流来限制 VidCoder 编码时可使用的处理器核心数量。</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>使用内置播放器预览</value>
   </data>
-  
-  
-  
-  
-  
+  <data name="MaxSimultaneousEncodesLabel" xml:space="preserve">
+    <value>最大同步编码作业数：</value>
+  </data>
+  <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
+    <value>该选项用来设定允许同时进行编码作业的数量。适用于多核 CPU的计算机。</value>
+  </data>
+  <data name="GeneralSection" xml:space="preserve">
+    <value>通用</value>
+  </data>
+  <data name="ThemeLabel" xml:space="preserve">
+    <value>主题</value>
+    <comment>Label for the app theme (auto, light, dark)</comment>
+  </data>
+  <data name="PromptForUpdatesLabel" xml:space="preserve">
+    <value>提示更新：</value>
+  </data>
 </root>

@@ -202,7 +202,7 @@
     <value>LibDVDNav einschalten (Erfordert Neustart des Programms)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Ursprüngliche Dateien löschen, nachdem die erfolgreich abgeschlossen Aufträge aus der Liste entfernt wurden (mit Bestätigung)</value>
+    <value>Ursprüngliche Dateien löschen, wenn erfolgreich abgeschlossene Aufträge aus der Warteschlange entfernt werden (mit Bestätigung)</value>
   </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Ausführlichkeit der Protokollierung:</value>
@@ -340,7 +340,7 @@
     <value>Unter normal</value>
   </data>
   <data name="WorkerProcessPriorityLabel" xml:space="preserve">
-    <value>Worker-Prozess-Priorität:</value>
+    <value>Arbeiter-Prozess-Priorität:</value>
   </data>
   <data name="Priority_Idle" xml:space="preserve">
     <value>Niedrig</value>
@@ -369,16 +369,30 @@
   <data name="ProcessOptionsLabel" xml:space="preserve">
     <value>Prozesseinstellungen</value>
   </data>
-  
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>CPU-Auslastung - Anzahl Kerne einschränken</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use. It labels a slider that controls the percentage of allowed cores, where the max is 100%.</comment>
+  </data>
   <data name="CpuThrottlingToolTip" xml:space="preserve">
-    <value>Drosseln Sie Ihre CPU, um die Anzahl an Prozessorkernen zu begrenzen, die VidCoder zur Encodierung verwenden kann.</value>
+    <value>Verringern Sie die Auslastung Ihres Prozessors, indem Sie die Anzahl an Prozessorkernen einschränken, welche Vidcoder zur Encodierung verwenden kann.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Eingebautes Wiedergabe-Programm für die Vorschau verwenden</value>
   </data>
-  
-  
-  
-  
-  
+  <data name="MaxSimultaneousEncodesLabel" xml:space="preserve">
+    <value>Maximale Anzahl gleichzeitiger Encodierungsaufträge:</value>
+  </data>
+  <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
+    <value>Hiermit können Sie festlegen, wieviele Encodierungsaufträge gleichzeitig erlaubt sind. Dies ist nützlich für Systeme mit vielen CPU-Kernen.</value>
+  </data>
+  <data name="GeneralSection" xml:space="preserve">
+    <value>Allgemein</value>
+  </data>
+  <data name="ThemeLabel" xml:space="preserve">
+    <value>Theme</value>
+    <comment>Label for the app theme (auto, light, dark)</comment>
+  </data>
+  <data name="PromptForUpdatesLabel" xml:space="preserve">
+    <value>Updatebenachrichtigung einblenden</value>
+  </data>
 </root>

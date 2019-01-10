@@ -168,6 +168,11 @@
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>无法检测字幕编码。若要保证字幕正确显示，请将文件重新保存为 UTF-8 编码。</value>
   </data>
-  
-  
+  <data name="NoSubtitlesText" xml:space="preserve">
+    <value>源文件中未发现字幕。</value>
+  </data>
+  <data name="ExternalSubtitlesSummaryFormat" xml:space="preserve">
+    <value>{0} 额外</value>
+    <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
+  </data>
 </root>

@@ -619,6 +619,7 @@
   </data>
   <data name="DataTooOldRunVidCoderVersion" xml:space="preserve">
     <value>Sus datos son demasiado antiguos para actualizar. Ejecute VidCoder {0} una vez para actualizarlos a una versión compatible y vuelva a intentarlo con esta versión.</value>
+    <comment>This is shown on app start when old data is detected.</comment>
   </data>
   <data name="BitrateColumn" xml:space="preserve">
     <value>Bitrate</value>

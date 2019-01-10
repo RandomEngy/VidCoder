@@ -148,6 +148,7 @@ GNU 일반 공중 사용 허가서의 사본이 이 프로그램에 포함되어
   </data>
   <data name="QueueColumnNameTitle" xml:space="preserve">
     <value>제목</value>
+    <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
   <data name="QueueColumnNameAudioQuality" xml:space="preserve">
     <value>오디오 품질</value>

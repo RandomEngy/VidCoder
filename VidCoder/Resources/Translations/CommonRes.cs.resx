@@ -148,6 +148,7 @@ Tento program je rozšiřován v naději že bude užitečný, ale BEZ JAKÉKOLI
   </data>
   <data name="QueueColumnNameTitle" xml:space="preserve">
     <value>Titul</value>
+    <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
   <data name="QueueColumnNameAudioQuality" xml:space="preserve">
     <value>Audio kvalita</value>

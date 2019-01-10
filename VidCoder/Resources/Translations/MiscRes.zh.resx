@@ -151,7 +151,7 @@
     <value>自动重命名</value>
   </data>
   <data name="FileConflictWarning" xml:space="preserve">
-    <value>{0} 已有同名文件，您想要覆盖该文件、自动变更编码输出路径，还是取消操作?</value>
+    <value>{0} 已有同名文件，您想要覆盖该文件、自动变更编码作业输出路径，还是取消操作?</value>
   </data>
   <data name="QueueFileConflictWarning" xml:space="preserve">
     <value>队列中的作业在 {0} 已有同名的输出文件。你想要覆盖文件、 自动改变输出路径或取消操作？</value>
@@ -186,7 +186,10 @@
   <data name="Copyright" xml:space="preserve">
     <value>© {0} VidCoder 开发人员</value>
   </data>
-  
+  <data name="BetaVersionFormat2" xml:space="preserve">
+    <value>{0} Beta</value>
+    <comment>{0} is a placeholder for version. For example: 1.4.2 Beta</comment>
+  </data>
   <data name="NameDialogTitle" xml:space="preserve">
     <value>名称</value>
     <comment>Title for dialog when  naming a preset or  picker</comment>
