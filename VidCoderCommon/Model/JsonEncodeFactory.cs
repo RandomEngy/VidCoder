@@ -784,10 +784,10 @@ namespace VidCoderCommon.Model
 			}
 			else
 			{
-				video.Level = profile.VideoLevel;
+				video.Level = profile.VideoLevel ?? "auto";
 				video.Options = profile.VideoOptions;
 				video.Preset = profile.VideoPreset;
-				video.Profile = profile.VideoProfile;
+				video.Profile = profile.VideoProfile ?? "auto";
 			}
 
 			switch (profile.VideoEncodeRateType)
