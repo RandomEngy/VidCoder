@@ -313,7 +313,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Override directory:.
+        ///   Looks up a localized string similar to Override folder:.
         /// </summary>
         public static string OverrideDirectoryCheckBox {
             get {

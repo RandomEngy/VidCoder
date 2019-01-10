@@ -187,7 +187,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose the default output directory for encoded video files..
+        ///   Looks up a localized string similar to Choose the default output folder for encoded video files..
         /// </summary>
         public static string ChooseDefaultOutputFolder {
             get {
@@ -205,7 +205,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copy the encode log to the same directory as the encoded video.
+        ///   Looks up a localized string similar to Copy the encode log to the same folder as the encoded video.
         /// </summary>
         public static string CopyLogToOutputFolderLabel {
             get {

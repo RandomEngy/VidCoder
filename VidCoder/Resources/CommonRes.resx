@@ -148,6 +148,7 @@ A full copy of the GNU General Public License has been included along with this 
   </data>
   <data name="QueueColumnNameTitle" xml:space="preserve">
     <value>Title</value>
+    <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
   <data name="QueueColumnNameAudioQuality" xml:space="preserve">
     <value>Audio Quality</value>
@@ -179,7 +180,7 @@ A full copy of the GNU General Public License has been included along with this 
     <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="Browse" xml:space="preserve">
-    <value>Browse...</value>
+    <value>Browse…</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
@@ -256,7 +257,7 @@ A full copy of the GNU General Public License has been included along with this 
     <value>Override naming format:</value>
   </data>
   <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Output to the source directory if possible</value>
+    <value>Output to the source folder if possible</value>
   </data>
   <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
     <value>Preserve folder structure in batch encodes</value>

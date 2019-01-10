@@ -156,7 +156,7 @@
     <value>Output location</value>
   </data>
   <data name="OverrideDirectoryCheckBox" xml:space="preserve">
-    <value>Override directory:</value>
+    <value>Override folder:</value>
   </data>
   <data name="PickerHelpText" xml:space="preserve">
     <value>Automatically pick titles, audio, subtitles and destination</value>

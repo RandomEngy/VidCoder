@@ -325,12 +325,12 @@
     <value>Started encoding.</value>
   </data>
   <data name="DirectoryCreateErrorMessage" xml:space="preserve">
-    <value>Could not create output directory. Error details:
+    <value>Could not create output folder. Error details:
 
 {0}</value>
   </data>
   <data name="DirectoryCreateErrorTitle" xml:space="preserve">
-    <value>Error creating directory</value>
+    <value>Error creating folder</value>
   </data>
   <data name="EncodeCompleted" xml:space="preserve">
     <value>Encode completed.</value>
@@ -429,7 +429,7 @@
     <value>Configuration was corrupted and could not be loaded. Some of your settings may have been reset.</value>
   </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
-    <value>Choose the output directory for encoded video files.</value>
+    <value>Choose the output folder for encoded video files.</value>
   </data>
   <data name="LengthPreviewLabel" xml:space="preserve">
     <value>({0})</value>
@@ -625,6 +625,7 @@
   </data>
   <data name="DataTooOldRunVidCoderVersion" xml:space="preserve">
     <value>Your data is too old to upgrade. Run VidCoder {0} once to upgrade it to a compatible version, then try this version again.</value>
+    <comment>This is shown on app start when old data is detected.</comment>
   </data>
   <data name="BitrateColumn" xml:space="preserve">
     <value>Bitrate</value>
@@ -644,7 +645,7 @@
     <comment>{0} is the name of the source being scanned.</comment>
   </data>
   <data name="RetryFailedItemsMenuItem" xml:space="preserve">
-    <value>Retry all failed items</value>
+    <value>Retry all failed jobs</value>
   </data>
   <data name="StartChapterAutomationName" xml:space="preserve">
     <value>Start chapter</value>
@@ -671,12 +672,12 @@
   </data>
   <data name="WithCurrentJobsFormat" xml:space="preserve">
     <value>with current job(s): {0}</value>
-    <comment>Shown as options for the "When done" combo box for actions that trigger when currently encoding job(s) complete.
+    <comment>Shown as options for the "When done" combo box for actions that trigger when currently encoding job(s) complete. This string is only used when there are multiple items queued.
 {0} is the encode complete action, ex "Shut down"</comment>
   </data>
   <data name="WithQueueFormat" xml:space="preserve">
     <value>with queue: {0}</value>
-    <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion.
+    <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion. This string is only used when there are multiple items queued.
 {0} is the encode complete action, ex "Shut down"</comment>
   </data>
 </root>

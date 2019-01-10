@@ -387,7 +387,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not create output directory. Error details:
+        ///   Looks up a localized string similar to Could not create output folder. Error details:
         ///
         ///{0}.
         /// </summary>
@@ -398,7 +398,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error creating directory.
+        ///   Looks up a localized string similar to Error creating folder.
         /// </summary>
         public static string DirectoryCreateErrorTitle {
             get {
@@ -938,7 +938,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose the output directory for encoded video files..
+        ///   Looks up a localized string similar to Choose the output folder for encoded video files..
         /// </summary>
         public static string OutputDirectoryPickerText {
             get {
@@ -1309,7 +1309,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Retry all failed items.
+        ///   Looks up a localized string similar to Retry all failed jobs.
         /// </summary>
         public static string RetryFailedItemsMenuItem {
             get {

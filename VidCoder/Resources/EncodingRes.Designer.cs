@@ -1802,7 +1802,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pick color....
+        ///   Looks up a localized string similar to Pick color….
         /// </summary>
         public static string PickColorButton {
             get {

@@ -241,7 +241,7 @@
     <value>VidCoder is up to date.</value>
   </data>
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
-    <value>Choose the default output directory for encoded video files.</value>
+    <value>Choose the default output folder for encoded video files.</value>
   </data>
   <data name="InterfaceLanguageLabel" xml:space="preserve">
     <value>Interface Language:</value>
@@ -346,7 +346,7 @@
     <value>Low</value>
   </data>
   <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
-    <value>Copy the encode log to the same directory as the encoded video</value>
+    <value>Copy the encode log to the same folder as the encoded video</value>
   </data>
   <data name="OpenLogFolderButton" xml:space="preserve">
     <value>Open Log Folder</value>

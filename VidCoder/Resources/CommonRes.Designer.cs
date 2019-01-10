@@ -92,7 +92,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Browse....
+        ///   Looks up a localized string similar to Browse….
         /// </summary>
         public static string Browse {
             get {
@@ -353,7 +353,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Output to the source directory if possible.
+        ///   Looks up a localized string similar to Output to the source folder if possible.
         /// </summary>
         public static string OutputToSourceDirCheckBox {
             get {
