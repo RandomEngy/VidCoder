@@ -153,13 +153,13 @@
     <comment>{0} is the name of the picker. This string shows up on the picker split button.</comment>
   </data>
   <data name="OutputLocation" xml:space="preserve">
-    <value>Ausgabeverzeichnis</value>
+    <value>Ausgabepfad</value>
   </data>
   <data name="OverrideDirectoryCheckBox" xml:space="preserve">
-    <value>Verzeichnis überschreiben:</value>
+    <value>Ordner überschreiben:</value>
   </data>
   <data name="PickerHelpText" xml:space="preserve">
-    <value>Automatisch Titel, Ton, Untertitel und Zielverzeichnis auswählen</value>
+    <value>Automatisch Titel, Ton, Untertitel und Ausgabe-Ordner auswählen</value>
   </data>
   <data name="AutoQueueOnScanCheckBox" xml:space="preserve">
     <value>Automatisch nach dem Scannen in die Warteschlange einreihen</value>

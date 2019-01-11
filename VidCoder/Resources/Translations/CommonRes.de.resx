@@ -257,13 +257,13 @@ Diesem Programm wurde eine vollständige Kopie der GNU General Public beigelegt.
     <value>Namensformat überschreiben:</value>
   </data>
   <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Nach Möglichkeit immer ins Quellverzeichnis speichern</value>
+    <value>Nach Möglichkeit den Quell-Ordner auch als Ausgabe-Ordner nutzen</value>
   </data>
   <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
     <value>Ordnerstruktur bei Stapelencodierungen beibehalten</value>
   </data>
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>Wenn Sie einen ganzen Ordner voller Dateien encodieren, landen die encodierten Versionen in Unterordnern entsprechend der Quellverzeichnisstruktur.</value>
+    <value>Wenn Sie einen ganzen Ordner voller Dateien encodieren, landen die encodierten Versionen in Unterordnern entsprechend der Ordnerstruktur der Quelle.</value>
   </data>
   <data name="DismissMessage" xml:space="preserve">
     <value>Nachricht ausblenden</value>

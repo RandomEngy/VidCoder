@@ -323,10 +323,10 @@
     <value>Encodierung wurde gestartet.</value>
   </data>
   <data name="DirectoryCreateErrorMessage" xml:space="preserve">
-    <value>Das Ausgabeverzeichnis konnte nicht erstellt werden. Fehlerdetails: {0}</value>
+    <value>Der Ausgabe-Ordner konnte nicht erstellt werden. Fehlerdetails: {0}</value>
   </data>
   <data name="DirectoryCreateErrorTitle" xml:space="preserve">
-    <value>Fehler beim Erstellen des Verzeichnisses</value>
+    <value>Fehler beim Erstellen des Ordners</value>
   </data>
   <data name="EncodeCompleted" xml:space="preserve">
     <value>Encodierung abgeschlossen.</value>
@@ -425,7 +425,7 @@
     <value>Die Konfiguration war beschädigt und konnte nicht geladen werden. Einige Ihrer Einstellungen wurden möglicherweise zurückgesetzt.</value>
   </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
-    <value>Wählen Sie das Ausgabeverzeichnis für encodierte Videodateien.</value>
+    <value>Wählen Sie den Ausgabe-Ordner für encodierte Videodateien.</value>
   </data>
   <data name="LengthPreviewLabel" xml:space="preserve">
     <value>({0})</value>

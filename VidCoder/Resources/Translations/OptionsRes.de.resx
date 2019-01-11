@@ -193,7 +193,7 @@
     <value>Anzahl der zu scannenden Vorschaubilder:</value>
   </data>
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
-    <value>Zuletzt benutzte Dateien und Verzeichnisse merken</value>
+    <value>Zuletzt benutzte Dateien und Ordner merken</value>
   </data>
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>Festlegen von benutzerdefinierten Namen für Tonspuren ermöglichen (Wird nicht von jedem Wiedergabegerät unterstützt)</value>
