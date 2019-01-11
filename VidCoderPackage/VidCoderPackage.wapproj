@@ -85,15 +85,14 @@
     <AppxManifest Include="Package-Beta.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="VidCoderPackage_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='Release' OR '$(Configuration)'=='Debug'">
     <AppxManifest Include="Package-Stable.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="VidCoderPackage_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="VidCoderPackage_TemporaryKey.pfx" />
     <Content Include="Assets\AppList\AppList.scale-100.png" />
     <Content Include="Assets\AppList\AppList.scale-125.png" />
     <Content Include="Assets\AppList\AppList.scale-150.png" />
