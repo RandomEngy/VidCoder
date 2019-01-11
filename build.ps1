@@ -173,7 +173,6 @@ $outputDirectoryFiles = @(
     "VidCoderWindowlessCLI.pdb",
     "ColorPickerWPF.dll",
     "ControlzEx.dll",
-    "ControlzEx.pdb",
     "DesktopBridge.Helpers.dll",
     "DryIoc.dll",
     "DynamicData.dll",

@@ -258,7 +258,7 @@
 									Grid.Column="2"
 									Height="23"
 									MinWidth="75"
-									Margin="5 0 8 0"
+									Margin="5 0 0 0"
 									HorizontalAlignment="Right"
 									VerticalAlignment="Top"
 									Command="{Binding BrowsePath}"
@@ -576,7 +576,7 @@
 								<TextBox
 									Grid.Column="1"
 									Height="23"
-									Margin="6 0 9 0"
+									Margin="6 0 0 0"
 									VerticalAlignment="Center"
 									VerticalContentAlignment="Center"
 									Text="{Binding VideoFileExtensions}"

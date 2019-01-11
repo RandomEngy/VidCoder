@@ -380,7 +380,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you encode a folder full of files the encoded versions will be put into subfolders to match the source directory structure..
+        ///   Looks up a localized string similar to If you encode a folder full of files the encoded versions will be put into subfolders to match the source folder structure..
         /// </summary>
         public static string PreserveFolderStructureToolTip {
             get {

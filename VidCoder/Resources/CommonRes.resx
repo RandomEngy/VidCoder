@@ -263,7 +263,7 @@ A full copy of the GNU General Public License has been included along with this 
     <value>Preserve folder structure in batch encodes</value>
   </data>
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>If you encode a folder full of files the encoded versions will be put into subfolders to match the source directory structure.</value>
+    <value>If you encode a folder full of files the encoded versions will be put into subfolders to match the source folder structure.</value>
   </data>
   <data name="DismissMessage" xml:space="preserve">
     <value>Dismiss message</value>

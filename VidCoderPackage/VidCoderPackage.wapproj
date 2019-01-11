@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '15.0'">
     <VisualStudioVersion>15.0</VisualStudioVersion>
@@ -46,11 +46,11 @@
     <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
-    <PackageCertificateKeyFile>VidCoderPackage_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>VidCoderPackage_StoreKey.pfx</PackageCertificateKeyFile>
     <EntryPointProjectUniqueName>..\VidCoder\VidCoder.csproj</EntryPointProjectUniqueName>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>8301E6C561F7FBCC889EC8990154BF5ABE644EF0</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>772624B1EF7BEECEC7145A46FFE321153CADC3D8</PackageCertificateThumbprint>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
@@ -85,15 +85,14 @@
     <AppxManifest Include="Package-Beta.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="VidCoderPackage_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='Release' OR '$(Configuration)'=='Debug'">
     <AppxManifest Include="Package-Stable.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="VidCoderPackage_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="VidCoderPackage_TemporaryKey.pfx" />
     <Content Include="Assets\AppList\AppList.scale-100.png" />
     <Content Include="Assets\AppList\AppList.scale-125.png" />
     <Content Include="Assets\AppList\AppList.scale-150.png" />

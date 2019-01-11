@@ -1534,15 +1534,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Title filter range start minutes.
-        /// </summary>
-        public static string TitleFilterRangeStartAutomationName {
-            get {
-                return ResourceManager.GetString("TitleFilterRangeStartAutomationName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Title:.
         /// </summary>
         public static string TitleLabel {
