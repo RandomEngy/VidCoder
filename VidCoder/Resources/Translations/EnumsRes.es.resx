@@ -129,7 +129,10 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>Strict</value>
   </data>
-  
+  <data name="AppThemeChoice_Auto" xml:space="preserve">
+    <value>Aplicar tema del sistema operativo</value>
+    <comment>Windows 10 you can choose Light or Dark for the app theme. This will cause VidCoder to respect that choice.</comment>
+  </data>
   <data name="AppThemeChoice_Dark" xml:space="preserve">
     <value>Oscuro</value>
   </data>

@@ -641,8 +641,14 @@
   <data name="RetryFailedItemsMenuItem" xml:space="preserve">
     <value>Reintentar todos los fallos</value>
   </data>
-  
-  
+  <data name="StartChapterAutomationName" xml:space="preserve">
+    <value>Capítulo inicial</value>
+    <comment>Narrator label for the chapter start combo box</comment>
+  </data>
+  <data name="EndChapterAutomationName" xml:space="preserve">
+    <value>Capítulo final</value>
+    <comment>Narrator label for the end chapter combo box</comment>
+  </data>
   <data name="EditChaptersButtonAutomationName" xml:space="preserve">
     <value>Editar capítulos</value>
     <comment>Help text for screen readers for the Edit chapters button</comment>
