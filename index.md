@@ -66,14 +66,14 @@ VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application
 
 * Multi-threaded
 * MP4, MKV containers
-* H.264 encoding with [x264, the world's best video encoder](http://www.compression.ru/video/codec_comparison/h264_2012/)
 * Completely integrated encoding pipeline: everything is in one process and no huge intermediate temporary files
-* H.265, MPEG-4, MPEG-2, VP8, Theora video
+* H.264, H.265, MPEG-4, MPEG-2, VP8, Theora video
+* Hardware-accelerated encoding with AMD VCE, Nvidia NVENC and Intel QuickSync
 * AAC, MP3, Vorbis, AC3, FLAC audio encoding and AAC/AC3/MP3/DTS/DTS-HD passthrough
 * Target bitrate, size or quality for video
 * 2-pass encoding
 * Decomb, detelecine, deinterlace, rotate, reflect filters
-* Batch encoding
+* Powerful batch encoding
 * Instant source previews
 * Creates small encoded preview clips
 * Pause, resume encoding
@@ -83,7 +83,7 @@ VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application
 ![Encoding settings]({{ site.baseurl }}/images/encoding_settings.png)
 
 ## Prerequisites
-You'll need [.NET 4.6](https://www.microsoft.com/en-us/download/details.aspx?id=53345). If you don't have it, VidCoder will prompt you to download and install it. If you're on Windows 10 you shouldn't need to install anything; it has .NET 4.6 pre-installed.
+You'll need [.NET 4.7.1](https://dotnet.microsoft.com/download/thank-you/net472). If you don't have it, VidCoder will prompt you to download and install it. If you're on the latest Windows 10 you shouldn't need to install anything; it has .NET 4.7.1 pre-installed.
 
 You *do not* need to install HandBrake for VidCoder to work.
 
@@ -116,7 +116,7 @@ Interested in translating VidCoder to your own language? [Help out on Crowdin](h
 VidCoder is free software. If you like VidCoder and want to express your appreciation, please [donate to the Against Malaria Foundation](http://givewell.org/international/top-charities/AMF). It's one of the most effective charities in the world.
 
 ## Other info
-VidCoder is built on .NET 4.6/WPF in C#.
+VidCoder is built on .NET 4.7.1/WPF in C#.
 It runs on the 64-bit versions of Windows 7, 8, 10, Vista, Server 2008 and Server 2012.
 
 The VidCoder UI (and C# interop) is written by RandomEngy.
