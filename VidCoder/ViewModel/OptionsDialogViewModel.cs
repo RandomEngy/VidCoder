@@ -116,6 +116,8 @@ namespace VidCoder.ViewModel
 			this.workerProcessPriority = Config.WorkerProcessPriority;
 			this.logVerbosity = Config.LogVerbosity;
 			this.copyLogToOutputFolder = Config.CopyLogToOutputFolder;
+			this.copyLogToCustomFolder = Config.CopyLogToCustomFolder;
+			this.logCustomFolder = Config.LogCustomFolder;
 			this.previewCount = Config.PreviewCount;
 			this.rememberPreviousFiles = Config.RememberPreviousFiles;
 			this.showAudioTrackNameField = Config.ShowAudioTrackNameField;
@@ -273,6 +275,8 @@ namespace VidCoder.ViewModel
 			get { return this.selectedTabIndex; }
 			set { this.RaiseAndSetIfChanged(ref this.selectedTabIndex, value); }
 		}
+
+		public LogCoordinator LogCoordinator { get; } = StaticResolver.Resolve<LogCoordinator>();
 
 		public List<InterfaceLanguage> LanguageChoices { get; }
 
@@ -468,6 +472,13 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.customCompletionSound, value); }
 		}
 
+		public List<ComboChoice<int>> LogVerbosityChoices { get; } = new List<ComboChoice<int>>
+		{
+			new ComboChoice<int>(0, LogRes.LogVerbosity_Minimized),
+			new ComboChoice<int>(1, LogRes.LogVerbosity_Standard),
+			new ComboChoice<int>(2, LogRes.LogVerbosity_Extended),
+		};
+
 		private int logVerbosity;
 		public int LogVerbosity
 		{
@@ -480,6 +491,22 @@ namespace VidCoder.ViewModel
 		{
 			get { return this.copyLogToOutputFolder; }
 			set { this.RaiseAndSetIfChanged(ref this.copyLogToOutputFolder, value); }
+		}
+
+		private bool copyLogToCustomFolder;
+
+		public bool CopyLogToCustomFolder
+		{
+			get { return this.copyLogToCustomFolder; }
+			set { this.RaiseAndSetIfChanged(ref this.copyLogToCustomFolder, value); }
+		}
+
+		private string logCustomFolder;
+
+		public string LogCustomFolder
+		{
+			get { return this.logCustomFolder; }
+			set { this.RaiseAndSetIfChanged(ref this.logCustomFolder, value); }
 		}
 
 		public ObservableCollection<string> AutoPauseProcesses { get; }
@@ -616,6 +643,17 @@ namespace VidCoder.ViewModel
 							StaticResolver.Resolve<IMessageBoxService>().Show(this, OptionsRes.NewLanguageRestartDialogMessage);
 						}
 
+						if (Config.UseWorkerProcess != this.UseWorkerProcess)
+						{
+							// Override the value that the app uses with the old choice
+							CustomConfig.SetWorkerProcessOverride(Config.UseWorkerProcess);
+
+							// Set the stored value to the new choice
+							Config.UseWorkerProcess = this.UseWorkerProcess;
+
+							StaticResolver.Resolve<IMessageBoxService>().Show(this, OptionsRes.WorkerProcessRestartDialogMessage);
+						}
+
 						CustomConfig.AppTheme = this.AppTheme.Value;
 						Config.AutoNameOutputFolder = this.DefaultPath;
 						Config.AutoNameCustomFormat = this.CustomFormat;
@@ -636,6 +674,8 @@ namespace VidCoder.ViewModel
 						Config.WorkerProcessPriority = this.WorkerProcessPriority;
 						Config.LogVerbosity = this.LogVerbosity;
 						Config.CopyLogToOutputFolder = this.CopyLogToOutputFolder;
+						Config.CopyLogToCustomFolder = this.CopyLogToCustomFolder;
+						Config.LogCustomFolder = this.LogCustomFolder;
 						var autoPauseList = new List<string>();
 						foreach (string process in this.AutoPauseProcesses)
 						{
@@ -663,7 +703,6 @@ namespace VidCoder.ViewModel
 						Config.DeleteSourceFilesOnClearingCompleted = this.DeleteSourceFilesOnClearingCompleted;
 						Config.PreserveModifyTimeFiles = this.PreserveModifyTimeFiles;
 						Config.ResumeEncodingOnRestart = this.ResumeEncodingOnRestart;
-						Config.UseWorkerProcess = this.UseWorkerProcess;
 						Config.MinimumTitleLengthSeconds = this.MinimumTitleLengthSeconds;
 						Config.VideoFileExtensions = this.VideoFileExtensions;
 						Config.CpuThrottlingFraction = (double)this.CpuThrottlingCores / this.CpuThrottlingMaxCores;
@@ -743,6 +782,22 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private ReactiveCommand<Unit, Unit> pickLogCustomFolder;
+		public ICommand PickLogCustomFolder
+		{
+			get
+			{
+				return this.pickLogCustomFolder ?? (this.pickLogCustomFolder = ReactiveCommand.Create(() =>
+				{
+					string newFolder = FileService.Instance.GetFolderName(null);
+					if (newFolder != null)
+					{
+						this.LogCustomFolder = newFolder;
+					}
+				}));
+			}
+		}
+
 		private ReactiveCommand<Unit, Unit> browsePreviewFolder;
 		public ICommand BrowsePreviewFolder
 		{
@@ -792,25 +847,6 @@ namespace VidCoder.ViewModel
 						this.AutoPauseProcesses.Remove(this.SelectedProcess);
 					},
 					this.WhenAnyValue(x => x.SelectedProcess).Select(selectedProcess => selectedProcess != null)));
-			}
-		}
-
-		private ReactiveCommand<Unit, Unit> openLogFolder;
-		public ICommand OpenLogFolder
-		{
-			get
-			{
-				return this.openLogFolder ?? (this.openLogFolder = ReactiveCommand.Create(
-					() =>
-					{
-						string logFolder = Utilities.LogsFolder;
-
-						if (Directory.Exists(logFolder))
-						{
-							FileService.Instance.LaunchFile(logFolder);
-						}
-					},
-					MvvmUtilities.CreateConstantObservable(Directory.Exists(Utilities.LogsFolder))));
 			}
 		}
 

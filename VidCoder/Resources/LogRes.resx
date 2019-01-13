@@ -117,10 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ClearButton" xml:space="preserve">
-    <value>Clear</value>
-  </data>
   <data name="LogWindowTitle" xml:space="preserve">
     <value>Log</value>
+  </data>
+  <data name="GeneralLogLabel" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="LogVerbosity_Minimized" xml:space="preserve">
+    <value>Minimized</value>
+  </data>
+  <data name="LogVerbosity_Standard" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="LogVerbosity_Extended" xml:space="preserve">
+    <value>Extended</value>
+  </data>
+  <data name="CopyToPastebinButton" xml:space="preserve">
+    <value>Copy Pastebin link</value>
+    <comment>Label for button that copies the log to Pastebin and puts the URL on the clipboard.</comment>
+  </data>
+  <data name="PastebinSuccessStatus" xml:space="preserve">
+    <value>Link to log on Pastebin has been copied to the clipboard.</value>
   </data>
 </root>

@@ -82,10 +82,13 @@ namespace VidCoder
 			cache.Add("PickerListPaneWidth", DatabaseConfig.Get("PickerListPaneWidth", 135.0, connection));
 			cache.Add("EncodingListPaneOpen", DatabaseConfig.Get("EncodingListPaneOpen", true, connection));
 			cache.Add("EncodingListPaneWidth", DatabaseConfig.Get("EncodingListPaneWidth", 150.0, connection));
+			cache.Add("LogListPaneWidth", DatabaseConfig.Get("LogListPaneWidth", 150.0, connection));
 			cache.Add("ShowPickerWindowMessage", DatabaseConfig.Get("ShowPickerWindowMessage", true, connection));
 			cache.Add("WorkerProcessPriority", DatabaseConfig.Get("WorkerProcessPriority", "BelowNormal", connection));
 			cache.Add("LogVerbosity", DatabaseConfig.Get("LogVerbosity", 1, connection));
 			cache.Add("CopyLogToOutputFolder", DatabaseConfig.Get("CopyLogToOutputFolder", false, connection));
+			cache.Add("CopyLogToCustomFolder", DatabaseConfig.Get("CopyLogToCustomFolder", false, connection));
+			cache.Add("LogCustomFolder", DatabaseConfig.Get("LogCustomFolder", "", connection));
 			cache.Add("AutoPauseProcesses", DatabaseConfig.Get("AutoPauseProcesses", "", connection));
 			cache.Add("MaxSimultaneousEncodes", DatabaseConfig.Get("MaxSimultaneousEncodes", 1, connection));
 			cache.Add("PreviewCount", DatabaseConfig.Get("PreviewCount", 10, connection));
@@ -438,6 +441,11 @@ namespace VidCoder
 			get { return (double)cache["EncodingListPaneWidth"]; }
 			set { Set("EncodingListPaneWidth", value); }
 		}
+		public static double LogListPaneWidth
+		{
+			get { return (double)cache["LogListPaneWidth"]; }
+			set { Set("LogListPaneWidth", value); }
+		}
 		public static bool ShowPickerWindowMessage
 		{
 			get { return (bool)cache["ShowPickerWindowMessage"]; }
@@ -457,6 +465,16 @@ namespace VidCoder
 		{
 			get { return (bool)cache["CopyLogToOutputFolder"]; }
 			set { Set("CopyLogToOutputFolder", value); }
+		}
+		public static bool CopyLogToCustomFolder
+		{
+			get { return (bool)cache["CopyLogToCustomFolder"]; }
+			set { Set("CopyLogToCustomFolder", value); }
+		}
+		public static string LogCustomFolder
+		{
+			get { return (string)cache["LogCustomFolder"]; }
+			set { Set("LogCustomFolder", value); }
 		}
 		public static string AutoPauseProcesses
 		{
@@ -783,10 +801,13 @@ namespace VidCoder
 			public static IObservable<double> PickerListPaneWidth => GetObservable<double>("PickerListPaneWidth");
 			public static IObservable<bool> EncodingListPaneOpen => GetObservable<bool>("EncodingListPaneOpen");
 			public static IObservable<double> EncodingListPaneWidth => GetObservable<double>("EncodingListPaneWidth");
+			public static IObservable<double> LogListPaneWidth => GetObservable<double>("LogListPaneWidth");
 			public static IObservable<bool> ShowPickerWindowMessage => GetObservable<bool>("ShowPickerWindowMessage");
 			public static IObservable<string> WorkerProcessPriority => GetObservable<string>("WorkerProcessPriority");
 			public static IObservable<int> LogVerbosity => GetObservable<int>("LogVerbosity");
 			public static IObservable<bool> CopyLogToOutputFolder => GetObservable<bool>("CopyLogToOutputFolder");
+			public static IObservable<bool> CopyLogToCustomFolder => GetObservable<bool>("CopyLogToCustomFolder");
+			public static IObservable<string> LogCustomFolder => GetObservable<string>("LogCustomFolder");
 			public static IObservable<string> AutoPauseProcesses => GetObservable<string>("AutoPauseProcesses");
 			public static IObservable<int> MaxSimultaneousEncodes => GetObservable<int>("MaxSimultaneousEncodes");
 			public static IObservable<int> PreviewCount => GetObservable<int>("PreviewCount");

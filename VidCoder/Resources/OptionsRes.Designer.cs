@@ -205,6 +205,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy the encode log to a custom directory:.
+        /// </summary>
+        public static string CopyLogToCustomFolderLabel {
+            get {
+                return ResourceManager.GetString("CopyLogToCustomFolderLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy the encode log to the same folder as the encoded video.
         /// </summary>
         public static string CopyLogToOutputFolderLabel {
@@ -885,6 +894,15 @@ namespace VidCoder.Resources {
         public static string WorkerProcessPriorityLabel {
             get {
                 return ResourceManager.GetString("WorkerProcessPriorityLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The worker process option will take effect after you exit and restart VidCoder..
+        /// </summary>
+        public static string WorkerProcessRestartDialogMessage {
+            get {
+                return ResourceManager.GetString("WorkerProcessRestartDialogMessage", resourceCulture);
             }
         }
     }

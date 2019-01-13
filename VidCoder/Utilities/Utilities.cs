@@ -349,7 +349,7 @@ namespace VidCoder
 
 		public static IEncodeProxy CreateEncodeProxy()
 		{
-			if (Config.UseWorkerProcess)
+			if (CustomConfig.UseWorkerProcess)
 			{
 				return new RemoteEncodeProxy();
 			}
@@ -362,7 +362,7 @@ namespace VidCoder
 
 		public static IScanProxy CreateScanProxy()
 		{
-			if (Config.UseWorkerProcess)
+			if (CustomConfig.UseWorkerProcess)
 			{
 				return new RemoteScanProxy();
 			}

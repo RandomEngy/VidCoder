@@ -64,12 +64,15 @@ QueuePaneHeightStar|double|1.0
 PickerListPaneWidth|double|135.0
 EncodingListPaneOpen|bool|true
 EncodingListPaneWidth|double|150.0
+LogListPaneWidth|double|150.0
 
 ShowPickerWindowMessage|bool|true
 
 WorkerProcessPriority|string|"BelowNormal"
 LogVerbosity|int|1
 CopyLogToOutputFolder|bool|false
+CopyLogToCustomFolder|bool|false
+LogCustomFolder|string|""
 AutoPauseProcesses|string|""
 MaxSimultaneousEncodes|int|1
 PreviewCount|int|10

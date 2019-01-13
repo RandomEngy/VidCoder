@@ -423,6 +423,8 @@
     <Compile Include="LayoutPanels\TruncatePanel.cs" />
     <Compile Include="Model\AppThemeChoice.cs" />
     <Compile Include="Model\EncodeCompleteTrigger.cs" />
+    <Compile Include="Model\LogColor.cs" />
+    <Compile Include="Model\LogOperationType.cs" />
     <Compile Include="Model\TitleCapitalizationChoice.cs" />
     <Compile Include="Model\Config\ConfigObservable.cs" />
     <Compile Include="Model\EncodeJobsXml.cs" />
@@ -536,15 +538,19 @@
     <Compile Include="Model\VideoSourceMetadata.cs" />
     <Compile Include="Model\Players\VlcPlayer.cs" />
     <Compile Include="Model\WhenFileExists.cs" />
+    <Compile Include="Services\AppLoggerFactory.cs" />
     <Compile Include="Services\AutoChangeTracker.cs" />
     <Compile Include="Services\ClipboardService.cs" />
+    <Compile Include="Services\GeneralAppLogger.cs" />
     <Compile Include="Services\HandBrakeProxy\IScanProxy.cs" />
     <Compile Include="Services\HandBrakeProxy\LocalEncodeProxy.cs" />
     <Compile Include="Services\HandBrakeProxy\LocalScanProxy.cs" />
     <Compile Include="Services\HandBrakeProxy\RemoteProxyBase.cs" />
     <Compile Include="Services\HandBrakeProxy\RemoteScanProxy.cs" />
     <Compile Include="Services\Interfaces\IAppThemeService.cs" />
-    <Compile Include="Services\MainAppLogger.cs" />
+    <Compile Include="Services\LocalScanAppLogger.cs" />
+    <Compile Include="Services\LogCoordinator.cs" />
+    <Compile Include="Services\AllAppLogger.cs" />
     <Compile Include="Services\Notifications\BetaNotificationActivator.cs" />
     <Compile Include="Services\Notifications\BridgeToastNotificationDispatchService.cs" />
     <Compile Include="Services\Notifications\DesktopToastNotificationDispatchService.cs" />
@@ -554,6 +560,7 @@
     <Compile Include="Services\Notifications\StubToastNotificationService.cs" />
     <Compile Include="Services\Notifications\ToastNotificationService.cs" />
     <Compile Include="Services\OutputSizeService.cs" />
+    <Compile Include="Services\PastebinService.cs" />
     <Compile Include="Services\PendingAutoChange.cs" />
     <Compile Include="Services\PreviewImageLoadInfo.cs" />
     <Compile Include="Services\PreviewImageService.cs" />
@@ -602,6 +609,7 @@
     <Compile Include="Utilities\ListSynchronizer\MultiSelectorBehaviors.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Utilities\ListSynchronizer\TwoListSynchronizer.cs" />
+    <Compile Include="Utilities\LogEntryClassificationUtilities.cs" />
     <Compile Include="Utilities\MathUtilities.cs" />
     <Compile Include="Utilities\MvvmUtilities.cs" />
     <Compile Include="Utilities\NativeMethods.cs" />
@@ -633,6 +641,7 @@
     <Compile Include="ViewModel\DataModels\CopyMaskChoiceViewModel.cs" />
     <Compile Include="ViewModel\DataModels\LanguageViewModel.cs" />
     <Compile Include="ViewModel\DataModels\LevelChoiceViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\LogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\PickerViewModel.cs" />
     <Compile Include="ViewModel\DataModels\PresetFolderViewModel.cs" />
     <Compile Include="ViewModel\DataModels\RotationViewModel.cs" />

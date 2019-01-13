@@ -1492,12 +1492,13 @@ namespace VidCoder.Services
 		{
 			VCJob job = jobViewModel.Job;
 
-			var encodeLogger = new AppLogger(this.logger, Path.GetFileName(job.FinalOutputPath));
+			var encodeLogger = StaticResolver.Resolve<AppLoggerFactory>().ResolveEncodeLogger(job.FinalOutputPath);
 			jobViewModel.Logger = encodeLogger;
 			jobViewModel.EncodeSpeedDetailsAvailable = false;
 
 			encodeLogger.Log("Starting job " + this.TaskNumber + "/" + this.TotalTasks);
-			encodeLogger.Log("  Path: " + job.SourcePath);
+			encodeLogger.Log("  Source path: " + job.SourcePath);
+			encodeLogger.Log("  Destination path: " + job.FinalOutputPath);
 			encodeLogger.Log("  Title: " + job.Title);
 
 			switch (job.RangeType)
@@ -1517,6 +1518,8 @@ namespace VidCoder.Services
 			}
 
 			encodeLogger.Log("  Preset: " + jobViewModel.PresetName);
+
+			this.logger.Log("Starting encode: " + job.FinalOutputPath);
 
 			jobViewModel.ReportEncodeStart();
 
@@ -1749,6 +1752,7 @@ namespace VidCoder.Services
 
 					encodingStopped = true;
 					encodeLogger.Log("Encoding stopped");
+					this.logger.Log("Encoding stopped");
 				}
 				else
 				{
@@ -1857,6 +1861,7 @@ namespace VidCoder.Services
 					}
 					
 					encodeLogger.Log("Job completed (Elapsed Time: " + Utilities.FormatTimeSpan(finishedJobViewModel.EncodeTime) + ")");
+					this.logger.Log("Job completed: " + finishedJobViewModel.Job.FinalOutputPath);
 
 					if (this.EncodeQueue.Count == 0)
 					{
@@ -1911,26 +1916,60 @@ namespace VidCoder.Services
 					logAffix = status == EncodeResultStatus.Succeeded ? "succeeded" : "failed";
 				}
 
-				string finalLogPath = ApplyStatusAffixToLogPath(encodeLogPath, logAffix);
+				string finalLogPath;
+				if (CustomConfig.UseWorkerProcess)
+				{
+					finalLogPath = ApplyStatusAffixToLogPath(encodeLogPath, logAffix);
+					encodeLogger.LogPath = finalLogPath;
+				}
+				else
+				{
+					finalLogPath = encodeLogPath;
+				}
 
 				if (addedResult != null)
 				{
 					addedResult.EncodeResult.LogPath = finalLogPath;
 				}
 
-				if (Config.CopyLogToOutputFolder && finalLogPath != null)
+				if (finalLogPath != null)
 				{
-					string logCopyPath = Path.Combine(Path.GetDirectoryName(finalOutputPath), Path.GetFileName(finalLogPath));
+					if (Config.CopyLogToOutputFolder)
+					{
+						if (CustomConfig.UseWorkerProcess)
+						{
+							string logCopyPath = Path.Combine(Path.GetDirectoryName(finalOutputPath), Path.GetFileName(finalLogPath));
 
+							try
+							{
+								File.Copy(finalLogPath, logCopyPath);
+							}
+							catch (Exception exception)
+							{
+								this.logger.LogError("Could not copy log file to output directory: " + exception);
+							}
+						}
+						else
+						{
+							this.logger.LogError("Cannot copy log to output folder: encode logs are only supported when using worker process.");
+						}
+					}
+				}
+
+				if (Config.CopyLogToCustomFolder)
+				{
 					try
 					{
+						if (!Directory.Exists(Config.LogCustomFolder))
+						{
+							Directory.CreateDirectory(Config.LogCustomFolder);
+						}
+
+						string logCopyPath = Path.Combine(Config.LogCustomFolder, Path.GetFileName(finalLogPath));
+
 						File.Copy(finalLogPath, logCopyPath);
 					}
-					catch (IOException exception)
-					{
-						this.logger.LogError("Could not copy log file to output directory: " + exception);
-					}
-					catch (UnauthorizedAccessException exception)
+					catch (Exception exception)
 					{
 						this.logger.LogError("Could not copy log file to output directory: " + exception);
 					}

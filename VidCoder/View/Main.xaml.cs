@@ -137,7 +137,6 @@ namespace VidCoder.View
 					}
 				}
 			};
-
 			debugDropDown.Items.Add(queueFromJsonItem);
 
 			var throwExceptionItem = new Fluent.MenuItem { Header = "Throw exception" };
@@ -145,7 +144,6 @@ namespace VidCoder.View
 			{
 				throw new InvalidOperationException("Rats.");
 			};
-
 			debugDropDown.Items.Add(throwExceptionItem);
 
 			var addLogItem = new Fluent.MenuItem { Header = "Add 1 log item" };
@@ -153,7 +151,6 @@ namespace VidCoder.View
 			{
 				StaticResolver.Resolve<IAppLogger>().Log("This is a log item");
 			};
-
 			debugDropDown.Items.Add(addLogItem);
 
 			var addTenLogItems = new Fluent.MenuItem { Header = "Add 10 log items" };
@@ -164,8 +161,14 @@ namespace VidCoder.View
 					StaticResolver.Resolve<IAppLogger>().Log("This is a log item");
 				}
 			};
-
 			debugDropDown.Items.Add(addTenLogItems);
+
+			var addLongLogItem = new Fluent.MenuItem {Header = "Add long log item"};
+			addLongLogItem.Click += (sender, args) =>
+			{
+				StaticResolver.Resolve<IAppLogger>().Log("This is a log item\r\nthat is split into multiple lines\r\nOh yes indeed");
+			};
+			debugDropDown.Items.Add(addLongLogItem);
 
 			var doAnActionItem = new Fluent.MenuItem {Header = "Perform action"};
 			doAnActionItem.Click += (sender, args) =>
@@ -173,7 +176,6 @@ namespace VidCoder.View
 				var app = (App)System.Windows.Application.Current;
 				app.ChangeTheme(new Uri("/Themes/Dark.xaml", UriKind.Relative));
 			};
-
 			debugDropDown.Items.Add(doAnActionItem);
 
 			this.toolsRibbonGroupBox.Items.Add(debugDropDown);

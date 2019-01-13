@@ -3083,7 +3083,8 @@ namespace VidCoder.ViewModel
 			this.ScanProgressFraction = 0;
 			HandBrakeInstance oldInstance = this.scanInstance;
 
-			this.logger.Log("Starting scan: " + path);
+			IAppLogger scanLogger = StaticResolver.Resolve<AppLoggerFactory>().ResolveLocalScanLogger(path);
+			scanLogger.Log("Starting scan: " + path);
 
 			this.scanInstance = new HandBrakeInstance();
 			this.scanInstance.Initialize(Config.LogVerbosity);
@@ -3095,67 +3096,72 @@ namespace VidCoder.ViewModel
 			{
 				DispatchUtilities.Invoke(() =>
 				{
-					if (this.scanCancelledFlag)
+					try
 					{
-						this.SelectedSource = null;
-
-						this.ScanCancelled?.Invoke(this, EventArgs.Empty);
-
-						this.logger.Log("Scan cancelled");
-
-						if (this.pendingScan != null)
+						if (this.scanCancelledFlag)
 						{
-							this.SetSource(this.pendingScan);
+							this.SelectedSource = null;
 
-							this.pendingScan = null;
+							this.ScanCancelled?.Invoke(this, EventArgs.Empty);
+
+							scanLogger.Log("Scan cancelled");
+
+							if (this.pendingScan != null)
+							{
+								this.SetSource(this.pendingScan);
+
+								this.pendingScan = null;
+							}
+							else
+							{
+								this.VideoSourceState = VideoSourceState.Choices;
+							}
 						}
 						else
 						{
-							this.VideoSourceState = VideoSourceState.Choices;
-						}
-					}
-					else
-					{
-						this.UpdateFromNewVideoSource(new VideoSource { Titles = this.scanInstance.Titles.TitleList, FeatureTitle = this.scanInstance.FeatureTitle });
+							this.UpdateFromNewVideoSource(new VideoSource {Titles = this.scanInstance.Titles.TitleList, FeatureTitle = this.scanInstance.FeatureTitle});
 
-						// If scan failed source data will be null.
-						if (this.sourceData != null)
-						{
-							if (jobVM != null)
+							// If scan failed source data will be null.
+							if (this.sourceData != null)
 							{
-								this.ApplyEncodeJobChoices(jobVM);
-							}
-
-							if (jobVM == null && this.SelectedSource != null &&
-								(this.SelectedSource.Type == SourceType.File || this.SelectedSource.Type == SourceType.DiscVideoFolder))
-							{
-								SourceHistory.AddToHistory(this.SourcePath);
-							}
-
-							Picker picker = this.PickersService.SelectedPicker.Picker;
-							if (picker.AutoQueueOnScan)
-							{
-								if (this.ProcessingService.TryQueue() && picker.AutoEncodeOnScan && !this.ProcessingService.Encoding)
+								if (jobVM != null)
 								{
-									this.ProcessingService.Encode.Execute(null);
+									this.ApplyEncodeJobChoices(jobVM);
+								}
+
+								if (jobVM == null && this.SelectedSource != null &&
+								    (this.SelectedSource.Type == SourceType.File || this.SelectedSource.Type == SourceType.DiscVideoFolder))
+								{
+									SourceHistory.AddToHistory(this.SourcePath);
+								}
+
+								Picker picker = this.PickersService.SelectedPicker.Picker;
+								if (picker.AutoQueueOnScan)
+								{
+									if (this.ProcessingService.TryQueue() && picker.AutoEncodeOnScan && !this.ProcessingService.Encoding)
+									{
+										this.ProcessingService.Encode.Execute(null);
+									}
 								}
 							}
+
+							scanLogger.Log("Scan completed");
 						}
-
-						this.logger.Log("Scan completed");
 					}
-
-					this.logger.Log(string.Empty);
+					finally
+					{
+						if (scanLogger is LocalScanAppLogger)
+						{
+							scanLogger.Dispose();
+						}
+					}
 				});
 			};
 
 			this.scanCancelledFlag = false;
 			this.scanInstance.StartScan(path, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds), 0);
 
-			if (oldInstance != null)
-			{
-				oldInstance.Dispose();
-			}
+			oldInstance?.Dispose();
 		}
 
 		private void UpdateFromNewVideoSource(VideoSource videoSource)
