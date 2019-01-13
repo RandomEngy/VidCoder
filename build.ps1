@@ -2,6 +2,7 @@
 Param(
   [Parameter(Mandatory=$True)]
   [string]$versionShort,
+  [switch]$beta,
   [switch]$debugBuild = $false
 )
 
@@ -115,9 +116,6 @@ function UpdateLatestJson($latestFile, $versionShort, $versionTag, $installerFil
 
     $latestJsonObject | ConvertTo-Json | Out-File $latestFile
 }
-
-# Master switch for if this branch is beta
-$beta = $false
 
 if ($debugBuild) {
     $buildFlavor = "Debug"
