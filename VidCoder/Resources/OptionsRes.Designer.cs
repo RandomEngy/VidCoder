@@ -205,7 +205,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copy the encode log to a custom directory:.
+        ///   Looks up a localized string similar to Copy the encode log to a custom folder.
         /// </summary>
         public static string CopyLogToCustomFolderLabel {
             get {
