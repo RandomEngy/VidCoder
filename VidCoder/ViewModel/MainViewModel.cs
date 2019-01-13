@@ -1376,7 +1376,11 @@ namespace VidCoder.ViewModel
 				List<AudioTrackViewModel> selectedTracks = this.AudioTracks.Items.Where(s => s.Selected).ToList();
 
 				int selectedCount = selectedTracks.Count;
-				string sourceDescription = string.Format(CultureInfo.CurrentCulture, CommonRes.SelectedOverTotalAudioTracksFormat, selectedCount, this.AudioTracks.Count);
+				string sourceDescription = string.Format(
+					CultureInfo.CurrentCulture, 
+					CommonRes.SelectedOverTotalAudioTracksFormat, 
+					selectedCount,
+					this.SelectedTitle.AudioList.Count);
 
 				if (selectedCount > 0 && selectedCount <= 3)
 				{
@@ -1437,66 +1441,69 @@ namespace VidCoder.ViewModel
 
 			Picker picker = this.PickersService.SelectedPicker.Picker;
 
-			this.SourceSubtitles.Clear();
-
-			// Subtitle selection
-			switch (picker.SubtitleSelectionMode)
+			this.SourceSubtitles.Edit(sourceSubtitlesInnerList =>
 			{
-				case SubtitleSelectionMode.Disabled:
-					// If no auto-selection is done, try and keep selections from previous title
-					var keptSourceSubtitles = new List<SourceSubtitle>();
+				sourceSubtitlesInnerList.Clear();
 
-					if (this.oldTitle != null && oldSubtitles != null)
-					{
-						if (this.selectedTitle.SubtitleList.Count > 0)
+				// Subtitle selection
+				switch (picker.SubtitleSelectionMode)
+				{
+					case SubtitleSelectionMode.Disabled:
+						// If no auto-selection is done, try and keep selections from previous title
+						var keptSourceSubtitles = new List<SourceSubtitle>();
+
+						if (this.oldTitle != null && oldSubtitles != null)
 						{
-							// Keep source subtitles when changing title, but not specific SRT files.
-							foreach (SourceSubtitle sourceSubtitle in oldSubtitles.SourceSubtitles)
+							if (this.selectedTitle.SubtitleList.Count > 0)
 							{
-								if (sourceSubtitle.TrackNumber == 0)
+								// Keep source subtitles when changing title, but not specific SRT files.
+								foreach (SourceSubtitle sourceSubtitle in oldSubtitles.SourceSubtitles)
 								{
-									keptSourceSubtitles.Add(sourceSubtitle);
-								}
-								else if (sourceSubtitle.TrackNumber - 1 < this.selectedTitle.SubtitleList.Count &&
-								         this.oldTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode == this.selectedTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode)
-								{
-									keptSourceSubtitles.Add(sourceSubtitle);
+									if (sourceSubtitle.TrackNumber == 0)
+									{
+										keptSourceSubtitles.Add(sourceSubtitle);
+									}
+									else if (sourceSubtitle.TrackNumber - 1 < this.selectedTitle.SubtitleList.Count &&
+									         this.oldTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode == this.selectedTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode)
+									{
+										keptSourceSubtitles.Add(sourceSubtitle);
+									}
 								}
 							}
 						}
-					}
 
-					this.PopulateSourceSubtitles(keptSourceSubtitles);
-					break;
+						this.PopulateSourceSubtitles(keptSourceSubtitles, sourceSubtitlesInnerList);
+						break;
 
-				case SubtitleSelectionMode.None:
-				case SubtitleSelectionMode.First:
-				case SubtitleSelectionMode.ByIndex:
-				case SubtitleSelectionMode.ForeignAudioSearch:
-				case SubtitleSelectionMode.Language:
-				case SubtitleSelectionMode.All:
-					AudioTrackViewModel firstSelectedAudio = this.AudioTracks.Items.FirstOrDefault(t => t.Selected);
+					case SubtitleSelectionMode.None:
+					case SubtitleSelectionMode.First:
+					case SubtitleSelectionMode.ByIndex:
+					case SubtitleSelectionMode.ForeignAudioSearch:
+					case SubtitleSelectionMode.Language:
+					case SubtitleSelectionMode.All:
+						AudioTrackViewModel firstSelectedAudio = this.AudioTracks.Items.FirstOrDefault(t => t.Selected);
 
-					var selectedSubtitles = ProcessingService.ChooseSubtitles(
-						this.selectedTitle.Title,
-						picker,
-						firstSelectedAudio != null ? firstSelectedAudio.TrackNumber : -1);
+						var selectedSubtitles = ProcessingService.ChooseSubtitles(
+							this.selectedTitle.Title,
+							picker,
+							firstSelectedAudio != null ? firstSelectedAudio.TrackNumber : -1);
 
-					this.PopulateSourceSubtitles(selectedSubtitles);
-					break;
+						this.PopulateSourceSubtitles(selectedSubtitles, sourceSubtitlesInnerList);
+						break;
 
-				default:
-					throw new ArgumentOutOfRangeException();
-			}
+					default:
+						throw new ArgumentOutOfRangeException();
+				}
+			});
 
 			this.UpdateSourceSubtitleBoxes();
 		}
 
-		private void PopulateSourceSubtitles(IList<SourceSubtitle> selectedSubtitles)
+		private void PopulateSourceSubtitles(IList<SourceSubtitle> selectedSubtitles, IExtendedList<SourceSubtitleViewModel> listToPopulate)
 		{
 			foreach (SourceSubtitle sourceSubtitle in selectedSubtitles)
 			{
-				this.SourceSubtitles.Add(new SourceSubtitleViewModel(this, sourceSubtitle) { Selected = true });
+				listToPopulate.Add(new SourceSubtitleViewModel(this, sourceSubtitle) { Selected = true });
 			}
 
 			// Fill in remaining unselected source subtitles
@@ -1512,8 +1519,19 @@ namespace VidCoder.ViewModel
 						BurnedIn = false
 					};
 
-					this.SourceSubtitles.Add(new SourceSubtitleViewModel(this, newSubtitle));
+					listToPopulate.Add(new SourceSubtitleViewModel(this, newSubtitle));
 				}
+			}
+
+			if (!listToPopulate.Any(subtitleViewModel => subtitleViewModel.TrackNumber == 0))
+			{
+				listToPopulate.Insert(0, new SourceSubtitleViewModel(this, new SourceSubtitle
+				{
+					TrackNumber = 0,
+					BurnedIn = false,
+					Default = false,
+					ForcedOnly = true
+				}));
 			}
 		}
 
@@ -1796,7 +1814,12 @@ namespace VidCoder.ViewModel
 				List<SourceSubtitleViewModel> selectedSubtitles = this.SourceSubtitles.Items.Where(s => s.Selected).ToList();
 
 				int selectedCount = selectedSubtitles.Count;
-				string sourceDescription = string.Format(CultureInfo.CurrentCulture, CommonRes.SelectedOverTotalSubtitleTracksFormat, selectedCount, this.SourceSubtitles.Count);
+				int totalCount = this.SelectedTitle.SubtitleList.Count;
+				string sourceDescription = string.Format(
+					CultureInfo.CurrentCulture, 
+					CommonRes.SelectedOverTotalSubtitleTracksFormat, 
+					selectedCount,
+					totalCount);
 
 				if (selectedCount > 0 && selectedCount <= 3)
 				{
