@@ -778,17 +778,10 @@ namespace VidCoderCommon.Model
 				Decode = profile.QsvDecode
 			};
 
-			if (profile.UseAdvancedTab)
-			{
-				video.Options = profile.VideoOptions;
-			}
-			else
-			{
-				video.Level = profile.VideoLevel ?? "auto";
-				video.Options = profile.VideoOptions;
-				video.Preset = profile.VideoPreset;
-				video.Profile = profile.VideoProfile ?? "auto";
-			}
+			video.Level = profile.VideoLevel ?? "auto";
+			video.Options = profile.VideoOptions;
+			video.Preset = profile.VideoPreset;
+			video.Profile = profile.VideoProfile ?? "auto";
 
 			switch (profile.VideoEncodeRateType)
 			{

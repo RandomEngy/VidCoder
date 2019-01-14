@@ -401,38 +401,15 @@
 				<RowDefinition Height="Auto" />
 				<RowDefinition />
 			</Grid.RowDefinitions>
-			<StackPanel
+			<TextBlock
 				Grid.Row="0"
 				Margin="7 7 0 0"
 				HorizontalAlignment="Left"
 				VerticalAlignment="Top"
-				Orientation="Horizontal">
-				<TextBlock
-					VerticalAlignment="Center"
-					Style="{StaticResource SectionHeader}"
-					Text="{x:Static res:EncodingRes.EncoderSettings}" />
-				<RadioButton
-					Margin="25 2 0 0"
-					Content="{x:Static res:EncodingRes.X264SettingsRadioButtonBasic}"
-					GroupName="advancedTab1"
-					IsChecked="{Binding UseAdvancedTab,
-					                    Converter={StaticResource InverseBoolConverter}}"
-					Visibility="{Binding X264SettingsVisible,
-					                     Converter={StaticResource VisibilityConverter}}" />
-				<RadioButton
-					Margin="15 2 0 0"
-					Content="{x:Static res:EncodingRes.X264SettingsRadioButtonAdvanced}"
-					GroupName="advancedTab2"
-					IsChecked="{Binding UseAdvancedTab}"
-					Visibility="{Binding X264SettingsVisible,
-					                     Converter={StaticResource VisibilityConverter}}" />
-			</StackPanel>
+				Style="{StaticResource SectionHeader}"
+				Text="{x:Static res:EncodingRes.EncoderSettings}" />
 
-			<Grid
-				Grid.Row="1"
-				Margin="16 0 8 6"
-				Visibility="{Binding BasicEncoderSettingsVisible,
-				                     Converter={StaticResource VisibilityConverter}}">
+			<Grid Grid.Row="1" Margin="16 0 8 6">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 					<RowDefinition />
@@ -608,7 +585,11 @@
 							Grid.Row="1"
 							Margin="0 8 0 0"
 							HorizontalAlignment="Stretch"
-							VerticalAlignment="Stretch">
+							VerticalAlignment="Stretch"
+							Style="{StaticResource LongToolTipHolder}">
+							<Grid.ToolTip>
+								<TextBlock Style="{StaticResource LongToolTip}" Text="{Binding MoreOptionsTooltip}" />
+							</Grid.ToolTip>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="Auto" />
 								<ColumnDefinition />

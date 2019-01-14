@@ -20,7 +20,6 @@ namespace VidCoder.ViewModel
 	public class EncodingWindowViewModel : ProfileViewModelBase
 	{
 		public const int VideoTabIndex = 3;
-		public const int AdvancedVideoTabIndex = 4;
 
 
 		public EncodingWindowViewModel()
@@ -54,21 +53,11 @@ namespace VidCoder.ViewModel
 			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.IsBuiltIn)
 				.ToProperty(this, x => x.IsBuiltIn, out this.isBuiltIn);
 
-			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile)
-				.Subscribe(encodingProfile =>
-				{
-					if (!encodingProfile.UseAdvancedTab && this.SelectedTabIndex == AdvancedVideoTabIndex)
-					{
-						this.SelectedTabIndex = VideoTabIndex;
-					}
-				});
-
 			this.ContainerPanelViewModel = new ContainerPanelViewModel(this);
 			this.SizingPanelViewModel = new SizingPanelViewModel(this);
 			this.VideoFiltersPanelViewModel = new VideoFiltersPanelViewModel(this);
 			this.VideoPanelViewModel = new VideoPanelViewModel(this);
 			this.AudioPanelViewModel = new AudioPanelViewModel(this);
-			this.AdvancedPanelViewModel = new AdvancedPanelViewModel(this);
 
 			this.presetPanelOpen = Config.EncodingListPaneOpen;
 
@@ -86,7 +75,6 @@ namespace VidCoder.ViewModel
 		public VideoFiltersPanelViewModel VideoFiltersPanelViewModel { get; set; }
 		public VideoPanelViewModel VideoPanelViewModel { get; set; }
 		public AudioPanelViewModel AudioPanelViewModel { get; set; }
-		public AdvancedPanelViewModel AdvancedPanelViewModel { get; set; }
 
 		private ObservableAsPropertyHelper<string> windowTitle;
 		public string WindowTitle => this.windowTitle.Value;

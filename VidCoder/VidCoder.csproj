@@ -270,10 +270,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Panels\AdvancedPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\ApplyUpdateConfirmation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -633,7 +629,6 @@
     <Compile Include="Utilities\ResolutionUtilities.cs" />
     <Compile Include="Utilities\XamlStatics.cs" />
     <Compile Include="ViewModel\CustomMessageDialogViewModel.cs" />
-    <Compile Include="ViewModel\DataModels\AdvancedChoices.cs" />
     <Compile Include="ViewModel\DataModels\AudioTrackViewModel.cs" />
     <Compile Include="ViewModel\DataModels\BitrateChoiceViewModel.cs" />
     <Compile Include="ViewModel\DataModels\ChapterNameViewModel.cs" />
@@ -699,7 +694,6 @@
     <Compile Include="ViewModel\AboutDialogViewModel.cs" />
     <Compile Include="ViewModel\AddAutoPauseProcessDialogViewModel.cs" />
     <Compile Include="ViewModel\Panels\AudioPanelViewModel.cs" />
-    <Compile Include="ViewModel\Panels\AdvancedPanelViewModel.cs" />
     <Compile Include="ViewModel\DataModels\ColumnViewModel.cs" />
     <Compile Include="ViewModel\DataModels\EncodeResultViewModel.cs" />
     <Compile Include="ViewModel\DataModels\TitleSelectionViewModel.cs" />
@@ -719,9 +713,6 @@
     </Compile>
     <Compile Include="View\Panels\AudioPanel.xaml.cs">
       <DependentUpon>AudioPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Panels\AdvancedPanel.xaml.cs">
-      <DependentUpon>AdvancedPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LogWindow.xaml.cs">
       <DependentUpon>LogWindow.xaml</DependentUpon>
