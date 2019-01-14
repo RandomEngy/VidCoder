@@ -1151,6 +1151,7 @@
 							VerticalAlignment="Top"
 							VidCoderDragDrop:DragDropHelper.IsDragSource="True"
 							VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
+							VidCoderDragDrop:DragDropHelper.SourceList="{Binding AudioTracks}"
 							ItemsSource="{Binding AudioTracksBindable}"
 							UseLayoutRounding="True"
 							Visibility="{Binding HasAudio,
@@ -1437,6 +1438,7 @@
 								VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource SourceDragTemplate}"
 								VidCoderDragDrop:DragDropHelper.IsDragSource="True"
 								VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
+								VidCoderDragDrop:DragDropHelper.SourceList="{Binding SourceSubtitles}"
 								ItemsSource="{Binding SourceSubtitlesBindable}"
 								UseLayoutRounding="True"
 								Visibility="{Binding HasSourceSubtitles,
