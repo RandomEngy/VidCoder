@@ -124,6 +124,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Audio encoding options.
+        /// </summary>
+        public static string AudioEncodingOptionsToolTip {
+            get {
+                return ResourceManager.GetString("AudioEncodingOptionsToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close the current file and open the disc?.
         /// </summary>
         public static string AutoplayDiscConfirmationMessage {
@@ -1602,6 +1611,15 @@ namespace VidCoder.Resources {
         public static string VidCoderHomepageMenuItem {
             get {
                 return ResourceManager.GetString("VidCoderHomepageMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video encoding options.
+        /// </summary>
+        public static string VideoEncodingOptionsToolTip {
+            get {
+                return ResourceManager.GetString("VideoEncodingOptionsToolTip", resourceCulture);
             }
         }
         

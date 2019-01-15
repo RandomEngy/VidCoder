@@ -296,7 +296,7 @@
 			<Setter Property="BorderThickness" Value="0" />
 			<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 			<Setter Property="VerticalContentAlignment" Value="Center" />
-			<Setter Property="Padding" Value="14 3 6 3" />
+			<Setter Property="Padding" Value="14 0 6 0" />
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type ToggleButton}">
@@ -849,6 +849,23 @@
 												ItemsSource="{Binding Angles}"
 												SelectedItem="{Binding Angle}" />
 										</StackPanel>
+
+										<!--  Video options button  -->
+										<Button
+											Width="30"
+											Height="30"
+											Margin="10 0 0 0"
+											VerticalAlignment="Stretch"
+											Command="{Binding OpenVideoEncoderOptions}"
+											Style="{StaticResource BorderlessButtonStyle}"
+											ToolTip="{x:Static res:MainRes.VideoEncodingOptionsToolTip}">
+											<Image
+												Width="20"
+												Height="20"
+												HorizontalAlignment="Center"
+												VerticalAlignment="Center"
+												Source="/Icons/Options.png" />
+										</Button>
 									</StackPanel>
 								</Grid>
 
@@ -1119,18 +1136,37 @@
 						<Grid>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="Auto" />
-								<ColumnDefinition />
+								<ColumnDefinition Name="audioSummaryColumn" />
 							</Grid.ColumnDefinitions>
 							<Image
 								Width="16"
 								Height="16"
 								Source="/Icons/Audio.png" />
-							<TextBlock
-								Grid.Column="1"
-								Margin="6 0 0 2"
-								Style="{StaticResource SourceSectionText}"
-								Text="{Binding AudioSummary}"
-								TextTrimming="CharacterEllipsis" />
+							<StackPanel Grid.Column="1" Orientation="Horizontal">
+								<TextBlock
+									Name="audioSummary"
+									Margin="6 0 0 2"
+									Style="{StaticResource SourceSectionText}"
+									Text="{Binding AudioSummary}"
+									TextTrimming="CharacterEllipsis" />
+
+								<!--  Options button  -->
+								<Button
+									Width="30"
+									Height="30"
+									Margin="10 0 0 0"
+									VerticalAlignment="Stretch"
+									Command="{Binding OpenAudioEncoderOptions}"
+									Style="{StaticResource BorderlessButtonStyle}"
+									ToolTip="{x:Static res:MainRes.AudioEncodingOptionsToolTip}">
+									<Image
+										Width="20"
+										Height="20"
+										HorizontalAlignment="Center"
+										VerticalAlignment="Center"
+										Source="/Icons/Options.png" />
+								</Button>
+							</StackPanel>
 						</Grid>
 					</ToggleButton>
 
@@ -1260,27 +1296,53 @@
 						<Grid>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="Auto" />
-								<ColumnDefinition Width="*" />
-								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Name="subtitlesSummaryColumn" Width="*" />
 							</Grid.ColumnDefinitions>
 							<Image
 								Width="16"
 								Height="16"
 								Source="/Icons/Subtitles.png" />
-							<TextBlock
-								Grid.Column="1"
-								Margin="6 0 16 2"
-								Style="{StaticResource SourceSectionText}"
-								Text="{Binding SubtitlesSummary}"
-								TextTrimming="CharacterEllipsis" />
-							<Button
-								Grid.Column="2"
-								Height="23"
-								Margin="0 0 16 0"
-								Padding="6 0"
-								HorizontalAlignment="Left"
-								Command="{Binding AddSrtSubtitle}"
-								Content="{x:Static res:SubtitleRes.ImportSrtButton}" />
+							<StackPanel Grid.Column="1" Orientation="Horizontal">
+								<TextBlock
+									Name="subtitlesSummary"
+									Margin="6 0 0 2"
+									Style="{StaticResource SourceSectionText}"
+									Text="{Binding SubtitlesSummary}"
+									TextTrimming="CharacterEllipsis" />
+								<Button
+									Width="30"
+									Height="30"
+									Margin="10 0 16 0"
+									VerticalAlignment="Stretch"
+									Command="{Binding AddSrtSubtitle}"
+									Style="{StaticResource BorderlessButtonStyle}"
+									ToolTip="{x:Static res:SubtitleRes.ImportSrtButton}">
+									<Grid
+										x:Name="addButtonGrid"
+										Width="15"
+										Height="15"
+										Background="Transparent">
+										<Rectangle
+											x:Name="rect2"
+											Width="10"
+											Height="2"
+											Fill="Green">
+											<Rectangle.LayoutTransform>
+												<RotateTransform Angle="0" />
+											</Rectangle.LayoutTransform>
+										</Rectangle>
+										<Rectangle
+											x:Name="rect1"
+											Width="10"
+											Height="2"
+											Fill="Green">
+											<Rectangle.LayoutTransform>
+												<RotateTransform Angle="90" />
+											</Rectangle.LayoutTransform>
+										</Rectangle>
+									</Grid>
+								</Button>
+							</StackPanel>
 						</Grid>
 					</ToggleButton>
 

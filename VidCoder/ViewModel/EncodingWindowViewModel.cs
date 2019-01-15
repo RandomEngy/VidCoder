@@ -19,7 +19,8 @@ namespace VidCoder.ViewModel
 {
 	public class EncodingWindowViewModel : ProfileViewModelBase
 	{
-		public const int VideoTabIndex = 3;
+		public const int VideoEncodingTabIndex = 3;
+		public const int AudioEncodingTabIndex = 4;
 
 
 		public EncodingWindowViewModel()

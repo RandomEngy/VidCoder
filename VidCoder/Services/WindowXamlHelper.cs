@@ -33,12 +33,12 @@ namespace VidCoder
 
 			this.OpenPreviewWindow = ReactiveCommand.Create(() =>
 			{
-				this.windowManager.OpenOrFocusWindow(typeof(PreviewWindowViewModel));
+				this.windowManager.OpenOrFocusWindow<PreviewWindowViewModel>();
 			});
 
 			this.OpenPickerWindow = ReactiveCommand.Create(() =>
 			{
-				this.windowManager.OpenOrFocusWindow(typeof(PickerWindowViewModel));
+				this.windowManager.OpenOrFocusWindow<PickerWindowViewModel>();
 			});
 		}
 

@@ -811,9 +811,16 @@ namespace VidCoder.View
 			}
 		}
 
+		public void RefreshSummaryMaxSizes()
+		{
+			this.UpdateSourceTextMaxWidth();
+			this.UpdateAudioSummaryMaxWidth();
+			this.UpdateSubtitlesSummaryMaxWidth();
+		}
+
 		private void Main_OnSizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			this.UpdateSourceTextMaxLength();
+			this.RefreshSummaryMaxSizes();
 
 			double totalHeightMinusQueue = 0;
 			foreach (RowDefinition rowDefinition in this.contentGrid.RowDefinitions)
@@ -838,10 +845,10 @@ namespace VidCoder.View
 
 		private void VideoTitleAngle_OnSizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			this.UpdateSourceTextMaxLength();
+			this.UpdateSourceTextMaxWidth();
 		}
 
-		private void UpdateSourceTextMaxLength()
+		private void UpdateSourceTextMaxWidth()
 		{
 			double summaryWidth = this.videoSummaryColumn.ActualWidth;
 			double titleAngleWidth = this.videoTitleAngle.ActualWidth;
@@ -853,6 +860,18 @@ namespace VidCoder.View
 			{
 				this.sourceText.SetManualMaxWidth(maxPathWidth); 
 			}
+		}
+
+		private void UpdateAudioSummaryMaxWidth()
+		{
+			double summaryWidth = this.audioSummaryColumn.ActualWidth;
+			this.audioSummary.MaxWidth = summaryWidth - 40;
+		}
+
+		private void UpdateSubtitlesSummaryMaxWidth()
+		{
+			double summaryWidth = this.subtitlesSummaryColumn.ActualWidth;
+			this.subtitlesSummary.MaxWidth = summaryWidth - 40;
 		}
 	}
 }

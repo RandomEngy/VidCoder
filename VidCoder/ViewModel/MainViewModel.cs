@@ -2451,7 +2451,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.openEncodingWindow ?? (this.openEncodingWindow = ReactiveCommand.Create(() =>
 				{
-					this.windowManager.OpenOrFocusWindow(typeof(EncodingWindowViewModel));
+					this.windowManager.OpenOrFocusWindow<EncodingWindowViewModel>();
 				}));
 			}
 		}
@@ -2739,6 +2739,32 @@ namespace VidCoder.ViewModel
 						{
 							return previewIndex < previewCount - 1;
 						})));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> openVideoEncoderOptions;
+		public ICommand OpenVideoEncoderOptions
+		{
+			get
+			{
+				return this.openVideoEncoderOptions ?? (this.openVideoEncoderOptions = ReactiveCommand.Create(() =>
+				{
+					var encodingWindowViewModel = this.windowManager.OpenOrFocusWindow<EncodingWindowViewModel>();
+					encodingWindowViewModel.SelectedTabIndex = EncodingWindowViewModel.VideoEncodingTabIndex;
+				}));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> openAudioEncoderOptions;
+		public ICommand OpenAudioEncoderOptions
+		{
+			get
+			{
+				return this.openAudioEncoderOptions ?? (this.openAudioEncoderOptions = ReactiveCommand.Create(() =>
+				{
+					var encodingWindowViewModel = this.windowManager.OpenOrFocusWindow<EncodingWindowViewModel>();
+					encodingWindowViewModel.SelectedTabIndex = EncodingWindowViewModel.AudioEncodingTabIndex;
+				}));
 			}
 		}
 
@@ -3179,6 +3205,11 @@ namespace VidCoder.ViewModel
 				this.VideoSourceState = VideoSourceState.ScannedSource;
 
 				this.SelectedTitle = this.Titles.Single(title => title.Title == selectTitle);
+
+				DispatchUtilities.BeginInvoke(() =>
+				{
+					this.View.RefreshSummaryMaxSizes();
+				}, DispatcherPriority.Background);
 			}
 			else
 			{

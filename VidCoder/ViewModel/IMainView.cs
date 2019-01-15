@@ -21,5 +21,7 @@ namespace VidCoder.ViewModel
 		void ResizeAudioColumns();
 
 		double SourceAreaHeight { get; }
+
+		void RefreshSummaryMaxSizes();
 	}
 }

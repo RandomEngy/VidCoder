@@ -676,4 +676,10 @@
     <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion. This string is only used when there are multiple items queued.
 {0} is the encode complete action, ex "Shut down"</comment>
   </data>
+  <data name="VideoEncodingOptionsToolTip" xml:space="preserve">
+    <value>Video encoding options</value>
+  </data>
+  <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
+    <value>Audio encoding options</value>
+  </data>
 </root>

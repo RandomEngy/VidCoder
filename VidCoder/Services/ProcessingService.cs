@@ -484,7 +484,7 @@ namespace VidCoder.Services
 							return;
 						}
 
-						this.windowManager.OpenOrFocusWindow(typeof(QueueTitlesWindowViewModel));
+						this.windowManager.OpenOrFocusWindow<QueueTitlesWindowViewModel>();
 					},
 					this.WhenAnyValue(x => x.CanTryEnqueueMultipleTitles)));
 			}
@@ -1383,7 +1383,7 @@ namespace VidCoder.Services
 			// User had the window open when the encode ended last time, so we re-open when starting the queue again.
 			if (Config.EncodeDetailsWindowOpen)
 			{
-				this.windowManager.OpenOrFocusWindow(typeof(EncodeDetailsWindowViewModel));
+				this.windowManager.OpenOrFocusWindow<EncodeDetailsWindowViewModel>();
 			}
 		}
 

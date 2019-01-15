@@ -272,6 +272,35 @@ namespace VidCoder.Services.Windows
 		}
 
 		/// <summary>
+		/// Opens or focuses the viewmodel type's window.
+		/// </summary>
+		/// <typeparam name="T">The type of the window viewmodel.</typeparam>
+		/// <param name="ownerViewModel">The owner view model (main view model).</param>
+		/// <returns>The opened viewmodel.</returns>
+		public T OpenOrFocusWindow<T>(object ownerViewModel = null) where T : class
+		{
+			T viewModel = this.FindOpenWindowViewModel(typeof(T)) as T;
+
+			if (viewModel == null)
+			{
+				viewModel = StaticResolver.Resolve<T>();
+				if (ownerViewModel == null)
+				{
+					ownerViewModel = this.mainViewModel;
+				}
+
+				Window window = this.PrepareWindowForOpen(viewModel, ownerViewModel, userInitiated: true, isDialog: false);
+				window.Show();
+			}
+			else
+			{
+				this.Focus(viewModel);
+			}
+
+			return viewModel;
+		}
+
+		/// <summary>
 		/// Finds an open window with the given viewmodel type.
 		/// </summary>
 		/// <typeparam name="T">The viewmodel type.</typeparam>
