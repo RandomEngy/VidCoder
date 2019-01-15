@@ -13,6 +13,7 @@
 	<SolidColorBrush x:Key="DescriptiveTextBrush" Color="Gray" />
 	<SolidColorBrush x:Key="MouseOverBackgroundBrush" Color="#BEE6FD" />
 	<SolidColorBrush x:Key="MouseOverOverlayBackgroundBrush" Color="#33000000" />
+	<SolidColorBrush x:Key="PressedOverlayBackgroundBrush" Color="#44000000" />
 	<SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#A6DEFC" />
 	<SolidColorBrush x:Key="PopupInfoBackgroundBrush" Color="#EEEEEE" />
 	<SolidColorBrush x:Key="InlineWarningBackgroundBrush" Color="#F7F7CD" />

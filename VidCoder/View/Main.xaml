@@ -73,6 +73,28 @@
 			<Setter Property="Margin" Value="8 0 8 0" />
 			<Setter Property="VerticalAlignment" Value="Center" />
 		</Style>
+		<Style x:Key="SummaryActionButton" TargetType="Button">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Border Name="buttonBorder" Background="Transparent">
+							<ContentPresenter />
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsMouseOver" Value="True">
+								<Setter TargetName="buttonBorder" Property="Background" Value="{DynamicResource MouseOverOverlayBackgroundBrush}" />
+							</Trigger>
+							<Trigger Property="IsPressed" Value="True">
+								<Setter TargetName="buttonBorder" Property="Background" Value="{DynamicResource PressedOverlayBackgroundBrush}" />
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="Width" Value="30" />
+			<Setter Property="Height" Value="30" />
+			<Setter Property="VerticalAlignment" Value="Stretch" />
+		</Style>
 		<Style
 			x:Key="ChapterComboBox"
 			BasedOn="{StaticResource ComboBoxBaseStyle}"
@@ -852,12 +874,9 @@
 
 										<!--  Video options button  -->
 										<Button
-											Width="30"
-											Height="30"
 											Margin="10 0 0 0"
-											VerticalAlignment="Stretch"
 											Command="{Binding OpenVideoEncoderOptions}"
-											Style="{StaticResource BorderlessButtonStyle}"
+											Style="{StaticResource SummaryActionButton}"
 											ToolTip="{x:Static res:MainRes.VideoEncodingOptionsToolTip}">
 											<Image
 												Width="20"
@@ -1152,12 +1171,9 @@
 
 								<!--  Options button  -->
 								<Button
-									Width="30"
-									Height="30"
 									Margin="10 0 0 0"
-									VerticalAlignment="Stretch"
 									Command="{Binding OpenAudioEncoderOptions}"
-									Style="{StaticResource BorderlessButtonStyle}"
+									Style="{StaticResource SummaryActionButton}"
 									ToolTip="{x:Static res:MainRes.AudioEncodingOptionsToolTip}">
 									<Image
 										Width="20"
@@ -1310,12 +1326,9 @@
 									Text="{Binding SubtitlesSummary}"
 									TextTrimming="CharacterEllipsis" />
 								<Button
-									Width="30"
-									Height="30"
 									Margin="10 0 16 0"
-									VerticalAlignment="Stretch"
 									Command="{Binding AddSrtSubtitle}"
-									Style="{StaticResource BorderlessButtonStyle}"
+									Style="{StaticResource SummaryActionButton}"
 									ToolTip="{x:Static res:SubtitleRes.ImportSrtButton}">
 									<Grid
 										x:Name="addButtonGrid"
