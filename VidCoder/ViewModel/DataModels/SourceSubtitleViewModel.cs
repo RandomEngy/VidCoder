@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reactive;
+using System.Reactive.Concurrency;
 using System.Windows.Input;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.Json.Scan;
@@ -40,7 +41,7 @@ namespace VidCoder.ViewModel
 				}
 
 				return HandBrakeEncoderHelpers.SubtitleCanPassthrough(this.inputSubtitle.Source, HandBrakeEncoderHelpers.GetContainer(containerName).Id);
-			}).ToProperty(this, x => x.CanPass, out this.canPass);
+			}).ToProperty(this, x => x.CanPass, out this.canPass, scheduler: Scheduler.Immediate);
 
 			// BurnedInEnabled
 			this.WhenAnyValue(x => x.CanPass, canPass =>
