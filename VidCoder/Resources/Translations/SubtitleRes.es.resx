@@ -168,6 +168,11 @@
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>No se pudo detectar la codificación del archivo de subtítulos. Para asegurarse de que los subtítulos aparecen correctamente, vuelva a guardar el archivo con formato UTF-8.</value>
   </data>
-  
-  
+  <data name="NoSubtitlesText" xml:space="preserve">
+    <value>Sin subtítulos en la fuente.</value>
+  </data>
+  <data name="ExternalSubtitlesSummaryFormat" xml:space="preserve">
+    <value>{0} externo(s)</value>
+    <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
+  </data>
 </root>

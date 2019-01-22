@@ -139,7 +139,7 @@
     <value>Hatanın giderilebilmesi için lütfen bu sorunu bize bildirin.</value>
   </data>
   <data name="ExceptionWindowTitle" xml:space="preserve">
-    <value>Özel Durum</value>
+    <value>İstisna</value>
   </data>
   <data name="FileConflictDialogTitle" xml:space="preserve">
     <value>Dosya çakışması</value>
@@ -160,7 +160,7 @@
     <value>Görev Listesi Kolonları</value>
   </data>
   <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Sütunları eklemek, çıkarmak ya da yeniden sıralamak için sürükleyip bırakın.</value>
+    <value>Sütunları eklemek, kaldırmak veya yeniden srıalamak için sürükle ve bırak.</value>
   </data>
   <data name="UnusedColumns" xml:space="preserve">
     <value>Kullanılmayan sütunlar</value>
@@ -186,13 +186,16 @@
   <data name="Copyright" xml:space="preserve">
     <value>© {0} VidCoder Geliştiricileri</value>
   </data>
-  
+  <data name="BetaVersionFormat2" xml:space="preserve">
+    <value>{0} Beta</value>
+    <comment>{0} is a placeholder for version. For example: 1.4.2 Beta</comment>
+  </data>
   <data name="NameDialogTitle" xml:space="preserve">
     <value>Ad</value>
     <comment>Title for dialog when  naming a preset or  picker</comment>
   </data>
   <data name="ChooseNamePreset" xml:space="preserve">
-    <value>Ön ayar için bir ad seçin:</value>
+    <value>Hazır ayar için bir ad girin:</value>
   </data>
   <data name="ApplyUpdateDialogTitle" xml:space="preserve">
     <value>Güncelleme Uygulansın mı?</value>
@@ -245,6 +248,10 @@
   <data name="EncodeCompleteWarning_HibernateTitle" xml:space="preserve">
     <value>Hazırda bekletme yaklaşıyor</value>
   </data>
-  
-  
+  <data name="ChooseNamePicker" xml:space="preserve">
+    <value>Seçici için bir ad seçin:</value>
+  </data>
+  <data name="ExceptionDialogSubTextReported" xml:space="preserve">
+    <value>Programın kapanması gerekiyor, ancak hata otomatik olarak raporlanacak.</value>
+  </data>
 </root>

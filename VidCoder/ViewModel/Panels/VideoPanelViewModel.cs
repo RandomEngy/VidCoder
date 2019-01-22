@@ -315,18 +315,8 @@ namespace VidCoder.ViewModel
 					case "quality":
 						return EncodingRes.QsvPreset_Quality;
 
-					case "losslesshp":
-						return EncodingRes.NVEncPreset_losslesshp;
-					case "lossless":
-						return EncodingRes.NVEncPreset_lossless;
-					case "llhp":
-						return EncodingRes.NVEncPreset_llhp;
-					case "llhq":
-						return EncodingRes.NVEncPreset_llhq;
 					case "ll":
 						return EncodingRes.NVEncPreset_ll;
-					case "bd":
-						return EncodingRes.NVEncPreset_bd;
 					case "hq":
 						return EncodingRes.NVEncPreset_hq;
 					case "hp":

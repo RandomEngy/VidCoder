@@ -362,7 +362,9 @@
   <data name="EtaLabel" xml:space="preserve">
     <value>TAHMİNİ TAMAMLANMA SÜRESİ:</value>
   </data>
-  
+  <data name="WhenDoneLabel" xml:space="preserve">
+    <value>Bittiğinde</value>
+  </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>Video Dosyası...</value>
   </data>
@@ -405,15 +407,21 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Hazır Ayarı Dışa Aktar</value>
   </data>
-  
-  
+  <data name="SaveChangesPickerMessage" xml:space="preserve">
+    <value>Değişiklikleri mevcut seçicinize kaydetmek ister misiniz?</value>
+  </data>
+  <data name="SaveChangesPickerTitle" xml:space="preserve">
+    <value>Mevcut seçiciyi kaydet?</value>
+  </data>
   <data name="RevertConfirmMessage" xml:space="preserve">
     <value>Tüm kaydedilmemiş değişiklikleri iptal etmek istediğinize emin misiniz?</value>
   </data>
   <data name="RevertConfirmTitle" xml:space="preserve">
     <value>Eski Haline Döndür</value>
   </data>
-  
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Bunu kaldırmak istediğinden emin misin?</value>
+  </data>
   <data name="RemoveConfirmTitle" xml:space="preserve">
     <value>Kaldır</value>
   </data>
@@ -533,10 +541,21 @@
   <data name="PickerMenuItem" xml:space="preserve">
     <value>Seçici</value>
   </data>
-  
-  
-  
-  
+  <data name="CouldNotLoadPickerMessage" xml:space="preserve">
+    <value>Seçici yüklenemedi: </value>
+  </data>
+  <data name="PickerNameTemplate" xml:space="preserve">
+    <value>Seçici: {0}</value>
+    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
+  </data>
+  <data name="SimilarTitlesToolTip" xml:space="preserve">
+    <value>{0} diğer başlıkların buna yakın bir süresi var.</value>
+    <comment>{0} is the number of titles that have a similar duration.</comment>
+  </data>
+  <data name="UseBackupDatabaseLine" xml:space="preserve">
+    <value>{0} yedeklenmiş bir dosyanız var. Kullanmak ister misiniz?</value>
+    <comment>{0} is the version of the database file you have a backup for.</comment>
+  </data>
   <data name="VideoPlayError" xml:space="preserve">
     <value>Video oynatılırken hata oluştu.</value>
   </data>
@@ -555,33 +574,110 @@
 
 {0}</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="FileSizeColumnHeader" xml:space="preserve">
+    <value>Boyut</value>
+    <comment>Used on the "completed encodes" tab, to label the column that shows the final output file size.</comment>
+  </data>
+  <data name="OpenAppDataFolder" xml:space="preserve">
+    <value>Uygulama Veri Klasörünü Aç</value>
+    <comment>Menu choice for opening the application data folder (that holds the VidCoder database file, logs, etc)</comment>
+  </data>
+  <data name="RibbonEncodingGroupLabel" xml:space="preserve">
+    <value>Kodlama</value>
+  </data>
+  <data name="RibbonSettingsGroupLabel" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="GlobalOptionsLabel" xml:space="preserve">
+    <value>Genel Seçenekler</value>
+  </data>
+  <data name="EncodingSettingsButton" xml:space="preserve">
+    <value>Kodlama Ayarları: {0}</value>
+    <comment>{0} is a placeholder for the name of the encoding preset currently selected.</comment>
+  </data>
+  <data name="EncodingSettingsButtonToolTip" xml:space="preserve">
+    <value>Video ve ses kodekleri, boyutlandırma, filtreler, konteyner</value>
+  </data>
+  <data name="OpenSourceRibbonButton" xml:space="preserve">
+    <value>Kaynak Aç</value>
+  </data>
+  <data name="ImportExportRibbonButton" xml:space="preserve">
+    <value>Al/Ver</value>
+    <comment>Label for ribbon button to import or export presets or queues</comment>
+  </data>
+  <data name="AddedSubtitleFromFile" xml:space="preserve">
+    <value>{0} dosyasından başarıyla altyazı eklendi</value>
+  </data>
+  <data name="OpenFormat" xml:space="preserve">
+    <value>Aç {0}</value>
+    <comment>Format for opening a source. For example: "Open E:\ - THE_INCREDIBLES"</comment>
+  </data>
+  <data name="NoAudioDescription" xml:space="preserve">
+    <value>Kaynakta ses bulunamadı.</value>
+  </data>
+  <data name="NoAudioSummary" xml:space="preserve">
+    <value>Ses yok</value>
+    <comment>Summary text for when no audio tracks are found on the source</comment>
+  </data>
+  <data name="NoSubtitlesSummary" xml:space="preserve">
+    <value>Altyazı yok</value>
+    <comment>Summary text for when no subtitle tracks are found on the source and no external subtitles have been added</comment>
+  </data>
+  <data name="DataTooOldRunVidCoderVersion" xml:space="preserve">
+    <value>Verileriniz yükseltilemeyecek kadar eski. Uyumlu bir sürüme yükseltmek için VidCoder {0} uygulamasını bir kez çalıştırın, ardından bu sürümü tekrar deneyin.</value>
+    <comment>This is shown on app start when old data is detected.</comment>
+  </data>
+  <data name="BitrateColumn" xml:space="preserve">
+    <value>Bit Hızı</value>
+  </data>
+  <data name="SampleRateColumn" xml:space="preserve">
+    <value>Örnek Hız</value>
+  </data>
+  <data name="ClearRecentFilesButtonToolTip" xml:space="preserve">
+    <value>Son dosyaları temizle</value>
+  </data>
+  <data name="OpenSourceLabel" xml:space="preserve">
+    <value>Aç</value>
+    <comment>Label on top of the different options for opening video source on the startup screen.</comment>
+  </data>
+  <data name="ScanningSourceLabelFormat" xml:space="preserve">
+    <value>Taranıyor {0}...</value>
+    <comment>{0} is the name of the source being scanned.</comment>
+  </data>
+  <data name="RetryFailedItemsMenuItem" xml:space="preserve">
+    <value>Tüm başarısız işleri tekrar dene</value>
+  </data>
+  <data name="StartChapterAutomationName" xml:space="preserve">
+    <value>İlk bölüm</value>
+    <comment>Narrator label for the chapter start combo box</comment>
+  </data>
+  <data name="EndChapterAutomationName" xml:space="preserve">
+    <value>Son bölüm</value>
+    <comment>Narrator label for the end chapter combo box</comment>
+  </data>
+  <data name="EditChaptersButtonAutomationName" xml:space="preserve">
+    <value>Bölümleri düzenle</value>
+    <comment>Help text for screen readers for the Edit chapters button</comment>
+  </data>
+  <data name="TitleFilterRangeStartAutomationName" xml:space="preserve">
+    <value>Başlık filtresi aralığı başlangıç ​​dakikaları</value>
+    <comment>Screen reader text for number box that represents the start of the filter range in minutes. The number chosen in this box represents the minimum title length in minutes that will be chosen.</comment>
+  </data>
+  <data name="ApplyCurrentEncodingSettings" xml:space="preserve">
+    <value>Geçerli kodlama ayarlarını uygula</value>
+  </data>
+  <data name="OpenSourceFolderOption" xml:space="preserve">
+    <value>Kaynak klasör aç</value>
+    <comment>Menu option to open the folder of the source file in the queue</comment>
+  </data>
+  <data name="WithCurrentJobsFormat" xml:space="preserve">
+    <value>geçerli iş (ler) ile: {0}</value>
+    <comment>Shown as options for the "When done" combo box for actions that trigger when currently encoding job(s) complete. This string is only used when there are multiple items queued.
+{0} is the encode complete action, ex "Shut down"</comment>
+  </data>
+  <data name="WithQueueFormat" xml:space="preserve">
+    <value>sıra ile: {0}</value>
+    <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion. This string is only used when there are multiple items queued.
+{0} is the encode complete action, ex "Shut down"</comment>
+  </data>
 </root>

@@ -653,9 +653,25 @@
     <value>Editar capítulos</value>
     <comment>Help text for screen readers for the Edit chapters button</comment>
   </data>
-  
-  
-  
-  
-  
+  <data name="TitleFilterRangeStartAutomationName" xml:space="preserve">
+    <value>Filtro de duración mínima para los Títulos</value>
+    <comment>Screen reader text for number box that represents the start of the filter range in minutes. The number chosen in this box represents the minimum title length in minutes that will be chosen.</comment>
+  </data>
+  <data name="ApplyCurrentEncodingSettings" xml:space="preserve">
+    <value>Aplicar ajustes de codificación actuales</value>
+  </data>
+  <data name="OpenSourceFolderOption" xml:space="preserve">
+    <value>Abrir carpeta fuente</value>
+    <comment>Menu option to open the folder of the source file in the queue</comment>
+  </data>
+  <data name="WithCurrentJobsFormat" xml:space="preserve">
+    <value>con trabajo(s) actual(es): {0}</value>
+    <comment>Shown as options for the "When done" combo box for actions that trigger when currently encoding job(s) complete. This string is only used when there are multiple items queued.
+{0} is the encode complete action, ex "Shut down"</comment>
+  </data>
+  <data name="WithQueueFormat" xml:space="preserve">
+    <value>con trabajo(s) en cola: {0}</value>
+    <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion. This string is only used when there are multiple items queued.
+{0} is the encode complete action, ex "Shut down"</comment>
+  </data>
 </root>

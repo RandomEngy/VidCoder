@@ -129,14 +129,21 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>Sıkı</value>
   </data>
-  
-  
-  
+  <data name="AppThemeChoice_Auto" xml:space="preserve">
+    <value>Sistem temasını kullan</value>
+    <comment>Windows 10 you can choose Light or Dark for the app theme. This will cause VidCoder to respect that choice.</comment>
+  </data>
+  <data name="AppThemeChoice_Dark" xml:space="preserve">
+    <value>Koyu</value>
+  </data>
+  <data name="AppThemeChoice_Light" xml:space="preserve">
+    <value>Açık</value>
+  </data>
   <data name="CombDetect_fast" xml:space="preserve">
     <value>Hızlı</value>
   </data>
   <data name="CombDetect_permissive" xml:space="preserve">
-    <value>Daha Az Duyarlı</value>
+    <value>Az Duyarlı</value>
     <comment>This mode allows higher levels of combing before triggering.</comment>
   </data>
   <data name="Custom" xml:space="preserve">
@@ -224,8 +231,14 @@
   <data name="Off" xml:space="preserve">
     <value>Kapalı</value>
   </data>
-  
-  
+  <data name="Sharpen_LapSharp" xml:space="preserve">
+    <value>Keskinleştir</value>
+    <comment>The name for the "LapSharp" sharpen filter.</comment>
+  </data>
+  <data name="Sharpen_UnSharp" xml:space="preserve">
+    <value>Yumuşat</value>
+    <comment>The name for the "UnSharp" sharpen filter.</comment>
+  </data>
   <data name="TitleType_Bluray" xml:space="preserve">
     <value>Blu-ray</value>
     <comment>What to display when the source is a Blu-ray</comment>
@@ -247,9 +260,21 @@
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>Zaman Aralığı</value>
   </data>
-  
-  
-  
-  
-  
+  <data name="TitleCapitalizationChoice_EveryWord" xml:space="preserve">
+    <value>Her Kelime</value>
+    <comment>This will make Blu-ray and DVD titles capitalize every word</comment>
+  </data>
+  <data name="TitleCapitalizationChoice_FirstWord" xml:space="preserve">
+    <value>İlk Kelime</value>
+    <comment>This will make Blu-ray and DVD titles capitalize only the first word</comment>
+  </data>
+  <data name="EncodeCompleteActionType_StopEncoding" xml:space="preserve">
+    <value>Kodlamayı durdur</value>
+  </data>
+  <data name="UpdatePromptTiming_OnExit" xml:space="preserve">
+    <value>Çıkışta</value>
+  </data>
+  <data name="UpdatePromptTiming_OnLaunch" xml:space="preserve">
+    <value>Açılışta</value>
+  </data>
 </root>

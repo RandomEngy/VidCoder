@@ -120,7 +120,9 @@
   <data name="AudioSelection" xml:space="preserve">
     <value>Ses seçimi</value>
   </data>
-  
+  <data name="BurnInCheckBox" xml:space="preserve">
+    <value>Yanmak</value>
+  </data>
   <data name="DefaultCheckBox" xml:space="preserve">
     <value>Varsayılan</value>
   </data>
@@ -133,20 +135,32 @@
   <data name="LanguagesRadioButton" xml:space="preserve">
     <value>Diller</value>
   </data>
-  
+  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
+    <value>Yalnızca sesten farklı bir dil varsa</value>
+    <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
+  </data>
   <data name="SubtitleSelection" xml:space="preserve">
     <value>Altyazı seçimi</value>
   </data>
-  
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Seçici: {0}</value>
+  </data>
   <data name="TitleSelection" xml:space="preserve">
     <value>Başlık seçimi</value>
   </data>
-  
+  <data name="PickerButtonFormat" xml:space="preserve">
+    <value>Seçici: {0}</value>
+    <comment>{0} is the name of the picker. This string shows up on the picker split button.</comment>
+  </data>
   <data name="OutputLocation" xml:space="preserve">
     <value>Çıktı konumu</value>
   </data>
-  
-  
+  <data name="OverrideDirectoryCheckBox" xml:space="preserve">
+    <value>Klasörü geçersiz kıl:</value>
+  </data>
+  <data name="PickerHelpText" xml:space="preserve">
+    <value>Başlıkları, sesleri, altyazıları ve hedefi otomatik olarak seç</value>
+  </data>
   <data name="AutoQueueOnScanCheckBox" xml:space="preserve">
     <value>Taramadan sonra otomatik olarak sıraya ekle</value>
   </data>
@@ -157,27 +171,53 @@
     <value>Genel ayarı kullan</value>
     <comment>Label for the "indeterminate" checkbox state that lets the user know that this will fall back to the global setting</comment>
   </data>
-  
+  <data name="PresetOverrideToolTip" xml:space="preserve">
+    <value>Bu, ana pencerede seçilen ön ayarları geçersiz kılar.</value>
+  </data>
   <data name="EncodingSection" xml:space="preserve">
     <value>Kodlanıyor</value>
     <comment>The header for the Encoding section in the Picker window.</comment>
   </data>
-  
-  
-  
-  
-  
+  <data name="PostEncodingSection" xml:space="preserve">
+    <value>Kodlama sonrası</value>
+    <comment>Header for the post-encoding section in the picker window.</comment>
+  </data>
+  <data name="SendFileToLabel" xml:space="preserve">
+    <value>Dosyayı gönder:</value>
+    <comment>Label for the option to run a program after encoding each file.</comment>
+  </data>
+  <data name="PostEncodeArgumentsLabel" xml:space="preserve">
+    <value>Argümanlar:</value>
+    <comment>The label for the arguments to pass to the post-encode executable.</comment>
+  </data>
+  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
+    <value>Programa iletilecek argümanlar. Dosya çıktı yolu için {file}, klasör yolu veya {title} ve {date} gibi diğer yol seçeneklerini içeren {folder} kullanın (bkz. Adlandırma Biçimi).</value>
+    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  </data>
+  <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
+    <value>Seçici, kodlama ön ayarını belirledi.</value>
+  </data>
   <data name="AddLanguageButton" xml:space="preserve">
     <value>Dil Ekle</value>
   </data>
-  
-  
-  
-  
+  <data name="AllTracksForTheseLanguagesRadioButton" xml:space="preserve">
+    <value>Bu diller için tüm parçalar</value>
+  </data>
+  <data name="AllTracksForThisLanguageRadioButton" xml:space="preserve">
+    <value>Bu dil için tüm parçalar</value>
+  </data>
+  <data name="FirstTrackOfEachLanguageRadioButton" xml:space="preserve">
+    <value>Her dilin ilk parça</value>
+  </data>
+  <data name="FirstTrackRadioButton" xml:space="preserve">
+    <value>İlk parça</value>
+  </data>
   <data name="SingleSubtitleDefaultToolTip" xml:space="preserve">
     <value>Altyazı dosyasını varsayılan olarak işaretleyin, böylece video oynatılırken otomatik olarak gösterilecektir.</value>
   </data>
-  
+  <data name="MultipleSubtitleDefaultToolTip" xml:space="preserve">
+    <value>İlk altyazı parçasını varsayılan olarak işaretleyin, böylece video oynatılırken otomatik olarak görünecektir.</value>
+  </data>
   <data name="FirstAsDefaultCheckBox" xml:space="preserve">
     <value>Birinciyi varsayılan olarak işaretle</value>
     <comment>Label for checkbox to mark the first subtitle as default.</comment>
@@ -203,21 +243,63 @@
   <data name="RemoveLanguageToolTip" xml:space="preserve">
     <value>Bu dili kaldır.</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="SortLanguagesLabel" xml:space="preserve">
+    <value>Dil(leri) en üste sırala:</value>
+  </data>
+  <data name="ForcedOnlyCheckBox" xml:space="preserve">
+    <value>Sadece zorla</value>
+    <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
+  </data>
+  <data name="AudioDefaultToolTip" xml:space="preserve">
+    <value>Bir eşleşme bulunursa en son seçilen ses parçasını seçer, aksi takdirde ilkini seçer.</value>
+  </data>
+  <data name="LastSelectedRadioButton" xml:space="preserve">
+    <value>Son seçilen</value>
+  </data>
+  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
+    <value>Bir eşleşme bulunursa en son seçilen altyazı parçasını seçer, aksi takdirde hiçbirini seçmez.</value>
+    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
+  </data>
+  <data name="OverrideNameFormatLabel" xml:space="preserve">
+    <value>Kullanılabilir seçenekler: {0}</value>
+  </data>
+  <data name="DurationFilterStartAutomationName" xml:space="preserve">
+    <value>Süre filtresi başlangıcı</value>
+    <comment>Screen reader text for number box that represents the start of the filter range in minutes. The number chosen in this box represents the minimum title length in minutes that will be chosen.
+</comment>
+  </data>
+  <data name="DurationFilterEndAutomationName" xml:space="preserve">
+    <value>Süre filtresi bitişi</value>
+    <comment>Screen reader text for number box that represents the end of the filter range in minutes. The number chosen in this box represents the maximum title length in minutes that will be chosen.
+</comment>
+  </data>
+  <data name="DurationFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>Başlıkları süreye göre filtrele</value>
+    <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
+  </data>
+  <data name="TimeRangeSelection" xml:space="preserve">
+    <value>Zaman aralığı seçimi</value>
+  </data>
+  <data name="SelectTimeRangeCheckBox" xml:space="preserve">
+    <value>Zaman aralığı seçin</value>
+  </data>
+  <data name="TitleCaptializationLabel" xml:space="preserve">
+    <value>Otomatik büyük harf yap:</value>
+  </data>
+  <data name="TimeRangeStartAutomationName" xml:space="preserve">
+    <value>Zaman aralığı başlangıcı</value>
+  </data>
+  <data name="TimeRangeEndAutomationName" xml:space="preserve">
+    <value>Zaman aralığı sonu</value>
+  </data>
+  <data name="ByIndexRadioButton" xml:space="preserve">
+    <value>Dizine göre</value>
+    <comment>Label for the choice to choose audio or subtitle tracks by index</comment>
+  </data>
+  <data name="SelectTracksLabel" xml:space="preserve">
+    <value>Parça seçin:</value>
+  </data>
+  <data name="SelectTracksHelpText" xml:space="preserve">
+    <value>Virgülle ayrılmış - ör. 2,5</value>
+  </data>
 </root>
