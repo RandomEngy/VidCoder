@@ -369,15 +369,22 @@
   <data name="ProcessOptionsLabel" xml:space="preserve">
     <value>Opciones de proceso</value>
   </data>
-  
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>Rendimiento del CPU - Cores permitidos:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use. It labels a slider that controls the percentage of allowed cores, where the max is 100%.</comment>
+  </data>
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>Limita el número de núcleos del procesador que VidCoder puede utilizar durante la codificación.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Utilizar el reproductor interno para las previsualizaciones</value>
   </data>
-  
-  
+  <data name="MaxSimultaneousEncodesLabel" xml:space="preserve">
+    <value>Cantidad máxima de trabajos simultáneos:</value>
+  </data>
+  <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
+    <value>Indica cuantos trabajos se ejecutan simultáneamente. Es útil en equipos con CPUs de muchos núcleos.</value>
+  </data>
   <data name="GeneralSection" xml:space="preserve">
     <value>General</value>
   </data>
@@ -385,5 +392,7 @@
     <value>Tema</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
-  
+  <data name="PromptForUpdatesLabel" xml:space="preserve">
+    <value>Solicitar actualizaciones:</value>
+  </data>
 </root>

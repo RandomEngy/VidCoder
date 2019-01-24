@@ -202,5 +202,7 @@
   <data name="VideoErrorTitle" xml:space="preserve">
     <value>Video hatası</value>
   </data>
-  
+  <data name="PlaySourceDisabledAppxToolTip" xml:space="preserve">
+    <value>Windows Mağazası sürümü, diğer işlemleri başlatmasına izin verilmediğinden DVD veya Bluray kaynağını oynatamıyor.</value>
+  </data>
 </root>

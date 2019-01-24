@@ -124,36 +124,35 @@
     <value>Farklı Kaydet...</value>
   </data>
   <data name="Revert" xml:space="preserve">
-    <value>Eski Haline Döndür</value>
+    <value>Geri Al</value>
   </data>
   <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
-    <value>x264, B-karelerinin kullanım miktarını ve zamanını belirlemek için çeşitli algoritmalara sahiptir.  
+    <value>x264, B-karelerinin ne zaman kullanılacağına ve ne kadarının kullanılacağına karar vermek için çeşitli algoritmalara sahiptir.
 
-Hızlı mod kabaca siz kaç B-kare belirtirseniz belirtin aynı miktarda süreyi kullanır. Ancak, hızlı olsa da kararları genellikle ideal olanın altındadır.  
+Hızlı mod, ne kadar B-karesi belirlediğinize bakmaksızın kabaca aynı miktarda zaman alır. Ancak, hızlı olsa da kararlılığı çoğu zaman yetersizdir.
 
-İdeal mod B-karelerin maksimum sayısını artırdığı için yavaştır, ancak özellikle B-Piramit ile kullanıldığında çok daha doğru kararlar verir.</value>
+İdeal mod, azami B-Kare sayısını artırdığı için daha yavaştır, ancak özellikle B-piramit ile kullanıldığında daha kararlı sonuç verir.</value>
   </data>
   <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
-    <value>H.264 B-kareleri için spatial ve temporal olmak üzere iki farklı tahmin modu sağlar.
+    <value>H.264 B-kareleri için mekansal ve zamansal olmak üzere iki farklı tahmin modu sağlar.
 
-Spatial, varsayılan olan, neredeyse her zaman daha iyidir, ama Temporal da bazen kullanışlıdır.
+Mekansal, varsayılan olan, neredeyse her zaman daha iyidir, ama Zamansal da bazen kullanışlıdır.
 
-x264, az miktarda hız kaybı pahasına  (ve buna göre küçük bir sıkıştırma kazancıyla) adaptif olarak her bir hususi kare için en iyi seçeneği seçebilir.</value>
+x264, az miktarda hız kaybı pahasına (ve buna göre küçük bir sıkıştırma kazancıyla) uyarlanabilir olarak her bir özel kare için en iyi seçeneği seçebilir.</value>
   </data>
   <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
-    <value>Adaptif niceleme, kodlayıcının ikilleri kare içinde nasıl dağıttığını denetler.
+    <value>Uyarlanabilir niceleme, kodlayıcının ikilleri kare içinde nasıl dağıttığını denetler.
 Daha yüksek değerler daha fazla ikili kenarlardan ve kompleks alanlardan eksilterek daha ince ayrıntılı alanları geliştirmeyi sağlar.</value>
   </data>
   <data name="Advanced_AnalysisToolTip" xml:space="preserve">
-    <value>Mod kararı çeşitli seçenekler arasından seçim yaparak kararını verir : Bu opsiyon seçeneklerin hangileri olacağını seçer. 
-Kontrol edilecek daha az bölüm, daha kötü kararlar alma pahasına daha hızlı kodlama demektir, en iyi seçenek kapalı olması olabilir.</value>
+    <value>Mod, çeşitli seçeneklerden birine karar verir: Tercihi mevcut seçeneklerden yapar. Kötü tercih karşılığında kontrol edilmesi gereken daha az bölüm ve daha hızlı kodlama anlamına gelir. En iyi modun kapalı olmasısdır.</value>
   </data>
   <data name="Advanced_BFramesToolTip" xml:space="preserve">
-    <value>Makul değerler ~2-5 arasındadır.
-Bu kodlayıcının kullanabilileceği sıralı B-karelerin maksimum sayısını belirler.  
- Adaptif B-kareleri için Optimal seçeneği seçilmediyse büyük sayıların genellikle kayda değer bir yardımı olmaz.
-Cel animasyonlu kaynak materyali ve B-Piramit de önemli ölçüde daha büyük değer kullanışlılığını artırır.
-Bazal profil, iPod ve benzeri cihazlar için gerekli olduğu üzere, B-karelerin 0 (kapalı) olmasını gerektirir.</value>
+    <value>Makul değerler ~2-5 arasındadır.  
+Kodlayıcının kullanabileceği maksimum sıralı B-kare sayısını belirtir. 
+Uyarlanabilir B-kareleri için İdeal seçeneği seçilmediyse büyük sayıların genellikle kayda değer bir yardımı olmaz.  
+Cel-animasyonlu kaynak materyali ve B-Piramit de önemli ölçüde daha büyük değer kullanışlılığını önemli ölçüde arttırır. 
+iPod ve benzeri cihazlar için gerekli olan Bazal profil B-karelerinin 0 (kapalı) olarak ayarlanmasını gerektirir.</value>
   </data>
   <data name="Advanced_CabacToolTip" xml:space="preserve">
     <value>Kodlayıcı işini bitirdikten sonra ZIP ya da RAR benzeri kayıpsız sıkıştırması gereken bir grup veri vardır. H.264 bunun için iki seçenek sunar:  CAVLC and CABAC. CABAC özellikle daha düşük bitrate'lerde kodu çok daha yavaş çözer ama önemli ölçüde daha iyi sıkıştırır (%10-30). Eğer video oynatmak için gerekli CPU ihtiyacını azaltmak istiyorsanız bu seçeneği devre dışı bırakın. Bazal profil, iPod ve benzeri cihazlarda gerekli olduğu üzere CABAC ın devre dışı bırakılmasını gerektirir.</value>
@@ -945,7 +944,9 @@ Bicubic: OpenCL donanım hızlandırmalı ölçeklendirme algoritmasıdır.</val
   <data name="PassthroughSettingsLabel" xml:space="preserve">
     <value>Geçiş ayarları</value>
   </data>
-  
+  <data name="PassthroughMaskLabel" xml:space="preserve">
+    <value>Geçiş için izin ver:</value>
+  </data>
   <data name="Passthrough_aac" xml:space="preserve">
     <value>AAC</value>
   </data>
@@ -994,7 +995,9 @@ Bicubic: OpenCL donanım hızlandırmalı ölçeklendirme algoritmasıdır.</val
   <data name="ScalingMode_DownscaleOnly" xml:space="preserve">
     <value>Sadece ölçeği küçült</value>
   </data>
-  
+  <data name="ScalingMode_Fill" xml:space="preserve">
+    <value>Hedefi yukarı/aşağı ölçeklendir</value>
+  </data>
   <data name="ScalingModeLabel" xml:space="preserve">
     <value>Ölçekleme modu:</value>
   </data>
@@ -1025,7 +1028,9 @@ Bicubic: OpenCL donanım hızlandırmalı ölçeklendirme algoritmasıdır.</val
   <data name="ColorPickerStandardColorsHeader" xml:space="preserve">
     <value>Standart renkler</value>
   </data>
-  
+  <data name="AnamorphicToolTip" xml:space="preserve">
+    <value>Anamorfik etkinken, kare olmayan piksellere izin verilir. Bu daha verimli bir depolama sağlar. Fakat tüm oynatıcılar bunu desteklemez.</value>
+  </data>
   <data name="ResolutionLabel" xml:space="preserve">
     <value>Çözünürlük:</value>
     <comment>Label for a video resolution in pixels.</comment>
@@ -1038,41 +1043,133 @@ Bicubic: OpenCL donanım hızlandırmalı ölçeklendirme algoritmasıdır.</val
     <value>Tuşlar:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="PaddingLabel" xml:space="preserve">
+    <value>Doldurma</value>
+  </data>
+  <data name="AlignAVStartCheckBox" xml:space="preserve">
+    <value>A/V Başlangıcına Hizala</value>
+  </data>
+  <data name="AlignAVStartCheckBoxToolTip" xml:space="preserve">
+    <value>Boş kareler ekleyerek veya kareler bırakarak tüm ses ve video akışlarının başlangıç ​​zaman damgalarını hizalar. MP4 düzenleme listelerine uymayan bozuk oynatıcılar için ses/video senkronizasyonunu iyileştirebilir.</value>
+  </data>
+  <data name="TabHeader_Container" xml:space="preserve">
+    <value>Konteyner</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Kodlama hazır ayarları: {0}</value>
+    <comment>Label for the encoding settings window.</comment>
+  </data>
+  <data name="AudioEncoder_none" xml:space="preserve">
+    <value>Hiçbiri</value>
+    <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
+  </data>
+  <data name="SizingModeToolTip" xml:space="preserve">
+    <value>Otomatik, sağlanan kısıtlamaları temel alarak sizin için boyutu seçer. Manuel, belirli bir boyut ve piksel en boy oranını girmenizi sağlar.</value>
+  </data>
+  <data name="SharpenLabel" xml:space="preserve">
+    <value>Keskinleştirme</value>
+  </data>
+  <data name="DeblockToolTip" xml:space="preserve">
+    <value>Deblok, düşük kaliteli video sıkıştırma işleminden kaynaklanan bloklu eserleri azaltır.</value>
+  </data>
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>Deinterlace, taraklanmaları videodan kaldırır.
+
+Yadif popüler ve hızlı bir deinterlacer'dır.
+
+Decomb, hız ve kalite için çoklu ara değer algoritmaları arasında geçiş yapar.</value>
+  </data>
+  <data name="DenoiseToolTip" xml:space="preserve">
+    <value>Denoise, gürültü ve gren görünümünü azaltır veya kaldırır. Bu, sıkıştırma verimini artırabilir ve daha küçük dosya boyutlarında daha yüksek kalitede video oluşturabilir. Aşırı güçlü Denoise ayarları, ayrıntıları kaldırarak görüntü kalitesine zarar verebilir. 
+         
+NLMeans, düşük hızlı, yüksek kaliteli bir denoise filtresidir. Kalitenin hızdan daha önemli olduğu yerlerde kullanın.
+         
+HQDN3D, NLMeans'dan daha hızlı ancak ince detayların korunmasında daha az etkili olan, uyarlamalı bir düşük-geçiş filtredir.</value>
+  </data>
+  <data name="DetelecineToolTip" xml:space="preserve">
+    <value>Bu filtre, telecining işleminin sonucu olan 'tarama' çalışmalarını kaldırır.
+
+Telecining, 24fps olan film kare hızlarını 30fps olan NTSC video kare hızlarına ayarlayan bir işlemdir.</value>
+  </data>
+  <data name="SharpenToolTip" xml:space="preserve">
+    <value>Keskinleştirme, özellikle kenarların ayrıntı görünümünü artırır. Aşırı güçlü Keskinleştirme ayarları, tekrarlayan yapay dokular oluşturarak ve gürültüyü artırarak sıkıştırma verimliliğini azaltabilir, resim kalitesine zarar verebilir.
+
+Yumuşat (Unsharp), genel amaçlı bir yumuşatma maskeleme filtresidir. Bulanıklaştırma ile netleştikten sonra bulanık görüntü ile orijinal arasındaki farkı hesaplar.
+
+Keskinleştir (Lapsharp), Laplacian kenar filtrelerine yakın olan kıvrım tanelerini kullanarak keskinleştirir, bazen yumuşak maskelemeden daha yüksek kaliteli sonuçlar verir.</value>
+  </data>
+  <data name="PresetFolder_Custom" xml:space="preserve">
+    <value>Özel</value>
+  </data>
+  <data name="PresetFolder_BuiltIn" xml:space="preserve">
+    <value>Dahili</value>
+  </data>
+  <data name="PresetFolderCreateSubfolderMenuItem" xml:space="preserve">
+    <value>Alt klasör oluştur</value>
+  </data>
+  <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
+    <value>Klasörü yeniden adlandır</value>
+  </data>
+  <data name="PresetFolderRemoveFolderMenuItem" xml:space="preserve">
+    <value>Klasörü kaldır</value>
+  </data>
+  <data name="DefaultPresetFolderName" xml:space="preserve">
+    <value>Yeni Klasör</value>
+  </data>
+  <data name="ChooseNameSubfolder" xml:space="preserve">
+    <value>Alt klasör için bir ad girin:</value>
+  </data>
+  <data name="ChooseNewFolderName" xml:space="preserve">
+    <value>Klasör için yeni bir ad girin:</value>
+  </data>
+  <data name="NVEncPreset_losslesshp" xml:space="preserve">
+    <value>Yüksek Performanslı Kayıpsız</value>
+  </data>
+  <data name="NVEncPreset_lossless" xml:space="preserve">
+    <value>Kayıpsız</value>
+  </data>
+  <data name="NVEncPreset_llhp" xml:space="preserve">
+    <value>Yüksek Performans Düşük Gecikme</value>
+  </data>
+  <data name="NVEncPreset_llhq" xml:space="preserve">
+    <value>Yüksek Kalite Düşük Gecikme</value>
+  </data>
+  <data name="NVEncPreset_ll" xml:space="preserve">
+    <value>Düşük Gecikme</value>
+  </data>
+  <data name="NVEncPreset_bd" xml:space="preserve">
+    <value>Bluray Disk</value>
+  </data>
+  <data name="NVEncPreset_hq" xml:space="preserve">
+    <value>Yüksek Kalite</value>
+  </data>
+  <data name="NVEncPreset_hp" xml:space="preserve">
+    <value>Yüksek Performans</value>
+  </data>
+  <data name="PickColorButton" xml:space="preserve">
+    <value>Renk seç…</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Sol</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Sağ</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Üst</value>
+  </data>
+  <data name="PixelAspectRatioNumeratorAutomationName" xml:space="preserve">
+    <value>Piksel en-boy oranı pay</value>
+    <comment>Name for the pixel aspect ratio numerator box for screen readers</comment>
+  </data>
+  <data name="PixelAspectRatioDenominatorAutomationName" xml:space="preserve">
+    <value>Piksel en-boy oranı payda</value>
+    <comment>Name for the pixel aspect ratio denominator box for screen readers</comment>
+  </data>
+  <data name="ApplyToQueueButton" xml:space="preserve">
+    <value>Sıraya ekle</value>
+  </data>
 </root>

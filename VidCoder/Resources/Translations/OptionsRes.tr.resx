@@ -369,16 +369,30 @@
   <data name="ProcessOptionsLabel" xml:space="preserve">
     <value>İşlem seçenekleri</value>
   </data>
-  
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>CPU Kısma - İzin Verilen Çekirdek:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use. It labels a slider that controls the percentage of allowed cores, where the max is 100%.</comment>
+  </data>
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>VidCoder'ın dönüştürme yaparken kullanacabileceği çekirdek sayısını sınırlamak için işlemci kısıtlamayı kullan.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Önizlemeler için yerleşik oynatıcıyı kullan</value>
   </data>
-  
-  
-  
-  
-  
+  <data name="MaxSimultaneousEncodesLabel" xml:space="preserve">
+    <value>Maksimum eşzamanlı kodlama işleri:</value>
+  </data>
+  <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
+    <value>Aynı anda kaç tane kodlama işine izin verilmiş?. Çok sayıda CPU çekirdeğine sahip makineler için kullanışlıdır.</value>
+  </data>
+  <data name="GeneralSection" xml:space="preserve">
+    <value>Genel</value>
+  </data>
+  <data name="ThemeLabel" xml:space="preserve">
+    <value>Tema</value>
+    <comment>Label for the app theme (auto, light, dark)</comment>
+  </data>
+  <data name="PromptForUpdatesLabel" xml:space="preserve">
+    <value>Güncelleştirmeleri için sor:</value>
+  </data>
 </root>

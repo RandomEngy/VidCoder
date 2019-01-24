@@ -125,10 +125,10 @@ Bu program faydalı olacağı umuduyla dağıtılmaktadır ama HERHANGİ BİR GA
 GNU General Public License kopyası bu programa dahil edilmiştir.</value>
   </data>
   <data name="BurnedSubtitleToolTip" xml:space="preserve">
-    <value>Altyazıyı resmin üzerine yaz. Gömülü altyazılı film izlenirken altyazı devre dışı bırakılamaz.</value>
+    <value>Altyazıyı filmin üzerine yaz. Gömülü altyazı film izlerken devre dışı bırakılamaz.</value>
   </data>
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
-    <value>Bu altyazıyı varsayılan olarak seç. Çalma esnasında başka bir altyazı seçilene kadar bu altyazı gösterilecektir.</value>
+    <value>Bu altyazıyı varsayılan olarak seç. Başka bir altyazı seçilene kadar oynatma esnasında bu altyazı gösterilecektir.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
     <value>Altyazı parçlarından sadece zorunlu altyazıları göster. Bu genellikle az miktarda yabancı diyalog demektir.</value>
@@ -163,7 +163,7 @@ GNU General Public License kopyası bu programa dahil edilmiştir.</value>
     <value>Video Kalitesi</value>
   </data>
   <data name="QueueEtaToolTip" xml:space="preserve">
-    <value>Kuyruktaki tüm işleri tamamlamak için kalan tahmini süre.</value>
+    <value>Suradaki tüm işleri tamamlamak için kalan tahmini süre.</value>
   </data>
   <data name="QueueColumnNameDuration" xml:space="preserve">
     <value>Süre</value>
@@ -199,7 +199,7 @@ GNU General Public License kopyası bu programa dahil edilmiştir.</value>
     <value>Tümü</value>
   </data>
   <data name="StreamChoice" xml:space="preserve">
-    <value>Stream {0}</value>
+    <value>Akış {0}</value>
     <comment>Used in the encoding settings dialog to mark which audio stream an audio encoding is targeting. By default the encoding works on all streams but you can target it to affect only the first stream, in which case it would label it "Stream 1"</comment>
   </data>
   <data name="Ok" xml:space="preserve">
@@ -281,13 +281,41 @@ GNU General Public License kopyası bu programa dahil edilmiştir.</value>
     <value>İlk</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="DuplicateTrack" xml:space="preserve">
+    <value>Bu parçayı çoğaltın</value>
+    <comment>Tip to duplicate the audio or subtitle track.</comment>
+  </data>
+  <data name="RemoveTrack" xml:space="preserve">
+    <value>Bu parçayı kaldır</value>
+    <comment>Tip for button to remove the audio or subtitle track.</comment>
+  </data>
+  <data name="SelectedOverTotalAudioTracksFormat" xml:space="preserve">
+    <value>{0}/{1} ses parçası(ları)</value>
+    <comment>{0} is the number of selected audio tracks and {1} is the number of total tracks on the source.</comment>
+  </data>
+  <data name="SelectedOverTotalSubtitleTracksFormat" xml:space="preserve">
+    <value>{0}/{1} altyazı(lar)</value>
+    <comment>{0} is the number of selected subtitle tracks and {1} is the number of total tracks on the source.</comment>
+  </data>
+  <data name="NumberBoxIncreaseButtonAutomationTextFormat" xml:space="preserve">
+    <value>{0} Artır</value>
+    <comment>Automation text for the increase button on the number box.
+{0} - The name of the value the control is changing, for example "width"</comment>
+  </data>
+  <data name="NumberBoxDecreaseButtonAutomationTextFormat" xml:space="preserve">
+    <value>{0} Azalt</value>
+    <comment>Automation text for the decrease button on the number box.
+{0} - The name of the value the control is changing, for example "width"</comment>
+  </data>
+  <data name="OpenSplitButtonAutomationName" xml:space="preserve">
+    <value>Bölme düğmesini aç</value>
+    <comment>Automation name for screen readers for the "open" arrow on a split button</comment>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Bilinmiyor</value>
+    <comment>Used when a value is not known.</comment>
+  </data>
+  <data name="DefaultLabel" xml:space="preserve">
+    <value>Varsayılan:</value>
+  </data>
 </root>

@@ -1060,15 +1060,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bluray Disk.
-        /// </summary>
-        public static string NVEncPreset_bd {
-            get {
-                return ResourceManager.GetString("NVEncPreset_bd", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to High Performance.
         /// </summary>
         public static string NVEncPreset_hp {
@@ -1092,42 +1083,6 @@ namespace VidCoder.Resources {
         public static string NVEncPreset_ll {
             get {
                 return ResourceManager.GetString("NVEncPreset_ll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to High Performance Low Latency.
-        /// </summary>
-        public static string NVEncPreset_llhp {
-            get {
-                return ResourceManager.GetString("NVEncPreset_llhp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to High Quality Low Latency.
-        /// </summary>
-        public static string NVEncPreset_llhq {
-            get {
-                return ResourceManager.GetString("NVEncPreset_llhq", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lossless.
-        /// </summary>
-        public static string NVEncPreset_lossless {
-            get {
-                return ResourceManager.GetString("NVEncPreset_lossless", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to High Performance Lossless.
-        /// </summary>
-        public static string NVEncPreset_losslesshp {
-            get {
-                return ResourceManager.GetString("NVEncPreset_losslesshp", resourceCulture);
             }
         }
         
@@ -1384,7 +1339,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Medium (Default).
+        ///   Looks up a localized string similar to Medium.
         /// </summary>
         public static string Preset_Medium {
             get {

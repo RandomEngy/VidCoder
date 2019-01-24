@@ -1172,8 +1172,14 @@ Lapsharp funciona usando núcleos de circunvolución que se aproximan a los filt
   <data name="Top" xml:space="preserve">
     <value>Arriba</value>
   </data>
-  
-  
+  <data name="PixelAspectRatioNumeratorAutomationName" xml:space="preserve">
+    <value>Numerador de la relación de aspecto del pixel</value>
+    <comment>Name for the pixel aspect ratio numerator box for screen readers</comment>
+  </data>
+  <data name="PixelAspectRatioDenominatorAutomationName" xml:space="preserve">
+    <value>Denominador de la relación de aspecto del pixel</value>
+    <comment>Name for the pixel aspect ratio denominator box for screen readers</comment>
+  </data>
   <data name="ApplyToQueueButton" xml:space="preserve">
     <value>Agregar a la cola</value>
   </data>

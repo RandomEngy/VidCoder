@@ -121,7 +121,7 @@
     <value>Kodlama İşlemi Detayları</value>
   </data>
   <data name="QueueSectionHeader" xml:space="preserve">
-    <value>Görev Sıralaması</value>
+    <value>Sıra</value>
   </data>
   <data name="ScanPassLabel" xml:space="preserve">
     <value>Tarama geçişi:</value>
@@ -134,16 +134,16 @@
     <value>İkinci geçiş:</value>
   </data>
   <data name="EncodePassLabel" xml:space="preserve">
-    <value>Kodlama geçişi:</value>
+    <value>Kodlama Geçişi:</value>
   </data>
   <data name="JobLabel" xml:space="preserve">
-    <value>Görev:</value>
+    <value>İş:</value>
   </data>
   <data name="ProgressLabel" xml:space="preserve">
     <value>İlerleme durumu:</value>
   </data>
   <data name="ElapsedTimeLabel" xml:space="preserve">
-    <value>Geçen süre:</value>
+    <value>Geçen Süre:</value>
   </data>
   <data name="EtaLabel" xml:space="preserve">
     <value>TAHMİNİ TAMAMLANMA SÜRESİ:</value>
