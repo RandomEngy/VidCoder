@@ -1523,7 +1523,7 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			if (!listToPopulate.Any(subtitleViewModel => subtitleViewModel.TrackNumber == 0))
+			if (!listToPopulate.Any(subtitleViewModel => subtitleViewModel.TrackNumber == 0) && this.SelectedTitle.SubtitleList.Count > 0)
 			{
 				listToPopulate.Insert(0, new SourceSubtitleViewModel(this, new SourceSubtitle
 				{
