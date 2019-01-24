@@ -861,9 +861,8 @@ Lapsharp sharpens using convolution kernels approximating Laplacian edge filters
   <data name="ApplyToQueueButton" xml:space="preserve">
     <value>Apply to queue</value>
   </data>
-  <data name="FullEncoderParameterToolTipFormat" xml:space="preserve">
-    <value>Full parameter list:
-{0}</value>
+  <data name="FullEncoderParameterLabelFormat" xml:space="preserve">
+    <value>Full parameter list: {0}</value>
     <comment>{0} will be the full encoder parameter list.</comment>
   </data>
   <data name="MoreOptionsToolTip" xml:space="preserve">

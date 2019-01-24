@@ -751,12 +751,11 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Full parameter list:
-        ///{0}.
+        ///   Looks up a localized string similar to Full parameter list: {0}.
         /// </summary>
-        public static string FullEncoderParameterToolTipFormat {
+        public static string FullEncoderParameterLabelFormat {
             get {
-                return ResourceManager.GetString("FullEncoderParameterToolTipFormat", resourceCulture);
+                return ResourceManager.GetString("FullEncoderParameterLabelFormat", resourceCulture);
             }
         }
         

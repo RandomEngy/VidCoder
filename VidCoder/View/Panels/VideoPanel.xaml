@@ -586,10 +586,11 @@
 							Margin="0 8 0 0"
 							HorizontalAlignment="Stretch"
 							VerticalAlignment="Stretch"
-							Style="{StaticResource LongToolTipHolder}">
-							<Grid.ToolTip>
-								<TextBlock Style="{StaticResource LongToolTip}" Text="{Binding MoreOptionsTooltip}" />
-							</Grid.ToolTip>
+							ToolTip="{x:Static res:EncodingRes.MoreOptionsToolTip}">
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="Auto" />
 								<ColumnDefinition />
@@ -602,11 +603,21 @@
 								VerticalAlignment="Center"
 								Text="{x:Static res:EncodingRes.MoreSettingsLabel}" />
 							<TextBox
+								Grid.Row="0"
 								Grid.Column="1"
 								AutomationProperties.LabeledBy="{Binding ElementName=moreSettingsLabel}"
 								Text="{Binding VideoOptions,
 								               UpdateSourceTrigger=PropertyChanged}"
 								TextWrapping="Wrap" />
+
+							<TextBlock
+								Grid.Row="1"
+								Grid.Column="0"
+								Grid.ColumnSpan="2"
+								Margin="0 4 0 0"
+								Text="{Binding FullParameterList}"
+								Visibility="{Binding X264SettingsVisible,
+								                     Converter={StaticResource VisibilityConverter}}" />
 						</Grid>
 					</Grid>
 				</Grid>

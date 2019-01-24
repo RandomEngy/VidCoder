@@ -309,11 +309,11 @@ namespace VidCoder.ViewModel
 				}
 			}).ToProperty(this, x => x.PresetName, out this.presetName);
 
-			// MoreOptionsTooltip
+			// FullParameterList
 			this.WhenAnyValue(
 				x => x.SelectedEncoder,
-				x => x.Profile.VideoPreset,
-				x => x.Profile.VideoTunes,
+				x => x.PresetsService.SelectedPreset.Preset.EncodingProfile.VideoPreset,
+				x => x.PresetsService.SelectedPreset.Preset.EncodingProfile.VideoTunes,
 				x => x.VideoOptions,
 				x => x.VideoProfile, 
 				x => x.VideoLevel,
@@ -323,11 +323,6 @@ namespace VidCoder.ViewModel
 					if (selectedEncoder == null)
 					{
 						return string.Empty;
-					}
-
-					if (!selectedEncoder.Encoder.ShortName.StartsWith("x264", StringComparison.Ordinal))
-					{
-						return EncodingRes.MoreOptionsToolTip;
 					}
 
 					int width, height;
@@ -352,9 +347,9 @@ namespace VidCoder.ViewModel
 						height);
 
 					return string.Format(
-						EncodingRes.FullEncoderParameterToolTipFormat,
+						EncodingRes.FullEncoderParameterLabelFormat,
 						parameterList);
-				}).ToProperty(this, x => x.MoreOptionsTooltip, out this.moreOptionsTooltip);
+				}).ToProperty(this, x => x.FullParameterList, out this.fullParameterList);
 
 			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile)
 				.Subscribe(_ =>
@@ -919,8 +914,8 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<string> presetName;
 		public string PresetName => this.presetName.Value;
 
-		private ObservableAsPropertyHelper<string> moreOptionsTooltip;
-		public string MoreOptionsTooltip => this.moreOptionsTooltip.Value;
+		private ObservableAsPropertyHelper<string> fullParameterList;
+		public string FullParameterList => this.fullParameterList.Value;
 
 		private bool updatingLocalVideoOptions;
 
