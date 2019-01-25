@@ -125,6 +125,7 @@ namespace VidCoder.ViewModel
 			this.deleteSourceFilesOnClearingCompleted = Config.DeleteSourceFilesOnClearingCompleted;
 			this.preserveModifyTimeFiles = Config.PreserveModifyTimeFiles;
 			this.resumeEncodingOnRestart = Config.ResumeEncodingOnRestart;
+			this.keepFailedFiles = Config.KeepFailedFiles;
 			this.useWorkerProcess = Config.UseWorkerProcess;
 			this.minimumTitleLengthSeconds = Config.MinimumTitleLengthSeconds;
 			this.AutoPauseProcesses = new ObservableCollection<string>();
@@ -574,6 +575,14 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.resumeEncodingOnRestart, value); }
 		}
 
+		private bool keepFailedFiles;
+
+		public bool KeepFailedFiles
+		{
+			get { return this.keepFailedFiles; }
+			set { this.RaiseAndSetIfChanged(ref this.keepFailedFiles, value); }
+		}
+
 		private bool useWorkerProcess;
 		public bool UseWorkerProcess
 		{
@@ -703,6 +712,7 @@ namespace VidCoder.ViewModel
 						Config.DeleteSourceFilesOnClearingCompleted = this.DeleteSourceFilesOnClearingCompleted;
 						Config.PreserveModifyTimeFiles = this.PreserveModifyTimeFiles;
 						Config.ResumeEncodingOnRestart = this.ResumeEncodingOnRestart;
+						Config.KeepFailedFiles = this.KeepFailedFiles;
 						Config.MinimumTitleLengthSeconds = this.MinimumTitleLengthSeconds;
 						Config.VideoFileExtensions = this.VideoFileExtensions;
 						Config.CpuThrottlingFraction = (double)this.CpuThrottlingCores / this.CpuThrottlingMaxCores;

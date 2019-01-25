@@ -1738,7 +1738,7 @@ namespace VidCoder.Services
 					this.StopEncodingAndReport();
 
 					// Try to clean up the failed file
-					TryCleanFailedFile(directOutputFileInfo, encodeLogger);
+					TryHandleFailedFile(directOutputFileInfo, encodeLogger, "stopped", finalOutputPath);
 
 					// If the user still has the video source up, clear the queue so they can change settings and try again.
 					// If the source isn't loaded they probably want to keep it in the queue.
@@ -1801,7 +1801,7 @@ namespace VidCoder.Services
 					}
 					else if (status != EncodeResultStatus.Succeeded)
 					{
-						TryCleanFailedFile(directOutputFileInfo, encodeLogger);
+						TryHandleFailedFile(directOutputFileInfo, encodeLogger, "failed", finalOutputPath);
 					}
 
 					if (status == EncodeResultStatus.Succeeded && Config.PreserveModifyTimeFiles)
@@ -2077,15 +2077,38 @@ namespace VidCoder.Services
 			return encodeLogPath;
 		}
 
-		private static void TryCleanFailedFile(FileInfo directOutputFileInfo, IAppLogger encodeLogger)
+		private static void TryHandleFailedFile(FileInfo directOutputFileInfo, IAppLogger encodeLogger, string reason, string finalOutputPath)
 		{
-			try
+			if (Config.KeepFailedFiles)
 			{
-				directOutputFileInfo.Delete();
+				if (directOutputFileInfo.Exists)
+				{
+					try
+					{
+						string directory = Path.GetDirectoryName(finalOutputPath);
+						string outputBaseName = Path.GetFileNameWithoutExtension(finalOutputPath);
+						string extension = Path.GetExtension(finalOutputPath);
+
+						string destinationPath = Path.Combine(directory, outputBaseName + "." + reason + extension);
+						destinationPath = FileUtilities.CreateUniqueFileName(destinationPath, new HashSet<string>());
+						directOutputFileInfo.MoveTo(destinationPath);
+					}
+					catch (Exception exception)
+					{
+						encodeLogger.Log($"Could not rename failed file '{directOutputFileInfo.FullName}'." + Environment.NewLine + exception);
+					}
+				}
 			}
-			catch (Exception exception)
+			else
 			{
-				encodeLogger.Log($"Could not clean up failed file '{directOutputFileInfo.FullName}'." + Environment.NewLine + exception);
+				try
+				{
+					directOutputFileInfo.Delete();
+				}
+				catch (Exception exception)
+				{
+					encodeLogger.Log($"Could not clean up failed file '{directOutputFileInfo.FullName}'." + Environment.NewLine + exception);
+				}
 			}
 		}
 

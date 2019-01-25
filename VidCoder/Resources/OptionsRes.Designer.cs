@@ -430,6 +430,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Keep files from failed or stopped encodes.
+        /// </summary>
+        public static string KeepFailedFilesCheckBox {
+            get {
+                return ResourceManager.GetString("KeepFailedFilesCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Logging.
         /// </summary>
         public static string LoggingSection {

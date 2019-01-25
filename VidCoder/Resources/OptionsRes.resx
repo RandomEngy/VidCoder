@@ -401,4 +401,7 @@
   <data name="CopyLogToCustomFolderLabel" xml:space="preserve">
     <value>Copy the encode log to a custom folder</value>
   </data>
+  <data name="KeepFailedFilesCheckBox" xml:space="preserve">
+    <value>Keep files from failed or stopped encodes</value>
+  </data>
 </root>

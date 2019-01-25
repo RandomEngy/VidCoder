@@ -120,6 +120,7 @@ namespace VidCoder
 			cache.Add("DeleteSourceFilesOnClearingCompleted", DatabaseConfig.Get("DeleteSourceFilesOnClearingCompleted", false, connection));
 			cache.Add("PreserveModifyTimeFiles", DatabaseConfig.Get("PreserveModifyTimeFiles", false, connection));
 			cache.Add("ResumeEncodingOnRestart", DatabaseConfig.Get("ResumeEncodingOnRestart", false, connection));
+			cache.Add("KeepFailedFiles", DatabaseConfig.Get("KeepFailedFiles", false, connection));
 			cache.Add("UseWorkerProcess", DatabaseConfig.Get("UseWorkerProcess", true, connection));
 			cache.Add("RememberPreviousFiles", DatabaseConfig.Get("RememberPreviousFiles", true, connection));
 			cache.Add("VideoFileExtensions", DatabaseConfig.Get("VideoFileExtensions", "avi, mkv, mp4, m4v, mpg, mpeg, mov, wmv", connection));
@@ -631,6 +632,11 @@ namespace VidCoder
 			get { return (bool)cache["ResumeEncodingOnRestart"]; }
 			set { Set("ResumeEncodingOnRestart", value); }
 		}
+		public static bool KeepFailedFiles
+		{
+			get { return (bool)cache["KeepFailedFiles"]; }
+			set { Set("KeepFailedFiles", value); }
+		}
 		public static bool UseWorkerProcess
 		{
 			get { return (bool)cache["UseWorkerProcess"]; }
@@ -839,6 +845,7 @@ namespace VidCoder
 			public static IObservable<bool> DeleteSourceFilesOnClearingCompleted => GetObservable<bool>("DeleteSourceFilesOnClearingCompleted");
 			public static IObservable<bool> PreserveModifyTimeFiles => GetObservable<bool>("PreserveModifyTimeFiles");
 			public static IObservable<bool> ResumeEncodingOnRestart => GetObservable<bool>("ResumeEncodingOnRestart");
+			public static IObservable<bool> KeepFailedFiles => GetObservable<bool>("KeepFailedFiles");
 			public static IObservable<bool> UseWorkerProcess => GetObservable<bool>("UseWorkerProcess");
 			public static IObservable<bool> RememberPreviousFiles => GetObservable<bool>("RememberPreviousFiles");
 			public static IObservable<string> VideoFileExtensions => GetObservable<string>("VideoFileExtensions");

@@ -561,6 +561,12 @@
 								VerticalAlignment="Center"
 								Content="{x:Static res:OptionsRes.ResumeEncodingOnRestartCheckBox}"
 								IsChecked="{Binding ResumeEncodingOnRestart}" />
+							<CheckBox 
+								Margin="0 6 0 0"
+								HorizontalAlignment="Left"
+								VerticalAlignment="Center"
+								Content="{x:Static res:OptionsRes.KeepFailedFilesCheckBox}"
+								IsChecked="{Binding KeepFailedFiles}"/>
 							<Grid Margin="0 6 0 0">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="Auto" />
