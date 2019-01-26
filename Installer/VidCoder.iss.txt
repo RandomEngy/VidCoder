@@ -282,7 +282,7 @@ begin
         launchWhenDone := GetCommandLineParam('/launchWhenDone');
         if launchWhenDone <> '' then
         begin
-          Exec(ExpandConstant('{app}\VidCoder.exe'), '', '', SW_SHOW, ewNoWait, iResultCode);
+          ExecAsOriginalUser(ExpandConstant('{app}\VidCoder.exe'), '', '', SW_SHOW, ewNoWait, iResultCode);
         end;
      end;
   end;
