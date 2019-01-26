@@ -803,6 +803,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Version {0} has finished downloading..
+        /// </summary>
+        public static string NewVersionDownloadFinishedOnLaunchStatus {
+            get {
+                return ResourceManager.GetString("NewVersionDownloadFinishedOnLaunchStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Version {0} has finished downloading and will install on exit..
         /// </summary>
         public static string NewVersionDownloadFinishedStatus {

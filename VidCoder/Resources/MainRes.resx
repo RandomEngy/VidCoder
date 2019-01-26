@@ -682,4 +682,7 @@
   <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
     <value>Audio encoding options</value>
   </data>
+  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
+    <value>Version {0} has finished downloading.</value>
+  </data>
 </root>
