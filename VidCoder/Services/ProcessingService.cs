@@ -1171,6 +1171,12 @@ namespace VidCoder.Services
 			{
 				this.SelectedTabIndex = QueuedTabIndex;
 			}
+
+			// After adding new items, immediately start them
+			if (this.Encoding && Config.MaxSimultaneousEncodes > 1 && !this.Paused)
+			{
+				this.EncodeNextJobs();
+			}
 		}
 
 		public void QueueMultiple(IEnumerable<string> pathsToQueue)
@@ -2128,6 +2134,12 @@ namespace VidCoder.Services
 			this.RunForAllEncodingJobs(job => job.ReportEncodeResume());
 
 			this.Paused = false;
+
+			// Some more jobs may have been added while paused. Start them if needed.
+			if (Config.MaxSimultaneousEncodes > 1)
+			{
+				this.EncodeNextJobs();
+			}
 		}
 
 		private void StopEncodingAndReport()
