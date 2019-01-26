@@ -585,8 +585,7 @@
 							Grid.Row="1"
 							Margin="0 8 0 0"
 							HorizontalAlignment="Stretch"
-							VerticalAlignment="Stretch"
-							ToolTip="{x:Static res:EncodingRes.MoreOptionsToolTip}">
+							VerticalAlignment="Stretch">
 							<Grid.RowDefinitions>
 								<RowDefinition />
 								<RowDefinition Height="Auto" />
@@ -608,7 +607,8 @@
 								AutomationProperties.LabeledBy="{Binding ElementName=moreSettingsLabel}"
 								Text="{Binding VideoOptions,
 								               UpdateSourceTrigger=PropertyChanged}"
-								TextWrapping="Wrap" />
+								TextWrapping="Wrap"
+								ToolTip="{x:Static res:EncodingRes.MoreOptionsToolTip}" />
 
 							<TextBlock
 								Grid.Row="1"
@@ -616,6 +616,7 @@
 								Grid.ColumnSpan="2"
 								Margin="0 4 0 0"
 								Text="{Binding FullParameterList}"
+								TextWrapping="Wrap"
 								Visibility="{Binding X264SettingsVisible,
 								                     Converter={StaticResource VisibilityConverter}}" />
 						</Grid>
