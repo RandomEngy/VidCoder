@@ -1506,7 +1506,16 @@ namespace VidCoder.ViewModel
 				listToPopulate.Add(new SourceSubtitleViewModel(this, sourceSubtitle) { Selected = true });
 			}
 
-			// Fill in remaining unselected source subtitles
+			this.FillInRemainingSourceSubtitles(selectedSubtitles, listToPopulate);
+		}
+
+		/// <summary>
+		/// Fills in the remaining unselected source subtitles
+		/// </summary>
+		/// <param name="selectedSubtitles">The already selected subtitles.</param>
+		/// <param name="listToPopulate">The list to fill in.</param>
+		private void FillInRemainingSourceSubtitles(IList<SourceSubtitle> selectedSubtitles, IExtendedList<SourceSubtitleViewModel> listToPopulate)
+		{
 			for (int i = 1; i <= this.SelectedTitle.SubtitleList.Count; i++)
 			{
 				if (selectedSubtitles.All(s => s.TrackNumber != i))
@@ -3339,26 +3348,30 @@ namespace VidCoder.ViewModel
 			});
 
 			// Subtitles (standard+SRT)
-			this.CurrentSubtitles.SourceSubtitles = new List<SourceSubtitle>();
-			this.CurrentSubtitles.SrtSubtitles = new List<SrtSubtitle>();
-			if (job.Subtitles.SourceSubtitles != null)
+			this.SourceSubtitles.Edit(sourceSubtitlesInnerList =>
 			{
+				sourceSubtitlesInnerList.Clear();
+
 				foreach (SourceSubtitle sourceSubtitle in job.Subtitles.SourceSubtitles)
 				{
 					if (sourceSubtitle.TrackNumber <= this.selectedTitle.SubtitleList.Count)
 					{
-						this.CurrentSubtitles.SourceSubtitles.Add(sourceSubtitle);
+						sourceSubtitlesInnerList.Add(new SourceSubtitleViewModel(this, sourceSubtitle) { Selected = true });
 					}
 				}
-			}
 
-			if (job.Subtitles.SrtSubtitles != null)
+				this.FillInRemainingSourceSubtitles(job.Subtitles.SourceSubtitles, sourceSubtitlesInnerList);
+			});
+
+			this.SrtSubtitles.Edit(srtSubtitlesInnerList =>
 			{
+				srtSubtitlesInnerList.Clear();
+
 				foreach (SrtSubtitle srtSubtitle in job.Subtitles.SrtSubtitles)
 				{
-					this.CurrentSubtitles.SrtSubtitles.Add(srtSubtitle);
+					srtSubtitlesInnerList.Add(new SrtSubtitleViewModel(this, srtSubtitle));
 				}
-			}
+			});
 
 			// Custom chapter markers
 			this.UseDefaultChapterNames = job.UseDefaultChapterNames;
