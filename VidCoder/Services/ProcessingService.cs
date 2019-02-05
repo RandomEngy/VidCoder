@@ -1729,7 +1729,16 @@ namespace VidCoder.Services
 			{
 				IAppLogger encodeLogger = finishedJobViewModel.Logger;
 				string finalOutputPath = finishedJobViewModel.Job.FinalOutputPath;
-				var directOutputFileInfo = new FileInfo(finishedJobViewModel.Job.InProgressOutputPath);
+				FileInfo directOutputFileInfo;
+				try
+				{
+					directOutputFileInfo = new FileInfo(finishedJobViewModel.Job.InProgressOutputPath);
+				}
+				catch (Exception exception)
+				{
+					throw new InvalidOperationException("Could not get info for output file: " + finishedJobViewModel.Job.InProgressOutputPath, exception);
+				}
+
 				EncodeResultViewModel addedResult = null;
 				bool encodingStopped = false;
 
