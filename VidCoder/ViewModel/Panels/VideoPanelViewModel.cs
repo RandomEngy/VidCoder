@@ -346,9 +346,7 @@ namespace VidCoder.ViewModel
 						width,
 						height);
 
-					return string.Format(
-						EncodingRes.FullEncoderParameterLabelFormat,
-						parameterList);
+					return parameterList;
 				}).ToProperty(this, x => x.FullParameterList, out this.fullParameterList);
 
 			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile)

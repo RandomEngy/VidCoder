@@ -613,9 +613,19 @@
 							<TextBlock
 								Grid.Row="1"
 								Grid.Column="0"
-								Grid.ColumnSpan="2"
+								Margin="0 4 6 0"
+								VerticalAlignment="Center"
+								Text="{x:Static res:EncodingRes.FullEncoderParameterLabel}"
+								Visibility="{Binding X264SettingsVisible,
+								                     Converter={StaticResource VisibilityConverter}}" />
+							<TextBox
+								Grid.Row="1"
+								Grid.Column="1"
 								Margin="0 4 0 0"
-								Text="{Binding FullParameterList}"
+								Background="{DynamicResource AlternateBackgroundBrush}"
+								IsReadOnly="True"
+								Text="{Binding FullParameterList,
+								               Mode=OneWay}"
 								TextWrapping="Wrap"
 								Visibility="{Binding X264SettingsVisible,
 								                     Converter={StaticResource VisibilityConverter}}" />
