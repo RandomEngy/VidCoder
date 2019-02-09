@@ -12,17 +12,6 @@ namespace VidCoder.Converters
 
 	public class SampleRateDisplayConverter : IValueConverter
 	{
-		private static Dictionary<int, string> rateDisplayTable;
-
-		static SampleRateDisplayConverter()
-		{
-			rateDisplayTable = new Dictionary<int, string> { { 0, EncodingRes.SameAsSource } };
-			foreach (var audioSampleRate in HandBrakeEncoderHelpers.AudioSampleRates)
-			{
-				rateDisplayTable.Add(audioSampleRate.Rate, audioSampleRate.Name + " kHz");
-			}
-		}
-
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (value == null)
@@ -35,9 +24,14 @@ namespace VidCoder.Converters
 				return string.Empty;
 			}
 
-			int sampleRate = (int)value;
+			int sampleRateHz = (int)value;
+			if (sampleRateHz == 0)
+			{
+				return EncodingRes.SameAsSource;
+			}
 
-			return rateDisplayTable[sampleRate];
+			double sampleRateKHz = sampleRateHz / 1000.0;
+			return sampleRateKHz + " kHz";
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
