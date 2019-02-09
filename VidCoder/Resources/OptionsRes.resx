@@ -199,7 +199,7 @@
     <value>Allow setting custom name on audio tracks (limited player support)</value>
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>Enable LibDVDNav (change requires program restart)</value>
+    <value>Enable LibDVDNav (Change requires program restart. Required to support multiple angles)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Delete source files after clearing successful completed items (with confirmation)</value>

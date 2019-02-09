@@ -340,7 +340,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable LibDVDNav (change requires program restart).
+        ///   Looks up a localized string similar to Enable LibDVDNav (Change requires program restart. Required to support multiple angles).
         /// </summary>
         public static string EnableLibDvdNavCheckBox {
             get {
