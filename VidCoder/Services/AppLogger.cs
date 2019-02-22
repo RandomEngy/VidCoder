@@ -182,23 +182,6 @@ namespace VidCoder.Services
 
 			lock (this.LogLock)
 			{
-				// See if log line needs to have continuation markers added
-				string[] entryLines = entry.Text.Split(new[] {"\r\n", "\r", "\n"}, StringSplitOptions.None);
-				if (entryLines.Length > 1)
-				{
-					var builder = new StringBuilder(entryLines[0]);
-					for (int i = 1; i < entryLines.Length; i++)
-					{
-						var entryLine = entryLines[i];
-
-						builder.AppendLine();
-						builder.Append("｜");
-						builder.Append(entryLine);
-					}
-
-					entry.Text = builder.ToString();
-				}
-
 				this.EntryLogged?.Invoke(this, new EventArgs<LogEntry>(entry));
 
 				try

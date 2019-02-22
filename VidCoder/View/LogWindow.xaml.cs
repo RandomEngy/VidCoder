@@ -128,10 +128,9 @@ namespace VidCoder.View
 						while ((line = reader.ReadLine()) != null)
 						{
 							LogColor color = LogEntryClassificationUtilities.GetLineColor(line);
-							bool isContinuation = LogEntryClassificationUtilities.LineIsContinuation(line);
 
 							// If we need to start a new group
-							if (currentGroup == null || color != currentGroup.Color && !isContinuation)
+							if (currentGroup == null || color != currentGroup.Color)
 							{
 								// Write out the last group (if it exists)
 								if (currentGroup != null)

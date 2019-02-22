@@ -3154,6 +3154,8 @@ namespace VidCoder.ViewModel
 						}
 						else
 						{
+							scanLogger.Log("Titles JSON:" + Environment.NewLine + this.scanInstance.TitlesJson);
+
 							this.UpdateFromNewVideoSource(new VideoSource {Titles = this.scanInstance.Titles.TitleList, FeatureTitle = this.scanInstance.FeatureTitle});
 
 							// If scan failed source data will be null.
@@ -3199,7 +3201,7 @@ namespace VidCoder.ViewModel
 			oldInstance?.Dispose();
 		}
 
-		private void UpdateFromNewVideoSource(VideoSource videoSource)
+		public void UpdateFromNewVideoSource(VideoSource videoSource)
 		{
 			SourceTitle selectTitle = null;
 

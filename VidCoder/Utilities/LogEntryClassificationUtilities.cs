@@ -69,10 +69,5 @@ namespace VidCoder
 
 			return LogColor.Normal;
 		}
-
-		public static bool LineIsContinuation(string line)
-		{
-			return line.StartsWith("｜", StringComparison.Ordinal);
-		}
 	}
 }

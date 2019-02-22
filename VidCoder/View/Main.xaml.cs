@@ -26,6 +26,7 @@ using System.Windows.Resources;
 using DynamicData;
 using Fluent;
 using HandBrake.Interop.Interop.Json.Encode;
+using HandBrake.Interop.Interop.Json.Scan;
 using Microsoft.AnyContainer;
 using Newtonsoft.Json;
 using ReactiveUI;
@@ -105,8 +106,28 @@ namespace VidCoder.View
 
 #if DEBUG
 			var debugDropDown = new DropDownButton { Header = "Debug" };
-			var queueFromJsonItem = new Fluent.MenuItem {Header = "Queue job from JSON..."};
 
+			var loadScanFromJsonItem = new Fluent.MenuItem {Header = "Load scan from JSON..."};
+			loadScanFromJsonItem.Click += (sender, args) =>
+			{
+				DebugJsonDialog dialog = new DebugJsonDialog("Debug Scan JSON");
+				dialog.ShowDialog();
+				if (!string.IsNullOrWhiteSpace(dialog.Json))
+				{
+					try
+					{
+						var scanObject = JsonConvert.DeserializeObject<JsonScanObject>(dialog.Json);
+						this.viewModel.UpdateFromNewVideoSource(new VideoSource { Titles = scanObject.TitleList, FeatureTitle = scanObject.MainFeature });
+					}
+					catch (Exception exception)
+					{
+						MessageBox.Show(this, "Could not parse scan JSON:" + Environment.NewLine + Environment.NewLine + exception.ToString());
+					}
+				}
+			};
+			debugDropDown.Items.Add(loadScanFromJsonItem);
+
+			var queueFromJsonItem = new Fluent.MenuItem {Header = "Queue job from JSON..."};
 			queueFromJsonItem.Click += (sender, args) =>
 			{
 				if (!this.viewModel.HasVideoSource)
@@ -116,16 +137,16 @@ namespace VidCoder.View
 				}
 
 				EncodeJobViewModel jobViewModel = this.viewModel.CreateEncodeJobVM();
-				DebugEncodeJsonDialog dialog = new DebugEncodeJsonDialog();
+				DebugJsonDialog dialog = new DebugJsonDialog("Debug Encode JSON");
 				dialog.ShowDialog();
 
-				if (!string.IsNullOrWhiteSpace(dialog.EncodeJson))
+				if (!string.IsNullOrWhiteSpace(dialog.Json))
 				{
 					try
 					{
-						JsonEncodeObject encodeObject = JsonConvert.DeserializeObject<JsonEncodeObject>(dialog.EncodeJson);
+						JsonEncodeObject encodeObject = JsonConvert.DeserializeObject<JsonEncodeObject>(dialog.Json);
 
-						jobViewModel.DebugEncodeJsonOverride = dialog.EncodeJson;
+						jobViewModel.DebugEncodeJsonOverride = dialog.Json;
 						jobViewModel.Job.FinalOutputPath = encodeObject.Destination.File;
 						jobViewModel.Job.SourcePath = encodeObject.Source.Path;
 

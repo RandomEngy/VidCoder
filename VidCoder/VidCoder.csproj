@@ -254,7 +254,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\DebugEncodeJsonDialog.xaml">
+    <Page Include="View\DebugJsonDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -654,8 +654,8 @@
     <Compile Include="View\CustomMessageDialog.xaml.cs">
       <DependentUpon>CustomMessageDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\DebugEncodeJsonDialog.xaml.cs">
-      <DependentUpon>DebugEncodeJsonDialog.xaml</DependentUpon>
+    <Compile Include="View\DebugJsonDialog.xaml.cs">
+      <DependentUpon>DebugJsonDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EncodeDetailsWindow.xaml.cs">
       <DependentUpon>EncodeDetailsWindow.xaml</DependentUpon>

@@ -834,7 +834,7 @@ namespace VidCoder.ViewModel
 				if (track != null)
 				{
 					int trackNumber = this.main.SelectedTitle.AudioList.IndexOf(track);
-					if (!this.SelectedAudioEncoder.IsPassthrough && this.main.ScanInstance.CanApplyDrc(trackNumber, this.SelectedAudioEncoder.Encoder, this.main.SelectedTitle.Index))
+					if (!this.SelectedAudioEncoder.IsPassthrough && this.main.ScanInstance != null && this.main.ScanInstance.CanApplyDrc(trackNumber, this.SelectedAudioEncoder.Encoder, this.main.SelectedTitle.Index))
 					{
 						return enabledBrush;
 					}

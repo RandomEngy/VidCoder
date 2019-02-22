@@ -224,7 +224,7 @@ namespace VidCoder.Services
 		    this.PadColor = ColorUtilities.ToWindowsColor(profile.PadColor);
 
 		    // Update the number of previews.
-		    this.previewCount = this.ScanInstance.PreviewCount;
+		    this.previewCount = this.ScanInstance?.PreviewCount ?? 10;
 		    foreach (PreviewImageServiceClient client in this.clients.Items)
 		    {
 			    if (client.PreviewIndex >= this.previewCount)
@@ -346,7 +346,7 @@ namespace VidCoder.Services
 
 	    private void BeginBackgroundImageLoad()
 	    {
-		    if (this.previewCount <= 0)
+		    if (this.previewCount <= 0 || this.ScanInstance == null)
 		    {
 			    return;
 		    }
