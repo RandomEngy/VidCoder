@@ -7,7 +7,7 @@
   xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
   xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
   IgnorableNamespaces="uap mp rescap com desktop">
-  <Identity Name="19358RandomEngy.VidCoder" Publisher="CN=D5C369CB-4369-49A5-B240-9717546C690D" Version="4.31.0.0" />
+  <Identity Name="19358RandomEngy.VidCoder" Publisher="CN=D5C369CB-4369-49A5-B240-9717546C690D" Version="4.33.0.0" />
   <Properties>
     <DisplayName>VidCoder</DisplayName>
     <PublisherDisplayName>RandomEngy</PublisherDisplayName>
