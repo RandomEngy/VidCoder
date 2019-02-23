@@ -168,6 +168,11 @@
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Kodiranje fajla s podnaslovima nije prepoznato. Da bi se podnaslov ispravno prikazivao, molimo da fajl spremite kao UTF-8.</value>
   </data>
-  
-  
+  <data name="NoSubtitlesText" xml:space="preserve">
+    <value>Nisu pronađeni podnaslovi u izvoru.</value>
+  </data>
+  <data name="ExternalSubtitlesSummaryFormat" xml:space="preserve">
+    <value>{0} vanjski</value>
+    <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
+  </data>
 </root>
