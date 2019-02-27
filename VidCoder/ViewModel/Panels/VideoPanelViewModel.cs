@@ -408,6 +408,11 @@ namespace VidCoder.ViewModel
 					this.TwoPass = false;
 					this.TurboFirstPass = false;
 				}
+
+				if (this.selectedEncoder.Encoder.ShortName != "x264")
+				{
+					this.UseAdvancedTab = false;
+				}
 			});
 
 			this.RegisterProfileProperty(nameof(this.Profile.Framerate));
@@ -595,7 +600,6 @@ namespace VidCoder.ViewModel
 					if (wasAdvancedTab && this.selectedEncoder.Encoder.ShortName == "x265")
 					{
 						this.Profile.VideoOptions = string.Empty;
-
 						this.UseAdvancedTab = false;
 					}
 
