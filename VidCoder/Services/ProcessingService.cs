@@ -780,14 +780,12 @@ namespace VidCoder.Services
 				{
 					int oldEncodeQueueCount = this.EncodeQueue.Count;
 
-					var completedItemsList = this.completedJobs.Items.ToList();
-
 					var itemsToQueue = new List<EncodeJobViewModel>();
 					this.completedJobs.Edit(completedJobsInnerList =>
 					{
-						for (int i = completedItemsList.Count - 1; i >= 0; i--)
+						for (int i = completedJobsInnerList.Count - 1; i >= 0; i--)
 						{
-							EncodeResultViewModel completedItem = completedItemsList[i];
+							EncodeResultViewModel completedItem = completedJobsInnerList[i];
 							if (!completedItem.EncodeResult.Succeeded)
 							{
 								itemsToQueue.Add(completedItem.Job);
@@ -815,77 +813,148 @@ namespace VidCoder.Services
 			{
 				return this.clearCompleted ?? (this.clearCompleted = ReactiveCommand.Create(() =>
 				{
-					var removedItems = new List<EncodeResultViewModel>(this.completedJobs.Items);
-					var deletionCandidates = new List<string>();
+					var itemsToClear = new List<EncodeResultViewModel>(this.completedJobs.Items);
+					List<string> deletionCandidates = this.GetDeletionCandidates(itemsToClear);
 
-					if (Config.DeleteSourceFilesOnClearingCompleted)
-					{
-						foreach (var removedItem in removedItems)
-						{
-							// Mark for deletion if item succeeded
-							if (removedItem.EncodeResult.Succeeded)
-							{
-								// And if file exists and is not read-only
-								string sourcePath = removedItem.Job.Job.SourcePath;
-								var fileInfo = new FileInfo(sourcePath);
-								var directoryInfo = new DirectoryInfo(sourcePath);
-
-								if (fileInfo.Exists && !fileInfo.IsReadOnly || directoryInfo.Exists && !directoryInfo.Attributes.HasFlag(FileAttributes.ReadOnly))
-								{
-									// And if it's not currently scanned or in the encode queue
-									bool sourceInEncodeQueue = this.EncodeQueue.Items.Any(job => string.Compare(job.Job.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) == 0);
-									if (!sourceInEncodeQueue &&
-									    (!this.main.HasVideoSource || string.Compare(this.main.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) != 0))
-									{
-										deletionCandidates.Add(sourcePath);
-									}
-								}
-							}
-						}
-					}
-
-					bool clearItems = true;
-
-					if (deletionCandidates.Count > 0)
-					{
-						MessageBoxResult dialogResult = Utilities.MessageBox.Show(
-							string.Format(MainRes.DeleteSourceFilesConfirmationMessage, deletionCandidates.Count),
-							MainRes.DeleteSourceFilesConfirmationTitle,
-							MessageBoxButton.YesNoCancel);
-						if (dialogResult == MessageBoxResult.Yes)
-						{
-							foreach (string pathToDelete in deletionCandidates)
-							{
-								try
-								{
-									if (File.Exists(pathToDelete))
-									{
-										File.Delete(pathToDelete);
-									}
-									else if (Directory.Exists(pathToDelete))
-									{
-										FileUtilities.DeleteDirectory(pathToDelete);
-									}
-								}
-								catch (Exception exception)
-								{
-									Utilities.MessageBox.Show(string.Format(MainRes.CouldNotDeleteFile, pathToDelete, exception));
-								}
-							}
-						}
-						else if (dialogResult == MessageBoxResult.Cancel)
-						{
-							clearItems = false;
-						}
-					}
-
-					if (clearItems)
+					if (PromptAndDeleteSourceFiles(deletionCandidates))
 					{
 						this.completedJobs.Clear();
 						this.HasFailedItems = false;
 					}
 				}));
 			}
+		}
+
+		private ReactiveCommand<Unit, Unit> clearFailed;
+		public ICommand ClearFailed
+		{
+			get
+			{
+				return this.clearFailed ?? (this.clearFailed = ReactiveCommand.Create(() =>
+				{
+					this.ClearCompletedItems(encodeResultViewModel => !encodeResultViewModel.EncodeResult.Succeeded);
+					this.HasFailedItems = false;
+				}));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> clearSucceeded;
+		public ICommand ClearSucceeded
+		{
+			get
+			{
+				return this.clearSucceeded ?? (this.clearSucceeded = ReactiveCommand.Create(() =>
+				{
+					var itemsToClear = this.completedJobs.Items.Where(completedJob => completedJob.EncodeResult.Succeeded);
+					List<string> deletionCandidates = this.GetDeletionCandidates(itemsToClear);
+
+					if (PromptAndDeleteSourceFiles(deletionCandidates))
+					{
+						this.ClearCompletedItems(encodeResultViewModel => encodeResultViewModel.EncodeResult.Succeeded);
+					}
+				}));
+			}
+		}
+
+		/// <summary>
+		/// Gets candidate files for deletion given the completed items being cleared.
+		/// </summary>
+		/// <param name="itemsToClear">The completed items being cleared.</param>
+		/// <returns>The list of items to delete.</returns>
+		private List<string> GetDeletionCandidates(IEnumerable<EncodeResultViewModel> itemsToClear)
+		{
+			var deletionCandidates = new List<string>();
+
+			if (Config.DeleteSourceFilesOnClearingCompleted)
+			{
+				foreach (var itemToClear in itemsToClear)
+				{
+					// Mark for deletion if item succeeded
+					if (itemToClear.EncodeResult.Succeeded)
+					{
+						// And if file exists and is not read-only
+						string sourcePath = itemToClear.Job.Job.SourcePath;
+						var fileInfo = new FileInfo(sourcePath);
+						var directoryInfo = new DirectoryInfo(sourcePath);
+
+						if (fileInfo.Exists && !fileInfo.IsReadOnly || directoryInfo.Exists && !directoryInfo.Attributes.HasFlag(FileAttributes.ReadOnly))
+						{
+							// And if it's not currently scanned or in the encode queue
+							bool sourceInEncodeQueue = this.EncodeQueue.Items.Any(job => string.Compare(job.Job.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) == 0);
+							if (!sourceInEncodeQueue &&
+							    (!this.main.HasVideoSource || string.Compare(this.main.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) != 0))
+							{
+								deletionCandidates.Add(sourcePath);
+							}
+						}
+					}
+				}
+			}
+
+			return deletionCandidates;
+		}
+
+		/// <summary>
+		/// Prompts the user to delete the given source files, and deletes them if the user answers yes.
+		/// </summary>
+		/// <param name="deletionCandidates">The files to prompt to delete</param>
+		/// <returns>True if the files should be cleared from the list.</returns>
+		private static bool PromptAndDeleteSourceFiles(IList<string> deletionCandidates)
+		{
+			bool clearItems = true;
+			if (deletionCandidates.Count > 0)
+			{
+				MessageBoxResult dialogResult = Utilities.MessageBox.Show(
+					string.Format(MainRes.DeleteSourceFilesConfirmationMessage, deletionCandidates.Count),
+					MainRes.DeleteSourceFilesConfirmationTitle,
+					MessageBoxButton.YesNoCancel);
+				if (dialogResult == MessageBoxResult.Yes)
+				{
+					foreach (string pathToDelete in deletionCandidates)
+					{
+						try
+						{
+							if (File.Exists(pathToDelete))
+							{
+								File.Delete(pathToDelete);
+							}
+							else if (Directory.Exists(pathToDelete))
+							{
+								FileUtilities.DeleteDirectory(pathToDelete);
+							}
+						}
+						catch (Exception exception)
+						{
+							Utilities.MessageBox.Show(string.Format(MainRes.CouldNotDeleteFile, pathToDelete, exception));
+						}
+					}
+				}
+				else if (dialogResult == MessageBoxResult.Cancel)
+				{
+					clearItems = false;
+				}
+			}
+
+			return clearItems;
+		}
+
+		/// <summary>
+		/// Clears the completed items that match the given selector.
+		/// </summary>
+		/// <param name="selector">The selector to test the items.</param>
+		private void ClearCompletedItems(Func<EncodeResultViewModel, bool> selector)
+		{
+			this.completedJobs.Edit(completedJobsInnerList =>
+			{
+				for (int i = completedJobsInnerList.Count - 1; i >= 0; i--)
+				{
+					EncodeResultViewModel completedItem = completedJobsInnerList[i];
+					if (selector(completedItem))
+					{
+						completedJobsInnerList.RemoveAt(i);
+					}
+				}
+			});
 		}
 
 		/// <summary>

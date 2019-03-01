@@ -971,6 +971,10 @@
     <Content Include="Encode_Complete.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\ClearFailed.png" />
+    <Resource Include="Icons\ClearSucceeded.png" />
+    <Resource Include="Icons\Clear.png" />
+    <Resource Include="Icons\Remove.png" />
     <Resource Include="Icons\Reload.png" />
     <Resource Include="Icons\ChapterMarkers.png" />
     <Resource Include="Icons\Subtitles.png" />

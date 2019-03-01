@@ -154,7 +154,7 @@
     <value>Open Containing Folder</value>
   </data>
   <data name="ClearCompleted" xml:space="preserve">
-    <value>Clear Completed</value>
+    <value>Clear completed</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Windows</value>
@@ -224,10 +224,10 @@
     <value>Pause</value>
   </data>
   <data name="MoveToTopMenuItem" xml:space="preserve">
-    <value>Move to Top</value>
+    <value>Move to top</value>
   </data>
   <data name="MoveToBottomMenuItem" xml:space="preserve">
-    <value>Move to Bottom</value>
+    <value>Move to bottom</value>
   </data>
   <data name="CustomizeColumnsMenuItem" xml:space="preserve">
     <value>Customize columns...</value>
@@ -684,5 +684,14 @@
   </data>
   <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
     <value>Version {0} has finished downloading.</value>
+  </data>
+  <data name="RemoveFromQueueMenuItem" xml:space="preserve">
+    <value>Remove from queue</value>
+  </data>
+  <data name="ClearSucceededMenuItem" xml:space="preserve">
+    <value>Clear succeeded</value>
+  </data>
+  <data name="ClearFailedMenuItem" xml:space="preserve">
+    <value>Clear failed</value>
   </data>
 </root>

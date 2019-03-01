@@ -284,7 +284,27 @@
 					<Image
 						Width="16"
 						Height="16"
-						Source="/Icons/delete.png" />
+						Source="/Icons/Clear.png" />
+				</MenuItem.Icon>
+			</MenuItem>
+			<MenuItem Command="{Binding ProcessingService.ClearSucceeded}" Header="{x:Static res:MainRes.ClearSucceededMenuItem}">
+				<MenuItem.Icon>
+					<Image
+						Width="16"
+						Height="16"
+						Source="/Icons/ClearSucceeded.png" />
+				</MenuItem.Icon>
+			</MenuItem>
+			<MenuItem
+				Command="{Binding ProcessingService.ClearFailed}"
+				Header="{x:Static res:MainRes.ClearFailedMenuItem}"
+				Visibility="{Binding ProcessingService.HasFailedItems,
+				                     Converter={StaticResource VisibilityConverter}}">
+				<MenuItem.Icon>
+					<Image
+						Width="16"
+						Height="16"
+						Source="/Icons/ClearFailed.png" />
 				</MenuItem.Icon>
 			</MenuItem>
 		</ContextMenu>
@@ -1876,12 +1896,12 @@
 															</MenuItem.Icon>
 														</MenuItem>
 														<MenuItem Command="{Binding ProcessingService.ApplyCurrentPresetToSelectedJobs}" Header="{x:Static res:MainRes.ApplyCurrentEncodingSettings}" />
-														<MenuItem Command="{Binding ProcessingService.RemoveSelectedJobs}" Header="{x:Static res:CommonRes.Delete}">
+														<MenuItem Command="{Binding ProcessingService.RemoveSelectedJobs}" Header="{x:Static res:MainRes.RemoveFromQueueMenuItem}">
 															<MenuItem.Icon>
 																<Image
 																	Width="16"
 																	Height="16"
-																	Source="/Icons/delete.png" />
+																	Source="/Icons/Remove.png" />
 															</MenuItem.Icon>
 														</MenuItem>
 														<Separator />
@@ -1946,7 +1966,27 @@
 														<Image
 															Width="16"
 															Height="16"
-															Source="/Icons/delete.png" />
+															Source="/Icons/Clear.png" />
+													</MenuItem.Icon>
+												</MenuItem>
+												<MenuItem Command="{Binding ProcessingService.ClearSucceeded}" Header="{x:Static res:MainRes.ClearSucceededMenuItem}">
+													<MenuItem.Icon>
+														<Image
+															Width="16"
+															Height="16"
+															Source="/Icons/ClearSucceeded.png" />
+													</MenuItem.Icon>
+												</MenuItem>
+												<MenuItem
+													Command="{Binding ProcessingService.ClearFailed}"
+													Header="{x:Static res:MainRes.ClearFailedMenuItem}"
+													Visibility="{Binding ProcessingService.HasFailedItems,
+													                     Converter={StaticResource VisibilityConverter}}">
+													<MenuItem.Icon>
+														<Image
+															Width="16"
+															Height="16"
+															Source="/Icons/ClearFailed.png" />
 													</MenuItem.Icon>
 												</MenuItem>
 											</ContextMenu>
@@ -2020,7 +2060,27 @@
 													<Image
 														Width="16"
 														Height="16"
-														Source="/Icons/delete.png" />
+														Source="/Icons/Clear.png" />
+												</MenuItem.Icon>
+											</MenuItem>
+											<MenuItem Command="{Binding ProcessingService.ClearSucceeded}" Header="{x:Static res:MainRes.ClearSucceededMenuItem}">
+												<MenuItem.Icon>
+													<Image
+														Width="16"
+														Height="16"
+														Source="/Icons/ClearSucceeded.png" />
+												</MenuItem.Icon>
+											</MenuItem>
+											<MenuItem
+												Command="{Binding ProcessingService.ClearFailed}"
+												Header="{x:Static res:MainRes.ClearFailedMenuItem}"
+												Visibility="{Binding ProcessingService.HasFailedItems,
+												                     Converter={StaticResource VisibilityConverter}}">
+												<MenuItem.Icon>
+													<Image
+														Width="16"
+														Height="16"
+														Source="/Icons/ClearFailed.png" />
 												</MenuItem.Icon>
 											</MenuItem>
 										</ContextMenu>

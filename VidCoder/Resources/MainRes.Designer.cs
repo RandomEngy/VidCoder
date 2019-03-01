@@ -196,11 +196,20 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear Completed.
+        ///   Looks up a localized string similar to Clear completed.
         /// </summary>
         public static string ClearCompleted {
             get {
                 return ResourceManager.GetString("ClearCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear failed.
+        /// </summary>
+        public static string ClearFailedMenuItem {
+            get {
+                return ResourceManager.GetString("ClearFailedMenuItem", resourceCulture);
             }
         }
         
@@ -210,6 +219,15 @@ namespace VidCoder.Resources {
         public static string ClearRecentFilesButtonToolTip {
             get {
                 return ResourceManager.GetString("ClearRecentFilesButtonToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear succeeded.
+        /// </summary>
+        public static string ClearSucceededMenuItem {
+            get {
+                return ResourceManager.GetString("ClearSucceededMenuItem", resourceCulture);
             }
         }
         
@@ -785,7 +803,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Move to Bottom.
+        ///   Looks up a localized string similar to Move to bottom.
         /// </summary>
         public static string MoveToBottomMenuItem {
             get {
@@ -794,7 +812,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Move to Top.
+        ///   Looks up a localized string similar to Move to top.
         /// </summary>
         public static string MoveToTopMenuItem {
             get {
@@ -1278,6 +1296,15 @@ namespace VidCoder.Resources {
         public static string RemoveConfirmTitle {
             get {
                 return ResourceManager.GetString("RemoveConfirmTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove from queue.
+        /// </summary>
+        public static string RemoveFromQueueMenuItem {
+            get {
+                return ResourceManager.GetString("RemoveFromQueueMenuItem", resourceCulture);
             }
         }
         
