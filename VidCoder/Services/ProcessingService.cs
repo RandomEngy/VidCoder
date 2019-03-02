@@ -202,8 +202,19 @@ namespace VidCoder.Services
 					return count > 0;
 				}).ToProperty(this, x => x.QueueHasItems, out this.queueHasItems);
 
+			IObservable<bool> encodingObservable = this.WhenAnyValue(x => x.Encoding);
+
+			// CanClearQueue
+			Observable.CombineLatest(
+				this.QueueCountObservable,
+				encodingObservable,
+				(queueCount, encoding) =>
+				{
+					return !encoding && queueCount > 0;
+				}).ToProperty(this, x => x.CanClearQueue, out this.canClearQueue);
+
 			// EncodeButtonText
-			this.WhenAnyValue(x => x.Encoding)
+			encodingObservable
 				.Select(encoding =>
 				{
 					if (encoding)
@@ -342,6 +353,9 @@ namespace VidCoder.Services
 
 		private ObservableAsPropertyHelper<int> jobsEncodingCount;
 		public int JobsEncodingCount => this.jobsEncodingCount.Value;
+
+		private ObservableAsPropertyHelper<bool> canClearQueue;
+		public bool CanClearQueue => this.canClearQueue.Value;
 
 		private bool encodeSpeedDetailsAvailable;
 		public bool EncodeSpeedDetailsAvailable
@@ -762,6 +776,26 @@ namespace VidCoder.Services
 					}
 				}
 			});
+		}
+
+		private ReactiveCommand<Unit, Unit> removeAllJobs;
+		public ICommand RemoveAllJobs
+		{
+			get
+			{
+				return this.removeAllJobs ?? (this.removeAllJobs = ReactiveCommand.Create(() =>
+				{
+					MessageBoxResult dialogResult = Utilities.MessageBox.Show(
+						MainRes.ClearQueueConfirmationMessage,
+						MainRes.DeleteSourceFilesConfirmationTitle,
+						MessageBoxButton.OKCancel);
+
+					if (dialogResult == MessageBoxResult.OK && !this.Encoding)
+					{
+						this.EncodeQueue.Clear();
+					}
+				}));
+			}
 		}
 
 		private bool hasFailedItems;

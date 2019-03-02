@@ -214,6 +214,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove all items from the queue?.
+        /// </summary>
+        public static string ClearQueueConfirmationMessage {
+            get {
+                return ResourceManager.GetString("ClearQueueConfirmationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clear recent files.
         /// </summary>
         public static string ClearRecentFilesButtonToolTip {
@@ -1269,6 +1278,15 @@ namespace VidCoder.Resources {
         public static string Recent {
             get {
                 return ResourceManager.GetString("Recent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all from queue.
+        /// </summary>
+        public static string RemoveAllFomQueueMenuItem {
+            get {
+                return ResourceManager.GetString("RemoveAllFomQueueMenuItem", resourceCulture);
             }
         }
         

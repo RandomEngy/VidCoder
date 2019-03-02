@@ -694,4 +694,10 @@
   <data name="ClearFailedMenuItem" xml:space="preserve">
     <value>Clear failed</value>
   </data>
+  <data name="ClearQueueConfirmationMessage" xml:space="preserve">
+    <value>Are you sure you want to remove all items from the queue?</value>
+  </data>
+  <data name="RemoveAllFomQueueMenuItem" xml:space="preserve">
+    <value>Remove all from queue</value>
+  </data>
 </root>
