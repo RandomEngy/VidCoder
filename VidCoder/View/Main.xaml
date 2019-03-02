@@ -506,6 +506,7 @@
 							AutomationProperties.Name="{x:Static res:MainRes.GlobalOptionsLabel}"
 							Command="{Binding OpenOptions}"
 							Header="{x:Static res:MainRes.GlobalOptionsLabel}"
+							KeyTip="Ctrl+G"
 							LargeIcon="/Icons/Options.png" />
 						<fluent:SplitButton
 							x:Name="presetButton"
@@ -530,6 +531,7 @@
 							Command="{Binding OpenPreviewWindow,
 							                  Source={StaticResource WindowXamlHelper}}"
 							Header="{x:Static res:CommonRes.PreviewLabel}"
+							KeyTip="Ctrl+P"
 							LargeIcon="/Icons/Preview64.png"
 							Visibility="{Binding PreviewWindowOpen,
 							                     Source={StaticResource WindowXamlHelper},
@@ -541,7 +543,10 @@
 							SizeDefinition="Large"
 							Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
 							                     Converter={StaticResource VisibilityConverter}}">
-							<fluent:MenuItem Command="{Binding ProcessingService.AddToQueue}" Header="{x:Static res:MainRes.AddToQueueLabel}" />
+							<fluent:MenuItem
+								Command="{Binding ProcessingService.AddToQueue}"
+								Header="{x:Static res:MainRes.AddToQueueLabel}"
+								InputGestureText="Ctrl+Q" />
 							<fluent:MenuItem
 								Command="{Binding ProcessingService.QueueTitlesAction}"
 								Header="{x:Static res:MainRes.AddMultipleTitlesToQueueLabel}"
@@ -557,6 +562,7 @@
 						<fluent:Button
 							Command="{Binding ProcessingService.Encode}"
 							Header="{Binding ProcessingService.EncodeButtonText}"
+							KeyTip="F5"
 							LargeIcon="/Icons/Encode.png"
 							SizeDefinition="Large"
 							Visibility="{Binding ProcessingService.PauseVisible,
