@@ -273,5 +273,7 @@
   
   
   
-  
+  <data name="SelectTracksHelpText" xml:space="preserve">
+    <value>Odvojeno zarezom - npr. 2,5</value>
+  </data>
 </root>

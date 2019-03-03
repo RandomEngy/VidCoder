@@ -360,7 +360,9 @@
   <data name="EtaLabel" xml:space="preserve">
     <value>Preostalo vrijeme:</value>
   </data>
-  
+  <data name="WhenDoneLabel" xml:space="preserve">
+    <value>Kada završi</value>
+  </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>Video datoteka...</value>
   </data>
@@ -578,31 +580,60 @@
     <value>Otvori mapu sa datotekama aplikacije</value>
     <comment>Menu choice for opening the application data folder (that holds the VidCoder database file, logs, etc)</comment>
   </data>
+  <data name="RibbonEncodingGroupLabel" xml:space="preserve">
+    <value>Enkodiranje</value>
+  </data>
+  <data name="RibbonSettingsGroupLabel" xml:space="preserve">
+    <value>Postavke</value>
+  </data>
+  
+  
+  
+  <data name="OpenSourceRibbonButton" xml:space="preserve">
+    <value>Otvori izvor</value>
+  </data>
+  <data name="ImportExportRibbonButton" xml:space="preserve">
+    <value>Uvoz/Izvoz</value>
+    <comment>Label for ribbon button to import or export presets or queues</comment>
+  </data>
+  
+  <data name="OpenFormat" xml:space="preserve">
+    <value>Otvori {0}</value>
+    <comment>Format for opening a source. For example: "Open E:\ - THE_INCREDIBLES"</comment>
+  </data>
+  
+  <data name="NoAudioSummary" xml:space="preserve">
+    <value>Nema zvuka</value>
+    <comment>Summary text for when no audio tracks are found on the source</comment>
+  </data>
+  <data name="NoSubtitlesSummary" xml:space="preserve">
+    <value>Nema podnaslova</value>
+    <comment>Summary text for when no subtitle tracks are found on the source and no external subtitles have been added</comment>
+  </data>
+  
+  <data name="BitrateColumn" xml:space="preserve">
+    <value>Bitrate</value>
+  </data>
+  
+  
+  <data name="OpenSourceLabel" xml:space="preserve">
+    <value>Otvori</value>
+    <comment>Label on top of the different options for opening video source on the startup screen.</comment>
+  </data>
+  <data name="ScanningSourceLabelFormat" xml:space="preserve">
+    <value>Skeniranje {0}...</value>
+    <comment>{0} is the name of the source being scanned.</comment>
+  </data>
   
   
   
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="OpenSourceFolderOption" xml:space="preserve">
+    <value>Otvori izvornu mapu</value>
+    <comment>Menu option to open the folder of the source file in the queue</comment>
+  </data>
   
   
 </root>

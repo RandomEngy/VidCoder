@@ -378,7 +378,12 @@
   </data>
   
   
-  
-  
+  <data name="GeneralSection" xml:space="preserve">
+    <value>Opće</value>
+  </data>
+  <data name="ThemeLabel" xml:space="preserve">
+    <value>Tema</value>
+    <comment>Label for the app theme (auto, light, dark)</comment>
+  </data>
   
 </root>

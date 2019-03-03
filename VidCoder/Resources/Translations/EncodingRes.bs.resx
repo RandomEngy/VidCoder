@@ -1068,14 +1068,28 @@ Bicubic: OpenCL hardverski ubrzani algoritam za skaliranje.</value>
   
   
   
+  <data name="NVEncPreset_bd" xml:space="preserve">
+    <value>Bluray Disk</value>
+  </data>
+  <data name="NVEncPreset_hq" xml:space="preserve">
+    <value>Visoka kvaliteta</value>
+  </data>
   
-  
-  
-  
-  
-  
-  
-  
+  <data name="PickColorButton" xml:space="preserve">
+    <value>Odaberi boju…</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>Dno</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Lijevo</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Desno</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Vrh</value>
+  </data>
   
   
   
