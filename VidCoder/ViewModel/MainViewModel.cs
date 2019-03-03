@@ -2472,7 +2472,12 @@ namespace VidCoder.ViewModel
 			{
 				return this.openOptions ?? (this.openOptions = ReactiveCommand.Create(() =>
 				{
-					this.windowManager.OpenDialog<OptionsDialogViewModel>();
+					// Need to dispatch this one so React doesn't disable the command.
+					// When this happens after closing the dialog the main window doesn't have focus and keyboard commands don't work.
+					DispatchUtilities.BeginInvoke(() =>
+					{
+						this.windowManager.OpenDialog<OptionsDialogViewModel>();
+					});
 				}));
 			}
 		}
