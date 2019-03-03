@@ -1620,6 +1620,7 @@
 								                     Converter={StaticResource VisibilityConverter}}" />
 
 							<ListView
+								Name="srtListView"
 								Margin="-1 0 -1 5"
 								VerticalAlignment="Top"
 								VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource SrtDragTemplate}"
@@ -2145,7 +2146,7 @@
 								Name="statusTextBlock"
 								Margin="3 1 5 3"
 								FontSize="14"
-								Text="Status message" />
+								TextWrapping="Wrap" />
 						</Border>
 					</Grid>
 				</Grid>

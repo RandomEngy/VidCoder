@@ -839,6 +839,11 @@ namespace VidCoder.View
 			this.UpdateSubtitlesSummaryMaxWidth();
 		}
 
+		public void BringExternalSubtitlesIntoView()
+		{
+			this.srtListView.BringIntoView();
+		}
+
 		private void Main_OnSizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			this.RefreshSummaryMaxSizes();

@@ -23,5 +23,7 @@ namespace VidCoder.ViewModel
 		double SourceAreaHeight { get; }
 
 		void RefreshSummaryMaxSizes();
+
+		void BringExternalSubtitlesIntoView();
 	}
 }

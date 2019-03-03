@@ -484,7 +484,8 @@ namespace VidCoder.ViewModel
 								if (subtitle != null)
 								{
 									this.SrtSubtitles.Add(new SrtSubtitleViewModel(this, subtitle));
-									StaticResolver.Resolve<IMessageBoxService>().Show(this, string.Format(MainRes.AddedSubtitleFromFile, item));
+									StaticResolver.Resolve<StatusService>().Show(string.Format(MainRes.AddedSubtitleFromFile, item));
+									this.View.BringExternalSubtitlesIntoView();
 								}
 							}
 						}
