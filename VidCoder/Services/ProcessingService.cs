@@ -12,6 +12,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Security;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -594,7 +595,7 @@ namespace VidCoder.Services
 							}
 						}
 
-						this.Stop(EncodeCompleteReason.Manual);
+						this.Stop();
 					},
 					this.canPauseOrStopObservable));
 			}
@@ -1513,13 +1514,33 @@ namespace VidCoder.Services
 			return new HashSet<string>(this.EncodeQueue.Items.Select(j => j.Job.FinalOutputPath), StringComparer.OrdinalIgnoreCase);
 		}
 
-		private void RunForAllEncodeProxies(Action<IEncodeProxy> proxyAction)
+		private void RunForAllEncodeProxies(Func<IEncodeProxy, Task> proxyAction, string actionName)
 		{
-			foreach (var encodeProxy in this.EncodeQueue.Items.Where(j => j.Encoding).Select(j => j.EncodeProxy))
+			foreach (IEncodeProxy encodeProxy in this.EncodeQueue.Items.Where(j => j.Encoding).Select(j => j.EncodeProxy))
 			{
 				if (encodeProxy != null)
 				{
-					proxyAction(encodeProxy);
+					this.StartEncodeProxyAction(encodeProxy, proxyAction, actionName);
+				}
+			}
+		}
+
+		private async void StartEncodeProxyAction(IEncodeProxy encodeProxy, Func<IEncodeProxy, Task> proxyAction, string actionName)
+		{
+			await this.RunEncodeProxyAction(encodeProxy, proxyAction, actionName).ConfigureAwait(false);
+		}
+
+		private async Task RunEncodeProxyAction(IEncodeProxy encodeProxy, Func<IEncodeProxy, Task> proxyAction, string actionName)
+		{
+			if (encodeProxy != null)
+			{
+				try
+				{
+					await proxyAction(encodeProxy).ConfigureAwait(false);
+				}
+				catch (Exception exception)
+				{
+					this.logger.LogError($"Encode proxy action '{actionName}' failed:" + Environment.NewLine + exception);
 				}
 			}
 		}
@@ -1532,25 +1553,21 @@ namespace VidCoder.Services
 			}
 		}
 
-		public void Stop(EncodeCompleteReason reason)
+		public void Stop()
 		{
-			if (reason == EncodeCompleteReason.Finished)
-			{
-				throw new ArgumentOutOfRangeException(nameof(reason));
-			}
+			this.encodeCompleteReason = EncodeCompleteReason.Manual;
 
+			this.RunForAllEncodeProxies(encodeProxy => encodeProxy.StopEncodeAsync(), "Stop");
+
+			this.logger.ShowStatus(MainRes.StoppedEncoding);
+		}
+
+		public async Task StopAndWaitAsync(EncodeCompleteReason reason)
+		{
 			this.encodeCompleteReason = reason;
 
-			if (reason == EncodeCompleteReason.AppExit)
-			{
-				this.RunForAllEncodeProxies(encodeProxy => encodeProxy.StopAndWait());
-			}
-			else
-			{
-				this.RunForAllEncodeProxies(encodeProxy => encodeProxy.StopEncode());
-
-				this.logger.ShowStatus(MainRes.StoppedEncoding);
-			}
+			var stopTasks = this.EncodeQueue.Items.Where(j => j.Encoding).Select(j => this.RunEncodeProxyAction(j.EncodeProxy, encodeProxy => encodeProxy.StopAndWaitAsync(), "StopAndWait"));
+			await Task.WhenAll(stopTasks).ConfigureAwait(false);
 		}
 
 		public IList<EncodeJobWithMetadata> GetQueueStorageJobs()
@@ -1671,11 +1688,11 @@ namespace VidCoder.Services
 
 			if (!string.IsNullOrWhiteSpace(jobViewModel.DebugEncodeJsonOverride))
 			{
-				jobViewModel.EncodeProxy.StartEncode(jobViewModel.DebugEncodeJsonOverride, encodeLogger);
+				jobViewModel.EncodeProxy.StartEncodeAsync(jobViewModel.DebugEncodeJsonOverride, encodeLogger);
 			}
 			else
 			{
-				jobViewModel.EncodeProxy.StartEncode(job, encodeLogger, false, 0, 0, 0);
+				jobViewModel.EncodeProxy.StartEncodeAsync(job, encodeLogger, false, 0, 0, 0);
 			}
 		}
 
@@ -2232,7 +2249,7 @@ namespace VidCoder.Services
 
 		private void PauseEncoding()
 		{
-			this.RunForAllEncodeProxies(encodeProxy => encodeProxy.PauseEncode());
+			this.RunForAllEncodeProxies(encodeProxy => encodeProxy.PauseEncodeAsync(), nameof(IEncodeProxy.PauseEncodeAsync));
 			this.EncodeProgressState = TaskbarItemProgressState.Paused;
 			this.RunForAllEncodingJobs(job => job.ReportEncodePause());
 
@@ -2241,7 +2258,7 @@ namespace VidCoder.Services
 
 		private void ResumeEncoding()
 		{
-			this.RunForAllEncodeProxies(encodeProxy => encodeProxy.ResumeEncode());
+			this.RunForAllEncodeProxies(encodeProxy => encodeProxy.ResumeEncodeAsync(), nameof(IEncodeProxy.ResumeEncodeAsync));
 			this.EncodeProgressState = TaskbarItemProgressState.Normal;
 			this.RunForAllEncodingJobs(job => job.ReportEncodeResume());
 

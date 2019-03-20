@@ -3,28 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PipeMethodCalls;
 using VidCoderCommon;
 using VidCoderCommon.Services;
 
 namespace VidCoderWorker
 {
-	public class WorkerLogger : ILogger
+	public class WorkerLogger<TCallback> : ILogger
+		where TCallback : class, IHandBrakeWorkerCallback
 	{
-		private readonly IHandBrakeWorkerCallback callback;
+		private readonly IPipeInvoker<TCallback> callbackInvoker;
 
-		public WorkerLogger(IHandBrakeWorkerCallback callback)
+		public WorkerLogger(IPipeInvoker<TCallback> callbackInvoker)
 		{
-			this.callback = callback;
+			this.callbackInvoker = callbackInvoker;
 		}
 
-		public void Log(string message)
+		public async void Log(string message)
 		{
-			this.callback.OnMessageLogged(message);
+			try
+			{
+				await this.callbackInvoker.InvokeAsync(c => c.OnMessageLogged(message));
+			}
+			catch (Exception)
+			{
+			}
 		}
 
-		public void LogError(string message)
+		public async void LogError(string message)
 		{
-			this.callback.OnErrorLogged(message);
+			try
+			{
+				await this.callbackInvoker.InvokeAsync(c => c.OnErrorLogged(message));
+			}
+			catch (Exception)
+			{
+			}
 		}
 	}
 }

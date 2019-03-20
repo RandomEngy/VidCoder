@@ -181,6 +181,7 @@ $outputDirectoryFiles = @(
     "Microsoft.Xaml.Behaviors.dll",
     "Newtonsoft.Json.dll",
     "Omu.ValueInjecter.dll",
+    "PipeMethodCalls.dll",
     "ReactiveUI.dll",
     "ReactiveUI.WPF.dll",
     "Splat.dll",

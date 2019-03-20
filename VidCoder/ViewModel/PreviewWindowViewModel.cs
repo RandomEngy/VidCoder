@@ -266,7 +266,7 @@ namespace VidCoder.ViewModel
 
 			if (this.GeneratingPreview)
 			{
-				this.StopAndWait();
+				this.StopAndWaitAsync().Wait();
 			}
 
 			return true;
@@ -586,7 +586,7 @@ namespace VidCoder.ViewModel
 						this.logger.Log("  Title: " + this.job.Title);
 						this.logger.Log("  Preview #: " + this.PreviewImageServiceClient.PreviewIndex);
 
-						this.encodeProxy.StartEncode(this.job, this.logger, true, this.PreviewImageServiceClient.PreviewIndex, this.PreviewSeconds, this.job.Length.TotalSeconds);
+						this.encodeProxy.StartEncodeAsync(this.job, this.logger, true, this.PreviewImageServiceClient.PreviewIndex, this.PreviewSeconds, this.job.Length.TotalSeconds);
 					},
 					this.PreviewImageService.WhenAnyValue(x => x.HasPreview)));
 			}
@@ -723,7 +723,7 @@ namespace VidCoder.ViewModel
 		private void CancelPreviewImpl()
 		{
 			this.encodeCancelled = true;
-			this.encodeProxy.StopEncode();
+			this.encodeProxy.StopEncodeAsync();
 		}
 
 		private ReactiveCommand<Unit, Unit> pause;
@@ -775,10 +775,10 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private void StopAndWait()
+		private Task StopAndWaitAsync()
 		{
 			this.encodeCancelled = true;
-			this.encodeProxy.StopAndWait();
+			return this.encodeProxy.StopAndWaitAsync();
 		}
 
 		private string CreateTitle(OutputSizeInfo size)

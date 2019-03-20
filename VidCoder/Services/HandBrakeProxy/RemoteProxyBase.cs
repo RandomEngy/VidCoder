@@ -1,22 +1,25 @@
-﻿using System;
+﻿using PipeMethodCalls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.ServiceModel;
-using System.Text;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using VidCoder.Model;
 using VidCoder.Services;
 using VidCoderCommon;
+using VidCoderCommon.Model;
 using Timer = System.Timers.Timer;
 
 namespace VidCoder
 {
-	public abstract class RemoteProxyBase
+	public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallback
+		where TWork : class, IHandBrakeWorker
+		where TCallback : class, IHandBrakeWorkerCallback
 	{
 		// Ping interval (6s) longer than timeout (5s) so we don't have two overlapping pings
 		private const double PingTimerIntervalMs = 6000;
@@ -27,16 +30,11 @@ namespace VidCoder
 		private const string PipeNamePrefix = "VidCoderWorker.";
 
 #if DEBUG_REMOTE
-		private static readonly TimeSpan OperationTimeout = TimeSpan.FromSeconds(500000);
-		private static readonly TimeSpan PipeTimeout = TimeSpan.FromSeconds(100000);
 		private static readonly TimeSpan LastUpdateTimeoutWindow = TimeSpan.FromSeconds(200000);
 #else
-		private static readonly TimeSpan OperationTimeout = TimeSpan.FromSeconds(5);
-		private static readonly TimeSpan PipeTimeout = TimeSpan.FromSeconds(10);
 		private static readonly TimeSpan LastUpdateTimeoutWindow = TimeSpan.FromSeconds(20);
 #endif
 
-		private DuplexChannelFactory<IHandBrakeWorker> pipeFactory;
 		private string pipeName;
 
 		private bool crashLogged;
@@ -46,23 +44,29 @@ namespace VidCoder
 		// Timer that pings the worker process periodically to see if it's still alive.
 		private Timer pingTimer;
 
-		protected IHandBrakeWorker Channel { get; set; }
+		protected PipeClientWithCallback<TWork, TCallback> Client;
+
+		//protected IHandBrakeWorker Channel { get; set; }
 
 		protected IAppLogger Logger	{ get; set; }
 
 		protected DateTimeOffset LastWorkerCommunication { get; set; }
 
 		// Lock to take before interacting with the worker process or changing encoding state.
-		protected object ProcessLock { get; } = new object();
+		protected SemaphoreSlim ProcessLock { get; } = new SemaphoreSlim(1, 1);
 
 		protected bool Running { get; set; }
 
+		protected abstract HandBrakeWorkerAction Action { get; }
+
+		protected abstract TCallback CallbackInstance { get; }
+
 		// Executes the given proxy operation, stopping the encode and logging if a communication problem occurs.
-		protected void ExecuteProxyOperation(Action action, string operationName)
+		protected async Task ExecuteProxyOperationAsync(Func<Task> action, string operationName)
 		{
 			try
 			{
-				action();
+				await action();
 			}
 			catch (Exception exception)
 			{
@@ -100,11 +104,7 @@ namespace VidCoder
 			}
 		}
 
-		// TODO: Is this only needed for encoding?
 		protected abstract void OnOperationEnd(bool error);
-
-		// TODO: Is this only needed for encoding?
-		public abstract void StopAndWait();
 
 		private void HandleWorkerCommunicationError(Exception exception, string operationName)
 		{
@@ -136,7 +136,7 @@ namespace VidCoder
 				}
 				else
 				{
-					this.Logger.LogError($"Operation '{operationName}' failed. Lost communication with worker process: " + exception);
+					this.Logger.LogError($"Operation '{operationName}' failed: " + exception);
 					this.LogAndClearWorkerMessages();
 				}
 			}
@@ -148,31 +148,26 @@ namespace VidCoder
 			this.EndOperation(error: true);
 		}
 
-		private bool ConnectToPipe()
+		private async Task<bool> ConnectToPipeAsync()
 		{
 			for (int i = 0; i < ConnectionRetries; i++)
 			{
 				try
 				{
-					var binding = new NetNamedPipeBinding
+					this.Client = new PipeClientWithCallback<TWork, TCallback>(this.pipeName, () => this.CallbackInstance);
+
+					// With extended logging, log the pipe messages.
+					if (Config.LogVerbosity >= 2)
 					{
-						OpenTimeout = PipeTimeout,
-						CloseTimeout = PipeTimeout,
-						SendTimeout = PipeTimeout,
-						ReceiveTimeout = PipeTimeout
-					};
+						this.Client.SetLogger(message => this.Logger.Log(message));
+					}
 
-					this.pipeFactory = new DuplexChannelFactory<IHandBrakeWorker>(
-						this,
-						binding,
-						new EndpointAddress("net.pipe://localhost/" + this.pipeName));
+					await this.Client.ConnectAsync().ConfigureAwait(false);
 
-					this.Channel = this.pipeFactory.CreateChannel();
-					this.Channel.Ping();
-
+					await this.Client.InvokeAsync(x => x.Ping());
 					return true;
 				}
-				catch (EndpointNotFoundException)
+				catch (Exception)
 				{
 				}
 
@@ -190,7 +185,7 @@ namespace VidCoder
 					return false;
 				}
 
-				Thread.Sleep(ConnectionRetryIntervalMs);
+				await Task.Delay(ConnectionRetryIntervalMs);
 			}
 
 			this.Logger.LogError("Connection to worker failed after " + ConnectionRetries + " retries. Unable to find endpoint.");
@@ -222,116 +217,114 @@ namespace VidCoder
 			}
 		}
 
-		protected void StartOperation(Action<IHandBrakeWorker> action)
+		protected async Task RunOperationAsync(Expression<Action<TWork>> actionExpression)
 		{
-			var task = new Task(() =>
+			this.Running = true;
+
+			this.LastWorkerCommunication = DateTimeOffset.UtcNow;
+			this.pipeName = PipeNamePrefix + Guid.NewGuid();
+			var startInfo = new ProcessStartInfo(
+				"VidCoderWorker.exe",
+				Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture) + " " + this.pipeName + " " + this.Action);
+			startInfo.RedirectStandardOutput = true;
+			startInfo.UseShellExecute = false;
+			startInfo.CreateNoWindow = true;
+			this.worker = Process.Start(startInfo);
+			this.worker.PriorityClass = CustomConfig.WorkerProcessPriority;
+
+			// When the process writes out a line, its pipe server is ready and can be contacted for
+			// work. Reading line blocks until this happens.
+			this.Logger.Log("Worker ready: " + this.worker.StandardOutput.ReadLine());
+			bool connectionSucceeded = false;
+
+			this.Logger.Log("Connecting to process " + this.worker.Id + " on pipe " + this.pipeName);
+			await this.ProcessLock.WaitAsync();
+			try
 			{
-				this.LastWorkerCommunication = DateTimeOffset.UtcNow;
-				this.pipeName = PipeNamePrefix + Guid.NewGuid().ToString();
-				var startInfo = new ProcessStartInfo(
-					"VidCoderWorker.exe",
-					Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture) + " " + this.pipeName);
-				startInfo.RedirectStandardOutput = true;
-				startInfo.UseShellExecute = false;
-				startInfo.CreateNoWindow = true;
-				this.worker = Process.Start(startInfo);
-				this.worker.PriorityClass = CustomConfig.WorkerProcessPriority;
+				await this.ExecuteProxyOperationAsync(async () =>
+				{
+					connectionSucceeded = await this.ConnectToPipeAsync();
+					if (!connectionSucceeded)
+					{
+						return;
+					}
 
-				// When the process writes out a line, its pipe server is ready and can be contacted for
-				// work. Reading line blocks until this happens.
-				this.Logger.Log("Worker ready: " + this.worker.StandardOutput.ReadLine());
-				bool connectionSucceeded = false;
+					await this.Client.InvokeAsync(x => x.SetUpWorker(
+						Config.LogVerbosity,
+						Config.PreviewCount,
+						Config.EnableLibDvdNav,
+						Config.MinimumTitleLengthSeconds,
+						Config.CpuThrottlingFraction,
+						FileUtilities.OverrideTempFolder ? FileUtilities.TempFolderOverride : null));
 
-				this.Logger.Log("Connecting to process " + this.worker.Id + " on pipe " + this.pipeName);
+					await this.Client.InvokeAsync(actionExpression);
+				}, "Connect");
+			}
+			finally
+			{
+				this.ProcessLock.Release();
+			}
+
+			if (!connectionSucceeded)
+			{
+				this.EndOperation(error: true);
+				return;
+			}
+
+			this.pingTimer = new Timer
+			{
+				AutoReset = true,
+				Interval = PingTimerIntervalMs
+			};
+
+			this.pingTimer.Elapsed += async (o, e) =>
+			{
 				lock (this.ProcessLock)
 				{
-					this.ExecuteProxyOperation(() =>
+					if (!this.Running)
 					{
-						connectionSucceeded = this.ConnectToPipe();
-						if (!connectionSucceeded)
-						{
-							return;
-						}
-
-						this.Channel.SetUpWorker(
-							Config.LogVerbosity,
-							Config.PreviewCount,
-							Config.EnableLibDvdNav,
-							Config.MinimumTitleLengthSeconds,
-							Config.CpuThrottlingFraction,
-							FileUtilities.OverrideTempFolder ? FileUtilities.TempFolderOverride : null);
-
-						action(this.Channel);
-
-						// After we do StartEncode (which can take a while), switch the timeout down to normal level to do pings
-						var contextChannel = (IContextChannel)this.Channel;
-						contextChannel.OperationTimeout = OperationTimeout;
-					}, "Connect");
+						return;
+					}
 				}
 
-				if (!connectionSucceeded)
+				if (this.Running)
 				{
-					this.EndOperation(error: true);
-					return;
+					try
+					{
+						await this.Client.InvokeAsync(x => x.Ping());
+
+						lock (this.ProcessLock)
+						{
+							this.LastWorkerCommunication = DateTimeOffset.UtcNow;
+						}
+					}
+					catch (Exception exception)
+					{
+						this.HandlePingError(exception);
+					}
 				}
+			};
 
-				this.pingTimer = new Timer
-				{
-					AutoReset = true,
-					Interval = PingTimerIntervalMs
-				};
-
-				this.pingTimer.Elapsed += (o, e) =>
-				{
-					lock (this.ProcessLock)
-					{
-						if (!this.Running)
-						{
-							return;
-						}
-					}
-
-					if (this.Running)
-					{
-						try
-						{
-							this.Channel.Ping();
-
-							lock (this.ProcessLock)
-							{
-								this.LastWorkerCommunication = DateTimeOffset.UtcNow;
-							}
-						}
-						catch (CommunicationException exception)
-						{
-							this.HandlePingError(exception);
-						}
-						catch (TimeoutException exception)
-						{
-							this.HandlePingError(exception);
-						}
-					}
-				};
-
-				this.pingTimer.Start();
-			});
-
-			this.Running = true;
-			task.Start();
+			this.pingTimer.Start();
 		}
 
-		protected void ExecuteWorkerCall(Action<IHandBrakeWorker> action, string operationName)
+		protected async Task ExecuteWorkerCallAsync(Action<TWork> action, string operationName)
 		{
-			lock (this.ProcessLock)
+			await this.ProcessLock.WaitAsync();
+			try
 			{
-				if (this.Channel != null)
+				if (this.Client != null)
 				{
-					this.ExecuteProxyOperation(() => action(this.Channel), operationName);
+					await this.ExecuteProxyOperationAsync(() => this.Client.InvokeAsync(x => action(x)), operationName);
 				}
 				else
 				{
 					this.Logger.LogError($"Could not execute operation '{operationName}', Channel does not exist.");
 				}
+			}
+			finally
+			{
+				this.ProcessLock.Release();
 			}
 		}
 
@@ -371,6 +364,7 @@ namespace VidCoder
 				Directory.Delete(workerLogsFolder, recursive: true);
 			}
 		}
+
 		public void OnMessageLogged(string message)
 		{
 			var entry = new LogEntry

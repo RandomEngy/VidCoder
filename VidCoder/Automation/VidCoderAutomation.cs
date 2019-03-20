@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ServiceModel;
 using Microsoft.AnyContainer;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -17,14 +16,7 @@ namespace VidCoder.Automation
 			var processingService = StaticResolver.Resolve<ProcessingService>();
 			DispatchUtilities.Invoke(() =>
 			{
-				try
-				{
-					processingService.Process(source, destination, preset, picker);
-				}
-				catch (Exception exception)
-				{
-					throw new FaultException<AutomationError>(new AutomationError { Message = exception.Message });
-				}
+				processingService.Process(source, destination, preset, picker);
 			});
 		}
 
@@ -33,14 +25,7 @@ namespace VidCoder.Automation
 			var mainVM = StaticResolver.Resolve<MainViewModel>();
 			DispatchUtilities.Invoke(() =>
 			{
-				try
-				{
-					mainVM.ScanFromAutoplay(source);
-				}
-				catch (Exception exception)
-				{
-					throw new FaultException<AutomationError>(new AutomationError { Message = exception.Message });
-				}
+				mainVM.ScanFromAutoplay(source);
 			});
 		}
 
@@ -54,10 +39,10 @@ namespace VidCoder.Automation
 					Preset preset = presetImporter.ImportPreset(filePath);
 					this.ShowMessage(string.Format(MainRes.PresetImportSuccessMessage, preset.Name));
 				}
-				catch (Exception exception)
+				catch (Exception)
 				{
 					this.ShowMessage(MainRes.PresetImportErrorMessage);
-					throw new FaultException<AutomationError>(new AutomationError { Message = exception.Message });
+					throw;
 				}
 			});
 		}
@@ -72,10 +57,10 @@ namespace VidCoder.Automation
 					queueImporter.Import(filePath);
 					this.ShowMessage(MainRes.QueueImportSuccessMessage);
 				}
-				catch (Exception exception)
+				catch (Exception)
 				{
 					this.ShowMessage(MainRes.QueueImportErrorMessage);
-					throw new FaultException<AutomationError>(new AutomationError { Message = exception.Message });
+					throw;
 				}
 			});
 		}

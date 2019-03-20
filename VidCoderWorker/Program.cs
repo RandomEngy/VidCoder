@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
-using System.ServiceModel;
+using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
+using PipeMethodCalls;
 using VidCoderCommon;
+using VidCoderCommon.Model;
 using VidCoderCommon.Utilities;
 
 namespace VidCoderWorker
@@ -19,7 +22,9 @@ namespace VidCoderWorker
 		{
 			try
 			{
-				if (args.Length < 2)
+				////Debugger.Launch();
+
+				if (args.Length < 3)
 				{
 					PrintUsage();
 					return;
@@ -36,6 +41,8 @@ namespace VidCoderWorker
 
 				PipeName = args[1];
 
+				var action = (HandBrakeWorkerAction)Enum.Parse(typeof(HandBrakeWorkerAction), args[2]);
+
 				parentCheckTimer = new System.Timers.Timer();
 				parentCheckTimer.Interval = ParentCheckInterval;
 				parentCheckTimer.AutoReset = true;
@@ -45,9 +52,7 @@ namespace VidCoderWorker
 						{
 							if (!ProcessExists(parentProcId))
 							{
-								// If we couldn't stop the process, just wait until next tick. May have not started yet or may
-								// already be in the process of closing.
-								if (HandBrakeWorker.CurrentWorker != null && HandBrakeWorker.CurrentWorker.StopEncodeIfPossible())
+								if (action == HandBrakeWorkerAction.Encode && HandBrakeEncodeWorker.CurrentWorker != null && HandBrakeEncodeWorker.CurrentWorker.StopEncodeIfPossible())
 								{
 									// If we are able to stop the encode, we will do so. Cleanup should
 									// happen with the encode complete callback.
@@ -57,61 +62,60 @@ namespace VidCoderWorker
 						}
 						catch (Exception exception)
 						{
-							WorkerErrorLogger.LogError("Exception in parentCheckTimer.Elapsed: " + exception.ToString(), isError: true);
+							WorkerErrorLogger.LogError("Exception in parentCheckTimer. Elapsed: " + exception.ToString(), isError: true);
 							throw;
 						}
 					};
 
 				parentCheckTimer.Start();
 
-				ServiceHost host = null;
-				try
-				{
-					host = new ServiceHost(typeof (HandBrakeWorker));
+				StartService(action);
 
-					host.AddServiceEndpoint(
-						typeof (IHandBrakeWorker),
-						new NetNamedPipeBinding(),
-						"net.pipe://localhost/" + PipeName);
-
-					host.Open();
-
-					encodeComplete = new ManualResetEventSlim(false);
-					Console.WriteLine("Service state is " + host.State + " on pipe " + PipeName);
-					encodeComplete.Wait();
-
-					host.Close();
-				}
-				catch (CommunicationException exception)
-				{
-					WorkerErrorLogger.LogError("Exception when trying to establish pipe service: " + exception, isError: true);
-					if (host != null)
-					{
-						host.Abort();
-					}
-				}
-				catch (TimeoutException exception)
-				{
-					WorkerErrorLogger.LogError("Exception when trying to establish pipe service: " + exception, isError: true);
-					if (host != null)
-					{
-						host.Abort();
-					}
-				}
-				catch (Exception)
-				{
-					if (host != null)
-					{
-						host.Abort();
-					}
-
-					throw;
-				}
+				encodeComplete = new ManualResetEventSlim(false);
+				encodeComplete.Wait();
 			}
 			catch (Exception exception)
 			{
 				WorkerErrorLogger.LogError("Exception in Main: " + exception, isError: true);
 				throw;
+			}
+		}
+
+		private static async void StartService(HandBrakeWorkerAction action)
+		{
+			try
+			{
+				IPipeServer server;
+				if (action == HandBrakeWorkerAction.Encode)
+				{
+					PipeServerWithCallback<IHandBrakeEncodeWorkerCallback, IHandBrakeEncodeWorker> encodeServer = null;
+					Lazy<IHandBrakeEncodeWorker> lazyEncodeWorker = new Lazy<IHandBrakeEncodeWorker>(() => new HandBrakeEncodeWorker(encodeServer.Invoker));
+					encodeServer = new PipeServerWithCallback<IHandBrakeEncodeWorkerCallback, IHandBrakeEncodeWorker>(PipeName, () => lazyEncodeWorker.Value);
+					server = encodeServer;
+				}
+				else if (action == HandBrakeWorkerAction.Scan)
+				{
+					PipeServerWithCallback<IHandBrakeScanWorkerCallback, IHandBrakeScanWorker> scanServer = null;
+					Lazy<IHandBrakeScanWorker> lazyScanWorker = new Lazy<IHandBrakeScanWorker>(() => new HandBrakeScanWorker(scanServer.Invoker));
+					scanServer = new PipeServerWithCallback<IHandBrakeScanWorkerCallback, IHandBrakeScanWorker>(PipeName, () => lazyScanWorker.Value);
+					server = scanServer;
+				}
+				else
+				{
+					throw new ArgumentException("Unrecognized action: " + action, nameof(action));
+				}
+
+				Task connectionTask = server.WaitForConnectionAsync();
+
+				// Write a line to let the client know we are ready for connections
+				Console.WriteLine($"Pipe '{PipeName}' is open");
+
+				await connectionTask.ConfigureAwait(false);
+				await server.WaitForRemotePipeCloseAsync().ConfigureAwait(false);
+			}
+			catch (Exception exception)
+			{
+				WorkerErrorLogger.LogError("Exception in StartService: " + exception, isError: true);
 			}
 		}
 
@@ -124,7 +128,7 @@ namespace VidCoderWorker
 
 		private static void PrintUsage()
 		{
-			Console.WriteLine("Must be called with process ID of parent and the pipe GUID.");
+			Console.WriteLine("Usage: VidCoderWorker <parentProcId> <pipeName> <action>");
 		}
 
 		private static bool ProcessExists(int id)
