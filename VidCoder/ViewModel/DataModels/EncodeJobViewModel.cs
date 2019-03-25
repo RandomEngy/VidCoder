@@ -10,6 +10,7 @@ using System.Windows.Input;
 using HandBrake.Interop.Interop;
 using Microsoft.AnyContainer;
 using ReactiveUI;
+using VidCoder.Controls;
 using VidCoder.DragDropUtils;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -18,7 +19,7 @@ using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	public class EncodeJobViewModel : ReactiveObject, IDragItem
+	public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 	{
 		/// <summary>
 		/// Divide a normal pass cost by this factor to get the cost to do a subtitle scan.
