@@ -308,14 +308,14 @@ namespace VidCoder
 			this.pingTimer.Start();
 		}
 
-		protected async Task ExecuteWorkerCallAsync(Action<TWork> action, string operationName)
+		protected async Task ExecuteWorkerCallAsync(Expression<Action<TWork>> action, string operationName)
 		{
 			await this.ProcessLock.WaitAsync();
 			try
 			{
 				if (this.Client != null)
 				{
-					await this.ExecuteProxyOperationAsync(() => this.Client.InvokeAsync(x => action(x)), operationName);
+					await this.ExecuteProxyOperationAsync(() => this.Client.InvokeAsync(action), operationName);
 				}
 				else
 				{
