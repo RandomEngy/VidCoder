@@ -174,7 +174,7 @@ namespace VidCoder.ViewModel
 
 				string videoEncoderShortName = selectedEncoder.Encoder.ShortName;
 
-				return videoEncodeRateType != VCVideoEncodeRateType.ConstantQuality && (videoEncoderShortName == "x265" || videoEncoderShortName == "x264");
+				return videoEncodeRateType != VCVideoEncodeRateType.ConstantQuality && videoEncoderShortName.StartsWith("x26", StringComparison.Ordinal);
 			}).ToProperty(this, x => x.TurboFirstPassVisible, out this.turboFirstPassVisible);
 
 			// QualityModulus
