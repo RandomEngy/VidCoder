@@ -1874,8 +1874,8 @@
 								<TabItem.Header>
 									<TextBlock Text="{Binding ProcessingService.QueuedTabHeader}" />
 								</TabItem.Header>
-								<ListView
-									Name="queueView"
+								<controls:EnhancedListView
+									x:Name="queueView"
 									VidCoderDragDrop:DragDropHelper.BlockedTopSpaces="{Binding ProcessingService.JobsEncodingCount}"
 									VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource QueueDragTemplate}"
 									VidCoderDragDrop:DragDropHelper.IsDragSource="True"
@@ -1884,7 +1884,7 @@
 									BorderBrush="#F5F5F5"
 									BorderThickness="0"
 									ItemsSource="{Binding ProcessingService.EncodeQueueBindable}">
-									<ListView.ItemContainerStyle>
+									<controls:EnhancedListView.ItemContainerStyle>
 										<Style BasedOn="{StaticResource ListViewItemBaseStyle}" TargetType="ListViewItem">
 											<Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}" />
 											<Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -1942,15 +1942,15 @@
 												</Setter.Value>
 											</Setter>
 										</Style>
-									</ListView.ItemContainerStyle>
-									<ListView.View>
+									</controls:EnhancedListView.ItemContainerStyle>
+									<controls:EnhancedListView.View>
 										<GridView x:Name="queueGridView" AllowsColumnReorder="False">
 											<GridView.Columns>
 												<GridViewColumn Width="75" CellTemplate="{StaticResource QueueRemoveTemplate}" />
 											</GridView.Columns>
 										</GridView>
-									</ListView.View>
-									<ListView.ContextMenu>
+									</controls:EnhancedListView.View>
+									<controls:EnhancedListView.ContextMenu>
 										<ContextMenu>
 											<MenuItem Command="{Binding CustomizeQueueColumns}" Header="{x:Static res:MainRes.CustomizeColumnsMenuItem}" />
 											<Separator />
@@ -1973,8 +1973,8 @@
 												Header="{x:Static res:MainRes.ExportQueue}"
 												IsEnabled="{Binding ProcessingService.QueueHasItems}" />
 										</ContextMenu>
-									</ListView.ContextMenu>
-								</ListView>
+									</controls:EnhancedListView.ContextMenu>
+								</controls:EnhancedListView>
 							</TabItem>
 							<TabItem Name="completedTab" Visibility="Collapsed">
 								<TabItem.Header>

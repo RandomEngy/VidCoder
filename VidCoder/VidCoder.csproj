@@ -367,6 +367,8 @@
     <Compile Include="Automation\AutomationHost.cs" />
     <Compile Include="Automation\VidCoderAutomation.cs" />
     <Compile Include="Behaviors\IgnoreMouseWheelBehavior.cs" />
+    <Compile Include="Controls\EnhancedListView.cs" />
+    <Compile Include="Controls\IListItemViewModel.cs" />
     <Compile Include="Controls\PaddingFrame.xaml.cs">
       <DependentUpon>PaddingFrame.xaml</DependentUpon>
     </Compile>
