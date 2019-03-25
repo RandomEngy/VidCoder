@@ -55,8 +55,11 @@ namespace VidCoder.View
 				.Connect()
 				.OnItemAdded(addedLogViewModel =>
 				{
-					this.logCoordinator.SelectedLog = addedLogViewModel;
-					this.logsListBox.ScrollIntoView(addedLogViewModel);
+					DispatchUtilities.Invoke(() =>
+					{
+						this.logCoordinator.SelectedLog = addedLogViewModel;
+						this.logsListBox.ScrollIntoView(addedLogViewModel);
+					});
 				})
 				.Subscribe();
 
