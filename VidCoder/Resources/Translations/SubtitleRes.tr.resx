@@ -121,22 +121,22 @@
     <value>Altyazılar</value>
   </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
-    <value>Altyazı kaynağı:</value>
+    <value>Kaynaktaki altyazılar:</value>
   </data>
   <data name="QuickTimeSubtitlesWarning" xml:space="preserve">
-    <value>.m4v uzantısı kullanılmazsa altyazılar Quicktime'da görüntülenemeyebilir.</value>
+    <value>Altyazılar .m4v uzantısı kullanılmazsa Quicktime'da görüntülenemeyebilir.</value>
   </data>
   <data name="NameColumn" xml:space="preserve">
-    <value>Ad</value>
+    <value>Adı</value>
   </data>
   <data name="DefaultColumn" xml:space="preserve">
     <value>Varsayılan</value>
   </data>
   <data name="ForcedOnlyColumn" xml:space="preserve">
-    <value>Sadece zorunlu altyazı</value>
+    <value>Sadece Zorlanmış</value>
   </data>
   <data name="BurnedInColumn" xml:space="preserve">
-    <value>Gömülü altyazıyı ekle</value>
+    <value>Gömülü</value>
   </data>
   <data name="ExternalSubtitlesLabel" xml:space="preserve">
     <value>Harici altyazılar:</value>
@@ -151,13 +151,13 @@
     <value>Karakter Kodu</value>
   </data>
   <data name="OffsetColumn" xml:space="preserve">
-    <value>Ofset (ms)</value>
+    <value>Uzaklık (ms)</value>
   </data>
   <data name="ImportSrtButton" xml:space="preserve">
-    <value>.srt dosyasını içe aktar...</value>
+    <value>.srt Dosyası Al...</value>
   </data>
   <data name="BurnedOverlapWarning" xml:space="preserve">
-    <value>Diğer altyazı hatları gömülü altyazılarla çakışacaktır.</value>
+    <value>Diğer altyazı gömülü altyazıyla çakışacaktır.</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Yabancı Ses Araması</value>
@@ -166,13 +166,13 @@
     <value>Altyazı dosyası ekle</value>
   </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
-    <value>Altyazı dosyasının karakter kodlaması algılanamadı. Altyazıların doğru gösterileceğinden emin olmak için dosyayı UTF-8 olarak yeniden kaydedin.</value>
+    <value>Altyazının karakter kodlaması algılanamadı. Altyazıların doğru gösterileceğinden emin olmak için UTF-8 olarak yeniden kaydedin.</value>
   </data>
   <data name="NoSubtitlesText" xml:space="preserve">
     <value>Kaynakta altyazı bulunamadı.</value>
   </data>
   <data name="ExternalSubtitlesSummaryFormat" xml:space="preserve">
-    <value>{0} dış</value>
+    <value>{0} harici</value>
     <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
   </data>
 </root>

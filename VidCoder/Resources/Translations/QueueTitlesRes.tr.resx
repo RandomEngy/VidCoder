@@ -118,23 +118,23 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="OverrideTitleNumberToolTip" xml:space="preserve">
-    <value>Seçili olduğunda normal başlık oluşturmayı genel geçer çıktı dosyası ismi oluşturma amacıyla etkisiz kılar. Örneğin başlıklar 2, 3 ile 4 ve  genel geçer isim 7 olsun, başlıklar 7, 8 ve 9 olarak etiketlenir. TV dizilerinin disk kopyalanması sırasında yararlı olabilir.</value>
+    <value>Seçildiğinde çıktı dosyası adı oluşturmak amacıyla varolan başlıkları geçersiz kılar. Örneğin çıktı başlığı 7 olarak girilirse, varolan 2, 3 ve 4 başlıkları geçersiz kılınarak 7, 8 ve 9 olarak etiketleneceklerdir. TV dizisi diskini kopyalamada-sıkıştırmada yararlı olabilir.</value>
   </data>
   <data name="QueueTitlesWindowHeader" xml:space="preserve">
-    <value>Görev sırasına eklemek için birden fazla başlık seçiniz.</value>
+    <value>Kuyruğa eklemek için birden fazla başlık seçiniz.</value>
   </data>
   <data name="PlaySourceToolTip" xml:space="preserve">
-    <value>Desteklenen bir oynatıcı (VLC veya Media Player Classic Home Cinema) yüklüyse, DVD'leri tek tek önizleyebilirsiniz</value>
+    <value>Desteklenen bir oynatıcı (VLC veya Media Player Classic Home Cinema) yüklüyse, DVD’lerin başlıklarını ayrı ayrı önizleyebilirsiniz</value>
   </data>
   <data name="PlaySourceButton" xml:space="preserve">
-    <value>Kaynak Videoyu Oynat</value>
+    <value>Kaynağı Oynat</value>
   </data>
   <data name="LengthRangePre" xml:space="preserve">
-    <value>Tüm başlıkların kaynağı</value>
+    <value>Tüm başlıklarda</value>
     <comment>Goes before the first number box in the length range specification.</comment>
   </data>
   <data name="LengthRangeMid" xml:space="preserve">
-    <value>hedef</value>
+    <value>den</value>
     <comment>Goes in between the two number boxes in the length range specification.</comment>
   </data>
   <data name="LengthRangePost" xml:space="preserve">
@@ -142,10 +142,10 @@
     <comment>Goes after the second number box in the length range specification.</comment>
   </data>
   <data name="OverrideTitleCheckBox" xml:space="preserve">
-    <value>Genel geçer başlık #: başlangıç</value>
+    <value>#: den başlayan başlıkları geçersiz kıl</value>
   </data>
   <data name="QueueTitlesDialogTitle" xml:space="preserve">
-    <value>Çoklu Başlığı Görev Sırasına Al</value>
+    <value>Çoklu Başlığı Kuyruğa Al</value>
   </data>
   <data name="TitleFormat" xml:space="preserve">
     <value>Başlık {0}</value>
