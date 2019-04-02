@@ -127,7 +127,7 @@
     <value>Sistem tepsisine küçült</value>
   </data>
   <data name="PlaySoundOnQueueCompletionCheckBox" xml:space="preserve">
-    <value>Sıra tamamlanınca ses çal</value>
+    <value>Kuyruk tamamlanınca ses çal</value>
   </data>
   <data name="PreferredDvdPlayerLabel" xml:space="preserve">
     <value>Tercih edilen DVD oynatıcı:</value>
@@ -139,22 +139,22 @@
     <value>Otomatik güncellemeler</value>
   </data>
   <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>Beta güncelleme hattına katılın</value>
+    <value>Beta güncellemesine katılın</value>
   </data>
   <data name="FileNamingTab" xml:space="preserve">
-    <value>Dosya adlandırma</value>
+    <value>Dosya Adlandırma</value>
   </data>
   <data name="DefaultFolderLabel" xml:space="preserve">
     <value>Varsayılan klasör:</value>
   </data>
   <data name="FileFormatLabel" xml:space="preserve">
-    <value>Dosya biçimi:</value>
+    <value>Dosya formatı:</value>
   </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>Varsayılan biçim</value>
+    <value>Varsayılan format</value>
   </data>
   <data name="CustomFormatRadioButton" xml:space="preserve">
-    <value>Özel biçim:</value>
+    <value>Özel format:</value>
   </data>
   <data name="FileNameFormatOptions" xml:space="preserve">
     <value>Kullanılabilir seçenekler: {0}</value>
@@ -163,58 +163,58 @@
     <value>Dosya zaten varsa...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
-    <value>Tek bir dosya kodlama:</value>
+    <value>Tek dosya kodlama:</value>
   </data>
   <data name="AskOverwriteRadioButton" xml:space="preserve">
     <value>Üzerine yazmak isteyip istemediğimi sor</value>
   </data>
   <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>Dosya üzerine sormadan yaz</value>
+    <value>Sormadan dosya üzerine yaz</value>
   </data>
   <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>Otomatik olarak isimlendir</value>
+    <value>Otomatik olarak farklı bir isme geçin</value>
   </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
-    <value>Dosyaları topluca kodla:</value>
+    <value>Dosyaları toplu kodlama:</value>
   </data>
   <data name="OverwriteRadioButton" xml:space="preserve">
     <value>Üzerine yaz</value>
   </data>
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>Otomatik olarak yeniden adlandır</value>
+    <value>Otomatik olarak adlandır</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
-    <value>Şu işlemlerden herhangi biri çalıştırken otomatik olarak kodlamayı duraklat:</value>
+    <value>Bu işlemlerden herhangi biri çalışırken kodlamayı otomatik olarak duraklat:</value>
   </data>
   <data name="AddEllipsesButton" xml:space="preserve">
     <value>Ekle...</value>
   </data>
   <data name="PreviewCountLabel" xml:space="preserve">
-    <value>Taranacak resim önizlemeleri sayısı:</value>
+    <value>İncelenecek resim önizlemeleri sayısı:</value>
   </data>
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>Daha önce kullanılan dosya ve klasörleri hatırla</value>
   </data>
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>Ses izlerinde özel adlandırmaya (sınırlı oynatıcı desteği) izin ver</value>
+    <value>Ses parçalarını adlandırmaya izin ver (sınırlı oynatıcı desteği)</value>
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>LibDVDNav'ı etkinleştir (programı yeniden başlatma gerektirir)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Başarıyla tamamlanan öğelerin kaynak dosyalarını sil (teyit ile)</value>
+    <value>Başarıyla tamamlanan öğelerin kaynak dosyalarını sil (onay ile)</value>
   </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Günlük Detayı:</value>
   </data>
   <data name="MinScanLengthLabel" xml:space="preserve">
-    <value>Başlığın taranacak kısmının en az uzunluğu (saniye):</value>
+    <value>Başlığın incelenecek kısmının minimum uzunluğu (saniye):</value>
   </data>
   <data name="RecognizedExtensionsLabel" xml:space="preserve">
     <value>Tanınan Uzantılar:</value>
   </data>
   <data name="RecognizedExtensionsToolTip" xml:space="preserve">
-    <value>Video dosyaları için klasör taranırken aşağıdaki uzantılara sahip dosyaları ekle. (Virgülle ayrılmış)</value>
+    <value>Video dosyaları için klasörler incelenirken bu uzantılara sahip dosyaları ekleyin. (Virgülle ayrılmış)</value>
   </data>
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Seçenekler</value>
@@ -226,49 +226,49 @@
     <value>Gelişmiş</value>
   </data>
   <data name="BetaUpdatesInBeta" xml:space="preserve">
-    <value>Beta sürümünü çalıştırıyorsunuz. Bu versiyon kararlı sürüm ile yan yana çalışabilir.</value>
+    <value>Beta sürümünü kullanıyorsunuz. Kararlı sürüm ile birlikte kullanılabilir.</value>
   </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
-    <value>Güncelleştirmeleri daha sık almak için Beta hattına katılın</value>
+    <value>Güncelleştirmeleri daha sık almak için Beta kanalına katılın</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>Güncelleştirme {0} hazır. Programdan çıktığınızda güncelleme yüklenecektir.</value>
+    <value>Sürüm {0} güncellemesi hazır. Programdan çıktığınızda yüklenecek.</value>
   </data>
   <data name="DownloadingStatus" xml:space="preserve">
-    <value>Güncelleme {0} indiriliyor:</value>
+    <value>Sürüm {0} güncellemesi indiriliyor:</value>
   </data>
   <data name="UpToDateStatus" xml:space="preserve">
-    <value>VidCoder güncel durumda.</value>
+    <value>VidCoder güncel.</value>
   </data>
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
-    <value>Kodlanmış video dosyaları için varsayılan çıkış dizinini seçin.</value>
+    <value>Kodlanmış video dosyaları için varsayılan çıktı klasörünü seçin.</value>
   </data>
   <data name="InterfaceLanguageLabel" xml:space="preserve">
     <value>Arayüz Dili:</value>
   </data>
   <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
-    <value>Yeni dil seçeneği VidCoder kapatılıp tekrar başlatılınca etkinleşir.</value>
+    <value>Yeni dil, VidCoder'ı kapatıp tekrar açınca aktif olacaktır.</value>
   </data>
   <data name="UseOSLanguage" xml:space="preserve">
-    <value>İşletim sisteminin dilini kullan</value>
+    <value>İşletim Sistemi Dilini Kullan</value>
   </data>
   <data name="UpdatesTab" xml:space="preserve">
-    <value>Güncelleştirmeler</value>
+    <value>Güncellemeler</value>
   </data>
   <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>En son sürüm bulunuyor...</value>
+    <value>Son sürümü buluyor...</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
-    <value>Güncelleştirme denetimi başarısız oldu.</value>
+    <value>Güncelleme denetimi başarısız oldu.</value>
   </data>
   <data name="CompletionWavFilePickTitle" xml:space="preserve">
-    <value>Tamamlama sesi için kullanmak istediğiniz .wav dosyasını seçin.</value>
+    <value>Tamamlama Sesi için .wav dosyası belirtin.</value>
   </data>
   <data name="CurrentVersionLabel" xml:space="preserve">
-    <value>Mevcut sürüm: {0}</value>
+    <value>Mevcut Sürüm: {0}</value>
   </data>
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
-    <value>Dikkat: Bu sürümün hataya sahip olma ve çökme olasılığı daha yüksektir.</value>
+    <value>Dikkat: Bu sürümde hata ve çökmeler olması daha olasıdır.</value>
   </data>
   <data name="PlayersSection" xml:space="preserve">
     <value>Oynatıcılar</value>
@@ -283,22 +283,22 @@
     <value>Çıktı klasörü</value>
   </data>
   <data name="NamingFormatSection" xml:space="preserve">
-    <value>Adlandırma biçimi</value>
+    <value>Adlandırma formatı</value>
   </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
     <value>Gelişmiş Seçenekler</value>
   </data>
   <data name="ScanningSection" xml:space="preserve">
-    <value>Taranıyor</value>
+    <value>İnceleniyor</value>
   </data>
   <data name="LoggingSection" xml:space="preserve">
-    <value>Günlüğe kaydediyor</value>
+    <value>Günlük</value>
   </data>
   <data name="DvdReadingSection" xml:space="preserve">
     <value>DVD okuma</value>
   </data>
   <data name="UpdatesSection" xml:space="preserve">
-    <value>Güncelleştirmeler</value>
+    <value>Güncellemeler</value>
   </data>
   <data name="UpdateStatusSection" xml:space="preserve">
     <value>Durum</value>
@@ -310,19 +310,19 @@
     <value>Özel .wav dosyası kullan:</value>
   </data>
   <data name="CheckNowButton" xml:space="preserve">
-    <value>Şimdi kontrol et</value>
+    <value>Şimdi Kontrol Et</value>
   </data>
   <data name="UseSystemPlayer" xml:space="preserve">
-    <value>Sistemin oynatıcısını kullan</value>
+    <value>Sistem oynatıcısını kullan</value>
   </data>
   <data name="VideoFilesLabel" xml:space="preserve">
     <value>Video Dosyaları:</value>
   </data>
   <data name="CustomVideoPlayerToolTip" xml:space="preserve">
-    <value>Dosyalar için kullanmak istediğiniz video oynatıcı yolunu belirleyin.</value>
+    <value>Kullanmak istediğiniz video oynatıcının yolunu belirtin.</value>
   </data>
   <data name="VideoPlayerFilePickTitle" xml:space="preserve">
-    <value>Video dosyaları için kullanılacak oynatıcıyı seçin.</value>
+    <value>Kullanılacak oynatıcıyı seçin.</value>
   </data>
   <data name="CustomPlayerLabel" xml:space="preserve">
     <value>Özel oynatıcı:</value>
@@ -340,50 +340,50 @@
     <value>Normalin Altında</value>
   </data>
   <data name="WorkerProcessPriorityLabel" xml:space="preserve">
-    <value>İşlem önceliği:</value>
+    <value>İşlem Önceliği:</value>
   </data>
   <data name="Priority_Idle" xml:space="preserve">
     <value>Düşük</value>
   </data>
   <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
-    <value>İşlem kaydını dönüştürülen video ile aynı klasöre kopyala</value>
+    <value>Kodlama günlüğünü kodlanan video ile aynı klasöre kopyala</value>
   </data>
   <data name="OpenLogFolderButton" xml:space="preserve">
-    <value>İşlem Kaydı Klasörünü Aç</value>
+    <value>Günlük Klasörünü Aç</value>
   </data>
   <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
-    <value>Yeniden başlatıldığında kodlamaya devam et</value>
+    <value>Yeniden başlatıldığında otomatik olarak kodlamaya devam et</value>
   </data>
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
-    <value>Kodlama için görev sürecini kullan</value>
+    <value>Kodlama için alt işlem kullanın</value>
   </data>
   <data name="VideoSection" xml:space="preserve">
     <value>Video</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
-    <value>Dosyaları dönüştürürken Oluşturulma ve Değiştirilme zamanlarını koru</value>
+    <value>Dosyaları dönüştürürken Oluşturulma ve Değiştirilme zamanını koru</value>
   </data>
   <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
-    <value>Önizlemeler için özel klasör:</value>
+    <value>Önizleme için özel klasör:</value>
   </data>
   <data name="ProcessOptionsLabel" xml:space="preserve">
-    <value>İşlem seçenekleri</value>
+    <value>İşlem Seçenekleri</value>
   </data>
   <data name="CpuThrottlingLabel" xml:space="preserve">
     <value>CPU Kısma - İzin Verilen Çekirdek:</value>
     <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use. It labels a slider that controls the percentage of allowed cores, where the max is 100%.</comment>
   </data>
   <data name="CpuThrottlingToolTip" xml:space="preserve">
-    <value>VidCoder'ın dönüştürme yaparken kullanacabileceği çekirdek sayısını sınırlamak için işlemci kısıtlamayı kullan.</value>
+    <value>VidCoder'ın kodlama sırasında kullanabileceği işlemci çekirdeği sayısını sınırlamak için CPU kısma kullanın.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
-    <value>Önizlemeler için yerleşik oynatıcıyı kullan</value>
+    <value>Önizlemeler için dahili oynatıcı kullanın</value>
   </data>
   <data name="MaxSimultaneousEncodesLabel" xml:space="preserve">
     <value>Maksimum eşzamanlı kodlama işleri:</value>
   </data>
   <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
-    <value>Aynı anda kaç tane kodlama işine izin verilmiş?. Çok sayıda CPU çekirdeğine sahip makineler için kullanışlıdır.</value>
+    <value>Aynı anda birden çok kodlama işine izin verilebilir. Çok sayıda CPU çekirdeğine sahip makineler için kullanışlıdır.</value>
   </data>
   <data name="GeneralSection" xml:space="preserve">
     <value>Genel</value>
@@ -393,6 +393,6 @@
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
   <data name="PromptForUpdatesLabel" xml:space="preserve">
-    <value>Güncelleştirmeleri için sor:</value>
+    <value>Güncellemeler İçin Sor:</value>
   </data>
 </root>

@@ -142,7 +142,7 @@
     <comment>Goes after the second number box in the length range specification.</comment>
   </data>
   <data name="OverrideTitleCheckBox" xml:space="preserve">
-    <value>Eseguire l'override di titolo #: partono</value>
+    <value>Sovrascrivi il numero del titolo: inizia da</value>
   </data>
   <data name="QueueTitlesDialogTitle" xml:space="preserve">
     <value>Accoda più titoli</value>

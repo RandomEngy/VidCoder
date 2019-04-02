@@ -250,7 +250,7 @@
     <value>Errore operazione di file</value>
   </data>
   <data name="OverrideNameFormatCheckBox" xml:space="preserve">
-    <value>Trascura il formato di denominazione:</value>
+    <value>Sovrascrivi il formato del nome:</value>
   </data>
   <data name="OutputToSourceDirCheckBox" xml:space="preserve">
     <value>Salva nella cartella originale se possibile</value>

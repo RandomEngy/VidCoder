@@ -593,7 +593,7 @@
     <value>Codecs de video y audio, tamaño, filtros, contenedor</value>
   </data>
   <data name="OpenSourceRibbonButton" xml:space="preserve">
-    <value>Código abierto</value>
+    <value>Abrir...</value>
   </data>
   <data name="ImportExportRibbonButton" xml:space="preserve">
     <value>Importar/Exportar</value>

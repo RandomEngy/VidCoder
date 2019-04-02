@@ -118,37 +118,37 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="PlaySourceButton" xml:space="preserve">
-    <value>Kaynak Videoyu Oynat</value>
+    <value>Kaynağı Oynat</value>
   </data>
   <data name="EncodePreviewClipButton" xml:space="preserve">
     <value>Önizleme Klibi Kodla</value>
   </data>
   <data name="EncodePreviewClipToolTip" xml:space="preserve">
-    <value>Seçili sahneden küçük bir önizleme klibi kodlar ve izletir. Mevcut kodlama ayarlarını kullanır.</value>
+    <value>Seçilen sahneden küçük bir önizleme klibi kodlar ve oynatır. Mevcut kodlama ayarlarını kullanır.</value>
   </data>
   <data name="GeneratingPreview" xml:space="preserve">
     <value>Önizleme oluşturuluyor...</value>
   </data>
   <data name="PlaySourceDisabledBluRayToolTip" xml:space="preserve">
-    <value>Blu-ray için kaynak önizleme-henüz desteklenmiyor.</value>
+    <value>BluRay için kaynak önizleme henüz desteklenmiyor.</value>
   </data>
   <data name="PlaySourceDisabledNoPlayerToolTip" xml:space="preserve">
-    <value>Desteklenen bir DVD oynatıcı bulunamadı. Bu özelliği kullanabilmek için VLC veya MPC-HC yükleyin.</value>
+    <value>Desteklenen bir DVD oynatıcı bulunamadı. Bu özelliği kullanmak için VLC veya MPC-HC'yi kurun.</value>
   </data>
   <data name="PlaySourceToolTip" xml:space="preserve">
-    <value>Kaynak videoyu çalar.</value>
+    <value>Kaynak videoyu oynatır.</value>
   </data>
   <data name="PreviewClipGenerationFailedMessage" xml:space="preserve">
-    <value>Önizleme klibi oluşturma işlemi başarısız oldu. Ayrıntılar için kayıt günlüğü penceresine bakabilirsiniz.</value>
+    <value>Önizleme klibi oluşturma başarısız oldu. Ayrıntılar için günlük penceresine bakın.</value>
   </data>
   <data name="PreviewClipGenerationFailedTitle" xml:space="preserve">
-    <value>Önizleme klibi oluşturma işlemi başarısız oldu</value>
+    <value>Önizleme klibi oluşturma başarısız oldu</value>
   </data>
   <data name="PreviewWindowTitleSimple" xml:space="preserve">
     <value>Önizleme: {0}x{1}</value>
   </data>
   <data name="PreviewWindowTitleComplex" xml:space="preserve">
-    <value>Önizleme: Ekran {0}x{1} - Depolama {2}x{3}</value>
+    <value>Önizleme: Görüntü {0}x{1} - Depolama {2}x{3}</value>
   </data>
   <data name="NoVideoSourceTitle" xml:space="preserve">
     <value>Önizleme: Video kaynağı yok</value>
@@ -169,40 +169,40 @@
     <value>Görünüm:</value>
   </data>
   <data name="TopMargin" xml:space="preserve">
-    <value>Üst Kenar Boşluğu</value>
+    <value>Üst Boşluk</value>
   </data>
   <data name="LeftMargin" xml:space="preserve">
-    <value>Sol Kenar Boşluğu</value>
+    <value>Sol Boşluk</value>
   </data>
   <data name="RightMargin" xml:space="preserve">
-    <value>Sağ Kenar Boşluğu</value>
+    <value>Sağ Boşluk</value>
   </data>
   <data name="BottomMargin" xml:space="preserve">
-    <value>Alt Kenar Boşluğu</value>
+    <value>Alt Boşluk</value>
   </data>
 	<data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
-    <value>Kaynak dosyası bulunamadı.</value>
+    <value>Kaynak dosya bulunamadı.</value>
   </data>
   <data name="CloseVideoButton" xml:space="preserve">
-    <value>Videoyu kapat</value>
+    <value>Videoyu Kapat</value>
     <comment>Button to close the preview video clip.</comment>
   </data>
   <data name="OpenInSystemPlayerButton" xml:space="preserve">
-    <value>İşletim sisteminin video oynatıcısında aç</value>
+    <value>Sistem Oynatıcısında Aç</value>
   </data>
   <data name="VolumeSliderLabel" xml:space="preserve">
-    <value>Ses düzeyi</value>
+    <value>Ses Düzeyi</value>
   </data>
   <data name="ReplayPreviewButton" xml:space="preserve">
-    <value>Önizlemeyi yeniden oynat</value>
+    <value>Önizlemeyi Tekrar Oynat</value>
   </data>
   <data name="VideoErrorMessage" xml:space="preserve">
-    <value>Yerleşik video oynatıcı ile oynatılamıyor. İşletim sisteminin video oynatıcısı ile açılsın mı?</value>
+    <value>Video yerleşik oynatıcıyla oynatılamadı. Sistem oynatıcısı ile açmak ister misiniz?</value>
   </data>
   <data name="VideoErrorTitle" xml:space="preserve">
-    <value>Video hatası</value>
+    <value>Video Hatası</value>
   </data>
   <data name="PlaySourceDisabledAppxToolTip" xml:space="preserve">
-    <value>Windows Mağazası sürümü, diğer işlemleri başlatmasına izin verilmediğinden DVD veya Bluray kaynağını oynatamıyor.</value>
+    <value>Windows Mağazası sürümü, diğer işlemleri başlatmasına izin verilmediğinden DVD veya BluRay kaynağını oynatamıyor.</value>
   </data>
 </root>

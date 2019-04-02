@@ -187,7 +187,7 @@
     <value>Güçlü</value>
   </data>
   <data name="DenoisePreset_ultralight" xml:space="preserve">
-    <value>Aşırı hafif</value>
+    <value>Ultra Hafif</value>
   </data>
   <data name="DenoiseTune_animation" xml:space="preserve">
     <value>Animasyon</value>
@@ -196,19 +196,19 @@
     <value>Film</value>
   </data>
   <data name="DenoiseTune_grain" xml:space="preserve">
-    <value>Tanecik</value>
+    <value>Granül</value>
   </data>
   <data name="DenoiseTune_highmotion" xml:space="preserve">
-    <value>Yüksek Devinim</value>
+    <value>Yüksek Hareket</value>
   </data>
   <data name="Denoise_HQDN3D" xml:space="preserve">
-    <value>hqdn3d filtresi</value>
+    <value>hqdn3d</value>
   </data>
   <data name="Denoise_NLMeans" xml:space="preserve">
-    <value>NL-Means filtresi</value>
+    <value>NL-Means</value>
   </data>
   <data name="EncodeCompleteActionType_CloseProgram" xml:space="preserve">
-    <value>VidCoder'ı kapat</value>
+    <value>VidCoder'ı Kapat</value>
   </data>
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
     <value>Hiçbir Şey Yapma</value>
@@ -217,13 +217,13 @@
     <value>Çıkar {0}:</value>
   </data>
   <data name="EncodeCompleteActionType_Hibernate" xml:space="preserve">
-    <value>Hazırda beklet</value>
+    <value>Hazırda Beklet</value>
   </data>
   <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
     <value>Oturumu Kapat</value>
   </data>
   <data name="EncodeCompleteActionType_Shutdown" xml:space="preserve">
-    <value>Kapat</value>
+    <value>Bilgisayarı Kapat</value>
   </data>
   <data name="EncodeCompleteActionType_Sleep" xml:space="preserve">
     <value>Uyku</value>
@@ -240,7 +240,7 @@
     <comment>The name for the "UnSharp" sharpen filter.</comment>
   </data>
   <data name="TitleType_Bluray" xml:space="preserve">
-    <value>Blu-ray</value>
+    <value>BluRay</value>
     <comment>What to display when the source is a Blu-ray</comment>
   </data>
   <data name="TitleType_Dvd" xml:space="preserve">
@@ -252,10 +252,10 @@
     <comment>What to display when the source is a file</comment>
   </data>
   <data name="VideoRangeType_Chapters" xml:space="preserve">
-    <value>Bölüm</value>
+    <value>Bölümler</value>
   </data>
   <data name="VideoRangeType_Frames" xml:space="preserve">
-    <value>Kare</value>
+    <value>Kareler</value>
   </data>
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>Zaman Aralığı</value>
@@ -272,9 +272,9 @@
     <value>Kodlamayı durdur</value>
   </data>
   <data name="UpdatePromptTiming_OnExit" xml:space="preserve">
-    <value>Çıkışta</value>
+    <value>Çıkışta Yükle</value>
   </data>
   <data name="UpdatePromptTiming_OnLaunch" xml:space="preserve">
-    <value>Açılışta</value>
+    <value>Açılışta Yükle</value>
   </data>
 </root>

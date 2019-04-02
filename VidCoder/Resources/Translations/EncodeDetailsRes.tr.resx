@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="EncodeDetailsWindowTitle" xml:space="preserve">
-    <value>Kodlama İşlemi Detayları</value>
+    <value>Kodlama Detayları</value>
   </data>
   <data name="QueueSectionHeader" xml:space="preserve">
-    <value>Sıra</value>
+    <value>Kuyruk</value>
   </data>
   <data name="ScanPassLabel" xml:space="preserve">
     <value>Tarama geçişi:</value>
@@ -140,16 +140,16 @@
     <value>İş:</value>
   </data>
   <data name="ProgressLabel" xml:space="preserve">
-    <value>İlerleme durumu:</value>
+    <value>İlerleme:</value>
   </data>
   <data name="ElapsedTimeLabel" xml:space="preserve">
     <value>Geçen Süre:</value>
   </data>
   <data name="EtaLabel" xml:space="preserve">
-    <value>TAHMİNİ TAMAMLANMA SÜRESİ:</value>
+    <value>TTS:</value>
   </data>
   <data name="FileProgressLabel" xml:space="preserve">
-    <value>Dosya ilerleme durumu:</value>
+    <value>Dosya İlerlemesi:</value>
     <comment>Label on the encode details window for % progress on the current file.</comment>
   </data>
   <data name="FileSizeLabel" xml:space="preserve">
@@ -157,11 +157,11 @@
     <comment>Label for current file size on encode details window.</comment>
   </data>
   <data name="CurrentFpsLabel" xml:space="preserve">
-    <value>Mevcut kare/sn:</value>
+    <value>Mevcut FPS:</value>
     <comment>Label for the current encoding rate in frames per second.</comment>
   </data>
   <data name="AverageFpsLabel" xml:space="preserve">
-    <value>Ortalama kare/sn:</value>
+    <value>Ortalama FPS:</value>
     <comment>Label for the average encoding rate in frames per second.</comment>
   </data>
 </root>

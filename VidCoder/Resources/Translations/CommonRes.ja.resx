@@ -281,13 +281,22 @@ A full copy of the GNU General Public License has been included along with this 
     <value>最初</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
+  <data name="DuplicateTrack" xml:space="preserve">
+    <value>このトラックを複製</value>
+    <comment>Tip to duplicate the audio or subtitle track.</comment>
+  </data>
+  <data name="RemoveTrack" xml:space="preserve">
+    <value>このトラックを削除</value>
+    <comment>Tip for button to remove the audio or subtitle track.</comment>
+  </data>
   
   
   
   
   
-  
-  
-  
+  <data name="Unknown" xml:space="preserve">
+    <value>不明</value>
+    <comment>Used when a value is not known.</comment>
+  </data>
   
 </root>

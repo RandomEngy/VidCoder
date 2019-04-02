@@ -124,7 +124,7 @@
     <value>Yenile</value>
   </data>
   <data name="ChooseFromProcessesLabel" xml:space="preserve">
-    <value>Varolan işlemleri seçin:</value>
+    <value>İşlemlerden seç:</value>
   </data>
   <data name="AddAutoPauseProcessDialogTitle" xml:space="preserve">
     <value>Otomatik Duraklatma İşlemi Ekle</value>
@@ -136,7 +136,7 @@
     <value>VidCoder beklenmeyen bir hatayla karşılaştı.</value>
   </data>
   <data name="ExceptionDialogSubText" xml:space="preserve">
-    <value>Hatanın giderilebilmesi için lütfen bu sorunu bize bildirin.</value>
+    <value>Hatanın düzeltilebilmesi için lütfen bunu bildirin.</value>
   </data>
   <data name="ExceptionWindowTitle" xml:space="preserve">
     <value>İstisna</value>
@@ -148,19 +148,19 @@
     <value>Üzerine yaz</value>
   </data>
   <data name="AutoRenameButton" xml:space="preserve">
-    <value>Otomatik yeniden adlandır</value>
+    <value>Otomatik adlandır</value>
   </data>
   <data name="FileConflictWarning" xml:space="preserve">
-    <value>Bir dosya zaten {0} konumunda mevcut. Dosyanın üzerine yazmak mı, otomatik olarak kodlama işi için yeni bir dizin bulmak mı veya işlemi iptal etmek mi istersiniz?</value>
+    <value>Dosya zaten var {0}. Üzerine yazabilir, otomatik olarak yeni bir çıkış yolu bulabilir veya işlemi iptal edebilirsiniz.</value>
   </data>
   <data name="QueueFileConflictWarning" xml:space="preserve">
-    <value>Bir görev sırası işi  {0} dizin konumunda zaten mevcut. Dosyanın üzerine yazmak mı, otomatik olarak kodlama işi için yeni bir dizin bulmak mı veya işlemi iptal etmek mi istersiniz?</value>
+    <value>Kuyruğa alınacak iş zaten var {0}. Üzerine yazabilir, otomatik olarak yeni bir çıkış yolu bulabilir veya işlemi iptal edebilirsiniz.</value>
   </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Görev Listesi Kolonları</value>
+    <value>Kuyruk Sütunları</value>
   </data>
   <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Sütunları eklemek, kaldırmak veya yeniden srıalamak için sürükle ve bırak.</value>
+    <value>Sütun eklemek, kaldırmak veya srıalamak için sürükleyip ve bırakın.</value>
   </data>
   <data name="UnusedColumns" xml:space="preserve">
     <value>Kullanılmayan sütunlar</value>
@@ -169,7 +169,7 @@
     <value>Kullanılan sütunlar</value>
   </data>
   <data name="ScanMultipleWindowTitle" xml:space="preserve">
-    <value>Taranıyor...</value>
+    <value>İnceleniyor...</value>
   </data>
   <data name="AboutVidCoderDialogTitle" xml:space="preserve">
     <value>VidCoder Hakkında</value>
@@ -181,7 +181,7 @@
     <value>Sürüm</value>
   </data>
   <data name="BasedOnHandBrake" xml:space="preserve">
-    <value>HandBrake ({0}) sürümü tabanlı</value>
+    <value>HandBrake sürüm tabanı ({0})</value>
   </data>
   <data name="Copyright" xml:space="preserve">
     <value>© {0} VidCoder Geliştiricileri</value>
@@ -191,17 +191,17 @@
     <comment>{0} is a placeholder for version. For example: 1.4.2 Beta</comment>
   </data>
   <data name="NameDialogTitle" xml:space="preserve">
-    <value>Ad</value>
+    <value>Adı</value>
     <comment>Title for dialog when  naming a preset or  picker</comment>
   </data>
   <data name="ChooseNamePreset" xml:space="preserve">
-    <value>Hazır ayar için bir ad girin:</value>
+    <value>Ön ayar için bir ad belirtin:</value>
   </data>
   <data name="ApplyUpdateDialogTitle" xml:space="preserve">
     <value>Güncelleme Uygulansın mı?</value>
   </data>
   <data name="ApplyUpdateDialogMessage" xml:space="preserve">
-    <value>Bir güncelleme indirildi. Şimdi uygulamak ister misiniz?</value>
+    <value>Güncelleme indirildi. Şimdi uygulamak ister misiniz?</value>
   </data>
   <data name="ViewFullChangelog" xml:space="preserve">
     <value>Tüm değişim günlüğünü göster</value>
@@ -213,25 +213,25 @@
     <value>Uyarı</value>
   </data>
   <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder işletim sisteminizde desteklenmiyor; Windows XP ve Server 2003'de artık çalışmaz. Lütfen VidCoder 1.4 yükleyin ya da işletim sisteminizi yükseltin.</value>
+    <value>VidCoder işletim sisteminizde desteklenmiyor, Windows XP ve Server 2003 artık çalışmıyor. Lütfen VidCoder 1.4'ü kurun veya işletim sisteminizi yükseltin.</value>
   </data>
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
-    <value>Sistem uyku moduna geçmek üzere</value>
+    <value>Bilgisayar Uyku Moduna geçecek</value>
   </data>
   <data name="EncodeCompleteWarning_LogOffTitle" xml:space="preserve">
-    <value>Oturum kapatılmak üzere</value>
+    <value>Oturum kapatılacak</value>
   </data>
   <data name="EncodeCompleteWarning_ShutdownTitle" xml:space="preserve">
-    <value>Sistem kapatılmak üzere</value>
+    <value>Bilgisayar kapatılacak</value>
   </data>
   <data name="EncodeCompleteWarning_SleepMessage" xml:space="preserve">
-    <value>Sistem {0} saniye içinde uyku moduna geçecek.</value>
+    <value>Bilgisayar {0} saniye içinde Uyku Moduna geçecek.</value>
   </data>
   <data name="EncodeCompleteWarning_LogOffMessage" xml:space="preserve">
-    <value>{0} saniye içinde oturumunuz kapatılacak.</value>
+    <value>Oturumunuz {0} saniye içinde kapatılacak.</value>
   </data>
   <data name="EncodeCompleteWarning_ShutdownMessage" xml:space="preserve">
-    <value>Sistem {0} saniye içinde kapatılacak.</value>
+    <value>Bilgisayar {0} saniye içinde kapatılacak.</value>
   </data>
   <data name="EncodeCompleteWarning_Title" xml:space="preserve">
     <value>Kodlama tamamladı.</value>
@@ -243,15 +243,15 @@
     <value>Kaynak oynatılırken hata oluştu.</value>
   </data>
   <data name="EncodeCompleteWarning_HibernateMessage" xml:space="preserve">
-    <value>Sistem {0} saniye içinde hazırda beklemeye girecek.</value>
+    <value>Bilgisayar {0} saniye içinde Hazırda Beklemeye geçecek.</value>
   </data>
   <data name="EncodeCompleteWarning_HibernateTitle" xml:space="preserve">
-    <value>Hazırda bekletme yaklaşıyor</value>
+    <value>Bilgisayar Bekleme Moduna geçecek</value>
   </data>
   <data name="ChooseNamePicker" xml:space="preserve">
-    <value>Seçici için bir ad seçin:</value>
+    <value>Seçici için bir ad girin:</value>
   </data>
   <data name="ExceptionDialogSubTextReported" xml:space="preserve">
-    <value>Programın kapanması gerekiyor, ancak hata otomatik olarak raporlanacak.</value>
+    <value>Programın kapanacak ve hata otomatik olarak bildirilecek.</value>
   </data>
 </root>
