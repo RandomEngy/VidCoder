@@ -223,29 +223,17 @@ namespace VidCoderCLI
 
 		private static async Task RunActionAsync(Expression<Action<IVidCoderAutomation>> action, string startedText, string failedText)
 		{
-			var firstAttemptResult = await TryActionAsync(action).ConfigureAwait(false);
-			if (firstAttemptResult == AutomationResult.Success)
-			{
-				Console.WriteLine(startedText);
-				return;
-			}
-
-			if (firstAttemptResult == AutomationResult.FailedInVidCoder)
-			{
-				return;
-			}
-
 			string vidCoderExe = GetVidCoderExePath();
 
 			if (!VidCoderIsRunning(vidCoderExe))
 			{
 				Console.WriteLine("Could not find a running instance of VidCoder. Starting it now.");
 				Process.Start(vidCoderExe);
+				await Task.Delay(1000).ConfigureAwait(false);
 			}
 
 			for (int i = 0; i < 30; i++)
 			{
-				await Task.Delay(1000).ConfigureAwait(false);
 				var encodeResult = await TryActionAsync(action).ConfigureAwait(false);
 
 				if (encodeResult == AutomationResult.Success)
@@ -258,6 +246,8 @@ namespace VidCoderCLI
 				{
 					return;
 				}
+
+				await Task.Delay(1000).ConfigureAwait(false);
 			}
 
 			WriteError(failedText);
@@ -273,14 +263,12 @@ namespace VidCoderCLI
 					betaString = "Beta";
 				}
 
-				CancellationTokenSource tokenSource = new CancellationTokenSource(200);
-
 				using (var client = new PipeClient<IVidCoderAutomation>("VidCoderAutomation" + betaString))
 				{
-					client.SetLogger(message => Console.WriteLine(message));
+					client.SetLogger(Console.WriteLine);
 
-					await client.ConnectAsync(tokenSource.Token).ConfigureAwait(false);
-					await client.InvokeAsync(action, tokenSource.Token).ConfigureAwait(false);
+					await client.ConnectAsync().ConfigureAwait(false);
+					await client.InvokeAsync(action).ConfigureAwait(false);
 				}
 
 				return AutomationResult.Success;
