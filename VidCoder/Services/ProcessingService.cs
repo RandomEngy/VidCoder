@@ -1619,7 +1619,7 @@ namespace VidCoder.Services
 			VCJob job = jobViewModel.Job;
 
 			var encodeLogger = StaticResolver.Resolve<AppLoggerFactory>().ResolveEncodeLogger(job.FinalOutputPath);
-			jobViewModel.Logger = encodeLogger;
+			jobViewModel.EncodeLogger = encodeLogger;
 			jobViewModel.EncodeSpeedDetailsAvailable = false;
 
 			encodeLogger.Log("Starting job " + this.TaskNumber + "/" + this.TotalTasks);
@@ -1847,7 +1847,7 @@ namespace VidCoder.Services
 
 			DispatchUtilities.BeginInvoke(() =>
 			{
-				IAppLogger encodeLogger = finishedJobViewModel.Logger;
+				IAppLogger encodeLogger = finishedJobViewModel.EncodeLogger;
 				string finalOutputPath = finishedJobViewModel.Job.FinalOutputPath;
 				FileInfo directOutputFileInfo;
 				try

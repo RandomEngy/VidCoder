@@ -164,7 +164,26 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public IAppLogger Logger { get; set; }
+		/// <summary>
+		/// The logger to use for internal use.
+		/// </summary>
+		private IAppLogger Logger
+		{
+			get
+			{
+				if (this.EncodeLogger != null)
+				{
+					return this.EncodeLogger;
+				}
+
+				return StaticResolver.Resolve<IAppLogger>();
+			}
+		}
+
+		/// <summary>
+		/// The encode logger for the running job.
+		/// </summary>
+		public IAppLogger EncodeLogger { get; set; }
 
 		public VideoSource VideoSource { get; set; }
 
@@ -237,9 +256,11 @@ namespace VidCoder.ViewModel
 				throw new InvalidOperationException("Job cannot be null.");
 			}
 
-			if (this.Job.Length <= TimeSpan.Zero)
+			TimeSpan jobLength = this.Job.Length;
+			if (jobLength <= TimeSpan.Zero)
 			{
-				this.Logger.LogError($"Invalid length '{this.Job.Length}' on job {this.Job.FinalOutputPath}");
+				this.Logger.LogError($"Invalid length '{this.Job.Length}' on job {this.Job.FinalOutputPath} . Defaulting to 20 minutes. ETA may be inaccurate.");
+				jobLength = TimeSpan.FromMinutes(20);
 			}
 
 			var profile = this.Job.EncodingProfile;
@@ -248,7 +269,7 @@ namespace VidCoder.ViewModel
 				throw new InvalidOperationException("Encoding profile cannot be null.");
 			}
 
-			this.work = new JobWork(this.Job.Length, profile.VideoEncodeRateType != VCVideoEncodeRateType.ConstantQuality && profile.TwoPass, this.SubtitleScan);
+			this.work = new JobWork(jobLength, profile.VideoEncodeRateType != VCVideoEncodeRateType.ConstantQuality && profile.TwoPass, this.SubtitleScan);
 		}
 
 		public TimeSpan EncodeTime
