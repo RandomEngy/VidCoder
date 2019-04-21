@@ -376,6 +376,11 @@ namespace VidCoder.Controls
 
 		private double GetBarFractionFromSeconds(double seconds)
 		{
+			if (this.totalSeconds <= 0)
+			{
+				return 0;
+			}
+
 			double fraction = seconds / this.totalSeconds;
 			if (fraction > 1)
 			{
