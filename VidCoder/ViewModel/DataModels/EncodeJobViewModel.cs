@@ -259,8 +259,7 @@ namespace VidCoder.ViewModel
 			TimeSpan jobLength = this.Job.Length;
 			if (jobLength <= TimeSpan.Zero)
 			{
-				this.Logger.LogError($"Invalid length '{this.Job.Length}' on job {this.Job.FinalOutputPath} . Defaulting to 20 minutes. ETA may be inaccurate.");
-				jobLength = TimeSpan.FromMinutes(20);
+				throw new InvalidOperationException($"Invalid length '{this.Job.Length}' on job {this.Job.FinalOutputPath}");
 			}
 
 			var profile = this.Job.EncodingProfile;
