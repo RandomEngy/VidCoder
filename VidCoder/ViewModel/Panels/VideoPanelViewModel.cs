@@ -337,6 +337,16 @@ namespace VidCoder.ViewModel
 						height = 480;
 					}
 
+					if (width <= 0)
+					{
+						width = 640;
+					}
+
+					if (height <= 0)
+					{
+						height = 480;
+					}
+
 					string parameterList = HandBrakeUtils.CreateX264OptionsString(
 						videoPreset,
 						videoTunes,
