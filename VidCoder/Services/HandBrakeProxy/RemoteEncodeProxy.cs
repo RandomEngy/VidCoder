@@ -31,8 +31,8 @@ namespace VidCoder
 		/// </summary>
 		public event EventHandler<EncodeCompletedEventArgs> EncodeCompleted;
 
-		private ManualResetEventSlim encodeStartEvent;
-		private ManualResetEventSlim encodeEndEvent;
+		private SemaphoreSlim encodeStartEvent;
+		private SemaphoreSlim encodeEndEvent;
 
 		public async Task StartEncodeAsync(
 			VCJob job,
@@ -44,8 +44,8 @@ namespace VidCoder
 		{
 			this.Logger = logger;
 
-			this.encodeStartEvent = new ManualResetEventSlim(false);
-			this.encodeEndEvent = new ManualResetEventSlim(false);
+			this.encodeStartEvent = new SemaphoreSlim(0, 1);
+			this.encodeEndEvent = new SemaphoreSlim(0, 1);
 
 			await this.RunOperationAsync(worker =>
 				worker.StartEncode(
@@ -61,8 +61,8 @@ namespace VidCoder
 		{
 			this.Logger = logger;
 
-			this.encodeStartEvent = new ManualResetEventSlim(false);
-			this.encodeEndEvent = new ManualResetEventSlim(false);
+			this.encodeStartEvent = new SemaphoreSlim(0, 1);
+			this.encodeEndEvent = new SemaphoreSlim(0, 1);
 
 			await this.RunOperationAsync(worker => worker.StartEncodeFromJson(encodeJson));
 		}
@@ -94,7 +94,7 @@ namespace VidCoder
 			this.encodeStartEvent.Wait();
 			bool waitForEnd;
 
-			await this.ProcessLock.WaitAsync();
+			await this.ProcessLock.WaitAsync().ConfigureAwait(false);
 			try
 			{
 				bool connected = this.Client != null;
@@ -102,7 +102,7 @@ namespace VidCoder
 
 				if (this.Running && connected)
 				{
-					await this.ExecuteProxyOperationAsync(() => this.Client.InvokeAsync(x => x.StopEncode()), nameof(IHandBrakeEncodeWorker.StopEncode));
+					await this.ExecuteProxyOperationAsync(() => this.Client.InvokeAsync(x => x.StopEncode()), nameof(IHandBrakeEncodeWorker.StopEncode)).ConfigureAwait(false);
 
 					// If stopping the encode failed, don't wait for the encode to end.
 					waitForEnd = this.Running;
@@ -115,7 +115,7 @@ namespace VidCoder
 
 			if (waitForEnd)
 			{
-				this.encodeEndEvent.Wait();
+				await this.encodeEndEvent.WaitAsync().ConfigureAwait(false);
 			}
 		}
 
@@ -123,15 +123,16 @@ namespace VidCoder
 		{
 			this.EncodeStarted?.Invoke(this, EventArgs.Empty);
 
-			this.encodeStartEvent.Set();
+			this.encodeStartEvent.Release();
 		}
 
 		public void OnEncodeProgress(float averageFrameRate, float currentFrameRate, TimeSpan estimatedTimeLeft, float fractionComplete, int passId, int pass, int passCount, string stateCode)
 		{
 			// Dispatch to avoid deadlocks on callbacks
-			DispatchUtilities.BeginInvoke(() =>
+			DispatchUtilities.BeginInvoke(async () =>
 				{
-					lock (this.ProcessLock)
+					await this.ProcessLock.WaitAsync().ConfigureAwait(false);
+					try
 					{
 						this.LastWorkerCommunication = DateTimeOffset.UtcNow;
 
@@ -142,17 +143,26 @@ namespace VidCoder
 								new EncodeProgressEventArgs(fractionComplete, currentFrameRate, averageFrameRate, estimatedTimeLeft, passId, pass, passCount, stateCode));
 						}
 					}
+					finally
+					{
+						this.ProcessLock.Release();
+					}
 				});
 		}
 
-		public void OnEncodeComplete(bool error)
+		public async void OnEncodeComplete(bool error)
 		{
-			lock (this.ProcessLock)
+			await this.ProcessLock.WaitAsync().ConfigureAwait(false);
+			try
 			{
 				this.EndOperation(error);
 			}
+			finally
+			{
+				this.ProcessLock.Release();
+			}
 
-			this.encodeEndEvent.Set();
+			this.encodeEndEvent.Release();
 		}
 
 		protected override HandBrakeWorkerAction Action => HandBrakeWorkerAction.Encode;

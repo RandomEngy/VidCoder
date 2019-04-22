@@ -66,7 +66,7 @@ namespace VidCoder
 		{
 			try
 			{
-				await action();
+				await action().ConfigureAwait(false);
 			}
 			catch (Exception exception)
 			{
@@ -159,7 +159,14 @@ namespace VidCoder
 					// With extended logging, log the pipe messages.
 					if (Config.LogVerbosity >= 2)
 					{
-						this.Client.SetLogger(message => this.Logger.Log(message));
+						this.Client.SetLogger(message => 
+							{
+								this.Logger.Log(message);
+#if DEBUG
+								System.Diagnostics.Debug.WriteLine(message);
+#endif
+							}
+						);
 					}
 
 					await this.Client.ConnectAsync().ConfigureAwait(false);
@@ -291,7 +298,8 @@ namespace VidCoder
 				{
 					try
 					{
-						await this.Client.InvokeAsync(x => x.Ping());
+						CancellationTokenSource cancellationTokenSource = new CancellationTokenSource(5000);
+						await this.Client.InvokeAsync(x => x.Ping(), cancellationTokenSource.Token);
 
 						lock (this.ProcessLock)
 						{
@@ -300,7 +308,9 @@ namespace VidCoder
 					}
 					catch (Exception exception)
 					{
+#if !DEBUG
 						this.HandlePingError(exception);
+#endif
 					}
 				}
 			};

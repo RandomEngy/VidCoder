@@ -15,10 +15,10 @@ namespace VidCoderWorker
 	{
 		private const double ParentCheckInterval = 5000;
 
-		private static ManualResetEventSlim encodeComplete;
+		private static SemaphoreSlim encodeComplete;
 		private static System.Timers.Timer parentCheckTimer;
 
-		static void Main(string[] args)
+		static async Task Main(string[] args)
 		{
 			try
 			{
@@ -71,8 +71,8 @@ namespace VidCoderWorker
 
 				StartService(action);
 
-				encodeComplete = new ManualResetEventSlim(false);
-				encodeComplete.Wait();
+				encodeComplete = new SemaphoreSlim(0, 1);
+				await encodeComplete.WaitAsync().ConfigureAwait(false);
 			}
 			catch (Exception exception)
 			{
@@ -91,6 +91,9 @@ namespace VidCoderWorker
 					PipeServerWithCallback<IHandBrakeEncodeWorkerCallback, IHandBrakeEncodeWorker> encodeServer = null;
 					Lazy<IHandBrakeEncodeWorker> lazyEncodeWorker = new Lazy<IHandBrakeEncodeWorker>(() => new HandBrakeEncodeWorker(encodeServer.Invoker));
 					encodeServer = new PipeServerWithCallback<IHandBrakeEncodeWorkerCallback, IHandBrakeEncodeWorker>(PipeName, () => lazyEncodeWorker.Value);
+#if DEBUG
+					encodeServer.SetLogger(message => System.Diagnostics.Debug.WriteLine(message));
+#endif
 					server = encodeServer;
 				}
 				else if (action == HandBrakeWorkerAction.Scan)
@@ -98,6 +101,9 @@ namespace VidCoderWorker
 					PipeServerWithCallback<IHandBrakeScanWorkerCallback, IHandBrakeScanWorker> scanServer = null;
 					Lazy<IHandBrakeScanWorker> lazyScanWorker = new Lazy<IHandBrakeScanWorker>(() => new HandBrakeScanWorker(scanServer.Invoker));
 					scanServer = new PipeServerWithCallback<IHandBrakeScanWorkerCallback, IHandBrakeScanWorker>(PipeName, () => lazyScanWorker.Value);
+#if DEBUG
+					scanServer.SetLogger(message => System.Diagnostics.Debug.WriteLine(message));
+#endif
 					server = scanServer;
 				}
 				else
@@ -123,7 +129,7 @@ namespace VidCoderWorker
 
 		public static void SignalEncodeComplete()
 		{
-			encodeComplete.Set();
+			encodeComplete.Release();
 		}
 
 		private static void PrintUsage()

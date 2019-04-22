@@ -266,7 +266,8 @@ namespace VidCoder.ViewModel
 
 			if (this.GeneratingPreview)
 			{
-				this.StopAndWaitAsync().Wait();
+				this.encodeCancelled = true;
+				this.encodeProxy.StopEncodeAsync();
 			}
 
 			return true;
@@ -773,12 +774,6 @@ namespace VidCoder.ViewModel
 					this.PlayingPreview = false;
 				}));
 			}
-		}
-
-		private Task StopAndWaitAsync()
-		{
-			this.encodeCancelled = true;
-			return this.encodeProxy.StopAndWaitAsync();
 		}
 
 		private string CreateTitle(OutputSizeInfo size)

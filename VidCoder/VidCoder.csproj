@@ -105,7 +105,7 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="PipeMethodCalls">
-      <Version>1.0.0</Version>
+      <Version>1.0.1</Version>
     </PackageReference>
     <PackageReference Include="reactiveui" Version="9.4.1" />
     <PackageReference Include="ReactiveUI.WPF">

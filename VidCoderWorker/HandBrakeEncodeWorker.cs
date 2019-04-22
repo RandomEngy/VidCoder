@@ -154,7 +154,7 @@ namespace VidCoderWorker
 
 					try
 					{
-						await this.CallbackInvoker.InvokeAsync(c => c.OnEncodeComplete(e.Error));
+						await this.CallbackInvoker.InvokeAsync(c => c.OnEncodeComplete(e.Error)).ConfigureAwait(false);
 					}
 					catch (Exception exception)
 					{
