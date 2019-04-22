@@ -186,6 +186,7 @@ $outputDirectoryFiles = @(
     "ReactiveUI.WPF.dll",
     "Splat.dll",
     "System.Data.SQLite.dll",
+    "System.Net.Http.dll",
     "System.Reactive.dll",
     "System.Reactive.Core.dll",
     "System.Reactive.Experimental.dll",
