@@ -111,6 +111,7 @@ namespace VidCoderWorker
 				await Task.Delay(LogMessageSendDelayMs).ConfigureAwait(false);
 
 				this.StartSendingPendingLogMessages();
+				this.logMessageSendScheduled = false;
 			}
 		}
 
@@ -119,7 +120,7 @@ namespace VidCoderWorker
 			await this.SendPendingLogMessagesAsync().ConfigureAwait(false);
 		}
 
-		private async Task SendPendingLogMessagesAsync()
+		protected async Task SendPendingLogMessagesAsync()
 		{
 			string messages = null;
 			lock (this.logListLock)
@@ -166,7 +167,7 @@ namespace VidCoderWorker
 			this.Instance?.Dispose();
 			HandBrakeUtils.DisposeGlobal();
 
-			await this.SendPendingLogMessagesAsync();
+			await this.SendPendingLogMessagesAsync().ConfigureAwait(false);
 
 			Program.SignalEncodeComplete();
 		}
