@@ -40,7 +40,7 @@ namespace VidCoder.Automation
 
 		public static void StopListening()
 		{
-			cancellationTokenSource.Cancel();
+			cancellationTokenSource?.Cancel();
 		}
 	}
 }
