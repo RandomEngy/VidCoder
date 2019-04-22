@@ -278,17 +278,13 @@ namespace VidCoder.Services
 
 			string extension;
 
-			if (container.DefaultExtension == "mkv")
+			if (container.DefaultExtension == "mp4" && profile.PreferredExtension == VCOutputExtension.M4v)
 			{
-				extension = "mkv";
-			}
-			else if (container.DefaultExtension == "mp4" && profile.PreferredExtension == VCOutputExtension.Mp4)
-			{
-				extension = "mp4";
+				extension = "m4v";
 			}
 			else
 			{
-				extension = "m4v";
+				extension = container.DefaultExtension;
 			}
 
 			return includeDot ? "." + extension : extension;

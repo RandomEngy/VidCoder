@@ -92,7 +92,7 @@ namespace VidCoder.ViewModel
 						.Skip(1)
 						.Subscribe(_ =>
 						{
-							this.RefreshEncoderChoices();
+							this.RefreshEncoderChoices(isContainerChange: true);
 						});
 
 					this.audioPanelVM.SuppressProfileEdits = true;
@@ -948,7 +948,7 @@ namespace VidCoder.ViewModel
 			this.RaiseAudioEncodingChanged();
 		}
 
-		private void RefreshEncoderChoices()
+		private void RefreshEncoderChoices(bool isContainerChange = false)
 		{
 			HBContainer container = HandBrakeEncoderHelpers.GetContainer(this.presetsService.SelectedPreset.Preset.EncodingProfile.ContainerName);
 			AudioEncoderViewModel oldEncoder = null;
@@ -962,10 +962,12 @@ namespace VidCoder.ViewModel
 			var resourceManager = new ResourceManager(typeof(EncodingRes));
 
 			this.audioEncoders = new List<AudioEncoderViewModel>();
-			this.audioEncoders.Add(new AudioEncoderViewModel { IsPassthrough = true });
+			//this.audioEncoders.Add(new AudioEncoderViewModel { IsPassthrough = true });
 
 			this.passthroughChoices = new List<ComboChoice>();
 			this.passthroughChoices.Add(new ComboChoice(AutoPassthroughEncoder, EncodingRes.Passthrough_auto));
+
+			bool anyCodecSupportsPassthrough = false;
 
 			foreach (HBAudioEncoder encoder in HandBrakeEncoderHelpers.AudioEncoders)
 			{
@@ -985,12 +987,19 @@ namespace VidCoder.ViewModel
 
 							this.passthroughChoices.Add(new ComboChoice(encoder.ShortName, display));
 						}
+
+						anyCodecSupportsPassthrough = true;
 					}
 					else
 					{
 						this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = encoder });
 					}
 				}
+			}
+
+			if (anyCodecSupportsPassthrough)
+			{
+				this.audioEncoders.Insert(0, new AudioEncoderViewModel { IsPassthrough = true });
 			}
 
 			this.RaisePropertyChanged(nameof(this.PassthroughChoices));
@@ -1017,6 +1026,12 @@ namespace VidCoder.ViewModel
 			if (this.selectedAudioEncoder == null)
 			{
 				this.selectedAudioEncoder = this.audioEncoders[1];
+			}
+
+			// If it's a container change we need to commit the new encoder change.
+			if (isContainerChange && this.selectedAudioEncoder != oldEncoder)
+			{
+				this.RaiseAudioEncodingChanged();
 			}
 
 			this.RaisePropertyChanged(nameof(this.SelectedAudioEncoder));

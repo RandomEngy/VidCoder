@@ -381,6 +381,10 @@ namespace VidCoder.ViewModel
 				.Subscribe(containerName =>
 				{
 					this.RefreshEncoderChoices(containerName, EncoderChoicesRefreshSource.ContainerChange);
+
+					// Refresh preset/profile/tune/level choices and values
+					this.RefreshEncoderSettings(applyDefaults: false);
+					this.SetDefaultQuality();
 				});
 
 		    this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.AudioCopyMask)
