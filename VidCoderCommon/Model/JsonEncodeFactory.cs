@@ -746,8 +746,8 @@ namespace VidCoderCommon.Model
 					Default = srtSubtitle.Default,
 					Offset = srtSubtitle.Offset,
 					Burn = srtSubtitle.BurnedIn,
-					SRT =
-						new SRT
+					Import =
+						new SubImport
 						{
 							Filename = srtSubtitle.FileName,
 							Codeset = srtSubtitle.CharacterCode,

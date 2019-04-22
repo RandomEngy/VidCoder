@@ -19,7 +19,7 @@ namespace VidCoderWorker
 		public void StartScan(string path)
 		{
 			this.Instance = new HandBrakeInstance();
-			this.Instance.Initialize(this.PassedVerbosity);
+			this.Instance.Initialize(this.PassedVerbosity, noHardware: false);
 			this.Instance.ScanProgress += (o, e) =>
 			{
 				this.MakeOneWayCallback(c => c.OnScanProgress((float)e.Progress));

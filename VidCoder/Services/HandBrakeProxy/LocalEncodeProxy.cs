@@ -93,7 +93,7 @@ namespace VidCoder
 			this.encodeEndEvent = new ManualResetEventSlim(false);
 
 			this.instance = new HandBrakeInstance();
-			this.instance.Initialize(Config.LogVerbosity);
+			this.instance.Initialize(Config.LogVerbosity, noHardware: false);
 
 			this.instance.ScanCompleted += (o, e) =>
 			{

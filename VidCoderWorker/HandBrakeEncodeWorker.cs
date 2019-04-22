@@ -95,7 +95,7 @@ namespace VidCoderWorker
 			try
 			{
 				this.Instance = new HandBrakeInstance();
-				this.Instance.Initialize(this.PassedVerbosity);
+				this.Instance.Initialize(this.PassedVerbosity, noHardware: false);
 
 				this.Instance.ScanCompleted += (o, e) =>
 				{

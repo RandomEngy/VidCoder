@@ -3133,7 +3133,7 @@ namespace VidCoder.ViewModel
 			scanLogger.Log("Starting scan: " + path);
 
 			this.scanInstance = new HandBrakeInstance();
-			this.scanInstance.Initialize(Config.LogVerbosity);
+			this.scanInstance.Initialize(Config.LogVerbosity, noHardware: false);
 			this.scanInstance.ScanProgress += (o, e) =>
 			{
 				this.ScanProgressFraction = e.Progress;
