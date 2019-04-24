@@ -71,6 +71,32 @@ namespace VidCoder.Services
 			}
 		}
 
+		private ReactiveCommand<Unit, Unit> clear;
+		public ICommand Clear
+		{
+			get
+			{
+				return this.clear ?? (this.clear = ReactiveCommand.Create(() =>
+				{
+					this.Logs.Edit(logsInnerList =>
+					{
+						for (int i = logsInnerList.Count - 1; i > 0; i--)
+						{
+							if (logsInnerList[i].Logger.Closed)
+							{
+								logsInnerList.RemoveAt(i);
+							}
+						}
+					});
+
+					if (this.SelectedLog == null)
+					{
+						this.SelectedLog = this.Logs.Items.First();
+					}
+				}));
+			}
+		}
+
 		public void AddLogger(IAppLogger logger, LogOperationType logOperationType, string operationPath)
 		{
 			DispatchUtilities.BeginInvoke(() =>

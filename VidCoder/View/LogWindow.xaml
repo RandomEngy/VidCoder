@@ -109,6 +109,18 @@
 						Content="{x:Static res:LogRes.CopyToPastebinButton}" />
 					<Button
 						Height="24"
+						Padding="5 0"
+						Command="{Binding LogCoordinator.Clear}">
+						<StackPanel Orientation="Horizontal">
+							<Image
+								Width="16"
+								Height="16"
+								Source="/Icons/Clear.png" />
+							<TextBlock Margin="5 0 0 0" Text="{x:Static res:LogRes.ClearFinishedButton}" />
+						</StackPanel>
+					</Button>
+					<Button
+						Height="24"
 						MinWidth="70"
 						Padding="5 0"
 						Command="{Binding LogCoordinator.OpenLogFolder}"

@@ -13,7 +13,6 @@ namespace VidCoder.Services
 	public class AppLogger : IAppLogger
 	{
 		private StreamWriter logFileWriter;
-		private bool disposed;
 		private readonly IAppLogger parent;
 		private readonly object disposeLock = new object();
 
@@ -88,7 +87,7 @@ namespace VidCoder.Services
 		/// </summary>
 		public void ResumeWriter()
 		{
-			if (!this.disposed)
+			if (!this.Closed)
 			{
 				this.TryCreateLogFileWriter();
 			}
@@ -152,9 +151,9 @@ namespace VidCoder.Services
 			lock (this.disposeLock)
 			lock (this.LogLock)
 			{
-				if (!this.disposed)
+				if (!this.Closed)
 				{
-					this.disposed = true;
+					this.Closed = true;
 					if (disposing)
 					{
 						this.logFileWriter?.Dispose();
@@ -170,11 +169,13 @@ namespace VidCoder.Services
 			GC.SuppressFinalize(this);
 		}
 
+		public bool Closed { get; private set; }
+
 		public void AddEntry(LogEntry entry, bool logParent = true)
 		{
 			lock (this.disposeLock)
 			{
-				if (this.disposed)
+				if (this.Closed)
 				{
 					return;
 				}

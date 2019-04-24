@@ -139,4 +139,7 @@
   <data name="PastebinSuccessStatus" xml:space="preserve">
     <value>Link to log on Pastebin has been copied to the clipboard.</value>
   </data>
+  <data name="ClearFinishedButton" xml:space="preserve">
+    <value>Clear finished</value>
+  </data>
 </root>

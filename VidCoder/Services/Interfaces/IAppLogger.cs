@@ -25,5 +25,7 @@ namespace VidCoder.Services
 		/// Resumes the file writer. Should be called while holding the LogLock
 		/// </summary>
 		void ResumeWriter();
+
+		bool Closed { get; }
 	}
 }
