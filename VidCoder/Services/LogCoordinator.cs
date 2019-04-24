@@ -73,8 +73,11 @@ namespace VidCoder.Services
 
 		public void AddLogger(IAppLogger logger, LogOperationType logOperationType, string operationPath)
 		{
-			this.Logs.Add(
-				new LogViewModel(logger) { OperationPath = operationPath, OperationType = logOperationType });
+			DispatchUtilities.BeginInvoke(() =>
+			{
+				this.Logs.Add(
+					new LogViewModel(logger) { OperationPath = operationPath, OperationType = logOperationType });
+			});
 		}
 
 		private void OnMessageLoggedLocal(object sender, MessageLoggedEventArgs e)
