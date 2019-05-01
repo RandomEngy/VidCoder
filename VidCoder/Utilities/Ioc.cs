@@ -48,6 +48,10 @@ namespace VidCoder
 					return allAppLogger;
 				}
 			});
+			container.RegisterSingleton<ILogger>(() =>
+			{
+				return container.Resolve<IAppLogger>();
+			});
 
 			container.RegisterSingleton<OutputPathService>();
 			container.RegisterSingleton<OutputSizeService>();
