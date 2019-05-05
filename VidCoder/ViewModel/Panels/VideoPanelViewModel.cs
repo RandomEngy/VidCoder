@@ -35,7 +35,7 @@ namespace VidCoder.ViewModel
 
 		private VideoEncoderViewModel selectedEncoder;
 		private List<double> framerateChoices;
-		private int displayTargetSize;
+		private double displayTargetSize;
 		private int displayVideoBitrate;
 
 		private List<ComboChoice> profileChoices;
@@ -662,7 +662,7 @@ namespace VidCoder.ViewModel
 			set { this.UpdateProfileProperty(nameof(this.Profile.VideoEncodeRateType), value); }
 		}
 
-		public int TargetSize
+		public double TargetSize
 		{
 			get
 			{
@@ -673,7 +673,7 @@ namespace VidCoder.ViewModel
 						JsonEncodeFactory factory = new JsonEncodeFactory(new StubLogger());
 
 						double estimatedSizeBytes = factory.CalculateFileSize(this.MainViewModel.EncodeJob, this.MainViewModel.SelectedTitle.Title, this.VideoBitrate);
-						this.displayTargetSize = (int)Math.Round(estimatedSizeBytes);
+						this.displayTargetSize = Math.Round(estimatedSizeBytes, 1);
 					}
 					else
 					{

@@ -819,7 +819,7 @@ namespace VidCoderCommon.Model
 		/// for calculating bitrate when the target size would be wrong.</param>
 		/// <param name="logger">The logger to use.</param>
 		/// <returns>The video bitrate in kbps.</returns>
-		public int CalculateBitrate(VCJob job, SourceTitle title, int sizeMb, double overallSelectedLengthSeconds = 0)
+		public int CalculateBitrate(VCJob job, SourceTitle title, double sizeMb, double overallSelectedLengthSeconds = 0)
 		{
 			bool isPreview = overallSelectedLengthSeconds > 0;
 
@@ -832,7 +832,7 @@ namespace VidCoderCommon.Model
 				this.logger.Log($"Calculating bitrate - Selected value length: {overallSelectedLengthSeconds} seconds");
 			}
 
-			long availableBytes = ((long)sizeMb) * 1024 * 1024;
+			long availableBytes = (long)(sizeMb * 1024 * 1024);
 			if (isPreview)
 			{
 				availableBytes = (long)(availableBytes * (overallSelectedLengthSeconds / titleLengthSeconds));

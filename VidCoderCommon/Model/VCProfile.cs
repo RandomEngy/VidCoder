@@ -231,7 +231,7 @@ namespace VidCoderCommon.Model
 		public double Quality { get; set; }
 
 		[JsonProperty]
-		public int TargetSize { get; set; }
+		public double TargetSize { get; set; }
 
 		[JsonProperty]
 		public int VideoBitrate { get; set; }
