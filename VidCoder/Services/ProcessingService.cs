@@ -1075,11 +1075,7 @@ namespace VidCoder.Services
 					currentTitleNumber++;
 				}
 
-				string outputDirectoryOverride = null;
-				if (picker.OutputDirectoryOverrideEnabled)
-				{
-					outputDirectoryOverride = picker.OutputDirectoryOverride;
-				}
+				string outputFolder = this.outputPathService.GetOutputFolder(this.main.SourcePath, null, picker);
 
 				var job = new VCJob
 				{
@@ -1107,7 +1103,7 @@ namespace VidCoder.Services
 					multipleTitlesOnSource: true);
 
 				string extension = this.outputPathService.GetOutputExtension();
-				string queueOutputPath = this.outputPathService.BuildOutputPath(queueOutputFileName, extension, sourcePath: null, outputFolder: outputDirectoryOverride);
+				string queueOutputPath = this.outputPathService.BuildOutputPath(queueOutputFileName, extension, sourcePath: null, outputFolder: outputFolder);
 
 				job.FinalOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, this.main.SourcePath, isBatch: true);
 
