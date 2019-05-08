@@ -125,9 +125,12 @@ namespace VidCoder.ViewModel
 					() =>
 					{
 						StaticResolver.Resolve<StatusService>().Show(MainRes.OpeningFolderStatus);
-						FileUtilities.OpenFolderAndSelectItem(this.encodeResult.Destination);
+						FileUtilities.OpenFolderAndSelectItem(this.encodeResult.FailedFilePath ?? this.encodeResult.Destination);
 					},
-					this.WhenAnyValue(x => x.EncodeResult.Succeeded)));
+					this.WhenAnyValue(x => x.EncodeResult.Succeeded, x => x.EncodeResult.FailedFilePath, (succeeded, failedFilePath) =>
+					{
+						return succeeded || failedFilePath != null;
+					})));
 			}
 		}
 

@@ -1912,6 +1912,8 @@ namespace VidCoder.Services
 						}
 					}
 
+					string failedFilePath = null;
+
 					if (status == EncodeResultStatus.Succeeded && finishedJobViewModel.Job.PartOutputPath != null)
 					{
 						// Rename from in progress path to final path
@@ -1932,7 +1934,7 @@ namespace VidCoder.Services
 					}
 					else if (status != EncodeResultStatus.Succeeded)
 					{
-						TryHandleFailedFile(directOutputFileInfo, encodeLogger, "failed", finalOutputPath);
+						failedFilePath = TryHandleFailedFile(directOutputFileInfo, encodeLogger, "failed", finalOutputPath);
 					}
 
 					if (status == EncodeResultStatus.Succeeded && Config.PreserveModifyTimeFiles)
@@ -1961,6 +1963,7 @@ namespace VidCoder.Services
 						new EncodeResult
 						{
 							Destination = finishedJobViewModel.Job.FinalOutputPath,
+							FailedFilePath = failedFilePath,
 							Status = status,
 							EncodeTime = finishedJobViewModel.EncodeTime,
 							LogPath = encodeLogger.LogPath,
@@ -2208,7 +2211,7 @@ namespace VidCoder.Services
 			return encodeLogPath;
 		}
 
-		private static void TryHandleFailedFile(FileInfo directOutputFileInfo, IAppLogger encodeLogger, string reason, string finalOutputPath)
+		private static string TryHandleFailedFile(FileInfo directOutputFileInfo, IAppLogger encodeLogger, string reason, string finalOutputPath)
 		{
 			if (Config.KeepFailedFiles)
 			{
@@ -2223,6 +2226,7 @@ namespace VidCoder.Services
 						string destinationPath = Path.Combine(directory, outputBaseName + "." + reason + extension);
 						destinationPath = FileUtilities.CreateUniqueFileName(destinationPath, new HashSet<string>());
 						directOutputFileInfo.MoveTo(destinationPath);
+						return destinationPath;
 					}
 					catch (Exception exception)
 					{
@@ -2241,6 +2245,8 @@ namespace VidCoder.Services
 					encodeLogger.Log($"Could not clean up failed file '{directOutputFileInfo.FullName}'." + Environment.NewLine + exception);
 				}
 			}
+
+			return null;
 		}
 
 		private void PauseEncoding()
