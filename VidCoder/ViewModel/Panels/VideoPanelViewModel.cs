@@ -394,7 +394,6 @@ namespace VidCoder.ViewModel
 
 					// Refresh preset/profile/tune/level choices and values
 					this.RefreshEncoderSettings(applyDefaults: false);
-					this.SetDefaultQuality();
 				});
 
 		    this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.AudioCopyMask)
@@ -998,6 +997,7 @@ namespace VidCoder.ViewModel
 			if (refreshSource == EncoderChoicesRefreshSource.ContainerChange && this.selectedEncoder.Encoder != oldEncoder)
 			{
 				this.UpdateProfileProperty(nameof(this.Profile.VideoEncoder), this.selectedEncoder.Encoder.ShortName, raisePropertyChanged: false);
+				this.SetDefaultQuality();
 			}
 
 			this.RaisePropertyChanged(nameof(this.SelectedEncoder));

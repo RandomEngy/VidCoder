@@ -22,7 +22,7 @@ namespace VidCoder.Services
 
 		private const string RegistryValueName = "AppsUseLightTheme";
 
-		private readonly ManagementEventWatcher watcher;
+		private ManagementEventWatcher watcher;
 
 		public AppThemeService()
 		{
@@ -42,22 +42,23 @@ namespace VidCoder.Services
 
 			var windowsThemeSubject = new BehaviorSubject<WindowsTheme>(GetWindowsTheme());
 
-			try
+			Task.Run(() =>
 			{
-				this.watcher = new ManagementEventWatcher(query);
-				this.watcher.EventArrived += (sender, args) =>
+				try
 				{
-					windowsThemeSubject.OnNext(GetWindowsTheme());
-				};
+					this.watcher = new ManagementEventWatcher(query);
+					this.watcher.EventArrived += (sender, args) =>
+					{
+						windowsThemeSubject.OnNext(GetWindowsTheme());
+					};
 
-				// Start listening for events
-				this.watcher.Start();
-			}
-			catch (Exception)
-			{
-				// If we fail to set up the event watched, use Light theme
-				windowsThemeSubject.OnNext(WindowsTheme.Light);
-			}
+					// Start listening for events
+					this.watcher.Start();
+				}
+				catch (Exception)
+				{
+				}
+			});
 
 			var highContrastSubject = new BehaviorSubject<bool>(SystemParameters.HighContrast);
 
