@@ -2939,29 +2939,42 @@ namespace VidCoder.Services
 		private void AutoPickRange(VCJob job, SourceTitle title)
 		{
 			Picker picker = this.pickersService.SelectedPicker.Picker;
-			if (!picker.TimeRangeSelectEnabled)
+			switch (picker.PickerTimeRangeMode)
 			{
-				job.RangeType = VideoRangeType.All;
-				job.Length = title.Duration.ToSpan();
-				return;
+				case PickerTimeRangeMode.Chapters:
+					var chapterRange = PickerUtilities.GetChapterRange(picker, title);
+
+					job.RangeType = VideoRangeType.Chapters;
+					job.ChapterStart = chapterRange.chapterStart;
+					job.ChapterEnd = chapterRange.chapterEnd;
+					job.Length = title.GetChapterRangeDuration(chapterRange.chapterStart, chapterRange.chapterEnd);
+
+					break;
+				case PickerTimeRangeMode.Time:
+					TimeSpan rangeStart = picker.TimeRangeStart;
+					TimeSpan rangeEnd = picker.TimeRangeEnd;
+
+					if (rangeStart >= rangeEnd)
+					{
+						job.RangeType = VideoRangeType.All;
+						job.Length = title.Duration.ToSpan();
+						return;
+					}
+
+					job.RangeType = VideoRangeType.Seconds;
+					var range = this.GetRangeFromPicker(title, picker);
+
+					job.SecondsStart = range.start.TotalSeconds;
+					job.SecondsEnd = range.end.TotalSeconds;
+					job.Length = range.end - range.start;
+
+					break;
+				case PickerTimeRangeMode.All:
+				default:
+					job.RangeType = VideoRangeType.All;
+					job.Length = title.Duration.ToSpan();
+					break;
 			}
-
-			TimeSpan rangeStart = picker.TimeRangeStart;
-			TimeSpan rangeEnd = picker.TimeRangeEnd;
-
-			if (rangeStart >= rangeEnd)
-			{
-				job.RangeType = VideoRangeType.All;
-				job.Length = title.Duration.ToSpan();
-				return;
-			}
-
-			job.RangeType = VideoRangeType.Seconds;
-			var range = this.GetRangeFromPicker(title, picker);
-
-			job.SecondsStart = range.start.TotalSeconds;
-			job.SecondsEnd = range.end.TotalSeconds;
-			job.Length = range.end - range.start;
 		}
 
 		public (TimeSpan start, TimeSpan end) GetRangeFromPicker(SourceTitle title, Picker picker)

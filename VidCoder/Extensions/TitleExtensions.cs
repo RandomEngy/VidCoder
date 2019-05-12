@@ -44,5 +44,24 @@ namespace VidCoder.Extensions
 				minutes,
 				seconds);
 		}
+
+		public static TimeSpan GetChapterRangeDuration(this SourceTitle title, int startChapter, int endChapter)
+		{
+			if (startChapter > endChapter ||
+				endChapter > title.ChapterList.Count ||
+				startChapter < 1)
+			{
+				return TimeSpan.Zero;
+			}
+
+			TimeSpan rangeTime = TimeSpan.Zero;
+
+			for (int i = startChapter; i <= endChapter; i++)
+			{
+				rangeTime += title.ChapterList[i - 1].Duration.ToSpan();
+			}
+
+			return rangeTime;
+		}
 	}
 }

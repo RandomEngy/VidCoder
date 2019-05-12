@@ -95,6 +95,11 @@ namespace VidCoder.Model
 		    {
 			    UpgradePickerTo36(picker);
 		    }
+
+			if (oldDatabaseVersion < 37)
+			{
+				UpgradePickerTo37(picker);
+			}
 	    }
 
 	    private static void UpgradePickerTo30(Picker picker)
@@ -166,6 +171,18 @@ namespace VidCoder.Model
 					break;
 			}
 	    }
+
+		private static void UpgradePickerTo37(Picker picker)
+		{
+			if (picker.TimeRangeSelectEnabled)
+			{
+				picker.PickerTimeRangeMode = PickerTimeRangeMode.Time;
+			}
+			else
+			{
+				picker.PickerTimeRangeMode = PickerTimeRangeMode.All;
+			}
+		}
 
         public static void SavePickers(List<string> pickerJsonList, SQLiteConnection connection)
         {

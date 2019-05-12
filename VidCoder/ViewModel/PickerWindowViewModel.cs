@@ -359,7 +359,9 @@ namespace VidCoder.ViewModel
 			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectEnabled));
 			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectStartMinutes));
 			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectEndMinutes));
-			this.RegisterPickerProperty(nameof(this.Picker.TimeRangeSelectEnabled));
+			this.RegisterPickerProperty(nameof(this.Picker.PickerTimeRangeMode));
+			this.RegisterPickerProperty(nameof(this.Picker.ChapterRangeStart));
+			this.RegisterPickerProperty(nameof(this.Picker.ChapterRangeEnd));
 			this.RegisterPickerProperty(nameof(this.Picker.TimeRangeStart));
 			this.RegisterPickerProperty(nameof(this.Picker.TimeRangeEnd));
 			this.RegisterPickerProperty(nameof(this.Picker.AudioSelectionMode), () =>
@@ -532,10 +534,22 @@ namespace VidCoder.ViewModel
 			set { this.UpdatePickerProperty(nameof(this.Picker.PreserveFolderStructureInBatch), value); }
 		}
 
-		public bool TitleRangeSelectEnabled
+		public PickerTimeRangeMode PickerTimeRangeMode
 		{
-			get { return this.Picker.TitleRangeSelectEnabled; }
-			set { this.UpdatePickerProperty(nameof(this.Picker.TitleRangeSelectEnabled), value); }
+			get { return this.Picker.PickerTimeRangeMode; }
+			set { this.UpdatePickerProperty(nameof(this.Picker.PickerTimeRangeMode), value); }
+		}
+
+		public int? ChapterRangeStart
+		{
+			get { return this.Picker.ChapterRangeStart; }
+			set { this.UpdatePickerProperty(nameof(this.Picker.ChapterRangeStart), value); }
+		}
+
+		public int? ChapterRangeEnd
+		{
+			get { return this.Picker.ChapterRangeEnd; }
+			set { this.UpdatePickerProperty(nameof(this.Picker.ChapterRangeEnd), value); }
 		}
 
 		public int TitleRangeSelectStartMinutes
@@ -548,12 +562,6 @@ namespace VidCoder.ViewModel
 		{
 			get { return this.Picker.TitleRangeSelectEndMinutes; }
 			set { this.UpdatePickerProperty(nameof(this.Picker.TitleRangeSelectEndMinutes), value); }
-		}
-
-		public bool TimeRangeSelectEnabled
-		{
-			get { return this.Picker.TimeRangeSelectEnabled; }
-			set { this.UpdatePickerProperty(nameof(this.Picker.TimeRangeSelectEnabled), value); }
 		}
 
 		public TimeSpan TimeRangeStart

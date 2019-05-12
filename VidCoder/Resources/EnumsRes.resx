@@ -283,4 +283,10 @@
   <data name="LogOperationType_Scan" xml:space="preserve">
     <value>Scan</value>
   </data>
+  <data name="PickerTimeRangeMode_Chapters" xml:space="preserve">
+    <value>Chapters</value>
+  </data>
+  <data name="PickerTimeRangeMode_Time" xml:space="preserve">
+    <value>Time range</value>
+  </data>
 </root>

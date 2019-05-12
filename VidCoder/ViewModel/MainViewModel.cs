@@ -967,6 +967,8 @@ namespace VidCoder.ViewModel
 						this.OutputPathService.SourceParentFolder = null;
 					}
 
+					Picker picker = this.PickersService.SelectedPicker.Picker;
+
 					// Audio list build
 					this.BuildAudioViewModelList();
 
@@ -977,26 +979,44 @@ namespace VidCoder.ViewModel
 					this.UseDefaultChapterNames = true;
 					this.PopulateChapterSelectLists();
 
-					// Soft update so as not to trigger range checking logic.
-					this.selectedStartChapter = this.StartChapters[0];
-					this.selectedEndChapter = this.EndChapters[this.EndChapters.Count - 1];
-					this.RaisePropertyChanged(nameof(this.SelectedStartChapter));
-					this.RaisePropertyChanged(nameof(this.SelectedEndChapter));
-
-					Picker picker = this.PickersService.SelectedPicker.Picker;
-
+					// Select range
 					TimeSpan localTimeRangeEnd;
-					if (picker.TimeRangeSelectEnabled)
+					switch (picker.PickerTimeRangeMode)
 					{
-						var range = this.ProcessingService.GetRangeFromPicker(value.Title, picker);
-						this.SetRangeTimeStart(range.start);
-						localTimeRangeEnd = range.end;
+						case PickerTimeRangeMode.Chapters:
+							var chapterRange = PickerUtilities.GetChapterRange(picker, value.Title);
+
+							this.selectedStartChapter = this.StartChapters[chapterRange.chapterStart - 1];
+							this.selectedEndChapter = this.EndChapters[chapterRange.chapterEnd - 1];
+
+							this.RaisePropertyChanged(nameof(this.SelectedStartChapter));
+							this.RaisePropertyChanged(nameof(this.SelectedEndChapter));
+
+							this.SetRangeTimeStart(TimeSpan.Zero);
+							localTimeRangeEnd = this.selectedTitle.Duration;
+
+							break;
+						case PickerTimeRangeMode.Time:
+
+							var range = this.ProcessingService.GetRangeFromPicker(value.Title, picker);
+							this.SetRangeTimeStart(range.start);
+							localTimeRangeEnd = range.end;
+
+							break;
+						case PickerTimeRangeMode.All:
+						default:
+							// Soft update so as not to trigger range checking logic.
+							this.selectedStartChapter = this.StartChapters[0];
+							this.selectedEndChapter = this.EndChapters[this.EndChapters.Count - 1];
+							this.RaisePropertyChanged(nameof(this.SelectedStartChapter));
+							this.RaisePropertyChanged(nameof(this.SelectedEndChapter));
+
+							this.SetRangeTimeStart(TimeSpan.Zero);
+							localTimeRangeEnd = this.selectedTitle.Duration;
+
+							break;
 					}
-					else
-					{
-						this.SetRangeTimeStart(TimeSpan.Zero);
-						localTimeRangeEnd = this.selectedTitle.Duration;
-					}
+
 					this.timeRangeEndBar = localTimeRangeEnd;
 					this.timeRangeEnd = TimeSpan.FromSeconds(Math.Floor(localTimeRangeEnd.TotalSeconds));
 					this.RaisePropertyChanged(nameof(this.TimeRangeStart));
@@ -1018,11 +1038,11 @@ namespace VidCoder.ViewModel
 
 
 					// Change range type based on whether or not we have any chapters
-					if (picker.TimeRangeSelectEnabled)
+					if (picker.PickerTimeRangeMode == PickerTimeRangeMode.Time)
 					{
 						this.RangeType = VideoRangeType.Seconds;
 					}
-					else if (this.selectedTitle.ChapterList.Count > 1)
+					else if (picker.PickerTimeRangeMode == PickerTimeRangeMode.Chapters ||this.selectedTitle.ChapterList.Count > 1)
 					{
 						this.RangeType = VideoRangeType.Chapters;
 					}
@@ -2347,7 +2367,7 @@ namespace VidCoder.ViewModel
 							return TimeSpan.Zero;
 						}
 
-						return this.GetChapterRangeDuration(1, startChapter - 1);
+						return this.SelectedTitle.Title.GetChapterRangeDuration(1, startChapter - 1);
 					case VideoRangeType.Seconds:
 						return this.TimeRangeStart;
 					case VideoRangeType.Frames:
@@ -2395,7 +2415,7 @@ namespace VidCoder.ViewModel
 							endChapter = highlightedStartChapter.ChapterNumber;
 						}
 
-						return this.GetChapterRangeDuration(1, endChapter);
+						return this.SelectedTitle.Title.GetChapterRangeDuration(1, endChapter);
 					case VideoRangeType.Seconds:
 						return this.TimeRangeEnd;
 					case VideoRangeType.Frames:
@@ -3090,7 +3110,7 @@ namespace VidCoder.ViewModel
 							return TimeSpan.Zero;
 						}
 
-						selectedTime = this.GetChapterRangeDuration(this.SelectedStartChapter.ChapterNumber, this.SelectedEndChapter.ChapterNumber);
+						selectedTime = this.SelectedTitle.Title.GetChapterRangeDuration(this.SelectedStartChapter.ChapterNumber, this.SelectedEndChapter.ChapterNumber);
 
 						break;
 					case VideoRangeType.Seconds:
@@ -3639,25 +3659,6 @@ namespace VidCoder.ViewModel
 			}
 
 			this.RaisePropertyChanged(nameof(this.RecentSourcesVisible));
-		}
-
-		private TimeSpan GetChapterRangeDuration(int startChapter, int endChapter)
-		{
-			if (startChapter > endChapter ||
-				endChapter > this.SelectedTitle.ChapterList.Count ||
-				startChapter < 1)
-			{
-				return TimeSpan.Zero;
-			}
-
-			TimeSpan rangeTime = TimeSpan.Zero;
-
-			for (int i = startChapter; i <= endChapter; i++)
-			{
-				rangeTime += this.SelectedTitle.ChapterList[i - 1].Duration.ToSpan();
-			}
-
-			return rangeTime;
 		}
 	}
 }

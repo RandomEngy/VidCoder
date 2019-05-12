@@ -427,6 +427,7 @@
     <Compile Include="Model\EncodeCompleteTrigger.cs" />
     <Compile Include="Model\LogColor.cs" />
     <Compile Include="Model\LogOperationType.cs" />
+    <Compile Include="Model\PickerTimeRangeMode.cs" />
     <Compile Include="Model\TitleCapitalizationChoice.cs" />
     <Compile Include="Model\Config\ConfigObservable.cs" />
     <Compile Include="Model\EncodeJobsXml.cs" />
@@ -633,6 +634,7 @@
     <Compile Include="Services\WindowXamlHelper.cs" />
     <Compile Include="Services\Notifications\StableNotificationActivator.cs" />
     <Compile Include="Utilities\ResolutionUtilities.cs" />
+    <Compile Include="Utilities\PickerUtilities.cs" />
     <Compile Include="Utilities\XamlStatics.cs" />
     <Compile Include="ViewModel\CustomMessageDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\AudioTrackViewModel.cs" />
