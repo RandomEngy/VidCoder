@@ -701,7 +701,7 @@ namespace VidCoder.ViewModel
 							Config.LastInputFileFolder = null;
 							Config.LastOutputFolder = null;
 							Config.LastPresetExportFolder = null;
-							Config.LastSrtFolder = null;
+							Config.LastSubtitleFolder = null;
 							Config.LastVideoTSFolder = null;
 
 							Config.SourceHistory = null;

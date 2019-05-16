@@ -740,20 +740,21 @@ namespace VidCoderCommon.Model
 				}
 			}
 
-			foreach (SrtSubtitle srtSubtitle in job.Subtitles.SrtSubtitles)
+			foreach (FileSubtitle fileSubtitle in job.Subtitles.FileSubtitles)
 			{
 				SubtitleTrack track = new SubtitleTrack
 				{
 					Track = -1, // Indicates SRT
-					Default = srtSubtitle.Default,
-					Offset = srtSubtitle.Offset,
-					Burn = srtSubtitle.BurnedIn,
+					Default = fileSubtitle.Default,
+					Offset = fileSubtitle.Offset,
+					Burn = fileSubtitle.BurnedIn,
 					Import =
 						new SubImport
 						{
-							Filename = srtSubtitle.FileName,
-							Codeset = srtSubtitle.CharacterCode,
-							Language = srtSubtitle.LanguageCode
+							Format = fileSubtitle.FileName.EndsWith(".srt", StringComparison.OrdinalIgnoreCase) ? "SRT" : "SSA",
+							Filename = fileSubtitle.FileName,
+							Codeset = fileSubtitle.CharacterCode,
+							Language = fileSubtitle.LanguageCode
 						}
 				};
 

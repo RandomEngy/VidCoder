@@ -1358,9 +1358,9 @@
 									TextTrimming="CharacterEllipsis" />
 								<Button
 									Margin="10 0 16 0"
-									Command="{Binding AddSrtSubtitle}"
+									Command="{Binding AddFileSubtitle}"
 									Style="{StaticResource SummaryActionButton}"
-									ToolTip="{x:Static res:SubtitleRes.ImportSrtButton}">
+									ToolTip="{x:Static res:SubtitleRes.ImportSubtitleButton}">
 									<Grid
 										x:Name="addButtonGrid"
 										Width="15"
@@ -1442,10 +1442,10 @@
 									Visibility="{Binding Selected,
 									                     Converter={StaticResource VisibilityConverter}}" />
 							</DataTemplate>
-							<DataTemplate x:Key="SrtDragTemplate">
+							<DataTemplate x:Key="SubtitleFileDragTemplate">
 								<TextBox Text="{Binding FileName, Mode=OneWay}" />
 							</DataTemplate>
-							<DataTemplate x:Key="FileNameTemplate" DataType="viewmodel:SrtSubtitleViewModel">
+							<DataTemplate x:Key="FileNameTemplate" DataType="viewmodel:FileSubtitleViewModel">
 								<controls:PathTextBlock
 									Foreground="{DynamicResource WindowTextBrush}"
 									Text="{Binding FileName}"
@@ -1463,7 +1463,7 @@
 									Visibility="{Binding Selected,
 									                     Converter={StaticResource VisibilityConverter}}" />
 							</DataTemplate>
-							<DataTemplate x:Key="LanguageTemplate" DataType="viewmodel:SrtSubtitleViewModel">
+							<DataTemplate x:Key="LanguageTemplate" DataType="viewmodel:FileSubtitleViewModel">
 								<ComboBox
 									MinWidth="80"
 									DisplayMemberPath="Display"
@@ -1471,13 +1471,13 @@
 									SelectedValue="{Binding LanguageCode}"
 									SelectedValuePath="Code" />
 							</DataTemplate>
-							<DataTemplate x:Key="CharCodeTemplate" DataType="viewmodel:SrtSubtitleViewModel">
+							<DataTemplate x:Key="CharCodeTemplate" DataType="viewmodel:FileSubtitleViewModel">
 								<ComboBox
 									Margin="4 0 4 2"
 									ItemsSource="{Binding CharCodes}"
 									SelectedItem="{Binding CharacterCode}" />
 							</DataTemplate>
-							<DataTemplate x:Key="OffsetTemplate" DataType="viewmodel:SrtSubtitleViewModel">
+							<DataTemplate x:Key="OffsetTemplate" DataType="viewmodel:FileSubtitleViewModel">
 								<controls:NumberBox
 									Width="40"
 									Height="22"
@@ -1613,25 +1613,25 @@
 							Grid.Row="1"
 							Margin="0 4 0 0"
 							Orientation="Vertical"
-							Visibility="{Binding HasSrtSubtitles,
+							Visibility="{Binding HasFileSubtitles,
 							                     Converter={StaticResource VisibilityConverter}}">
 							<TextBlock
 								Margin="27 0 0 2"
 								HorizontalAlignment="Left"
 								VerticalAlignment="Top"
 								Text="{x:Static res:SubtitleRes.ExternalSubtitlesLabel}"
-								Visibility="{Binding HasSrtSubtitles,
+								Visibility="{Binding HasFileSubtitles,
 								                     Converter={StaticResource VisibilityConverter}}" />
 
 							<ListView
-								Name="srtListView"
+								Name="fileSubtitleListView"
 								Margin="-1 0 -1 5"
 								VerticalAlignment="Top"
-								VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource SrtDragTemplate}"
+								VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource SubtitleFileDragTemplate}"
 								VidCoderDragDrop:DragDropHelper.IsDragSource="True"
 								VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
 								ItemContainerStyle="{StaticResource ListViewItemNoSelectionNoHoverStyle}"
-								ItemsSource="{Binding SrtSubtitlesBindable}">
+								ItemsSource="{Binding FileSubtitlesBindable}">
 								<i:Interaction.Behaviors>
 									<behaviors:IgnoreMouseWheelBehavior />
 								</i:Interaction.Behaviors>
@@ -1639,23 +1639,23 @@
 									<GridView>
 										<GridView.Columns>
 											<GridViewColumn
-												x:Name="srtFileColumn"
+												x:Name="fileSubtitleFileColumn"
 												CellTemplate="{StaticResource FileNameTemplate}"
 												Header="{x:Static res:SubtitleRes.FileColumn}" />
 											<GridViewColumn
-												x:Name="srtDefaultColumn"
+												x:Name="fileSubtitleDefaultColumn"
 												CellTemplate="{StaticResource DefaultTemplate}"
 												Header="{x:Static res:SubtitleRes.DefaultColumn}" />
 											<GridViewColumn
-												x:Name="srtBurnedInColumn"
+												x:Name="fileSubtitleBurnedInColumn"
 												CellTemplate="{StaticResource BurnedInTemplate}"
 												Header="{x:Static res:SubtitleRes.BurnedInColumn}" />
 											<GridViewColumn
-												x:Name="srtLanguageColumn"
+												x:Name="fileSubtitleLanguageColumn"
 												CellTemplate="{StaticResource LanguageTemplate}"
 												Header="{x:Static res:SubtitleRes.LanguageColumn}" />
 											<GridViewColumn
-												x:Name="srtCharCodeColumn"
+												x:Name="fileSubtitleCharCodeColumn"
 												CellTemplate="{StaticResource CharCodeTemplate}"
 												Header="{x:Static res:SubtitleRes.CharCodeColumn}" />
 											<GridViewColumn CellTemplate="{StaticResource OffsetTemplate}" Header="{x:Static res:SubtitleRes.OffsetColumn}" />

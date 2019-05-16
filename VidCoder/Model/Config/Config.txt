@@ -9,7 +9,7 @@ UpdateChangelogLocation|string|""
 LastOutputFolder|string|""
 LastInputFileFolder|string|""
 LastVideoTSFolder|string|""
-LastSrtFolder|string|""
+LastSubtitleFolder|string|""
 LastCsvFolder|string|""
 LastPresetExportFolder|string|""
 

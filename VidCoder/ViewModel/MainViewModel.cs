@@ -73,7 +73,7 @@ namespace VidCoder.ViewModel
 			this.SubtitlesExpanded = Config.SubtitlesExpanded;
 
 			this.SourceSubtitles.Connect().Bind(this.SourceSubtitlesBindable).Subscribe();
-			this.SrtSubtitles.Connect().Bind(this.SrtSubtitlesBindable).Subscribe();
+			this.FileSubtitles.Connect().Bind(this.FileSubtitlesBindable).Subscribe();
 
 			// HasVideoSource
 			this.WhenAnyValue(x => x.VideoSourceState)
@@ -280,13 +280,13 @@ namespace VidCoder.ViewModel
 				.ToProperty(this, x => x.HasSourceSubtitles, out this.hasSourceSubtitles, initialValue: this.SourceSubtitles.Count > 0);
 
 			// HasSrtSubtitles
-			this.SrtSubtitles.CountChanged.Select(count => count > 0)
-				.ToProperty(this, x => x.HasSrtSubtitles, out this.hasSrtSubtitles, initialValue: this.SrtSubtitles.Count > 0);
+			this.FileSubtitles.CountChanged.Select(count => count > 0)
+				.ToProperty(this, x => x.HasFileSubtitles, out this.hasFileSubtitles, initialValue: this.FileSubtitles.Count > 0);
 
 			// ShowSourceSubtitlesLabel
 			Observable.CombineLatest(
 				this.SourceSubtitles.CountChanged,
-				this.SrtSubtitles.CountChanged).Select(
+				this.FileSubtitles.CountChanged).Select(
 				countList =>
 				{
 					return countList[0] > 0 && countList[1] > 0;
@@ -475,15 +475,15 @@ namespace VidCoder.ViewModel
 								StaticResolver.Resolve<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
 							}
 						}
-						else if (extension == ".srt")
+						else if (extension == ".srt" || extension == ".ssa")
 						{
 							if (this.HasVideoSource)
 							{
-								SrtSubtitle subtitle = StaticResolver.Resolve<SubtitlesService>().LoadSrtSubtitle(item);
+								FileSubtitle subtitle = StaticResolver.Resolve<SubtitlesService>().LoadSubtitleFile(item);
 
 								if (subtitle != null)
 								{
-									this.SrtSubtitles.Add(new SrtSubtitleViewModel(this, subtitle));
+									this.FileSubtitles.Add(new FileSubtitleViewModel(this, subtitle));
 									StaticResolver.Resolve<StatusService>().Show(string.Format(MainRes.AddedSubtitleFromFile, item));
 									if (!this.SubtitlesExpanded)
 									{
@@ -1448,7 +1448,7 @@ namespace VidCoder.ViewModel
 				var result = new VCSubtitles
 				{
 					SourceSubtitles = this.SourceSubtitles.Items.Where(s => s.Selected).Select(s => s.Subtitle.Clone()).ToList(),
-					SrtSubtitles = this.SrtSubtitles.Items.Select(s => s.Subtitle.Clone()).ToList()
+					FileSubtitles = this.FileSubtitles.Items.Select(s => s.Subtitle.Clone()).ToList()
 				};
 
 				return result;
@@ -1458,8 +1458,8 @@ namespace VidCoder.ViewModel
 		public SourceList<SourceSubtitleViewModel> SourceSubtitles { get; } = new SourceList<SourceSubtitleViewModel>();
 		public ObservableCollectionExtended<SourceSubtitleViewModel> SourceSubtitlesBindable { get; } = new ObservableCollectionExtended<SourceSubtitleViewModel>();
 
-		public SourceList<SrtSubtitleViewModel> SrtSubtitles { get; } = new SourceList<SrtSubtitleViewModel>();
-		public ObservableCollectionExtended<SrtSubtitleViewModel> SrtSubtitlesBindable { get; } = new ObservableCollectionExtended<SrtSubtitleViewModel>();
+		public SourceList<FileSubtitleViewModel> FileSubtitles { get; } = new SourceList<FileSubtitleViewModel>();
+		public ObservableCollectionExtended<FileSubtitleViewModel> FileSubtitlesBindable { get; } = new ObservableCollectionExtended<FileSubtitleViewModel>();
 
 		private void BuildSubtitleViewModelList()
 		{
@@ -1482,7 +1482,7 @@ namespace VidCoder.ViewModel
 						{
 							if (this.selectedTitle.SubtitleList.Count > 0)
 							{
-								// Keep source subtitles when changing title, but not specific SRT files.
+								// Keep source subtitles when changing title, but not specific subtitle files.
 								foreach (SourceSubtitle sourceSubtitle in oldSubtitles.SourceSubtitles)
 								{
 									if (sourceSubtitle.TrackNumber == 0)
@@ -1635,10 +1635,10 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles.Items)
+			foreach (FileSubtitleViewModel fileSubtitleViewModel in this.FileSubtitles.Items)
 			{
 				totalTracks++;
-				if (srtVM.BurnedIn)
+				if (fileSubtitleViewModel.BurnedIn)
 				{
 					anyBurned = true;
 				}
@@ -1657,11 +1657,11 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles.Items)
+			foreach (FileSubtitleViewModel fileSubtitleViewModel in this.FileSubtitles.Items)
 			{
-				if (srtVM != viewModel)
+				if (fileSubtitleViewModel != viewModel)
 				{
-					srtVM.Default = false;
+					fileSubtitleViewModel.Default = false;
 				}
 			}
 		}
@@ -1676,24 +1676,24 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles.Items)
+			foreach (FileSubtitleViewModel fileSubtitleViewModel in this.FileSubtitles.Items)
 			{
-				srtVM.BurnedIn = false;
+				fileSubtitleViewModel.BurnedIn = false;
 			}
 		}
 
-		public void ReportBurnedSubtitle(SrtSubtitleViewModel subtitleViewModel)
+		public void ReportBurnedSubtitle(FileSubtitleViewModel subtitleViewModel)
 		{
 			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles.Items)
 			{
 				sourceVM.BurnedIn = false;
 			}
 
-			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles.Items)
+			foreach (FileSubtitleViewModel fileSubtitleViewModel in this.FileSubtitles.Items)
 			{
-				if (srtVM != subtitleViewModel)
+				if (fileSubtitleViewModel != subtitleViewModel)
 				{
-					srtVM.BurnedIn = false;
+					fileSubtitleViewModel.BurnedIn = false;
 				}
 			}
 		}
@@ -1712,9 +1712,9 @@ namespace VidCoder.ViewModel
 			this.RefreshSubtitleSummary();
 		}
 
-		public void RemoveSrtSubtitle(SrtSubtitleViewModel subtitleViewModel)
+		public void RemoveFileSubtitle(FileSubtitleViewModel subtitleViewModel)
 		{
-			this.SrtSubtitles.Remove(subtitleViewModel);
+			this.FileSubtitles.Remove(subtitleViewModel);
 			this.UpdateSubtitleWarningVisibility();
 			this.RefreshSubtitleSummary();
 		}
@@ -1757,7 +1757,7 @@ namespace VidCoder.ViewModel
 
 		private void DeselectDefaultSubtitlesIfAnyBurned()
 		{
-			bool anyBurned = this.SourceSubtitles.Items.Any(sourceSub => sourceSub.BurnedIn) || this.SrtSubtitles.Items.Any(sourceSub => sourceSub.BurnedIn);
+			bool anyBurned = this.SourceSubtitles.Items.Any(sourceSub => sourceSub.BurnedIn) || this.FileSubtitles.Items.Any(sourceSub => sourceSub.BurnedIn);
 			this.DefaultSubtitlesEnabled = !anyBurned;
 
 			if (!this.DefaultSubtitlesEnabled)
@@ -1767,37 +1767,37 @@ namespace VidCoder.ViewModel
 					sourceVM.Default = false;
 				}
 
-				foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles.Items)
+				foreach (FileSubtitleViewModel srtVM in this.FileSubtitles.Items)
 				{
 					srtVM.Default = false;
 				}
 			}
 		}
 
-		private ReactiveCommand<Unit, Unit> addSrtSubtitle;
-		public ICommand AddSrtSubtitle
+		private ReactiveCommand<Unit, Unit> addFileSubtitle;
+		public ICommand AddFileSubtitle
 		{
 			get
 			{
-				return this.addSrtSubtitle ?? (this.addSrtSubtitle = ReactiveCommand.Create(() =>
+				return this.addFileSubtitle ?? (this.addFileSubtitle = ReactiveCommand.Create(() =>
 				{
 					string srtFile = FileService.Instance.GetFileNameLoad(
-						Config.RememberPreviousFiles ? Config.LastSrtFolder : null,
-						SubtitleRes.SrtFilePickerText,
-						Utilities.GetFilePickerFilter("srt"));
+						Config.RememberPreviousFiles ? Config.LastSubtitleFolder : null,
+						SubtitleRes.SubtitleFilePickerText,
+						SubtitleRes.FilePickerDescription + " (*.srt, *.ssa)|*.srt;*.ssa");
 
 					if (srtFile != null)
 					{
 						if (Config.RememberPreviousFiles)
 						{
-							Config.LastSrtFolder = Path.GetDirectoryName(srtFile);
+							Config.LastSubtitleFolder = Path.GetDirectoryName(srtFile);
 						}
 
-						SrtSubtitle newSubtitle = StaticResolver.Resolve<SubtitlesService>().LoadSrtSubtitle(srtFile);
+						FileSubtitle newSubtitle = StaticResolver.Resolve<SubtitlesService>().LoadSubtitleFile(srtFile);
 
 						if (newSubtitle != null)
 						{
-							this.SrtSubtitles.Add(new SrtSubtitleViewModel(this, newSubtitle));
+							this.FileSubtitles.Add(new FileSubtitleViewModel(this, newSubtitle));
 						}
 					}
 
@@ -1831,8 +1831,8 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<bool> hasSourceSubtitles;
 		public bool HasSourceSubtitles => this.hasSourceSubtitles.Value;
 
-		private ObservableAsPropertyHelper<bool> hasSrtSubtitles;
-		public bool HasSrtSubtitles => this.hasSrtSubtitles.Value;
+		private ObservableAsPropertyHelper<bool> hasFileSubtitles;
+		public bool HasFileSubtitles => this.hasFileSubtitles.Value;
 
 		public void RefreshSubtitleSummary()
 		{
@@ -1877,14 +1877,14 @@ namespace VidCoder.ViewModel
 				summaryParts.Add(sourceDescription);
 			}
 
-			if (this.SrtSubtitles.Count > 0)
+			if (this.FileSubtitles.Count > 0)
 			{
-				string externalSubtitlesDescription = string.Format(SubtitleRes.ExternalSubtitlesSummaryFormat, this.SrtSubtitles.Count);
+				string externalSubtitlesDescription = string.Format(SubtitleRes.ExternalSubtitlesSummaryFormat, this.FileSubtitles.Count);
 
-				if (this.SrtSubtitles.Count <= 3)
+				if (this.FileSubtitles.Count <= 3)
 				{
 					List<string> trackSummaries = new List<string>();
-					foreach (SrtSubtitleViewModel subtitle in this.SrtSubtitles.Items)
+					foreach (FileSubtitleViewModel subtitle in this.FileSubtitles.Items)
 					{
 						trackSummaries.Add(HandBrakeLanguagesHelper.Get(subtitle.LanguageCode).Display);
 					}
@@ -3144,7 +3144,7 @@ namespace VidCoder.ViewModel
 			this.ClearVideoSource();
 
 			// With a new source we don't want to keep around old subtitles
-			this.SrtSubtitles.Clear();
+			this.FileSubtitles.Clear();
 
 			this.ScanProgressFraction = 0;
 			HandBrakeInstance oldInstance = this.scanInstance;
@@ -3433,13 +3433,13 @@ namespace VidCoder.ViewModel
 				this.FillInRemainingSourceSubtitles(job.Subtitles.SourceSubtitles, sourceSubtitlesInnerList);
 			});
 
-			this.SrtSubtitles.Edit(srtSubtitlesInnerList =>
+			this.FileSubtitles.Edit(srtSubtitlesInnerList =>
 			{
 				srtSubtitlesInnerList.Clear();
 
-				foreach (SrtSubtitle srtSubtitle in job.Subtitles.SrtSubtitles)
+				foreach (FileSubtitle srtSubtitle in job.Subtitles.FileSubtitles)
 				{
-					srtSubtitlesInnerList.Add(new SrtSubtitleViewModel(this, srtSubtitle));
+					srtSubtitlesInnerList.Add(new FileSubtitleViewModel(this, srtSubtitle));
 				}
 			});
 

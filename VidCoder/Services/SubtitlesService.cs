@@ -20,19 +20,19 @@ namespace VidCoder.Services
 			this.logger = logger;
 		}
 
-		public SrtSubtitle LoadSrtSubtitle(string srtPath)
+		public FileSubtitle LoadSubtitleFile(string subtitlePath)
 		{
 			try
 			{
 				string characterCode = null;
-				using (FileStream srtFileStream = File.OpenRead(srtPath))
+				using (FileStream subtitleFileStream = File.OpenRead(subtitlePath))
 				{
 					Ude.CharsetDetector detector = new Ude.CharsetDetector();
-					detector.Feed(srtFileStream);
+					detector.Feed(subtitleFileStream);
 					detector.DataEnd();
 					if (detector.Charset != null)
 					{
-						this.logger.Log($"Detected encoding {detector.Charset} for {srtPath} with confidence {detector.Confidence}.");
+						this.logger.Log($"Detected encoding {detector.Charset} for {subtitlePath} with confidence {detector.Confidence}.");
 						characterCode = CharCode.FromUdeCode(detector.Charset);
 
 						if (characterCode == null)
@@ -52,11 +52,11 @@ namespace VidCoder.Services
 					}
 				}
 
-				return new SrtSubtitle { FileName = srtPath, Default = false, CharacterCode = characterCode, LanguageCode = LanguageUtilities.GetDefaultLanguageCode(), Offset = 0 };
+				return new FileSubtitle { FileName = subtitlePath, Default = false, CharacterCode = characterCode, LanguageCode = LanguageUtilities.GetDefaultLanguageCode(), Offset = 0 };
 			}
 			catch (Exception exception)
 			{
-				this.logger.LogError("Could not load SRT file: " + exception);
+				this.logger.LogError("Could not load subtitle file: " + exception);
 				return null;
 			}
 		}

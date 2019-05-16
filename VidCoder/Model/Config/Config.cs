@@ -38,7 +38,7 @@ namespace VidCoder
 			cache.Add("LastOutputFolder", DatabaseConfig.Get("LastOutputFolder", "", connection));
 			cache.Add("LastInputFileFolder", DatabaseConfig.Get("LastInputFileFolder", "", connection));
 			cache.Add("LastVideoTSFolder", DatabaseConfig.Get("LastVideoTSFolder", "", connection));
-			cache.Add("LastSrtFolder", DatabaseConfig.Get("LastSrtFolder", "", connection));
+			cache.Add("LastSubtitleFolder", DatabaseConfig.Get("LastSubtitleFolder", "", connection));
 			cache.Add("LastCsvFolder", DatabaseConfig.Get("LastCsvFolder", "", connection));
 			cache.Add("LastPresetExportFolder", DatabaseConfig.Get("LastPresetExportFolder", "", connection));
 			cache.Add("AutoNameOutputFolder", DatabaseConfig.Get("AutoNameOutputFolder", "", connection));
@@ -222,10 +222,10 @@ namespace VidCoder
 			get { return (string)cache["LastVideoTSFolder"]; }
 			set { Set("LastVideoTSFolder", value); }
 		}
-		public static string LastSrtFolder
+		public static string LastSubtitleFolder
 		{
-			get { return (string)cache["LastSrtFolder"]; }
-			set { Set("LastSrtFolder", value); }
+			get { return (string)cache["LastSubtitleFolder"]; }
+			set { Set("LastSubtitleFolder", value); }
 		}
 		public static string LastCsvFolder
 		{
@@ -763,7 +763,7 @@ namespace VidCoder
 			public static IObservable<string> LastOutputFolder => GetObservable<string>("LastOutputFolder");
 			public static IObservable<string> LastInputFileFolder => GetObservable<string>("LastInputFileFolder");
 			public static IObservable<string> LastVideoTSFolder => GetObservable<string>("LastVideoTSFolder");
-			public static IObservable<string> LastSrtFolder => GetObservable<string>("LastSrtFolder");
+			public static IObservable<string> LastSubtitleFolder => GetObservable<string>("LastSubtitleFolder");
 			public static IObservable<string> LastCsvFolder => GetObservable<string>("LastCsvFolder");
 			public static IObservable<string> LastPresetExportFolder => GetObservable<string>("LastPresetExportFolder");
 			public static IObservable<string> AutoNameOutputFolder => GetObservable<string>("AutoNameOutputFolder");

@@ -288,11 +288,11 @@ namespace VidCoder.View
 					ResizeGridViewColumn(this.sourceForcedColumn);
 					ResizeGridViewColumn(this.sourceBurnedColumn);
 					ResizeGridViewColumn(this.sourceRemoveDuplicateColumn);
-					ResizeGridViewColumn(this.srtFileColumn);
-					ResizeGridViewColumn(this.srtDefaultColumn);
-					ResizeGridViewColumn(this.srtBurnedInColumn);
-					ResizeGridViewColumn(this.srtCharCodeColumn);
-					ResizeGridViewColumn(this.srtLanguageColumn);
+					ResizeGridViewColumn(this.fileSubtitleFileColumn);
+					ResizeGridViewColumn(this.fileSubtitleDefaultColumn);
+					ResizeGridViewColumn(this.fileSubtitleBurnedInColumn);
+					ResizeGridViewColumn(this.fileSubtitleCharCodeColumn);
+					ResizeGridViewColumn(this.fileSubtitleLanguageColumn);
 				}
 			});
 
@@ -323,7 +323,7 @@ namespace VidCoder.View
 			this.RefreshQueueTabs();
 
 			this.sourceSubtitles = this.viewModel.SourceSubtitles;
-			this.srtSubtitles = this.viewModel.SrtSubtitles;
+			this.fileSubtitles = this.viewModel.FileSubtitles;
 
 			var sourceSubtitlesObservable = this.sourceSubtitles.Connect();
 			sourceSubtitlesObservable
@@ -333,19 +333,19 @@ namespace VidCoder.View
 				this.ResizeSourceSubtitleColumns();
 			});
 
-			var srtSubtitlesObservable = this.srtSubtitles.Connect();
-			srtSubtitlesObservable
+			var fileSubtitlesObservable = this.fileSubtitles.Connect();
+			fileSubtitlesObservable
 				.WhenValueChanged(subtitle => subtitle.CharacterCode)
 				.Subscribe(_ =>
 				{
-					ResizeGridViewColumn(this.srtCharCodeColumn);
+					ResizeGridViewColumn(this.fileSubtitleCharCodeColumn);
 				});
 
-			srtSubtitlesObservable
+			fileSubtitlesObservable
 				.WhenValueChanged(subtitle => subtitle.LanguageCode)
 				.Subscribe(_ =>
 				{
-					ResizeGridViewColumn(this.srtLanguageColumn);
+					ResizeGridViewColumn(this.fileSubtitleLanguageColumn);
 				});
 
 			sourceSubtitlesObservable.Subscribe(changeSet =>
@@ -353,10 +353,10 @@ namespace VidCoder.View
 				ResizeGridViewColumn(this.sourceNameColumn);
 			});
 
-			srtSubtitlesObservable.Subscribe(changeSet =>
+			fileSubtitlesObservable.Subscribe(changeSet =>
 			{
-				ResizeGridViewColumn(this.srtCharCodeColumn);
-				ResizeGridViewColumn(this.srtLanguageColumn);
+				ResizeGridViewColumn(this.fileSubtitleCharCodeColumn);
+				ResizeGridViewColumn(this.fileSubtitleLanguageColumn);
 			});
 
 			this.viewModel.OutputSizeService
@@ -767,7 +767,7 @@ namespace VidCoder.View
 		}
 
 		private SourceList<SourceSubtitleViewModel> sourceSubtitles;
-		private SourceList<SrtSubtitleViewModel> srtSubtitles;
+		private SourceList<FileSubtitleViewModel> fileSubtitles;
 
 		private void SourceSubtitleMouseDown(object sender, MouseButtonEventArgs e)
 		{
@@ -841,7 +841,7 @@ namespace VidCoder.View
 
 		public void BringExternalSubtitlesIntoView()
 		{
-			this.srtListView.BringIntoView();
+			this.fileSubtitleListView.BringIntoView();
 		}
 
 		private void Main_OnSizeChanged(object sender, SizeChangedEventArgs e)

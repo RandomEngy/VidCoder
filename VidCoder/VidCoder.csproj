@@ -842,7 +842,7 @@
     <Compile Include="ViewModel\OkCancelDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\SourceOptionViewModel.cs" />
     <Compile Include="ViewModel\DataModels\SourceSubtitleViewModel.cs" />
-    <Compile Include="ViewModel\DataModels\SrtSubtitleViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\FileSubtitleViewModel.cs" />
     <Compile Include="ViewModel\OptionsDialogViewModel.cs" />
     <Compile Include="ViewModel\PreviewWindowViewModel.cs" />
     <Compile Include="View\ApplyUpdateConfirmation.xaml.cs">
