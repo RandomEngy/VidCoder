@@ -3417,6 +3417,8 @@ namespace VidCoder.ViewModel
 				this.FillInUnselectedAudioTracks(audioTracksInnerList);
 			});
 
+			this.RefreshAudioSummary();
+
 			// Subtitles (standard+SRT)
 			this.SourceSubtitles.Edit(sourceSubtitlesInnerList =>
 			{
@@ -3442,6 +3444,8 @@ namespace VidCoder.ViewModel
 					srtSubtitlesInnerList.Add(new FileSubtitleViewModel(this, srtSubtitle));
 				}
 			});
+
+			this.RefreshSubtitleSummary();
 
 			// Custom chapter markers
 			this.UseDefaultChapterNames = job.UseDefaultChapterNames;
