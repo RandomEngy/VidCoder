@@ -404,4 +404,7 @@
   <data name="KeepFailedFilesCheckBox" xml:space="preserve">
     <value>Keep files from failed or stopped encodes</value>
   </data>
+  <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
+    <value>Trigger "When done" action when there are failed encode jobs</value>
+  </data>
 </root>

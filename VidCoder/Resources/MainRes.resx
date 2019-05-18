@@ -700,4 +700,7 @@
   <data name="RemoveAllFomQueueMenuItem" xml:space="preserve">
     <value>Remove all from queue</value>
   </data>
+  <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
+    <value>Encode complete action not executed due to errors in the encode result list.</value>
+  </data>
 </root>

@@ -2163,6 +2163,13 @@ namespace VidCoder.Services
 
 		private void TriggerEncodeCompleteAction()
 		{
+			if (this.EncodeCompleteAction.ActionType != EncodeCompleteActionType.DoNothing && !Config.TriggerEncodeCompleteActionWithErrors && this.completedJobs.Items.Any(job => !job.EncodeResult.Succeeded))
+			{
+				StaticResolver.Resolve<IMessageBoxService>().Show(MainRes.EncodeCompleteActionAbortedDueToErrorsMessage);
+				this.logger.Log(MainRes.EncodeCompleteActionAbortedDueToErrorsMessage);
+				return;
+			}
+
 			switch (this.EncodeCompleteAction.ActionType)
 			{
 				case EncodeCompleteActionType.DoNothing:
@@ -2172,10 +2179,7 @@ namespace VidCoder.Services
 					this.systemOperations.Eject(this.EncodeCompleteAction.DriveLetter);
 					break;
 				case EncodeCompleteActionType.CloseProgram:
-					if (this.completedJobs.Items.All(job => job.EncodeResult.Succeeded))
-					{
-						this.windowManager.Close(this.main);
-					}
+					this.windowManager.Close(this.main);
 					break;
 				case EncodeCompleteActionType.Sleep:
 				case EncodeCompleteActionType.LogOff:

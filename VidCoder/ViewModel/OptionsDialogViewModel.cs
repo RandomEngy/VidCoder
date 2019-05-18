@@ -126,6 +126,7 @@ namespace VidCoder.ViewModel
 			this.preserveModifyTimeFiles = Config.PreserveModifyTimeFiles;
 			this.resumeEncodingOnRestart = Config.ResumeEncodingOnRestart;
 			this.keepFailedFiles = Config.KeepFailedFiles;
+			this.triggerEncodeCompleteActionWithErrors = Config.TriggerEncodeCompleteActionWithErrors;
 			this.useWorkerProcess = Config.UseWorkerProcess;
 			this.minimumTitleLengthSeconds = Config.MinimumTitleLengthSeconds;
 			this.AutoPauseProcesses = new ObservableCollection<string>();
@@ -583,6 +584,13 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.keepFailedFiles, value); }
 		}
 
+		private bool triggerEncodeCompleteActionWithErrors;
+		public bool TriggerEncodeCompleteActionWithErrors
+		{
+			get { return this.triggerEncodeCompleteActionWithErrors; }
+			set { this.RaiseAndSetIfChanged(ref this.triggerEncodeCompleteActionWithErrors, value); }
+		}
+
 		private bool useWorkerProcess;
 		public bool UseWorkerProcess
 		{
@@ -713,6 +721,7 @@ namespace VidCoder.ViewModel
 						Config.PreserveModifyTimeFiles = this.PreserveModifyTimeFiles;
 						Config.ResumeEncodingOnRestart = this.ResumeEncodingOnRestart;
 						Config.KeepFailedFiles = this.KeepFailedFiles;
+						Config.TriggerEncodeCompleteActionWithErrors = this.TriggerEncodeCompleteActionWithErrors;
 						Config.MinimumTitleLengthSeconds = this.MinimumTitleLengthSeconds;
 						Config.VideoFileExtensions = this.VideoFileExtensions;
 						Config.CpuThrottlingFraction = (double)this.CpuThrottlingCores / this.CpuThrottlingMaxCores;
