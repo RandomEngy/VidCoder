@@ -31,6 +31,7 @@ namespace VidCoder.Controls
     public partial class PresetTreeViewContainer : UserControl
     {
 	    private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
+		private bool handlingItemChange = false;
 
         public PresetTreeViewContainer()
         {
@@ -57,6 +58,11 @@ namespace VidCoder.Controls
 
 		private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
 	    {
+			if (this.handlingItemChange)
+			{
+				return;
+			}
+
 		    object selectedItem = e.NewValue;
 
 		    if (selectedItem == null || selectedItem is PresetFolderViewModel)
@@ -71,6 +77,8 @@ namespace VidCoder.Controls
 			    return;
 		    }
 
+			this.handlingItemChange = true;
+
 			DispatchUtilities.BeginInvoke(() =>
 			{
 				// This might be in the layout phase. Invoke on dispatcher to process cleanly.
@@ -79,6 +87,8 @@ namespace VidCoder.Controls
 				{
 					StaticResolver.Resolve<Main>().ReadTextToScreenReader(newSelectedPreset.DisplayName);
 				}
+
+				this.handlingItemChange = false;
 			});
 	    }
 
