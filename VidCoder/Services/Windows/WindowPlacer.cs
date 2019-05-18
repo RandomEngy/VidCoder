@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using Microsoft.AnyContainer;
+using Newtonsoft.Json;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Model.WindowPlacer;
@@ -216,11 +217,18 @@ namespace VidCoder.Services.Windows
 				string placementJson = Config.Get<string>(definition.PlacementConfigKey);
 				if (!string.IsNullOrEmpty(placementJson))
 				{
-					result.Add(new WindowPosition
+					try
 					{
-						Position = WindowPlacement.ParsePlacementJson(placementJson).ToRect(),
-						ViewModelType = definition.ViewModelType
-					});
+						result.Add(new WindowPosition
+						{
+							Position = WindowPlacement.ParsePlacementJson(placementJson).ToRect(),
+							ViewModelType = definition.ViewModelType
+						});
+					}
+					catch (JsonException)
+					{
+						// Parsing the placement JSON failed. Skip adding this to the list.
+					}
 				}
 			}
 
