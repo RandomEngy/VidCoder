@@ -587,7 +587,10 @@
     <value>Postavke</value>
   </data>
   
-  
+  <data name="EncodingSettingsButton" xml:space="preserve">
+    <value>Postavke enkodiranja: {0}</value>
+    <comment>{0} is a placeholder for the name of the encoding preset currently selected.</comment>
+  </data>
   
   <data name="OpenSourceRibbonButton" xml:space="preserve">
     <value>Otvori izvor</value>
@@ -596,12 +599,16 @@
     <value>Uvoz/Izvoz</value>
     <comment>Label for ribbon button to import or export presets or queues</comment>
   </data>
-  
+  <data name="AddedSubtitleFromFile" xml:space="preserve">
+    <value>Uspješno dodani podnaslovi iz datoteke {0}</value>
+  </data>
   <data name="OpenFormat" xml:space="preserve">
     <value>Otvori {0}</value>
     <comment>Format for opening a source. For example: "Open E:\ - THE_INCREDIBLES"</comment>
   </data>
-  
+  <data name="NoAudioDescription" xml:space="preserve">
+    <value>Nije pronađen zvučni zapis u izvoru.</value>
+  </data>
   <data name="NoAudioSummary" xml:space="preserve">
     <value>Nema zvuka</value>
     <comment>Summary text for when no audio tracks are found on the source</comment>
@@ -610,11 +617,16 @@
     <value>Nema podnaslova</value>
     <comment>Summary text for when no subtitle tracks are found on the source and no external subtitles have been added</comment>
   </data>
-  
+  <data name="DataTooOldRunVidCoderVersion" xml:space="preserve">
+    <value>Vaši podaci su prestari za ažuriranje. Pokrenite VidCoder {0} jednom da bi ažurirali na kompatibilnu verziju, nakon toga pokušajte ponovo sa ovom verzijom.</value>
+    <comment>This is shown on app start when old data is detected.</comment>
+  </data>
   <data name="BitrateColumn" xml:space="preserve">
     <value>Bitrate</value>
   </data>
-  
+  <data name="SampleRateColumn" xml:space="preserve">
+    <value>Frekvencija</value>
+  </data>
   
   <data name="OpenSourceLabel" xml:space="preserve">
     <value>Otvori</value>
@@ -625,11 +637,22 @@
     <comment>{0} is the name of the source being scanned.</comment>
   </data>
   
+  <data name="StartChapterAutomationName" xml:space="preserve">
+    <value>Početak poglavlja</value>
+    <comment>Narrator label for the chapter start combo box</comment>
+  </data>
+  <data name="EndChapterAutomationName" xml:space="preserve">
+    <value>Kraj poglavlja</value>
+    <comment>Narrator label for the end chapter combo box</comment>
+  </data>
+  <data name="EditChaptersButtonAutomationName" xml:space="preserve">
+    <value>Izmjeni poglavlja</value>
+    <comment>Help text for screen readers for the Edit chapters button</comment>
+  </data>
   
-  
-  
-  
-  
+  <data name="ApplyCurrentEncodingSettings" xml:space="preserve">
+    <value>Primjeni trenutne postavke enkodiranja</value>
+  </data>
   <data name="OpenSourceFolderOption" xml:space="preserve">
     <value>Otvori izvornu mapu</value>
     <comment>Menu option to open the folder of the source file in the queue</comment>

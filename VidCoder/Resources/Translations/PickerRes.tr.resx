@@ -247,7 +247,7 @@
     <value>Dil(leri) en üste sırala:</value>
   </data>
   <data name="ForcedOnlyCheckBox" xml:space="preserve">
-    <value>Sadece zorlanan</value>
+    <value>Sadece Zorlanmış</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
   <data name="AudioDefaultToolTip" xml:space="preserve">

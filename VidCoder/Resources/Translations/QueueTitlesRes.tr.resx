@@ -121,7 +121,7 @@
     <value>Seçildiğinde çıktı dosyası adı oluşturmak amacıyla varolan başlıkları geçersiz kılar. Örneğin çıktı başlığı 7 olarak girilirse, varolan 2, 3 ve 4 başlıkları geçersiz kılınarak 7, 8 ve 9 olarak etiketleneceklerdir. TV dizisi diskini kopyalamada-sıkıştırmada yararlı olabilir.</value>
   </data>
   <data name="QueueTitlesWindowHeader" xml:space="preserve">
-    <value>Kuyruğa eklemek için birden fazla başlık seçiniz.</value>
+    <value>Kuyruğa eklemek çoklu başlık seçiniz.</value>
   </data>
   <data name="PlaySourceToolTip" xml:space="preserve">
     <value>Desteklenen bir oynatıcı (VLC veya Media Player Classic Home Cinema) yüklüyse, DVD’lerin başlıklarını ayrı ayrı önizleyebilirsiniz</value>
@@ -145,7 +145,7 @@
     <value>#: den başlayan başlıkları geçersiz kıl</value>
   </data>
   <data name="QueueTitlesDialogTitle" xml:space="preserve">
-    <value>Çoklu Başlığı Kuyruğa Al</value>
+    <value>Kuyruğa Çoklu Başlık Al</value>
   </data>
   <data name="TitleFormat" xml:space="preserve">
     <value>Başlık {0}</value>

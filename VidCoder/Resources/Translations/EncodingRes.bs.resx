@@ -1064,7 +1064,9 @@ Bicubic: OpenCL hardverski ubrzani algoritam za skaliranje.</value>
     <value>Unesite novi naziv za mapu:</value>
   </data>
   
-  
+  <data name="NVEncPreset_lossless" xml:space="preserve">
+    <value>Bez gubitka</value>
+  </data>
   
   
   
@@ -1092,5 +1094,7 @@ Bicubic: OpenCL hardverski ubrzani algoritam za skaliranje.</value>
   </data>
   
   
-  
+  <data name="ApplyToQueueButton" xml:space="preserve">
+    <value>Primjeni na red čekanja</value>
+  </data>
 </root>

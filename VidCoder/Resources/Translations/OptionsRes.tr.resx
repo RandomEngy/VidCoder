@@ -181,7 +181,7 @@
     <value>Üzerine yaz</value>
   </data>
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>Otomatik olarak adlandır</value>
+    <value>Otomatik adlandır</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Bu işlemlerden herhangi biri çalışırken kodlamayı otomatik olarak duraklat:</value>
@@ -229,7 +229,7 @@
     <value>Beta sürümünü kullanıyorsunuz. Kararlı sürüm ile birlikte kullanılabilir.</value>
   </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
-    <value>Güncelleştirmeleri daha sık almak için Beta kanalına katılın</value>
+    <value>Güncellemeleri daha sık almak için Beta kanalına katılın</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
     <value>Sürüm {0} güncellemesi hazır. Programdan çıktığınızda yüklenecek.</value>
@@ -286,7 +286,7 @@
     <value>Adlandırma formatı</value>
   </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
-    <value>Gelişmiş Seçenekler</value>
+    <value>Gelişmiş seçenekler</value>
   </data>
   <data name="ScanningSection" xml:space="preserve">
     <value>İnceleniyor</value>
@@ -331,13 +331,13 @@
     <value>Yüksek</value>
   </data>
   <data name="Priority_AboveNormal" xml:space="preserve">
-    <value>Normalin üstünde</value>
+    <value>Normal Üstü</value>
   </data>
   <data name="Priority_Normal" xml:space="preserve">
     <value>Normal</value>
   </data>
   <data name="Priority_BelowNormal" xml:space="preserve">
-    <value>Normalin Altında</value>
+    <value>Normal Altı</value>
   </data>
   <data name="WorkerProcessPriorityLabel" xml:space="preserve">
     <value>İşlem Önceliği:</value>
@@ -367,7 +367,7 @@
     <value>Önizleme için özel klasör:</value>
   </data>
   <data name="ProcessOptionsLabel" xml:space="preserve">
-    <value>İşlem Seçenekleri</value>
+    <value>İşlem seçenekleri</value>
   </data>
   <data name="CpuThrottlingLabel" xml:space="preserve">
     <value>CPU Kısma - İzin Verilen Çekirdek:</value>
@@ -393,6 +393,6 @@
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
   <data name="PromptForUpdatesLabel" xml:space="preserve">
-    <value>Güncellemeler İçin Sor:</value>
+    <value>Güncellemeler için sor:</value>
   </data>
 </root>

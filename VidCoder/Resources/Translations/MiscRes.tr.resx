@@ -124,7 +124,7 @@
     <value>Yenile</value>
   </data>
   <data name="ChooseFromProcessesLabel" xml:space="preserve">
-    <value>İşlemlerden seç:</value>
+    <value>Mevcut işlemlerden seç:</value>
   </data>
   <data name="AddAutoPauseProcessDialogTitle" xml:space="preserve">
     <value>Otomatik Duraklatma İşlemi Ekle</value>
@@ -151,10 +151,10 @@
     <value>Otomatik adlandır</value>
   </data>
   <data name="FileConflictWarning" xml:space="preserve">
-    <value>Dosya zaten var {0}. Üzerine yazabilir, otomatik olarak yeni bir çıkış yolu bulabilir veya işlemi iptal edebilirsiniz.</value>
+    <value>Dosya zaten var {0}. Üzerine yazabilir, otomatik olarak adlandırabilir veya işlemi iptal edebilirsiniz.</value>
   </data>
   <data name="QueueFileConflictWarning" xml:space="preserve">
-    <value>Kuyruğa alınacak iş zaten var {0}. Üzerine yazabilir, otomatik olarak yeni bir çıkış yolu bulabilir veya işlemi iptal edebilirsiniz.</value>
+    <value>Kuyruğa alınacak iş zaten var {0}. Üzerine yazabilir, otomatik olarak adlandırabilir veya işlemi iptal edebilirsiniz.</value>
   </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>Kuyruk Sütunları</value>
@@ -181,7 +181,7 @@
     <value>Sürüm</value>
   </data>
   <data name="BasedOnHandBrake" xml:space="preserve">
-    <value>HandBrake sürüm tabanı ({0})</value>
+    <value>HandBrake Sürüm Tabanı ({0})</value>
   </data>
   <data name="Copyright" xml:space="preserve">
     <value>© {0} VidCoder Geliştiricileri</value>
@@ -195,7 +195,7 @@
     <comment>Title for dialog when  naming a preset or  picker</comment>
   </data>
   <data name="ChooseNamePreset" xml:space="preserve">
-    <value>Ön ayar için bir ad belirtin:</value>
+    <value>Önayar için ad seçin:</value>
   </data>
   <data name="ApplyUpdateDialogTitle" xml:space="preserve">
     <value>Güncelleme Uygulansın mı?</value>
@@ -204,7 +204,7 @@
     <value>Güncelleme indirildi. Şimdi uygulamak ister misiniz?</value>
   </data>
   <data name="ViewFullChangelog" xml:space="preserve">
-    <value>Tüm değişim günlüğünü göster</value>
+    <value>Tüm değişiklikleri göster</value>
   </data>
   <data name="DisableUpdatesButton" xml:space="preserve">
     <value>Güncellemeleri Devre Dışı Bırak</value>

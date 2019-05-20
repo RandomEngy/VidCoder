@@ -124,7 +124,7 @@
     <value>Kuyruğa Ekle</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
-    <value>Kuyruğa Birden Çok Başlık Ekle...</value>
+    <value>Kuyruğa Çoklu Başlık Ekle...</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
     <value>Video Dosyası Aç...</value>
@@ -133,16 +133,16 @@
     <value>DVD/BluRay Klasörü Aç...</value>
   </data>
   <data name="EnqueueMultipleFiles" xml:space="preserve">
-    <value>Kuyruğa Birden Çok Dosya Ekle...</value>
+    <value>Kuyruğa Çoklu Dosya Ekle...</value>
   </data>
   <data name="ToolsMenu" xml:space="preserve">
     <value>Araçlar</value>
   </data>
   <data name="ImportPreset" xml:space="preserve">
-    <value>Ön Ayarı İçe Aktar...</value>
+    <value>Önayar Al...</value>
   </data>
   <data name="ExportPreset" xml:space="preserve">
-    <value>Ön Ayarı Dışa Aktar...</value>
+    <value>Önayar Ver...</value>
   </data>
   <data name="Play" xml:space="preserve">
     <value>Oynat</value>
@@ -167,13 +167,13 @@
     <value>Önizleme</value>
   </data>
   <data name="LogMenuItem" xml:space="preserve">
-    <value>İşlem Kaydı</value>
+    <value>Günlük</value>
   </data>
   <data name="HelpMenu" xml:space="preserve">
     <value>Yardım</value>
   </data>
   <data name="VidCoderHomepageMenuItem" xml:space="preserve">
-    <value>VidCoder Web Sitesi</value>
+    <value>VidCoder Ana Sayfası</value>
   </data>
   <data name="ReportABugMenuItem" xml:space="preserve">
     <value>Hata Bildir</value>
@@ -215,7 +215,7 @@
     <value>Çıkış yolunu seçin...</value>
   </data>
   <data name="EncodingLabel" xml:space="preserve">
-    <value>Kodlanıyor:</value>
+    <value>Kodlama:</value>
   </data>
   <data name="Stop" xml:space="preserve">
     <value>Durdur</value>
@@ -257,10 +257,10 @@
     <value>{0} parça</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
-    <value>Değişiklikleri mevcut ön ayara kaydetmek istiyor musunuz?</value>
+    <value>Değişiklikleri mevcut Önayara kaydetmek istiyor musunuz?</value>
   </data>
   <data name="SaveChangesPresetTitle" xml:space="preserve">
-    <value>Mevcut ön ayar kaydedilsin mi?</value>
+    <value>Mevcut Önayar kaydedilsin mi?</value>
   </data>
   <data name="DiscNotInDriveError" xml:space="preserve">
     <value>Düzenleme için yüklenemiyor. Disk artık sürücüde değil.</value>
@@ -272,7 +272,7 @@
     <value>Tamamlanandan geri yüklendi</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>Ön Ayar:</value>
+    <value>Önayar:</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
     <value>Hedef</value>
@@ -281,7 +281,7 @@
     <value>Durum</value>
   </data>
   <data name="ElapsedTimeColumnHeader" xml:space="preserve">
-    <value>Geçen süre</value>
+    <value>Geçen Süre</value>
   </data>
   <data name="PlayingVideoMessage" xml:space="preserve">
     <value>Video oynatılıyor...</value>
@@ -319,7 +319,7 @@
 {1}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
-    <value>Video dosyası(ları) tarama hatası</value>
+    <value>Video dosyası(ları) inceleme hatası</value>
   </data>
   <data name="StartedEncoding" xml:space="preserve">
     <value>Kodlama başlatıldı.</value>
@@ -381,10 +381,10 @@
     <value>Güncelleme uygulanamadı. İptal etmediyseniz, el ile yüklemeyi deneyin.</value>
   </data>
   <data name="CouldNotLoadPresetMessage" xml:space="preserve">
-    <value>Ön ayar yüklenemedi: </value>
+    <value>Önayar yüklenemedi: </value>
   </data>
   <data name="CouldNotSavePresetMessage" xml:space="preserve">
-    <value>Ön ayar '{0}' kaydedilemedi: {1}{2}</value>
+    <value>Önayar '{0}' kaydedilemedi: {1}{2}</value>
   </data>
   <data name="CouldNotCopyTextError" xml:space="preserve">
     <value>Metin kopyalanamadı.</value>
@@ -393,7 +393,7 @@
     <value>URL başlatma hatası: {0}</value>
   </data>
   <data name="PresetImportErrorMessage" xml:space="preserve">
-    <value>Ön ayar alınamadı. Ayrıntılar için günlüğü kontrol edin.</value>
+    <value>Önayar alınamadı. Ayrıntılar için günlüğü kontrol edin.</value>
   </data>
   <data name="ImportErrorTitle" xml:space="preserve">
     <value>İçe Aktarma Hatası</value>
@@ -402,10 +402,10 @@
     <value>Önayar {0} başarıyla alındı</value>
   </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
-    <value>Önayar {0} başarıyla aktarıldı</value>
+    <value>Önayar {0} başarıyla verildi</value>
   </data>
   <data name="ExportPresetFilePickerText" xml:space="preserve">
-    <value>Önayarı Dışa Aktar</value>
+    <value>Önayar Ver</value>
   </data>
   <data name="SaveChangesPickerMessage" xml:space="preserve">
     <value>Değişiklikleri mevcut seçicinize kaydetmek ister misiniz?</value>
@@ -420,7 +420,7 @@
     <value>Geri Al</value>
   </data>
   <data name="RemoveConfirmMessage" xml:space="preserve">
-    <value>Bunu kaldırmak istediğinden emin misiniz?</value>
+    <value>Kaldırmak istediğinizden emin misiniz?</value>
   </data>
   <data name="RemoveConfirmTitle" xml:space="preserve">
     <value>Kaldır</value>
@@ -450,7 +450,7 @@
     <value>Kaynak Videoyu Kapat</value>
   </data>
   <data name="UpdatesMenuItem" xml:space="preserve">
-    <value>Güncelleştirmeler...</value>
+    <value>Güncellemeler...</value>
   </data>
   <data name="CbrAuto" xml:space="preserve">
     <value>CBR Otomatik</value>
@@ -477,7 +477,7 @@
     <value>Günlüğü Kopyala</value>
   </data>
   <data name="PresetDiscardConfirmMessage" xml:space="preserve">
-    <value>Kaydedilmemiş değişiklikleriniz var. Başka bir ön ayara geçerek bu değişiklikleri iptal etmek istediğinizden emin misiniz?</value>
+    <value>Kaydedilmemiş değişiklikleriniz var. Başka bir Önayara geçerek bu değişiklikleri iptal etmek istediğinizden emin misiniz?</value>
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>Değişiklikler İptal Edilsin mi?</value>
@@ -495,13 +495,13 @@
     <value>Kuyruğu Ver...</value>
   </data>
   <data name="ExportQueueFilePickerText" xml:space="preserve">
-    <value>Kuyruğu ver</value>
+    <value>Kuyruğu Ver</value>
   </data>
   <data name="QueueImportErrorMessage" xml:space="preserve">
     <value>Kuyruk alınamadı. Ayrıntılar için günlüğü kontrol edin.</value>
   </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
-    <value>Ön Ayar dosyasını al</value>
+    <value>Önayar dosyası al</value>
   </data>
   <data name="ImportQueueFilePickerTitle" xml:space="preserve">
     <value>Kuyruk dosyası al</value>
@@ -510,7 +510,7 @@
     <value>Kuyruk Al...</value>
   </data>
   <data name="QueueExportSuccessMessage" xml:space="preserve">
-    <value>Kuyruk başarıyla aktarıldı {0}</value>
+    <value>Kuyruk başarıyla verildi {0}</value>
   </data>
   <data name="QueueImportSuccessMessage" xml:space="preserve">
     <value>Kuruk başarıyla alındı.</value>
@@ -567,10 +567,10 @@
     <value>Uyarı: Boyutlandırma arayüzü 2.0 olarak yenilenmiştir, bu nedenle ön ayarlarınız değişmiş olabilir. Ön ayarlarınızın hala doğru olduğundan emin olmak için inceleyebilirsiniz.</value>
   </data>
   <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
-    <value>Video Dosyaları Klasörünü Kuyruğa Ekle...</value>
+    <value>Video Klasörünü Kuyruğa Ekle...</value>
   </data>
   <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>Bazı dosyaları incelerken hatalar oluştu ve kuyruğa eklenmediler:
+    <value>Bazı dosyaları incelerken hatalar oluştu ve kuyruğa eklenmedi:
 
 {0}</value>
   </data>

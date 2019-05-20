@@ -208,18 +208,35 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
   </data>
   
   
+  <data name="Advanced_TrellisToolTip" xml:space="preserve">
+    <value>Krata dostraja zaokrąglania współczynniki transformacji wycisnąć 3-5% więcej kompresja kosztem trochę prędkości. 
+"Zawsze" używa krata, nie tylko podczas procesu kodowania główne, ale również podczas analizy, co poprawia kompresji nawet więcej, choć na koszt wielką prędkością. 
+
+Krata kosztuje więcej prędkości o wyższych szybkości transmisji bitów.</value>
+  </data>
   
-  
-  
+  <data name="Audio_DrcToolTip" xml:space="preserve">
+    <value>Dynamiczny Zakres Kompresji. Poprawne wartości to 0-4.
+
+W przypadku dźwięku źródłowego o szerokim zakresie dynamicznym (bardzo głośne i bardzo stonowane sekwencje), DRC pozwala "skompresować” zakres, czyniąc głośniejsze sekcje bardziej stonowanymi i głośniejszymi.
+
+Działa to tylko ze źródłami AC3.</value>
+  </data>
   <data name="Audio_GainToolTip" xml:space="preserve">
     <value>Wzmocnienie lub stłumienie dźwięku przed kodowaniem. Prawidłowe wartości to: -20 to +20 db.</value>
   </data>
   <data name="IncludeChapterMarkersToolTip" xml:space="preserve">
     <value>Załączenie rozdziałów z wejściowego wideo do zakodowanego wideo.</value>
   </data>
-  
-  
-  
+  <data name="IPod5GSupportToolTip" xml:space="preserve">
+    <value>Zastosowanie znacznika do pliku wymaganego przez starsze iPody, aby umożliwić synchronizację wideo H.264.</value>
+  </data>
+  <data name="PixelAspectRatioToolTip" xml:space="preserve">
+    <value>Ręcznie Określ Współczynnik Proporcji Pikseli.</value>
+  </data>
+  <data name="Video_QualityTargetToolTip" xml:space="preserve">
+    <value>Ustaw żądany współczynnik jakości. Skala używana przez każdy koder wideo jest inny.</value>
+  </data>
   
   
   
@@ -899,6 +916,33 @@ Bicubic: To OpenCL sprzętowo przyspieszony algorytm skalowania.</value>
   
   
   
+  <data name="ResolutionLabel" xml:space="preserve">
+    <value>Rozdzielczość:</value>
+    <comment>Label for a video resolution in pixels.</comment>
+  </data>
+  
+  
+  
+  
+  
+  
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Wstępne ustawienie kodowania: {0}</value>
+    <comment>Label for the encoding settings window.</comment>
+  </data>
+  <data name="AudioEncoder_none" xml:space="preserve">
+    <value>Żadne</value>
+    <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
+  </data>
+  <data name="SizingModeToolTip" xml:space="preserve">
+    <value>Automatycznie będzie wybrać dla Ciebie rozmiar na podstawie podanych ograniczeń. Podręcznik umożliwia wprowadzenie określonego rozmiaru i proporcji pikseli.</value>
+  </data>
+  <data name="SharpenLabel" xml:space="preserve">
+    <value>Wyostrzanie</value>
+  </data>
+  <data name="DeblockToolTip" xml:space="preserve">
+    <value>Deblock redukuje artefakty blokowe, spowodowane przez niską jakość kompresji wideo.</value>
+  </data>
   
   
   
@@ -908,30 +952,42 @@ Bicubic: To OpenCL sprzętowo przyspieszony algorytm skalowania.</value>
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="DefaultPresetFolderName" xml:space="preserve">
+    <value>Nowy Folder</value>
+  </data>
+  <data name="ChooseNameSubfolder" xml:space="preserve">
+    <value>Wybierz nazwę podfolderu:</value>
+  </data>
+  <data name="ChooseNewFolderName" xml:space="preserve">
+    <value>Wybierz nową nazwę dla folderu:</value>
+  </data>
+  <data name="NVEncPreset_losslesshp" xml:space="preserve">
+    <value>Wysoka Wydajność Bezstratna</value>
+  </data>
+  <data name="NVEncPreset_lossless" xml:space="preserve">
+    <value>Bezstratna</value>
+  </data>
+  <data name="NVEncPreset_llhp" xml:space="preserve">
+    <value>Wysoka Wydajność Niska Latencja</value>
+  </data>
+  <data name="NVEncPreset_llhq" xml:space="preserve">
+    <value>Wysoka Jakość Niska Latencja</value>
+  </data>
+  <data name="NVEncPreset_ll" xml:space="preserve">
+    <value>Niska Latencja</value>
+  </data>
+  <data name="NVEncPreset_bd" xml:space="preserve">
+    <value>Dysk Blu-ray</value>
+  </data>
+  <data name="NVEncPreset_hq" xml:space="preserve">
+    <value>Wysoka Jakość</value>
+  </data>
+  <data name="NVEncPreset_hp" xml:space="preserve">
+    <value>Wysoka Wydajność</value>
+  </data>
+  <data name="PickColorButton" xml:space="preserve">
+    <value>Wybierz kolor…</value>
+  </data>
   
   
   

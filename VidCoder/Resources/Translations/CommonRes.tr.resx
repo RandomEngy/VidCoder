@@ -230,10 +230,10 @@ GNU Genel Kamu Lisansının tam kopyası bu programla birlikte verilmiştir.</va
     <value>Hiçbiri</value>
   </data>
   <data name="Succeeded" xml:space="preserve">
-    <value>Başarılı Oldu</value>
+    <value>Başarılı</value>
   </data>
   <data name="Failed" xml:space="preserve">
-    <value>Başarısız Oldu</value>
+    <value>Başarısız</value>
   </data>
   <data name="FilePickerExtTemplate" xml:space="preserve">
     <value>{0} Dosya</value>
