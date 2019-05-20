@@ -30,6 +30,8 @@ namespace VidCoder.Services
 
 		private PickerViewModel selectedPicker;
 
+		private bool executingNonDragAdd;
+
 		private ObservableCollection<PickerViewModel> pickers;
 
 		public PickersService()
@@ -109,7 +111,18 @@ namespace VidCoder.Services
 				pickerIndex = 0;
 			}
 
+			this.pickers.CollectionChanged += this.OnPickersChanged;
+
 			this.selectedPicker = this.pickers[pickerIndex];
+		}
+
+		private void OnPickersChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+		{
+			// Drag/drop fires this when it's re-added the dragged item. We need to persist this change.
+			if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add && !this.executingNonDragAdd)
+			{
+				this.SavePickersToStorage();
+			}
 		}
 
 		public ObservableCollection<PickerViewModel> Pickers
@@ -242,7 +255,9 @@ namespace VidCoder.Services
 
 			var newPickerVM = new PickerViewModel(newPicker);
 
-			this.InsertNewPicker(newPickerVM);
+			// Insert right after the current picker
+			int insertionIndex = this.Pickers.IndexOf(this.SelectedPicker) + 1;
+			this.InsertNewPicker(insertionIndex, newPickerVM);
 
 			if (this.SelectedPicker.Picker.IsModified)
 			{
@@ -252,22 +267,6 @@ namespace VidCoder.Services
 			this.selectedPicker = null;
 			this.SelectedPicker = newPickerVM;
 
-			this.SavePickersToStorage();
-		}
-
-		public void AddPicker(Picker newPicker)
-		{
-			var newPickerVM = new PickerViewModel(newPicker);
-
-			this.InsertNewPicker(newPickerVM);
-
-			if (!this.SelectedPicker.Picker.IsModified)
-			{
-				this.selectedPicker = null;
-				this.SelectedPicker = newPickerVM;
-			}
-
-			this.RefreshPickerButton();
 			this.SavePickersToStorage();
 		}
 
@@ -318,7 +317,8 @@ namespace VidCoder.Services
 
 			var newPickerVM = new PickerViewModel(newPicker);
 
-			this.InsertNewPicker(newPickerVM);
+			// Insert directly below "Default" so it's immediately visible
+			this.InsertNewPicker(1, newPickerVM);
 
 			this.selectedPicker = null;
 			this.SelectedPicker = newPickerVM;
@@ -374,18 +374,18 @@ namespace VidCoder.Services
 			PickerStorage.PickerList = storagePickers;
 		}
 
-		private void InsertNewPicker(PickerViewModel newPickerVM)
+		private void InsertNewPicker(int insertionIndex, PickerViewModel newPickerVM)
 		{
-			for (int i = 1; i < this.Pickers.Count; i++)
-			{
-				if (string.CompareOrdinal(newPickerVM.Picker.Name, this.Pickers[i].Picker.Name) < 0)
-				{
-					this.Pickers.Insert(i, newPickerVM);
-					return;
-				}
-			}
+			this.executingNonDragAdd = true;
 
-			this.Pickers.Insert(this.Pickers.Count, newPickerVM);
+			try
+			{
+				this.Pickers.Insert(insertionIndex, newPickerVM);
+			}
+			finally
+			{
+				this.executingNonDragAdd = false;
+			}
 		}
 
 		private void RefreshPickerButton()
