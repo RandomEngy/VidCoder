@@ -595,7 +595,6 @@
     <Compile Include="Services\Windows\WindowMenuItemViewModel.cs" />
     <Compile Include="Services\Windows\WindowPlacer.cs" />
     <Compile Include="Services\QueueWorkTracker.cs" />
-    <Compile Include="Utilities\AdvancedOptionsParsing.cs" />
     <Compile Include="Utilities\BitmapUtilities.cs" />
     <Compile Include="Utilities\CodecUtilities.cs" />
     <Compile Include="Services\HandBrakeProxy\RemoteEncodeProxy.cs" />
