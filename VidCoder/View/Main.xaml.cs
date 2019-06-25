@@ -243,6 +243,13 @@ namespace VidCoder.View
 			{
 				this.ShowStatusMessage(e.Value);
 			};
+
+			this.queueView.SelectionChanged += this.QueueView_SelectionChanged;
+		}
+
+		private void QueueView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			this.processingService.OnSelectedQueueItemsChanged();
 		}
 
 		public void RestoreWindow()

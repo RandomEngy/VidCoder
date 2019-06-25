@@ -35,6 +35,7 @@ using VidCoder.ViewModel.DataModels;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
 using Color = System.Windows.Media.Color;
+using System.Reactive.Subjects;
 
 namespace VidCoder.Services
 {
@@ -63,6 +64,8 @@ namespace VidCoder.Services
 		private EncodeCompleteReason encodeCompleteReason;
 		private List<EncodeCompleteAction> encodeCompleteActions;
 		private ScanMultipleDialogViewModel scanMultipleDialogViewModel;
+		private bool selectedQueueItemModifyable = true;
+		private BehaviorSubject<bool> selectedQueueItemModifyableSubject;
 
 		public ProcessingService()
 		{
@@ -251,6 +254,8 @@ namespace VidCoder.Services
 			this.EncodingJobsCountObservable.ToProperty(this, x => x.JobsEncodingCount, out this.jobsEncodingCount);
 
 			this.canPauseOrStopObservable = this.WhenAnyValue(x => x.CanPauseOrStop);
+
+			this.selectedQueueItemModifyableSubject = new BehaviorSubject<bool>(this.selectedQueueItemModifyable);
 		}
 
 		public QueueWorkTracker WorkTracker { get; } = new QueueWorkTracker();
@@ -335,6 +340,21 @@ namespace VidCoder.Services
 		{
 			get { return this.showApplyToQueueButton; }
 			set { this.RaiseAndSetIfChanged(ref this.showApplyToQueueButton, value); }
+		}
+
+		public IObservable<bool> SelectedQueueItemModifyableObservable => this.selectedQueueItemModifyableSubject;
+
+		/// <summary>
+		/// When the selected items change, update the subject if needed.
+		/// </summary>
+		public void OnSelectedQueueItemsChanged()
+		{
+			bool next = this.EncodeQueue.Items.Any(job => job.IsSelected && !job.Encoding);
+			if (next != this.selectedQueueItemModifyable)
+			{
+				this.selectedQueueItemModifyableSubject.OnNext(next);
+				this.selectedQueueItemModifyable = next;
+			}
 		}
 
 		private ObservableAsPropertyHelper<string> encodeButtonText;
@@ -606,35 +626,37 @@ namespace VidCoder.Services
 		{
 			get
 			{
-				return this.moveSelectedJobsToTop ?? (this.moveSelectedJobsToTop = ReactiveCommand.Create(() =>
-				{
-					List<EncodeJobViewModel> jobsToMove = this.main.SelectedJobs.Where(j => !j.Encoding).ToList();
-					if (jobsToMove.Count > 0)
+				return this.moveSelectedJobsToTop ?? (this.moveSelectedJobsToTop = ReactiveCommand.Create(
+					() =>
 					{
-						this.EncodeQueue.Edit(encodeQueueInnerList =>
+						List<EncodeJobViewModel> jobsToMove = this.main.SelectedJobs.Where(j => !j.Encoding).ToList();
+						if (jobsToMove.Count > 0)
 						{
-							int insertPosition = 0;
-							for (int i = 0; i < encodeQueueInnerList.Count; i++)
+							this.EncodeQueue.Edit(encodeQueueInnerList =>
 							{
-								if (!encodeQueueInnerList[i].Encoding)
+								int insertPosition = 0;
+								for (int i = 0; i < encodeQueueInnerList.Count; i++)
 								{
-									insertPosition = i;
-									break;
+									if (!encodeQueueInnerList[i].Encoding)
+									{
+										insertPosition = i;
+										break;
+									}
 								}
-							}
 
-							foreach (EncodeJobViewModel jobToMove in jobsToMove)
-							{
-								encodeQueueInnerList.Remove(jobToMove);
-							}
+								foreach (EncodeJobViewModel jobToMove in jobsToMove)
+								{
+									encodeQueueInnerList.Remove(jobToMove);
+								}
 
-							for (int i = jobsToMove.Count - 1; i >= 0; i--)
-							{
-								encodeQueueInnerList.Insert(insertPosition, jobsToMove[i]);
-							}
-						});
-					}
-				}));
+								for (int i = jobsToMove.Count - 1; i >= 0; i--)
+								{
+									encodeQueueInnerList.Insert(insertPosition, jobsToMove[i]);
+								}
+							});
+						}
+					},
+					this.SelectedQueueItemModifyableObservable));
 			}
 		}
 
@@ -643,25 +665,27 @@ namespace VidCoder.Services
 		{
 			get
 			{
-				return this.moveSelectedJobsToBottom ?? (this.moveSelectedJobsToBottom = ReactiveCommand.Create(() =>
-				{
-					List<EncodeJobViewModel> jobsToMove = this.main.SelectedJobs.Where(j => !j.Encoding).ToList();
-					if (jobsToMove.Count > 0)
+				return this.moveSelectedJobsToBottom ?? (this.moveSelectedJobsToBottom = ReactiveCommand.Create(
+					() =>
 					{
-						this.EncodeQueue.Edit(encodeQueueInnerList =>
+						List<EncodeJobViewModel> jobsToMove = this.main.SelectedJobs.Where(j => !j.Encoding).ToList();
+						if (jobsToMove.Count > 0)
 						{
-							foreach (EncodeJobViewModel jobToMove in jobsToMove)
+							this.EncodeQueue.Edit(encodeQueueInnerList =>
 							{
-								encodeQueueInnerList.Remove(jobToMove);
-							}
+								foreach (EncodeJobViewModel jobToMove in jobsToMove)
+								{
+									encodeQueueInnerList.Remove(jobToMove);
+								}
 
-							foreach (EncodeJobViewModel jobToMove in jobsToMove)
-							{
-								encodeQueueInnerList.Add(jobToMove);
-							}
-						});
-					}
-				}));
+								foreach (EncodeJobViewModel jobToMove in jobsToMove)
+								{
+									encodeQueueInnerList.Add(jobToMove);
+								}
+							});
+						}
+					},
+					this.SelectedQueueItemModifyableObservable));
 			}
 		}
 
@@ -723,28 +747,30 @@ namespace VidCoder.Services
 		{
 			get
 			{
-				return this.applyCurrentPresetToSelectedJobs ?? (this.applyCurrentPresetToSelectedJobs = ReactiveCommand.Create(() =>
-				{
-					IList<EncodeJobViewModel> selectedJobs = this.main.SelectedJobs;
-					Preset newPreset = this.presetsService.SelectedPreset.Preset;
-
-
-					this.EncodeQueue.Edit(encodeQueueInnerList =>
+				return this.applyCurrentPresetToSelectedJobs ?? (this.applyCurrentPresetToSelectedJobs = ReactiveCommand.Create(
+					() =>
 					{
-						foreach (EncodeJobViewModel selectedJob in selectedJobs)
+						IList<EncodeJobViewModel> selectedJobs = this.main.SelectedJobs;
+						Preset newPreset = this.presetsService.SelectedPreset.Preset;
+
+
+						this.EncodeQueue.Edit(encodeQueueInnerList =>
 						{
-							if (!selectedJob.Encoding)
+							foreach (EncodeJobViewModel selectedJob in selectedJobs)
 							{
-								int jobIndex = encodeQueueInnerList.IndexOf(selectedJob);
-								encodeQueueInnerList.RemoveAt(jobIndex);
+								if (!selectedJob.Encoding)
+								{
+									int jobIndex = encodeQueueInnerList.IndexOf(selectedJob);
+									encodeQueueInnerList.RemoveAt(jobIndex);
 
-								this.ApplyPresetToJob(selectedJob, newPreset);
+									this.ApplyPresetToJob(selectedJob, newPreset);
 
-								encodeQueueInnerList.Insert(jobIndex, selectedJob);
+									encodeQueueInnerList.Insert(jobIndex, selectedJob);
+								}
 							}
-						}
-					});
-				}));
+						});
+					},
+					this.SelectedQueueItemModifyableObservable));
 			}
 		}
 
@@ -753,7 +779,9 @@ namespace VidCoder.Services
 		{
 			get
 			{
-				return this.removeSelectedJobs ?? (this.removeSelectedJobs = ReactiveCommand.Create(() => { this.RemoveSelectedJobsImpl(); }));
+				return this.removeSelectedJobs ?? (this.removeSelectedJobs = ReactiveCommand.Create(
+					() => { this.RemoveSelectedJobsImpl(); },
+					this.SelectedQueueItemModifyableObservable));
 			}
 		}
 
