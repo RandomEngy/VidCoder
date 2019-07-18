@@ -87,20 +87,13 @@ You'll need [.NET 4.7.1](https://dotnet.microsoft.com/download/thank-you/net472)
 
 You *do not* need to install HandBrake for VidCoder to work.
 
-**DVDs**
-VidCoder can rip DVDs but does not defeat the CSS encryption found in most commercial DVDs. You've got several options to remove the encryption:
-
-* [AnyDVD HD](https://www.redfox.bz/en/anydvdhd.html) ($121, removes encryption on the fly, best support for new titles)
-* [Passkey Lite](http://www.dvdfab.cn/dvd-decrypter.htm) (Free, removes encryption on the fly)
-* [MakeMKV](http://www.makemkv.com/) (Free, requires copying to the hard drive before encoding)
-* [DVD Decrypter](http://www.dvddecrypter.org.uk/) (Free, requires copying to the hard drive before encoding, no longer updated)
-
-**Blu-rays**
-VidCoder does not defeat AACS or BD+ Blu-ray encryption. There are a couple options for removing it:
-
-* [AnyDVD HD](https://www.redfox.bz/en/anydvdhd.html) ($121, removes encryption on the fly, best support for new titles)
-* [Passkey Lite](http://www.dvdfab.cn/dvd-decrypter.htm) (Free, removes encryption on the fly)
-* [MakeMKV](http://www.makemkv.com/) (Currently free in time-limited beta, requires copying to the hard drive before encoding)
+**Blu-rays and DVDs**
+VidCoder can rip Blu-rays and DVDs but does not defeat the encryption found on commercial discs. You've got several options to remove it:
+* [AnyDVD HD](https://www.redfox.bz/en/anydvdhd.html) ($122, removes encryption on the fly for Blu-ray and DVD, good support for all discs)
+* [Passkey for Blu-ray/DVD](https://www.dvdfab.cn/passkey-for-blu-ray.htm) ($168, removes encryption on the fly for Blu-ray and DVD, good support for all discs)
+* [Passkey Lite](https://www.dvdfab.cn/passkey-lite.htm) (Free, removes encryption on the fly for Blu-ray and DVD, does *not* support all discs)
+* [MakeMKV](http://www.makemkv.com/) (Free, requires copying to the hard drive before encoding, supports Blu-ray and DVD)
+* [WinX DVD Ripper](https://www.winxdvd.com/) ($60, supports DVD only, requires copying to the hard drive before encoding)
 
 ## Reporting Bugs
 If you encounter any bugs with encoding, please see if they happen with the official HandBrake client as well. If the problem is reproducible on HandBrake, submit the issue to them. If it's only VidCoder that has the problem, submit it here.
