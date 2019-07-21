@@ -146,9 +146,9 @@ namespace VidCoder.ViewModel
 			}).ToProperty(this, x => x.UsingChaptersRange, out this.usingChaptersRange);
 
 			// RangeBarVisible
-			this.WhenAnyValue(x => x.RangeType, rangeType =>
+			this.WhenAnyValue(x => x.RangeType, x => x.SelectedTitle.Duration, (rangeType, duration) =>
 			{
-				return rangeType == VideoRangeType.Chapters || rangeType == VideoRangeType.Seconds;
+				return duration > TimeSpan.Zero && (rangeType == VideoRangeType.Chapters || rangeType == VideoRangeType.Seconds);
 			}).ToProperty(this, x => x.RangeBarVisible, out this.rangeBarVisible);
 
 			// ChapterMarkersSummary

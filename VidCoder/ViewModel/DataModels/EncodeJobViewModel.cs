@@ -257,7 +257,7 @@ namespace VidCoder.ViewModel
 			}
 
 			TimeSpan jobLength = this.Job.Length;
-			if (jobLength <= TimeSpan.Zero)
+			if (jobLength < TimeSpan.Zero)
 			{
 				throw new InvalidOperationException($"Invalid length '{this.Job.Length}' on job {this.Job.FinalOutputPath}");
 			}
