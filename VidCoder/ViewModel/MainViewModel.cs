@@ -475,7 +475,7 @@ namespace VidCoder.ViewModel
 								StaticResolver.Resolve<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
 							}
 						}
-						else if (extension == ".srt" || extension == ".ssa")
+						else if (FileUtilities.SubtitleExtensions.Contains(extension))
 						{
 							if (this.HasVideoSource)
 							{
@@ -1781,10 +1781,14 @@ namespace VidCoder.ViewModel
 			{
 				return this.addFileSubtitle ?? (this.addFileSubtitle = ReactiveCommand.Create(() =>
 				{
+					List<string> starExtensionList = FileUtilities.SubtitleExtensions.Select(e => "*" + e).ToList();
+					string descriptionExtensionList = string.Join(", ", starExtensionList);
+					string extensionList = string.Join(";", starExtensionList);
+
 					string srtFile = FileService.Instance.GetFileNameLoad(
 						Config.RememberPreviousFiles ? Config.LastSubtitleFolder : null,
 						SubtitleRes.SubtitleFilePickerText,
-						SubtitleRes.FilePickerDescription + " (*.srt, *.ssa)|*.srt;*.ssa");
+						$"{SubtitleRes.FilePickerDescription} ({descriptionExtensionList})|{extensionList}");
 
 					if (srtFile != null)
 					{
