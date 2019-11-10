@@ -178,8 +178,6 @@ namespace VidCoderCommon.Model
 		public bool Grayscale { get; set; }
 
 
-		[JsonProperty]
-		public bool UseAdvancedTab { get; set; }
 
 		private string videoEncoder;
 
@@ -202,14 +200,26 @@ namespace VidCoderCommon.Model
 		[JsonProperty]
 		public string VideoProfile { get; set; }
 
+		private string videoPreset;
+
 		[JsonProperty]
-		public string VideoPreset { get; set; }
+		public string VideoPreset
+		{
+			get { return this.videoPreset; }
+			set { this.RaiseAndSetIfChanged(ref this.videoPreset, value); }
+		}
 
 		[JsonProperty]
 		public string VideoLevel { get; set; }
 
+		private List<string> videoTunes;
+
 		[JsonProperty]
-		public List<string> VideoTunes { get; set; }
+		public List<string> VideoTunes
+		{
+			get { return this.videoTunes; }
+			set { this.RaiseAndSetIfChanged(ref this.videoTunes, value); }
+		}
 
 		[JsonProperty]
 		public bool QsvDecode { get; set; }
@@ -221,7 +231,7 @@ namespace VidCoderCommon.Model
 		public double Quality { get; set; }
 
 		[JsonProperty]
-		public int TargetSize { get; set; }
+		public double TargetSize { get; set; }
 
 		[JsonProperty]
 		public int VideoBitrate { get; set; }

@@ -19,7 +19,7 @@ namespace VidCoder.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class LogRes {
@@ -61,11 +61,56 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear.
+        ///   Looks up a localized string similar to Clear finished.
         /// </summary>
-        public static string ClearButton {
+        public static string ClearFinishedButton {
             get {
-                return ResourceManager.GetString("ClearButton", resourceCulture);
+                return ResourceManager.GetString("ClearFinishedButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy Pastebin link.
+        /// </summary>
+        public static string CopyToPastebinButton {
+            get {
+                return ResourceManager.GetString("CopyToPastebinButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        public static string GeneralLogLabel {
+            get {
+                return ResourceManager.GetString("GeneralLogLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extended.
+        /// </summary>
+        public static string LogVerbosity_Extended {
+            get {
+                return ResourceManager.GetString("LogVerbosity_Extended", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimized.
+        /// </summary>
+        public static string LogVerbosity_Minimized {
+            get {
+                return ResourceManager.GetString("LogVerbosity_Minimized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Standard.
+        /// </summary>
+        public static string LogVerbosity_Standard {
+            get {
+                return ResourceManager.GetString("LogVerbosity_Standard", resourceCulture);
             }
         }
         
@@ -75,6 +120,15 @@ namespace VidCoder.Resources {
         public static string LogWindowTitle {
             get {
                 return ResourceManager.GetString("LogWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link to log on Pastebin has been copied to the clipboard..
+        /// </summary>
+        public static string PastebinSuccessStatus {
+            get {
+                return ResourceManager.GetString("PastebinSuccessStatus", resourceCulture);
             }
         }
     }

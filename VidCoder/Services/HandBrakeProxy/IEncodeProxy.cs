@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using HandBrake.Interop.Interop.EventArgs;
 using VidCoder.Services;
 using VidCoderCommon.Model;
@@ -22,7 +23,7 @@ namespace VidCoder
 		/// </summary>
 		event EventHandler<EncodeCompletedEventArgs> EncodeCompleted;
 
-		void StartEncode(
+		Task StartEncodeAsync(
 			VCJob job,
 			IAppLogger logger,
 			bool preview, 
@@ -30,13 +31,14 @@ namespace VidCoder
 			int previewSeconds, 
 			double overallSelectedLengthSeconds);
 
-		void PauseEncode();
+		Task StartEncodeAsync(string encodeJson, IAppLogger logger);
 
-		void ResumeEncode();
+		Task PauseEncodeAsync();
 
-		void StopEncode();
+		Task ResumeEncodeAsync();
 
-		void StopAndWait();
-		void StartEncode(string encodeJson, IAppLogger logger);
+		Task StopEncodeAsync();
+
+		Task StopAndWaitAsync();
 	}
 }

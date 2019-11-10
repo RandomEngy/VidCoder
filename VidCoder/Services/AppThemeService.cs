@@ -22,7 +22,7 @@ namespace VidCoder.Services
 
 		private const string RegistryValueName = "AppsUseLightTheme";
 
-		private readonly ManagementEventWatcher watcher;
+		private ManagementEventWatcher watcher;
 
 		public AppThemeService()
 		{
@@ -42,22 +42,23 @@ namespace VidCoder.Services
 
 			var windowsThemeSubject = new BehaviorSubject<WindowsTheme>(GetWindowsTheme());
 
-			try
+			Task.Run(() =>
 			{
-				this.watcher = new ManagementEventWatcher(query);
-				this.watcher.EventArrived += (sender, args) =>
+				try
 				{
-					windowsThemeSubject.OnNext(GetWindowsTheme());
-				};
+					this.watcher = new ManagementEventWatcher(query);
+					this.watcher.EventArrived += (sender, args) =>
+					{
+						windowsThemeSubject.OnNext(GetWindowsTheme());
+					};
 
-				// Start listening for events
-				this.watcher.Start();
-			}
-			catch (Exception)
-			{
-				// If we fail to set up the event watched, use Light theme
-				windowsThemeSubject.OnNext(WindowsTheme.Light);
-			}
+					// Start listening for events
+					this.watcher.Start();
+				}
+				catch (Exception)
+				{
+				}
+			});
 
 			var highContrastSubject = new BehaviorSubject<bool>(SystemParameters.HighContrast);
 
@@ -95,17 +96,18 @@ namespace VidCoder.Services
 
 		private static WindowsTheme GetWindowsTheme()
 		{
-			RegistryKey key = Registry.CurrentUser.OpenSubKey(RegistryKeyPath);
-
-			object registryValueObject = key?.GetValue(RegistryValueName);
-			if (registryValueObject == null)
+			using (RegistryKey key = Registry.CurrentUser.OpenSubKey(RegistryKeyPath))
 			{
-				return WindowsTheme.Light;
+				object registryValueObject = key?.GetValue(RegistryValueName);
+				if (registryValueObject == null)
+				{
+					return WindowsTheme.Light;
+				}
+
+				int registryValue = (int)registryValueObject;
+
+				return registryValue > 0 ? WindowsTheme.Light : WindowsTheme.Dark;
 			}
-
-			int registryValue = (int)registryValueObject;
-
-			return registryValue > 0 ? WindowsTheme.Light : WindowsTheme.Dark;
 		}
 
 		public void Dispose()

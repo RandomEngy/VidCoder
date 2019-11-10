@@ -26,6 +26,7 @@ using System.Windows.Resources;
 using DynamicData;
 using Fluent;
 using HandBrake.Interop.Interop.Json.Encode;
+using HandBrake.Interop.Interop.Json.Scan;
 using Microsoft.AnyContainer;
 using Newtonsoft.Json;
 using ReactiveUI;
@@ -105,8 +106,28 @@ namespace VidCoder.View
 
 #if DEBUG
 			var debugDropDown = new DropDownButton { Header = "Debug" };
-			var queueFromJsonItem = new Fluent.MenuItem {Header = "Queue job from JSON..."};
 
+			var loadScanFromJsonItem = new Fluent.MenuItem {Header = "Load scan from JSON..."};
+			loadScanFromJsonItem.Click += (sender, args) =>
+			{
+				DebugJsonDialog dialog = new DebugJsonDialog("Debug Scan JSON");
+				dialog.ShowDialog();
+				if (!string.IsNullOrWhiteSpace(dialog.Json))
+				{
+					try
+					{
+						var scanObject = JsonConvert.DeserializeObject<JsonScanObject>(dialog.Json);
+						this.viewModel.UpdateFromNewVideoSource(new VideoSource { Titles = scanObject.TitleList, FeatureTitle = scanObject.MainFeature });
+					}
+					catch (Exception exception)
+					{
+						MessageBox.Show(this, "Could not parse scan JSON:" + Environment.NewLine + Environment.NewLine + exception.ToString());
+					}
+				}
+			};
+			debugDropDown.Items.Add(loadScanFromJsonItem);
+
+			var queueFromJsonItem = new Fluent.MenuItem {Header = "Queue job from JSON..."};
 			queueFromJsonItem.Click += (sender, args) =>
 			{
 				if (!this.viewModel.HasVideoSource)
@@ -116,16 +137,16 @@ namespace VidCoder.View
 				}
 
 				EncodeJobViewModel jobViewModel = this.viewModel.CreateEncodeJobVM();
-				DebugEncodeJsonDialog dialog = new DebugEncodeJsonDialog();
+				DebugJsonDialog dialog = new DebugJsonDialog("Debug Encode JSON");
 				dialog.ShowDialog();
 
-				if (!string.IsNullOrWhiteSpace(dialog.EncodeJson))
+				if (!string.IsNullOrWhiteSpace(dialog.Json))
 				{
 					try
 					{
-						JsonEncodeObject encodeObject = JsonConvert.DeserializeObject<JsonEncodeObject>(dialog.EncodeJson);
+						JsonEncodeObject encodeObject = JsonConvert.DeserializeObject<JsonEncodeObject>(dialog.Json);
 
-						jobViewModel.DebugEncodeJsonOverride = dialog.EncodeJson;
+						jobViewModel.DebugEncodeJsonOverride = dialog.Json;
 						jobViewModel.Job.FinalOutputPath = encodeObject.Destination.File;
 						jobViewModel.Job.SourcePath = encodeObject.Source.Path;
 
@@ -137,7 +158,6 @@ namespace VidCoder.View
 					}
 				}
 			};
-
 			debugDropDown.Items.Add(queueFromJsonItem);
 
 			var throwExceptionItem = new Fluent.MenuItem { Header = "Throw exception" };
@@ -145,7 +165,6 @@ namespace VidCoder.View
 			{
 				throw new InvalidOperationException("Rats.");
 			};
-
 			debugDropDown.Items.Add(throwExceptionItem);
 
 			var addLogItem = new Fluent.MenuItem { Header = "Add 1 log item" };
@@ -153,7 +172,6 @@ namespace VidCoder.View
 			{
 				StaticResolver.Resolve<IAppLogger>().Log("This is a log item");
 			};
-
 			debugDropDown.Items.Add(addLogItem);
 
 			var addTenLogItems = new Fluent.MenuItem { Header = "Add 10 log items" };
@@ -164,8 +182,14 @@ namespace VidCoder.View
 					StaticResolver.Resolve<IAppLogger>().Log("This is a log item");
 				}
 			};
-
 			debugDropDown.Items.Add(addTenLogItems);
+
+			var addLongLogItem = new Fluent.MenuItem {Header = "Add long log item"};
+			addLongLogItem.Click += (sender, args) =>
+			{
+				StaticResolver.Resolve<IAppLogger>().Log("This is a log item\r\nthat is split into multiple lines\r\nOh yes indeed");
+			};
+			debugDropDown.Items.Add(addLongLogItem);
 
 			var doAnActionItem = new Fluent.MenuItem {Header = "Perform action"};
 			doAnActionItem.Click += (sender, args) =>
@@ -173,7 +197,6 @@ namespace VidCoder.View
 				var app = (App)System.Windows.Application.Current;
 				app.ChangeTheme(new Uri("/Themes/Dark.xaml", UriKind.Relative));
 			};
-
 			debugDropDown.Items.Add(doAnActionItem);
 
 			this.toolsRibbonGroupBox.Items.Add(debugDropDown);
@@ -220,6 +243,13 @@ namespace VidCoder.View
 			{
 				this.ShowStatusMessage(e.Value);
 			};
+
+			this.queueView.SelectionChanged += this.QueueView_SelectionChanged;
+		}
+
+		private void QueueView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			this.processingService.OnSelectedQueueItemsChanged();
 		}
 
 		public void RestoreWindow()
@@ -265,11 +295,11 @@ namespace VidCoder.View
 					ResizeGridViewColumn(this.sourceForcedColumn);
 					ResizeGridViewColumn(this.sourceBurnedColumn);
 					ResizeGridViewColumn(this.sourceRemoveDuplicateColumn);
-					ResizeGridViewColumn(this.srtFileColumn);
-					ResizeGridViewColumn(this.srtDefaultColumn);
-					ResizeGridViewColumn(this.srtBurnedInColumn);
-					ResizeGridViewColumn(this.srtCharCodeColumn);
-					ResizeGridViewColumn(this.srtLanguageColumn);
+					ResizeGridViewColumn(this.fileSubtitleFileColumn);
+					ResizeGridViewColumn(this.fileSubtitleDefaultColumn);
+					ResizeGridViewColumn(this.fileSubtitleBurnedInColumn);
+					ResizeGridViewColumn(this.fileSubtitleCharCodeColumn);
+					ResizeGridViewColumn(this.fileSubtitleLanguageColumn);
 				}
 			});
 
@@ -300,7 +330,7 @@ namespace VidCoder.View
 			this.RefreshQueueTabs();
 
 			this.sourceSubtitles = this.viewModel.SourceSubtitles;
-			this.srtSubtitles = this.viewModel.SrtSubtitles;
+			this.fileSubtitles = this.viewModel.FileSubtitles;
 
 			var sourceSubtitlesObservable = this.sourceSubtitles.Connect();
 			sourceSubtitlesObservable
@@ -310,19 +340,19 @@ namespace VidCoder.View
 				this.ResizeSourceSubtitleColumns();
 			});
 
-			var srtSubtitlesObservable = this.srtSubtitles.Connect();
-			srtSubtitlesObservable
+			var fileSubtitlesObservable = this.fileSubtitles.Connect();
+			fileSubtitlesObservable
 				.WhenValueChanged(subtitle => subtitle.CharacterCode)
 				.Subscribe(_ =>
 				{
-					ResizeGridViewColumn(this.srtCharCodeColumn);
+					ResizeGridViewColumn(this.fileSubtitleCharCodeColumn);
 				});
 
-			srtSubtitlesObservable
+			fileSubtitlesObservable
 				.WhenValueChanged(subtitle => subtitle.LanguageCode)
 				.Subscribe(_ =>
 				{
-					ResizeGridViewColumn(this.srtLanguageColumn);
+					ResizeGridViewColumn(this.fileSubtitleLanguageColumn);
 				});
 
 			sourceSubtitlesObservable.Subscribe(changeSet =>
@@ -330,10 +360,10 @@ namespace VidCoder.View
 				ResizeGridViewColumn(this.sourceNameColumn);
 			});
 
-			srtSubtitlesObservable.Subscribe(changeSet =>
+			fileSubtitlesObservable.Subscribe(changeSet =>
 			{
-				ResizeGridViewColumn(this.srtCharCodeColumn);
-				ResizeGridViewColumn(this.srtLanguageColumn);
+				ResizeGridViewColumn(this.fileSubtitleCharCodeColumn);
+				ResizeGridViewColumn(this.fileSubtitleLanguageColumn);
 			});
 
 			this.viewModel.OutputSizeService
@@ -744,7 +774,7 @@ namespace VidCoder.View
 		}
 
 		private SourceList<SourceSubtitleViewModel> sourceSubtitles;
-		private SourceList<SrtSubtitleViewModel> srtSubtitles;
+		private SourceList<FileSubtitleViewModel> fileSubtitles;
 
 		private void SourceSubtitleMouseDown(object sender, MouseButtonEventArgs e)
 		{
@@ -809,9 +839,21 @@ namespace VidCoder.View
 			}
 		}
 
+		public void RefreshSummaryMaxSizes()
+		{
+			this.UpdateSourceTextMaxWidth();
+			this.UpdateAudioSummaryMaxWidth();
+			this.UpdateSubtitlesSummaryMaxWidth();
+		}
+
+		public void BringExternalSubtitlesIntoView()
+		{
+			this.fileSubtitleListView.BringIntoView();
+		}
+
 		private void Main_OnSizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			this.UpdateSourceTextMaxLength();
+			this.RefreshSummaryMaxSizes();
 
 			double totalHeightMinusQueue = 0;
 			foreach (RowDefinition rowDefinition in this.contentGrid.RowDefinitions)
@@ -836,10 +878,10 @@ namespace VidCoder.View
 
 		private void VideoTitleAngle_OnSizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			this.UpdateSourceTextMaxLength();
+			this.UpdateSourceTextMaxWidth();
 		}
 
-		private void UpdateSourceTextMaxLength()
+		private void UpdateSourceTextMaxWidth()
 		{
 			double summaryWidth = this.videoSummaryColumn.ActualWidth;
 			double titleAngleWidth = this.videoTitleAngle.ActualWidth;
@@ -851,6 +893,18 @@ namespace VidCoder.View
 			{
 				this.sourceText.SetManualMaxWidth(maxPathWidth); 
 			}
+		}
+
+		private void UpdateAudioSummaryMaxWidth()
+		{
+			double summaryWidth = this.audioSummaryColumn.ActualWidth;
+			this.audioSummary.MaxWidth = summaryWidth - 40;
+		}
+
+		private void UpdateSubtitlesSummaryMaxWidth()
+		{
+			double summaryWidth = this.subtitlesSummaryColumn.ActualWidth;
+			this.subtitlesSummary.MaxWidth = summaryWidth - 40;
 		}
 	}
 }

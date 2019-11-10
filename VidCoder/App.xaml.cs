@@ -199,6 +199,7 @@ namespace VidCoder
 
 		private void GlobalInitialize()
 		{
+			HandBrakeUtils.EnsureGlobalInit(initNoHardwareMode: false);
 			HandBrakeUtils.SetDvdNav(Config.EnableLibDvdNav);
 		}
 

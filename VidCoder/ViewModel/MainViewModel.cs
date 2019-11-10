@@ -73,7 +73,7 @@ namespace VidCoder.ViewModel
 			this.SubtitlesExpanded = Config.SubtitlesExpanded;
 
 			this.SourceSubtitles.Connect().Bind(this.SourceSubtitlesBindable).Subscribe();
-			this.SrtSubtitles.Connect().Bind(this.SrtSubtitlesBindable).Subscribe();
+			this.FileSubtitles.Connect().Bind(this.FileSubtitlesBindable).Subscribe();
 
 			// HasVideoSource
 			this.WhenAnyValue(x => x.VideoSourceState)
@@ -146,9 +146,9 @@ namespace VidCoder.ViewModel
 			}).ToProperty(this, x => x.UsingChaptersRange, out this.usingChaptersRange);
 
 			// RangeBarVisible
-			this.WhenAnyValue(x => x.RangeType, rangeType =>
+			this.WhenAnyValue(x => x.RangeType, x => x.SelectedTitle.Duration, (rangeType, duration) =>
 			{
-				return rangeType == VideoRangeType.Chapters || rangeType == VideoRangeType.Seconds;
+				return duration > TimeSpan.Zero && (rangeType == VideoRangeType.Chapters || rangeType == VideoRangeType.Seconds);
 			}).ToProperty(this, x => x.RangeBarVisible, out this.rangeBarVisible);
 
 			// ChapterMarkersSummary
@@ -280,13 +280,13 @@ namespace VidCoder.ViewModel
 				.ToProperty(this, x => x.HasSourceSubtitles, out this.hasSourceSubtitles, initialValue: this.SourceSubtitles.Count > 0);
 
 			// HasSrtSubtitles
-			this.SrtSubtitles.CountChanged.Select(count => count > 0)
-				.ToProperty(this, x => x.HasSrtSubtitles, out this.hasSrtSubtitles, initialValue: this.SrtSubtitles.Count > 0);
+			this.FileSubtitles.CountChanged.Select(count => count > 0)
+				.ToProperty(this, x => x.HasFileSubtitles, out this.hasFileSubtitles, initialValue: this.FileSubtitles.Count > 0);
 
 			// ShowSourceSubtitlesLabel
 			Observable.CombineLatest(
 				this.SourceSubtitles.CountChanged,
-				this.SrtSubtitles.CountChanged).Select(
+				this.FileSubtitles.CountChanged).Select(
 				countList =>
 				{
 					return countList[0] > 0 && countList[1] > 0;
@@ -475,16 +475,22 @@ namespace VidCoder.ViewModel
 								StaticResolver.Resolve<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
 							}
 						}
-						else if (extension == ".srt")
+						else if (FileUtilities.SubtitleExtensions.Contains(extension))
 						{
 							if (this.HasVideoSource)
 							{
-								SrtSubtitle subtitle = StaticResolver.Resolve<SubtitlesService>().LoadSrtSubtitle(item);
+								FileSubtitle subtitle = StaticResolver.Resolve<SubtitlesService>().LoadSubtitleFile(item);
 
 								if (subtitle != null)
 								{
-									this.SrtSubtitles.Add(new SrtSubtitleViewModel(this, subtitle));
-									StaticResolver.Resolve<IMessageBoxService>().Show(this, string.Format(MainRes.AddedSubtitleFromFile, item));
+									this.FileSubtitles.Add(new FileSubtitleViewModel(this, subtitle));
+									StaticResolver.Resolve<StatusService>().Show(string.Format(MainRes.AddedSubtitleFromFile, item));
+									if (!this.SubtitlesExpanded)
+									{
+										this.SubtitlesExpanded = true;
+									}
+
+									this.View.BringExternalSubtitlesIntoView();
 								}
 							}
 						}
@@ -728,7 +734,7 @@ namespace VidCoder.ViewModel
 			if (this.ProcessingService.Encoding)
 			{
 				// If so, stop it.
-				this.ProcessingService.Stop(EncodeCompleteReason.AppExit);
+				this.ProcessingService.StopAndWaitAsync(EncodeCompleteReason.AppExit).Wait();
 			}
 
 			this.windowManager.CloseTrackedWindows();
@@ -961,6 +967,8 @@ namespace VidCoder.ViewModel
 						this.OutputPathService.SourceParentFolder = null;
 					}
 
+					Picker picker = this.PickersService.SelectedPicker.Picker;
+
 					// Audio list build
 					this.BuildAudioViewModelList();
 
@@ -971,26 +979,44 @@ namespace VidCoder.ViewModel
 					this.UseDefaultChapterNames = true;
 					this.PopulateChapterSelectLists();
 
-					// Soft update so as not to trigger range checking logic.
-					this.selectedStartChapter = this.StartChapters[0];
-					this.selectedEndChapter = this.EndChapters[this.EndChapters.Count - 1];
-					this.RaisePropertyChanged(nameof(this.SelectedStartChapter));
-					this.RaisePropertyChanged(nameof(this.SelectedEndChapter));
-
-					Picker picker = this.PickersService.SelectedPicker.Picker;
-
+					// Select range
 					TimeSpan localTimeRangeEnd;
-					if (picker.TimeRangeSelectEnabled)
+					switch (picker.PickerTimeRangeMode)
 					{
-						var range = this.ProcessingService.GetRangeFromPicker(value.Title, picker);
-						this.SetRangeTimeStart(range.start);
-						localTimeRangeEnd = range.end;
+						case PickerTimeRangeMode.Chapters:
+							var chapterRange = PickerUtilities.GetChapterRange(picker, value.Title);
+
+							this.selectedStartChapter = this.StartChapters[chapterRange.chapterStart - 1];
+							this.selectedEndChapter = this.EndChapters[chapterRange.chapterEnd - 1];
+
+							this.RaisePropertyChanged(nameof(this.SelectedStartChapter));
+							this.RaisePropertyChanged(nameof(this.SelectedEndChapter));
+
+							this.SetRangeTimeStart(TimeSpan.Zero);
+							localTimeRangeEnd = this.selectedTitle.Duration;
+
+							break;
+						case PickerTimeRangeMode.Time:
+
+							var range = this.ProcessingService.GetRangeFromPicker(value.Title, picker);
+							this.SetRangeTimeStart(range.start);
+							localTimeRangeEnd = range.end;
+
+							break;
+						case PickerTimeRangeMode.All:
+						default:
+							// Soft update so as not to trigger range checking logic.
+							this.selectedStartChapter = this.StartChapters[0];
+							this.selectedEndChapter = this.EndChapters[this.EndChapters.Count - 1];
+							this.RaisePropertyChanged(nameof(this.SelectedStartChapter));
+							this.RaisePropertyChanged(nameof(this.SelectedEndChapter));
+
+							this.SetRangeTimeStart(TimeSpan.Zero);
+							localTimeRangeEnd = this.selectedTitle.Duration;
+
+							break;
 					}
-					else
-					{
-						this.SetRangeTimeStart(TimeSpan.Zero);
-						localTimeRangeEnd = this.selectedTitle.Duration;
-					}
+
 					this.timeRangeEndBar = localTimeRangeEnd;
 					this.timeRangeEnd = TimeSpan.FromSeconds(Math.Floor(localTimeRangeEnd.TotalSeconds));
 					this.RaisePropertyChanged(nameof(this.TimeRangeStart));
@@ -1012,11 +1038,11 @@ namespace VidCoder.ViewModel
 
 
 					// Change range type based on whether or not we have any chapters
-					if (picker.TimeRangeSelectEnabled)
+					if (picker.PickerTimeRangeMode == PickerTimeRangeMode.Time)
 					{
 						this.RangeType = VideoRangeType.Seconds;
 					}
-					else if (this.selectedTitle.ChapterList.Count > 1)
+					else if (picker.PickerTimeRangeMode == PickerTimeRangeMode.Chapters ||this.selectedTitle.ChapterList.Count > 1)
 					{
 						this.RangeType = VideoRangeType.Chapters;
 					}
@@ -1422,7 +1448,7 @@ namespace VidCoder.ViewModel
 				var result = new VCSubtitles
 				{
 					SourceSubtitles = this.SourceSubtitles.Items.Where(s => s.Selected).Select(s => s.Subtitle.Clone()).ToList(),
-					SrtSubtitles = this.SrtSubtitles.Items.Select(s => s.Subtitle.Clone()).ToList()
+					FileSubtitles = this.FileSubtitles.Items.Select(s => s.Subtitle.Clone()).ToList()
 				};
 
 				return result;
@@ -1432,8 +1458,8 @@ namespace VidCoder.ViewModel
 		public SourceList<SourceSubtitleViewModel> SourceSubtitles { get; } = new SourceList<SourceSubtitleViewModel>();
 		public ObservableCollectionExtended<SourceSubtitleViewModel> SourceSubtitlesBindable { get; } = new ObservableCollectionExtended<SourceSubtitleViewModel>();
 
-		public SourceList<SrtSubtitleViewModel> SrtSubtitles { get; } = new SourceList<SrtSubtitleViewModel>();
-		public ObservableCollectionExtended<SrtSubtitleViewModel> SrtSubtitlesBindable { get; } = new ObservableCollectionExtended<SrtSubtitleViewModel>();
+		public SourceList<FileSubtitleViewModel> FileSubtitles { get; } = new SourceList<FileSubtitleViewModel>();
+		public ObservableCollectionExtended<FileSubtitleViewModel> FileSubtitlesBindable { get; } = new ObservableCollectionExtended<FileSubtitleViewModel>();
 
 		private void BuildSubtitleViewModelList()
 		{
@@ -1456,7 +1482,7 @@ namespace VidCoder.ViewModel
 						{
 							if (this.selectedTitle.SubtitleList.Count > 0)
 							{
-								// Keep source subtitles when changing title, but not specific SRT files.
+								// Keep source subtitles when changing title, but not specific subtitle files.
 								foreach (SourceSubtitle sourceSubtitle in oldSubtitles.SourceSubtitles)
 								{
 									if (sourceSubtitle.TrackNumber == 0)
@@ -1609,10 +1635,10 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles.Items)
+			foreach (FileSubtitleViewModel fileSubtitleViewModel in this.FileSubtitles.Items)
 			{
 				totalTracks++;
-				if (srtVM.BurnedIn)
+				if (fileSubtitleViewModel.BurnedIn)
 				{
 					anyBurned = true;
 				}
@@ -1631,11 +1657,11 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles.Items)
+			foreach (FileSubtitleViewModel fileSubtitleViewModel in this.FileSubtitles.Items)
 			{
-				if (srtVM != viewModel)
+				if (fileSubtitleViewModel != viewModel)
 				{
-					srtVM.Default = false;
+					fileSubtitleViewModel.Default = false;
 				}
 			}
 		}
@@ -1650,24 +1676,24 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles.Items)
+			foreach (FileSubtitleViewModel fileSubtitleViewModel in this.FileSubtitles.Items)
 			{
-				srtVM.BurnedIn = false;
+				fileSubtitleViewModel.BurnedIn = false;
 			}
 		}
 
-		public void ReportBurnedSubtitle(SrtSubtitleViewModel subtitleViewModel)
+		public void ReportBurnedSubtitle(FileSubtitleViewModel subtitleViewModel)
 		{
 			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles.Items)
 			{
 				sourceVM.BurnedIn = false;
 			}
 
-			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles.Items)
+			foreach (FileSubtitleViewModel fileSubtitleViewModel in this.FileSubtitles.Items)
 			{
-				if (srtVM != subtitleViewModel)
+				if (fileSubtitleViewModel != subtitleViewModel)
 				{
-					srtVM.BurnedIn = false;
+					fileSubtitleViewModel.BurnedIn = false;
 				}
 			}
 		}
@@ -1686,9 +1712,9 @@ namespace VidCoder.ViewModel
 			this.RefreshSubtitleSummary();
 		}
 
-		public void RemoveSrtSubtitle(SrtSubtitleViewModel subtitleViewModel)
+		public void RemoveFileSubtitle(FileSubtitleViewModel subtitleViewModel)
 		{
-			this.SrtSubtitles.Remove(subtitleViewModel);
+			this.FileSubtitles.Remove(subtitleViewModel);
 			this.UpdateSubtitleWarningVisibility();
 			this.RefreshSubtitleSummary();
 		}
@@ -1731,7 +1757,7 @@ namespace VidCoder.ViewModel
 
 		private void DeselectDefaultSubtitlesIfAnyBurned()
 		{
-			bool anyBurned = this.SourceSubtitles.Items.Any(sourceSub => sourceSub.BurnedIn) || this.SrtSubtitles.Items.Any(sourceSub => sourceSub.BurnedIn);
+			bool anyBurned = this.SourceSubtitles.Items.Any(sourceSub => sourceSub.BurnedIn) || this.FileSubtitles.Items.Any(sourceSub => sourceSub.BurnedIn);
 			this.DefaultSubtitlesEnabled = !anyBurned;
 
 			if (!this.DefaultSubtitlesEnabled)
@@ -1741,37 +1767,41 @@ namespace VidCoder.ViewModel
 					sourceVM.Default = false;
 				}
 
-				foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles.Items)
+				foreach (FileSubtitleViewModel srtVM in this.FileSubtitles.Items)
 				{
 					srtVM.Default = false;
 				}
 			}
 		}
 
-		private ReactiveCommand<Unit, Unit> addSrtSubtitle;
-		public ICommand AddSrtSubtitle
+		private ReactiveCommand<Unit, Unit> addFileSubtitle;
+		public ICommand AddFileSubtitle
 		{
 			get
 			{
-				return this.addSrtSubtitle ?? (this.addSrtSubtitle = ReactiveCommand.Create(() =>
+				return this.addFileSubtitle ?? (this.addFileSubtitle = ReactiveCommand.Create(() =>
 				{
+					List<string> starExtensionList = FileUtilities.SubtitleExtensions.Select(e => "*" + e).ToList();
+					string descriptionExtensionList = string.Join(", ", starExtensionList);
+					string extensionList = string.Join(";", starExtensionList);
+
 					string srtFile = FileService.Instance.GetFileNameLoad(
-						Config.RememberPreviousFiles ? Config.LastSrtFolder : null,
-						SubtitleRes.SrtFilePickerText,
-						Utilities.GetFilePickerFilter("srt"));
+						Config.RememberPreviousFiles ? Config.LastSubtitleFolder : null,
+						SubtitleRes.SubtitleFilePickerText,
+						$"{SubtitleRes.FilePickerDescription} ({descriptionExtensionList})|{extensionList}");
 
 					if (srtFile != null)
 					{
 						if (Config.RememberPreviousFiles)
 						{
-							Config.LastSrtFolder = Path.GetDirectoryName(srtFile);
+							Config.LastSubtitleFolder = Path.GetDirectoryName(srtFile);
 						}
 
-						SrtSubtitle newSubtitle = StaticResolver.Resolve<SubtitlesService>().LoadSrtSubtitle(srtFile);
+						FileSubtitle newSubtitle = StaticResolver.Resolve<SubtitlesService>().LoadSubtitleFile(srtFile);
 
 						if (newSubtitle != null)
 						{
-							this.SrtSubtitles.Add(new SrtSubtitleViewModel(this, newSubtitle));
+							this.FileSubtitles.Add(new FileSubtitleViewModel(this, newSubtitle));
 						}
 					}
 
@@ -1805,8 +1835,8 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<bool> hasSourceSubtitles;
 		public bool HasSourceSubtitles => this.hasSourceSubtitles.Value;
 
-		private ObservableAsPropertyHelper<bool> hasSrtSubtitles;
-		public bool HasSrtSubtitles => this.hasSrtSubtitles.Value;
+		private ObservableAsPropertyHelper<bool> hasFileSubtitles;
+		public bool HasFileSubtitles => this.hasFileSubtitles.Value;
 
 		public void RefreshSubtitleSummary()
 		{
@@ -1851,14 +1881,14 @@ namespace VidCoder.ViewModel
 				summaryParts.Add(sourceDescription);
 			}
 
-			if (this.SrtSubtitles.Count > 0)
+			if (this.FileSubtitles.Count > 0)
 			{
-				string externalSubtitlesDescription = string.Format(SubtitleRes.ExternalSubtitlesSummaryFormat, this.SrtSubtitles.Count);
+				string externalSubtitlesDescription = string.Format(SubtitleRes.ExternalSubtitlesSummaryFormat, this.FileSubtitles.Count);
 
-				if (this.SrtSubtitles.Count <= 3)
+				if (this.FileSubtitles.Count <= 3)
 				{
 					List<string> trackSummaries = new List<string>();
-					foreach (SrtSubtitleViewModel subtitle in this.SrtSubtitles.Items)
+					foreach (FileSubtitleViewModel subtitle in this.FileSubtitles.Items)
 					{
 						trackSummaries.Add(HandBrakeLanguagesHelper.Get(subtitle.LanguageCode).Display);
 					}
@@ -2341,7 +2371,7 @@ namespace VidCoder.ViewModel
 							return TimeSpan.Zero;
 						}
 
-						return this.GetChapterRangeDuration(1, startChapter - 1);
+						return this.SelectedTitle.Title.GetChapterRangeDuration(1, startChapter - 1);
 					case VideoRangeType.Seconds:
 						return this.TimeRangeStart;
 					case VideoRangeType.Frames:
@@ -2389,7 +2419,7 @@ namespace VidCoder.ViewModel
 							endChapter = highlightedStartChapter.ChapterNumber;
 						}
 
-						return this.GetChapterRangeDuration(1, endChapter);
+						return this.SelectedTitle.Title.GetChapterRangeDuration(1, endChapter);
 					case VideoRangeType.Seconds:
 						return this.TimeRangeEnd;
 					case VideoRangeType.Frames:
@@ -2460,7 +2490,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.openEncodingWindow ?? (this.openEncodingWindow = ReactiveCommand.Create(() =>
 				{
-					this.windowManager.OpenOrFocusWindow(typeof(EncodingWindowViewModel));
+					this.windowManager.OpenOrFocusWindow<EncodingWindowViewModel>();
 				}));
 			}
 		}
@@ -2753,6 +2783,32 @@ namespace VidCoder.ViewModel
 						{
 							return previewIndex < previewCount - 1;
 						})));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> openVideoEncoderOptions;
+		public ICommand OpenVideoEncoderOptions
+		{
+			get
+			{
+				return this.openVideoEncoderOptions ?? (this.openVideoEncoderOptions = ReactiveCommand.Create(() =>
+				{
+					var encodingWindowViewModel = this.windowManager.OpenOrFocusWindow<EncodingWindowViewModel>();
+					encodingWindowViewModel.SelectedTabIndex = EncodingWindowViewModel.VideoEncodingTabIndex;
+				}));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> openAudioEncoderOptions;
+		public ICommand OpenAudioEncoderOptions
+		{
+			get
+			{
+				return this.openAudioEncoderOptions ?? (this.openAudioEncoderOptions = ReactiveCommand.Create(() =>
+				{
+					var encodingWindowViewModel = this.windowManager.OpenOrFocusWindow<EncodingWindowViewModel>();
+					encodingWindowViewModel.SelectedTabIndex = EncodingWindowViewModel.AudioEncodingTabIndex;
+				}));
 			}
 		}
 
@@ -3058,7 +3114,7 @@ namespace VidCoder.ViewModel
 							return TimeSpan.Zero;
 						}
 
-						selectedTime = this.GetChapterRangeDuration(this.SelectedStartChapter.ChapterNumber, this.SelectedEndChapter.ChapterNumber);
+						selectedTime = this.SelectedTitle.Title.GetChapterRangeDuration(this.SelectedStartChapter.ChapterNumber, this.SelectedEndChapter.ChapterNumber);
 
 						break;
 					case VideoRangeType.Seconds:
@@ -3092,15 +3148,16 @@ namespace VidCoder.ViewModel
 			this.ClearVideoSource();
 
 			// With a new source we don't want to keep around old subtitles
-			this.SrtSubtitles.Clear();
+			this.FileSubtitles.Clear();
 
 			this.ScanProgressFraction = 0;
 			HandBrakeInstance oldInstance = this.scanInstance;
 
-			this.logger.Log("Starting scan: " + path);
+			IAppLogger scanLogger = StaticResolver.Resolve<AppLoggerFactory>().ResolveLocalScanLogger(path);
+			scanLogger.Log("Starting scan: " + path);
 
 			this.scanInstance = new HandBrakeInstance();
-			this.scanInstance.Initialize(Config.LogVerbosity);
+			this.scanInstance.Initialize(Config.LogVerbosity, noHardware: false);
 			this.scanInstance.ScanProgress += (o, e) =>
 			{
 				this.ScanProgressFraction = e.Progress;
@@ -3109,70 +3166,77 @@ namespace VidCoder.ViewModel
 			{
 				DispatchUtilities.Invoke(() =>
 				{
-					if (this.scanCancelledFlag)
+					try
 					{
-						this.SelectedSource = null;
-
-						this.ScanCancelled?.Invoke(this, EventArgs.Empty);
-
-						this.logger.Log("Scan cancelled");
-
-						if (this.pendingScan != null)
+						if (this.scanCancelledFlag)
 						{
-							this.SetSource(this.pendingScan);
+							this.SelectedSource = null;
 
-							this.pendingScan = null;
+							this.ScanCancelled?.Invoke(this, EventArgs.Empty);
+
+							scanLogger.Log("Scan cancelled");
+
+							if (this.pendingScan != null)
+							{
+								this.SetSource(this.pendingScan);
+
+								this.pendingScan = null;
+							}
+							else
+							{
+								this.VideoSourceState = VideoSourceState.Choices;
+							}
 						}
 						else
 						{
-							this.VideoSourceState = VideoSourceState.Choices;
-						}
-					}
-					else
-					{
-						this.UpdateFromNewVideoSource(new VideoSource { Titles = this.scanInstance.Titles.TitleList, FeatureTitle = this.scanInstance.FeatureTitle });
+							scanLogger.Log("Titles JSON:" + Environment.NewLine + this.scanInstance.TitlesJson);
 
-						// If scan failed source data will be null.
-						if (this.sourceData != null)
-						{
-							if (jobVM != null)
-							{
-								this.ApplyEncodeJobChoices(jobVM);
-							}
+							this.UpdateFromNewVideoSource(new VideoSource {Titles = this.scanInstance.Titles.TitleList, FeatureTitle = this.scanInstance.FeatureTitle});
 
-							if (jobVM == null && this.SelectedSource != null &&
-								(this.SelectedSource.Type == SourceType.File || this.SelectedSource.Type == SourceType.DiscVideoFolder))
+							// If scan failed source data will be null.
+							if (this.sourceData != null)
 							{
-								SourceHistory.AddToHistory(this.SourcePath);
-							}
-
-							Picker picker = this.PickersService.SelectedPicker.Picker;
-							if (picker.AutoQueueOnScan)
-							{
-								if (this.ProcessingService.TryQueue() && picker.AutoEncodeOnScan && !this.ProcessingService.Encoding)
+								if (jobVM != null)
 								{
-									this.ProcessingService.Encode.Execute(null);
+									this.ApplyEncodeJobChoices(jobVM);
+								}
+
+								if (jobVM == null && this.SelectedSource != null &&
+								    (this.SelectedSource.Type == SourceType.File || this.SelectedSource.Type == SourceType.DiscVideoFolder))
+								{
+									SourceHistory.AddToHistory(this.SourcePath);
+								}
+
+								Picker picker = this.PickersService.SelectedPicker.Picker;
+								if (picker.AutoQueueOnScan)
+								{
+									if (this.ProcessingService.TryQueue() && picker.AutoEncodeOnScan && !this.ProcessingService.Encoding)
+									{
+										this.ProcessingService.Encode.Execute(null);
+									}
 								}
 							}
+
+							scanLogger.Log("Scan completed");
 						}
-
-						this.logger.Log("Scan completed");
 					}
-
-					this.logger.Log(string.Empty);
+					finally
+					{
+						if (scanLogger is LocalScanAppLogger)
+						{
+							scanLogger.Dispose();
+						}
+					}
 				});
 			};
 
 			this.scanCancelledFlag = false;
 			this.scanInstance.StartScan(path, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds), 0);
 
-			if (oldInstance != null)
-			{
-				oldInstance.Dispose();
-			}
+			oldInstance?.Dispose();
 		}
 
-		private void UpdateFromNewVideoSource(VideoSource videoSource)
+		public void UpdateFromNewVideoSource(VideoSource videoSource)
 		{
 			SourceTitle selectTitle = null;
 
@@ -3187,6 +3251,11 @@ namespace VidCoder.ViewModel
 				this.VideoSourceState = VideoSourceState.ScannedSource;
 
 				this.SelectedTitle = this.Titles.Single(title => title.Title == selectTitle);
+
+				DispatchUtilities.BeginInvoke(() =>
+				{
+					this.View.RefreshSummaryMaxSizes();
+				}, DispatcherPriority.Background);
 			}
 			else
 			{
@@ -3370,13 +3439,13 @@ namespace VidCoder.ViewModel
 				this.FillInRemainingSourceSubtitles(job.Subtitles.SourceSubtitles, sourceSubtitlesInnerList);
 			});
 
-			this.SrtSubtitles.Edit(srtSubtitlesInnerList =>
+			this.FileSubtitles.Edit(srtSubtitlesInnerList =>
 			{
 				srtSubtitlesInnerList.Clear();
 
-				foreach (SrtSubtitle srtSubtitle in job.Subtitles.SrtSubtitles)
+				foreach (FileSubtitle srtSubtitle in job.Subtitles.FileSubtitles)
 				{
-					srtSubtitlesInnerList.Add(new SrtSubtitleViewModel(this, srtSubtitle));
+					srtSubtitlesInnerList.Add(new FileSubtitleViewModel(this, srtSubtitle));
 				}
 			});
 
@@ -3598,25 +3667,6 @@ namespace VidCoder.ViewModel
 			}
 
 			this.RaisePropertyChanged(nameof(this.RecentSourcesVisible));
-		}
-
-		private TimeSpan GetChapterRangeDuration(int startChapter, int endChapter)
-		{
-			if (startChapter > endChapter ||
-				endChapter > this.SelectedTitle.ChapterList.Count ||
-				startChapter < 1)
-			{
-				return TimeSpan.Zero;
-			}
-
-			TimeSpan rangeTime = TimeSpan.Zero;
-
-			for (int i = startChapter; i <= endChapter; i++)
-			{
-				rangeTime += this.SelectedTitle.ChapterList[i - 1].Duration.ToSpan();
-			}
-
-			return rangeTime;
 		}
 	}
 }

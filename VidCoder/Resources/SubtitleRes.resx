@@ -153,16 +153,13 @@
   <data name="OffsetColumn" xml:space="preserve">
     <value>Offset (ms)</value>
   </data>
-  <data name="ImportSrtButton" xml:space="preserve">
-    <value>Import .srt File...</value>
-  </data>
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Other subtitle tracks will overlap burned subtitles.</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Foreign Audio Search</value>
   </data>
-  <data name="SrtFilePickerText" xml:space="preserve">
+  <data name="SubtitleFilePickerText" xml:space="preserve">
     <value>Add subtitles file</value>
   </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
@@ -174,5 +171,11 @@
   <data name="ExternalSubtitlesSummaryFormat" xml:space="preserve">
     <value>{0} external</value>
     <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
+  </data>
+  <data name="ImportSubtitleButton" xml:space="preserve">
+    <value>Import from file...</value>
+  </data>
+  <data name="FilePickerDescription" xml:space="preserve">
+    <value>Subtitle files</value>
   </data>
 </root>

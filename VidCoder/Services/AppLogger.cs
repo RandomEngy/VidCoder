@@ -10,24 +10,17 @@ using VidCoder.Model;
 
 namespace VidCoder.Services
 {
-	public class AppLogger : IDisposable, IAppLogger
+	public class AppLogger : IAppLogger
 	{
-		private StreamWriter logFile;
-		private bool disposed;
-		private IAppLogger parent;
-
-		private object logLock = new object();
-		private object disposeLock = new object();
+		private StreamWriter logFileWriter;
+		private readonly IAppLogger parent;
+		private readonly object disposeLock = new object();
 
 		public event EventHandler<EventArgs<LogEntry>> EntryLogged;
-		public event EventHandler Cleared;
 
 		public AppLogger(IAppLogger parent, string baseFileName)
 		{
 			this.parent = parent;
-
-			HandBrakeUtils.MessageLogged += this.OnMessageLogged;
-			HandBrakeUtils.ErrorLogged += this.OnErrorLogged;
 
 			string logFolder = Path.Combine(Utilities.AppFolder, "Logs");
 			if (!Directory.Exists(logFolder))
@@ -42,46 +35,63 @@ namespace VidCoder.Services
 			}
 			else
 			{
-				logFileNameAffix = "VidCoderApplication";
+				logFileNameAffix = "Combined";
 			}
 
 			this.LogPath = Path.Combine(logFolder, DateTimeOffset.Now.ToString("yyyy-MM-dd HH.mm.ss ") + logFileNameAffix + ".txt");
 
+			this.TryCreateLogFileWriter();
+
+			var initialEntry = new LogEntry
+			{
+				LogType = LogType.Message,
+				Source = LogSource.VidCoder,
+				Text = "# VidCoder " + Utilities.VersionString
+			};
+
+			this.AddEntry(initialEntry, logParent: false);
+		}
+
+		private void TryCreateLogFileWriter()
+		{
 			try
 			{
-				this.logFile = new StreamWriter(this.LogPath);
+				this.logFileWriter = new StreamWriter(new FileStream(this.LogPath, FileMode.Append, FileAccess.Write));
 			}
 			catch (PathTooLongException)
 			{
-				parent.LogError("Could not create logger for encode. File path was too long.");
+				this.parent?.LogError("Could not create logger for encode. File path was too long.");
 				// We won't have an underlying log file.
 			}
 			catch (IOException exception)
 			{
 				this.LogError("Could not open file for logger." + Environment.NewLine + exception);
 			}
-
-			var initialEntry = new LogEntry
-			{
-				LogType = LogType.Message,
-				Source = LogSource.VidCoder,
-				Text = "## VidCoder " + Utilities.VersionString
-			};
-
-			this.AddEntry(initialEntry);
 		}
 
 		public string LogPath { get; set; }
 
-		public object LogLock
+		public object LogLock { get; } = new object();
+
+		/// <summary>
+		/// Suspends the file writer. Should be called while holding the LogLock
+		/// </summary>
+		public void SuspendWriter()
 		{
-			get
-			{
-				return logLock;
-			}
+			this.logFileWriter?.Close();
+			this.logFileWriter = null;
 		}
 
-		public List<LogEntry> LogEntries { get; } = new List<LogEntry>();
+		/// <summary>
+		/// Resumes the file writer. Should be called while holding the LogLock
+		/// </summary>
+		public void ResumeWriter()
+		{
+			if (!this.Closed)
+			{
+				this.TryCreateLogFileWriter();
+			}
+		}
 
 		public void Log(string message)
 		{
@@ -111,7 +121,7 @@ namespace VidCoder.Services
 			{
 				LogType = LogType.Error,
 				Source = LogSource.VidCoder,
-				Text = "# " + message
+				Text = "ERROR: " + message
 			};
 
 			this.AddEntry(entry);
@@ -119,24 +129,16 @@ namespace VidCoder.Services
 
 		public void LogWorker(string message, bool isError)
 		{
+			var logType = isError ? LogType.Error : LogType.Message;
+
 			var entry = new LogEntry
 			{
-				LogType = isError ? LogType.Error : LogType.Message,
+				LogType = logType,
 				Source = LogSource.VidCoderWorker,
-				Text = "* " + message
+				Text = LogEntryClassificationUtilities.GetEntryPrefix(logType, LogSource.VidCoderWorker) + message
 			};
 
 			this.AddEntry(entry);
-		}
-
-		public void ClearLog()
-		{
-			lock (this.LogLock)
-			{
-				this.LogEntries.Clear();
-			}
-
-			this.Cleared?.Invoke(this, EventArgs.Empty);
 		}
 
 		public void ShowStatus(string message)
@@ -144,26 +146,36 @@ namespace VidCoder.Services
 			StaticResolver.Resolve<StatusService>().Show(message);
 		}
 
-		/// <summary>
-		/// Frees any resources associated with this object.
-		/// </summary>
-		public void Dispose()
+		protected virtual void Dispose(bool disposing)
 		{
 			lock (this.disposeLock)
+			lock (this.LogLock)
 			{
-				if (!this.disposed)
+				if (!this.Closed)
 				{
-					this.disposed = true;
-					this.logFile?.Close();
+					this.Closed = true;
+					if (disposing)
+					{
+						this.logFileWriter?.Dispose();
+						this.logFileWriter = null;
+					}
 				}
 			}
 		}
+
+		public void Dispose()
+		{
+			this.Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		public bool Closed { get; private set; }
 
 		public void AddEntry(LogEntry entry, bool logParent = true)
 		{
 			lock (this.disposeLock)
 			{
-				if (this.disposed)
+				if (this.Closed)
 				{
 					return;
 				}
@@ -171,50 +183,22 @@ namespace VidCoder.Services
 
 			lock (this.LogLock)
 			{
-				this.LogEntries.Add(entry);
-			}
+				this.EntryLogged?.Invoke(this, new EventArgs<LogEntry>(entry));
 
-			this.EntryLogged?.Invoke(this, new EventArgs<LogEntry>(entry));
-
-			try
-			{
-				this.logFile?.WriteLine(entry.Text);
-				this.logFile?.Flush();
-
-				if (this.parent != null && logParent)
+				try
 				{
-					this.parent.AddEntry(entry);
+					this.logFileWriter?.WriteLine(entry.Text);
+					this.logFileWriter?.Flush();
+
+					if (this.parent != null && logParent)
+					{
+						this.parent.AddEntry(entry);
+					}
+				}
+				catch (ObjectDisposedException)
+				{
 				}
 			}
-			catch (ObjectDisposedException)
-			{
-			}
-		}
-
-		private void OnMessageLogged(object sender, MessageLoggedEventArgs e)
-		{
-			var entry = new LogEntry
-			{
-				LogType = LogType.Message,
-				Source = LogSource.HandBrake,
-				Text = e.Message
-			};
-
-			// Parent will also get this message
-			this.AddEntry(entry, logParent: false);
-		}
-
-		private void OnErrorLogged(object sender, MessageLoggedEventArgs e)
-		{
-			var entry = new LogEntry
-			{
-				LogType = LogType.Error,
-				Source = LogSource.HandBrake,
-				Text = "ERROR: " + e.Message
-			};
-
-			// Parent will also get this message
-			this.AddEntry(entry, logParent: false);
 		}
 	}
 }

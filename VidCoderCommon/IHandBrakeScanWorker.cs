@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoder.Services
+namespace VidCoderCommon
 {
-	public class MainAppLogger : AppLogger
+	public interface IHandBrakeScanWorker : IHandBrakeWorker
 	{
-		public MainAppLogger() : base(null, null)
-		{
-		}
+		void StartScan(
+			string path);
 	}
 }

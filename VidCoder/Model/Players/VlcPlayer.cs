@@ -13,15 +13,21 @@ namespace VidCoder.Model
 		{
 			get
 			{
-				var regKey = RegKey;
-
-				return regKey?.GetValue(string.Empty) as string;
+				using (RegistryKey regKey = RegKey)
+				{
+					return regKey?.GetValue(string.Empty) as string;
+				}
 			}
 		}
 
 		public override void PlayTitleInternal(string executablePath, string discPath, int title)
 		{
-			string version = RegKey.GetValue("Version") as string;
+			string version;
+
+			using (RegistryKey regKey = RegKey)
+			{
+				version = regKey.GetValue("Version") as string;
+			}
 
 			string arguments;
 			if (version.StartsWith("1"))
@@ -52,8 +58,7 @@ namespace VidCoder.Model
 		{
 			get
 			{
-				RegistryKey key = RegKey64;
-				return key ?? RegKey32;
+				return RegKey64 ?? RegKey32;
 			}
 		}
 

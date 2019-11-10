@@ -64,6 +64,8 @@ namespace VidCoder
 
 		private static readonly List<string> DisallowedCharacters = new List<string> { "\\", "/", "\"", ":", "*", "?", "<", ">", "|" };
 
+		public static IList<string> SubtitleExtensions = new List<string> { ".srt", ".ssa", ".ass" };
+
 		public static bool OverrideTempFolder { get; set; }
 		public static string TempFolderOverride { get; set; }
 

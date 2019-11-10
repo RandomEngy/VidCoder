@@ -15,20 +15,22 @@ using System.Windows.Shapes;
 namespace VidCoder.View
 {
 	/// <summary>
-	/// Interaction logic for DebugEncodeJsonDialog.xaml
+	/// Interaction logic for DebugJsonDialog.xaml
 	/// </summary>
-	public partial class DebugEncodeJsonDialog : Window
+	public partial class DebugJsonDialog : Window
 	{
-		public DebugEncodeJsonDialog()
+		public DebugJsonDialog(string title)
 		{
 			this.InitializeComponent();
+
+			this.Title = title;
 		}
 
-		public string EncodeJson { get; set; }
+		public string Json { get; set; }
 
 		private void OnOKClick(object sender, RoutedEventArgs e)
 		{
-			this.EncodeJson = this.textBox.Text;
+			this.Json = this.textBox.Text;
 			this.Close();
 		}
 	}

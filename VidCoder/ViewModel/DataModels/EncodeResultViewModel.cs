@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Reactive;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.AnyContainer;
 using ReactiveUI;
@@ -124,9 +125,12 @@ namespace VidCoder.ViewModel
 					() =>
 					{
 						StaticResolver.Resolve<StatusService>().Show(MainRes.OpeningFolderStatus);
-						FileUtilities.OpenFolderAndSelectItem(this.encodeResult.Destination);
+						FileUtilities.OpenFolderAndSelectItem(this.encodeResult.FailedFilePath ?? this.encodeResult.Destination);
 					},
-					this.WhenAnyValue(x => x.EncodeResult.Succeeded)));
+					this.WhenAnyValue(x => x.EncodeResult.Succeeded, x => x.EncodeResult.FailedFilePath, (succeeded, failedFilePath) =>
+					{
+						return succeeded || failedFilePath != null;
+					})));
 			}
 		}
 
@@ -187,13 +191,37 @@ namespace VidCoder.ViewModel
 
 						StaticResolver.Resolve<ClipboardService>().SetText(logText);
 					}
-					catch (IOException exception)
+					catch (Exception exception)
 					{
-						StaticResolver.Resolve<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
+						StaticResolver.Resolve<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception));
 					}
-					catch (UnauthorizedAccessException exception)
+				}));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> copyLogToPastebin;
+		public ICommand CopyLogToPastebin
+		{
+			get
+			{
+				return this.copyLogToPastebin ?? (this.copyLogToPastebin = ReactiveCommand.CreateFromTask(async () =>
+				{
+					if (this.encodeResult.LogPath == null)
 					{
-						StaticResolver.Resolve<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
+						return;
+					}
+
+					try
+					{
+						string logText = File.ReadAllText(this.encodeResult.LogPath);
+						string pastebinUrl = await StaticResolver.Resolve<PastebinService>().SubmitToPastebinAsync(logText, EnumsRes.LogOperationType_Encode + " - " + this.Job.Job.FinalOutputPath);
+
+						StaticResolver.Resolve<ClipboardService>().SetText(pastebinUrl);
+						StaticResolver.Resolve<StatusService>().Show(LogRes.PastebinSuccessStatus);
+					}
+					catch (Exception exception)
+					{
+						StaticResolver.Resolve<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception));
 					}
 				}));
 			}

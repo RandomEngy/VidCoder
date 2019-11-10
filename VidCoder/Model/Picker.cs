@@ -98,13 +98,29 @@ namespace VidCoder.Model
 			set { this.RaiseAndSetIfChanged(ref this.titleRangeSelectEndMinutes, value); }
 		}
 
-	    private bool timeRangeSelectEnabled;
+		private PickerTimeRangeMode pickerTimeRangeMode;
 	    [JsonProperty]
-	    public bool TimeRangeSelectEnabled
-	    {
-		    get { return this.timeRangeSelectEnabled; }
-		    set { this.RaiseAndSetIfChanged(ref this.timeRangeSelectEnabled, value); }
-	    }
+		public PickerTimeRangeMode PickerTimeRangeMode
+		{
+			get { return this.pickerTimeRangeMode; }
+			set { this.RaiseAndSetIfChanged(ref this.pickerTimeRangeMode, value); }
+		}
+
+		private int? chapterRangeStart;
+	    [JsonProperty]
+		public int? ChapterRangeStart
+		{
+			get { return this.chapterRangeStart; }
+			set { this.RaiseAndSetIfChanged(ref this.chapterRangeStart, value); }
+		}
+
+		private int? chapterRangeEnd;
+	    [JsonProperty]
+		public int? ChapterRangeEnd
+		{
+			get { return this.chapterRangeEnd; }
+			set { this.RaiseAndSetIfChanged(ref this.chapterRangeEnd, value); }
+		}
 
 	    private TimeSpan timeRangeStart;
 	    [JsonProperty]
@@ -235,6 +251,10 @@ namespace VidCoder.Model
 		// Obsolete. Use SubtitleBurnIn instead.
 		[JsonProperty]
 		public bool SubtitleLanguageBurnIn { get; set; }
+
+		// Obsolete. Use PickerTimeRangeMode instead.
+		[JsonProperty]
+		public bool TimeRangeSelectEnabled { get; set; }
 
 		#endregion
 	}

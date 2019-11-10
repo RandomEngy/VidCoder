@@ -16,8 +16,10 @@ namespace VidCoder.Model
 		{
 			get
 			{
-				RegistryKey key = NewRegKey ?? OldRegKey;
-				return key?.GetValue("ExePath") as string;
+				using (RegistryKey key = NewRegKey ?? OldRegKey)
+				{
+					return key?.GetValue("ExePath") as string;
+				}
 			}
 		}
 

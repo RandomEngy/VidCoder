@@ -19,7 +19,7 @@ namespace VidCoder.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class OptionsRes {
@@ -205,6 +205,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy the encode log to a custom folder.
+        /// </summary>
+        public static string CopyLogToCustomFolderLabel {
+            get {
+                return ResourceManager.GetString("CopyLogToCustomFolderLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy the encode log to the same folder as the encoded video.
         /// </summary>
         public static string CopyLogToOutputFolderLabel {
@@ -331,7 +340,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable LibDVDNav (change requires program restart).
+        ///   Looks up a localized string similar to Enable LibDVDNav (Change requires program restart. Required to support multiple angles).
         /// </summary>
         public static string EnableLibDvdNavCheckBox {
             get {
@@ -417,6 +426,15 @@ namespace VidCoder.Resources {
         public static string JoinBetaTrackCheckBox {
             get {
                 return ResourceManager.GetString("JoinBetaTrackCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keep files from failed or stopped encodes.
+        /// </summary>
+        public static string KeepFailedFilesCheckBox {
+            get {
+                return ResourceManager.GetString("KeepFailedFilesCheckBox", resourceCulture);
             }
         }
         
@@ -745,6 +763,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Trigger &quot;When done&quot; action when there are failed encode jobs.
+        /// </summary>
+        public static string TriggerWhenDoneWithFailedJobsCheckBox {
+            get {
+                return ResourceManager.GetString("TriggerWhenDoneWithFailedJobsCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update check failed..
         /// </summary>
         public static string UpdateFailedStatus {
@@ -885,6 +912,15 @@ namespace VidCoder.Resources {
         public static string WorkerProcessPriorityLabel {
             get {
                 return ResourceManager.GetString("WorkerProcessPriorityLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The worker process option will take effect after you exit and restart VidCoder..
+        /// </summary>
+        public static string WorkerProcessRestartDialogMessage {
+            get {
+                return ResourceManager.GetString("WorkerProcessRestartDialogMessage", resourceCulture);
             }
         }
     }

@@ -50,7 +50,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Microsoft.AnyContainer">
+      <Version>1.0.0-beta201808141</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="reactiveui" Version="9.4.1" />
     <PackageReference Include="ReactiveUI.WPF">
       <Version>9.4.1</Version>
@@ -79,7 +82,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -92,6 +94,10 @@
     <Compile Include="Extensions\JsonDurationExtensions.cs" />
     <Compile Include="Extensions\ParExtensions.cs" />
     <Compile Include="Extensions\ScalingModeExtensions.cs" />
+    <Compile Include="IHandBrakeEncodeWorker.cs" />
+    <Compile Include="IHandBrakeEncodeWorkerCallback.cs" />
+    <Compile Include="IHandBrakeScanWorker.cs" />
+    <Compile Include="IHandBrakeScanWorkerCallback.cs" />
     <Compile Include="IHandBrakeWorker.cs" />
     <Compile Include="IHandBrakeWorkerCallback.cs" />
     <Compile Include="JsonConverters\SourceTypeConverter.cs" />
@@ -99,13 +105,14 @@
     <Compile Include="Model\AudioEncoding.cs" />
     <Compile Include="Model\CopyMaskChoice.cs" />
     <Compile Include="Model\DeserializeOnlyAttribute.cs" />
+    <Compile Include="Model\HandBrakeWorkerAction.cs" />
     <Compile Include="Model\JsonEncodeFactory.cs" />
     <Compile Include="Model\OutputAudioTrackInfo.cs" />
     <Compile Include="Model\OutputSizeInfo.cs" />
     <Compile Include="Model\Preset.cs" />
     <Compile Include="Model\SourceSubtitle.cs" />
     <Compile Include="Model\SourceType.cs" />
-    <Compile Include="Model\SrtSubtitle.cs" />
+    <Compile Include="Model\FileSubtitle.cs" />
     <Compile Include="Model\VCSubtitles.cs" />
     <Compile Include="Model\VCAnamorphic.cs" />
     <Compile Include="Model\VCContainer.cs" />

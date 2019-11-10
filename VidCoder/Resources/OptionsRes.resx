@@ -199,7 +199,7 @@
     <value>Allow setting custom name on audio tracks (limited player support)</value>
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>Enable LibDVDNav (change requires program restart)</value>
+    <value>Enable LibDVDNav (Change requires program restart. Required to support multiple angles)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Delete source files after clearing successful completed items (with confirmation)</value>
@@ -394,5 +394,17 @@
   </data>
   <data name="PromptForUpdatesLabel" xml:space="preserve">
     <value>Prompt for updates:</value>
+  </data>
+  <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
+    <value>The worker process option will take effect after you exit and restart VidCoder.</value>
+  </data>
+  <data name="CopyLogToCustomFolderLabel" xml:space="preserve">
+    <value>Copy the encode log to a custom folder</value>
+  </data>
+  <data name="KeepFailedFilesCheckBox" xml:space="preserve">
+    <value>Keep files from failed or stopped encodes</value>
+  </data>
+  <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
+    <value>Trigger "When done" action when there are failed encode jobs</value>
   </data>
 </root>

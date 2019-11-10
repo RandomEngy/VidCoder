@@ -73,6 +73,28 @@
 			<Setter Property="Margin" Value="8 0 8 0" />
 			<Setter Property="VerticalAlignment" Value="Center" />
 		</Style>
+		<Style x:Key="SummaryActionButton" TargetType="Button">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Border Name="buttonBorder" Background="Transparent">
+							<ContentPresenter />
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsMouseOver" Value="True">
+								<Setter TargetName="buttonBorder" Property="Background" Value="{DynamicResource MouseOverOverlayBackgroundBrush}" />
+							</Trigger>
+							<Trigger Property="IsPressed" Value="True">
+								<Setter TargetName="buttonBorder" Property="Background" Value="{DynamicResource PressedOverlayBackgroundBrush}" />
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="Width" Value="30" />
+			<Setter Property="Height" Value="30" />
+			<Setter Property="VerticalAlignment" Value="Stretch" />
+		</Style>
 		<Style
 			x:Key="ChapterComboBox"
 			BasedOn="{StaticResource ComboBoxBaseStyle}"
@@ -243,6 +265,7 @@
 						Source="/Icons/copy.png" />
 				</MenuItem.Icon>
 			</MenuItem>
+			<MenuItem Command="{Binding CopyLogToPastebin}" Header="{x:Static res:LogRes.CopyToPastebinButton}" />
 			<Separator />
 			<MenuItem
 				Command="{Binding ProcessingService.RetryFailed}"
@@ -261,7 +284,27 @@
 					<Image
 						Width="16"
 						Height="16"
-						Source="/Icons/delete.png" />
+						Source="/Icons/Clear.png" />
+				</MenuItem.Icon>
+			</MenuItem>
+			<MenuItem Command="{Binding ProcessingService.ClearSucceeded}" Header="{x:Static res:MainRes.ClearSucceededMenuItem}">
+				<MenuItem.Icon>
+					<Image
+						Width="16"
+						Height="16"
+						Source="/Icons/ClearSucceeded.png" />
+				</MenuItem.Icon>
+			</MenuItem>
+			<MenuItem
+				Command="{Binding ProcessingService.ClearFailed}"
+				Header="{x:Static res:MainRes.ClearFailedMenuItem}"
+				Visibility="{Binding ProcessingService.HasFailedItems,
+				                     Converter={StaticResource VisibilityConverter}}">
+				<MenuItem.Icon>
+					<Image
+						Width="16"
+						Height="16"
+						Source="/Icons/ClearFailed.png" />
 				</MenuItem.Icon>
 			</MenuItem>
 		</ContextMenu>
@@ -295,7 +338,7 @@
 			<Setter Property="BorderThickness" Value="0" />
 			<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 			<Setter Property="VerticalContentAlignment" Value="Center" />
-			<Setter Property="Padding" Value="14 3 6 3" />
+			<Setter Property="Padding" Value="14 0 6 0" />
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type ToggleButton}">
@@ -463,6 +506,7 @@
 							AutomationProperties.Name="{x:Static res:MainRes.GlobalOptionsLabel}"
 							Command="{Binding OpenOptions}"
 							Header="{x:Static res:MainRes.GlobalOptionsLabel}"
+							KeyTip="Ctrl+G"
 							LargeIcon="/Icons/Options.png" />
 						<fluent:SplitButton
 							x:Name="presetButton"
@@ -470,7 +514,11 @@
 							Header="{Binding EncodingPresetButtonText}"
 							LargeIcon="/Icons/EncodingSettings.png"
 							ToolTip="{x:Static res:MainRes.EncodingSettingsButtonToolTip}">
-							<controls:PresetTreeViewContainer x:Name="presetTreeViewContainer" MinWidth="250" />
+							<controls:PresetTreeViewContainer
+								x:Name="presetTreeViewContainer"
+								MinWidth="250"
+								IsEnabled="{Binding PickersService.SelectedPicker.Picker.UseEncodingPreset,
+								                    Converter={StaticResource InverseBoolConverter}}" />
 						</fluent:SplitButton>
 						<fluent:SplitButton
 							x:Name="pickerButton"
@@ -487,6 +535,7 @@
 							Command="{Binding OpenPreviewWindow,
 							                  Source={StaticResource WindowXamlHelper}}"
 							Header="{x:Static res:CommonRes.PreviewLabel}"
+							KeyTip="Ctrl+P"
 							LargeIcon="/Icons/Preview64.png"
 							Visibility="{Binding PreviewWindowOpen,
 							                     Source={StaticResource WindowXamlHelper},
@@ -498,7 +547,10 @@
 							SizeDefinition="Large"
 							Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
 							                     Converter={StaticResource VisibilityConverter}}">
-							<fluent:MenuItem Command="{Binding ProcessingService.AddToQueue}" Header="{x:Static res:MainRes.AddToQueueLabel}" />
+							<fluent:MenuItem
+								Command="{Binding ProcessingService.AddToQueue}"
+								Header="{x:Static res:MainRes.AddToQueueLabel}"
+								InputGestureText="Ctrl+Q" />
 							<fluent:MenuItem
 								Command="{Binding ProcessingService.QueueTitlesAction}"
 								Header="{x:Static res:MainRes.AddMultipleTitlesToQueueLabel}"
@@ -514,6 +566,7 @@
 						<fluent:Button
 							Command="{Binding ProcessingService.Encode}"
 							Header="{Binding ProcessingService.EncodeButtonText}"
+							KeyTip="F5"
 							LargeIcon="/Icons/Encode.png"
 							SizeDefinition="Large"
 							Visibility="{Binding ProcessingService.PauseVisible,
@@ -848,6 +901,20 @@
 												ItemsSource="{Binding Angles}"
 												SelectedItem="{Binding Angle}" />
 										</StackPanel>
+
+										<!--  Video options button  -->
+										<Button
+											Margin="10 0 0 0"
+											Command="{Binding OpenVideoEncoderOptions}"
+											Style="{StaticResource SummaryActionButton}"
+											ToolTip="{x:Static res:MainRes.VideoEncodingOptionsToolTip}">
+											<Image
+												Width="20"
+												Height="20"
+												HorizontalAlignment="Center"
+												VerticalAlignment="Center"
+												Source="/Icons/Options.png" />
+										</Button>
 									</StackPanel>
 								</Grid>
 
@@ -1118,18 +1185,34 @@
 						<Grid>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="Auto" />
-								<ColumnDefinition />
+								<ColumnDefinition Name="audioSummaryColumn" />
 							</Grid.ColumnDefinitions>
 							<Image
 								Width="16"
 								Height="16"
 								Source="/Icons/Audio.png" />
-							<TextBlock
-								Grid.Column="1"
-								Margin="6 0 0 2"
-								Style="{StaticResource SourceSectionText}"
-								Text="{Binding AudioSummary}"
-								TextTrimming="CharacterEllipsis" />
+							<StackPanel Grid.Column="1" Orientation="Horizontal">
+								<TextBlock
+									Name="audioSummary"
+									Margin="6 0 0 2"
+									Style="{StaticResource SourceSectionText}"
+									Text="{Binding AudioSummary}"
+									TextTrimming="CharacterEllipsis" />
+
+								<!--  Options button  -->
+								<Button
+									Margin="10 0 0 0"
+									Command="{Binding OpenAudioEncoderOptions}"
+									Style="{StaticResource SummaryActionButton}"
+									ToolTip="{x:Static res:MainRes.AudioEncodingOptionsToolTip}">
+									<Image
+										Width="20"
+										Height="20"
+										HorizontalAlignment="Center"
+										VerticalAlignment="Center"
+										Source="/Icons/Options.png" />
+								</Button>
+							</StackPanel>
 						</Grid>
 					</ToggleButton>
 
@@ -1260,27 +1343,50 @@
 						<Grid>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="Auto" />
-								<ColumnDefinition Width="*" />
-								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Name="subtitlesSummaryColumn" Width="*" />
 							</Grid.ColumnDefinitions>
 							<Image
 								Width="16"
 								Height="16"
 								Source="/Icons/Subtitles.png" />
-							<TextBlock
-								Grid.Column="1"
-								Margin="6 0 16 2"
-								Style="{StaticResource SourceSectionText}"
-								Text="{Binding SubtitlesSummary}"
-								TextTrimming="CharacterEllipsis" />
-							<Button
-								Grid.Column="2"
-								Height="23"
-								Margin="0 0 16 0"
-								Padding="6 0"
-								HorizontalAlignment="Left"
-								Command="{Binding AddSrtSubtitle}"
-								Content="{x:Static res:SubtitleRes.ImportSrtButton}" />
+							<StackPanel Grid.Column="1" Orientation="Horizontal">
+								<TextBlock
+									Name="subtitlesSummary"
+									Margin="6 0 0 2"
+									Style="{StaticResource SourceSectionText}"
+									Text="{Binding SubtitlesSummary}"
+									TextTrimming="CharacterEllipsis" />
+								<Button
+									Margin="10 0 16 0"
+									Command="{Binding AddFileSubtitle}"
+									Style="{StaticResource SummaryActionButton}"
+									ToolTip="{x:Static res:SubtitleRes.ImportSubtitleButton}">
+									<Grid
+										x:Name="addButtonGrid"
+										Width="15"
+										Height="15"
+										Background="Transparent">
+										<Rectangle
+											x:Name="rect2"
+											Width="10"
+											Height="2"
+											Fill="Green">
+											<Rectangle.LayoutTransform>
+												<RotateTransform Angle="0" />
+											</Rectangle.LayoutTransform>
+										</Rectangle>
+										<Rectangle
+											x:Name="rect1"
+											Width="10"
+											Height="2"
+											Fill="Green">
+											<Rectangle.LayoutTransform>
+												<RotateTransform Angle="90" />
+											</Rectangle.LayoutTransform>
+										</Rectangle>
+									</Grid>
+								</Button>
+							</StackPanel>
 						</Grid>
 					</ToggleButton>
 
@@ -1336,10 +1442,10 @@
 									Visibility="{Binding Selected,
 									                     Converter={StaticResource VisibilityConverter}}" />
 							</DataTemplate>
-							<DataTemplate x:Key="SrtDragTemplate">
+							<DataTemplate x:Key="SubtitleFileDragTemplate">
 								<TextBox Text="{Binding FileName, Mode=OneWay}" />
 							</DataTemplate>
-							<DataTemplate x:Key="FileNameTemplate" DataType="viewmodel:SrtSubtitleViewModel">
+							<DataTemplate x:Key="FileNameTemplate" DataType="viewmodel:FileSubtitleViewModel">
 								<controls:PathTextBlock
 									Foreground="{DynamicResource WindowTextBrush}"
 									Text="{Binding FileName}"
@@ -1357,7 +1463,7 @@
 									Visibility="{Binding Selected,
 									                     Converter={StaticResource VisibilityConverter}}" />
 							</DataTemplate>
-							<DataTemplate x:Key="LanguageTemplate" DataType="viewmodel:SrtSubtitleViewModel">
+							<DataTemplate x:Key="LanguageTemplate" DataType="viewmodel:FileSubtitleViewModel">
 								<ComboBox
 									MinWidth="80"
 									DisplayMemberPath="Display"
@@ -1365,13 +1471,13 @@
 									SelectedValue="{Binding LanguageCode}"
 									SelectedValuePath="Code" />
 							</DataTemplate>
-							<DataTemplate x:Key="CharCodeTemplate" DataType="viewmodel:SrtSubtitleViewModel">
+							<DataTemplate x:Key="CharCodeTemplate" DataType="viewmodel:FileSubtitleViewModel">
 								<ComboBox
 									Margin="4 0 4 2"
 									ItemsSource="{Binding CharCodes}"
 									SelectedItem="{Binding CharacterCode}" />
 							</DataTemplate>
-							<DataTemplate x:Key="OffsetTemplate" DataType="viewmodel:SrtSubtitleViewModel">
+							<DataTemplate x:Key="OffsetTemplate" DataType="viewmodel:FileSubtitleViewModel">
 								<controls:NumberBox
 									Width="40"
 									Height="22"
@@ -1507,24 +1613,25 @@
 							Grid.Row="1"
 							Margin="0 4 0 0"
 							Orientation="Vertical"
-							Visibility="{Binding HasSrtSubtitles,
+							Visibility="{Binding HasFileSubtitles,
 							                     Converter={StaticResource VisibilityConverter}}">
 							<TextBlock
 								Margin="27 0 0 2"
 								HorizontalAlignment="Left"
 								VerticalAlignment="Top"
 								Text="{x:Static res:SubtitleRes.ExternalSubtitlesLabel}"
-								Visibility="{Binding HasSrtSubtitles,
+								Visibility="{Binding HasFileSubtitles,
 								                     Converter={StaticResource VisibilityConverter}}" />
 
 							<ListView
+								Name="fileSubtitleListView"
 								Margin="-1 0 -1 5"
 								VerticalAlignment="Top"
-								VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource SrtDragTemplate}"
+								VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource SubtitleFileDragTemplate}"
 								VidCoderDragDrop:DragDropHelper.IsDragSource="True"
 								VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
 								ItemContainerStyle="{StaticResource ListViewItemNoSelectionNoHoverStyle}"
-								ItemsSource="{Binding SrtSubtitlesBindable}">
+								ItemsSource="{Binding FileSubtitlesBindable}">
 								<i:Interaction.Behaviors>
 									<behaviors:IgnoreMouseWheelBehavior />
 								</i:Interaction.Behaviors>
@@ -1532,23 +1639,23 @@
 									<GridView>
 										<GridView.Columns>
 											<GridViewColumn
-												x:Name="srtFileColumn"
+												x:Name="fileSubtitleFileColumn"
 												CellTemplate="{StaticResource FileNameTemplate}"
 												Header="{x:Static res:SubtitleRes.FileColumn}" />
 											<GridViewColumn
-												x:Name="srtDefaultColumn"
+												x:Name="fileSubtitleDefaultColumn"
 												CellTemplate="{StaticResource DefaultTemplate}"
 												Header="{x:Static res:SubtitleRes.DefaultColumn}" />
 											<GridViewColumn
-												x:Name="srtBurnedInColumn"
+												x:Name="fileSubtitleBurnedInColumn"
 												CellTemplate="{StaticResource BurnedInTemplate}"
 												Header="{x:Static res:SubtitleRes.BurnedInColumn}" />
 											<GridViewColumn
-												x:Name="srtLanguageColumn"
+												x:Name="fileSubtitleLanguageColumn"
 												CellTemplate="{StaticResource LanguageTemplate}"
 												Header="{x:Static res:SubtitleRes.LanguageColumn}" />
 											<GridViewColumn
-												x:Name="srtCharCodeColumn"
+												x:Name="fileSubtitleCharCodeColumn"
 												CellTemplate="{StaticResource CharCodeTemplate}"
 												Header="{x:Static res:SubtitleRes.CharCodeColumn}" />
 											<GridViewColumn CellTemplate="{StaticResource OffsetTemplate}" Header="{x:Static res:SubtitleRes.OffsetColumn}" />
@@ -1800,12 +1907,24 @@
 															</MenuItem.Icon>
 														</MenuItem>
 														<MenuItem Command="{Binding ProcessingService.ApplyCurrentPresetToSelectedJobs}" Header="{x:Static res:MainRes.ApplyCurrentEncodingSettings}" />
-														<MenuItem Command="{Binding ProcessingService.RemoveSelectedJobs}" Header="{x:Static res:CommonRes.Delete}">
+														<MenuItem Command="{Binding ProcessingService.RemoveSelectedJobs}" Header="{x:Static res:MainRes.RemoveFromQueueMenuItem}">
 															<MenuItem.Icon>
 																<Image
 																	Width="16"
 																	Height="16"
-																	Source="/Icons/delete.png" />
+																	Source="/Icons/Remove.png" />
+															</MenuItem.Icon>
+														</MenuItem>
+														<MenuItem
+															Command="{Binding ProcessingService.RemoveAllJobs}"
+															Header="{x:Static res:MainRes.RemoveAllFomQueueMenuItem}"
+															Visibility="{Binding ProcessingService.CanClearQueue,
+															                     Converter={StaticResource VisibilityConverter}}">
+															<MenuItem.Icon>
+																<Image
+																	Width="16"
+																	Height="16"
+																	Source="/Icons/Clear.png" />
 															</MenuItem.Icon>
 														</MenuItem>
 														<Separator />
@@ -1839,6 +1958,19 @@
 										<ContextMenu>
 											<MenuItem Command="{Binding CustomizeQueueColumns}" Header="{x:Static res:MainRes.CustomizeColumnsMenuItem}" />
 											<Separator />
+											<MenuItem
+												Command="{Binding ProcessingService.RemoveAllJobs}"
+												Header="{x:Static res:MainRes.RemoveAllFomQueueMenuItem}"
+												Visibility="{Binding ProcessingService.CanClearQueue,
+												                     Converter={StaticResource VisibilityConverter}}">
+												<MenuItem.Icon>
+													<Image
+														Width="16"
+														Height="16"
+														Source="/Icons/Clear.png" />
+												</MenuItem.Icon>
+											</MenuItem>
+											<Separator Visibility="{Binding ProcessingService.CanClearQueue, Converter={StaticResource VisibilityConverter}}" />
 											<MenuItem Command="{Binding ProcessingService.ImportQueue}" Header="{x:Static res:MainRes.ImportQueue}" />
 											<MenuItem
 												Command="{Binding ProcessingService.ExportQueue}"
@@ -1870,7 +2002,27 @@
 														<Image
 															Width="16"
 															Height="16"
-															Source="/Icons/delete.png" />
+															Source="/Icons/Clear.png" />
+													</MenuItem.Icon>
+												</MenuItem>
+												<MenuItem Command="{Binding ProcessingService.ClearSucceeded}" Header="{x:Static res:MainRes.ClearSucceededMenuItem}">
+													<MenuItem.Icon>
+														<Image
+															Width="16"
+															Height="16"
+															Source="/Icons/ClearSucceeded.png" />
+													</MenuItem.Icon>
+												</MenuItem>
+												<MenuItem
+													Command="{Binding ProcessingService.ClearFailed}"
+													Header="{x:Static res:MainRes.ClearFailedMenuItem}"
+													Visibility="{Binding ProcessingService.HasFailedItems,
+													                     Converter={StaticResource VisibilityConverter}}">
+													<MenuItem.Icon>
+														<Image
+															Width="16"
+															Height="16"
+															Source="/Icons/ClearFailed.png" />
 													</MenuItem.Icon>
 												</MenuItem>
 											</ContextMenu>
@@ -1944,7 +2096,27 @@
 													<Image
 														Width="16"
 														Height="16"
-														Source="/Icons/delete.png" />
+														Source="/Icons/Clear.png" />
+												</MenuItem.Icon>
+											</MenuItem>
+											<MenuItem Command="{Binding ProcessingService.ClearSucceeded}" Header="{x:Static res:MainRes.ClearSucceededMenuItem}">
+												<MenuItem.Icon>
+													<Image
+														Width="16"
+														Height="16"
+														Source="/Icons/ClearSucceeded.png" />
+												</MenuItem.Icon>
+											</MenuItem>
+											<MenuItem
+												Command="{Binding ProcessingService.ClearFailed}"
+												Header="{x:Static res:MainRes.ClearFailedMenuItem}"
+												Visibility="{Binding ProcessingService.HasFailedItems,
+												                     Converter={StaticResource VisibilityConverter}}">
+												<MenuItem.Icon>
+													<Image
+														Width="16"
+														Height="16"
+														Source="/Icons/ClearFailed.png" />
 												</MenuItem.Icon>
 											</MenuItem>
 										</ContextMenu>
@@ -1978,7 +2150,7 @@
 								Name="statusTextBlock"
 								Margin="3 1 5 3"
 								FontSize="14"
-								Text="Status message" />
+								TextWrapping="Wrap" />
 						</Border>
 					</Grid>
 				</Grid>

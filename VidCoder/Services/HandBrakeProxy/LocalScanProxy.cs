@@ -17,7 +17,7 @@ namespace VidCoder.Services.HandBrakeProxy
         public void StartScan(string path, IAppLogger logger)
         {
             var onDemandInstance = new HandBrakeInstance();
-            onDemandInstance.Initialize(Config.LogVerbosity);
+            onDemandInstance.Initialize(Config.LogVerbosity, noHardware: false);
             onDemandInstance.ScanProgress += (o, e) =>
             {
                 this.ScanProgress?.Invoke(this, new EventArgs<float>((float)e.Progress));

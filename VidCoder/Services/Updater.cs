@@ -374,7 +374,10 @@ namespace VidCoder.Services
 									this.State = UpdateState.InstallerReady;
 									this.UpdateDownloadProgressFraction = 1;
 
-									string message = string.Format(MainRes.NewVersionDownloadFinishedStatus, updateVersionText);
+									string downloadFinishedFormat = CustomConfig.UpdatePromptTiming == UpdatePromptTiming.OnExit
+										? MainRes.NewVersionDownloadFinishedStatus
+										: MainRes.NewVersionDownloadFinishedOnLaunchStatus;
+									string message = string.Format(downloadFinishedFormat, updateVersionText);
 									this.logger.Log(message);
 									this.logger.ShowStatus(message);
 								}

@@ -76,7 +76,6 @@ namespace VidCoder
 			profile.VideoOptions = hbPreset.VideoOptionExtra;
 			profile.TwoPass = hbPreset.VideoTwoPass;
 			profile.TurboFirstPass = hbPreset.VideoTurboTwoPass;
-			profile.UseAdvancedTab = false;
 			profile.Quality = hbPreset.VideoQualitySlider;
 			profile.VideoBitrate = hbPreset.VideoAvgBitrate ?? 0;
 			profile.QsvDecode = false;

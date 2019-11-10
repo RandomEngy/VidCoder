@@ -4,24 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VidCoderCommon;
+using VidCoderCommon.Model;
 
 namespace VidCoder.Services.HandBrakeProxy
 {
-	public class RemoteScanProxy : RemoteProxyBase, IHandBrakeWorkerCallback, IScanProxy
+	public class RemoteScanProxy : RemoteProxyBase<IHandBrakeScanWorker, IHandBrakeScanWorkerCallback>, IScanProxy, IHandBrakeScanWorkerCallback
 	{
 	    public event EventHandler<EventArgs<float>> ScanProgress;
 	    public event EventHandler<EventArgs<string>> ScanCompleted;
 
 	    private string result;
 
-	    public void StartScan(string path, IAppLogger logger)
+	    public async void StartScan(string path, IAppLogger logger)
 		{
 			this.Logger = logger;
 
-			this.StartOperation(channel =>
-			{
-				channel.StartScan(path);
-			});
+			await this.RunOperationAsync(worker => worker.StartScan(path));
 		}
 
         public void OnScanProgress(float fractionComplete)
@@ -39,30 +37,13 @@ namespace VidCoder.Services.HandBrakeProxy
             }
         }
 
-	    protected override void OnOperationEnd(bool error)
+		protected override HandBrakeWorkerAction Action => HandBrakeWorkerAction.Scan;
+
+		protected override IHandBrakeScanWorkerCallback CallbackInstance => this;
+
+		protected override void OnOperationEnd(bool error)
 		{
             this.ScanCompleted?.Invoke(this, new EventArgs<string>(this.result));
         }
-
-        // TODO: Refactor so we don't need to implement these
-		public override void StopAndWait()
-		{
-			throw new NotImplementedException();
-		}
-
-	    public void OnEncodeStarted()
-	    {
-	        throw new NotImplementedException();
-	    }
-
-	    public void OnEncodeProgress(float averageFrameRate, float currentFrameRate, TimeSpan estimatedTimeLeft, float fractionComplete, int passId, int pass, int passCount, string stateCode)
-	    {
-	        throw new NotImplementedException();
-	    }
-
-	    public void OnEncodeComplete(bool error)
-	    {
-	        throw new NotImplementedException();
-	    }
 	}
 }

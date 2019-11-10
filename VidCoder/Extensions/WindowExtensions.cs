@@ -46,7 +46,8 @@ namespace VidCoder.Extensions
 		        }
 	        }
 
-            window.InputBindings.Add(new InputBinding(windowManager.CreateOpenCommand(typeof(OptionsDialogViewModel), openAsDialog: true), new KeyGesture(Key.F4)));
+            window.InputBindings.Add(new InputBinding(windowManager.CreateOpenCommand(typeof(OptionsDialogViewModel), openAsDialog: true), new KeyGesture(Key.G, ModifierKeys.Control)));
+	        window.InputBindings.Add(new InputBinding(StaticResolver.Resolve<ProcessingService>().Encode, new KeyGesture(Key.F5)));
         }
 
 		public static void SetPlacementJson(this Window window, string placementJson)

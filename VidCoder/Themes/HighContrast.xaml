@@ -13,6 +13,7 @@
 	<SolidColorBrush x:Key="DescriptiveTextBrush" Color="{x:Static SystemColors.WindowTextColor}" />
 	<SolidColorBrush x:Key="MouseOverBackgroundBrush" Color="{x:Static SystemColors.HighlightColor}" />
 	<SolidColorBrush x:Key="MouseOverOverlayBackgroundBrush" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="PressedOverlayBackgroundBrush" Color="{x:Static SystemColors.HighlightColor}" />
 	<SolidColorBrush x:Key="SelectedBackgroundBrush" Color="{x:Static SystemColors.HighlightColor}" />
 	<SolidColorBrush x:Key="PopupInfoBackgroundBrush" Color="{x:Static SystemColors.WindowColor}" />
 	<SolidColorBrush x:Key="InlineWarningBackgroundBrush" Color="{x:Static SystemColors.WindowColor}" />

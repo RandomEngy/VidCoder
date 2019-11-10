@@ -9,6 +9,8 @@ using HandBrake.Interop.Interop.Json.Encode;
 using HandBrake.Interop.Interop.Json.Scan;
 using HandBrake.Interop.Interop.Json.Shared;
 using HandBrake.Interop.Interop.Model.Encoding;
+using Microsoft.AnyContainer;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Services;
@@ -738,20 +740,21 @@ namespace VidCoderCommon.Model
 				}
 			}
 
-			foreach (SrtSubtitle srtSubtitle in job.Subtitles.SrtSubtitles)
+			foreach (FileSubtitle fileSubtitle in job.Subtitles.FileSubtitles)
 			{
 				SubtitleTrack track = new SubtitleTrack
 				{
 					Track = -1, // Indicates SRT
-					Default = srtSubtitle.Default,
-					Offset = srtSubtitle.Offset,
-					Burn = srtSubtitle.BurnedIn,
-					SRT =
-						new SRT
+					Default = fileSubtitle.Default,
+					Offset = fileSubtitle.Offset,
+					Burn = fileSubtitle.BurnedIn,
+					Import =
+						new SubImport
 						{
-							Filename = srtSubtitle.FileName,
-							Codeset = srtSubtitle.CharacterCode,
-							Language = srtSubtitle.LanguageCode
+							Format = fileSubtitle.FileName.EndsWith(".srt", StringComparison.OrdinalIgnoreCase) ? "SRT" : "SSA",
+							Filename = fileSubtitle.FileName,
+							Codeset = fileSubtitle.CharacterCode,
+							Language = fileSubtitle.LanguageCode
 						}
 				};
 
@@ -778,17 +781,10 @@ namespace VidCoderCommon.Model
 				Decode = profile.QsvDecode
 			};
 
-			if (profile.UseAdvancedTab)
-			{
-				video.Options = profile.VideoOptions;
-			}
-			else
-			{
-				video.Level = profile.VideoLevel ?? "auto";
-				video.Options = profile.VideoOptions;
-				video.Preset = profile.VideoPreset;
-				video.Profile = profile.VideoProfile ?? "auto";
-			}
+			video.Level = profile.VideoLevel ?? "auto";
+			video.Options = profile.VideoOptions;
+			video.Preset = profile.VideoPreset;
+			video.Profile = profile.VideoProfile ?? "auto";
 
 			switch (profile.VideoEncodeRateType)
 			{
@@ -824,7 +820,7 @@ namespace VidCoderCommon.Model
 		/// for calculating bitrate when the target size would be wrong.</param>
 		/// <param name="logger">The logger to use.</param>
 		/// <returns>The video bitrate in kbps.</returns>
-		public int CalculateBitrate(VCJob job, SourceTitle title, int sizeMb, double overallSelectedLengthSeconds = 0)
+		public int CalculateBitrate(VCJob job, SourceTitle title, double sizeMb, double overallSelectedLengthSeconds = 0)
 		{
 			bool isPreview = overallSelectedLengthSeconds > 0;
 
@@ -837,7 +833,7 @@ namespace VidCoderCommon.Model
 				this.logger.Log($"Calculating bitrate - Selected value length: {overallSelectedLengthSeconds} seconds");
 			}
 
-			long availableBytes = ((long)sizeMb) * 1024 * 1024;
+			long availableBytes = (long)(sizeMb * 1024 * 1024);
 			if (isPreview)
 			{
 				availableBytes = (long)(availableBytes * (overallSelectedLengthSeconds / titleLengthSeconds));
@@ -1447,6 +1443,43 @@ namespace VidCoderCommon.Model
 			else
 			{
 				outputPar = new PAR { Num = 1, Den = 1 };
+			}
+
+			// Error check the padding
+			bool paddingNegative = false;
+			if (padding.Left < 0)
+			{
+				padding.Left = 0;
+				paddingNegative = true;
+			}
+
+			if (padding.Right < 0)
+			{
+				padding.Right = 0;
+				paddingNegative = true;
+			}
+
+			if (padding.Top < 0)
+			{
+				padding.Top = 0;
+				paddingNegative = true;
+			}
+
+			if (padding.Bottom < 0)
+			{
+				padding.Bottom = 0;
+				paddingNegative = true;
+			}
+
+			if (paddingNegative)
+			{
+				StaticResolver.Resolve<ILogger>().LogError(
+					"Output padding cannot be negative: " + JsonConvert.SerializeObject(padding, Formatting.None) + Environment.NewLine
+					+ $"Calculated from profile: Width {profile.Width}, Height {profile.Height}, "
+					+ $"Padding {JsonConvert.SerializeObject(profile.Padding, Formatting.None)}, PaddingMode {profile.PaddingMode}, "
+					+ $"SizingMode {profile.SizingMode}, ScalingMode {profile.ScalingMode}, Rotation {profile.Rotation}, "
+					+ $"PixelAspectX {profile.PixelAspectX}, PixelAspectY {profile.PixelAspectY}, UseAnamorphic {profile.UseAnamorphic}" + Environment.NewLine
+					+ "And source title geometry: " + JsonConvert.SerializeObject(title.Geometry, Formatting.None));
 			}
 
 			return new OutputSizeInfo

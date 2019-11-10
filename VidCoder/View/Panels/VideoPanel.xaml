@@ -246,6 +246,7 @@
 							Margin="8 0 0 0"
 							HorizontalAlignment="Left"
 							VerticalAlignment="Center"
+							Modulus="0.1"
 							AllowEmpty="False"
 							AutomationProperties.Name="{x:Static res:EncodingRes.TargetSizeRadioButton}"
 							IsEnabled="{Binding VideoEncodeRateType,
@@ -401,38 +402,15 @@
 				<RowDefinition Height="Auto" />
 				<RowDefinition />
 			</Grid.RowDefinitions>
-			<StackPanel
+			<TextBlock
 				Grid.Row="0"
 				Margin="7 7 0 0"
 				HorizontalAlignment="Left"
 				VerticalAlignment="Top"
-				Orientation="Horizontal">
-				<TextBlock
-					VerticalAlignment="Center"
-					Style="{StaticResource SectionHeader}"
-					Text="{x:Static res:EncodingRes.EncoderSettings}" />
-				<RadioButton
-					Margin="25 2 0 0"
-					Content="{x:Static res:EncodingRes.X264SettingsRadioButtonBasic}"
-					GroupName="advancedTab1"
-					IsChecked="{Binding UseAdvancedTab,
-					                    Converter={StaticResource InverseBoolConverter}}"
-					Visibility="{Binding X264SettingsVisible,
-					                     Converter={StaticResource VisibilityConverter}}" />
-				<RadioButton
-					Margin="15 2 0 0"
-					Content="{x:Static res:EncodingRes.X264SettingsRadioButtonAdvanced}"
-					GroupName="advancedTab2"
-					IsChecked="{Binding UseAdvancedTab}"
-					Visibility="{Binding X264SettingsVisible,
-					                     Converter={StaticResource VisibilityConverter}}" />
-			</StackPanel>
+				Style="{StaticResource SectionHeader}"
+				Text="{x:Static res:EncodingRes.EncoderSettings}" />
 
-			<Grid
-				Grid.Row="1"
-				Margin="16 0 8 6"
-				Visibility="{Binding BasicEncoderSettingsVisible,
-				                     Converter={StaticResource VisibilityConverter}}">
+			<Grid Grid.Row="1" Margin="16 0 8 6">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 					<RowDefinition />
@@ -605,6 +583,10 @@
 							Margin="0 8 0 0"
 							HorizontalAlignment="Stretch"
 							VerticalAlignment="Stretch">
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="Auto" />
 								<ColumnDefinition />
@@ -617,11 +599,33 @@
 								VerticalAlignment="Center"
 								Text="{x:Static res:EncodingRes.MoreSettingsLabel}" />
 							<TextBox
+								Grid.Row="0"
 								Grid.Column="1"
 								AutomationProperties.LabeledBy="{Binding ElementName=moreSettingsLabel}"
 								Text="{Binding VideoOptions,
 								               UpdateSourceTrigger=PropertyChanged}"
-								TextWrapping="Wrap" />
+								TextWrapping="Wrap"
+								ToolTip="{x:Static res:EncodingRes.MoreOptionsToolTip}" />
+
+							<TextBlock
+								Grid.Row="1"
+								Grid.Column="0"
+								Margin="0 4 6 0"
+								VerticalAlignment="Center"
+								Text="{x:Static res:EncodingRes.FullEncoderParameterLabel}"
+								Visibility="{Binding X264SettingsVisible,
+								                     Converter={StaticResource VisibilityConverter}}" />
+							<TextBox
+								Grid.Row="1"
+								Grid.Column="1"
+								Margin="0 4 0 0"
+								Background="{DynamicResource AlternateBackgroundBrush}"
+								IsReadOnly="True"
+								Text="{Binding FullParameterList,
+								               Mode=OneWay}"
+								TextWrapping="Wrap"
+								Visibility="{Binding X264SettingsVisible,
+								                     Converter={StaticResource VisibilityConverter}}" />
 						</Grid>
 					</Grid>
 				</Grid>

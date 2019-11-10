@@ -122,5 +122,13 @@ namespace VidCoder.Services.Windows
 		/// Resumes the AllowDrop property on all windows (used when a smaller drag/drop operation is finished).
 		/// </summary>
 		void ResumeDropOnWindows();
+
+		/// <summary>
+		/// Opens or focuses the viewmodel type's window.
+		/// </summary>
+		/// <typeparam name="T">The type of the window viewmodel.</typeparam>
+		/// <param name="ownerViewModel">The owner view model (main view model).</param>
+		/// <returns>The opened viewmodel.</returns>
+		T OpenOrFocusWindow<T>(object ownerViewModel = null) where T : class;
 	}
 }

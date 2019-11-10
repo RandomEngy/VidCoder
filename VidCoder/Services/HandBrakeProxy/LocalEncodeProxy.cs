@@ -7,6 +7,7 @@ using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoderCommon.Model;
 using System.Threading;
+using System.Threading.Tasks;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.EventArgs;
 using HandBrake.Interop.Interop.Json.Encode;
@@ -21,7 +22,7 @@ namespace VidCoder
 
 		// Instance and lock only used when doing in-process encode (for debugging)
 		private HandBrakeInstance instance;
-		private object encoderLock = new object();
+		private readonly object encoderLock = new object();
 
 		private ManualResetEventSlim encodeStartEvent;
 		private ManualResetEventSlim encodeEndEvent;
@@ -32,7 +33,7 @@ namespace VidCoder
 		public event EventHandler<EncodeProgressEventArgs> EncodeProgress;
 		public event EventHandler<EncodeCompletedEventArgs> EncodeCompleted;
 
-		public void StartEncode(
+		public Task StartEncodeAsync(
 			VCJob job,
 			IAppLogger logger,
 			bool preview, 
@@ -67,9 +68,11 @@ namespace VidCoder
 						return null;
 					}
 				});
+
+			return Task.CompletedTask;
 		}
 
-		public void StartEncode(string encodeJson, IAppLogger logger)
+		public Task StartEncodeAsync(string encodeJson, IAppLogger logger)
 		{
 			this.logger = logger;
 
@@ -77,6 +80,7 @@ namespace VidCoder
 			JsonEncodeObject encodeObject = JsonConvert.DeserializeObject<JsonEncodeObject>(encodeJson);
 
 			this.StartEncodeInternal(encodeObject.Source.Path, encodeObject.Source.Title, scanObject => encodeJson);
+			return Task.CompletedTask;
 		}
 
 		private void StartEncodeInternal(string scanPath, int titleNumber, Func<JsonScanObject, string> jsonFunc)
@@ -89,7 +93,7 @@ namespace VidCoder
 			this.encodeEndEvent = new ManualResetEventSlim(false);
 
 			this.instance = new HandBrakeInstance();
-			this.instance.Initialize(Config.LogVerbosity);
+			this.instance.Initialize(Config.LogVerbosity, noHardware: false);
 
 			this.instance.ScanCompleted += (o, e) =>
 			{
@@ -153,7 +157,7 @@ namespace VidCoder
 			this.encoding = true;
 		}
 
-		public void PauseEncode()
+		public Task PauseEncodeAsync()
 		{
 			this.encodeStartEvent.Wait();
 
@@ -161,14 +165,21 @@ namespace VidCoder
 			{
 				this.instance.PauseEncode();
 			}
+
+			return Task.CompletedTask;
 		}
 
-		public void ResumeEncode()
+		public Task ResumeEncodeAsync()
 		{
-			this.instance.ResumeEncode();
+			lock (this.encoderLock)
+			{
+				this.instance.ResumeEncode();
+			}
+
+			return Task.CompletedTask;
 		}
 
-		public void StopEncode()
+		public Task StopEncodeAsync()
 		{
 			this.encodeStartEvent.Wait();
 
@@ -176,9 +187,11 @@ namespace VidCoder
 			{
 				this.instance.StopEncode();
 			}
+
+			return Task.CompletedTask;
 		}
 
-		public void StopAndWait()
+		public Task StopAndWaitAsync()
 		{
 			this.encodeStartEvent.Wait();
 
@@ -191,6 +204,8 @@ namespace VidCoder
 			}
 
 			this.encodeEndEvent.Wait();
+
+			return Task.CompletedTask;
 		}
 	}
 }

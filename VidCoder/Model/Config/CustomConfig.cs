@@ -48,6 +48,25 @@ namespace VidCoder
 			}
 		}
 
+		private static bool? useWorkerProcessOverride;
+		public static bool UseWorkerProcess
+		{
+			get
+			{
+				if (useWorkerProcessOverride != null)
+				{
+					return useWorkerProcessOverride.Value;
+				}
+
+				return Config.UseWorkerProcess;
+			}
+		}
+
+		public static void SetWorkerProcessOverride(bool value)
+		{
+			useWorkerProcessOverride = value;
+		}
+
 		public static WhenFileExists WhenFileExists
 		{
 			get

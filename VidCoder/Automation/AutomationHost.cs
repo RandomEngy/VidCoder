@@ -3,36 +3,44 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using PipeMethodCalls;
 using VidCoderCommon;
+using VidCoderCLI;
 
 namespace VidCoder.Automation
 {
-	using System.ServiceModel;
-	using VidCoderCLI;
-
 	public static class AutomationHost
 	{
-		private static ServiceHost host;
+		private static PipeServer<IVidCoderAutomation> server;
+		private static CancellationTokenSource cancellationTokenSource;
 
-		public static void StartListening()
+		public static async void StartListening()
 		{
-			Task.Run(async () =>
+			cancellationTokenSource = new CancellationTokenSource();
+
+			try
 			{
-				host = new ServiceHost(typeof(VidCoderAutomation));
-
-				host.AddServiceEndpoint(
-					typeof(IVidCoderAutomation),
-					new NetNamedPipeBinding(),
-					"net.pipe://localhost/VidCoderAutomation" + (CommonUtilities.Beta ? "Beta" : string.Empty));
-
-				await Task.Factory.FromAsync(host.BeginOpen, host.EndOpen, null);
-			});
+				while (true)
+				{
+					using (server = new PipeServer<IVidCoderAutomation>(
+						"VidCoderAutomation" + (CommonUtilities.Beta ? "Beta" : string.Empty),
+						() => new VidCoderAutomation()))
+					{
+						await server.WaitForConnectionAsync().ConfigureAwait(false);
+						await server.WaitForRemotePipeCloseAsync().ConfigureAwait(false);
+					}
+				}
+			}
+			catch (Exception)
+			{
+			}
 		}
 
 		public static void StopListening()
 		{
-			host?.Close();
+			cancellationTokenSource?.Cancel();
 		}
 	}
 }

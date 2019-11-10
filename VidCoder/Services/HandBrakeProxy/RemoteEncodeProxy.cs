@@ -5,10 +5,10 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.ServiceModel;
 using System.Threading;
 using System.Threading.Tasks;
 using HandBrake.Interop.Interop.EventArgs;
+using PipeMethodCalls;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -17,7 +17,7 @@ using VidCoderCommon.Model;
 
 namespace VidCoder
 {
-	public class RemoteEncodeProxy : RemoteProxyBase, IHandBrakeWorkerCallback, IEncodeProxy
+	public class RemoteEncodeProxy : RemoteProxyBase<IHandBrakeEncodeWorker, IHandBrakeEncodeWorkerCallback>, IEncodeProxy, IHandBrakeEncodeWorkerCallback
 	{
 		public event EventHandler EncodeStarted;
 
@@ -31,10 +31,10 @@ namespace VidCoder
 		/// </summary>
 		public event EventHandler<EncodeCompletedEventArgs> EncodeCompleted;
 
-		private ManualResetEventSlim encodeStartEvent;
-		private ManualResetEventSlim encodeEndEvent;
+		private SemaphoreSlim encodeStartEvent;
+		private SemaphoreSlim encodeEndEvent;
 
-		public void StartEncode(
+		public async Task StartEncodeAsync(
 			VCJob job,
 			IAppLogger logger,
 			bool preview,
@@ -44,51 +44,47 @@ namespace VidCoder
 		{
 			this.Logger = logger;
 
-			this.encodeStartEvent = new ManualResetEventSlim(false);
-			this.encodeEndEvent = new ManualResetEventSlim(false);
+			this.encodeStartEvent = new SemaphoreSlim(0, 1);
+			this.encodeEndEvent = new SemaphoreSlim(0, 1);
 
-			this.StartOperation(channel =>
-			{
-				channel.StartEncode(
+			await this.RunOperationAsync(worker =>
+				worker.StartEncode(
 					job,
 					preview ? previewNumber : -1,
 					previewSeconds,
-					EncodingRes.DefaultChapterName);
-			});
+					EncodingRes.DefaultChapterName)
+			);
 		}
 
 		// Used for debug testing of encode JSON.
-		public void StartEncode(string encodeJson, IAppLogger logger)
+		public async Task StartEncodeAsync(string encodeJson, IAppLogger logger)
 		{
 			this.Logger = logger;
 
-			this.encodeStartEvent = new ManualResetEventSlim(false);
-			this.encodeEndEvent = new ManualResetEventSlim(false);
+			this.encodeStartEvent = new SemaphoreSlim(0, 1);
+			this.encodeEndEvent = new SemaphoreSlim(0, 1);
 
-			this.StartOperation(channel =>
-			{
-				channel.StartEncodeFromJson(encodeJson);
-			});
+			await this.RunOperationAsync(worker => worker.StartEncodeFromJson(encodeJson));
 		}
 
-		public void PauseEncode()
+		public Task PauseEncodeAsync()
 		{
-			this.ExecuteWorkerCall(channel => channel.PauseEncode(), nameof(this.Channel.PauseEncode));
+			return this.ExecuteWorkerCallAsync(channel => channel.PauseEncode(), nameof(IHandBrakeEncodeWorker.PauseEncode));
 		}
 
-		public void ResumeEncode()
+		public Task ResumeEncodeAsync()
 		{
-			this.ExecuteWorkerCall(channel => channel.ResumeEncode(), nameof(this.Channel.ResumeEncode));
+			return this.ExecuteWorkerCallAsync(channel => channel.ResumeEncode(), nameof(IHandBrakeEncodeWorker.ResumeEncode));
 		}
 
-		public void StopEncode()
+		public Task StopEncodeAsync()
 		{
-			this.ExecuteWorkerCall(channel => channel.StopEncode(), nameof(this.Channel.StopEncode));
+			return this.ExecuteWorkerCallAsync(channel => channel.StopEncode(), nameof(IHandBrakeEncodeWorker.StopEncode));
 		}
 
 		// This can be called at any time: it will stop the encode ASAP and wait for encode to be stopped before returning.
 		// Usually called before exiting the program.
-		public override void StopAndWait()
+		public async Task StopAndWaitAsync()
 		{
 			if (this.encodeStartEvent == null)
 			{
@@ -98,49 +94,45 @@ namespace VidCoder
 			this.encodeStartEvent.Wait();
 			bool waitForEnd;
 
-			lock (this.ProcessLock)
+			await this.ProcessLock.WaitAsync().ConfigureAwait(false);
+			try
 			{
-				bool connected = this.Channel != null;
+				bool connected = this.Client != null;
 				waitForEnd = connected;
 
 				if (this.Running && connected)
 				{
-					this.ExecuteProxyOperation(() => this.Channel.StopEncode(), nameof(this.Channel));
+					await this.ExecuteProxyOperationAsync(() => this.Client.InvokeAsync(x => x.StopEncode()), nameof(IHandBrakeEncodeWorker.StopEncode)).ConfigureAwait(false);
 
 					// If stopping the encode failed, don't wait for the encode to end.
 					waitForEnd = this.Running;
 				}
 			}
+			finally
+			{
+				this.ProcessLock.Release();
+			}
 
 			if (waitForEnd)
 			{
-				this.encodeEndEvent.Wait();
+				await this.encodeEndEvent.WaitAsync().ConfigureAwait(false);
 			}
-		}
-
-		public void OnScanProgress(float fractionComplete)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void OnScanComplete(string scanJson)
-		{
-			throw new NotImplementedException();
 		}
 
 		public void OnEncodeStarted()
 		{
 			this.EncodeStarted?.Invoke(this, EventArgs.Empty);
 
-			this.encodeStartEvent.Set();
+			this.encodeStartEvent.Release();
 		}
 
 		public void OnEncodeProgress(float averageFrameRate, float currentFrameRate, TimeSpan estimatedTimeLeft, float fractionComplete, int passId, int pass, int passCount, string stateCode)
 		{
 			// Dispatch to avoid deadlocks on callbacks
-			DispatchUtilities.BeginInvoke(() =>
+			DispatchUtilities.BeginInvoke(async () =>
 				{
-					lock (this.ProcessLock)
+					await this.ProcessLock.WaitAsync().ConfigureAwait(false);
+					try
 					{
 						this.LastWorkerCommunication = DateTimeOffset.UtcNow;
 
@@ -151,18 +143,31 @@ namespace VidCoder
 								new EncodeProgressEventArgs(fractionComplete, currentFrameRate, averageFrameRate, estimatedTimeLeft, passId, pass, passCount, stateCode));
 						}
 					}
+					finally
+					{
+						this.ProcessLock.Release();
+					}
 				});
 		}
 
-		public void OnEncodeComplete(bool error)
+		public async void OnEncodeComplete(bool error)
 		{
-			lock (this.ProcessLock)
+			await this.ProcessLock.WaitAsync().ConfigureAwait(false);
+			try
 			{
 				this.EndOperation(error);
 			}
+			finally
+			{
+				this.ProcessLock.Release();
+			}
 
-			this.encodeEndEvent.Set();
+			this.encodeEndEvent.Release();
 		}
+
+		protected override HandBrakeWorkerAction Action => HandBrakeWorkerAction.Encode;
+
+		protected override IHandBrakeEncodeWorkerCallback CallbackInstance => this;
 
 		protected override void OnOperationEnd(bool error)
 		{
