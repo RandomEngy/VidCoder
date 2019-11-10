@@ -532,29 +532,35 @@ namespace VidCoder.Services
 			{
 				return this.applyCurrentPresetToQueue ?? (this.applyCurrentPresetToQueue = ReactiveCommand.Create(() =>
 				{
-					var newJobs = new List<EncodeJobViewModel>();
-
-					Preset newPreset = this.presetsService.SelectedPreset.Preset;
-
-					foreach (EncodeJobViewModel job in this.EncodeQueue.Items)
+					if (this.EncodeQueue.Count > 0)
 					{
-						if (!job.Encoding)
+						var newJobs = new List<EncodeJobViewModel>();
+
+						Preset newPreset = this.presetsService.SelectedPreset.Preset;
+
+						foreach (EncodeJobViewModel job in this.EncodeQueue.Items)
 						{
-							this.ApplyPresetToJob(job, newPreset);
-							newJobs.Add(job);
+							if (!job.Encoding)
+							{
+								this.ApplyPresetToJob(job, newPreset);
+								newJobs.Add(job);
+							}
+						}
+
+						if (this.encodingJobList.Count < this.EncodeQueue.Count)
+						{
+							// Clear out the queue and re-add the updated jobs so all the changes get reflected.
+							this.EncodeQueue.Edit(encodeQueueInnerList =>
+							{
+								// Remove everything that's not encoding
+								int encodingJobsCount = this.encodingJobList.Count;
+								encodeQueueInnerList.RemoveRange(encodingJobsCount, encodeQueueInnerList.Count - encodingJobsCount);
+
+								// Add the changed jobs back
+								encodeQueueInnerList.AddRange(newJobs);
+							});
 						}
 					}
-
-					// Clear out the queue and re-add the updated jobs so all the changes get reflected.
-					this.EncodeQueue.Edit(encodeQueueInnerList =>
-					{
-						// Remove everything that's not encoding
-						int encodingJobsCount = this.encodingJobList.Count;
-						encodeQueueInnerList.RemoveRange(encodingJobsCount, encodeQueueInnerList.Count - encodingJobsCount);
-
-						// Add the changed jobs back
-						encodeQueueInnerList.AddRange(newJobs);
-					});
 
 					this.ShowApplyToQueueButton = false;
 				}));
