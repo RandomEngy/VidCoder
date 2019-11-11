@@ -253,8 +253,6 @@ namespace VidCoder.Services
 			this.EncodingJobsCountObservable = encodingJobsObservable.Count();
 			this.EncodingJobsCountObservable.ToProperty(this, x => x.JobsEncodingCount, out this.jobsEncodingCount);
 
-			this.canPauseOrStopObservable = this.WhenAnyValue(x => x.CanPauseOrStop);
-
 			this.selectedQueueItemModifyableSubject = new BehaviorSubject<bool>(this.selectedQueueItemModifyable);
 		}
 
@@ -597,7 +595,7 @@ namespace VidCoder.Services
 						this.PauseEncoding();
 						this.autoPause.ReportPause();
 					},
-					this.canPauseOrStopObservable));
+					this.canPauseOrStopSubject));
 			}
 		}
 
@@ -623,7 +621,7 @@ namespace VidCoder.Services
 
 						this.Stop();
 					},
-					this.canPauseOrStopObservable));
+					this.canPauseOrStopSubject));
 			}
 		}
 
@@ -1712,9 +1710,14 @@ namespace VidCoder.Services
 			{
 				this.OnEncodeCompleted(jobViewModel, args.Error);
 			};
-			jobViewModel.EncodeProxy.EncodeStarted += this.OnEncodeStarted;
+			jobViewModel.EncodeProxy.EncodeStarted += (sender, args) =>
+			{
+				this.OnEncodeStarted(jobViewModel);
+			};
 
-			this.CanPauseOrStop = false;
+			// When a job is starting, we can't pause it or stop it.
+			jobViewModel.CanPauseOrStop = false;
+			this.canPauseOrStopSubject.OnNext(false);
 
 			if (!string.IsNullOrWhiteSpace(jobViewModel.DebugEncodeJsonOverride))
 			{
@@ -1726,21 +1729,19 @@ namespace VidCoder.Services
 			}
 		}
 
-		private bool canPauseOrStop;
-		private IObservable<bool> canPauseOrStopObservable;
+		private BehaviorSubject<bool> canPauseOrStopSubject = new BehaviorSubject<bool>(false);
 
-		public bool CanPauseOrStop
-		{
-			get { return this.canPauseOrStop; }
-			set { this.RaiseAndSetIfChanged(ref this.canPauseOrStop, value); }
-		}
-
-		private void OnEncodeStarted(object sender, EventArgs e)
+		private void OnEncodeStarted(EncodeJobViewModel jobViewModel)
 		{
 			DispatchUtilities.BeginInvoke(() =>
 			{
 				// After the encode has reported that it's started, we can now pause/stop it.
-				this.CanPauseOrStop = true;
+				jobViewModel.CanPauseOrStop = true;
+
+				if (this.encodingJobList.Items.All(job => job.CanPauseOrStop))
+				{
+					this.canPauseOrStopSubject.OnNext(true);
+				}
 			});
 		}
 
@@ -1892,7 +1893,7 @@ namespace VidCoder.Services
 				EncodeResultViewModel addedResult = null;
 				bool encodingStopped = false;
 
-				this.CanPauseOrStop = false;
+				finishedJobViewModel.CanPauseOrStop = false;
 				EncodeResultStatus status = EncodeResultStatus.Succeeded;
 
 				finishedJobViewModel.ReportEncodeEnd();

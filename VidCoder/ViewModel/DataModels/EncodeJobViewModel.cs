@@ -217,6 +217,13 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.encoding, value); }
 		}
 
+		private bool canPauseOrStop;
+		public bool CanPauseOrStop
+		{
+			get { return this.canPauseOrStop; }
+			set { this.RaiseAndSetIfChanged(ref this.canPauseOrStop, value); }
+		}
+
 		private bool isPaused;
 		public bool IsPaused
 		{
