@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VidCoder.ViewModel;
 
 namespace VidCoder.View.Panels
 {
@@ -19,9 +21,24 @@ namespace VidCoder.View.Panels
 	/// </summary>
 	public partial class AudioEncodingPanel : UserControl
 	{
+		private AudioEncodingViewModel viewModel;
+
 		public AudioEncodingPanel()
 		{
 			InitializeComponent();
+
+			this.DataContextChanged += this.OnDataContextChanged;
+		}
+
+		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+		{
+			this.viewModel = (AudioEncodingViewModel)this.DataContext;
+			this.viewModel.WhenAnyValue(x => x.DrcEnabled).Subscribe(enabled =>
+			{
+				this.drcLabel.SetResourceReference(
+					Control.ForegroundProperty,
+					enabled ? SystemColors.ControlTextBrushKey : SystemColors.GrayTextBrushKey);
+			});
 		}
 	}
 }

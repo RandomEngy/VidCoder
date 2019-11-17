@@ -129,9 +129,6 @@
   <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
     <value>Foreign Audio Search</value>
   </data>
-  <data name="IncludeAllTracksRadioButton" xml:space="preserve">
-    <value>All tracks</value>
-  </data>
   <data name="LanguagesRadioButton" xml:space="preserve">
     <value>Language(s)</value>
   </data>
@@ -279,9 +276,6 @@
   </data>
   <data name="TimeRangeSelection" xml:space="preserve">
     <value>Time range selection</value>
-  </data>
-  <data name="SelectTimeRangeCheckBox" xml:space="preserve">
-    <value>Select time range</value>
   </data>
   <data name="TitleCaptializationLabel" xml:space="preserve">
     <value>Title capitalization:</value>

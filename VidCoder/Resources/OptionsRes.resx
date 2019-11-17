@@ -138,26 +138,17 @@
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
     <value>Automatic updates</value>
   </data>
-  <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>Join the Beta update track</value>
-  </data>
   <data name="FileNamingTab" xml:space="preserve">
     <value>File Naming</value>
   </data>
   <data name="DefaultFolderLabel" xml:space="preserve">
     <value>Default folder:</value>
   </data>
-  <data name="FileFormatLabel" xml:space="preserve">
-    <value>File format:</value>
-  </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
     <value>Default format</value>
   </data>
   <data name="CustomFormatRadioButton" xml:space="preserve">
     <value>Custom format:</value>
-  </data>
-  <data name="FileNameFormatOptions" xml:space="preserve">
-    <value>Available options: {0}</value>
   </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
     <value>When a file already exists...</value>
@@ -356,9 +347,6 @@
   </data>
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Use worker process to encode</value>
-  </data>
-  <data name="VideoSection" xml:space="preserve">
-    <value>Video</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Preserve Created and Modified time when converting files</value>

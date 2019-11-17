@@ -386,7 +386,7 @@
 								Text="-" />
 							<controls:NumberBox
 								Width="40"
-								AutomationProperties.Name="{x:Static res:PickerRes.ChapterRangeStartAutomationName}"
+								AutomationProperties.Name="{x:Static res:PickerRes.ChapterRangeEndAutomationName}"
 								Number="{Binding ChapterRangeEnd,
 								                 Mode=TwoWay}" />
 						</StackPanel>

@@ -810,21 +810,18 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public Brush DrcBrush
+		public bool DrcEnabled
 		{
 			get
 			{
-				Brush disabledBrush = (Brush)Application.Current.Resources[System.Windows.SystemColors.GrayTextBrushKey];
-				Brush enabledBrush = (Brush)Application.Current.Resources[System.Windows.SystemColors.ControlTextBrushKey];
-
 				if (!this.main.HasVideoSource)
 				{
-					return enabledBrush;
+					return true;
 				}
 
 				if (this.SelectedAudioEncoder == null)
 				{
-					return enabledBrush;
+					return true;
 				}
 
 				// Find if we're encoding a single track
@@ -836,15 +833,15 @@ namespace VidCoder.ViewModel
 					int trackNumber = this.main.SelectedTitle.AudioList.IndexOf(track);
 					if (!this.SelectedAudioEncoder.IsPassthrough && this.main.ScanInstance != null && this.main.ScanInstance.CanApplyDrc(trackNumber, this.SelectedAudioEncoder.Encoder, this.main.SelectedTitle.Index))
 					{
-						return enabledBrush;
+						return true;
 					}
 					else
 					{
-						return disabledBrush;
+						return false;
 					}
 				}
 
-				return enabledBrush;
+				return true;
 			}
 		}
 
@@ -1194,7 +1191,7 @@ namespace VidCoder.ViewModel
 
 		private void RefreshDrc()
 		{
-			this.RaisePropertyChanged(nameof(this.DrcBrush));
+			this.RaisePropertyChanged(nameof(this.DrcEnabled));
 		}
 
 		private SourceAudioTrack GetTargetAudioTrack()

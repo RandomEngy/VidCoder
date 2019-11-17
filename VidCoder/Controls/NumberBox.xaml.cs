@@ -23,7 +23,8 @@ namespace VidCoder.Controls
 		private string noneCaption;
 		private bool hasFocus;
 		private DateTime lastFocusMouseDown;
-		private bool suppressRefresh;
+		private bool suppressRefreshFromNumberChange;
+		private bool suppressUpdateFromTextChange;
 
 		//static NumberBox()
 		//{
@@ -210,7 +211,7 @@ namespace VidCoder.Controls
 			{
 				var numBox = dependencyObject as NumberBox;
 
-				if (!numBox.suppressRefresh)
+				if (!numBox.suppressRefreshFromNumberChange)
 				{
 					numBox.RefreshNumberBox();
 				}
@@ -242,6 +243,7 @@ namespace VidCoder.Controls
 
 		private void RefreshNumberBox()
 		{
+			this.suppressUpdateFromTextChange = true;
 			if (this.AllowEmpty && this.Number == 0)
 			{
 				this.numberBox.Text = this.hasFocus ? string.Empty : this.NoneCaption;
@@ -251,6 +253,8 @@ namespace VidCoder.Controls
 				this.numberBox.Text = this.Number.ToString();
 			}
 
+			this.suppressUpdateFromTextChange = false;
+
 			this.RefreshNumberBoxColor();
 		}
 
@@ -258,7 +262,7 @@ namespace VidCoder.Controls
 		{
 			if (this.numberBox.Text == this.NoneCaption)
 			{
-				this.numberBox.Foreground = (Brush)Application.Current.Resources[SystemColors.GrayTextBrushKey];
+				this.numberBox.Foreground = SystemColors.GrayTextBrush;
 			}
 			else
 			{
@@ -433,6 +437,11 @@ namespace VidCoder.Controls
 
 		private void NumberBoxTextChanged(object sender, TextChangedEventArgs e)
 		{
+			if (this.suppressUpdateFromTextChange)
+			{
+				return;
+			}
+
 			if (this.UpdateBindingOnTextChange)
 			{
 				if (this.AllowEmpty && this.numberBox.Text == string.Empty)
@@ -462,9 +471,9 @@ namespace VidCoder.Controls
 					if (newNumber != this.Number)
 					{
 						// While updating the binding we don't need to react to the change.
-						this.suppressRefresh = true;
+						this.suppressRefreshFromNumberChange = true;
 						this.Number = newNumber;
-						this.suppressRefresh = false;
+						this.suppressRefreshFromNumberChange = false;
 					}
 				}
 			}

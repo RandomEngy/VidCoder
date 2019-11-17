@@ -181,12 +181,6 @@
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
     <value>About VidCoder...</value>
   </data>
-  <data name="ChooseVideoSourceLabel" xml:space="preserve">
-    <value>Choose a video source:</value>
-  </data>
-  <data name="SourceLabel" xml:space="preserve">
-    <value>Source:</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>Recent</value>
   </data>
@@ -195,9 +189,6 @@
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>An error occurred while scanning.</value>
-  </data>
-  <data name="AddTrackButton" xml:space="preserve">
-    <value>Add Track</value>
   </data>
   <data name="ChapterMarkersLabel" xml:space="preserve">
     <value>Chapter Markers:</value>
@@ -213,9 +204,6 @@
   </data>
   <data name="SelectOutputPathButton" xml:space="preserve">
     <value>Select output path...</value>
-  </data>
-  <data name="EncodingLabel" xml:space="preserve">
-    <value>Encoding:</value>
   </data>
   <data name="Stop" xml:space="preserve">
     <value>Stop</value>
@@ -253,9 +241,6 @@
   <data name="NoneParen" xml:space="preserve">
     <value>(None)</value>
   </data>
-  <data name="TracksSummaryMultiple" xml:space="preserve">
-    <value>{0} tracks</value>
-  </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
     <value>Do you want to save changes to your current preset?</value>
   </data>
@@ -270,9 +255,6 @@
   </data>
   <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
     <value>Restored from Completed</value>
-  </data>
-  <data name="PresetLabel" xml:space="preserve">
-    <value>Preset:</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
     <value>Destination</value>
@@ -328,9 +310,6 @@
     <value>Could not create output folder. Error details:
 
 {0}</value>
-  </data>
-  <data name="DirectoryCreateErrorTitle" xml:space="preserve">
-    <value>Error creating folder</value>
   </data>
   <data name="EncodeCompleted" xml:space="preserve">
     <value>Encode completed.</value>
@@ -425,9 +404,6 @@
   <data name="RemoveConfirmTitle" xml:space="preserve">
     <value>Remove</value>
   </data>
-  <data name="UserConfigCorrupted" xml:space="preserve">
-    <value>Configuration was corrupted and could not be loaded. Some of your settings may have been reset.</value>
-  </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
     <value>Choose the output folder for encoded video files.</value>
   </data>
@@ -445,9 +421,6 @@
   </data>
   <data name="CloseVideoSourceToolTip" xml:space="preserve">
     <value>Close video source</value>
-  </data>
-  <data name="CloseVideoSourceMenuItem" xml:space="preserve">
-    <value>Close Video Source</value>
   </data>
   <data name="UpdatesMenuItem" xml:space="preserve">
     <value>Updates...</value>
@@ -481,9 +454,6 @@
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>Discard Changes?</value>
-  </data>
-  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
-    <value>Remove audio track</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
     <value>Remove from queue</value>
@@ -562,9 +532,6 @@
   <data name="CustomVideoPlayerError" xml:space="preserve">
     <value>Custom video player could not be found at {0}.</value>
     <comment>{0} is the path to the custom video player.</comment>
-  </data>
-  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
-    <value>Warning: The sizing interface has been overhauled for 2.0, so your presets may have changed. You may want to inspect them and ensure that they are still set up correctly.</value>
   </data>
   <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
     <value>Enqueue Folder of Video Files...</value>

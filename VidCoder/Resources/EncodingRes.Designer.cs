@@ -19,7 +19,7 @@ namespace VidCoder.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class EncodingRes {
@@ -70,15 +70,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Additional advanced x264 options:.
-        /// </summary>
-        public static string AdvancedOptionsStringLabel {
-            get {
-                return ResourceManager.GetString("AdvancedOptionsStringLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Advanced Query.
         /// </summary>
         public static string AdvancedQuery {
@@ -102,15 +93,6 @@ namespace VidCoder.Resources {
         public static string AlignAVStartCheckBoxToolTip {
             get {
                 return ResourceManager.GetString("AlignAVStartCheckBoxToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Allow upscaling.
-        /// </summary>
-        public static string AllowUpscalingCheckbox {
-            get {
-                return ResourceManager.GetString("AllowUpscalingCheckbox", resourceCulture);
             }
         }
         
@@ -403,33 +385,6 @@ namespace VidCoder.Resources {
         public static string CodecLabel {
             get {
                 return ResourceManager.GetString("CodecLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Advanced.
-        /// </summary>
-        public static string ColorPickerAdvancedButton {
-            get {
-                return ResourceManager.GetString("ColorPickerAdvancedButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Standard.
-        /// </summary>
-        public static string ColorPickerStandardButton {
-            get {
-                return ResourceManager.GetString("ColorPickerStandardButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Standard colors.
-        /// </summary>
-        public static string ColorPickerStandardColorsHeader {
-            get {
-                return ResourceManager.GetString("ColorPickerStandardColorsHeader", resourceCulture);
             }
         }
         
@@ -2205,15 +2160,6 @@ namespace VidCoder.Resources {
         public static string WindowTitle {
             get {
                 return ResourceManager.GetString("WindowTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to x264 Settings.
-        /// </summary>
-        public static string X264Settings {
-            get {
-                return ResourceManager.GetString("X264Settings", resourceCulture);
             }
         }
         
