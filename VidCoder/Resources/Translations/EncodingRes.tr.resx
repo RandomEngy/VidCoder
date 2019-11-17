@@ -126,119 +126,6 @@
   <data name="Revert" xml:space="preserve">
     <value>Geri Al</value>
   </data>
-  <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
-    <value>x264, B-karelerinin ne zaman kullanılacağına ve ne kadarının kullanılacağına karar vermek için çeşitli algoritmalara sahiptir.
-
-Hızlı mod, ne kadar B-karesi belirlediğinize bakmaksızın kabaca aynı miktarda zaman alır. Ancak, hızlı olsa da kararlılığı çoğu zaman yetersizdir.
-
-İdeal mod, azami B-Kare sayısını artırdığı için daha yavaştır, ancak özellikle B-piramit ile kullanıldığında daha kararlı sonuç verir.</value>
-  </data>
-  <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
-    <value>H.264 B-kareleri için mekansal ve zamansal olmak üzere iki farklı tahmin modu sağlar.
-
-Mekansal, varsayılan olan, neredeyse her zaman daha iyidir, ama Zamansal da bazen kullanışlıdır.
-
-x264, az miktarda hız kaybı pahasına (ve buna göre küçük bir sıkıştırma kazancıyla) uyarlanabilir olarak her bir özel kare için en iyi seçeneği seçebilir.</value>
-  </data>
-  <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
-    <value>Uyamsal niceleme, kodlayıcının ikilleri kare içinde nasıl dağıttığını denetler.
-Daha yüksek değerler daha fazla ikili kenarlardan ve kompleks alanlardan eksilterek daha ince ayrıntılı alanları geliştirmeyi sağlar.</value>
-  </data>
-  <data name="Advanced_AnalysisToolTip" xml:space="preserve">
-    <value>Mod, çeşitli seçeneklerden birine karar verir: Tercihi mevcut seçeneklerden yapar. Kötü tercih karşılığında kontrol edilmesi gereken daha az bölüm ve daha hızlı kodlama anlamına gelir. En iyi modun kapalı olmasısdır.</value>
-  </data>
-  <data name="Advanced_BFramesToolTip" xml:space="preserve">
-    <value>Makul değerler ~2-5 arasındadır.  
-Kodlayıcının kullanabileceği maksimum sıralı B-kare sayısını belirtir. 
-Uyamsal B-kareleri için İdeal seçeneği seçilmediyse büyük sayıların genellikle kayda değer bir yardımı olmaz.  
-Cel-animasyonlu kaynak materyali ve B-Piramit de önemli ölçüde daha büyük değer kullanışlılığını önemli ölçüde arttırır. 
-iPod ve benzeri cihazlar için gerekli olan Bazal profil B-karelerinin 0 (kapalı) olarak ayarlanmasını gerektirir.</value>
-  </data>
-  <data name="Advanced_CabacToolTip" xml:space="preserve">
-    <value>Kodlayıcı çalışmasını yaptıktan sonra, ZIP veya RAR gibi kayıpsız şekilde sıkıştırılması gereken bir sürü veriye sahiptir. H.264 bunun için iki seçenek sunar: CAVLC ve CABAC. CABAC çok daha yavaş çözülür, ancak özellikle düşük bit hızlarında daha iyi (% 10-30) sıkıştırır. Video oynatımı için CPU gereksinimlerini en aza indirmeyi düşünüyorsanız, bu seçeneği devre dışı bırakın. İPod ve benzeri cihazlar için gerekli olan temel profil, CABAC'ın devre dışı bırakılmasını gerektirir.</value>
-  </data>
-  <data name="Advanced_DeblockingToolTip" xml:space="preserve">
-    <value>H.264, her karenin kodunu çözdükten sonra bloklama yapılarını düzelten dahili blok giderme filtresine sahiptir. Bu sadece görsel kaliteyi arttırmakla kalmaz, önemli derecede sıkıştırmaya da yardımcı olur. 
-Blok giderme filtresi çok fazla CPU gücü kullanır, video oynatımı için CPU gereksinimlerini en aza indirmeyi düşünüyorsanız, devre dışı bırakın.
-  
-Blok giderme filtresi "güç" ve "eşik" olmak üzere iki ayarlanabilir parametreye sahiptir. 
-İlki, blok gidericinin ne kadar güçlü (veya zayıf) olduğunu, ikincisi ise ne kadar çok (veya az) kenara uygulanacağını kontrol eder. 
-Düşük değerler daha az blok giderme, yüksek değerler daha fazla blok giderme anlamına gelir. Her iki parametre için varsayılan 0'dır (normal güç).</value>
-  </data>
-  <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
-    <value>8x8 dönüşümü, hız başına sıkıştırma açısından x264'ün en kullanışlı özelliğidir. 
-Çok düşük bir hız kaybıyla sıkıştırmayı en az% 5 artırır ve sıkıştırma kazancına kıyasla alışılmadık derecede yüksek görsel kalite yararı sağlayabilir. 
-Ancak, birçok cihazın desteklemeyebileceği Yüksek Profil gerektirir.</value>
-  </data>
-  <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
-    <value>Hareket tahmini yöntemini kontrol eder. Hareket tahmini, kodlayıcının bir karedeki her bir piksel bloğunun nasıl hareket ettiğini tahmin etmesidir. 
-Daha iyi bir hareket arama yöntemi, sıkıştırmayı hız kaybına karşılık iyileştirir. 
-
-Elmas: Elmas deseni kullanarak oldukça hızlı ve basit bir arama yapar. 
-
-Altıgen: Altıgen deseni kullanarak biraz daha etkili ancak biraz daha yavaş arama yapar. 
-
-Düzensiz Çoklu Altıgen: Karmaşık hareketi daha doğru yakalayan çeşitli desenler kullanarak çok geniş bir arama yapar. 
-
-Ayrıntılı: Geniş bir alandaki her piksel için "aptal" arama yapar. Sadece küçük bir sıkıştırma kazancı için önemli ölçüde daha yavaştır. 
-
-Dönüştürülmüş Ayrıntılı: Ayrıntılı gibi ancak daha doğru kararlar verir. Buna rağmen sadece küçük bir gelişme için fazla yavaştır.</value>
-  </data>
-  <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
-    <value>Bu x264'ün, gerçek hareketini bulmaya çalışmak için bir blok hareketindeki en iyi tahminine göre aradığı mesafedir. 
-
-Varsayılan değer çoğu içerik için uygundur, ancak özellikle HD çözünürlüklü aşırı hareketli videolarda, yüksek hızdan bir kayıp da olsa, daha yüksek aralıklardan yararlanabilir. 
-
-Geçerli değerler Elmas ve Altıgen yöntemleri için 4-16 ve diğer yöntemler için 4-64'tür.</value>
-  </data>
-  <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
-    <value>x264 normalde neredeyse boş veri bloklarını videoda daha iyi bir amaç için kullanılacak bitler şeklinde kaydederek sıfırlar.  
-Bununla birlikte bu işlem bazen korunması gereken granül ve titremeler üzerinde hafif olumsuz etkiler yapabilir. 
-Bantlama sorunları veya iyi gürültü -granül ve titreme- korumakta zorlandığınız diğer durumlar yaşıyorsanız buna dokunmayın.</value>
-  </data>
-  <data name="Advanced_PsychovisualRateDistortionToolTip" xml:space="preserve">
-    <value>Psikogörsel Hız Deformasyonu, x264'ün bir bilgisayarın anladığı şekilde kaliteyi en üst düzeye çıkarmaya çalışmaktan ziyade, ince ayrıntı ve gürültüyü birbirinden ayırmakta zorlanan sinyal-gürültü oranları aracılığıyla insan gözüne daha iyi kalite sunmak için detay tutmaya çalışmasıdır.</value>
-  </data>
-  <data name="Advanced_PsychovisualTrellisToolTip" xml:space="preserve">
-    <value>Psikogörsel Kafes daha fazla netlik ve detay tutmaya çalışır, ancak yapaylığa neden olabilir. 
-Deneysel olarak kabul edilir, bu yüzden varsayılan olarak kapalıdır. İyi değerler 0,1 ila 0,2'dir.</value>
-  </data>
-  <data name="Advanced_PyramidalBFramesToolTip" xml:space="preserve">
-    <value>B-piramidi, B-karelerinin sıkıştırmayı iyileştirmek için birbirlerine referans vermesine izin veren bir piramidal yapı (dolayısıyla adı) oluşturur. 
-
-Max B-Karelerinin 1'den büyük olmasını gerektirir; tam sıkıştırma kazancı için İdeal Uyumsal B kareleri şiddettle tavsiye edilir.</value>
-  </data>
-  <data name="Advanced_ReferenceFramesToolTip" xml:space="preserve">
-    <value>İdeal değerler ~ 1-6.
-
-Ne kadar çok eklerseniz, sıkıştırma o kadar iyidir, ancak kodlama o kadar yavaş olur.
-
-Cel animasyonu, film içeriğinden çok daha fazla referans karesinden faydalanma eğilimindedir.
-
-Pek çok donanım cihazının desteklenen referans kareleri sayısında sınırlamalar olduğunu unutmayın; bu nedenle elde taşınır veya bağımsız bir oynatıcı için kodlama yapıyorsanız, ne yaptığınızı tam olarak bilmediğiniz sürece, buna dokunmayın!</value>
-  </data>
-  <data name="Advanced_SubpixelMotionEstimationToolTip" xml:space="preserve">
-    <value>Bu ayar hem altpiksel-hassasiyetinde hareket tahmini hem de mod karar yöntemlerini kontrol eder.
-
-Altpiksel hareket tahmini, hareket tahminlerini yalnızca piksel doğruluğunun ötesinde rafine etmek için kullanılır, bu da sıkıştırmayı geliştirir.
-
-Mod kararı, karenin her bir bloğunun nasıl kodlanacağını seçmek için kullanılan yöntemdir: çok önemli bir karardır.
-
-SAD en hızlı yöntemdir, bunu SATD, RD, RD iyileştirme ve en yavaş QPRD takip eder.
-6 ya da daha üstü şiddetle tavsiye edilir: Psy-RD, ayrıntıyı korumaya yardımcı olan çok güçlü bir psy optimizasyonudur, RD gerektirir.
-10, en güçlü ve en yavaş seçenektir, kafes = 2 gerektirir.</value>
-  </data>
-  <data name="Advanced_TrellisToolTip" xml:space="preserve">
-    <value>Kafes, %3-5 daha fazla sıkıştırma sağlamak için hızdan biraz ödün vererek dönüşüm katsayılarının yuvarlamasında ince ayar yapar.
-"Her Zaman" seçeneği kafesi sadece ana kodlama işlemi sırasında değil aynı zamanda analiz sırasında da büyük bir hız kaybı pahasına da olsa daha fazla sıkıştırma için kullanır.
-
-Kafes daha yüksek bit oranlarında daha fazla hız kaybı mal olur.</value>
-  </data>
-  <data name="Advanced_WeightPToolTip" xml:space="preserve">
-    <value>Her kare için ağırlık parametrelerine karar vermek için ekstra analiz yapar. Bu, genel sıkıştırmayı biraz arttırır ve solma kalitesini büyük ölçüde artırır.
-iPod'lar ve benzeri cihazlar için gerekli olan temel profil ağırlıklı P-kare tahmininin devre dışı bırakılmasını gerektirir.
-Bazı cihazların ve oynatıcıların, hatta Ana Profili destekleyenlerin bile, Ağırlıklı P-kare öngörüsü ile ilgili sorunlara sahip olabileceğini unutmayın: örneğin Apple TV tamamen uyumsuzdur.</value>
-  </data>
   <data name="Audio_DrcToolTip" xml:space="preserve">
     <value>Dinamik Aralık Sıkıştırma. Geçerli değerler 0-4.
 
@@ -298,9 +185,6 @@ Oynatıcı cihazınızın yalnızca belirli bir profili desteklediğini biliyors
   </data>
   <data name="TabHeader_AudioEncoding" xml:space="preserve">
     <value>Ses Kodlama</value>
-  </data>
-  <data name="TabHeader_Advanced" xml:space="preserve">
-    <value>Gelişmiş Video</value>
   </data>
   <data name="Rename" xml:space="preserve">
     <value>Yeniden Adlandır</value>
@@ -398,9 +282,6 @@ Oynatıcı cihazınızın yalnızca belirli bir profili desteklediğini biliyors
   <data name="ConstantQualityRadioButton" xml:space="preserve">
     <value>Sabit Kalite</value>
   </data>
-  <data name="X264BasicSettings" xml:space="preserve">
-    <value>x264 Temel Ayarları</value>
-  </data>
   <data name="ProfileLabel" xml:space="preserve">
     <value>Profil:</value>
   </data>
@@ -434,9 +315,7 @@ Oynatıcı cihazınızın yalnızca belirli bir profili desteklediğini biliyors
   <data name="Preset_Fast" xml:space="preserve">
     <value>Hızlı</value>
   </data>
-  <data name="Preset_Medium" xml:space="preserve">
-    <value>Orta (Varsayılan)</value>
-  </data>
+  
   <data name="Preset_Slow" xml:space="preserve">
     <value>Yavaş</value>
   </data>
@@ -597,168 +476,6 @@ Oynatıcı cihazınızın yalnızca belirli bir profili desteklediğini biliyors
   <data name="Bitrate" xml:space="preserve">
     <value>Bit Hızı</value>
   </data>
-  <data name="Encoding" xml:space="preserve">
-    <value>Kodlama</value>
-  </data>
-  <data name="ReferenceFramesLabel" xml:space="preserve">
-    <value>Referans Kareleri:</value>
-  </data>
-  <data name="MaxBFramesLabel" xml:space="preserve">
-    <value>Maks. B-Kareleri:</value>
-  </data>
-  <data name="CabacLabel" xml:space="preserve">
-    <value>CABAC:</value>
-  </data>
-  <data name="EightByEightTransformLabel" xml:space="preserve">
-    <value>8x8 Dönüşüm:</value>
-  </data>
-  <data name="WeightedPFramesLabel" xml:space="preserve">
-    <value>Ağırlıklı P-Kareleri:</value>
-  </data>
-  <data name="PyramidalBFramesLabel" xml:space="preserve">
-    <value>Piramidal B-Kareleri:</value>
-  </data>
-  <data name="NoDctDecimateLabel" xml:space="preserve">
-    <value>DCT-Eksiltmesi Yok:</value>
-  </data>
-  <data name="Analysis" xml:space="preserve">
-    <value>Analiz</value>
-  </data>
-  <data name="AdaptiveBFramesLabel" xml:space="preserve">
-    <value>Uyumsal B-Kareleri:</value>
-  </data>
-  <data name="AdaptiveDirectModeLabel" xml:space="preserve">
-    <value>Uyumsal Direkt Mod:</value>
-  </data>
-  <data name="MotionEstimationMethodLabel" xml:space="preserve">
-    <value>Hareket Tahmini Yöntemi:</value>
-  </data>
-  <data name="SubpixelMotionEstimationLabel" xml:space="preserve">
-    <value>Altpiksel Hareket Tahmini:</value>
-  </data>
-  <data name="MotionEstimationRangeLabel" xml:space="preserve">
-    <value>Hareket Tahmini Kapsamı:</value>
-  </data>
-  <data name="AdaptiveQuantizationStrengthLabel" xml:space="preserve">
-    <value>Uyumsal Niceleme Gücü:</value>
-  </data>
-  <data name="PsychoVisualRateDistortionLabel" xml:space="preserve">
-    <value>Psikogörsel Oran Bozulması:</value>
-  </data>
-  <data name="PsychovisualTrellisLabel" xml:space="preserve">
-    <value>Psikogörsel Kafes:</value>
-  </data>
-  <data name="DeblockingLabel" xml:space="preserve">
-    <value>Blok Giderme:</value>
-  </data>
-  <data name="PartitionTypeLabel" xml:space="preserve">
-    <value>Bölüm Türü:</value>
-  </data>
-  <data name="TrellisLabel" xml:space="preserve">
-    <value>Kafes:</value>
-  </data>
-  <data name="OptionsString" xml:space="preserve">
-    <value>Seçenekler Dizgisi</value>
-  </data>
-  <data name="PyramidalBFrames_Off" xml:space="preserve">
-    <value>Kapalı</value>
-  </data>
-  <data name="PyramidalBFrames_Normal" xml:space="preserve">
-    <value>Normal</value>
-  </data>
-  <data name="PyramidalBFrames_Strict" xml:space="preserve">
-    <value>Sıkı</value>
-  </data>
-  <data name="AdaptiveBFrames_Off" xml:space="preserve">
-    <value>Kapalı</value>
-  </data>
-  <data name="AdaptiveBFrames_Fast" xml:space="preserve">
-    <value>Hızlı</value>
-  </data>
-  <data name="AdaptiveBFrames_Optimal" xml:space="preserve">
-    <value>İdeal</value>
-  </data>
-  <data name="DirectPrediction_None" xml:space="preserve">
-    <value>Hiçbiri</value>
-  </data>
-  <data name="DirectPrediction_Spatial" xml:space="preserve">
-    <value>Mekansal</value>
-  </data>
-  <data name="DirectPrediction_Temporal" xml:space="preserve">
-    <value>Geçici</value>
-  </data>
-  <data name="DirectPrediction_Automatic" xml:space="preserve">
-    <value>Otomatik</value>
-  </data>
-  <data name="MotionEstimationMethod_Diamond" xml:space="preserve">
-    <value>Elmas</value>
-  </data>
-  <data name="MotionEstimationMethod_Hexagon" xml:space="preserve">
-    <value>Altıgen</value>
-  </data>
-  <data name="MotionEstimationMethod_UnevenMultiHexagon" xml:space="preserve">
-    <value>Düzensiz Çoklu Altıgen</value>
-  </data>
-  <data name="MotionEstimationMethod_Exhaustive" xml:space="preserve">
-    <value>Ayrıntılı</value>
-  </data>
-  <data name="MotionEstimationMethod_TransformedExhaustive" xml:space="preserve">
-    <value>Dönüştürülmüş Ayrıntılı</value>
-  </data>
-  <data name="SubpixelMotionEstimation_0" xml:space="preserve">
-    <value>0: SAD, altpiksel yok (süper hızlı!)</value>
-  </data>
-  <data name="SubpixelMotionEstimation_1" xml:space="preserve">
-    <value>1: SAD, qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_2" xml:space="preserve">
-    <value>2: SATD, qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_3" xml:space="preserve">
-    <value>3: SATD, çoklu-qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_4" xml:space="preserve">
-    <value>4: SATD, tümünde qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_5" xml:space="preserve">
-    <value>5: SATD, tümünde çoklu-qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_6" xml:space="preserve">
-    <value>6: I/P-karelerinde RD</value>
-  </data>
-  <data name="SubpixelMotionEstimation_7" xml:space="preserve">
-    <value>7: Tüm karelerde RD</value>
-  </data>
-  <data name="SubpixelMotionEstimation_8" xml:space="preserve">
-    <value>8: I/P-karelerinde RD iyileştirmesi</value>
-  </data>
-  <data name="SubpixelMotionEstimation_9" xml:space="preserve">
-    <value>9: Tüm karelerde RD iyileştirmesi</value>
-  </data>
-  <data name="SubpixelMotionEstimation_10" xml:space="preserve">
-    <value>10: Tüm karelerde QPRD</value>
-  </data>
-  <data name="SubpixelMotionEstimation_11" xml:space="preserve">
-    <value>11: Analizde erken sonlandırma yok</value>
-  </data>
-  <data name="Analysis_None" xml:space="preserve">
-    <value>Hiçbiri</value>
-  </data>
-  <data name="Analysis_Some" xml:space="preserve">
-    <value>Biraz</value>
-  </data>
-  <data name="Analysis_All" xml:space="preserve">
-    <value>Tümü</value>
-  </data>
-  <data name="Trellis_Off" xml:space="preserve">
-    <value>Kapalı</value>
-  </data>
-  <data name="Trellis_EncodeOnly" xml:space="preserve">
-    <value>Yalnızca Kodla</value>
-  </data>
-  <data name="Trellis_Always" xml:space="preserve">
-    <value>Her Zaman</value>
-  </data>
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} (Varsayılan)</value>
   </data>
@@ -787,9 +504,6 @@ Diğer tüm ayarları geçersiz kılar.</value>
   </data>
   <data name="VideoEncoder_x264" xml:space="preserve">
     <value>H.264 (x264)</value>
-  </data>
-  <data name="Analysis_Most" xml:space="preserve">
-    <value>Çoğu</value>
   </data>
   <data name="AdvancedQuery" xml:space="preserve">
     <value>Gelişmiş Sorgu</value>
@@ -829,17 +543,6 @@ Diğer tüm ayarları geçersiz kılar.</value>
   </data>
   <data name="AudioEncoder_flac24" xml:space="preserve">
     <value>FLAC 24-bit</value>
-  </data>
-  <data name="Advanced_PsychovisualLabel" xml:space="preserve">
-    <value>Psikogörsel</value>
-  </data>
-  <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
-    <value>Temel</value>
-    <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
-  </data>
-  <data name="X264SettingsRadioButtonAdvanced" xml:space="preserve">
-    <value>Gelişmiş</value>
-    <comment>Label for radio button to choose advanced x264 settings on a separate tab.</comment>
   </data>
   <data name="VideoEncoder_mpeg2" xml:space="preserve">
     <value>MPEG-2</value>
@@ -1120,23 +823,8 @@ Keskinleştir (Lapsharp), Laplacian kenar filtrelerine yakın olan kıvrım tane
   <data name="ChooseNewFolderName" xml:space="preserve">
     <value>Klasör için yeni bir ad girin:</value>
   </data>
-  <data name="NVEncPreset_losslesshp" xml:space="preserve">
-    <value>Yüksek Performanslı Kayıpsız</value>
-  </data>
-  <data name="NVEncPreset_lossless" xml:space="preserve">
-    <value>Kayıpsız</value>
-  </data>
-  <data name="NVEncPreset_llhp" xml:space="preserve">
-    <value>Yüksek Performans Düşük Gecikme</value>
-  </data>
-  <data name="NVEncPreset_llhq" xml:space="preserve">
-    <value>Yüksek Kalite Düşük Gecikme</value>
-  </data>
   <data name="NVEncPreset_ll" xml:space="preserve">
     <value>Düşük Gecikme</value>
-  </data>
-  <data name="NVEncPreset_bd" xml:space="preserve">
-    <value>BluRay Disk</value>
   </data>
   <data name="NVEncPreset_hq" xml:space="preserve">
     <value>Yüksek Kalite</value>
@@ -1170,4 +858,6 @@ Keskinleştir (Lapsharp), Laplacian kenar filtrelerine yakın olan kıvrım tane
   <data name="ApplyToQueueButton" xml:space="preserve">
     <value>Kuyruğa uygula</value>
   </data>
+  
+  
 </root>

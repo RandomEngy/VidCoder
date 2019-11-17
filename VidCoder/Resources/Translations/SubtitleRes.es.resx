@@ -153,18 +153,13 @@
   <data name="OffsetColumn" xml:space="preserve">
     <value>Desplazamiento (ms)</value>
   </data>
-  <data name="ImportSrtButton" xml:space="preserve">
-    <value>Importar archivo .srt...</value>
-  </data>
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Otras pistas de subtítulos se superpondrán a los subtítulos pegados.</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Busqueda de Audio Externo</value>
   </data>
-  <data name="SrtFilePickerText" xml:space="preserve">
-    <value>Agregar archivo de subtítulos</value>
-  </data>
+  
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>No se pudo detectar la codificación del archivo de subtítulos. Para asegurarse de que los subtítulos aparecen correctamente, vuelva a guardar el archivo con formato UTF-8.</value>
   </data>
@@ -175,4 +170,6 @@
     <value>{0} externo(s)</value>
     <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
   </data>
+  
+  
 </root>

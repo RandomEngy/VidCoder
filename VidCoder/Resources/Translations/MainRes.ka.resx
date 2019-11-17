@@ -200,7 +200,7 @@
     <value>წყაროს დამატება</value>
   </data>
   <data name="ChapterMarkersLabel" xml:space="preserve">
-    <value>თავის მნიშვნელი:</value>
+    <value>სათავის მნიშვნელი:</value>
   </data>
   <data name="EditButton" xml:space="preserve">
     <value>შეცვლა...</value>
@@ -248,7 +248,7 @@
     <value>კოდირება მიმდინარეობს</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>უცხოენის აუდიოს მოძიება</value>
+    <value>უცხო ენის აუდიოს მოძიება</value>
   </data>
   <data name="NoneParen" xml:space="preserve">
     <value>(არანაირი)</value>
@@ -648,20 +648,16 @@
     <value>წარუმატებლების ხელახლა განმეორება</value>
   </data>
   <data name="StartChapterAutomationName" xml:space="preserve">
-    <value>თავის მნიშვნელის დაწყება</value>
+    <value>სათავის მნიშვნელის დაწყება</value>
     <comment>Narrator label for the chapter start combo box</comment>
   </data>
   <data name="EndChapterAutomationName" xml:space="preserve">
-    <value>თავის მნიშვნელის დასრულება</value>
+    <value>სათავის მნიშვნელის დასრულება</value>
     <comment>Narrator label for the end chapter combo box</comment>
   </data>
   <data name="EditChaptersButtonAutomationName" xml:space="preserve">
-    <value>თავის მნიშვნელის დამუშავება</value>
+    <value>სათავის მნიშვნელის დამუშავება</value>
     <comment>Help text for screen readers for the Edit chapters button</comment>
-  </data>
-  <data name="TitleFilterRangeStartAutomationName" xml:space="preserve">
-    <value>სახელის ფილტრის წუთების დაწყება</value>
-    <comment>Screen reader text for number box that represents the start of the filter range in minutes. The number chosen in this box represents the minimum title length in minutes that will be chosen.</comment>
   </data>
   <data name="ApplyCurrentEncodingSettings" xml:space="preserve">
     <value>აქტუალური კოდირების პარამეტრების გამოყენება</value>
@@ -679,5 +675,32 @@
     <value>სამუშაო: {0}</value>
     <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion. This string is only used when there are multiple items queued.
 {0} is the encode complete action, ex "Shut down"</comment>
+  </data>
+  <data name="VideoEncodingOptionsToolTip" xml:space="preserve">
+    <value>ვიდეო კოდირების პარამეტრები</value>
+  </data>
+  <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
+    <value>აუდიო კოდირების პარამეტრები</value>
+  </data>
+  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
+    <value>{0} ვერსია ჩამოტვირთულია.</value>
+  </data>
+  <data name="RemoveFromQueueMenuItem" xml:space="preserve">
+    <value>სამუშაო სიიდან წაშლა</value>
+  </data>
+  <data name="ClearSucceededMenuItem" xml:space="preserve">
+    <value>გასუფთავება დასრულებულია</value>
+  </data>
+  <data name="ClearFailedMenuItem" xml:space="preserve">
+    <value>გასუფთავება წარუმატებულია</value>
+  </data>
+  <data name="ClearQueueConfirmationMessage" xml:space="preserve">
+    <value>ნამდვილად გსურთ ყველაფრის სამუშაო სიიდან წაშლა?</value>
+  </data>
+  <data name="RemoveAllFomQueueMenuItem" xml:space="preserve">
+    <value>ყველაფრის სამუშაო სიიდან წაშლა</value>
+  </data>
+  <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
+    <value>კოდირების დასრულების ქმედება არ სრულდება, იხილეთ შეცდომები პროგრამის შედეგების სიაში.</value>
   </data>
 </root>

@@ -153,21 +153,29 @@
   <data name="OffsetColumn" xml:space="preserve">
     <value>オフセット(ms)</value>
   </data>
-  <data name="ImportSrtButton" xml:space="preserve">
-    <value>srtファイルを読み込む...</value>
-  </data>
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>その他の字幕は焼きこんだ字幕の上に表示されます</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>強制字幕検索</value>
   </data>
-  <data name="SrtFilePickerText" xml:space="preserve">
-    <value>字幕ファイル追加</value>
+  <data name="SubtitleFilePickerText" xml:space="preserve">
+    <value>字幕ファイルを追加</value>
   </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>字幕ファイルの文字コードを検出できませんでした。字幕が正しく表示されていることを確認し、UTF-8でファイルを保存してください。</value>
   </data>
-  
-  
+  <data name="NoSubtitlesText" xml:space="preserve">
+    <value>ソースに字幕がありません</value>
+  </data>
+  <data name="ExternalSubtitlesSummaryFormat" xml:space="preserve">
+    <value>{0} の外部字幕</value>
+    <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
+  </data>
+  <data name="ImportSubtitleButton" xml:space="preserve">
+    <value>ファイルからインポート...</value>
+  </data>
+  <data name="FilePickerDescription" xml:space="preserve">
+    <value>字幕ファイル</value>
+  </data>
 </root>

@@ -117,10 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ClearButton" xml:space="preserve">
-    <value>クリア</value>
-  </data>
   <data name="LogWindowTitle" xml:space="preserve">
     <value>ログ</value>
+  </data>
+  <data name="GeneralLogLabel" xml:space="preserve">
+    <value>全般</value>
+  </data>
+  <data name="LogVerbosity_Minimized" xml:space="preserve">
+    <value>最小化</value>
+  </data>
+  <data name="LogVerbosity_Standard" xml:space="preserve">
+    <value>標準</value>
+  </data>
+  <data name="LogVerbosity_Extended" xml:space="preserve">
+    <value>拡張</value>
+  </data>
+  <data name="CopyToPastebinButton" xml:space="preserve">
+    <value>Pastebinへのリンクをコピー</value>
+    <comment>Label for button that copies the log to Pastebin and puts the URL on the clipboard.</comment>
+  </data>
+  <data name="PastebinSuccessStatus" xml:space="preserve">
+    <value>Pastebinへのリンクをクリップボードにコピーしました</value>
+  </data>
+  <data name="ClearFinishedButton" xml:space="preserve">
+    <value>完了済みを削除</value>
   </data>
 </root>

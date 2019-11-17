@@ -153,17 +153,14 @@
   <data name="OffsetColumn" xml:space="preserve">
     <value>Offset (ms)</value>
   </data>
-  <data name="ImportSrtButton" xml:space="preserve">
-    <value>Importar arquivo .srt...</value>
-  </data>
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Outras faixas de legendas irão sobrepor legendas embutidas.</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Pesquisa de áudio externo</value>
   </data>
-  <data name="SrtFilePickerText" xml:space="preserve">
-    <value>Add arquivo de legendas</value>
+  <data name="SubtitleFilePickerText" xml:space="preserve">
+    <value>Adicionar legendas</value>
   </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Não foi possível detectar a codificação do arquivo de legenda. Para assegurar que as legendas apareçam corretamente, converta o arquivo para o formato UTF-8.</value>
@@ -174,5 +171,11 @@
   <data name="ExternalSubtitlesSummaryFormat" xml:space="preserve">
     <value>{0} externo</value>
     <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
+  </data>
+  <data name="ImportSubtitleButton" xml:space="preserve">
+    <value>Importar do arquivo...</value>
+  </data>
+  <data name="FilePickerDescription" xml:space="preserve">
+    <value>Arquivos de legendas</value>
   </data>
 </root>

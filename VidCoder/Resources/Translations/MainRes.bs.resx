@@ -649,7 +649,6 @@
     <value>Izmjeni poglavlja</value>
     <comment>Help text for screen readers for the Edit chapters button</comment>
   </data>
-  
   <data name="ApplyCurrentEncodingSettings" xml:space="preserve">
     <value>Primjeni trenutne postavke enkodiranja</value>
   </data>
@@ -657,6 +656,15 @@
     <value>Otvori izvornu mapu</value>
     <comment>Menu option to open the folder of the source file in the queue</comment>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
 </root>

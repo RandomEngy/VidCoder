@@ -190,7 +190,10 @@
     <value>Argukmentumok:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  
+  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
+    <value>A programnak továbbítandó változók. {file} a fájl kimeneti útvonalához, {folder} a tartalmazó mappaútvonalhoz, vagy egyéb opciók mint {title} és {date} (lásd elnevezési formátumot).</value>
+    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>A választó meghatározta a kódolási sémát.</value>
   </data>
@@ -247,19 +250,62 @@
     <value>Csak kényszerített</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="AudioDefaultToolTip" xml:space="preserve">
+    <value>Az utoljára kijelölt hangsávot választja ki, ha talál egyezést, egyéb esetben az elsőt választja.</value>
+  </data>
+  <data name="LastSelectedRadioButton" xml:space="preserve">
+    <value>Utoljára kiválasztott</value>
+  </data>
+  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
+    <value>Az utoljára kijelölt feliratsávot választja ki, ha talál egyezést, egyéb esetben nem választ semmit.</value>
+    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
+  </data>
+  <data name="OverrideNameFormatLabel" xml:space="preserve">
+    <value>Elérhető beállítások: {0}</value>
+  </data>
+  <data name="DurationFilterStartAutomationName" xml:space="preserve">
+    <value>Időtartam szűrő, kezdés percekben</value>
+    <comment>Screen reader text for number box that represents the start of the filter range in minutes. The number chosen in this box represents the minimum title length in minutes that will be chosen.
+</comment>
+  </data>
+  <data name="DurationFilterEndAutomationName" xml:space="preserve">
+    <value>Időtartam szűrő, befejezés percekben</value>
+    <comment>Screen reader text for number box that represents the end of the filter range in minutes. The number chosen in this box represents the maximum title length in minutes that will be chosen.
+</comment>
+  </data>
+  <data name="DurationFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>Címek szűrése időtartam szerint</value>
+    <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
+  </data>
+  <data name="TimeRangeSelection" xml:space="preserve">
+    <value>Időintervallum kiválasztása</value>
+  </data>
+  <data name="SelectTimeRangeCheckBox" xml:space="preserve">
+    <value>Időintervallum kiválasztása</value>
+  </data>
+  <data name="TitleCaptializationLabel" xml:space="preserve">
+    <value>Nagy kezdőbetűs cím:</value>
+  </data>
+  <data name="TimeRangeStartAutomationName" xml:space="preserve">
+    <value>Időintervallum kezdés</value>
+  </data>
+  <data name="TimeRangeEndAutomationName" xml:space="preserve">
+    <value>Időintervallum befejezés</value>
+  </data>
+  <data name="ByIndexRadioButton" xml:space="preserve">
+    <value>Index szerint</value>
+    <comment>Label for the choice to choose audio or subtitle tracks by index</comment>
+  </data>
+  <data name="SelectTracksLabel" xml:space="preserve">
+    <value>Sávok kiválasztása:</value>
+  </data>
+  <data name="SelectTracksHelpText" xml:space="preserve">
+    <value>Vesszővel elválasztott, pl. 2,5</value>
+  </data>
+  <data name="ChapterRangeEndAutomationName" xml:space="preserve">
+    <value>Fejezet hatókör befejezés</value>
+  </data>
+  <data name="ChapterRangeStartAutomationName" xml:space="preserve">
+    <value>Fejezet hatókör kezdés</value>
+  </data>
 </root>

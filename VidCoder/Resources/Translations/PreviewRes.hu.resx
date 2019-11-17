@@ -202,5 +202,7 @@
   <data name="VideoErrorTitle" xml:space="preserve">
     <value>Videóhiba</value>
   </data>
-  
+  <data name="PlaySourceDisabledAppxToolTip" xml:space="preserve">
+    <value>A Windows Store változat nem képes DVD vagy Blu-ray forrás lejátszására, mert nem engedélyezett más folyamatok elindítása.</value>
+  </data>
 </root>

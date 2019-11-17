@@ -302,4 +302,10 @@
   <data name="SelectTracksHelpText" xml:space="preserve">
     <value>Separado por vírgula - ex. 2,5</value>
   </data>
+  <data name="ChapterRangeEndAutomationName" xml:space="preserve">
+    <value>Fim do intervalo do capítulo</value>
+  </data>
+  <data name="ChapterRangeStartAutomationName" xml:space="preserve">
+    <value>Início do intervalo do capítulo</value>
+  </data>
 </root>

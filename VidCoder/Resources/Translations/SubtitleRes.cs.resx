@@ -153,21 +153,18 @@
   <data name="OffsetColumn" xml:space="preserve">
     <value>Časový posun (ms)</value>
   </data>
-  <data name="ImportSrtButton" xml:space="preserve">
-    <value>Importovat .srt soubor...</value>
-  </data>
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Ostatní titulky budou překrývat vypálené titulky.</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Hledání cizí audio stopy</value>
   </data>
-  <data name="SrtFilePickerText" xml:space="preserve">
-    <value>Přidat soubor s titulky</value>
-  </data>
+  
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Nelze rozpoznat kódování souboru titulků. Aby se titulky zobrazovaly správně, znovu uložte soubor jako UTF-8.</value>
   </data>
+  
+  
   
   
 </root>

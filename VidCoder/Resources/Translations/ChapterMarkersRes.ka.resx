@@ -99,13 +99,13 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
   <data name="ChapterMarkersDialogTitle">
-    <value xml:space="preserve">თავის მნიშვნელი</value>
+    <value xml:space="preserve">სათავის მნიშვნელი</value>
   </data>
   <data name="DefaultChapterNamesRadioButton">
-    <value xml:space="preserve">სტანდარტული თავის სახელის გამოყენება</value>
+    <value xml:space="preserve">სტანდარტული სათავის სახელის გამოყენება</value>
   </data>
   <data name="CustomChapterNamesRadioButton">
-    <value xml:space="preserve">პერსონალური თავის სახელის გამოყენება:</value>
+    <value xml:space="preserve">პერსონალური სათავის სახელის გამოყენება:</value>
   </data>
   <data name="ImportFromCsvButton">
     <value xml:space="preserve">.csv...-იდან შემოტანა</value>

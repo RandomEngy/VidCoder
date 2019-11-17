@@ -302,4 +302,10 @@
   <data name="SelectTracksHelpText" xml:space="preserve">
     <value>逗點分隔 - 如 2,5</value>
   </data>
+  <data name="ChapterRangeEndAutomationName" xml:space="preserve">
+    <value>章節範圍結束處</value>
+  </data>
+  <data name="ChapterRangeStartAutomationName" xml:space="preserve">
+    <value>章節範圍起始處</value>
+  </data>
 </root>

@@ -126,75 +126,6 @@
   <data name="Revert" xml:space="preserve">
     <value>Reverter</value>
   </data>
-  <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
-    <value>x264 possui uma variedade de algoritmos para decidir quando e quantos B-frames devem ser usados.
-
-O modo rápido leva mais ou menos a mesma quantidade de tempo, não importa quantos B-frames você especificar.  No entanto, apesar de rápido, suas decisões são com frequência abaixo do ideal.
-
-O modo otimizado torna-se mais lento conforme aumenta o número máximo de B-frames, mas toma decisões muito mais precisas, especialmente quando usado com B-pyramid.</value>
-  </data>
-  <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
-    <value>H. 264 permite dois modos diferentes de previsão, espacial e temporal, nos B-frames.
-
-O espacial, o padrão, é quase sempre o melhor, mas o temporal é às vezes útil também.
-
-x264 pode, ao custo de uma pequena quantidade de velocidade (e consequentemente de um pequeno ganho de compressão), selecionar adaptativamente qual é o melhor para cada quadro.</value>
-  </data>
-  <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
-    <value>A quantização adaptativa controla como o codificador distribui os bits pelo quadro.
-
-Valores mais altos utilizam mais bits em extremidades e áreas complexas para aperfeiçoá-las com detalhes mais finos.</value>
-  </data>
-  <data name="Advanced_AnalysisToolTip" xml:space="preserve">
-    <value>O modo de decisão escolhe entre uma variedade de opções para tomar sua decisão: esta opção escolhe quais opções são.
-Menos partições para verificar significa uma codificação mais rápida, ao custo de piores decisões, caso a melhor opção seja uma das que estavam desligadas.</value>
-  </data>
-  <data name="Advanced_BFramesToolTip" xml:space="preserve">
-    <value>Valores normais são ~ 2-5.
-Isso especifica o número máximo de B-frames sequenciais que o codificador pode usar.
-Grandes números geralmente não ajudarão significativamente a menos que a opção B-frames Adaptativo esteja definida como Otimizado.
-Material de origem Cel-animated e B-pyramid também aumentam significativamente a utilidade dos valores maiores.
-O perfil de base, necess[ario para iPods e dispositivos similares, requer que os B-frames sejam definidos como 0 (desativado).</value>
-  </data>
-  <data name="Advanced_CabacToolTip" xml:space="preserve">
-    <value>Após o codificador terminar seu trabalho, há muitos dados que precisam ser comprimidos sem perdas, de forma similar ao ZIP ou RAR. O H.264 oferece duas opções para isto: CAVLC e CABAC.  CABAC decodifica muito mais devagar mas comprime significativamente melhor (10-30%), especialmente em bitrates mais baixos. Se você está procurando minimizar os requisitos de CPU para reprodução de vídeo, desative essa opção. O perfil de base, necessário para iPods e dispositivos similares, requer CABAC desativado.</value>
-  </data>
-  <data name="Advanced_DeblockingToolTip" xml:space="preserve">
-    <value>O codec H.264 tem um filtro Deblocking inserido, que suaviza  artefatos após a descodificação de cada frame.  Isto não só melhora a qualidade visual, como também ajuda significativamente a compactação.  O filtro Deblocking exige muito processamento do CPU, logo, se está a tentar reduzir os requisitos do CPU para a reprodução de vídeo, desactive-o.  O filtro Deblocking tem dois parâmetros ajustáveis, "strenght" (força) e "threshold" (limiar). Valores mais baixos significam menos desbloqueio, valores maiores  mais desbloqueio. O padrão é "0"  para ambos os parâmetros.</value>
-  </data>
-  <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
-    <value>A transformação de 8x8 é o recurso mais útil do x264 em termos de velocidade-por-compressão. Melhora a compressão pelo menos 5% a custo de uma perca de velocidade muito pequena, e pode fornecer um beneficio invulgarmente elevado de qualidade visual em relação ao seu ganho de compressão. No entanto, exige que o "Perfil H.264" esteja definido como "Alto", o que muitos dispositivos poderão não suportar.</value>
-  </data>
-  <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
-    <value>Controla o método de estimativa de movimento. Estimativa de movimento é como o codificador estima como mudou-se cada bloco de pixels em uma moldura. Um melhor método de pesquisa de movimento melhora a compressão à custa da velocidade. Diamante: realiza uma pesquisa extremamente rápida e simples, usando um padrão de diamante. Hexágono: executa uma pesquisa um pouco mais eficaz, mas um pouco mais lenta, usando um padrão de hexágono. Hex multi desigual: realiza uma pesquisa muito ampla, usando uma variedade de padrões, mais precisamente captar movimento complexo. Exaustiva: executa uma pesquisa "burra" de cada pixel em uma área ampla. Significativamente mais lento para apenas um ganho pequeno de compressão. Transformação Exaustiva: Como exaustiva, mas toma decisões ainda mais precisas. Por conseguinte, um pouco mais lento, também para apenas uma pequena melhoria.</value>
-  </data>
-  <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
-    <value>Esta é as distância de pesquisa x264 para o movimento de um bloco, a fim de tentar encontrar o seu movimento real. O padrão é bom para a maioria de conteúdo, mas especialmente para alto movimento de vídeo e em resoluções HD, pode beneficiar de gamas superiores, embora a um custo de alta velocidade.  Os valores válidos são 4-16 para métodos do diamante e do hexágono e 4-64 por outros métodos.</value>
-  </data>
-  <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
-    <value>x264 normalmente substitui por zero, os blocos de dados quase vazios, para salvar bits e para ser melhor utilizado para algum outro propósito no vídeo. No entanto, isso pode às vezes ter leves efeitos negativos na retenção de grãos sutis e pontilhamento.   Não toque nisso a menos que você esteja tendo problemas de bandas ou outros tais casos onde você está tendo problemas para diminuir o ruído.</value>
-  </data>
-  <data name="Advanced_PsychovisualRateDistortionToolTip" xml:space="preserve">
-    <value>Taxa de distorção Psychovisual significa que o codec x264 tenta manter o detalhe, para melhorar a qualidade ao olho humano, em vez de tentar maximizar a qualidade como um computador entende, através de racionamento de ruído de sinais que têm problemas de ruído e detalhes finos separados.</value>
-  </data>
-  <data name="Advanced_PsychovisualTrellisToolTip" xml:space="preserve">
-    <value>Psychovisual Trellis tenta reter mais nitidez e detalhe, mas pode causar artifacting. É considerado experimental, é por isso que ele está desativado por padrão. Bons valores são 0.1 a 0.2.</value>
-  </data>
-  <data name="Advanced_PyramidalBFramesToolTip" xml:space="preserve">
-    <value>B-pirâmide cria uma estrutura piramidal (daí o nome) de B-frames, permitindo B-frames fazer referência um ao outro para melhorar a compressão. Requer Max B-frames maiores que 1; quadros B adaptativos ideais são altamente recomendados para benefício de compressão completo.</value>
-  </data>
-  <data name="Advanced_ReferenceFramesToolTip" xml:space="preserve">
-    <value>Valores normais são ~ 1-6. Quanto mais você adicionar, melhor a compressão, mas mais lento o encode. Animação cel tende a beneficiar de mais quadros de referência muito mais do que o conteúdo do filme. Note que muitos dispositivos de hardware têm limitações no número de quadros de referência com suporte, então se você estiver codificando para um player portátil ou autônomo, não toque nisso a menos que você tem certeza absoluta de que você sabe o que está fazendo!</value>
-  </data>
-  <data name="Advanced_SubpixelMotionEstimationToolTip" xml:space="preserve">
-    <value>Esta configuração controla ambos os métodos de decisão de estimativa e modo de movimento de precisão subpixel. Esta estimativa de movimento de subpixel é usada para refinar as estimativas de movimento além da precisão de pixel simples, melhorando a compressão. Decisão de modo é o método usado para escolher como codificar cada bloco do quadro: uma decisão muito importante.  SAD é o método mais rápido, seguido por SATD, RD, RD requinte e o mais lento, QPRD. 6 ou superior é altamente recomendável: Psy-RD, uma otimização de psy muito poderoso que ajuda a reter detalhes, requer 10 Rd., a opção mais poderosa e mais lento, requer trellis = 2.</value>
-  </data>
-  <data name="Advanced_TrellisToolTip" xml:space="preserve">
-    <value>Trellis afina o arredondamento dos coeficientes de transformação para espremer de 3 a 5% mais compressão à custa de alguma velocidade. "Sempre" use a trellis não só durante o processo de codificação principal, mas também durante a análise, o que melhora a compressão ainda mais, embora a custo de grande velocidade. Trellis custa mais velocidade em bitrates superiores.</value>
-  </data>
-  <data name="Advanced_WeightPToolTip" xml:space="preserve">
-    <value>Realiza análise extra para decidir sobre a ponderação de parâmetros para cada quadro. Isto melhora ligeiramente a compressão geral e melhora a qualidade dos fades grandemente. Baseline profile, é necessário para iPods e dispositivos similares, requer que a previsão weighted P-frame seja desativada. Note que alguns dispositivos e players, mesmo aqueles que oferecem suporte a perfil principal, podem ter problemas com a previsão de Weighted P-frame : o Apple TV é completamente incompatível com isto, por exemplo.</value>
-  </data>
   <data name="Audio_DrcToolTip" xml:space="preserve">
     <value>Dynamic Range Compression (Racionamento de Compressão Dinâmica). Os valores válidos são 0-4.  Para pistas de áudio que possuem um amplo alcance dinâmico (sequências muito altas e muito macias). O DRC permite "comprimir" o intervalo fazendo as seções macias mais altas e as seções suaves mais fortes.</value>
   </data>
@@ -248,9 +179,6 @@ O perfil de base, necess[ario para iPods e dispositivos similares, requer que os
   </data>
   <data name="TabHeader_AudioEncoding" xml:space="preserve">
     <value>Codificação de áudio</value>
-  </data>
-  <data name="TabHeader_Advanced" xml:space="preserve">
-    <value>Vídeo avançado</value>
   </data>
   <data name="Rename" xml:space="preserve">
     <value>Renomear</value>
@@ -348,9 +276,6 @@ O perfil de base, necess[ario para iPods e dispositivos similares, requer que os
   <data name="ConstantQualityRadioButton" xml:space="preserve">
     <value>Qualidade constante</value>
   </data>
-  <data name="X264BasicSettings" xml:space="preserve">
-    <value>Configurações básicas do x264</value>
-  </data>
   <data name="ProfileLabel" xml:space="preserve">
     <value>Perfil:</value>
   </data>
@@ -385,7 +310,7 @@ O perfil de base, necess[ario para iPods e dispositivos similares, requer que os
     <value>Rápido</value>
   </data>
   <data name="Preset_Medium" xml:space="preserve">
-    <value>Médio (padrão)</value>
+    <value>Médio</value>
   </data>
   <data name="Preset_Slow" xml:space="preserve">
     <value>Lento</value>
@@ -547,168 +472,6 @@ O perfil de base, necess[ario para iPods e dispositivos similares, requer que os
   <data name="Bitrate" xml:space="preserve">
     <value>Taxa de Bits (Bitrate)</value>
   </data>
-  <data name="Encoding" xml:space="preserve">
-    <value>Codificação</value>
-  </data>
-  <data name="ReferenceFramesLabel" xml:space="preserve">
-    <value>Frames de referência:</value>
-  </data>
-  <data name="MaxBFramesLabel" xml:space="preserve">
-    <value>B-Frames máximo:</value>
-  </data>
-  <data name="CabacLabel" xml:space="preserve">
-    <value>CABAC:</value>
-  </data>
-  <data name="EightByEightTransformLabel" xml:space="preserve">
-    <value>Transformação 8x8:</value>
-  </data>
-  <data name="WeightedPFramesLabel" xml:space="preserve">
-    <value>P-Frames ponderados:</value>
-  </data>
-  <data name="PyramidalBFramesLabel" xml:space="preserve">
-    <value>B-Frames piramidais:</value>
-  </data>
-  <data name="NoDctDecimateLabel" xml:space="preserve">
-    <value>Sem DCT-Decimate:</value>
-  </data>
-  <data name="Analysis" xml:space="preserve">
-    <value>Análise</value>
-  </data>
-  <data name="AdaptiveBFramesLabel" xml:space="preserve">
-    <value>B-Frames adaptáveis:</value>
-  </data>
-  <data name="AdaptiveDirectModeLabel" xml:space="preserve">
-    <value>Modo direto adaptável:</value>
-  </data>
-  <data name="MotionEstimationMethodLabel" xml:space="preserve">
-    <value>Método de estimativa do movimento:</value>
-  </data>
-  <data name="SubpixelMotionEstimationLabel" xml:space="preserve">
-    <value>Estimativa do movimento do subpixel:</value>
-  </data>
-  <data name="MotionEstimationRangeLabel" xml:space="preserve">
-    <value>Estimativa da escala de movimento:</value>
-  </data>
-  <data name="AdaptiveQuantizationStrengthLabel" xml:space="preserve">
-    <value>Força de quantização adaptativa:</value>
-  </data>
-  <data name="PsychoVisualRateDistortionLabel" xml:space="preserve">
-    <value>Taxa de distorção Psychovisual:</value>
-  </data>
-  <data name="PsychovisualTrellisLabel" xml:space="preserve">
-    <value>Psychovisual Trellis:</value>
-  </data>
-  <data name="DeblockingLabel" xml:space="preserve">
-    <value>Desbloqueio:</value>
-  </data>
-  <data name="PartitionTypeLabel" xml:space="preserve">
-    <value>Tipo de partição:</value>
-  </data>
-  <data name="TrellisLabel" xml:space="preserve">
-    <value>Trellis:</value>
-  </data>
-  <data name="OptionsString" xml:space="preserve">
-    <value>Sequência de opções</value>
-  </data>
-  <data name="PyramidalBFrames_Off" xml:space="preserve">
-    <value>Off</value>
-  </data>
-  <data name="PyramidalBFrames_Normal" xml:space="preserve">
-    <value>Normal</value>
-  </data>
-  <data name="PyramidalBFrames_Strict" xml:space="preserve">
-    <value>Preciso</value>
-  </data>
-  <data name="AdaptiveBFrames_Off" xml:space="preserve">
-    <value>Off</value>
-  </data>
-  <data name="AdaptiveBFrames_Fast" xml:space="preserve">
-    <value>Rápido</value>
-  </data>
-  <data name="AdaptiveBFrames_Optimal" xml:space="preserve">
-    <value>Ideal</value>
-  </data>
-  <data name="DirectPrediction_None" xml:space="preserve">
-    <value>Nenhum</value>
-  </data>
-  <data name="DirectPrediction_Spatial" xml:space="preserve">
-    <value>Spatial</value>
-  </data>
-  <data name="DirectPrediction_Temporal" xml:space="preserve">
-    <value>Temporal</value>
-  </data>
-  <data name="DirectPrediction_Automatic" xml:space="preserve">
-    <value>Automático</value>
-  </data>
-  <data name="MotionEstimationMethod_Diamond" xml:space="preserve">
-    <value>Diamante</value>
-  </data>
-  <data name="MotionEstimationMethod_Hexagon" xml:space="preserve">
-    <value>Hexágono</value>
-  </data>
-  <data name="MotionEstimationMethod_UnevenMultiHexagon" xml:space="preserve">
-    <value>Multi-Hexágono irregular</value>
-  </data>
-  <data name="MotionEstimationMethod_Exhaustive" xml:space="preserve">
-    <value>Exaustivo</value>
-  </data>
-  <data name="MotionEstimationMethod_TransformedExhaustive" xml:space="preserve">
-    <value>Transformação exaustiva (TESA)</value>
-  </data>
-  <data name="SubpixelMotionEstimation_0" xml:space="preserve">
-    <value>0: SAD, nenhum subpel (super rápido!)</value>
-  </data>
-  <data name="SubpixelMotionEstimation_1" xml:space="preserve">
-    <value>1: SAD, qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_2" xml:space="preserve">
-    <value>2: SATD, qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_3" xml:space="preserve">
-    <value>3: SATD, multi-qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_4" xml:space="preserve">
-    <value>4: SATD, qpel em todos</value>
-  </data>
-  <data name="SubpixelMotionEstimation_5" xml:space="preserve">
-    <value>5: SATD, multi-qpel em todos</value>
-  </data>
-  <data name="SubpixelMotionEstimation_6" xml:space="preserve">
-    <value>6: RD em frames I/P</value>
-  </data>
-  <data name="SubpixelMotionEstimation_7" xml:space="preserve">
-    <value>7: RD em todos os frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_8" xml:space="preserve">
-    <value>8: Refinar RD em frames I/P</value>
-  </data>
-  <data name="SubpixelMotionEstimation_9" xml:space="preserve">
-    <value>9: Refinar RD em todos os frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_10" xml:space="preserve">
-    <value>10: QPRD em todos os frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_11" xml:space="preserve">
-    <value>11: Não terminar precocemente a análise</value>
-  </data>
-  <data name="Analysis_None" xml:space="preserve">
-    <value>Nenhum</value>
-  </data>
-  <data name="Analysis_Some" xml:space="preserve">
-    <value>Alguns</value>
-  </data>
-  <data name="Analysis_All" xml:space="preserve">
-    <value>Todos</value>
-  </data>
-  <data name="Trellis_Off" xml:space="preserve">
-    <value>Off</value>
-  </data>
-  <data name="Trellis_EncodeOnly" xml:space="preserve">
-    <value>Apenas codificar</value>
-  </data>
-  <data name="Trellis_Always" xml:space="preserve">
-    <value>Sempre</value>
-  </data>
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} (Padrão)</value>
   </data>
@@ -735,9 +498,6 @@ O perfil de base, necess[ario para iPods e dispositivos similares, requer que os
   </data>
   <data name="VideoEncoder_x264" xml:space="preserve">
     <value>H. 264 (264)</value>
-  </data>
-  <data name="Analysis_Most" xml:space="preserve">
-    <value>Maioria</value>
   </data>
   <data name="AdvancedQuery" xml:space="preserve">
     <value>Consulta avançada</value>
@@ -777,17 +537,6 @@ O perfil de base, necess[ario para iPods e dispositivos similares, requer que os
   </data>
   <data name="AudioEncoder_flac24" xml:space="preserve">
     <value>FLAC 24 bits</value>
-  </data>
-  <data name="Advanced_PsychovisualLabel" xml:space="preserve">
-    <value>Psychovisual</value>
-  </data>
-  <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
-    <value>Básico</value>
-    <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
-  </data>
-  <data name="X264SettingsRadioButtonAdvanced" xml:space="preserve">
-    <value>Avançadas</value>
-    <comment>Label for radio button to choose advanced x264 settings on a separate tab.</comment>
   </data>
   <data name="VideoEncoder_mpeg2" xml:space="preserve">
     <value>MPEG-2</value>
@@ -1068,23 +817,8 @@ Lapsharp atua usando núcleos de convolução próximos dos filtro de borda Lapl
   <data name="ChooseNewFolderName" xml:space="preserve">
     <value>Escolha um novo nome para a pasta:</value>
   </data>
-  <data name="NVEncPreset_losslesshp" xml:space="preserve">
-    <value>Sem perdas de alto desempenho</value>
-  </data>
-  <data name="NVEncPreset_lossless" xml:space="preserve">
-    <value>Sem perdas</value>
-  </data>
-  <data name="NVEncPreset_llhp" xml:space="preserve">
-    <value>Alto desempenho de baixa latência</value>
-  </data>
-  <data name="NVEncPreset_llhq" xml:space="preserve">
-    <value>Baixa latência de alta qualidade</value>
-  </data>
   <data name="NVEncPreset_ll" xml:space="preserve">
     <value>Baixa latência</value>
-  </data>
-  <data name="NVEncPreset_bd" xml:space="preserve">
-    <value>Disco BluRay</value>
   </data>
   <data name="NVEncPreset_hq" xml:space="preserve">
     <value>Alta qualidade</value>
@@ -1117,5 +851,11 @@ Lapsharp atua usando núcleos de convolução próximos dos filtro de borda Lapl
   </data>
   <data name="ApplyToQueueButton" xml:space="preserve">
     <value>Aplicar à fila</value>
+  </data>
+  <data name="FullEncoderParameterLabel" xml:space="preserve">
+    <value>Lista completa de parâmetros:</value>
+  </data>
+  <data name="MoreOptionsToolTip" xml:space="preserve">
+    <value>Argumentos avançados adicionais para o codificador de vídeo.</value>
   </data>
 </root>

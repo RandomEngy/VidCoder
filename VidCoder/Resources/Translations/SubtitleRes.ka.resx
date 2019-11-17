@@ -153,16 +153,13 @@
   <data name="OffsetColumn" xml:space="preserve">
     <value>გადაადგილება (მწ)</value>
   </data>
-  <data name="ImportSrtButton" xml:space="preserve">
-    <value>.srt ფაილის შემოტანა...</value>
-  </data>
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>სხვა წყაროს ტიტრი გადაფარავს კოდირებულ ტიტრს.</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>უცხოენის აუდიოს მოძიება</value>
+    <value>უცხო ენის აუდიოს მოძიება</value>
   </data>
-  <data name="SrtFilePickerText" xml:space="preserve">
+  <data name="SubtitleFilePickerText" xml:space="preserve">
     <value>ტიტრის ფაილის დამატება</value>
   </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
@@ -174,5 +171,11 @@
   <data name="ExternalSubtitlesSummaryFormat" xml:space="preserve">
     <value>შემოტანილია {0}</value>
     <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
+  </data>
+  <data name="ImportSubtitleButton" xml:space="preserve">
+    <value>ფაილიდად შემოტანა...</value>
+  </data>
+  <data name="FilePickerDescription" xml:space="preserve">
+    <value>ტიტრის ფაილები</value>
   </data>
 </root>

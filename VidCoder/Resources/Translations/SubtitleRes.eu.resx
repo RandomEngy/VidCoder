@@ -153,18 +153,13 @@
   <data name="OffsetColumn" xml:space="preserve">
     <value>Oreka (sm)</value>
   </data>
-  <data name="ImportSrtButton" xml:space="preserve">
-    <value>Inportatu .srt Agiria...</value>
-  </data>
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Beste azpidatzi bideak erretako azpidatzietan gainjarriko dira.</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Beste Hizkuntzako Audio Bilaketa</value>
   </data>
-  <data name="SrtFilePickerText" xml:space="preserve">
-    <value>Gehitu azpidatzi agiria</value>
-  </data>
+  
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Ezin da azpidatzi agiriaren kodeaketa atzeman. Azpidatziak zuzen erakusten direla zihurtatzeko, gorde berriro agiria UTF-8 bezala.</value>
   </data>
@@ -175,4 +170,6 @@
     <value>{0} kanpokoa</value>
     <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
   </data>
+  
+  
 </root>

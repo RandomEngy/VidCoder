@@ -153,21 +153,18 @@
   <data name="OffsetColumn" xml:space="preserve">
     <value>Offset (ms)</value>
   </data>
-  <data name="ImportSrtButton" xml:space="preserve">
-    <value>Importeer .srt bestand...</value>
-  </data>
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Andere ondertitelsporen zullen overlappen met geïntegreerde ondertitels.</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Buitenlandse Audio zoeken</value>
   </data>
-  <data name="SrtFilePickerText" xml:space="preserve">
-    <value>Ondertitel bestand toevoegen</value>
-  </data>
+  
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>De codering van het ondertitelbestand kon niet worden gedetecteerd. Om er zeker van te zijn dat de ondertitels correct worden weergegeven, moet het bestand worden opgeslagen als UTF-8.</value>
   </data>
+  
+  
   
   
 </root>

@@ -198,9 +198,7 @@
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>오디오 트랙에 사용자 정의 이름 설정을 허용합니다 (제한된 재생기 지원)</value>
   </data>
-  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>LibDVDNav을 사용합니다 (변경시 프로그램 재시작 필요)</value>
-  </data>
+  
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>성공적으로 완료한 항목을 지운 후 소스 파일을 삭제합니다 (삭제 확인)</value>
   </data>
@@ -376,6 +374,10 @@
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>미리 보기에 내장된 재생기를 사용합니다</value>
   </data>
+  
+  
+  
+  
   
   
   

@@ -198,9 +198,7 @@
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>Umożliwia ustawienie niestandardowej nazwy ścieżek audio (obsługiwane tylko przez niektóre otwarzacze)</value>
   </data>
-  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>Włącz LibDVDNav (zmiana wymaga ponownego uruchomienia programu)</value>
-  </data>
+  
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Usuń pliki źródłowe po wyczyszczeniu zakończonych pomyślnie zadań (z potwierdzeniem)</value>
   </data>
@@ -376,6 +374,10 @@
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Użyj wbudowanego odtwarzacza dla podglądów</value>
   </data>
+  
+  
+  
+  
   
   
   

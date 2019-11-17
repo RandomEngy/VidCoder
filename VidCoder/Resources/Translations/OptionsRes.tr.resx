@@ -198,9 +198,7 @@
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>Ses parçalarını adlandırmaya izin ver (sınırlı oynatıcı desteği)</value>
   </data>
-  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>LibDVDNav'ı etkinleştir (programı yeniden başlatma gerektirir)</value>
-  </data>
+  
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Başarıyla tamamlanan öğelerin kaynak dosyalarını sil (onay ile)</value>
   </data>
@@ -395,4 +393,8 @@
   <data name="PromptForUpdatesLabel" xml:space="preserve">
     <value>Güncellemeler için sor:</value>
   </data>
+  
+  
+  
+  
 </root>

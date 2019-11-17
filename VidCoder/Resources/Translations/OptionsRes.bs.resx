@@ -198,9 +198,7 @@
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>Dopusti namještanje prilagođenog ime na audio zapis (podrška playera ograničena)</value>
   </data>
-  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>Omogući LibDVDNav (zahtjeva ponovo pokretanje programa)</value>
-  </data>
+  
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Obriši izvorne fajlove nakon uspješnog uklanjanja završenih stavki (sa potvrdom)</value>
   </data>
@@ -376,7 +374,9 @@
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Koristi ugrađeni player za preglede</value>
   </data>
-  
+  <data name="MaxSimultaneousEncodesLabel" xml:space="preserve">
+    <value>Maksimalan broj istovremenih enkodiranja:</value>
+  </data>
   
   <data name="GeneralSection" xml:space="preserve">
     <value>Opće</value>
@@ -385,5 +385,11 @@
     <value>Tema</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
+  <data name="PromptForUpdatesLabel" xml:space="preserve">
+    <value>Upit za ažuriranja:</value>
+  </data>
+  
+  
+  
   
 </root>

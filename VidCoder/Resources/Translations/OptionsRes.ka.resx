@@ -199,7 +199,7 @@
     <value>პერსონალური სახელი აუდოზე (რეპროდუქტორების მხარდაჭერა შეზღუდულია)</value>
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>LibDVDNav-ის ჩართვა (საჭიროებს პროგრამის გადატვირთვას)</value>
+    <value>LibDVDNav-ის ჩართვა (საჭიროებს პროგრამის გადატვირთვას. მოითხოვება მრავალჯერადი ფუნქციებისთვის)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>ორიგინალი ფაილის წაშლა წარმატებული კოდირებისას (თანხმობით)</value>
@@ -247,7 +247,7 @@
     <value>პროგრამის ენა:</value>
   </data>
   <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
-    <value>არჩეული ენა ძალაში შევა პროგრამის გადატვირტვის შემდეგ.</value>
+    <value>არჩეული ენა ძალაში შევა პროგრამის გადატვირთვის შემდეგ.</value>
   </data>
   <data name="UseOSLanguage" xml:space="preserve">
     <value>ოპერატიული სისტემის ენა</value>
@@ -394,5 +394,17 @@
   </data>
   <data name="PromptForUpdatesLabel" xml:space="preserve">
     <value>აქტუალიზირებისთვის შემოთავაზება:</value>
+  </data>
+  <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
+    <value>სამუშაო პროცესი გაგრძელება VidCoder-ის გადატვირთვის შემდეგ.</value>
+  </data>
+  <data name="CopyLogToCustomFolderLabel" xml:space="preserve">
+    <value>კოდირების პროტოკოლის პერსონალურ ფოლდერში კოპირება.</value>
+  </data>
+  <data name="KeepFailedFilesCheckBox" xml:space="preserve">
+    <value>წარუმატებელი ან შეჩერებული ფაილების დატოვება.</value>
+  </data>
+  <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
+    <value>ქმედება "დასრულებისას" როდესაც კოდირების დავალება წარუმატებელია</value>
   </data>
 </root>

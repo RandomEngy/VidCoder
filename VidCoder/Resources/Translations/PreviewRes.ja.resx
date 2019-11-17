@@ -202,5 +202,7 @@
   <data name="VideoErrorTitle" xml:space="preserve">
     <value>ビデオエラー</value>
   </data>
-  
+  <data name="PlaySourceDisabledAppxToolTip" xml:space="preserve">
+    <value>Windowsストアバージョンでは、他のプロセスの起動許可がないのでDVD、Blu-rayソースを再生できません。</value>
+  </data>
 </root>

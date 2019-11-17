@@ -153,21 +153,18 @@
   <data name="OffsetColumn" xml:space="preserve">
     <value>오프셋 (ms)</value>
   </data>
-  <data name="ImportSrtButton" xml:space="preserve">
-    <value>.srt 파일 가져오기...</value>
-  </data>
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>다른 자막 트랙이 입혀진 자막 위에 겹쳐서 나올 것입니다.</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>외국어 오디오 검색</value>
   </data>
-  <data name="SrtFilePickerText" xml:space="preserve">
-    <value>자막 파일 추가하기</value>
-  </data>
+  
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>자막 파일의 인코딩을 감지할 수 없습니다. 자막이 바르게 나오는지 확인하려면, 자막 파일을 UTF-8로 다시 저장하세요.</value>
   </data>
+  
+  
   
   
 </root>

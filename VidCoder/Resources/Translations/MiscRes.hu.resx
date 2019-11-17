@@ -186,7 +186,10 @@
   <data name="Copyright" xml:space="preserve">
     <value>© {0} VidCoder fejlesztők</value>
   </data>
-  
+  <data name="BetaVersionFormat2" xml:space="preserve">
+    <value>{0} béta</value>
+    <comment>{0} is a placeholder for version. For example: 1.4.2 Beta</comment>
+  </data>
   <data name="NameDialogTitle" xml:space="preserve">
     <value>Név</value>
     <comment>Title for dialog when  naming a preset or  picker</comment>
@@ -248,5 +251,7 @@
   <data name="ChooseNamePicker" xml:space="preserve">
     <value>Válassz egy nevet a sémának:</value>
   </data>
-  
+  <data name="ExceptionDialogSubTextReported" xml:space="preserve">
+    <value>A programnak be kell zárulnia, de a hiba automatikusan jelentésre kerül.</value>
+  </data>
 </root>

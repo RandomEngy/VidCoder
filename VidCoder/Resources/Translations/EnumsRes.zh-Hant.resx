@@ -277,4 +277,16 @@
   <data name="UpdatePromptTiming_OnLaunch" xml:space="preserve">
     <value>啟動時</value>
   </data>
+  <data name="LogOperationType_Encode" xml:space="preserve">
+    <value>編碼</value>
+  </data>
+  <data name="LogOperationType_Scan" xml:space="preserve">
+    <value>掃描</value>
+  </data>
+  <data name="PickerTimeRangeMode_Chapters" xml:space="preserve">
+    <value>章節</value>
+  </data>
+  <data name="PickerTimeRangeMode_Time" xml:space="preserve">
+    <value>時間範圍</value>
+  </data>
 </root>

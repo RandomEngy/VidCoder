@@ -190,7 +190,10 @@
     <value>引数：</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  
+  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
+    <value>プログラムに渡すパラメーター。{file} で出力ファイルのパス、{folder} でフォルダーのパス、 {title} や {date} が使えます。（名前規則を参照）</value>
+    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>ピッカーはエンコードのプリセットを指定しています。</value>
   </data>
@@ -247,19 +250,62 @@
     <value>強制字幕のみ</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="AudioDefaultToolTip" xml:space="preserve">
+    <value>最後に選択した音声トラックを選択、なければ最初のトラックを選択します。</value>
+  </data>
+  <data name="LastSelectedRadioButton" xml:space="preserve">
+    <value>最後に選択したもの</value>
+  </data>
+  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
+    <value>最後に選択した字幕トラック番号と言語が一致し場合それを選択します。一致しない場合は選択しません。</value>
+    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
+  </data>
+  <data name="OverrideNameFormatLabel" xml:space="preserve">
+    <value>利用可能なオプション：{0}</value>
+  </data>
+  <data name="DurationFilterStartAutomationName" xml:space="preserve">
+    <value>長さ開始</value>
+    <comment>Screen reader text for number box that represents the start of the filter range in minutes. The number chosen in this box represents the minimum title length in minutes that will be chosen.
+</comment>
+  </data>
+  <data name="DurationFilterEndAutomationName" xml:space="preserve">
+    <value>長さ終了</value>
+    <comment>Screen reader text for number box that represents the end of the filter range in minutes. The number chosen in this box represents the maximum title length in minutes that will be chosen.
+</comment>
+  </data>
+  <data name="DurationFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>長さでフィルター</value>
+    <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
+  </data>
+  <data name="TimeRangeSelection" xml:space="preserve">
+    <value>時間範囲の選択</value>
+  </data>
+  <data name="SelectTimeRangeCheckBox" xml:space="preserve">
+    <value>時間範囲で選択</value>
+  </data>
+  <data name="TitleCaptializationLabel" xml:space="preserve">
+    <value>タイトルの大文字変換：</value>
+  </data>
+  <data name="TimeRangeStartAutomationName" xml:space="preserve">
+    <value>時間範囲開始</value>
+  </data>
+  <data name="TimeRangeEndAutomationName" xml:space="preserve">
+    <value>時間範囲終了</value>
+  </data>
+  <data name="ByIndexRadioButton" xml:space="preserve">
+    <value>インデックス</value>
+    <comment>Label for the choice to choose audio or subtitle tracks by index</comment>
+  </data>
+  <data name="SelectTracksLabel" xml:space="preserve">
+    <value>トラックの選択：</value>
+  </data>
+  <data name="SelectTracksHelpText" xml:space="preserve">
+    <value>カンマ区切り （例：2,5）</value>
+  </data>
+  <data name="ChapterRangeEndAutomationName" xml:space="preserve">
+    <value>チャプター範囲終了</value>
+  </data>
+  <data name="ChapterRangeStartAutomationName" xml:space="preserve">
+    <value>チャプター範囲開始</value>
+  </data>
 </root>

@@ -198,9 +198,7 @@
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>Festlegen von benutzerdefinierten Namen für Tonspuren ermöglichen (Wird nicht von jedem Wiedergabegerät unterstützt)</value>
   </data>
-  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>LibDVDNav einschalten (Erfordert Neustart des Programms)</value>
-  </data>
+  
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Ursprüngliche Dateien löschen, wenn erfolgreich abgeschlossene Aufträge aus der Warteschlange entfernt werden (mit Bestätigung)</value>
   </data>
@@ -395,4 +393,8 @@
   <data name="PromptForUpdatesLabel" xml:space="preserve">
     <value>Updatebenachrichtigung einblenden</value>
   </data>
+  
+  
+  
+  
 </root>

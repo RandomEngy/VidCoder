@@ -198,9 +198,7 @@
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>Sta aangepaste naamgeving toe voor audiosporen (beperkte ondersteuning)</value>
   </data>
-  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>Schakel LibDVDNav in (herstart van programma vereist)</value>
-  </data>
+  
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Bronbestanden verwijderen na succesvol omzetten (met bevestiging)</value>
   </data>
@@ -376,6 +374,10 @@
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Gebruik de ingebouwde mediaspeler</value>
   </data>
+  
+  
+  
+  
   
   
   

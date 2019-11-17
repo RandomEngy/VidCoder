@@ -126,114 +126,6 @@
   <data name="Revert" xml:space="preserve">
     <value>Terugzetten</value>
   </data>
-  <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
-    <value>x264 kent verscheidene algoritmen om te bepalen of B-frames worden gebruikt en hoeveel.
-
-Fast-modus geeft hoegenaamd geen vertraging ongeacht hoeveel B-frames u opgeeft.  Nadeel is dat de resultaten vaak suboptimaal zijn.  
-
-Optimale modus is langzamer naarmate het maximum aantal B-Frames hoger is. De resultaten zijn veel nauwkeuriger, vooral wanneer gebruikt met B-piramide.</value>
-  </data>
-  <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
-    <value>H.264 voorziet in twee verschillende voorspelling modi voor B-frames, ruimtelijk en tijdelijk.
-
-Ruimtelijk, de standaard, is bijna altijd beter, maar tijdelijk is soms ook nuttig.
-
-x.264 kan, ten koste van wat snelheid (en bijgevolg een kleine winst in compressie), adaptief selecteren welke modus beter is voor elk afzonderlijk frame.</value>
-  </data>
-  <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
-    <value>Adaptieve kwantisatie bepaalt hoe het coderingsprogramma bits verdeelt over het frame. 
-Hogere waarden nemen meer bits uit de buurt van randen en complexe gebieden om gebieden met fijner detail te verbeteren.</value>
-  </data>
-  <data name="Advanced_AnalysisToolTip" xml:space="preserve">
-    <value>Modus besluit gebruikt een verscheidenheid van opties om een beslissing te nemen: deze instelling bepaalt welke opties dat zijn.
-Minder partities om te controleren betekent snellere codering, ten koste van slechtere besluiten, omdat het de beste optie zou kunnen zijn geweest die is uitgeschakeld.</value>
-  </data>
-  <data name="Advanced_BFramesToolTip" xml:space="preserve">
-    <value>Zinnige waarden zijn ~2-5.
-Hiermee geeft u het maximum aantal opeenvolgende B-frames die het coderingsprogramma kan gebruiken.
-Hogere aantallen verbeteren in het algemeen niet aanzienlijk tenzij Adaptieve B-frames is ingesteld op Optimaal.
-Cel-geanimeerd bronmateriaal en toepassing van B-piramide zorgt ervoor dat een grotere aantal meer effect heeft.  
-Het basis profiel, zoals vereist voor iPods en soortgelijke apparaten, vereist dat B-frames wordt ingesteld op 0 (uit).</value>
-  </data>
-  <data name="Advanced_CabacToolTip" xml:space="preserve">
-    <value>Nadat het coderingsprogramma zijn werk heeft gedaan, heeft het een heleboel gegevens die lossless moeten worden  gecomprimeerd, vergelijkbaar met ZIP of RAR. H.264 biedt twee opties voor dit: CAVLC en CABAC.  CABAC decodeert een stuk langzamer maar comprimeert aanzienlijk beter (10-30%), vooral bij lagere bitrates. Als u op zoek bent om de CPU-vereisten voor het afspelen van de video te minimaliseren, moet u deze optie uitschakelen. Profiel van de basislijn, zoals vereist voor iPods en soortgelijke inrichtingen, vereist dat CABAC wordt uitgeschakeld.</value>
-  </data>
-  <data name="Advanced_DeblockingToolTip" xml:space="preserve">
-    <value>H.264 heeft een ingebouwd deblocking filter dat blokkerige artefacten uitvlakt na decodering van elk frame.  Dit verbetert de beeldkwaliteit, maar verbetert ook aanzienlijk de compressie.  Het deblocking filter vraagt een heleboel CPU-vermogen, dus als u op zoek bent om de CPU-vereisten voor het afspelen van de video te minimaliseren, schakelt u deze optie uit.  Het deblocking filter heeft twee instelbare parameters, "kracht" en "drempel".  "Kracht" bepaalt hoe sterk (of zwak) de deblocker is, terwijl "drempel"  bepaalt hoe veel (of weinig) randen worden toegepast.  Lagere waarden betekent minder deblocking, hogere waarden betekent meer deblocking. De standaardwaarde is 0 (normale sterkte) voor beide parameters.</value>
-  </data>
-  <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
-    <value>De transformatie van 8 x 8 is de enige meest nuttige functie van x264 in termen van compressie-per-snelheid.   Het verbetert de compressie met ten minste 5% ten koste van een zeer kleine snelheidsafname en levert een ongewoon hoog voordeel op de visuele kwaliteit ten opzichte van de winst compressie. Echter, dit vereist het hoge profiel, dat veel apparaten mogelijk niet ondersteunen.</value>
-  </data>
-  <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
-    <value>Bepaalt de methode om de beweging in te schatten. Dus hoe de encoder bepaalt hoe elk blok met pixels binnen het beeld is verschoven.
-Hoe accurater de manier op de verschuiving te bepalen, hoe beter de compressie maar hoe langer het duurt.
-
-Diamant: een eenvoudige, snelle methode op basis van een diamant patroon.
-
-Zeshoek: een wat effectievere en wat langzamere methode op basis van een zeshoek patroon.
-
-Oneven Multi-hex: een uitgebreide methode gebruikmakend van verscheidene patronen, is preciezer in het vaststellen van complexe beweging.
-
-Alle pixels: bekijkt domweg elke pixel in een groot gebied. Aanzienlijk langzamer voor een klein beetje betere compressie.
-
-Alle pixels getransformeerd: net als 'alle pixels', maar doet een betere analyse. Opnieuw langzamer voor een beperkt betere compressie.</value>
-  </data>
-  <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
-    <value>Dit is de afstand waarin x264 zoekt rond de ingeschatte verschuiving van een blok om de echte verschuiving te bepalen.
-
-De standaard waarde is normaliter prima, alleen video met extreem veel beweging, vooral met HD resoluties, kan voordeel hebben van hogere waarden, met als gevolg een flink lagere snelheid.
-
-Geldige waarden zijn 4-16 voor de Diamant en Zeshoek methodes, en 4-64 voor de andere methodes.</value>
-  </data>
-  <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
-    <value>x264 zet normaliter alle bijna lege data blokken helemaal op nul, om bits te besparen.
-Dit kan soms echter negatieve effecten hebben op korreligheid of rasters.
-Pas dit alleen aan als er strepen optreden of als er problemen zijn met fijne ruis.</value>
-  </data>
-  <data name="Advanced_PsychovisualRateDistortionToolTip" xml:space="preserve">
-    <value>Psychovisuele Rate Distortion betekent dat x264 probeert detail te behouden, rekening houdend met het menselijk oog, in plaats van de kwaliteit te optimaliseren zoals een computer dat 'ziet'.</value>
-  </data>
-  <data name="Advanced_PsychovisualTrellisToolTip" xml:space="preserve">
-    <value>Psychovisuele trellis probeert meer scherpte en details vast te houden, maar kan leiden tot verstoring.
-Het wordt beschouwd als een experimentele techniek en daarom staat het standaard uit. Zinvolle waarden lopen van 0.1 tot 0.2.</value>
-  </data>
-  <data name="Advanced_PyramidalBFramesToolTip" xml:space="preserve">
-    <value>B-pyramide creëert een pyramide structuur van B-frames, waardoor B-frames naar elkaar kunnen verwijzen en zo de compressie bevorderen.
-
-Vereist een Max B-frames waarde van groter dan 1; optimale adaptieve B-frames wordt sterk aangeraden om het maximale te halen uit de compressie voordelen.</value>
-  </data>
-  <data name="Advanced_ReferenceFramesToolTip" xml:space="preserve">
-    <value>Zinvolle waarden zijn tussen 1 en 6.
-
-Hoe meer je er toevoegt, hoe beter de compressie, maar hoe trager de encodering.
-
-Oude tekenfilms (op basis van handgemaakte beelden) hebben vaak veel meer profijt van het gebruik van meer referentie beelden dan normale films.
-
-Noot dat diverse apparaten slechts een beperkt aantal referentie beelden aankan, dus als je voor een afspeelapparaat voor in de hand of als standalone encodeert, blijf dan van deze instelling af tenzij je zeker weet wat je doet!</value>
-  </data>
-  <data name="Advanced_SubpixelMotionEstimationToolTip" xml:space="preserve">
-    <value>Deze instelling beïnvloedt zowel subpixel precisie bewegingsinschatting als modus bepaling.
-
-Subpixel bewegingsinschatting wordt gebruikt om de bewegingsinschatting te verbeteren door verder te kijken dan per pixel, doel is een betere compressie.
-
-Modus bepaling behelst de keuze hoe elk blok van het beeld te encoderen: een tamelijk belangrijke beslissing.
-
-SAD is de snelste methode, gevolgd door SATD, RD, RD verfijnd en tenslotte QPRD.
-6 of hoger wordt sterk aanbevolen: Psy-RD, een krachtige psy optimalisatie die helpt om details te behouden, vereist RD.
-10, de krachtigste en langzaamste optie, vereist trellis=2.</value>
-  </data>
-  <data name="Advanced_TrellisToolTip" xml:space="preserve">
-    <value>Trellis zorgt voor betere afronding van de transformatie coëfficiënten met als doel om een 3-5% betere compressie te krijgen, ten koste van wat snelheid.
-"Altijd" zorgt ervoor dat trellis niet alleen tijdens het encodering proces wordt gebruikt, maar ook tijdens de analyse, waardoor de compressie nog beter wordt maar ook flink langzamer.
-
-Het effect van trellis op de snelheid is groter bij hogere bitrates.</value>
-  </data>
-  <data name="Advanced_WeightPToolTip" xml:space="preserve">
-    <value>Voert extra analyse uit om de weging van de parameters voor elk beeld te bepalen.
-Dit bevordert de algehele compressie een beetje en verbetert de kwaliteit van 'fades' enorm.
-Voor het basis profiel (vereist voor iPods en soortgelijke apparaten) moet de 'gewogen P-frame voorspelling' zijn uitgeschakeld.
-Noot dat sommige apparaten en spelers, zelfs als ze het hoofd profiel ondersteunen, problemen kunnen hebben met 'gewogen P-frame voorspelling': de Apple TV kan het bijvoorbeeld niet aan.</value>
-  </data>
   <data name="Audio_DrcToolTip" xml:space="preserve">
     <value>Dynamisch bereik compressie. Geldige waarden zijn 0-4.
 
@@ -293,9 +185,6 @@ Stel dit in als je weet dat een apparaat waarvoor je dit doet niet alle profiele
   </data>
   <data name="TabHeader_AudioEncoding" xml:space="preserve">
     <value>Audiocodering</value>
-  </data>
-  <data name="TabHeader_Advanced" xml:space="preserve">
-    <value>Geavanceerde Video</value>
   </data>
   <data name="Rename" xml:space="preserve">
     <value>Hernoemen</value>
@@ -393,9 +282,6 @@ Stel dit in als je weet dat een apparaat waarvoor je dit doet niet alle profiele
   <data name="ConstantQualityRadioButton" xml:space="preserve">
     <value>Constante kwaliteit</value>
   </data>
-  <data name="X264BasicSettings" xml:space="preserve">
-    <value>x264 basisinstellingen</value>
-  </data>
   <data name="ProfileLabel" xml:space="preserve">
     <value>Profiel:</value>
   </data>
@@ -430,7 +316,7 @@ Stel dit in als je weet dat een apparaat waarvoor je dit doet niet alle profiele
     <value>Snel</value>
   </data>
   <data name="Preset_Medium" xml:space="preserve">
-    <value>Medium (standaard)</value>
+    <value>Medium</value>
   </data>
   <data name="Preset_Slow" xml:space="preserve">
     <value>Langzaam</value>
@@ -592,168 +478,6 @@ Stel dit in als je weet dat een apparaat waarvoor je dit doet niet alle profiele
   <data name="Bitrate" xml:space="preserve">
     <value>Bitsnelheid</value>
   </data>
-  <data name="Encoding" xml:space="preserve">
-    <value>Codering</value>
-  </data>
-  <data name="ReferenceFramesLabel" xml:space="preserve">
-    <value>Referentie Frames:</value>
-  </data>
-  <data name="MaxBFramesLabel" xml:space="preserve">
-    <value>Maximum B-Frames:</value>
-  </data>
-  <data name="CabacLabel" xml:space="preserve">
-    <value>CABAC:</value>
-  </data>
-  <data name="EightByEightTransformLabel" xml:space="preserve">
-    <value>8x8 Transform:</value>
-  </data>
-  <data name="WeightedPFramesLabel" xml:space="preserve">
-    <value>Gewogen P-Frames:</value>
-  </data>
-  <data name="PyramidalBFramesLabel" xml:space="preserve">
-    <value>Piramidale B-Frames:</value>
-  </data>
-  <data name="NoDctDecimateLabel" xml:space="preserve">
-    <value>Geen DCT-decimering:</value>
-  </data>
-  <data name="Analysis" xml:space="preserve">
-    <value>Analyse</value>
-  </data>
-  <data name="AdaptiveBFramesLabel" xml:space="preserve">
-    <value>Adaptieve B-Frames:</value>
-  </data>
-  <data name="AdaptiveDirectModeLabel" xml:space="preserve">
-    <value>Adaptieve directe modus:</value>
-  </data>
-  <data name="MotionEstimationMethodLabel" xml:space="preserve">
-    <value>Beweging inschattingsmethode:</value>
-  </data>
-  <data name="SubpixelMotionEstimationLabel" xml:space="preserve">
-    <value>Subpixel beweging inschatting:</value>
-  </data>
-  <data name="MotionEstimationRangeLabel" xml:space="preserve">
-    <value>Beweging inschattingsbereik:</value>
-  </data>
-  <data name="AdaptiveQuantizationStrengthLabel" xml:space="preserve">
-    <value>Sterkte adaptieve kwantisatie:</value>
-  </data>
-  <data name="PsychoVisualRateDistortionLabel" xml:space="preserve">
-    <value>Psychovisual Rate Distortion:</value>
-  </data>
-  <data name="PsychovisualTrellisLabel" xml:space="preserve">
-    <value>Psychovisual Trellis:</value>
-  </data>
-  <data name="DeblockingLabel" xml:space="preserve">
-    <value>Deblocking:</value>
-  </data>
-  <data name="PartitionTypeLabel" xml:space="preserve">
-    <value>Partitietype:</value>
-  </data>
-  <data name="TrellisLabel" xml:space="preserve">
-    <value>Trellis:</value>
-  </data>
-  <data name="OptionsString" xml:space="preserve">
-    <value>Extra opties</value>
-  </data>
-  <data name="PyramidalBFrames_Off" xml:space="preserve">
-    <value>Uit</value>
-  </data>
-  <data name="PyramidalBFrames_Normal" xml:space="preserve">
-    <value>Normaal</value>
-  </data>
-  <data name="PyramidalBFrames_Strict" xml:space="preserve">
-    <value>Strikt</value>
-  </data>
-  <data name="AdaptiveBFrames_Off" xml:space="preserve">
-    <value>Uit</value>
-  </data>
-  <data name="AdaptiveBFrames_Fast" xml:space="preserve">
-    <value>Snel</value>
-  </data>
-  <data name="AdaptiveBFrames_Optimal" xml:space="preserve">
-    <value>Optimaal</value>
-  </data>
-  <data name="DirectPrediction_None" xml:space="preserve">
-    <value>Geen</value>
-  </data>
-  <data name="DirectPrediction_Spatial" xml:space="preserve">
-    <value>Ruimtelijk</value>
-  </data>
-  <data name="DirectPrediction_Temporal" xml:space="preserve">
-    <value>Tijdelijk</value>
-  </data>
-  <data name="DirectPrediction_Automatic" xml:space="preserve">
-    <value>Automatisch</value>
-  </data>
-  <data name="MotionEstimationMethod_Diamond" xml:space="preserve">
-    <value>Diamant</value>
-  </data>
-  <data name="MotionEstimationMethod_Hexagon" xml:space="preserve">
-    <value>Zeshoek</value>
-  </data>
-  <data name="MotionEstimationMethod_UnevenMultiHexagon" xml:space="preserve">
-    <value>Oneven multi-zeshoek</value>
-  </data>
-  <data name="MotionEstimationMethod_Exhaustive" xml:space="preserve">
-    <value>Uitputtend</value>
-  </data>
-  <data name="MotionEstimationMethod_TransformedExhaustive" xml:space="preserve">
-    <value>Getransformeerd uitputtend</value>
-  </data>
-  <data name="SubpixelMotionEstimation_0" xml:space="preserve">
-    <value>0: SAD, geen subpel (super snel!)</value>
-  </data>
-  <data name="SubpixelMotionEstimation_1" xml:space="preserve">
-    <value>1: SAD, qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_2" xml:space="preserve">
-    <value>2: SATD, qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_3" xml:space="preserve">
-    <value>3: SATD, multi-qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_4" xml:space="preserve">
-    <value>4: SATD, qpel op alle</value>
-  </data>
-  <data name="SubpixelMotionEstimation_5" xml:space="preserve">
-    <value>5: SATD, multi-qpel op alle</value>
-  </data>
-  <data name="SubpixelMotionEstimation_6" xml:space="preserve">
-    <value>6: RD in I/P-frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_7" xml:space="preserve">
-    <value>7: RD in alle frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_8" xml:space="preserve">
-    <value>8: RD verfijnen in I/P-frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_9" xml:space="preserve">
-    <value>9: RD verfijnen in alle frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_10" xml:space="preserve">
-    <value>10: QPRD in alle frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_11" xml:space="preserve">
-    <value>11: No early terminations in analysis</value>
-  </data>
-  <data name="Analysis_None" xml:space="preserve">
-    <value>Geen</value>
-  </data>
-  <data name="Analysis_Some" xml:space="preserve">
-    <value>Sommige</value>
-  </data>
-  <data name="Analysis_All" xml:space="preserve">
-    <value>Alle</value>
-  </data>
-  <data name="Trellis_Off" xml:space="preserve">
-    <value>Uit</value>
-  </data>
-  <data name="Trellis_EncodeOnly" xml:space="preserve">
-    <value>Alleen coderen</value>
-  </data>
-  <data name="Trellis_Always" xml:space="preserve">
-    <value>Altijd</value>
-  </data>
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} (Standaard)</value>
   </data>
@@ -782,9 +506,6 @@ Vervangt alle andere instellingen.</value>
   </data>
   <data name="VideoEncoder_x264" xml:space="preserve">
     <value>H.264 (x264)</value>
-  </data>
-  <data name="Analysis_Most" xml:space="preserve">
-    <value>Grotendeels</value>
   </data>
   <data name="AdvancedQuery" xml:space="preserve">
     <value>Geavanceerde Query</value>
@@ -824,17 +545,6 @@ Vervangt alle andere instellingen.</value>
   </data>
   <data name="AudioEncoder_flac24" xml:space="preserve">
     <value>FLAC 24-bits</value>
-  </data>
-  <data name="Advanced_PsychovisualLabel" xml:space="preserve">
-    <value>Psychovisual</value>
-  </data>
-  <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
-    <value>Basis</value>
-    <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
-  </data>
-  <data name="X264SettingsRadioButtonAdvanced" xml:space="preserve">
-    <value>Tabblad Geavanceerd</value>
-    <comment>Label for radio button to choose advanced x264 settings on a separate tab.</comment>
   </data>
   <data name="VideoEncoder_mpeg2" xml:space="preserve">
     <value>MPEG-2</value>
@@ -1109,20 +819,45 @@ Lapsharp verscherpt middels plooikernen die Laplaciaanse rand filters benaderen,
   <data name="ChooseNewFolderName" xml:space="preserve">
     <value>Kies een nieuwe naam voor de map:</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="NVEncPreset_ll" xml:space="preserve">
+    <value>Lage latency</value>
+  </data>
+  <data name="NVEncPreset_hq" xml:space="preserve">
+    <value>Hoge kwaliteit</value>
+  </data>
+  <data name="NVEncPreset_hp" xml:space="preserve">
+    <value>Hoge prestaties</value>
+  </data>
+  <data name="PickColorButton" xml:space="preserve">
+    <value>Kies kleur…</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>Onder</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Links</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Rechts</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Boven</value>
+  </data>
+  <data name="PixelAspectRatioNumeratorAutomationName" xml:space="preserve">
+    <value>Pixel beeldverhouding numerator</value>
+    <comment>Name for the pixel aspect ratio numerator box for screen readers</comment>
+  </data>
+  <data name="PixelAspectRatioDenominatorAutomationName" xml:space="preserve">
+    <value>Pixel beeldverhouding</value>
+    <comment>Name for the pixel aspect ratio denominator box for screen readers</comment>
+  </data>
+  <data name="ApplyToQueueButton" xml:space="preserve">
+    <value>Toevoegen aan wachtrij</value>
+  </data>
+  <data name="FullEncoderParameterLabel" xml:space="preserve">
+    <value>Volledige parameterlijst:</value>
+  </data>
+  <data name="MoreOptionsToolTip" xml:space="preserve">
+    <value>Aanvullende geavanceerde argumenten om door te geven aan de video-encoder.</value>
+  </data>
 </root>

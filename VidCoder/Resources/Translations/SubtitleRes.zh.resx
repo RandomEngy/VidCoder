@@ -153,18 +153,13 @@
   <data name="OffsetColumn" xml:space="preserve">
     <value>偏移量(毫秒)</value>
   </data>
-  <data name="ImportSrtButton" xml:space="preserve">
-    <value>导入 .srt 文件...</value>
-  </data>
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>其他字幕轨将与内嵌字幕重迭。</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>搜索外语音频</value>
   </data>
-  <data name="SrtFilePickerText" xml:space="preserve">
-    <value>添加字幕文件</value>
-  </data>
+  
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>无法检测字幕编码。若要保证字幕正确显示，请将文件重新保存为 UTF-8 编码。</value>
   </data>
@@ -175,4 +170,6 @@
     <value>{0} 额外</value>
     <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
   </data>
+  
+  
 </root>

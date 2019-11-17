@@ -153,17 +153,14 @@
   <data name="OffsetColumn" xml:space="preserve">
     <value>Offset (ms)</value>
   </data>
-  <data name="ImportSrtButton" xml:space="preserve">
-    <value>Importare File .srt ...</value>
-  </data>
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Altre tracce di sottotitoli si sovrapporranno ai sottotitoli sovraimpressi.</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Ricerca Audio Straniero</value>
   </data>
-  <data name="SrtFilePickerText" xml:space="preserve">
-    <value>Aggiungi file di sottotitoli</value>
+  <data name="SubtitleFilePickerText" xml:space="preserve">
+    <value>Aggiungi file con i sottotitoli</value>
   </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Non riesco a rilevare la codifica del file dei sottotitoli. Per vedere correttamente i sottotitoli, ri-salvare il file come UTF-8.</value>
@@ -174,5 +171,11 @@
   <data name="ExternalSubtitlesSummaryFormat" xml:space="preserve">
     <value>{0} esterne</value>
     <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
+  </data>
+  <data name="ImportSubtitleButton" xml:space="preserve">
+    <value>Importa da un file...</value>
+  </data>
+  <data name="FilePickerDescription" xml:space="preserve">
+    <value>File dei sottotitoli</value>
   </data>
 </root>

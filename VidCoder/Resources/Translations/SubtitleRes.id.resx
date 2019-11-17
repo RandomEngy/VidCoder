@@ -153,18 +153,13 @@
   <data name="OffsetColumn" xml:space="preserve">
     <value>Offset (ms)</value>
   </data>
-  <data name="ImportSrtButton" xml:space="preserve">
-    <value>Impor File .srt...</value>
-  </data>
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Trek sub judul lain akan tumpang tindih dengan yang 'Burn In'.</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Cari Audio Bahasa Asing</value>
   </data>
-  <data name="SrtFilePickerText" xml:space="preserve">
-    <value>Tambahkan file sub judul</value>
-  </data>
+  
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Tidak bisa mendeteksi penyandian file subjudul. Untuk memastikan bahwa subjudul tersebut ditampilkan dengan benar, simpan lagi berkas tersebut sebagai UTF-8.</value>
   </data>
@@ -175,4 +170,6 @@
     <value>{0} eksternal</value>
     <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
   </data>
+  
+  
 </root>

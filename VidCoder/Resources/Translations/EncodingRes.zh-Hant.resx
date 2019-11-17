@@ -126,124 +126,6 @@
   <data name="Revert" xml:space="preserve">
     <value>回復</value>
   </data>
-  <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
-    <value>x264 擁有多種演算法去決定何時要使用 B-frames 及要使用多少數量。
-
-快速模式下不管你指定多少 B-frames，所耗費的時間都大致相同。然而當處於快速模式，往往在處理時所做的決定通常都不理想。
-
-優化模式下所耗費的時間與 B-Frames 的最大數量成正比，但是在處理時所做的決定會更加準確,尤其是在與 B-pyramid 一起使用時。</value>
-  </data>
-  <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
-    <value>H.264 允許 B-畫格 使用空間性及時間性兩種不同的預測模式。
-
-預設值空間性在大部分情形下皆是較佳的選擇，但在部份情況時間性能產生較佳的結果。
-
-x264 可在耗費小量時間 (可爭取到小幅度的壓縮增益) 的情況下適應性為每個畫格選擇較佳的模式。</value>
-  </data>
-  <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
-    <value>適應性量化能控制編碼器如何分配整個畫格的位元分佈量。
-高設定值會將原本分配於邊緣的部分位元數用來加強複雜的區域。</value>
-  </data>
-  <data name="Advanced_AnalysisToolTip" xml:space="preserve">
-    <value>此選項可調整動態搜尋的各種模式。
-開啟越多的選項表示您可用更長的編碼時間換取更好的編碼效果。</value>
-  </data>
-  <data name="Advanced_BFramesToolTip" xml:space="preserve">
-    <value>合理的值為 2 至 5。
-此選項可控制編碼器可連續使用的 B-畫格最大數。
-除非適應性 B-畫格設定已最佳化，否則調大此數值並無幫助。
-賽璐璐動畫片及錐狀 B-畫格能在較高數值的情況下獲得更好的效果。
-Baseline 規模的設定無法使用 B-畫格。 (通常使用在 iPod 或其他可攜裝置)</value>
-  </data>
-  <data name="Advanced_CabacToolTip" xml:space="preserve">
-    <value>編碼器完成工作後需完整保留部分資訊，H.264 提供兩種方法壓縮這類資訊: CAVLC 及 CABAC。
-CABAC 解碼速度較慢但壓縮率較佳 (10% 至 30%)，於低位元率時壓縮的差異更明顯。
-若您想降低解碼的硬體需求，請停用此選項。
-Baseline 規模的設定無法使用 CABAC。 (通常使用在 iPod 或其他可攜裝置)</value>
-  </data>
-  <data name="Advanced_DeblockingToolTip" xml:space="preserve">
-    <value>H.264 內建解碼去塊濾鏡以柔化壓縮時產生的人工雜訊，此技巧不但能改善視覺品質，也能大幅改善壓縮率。
-解碼去塊需耗費大量的運算，若您想最小化解碼的硬體需求，請停用此選項。
-
-解碼去塊濾鏡有兩個參數可供調整:「強度」及「門檻」。
-前者可調整解碼去塊器的強度，後者可調整柔化區塊邊緣的範圍。
-值越大表示解碼去塊的效果越強，兩個參數的預設值皆為 0 (一般強度)。</value>
-  </data>
-  <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
-    <value>8x8 轉換為 x264 最有效的壓縮技巧。
-此方法可耗費少量時間提升至少 5% 壓縮率，且得到非常佳的畫面品質。
-但此方法需符合 High 規模，許多裝置並不支援。</value>
-  </data>
-  <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
-    <value>此選項控制動態搜尋的方法，動態搜尋為編碼器預測像素區塊於畫格中移動的方法。
-較佳的搜尋方法耗費較多的時間，但可改善壓縮效果。
-
-菱形: 使用菱形模式快速搜尋。
-
-六角形: 使用六角形模式搜尋，較菱形方法慢但壓縮效果較佳。
-
-非均勻多重六角形: 利用各種不同模式搜尋，在動作複雜的影片中可得到較佳的效果。
-
-徹底: 於廣域中搜尋每個像素，耗費極多時間但僅可提高少部分壓縮效果。
-
-轉換徹底: 較精確的徹底搜尋，比徹底方法更慢且也僅能再提高少部分壓縮效果。</value>
-  </data>
-  <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
-    <value>此值為 x264 嘗試找出區塊移動的像素距離範圍。
-
-預設值可適用大多數的影片，但運動極端劇烈的影片 (尤其是高解析度) 可在較大範圍的設定下得到更佳的效果，但也需更長的搜尋時間。
-
-菱形搜尋及六角形搜尋的有效值為 4 至 16、其他搜尋方法的有效值為 4 至 64。</value>
-  </data>
-  <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
-    <value>x264 通常會將接近空白的資料區塊全數歸零以節省位元、改善輸出視訊品質。
-但此特性在保留輕微顆粒感及抖動效果上會產生負面影響。
-除非您遇到條紋問題或無法保留良噪，否則不建議更改此設定。</value>
-  </data>
-  <data name="Advanced_PsychovisualRateDistortionToolTip" xml:space="preserve">
-    <value>心理視覺碼率失真法能使 x264 模擬在人眼視覺中，透過調整訊噪比保留更多細節以改善品質，而非單純由電腦計算出最佳品質。</value>
-  </data>
-  <data name="Advanced_PsychovisualTrellisToolTip" xml:space="preserve">
-    <value>心理視覺格狀編碼會嘗試保留更高的清晰度及細節，但會產生人造雜訊。
-由於仍在實驗階段，此選項預設為關閉狀態。合理的值為 0.1 ~ 0.2。</value>
-  </data>
-  <data name="Advanced_PyramidalBFramesToolTip" xml:space="preserve">
-    <value>錐狀 B-畫格藉由建立原始 B-畫格的錐狀架構，使 B-畫格可交互參照以提高壓縮率。
-
-B-畫格最大數需大於 1 以啟用此功能，建議搭配最佳化適應性 B-畫格以得到最佳的壓縮效果。</value>
-  </data>
-  <data name="Advanced_ReferenceFramesToolTip" xml:space="preserve">
-    <value>合理的值為 1 ~ 6。
-
-值越大壓縮率越高，但編碼時間越長。
-
-賽璐璐動畫於使用更多參考畫格的設定下編碼結果將比電影內容更佳。
-
-請注意許多硬體支援的參考畫格數有限，若您要為手持裝置或獨立播放機編碼檔案，除非您了解此項目細節，否則不建議更改此選項。</value>
-  </data>
-  <data name="Advanced_SubpixelMotionEstimationToolTip" xml:space="preserve">
-    <value>此選項控制次像素的精確動態偵測及模式決策。
-
-次像素動態偵測能提高一般動態偵測的精確度及改善壓縮率。
-
-模式決策用來決定編碼每個區塊: 決策方式影響甚大。
-
-SAD 速度最快，接著是 SATD、RD、RD (精密)，及最慢的 QPRD。
-建議設定 6 以上的值: 心理視覺 RD 為可幫助保留細節的心理視覺最佳化方法，需搭配 RD。
-10 為最有效但最慢的的選項，需搭配格狀編碼 = 2。</value>
-  </data>
-  <data name="Advanced_TrellisToolTip" xml:space="preserve">
-    <value>格狀編碼可藉由微調轉換係數，多花費部分編碼時間，提高 3% 至 5% 的壓縮率。
-「必要」選項會在分析與編碼時皆使用格狀編碼，雖可改善壓縮率但會耗費相當多的時間。
-
-格狀編碼於高位元率設定時需耗費更多編碼時間。</value>
-  </data>
-  <data name="Advanced_WeightPToolTip" xml:space="preserve">
-    <value>進行額外分析調整每個畫格的權重。
-此選項可稍微提升壓縮率，且能大幅改善畫面淡入淡出的效果。
-Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或其他可攜裝置)
-請注意部分裝置或播放器即使支援 Main 規模，處理加權 P-畫格時仍可能產生問題。 (如 Apple TV 無法相容加權 P-畫格)</value>
-  </data>
   <data name="Audio_DrcToolTip" xml:space="preserve">
     <value>動態範圍壓縮，有效值為 0 ~ 4。
 
@@ -301,9 +183,6 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
   </data>
   <data name="TabHeader_AudioEncoding" xml:space="preserve">
     <value>音訊編碼</value>
-  </data>
-  <data name="TabHeader_Advanced" xml:space="preserve">
-    <value>進階視訊</value>
   </data>
   <data name="Rename" xml:space="preserve">
     <value>重新命名</value>
@@ -401,9 +280,6 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
   <data name="ConstantQualityRadioButton" xml:space="preserve">
     <value>固定品質</value>
   </data>
-  <data name="X264BasicSettings" xml:space="preserve">
-    <value>x264 基本設定</value>
-  </data>
   <data name="ProfileLabel" xml:space="preserve">
     <value>規模:</value>
   </data>
@@ -438,7 +314,7 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
     <value>快速</value>
   </data>
   <data name="Preset_Medium" xml:space="preserve">
-    <value>中等 (預設值)</value>
+    <value>中等</value>
   </data>
   <data name="Preset_Slow" xml:space="preserve">
     <value>緩慢</value>
@@ -600,168 +476,6 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
   <data name="Bitrate" xml:space="preserve">
     <value>位元率</value>
   </data>
-  <data name="Encoding" xml:space="preserve">
-    <value>編碼</value>
-  </data>
-  <data name="ReferenceFramesLabel" xml:space="preserve">
-    <value>參考畫格:</value>
-  </data>
-  <data name="MaxBFramesLabel" xml:space="preserve">
-    <value>最大 B-畫格:</value>
-  </data>
-  <data name="CabacLabel" xml:space="preserve">
-    <value>CABAC:</value>
-  </data>
-  <data name="EightByEightTransformLabel" xml:space="preserve">
-    <value>8x8 轉換:</value>
-  </data>
-  <data name="WeightedPFramesLabel" xml:space="preserve">
-    <value>加權 P-畫格:</value>
-  </data>
-  <data name="PyramidalBFramesLabel" xml:space="preserve">
-    <value>錐狀 B-畫格:</value>
-  </data>
-  <data name="NoDctDecimateLabel" xml:space="preserve">
-    <value>無 DCT-過濾</value>
-  </data>
-  <data name="Analysis" xml:space="preserve">
-    <value>分析</value>
-  </data>
-  <data name="AdaptiveBFramesLabel" xml:space="preserve">
-    <value>適應性 B-畫格:</value>
-  </data>
-  <data name="AdaptiveDirectModeLabel" xml:space="preserve">
-    <value>適應性直接模式:</value>
-  </data>
-  <data name="MotionEstimationMethodLabel" xml:space="preserve">
-    <value>動態偵測模式:</value>
-  </data>
-  <data name="SubpixelMotionEstimationLabel" xml:space="preserve">
-    <value>次像素動態偵測:</value>
-  </data>
-  <data name="MotionEstimationRangeLabel" xml:space="preserve">
-    <value>動態偵測範圍:</value>
-  </data>
-  <data name="AdaptiveQuantizationStrengthLabel" xml:space="preserve">
-    <value>適應性量化強度:</value>
-  </data>
-  <data name="PsychoVisualRateDistortionLabel" xml:space="preserve">
-    <value>心理視覺碼率失真:</value>
-  </data>
-  <data name="PsychovisualTrellisLabel" xml:space="preserve">
-    <value>心理視覺格狀:</value>
-  </data>
-  <data name="DeblockingLabel" xml:space="preserve">
-    <value>解碼去塊:</value>
-  </data>
-  <data name="PartitionTypeLabel" xml:space="preserve">
-    <value>分割類型:</value>
-  </data>
-  <data name="TrellisLabel" xml:space="preserve">
-    <value>格狀:</value>
-  </data>
-  <data name="OptionsString" xml:space="preserve">
-    <value>選項字串</value>
-  </data>
-  <data name="PyramidalBFrames_Off" xml:space="preserve">
-    <value>關閉</value>
-  </data>
-  <data name="PyramidalBFrames_Normal" xml:space="preserve">
-    <value>標準</value>
-  </data>
-  <data name="PyramidalBFrames_Strict" xml:space="preserve">
-    <value>嚴格</value>
-  </data>
-  <data name="AdaptiveBFrames_Off" xml:space="preserve">
-    <value>關閉</value>
-  </data>
-  <data name="AdaptiveBFrames_Fast" xml:space="preserve">
-    <value>快速</value>
-  </data>
-  <data name="AdaptiveBFrames_Optimal" xml:space="preserve">
-    <value>最佳化</value>
-  </data>
-  <data name="DirectPrediction_None" xml:space="preserve">
-    <value>無</value>
-  </data>
-  <data name="DirectPrediction_Spatial" xml:space="preserve">
-    <value>空間性</value>
-  </data>
-  <data name="DirectPrediction_Temporal" xml:space="preserve">
-    <value>時間性</value>
-  </data>
-  <data name="DirectPrediction_Automatic" xml:space="preserve">
-    <value>自動</value>
-  </data>
-  <data name="MotionEstimationMethod_Diamond" xml:space="preserve">
-    <value>菱形</value>
-  </data>
-  <data name="MotionEstimationMethod_Hexagon" xml:space="preserve">
-    <value>六角形</value>
-  </data>
-  <data name="MotionEstimationMethod_UnevenMultiHexagon" xml:space="preserve">
-    <value>均勻多重六角形</value>
-  </data>
-  <data name="MotionEstimationMethod_Exhaustive" xml:space="preserve">
-    <value>徹底</value>
-  </data>
-  <data name="MotionEstimationMethod_TransformedExhaustive" xml:space="preserve">
-    <value>轉換徹底</value>
-  </data>
-  <data name="SubpixelMotionEstimation_0" xml:space="preserve">
-    <value>0: SAD，無次像素 (超快!)</value>
-  </data>
-  <data name="SubpixelMotionEstimation_1" xml:space="preserve">
-    <value>1: SAD，1/4 像素</value>
-  </data>
-  <data name="SubpixelMotionEstimation_2" xml:space="preserve">
-    <value>2: SATD，1/4 像素</value>
-  </data>
-  <data name="SubpixelMotionEstimation_3" xml:space="preserve">
-    <value>3: SATD，多重 1/4 像素</value>
-  </data>
-  <data name="SubpixelMotionEstimation_4" xml:space="preserve">
-    <value>4: SATD，所有 1/4 像素</value>
-  </data>
-  <data name="SubpixelMotionEstimation_5" xml:space="preserve">
-    <value>5: SATD，所有多重 1/4 像素</value>
-  </data>
-  <data name="SubpixelMotionEstimation_6" xml:space="preserve">
-    <value>6: RD 於 I/P-畫格</value>
-  </data>
-  <data name="SubpixelMotionEstimation_7" xml:space="preserve">
-    <value>7: RD 於所有畫格</value>
-  </data>
-  <data name="SubpixelMotionEstimation_8" xml:space="preserve">
-    <value>8: RD (精密) 於 I/P-畫格</value>
-  </data>
-  <data name="SubpixelMotionEstimation_9" xml:space="preserve">
-    <value>9: RD (精密) 於所有畫格</value>
-  </data>
-  <data name="SubpixelMotionEstimation_10" xml:space="preserve">
-    <value>10: QPRD 於所有畫格</value>
-  </data>
-  <data name="SubpixelMotionEstimation_11" xml:space="preserve">
-    <value>11: 不提前終止分析</value>
-  </data>
-  <data name="Analysis_None" xml:space="preserve">
-    <value>無</value>
-  </data>
-  <data name="Analysis_Some" xml:space="preserve">
-    <value>部分</value>
-  </data>
-  <data name="Analysis_All" xml:space="preserve">
-    <value>全部</value>
-  </data>
-  <data name="Trellis_Off" xml:space="preserve">
-    <value>關閉</value>
-  </data>
-  <data name="Trellis_EncodeOnly" xml:space="preserve">
-    <value>僅編碼</value>
-  </data>
-  <data name="Trellis_Always" xml:space="preserve">
-    <value>必要</value>
-  </data>
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} (預設值)</value>
   </data>
@@ -790,9 +504,6 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
   </data>
   <data name="VideoEncoder_x264" xml:space="preserve">
     <value>H.264 (x264)</value>
-  </data>
-  <data name="Analysis_Most" xml:space="preserve">
-    <value>大部分</value>
   </data>
   <data name="AdvancedQuery" xml:space="preserve">
     <value>進階查詢</value>
@@ -832,17 +543,6 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
   </data>
   <data name="AudioEncoder_flac24" xml:space="preserve">
     <value>FLAC 24 位元</value>
-  </data>
-  <data name="Advanced_PsychovisualLabel" xml:space="preserve">
-    <value>心理視覺</value>
-  </data>
-  <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
-    <value>Basic</value>
-    <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
-  </data>
-  <data name="X264SettingsRadioButtonAdvanced" xml:space="preserve">
-    <value>進階分頁</value>
-    <comment>Label for radio button to choose advanced x264 settings on a separate tab.</comment>
   </data>
   <data name="VideoEncoder_mpeg2" xml:space="preserve">
     <value>MPEG-2</value>
@@ -1123,23 +823,8 @@ Lapsharp 銳利化使用卷積核預估拉普拉斯邊緣濾波器，有時可�
   <data name="ChooseNewFolderName" xml:space="preserve">
     <value>選取資料夾的新名稱:</value>
   </data>
-  <data name="NVEncPreset_losslesshp" xml:space="preserve">
-    <value>高性能無損</value>
-  </data>
-  <data name="NVEncPreset_lossless" xml:space="preserve">
-    <value>無損</value>
-  </data>
-  <data name="NVEncPreset_llhp" xml:space="preserve">
-    <value>高性能低延遲</value>
-  </data>
-  <data name="NVEncPreset_llhq" xml:space="preserve">
-    <value>高品質低延遲</value>
-  </data>
   <data name="NVEncPreset_ll" xml:space="preserve">
     <value>低延遲</value>
-  </data>
-  <data name="NVEncPreset_bd" xml:space="preserve">
-    <value>藍光碟片</value>
   </data>
   <data name="NVEncPreset_hq" xml:space="preserve">
     <value>高品質</value>
@@ -1172,5 +857,11 @@ Lapsharp 銳利化使用卷積核預估拉普拉斯邊緣濾波器，有時可�
   </data>
   <data name="ApplyToQueueButton" xml:space="preserve">
     <value>套用至佇列</value>
+  </data>
+  <data name="FullEncoderParameterLabel" xml:space="preserve">
+    <value>完整參數列表:</value>
+  </data>
+  <data name="MoreOptionsToolTip" xml:space="preserve">
+    <value>要傳給視訊編碼器的額外高階參數。</value>
   </data>
 </root>

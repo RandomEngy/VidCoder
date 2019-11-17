@@ -126,95 +126,6 @@
   <data name="Revert" xml:space="preserve">
     <value>Vrati</value>
   </data>
-  <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
-    <value>x264 ima mnoštvo algoritama koji određuju kada i koliko B-frejmova da koriste. Brzi mod treba otprilike istu količinu vremena, bez obzira koliko B-frejmova je određeno. Ali, iako brzo, njegove odluke su često suboptimalne. Optimalni mod postaje sporiji što se maksimalni broj B-frejmova povečava, ali donosi mnogo tačnije odluke, pogotovo kada se koristi sa B-pyramid.</value>
-  </data>
-  <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
-    <value>H.264 dozvoljava dvije vrste modova sa predviđanjem, spatial i temporal, u B-frejmovima.
-
-Spatial, postavljen, je skoro uvijek bolji, ali temporal je ponekad koristan.
-
-x264 može, uz manje usporavanje (i isto tako manju dobitak na kompresiji), prilagodljivo odabrati šta je bolje za svaki pojedinačni frejm.</value>
-  </data>
-  <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
-    <value>Adaptive quantization kontrolira kako enkoder razmješta bitove po frejmu.
-Više vrijednosti uzimaju više bitova od kutova i zahtjevnih dijelova da poprave dijlove sa bitnijim detaljima.</value>
-  </data>
-  <data name="Advanced_AnalysisToolTip" xml:space="preserve">
-    <value>Odabir moda izabire od mnoštva opcija da donese odluku: ova opcija odabire koje su to opcije.  Manje particija za provjeru znači brže enkodiranje, na trošak najlošije odluke, jer najbolja opcija možda nije bilo jedna od onih koje su uključene.</value>
-  </data>
-  <data name="Advanced_BFramesToolTip" xml:space="preserve">
-    <value>Normalne vrijednosti su ~2-5.  Ovo određuje maksimalan broj B-frejmova u nizu koje enkoder može koristiti.  Veliki brojevi neće puno pomoći, ako Adaptive B-frejmovi nisu namješteni na Optimalno.  Cel-animated izvorni materijal i B-pyramid takođe znatno povećavaju korisno viših vrijednosti. Osnovni profil, koji zahtjevaju iPod-i i slični uređaju, zahtjeva da B-frejmovi budu namješteni na 0 (isključeno).</value>
-  </data>
-  <data name="Advanced_CabacToolTip" xml:space="preserve">
-    <value>Nakon što enkoder završi svoj posao, ima dosta podataka koje treba da kompresuje bez gubitka, slično kao ZIP ili RAR. H.264 nudi dvije opcije za to: CAVLC i CABAC. CABAC dekodira sporije, ali kompresuje bolje (10-30%), pogotovo na nižem bitrate-u. Ukoliko želite da smanjite CPU zahtjeve za izvođenje videa, odznačite ovu opciju. Baseline profil, koji se koristi za iPod i slične uređaje, ima CABAC odznačeno.</value>
-  </data>
-  <data name="Advanced_DeblockingToolTip" xml:space="preserve">
-    <value>H.264 posjeduje ugrađeni deblocking filter koji izglađuje kockanje nakon dekodiranja svakog frejma. Ovo ne poboljšava sam vizuelni izgled, nego i pomaže kompresiju. 
-Deblocking filter koristi dosta CPU, pa ako želite smanjiti korištenje CPU kod izvođenja videa, odznačite ga.
-
-Deblocking filter ima dva podesiva parametra, "snaga" i "granica". 
-Prvi kontrolira koliko je jak (ili slab) deblocker, dok drugi kontrolira uglove na koje se primjenjuje. 
-Niže vrijednosti znače manje deblocking, više znače više. Podešena vrijednost je 0 (normalno) za oba parametra.</value>
-  </data>
-  <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
-    <value>8x8 transformacija je najkorisnija opcija x264 u smislu kompresije-po-brzina.  
-Popravlja kompresiju barem 5% uz vrlo malo usporavnja, a može da omogući dobit u kvaliteti u uporedbi sa dobiti u kompresiji.  
-Ali, zahtjeva Visoki Profil, kojeg dosta uređaja ne podržava.</value>
-  </data>
-  <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
-    <value>Kontrolira metod procjene pokreta. Procjena pokrete je način na koji enkoder procjenjuje kako je svaki blok piksela u frejmu pomaknut.  
-Bolja metoda procjene pokreta popravlja kompresiju na trošak brzine.
-Dijamant: vrši brzu i jednostavnu pretragu korištenje dijamantnog uzorka.
-Hexagon: vrši efektivniju, ali sporiju pretragu korištenjem uzorka šesterokuta.
-Uneven Multi-Hex: vrši široku pretragu korištenjem više varijanti uzorka, tačniji u hvatanju složenijih pokreta.
-Exhaustive: vrši "glupu" pretragu svakog piksela u širokom području. Prilično sporiji uz jako malo dobit kompresije.
-Transformed Exhaustive: kao exhaustive, ali donosi još ispravnije odluke. Zato sporiji, uz jako malu dobit.</value>
-  </data>
-  <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
-    <value>Ovo je daljina koju x264 koristi prilikom pogađanja pokreta u bloku, da bi pokušao naći stvarne pokrete.
-Zadano je dovoljno za većinu sadržaja, ali video sa dosta pokreta, pogotovu u HD rezoluciji, može imati koristi o viših vrijednost, ali sa usporavanjem.
-Ispravne vrijednosti su 4-16 za Dijamantni ili Hexagon metod, i 4-64 za ostale metode.</value>
-  </data>
-  <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
-    <value>x264 zamjenjuje skoro prazne blokove s podacima sa nulama, da bi uštedio bitove koji mogu biti bolje iskorišteni za neku drugu svrhu u videu.  
-Ali, ovo može nekada imati negative posljedice na zadržavanje finije zrnavosti ili drhtavosti.  
-Nemojte mijenjati, osim ako vam se pojavljuju linije ili drugi slučajevi gdje postoje problemi sa zadržavanjem finije zrnavosti.</value>
-  </data>
-  <data name="Advanced_PsychovisualRateDistortionToolTip" xml:space="preserve">
-    <value>Psychovisual Rate Distortion znači da x264 pokušava zadržati detalje, za bolju kvalitetu slike na način na koji to vide ljudske oči, 
-za razliku od pokušaja da se maksimizira kvaliteta na način na koji to kompjuter razumije, kroz Snr koji ima problema da razlikuje detalje i šum.</value>
-  </data>
-  <data name="Advanced_PsychovisualTrellisToolTip" xml:space="preserve">
-    <value>Psychovisual Trellis pokušava zadržati oštrinu i detalje, koji mogu uzrokovati kockanje.
-Smatra se eksperimentalnim, te je isključen. Dobre vrijednosti su 0.1 do 0.2.</value>
-  </data>
-  <data name="Advanced_PyramidalBFramesToolTip" xml:space="preserve">
-    <value>B-pyramid stvara piramidalnu strukturu (od toga je došao i naziv) od B-frejmova, dozvoljavajući B-frejmovima da se pozivaju između i time poprave kompresiju.  Zahtjeva Max B-frejmova više od 1; preporučeno je i optimalni prilagodljivi B-frejmovi za punu koristi kod kompresije.</value>
-  </data>
-  <data name="Advanced_ReferenceFramesToolTip" xml:space="preserve">
-    <value>Normalne vrijednosti su ~1-6. Što više dodate, to je kompresija bolja, ali enkodiranje sporije. Cel animation ima više koristi od referentnih frejmove nego filmski sadržaj. Uzmite u ozbir da mnogo uređaja ima ograničenja u vidu broj podržanih referentnih frejmova, ukoliko enkodirate za mobilne ili samostalne playere, nemoj ovo mijenjati, osim ako niste posve sigurni da znate što radite!</value>
-  </data>
-  <data name="Advanced_SubpixelMotionEstimationToolTip" xml:space="preserve">
-    <value>Ova postavka kontrolira subpixel-precision motion estimation i mode decision methods.
-Subpixel motion estimation se koristi za poboljšanje predviđanja pokreta van same tačnosti pixela, popravljajući kompresiju.
-Mode decision je metod koji odabire kako enkodirati svaki blok frejma: vrlo bitna odluka.
-SAD je najbrži metod, slijedi ga SATD, RD, RD refinement, i najsporiji, QPRD.
-6 ili više je preporučeno: Psy-RD, jako moćna psy optimizacija koja pomaže u zadržavanju detalja, zahtjeva RD.
-10, je najmoćnija i najsporija opcija, zahtjeva trellis=2.</value>
-  </data>
-  <data name="Advanced_TrellisToolTip" xml:space="preserve">
-    <value>Trellis vrši naštimavanje "rounding of transform coefficients" da ni izvukao 3-5% više kompresije na račun brzine. "Uvijek" koristi trellis ne samo tokom glavnog procesa enkodiranje, nego i prilikom analize, koja poboljšava kompresiju još više, ali uz velik trošak brzine. 
-
-Trellis oduzima još brzine na višim bitrate-u.</value>
-  </data>
-  <data name="Advanced_WeightPToolTip" xml:space="preserve">
-    <value>Vrši dodatnu analizu da odluči koje parametre koristiti za svaki frejm.  
-Ova poboljšava sveukupnu kompresiju i popravlja kvalitet preljevanja. 
-Baseline profil, koji je potreban za iPod i slične uređaje, zahtjeva isključivanje weighted P-frejm predviđana.  
-Neki uređaji i plejeri, čak i oni koji podržavaju Glavni profil, 
-mogu imati problema sa Weighted P-frejm predviđanjem: na primjer, Apple TV je potpuno nekompatibilan.</value>
-  </data>
   <data name="Audio_DrcToolTip" xml:space="preserve">
     <value>Dynamic Range Compression. Ispravne vrijednosti od 0-4.
 Za izvorni zvuk koji ima širok dinamčki raspon (vrlo glasne i vrlo tihe dijelove), DRC dozvoljava da "kompresujete" raspon tako da glasni dijelovi budu tiši, a tiši glasniji.
@@ -270,9 +181,6 @@ Ovo radi samo sa AC3 izvorima.</value>
   </data>
   <data name="TabHeader_AudioEncoding" xml:space="preserve">
     <value>Enkodiranje audia</value>
-  </data>
-  <data name="TabHeader_Advanced" xml:space="preserve">
-    <value>Napredni video</value>
   </data>
   <data name="Rename" xml:space="preserve">
     <value>Preimenuj</value>
@@ -370,9 +278,6 @@ Ovo radi samo sa AC3 izvorima.</value>
   <data name="ConstantQualityRadioButton" xml:space="preserve">
     <value>Ravnomjerna kvaliteta</value>
   </data>
-  <data name="X264BasicSettings" xml:space="preserve">
-    <value>Osnovne Postavke x264</value>
-  </data>
   <data name="ProfileLabel" xml:space="preserve">
     <value>Profil:</value>
   </data>
@@ -407,7 +312,7 @@ Ovo radi samo sa AC3 izvorima.</value>
     <value>Brzo</value>
   </data>
   <data name="Preset_Medium" xml:space="preserve">
-    <value>Srednje (Zadano)</value>
+    <value>Srednje</value>
   </data>
   <data name="Preset_Slow" xml:space="preserve">
     <value>Sporo</value>
@@ -569,168 +474,6 @@ Ovo radi samo sa AC3 izvorima.</value>
   <data name="Bitrate" xml:space="preserve">
     <value>Bitrate</value>
   </data>
-  <data name="Encoding" xml:space="preserve">
-    <value>Enkodiranje</value>
-  </data>
-  <data name="ReferenceFramesLabel" xml:space="preserve">
-    <value>Referenti frejmovi:</value>
-  </data>
-  <data name="MaxBFramesLabel" xml:space="preserve">
-    <value>Maksimum B-frejmova:</value>
-  </data>
-  <data name="CabacLabel" xml:space="preserve">
-    <value>CABAC:</value>
-  </data>
-  <data name="EightByEightTransformLabel" xml:space="preserve">
-    <value>8x8 transformacija:</value>
-  </data>
-  <data name="WeightedPFramesLabel" xml:space="preserve">
-    <value>Weighted P-frejmovi:</value>
-  </data>
-  <data name="PyramidalBFramesLabel" xml:space="preserve">
-    <value>Pyramidal B-frejmovi:</value>
-  </data>
-  <data name="NoDctDecimateLabel" xml:space="preserve">
-    <value>No DCT-Decimate:</value>
-  </data>
-  <data name="Analysis" xml:space="preserve">
-    <value>Analiza</value>
-  </data>
-  <data name="AdaptiveBFramesLabel" xml:space="preserve">
-    <value>Prilagodljivi B-frejmovi:</value>
-  </data>
-  <data name="AdaptiveDirectModeLabel" xml:space="preserve">
-    <value>Adaptive Direct Mode:</value>
-  </data>
-  <data name="MotionEstimationMethodLabel" xml:space="preserve">
-    <value>Motion Estimation Method:</value>
-  </data>
-  <data name="SubpixelMotionEstimationLabel" xml:space="preserve">
-    <value>Subpixel Motion Estimation:</value>
-  </data>
-  <data name="MotionEstimationRangeLabel" xml:space="preserve">
-    <value>Opseg Motion Estimation:</value>
-  </data>
-  <data name="AdaptiveQuantizationStrengthLabel" xml:space="preserve">
-    <value>Adaptive Quantization Strength:</value>
-  </data>
-  <data name="PsychoVisualRateDistortionLabel" xml:space="preserve">
-    <value>Psychovisual Rate Distortion:</value>
-  </data>
-  <data name="PsychovisualTrellisLabel" xml:space="preserve">
-    <value>Psychovisual Trellis:</value>
-  </data>
-  <data name="DeblockingLabel" xml:space="preserve">
-    <value>Deblocking:</value>
-  </data>
-  <data name="PartitionTypeLabel" xml:space="preserve">
-    <value>Tip particije:</value>
-  </data>
-  <data name="TrellisLabel" xml:space="preserve">
-    <value>Trellis:</value>
-  </data>
-  <data name="OptionsString" xml:space="preserve">
-    <value>Niz opcija</value>
-  </data>
-  <data name="PyramidalBFrames_Off" xml:space="preserve">
-    <value>Isključeno</value>
-  </data>
-  <data name="PyramidalBFrames_Normal" xml:space="preserve">
-    <value>Normalno</value>
-  </data>
-  <data name="PyramidalBFrames_Strict" xml:space="preserve">
-    <value>Strogo</value>
-  </data>
-  <data name="AdaptiveBFrames_Off" xml:space="preserve">
-    <value>Isključeno</value>
-  </data>
-  <data name="AdaptiveBFrames_Fast" xml:space="preserve">
-    <value>Brzo</value>
-  </data>
-  <data name="AdaptiveBFrames_Optimal" xml:space="preserve">
-    <value>Optimalno</value>
-  </data>
-  <data name="DirectPrediction_None" xml:space="preserve">
-    <value>Nikakvo</value>
-  </data>
-  <data name="DirectPrediction_Spatial" xml:space="preserve">
-    <value>Spatial</value>
-  </data>
-  <data name="DirectPrediction_Temporal" xml:space="preserve">
-    <value>Temporal</value>
-  </data>
-  <data name="DirectPrediction_Automatic" xml:space="preserve">
-    <value>Automatsko</value>
-  </data>
-  <data name="MotionEstimationMethod_Diamond" xml:space="preserve">
-    <value>Dijamant</value>
-  </data>
-  <data name="MotionEstimationMethod_Hexagon" xml:space="preserve">
-    <value>Hexagon</value>
-  </data>
-  <data name="MotionEstimationMethod_UnevenMultiHexagon" xml:space="preserve">
-    <value>Uneven Multi-Hexagon</value>
-  </data>
-  <data name="MotionEstimationMethod_Exhaustive" xml:space="preserve">
-    <value>Exhaustive</value>
-  </data>
-  <data name="MotionEstimationMethod_TransformedExhaustive" xml:space="preserve">
-    <value>Transformed Exhaustive</value>
-  </data>
-  <data name="SubpixelMotionEstimation_0" xml:space="preserve">
-    <value>0: SAD, no subpel (superbrzo!)</value>
-  </data>
-  <data name="SubpixelMotionEstimation_1" xml:space="preserve">
-    <value>1: SAD, qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_2" xml:space="preserve">
-    <value>2: SATD, qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_3" xml:space="preserve">
-    <value>3: SATD, multi-qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_4" xml:space="preserve">
-    <value>4: SATD, qpel za sve</value>
-  </data>
-  <data name="SubpixelMotionEstimation_5" xml:space="preserve">
-    <value>5: SATD, multi-qpel za sve</value>
-  </data>
-  <data name="SubpixelMotionEstimation_6" xml:space="preserve">
-    <value>6: RD u I/P-frejmovima</value>
-  </data>
-  <data name="SubpixelMotionEstimation_7" xml:space="preserve">
-    <value>7: RD u svim frejmovima</value>
-  </data>
-  <data name="SubpixelMotionEstimation_8" xml:space="preserve">
-    <value>8: RD refine u I/P-frejmovima</value>
-  </data>
-  <data name="SubpixelMotionEstimation_9" xml:space="preserve">
-    <value>9: RD refine u svim frejmovima</value>
-  </data>
-  <data name="SubpixelMotionEstimation_10" xml:space="preserve">
-    <value>10: QPRD u svim frejmovima</value>
-  </data>
-  <data name="SubpixelMotionEstimation_11" xml:space="preserve">
-    <value>11: Bez prijevremenog prekida u analizi</value>
-  </data>
-  <data name="Analysis_None" xml:space="preserve">
-    <value>Nikakva</value>
-  </data>
-  <data name="Analysis_Some" xml:space="preserve">
-    <value>Nešto</value>
-  </data>
-  <data name="Analysis_All" xml:space="preserve">
-    <value>Sve</value>
-  </data>
-  <data name="Trellis_Off" xml:space="preserve">
-    <value>Isključeno</value>
-  </data>
-  <data name="Trellis_EncodeOnly" xml:space="preserve">
-    <value>Samo enkodiranje</value>
-  </data>
-  <data name="Trellis_Always" xml:space="preserve">
-    <value>Uvijek</value>
-  </data>
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} (Zadano)</value>
   </data>
@@ -758,9 +501,6 @@ Odbacuje sva ostala podešavanja.</value>
   </data>
   <data name="VideoEncoder_x264" xml:space="preserve">
     <value>H.264 (x264)</value>
-  </data>
-  <data name="Analysis_Most" xml:space="preserve">
-    <value>Većina</value>
   </data>
   <data name="AdvancedQuery" xml:space="preserve">
     <value>Napredni upit</value>
@@ -800,17 +540,6 @@ Odbacuje sva ostala podešavanja.</value>
   </data>
   <data name="AudioEncoder_flac24" xml:space="preserve">
     <value>FLAC 24-bit</value>
-  </data>
-  <data name="Advanced_PsychovisualLabel" xml:space="preserve">
-    <value>Psychovisual</value>
-  </data>
-  <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
-    <value>Osnovno</value>
-    <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
-  </data>
-  <data name="X264SettingsRadioButtonAdvanced" xml:space="preserve">
-    <value>Kartica napredno</value>
-    <comment>Label for radio button to choose advanced x264 settings on a separate tab.</comment>
   </data>
   <data name="VideoEncoder_mpeg2" xml:space="preserve">
     <value>MPEG-2</value>
@@ -1064,15 +793,6 @@ Bicubic: OpenCL hardverski ubrzani algoritam za skaliranje.</value>
     <value>Unesite novi naziv za mapu:</value>
   </data>
   
-  <data name="NVEncPreset_lossless" xml:space="preserve">
-    <value>Bez gubitka</value>
-  </data>
-  
-  
-  
-  <data name="NVEncPreset_bd" xml:space="preserve">
-    <value>Bluray Disk</value>
-  </data>
   <data name="NVEncPreset_hq" xml:space="preserve">
     <value>Visoka kvaliteta</value>
   </data>
@@ -1097,4 +817,6 @@ Bicubic: OpenCL hardverski ubrzani algoritam za skaliranje.</value>
   <data name="ApplyToQueueButton" xml:space="preserve">
     <value>Primjeni na red čekanja</value>
   </data>
+  
+  
 </root>

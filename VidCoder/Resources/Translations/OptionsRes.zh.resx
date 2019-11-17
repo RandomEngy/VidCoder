@@ -198,9 +198,7 @@
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>允许自定义音轨名称 (部分播放器都支持)</value>
   </data>
-  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>启用 LibDVDNav (更改需重启程序)</value>
-  </data>
+  
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>清除已完成项目时删除源文件 (需确认)</value>
   </data>
@@ -395,4 +393,8 @@
   <data name="PromptForUpdatesLabel" xml:space="preserve">
     <value>提示更新：</value>
   </data>
+  
+  
+  
+  
 </root>

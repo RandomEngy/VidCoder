@@ -126,60 +126,6 @@
   <data name="Revert" xml:space="preserve">
     <value>Отмена</value>
   </data>
-  <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
-    <value>x 264 имеет целый ряд алгоритмов, чтобы решить, когда следует использовать B-кадров и сколько использовать.  Быстрый режим занимает примерно такое же количество времени, независимо от того, какое количество B-кадров, указать.  Однако при этом быстро, его решения часто являются неоптимальной.  Оптимальный режим замедляется как максимальное количество B-кадров увеличивает, но делает гораздо более точные решения, особенно когда она используется с B-пирамиды.</value>
-  </data>
-  <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
-    <value>H.264 позволяет для двух разных прогнозирования режимов, пространственных и временных, в B-кадрах.  Пространственные, по умолчанию, это почти всегда лучше, но временной иногда полезно тоже.  x 264 можно за счет небольшого количества скорости (и соответственно для малого сжатия получить), адаптивно выбрать, что лучше для каждого конкретного кадра.</value>
-  </data>
-  <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
-    <value>Адаптивное квантование контролирует, как кодировщик распределяет битов по всему кадру. Более высокие значения принимают больше битов от края и сложных областей для улучшения областях с чётким.</value>
-  </data>
-  <data name="Advanced_AnalysisToolTip" xml:space="preserve">
-    <value>Выбор способа из различных вариантов, чтобы сделать свое решение: этот параметр выбирает нужные варианты.   Меньше секций для проверки означает быстрое кодирование, ценой худшего результата.</value>
-  </data>
-  <data name="Advanced_BFramesToolTip" xml:space="preserve">
-    <value>Оптимальное значение  ~ 2-5.   Это определяет максимальное количество последовательных B-кадров, которые может использовать кодировщик.   Большое число обычно не поможет значительно если адаптивных B-кадров установлено оптимально.   Анимированные чел исходного материала и B-пирамида также значительно увеличит полезность больших значений.  Базовый профиль, как это требуется для iPod и аналогичных устройств, требует B-кадров равным 0 (выключено).</value>
-  </data>
-  <data name="Advanced_CabacToolTip" xml:space="preserve">
-    <value>После того, как кодировщик сделал свою работу, он имеет кучу данных для сжатия без потерь, аналогичных ZIP или RAR. H.264 обеспечивает два варианта для этого: CAVLC и CABAC.  CABAC декодирует намного медленнее, но компрессы значительно лучше (10-30%), особенно на более низкой скорости передачи. Если вы ищете для сведения к минимуму требования к Процессору для воспроизведения видео, отключите эту опцию. Базовый профиль, как это требуется для iPod и аналогичных устройств, требует отключения CABAC.</value>
-  </data>
-  <data name="Advanced_DeblockingToolTip" xml:space="preserve">
-    <value>H.264 имеет встроенный  фильтр деблокинга, который сглаживает блокирование артефакты после декодирования каждого кадра.  Это не только улучшает визуальное качество, но также  значительно помогает сжатию.  Фильтр деблокинга занимает много ресурсов процессора, так что если вы ищете для сведения к минимуму требования к Процессору для воспроизведения видео, отключите его.  Деблокинга фильтр имеет два настраиваемые параметры, «сила» и «порог».  Более низкие значения означают, что меньше деблокинга, более высокие значения означают больше деблокинга. Значение по умолчанию равно 0 (нормальная прочность) для обоих параметров.</value>
-  </data>
-  <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
-    <value>8 Х 8 transform является наиболее полезной функцией x 264 с точки зрения скорости сжатия.   Улучшает сжатие по меньшей мере на 5% с относительно небольшой скоростью и может предоставить необычно высокое визуальное качество по сравнению с выгодой сжатия.   Однако это требует Высокий Профиль, который многие устройства могут не поддерживать.</value>
-  </data>
-  <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
-    <value>Управляет методом оценки движения. Оценка движения определяет, как двигается каждый блок пикселей в кадре.   Лучший метод поиска движения улучшает сжатие за счет скорости.  Алмаз: выполняет чрезвычайно быстрый и простой поиск с помощью шаблона алмазов.  Hexagon: выполняет поиск несколько более эффективно, но немного медленнее,  с использованием шаблона шестиугольника.  Uneven Multi-Hex: выполняет очень широкий поиск с использованием различных шаблонов более точного захвата сложных движений.  Exhaustive: выполняет «немой» поиск каждого пикселя в широкой области.  Значительно медленнее, для только небольшой выгоды сжатия.  Transformed Exhaustive: Как исчерпывающий, но делает еще более точные решения. Соответственно несколько медленнее, и  только для небольшого улучшения.</value>
-  </data>
-  <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
-    <value>Этот x 264 Поиск для лучшего  определения движения блока для того, чтобы попытаться найти его фактическое движение.    Значение по умолчанию подходит для большинства контента, но чрезвычайно высокого движения видео, особенно в HD резолюции, могут извлечь выгоду из более высоких диапазонов, хотя и ценой высокой скорости.  Допустимыми значениями являются 4-16 для алмаза и шестигранные методов и 4-64 для других методов.</value>
-  </data>
-  <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
-    <value>x 264 обычно обнуляет почти пустые блоки данных чтобы спасти биты, более используемые для других целей в видео.   Однако это может иногда иметь некоторое негативное воздействие на сохранение тонких зерен и сглаживания.   Не трогайте это, если вы испытываете проблемы  Кромки или других подобных случаях, где возникли проблемы, сохраняя прекрасный шум.</value>
-  </data>
-  <data name="Advanced_PsychovisualRateDistortionToolTip" xml:space="preserve">
-    <value>Психовизуальной уровень искажений средства x 264 пытается сохранить детали, для лучшего качества для человеческого глаза, а не пытается максимизировать качество способом, каким компьютер понимает его, через соотношения шума и мелкой детализации.</value>
-  </data>
-  <data name="Advanced_PsychovisualTrellisToolTip" xml:space="preserve">
-    <value>Психовизуальнаярешетка пытается сохранить больше четкости и детализации, но может вызвать артефакты. Это считается экспериментальным, вот почему он выключен по умолчанию. Хорошие значения являются 0,1 до 0,2.</value>
-  </data>
-  <data name="Advanced_PyramidalBFramesToolTip" xml:space="preserve">
-    <value>B-пирамида улучшает сжатие путем создания пирамидальной структуры (отсюда название) B-кадров, позволяя B-кадрам ссылаться друг на друга для улучшения сжатия.    Требует Max B-кадров больше 1; Оптимальная Адаптивная B-кадров настоятельно рекомендуется для более полного сжатия.</value>
-  </data>
-  <data name="Advanced_ReferenceFramesToolTip" xml:space="preserve">
-    <value>Разумными значениями являются ~ 1-6.  Чем больше вы добавляете, тем лучше сжатие, но тем медленнее кодирование.  Для анимации, как правило, выгода от более ссылочных кадров намного больше, чем содержание фильма.  Обратите внимание, что многие устройства не поддерживают отсчета количество кадров, так что если кодирование для автономного плеера, не трогайте это, если вы не уверены, что знаете, что делаете!</value>
-  </data>
-  <data name="Advanced_SubpixelMotionEstimationToolTip" xml:space="preserve">
-    <value>Этот параметр контролирует методы оценки и режим решения субпиксельной точности движения.  Оценки Субпиксельного движения используются для уточнения оценки движения за рамками простой пиксельной точности, улучшение сжатие.  Режим решение является метод, используемый для выбора как кодировать каждый блок кадра: очень важное решение.  SAD является самый быстрый метод, а затем SATD, RD, RD изысканности и медленным, QPRD. 6 или выше, настоятельно рекомендуется: Psy-RD, очень мощный Psy оптимизации, которая помогает сохранить деталь, требует 10 RD., наиболее мощным и медленный вариант, требует шпалеры = 2.</value>
-  </data>
-  <data name="Advanced_TrellisToolTip" xml:space="preserve">
-    <value>Треллис настраивает округления преобразования коэффициентов выдать 3-5% больше сжатия за счет некоторой скорости.  «Всегда» использует шпалеры не только во время процесса основного кодирования, но и во время анализа, который улучшает сжатие еще больше, хотя и на большой скорости.   Треллис дает больше скорости на более высоких битрейтах.</value>
-  </data>
-  <data name="Advanced_WeightPToolTip" xml:space="preserve">
-    <value>Выполняет дополнительный анализ решать весовые параметры для каждого кадра.   Это слегка улучшает общее сжатие а улучшение качества исчезает значительно.  Базовый профиль, как это требуется для iPod и аналогичных устройств, требует взвешенного предсказания P-кадр должен быть отключен.   Обратите внимание, что у некоторых устройств и плееров, даже тех, которые поддерживают основной профиль, могут возникнуть проблемы с взвешенным P-кадр предсказанием: Apple TV полностью совместим с ней, например.</value>
-  </data>
   <data name="Audio_DrcToolTip" xml:space="preserve">
     <value>Сжатие динамического диапазона. Допустимыми значениями являются 0-4.  Для аудио источника, который имеет широкий динамический диапазон (очень громко и очень мягко) ДРК позволяет «сжимать» диапазон, делая громкие разделы мягче и мягкие секции громче.</value>
   </data>
@@ -235,9 +181,6 @@
   </data>
   <data name="TabHeader_AudioEncoding" xml:space="preserve">
     <value>Аудио кодирование</value>
-  </data>
-  <data name="TabHeader_Advanced" xml:space="preserve">
-    <value>Расширенный</value>
   </data>
   <data name="Rename" xml:space="preserve">
     <value>Переименовать</value>
@@ -335,9 +278,6 @@
   <data name="ConstantQualityRadioButton" xml:space="preserve">
     <value>Постоянное качество</value>
   </data>
-  <data name="X264BasicSettings" xml:space="preserve">
-    <value>x 264 базовые настройки</value>
-  </data>
   <data name="ProfileLabel" xml:space="preserve">
     <value>Профиль:</value>
   </data>
@@ -371,9 +311,7 @@
   <data name="Preset_Fast" xml:space="preserve">
     <value>Быстро</value>
   </data>
-  <data name="Preset_Medium" xml:space="preserve">
-    <value>Средний (по умолчанию)</value>
-  </data>
+  
   <data name="Preset_Slow" xml:space="preserve">
     <value>Медленно</value>
   </data>
@@ -534,168 +472,6 @@
   <data name="Bitrate" xml:space="preserve">
     <value>Битрейт</value>
   </data>
-  <data name="Encoding" xml:space="preserve">
-    <value>Кодировка</value>
-  </data>
-  <data name="ReferenceFramesLabel" xml:space="preserve">
-    <value>Отсчет кадров:</value>
-  </data>
-  <data name="MaxBFramesLabel" xml:space="preserve">
-    <value>Макс. B-кадры:</value>
-  </data>
-  <data name="CabacLabel" xml:space="preserve">
-    <value>CABAC:</value>
-  </data>
-  <data name="EightByEightTransformLabel" xml:space="preserve">
-    <value>Преобразование 8 x 8:</value>
-  </data>
-  <data name="WeightedPFramesLabel" xml:space="preserve">
-    <value>Средневзвешенные P-кадры:</value>
-  </data>
-  <data name="PyramidalBFramesLabel" xml:space="preserve">
-    <value>Пирамидальные B-кадры:</value>
-  </data>
-  <data name="NoDctDecimateLabel" xml:space="preserve">
-    <value>No DCT-Decimate:</value>
-  </data>
-  <data name="Analysis" xml:space="preserve">
-    <value>Анализ</value>
-  </data>
-  <data name="AdaptiveBFramesLabel" xml:space="preserve">
-    <value>Адаптивные B-кадры:</value>
-  </data>
-  <data name="AdaptiveDirectModeLabel" xml:space="preserve">
-    <value>Адаптивный Direct Mode:</value>
-  </data>
-  <data name="MotionEstimationMethodLabel" xml:space="preserve">
-    <value>Метод оценки движения:</value>
-  </data>
-  <data name="SubpixelMotionEstimationLabel" xml:space="preserve">
-    <value>Оценка Субпиксельного движения:</value>
-  </data>
-  <data name="MotionEstimationRangeLabel" xml:space="preserve">
-    <value>Диапазон оценки движения:</value>
-  </data>
-  <data name="AdaptiveQuantizationStrengthLabel" xml:space="preserve">
-    <value>Прочность адаптивного квантования :</value>
-  </data>
-  <data name="PsychoVisualRateDistortionLabel" xml:space="preserve">
-    <value>Психовизуальной уровень искажений:</value>
-  </data>
-  <data name="PsychovisualTrellisLabel" xml:space="preserve">
-    <value>Психовизуальные решетки:</value>
-  </data>
-  <data name="DeblockingLabel" xml:space="preserve">
-    <value>Разблокирование:</value>
-  </data>
-  <data name="PartitionTypeLabel" xml:space="preserve">
-    <value>Тип раздела:</value>
-  </data>
-  <data name="TrellisLabel" xml:space="preserve">
-    <value>Решетки:</value>
-  </data>
-  <data name="OptionsString" xml:space="preserve">
-    <value>Строка параметров</value>
-  </data>
-  <data name="PyramidalBFrames_Off" xml:space="preserve">
-    <value>Выкл</value>
-  </data>
-  <data name="PyramidalBFrames_Normal" xml:space="preserve">
-    <value>Нормально</value>
-  </data>
-  <data name="PyramidalBFrames_Strict" xml:space="preserve">
-    <value>Точно</value>
-  </data>
-  <data name="AdaptiveBFrames_Off" xml:space="preserve">
-    <value>Выкл</value>
-  </data>
-  <data name="AdaptiveBFrames_Fast" xml:space="preserve">
-    <value>Быстро</value>
-  </data>
-  <data name="AdaptiveBFrames_Optimal" xml:space="preserve">
-    <value>Оптимально</value>
-  </data>
-  <data name="DirectPrediction_None" xml:space="preserve">
-    <value>Нет</value>
-  </data>
-  <data name="DirectPrediction_Spatial" xml:space="preserve">
-    <value>Пространственное</value>
-  </data>
-  <data name="DirectPrediction_Temporal" xml:space="preserve">
-    <value>Временный</value>
-  </data>
-  <data name="DirectPrediction_Automatic" xml:space="preserve">
-    <value>Автоматически</value>
-  </data>
-  <data name="MotionEstimationMethod_Diamond" xml:space="preserve">
-    <value>Алмаз</value>
-  </data>
-  <data name="MotionEstimationMethod_Hexagon" xml:space="preserve">
-    <value>Шестиугольник</value>
-  </data>
-  <data name="MotionEstimationMethod_UnevenMultiHexagon" xml:space="preserve">
-    <value>Неравномерный шестиугольник</value>
-  </data>
-  <data name="MotionEstimationMethod_Exhaustive" xml:space="preserve">
-    <value>Исчерпывающий</value>
-  </data>
-  <data name="MotionEstimationMethod_TransformedExhaustive" xml:space="preserve">
-    <value>Преобразован исчерпывающим</value>
-  </data>
-  <data name="SubpixelMotionEstimation_0" xml:space="preserve">
-    <value>0: SAD, no subpel (супер быстро!)</value>
-  </data>
-  <data name="SubpixelMotionEstimation_1" xml:space="preserve">
-    <value>1: SAD, qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_2" xml:space="preserve">
-    <value>2: SATD, qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_3" xml:space="preserve">
-    <value>3: SATD, multi-qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_4" xml:space="preserve">
-    <value>4: SATD, qpel on all</value>
-  </data>
-  <data name="SubpixelMotionEstimation_5" xml:space="preserve">
-    <value>5: SATD, multi-qpel on all</value>
-  </data>
-  <data name="SubpixelMotionEstimation_6" xml:space="preserve">
-    <value>6: RD in I/P-frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_7" xml:space="preserve">
-    <value>7: RD in all frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_8" xml:space="preserve">
-    <value>8: RD refine in I/P-frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_9" xml:space="preserve">
-    <value>9: RD refine in all frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_10" xml:space="preserve">
-    <value>10: QPRD in all frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_11" xml:space="preserve">
-    <value>11: Нет ранних окончаний в анализе</value>
-  </data>
-  <data name="Analysis_None" xml:space="preserve">
-    <value>Нет</value>
-  </data>
-  <data name="Analysis_Some" xml:space="preserve">
-    <value>Некоторые</value>
-  </data>
-  <data name="Analysis_All" xml:space="preserve">
-    <value>Все</value>
-  </data>
-  <data name="Trellis_Off" xml:space="preserve">
-    <value>Выкл</value>
-  </data>
-  <data name="Trellis_EncodeOnly" xml:space="preserve">
-    <value>Кодировать только</value>
-  </data>
-  <data name="Trellis_Always" xml:space="preserve">
-    <value>Всегда</value>
-  </data>
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} (По умолчанию)</value>
   </data>
@@ -724,9 +500,6 @@
   </data>
   <data name="VideoEncoder_x264" xml:space="preserve">
     <value>H.264 (x 264)</value>
-  </data>
-  <data name="Analysis_Most" xml:space="preserve">
-    <value>Больше</value>
   </data>
   <data name="AdvancedQuery" xml:space="preserve">
     <value>Расширенный запрос</value>
@@ -766,17 +539,6 @@
   </data>
   <data name="AudioEncoder_flac24" xml:space="preserve">
     <value>FLAC 24-бит</value>
-  </data>
-  <data name="Advanced_PsychovisualLabel" xml:space="preserve">
-    <value>Психовизуально</value>
-  </data>
-  <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
-    <value>Основной</value>
-    <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
-  </data>
-  <data name="X264SettingsRadioButtonAdvanced" xml:space="preserve">
-    <value>Вкладка Дополнительно</value>
-    <comment>Label for radio button to choose advanced x264 settings on a separate tab.</comment>
   </data>
   <data name="VideoEncoder_mpeg2" xml:space="preserve">
     <value>MPEG-2</value>
@@ -977,9 +739,6 @@
     <value>Ключи:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
-  
-  
-  
   
   
   

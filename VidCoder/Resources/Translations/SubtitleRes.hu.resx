@@ -153,21 +153,29 @@
   <data name="OffsetColumn" xml:space="preserve">
     <value>Eltolás (ms)</value>
   </data>
-  <data name="ImportSrtButton" xml:space="preserve">
-    <value>.srt fájl importálása...</value>
-  </data>
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Az egyéb feliratsávok átfedik a ráégetett feliratokat.</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Idegen hangkeresés</value>
   </data>
-  <data name="SrtFilePickerText" xml:space="preserve">
+  <data name="SubtitleFilePickerText" xml:space="preserve">
     <value>Feliratfájl hozzáadása</value>
   </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>A felirat fájl kódolása nem érzékelhető. A feliratok helyes megjelenéséhez kérlek mentsd el újra UTF-8 kódolással.</value>
   </data>
-  
-  
+  <data name="NoSubtitlesText" xml:space="preserve">
+    <value>Nem található felirat a forrásban.</value>
+  </data>
+  <data name="ExternalSubtitlesSummaryFormat" xml:space="preserve">
+    <value>{0} külső</value>
+    <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
+  </data>
+  <data name="ImportSubtitleButton" xml:space="preserve">
+    <value>Importálás fájlból...</value>
+  </data>
+  <data name="FilePickerDescription" xml:space="preserve">
+    <value>Feliratfájl</value>
+  </data>
 </root>

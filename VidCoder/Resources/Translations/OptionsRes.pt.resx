@@ -199,7 +199,7 @@
     <value>Permitir a configuração personalizada do nome das faixas de áudio (suporte limitado)</value>
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>Activa LibDVDNav (requer reinicialização do programa)</value>
+    <value>Activar LibDVDNav (Requer reinicialização do programa. Necessário para suportar múltiplos ângulos)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Excluir ficheiros de origem após limpar a lista de itens concluídos com sucesso (com confirmação)</value>
@@ -394,5 +394,17 @@
   </data>
   <data name="PromptForUpdatesLabel" xml:space="preserve">
     <value>Alertas para actualizações:</value>
+  </data>
+  <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
+    <value>As opções de processamento entrarão em vigor após reiniciar o VidCoder.</value>
+  </data>
+  <data name="CopyLogToCustomFolderLabel" xml:space="preserve">
+    <value>Copiar o relatório da codificação para uma pasta personalizada</value>
+  </data>
+  <data name="KeepFailedFilesCheckBox" xml:space="preserve">
+    <value>Manter os ficheiros de codificações falhadas ou interrompidas</value>
+  </data>
+  <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
+    <value>Activar a acção "Quando terminar" quando houver uma falha na codificação</value>
   </data>
 </root>

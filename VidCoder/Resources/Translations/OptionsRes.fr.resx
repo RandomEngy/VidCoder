@@ -198,9 +198,7 @@
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>Permettre des noms personnalisés pour les pistes audio (support de lecteurs limité)</value>
   </data>
-  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>Activez LibDVDNav (si changement, nécessite un redémarrage du programme)</value>
-  </data>
+  
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Supprimer les fichiers sources une fois les articles nettoyés (avec confirmation)</value>
   </data>
@@ -376,6 +374,10 @@
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Lecteur intégré d’utilisation pour les prévisualisations</value>
   </data>
+  
+  
+  
+  
   
   
   

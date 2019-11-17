@@ -126,122 +126,6 @@
   <data name="Revert" xml:space="preserve">
     <value>되돌리기</value>
   </data>
-  <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
-    <value>x264에는 B-프레임을 언제 얼마나 많이 사용할지 결정할 수 있는 다양한 알고리즘이 있습니다.
-
-고속 모드는 B-프레임을 얼마나 많이 지정하는지에 상관 없이 대략 비슷한 시간이 걸립니다. 그러나, 빠른 반면에 그 결정은 흔히 차선책입니다.
-
-최적 모드는 B-프레임의 최대 수가 증가하면서 더 느려지지만, 특히 B-피라미드와 함께 사용했을 때, 훨씬 더 정확한 결정을 내립니다.</value>
-  </data>
-  <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
-    <value>H.264는 B-프레임에서 공간과 시간의 두 가지 다른 예측 모드를 사용할 수 있습니다.
-
-기본값은 공간 예측 모드로 거의 항상 더 좋지만 때로는 시간 예측 모드 또한 유용합니다.
-
-x264는 작은 양의 속도를 희생하여(그런 이유로 작은 압축 이득), 각 특정한 프레임에 대해 어떤 것이 더 나은지 적절하게 선택할 수 있습니다.</value>
-  </data>
-  <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
-    <value>적응형 양자화는 인코더가 프레임 전체에 걸쳐 비트를 배포하는 방법을 제어합니다.
-값이 높을수록 미세한 세부 영영을 개선하기 위해 가장자리와 복잡한 영역에서 비트를 더 제거합니다.</value>
-  </data>
-  <data name="Advanced_AnalysisToolTip" xml:space="preserve">
-    <value>모드 결정은 그 결정을 내리기 위해 다양한 옵션에서 선택합니다: 이 옵션은 그것들이 무슨 옵션인지 선택합니다.
-최고의 옵션은 아예 그것을 꺼버리는 것이기 때문에, 더 적은 파티션 검사는 나쁜 결정을 대가로 빠른 인코딩을 의미합니다.</value>
-  </data>
-  <data name="Advanced_BFramesToolTip" xml:space="preserve">
-    <value>정상 값은 2~5입니다.
-이것은 인코더가 사용할 수 있는 순차 B-프레임의 최대 수를 지정합니다.
-적응형 B-프레임을 최적으로 설정하지 않는 한, 큰 수는 일반적으로 두드러지게 도움이 되지 않습니다.
-셀 애니메이션 소스 재료와 B-피라미드에서는 큰 값이 상당히 유용합니다.
-Baseline 프로파일은, 아이팟과 유사 기기에서 요구하는 것처럼, B-프레임을 0(끔)으로 설정해야 합니다.</value>
-  </data>
-  <data name="Advanced_CabacToolTip" xml:space="preserve">
-    <value>인코더가 작업을 완료한 후에, ZIP이나 RAR과 유사한 무손실 압축이 필요한 데이터가 많이 있습니다.  H.264는 이를 위해 두 가지 옵션을 제공합니다: CAVLC와 CABAC. CABAC는 많이 느리게 디코딩을 하지만, 특히 낮은 비트레이트에서 압축률이 상당히 더 좋습니다(10~30%). 비디오 재생시에 CPU 요구 사항을 최소화하려면, 이 옵션을 해제하세요. Baseline 프로파일은, 아이팟과 유사 기기에서 요구하는 것처럼, CABAC를 비활성화해야 합니다.</value>
-  </data>
-  <data name="Advanced_DeblockingToolTip" xml:space="preserve">
-    <value>H.264는 각 프레임을 디코딩한 후에 생기는 깍두기 결함을 부드럽게 만들어 주는 깍두기 제거(deblocking) 필터를 내장하고 있습니다. 이 필터는 시각적인 품질을 개선하고 압축에도 큰 도움이 됩니다.
-깍두기 제거 필터는 CPU를 많이 사용하기 때문에, 만약 비디오 재생시 CPU 사용률을 최소화하고 싶다면 이 필터를 비활성화하시기 바랍니다.
-
-깍두기 제거 필터는 두 개의 조정 가능한 변수인, "강도"와 "임계값"이 있습니다.
-전자는 깍두기 제거 강도에 관한 것이고 후자는 얼마나 많은(적은) 경계에 적용할 것인지에 대한 것입니다.
-값이 낮을수록 깍두기 제거를 덜하고 높을수록 깍두기 제거를 더 합니다. 기본값은 두 변수 모두 0입니다(0=보통 강도).</value>
-  </data>
-  <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
-    <value>8x8 변환은 압축당 속도의 측면에서 x264의 가장 유용한 단 하나의 기능입니다.
-이것은 속도가 아주 소폭 떨어지지만  적어도 5% 이상의 압축률의 이득을 볼 수 있고, 그 이득에 비교했을 때 현저히 높은 시각적인 화면  품질의 혜택을 누릴 수 있습니다.
-그러나, 그것은 많은 기기들에서 지원하지 않는 High 프로파일을 필요로 합니다.</value>
-  </data>
-  <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
-    <value>모션 추정 방법을 제어합니다. 모션 추정은 인코더가 프레임에서 각 픽셀의 블럭이 어떻게 움직이는지 추정하는 방법입니다.
-더 좋은 모션 검색 방법은 속도 대비 압축률을 향상시킵니다.
-
-다이아몬드: 다이아몬드 패턴을 이용하여 극단적으로 빠르고 간단한 검색을 수행합니다.
-
-육각형 Hexagon: 육각형 패턴을 이용하여 조금 더 효과적이지만 약간 더 느린 검색을 수행합니다.
-
-홀수의 다중 육각형: 복잡한 모션을 더 정확하게 캡처하는 다양한 패턴을 이용하여 매우 넓은 검색을 수행합니다.
-
-철저하게 Exhaustive: 넓은 영역에서 모든 픽셀의 "말없는" 검색을 수행합니다. 작은 압축 이득만을 위해 상당히 더 느립니다.
-
-변형된 철저하게: 철처하게와 같지만 훨씬 더 정확한 결정을 내립니다. 그래서 더 느리고 또한 역시 소폭의 향상만 있습니다.</value>
-  </data>
-  <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
-    <value>이것은 x264가 그 실제 모션을 찾으려는 시도를 위한 블럭의 모션에서  최선의 추측으로 검색하는 거리입니다.
-
-대부분의 컨텐츠에서 기본값은 괜찮지만, 매우 높은 모션 비디오는, 특히 HD 해상도에서, 더 높은 범위에서 혜택을 누릴 수 있습니다. 물론 속도가 떨어집니다.
-
-유효한 값은 다이아몬드와 육각형 방법은 4~16, 다른 방법은 4~64입니다.</value>
-  </data>
-  <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
-    <value>x264는 비디오에서  더 나은 다른 용도로 사용할 수 있도록 비트를 절약하기 위해 보통 거의 빈 데이터 블럭을 삭제합니다.
-그러나, 이것은 간혹 미세한 입자와 디더의 보존에 약간 부정적인 효과가 나타날 수 있습니다.
-밴딩 문제나 미세 잡음을 유지하는데 문제가 있는 그런 다른 경우가 아닌 한 이것을 만지지 마시기 바랍니다.</value>
-  </data>
-  <data name="Advanced_PsychovisualRateDistortionToolTip" xml:space="preserve">
-    <value>시각심리 비율 왜곡은 미세한 세부 사항과 잡음을 구별하기 어려운 신호대 잡음비를 통해 컴퓨터가 그것을 이해하는 방식으로 품질을 최대화하려는 것과는 반대로, 
-x264가 인간의 눈에 더 나는 품질을 위해 세부 사항을 유지하려는 것을 의미합니다.</value>
-  </data>
-  <data name="Advanced_PsychovisualTrellisToolTip" xml:space="preserve">
-    <value>시각심리 격자는 선명도와 세부 사항을 더 유지하려고 하지만, 인위적인 결함을 야기할 수 있습니다. 기본값이 꺼져 있는 실험적인 기능입니다. 좋은 값은 0.1~0.2 입니다.</value>
-  </data>
-  <data name="Advanced_PyramidalBFramesToolTip" xml:space="preserve">
-    <value>B 피라미드는 B 프레임의 피라미드 구조(이름대로)를 만듭니다.
-이것은 B 프레임이 압축을 개선하기 위해 상호 참조를 허용합니다.
-
-최대 B 프레임은 1 이상이 필요합니다; 전체 압축 이득을 위해 최적의 적응형 B 프레임을 강력히 추천합니다.</value>
-  </data>
-  <data name="Advanced_ReferenceFramesToolTip" xml:space="preserve">
-    <value>정상 값은 1~6입니다.
-
-더 추가할 수록 압축이 더 좋아지지만 인코딩 속도는 느려집니다.
-
-셀 애니메이션은 필름 컨텐츠보다 훨씬 더 추가적인 기준 프레임에서 이득을 볼 수 있습니다.
-
-많은 하드웨어 장치들에서 지원하는 기준 프레임의 개수에 제한이 있음을 유의하세요. 그래서 만약 휴대용이나 독립적인 재생기용으로 인코딩하려면, 이것이 뭔지 정확히 모른다면 이것을 건드리지 마시길 바랍니다.</value>
-  </data>
-  <data name="Advanced_SubpixelMotionEstimationToolTip" xml:space="preserve">
-    <value>이 설정은 하위 픽셀 모션 추정과 모드 결정 방법을 제어합니다.
-
-하위 픽셀 모션 추정은 압축을 향상시키고 단순한 픽셀 정확도 이상의 모션 추정을 개선하기 위해 사용됩니다.
-
-모드 결정은 프레임의 각 블럭을 어떻게 인코딩할 것인지 선택하기 위해 사용되는 방법입니다: 아우 중요함.
-
-SAD는 가장 빠른 방법이고, 그 다음으로 SATD, RD, RD 개선 모드와 가장 느린 QPRD가 있습니다.
-6 이상을 강력히 추천합니다: Psy-RD는 세부 사항 유지에 도움이 되는 아주 강력한 Psy 최적화로 RD가 필요합니다.
-10은 가장 강력하고 느린 옵션으로 격자=2가 필요합니다.</value>
-  </data>
-  <data name="Advanced_TrellisToolTip" xml:space="preserve">
-    <value>격자는 약간의 속도를 희생하여 3~5%의 추가적인 압축을 짜내기 위해 변환 계수의 반올림을 미세 조정합니다.
-"항상"은 메인 인코딩을 처리하는 동안뿐 아니라, 압축을 훨씬 더 향상시키는, 분석하는 동안(속도가 많이 떨어짐)에도 격자를 사용합니다.
-
-격자는 높은 비트레이트에서 속도가 더 떨어집니다.</value>
-  </data>
-  <data name="Advanced_WeightPToolTip" xml:space="preserve">
-    <value>각 프레임에 대해 가중치 변수를 결정하기 위해 추가 분석을 수행합니다.
-이것은 전체적인 압축을 약간 향상시키고 페이드 품질을 크게 개선합니다.
-Baseline 프로파일은, 아이팟과 유사 기기에서 요구되는 것처럼, 가중된 P-프레임 예측을 비활성화해야 합니다.
-몇몇 기기와 재생기에서, Main 프로파일을 지원하는 것들조차, 가중된 P-프레임 예측과 문제가 생길 수 있습니다: 예를 들어 애플 TV는 이것과 완전히 호환되지 않습니다.</value>
-  </data>
   <data name="Audio_DrcToolTip" xml:space="preserve">
     <value>동적 범위 압축입니다. 유효한 값은 0~4입니다.
 
@@ -301,9 +185,6 @@ Baseline 프로파일은, 아이팟과 유사 기기에서 요구되는 것처�
   </data>
   <data name="TabHeader_AudioEncoding" xml:space="preserve">
     <value>오디오 인코딩</value>
-  </data>
-  <data name="TabHeader_Advanced" xml:space="preserve">
-    <value>고급 비디오</value>
   </data>
   <data name="Rename" xml:space="preserve">
     <value>이름변경</value>
@@ -401,9 +282,6 @@ Baseline 프로파일은, 아이팟과 유사 기기에서 요구되는 것처�
   <data name="ConstantQualityRadioButton" xml:space="preserve">
     <value>일정한 품질</value>
   </data>
-  <data name="X264BasicSettings" xml:space="preserve">
-    <value>x264 기본 설정</value>
-  </data>
   <data name="ProfileLabel" xml:space="preserve">
     <value>프로파일:</value>
   </data>
@@ -437,9 +315,7 @@ Baseline 프로파일은, 아이팟과 유사 기기에서 요구되는 것처�
   <data name="Preset_Fast" xml:space="preserve">
     <value>빠르게</value>
   </data>
-  <data name="Preset_Medium" xml:space="preserve">
-    <value>보통 (기본값)</value>
-  </data>
+  
   <data name="Preset_Slow" xml:space="preserve">
     <value>느리게</value>
   </data>
@@ -600,168 +476,6 @@ Baseline 프로파일은, 아이팟과 유사 기기에서 요구되는 것처�
   <data name="Bitrate" xml:space="preserve">
     <value>비트 전송률</value>
   </data>
-  <data name="Encoding" xml:space="preserve">
-    <value>인코딩</value>
-  </data>
-  <data name="ReferenceFramesLabel" xml:space="preserve">
-    <value>참조 프레임:</value>
-  </data>
-  <data name="MaxBFramesLabel" xml:space="preserve">
-    <value>최대 B 프레임:</value>
-  </data>
-  <data name="CabacLabel" xml:space="preserve">
-    <value>CABAC:</value>
-  </data>
-  <data name="EightByEightTransformLabel" xml:space="preserve">
-    <value>8 x 8 변환:</value>
-  </data>
-  <data name="WeightedPFramesLabel" xml:space="preserve">
-    <value>가중된 P-프레임:</value>
-  </data>
-  <data name="PyramidalBFramesLabel" xml:space="preserve">
-    <value>피라미드 B-프레임:</value>
-  </data>
-  <data name="NoDctDecimateLabel" xml:space="preserve">
-    <value>DCT 블럭 소거 안 함:</value>
-  </data>
-  <data name="Analysis" xml:space="preserve">
-    <value>분석</value>
-  </data>
-  <data name="AdaptiveBFramesLabel" xml:space="preserve">
-    <value>적응형 B-프레임:</value>
-  </data>
-  <data name="AdaptiveDirectModeLabel" xml:space="preserve">
-    <value>적응형 직접 모드:</value>
-  </data>
-  <data name="MotionEstimationMethodLabel" xml:space="preserve">
-    <value>모션 추정 방법:</value>
-  </data>
-  <data name="SubpixelMotionEstimationLabel" xml:space="preserve">
-    <value>하위 픽셀 모션 추정:</value>
-  </data>
-  <data name="MotionEstimationRangeLabel" xml:space="preserve">
-    <value>모션 추정 범위:</value>
-  </data>
-  <data name="AdaptiveQuantizationStrengthLabel" xml:space="preserve">
-    <value>적응형 양자화 강도:</value>
-  </data>
-  <data name="PsychoVisualRateDistortionLabel" xml:space="preserve">
-    <value>시각심리 비율 왜곡:</value>
-  </data>
-  <data name="PsychovisualTrellisLabel" xml:space="preserve">
-    <value>시각심리 격자:</value>
-  </data>
-  <data name="DeblockingLabel" xml:space="preserve">
-    <value>깍두기 제거:</value>
-  </data>
-  <data name="PartitionTypeLabel" xml:space="preserve">
-    <value>파티션 형식:</value>
-  </data>
-  <data name="TrellisLabel" xml:space="preserve">
-    <value>격자:</value>
-  </data>
-  <data name="OptionsString" xml:space="preserve">
-    <value>옵션 문자열</value>
-  </data>
-  <data name="PyramidalBFrames_Off" xml:space="preserve">
-    <value>끄기</value>
-  </data>
-  <data name="PyramidalBFrames_Normal" xml:space="preserve">
-    <value>보통</value>
-  </data>
-  <data name="PyramidalBFrames_Strict" xml:space="preserve">
-    <value>엄격한</value>
-  </data>
-  <data name="AdaptiveBFrames_Off" xml:space="preserve">
-    <value>끄기</value>
-  </data>
-  <data name="AdaptiveBFrames_Fast" xml:space="preserve">
-    <value>빠르게</value>
-  </data>
-  <data name="AdaptiveBFrames_Optimal" xml:space="preserve">
-    <value>최적의</value>
-  </data>
-  <data name="DirectPrediction_None" xml:space="preserve">
-    <value>없음</value>
-  </data>
-  <data name="DirectPrediction_Spatial" xml:space="preserve">
-    <value>공간의 Spatial</value>
-  </data>
-  <data name="DirectPrediction_Temporal" xml:space="preserve">
-    <value>시간의 Temporal</value>
-  </data>
-  <data name="DirectPrediction_Automatic" xml:space="preserve">
-    <value>자동으로</value>
-  </data>
-  <data name="MotionEstimationMethod_Diamond" xml:space="preserve">
-    <value>마름모꼴 Diamond</value>
-  </data>
-  <data name="MotionEstimationMethod_Hexagon" xml:space="preserve">
-    <value>육각형 Hexagon</value>
-  </data>
-  <data name="MotionEstimationMethod_UnevenMultiHexagon" xml:space="preserve">
-    <value>홀수의 다중 육각형 Uneven Multi-Hexagon</value>
-  </data>
-  <data name="MotionEstimationMethod_Exhaustive" xml:space="preserve">
-    <value>철저하게 Exhaustive</value>
-  </data>
-  <data name="MotionEstimationMethod_TransformedExhaustive" xml:space="preserve">
-    <value>변형된 철저하게 Transformed Exhaustive</value>
-  </data>
-  <data name="SubpixelMotionEstimation_0" xml:space="preserve">
-    <value>0: SAD, no subpel (초고속!)</value>
-  </data>
-  <data name="SubpixelMotionEstimation_1" xml:space="preserve">
-    <value>1: SAD, qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_2" xml:space="preserve">
-    <value>2: SATD, qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_3" xml:space="preserve">
-    <value>3: SATD, multi-qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_4" xml:space="preserve">
-    <value>4: SATD, qpel on all</value>
-  </data>
-  <data name="SubpixelMotionEstimation_5" xml:space="preserve">
-    <value>5: SATD, multi-qpel on all</value>
-  </data>
-  <data name="SubpixelMotionEstimation_6" xml:space="preserve">
-    <value>6: RD in I/P-frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_7" xml:space="preserve">
-    <value>7: RD in all frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_8" xml:space="preserve">
-    <value>8: RD refine in I/P-frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_9" xml:space="preserve">
-    <value>9: RD refine in all frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_10" xml:space="preserve">
-    <value>10: QPRD in all frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_11" xml:space="preserve">
-    <value>11: 분석에서 초기 종료 없음</value>
-  </data>
-  <data name="Analysis_None" xml:space="preserve">
-    <value>없음</value>
-  </data>
-  <data name="Analysis_Some" xml:space="preserve">
-    <value>일부</value>
-  </data>
-  <data name="Analysis_All" xml:space="preserve">
-    <value>전부</value>
-  </data>
-  <data name="Trellis_Off" xml:space="preserve">
-    <value>끄기</value>
-  </data>
-  <data name="Trellis_EncodeOnly" xml:space="preserve">
-    <value>인코드만</value>
-  </data>
-  <data name="Trellis_Always" xml:space="preserve">
-    <value>항상</value>
-  </data>
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} (기본값)</value>
   </data>
@@ -790,9 +504,6 @@ Baseline 프로파일은, 아이팟과 유사 기기에서 요구되는 것처�
   </data>
   <data name="VideoEncoder_x264" xml:space="preserve">
     <value>H.264 (x264)</value>
-  </data>
-  <data name="Analysis_Most" xml:space="preserve">
-    <value>대부분</value>
   </data>
   <data name="AdvancedQuery" xml:space="preserve">
     <value>고급 질의</value>
@@ -832,17 +543,6 @@ Baseline 프로파일은, 아이팟과 유사 기기에서 요구되는 것처�
   </data>
   <data name="AudioEncoder_flac24" xml:space="preserve">
     <value>FLAC 24 비트</value>
-  </data>
-  <data name="Advanced_PsychovisualLabel" xml:space="preserve">
-    <value>시각심리</value>
-  </data>
-  <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
-    <value>기본</value>
-    <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
-  </data>
-  <data name="X264SettingsRadioButtonAdvanced" xml:space="preserve">
-    <value>고급 탭</value>
-    <comment>Label for radio button to choose advanced x264 settings on a separate tab.</comment>
   </data>
   <data name="VideoEncoder_mpeg2" xml:space="preserve">
     <value>MPEG-2</value>
@@ -1044,9 +744,6 @@ Baseline 프로파일은, 아이팟과 유사 기기에서 요구되는 것처�
     <value>키:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
-  
-  
-  
   
   
   

@@ -127,7 +127,7 @@
     <value>სტანდარტი</value>
   </data>
   <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>უცხოენის აუდიოს მოძიება</value>
+    <value>უცხო ენის აუდიოს მოძიება</value>
   </data>
   <data name="IncludeAllTracksRadioButton" xml:space="preserve">
     <value>ყველა წყარო</value>
@@ -301,5 +301,11 @@
   </data>
   <data name="SelectTracksHelpText" xml:space="preserve">
     <value>მძიმით გამოყოფა - მაგ. 2,5</value>
+  </data>
+  <data name="ChapterRangeEndAutomationName" xml:space="preserve">
+    <value>სათავის დროის ინტერვალი დასრულება</value>
+  </data>
+  <data name="ChapterRangeStartAutomationName" xml:space="preserve">
+    <value>სათავის დროის ინტერვალი დაწყება</value>
   </data>
 </root>

@@ -153,21 +153,18 @@
   <data name="OffsetColumn" xml:space="preserve">
     <value>Délai (ms)</value>
   </data>
-  <data name="ImportSrtButton" xml:space="preserve">
-    <value>Importer un fichier .srt...</value>
-  </data>
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Les autres pistes de sous-titres chevaucheront les sous-titres gravés.</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Recherche piste audio étrangère</value>
   </data>
-  <data name="SrtFilePickerText" xml:space="preserve">
-    <value>Ajoutez le fichier de sous-titres</value>
-  </data>
+  
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Ne pouvait pas détecter l’encodage du fichier sous-titre. Pour s’assurer que les sous-titres apparaissent correctement, ré-enregistrez le fichier au format UTF-8.</value>
   </data>
+  
+  
   
   
 </root>

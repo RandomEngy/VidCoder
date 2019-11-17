@@ -199,7 +199,7 @@
     <value>Consenti l'impostazione personalizzata del nome sulle tracce audio (supporto del riproduttore limitato)</value>
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>Abilita LibDVDNav (il cambiamento richiede il riavvio del programma)</value>
+    <value>Abilita LibDVDNav (la modifica richiede il riavvio del programma). Richiesto per supportare più angoli di visione</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Elimina i file di origine dopo la cancellazione degli elementi dall'elenco di quelli "Completati" con successo (con conferma)</value>
@@ -394,5 +394,17 @@
   </data>
   <data name="PromptForUpdatesLabel" xml:space="preserve">
     <value>Richiesta per gli aggiornamenti:</value>
+  </data>
+  <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
+    <value>L'opzione del processo lavorativo avrà effetto dopo l'uscita e il riavvio di VidCoder.</value>
+  </data>
+  <data name="CopyLogToCustomFolderLabel" xml:space="preserve">
+    <value>Copia il tracciamento della codifica in una cartella personalizzata</value>
+  </data>
+  <data name="KeepFailedFilesCheckBox" xml:space="preserve">
+    <value>Mantieni i file anche se la codifica è stata interrotta o è fallita</value>
+  </data>
+  <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
+    <value>Attiva l'azione "Quando concluso" quando ci sono processi di codifica falliti</value>
   </data>
 </root>

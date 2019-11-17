@@ -198,9 +198,7 @@
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>Ahalbidetu norbere izena ezartzea audio bideetan (irakurgailu sostengu mugatua)</value>
   </data>
-  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>Gaitu LibDVDNav (aldaketak programa berrabiaraztea behar du)</value>
-  </data>
+  
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Ezabatu iturburu agiriak ongi osatutako gaiak garbitu ondoren (baieztapenarekin)</value>
   </data>
@@ -395,4 +393,8 @@
   <data name="PromptForUpdatesLabel" xml:space="preserve">
     <value>Galdetu eguneraketak:</value>
   </data>
+  
+  
+  
+  
 </root>

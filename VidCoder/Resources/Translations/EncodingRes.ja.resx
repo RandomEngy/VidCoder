@@ -126,112 +126,6 @@
   <data name="Revert" xml:space="preserve">
     <value>元に戻す</value>
   </data>
-  <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
-    <value>x264ではBフレームをいつどのくらい使うか決める様々なアルゴリズムがあります。
-
-高速モードではBフレームの数の指定にかかわらず時間あたり同じ量を用います。高速ですが最適ではない場合があります。
-
-最適モードでは最大のBフレーム数が増えるに連れ遅くなりますが、特にBピラミッドを使用する場合、より品質を維持できます。</value>
-  </data>
-  <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
-    <value>H.264にはBフレームの予測方法として2つの異なるモード（空間的か時間的）が有ります。
-
-既定の空間的予測方法では、大体において優れていますが、時間的予測が良好な結果となる場合もあります。
-
-X264では、多少のスピード遅くなり、圧縮率も少し悪くなりますが、各フレームどちらが最適か適宜判断することができます。</value>
-  </data>
-  <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
-    <value>適応量子化フレームはエンコード時のフレーム内でのビット数の配分を制御します。
-値を高くすると動きの激しい部分のビットレートは高くなりますが、その分外の部分のビットレートが下がります。
-</value>
-  </data>
-  <data name="Advanced_AnalysisToolTip" xml:space="preserve">
-    <value>様々な種類の中からどの程度の種類のパーテーションを選択するか指定します。
-少なくするとと選択すると処理時間は短くなりますが、判断が悪くなります。そのためNoneにすることも最良の選択肢の1つです。</value>
-  </data>
-  <data name="Advanced_BFramesToolTip" xml:space="preserve">
-    <value>推奨値は3－6
-エンコード時に参照する連続したBフレーム数を指定します。
-Adaptive Bフレーム参照を最適にしない限り値を大きくしてもあまり効果がありません。
-アニメ素材やBピラミッドを用いると値を大きくした際の効果が高くなります。
-Baselineプロファイル（iPod等で再生可能なプロファイル）では値を0（オフ）にする必要があります。</value>
-  </data>
-  <data name="Advanced_CabacToolTip" xml:space="preserve">
-    <value>エンコード後のデータを最終的に圧縮する方式を指定します。H.264ではCAVLCとCABACの2方式が選択できます。CABACは低速ですが圧縮率がよく（10-30%）、特に低ビットレートファイルに対し有効です。再生に必要なCPU要件を最小限にしたい場合はこのオプションを無効にします。Baselineプロファイル（iPod等で再生可能なプロファイル）ではCABACを無効にする必要があります。</value>
-  </data>
-  <data name="Advanced_DeblockingToolTip" xml:space="preserve">
-    <value>各フレームをデコードした後に不自然さを解消するデブロッキングフィルタを内蔵しています。品質だけではなく圧縮率にも大きく影響します。
-デブロッキングフィルタは再生時にCPUパワーを必要とするため、低パワーなCPUでも再生したい場合は無効にしてください。
-
-強度（Strength)と閾値(Threshold)で制御します。
-強度はフィルタをどの程度強く（あるいは弱く）掛けるか、閾値はどれだけ多い（あるいは少ない）エッジにフィルタを掛けるか制御します。
-少ない値は効果を弱め、大きい値ほど効果が強くなります。両方とも0（標準の強さ）が標準です。</value>
-  </data>
-  <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
-    <value>8x8DCT変換は圧縮に対する処理速度において最も有用な単一の機能です。
-少しだけ処理時間がかかりますが少なくともファイルサイズを5%小さくでき、画質の劣化は少なく高画質になります。
-しかし、Highプロファイルが必須となり、再生できないデバイスもあります。
-</value>
-  </data>
-  <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
-    <value>動き予測アルゴリズムを指定します。動き予測は、フレーム内の各ピクセルブロックがどのように動くか予測します。
-高度な動き検索方法になるに連れて圧縮率は向上しますが、処理に時間がかかります。。
-
-Diamond：ダイアモンドパターンを用いた方法。非常に高速だが単純
-Hexagon：六角形パターンを用いた方法。少し遅いが標準的
-Uneven Multi-Hexagon：いろいろなパターンで幅広く検索します。複雑な動きもより正確に捉えます。
-Exhaustive：幅広くすべてのピクセルを調べる馬鹿げた方法。大幅に遅くなるが少ししか圧縮率は向上しません。
-Transformed Exhaustive：Exhaustiveと同様だがちょっとだけ精度が上がります。更に遅くなります。圧縮率もさほど向上しません。
-</value>
-  </data>
-  <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
-    <value>実際の動きをを分析するため、ブロックの動きをより良く推測する動き探索の最大範囲を指定する。 
-標準の16は多くのコンテンツで良い結果が得られるが、 動きの激しい動画、特にHD解像度等では、さらに高い値を指定したほうが、より良い結果が得られる場合があります、ただし遅くなります。
-動き予測アルゴリズムでDiamond、Hexagonを選択した場合は4から16が指定でき、それ以外の方法では4-64が指定できます。
-</value>
-  </data>
-  <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
-    <value>x264では、通常ほとんどデータがないブロックは0に丸めデータを節約しその他の部分に割り振ります。
-しかし、これによってグレインノイズやディザーが発生する場合があります。チェックをするとこれが無効になります。
-グレインノイズを保持したい、またはバンディングが出るなどの問題がない限り、無効にしないでください。</value>
-  </data>
-  <data name="Advanced_PsychovisualRateDistortionToolTip" xml:space="preserve">
-    <value>細部かノイズか分離が困難なS/N比を使って数値的に高品質にするのではなく、視覚心理的に高品質になるように細部を維持しようとします。</value>
-  </data>
-  <data name="Advanced_PsychovisualTrellisToolTip" xml:space="preserve">
-    <value>シャープネスとディテールを維持するようにしますが、アーティファクトが発生する可能性があります。
-まだ実験的であり、そのため標準ではOFF。有効にする場合の推奨値は0.1から0.2程度。</value>
-  </data>
-  <data name="Advanced_PyramidalBFramesToolTip" xml:space="preserve">
-    <value>Bフレームをお互いに参照して圧縮率を向上させます。
-Bフレーム参照距離は1以上である必要があります。効果を発揮するために適応的Bフレーム挿入をOptimalにすることを推奨します。</value>
-  </data>
-  <data name="Advanced_ReferenceFramesToolTip" xml:space="preserve">
-    <value>通常は1~6
-値を大きくすると圧縮率は向上しますが、処理時間がかかります。
-アニメでは値を大きくすることで、実写よりも効果が高くなります。
-注意：多くのデバイスでは参照フレーム数に制限があります。携帯プレーヤーなどで再生する場合には、よく分からなければ変更しては行けません。</value>
-  </data>
-  <data name="Advanced_SubpixelMotionEstimationToolTip" xml:space="preserve">
-    <value>サブピクセルの高精度な動き予測とモード決定方法を指定します。
-サブピクセル動き予測はピクセルより細かく動きを予測することにより圧縮率を向上させいます。
-モード決定方法はフレーム中のブロックをどうやってエンコードするか決定する非常に重要な決定です。
-SADが最も早く、SATD→RD→RD refinement→QPRDの順に遅くなります。
-6以上に設定することを強く推奨します。心理視覚ひずみレート（細部を維持する強力な心理的最適化）がRDでは必要です。
-10（最も強力だが時間がかかる）では格子をAlwaysにする必要があります。</value>
-  </data>
-  <data name="Advanced_TrellisToolTip" xml:space="preserve">
-    <value>少しだけ速度を犠牲にして、格子を微調整して3－5%の圧縮率を絞りだします。
-"Always"ではエンコード時だけではなく、分析時にも格子を用います。圧縮率は向上しますが、大幅に遅くなります。
-格子は、ビットレートが高いほど処理に時間がかかります。</value>
-  </data>
-  <data name="Advanced_WeightPToolTip" xml:space="preserve">
-    <value>各フレームの重み付け補正を決定する追加の分析を行います。
-若干圧縮率が向上し、フェードイン・フェードアウトの画質が大幅に向上します。
-Baselineプロファイルでは重み付きPフレーム予測は無効にする必要があります。
-Mainプロファイルに対応したデバイスやプレーヤーでも重み付きPフレーム予測を有効にすると再生できない場合があります。
-例えばApple TVは完全に対応していません。</value>
-  </data>
   <data name="Audio_DrcToolTip" xml:space="preserve">
     <value>ダイナミックレンジを圧縮します。値の有効な範囲は0－4です。
 ソースの音声のダイナミックレンジ（シーンによる音量の差が激しい）場合に、音量の差を少なくすることができます。
@@ -289,9 +183,6 @@ Mainプロファイルに対応したデバイスやプレーヤーでも重み�
   </data>
   <data name="TabHeader_AudioEncoding" xml:space="preserve">
     <value>音声のエンコード</value>
-  </data>
-  <data name="TabHeader_Advanced" xml:space="preserve">
-    <value>高度なビデオ</value>
   </data>
   <data name="Rename" xml:space="preserve">
     <value>名前の変更</value>
@@ -389,9 +280,6 @@ Mainプロファイルに対応したデバイスやプレーヤーでも重み�
   <data name="ConstantQualityRadioButton" xml:space="preserve">
     <value>固定品質</value>
   </data>
-  <data name="X264BasicSettings" xml:space="preserve">
-    <value>x264基本設定</value>
-  </data>
   <data name="ProfileLabel" xml:space="preserve">
     <value>プロファイル:</value>
   </data>
@@ -426,7 +314,7 @@ Mainプロファイルに対応したデバイスやプレーヤーでも重み�
     <value>Fast</value>
   </data>
   <data name="Preset_Medium" xml:space="preserve">
-    <value>Medium (Default)</value>
+    <value>標準</value>
   </data>
   <data name="Preset_Slow" xml:space="preserve">
     <value>Slow</value>
@@ -588,168 +476,6 @@ Mainプロファイルに対応したデバイスやプレーヤーでも重み�
   <data name="Bitrate" xml:space="preserve">
     <value>ビットレート</value>
   </data>
-  <data name="Encoding" xml:space="preserve">
-    <value>エンコード</value>
-  </data>
-  <data name="ReferenceFramesLabel" xml:space="preserve">
-    <value>参照距離:</value>
-  </data>
-  <data name="MaxBFramesLabel" xml:space="preserve">
-    <value>最大連続 B フレーム数:</value>
-  </data>
-  <data name="CabacLabel" xml:space="preserve">
-    <value>CABAC:</value>
-  </data>
-  <data name="EightByEightTransformLabel" xml:space="preserve">
-    <value>8x8 DTC変換：</value>
-  </data>
-  <data name="WeightedPFramesLabel" xml:space="preserve">
-    <value>重み付きPフレーム:</value>
-  </data>
-  <data name="PyramidalBFramesLabel" xml:space="preserve">
-    <value>ピラミッド参照：</value>
-  </data>
-  <data name="NoDctDecimateLabel" xml:space="preserve">
-    <value>DCT係数間引き：</value>
-  </data>
-  <data name="Analysis" xml:space="preserve">
-    <value>分析</value>
-  </data>
-  <data name="AdaptiveBFramesLabel" xml:space="preserve">
-    <value>適応的Bフレーム挿入：</value>
-  </data>
-  <data name="AdaptiveDirectModeLabel" xml:space="preserve">
-    <value>動き予測方式：</value>
-  </data>
-  <data name="MotionEstimationMethodLabel" xml:space="preserve">
-    <value>動き予測アルゴリズム：</value>
-  </data>
-  <data name="SubpixelMotionEstimationLabel" xml:space="preserve">
-    <value>サブピクセル動き予測：</value>
-  </data>
-  <data name="MotionEstimationRangeLabel" xml:space="preserve">
-    <value>動き検索範囲：</value>
-  </data>
-  <data name="AdaptiveQuantizationStrengthLabel" xml:space="preserve">
-    <value>AQ強さ：</value>
-  </data>
-  <data name="PsychoVisualRateDistortionLabel" xml:space="preserve">
-    <value>Psy-Rd RDO:</value>
-  </data>
-  <data name="PsychovisualTrellisLabel" xml:space="preserve">
-    <value>Psy-Rd Trellis:</value>
-  </data>
-  <data name="DeblockingLabel" xml:space="preserve">
-    <value>Deblocking:</value>
-  </data>
-  <data name="PartitionTypeLabel" xml:space="preserve">
-    <value>Partition Type:</value>
-  </data>
-  <data name="TrellisLabel" xml:space="preserve">
-    <value>Trellis:</value>
-  </data>
-  <data name="OptionsString" xml:space="preserve">
-    <value>追加設定</value>
-  </data>
-  <data name="PyramidalBFrames_Off" xml:space="preserve">
-    <value>オフ</value>
-  </data>
-  <data name="PyramidalBFrames_Normal" xml:space="preserve">
-    <value>Normal</value>
-  </data>
-  <data name="PyramidalBFrames_Strict" xml:space="preserve">
-    <value>Strict</value>
-  </data>
-  <data name="AdaptiveBFrames_Off" xml:space="preserve">
-    <value>Off</value>
-  </data>
-  <data name="AdaptiveBFrames_Fast" xml:space="preserve">
-    <value>Fast</value>
-  </data>
-  <data name="AdaptiveBFrames_Optimal" xml:space="preserve">
-    <value>Optimal</value>
-  </data>
-  <data name="DirectPrediction_None" xml:space="preserve">
-    <value>None</value>
-  </data>
-  <data name="DirectPrediction_Spatial" xml:space="preserve">
-    <value>Spatial</value>
-  </data>
-  <data name="DirectPrediction_Temporal" xml:space="preserve">
-    <value>Temporal</value>
-  </data>
-  <data name="DirectPrediction_Automatic" xml:space="preserve">
-    <value>自動</value>
-  </data>
-  <data name="MotionEstimationMethod_Diamond" xml:space="preserve">
-    <value>Diamond</value>
-  </data>
-  <data name="MotionEstimationMethod_Hexagon" xml:space="preserve">
-    <value>Hexagon</value>
-  </data>
-  <data name="MotionEstimationMethod_UnevenMultiHexagon" xml:space="preserve">
-    <value>Uneven Multi-Hexagon</value>
-  </data>
-  <data name="MotionEstimationMethod_Exhaustive" xml:space="preserve">
-    <value>Exhaustive</value>
-  </data>
-  <data name="MotionEstimationMethod_TransformedExhaustive" xml:space="preserve">
-    <value>Transformed Exhaustive</value>
-  </data>
-  <data name="SubpixelMotionEstimation_0" xml:space="preserve">
-    <value>0: SAD, no subpel (super fast!)</value>
-  </data>
-  <data name="SubpixelMotionEstimation_1" xml:space="preserve">
-    <value>1: SAD, qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_2" xml:space="preserve">
-    <value>2: SATD, qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_3" xml:space="preserve">
-    <value>3: SATD, multi-qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_4" xml:space="preserve">
-    <value>4: SATD, qpel on all</value>
-  </data>
-  <data name="SubpixelMotionEstimation_5" xml:space="preserve">
-    <value>5: SATD, multi-qpel on all</value>
-  </data>
-  <data name="SubpixelMotionEstimation_6" xml:space="preserve">
-    <value>6: RD in I/P-frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_7" xml:space="preserve">
-    <value>7: RD in all frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_8" xml:space="preserve">
-    <value>8: RD refine in I/P-frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_9" xml:space="preserve">
-    <value>9: RD refine in all frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_10" xml:space="preserve">
-    <value>10: QPRD in all frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_11" xml:space="preserve">
-    <value>11: No early terminations in analysis</value>
-  </data>
-  <data name="Analysis_None" xml:space="preserve">
-    <value>無し</value>
-  </data>
-  <data name="Analysis_Some" xml:space="preserve">
-    <value>いくつか</value>
-  </data>
-  <data name="Analysis_All" xml:space="preserve">
-    <value>全て</value>
-  </data>
-  <data name="Trellis_Off" xml:space="preserve">
-    <value>無し</value>
-  </data>
-  <data name="Trellis_EncodeOnly" xml:space="preserve">
-    <value>エンコードのみ</value>
-  </data>
-  <data name="Trellis_Always" xml:space="preserve">
-    <value>常時</value>
-  </data>
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} (デフォルト)</value>
   </data>
@@ -776,9 +502,6 @@ Mainプロファイルに対応したデバイスやプレーヤーでも重み�
   </data>
   <data name="VideoEncoder_x264" xml:space="preserve">
     <value>H.264 (x264)</value>
-  </data>
-  <data name="Analysis_Most" xml:space="preserve">
-    <value>Most</value>
   </data>
   <data name="AdvancedQuery" xml:space="preserve">
     <value>高度なクエリ</value>
@@ -818,17 +541,6 @@ Mainプロファイルに対応したデバイスやプレーヤーでも重み�
   </data>
   <data name="AudioEncoder_flac24" xml:space="preserve">
     <value>FLAC 24-bit</value>
-  </data>
-  <data name="Advanced_PsychovisualLabel" xml:space="preserve">
-    <value>Psychovisual</value>
-  </data>
-  <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
-    <value>簡易</value>
-    <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
-  </data>
-  <data name="X264SettingsRadioButtonAdvanced" xml:space="preserve">
-    <value>詳細</value>
-    <comment>Label for radio button to choose advanced x264 settings on a separate tab.</comment>
   </data>
   <data name="VideoEncoder_mpeg2" xml:space="preserve">
     <value>MPEG-2</value>
@@ -1030,41 +742,126 @@ Mainプロファイルに対応したデバイスやプレーヤーでも重み�
     <value>キー:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="PaddingLabel" xml:space="preserve">
+    <value>パディング</value>
+  </data>
+  <data name="AlignAVStartCheckBox" xml:space="preserve">
+    <value>音声同期</value>
+  </data>
+  <data name="AlignAVStartCheckBoxToolTip" xml:space="preserve">
+    <value>映像と音声の初期の時刻をブランクフレームを入れるか削除し合わせます。一部のプレーヤにおける映像と音声の同期が改善するかもしれません。</value>
+  </data>
+  <data name="TabHeader_Container" xml:space="preserve">
+    <value>コンテナー</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>エンコードプリセット：{0}</value>
+    <comment>Label for the encoding settings window.</comment>
+  </data>
+  <data name="AudioEncoder_none" xml:space="preserve">
+    <value>なし</value>
+    <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
+  </data>
+  <data name="SizingModeToolTip" xml:space="preserve">
+    <value>自動は設定をもとに自動的にサイズを選択します。手動ではサイズとアスペクト比を指定できます。</value>
+  </data>
+  <data name="SharpenLabel" xml:space="preserve">
+    <value>シャープ</value>
+  </data>
+  <data name="DeblockToolTip" xml:space="preserve">
+    <value>デブロックは低品質圧縮時のブロックノイズを低減します</value>
+  </data>
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>デインターレースは櫛形ノイズを除去します。
+
+Yadifは一般的で高速なデインターレース方法です。
+
+Decombはスピードと品質を両立するために、複数の補間アルゴリズムを切り替えます。</value>
+  </data>
+  <data name="DenoiseToolTip" xml:space="preserve">
+    <value>ノイズ除去はノイズと粒状感を削除または低減します。圧縮率が向上するので、高品質でファイルサイズを小さくできます。
+オーバーレイは強力な設定のため、ディテールを破棄し品質に影響が出る場合があります。
+
+NLMeansは高品質なノイズ除去ですが処理に時間がかかります。速度より品質を重視する場合に使います。
+
+HQDN3Dは適応的なローパスフィルターで、NLMeansより高速ですが、ディテールは劣ります。</value>
+  </data>
+  <data name="DetelecineToolTip" xml:space="preserve">
+    <value>テレシネ変換による櫛形ノイズを除去します。
+
+テレシネ変換は、フレームレートをフィルムの24fpsからNTSCビデオの30fpsに変換する処理です。</value>
+  </data>
+  <data name="SharpenToolTip" xml:space="preserve">
+    <value>シャープはディテール、特に輪郭を強調します。
+オーバーレイは映像品質が劣化する場合があり、リンギングやノイズが増加しファイルサイズが大きくなる場合があります。
+
+アンシャープは汎用のアンシャープマスクフィルタです。ぼかした画像と元の画像を比較しシャープにします。
+
+Lapsharpはラプラシアン輪郭フィルターを近似する畳込みカーネルを用いてシャープにします。アンシャープよりも高品質になる場合があります。</value>
+  </data>
+  <data name="PresetFolder_Custom" xml:space="preserve">
+    <value>カスタム</value>
+  </data>
+  <data name="PresetFolder_BuiltIn" xml:space="preserve">
+    <value>内蔵</value>
+  </data>
+  <data name="PresetFolderCreateSubfolderMenuItem" xml:space="preserve">
+    <value>フォルダを作成</value>
+  </data>
+  <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
+    <value>フォルダ名を変更</value>
+  </data>
+  <data name="PresetFolderRemoveFolderMenuItem" xml:space="preserve">
+    <value>フォルダ削除</value>
+  </data>
+  <data name="DefaultPresetFolderName" xml:space="preserve">
+    <value>新規フォルダ</value>
+  </data>
+  <data name="ChooseNameSubfolder" xml:space="preserve">
+    <value>サブフォルダの名前を選択:</value>
+  </data>
+  <data name="ChooseNewFolderName" xml:space="preserve">
+    <value>新しいフォルダ名を選択:</value>
+  </data>
+  <data name="NVEncPreset_ll" xml:space="preserve">
+    <value>低遅延</value>
+  </data>
+  <data name="NVEncPreset_hq" xml:space="preserve">
+    <value>高品質</value>
+  </data>
+  <data name="NVEncPreset_hp" xml:space="preserve">
+    <value>高速</value>
+  </data>
+  <data name="PickColorButton" xml:space="preserve">
+    <value>色を選択...</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>下</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>左</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>右</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>上</value>
+  </data>
+  <data name="PixelAspectRatioNumeratorAutomationName" xml:space="preserve">
+    <value>ピクセルアスペクト比の分子</value>
+    <comment>Name for the pixel aspect ratio numerator box for screen readers</comment>
+  </data>
+  <data name="PixelAspectRatioDenominatorAutomationName" xml:space="preserve">
+    <value>ピクセルアスペクト比の分母</value>
+    <comment>Name for the pixel aspect ratio denominator box for screen readers</comment>
+  </data>
+  <data name="ApplyToQueueButton" xml:space="preserve">
+    <value>キューに追加</value>
+  </data>
+  <data name="FullEncoderParameterLabel" xml:space="preserve">
+    <value>全パラメーターリスト:</value>
+  </data>
+  <data name="MoreOptionsToolTip" xml:space="preserve">
+    <value>追加のビデオエンコーダーオプション</value>
+  </data>
 </root>

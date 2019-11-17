@@ -198,9 +198,7 @@
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>Permite configurar nombre personalizado en pistas de audio (soporte limitado del reproductor)</value>
   </data>
-  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>Habilitar LibDVDNav (requiere reiniciar el programa)</value>
-  </data>
+  
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Eliminar archivos de origen después de limpiar la lista de objetos completados (con confirmación)</value>
   </data>
@@ -395,4 +393,8 @@
   <data name="PromptForUpdatesLabel" xml:space="preserve">
     <value>Solicitar actualizaciones:</value>
   </data>
+  
+  
+  
+  
 </root>

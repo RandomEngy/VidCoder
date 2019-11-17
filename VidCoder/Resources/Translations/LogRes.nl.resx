@@ -117,10 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ClearButton" xml:space="preserve">
-    <value>Wissen</value>
-  </data>
   <data name="LogWindowTitle" xml:space="preserve">
     <value>Log</value>
+  </data>
+  <data name="GeneralLogLabel" xml:space="preserve">
+    <value>Algemeen</value>
+  </data>
+  <data name="LogVerbosity_Minimized" xml:space="preserve">
+    <value>Geminimaliseerd</value>
+  </data>
+  <data name="LogVerbosity_Standard" xml:space="preserve">
+    <value>Standaard</value>
+  </data>
+  <data name="LogVerbosity_Extended" xml:space="preserve">
+    <value>Uitgebreid</value>
+  </data>
+  
+  <data name="PastebinSuccessStatus" xml:space="preserve">
+    <value>De link om in te loggen op Pastebin is naar het klembord gekopieerd.</value>
+  </data>
+  <data name="ClearFinishedButton" xml:space="preserve">
+    <value>Wissen voltooid</value>
   </data>
 </root>

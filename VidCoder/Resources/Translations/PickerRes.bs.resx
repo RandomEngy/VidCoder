@@ -266,14 +266,29 @@
   
   
   
+  <data name="TimeRangeSelection" xml:space="preserve">
+    <value>Odabir raspona vremena</value>
+  </data>
+  <data name="SelectTimeRangeCheckBox" xml:space="preserve">
+    <value>Odaberite vremenski raspon</value>
+  </data>
   
-  
-  
-  
-  
-  
-  
+  <data name="TimeRangeStartAutomationName" xml:space="preserve">
+    <value>Početak raspona vremena</value>
+  </data>
+  <data name="TimeRangeEndAutomationName" xml:space="preserve">
+    <value>Kraj raspona vremena</value>
+  </data>
+  <data name="ByIndexRadioButton" xml:space="preserve">
+    <value>Prema indeksu</value>
+    <comment>Label for the choice to choose audio or subtitle tracks by index</comment>
+  </data>
+  <data name="SelectTracksLabel" xml:space="preserve">
+    <value>Odaberi zapise:</value>
+  </data>
   <data name="SelectTracksHelpText" xml:space="preserve">
     <value>Odvojeno zarezom - npr. 2,5</value>
   </data>
+  
+  
 </root>

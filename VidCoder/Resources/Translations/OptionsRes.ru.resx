@@ -198,9 +198,7 @@
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>Позволяет установить пользовательское имя для аудио-треков (ограниченная поддержка плееров)</value>
   </data>
-  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>Включить LibDVDNav (Требуется перезапуск программы)</value>
-  </data>
+  
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Удалить исходные файлы после очистки успешно завершенных пунктов (с подтверждением)</value>
   </data>
@@ -376,6 +374,10 @@
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Использовать встроенный проигрыватель для просмотра</value>
   </data>
+  
+  
+  
+  
   
   
   

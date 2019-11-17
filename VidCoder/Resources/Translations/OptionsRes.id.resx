@@ -198,9 +198,7 @@
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>Memungkinkan pengaturan nama kustom Track audio (dukungan Pemutar terbatas)</value>
   </data>
-  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>Mengaktifkan LibDVDNav (Harus restart program untuk merubah)</value>
-  </data>
+  
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Hapus file sumber selesai sukses menyelesaikan seluruh item ( dengan konfirmasi)</value>
   </data>
@@ -395,4 +393,8 @@
   <data name="PromptForUpdatesLabel" xml:space="preserve">
     <value>Tanyakan Pembaharuan:</value>
   </data>
+  
+  
+  
+  
 </root>

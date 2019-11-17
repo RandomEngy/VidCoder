@@ -126,112 +126,6 @@
   <data name="Revert" xml:space="preserve">
     <value>Balikkan</value>
   </data>
-  <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
-    <value>x264 memiliki berbagai algoritma untuk memutuskan kapan untuk menggunakan B-frame dan berapa banyak yang harus digunakan.  
-
-Fast Mode akan memakan waktu yang kira-kira sama berapa pun banyaknya B-frame yang Anda tentukan.  Namun, walau pun cepat, keputusan yang diambil sering kurang optimal.
-
-Mode Optimal akan lebih lambat sesuai dengan jumlah maksimum B-frame yang meningkat, tetapi membuat keputusan yang lebih akurat, apalagi jika digunakan bersama dengan B-pyramid.</value>
-  </data>
-  <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
-    <value>H.264 memungkinkan dua mode prediksi berbeda, spatial dan temporal, dalam B-frame. 
-
-Spatial, sebagai default, hampir selalu lebih baik, tapi temporal juga kadang-kadang berguna.
-
-x264 bisa, dengan sedikit pengorbanan kecepatan (dan sejalan dengan itu mendapatkan sedikit keuntungan kompresi), secara adaptif memilih mana lebih baik untuk setiap frame tertentu.</value>
-  </data>
-  <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
-    <value>Kuantisasi adaptif mengontrol bagaimana encoder mendistribusikan bit di frame. Nilai yang lebih tinggi mengambil potongan-potongan lebih dari tepi dan daerah kompleks untuk memperbaiki daerah dengan detail halus.</value>
-  </data>
-  <data name="Advanced_AnalysisToolTip" xml:space="preserve">
-    <value>Modus keputusan memilih dari berbagai pilihan untuk membuat keputusan: opsi ini memilih apa pilihan yang ada.
-
-Lebih sedikit partisi untuk diperiksa berarti lebih cepat encoding, dengan biaya keputusan terburuk, karena pilihan yang terbaik mungkin adalah yang dimatikan.</value>
-  </data>
-  <data name="Advanced_BFramesToolTip" xml:space="preserve">
-    <value>Nilai yang waras adalah ~ 2-5.
-
-Ini menentukan jumlah maksimum B-frames berurutan yang encoder dapat gunakan.
-Jumlah besar umumnya tidak akan membantu secara signifikan kecuali Adaptive B-frames diatur ke Optimal.   
-Material bersumber Cel-animated dan B-pyramid juga secara signifikan meningkatkan kegunaan dari nilai-nilai yang lebih besar.
-Profil baseline, seperti yang diperlukan untuk iPod dan perangkat serupa, mensyaratkan B-frames ditetapkan ke 0 (off).</value>
-  </data>
-  <data name="Advanced_CabacToolTip" xml:space="preserve">
-    <value>Setelah encoder telah melakukan tugasnya, hasilnya adalah sekumpulan data yang dikompres secara losslessly, mirip dengan ZIP atau RAR. H.264 menyediakan dua pilihan untuk ini: CAVLC dan CABAC.  Dekode CABAC jauh lebih lambat tapi dikompres secara signifikan lebih baik (10-30%), terutama di bitrate rendah. Jika Anda berusaha meminimalkan persyaratan CPU untuk pemutaran video, nonaktifkan opsi ini. Profil baseline, seperti yang diperlukan untuk iPod dan perangkat serupa, memerlukan CABAC dinonaktifkan.</value>
-  </data>
-  <data name="Advanced_DeblockingToolTip" xml:space="preserve">
-    <value>H.264 memiliki filter deblocking built-in yang menghaluskan artefak yang nge-blok setelah decoding setiap frame.  Ini tidak hanya meningkatkan kualitas visual, tetapi juga membantu kompresi secara signifikan.  Filter Deblocking membutuhkan banyak CPU power, jadi jika Anda berusaha meminimalkan persyaratan CPU untuk pemutaran video, nonaktifkan. 
-
-Filter deblocking memiliki dua parameter yang bisa diubah, "strength", dan "threshold".  Yang pertama mengontrol seberapa kuat (atau lemah) deblocker, sedangkan yang kedua mengontrol berapa banyak (atau sedikit) tepi yang bisa diaplikasikan.  
-Nilai yang lebih rendah berarti sedikit deblocking, nilai-nilai lebih tinggi  berarti lebih banyak deblocking. Default adalah 0 (kekuatan normal) untuk kedua parameter.</value>
-  </data>
-  <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
-    <value>Perubahan 8 x 8 adalah satu satunya fitur yang paling berguna dari x264 dalam hal kompresi-per-kecepatan.   
-Hal ini meningkatkan kompresi oleh sekurang-kurangnya 5% dengan biaya kecepatan yang sangat kecil dan dapat memberikan keuntungan visual yang luar biasa tinggi dibandingkan dengan keuntungan kompresi.   Namun, hal ini membutuhkan profil tinggi, yang banyak perangkat mungkin tidak mendukung.</value>
-  </data>
-  <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
-    <value>Kontrol gerak metode estimasi. Estimasi gerak adalah bagaimana encoder memperkirakan bagaimana masing-masing blok pixel dalam frame telah pindah.  
-Lebih baik gerak pencarian metode meningkatkan pada kompresi biaya kecepatan.
-
-Berlian: melakukan yang sangat cepat dan pencarian sederhana menggunakan pola berlian.
-
-Segi enam: melakukan yang agak lebih efektif tapi sedikit lebih lambat pencarian menggunakan pola segi enam.
-
-Multi-Hex rata: melakukan yang sangat luas pencarian menggunakan berbagai pola, lebih akurat menangkap gerak yang kompleks.
-
-Lengkap: melakukan pencarian "bodoh" setiap pixel di berbagai daerah. Secara signifikan lebih lambat karena hanya sedikit kompresi keuntungan.
-
-Diubah Lengkap: lengkap, tetapi bahkan membuat keputusan yang lebih akurat. Dengan demikian, agak lambat, hanya untuk perbaikan kecil juga.</value>
-  </data>
-  <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
-    <value>Ini adalah jangkauan pencarian x264 yang dilakukan dari rekaan terbaik terhadap gerakan sebuah blok agar dapat menemukan gerakan yang sebenarnya.
-
-Nilai bawaan sudah OK untuk sebagian besar konten, tapi video yang memiliki sangat banyak gerakan, khususnya pada resolusi HD, mungkin lebih baik ketika dibeli nilai tinggi, tentunya dengan tumbal kecepatan.
-
-Nilai yang diterima adalah 4-16 untuk metode Berlian dan Heksagon, dan 4-64 untuk metode lainnya.</value>
-  </data>
-  <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
-    <value>x264 biasanya nol hampir kosong blok data untuk menyimpan bit untuk menjadi lebih baik digunakan untuk beberapa tujuan lain dalam video.  
-Namun, hal ini dapat kadang-kadang memiliki sedikit efek negatif pada retensi halus biji-bijian dan gentar.  
-Jangan sentuh ini kecuali anda memiliki banding masalah atau kasus-kasus seperti di mana anda mengalami kesulitan dalam menjaga kebisingan dengan baik.</value>
-  </data>
-  <data name="Advanced_PsychovisualRateDistortionToolTip" xml:space="preserve">
-    <value>Laju Psychovisual Distorsi berarti x264 mencoba untuk mempertahankan secara terperinci, untuk kualitas lebih baik untuk mata manusia, dibandingkan dengan mencoba untuk memaksimalkan kualitas jalannya komputer untuk memahaminya, melalui-sinyal ke-rasio kebisingan yang mengalami kesulitan memberitahu selain detail halus dan kebisingan.</value>
-  </data>
-  <data name="Advanced_PsychovisualTrellisToolTip" xml:space="preserve">
-    <value>Psychovisual berupa jeruji mencoba untuk mempertahankan lebih banyak ketajaman dan detail, tetapi dapat menyebabkan artifacting. Ianya dianggap experimental, yang karena itu mati secara default. Nilai-nilai baik 0.1 ke 0.2.</value>
-  </data>
-  <data name="Advanced_PyramidalBFramesToolTip" xml:space="preserve">
-    <value>Piramid-B menciptakan sebuah struktur pyramidal (dengan nama itu) dari bingkai-B, sehingga papan-B untuk saling referensi untuk meningkatkan kompresi konten. Memerlukan Max B jangka masa yang lebih besar dari 1; adaptive papan-B optimal, sangat dianjurkan untuk manfaat kompresi penuh.</value>
-  </data>
-  <data name="Advanced_ReferenceFramesToolTip" xml:space="preserve">
-    <value>Nilai-nilai yang masuk akal ~1-6.
-
-Semakin banyak yang Anda tambahkan, kompresi yang lebih baik, tetapi lambat kodekan.
-
-Cel animasi cenderung untuk memperoleh keuntungan dari frame referensi lebih banyak lebih dari konten film.
-
-Catatan bahwa banyak perangkat perangkat keras memiliki keterbatasan pada jumlah frame referensi yang didukung, jadi jika anda untuk genggaman atau pengkodean pemain mandiri, jangan menyentuh ini, kecuali jika anda benar-benar yakin anda tahu apa yang sedang anda lakukan!</value>
-  </data>
-  <data name="Advanced_SubpixelMotionEstimationToolTip" xml:space="preserve">
-    <value>Setelan ini mengawal presisi-subpixel in motion estimasi mode dan metode keputusan. 
-
-Perkiraan Subpixel in motion digunakan untuk melebur in motion memperkirakan melangkaui piksel akurasi, meningkatkan kompresi konten. 
-
-Keputusan Mode adalah metode yang digunakan untuk memilih cara kodekan setiap blok-blok frame: keputusan yang sangat penting. 
-
-SAD adalah metode tercepat, diikuti oleh SATD, RD, RD refinement, dan paling lamban, QPRD. 6 atau yang lebih tinggi, anda sangat dianjurkan: Psy-RD, optimalisasi psy yang sangat kuat yang membantu mempertahankan secara terperinci, memerlukan RD. 10, sangat kuat dan opsi yang paling lambat, memerlukan berupa jeruji=2.</value>
-  </data>
-  <data name="Advanced_TrellisToolTip" xml:space="preserve">
-    <value>Berupa jeruji fine-tunes dari beberapa koefisien mentransformasikan untuk memeras keluar 3-5% kompresi lebih pada biaya kecepatan beberapa. 
-"Selalu" menggunakan berupa jeruji tidak hanya selama proses pengkodean utama, tetapi juga analisis selama, yang meningkatkan lebih kompresi, walaupun pada biaya kecepatan besar. 
-
-Biaya berupa jeruji lebih kecepatan bitrates lebih tinggi.</value>
-  </data>
-  <data name="Advanced_WeightPToolTip" xml:space="preserve">
-    <value>Melakukan analisis ekstra untuk memutuskan bobot parameter untuk masing-masing di atas frame. Ini akan meningkatkan sedikit kompresi secara keseluruhan dan meningkatkan kualitas pudar dengan sangat. Baseline Profile, seperti yang diperlukan untuk IPOD dan perangkat serupa, memerlukan weighted P-prediksi frame yang akan dinonaktifkan. 
-Catatan bahwa beberapa perangkat pemutar dan, bahkan mereka yang mendukung profil Utama, mungkin mengalami masalah dengan Weighted P-prediksi frame: Apple TV benar-benar tidak kompatibel dengannya, misalnya.</value>
-  </data>
   <data name="Audio_DrcToolTip" xml:space="preserve">
     <value>Kisaran dinamis Kompresi Konten. Nilai-nilai yang sah 0-4. 
 
@@ -291,9 +185,6 @@ Anda akan dijamin aliran yang kompatibel. Anda harus menyetel ini jika anda tahu
   </data>
   <data name="TabHeader_AudioEncoding" xml:space="preserve">
     <value>Audio encoder</value>
-  </data>
-  <data name="TabHeader_Advanced" xml:space="preserve">
-    <value>Video lanjutan</value>
   </data>
   <data name="Rename" xml:space="preserve">
     <value>Ganti nama</value>
@@ -391,9 +282,6 @@ Anda akan dijamin aliran yang kompatibel. Anda harus menyetel ini jika anda tahu
   <data name="ConstantQualityRadioButton" xml:space="preserve">
     <value>Kualitas konstan</value>
   </data>
-  <data name="X264BasicSettings" xml:space="preserve">
-    <value>x 264 setelan dasar</value>
-  </data>
   <data name="ProfileLabel" xml:space="preserve">
     <value>Profil:</value>
   </data>
@@ -427,9 +315,7 @@ Anda akan dijamin aliran yang kompatibel. Anda harus menyetel ini jika anda tahu
   <data name="Preset_Fast" xml:space="preserve">
     <value>Cepat</value>
   </data>
-  <data name="Preset_Medium" xml:space="preserve">
-    <value>Menengah (Standar)</value>
-  </data>
+  
   <data name="Preset_Slow" xml:space="preserve">
     <value>Lamban</value>
   </data>
@@ -590,168 +476,6 @@ Anda akan dijamin aliran yang kompatibel. Anda harus menyetel ini jika anda tahu
   <data name="Bitrate" xml:space="preserve">
     <value>Bitrate</value>
   </data>
-  <data name="Encoding" xml:space="preserve">
-    <value>Pengkodean</value>
-  </data>
-  <data name="ReferenceFramesLabel" xml:space="preserve">
-    <value>Referensi frame:</value>
-  </data>
-  <data name="MaxBFramesLabel" xml:space="preserve">
-    <value>Maximum B-Frames:</value>
-  </data>
-  <data name="CabacLabel" xml:space="preserve">
-    <value>CABAC:</value>
-  </data>
-  <data name="EightByEightTransformLabel" xml:space="preserve">
-    <value>Transformasi 8x8:</value>
-  </data>
-  <data name="WeightedPFramesLabel" xml:space="preserve">
-    <value>Bobot P-Frames:</value>
-  </data>
-  <data name="PyramidalBFramesLabel" xml:space="preserve">
-    <value>Pyramidal B-Frames:</value>
-  </data>
-  <data name="NoDctDecimateLabel" xml:space="preserve">
-    <value>No DCT-Decimate:</value>
-  </data>
-  <data name="Analysis" xml:space="preserve">
-    <value>Analisis</value>
-  </data>
-  <data name="AdaptiveBFramesLabel" xml:space="preserve">
-    <value>Adaptive B-Frames:</value>
-  </data>
-  <data name="AdaptiveDirectModeLabel" xml:space="preserve">
-    <value>Adaptif Mode langsung:</value>
-  </data>
-  <data name="MotionEstimationMethodLabel" xml:space="preserve">
-    <value>Metode Estimasi Gerak:</value>
-  </data>
-  <data name="SubpixelMotionEstimationLabel" xml:space="preserve">
-    <value>Estimasi Gerak Subpixel:</value>
-  </data>
-  <data name="MotionEstimationRangeLabel" xml:space="preserve">
-    <value>Jangka Estimasi Gerak:</value>
-  </data>
-  <data name="AdaptiveQuantizationStrengthLabel" xml:space="preserve">
-    <value>Kekuatan Quantization adaptif:</value>
-  </data>
-  <data name="PsychoVisualRateDistortionLabel" xml:space="preserve">
-    <value>Laju Psychovisual Distorsi:</value>
-  </data>
-  <data name="PsychovisualTrellisLabel" xml:space="preserve">
-    <value>Psychovisual yang jeruji:</value>
-  </data>
-  <data name="DeblockingLabel" xml:space="preserve">
-    <value>Deblocking:</value>
-  </data>
-  <data name="PartitionTypeLabel" xml:space="preserve">
-    <value>Tipe partisi:</value>
-  </data>
-  <data name="TrellisLabel" xml:space="preserve">
-    <value>Trellis:</value>
-  </data>
-  <data name="OptionsString" xml:space="preserve">
-    <value>Pilihan string</value>
-  </data>
-  <data name="PyramidalBFrames_Off" xml:space="preserve">
-    <value>Off</value>
-  </data>
-  <data name="PyramidalBFrames_Normal" xml:space="preserve">
-    <value>Normal</value>
-  </data>
-  <data name="PyramidalBFrames_Strict" xml:space="preserve">
-    <value>Strict</value>
-  </data>
-  <data name="AdaptiveBFrames_Off" xml:space="preserve">
-    <value>Mati</value>
-  </data>
-  <data name="AdaptiveBFrames_Fast" xml:space="preserve">
-    <value>Cepat</value>
-  </data>
-  <data name="AdaptiveBFrames_Optimal" xml:space="preserve">
-    <value>Optimal</value>
-  </data>
-  <data name="DirectPrediction_None" xml:space="preserve">
-    <value>Tidak satupun</value>
-  </data>
-  <data name="DirectPrediction_Spatial" xml:space="preserve">
-    <value>Tata ruang</value>
-  </data>
-  <data name="DirectPrediction_Temporal" xml:space="preserve">
-    <value>Temporal</value>
-  </data>
-  <data name="DirectPrediction_Automatic" xml:space="preserve">
-    <value>Otomatis</value>
-  </data>
-  <data name="MotionEstimationMethod_Diamond" xml:space="preserve">
-    <value>Berlian</value>
-  </data>
-  <data name="MotionEstimationMethod_Hexagon" xml:space="preserve">
-    <value>Heksagonal</value>
-  </data>
-  <data name="MotionEstimationMethod_UnevenMultiHexagon" xml:space="preserve">
-    <value>Multi-Hexagon Tidak Merata</value>
-  </data>
-  <data name="MotionEstimationMethod_Exhaustive" xml:space="preserve">
-    <value>Lengkap</value>
-  </data>
-  <data name="MotionEstimationMethod_TransformedExhaustive" xml:space="preserve">
-    <value>Perubahan lengkap</value>
-  </data>
-  <data name="SubpixelMotionEstimation_0" xml:space="preserve">
-    <value>0: SAD, tidak ada subpel (super cepat!)</value>
-  </data>
-  <data name="SubpixelMotionEstimation_1" xml:space="preserve">
-    <value>1: SAD, qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_2" xml:space="preserve">
-    <value>2: SATD, qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_3" xml:space="preserve">
-    <value>3: SATD, multi-qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_4" xml:space="preserve">
-    <value>4: SATD, semua qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_5" xml:space="preserve">
-    <value>5: SATD, semua multi-qpel</value>
-  </data>
-  <data name="SubpixelMotionEstimation_6" xml:space="preserve">
-    <value>6: RD dalam I/P-frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_7" xml:space="preserve">
-    <value>7: RD dalam semua frame</value>
-  </data>
-  <data name="SubpixelMotionEstimation_8" xml:space="preserve">
-    <value>8: RD refine in I/P-frames</value>
-  </data>
-  <data name="SubpixelMotionEstimation_9" xml:space="preserve">
-    <value>9: RD memurnikan dalam semua frame</value>
-  </data>
-  <data name="SubpixelMotionEstimation_10" xml:space="preserve">
-    <value>10: QPRD dalam semua frame</value>
-  </data>
-  <data name="SubpixelMotionEstimation_11" xml:space="preserve">
-    <value>11: Tidak ada pemutusan dalam analisis awal</value>
-  </data>
-  <data name="Analysis_None" xml:space="preserve">
-    <value>Tidak satupun</value>
-  </data>
-  <data name="Analysis_Some" xml:space="preserve">
-    <value>Beberapa</value>
-  </data>
-  <data name="Analysis_All" xml:space="preserve">
-    <value>Semua</value>
-  </data>
-  <data name="Trellis_Off" xml:space="preserve">
-    <value>Matikan</value>
-  </data>
-  <data name="Trellis_EncodeOnly" xml:space="preserve">
-    <value>Hanya encode</value>
-  </data>
-  <data name="Trellis_Always" xml:space="preserve">
-    <value>Selalu</value>
-  </data>
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} (Default)</value>
   </data>
@@ -778,9 +502,6 @@ Anda akan dijamin aliran yang kompatibel. Anda harus menyetel ini jika anda tahu
   </data>
   <data name="VideoEncoder_x264" xml:space="preserve">
     <value>H.264 (x264)</value>
-  </data>
-  <data name="Analysis_Most" xml:space="preserve">
-    <value>Sebagian</value>
   </data>
   <data name="AdvancedQuery" xml:space="preserve">
     <value>Query Lanjutan</value>
@@ -820,17 +541,6 @@ Anda akan dijamin aliran yang kompatibel. Anda harus menyetel ini jika anda tahu
   </data>
   <data name="AudioEncoder_flac24" xml:space="preserve">
     <value>FLAC 24-bit</value>
-  </data>
-  <data name="Advanced_PsychovisualLabel" xml:space="preserve">
-    <value>Psychovisual</value>
-  </data>
-  <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
-    <value>Dasar</value>
-    <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
-  </data>
-  <data name="X264SettingsRadioButtonAdvanced" xml:space="preserve">
-    <value>Tap lanjutan</value>
-    <comment>Label for radio button to choose advanced x264 settings on a separate tab.</comment>
   </data>
   <data name="VideoEncoder_mpeg2" xml:space="preserve">
     <value>MPEG-2</value>
@@ -1108,23 +818,8 @@ Lapsharp menajamkan menggunakan kernel konvolusi dengan mengaproksimasi filter p
   <data name="ChooseNewFolderName" xml:space="preserve">
     <value>Pilih nama untuk berkas:</value>
   </data>
-  <data name="NVEncPreset_losslesshp" xml:space="preserve">
-    <value>High Performance Lossless</value>
-  </data>
-  <data name="NVEncPreset_lossless" xml:space="preserve">
-    <value>Lossless</value>
-  </data>
-  <data name="NVEncPreset_llhp" xml:space="preserve">
-    <value>High Performance Low Latency</value>
-  </data>
-  <data name="NVEncPreset_llhq" xml:space="preserve">
-    <value>High Quality Low Latency</value>
-  </data>
   <data name="NVEncPreset_ll" xml:space="preserve">
     <value>Low Latency</value>
-  </data>
-  <data name="NVEncPreset_bd" xml:space="preserve">
-    <value>Bluray Disk</value>
   </data>
   <data name="NVEncPreset_hq" xml:space="preserve">
     <value>Kualitas tinggi</value>
@@ -1158,4 +853,6 @@ Lapsharp menajamkan menggunakan kernel konvolusi dengan mengaproksimasi filter p
   <data name="ApplyToQueueButton" xml:space="preserve">
     <value>Tambahkan ke antrian</value>
   </data>
+  
+  
 </root>

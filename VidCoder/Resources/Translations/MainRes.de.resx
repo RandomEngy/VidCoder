@@ -655,10 +655,6 @@
     <value>Kapitel bearbeiten</value>
     <comment>Help text for screen readers for the Edit chapters button</comment>
   </data>
-  <data name="TitleFilterRangeStartAutomationName" xml:space="preserve">
-    <value>Titelauswahl minimale Laufzeit in Minuten</value>
-    <comment>Screen reader text for number box that represents the start of the filter range in minutes. The number chosen in this box represents the minimum title length in minutes that will be chosen.</comment>
-  </data>
   <data name="ApplyCurrentEncodingSettings" xml:space="preserve">
     <value>Aktuelle Encodierungseinstellungen anwenden</value>
   </data>
@@ -676,4 +672,13 @@
     <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion. This string is only used when there are multiple items queued.
 {0} is the encode complete action, ex "Shut down"</comment>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

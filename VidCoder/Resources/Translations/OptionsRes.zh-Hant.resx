@@ -199,7 +199,7 @@
     <value>允許音軌設定自訂名稱 (非所有播放器皆支援)</value>
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>啟用 LibDVDNav (需重新啟動程式套用變更)</value>
+    <value>啟用 LibDVDNav (需要重新啟動程式，支援多重角度之必要項目)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>清除完成項目後刪除來源檔案 (會彈出確認對話視窗)</value>
@@ -394,5 +394,17 @@
   </data>
   <data name="PromptForUpdatesLabel" xml:space="preserve">
     <value>提示更新:</value>
+  </data>
+  <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
+    <value>工作執行緒選項將在您離開並重新啟動 VidCoder 後生效。</value>
+  </data>
+  <data name="CopyLogToCustomFolderLabel" xml:space="preserve">
+    <value>複製編碼 Log 至自訂資料夾</value>
+  </data>
+  <data name="KeepFailedFilesCheckBox" xml:space="preserve">
+    <value>編碼停止或失敗時保留檔案</value>
+  </data>
+  <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
+    <value>當有編碼工作失敗時「完成時」會觸發的動作</value>
   </data>
 </root>

@@ -198,9 +198,7 @@
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>Povolit nastavení vlastního názvu audio stop (omezená podpora přehrávačů)</value>
   </data>
-  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>Povolit LibDVDNav (změna vyžaduje restart programu)</value>
-  </data>
+  
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Smazat zdrojové soubory po vymazání úspěšně dokončené položky (musí být potvrzeno)</value>
   </data>
@@ -376,6 +374,10 @@
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Použít vestavěný přehrávač pro náhledy</value>
   </data>
+  
+  
+  
+  
   
   
   

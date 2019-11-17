@@ -153,21 +153,18 @@
   <data name="OffsetColumn" xml:space="preserve">
     <value>Przesunięcie (ms)</value>
   </data>
-  <data name="ImportSrtButton" xml:space="preserve">
-    <value>Importuj plik .srt...</value>
-  </data>
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Inne ścieżki napisów zakryją już nałożone napisy.</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Wyszukiwanie Zagranicznych Ścieżek Audio</value>
   </data>
-  <data name="SrtFilePickerText" xml:space="preserve">
-    <value>Dodaj plik napisów</value>
-  </data>
+  
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Nie można wykryć kodowania napisów dialogowych. Aby upewnić się, że napisy są wyświetlane poprawnie, należy ponownie zapisać plik jako UTF-8.</value>
   </data>
+  
+  
   
   
 </root>

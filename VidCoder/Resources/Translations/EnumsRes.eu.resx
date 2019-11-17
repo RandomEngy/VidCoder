@@ -277,4 +277,16 @@
   <data name="UpdatePromptTiming_OnLaunch" xml:space="preserve">
     <value>Abiatzean</value>
   </data>
+  <data name="LogOperationType_Encode" xml:space="preserve">
+    <value>Kodeatu</value>
+  </data>
+  <data name="LogOperationType_Scan" xml:space="preserve">
+    <value>Eskaneatu</value>
+  </data>
+  <data name="PickerTimeRangeMode_Chapters" xml:space="preserve">
+    <value>Atalak</value>
+  </data>
+  <data name="PickerTimeRangeMode_Time" xml:space="preserve">
+    <value>Denbora maila</value>
+  </data>
 </root>
