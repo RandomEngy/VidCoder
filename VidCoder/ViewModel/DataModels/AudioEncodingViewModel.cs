@@ -372,8 +372,6 @@ namespace VidCoder.ViewModel
 				this.RefreshFromNewInput();
 			});
 
-			Config.Observables.ShowAudioTrackNameField.ToProperty(this, x => x.NameVisible, out this.nameVisible);
-
 			this.initializing = false;
 		}
 
@@ -397,6 +395,7 @@ namespace VidCoder.ViewModel
 			this.RefreshMixdownChoices();
 			this.RefreshBitrateChoices();
 			this.RefreshDrc();
+			this.RefreshSourceName();
 		}
 
 		public AudioPanelViewModel AudioPanelVM
@@ -416,10 +415,7 @@ namespace VidCoder.ViewModel
 
 				newAudioEncoding.Encoder = this.HBAudioEncoder.ShortName;
 
-				if (this.NameVisible)
-				{
-					newAudioEncoding.Name = this.Name;
-				}
+				newAudioEncoding.Name = this.Name;
 
 				if (!this.HBAudioEncoder.IsPassthrough)
 				{
@@ -693,9 +689,6 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<string> audioCompressionToolTip;
 		public string AudioCompressionToolTip => this.audioCompressionToolTip.Value;
 
-		private ObservableAsPropertyHelper<bool> nameVisible;
-		public bool NameVisible => this.nameVisible.Value;
-
 		public List<MixdownViewModel> MixdownChoices
 		{
 			get
@@ -875,6 +868,30 @@ namespace VidCoder.ViewModel
 				this.name = value;
 				this.RaiseAudioPropertyChanged();
 			}
+		}
+
+		public string SourceName
+		{
+			get
+			{
+				if (!this.main.HasVideoSource)
+				{
+					return string.Empty;
+				}
+
+				var track = this.GetTargetAudioTrack();
+				if (track != null)
+				{
+					return track.Name ?? string.Empty;
+				}
+
+				return string.Empty;
+			}
+		}
+
+		private void RefreshSourceName()
+		{
+			this.RaisePropertyChanged(nameof(this.SourceName));
 		}
 
 		public bool IsValid

@@ -97,7 +97,6 @@ namespace VidCoder
 			cache.Add("PreviewOutputFolder", DatabaseConfig.Get("PreviewOutputFolder", "", connection));
 			cache.Add("QueueTitlesUseTitleOverride", DatabaseConfig.Get("QueueTitlesUseTitleOverride", false, connection));
 			cache.Add("QueueTitlesTitleOverride", DatabaseConfig.Get("QueueTitlesTitleOverride", 1, connection));
-			cache.Add("ShowAudioTrackNameField", DatabaseConfig.Get("ShowAudioTrackNameField", false, connection));
 			cache.Add("SourceHistory", DatabaseConfig.Get("SourceHistory", "", connection));
 			cache.Add("MinimizeToTray", DatabaseConfig.Get("MinimizeToTray", false, connection));
 			cache.Add("OutputToSourceDirectory", DatabaseConfig.Get("OutputToSourceDirectory", false, connection));
@@ -518,11 +517,6 @@ namespace VidCoder
 			get { return (int)cache["QueueTitlesTitleOverride"]; }
 			set { Set("QueueTitlesTitleOverride", value); }
 		}
-		public static bool ShowAudioTrackNameField
-		{
-			get { return (bool)cache["ShowAudioTrackNameField"]; }
-			set { Set("ShowAudioTrackNameField", value); }
-		}
 		public static string SourceHistory
 		{
 			get { return (string)cache["SourceHistory"]; }
@@ -828,7 +822,6 @@ namespace VidCoder
 			public static IObservable<string> PreviewOutputFolder => GetObservable<string>("PreviewOutputFolder");
 			public static IObservable<bool> QueueTitlesUseTitleOverride => GetObservable<bool>("QueueTitlesUseTitleOverride");
 			public static IObservable<int> QueueTitlesTitleOverride => GetObservable<int>("QueueTitlesTitleOverride");
-			public static IObservable<bool> ShowAudioTrackNameField => GetObservable<bool>("ShowAudioTrackNameField");
 			public static IObservable<string> SourceHistory => GetObservable<string>("SourceHistory");
 			public static IObservable<bool> MinimizeToTray => GetObservable<bool>("MinimizeToTray");
 			public static IObservable<bool> OutputToSourceDirectory => GetObservable<bool>("OutputToSourceDirectory");

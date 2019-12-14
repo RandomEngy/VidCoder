@@ -120,7 +120,6 @@ namespace VidCoder.ViewModel
 			this.logCustomFolder = Config.LogCustomFolder;
 			this.previewCount = Config.PreviewCount;
 			this.rememberPreviousFiles = Config.RememberPreviousFiles;
-			this.showAudioTrackNameField = Config.ShowAudioTrackNameField;
 			this.enableLibDvdNav = Config.EnableLibDvdNav;
 			this.deleteSourceFilesOnClearingCompleted = Config.DeleteSourceFilesOnClearingCompleted;
 			this.preserveModifyTimeFiles = Config.PreserveModifyTimeFiles;
@@ -541,13 +540,6 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.rememberPreviousFiles, value); }
 		}
 
-		private bool showAudioTrackNameField;
-		public bool ShowAudioTrackNameField
-		{
-			get { return this.showAudioTrackNameField; }
-			set { this.RaiseAndSetIfChanged(ref this.showAudioTrackNameField, value); }
-		}
-
 		private bool enableLibDvdNav;
 		public bool EnableLibDvdNav
 		{
@@ -715,7 +707,6 @@ namespace VidCoder.ViewModel
 							Config.SourceHistory = null;
 						}
 
-						Config.ShowAudioTrackNameField = this.ShowAudioTrackNameField;
 						Config.EnableLibDvdNav = this.EnableLibDvdNav;
 						Config.DeleteSourceFilesOnClearingCompleted = this.DeleteSourceFilesOnClearingCompleted;
 						Config.PreserveModifyTimeFiles = this.PreserveModifyTimeFiles;

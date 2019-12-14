@@ -449,19 +449,35 @@
                                 Name="nameLabel"
                                 Grid.Column="0"
                                 Style="{StaticResource AudioLabelLeft}"
-                                Text="{x:Static res:EncodingRes.NameLabel}"
-                                Visibility="{Binding NameVisible,
-                                                     Converter={StaticResource VisibilityConverter}}" />
-                            <TextBox
-                                Grid.Column="1"
-                                Height="23"
-                                Margin="0"
-                                VerticalContentAlignment="Center"
-                                AutomationProperties.LabeledBy="{Binding ElementName=nameLabel}"
-                                Text="{Binding Name,
-                                               UpdateSourceTrigger=PropertyChanged}"
-                                Visibility="{Binding NameVisible,
-                                                     Converter={StaticResource VisibilityConverter}}" />
+                                Text="{x:Static res:EncodingRes.NameLabel}" />
+                            <Grid Grid.Column="1" Height="23">
+                                <TextBox
+									Name="nameTextBox"
+                                    Margin="0"
+                                    VerticalContentAlignment="Center"
+                                    AutomationProperties.LabeledBy="{Binding ElementName=nameLabel}"
+                                    Text="{Binding Name,
+                                                   UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock
+                                    Margin="4 0 0 0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"
+                                    IsHitTestVisible="False"
+                                    Text="{Binding SourceName}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, ElementName=nameTextBox}" Value="">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+
                         </Grid>
                     </Grid>
                     <CheckBox

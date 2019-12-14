@@ -105,8 +105,15 @@ namespace VidCoder.ViewModel
 
 		public override string ToString()
 	    {
-            return this.TrackNumber + " " + this.AudioTrack.Description;
-        }
+			if (string.IsNullOrEmpty(this.AudioTrack.Name))
+			{
+				return this.TrackNumber + " " + this.AudioTrack.Description;
+			}
+			else
+			{
+				return this.TrackNumber + " " + this.AudioTrack.Name + " - " + this.AudioTrack.Description;
+			}
+		}
 
 		public string Display => this.ToString();
 

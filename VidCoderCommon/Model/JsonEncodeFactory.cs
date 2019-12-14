@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.HbLib;
+using HandBrake.Interop.Interop.HbLib.Wrappers;
 using HandBrake.Interop.Interop.Json.Encode;
 using HandBrake.Interop.Interop.Json.Scan;
 using HandBrake.Interop.Interop.Json.Shared;
@@ -187,8 +188,12 @@ namespace VidCoderCommon.Model
 				{
 					audioTrack.Name = encoding.Name;
 				}
+				else if (!string.IsNullOrEmpty(scanAudioTrack.Name))
+				{
+					audioTrack.Name = scanAudioTrack.Name;
+				}
 
-			    HBAudioEncoder fallbackAudioEncoder = HandBrakeEncoderHelpers.GetAudioEncoder(audio.FallbackEncoder);
+				HBAudioEncoder fallbackAudioEncoder = HandBrakeEncoderHelpers.GetAudioEncoder(audio.FallbackEncoder);
                 if (isPassthrough && fallbackAudioEncoder != null)
 			    {
                     // If it's passthrough, find the settings for the fallback encoder and apply those, since they will be picked up if the passthrough doesn't work
@@ -612,7 +617,7 @@ namespace VidCoderCommon.Model
 		{
 			custom = custom?.Trim();
 
-			IntPtr settingsPtr = HBFunctions.hb_generate_filter_settings_json((int)filter, preset, tune, custom);
+			IntPtr settingsPtr = new HbFunctionsDirect().hb_generate_filter_settings_json((int)filter, preset, tune, custom);
 			string unparsedJson = Marshal.PtrToStringAnsi(settingsPtr);
 
 			if (unparsedJson == null)

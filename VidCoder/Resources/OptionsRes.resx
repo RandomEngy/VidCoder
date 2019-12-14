@@ -186,9 +186,6 @@
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>Remember previously used files and folders</value>
   </data>
-  <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>Allow setting custom name on audio tracks (limited player support)</value>
-  </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Enable LibDVDNav (Change requires program restart. Required to support multiple angles)</value>
   </data>

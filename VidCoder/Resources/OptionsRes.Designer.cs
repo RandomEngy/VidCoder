@@ -88,15 +88,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Allow setting custom name on audio tracks (limited player support).
-        /// </summary>
-        public static string AllowCustomAudioTrackNamesCheckBox {
-            get {
-                return ResourceManager.GetString("AllowCustomAudioTrackNamesCheckBox", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Ask if you want to overwrite it.
         /// </summary>
         public static string AskOverwriteRadioButton {
@@ -367,24 +358,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File format:.
-        /// </summary>
-        public static string FileFormatLabel {
-            get {
-                return ResourceManager.GetString("FileFormatLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Available options: {0}.
-        /// </summary>
-        public static string FileNameFormatOptions {
-            get {
-                return ResourceManager.GetString("FileNameFormatOptions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to File Naming.
         /// </summary>
         public static string FileNamingTab {
@@ -417,15 +390,6 @@ namespace VidCoder.Resources {
         public static string InterfaceLanguageLabel {
             get {
                 return ResourceManager.GetString("InterfaceLanguageLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Join the Beta update track.
-        /// </summary>
-        public static string JoinBetaTrackCheckBox {
-            get {
-                return ResourceManager.GetString("JoinBetaTrackCheckBox", resourceCulture);
             }
         }
         
@@ -885,15 +849,6 @@ namespace VidCoder.Resources {
         public static string VideoPlayerFilePickTitle {
             get {
                 return ResourceManager.GetString("VideoPlayerFilePickTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Video.
-        /// </summary>
-        public static string VideoSection {
-            get {
-                return ResourceManager.GetString("VideoSection", resourceCulture);
             }
         }
         
