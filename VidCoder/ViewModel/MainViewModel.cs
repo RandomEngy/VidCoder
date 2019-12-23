@@ -1512,7 +1512,8 @@ namespace VidCoder.ViewModel
 						var selectedSubtitles = ProcessingService.ChooseSubtitles(
 							this.selectedTitle.Title,
 							picker,
-							firstSelectedAudio != null ? firstSelectedAudio.TrackNumber : -1);
+							firstSelectedAudio != null ? firstSelectedAudio.TrackNumber : -1,
+							this.PresetsService.SelectedPreset.Preset.EncodingProfile.ContainerName);
 
 						this.PopulateSourceSubtitles(selectedSubtitles, sourceSubtitlesInnerList);
 						break;

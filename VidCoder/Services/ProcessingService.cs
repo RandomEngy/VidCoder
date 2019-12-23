@@ -36,6 +36,7 @@ using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
 using Color = System.Windows.Media.Color;
 using System.Reactive.Subjects;
+using HandBrake.Interop.Interop;
 
 namespace VidCoder.Services
 {
@@ -2758,7 +2759,8 @@ namespace VidCoder.Services
 					job.Subtitles.SourceSubtitles.AddRange(ChooseSubtitles(
 						title, 
 						picker, 
-						job.ChosenAudioTracks.Count > 0 ? job.ChosenAudioTracks[0] : -1));
+						job.ChosenAudioTracks.Count > 0 ? job.ChosenAudioTracks[0] : -1,
+						job.EncodingProfile.ContainerName));
 
 					break;
 				default:
@@ -2773,11 +2775,12 @@ namespace VidCoder.Services
 		/// <param name="picker">The picker to use.</param>
 		/// <param name="chosenAudioTrack">The (1-based) main audio track currently selected, or -1 if no audio track is selected.</param>
 		/// <returns></returns>
-		public static IList<SourceSubtitle> ChooseSubtitles(SourceTitle title, Picker picker, int chosenAudioTrack)
+		public static IList<SourceSubtitle> ChooseSubtitles(SourceTitle title, Picker picker, int chosenAudioTrack, string containerName)
 		{
 			var result = new List<SourceSubtitle>();
+			IList<SourceSubtitleTrack> chosenSubtitleTracks;
 
-			IList<int> chosenSubtitleIndices;
+			int containerId = HandBrakeEncoderHelpers.GetContainer(containerName).Id;
 
 			switch (picker.SubtitleSelectionMode)
 			{
@@ -2791,7 +2794,7 @@ namespace VidCoder.Services
 						result.Add(new SourceSubtitle
 						{
 							TrackNumber = 1,
-							BurnedIn = picker.SubtitleBurnIn,
+							BurnedIn = picker.SubtitleBurnIn || !HandBrakeEncoderHelpers.SubtitleCanPassthrough(title.SubtitleList[0].Source, containerId),
 							ForcedOnly = picker.SubtitleForcedOnly,
 							Default = picker.SubtitleDefault
 						});
@@ -2800,14 +2803,26 @@ namespace VidCoder.Services
 					break;
 				case SubtitleSelectionMode.ByIndex:
 					// 1-based
-					chosenSubtitleIndices = ParseUtilities.ParseCommaSeparatedListToPositiveIntegers(picker.SubtitleIndices);
-					var filteredSubtitleIndices = chosenSubtitleIndices.Where(i => i <= title.SubtitleList.Count).ToList();
+					IList<int> chosenSubtitleTrackNumbersParsed = ParseUtilities.ParseCommaSeparatedListToPositiveIntegers(picker.SubtitleIndices);
+					var subtitleIndicesThatPointToRealTracks = chosenSubtitleTrackNumbersParsed.Where(i => i <= title.SubtitleList.Count).ToList();
 					int? defaultSubtitleIndex = picker.SubtitleDefaultIndex;
 
-					if (filteredSubtitleIndices.Count > 1)
+					// If there are multiple tracks specified, weed out the ones that can't pass through.
+					if (subtitleIndicesThatPointToRealTracks.Count > 1)
+					{
+						for (int i = subtitleIndicesThatPointToRealTracks.Count - 1; i >= 0; i--)
+						{
+							if (!HandBrakeEncoderHelpers.SubtitleCanPassthrough(title.SubtitleList[subtitleIndicesThatPointToRealTracks[i] - 1].Source, containerId))
+							{
+								subtitleIndicesThatPointToRealTracks.RemoveAt(i);
+							}
+						}
+					}
+
+					if (subtitleIndicesThatPointToRealTracks.Count > 1)
 					{
 						bool defaultChosen = false;
-						foreach (int trackNumber in filteredSubtitleIndices)
+						foreach (int trackNumber in subtitleIndicesThatPointToRealTracks)
 						{
 							bool isDefault = false;
 							if (!defaultChosen && defaultSubtitleIndex != null && defaultSubtitleIndex.Value == trackNumber)
@@ -2825,14 +2840,14 @@ namespace VidCoder.Services
 							});
 						}
 					}
-					else if (filteredSubtitleIndices.Count > 0)
+					else if (subtitleIndicesThatPointToRealTracks.Count > 0)
 					{
 						result.Add(new SourceSubtitle
 						{
-							TrackNumber = filteredSubtitleIndices[0],
-							BurnedIn = picker.SubtitleBurnIn,
+							TrackNumber = subtitleIndicesThatPointToRealTracks[0],
+							BurnedIn = picker.SubtitleBurnIn || !HandBrakeEncoderHelpers.SubtitleCanPassthrough(title.SubtitleList[subtitleIndicesThatPointToRealTracks[0] - 1].Source, containerId),
 							ForcedOnly = picker.SubtitleForcedOnly,
-							Default = defaultSubtitleIndex != null && defaultSubtitleIndex.Value == filteredSubtitleIndices[0]
+							Default = defaultSubtitleIndex != null && defaultSubtitleIndex.Value == subtitleIndicesThatPointToRealTracks[0]
 						});
 					}
 
@@ -2848,84 +2863,93 @@ namespace VidCoder.Services
 
 					break;
 				case SubtitleSelectionMode.Language:
-					chosenSubtitleIndices = ChooseSubtitlesFromLanguages(title, chosenAudioTrack, picker.SubtitleLanguageCodes, picker.SubtitleLanguageAll, picker.SubtitleLanguageOnlyIfDifferent);
-					if (chosenSubtitleIndices.Count > 1)
+					chosenSubtitleTracks = ChooseSubtitlesFromLanguages(title.SubtitleList, title.AudioList, chosenAudioTrack, picker.SubtitleLanguageCodes, picker.SubtitleLanguageAll, picker.SubtitleLanguageOnlyIfDifferent);
+					if (chosenSubtitleTracks.Count > 1)
 					{
 						// Multiple
 
 						// First track
-						result.Add(new SourceSubtitle
-						{
-							TrackNumber = chosenSubtitleIndices[0] + 1,
-							BurnedIn = false,
-							ForcedOnly = picker.SubtitleForcedOnly,
-							Default = picker.SubtitleDefault
-						});
+						AddSubtitleToResult(
+							title.SubtitleList,
+							result,
+							chosenSubtitleTracks[0],
+							burnedIn: false,
+							forcedOnly: picker.SubtitleForcedOnly,
+							def: picker.SubtitleDefault);
 
 						// The rest
-						result.AddRange(chosenSubtitleIndices.Skip(1).Select(i => new SourceSubtitle
+						foreach (var sourceSubtitleTrack in chosenSubtitleTracks.Skip(1))
 						{
-							TrackNumber = i + 1,
-							BurnedIn = false,
-							ForcedOnly = picker.SubtitleForcedOnly,
-							Default = false
-						}));
+							AddSubtitleToResult(
+								title.SubtitleList,
+								result,
+								sourceSubtitleTrack,
+								burnedIn: false,
+								forcedOnly: picker.SubtitleForcedOnly,
+								def: false);
+						}
 					}
-					else if (chosenSubtitleIndices.Count > 0)
+					else if (chosenSubtitleTracks.Count > 0)
 					{
 						// Single
-						result.Add(new SourceSubtitle
-						{
-							TrackNumber = chosenSubtitleIndices[0] + 1,
-							BurnedIn = picker.SubtitleBurnIn,
-							ForcedOnly = picker.SubtitleForcedOnly,
-							Default = picker.SubtitleDefault
-						});
+						AddSubtitleToResult(
+							title.SubtitleList,
+							result,
+							chosenSubtitleTracks[0],
+							burnedIn: picker.SubtitleBurnIn,
+							forcedOnly: picker.SubtitleForcedOnly,
+							def: picker.SubtitleDefault);
 					}
 
 					break;
 				case SubtitleSelectionMode.All:
+					List<SourceSubtitleTrack> subtitlesThatCanPassthrough = FilterToPassthroughSourceSubtitles(title.SubtitleList, containerId);
 					if (picker.SubtitleLanguageCodes != null && picker.SubtitleLanguageCodes.Count > 0)
 					{
-						chosenSubtitleIndices = ChooseSubtitlesFromLanguages(title, chosenAudioTrack, picker.SubtitleLanguageCodes, includeAllTracks: true, onlyIfDifferentFromAudio: false);
+						// First the chosen language tracks to bring to the top
+						chosenSubtitleTracks = ChooseSubtitlesFromLanguages(subtitlesThatCanPassthrough, title.AudioList, chosenAudioTrack, picker.SubtitleLanguageCodes, includeAllTracks: true, onlyIfDifferentFromAudio: false);
 						
-						for (int i = 0; i < title.SubtitleList.Count; i++)
+						// Then everything else
+						foreach (var sourceSubtitleTrack in subtitlesThatCanPassthrough)
 						{
-							if (!chosenSubtitleIndices.Contains(i))
+							if (!chosenSubtitleTracks.Contains(sourceSubtitleTrack))
 							{
-								chosenSubtitleIndices.Add(i);
+								chosenSubtitleTracks.Add(sourceSubtitleTrack);
 							}
 						}
 					}
 					else
 					{
-						chosenSubtitleIndices = new List<int>();
+						chosenSubtitleTracks = new List<SourceSubtitleTrack>();
 
-						for (int i = 0; i < title.SubtitleList.Count; i++)
+						foreach (var sourceSubtitleTrack in subtitlesThatCanPassthrough)
 						{
-							chosenSubtitleIndices.Add(i);
+							chosenSubtitleTracks.Add(sourceSubtitleTrack);
 						}
 					}
 
-					if (chosenSubtitleIndices.Count > 0)
+					if (chosenSubtitleTracks.Count > 0)
 					{
 						// First track
-						result.Add(new SourceSubtitle
-						{
-							TrackNumber = chosenSubtitleIndices[0] + 1,
-							BurnedIn = false,
-							ForcedOnly = picker.SubtitleForcedOnly,
-							Default = picker.SubtitleDefault
-						});
+						AddSubtitleToResult(
+							title.SubtitleList, 
+							result, 
+							chosenSubtitleTracks[0], 
+							burnedIn: false, 
+							forcedOnly: picker.SubtitleForcedOnly, 
+							def: picker.SubtitleDefault);
 
 						// The rest
-						result.AddRange(chosenSubtitleIndices.Skip(1).Select(i => new SourceSubtitle
+						foreach (var sourceSubtitleTrack in chosenSubtitleTracks.Skip(1))
 						{
-							TrackNumber = i + 1,
-							BurnedIn = false,
-							ForcedOnly = picker.SubtitleForcedOnly,
-							Default = false
-						}));
+							AddSubtitleToResult(
+								title.SubtitleList,
+								result,
+								sourceSubtitleTrack,
+								burnedIn: false,
+								forcedOnly: picker.SubtitleForcedOnly,
+								def: false);
+						}
 					}
 
 					break;
@@ -2936,27 +2960,53 @@ namespace VidCoder.Services
 			return result;
 		}
 
-		private static IList<int> ChooseSubtitlesFromLanguages(SourceTitle title, int chosenAudioTrack, IList<string> languageCodes, bool includeAllTracks, bool onlyIfDifferentFromAudio)
+		private static void AddSubtitleToResult(IList<SourceSubtitleTrack> rawTracks, List<SourceSubtitle> result, SourceSubtitleTrack trackToAdd, bool burnedIn, bool forcedOnly, bool def)
 		{
-			var result = new List<int>();
+			// We need this funky method because the SourceSubtitleTrack objects don't contain their indices.
+			int trackIndex = rawTracks.IndexOf(trackToAdd);
+			if (trackIndex < 0)
+			{
+				throw new ArgumentException("Subtitle track is not in the raw tracks list.");
+			}
+
+			int trackNumber = trackIndex + 1;
+			result.Add(new SourceSubtitle
+			{
+				TrackNumber = trackNumber,
+				BurnedIn = burnedIn,
+				ForcedOnly = forcedOnly,
+				Default = def
+			});
+		}
+
+		private static List<SourceSubtitleTrack> FilterToPassthroughSourceSubtitles(List<SourceSubtitleTrack> sourceSubtitleList, int containerId)
+		{
+			// Do we have the right options here?
+			// You might only be able to burn and you might only be able to pass through
+			return sourceSubtitleList.Where(s => HandBrakeEncoderHelpers.SubtitleCanPassthrough(s.Source, containerId)).ToList();
+		}
+
+		private static IList<SourceSubtitleTrack> ChooseSubtitlesFromLanguages(IList<SourceSubtitleTrack> sourceSubtitleTracks, IList<SourceAudioTrack> sourceAudioTracks, int chosenAudioTrack, IList<string> languageCodes, bool includeAllTracks, bool onlyIfDifferentFromAudio)
+		{
+			var result = new List<SourceSubtitleTrack>();
 			string audioLanguageCode = null;
 
-			if (chosenAudioTrack > 0 && title.AudioList.Count > 0)
+			if (chosenAudioTrack > 0 && sourceAudioTracks.Count > 0)
 			{
-				audioLanguageCode = title.AudioList[chosenAudioTrack - 1].LanguageCode;
+				audioLanguageCode = sourceAudioTracks[chosenAudioTrack - 1].LanguageCode;
 			}
 
 			foreach (string code in languageCodes)
 			{
 				if (!onlyIfDifferentFromAudio || code != audioLanguageCode)
 				{
-					for (int i = 0; i < title.SubtitleList.Count; i++)
+					for (int i = 0; i < sourceSubtitleTracks.Count; i++)
 					{
-						SourceSubtitleTrack track = title.SubtitleList[i];
+						SourceSubtitleTrack track = sourceSubtitleTracks[i];
 
 						if (track.LanguageCode == code)
 						{
-							result.Add(i);
+							result.Add(track);
 
 							if (!includeAllTracks)
 							{
