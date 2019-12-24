@@ -51,7 +51,7 @@ namespace VidCoder.Services
 		private const double StopWarningThresholdMinutes = 5;
 
 		private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
-		private IProcessAutoPause autoPause = StaticResolver.Resolve<IProcessAutoPause>();
+		private IAutoPause autoPause = StaticResolver.Resolve<IAutoPause>();
 		private ISystemOperations systemOperations = StaticResolver.Resolve<ISystemOperations>();
 		private IMessageBoxService messageBoxService = StaticResolver.Resolve<IMessageBoxService>();
 		private MainViewModel main = StaticResolver.Resolve<MainViewModel>();
@@ -266,6 +266,14 @@ namespace VidCoder.Services
 		public ObservableCollectionExtended<EncodeJobViewModel> EncodeQueueBindable { get; } = new ObservableCollectionExtended<EncodeJobViewModel>();
 
 		private readonly SourceList<EncodeJobViewModel> encodingJobList = new SourceList<EncodeJobViewModel>();
+
+		public IEnumerable<EncodeJobViewModel> EncodingJobs
+		{
+			get
+			{
+				return this.encodingJobList.Items;
+			}
+		}
 
 		public IObservable<int> EncodingJobsCountObservable { get; }
 

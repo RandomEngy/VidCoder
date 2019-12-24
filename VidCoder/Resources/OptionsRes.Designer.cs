@@ -124,11 +124,38 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Automatically pause encoding when any of these processes are running:.
+        ///   Looks up a localized string similar to Pause encoding when any of these processes are running:.
         /// </summary>
         public static string AutoPauseLabel {
             get {
                 return ResourceManager.GetString("AutoPauseLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pause when battery is low.
+        /// </summary>
+        public static string AutoPauseLowBatteryCheckbox {
+            get {
+                return ResourceManager.GetString("AutoPauseLowBatteryCheckbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pause when disk space falls below:.
+        /// </summary>
+        public static string AutoPauseLowDiskSpaceCheckbox {
+            get {
+                return ResourceManager.GetString("AutoPauseLowDiskSpaceCheckbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatic pausing.
+        /// </summary>
+        public static string AutoPauseSectionLabel {
+            get {
+                return ResourceManager.GetString("AutoPauseSectionLabel", resourceCulture);
             }
         }
         
@@ -354,6 +381,15 @@ namespace VidCoder.Resources {
         public static string EncodingSingleFile {
             get {
                 return ResourceManager.GetString("EncodingSingleFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Available options: {0}.
+        /// </summary>
+        public static string FileNameFormatOptions {
+            get {
+                return ResourceManager.GetString("FileNameFormatOptions", resourceCulture);
             }
         }
         

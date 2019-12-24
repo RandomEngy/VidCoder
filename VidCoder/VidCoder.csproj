@@ -568,12 +568,12 @@
     <Compile Include="Services\Interfaces\IAppLogger.cs" />
     <Compile Include="Services\Interfaces\IPresetImportExport.cs" />
     <Compile Include="Services\Interfaces\IProcesses.cs" />
-    <Compile Include="Services\Interfaces\IProcessAutoPause.cs" />
+    <Compile Include="Services\Interfaces\IAutoPause.cs" />
     <Compile Include="Services\Interfaces\ISystemOperations.cs" />
     <Compile Include="Model\Players\Players.cs" />
     <Compile Include="Services\Interfaces\IQueueImportExport.cs" />
     <Compile Include="Services\PresetImportExport.cs" />
-    <Compile Include="Services\ProcessAutoPause.cs" />
+    <Compile Include="Services\AutoPause.cs" />
     <Compile Include="Services\Processes.cs" />
     <Compile Include="Services\QueueImportExport.cs" />
     <Compile Include="Services\SystemOperations.cs" />
@@ -624,6 +624,7 @@
     <Compile Include="Services\Notifications\StableNotificationActivator.cs" />
     <Compile Include="Utilities\ResolutionUtilities.cs" />
     <Compile Include="Utilities\PickerUtilities.cs" />
+    <Compile Include="Utilities\SystemPowerStatus.cs" />
     <Compile Include="Utilities\XamlStatics.cs" />
     <Compile Include="ViewModel\CustomMessageDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\AudioTrackViewModel.cs" />

@@ -32,7 +32,7 @@ namespace VidCoder
 			container.RegisterSingleton<IPresetImportExport, PresetImportExport>();
 			container.RegisterSingleton<IQueueImportExport, QueueImportExport>();
 			container.RegisterSingleton<IProcesses, Processes>();
-			container.RegisterSingleton<IProcessAutoPause, ProcessAutoPause>();
+			container.RegisterSingleton<IAutoPause, AutoPause>();
 			container.RegisterSingleton<ISystemOperations, SystemOperations>();
 			container.RegisterSingleton<IWindowManager, WindowManager>();
 			container.RegisterSingleton<IAppLogger>(() =>

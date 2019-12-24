@@ -175,7 +175,7 @@
     <value>Automatically rename</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
-    <value>Automatically pause encoding when any of these processes are running:</value>
+    <value>Pause encoding when any of these processes are running:</value>
   </data>
   <data name="AddEllipsesButton" xml:space="preserve">
     <value>Add...</value>
@@ -391,5 +391,17 @@
   </data>
   <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
     <value>Trigger "When done" action when there are failed encode jobs</value>
+  </data>
+  <data name="AutoPauseLowBatteryCheckbox" xml:space="preserve">
+    <value>Pause when battery is low</value>
+  </data>
+  <data name="AutoPauseLowDiskSpaceCheckbox" xml:space="preserve">
+    <value>Pause when disk space falls below:</value>
+  </data>
+  <data name="AutoPauseSectionLabel" xml:space="preserve">
+    <value>Automatic pausing</value>
+  </data>
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>Available options: {0}</value>
   </data>
 </root>

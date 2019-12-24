@@ -73,6 +73,9 @@ LogVerbosity|int|1
 CopyLogToOutputFolder|bool|false
 CopyLogToCustomFolder|bool|false
 LogCustomFolder|string|""
+AutoPauseLowBattery|bool|true
+AutoPauseLowDiskSpace|bool|false
+AutoPauseLowDiskSpaceGb|int|10
 AutoPauseProcesses|string|""
 MaxSimultaneousEncodes|int|1
 PreviewCount|int|10

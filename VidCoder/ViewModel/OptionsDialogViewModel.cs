@@ -128,6 +128,9 @@ namespace VidCoder.ViewModel
 			this.triggerEncodeCompleteActionWithErrors = Config.TriggerEncodeCompleteActionWithErrors;
 			this.useWorkerProcess = Config.UseWorkerProcess;
 			this.minimumTitleLengthSeconds = Config.MinimumTitleLengthSeconds;
+			this.autoPauseLowBattery = Config.AutoPauseLowBattery;
+			this.autoPauseLowDiskSpace = Config.AutoPauseLowDiskSpace;
+			this.autoPauseLowDiskSpaceGb = Config.AutoPauseLowDiskSpaceGb;
 			this.AutoPauseProcesses = new ObservableCollection<string>();
 			this.videoFileExtensions = Config.VideoFileExtensions;
 			this.cpuThrottlingCores = (int)Math.Round(this.CpuThrottlingMaxCores * Config.CpuThrottlingFraction);
@@ -394,14 +397,7 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.customFormatString, value); }
 		}
 
-		public string AvailableOptionsText
-		{
-			get
-			{
-				var manager = new ResourceManager(typeof(OptionsRes));
-				return string.Format(manager.GetString("FileNameFormatOptions"), "{source} {title} {range} {preset} {date} {time} {quality} {parent} {titleduration}");
-			}
-		}
+		public string AvailableOptionsText => string.Format(OptionsRes.FileNameFormatOptions, "{source} {title} {range} {preset} {date} {time} {quality} {parent} {titleduration}");
 
 		private bool outputToSourceDirectory;
 		public bool OutputToSourceDirectory
@@ -508,6 +504,27 @@ namespace VidCoder.ViewModel
 		{
 			get { return this.logCustomFolder; }
 			set { this.RaiseAndSetIfChanged(ref this.logCustomFolder, value); }
+		}
+
+		private bool autoPauseLowBattery;
+		public bool AutoPauseLowBattery
+		{
+			get { return this.autoPauseLowBattery; }
+			set { this.RaiseAndSetIfChanged(ref this.autoPauseLowBattery, value); }
+		}
+
+		private bool autoPauseLowDiskSpace;
+		public bool AutoPauseLowDiskSpace
+		{
+			get { return this.autoPauseLowDiskSpace; }
+			set { this.RaiseAndSetIfChanged(ref this.autoPauseLowDiskSpace, value); }
+		}
+
+		private int autoPauseLowDiskSpaceGb;
+		public int AutoPauseLowDiskSpaceGb
+		{
+			get { return this.autoPauseLowDiskSpaceGb; }
+			set { this.RaiseAndSetIfChanged(ref this.autoPauseLowDiskSpaceGb, value); }
 		}
 
 		public ObservableCollection<string> AutoPauseProcesses { get; }
@@ -685,6 +702,9 @@ namespace VidCoder.ViewModel
 						Config.CopyLogToOutputFolder = this.CopyLogToOutputFolder;
 						Config.CopyLogToCustomFolder = this.CopyLogToCustomFolder;
 						Config.LogCustomFolder = this.LogCustomFolder;
+						Config.AutoPauseLowBattery = this.AutoPauseLowBattery;
+						Config.AutoPauseLowDiskSpace = this.AutoPauseLowDiskSpace;
+						Config.AutoPauseLowDiskSpaceGb = this.AutoPauseLowDiskSpaceGb;
 						var autoPauseList = new List<string>();
 						foreach (string process in this.AutoPauseProcesses)
 						{

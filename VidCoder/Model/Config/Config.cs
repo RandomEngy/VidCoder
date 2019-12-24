@@ -89,6 +89,9 @@ namespace VidCoder
 			cache.Add("CopyLogToOutputFolder", DatabaseConfig.Get("CopyLogToOutputFolder", false, connection));
 			cache.Add("CopyLogToCustomFolder", DatabaseConfig.Get("CopyLogToCustomFolder", false, connection));
 			cache.Add("LogCustomFolder", DatabaseConfig.Get("LogCustomFolder", "", connection));
+			cache.Add("AutoPauseLowBattery", DatabaseConfig.Get("AutoPauseLowBattery", true, connection));
+			cache.Add("AutoPauseLowDiskSpace", DatabaseConfig.Get("AutoPauseLowDiskSpace", false, connection));
+			cache.Add("AutoPauseLowDiskSpaceGb", DatabaseConfig.Get("AutoPauseLowDiskSpaceGb", 10, connection));
 			cache.Add("AutoPauseProcesses", DatabaseConfig.Get("AutoPauseProcesses", "", connection));
 			cache.Add("MaxSimultaneousEncodes", DatabaseConfig.Get("MaxSimultaneousEncodes", 1, connection));
 			cache.Add("PreviewCount", DatabaseConfig.Get("PreviewCount", 10, connection));
@@ -477,6 +480,21 @@ namespace VidCoder
 			get { return (string)cache["LogCustomFolder"]; }
 			set { Set("LogCustomFolder", value); }
 		}
+		public static bool AutoPauseLowBattery
+		{
+			get { return (bool)cache["AutoPauseLowBattery"]; }
+			set { Set("AutoPauseLowBattery", value); }
+		}
+		public static bool AutoPauseLowDiskSpace
+		{
+			get { return (bool)cache["AutoPauseLowDiskSpace"]; }
+			set { Set("AutoPauseLowDiskSpace", value); }
+		}
+		public static int AutoPauseLowDiskSpaceGb
+		{
+			get { return (int)cache["AutoPauseLowDiskSpaceGb"]; }
+			set { Set("AutoPauseLowDiskSpaceGb", value); }
+		}
 		public static string AutoPauseProcesses
 		{
 			get { return (string)cache["AutoPauseProcesses"]; }
@@ -814,6 +832,9 @@ namespace VidCoder
 			public static IObservable<bool> CopyLogToOutputFolder => GetObservable<bool>("CopyLogToOutputFolder");
 			public static IObservable<bool> CopyLogToCustomFolder => GetObservable<bool>("CopyLogToCustomFolder");
 			public static IObservable<string> LogCustomFolder => GetObservable<string>("LogCustomFolder");
+			public static IObservable<bool> AutoPauseLowBattery => GetObservable<bool>("AutoPauseLowBattery");
+			public static IObservable<bool> AutoPauseLowDiskSpace => GetObservable<bool>("AutoPauseLowDiskSpace");
+			public static IObservable<int> AutoPauseLowDiskSpaceGb => GetObservable<int>("AutoPauseLowDiskSpaceGb");
 			public static IObservable<string> AutoPauseProcesses => GetObservable<string>("AutoPauseProcesses");
 			public static IObservable<int> MaxSimultaneousEncodes => GetObservable<int>("MaxSimultaneousEncodes");
 			public static IObservable<int> PreviewCount => GetObservable<int>("PreviewCount");
