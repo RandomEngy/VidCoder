@@ -175,11 +175,12 @@
 					Style="{StaticResource RemoveButtonStyle}" />
 			</Grid>
 
-			<ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+			<ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Name="mainScrollViewer">
 				<StackPanel
 					Margin="12"
 					VerticalAlignment="Top"
-					Orientation="Vertical">
+					Orientation="Vertical"
+					Name="mainScrollViewerContent">
 					<!--  Output location  -->
 					<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.OutputLocation}" />
 					<StackPanel Style="{StaticResource ConfigSectionStack}">
@@ -429,7 +430,7 @@
 
 
 					<!--  Audio selection  -->
-					<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.AudioSelection}" />
+					<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.AudioSelection}" Name="audioSectionTitle" />
 					<StackPanel Style="{StaticResource ConfigSectionStack}">
 						<RadioButton
 							HorizontalAlignment="Left"
@@ -620,7 +621,7 @@
 					</StackPanel>
 
 					<!--  Subtitle selection  -->
-					<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.SubtitleSelection}" />
+					<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.SubtitleSelection}" Name="subtitlesSectionTitle" />
 					<StackPanel Style="{StaticResource ConfigSectionStack}">
 						<RadioButton
 							HorizontalAlignment="Left"

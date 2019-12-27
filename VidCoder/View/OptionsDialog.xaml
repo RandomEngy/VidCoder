@@ -508,6 +508,7 @@
                                     Margin="6 0 0 0"
                                     VerticalAlignment="Center"
                                     AllowEmpty="False"
+									AutomationProperties.Name="{x:Static res:OptionsRes.LowDiskSpaceThresholdAutomationName}"
                                     IsEnabled="{Binding AutoPauseLowDiskSpace}"
                                     Minimum="1"
                                     Modulus="1"

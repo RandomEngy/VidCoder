@@ -300,6 +300,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public IPickerWindowView View { get; set; }
+
 		public string NameFormat => string.Format(CultureInfo.CurrentCulture, PickerRes.OverrideNameFormatLabel, NameTokenList);
 
 		private void PopulateEncodingPreset(bool useEncodingPreset)

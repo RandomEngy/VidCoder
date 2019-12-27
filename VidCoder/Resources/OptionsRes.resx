@@ -404,4 +404,8 @@
   <data name="FileNameFormatOptions" xml:space="preserve">
     <value>Available options: {0}</value>
   </data>
+  <data name="LowDiskSpaceThresholdAutomationName" xml:space="preserve">
+    <value>Low disk space threshold in gigabytes</value>
+    <comment>Screen reader name for the low disk space threshold number box</comment>
+  </data>
 </root>

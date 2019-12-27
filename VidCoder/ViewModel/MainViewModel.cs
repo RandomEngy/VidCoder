@@ -2813,6 +2813,32 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private ReactiveCommand<Unit, Unit> openPickerToAudio;
+		public ICommand OpenPickerToAudio
+		{
+			get
+			{
+				return this.openPickerToAudio ?? (this.openPickerToAudio = ReactiveCommand.Create(() =>
+				{
+					var pickerWindowViewModel = this.windowManager.OpenOrFocusWindow<PickerWindowViewModel>();
+					pickerWindowViewModel.View.ScrollAudioSectionIntoView();
+				}));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> openPickerToSubtitles;
+		public ICommand OpenPickerToSubtitles
+		{
+			get
+			{
+				return this.openPickerToSubtitles ?? (this.openPickerToSubtitles = ReactiveCommand.Create(() =>
+				{
+					var pickerWindowViewModel = this.windowManager.OpenOrFocusWindow<PickerWindowViewModel>();
+					pickerWindowViewModel.View.ScrollSubtitlesSectionIntoView();
+				}));
+			}
+		}
+
 		public void StartAnimation(string animationKey)
 		{
 			if (this.AnimationStarted != null)

@@ -670,4 +670,10 @@
   <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
     <value>Encode complete action not executed due to errors in the encode result list.</value>
   </data>
+  <data name="AudioPickerButtonToolTip" xml:space="preserve">
+    <value>Automatically pick audio tracks...</value>
+  </data>
+  <data name="SubtitlePickerButtonToolTip" xml:space="preserve">
+    <value>Automatically pick subtitle tracks...</value>
+  </data>
 </root>

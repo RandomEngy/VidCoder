@@ -457,6 +457,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Low disk space threshold in gigabytes.
+        /// </summary>
+        public static string LowDiskSpaceThresholdAutomationName {
+            get {
+                return ResourceManager.GetString("LowDiskSpaceThresholdAutomationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Maximum simultaneous encoding jobs:.
         /// </summary>
         public static string MaxSimultaneousEncodesLabel {

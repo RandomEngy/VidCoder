@@ -644,6 +644,7 @@
     <Compile Include="ViewModel\EncodeDetailsWindowViewModel.cs" />
     <Compile Include="ViewModel\DataModels\InterfaceLanguage.cs" />
     <Compile Include="ViewModel\IMainView.cs" />
+    <Compile Include="ViewModel\IPickerWindowView.cs" />
     <Compile Include="ViewModel\IPreviewView.cs" />
     <Compile Include="ViewModel\Panels\ContainerPanelViewModel.cs" />
     <Compile Include="ViewModel\PickerWindowViewModel.cs" />
