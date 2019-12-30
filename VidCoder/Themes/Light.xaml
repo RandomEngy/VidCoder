@@ -6,6 +6,7 @@
 	<SolidColorBrush x:Key="ControlTextBrush" Color="{x:Static SystemColors.ControlTextColor}" />
 	<SolidColorBrush x:Key="WindowBrush" Color="White" />
 	<SolidColorBrush x:Key="WindowTextBrush" Color="Black" />
+	<SolidColorBrush x:Key="WindowBorderBrush" Color="White" />
 	<SolidColorBrush x:Key="SplitterBrush" Color="#BCBCBC" />
 	<SolidColorBrush x:Key="SpecialTextBrush" Color="#0B4BC2" />
 	<SolidColorBrush x:Key="SpecialTextHighlightedBrush" Color="#0B4BC2" />
@@ -14,6 +15,9 @@
 	<SolidColorBrush x:Key="MouseOverBackgroundBrush" Color="#BEE6FD" />
 	<SolidColorBrush x:Key="MouseOverOverlayBackgroundBrush" Color="#33000000" />
 	<SolidColorBrush x:Key="PressedOverlayBackgroundBrush" Color="#44000000" />
+	<SolidColorBrush x:Key="MouseOverWindowCloseButtonBackgroundBrush" Color="#E81123" />
+	<SolidColorBrush x:Key="MouseOverWindowCloseButtonForegroundBrush" Color="#FFFFFF" />
+	<SolidColorBrush x:Key="PressedWindowCloseButtonBackgroundBrush" Color="#F1707A" />
 	<SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#A6DEFC" />
 	<SolidColorBrush x:Key="PopupInfoBackgroundBrush" Color="#EEEEEE" />
 	<SolidColorBrush x:Key="InlineWarningBackgroundBrush" Color="#F7F7CD" />

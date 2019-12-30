@@ -186,6 +186,14 @@
 				Opacity="0.3"
 				ShadowDepth="3" />
 
+			<Style TargetType="{x:Type FrameworkElement}" x:Key="WindowMainPanelStyle">
+				<Style.Triggers>
+					<DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=WindowState}" Value="Maximized">
+						<Setter Property="Margin" Value="6" />
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+
 			<Grid x:Key="RedX" Background="Transparent">
 				<Rectangle
 					x:Name="rect2"

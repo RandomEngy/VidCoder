@@ -1,27 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
-using Newtonsoft.Json;
 using VidCoder.Model;
-using VidCoder.Properties;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
-using System.IO.Pipes;
-using System.IO;
-using System.ComponentModel;
-using System.Management;
-using System.Runtime.InteropServices;
-using System.Security.Principal;
 using System.Windows.Media;
 using Fluent;
 using HandBrake.Interop.Interop;
-using Microsoft.Win32;
-using VidCoder.Services.Notifications;
 using VidCoder.View;
 using VidCoderCommon;
 using VidCoderCommon.Utilities;
@@ -160,7 +148,9 @@ namespace VidCoder
 					ThemeManager.ChangeTheme(this, fluentTheme + ".Cobalt");
 
 					Color ribbonTextColor = isDark ? Colors.White : Colors.Black;
+					Color ribbonBackgroundColor = isDark ? Colors.Black : Colors.White;
 					this.Resources["Fluent.Ribbon.Brushes.LabelTextBrush"] = new SolidColorBrush(ribbonTextColor);
+					this.Resources["Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background"] = new SolidColorBrush(ribbonBackgroundColor);
 				}
 			});
 
