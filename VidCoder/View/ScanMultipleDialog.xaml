@@ -2,6 +2,7 @@
     x:Class="VidCoder.View.ScanMultipleDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:VidCoder.Controls"
     xmlns:res="clr-namespace:VidCoder.Resources"
     Title="{x:Static res:MiscRes.ScanMultipleWindowTitle}"
     Width="426"
@@ -11,14 +12,25 @@
     ShowInTaskbar="False"
     TextOptions.TextFormattingMode="Display"
     WindowStartupLocation="CenterOwner"
-    WindowStyle="ToolWindow">
-    <Grid>
-        <ProgressBar
-            Name="progressBar1"
-            Height="23"
-            Margin="12 12 12 0"
-            VerticalAlignment="Top"
-            Value="{Binding Progress,
-                            Mode=OneWay}" />
-    </Grid>
+    WindowStyle="None">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="30" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
+    </WindowChrome.WindowChrome>
+    <Border Style="{StaticResource WindowMainPanelStyle}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <controls:ToolWindowTitleBar Title="{x:Static res:MiscRes.ScanMultipleWindowTitle}" Grid.Row="0" />
+            <ProgressBar
+                Name="progressBar1"
+                Grid.Row="1"
+                Height="23"
+                Margin="12 12 12 0"
+                VerticalAlignment="Top"
+                Value="{Binding Progress,
+                                Mode=OneWay}" />
+        </Grid>
+    </Border>
 </Window>

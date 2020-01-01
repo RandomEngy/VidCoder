@@ -224,6 +224,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\ToolWindowTitleBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\VideoSeekBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -387,6 +391,9 @@
     </Compile>
     <Compile Include="Controls\TimeBox.xaml.cs">
       <DependentUpon>TimeBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ToolWindowTitleBar.xaml.cs">
+      <DependentUpon>ToolWindowTitleBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\VideoSeekBar.xaml.cs">
       <DependentUpon>VideoSeekBar.xaml</DependentUpon>

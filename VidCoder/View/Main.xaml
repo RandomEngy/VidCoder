@@ -35,7 +35,7 @@
     WindowStyle="None"
     mc:Ignorable="d">
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="30" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
+        <WindowChrome CaptionHeight="32" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
     </WindowChrome.WindowChrome>
     <Window.Resources>
         <converters:SampleRateDisplayConverter x:Key="SampleRateDisplayConverter" />
@@ -446,7 +446,7 @@
         original allocated size for it. We need to keep track of the window client area so we
         know how to restore it in a way that fits.
     -->
-	<Border Name="rootGrid" Style="{StaticResource WindowMainPanelStyle}" BorderThickness="1" BorderBrush="{DynamicResource WindowBorderBrush}">
+    <Border Name="rootGrid" Style="{StaticResource WindowMainPanelStyle}">
         <Grid Name="contentGrid">
             <Grid.RowDefinitions>
                 <!--  Title bar  -->
@@ -491,12 +491,22 @@
                     Height="22"
                     Margin="4"
                     Source="/Icons/VidCoder32.png" />
-                <TextBlock
+				<TextBlock
                     Grid.Column="1"
                     Margin="4 0 0 0"
                     VerticalAlignment="Center"
                     FontSize="14"
-                    Text="{Binding WindowTitle}" />
+                    Text="{Binding WindowTitle}">
+					<TextBlock.Style>
+						<Style TargetType="TextBlock">
+							<Style.Triggers>
+								<DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False">
+									<Setter Property="Foreground" Value="{DynamicResource WindowTitleBarInactiveText}" />
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+					</TextBlock.Style>
+				</TextBlock>
 
                 <Button
                     Grid.Column="2"
@@ -507,7 +517,8 @@
                         Width="46"
                         Height="32"
                         Data="M 18,15 H 28"
-                        Stroke="{DynamicResource WindowTextBrush}"
+                        Stroke="{Binding Path=Foreground,
+                                         RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
                         StrokeThickness="1" />
                 </Button>
                 <Button
@@ -519,7 +530,8 @@
                         Width="46"
                         Height="32"
                         Data="M 18.5,10.5 H 27.5 V 19.5 H 18.5 Z"
-                        Stroke="{DynamicResource WindowTextBrush}"
+                        Stroke="{Binding Path=Foreground,
+                                         RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
                         StrokeThickness="1" />
                 </Button>
                 <Button
@@ -531,7 +543,8 @@
                         Width="46"
                         Height="32"
                         Data="M 18.5,12.5 H 25.5 V 19.5 H 18.5 Z M 20.5,12.5 V 10.5 H 27.5 V 17.5 H 25.5"
-                        Stroke="{DynamicResource WindowTextBrush}"
+                        Stroke="{Binding Path=Foreground,
+                                         RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
                         StrokeThickness="1" />
                 </Button>
                 <Button
