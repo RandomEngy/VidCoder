@@ -492,7 +492,7 @@
                     Source="/Icons/VidCoder32.png" />
 				<TextBlock
                     Grid.Column="1"
-                    Margin="4 0 0 0"
+                    Margin="4 0 0 1"
                     VerticalAlignment="Center"
                     FontSize="14"
                     Text="{Binding WindowTitle}">
