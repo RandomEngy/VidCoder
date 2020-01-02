@@ -424,13 +424,6 @@ namespace VidCoder.Services
 		private ObservableAsPropertyHelper<double> overallEncodeProgressPercent;
 		public double OverallEncodeProgressPercent => this.overallEncodeProgressPercent.Value;
 
-		private TaskbarItemProgressState encodeProgressState;
-		public TaskbarItemProgressState EncodeProgressState
-		{
-			get { return this.encodeProgressState; }
-			set { this.RaiseAndSetIfChanged(ref this.encodeProgressState, value); }
-		}
-
 		private ObservableAsPropertyHelper<Brush> progressBarBrush;
 		public Brush ProgressBarBrush => this.progressBarBrush.Value;
 
@@ -1501,7 +1494,6 @@ namespace VidCoder.Services
 
 		public void StartEncodeQueue()
 		{
-			this.EncodeProgressState = TaskbarItemProgressState.Normal;
 			this.logger.Log("Starting queue");
 			this.logger.ShowStatus(MainRes.StartedEncoding);
 
@@ -2300,7 +2292,6 @@ namespace VidCoder.Services
 		private void PauseEncoding()
 		{
 			this.RunForAllEncodeProxies(encodeProxy => encodeProxy.PauseEncodeAsync(), nameof(IEncodeProxy.PauseEncodeAsync));
-			this.EncodeProgressState = TaskbarItemProgressState.Paused;
 			this.RunForAllEncodingJobs(job => job.ReportEncodePause());
 
 			this.Paused = true;
@@ -2309,7 +2300,6 @@ namespace VidCoder.Services
 		private void ResumeEncoding()
 		{
 			this.RunForAllEncodeProxies(encodeProxy => encodeProxy.ResumeEncodeAsync(), nameof(IEncodeProxy.ResumeEncodeAsync));
-			this.EncodeProgressState = TaskbarItemProgressState.Normal;
 			this.RunForAllEncodingJobs(job => job.ReportEncodeResume());
 
 			this.Paused = false;
@@ -2323,7 +2313,6 @@ namespace VidCoder.Services
 
 		private void StopEncodingAndReport()
 		{
-			this.EncodeProgressState = TaskbarItemProgressState.None;
 			this.WorkTracker.ReportEncodeStop();
 			this.Encoding = false;
 			this.EncodeSpeedDetailsAvailable = false;

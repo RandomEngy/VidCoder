@@ -15,7 +15,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="clr-namespace:VidCoder.Model"
     xmlns:res="clr-namespace:VidCoder.Resources"
-    xmlns:shell="clr-namespace:System.Windows.Shell"
     xmlns:tb="http://www.hardcodet.net/taskbar"
     xmlns:viewmodel="clr-namespace:VidCoder.ViewModel"
     Title="{Binding WindowTitle}"
