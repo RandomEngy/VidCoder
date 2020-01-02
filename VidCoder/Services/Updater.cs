@@ -107,7 +107,7 @@ namespace VidCoder.Services
 
 				var installerProcess = new Process();
 				string extraParameter = relaunchWhenComplete ? "/launchWhenDone=\"yes\"" : "/showSuccessDialog=\"yes\"";
-				installerProcess.StartInfo = new ProcessStartInfo { FileName = installerPath, Arguments = "/silent /noicons " + extraParameter + " /dir=\"" + Utilities.ProgramFolder + "\"" };
+				installerProcess.StartInfo = new ProcessStartInfo { FileName = installerPath, Arguments = "/silent /noicons /mergetasks=\"!desktopicon\" " + extraParameter + " /dir=\"" + Utilities.ProgramFolder + "\"" };
 				installerProcess.Start();
 
 				// Caller will handle exiting
