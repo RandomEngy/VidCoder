@@ -20,43 +20,31 @@ namespace VidCoder.Services
 
 		public DriveService()
 		{
-			Task.Run(() =>
+			try
 			{
-				try
+				// Bind to local machine
+				var options = new ConnectionOptions { EnablePrivileges = true };
+				var scope = new ManagementScope(@"root\CIMV2", options);
+
+				var query = new WqlEventQuery
 				{
-					// Bind to local machine
-					var options = new ConnectionOptions { EnablePrivileges = true };
-					var scope = new ManagementScope(@"root\CIMV2", options);
+					EventClassName = "__InstanceModificationEvent",
+					WithinInterval = TimeSpan.FromSeconds(1),
+					Condition = @"TargetInstance ISA 'Win32_LogicalDisk' and TargetInstance.DriveType = 5" // DriveType - 5: CDROM
+				};
 
-					var query = new WqlEventQuery
-					{
-						EventClassName = "__InstanceModificationEvent",
-						WithinInterval = TimeSpan.FromSeconds(1),
-						Condition = @"TargetInstance ISA 'Win32_LogicalDisk' and TargetInstance.DriveType = 5" // DriveType - 5: CDROM
-					};
+				this.watcher = new ManagementEventWatcher(scope, query);
 
-					this.watcher = new ManagementEventWatcher(scope, query);
+				// register async. event handler
+				this.watcher.EventArrived += this.HandleDiscEvent;
+				this.watcher.Start();
 
-					// register async. event handler
-					this.watcher.EventArrived += this.HandleDiscEvent;
-					this.watcher.Start();
-
-					this.watcherStarted = true;
-				}
-				catch (Exception e)
-				{
-					System.Diagnostics.Debug.WriteLine(e.Message);
-				}
-			});
-
-			Task.Run(async () =>
+				this.watcherStarted = true;
+			}
+			catch (Exception e)
 			{
-				await Task.Delay(TimeSpan.FromSeconds(20));
-				if (!this.watcherStarted)
-				{
-					StaticResolver.Resolve<IAppLogger>().LogError("Management event watcher call is hung. Cannot detect drive insert/eject events. Rebooting may fix this.");
-				}
-			});
+				System.Diagnostics.Debug.WriteLine(e.Message);
+			}
 		}
 
 		private void HandleDiscEvent(object sender, EventArrivedEventArgs e)
