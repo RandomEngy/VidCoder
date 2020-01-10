@@ -159,7 +159,9 @@
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Traženje stranog audia</value>
   </data>
-  
+  <data name="SubtitleFilePickerText" xml:space="preserve">
+    <value>Dodaj datoteku sa podnaslovima</value>
+  </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Kodiranje fajla s podnaslovima nije prepoznato. Da bi se podnaslov ispravno prikazivao, molimo da fajl spremite kao UTF-8.</value>
   </data>
@@ -170,6 +172,10 @@
     <value>{0} vanjski</value>
     <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
   </data>
-  
-  
+  <data name="ImportSubtitleButton" xml:space="preserve">
+    <value>Uvezi iz datoteke...</value>
+  </data>
+  <data name="FilePickerDescription" xml:space="preserve">
+    <value>Datoteke sa podnaslovima</value>
+  </data>
 </root>

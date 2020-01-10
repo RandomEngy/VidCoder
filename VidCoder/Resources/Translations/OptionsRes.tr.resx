@@ -198,7 +198,9 @@
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>Ses parçalarını adlandırmaya izin ver (sınırlı oynatıcı desteği)</value>
   </data>
-  
+  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
+    <value>LibDVDNav'u etkinleştir (Değişiklik programın yeniden başlatılmasını gerektirir. Birden fazla açıyı desteklemek için gereklidir)</value>
+  </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Başarıyla tamamlanan öğelerin kaynak dosyalarını sil (onay ile)</value>
   </data>
@@ -393,8 +395,16 @@
   <data name="PromptForUpdatesLabel" xml:space="preserve">
     <value>Güncellemeler için sor:</value>
   </data>
-  
-  
-  
-  
+  <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
+    <value>Alt işlem seçeneği, VidCoder'dan çıkıp yeniden başlatınca geçerli olacaktır.</value>
+  </data>
+  <data name="CopyLogToCustomFolderLabel" xml:space="preserve">
+    <value>Kodlama günlüğünü özel bir klasöre kopyalayın</value>
+  </data>
+  <data name="KeepFailedFilesCheckBox" xml:space="preserve">
+    <value>Dosyaları başarısız veya durdurulmuş kodlamalardan koruyun</value>
+  </data>
+  <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
+    <value>Başarısız kodlama işleri olduğunda "Bittiğinde" eylemini tetikleyin</value>
+  </data>
 </root>

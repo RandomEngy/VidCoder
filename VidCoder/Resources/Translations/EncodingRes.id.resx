@@ -315,7 +315,9 @@ Anda akan dijamin aliran yang kompatibel. Anda harus menyetel ini jika anda tahu
   <data name="Preset_Fast" xml:space="preserve">
     <value>Cepat</value>
   </data>
-  
+  <data name="Preset_Medium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
   <data name="Preset_Slow" xml:space="preserve">
     <value>Lamban</value>
   </data>
@@ -853,6 +855,10 @@ Lapsharp menajamkan menggunakan kernel konvolusi dengan mengaproksimasi filter p
   <data name="ApplyToQueueButton" xml:space="preserve">
     <value>Tambahkan ke antrian</value>
   </data>
-  
-  
+  <data name="FullEncoderParameterLabel" xml:space="preserve">
+    <value>Daftar parameter lengkap:</value>
+  </data>
+  <data name="MoreOptionsToolTip" xml:space="preserve">
+    <value>Argumen lanjutan tambahan untuk diteruskan ke encoder video.</value>
+  </data>
 </root>

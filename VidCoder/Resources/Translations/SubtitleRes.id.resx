@@ -159,7 +159,9 @@
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Cari Audio Bahasa Asing</value>
   </data>
-  
+  <data name="SubtitleFilePickerText" xml:space="preserve">
+    <value>Tambahkan file teks</value>
+  </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Tidak bisa mendeteksi penyandian file subjudul. Untuk memastikan bahwa subjudul tersebut ditampilkan dengan benar, simpan lagi berkas tersebut sebagai UTF-8.</value>
   </data>
@@ -170,6 +172,10 @@
     <value>{0} eksternal</value>
     <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
   </data>
-  
-  
+  <data name="ImportSubtitleButton" xml:space="preserve">
+    <value>Impor dari file...</value>
+  </data>
+  <data name="FilePickerDescription" xml:space="preserve">
+    <value>File teks</value>
+  </data>
 </root>

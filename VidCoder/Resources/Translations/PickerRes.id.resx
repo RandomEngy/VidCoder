@@ -302,6 +302,10 @@
   <data name="SelectTracksHelpText" xml:space="preserve">
     <value>Terpisah koma - co. 2,5</value>
   </data>
-  
-  
+  <data name="ChapterRangeEndAutomationName" xml:space="preserve">
+    <value>Akhir rentang bab</value>
+  </data>
+  <data name="ChapterRangeStartAutomationName" xml:space="preserve">
+    <value>Permulaan rentang bab</value>
+  </data>
 </root>

@@ -586,12 +586,16 @@
   <data name="RibbonSettingsGroupLabel" xml:space="preserve">
     <value>Postavke</value>
   </data>
-  
+  <data name="GlobalOptionsLabel" xml:space="preserve">
+    <value>Globalne opcije</value>
+  </data>
   <data name="EncodingSettingsButton" xml:space="preserve">
     <value>Postavke enkodiranja: {0}</value>
     <comment>{0} is a placeholder for the name of the encoding preset currently selected.</comment>
   </data>
-  
+  <data name="EncodingSettingsButtonToolTip" xml:space="preserve">
+    <value>Video i audio kodeci, veličina, filteri, kontejneri</value>
+  </data>
   <data name="OpenSourceRibbonButton" xml:space="preserve">
     <value>Otvori izvor</value>
   </data>
@@ -627,7 +631,9 @@
   <data name="SampleRateColumn" xml:space="preserve">
     <value>Frekvencija</value>
   </data>
-  
+  <data name="ClearRecentFilesButtonToolTip" xml:space="preserve">
+    <value>Očisti nedavne datoteke</value>
+  </data>
   <data name="OpenSourceLabel" xml:space="preserve">
     <value>Otvori</value>
     <comment>Label on top of the different options for opening video source on the startup screen.</comment>
@@ -636,7 +642,9 @@
     <value>Skeniranje {0}...</value>
     <comment>{0} is the name of the source being scanned.</comment>
   </data>
-  
+  <data name="RetryFailedItemsMenuItem" xml:space="preserve">
+    <value>Ponovo pokušaj neuspjele zadatke</value>
+  </data>
   <data name="StartChapterAutomationName" xml:space="preserve">
     <value>Početak poglavlja</value>
     <comment>Narrator label for the chapter start combo box</comment>
@@ -656,15 +664,41 @@
     <value>Otvori izvornu mapu</value>
     <comment>Menu option to open the folder of the source file in the queue</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="WithCurrentJobsFormat" xml:space="preserve">
+    <value>sa trenutnim zadatkom(cima): {0}</value>
+    <comment>Shown as options for the "When done" combo box for actions that trigger when currently encoding job(s) complete. This string is only used when there are multiple items queued.
+{0} is the encode complete action, ex "Shut down"</comment>
+  </data>
+  <data name="WithQueueFormat" xml:space="preserve">
+    <value>sa redom: {0}</value>
+    <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion. This string is only used when there are multiple items queued.
+{0} is the encode complete action, ex "Shut down"</comment>
+  </data>
+  <data name="VideoEncodingOptionsToolTip" xml:space="preserve">
+    <value>Opcije video enkodiranja</value>
+  </data>
+  <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
+    <value>Opcije audio enkodiranja</value>
+  </data>
+  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
+    <value>Verzija {0} je završila preuzimanje.</value>
+  </data>
+  <data name="RemoveFromQueueMenuItem" xml:space="preserve">
+    <value>Ukloni iz reda</value>
+  </data>
+  <data name="ClearSucceededMenuItem" xml:space="preserve">
+    <value>Očisti uspješne</value>
+  </data>
+  <data name="ClearFailedMenuItem" xml:space="preserve">
+    <value>Očisti neuspješne</value>
+  </data>
+  <data name="ClearQueueConfirmationMessage" xml:space="preserve">
+    <value>Jeste li sigurni da želite ukoloniti sve stavke iz reda?</value>
+  </data>
+  <data name="RemoveAllFomQueueMenuItem" xml:space="preserve">
+    <value>Ukloni sve iz reda</value>
+  </data>
+  <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
+    <value>Akcija završeno enkodiranje nije pokrenuta zbog greški u listi rezultata enkodiranja.</value>
+  </data>
 </root>

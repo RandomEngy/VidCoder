@@ -747,7 +747,9 @@ Bicubic: OpenCL hardverski ubrzani algoritam za skaliranje.</value>
   <data name="AlignAVStartCheckBox" xml:space="preserve">
     <value>Usklađivanje A/V pokretanja</value>
   </data>
-  
+  <data name="AlignAVStartCheckBoxToolTip" xml:space="preserve">
+    <value>Usklađivanje početnih vremenskih oznaka svih audio i video streamova umetanjem praznih ili izbacivanjem frejmova. Može popraviti usklađenost audio/video za player-e koji ne poštuju MP4 liste editiranja.</value>
+  </data>
   <data name="TabHeader_Container" xml:space="preserve">
     <value>Kontejner</value>
   </data>
@@ -759,15 +761,42 @@ Bicubic: OpenCL hardverski ubrzani algoritam za skaliranje.</value>
     <value>Ništa</value>
     <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
   </data>
-  
+  <data name="SizingModeToolTip" xml:space="preserve">
+    <value>Automatski će izabrati veličinu za vas a osnovu postavljenih ograničenja. Ručno će dopustiti da unesete određeni veličinu i odnos slike u pikselima.</value>
+  </data>
   <data name="SharpenLabel" xml:space="preserve">
     <value>Izoštravanje</value>
   </data>
-  
-  
-  
-  
-  
+  <data name="DeblockToolTip" xml:space="preserve">
+    <value>Deblock uklanja smetnja nalik blokovima koji su uzrokovani lošom kvalitetom video kompresije.</value>
+  </data>
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>Deinterlace uklanja smetnje nalik češlju iz slike.
+
+Yadif je popularan i brz deinterlacer.
+
+Decomb izmjenjuje više algoritama za interpolaciju za brzinu i kvalitet.</value>
+  </data>
+  <data name="DenoiseToolTip" xml:space="preserve">
+    <value>Denoise smanjuje ili uklanja pojavu šuma ili zrnatosti. Ovo može poboljšati efikasnost kompresije i rezultirati videom više kvalitete sa manjom veličinom datoteke. 
+Prejake postavke Denoise mogu štetiti kvalitetu slike uklanjanjem detalja.
+         
+NLMeans je denoise filter visoke kvalitete s tim da utiče na brzinu. Koristite ukoliko je kvalitet važniji od brzine.
+         
+HQDN3D je prilagodljivi "low-pass" filter, brži od NLMeans ali manje efektivan u zadržavanju detalja.</value>
+  </data>
+  <data name="DetelecineToolTip" xml:space="preserve">
+    <value>Ovaj filter uklanja smetnje nalik 'češlju' (combing) koje su rezultata telecine.
+
+Telecine je proces koji namješta broj prikazanih frejmova (framerate) koji su 24fps u NTSC framerate od 30fps.</value>
+  </data>
+  <data name="SharpenToolTip" xml:space="preserve">
+    <value>Izoštravanje pojačava izgleda detalja, pogotovo kutova. Prejake postavke izoštravanja mogu štetiti kvaliteti slike stvaranjem kružnih smetnji i pojačavanjem šuma, što može umanjiti efikasnost kompresije.
+
+Unsharp je filter maskiranja za opštu primjenu. Izoštrava zamućivanjem, te vrši kalkulaciju razlike između zamućene slike i originala.
+
+Lapsharp izoštrava korištenjem "convolution kernels" aproksimiranjem Laplacian filter kutova, ponekad proizvodi viši kvalitet nego unsharp maskiranje.</value>
+  </data>
   <data name="PresetFolder_Custom" xml:space="preserve">
     <value>Prilagođeno</value>
   </data>
@@ -792,11 +821,15 @@ Bicubic: OpenCL hardverski ubrzani algoritam za skaliranje.</value>
   <data name="ChooseNewFolderName" xml:space="preserve">
     <value>Unesite novi naziv za mapu:</value>
   </data>
-  
+  <data name="NVEncPreset_ll" xml:space="preserve">
+    <value>Nisko kašnjenje</value>
+  </data>
   <data name="NVEncPreset_hq" xml:space="preserve">
     <value>Visoka kvaliteta</value>
   </data>
-  
+  <data name="NVEncPreset_hp" xml:space="preserve">
+    <value>Visoke performanse</value>
+  </data>
   <data name="PickColorButton" xml:space="preserve">
     <value>Odaberi boju…</value>
   </data>
@@ -812,11 +845,21 @@ Bicubic: OpenCL hardverski ubrzani algoritam za skaliranje.</value>
   <data name="Top" xml:space="preserve">
     <value>Vrh</value>
   </data>
-  
-  
+  <data name="PixelAspectRatioNumeratorAutomationName" xml:space="preserve">
+    <value>Brojnik za odnos slike u pikselima</value>
+    <comment>Name for the pixel aspect ratio numerator box for screen readers</comment>
+  </data>
+  <data name="PixelAspectRatioDenominatorAutomationName" xml:space="preserve">
+    <value>Imenitelj za odnos slike u pikselima</value>
+    <comment>Name for the pixel aspect ratio denominator box for screen readers</comment>
+  </data>
   <data name="ApplyToQueueButton" xml:space="preserve">
     <value>Primjeni na red čekanja</value>
   </data>
-  
-  
+  <data name="FullEncoderParameterLabel" xml:space="preserve">
+    <value>Kompletna lista parametara:</value>
+  </data>
+  <data name="MoreOptionsToolTip" xml:space="preserve">
+    <value>Dodatne napredne varijable koje će biti prenešene do video enkodera.</value>
+  </data>
 </root>

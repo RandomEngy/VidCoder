@@ -302,6 +302,10 @@
   <data name="SelectTracksHelpText" xml:space="preserve">
     <value>durch Komma getrennt - z.B. 2,5</value>
   </data>
-  
-  
+  <data name="ChapterRangeEndAutomationName" xml:space="preserve">
+    <value>Endkapitel</value>
+  </data>
+  <data name="ChapterRangeStartAutomationName" xml:space="preserve">
+    <value>Anfangskapitel</value>
+  </data>
 </root>

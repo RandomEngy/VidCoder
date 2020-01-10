@@ -198,7 +198,9 @@
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>Memungkinkan pengaturan nama kustom Track audio (dukungan Pemutar terbatas)</value>
   </data>
-  
+  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
+    <value>Enable LibDVDNav (Perubahan membutuhkan program restart. Diperlukan untuk mendukung multiple angles)</value>
+  </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Hapus file sumber selesai sukses menyelesaikan seluruh item ( dengan konfirmasi)</value>
   </data>
@@ -393,8 +395,16 @@
   <data name="PromptForUpdatesLabel" xml:space="preserve">
     <value>Tanyakan Pembaharuan:</value>
   </data>
-  
-  
-  
-  
+  <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
+    <value>Pilihan proses pengerjaan akan berlaku setelah Anda keluar dan restart VidCoder.</value>
+  </data>
+  <data name="CopyLogToCustomFolderLabel" xml:space="preserve">
+    <value>Salin catatan pengkodean ke folder lain</value>
+  </data>
+  <data name="KeepFailedFilesCheckBox" xml:space="preserve">
+    <value>Simpan berkas - berkas yang gagal dikodekan atau dihentikan</value>
+  </data>
+  <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
+    <value>Memicu tindakan "Ketika Selesai" saat tidak ada pekerjaan yang gagal</value>
+  </data>
 </root>

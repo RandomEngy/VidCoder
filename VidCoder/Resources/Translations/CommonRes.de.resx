@@ -157,7 +157,7 @@ Diesem Programm wurde eine vollständige Kopie der GNU General Public beigelegt.
     <value>Audio Encodierer</value>
   </data>
   <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Video Encodierer</value>
+    <value>Video-Encodierer</value>
   </data>
   <data name="QueueColumnNameVideoQuality" xml:space="preserve">
     <value>Video Qualität</value>

@@ -143,7 +143,7 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Specificare manualmente un Pixel Aspect Ratio.</value>
   </data>
   <data name="Video_QualityTargetToolTip" xml:space="preserve">
-    <value>Impostare il fattore di qualità desiderata. La scala utilizzata da ciascun codificatore video è diversa.</value>
+    <value>Impostare il fattore di qualità desiderata. La scala utilizzata da ciascuna codifica video è diversa.</value>
   </data>
   <data name="WebOptimizedToolTip" xml:space="preserve">
     <value>Organizzare file giocare meglio come download progressivo.</value>
@@ -253,7 +253,7 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Fotogrammi al secondo:</value>
   </data>
   <data name="CodecLabel" xml:space="preserve">
-    <value>Codificatore:</value>
+    <value>Codifica:</value>
   </data>
   <data name="FramerateLabel" xml:space="preserve">
     <value>Framerate (FPS):</value>
@@ -491,7 +491,7 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Alta 4:4:4 predittiva</value>
   </data>
   <data name="VideoCodecLabel" xml:space="preserve">
-    <value>Codificatore video:</value>
+    <value>Codifica video:</value>
   </data>
   <data name="VideoEncoder_ffmpeg2" xml:space="preserve">
     <value>MPEG-2 (Libav)</value>
@@ -524,7 +524,7 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Origine</value>
   </data>
   <data name="Encoder" xml:space="preserve">
-    <value>Codificatore</value>
+    <value>Codifica</value>
   </data>
   <data name="ChannelLayout" xml:space="preserve">
     <value>Modalità canali</value>
@@ -557,10 +557,10 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Ripiega su:</value>
   </data>
   <data name="AutoPassthroughFallbackToolTip" xml:space="preserve">
-    <value>La funzione Passante non è disponibile per tutti i codificatori audio. Qui potete specificare il codificatore da utilizzare se la traccia audio non può essere passata così com'è.</value>
+    <value>La funzione Passante non è disponibile per tutte le codifiche audio. Qui potete specificare la codifica da utilizzare se la traccia audio non può essere passata così com'è.</value>
   </data>
   <data name="EncoderSettings" xml:space="preserve">
-    <value>Impostazioni codificatore</value>
+    <value>Impostazioni codifica</value>
   </data>
   <data name="QsvDecodingLabel" xml:space="preserve">
     <value>QSV decodifica</value>
@@ -623,7 +623,7 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Passante se possibile</value>
   </data>
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
-    <value>Se il codificatore della traccia d'ingresso corrisponde a questi, la traccia sarà passata direttamente senza essere ri-codificata.</value>
+    <value>Se la codifica della traccia d'ingresso corrisponde a questi, la traccia sarà passata direttamente senza essere ri-codificata.</value>
   </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>Rotazione:</value>
@@ -855,6 +855,6 @@ NitidezzaCircolare rende più nitida l'immagine utilizzando il filtro con "nocci
     <value>Elenco completo dei parametri:</value>
   </data>
   <data name="MoreOptionsToolTip" xml:space="preserve">
-    <value>Parametri avanzati aggiuntivi da inviare al codificatore video.</value>
+    <value>Parametri avanzati aggiuntivi da inviare alla codifica video.</value>
   </data>
 </root>

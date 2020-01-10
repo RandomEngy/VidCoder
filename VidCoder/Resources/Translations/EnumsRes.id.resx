@@ -277,8 +277,16 @@
   <data name="UpdatePromptTiming_OnLaunch" xml:space="preserve">
     <value>Saat diluncurkan</value>
   </data>
-  
-  
-  
-  
+  <data name="LogOperationType_Encode" xml:space="preserve">
+    <value>Encode</value>
+  </data>
+  <data name="LogOperationType_Scan" xml:space="preserve">
+    <value>Pindai</value>
+  </data>
+  <data name="PickerTimeRangeMode_Chapters" xml:space="preserve">
+    <value>Bab</value>
+  </data>
+  <data name="PickerTimeRangeMode_Time" xml:space="preserve">
+    <value>Jangka waktu</value>
+  </data>
 </root>
