@@ -689,7 +689,7 @@
     <value>სამუშაო სიიდან წაშლა</value>
   </data>
   <data name="ClearSucceededMenuItem" xml:space="preserve">
-    <value>გასუფთავება დასრულებულია</value>
+    <value>წარმატებულის გასუფთავება</value>
   </data>
   <data name="ClearFailedMenuItem" xml:space="preserve">
     <value>გასუფთავება წარუმატებულია</value>

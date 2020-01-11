@@ -315,7 +315,9 @@ Oynatıcı cihazınızın yalnızca belirli bir profili desteklediğini biliyors
   <data name="Preset_Fast" xml:space="preserve">
     <value>Hızlı</value>
   </data>
-  
+  <data name="Preset_Medium" xml:space="preserve">
+    <value>Orta</value>
+  </data>
   <data name="Preset_Slow" xml:space="preserve">
     <value>Yavaş</value>
   </data>
@@ -858,6 +860,10 @@ Keskinleştir (Lapsharp), Laplacian kenar filtrelerine yakın olan kıvrım tane
   <data name="ApplyToQueueButton" xml:space="preserve">
     <value>Kuyruğa uygula</value>
   </data>
-  
-  
+  <data name="FullEncoderParameterLabel" xml:space="preserve">
+    <value>Tüm parametre listesi:</value>
+  </data>
+  <data name="MoreOptionsToolTip" xml:space="preserve">
+    <value>Video kodlayıcıya geçmek için ek gelişmiş argümanlar.</value>
+  </data>
 </root>

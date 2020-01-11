@@ -18,11 +18,14 @@ namespace VidCoder.Services.Notifications
 
 		private const string BetaAumid = "VidCoder.VidCoderBeta";
 		private const string StableAumid = "VidCoder.VidCoder";
+		private readonly IAppLogger logger;
 
 		private IToastNotificationDispatchService dispatch;
 
-		public ToastNotificationService()
+		public ToastNotificationService(IAppLogger logger)
 		{
+			this.logger = logger;
+
 			Type notificationActivatorType = CommonUtilities.Beta ? typeof(BetaNotificationActivator) : typeof(StableNotificationActivator);
 
 			if (Utilities.IsRunningAsAppx)
@@ -67,15 +70,22 @@ namespace VidCoder.Services.Notifications
 		/// </summary>
 		public void ShowToast(string toastContent)
 		{
-			// Create the XML document
-			var doc = new XmlDocument();
-			doc.LoadXml(toastContent);
+			try
+			{
+				// Create the XML document
+				var doc = new XmlDocument();
+				doc.LoadXml(toastContent);
 
-			// And create the toast notification
-			var toast = new ToastNotification(doc);
+				// And create the toast notification
+				var toast = new ToastNotification(doc);
 
-			// And then show it
-			this.dispatch.CreateToastNotifier().Show(toast);
+				// And then show it
+				this.dispatch.CreateToastNotifier().Show(toast);
+			}
+			catch (Exception exception)
+			{
+				this.logger.LogError("Could not show notification:" + Environment.NewLine + exception);
+			}
 		}
 
 		/// <summary>
@@ -83,7 +93,14 @@ namespace VidCoder.Services.Notifications
 		/// </summary>
 		public void Clear()
 		{
-			this.dispatch.Clear();
+			try
+			{
+				this.dispatch.Clear();
+			}
+			catch (Exception exception)
+			{
+				this.logger.LogError("Could not clear notifications:" + Environment.NewLine + exception);
+			}
 		}
 
 		/// <summary>
@@ -101,7 +118,14 @@ namespace VidCoder.Services.Notifications
 		/// <param name="tag">The tag label of the toast notification to be removed.</param>
 		public void Remove(string tag)
 		{
-			this.dispatch.Remove(tag);
+			try
+			{
+				this.dispatch.Remove(tag);
+			}
+			catch (Exception exception)
+			{
+				this.logger.LogError("Could not remove notification:" + Environment.NewLine + exception);
+			}
 		}
 
 		/// <summary>
@@ -111,7 +135,14 @@ namespace VidCoder.Services.Notifications
 		/// <param name="group">The group label of the toast notification to be removed.</param>
 		public void Remove(string tag, string group)
 		{
-			this.dispatch.Remove(tag, group);
+			try
+			{
+				this.dispatch.Remove(tag, group);
+			}
+			catch (Exception exception)
+			{
+				this.logger.LogError("Could not remove notification:" + Environment.NewLine + exception);
+			}
 		}
 
 		/// <summary>
@@ -120,7 +151,14 @@ namespace VidCoder.Services.Notifications
 		/// <param name="group">The group label of the toast notifications to be removed.</param>
 		public void RemoveGroup(string group)
 		{
-			this.dispatch.RemoveGroup(group);
+			try
+			{
+				this.dispatch.RemoveGroup(group);
+			}
+			catch (Exception exception)
+			{
+				this.logger.LogError("Could not remove notification group:" + Environment.NewLine + exception);
+			}
 		}
 	}
 }

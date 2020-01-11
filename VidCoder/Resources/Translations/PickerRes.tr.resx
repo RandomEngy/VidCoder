@@ -302,6 +302,10 @@
   <data name="SelectTracksHelpText" xml:space="preserve">
     <value>Virgülle ayrılmış - ör. 2,5</value>
   </data>
-  
-  
+  <data name="ChapterRangeEndAutomationName" xml:space="preserve">
+    <value>Bölüm aralığı sonu</value>
+  </data>
+  <data name="ChapterRangeStartAutomationName" xml:space="preserve">
+    <value>Bölüm aralığı başlangıcı</value>
+  </data>
 </root>

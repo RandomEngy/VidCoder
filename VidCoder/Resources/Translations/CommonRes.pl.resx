@@ -281,12 +281,46 @@ Pełna kopia licencji GNU General Public została dołączona do tego programu.<
     <value>Pierwsza</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
+  <data name="DuplicateTrack" xml:space="preserve">
+    <value>Duplicate this track                  -  Duplikat tej ścieżki.
+Duplicate Track                         -  Duplikat ścieżki.
+
+Tip to duplicate the audio or subtitle track     -  Wskazówka, aby powielić dźwięk lub ścieżkę napisów.</value>
+    <comment>Tip to duplicate the audio or subtitle track.</comment>
+  </data>
+  <data name="RemoveTrack" xml:space="preserve">
+    <value>Remove this track                  -   Usuń ten utwór.
+RemoveTrack                            -    Usunąć ścieżkę.
+
+Tip for button to remove the audio 
+or subtitle track.                                - Wskazówka dotycząca przycisku usuwania dźwięku lub ścieżki napisów</value>
+    <comment>Tip for button to remove the audio or subtitle track.</comment>
+  </data>
+  <data name="SelectedOverTotalAudioTracksFormat" xml:space="preserve">
+    <value> Selected Over Total Audio Tracks Format        - Wybrano ponad Całkowity Format Audio ścieżki.
+
+
+{0} is the number of selected audio tracks and {1} is the number of total tracks on the source.
+      -   {0} to liczba wybranych ścieżek audio, a {1} to liczba wszystkich ścieżek w źródle.
+</value>
+    <comment>{0} is the number of selected audio tracks and {1} is the number of total tracks on the source.</comment>
+  </data>
   
-  
-  
-  
-  
-  
+  <data name="NumberBoxIncreaseButtonAutomationTextFormat" xml:space="preserve">
+    <value>Zmień dzień na (późniejszy) - Zmień dzień na ((następny))
+                                                       Replace day with ((next))</value>
+    <comment>Automation text for the increase button on the number box.
+{0} - The name of the value the control is changing, for example "width"</comment>
+  </data>
+  <data name="NumberBoxDecreaseButtonAutomationTextFormat" xml:space="preserve">
+    <value>Zmień dzień na wcześniejszy.
+
+Replace the with 
+   day before.    -  -  -  -  -  -   - Zamień na
+                                                    dzień wcześniej.</value>
+    <comment>Automation text for the decrease button on the number box.
+{0} - The name of the value the control is changing, for example "width"</comment>
+  </data>
   
   
   

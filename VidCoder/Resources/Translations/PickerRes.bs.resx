@@ -263,16 +263,29 @@
   <data name="OverrideNameFormatLabel" xml:space="preserve">
     <value>Dostupne opcije: {0}</value>
   </data>
-  
-  
-  
+  <data name="DurationFilterStartAutomationName" xml:space="preserve">
+    <value>Početne minute za filter trajanja</value>
+    <comment>Screen reader text for number box that represents the start of the filter range in minutes. The number chosen in this box represents the minimum title length in minutes that will be chosen.
+</comment>
+  </data>
+  <data name="DurationFilterEndAutomationName" xml:space="preserve">
+    <value>Krajnje minute za filter trajanja</value>
+    <comment>Screen reader text for number box that represents the end of the filter range in minutes. The number chosen in this box represents the maximum title length in minutes that will be chosen.
+</comment>
+  </data>
+  <data name="DurationFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>Filtriraj naslove po dužini trajanja</value>
+    <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
+  </data>
   <data name="TimeRangeSelection" xml:space="preserve">
     <value>Odabir raspona vremena</value>
   </data>
   <data name="SelectTimeRangeCheckBox" xml:space="preserve">
     <value>Odaberite vremenski raspon</value>
   </data>
-  
+  <data name="TitleCaptializationLabel" xml:space="preserve">
+    <value>Veliko početno slovo u nazivu:</value>
+  </data>
   <data name="TimeRangeStartAutomationName" xml:space="preserve">
     <value>Početak raspona vremena</value>
   </data>
@@ -289,6 +302,10 @@
   <data name="SelectTracksHelpText" xml:space="preserve">
     <value>Odvojeno zarezom - npr. 2,5</value>
   </data>
-  
-  
+  <data name="ChapterRangeEndAutomationName" xml:space="preserve">
+    <value>Raspon poglavlja kraj</value>
+  </data>
+  <data name="ChapterRangeStartAutomationName" xml:space="preserve">
+    <value>Raspon poglavlja početak</value>
+  </data>
 </root>

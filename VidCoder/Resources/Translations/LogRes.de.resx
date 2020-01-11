@@ -120,11 +120,26 @@
   <data name="LogWindowTitle" xml:space="preserve">
     <value>Protokoll</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
+  <data name="GeneralLogLabel" xml:space="preserve">
+    <value>Allgemein</value>
+  </data>
+  <data name="LogVerbosity_Minimized" xml:space="preserve">
+    <value>Zusammengefasst</value>
+  </data>
+  <data name="LogVerbosity_Standard" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="LogVerbosity_Extended" xml:space="preserve">
+    <value>Ausführlich</value>
+  </data>
+  <data name="CopyToPastebinButton" xml:space="preserve">
+    <value>Auf Pastebin bereitstellen und Link kopieren</value>
+    <comment>Label for button that copies the log to Pastebin and puts the URL on the clipboard.</comment>
+  </data>
+  <data name="PastebinSuccessStatus" xml:space="preserve">
+    <value>Das Protokoll wurde auf Pastebin hochgeladen; der entsprechende Link wurde in die Zwischenablage kopiert.</value>
+  </data>
+  <data name="ClearFinishedButton" xml:space="preserve">
+    <value>Abgeschlossene entfernen</value>
+  </data>
 </root>

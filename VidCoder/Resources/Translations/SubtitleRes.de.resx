@@ -159,7 +159,9 @@
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Ausländische Dialoge extrahieren</value>
   </data>
-  
+  <data name="SubtitleFilePickerText" xml:space="preserve">
+    <value>Füge Untertitel-Datei hinzu</value>
+  </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Konnte die Encodierung der Untertiteldatei nicht erkennen. Versuchen Sie die Datei erneut abzuspeichern und zwar als UTF-8.</value>
   </data>
@@ -170,6 +172,10 @@
     <value>{0} externe</value>
     <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
   </data>
-  
-  
+  <data name="ImportSubtitleButton" xml:space="preserve">
+    <value>Aus Datei importieren…</value>
+  </data>
+  <data name="FilePickerDescription" xml:space="preserve">
+    <value>Untertiteldateien</value>
+  </data>
 </root>

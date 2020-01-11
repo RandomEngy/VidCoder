@@ -198,7 +198,9 @@
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>Festlegen von benutzerdefinierten Namen für Tonspuren ermöglichen (Wird nicht von jedem Wiedergabegerät unterstützt)</value>
   </data>
-  
+  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
+    <value>LibDVDNav aktivieren (Diese Änderung erfordert einen Neustart des Programms. Die Bibliothek wird benötigt, um mehrere Kameraperspektiven (engl.: Angle) zu unterstützen)</value>
+  </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Ursprüngliche Dateien löschen, wenn erfolgreich abgeschlossene Aufträge aus der Warteschlange entfernt werden (mit Bestätigung)</value>
   </data>
@@ -393,8 +395,16 @@
   <data name="PromptForUpdatesLabel" xml:space="preserve">
     <value>Updatebenachrichtigung einblenden</value>
   </data>
-  
-  
-  
-  
+  <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
+    <value>Die Arbeiter-Prozess-Option wird erst wirksam nach nach einem Neustart von VidCoder.</value>
+  </data>
+  <data name="CopyLogToCustomFolderLabel" xml:space="preserve">
+    <value>Das Encodierungsprotokoll in einen separaten Ordner kopieren</value>
+  </data>
+  <data name="KeepFailedFilesCheckBox" xml:space="preserve">
+    <value>Dateien von fehlgeschlagenen or gestoppten Encodierungen behalten</value>
+  </data>
+  <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
+    <value>"Nach Abschluss"-Aktion auch auslösen, wenn Aufträge fehlgeschlagen sind</value>
+  </data>
 </root>

@@ -676,13 +676,31 @@
     <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion. This string is only used when there are multiple items queued.
 {0} is the encode complete action, ex "Shut down"</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="VideoEncodingOptionsToolTip" xml:space="preserve">
+    <value>Video kodlama seçenekleri</value>
+  </data>
+  <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
+    <value>Ses kodlama seçenekleri</value>
+  </data>
+  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
+    <value>Sürüm {0} indirildi.</value>
+  </data>
+  <data name="RemoveFromQueueMenuItem" xml:space="preserve">
+    <value>Kuyruktan kaldır</value>
+  </data>
+  <data name="ClearSucceededMenuItem" xml:space="preserve">
+    <value>Temizleme başarılı</value>
+  </data>
+  <data name="ClearFailedMenuItem" xml:space="preserve">
+    <value>Temizleme başarısız</value>
+  </data>
+  <data name="ClearQueueConfirmationMessage" xml:space="preserve">
+    <value>Kuyruktaki tüm öğeleri kaldırmak istediğinize emin misiniz?</value>
+  </data>
+  <data name="RemoveAllFomQueueMenuItem" xml:space="preserve">
+    <value>Tümünü kuyruktan kaldır</value>
+  </data>
+  <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
+    <value>Kodlama sonuç listesindeki hatalar nedeniyle kodlamanın tamamı gerçekleştirilmedi.</value>
+  </data>
 </root>

@@ -198,7 +198,9 @@
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>Dopusti namještanje prilagođenog ime na audio zapis (podrška playera ograničena)</value>
   </data>
-  
+  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
+    <value>Omogući LibDVDNav (Promjena zahtjeva ponovo pokretanje programa. Potrebno za korištenje opcije više uglova)</value>
+  </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Obriši izvorne fajlove nakon uspješnog uklanjanja završenih stavki (sa potvrdom)</value>
   </data>
@@ -367,7 +369,10 @@
   <data name="ProcessOptionsLabel" xml:space="preserve">
     <value>Opcije procesa</value>
   </data>
-  
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>Brzina CPU - Dozvoljene Jezgre:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use. It labels a slider that controls the percentage of allowed cores, where the max is 100%.</comment>
+  </data>
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>Koristi CPU throttling da bi ograničio broj procesorskih jezgri koje VidCoder može koristiti prilikom enkodiranja.</value>
   </data>
@@ -377,7 +382,9 @@
   <data name="MaxSimultaneousEncodesLabel" xml:space="preserve">
     <value>Maksimalan broj istovremenih enkodiranja:</value>
   </data>
-  
+  <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
+    <value>Ovo pokazuje koliko istovremenih zadataka enkodiranja je dozvoljeno. Korisno za mašine sa većim brojem CPU jezgri.</value>
+  </data>
   <data name="GeneralSection" xml:space="preserve">
     <value>Opće</value>
   </data>
@@ -388,8 +395,16 @@
   <data name="PromptForUpdatesLabel" xml:space="preserve">
     <value>Upit za ažuriranja:</value>
   </data>
-  
-  
-  
-  
+  <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
+    <value>Ova opcija radnog procesa će biti u upotrebni nakon što izađete i ponovo pokrenete VidCoder.</value>
+  </data>
+  <data name="CopyLogToCustomFolderLabel" xml:space="preserve">
+    <value>Napravi kopiju zapisnika enkodiranja u korisnički odabranu mapu</value>
+  </data>
+  <data name="KeepFailedFilesCheckBox" xml:space="preserve">
+    <value>Sačuvaj datoteke od neuspješnih ili zaustavljenih enkodiranja</value>
+  </data>
+  <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
+    <value>Pokreni "Kada bude gotovo" akciju ukoliko bude neuspjelih enkodiranja</value>
+  </data>
 </root>

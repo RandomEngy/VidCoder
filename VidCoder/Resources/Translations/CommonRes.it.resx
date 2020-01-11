@@ -150,10 +150,10 @@
     <value>Qualità audio</value>
   </data>
   <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>Codificatore audio</value>
+    <value>Codifica audio</value>
   </data>
   <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Codificatore video</value>
+    <value>Codifica video</value>
   </data>
   <data name="QueueColumnNameVideoQuality" xml:space="preserve">
     <value>Qualità video</value>

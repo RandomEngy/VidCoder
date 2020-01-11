@@ -315,7 +315,9 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
   <data name="Preset_Fast" xml:space="preserve">
     <value>Schnell</value>
   </data>
-  
+  <data name="Preset_Medium" xml:space="preserve">
+    <value>Mittelmäßig</value>
+  </data>
   <data name="Preset_Slow" xml:space="preserve">
     <value>Langsam</value>
   </data>
@@ -859,6 +861,10 @@ LapSharp verwendet Faltungsmatrizen, welche Laplace-Kanten-Filter annähern, zum
   <data name="ApplyToQueueButton" xml:space="preserve">
     <value>Auf die Warteschlange anwenden</value>
   </data>
-  
-  
+  <data name="FullEncoderParameterLabel" xml:space="preserve">
+    <value>Vollständige Parameterliste:</value>
+  </data>
+  <data name="MoreOptionsToolTip" xml:space="preserve">
+    <value>Zusätzliche Parameter, die an den Video-Encodierer weitergereicht werden sollen.</value>
+  </data>
 </root>

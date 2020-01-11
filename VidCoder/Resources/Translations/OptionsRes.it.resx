@@ -256,7 +256,7 @@
     <value>Aggiornamenti</value>
   </data>
   <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>Trova la versione più recente...</value>
+    <value>Ricerca della versione più recente...</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
     <value>Controllo dell'aggiornamento non riuscito.</value>
