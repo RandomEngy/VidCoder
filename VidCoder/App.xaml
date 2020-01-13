@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
 
                 <ResourceDictionary Source="/XamlResources/Button.xaml" />
+                <ResourceDictionary Source="/XamlResources/TextBox.xaml" />
                 <ResourceDictionary Source="/XamlResources/ComboBox.xaml" />
                 <ResourceDictionary Source="/XamlResources/GridViewColumnHeader.xaml" />
                 <ResourceDictionary Source="/XamlResources/ListView.xaml" />
