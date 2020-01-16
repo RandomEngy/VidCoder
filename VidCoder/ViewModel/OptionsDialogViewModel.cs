@@ -399,8 +399,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				var manager = new ResourceManager(typeof(OptionsRes));
-				return string.Format(manager.GetString("FileNameFormatOptions"), "{source} {title} {range} {preset} {date} {time} {quality} {parent} {titleduration}");
+				return string.Format(OptionsRes.FileNameFormatOptions, "{source} {title} {range} {preset} {date} {time} {quality} {parent} {titleduration}");
 			}
 		}
 

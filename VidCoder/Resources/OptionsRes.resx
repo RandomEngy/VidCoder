@@ -395,4 +395,7 @@
   <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
     <value>Trigger "When done" action when there are failed encode jobs</value>
   </data>
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>Available options: {0}</value>
+  </data>
 </root>
