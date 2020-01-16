@@ -1311,28 +1311,28 @@ namespace VidCoderCommon.Model
 					outputWidth = profile.Width;
 					outputHeight = profile.Height;
 
-					int horizontalPadding = (profile.Width - pictureOutputWidth) / 2;
-					int verticalPadding = (profile.Height - pictureOutputHeight) / 2;
+					int horizontalPaddingPerSide = (profile.Width - pictureOutputWidth) / 2;
+					int verticalPaddingPerSide = (profile.Height - pictureOutputHeight) / 2;
 
-					padding = new VCPadding(verticalPadding, verticalPadding, horizontalPadding, horizontalPadding);
+					padding = new VCPadding(verticalPaddingPerSide, verticalPaddingPerSide, horizontalPaddingPerSide, horizontalPaddingPerSide);
 
 					break;
 				case VCPaddingMode.Width:
 					outputWidth = profile.Width;
 					outputHeight = pictureOutputHeight;
 
-					horizontalPadding = (profile.Width - pictureOutputWidth) / 2;
+					horizontalPaddingPerSide = (profile.Width - pictureOutputWidth) / 2;
 
-					padding = new VCPadding(0, 0, horizontalPadding, horizontalPadding);
+					padding = new VCPadding(0, 0, horizontalPaddingPerSide, horizontalPaddingPerSide);
 
 					break;
 				case VCPaddingMode.Height:
 					outputWidth = pictureOutputWidth;
 					outputHeight = profile.Height;
 
-					verticalPadding = (profile.Height - pictureOutputHeight) / 2;
+					verticalPaddingPerSide = (profile.Height - pictureOutputHeight) / 2;
 
-					padding = new VCPadding(verticalPadding, verticalPadding, 0, 0);
+					padding = new VCPadding(verticalPaddingPerSide, verticalPaddingPerSide, 0, 0);
 
 					break;
 				default:
@@ -1412,7 +1412,11 @@ namespace VidCoderCommon.Model
 			}
 
 			// Picture size may have changed due to modulus rounding
-			if (padding.Left == 0 && padding.Right == 0)
+			int totalHorizontalPadding = padding.Left + padding.Right;
+			int totalVerticalPadding = padding.Top + padding.Bottom;
+			bool hasHorizontalPadding = totalHorizontalPadding > 0;
+			bool hasVerticalPadding = totalVerticalPadding > 0;
+			if (!hasHorizontalPadding && !swapDimensionsFromRotation || !hasVerticalPadding && swapDimensionsFromRotation)
 			{
 				pictureOutputWidth = roundedOutputWidth;
 				
@@ -1420,7 +1424,7 @@ namespace VidCoderCommon.Model
 				scaleWidth = swapDimensionsFromRotation ? roundedOutputHeight : roundedOutputWidth;
 			}
 
-			if (padding.Top == 0 && padding.Bottom == 0)
+			if (!hasVerticalPadding && !swapDimensionsFromRotation || !hasHorizontalPadding && swapDimensionsFromRotation)
 			{
 				pictureOutputHeight = roundedOutputHeight;
 
@@ -1432,17 +1436,17 @@ namespace VidCoderCommon.Model
 			if (profile.UseAnamorphic)
 			{
 				// Calculate PAR from final picture size
-				if (profile.Rotation == VCPictureRotation.Clockwise90 || profile.Rotation == VCPictureRotation.Clockwise270)
+				if (swapDimensionsFromRotation)
 				{
 					outputPar = MathUtilities.CreatePar(
-						(long)croppedSourceHeight * sourceParHeight * pictureOutputHeight,
-						(long)croppedSourceWidth * sourceParWidth * pictureOutputWidth);
+						(long)croppedSourceHeight * sourceParHeight * (pictureOutputHeight - totalVerticalPadding),
+						(long)croppedSourceWidth * sourceParWidth * (pictureOutputWidth - totalHorizontalPadding));
 				}
 				else
 				{
 					outputPar = MathUtilities.CreatePar(
-						(long)croppedSourceWidth * sourceParWidth * pictureOutputHeight,
-						(long)croppedSourceHeight * sourceParHeight * pictureOutputWidth);
+						(long)croppedSourceWidth * sourceParWidth * (pictureOutputHeight - totalVerticalPadding),
+						(long)croppedSourceHeight * sourceParHeight * (pictureOutputWidth - totalHorizontalPadding));
 				}
 			}
 			else
