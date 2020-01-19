@@ -1413,19 +1413,19 @@ namespace VidCoderCommon.Model
 			bool hasVerticalPadding = totalVerticalPadding > 0;
 			if (!hasHorizontalPadding && !swapDimensionsFromRotation || !hasVerticalPadding && swapDimensionsFromRotation)
 			{
-				pictureOutputWidth = roundedOutputWidth;
-				
 				// The output dimensions at this point are after rotation, so we need to swap to get the pre-rotation sizing dimensions.
 				scaleWidth = swapDimensionsFromRotation ? roundedOutputHeight : roundedOutputWidth;
 			}
 
 			if (!hasVerticalPadding && !swapDimensionsFromRotation || !hasHorizontalPadding && swapDimensionsFromRotation)
 			{
-				pictureOutputHeight = roundedOutputHeight;
-
 				// The output dimensions at this point are after rotation, so we need to swap to get the pre-rotation sizing dimensions.
 				scaleHeight = swapDimensionsFromRotation ? roundedOutputWidth : roundedOutputHeight;
 			}
+
+			// Refresh the picture output size after adjustment
+			pictureOutputWidth = roundedOutputWidth - totalHorizontalPadding;
+			pictureOutputHeight = roundedOutputHeight - totalVerticalPadding;
 
 			PAR outputPar;
 			if (profile.UseAnamorphic)
@@ -1434,14 +1434,14 @@ namespace VidCoderCommon.Model
 				if (swapDimensionsFromRotation)
 				{
 					outputPar = MathUtilities.CreatePar(
-						(long)croppedSourceHeight * sourceParHeight * (pictureOutputHeight - totalVerticalPadding),
-						(long)croppedSourceWidth * sourceParWidth * (pictureOutputWidth - totalHorizontalPadding));
+						(long)croppedSourceHeight * sourceParHeight * pictureOutputHeight,
+						(long)croppedSourceWidth * sourceParWidth * pictureOutputWidth);
 				}
 				else
 				{
 					outputPar = MathUtilities.CreatePar(
-						(long)croppedSourceWidth * sourceParWidth * (pictureOutputHeight - totalVerticalPadding),
-						(long)croppedSourceHeight * sourceParHeight * (pictureOutputWidth - totalHorizontalPadding));
+						(long)croppedSourceWidth * sourceParWidth * pictureOutputHeight,
+						(long)croppedSourceHeight * sourceParHeight * pictureOutputWidth);
 				}
 			}
 			else
