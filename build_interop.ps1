@@ -11,8 +11,8 @@ $HandBrakeInteropFolder = $HandBrakeFolder + "\HandBrake.Interop"
 $HandBrakeInteropProject = $HandBrakeInteropFolder + "\HandBrake.Interop.csproj"
 
 & $MsBuildExe $HandBrakeInteropProject /t:rebuild "/p:Configuration=Release;Platform=x64"; ExitIfFailed
-copy ($HandBrakeInteropFolder + "\bin\Release\HandBrake.Interop.dll") Lib -force
-copy ($HandBrakeInteropFolder + "\bin\Release\HandBrake.Interop.pdb") Lib -force
+copy ($HandBrakeInteropFolder + "\bin\x64\Release\netstandard2.0\HandBrake.Interop.dll") Lib -force
+copy ($HandBrakeInteropFolder + "\bin\x64\Release\netstandard2.0\HandBrake.Interop.pdb") Lib -force
 "Files copied."
 
 WriteSuccess
