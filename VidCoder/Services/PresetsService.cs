@@ -36,6 +36,8 @@ namespace VidCoder.Services
 		private PresetFolderViewModel customPresetFolder;
 		private PresetFolderViewModel builtInFolder;
 
+		private PreviewUpdateService previewUpdateService = StaticResolver.Resolve<PreviewUpdateService>();
+
 		private bool tryChangePresetDialogOpen;
 
 		/// <summary>
@@ -757,8 +759,8 @@ namespace VidCoder.Services
 		private void NotifySelectedPresetChanged()
 		{
 			this.OutputPathService.GenerateOutputFileName();
-
 			this.RaisePropertyChanged(nameof(this.SelectedPreset));
+			this.previewUpdateService.RefreshPreview();
 		}
 	}
 }

@@ -500,17 +500,7 @@ namespace VidCoder.Services
 					    DispatchUtilities.BeginInvoke(() =>
 					    {
 							this.ImageLoaded?.Invoke(this, new PreviewImageLoadInfo { PreviewImage = imageSource, PreviewIndex = previewIndex });
-						    //this.previewBitmapSource = imageSource;
-						    //this.RefreshFromBitmapImage();
 					    });
-						//if (this.SelectedPreview == imageJob.PreviewIndex)
-					 //   {
-						//    DispatchUtilities.BeginInvoke(() =>
-						//    {
-						//	    this.previewBitmapSource = imageSource;
-						//	    this.RefreshFromBitmapImage();
-						//    });
-					 //   }
 				    }
 
 				    if (this.previewImageWorkQueue.Count == 0)

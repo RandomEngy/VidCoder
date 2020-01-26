@@ -11,19 +11,19 @@ namespace VidCoder.Extensions
 		{
 			VCCropping cropping = JsonEncodeFactory.GetCropping(profile, title);
 
-			// HB doesn't expect us to give it a 0 width and height so we need to guard against that
-			int sanitizedWidth = profile.Width > 0 ? profile.Width : title.Geometry.Width - cropping.Left - cropping.Right;
-			int sanitizedHeight = profile.Height > 0 ? profile.Height : title.Geometry.Height - cropping.Top - cropping.Bottom;
+			var outputSize = JsonEncodeFactory.GetOutputSize(profile, title);
+			int width = outputSize.ScaleWidth;
+			int height = outputSize.ScaleHeight;
 
 			return new PreviewSettings
 			{
 				Anamorphic = EnumConverter.Convert<VCAnamorphic, Anamorphic>(profile.Anamorphic),
-				Cropping = JsonEncodeFactory.GetCropping(profile, title).GetHbCropping(),
-				Width = sanitizedWidth,
-				Height = sanitizedHeight,
-				MaxWidth = profile.MaxWidth,
-				MaxHeight = profile.MaxHeight,
-				KeepDisplayAspect = profile.KeepDisplayAspect,
+				Cropping = cropping.GetHbCropping(),
+				Width = width,
+				Height = height,
+				MaxWidth = width,
+				MaxHeight = height,
+				KeepDisplayAspect = true,
 				Modulus = profile.Modulus,
 				PixelAspectX = 1,
 				PixelAspectY = 1,

@@ -1228,15 +1228,32 @@ namespace VidCoderCommon.Model
 				adjustedSourceAspect = sourceAspect * sourceParWidth / sourceParHeight;
 			}
 
-			int? maxPictureWidth = null, maxPictureHeight = null;
-			if (profile.Width > 0)
-			{
-				maxPictureWidth = profile.Width;
-			}
+			bool swapDimensionsFromRotation = profile.Rotation == VCPictureRotation.Clockwise90 || profile.Rotation == VCPictureRotation.Clockwise270;
 
-			if (profile.Height > 0)
+			// When using padding fill/width/height, the dimensions we are specifying are post-rotation. We need to adjust here to give the right values to the scale filter.
+			int? maxPictureWidth = null, maxPictureHeight = null;
+			switch (profile.PaddingMode)
 			{
-				maxPictureHeight = profile.Height;
+				case VCPaddingMode.Fill:
+				case VCPaddingMode.Width:
+				case VCPaddingMode.Height:
+					maxPictureWidth = swapDimensionsFromRotation ? profile.Height : profile.Width;
+					maxPictureHeight = swapDimensionsFromRotation ? profile.Width : profile.Height;
+					break;
+				case VCPaddingMode.Custom:
+				case VCPaddingMode.None:
+				default:
+					if (profile.Width > 0)
+					{
+						maxPictureWidth = profile.Width;
+					}
+
+					if (profile.Height > 0)
+					{
+						maxPictureHeight = profile.Height;
+					}
+
+					break;
 			}
 
 			int scalingMultipleCap = profile.ScalingMode.UpscalingMultipleCap();
@@ -1281,7 +1298,6 @@ namespace VidCoderCommon.Model
 			int scaleHeight = pictureOutputHeight;
 
 			// Rotation happens before padding.
-			bool swapDimensionsFromRotation = profile.Rotation == VCPictureRotation.Clockwise90 || profile.Rotation == VCPictureRotation.Clockwise270;
 			if (swapDimensionsFromRotation)
 			{
 				int swapDimension = pictureOutputWidth;
