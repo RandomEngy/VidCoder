@@ -159,12 +159,23 @@
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Wyszukiwanie Zagranicznych Ścieżek Audio</value>
   </data>
-  
+  <data name="SubtitleFilePickerText" xml:space="preserve">
+    <value>Dodaj plik napisów</value>
+  </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Nie można wykryć kodowania napisów dialogowych. Aby upewnić się, że napisy są wyświetlane poprawnie, należy ponownie zapisać plik jako UTF-8.</value>
   </data>
-  
-  
-  
-  
+  <data name="NoSubtitlesText" xml:space="preserve">
+    <value>Nie znaleziono napisów w źródle.</value>
+  </data>
+  <data name="ExternalSubtitlesSummaryFormat" xml:space="preserve">
+    <value>{0} zewnętrzny</value>
+    <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
+  </data>
+  <data name="ImportSubtitleButton" xml:space="preserve">
+    <value>Importuj z pliku...</value>
+  </data>
+  <data name="FilePickerDescription" xml:space="preserve">
+    <value>Pliki napisów</value>
+  </data>
 </root>

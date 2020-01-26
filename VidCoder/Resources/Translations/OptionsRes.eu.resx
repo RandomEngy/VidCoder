@@ -198,7 +198,9 @@
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>Ahalbidetu norbere izena ezartzea audio bideetan (irakurgailu sostengu mugatua)</value>
   </data>
-  
+  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
+    <value>Gaitu LibDVDNav (Aldatzeak programa berrabiaraztea behar du. Beharrezkoa angelu anitz sostengatzeko)</value>
+  </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Ezabatu iturburu agiriak ongi osatutako gaiak garbitu ondoren (baieztapenarekin)</value>
   </data>
@@ -393,8 +395,16 @@
   <data name="PromptForUpdatesLabel" xml:space="preserve">
     <value>Galdetu eguneraketak:</value>
   </data>
-  
-  
-  
-  
+  <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
+    <value>Langile prozesua aukerak irten eta VidCoder berrabiarazi ondoren izango du eragina.</value>
+  </data>
+  <data name="CopyLogToCustomFolderLabel" xml:space="preserve">
+    <value>Kopiatu kodeaketa oharra norbere agiritegi batera</value>
+  </data>
+  <data name="KeepFailedFilesCheckBox" xml:space="preserve">
+    <value>Gorde huts egindako edo gelditutako kodeaketen agiriak</value>
+  </data>
+  <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
+    <value>Eragin "Egindakoan" ekintza huts egindako kodeaketa lanak daudenean</value>
+  </data>
 </root>

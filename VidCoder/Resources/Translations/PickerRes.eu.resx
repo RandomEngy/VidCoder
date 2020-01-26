@@ -302,6 +302,10 @@
   <data name="SelectTracksHelpText" xml:space="preserve">
     <value>Kakotxaz bananduta- adib. 2,5</value>
   </data>
-  
-  
+  <data name="ChapterRangeEndAutomationName" xml:space="preserve">
+    <value>Atal tartearen amaiera</value>
+  </data>
+  <data name="ChapterRangeStartAutomationName" xml:space="preserve">
+    <value>Atal tartearen hasiera</value>
+  </data>
 </root>
