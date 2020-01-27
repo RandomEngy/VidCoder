@@ -176,6 +176,7 @@ namespace VidCoder.ViewModel
 						new InterfaceLanguage { CultureCode = "pt-PT", Display = "Português / Portuguese" },
 						new InterfaceLanguage { CultureCode = "pt-BR", Display = "Português (Brasil) / Portuguese (Brazil)" },
 						new InterfaceLanguage { CultureCode = "tr-TR", Display = "Türkçe / Turkish" },
+						new InterfaceLanguage { CultureCode = "ar-EG", Display = "العربية‏ / Arabic" },
 						new InterfaceLanguage { CultureCode = "ka-GE", Display = "ქართული / Georgian" },
 						new InterfaceLanguage { CultureCode = "ru-RU", Display = "русский / Russian" },
 						new InterfaceLanguage { CultureCode = "ko-KO", Display = "한국어 / Korean" },

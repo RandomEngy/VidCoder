@@ -1,0 +1,702 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TitleLabel" xml:space="preserve">
+    <value>العنوان:</value>
+  </data>
+  <data name="AddToQueueLabel" xml:space="preserve">
+    <value>اضافة الى قائمة الانتظار</value>
+  </data>
+  <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
+    <value>اضافه عناوين متعددة الى قائمه الانتظار...</value>
+  </data>
+  <data name="OpenVideoFile" xml:space="preserve">
+    <value>فتح ملف الفلم...</value>
+  </data>
+  <data name="OpenDiscFolder" xml:space="preserve">
+    <value>افتح مجلد DVD/Blu-ray...</value>
+  </data>
+  <data name="EnqueueMultipleFiles" xml:space="preserve">
+    <value>قائمه انتظار ملفات متعددة...</value>
+  </data>
+  <data name="ToolsMenu" xml:space="preserve">
+    <value>الادوات</value>
+  </data>
+  <data name="ImportPreset" xml:space="preserve">
+    <value>استيراد الجاهز...</value>
+  </data>
+  <data name="ExportPreset" xml:space="preserve">
+    <value>استيراد الجاهز...</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>شغل</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>تحرير</value>
+  </data>
+  <data name="OpenContainingFolder" xml:space="preserve">
+    <value>فتح المجلد المحتوي</value>
+  </data>
+  <data name="ClearCompleted" xml:space="preserve">
+    <value>مسح مكتمل</value>
+  </data>
+  <data name="WindowsMenu" xml:space="preserve">
+    <value>ويندوز</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
+  </data>
+  <data name="EncodingSettingsMenuItem" xml:space="preserve">
+    <value>إعدادات التشفير</value>
+  </data>
+  <data name="PreviewMenuItem" xml:space="preserve">
+    <value>معاينة</value>
+  </data>
+  <data name="LogMenuItem" xml:space="preserve">
+    <value>سجل</value>
+  </data>
+  <data name="HelpMenu" xml:space="preserve">
+    <value>التعليمات</value>
+  </data>
+  <data name="VidCoderHomepageMenuItem" xml:space="preserve">
+    <value>صفحة VidCoder الرئيسية</value>
+  </data>
+  <data name="ReportABugMenuItem" xml:space="preserve">
+    <value>تقرير البق</value>
+  </data>
+  <data name="AboutVidCoderMenuItem" xml:space="preserve">
+    <value>حول VidCoder...</value>
+  </data>
+  <data name="ChooseVideoSourceLabel" xml:space="preserve">
+    <value>اختر مصدر الفلم:</value>
+  </data>
+  <data name="SourceLabel" xml:space="preserve">
+    <value>المصدر:</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>الاخير</value>
+  </data>
+  <data name="DragFilesHereLabel" xml:space="preserve">
+    <value>(أو سحب ملفات الفيديو أو المجلدات هنا)</value>
+  </data>
+  <data name="ScanErrorLabel" xml:space="preserve">
+    <value>حدث خطا اثناء المسح الضوئي.</value>
+  </data>
+  <data name="AddTrackButton" xml:space="preserve">
+    <value>أضافه مسار</value>
+  </data>
+  <data name="ChapterMarkersLabel" xml:space="preserve">
+    <value>علامات الفصل:</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>تحرير...</value>
+  </data>
+  <data name="DestinationLabel" xml:space="preserve">
+    <value>الوجهة:</value>
+  </data>
+  <data name="DestinationToolTip" xml:space="preserve">
+    <value>انقر لتحرير وجهة التشفير.</value>
+  </data>
+  <data name="SelectOutputPathButton" xml:space="preserve">
+    <value>حدد مسار النواتج...</value>
+  </data>
+  <data name="EncodingLabel" xml:space="preserve">
+    <value>الترميز:</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>ايقاف</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>مهلة</value>
+  </data>
+  <data name="MoveToTopMenuItem" xml:space="preserve">
+    <value>تحريك للاعلى</value>
+  </data>
+  <data name="MoveToBottomMenuItem" xml:space="preserve">
+    <value>تحريك للاسفل</value>
+  </data>
+  <data name="CustomizeColumnsMenuItem" xml:space="preserve">
+    <value>تخصيص الاعمده...</value>
+  </data>
+  <data name="CurrentFpsLabel" xml:space="preserve">
+    <value>الإطارات الحالية في الثانية:</value>
+  </data>
+  <data name="AverageFpsLabel" xml:space="preserve">
+    <value>متوسط الإطار في الثانية:</value>
+  </data>
+  <data name="PickDiscFolderHelpText" xml:space="preserve">
+    <value>اختر مجلد a DVD or Blu-ray.</value>
+  </data>
+  <data name="EncodesInProgressExitWarning" xml:space="preserve">
+    <value>هناك تشفيرات قيد التقدم. هل أنت متاكد انك تريد الخروج ؟</value>
+  </data>
+  <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
+    <value>التشفير قيد التقدم</value>
+  </data>
+  <data name="ForeignAudioSearch" xml:space="preserve">
+    <value>البحث الصوتي الخارجي</value>
+  </data>
+  <data name="NoneParen" xml:space="preserve">
+    <value>(لاشئ)</value>
+  </data>
+  <data name="TracksSummaryMultiple" xml:space="preserve">
+    <value>{0} المسارات</value>
+  </data>
+  <data name="SaveChangesPresetMessage" xml:space="preserve">
+    <value>هل تريد حفظ التغييرات على الإعدادات الجاهز الحالي ؟</value>
+  </data>
+  <data name="SaveChangesPresetTitle" xml:space="preserve">
+    <value>حفظ الجاهز الحالي ؟</value>
+  </data>
+  <data name="DiscNotInDriveError" xml:space="preserve">
+    <value>لا يمكن تحميل للتحرير. لم يعد القرص في محرك الاقراص.</value>
+  </data>
+  <data name="PresetNameRestoredFromQueue" xml:space="preserve">
+    <value>استعاده من قائمه الانتظار</value>
+  </data>
+  <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
+    <value>استعادة من المكتمل</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>جاهز:</value>
+  </data>
+  <data name="DestinationColumnHeader" xml:space="preserve">
+    <value>الوجهة</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="ElapsedTimeColumnHeader" xml:space="preserve">
+    <value>الوقت المنقضي</value>
+  </data>
+  <data name="PlayingVideoMessage" xml:space="preserve">
+    <value>تشغيل الفلم...</value>
+  </data>
+  <data name="FileDoesNotExist" xml:space="preserve">
+    <value>{0} غير موجود.</value>
+  </data>
+  <data name="AngleLabel" xml:space="preserve">
+    <value>زاوية:</value>
+  </data>
+  <data name="ChaptersSummary" xml:space="preserve">
+    <value>من{0}</value>
+  </data>
+  <data name="Queued" xml:space="preserve">
+    <value>قائمة الانتظار</value>
+  </data>
+  <data name="QueuedWithTotal" xml:space="preserve">
+    <value>قائمة الانتظار({0})</value>
+  </data>
+  <data name="CompletedWithTotal" xml:space="preserve">
+    <value>مكتمل ({0})</value>
+  </data>
+  <data name="StoppedEncoding" xml:space="preserve">
+    <value>التشفير متوقف.</value>
+  </data>
+  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
+    <value>هل تريد بالتاكيد حذف {0} ملفات المصدر/المجلدات ؟</value>
+  </data>
+  <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
+    <value>تأكيد الحذف</value>
+  </data>
+  <data name="CouldNotDeleteFile" xml:space="preserve">
+    <value>تعذر حذف {0}</value>
+  </data>
+  <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
+    <value>خطا في مسح ملفات الفلم</value>
+  </data>
+  <data name="StartedEncoding" xml:space="preserve">
+    <value>بدء التشفير.</value>
+  </data>
+  <data name="DirectoryCreateErrorMessage" xml:space="preserve">
+    <value>تعذر إنشاء مجلد الناتج. تفاصيل الخطا</value>
+  </data>
+  <data name="DirectoryCreateErrorTitle" xml:space="preserve">
+    <value>حدث خطا اثناء إنشاء المجلد</value>
+  </data>
+  <data name="EncodeCompleted" xml:space="preserve">
+    <value>التشفير مكتمل.</value>
+  </data>
+  <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
+    <value>التشفير مكتمل</value>
+  </data>
+  <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
+    <value>لقد انتهي VidCoder من كافة وظائف التشفيرفي قائمه الانتظار.</value>
+  </data>
+  <data name="OutputFolderRequiredMessage" xml:space="preserve">
+    <value>لا يمكن أضافه ترميز مهام بدون مجلد انتاج افتراضي. اضغط موافق لاختيار واحد.</value>
+  </data>
+  <data name="OutputFolderRequiredTitle" xml:space="preserve">
+    <value>مطلوب مجلد الناتج الافتراضي</value>
+  </data>
+  <data name="OutputPathNotValidMessage" xml:space="preserve">
+    <value>مسار الناتج غير صالح.</value>
+  </data>
+  <data name="OutputPathNotValidTitle" xml:space="preserve">
+    <value>المسار غير صالح</value>
+  </data>
+  <data name="Encode" xml:space="preserve">
+    <value>شفر</value>
+  </data>
+  <data name="Resume" xml:space="preserve">
+    <value>استئناف</value>
+  </data>
+  <data name="EtaLabel" xml:space="preserve">
+    <value>ETA:</value>
+  </data>
+  <data name="WhenDoneLabel" xml:space="preserve">
+    <value>عندما ينجز</value>
+  </data>
+  <data name="SourceOption_VideoFile" xml:space="preserve">
+    <value>ملف الفلم...</value>
+  </data>
+  <data name="SourceOption_DiscFolder" xml:space="preserve">
+    <value>مجلد DVD/Blu-ray...</value>
+  </data>
+  <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
+    <value>يتوفر الإصدار {0}. تم بدء تنزيل التحديث.</value>
+  </data>
+  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
+    <value>وقد انتهي الإصدار {0} من التحميل سيتم تثبيت عند الخروج.</value>
+  </data>
+  <data name="UpdateNotAppliedError" xml:space="preserve">
+    <value>لم يتم تطبيق التحديث. اذا لم تقم بإلغائه ، فحاول تثبيته يدويا.</value>
+  </data>
+  <data name="CouldNotLoadPresetMessage" xml:space="preserve">
+    <value>تعذر تحميل الجاهز: </value>
+  </data>
+  <data name="CouldNotSavePresetMessage" xml:space="preserve">
+    <value>تعذر حفظ الجاهز ' {0} ': {1} {2}</value>
+  </data>
+  <data name="CouldNotCopyTextError" xml:space="preserve">
+    <value>تعذر نسخ النص.</value>
+  </data>
+  <data name="LaunchUrlError" xml:space="preserve">
+    <value>خطا في إطلاق رابط: {0}</value>
+  </data>
+  <data name="PresetImportErrorMessage" xml:space="preserve">
+    <value>فشل استيراد الجاهز. تحقق من السجل للحصول علي التفاصيل.</value>
+  </data>
+  <data name="ImportErrorTitle" xml:space="preserve">
+    <value>خطا في الاستيراد</value>
+  </data>
+  <data name="PresetImportSuccessMessage" xml:space="preserve">
+    <value>تم استيراد {0} الجاهز بنجاح</value>
+  </data>
+  <data name="PresetExportSuccessMessage" xml:space="preserve">
+    <value>تم تصدير الجاهز بنجاح إلى {0}</value>
+  </data>
+  <data name="ExportPresetFilePickerText" xml:space="preserve">
+    <value>تصدير الجاهز</value>
+  </data>
+  <data name="SaveChangesPickerMessage" xml:space="preserve">
+    <value>هل تريد حفظ التغييرات على منتقي الحالي ؟</value>
+  </data>
+  <data name="SaveChangesPickerTitle" xml:space="preserve">
+    <value>حفظ المنتقي الحالي ؟</value>
+  </data>
+  <data name="RevertConfirmMessage" xml:space="preserve">
+    <value>هل انت متاكد، انك تريد حذف كل الفئات المحددة؟</value>
+  </data>
+  <data name="RevertConfirmTitle" xml:space="preserve">
+    <value>ارجع</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>هل تريد بالتاكيد ازاله هذا ؟</value>
+  </data>
+  <data name="RemoveConfirmTitle" xml:space="preserve">
+    <value>ازالة</value>
+  </data>
+  <data name="UserConfigCorrupted" xml:space="preserve">
+    <value>تم اتلاف التكوين وتعذر تحميله. ربما تمت اعاده تعيين بعض اعداداتك.</value>
+  </data>
+  <data name="OutputDirectoryPickerText" xml:space="preserve">
+    <value>اختر مجلد الناتج لملفات الفلم المشفر.</value>
+  </data>
+  <data name="LengthPreviewLabel" xml:space="preserve">
+    <value>({0})</value>
+  </data>
+  <data name="ModifiedAffix" xml:space="preserve">
+    <value>(معدل)</value>
+  </data>
+  <data name="PlayingVideoStatus" xml:space="preserve">
+    <value>تشغيل الفلم...</value>
+  </data>
+  <data name="OpeningFolderStatus" xml:space="preserve">
+    <value>فتح المجلد...</value>
+  </data>
+  <data name="CloseVideoSourceToolTip" xml:space="preserve">
+    <value>اغلاق مصدر الفلم</value>
+  </data>
+  <data name="CloseVideoSourceMenuItem" xml:space="preserve">
+    <value>اغلاق مصدر الفلم</value>
+  </data>
+  <data name="UpdatesMenuItem" xml:space="preserve">
+    <value>تحديثات...</value>
+  </data>
+  <data name="CbrAuto" xml:space="preserve">
+    <value>انعاش تلقائي</value>
+  </data>
+  <data name="RangeBarToolTip" xml:space="preserve">
+    <value>انقر بزر الماوس الأيمن لضبط وقت البدء وانقر بزر الماوس الأيمن لتعيين وقت الانتهاء.</value>
+  </data>
+  <data name="QueueFormat_Chapters" xml:space="preserve">
+    <value>Ch {0}</value>
+  </data>
+  <data name="QueueFormat_Frames" xml:space="preserve">
+    <value>Fr {0}-{1}</value>
+  </data>
+  <data name="QueueRangeAll" xml:space="preserve">
+    <value>الكل</value>
+  </data>
+  <data name="CouldNotCopyLogError" xml:space="preserve">
+    <value>تعذر نسخ السجل: {0} {0} {1}</value>
+  </data>
+  <data name="OpenLog" xml:space="preserve">
+    <value>فتح السجل</value>
+  </data>
+  <data name="CopyLog" xml:space="preserve">
+    <value>نسخ السجل</value>
+  </data>
+  <data name="PresetDiscardConfirmMessage" xml:space="preserve">
+    <value>لديك تغييرات غير محفوظه. هل تريد بالتاكيد تجاهل هذه التغييرات عن طريق التبديل إلى جاهز اخر ؟</value>
+  </data>
+  <data name="PresetDiscardConfirmTitle" xml:space="preserve">
+    <value>تجاهل التغييرات؟</value>
+  </data>
+  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
+    <value>ازاله مسار الصوت</value>
+  </data>
+  <data name="RemoveFromQueueToolTip" xml:space="preserve">
+    <value>ازالة من قائمه الانتظار</value>
+  </data>
+  <data name="CouldNotSaveQueueMessage" xml:space="preserve">
+    <value>تعذر حفظ قائمه الانتظار: {0} {1}</value>
+  </data>
+  <data name="ExportQueue" xml:space="preserve">
+    <value>تصدير قائمه انتظار...</value>
+  </data>
+  <data name="ExportQueueFilePickerText" xml:space="preserve">
+    <value>تصدير قائمه انتظار</value>
+  </data>
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>فشل استيراد قائمه الانتظار. تحقق من السجل للحصول على التفاصيل.</value>
+  </data>
+  <data name="ImportPresetFilePickerTitle" xml:space="preserve">
+    <value>استيراد الملف الجاهز</value>
+  </data>
+  <data name="ImportQueueFilePickerTitle" xml:space="preserve">
+    <value>استيراد الملف الجاهز</value>
+  </data>
+  <data name="ImportQueue" xml:space="preserve">
+    <value>استيراد قائمه انتظار...</value>
+  </data>
+  <data name="QueueExportSuccessMessage" xml:space="preserve">
+    <value>قائمه الانتظار التي تم تصديرها بنجاح إلى {0}</value>
+  </data>
+  <data name="QueueImportSuccessMessage" xml:space="preserve">
+    <value>تم استيراد قائمه الانتظار بنجاح.</value>
+  </data>
+  <data name="StopEncodeConfirmationTitle" xml:space="preserve">
+    <value>اوقف التشفير؟</value>
+  </data>
+  <data name="StopEncodeConfirmationMessage" xml:space="preserve">
+    <value>هل تريد بالتاكيد إيقاف التشفير؟</value>
+  </data>
+  <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
+    <value>اغلق الملف الحالي وافتح القرص ؟</value>
+  </data>
+  <data name="EncodeDetailsMenuItem" xml:space="preserve">
+    <value>تقاصيل التشفير</value>
+  </data>
+  <data name="RenameDatabaseFileLine2" xml:space="preserve">
+    <value>هل تريد أعاده تسميه الملف الموجود والبدء بواحده جديده ؟</value>
+  </data>
+  <data name="RenameDatabaseFileLine1" xml:space="preserve">
+    <value>لا يمكن قراءه الإصدار {0} ملف قاعده البيانات. الإصدار الأعلى المعترف به من قبل VidCoder {1} هو {2}</value>
+    <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
+  </data>
+  <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+    <value>ملف قاعده بيانات غير متوافق</value>
+    <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
+  </data>
+  <data name="PickerMenuItem" xml:space="preserve">
+    <value>منتقي</value>
+  </data>
+  <data name="CouldNotLoadPickerMessage" xml:space="preserve">
+    <value>تعذر تحميل المنتقي: </value>
+  </data>
+  <data name="PickerNameTemplate" xml:space="preserve">
+    <value>المنتقي {0}</value>
+    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
+  </data>
+  <data name="SimilarTitlesToolTip" xml:space="preserve">
+    <value>{0} عناوين أخرى لها مده قريبه من هذا واحد.</value>
+    <comment>{0} is the number of titles that have a similar duration.</comment>
+  </data>
+  <data name="UseBackupDatabaseLine" xml:space="preserve">
+    <value>لديك نسخه احتياطيه {0} ملف. هل ترغب في استخدامه ؟</value>
+    <comment>{0} is the version of the database file you have a backup for.</comment>
+  </data>
+  <data name="VideoPlayError" xml:space="preserve">
+    <value>حدث خطا اثناء تشغيل الفلم.</value>
+  </data>
+  <data name="CustomVideoPlayerError" xml:space="preserve">
+    <value>تعذر العثور على مشغل فلم مخصص في {0}.</value>
+    <comment>{0} is the path to the custom video player.</comment>
+  </data>
+  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
+    <value>تحذير: تم تغيير واجهة التحجيم لـ 2.0 ، لذلك قد تكون إعداداتك الجاهزة قد تغيرت. قد ترغب في تفتيشها والتأكد من انها لا تزال قيد الإعداد بشكل صحيح.</value>
+  </data>
+  <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
+    <value>مجلد قائمه انتظار ملفات الفلم...</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>كانت هناك أخطاء تفحص بعض الملفات ولم تتم اضافتها إلى قائمه الانتظار:
+
+{0}</value>
+  </data>
+  <data name="FileSizeColumnHeader" xml:space="preserve">
+    <value>حجم</value>
+    <comment>Used on the "completed encodes" tab, to label the column that shows the final output file size.</comment>
+  </data>
+  <data name="OpenAppDataFolder" xml:space="preserve">
+    <value>فتح مجلد بيانات التطبيق</value>
+    <comment>Menu choice for opening the application data folder (that holds the VidCoder database file, logs, etc)</comment>
+  </data>
+  <data name="RibbonEncodingGroupLabel" xml:space="preserve">
+    <value>الترميز</value>
+  </data>
+  <data name="RibbonSettingsGroupLabel" xml:space="preserve">
+    <value>الإعدادات</value>
+  </data>
+  <data name="GlobalOptionsLabel" xml:space="preserve">
+    <value>الخيارات العالمية</value>
+  </data>
+  <data name="EncodingSettingsButton" xml:space="preserve">
+    <value>إعدادات التشفير:{0}</value>
+    <comment>{0} is a placeholder for the name of the encoding preset currently selected.</comment>
+  </data>
+  <data name="EncodingSettingsButtonToolTip" xml:space="preserve">
+    <value>برامج تشفير الفلم و الصوت ، و التحجيم ، و الفلاتر ، و الحاويات</value>
+  </data>
+  <data name="OpenSourceRibbonButton" xml:space="preserve">
+    <value>مصدر مفتوح</value>
+  </data>
+  <data name="ImportExportRibbonButton" xml:space="preserve">
+    <value>استيراد/تصدير</value>
+    <comment>Label for ribbon button to import or export presets or queues</comment>
+  </data>
+  <data name="AddedSubtitleFromFile" xml:space="preserve">
+    <value>تمت أضافه العنوان الفرعي بنجاح من {0} الملف</value>
+  </data>
+  <data name="OpenFormat" xml:space="preserve">
+    <value>افتح {0}</value>
+    <comment>Format for opening a source. For example: "Open E:\ - THE_INCREDIBLES"</comment>
+  </data>
+  <data name="NoAudioDescription" xml:space="preserve">
+    <value>لم يتم العثور علي الصوت في المصدر.</value>
+  </data>
+  <data name="NoAudioSummary" xml:space="preserve">
+    <value>لا صوت</value>
+    <comment>Summary text for when no audio tracks are found on the source</comment>
+  </data>
+  <data name="NoSubtitlesSummary" xml:space="preserve">
+    <value>لا عناوين ثانوية</value>
+    <comment>Summary text for when no subtitle tracks are found on the source and no external subtitles have been added</comment>
+  </data>
+  <data name="DataTooOldRunVidCoderVersion" xml:space="preserve">
+    <value>بياناتك قديمه جدا للترقية. قم بتشغيل VidCoder {0} مره واحده لترقيته إلى إصدار متوافق ، ثم جرب هذا الإصدار مره أخرى.</value>
+    <comment>This is shown on app start when old data is detected.</comment>
+  </data>
+  <data name="BitrateColumn" xml:space="preserve">
+    <value>معدل البت</value>
+  </data>
+  <data name="SampleRateColumn" xml:space="preserve">
+    <value>معدل العينة</value>
+  </data>
+  <data name="ClearRecentFilesButtonToolTip" xml:space="preserve">
+    <value>مسح الملفات الأخيرة</value>
+  </data>
+  <data name="OpenSourceLabel" xml:space="preserve">
+    <value>افتح</value>
+    <comment>Label on top of the different options for opening video source on the startup screen.</comment>
+  </data>
+  <data name="ScanningSourceLabelFormat" xml:space="preserve">
+    <value>مسح ضوئي {0}...</value>
+    <comment>{0} is the name of the source being scanned.</comment>
+  </data>
+  <data name="RetryFailedItemsMenuItem" xml:space="preserve">
+    <value>أعاده محاولة كافة المهام الفاشلة</value>
+  </data>
+  <data name="StartChapterAutomationName" xml:space="preserve">
+    <value>بدء الفصل</value>
+    <comment>Narrator label for the chapter start combo box</comment>
+  </data>
+  <data name="EndChapterAutomationName" xml:space="preserve">
+    <value>إنهاء الفصل</value>
+    <comment>Narrator label for the end chapter combo box</comment>
+  </data>
+  <data name="EditChaptersButtonAutomationName" xml:space="preserve">
+    <value>تحرير الفصول</value>
+    <comment>Help text for screen readers for the Edit chapters button</comment>
+  </data>
+  <data name="ApplyCurrentEncodingSettings" xml:space="preserve">
+    <value>تطبيق إعدادات التشفير الحالية</value>
+  </data>
+  <data name="OpenSourceFolderOption" xml:space="preserve">
+    <value>افتح مجلد المصدر</value>
+    <comment>Menu option to open the folder of the source file in the queue</comment>
+  </data>
+  <data name="WithCurrentJobsFormat" xml:space="preserve">
+    <value>مع الوظائف الحالية: {0}</value>
+    <comment>Shown as options for the "When done" combo box for actions that trigger when currently encoding job(s) complete. This string is only used when there are multiple items queued.
+{0} is the encode complete action, ex "Shut down"</comment>
+  </data>
+  <data name="WithQueueFormat" xml:space="preserve">
+    <value>مع قائمه الانتظار: {0}</value>
+    <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion. This string is only used when there are multiple items queued.
+{0} is the encode complete action, ex "Shut down"</comment>
+  </data>
+  <data name="VideoEncodingOptionsToolTip" xml:space="preserve">
+    <value>خيارات تشفير الفلم</value>
+  </data>
+  <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
+    <value>خيارات تشفير الصوت</value>
+  </data>
+  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
+    <value>تم الانتهاء من تنزيل الإصدار {0}.</value>
+  </data>
+  <data name="RemoveFromQueueMenuItem" xml:space="preserve">
+    <value>أزاله من قائمه الانتظار</value>
+  </data>
+  <data name="ClearSucceededMenuItem" xml:space="preserve">
+    <value>نجاح المسح</value>
+  </data>
+  <data name="ClearFailedMenuItem" xml:space="preserve">
+    <value>فشل المسح</value>
+  </data>
+  <data name="ClearQueueConfirmationMessage" xml:space="preserve">
+    <value>هل تريد بالتاكيد أزاله كافة العناصر من قائمه الانتظار ؟</value>
+  </data>
+  <data name="RemoveAllFomQueueMenuItem" xml:space="preserve">
+    <value>أزاله الكل من قائمه الانتظار</value>
+  </data>
+  <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
+    <value>تشفير الاجراء الكامل لم يتم تنفيذه بسبب وجود أخطاء في قائمه نتائج التشفير.</value>
+  </data>
+</root>

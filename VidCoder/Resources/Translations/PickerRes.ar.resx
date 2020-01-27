@@ -118,194 +118,194 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AudioSelection" xml:space="preserve">
-    <value>Audio hautapena</value>
+    <value>اختيار الصوت</value>
   </data>
   <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Erre</value>
+    <value>حرق في</value>
   </data>
   <data name="DefaultCheckBox" xml:space="preserve">
-    <value>Berezkoa</value>
+    <value>افتراضي</value>
   </data>
   <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Beste Hizkuntzako Audio Bilaketa</value>
+    <value>البحث الصوتي الخارجي</value>
   </data>
   <data name="IncludeAllTracksRadioButton" xml:space="preserve">
-    <value>Bide guztiak</value>
+    <value>كل المسارات</value>
   </data>
   <data name="LanguagesRadioButton" xml:space="preserve">
-    <value>Hizkuntza(k)</value>
+    <value>اللغات</value>
   </data>
   <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Audiotik hizkuntza ezberdina bada bakarrik</value>
+    <value>فقط إذا بلغه مختلفه من الصوت</value>
     <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
   </data>
   <data name="SubtitleSelection" xml:space="preserve">
-    <value>Azpidatzi hautapena</value>
+    <value>إختيار عنوان ثانوي</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>Hautatzailea: {0}</value>
+    <value>المنتقي {0}</value>
   </data>
   <data name="TitleSelection" xml:space="preserve">
-    <value>Izenburu hautapena</value>
+    <value>اختيار العنوان</value>
   </data>
   <data name="PickerButtonFormat" xml:space="preserve">
-    <value>Hautatzailea: {0}</value>
+    <value>المنتقي: {0}</value>
     <comment>{0} is the name of the picker. This string shows up on the picker split button.</comment>
   </data>
   <data name="OutputLocation" xml:space="preserve">
-    <value>Irteera kokapena</value>
+    <value>موقع الناتج</value>
   </data>
   <data name="OverrideDirectoryCheckBox" xml:space="preserve">
-    <value>Ezeztatu zuzenbidea:</value>
+    <value>تجاوز المجلد:</value>
   </data>
   <data name="PickerHelpText" xml:space="preserve">
-    <value>Berezgaitasunez hautatu izenburuak, audioa, azpidatziak eta helmuga</value>
+    <value>اختيار العناوين والصوت والترجمة والوجهة تلقائيا</value>
   </data>
   <data name="AutoQueueOnScanCheckBox" xml:space="preserve">
-    <value>Berezgaitasunez lerrokatu mihatu ondoren</value>
+    <value>قائمه الانتظار تلقائيا بعد المسح الضوئي</value>
   </data>
   <data name="AutoEncodeOnScanCheckBox" xml:space="preserve">
-    <value>Hasi kodeaketa mihatu ondoren</value>
+    <value>بدء التشفير بعد المسح الضوئي</value>
   </data>
   <data name="UseGlobalSettingToolTip" xml:space="preserve">
-    <value>Erabili ezarpen orokorra</value>
+    <value>استخدام الاعداد العمومي</value>
     <comment>Label for the "indeterminate" checkbox state that lets the user know that this will fall back to the global setting</comment>
   </data>
   <data name="PresetOverrideToolTip" xml:space="preserve">
-    <value>Honek leiho nagusian hautatutako edozein aurrezarpen ezeztatuko du.</value>
+    <value>سيؤدي ذلك إلى تجاوز اي جاهز تم انتقاؤه في النافذة الرئيسية.</value>
   </data>
   <data name="EncodingSection" xml:space="preserve">
-    <value>Kodeaketa</value>
+    <value>التشفير</value>
     <comment>The header for the Encoding section in the Picker window.</comment>
   </data>
   <data name="PostEncodingSection" xml:space="preserve">
-    <value>Kodeaketa-ondoren</value>
+    <value>ما بعد-التشفير</value>
     <comment>Header for the post-encoding section in the picker window.</comment>
   </data>
   <data name="SendFileToLabel" xml:space="preserve">
-    <value>Bidali agiria hona:</value>
+    <value>ارسال الملف الى:</value>
     <comment>Label for the option to run a program after encoding each file.</comment>
   </data>
   <data name="PostEncodeArgumentsLabel" xml:space="preserve">
-    <value>Argumentuak:</value>
+    <value>الوسيطات:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
   <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>Programari igarotzeko argumentuak. Erabilai {file} agiri irteera helbururako, {folder} edukiontzi agiritegi helbururako edo beste helburu aukerak {title} eta {date} (ikusi Izendatze Heuskarria).</value>
+    <value>الحجج لتمريرها إلى البرنامج. استخدم {ملف} لمسار إخراج الملف ، {مجلد} باعتباره يحتوي على مسار المجلد أو خيارات المسار الأخرى مثل {عنوان} و {تاريخ} (راجع تسمية التسمية).</value>
     <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
   </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
-    <value>Hautatzaileak adierazi du kodeaketa aurrezarpena.</value>
+    <value>قام المنتقي بتحديد الجاهز للتشفير.</value>
   </data>
   <data name="AddLanguageButton" xml:space="preserve">
-    <value>Gehitu Hizkuntza</value>
+    <value>اضافة لغة</value>
   </data>
   <data name="AllTracksForTheseLanguagesRadioButton" xml:space="preserve">
-    <value>Bide guztiak hizkuntza hauentzat</value>
+    <value>كل المسارات لهذه اللغات</value>
   </data>
   <data name="AllTracksForThisLanguageRadioButton" xml:space="preserve">
-    <value>Bide guztiak hizkuntza honentzat</value>
+    <value>كل المسارات لهذه اللغة</value>
   </data>
   <data name="FirstTrackOfEachLanguageRadioButton" xml:space="preserve">
-    <value>Hizkuntza bakoitzeko lehen bidea</value>
+    <value>المسار الأول لكل لغة</value>
   </data>
   <data name="FirstTrackRadioButton" xml:space="preserve">
-    <value>Lehen bidea</value>
+    <value>المسار الأول</value>
   </data>
   <data name="SingleSubtitleDefaultToolTip" xml:space="preserve">
-    <value>Markatu azpidatzi bidea berezkoa bezala, hortaz berezgaitasunez erakutsiko da bideoa irakurtzerakoan.</value>
+    <value>علم، مسار العنوان الثانوي باسم افتراضي، لذا هو سيظهر آليا عند تشغيل الفلم.</value>
   </data>
   <data name="MultipleSubtitleDefaultToolTip" xml:space="preserve">
-    <value>Markatu lehen azpidatzi bidea berezkoa bezala, hortaz berezgaitasunez erakutsiko da bideoa irakurtzerakoan.</value>
+    <value>علم، مسار العنوان الثانوي الأول باسم افتراضي، لذا يظهر آليا عند تشغيل الفلم.</value>
   </data>
   <data name="FirstAsDefaultCheckBox" xml:space="preserve">
-    <value>Markatu lehena berezkoa bezala</value>
+    <value>علم أولا باسم افتراضي،</value>
     <comment>Label for checkbox to mark the first subtitle as default.</comment>
   </data>
   <data name="AllSubtitlesToolTip" xml:space="preserve">
-    <value>Barneratu azpidatzi guztiak.</value>
+    <value>تضمين كل العناوين الثانوية.</value>
   </data>
   <data name="SubtitleNoneToolTip" xml:space="preserve">
-    <value>Ez da azpidatzirik barneratu.</value>
+    <value>لا عناوين ثانوية مضمنة.</value>
   </data>
   <data name="AudioFirstToolTip" xml:space="preserve">
-    <value>Barneratu lehen audio bidea bakarrik.</value>
+    <value>تضمين المسار الصوتي الأول فقط.</value>
   </data>
   <data name="AudioAllToolTip" xml:space="preserve">
-    <value>Barneratu audio bide guztiak.</value>
+    <value>تضمين كل لمسارات الصوتية.</value>
   </data>
   <data name="SubtitleFirstToolTip" xml:space="preserve">
-    <value>Barneratu lehen azpidatzia bakarrik.</value>
+    <value>تضمين العنوان الفرعي الأول فقط.</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>Erabili aurrezarpena:</value>
+    <value>استخدام الجاهز:</value>
   </data>
   <data name="RemoveLanguageToolTip" xml:space="preserve">
-    <value>Kendu hizkuntza hau.</value>
+    <value>أزاله هذه اللغة.</value>
   </data>
   <data name="SortLanguagesLabel" xml:space="preserve">
-    <value>Antolatu hizkuntza(k) gorantz:</value>
+    <value>فرز اللغات إلى الأعلى:</value>
   </data>
   <data name="ForcedOnlyCheckBox" xml:space="preserve">
-    <value>Behartua bakarrik</value>
+    <value>إجباري فقط</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
   <data name="AudioDefaultToolTip" xml:space="preserve">
-    <value>Hautaturiko azken audio bidea hautatzen du bat etortzea aurkituz gero, bestela lehena hautatzen du.</value>
+    <value>يلتقط آخر مسار الصوت المحدد إذا تم العثور علي تطابق ، والا يختار الأول.</value>
   </data>
   <data name="LastSelectedRadioButton" xml:space="preserve">
-    <value>Hautaturiko azkena</value>
+    <value>آخر اختيار</value>
   </data>
   <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
-    <value>Hautaturiko azken azpidatzi bidea hautatzen du bat etortzea aurkituz gero, bestela biderik ez.</value>
+    <value>يلتقط مسار العنوان الثانوي المختار الأخير إذا تطابق توجد، ما عدا ذلك أو لا مسارات.</value>
     <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
   </data>
   <data name="OverrideNameFormatLabel" xml:space="preserve">
-    <value>Aukera eskuragarriak: {0}</value>
+    <value>الخيارات المتاحة: {0}</value>
   </data>
   <data name="DurationFilterStartAutomationName" xml:space="preserve">
-    <value>Iraupen iragazkiaren hasiera minutuak</value>
+    <value>دقائق بدء فلترة المدة</value>
     <comment>Screen reader text for number box that represents the start of the filter range in minutes. The number chosen in this box represents the minimum title length in minutes that will be chosen.
 </comment>
   </data>
   <data name="DurationFilterEndAutomationName" xml:space="preserve">
-    <value>Iraupen iragazkiaren amaiera minutuak</value>
+    <value>دقائق نهاية فلترة المدة</value>
     <comment>Screen reader text for number box that represents the end of the filter range in minutes. The number chosen in this box represents the maximum title length in minutes that will be chosen.
 </comment>
   </data>
   <data name="DurationFilterCheckBoxAutomationName" xml:space="preserve">
-    <value>Iragazi izenburuak iraupenez</value>
+    <value>فلترة العناوين حسب المدة</value>
     <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
   </data>
   <data name="TimeRangeSelection" xml:space="preserve">
-    <value>Denbora maila hautapena</value>
+    <value>تحديد النطاق الزمني</value>
   </data>
   <data name="SelectTimeRangeCheckBox" xml:space="preserve">
-    <value>Hautatu denbora maila</value>
+    <value>تحديد النطاق الزمني</value>
   </data>
   <data name="TitleCaptializationLabel" xml:space="preserve">
-    <value>Izenburu hizki larri-xehetzea:</value>
+    <value>عنوان الرسملة:</value>
   </data>
   <data name="TimeRangeStartAutomationName" xml:space="preserve">
-    <value>Denbora maila hasiera</value>
+    <value>بدء النطاق الزمني</value>
   </data>
   <data name="TimeRangeEndAutomationName" xml:space="preserve">
-    <value>Denbora maila amaiera</value>
+    <value>نهاية النطاق الزمني</value>
   </data>
   <data name="ByIndexRadioButton" xml:space="preserve">
-    <value>Aurkibidez</value>
+    <value>حسب الفهرس</value>
     <comment>Label for the choice to choose audio or subtitle tracks by index</comment>
   </data>
   <data name="SelectTracksLabel" xml:space="preserve">
-    <value>Hautatu bideak:</value>
+    <value>حدد المسارات:</value>
   </data>
   <data name="SelectTracksHelpText" xml:space="preserve">
-    <value>Kakotxaz bananduta- adib. 2,5</value>
+    <value>مفصولة بفواصل - على سبيل المثال. 2،5</value>
   </data>
   <data name="ChapterRangeEndAutomationName" xml:space="preserve">
-    <value>Atal tartearen amaiera</value>
+    <value>نهاية نطاق الفصل</value>
   </data>
   <data name="ChapterRangeStartAutomationName" xml:space="preserve">
-    <value>Atal tartearen hasiera</value>
+    <value>بدء نطاق الفصل</value>
   </data>
 </root>

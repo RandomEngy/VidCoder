@@ -11,6 +11,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Resources;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Automation.Peers;
@@ -73,6 +74,11 @@ namespace VidCoder.View
 		{
 			Ioc.Container.RegisterSingleton<Main>(() => this);
 			this.InitializeComponent();
+
+			if (LanguageUtilities.ShouldBeRightToLeft)
+			{
+				this.FlowDirection = System.Windows.FlowDirection.RightToLeft;
+			}
 
 			this.sourceRow.Height = new GridLength(Config.SourcePaneHeightStar, GridUnitType.Star);
 			this.queueRow.Height = new GridLength(Config.QueuePaneHeightStar, GridUnitType.Star);

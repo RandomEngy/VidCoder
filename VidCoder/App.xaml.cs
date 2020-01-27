@@ -101,10 +101,10 @@ namespace VidCoder
 			if (!string.IsNullOrWhiteSpace(interfaceLanguageCode))
 			{
 				var cultureInfo = new CultureInfo(interfaceLanguageCode);
-				Thread.CurrentThread.CurrentCulture = cultureInfo;
 				Thread.CurrentThread.CurrentUICulture = cultureInfo;
-				CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
 				CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
+				// Don't set CurrentCulture as well; we don't need to override the number/date formatting as well.
 			}
 
 			Stopwatch sw = Stopwatch.StartNew();
