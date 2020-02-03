@@ -22,7 +22,11 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <controls:ToolWindowTitleBar Title="{x:Static res:MiscRes.AddAutoPauseProcessDialogTitle}" Grid.Row="0" />
+            <controls:ToolWindowTitleBar
+                Title="{x:Static res:MiscRes.AddAutoPauseProcessDialogTitle}"
+                Grid.Row="0"
+                IsActive="{Binding IsActive,
+                                   RelativeSource={RelativeSource AncestorType=Window}}" />
             <Grid Grid.Row="1">
                 <Grid Margin="7 12 12 0" VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>

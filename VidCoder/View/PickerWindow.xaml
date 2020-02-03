@@ -38,7 +38,11 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <controls:ToolWindowTitleBar Title="{Binding WindowTitle}" Icon="/Icons/Picker.png" />
+            <controls:ToolWindowTitleBar
+                Title="{Binding WindowTitle}"
+                Icon="/Icons/Picker.png"
+                IsActive="{Binding IsActive,
+                                   RelativeSource={RelativeSource AncestorType=Window}}" />
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>

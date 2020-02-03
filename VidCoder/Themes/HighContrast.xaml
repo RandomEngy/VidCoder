@@ -7,8 +7,9 @@
 	<SolidColorBrush x:Key="ToolBarBackgroundBrush" Color="{x:Static SystemColors.WindowColor}" />
 	<SolidColorBrush x:Key="WindowBrush" Color="{x:Static SystemColors.WindowColor}" />
 	<SolidColorBrush x:Key="WindowTextBrush" Color="{x:Static SystemColors.WindowTextColor}" />
-	<SolidColorBrush x:Key="WindowBorderBrush" Color="{x:Static SystemColors.WindowColor}" />
-	<SolidColorBrush x:Key="WindowTitleBarInactiveText" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="WindowInactiveBorderBrush" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="WindowActiveBorderBrush" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="WindowTitleBarInactiveBackground" Color="{x:Static SystemColors.WindowColor}" />
 	<SolidColorBrush x:Key="SplitterBrush" Color="{x:Static SystemColors.ControlDarkColor}" />
 	<SolidColorBrush x:Key="SpecialTextBrush" Color="{x:Static SystemColors.WindowTextColor}" />
 	<SolidColorBrush x:Key="SpecialTextHighlightedBrush" Color="{x:Static SystemColors.HighlightTextColor}" />

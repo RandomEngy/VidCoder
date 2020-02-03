@@ -22,7 +22,11 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <controls:ToolWindowTitleBar Title="{x:Static res:MiscRes.ScanMultipleWindowTitle}" Grid.Row="0" />
+            <controls:ToolWindowTitleBar
+                Title="{x:Static res:MiscRes.ScanMultipleWindowTitle}"
+                Grid.Row="0"
+                IsActive="{Binding IsActive,
+                                   RelativeSource={RelativeSource AncestorType=Window}}" />
             <ProgressBar
                 Name="progressBar1"
                 Grid.Row="1"

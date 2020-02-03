@@ -484,6 +484,15 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
+				<Grid.Style>
+					<Style TargetType="Grid">
+						<Style.Triggers>
+							<DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False">
+								<Setter Property="Background" Value="{DynamicResource WindowTitleBarInactiveBackground}" />
+							</DataTrigger>
+						</Style.Triggers>
+					</Style>
+				</Grid.Style>
                 <Image
                     Grid.Column="0"
                     Width="22"
@@ -495,19 +504,10 @@
                     Margin="4 0 0 1"
                     VerticalAlignment="Center"
                     FontSize="14"
-                    Text="{Binding WindowTitle}">
-					<TextBlock.Style>
-						<Style TargetType="TextBlock">
-							<Style.Triggers>
-								<DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False">
-									<Setter Property="Foreground" Value="{DynamicResource WindowTitleBarInactiveText}" />
-								</DataTrigger>
-							</Style.Triggers>
-						</Style>
-					</TextBlock.Style>
-				</TextBlock>
+                    Text="{Binding WindowTitle}"/>
 
-                <Button
+
+				<Button
                     Grid.Column="2"
                     Click="OnMinimizeButtonClick"
                     RenderOptions.EdgeMode="Aliased"

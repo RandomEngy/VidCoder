@@ -25,7 +25,9 @@
             <controls:ToolWindowTitleBar
                 Title="{x:Static res:MiscRes.AboutVidCoderDialogTitle}"
                 Grid.Row="0"
-                Icon="/Icons/Help.png" />
+                Icon="/Icons/Help.png"
+                IsActive="{Binding IsActive,
+                                   RelativeSource={RelativeSource AncestorType=Window}}" />
 
             <Grid Grid.Row="1">
                 <Image

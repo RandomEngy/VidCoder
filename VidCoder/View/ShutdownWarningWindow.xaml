@@ -21,7 +21,11 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <controls:ToolWindowTitleBar Title="{Binding Title}" Grid.Row="0" />
+            <controls:ToolWindowTitleBar
+                Title="{Binding Title}"
+                Grid.Row="0"
+                IsActive="{Binding IsActive,
+                                   RelativeSource={RelativeSource AncestorType=Window}}" />
             <Grid Grid.Row="1">
                 <StackPanel Margin="10 10 10 51" Orientation="Vertical">
                     <TextBlock FontSize="18" Text="{x:Static Resources:MiscRes.EncodeCompleteWarning_Title}" />

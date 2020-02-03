@@ -6,8 +6,9 @@
 	<SolidColorBrush x:Key="ControlTextBrush" Color="{x:Static SystemColors.ControlTextColor}" />
 	<SolidColorBrush x:Key="WindowBrush" Color="White" />
 	<SolidColorBrush x:Key="WindowTextBrush" Color="Black" />
-	<SolidColorBrush x:Key="WindowBorderBrush" Color="White" />
-	<SolidColorBrush x:Key="WindowTitleBarInactiveText" Color="#555555" />
+	<SolidColorBrush x:Key="WindowInactiveBorderBrush" Color="#CECECE" />
+	<SolidColorBrush x:Key="WindowActiveBorderBrush" Color="White" />
+	<SolidColorBrush x:Key="WindowTitleBarInactiveBackground" Color="#CECECE" />
 	<SolidColorBrush x:Key="SplitterBrush" Color="#BCBCBC" />
 	<SolidColorBrush x:Key="SpecialTextBrush" Color="#0B4BC2" />
 	<SolidColorBrush x:Key="SpecialTextHighlightedBrush" Color="#0B4BC2" />

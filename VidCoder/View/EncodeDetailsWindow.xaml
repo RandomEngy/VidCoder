@@ -35,7 +35,11 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <controls:ToolWindowTitleBar Title="{x:Static Resources:EncodeDetailsRes.EncodeDetailsWindowTitle}" Grid.Row="0" />
+            <controls:ToolWindowTitleBar
+                Title="{x:Static Resources:EncodeDetailsRes.EncodeDetailsWindowTitle}"
+                Grid.Row="0"
+                IsActive="{Binding IsActive,
+                                   RelativeSource={RelativeSource AncestorType=Window}}" />
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="10 10 0 0" Orientation="Vertical">
                     <Grid Margin="0">

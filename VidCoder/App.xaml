@@ -188,13 +188,16 @@
                 ShadowDepth="3" />
 
             <Style x:Key="WindowMainPanelStyle" TargetType="{x:Type Border}">
-                <Setter Property="BorderBrush" Value="{DynamicResource WindowBorderBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource WindowInactiveBorderBrush}" />
                 <Setter Property="BorderThickness" Value="1" />
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=WindowState}" Value="Maximized">
+                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=WindowState}" Value="Maximized">
                         <Setter Property="Margin" Value="6" />
                     </DataTrigger>
-                </Style.Triggers>
+					<DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
+						<Setter Property="BorderBrush" Value="{DynamicResource WindowActiveBorderBrush}" />
+					</DataTrigger>
+				</Style.Triggers>
             </Style>
 
             <Grid x:Key="RedX" Background="Transparent">

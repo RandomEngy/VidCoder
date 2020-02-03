@@ -32,7 +32,9 @@
             <controls:ToolWindowTitleBar
                 Title="{x:Static res:QueueTitlesRes.QueueTitlesDialogTitle}"
                 Grid.Row="0"
-                Icon="/Icons/AddToQueue.png" />
+                Icon="/Icons/AddToQueue.png"
+                IsActive="{Binding IsActive,
+                                   RelativeSource={RelativeSource AncestorType=Window}}" />
 
             <TextBlock
                 Grid.Row="1"

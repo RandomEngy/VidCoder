@@ -8,24 +8,14 @@
     d:DesignHeight="30"
     d:DesignWidth="400"
     mc:Ignorable="d">
-    <Grid Background="{DynamicResource WindowBrush}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
+    <Grid Background="{DynamicResource WindowBrush}" Name="titleBarGrid">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="Auto" />
+		</Grid.ColumnDefinitions>
 		<StackPanel Orientation="Horizontal" Grid.Column="0">
 			<Image Name="iconImage" Width="20" Height="20" Margin="7 0 0 0" Visibility="Collapsed" />
-			<TextBlock Name="titleTextBlock"  VerticalAlignment="Center" Margin="8 0 0 0">
-				<TextBlock.Style>
-					<Style TargetType="TextBlock">
-						<Style.Triggers>
-							<DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False">
-								<Setter Property="Foreground" Value="{DynamicResource WindowTitleBarInactiveText}" />
-							</DataTrigger>
-						</Style.Triggers>
-					</Style>
-				</TextBlock.Style>
-			</TextBlock>
+			<TextBlock Name="titleTextBlock"  VerticalAlignment="Center" Margin="8 0 0 0"/>
 		</StackPanel>
         <Button
             Grid.Column="4"

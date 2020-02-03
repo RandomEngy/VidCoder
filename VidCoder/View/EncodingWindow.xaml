@@ -58,7 +58,11 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <controls:ToolWindowTitleBar Title="{Binding WindowTitle}" Icon="/Icons/Options.png" />
+            <controls:ToolWindowTitleBar
+                Title="{Binding WindowTitle}"
+                Icon="/Icons/Options.png"
+                IsActive="{Binding IsActive,
+                                   RelativeSource={RelativeSource AncestorType=Window}}" />
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition

@@ -63,7 +63,9 @@
             <controls:ToolWindowTitleBar
                 Title="{x:Static res:ChapterMarkersRes.ChapterMarkersDialogTitle}"
                 Grid.Row="0"
-                Icon="/Icons/ChapterMarkers.png" />
+                Icon="/Icons/ChapterMarkers.png"
+                IsActive="{Binding IsActive,
+                                   RelativeSource={RelativeSource AncestorType=Window}}" />
 
             <Grid Grid.Row="1">
                 <RadioButton

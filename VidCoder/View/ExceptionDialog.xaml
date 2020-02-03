@@ -21,7 +21,11 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <controls:ToolWindowTitleBar Title="{x:Static res:MiscRes.ExceptionWindowTitle}" Grid.Row="0" />
+            <controls:ToolWindowTitleBar
+                Title="{x:Static res:MiscRes.ExceptionWindowTitle}"
+                Grid.Row="0"
+                IsActive="{Binding IsActive,
+                                   RelativeSource={RelativeSource AncestorType=Window}}" />
             <Grid Grid.Row="1">
                 <Image
                     Name="errorIcon"

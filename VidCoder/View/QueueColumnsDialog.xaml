@@ -38,7 +38,11 @@
                 <RowDefinition />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <controls:ToolWindowTitleBar Title="{x:Static res:MiscRes.QueueColumnsDialogTitle}" Grid.Row="0" />
+            <controls:ToolWindowTitleBar
+                Title="{x:Static res:MiscRes.QueueColumnsDialogTitle}"
+                Grid.Row="0"
+                IsActive="{Binding IsActive,
+                                   RelativeSource={RelativeSource AncestorType=Window}}" />
             <Grid Grid.Row="1" Margin="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />

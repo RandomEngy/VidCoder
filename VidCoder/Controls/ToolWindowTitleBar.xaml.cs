@@ -83,5 +83,25 @@ namespace VidCoder.Controls
 			toolWindowTitleBar.iconImage.Source = newImageSource;
 			toolWindowTitleBar.iconImage.Visibility = Visibility.Visible;
 		}
+
+		public static readonly DependencyProperty IsActiveProperty = DependencyProperty.Register(
+			"IsActive",
+			typeof(bool),
+			typeof(ToolWindowTitleBar),
+			new PropertyMetadata(false, new PropertyChangedCallback(OnIsActiveChanged)));
+
+		public bool IsActive
+		{
+			get => (bool)GetValue(IsActiveProperty);
+			set => SetValue(IsActiveProperty, value);
+		}
+
+		private static void OnIsActiveChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+		{
+			var toolWindowTitleBar = dependencyObject as ToolWindowTitleBar;
+			bool newIsActiveValue = (bool)eventArgs.NewValue;
+
+			toolWindowTitleBar.titleBarGrid.SetResourceReference(Panel.BackgroundProperty, newIsActiveValue ? "WindowBrush" : "WindowTitleBarInactiveBackground");
+		}
 	}
 }
