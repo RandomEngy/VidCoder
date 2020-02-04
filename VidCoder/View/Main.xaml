@@ -567,7 +567,7 @@
 				CanMinimize="False"
 				IsQuickAccessToolBarVisible="False"
 				IsToolBarVisible="False">
-				<fluent:RibbonTabItem Header="Generic tab header">
+				<fluent:RibbonTabItem Header="">
 					<fluent:RibbonGroupBox>
 						<fluent:DropDownButton
 							x:Name="openSourceButton"
