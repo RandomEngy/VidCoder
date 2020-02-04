@@ -521,11 +521,28 @@ namespace VidCoder.Services.Windows
 
 		private static void OnPreviewDragOver(object sender, DragEventArgs dragEventArgs)
 		{
+			if (StaticResolver.Resolve<MainViewModel>().VideoSourceState == VideoSourceState.Scanning)
+			{
+				var data = dragEventArgs.Data as DataObject;
+				if (data != null)
+				{
+					dragEventArgs.Effects = DragDropEffects.None;
+					dragEventArgs.Handled = true;
+				}
+
+				return;
+			}
+
 			Utilities.SetDragIcon(dragEventArgs);
 		}
 
 		private static void OnPreviewDrop(object sender, DragEventArgs dragEventArgs)
 		{
+			if (StaticResolver.Resolve<MainViewModel>().VideoSourceState == VideoSourceState.Scanning)
+			{
+				return;
+			}
+
 			var data = dragEventArgs.Data as DataObject;
 			if (data != null && data.ContainsFileDropList())
 			{

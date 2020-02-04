@@ -65,6 +65,8 @@ namespace VidCoder.View
 
 		private bool tabsVisible = false;
 
+		private readonly List<IDisposable> discOpenCommands = new List<IDisposable>();
+
 		public static System.Windows.Threading.Dispatcher TheDispatcher;
 
 		public event EventHandler<RangeFocusEventArgs> RangeControlGotFocus;
@@ -538,6 +540,13 @@ namespace VidCoder.View
 
 			int insertionIndex = 2;
 
+			foreach (IDisposable oldCommand in this.discOpenCommands)
+			{
+				oldCommand.Dispose();
+			}
+
+			this.discOpenCommands.Clear();
+
 			// Add new discs
 			foreach (DriveInformation driveInfo in this.viewModel.DriveCollection)
 			{
@@ -547,10 +556,14 @@ namespace VidCoder.View
 					Tag = DiscMenuItemTag
 				};
 
-				menuItem.Click += (sender, args) =>
-				{
-					this.viewModel.SetSourceFromDvd(driveInfo);
-				};
+				ReactiveCommand<Unit, Unit> command = ReactiveCommand.Create(
+					() =>
+					{
+						this.viewModel.SetSourceFromDvd(driveInfo);
+					},
+					this.viewModel.NotScanningObservable);
+				this.discOpenCommands.Add(command);
+				menuItem.Command = command;
 
 				if (driveInfo.DiscType == DiscType.Dvd)
 				{
