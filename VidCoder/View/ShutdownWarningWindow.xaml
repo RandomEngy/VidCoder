@@ -1,52 +1,52 @@
 ﻿<Window
-    x:Class="VidCoder.View.ShutdownWarningWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Resources="clr-namespace:VidCoder.Resources"
-    xmlns:controls="clr-namespace:VidCoder.Controls"
-    Title="{Binding Title}"
-    Width="399"
-    Height="205"
-    Background="{DynamicResource AlternateBackgroundBrush}"
-    ResizeMode="NoResize"
-    Topmost="True"
-    WindowStartupLocation="CenterScreen"
-    WindowStyle="None">
-    <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="30" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
-    </WindowChrome.WindowChrome>
-    <Border Style="{StaticResource WindowMainPanelStyle}">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <controls:ToolWindowTitleBar
-                Title="{Binding Title}"
-                Grid.Row="0"
-                IsActive="{Binding IsActive,
-                                   RelativeSource={RelativeSource AncestorType=Window}}" />
-            <Grid Grid.Row="1">
-                <StackPanel Margin="10 10 10 51" Orientation="Vertical">
-                    <TextBlock FontSize="18" Text="{x:Static Resources:MiscRes.EncodeCompleteWarning_Title}" />
-                    <TextBlock
-                        Margin="0 10 0 0"
-                        FontSize="18"
-                        Text="{Binding Message}"
-                        TextWrapping="Wrap" />
-                </StackPanel>
-                <Button
-                    Width="100"
-                    Height="36"
-                    MinWidth="100"
-                    Margin="0 0 10 10"
-                    Padding="10 0"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    Command="{Binding CancelOperation}"
-                    Content="Cancel"
-                    FontSize="18" />
-            </Grid>
-        </Grid>
-    </Border>
+	x:Class="VidCoder.View.ShutdownWarningWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:Resources="clr-namespace:VidCoder.Resources"
+	xmlns:controls="clr-namespace:VidCoder.Controls"
+	Title="{Binding Title}"
+	Width="399"
+	Height="205"
+	Background="{DynamicResource AlternateBackgroundBrush}"
+	ResizeMode="NoResize"
+	Topmost="True"
+	WindowStartupLocation="CenterScreen"
+	WindowStyle="None">
+	<WindowChrome.WindowChrome>
+		<WindowChrome CaptionHeight="30" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
+	</WindowChrome.WindowChrome>
+	<Border Style="{StaticResource WindowMainPanelStyle}">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<controls:ToolWindowTitleBar
+				Title="{Binding Title}"
+				Grid.Row="0"
+				IsActive="{Binding IsActive,
+				                   RelativeSource={RelativeSource AncestorType=Window}}" />
+			<Grid Grid.Row="1">
+				<StackPanel Margin="10 10 10 51" Orientation="Vertical">
+					<TextBlock FontSize="18" Text="{x:Static Resources:MiscRes.EncodeCompleteWarning_Title}" />
+					<TextBlock
+						Margin="0 10 0 0"
+						FontSize="18"
+						Text="{Binding Message}"
+						TextWrapping="Wrap" />
+				</StackPanel>
+				<Button
+					Width="100"
+					Height="36"
+					MinWidth="100"
+					Margin="0 0 10 10"
+					Padding="10 0"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Bottom"
+					Command="{Binding CancelOperation}"
+					Content="Cancel"
+					FontSize="18" />
+			</Grid>
+		</Grid>
+	</Border>
 </Window>

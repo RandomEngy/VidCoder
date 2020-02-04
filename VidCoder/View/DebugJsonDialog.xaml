@@ -10,7 +10,18 @@
 	Height="526"
 	mc:Ignorable="d">
 	<Grid>
-		<TextBox Name="textBox" Margin="0 0 0 40" TextWrapping="Wrap" AcceptsReturn="True" />
-		<Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="OK" MinWidth="90" MinHeight="30" Margin="5" Click="OnOKClick" />
+		<TextBox
+			Name="textBox"
+			Margin="0 0 0 40"
+			AcceptsReturn="True"
+			TextWrapping="Wrap" />
+		<Button
+			MinWidth="90"
+			MinHeight="30"
+			Margin="5"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Bottom"
+			Click="OnOKClick"
+			Content="OK" />
 	</Grid>
 </Window>

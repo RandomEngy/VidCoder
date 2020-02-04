@@ -1,886 +1,886 @@
 ﻿<Window
-    x:Class="VidCoder.View.OptionsDialog"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Model="clr-namespace:VidCoder.Model"
-    xmlns:controls="clr-namespace:VidCoder.Controls"
-    xmlns:converters="clr-namespace:VidCoder.Converters"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:prop="clr-namespace:VidCoder.Properties"
-    xmlns:res="clr-namespace:VidCoder.Resources"
-    xmlns:vidCoder="clr-namespace:VidCoder"
-    xmlns:vm="clr-namespace:VidCoder.ViewModel"
-    Title="{x:Static res:OptionsRes.OptionsDialogTitle}"
-    Width="576"
-    Height="549"
-    MinWidth="450"
-    MinHeight="300"
-    d:DataContext="{d:DesignInstance vm:OptionsDialogViewModel}"
-    Closed="Window_Closed"
-    Style="{StaticResource NormalWindow}"
-    TextOptions.TextFormattingMode="Display"
-    WindowStartupLocation="CenterOwner"
-    WindowStyle="None"
-    mc:Ignorable="d">
-    <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="30" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
-    </WindowChrome.WindowChrome>
-    <Window.Resources>
-        <converters:IntVisibilityConverter x:Key="IntVisibilityConverter" />
-    </Window.Resources>
-    <Border Style="{StaticResource WindowMainPanelStyle}">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" MinWidth="130" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <controls:ToolWindowTitleBar
-                Title="{x:Static res:OptionsRes.OptionsDialogTitle}"
-                Grid.Row="0"
-                Grid.ColumnSpan="2"
-                Icon="/Icons/Options.png"
-                IsActive="{Binding IsActive,
-                                   RelativeSource={RelativeSource AncestorType=Window}}" />
+	x:Class="VidCoder.View.OptionsDialog"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:Model="clr-namespace:VidCoder.Model"
+	xmlns:controls="clr-namespace:VidCoder.Controls"
+	xmlns:converters="clr-namespace:VidCoder.Converters"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:prop="clr-namespace:VidCoder.Properties"
+	xmlns:res="clr-namespace:VidCoder.Resources"
+	xmlns:vidCoder="clr-namespace:VidCoder"
+	xmlns:vm="clr-namespace:VidCoder.ViewModel"
+	Title="{x:Static res:OptionsRes.OptionsDialogTitle}"
+	Width="576"
+	Height="549"
+	MinWidth="450"
+	MinHeight="300"
+	d:DataContext="{d:DesignInstance vm:OptionsDialogViewModel}"
+	Closed="Window_Closed"
+	Style="{StaticResource NormalWindow}"
+	TextOptions.TextFormattingMode="Display"
+	WindowStartupLocation="CenterOwner"
+	WindowStyle="None"
+	mc:Ignorable="d">
+	<WindowChrome.WindowChrome>
+		<WindowChrome CaptionHeight="30" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
+	</WindowChrome.WindowChrome>
+	<Window.Resources>
+		<converters:IntVisibilityConverter x:Key="IntVisibilityConverter" />
+	</Window.Resources>
+	<Border Style="{StaticResource WindowMainPanelStyle}">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" MinWidth="130" />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<controls:ToolWindowTitleBar
+				Title="{x:Static res:OptionsRes.OptionsDialogTitle}"
+				Grid.Row="0"
+				Grid.ColumnSpan="2"
+				Icon="/Icons/Options.png"
+				IsActive="{Binding IsActive,
+				                   RelativeSource={RelativeSource AncestorType=Window}}" />
 
-            <Grid
-                Grid.Row="1"
-                Grid.RowSpan="2"
-                Background="{DynamicResource AlternateBackgroundBrush}">
-                <ListBox
-                    Background="Transparent"
-                    BorderThickness="0"
-                    ItemsSource="{Binding Tabs}"
-                    SelectedIndex="{Binding SelectedTabIndex}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock
-                                Margin="5"
-                                FontSize="12"
-                                Text="{Binding}">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
-                                                <Setter Property="FontWeight" Value="Bold" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </Grid>
-            <Grid
-                Grid.Row="1"
-                Grid.Column="1"
-                Margin="0 0 0 0">
-                <ScrollViewer Background="{DynamicResource WindowBrush}" VerticalScrollBarVisibility="Auto">
-                    <Grid Margin="15 8 10 5">
-                        <!--  General  -->
-                        <StackPanel
-                            VerticalAlignment="Top"
-                            Orientation="Vertical"
-                            Visibility="{Binding SelectedTabIndex,
-                                                 Converter={StaticResource IntVisibilityConverter},
-                                                 ConverterParameter=0}">
+			<Grid
+				Grid.Row="1"
+				Grid.RowSpan="2"
+				Background="{DynamicResource AlternateBackgroundBrush}">
+				<ListBox
+					Background="Transparent"
+					BorderThickness="0"
+					ItemsSource="{Binding Tabs}"
+					SelectedIndex="{Binding SelectedTabIndex}">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock
+								Margin="5"
+								FontSize="12"
+								Text="{Binding}">
+								<TextBlock.Style>
+									<Style TargetType="TextBlock">
+										<Style.Triggers>
+											<DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
+												<Setter Property="FontWeight" Value="Bold" />
+											</DataTrigger>
+										</Style.Triggers>
+									</Style>
+								</TextBlock.Style>
+							</TextBlock>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</Grid>
+			<Grid
+				Grid.Row="1"
+				Grid.Column="1"
+				Margin="0 0 0 0">
+				<ScrollViewer Background="{DynamicResource WindowBrush}" VerticalScrollBarVisibility="Auto">
+					<Grid Margin="15 8 10 5">
+						<!--  General  -->
+						<StackPanel
+							VerticalAlignment="Top"
+							Orientation="Vertical"
+							Visibility="{Binding SelectedTabIndex,
+							                     Converter={StaticResource IntVisibilityConverter},
+							                     ConverterParameter=0}">
 
-                            <!--  Languages  -->
-                            <TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.GeneralSection}" />
-                            <StackPanel Style="{StaticResource ConfigSectionStack}">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock VerticalAlignment="Center" Text="{x:Static res:OptionsRes.InterfaceLanguageLabel}" />
-                                    <ComboBox
-                                        Height="23"
-                                        MinWidth="100"
-                                        Margin="6 0 0 0"
-                                        ItemsSource="{Binding LanguageChoices}"
-                                        SelectedItem="{Binding InterfaceLanguage}" />
-                                </StackPanel>
-                                <StackPanel Margin="0 6 0 0" Orientation="Horizontal">
-                                    <TextBlock VerticalAlignment="Center" Text="{x:Static res:OptionsRes.ThemeLabel}" />
-                                    <ComboBox
-                                        Height="23"
-                                        MinWidth="100"
-                                        Margin="6 0 0 0"
-                                        ItemsSource="{Binding AppThemeChoices}"
-                                        SelectedItem="{Binding AppTheme}" />
-                                </StackPanel>
-                            </StackPanel>
+							<!--  Languages  -->
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.GeneralSection}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<StackPanel Orientation="Horizontal">
+									<TextBlock VerticalAlignment="Center" Text="{x:Static res:OptionsRes.InterfaceLanguageLabel}" />
+									<ComboBox
+										Height="23"
+										MinWidth="100"
+										Margin="6 0 0 0"
+										ItemsSource="{Binding LanguageChoices}"
+										SelectedItem="{Binding InterfaceLanguage}" />
+								</StackPanel>
+								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
+									<TextBlock VerticalAlignment="Center" Text="{x:Static res:OptionsRes.ThemeLabel}" />
+									<ComboBox
+										Height="23"
+										MinWidth="100"
+										Margin="6 0 0 0"
+										ItemsSource="{Binding AppThemeChoices}"
+										SelectedItem="{Binding AppTheme}" />
+								</StackPanel>
+							</StackPanel>
 
-                            <!--  Players  -->
-                            <TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.PlayersSection}" />
-                            <StackPanel Style="{StaticResource ConfigSectionStack}">
-                                <StackPanel Orientation="Vertical" Visibility="{Binding IsRunningAsAppx, Source={x:Static vidCoder:XamlStatics.Instance}, Converter={StaticResource InverseVisibilityConverter}}">
-                                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                                        <TextBlock
-                                            VerticalAlignment="Center"
-                                            Text="{x:Static res:OptionsRes.PreferredDvdPlayerLabel}"
-                                            ToolTip="{x:Static res:OptionsRes.PreferredDvdPlayerToolTip}" />
-                                        <ComboBox
-                                            Height="23"
-                                            Margin="5 0 0 0"
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
-                                            DisplayMemberPath="Display"
-                                            ItemsSource="{Binding PlayerChoices}"
-                                            SelectedItem="{Binding SelectedPlayer}"
-                                            ToolTip="{x:Static res:OptionsRes.PreferredDvdPlayerToolTip}" />
-                                    </StackPanel>
-                                    <TextBlock Margin="0 6 0 0" Text="{x:Static res:OptionsRes.VideoFilesLabel}" />
-                                    <RadioButton
-                                        Margin="20 6 0 0"
-                                        HorizontalAlignment="Left"
-                                        Content="{x:Static res:OptionsRes.UseSystemPlayer}"
-                                        GroupName="customVideo1"
-                                        IsChecked="{Binding UseCustomVideoPlayer,
-                                                            Converter={StaticResource InverseBoolConverter}}" />
-                                    <Grid
-                                        Margin="20 6 0 0"
-                                        HorizontalAlignment="Stretch"
-                                        ToolTip="{x:Static res:OptionsRes.CustomVideoPlayerToolTip}">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-                                        <RadioButton
-                                            Margin="0 0 6 0"
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            Content="{x:Static res:OptionsRes.CustomPlayerLabel}"
-                                            GroupName="customVideo1"
-                                            IsChecked="{Binding UseCustomVideoPlayer}"
-                                            Style="{StaticResource GrayOnDisabledControl}" />
-                                        <TextBox
-                                            Grid.Column="1"
-                                            Height="22"
-                                            VerticalAlignment="Top"
-                                            VerticalContentAlignment="Center"
-                                            IsEnabled="{Binding UseCustomVideoPlayer}"
-                                            Text="{Binding CustomVideoPlayer}" />
-                                        <Button
-                                            Grid.Column="2"
-                                            Margin="6 0 0 0"
-                                            Padding="3 2"
-                                            VerticalAlignment="Center"
-                                            Command="{Binding BrowseVideoPlayer}"
-                                            Content="{x:Static res:CommonRes.Browse}"
-                                            IsEnabled="{Binding UseCustomVideoPlayer}" />
-                                    </Grid>
-                                </StackPanel>
-                                <CheckBox
-                                    Margin="0 6 0 0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    Content="{x:Static res:OptionsRes.UseBuiltInPlayerForPreviewsCheckBox}"
-                                    IsChecked="{Binding UseBuiltInPlayerForPreviews}" />
-                            </StackPanel>
+							<!--  Players  -->
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.PlayersSection}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<StackPanel Orientation="Vertical" Visibility="{Binding IsRunningAsAppx, Source={x:Static vidCoder:XamlStatics.Instance}, Converter={StaticResource InverseVisibilityConverter}}">
+									<StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+										<TextBlock
+											VerticalAlignment="Center"
+											Text="{x:Static res:OptionsRes.PreferredDvdPlayerLabel}"
+											ToolTip="{x:Static res:OptionsRes.PreferredDvdPlayerToolTip}" />
+										<ComboBox
+											Height="23"
+											Margin="5 0 0 0"
+											HorizontalAlignment="Left"
+											VerticalAlignment="Top"
+											DisplayMemberPath="Display"
+											ItemsSource="{Binding PlayerChoices}"
+											SelectedItem="{Binding SelectedPlayer}"
+											ToolTip="{x:Static res:OptionsRes.PreferredDvdPlayerToolTip}" />
+									</StackPanel>
+									<TextBlock Margin="0 6 0 0" Text="{x:Static res:OptionsRes.VideoFilesLabel}" />
+									<RadioButton
+										Margin="20 6 0 0"
+										HorizontalAlignment="Left"
+										Content="{x:Static res:OptionsRes.UseSystemPlayer}"
+										GroupName="customVideo1"
+										IsChecked="{Binding UseCustomVideoPlayer,
+										                    Converter={StaticResource InverseBoolConverter}}" />
+									<Grid
+										Margin="20 6 0 0"
+										HorizontalAlignment="Stretch"
+										ToolTip="{x:Static res:OptionsRes.CustomVideoPlayerToolTip}">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="Auto" />
+											<ColumnDefinition />
+											<ColumnDefinition Width="Auto" />
+										</Grid.ColumnDefinitions>
+										<RadioButton
+											Margin="0 0 6 0"
+											HorizontalAlignment="Left"
+											VerticalAlignment="Center"
+											Content="{x:Static res:OptionsRes.CustomPlayerLabel}"
+											GroupName="customVideo1"
+											IsChecked="{Binding UseCustomVideoPlayer}"
+											Style="{StaticResource GrayOnDisabledControl}" />
+										<TextBox
+											Grid.Column="1"
+											Height="22"
+											VerticalAlignment="Top"
+											VerticalContentAlignment="Center"
+											IsEnabled="{Binding UseCustomVideoPlayer}"
+											Text="{Binding CustomVideoPlayer}" />
+										<Button
+											Grid.Column="2"
+											Margin="6 0 0 0"
+											Padding="3 2"
+											VerticalAlignment="Center"
+											Command="{Binding BrowseVideoPlayer}"
+											Content="{x:Static res:CommonRes.Browse}"
+											IsEnabled="{Binding UseCustomVideoPlayer}" />
+									</Grid>
+								</StackPanel>
+								<CheckBox
+									Margin="0 6 0 0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									Content="{x:Static res:OptionsRes.UseBuiltInPlayerForPreviewsCheckBox}"
+									IsChecked="{Binding UseBuiltInPlayerForPreviews}" />
+							</StackPanel>
 
-                            <!--  Sounds  -->
-                            <TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.SoundSection}" />
-                            <StackPanel Style="{StaticResource ConfigSectionStack}">
-                                <CheckBox
-                                    Margin="0 0 0 4"
-                                    HorizontalAlignment="Left"
-                                    Content="{x:Static res:OptionsRes.PlaySoundOnQueueCompletionCheckBox}"
-                                    IsChecked="{Binding PlaySoundOnCompletion}" />
-                                <Grid Margin="20 0 0 0" HorizontalAlignment="Stretch">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <CheckBox
-                                        Margin="0 0 6 0"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        Content="{x:Static res:OptionsRes.UseCustomWavLabel}"
-                                        IsChecked="{Binding UseCustomCompletionSound}"
-                                        IsEnabled="{Binding PlaySoundOnCompletion}"
-                                        Style="{StaticResource GrayOnDisabledControl}" />
-                                    <TextBox
-                                        Grid.Column="1"
-                                        Height="22"
-                                        VerticalAlignment="Top"
-                                        VerticalContentAlignment="Center"
-                                        IsEnabled="{Binding UseCustomCompletionSound}"
-                                        Text="{Binding CustomCompletionSound}" />
-                                    <Button
-                                        Grid.Column="2"
-                                        Margin="6 0 0 0"
-                                        Padding="3 2"
-                                        VerticalAlignment="Center"
-                                        Command="{Binding BrowseCompletionSound}"
-                                        Content="{x:Static res:CommonRes.Browse}"
-                                        IsEnabled="{Binding UseCustomCompletionSound}" />
-                                </Grid>
-                            </StackPanel>
+							<!--  Sounds  -->
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.SoundSection}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<CheckBox
+									Margin="0 0 0 4"
+									HorizontalAlignment="Left"
+									Content="{x:Static res:OptionsRes.PlaySoundOnQueueCompletionCheckBox}"
+									IsChecked="{Binding PlaySoundOnCompletion}" />
+								<Grid Margin="20 0 0 0" HorizontalAlignment="Stretch">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition />
+										<ColumnDefinition Width="Auto" />
+									</Grid.ColumnDefinitions>
+									<CheckBox
+										Margin="0 0 6 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										Content="{x:Static res:OptionsRes.UseCustomWavLabel}"
+										IsChecked="{Binding UseCustomCompletionSound}"
+										IsEnabled="{Binding PlaySoundOnCompletion}"
+										Style="{StaticResource GrayOnDisabledControl}" />
+									<TextBox
+										Grid.Column="1"
+										Height="22"
+										VerticalAlignment="Top"
+										VerticalContentAlignment="Center"
+										IsEnabled="{Binding UseCustomCompletionSound}"
+										Text="{Binding CustomCompletionSound}" />
+									<Button
+										Grid.Column="2"
+										Margin="6 0 0 0"
+										Padding="3 2"
+										VerticalAlignment="Center"
+										Command="{Binding BrowseCompletionSound}"
+										Content="{x:Static res:CommonRes.Browse}"
+										IsEnabled="{Binding UseCustomCompletionSound}" />
+								</Grid>
+							</StackPanel>
 
-                            <!--  System tray  -->
-                            <TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.SystemTraySection}" />
-                            <StackPanel Style="{StaticResource ConfigSectionStack}">
-                                <RadioButton
-                                    Margin="0 0 0 4"
-                                    HorizontalAlignment="Left"
-                                    Content="{x:Static res:OptionsRes.MinimizeToTaskBarRadioButton}"
-                                    GroupName="minimize1"
-                                    IsChecked="{Binding MinimizeToTray,
-                                                        Converter={StaticResource InverseBoolConverter}}" />
-                                <RadioButton
-                                    HorizontalAlignment="Left"
-                                    Content="{x:Static res:OptionsRes.MinimizeToSystemTrayRadioButton}"
-                                    GroupName="minimize2"
-                                    IsChecked="{Binding MinimizeToTray}" />
-                            </StackPanel>
-                        </StackPanel>
+							<!--  System tray  -->
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.SystemTraySection}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<RadioButton
+									Margin="0 0 0 4"
+									HorizontalAlignment="Left"
+									Content="{x:Static res:OptionsRes.MinimizeToTaskBarRadioButton}"
+									GroupName="minimize1"
+									IsChecked="{Binding MinimizeToTray,
+									                    Converter={StaticResource InverseBoolConverter}}" />
+								<RadioButton
+									HorizontalAlignment="Left"
+									Content="{x:Static res:OptionsRes.MinimizeToSystemTrayRadioButton}"
+									GroupName="minimize2"
+									IsChecked="{Binding MinimizeToTray}" />
+							</StackPanel>
+						</StackPanel>
 
-                        <!--  File naming  -->
-                        <StackPanel
-                            VerticalAlignment="Top"
-                            Orientation="Vertical"
-                            Visibility="{Binding SelectedTabIndex,
-                                                 Converter={StaticResource IntVisibilityConverter},
-                                                 ConverterParameter=1}">
+						<!--  File naming  -->
+						<StackPanel
+							VerticalAlignment="Top"
+							Orientation="Vertical"
+							Visibility="{Binding SelectedTabIndex,
+							                     Converter={StaticResource IntVisibilityConverter},
+							                     ConverterParameter=1}">
 
-                            <!--  Output folder  -->
-                            <TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.OutputFolderSection}" />
-                            <StackPanel Style="{StaticResource ConfigSectionStack}">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
+							<!--  Output folder  -->
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.OutputFolderSection}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition />
+										<ColumnDefinition Width="Auto" />
+									</Grid.ColumnDefinitions>
 
-                                    <TextBlock
-                                        Grid.Column="0"
-                                        Margin="0 0 5 0"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        Text="{x:Static res:OptionsRes.DefaultFolderLabel}" />
-                                    <TextBox
-                                        Grid.Column="1"
-                                        Height="23"
-                                        VerticalAlignment="Center"
-                                        VerticalContentAlignment="Center"
-                                        Text="{Binding DefaultPath}" />
-                                    <Button
-                                        Grid.Column="2"
-                                        Height="23"
-                                        MinWidth="75"
-                                        Margin="5 0 0 0"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Top"
-                                        Command="{Binding BrowsePath}"
-                                        Content="{x:Static res:CommonRes.Browse}" />
-                                </Grid>
-                                <CheckBox
-                                    Height="16"
-                                    Margin="0 6 0 0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Top"
-                                    Content="{x:Static res:CommonRes.OutputToSourceDirCheckBox}"
-                                    IsChecked="{Binding OutputToSourceDirectory}" />
-                                <CheckBox
-                                    Height="16"
-                                    Margin="0 6 0 0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Top"
-                                    Content="{x:Static res:CommonRes.PreserveFolderStructureCheckBox}"
-                                    IsChecked="{Binding PreserveFolderStructureInBatch}"
-                                    ToolTip="{x:Static res:CommonRes.PreserveFolderStructureToolTip}" />
-                                <Grid Margin="0 6 0 0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <CheckBox
-                                        Height="16"
-                                        Margin="0 0 5 0"
-                                        VerticalAlignment="Center"
-                                        Content="{x:Static res:OptionsRes.CustomPreviewFolderCheckBox}"
-                                        IsChecked="{Binding UseCustomPreviewFolder}" />
-                                    <TextBox
-                                        Grid.Column="1"
-                                        Height="22"
-                                        VerticalContentAlignment="Center"
-                                        IsEnabled="{Binding UseCustomPreviewFolder}"
-                                        Text="{Binding PreviewOutputFolder}" />
-                                    <Button
-                                        Grid.Column="2"
-                                        Margin="6 0 0 0"
-                                        Padding="3 2"
-                                        VerticalAlignment="Center"
-                                        Command="{Binding BrowsePreviewFolder}"
-                                        Content="{x:Static res:CommonRes.Browse}"
-                                        IsEnabled="{Binding UseCustomPreviewFolder}" />
-                                </Grid>
-                            </StackPanel>
+									<TextBlock
+										Grid.Column="0"
+										Margin="0 0 5 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										Text="{x:Static res:OptionsRes.DefaultFolderLabel}" />
+									<TextBox
+										Grid.Column="1"
+										Height="23"
+										VerticalAlignment="Center"
+										VerticalContentAlignment="Center"
+										Text="{Binding DefaultPath}" />
+									<Button
+										Grid.Column="2"
+										Height="23"
+										MinWidth="75"
+										Margin="5 0 0 0"
+										HorizontalAlignment="Right"
+										VerticalAlignment="Top"
+										Command="{Binding BrowsePath}"
+										Content="{x:Static res:CommonRes.Browse}" />
+								</Grid>
+								<CheckBox
+									Height="16"
+									Margin="0 6 0 0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Top"
+									Content="{x:Static res:CommonRes.OutputToSourceDirCheckBox}"
+									IsChecked="{Binding OutputToSourceDirectory}" />
+								<CheckBox
+									Height="16"
+									Margin="0 6 0 0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Top"
+									Content="{x:Static res:CommonRes.PreserveFolderStructureCheckBox}"
+									IsChecked="{Binding PreserveFolderStructureInBatch}"
+									ToolTip="{x:Static res:CommonRes.PreserveFolderStructureToolTip}" />
+								<Grid Margin="0 6 0 0">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition />
+										<ColumnDefinition Width="Auto" />
+									</Grid.ColumnDefinitions>
+									<CheckBox
+										Height="16"
+										Margin="0 0 5 0"
+										VerticalAlignment="Center"
+										Content="{x:Static res:OptionsRes.CustomPreviewFolderCheckBox}"
+										IsChecked="{Binding UseCustomPreviewFolder}" />
+									<TextBox
+										Grid.Column="1"
+										Height="22"
+										VerticalContentAlignment="Center"
+										IsEnabled="{Binding UseCustomPreviewFolder}"
+										Text="{Binding PreviewOutputFolder}" />
+									<Button
+										Grid.Column="2"
+										Margin="6 0 0 0"
+										Padding="3 2"
+										VerticalAlignment="Center"
+										Command="{Binding BrowsePreviewFolder}"
+										Content="{x:Static res:CommonRes.Browse}"
+										IsEnabled="{Binding UseCustomPreviewFolder}" />
+								</Grid>
+							</StackPanel>
 
-                            <!--  Naming format  -->
-                            <TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.NamingFormatSection}" />
-                            <StackPanel Style="{StaticResource ConfigSectionStack}">
-                                <RadioButton
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Top"
-                                    Content="{x:Static res:OptionsRes.DefaultFormatRadioButton}"
-                                    IsChecked="{Binding CustomFormat,
-                                                        Converter={StaticResource InverseBoolConverter}}" />
-                                <RadioButton
-                                    Margin="0 6 0 0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Top"
-                                    Content="{x:Static res:OptionsRes.CustomFormatRadioButton}"
-                                    IsChecked="{Binding CustomFormat}" />
-                                <TextBox
-                                    Height="23"
-                                    Margin="0 6 0 0"
-                                    VerticalAlignment="Top"
-                                    VerticalContentAlignment="Center"
-                                    IsEnabled="{Binding CustomFormat}"
-                                    Text="{Binding CustomFormatString}" />
-                                <TextBlock
-                                    Margin="0 6 0 0"
-                                    VerticalAlignment="Top"
-                                    Text="{Binding AvailableOptionsText}"
-                                    TextWrapping="Wrap" />
-                            </StackPanel>
+							<!--  Naming format  -->
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.NamingFormatSection}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<RadioButton
+									HorizontalAlignment="Left"
+									VerticalAlignment="Top"
+									Content="{x:Static res:OptionsRes.DefaultFormatRadioButton}"
+									IsChecked="{Binding CustomFormat,
+									                    Converter={StaticResource InverseBoolConverter}}" />
+								<RadioButton
+									Margin="0 6 0 0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Top"
+									Content="{x:Static res:OptionsRes.CustomFormatRadioButton}"
+									IsChecked="{Binding CustomFormat}" />
+								<TextBox
+									Height="23"
+									Margin="0 6 0 0"
+									VerticalAlignment="Top"
+									VerticalContentAlignment="Center"
+									IsEnabled="{Binding CustomFormat}"
+									Text="{Binding CustomFormatString}" />
+								<TextBlock
+									Margin="0 6 0 0"
+									VerticalAlignment="Top"
+									Text="{Binding AvailableOptionsText}"
+									TextWrapping="Wrap" />
+							</StackPanel>
 
-                            <!--  When file exists  -->
-                            <TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.WhenFileAlreadyExists}" />
-                            <StackPanel Style="{StaticResource ConfigSectionStack}">
-                                <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="8" />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
+							<!--  When file exists  -->
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.WhenFileAlreadyExists}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="8" />
+										<ColumnDefinition />
+									</Grid.ColumnDefinitions>
 
-                                    <TextBlock
-                                        Margin="0 0 0 0"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Top"
-                                        Text="{x:Static res:OptionsRes.EncodingSingleFile}" />
-                                    <RadioButton
-                                        Height="16"
-                                        Margin="0 21 0 0"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Top"
-                                        Content="{x:Static res:OptionsRes.AskOverwriteRadioButton}"
-                                        GroupName="fileExists1"
-                                        IsChecked="{Binding WhenFileExists,
-                                                            Converter={StaticResource EnumBoolConverter},
-                                                            ConverterParameter={x:Static Model:WhenFileExists.Prompt}}" />
-                                    <RadioButton
-                                        Height="16"
-                                        Margin="0 43 0 0"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Top"
-                                        Content="{x:Static res:OptionsRes.OverwriteWithoutPromptRadioButton}"
-                                        GroupName="fileExists2"
-                                        IsChecked="{Binding WhenFileExists,
-                                                            Converter={StaticResource EnumBoolConverter},
-                                                            ConverterParameter={x:Static Model:WhenFileExists.Overwrite}}" />
-                                    <RadioButton
-                                        Height="16"
-                                        Margin="0 65 0 0"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Top"
-                                        Content="{x:Static res:OptionsRes.AutomaticallySwitchNameRadioButton}"
-                                        GroupName="fileExists3"
-                                        IsChecked="{Binding WhenFileExists,
-                                                            Converter={StaticResource EnumBoolConverter},
-                                                            ConverterParameter={x:Static Model:WhenFileExists.AutoRename}}" />
+									<TextBlock
+										Margin="0 0 0 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Top"
+										Text="{x:Static res:OptionsRes.EncodingSingleFile}" />
+									<RadioButton
+										Height="16"
+										Margin="0 21 0 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Top"
+										Content="{x:Static res:OptionsRes.AskOverwriteRadioButton}"
+										GroupName="fileExists1"
+										IsChecked="{Binding WhenFileExists,
+										                    Converter={StaticResource EnumBoolConverter},
+										                    ConverterParameter={x:Static Model:WhenFileExists.Prompt}}" />
+									<RadioButton
+										Height="16"
+										Margin="0 43 0 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Top"
+										Content="{x:Static res:OptionsRes.OverwriteWithoutPromptRadioButton}"
+										GroupName="fileExists2"
+										IsChecked="{Binding WhenFileExists,
+										                    Converter={StaticResource EnumBoolConverter},
+										                    ConverterParameter={x:Static Model:WhenFileExists.Overwrite}}" />
+									<RadioButton
+										Height="16"
+										Margin="0 65 0 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Top"
+										Content="{x:Static res:OptionsRes.AutomaticallySwitchNameRadioButton}"
+										GroupName="fileExists3"
+										IsChecked="{Binding WhenFileExists,
+										                    Converter={StaticResource EnumBoolConverter},
+										                    ConverterParameter={x:Static Model:WhenFileExists.AutoRename}}" />
 
-                                    <TextBlock
-                                        Name="textBlock2"
-                                        Grid.Column="2"
-                                        Margin="0 0 0 0"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Top"
-                                        Text="{x:Static res:OptionsRes.EncodingBatchOfFiles}" />
-                                    <RadioButton
-                                        Grid.Column="2"
-                                        Height="16"
-                                        Margin="0 21 0 0"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Top"
-                                        Content="{x:Static res:OptionsRes.OverwriteRadioButton}"
-                                        GroupName="fileExistsBatch1"
-                                        IsChecked="{Binding WhenFileExistsBatch,
-                                                            Converter={StaticResource EnumBoolConverter},
-                                                            ConverterParameter={x:Static Model:WhenFileExists.Overwrite}}" />
-                                    <RadioButton
-                                        Grid.Column="2"
-                                        Height="16"
-                                        Margin="0 43 0 0"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Top"
-                                        Content="{x:Static res:OptionsRes.AutomaticallyRenameRadioButton}"
-                                        GroupName="fileExistsBatch2"
-                                        IsChecked="{Binding WhenFileExistsBatch,
-                                                            Converter={StaticResource EnumBoolConverter},
-                                                            ConverterParameter={x:Static Model:WhenFileExists.AutoRename}}" />
-                                </Grid>
-                            </StackPanel>
-                        </StackPanel>
+									<TextBlock
+										Name="textBlock2"
+										Grid.Column="2"
+										Margin="0 0 0 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Top"
+										Text="{x:Static res:OptionsRes.EncodingBatchOfFiles}" />
+									<RadioButton
+										Grid.Column="2"
+										Height="16"
+										Margin="0 21 0 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Top"
+										Content="{x:Static res:OptionsRes.OverwriteRadioButton}"
+										GroupName="fileExistsBatch1"
+										IsChecked="{Binding WhenFileExistsBatch,
+										                    Converter={StaticResource EnumBoolConverter},
+										                    ConverterParameter={x:Static Model:WhenFileExists.Overwrite}}" />
+									<RadioButton
+										Grid.Column="2"
+										Height="16"
+										Margin="0 43 0 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Top"
+										Content="{x:Static res:OptionsRes.AutomaticallyRenameRadioButton}"
+										GroupName="fileExistsBatch2"
+										IsChecked="{Binding WhenFileExistsBatch,
+										                    Converter={StaticResource EnumBoolConverter},
+										                    ConverterParameter={x:Static Model:WhenFileExists.AutoRename}}" />
+								</Grid>
+							</StackPanel>
+						</StackPanel>
 
-                        <!--  Process  -->
-                        <StackPanel
-                            VerticalAlignment="Top"
-                            Orientation="Vertical"
-                            Visibility="{Binding SelectedTabIndex,
-                                                 Converter={StaticResource IntVisibilityConverter},
-                                                 ConverterParameter=2}">
-                            <TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.ProcessOptionsLabel}" />
-                            <StackPanel Style="{StaticResource ConfigSectionStack}">
-                                <CheckBox
-                                    Margin="0 6 0 0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    Content="{x:Static res:OptionsRes.UseWorkerProcessCheckBox}"
-                                    IsChecked="{Binding UseWorkerProcess}" />
+						<!--  Process  -->
+						<StackPanel
+							VerticalAlignment="Top"
+							Orientation="Vertical"
+							Visibility="{Binding SelectedTabIndex,
+							                     Converter={StaticResource IntVisibilityConverter},
+							                     ConverterParameter=2}">
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.ProcessOptionsLabel}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<CheckBox
+									Margin="0 6 0 0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									Content="{x:Static res:OptionsRes.UseWorkerProcessCheckBox}"
+									IsChecked="{Binding UseWorkerProcess}" />
 
-                                <StackPanel Margin="0 6 0 0" Orientation="Horizontal">
-                                    <TextBlock VerticalAlignment="Center" Text="{x:Static res:OptionsRes.WorkerProcessPriorityLabel}" />
-                                    <ComboBox
-                                        MinWidth="100"
-                                        Margin="6 0 0 0"
-                                        ItemsSource="{Binding PriorityChoices}"
-                                        SelectedValue="{Binding WorkerProcessPriority,
-                                                                Mode=TwoWay}"
-                                        SelectedValuePath="Value" />
-                                </StackPanel>
+								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
+									<TextBlock VerticalAlignment="Center" Text="{x:Static res:OptionsRes.WorkerProcessPriorityLabel}" />
+									<ComboBox
+										MinWidth="100"
+										Margin="6 0 0 0"
+										ItemsSource="{Binding PriorityChoices}"
+										SelectedValue="{Binding WorkerProcessPriority,
+										                        Mode=TwoWay}"
+										SelectedValuePath="Value" />
+								</StackPanel>
 
-                                <StackPanel
-                                    Margin="0 6 0 0"
-                                    Orientation="Horizontal"
-                                    ToolTip="{x:Static res:OptionsRes.MaxSimultaneousEncodesToolTip}">
-                                    <TextBlock VerticalAlignment="Center" Text="{x:Static res:OptionsRes.MaxSimultaneousEncodesLabel}" />
-                                    <controls:NumberBox
-                                        Width="35"
-                                        Height="23"
-                                        Margin="10 0 0 0"
-                                        VerticalAlignment="Center"
-                                        Maximum="4"
-                                        Minimum="1"
-                                        Number="{Binding MaxSimultaneousEncodes,
-                                                         Mode=TwoWay}" />
-                                </StackPanel>
+								<StackPanel
+									Margin="0 6 0 0"
+									Orientation="Horizontal"
+									ToolTip="{x:Static res:OptionsRes.MaxSimultaneousEncodesToolTip}">
+									<TextBlock VerticalAlignment="Center" Text="{x:Static res:OptionsRes.MaxSimultaneousEncodesLabel}" />
+									<controls:NumberBox
+										Width="35"
+										Height="23"
+										Margin="10 0 0 0"
+										VerticalAlignment="Center"
+										Maximum="4"
+										Minimum="1"
+										Number="{Binding MaxSimultaneousEncodes,
+										                 Mode=TwoWay}" />
+								</StackPanel>
 
-                                <Grid Margin="0 6 0 0" ToolTip="{x:Static res:OptionsRes.CpuThrottlingToolTip}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
+								<Grid Margin="0 6 0 0" ToolTip="{x:Static res:OptionsRes.CpuThrottlingToolTip}">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition />
+										<ColumnDefinition Width="Auto" />
+									</Grid.ColumnDefinitions>
 
-                                    <TextBlock Text="{x:Static res:OptionsRes.CpuThrottlingLabel}" />
-                                    <Slider
-                                        Grid.Column="1"
-                                        Margin="10 0 0 0"
-                                        HorizontalAlignment="Stretch"
-                                        Maximum="{Binding CpuThrottlingMaxCores}"
-                                        Minimum="1"
-                                        TickFrequency="1"
-                                        TickPlacement="BottomRight"
-                                        Value="{Binding CpuThrottlingCores}" />
-                                    <TextBlock
-                                        Grid.Column="2"
-                                        MinWidth="40"
-                                        Margin="6 0 0 0"
-                                        Text="{Binding CpuThrottlingDisplay}" />
-                                </Grid>
-                            </StackPanel>
+									<TextBlock Text="{x:Static res:OptionsRes.CpuThrottlingLabel}" />
+									<Slider
+										Grid.Column="1"
+										Margin="10 0 0 0"
+										HorizontalAlignment="Stretch"
+										Maximum="{Binding CpuThrottlingMaxCores}"
+										Minimum="1"
+										TickFrequency="1"
+										TickPlacement="BottomRight"
+										Value="{Binding CpuThrottlingCores}" />
+									<TextBlock
+										Grid.Column="2"
+										MinWidth="40"
+										Margin="6 0 0 0"
+										Text="{Binding CpuThrottlingDisplay}" />
+								</Grid>
+							</StackPanel>
 
-                            <TextBlock
-                                Style="{StaticResource ConfigSectionHeader}"
-                                Text="{x:Static res:OptionsRes.AutoPauseSectionLabel}"
-                                TextWrapping="Wrap" />
-                            <StackPanel Style="{StaticResource ConfigSectionStack}">
-                                <CheckBox
-                                    Margin="0 6 0 0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    Content="{x:Static res:OptionsRes.AutoPauseLowBatteryCheckbox}"
-                                    IsChecked="{Binding AutoPauseLowBattery}" />
-                                <StackPanel Margin="0 6 0 0" Orientation="Horizontal">
-                                    <CheckBox
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        Content="{x:Static res:OptionsRes.AutoPauseLowDiskSpaceCheckbox}"
-                                        IsChecked="{Binding AutoPauseLowDiskSpace}" />
+							<TextBlock
+								Style="{StaticResource ConfigSectionHeader}"
+								Text="{x:Static res:OptionsRes.AutoPauseSectionLabel}"
+								TextWrapping="Wrap" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<CheckBox
+									Margin="0 6 0 0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									Content="{x:Static res:OptionsRes.AutoPauseLowBatteryCheckbox}"
+									IsChecked="{Binding AutoPauseLowBattery}" />
+								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
+									<CheckBox
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										Content="{x:Static res:OptionsRes.AutoPauseLowDiskSpaceCheckbox}"
+										IsChecked="{Binding AutoPauseLowDiskSpace}" />
 
-                                    <controls:NumberBox
-                                        Width="45"
-                                        Height="20"
-                                        Margin="6 0 0 0"
-                                        VerticalAlignment="Center"
-                                        AllowEmpty="False"
-                                        AutomationProperties.Name="{x:Static res:OptionsRes.LowDiskSpaceThresholdAutomationName}"
-                                        IsEnabled="{Binding AutoPauseLowDiskSpace}"
-                                        Minimum="1"
-                                        Modulus="1"
-                                        Number="{Binding AutoPauseLowDiskSpaceGb,
-                                                         Mode=TwoWay}"
-                                        ShowIncrementButtons="False" />
+									<controls:NumberBox
+										Width="45"
+										Height="20"
+										Margin="6 0 0 0"
+										VerticalAlignment="Center"
+										AllowEmpty="False"
+										AutomationProperties.Name="{x:Static res:OptionsRes.LowDiskSpaceThresholdAutomationName}"
+										IsEnabled="{Binding AutoPauseLowDiskSpace}"
+										Minimum="1"
+										Modulus="1"
+										Number="{Binding AutoPauseLowDiskSpaceGb,
+										                 Mode=TwoWay}"
+										ShowIncrementButtons="False" />
 
-                                    <TextBlock
-                                        Margin="4 0 0 0"
-                                        VerticalAlignment="Center"
-                                        Text="GB" />
-                                </StackPanel>
+									<TextBlock
+										Margin="4 0 0 0"
+										VerticalAlignment="Center"
+										Text="GB" />
+								</StackPanel>
 
-                                <TextBlock Margin="0 6 0 0" Text="{x:Static res:OptionsRes.AutoPauseLabel}" />
-                                <ListBox
-                                    MinHeight="60"
-                                    Margin="0 0 0 0"
-                                    Background="{DynamicResource WindowBrush}"
-                                    ItemsSource="{Binding AutoPauseProcesses}"
-                                    SelectedItem="{Binding SelectedProcess}" />
-                                <StackPanel
-                                    Margin="0 6 0 0"
-                                    HorizontalAlignment="Left"
-                                    Orientation="Horizontal">
-                                    <Button
-                                        Height="23"
-                                        MinWidth="75"
-                                        Margin="0 0 0 0"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Top"
-                                        Command="{Binding OpenAddProcessDialog}"
-                                        Content="{x:Static res:OptionsRes.AddEllipsesButton}" />
-                                    <Button
-                                        Height="23"
-                                        MinWidth="75"
-                                        Margin="8 0 0 0"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Top"
-                                        Command="{Binding RemoveProcess}"
-                                        Content="{x:Static res:CommonRes.Remove}" />
-                                </StackPanel>
-                            </StackPanel>
-                        </StackPanel>
+								<TextBlock Margin="0 6 0 0" Text="{x:Static res:OptionsRes.AutoPauseLabel}" />
+								<ListBox
+									MinHeight="60"
+									Margin="0 0 0 0"
+									Background="{DynamicResource WindowBrush}"
+									ItemsSource="{Binding AutoPauseProcesses}"
+									SelectedItem="{Binding SelectedProcess}" />
+								<StackPanel
+									Margin="0 6 0 0"
+									HorizontalAlignment="Left"
+									Orientation="Horizontal">
+									<Button
+										Height="23"
+										MinWidth="75"
+										Margin="0 0 0 0"
+										HorizontalAlignment="Right"
+										VerticalAlignment="Top"
+										Command="{Binding OpenAddProcessDialog}"
+										Content="{x:Static res:OptionsRes.AddEllipsesButton}" />
+									<Button
+										Height="23"
+										MinWidth="75"
+										Margin="8 0 0 0"
+										HorizontalAlignment="Right"
+										VerticalAlignment="Top"
+										Command="{Binding RemoveProcess}"
+										Content="{x:Static res:CommonRes.Remove}" />
+								</StackPanel>
+							</StackPanel>
+						</StackPanel>
 
-                        <!--  Advanced  -->
-                        <StackPanel
-                            VerticalAlignment="Top"
-                            Orientation="Vertical"
-                            Visibility="{Binding SelectedTabIndex,
-                                                 Converter={StaticResource IntVisibilityConverter},
-                                                 ConverterParameter=3}">
-                            <!--  Advanced options  -->
-                            <TextBlock
-                                Style="{StaticResource ConfigSectionHeader}"
-                                Text="{x:Static res:OptionsRes.AdvancedOptionsSection}"
-                                TextWrapping="Wrap" />
-                            <StackPanel Style="{StaticResource ConfigSectionStack}">
-                                <CheckBox
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    Content="{x:Static res:OptionsRes.RememberPreviousFilesCheckBox}"
-                                    IsChecked="{Binding RememberPreviousFiles}" />
-                                <CheckBox
-                                    Margin="0 6 0 0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    Content="{x:Static res:OptionsRes.DeleteSourceAfterCompletionCheckBox}"
-                                    IsChecked="{Binding DeleteSourceFilesOnClearingCompleted}" />
-                                <CheckBox
-                                    Margin="0 6 0 0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    Content="{x:Static res:OptionsRes.PreserveModifyTimeFilesCheckBox}"
-                                    IsChecked="{Binding PreserveModifyTimeFiles}" />
-                                <CheckBox
-                                    Margin="0 6 0 0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    Content="{x:Static res:OptionsRes.ResumeEncodingOnRestartCheckBox}"
-                                    IsChecked="{Binding ResumeEncodingOnRestart}" />
-                                <CheckBox
-                                    Margin="0 6 0 0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    Content="{x:Static res:OptionsRes.KeepFailedFilesCheckBox}"
-                                    IsChecked="{Binding KeepFailedFiles}" />
-                                <CheckBox
-                                    Margin="0 6 0 0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    Content="{x:Static res:OptionsRes.TriggerWhenDoneWithFailedJobsCheckBox}"
-                                    IsChecked="{Binding TriggerEncodeCompleteActionWithErrors}" />
-                                <Grid Margin="0 6 0 0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
+						<!--  Advanced  -->
+						<StackPanel
+							VerticalAlignment="Top"
+							Orientation="Vertical"
+							Visibility="{Binding SelectedTabIndex,
+							                     Converter={StaticResource IntVisibilityConverter},
+							                     ConverterParameter=3}">
+							<!--  Advanced options  -->
+							<TextBlock
+								Style="{StaticResource ConfigSectionHeader}"
+								Text="{x:Static res:OptionsRes.AdvancedOptionsSection}"
+								TextWrapping="Wrap" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<CheckBox
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									Content="{x:Static res:OptionsRes.RememberPreviousFilesCheckBox}"
+									IsChecked="{Binding RememberPreviousFiles}" />
+								<CheckBox
+									Margin="0 6 0 0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									Content="{x:Static res:OptionsRes.DeleteSourceAfterCompletionCheckBox}"
+									IsChecked="{Binding DeleteSourceFilesOnClearingCompleted}" />
+								<CheckBox
+									Margin="0 6 0 0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									Content="{x:Static res:OptionsRes.PreserveModifyTimeFilesCheckBox}"
+									IsChecked="{Binding PreserveModifyTimeFiles}" />
+								<CheckBox
+									Margin="0 6 0 0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									Content="{x:Static res:OptionsRes.ResumeEncodingOnRestartCheckBox}"
+									IsChecked="{Binding ResumeEncodingOnRestart}" />
+								<CheckBox
+									Margin="0 6 0 0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									Content="{x:Static res:OptionsRes.KeepFailedFilesCheckBox}"
+									IsChecked="{Binding KeepFailedFiles}" />
+								<CheckBox
+									Margin="0 6 0 0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									Content="{x:Static res:OptionsRes.TriggerWhenDoneWithFailedJobsCheckBox}"
+									IsChecked="{Binding TriggerEncodeCompleteActionWithErrors}" />
+								<Grid Margin="0 6 0 0">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition />
+									</Grid.ColumnDefinitions>
 
-                                    <TextBlock
-                                        Grid.Column="0"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        Text="{x:Static res:OptionsRes.RecognizedExtensionsLabel}"
-                                        ToolTip="{x:Static res:OptionsRes.RecognizedExtensionsToolTip}" />
-                                    <TextBox
-                                        Grid.Column="1"
-                                        Height="23"
-                                        Margin="6 0 0 0"
-                                        VerticalAlignment="Center"
-                                        VerticalContentAlignment="Center"
-                                        Text="{Binding VideoFileExtensions}"
-                                        ToolTip="{x:Static res:OptionsRes.RecognizedExtensionsToolTip}" />
-                                </Grid>
-                            </StackPanel>
+									<TextBlock
+										Grid.Column="0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										Text="{x:Static res:OptionsRes.RecognizedExtensionsLabel}"
+										ToolTip="{x:Static res:OptionsRes.RecognizedExtensionsToolTip}" />
+									<TextBox
+										Grid.Column="1"
+										Height="23"
+										Margin="6 0 0 0"
+										VerticalAlignment="Center"
+										VerticalContentAlignment="Center"
+										Text="{Binding VideoFileExtensions}"
+										ToolTip="{x:Static res:OptionsRes.RecognizedExtensionsToolTip}" />
+								</Grid>
+							</StackPanel>
 
-                            <!--  Scanning  -->
-                            <TextBlock
-                                Style="{StaticResource ConfigSectionHeader}"
-                                Text="{x:Static res:OptionsRes.ScanningSection}"
-                                TextWrapping="Wrap" />
-                            <StackPanel Style="{StaticResource ConfigSectionStack}">
-                                <StackPanel
-                                    Margin="0 0 0 0"
-                                    HorizontalAlignment="Left"
-                                    Orientation="Horizontal">
-                                    <TextBlock
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        Text="{x:Static res:OptionsRes.PreviewCountLabel}" />
-                                    <ComboBox
-                                        Width="61"
-                                        Height="23"
-                                        Margin="6 0 0 0"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        SelectedValue="{Binding PreviewCount}"
-                                        SelectedValuePath="Content">
-                                        <ComboBoxItem>10</ComboBoxItem>
-                                        <ComboBoxItem>15</ComboBoxItem>
-                                        <ComboBoxItem>20</ComboBoxItem>
-                                        <ComboBoxItem>25</ComboBoxItem>
-                                        <ComboBoxItem>30</ComboBoxItem>
-                                    </ComboBox>
-                                </StackPanel>
-                                <StackPanel Margin="0 6 0 0" Orientation="Horizontal">
-                                    <TextBlock
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        Text="{x:Static res:OptionsRes.MinScanLengthLabel}" />
-                                    <controls:NumberBox
-                                        Width="45"
-                                        Height="20"
-                                        Margin="6 0 0 0"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        AllowEmpty="False"
-                                        Minimum="0"
-                                        Number="{Binding MinimumTitleLengthSeconds,
-                                                         Mode=TwoWay}" />
-                                </StackPanel>
-                            </StackPanel>
+							<!--  Scanning  -->
+							<TextBlock
+								Style="{StaticResource ConfigSectionHeader}"
+								Text="{x:Static res:OptionsRes.ScanningSection}"
+								TextWrapping="Wrap" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<StackPanel
+									Margin="0 0 0 0"
+									HorizontalAlignment="Left"
+									Orientation="Horizontal">
+									<TextBlock
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										Text="{x:Static res:OptionsRes.PreviewCountLabel}" />
+									<ComboBox
+										Width="61"
+										Height="23"
+										Margin="6 0 0 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										SelectedValue="{Binding PreviewCount}"
+										SelectedValuePath="Content">
+										<ComboBoxItem>10</ComboBoxItem>
+										<ComboBoxItem>15</ComboBoxItem>
+										<ComboBoxItem>20</ComboBoxItem>
+										<ComboBoxItem>25</ComboBoxItem>
+										<ComboBoxItem>30</ComboBoxItem>
+									</ComboBox>
+								</StackPanel>
+								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
+									<TextBlock
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										Text="{x:Static res:OptionsRes.MinScanLengthLabel}" />
+									<controls:NumberBox
+										Width="45"
+										Height="20"
+										Margin="6 0 0 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										AllowEmpty="False"
+										Minimum="0"
+										Number="{Binding MinimumTitleLengthSeconds,
+										                 Mode=TwoWay}" />
+								</StackPanel>
+							</StackPanel>
 
-                            <!--  Logging  -->
-                            <TextBlock
-                                Style="{StaticResource ConfigSectionHeader}"
-                                Text="{x:Static res:OptionsRes.LoggingSection}"
-                                TextWrapping="Wrap" />
-                            <StackPanel Style="{StaticResource ConfigSectionStack}">
-                                <StackPanel Margin="0 0 0 0" Orientation="Horizontal">
-                                    <TextBlock
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        Text="{x:Static res:OptionsRes.LoggingVerbosityLabel}" />
-                                    <ComboBox
-                                        Height="23"
-                                        MinWidth="90"
-                                        Margin="6 0 0 0"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        DisplayMemberPath="Display"
-                                        ItemsSource="{Binding LogVerbosityChoices}"
-                                        SelectedValue="{Binding LogVerbosity}"
-                                        SelectedValuePath="Value" />
-                                </StackPanel>
-                                <CheckBox
-                                    Margin="0 6 0 0"
-                                    Content="{x:Static res:OptionsRes.CopyLogToOutputFolderLabel}"
-                                    IsChecked="{Binding CopyLogToOutputFolder}" />
-                                <CheckBox
-                                    Margin="0 6 0 0"
-                                    Content="{x:Static res:OptionsRes.CopyLogToCustomFolderLabel}"
-                                    IsChecked="{Binding CopyLogToCustomFolder}" />
-                                <Grid Margin="20 6 0 0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBox
-                                        VerticalContentAlignment="Center"
-                                        IsEnabled="{Binding CopyLogToCustomFolder}"
-                                        Text="{Binding LogCustomFolder}" />
-                                    <Button
-                                        Grid.Column="1"
-                                        Margin="6 0 0 0"
-                                        Padding="6 2"
-                                        Command="{Binding PickLogCustomFolder}"
-                                        Content="{x:Static res:CommonRes.Browse}"
-                                        IsEnabled="{Binding CopyLogToCustomFolder}" />
-                                </Grid>
-                                <Button
-                                    Margin="0 8 0 0"
-                                    Padding="3"
-                                    HorizontalAlignment="Left"
-                                    Command="{Binding LogCoordinator.OpenLogFolder}"
-                                    Content="{x:Static res:OptionsRes.OpenLogFolderButton}" />
-                            </StackPanel>
+							<!--  Logging  -->
+							<TextBlock
+								Style="{StaticResource ConfigSectionHeader}"
+								Text="{x:Static res:OptionsRes.LoggingSection}"
+								TextWrapping="Wrap" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<StackPanel Margin="0 0 0 0" Orientation="Horizontal">
+									<TextBlock
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										Text="{x:Static res:OptionsRes.LoggingVerbosityLabel}" />
+									<ComboBox
+										Height="23"
+										MinWidth="90"
+										Margin="6 0 0 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										DisplayMemberPath="Display"
+										ItemsSource="{Binding LogVerbosityChoices}"
+										SelectedValue="{Binding LogVerbosity}"
+										SelectedValuePath="Value" />
+								</StackPanel>
+								<CheckBox
+									Margin="0 6 0 0"
+									Content="{x:Static res:OptionsRes.CopyLogToOutputFolderLabel}"
+									IsChecked="{Binding CopyLogToOutputFolder}" />
+								<CheckBox
+									Margin="0 6 0 0"
+									Content="{x:Static res:OptionsRes.CopyLogToCustomFolderLabel}"
+									IsChecked="{Binding CopyLogToCustomFolder}" />
+								<Grid Margin="20 6 0 0">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition />
+										<ColumnDefinition Width="Auto" />
+									</Grid.ColumnDefinitions>
+									<TextBox
+										VerticalContentAlignment="Center"
+										IsEnabled="{Binding CopyLogToCustomFolder}"
+										Text="{Binding LogCustomFolder}" />
+									<Button
+										Grid.Column="1"
+										Margin="6 0 0 0"
+										Padding="6 2"
+										Command="{Binding PickLogCustomFolder}"
+										Content="{x:Static res:CommonRes.Browse}"
+										IsEnabled="{Binding CopyLogToCustomFolder}" />
+								</Grid>
+								<Button
+									Margin="0 8 0 0"
+									Padding="3"
+									HorizontalAlignment="Left"
+									Command="{Binding LogCoordinator.OpenLogFolder}"
+									Content="{x:Static res:OptionsRes.OpenLogFolderButton}" />
+							</StackPanel>
 
-                            <!--  DVD reading  -->
-                            <TextBlock
-                                Style="{StaticResource ConfigSectionHeader}"
-                                Text="{x:Static res:OptionsRes.DvdReadingSection}"
-                                TextWrapping="Wrap" />
-                            <StackPanel Style="{StaticResource ConfigSectionStack}">
-                                <CheckBox
-                                    Margin="0 0 0 0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    Content="{x:Static res:OptionsRes.EnableLibDvdNavCheckBox}"
-                                    IsChecked="{Binding EnableLibDvdNav}" />
-                            </StackPanel>
-                        </StackPanel>
+							<!--  DVD reading  -->
+							<TextBlock
+								Style="{StaticResource ConfigSectionHeader}"
+								Text="{x:Static res:OptionsRes.DvdReadingSection}"
+								TextWrapping="Wrap" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<CheckBox
+									Margin="0 0 0 0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									Content="{x:Static res:OptionsRes.EnableLibDvdNavCheckBox}"
+									IsChecked="{Binding EnableLibDvdNav}" />
+							</StackPanel>
+						</StackPanel>
 
-                        <!--  Updates  -->
-                        <StackPanel
-                            VerticalAlignment="Top"
-                            Orientation="Vertical"
-                            Visibility="{Binding SelectedTabIndex,
-                                                 Converter={StaticResource IntVisibilityConverter},
-                                                 ConverterParameter=4}">
+						<!--  Updates  -->
+						<StackPanel
+							VerticalAlignment="Top"
+							Orientation="Vertical"
+							Visibility="{Binding SelectedTabIndex,
+							                     Converter={StaticResource IntVisibilityConverter},
+							                     ConverterParameter=4}">
 
-                            <!--  Updates  -->
-                            <TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.UpdatesSection}" />
-                            <StackPanel Style="{StaticResource ConfigSectionStack}">
-                                <TextBlock Margin="0 0 0 6" Text="{Binding CurrentVersion}" />
-                                <StackPanel
-                                    Margin="0 0 0 6"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Top"
-                                    Orientation="Horizontal">
-                                    <CheckBox
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        Content="{x:Static res:OptionsRes.AutomaticUpdatesCheckBox}"
-                                        IsChecked="{Binding UpdatesEnabledConfig}" />
-                                    <TextBlock
-                                        Name="promptForUpdatesLabel"
-                                        Margin="16 0 0 0"
-                                        VerticalAlignment="Center"
-                                        Text="{x:Static res:OptionsRes.PromptForUpdatesLabel}"
-                                        Visibility="{Binding UpdatesEnabledConfig,
-                                                             Converter={StaticResource VisibilityConverter}}" />
-                                    <ComboBox
-                                        Margin="6 0 0 0"
-                                        VerticalAlignment="Center"
-                                        AutomationProperties.LabeledBy="{Binding ElementName=promptForUpdatesLabel}"
-                                        DisplayMemberPath="Display"
-                                        ItemsSource="{Binding UpdatePromptTimingChoices}"
-                                        SelectedValue="{Binding UpdatePromptTiming}"
-                                        SelectedValuePath="Value"
-                                        Visibility="{Binding UpdatesEnabledConfig,
-                                                             Converter={StaticResource VisibilityConverter}}" />
-                                </StackPanel>
+							<!--  Updates  -->
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.UpdatesSection}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<TextBlock Margin="0 0 0 6" Text="{Binding CurrentVersion}" />
+								<StackPanel
+									Margin="0 0 0 6"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Top"
+									Orientation="Horizontal">
+									<CheckBox
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										Content="{x:Static res:OptionsRes.AutomaticUpdatesCheckBox}"
+										IsChecked="{Binding UpdatesEnabledConfig}" />
+									<TextBlock
+										Name="promptForUpdatesLabel"
+										Margin="16 0 0 0"
+										VerticalAlignment="Center"
+										Text="{x:Static res:OptionsRes.PromptForUpdatesLabel}"
+										Visibility="{Binding UpdatesEnabledConfig,
+										                     Converter={StaticResource VisibilityConverter}}" />
+									<ComboBox
+										Margin="6 0 0 0"
+										VerticalAlignment="Center"
+										AutomationProperties.LabeledBy="{Binding ElementName=promptForUpdatesLabel}"
+										DisplayMemberPath="Display"
+										ItemsSource="{Binding UpdatePromptTimingChoices}"
+										SelectedValue="{Binding UpdatePromptTiming}"
+										SelectedValuePath="Value"
+										Visibility="{Binding UpdatesEnabledConfig,
+										                     Converter={StaticResource VisibilityConverter}}" />
+								</StackPanel>
 
-                                <Button
-                                    Padding="3"
-                                    HorizontalAlignment="Left"
-                                    Command="{Binding CheckUpdate}"
-                                    Content="{x:Static res:OptionsRes.CheckNowButton}"
-                                    Visibility="{Binding UpdatesEnabledConfig,
-                                                         Converter={StaticResource VisibilityConverter}}" />
-                            </StackPanel>
+								<Button
+									Padding="3"
+									HorizontalAlignment="Left"
+									Command="{Binding CheckUpdate}"
+									Content="{x:Static res:OptionsRes.CheckNowButton}"
+									Visibility="{Binding UpdatesEnabledConfig,
+									                     Converter={StaticResource VisibilityConverter}}" />
+							</StackPanel>
 
-                            <!--  Status  -->
-                            <TextBlock
-                                Style="{StaticResource ConfigSectionHeader}"
-                                Text="{x:Static res:OptionsRes.UpdateStatusSection}"
-                                Visibility="{Binding UpdatesEnabledConfig,
-                                                     Converter={StaticResource VisibilityConverter}}" />
-                            <StackPanel Style="{StaticResource ConfigSectionStack}" Visibility="{Binding UpdatesEnabledConfig, Converter={StaticResource VisibilityConverter}}">
-                                <TextBlock Margin="0 0 0 3" Text="{Binding UpdateStatus}" />
-                                <ProgressBar
-                                    Grid.Column="1"
-                                    Height="20"
-                                    Margin="0 0 0 0"
-                                    Visibility="{Binding UpdateDownloading,
-                                                         Converter={StaticResource VisibilityConverter}}"
-                                    Value="{Binding UpdateProgressPercent,
-                                                    Mode=OneWay}" />
-                            </StackPanel>
+							<!--  Status  -->
+							<TextBlock
+								Style="{StaticResource ConfigSectionHeader}"
+								Text="{x:Static res:OptionsRes.UpdateStatusSection}"
+								Visibility="{Binding UpdatesEnabledConfig,
+								                     Converter={StaticResource VisibilityConverter}}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}" Visibility="{Binding UpdatesEnabledConfig, Converter={StaticResource VisibilityConverter}}">
+								<TextBlock Margin="0 0 0 3" Text="{Binding UpdateStatus}" />
+								<ProgressBar
+									Grid.Column="1"
+									Height="20"
+									Margin="0 0 0 0"
+									Visibility="{Binding UpdateDownloading,
+									                     Converter={StaticResource VisibilityConverter}}"
+									Value="{Binding UpdateProgressPercent,
+									                Mode=OneWay}" />
+							</StackPanel>
 
-                            <!--  Beta  -->
-                            <TextBlock
-                                Style="{StaticResource ConfigSectionHeader}"
-                                Text="{x:Static res:OptionsRes.BetaSection}"
-                                Visibility="{Binding BetaSectionVisible,
-                                                     Converter={StaticResource VisibilityConverter}}" />
-                            <StackPanel Style="{StaticResource ConfigSectionStack}" Visibility="{Binding BetaSectionVisible, Converter={StaticResource VisibilityConverter}}">
-                                <TextBlock TextWrapping="Wrap" Visibility="{Binding IsBeta, Source={x:Static vidCoder:XamlStatics.Instance}, Converter={StaticResource InverseVisibilityConverter}}">
-                                    <Hyperlink NavigateUri="{Binding BetaChangelogUrl}" RequestNavigate="Hyperlink_OnRequestNavigate">
-                                        <TextBlock Text="{x:Static res:OptionsRes.BetaUpdatesNonBeta}" />
-                                    </Hyperlink>
-                                </TextBlock>
-                                <TextBlock
-                                    Text="{x:Static res:OptionsRes.BetaUpdatesNonBetaWarning}"
-                                    TextWrapping="Wrap"
-                                    Visibility="{Binding IsBeta,
-                                                         Source={x:Static vidCoder:XamlStatics.Instance},
-                                                         Converter={StaticResource InverseVisibilityConverter}}" />
-                                <TextBlock
-                                    Text="{x:Static res:OptionsRes.BetaUpdatesInBeta}"
-                                    TextWrapping="Wrap"
-                                    Visibility="{Binding IsBeta,
-                                                         Source={x:Static vidCoder:XamlStatics.Instance},
-                                                         Converter={StaticResource VisibilityConverter}}" />
-                            </StackPanel>
-                        </StackPanel>
-                    </Grid>
-                </ScrollViewer>
-            </Grid>
+							<!--  Beta  -->
+							<TextBlock
+								Style="{StaticResource ConfigSectionHeader}"
+								Text="{x:Static res:OptionsRes.BetaSection}"
+								Visibility="{Binding BetaSectionVisible,
+								                     Converter={StaticResource VisibilityConverter}}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}" Visibility="{Binding BetaSectionVisible, Converter={StaticResource VisibilityConverter}}">
+								<TextBlock TextWrapping="Wrap" Visibility="{Binding IsBeta, Source={x:Static vidCoder:XamlStatics.Instance}, Converter={StaticResource InverseVisibilityConverter}}">
+									<Hyperlink NavigateUri="{Binding BetaChangelogUrl}" RequestNavigate="Hyperlink_OnRequestNavigate">
+										<TextBlock Text="{x:Static res:OptionsRes.BetaUpdatesNonBeta}" />
+									</Hyperlink>
+								</TextBlock>
+								<TextBlock
+									Text="{x:Static res:OptionsRes.BetaUpdatesNonBetaWarning}"
+									TextWrapping="Wrap"
+									Visibility="{Binding IsBeta,
+									                     Source={x:Static vidCoder:XamlStatics.Instance},
+									                     Converter={StaticResource InverseVisibilityConverter}}" />
+								<TextBlock
+									Text="{x:Static res:OptionsRes.BetaUpdatesInBeta}"
+									TextWrapping="Wrap"
+									Visibility="{Binding IsBeta,
+									                     Source={x:Static vidCoder:XamlStatics.Instance},
+									                     Converter={StaticResource VisibilityConverter}}" />
+							</StackPanel>
+						</StackPanel>
+					</Grid>
+				</ScrollViewer>
+			</Grid>
 
-            <StackPanel
-                Grid.Row="2"
-                Grid.Column="1"
-                Margin="0 6 6 6"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Orientation="Horizontal">
-                <Button
-                    Height="23"
-                    MinWidth="75"
-                    Margin="0 0 6 0"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    Command="{Binding SaveSettings}"
-                    Content="{x:Static res:CommonRes.Ok}"
-                    IsDefault="True" />
-                <Button
-                    Height="23"
-                    MinWidth="75"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    Command="{Binding Cancel}"
-                    Content="{x:Static res:CommonRes.Cancel}"
-                    IsCancel="True" />
-            </StackPanel>
-        </Grid>
-    </Border>
+			<StackPanel
+				Grid.Row="2"
+				Grid.Column="1"
+				Margin="0 6 6 6"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Bottom"
+				Orientation="Horizontal">
+				<Button
+					Height="23"
+					MinWidth="75"
+					Margin="0 0 6 0"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Bottom"
+					Command="{Binding SaveSettings}"
+					Content="{x:Static res:CommonRes.Ok}"
+					IsDefault="True" />
+				<Button
+					Height="23"
+					MinWidth="75"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Bottom"
+					Command="{Binding Cancel}"
+					Content="{x:Static res:CommonRes.Cancel}"
+					IsCancel="True" />
+			</StackPanel>
+		</Grid>
+	</Border>
 </Window>

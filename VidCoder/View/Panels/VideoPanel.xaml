@@ -246,13 +246,13 @@
 							Margin="8 0 0 0"
 							HorizontalAlignment="Left"
 							VerticalAlignment="Center"
-							Modulus="0.1"
 							AllowEmpty="False"
 							AutomationProperties.Name="{x:Static res:EncodingRes.TargetSizeRadioButton}"
 							IsEnabled="{Binding VideoEncodeRateType,
 							                    Converter={StaticResource EnumBoolConverter},
 							                    ConverterParameter={x:Static model:VCVideoEncodeRateType.TargetSize}}"
 							Minimum="0"
+							Modulus="0.1"
 							Number="{Binding TargetSize,
 							                 Mode=TwoWay}"
 							ShowIncrementButtons="False"

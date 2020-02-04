@@ -1,213 +1,213 @@
 ﻿<Window
-    x:Class="VidCoder.View.QueueTitlesWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:VidCoder.Controls"
-    xmlns:fluent="urn:fluent-ribbon"
-    xmlns:local="clr-namespace:VidCoder"
-    xmlns:prop="clr-namespace:VidCoder.Properties"
-    xmlns:res="clr-namespace:VidCoder.Resources"
-    Title="{x:Static res:QueueTitlesRes.QueueTitlesDialogTitle}"
-    Width="550"
-    Height="464"
-    MinWidth="295"
-    MinHeight="220"
-    ShowInTaskbar="False"
-    Style="{StaticResource NormalWindow}"
-    TextOptions.TextFormattingMode="Display"
-    WindowStartupLocation="CenterOwner"
-    WindowStyle="None">
-    <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="30" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
-    </WindowChrome.WindowChrome>
-    <Border Style="{StaticResource WindowMainPanelStyle}">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <controls:ToolWindowTitleBar
-                Title="{x:Static res:QueueTitlesRes.QueueTitlesDialogTitle}"
-                Grid.Row="0"
-                Icon="/Icons/AddToQueue.png"
-                IsActive="{Binding IsActive,
-                                   RelativeSource={RelativeSource AncestorType=Window}}" />
+	x:Class="VidCoder.View.QueueTitlesWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:controls="clr-namespace:VidCoder.Controls"
+	xmlns:fluent="urn:fluent-ribbon"
+	xmlns:local="clr-namespace:VidCoder"
+	xmlns:prop="clr-namespace:VidCoder.Properties"
+	xmlns:res="clr-namespace:VidCoder.Resources"
+	Title="{x:Static res:QueueTitlesRes.QueueTitlesDialogTitle}"
+	Width="550"
+	Height="464"
+	MinWidth="295"
+	MinHeight="220"
+	ShowInTaskbar="False"
+	Style="{StaticResource NormalWindow}"
+	TextOptions.TextFormattingMode="Display"
+	WindowStartupLocation="CenterOwner"
+	WindowStyle="None">
+	<WindowChrome.WindowChrome>
+		<WindowChrome CaptionHeight="30" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
+	</WindowChrome.WindowChrome>
+	<Border Style="{StaticResource WindowMainPanelStyle}">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<controls:ToolWindowTitleBar
+				Title="{x:Static res:QueueTitlesRes.QueueTitlesDialogTitle}"
+				Grid.Row="0"
+				Icon="/Icons/AddToQueue.png"
+				IsActive="{Binding IsActive,
+				                   RelativeSource={RelativeSource AncestorType=Window}}" />
 
-            <TextBlock
-                Grid.Row="1"
-                Margin="15 6 0 0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Text="{x:Static res:QueueTitlesRes.QueueTitlesWindowHeader}" />
+			<TextBlock
+				Grid.Row="1"
+				Margin="15 6 0 0"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Top"
+				Text="{x:Static res:QueueTitlesRes.QueueTitlesWindowHeader}" />
 
-            <Grid Grid.Row="2" Margin="15 10 15 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+			<Grid Grid.Row="2" Margin="15 10 15 0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
 
-                <ListView
-                    Grid.Column="0"
-                    Width="188"
-                    HorizontalAlignment="Left"
-                    local:MultiSelectorBehaviors.SynchronizedSelectedItems="{Binding SelectedTitles}"
-                    Background="{DynamicResource WindowBrush}"
-                    ItemsSource="{Binding Titles}"
-                    SelectionMode="Extended">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <CheckBox VerticalAlignment="Center" IsChecked="{Binding Selected}" />
-                                <TextBlock
-                                    Margin="8 0 0 0"
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource TextBlockBaseStyle}"
-                                    Text="{Binding Text}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <Grid Grid.Column="1" Visibility="{Binding TitleDetailsVisible, Converter={StaticResource VisibilityConverter}}">
-                    <TextBlock
-                        Margin="16 0 0 0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        FontSize="16"
-                        Text="{Binding TitleText}" />
+				<ListView
+					Grid.Column="0"
+					Width="188"
+					HorizontalAlignment="Left"
+					local:MultiSelectorBehaviors.SynchronizedSelectedItems="{Binding SelectedTitles}"
+					Background="{DynamicResource WindowBrush}"
+					ItemsSource="{Binding Titles}"
+					SelectionMode="Extended">
+					<ListView.ItemTemplate>
+						<DataTemplate>
+							<StackPanel Orientation="Horizontal">
+								<CheckBox VerticalAlignment="Center" IsChecked="{Binding Selected}" />
+								<TextBlock
+									Margin="8 0 0 0"
+									VerticalAlignment="Center"
+									Style="{StaticResource TextBlockBaseStyle}"
+									Text="{Binding Text}" />
+							</StackPanel>
+						</DataTemplate>
+					</ListView.ItemTemplate>
+				</ListView>
+				<Grid Grid.Column="1" Visibility="{Binding TitleDetailsVisible, Converter={StaticResource VisibilityConverter}}">
+					<TextBlock
+						Margin="16 0 0 0"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Top"
+						FontSize="16"
+						Text="{Binding TitleText}" />
 
-                    <Grid
-                        Name="previewImageHolder"
-                        Margin="6 23 6 35"
-                        SizeChanged="previewImageHolder_SizeChanged">
-                        <Image
-                            Name="previewImage"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Source="{Binding PreviewImage}"
-                            Stretch="Fill" />
-                    </Grid>
-                    <StackPanel
-                        Margin="0 0 0 6"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Bottom"
-                        Orientation="Horizontal"
-                        Visibility="{Binding PlayAvailable,
-                                             Converter={StaticResource VisibilityConverter}}">
-                        <Button
-                            Height="23"
-                            AutomationProperties.Name="{x:Static res:QueueTitlesRes.PlaySourceButton}"
-                            Command="{Binding Play}"
-                            ToolTip="{x:Static res:QueueTitlesRes.PlaySourceToolTip}"
-                            ToolTipService.ShowOnDisabled="True">
-                            <StackPanel Margin="4 0" Orientation="Horizontal">
-                                <Image
-                                    Height="15"
-                                    VerticalAlignment="Center"
-                                    Source="/Icons/blue_play_80.png" />
-                                <TextBlock
-                                    Margin="5 0 0 0"
-                                    VerticalAlignment="Center"
-                                    Text="{x:Static res:QueueTitlesRes.PlaySourceButton}" />
-                            </StackPanel>
-                        </Button>
-                    </StackPanel>
-                </Grid>
-            </Grid>
+					<Grid
+						Name="previewImageHolder"
+						Margin="6 23 6 35"
+						SizeChanged="previewImageHolder_SizeChanged">
+						<Image
+							Name="previewImage"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Top"
+							Source="{Binding PreviewImage}"
+							Stretch="Fill" />
+					</Grid>
+					<StackPanel
+						Margin="0 0 0 6"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Bottom"
+						Orientation="Horizontal"
+						Visibility="{Binding PlayAvailable,
+						                     Converter={StaticResource VisibilityConverter}}">
+						<Button
+							Height="23"
+							AutomationProperties.Name="{x:Static res:QueueTitlesRes.PlaySourceButton}"
+							Command="{Binding Play}"
+							ToolTip="{x:Static res:QueueTitlesRes.PlaySourceToolTip}"
+							ToolTipService.ShowOnDisabled="True">
+							<StackPanel Margin="4 0" Orientation="Horizontal">
+								<Image
+									Height="15"
+									VerticalAlignment="Center"
+									Source="/Icons/blue_play_80.png" />
+								<TextBlock
+									Margin="5 0 0 0"
+									VerticalAlignment="Center"
+									Text="{x:Static res:QueueTitlesRes.PlaySourceButton}" />
+							</StackPanel>
+						</Button>
+					</StackPanel>
+				</Grid>
+			</Grid>
 
-            <StackPanel
-                Grid.Row="3"
-                Margin="15 10 15 0"
-                Orientation="Vertical">
-                <controls:SplitButton
-                    Height="25"
-                    Margin="0 10 0 0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    AutomationProperties.Name="{Binding PickersService.PickerButtonText}"
-                    Command="{Binding OpenPickerWindow,
-                                      Source={StaticResource WindowXamlHelper}}"
-                    MenuItemsSource="{Binding PickersService.PickerButtonMenuItems}">
-                    <TextBlock Margin="4 0" Text="{Binding PickersService.PickerButtonText}" />
-                </controls:SplitButton>
+			<StackPanel
+				Grid.Row="3"
+				Margin="15 10 15 0"
+				Orientation="Vertical">
+				<controls:SplitButton
+					Height="25"
+					Margin="0 10 0 0"
+					HorizontalAlignment="Left"
+					VerticalAlignment="Center"
+					AutomationProperties.Name="{Binding PickersService.PickerButtonText}"
+					Command="{Binding OpenPickerWindow,
+					                  Source={StaticResource WindowXamlHelper}}"
+					MenuItemsSource="{Binding PickersService.PickerButtonMenuItems}">
+					<TextBlock Margin="4 0" Text="{Binding PickersService.PickerButtonText}" />
+				</controls:SplitButton>
 
-                <CheckBox
-                    Margin="0 10 0 0"
-                    HorizontalAlignment="Left"
-                    IsChecked="{Binding TitleStartOverrideEnabled}"
-                    Style="{StaticResource LongToolTipHolder}">
-                    <CheckBox.ToolTip>
-                        <TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:QueueTitlesRes.OverrideTitleNumberToolTip}" />
-                    </CheckBox.ToolTip>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock
-                            Margin="0 0 4 0"
-                            VerticalAlignment="Center"
-                            Text="{x:Static res:QueueTitlesRes.OverrideTitleCheckBox}" />
-                        <controls:NumberBox
-                            Width="44"
-                            AllowEmpty="False"
-                            AutomationProperties.Name="{x:Static res:QueueTitlesRes.OverrideTitleCheckBox}"
-                            IsEnabled="{Binding TitleStartOverrideEnabled}"
-                            Minimum="1"
-                            Number="{Binding TitleStartOverride,
-                                             Mode=TwoWay}" />
-                    </StackPanel>
-                </CheckBox>
+				<CheckBox
+					Margin="0 10 0 0"
+					HorizontalAlignment="Left"
+					IsChecked="{Binding TitleStartOverrideEnabled}"
+					Style="{StaticResource LongToolTipHolder}">
+					<CheckBox.ToolTip>
+						<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:QueueTitlesRes.OverrideTitleNumberToolTip}" />
+					</CheckBox.ToolTip>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock
+							Margin="0 0 4 0"
+							VerticalAlignment="Center"
+							Text="{x:Static res:QueueTitlesRes.OverrideTitleCheckBox}" />
+						<controls:NumberBox
+							Width="44"
+							AllowEmpty="False"
+							AutomationProperties.Name="{x:Static res:QueueTitlesRes.OverrideTitleCheckBox}"
+							IsEnabled="{Binding TitleStartOverrideEnabled}"
+							Minimum="1"
+							Number="{Binding TitleStartOverride,
+							                 Mode=TwoWay}" />
+					</StackPanel>
+				</CheckBox>
 
-                <Grid Margin="0 10 0 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
+				<Grid Margin="0 10 0 0">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
 
-                    <CheckBox
-                        Grid.Column="0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Content="{x:Static res:CommonRes.OverrideNameFormatCheckBox}"
-                        IsChecked="{Binding NameOverrideEnabled}" />
+					<CheckBox
+						Grid.Column="0"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Center"
+						Content="{x:Static res:CommonRes.OverrideNameFormatCheckBox}"
+						IsChecked="{Binding NameOverrideEnabled}" />
 
-                    <TextBox
-                        Grid.Column="1"
-                        Height="22"
-                        Margin="5 0 0 0"
-                        VerticalAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        AutomationProperties.Name="{x:Static res:CommonRes.OverrideNameFormatCheckBox}"
-                        IsEnabled="{Binding NameOverrideEnabled,
-                                            UpdateSourceTrigger=PropertyChanged}"
-                        Text="{Binding NameOverride}" />
-                </Grid>
-            </StackPanel>
+					<TextBox
+						Grid.Column="1"
+						Height="22"
+						Margin="5 0 0 0"
+						VerticalAlignment="Center"
+						VerticalContentAlignment="Center"
+						AutomationProperties.Name="{x:Static res:CommonRes.OverrideNameFormatCheckBox}"
+						IsEnabled="{Binding NameOverrideEnabled,
+						                    UpdateSourceTrigger=PropertyChanged}"
+						Text="{Binding NameOverride}" />
+				</Grid>
+			</StackPanel>
 
-            <StackPanel
-                Grid.Row="4"
-                Margin="0 10 10 10"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Orientation="Horizontal">
-                <Button
-                    Height="23"
-                    MinWidth="75"
-                    Margin="0 0 6 0"
-                    Padding="6 0"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    Command="{Binding AddToQueue}"
-                    Content="{x:Static res:MainRes.AddToQueueLabel}"
-                    IsDefault="True" />
-                <Button
-                    Height="23"
-                    MinWidth="75"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    Command="{Binding Cancel}"
-                    Content="{x:Static res:CommonRes.Cancel}"
-                    IsCancel="True" />
-            </StackPanel>
-        </Grid>
-    </Border>
+			<StackPanel
+				Grid.Row="4"
+				Margin="0 10 10 10"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Bottom"
+				Orientation="Horizontal">
+				<Button
+					Height="23"
+					MinWidth="75"
+					Margin="0 0 6 0"
+					Padding="6 0"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Bottom"
+					Command="{Binding AddToQueue}"
+					Content="{x:Static res:MainRes.AddToQueueLabel}"
+					IsDefault="True" />
+				<Button
+					Height="23"
+					MinWidth="75"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Bottom"
+					Command="{Binding Cancel}"
+					Content="{x:Static res:CommonRes.Cancel}"
+					IsCancel="True" />
+			</StackPanel>
+		</Grid>
+	</Border>
 </Window>
