@@ -552,6 +552,12 @@ namespace VidCoder.ViewModel
 			set { this.UpdatePickerProperty(nameof(this.Picker.ChapterRangeEnd), value); }
 		}
 
+		public bool TitleRangeSelectEnabled
+		{
+			get { return this.Picker.TitleRangeSelectEnabled; }
+			set { this.UpdatePickerProperty(nameof(this.Picker.TitleRangeSelectEnabled), value); }
+		}
+
 		public int TitleRangeSelectStartMinutes
 		{
 			get { return this.Picker.TitleRangeSelectStartMinutes; }
