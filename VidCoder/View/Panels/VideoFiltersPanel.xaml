@@ -440,6 +440,7 @@
 				Grid.Column="1"
 				Grid.ColumnSpan="2"
 				Margin="3 10 3 3"
+				HorizontalAlignment="Left"
 				Content="{x:Static res:EncodingRes.GrayscaleCheckBox}"
 				IsChecked="{Binding Grayscale}" />
 		</Grid>
