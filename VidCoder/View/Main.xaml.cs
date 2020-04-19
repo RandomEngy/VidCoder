@@ -561,7 +561,8 @@ namespace VidCoder.View
 				var menuItem = new Fluent.MenuItem
 				{
 					Header = string.Format(MainRes.OpenFormat, driveInfo.DisplayText),
-					Tag = DiscMenuItemTag
+					Tag = DiscMenuItemTag,
+					RecognizesAccessKey = false // We set this to stop Fluent Ribbon from removing underscores from the header text
 				};
 
 				ReactiveCommand<Unit, Unit> command = ReactiveCommand.Create(
