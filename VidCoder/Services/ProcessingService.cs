@@ -2525,7 +2525,11 @@ namespace VidCoder.Services
 		/// <exception cref="IOException">Thrown when unable to delete old part file.</exception>
 		private static string GetPartFilePath(string outputFilePath)
 		{
-			string partPath = outputFilePath + ".part";
+			string directory = Path.GetDirectoryName(outputFilePath);
+			string extension = Path.GetExtension(outputFilePath);
+			string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(outputFilePath);
+
+			string partPath = Path.Combine(directory, fileNameWithoutExtension + ".part" + extension);
 
 			// This will throw if the path is too long.
 			partPath = Path.GetFullPath(partPath);
