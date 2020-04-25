@@ -483,7 +483,9 @@
 					<CheckBox
 						Content="{x:Static res:EncodingRes.PassthroughIfPossibleCheckBox}"
 						IsChecked="{Binding PassthroughIfPossible}"
-						Style="{StaticResource AudioLabelLeft}"
+						Margin="7 2 4 2"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Center"
 						ToolTipService.ShowDuration="20000"
 						Visibility="{Binding PassthroughIfPossibleVisible,
 						                     Converter={StaticResource VisibilityConverter}}">

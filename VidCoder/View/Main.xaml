@@ -1375,9 +1375,11 @@
 														Height="22"
 														HorizontalAlignment="Stretch"
 														VerticalAlignment="Stretch"
+														HorizontalContentAlignment="Center"
+														VerticalContentAlignment="Center"
 														AutomationProperties.LiveSetting="Assertive"
 														IsChecked="{Binding Selected}"
-														Style="{StaticResource CenteredCheckBox}" />
+														Style="{StaticResource CheckBoxCenteredStyle}" />
 												</DataTemplate>
 											</GridViewColumn.CellTemplate>
 										</GridViewColumn>
@@ -1534,9 +1536,11 @@
 									Height="22"
 									HorizontalAlignment="Stretch"
 									VerticalAlignment="Stretch"
+									HorizontalContentAlignment="Center"
+									VerticalContentAlignment="Center"
 									AutomationProperties.LiveSetting="Assertive"
 									IsChecked="{Binding Selected}"
-									Style="{StaticResource CenteredCheckBox}" />
+									Style="{StaticResource CheckBoxCenteredStyle}" />
 							</DataTemplate>
 							<DataTemplate x:Key="NameTemplate" DataType="viewmodel:SourceSubtitleViewModel">
 								<Grid Height="22">
@@ -1550,9 +1554,11 @@
 								<CheckBox
 									Width="75"
 									Height="22"
+									HorizontalContentAlignment="Center"
+									VerticalContentAlignment="Center"
 									IsChecked="{Binding ForcedOnly}"
 									IsEnabled="{Binding ForcedOnlyEnabled}"
-									Style="{StaticResource CenteredCheckBox}"
+									Style="{StaticResource CheckBoxCenteredStyle}"
 									ToolTip="{x:Static res:CommonRes.ForcedSubtitleToolTip}"
 									Visibility="{Binding Selected,
 									                     Converter={StaticResource VisibilityConverter}}" />
@@ -1561,9 +1567,11 @@
 								<CheckBox
 									Width="70"
 									Height="22"
+									HorizontalContentAlignment="Center"
+									VerticalContentAlignment="Center"
 									IsChecked="{Binding BurnedIn}"
 									IsEnabled="{Binding BurnedInEnabled}"
-									Style="{StaticResource CenteredCheckBox}"
+									Style="{StaticResource CheckBoxCenteredStyle}"
 									ToolTip="{x:Static res:CommonRes.BurnedSubtitleToolTip}"
 									ToolTipService.ShowOnDisabled="True"
 									Visibility="{Binding Selected,
@@ -1582,9 +1590,11 @@
 								<CheckBox
 									Width="55"
 									Height="22"
+									HorizontalContentAlignment="Center"
+									VerticalContentAlignment="Center"
 									IsChecked="{Binding Default}"
 									IsEnabled="{Binding MainViewModel.DefaultSubtitlesEnabled}"
-									Style="{StaticResource CenteredCheckBox}"
+									Style="{StaticResource CheckBoxCenteredStyle}"
 									ToolTip="{x:Static res:CommonRes.DefaultSubtitleToolTip}"
 									ToolTipService.ShowOnDisabled="True"
 									Visibility="{Binding Selected,

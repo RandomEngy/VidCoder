@@ -203,8 +203,7 @@
 										VerticalAlignment="Center"
 										Content="{x:Static res:OptionsRes.UseCustomWavLabel}"
 										IsChecked="{Binding UseCustomCompletionSound}"
-										IsEnabled="{Binding PlaySoundOnCompletion}"
-										Style="{StaticResource GrayOnDisabledControl}" />
+										IsEnabled="{Binding PlaySoundOnCompletion}" />
 									<TextBox
 										Grid.Column="1"
 										Height="22"

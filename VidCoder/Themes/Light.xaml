@@ -85,6 +85,19 @@
 	<SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383" />
 
 
+	<SolidColorBrush x:Key="OptionMark.Static.Background" Color="#FFFFFFFF"/>
+	<SolidColorBrush x:Key="OptionMark.Static.Border" Color="#FF707070"/>
+	<SolidColorBrush x:Key="OptionMark.Static.Glyph" Color="#FF212121"/>
+	<SolidColorBrush x:Key="OptionMark.MouseOver.Background" Color="#FFF3F9FF"/>
+	<SolidColorBrush x:Key="OptionMark.MouseOver.Border" Color="#FF5593FF"/>
+	<SolidColorBrush x:Key="OptionMark.MouseOver.Glyph" Color="#FF212121"/>
+	<SolidColorBrush x:Key="OptionMark.Disabled.Background" Color="#FFE6E6E6"/>
+	<SolidColorBrush x:Key="OptionMark.Disabled.Border" Color="#FFBCBCBC"/>
+	<SolidColorBrush x:Key="OptionMark.Disabled.Glyph" Color="#FF707070"/>
+	<SolidColorBrush x:Key="OptionMark.Pressed.Background" Color="#FFD9ECFF"/>
+	<SolidColorBrush x:Key="OptionMark.Pressed.Border" Color="#FF3C77DD"/>
+	<SolidColorBrush x:Key="OptionMark.Pressed.Glyph" Color="#FF212121"/>
+
 
 	<LinearGradientBrush x:Key="ComboBox.Static.Background" StartPoint="0,0" EndPoint="0,1">
 		<GradientStop Offset="0.0" Color="#FFF0F0F0" />
