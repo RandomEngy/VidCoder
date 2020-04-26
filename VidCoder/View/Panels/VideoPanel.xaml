@@ -176,8 +176,7 @@
 							VerticalAlignment="Top"
 							Content="{x:Static res:EncodingRes.ConstantFramerateRadioButton}"
 							GroupName="constantFramerate1"
-							IsChecked="{Binding ConstantFramerate}"
-							Style="{StaticResource LongToolTipHolder}">
+							IsChecked="{Binding ConstantFramerate}">
 							<RadioButton.ToolTip>
 								<TextBlock Style="{StaticResource LongToolTip}" Text="{Binding ConstantFramerateToolTip}" />
 							</RadioButton.ToolTip>
@@ -191,8 +190,7 @@
 							Content="{Binding VfrChoiceText}"
 							GroupName="constantFramerate2"
 							IsChecked="{Binding ConstantFramerate,
-							                    Converter={StaticResource InverseBoolConverter}}"
-							Style="{StaticResource LongToolTipHolder}">
+							                    Converter={StaticResource InverseBoolConverter}}">
 							<RadioButton.ToolTip>
 								<TextBlock Style="{StaticResource LongToolTip}" Text="{Binding VariableFramerateToolTip}" />
 							</RadioButton.ToolTip>

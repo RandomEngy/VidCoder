@@ -156,8 +156,7 @@
 											VerticalAlignment="Center"
 											Content="{x:Static res:OptionsRes.CustomPlayerLabel}"
 											GroupName="customVideo1"
-											IsChecked="{Binding UseCustomVideoPlayer}"
-											Style="{StaticResource GrayOnDisabledControl}" />
+											IsChecked="{Binding UseCustomVideoPlayer}" />
 										<TextBox
 											Grid.Column="1"
 											Height="22"
@@ -236,7 +235,7 @@
 									HorizontalAlignment="Left"
 									Content="{x:Static res:OptionsRes.MinimizeToSystemTrayRadioButton}"
 									GroupName="minimize2"
-									IsChecked="{Binding MinimizeToTray}" />
+									IsChecked="{Binding MinimizeToTray}" Style="{DynamicResource RadioButtonBaseStyle}" />
 							</StackPanel>
 						</StackPanel>
 

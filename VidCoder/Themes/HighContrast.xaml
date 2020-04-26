@@ -70,6 +70,20 @@
 	<SolidColorBrush x:Key="OptionMark.Pressed.Glyph" Color="{x:Static SystemColors.WindowTextColor}"/>
 
 
+	<SolidColorBrush x:Key="RadioButton.Static.Background" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="RadioButton.Static.Border" Color="{x:Static SystemColors.ControlDarkColor}" />
+	<SolidColorBrush x:Key="RadioButton.Static.Glyph" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="RadioButton.MouseOver.Background" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="RadioButton.MouseOver.Border" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="RadioButton.MouseOver.Glyph" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="RadioButton.Disabled.Background" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="RadioButton.Disabled.Border" Color="{x:Static SystemColors.GrayTextColor}" />
+	<SolidColorBrush x:Key="RadioButton.Disabled.Glyph" Color="{x:Static SystemColors.GrayTextColor}" />
+	<SolidColorBrush x:Key="RadioButton.Pressed.Background" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="RadioButton.Pressed.Border" Color="{x:Static SystemColors.ControlDarkColor}" />
+	<SolidColorBrush x:Key="RadioButton.Pressed.Glyph" Color="{x:Static SystemColors.WindowTextColor}" />
+
+
 	<SolidColorBrush x:Key="ComboBox.Static.Background" Color="{x:Static SystemColors.WindowColor}" />
 	<SolidColorBrush x:Key="ComboBox.Static.Border" Color="{x:Static SystemColors.ControlDarkColor}" />
 	<SolidColorBrush x:Key="ComboBox.Static.Editable.Background" Color="{x:Static SystemColors.WindowColor}" />

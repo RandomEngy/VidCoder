@@ -14,6 +14,7 @@
 
                 <ResourceDictionary Source="/XamlResources/Button.xaml" />
 				<ResourceDictionary Source="/XamlResources/CheckBox.xaml" />
+				<ResourceDictionary Source="/XamlResources/RadioButton.xaml" />
 				<ResourceDictionary Source="/XamlResources/TextBox.xaml" />
                 <ResourceDictionary Source="/XamlResources/ComboBox.xaml" />
                 <ResourceDictionary Source="/XamlResources/GridViewColumnHeader.xaml" />

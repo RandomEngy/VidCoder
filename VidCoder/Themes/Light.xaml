@@ -99,6 +99,20 @@
 	<SolidColorBrush x:Key="OptionMark.Pressed.Glyph" Color="#FF212121"/>
 
 
+	<SolidColorBrush x:Key="RadioButton.Static.Background" Color="#FFFFFFFF" />
+	<SolidColorBrush x:Key="RadioButton.Static.Border" Color="#FF707070" />
+	<SolidColorBrush x:Key="RadioButton.Static.Glyph" Color="#FF212121" />
+	<SolidColorBrush x:Key="RadioButton.MouseOver.Background" Color="#FFF3F9FF" />
+	<SolidColorBrush x:Key="RadioButton.MouseOver.Border" Color="#FF5593FF" />
+	<SolidColorBrush x:Key="RadioButton.MouseOver.Glyph" Color="#FF212121" />
+	<SolidColorBrush x:Key="RadioButton.Disabled.Background" Color="#FFE6E6E6" />
+	<SolidColorBrush x:Key="RadioButton.Disabled.Border" Color="#FFBCBCBC" />
+	<SolidColorBrush x:Key="RadioButton.Disabled.Glyph" Color="#FF707070" />
+	<SolidColorBrush x:Key="RadioButton.Pressed.Background" Color="#FFD9ECFF" />
+	<SolidColorBrush x:Key="RadioButton.Pressed.Border" Color="#FF3C77DD" />
+	<SolidColorBrush x:Key="RadioButton.Pressed.Glyph" Color="#FF212121" />
+
+
 	<LinearGradientBrush x:Key="ComboBox.Static.Background" StartPoint="0,0" EndPoint="0,1">
 		<GradientStop Offset="0.0" Color="#FFF0F0F0" />
 		<GradientStop Offset="1.0" Color="#FFE5E5E5" />
