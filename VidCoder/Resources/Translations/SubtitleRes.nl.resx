@@ -159,12 +159,23 @@
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Buitenlandse Audio zoeken</value>
   </data>
-  
+  <data name="SubtitleFilePickerText" xml:space="preserve">
+    <value>Ondertitelbestand toevoegen</value>
+  </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>De codering van het ondertitelbestand kon niet worden gedetecteerd. Om er zeker van te zijn dat de ondertitels correct worden weergegeven, moet het bestand worden opgeslagen als UTF-8.</value>
   </data>
-  
-  
-  
-  
+  <data name="NoSubtitlesText" xml:space="preserve">
+    <value>Geen ondertitels gevonden bij bron.</value>
+  </data>
+  <data name="ExternalSubtitlesSummaryFormat" xml:space="preserve">
+    <value>{0} extern</value>
+    <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
+  </data>
+  <data name="ImportSubtitleButton" xml:space="preserve">
+    <value>Importeren uit bestand...</value>
+  </data>
+  <data name="FilePickerDescription" xml:space="preserve">
+    <value>Ondertitelingsbestanden</value>
+  </data>
 </root>

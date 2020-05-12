@@ -202,5 +202,7 @@
   <data name="VideoErrorTitle" xml:space="preserve">
     <value>Ошибка Видео</value>
   </data>
-  
+  <data name="PlaySourceDisabledAppxToolTip" xml:space="preserve">
+    <value>Версия из магазина Windows не может воспроизводить DVD или Blu-ray, так как не может запускать другие процессы.</value>
+  </data>
 </root>

@@ -137,7 +137,7 @@ Dies funktioniert nur für AC3 Quellen (Dolby Digital).</value>
     <value>Verstärken oder verringern Sie die Lautstärke vor der Encodierung. Gültige Werte liegen zwischen -20 und +20 dB.</value>
   </data>
   <data name="IncludeChapterMarkersToolTip" xml:space="preserve">
-    <value>Kapitelmarken aus dem Eingangsvideo in das encodierte Video übernehmen.</value>
+    <value>Kapitelmarkierungen aus dem Eingangsvideo in das encodierte Video übernehmen.</value>
   </data>
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>Fügt der Datei eine Markierung bei, welche ältere iPods benötigen, bevor sie erlauben, dass das H.264 Video auf das Gerät synchronisiert wird.</value>
@@ -172,7 +172,7 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>iPod 5G Unterstützung</value>
   </data>
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
-    <value>Kapitelmarken übernehmen</value>
+    <value>Kapitelmarkierungen übernehmen</value>
   </data>
   <data name="TabHeader_Sizing" xml:space="preserve">
     <value>Abmessungen</value>

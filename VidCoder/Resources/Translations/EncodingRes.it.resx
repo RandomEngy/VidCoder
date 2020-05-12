@@ -140,7 +140,7 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Applica un marcatore al file che vecchi iPod richiedono prima essi ti consentono h. 264 video di sincronizzazione.</value>
   </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
-    <value>Specificare manualmente un Pixel Aspect Ratio.</value>
+    <value>Specificare manualmente il rapporto dell'aspetto video.</value>
   </data>
   <data name="Video_QualityTargetToolTip" xml:space="preserve">
     <value>Impostare il fattore di qualità desiderata. La scala utilizzata da ciascuna codifica video è diversa.</value>
@@ -199,7 +199,7 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Risoluzione di archiviazione:</value>
   </data>
   <data name="PixelAspectRatioLabel" xml:space="preserve">
-    <value>Proporzioni pixel:</value>
+    <value>Rapporto aspetto video:</value>
   </data>
   <data name="DisplayResolutionLabel" xml:space="preserve">
     <value>Risoluzione dello schermo:</value>
@@ -841,11 +841,11 @@ NitidezzaCircolare rende più nitida l'immagine utilizzando il filtro con "nocci
     <value>Alto</value>
   </data>
   <data name="PixelAspectRatioNumeratorAutomationName" xml:space="preserve">
-    <value>Numeratore del rapporto dei pixel</value>
+    <value>Numeratore del rapporto d'aspetto video</value>
     <comment>Name for the pixel aspect ratio numerator box for screen readers</comment>
   </data>
   <data name="PixelAspectRatioDenominatorAutomationName" xml:space="preserve">
-    <value>Denominatore del rapporto dei pixel</value>
+    <value>Denominatore del rapporto d'aspetto video</value>
     <comment>Name for the pixel aspect ratio denominator box for screen readers</comment>
   </data>
   <data name="ApplyToQueueButton" xml:space="preserve">

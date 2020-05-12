@@ -190,7 +190,10 @@
     <value>Аргументы:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  
+  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
+    <value>Аргументы для передачи в программу. Используйте {file} для указания выходного пути файла, {folder} содержит путь к папке или другие параметры, такие как {title} и {date} (см. Формат именования).</value>
+    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>Выбор указанной кодировки пресет.</value>
   </data>
@@ -247,21 +250,62 @@
     <value>Только принудительно</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="AudioDefaultToolTip" xml:space="preserve">
+    <value>Выбирает последний выбранный аудиотрек, если найдено совпадение, в противном случае выбирает первый.</value>
+  </data>
+  <data name="LastSelectedRadioButton" xml:space="preserve">
+    <value>Последнее выбранное</value>
+  </data>
+  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
+    <value>Выбирает последние выбранные субтитры, если найдено совпадение, в противном случае выбирает первые.</value>
+    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
+  </data>
+  <data name="OverrideNameFormatLabel" xml:space="preserve">
+    <value>Доступные параметры: {0}</value>
+  </data>
+  <data name="DurationFilterStartAutomationName" xml:space="preserve">
+    <value>Длительность фильтра, первые минуты</value>
+    <comment>Screen reader text for number box that represents the start of the filter range in minutes. The number chosen in this box represents the minimum title length in minutes that will be chosen.
+</comment>
+  </data>
+  <data name="DurationFilterEndAutomationName" xml:space="preserve">
+    <value>Длительность фильтра, последние минуты</value>
+    <comment>Screen reader text for number box that represents the end of the filter range in minutes. The number chosen in this box represents the maximum title length in minutes that will be chosen.
+</comment>
+  </data>
+  <data name="DurationFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>Фильтровать заголовки по продолжительности</value>
+    <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
+  </data>
+  <data name="TimeRangeSelection" xml:space="preserve">
+    <value>Выбор временного диапазона</value>
+  </data>
+  <data name="SelectTimeRangeCheckBox" xml:space="preserve">
+    <value>Выберите временной диапазон</value>
+  </data>
+  <data name="TitleCaptializationLabel" xml:space="preserve">
+    <value>Заголовок с заглавной буквы:</value>
+  </data>
+  <data name="TimeRangeStartAutomationName" xml:space="preserve">
+    <value>Начало диапазона</value>
+  </data>
+  <data name="TimeRangeEndAutomationName" xml:space="preserve">
+    <value>Конец диапазона</value>
+  </data>
+  <data name="ByIndexRadioButton" xml:space="preserve">
+    <value>По индексу</value>
+    <comment>Label for the choice to choose audio or subtitle tracks by index</comment>
+  </data>
+  <data name="SelectTracksLabel" xml:space="preserve">
+    <value>Выберите треки:</value>
+  </data>
+  <data name="SelectTracksHelpText" xml:space="preserve">
+    <value>Разделённые запятыми, напр. 2,5</value>
+  </data>
+  <data name="ChapterRangeEndAutomationName" xml:space="preserve">
+    <value>Конец главы</value>
+  </data>
+  <data name="ChapterRangeStartAutomationName" xml:space="preserve">
+    <value>Начало главы</value>
+  </data>
 </root>

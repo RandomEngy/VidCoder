@@ -132,7 +132,10 @@
   <data name="LogVerbosity_Extended" xml:space="preserve">
     <value>Uitgebreid</value>
   </data>
-  
+  <data name="CopyToPastebinButton" xml:space="preserve">
+    <value>Pastebin-link kopiëren</value>
+    <comment>Label for button that copies the log to Pastebin and puts the URL on the clipboard.</comment>
+  </data>
   <data name="PastebinSuccessStatus" xml:space="preserve">
     <value>De link om in te loggen op Pastebin is naar het klembord gekopieerd.</value>
   </data>
