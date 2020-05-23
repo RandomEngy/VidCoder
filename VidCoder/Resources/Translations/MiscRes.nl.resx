@@ -186,7 +186,10 @@
   <data name="Copyright" xml:space="preserve">
     <value>© {0} VidCoder ontwikkelaars</value>
   </data>
-  
+  <data name="BetaVersionFormat2" xml:space="preserve">
+    <value>{0} bèta</value>
+    <comment>{0} is a placeholder for version. For example: 1.4.2 Beta</comment>
+  </data>
   <data name="NameDialogTitle" xml:space="preserve">
     <value>Naam</value>
     <comment>Title for dialog when  naming a preset or  picker</comment>

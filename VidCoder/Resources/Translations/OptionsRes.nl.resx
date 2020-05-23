@@ -198,7 +198,9 @@
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>Sta aangepaste naamgeving toe voor audiosporen (beperkte ondersteuning)</value>
   </data>
-  
+  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
+    <value>LibDVDNav inschakelen (nodig voor ondersteuning van meerdere kijkhoeken) (herstart van programma vereist)</value>
+  </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Bronbestanden verwijderen na succesvol omzetten (met bevestiging)</value>
   </data>
@@ -367,20 +369,42 @@
   <data name="ProcessOptionsLabel" xml:space="preserve">
     <value>Verwerkingsopties</value>
   </data>
-  
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>CPU-beperking - Toegestane Cores:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use. It labels a slider that controls the percentage of allowed cores, where the max is 100%.</comment>
+  </data>
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>Gebruik CPU-regulering om het aantal CPU-cores te beperken dat VidCoder's kan gebruiken in het coderingsproces.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Gebruik de ingebouwde mediaspeler</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="MaxSimultaneousEncodesLabel" xml:space="preserve">
+    <value>Maximum gelijktijdige coderingstaken:</value>
+  </data>
+  <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
+    <value>Dit is hoeveel gelijktijdige coderingstaken zijn toegestaan. Nuttig voor machines met veel CPU cores.</value>
+  </data>
+  <data name="GeneralSection" xml:space="preserve">
+    <value>Algemeen</value>
+  </data>
+  <data name="ThemeLabel" xml:space="preserve">
+    <value>Thema</value>
+    <comment>Label for the app theme (auto, light, dark)</comment>
+  </data>
+  <data name="PromptForUpdatesLabel" xml:space="preserve">
+    <value>Vragen om updates:</value>
+  </data>
+  <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
+    <value>De optie werkproces wordt van kracht nadat VidCoder opnieuw is gestart.</value>
+  </data>
+  <data name="CopyLogToCustomFolderLabel" xml:space="preserve">
+    <value>Kopieer de code-log naar een specifieke map</value>
+  </data>
+  <data name="KeepFailedFilesCheckBox" xml:space="preserve">
+    <value>Bestanden van mislukte of gestopte coderingen behouden</value>
+  </data>
+  <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
+    <value>Activeer de actie "Wanneer klaar" wanneer er mislukte coderingstaken zijn</value>
+  </data>
 </root>

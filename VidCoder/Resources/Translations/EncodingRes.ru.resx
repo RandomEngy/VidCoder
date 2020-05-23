@@ -311,7 +311,9 @@
   <data name="Preset_Fast" xml:space="preserve">
     <value>Быстро</value>
   </data>
-  
+  <data name="Preset_Medium" xml:space="preserve">
+    <value>Средний</value>
+  </data>
   <data name="Preset_Slow" xml:space="preserve">
     <value>Медленно</value>
   </data>
@@ -739,38 +741,125 @@
     <value>Ключи:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="PaddingLabel" xml:space="preserve">
+    <value>Заполнение</value>
+  </data>
+  <data name="AlignAVStartCheckBox" xml:space="preserve">
+    <value>Выровнять начало А/V</value>
+  </data>
+  <data name="AlignAVStartCheckBoxToolTip" xml:space="preserve">
+    <value>Выравнивает начальные временные метки всех аудио- и видеопотоков, удаляя или вставляя пустые кадры. Может улучшить синхронизацию аудио/видео для плееров, которые не соблюдают списки редактирования MP4.</value>
+  </data>
+  <data name="TabHeader_Container" xml:space="preserve">
+    <value>Контейнер</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Предустановка кодирования: {0}</value>
+    <comment>Label for the encoding settings window.</comment>
+  </data>
+  <data name="AudioEncoder_none" xml:space="preserve">
+    <value>Отсутствует</value>
+    <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
+  </data>
+  <data name="SizingModeToolTip" xml:space="preserve">
+    <value>Автоматический выбор размера на основе заданных ограничений. Вручную можно ввести определенный размер и соотношение сторон в пикселах.</value>
+  </data>
+  <data name="SharpenLabel" xml:space="preserve">
+    <value>Резкость</value>
+  </data>
+  <data name="DeblockToolTip" xml:space="preserve">
+    <value>Deblock уменьшает блочные артефакты, вызванные низким качеством сжатия видео.</value>
+  </data>
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>Деинтерлейс удаляет гребенчатые артефакты с изображения.
+
+Yadif — популярный и быстрый алгоритм.
+
+Decomb — переключается между несколькими алгоритмами интерполяции для скорости и качества.</value>
+  </data>
+  <data name="DenoiseToolTip" xml:space="preserve">
+    <value>Denoise уменьшает или устраняет проявление шума и зернистости. Это может повысить эффективность сжатия и создать более качественное видео при меньших размерах файлов. 
+Чрезмерно высокие настройки Denoise могут повредить качество изображения из-за потери деталей.
+         
+NLMeans — высококачественный фильтр шумоподавления с высокой скоростью. Используйте там, где качество важнее скорости.
+         
+HQDN3D — адаптивный низкочастотный фильтр, более быстрый, чем NLMeans, но менее эффективный для сохранения мелких деталей.</value>
+  </data>
+  <data name="DetelecineToolTip" xml:space="preserve">
+    <value>Этот фильтр удаляет "гребенчатые" артефакты, являющиеся результатом телесинхронизации.
+
+Телесинхронизация — это процесс, который подстраивает частоту кадров фильма, которая составляет 24 кадра в секунду, к частоте кадров видео NTSC, которая составляет 30 кадров в секунду.</value>
+  </data>
+  <data name="SharpenToolTip" xml:space="preserve">
+    <value>Усиление резкости улучшает внешний вид объектов, особенно краев. Чрезмерно высокие настройки резкости могут повредить качество изображения, создавая артефакты "звона" и усиливая шум, что может снизить эффективность сжатия.
+
+Unsharp — универсальный нерезкий маскирующий фильтр. Он повышает резкость путем размытия, а затем вычисляет разницу между размытым изображением и оригиналом.
+
+Lapsharp — усиливает резкость, используя  ядра свертки, приближенные к краевым фильтрам Лапласа, иногда давая более качественные результаты, чем нерезкая маска.</value>
+  </data>
+  <data name="PresetFolder_Custom" xml:space="preserve">
+    <value>Пользовательский</value>
+  </data>
+  <data name="PresetFolder_BuiltIn" xml:space="preserve">
+    <value>Встроенный</value>
+  </data>
+  <data name="PresetFolderCreateSubfolderMenuItem" xml:space="preserve">
+    <value>Создать подпапку</value>
+  </data>
+  <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
+    <value>Переименовать папку</value>
+  </data>
+  <data name="PresetFolderRemoveFolderMenuItem" xml:space="preserve">
+    <value>Удалить папку</value>
+  </data>
+  <data name="DefaultPresetFolderName" xml:space="preserve">
+    <value>Новая папка</value>
+  </data>
+  <data name="ChooseNameSubfolder" xml:space="preserve">
+    <value>Имя подпапки:</value>
+  </data>
+  <data name="ChooseNewFolderName" xml:space="preserve">
+    <value>Имя папки:</value>
+  </data>
+  <data name="NVEncPreset_ll" xml:space="preserve">
+    <value>Низкая задержка</value>
+  </data>
+  <data name="NVEncPreset_hq" xml:space="preserve">
+    <value>Высокое качество</value>
+  </data>
+  <data name="NVEncPreset_hp" xml:space="preserve">
+    <value>Высокая производительность</value>
+  </data>
+  <data name="PickColorButton" xml:space="preserve">
+    <value>Выбрать цвет…</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>Внизу</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Слева</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Справа</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Вверху</value>
+  </data>
+  <data name="PixelAspectRatioNumeratorAutomationName" xml:space="preserve">
+    <value>Числитель пропорции пикселя</value>
+    <comment>Name for the pixel aspect ratio numerator box for screen readers</comment>
+  </data>
+  <data name="PixelAspectRatioDenominatorAutomationName" xml:space="preserve">
+    <value>Знаменатель пропорции пикселя</value>
+    <comment>Name for the pixel aspect ratio denominator box for screen readers</comment>
+  </data>
+  <data name="ApplyToQueueButton" xml:space="preserve">
+    <value>Применить к очереди</value>
+  </data>
+  <data name="FullEncoderParameterLabel" xml:space="preserve">
+    <value>Полный список параметров:</value>
+  </data>
+  <data name="MoreOptionsToolTip" xml:space="preserve">
+    <value>Дополнительные аргументы для передачи видеокодировщику.</value>
+  </data>
 </root>

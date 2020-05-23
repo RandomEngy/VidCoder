@@ -55,21 +55,22 @@ namespace VidCoder
 
 			BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, previewData.Width, previewData.Height), ImageLockMode.WriteOnly, PixelFormat.Format32bppRgb);
 
-			IntPtr ptr = bitmapData.Scan0; // Pointer to the first pixel.
-			for (int i = 0; i < previewData.Height; i++)
-			{
-				try
-				{
-					Marshal.Copy(previewData.RawBitmapData, i * previewData.StrideWidth, ptr, previewData.StrideWidth);
-					ptr = IntPtr.Add(ptr, previewData.Width * 4);
-				}
-				catch (Exception exc)
-				{
-					Debug.WriteLine(exc); // In theory, this will allow a partial image display if this happens. TODO add better logging of this.
-				}
-			}
+			IntPtr targetPtr = bitmapData.Scan0; // Pointer to the first pixel.
 
-			bitmap.UnlockBits(bitmapData);
+			try
+			{
+				for (int i = 0; i < previewData.Height; i++)
+				{
+					Marshal.Copy(previewData.RawBitmapData, i * previewData.StrideWidth, targetPtr, previewData.Width * 4);
+					targetPtr = IntPtr.Add(targetPtr, previewData.Width * 4);
+				}
+
+				bitmap.UnlockBits(bitmapData);
+			}
+			catch (Exception exc)
+			{
+				Debug.WriteLine(exc); // In theory, this will allow a partial image display if this happens. TODO add better logging of this.
+			}
 
 			return bitmap;
 		}

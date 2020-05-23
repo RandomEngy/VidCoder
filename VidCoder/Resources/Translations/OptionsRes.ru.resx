@@ -198,7 +198,9 @@
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>Позволяет установить пользовательское имя для аудио-треков (ограниченная поддержка плееров)</value>
   </data>
-  
+  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
+    <value>Включить LibDVDNav (Для изменения требуется перезапуск программы. Требуется для поддержки нескольких углов.)</value>
+  </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Удалить исходные файлы после очистки успешно завершенных пунктов (с подтверждением)</value>
   </data>
@@ -367,20 +369,42 @@
   <data name="ProcessOptionsLabel" xml:space="preserve">
     <value>Настройки процессов</value>
   </data>
-  
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>Пропуск тактов ЦП - доступные ядра:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use. It labels a slider that controls the percentage of allowed cores, where the max is 100%.</comment>
+  </data>
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>Использование ЦП, регулирования для ограничения числа процессорных ядер, VidCoder можно использовать при кодировании.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Использовать встроенный проигрыватель для просмотра</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="MaxSimultaneousEncodesLabel" xml:space="preserve">
+    <value>Максимальное количество одновременных заданий кодирования:</value>
+  </data>
+  <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
+    <value>Количество разрешенных одновременных заданий кодирования. Полезно для компьютеров с большим количеством процессорных ядер.</value>
+  </data>
+  <data name="GeneralSection" xml:space="preserve">
+    <value>Общие</value>
+  </data>
+  <data name="ThemeLabel" xml:space="preserve">
+    <value>Тема</value>
+    <comment>Label for the app theme (auto, light, dark)</comment>
+  </data>
+  <data name="PromptForUpdatesLabel" xml:space="preserve">
+    <value>Запрос на обновление:</value>
+  </data>
+  <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
+    <value>Настройка рабочего процесса вступит в силу после перезапуска VidCoder.</value>
+  </data>
+  <data name="CopyLogToCustomFolderLabel" xml:space="preserve">
+    <value>Скопировать журнал кодирования в пользовательскую папку</value>
+  </data>
+  <data name="KeepFailedFilesCheckBox" xml:space="preserve">
+    <value>Сохранять файлы неудачных или остановленных кодирований</value>
+  </data>
+  <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
+    <value>Действие "Когда сделано" при наличии неудачных заданий кодирования</value>
+  </data>
 </root>

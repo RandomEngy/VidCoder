@@ -99,7 +99,7 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
   <data name="ChapterMarkersDialogTitle">
-    <value xml:space="preserve">Kapitelmarken</value>
+    <value xml:space="preserve">Kapitelmarkierungen</value>
   </data>
   <data name="DefaultChapterNamesRadioButton">
     <value xml:space="preserve">Standard Kapitelnamen verwenden</value>

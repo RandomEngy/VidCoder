@@ -129,9 +129,16 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>Точно</value>
   </data>
-  
-  
-  
+  <data name="AppThemeChoice_Auto" xml:space="preserve">
+    <value>Использовать тему ОС</value>
+    <comment>Windows 10 you can choose Light or Dark for the app theme. This will cause VidCoder to respect that choice.</comment>
+  </data>
+  <data name="AppThemeChoice_Dark" xml:space="preserve">
+    <value>Тёмная</value>
+  </data>
+  <data name="AppThemeChoice_Light" xml:space="preserve">
+    <value>Светлая</value>
+  </data>
   <data name="CombDetect_fast" xml:space="preserve">
     <value>Быстро</value>
   </data>
@@ -247,13 +254,33 @@
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>Диапазон времени</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="TitleCapitalizationChoice_EveryWord" xml:space="preserve">
+    <value>Каждое слово</value>
+    <comment>This will make Blu-ray and DVD titles capitalize every word</comment>
+  </data>
+  <data name="TitleCapitalizationChoice_FirstWord" xml:space="preserve">
+    <value>Первое слово</value>
+    <comment>This will make Blu-ray and DVD titles capitalize only the first word</comment>
+  </data>
+  <data name="EncodeCompleteActionType_StopEncoding" xml:space="preserve">
+    <value>Остановить кодирование</value>
+  </data>
+  <data name="UpdatePromptTiming_OnExit" xml:space="preserve">
+    <value>При выходе</value>
+  </data>
+  <data name="UpdatePromptTiming_OnLaunch" xml:space="preserve">
+    <value>При запуске</value>
+  </data>
+  <data name="LogOperationType_Encode" xml:space="preserve">
+    <value>Кодирование</value>
+  </data>
+  <data name="LogOperationType_Scan" xml:space="preserve">
+    <value>Анализ</value>
+  </data>
+  <data name="PickerTimeRangeMode_Chapters" xml:space="preserve">
+    <value>Главы</value>
+  </data>
+  <data name="PickerTimeRangeMode_Time" xml:space="preserve">
+    <value>Временной диапазон</value>
+  </data>
 </root>
