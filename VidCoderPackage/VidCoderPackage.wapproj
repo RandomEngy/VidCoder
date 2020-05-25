@@ -43,18 +43,18 @@
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.props" />
   <PropertyGroup>
     <ProjectGuid>dcf532d1-5465-4dc5-b21e-df7722975164</ProjectGuid>
-    <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
-    <PackageCertificateKeyFile>VidCoderPackage_TemporaryKey.pfx</PackageCertificateKeyFile>
     <EntryPointProjectUniqueName>..\VidCoder\VidCoder.csproj</EntryPointProjectUniqueName>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>C5C0DAD1C4F2B3A3B98F4D5DA5573F7FBE447AD6</PackageCertificateThumbprint>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <PackageCertificateThumbprint>D0BD681D2EDFADB2D2FA5C03CCCF25997A69B769</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>VidCoderPackage_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <AppxBundle>Always</AppxBundle>
@@ -93,7 +93,6 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <None Include="VidCoderPackage_TemporaryKey.pfx" />
     <Content Include="Assets\AppList.altform-unplated_targetsize-16.png" />
     <Content Include="Assets\AppList.altform-unplated_targetsize-24.png" />
     <Content Include="Assets\AppList.altform-unplated_targetsize-256.png" />
@@ -139,8 +138,9 @@
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
+    <None Include="VidCoderPackage_TemporaryKey.pfx" />
+    <None Include="Package.StoreAssociation.xml" />
     <None Include="Package.xml" />
-    <None Include="VidCoderPackage_StoreKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VidCoder\VidCoder.csproj" />
