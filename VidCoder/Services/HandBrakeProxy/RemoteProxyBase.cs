@@ -75,16 +75,16 @@ namespace VidCoder
 		}
 
 		// Ends the scan or encode with the given status.
-		protected void EndOperation(bool error)
+		protected void EndOperation(VCEncodeResultCode result)
 		{
 			if (this.Running)
 			{
-				this.OnOperationEnd(error);
+				this.OnOperationEnd(result);
 
 				this.pingTimer?.Dispose();
 
 				// If the encode failed and the worker is still running, kill it.
-				if (error && this.worker != null && !this.worker.HasExited)
+				if (result != VCEncodeResultCode.Succeeded && this.worker != null && !this.worker.HasExited)
 				{
 					try
 					{
@@ -104,7 +104,7 @@ namespace VidCoder
 			}
 		}
 
-		protected abstract void OnOperationEnd(bool error);
+		protected abstract void OnOperationEnd(VCEncodeResultCode result);
 
 		private void HandleWorkerCommunicationError(Exception exception, string operationName)
 		{
@@ -114,6 +114,8 @@ namespace VidCoder
 
 				return;
 			}
+
+			VCEncodeResultCode result;
 
 			if (!this.crashLogged)
 			{
@@ -133,19 +135,23 @@ namespace VidCoder
 					{
 						this.Logger.LogError($"Operation '{operationName}' failed. Worker process exited unexpectedly with code " + this.worker.ExitCode + ". This may be due to a HandBrake engine crash.");
 					}
+
+					result = VCEncodeResultCode.ErrorHandBrakeProcessCrashed;
 				}
 				else
 				{
 					this.Logger.LogError($"Operation '{operationName}' failed: " + exception);
 					this.LogAndClearWorkerMessages();
+					result = VCEncodeResultCode.ErrorProcessCommunication;
 				}
 			}
 			else
 			{
 				this.Logger.LogError($"Operation '{operationName}' failed, worker process has crashed.");
+				result = VCEncodeResultCode.ErrorHandBrakeProcessCrashed;
 			}
 
-			this.EndOperation(error: true);
+			this.EndOperation(result);
 		}
 
 		private async Task<bool> ConnectToPipeAsync()
@@ -274,7 +280,7 @@ namespace VidCoder
 
 			if (!connectionSucceeded)
 			{
-				this.EndOperation(error: true);
+				this.EndOperation(VCEncodeResultCode.ErrorProcessCommunication);
 				return;
 			}
 

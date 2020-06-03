@@ -477,15 +477,7 @@ namespace VidCoder.ViewModel
 
 		public string DenoisePreset
 		{
-			get
-			{
-				if (this.Profile.UseCustomDenoise)
-				{
-					return CustomDenoisePreset;
-				}
-
-				return this.Profile.DenoisePreset;
-			}
+			get { return this.Profile.DenoisePreset; }
 
 			set
 			{

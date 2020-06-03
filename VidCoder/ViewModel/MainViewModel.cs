@@ -61,7 +61,7 @@ namespace VidCoder.ViewModel
 		private IObservable<bool> canCloseVideoSourceObservable;
 
 		public event EventHandler<EventArgs<string>> AnimationStarted;
-		public event EventHandler ScanCancelled;
+		public event EventHandler ScanCanceled;
 
 		public MainViewModel()
 		{
@@ -2579,9 +2579,9 @@ namespace VidCoder.ViewModel
 					{
 						this.SelectedSource = null;
 
-						this.ScanCancelled?.Invoke(this, EventArgs.Empty);
+						this.ScanCanceled?.Invoke(this, EventArgs.Empty);
 
-						this.scanLogger.Log("Scan cancelled");
+						this.scanLogger.Log("Scan canceled");
 
 						if (this.pendingScan != null)
 						{

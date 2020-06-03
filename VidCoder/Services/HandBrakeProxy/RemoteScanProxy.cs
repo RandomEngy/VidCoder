@@ -33,7 +33,7 @@ namespace VidCoder.Services.HandBrakeProxy
 
             lock (this.ProcessLock)
             {
-                this.EndOperation(scanJson == null);
+                this.EndOperation(scanJson == null ? VCEncodeResultCode.ErrorUnknown : VCEncodeResultCode.Succeeded);
             }
         }
 
@@ -41,7 +41,7 @@ namespace VidCoder.Services.HandBrakeProxy
 
 		protected override IHandBrakeScanWorkerCallback CallbackInstance => this;
 
-		protected override void OnOperationEnd(bool error)
+		protected override void OnOperationEnd(VCEncodeResultCode result)
 		{
             this.ScanCompleted?.Invoke(this, new EventArgs<string>(this.result));
         }

@@ -17,7 +17,7 @@ namespace VidCoder.Extensions
 
 			return new PreviewSettings
 			{
-				Anamorphic = EnumConverter.Convert<VCAnamorphic, Anamorphic>(profile.Anamorphic),
+				Anamorphic = Anamorphic.None,
 				Cropping = cropping.GetHbCropping(),
 				Width = width,
 				Height = height,

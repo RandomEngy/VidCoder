@@ -113,7 +113,7 @@ namespace VidCoderWorker
 						}
 						else
 						{
-							this.MakeOneWayCallback(c => c.OnEncodeComplete(true));
+							this.MakeOneWayCallback(c => c.OnEncodeComplete(0));
 							this.CleanUpAndSignalCompletion();
 						}
 					}
@@ -155,7 +155,7 @@ namespace VidCoderWorker
 					try
 					{
 						await this.SendPendingLogMessagesAsync().ConfigureAwait(false);
-						await this.CallbackInvoker.InvokeAsync(c => c.OnEncodeComplete(e.Error)).ConfigureAwait(false);
+						await this.CallbackInvoker.InvokeAsync(c => c.OnEncodeComplete((VCEncodeResultCode)e.Error)).ConfigureAwait(false);
 					}
 					catch (Exception exception)
 					{

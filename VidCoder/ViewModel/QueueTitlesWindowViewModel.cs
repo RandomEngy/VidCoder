@@ -80,7 +80,6 @@ namespace VidCoder.ViewModel
 						var previewProfile =
 							new VCProfile
 							{
-								CustomCropping = true,
 								Cropping = new VCCropping(),
 								VideoEncoder = "x264",
 								AudioEncodings = new List<AudioEncoding>()

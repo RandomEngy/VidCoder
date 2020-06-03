@@ -1354,7 +1354,7 @@ namespace VidCoder.Services
 			if (this.scanMultipleDialogViewModel.CancelPending)
 			{
 				// Scan dialog was closed before it could complete. Abort.
-				this.logger.Log("Batch scan cancelled. Aborting queue operation.");
+				this.logger.Log("Batch scan canceled. Aborting queue operation.");
 				this.scanMultipleDialogViewModel = null;
 				return;
 			}
@@ -1688,7 +1688,7 @@ namespace VidCoder.Services
 				catch (Exception exception)
 				{
 					encodeLogger.LogError(string.Format(MainRes.DirectoryCreateErrorMessage, exception));
-					this.OnEncodeCompleted(jobViewModel, error: true);
+					this.OnEncodeCompleted(jobViewModel, VCEncodeResultCode.ErrorCouldNotCreateOutputDirectory);
 					return;
 				}
 			}
@@ -1709,7 +1709,7 @@ namespace VidCoder.Services
 			};
 			jobViewModel.EncodeProxy.EncodeCompleted += (sender, args) =>
 			{
-				this.OnEncodeCompleted(jobViewModel, args.Error);
+				this.OnEncodeCompleted(jobViewModel, args.Result);
 			};
 			jobViewModel.EncodeProxy.EncodeStarted += (sender, args) =>
 			{
@@ -1870,7 +1870,7 @@ namespace VidCoder.Services
 			}
 		}
 
-		private void OnEncodeCompleted(EncodeJobViewModel finishedJobViewModel, bool error)
+		private void OnEncodeCompleted(EncodeJobViewModel finishedJobViewModel, VCEncodeResultCode result)
 		{
 			if (finishedJobViewModel == null)
 			{
@@ -1928,10 +1928,10 @@ namespace VidCoder.Services
 
 					long outputFileLength = 0;
 
-					if (error)
+					if (result != VCEncodeResultCode.Succeeded)
 					{
 						status = EncodeResultStatus.Failed;
-						encodeLogger.LogError("Encode failed.");
+						encodeLogger.LogError("Encode failed with code " + result.ToString());
 					}
 					else if (!directOutputFileInfo.Exists)
 					{

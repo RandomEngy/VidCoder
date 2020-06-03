@@ -383,7 +383,7 @@ namespace VidCoder.Services
 								}
 								else
 								{
-									// In this case the download must have been cancelled.
+									// In this case the download must have been canceled.
 									this.State = UpdateState.NotStarted;
 								}
 							}

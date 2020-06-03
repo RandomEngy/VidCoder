@@ -21,7 +21,7 @@ namespace VidCoder
 		/// <summary>
 		/// Fires when an encode has completed.
 		/// </summary>
-		event EventHandler<EncodeCompletedEventArgs> EncodeCompleted;
+		event EventHandler<VCEncodeCompletedEventArgs> EncodeCompleted;
 
 		Task StartEncodeAsync(
 			VCJob job,

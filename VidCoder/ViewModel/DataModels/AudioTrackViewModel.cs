@@ -117,6 +117,13 @@ namespace VidCoder.ViewModel
 
 		public string Display => this.ToString();
 
+		private string name;
+		public string Name
+		{
+			get { return this.name; }
+			set { this.RaiseAndSetIfChanged(ref this.name, value); }
+		}
+
 		public void UpdateButtonVisiblity()
 		{
 			this.RaisePropertyChanged(nameof(this.DuplicateVisible));

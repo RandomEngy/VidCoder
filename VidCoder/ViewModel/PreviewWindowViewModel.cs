@@ -36,7 +36,7 @@ namespace VidCoder.ViewModel
 		private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
 		private string previewFilePath;
 		private bool cancelPending;
-		private bool encodeCancelled;
+		private bool encodeCanceled;
 		private int previewSeconds;
 
 
@@ -266,7 +266,7 @@ namespace VidCoder.ViewModel
 
 			if (this.GeneratingPreview)
 			{
-				this.encodeCancelled = true;
+				this.encodeCanceled = true;
 				this.encodeProxy.StopEncodeAsync();
 			}
 
@@ -460,7 +460,7 @@ namespace VidCoder.ViewModel
 						this.PreviewPercentComplete = 0;
 						this.EncodeState = PreviewEncodeState.EncodeStarting;
 						this.cancelPending = false;
-						this.encodeCancelled = false;
+						this.encodeCanceled = false;
 
 						this.SetPreviewFilePath();
 
@@ -560,13 +560,13 @@ namespace VidCoder.ViewModel
 							{
 								this.EncodeState = PreviewEncodeState.NotEncoding;
 
-								if (this.encodeCancelled)
+								if (this.encodeCanceled)
 								{
-									this.logger.Log("Cancelled preview clip generation");
+									this.logger.Log("Canceled preview clip generation");
 								}
 								else
 								{
-									if (e.Error)
+									if (e.Result != VCEncodeResultCode.Succeeded)
 									{
 										this.logger.Log(PreviewRes.PreviewClipGenerationFailedTitle);
 										Utilities.MessageBox.Show(PreviewRes.PreviewClipGenerationFailedMessage);
@@ -723,7 +723,7 @@ namespace VidCoder.ViewModel
 
 		private void CancelPreviewImpl()
 		{
-			this.encodeCancelled = true;
+			this.encodeCanceled = true;
 			this.encodeProxy.StopEncodeAsync();
 		}
 

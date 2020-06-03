@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VidCoderCommon.Model;
 
 namespace VidCoderCommon
 {
@@ -12,6 +13,6 @@ namespace VidCoderCommon
 
 		void OnEncodeProgress(float averageFrameRate, float currentFrameRate, TimeSpan estimatedTimeLeft, float fractionComplete, int passId, int pass, int passCount, string stateCode);
 
-		void OnEncodeComplete(bool error);
+		void OnEncodeComplete(VCEncodeResultCode result);
 	}
 }

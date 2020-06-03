@@ -31,7 +31,7 @@ namespace VidCoder
 
 		public event EventHandler EncodeStarted;
 		public event EventHandler<EncodeProgressEventArgs> EncodeProgress;
-		public event EventHandler<EncodeCompletedEventArgs> EncodeCompleted;
+		public event EventHandler<VCEncodeCompletedEventArgs> EncodeCompleted;
 
 		public Task StartEncodeAsync(
 			VCJob job,
@@ -112,7 +112,7 @@ namespace VidCoder
 					}
 					else
 					{
-						this.EncodeCompleted?.Invoke(this, new EncodeCompletedEventArgs(error: true));
+						this.EncodeCompleted?.Invoke(this, new VCEncodeCompletedEventArgs(VCEncodeResultCode.ErrorScanFailed));
 
 						this.encodeStartEvent.Set();
 						this.encodeEndEvent.Set();
@@ -143,7 +143,7 @@ namespace VidCoder
 			{
 				if (this.encoding)
 				{
-					this.EncodeCompleted?.Invoke(this, e);
+					this.EncodeCompleted?.Invoke(this, new VCEncodeCompletedEventArgs((VCEncodeResultCode)e.Error));
 
 					this.encoding = false;
 				}

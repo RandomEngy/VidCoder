@@ -101,7 +101,8 @@
     <Compile Include="IHandBrakeWorker.cs" />
     <Compile Include="IHandBrakeWorkerCallback.cs" />
     <Compile Include="JsonConverters\SourceTypeConverter.cs" />
-    <Compile Include="Model\AudioEncodeRateType.cs" />
+    <Compile Include="Model\VCEncodeResult.cs" />
+    <Compile Include="Model\Preset\AudioEncodeRateType.cs" />
     <Compile Include="Model\AudioEncoding.cs" />
     <Compile Include="Model\CopyMaskChoice.cs" />
     <Compile Include="Model\DeserializeOnlyAttribute.cs" />
@@ -109,29 +110,29 @@
     <Compile Include="Model\JsonEncodeFactory.cs" />
     <Compile Include="Model\OutputAudioTrackInfo.cs" />
     <Compile Include="Model\OutputSizeInfo.cs" />
-    <Compile Include="Model\Preset.cs" />
-    <Compile Include="Model\SourceSubtitle.cs" />
-    <Compile Include="Model\SourceType.cs" />
-    <Compile Include="Model\FileSubtitle.cs" />
-    <Compile Include="Model\VCSubtitles.cs" />
-    <Compile Include="Model\VCAnamorphic.cs" />
-    <Compile Include="Model\VCContainer.cs" />
-    <Compile Include="Model\VCCropping.cs" />
-    <Compile Include="Model\VCCroppingType.cs" />
-    <Compile Include="Model\VCDeinterlace.cs" />
-    <Compile Include="Model\VCDenoise.cs" />
-    <Compile Include="Model\VCJob.cs" />
-    <Compile Include="Model\VCOutputExtension.cs" />
-    <Compile Include="Model\VCPadding.cs" />
-    <Compile Include="Model\VCPaddingMode.cs" />
-    <Compile Include="Model\VCPictureRotation.cs" />
-    <Compile Include="Model\VCProfile.cs" />
-    <Compile Include="Model\VCScalingMode.cs" />
-    <Compile Include="Model\VCSharpen.cs" />
-    <Compile Include="Model\VCSizingMode.cs" />
-    <Compile Include="Model\VCVideoEncodeRateType.cs" />
+    <Compile Include="Model\Preset\Preset.cs" />
+    <Compile Include="Model\Job\SourceSubtitle.cs" />
+    <Compile Include="Model\Job\SourceType.cs" />
+    <Compile Include="Model\Job\FileSubtitle.cs" />
+    <Compile Include="Model\Job\VCSubtitles.cs" />
+    <Compile Include="Model\Preset\VCAnamorphic.cs" />
+    <Compile Include="Model\Preset\VCCropping.cs" />
+    <Compile Include="Model\Preset\VCCroppingType.cs" />
+    <Compile Include="Model\Preset\VCDeinterlace.cs" />
+    <Compile Include="Model\Preset\VCDenoise.cs" />
+    <Compile Include="Model\Job\VCJob.cs" />
+    <Compile Include="Model\Preset\VCOutputExtension.cs" />
+    <Compile Include="Model\Preset\VCPadding.cs" />
+    <Compile Include="Model\Preset\VCPaddingMode.cs" />
+    <Compile Include="Model\Preset\VCPictureRotation.cs" />
+    <Compile Include="Model\Preset\VCProfile.cs" />
+    <Compile Include="Model\Preset\VCScalingMode.cs" />
+    <Compile Include="Model\Preset\VCSharpen.cs" />
+    <Compile Include="Model\Preset\VCSizingMode.cs" />
+    <Compile Include="Model\Preset\VCVideoEncodeRateType.cs" />
+    <Compile Include="Model\VCEncodeCompletedEventArgs.cs" />
     <Compile Include="Model\VidCoderContractResolver.cs" />
-    <Compile Include="Model\VideoRangeType.cs" />
+    <Compile Include="Model\Job\VideoRangeType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ILogger.cs" />
     <Compile Include="Utilities\AudioUtilities.cs" />
@@ -146,6 +147,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
