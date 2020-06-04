@@ -68,7 +68,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public AudioEncodingViewModel(AudioEncoding audioEncoding, SourceTitle selectedTitle, List<int> chosenAudioTracks, AudioPanelViewModel audioPanelVM)
+		public AudioEncodingViewModel(AudioEncoding audioEncoding, SourceTitle selectedTitle, List<ChosenAudioTrack> chosenAudioTracks, AudioPanelViewModel audioPanelVM)
 		{
 			this.initializing = true;
 			this.audioPanelVM = audioPanelVM;
@@ -920,7 +920,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public void SetChosenTracks(List<int> chosenAudioTracks, SourceTitle selectedTitle)
+		public void SetChosenTracks(List<ChosenAudioTrack> chosenAudioTracks, SourceTitle selectedTitle)
 		{
 			DispatchUtilities.Invoke(() =>
 			{
@@ -936,7 +936,7 @@ namespace VidCoder.ViewModel
 					string details = null;
 					if (i < chosenAudioTracks.Count && selectedTitle != null)
 					{
-						details = selectedTitle.AudioList[chosenAudioTracks[i] - 1].Description;
+						details = selectedTitle.AudioList[chosenAudioTracks[i].TrackNumber - 1].Description;
 					}
 
 					this.targetStreams.Add(
@@ -1219,11 +1219,11 @@ namespace VidCoder.ViewModel
 			}
 
 			SourceAudioTrack track = null;
-			List<int> chosenAudioTracks = this.main.GetChosenAudioTracks();
+			List<ChosenAudioTrack> chosenAudioTracks = this.main.GetChosenAudioTracks();
 
 			if (this.TargetStreamIndex > 0 && this.TargetStreamIndex <= chosenAudioTracks.Count)
 			{
-				int audioTrack = chosenAudioTracks[this.TargetStreamIndex - 1];
+				int audioTrack = chosenAudioTracks[this.TargetStreamIndex - 1].TrackNumber;
 				if (audioTrack <= this.main.SelectedTitle.AudioList.Count)
 				{
 					track = this.main.SelectedTitle.AudioList[audioTrack - 1];
@@ -1232,7 +1232,7 @@ namespace VidCoder.ViewModel
 
 			if (this.TargetStreamIndex == 0 && chosenAudioTracks.Count == 1)
 			{
-				int audioTrack = chosenAudioTracks[0];
+				int audioTrack = chosenAudioTracks[0].TrackNumber;
 				if (audioTrack <= this.main.SelectedTitle.AudioList.Count)
 				{
 					track = this.main.SelectedTitle.AudioList[audioTrack - 1];

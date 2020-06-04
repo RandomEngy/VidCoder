@@ -468,7 +468,7 @@ namespace VidCoder.ViewModel
 
 						if (this.job.Subtitles?.SourceSubtitles != null)
 						{
-							SourceSubtitle scanTrack = this.job.Subtitles.SourceSubtitles.FirstOrDefault(s => s.TrackNumber == 0);
+							ChosenSourceSubtitle scanTrack = this.job.Subtitles.SourceSubtitles.FirstOrDefault(s => s.TrackNumber == 0);
 							if (scanTrack != null)
 							{
 								this.job.Subtitles.SourceSubtitles.Remove(scanTrack);

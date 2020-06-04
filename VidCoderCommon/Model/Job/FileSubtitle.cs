@@ -19,6 +19,8 @@ namespace VidCoderCommon.Model
 
         public string FileName { get; set; }
 
+		public string Name { get; set; }
+
         public string LanguageCode { get; set; }
 
         public int Offset { get; set; }

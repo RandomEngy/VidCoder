@@ -16,13 +16,13 @@ namespace VidCoder.ViewModel
 {
 	public class SourceSubtitleViewModel : ReactiveObject
 	{
-		private SourceSubtitle subtitle;
+		private ChosenSourceSubtitle subtitle;
 
 		private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
 
 		private SourceSubtitleTrack inputSubtitle; 
 
-		public SourceSubtitleViewModel(MainViewModel mainViewModel, SourceSubtitle subtitle)
+		public SourceSubtitleViewModel(MainViewModel mainViewModel, ChosenSourceSubtitle subtitle)
 		{
 			this.MainViewModel = mainViewModel;
 			this.subtitle = subtitle;
@@ -78,7 +78,7 @@ namespace VidCoder.ViewModel
 			get { return this.MainViewModel.SelectedTitle.SubtitleList; }
 		}
 
-		public SourceSubtitle Subtitle
+		public ChosenSourceSubtitle Subtitle
 		{
 			get
 			{
@@ -104,9 +104,23 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool IsForeignAudioSearch => this.TrackNumber == 0;
+
 		public DateTimeOffset? LastMouseDownTime { get; set; }
 
-		public string SubtitleName
+		public override string ToString()
+		{
+			if (string.IsNullOrEmpty(this.Name))
+			{
+				return this.TrackSummary;
+			}
+			else
+			{
+				return this.TrackNumber + " " + this.Name + " - " + this.inputSubtitle.Language;
+			}
+		}
+
+		public string TrackSummary
 		{
 			get
 			{
@@ -116,12 +130,23 @@ namespace VidCoder.ViewModel
 				}
 
 				return string.Format(
-					"{0} {1} ({2})", 
+					"{0} {1}", 
 					this.TrackNumber, 
-					this.inputSubtitle.Language, 
-					HandBrakeEncoderHelpers.GetSubtitleSourceName(this.inputSubtitle.Source));
+					this.inputSubtitle.Language);
 			}
 		}
+
+		public string Name
+		{
+			get { return this.subtitle.Name ?? this.inputSubtitle?.Name; }
+			set
+			{
+				this.subtitle.Name = value;
+				this.RaisePropertyChanged();
+			}
+		}
+
+		public string SourceName => this.inputSubtitle?.Name;
 
 		public int TrackNumber
 		{

@@ -1477,22 +1477,24 @@ namespace VidCoder.ViewModel
 				{
 					case SubtitleSelectionMode.Disabled:
 						// If no auto-selection is done, try and keep selections from previous title
-						var keptSourceSubtitles = new List<SourceSubtitle>();
+						var keptSourceSubtitles = new List<ChosenSourceSubtitle>();
 
 						if (this.oldTitle != null && oldSubtitles != null)
 						{
 							if (this.selectedTitle.SubtitleList.Count > 0)
 							{
 								// Keep source subtitles when changing title, but not specific subtitle files.
-								foreach (SourceSubtitle sourceSubtitle in oldSubtitles.SourceSubtitles)
+								foreach (ChosenSourceSubtitle sourceSubtitle in oldSubtitles.SourceSubtitles)
 								{
 									if (sourceSubtitle.TrackNumber == 0)
 									{
+										sourceSubtitle.Name = null;
 										keptSourceSubtitles.Add(sourceSubtitle);
 									}
 									else if (sourceSubtitle.TrackNumber - 1 < this.selectedTitle.SubtitleList.Count &&
 									         this.oldTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode == this.selectedTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode)
 									{
+										sourceSubtitle.Name = null;
 										keptSourceSubtitles.Add(sourceSubtitle);
 									}
 								}
@@ -1527,9 +1529,9 @@ namespace VidCoder.ViewModel
 			this.UpdateSourceSubtitleBoxes();
 		}
 
-		private void PopulateSourceSubtitles(IList<SourceSubtitle> selectedSubtitles, IExtendedList<SourceSubtitleViewModel> listToPopulate)
+		private void PopulateSourceSubtitles(IList<ChosenSourceSubtitle> selectedSubtitles, IExtendedList<SourceSubtitleViewModel> listToPopulate)
 		{
-			foreach (SourceSubtitle sourceSubtitle in selectedSubtitles)
+			foreach (ChosenSourceSubtitle sourceSubtitle in selectedSubtitles)
 			{
 				listToPopulate.Add(new SourceSubtitleViewModel(this, sourceSubtitle) { Selected = true });
 			}
@@ -1542,13 +1544,13 @@ namespace VidCoder.ViewModel
 		/// </summary>
 		/// <param name="selectedSubtitles">The already selected subtitles.</param>
 		/// <param name="listToPopulate">The list to fill in.</param>
-		private void FillInRemainingSourceSubtitles(IList<SourceSubtitle> selectedSubtitles, IExtendedList<SourceSubtitleViewModel> listToPopulate)
+		private void FillInRemainingSourceSubtitles(IList<ChosenSourceSubtitle> selectedSubtitles, IExtendedList<SourceSubtitleViewModel> listToPopulate)
 		{
 			for (int i = 1; i <= this.SelectedTitle.SubtitleList.Count; i++)
 			{
 				if (selectedSubtitles.All(s => s.TrackNumber != i))
 				{
-					var newSubtitle = new SourceSubtitle
+					var newSubtitle = new ChosenSourceSubtitle
 					{
 						TrackNumber = i,
 						Default = false,
@@ -1562,7 +1564,7 @@ namespace VidCoder.ViewModel
 
 			if (!listToPopulate.Any(subtitleViewModel => subtitleViewModel.TrackNumber == 0) && this.SelectedTitle.SubtitleList.Count > 0)
 			{
-				listToPopulate.Insert(0, new SourceSubtitleViewModel(this, new SourceSubtitle
+				listToPopulate.Insert(0, new SourceSubtitleViewModel(this, new ChosenSourceSubtitle
 				{
 					TrackNumber = 0,
 					BurnedIn = false,
@@ -1613,7 +1615,7 @@ namespace VidCoder.ViewModel
 			{
 				foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles.Items)
 				{
-					if (sourceVM.Selected && sourceVM.SubtitleName.Contains("(Text)"))
+					if (sourceVM.Selected && sourceVM.TrackSummary.Contains("(Text)"))
 					{
 						textSubtitleVisible = true;
 						break;
@@ -1731,7 +1733,7 @@ namespace VidCoder.ViewModel
 
 			var newSubtitle = new SourceSubtitleViewModel(
 				this,
-				new SourceSubtitle
+				new ChosenSourceSubtitle
 				{
 					BurnedIn = false,
 					Default = false,
@@ -2918,7 +2920,7 @@ namespace VidCoder.ViewModel
 					Title = title,
 					Angle = this.Angle,
 					RangeType = this.RangeType,
-					ChosenAudioTracks = this.GetChosenAudioTracks(),
+					AudioTracks = this.GetChosenAudioTracks(),
 					Subtitles = this.CurrentSubtitles,
 					UseDefaultChapterNames = this.UseDefaultChapterNames,
 					CustomChapterNames = this.CustomChapterNames,
@@ -3146,13 +3148,13 @@ namespace VidCoder.ViewModel
 		/// Get a list of audio tracks chosen by the user (1-based).
 		/// </summary>
 		/// <returns>List of audio tracks chosen by the user (1-based).</returns>
-		public List<int> GetChosenAudioTracks()
+		public List<ChosenAudioTrack> GetChosenAudioTracks()
 		{
-			var tracks = new List<int>();
+			var tracks = new List<ChosenAudioTrack>();
 
 			foreach (AudioTrackViewModel audioTrackVM in this.AudioTracks.Items.Where(track => track.Selected))
 			{
-				tracks.Add(audioTrackVM.TrackNumber);
+				tracks.Add(new ChosenAudioTrack { TrackNumber = audioTrackVM.TrackNumber, Name = audioTrackVM.Name });
 			}
 
 			return tracks;
@@ -3463,7 +3465,7 @@ namespace VidCoder.ViewModel
 			{
 				sourceSubtitlesInnerList.Clear();
 
-				foreach (SourceSubtitle sourceSubtitle in job.Subtitles.SourceSubtitles)
+				foreach (ChosenSourceSubtitle sourceSubtitle in job.Subtitles.SourceSubtitles)
 				{
 					if (sourceSubtitle.TrackNumber <= this.selectedTitle.SubtitleList.Count)
 					{

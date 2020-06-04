@@ -300,12 +300,14 @@ namespace VidCoder.View
 				if (expanded)
 				{
 					ResizeGridViewColumn(this.sourceSelectedColumn);
-					ResizeGridViewColumn(this.sourceNameColumn);
+					ResizeGridViewColumn(this.sourceTrackSummaryColumn);
 					ResizeGridViewColumn(this.sourceDefaultColumn);
 					ResizeGridViewColumn(this.sourceForcedColumn);
 					ResizeGridViewColumn(this.sourceBurnedColumn);
+					ResizeGridViewColumn(this.sourceNameColumn);
 					ResizeGridViewColumn(this.sourceRemoveDuplicateColumn);
 					ResizeGridViewColumn(this.fileSubtitleFileColumn);
+					ResizeGridViewColumn(this.fileSubtitleNameColumn);
 					ResizeGridViewColumn(this.fileSubtitleDefaultColumn);
 					ResizeGridViewColumn(this.fileSubtitleBurnedInColumn);
 					ResizeGridViewColumn(this.fileSubtitleCharCodeColumn);
@@ -367,6 +369,7 @@ namespace VidCoder.View
 
 			sourceSubtitlesObservable.Subscribe(changeSet =>
 			{
+				ResizeGridViewColumn(this.sourceTrackSummaryColumn);
 				ResizeGridViewColumn(this.sourceNameColumn);
 			});
 
@@ -396,9 +399,10 @@ namespace VidCoder.View
 		public void ResizeAudioColumns()
 		{
 			ResizeGridViewColumn(this.audioSelectedColumn);
-			ResizeGridViewColumn(this.audioNameColumn);
+			ResizeGridViewColumn(this.audioTrackSummaryColumn);
 			ResizeGridViewColumn(this.audioBitrateColumn);
 			ResizeGridViewColumn(this.audioSampleRateColumn);
+			ResizeGridViewColumn(this.audioNameColumn);
 			ResizeGridViewColumn(this.audioRemoveDuplicateColumn);
 		}
 
@@ -836,10 +840,11 @@ namespace VidCoder.View
 
 		private void ResizeSourceSubtitleColumns()
 		{
-			ResizeGridViewColumn(this.sourceNameColumn);
+			ResizeGridViewColumn(this.sourceTrackSummaryColumn);
 			ResizeGridViewColumn(this.sourceDefaultColumn);
 			ResizeGridViewColumn(this.sourceForcedColumn);
 			ResizeGridViewColumn(this.sourceBurnedColumn);
+			ResizeGridViewColumn(this.sourceNameColumn);
 		}
 
 		private static void ResizeGridViewColumn(GridViewColumn column)

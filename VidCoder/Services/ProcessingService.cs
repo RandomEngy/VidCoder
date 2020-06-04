@@ -2731,14 +2731,14 @@ namespace VidCoder.Services
 		{
 			Picker picker = this.pickersService.SelectedPicker.Picker;
 
-			job.Subtitles = new VCSubtitles { SourceSubtitles = new List<SourceSubtitle>(), FileSubtitles = new List<FileSubtitle>() };
+			job.Subtitles = new VCSubtitles { SourceSubtitles = new List<ChosenSourceSubtitle>(), FileSubtitles = new List<FileSubtitle>() };
 			switch (picker.SubtitleSelectionMode)
 			{
 				case SubtitleSelectionMode.Disabled:
 					// Only pick subtitles when we have previous context.
 					if (useCurrentContext)
 					{
-						foreach (SourceSubtitle sourceSubtitle in this.main.CurrentSubtitles.SourceSubtitles)
+						foreach (ChosenSourceSubtitle sourceSubtitle in this.main.CurrentSubtitles.SourceSubtitles)
 						{
 							if (sourceSubtitle.TrackNumber == 0)
 							{
@@ -2776,9 +2776,9 @@ namespace VidCoder.Services
 		/// <param name="picker">The picker to use.</param>
 		/// <param name="chosenAudioTrack">The (1-based) main audio track currently selected, or -1 if no audio track is selected.</param>
 		/// <returns></returns>
-		public static IList<SourceSubtitle> ChooseSubtitles(SourceTitle title, Picker picker, int chosenAudioTrack, string containerName)
+		public static IList<ChosenSourceSubtitle> ChooseSubtitles(SourceTitle title, Picker picker, int chosenAudioTrack, string containerName)
 		{
-			var result = new List<SourceSubtitle>();
+			var result = new List<ChosenSourceSubtitle>();
 			IList<SourceSubtitleTrack> chosenSubtitleTracks;
 
 			int containerId = HandBrakeEncoderHelpers.GetContainer(containerName).Id;
@@ -2792,7 +2792,7 @@ namespace VidCoder.Services
 				case SubtitleSelectionMode.First:
 					if (title.SubtitleList.Count > 0)
 					{
-						result.Add(new SourceSubtitle
+						result.Add(new ChosenSourceSubtitle
 						{
 							TrackNumber = 1,
 							BurnedIn = picker.SubtitleBurnIn || !HandBrakeEncoderHelpers.SubtitleCanPassthrough(title.SubtitleList[0].Source, containerId),
@@ -2832,7 +2832,7 @@ namespace VidCoder.Services
 								defaultChosen = true;
 							}
 
-							result.Add(new SourceSubtitle
+							result.Add(new ChosenSourceSubtitle
 							{
 								TrackNumber = trackNumber,
 								BurnedIn = false,
@@ -2843,7 +2843,7 @@ namespace VidCoder.Services
 					}
 					else if (subtitleIndicesThatPointToRealTracks.Count > 0)
 					{
-						result.Add(new SourceSubtitle
+						result.Add(new ChosenSourceSubtitle
 						{
 							TrackNumber = subtitleIndicesThatPointToRealTracks[0],
 							BurnedIn = picker.SubtitleBurnIn || !HandBrakeEncoderHelpers.SubtitleCanPassthrough(title.SubtitleList[subtitleIndicesThatPointToRealTracks[0] - 1].Source, containerId),
@@ -2854,7 +2854,7 @@ namespace VidCoder.Services
 
 					break;
 				case SubtitleSelectionMode.ForeignAudioSearch:
-					result.Add(new SourceSubtitle
+					result.Add(new ChosenSourceSubtitle
 					{
 						TrackNumber = 0,
 						BurnedIn = picker.SubtitleBurnIn,
@@ -2961,7 +2961,7 @@ namespace VidCoder.Services
 			return result;
 		}
 
-		private static void AddSubtitleToResult(IList<SourceSubtitleTrack> rawTracks, List<SourceSubtitle> result, SourceSubtitleTrack trackToAdd, bool burnedIn, bool forcedOnly, bool def)
+		private static void AddSubtitleToResult(IList<SourceSubtitleTrack> rawTracks, List<ChosenSourceSubtitle> result, SourceSubtitleTrack trackToAdd, bool burnedIn, bool forcedOnly, bool def)
 		{
 			// We need this funky method because the SourceSubtitleTrack objects don't contain their indices.
 			int trackIndex = rawTracks.IndexOf(trackToAdd);
@@ -2971,7 +2971,7 @@ namespace VidCoder.Services
 			}
 
 			int trackNumber = trackIndex + 1;
-			result.Add(new SourceSubtitle
+			result.Add(new ChosenSourceSubtitle
 			{
 				TrackNumber = trackNumber,
 				BurnedIn = burnedIn,

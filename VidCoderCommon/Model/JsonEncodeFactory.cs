@@ -95,7 +95,7 @@ namespace VidCoderCommon.Model
 			Audio audio = new Audio();
 
 			VCProfile profile = job.EncodingProfile;
-			List<Tuple<AudioEncoding, int>> outputTrackList = this.GetOutputTracks(job, title);
+			List<Tuple<AudioEncoding, ChosenAudioTrack>> outputTrackList = this.GetOutputTracks(job, title);
 
 			// If using auto-passthrough, set the fallback
 			if (profile.AudioEncodings.Any(e => e.Encoder == "copy"))
@@ -142,10 +142,11 @@ namespace VidCoderCommon.Model
 
 			audio.AudioList = new List<AudioTrack>();
 
-			foreach (Tuple<AudioEncoding, int> outputTrack in outputTrackList)
+			foreach (Tuple<AudioEncoding, ChosenAudioTrack> outputTrack in outputTrackList)
 			{
 				AudioEncoding encoding = outputTrack.Item1;
-				int trackNumber = outputTrack.Item2;
+				ChosenAudioTrack chosenAudioTrack = outputTrack.Item2;
+				int trackNumber = chosenAudioTrack.TrackNumber;
 
 				HBAudioEncoder encoder = HandBrakeEncoderHelpers.GetAudioEncoder(encoding.Encoder);
 				if (encoder == null)
@@ -184,12 +185,19 @@ namespace VidCoderCommon.Model
 					Encoder = HandBrakeEncoderHelpers.GetAudioEncoder((int)outputCodec).ShortName,
 				};
 
-				if (!string.IsNullOrEmpty(encoding.Name))
+				if (!string.IsNullOrEmpty(chosenAudioTrack.Name) && chosenAudioTrack.Name != scanAudioTrack.Name)
 				{
+					// If we have picked a name different from the source, use it.
+					audioTrack.Name = chosenAudioTrack.Name;
+				}
+				else if (!string.IsNullOrEmpty(encoding.Name))
+				{
+					// If the encoding has a name associated with it, use it.
 					audioTrack.Name = encoding.Name;
 				}
 				else if (!string.IsNullOrEmpty(scanAudioTrack.Name))
 				{
+					// Else fall back to the name from the source.
 					audioTrack.Name = scanAudioTrack.Name;
 				}
 
@@ -252,35 +260,35 @@ namespace VidCoderCommon.Model
 		/// <param name="job">The encode job</param>
 		/// <param name="title">The title the job is meant to encode.</param>
 		/// <returns>A list of encodings and target track indices (1-based).</returns>
-		private List<Tuple<AudioEncoding, int>> GetOutputTracks(VCJob job, SourceTitle title)
+		private List<Tuple<AudioEncoding, ChosenAudioTrack>> GetOutputTracks(VCJob job, SourceTitle title)
 		{
-			var list = new List<Tuple<AudioEncoding, int>>();
+			var list = new List<Tuple<AudioEncoding, ChosenAudioTrack>>();
 
 			foreach (AudioEncoding encoding in job.EncodingProfile.AudioEncodings)
 			{
 				if (encoding.InputNumber == 0)
 				{
 					// Add this encoding for all chosen tracks
-					foreach (int chosenTrack in job.ChosenAudioTracks)
+					foreach (ChosenAudioTrack chosenTrack in job.AudioTracks)
 					{
 						// In normal cases we'll never have a chosen audio track that doesn't exist but when batch encoding
 						// we just choose the first audio track without checking if it exists.
-						if (chosenTrack <= title.AudioList.Count)
+						if (chosenTrack.TrackNumber <= title.AudioList.Count)
 						{
-							list.Add(new Tuple<AudioEncoding, int>(encoding, chosenTrack));
+							list.Add(new Tuple<AudioEncoding, ChosenAudioTrack>(encoding, chosenTrack));
 						}
 					}
 				}
-				else if (encoding.InputNumber <= job.ChosenAudioTracks.Count)
+				else if (encoding.InputNumber <= job.AudioTracks.Count)
 				{
 					// Add this encoding for the specified track, if it exists
-					int trackNumber = job.ChosenAudioTracks[encoding.InputNumber - 1];
+					ChosenAudioTrack chosenTrack = job.AudioTracks[encoding.InputNumber - 1];
 
 					// In normal cases we'll never have a chosen audio track that doesn't exist but when batch encoding
 					// we just choose the first audio track without checking if it exists.
-					if (trackNumber <= title.AudioList.Count)
+					if (chosenTrack.TrackNumber <= title.AudioList.Count)
 					{
-						list.Add(new Tuple<AudioEncoding, int>(encoding, trackNumber));
+						list.Add(new Tuple<AudioEncoding, ChosenAudioTrack>(encoding, chosenTrack));
 					}
 				}
 			}
@@ -721,7 +729,7 @@ namespace VidCoderCommon.Model
 				SubtitleList = new List<SubtitleTrack>()
 			};
 
-			foreach (SourceSubtitle sourceSubtitle in job.Subtitles.SourceSubtitles)
+			foreach (ChosenSourceSubtitle sourceSubtitle in job.Subtitles.SourceSubtitles)
 			{
 				// Handle Foreign Audio Search
 				if (sourceSubtitle.TrackNumber == 0)
@@ -739,7 +747,8 @@ namespace VidCoderCommon.Model
 						Default = sourceSubtitle.Default,
 						Forced = sourceSubtitle.ForcedOnly,
 						ID = sourceSubtitle.TrackNumber,
-						Track = (sourceSubtitle.TrackNumber - 1)
+						Track = sourceSubtitle.TrackNumber - 1,
+						Name = sourceSubtitle.Name
 					};
 					subtitles.SubtitleList.Add(track);
 				}
@@ -750,6 +759,7 @@ namespace VidCoderCommon.Model
 				SubtitleTrack track = new SubtitleTrack
 				{
 					Track = -1, // Indicates SRT
+					Name = fileSubtitle.Name,
 					Default = fileSubtitle.Default,
 					Offset = fileSubtitle.Offset,
 					Burn = fileSubtitle.BurnedIn,
@@ -871,7 +881,7 @@ namespace VidCoderCommon.Model
 
 			availableBytes -= containerOverheadBytes;
 
-			List<Tuple<AudioEncoding, int>> outputTrackList = this.GetOutputTracks(job, title);
+			List<Tuple<AudioEncoding, ChosenAudioTrack>> outputTrackList = this.GetOutputTracks(job, title);
 			long audioSizeBytes = this.GetAudioSize(lengthSeconds, title, outputTrackList, GetFallbackAudioEncoder(job.EncodingProfile), job.EncodingProfile.AudioCopyMask);
 			this.logger.Log($"Calculating bitrate - Audio size: {audioSizeBytes} bytes");
 			availableBytes -= audioSizeBytes;
@@ -924,7 +934,7 @@ namespace VidCoderCommon.Model
 			totalBytes += (long)(lengthSeconds * videoBitrate * 125);
 			totalBytes += frames * ContainerOverheadBytesPerFrame;
 
-			List<Tuple<AudioEncoding, int>> outputTrackList = this.GetOutputTracks(job, title);
+			List<Tuple<AudioEncoding, ChosenAudioTrack>> outputTrackList = this.GetOutputTracks(job, title);
 			totalBytes += this.GetAudioSize(lengthSeconds, title, outputTrackList, GetFallbackAudioEncoder(job.EncodingProfile), job.EncodingProfile.AudioCopyMask);
 
 			return (double)totalBytes / 1024 / 1024;
@@ -968,15 +978,15 @@ namespace VidCoderCommon.Model
 	    /// <param name="audioEncoderFallback">The fallback audio encoder for the job.</param>
 	    /// <param name="copyMask">The audio copy mask for the job.</param>
 	    /// <returns>The size in bytes for the audio with the given parameters.</returns>
-	    private long GetAudioSize(double lengthSeconds, SourceTitle title, List<Tuple<AudioEncoding, int>> outputTrackList, HBAudioEncoder audioEncoderFallback, List<CopyMaskChoice> copyMask)
+	    private long GetAudioSize(double lengthSeconds, SourceTitle title, List<Tuple<AudioEncoding, ChosenAudioTrack>> outputTrackList, HBAudioEncoder audioEncoderFallback, List<CopyMaskChoice> copyMask)
 		{
 			long audioBytes = 0;
 			int outputTrackNumber = 1;
 
-			foreach (Tuple<AudioEncoding, int> outputTrack in outputTrackList)
+			foreach (Tuple<AudioEncoding, ChosenAudioTrack> outputTrack in outputTrackList)
 			{
 				AudioEncoding encoding = outputTrack.Item1;
-				SourceAudioTrack track = title.AudioList[outputTrack.Item2 - 1];
+				SourceAudioTrack track = title.AudioList[outputTrack.Item2.TrackNumber - 1];
 
 				int samplesPerFrame = this.GetAudioSamplesPerFrame(encoding.Encoder);
 				int audioBitrate;

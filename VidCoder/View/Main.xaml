@@ -1383,13 +1383,36 @@
 												</DataTemplate>
 											</GridViewColumn.CellTemplate>
 										</GridViewColumn>
-										<GridViewColumn x:Name="audioNameColumn" Header="{x:Static res:SubtitleRes.NameColumn}">
+										<GridViewColumn x:Name="audioTrackSummaryColumn" Header="{x:Static res:MainRes.AudioSubtitleTrackColumnHeader}">
 											<GridViewColumn.CellTemplate>
 												<DataTemplate DataType="viewmodel:AudioTrackViewModel">
 													<TextBlock
 														VerticalAlignment="Center"
 														Style="{StaticResource SourceTrack}"
-														Text="{Binding}" />
+														Text="{Binding TrackSummary}" />
+												</DataTemplate>
+											</GridViewColumn.CellTemplate>
+										</GridViewColumn>
+										<GridViewColumn x:Name="audioNameColumn" Header="{x:Static res:SubtitleRes.NameColumn}">
+											<GridViewColumn.CellTemplate>
+												<DataTemplate DataType="viewmodel:AudioTrackViewModel">
+													<Grid>
+														<TextBlock
+															Style="{StaticResource SourceTrack}"
+															Text="{Binding SourceName}"
+															Visibility="{Binding Selected,
+															                     Converter={StaticResource InverseVisibilityConverter}}" />
+														<TextBox
+															Height="22"
+															MinWidth="100"
+															Margin="0"
+															VerticalContentAlignment="Center"
+															AutomationProperties.Name="{x:Static res:MainRes.AudioTrackNameAutomationName}"
+															Text="{Binding Name,
+															               UpdateSourceTrigger=PropertyChanged}"
+															Visibility="{Binding Selected,
+															                     Converter={StaticResource VisibilityConverter}}" />
+													</Grid>
 												</DataTemplate>
 											</GridViewColumn.CellTemplate>
 										</GridViewColumn>
@@ -1542,12 +1565,31 @@
 									IsChecked="{Binding Selected}"
 									Style="{StaticResource CheckBoxCenteredStyle}" />
 							</DataTemplate>
-							<DataTemplate x:Key="NameTemplate" DataType="viewmodel:SourceSubtitleViewModel">
+							<DataTemplate x:Key="TrackSummaryTemplate" DataType="viewmodel:SourceSubtitleViewModel">
 								<Grid Height="22">
 									<TextBlock
 										VerticalAlignment="Center"
 										Style="{StaticResource SourceTrack}"
-										Text="{Binding SubtitleName}" />
+										Text="{Binding TrackSummary}" />
+								</Grid>
+							</DataTemplate>
+							<DataTemplate x:Key="SourceNameTemplate" DataType="viewModel:SourceSubtitleViewModel">
+								<Grid Visibility="{Binding IsForeignAudioSearch, Converter={StaticResource InverseVisibilityConverter}}">
+									<TextBlock
+										Style="{StaticResource SourceTrack}"
+										Text="{Binding SourceName}"
+										Visibility="{Binding Selected,
+										                     Converter={StaticResource InverseVisibilityConverter}}" />
+									<TextBox
+										Height="22"
+										MinWidth="100"
+										Margin="0"
+										VerticalContentAlignment="Center"
+										AutomationProperties.Name="{x:Static res:MainRes.SubtitleNameAutomationName}"
+										Text="{Binding Name,
+										               UpdateSourceTrigger=PropertyChanged}"
+										Visibility="{Binding Selected,
+										                     Converter={StaticResource VisibilityConverter}}" />
 								</Grid>
 							</DataTemplate>
 							<DataTemplate x:Key="ForcedTemplate" DataType="viewmodel:SourceSubtitleViewModel">
@@ -1585,6 +1627,16 @@
 									Foreground="{DynamicResource WindowTextBrush}"
 									Text="{Binding FileName}"
 									ToolTipService.ToolTip="{Binding FileName}" />
+							</DataTemplate>
+							<DataTemplate x:Key="ImportNameTemplate" DataType="viewmodel:FileSubtitleViewModel">
+								<TextBox
+									Height="22"
+									MinWidth="100"
+									Margin="0"
+									VerticalContentAlignment="Center"
+									AutomationProperties.Name="{x:Static res:MainRes.SubtitleNameAutomationName}"
+									Text="{Binding Name,
+									               UpdateSourceTrigger=PropertyChanged}" />
 							</DataTemplate>
 							<DataTemplate x:Key="DefaultTemplate" DataType="viewmodel:SourceSubtitleViewModel">
 								<CheckBox
@@ -1701,9 +1753,17 @@
 										<GridView.Columns>
 											<GridViewColumn x:Name="sourceSelectedColumn" CellTemplate="{StaticResource SelectedTemplate}" />
 											<GridViewColumn
-												x:Name="sourceNameColumn"
-												CellTemplate="{StaticResource NameTemplate}"
-												Header="{x:Static res:SubtitleRes.NameColumn}" />
+												x:Name="sourceTrackSummaryColumn"
+												CellTemplate="{StaticResource TrackSummaryTemplate}"
+												Header="{x:Static res:MainRes.AudioSubtitleTrackColumnHeader}" />
+											<GridViewColumn x:Name="sourceNameColumn" CellTemplate="{StaticResource SourceNameTemplate}">
+												<GridViewColumn.Header>
+													<TextBlock
+														MinWidth="108"
+														Text="{x:Static res:SubtitleRes.NameColumn}"
+														TextAlignment="Center" />
+												</GridViewColumn.Header>
+											</GridViewColumn>
 											<GridViewColumn x:Name="sourceDefaultColumn" CellTemplate="{StaticResource DefaultTemplate}">
 												<GridViewColumn.Header>
 													<TextBlock
@@ -1779,6 +1839,10 @@
 												x:Name="fileSubtitleFileColumn"
 												CellTemplate="{StaticResource FileNameTemplate}"
 												Header="{x:Static res:SubtitleRes.FileColumn}" />
+											<GridViewColumn
+												x:Name="fileSubtitleNameColumn"
+												CellTemplate="{StaticResource ImportNameTemplate}"
+												Header="{x:Static res:SubtitleRes.NameColumn}" />
 											<GridViewColumn
 												x:Name="fileSubtitleDefaultColumn"
 												CellTemplate="{StaticResource DefaultTemplate}"

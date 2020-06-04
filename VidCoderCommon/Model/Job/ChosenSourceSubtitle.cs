@@ -4,8 +4,11 @@ using VidCoderCommon.Utilities.Injection;
 
 namespace VidCoderCommon.Model
 {
+	/// <summary>
+	/// A chosen source subtitle with options specified.
+	/// </summary>
 	[JsonObject]
-    public class SourceSubtitle
+    public class ChosenSourceSubtitle
     {
         /// <summary>
         /// Gets or sets a value indicating whether the subtitle track should be burned in.
@@ -20,14 +23,20 @@ namespace VidCoderCommon.Model
         public bool ForcedOnly { get; set; }
 
         /// <summary>
-        ///     Gets or sets the 1-based subtitle track number. 0 means foreign audio search.
+        /// Gets or sets the 1-based subtitle track number. 0 means foreign audio search.
         /// </summary>
 		[JsonProperty]
         public int TrackNumber { get; set; }
 
-		public SourceSubtitle Clone()
+		/// <summary>
+		/// Gets or sets the custom name for the track.
+		/// </summary>
+		[JsonProperty]
+		public string Name { get; set; }
+
+		public ChosenSourceSubtitle Clone()
 		{
-			var subtitle = new SourceSubtitle();
+			var subtitle = new ChosenSourceSubtitle();
 			subtitle.InjectFrom<CloneInjection>(this);
 			return subtitle;
 		}

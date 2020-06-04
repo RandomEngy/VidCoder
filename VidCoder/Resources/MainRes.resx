@@ -676,4 +676,16 @@
   <data name="SubtitlePickerButtonToolTip" xml:space="preserve">
     <value>Automatically pick subtitle tracks...</value>
   </data>
+  <data name="AudioSubtitleTrackColumnHeader" xml:space="preserve">
+    <value>Track</value>
+    <comment>Column header for the audio or subtitle track summary. This is an an auto-generated summary that includes language, format, etc.</comment>
+  </data>
+  <data name="AudioTrackNameAutomationName" xml:space="preserve">
+    <value>Audio track name</value>
+    <comment>Narrator label for the audio track name text box.</comment>
+  </data>
+  <data name="SubtitleNameAutomationName" xml:space="preserve">
+    <value>Subtitle name</value>
+    <comment>Narrator label for the subtitle name text box.</comment>
+  </data>
 </root>

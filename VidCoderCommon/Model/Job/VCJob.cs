@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using VidCoderCommon.JsonConverters;
@@ -34,10 +35,15 @@ namespace VidCoderCommon.Model
 		public int FramesStart { get; set; }
 		public int FramesEnd { get; set; }
 
-		/// <summary>
-		/// Gets or sets the list of chosen audio tracks (1-based)
-		/// </summary>
+		[Obsolete("Use AudioTracks instead")]
+		[DeserializeOnly]
 		public List<int> ChosenAudioTracks { get; set; }
+
+		/// <summary>
+		/// Gets or sets the list of chosen audio tracks, with optional names.
+		/// </summary>
+		public List<ChosenAudioTrack> AudioTracks { get; set; }
+
 		public VCSubtitles Subtitles { get; set; }
 		public bool UseDefaultChapterNames { get; set; }
 		public List<string> CustomChapterNames { get; set; }
@@ -73,6 +79,11 @@ namespace VidCoderCommon.Model
 			if (this.OutputPath != null && this.FinalOutputPath == null)
 			{
 				this.FinalOutputPath = this.OutputPath;
+			}
+
+			if (this.ChosenAudioTracks != null && this.AudioTracks == null)
+			{
+				this.AudioTracks = this.ChosenAudioTracks.Select(t => new ChosenAudioTrack { TrackNumber = t }).ToList();
 			}
 #pragma warning restore 618
 		}

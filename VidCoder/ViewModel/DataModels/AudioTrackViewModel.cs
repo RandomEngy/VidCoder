@@ -22,6 +22,7 @@ namespace VidCoder.ViewModel
 			this.mainViewModel = mainViewModel;
 			this.AudioTrack = audioTrack;
 			this.TrackNumber = trackNumber;
+			this.name = audioTrack.Name;
 		}
 
 		private bool selected;
@@ -107,7 +108,7 @@ namespace VidCoder.ViewModel
 	    {
 			if (string.IsNullOrEmpty(this.AudioTrack.Name))
 			{
-				return this.TrackNumber + " " + this.AudioTrack.Description;
+				return this.TrackSummary;
 			}
 			else
 			{
@@ -115,7 +116,13 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public string Display => this.ToString();
+		public string TrackSummary
+		{
+			get
+			{
+				return this.TrackNumber + " " + this.AudioTrack.Description;
+			}
+		}
 
 		private string name;
 		public string Name
@@ -123,6 +130,8 @@ namespace VidCoder.ViewModel
 			get { return this.name; }
 			set { this.RaiseAndSetIfChanged(ref this.name, value); }
 		}
+
+		public string SourceName => this.AudioTrack.Name;
 
 		public void UpdateButtonVisiblity()
 		{

@@ -163,6 +163,11 @@ namespace VidCoder.DragDropUtils
 
 		private void DragSource_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
+			if (e.OriginalSource.GetType().Name == "TextBoxView")
+			{
+				return;
+			}
+
 			this.sourceItemsControl = (ItemsControl)sender;
 			var visual = e.OriginalSource as Visual;
 

@@ -340,7 +340,7 @@ namespace VidCoder.ViewModel
 				{
 					audioOutputPreviewsInnerList.Clear();
 
-					List<int> chosenAudioTracks = this.MainViewModel.GetChosenAudioTracks();
+					List<ChosenAudioTrack> chosenAudioTracks = this.MainViewModel.GetChosenAudioTracks();
 					var outputPreviews = new List<AudioOutputPreview>();
 
 					foreach (AudioEncodingViewModel audioVM in this.audioEncodings.Items)
@@ -361,7 +361,7 @@ namespace VidCoder.ViewModel
 							}
 							else if (audioVM.TargetStreamIndex - 1 < chosenAudioTracks.Count)
 							{
-								int titleAudioIndex = chosenAudioTracks[audioVM.TargetStreamIndex - 1];
+								int titleAudioIndex = chosenAudioTracks[audioVM.TargetStreamIndex - 1].TrackNumber;
 
 								AudioOutputPreview audioPreview = this.GetAudioPreview(this.SelectedTitle.AudioList[titleAudioIndex - 1],
 									audioVM);

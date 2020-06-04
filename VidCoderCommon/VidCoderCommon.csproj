@@ -101,6 +101,7 @@
     <Compile Include="IHandBrakeWorker.cs" />
     <Compile Include="IHandBrakeWorkerCallback.cs" />
     <Compile Include="JsonConverters\SourceTypeConverter.cs" />
+    <Compile Include="Model\Job\ChosenAudioTrack.cs" />
     <Compile Include="Model\VCEncodeResult.cs" />
     <Compile Include="Model\Preset\AudioEncodeRateType.cs" />
     <Compile Include="Model\AudioEncoding.cs" />
@@ -111,7 +112,7 @@
     <Compile Include="Model\OutputAudioTrackInfo.cs" />
     <Compile Include="Model\OutputSizeInfo.cs" />
     <Compile Include="Model\Preset\Preset.cs" />
-    <Compile Include="Model\Job\SourceSubtitle.cs" />
+    <Compile Include="Model\Job\ChosenSourceSubtitle.cs" />
     <Compile Include="Model\Job\SourceType.cs" />
     <Compile Include="Model\Job\FileSubtitle.cs" />
     <Compile Include="Model\Job\VCSubtitles.cs" />

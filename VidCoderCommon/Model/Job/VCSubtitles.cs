@@ -6,7 +6,7 @@
 
 	public class VCSubtitles
     {
-        public List<SourceSubtitle> SourceSubtitles { get; set; }
+        public List<ChosenSourceSubtitle> SourceSubtitles { get; set; }
 
 		[Obsolete("Use FileSubtitles instead")]
 		[DeserializeOnly]

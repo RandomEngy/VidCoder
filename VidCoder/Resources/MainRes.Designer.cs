@@ -133,6 +133,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Track.
+        /// </summary>
+        public static string AudioSubtitleTrackColumnHeader {
+            get {
+                return ResourceManager.GetString("AudioSubtitleTrackColumnHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Audio track name.
+        /// </summary>
+        public static string AudioTrackNameAutomationName {
+            get {
+                return ResourceManager.GetString("AudioTrackNameAutomationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close the current file and open the disc?.
         /// </summary>
         public static string AutoplayDiscConfirmationMessage {
@@ -1530,6 +1548,15 @@ namespace VidCoder.Resources {
         public static string StoppedEncoding {
             get {
                 return ResourceManager.GetString("StoppedEncoding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subtitle name.
+        /// </summary>
+        public static string SubtitleNameAutomationName {
+            get {
+                return ResourceManager.GetString("SubtitleNameAutomationName", resourceCulture);
             }
         }
         
