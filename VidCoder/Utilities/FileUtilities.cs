@@ -227,7 +227,11 @@ namespace VidCoder
 						relativePath = relativePath.Substring(1);
 					}
 
-					return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Packages", Utilities.PackageFamilyName, @"LocalCache\Roaming", relativePath);
+					string candidatePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Packages", Utilities.PackageFamilyName, @"LocalCache\Roaming", relativePath);
+					if (File.Exists(candidatePath))
+					{
+						return candidatePath;
+					}
 				}
 			}
 
