@@ -17,10 +17,10 @@ $AllProtocols = [System.Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12'
 #$wc.Credentials = New-Object System.Net.NetworkCredential("username","password")
 #$nightlyPageContent = $wc.DownloadString("https://handbrake.fr/nightly.php")
 
-$nightlyPageResponse = Invoke-WebRequest -Uri "https://handbrake.fr/nightly.php"
+$nightlyPageResponse = Invoke-WebRequest -Uri "https://handbrake.fr/nightly.php" -UseBasicParsing
 $nightlyPageContent = $nightlyPageResponse.Content
 
-$nightlyPageContent -match "https://[^""]+LibHB[^""]+x86_64.zip" | Out-Null
+$nightlyPageContent -match "https://[^""]+x86_64-Win_GUI.zip" | Out-Null
 $url = $matches[0]
 
 if (Test-Path .\Import\Hb) {
@@ -31,7 +31,7 @@ New-Item -ItemType Directory -Force -Path "Import\Hb" | Out-Null
 
 Add-Type -assembly "system.io.compression.filesystem"
 
-Invoke-WebRequest -Uri $url -OutFile ("Import\hb.zip")
+Invoke-WebRequest -Uri $url -OutFile ("Import\hb.zip") -UseBasicParsing
 
 [io.compression.zipfile]::ExtractToDirectory("Import\hb.zip", "Import\Hb\")
 
