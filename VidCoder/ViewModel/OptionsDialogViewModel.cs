@@ -266,7 +266,7 @@ namespace VidCoder.ViewModel
 
 			if (this.DialogResult)
 			{
-				StaticResolver.Resolve<OutputPathService>().NotifyDefaultOutputFolderChanged();
+				StaticResolver.Resolve<OutputPathService>().NotifyConfiguredDefaultOutputFolderChanged();
 			}
 
 			return base.OnClosing();

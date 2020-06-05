@@ -202,9 +202,6 @@
   <data name="DestinationToolTip" xml:space="preserve">
     <value>Click to edit the encode destination.</value>
   </data>
-  <data name="SelectOutputPathButton" xml:space="preserve">
-    <value>Select output path...</value>
-  </data>
   <data name="Stop" xml:space="preserve">
     <value>Stop</value>
   </data>
@@ -319,12 +316,6 @@
   </data>
   <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
     <value>VidCoder has finished all encode jobs in the queue.</value>
-  </data>
-  <data name="OutputFolderRequiredMessage" xml:space="preserve">
-    <value>Cannot add encode jobs without a default output folder. Press OK to pick one.</value>
-  </data>
-  <data name="OutputFolderRequiredTitle" xml:space="preserve">
-    <value>Default Output Folder Required</value>
   </data>
   <data name="OutputPathNotValidMessage" xml:space="preserve">
     <value>Output path is not valid.</value>

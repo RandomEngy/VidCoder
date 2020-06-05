@@ -237,7 +237,7 @@ namespace VidCoder.ViewModel
 				{
 					if (!directoryOverrideEnabled)
 					{
-						this.OutputDirectoryOverride = Config.AutoNameOutputFolder;
+						this.OutputDirectoryOverride = this.outputPathService.DefaultOutputFolder;
 					}
 					else
 					{
@@ -340,7 +340,7 @@ namespace VidCoder.ViewModel
 				// When enabled, default to the global output folder.
 				if (this.OutputDirectoryOverrideEnabled)
 				{
-					this.OutputDirectoryOverride = Config.AutoNameOutputFolder;
+					this.OutputDirectoryOverride = this.outputPathService.DefaultOutputFolder;
 				}
 
 				this.outputPathService.GenerateOutputFileName();

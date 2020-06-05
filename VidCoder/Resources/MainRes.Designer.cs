@@ -983,24 +983,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot add encode jobs without a default output folder. Press OK to pick one..
-        /// </summary>
-        public static string OutputFolderRequiredMessage {
-            get {
-                return ResourceManager.GetString("OutputFolderRequiredMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Default Output Folder Required.
-        /// </summary>
-        public static string OutputFolderRequiredTitle {
-            get {
-                return ResourceManager.GetString("OutputFolderRequiredTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Output path is not valid..
         /// </summary>
         public static string OutputPathNotValidMessage {
@@ -1449,15 +1431,6 @@ namespace VidCoder.Resources {
         public static string ScanningSourceLabelFormat {
             get {
                 return ResourceManager.GetString("ScanningSourceLabelFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select output path....
-        /// </summary>
-        public static string SelectOutputPathButton {
-            get {
-                return ResourceManager.GetString("SelectOutputPathButton", resourceCulture);
             }
         }
         

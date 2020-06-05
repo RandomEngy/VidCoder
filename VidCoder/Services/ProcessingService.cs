@@ -490,11 +490,6 @@ namespace VidCoder.Services
 			{
 				return this.queueFiles ?? (this.queueFiles = ReactiveCommand.Create(() =>
 				{
-					if (!this.EnsureDefaultOutputFolderSet())
-					{
-						return;
-					}
-
 					IList<string> fileNames = FileService.Instance.GetFileNames(Config.RememberPreviousFiles ? Config.LastInputFileFolder : null);
 					if (fileNames != null && fileNames.Count > 0)
 					{
@@ -514,11 +509,6 @@ namespace VidCoder.Services
 				return this.queueTitlesAction ?? (this.queueTitlesAction = ReactiveCommand.Create(
 					() =>
 					{
-						if (!this.EnsureDefaultOutputFolderSet())
-						{
-							return;
-						}
-
 						this.windowManager.OpenOrFocusWindow<QueueTitlesWindowViewModel>();
 					},
 					this.WhenAnyValue(x => x.CanTryEnqueueMultipleTitles)));
@@ -1041,11 +1031,6 @@ namespace VidCoder.Services
 				throw new ArgumentException("source cannot be null or empty.");
 			}
 
-			if (string.IsNullOrWhiteSpace(destination) && !this.EnsureDefaultOutputFolderSet())
-			{
-				throw new ArgumentException("If destination is not set, the default output folder must be set.");
-			}
-
 			if (destination != null && !Utilities.IsValidFullPath(destination))
 			{
 				throw new ArgumentException("Destination path is not valid: " + destination);
@@ -1156,11 +1141,6 @@ namespace VidCoder.Services
 
 		public bool TryQueue()
 		{
-			if (!this.EnsureDefaultOutputFolderSet())
-			{
-				return false;
-			}
-
 			if (!this.EnsureValidOutputPath())
 			{
 				return false;
@@ -1321,11 +1301,6 @@ namespace VidCoder.Services
 		// Queues a list of files or video folders.
 		public void QueueMultiple(IEnumerable<SourcePath> sourcePaths)
 		{
-			if (!this.EnsureDefaultOutputFolderSet())
-			{
-				return;
-			}
-
 			// Exclude all current queued files if overwrite is disabled
 			HashSet<string> excludedPaths;
 			if (CustomConfig.WhenFileExistsBatch == WhenFileExists.AutoRename)
@@ -2438,29 +2413,6 @@ namespace VidCoder.Services
 			}
 
 			this.RaisePropertyChanged(nameof(this.EncodeCompleteAction));
-		}
-
-		private bool EnsureDefaultOutputFolderSet()
-		{
-			if (!string.IsNullOrEmpty(Config.AutoNameOutputFolder))
-			{
-				return true;
-			}
-
-			var messageService = StaticResolver.Resolve<IMessageBoxService>();
-			var messageResult = messageService.Show(
-				this.main,
-				MainRes.OutputFolderRequiredMessage, 
-				MainRes.OutputFolderRequiredTitle, 
-				MessageBoxButton.OKCancel, 
-				MessageBoxImage.Information);
-
-			if (messageResult == MessageBoxResult.Cancel)
-			{
-				return false;
-			}
-
-			return this.outputPathService.PickDefaultOutputFolderImpl();
 		}
 
 		private bool EnsureValidOutputPath()

@@ -34,10 +34,10 @@ namespace VidCoder.Services
 
 		public OutputPathService()
 		{
-			this.defaultOutputFolder = Config.AutoNameOutputFolder;
+			this.configuredDefaultOutputFolder = Config.AutoNameOutputFolder;
 
 			// OutputFolderChosen
-			this.WhenAnyValue(x => x.DefaultOutputFolder)
+			this.WhenAnyValue(x => x.ConfiguredDefaultOutputFolder)
 				.Select(defaultOutputFolder =>
 				{
 					return !string.IsNullOrEmpty(defaultOutputFolder);
@@ -90,11 +90,25 @@ namespace VidCoder.Services
 			set { this.RaiseAndSetIfChanged(ref this.outputPath, value); }
 		}
 
-		private string defaultOutputFolder;
-		private string DefaultOutputFolder
+		private string configuredDefaultOutputFolder;
+		private string ConfiguredDefaultOutputFolder
 		{
-			get { return this.defaultOutputFolder; }
-			set { this.RaiseAndSetIfChanged(ref this.defaultOutputFolder, value); }
+			get { return this.configuredDefaultOutputFolder; }
+			set { this.RaiseAndSetIfChanged(ref this.configuredDefaultOutputFolder, value); }
+		}
+
+		public string DefaultOutputFolder
+		{
+			get
+			{
+				string configuredValue = Config.AutoNameOutputFolder;
+				if (!string.IsNullOrEmpty(configuredValue))
+				{
+					return configuredValue;
+				}
+
+				return Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
+			}
 		}
 
 		// The parent folder for the item (if it was inside a folder of files added in a batch)
@@ -133,7 +147,7 @@ namespace VidCoder.Services
 			if (newOutputFolder != null)
 			{
 				Config.AutoNameOutputFolder = newOutputFolder;
-				this.NotifyDefaultOutputFolderChanged();
+				this.NotifyConfiguredDefaultOutputFolderChanged();
 			}
 
 			return newOutputFolder != null;
@@ -333,9 +347,9 @@ namespace VidCoder.Services
 			}
 		}
 
-		public void NotifyDefaultOutputFolderChanged()
+		public void NotifyConfiguredDefaultOutputFolderChanged()
 		{
-			this.DefaultOutputFolder = Config.AutoNameOutputFolder;
+			this.ConfiguredDefaultOutputFolder = Config.AutoNameOutputFolder;
 			this.GenerateOutputFileName();
 		}
 
@@ -377,11 +391,6 @@ namespace VidCoder.Services
 			}
 
 			if (main.RangeType == VideoRangeType.Chapters && (main.SelectedStartChapter == null || main.SelectedEndChapter == null))
-			{
-				return;
-			}
-
-			if (string.IsNullOrEmpty(Config.AutoNameOutputFolder))
 			{
 				return;
 			}
@@ -498,7 +507,7 @@ namespace VidCoder.Services
 					return picker.OutputDirectoryOverride;
 				}
 
-				return Config.AutoNameOutputFolder;
+				return this.DefaultOutputFolder;
 			}
 		}
 

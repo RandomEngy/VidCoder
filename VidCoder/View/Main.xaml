@@ -2001,9 +2001,7 @@
 						Grid.Column="1"
 						Height="22"
 						Margin="6 8 6 8"
-						VerticalAlignment="Center"
-						Visibility="{Binding OutputPathService.OutputFolderChosen,
-						                     Converter={StaticResource VisibilityConverter}}">
+						VerticalAlignment="Center">
 						<TextBox
 							Name="destinationEditBox"
 							VerticalContentAlignment="Center"
@@ -2031,26 +2029,6 @@
 								                     Converter={StaticResource VisibilityConverter}}" />
 						</Grid>
 					</Grid>
-
-					<Button
-						Grid.Column="1"
-						Margin="10 8 0 8"
-						HorizontalAlignment="Left"
-						VerticalAlignment="Center"
-						Command="{Binding OutputPathService.PickDefaultOutputFolder}"
-						Visibility="{Binding OutputPathService.OutputFolderChosen,
-						                     Converter={StaticResource InverseVisibilityConverter}}">
-						<StackPanel Margin="4 2" Orientation="Horizontal">
-							<Image
-								Width="16"
-								Height="16"
-								Source="/Icons/win7foldericon.png" />
-							<TextBlock
-								Margin="7 0 0 0"
-								VerticalAlignment="Center"
-								Text="{x:Static res:MainRes.SelectOutputPathButton}" />
-						</StackPanel>
-					</Button>
 
 					<Button
 						Name="outputPathBrowseButton"
