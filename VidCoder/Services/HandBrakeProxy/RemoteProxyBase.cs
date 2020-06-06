@@ -236,12 +236,15 @@ namespace VidCoder
 
 			this.LastWorkerCommunication = DateTimeOffset.UtcNow;
 			this.pipeName = PipeNamePrefix + Guid.NewGuid();
-			var startInfo = new ProcessStartInfo(
-				"VidCoderWorker.exe",
-				Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture) + " " + this.pipeName + " " + this.Action);
-			startInfo.RedirectStandardOutput = true;
-			startInfo.UseShellExecute = false;
-			startInfo.CreateNoWindow = true;
+			var startInfo = new ProcessStartInfo
+			{
+				FileName = "VidCoderWorker.exe",
+				Arguments = Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture) + " " + this.pipeName + " " + this.Action,
+				RedirectStandardOutput = true,
+				RedirectStandardError = true,
+				UseShellExecute = false,
+				CreateNoWindow = true
+			};
 			this.worker = Process.Start(startInfo);
 			this.worker.PriorityClass = CustomConfig.WorkerProcessPriority;
 
