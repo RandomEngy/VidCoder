@@ -37,6 +37,8 @@ using VidCoderCommon.Model;
 using Color = System.Windows.Media.Color;
 using System.Reactive.Subjects;
 using HandBrake.Interop.Interop;
+using Microsoft.WindowsAPICodePack.Shell;
+using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 
 namespace VidCoder.Services
 {
@@ -84,15 +86,15 @@ namespace VidCoder.Services
 				{
 					foreach (EncodeJobWithMetadata job in jobs)
 					{
-						 encodeQueueInnerList.Add(new EncodeJobViewModel(job.Job)
-						 {
-							 SourceParentFolder = job.SourceParentFolder,
-							 ManualOutputPath = job.ManualOutputPath,
-							 NameFormatOverride = job.NameFormatOverride,
-							 PresetName = job.PresetName,
-							 VideoSource = job.VideoSource,
-							 VideoSourceMetadata = job.VideoSourceMetadata
-						 });
+						encodeQueueInnerList.Add(new EncodeJobViewModel(job.Job)
+						{
+							SourceParentFolder = job.SourceParentFolder,
+							ManualOutputPath = job.ManualOutputPath,
+							NameFormatOverride = job.NameFormatOverride,
+							PresetName = job.PresetName,
+							VideoSource = job.VideoSource,
+							VideoSourceMetadata = job.VideoSourceMetadata
+						});
 					}
 				});
 
@@ -125,7 +127,7 @@ namespace VidCoder.Services
 				}
 			};
 
-			
+
 
 			this.completedJobs = new SourceList<EncodeResultViewModel>();
 			IObservable<IChangeSet<EncodeResultViewModel>> completedJobsObservable = this.completedJobs.Connect();
@@ -398,7 +400,7 @@ namespace VidCoder.Services
 			{
 				return this.encodeCompleteActions;
 			}
-		} 
+		}
 
 		private EncodeCompleteAction encodeCompleteAction;
 		public EncodeCompleteAction EncodeCompleteAction
@@ -514,7 +516,7 @@ namespace VidCoder.Services
 					this.WhenAnyValue(x => x.CanTryEnqueueMultipleTitles)));
 			}
 		}
-		
+
 		private ReactiveCommand<Unit, Unit> applyCurrentPresetToQueue;
 		public ICommand ApplyCurrentPresetToQueue
 		{
@@ -941,7 +943,7 @@ namespace VidCoder.Services
 							// And if it's not currently scanned or in the encode queue
 							bool sourceInEncodeQueue = this.EncodeQueue.Items.Any(job => string.Compare(job.Job.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) == 0);
 							if (!sourceInEncodeQueue &&
-							    (!this.main.HasVideoSource || string.Compare(this.main.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) != 0))
+								(!this.main.HasVideoSource || string.Compare(this.main.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) != 0))
 							{
 								deletionCandidates.Add(sourcePath);
 							}
@@ -1048,22 +1050,22 @@ namespace VidCoder.Services
 			{
 				picker = pickerVM.Picker;
 			}
-			
+
 
 			var scanMultipleDialog = new ScanMultipleDialogViewModel(new List<SourcePath> { new SourcePath { Path = source } });
 			this.windowManager.OpenDialog(scanMultipleDialog);
 
 			VideoSource videoSource = scanMultipleDialog.ScanResults[0].VideoSource;
 
-		    List<int> titleNumbers;
-            if (videoSource != null)
-		    {
-		        titleNumbers = this.PickTitles(videoSource, picker);
-		    }
-		    else
-		    {
-		        titleNumbers = new List<int>();
-		    }
+			List<int> titleNumbers;
+			if (videoSource != null)
+			{
+				titleNumbers = this.PickTitles(videoSource, picker);
+			}
+			else
+			{
+				titleNumbers = new List<int>();
+			}
 
 			foreach (int titleNumber in titleNumbers)
 			{
@@ -1116,8 +1118,8 @@ namespace VidCoder.Services
 					string outputFileName = this.outputPathService.BuildOutputFileName(
 						pathToQueue,
 						Utilities.GetSourceName(pathToQueue),
-						job.Title, 
-						title.Duration.ToSpan(), 
+						job.Title,
+						title.Duration.ToSpan(),
 						title.ChapterList.Count,
 						multipleTitlesOnSource: videoSource.Titles.Count > 1,
 						picker: picker);
@@ -1166,7 +1168,7 @@ namespace VidCoder.Services
 		/// <param name="encodeJobViewModel">The job to add.</param>
 		public void Queue(EncodeJobViewModel encodeJobViewModel)
 		{
-			this.QueueMultiple(new [] { encodeJobViewModel });
+			this.QueueMultiple(new[] { encodeJobViewModel });
 		}
 
 		public void QueueTitles(List<SourceTitle> titles, int titleStartOverride, string nameFormatOverride)
@@ -1334,7 +1336,7 @@ namespace VidCoder.Services
 				return;
 			}
 
-            List<ScanMultipleDialogViewModel.ScanResult> scanResults = this.scanMultipleDialogViewModel.ScanResults;
+			List<ScanMultipleDialogViewModel.ScanResult> scanResults = this.scanMultipleDialogViewModel.ScanResults;
 			this.scanMultipleDialogViewModel = null;
 
 			var itemsToQueue = new List<EncodeJobViewModel>();
@@ -1342,56 +1344,56 @@ namespace VidCoder.Services
 
 			foreach (ScanMultipleDialogViewModel.ScanResult scanResult in scanResults)
 			{
-			    SourcePath sourcePath = scanResult.SourcePath;
+				SourcePath sourcePath = scanResult.SourcePath;
 
-			    if (scanResult.VideoSource?.Titles != null && scanResult.VideoSource.Titles.Count > 0)
-			    {
-			        VideoSource videoSource = scanResult.VideoSource;
+				if (scanResult.VideoSource?.Titles != null && scanResult.VideoSource.Titles.Count > 0)
+				{
+					VideoSource videoSource = scanResult.VideoSource;
 
-			        List<int> titleNumbers = this.PickTitles(videoSource);
+					List<int> titleNumbers = this.PickTitles(videoSource);
 
-			        foreach (int titleNumber in titleNumbers)
-			        {
-			            var job = new VCJob
-			            {
-			                SourcePath = sourcePath.Path,
-			                EncodingProfile = this.presetsService.SelectedPreset.Preset.EncodingProfile.Clone(),
-			                Title = titleNumber,
-			                UseDefaultChapterNames = true
-			            };
+					foreach (int titleNumber in titleNumbers)
+					{
+						var job = new VCJob
+						{
+							SourcePath = sourcePath.Path,
+							EncodingProfile = this.presetsService.SelectedPreset.Preset.EncodingProfile.Clone(),
+							Title = titleNumber,
+							UseDefaultChapterNames = true
+						};
 
-			            if (sourcePath.SourceType == SourceType.None)
-			            {
-			                if (Directory.Exists(sourcePath.Path))
-			                {
-			                    job.SourceType = SourceType.DiscVideoFolder;
-			                }
-			                else if (File.Exists(sourcePath.Path))
-			                {
-			                    job.SourceType = SourceType.File;
-			                }
-			            }
-			            else
-			            {
-			                job.SourceType = sourcePath.SourceType;
-			            }
+						if (sourcePath.SourceType == SourceType.None)
+						{
+							if (Directory.Exists(sourcePath.Path))
+							{
+								job.SourceType = SourceType.DiscVideoFolder;
+							}
+							else if (File.Exists(sourcePath.Path))
+							{
+								job.SourceType = SourceType.File;
+							}
+						}
+						else
+						{
+							job.SourceType = sourcePath.SourceType;
+						}
 
-			            if (job.SourceType != SourceType.None)
-			            {
-			                var jobVM = new EncodeJobViewModel(job);
-			                jobVM.VideoSource = videoSource;
-			                jobVM.SourceParentFolder = sourcePath.ParentFolder;
-			                jobVM.ManualOutputPath = false;
-			                jobVM.PresetName = this.presetsService.SelectedPreset.DisplayName;
-			                itemsToQueue.Add(jobVM);
-			            }
-			        }
-			    }
-			    else
-			    {
-                    // If the scan call failed outright or has no titles, mark as failed.
-			        failedFiles.Add(sourcePath.Path);
-			    }
+						if (job.SourceType != SourceType.None)
+						{
+							var jobVM = new EncodeJobViewModel(job);
+							jobVM.VideoSource = videoSource;
+							jobVM.SourceParentFolder = sourcePath.ParentFolder;
+							jobVM.ManualOutputPath = false;
+							jobVM.PresetName = this.presetsService.SelectedPreset.DisplayName;
+							itemsToQueue.Add(jobVM);
+						}
+					}
+				}
+				else
+				{
+					// If the scan call failed outright or has no titles, mark as failed.
+					failedFiles.Add(sourcePath.Path);
+				}
 			}
 
 			foreach (EncodeJobViewModel jobViewModel in itemsToQueue)
@@ -1415,9 +1417,9 @@ namespace VidCoder.Services
 				excludedPaths.Add(fileToQueue);
 				string outputFolder = this.outputPathService.GetOutputFolder(fileToQueue, jobViewModel.SourceParentFolder);
 				string outputFileName = this.outputPathService.BuildOutputFileName(
-					fileToQueue, 
+					fileToQueue,
 					Utilities.GetSourceNameFile(fileToQueue),
-					job.Title, 
+					job.Title,
 					title.Duration.ToSpan(),
 					title.ChapterList.Count,
 					multipleTitlesOnSource: titles.Count > 1);
@@ -1884,9 +1886,9 @@ namespace VidCoder.Services
 
 					// If the user still has the video source up, clear the queue so they can change settings and try again.
 					// If the source isn't loaded they probably want to keep it in the queue.
-					if (this.TotalTasks == 1 
-						&& this.encodeCompleteReason == EncodeCompleteReason.Manual 
-						&& this.main.HasVideoSource 
+					if (this.TotalTasks == 1
+						&& this.encodeCompleteReason == EncodeCompleteReason.Manual
+						&& this.main.HasVideoSource
 						&& this.main.SourcePath == this.EncodeQueue.Items.First().Job.SourcePath)
 					{
 						this.EncodeQueue.Clear();
@@ -1948,25 +1950,36 @@ namespace VidCoder.Services
 						failedFilePath = TryHandleFailedFile(directOutputFileInfo, encodeLogger, "failed", finalOutputPath);
 					}
 
-					if (status == EncodeResultStatus.Succeeded && Config.PreserveModifyTimeFiles)
+					if (status == EncodeResultStatus.Succeeded && !FileUtilities.IsDirectory(finishedJobViewModel.Job.SourcePath))
 					{
-						try
+						if (Config.PreserveModifyTimeFiles)
 						{
-							if (status != EncodeResultStatus.Failed && !FileUtilities.IsDirectory(finishedJobViewModel.Job.SourcePath))
+							try
 							{
-								FileInfo info = new FileInfo(finishedJobViewModel.Job.SourcePath);
+								var inputShellFile = ShellFile.FromFilePath(finishedJobViewModel.Job.SourcePath);
+								var outputShellFile = ShellFile.FromFilePath(finishedJobViewModel.Job.FinalOutputPath);
 
-								File.SetCreationTimeUtc(finishedJobViewModel.Job.FinalOutputPath, info.CreationTimeUtc);
-								File.SetLastWriteTimeUtc(finishedJobViewModel.Job.FinalOutputPath, info.LastWriteTimeUtc);
+								DateTime? inputFileMediaCreatedTime = inputShellFile.Properties.System.Media.DateEncoded.Value;
+								if (inputFileMediaCreatedTime != null)
+								{
+									outputShellFile.Properties.System.Media.DateEncoded.Value = inputFileMediaCreatedTime;
+								}
+
+								File.SetCreationTimeUtc(finishedJobViewModel.Job.FinalOutputPath, inputShellFile.Properties.System.DateCreated.Value.Value);
+
+								// Set "last write" time last so it isn't reset by another property edit.
+								File.SetLastWriteTimeUtc(finishedJobViewModel.Job.FinalOutputPath, inputShellFile.Properties.System.DateModified.Value.Value);
+
+								// Writing Created/Modified time does not work via the ShellFile API, otherwise we would use this approach to set them all at once.
+								////ShellPropertyWriter propertyWriter = outputShellFile.Properties.GetPropertyWriter();
+								////propertyWriter.WriteProperty(SystemProperties.System.DateCreated, inputShellFile.Properties.System.DateCreated.Value);
+								////propertyWriter.WriteProperty(SystemProperties.System.DateModified, inputShellFile.Properties.System.DateModified.Value);
+								////propertyWriter.Close();
 							}
-						}
-						catch (IOException exception)
-						{
-							encodeLogger.LogError("Could not set create/modify dates on file: " + exception);
-						}
-						catch (UnauthorizedAccessException exception)
-						{
-							encodeLogger.LogError("Could not set create/modify dates on file: " + exception);
+							catch (Exception exception)
+							{
+								encodeLogger.LogError("Could not set create/modify dates on file: " + exception);
+							}
 						}
 					}
 
@@ -1994,8 +2007,8 @@ namespace VidCoder.Services
 					if (status == EncodeResultStatus.Succeeded && !Utilities.IsRunningAsAppx && picker.PostEncodeActionEnabled && !string.IsNullOrWhiteSpace(picker.PostEncodeExecutable))
 					{
 						string arguments = this.outputPathService.ReplaceArguments(picker.PostEncodeArguments, picker, finishedJobViewModel)
-                            .Replace("{file}", finalOutputPath)
-                            .Replace("{folder}", Path.GetDirectoryName(finalOutputPath));
+							.Replace("{file}", finalOutputPath)
+							.Replace("{folder}", Path.GetDirectoryName(finalOutputPath));
 
 						var process = new ProcessStartInfo(
 							picker.PostEncodeExecutable,
@@ -2004,7 +2017,7 @@ namespace VidCoder.Services
 
 						encodeLogger.Log($"Started post-encode action. Executable: {picker.PostEncodeExecutable} , Arguments: {arguments}");
 					}
-					
+
 					encodeLogger.Log("Job completed (Elapsed Time: " + Utilities.FormatTimeSpan(finishedJobViewModel.EncodeTime) + ")");
 					this.logger.Log("Job completed: " + finishedJobViewModel.Job.FinalOutputPath);
 
@@ -2375,7 +2388,7 @@ namespace VidCoder.Services
 			// Order backwards so repeated insertions put them in correct order
 			var orderedDrives =
 				from d in applicableDrives
-				orderby d descending 
+				orderby d descending
 				select d;
 
 			foreach (string drive in orderedDrives)
@@ -2424,7 +2437,7 @@ namespace VidCoder.Services
 
 			StaticResolver.Resolve<IMessageBoxService>().Show(
 				MainRes.OutputPathNotValidMessage,
-				MainRes.OutputPathNotValidTitle, 
+				MainRes.OutputPathNotValidTitle,
 				MessageBoxButton.OK,
 				MessageBoxImage.Error);
 
@@ -2710,8 +2723,8 @@ namespace VidCoder.Services
 				case SubtitleSelectionMode.Language:
 				case SubtitleSelectionMode.All:
 					job.Subtitles.SourceSubtitles.AddRange(ChooseSubtitles(
-						title, 
-						picker, 
+						title,
+						picker,
 						job.AudioTracks.Count > 0 ? job.AudioTracks[0].TrackNumber : -1,
 						job.EncodingProfile.ContainerName));
 
@@ -2752,7 +2765,7 @@ namespace VidCoder.Services
 							Default = picker.SubtitleDefault
 						});
 					}
-					
+
 					break;
 				case SubtitleSelectionMode.ByIndex:
 					// 1-based
@@ -2861,7 +2874,7 @@ namespace VidCoder.Services
 					{
 						// First the chosen language tracks to bring to the top
 						chosenSubtitleTracks = ChooseSubtitlesFromLanguages(subtitlesThatCanPassthrough, title.AudioList, chosenAudioTrack, picker.SubtitleLanguageCodes, includeAllTracks: true, onlyIfDifferentFromAudio: false);
-						
+
 						// Then everything else
 						foreach (var sourceSubtitleTrack in subtitlesThatCanPassthrough)
 						{
@@ -2885,11 +2898,11 @@ namespace VidCoder.Services
 					{
 						// First track
 						AddSubtitleToResult(
-							title.SubtitleList, 
-							result, 
-							chosenSubtitleTracks[0], 
-							burnedIn: false, 
-							forcedOnly: picker.SubtitleForcedOnly, 
+							title.SubtitleList,
+							result,
+							chosenSubtitleTracks[0],
+							burnedIn: false,
+							forcedOnly: picker.SubtitleForcedOnly,
 							def: picker.SubtitleDefault);
 
 						// The rest
