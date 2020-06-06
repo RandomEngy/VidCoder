@@ -1299,7 +1299,7 @@ namespace VidCoder.ViewModel
 								if (audioTrackVM.TrackIndex < this.selectedTitle.AudioList.Count &&
 								    audioTrackVM.AudioTrack.Language == this.selectedTitle.AudioList[audioTrackVM.TrackIndex].Language)
 								{
-									audioTracksInnerList.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[audioTrackVM.TrackIndex], audioTrackVM.TrackNumber) { Selected = true });
+									audioTracksInnerList.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[audioTrackVM.TrackIndex], new ChosenAudioTrack { TrackNumber = audioTrackVM.TrackNumber }) { Selected = true });
 								}
 							}
 						}
@@ -1311,7 +1311,7 @@ namespace VidCoder.ViewModel
 					case AudioSelectionMode.All:
 						audioTracksInnerList.AddRange(ProcessingService
 							.ChooseAudioTracks(this.selectedTitle.AudioList, picker)
-							.Select(i => new AudioTrackViewModel(this, this.selectedTitle.AudioList[i], i + 1) { Selected = true }));
+							.Select(i => new AudioTrackViewModel(this, this.selectedTitle.AudioList[i], new ChosenAudioTrack { TrackNumber = i + 1 }) { Selected = true }));
 
 						break;
 					default:
@@ -1321,7 +1321,7 @@ namespace VidCoder.ViewModel
 				// If nothing got selected and we have not explicitly left it out, add the first one.
 				if (this.selectedTitle.AudioList.Count > 0 && this.AudioTracks.Count == 0 && picker.AudioSelectionMode != AudioSelectionMode.ByIndex)
 				{
-					audioTracksInnerList.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[0], 1) { Selected = true });
+					audioTracksInnerList.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[0], new ChosenAudioTrack { TrackNumber = 1 }) { Selected = true });
 				}
 
 				// Fill in rest of unselected audio tracks
@@ -1336,7 +1336,7 @@ namespace VidCoder.ViewModel
 				SourceAudioTrack track = this.SelectedTitle.AudioList[i];
 				if (listToAddTo.All(t => t.AudioTrack != track))
 				{
-					listToAddTo.Add(new AudioTrackViewModel(this, track, i + 1));
+					listToAddTo.Add(new AudioTrackViewModel(this, track, new ChosenAudioTrack { TrackNumber = i + 1 }));
 				}
 			}
 		}
@@ -1365,7 +1365,7 @@ namespace VidCoder.ViewModel
 			var newTrack = new AudioTrackViewModel(
 				this,
 				audioTrackViewModel.AudioTrack,
-				audioTrackViewModel.TrackNumber);
+				new ChosenAudioTrack { TrackNumber = audioTrackViewModel.TrackNumber });
 			newTrack.Selected = true;
 
 			this.AudioTracks.Insert(
@@ -3154,7 +3154,7 @@ namespace VidCoder.ViewModel
 
 			foreach (AudioTrackViewModel audioTrackVM in this.AudioTracks.Items.Where(track => track.Selected))
 			{
-				tracks.Add(new ChosenAudioTrack { TrackNumber = audioTrackVM.TrackNumber, Name = audioTrackVM.Name });
+				tracks.Add(audioTrackVM.ChosenAudioTrack);
 			}
 
 			return tracks;
@@ -3447,11 +3447,11 @@ namespace VidCoder.ViewModel
 			this.AudioTracks.Edit(audioTracksInnerList =>
 			{
 				audioTracksInnerList.Clear();
-				foreach (int chosenTrack in job.ChosenAudioTracks)
+				foreach (ChosenAudioTrack chosenTrack in job.AudioTracks)
 				{
-					if (chosenTrack <= this.selectedTitle.AudioList.Count)
+					if (chosenTrack.TrackNumber <= this.selectedTitle.AudioList.Count)
 					{
-						audioTracksInnerList.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[chosenTrack - 1], chosenTrack) { Selected = true });
+						audioTracksInnerList.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[chosenTrack.TrackNumber - 1], chosenTrack) { Selected = true });
 					}
 				}
 

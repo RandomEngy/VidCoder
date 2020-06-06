@@ -138,7 +138,7 @@ namespace VidCoder.ViewModel
 
 		public string Name
 		{
-			get { return this.subtitle.Name ?? this.inputSubtitle?.Name; }
+			get => this.subtitle.Name ?? this.inputSubtitle?.Name;
 			set
 			{
 				this.subtitle.Name = value;

@@ -24,5 +24,10 @@ namespace VidCoderCommon.Model
 		/// </summary>
 		[JsonProperty]
 		public string Name { get; set; }
+
+		public ChosenAudioTrack Clone()
+		{
+			return new ChosenAudioTrack { TrackNumber = this.TrackNumber, Name = this.Name };
+		}
 	}
 }

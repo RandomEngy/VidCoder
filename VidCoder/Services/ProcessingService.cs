@@ -1074,7 +1074,7 @@ namespace VidCoder.Services
 					Title = titleNumber,
 					RangeType = VideoRangeType.All,
 					EncodingProfile = profile,
-					ChosenAudioTracks = new List<int> { 1 },
+					AudioTracks = new List<ChosenAudioTrack> { new ChosenAudioTrack { TrackNumber = 1 } },
 					FinalOutputPath = destination,
 					UseDefaultChapterNames = true,
 				});
@@ -2522,7 +2522,7 @@ namespace VidCoder.Services
 		{
 			Picker picker = this.pickersService.SelectedPicker.Picker;
 
-			job.ChosenAudioTracks = new List<int>();
+			job.AudioTracks = new List<ChosenAudioTrack>();
 			switch (picker.AudioSelectionMode)
 			{
 				case AudioSelectionMode.Disabled:
@@ -2537,20 +2537,20 @@ namespace VidCoder.Services
 
 								if (title.AudioList.Count > audioIndex && this.main.SelectedTitle.AudioList[audioIndex].LanguageCode == title.AudioList[audioIndex].LanguageCode)
 								{
-									job.ChosenAudioTracks.Add(audioIndex + 1);
+									job.AudioTracks.Add(new ChosenAudioTrack { TrackNumber = audioIndex + 1 });
 								}
 							}
 
 							// If we didn't manage to match any existing audio tracks, use the first audio track.
-							if (job.ChosenAudioTracks.Count == 0)
+							if (job.AudioTracks.Count == 0)
 							{
-								job.ChosenAudioTracks.Add(1);
+								job.AudioTracks.Add(new ChosenAudioTrack { TrackNumber = 1 });
 							}
 						}
 						else
 						{
 							// With no previous context, just pick the first track
-							job.ChosenAudioTracks.Add(1);
+							job.AudioTracks.Add(new ChosenAudioTrack { TrackNumber = 1 });
 						}
 					}
 
@@ -2559,7 +2559,7 @@ namespace VidCoder.Services
 				case AudioSelectionMode.ByIndex:
 				case AudioSelectionMode.Language:
 				case AudioSelectionMode.All:
-					job.ChosenAudioTracks.AddRange(ChooseAudioTracks(title.AudioList, picker).Select(i => i + 1));
+					job.AudioTracks.AddRange(ChooseAudioTracks(title.AudioList, picker).Select(i => new ChosenAudioTrack { TrackNumber = i + 1 }));
 
 					break;
 				default:
@@ -2567,9 +2567,9 @@ namespace VidCoder.Services
 			}
 
 			// If none get chosen, pick the first one.
-			if (job.ChosenAudioTracks.Count == 0 && title.AudioList.Count > 0)
+			if (job.AudioTracks.Count == 0 && title.AudioList.Count > 0)
 			{
-				job.ChosenAudioTracks.Add(1);
+				job.AudioTracks.Add(new ChosenAudioTrack { TrackNumber = 1 });
 			}
 		}
 
@@ -2712,7 +2712,7 @@ namespace VidCoder.Services
 					job.Subtitles.SourceSubtitles.AddRange(ChooseSubtitles(
 						title, 
 						picker, 
-						job.ChosenAudioTracks.Count > 0 ? job.ChosenAudioTracks[0] : -1,
+						job.AudioTracks.Count > 0 ? job.AudioTracks[0].TrackNumber : -1,
 						job.EncodingProfile.ContainerName));
 
 					break;
