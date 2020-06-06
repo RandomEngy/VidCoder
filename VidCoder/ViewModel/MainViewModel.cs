@@ -1965,6 +1965,22 @@ namespace VidCoder.ViewModel
 				{
 					this.rangeType = value;
 
+					// If switching to chapters, make sure we have some start and end selected.
+					if (value == VideoRangeType.Chapters)
+					{
+						if (this.selectedStartChapter == null)
+						{
+							this.selectedStartChapter = this.StartChapters[0];
+							this.RaisePropertyChanged(nameof(this.SelectedStartChapter));
+						}
+
+						if (this.selectedEndChapter == null)
+						{
+							this.selectedEndChapter = this.EndChapters[this.EndChapters.Count - 1];
+							this.RaisePropertyChanged(nameof(this.SelectedEndChapter));
+						}
+					}
+
 					this.OutputPathService.GenerateOutputFileName();
 					this.RaisePropertyChanged();
 					this.RefreshRangePreview();
