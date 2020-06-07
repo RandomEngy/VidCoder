@@ -2454,7 +2454,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.RangePreviewStart.ToString(Utilities.TimeFormat) + " - " + this.RangePreviewEnd.ToString(Utilities.TimeFormat);
+				return this.RangePreviewStart.FormatWithHours() + " - " + this.RangePreviewEnd.FormatWithHours();
 			}
 		}
 
@@ -2471,7 +2471,7 @@ namespace VidCoder.ViewModel
 					duration = end - start;
 				}
 
-				return string.Format(MainRes.LengthPreviewLabel, duration.ToString(Utilities.TimeFormat));
+				return string.Format(MainRes.LengthPreviewLabel, duration.FormatWithHours());
 			}
 		}
 

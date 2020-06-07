@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Threading;
 using HandBrake.Interop.Interop;
 using Microsoft.AnyContainer;
@@ -347,14 +348,14 @@ namespace VidCoder.ViewModel
 		private TimeSpan previewVideoDuration;
 		public TimeSpan PreviewVideoDuration
 		{
-			get { return this.previewVideoDuration; }
-			set { this.RaiseAndSetIfChanged(ref this.previewVideoDuration, value); }
+			get => this.previewVideoDuration;
+			set => this.RaiseAndSetIfChanged(ref this.previewVideoDuration, value);
 		}
 
 		private double volume = Config.PreviewVolume;
 		public double Volume
 		{
-			get { return this.volume; }
+			get => this.volume;
 			set
 			{
 				this.RaiseAndSetIfChanged(ref this.volume, value);
@@ -385,13 +386,13 @@ namespace VidCoder.ViewModel
 
 		public double PreviewPercentComplete
 		{
-			get { return this.previewPercentComplete; }
-			set { this.RaiseAndSetIfChanged(ref this.previewPercentComplete, value); }
+			get => this.previewPercentComplete;
+			set => this.RaiseAndSetIfChanged(ref this.previewPercentComplete, value);
 		}
 
 		public int PreviewSeconds
 		{
-			get { return this.previewSeconds; }
+			get => this.previewSeconds;
 
 			set
 			{
@@ -425,7 +426,7 @@ namespace VidCoder.ViewModel
 
 		public PreviewDisplay DisplayType
 		{
-			get { return this.displayType; }
+			get => this.displayType;
 
 			set
 			{

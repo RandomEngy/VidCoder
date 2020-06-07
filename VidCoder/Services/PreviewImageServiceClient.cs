@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using Microsoft.AnyContainer;
 using ReactiveUI;
+using VidCoder.Extensions;
+using VidCoder.ViewModel;
+using VidCoderCommon.Model;
 
 namespace VidCoder.Services
 {
@@ -17,15 +20,39 @@ namespace VidCoder.Services
 		private BitmapSource previewBitmapSource;
 
 		private readonly PreviewImageService previewImageService = StaticResolver.Resolve<PreviewImageService>();
+		private readonly MainViewModel mainViewModel = StaticResolver.Resolve<MainViewModel>();
 
 		public PreviewImageServiceClient()
 		{
 			this.previewImageService.ImageLoaded += this.OnImageLoaded;
 
 			this.previewIndex = 1;
+
+			this.WhenAnyValue(
+				x => x.PreviewIndex,
+				x => x.previewImageService.PreviewCount,
+				x => x.mainViewModel.SelectedTitle,
+				x => x.mainViewModel.SelectedSource.Type,
+				(previewIndex, previewCount, selectedTitle, sourceType) =>
+				{
+					if (selectedTitle == null || previewIndex >= previewCount || sourceType != SourceType.File)
+					{
+						return string.Empty;
+					}
+
+					double seekFraction = (double)previewIndex / (previewCount + 1);
+					double seekSeconds = selectedTitle.Duration.TotalSeconds * seekFraction;
+					TimeSpan seekTimeSpan = TimeSpan.FromSeconds(Math.Floor(seekSeconds));
+
+					return seekTimeSpan.FormatShort();
+				}).ToProperty(this, x => x.SeekBarTimestamp, out this.seekBarTimestamp);
 		}
 
 		private int previewIndex;
+
+		/// <summary>
+		/// Gets or sets the preview index (0-based)
+		/// </summary>
 	    public int PreviewIndex
 	    {
 		    get { return this.previewIndex; }
@@ -39,13 +66,13 @@ namespace VidCoder.Services
 			}
 		}
 
+		private ObservableAsPropertyHelper<string> seekBarTimestamp;
+		public string SeekBarTimestamp => this.seekBarTimestamp.Value;
+
 		private BitmapSource previewImage;
 		public BitmapSource PreviewImage
 		{
-			get
-			{
-				return this.previewImage;
-			}
+			get => this.previewImage;
 			set { this.RaiseAndSetIfChanged(ref this.previewImage, value); }
 		}
 

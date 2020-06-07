@@ -14,8 +14,13 @@
 	<UserControl.Resources>
 		<local:EnumDisplayer x:Key="DisplayChoices" Type="{x:Type localmodel:PreviewDisplay}" />
 	</UserControl.Resources>
-	<StackPanel Background="{DynamicResource AlternateBackgroundBrush}" Orientation="Vertical">
+	<Grid Background="{DynamicResource AlternateBackgroundBrush}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
 		<controls:SlotSeekBar
+			Grid.Row="0"
 			Height="24"
 			HorizontalAlignment="Stretch"
 			IsEnabled="{Binding SeekBarEnabled}"
@@ -23,7 +28,16 @@
 			                   Mode=OneWay}"
 			Slot="{Binding PreviewImageServiceClient.PreviewIndex,
 			               Mode=TwoWay}" />
+		<TextBlock
+			Grid.Row="0"
+			HorizontalAlignment="Center"
+			FontSize="16"
+			FontWeight="Bold"
+			Foreground="White"
+			Text="{Binding PreviewImageServiceClient.SeekBarTimestamp}" />
+
 		<WrapPanel
+			Grid.Row="1"
 			Margin="4"
 			HorizontalAlignment="Center"
 			Orientation="Horizontal">
@@ -121,5 +135,5 @@
 				</StackPanel>
 			</Button>
 		</WrapPanel>
-	</StackPanel>
+	</Grid>
 </UserControl>
