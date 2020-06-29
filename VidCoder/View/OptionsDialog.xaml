@@ -235,7 +235,8 @@
 									HorizontalAlignment="Left"
 									Content="{x:Static res:OptionsRes.MinimizeToSystemTrayRadioButton}"
 									GroupName="minimize2"
-									IsChecked="{Binding MinimizeToTray}" Style="{DynamicResource RadioButtonBaseStyle}" />
+									IsChecked="{Binding MinimizeToTray}"
+									Style="{DynamicResource RadioButtonBaseStyle}" />
 							</StackPanel>
 						</StackPanel>
 
@@ -468,7 +469,8 @@
 										Height="23"
 										Margin="10 0 0 0"
 										VerticalAlignment="Center"
-										Maximum="4"
+										AllowEmpty="False"
+										Maximum="8"
 										Minimum="1"
 										Number="{Binding MaxSimultaneousEncodes,
 										                 Mode=TwoWay}" />

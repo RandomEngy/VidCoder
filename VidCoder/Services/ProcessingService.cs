@@ -1606,7 +1606,8 @@ namespace VidCoder.Services
 
 			// Make sure the top N jobs are encoding.
 			var encodeQueueList = this.EncodeQueue.Items.ToList();
-			for (int i = 0; i < Config.MaxSimultaneousEncodes && i < this.EncodeQueue.Count; i++)
+			int maxEncodes = Config.MaxSimultaneousEncodes > 0 ? Config.MaxSimultaneousEncodes : 1;
+			for (int i = 0; i < maxEncodes && i < this.EncodeQueue.Count; i++)
 			{
 				EncodeJobViewModel jobViewModel = encodeQueueList[i];
 

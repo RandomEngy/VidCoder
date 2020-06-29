@@ -54,7 +54,14 @@ namespace VidCoder
 				return;
 			}
 
-			if (!Debugger.IsAttached)
+			// Only include Debugger.IsAttached check in Debug build, as antivirus programs find the check suspicious.
+#if DEBUG
+			bool setupExceptionHandler = !Debugger.IsAttached;
+#else
+			bool setupExceptionHandler = true;
+#endif
+
+			if (setupExceptionHandler)
 			{
 				this.DispatcherUnhandledException += this.OnDispatcherUnhandledException;
 			}
