@@ -35,4 +35,4 @@ Invoke-WebRequest -Uri $url -OutFile ("Import\hb.zip") -UseBasicParsing
 
 [io.compression.zipfile]::ExtractToDirectory("Import\hb.zip", "Import\Hb\")
 
-Copy-Item "Import\Hb\hb.dll" "Lib\hb.dll"
+Copy-Item "Import\Hb\HandBrake\hb.dll" "Lib\hb.dll"

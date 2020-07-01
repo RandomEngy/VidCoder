@@ -1,46 +1,46 @@
 ﻿<Application
-    x:Class="VidCoder.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:VidCoder.Controls"
-    xmlns:converters="clr-namespace:VidCoder.Converters"
-    xmlns:res="clr-namespace:VidCoder.Resources"
-    xmlns:vidCoder="clr-namespace:VidCoder">
-    <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Themes/Light.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
+	x:Class="VidCoder.App"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:controls="clr-namespace:VidCoder.Controls"
+	xmlns:converters="clr-namespace:VidCoder.Converters"
+	xmlns:res="clr-namespace:VidCoder.Resources"
+	xmlns:vidCoder="clr-namespace:VidCoder">
+	<Application.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="/Themes/Light.xaml" />
+				<ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
 
-                <ResourceDictionary Source="/XamlResources/Button.xaml" />
+				<ResourceDictionary Source="/XamlResources/Button.xaml" />
 				<ResourceDictionary Source="/XamlResources/CheckBox.xaml" />
 				<ResourceDictionary Source="/XamlResources/RadioButton.xaml" />
 				<ResourceDictionary Source="/XamlResources/TextBox.xaml" />
-                <ResourceDictionary Source="/XamlResources/ComboBox.xaml" />
-                <ResourceDictionary Source="/XamlResources/GridViewColumnHeader.xaml" />
-                <ResourceDictionary Source="/XamlResources/ListView.xaml" />
-                <ResourceDictionary Source="/XamlResources/ListViewItem.xaml" />
-                <ResourceDictionary Source="/XamlResources/PresetComboBox.xaml" />
-            </ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="/XamlResources/ComboBox.xaml" />
+				<ResourceDictionary Source="/XamlResources/GridViewColumnHeader.xaml" />
+				<ResourceDictionary Source="/XamlResources/ListView.xaml" />
+				<ResourceDictionary Source="/XamlResources/ListViewItem.xaml" />
+				<ResourceDictionary Source="/XamlResources/PresetComboBox.xaml" />
+			</ResourceDictionary.MergedDictionaries>
 
-            <!--  Special case color, can't set in theme dictionary; need to change programatically  -->
-            <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.LabelTextBrush" Color="Black" />
+			<!--  Special case color, can't set in theme dictionary; need to change programatically  -->
+			<SolidColorBrush x:Key="Fluent.Ribbon.Brushes.LabelTextBrush" Color="Black" />
 
-            <converters:VisibilityConverter x:Key="VisibilityConverter" />
-            <converters:VisibilityConverter x:Key="InverseVisibilityConverter" Inverse="True" />
-            <converters:EnumBoolConverter x:Key="EnumBoolConverter" />
-            <converters:EnumBoolInverseConverter x:Key="EnumBoolInverseConverter" />
-            <converters:EnumVisibilityConverter x:Key="EnumVisibilityConverter" />
-            <converters:EnumVisibilityInverseConverter x:Key="EnumVisibilityInverseConverter" />
-            <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
-            <converters:PercentDisplayConverter x:Key="PercentDisplayConverter" />
-            <converters:DoubleDisplayConverter x:Key="DoubleDisplayConverter" />
-            <converters:BoolRadioConverter x:Key="BoolRadioConverter" />
-            <converters:BoolRadioConverter x:Key="InverseBoolRadioConverter" Inverse="True" />
+			<converters:VisibilityConverter x:Key="VisibilityConverter" />
+			<converters:VisibilityConverter x:Key="InverseVisibilityConverter" Inverse="True" />
+			<converters:EnumBoolConverter x:Key="EnumBoolConverter" />
+			<converters:EnumBoolInverseConverter x:Key="EnumBoolInverseConverter" />
+			<converters:EnumVisibilityConverter x:Key="EnumVisibilityConverter" />
+			<converters:EnumVisibilityInverseConverter x:Key="EnumVisibilityInverseConverter" />
+			<converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+			<converters:PercentDisplayConverter x:Key="PercentDisplayConverter" />
+			<converters:DoubleDisplayConverter x:Key="DoubleDisplayConverter" />
+			<converters:BoolRadioConverter x:Key="BoolRadioConverter" />
+			<converters:BoolRadioConverter x:Key="InverseBoolRadioConverter" Inverse="True" />
 
-            <vidCoder:WindowXamlHelper x:Key="WindowXamlHelper" />
+			<vidCoder:WindowXamlHelper x:Key="WindowXamlHelper" />
 
-            <Color x:Key="PresetGlowColor">#1696FF</Color>
+			<Color x:Key="PresetGlowColor">#1696FF</Color>
 
 
 			<Style x:Key="GrayOnDisabledControl" TargetType="{x:Type Control}">
@@ -51,238 +51,238 @@
 				</Style.Triggers>
 			</Style>
 
-            <Style x:Key="GrayNonCompatible" TargetType="{x:Type ComboBoxItem}">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsCompatible}" Value="False">
-                        <Setter Property="Foreground" Value="Gray" />
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
+			<Style x:Key="GrayNonCompatible" TargetType="{x:Type ComboBoxItem}">
+				<Style.Triggers>
+					<DataTrigger Binding="{Binding IsCompatible}" Value="False">
+						<Setter Property="Foreground" Value="Gray" />
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
 
-            <Style x:Key="TextBlockBaseStyle" TargetType="TextBlock">
-                <Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
-            </Style>
+			<Style x:Key="TextBlockBaseStyle" TargetType="TextBlock">
+				<Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
+			</Style>
 
-            <Style x:Key="ListViewTextBlockBaseStyle" TargetType="TextBlock">
-                <Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
-                        <Setter Property="Foreground" Value="{DynamicResource HighlightTextBrush}" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
-                        <Setter Property="Foreground" Value="{DynamicResource HighlightTextBrush}" />
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
+			<Style x:Key="ListViewTextBlockBaseStyle" TargetType="TextBlock">
+				<Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
+				<Style.Triggers>
+					<DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
+						<Setter Property="Foreground" Value="{DynamicResource HighlightTextBrush}" />
+					</DataTrigger>
+					<DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
+						<Setter Property="Foreground" Value="{DynamicResource HighlightTextBrush}" />
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
 
-            <Style
-                x:Key="SectionHeader"
-                BasedOn="{StaticResource TextBlockBaseStyle}"
-                TargetType="{x:Type TextBlock}">
-                <Setter Property="FontWeight" Value="Bold" />
-            </Style>
-            <Style x:Key="InputOutputInfoSection" TargetType="{x:Type Border}">
-                <Setter Property="Padding" Value="3" />
-                <Setter Property="CornerRadius" Value="10" />
-                <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="BorderBrush" Value="#999999" />
-            </Style>
+			<Style
+				x:Key="SectionHeader"
+				BasedOn="{StaticResource TextBlockBaseStyle}"
+				TargetType="{x:Type TextBlock}">
+				<Setter Property="FontWeight" Value="Bold" />
+			</Style>
+			<Style x:Key="InputOutputInfoSection" TargetType="{x:Type Border}">
+				<Setter Property="Padding" Value="3" />
+				<Setter Property="CornerRadius" Value="10" />
+				<Setter Property="BorderThickness" Value="1" />
+				<Setter Property="BorderBrush" Value="#999999" />
+			</Style>
 
-            <Style x:Key="ConfigSectionStack" TargetType="{x:Type StackPanel}">
-                <Setter Property="Margin" Value="20 0 0 20" />
-                <Setter Property="Orientation" Value="Vertical" />
-                <Setter Property="HorizontalAlignment" Value="Stretch" />
-            </Style>
-            <Style x:Key="ConfigSectionHeader" TargetType="{x:Type TextBlock}">
-                <Setter Property="FontSize" Value="14" />
-                <Setter Property="Margin" Value="0 0 0 6" />
-                <Setter Property="HorizontalAlignment" Value="Left" />
-            </Style>
+			<Style x:Key="ConfigSectionStack" TargetType="{x:Type StackPanel}">
+				<Setter Property="Margin" Value="20 0 0 20" />
+				<Setter Property="Orientation" Value="Vertical" />
+				<Setter Property="HorizontalAlignment" Value="Stretch" />
+			</Style>
+			<Style x:Key="ConfigSectionHeader" TargetType="{x:Type TextBlock}">
+				<Setter Property="FontSize" Value="14" />
+				<Setter Property="Margin" Value="0 0 0 6" />
+				<Setter Property="HorizontalAlignment" Value="Left" />
+			</Style>
 
-            <SolidColorBrush x:Key="DisabledBrush" Color="#4C4C4C" />
-            <Style x:Key="LongToolTip" TargetType="{x:Type TextBlock}">
-                <Setter Property="MaxWidth" Value="400" />
-                <Setter Property="TextWrapping" Value="Wrap" />
-            </Style>
-            <Style x:Key="LongToolTipHolder" TargetType="{x:Type FrameworkElement}">
-                <Setter Property="ToolTipService.ShowDuration" Value="20000" />
-            </Style>
-            <Style x:Key="RowButton" TargetType="{x:Type Button}">
-                <Setter Property="Height" Value="23" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="Margin" Value="10 0 0 0" />
-            </Style>
-            <Style x:Key="NormalWindow" TargetType="{x:Type Window}">
-                <Setter Property="Background" Value="{DynamicResource AlternateBackgroundBrush}" />
-            </Style>
-            <Style x:Key="DescriptiveText" TargetType="{x:Type TextBlock}">
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="Foreground" Value="{DynamicResource DescriptiveTextBrush}" />
-            </Style>
+			<SolidColorBrush x:Key="DisabledBrush" Color="#4C4C4C" />
+			<Style x:Key="LongToolTip" TargetType="{x:Type TextBlock}">
+				<Setter Property="MaxWidth" Value="400" />
+				<Setter Property="TextWrapping" Value="Wrap" />
+			</Style>
+			<Style x:Key="LongToolTipHolder" TargetType="{x:Type FrameworkElement}">
+				<Setter Property="ToolTipService.ShowDuration" Value="20000" />
+			</Style>
+			<Style x:Key="RowButton" TargetType="{x:Type Button}">
+				<Setter Property="Height" Value="23" />
+				<Setter Property="VerticalAlignment" Value="Center" />
+				<Setter Property="Margin" Value="10 0 0 0" />
+			</Style>
+			<Style x:Key="NormalWindow" TargetType="{x:Type Window}">
+				<Setter Property="Background" Value="{DynamicResource AlternateBackgroundBrush}" />
+			</Style>
+			<Style x:Key="DescriptiveText" TargetType="{x:Type TextBlock}">
+				<Setter Property="VerticalAlignment" Value="Center" />
+				<Setter Property="Foreground" Value="{DynamicResource DescriptiveTextBrush}" />
+			</Style>
 
-            <DropShadowEffect
-                x:Key="InfoBoxShadow"
-                BlurRadius="3"
-                Direction="315"
-                Opacity="0.3"
-                ShadowDepth="3" />
+			<DropShadowEffect
+				x:Key="InfoBoxShadow"
+				BlurRadius="3"
+				Direction="315"
+				Opacity="0.3"
+				ShadowDepth="3" />
 
-            <Style x:Key="WindowMainPanelStyle" TargetType="{x:Type Border}">
-                <Setter Property="BorderBrush" Value="{DynamicResource WindowInactiveBorderBrush}" />
-                <Setter Property="BorderThickness" Value="1" />
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=WindowState}" Value="Maximized">
-                        <Setter Property="Margin" Value="6" />
-                    </DataTrigger>
+			<Style x:Key="WindowMainPanelStyle" TargetType="{x:Type Border}">
+				<Setter Property="BorderBrush" Value="{DynamicResource WindowInactiveBorderBrush}" />
+				<Setter Property="BorderThickness" Value="1" />
+				<Style.Triggers>
+					<DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=WindowState}" Value="Maximized">
+						<Setter Property="Margin" Value="6" />
+					</DataTrigger>
 					<DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
 						<Setter Property="BorderBrush" Value="{DynamicResource WindowActiveBorderBrush}" />
 					</DataTrigger>
 				</Style.Triggers>
-            </Style>
+			</Style>
 
-            <Grid x:Key="RedX" Background="Transparent">
-                <Rectangle
-                    x:Name="rect2"
-                    Width="14"
-                    Height="3"
-                    Fill="{DynamicResource RedFill}">
-                    <Rectangle.LayoutTransform>
-                        <RotateTransform Angle="-45" />
-                    </Rectangle.LayoutTransform>
-                </Rectangle>
-                <Rectangle
-                    x:Name="rect1"
-                    Width="14"
-                    Height="3"
-                    Fill="{DynamicResource RedFill}">
-                    <Rectangle.LayoutTransform>
-                        <RotateTransform Angle="45" />
-                    </Rectangle.LayoutTransform>
-                </Rectangle>
-            </Grid>
-            <Style x:Key="PlusSign" TargetType="{x:Type Polygon}">
-                <Setter Property="Points" Value="4,0 6,0 6,4 10,4 10,6 6,6 6,10 4,10 4,6 0,6 0,4 4,4" />
-                <Setter Property="Fill" Value="Green" />
-                <Setter Property="Margin" Value="0 0 4 0" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-            </Style>
-            <Style x:Key="RemoveButtonStyle">
-                <Setter Property="Control.Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Grid x:Name="removeButtonGrid" Background="Transparent">
-                                <Grid.ToolTip>
-                                    <ContentPresenter />
-                                </Grid.ToolTip>
-                                <Border
-                                    x:Name="hoverBorder"
-                                    Background="{DynamicResource Button.MouseOver.Background}"
-                                    BorderThickness="0"
-                                    Visibility="Collapsed" />
-                                <Grid
-                                    Width="15"
-                                    Height="15"
-                                    Margin="{TemplateBinding Padding}">
-                                    <Rectangle
-                                        x:Name="rect2"
-                                        Width="12"
-                                        Height="2"
-                                        Fill="{DynamicResource BlueFill}">
-                                        <Rectangle.LayoutTransform>
-                                            <RotateTransform Angle="-45" />
-                                        </Rectangle.LayoutTransform>
-                                    </Rectangle>
-                                    <Rectangle
-                                        x:Name="rect1"
-                                        Width="12"
-                                        Height="2"
-                                        Fill="{DynamicResource BlueFill}">
-                                        <Rectangle.LayoutTransform>
-                                            <RotateTransform Angle="45" />
-                                        </Rectangle.LayoutTransform>
-                                    </Rectangle>
-                                </Grid>
-                            </Grid>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="rect1" Property="Fill" Value="{DynamicResource BlueHoverFill}" />
-                                    <Setter TargetName="rect2" Property="Fill" Value="{DynamicResource BlueHoverFill}" />
-                                    <Setter TargetName="hoverBorder" Property="Visibility" Value="Visible" />
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="rect1" Property="Fill" Value="{DynamicResource BluePressFill}" />
-                                    <Setter TargetName="rect2" Property="Fill" Value="{DynamicResource BluePressFill}" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
+			<Grid x:Key="RedX" Background="Transparent">
+				<Rectangle
+					x:Name="rect2"
+					Width="14"
+					Height="3"
+					Fill="{DynamicResource RedFill}">
+					<Rectangle.LayoutTransform>
+						<RotateTransform Angle="-45" />
+					</Rectangle.LayoutTransform>
+				</Rectangle>
+				<Rectangle
+					x:Name="rect1"
+					Width="14"
+					Height="3"
+					Fill="{DynamicResource RedFill}">
+					<Rectangle.LayoutTransform>
+						<RotateTransform Angle="45" />
+					</Rectangle.LayoutTransform>
+				</Rectangle>
+			</Grid>
+			<Style x:Key="PlusSign" TargetType="{x:Type Polygon}">
+				<Setter Property="Points" Value="4,0 6,0 6,4 10,4 10,6 6,6 6,10 4,10 4,6 0,6 0,4 4,4" />
+				<Setter Property="Fill" Value="Green" />
+				<Setter Property="Margin" Value="0 0 4 0" />
+				<Setter Property="VerticalAlignment" Value="Center" />
+			</Style>
+			<Style x:Key="RemoveButtonStyle">
+				<Setter Property="Control.Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type Button}">
+							<Grid x:Name="removeButtonGrid" Background="Transparent">
+								<Grid.ToolTip>
+									<ContentPresenter />
+								</Grid.ToolTip>
+								<Border
+									x:Name="hoverBorder"
+									Background="{DynamicResource Button.MouseOver.Background}"
+									BorderThickness="0"
+									Visibility="Collapsed" />
+								<Grid
+									Width="15"
+									Height="15"
+									Margin="{TemplateBinding Padding}">
+									<Rectangle
+										x:Name="rect2"
+										Width="12"
+										Height="2"
+										Fill="{DynamicResource BlueFill}">
+										<Rectangle.LayoutTransform>
+											<RotateTransform Angle="-45" />
+										</Rectangle.LayoutTransform>
+									</Rectangle>
+									<Rectangle
+										x:Name="rect1"
+										Width="12"
+										Height="2"
+										Fill="{DynamicResource BlueFill}">
+										<Rectangle.LayoutTransform>
+											<RotateTransform Angle="45" />
+										</Rectangle.LayoutTransform>
+									</Rectangle>
+								</Grid>
+							</Grid>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsMouseOver" Value="True">
+									<Setter TargetName="rect1" Property="Fill" Value="{DynamicResource BlueHoverFill}" />
+									<Setter TargetName="rect2" Property="Fill" Value="{DynamicResource BlueHoverFill}" />
+									<Setter TargetName="hoverBorder" Property="Visibility" Value="Visible" />
+								</Trigger>
+								<Trigger Property="IsPressed" Value="True">
+									<Setter TargetName="rect1" Property="Fill" Value="{DynamicResource BluePressFill}" />
+									<Setter TargetName="rect2" Property="Fill" Value="{DynamicResource BluePressFill}" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
 
-            <Style x:Key="AddButtonStyle">
-                <Setter Property="Control.Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Grid
-                                x:Name="addButtonGrid"
-                                Width="15"
-                                Height="15"
-                                Background="Transparent">
-                                <Grid.ToolTip>
-                                    <ContentPresenter />
-                                </Grid.ToolTip>
-                                <Border
-                                    x:Name="hoverBorder"
-                                    Background="{DynamicResource Button.MouseOver.Background}"
-                                    BorderThickness="0"
-                                    Visibility="Collapsed" />
-                                <Rectangle
-                                    x:Name="rect2"
-                                    Width="10"
-                                    Height="2"
-                                    Fill="Green">
-                                    <Rectangle.LayoutTransform>
-                                        <RotateTransform Angle="0" />
-                                    </Rectangle.LayoutTransform>
-                                </Rectangle>
-                                <Rectangle
-                                    x:Name="rect1"
-                                    Width="10"
-                                    Height="2"
-                                    Fill="Green">
-                                    <Rectangle.LayoutTransform>
-                                        <RotateTransform Angle="90" />
-                                    </Rectangle.LayoutTransform>
-                                </Rectangle>
-                            </Grid>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="rect1" Property="Fill" Value="{DynamicResource GreenHoverFill}" />
-                                    <Setter TargetName="rect2" Property="Fill" Value="{DynamicResource GreenHoverFill}" />
-                                    <Setter TargetName="hoverBorder" Property="Visibility" Value="Visible" />
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="rect1" Property="Fill" Value="{DynamicResource GreenPressFill}" />
-                                    <Setter TargetName="rect2" Property="Fill" Value="{DynamicResource GreenPressFill}" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
+			<Style x:Key="AddButtonStyle">
+				<Setter Property="Control.Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type Button}">
+							<Grid
+								x:Name="addButtonGrid"
+								Width="15"
+								Height="15"
+								Background="Transparent">
+								<Grid.ToolTip>
+									<ContentPresenter />
+								</Grid.ToolTip>
+								<Border
+									x:Name="hoverBorder"
+									Background="{DynamicResource Button.MouseOver.Background}"
+									BorderThickness="0"
+									Visibility="Collapsed" />
+								<Rectangle
+									x:Name="rect2"
+									Width="10"
+									Height="2"
+									Fill="Green">
+									<Rectangle.LayoutTransform>
+										<RotateTransform Angle="0" />
+									</Rectangle.LayoutTransform>
+								</Rectangle>
+								<Rectangle
+									x:Name="rect1"
+									Width="10"
+									Height="2"
+									Fill="Green">
+									<Rectangle.LayoutTransform>
+										<RotateTransform Angle="90" />
+									</Rectangle.LayoutTransform>
+								</Rectangle>
+							</Grid>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsMouseOver" Value="True">
+									<Setter TargetName="rect1" Property="Fill" Value="{DynamicResource GreenHoverFill}" />
+									<Setter TargetName="rect2" Property="Fill" Value="{DynamicResource GreenHoverFill}" />
+									<Setter TargetName="hoverBorder" Property="Visibility" Value="Visible" />
+								</Trigger>
+								<Trigger Property="IsPressed" Value="True">
+									<Setter TargetName="rect1" Property="Fill" Value="{DynamicResource GreenPressFill}" />
+									<Setter TargetName="rect2" Property="Fill" Value="{DynamicResource GreenPressFill}" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
 
 			<ControlTemplate x:Key="PopupInfoTemplate" TargetType="{x:Type ContentControl}">
 				<Border
-                    Background="{DynamicResource PopupInfoBackgroundBrush}"
-                    BorderBrush="Gray"
-                    BorderThickness="1"
-                    CornerRadius="4">
+					Background="{DynamicResource PopupInfoBackgroundBrush}"
+					BorderBrush="Gray"
+					BorderThickness="1"
+					CornerRadius="4">
 					<Border.Effect>
 						<DropShadowEffect
-                            BlurRadius="3"
-                            Direction="315"
-                            Opacity="0.3"
-                            ShadowDepth="6" />
+							BlurRadius="3"
+							Direction="315"
+							Opacity="0.3"
+							ShadowDepth="6" />
 					</Border.Effect>
 					<!--<Border.Background>
 						<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
@@ -294,7 +294,7 @@
 				</Border>
 			</ControlTemplate>
 		</ResourceDictionary>
-    </Application.Resources>
+	</Application.Resources>
 </Application>
 
 

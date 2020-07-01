@@ -6,7 +6,12 @@
 		<Setter Property="Control.Template">
 			<Setter.Value>
 				<ControlTemplate>
-					<Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+					<Rectangle
+						Margin="2"
+						SnapsToDevicePixels="true"
+						Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+						StrokeDashArray="1 2"
+						StrokeThickness="1" />
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
@@ -15,7 +20,12 @@
 		<Setter Property="Control.Template">
 			<Setter.Value>
 				<ControlTemplate>
-					<Rectangle Margin="14,0,0,0" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+					<Rectangle
+						Margin="14 0 0 0"
+						SnapsToDevicePixels="true"
+						Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+						StrokeDashArray="1 2"
+						StrokeThickness="1" />
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
@@ -68,7 +78,7 @@
 							VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
 							Focusable="False"
 							RecognizesAccessKey="True"
-							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />											
+							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 					</Grid>
 					<ControlTemplate.Triggers>
 						<Trigger Property="HasContent" Value="true">

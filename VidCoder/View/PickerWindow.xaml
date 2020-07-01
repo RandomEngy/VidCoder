@@ -492,7 +492,8 @@
 										<TextBox
 											AutomationProperties.LabeledBy="{Binding ElementName=audioIndicesLabel}"
 											Style="{StaticResource TrackIndicesStyle}"
-											Text="{Binding AudioIndices}" />
+											Text="{Binding AudioIndices,
+											               UpdateSourceTrigger=PropertyChanged}" />
 										<TextBlock Style="{StaticResource TrackIndicesHelpTextStyle}" Text="{x:Static res:PickerRes.SelectTracksHelpText}" />
 									</StackPanel>
 								</StackPanel>
@@ -696,7 +697,8 @@
 										<TextBox
 											AutomationProperties.LabeledBy="{Binding ElementName=subtitleIndicesLabel}"
 											Style="{StaticResource TrackIndicesStyle}"
-											Text="{Binding SubtitleIndices}" />
+											Text="{Binding SubtitleIndices,
+											               UpdateSourceTrigger=PropertyChanged}" />
 										<TextBlock Style="{StaticResource TrackIndicesHelpTextStyle}" Text="{x:Static res:PickerRes.SelectTracksHelpText}" />
 									</StackPanel>
 									<StackPanel Margin="0 6 0 0" Orientation="Horizontal">

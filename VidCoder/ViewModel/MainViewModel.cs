@@ -1311,7 +1311,7 @@ namespace VidCoder.ViewModel
 					case AudioSelectionMode.All:
 						audioTracksInnerList.AddRange(ProcessingService
 							.ChooseAudioTracks(this.selectedTitle.AudioList, picker)
-							.Select(i => new AudioTrackViewModel(this, this.selectedTitle.AudioList[i], new ChosenAudioTrack { TrackNumber = i + 1 }) { Selected = true }));
+							.Select(track => new AudioTrackViewModel(this, track, new ChosenAudioTrack { TrackNumber = track.TrackNumber }) { Selected = true }));
 
 						break;
 					default:

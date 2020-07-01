@@ -2,10 +2,10 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:controls="clr-namespace:VidCoder.Controls"
+	xmlns:converters="clr-namespace:VidCoder.Converters"
 	xmlns:local="clr-namespace:VidCoder.XamlResources"
 	xmlns:res="clr-namespace:VidCoder.Resources"
-	xmlns:themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
-	xmlns:converters="clr-namespace:VidCoder.Converters">
+	xmlns:themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
 	<converters:VisibilityConverter x:Key="VisibilityConverter" />
 
 	<DataTemplate x:Key="PresetTemplate">

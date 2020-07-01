@@ -2573,7 +2573,7 @@ namespace VidCoder.Services
 				case AudioSelectionMode.ByIndex:
 				case AudioSelectionMode.Language:
 				case AudioSelectionMode.All:
-					job.AudioTracks.AddRange(ChooseAudioTracks(title.AudioList, picker).Select(i => new ChosenAudioTrack { TrackNumber = i + 1 }));
+					job.AudioTracks.AddRange(ChooseAudioTracks(title.AudioList, picker).Select(track => new ChosenAudioTrack { TrackNumber = track.TrackNumber }));
 
 					break;
 				default:
@@ -2592,11 +2592,11 @@ namespace VidCoder.Services
 		/// </summary>
 		/// <param name="audioTracks">The audio tracks on the input video.</param>
 		/// <param name="picker">The picker to use.</param>
-		/// <returns>The 0-based track indices that should be included.</returns>
-		public static IList<int> ChooseAudioTracks(IList<SourceAudioTrack> audioTracks, Picker picker)
+		/// <returns>The audio tracks that should be included.</returns>
+		public static IList<SourceAudioTrack> ChooseAudioTracks(IList<SourceAudioTrack> audioTracks, Picker picker)
 		{
-			var result = new List<int>();
-			IList<int> chosenAudioTrackIndices;
+			var result = new List<SourceAudioTrack>();
+			IList<SourceAudioTrack> chosenAudioTracks;
 			switch (picker.AudioSelectionMode)
 			{
 				case AudioSelectionMode.Disabled:
@@ -2604,44 +2604,44 @@ namespace VidCoder.Services
 				case AudioSelectionMode.First:
 					if (audioTracks.Count > 0)
 					{
-						result.Add(0);
+						result.Add(audioTracks[0]);
 					}
 
 					break;
 				case AudioSelectionMode.ByIndex:
 					// 1-based
-					chosenAudioTrackIndices = ParseUtilities.ParseCommaSeparatedListToPositiveIntegers(picker.AudioIndices);
+					IList<int> chosenAudioTrackIndices = ParseUtilities.ParseCommaSeparatedListToPositiveIntegers(picker.AudioIndices);
 
-					// Filter out indices that are out of range and adjust from 1-based to 0-based
-					result.AddRange(chosenAudioTrackIndices.Where(i => i <= audioTracks.Count).Select(i => i - 1));
+					// Filter out indices that are out of range and look up the tracks
+					result.AddRange(chosenAudioTrackIndices.Where(i => i <= audioTracks.Count).Select(i => audioTracks[i - 1]));
 
 					break;
 				case AudioSelectionMode.Language:
-					chosenAudioTrackIndices = ChooseAudioTracksFromLanguages(audioTracks, picker.AudioLanguageCodes, picker.AudioLanguageAll);
-					result.AddRange(chosenAudioTrackIndices);
+					chosenAudioTracks = ChooseAudioTracksFromLanguages(audioTracks, picker.AudioLanguageCodes, picker.AudioLanguageAll);
+					result.AddRange(chosenAudioTracks);
 
 					break;
 				case AudioSelectionMode.All:
 					if (picker.AudioLanguageCodes != null && picker.AudioLanguageCodes.Count > 0)
 					{
 						// All tracks with certain languages first
-						chosenAudioTrackIndices = ChooseAudioTracksFromLanguages(audioTracks, picker.AudioLanguageCodes, includeAllTracks: true);
-						result.AddRange(chosenAudioTrackIndices);
+						chosenAudioTracks = ChooseAudioTracksFromLanguages(audioTracks, picker.AudioLanguageCodes, includeAllTracks: true);
+						result.AddRange(chosenAudioTracks);
 
-						for (int i = 0; i < audioTracks.Count; i++)
+						foreach (SourceAudioTrack track in audioTracks)
 						{
-							if (!chosenAudioTrackIndices.Contains(i))
+							if (!chosenAudioTracks.Contains(track))
 							{
-								result.Add(i);
+								result.Add(track);
 							}
 						}
 					}
 					else
 					{
 						// All tracks, no ordering on language
-						for (int i = 0; i < audioTracks.Count; i++)
+						foreach (SourceAudioTrack track in audioTracks)
 						{
-							result.Add(i);
+							result.Add(track);
 						}
 					}
 
@@ -2653,32 +2653,30 @@ namespace VidCoder.Services
 			// If none are chosen and we have not explicitly left it out, add the first one.
 			if (result.Count == 0 && audioTracks.Count > 0 && picker.AudioSelectionMode != AudioSelectionMode.ByIndex)
 			{
-				result.Add(0);
+				result.Add(audioTracks[0]);
 			}
 
 			return result;
 		}
 
 		/// <summary>
-		/// Returns the 0-based indices of tracks chosen.
+		/// Chooses audio tracks matching given language codes.
 		/// </summary>
 		/// <param name="audioTracks">The list of audio tracks to look in.</param>
 		/// <param name="languageCodes">The codes for the languages to include.</param>
 		/// <param name="includeAllTracks">True if all tracks should be included rather than just the first.</param>
-		/// <returns></returns>
-		private static IList<int> ChooseAudioTracksFromLanguages(IList<SourceAudioTrack> audioTracks, IList<string> languageCodes, bool includeAllTracks)
+		/// <returns>The chosen audio tracks.</returns>
+		private static IList<SourceAudioTrack> ChooseAudioTracksFromLanguages(IList<SourceAudioTrack> audioTracks, IList<string> languageCodes, bool includeAllTracks)
 		{
-			var result = new List<int>();
+			var result = new List<SourceAudioTrack>();
 
 			foreach (string code in languageCodes)
 			{
-				for (int i = 0; i < audioTracks.Count; i++)
+				foreach (SourceAudioTrack track in audioTracks)
 				{
-					SourceAudioTrack track = audioTracks[i];
-
 					if (track.LanguageCode == code)
 					{
-						result.Add(i);
+						result.Add(track);
 
 						if (!includeAllTracks)
 						{
@@ -2836,36 +2834,36 @@ namespace VidCoder.Services
 						// Multiple
 
 						// First track
-						AddSubtitleToResult(
-							title.SubtitleList,
-							result,
-							chosenSubtitleTracks[0],
-							burnedIn: false,
-							forcedOnly: picker.SubtitleForcedOnly,
-							def: picker.SubtitleDefault);
+						result.Add(new ChosenSourceSubtitle
+						{
+							TrackNumber = chosenSubtitleTracks[0].TrackNumber,
+							BurnedIn = false,
+							ForcedOnly = picker.SubtitleForcedOnly,
+							Default = picker.SubtitleDefault
+						});
 
 						// The rest
 						foreach (var sourceSubtitleTrack in chosenSubtitleTracks.Skip(1))
 						{
-							AddSubtitleToResult(
-								title.SubtitleList,
-								result,
-								sourceSubtitleTrack,
-								burnedIn: false,
-								forcedOnly: picker.SubtitleForcedOnly,
-								def: false);
+							result.Add(new ChosenSourceSubtitle
+							{
+								TrackNumber = sourceSubtitleTrack.TrackNumber,
+								BurnedIn = false,
+								ForcedOnly = picker.SubtitleForcedOnly,
+								Default = false
+							});
 						}
 					}
 					else if (chosenSubtitleTracks.Count > 0)
 					{
 						// Single
-						AddSubtitleToResult(
-							title.SubtitleList,
-							result,
-							chosenSubtitleTracks[0],
-							burnedIn: picker.SubtitleBurnIn,
-							forcedOnly: picker.SubtitleForcedOnly,
-							def: picker.SubtitleDefault);
+						result.Add(new ChosenSourceSubtitle
+						{
+							TrackNumber = chosenSubtitleTracks[0].TrackNumber,
+							BurnedIn = picker.SubtitleBurnIn,
+							ForcedOnly = picker.SubtitleForcedOnly,
+							Default = picker.SubtitleDefault
+						});
 					}
 
 					break;
@@ -2898,24 +2896,24 @@ namespace VidCoder.Services
 					if (chosenSubtitleTracks.Count > 0)
 					{
 						// First track
-						AddSubtitleToResult(
-							title.SubtitleList,
-							result,
-							chosenSubtitleTracks[0],
-							burnedIn: false,
-							forcedOnly: picker.SubtitleForcedOnly,
-							def: picker.SubtitleDefault);
+						result.Add(new ChosenSourceSubtitle
+						{
+							TrackNumber = chosenSubtitleTracks[0].TrackNumber,
+							BurnedIn = false,
+							ForcedOnly = picker.SubtitleForcedOnly,
+							Default = picker.SubtitleDefault
+						});
 
 						// The rest
 						foreach (var sourceSubtitleTrack in chosenSubtitleTracks.Skip(1))
 						{
-							AddSubtitleToResult(
-								title.SubtitleList,
-								result,
-								sourceSubtitleTrack,
-								burnedIn: false,
-								forcedOnly: picker.SubtitleForcedOnly,
-								def: false);
+							result.Add(new ChosenSourceSubtitle
+							{
+								TrackNumber = sourceSubtitleTrack.TrackNumber,
+								BurnedIn = false,
+								ForcedOnly = picker.SubtitleForcedOnly,
+								Default = false
+							});
 						}
 					}
 
@@ -2925,25 +2923,6 @@ namespace VidCoder.Services
 			}
 
 			return result;
-		}
-
-		private static void AddSubtitleToResult(IList<SourceSubtitleTrack> rawTracks, List<ChosenSourceSubtitle> result, SourceSubtitleTrack trackToAdd, bool burnedIn, bool forcedOnly, bool def)
-		{
-			// We need this funky method because the SourceSubtitleTrack objects don't contain their indices.
-			int trackIndex = rawTracks.IndexOf(trackToAdd);
-			if (trackIndex < 0)
-			{
-				throw new ArgumentException("Subtitle track is not in the raw tracks list.");
-			}
-
-			int trackNumber = trackIndex + 1;
-			result.Add(new ChosenSourceSubtitle
-			{
-				TrackNumber = trackNumber,
-				BurnedIn = burnedIn,
-				ForcedOnly = forcedOnly,
-				Default = def
-			});
 		}
 
 		private static List<SourceSubtitleTrack> FilterToPassthroughSourceSubtitles(List<SourceSubtitleTrack> sourceSubtitleList, int containerId)

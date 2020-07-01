@@ -38,7 +38,7 @@
     <ApplicationIcon>VidCoderWorker.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="PipeMethodCalls">
       <Version>1.0.1</Version>
     </PackageReference>
