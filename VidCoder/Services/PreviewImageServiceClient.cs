@@ -27,25 +27,6 @@ namespace VidCoder.Services
 			this.previewImageService.ImageLoaded += this.OnImageLoaded;
 
 			this.previewIndex = 1;
-
-			this.WhenAnyValue(
-				x => x.PreviewIndex,
-				x => x.previewImageService.PreviewCount,
-				x => x.mainViewModel.SelectedTitle,
-				x => x.mainViewModel.SelectedSource.Type,
-				(previewIndex, previewCount, selectedTitle, sourceType) =>
-				{
-					if (selectedTitle == null || previewIndex >= previewCount || sourceType != SourceType.File)
-					{
-						return string.Empty;
-					}
-
-					double seekFraction = (double)previewIndex / (previewCount + 1);
-					double seekSeconds = selectedTitle.Duration.TotalSeconds * seekFraction;
-					TimeSpan seekTimeSpan = TimeSpan.FromSeconds(Math.Floor(seekSeconds));
-
-					return seekTimeSpan.FormatShort();
-				}).ToProperty(this, x => x.SeekBarTimestamp, out this.seekBarTimestamp);
 		}
 
 		private int previewIndex;
@@ -65,9 +46,6 @@ namespace VidCoder.Services
 			    this.RefreshFromBitmapImage();
 			}
 		}
-
-		private ObservableAsPropertyHelper<string> seekBarTimestamp;
-		public string SeekBarTimestamp => this.seekBarTimestamp.Value;
 
 		private BitmapSource previewImage;
 		public BitmapSource PreviewImage

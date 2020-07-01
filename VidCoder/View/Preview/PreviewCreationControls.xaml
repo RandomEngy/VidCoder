@@ -28,13 +28,6 @@
 			                   Mode=OneWay}"
 			Slot="{Binding PreviewImageServiceClient.PreviewIndex,
 			               Mode=TwoWay}" />
-		<TextBlock
-			Grid.Row="0"
-			HorizontalAlignment="Center"
-			FontSize="16"
-			FontWeight="Bold"
-			Foreground="White"
-			Text="{Binding PreviewImageServiceClient.SeekBarTimestamp}" />
 
 		<WrapPanel
 			Grid.Row="1"
