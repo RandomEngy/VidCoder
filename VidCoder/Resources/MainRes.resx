@@ -679,4 +679,7 @@
     <value>Subtitle name</value>
     <comment>Narrator label for the subtitle name text box.</comment>
   </data>
+  <data name="CouldNotRecycleFile" xml:space="preserve">
+    <value>Error sending files to Recycle Bin.</value>
+  </data>
 </root>

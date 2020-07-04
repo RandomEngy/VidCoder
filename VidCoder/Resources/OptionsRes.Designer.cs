@@ -322,7 +322,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete source files after clearing successful completed items (with confirmation).
+        ///   Looks up a localized string similar to Delete source files after clearing successful completed items.
         /// </summary>
         public static string DeleteSourceAfterCompletionCheckBox {
             get {

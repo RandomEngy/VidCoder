@@ -120,6 +120,7 @@ namespace VidCoder
 			cache.Add("EnableLibDvdNav", DatabaseConfig.Get("EnableLibDvdNav", true, connection));
 			cache.Add("MinimumTitleLengthSeconds", DatabaseConfig.Get("MinimumTitleLengthSeconds", 10, connection));
 			cache.Add("DeleteSourceFilesOnClearingCompleted", DatabaseConfig.Get("DeleteSourceFilesOnClearingCompleted", false, connection));
+			cache.Add("DeleteSourceFilesMode", DatabaseConfig.Get("DeleteSourceFilesMode", "Recycle", connection));
 			cache.Add("PreserveModifyTimeFiles", DatabaseConfig.Get("PreserveModifyTimeFiles", false, connection));
 			cache.Add("ResumeEncodingOnRestart", DatabaseConfig.Get("ResumeEncodingOnRestart", false, connection));
 			cache.Add("KeepFailedFiles", DatabaseConfig.Get("KeepFailedFiles", false, connection));
@@ -635,6 +636,11 @@ namespace VidCoder
 			get { return (bool)cache["DeleteSourceFilesOnClearingCompleted"]; }
 			set { Set("DeleteSourceFilesOnClearingCompleted", value); }
 		}
+		public static string DeleteSourceFilesMode
+		{
+			get { return (string)cache["DeleteSourceFilesMode"]; }
+			set { Set("DeleteSourceFilesMode", value); }
+		}
 		public static bool PreserveModifyTimeFiles
 		{
 			get { return (bool)cache["PreserveModifyTimeFiles"]; }
@@ -863,6 +869,7 @@ namespace VidCoder
 			public static IObservable<bool> EnableLibDvdNav => GetObservable<bool>("EnableLibDvdNav");
 			public static IObservable<int> MinimumTitleLengthSeconds => GetObservable<int>("MinimumTitleLengthSeconds");
 			public static IObservable<bool> DeleteSourceFilesOnClearingCompleted => GetObservable<bool>("DeleteSourceFilesOnClearingCompleted");
+			public static IObservable<string> DeleteSourceFilesMode => GetObservable<string>("DeleteSourceFilesMode");
 			public static IObservable<bool> PreserveModifyTimeFiles => GetObservable<bool>("PreserveModifyTimeFiles");
 			public static IObservable<bool> ResumeEncodingOnRestart => GetObservable<bool>("ResumeEncodingOnRestart");
 			public static IObservable<bool> KeepFailedFiles => GetObservable<bool>("KeepFailedFiles");

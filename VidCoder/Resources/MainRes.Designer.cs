@@ -324,6 +324,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error sending files to Recycle Bin..
+        /// </summary>
+        public static string CouldNotRecycleFile {
+            get {
+                return ResourceManager.GetString("CouldNotRecycleFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not save preset &apos;{0}&apos;:{1}{2}.
         /// </summary>
         public static string CouldNotSavePresetMessage {

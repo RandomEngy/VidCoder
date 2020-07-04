@@ -11,15 +11,8 @@ namespace VidCoder
 	{
 		public static UpdatePromptTiming UpdatePromptTiming
 		{
-			get
-			{
-				return (UpdatePromptTiming)Enum.Parse(typeof(UpdatePromptTiming), Config.UpdatePromptTiming);
-			}
-
-			set
-			{
-				Config.UpdatePromptTiming = value.ToString();
-			}
+			get => (UpdatePromptTiming)Enum.Parse(typeof(UpdatePromptTiming), Config.UpdatePromptTiming);
+			set => Config.UpdatePromptTiming = value.ToString();
 		}
 
 		public static List<string> AutoPauseProcesses
@@ -69,54 +62,26 @@ namespace VidCoder
 
 		public static WhenFileExists WhenFileExists
 		{
-			get
-			{
-				return (WhenFileExists)Enum.Parse(typeof(WhenFileExists), Config.WhenFileExists);
-			}
-
-			set
-			{
-				Config.WhenFileExists = value.ToString();
-			}
+			get => (WhenFileExists)Enum.Parse(typeof(WhenFileExists), Config.WhenFileExists);
+			set => Config.WhenFileExists = value.ToString();
 		}
 
 		public static WhenFileExists WhenFileExistsBatch
 		{
-			get
-			{
-				return (WhenFileExists)Enum.Parse(typeof(WhenFileExists), Config.WhenFileExistsBatch);
-			}
-
-			set
-			{
-				Config.WhenFileExistsBatch = value.ToString();
-			}
+			get => (WhenFileExists)Enum.Parse(typeof(WhenFileExists), Config.WhenFileExistsBatch);
+			set => Config.WhenFileExistsBatch = value.ToString();
 		}
 
 		public static AudioSelectionMode AutoAudio
 		{
-			get
-			{
-				return (AudioSelectionMode)Enum.Parse(typeof(AudioSelectionMode), Config.AutoAudio);
-			}
-
-			set
-			{
-				Config.AutoAudio = value.ToString();
-			}
+			get => (AudioSelectionMode)Enum.Parse(typeof(AudioSelectionMode), Config.AutoAudio);
+			set => Config.AutoAudio = value.ToString();
 		}
 
 		public static SubtitleSelectionMode AutoSubtitle
 		{
-			get
-			{
-				return (SubtitleSelectionMode)Enum.Parse(typeof(SubtitleSelectionMode), Config.AutoSubtitle);
-			}
-
-			set
-			{
-				Config.AutoSubtitle = value.ToString();
-			}
+			get => (SubtitleSelectionMode)Enum.Parse(typeof(SubtitleSelectionMode), Config.AutoSubtitle);
+			set => Config.AutoSubtitle = value.ToString();
 		}
 
 		public static PreviewDisplay PreviewDisplay
@@ -129,6 +94,12 @@ namespace VidCoder
 		{
 			get => (AppThemeChoice)Enum.Parse(typeof(AppThemeChoice), Config.AppTheme);
 			set => Config.AppTheme = value.ToString();
+		}
+
+		public static DeleteSourceFilesMode DeleteSourceFilesMode
+		{
+			get => (DeleteSourceFilesMode)Enum.Parse(typeof(DeleteSourceFilesMode), Config.DeleteSourceFilesMode);
+			set => Config.DeleteSourceFilesMode = value.ToString();
 		}
 
 		public static ProcessPriorityClass WorkerProcessPriority

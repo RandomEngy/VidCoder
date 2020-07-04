@@ -228,6 +228,13 @@ namespace VidCoder.ViewModel
 				}
 			}
 
+			this.DeleteSourceFilesModeChoices = new List<ComboChoice<DeleteSourceFilesMode>>
+			{
+				new ComboChoice<DeleteSourceFilesMode>(DeleteSourceFilesMode.Recycle, EnumsRes.DeleteSourceFilesMode_Recycle),
+				new ComboChoice<DeleteSourceFilesMode>(DeleteSourceFilesMode.DeleteWithConfirmation, EnumsRes.DeleteSourceFilesMode_DeleteWithConfirmation)
+			};
+			this.selectedDeleteSourceFilesMode = CustomConfig.DeleteSourceFilesMode;
+
 			if (!CommonUtilities.Beta)
 			{
 				Task.Run(async () =>
@@ -572,6 +579,15 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.deleteSourceFilesOnClearingCompleted, value); }
 		}
 
+		public List<ComboChoice<DeleteSourceFilesMode>> DeleteSourceFilesModeChoices { get; }
+
+		private DeleteSourceFilesMode selectedDeleteSourceFilesMode;
+		public DeleteSourceFilesMode SelectedDeleteSourceFilesMode
+		{
+			get { return this.selectedDeleteSourceFilesMode; }
+			set { this.RaiseAndSetIfChanged(ref this.selectedDeleteSourceFilesMode, value); }
+		}
+
 		private bool preserveModifyTimeFiles;
 		public bool PreserveModifyTimeFiles
 		{
@@ -730,6 +746,7 @@ namespace VidCoder.ViewModel
 
 						Config.EnableLibDvdNav = this.EnableLibDvdNav;
 						Config.DeleteSourceFilesOnClearingCompleted = this.DeleteSourceFilesOnClearingCompleted;
+						CustomConfig.DeleteSourceFilesMode = this.SelectedDeleteSourceFilesMode;
 						Config.PreserveModifyTimeFiles = this.PreserveModifyTimeFiles;
 						Config.ResumeEncodingOnRestart = this.ResumeEncodingOnRestart;
 						Config.KeepFailedFiles = this.KeepFailedFiles;

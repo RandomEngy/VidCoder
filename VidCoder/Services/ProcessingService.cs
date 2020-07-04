@@ -877,7 +877,7 @@ namespace VidCoder.Services
 					var itemsToClear = new List<EncodeResultViewModel>(this.completedJobs.Items);
 					List<string> deletionCandidates = this.GetDeletionCandidates(itemsToClear);
 
-					if (PromptAndDeleteSourceFiles(deletionCandidates))
+					if (this.PromptAndDeleteSourceFiles(deletionCandidates))
 					{
 						this.completedJobs.Clear();
 						this.HasFailedItems = false;
@@ -909,7 +909,7 @@ namespace VidCoder.Services
 					var itemsToClear = this.completedJobs.Items.Where(completedJob => completedJob.EncodeResult.Succeeded);
 					List<string> deletionCandidates = this.GetDeletionCandidates(itemsToClear);
 
-					if (PromptAndDeleteSourceFiles(deletionCandidates))
+					if (this.PromptAndDeleteSourceFiles(deletionCandidates))
 					{
 						this.ClearCompletedItems(encodeResultViewModel => encodeResultViewModel.EncodeResult.Succeeded);
 					}
@@ -960,39 +960,71 @@ namespace VidCoder.Services
 		/// </summary>
 		/// <param name="deletionCandidates">The files to prompt to delete</param>
 		/// <returns>True if the files should be cleared from the list.</returns>
-		private static bool PromptAndDeleteSourceFiles(IList<string> deletionCandidates)
+		private bool PromptAndDeleteSourceFiles(IList<string> deletionCandidates)
 		{
 			bool clearItems = true;
 			if (deletionCandidates.Count > 0)
 			{
-				MessageBoxResult dialogResult = Utilities.MessageBox.Show(
-					string.Format(MainRes.DeleteSourceFilesConfirmationMessage, deletionCandidates.Count),
-					MainRes.DeleteSourceFilesConfirmationTitle,
-					MessageBoxButton.YesNoCancel);
-				if (dialogResult == MessageBoxResult.Yes)
+				switch (CustomConfig.DeleteSourceFilesMode)
 				{
-					foreach (string pathToDelete in deletionCandidates)
-					{
+					case DeleteSourceFilesMode.DeleteWithConfirmation:
+						MessageBoxResult dialogResult = Utilities.MessageBox.Show(
+							string.Format(MainRes.DeleteSourceFilesConfirmationMessage, deletionCandidates.Count),
+							MainRes.DeleteSourceFilesConfirmationTitle,
+							MessageBoxButton.YesNoCancel);
+						if (dialogResult == MessageBoxResult.Yes)
+						{
+							int filesDeleted = 0;
+							foreach (string pathToDelete in deletionCandidates)
+							{
+								try
+								{
+									if (File.Exists(pathToDelete))
+									{
+										File.Delete(pathToDelete);
+									}
+									else if (Directory.Exists(pathToDelete))
+									{
+										FileUtilities.DeleteDirectory(pathToDelete);
+									}
+
+									filesDeleted++;
+								}
+								catch (Exception exception)
+								{
+									Utilities.MessageBox.Show(string.Format(MainRes.CouldNotDeleteFile, pathToDelete, exception));
+								}
+							}
+
+							this.logger.Log($"Deleted {filesDeleted} source video(s).");
+						}
+						else if (dialogResult == MessageBoxResult.Cancel)
+						{
+							clearItems = false;
+						}
+						break;
+					case DeleteSourceFilesMode.Recycle:
+					default:
 						try
 						{
-							if (File.Exists(pathToDelete))
+							int result = FileOperationApiWrapper.SendToRecycle(deletionCandidates);
+							if (result > 0)
 							{
-								File.Delete(pathToDelete);
+								Utilities.MessageBox.Show(MainRes.CouldNotRecycleFile);
+								this.logger.LogError("Could not send files to recycle bin: Error code 0x" + result.ToString("X2"));
 							}
-							else if (Directory.Exists(pathToDelete))
+							else
 							{
-								FileUtilities.DeleteDirectory(pathToDelete);
+								this.logger.Log($"Sent {deletionCandidates.Count} source video(s) to Recycle Bin");
 							}
 						}
 						catch (Exception exception)
 						{
-							Utilities.MessageBox.Show(string.Format(MainRes.CouldNotDeleteFile, pathToDelete, exception));
+							Utilities.MessageBox.Show(MainRes.CouldNotRecycleFile);
+							this.logger.LogError("Could not recycle files: " + exception.ToString());
 						}
-					}
-				}
-				else if (dialogResult == MessageBoxResult.Cancel)
-				{
-					clearItems = false;
+
+						break;
 				}
 			}
 

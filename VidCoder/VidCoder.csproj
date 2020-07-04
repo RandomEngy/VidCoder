@@ -424,6 +424,7 @@
     <Compile Include="Extensions\WindowExtensions.cs" />
     <Compile Include="LayoutPanels\TruncatePanel.cs" />
     <Compile Include="Model\AppThemeChoice.cs" />
+    <Compile Include="Model\DeleteSourceFilesMode.cs" />
     <Compile Include="Model\EncodeCompleteTrigger.cs" />
     <Compile Include="Model\LogColor.cs" />
     <Compile Include="Model\LogOperationType.cs" />
@@ -602,6 +603,7 @@
     <Compile Include="Utilities\EnumConverter.cs" />
     <Compile Include="Utilities\FileCleanup.cs" />
     <Compile Include="Services\HandBrakeProxy\IEncodeProxy.cs" />
+    <Compile Include="Utilities\FileOperationApiWrapper.cs" />
     <Compile Include="Utilities\FileUtilities.cs" />
     <Compile Include="Utilities\ImageUtilities.cs" />
     <Compile Include="Utilities\Ioc.cs" />
