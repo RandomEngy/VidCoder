@@ -48,13 +48,18 @@ Function Pause ($Message = "Press any key to continue . . . ") {
     Write-Host
 }
 
+function ExitWithError($message)
+{
+    Write-Host $message -foregroundcolor "red"
+    Pause
+    exit
+}
+
 function ExitIfFailed()
 {
     if ($LASTEXITCODE -ne 0)
     {
-        Write-Host "An error occurred. Stopping build." -foregroundcolor "red"
-        Pause
-        exit
+        ExitWithError "An error occurred. Stopping build."
     }
 }
 
