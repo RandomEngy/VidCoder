@@ -123,6 +123,15 @@ if ($debugBuild) {
     $buildFlavor = "Release"
 }
 
+$branch = &git rev-parse --abbrev-ref HEAD
+if ($beta -and ($branch -eq "master")) {
+    ExitWithError "Current branch is master but build calls for beta"
+}
+
+if (!$beta -and ($branch -eq "beta")) {
+    ExitWithError "Current branch is beta but build calls for stable"
+}
+
 if ($beta) {
     $configuration = $buildFlavor + "-Beta"
 } else {
