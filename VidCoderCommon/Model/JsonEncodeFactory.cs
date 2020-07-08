@@ -445,7 +445,7 @@ namespace VidCoderCommon.Model
 				if (profile.Framerate == 0)
 				{
 					// CFR with "Same as Source". Use the title rate
-					framerateSettings = this.GetFramerateSettings(1, title.FrameRate.Num, title.FrameRate.Den);
+					framerateSettings = this.GetFramerateSettings(1);
 				}
 				else
 				{
@@ -635,6 +635,16 @@ namespace VidCoderCommon.Model
 			}
 
 			return JObject.Parse(unparsedJson);
+		}
+
+		private JToken GetFramerateSettings(int framerateMode)
+		{
+			return this.GetFilterSettingsCustom(
+				hb_filter_ids.HB_FILTER_VFR,
+				string.Format(
+					CultureInfo.InvariantCulture,
+					"mode={0}",
+					framerateMode));
 		}
 
 		private JToken GetFramerateSettings(int framerateMode, int framerateNumerator, int framerateDenominator)
