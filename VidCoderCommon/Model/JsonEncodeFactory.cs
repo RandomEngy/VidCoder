@@ -807,7 +807,7 @@ namespace VidCoderCommon.Model
 			};
 
 			video.Level = profile.VideoLevel ?? "auto";
-			video.Options = profile.VideoOptions;
+			video.Options = profile.VideoOptions?.Trim();
 			video.Preset = profile.VideoPreset;
 			video.Profile = profile.VideoProfile ?? "auto";
 

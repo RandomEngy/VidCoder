@@ -350,7 +350,7 @@ namespace VidCoder.ViewModel
 					string parameterList = HandBrakeUtils.CreateX264OptionsString(
 						videoPreset,
 						videoTunes,
-						videoOptions,
+						videoOptions?.Trim(),
 						videoProfile,
 						videoLevel,
 						width,
