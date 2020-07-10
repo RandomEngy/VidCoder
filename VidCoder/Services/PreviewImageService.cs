@@ -37,6 +37,7 @@ namespace VidCoder.Services
 		private bool previewImageQueueProcessing;
 	    private BitmapSource[] previewImageCache;
 	    private bool waitingOnRefresh;
+		private bool loggedFileSaveError;
 
 	    private IDisposable presetsSubscription;
 
@@ -560,6 +561,8 @@ namespace VidCoder.Services
 		    {
 			    try
 			    {
+					throw new InvalidOperationException("test");
+
 				    using (var memoryStream = new MemoryStream())
 				    {
 					    // Write the bitmap out to a memory stream before saving so that we won't be holding
@@ -574,10 +577,14 @@ namespace VidCoder.Services
 					    }
 				    }
 			    }
-			    catch (IOException)
+			    catch (Exception exception)
 			    {
-				    // Directory may have been deleted. Ignore.
-			    }
+					if (!this.loggedFileSaveError)
+					{
+						StaticResolver.Resolve<IAppLogger>().LogError($"Could not cache preview image to {job.FilePath}: {exception}");
+						this.loggedFileSaveError = true;
+					}
+				}
 		    }
 	    }
 	}
