@@ -36,9 +36,10 @@ using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
 using Color = System.Windows.Media.Color;
 using System.Reactive.Subjects;
-using HandBrake.Interop.Interop;
 using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
+using System.Text;
+using HandBrake.Interop.Interop;
 
 namespace VidCoder.Services
 {
@@ -928,8 +929,17 @@ namespace VidCoder.Services
 
 			if (Config.DeleteSourceFilesOnClearingCompleted)
 			{
+				int totalItems = 0;
+				int failedItems = 0;
+				int notExistItems = 0;
+				int readOnlyItems = 0;
+				int itemsInEncodeQueue = 0;
+				int itemsCurrentlyScanned = 0;
+
 				foreach (var itemToClear in itemsToClear)
 				{
+					totalItems++;
+
 					// Mark for deletion if item succeeded
 					if (itemToClear.EncodeResult.Succeeded)
 					{
@@ -938,18 +948,79 @@ namespace VidCoder.Services
 						var fileInfo = new FileInfo(sourcePath);
 						var directoryInfo = new DirectoryInfo(sourcePath);
 
-						if (fileInfo.Exists && !fileInfo.IsReadOnly || directoryInfo.Exists && !directoryInfo.Attributes.HasFlag(FileAttributes.ReadOnly))
+						if (fileInfo.Exists || directoryInfo.Exists)
 						{
-							// And if it's not currently scanned or in the encode queue
-							bool sourceInEncodeQueue = this.EncodeQueue.Items.Any(job => string.Compare(job.Job.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) == 0);
-							if (!sourceInEncodeQueue &&
-								(!this.main.HasVideoSource || string.Compare(this.main.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) != 0))
+							if (fileInfo.Exists && !fileInfo.IsReadOnly || directoryInfo.Exists && !directoryInfo.Attributes.HasFlag(FileAttributes.ReadOnly))
 							{
-								deletionCandidates.Add(sourcePath);
+								// And if it's not currently scanned or in the encode queue
+								bool sourceInEncodeQueue = this.EncodeQueue.Items.Any(job => string.Compare(job.Job.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) == 0);
+								if (!sourceInEncodeQueue)
+								{
+									if (!this.main.HasVideoSource || string.Compare(this.main.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) != 0)
+									{
+										deletionCandidates.Add(sourcePath);
+									}
+									else
+									{
+										itemsCurrentlyScanned++;
+									}
+								}
+								else
+								{
+									itemsInEncodeQueue++;
+								}
+							}
+							else
+							{
+								readOnlyItems++;
 							}
 						}
+						else
+						{
+							notExistItems++;
+						}
+					}
+					else
+					{
+						failedItems++;
 					}
 				}
+
+				var builder = new StringBuilder();
+				builder.AppendLine("Prepared candidates for deletion");
+				builder.AppendLine("Total: " + totalItems);
+				builder.Append("Eligible deletion candidates: " + deletionCandidates.Count);
+				if (failedItems > 0)
+				{
+					builder.AppendLine();
+					builder.Append("Skipped due to failed status: " + failedItems);
+				}
+
+				if (notExistItems > 0)
+				{
+					builder.AppendLine();
+					builder.Append("Skipped due to file(s) no longer existing: " + notExistItems);
+				}
+
+				if (readOnlyItems > 0)
+				{
+					builder.AppendLine();
+					builder.Append("Skipped due to file(s) being read only: " + readOnlyItems);
+				}
+
+				if (itemsInEncodeQueue > 0)
+				{
+					builder.AppendLine();
+					builder.Append("Skipped due to file(s) existing in encode queue: " + itemsInEncodeQueue);
+				}
+
+				if (itemsCurrentlyScanned > 0)
+				{
+					builder.AppendLine();
+					builder.Append("Skipped due to file being currently scanned: " + itemsCurrentlyScanned);
+				}
+
+				this.logger.Log(builder.ToString());
 			}
 
 			return deletionCandidates;
