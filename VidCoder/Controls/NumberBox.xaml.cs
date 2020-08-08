@@ -22,14 +22,10 @@ namespace VidCoder.Controls
 
 		private string noneCaption;
 		private bool hasFocus;
-		private DateTime lastFocusMouseDown;
+		private DateTimeOffset lastFocusMouseDown;
 		private bool suppressRefreshFromNumberChange;
 		private bool suppressUpdateFromTextChange;
-
-		//static NumberBox()
-		//{
-		//	DefaultStyleKeyProperty.OverrideMetadata(typeof(NumberBox), new FrameworkPropertyMetadata(typeof(NumberBox)));
-		//}
+		private readonly char decimalSeparator = Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
 
 		public NumberBox()
 		{
@@ -394,7 +390,7 @@ namespace VidCoder.Controls
 		{
 			foreach (char c in e.Text)
 			{
-				if (!char.IsNumber(c) && c != '.' && (this.Minimum >= 0 || c != '-'))
+				if (!char.IsNumber(c) && c != decimalSeparator && (this.Minimum >= 0 || c != '-'))
 				{
 					e.Handled = true;
 					return;
@@ -422,14 +418,14 @@ namespace VidCoder.Controls
 		{
 			if (!this.hasFocus)
 			{
-				this.lastFocusMouseDown = DateTime.Now;
+				this.lastFocusMouseDown = DateTimeOffset.UtcNow;
 			}
 		}
 
 		private void NumberBoxPreviewMouseUp(object sender, MouseButtonEventArgs e)
 		{
 			// If this mouse up is soon enough after an initial click on the box, select all.
-			if (this.SelectAllOnClick && DateTime.Now - this.lastFocusMouseDown < SelectAllThreshold)
+			if (this.SelectAllOnClick && DateTimeOffset.UtcNow - this.lastFocusMouseDown < SelectAllThreshold)
 			{
 				this.Dispatcher.BeginInvoke(new Action(() => this.numberBox.SelectAll()));
 			}
