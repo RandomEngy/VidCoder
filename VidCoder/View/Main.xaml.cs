@@ -24,6 +24,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Resources;
+using System.Windows.Shell;
 using DynamicData;
 using Fluent;
 using HandBrake.Interop.Interop.Json.Encode;
@@ -76,6 +77,19 @@ namespace VidCoder.View
 		{
 			Ioc.Container.RegisterSingleton<Main>(() => this);
 			this.InitializeComponent();
+
+			try
+			{
+				var taskbarItemInfo = new TaskbarItemInfo();
+				BindingOperations.SetBinding(taskbarItemInfo, TaskbarItemInfo.ProgressStateProperty, new System.Windows.Data.Binding("TaskBarProgressTracker.ProgressState"));
+				BindingOperations.SetBinding(taskbarItemInfo, TaskbarItemInfo.ProgressValueProperty, new System.Windows.Data.Binding("TaskBarProgressTracker.ProgressFraction"));
+
+				this.TaskbarItemInfo = taskbarItemInfo;
+			}
+			catch (Exception exception)
+			{
+				StaticResolver.Resolve<IAppLogger>().Log("Could not set TaskbarItemInfo: " + exception);
+			}
 
 			if (LanguageUtilities.ShouldBeRightToLeft)
 			{

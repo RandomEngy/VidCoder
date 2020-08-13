@@ -406,9 +406,13 @@
 			</Setter>
 		</Style>
 	</Window.Resources>
-	<Window.TaskbarItemInfo>
+	<!--
+		Working around bug where trying to set Window.TaskbarItemInfo throws an exception for some.
+		This is now done in the .xaml.cs file.
+	-->
+	<!--<Window.TaskbarItemInfo>
 		<TaskbarItemInfo ProgressState="{Binding TaskBarProgressTracker.ProgressState}" ProgressValue="{Binding TaskBarProgressTracker.ProgressFraction}" />
-	</Window.TaskbarItemInfo>
+	</Window.TaskbarItemInfo>-->
 	<Window.InputBindings>
 		<KeyBinding
 			Key="O"
