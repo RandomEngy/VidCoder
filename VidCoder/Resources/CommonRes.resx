@@ -318,4 +318,16 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="DefaultLabel" xml:space="preserve">
     <value>Default:</value>
   </data>
+  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
+    <value>Audio Tracks</value>
+  </data>
+  <data name="QueueColumnNameCropping" xml:space="preserve">
+    <value>Cropping</value>
+  </data>
+  <data name="QueueColumnNameOutputSize" xml:space="preserve">
+    <value>Output Size</value>
+  </data>
+  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
+    <value>Subtitle Tracks</value>
+  </data>
 </root>

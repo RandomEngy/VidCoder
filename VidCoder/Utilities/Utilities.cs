@@ -317,10 +317,14 @@ namespace VidCoder
 			{"Range", 60},
 			{"Destination", 200},
 			{"VideoEncoder", 100},
-			{"AudioEncoder", 100},
 			{"VideoQuality", 80},
-			{"Duration", 60},
+			{"Cropping", 90},
+			{"OutputSize", 104},
+			{"AudioEncoder", 100},
 			{"AudioQuality", 80},
+			{"AudioTracks", 120},
+			{"SubtitleTracks", 120},
+			{"Duration", 60},
 			{"Preset", 120}
 		};
 

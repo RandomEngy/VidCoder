@@ -8,6 +8,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows.Input;
 using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.Json.Scan;
 using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Controls;
@@ -25,16 +26,12 @@ namespace VidCoder.ViewModel
 		/// Divide a normal pass cost by this factor to get the cost to do a subtitle scan.
 		/// </summary>
 		public const double SubtitleScanCostFactor = 5.0;
-
-		private MainViewModel main = StaticResolver.Resolve<MainViewModel>();
 		private ProcessingService processingService;
-
-		private VCJob job;
 		private Stopwatch encodeTimeStopwatch;
 
 		public EncodeJobViewModel(VCJob job)
 		{
-			this.job = job;
+			this.Job = job;
 
 			// ShowProgressBar
 			Observable.CombineLatest(
@@ -124,13 +121,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public VCJob Job
-		{
-			get
-			{
-				return this.job;
-			}
-		}
+		public VCJob Job { get; }
 
 		public VCProfile Profile
 		{
@@ -140,16 +131,18 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		// Set when the job should be overridden with the given JSON.
-		public string DebugEncodeJsonOverride { get; set; }
-
-		public MainViewModel MainViewModel
+		public SourceTitle SourceTitle
 		{
 			get
 			{
-				return this.main;
+				return this.VideoSource.Titles.Single(t => t.Index == this.Job.Title);
 			}
 		}
+
+		// Set when the job should be overridden with the given JSON.
+		public string DebugEncodeJsonOverride { get; set; }
+
+		public MainViewModel MainViewModel { get; } = StaticResolver.Resolve<MainViewModel>();
 
 		public ProcessingService ProcessingService
 		{
@@ -383,13 +376,13 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				switch (this.job.RangeType)
+				switch (this.Job.RangeType)
 				{
 					case VideoRangeType.All:
 						return MainRes.QueueRangeAll;
 					case VideoRangeType.Chapters:
-						int startChapter = this.job.ChapterStart;
-						int endChapter = this.job.ChapterEnd;
+						int startChapter = this.Job.ChapterStart;
+						int endChapter = this.Job.ChapterEnd;
 
 						string chaptersString;
 						if (startChapter == endChapter)
@@ -403,12 +396,22 @@ namespace VidCoder.ViewModel
 
 						return string.Format(MainRes.QueueFormat_Chapters, chaptersString);
 					case VideoRangeType.Seconds:
-						return TimeSpan.FromSeconds(this.job.SecondsStart).ToString("g") + " - " + TimeSpan.FromSeconds(this.job.SecondsEnd).ToString("g");
+						return TimeSpan.FromSeconds(this.Job.SecondsStart).ToString("g") + " - " + TimeSpan.FromSeconds(this.Job.SecondsEnd).ToString("g");
 					case VideoRangeType.Frames:
-						return string.Format(MainRes.QueueFormat_Frames, this.job.FramesStart, this.job.FramesEnd);
+						return string.Format(MainRes.QueueFormat_Frames, this.Job.FramesStart, this.Job.FramesEnd);
 					default:
 						throw new ArgumentOutOfRangeException();
 				}
+			}
+		}
+
+		public string DurationDisplay
+		{
+			get
+			{
+				TimeSpan length = this.Job.Length;
+
+				return string.Format("{0}:{1:00}:{2:00}", Math.Floor(length.TotalHours), length.Minutes, length.Seconds);
 			}
 		}
 
@@ -417,6 +420,78 @@ namespace VidCoder.ViewModel
 			get
 			{
 				return HandBrakeEncoderHelpers.GetVideoEncoder(this.Profile.VideoEncoder).DisplayName;
+			}
+		}
+
+		public string VideoQualityDisplay
+		{
+			get
+			{
+				switch (this.Profile.VideoEncodeRateType)
+				{
+					case VCVideoEncodeRateType.AverageBitrate:
+						return this.Profile.VideoBitrate + " kbps";
+					case VCVideoEncodeRateType.TargetSize:
+						return this.Profile.TargetSize + " MB";
+					case VCVideoEncodeRateType.ConstantQuality:
+						return "CQ " + this.Profile.Quality;
+					default:
+						break;
+				}
+
+				return string.Empty;
+			}
+		}
+
+		public string CroppingDisplay
+		{
+			get
+			{
+				switch (this.Profile.CroppingType)
+				{
+					case VCCroppingType.None:
+						return CommonRes.None;
+					case VCCroppingType.Custom:
+						VCCropping cropping = this.Profile.Cropping;
+						return $"{cropping.Top}/{cropping.Bottom}/{cropping.Left}/{cropping.Right}";
+					case VCCroppingType.Automatic:
+						SourceTitle title = this.VideoSource.Titles.Single(t => t.Index == this.Job.Title);
+						if (title == null)
+						{
+							return string.Empty;
+						}
+
+						List<int> titleCrop = title.Crop;
+						return $"{titleCrop[0]}/{titleCrop[1]}/{titleCrop[2]}/{titleCrop[3]}";
+					default:
+						return string.Empty;
+				}
+			}
+		}
+
+		public string OutputSizeDisplay
+		{
+			get
+			{
+				SourceTitle title = this.SourceTitle;
+				if (title == null)
+				{
+					return string.Empty;
+				}
+
+				OutputSizeInfo outputSizeInfo = JsonEncodeFactory.GetOutputSize(this.Profile, this.SourceTitle);
+				string storageDimensionDisplay = $"{outputSizeInfo.OutputWidth}x{outputSizeInfo.OutputHeight}";
+
+				int parNum = outputSizeInfo.Par.Num;
+				int parDen = outputSizeInfo.Par.Den;
+				if (parNum == parDen)
+				{
+					return storageDimensionDisplay;
+				}
+
+				double par = (double)parNum / parDen;
+
+				return $"{storageDimensionDisplay} PAR {par:F2}";
 			}
 		}
 
@@ -431,36 +506,6 @@ namespace VidCoder.ViewModel
 				}
 
 				return string.Join(", ", encodingParts);
-			}
-		}
-
-		public string VideoQualityDisplay
-		{
-			get
-			{
-				switch (this.Profile.VideoEncodeRateType)
-				{
-					case VCVideoEncodeRateType.AverageBitrate:
-						return this.Profile.VideoBitrate + " kbps";
-                    case VCVideoEncodeRateType.TargetSize:
-						return this.Profile.TargetSize + " MB";
-                    case VCVideoEncodeRateType.ConstantQuality:
-						return "CQ " + this.Profile.Quality;
-					default:
-						break;
-				}
-
-				return string.Empty;
-			}
-		}
-
-		public string DurationDisplay
-		{
-			get
-			{
-				TimeSpan length = this.Job.Length;
-
-				return string.Format("{0}:{1:00}:{2:00}", Math.Floor(length.TotalHours), length.Minutes, length.Seconds);
 			}
 		}
 
@@ -495,6 +540,120 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public string AudioTracksDisplay
+		{
+			get
+			{
+				SourceTitle title = this.SourceTitle;
+				if (title == null)
+				{
+					return string.Empty;
+				}
+
+				int selectedTracks = this.Job.AudioTracks.Count;
+				string trackCountDisplay = $"{selectedTracks}/{title.AudioList.Count}";
+				if (selectedTracks == 0 || selectedTracks > 3)
+				{
+					return trackCountDisplay;
+				}
+
+				var trackSummaries = new List<string>();
+				foreach (ChosenAudioTrack chosenTrack in this.Job.AudioTracks)
+				{
+					if (chosenTrack.Name == null)
+					{
+						if (title.AudioList != null && chosenTrack.TrackNumber <= title.AudioList.Count)
+						{
+							trackSummaries.Add(title.AudioList[chosenTrack.TrackNumber - 1].Language);
+						}
+					}
+					else
+					{
+						trackSummaries.Add(chosenTrack.Name);
+					}
+				}
+
+				return $"{trackCountDisplay}: {string.Join(", ", trackSummaries)}";
+			}
+		}
+
+		public string SubtitleTracksDisplay
+		{
+			get
+			{
+				SourceTitle title = this.SourceTitle;
+				if (title == null)
+				{
+					return string.Empty;
+				}
+
+				List<ChosenSourceSubtitle> chosenSourceSubtitles = this.Job.Subtitles.SourceSubtitles;
+				var summaryParts = new List<string>();
+
+				if (chosenSourceSubtitles.Count > 0)
+				{
+					int selectedCount = chosenSourceSubtitles.Count;
+					int totalCount = title.SubtitleList.Count;
+					string sourceDescription = $"{selectedCount}/{totalCount}";
+
+					if (selectedCount > 0 && selectedCount <= 3)
+					{
+						List<string> trackSummaries = new List<string>();
+						foreach (ChosenSourceSubtitle subtitle in chosenSourceSubtitles)
+						{
+							if (subtitle.Name == null)
+							{
+								if (subtitle.TrackNumber == 0)
+								{
+									trackSummaries.Add(MainRes.ForeignAudioSearch);
+								}
+								else if (title.SubtitleList != null && subtitle.TrackNumber <= title.SubtitleList.Count)
+								{
+									trackSummaries.Add(title.SubtitleList[subtitle.TrackNumber - 1].Language);
+								}
+							}
+							else
+							{
+								trackSummaries.Add(subtitle.Name);
+							}
+						}
+
+						sourceDescription += $": {string.Join(", ", trackSummaries)}";
+					}
+
+					summaryParts.Add(sourceDescription);
+				}
+
+				List<FileSubtitle> fileSubtitles = this.Job.Subtitles.FileSubtitles;
+				if (fileSubtitles.Count > 0)
+				{
+					string externalSubtitlesDescription = string.Format(SubtitleRes.ExternalSubtitlesSummaryFormat, fileSubtitles.Count);
+
+					if (fileSubtitles.Count <= 3)
+					{
+						List<string> trackSummaries = new List<string>();
+						foreach (FileSubtitle subtitle in fileSubtitles)
+						{
+							trackSummaries.Add(HandBrakeLanguagesHelper.Get(subtitle.LanguageCode).Display);
+						}
+
+						externalSubtitlesDescription += $": {string.Join(", ", trackSummaries)}";
+					}
+
+					summaryParts.Add(externalSubtitlesDescription);
+				}
+
+				if (summaryParts.Count == 0)
+				{
+					return "0/0";
+				}
+				else
+				{
+					return string.Join(" - ", summaryParts);
+				}
+			}
+		}
+
 		private ReactiveCommand<Unit, Unit> editQueueJob;
 		public ICommand EditQueueJob
 		{
@@ -503,7 +662,7 @@ namespace VidCoder.ViewModel
 				return this.editQueueJob ?? (this.editQueueJob = ReactiveCommand.Create(
 					() =>
 					{
-						this.main.EditJob(this);
+						this.MainViewModel.EditJob(this);
 					},
 					this.WhenAnyValue(
 						x => x.Encoding,

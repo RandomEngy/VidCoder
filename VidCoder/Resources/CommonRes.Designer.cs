@@ -425,6 +425,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Audio Tracks.
+        /// </summary>
+        public static string QueueColumnNameAudioTracks {
+            get {
+                return ResourceManager.GetString("QueueColumnNameAudioTracks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cropping.
+        /// </summary>
+        public static string QueueColumnNameCropping {
+            get {
+                return ResourceManager.GetString("QueueColumnNameCropping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Destination.
         /// </summary>
         public static string QueueColumnNameDestination {
@@ -439,6 +457,15 @@ namespace VidCoder.Resources {
         public static string QueueColumnNameDuration {
             get {
                 return ResourceManager.GetString("QueueColumnNameDuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output Size.
+        /// </summary>
+        public static string QueueColumnNameOutputSize {
+            get {
+                return ResourceManager.GetString("QueueColumnNameOutputSize", resourceCulture);
             }
         }
         
@@ -466,6 +493,15 @@ namespace VidCoder.Resources {
         public static string QueueColumnNameSource {
             get {
                 return ResourceManager.GetString("QueueColumnNameSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subtitle Tracks.
+        /// </summary>
+        public static string QueueColumnNameSubtitleTracks {
+            get {
+                return ResourceManager.GetString("QueueColumnNameSubtitleTracks", resourceCulture);
             }
         }
         
