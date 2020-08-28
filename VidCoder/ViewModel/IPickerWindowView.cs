@@ -11,5 +11,7 @@ namespace VidCoder.ViewModel
 		void ScrollAudioSectionIntoView();
 
 		void ScrollSubtitlesSectionIntoView();
+
+		void ScrollDestinationSectionIntoView();
 	}
 }

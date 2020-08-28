@@ -682,4 +682,10 @@
   <data name="CouldNotRecycleFile" xml:space="preserve">
     <value>Error sending files to Recycle Bin.</value>
   </data>
+  <data name="DestinationAutomaticToolTip" xml:space="preserve">
+    <value>Destination is automatically set. Click to edit settings.</value>
+  </data>
+  <data name="DestinationManualToolTip" xml:space="preserve">
+    <value>Destination is manually set. Click to revert to automatic.</value>
+  </data>
 </root>

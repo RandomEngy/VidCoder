@@ -330,4 +330,8 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
     <value>Subtitle Tracks</value>
   </data>
+  <data name="Manual" xml:space="preserve">
+    <value>Manual</value>
+    <comment>Shown when something has been set manually</comment>
+  </data>
 </root>

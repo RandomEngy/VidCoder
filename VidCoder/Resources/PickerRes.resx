@@ -302,4 +302,7 @@
   <data name="ChapterRangeStartAutomationName" xml:space="preserve">
     <value>Chapter range start</value>
   </data>
+  <data name="DestinationSection" xml:space="preserve">
+    <value>Destination</value>
+  </data>
 </root>

@@ -49,6 +49,11 @@ namespace VidCoder.View
 			this.ScrollToElement(this.subtitlesSectionTitle);
 		}
 
+		public void ScrollDestinationSectionIntoView()
+		{
+			this.ScrollToElement(this.destinationSectionTitle);
+		}
+
 		private void ScrollToElement(UIElement element)
 		{
 			var transform = element.TransformToVisual(this.mainScrollViewerContent);

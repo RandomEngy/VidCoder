@@ -35,13 +35,6 @@ namespace VidCoder.Services
 		public OutputPathService()
 		{
 			this.configuredDefaultOutputFolder = Config.AutoNameOutputFolder;
-
-			// OutputFolderChosen
-			this.WhenAnyValue(x => x.ConfiguredDefaultOutputFolder)
-				.Select(defaultOutputFolder =>
-				{
-					return !string.IsNullOrEmpty(defaultOutputFolder);
-				}).ToProperty(this, x => x.OutputFolderChosen, out this.outputFolderChosen);
 		}
 
 		public ProcessingService ProcessingService
@@ -86,15 +79,15 @@ namespace VidCoder.Services
 		private string outputPath;
 		public string OutputPath
 		{
-			get { return this.outputPath; }
-			set { this.RaiseAndSetIfChanged(ref this.outputPath, value); }
+			get => this.outputPath;
+			set => this.RaiseAndSetIfChanged(ref this.outputPath, value);
 		}
 
 		private string configuredDefaultOutputFolder;
 		private string ConfiguredDefaultOutputFolder
 		{
-			get { return this.configuredDefaultOutputFolder; }
-			set { this.RaiseAndSetIfChanged(ref this.configuredDefaultOutputFolder, value); }
+			get => this.configuredDefaultOutputFolder;
+			set => this.RaiseAndSetIfChanged(ref this.configuredDefaultOutputFolder, value);
 		}
 
 		public string DefaultOutputFolder
@@ -116,20 +109,21 @@ namespace VidCoder.Services
 
 		public string OldOutputPath { get; set; }
 
-		public bool ManualOutputPath { get; set; }
+		private bool manualOutputPath;
+		public bool ManualOutputPath
+		{
+			get => this.manualOutputPath;
+			set => this.RaiseAndSetIfChanged(ref this.manualOutputPath, value);
+		}
 
 		public string NameFormatOverride { get; set; }
 
 		private bool editingDestination;
 		public bool EditingDestination
 		{
-			get { return this.editingDestination; }
-			set { this.RaiseAndSetIfChanged(ref this.editingDestination, value); }
+			get => this.editingDestination;
+			set => this.RaiseAndSetIfChanged(ref this.editingDestination, value);
 		}
-
-		private ObservableAsPropertyHelper<bool> outputFolderChosen;
-		public bool OutputFolderChosen => this.outputFolderChosen.Value;
-
 
 		private ReactiveCommand<Unit, bool> pickDefaultOutputFolder;
 		public ReactiveCommand<Unit, bool> PickDefaultOutputFolder
@@ -178,8 +172,37 @@ namespace VidCoder.Services
 							extension,
 							string.Format("{0} Files|*{1}", extensionLabel, extensionDot));
 						this.SetManualOutputPath(newOutputPath, this.OutputPath);
-					},
-					this.WhenAnyValue(x => x.OutputFolderChosen)));
+					}));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> changeToAutomatic;
+		public ReactiveCommand<Unit, Unit> ChangeToAutomatic
+		{
+			get
+			{
+				return this.changeToAutomatic ?? (this.changeToAutomatic = ReactiveCommand.Create(
+					() =>
+					{
+						this.ManualOutputPath = false;
+						this.NameFormatOverride = null;
+						this.SourceParentFolder = null;
+						this.GenerateOutputFileName();
+					}));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> openPickerToDestination;
+		public ReactiveCommand<Unit, Unit> OpenPickerToDestination
+		{
+			get
+			{
+				return this.openPickerToDestination ?? (this.openPickerToDestination = ReactiveCommand.Create(
+					() =>
+					{
+						var pickerWindowViewModel = StaticResolver.Resolve<IWindowManager>().OpenOrFocusWindow<PickerWindowViewModel>();
+						pickerWindowViewModel.View.ScrollDestinationSectionIntoView();
+					}));
 			}
 		}
 

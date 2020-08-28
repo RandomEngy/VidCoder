@@ -405,6 +405,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Destination is automatically set. Click to edit settings..
+        /// </summary>
+        public static string DestinationAutomaticToolTip {
+            get {
+                return ResourceManager.GetString("DestinationAutomaticToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Destination.
         /// </summary>
         public static string DestinationColumnHeader {
@@ -419,6 +428,15 @@ namespace VidCoder.Resources {
         public static string DestinationLabel {
             get {
                 return ResourceManager.GetString("DestinationLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Destination is manually set. Click to revert to automatic..
+        /// </summary>
+        public static string DestinationManualToolTip {
+            get {
+                return ResourceManager.GetString("DestinationManualToolTip", resourceCulture);
             }
         }
         

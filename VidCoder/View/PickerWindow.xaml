@@ -199,8 +199,11 @@
 							Margin="12"
 							VerticalAlignment="Top"
 							Orientation="Vertical">
-							<!--  Output location  -->
-							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.OutputLocation}" />
+							<!--  Destination  -->
+							<TextBlock
+								Name="destinationSectionTitle"
+								Style="{StaticResource ConfigSectionHeader}"
+								Text="{x:Static res:PickerRes.DestinationSection}" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}">
 								<Grid>
 									<Grid.ColumnDefinitions>

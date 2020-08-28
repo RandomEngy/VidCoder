@@ -196,6 +196,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Destination.
+        /// </summary>
+        public static string DestinationSection {
+            get {
+                return ResourceManager.GetString("DestinationSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filter titles by duration.
         /// </summary>
         public static string DurationFilterCheckBoxAutomationName {
@@ -273,15 +282,6 @@ namespace VidCoder.Resources {
         public static string ForeignAudioSearchRadioButton {
             get {
                 return ResourceManager.GetString("ForeignAudioSearchRadioButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to All tracks.
-        /// </summary>
-        public static string IncludeAllTracksRadioButton {
-            get {
-                return ResourceManager.GetString("IncludeAllTracksRadioButton", resourceCulture);
             }
         }
         
@@ -426,15 +426,6 @@ namespace VidCoder.Resources {
         public static string RemoveLanguageToolTip {
             get {
                 return ResourceManager.GetString("RemoveLanguageToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select time range.
-        /// </summary>
-        public static string SelectTimeRangeCheckBox {
-            get {
-                return ResourceManager.GetString("SelectTimeRangeCheckBox", resourceCulture);
             }
         }
         
