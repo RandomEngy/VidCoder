@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reactive.Subjects;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,6 +25,8 @@ namespace VidCoder.Services
 	    private bool diagnosticsLogged;
 	    private long completedItems;
 	    private readonly object trackerLock = new object();
+
+		private BehaviorSubject<long> completedItemsSubject = new BehaviorSubject<long>(0);
 
 		/// <summary>
 		/// All work since starting encoding that has finished or is still in the queue.
@@ -62,6 +65,8 @@ namespace VidCoder.Services
 		    set { this.RaiseAndSetIfChanged(ref this.overallEta, value); }
 	    }
 
+		public IObservable<long> CompletedItemsObservable => this.completedItemsSubject;
+
 		/// <summary>
 		/// Reports encode starting (does NOT fire for resuming from paused)
 		/// </summary>
@@ -77,6 +82,7 @@ namespace VidCoder.Services
 				this.pollCount = 0;
 				this.completedQueueWork = 0.0;
 				this.completedItems = 0;
+				this.completedItemsSubject.OnNext(0);
 
 				this.totalQueueCost = 0.0;
 
@@ -140,9 +146,10 @@ namespace VidCoder.Services
 			lock (this.trackerLock)
 			{
 				this.completedQueueWork += work.Cost;
-				this.completedItems++; 
+				this.completedItems++;
+				this.completedItemsSubject.OnNext(this.completedItems);
 			}
-	    }
+		}
 
 		public void CalculateOverallEncodeProgress(double inProgressJobsCompletedWork)
 	    {

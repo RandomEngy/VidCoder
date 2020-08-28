@@ -37,9 +37,10 @@ namespace VidCoder.ViewModel
 			Observable.CombineLatest(
 				this.WhenAnyValue(x => x.Encoding),
 				this.ProcessingService.QueueCountObservable,
-				(encoding, queueCount) =>
+				this.ProcessingService.WorkTracker.CompletedItemsObservable,
+				(encoding, queueCount, completedItems) =>
 				{
-					return encoding && queueCount != 1;
+					return encoding && (queueCount > 1 || completedItems > 0);
 				}).ToProperty(this, x => x.ShowProgressBar, out this.showProgressBar);
 
 			// ProgressToolTip
