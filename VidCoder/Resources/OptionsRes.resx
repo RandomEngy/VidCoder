@@ -138,41 +138,14 @@
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
     <value>Automatic updates</value>
   </data>
-  <data name="FileNamingTab" xml:space="preserve">
-    <value>File Naming</value>
-  </data>
-  <data name="DefaultFolderLabel" xml:space="preserve">
-    <value>Default folder:</value>
-  </data>
-  <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>Default format</value>
-  </data>
-  <data name="CustomFormatRadioButton" xml:space="preserve">
-    <value>Custom format:</value>
-  </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
     <value>When a file already exists...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
     <value>Encoding single file:</value>
   </data>
-  <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>Ask if you want to overwrite it</value>
-  </data>
-  <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>Overwrite the file without prompting</value>
-  </data>
-  <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>Automatically switch to a different name</value>
-  </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
     <value>Encoding batch of files:</value>
-  </data>
-  <data name="OverwriteRadioButton" xml:space="preserve">
-    <value>Overwrite</value>
-  </data>
-  <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>Automatically rename</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Pause encoding when any of these processes are running:</value>
@@ -269,9 +242,6 @@
   </data>
   <data name="OutputFolderSection" xml:space="preserve">
     <value>Output folder</value>
-  </data>
-  <data name="NamingFormatSection" xml:space="preserve">
-    <value>Naming format</value>
   </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
     <value>Advanced options</value>

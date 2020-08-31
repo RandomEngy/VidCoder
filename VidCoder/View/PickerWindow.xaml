@@ -199,6 +199,7 @@
 							Margin="12"
 							VerticalAlignment="Top"
 							Orientation="Vertical">
+
 							<!--  Destination  -->
 							<TextBlock
 								Name="destinationSectionTitle"
@@ -212,33 +213,43 @@
 										<ColumnDefinition Width="Auto" />
 									</Grid.ColumnDefinitions>
 
-									<CheckBox
+									<TextBlock
 										Grid.Column="0"
+										Margin="0 0 5 0"
 										HorizontalAlignment="Left"
 										VerticalAlignment="Center"
-										Content="{x:Static res:PickerRes.OverrideDirectoryCheckBox}"
-										IsChecked="{Binding OutputDirectoryOverrideEnabled}" />
-
+										Text="{x:Static res:PickerRes.OutputFolder}" />
 									<TextBox
 										Grid.Column="1"
-										Height="22"
-										Margin="5 0 0 0"
+										Height="23"
 										VerticalAlignment="Center"
 										VerticalContentAlignment="Center"
-										IsEnabled="{Binding OutputDirectoryOverrideEnabled}"
-										Text="{Binding OutputDirectoryOverride,
+										Text="{Binding OutputDirectory,
 										               Mode=TwoWay,
 										               UpdateSourceTrigger=PropertyChanged}" />
-
 									<Button
 										Grid.Column="2"
-										MinWidth="80"
-										Margin="10 0 0 0"
-										Padding="10 0"
+										Height="23"
+										MinWidth="75"
+										Margin="5 0 0 0"
+										HorizontalAlignment="Right"
+										VerticalAlignment="Top"
 										Command="{Binding PickOutputDirectory}"
-										Content="{x:Static res:CommonRes.Browse}"
-										IsEnabled="{Binding OutputDirectoryOverrideEnabled}" />
+										Content="{x:Static res:CommonRes.Browse}" />
 								</Grid>
+								<CheckBox
+									Height="16"
+									Margin="0 6 0 0"
+									HorizontalAlignment="Left"
+									Content="{x:Static res:CommonRes.OutputToSourceDirCheckBox}"
+									IsChecked="{Binding OutputToSourceDirectory}" />
+								<CheckBox
+									Height="16"
+									Margin="0 6 0 0"
+									HorizontalAlignment="Left"
+									Content="{x:Static res:CommonRes.PreserveFolderStructureCheckBox}"
+									IsChecked="{Binding PreserveFolderStructureInBatch}"
+									ToolTip="{x:Static res:CommonRes.PreserveFolderStructureToolTip}" />
 								<Grid Margin="0 10 0 0">
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="Auto" />
@@ -249,8 +260,8 @@
 										Grid.Column="0"
 										HorizontalAlignment="Left"
 										VerticalAlignment="Center"
-										Content="{x:Static res:CommonRes.OverrideNameFormatCheckBox}"
-										IsChecked="{Binding NameFormatOverrideEnabled}" />
+										Content="{x:Static res:PickerRes.UseCustomFileNameFormatCheckBox}"
+										IsChecked="{Binding UseCustomFileNameFormat}" />
 
 									<TextBox
 										Grid.Column="1"
@@ -258,20 +269,21 @@
 										Margin="5 0 0 0"
 										VerticalAlignment="Center"
 										VerticalContentAlignment="Center"
-										IsEnabled="{Binding NameFormatOverrideEnabled}"
-										Text="{Binding NameFormatOverride,
+										AutomationProperties.Name="{x:Static res:PickerRes.OutputFileNameFormatAutomationName}"
+										IsEnabled="{Binding UseCustomFileNameFormat}"
+										Text="{Binding OutputFileNameFormat,
 										               Mode=TwoWay,
 										               UpdateSourceTrigger=PropertyChanged}" />
 								</Grid>
 
 								<TextBlock
-									Margin="22 2 0 10"
-									Text="{Binding NameFormat}"
+									Margin="0 2 0 0"
+									Text="{Binding AvailableOptionsText}"
 									TextWrapping="Wrap"
-									Visibility="{Binding NameFormatOverrideEnabled,
+									Visibility="{Binding UseCustomFileNameFormat,
 									                     Converter={StaticResource VisibilityConverter}}" />
 
-								<StackPanel Margin="0 10 0 0" Orientation="Horizontal">
+								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
 									<TextBlock
 										Name="titleCaptializationLabel"
 										VerticalAlignment="Center"
@@ -286,49 +298,35 @@
 										SelectedValuePath="Value" />
 								</StackPanel>
 
-								<CheckBox
-									Height="16"
-									Margin="0 6 0 0"
-									HorizontalAlignment="Left"
-									VerticalAlignment="Top"
-									Content="{x:Static res:CommonRes.OutputToSourceDirCheckBox}"
-									IsChecked="{Binding OutputToSourceDirectory}"
-									IsThreeState="True">
-									<CheckBox.ToolTip>
-										<StackPanel Orientation="Horizontal">
-											<CheckBox
-												VerticalAlignment="Center"
-												IsChecked="{x:Null}"
-												IsHitTestVisible="False"
-												IsThreeState="True" />
-											<TextBlock VerticalAlignment="Center" Text=" - " />
-											<TextBlock VerticalAlignment="Center" Text="{x:Static res:PickerRes.UseGlobalSettingToolTip}" />
-										</StackPanel>
-									</CheckBox.ToolTip>
-								</CheckBox>
-								<CheckBox
-									Height="16"
-									Margin="0 6 0 0"
-									HorizontalAlignment="Left"
-									VerticalAlignment="Top"
-									Content="{x:Static res:CommonRes.PreserveFolderStructureCheckBox}"
-									IsChecked="{Binding PreserveFolderStructureInBatch}"
-									IsThreeState="True">
-									<CheckBox.ToolTip>
-										<StackPanel Orientation="Vertical">
-											<TextBlock VerticalAlignment="Center" Text="{x:Static res:CommonRes.PreserveFolderStructureToolTip}" />
-											<StackPanel Margin="0 14 0 0" Orientation="Horizontal">
-												<CheckBox
-													VerticalAlignment="Center"
-													IsChecked="{x:Null}"
-													IsHitTestVisible="False"
-													IsThreeState="True" />
-												<TextBlock VerticalAlignment="Center" Text=" - " />
-												<TextBlock VerticalAlignment="Center" Text="{x:Static res:PickerRes.UseGlobalSettingToolTip}" />
-											</StackPanel>
-										</StackPanel>
-									</CheckBox.ToolTip>
-								</CheckBox>
+								<StackPanel Margin="0 10 0 0" Orientation="Horizontal">
+									<TextBlock
+										Name="whenFileExistsSingleLabel"
+										VerticalAlignment="Center"
+										Text="{x:Static res:PickerRes.WhenFileExistsSingle}" />
+
+									<ComboBox
+										Margin="6 0 0 0"
+										AutomationProperties.LabeledBy="{Binding ElementName=whenFileExistsSingleLabel}"
+										DisplayMemberPath="Display"
+										ItemsSource="{Binding WhenFileExistsSingleChoices}"
+										SelectedValue="{Binding WhenFileExistsSingle}"
+										SelectedValuePath="Value" />
+								</StackPanel>
+
+								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
+									<TextBlock
+										Name="whenFileExistsBatchLabel"
+										VerticalAlignment="Center"
+										Text="{x:Static res:PickerRes.WhenFileExistsBatch}" />
+
+									<ComboBox
+										Margin="6 0 0 0"
+										AutomationProperties.LabeledBy="{Binding ElementName=whenFileExistsBatchLabel}"
+										DisplayMemberPath="Display"
+										ItemsSource="{Binding WhenFileExistsBatchChoices}"
+										SelectedValue="{Binding WhenFileExistsBatch}"
+										SelectedValuePath="Value" />
+								</StackPanel>
 							</StackPanel>
 
 							<!--  Title selection  -->

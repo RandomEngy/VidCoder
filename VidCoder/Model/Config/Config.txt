@@ -13,9 +13,6 @@ LastSubtitleFolder|string|""
 LastCsvFolder|string|""
 LastPresetExportFolder|string|""
 
-AutoNameOutputFolder|string|""
-AutoNameCustomFormat|bool|false
-AutoNameCustomFormatString|string|"{source}-{title}"
 NativeLanguageCode|string|""
 DubAudio|bool|false
 
@@ -86,10 +83,6 @@ QueueTitlesUseTitleOverride|bool|false
 QueueTitlesTitleOverride|int|1
 SourceHistory|string|""
 MinimizeToTray|bool|false
-OutputToSourceDirectory|bool|false
-PreserveFolderStructureInBatch|bool|false
-WhenFileExists|string|"Prompt"
-WhenFileExistsBatch|string|"AutoRename"
 UseCustomVideoPlayer|bool|false
 CustomVideoPlayer|string|""
 PlaySoundOnCompletion|bool|false
@@ -133,3 +126,12 @@ AutoSubtitleLanguageBurnIn|bool|false
 QueueTitlesStartTime|int|40
 QueueTitlesEndTime|int|45
 QueueTitlesUseRange|bool|false
+
+# Obsolete members
+!AutoNameOutputFolder|string|""
+!AutoNameCustomFormat|bool|false
+!AutoNameCustomFormatString|string|"{source}-{title}"
+!OutputToSourceDirectory|bool|false
+!PreserveFolderStructureInBatch|bool|false
+!WhenFileExists|string|"Prompt"
+!WhenFileExistsBatch|string|"AutoRename"

@@ -215,9 +215,9 @@ namespace VidCoder.ViewModel
 					else
 					{
 						var picker = this.PickersService.SelectedPicker.Picker;
-						if (picker.NameFormatOverrideEnabled)
+						if (picker.UseCustomFileNameFormat)
 						{
-							nameOverrideLocal = picker.NameFormatOverride;
+							nameOverrideLocal = picker.OutputFileNameFormat;
 						}
 						else
 						{

@@ -295,4 +295,13 @@
   <data name="DeleteSourceFilesMode_Recycle" xml:space="preserve">
     <value>Send to Recycle Bin</value>
   </data>
+  <data name="WhenFileExists_AutoRename" xml:space="preserve">
+    <value>Automatically rename</value>
+  </data>
+  <data name="WhenFileExists_Overwrite" xml:space="preserve">
+    <value>Overwrite</value>
+  </data>
+  <data name="WhenFileExists_Prompt" xml:space="preserve">
+    <value>Ask</value>
+  </data>
 </root>

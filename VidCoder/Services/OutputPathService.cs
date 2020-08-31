@@ -32,11 +32,6 @@ namespace VidCoder.Services
 		private PickersService pickersService;
 		private IDriveService driveService = StaticResolver.Resolve<IDriveService>();
 
-		public OutputPathService()
-		{
-			this.configuredDefaultOutputFolder = Config.AutoNameOutputFolder;
-		}
-
 		public ProcessingService ProcessingService
 		{
 			get
@@ -83,27 +78,6 @@ namespace VidCoder.Services
 			set => this.RaiseAndSetIfChanged(ref this.outputPath, value);
 		}
 
-		private string configuredDefaultOutputFolder;
-		private string ConfiguredDefaultOutputFolder
-		{
-			get => this.configuredDefaultOutputFolder;
-			set => this.RaiseAndSetIfChanged(ref this.configuredDefaultOutputFolder, value);
-		}
-
-		public string DefaultOutputFolder
-		{
-			get
-			{
-				string configuredValue = Config.AutoNameOutputFolder;
-				if (!string.IsNullOrEmpty(configuredValue))
-				{
-					return configuredValue;
-				}
-
-				return Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
-			}
-		}
-
 		// The parent folder for the item (if it was inside a folder of files added in a batch)
 		public string SourceParentFolder { get; set; }
 
@@ -123,28 +97,6 @@ namespace VidCoder.Services
 		{
 			get => this.editingDestination;
 			set => this.RaiseAndSetIfChanged(ref this.editingDestination, value);
-		}
-
-		private ReactiveCommand<Unit, bool> pickDefaultOutputFolder;
-		public ReactiveCommand<Unit, bool> PickDefaultOutputFolder
-		{
-			get
-			{
-				return this.pickDefaultOutputFolder ?? (this.pickDefaultOutputFolder = ReactiveCommand.Create(() => { return this.PickDefaultOutputFolderImpl(); }));
-			}
-		}
-
-		public bool PickDefaultOutputFolderImpl()
-		{
-			string newOutputFolder = FileService.Instance.GetFolderName(null, MainRes.OutputDirectoryPickerText);
-
-			if (newOutputFolder != null)
-			{
-				Config.AutoNameOutputFolder = newOutputFolder;
-				this.NotifyConfiguredDefaultOutputFolderChanged();
-			}
-
-			return newOutputFolder != null;
 		}
 
 		private ReactiveCommand<Unit, Unit> pickOutputPath;
@@ -210,7 +162,7 @@ namespace VidCoder.Services
 		// Returns a non-conflicting output path.
 		// May return the same value if there are no conflicts.
 		// null means cancel.
-		public string ResolveOutputPathConflicts(string initialOutputPath, string sourcePath, HashSet<string> excludedPaths, bool isBatch)
+		public string ResolveOutputPathConflicts(string initialOutputPath, string sourcePath, HashSet<string> excludedPaths, bool isBatch, Picker picker)
 		{
 			// If the output is going to be the same as the source path, add (Encoded) to it
 			if (string.Compare(initialOutputPath, sourcePath, StringComparison.InvariantCultureIgnoreCase) == 0)
@@ -233,11 +185,11 @@ namespace VidCoder.Services
 			WhenFileExists preference;
 			if (isBatch)
 			{
-				preference = CustomConfig.WhenFileExistsBatch;
+				preference = picker.WhenFileExistsBatch;
 			}
 			else
 			{
-				preference = CustomConfig.WhenFileExists;
+				preference = picker.WhenFileExistsSingle;
 			}
 
 			switch (preference)
@@ -289,9 +241,9 @@ namespace VidCoder.Services
 			}
 		}
 
-		public string ResolveOutputPathConflicts(string initialOutputPath, string sourcePath, bool isBatch)
+		public string ResolveOutputPathConflicts(string initialOutputPath, string sourcePath, bool isBatch, Picker picker)
 		{
-			return this.ResolveOutputPathConflicts(initialOutputPath, sourcePath, this.ProcessingService.GetQueuedFiles(), isBatch);
+			return this.ResolveOutputPathConflicts(initialOutputPath, sourcePath, this.ProcessingService.GetQueuedFiles(), isBatch, picker);
 		}
 
 		/// <summary>
@@ -370,12 +322,6 @@ namespace VidCoder.Services
 			}
 		}
 
-		public void NotifyConfiguredDefaultOutputFolderChanged()
-		{
-			this.ConfiguredDefaultOutputFolder = Config.AutoNameOutputFolder;
-			this.GenerateOutputFileName();
-		}
-
 		public void GenerateOutputFileName()
 		{
 			string fileName;
@@ -426,9 +372,9 @@ namespace VidCoder.Services
 			else
 			{
 				var picker = this.pickersService.SelectedPicker.Picker;
-				if (picker.NameFormatOverrideEnabled)
+				if (picker.UseCustomFileNameFormat)
 				{
-					nameFormat = picker.NameFormatOverride;
+					nameFormat = picker.OutputFileNameFormat;
 				}
 			}
 
@@ -519,18 +465,18 @@ namespace VidCoder.Services
 			return string.Join(" ", translatedTitleWords);
 		}
 
-		// Gets the default output folder, considering the picker and config
+		// Gets the output folder from the picker, falling back to My Videos if null.
 		public string PickerOutputFolder
 		{
 			get
 			{
 				Picker picker = this.PickersService.SelectedPicker.Picker;
-				if (picker.OutputDirectoryOverrideEnabled)
+				if (picker.OutputDirectory != null)
 				{
-					return picker.OutputDirectoryOverride;
+					return picker.OutputDirectory;
 				}
 
-				return this.DefaultOutputFolder;
+				return Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
 			}
 		}
 
@@ -545,7 +491,7 @@ namespace VidCoder.Services
 				picker = this.PickersService.SelectedPicker.Picker;
 			}
 
-			if (picker.OutputToSourceDirectory ?? Config.OutputToSourceDirectory)
+			if (picker.OutputToSourceDirectory)
 			{
 				// Use the source directory if we can
 				string sourceRoot = Path.GetPathRoot(sourcePath);
@@ -562,7 +508,7 @@ namespace VidCoder.Services
 				}
 			}
 
-			bool preserveFolderStructure = picker.PreserveFolderStructureInBatch ?? Config.PreserveFolderStructureInBatch;
+			bool preserveFolderStructure = picker.PreserveFolderStructureInBatch;
 			if (!usedSourceDirectory && sourceParentFolder != null && preserveFolderStructure)
 			{
 				// Tack on some subdirectories if we have a parent folder specified and it's enabled, and we didn't use the source directory
@@ -737,7 +683,7 @@ namespace VidCoder.Services
 				picker = this.PickersService.SelectedPicker.Picker;
 			}
 
-			if (Config.AutoNameCustomFormat || !string.IsNullOrWhiteSpace(nameFormatOverride) || picker.NameFormatOverrideEnabled)
+			if (!string.IsNullOrWhiteSpace(nameFormatOverride) || picker.UseCustomFileNameFormat)
 			{
 				string rangeString = string.Empty;
 				switch (rangeType)
@@ -765,13 +711,9 @@ namespace VidCoder.Services
 				{
 					fileName = nameFormatOverride;
 				}
-				else if (picker.NameFormatOverrideEnabled)
-				{
-					fileName = picker.NameFormatOverride;
-				}
 				else
 				{
-					fileName = Config.AutoNameCustomFormatString;
+					fileName = picker.OutputFileNameFormat;
 				}
 
 				fileName = fileName.Replace("{source}", sourceName);

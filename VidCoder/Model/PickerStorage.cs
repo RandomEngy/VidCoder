@@ -79,18 +79,8 @@ namespace VidCoder.Model
             return result;
         }
 
-	    public static void UpgradePicker(Picker picker, int oldDatabaseVersion)
+	    public static void UpgradePickerUpTo37(Picker picker, int oldDatabaseVersion)
 	    {
-		    if (oldDatabaseVersion < 30)
-		    {
-			    UpgradePickerTo30(picker);
-		    }
-
-	        if (oldDatabaseVersion < 34)
-	        {
-	            UpgradePickerTo34(picker);
-	        }
-
 		    if (oldDatabaseVersion < 36)
 		    {
 			    UpgradePickerTo36(picker);
@@ -102,38 +92,12 @@ namespace VidCoder.Model
 			}
 	    }
 
-	    private static void UpgradePickerTo30(Picker picker)
-	    {
-		    if (picker.AudioSelectionMode == AudioSelectionMode.Language)
-		    {
-			    picker.AudioLanguageCodes = new List<string> { picker.AudioLanguageCode };
-		    }
+		public static void UpgradePicker(Picker picker, int oldDatabaseVersion)
+		{
+			// TODO: add more picker upgrades
+		}
 
-		    if (picker.SubtitleSelectionMode == SubtitleSelectionMode.Language)
-		    {
-			    picker.SubtitleLanguageCodes = new List<string> { picker.SubtitleLanguageCode };
-			    picker.SubtitleBurnIn = picker.SubtitleLanguageBurnIn;
-			    picker.SubtitleDefault = picker.SubtitleLanguageDefault;
-		    }
-		    else if (picker.SubtitleSelectionMode == SubtitleSelectionMode.All)
-		    {
-			    picker.SubtitleLanguageCodes = new List<string>();
-		    }
-
-		    if (picker.SubtitleSelectionMode == SubtitleSelectionMode.ForeignAudioSearch)
-		    {
-			    picker.SubtitleBurnIn = picker.SubtitleForeignBurnIn;
-		    }
-	    }
-
-        private static void UpgradePickerTo34(Picker picker)
-        {
-            if (picker.SubtitleSelectionMode == SubtitleSelectionMode.ForeignAudioSearch)
-            {
-                picker.SubtitleForcedOnly = true;
-            }
-        }
-
+#pragma warning disable CS0618 // Type or member is obsolete
 	    private static void UpgradePickerTo36(Picker picker)
 	    {
 		    switch (picker.EncodingPreset)
@@ -184,7 +148,107 @@ namespace VidCoder.Model
 			}
 		}
 
-        public static void SavePickers(List<string> pickerJsonList, SQLiteConnection connection)
+		private static void UpgradePickerTo39(Picker picker)
+		{
+			string configurationOutputDirectory = DatabaseConfig.Get<string>("AutoNameOutputFolder", null);
+			if (picker.OutputDirectoryOverrideEnabled)
+			{
+				picker.OutputDirectory = picker.OutputDirectoryOverride;
+			}
+			else if (!string.IsNullOrEmpty(configurationOutputDirectory))
+			{
+				picker.OutputDirectory = configurationOutputDirectory;
+			}
+			else
+			{
+				picker.OutputDirectory = null;
+			}
+
+			if (picker.OutputToSourceDirectoryNullable == null)
+			{
+				picker.OutputToSourceDirectory = DatabaseConfig.Get<bool>("OutputToSourceDirectory", false);
+			}
+			else
+			{
+				picker.OutputToSourceDirectory = picker.OutputToSourceDirectoryNullable.Value;
+			}
+
+			if (picker.PreserveFolderStructureInBatchNullable == null)
+			{
+				picker.PreserveFolderStructureInBatch = DatabaseConfig.Get<bool>("PreserveFolderStructureInBatch", false);
+			}
+			else
+			{
+				picker.PreserveFolderStructureInBatch = picker.PreserveFolderStructureInBatchNullable.Value;
+			}
+
+			picker.UseCustomFileNameFormat = picker.NameFormatOverrideEnabled;
+			if (picker.NameFormatOverrideEnabled)
+			{
+				picker.OutputFileNameFormat = picker.NameFormatOverride;
+			}
+			else
+			{
+				picker.OutputFileNameFormat = null;
+			}
+
+			string whenFileExistsSingleString = DatabaseConfig.Get<string>("WhenFileExists", "Prompt");
+			picker.WhenFileExistsSingle = (WhenFileExists)Enum.Parse(typeof(WhenFileExists), whenFileExistsSingleString);
+
+			string whenFileExistsBatchString = DatabaseConfig.Get<string>("WhenFileExistsBatch", "AutoRename");
+			picker.WhenFileExistsBatch = (WhenFileExists)Enum.Parse(typeof(WhenFileExists), whenFileExistsBatchString);
+		}
+
+		public static void UpgradePickersTo39(List<Picker> pickers)
+		{
+			// Upgrade all the existing pickers
+			foreach (Picker picker in pickers)
+			{
+				UpgradePickerTo39(picker);
+			}
+
+			// And if we have the "default" picker selected right now, add a new one with our settings copied over.
+			int lastPickerIndex = DatabaseConfig.Get<int>("LastPickerIndex", 0);
+			if (lastPickerIndex == 0)
+			{
+				bool useCustomNameFormat = DatabaseConfig.Get<bool>("AutoNameCustomFormat", false);
+				bool outputToSourceDirectory = DatabaseConfig.Get<bool>("OutputToSourceDirectory", false);
+				bool preserveFolderStructureInBatch = DatabaseConfig.Get<bool>("PreserveFolderStructureInBatch", false);
+				string whenFileExistsSingleString = DatabaseConfig.Get<string>("WhenFileExists", "Prompt");
+				WhenFileExists whenFileExistsSingle = (WhenFileExists)Enum.Parse(typeof(WhenFileExists), whenFileExistsSingleString);
+				string whenFileExistsBatchString = DatabaseConfig.Get<string>("WhenFileExistsBatch", "AutoRename");
+				WhenFileExists whenFileExistsBatch = (WhenFileExists)Enum.Parse(typeof(WhenFileExists), whenFileExistsBatchString);
+
+				var newPicker = new Picker
+				{
+					Name = CommonRes.Custom,
+					UseCustomFileNameFormat = useCustomNameFormat,
+					OutputToSourceDirectory = outputToSourceDirectory,
+					PreserveFolderStructureInBatch = preserveFolderStructureInBatch,
+					WhenFileExistsSingle = whenFileExistsSingle,
+					WhenFileExistsBatch = whenFileExistsBatch
+				};
+
+				if (useCustomNameFormat)
+				{
+					string outputFileNameFormat = DatabaseConfig.Get<string>("AutoNameCustomFormatString", null);
+					newPicker.OutputFileNameFormat = outputFileNameFormat;
+				}
+
+				string outputDirectory = DatabaseConfig.Get<string>("AutoNameOutputFolder", null);
+				if (!string.IsNullOrEmpty(outputDirectory))
+				{
+					newPicker.OutputDirectory = outputDirectory;
+				}
+
+				pickers.Insert(0, newPicker);
+
+				DatabaseConfig.Set<int>("LastPickerIndex", 1);
+			}
+		}
+#pragma warning restore CS0618 // Type or member is obsolete
+
+		public static void SavePickers(List<string> pickerJsonList, SQLiteConnection connection)
         {
             Database.ExecuteNonQuery("DELETE FROM pickersJson", connection);
 

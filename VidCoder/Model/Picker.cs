@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using ReactiveUI;
 using VidCoder.Resources;
+using VidCoderCommon.Model;
 
 namespace VidCoder.Model
 {
@@ -54,25 +55,30 @@ namespace VidCoder.Model
 		}
 
 		[JsonProperty]
-		public bool OutputDirectoryOverrideEnabled { get; set; }
+		public string OutputDirectory { get; set; }
 
 		[JsonProperty]
-		public string OutputDirectoryOverride { get; set; }
+		public bool UseCustomFileNameFormat { get; set; }
 
 		[JsonProperty]
-		public bool NameFormatOverrideEnabled { get; set; }
-
-		[JsonProperty]
-		public string NameFormatOverride { get; set; }
+		public string OutputFileNameFormat { get; set; }
 
 		[JsonProperty]
 		public TitleCapitalizationChoice TitleCapitalization { get; set; } = TitleCapitalizationChoice.EveryWord;
 
-		[JsonProperty]
-		public bool? OutputToSourceDirectory { get; set; }
+		// Used to be nullable
+		[JsonProperty("OutputToSourceDirectory2")]
+		public bool OutputToSourceDirectory { get; set; }
+
+		// Used to be nullable
+		[JsonProperty("PreserveFolderStructureInBatch2")]
+		public bool PreserveFolderStructureInBatch { get; set; }
 
 		[JsonProperty]
-		public bool? PreserveFolderStructureInBatch { get; set; }
+		public WhenFileExists WhenFileExistsSingle { get; set; } = WhenFileExists.Prompt;
+
+		[JsonProperty]
+		public WhenFileExists WhenFileExistsBatch { get; set; } = WhenFileExists.AutoRename;
 
 		private bool titleRangeSelectEnabled;
 		[JsonProperty]
@@ -232,29 +238,45 @@ namespace VidCoder.Model
 
 		#region Obsolete
 
-		// Obsolete. use AudioLanguageCodes instead.
-		[JsonProperty]
-		public string AudioLanguageCode { get; set; } = "und";
-
-		// Obsolete. Use SubtitleLanguageCodes instead.
-		[JsonProperty]
-		public string SubtitleLanguageCode { get; set; } = "und";
-
-		// Obsolete. Use SubtitleDefault instead.
-		[JsonProperty]
-		public bool SubtitleLanguageDefault { get; set; }
-
-		// Obsolete. Use SubtitleBurnIn instead.
-		[JsonProperty]
-		public bool SubtitleForeignBurnIn { get; set; }
-
-		// Obsolete. Use SubtitleBurnIn instead.
-		[JsonProperty]
-		public bool SubtitleLanguageBurnIn { get; set; }
-
-		// Obsolete. Use PickerTimeRangeMode instead.
+		// Made obsolete before v6.13
+		[Obsolete("Use PickerTimeRangeMode instead.")]
+		[DeserializeOnly]
 		[JsonProperty]
 		public bool TimeRangeSelectEnabled { get; set; }
+
+		// Made obsolete on v6.13
+		[Obsolete("Output directory is no longer an override.")]
+		[DeserializeOnly]
+		[JsonProperty]
+		public bool OutputDirectoryOverrideEnabled { get; set; }
+
+		// Made obsolete on v6.13
+		[Obsolete("Use OutputDirectory instead.")]
+		[DeserializeOnly]
+		[JsonProperty]
+		public string OutputDirectoryOverride { get; set; }
+
+		// Made obsolete on v6.13
+		[Obsolete("Name format is no longer an override.")]
+		[DeserializeOnly]
+		[JsonProperty]
+		public bool NameFormatOverrideEnabled { get; set; }
+
+		// Made obsolete on v6.13
+		[Obsolete("Use NameFormat instead.")]
+		[DeserializeOnly]
+		[JsonProperty]
+		public string NameFormatOverride { get; set; }
+
+		[Obsolete("Use OutputToSourceDirectory instead.")]
+		[DeserializeOnly]
+		[JsonProperty("OutputToSourceDirectory")]
+		public bool? OutputToSourceDirectoryNullable { get; set; }
+
+		[Obsolete("Use PreserveFolderStructureInBatch instead.")]
+		[DeserializeOnly]
+		[JsonProperty("PreserveFolderStructureInBatch")]
+		public bool? PreserveFolderStructureInBatchNullable { get; set; }
 
 		#endregion
 	}

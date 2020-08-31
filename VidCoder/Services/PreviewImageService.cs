@@ -561,8 +561,6 @@ namespace VidCoder.Services
 		    {
 			    try
 			    {
-					throw new InvalidOperationException("test");
-
 				    using (var memoryStream = new MemoryStream())
 				    {
 					    // Write the bitmap out to a memory stream before saving so that we won't be holding

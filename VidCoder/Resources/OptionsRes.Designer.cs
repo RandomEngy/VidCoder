@@ -88,33 +88,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ask if you want to overwrite it.
-        /// </summary>
-        public static string AskOverwriteRadioButton {
-            get {
-                return ResourceManager.GetString("AskOverwriteRadioButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Automatically rename.
-        /// </summary>
-        public static string AutomaticallyRenameRadioButton {
-            get {
-                return ResourceManager.GetString("AutomaticallyRenameRadioButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Automatically switch to a different name.
-        /// </summary>
-        public static string AutomaticallySwitchNameRadioButton {
-            get {
-                return ResourceManager.GetString("AutomaticallySwitchNameRadioButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Automatic updates.
         /// </summary>
         public static string AutomaticUpdatesCheckBox {
@@ -268,15 +241,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Custom format:.
-        /// </summary>
-        public static string CustomFormatRadioButton {
-            get {
-                return ResourceManager.GetString("CustomFormatRadioButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Custom player:.
         /// </summary>
         public static string CustomPlayerLabel {
@@ -300,24 +264,6 @@ namespace VidCoder.Resources {
         public static string CustomVideoPlayerToolTip {
             get {
                 return ResourceManager.GetString("CustomVideoPlayerToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Default folder:.
-        /// </summary>
-        public static string DefaultFolderLabel {
-            get {
-                return ResourceManager.GetString("DefaultFolderLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Default format.
-        /// </summary>
-        public static string DefaultFormatRadioButton {
-            get {
-                return ResourceManager.GetString("DefaultFormatRadioButton", resourceCulture);
             }
         }
         
@@ -390,15 +336,6 @@ namespace VidCoder.Resources {
         public static string FileNameFormatOptions {
             get {
                 return ResourceManager.GetString("FileNameFormatOptions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to File Naming.
-        /// </summary>
-        public static string FileNamingTab {
-            get {
-                return ResourceManager.GetString("FileNamingTab", resourceCulture);
             }
         }
         
@@ -511,15 +448,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naming format.
-        /// </summary>
-        public static string NamingFormatSection {
-            get {
-                return ResourceManager.GetString("NamingFormatSection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The new language will take effect after you exit and restart VidCoder..
         /// </summary>
         public static string NewLanguageRestartDialogMessage {
@@ -552,24 +480,6 @@ namespace VidCoder.Resources {
         public static string OutputFolderSection {
             get {
                 return ResourceManager.GetString("OutputFolderSection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overwrite.
-        /// </summary>
-        public static string OverwriteRadioButton {
-            get {
-                return ResourceManager.GetString("OverwriteRadioButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overwrite the file without prompting.
-        /// </summary>
-        public static string OverwriteWithoutPromptRadioButton {
-            get {
-                return ResourceManager.GetString("OverwriteWithoutPromptRadioButton", resourceCulture);
             }
         }
         

@@ -563,5 +563,32 @@ namespace VidCoder.Resources {
                 return ResourceManager.GetString("VideoRangeType_Seconds", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically rename.
+        /// </summary>
+        public static string WhenFileExists_AutoRename {
+            get {
+                return ResourceManager.GetString("WhenFileExists_AutoRename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overwrite.
+        /// </summary>
+        public static string WhenFileExists_Overwrite {
+            get {
+                return ResourceManager.GetString("WhenFileExists_Overwrite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ask.
+        /// </summary>
+        public static string WhenFileExists_Prompt {
+            get {
+                return ResourceManager.GetString("WhenFileExists_Prompt", resourceCulture);
+            }
+        }
     }
 }

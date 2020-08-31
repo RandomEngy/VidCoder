@@ -25,7 +25,7 @@ namespace VidCoder.ViewModel
 {
 	public class OptionsDialogViewModel : OkCancelDialogViewModel
 	{
-		public const int UpdatesTabIndex = 4;
+		public const int UpdatesTabIndex = 3;
 
 #pragma warning disable 169
 		private UpdateInfo betaInfo;
@@ -41,14 +41,13 @@ namespace VidCoder.ViewModel
 			this.Tabs = new List<string>
 			{
 				OptionsRes.GeneralTab,			// 0
-				OptionsRes.FileNamingTab,		// 1
-				OptionsRes.ProcessTab,			// 2
-				OptionsRes.AdvancedTab,			// 3
+				OptionsRes.ProcessTab,			// 1
+				OptionsRes.AdvancedTab,			// 2
 			};
 
 			if (Utilities.SupportsUpdates)
 			{
-				this.Tabs.Add(OptionsRes.UpdatesTab); // 4
+				this.Tabs.Add(OptionsRes.UpdatesTab); // 3
 			}
 
 			// UpdateStatus
@@ -97,15 +96,8 @@ namespace VidCoder.ViewModel
 
 			this.updatesEnabledConfig = Config.UpdatesEnabled;
 			this.updatePromptTiming = CustomConfig.UpdatePromptTiming;
-			this.defaultPath = Config.AutoNameOutputFolder;
-			this.customFormat = Config.AutoNameCustomFormat;
-			this.customFormatString = Config.AutoNameCustomFormatString;
-			this.outputToSourceDirectory = Config.OutputToSourceDirectory;
-			this.preserveFolderStructureInBatch = Config.PreserveFolderStructureInBatch;
 			this.useCustomPreviewFolder = Config.UseCustomPreviewFolder;
 			this.previewOutputFolder = Config.PreviewOutputFolder;
-			this.whenFileExists = CustomConfig.WhenFileExists;
-			this.whenFileExistsBatch = CustomConfig.WhenFileExistsBatch;
 			this.minimizeToTray = Config.MinimizeToTray;
 			this.useCustomVideoPlayer = Config.UseCustomVideoPlayer;
 			this.customVideoPlayer = Config.CustomVideoPlayer;
@@ -271,11 +263,6 @@ namespace VidCoder.ViewModel
 		{
 			Config.OptionsDialogLastTab = this.SelectedTabIndex;
 
-			if (this.DialogResult)
-			{
-				StaticResolver.Resolve<OutputPathService>().NotifyConfiguredDefaultOutputFolderChanged();
-			}
-
 			return base.OnClosing();
 		}
 
@@ -384,43 +371,6 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.useBuiltInPlayerForPreviews, value); }
 		}
 
-		private string defaultPath;
-		public string DefaultPath
-		{
-			get { return this.defaultPath; }
-			set { this.RaiseAndSetIfChanged(ref this.defaultPath, value); }
-		}
-
-		private bool customFormat;
-		public bool CustomFormat
-		{
-			get { return this.customFormat; }
-			set { this.RaiseAndSetIfChanged(ref this.customFormat, value); }
-		}
-
-		private string customFormatString;
-		public string CustomFormatString
-		{
-			get { return this.customFormatString; }
-			set { this.RaiseAndSetIfChanged(ref this.customFormatString, value); }
-		}
-
-		public string AvailableOptionsText => string.Format(OptionsRes.FileNameFormatOptions, "{source} {title} {range} {preset} {date} {time} {quality} {parent} {titleduration}");
-
-		private bool outputToSourceDirectory;
-		public bool OutputToSourceDirectory
-		{
-			get { return this.outputToSourceDirectory; }
-			set { this.RaiseAndSetIfChanged(ref this.outputToSourceDirectory, value); }
-		}
-
-		private bool preserveFolderStructureInBatch;
-		public bool PreserveFolderStructureInBatch
-		{
-			get { return this.preserveFolderStructureInBatch; }
-			set { this.RaiseAndSetIfChanged(ref this.preserveFolderStructureInBatch, value); }
-		}
-
 		private bool useCustomPreviewFolder;
 		public bool UseCustomPreviewFolder
 		{
@@ -433,20 +383,6 @@ namespace VidCoder.ViewModel
 		{
 			get { return this.previewOutputFolder; }
 			set { this.RaiseAndSetIfChanged(ref this.previewOutputFolder, value); }
-		}
-
-		private WhenFileExists whenFileExists;
-		public WhenFileExists WhenFileExists
-		{
-			get { return this.whenFileExists; }
-			set { this.RaiseAndSetIfChanged(ref this.whenFileExists, value); }
-		}
-
-		private WhenFileExists whenFileExistsBatch;
-		public WhenFileExists WhenFileExistsBatch
-		{
-			get { return this.whenFileExistsBatch; }
-			set { this.RaiseAndSetIfChanged(ref this.whenFileExistsBatch, value); }
 		}
 
 		private bool minimizeToTray;
@@ -698,15 +634,8 @@ namespace VidCoder.ViewModel
 						}
 
 						CustomConfig.AppTheme = this.AppTheme.Value;
-						Config.AutoNameOutputFolder = this.DefaultPath;
-						Config.AutoNameCustomFormat = this.CustomFormat;
-						Config.AutoNameCustomFormatString = this.CustomFormatString;
-						Config.OutputToSourceDirectory = this.OutputToSourceDirectory;
-						Config.PreserveFolderStructureInBatch = this.PreserveFolderStructureInBatch;
 						Config.UseCustomPreviewFolder = this.UseCustomPreviewFolder;
 						Config.PreviewOutputFolder = this.PreviewOutputFolder;
-						CustomConfig.WhenFileExists = this.WhenFileExists;
-						CustomConfig.WhenFileExistsBatch = this.WhenFileExistsBatch;
 						Config.MinimizeToTray = this.MinimizeToTray;
 						Config.UseCustomVideoPlayer = this.UseCustomVideoPlayer;
 						Config.CustomVideoPlayer = this.CustomVideoPlayer;
@@ -805,28 +734,6 @@ namespace VidCoder.ViewModel
 						}
 					},
 					this.WhenAnyValue(x => x.UseCustomCompletionSound)));
-			}
-		}
-
-		private ReactiveCommand<Unit, Unit> browsePath;
-		public ICommand BrowsePath
-		{
-			get
-			{
-				return this.browsePath ?? (this.browsePath = ReactiveCommand.Create(() =>
-				{
-					string initialDirectory = null;
-					if (Directory.Exists(this.DefaultPath))
-					{
-						initialDirectory = this.DefaultPath;
-					}
-
-					string newFolder = FileService.Instance.GetFolderName(initialDirectory, OptionsRes.ChooseDefaultOutputFolder);
-					if (newFolder != null)
-					{
-						this.DefaultPath = newFolder;
-					}
-				}));
 			}
 		}
 

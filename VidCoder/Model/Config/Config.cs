@@ -41,9 +41,6 @@ namespace VidCoder
 			cache.Add("LastSubtitleFolder", DatabaseConfig.Get("LastSubtitleFolder", "", connection));
 			cache.Add("LastCsvFolder", DatabaseConfig.Get("LastCsvFolder", "", connection));
 			cache.Add("LastPresetExportFolder", DatabaseConfig.Get("LastPresetExportFolder", "", connection));
-			cache.Add("AutoNameOutputFolder", DatabaseConfig.Get("AutoNameOutputFolder", "", connection));
-			cache.Add("AutoNameCustomFormat", DatabaseConfig.Get("AutoNameCustomFormat", false, connection));
-			cache.Add("AutoNameCustomFormatString", DatabaseConfig.Get("AutoNameCustomFormatString", "{source}-{title}", connection));
 			cache.Add("NativeLanguageCode", DatabaseConfig.Get("NativeLanguageCode", "", connection));
 			cache.Add("DubAudio", DatabaseConfig.Get("DubAudio", false, connection));
 			cache.Add("LastPresetIndex", DatabaseConfig.Get("LastPresetIndex", -1, connection));
@@ -102,10 +99,6 @@ namespace VidCoder
 			cache.Add("QueueTitlesTitleOverride", DatabaseConfig.Get("QueueTitlesTitleOverride", 1, connection));
 			cache.Add("SourceHistory", DatabaseConfig.Get("SourceHistory", "", connection));
 			cache.Add("MinimizeToTray", DatabaseConfig.Get("MinimizeToTray", false, connection));
-			cache.Add("OutputToSourceDirectory", DatabaseConfig.Get("OutputToSourceDirectory", false, connection));
-			cache.Add("PreserveFolderStructureInBatch", DatabaseConfig.Get("PreserveFolderStructureInBatch", false, connection));
-			cache.Add("WhenFileExists", DatabaseConfig.Get("WhenFileExists", "Prompt", connection));
-			cache.Add("WhenFileExistsBatch", DatabaseConfig.Get("WhenFileExistsBatch", "AutoRename", connection));
 			cache.Add("UseCustomVideoPlayer", DatabaseConfig.Get("UseCustomVideoPlayer", false, connection));
 			cache.Add("CustomVideoPlayer", DatabaseConfig.Get("CustomVideoPlayer", "", connection));
 			cache.Add("PlaySoundOnCompletion", DatabaseConfig.Get("PlaySoundOnCompletion", false, connection));
@@ -148,6 +141,13 @@ namespace VidCoder
 			cache.Add("QueueTitlesStartTime", DatabaseConfig.Get("QueueTitlesStartTime", 40, connection));
 			cache.Add("QueueTitlesEndTime", DatabaseConfig.Get("QueueTitlesEndTime", 45, connection));
 			cache.Add("QueueTitlesUseRange", DatabaseConfig.Get("QueueTitlesUseRange", false, connection));
+			cache.Add("AutoNameOutputFolder", DatabaseConfig.Get("AutoNameOutputFolder", "", connection));
+			cache.Add("AutoNameCustomFormat", DatabaseConfig.Get("AutoNameCustomFormat", false, connection));
+			cache.Add("AutoNameCustomFormatString", DatabaseConfig.Get("AutoNameCustomFormatString", "{source}-{title}", connection));
+			cache.Add("OutputToSourceDirectory", DatabaseConfig.Get("OutputToSourceDirectory", false, connection));
+			cache.Add("PreserveFolderStructureInBatch", DatabaseConfig.Get("PreserveFolderStructureInBatch", false, connection));
+			cache.Add("WhenFileExists", DatabaseConfig.Get("WhenFileExists", "Prompt", connection));
+			cache.Add("WhenFileExistsBatch", DatabaseConfig.Get("WhenFileExistsBatch", "AutoRename", connection));
 		}
 
 		public static T Get<T>(string key)
@@ -240,21 +240,6 @@ namespace VidCoder
 		{
 			get { return (string)cache["LastPresetExportFolder"]; }
 			set { Set("LastPresetExportFolder", value); }
-		}
-		public static string AutoNameOutputFolder
-		{
-			get { return (string)cache["AutoNameOutputFolder"]; }
-			set { Set("AutoNameOutputFolder", value); }
-		}
-		public static bool AutoNameCustomFormat
-		{
-			get { return (bool)cache["AutoNameCustomFormat"]; }
-			set { Set("AutoNameCustomFormat", value); }
-		}
-		public static string AutoNameCustomFormatString
-		{
-			get { return (string)cache["AutoNameCustomFormatString"]; }
-			set { Set("AutoNameCustomFormatString", value); }
 		}
 		public static string NativeLanguageCode
 		{
@@ -546,26 +531,6 @@ namespace VidCoder
 			get { return (bool)cache["MinimizeToTray"]; }
 			set { Set("MinimizeToTray", value); }
 		}
-		public static bool OutputToSourceDirectory
-		{
-			get { return (bool)cache["OutputToSourceDirectory"]; }
-			set { Set("OutputToSourceDirectory", value); }
-		}
-		public static bool PreserveFolderStructureInBatch
-		{
-			get { return (bool)cache["PreserveFolderStructureInBatch"]; }
-			set { Set("PreserveFolderStructureInBatch", value); }
-		}
-		public static string WhenFileExists
-		{
-			get { return (string)cache["WhenFileExists"]; }
-			set { Set("WhenFileExists", value); }
-		}
-		public static string WhenFileExistsBatch
-		{
-			get { return (string)cache["WhenFileExistsBatch"]; }
-			set { Set("WhenFileExistsBatch", value); }
-		}
 		public static bool UseCustomVideoPlayer
 		{
 			get { return (bool)cache["UseCustomVideoPlayer"]; }
@@ -776,6 +741,48 @@ namespace VidCoder
 			get { return (bool)cache["QueueTitlesUseRange"]; }
 			set { Set("QueueTitlesUseRange", value); }
 		}
+		[Obsolete]
+		public static string AutoNameOutputFolder
+		{
+			get { return (string)cache["AutoNameOutputFolder"]; }
+			set { Set("AutoNameOutputFolder", value); }
+		}
+		[Obsolete]
+		public static bool AutoNameCustomFormat
+		{
+			get { return (bool)cache["AutoNameCustomFormat"]; }
+			set { Set("AutoNameCustomFormat", value); }
+		}
+		[Obsolete]
+		public static string AutoNameCustomFormatString
+		{
+			get { return (string)cache["AutoNameCustomFormatString"]; }
+			set { Set("AutoNameCustomFormatString", value); }
+		}
+		[Obsolete]
+		public static bool OutputToSourceDirectory
+		{
+			get { return (bool)cache["OutputToSourceDirectory"]; }
+			set { Set("OutputToSourceDirectory", value); }
+		}
+		[Obsolete]
+		public static bool PreserveFolderStructureInBatch
+		{
+			get { return (bool)cache["PreserveFolderStructureInBatch"]; }
+			set { Set("PreserveFolderStructureInBatch", value); }
+		}
+		[Obsolete]
+		public static string WhenFileExists
+		{
+			get { return (string)cache["WhenFileExists"]; }
+			set { Set("WhenFileExists", value); }
+		}
+		[Obsolete]
+		public static string WhenFileExistsBatch
+		{
+			get { return (string)cache["WhenFileExistsBatch"]; }
+			set { Set("WhenFileExistsBatch", value); }
+		}
 		public static class Observables
 		{
 			public static IObservable<bool> MigratedConfigs => GetObservable<bool>("MigratedConfigs");
@@ -790,9 +797,6 @@ namespace VidCoder
 			public static IObservable<string> LastSubtitleFolder => GetObservable<string>("LastSubtitleFolder");
 			public static IObservable<string> LastCsvFolder => GetObservable<string>("LastCsvFolder");
 			public static IObservable<string> LastPresetExportFolder => GetObservable<string>("LastPresetExportFolder");
-			public static IObservable<string> AutoNameOutputFolder => GetObservable<string>("AutoNameOutputFolder");
-			public static IObservable<bool> AutoNameCustomFormat => GetObservable<bool>("AutoNameCustomFormat");
-			public static IObservable<string> AutoNameCustomFormatString => GetObservable<string>("AutoNameCustomFormatString");
 			public static IObservable<string> NativeLanguageCode => GetObservable<string>("NativeLanguageCode");
 			public static IObservable<bool> DubAudio => GetObservable<bool>("DubAudio");
 			public static IObservable<int> LastPresetIndex => GetObservable<int>("LastPresetIndex");
@@ -851,10 +855,6 @@ namespace VidCoder
 			public static IObservable<int> QueueTitlesTitleOverride => GetObservable<int>("QueueTitlesTitleOverride");
 			public static IObservable<string> SourceHistory => GetObservable<string>("SourceHistory");
 			public static IObservable<bool> MinimizeToTray => GetObservable<bool>("MinimizeToTray");
-			public static IObservable<bool> OutputToSourceDirectory => GetObservable<bool>("OutputToSourceDirectory");
-			public static IObservable<bool> PreserveFolderStructureInBatch => GetObservable<bool>("PreserveFolderStructureInBatch");
-			public static IObservable<string> WhenFileExists => GetObservable<string>("WhenFileExists");
-			public static IObservable<string> WhenFileExistsBatch => GetObservable<string>("WhenFileExistsBatch");
 			public static IObservable<bool> UseCustomVideoPlayer => GetObservable<bool>("UseCustomVideoPlayer");
 			public static IObservable<string> CustomVideoPlayer => GetObservable<string>("CustomVideoPlayer");
 			public static IObservable<bool> PlaySoundOnCompletion => GetObservable<bool>("PlaySoundOnCompletion");
@@ -897,6 +897,20 @@ namespace VidCoder
 			public static IObservable<int> QueueTitlesStartTime => GetObservable<int>("QueueTitlesStartTime");
 			public static IObservable<int> QueueTitlesEndTime => GetObservable<int>("QueueTitlesEndTime");
 			public static IObservable<bool> QueueTitlesUseRange => GetObservable<bool>("QueueTitlesUseRange");
+			[Obsolete]
+			public static IObservable<string> AutoNameOutputFolder => GetObservable<string>("AutoNameOutputFolder");
+			[Obsolete]
+			public static IObservable<bool> AutoNameCustomFormat => GetObservable<bool>("AutoNameCustomFormat");
+			[Obsolete]
+			public static IObservable<string> AutoNameCustomFormatString => GetObservable<string>("AutoNameCustomFormatString");
+			[Obsolete]
+			public static IObservable<bool> OutputToSourceDirectory => GetObservable<bool>("OutputToSourceDirectory");
+			[Obsolete]
+			public static IObservable<bool> PreserveFolderStructureInBatch => GetObservable<bool>("PreserveFolderStructureInBatch");
+			[Obsolete]
+			public static IObservable<string> WhenFileExists => GetObservable<string>("WhenFileExists");
+			[Obsolete]
+			public static IObservable<string> WhenFileExistsBatch => GetObservable<string>("WhenFileExistsBatch");
 			private static IObservable<T> GetObservable<T>(string configName)
 			{
 				object observableObject;

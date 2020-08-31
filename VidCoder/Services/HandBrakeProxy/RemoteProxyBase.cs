@@ -315,12 +315,16 @@ namespace VidCoder
 							this.LastWorkerCommunication = DateTimeOffset.UtcNow;
 						}
 					}
+#if DEBUG
+					catch
+					{
+					}
+#else
 					catch (Exception exception)
 					{
-#if !DEBUG
 						this.HandlePingError(exception);
-#endif
 					}
+#endif
 				}
 			};
 

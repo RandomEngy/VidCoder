@@ -1154,7 +1154,6 @@ namespace VidCoder.Services
 				picker = pickerVM.Picker;
 			}
 
-
 			var scanMultipleDialog = new ScanMultipleDialogViewModel(new List<SourcePath> { new SourcePath { Path = source } });
 			this.windowManager.OpenDialog(scanMultipleDialog);
 
@@ -1205,7 +1204,7 @@ namespace VidCoder.Services
 				{
 					// Exclude all current queued files if overwrite is disabled
 					HashSet<string> excludedPaths;
-					if (CustomConfig.WhenFileExistsBatch == WhenFileExists.AutoRename)
+					if (picker.WhenFileExistsBatch == WhenFileExists.AutoRename)
 					{
 						excludedPaths = this.GetQueuedFiles();
 					}
@@ -1228,7 +1227,7 @@ namespace VidCoder.Services
 						picker: picker);
 					string outputExtension = this.outputPathService.GetOutputExtension();
 					string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
-					queueOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, source, excludedPaths, isBatch: true);
+					queueOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, source, excludedPaths, isBatch: true, picker: picker);
 
 					job.FinalOutputPath = queueOutputPath;
 				}
@@ -1253,7 +1252,8 @@ namespace VidCoder.Services
 
 			var newEncodeJobVM = this.main.CreateEncodeJobVM();
 
-			string resolvedOutputPath = this.outputPathService.ResolveOutputPathConflicts(newEncodeJobVM.Job.FinalOutputPath, newEncodeJobVM.Job.SourcePath, isBatch: false);
+			Picker picker = this.pickersService.SelectedPicker.Picker;
+			string resolvedOutputPath = this.outputPathService.ResolveOutputPathConflicts(newEncodeJobVM.Job.FinalOutputPath, newEncodeJobVM.Job.SourcePath, isBatch: false, picker);
 			if (resolvedOutputPath == null)
 			{
 				return false;
@@ -1328,7 +1328,7 @@ namespace VidCoder.Services
 				string extension = this.outputPathService.GetOutputExtension();
 				string queueOutputPath = this.outputPathService.BuildOutputPath(queueOutputFileName, extension, sourcePath: null, outputFolder: outputFolder);
 
-				job.FinalOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, this.main.SourcePath, isBatch: true);
+				job.FinalOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, this.main.SourcePath, isBatch: true, picker);
 
 				var jobVM = new EncodeJobViewModel(job)
 				{
@@ -1406,9 +1406,11 @@ namespace VidCoder.Services
 		// Queues a list of files or video folders.
 		public void QueueMultiple(IEnumerable<SourcePath> sourcePaths)
 		{
+			Picker picker = this.pickersService.SelectedPicker.Picker;
+
 			// Exclude all current queued files if overwrite is disabled
 			HashSet<string> excludedPaths;
-			if (CustomConfig.WhenFileExistsBatch == WhenFileExists.AutoRename)
+			if (picker.WhenFileExistsBatch == WhenFileExists.AutoRename)
 			{
 				excludedPaths = this.GetQueuedFiles();
 			}
@@ -1528,7 +1530,7 @@ namespace VidCoder.Services
 					multipleTitlesOnSource: titles.Count > 1);
 				string outputExtension = this.outputPathService.GetOutputExtension();
 				string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
-				queueOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, fileToQueue, excludedPaths, isBatch: true);
+				queueOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, fileToQueue, excludedPaths, isBatch: true, picker);
 
 				job.FinalOutputPath = queueOutputPath;
 

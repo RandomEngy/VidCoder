@@ -322,6 +322,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File name format.
+        /// </summary>
+        public static string OutputFileNameFormatAutomationName {
+            get {
+                return ResourceManager.GetString("OutputFileNameFormatAutomationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output folder:.
+        /// </summary>
+        public static string OutputFolder {
+            get {
+                return ResourceManager.GetString("OutputFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Output location.
         /// </summary>
         public static string OutputLocation {
@@ -556,11 +574,38 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use custom file naming format:.
+        /// </summary>
+        public static string UseCustomFileNameFormatCheckBox {
+            get {
+                return ResourceManager.GetString("UseCustomFileNameFormatCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use global setting.
         /// </summary>
         public static string UseGlobalSettingToolTip {
             get {
                 return ResourceManager.GetString("UseGlobalSettingToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When file already exists (Batch):.
+        /// </summary>
+        public static string WhenFileExistsBatch {
+            get {
+                return ResourceManager.GetString("WhenFileExistsBatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When file already exists (Single):.
+        /// </summary>
+        public static string WhenFileExistsSingle {
+            get {
+                return ResourceManager.GetString("WhenFileExistsSingle", resourceCulture);
             }
         }
         

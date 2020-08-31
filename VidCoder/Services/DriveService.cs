@@ -16,7 +16,6 @@ namespace VidCoder.Services
 	{
 		private MainViewModel mainViewModel = StaticResolver.Resolve<MainViewModel>();
 		private ManagementEventWatcher watcher;
-		private bool watcherStarted;
 
 		public DriveService()
 		{
@@ -38,8 +37,6 @@ namespace VidCoder.Services
 				// register async. event handler
 				this.watcher.EventArrived += this.HandleDiscEvent;
 				this.watcher.Start();
-
-				this.watcherStarted = true;
 			}
 			catch (Exception e)
 			{
