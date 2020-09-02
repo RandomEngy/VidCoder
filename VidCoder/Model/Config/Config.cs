@@ -80,7 +80,6 @@ namespace VidCoder
 			cache.Add("EncodingListPaneOpen", DatabaseConfig.Get("EncodingListPaneOpen", true, connection));
 			cache.Add("EncodingListPaneWidth", DatabaseConfig.Get("EncodingListPaneWidth", 150.0, connection));
 			cache.Add("LogListPaneWidth", DatabaseConfig.Get("LogListPaneWidth", 150.0, connection));
-			cache.Add("ShowPickerWindowMessage", DatabaseConfig.Get("ShowPickerWindowMessage", true, connection));
 			cache.Add("WorkerProcessPriority", DatabaseConfig.Get("WorkerProcessPriority", "BelowNormal", connection));
 			cache.Add("LogVerbosity", DatabaseConfig.Get("LogVerbosity", 1, connection));
 			cache.Add("CopyLogToOutputFolder", DatabaseConfig.Get("CopyLogToOutputFolder", false, connection));
@@ -141,13 +140,6 @@ namespace VidCoder
 			cache.Add("QueueTitlesStartTime", DatabaseConfig.Get("QueueTitlesStartTime", 40, connection));
 			cache.Add("QueueTitlesEndTime", DatabaseConfig.Get("QueueTitlesEndTime", 45, connection));
 			cache.Add("QueueTitlesUseRange", DatabaseConfig.Get("QueueTitlesUseRange", false, connection));
-			cache.Add("AutoNameOutputFolder", DatabaseConfig.Get("AutoNameOutputFolder", "", connection));
-			cache.Add("AutoNameCustomFormat", DatabaseConfig.Get("AutoNameCustomFormat", false, connection));
-			cache.Add("AutoNameCustomFormatString", DatabaseConfig.Get("AutoNameCustomFormatString", "{source}-{title}", connection));
-			cache.Add("OutputToSourceDirectory", DatabaseConfig.Get("OutputToSourceDirectory", false, connection));
-			cache.Add("PreserveFolderStructureInBatch", DatabaseConfig.Get("PreserveFolderStructureInBatch", false, connection));
-			cache.Add("WhenFileExists", DatabaseConfig.Get("WhenFileExists", "Prompt", connection));
-			cache.Add("WhenFileExistsBatch", DatabaseConfig.Get("WhenFileExistsBatch", "AutoRename", connection));
 		}
 
 		public static T Get<T>(string key)
@@ -435,11 +427,6 @@ namespace VidCoder
 		{
 			get { return (double)cache["LogListPaneWidth"]; }
 			set { Set("LogListPaneWidth", value); }
-		}
-		public static bool ShowPickerWindowMessage
-		{
-			get { return (bool)cache["ShowPickerWindowMessage"]; }
-			set { Set("ShowPickerWindowMessage", value); }
 		}
 		public static string WorkerProcessPriority
 		{
@@ -741,48 +728,6 @@ namespace VidCoder
 			get { return (bool)cache["QueueTitlesUseRange"]; }
 			set { Set("QueueTitlesUseRange", value); }
 		}
-		[Obsolete]
-		public static string AutoNameOutputFolder
-		{
-			get { return (string)cache["AutoNameOutputFolder"]; }
-			set { Set("AutoNameOutputFolder", value); }
-		}
-		[Obsolete]
-		public static bool AutoNameCustomFormat
-		{
-			get { return (bool)cache["AutoNameCustomFormat"]; }
-			set { Set("AutoNameCustomFormat", value); }
-		}
-		[Obsolete]
-		public static string AutoNameCustomFormatString
-		{
-			get { return (string)cache["AutoNameCustomFormatString"]; }
-			set { Set("AutoNameCustomFormatString", value); }
-		}
-		[Obsolete]
-		public static bool OutputToSourceDirectory
-		{
-			get { return (bool)cache["OutputToSourceDirectory"]; }
-			set { Set("OutputToSourceDirectory", value); }
-		}
-		[Obsolete]
-		public static bool PreserveFolderStructureInBatch
-		{
-			get { return (bool)cache["PreserveFolderStructureInBatch"]; }
-			set { Set("PreserveFolderStructureInBatch", value); }
-		}
-		[Obsolete]
-		public static string WhenFileExists
-		{
-			get { return (string)cache["WhenFileExists"]; }
-			set { Set("WhenFileExists", value); }
-		}
-		[Obsolete]
-		public static string WhenFileExistsBatch
-		{
-			get { return (string)cache["WhenFileExistsBatch"]; }
-			set { Set("WhenFileExistsBatch", value); }
-		}
 		public static class Observables
 		{
 			public static IObservable<bool> MigratedConfigs => GetObservable<bool>("MigratedConfigs");
@@ -836,7 +781,6 @@ namespace VidCoder
 			public static IObservable<bool> EncodingListPaneOpen => GetObservable<bool>("EncodingListPaneOpen");
 			public static IObservable<double> EncodingListPaneWidth => GetObservable<double>("EncodingListPaneWidth");
 			public static IObservable<double> LogListPaneWidth => GetObservable<double>("LogListPaneWidth");
-			public static IObservable<bool> ShowPickerWindowMessage => GetObservable<bool>("ShowPickerWindowMessage");
 			public static IObservable<string> WorkerProcessPriority => GetObservable<string>("WorkerProcessPriority");
 			public static IObservable<int> LogVerbosity => GetObservable<int>("LogVerbosity");
 			public static IObservable<bool> CopyLogToOutputFolder => GetObservable<bool>("CopyLogToOutputFolder");
@@ -897,20 +841,6 @@ namespace VidCoder
 			public static IObservable<int> QueueTitlesStartTime => GetObservable<int>("QueueTitlesStartTime");
 			public static IObservable<int> QueueTitlesEndTime => GetObservable<int>("QueueTitlesEndTime");
 			public static IObservable<bool> QueueTitlesUseRange => GetObservable<bool>("QueueTitlesUseRange");
-			[Obsolete]
-			public static IObservable<string> AutoNameOutputFolder => GetObservable<string>("AutoNameOutputFolder");
-			[Obsolete]
-			public static IObservable<bool> AutoNameCustomFormat => GetObservable<bool>("AutoNameCustomFormat");
-			[Obsolete]
-			public static IObservable<string> AutoNameCustomFormatString => GetObservable<string>("AutoNameCustomFormatString");
-			[Obsolete]
-			public static IObservable<bool> OutputToSourceDirectory => GetObservable<bool>("OutputToSourceDirectory");
-			[Obsolete]
-			public static IObservable<bool> PreserveFolderStructureInBatch => GetObservable<bool>("PreserveFolderStructureInBatch");
-			[Obsolete]
-			public static IObservable<string> WhenFileExists => GetObservable<string>("WhenFileExists");
-			[Obsolete]
-			public static IObservable<string> WhenFileExistsBatch => GetObservable<string>("WhenFileExistsBatch");
 			private static IObservable<T> GetObservable<T>(string configName)
 			{
 				object observableObject;

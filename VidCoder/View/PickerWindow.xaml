@@ -167,27 +167,16 @@
 
 					<Grid
 						Grid.Row="1"
+						MinHeight="27"
 						Background="{DynamicResource DismissableMessageBrush}"
-						Visibility="{Binding ShowHelpMessage,
+						Visibility="{Binding PickersService.SelectedPicker.Picker.IsDefault,
 						                     Converter={StaticResource VisibilityConverter}}">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition />
-							<ColumnDefinition Width="Auto" />
-						</Grid.ColumnDefinitions>
+
 						<TextBlock
-							Margin="10 0"
+							Margin="10 2"
 							VerticalAlignment="Center"
-							Text="{x:Static res:PickerRes.PickerHelpText}" />
-						<Button
-							Grid.Column="1"
-							Width="35"
-							Height="35"
-							Padding="5"
-							HorizontalAlignment="Right"
-							VerticalAlignment="Top"
-							Command="{Binding DismissMessage}"
-							Content="{x:Static res:CommonRes.DismissMessage}"
-							Style="{StaticResource RemoveButtonStyle}" />
+							Text="{x:Static res:PickerRes.PickerHelpText}"
+							TextWrapping="Wrap" />
 					</Grid>
 
 					<ScrollViewer

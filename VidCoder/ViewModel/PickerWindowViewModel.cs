@@ -410,17 +410,6 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<bool> deleteButtonVisible;
 		public bool DeleteButtonVisible => this.deleteButtonVisible.Value;
 
-		public bool ShowHelpMessage
-		{
-			get => Config.ShowPickerWindowMessage;
-
-			set
-			{
-				Config.ShowPickerWindowMessage = value;
-				this.RaisePropertyChanged();
-			}
-		}
-
 		// Local property that can hold placeholder values when OutputDirectory is null on the picker.
 		private string outputDirectory;
 
@@ -714,18 +703,6 @@ namespace VidCoder.ViewModel
 		{
 			get => this.Picker.PostEncodeArguments;
 			set => this.UpdatePickerProperty(nameof(this.Picker.PostEncodeArguments), value);
-		}
-
-		private ReactiveCommand<Unit, Unit> dismissMessage;
-		public ICommand DismissMessage
-		{
-			get
-			{
-				return this.dismissMessage ?? (this.dismissMessage = ReactiveCommand.Create(() =>
-				{
-					this.ShowHelpMessage = false;
-				}));
-			}
 		}
 
 		private ReactiveCommand<Unit, Unit> save;

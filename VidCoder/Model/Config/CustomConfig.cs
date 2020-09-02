@@ -60,20 +60,6 @@ namespace VidCoder
 			useWorkerProcessOverride = value;
 		}
 
-		[Obsolete("Use Picker.WhenFileExistsSingle instead.")]
-		public static WhenFileExists WhenFileExists
-		{
-			get => (WhenFileExists)Enum.Parse(typeof(WhenFileExists), Config.WhenFileExists);
-			set => Config.WhenFileExists = value.ToString();
-		}
-
-		[Obsolete("Use Picker.WhenFileExistsBatch instead.")]
-		public static WhenFileExists WhenFileExistsBatch
-		{
-			get => (WhenFileExists)Enum.Parse(typeof(WhenFileExists), Config.WhenFileExistsBatch);
-			set => Config.WhenFileExistsBatch = value.ToString();
-		}
-
 		public static AudioSelectionMode AutoAudio
 		{
 			get => (AudioSelectionMode)Enum.Parse(typeof(AudioSelectionMode), Config.AutoAudio);

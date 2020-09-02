@@ -63,8 +63,6 @@ EncodingListPaneOpen|bool|true
 EncodingListPaneWidth|double|150.0
 LogListPaneWidth|double|150.0
 
-ShowPickerWindowMessage|bool|true
-
 WorkerProcessPriority|string|"BelowNormal"
 LogVerbosity|int|1
 CopyLogToOutputFolder|bool|false
@@ -126,12 +124,3 @@ AutoSubtitleLanguageBurnIn|bool|false
 QueueTitlesStartTime|int|40
 QueueTitlesEndTime|int|45
 QueueTitlesUseRange|bool|false
-
-# Obsolete members
-!AutoNameOutputFolder|string|""
-!AutoNameCustomFormat|bool|false
-!AutoNameCustomFormatString|string|"{source}-{title}"
-!OutputToSourceDirectory|bool|false
-!PreserveFolderStructureInBatch|bool|false
-!WhenFileExists|string|"Prompt"
-!WhenFileExistsBatch|string|"AutoRename"
