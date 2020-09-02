@@ -711,9 +711,13 @@ namespace VidCoder.Services
 				{
 					fileName = nameFormatOverride;
 				}
-				else
+				else if (!string.IsNullOrWhiteSpace(picker.OutputFileNameFormat))
 				{
 					fileName = picker.OutputFileNameFormat;
+				}
+				else
+				{
+					fileName = "{source}";
 				}
 
 				fileName = fileName.Replace("{source}", sourceName);
