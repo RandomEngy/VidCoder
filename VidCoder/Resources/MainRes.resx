@@ -505,10 +505,6 @@
   <data name="CouldNotLoadPickerMessage" xml:space="preserve">
     <value>Could not load picker: </value>
   </data>
-  <data name="PickerNameTemplate" xml:space="preserve">
-    <value>Picker {0}</value>
-    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
-  </data>
   <data name="SimilarTitlesToolTip" xml:space="preserve">
     <value>{0} other titles have a duration close to this one.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>

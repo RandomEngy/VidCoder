@@ -299,21 +299,7 @@ namespace VidCoder.Services
 		public void AutoCreatePicker()
 		{
 			Picker newPicker = new Picker();
-
-			for (int i = 1; i < 500; i++)
-			{
-				string newName = string.Format(MainRes.PickerNameTemplate, i);
-				if (!this.Pickers.Any(p => p.Picker.Name == newName))
-				{
-					newPicker.Name = newName;
-					break;
-				}
-			}
-
-			if (newPicker.Name == null)
-			{
-				newPicker.Name = string.Format(MainRes.PickerNameTemplate, 501);
-			}
+			newPicker.Name = PickerStorage.CreateCustomPickerName(this.Pickers.Select(p => p.Picker).ToList());
 
 			var newPickerVM = new PickerViewModel(newPicker);
 

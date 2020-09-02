@@ -318,6 +318,10 @@
   <data name="WhenFileExistsSingle" xml:space="preserve">
     <value>When file already exists (Single):</value>
   </data>
+  <data name="CustomPickerNameTemplate" xml:space="preserve">
+    <value>Custom {0}</value>
+    <comment>The name for a custom auto-created picker. {0} is a number like 2, or 3 or 4 to differentiate it</comment>
+  </data>
   <data name="OutputFileNameFormatAutomationName" xml:space="preserve">
     <value>File name format</value>
     <comment>Name for screen readers for the output file name format text box</comment>

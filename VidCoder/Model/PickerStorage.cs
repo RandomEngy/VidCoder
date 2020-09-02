@@ -221,7 +221,7 @@ namespace VidCoder.Model
 
 				var newPicker = new Picker
 				{
-					Name = CommonRes.Custom,
+					Name = CreateCustomPickerName(pickers),
 					UseCustomFileNameFormat = useCustomNameFormat,
 					OutputToSourceDirectory = outputToSourceDirectory,
 					PreserveFolderStructureInBatch = preserveFolderStructureInBatch,
@@ -247,6 +247,23 @@ namespace VidCoder.Model
 			}
 		}
 #pragma warning restore CS0618 // Type or member is obsolete
+
+		public static string CreateCustomPickerName(List<Picker> existingPickers)
+		{
+			if (existingPickers.Any(p => p.Name == CommonRes.Custom))
+			{
+				for (int i = 2; i < 500; i++)
+				{
+					string newName = string.Format(PickerRes.CustomPickerNameTemplate, i);
+					if (!existingPickers.Any(p => p.Name == newName))
+					{
+						return newName;
+					}
+				}
+			}
+
+			return CommonRes.Custom;
+		}
 
 		public static void SavePickers(List<string> pickerJsonList, SQLiteConnection connection)
         {

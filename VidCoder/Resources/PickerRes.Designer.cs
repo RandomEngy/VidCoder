@@ -187,6 +187,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custom {0}.
+        /// </summary>
+        public static string CustomPickerNameTemplate {
+            get {
+                return ResourceManager.GetString("CustomPickerNameTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Default.
         /// </summary>
         public static string DefaultCheckBox {

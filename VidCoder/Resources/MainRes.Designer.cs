@@ -1055,15 +1055,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Picker {0}.
-        /// </summary>
-        public static string PickerNameTemplate {
-            get {
-                return ResourceManager.GetString("PickerNameTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Play.
         /// </summary>
         public static string Play {
