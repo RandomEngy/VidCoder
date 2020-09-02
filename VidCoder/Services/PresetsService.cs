@@ -62,7 +62,7 @@ namespace VidCoder.Services
 			var unmodifiedPresets = userPresets.Where(preset => !preset.IsModified);
 			Preset modifiedPreset = userPresets.FirstOrDefault(preset => preset.IsModified);
 
-			this.allPresets = new ObservableCollection<PresetViewModel>();
+			this.AllPresets = new ObservableCollection<PresetViewModel>();
 			int modifiedPresetIndex = -1;
 			int defaultPresetIndex = 0;
 
@@ -71,7 +71,7 @@ namespace VidCoder.Services
 				PresetViewModel presetVM;
 				if (modifiedPreset != null && modifiedPreset.Name == userPreset.Name)
 				{
-					modifiedPresetIndex = this.allPresets.Count;
+					modifiedPresetIndex = this.AllPresets.Count;
 					presetVM = new PresetViewModel(modifiedPreset);
 					presetVM.OriginalProfile = userPreset.EncodingProfile;
 				}
@@ -80,7 +80,7 @@ namespace VidCoder.Services
 					presetVM = new PresetViewModel(userPreset);
 				}
 
-				this.allPresets.Add(presetVM);
+				this.AllPresets.Add(presetVM);
 			}
 
 			// Populate the custom preset folder before built-in presets are added to AllPresets collection.
@@ -103,18 +103,18 @@ namespace VidCoder.Services
 				{
 					if (handbrakePreset.Default)
 					{
-						defaultPresetIndex = this.allPresets.Count;
+						defaultPresetIndex = this.AllPresets.Count;
 					}
 
 					Preset builtInPreset = PresetConverter.ConvertHandBrakePresetToVC(handbrakePreset);
 					PresetViewModel builtInPresetViewModel = new PresetViewModel(builtInPreset);
 
-					this.allPresets.Add(builtInPresetViewModel);
+					this.AllPresets.Add(builtInPresetViewModel);
 					builtInSubfolder.AddItem(builtInPresetViewModel);
 				}
 			}
 
-			this.allPresetsTree = new ObservableCollection<PresetFolderViewModel>();
+			this.AllPresetsTree = new ObservableCollection<PresetFolderViewModel>();
 
 			if (this.customPresetFolder.Items.Count > 0 || this.customPresetFolder.SubFolders.Count > 0)
 			{
@@ -145,12 +145,12 @@ namespace VidCoder.Services
 				}
 			}
 
-			if (presetIndex >= this.allPresets.Count)
+			if (presetIndex >= this.AllPresets.Count)
 			{
 				presetIndex = 0;
 			}
 
-			this.SelectedPreset = this.allPresets[presetIndex];
+			this.SelectedPreset = this.AllPresets[presetIndex];
 		}
 
 		private void PopulateCustomFolder(PresetFolderViewModel folderViewModel)
@@ -185,11 +185,8 @@ namespace VidCoder.Services
 			}
 		}
 
-		private ObservableCollection<PresetViewModel> allPresets;
-		public ObservableCollection<PresetViewModel> AllPresets => this.allPresets;
-
-		private ObservableCollection<PresetFolderViewModel> allPresetsTree;
-		public ObservableCollection<PresetFolderViewModel> AllPresetsTree => this.allPresetsTree;
+		public ObservableCollection<PresetViewModel> AllPresets { get; }
+		public ObservableCollection<PresetFolderViewModel> AllPresetsTree { get; }
 
 		public bool AutomaticChange { get; set; }
 
@@ -293,7 +290,7 @@ namespace VidCoder.Services
 
 		public VCProfile GetProfileByName(string presetName)
 		{
-			foreach (var preset in this.allPresets)
+			foreach (var preset in this.AllPresets)
 			{
 				if (string.Compare(presetName.Trim(), preset.DisplayName.Trim(), ignoreCase: true, culture: CultureInfo.CurrentUICulture) == 0)
 				{
