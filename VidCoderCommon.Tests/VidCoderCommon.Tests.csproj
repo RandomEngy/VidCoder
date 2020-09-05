@@ -8,6 +8,7 @@
     <TestProjectType>UnitTest</TestProjectType>
     <AssemblyTitle>VidCoderCommon.Tests</AssemblyTitle>
     <Product>VidCoderCommon.Tests</Product>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <ItemGroup>

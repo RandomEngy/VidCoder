@@ -6,6 +6,7 @@
     <Product>VidCoderWorker</Product>
     <AssemblyVersion>6.11.0.0</AssemblyVersion>
     <FileVersion>6.11.0.0</FileVersion>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <DefineConstants>DEBUG</DefineConstants>

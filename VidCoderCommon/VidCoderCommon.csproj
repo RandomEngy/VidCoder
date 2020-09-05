@@ -4,6 +4,7 @@
     <AssemblyTitle>VidCoderCommon</AssemblyTitle>
     <Product>VidCoderCommon</Product>
     <Configurations>Debug;Release;Debug-Beta;Release-Beta</Configurations>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <DefineConstants>DEBUG</DefineConstants>
