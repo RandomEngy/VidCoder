@@ -230,14 +230,5 @@ namespace VidCoder.Resources {
                 return ResourceManager.GetString("SubtitlesFromSourceLabel", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Subtitles.
-        /// </summary>
-        public static string SubtitlesWindowTitle {
-            get {
-                return ResourceManager.GetString("SubtitlesWindowTitle", resourceCulture);
-            }
-        }
     }
 }

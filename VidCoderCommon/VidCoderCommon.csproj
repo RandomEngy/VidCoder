@@ -1,160 +1,42 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F7266C99-EEAC-4334-BE83-47AD13EB522C}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VidCoderCommon</RootNamespace>
-    <AssemblyName>VidCoderCommon</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFramework>net471</TargetFramework>
+    <AssemblyTitle>VidCoderCommon</AssemblyTitle>
+    <Product>VidCoderCommon</Product>
+    <Configurations>Debug;Release;Debug-Beta;Release-Beta</Configurations>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <DefineConstants>DEBUG</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug-Beta'">
+    <DefineConstants>DEBUG;BETA</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release-Beta'">
+    <DefineConstants>BETA</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release-Beta'">
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Beta|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug-Beta\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;BETA</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Beta|AnyCPU'">
-    <OutputPath>bin\Release-Beta\</OutputPath>
-    <DefineConstants>TRACE;BETA</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug-Beta'">
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AnyContainer">
-      <Version>1.0.0-beta201808141</Version>
-    </PackageReference>
+    <PackageReference Include="Microsoft.AnyContainer" Version="1.0.0-beta201808141" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="reactiveui" Version="9.4.1" />
-    <PackageReference Include="ReactiveUI.WPF">
-      <Version>9.4.1</Version>
-    </PackageReference>
+    <PackageReference Include="ReactiveUI.WPF" Version="9.4.1" />
     <PackageReference Include="Splat" Version="5.1.4" />
-    <PackageReference Include="System.Reactive.Core">
-      <Version>4.0.0</Version>
-    </PackageReference>
-    <PackageReference Include="System.Reactive.Interfaces">
-      <Version>4.0.0</Version>
-    </PackageReference>
-    <PackageReference Include="System.Reactive.Linq">
-      <Version>4.0.0</Version>
-    </PackageReference>
-    <PackageReference Include="System.Reactive.PlatformServices">
-      <Version>4.0.0</Version>
-    </PackageReference>
-    <PackageReference Include="System.Reactive.Windows.Threading">
-      <Version>4.0.0</Version>
-    </PackageReference>
+    <PackageReference Include="System.Reactive.Core" Version="4.0.0" />
+    <PackageReference Include="System.Reactive.Interfaces" Version="4.0.0" />
+    <PackageReference Include="System.Reactive.Linq" Version="4.0.0" />
+    <PackageReference Include="System.Reactive.PlatformServices" Version="4.0.0" />
+    <PackageReference Include="System.Reactive.Windows.Threading" Version="4.0.0" />
     <PackageReference Include="valueinjecter" Version="3.1.3" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="HandBrake.Interop">
       <HintPath>..\Lib\HandBrake.Interop.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Extensions\FrameRateExtensions.cs" />
-    <Compile Include="Extensions\JsonDurationExtensions.cs" />
-    <Compile Include="Extensions\ParExtensions.cs" />
-    <Compile Include="Extensions\ScalingModeExtensions.cs" />
-    <Compile Include="IHandBrakeEncodeWorker.cs" />
-    <Compile Include="IHandBrakeEncodeWorkerCallback.cs" />
-    <Compile Include="IHandBrakeScanWorker.cs" />
-    <Compile Include="IHandBrakeScanWorkerCallback.cs" />
-    <Compile Include="IHandBrakeWorker.cs" />
-    <Compile Include="IHandBrakeWorkerCallback.cs" />
-    <Compile Include="JsonConverters\SourceTypeConverter.cs" />
-    <Compile Include="Model\Job\ChosenAudioTrack.cs" />
-    <Compile Include="Model\VCEncodeResult.cs" />
-    <Compile Include="Model\Preset\AudioEncodeRateType.cs" />
-    <Compile Include="Model\AudioEncoding.cs" />
-    <Compile Include="Model\CopyMaskChoice.cs" />
-    <Compile Include="Model\DeserializeOnlyAttribute.cs" />
-    <Compile Include="Model\HandBrakeWorkerAction.cs" />
-    <Compile Include="Model\JsonEncodeFactory.cs" />
-    <Compile Include="Model\OutputAudioTrackInfo.cs" />
-    <Compile Include="Model\OutputSizeInfo.cs" />
-    <Compile Include="Model\Preset\Preset.cs" />
-    <Compile Include="Model\Job\ChosenSourceSubtitle.cs" />
-    <Compile Include="Model\Job\SourceType.cs" />
-    <Compile Include="Model\Job\FileSubtitle.cs" />
-    <Compile Include="Model\Job\VCSubtitles.cs" />
-    <Compile Include="Model\Preset\VCAnamorphic.cs" />
-    <Compile Include="Model\Preset\VCCropping.cs" />
-    <Compile Include="Model\Preset\VCCroppingType.cs" />
-    <Compile Include="Model\Preset\VCDeinterlace.cs" />
-    <Compile Include="Model\Preset\VCDenoise.cs" />
-    <Compile Include="Model\Job\VCJob.cs" />
-    <Compile Include="Model\Preset\VCOutputExtension.cs" />
-    <Compile Include="Model\Preset\VCPadding.cs" />
-    <Compile Include="Model\Preset\VCPaddingMode.cs" />
-    <Compile Include="Model\Preset\VCPictureRotation.cs" />
-    <Compile Include="Model\Preset\VCProfile.cs" />
-    <Compile Include="Model\Preset\VCScalingMode.cs" />
-    <Compile Include="Model\Preset\VCSharpen.cs" />
-    <Compile Include="Model\Preset\VCSizingMode.cs" />
-    <Compile Include="Model\Preset\VCVideoEncodeRateType.cs" />
-    <Compile Include="Model\VCEncodeCompletedEventArgs.cs" />
-    <Compile Include="Model\VidCoderContractResolver.cs" />
-    <Compile Include="Model\Job\VideoRangeType.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ILogger.cs" />
-    <Compile Include="Utilities\AudioUtilities.cs" />
-    <Compile Include="Utilities\CommonUtilities.cs" />
-    <Compile Include="Utilities\Injection\CloneInjection.cs" />
-    <Compile Include="Utilities\MathUtilities.cs" />
-    <Compile Include="Utilities\JsonSettings.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

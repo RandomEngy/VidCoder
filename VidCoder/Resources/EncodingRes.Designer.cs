@@ -70,15 +70,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Advanced Query.
-        /// </summary>
-        public static string AdvancedQuery {
-            get {
-                return ResourceManager.GetString("AdvancedQuery", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Align A/V Start.
         /// </summary>
         public static string AlignAVStartCheckBox {
@@ -470,15 +461,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Decomb:.
-        /// </summary>
-        public static string DecombLabel {
-            get {
-                return ResourceManager.GetString("DecombLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Chapter {0}.
         /// </summary>
         public static string DefaultChapterName {
@@ -607,15 +589,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Few players support playback of DTS audio in MP4 containers. MKV is recommended for DTS audio..
-        /// </summary>
-        public static string DtsMp4Warning {
-            get {
-                return ResourceManager.GetString("DtsMp4Warning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Encoder.
         /// </summary>
         public static string Encoder {
@@ -630,15 +603,6 @@ namespace VidCoder.Resources {
         public static string EncoderSettings {
             get {
                 return ResourceManager.GetString("EncoderSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Encoding preset: {0}.
-        /// </summary>
-        public static string EncodingWindowTitle {
-            get {
-                return ResourceManager.GetString("EncodingWindowTitle", resourceCulture);
             }
         }
         
@@ -956,15 +920,6 @@ namespace VidCoder.Resources {
         public static string Modifiers {
             get {
                 return ResourceManager.GetString("Modifiers", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Modulus:.
-        /// </summary>
-        public static string ModulusLabel {
-            get {
-                return ResourceManager.GetString("ModulusLabel", resourceCulture);
             }
         }
         
@@ -1678,16 +1633,6 @@ namespace VidCoder.Resources {
         public static string ScaleMethod_Lanczos {
             get {
                 return ResourceManager.GetString("ScaleMethod_Lanczos", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lanczos: This is the default scaler with the best quality.
-        ///Bicubic: This is an OpenCL hardware accelerated scaling algorithm..
-        /// </summary>
-        public static string ScaleMethodToolTip {
-            get {
-                return ResourceManager.GetString("ScaleMethodToolTip", resourceCulture);
             }
         }
         
