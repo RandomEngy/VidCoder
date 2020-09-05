@@ -51,7 +51,7 @@ function CreateIssFile($version, $beta, $debugBuild) {
         $tokens["outputDirectory"] = "BuiltInstallers"
     }
 
-    ReplaceTokens "Installer\VidCoder.iss.txt" ("Installer\VidCoder-gen.iss") $tokens
+    ReplaceTokens "Installer\VidCoder.iss.txt" "Installer\VidCoder-gen.iss" $tokens
 }
 
 function UpdateAppxManifest($fileName, $version)
@@ -94,14 +94,16 @@ function CopyLanguage($language, $buildFlavor) {
     copy ($source + $language) ($dest + $language) -recurse; ExitIfFailed
 }
 
-function UpdateLatestJson($latestFile, $versionShort, $versionTag, $installerFile) {
-    $latestJsonObject = Get-Content -Raw -Path $latestFile | ConvertFrom-Json
+function CreateLatestJson($outputFilePath, $versionShort, $versionTag, $installerFile) {
+    $latestTemplateFile = "Installer\latest-template.json"
 
-    $latestJsonObject.LatestVersion = $versionShort
-    $latestJsonObject.DownloadUrl = "https://github.com/RandomEngy/VidCoder/releases/download/$versionTag/$installerFile"
-    $latestJsonObject.ChangelogUrl = "https://github.com/RandomEngy/VidCoder/releases/tag/$versionTag"
+    $tokens = @{
+        versionShort = $versionShort;
+        versionTag = $versionTag;
+        installerFile = $installerFile
+    }
 
-    $latestJsonObject | ConvertTo-Json | Out-File $latestFile
+    ReplaceTokens "Installer\latest-template.json" $outputFilePath $tokens
 }
 
 if ($debugBuild) {
@@ -299,7 +301,7 @@ else
     $installerFile = "VidCoder-$versionShort.exe"
 }
 
-UpdateLatestJson $latestFile $versionShort $versionTag $installerFile
+CreateLatestJson $latestFile $versionShort $versionTag $installerFile
 
 # Create .iss files in the correct configuration
 CreateIssFile $versionShort $beta $debugBuild
