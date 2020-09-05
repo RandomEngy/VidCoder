@@ -4,6 +4,7 @@
     <TargetFramework>net471</TargetFramework>
     <AssemblyTitle>VidCoderWindowlessCLI</AssemblyTitle>
     <Product>VidCoderWindowlessCLI</Product>
+    <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">

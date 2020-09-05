@@ -10,8 +10,7 @@
     <Product>VidCoder</Product>
     <NeutralLanguage>en-US</NeutralLanguage>
     <Description>A DVD/Blu-Ray ripping and video conversion tool based on HandBrake.</Description>
-    <AssemblyVersion>6.11.0.0</AssemblyVersion>
-    <FileVersion>6.11.0.0</FileVersion>
+    <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
     <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>

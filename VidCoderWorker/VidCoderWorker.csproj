@@ -4,8 +4,7 @@
     <TargetFramework>net471</TargetFramework>
     <AssemblyTitle>VidCoder Worker</AssemblyTitle>
     <Product>VidCoderWorker</Product>
-    <AssemblyVersion>6.11.0.0</AssemblyVersion>
-    <FileVersion>6.11.0.0</FileVersion>
+    <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">

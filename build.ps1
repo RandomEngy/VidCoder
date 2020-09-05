@@ -54,19 +54,6 @@ function CreateIssFile($version, $beta, $debugBuild) {
     ReplaceTokens "Installer\VidCoder.iss.txt" ("Installer\VidCoder-gen.iss") $tokens
 }
 
-function UpdateAssemblyInfo($fileName, $version) {
-    $newVersionText = 'AssemblyVersion("' + $version + '")';
-    $newFileVersionText = 'AssemblyFileVersion("' + $version + '")';
-
-    $tmpFile = $fileName + ".tmp"
-
-    Get-Content $fileName | 
-    %{$_ -replace 'AssemblyVersion\("[0-9]+(\.([0-9]+|\*)){1,3}"\)', $newVersionText } |
-    %{$_ -replace 'AssemblyFileVersion\("[0-9]+(\.([0-9]+|\*)){1,3}"\)', $newFileVersionText } > $tmpFile
-
-    Move-Item $tmpFile $fileName -force
-}
-
 function UpdateAppxManifest($fileName, $version)
 {
     $newVersionText = 'Version="' + $version + '"';
@@ -141,10 +128,6 @@ if ($beta) {
 # Get master version number
 $version4Part = $versionShort + ".0.0"
 
-# Put version numbers into AssemblyInfo.cs files
-UpdateAssemblyInfo "VidCoder\Properties\AssemblyInfo.cs" $version4Part
-UpdateAssemblyInfo "VidCoderWorker\Properties\AssemblyInfo.cs" $version4Part
-
 if ($beta) {
     $manifestBaseFileName = "Package-Beta"
 } else {
@@ -154,7 +137,7 @@ if ($beta) {
 UpdateAppxManifest "VidCoderPackage\$manifestBaseFileName.appxmanifest" $version4Part
 
 # Build VidCoder.sln
-& $MsBuildExe VidCoder.sln /t:rebuild "/p:Configuration=$configuration;Platform=x64;UapAppxPackageBuildMode=StoreUpload"; ExitIfFailed
+& $MsBuildExe VidCoder.sln /t:rebuild "/p:Configuration=$configuration;Platform=x64;UapAppxPackageBuildMode=StoreUpload;Version=$version4Part"; ExitIfFailed
 
 
 # Copy install files to staging folder
@@ -184,7 +167,6 @@ $outputDirectoryFiles = @(
     "DryIoc.dll",
     "DynamicData.dll",
     "Fluent.dll",
-    "Fluent.pdb",
     "Microsoft.AnyContainer.dll",
     "Microsoft.AnyContainer.DryIoc.dll",
     "Microsoft.WindowsAPICodePack.dll",
