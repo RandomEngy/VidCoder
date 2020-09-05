@@ -5,6 +5,7 @@
     <Product>VidCoderCommon</Product>
     <Configurations>Debug;Release;Debug-Beta;Release-Beta</Configurations>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Platforms>x64</Platforms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <DefineConstants>DEBUG</DefineConstants>
