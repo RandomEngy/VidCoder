@@ -622,6 +622,7 @@
 							Command="{Binding OpenEncodingWindow}"
 							Header="{Binding EncodingPresetButtonText}"
 							LargeIcon="/Icons/EncodingSettings.png"
+							MaxDropDownHeight="3000"
 							ToolTip="{x:Static res:MainRes.EncodingSettingsButtonToolTip}">
 							<controls:PresetTreeViewContainer
 								x:Name="presetTreeViewContainer"
