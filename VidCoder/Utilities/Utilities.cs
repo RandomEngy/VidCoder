@@ -139,7 +139,7 @@ namespace VidCoder
 			}
 		}
 
-		public static bool SupportsUpdates => !IsPortable && !IsRunningAsAppx;
+		public static bool SupportsUpdates => !IsPortable && !IsRunningAsAppx && CurrentVersion != new Version(1, 0, 0, 0);
 
 		public static bool IsDesigner
 		{
