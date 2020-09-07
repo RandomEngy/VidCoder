@@ -177,6 +177,8 @@ $outputDirectoryFiles = @(
     "Microsoft.Xaml.Behaviors.dll",
     "Newtonsoft.Json.dll",
     "Omu.ValueInjecter.dll",
+    "Ookii.Dialogs.Wpf.dll",
+    "Ookii.Dialogs.Wpf.pdb",
     "PipeMethodCalls.dll",
     "ReactiveUI.dll",
     "ReactiveUI.WPF.dll",
@@ -208,8 +210,6 @@ CopyFromOutputArchSpecific "SQLite.Interop.dll" $buildFlavor
 $generalFiles = @(
     ".\Lib\HandBrake.Interop.dll",
     ".\Lib\HandBrake.Interop.pdb",
-    ".\Lib\Ookii.Dialogs.Wpf.dll",
-    ".\Lib\Ookii.Dialogs.Wpf.pdb",
     ".\VidCoder\Encode_Complete.wav",
     ".\VidCoder\Icons\File\VidCoderPreset.ico",
     ".\VidCoder\Icons\File\VidCoderQueue.ico",
