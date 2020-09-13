@@ -413,36 +413,6 @@ namespace VidCoder
 			return resultList;
 		}
 
-		/// <summary>
-		/// Formats a TimeSpan into a short, friendly format.
-		/// </summary>
-		/// <param name="span">The TimeSpan to format.</param>
-		/// <returns>The display for the TimeSpan.</returns>
-		public static string FormatTimeSpan(TimeSpan span)
-		{
-			if (span == TimeSpan.MaxValue)
-			{
-				return "--";
-			}
-
-			if (span.TotalDays >= 1.0)
-			{
-				return string.Format("{0}d {1}h", Math.Floor(span.TotalDays), span.Hours);
-			}
-
-			if (span.TotalHours >= 1.0)
-			{
-				return string.Format("{0}h {1:d2}m", span.Hours, span.Minutes);
-			}
-
-			if (span.TotalMinutes >= 1.0)
-			{
-				return string.Format("{0}m {1:d2}s", span.Minutes, span.Seconds);
-			}
-
-			return string.Format("{0}s", span.Seconds);
-		}
-
 		public static string FormatFileSize(long bytes)
 		{
 			if (bytes < 1024)

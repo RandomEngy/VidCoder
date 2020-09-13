@@ -53,6 +53,7 @@ namespace VidCoder
 			cache.Add("ChapterMarkersDialogPlacement", DatabaseConfig.Get("ChapterMarkersDialogPlacement", "", connection));
 			cache.Add("PreviewWindowPlacement", DatabaseConfig.Get("PreviewWindowPlacement", "", connection));
 			cache.Add("QueueTitlesDialogPlacement2", DatabaseConfig.Get("QueueTitlesDialogPlacement2", "", connection));
+			cache.Add("CompareWindowPlacement", DatabaseConfig.Get("CompareWindowPlacement", "", connection));
 			cache.Add("AddAutoPauseProcessDialogPlacement", DatabaseConfig.Get("AddAutoPauseProcessDialogPlacement", "", connection));
 			cache.Add("OptionsDialogPlacement", DatabaseConfig.Get("OptionsDialogPlacement", "", connection));
 			cache.Add("EncodeDetailsWindowPlacement", DatabaseConfig.Get("EncodeDetailsWindowPlacement", "", connection));
@@ -292,6 +293,11 @@ namespace VidCoder
 		{
 			get { return (string)cache["QueueTitlesDialogPlacement2"]; }
 			set { Set("QueueTitlesDialogPlacement2", value); }
+		}
+		public static string CompareWindowPlacement
+		{
+			get { return (string)cache["CompareWindowPlacement"]; }
+			set { Set("CompareWindowPlacement", value); }
 		}
 		public static string AddAutoPauseProcessDialogPlacement
 		{
@@ -754,6 +760,7 @@ namespace VidCoder
 			public static IObservable<string> ChapterMarkersDialogPlacement => GetObservable<string>("ChapterMarkersDialogPlacement");
 			public static IObservable<string> PreviewWindowPlacement => GetObservable<string>("PreviewWindowPlacement");
 			public static IObservable<string> QueueTitlesDialogPlacement2 => GetObservable<string>("QueueTitlesDialogPlacement2");
+			public static IObservable<string> CompareWindowPlacement => GetObservable<string>("CompareWindowPlacement");
 			public static IObservable<string> AddAutoPauseProcessDialogPlacement => GetObservable<string>("AddAutoPauseProcessDialogPlacement");
 			public static IObservable<string> OptionsDialogPlacement => GetObservable<string>("OptionsDialogPlacement");
 			public static IObservable<string> EncodeDetailsWindowPlacement => GetObservable<string>("EncodeDetailsWindowPlacement");

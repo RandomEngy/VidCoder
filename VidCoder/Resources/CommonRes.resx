@@ -334,4 +334,7 @@ A full copy of the GNU General Public License has been included along with this 
     <value>Manual</value>
     <comment>Shown when something has been set manually</comment>
   </data>
+  <data name="FileNoLongerExists" xml:space="preserve">
+    <value>File no longer exists.</value>
+  </data>
 </root>

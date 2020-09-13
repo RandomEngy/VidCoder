@@ -257,6 +257,18 @@
 						Source="/Icons/edit_16x16.png" />
 				</MenuItem.Icon>
 			</MenuItem>
+			<MenuItem
+				Command="{Binding Compare}"
+				Header="{x:Static res:MainRes.CompareAgainstOriginal}"
+				Visibility="{Binding ShowCompare,
+				                     Converter={StaticResource VisibilityConverter}}">
+				<MenuItem.Icon>
+					<Image
+						Width="16"
+						Height="16"
+						Source="/Icons/Compare.png" />
+				</MenuItem.Icon>
+			</MenuItem>
 			<MenuItem Command="{Binding OpenContainingFolder}" Header="{x:Static res:MainRes.OpenContainingFolder}">
 				<MenuItem.Icon>
 					<Image

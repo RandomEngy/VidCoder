@@ -114,6 +114,12 @@ namespace VidCoder.Services.Windows
 
 				new WindowDefinition
 				{
+					ViewModelType = typeof(CompareWindowViewModel),
+					PlacementConfigKey = "CompareWindowPlacement"
+				},
+
+				new WindowDefinition
+				{
 					ViewModelType = typeof(AddAutoPauseProcessDialogViewModel),
 					PlacementConfigKey = "AddAutoPauseProcessDialogPlacement"
 				},

@@ -259,6 +259,51 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Compare against original.
+        /// </summary>
+        public static string CompareAgainstOriginal {
+            get {
+                return ResourceManager.GetString("CompareAgainstOriginal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoded.
+        /// </summary>
+        public static string CompareEncodedLabel {
+            get {
+                return ResourceManager.GetString("CompareEncodedLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Original.
+        /// </summary>
+        public static string CompareOriginalLabel {
+            get {
+                return ResourceManager.GetString("CompareOriginalLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click or hold spacebar to show the encoded version..
+        /// </summary>
+        public static string CompareWindowHelpText {
+            get {
+                return ResourceManager.GetString("CompareWindowHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video compare: {0} - {1}.
+        /// </summary>
+        public static string CompareWindowTitleFormat {
+            get {
+                return ResourceManager.GetString("CompareWindowTitleFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Completed ({0}).
         /// </summary>
         public static string CompletedWithTotal {

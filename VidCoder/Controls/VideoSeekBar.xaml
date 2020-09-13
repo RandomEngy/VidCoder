@@ -5,8 +5,8 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:VidCoder.Controls"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	d:DesignHeight="300"
-	d:DesignWidth="300"
+	d:DesignHeight="25"
+	d:DesignWidth="600"
 	MouseLeftButtonDown="OnMouseLeftButtonDown"
 	MouseLeftButtonUp="OnMouseLeftButtonUp"
 	MouseMove="OnMouseMove"
@@ -23,10 +23,18 @@
 			VerticalAlignment="Stretch">
 			<Rectangle.Fill>
 				<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-					<GradientStop Offset="0.0" Color="#04D500" />
-					<GradientStop Offset="1.0" Color="#04AE00" />
+					<GradientStop Offset="0.0" Color="#3DAD35" />
+					<GradientStop Offset="1.0" Color="#287223" />
 				</LinearGradientBrush>
 			</Rectangle.Fill>
 		</Rectangle>
+		<TextBlock
+			Name="timeText"
+			HorizontalAlignment="Center"
+			VerticalAlignment="Center"
+			FontSize="14"
+			FontWeight="SemiBold"
+			Foreground="White"
+			Visibility="Collapsed" />
 	</Grid>
 </UserControl>

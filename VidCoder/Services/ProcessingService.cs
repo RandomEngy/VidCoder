@@ -1127,7 +1127,7 @@ namespace VidCoder.Services
 		/// <param name="source">The path to the source file to encode.</param>
 		/// <param name="destination">The destination path for the encoded file.</param>
 		/// <param name="presetName">The name of the preset to use to encode.</param>
-		/// <param name="pickerName">The name of the picker to use.</param>
+		/// <param name="pickerName">The name of the picker to use. Will use default picker if null.</param>
 		/// <returns>True if the item was successfully queued for processing.</returns>
 		public void Process(string source, string destination, string presetName, string pickerName)
 		{
@@ -1152,6 +1152,10 @@ namespace VidCoder.Services
 			if (pickerVM != null)
 			{
 				picker = pickerVM.Picker;
+			}
+			else
+			{
+				picker = pickersService.Pickers[0].Picker;
 			}
 
 			var scanMultipleDialog = new ScanMultipleDialogViewModel(new List<SourcePath> { new SourcePath { Path = source } });
@@ -2124,7 +2128,7 @@ namespace VidCoder.Services
 						encodeLogger.Log($"Started post-encode action. Executable: {picker.PostEncodeExecutable} , Arguments: {arguments}");
 					}
 
-					encodeLogger.Log("Job completed (Elapsed Time: " + Utilities.FormatTimeSpan(finishedJobViewModel.EncodeTime) + ")");
+					encodeLogger.Log("Job completed (Elapsed Time: " + finishedJobViewModel.EncodeTime.FormatFriendly() + ")");
 					this.logger.Log("Job completed: " + finishedJobViewModel.Job.FinalOutputPath);
 
 					if (this.EncodeQueue.Count == 0)

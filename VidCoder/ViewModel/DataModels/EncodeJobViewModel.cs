@@ -13,6 +13,7 @@ using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Controls;
 using VidCoder.DragDropUtils;
+using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -51,7 +52,7 @@ namespace VidCoder.ViewModel
 					return null;
 				}
 
-				return "Job ETA: " + Utilities.FormatTimeSpan(eta);
+				return "Job ETA: " + eta.FormatFriendly();
 			}).ToProperty(this, x => x.ProgressToolTip, out this.progressToolTip);
 
 			// ShowQueueEditButtons
@@ -79,13 +80,13 @@ namespace VidCoder.ViewModel
 			// EncodeTimeDisplay
 			this.WhenAnyValue(x => x.EncodeTime).Select(encodeTime =>
 			{
-				return Utilities.FormatTimeSpan(encodeTime);
+				return encodeTime.FormatFriendly();
 			}).ToProperty(this, x => x.EncodeTimeDisplay, out this.encodeTimeDisplay);
 
 			// EtaDisplay
 			this.WhenAnyValue(x => x.Eta).Select(eta =>
 			{
-				return Utilities.FormatTimeSpan(eta);
+				return eta.FormatFriendly();
 			}).ToProperty(this, x => x.EtaDisplay, out this.etaDisplay);
 
 			// PassProgressDisplay
@@ -345,6 +346,10 @@ namespace VidCoder.ViewModel
 		public bool ShowPassProgress => this.SubtitleScan || this.Profile.VideoEncodeRateType != VCVideoEncodeRateType.ConstantQuality;
 
 		private long fileSizeBytes;
+
+		/// <summary>
+		/// Gets or sets the output file size in bytes.
+		/// </summary>
 		public long FileSizeBytes
 		{
 			get { return this.fileSizeBytes; }
@@ -591,10 +596,11 @@ namespace VidCoder.ViewModel
 				List<ChosenSourceSubtitle> chosenSourceSubtitles = this.Job.Subtitles.SourceSubtitles;
 				var summaryParts = new List<string>();
 
+				int totalCount = title.SubtitleList.Count;
+
 				if (chosenSourceSubtitles.Count > 0)
 				{
 					int selectedCount = chosenSourceSubtitles.Count;
-					int totalCount = title.SubtitleList.Count;
 					string sourceDescription = $"{selectedCount}/{totalCount}";
 
 					if (selectedCount > 0 && selectedCount <= 3)
@@ -646,7 +652,7 @@ namespace VidCoder.ViewModel
 
 				if (summaryParts.Count == 0)
 				{
-					return "0/0";
+					return $"0/{totalCount}";
 				}
 				else
 				{

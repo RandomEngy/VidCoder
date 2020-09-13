@@ -684,4 +684,24 @@
   <data name="DestinationManualToolTip" xml:space="preserve">
     <value>Destination is manually set. Click to revert to automatic.</value>
   </data>
+  <data name="CompareAgainstOriginal" xml:space="preserve">
+    <value>Compare against original</value>
+  </data>
+  <data name="CompareEncodedLabel" xml:space="preserve">
+    <value>Encoded</value>
+    <comment>Label for the encoded video when comparing original vs encoded</comment>
+  </data>
+  <data name="CompareOriginalLabel" xml:space="preserve">
+    <value>Original</value>
+    <comment>Label for the original video when comparing original vs encoded</comment>
+  </data>
+  <data name="CompareWindowHelpText" xml:space="preserve">
+    <value>Click or hold spacebar to show the encoded version.</value>
+  </data>
+  <data name="CompareWindowTitleFormat" xml:space="preserve">
+    <value>Video compare: {0} - {1}</value>
+    <comment>Title for the Video compare window.
+{0} is a string indicating if it's original or encoded.
+{1} is the file name, e.g. MyFile.mkv</comment>
+  </data>
 </root>

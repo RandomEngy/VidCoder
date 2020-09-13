@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AnyContainer;
 using ReactiveUI;
+using VidCoder.Extensions;
 using VidCoder.Model;
 
 namespace VidCoder.Services
@@ -174,7 +175,7 @@ namespace VidCoder.Services
 					{
 						if (this.OverallEncodeProgressFraction == 1)
 						{
-							this.EstimatedTimeRemaining = Utilities.FormatTimeSpan(TimeSpan.Zero);
+							this.EstimatedTimeRemaining = TimeSpan.Zero.FormatFriendly();
 						}
 						else if (this.OverallEncodeProgressFraction >= 0 && this.OverallEncodeProgressFraction <= 1.01)
 						{
@@ -195,7 +196,7 @@ namespace VidCoder.Services
 								}
 							}
 
-							this.EstimatedTimeRemaining = Utilities.FormatTimeSpan(this.overallEtaSpan);
+							this.EstimatedTimeRemaining = this.overallEtaSpan.FormatFriendly();
 						}
 						else
 						{
@@ -218,7 +219,7 @@ namespace VidCoder.Services
 								this.diagnosticsLogged = true;
 							}
 
-							this.EstimatedTimeRemaining = Utilities.FormatTimeSpan(TimeSpan.Zero);
+							this.EstimatedTimeRemaining = TimeSpan.Zero.FormatFriendly();
 						}
 					}
 				}

@@ -245,6 +245,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File no longer exists..
+        /// </summary>
+        public static string FileNoLongerExists {
+            get {
+                return ResourceManager.GetString("FileNoLongerExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Files.
         /// </summary>
         public static string FilePickerExtTemplate {

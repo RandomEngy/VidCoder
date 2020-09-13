@@ -345,7 +345,7 @@ namespace VidCoder.Services
 
 			if (!main.HasVideoSource)
 			{
-				string outputFolder = this.PickerOutputFolder;
+				string outputFolder = this.SelectedPickerOutputFolder;
 				if (outputFolder != null)
 				{
 					this.OutputPath = outputFolder + (outputFolder.EndsWith(@"\", StringComparison.Ordinal) ? string.Empty : @"\");
@@ -365,13 +365,13 @@ namespace VidCoder.Services
 			}
 			
 			string nameFormat = null;
+			Picker picker = this.pickersService.SelectedPicker.Picker;
 			if (this.NameFormatOverride != null)
 			{
 				nameFormat = this.NameFormatOverride;
 			}
 			else
 			{
-				var picker = this.pickersService.SelectedPicker.Picker;
 				if (picker.UseCustomFileNameFormat)
 				{
 					nameFormat = picker.OutputFileNameFormat;
@@ -394,11 +394,12 @@ namespace VidCoder.Services
 				main.FramesRangeEnd,
 				nameFormat,
 				multipleTitlesOnSource: main.ScanInstance.Titles.TitleList.Count > 1,
-				picker: null);
+				picker: picker);
 
 			string extension = this.GetOutputExtension();
 
-			this.OutputPath = this.BuildOutputPath(fileName, extension, sourcePath: main.SourcePath);
+			string outputPathCandidate = this.BuildOutputPath(fileName, extension, sourcePath: main.SourcePath);
+			this.OutputPath = this.ResolveOutputPathConflicts(outputPathCandidate, main.SourcePath, false, picker);
 
 			// If we've pushed a new name into the destination text box, we need to update the "baseline" name so the
 			// auto-generated name doesn't get mistakenly labeled as manual when focus leaves it
@@ -465,31 +466,38 @@ namespace VidCoder.Services
 			return string.Join(" ", translatedTitleWords);
 		}
 
-		// Gets the output folder from the picker, falling back to My Videos if null.
-		public string PickerOutputFolder
+		// Gets the output folder from the selected picker, falling back to My Videos if null.
+		private string SelectedPickerOutputFolder
 		{
 			get
 			{
-				Picker picker = this.PickersService.SelectedPicker.Picker;
-				if (picker.OutputDirectory != null)
-				{
-					return picker.OutputDirectory;
-				}
-
-				return Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
+				return GetOutputFolderForPicker(null);
 			}
+		}
+
+		// Gets the output folder from the picker, falling back to My Videos if null.
+		private string GetOutputFolderForPicker(Picker picker)
+		{
+			Picker nonNullPicker = picker ?? this.PickersService.SelectedPicker.Picker;
+
+			if (nonNullPicker.OutputDirectory != null)
+			{
+				return nonNullPicker.OutputDirectory;
+			}
+
+			return Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
 		}
 
 		public string GetOutputFolder(string sourcePath, string sourceParentFolder = null, Picker picker = null)
 		{
-			string outputFolder = this.PickerOutputFolder;
-
 			bool usedSourceDirectory = false;
 
 			if (picker == null)
 			{
 				picker = this.PickersService.SelectedPicker.Picker;
 			}
+
+			string outputFolder = this.GetOutputFolderForPicker(picker);
 
 			if (picker.OutputToSourceDirectory)
 			{

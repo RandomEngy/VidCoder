@@ -606,8 +606,11 @@ namespace VidCoder.ViewModel
 				this.SetVideoPositionFromNonUser(TimeSpan.Zero);
 				this.PreviewPaused = false;
 
-				this.seekBarUpdateTimer = new DispatcherTimer();
-				this.seekBarUpdateTimer.Interval = TimeSpan.FromMilliseconds(250);
+				this.seekBarUpdateTimer = new DispatcherTimer
+				{
+					Interval = TimeSpan.FromMilliseconds(250)
+				};
+
 				this.seekBarUpdateTimer.Tick += (sender, args) => { this.View.RefreshViewModelFromMediaElement(); };
 
 				this.seekBarUpdateTimer.Start();

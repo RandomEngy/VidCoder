@@ -10,6 +10,8 @@ using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
+using VidCoder.Services.Windows;
+using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
@@ -148,6 +150,52 @@ namespace VidCoder.ViewModel
 					{
 						return videoSourceState != VideoSourceState.Scanning;
 					})));
+			}
+		}
+
+		public bool ShowCompare
+		{
+			get
+			{
+				VCJob vcJob = this.Job.Job;
+				return this.encodeResult.Succeeded
+					&& vcJob.SourceType == SourceType.File
+					&& (vcJob.RangeType == VideoRangeType.All
+						|| vcJob.RangeType == VideoRangeType.Chapters && vcJob.ChapterStart == 1
+						|| vcJob.RangeType == VideoRangeType.Seconds && vcJob.SecondsStart == 0
+						|| vcJob.RangeType == VideoRangeType.Frames && vcJob.FramesStart == 0);
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> compare;
+		public ICommand Compare
+		{
+			get
+			{
+				return this.compare ?? (this.compare = ReactiveCommand.Create(
+					() =>
+					{
+						long inputFileSizeBytes = 0;
+						try
+						{
+							FileInfo inputFileInfo = new FileInfo(this.Job.Job.SourcePath);
+							if (!inputFileInfo.Exists)
+							{
+								StaticResolver.Resolve<IMessageBoxService>().Show(this.main, CommonRes.FileNoLongerExists);
+								return;
+							}
+
+							inputFileSizeBytes = inputFileInfo.Length;
+						}
+						catch
+						{
+							// It's OK if we don't get the file size.
+						}
+
+						OutputSizeInfo outputSize = JsonEncodeFactory.GetOutputSize(this.Job.Profile, this.Job.SourceTitle);
+						CompareWindowViewModel compareViewModel = StaticResolver.Resolve<IWindowManager>().OpenOrFocusWindow<CompareWindowViewModel>(this.main);
+						compareViewModel.OpenVideos(this.Job.Job.SourcePath, this.Job.Job.FinalOutputPath, inputFileSizeBytes, this.encodeResult.SizeBytes);
+					}));
 			}
 		}
 

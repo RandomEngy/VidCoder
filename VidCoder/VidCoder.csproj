@@ -14,6 +14,7 @@
     <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <OutputPath>bin/$(Configuration)</OutputPath>
     <Platforms>x64</Platforms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
@@ -73,11 +74,16 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Model\Config\Config.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Config.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Model\Config\Config.cs">
-      <DependentUpon>Config.tt</DependentUpon>
-      <SubType>Code</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DependentUpon>Config.tt</DependentUpon>
     </Compile>
     <Compile Update="Resources\ChapterMarkersRes.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -286,11 +292,15 @@
     <Resource Include="Icons\copy.png" />
     <Resource Include="Icons\save.png" />
     <Resource Include="Icons\win7foldericon.png" />
+    <Resource Include="Icons\Compare.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VidCoderCLI\VidCoderCLI.csproj" />
     <ProjectReference Include="..\VidCoderCommon\VidCoderCommon.csproj" />
     <ProjectReference Include="..\VidCoderWindowlessCLI\VidCoderWindowlessCLI.csproj" />
     <ProjectReference Include="..\VidCoderWorker\VidCoderWorker.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
 </Project>

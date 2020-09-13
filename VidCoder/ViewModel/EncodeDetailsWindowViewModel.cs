@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Reactive.Linq;
 using Microsoft.AnyContainer;
 using ReactiveUI;
+using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -20,12 +21,12 @@ namespace VidCoder.ViewModel
 
 			this.ProcessingService.WorkTracker.WhenAnyValue(x => x.OverallEncodeTime).Select(overallEncodeTime =>
 			{
-				return Utilities.FormatTimeSpan(overallEncodeTime);
+				return overallEncodeTime.FormatFriendly();
 			}).ToProperty(this, x => x.OverallEncodeTime, out this.overallEncodeTime);
 
 			this.ProcessingService.WorkTracker.WhenAnyValue(x => x.OverallEta).Select(overallEta =>
 			{
-				return Utilities.FormatTimeSpan(overallEta);
+				return overallEta.FormatFriendly();
 			}).ToProperty(this, x => x.OverallEta, out this.overallEta);
 		}
 
