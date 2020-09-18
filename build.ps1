@@ -178,7 +178,6 @@ $outputDirectoryFiles = @(
     "Newtonsoft.Json.dll",
     "Omu.ValueInjecter.dll",
     "Ookii.Dialogs.Wpf.dll",
-    "Ookii.Dialogs.Wpf.pdb",
     "PipeMethodCalls.dll",
     "ReactiveUI.dll",
     "ReactiveUI.WPF.dll",
