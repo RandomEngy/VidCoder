@@ -162,7 +162,7 @@ namespace VidCoder.Services
 		// Returns a non-conflicting output path.
 		// May return the same value if there are no conflicts.
 		// null means cancel.
-		public string ResolveOutputPathConflicts(string initialOutputPath, string sourcePath, HashSet<string> excludedPaths, bool isBatch, Picker picker)
+		public string ResolveOutputPathConflicts(string initialOutputPath, string sourcePath, HashSet<string> excludedPaths, bool isBatch, Picker picker, bool allowConflictDialog)
 		{
 			// If the output is going to be the same as the source path, add (Encoded) to it
 			if (string.Compare(initialOutputPath, sourcePath, StringComparison.InvariantCultureIgnoreCase) == 0)
@@ -190,6 +190,11 @@ namespace VidCoder.Services
 			else
 			{
 				preference = picker.WhenFileExistsSingle;
+			}
+
+			if (!allowConflictDialog && preference == WhenFileExists.Prompt)
+			{
+				preference = WhenFileExists.Overwrite;
 			}
 
 			switch (preference)
@@ -241,9 +246,9 @@ namespace VidCoder.Services
 			}
 		}
 
-		public string ResolveOutputPathConflicts(string initialOutputPath, string sourcePath, bool isBatch, Picker picker)
+		public string ResolveOutputPathConflicts(string initialOutputPath, string sourcePath, bool isBatch, Picker picker, bool allowConflictDialog)
 		{
-			return this.ResolveOutputPathConflicts(initialOutputPath, sourcePath, this.ProcessingService.GetQueuedFiles(), isBatch, picker);
+			return this.ResolveOutputPathConflicts(initialOutputPath, sourcePath, this.ProcessingService.GetQueuedFiles(), isBatch, picker, allowConflictDialog);
 		}
 
 		/// <summary>
@@ -322,6 +327,9 @@ namespace VidCoder.Services
 			}
 		}
 
+		/// <summary>
+		/// Generates an output file name for the "destination" text box.
+		/// </summary>
 		public void GenerateOutputFileName()
 		{
 			string fileName;
@@ -399,7 +407,7 @@ namespace VidCoder.Services
 			string extension = this.GetOutputExtension();
 
 			string outputPathCandidate = this.BuildOutputPath(fileName, extension, sourcePath: main.SourcePath);
-			this.OutputPath = this.ResolveOutputPathConflicts(outputPathCandidate, main.SourcePath, false, picker);
+			this.OutputPath = this.ResolveOutputPathConflicts(outputPathCandidate, main.SourcePath, false, picker, false);
 
 			// If we've pushed a new name into the destination text box, we need to update the "baseline" name so the
 			// auto-generated name doesn't get mistakenly labeled as manual when focus leaves it
