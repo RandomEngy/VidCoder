@@ -41,7 +41,7 @@
 			<Grid Grid.Row="1" Cursor="Hand">
 				<MediaElement
 					Name="originalVideo"
-					IsMuted="True"
+					IsMuted="{Binding IsMuted}"
 					LoadedBehavior="Manual"
 					MediaOpened="originalVideo_MediaOpened"
 					ScrubbingEnabled="True"
@@ -60,6 +60,7 @@
 
 			<Grid Grid.Row="2">
 				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition />
 				</Grid.ColumnDefinitions>
@@ -82,8 +83,32 @@
 					                     Converter={StaticResource VisibilityConverter}}">
 					<Path Data="M 0,0 L 0,14 L 14,7 Z" Fill="White" />
 				</Button>
-				<controls:VideoSeekBar
+				<Button
 					Grid.Column="1"
+					Width="30"
+					Command="{Binding Mute}"
+					Style="{StaticResource BorderlessButtonStyle}"
+					Visibility="{Binding IsMuted,
+					                     Converter={StaticResource InverseVisibilityConverter}}">
+					<Image
+						Width="18"
+						Height="18"
+						Source="/Icons/VolumeOn.png" />
+				</Button>
+				<Button
+					Grid.Column="1"
+					Width="30"
+					Command="{Binding Unmute}"
+					Style="{StaticResource BorderlessButtonStyle}"
+					Visibility="{Binding IsMuted,
+					                     Converter={StaticResource VisibilityConverter}}">
+					<Image
+						Width="18"
+						Height="18"
+						Source="/Icons/VolumeMute.png" />
+				</Button>
+				<controls:VideoSeekBar
+					Grid.Column="2"
 					Height="24"
 					EnableTimeText="True"
 					Position="{Binding VideoPosition,

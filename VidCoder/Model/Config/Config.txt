@@ -110,6 +110,7 @@ AppTheme|string|"Auto"
 CpuThrottlingFraction|double|1.0
 UseBuiltInPlayerForPreviews|bool|true
 PreviewVolume|double|0.5
+CompareWindowIsMuted|bool|true
 TriggerEncodeCompleteActionWithErrors|bool|true
 
 AudioLanguageCode|string|"und"

@@ -24,6 +24,8 @@ namespace VidCoder.ViewModel
 
 		public CompareWindowViewModel()
 		{
+			this.isMuted = Config.CompareWindowIsMuted;
+
 			this.seekBarUpdateTimer = new DispatcherTimer
 			{
 				Interval = TimeSpan.FromMilliseconds(250)
@@ -165,8 +167,8 @@ namespace VidCoder.ViewModel
 		private bool paused = true;
 		public bool Paused
 		{
-			get { return this.paused; }
-			set { this.RaiseAndSetIfChanged(ref this.paused, value); }
+			get => this.paused;
+			set => this.RaiseAndSetIfChanged(ref this.paused, value);
 		}
 
 		private ReactiveCommand<Unit, Unit> pause;
@@ -189,6 +191,39 @@ namespace VidCoder.ViewModel
 				return this.play ?? (this.play = ReactiveCommand.Create(() =>
 				{
 					this.Paused = false;
+				}));
+			}
+		}
+
+		private bool isMuted = true;
+		public bool IsMuted
+		{
+			get => this.isMuted;
+			set => this.RaiseAndSetIfChanged(ref this.isMuted, value);
+		}
+
+		private ReactiveCommand<Unit, Unit> mute;
+		public ICommand Mute
+		{
+			get
+			{
+				return this.mute ?? (this.mute = ReactiveCommand.Create(() =>
+				{
+					this.IsMuted = true;
+					Config.CompareWindowIsMuted = true;
+				}));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> unmute;
+		public ICommand Unmute
+		{
+			get
+			{
+				return this.unmute ?? (this.unmute = ReactiveCommand.Create(() =>
+				{
+					this.IsMuted = false;
+					Config.CompareWindowIsMuted = false;
 				}));
 			}
 		}
