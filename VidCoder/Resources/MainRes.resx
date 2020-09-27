@@ -704,4 +704,12 @@
 {0} is a string indicating if it's original or encoded.
 {1} is the file name, e.g. MyFile.mkv</comment>
   </data>
+  <data name="MuteAutomationName" xml:space="preserve">
+    <value>Mute</value>
+    <comment>Text for screen readers for the mute button on video playback</comment>
+  </data>
+  <data name="UnmuteAutomationName" xml:space="preserve">
+    <value>Unmute</value>
+    <comment>Text for screen readers for the unmute button on video playback</comment>
+  </data>
 </root>

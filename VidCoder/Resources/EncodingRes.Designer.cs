@@ -281,7 +281,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Avg Bitrate (kbps).
+        ///   Looks up a localized string similar to Avg bitrate (kbps).
         /// </summary>
         public static string AverageBitrateRadioButton {
             get {
@@ -389,7 +389,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Constant Framerate.
+        ///   Looks up a localized string similar to Constant framerate.
         /// </summary>
         public static string ConstantFramerateRadioButton {
             get {
@@ -398,7 +398,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Constant Quality.
+        ///   Looks up a localized string similar to Constant quality.
         /// </summary>
         public static string ConstantQualityRadioButton {
             get {
@@ -571,7 +571,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display Resolution:.
+        ///   Looks up a localized string similar to Display resolution:.
         /// </summary>
         public static string DisplayResolutionLabel {
             get {
@@ -598,7 +598,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Encoder Settings.
+        ///   Looks up a localized string similar to Encoder settings.
         /// </summary>
         public static string EncoderSettings {
             get {
@@ -807,7 +807,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Max Height:.
+        ///   Looks up a localized string similar to Max height:.
         /// </summary>
         public static string MaxHeightLabel {
             get {
@@ -816,7 +816,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Max Width:.
+        ///   Looks up a localized string similar to Max width:.
         /// </summary>
         public static string MaxWidthLabel {
             get {
@@ -933,7 +933,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to More Settings:.
+        ///   Looks up a localized string similar to More settings:.
         /// </summary>
         public static string MoreSettingsLabel {
             get {
@@ -1176,7 +1176,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Passthrough Settings.
+        ///   Looks up a localized string similar to Passthrough settings.
         /// </summary>
         public static string PassthroughSettingsLabel {
             get {
@@ -1203,7 +1203,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pixel Aspect Ratio:.
+        ///   Looks up a localized string similar to Pixel aspect ratio:.
         /// </summary>
         public static string PixelAspectRatioLabel {
             get {
@@ -1284,7 +1284,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Super Fast.
+        ///   Looks up a localized string similar to Super fast.
         /// </summary>
         public static string Preset_SuperFast {
             get {
@@ -1293,7 +1293,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ultra Fast.
+        ///   Looks up a localized string similar to Ultra fast.
         /// </summary>
         public static string Preset_UltraFast {
             get {
@@ -1302,7 +1302,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Very Fast.
+        ///   Looks up a localized string similar to Very fast.
         /// </summary>
         public static string Preset_VeryFast {
             get {
@@ -1311,7 +1311,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Very Slow.
+        ///   Looks up a localized string similar to Very slow.
         /// </summary>
         public static string Preset_VerySlow {
             get {
@@ -1583,7 +1583,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sample Rate.
+        ///   Looks up a localized string similar to Sample rate.
         /// </summary>
         public static string SampleRate {
             get {
@@ -1592,7 +1592,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sample Rate:.
+        ///   Looks up a localized string similar to Sample rate:.
         /// </summary>
         public static string SampleRateLabel {
             get {
@@ -1731,7 +1731,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Storage Resolution:.
+        ///   Looks up a localized string similar to Storage resolution:.
         /// </summary>
         public static string StorageResolutionLabel {
             get {
@@ -1785,7 +1785,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Target Height:.
+        ///   Looks up a localized string similar to Target height:.
         /// </summary>
         public static string TargetHeightLabel {
             get {
@@ -1794,7 +1794,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Target Size (MB).
+        ///   Looks up a localized string similar to Target size (MB).
         /// </summary>
         public static string TargetSizeRadioButton {
             get {
@@ -1803,7 +1803,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Target Stream.
+        ///   Looks up a localized string similar to Target stream.
         /// </summary>
         public static string TargetStream {
             get {
@@ -1812,7 +1812,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Target Width:.
+        ///   Looks up a localized string similar to Target width:.
         /// </summary>
         public static string TargetWidthLabel {
             get {
@@ -1848,7 +1848,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fast Decode.
+        ///   Looks up a localized string similar to Fast decode.
         /// </summary>
         public static string Tune_fastdecode {
             get {
@@ -1893,7 +1893,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Still Image.
+        ///   Looks up a localized string similar to Still image.
         /// </summary>
         public static string Tune_stillimage {
             get {
@@ -1902,7 +1902,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zero Latency.
+        ///   Looks up a localized string similar to Zero latency.
         /// </summary>
         public static string Tune_zerolatency {
             get {
@@ -1920,7 +1920,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Turbo first Pass.
+        ///   Looks up a localized string similar to Turbo first pass.
         /// </summary>
         public static string TurboFirstPassCheckBox {
             get {
@@ -1929,7 +1929,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 2-pass Encoding.
+        ///   Looks up a localized string similar to 2-pass encoding.
         /// </summary>
         public static string TwoPassEncodingCheckBox {
             get {
@@ -1956,7 +1956,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Variable Framerate.
+        ///   Looks up a localized string similar to Variable framerate.
         /// </summary>
         public static string VfrChoice {
             get {
@@ -1965,7 +1965,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Peak Framerate (VFR).
+        ///   Looks up a localized string similar to Peak framerate (VFR).
         /// </summary>
         public static string VfrPeakChoice {
             get {
@@ -2010,7 +2010,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Video Codec:.
+        ///   Looks up a localized string similar to Video codec:.
         /// </summary>
         public static string VideoCodecLabel {
             get {

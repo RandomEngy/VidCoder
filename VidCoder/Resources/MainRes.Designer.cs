@@ -893,6 +893,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mute.
+        /// </summary>
+        public static string MuteAutomationName {
+            get {
+                return ResourceManager.GetString("MuteAutomationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Version {0} has finished downloading..
         /// </summary>
         public static string NewVersionDownloadFinishedOnLaunchStatus {
@@ -1620,6 +1629,15 @@ namespace VidCoder.Resources {
         public static string ToolsMenu {
             get {
                 return ResourceManager.GetString("ToolsMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unmute.
+        /// </summary>
+        public static string UnmuteAutomationName {
+            get {
+                return ResourceManager.GetString("UnmuteAutomationName", resourceCulture);
             }
         }
         

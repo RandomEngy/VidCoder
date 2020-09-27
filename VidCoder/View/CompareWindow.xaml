@@ -86,6 +86,7 @@
 				<Button
 					Grid.Column="1"
 					Width="30"
+					AutomationProperties.Name="{x:Static res:MainRes.MuteAutomationName}"
 					Command="{Binding Mute}"
 					Style="{StaticResource BorderlessButtonStyle}"
 					Visibility="{Binding IsMuted,
@@ -98,6 +99,7 @@
 				<Button
 					Grid.Column="1"
 					Width="30"
+					AutomationProperties.Name="{x:Static res:MainRes.UnmuteAutomationName}"
 					Command="{Binding Unmute}"
 					Style="{StaticResource BorderlessButtonStyle}"
 					Visibility="{Binding IsMuted,
