@@ -696,7 +696,7 @@
     <comment>Label for the original video when comparing original vs encoded</comment>
   </data>
   <data name="CompareWindowHelpText" xml:space="preserve">
-    <value>Click or hold spacebar to show the encoded version.</value>
+    <value>Click or hold Ctrl to show the encoded version.</value>
   </data>
   <data name="CompareWindowTitleFormat" xml:space="preserve">
     <value>Video compare: {0} - {1}</value>

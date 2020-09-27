@@ -101,7 +101,7 @@ namespace VidCoder.View
 
 		private void Window_KeyDown(object sender, KeyEventArgs e)
 		{
-			if (e.Key == Key.C || e.Key == Key.Space)
+			if (e.Key == Key.C || e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
 			{
 				this.ShowEncoded();
 			}
@@ -109,11 +109,15 @@ namespace VidCoder.View
 			{
 				this.Close();
 			}
+			else if (e.Key == Key.Space)
+			{
+				this.viewModel.TogglePlayPause();
+			}
 		}
 
 		private void Window_KeyUp(object sender, KeyEventArgs e)
 		{
-			if (e.Key == Key.C || e.Key == Key.Space)
+			if (e.Key == Key.C || e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
 			{
 				this.ShowOriginal();
 			}

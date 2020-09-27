@@ -171,6 +171,11 @@ namespace VidCoder.ViewModel
 			set => this.RaiseAndSetIfChanged(ref this.paused, value);
 		}
 
+		public void TogglePlayPause()
+		{
+			this.Paused = !this.Paused;
+		}
+
 		private ReactiveCommand<Unit, Unit> pause;
 		public ICommand Pause
 		{

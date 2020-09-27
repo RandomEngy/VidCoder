@@ -286,7 +286,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click or hold spacebar to show the encoded version..
+        ///   Looks up a localized string similar to Click or hold Ctrl to show the encoded version..
         /// </summary>
         public static string CompareWindowHelpText {
             get {
