@@ -109,7 +109,6 @@ namespace VidCoder
 			cache.Add("QueueTitlesDirectoryOverride", DatabaseConfig.Get("QueueTitlesDirectoryOverride", "", connection));
 			cache.Add("QueueTitlesUseNameOverride", DatabaseConfig.Get("QueueTitlesUseNameOverride", false, connection));
 			cache.Add("QueueTitlesNameOverride", DatabaseConfig.Get("QueueTitlesNameOverride", "", connection));
-			cache.Add("DxvaDecoding", DatabaseConfig.Get("DxvaDecoding", false, connection));
 			cache.Add("EnableLibDvdNav", DatabaseConfig.Get("EnableLibDvdNav", true, connection));
 			cache.Add("MinimumTitleLengthSeconds", DatabaseConfig.Get("MinimumTitleLengthSeconds", 10, connection));
 			cache.Add("DeleteSourceFilesOnClearingCompleted", DatabaseConfig.Get("DeleteSourceFilesOnClearingCompleted", false, connection));
@@ -575,11 +574,6 @@ namespace VidCoder
 			get { return (string)cache["QueueTitlesNameOverride"]; }
 			set { Set("QueueTitlesNameOverride", value); }
 		}
-		public static bool DxvaDecoding
-		{
-			get { return (bool)cache["DxvaDecoding"]; }
-			set { Set("DxvaDecoding", value); }
-		}
 		public static bool EnableLibDvdNav
 		{
 			get { return (bool)cache["EnableLibDvdNav"]; }
@@ -822,7 +816,6 @@ namespace VidCoder
 			public static IObservable<string> QueueTitlesDirectoryOverride => GetObservable<string>("QueueTitlesDirectoryOverride");
 			public static IObservable<bool> QueueTitlesUseNameOverride => GetObservable<bool>("QueueTitlesUseNameOverride");
 			public static IObservable<string> QueueTitlesNameOverride => GetObservable<string>("QueueTitlesNameOverride");
-			public static IObservable<bool> DxvaDecoding => GetObservable<bool>("DxvaDecoding");
 			public static IObservable<bool> EnableLibDvdNav => GetObservable<bool>("EnableLibDvdNav");
 			public static IObservable<int> MinimumTitleLengthSeconds => GetObservable<int>("MinimumTitleLengthSeconds");
 			public static IObservable<bool> DeleteSourceFilesOnClearingCompleted => GetObservable<bool>("DeleteSourceFilesOnClearingCompleted");

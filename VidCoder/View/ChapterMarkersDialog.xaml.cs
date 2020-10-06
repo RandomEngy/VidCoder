@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using VidCoder.Extensions;
+using System.Windows.Interop;
 
 namespace VidCoder.View
 {
@@ -23,6 +24,14 @@ namespace VidCoder.View
 		public ChapterMarkersDialog()
 		{
 			InitializeComponent();
+		}
+
+		protected override void OnSourceInitialized(EventArgs e)
+		{
+			base.OnSourceInitialized(e);
+
+			// Works around a Logitech mouse driver bug, code from https://developercommunity.visualstudio.com/content/problem/167357/overflow-exception-in-windowchrome.html
+			((HwndSource)PresentationSource.FromVisual(this)).AddHook(WindowUtilities.HookProc);
 		}
 
 		private void TitleBoxGotFocus(object sender, RoutedEventArgs e)

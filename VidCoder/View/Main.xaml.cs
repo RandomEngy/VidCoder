@@ -276,25 +276,7 @@ namespace VidCoder.View
 			base.OnSourceInitialized(e);
 
 			// Works around a Logitech mouse driver bug, code from https://developercommunity.visualstudio.com/content/problem/167357/overflow-exception-in-windowchrome.html
-			((HwndSource)PresentationSource.FromVisual(this)).AddHook(HookProc);
-		}
-
-		private IntPtr HookProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-		{
-			if (msg == 0x0084 /*WM_NCHITTEST*/ )
-			{
-				// This prevents a crash in WindowChromeWorker._HandleNCHitTest
-				try
-				{
-					lParam.ToInt32();
-				}
-				catch (OverflowException)
-				{
-					handled = true;
-				}
-			}
-
-			return IntPtr.Zero;
+			((HwndSource)PresentationSource.FromVisual(this)).AddHook(WindowUtilities.HookProc);
 		}
 
 		private void QueueView_SelectionChanged(object sender, SelectionChangedEventArgs e)

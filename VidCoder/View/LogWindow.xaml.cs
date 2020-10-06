@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
 using DynamicData;
@@ -113,6 +114,14 @@ namespace VidCoder.View
 		private static Brush GetBrush(string resourceName)
 		{
 			return (Brush)Application.Current.Resources[resourceName];
+		}
+
+		protected override void OnSourceInitialized(EventArgs e)
+		{
+			base.OnSourceInitialized(e);
+
+			// Works around a Logitech mouse driver bug, code from https://developercommunity.visualstudio.com/content/problem/167357/overflow-exception-in-windowchrome.html
+			((HwndSource)PresentationSource.FromVisual(this)).AddHook(WindowUtilities.HookProc);
 		}
 
 		private void AddExistingLogEntries()
