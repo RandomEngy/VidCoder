@@ -165,11 +165,7 @@ namespace VidCoder.Services
 					{
 						DeleteUpdatesFolder();
 					}
-					catch (IOException)
-					{
-						// Ignore this. Not critical that we delete the updates folder.
-					}
-					catch (UnauthorizedAccessException)
+					catch (Exception)
 					{
 						// Ignore this. Not critical that we delete the updates folder.
 					}
@@ -307,11 +303,7 @@ namespace VidCoder.Services
 
 							string newVersionStartedMessage = string.Format(MainRes.NewVersionDownloadStartedStatus, updateVersionText);
 							this.logger.Log(newVersionStartedMessage);
-
-							DispatchUtilities.BeginInvoke(() =>
-							{
-								this.logger.ShowStatus(newVersionStartedMessage);
-							});
+							this.logger.ShowStatus(newVersionStartedMessage);
 
 							this.State = UpdateState.DownloadingInstaller;
 							this.UpdateDownloadProgressFraction = 0;

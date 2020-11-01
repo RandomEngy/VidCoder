@@ -17,6 +17,6 @@
     <ProjectReference Include="..\VidCoderCommon\VidCoderCommon.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="PipeMethodCalls" Version="1.0.1" />
+    <PackageReference Include="PipeMethodCalls" Version="2.0.1" />
   </ItemGroup>
 </Project>
