@@ -135,6 +135,11 @@ namespace VidCoder.Services
 		/// <returns>The bitmap source at that index, or null if it doesn't exist yet.</returns>
 		public BitmapSource TryGetPreviewImage(int previewIndex)
 	    {
+			if (this.previewImageCache == null)
+			{
+				return null;
+			}
+
 		    BitmapSource cachedImage = this.previewImageCache[previewIndex];
 		    if (cachedImage != null)
 		    {

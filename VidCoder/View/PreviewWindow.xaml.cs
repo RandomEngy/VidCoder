@@ -67,14 +67,6 @@ namespace VidCoder.View
 			}
 		}
 
-		protected override void OnSourceInitialized(EventArgs e)
-		{
-			base.OnSourceInitialized(e);
-
-			// Works around a Logitech mouse driver bug, code from https://developercommunity.visualstudio.com/content/problem/167357/overflow-exception-in-windowchrome.html
-			((HwndSource)PresentationSource.FromVisual(this)).AddHook(WindowUtilities.HookProc);
-		}
-
 		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
 			this.viewModel = (PreviewWindowViewModel)this.DataContext;
@@ -238,6 +230,9 @@ namespace VidCoder.View
 			{
 				this.SetPlacementJson(placement);
 			}
+
+			// Works around a Logitech mouse driver bug, code from https://developercommunity.visualstudio.com/content/problem/167357/overflow-exception-in-windowchrome.html
+			((HwndSource)PresentationSource.FromVisual(this)).AddHook(WindowUtilities.HookProc);
 		}
 
 		private UIElement MainContent
