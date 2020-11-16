@@ -230,9 +230,6 @@ namespace VidCoder.View
 			{
 				this.SetPlacementJson(placement);
 			}
-
-			// Works around a Logitech mouse driver bug, code from https://developercommunity.visualstudio.com/content/problem/167357/overflow-exception-in-windowchrome.html
-			((HwndSource)PresentationSource.FromVisual(this)).AddHook(WindowUtilities.HookProc);
 		}
 
 		private UIElement MainContent

@@ -55,6 +55,7 @@
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <PackageCertificateThumbprint>D0BD681D2EDFADB2D2FA5C03CCCF25997A69B769</PackageCertificateThumbprint>
     <PackageCertificateKeyFile>VidCoderPackage_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <AppxBundle>Always</AppxBundle>

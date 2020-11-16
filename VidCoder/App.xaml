@@ -132,7 +132,7 @@
 				<Setter Property="BorderThickness" Value="1" />
 				<Style.Triggers>
 					<DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=WindowState}" Value="Maximized">
-						<Setter Property="Margin" Value="6" />
+						<Setter Property="BorderThickness" Value="0" />
 					</DataTrigger>
 					<DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
 						<Setter Property="BorderBrush" Value="{DynamicResource WindowActiveBorderBrush}" />

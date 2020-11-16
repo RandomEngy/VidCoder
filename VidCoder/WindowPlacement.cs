@@ -61,6 +61,16 @@ namespace VidCoder
 		public uint dwFlags;
 	}
 
+	[StructLayout(LayoutKind.Sequential)]
+	public struct MINMAXINFO
+	{
+		public POINT ptReserved;
+		public POINT ptMaxSize;
+		public POINT ptMaxPosition;
+		public POINT ptMinTrackSize;
+		public POINT ptMaxTrackSize;
+	}
+
 	public static class WindowPlacement
 	{
 		[DllImport("user32.dll")]
@@ -74,6 +84,12 @@ namespace VidCoder
 
 		[DllImport("user32.dll")]
 		private static extern bool GetMonitorInfo(IntPtr hMonitor, ref MONITORINFO lpmi);
+
+		[DllImport("user32.dll")]
+		private static extern IntPtr MonitorFromWindow(IntPtr handle, uint flags);
+
+		public const int WM_GETMINMAXINFO = 0x0024;
+		public const int WM_NCHITTEST = 0x0084;
 
 		private const int SW_SHOWNORMAL = 1;
 		private const int SW_SHOWMINIMIZED = 2;
@@ -96,7 +112,7 @@ namespace VidCoder
 
 				placement.length = Marshal.SizeOf(typeof(WINDOWPLACEMENT));
 				placement.flags = 0;
-				placement.showCmd = (placement.showCmd == SW_SHOWMINIMIZED ? SW_SHOWNORMAL : placement.showCmd);
+				placement.showCmd = placement.showCmd == SW_SHOWMINIMIZED ? SW_SHOWNORMAL : placement.showCmd;
 
 				IntPtr closestMonitorPtr = MonitorFromRect(ref placement.normalPosition, MONITOR_DEFAULTTONEAREST);
 				MONITORINFO closestMonitorInfo = new MONITORINFO();
@@ -206,6 +222,63 @@ namespace VidCoder
 		{
 			RECT pos = placement.normalPosition;
 			return new Rect(pos.Left, pos.Top, pos.Right - pos.Left, pos.Bottom - pos.Top);
+		}
+
+		/// <summary>
+		/// Handles WndProc messages
+		/// </summary>
+		/// <param name="hwnd">The window handle.</param>
+		/// <param name="msg">The message ID.</param>
+		/// <param name="wParam">The message's wParam value.</param>
+		/// <param name="lParam">The message's lParam value.</param>
+		/// <param name="handled"></param>
+		/// <returns>A value that indicates whether the message was handled. Set the value to true if the message was handled; otherwise, false.</returns>
+		public static IntPtr HookProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+		{
+			switch (msg)
+			{
+				case WM_NCHITTEST:
+					// Works around a Logitech mouse driver bug, code from https://developercommunity.visualstudio.com/content/problem/167357/overflow-exception-in-windowchrome.html
+					// This prevents a crash in WindowChromeWorker._HandleNCHitTest
+					try
+					{
+						lParam.ToInt32();
+					}
+					catch (OverflowException)
+					{
+						handled = true;
+					}
+
+					break;
+				case WM_GETMINMAXINFO:
+					// We need to tell the system what our size should be when maximized. Otherwise it will cover the whole screen,
+					// including the task bar.
+					MINMAXINFO mmi = (MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(MINMAXINFO));
+
+					// Adjust the maximized size and position to fit the work area of the correct monitor
+					IntPtr monitor = MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
+
+					if (monitor != IntPtr.Zero)
+					{
+						MONITORINFO monitorInfo = new MONITORINFO();
+						monitorInfo.cbSize = Marshal.SizeOf(typeof(MONITORINFO));
+						GetMonitorInfo(monitor, ref monitorInfo);
+						RECT rcWorkArea = monitorInfo.rcWork;
+						RECT rcMonitorArea = monitorInfo.rcMonitor;
+						mmi.ptMaxPosition.X = Math.Abs(rcWorkArea.Left - rcMonitorArea.Left);
+						mmi.ptMaxPosition.Y = Math.Abs(rcWorkArea.Top - rcMonitorArea.Top);
+						mmi.ptMaxSize.X = Math.Abs(rcWorkArea.Right - rcWorkArea.Left);
+						mmi.ptMaxSize.Y = Math.Abs(rcWorkArea.Bottom - rcWorkArea.Top);
+					}
+
+					Marshal.StructureToPtr(mmi, lParam, true);
+
+					break;
+				default:
+					break;
+			}
+
+			return IntPtr.Zero;
 		}
 	}
 }

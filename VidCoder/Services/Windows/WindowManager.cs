@@ -6,10 +6,12 @@ using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interop;
 using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Extensions;
@@ -478,9 +480,13 @@ namespace VidCoder.Services.Windows
 			windowToOpen.Closing += this.OnClosingHandler;
 
 			WindowDefinition windowDefinition = GetWindowDefinition(viewModel);
-			if (windowDefinition != null && !windowDefinition.ManualPlacementRestore && windowDefinition.PlacementConfigKey != null)
+			windowToOpen.SourceInitialized += (o, e) =>
 			{
-				windowToOpen.SourceInitialized += (o, e) =>
+				// Add hook for WndProc messages
+				((HwndSource)PresentationSource.FromVisual(windowToOpen)).AddHook(WindowPlacement.HookProc);
+
+				// Restore placement
+				if (windowDefinition != null && !windowDefinition.ManualPlacementRestore && windowDefinition.PlacementConfigKey != null)
 				{
 					string placementJson = Config.Get<string>(windowDefinition.PlacementConfigKey);
 					if (isDialog)
@@ -505,8 +511,8 @@ namespace VidCoder.Services.Windows
 
 						windowToOpen.PlaceDynamic(placementJson);
 					}
-				};
-			}
+				}
+			};
 
 			this.openWindows.Add(viewModel, windowToOpen);
 
