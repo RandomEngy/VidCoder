@@ -1221,6 +1221,9 @@ namespace VidCoderCommon.Model
 			int croppedSourceWidth = sourceWidth - cropping.Left - cropping.Right;
 			int croppedSourceHeight = sourceHeight - cropping.Top - cropping.Bottom;
 
+			croppedSourceWidth = Math.Max(croppedSourceWidth, 2);
+			croppedSourceHeight = Math.Max(croppedSourceHeight, 2);
+
 			double sourceAspect = (double)croppedSourceWidth / croppedSourceHeight;
 			double adjustedSourceAspect; // Source aspect, adjusted for PAR
 

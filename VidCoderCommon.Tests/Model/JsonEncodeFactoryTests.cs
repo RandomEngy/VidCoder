@@ -507,6 +507,31 @@ namespace VidCoderCommon.Tests.Model
 		}
 
 		[TestMethod]
+		public void GetOutputSize_NonAnamorphicToNonAnamorphicWithTooLargeCropping()
+		{
+			// Arrange
+			var profile = new VCProfile
+			{
+				SizingMode = VCSizingMode.Automatic,
+				Width = 0,
+				Height = 0,
+				CroppingType = VCCroppingType.Custom,
+				Cropping = new VCCropping(5000, 5000, 5000, 5000),
+				UseAnamorphic = false
+			};
+
+			var sourceTitle = this.CreateNonAnamorphicTitle();
+
+			// Act
+			OutputSizeInfo outputSize = JsonEncodeFactory.GetOutputSize(profile, sourceTitle);
+
+			// Assert
+			AssertResolution(outputSize, 2, 2);
+			AssertNormalPar(outputSize);
+			AssertZeroPadding(outputSize);
+		}
+
+		[TestMethod]
 		public void GetOutputSize_NonAnamorphicToNonAnamorphicWithCroppingAndRotateAndPad()
 		{
 			// Arrange
