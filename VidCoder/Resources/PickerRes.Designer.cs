@@ -511,7 +511,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Picks the last selected subtitle track if a match is found, otherwise or no tracks..
+        ///   Looks up a localized string similar to Picks the last selected subtitle track if a match is found, otherwise pick no tracks..
         /// </summary>
         public static string SubtitleLastSelectedToolTip {
             get {
