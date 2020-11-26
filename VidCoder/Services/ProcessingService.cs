@@ -628,7 +628,7 @@ namespace VidCoder.Services
 				return this.moveSelectedJobsToTop ?? (this.moveSelectedJobsToTop = ReactiveCommand.Create(
 					() =>
 					{
-						List<EncodeJobViewModel> jobsToMove = this.main.SelectedJobs.Where(j => !j.Encoding).ToList();
+						IList<EncodeJobViewModel> jobsToMove = this.GetSelectedSortedNonEncodingJobs();
 						if (jobsToMove.Count > 0)
 						{
 							this.EncodeQueue.Edit(encodeQueueInnerList =>
@@ -667,7 +667,7 @@ namespace VidCoder.Services
 				return this.moveSelectedJobsToBottom ?? (this.moveSelectedJobsToBottom = ReactiveCommand.Create(
 					() =>
 					{
-						List<EncodeJobViewModel> jobsToMove = this.main.SelectedJobs.Where(j => !j.Encoding).ToList();
+						IList<EncodeJobViewModel> jobsToMove = this.GetSelectedSortedNonEncodingJobs();
 						if (jobsToMove.Count > 0)
 						{
 							this.EncodeQueue.Edit(encodeQueueInnerList =>
@@ -686,6 +686,38 @@ namespace VidCoder.Services
 					},
 					this.SelectedQueueItemModifyableObservable));
 			}
+		}
+
+		/// <summary>
+		/// Gets a sorted list of the selected jobs in queue that are not currently encoding.
+		/// </summary>
+		/// <returns>A sorted list of the selected jobs in queue that are not currently encoding.</returns>
+		private IList<EncodeJobViewModel> GetSelectedSortedNonEncodingJobs()
+		{
+			// This list may have items that are encoding and it may be misordered.
+			IList<EncodeJobViewModel> rawSelectedJobs = this.main.SelectedJobs;
+
+			// First get all of the desired jobs to select in a hash set
+			var selectedJobsSet = new HashSet<EncodeJobViewModel>();
+			foreach (EncodeJobViewModel selectedJob in rawSelectedJobs)
+			{
+				if (!selectedJob.Encoding)
+				{
+					selectedJobsSet.Add(selectedJob);
+				}
+			}
+
+			// Now run down the list in order, adding items that match
+			var result = new List<EncodeJobViewModel>();
+			foreach (EncodeJobViewModel queueJob in this.EncodeQueue.Items)
+			{
+				if (selectedJobsSet.Contains(queueJob))
+				{
+					result.Add(queueJob);
+				}
+			}
+
+			return result;
 		}
 
 		private ReactiveCommand<Unit, Unit> importQueue;
