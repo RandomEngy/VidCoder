@@ -1,7 +1,7 @@
 ---
 layout: home
 title: Home
-version: 150
+version: 151
 ---
 
 VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application for Windows. It uses [HandBrake](http://handbrake.fr/) as its encoding engine.
