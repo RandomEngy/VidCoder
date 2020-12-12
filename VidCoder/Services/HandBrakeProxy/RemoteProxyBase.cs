@@ -46,8 +46,6 @@ namespace VidCoder
 
 		protected PipeClientWithCallback<TWork, TCallback> Client;
 
-		//protected IHandBrakeWorker Channel { get; set; }
-
 		protected IAppLogger Logger	{ get; set; }
 
 		protected DateTimeOffset LastWorkerCommunication { get; set; }
@@ -79,29 +77,20 @@ namespace VidCoder
 		{
 			if (this.Running)
 			{
-				this.OnOperationEnd(result);
-
-				this.pingTimer?.Dispose();
-
-				// If the encode failed and the worker is still running, kill it.
-				if (result != VCEncodeResultCode.Succeeded && this.worker != null && !this.worker.HasExited)
-				{
-					try
-					{
-						this.worker.Kill();
-					}
-					catch (InvalidOperationException exception)
-					{
-						this.Logger.LogError("Could not kill unresponsive worker process: " + exception);
-					}
-					catch (Win32Exception exception)
-					{
-						this.Logger.LogError("Could not kill unresponsive worker process: " + exception);
-					}
-				}
-
 				this.Running = false;
+
+				// Inform caller that the operation has completed.
+				this.OnOperationEnd(result);
 			}
+		}
+
+		/// <summary>
+		/// They are done with the proxy object. Tear down the worker process.
+		/// </summary>
+		public void Dispose()
+		{
+			this.CleanUpWorkerProcess();
+			this.pingTimer?.Dispose();
 		}
 
 		protected abstract void OnOperationEnd(VCEncodeResultCode result);
@@ -115,8 +104,8 @@ namespace VidCoder
 				return;
 			}
 
+			// Figure out what went wrong and populate result code
 			VCEncodeResultCode result;
-
 			if (!this.crashLogged)
 			{
 				if (this.worker.HasExited)
@@ -151,7 +140,63 @@ namespace VidCoder
 				result = VCEncodeResultCode.ErrorHandBrakeProcessCrashed;
 			}
 
+			this.CleanUpWorkerProcess();
+
 			this.EndOperation(result);
+		}
+
+		private async void CleanUpWorkerProcess()
+		{
+			// First save copies of the worker process and client pipe
+			Process workerToCleanUp = this.worker;
+			this.worker = null;
+
+			var clientToCleanUp = this.Client;
+			this.Client = null;
+
+			// Then go clean them up asynchronously
+			if (clientToCleanUp != null)
+			{
+				// Tell the worker to tear down
+				try
+				{
+					await clientToCleanUp.InvokeAsync(x => x.TearDownWorker()).ConfigureAwait(false);
+
+					// Wait a bit for the pipe to close
+					using (CancellationTokenSource cts = new CancellationTokenSource(TimeSpan.FromSeconds(3)))
+					{
+						await clientToCleanUp.WaitForRemotePipeCloseAsync(cts.Token).ConfigureAwait(false);
+					}
+				}
+				catch (Exception)
+				{
+				}
+
+				// Dispose the communication pipe.
+				clientToCleanUp.Dispose();
+				clientToCleanUp = null;
+			}
+
+			// If the worker is still running, kill it.
+			if (workerToCleanUp != null && !workerToCleanUp.HasExited)
+			{
+				// Give a bit of time for the worker process to shut down
+				await Task.Delay(TimeSpan.FromSeconds(3)).ConfigureAwait(false);
+
+				if (!workerToCleanUp.HasExited)
+				{
+					try
+					{
+						workerToCleanUp.Kill();
+					}
+					catch (Exception exception)
+					{
+						this.Logger.LogError("Could not kill unresponsive worker process: " + exception);
+					}
+				}
+			}
+
+			this.worker = null;
 		}
 
 		private async Task<bool> ConnectToPipeAsync()
@@ -209,15 +254,23 @@ namespace VidCoder
 
 		private void HandlePingError(Exception exception)
 		{
-			lock (this.ProcessLock)
+			Task.Run(async () =>
 			{
-				// If the ping times out something may be wrong. If the worker process has exited or we haven't heard an
-				// update from it in 10 seconds we assume something is wrong.
-				if (this.worker.HasExited || this.LastWorkerCommunication < DateTimeOffset.UtcNow - LastUpdateTimeoutWindow)
+				await this.ProcessLock.WaitAsync().ConfigureAwait(false);
+				try
 				{
-					this.HandleWorkerCommunicationError(exception, "Ping");
+					// If the ping times out something may be wrong. If the worker process has exited or we haven't heard an
+					// update from it in 10 seconds we assume something is wrong.
+					if (this.worker == null || this.worker.HasExited || this.LastWorkerCommunication < DateTimeOffset.UtcNow - LastUpdateTimeoutWindow)
+					{
+						this.HandleWorkerCommunicationError(exception, "Ping");
+					}
 				}
-			}
+				finally
+				{
+					this.ProcessLock.Release();
+				}
+			});
 		}
 
 		private void LogAndClearWorkerMessages()
@@ -233,6 +286,34 @@ namespace VidCoder
 		protected async Task RunOperationAsync(Expression<Action<TWork>> actionExpression)
 		{
 			this.Running = true;
+
+			bool prepareSucceeded = await this.PrepareWorkerProcessAsync();
+			if (!prepareSucceeded)
+			{
+				return;
+			}
+
+			await this.ProcessLock.WaitAsync();
+			try
+			{
+				await this.ExecuteProxyOperationAsync(async () =>
+				{
+					await this.Client.InvokeAsync(actionExpression);
+				}, "Invoke");
+			}
+			finally
+			{
+				this.ProcessLock.Release();
+			}
+		}
+
+		private async Task<bool> PrepareWorkerProcessAsync()
+		{
+			if (this.Client != null)
+			{
+				// We've already got a worker process ready to go.
+				return true;
+			}
 
 			this.LastWorkerCommunication = DateTimeOffset.UtcNow;
 			this.pipeName = PipeNamePrefix + Guid.NewGuid();
@@ -254,7 +335,7 @@ namespace VidCoder
 			bool connectionSucceeded = false;
 
 			this.Logger.Log("Connecting to process " + this.worker.Id + " on pipe " + this.pipeName);
-			await this.ProcessLock.WaitAsync();
+			await this.ProcessLock.WaitAsync().ConfigureAwait(false);
 			try
 			{
 				await this.ExecuteProxyOperationAsync(async () =>
@@ -272,8 +353,6 @@ namespace VidCoder
 						Config.MinimumTitleLengthSeconds,
 						Config.CpuThrottlingFraction,
 						FileUtilities.OverrideTempFolder ? FileUtilities.TempFolderOverride : null));
-
-					await this.Client.InvokeAsync(actionExpression);
 				}, "Connect");
 			}
 			finally
@@ -284,7 +363,7 @@ namespace VidCoder
 			if (!connectionSucceeded)
 			{
 				this.EndOperation(VCEncodeResultCode.ErrorProcessCommunication);
-				return;
+				return false;
 			}
 
 			this.pingTimer = new Timer
@@ -295,12 +374,17 @@ namespace VidCoder
 
 			this.pingTimer.Elapsed += async (o, e) =>
 			{
-				lock (this.ProcessLock)
+				await this.ProcessLock.WaitAsync().ConfigureAwait(false);
+				try
 				{
 					if (!this.Running)
 					{
 						return;
 					}
+				}
+				finally
+				{
+					this.ProcessLock.Release();
 				}
 
 				if (this.Running)
@@ -310,12 +394,17 @@ namespace VidCoder
 						CancellationTokenSource cancellationTokenSource = new CancellationTokenSource(5000);
 						await this.Client.InvokeAsync(x => x.Ping(), cancellationTokenSource.Token);
 
-						lock (this.ProcessLock)
+						await this.ProcessLock.WaitAsync().ConfigureAwait(false);
+						try
 						{
 							this.LastWorkerCommunication = DateTimeOffset.UtcNow;
 						}
+						finally
+						{
+							this.ProcessLock.Release();
+						}
 					}
-#if DEBUG
+#if !DEBUG // REVERT THIS BEFORE CHECKIN
 					catch
 					{
 					}
@@ -329,6 +418,8 @@ namespace VidCoder
 			};
 
 			this.pingTimer.Start();
+
+			return true;
 		}
 
 		protected async Task ExecuteWorkerCallAsync(Expression<Action<TWork>> action, string operationName)

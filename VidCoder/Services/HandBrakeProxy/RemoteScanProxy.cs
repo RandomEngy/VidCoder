@@ -31,10 +31,18 @@ namespace VidCoder.Services.HandBrakeProxy
         {
             this.result = scanJson;
 
-            lock (this.ProcessLock)
-            {
-                this.EndOperation(scanJson == null ? VCEncodeResultCode.ErrorUnknown : VCEncodeResultCode.Succeeded);
-            }
+			Task.Run(async () =>
+			{
+				await this.ProcessLock.WaitAsync().ConfigureAwait(false);
+				try
+				{
+					this.EndOperation(scanJson == null ? VCEncodeResultCode.ErrorUnknown : VCEncodeResultCode.Succeeded);
+				}
+				finally
+				{
+					this.ProcessLock.Release();
+				}
+			});
         }
 
 		protected override HandBrakeWorkerAction Action => HandBrakeWorkerAction.Scan;

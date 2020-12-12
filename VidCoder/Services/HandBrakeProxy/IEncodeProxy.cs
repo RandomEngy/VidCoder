@@ -9,7 +9,7 @@ namespace VidCoder
 	/// <summary>
 	/// Abstraction for dealing with either a worker process or a local encoder.
 	/// </summary>
-	public interface IEncodeProxy
+	public interface IEncodeProxy : IDisposable
 	{
 		event EventHandler EncodeStarted;
 

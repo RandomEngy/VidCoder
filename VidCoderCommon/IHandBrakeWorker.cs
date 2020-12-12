@@ -14,6 +14,8 @@ namespace VidCoderCommon
 			double cpuThrottlingFraction,
 			string tempFolder);
 
+		void TearDownWorker();
+
 		string Ping();
 	}
 }

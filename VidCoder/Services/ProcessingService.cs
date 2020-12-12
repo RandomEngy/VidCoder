@@ -1996,6 +1996,8 @@ namespace VidCoder.Services
 				throw new ArgumentNullException(nameof(finishedJobViewModel));
 			}
 
+			finishedJobViewModel.EncodeProxy?.Dispose();
+
 			DispatchUtilities.BeginInvoke(() =>
 			{
 				IAppLogger encodeLogger = finishedJobViewModel.EncodeLogger;

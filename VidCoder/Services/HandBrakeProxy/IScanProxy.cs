@@ -9,7 +9,7 @@ namespace VidCoder.Services.HandBrakeProxy
 	/// <summary>
 	/// Abstraction for dealing with either a worker process or local scanner.
 	/// </summary>
-	public interface IScanProxy
+	public interface IScanProxy : IDisposable
 	{
         /// <summary>
         /// Fires when the scan progress is updated.

@@ -102,6 +102,19 @@ namespace VidCoderWorker
 			}
 		}
 
+		public void TearDownWorker()
+		{
+			Task.Run(async () =>
+			{
+				this.Instance?.Dispose();
+				HandBrakeUtils.DisposeGlobal();
+
+				await this.SendPendingLogMessagesAsync().ConfigureAwait(false);
+
+				Program.SignalEncodeComplete();
+			});
+		}
+
 		private async void ScheduleMessageSendIfNeeded()
 		{
 			if (!this.logMessageSendScheduled)

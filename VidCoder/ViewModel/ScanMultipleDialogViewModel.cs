@@ -21,6 +21,9 @@ namespace VidCoder.ViewModel
 		private int currentJobIndex;
 		private float currentJobProgress;
 		private object currentJobIndexLock = new object();
+		private IScanProxy scanProxy;
+		private SourcePath currentPath;
+		private bool allowClose;
 
 		public ScanMultipleDialogViewModel(IList<SourcePath> pathsToScan)
 		{
@@ -54,53 +57,69 @@ namespace VidCoder.ViewModel
 
 		private void ScanNextJob()
 		{
-			SourcePath path = this.pathsToScan[this.currentJobIndex];
+			this.currentPath = this.pathsToScan[this.currentJobIndex];
+			this.EnsureScanProxyCreated();
 
-		    IScanProxy scanProxy = Utilities.CreateScanProxy();
-		    scanProxy.ScanProgress += (sender, args) =>
-		    {
-                lock (this.currentJobIndexLock)
-                {
-                    this.currentJobProgress = args.Value;
-                    this.RaisePropertyChanged(nameof(this.Progress));
-                }
-            };
+			var scanLogger = StaticResolver.Resolve<AppLoggerFactory>().ResolveRemoteScanLogger(this.currentPath.Path);
+            scanProxy.StartScan(this.currentPath.Path, scanLogger);
+		}
 
-		    scanProxy.ScanCompleted += (sender, args) =>
-		    {
-		        if (args.Value != null)
-		        {
-		            JsonScanObject scanObject = JsonConvert.DeserializeObject<JsonScanObject>(args.Value);
-		            this.ScanResults.Add(new ScanResult { SourcePath = path, VideoSource = scanObject.ToVideoSource() });
-		        }
-		        else
-		        {
-                    this.ScanResults.Add(new ScanResult { SourcePath = path });
-		        }
+		private void EnsureScanProxyCreated()
+		{
+			if (this.scanProxy == null)
+			{
+				this.scanProxy = Utilities.CreateScanProxy();
+				this.scanProxy.ScanProgress += (sender, args) =>
+				{
+					lock (this.currentJobIndexLock)
+					{
+						this.currentJobProgress = args.Value;
+						this.RaisePropertyChanged(nameof(this.Progress));
+					}
+				};
 
-                lock (this.currentJobIndexLock)
-                {
-                    this.currentJobIndex++;
-                    this.currentJobProgress = 0;
-                    this.RaisePropertyChanged(nameof(this.Progress));
+				this.scanProxy.ScanCompleted += (sender, args) =>
+				{
+					if (args.Value != null)
+					{
+						JsonScanObject scanObject = JsonConvert.DeserializeObject<JsonScanObject>(args.Value);
+						this.ScanResults.Add(new ScanResult { SourcePath = this.currentPath, VideoSource = scanObject.ToVideoSource() });
+					}
+					else
+					{
+						this.ScanResults.Add(new ScanResult { SourcePath = this.currentPath });
+					}
 
-                    if (this.ScanFinished)
-                    {
-                        DispatchUtilities.BeginInvoke(() =>
-                        {
-                            this.Cancel.Execute(null);
-                        });
-                    }
-                    else
-                    {
-                        this.ScanNextJob();
-                    }
-                }
-            };
+					lock (this.currentJobIndexLock)
+					{
+						this.currentJobIndex++;
+						this.currentJobProgress = 0;
+						this.RaisePropertyChanged(nameof(this.Progress));
 
-			var scanLogger = StaticResolver.Resolve<AppLoggerFactory>().ResolveRemoteScanLogger(path.Path);
+						if (this.ScanFinished)
+						{
+							this.scanProxy.Dispose();
 
-            scanProxy.StartScan(path.Path, scanLogger);
+							// After the scan has finished, allow closing the dialog
+							this.allowClose = true;
+							DispatchUtilities.BeginInvoke(() =>
+							{
+								this.Cancel.Execute(null);
+							});
+						}
+						else
+						{
+							this.ScanNextJob();
+						}
+					}
+				};
+			}
+		}
+
+		public override bool OnClosing()
+		{
+			// When the user first tries to close, use that as a signal to cancel. Then when the scanning shuts down cleanly, allow the window to close.
+			return this.allowClose;
 		}
 
 		public bool TryAddScanPaths(IList<SourcePath> additionalPaths)

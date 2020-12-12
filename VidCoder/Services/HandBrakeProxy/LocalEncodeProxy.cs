@@ -207,5 +207,9 @@ namespace VidCoder
 
 			return Task.CompletedTask;
 		}
+
+		public void Dispose()
+		{
+		}
 	}
 }
