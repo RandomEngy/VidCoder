@@ -404,7 +404,7 @@ namespace VidCoder
 							this.ProcessLock.Release();
 						}
 					}
-#if !DEBUG // REVERT THIS BEFORE CHECKIN
+#if DEBUG
 					catch
 					{
 					}
