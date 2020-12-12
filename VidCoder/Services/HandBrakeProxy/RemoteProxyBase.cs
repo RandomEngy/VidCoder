@@ -140,6 +140,7 @@ namespace VidCoder
 				result = VCEncodeResultCode.ErrorHandBrakeProcessCrashed;
 			}
 
+			// Go clean up the worker process. If there is another job we can start fresh.
 			this.CleanUpWorkerProcess();
 
 			this.EndOperation(result);
