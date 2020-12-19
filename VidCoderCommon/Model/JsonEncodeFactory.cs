@@ -613,7 +613,7 @@ namespace VidCoderCommon.Model
 
 		private JToken GetFilterSettingsCustom(hb_filter_ids filter, string custom)
 		{
-			return this.GetFilterSettingsPresetAndTune(filter, null, null, custom);
+			return this.GetFilterSettingsPresetAndTune(filter, "custom", null, custom);
 		}
 
 		private JToken GetFilterSettingsPresetOnly(hb_filter_ids filter, string preset, string custom)
