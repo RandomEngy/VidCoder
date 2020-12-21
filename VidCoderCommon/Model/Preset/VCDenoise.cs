@@ -5,5 +5,6 @@
         Off = 0,
         hqdn3d = 1,
         NLMeans = 2,
+		ChromaSmooth = 3
     }
 }

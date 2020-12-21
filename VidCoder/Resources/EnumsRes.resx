@@ -304,4 +304,25 @@
   <data name="WhenFileExists_Prompt" xml:space="preserve">
     <value>Ask</value>
   </data>
+  <data name="DenoiseTune_medium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="DenoiseTune_none" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="DenoiseTune_small" xml:space="preserve">
+    <value>Small</value>
+  </data>
+  <data name="DenoiseTune_tiny" xml:space="preserve">
+    <value>Tiny</value>
+  </data>
+  <data name="DenoiseTune_verywide" xml:space="preserve">
+    <value>Very wide</value>
+  </data>
+  <data name="DenoiseTune_wide" xml:space="preserve">
+    <value>Wide</value>
+  </data>
+  <data name="Denoise_ChromaSmooth" xml:space="preserve">
+    <value>Chroma smooth</value>
+  </data>
 </root>

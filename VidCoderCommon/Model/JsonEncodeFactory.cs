@@ -487,9 +487,7 @@ namespace VidCoderCommon.Model
 			// Denoise
 			if (profile.DenoiseType != VCDenoise.Off)
 			{
-				hb_filter_ids filterId = profile.DenoiseType == VCDenoise.hqdn3d
-					? hb_filter_ids.HB_FILTER_HQDN3D
-					: hb_filter_ids.HB_FILTER_NLMEANS;
+				hb_filter_ids filterId = ModelConverters.VCDenoiseToHbDenoise(profile.DenoiseType);
 
 				JToken settings;
 				if (profile.DenoisePreset == "custom")
