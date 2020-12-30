@@ -2103,10 +2103,17 @@ namespace VidCoder.Services
 								var inputShellFile = ShellFile.FromFilePath(finishedJobViewModel.Job.SourcePath);
 								var outputShellFile = ShellFile.FromFilePath(finishedJobViewModel.Job.FinalOutputPath);
 
-								DateTime? inputFileMediaCreatedTime = inputShellFile.Properties.System.Media.DateEncoded.Value;
-								if (inputFileMediaCreatedTime != null)
+								try
 								{
-									outputShellFile.Properties.System.Media.DateEncoded.Value = inputFileMediaCreatedTime;
+									DateTime? inputFileMediaCreatedTime = inputShellFile.Properties.System.Media.DateEncoded.Value;
+									if (inputFileMediaCreatedTime != null)
+									{
+										outputShellFile.Properties.System.Media.DateEncoded.Value = inputFileMediaCreatedTime;
+									}
+								}
+								catch (Exception exception)
+								{
+									encodeLogger.LogError("Could not set encoded date on file: " + exception);
 								}
 
 								File.SetCreationTimeUtc(finishedJobViewModel.Job.FinalOutputPath, inputShellFile.Properties.System.DateCreated.Value.Value);

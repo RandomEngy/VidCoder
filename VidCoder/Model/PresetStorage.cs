@@ -209,13 +209,13 @@ namespace VidCoder.Model
 			{
 				var preset = presets[i];
 
-				if (preset.EncodingProfile == null)
+				if (preset == null || preset.EncodingProfile == null)
 				{
 					presets.RemoveAt(i);
 
 					// Splash screen eats first dialog, need to show twice.
-					StaticResolver.Resolve<IMessageBoxService>().Show("Could not load corrupt preset '" + preset.GetDisplayName() + "'.");
-					StaticResolver.Resolve<IMessageBoxService>().Show("Could not load corrupt preset '" + preset.GetDisplayName() + "'.");
+					StaticResolver.Resolve<IMessageBoxService>().Show("Could not load corrupt preset '" + preset?.GetDisplayName() + "'.");
+					StaticResolver.Resolve<IMessageBoxService>().Show("Could not load corrupt preset '" + preset?.GetDisplayName() + "'.");
 				}
 				else
 				{
