@@ -20,8 +20,9 @@ $AllProtocols = [System.Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12'
 $nightlyPageResponse = Invoke-WebRequest -Uri "https://handbrake.fr/nightly.php" -UseBasicParsing
 $nightlyPageContent = $nightlyPageResponse.Content
 
-$nightlyPageContent -match "https://[^""]+x86_64-Win_GUI.zip" | Out-Null
-$url = $matches[0]
+$nightlyPageContent -match "nightly/HandBrake[^""]+x86_64-Win_GUI.zip" | Out-Null
+$remoteFile = $matches[0]
+$url = "https://handbrake.fr/" + $remoteFile
 
 if (Test-Path .\Import\Hb) {
     Remove-Item .\Import\Hb\* -recurse
