@@ -443,10 +443,10 @@ namespace VidCoder.ViewModel
 		}
 
         /// <summary>
-        /// Handles a list of paths given by drag/drop
+        /// Handles a list of provided file paths. Can be preset, subtitle, input file or folder.
         /// </summary>
         /// <param name="paths">The paths to process.</param>
-        /// <param name="alwaysQueue">True if the items dragged should always be queued, and never opened as source.</param>
+        /// <param name="alwaysQueue">True if the given items should always be queued, and never opened as source.</param>
 	    public void HandlePaths(IList<string> paths, bool alwaysQueue = false)
 	    {
             if (paths.Count > 0)
@@ -510,19 +510,24 @@ namespace VidCoder.ViewModel
 						else
 						{
 							// It is a video file or folder full of video files
-							this.HandleDropAsPaths(paths, alwaysQueue);
+							this.HandlePathsAsVideoSource(paths, alwaysQueue);
 						}
 					}
 					else
 					{
 						// With multiple items, treat it as a list video files/disc folders or folders full of those items
-						this.HandleDropAsPaths(paths, alwaysQueue);
+						this.HandlePathsAsVideoSource(paths, alwaysQueue);
 					}
 				});
             }
         }
 
-        private void HandleDropAsPaths(IList<string> itemList, bool alwaysQueue)
+		/// <summary>
+		/// Handles a list of given file paths as video source files/folders.
+		/// </summary>
+		/// <param name="itemList">The list of paths to process.</param>
+		/// <param name="alwaysQueue">True if the given items should always be queued, and never opened as source.</param>
+		private void HandlePathsAsVideoSource(IList<string> itemList, bool alwaysQueue)
         {
             List<SourcePath> fileList = GetPathList(itemList);
             if (fileList.Count > 0)
@@ -538,9 +543,14 @@ namespace VidCoder.ViewModel
             }
         }
 
-        private static List<SourcePath> GetPathList(IList<string> itemList)
+		/// <summary>
+		/// Takes a list of file/folder paths and returns a list of valid video sources in them.
+		/// </summary>
+		/// <param name="itemList">The list of paths to process.</param>
+		/// <returns>The list of video sources in the given paths.</returns>
+		private static List<SourcePath> GetPathList(IList<string> itemList)
         {
-            var videoExtensions = new List<string>();
+            var videoExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             string extensionsString = Config.VideoFileExtensions;
             string[] rawExtensions = extensionsString.Split(',', ';');
             foreach (string rawExtension in rawExtensions)
@@ -557,44 +567,66 @@ namespace VidCoder.ViewModel
                 }
             }
 
-            var pathList = new List<SourcePath>();
-            foreach (string item in itemList)
-            {
-	            try
-	            {
-		            var fileAttributes = File.GetAttributes(item);
-		            if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
-		            {
-			            // Path is a directory
-			            if (Utilities.IsDiscFolder(item))
-			            {
-				            // If it's a disc folder, add it
-				            pathList.Add(new SourcePath {Path = item, SourceType = SourceType.DiscVideoFolder});
-			            }
-			            else
-			            {
-				            string parentFolder = Path.GetDirectoryName(item);
-				            pathList.AddRange(
-					            Utilities.GetFilesOrVideoFolders(item, videoExtensions)
-						            .Select(p => new SourcePath
-						            {
-							            Path = p,
-							            ParentFolder = parentFolder,
-							            SourceType = SourceType.None
-						            }));
-			            }
-		            }
-		            else
-		            {
-			            // Path is a file
-			            pathList.Add(new SourcePath {Path = item, SourceType = SourceType.File});
-		            }
-	            }
-	            catch (Exception exception)
-	            {
-		            StaticResolver.Resolve<IAppLogger>().LogError($"Could not process {item} : " + Environment.NewLine + exception);
-	            }
-            }
+			var files = new List<string>();
+			var folders = new List<string>();
+
+			// First make a pass and assign each path to the files or folders list
+			foreach (string item in itemList)
+			{
+				try
+				{
+					var fileAttributes = File.GetAttributes(item);
+					if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
+					{
+						// Path is a directory
+						folders.Add(item);
+					}
+					else
+					{
+						// Path is a file
+						files.Add(item);
+					}
+				}
+				catch (Exception exception)
+				{
+					StaticResolver.Resolve<IAppLogger>().LogError($"Could not process {item} : " + Environment.NewLine + exception);
+				}
+			}
+
+			// Sort the file and folder lists.
+			files.Sort();
+			folders.Sort();
+
+			var pathList = new List<SourcePath>();
+
+			// Now add all folders
+			foreach (string folder in folders)
+			{
+				// Path is a directory
+				if (Utilities.IsDiscFolder(folder))
+				{
+					// If it's a disc folder, add it
+					pathList.Add(new SourcePath { Path = folder, SourceType = SourceType.DiscVideoFolder });
+				}
+				else
+				{
+					string parentFolder = Path.GetDirectoryName(folder);
+					pathList.AddRange(Utilities.GetFilesOrVideoFolders(folder, videoExtensions)
+						.Select(p => new SourcePath
+						{
+							Path = p,
+							ParentFolder = parentFolder,
+							SourceType = SourceType.None
+						}));
+				}
+			}
+
+			// Now add all files
+			foreach (string file in files)
+			{
+				// Path is a file
+				pathList.Add(new SourcePath { Path = file, SourceType = SourceType.File });
+			}
 
             return pathList;
         }

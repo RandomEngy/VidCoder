@@ -739,7 +739,7 @@ namespace VidCoder
 			}
 		}
 
-		public static List<string> GetFilesOrVideoFolders(string directory, IList<string> videoExtensions)
+		public static List<string> GetFilesOrVideoFolders(string directory, ISet<string> videoExtensions)
 		{
 			var path = new List<string>();
 			var errors = new List<string>();
@@ -759,11 +759,12 @@ namespace VidCoder
 			return path;
 		}
 
-		private static void GetFilesOrVideoFoldersRecursive(string directory, List<string> paths, List<string> errors, IList<string> videoExtensions)
+		private static void GetFilesOrVideoFoldersRecursive(string directory, List<string> paths, List<string> errors, ISet<string> videoExtensions)
 		{
 			try
 			{
 				string[] subdirectories = Directory.GetDirectories(directory);
+				Array.Sort(subdirectories);
 				foreach (string subdirectory in subdirectories)
 				{
 					if (IsDiscFolder(subdirectory))
@@ -784,10 +785,12 @@ namespace VidCoder
 			try
 			{
 				string[] files = Directory.GetFiles(directory);
+				Array.Sort(files);
 				paths.AddRange(
-					files.Where(
-						f => videoExtensions.Any(
-							e => f.EndsWith(e, StringComparison.OrdinalIgnoreCase))));
+					files.Where(file =>
+					{
+						return videoExtensions.Contains(Path.GetExtension(file));
+					}));
 			}
 			catch (Exception)
 			{
