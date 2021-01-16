@@ -95,20 +95,28 @@
 							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.GeneralSection}" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}">
 								<StackPanel Orientation="Horizontal">
-									<TextBlock VerticalAlignment="Center" Text="{x:Static res:OptionsRes.InterfaceLanguageLabel}" />
+									<TextBlock
+										Name="interfaceLanguageLabel"
+										VerticalAlignment="Center"
+										Text="{x:Static res:OptionsRes.InterfaceLanguageLabel}" />
 									<ComboBox
 										Height="23"
 										MinWidth="100"
 										Margin="6 0 0 0"
+										AutomationProperties.LabeledBy="{Binding ElementName=interfaceLanguageLabel}"
 										ItemsSource="{Binding LanguageChoices}"
 										SelectedItem="{Binding InterfaceLanguage}" />
 								</StackPanel>
 								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
-									<TextBlock VerticalAlignment="Center" Text="{x:Static res:OptionsRes.ThemeLabel}" />
+									<TextBlock
+										Name="themeLabel"
+										VerticalAlignment="Center"
+										Text="{x:Static res:OptionsRes.ThemeLabel}" />
 									<ComboBox
 										Height="23"
 										MinWidth="100"
 										Margin="6 0 0 0"
+										AutomationProperties.LabeledBy="{Binding ElementName=themeLabel}"
 										ItemsSource="{Binding AppThemeChoices}"
 										SelectedItem="{Binding AppTheme}" />
 								</StackPanel>
@@ -120,6 +128,7 @@
 								<StackPanel Orientation="Vertical" Visibility="{Binding IsRunningAsAppx, Source={x:Static vidCoder:XamlStatics.Instance}, Converter={StaticResource InverseVisibilityConverter}}">
 									<StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 										<TextBlock
+											Name="preferredDvdPlayerLabel"
 											VerticalAlignment="Center"
 											Text="{x:Static res:OptionsRes.PreferredDvdPlayerLabel}"
 											ToolTip="{x:Static res:OptionsRes.PreferredDvdPlayerToolTip}" />
@@ -128,6 +137,7 @@
 											Margin="5 0 0 0"
 											HorizontalAlignment="Left"
 											VerticalAlignment="Top"
+											AutomationProperties.LabeledBy="{Binding ElementName=preferredDvdPlayerLabel}"
 											DisplayMemberPath="Display"
 											ItemsSource="{Binding PlayerChoices}"
 											SelectedItem="{Binding SelectedPlayer}"
@@ -257,10 +267,14 @@
 									IsChecked="{Binding UseWorkerProcess}" />
 
 								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
-									<TextBlock VerticalAlignment="Center" Text="{x:Static res:OptionsRes.WorkerProcessPriorityLabel}" />
+									<TextBlock
+										Name="workerProcessPriorityLabel"
+										VerticalAlignment="Center"
+										Text="{x:Static res:OptionsRes.WorkerProcessPriorityLabel}" />
 									<ComboBox
 										MinWidth="100"
 										Margin="6 0 0 0"
+										AutomationProperties.LabeledBy="{Binding ElementName=workerProcessPriorityLabel}"
 										ItemsSource="{Binding PriorityChoices}"
 										SelectedValue="{Binding WorkerProcessPriority,
 										                        Mode=TwoWay}"
@@ -271,13 +285,17 @@
 									Margin="0 6 0 0"
 									Orientation="Horizontal"
 									ToolTip="{x:Static res:OptionsRes.MaxSimultaneousEncodesToolTip}">
-									<TextBlock VerticalAlignment="Center" Text="{x:Static res:OptionsRes.MaxSimultaneousEncodesLabel}" />
+									<TextBlock
+										Name="maxSimultaneousEncodesLabel"
+										VerticalAlignment="Center"
+										Text="{x:Static res:OptionsRes.MaxSimultaneousEncodesLabel}" />
 									<controls:NumberBox
 										Width="35"
 										Height="23"
 										Margin="10 0 0 0"
 										VerticalAlignment="Center"
 										AllowEmpty="False"
+										AutomationProperties.LabeledBy="{Binding ElementName=maxSimultaneousEncodesLabel}"
 										Maximum="8"
 										Minimum="1"
 										Number="{Binding MaxSimultaneousEncodes,
@@ -291,11 +309,12 @@
 										<ColumnDefinition Width="Auto" />
 									</Grid.ColumnDefinitions>
 
-									<TextBlock Text="{x:Static res:OptionsRes.CpuThrottlingLabel}" />
+									<TextBlock Name="cpuThrottlingLabel" Text="{x:Static res:OptionsRes.CpuThrottlingLabel}" />
 									<Slider
 										Grid.Column="1"
 										Margin="10 0 0 0"
 										HorizontalAlignment="Stretch"
+										AutomationProperties.LabeledBy="{Binding ElementName=cpuThrottlingLabel}"
 										Maximum="{Binding CpuThrottlingMaxCores}"
 										Minimum="1"
 										TickFrequency="1"
@@ -442,6 +461,7 @@
 									</Grid.ColumnDefinitions>
 
 									<TextBlock
+										Name="recognizedExtensionsLabel"
 										Grid.Column="0"
 										HorizontalAlignment="Left"
 										VerticalAlignment="Center"
@@ -453,6 +473,7 @@
 										Margin="6 0 0 0"
 										VerticalAlignment="Center"
 										VerticalContentAlignment="Center"
+										AutomationProperties.LabeledBy="{Binding ElementName=recognizedExtensionsLabel}"
 										Text="{Binding VideoFileExtensions}"
 										ToolTip="{x:Static res:OptionsRes.RecognizedExtensionsToolTip}" />
 								</Grid>
@@ -466,6 +487,7 @@
 							<StackPanel Style="{StaticResource ConfigSectionStack}">
 								<StackPanel Margin="0" Orientation="Horizontal">
 									<TextBlock
+										Name="minScanLengthLabel"
 										HorizontalAlignment="Left"
 										VerticalAlignment="Center"
 										Text="{x:Static res:OptionsRes.MinScanLengthLabel}" />
@@ -476,6 +498,7 @@
 										HorizontalAlignment="Left"
 										VerticalAlignment="Center"
 										AllowEmpty="False"
+										AutomationProperties.LabeledBy="{Binding ElementName=minScanLengthLabel}"
 										Minimum="0"
 										Number="{Binding MinimumTitleLengthSeconds,
 										                 Mode=TwoWay}" />
@@ -485,6 +508,7 @@
 									HorizontalAlignment="Left"
 									Orientation="Horizontal">
 									<TextBlock
+										Name="previewCountLabel"
 										HorizontalAlignment="Left"
 										VerticalAlignment="Center"
 										Text="{x:Static res:OptionsRes.PreviewCountLabel}" />
@@ -494,6 +518,7 @@
 										Margin="6 0 0 0"
 										HorizontalAlignment="Left"
 										VerticalAlignment="Center"
+										AutomationProperties.LabeledBy="{Binding ElementName=previewCountLabel}"
 										SelectedValue="{Binding PreviewCount}"
 										SelectedValuePath="Content">
 										<ComboBoxItem>10</ComboBoxItem>
@@ -530,9 +555,22 @@
 										Content="{x:Static res:CommonRes.Browse}"
 										IsEnabled="{Binding UseCustomPreviewFolder}" />
 								</Grid>
-								<StackPanel Margin="0 6 0 0" HorizontalAlignment="Left" Orientation="Horizontal">
-									<TextBlock VerticalAlignment="Center" Text="Drag and drop scan order:" />
-									<ComboBox Margin="6 0 0 0" VerticalAlignment="Center" ItemsSource="{Binding DragDropOrderChoices}" SelectedValue="{Binding DragDropOrder}" SelectedValuePath="Value" DisplayMemberPath="Display" />
+								<StackPanel
+									Margin="0 6 0 0"
+									HorizontalAlignment="Left"
+									Orientation="Horizontal">
+									<TextBlock
+										Name="dragDropScanOrderLabel"
+										VerticalAlignment="Center"
+										Text="{x:Static res:OptionsRes.DragDropScanOrderLabel}" />
+									<ComboBox
+										Margin="6 0 0 0"
+										VerticalAlignment="Center"
+										AutomationProperties.LabeledBy="{Binding ElementName=dragDropScanOrderLabel}"
+										DisplayMemberPath="Display"
+										ItemsSource="{Binding DragDropOrderChoices}"
+										SelectedValue="{Binding DragDropOrder}"
+										SelectedValuePath="Value" />
 								</StackPanel>
 							</StackPanel>
 
@@ -544,6 +582,7 @@
 							<StackPanel Style="{StaticResource ConfigSectionStack}">
 								<StackPanel Margin="0 0 0 0" Orientation="Horizontal">
 									<TextBlock
+										Name="loggingVerbosityLabel"
 										HorizontalAlignment="Left"
 										VerticalAlignment="Center"
 										Text="{x:Static res:OptionsRes.LoggingVerbosityLabel}" />
@@ -553,6 +592,7 @@
 										Margin="6 0 0 0"
 										HorizontalAlignment="Left"
 										VerticalAlignment="Center"
+										AutomationProperties.LabeledBy="{Binding ElementName=loggingVerbosityLabel}"
 										DisplayMemberPath="Display"
 										ItemsSource="{Binding LogVerbosityChoices}"
 										SelectedValue="{Binding LogVerbosity}"

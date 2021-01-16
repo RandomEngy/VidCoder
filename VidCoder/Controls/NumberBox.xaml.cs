@@ -50,6 +50,17 @@ namespace VidCoder.Controls
 				}
 			});
 
+			var automationLabeledByDescriptor = DependencyPropertyDescriptor.FromProperty(AutomationProperties.LabeledByProperty, typeof(NumberBox));
+			automationLabeledByDescriptor.AddValueChanged(this, (sender, args) =>
+			{
+				TextBlock newLabeledBy = (TextBlock)this.GetValue(AutomationProperties.LabeledByProperty);
+
+				if (newLabeledBy != null)
+				{
+					this.numberBox.SetValue(AutomationProperties.LabeledByProperty, newLabeledBy);
+				}
+			});
+
 			var automationHelpTextDescriptor = DependencyPropertyDescriptor.FromProperty(AutomationProperties.HelpTextProperty, typeof(NumberBox));
 			automationHelpTextDescriptor.AddValueChanged(this, (sender, args) =>
 			{

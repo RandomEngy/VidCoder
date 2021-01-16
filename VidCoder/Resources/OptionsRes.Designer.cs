@@ -295,6 +295,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Drag and drop scan order:.
+        /// </summary>
+        public static string DragDropScanOrderLabel {
+            get {
+                return ResourceManager.GetString("DragDropScanOrderLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DVD reading.
         /// </summary>
         public static string DvdReadingSection {

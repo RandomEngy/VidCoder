@@ -378,4 +378,7 @@
     <value>Low disk space threshold in gigabytes</value>
     <comment>Screen reader name for the low disk space threshold number box</comment>
   </data>
+  <data name="DragDropScanOrderLabel" xml:space="preserve">
+    <value>Drag and drop scan order:</value>
+  </data>
 </root>
