@@ -325,4 +325,12 @@
   <data name="Denoise_ChromaSmooth" xml:space="preserve">
     <value>Chroma smooth</value>
   </data>
+  <data name="DragDropOrder_Alphabetical" xml:space="preserve">
+    <value>Alphabetical</value>
+    <comment>Label for the option to order dragged files alphabetically</comment>
+  </data>
+  <data name="DragDropOrder_Selected" xml:space="preserve">
+    <value>Selected</value>
+    <comment>Label for the option to order dragged files as they had been selected in File explorer</comment>
+  </data>
 </root>

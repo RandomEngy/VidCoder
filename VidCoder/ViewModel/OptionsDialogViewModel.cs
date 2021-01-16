@@ -110,6 +110,7 @@ namespace VidCoder.ViewModel
 			this.copyLogToOutputFolder = Config.CopyLogToOutputFolder;
 			this.copyLogToCustomFolder = Config.CopyLogToCustomFolder;
 			this.logCustomFolder = Config.LogCustomFolder;
+			this.dragDropOrder = CustomConfig.DragDropOrder;
 			this.previewCount = Config.PreviewCount;
 			this.rememberPreviousFiles = Config.RememberPreviousFiles;
 			this.enableLibDvdNav = Config.EnableLibDvdNav;
@@ -306,11 +307,24 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public List<ComboChoice<DragDropOrder>> DragDropOrderChoices { get; } = new List<ComboChoice<DragDropOrder>>
+		{
+			new ComboChoice<DragDropOrder>(DragDropOrder.Alphabetical, EnumsRes.DragDropOrder_Alphabetical),
+			new ComboChoice<DragDropOrder>(DragDropOrder.Selected, EnumsRes.DragDropOrder_Selected)
+		};
+
+		private DragDropOrder dragDropOrder;
+		public DragDropOrder DragDropOrder
+		{
+			get => this.dragDropOrder;
+			set => this.RaiseAndSetIfChanged(ref this.dragDropOrder, value);
+		}
+
 		private bool updatesEnabledConfig;
 		public bool UpdatesEnabledConfig
 		{
-			get { return this.updatesEnabledConfig; }
-			set { this.RaiseAndSetIfChanged(ref this.updatesEnabledConfig, value); }
+			get => this.updatesEnabledConfig;
+			set => this.RaiseAndSetIfChanged(ref this.updatesEnabledConfig, value);
 		}
 
 		public List<ComboChoice<UpdatePromptTiming>> UpdatePromptTimingChoices { get; } = new List<ComboChoice<UpdatePromptTiming>>
@@ -322,8 +336,8 @@ namespace VidCoder.ViewModel
 		private UpdatePromptTiming updatePromptTiming;
 		public UpdatePromptTiming UpdatePromptTiming
 		{
-			get { return this.updatePromptTiming; }
-			set { this.RaiseAndSetIfChanged(ref this.updatePromptTiming, value); }
+			get => this.updatePromptTiming;
+			set => this.RaiseAndSetIfChanged(ref this.updatePromptTiming, value);
 		}
 
 		private ObservableAsPropertyHelper<string> updateStatus;
@@ -644,6 +658,7 @@ namespace VidCoder.ViewModel
 						Config.UseCustomCompletionSound = this.UseCustomCompletionSound;
 						Config.CustomCompletionSound = this.CustomCompletionSound;
 						Config.WorkerProcessPriority = this.WorkerProcessPriority;
+						CustomConfig.DragDropOrder = this.DragDropOrder;
 						Config.LogVerbosity = this.LogVerbosity;
 						Config.CopyLogToOutputFolder = this.CopyLogToOutputFolder;
 						Config.CopyLogToCustomFolder = this.CopyLogToCustomFolder;

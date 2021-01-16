@@ -567,69 +567,105 @@ namespace VidCoder.ViewModel
                 }
             }
 
-			var files = new List<string>();
-			var folders = new List<string>();
+			var pathList = new List<SourcePath>();
 
-			// First make a pass and assign each path to the files or folders list
-			foreach (string item in itemList)
+			if (CustomConfig.DragDropOrder == DragDropOrder.Alphabetical)
 			{
-				try
+				var files = new List<string>();
+				var folders = new List<string>();
+
+				// First make a pass and assign each path to the files or folders list
+				foreach (string item in itemList)
 				{
-					var fileAttributes = File.GetAttributes(item);
-					if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
+					try
 					{
-						// Path is a directory
-						folders.Add(item);
+						if (FileUtilities.IsDirectory(item))
+						{
+							folders.Add(item);
+						}
+						else
+						{
+							// Path is a file
+							files.Add(item);
+						}
 					}
-					else
+					catch (Exception exception)
 					{
-						// Path is a file
-						files.Add(item);
+						StaticResolver.Resolve<IAppLogger>().LogError($"Could not process {item} : " + Environment.NewLine + exception);
 					}
 				}
-				catch (Exception exception)
+
+				// Sort the file and folder lists.
+				files.Sort();
+				folders.Sort();
+
+
+				// Now add all folders
+				foreach (string folder in folders)
 				{
-					StaticResolver.Resolve<IAppLogger>().LogError($"Could not process {item} : " + Environment.NewLine + exception);
+					AddDirectoryToPathList(folder, pathList, videoExtensions);
+				}
+
+				// Now add all files
+				foreach (string file in files)
+				{
+					// Path is a file
+					pathList.Add(new SourcePath { Path = file, SourceType = SourceType.File });
+				}
+			}
+			else
+			{
+				// Selected order
+				foreach (string item in itemList)
+				{
+					try
+					{
+						if (FileUtilities.IsDirectory(item))
+						{
+							AddDirectoryToPathList(item, pathList, videoExtensions);
+						}
+						else
+						{
+							// Path is a file
+							pathList.Add(new SourcePath { Path = item, SourceType = SourceType.File });
+						}
+					}
+					catch (Exception exception)
+					{
+						StaticResolver.Resolve<IAppLogger>().LogError($"Could not process {item} : " + Environment.NewLine + exception);
+					}
 				}
 			}
 
-			// Sort the file and folder lists.
-			files.Sort();
-			folders.Sort();
+            return pathList;
+        }
 
-			var pathList = new List<SourcePath>();
-
-			// Now add all folders
-			foreach (string folder in folders)
+		/// <summary>
+		/// Adds the contents of the given folder to the path list. Determines if the folder is a disc folder.
+		/// </summary>
+		/// <param name="folder">The folder to add.</param>
+		/// <param name="pathList">The path list to add to.</param>
+		/// <param name="videoExtensions">The set of valid video extensions.</param>
+		private static void AddDirectoryToPathList(string folder, List<SourcePath> pathList, HashSet<string> videoExtensions)
+		{
+			if (Utilities.IsDiscFolder(folder))
 			{
-				// Path is a directory
-				if (Utilities.IsDiscFolder(folder))
-				{
-					// If it's a disc folder, add it
-					pathList.Add(new SourcePath { Path = folder, SourceType = SourceType.DiscVideoFolder });
-				}
-				else
-				{
-					string parentFolder = Path.GetDirectoryName(folder);
-					pathList.AddRange(Utilities.GetFilesOrVideoFolders(folder, videoExtensions)
+				// If it's a disc folder, add it
+				pathList.Add(new SourcePath { Path = folder, SourceType = SourceType.DiscVideoFolder });
+			}
+			else
+			{
+				string parentFolder = Path.GetDirectoryName(folder);
+				pathList.AddRange(
+					Utilities.GetFilesOrVideoFolders(folder, videoExtensions)
 						.Select(p => new SourcePath
 						{
 							Path = p,
 							ParentFolder = parentFolder,
 							SourceType = SourceType.None
 						}));
-				}
 			}
-
-			// Now add all files
-			foreach (string file in files)
-			{
-				// Path is a file
-				pathList.Add(new SourcePath { Path = file, SourceType = SourceType.File });
-			}
-
-            return pathList;
-        }
+		}
 
         public bool SetSourceFromFile()
 		{

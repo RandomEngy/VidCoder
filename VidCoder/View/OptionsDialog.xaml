@@ -530,6 +530,10 @@
 										Content="{x:Static res:CommonRes.Browse}"
 										IsEnabled="{Binding UseCustomPreviewFolder}" />
 								</Grid>
+								<StackPanel Margin="0 6 0 0" HorizontalAlignment="Left" Orientation="Horizontal">
+									<TextBlock VerticalAlignment="Center" Text="Drag and drop scan order:" />
+									<ComboBox Margin="6 0 0 0" VerticalAlignment="Center" ItemsSource="{Binding DragDropOrderChoices}" SelectedValue="{Binding DragDropOrder}" SelectedValuePath="Value" DisplayMemberPath="Display" />
+								</StackPanel>
 							</StackPanel>
 
 							<!--  Logging  -->

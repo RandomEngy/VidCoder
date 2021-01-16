@@ -27,7 +27,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return string.Format(MiscRes.Copyright, "2010-2020");
+				return string.Format(MiscRes.Copyright, "2010-2021");
 			}
 		}
 	}

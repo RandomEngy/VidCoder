@@ -95,6 +95,7 @@ namespace VidCoder
 			cache.Add("PreviewDisplay", DatabaseConfig.Get("PreviewDisplay", "FitToWindow", connection));
 			cache.Add("UseCustomPreviewFolder", DatabaseConfig.Get("UseCustomPreviewFolder", false, connection));
 			cache.Add("PreviewOutputFolder", DatabaseConfig.Get("PreviewOutputFolder", "", connection));
+			cache.Add("DragDropOrder", DatabaseConfig.Get("DragDropOrder", "Alphabetical", connection));
 			cache.Add("QueueTitlesUseTitleOverride", DatabaseConfig.Get("QueueTitlesUseTitleOverride", false, connection));
 			cache.Add("QueueTitlesTitleOverride", DatabaseConfig.Get("QueueTitlesTitleOverride", 1, connection));
 			cache.Add("SourceHistory", DatabaseConfig.Get("SourceHistory", "", connection));
@@ -504,6 +505,11 @@ namespace VidCoder
 			get { return (string)cache["PreviewOutputFolder"]; }
 			set { Set("PreviewOutputFolder", value); }
 		}
+		public static string DragDropOrder
+		{
+			get { return (string)cache["DragDropOrder"]; }
+			set { Set("DragDropOrder", value); }
+		}
 		public static bool QueueTitlesUseTitleOverride
 		{
 			get { return (bool)cache["QueueTitlesUseTitleOverride"]; }
@@ -802,6 +808,7 @@ namespace VidCoder
 			public static IObservable<string> PreviewDisplay => GetObservable<string>("PreviewDisplay");
 			public static IObservable<bool> UseCustomPreviewFolder => GetObservable<bool>("UseCustomPreviewFolder");
 			public static IObservable<string> PreviewOutputFolder => GetObservable<string>("PreviewOutputFolder");
+			public static IObservable<string> DragDropOrder => GetObservable<string>("DragDropOrder");
 			public static IObservable<bool> QueueTitlesUseTitleOverride => GetObservable<bool>("QueueTitlesUseTitleOverride");
 			public static IObservable<int> QueueTitlesTitleOverride => GetObservable<int>("QueueTitlesTitleOverride");
 			public static IObservable<string> SourceHistory => GetObservable<string>("SourceHistory");

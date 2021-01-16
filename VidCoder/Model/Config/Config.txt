@@ -78,6 +78,7 @@ PreviewCount|int|10
 PreviewDisplay|string|"FitToWindow"
 UseCustomPreviewFolder|bool|false
 PreviewOutputFolder|string|""
+DragDropOrder|string|"Alphabetical"
 QueueTitlesUseTitleOverride|bool|false
 QueueTitlesTitleOverride|int|1
 SourceHistory|string|""

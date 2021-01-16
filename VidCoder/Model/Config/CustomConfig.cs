@@ -90,6 +90,12 @@ namespace VidCoder
 			set => Config.DeleteSourceFilesMode = value.ToString();
 		}
 
+		public static DragDropOrder DragDropOrder
+		{
+			get => (DragDropOrder)Enum.Parse(typeof(DragDropOrder), Config.DragDropOrder);
+			set => Config.DragDropOrder = value.ToString();
+		}
+
 		public static ProcessPriorityClass WorkerProcessPriority
 		{
 			get

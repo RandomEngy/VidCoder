@@ -403,6 +403,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alphabetical.
+        /// </summary>
+        public static string DragDropOrder_Alphabetical {
+            get {
+                return ResourceManager.GetString("DragDropOrder_Alphabetical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected.
+        /// </summary>
+        public static string DragDropOrder_Selected {
+            get {
+                return ResourceManager.GetString("DragDropOrder_Selected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close VidCoder.
         /// </summary>
         public static string EncodeCompleteActionType_CloseProgram {
