@@ -40,18 +40,18 @@ namespace VidCoder.Model
 
 		[JsonProperty]
 		public bool IsModified
-	    {
-		    get { return this.isModified; }
-			set { this.RaiseAndSetIfChanged(ref this.isModified, value); }
-	    }
+		{
+			get => this.isModified;
+			set => this.RaiseAndSetIfChanged(ref this.isModified, value);
+		}
 
 		private string name;
 
 		[JsonProperty]
 		public string Name
 		{
-			get { return this.name; }
-			set { this.RaiseAndSetIfChanged(ref this.name, value); }
+			get => this.name;
+			set => this.RaiseAndSetIfChanged(ref this.name, value);
 		}
 
 		[JsonProperty]
@@ -62,9 +62,6 @@ namespace VidCoder.Model
 
 		[JsonProperty]
 		public string OutputFileNameFormat { get; set; }
-
-		[JsonProperty]
-		public TitleCapitalizationChoice TitleCapitalization { get; set; } = TitleCapitalizationChoice.EveryWord;
 
 		// Used to be nullable
 		[JsonProperty("OutputToSourceDirectory2")]
@@ -80,69 +77,108 @@ namespace VidCoder.Model
 		[JsonProperty]
 		public WhenFileExists WhenFileExistsBatch { get; set; } = WhenFileExists.AutoRename;
 
+		private List<string> wordBreakCharacters = new List<string> { " ", "_" };
+
+		/// <summary>
+		/// True if we want to update the word separator character in the title.
+		/// </summary>
+		[JsonProperty]
+		public bool ChangeWordSeparator { get; set; } = true;
+
+		/// <summary>
+		/// The character to insert between words in titles.
+		/// </summary>
+		[JsonProperty]
+		public string WordSeparator { get; set; } = " ";
+
+		/// <summary>
+		/// The characters to use to separate words in titles.
+		/// </summary>
+		[JsonProperty]
+		public List<string> WordBreakCharacters
+		{
+			get => this.wordBreakCharacters;
+			set => this.RaiseAndSetIfChanged(ref this.wordBreakCharacters, value);
+		}
+
+		/// <summary>
+		/// True to update the title capitalization.
+		/// </summary>
+		[JsonProperty]
+		public bool ChangeTitleCaptialization { get; set; } = true;
+
+		/// <summary>
+		/// True if we should only change the title capitalization if it is ALL UPPERCASE or all lowercase.
+		/// </summary>
+		[JsonProperty]
+		public bool OnlyChangeTitleCapitalizationWhenAllSame { get; set; } = true;
+
+		[JsonProperty]
+		public TitleCapitalizationChoice TitleCapitalization { get; set; } = TitleCapitalizationChoice.EveryWord;
+
 		private bool titleRangeSelectEnabled;
 		[JsonProperty]
 		public bool TitleRangeSelectEnabled
 		{
-			get { return this.titleRangeSelectEnabled; }
-			set { this.RaiseAndSetIfChanged(ref this.titleRangeSelectEnabled, value); }
+			get => this.titleRangeSelectEnabled;
+			set => this.RaiseAndSetIfChanged(ref this.titleRangeSelectEnabled, value);
 		}
 
 		private int titleRangeSelectStartMinutes = 40;
 		[JsonProperty]
 		public int TitleRangeSelectStartMinutes
 		{
-			get { return this.titleRangeSelectStartMinutes; }
-			set { this.RaiseAndSetIfChanged(ref this.titleRangeSelectStartMinutes, value); }
+			get => this.titleRangeSelectStartMinutes;
+			set => this.RaiseAndSetIfChanged(ref this.titleRangeSelectStartMinutes, value);
 		}
 
 		private int titleRangeSelectEndMinutes = 50;
 		[JsonProperty]
 		public int TitleRangeSelectEndMinutes
 		{
-			get { return this.titleRangeSelectEndMinutes; }
-			set { this.RaiseAndSetIfChanged(ref this.titleRangeSelectEndMinutes, value); }
+			get => this.titleRangeSelectEndMinutes;
+			set => this.RaiseAndSetIfChanged(ref this.titleRangeSelectEndMinutes, value);
 		}
 
 		private PickerTimeRangeMode pickerTimeRangeMode;
 	    [JsonProperty]
 		public PickerTimeRangeMode PickerTimeRangeMode
 		{
-			get { return this.pickerTimeRangeMode; }
-			set { this.RaiseAndSetIfChanged(ref this.pickerTimeRangeMode, value); }
+			get => this.pickerTimeRangeMode;
+			set => this.RaiseAndSetIfChanged(ref this.pickerTimeRangeMode, value);
 		}
 
 		private int? chapterRangeStart;
 	    [JsonProperty]
 		public int? ChapterRangeStart
 		{
-			get { return this.chapterRangeStart; }
-			set { this.RaiseAndSetIfChanged(ref this.chapterRangeStart, value); }
+			get => this.chapterRangeStart;
+			set => this.RaiseAndSetIfChanged(ref this.chapterRangeStart, value);
 		}
 
 		private int? chapterRangeEnd;
 	    [JsonProperty]
 		public int? ChapterRangeEnd
 		{
-			get { return this.chapterRangeEnd; }
-			set { this.RaiseAndSetIfChanged(ref this.chapterRangeEnd, value); }
+			get => this.chapterRangeEnd;
+			set => this.RaiseAndSetIfChanged(ref this.chapterRangeEnd, value);
 		}
 
-	    private TimeSpan timeRangeStart;
+		private TimeSpan timeRangeStart;
 	    [JsonProperty]
 	    public TimeSpan TimeRangeStart
-	    {
-		    get { return this.timeRangeStart; }
-		    set { this.RaiseAndSetIfChanged(ref this.timeRangeStart, value); }
+		{
+			get => this.timeRangeStart;
+			set => this.RaiseAndSetIfChanged(ref this.timeRangeStart, value);
 		}
 
-	    private TimeSpan timeRangeEnd = TimeSpan.FromMinutes(10);
+		private TimeSpan timeRangeEnd = TimeSpan.FromMinutes(10);
 	    [JsonProperty]
 	    public TimeSpan TimeRangeEnd
-	    {
-		    get { return this.timeRangeEnd; }
-		    set { this.RaiseAndSetIfChanged(ref this.timeRangeEnd, value); }
-	    }
+		{
+			get => this.timeRangeEnd;
+			set => this.RaiseAndSetIfChanged(ref this.timeRangeEnd, value);
+		}
 
 		[JsonProperty]
 		public AudioSelectionMode AudioSelectionMode { get; set; } = AudioSelectionMode.Disabled;
@@ -155,8 +191,8 @@ namespace VidCoder.Model
 		[JsonProperty]
 		public List<string> AudioLanguageCodes
 		{
-			get { return this.audioLanguageCodes; }
-			set { this.RaiseAndSetIfChanged(ref this.audioLanguageCodes, value); }
+			get => this.audioLanguageCodes;
+			set => this.RaiseAndSetIfChanged(ref this.audioLanguageCodes, value);
 		}
 
 		// Applies only with AutoAudioType.Language
@@ -177,8 +213,8 @@ namespace VidCoder.Model
 		[JsonProperty]
 		public List<string> SubtitleLanguageCodes
 		{
-			get { return this.subtitleLanguageCodes; }
-			set { this.RaiseAndSetIfChanged(ref this.subtitleLanguageCodes, value); }
+			get => this.subtitleLanguageCodes;
+			set => this.RaiseAndSetIfChanged(ref this.subtitleLanguageCodes, value);
 		}
 
 		// Applies only with AutoSubtitleType.Language
@@ -206,16 +242,16 @@ namespace VidCoder.Model
 		[JsonProperty]
 		public bool UseEncodingPreset
 		{
-			get { return this.useEncodingPreset; }
-			set { this.RaiseAndSetIfChanged(ref this.useEncodingPreset, value); }
+			get => this.useEncodingPreset;
+			set => this.RaiseAndSetIfChanged(ref this.useEncodingPreset, value);
 		}
 
 		private string encodingPreset;
 		[JsonProperty]
 		public string EncodingPreset
 		{
-			get { return this.encodingPreset; }
-			set { this.RaiseAndSetIfChanged(ref this.encodingPreset, value); }
+			get => this.encodingPreset;
+			set => this.RaiseAndSetIfChanged(ref this.encodingPreset, value);
 		}
 
 		[JsonProperty]

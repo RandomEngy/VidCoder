@@ -49,6 +49,7 @@ namespace VidCoder.ViewModel
 						using (this.autoChangeTracker.TrackAutoChange())
 						{
 							this.RaiseAllChanged();
+							this.RefreshSourceNameCleanupPreview();
 
 							// When we are swapping active pickers, update the local properties.
 							if (!this.userModifyingOutputDirectory)
@@ -62,6 +63,25 @@ namespace VidCoder.ViewModel
 								this.PopulateEncodingPreset(this.Picker.UseEncodingPreset);
 							}
 						}
+					});
+
+				this.PickersService.WhenAnyValue(x => x.SelectedPicker.Picker.WordBreakCharacters).Subscribe(wordBreakCharacters =>
+				{
+					using (this.autoChangeTracker.TrackAutoChange())
+					{
+						this.WordBreakCharacterChoices = new List<WordBreakCharacterChoice>
+						{
+							new WordBreakCharacterChoice(this, wordBreakCharacters.Contains(" ")) { Character = " ", CharacterWord = PickerRes.WordBreakCharacter_Space, DisplayUsingWord = true  },
+							new WordBreakCharacterChoice(this, wordBreakCharacters.Contains("_")) { Character = "_", CharacterWord = PickerRes.WordBreakCharacter_Underscore },
+							new WordBreakCharacterChoice(this, wordBreakCharacters.Contains(".")) { Character = ".", CharacterWord = PickerRes.WordBreakCharacter_Dot }
+						};
+					}
+				});
+
+				this.MainViewModel.WhenAnyValue(x => x.SourceName)
+					.Subscribe(x =>
+					{
+						this.RefreshSourceNameCleanupPreview();
 					});
 
 				this.PickersService.WhenAnyValue(x => x.SelectedPicker.Picker.AudioLanguageCodes).Subscribe(audioLanguageCodes =>
@@ -262,6 +282,8 @@ namespace VidCoder.ViewModel
 
 		public IPickerWindowView View { get; set; }
 
+		public MainViewModel MainViewModel { get; } = StaticResolver.Resolve<MainViewModel>();
+
 		public string NameFormat => string.Format(CultureInfo.CurrentCulture, PickerRes.OverrideNameFormatLabel, NameTokenList);
 
 		private void PopulateEncodingPreset(bool useEncodingPreset)
@@ -295,14 +317,19 @@ namespace VidCoder.ViewModel
 
 			// These actions fire when the user changes a property.
 
-			this.RegisterPickerProperty(nameof(this.Picker.OutputDirectory), () => { this.outputPathService.GenerateOutputFileName(); });
-			this.RegisterPickerProperty(nameof(this.Picker.OutputFileNameFormat), () => { this.outputPathService.GenerateOutputFileName(); });
-			this.RegisterPickerProperty(nameof(this.Picker.UseCustomFileNameFormat), () => { this.outputPathService.GenerateOutputFileName(); });
-			this.RegisterPickerProperty(nameof(this.Picker.TitleCapitalization), () => { this.outputPathService.GenerateOutputFileName(); });
-			this.RegisterPickerProperty(nameof(this.Picker.OutputToSourceDirectory), () => { this.outputPathService.GenerateOutputFileName(); });
+			this.RegisterPickerProperty(nameof(this.Picker.OutputDirectory), () => this.outputPathService.GenerateOutputFileName());
+			this.RegisterPickerProperty(nameof(this.Picker.OutputFileNameFormat), () => this.outputPathService.GenerateOutputFileName());
+			this.RegisterPickerProperty(nameof(this.Picker.UseCustomFileNameFormat), () => this.outputPathService.GenerateOutputFileName());
+			this.RegisterPickerProperty(nameof(this.Picker.OutputToSourceDirectory), () => this.outputPathService.GenerateOutputFileName());
 			this.RegisterPickerProperty(nameof(this.Picker.PreserveFolderStructureInBatch));
 			this.RegisterPickerProperty(nameof(this.Picker.WhenFileExistsSingle));
 			this.RegisterPickerProperty(nameof(this.Picker.WhenFileExistsBatch));
+			this.RegisterPickerProperty(nameof(this.Picker.ChangeWordSeparator), () => this.RefreshOutputPathAndSourceNameCleanupPreview());
+			this.RegisterPickerProperty(nameof(this.Picker.WordSeparator), () => this.RefreshOutputPathAndSourceNameCleanupPreview());
+			this.RegisterPickerProperty(nameof(this.Picker.ChangeTitleCaptialization), () => this.RefreshOutputPathAndSourceNameCleanupPreview());
+			this.RegisterPickerProperty(nameof(this.Picker.TitleCapitalization), () => this.RefreshOutputPathAndSourceNameCleanupPreview());
+			this.RegisterPickerProperty(nameof(this.Picker.OnlyChangeTitleCapitalizationWhenAllSame), () => this.RefreshOutputPathAndSourceNameCleanupPreview());
+			this.RegisterPickerProperty(nameof(this.Picker.WordBreakCharacters), () => this.RefreshOutputPathAndSourceNameCleanupPreview());
 			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectEnabled));
 			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectStartMinutes));
 			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectEndMinutes));
@@ -415,8 +442,8 @@ namespace VidCoder.ViewModel
 
 		public string OutputDirectory
 		{
-			get { return this.outputDirectory; }
-			set { this.RaiseAndSetIfChanged(ref this.outputDirectory, value); }
+			get => this.outputDirectory;
+			set => this.RaiseAndSetIfChanged(ref this.outputDirectory, value);
 		}
 
 		public bool UseCustomFileNameFormat
@@ -458,6 +485,43 @@ namespace VidCoder.ViewModel
 			set => this.UpdatePickerProperty(nameof(this.Picker.WhenFileExistsBatch), value);
 		}
 
+		public bool? OutputToSourceDirectory
+		{
+			get => this.Picker.OutputToSourceDirectory;
+			set => this.UpdatePickerProperty(nameof(this.Picker.OutputToSourceDirectory), value);
+		}
+
+		public bool? PreserveFolderStructureInBatch
+		{
+			get => this.Picker.PreserveFolderStructureInBatch;
+			set => this.UpdatePickerProperty(nameof(this.Picker.PreserveFolderStructureInBatch), value);
+		}
+
+		public bool ChangeWordSeparator
+		{
+			get => this.Picker.ChangeWordSeparator;
+			set => this.UpdatePickerProperty(nameof(this.Picker.ChangeWordSeparator), value);
+		}
+
+		public List<ComboChoice> WordSeparatorChoices { get; } = new List<ComboChoice>
+		{
+			new ComboChoice(" ", PickerRes.WordBreakCharacter_Space),
+			new ComboChoice("_", "_"),
+			new ComboChoice(".", ".")
+		};
+
+		public string WordSeparator
+		{
+			get => this.Picker.WordSeparator;
+			set => this.UpdatePickerProperty(nameof(this.Picker.WordSeparator), value);
+		}
+
+		public bool ChangeTitleCaptialization
+		{
+			get => this.Picker.ChangeTitleCaptialization;
+			set => this.UpdatePickerProperty(nameof(this.Picker.ChangeTitleCaptialization), value);
+		}
+
 		public List<ComboChoice<TitleCapitalizationChoice>> TitleCaptializationChoices { get; } = new List<ComboChoice<TitleCapitalizationChoice>>
 		{
 			new ComboChoice<TitleCapitalizationChoice>(TitleCapitalizationChoice.EveryWord, EnumsRes.TitleCapitalizationChoice_EveryWord),
@@ -470,16 +534,41 @@ namespace VidCoder.ViewModel
 			set => this.UpdatePickerProperty(nameof(this.Picker.TitleCapitalization), value);
 		}
 
-		public bool? OutputToSourceDirectory
+		public bool OnlyChangeTitleCapitalizationWhenAllSame
 		{
-			get => this.Picker.OutputToSourceDirectory;
-			set => this.UpdatePickerProperty(nameof(this.Picker.OutputToSourceDirectory), value);
+			get => this.Picker.OnlyChangeTitleCapitalizationWhenAllSame;
+			set => this.UpdatePickerProperty(nameof(this.Picker.OnlyChangeTitleCapitalizationWhenAllSame), value);
 		}
 
-		public bool? PreserveFolderStructureInBatch
+		private List<WordBreakCharacterChoice> wordBreakCharacterChoices;
+		public List<WordBreakCharacterChoice> WordBreakCharacterChoices
 		{
-			get => this.Picker.PreserveFolderStructureInBatch;
-			set => this.UpdatePickerProperty(nameof(this.Picker.PreserveFolderStructureInBatch), value);
+			get => this.wordBreakCharacterChoices;
+			set => this.RaiseAndSetIfChanged(ref this.wordBreakCharacterChoices, value);
+		}
+
+		public void HandleWordBreakCharacterUpdate()
+		{
+			List<string> wordBreakCharacters = this.WordBreakCharacterChoices.Where(choice => choice.IsSelected).Select(choice => choice.Character).ToList();
+			this.UpdatePickerProperty(nameof(this.Picker.WordBreakCharacters), wordBreakCharacters, raisePropertyChanged: false);
+		}
+
+		private string sourceNameCleanupPreview;
+		public string SourceNameCleanupPreview
+		{
+			get => this.sourceNameCleanupPreview;
+			set => this.RaiseAndSetIfChanged(ref this.sourceNameCleanupPreview, value);
+		}
+
+		private void RefreshSourceNameCleanupPreview()
+		{
+			this.SourceNameCleanupPreview = this.outputPathService.GetTranslatedSourceName(this.Picker);
+		}
+
+		private void RefreshOutputPathAndSourceNameCleanupPreview()
+		{
+			this.RefreshSourceNameCleanupPreview();
+			this.outputPathService.GenerateOutputFileName();
 		}
 
 		public PickerTimeRangeMode PickerTimeRangeMode

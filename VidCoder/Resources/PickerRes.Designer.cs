@@ -169,6 +169,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change capitalization to.
+        /// </summary>
+        public static string ChangeCaptializationLabel {
+            get {
+                return ResourceManager.GetString("ChangeCaptializationLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change word separator to.
+        /// </summary>
+        public static string ChangeWordSeparatorLabel {
+            get {
+                return ResourceManager.GetString("ChangeWordSeparatorLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chapter range end.
         /// </summary>
         public static string ChapterRangeEndAutomationName {
@@ -318,6 +336,15 @@ namespace VidCoder.Resources {
         public static string MultipleSubtitleDefaultToolTip {
             get {
                 return ResourceManager.GetString("MultipleSubtitleDefaultToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only change capitalization if all lowercase or all uppercase.
+        /// </summary>
+        public static string OnlyChangeCapitalizationIfAllSameLabel {
+            get {
+                return ResourceManager.GetString("OnlyChangeCapitalizationIfAllSameLabel", resourceCulture);
             }
         }
         
@@ -502,6 +529,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Preview:.
+        /// </summary>
+        public static string SourceCleanupPreviewLabel {
+            get {
+                return ResourceManager.GetString("SourceCleanupPreviewLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source name cleanup.
+        /// </summary>
+        public static string SourceNameCleanupSection {
+            get {
+                return ResourceManager.GetString("SourceNameCleanupSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Include only the first subtitle..
         /// </summary>
         public static string SubtitleFirstToolTip {
@@ -565,15 +610,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Title capitalization:.
-        /// </summary>
-        public static string TitleCaptializationLabel {
-            get {
-                return ResourceManager.GetString("TitleCaptializationLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Title selection.
         /// </summary>
         public static string TitleSelection {
@@ -624,6 +660,51 @@ namespace VidCoder.Resources {
         public static string WindowTitle {
             get {
                 return ResourceManager.GetString("WindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dot.
+        /// </summary>
+        public static string WordBreakCharacter_Dot {
+            get {
+                return ResourceManager.GetString("WordBreakCharacter_Dot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Space.
+        /// </summary>
+        public static string WordBreakCharacter_Space {
+            get {
+                return ResourceManager.GetString("WordBreakCharacter_Space", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Underscore.
+        /// </summary>
+        public static string WordBreakCharacter_Underscore {
+            get {
+                return ResourceManager.GetString("WordBreakCharacter_Underscore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Word break character - {0}.
+        /// </summary>
+        public static string WordBreakCharacterAutomationNameFormat {
+            get {
+                return ResourceManager.GetString("WordBreakCharacterAutomationNameFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recognized word break characters:.
+        /// </summary>
+        public static string WordBreakCharactersLabel {
+            get {
+                return ResourceManager.GetString("WordBreakCharactersLabel", resourceCulture);
             }
         }
     }

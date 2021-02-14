@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.Json.Scan;
@@ -389,7 +390,7 @@ namespace VidCoder.Services
 			fileName = this.BuildOutputFileName(
 				main.SourcePath,
 				// Change casing on DVD titles to be a little more friendly
-				this.GetTranslatedSourceName(),
+				this.GetTranslatedSourceName(picker),
 				main.SelectedTitle.Title.Index,
 				main.SelectedTitle.Duration,
 				main.RangeType,
@@ -415,63 +416,6 @@ namespace VidCoder.Services
 			{
 				this.OldOutputPath = this.OutputPath;
 			}
-		}
-
-		/// <summary>
-		/// Changes casing on DVD titles to be a little more friendly.
-		/// </summary>
-		/// <param name="dvdSourceName">The source name of the DVD.</param>
-		/// <returns>Cleaned up version of the source name.</returns>
-		public string TranslateDiscSourceName(string dvdSourceName)
-		{
-			if (dvdSourceName.Any(char.IsLower))
-			{
-				// If we find any lowercase letters, this is not a DVD/Blu-ray disc name and
-				// does not need any cleanup
-				return dvdSourceName;
-			}
-
-			string[] titleWords = dvdSourceName.Split('_');
-			var translatedTitleWords = new List<string>();
-			bool reachedModifiers = false;
-			bool firstWord = true;
-
-			Picker picker = this.PickersService.SelectedPicker.Picker;
-
-			foreach (string titleWord in titleWords)
-			{
-				// After the disc designator, stop changing capitalization.
-				if (!reachedModifiers && titleWord.Length == 2 && titleWord[0] == 'D' && char.IsDigit(titleWord[1]))
-				{
-					reachedModifiers = true;
-				}
-
-				if (reachedModifiers)
-				{
-					translatedTitleWords.Add(titleWord);
-				}
-				else
-				{
-					if (titleWord.Length > 0)
-					{
-						string translatedTitleWord;
-						if (picker.TitleCapitalization == TitleCapitalizationChoice.EveryWord || firstWord)
-						{
-							translatedTitleWord = titleWord[0] + titleWord.Substring(1).ToLower();
-						}
-						else
-						{
-							translatedTitleWord = titleWord.ToLower();
-						}
-
-						translatedTitleWords.Add(translatedTitleWord);
-					}
-				}
-
-				firstWord = false;
-			}
-
-			return string.Join(" ", translatedTitleWords);
 		}
 
 		// Gets the output folder from the selected picker, falling back to My Videos if null.
@@ -597,18 +541,107 @@ namespace VidCoder.Services
 		}
 
 		/// <summary>
-		///	Change casing on DVD titles to be a little more friendly
+		///	Update the source name based on the picker settings.
 		/// </summary>
-		private string GetTranslatedSourceName()
+		/// <param name="picker">The picker.</param>
+		/// <returns>The translated source name</returns>
+		public string GetTranslatedSourceName(Picker picker)
 		{
 			MainViewModel main = this.mainViewModel.Value;
+			return this.GetTranslatedSourceName(picker, main.SourceName);
+		}
 
-			if ((main.SelectedSource.Type == SourceType.Disc || main.SelectedSource.Type == SourceType.DiscVideoFolder) && !string.IsNullOrWhiteSpace(main.SourceName))
+		/// <summary>
+		/// Update the given source name based on the picker settings.
+		/// </summary>
+		/// <param name="picker">The picker.</param>
+		/// <param name="sourceName">The source name to convert.</param>
+		/// <returns>The translated source name</returns>
+		public string GetTranslatedSourceName(Picker picker, string sourceName)
+		{
+			if (sourceName == null || !picker.ChangeWordSeparator && !picker.ChangeTitleCaptialization)
 			{
-				return this.TranslateDiscSourceName(main.SourceName);
+				return sourceName;
 			}
 
-			return main.SourceName;
+			var wordBreakCharacterSet = new HashSet<char>(picker.WordBreakCharacters.Select(character => character[0]));
+
+			// Make a pass to see if it's all uppercase or all lowercase
+			bool isAllLowercase = true;
+			bool isAllUppercase = true;
+
+			if (picker.ChangeTitleCaptialization && picker.OnlyChangeTitleCapitalizationWhenAllSame)
+			{
+				foreach (char c in sourceName)
+				{
+					if (char.IsUpper(c))
+					{
+						isAllLowercase = false;
+					}
+					else if (char.IsLower(c))
+					{
+						isAllUppercase = false;
+					}
+				}
+			}
+
+			bool isCasingAllSame = isAllLowercase || isAllUppercase;
+			bool isFirstWord = true;
+
+			// Build the output
+			var output = new StringBuilder();
+			var currentWord = new StringBuilder();
+			foreach (char c in sourceName)
+			{
+				if (wordBreakCharacterSet.Contains(c))
+				{
+					// Write out the current word
+					if (currentWord.Length > 0)
+					{
+						this.WriteTitleWord(output, currentWord, picker, isCasingAllSame, isFirstWord);
+						isFirstWord = false;
+						currentWord.Clear();
+					}
+
+					// Write out the word break character
+					char wordBreakCharacter = picker.ChangeWordSeparator ? picker.WordSeparator[0] : c;
+					output.Append(wordBreakCharacter);
+				}
+				else
+				{
+					currentWord.Append(c);
+				}
+			}
+
+			if (currentWord.Length > 0)
+			{
+				this.WriteTitleWord(output, currentWord, picker, isCasingAllSame, isFirstWord);
+			}
+
+			return output.ToString();
+		}
+
+		private void WriteTitleWord(StringBuilder output, StringBuilder word, Picker picker, bool isCasingAllSame, bool isFirstWord)
+		{
+			if (picker.ChangeTitleCaptialization && (isCasingAllSame || !picker.OnlyChangeTitleCapitalizationWhenAllSame))
+			{
+				string inputWord = word.ToString();
+				string outputWord;
+				if (picker.TitleCapitalization == TitleCapitalizationChoice.EveryWord || isFirstWord)
+				{
+					outputWord = char.ToUpper(inputWord[0]) + inputWord.Substring(1).ToLower();
+				}
+				else
+				{
+					outputWord = inputWord.ToLower();
+				}
+
+				output.Append(outputWord);
+			}
+			else
+			{
+				output.Append(word);
+			}
 		}
 
 		/// <summary>
@@ -623,7 +656,7 @@ namespace VidCoder.Services
 
 			return this.ReplaceArguments(
 				main.SourcePath,
-				this.GetTranslatedSourceName(),
+				this.GetTranslatedSourceName(picker),
 				main.SelectedTitle.Index,
 				main.SelectedTitle.Duration,
 				main.RangeType,

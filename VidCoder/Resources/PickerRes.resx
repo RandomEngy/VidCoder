@@ -277,8 +277,8 @@
   <data name="TimeRangeSelection" xml:space="preserve">
     <value>Time range selection</value>
   </data>
-  <data name="TitleCaptializationLabel" xml:space="preserve">
-    <value>Title capitalization:</value>
+  <data name="ChangeCaptializationLabel" xml:space="preserve">
+    <value>Change capitalization to</value>
   </data>
   <data name="TimeRangeStartAutomationName" xml:space="preserve">
     <value>Time range start</value>
@@ -325,5 +325,33 @@
   <data name="OutputFileNameFormatAutomationName" xml:space="preserve">
     <value>File name format</value>
     <comment>Name for screen readers for the output file name format text box</comment>
+  </data>
+  <data name="OnlyChangeCapitalizationIfAllSameLabel" xml:space="preserve">
+    <value>Only change capitalization if all lowercase or all uppercase</value>
+  </data>
+  <data name="WordBreakCharacterAutomationNameFormat" xml:space="preserve">
+    <value>Word break character - {0}</value>
+    <comment>Screen reader format for word break checkboxes. These will determine if a character will be used to separate words.</comment>
+  </data>
+  <data name="WordBreakCharactersLabel" xml:space="preserve">
+    <value>Recognized word break characters:</value>
+  </data>
+  <data name="WordBreakCharacter_Dot" xml:space="preserve">
+    <value>Dot</value>
+  </data>
+  <data name="WordBreakCharacter_Space" xml:space="preserve">
+    <value>Space</value>
+  </data>
+  <data name="WordBreakCharacter_Underscore" xml:space="preserve">
+    <value>Underscore</value>
+  </data>
+  <data name="ChangeWordSeparatorLabel" xml:space="preserve">
+    <value>Change word separator to</value>
+  </data>
+  <data name="SourceCleanupPreviewLabel" xml:space="preserve">
+    <value>Preview:</value>
+  </data>
+  <data name="SourceNameCleanupSection" xml:space="preserve">
+    <value>Source name cleanup</value>
   </data>
 </root>
