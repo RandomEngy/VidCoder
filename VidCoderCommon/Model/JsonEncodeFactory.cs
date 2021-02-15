@@ -749,7 +749,18 @@ namespace VidCoderCommon.Model
 				}
 				else
 				{
-					bool forcedOnly = HandBrakeEncoderHelpers.SubtitleCanSetForcedOnly(title.SubtitleList[sourceSubtitle.TrackNumber - 1].Source) && sourceSubtitle.ForcedOnly;
+					SourceSubtitleTrack sourceSubtitleTrack = title.SubtitleList[sourceSubtitle.TrackNumber - 1];
+					bool forcedOnly = HandBrakeEncoderHelpers.SubtitleCanSetForcedOnly(sourceSubtitleTrack.Source) && sourceSubtitle.ForcedOnly;
+					string name;
+					if (string.IsNullOrEmpty(sourceSubtitle.Name))
+					{
+						name = sourceSubtitleTrack.Name;
+					}
+					else
+					{
+						name = sourceSubtitle.Name;
+					}
+
 					SubtitleTrack track = new SubtitleTrack
 					{
 						Burn = sourceSubtitle.BurnedIn,
@@ -757,7 +768,7 @@ namespace VidCoderCommon.Model
 						Forced = forcedOnly,
 						ID = sourceSubtitle.TrackNumber,
 						Track = sourceSubtitle.TrackNumber - 1,
-						Name = sourceSubtitle.Name
+						Name = name
 					};
 					subtitles.SubtitleList.Add(track);
 				}

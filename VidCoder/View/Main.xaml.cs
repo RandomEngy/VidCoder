@@ -667,26 +667,29 @@ namespace VidCoder.View
 			string path = this.outputVM.OutputPath;
 			string fileName = Path.GetFileName(path);
 
-			if (fileName == string.Empty)
+			if (fileName != null)
 			{
-				this.destinationEditBox.Select(path.Length, 0);
-			}
-			else
-			{
-				int selectStart = path.Length - fileName.Length;
-
-				string extension = Path.GetExtension(path);
-				if (extension == string.Empty)
+				if (fileName == string.Empty)
 				{
-					this.destinationEditBox.Select(selectStart, path.Length - selectStart);
+					this.destinationEditBox.Select(path.Length, 0);
 				}
 				else
 				{
-					this.destinationEditBox.Select(selectStart, path.Length - selectStart - extension.Length);
+					int selectStart = path.Length - fileName.Length;
+
+					string extension = Path.GetExtension(path);
+					if (extension == string.Empty)
+					{
+						this.destinationEditBox.Select(selectStart, path.Length - selectStart);
+					}
+					else
+					{
+						this.destinationEditBox.Select(selectStart, path.Length - selectStart - extension.Length);
+					}
 				}
 			}
 
-			this.outputVM.OldOutputPath = this.outputVM.OutputPath;
+			this.outputVM.OldOutputPath = path;
 		}
 
 		private void DestinationEditBoxLostFocus(object sender, RoutedEventArgs e)
