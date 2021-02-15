@@ -83,7 +83,7 @@ namespace VidCoderCommon.Model
 				Metadata = this.CreateMetadata(),
 				PAR = outputSize.Par,
 				Source = this.CreateSource(job, title, previewNumber, previewSeconds, previewCount),
-				Subtitle = this.CreateSubtitles(job),
+				Subtitle = this.CreateSubtitles(job, title),
 				Video = this.CreateVideo(job, title, previewSeconds)
 			};
 
@@ -722,7 +722,7 @@ namespace VidCoderCommon.Model
 			return source;
 		}
 
-		private Subtitles CreateSubtitles(VCJob job)
+		private Subtitles CreateSubtitles(VCJob job, SourceTitle title)
 		{
 			Subtitles subtitles = new Subtitles
 			{
@@ -749,11 +749,12 @@ namespace VidCoderCommon.Model
 				}
 				else
 				{
+					bool forcedOnly = HandBrakeEncoderHelpers.SubtitleCanSetForcedOnly(title.SubtitleList[sourceSubtitle.TrackNumber - 1].Source) && sourceSubtitle.ForcedOnly;
 					SubtitleTrack track = new SubtitleTrack
 					{
 						Burn = sourceSubtitle.BurnedIn,
 						Default = sourceSubtitle.Default,
-						Forced = sourceSubtitle.ForcedOnly,
+						Forced = forcedOnly,
 						ID = sourceSubtitle.TrackNumber,
 						Track = sourceSubtitle.TrackNumber - 1,
 						Name = sourceSubtitle.Name
