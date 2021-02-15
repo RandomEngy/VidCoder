@@ -562,7 +562,7 @@ namespace VidCoder.ViewModel
 
 		private void RefreshSourceNameCleanupPreview()
 		{
-			this.SourceNameCleanupPreview = this.outputPathService.GetTranslatedSourceName(this.Picker);
+			this.SourceNameCleanupPreview = this.outputPathService.CleanUpSourceName(this.Picker);
 		}
 
 		private void RefreshOutputPathAndSourceNameCleanupPreview()

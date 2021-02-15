@@ -1255,7 +1255,7 @@ namespace VidCoder.Services
 					string outputFolder = this.outputPathService.GetOutputFolder(pathToQueue, null, picker);
 					string outputFileName = this.outputPathService.BuildOutputFileName(
 						pathToQueue,
-						this.outputPathService.GetTranslatedSourceName(picker, Utilities.GetSourceName(pathToQueue)),
+						this.outputPathService.CleanUpSourceName(picker, Utilities.GetSourceName(pathToQueue)),
 						job.Title,
 						title.Duration.ToSpan(),
 						title.ChapterList.Count,
@@ -1321,7 +1321,7 @@ namespace VidCoder.Services
 			foreach (SourceTitle title in titles)
 			{
 				VCProfile profile = this.presetsService.SelectedPreset.Preset.EncodingProfile;
-				string queueSourceName = this.outputPathService.GetTranslatedSourceName(picker);
+				string queueSourceName = this.outputPathService.CleanUpSourceName(picker);
 
 				int titleNumber = title.Index;
 				if (titleStartOverride >= 0)
@@ -1555,7 +1555,7 @@ namespace VidCoder.Services
 				string outputFolder = this.outputPathService.GetOutputFolder(fileToQueue, jobViewModel.SourceParentFolder);
 				string outputFileName = this.outputPathService.BuildOutputFileName(
 					fileToQueue,
-					this.outputPathService.GetTranslatedSourceName(picker, Utilities.GetSourceNameFile(fileToQueue)),
+					this.outputPathService.CleanUpSourceName(picker, Utilities.GetSourceNameFile(fileToQueue)),
 					job.Title,
 					title.Duration.ToSpan(),
 					title.ChapterList.Count,

@@ -390,7 +390,7 @@ namespace VidCoder.Services
 			fileName = this.BuildOutputFileName(
 				main.SourcePath,
 				// Change casing on DVD titles to be a little more friendly
-				this.GetTranslatedSourceName(picker),
+				this.CleanUpSourceName(picker),
 				main.SelectedTitle.Title.Index,
 				main.SelectedTitle.Duration,
 				main.RangeType,
@@ -544,11 +544,11 @@ namespace VidCoder.Services
 		///	Update the source name based on the picker settings.
 		/// </summary>
 		/// <param name="picker">The picker.</param>
-		/// <returns>The translated source name</returns>
-		public string GetTranslatedSourceName(Picker picker)
+		/// <returns>The cleaned up source name</returns>
+		public string CleanUpSourceName(Picker picker)
 		{
 			MainViewModel main = this.mainViewModel.Value;
-			return this.GetTranslatedSourceName(picker, main.SourceName);
+			return this.CleanUpSourceName(picker, main.SourceName);
 		}
 
 		/// <summary>
@@ -556,8 +556,8 @@ namespace VidCoder.Services
 		/// </summary>
 		/// <param name="picker">The picker.</param>
 		/// <param name="sourceName">The source name to convert.</param>
-		/// <returns>The translated source name</returns>
-		public string GetTranslatedSourceName(Picker picker, string sourceName)
+		/// <returns>The cleaned up source name</returns>
+		public string CleanUpSourceName(Picker picker, string sourceName)
 		{
 			if (sourceName == null || !picker.ChangeWordSeparator && !picker.ChangeTitleCaptialization)
 			{
@@ -656,7 +656,7 @@ namespace VidCoder.Services
 
 			return this.ReplaceArguments(
 				main.SourcePath,
-				this.GetTranslatedSourceName(picker),
+				this.CleanUpSourceName(picker),
 				main.SelectedTitle.Index,
 				main.SelectedTitle.Duration,
 				main.RangeType,
