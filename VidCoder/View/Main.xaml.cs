@@ -206,20 +206,29 @@ namespace VidCoder.View
 			};
 			debugDropDown.Items.Add(addTenLogItems);
 
-			var addLongLogItem = new Fluent.MenuItem {Header = "Add long log item"};
+			var addLongLogItem = new Fluent.MenuItem { Header = "Add long log item" };
 			addLongLogItem.Click += (sender, args) =>
 			{
 				StaticResolver.Resolve<IAppLogger>().Log("This is a log item\r\nthat is split into multiple lines\r\nOh yes indeed");
 			};
 			debugDropDown.Items.Add(addLongLogItem);
 
-			var doAnActionItem = new Fluent.MenuItem {Header = "Perform action"};
+			var doAnActionItem = new Fluent.MenuItem { Header = "Perform action" };
 			doAnActionItem.Click += (sender, args) =>
 			{
 				var app = (App)System.Windows.Application.Current;
 				app.ChangeTheme(new Uri("/Themes/Dark.xaml", UriKind.Relative));
 			};
 			debugDropDown.Items.Add(doAnActionItem);
+
+
+			var showDelayedStatusItem = new Fluent.MenuItem { Header = "Show a status message in 40 seconds" };
+			showDelayedStatusItem.Click += async (sender, args) =>
+			{
+				await Task.Delay(TimeSpan.FromSeconds(40));
+				StaticResolver.Resolve<StatusService>().Show("Some delayed message");
+			};
+			debugDropDown.Items.Add(showDelayedStatusItem);
 
 			this.toolsRibbonGroupBox.Items.Add(debugDropDown);
 #endif

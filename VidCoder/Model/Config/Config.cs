@@ -87,8 +87,8 @@ namespace VidCoder
 			cache.Add("CopyLogToCustomFolder", DatabaseConfig.Get("CopyLogToCustomFolder", false, connection));
 			cache.Add("LogCustomFolder", DatabaseConfig.Get("LogCustomFolder", "", connection));
 			cache.Add("AutoPauseLowBattery", DatabaseConfig.Get("AutoPauseLowBattery", true, connection));
-			cache.Add("AutoPauseLowDiskSpace", DatabaseConfig.Get("AutoPauseLowDiskSpace", false, connection));
-			cache.Add("AutoPauseLowDiskSpaceGb", DatabaseConfig.Get("AutoPauseLowDiskSpaceGb", 10, connection));
+			cache.Add("AutoPauseLowDiskSpace", DatabaseConfig.Get("AutoPauseLowDiskSpace", true, connection));
+			cache.Add("AutoPauseLowDiskSpaceGb", DatabaseConfig.Get("AutoPauseLowDiskSpaceGb", 1, connection));
 			cache.Add("AutoPauseProcesses", DatabaseConfig.Get("AutoPauseProcesses", "", connection));
 			cache.Add("MaxSimultaneousEncodes", DatabaseConfig.Get("MaxSimultaneousEncodes", 1, connection));
 			cache.Add("PreviewCount", DatabaseConfig.Get("PreviewCount", 10, connection));

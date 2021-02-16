@@ -712,4 +712,24 @@
     <value>Unmute</value>
     <comment>Text for screen readers for the unmute button on video playback</comment>
   </data>
+  <data name="AutoPauseLowBattery" xml:space="preserve">
+    <value>Automatically pausing due to low battery.</value>
+  </data>
+  <data name="AutoPauseLowDiskSpace" xml:space="preserve">
+    <value>Automatically pausing due to free disk space below {0}GB.</value>
+    <comment>{0} is the disk space threshold for auto-pause in GB</comment>
+  </data>
+  <data name="AutoPauseProcessDetected" xml:space="preserve">
+    <value>Automatically pausing, process detected: {0}</value>
+    <comment>{0} is the name of the process we were waiting for to pause</comment>
+  </data>
+  <data name="AutoPauseResumeBattery" xml:space="preserve">
+    <value>Automatically resuming, connected to AC power.</value>
+  </data>
+  <data name="AutoPauseResumeDiskSpace" xml:space="preserve">
+    <value>Automatically resuming, disk has free space.</value>
+  </data>
+  <data name="AutoPauseResumeProcess" xml:space="preserve">
+    <value>Automatically resuming, processes are gone.</value>
+  </data>
 </root>

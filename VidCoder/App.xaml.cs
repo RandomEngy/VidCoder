@@ -174,6 +174,16 @@ namespace VidCoder
 			{
 				AutomationHost.StartListening();
 			}
+				
+			ActivityService activityService = StaticResolver.Resolve<ActivityService>();
+			this.Activated += (object sender, EventArgs e2) =>
+			{
+				activityService.ReportActivated();
+			};
+			this.Deactivated += (object sender, EventArgs e2) =>
+			{
+				activityService.ReportDeactivated();
+			};
 
 			base.OnStartup(e);
 		}

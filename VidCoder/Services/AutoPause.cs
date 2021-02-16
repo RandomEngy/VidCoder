@@ -8,6 +8,7 @@ using System.Collections.Specialized;
 using Microsoft.AnyContainer;
 using VidCoder.ViewModel;
 using System.IO;
+using VidCoder.Resources;
 
 namespace VidCoder.Services
 {
@@ -15,9 +16,9 @@ namespace VidCoder.Services
 	{
 		private const double ProcessPollIntervalMsec = 5000;
 
-		private IProcesses processes;
-		private IAppLogger logger;
-
+		private readonly IProcesses processes;
+		private readonly IAppLogger logger;
+		private readonly StatusService statusService;
 		private HashSet<string> startingProcesses;
 
 		private Timer pollTimer;
@@ -43,10 +44,11 @@ namespace VidCoder.Services
 			ProcessPresent
 		}
 
-		public AutoPause(IProcesses processes, IAppLogger logger)
+		public AutoPause(IProcesses processes, IAppLogger logger, StatusService statusService)
 		{
 			this.processes = processes;
 			this.logger = logger;
+			this.statusService = statusService;
 		}
 
 		public event EventHandler PauseEncoding;
@@ -145,15 +147,15 @@ namespace VidCoder.Services
 					// Encode is running normally. See if we need to auto-pause
 					if (shouldBePausedForLowBattery)
 					{
-						this.InvokeAutoPause("Automatically pausing due to low battery.", AutoPauseReason.LowBattery);
+						this.InvokeAutoPause(MainRes.AutoPauseLowBattery, AutoPauseReason.LowBattery);
 					}
 					else if (shouldBePausedForLowDiskSpace)
 					{
-						this.InvokeAutoPause($"Automatically pausing due to free disk space below {Config.AutoPauseLowDiskSpaceGb}GB", AutoPauseReason.LowDiskSpace);
+						this.InvokeAutoPause(string.Format(MainRes.AutoPauseLowDiskSpace, Config.AutoPauseLowDiskSpaceGb), AutoPauseReason.LowDiskSpace);
 					}
 					else if (autoPauseProcess != null)
 					{
-						this.InvokeAutoPause("Automatically pausing, process detected: " + autoPauseProcess, AutoPauseReason.ProcessPresent);
+						this.InvokeAutoPause(string.Format(MainRes.AutoPauseProcessDetected, autoPauseProcess), AutoPauseReason.ProcessPresent);
 					}
 				}
 				else if (this.state == AutoPauseState.AutoPaused)
@@ -161,7 +163,9 @@ namespace VidCoder.Services
 					if (!shouldBePausedForLowBattery && !shouldBePausedForLowDiskSpace && autoPauseProcess == null)
 					{
 						this.state = AutoPauseState.EncodeRunningNormally;
-						this.logger.Log(GetResumeReasonMessage(this.autoPauseReason));
+						string resumeMessage = GetResumeReasonMessage(this.autoPauseReason);
+						this.logger.Log(resumeMessage);
+						this.statusService.Show(resumeMessage);
 						SystemSleepManagement.PreventSleep();
 						this.ResumeEncoding?.Invoke(this, EventArgs.Empty);
 					}
@@ -250,6 +254,7 @@ namespace VidCoder.Services
 			this.state = AutoPauseState.AutoPaused;
 			this.autoPauseReason = reason;
 			this.logger.Log(message);
+			this.statusService.Show(message);
 			this.PauseEncoding?.Invoke(this, EventArgs.Empty);
 		}
 
@@ -258,11 +263,11 @@ namespace VidCoder.Services
 			switch (pauseReason)
 			{
 				case AutoPauseReason.LowBattery:
-					return "Automatically resuming, connected to AC power.";
+					return MainRes.AutoPauseResumeBattery;
 				case AutoPauseReason.LowDiskSpace:
-					return "Automatically resuming, disk has free space.";
+					return MainRes.AutoPauseResumeDiskSpace;
 				case AutoPauseReason.ProcessPresent:
-					return "Automatically resuming, processes are gone.";
+					return MainRes.AutoPauseResumeProcess;
 				default:
 					return string.Empty;
 			}

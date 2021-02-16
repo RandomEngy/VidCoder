@@ -151,6 +151,60 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Automatically pausing due to low battery..
+        /// </summary>
+        public static string AutoPauseLowBattery {
+            get {
+                return ResourceManager.GetString("AutoPauseLowBattery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically pausing due to free disk space below {0}GB..
+        /// </summary>
+        public static string AutoPauseLowDiskSpace {
+            get {
+                return ResourceManager.GetString("AutoPauseLowDiskSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically pausing, process detected: {0}.
+        /// </summary>
+        public static string AutoPauseProcessDetected {
+            get {
+                return ResourceManager.GetString("AutoPauseProcessDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically resuming, connected to AC power..
+        /// </summary>
+        public static string AutoPauseResumeBattery {
+            get {
+                return ResourceManager.GetString("AutoPauseResumeBattery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically resuming, disk has free space..
+        /// </summary>
+        public static string AutoPauseResumeDiskSpace {
+            get {
+                return ResourceManager.GetString("AutoPauseResumeDiskSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically resuming, processes are gone..
+        /// </summary>
+        public static string AutoPauseResumeProcess {
+            get {
+                return ResourceManager.GetString("AutoPauseResumeProcess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close the current file and open the disc?.
         /// </summary>
         public static string AutoplayDiscConfirmationMessage {

@@ -70,8 +70,8 @@ CopyLogToOutputFolder|bool|false
 CopyLogToCustomFolder|bool|false
 LogCustomFolder|string|""
 AutoPauseLowBattery|bool|true
-AutoPauseLowDiskSpace|bool|false
-AutoPauseLowDiskSpaceGb|int|10
+AutoPauseLowDiskSpace|bool|true
+AutoPauseLowDiskSpaceGb|int|1
 AutoPauseProcesses|string|""
 MaxSimultaneousEncodes|int|1
 PreviewCount|int|10
