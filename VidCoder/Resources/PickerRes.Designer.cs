@@ -61,11 +61,29 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add audio track name.
+        /// </summary>
+        public static string AddAudioTrackNameButton {
+            get {
+                return ResourceManager.GetString("AddAudioTrackNameButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Language.
         /// </summary>
         public static string AddLanguageButton {
             get {
                 return ResourceManager.GetString("AddLanguageButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add subtitle track name.
+        /// </summary>
+        public static string AddSubtitleTrackNameButton {
+            get {
+                return ResourceManager.GetString("AddSubtitleTrackNameButton", resourceCulture);
             }
         }
         
@@ -210,6 +228,15 @@ namespace VidCoder.Resources {
         public static string CustomPickerNameTemplate {
             get {
                 return ResourceManager.GetString("CustomPickerNameTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom track names.
+        /// </summary>
+        public static string CustomTrackNamesCheckBox {
+            get {
+                return ResourceManager.GetString("CustomTrackNamesCheckBox", resourceCulture);
             }
         }
         
@@ -615,6 +642,15 @@ namespace VidCoder.Resources {
         public static string TitleSelection {
             get {
                 return ResourceManager.GetString("TitleSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Track {0}.
+        /// </summary>
+        public static string TrackAutomationFormat {
+            get {
+                return ResourceManager.GetString("TrackAutomationFormat", resourceCulture);
             }
         }
         

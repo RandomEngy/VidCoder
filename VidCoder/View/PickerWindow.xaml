@@ -32,6 +32,22 @@
 		<Style x:Key="TrackIndicesHelpTextStyle" TargetType="TextBlock">
 			<Setter Property="Margin" Value="15 0 0 0" />
 		</Style>
+		<DataTemplate x:Key="TrackNameDataTemplate" DataType="dataModels:TrackNameViewModel">
+			<StackPanel Margin="0 3 0 0" Orientation="Horizontal">
+				<TextBlock Text="{Binding TrackNumberDisplay}" />
+				<TextBox
+					MinWidth="100"
+					Margin="4 0 0 0"
+					AutomationProperties.Name="{Binding AutomationName}"
+					Text="{Binding Name,
+					               UpdateSourceTrigger=PropertyChanged}" />
+				<Button
+					VerticalAlignment="Center"
+					Command="{Binding Remove}"
+					Content="{x:Static res:CommonRes.Remove}"
+					Style="{StaticResource RemoveButtonStyle}" />
+			</StackPanel>
+		</DataTemplate>
 	</Window.Resources>
 	<Border Style="{StaticResource WindowMainPanelStyle}">
 		<Grid>
@@ -678,6 +694,7 @@
 										Padding="5 0"
 										HorizontalAlignment="Left"
 										VerticalAlignment="Top"
+										AutomationProperties.Name="{x:Static res:PickerRes.AddLanguageButton}"
 										Command="{Binding AddAudioLanguage}"
 										UseLayoutRounding="True">
 										<StackPanel Orientation="Horizontal">
@@ -686,6 +703,33 @@
 										</StackPanel>
 									</Button>
 								</StackPanel>
+								<CheckBox
+									Margin="0 12 0 0"
+									Content="{x:Static res:PickerRes.CustomTrackNamesCheckBox}"
+									IsChecked="{Binding UseCustomAudioTrackNames}" />
+								<ItemsControl
+									Name="audioTrackNamesControl"
+									Margin="20 0 0 0"
+									ItemTemplate="{StaticResource TrackNameDataTemplate}"
+									ItemsSource="{Binding AudioTrackNamesBindable}"
+									Visibility="{Binding UseCustomAudioTrackNames,
+									                     Converter={StaticResource VisibilityConverter}}" />
+								<Button
+									Height="23"
+									Margin="20 4 0 0"
+									Padding="5 0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Top"
+									AutomationProperties.Name="{x:Static res:PickerRes.AddAudioTrackNameButton}"
+									Command="{Binding AddAudioTrackName}"
+									UseLayoutRounding="True"
+									Visibility="{Binding UseCustomAudioTrackNames,
+									                     Converter={StaticResource VisibilityConverter}}">
+									<StackPanel Orientation="Horizontal">
+										<Polygon Style="{StaticResource PlusSign}" />
+										<TextBlock Text="{x:Static res:PickerRes.AddAudioTrackNameButton}" />
+									</StackPanel>
+								</Button>
 							</StackPanel>
 
 							<!--  Subtitle selection  -->
@@ -824,6 +868,7 @@
 											Padding="5 0"
 											HorizontalAlignment="Left"
 											VerticalAlignment="Top"
+											AutomationProperties.Name="{x:Static res:PickerRes.AddLanguageButton}"
 											Command="{Binding AddSubtitleLanguage}"
 											UseLayoutRounding="True">
 											<StackPanel Orientation="Horizontal">
@@ -911,6 +956,7 @@
 										Padding="5 0"
 										HorizontalAlignment="Left"
 										VerticalAlignment="Top"
+										AutomationProperties.Name="{x:Static res:PickerRes.AddLanguageButton}"
 										Command="{Binding AddSubtitleLanguage}"
 										UseLayoutRounding="True">
 										<StackPanel Orientation="Horizontal">
@@ -950,6 +996,35 @@
 									ToolTip="{x:Static res:PickerRes.MultipleSubtitleDefaultToolTip}"
 									Visibility="{Binding ShowMarkFirstAsDefaultCheckBox,
 									                     Converter={StaticResource VisibilityConverter}}" />
+
+								<CheckBox
+									Margin="0 12 0 0"
+									Content="{x:Static res:PickerRes.CustomTrackNamesCheckBox}"
+									IsChecked="{Binding UseCustomSubtitleTrackNames}" />
+
+								<ItemsControl
+									Name="subtitleTrackNamesControl"
+									Margin="20 0 0 0"
+									ItemTemplate="{StaticResource TrackNameDataTemplate}"
+									ItemsSource="{Binding SubtitleTrackNamesBindable}"
+									Visibility="{Binding UseCustomSubtitleTrackNames,
+									                     Converter={StaticResource VisibilityConverter}}" />
+								<Button
+									Height="23"
+									Margin="20 4 0 0"
+									Padding="5 0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Top"
+									AutomationProperties.Name="{x:Static res:PickerRes.AddSubtitleTrackNameButton}"
+									Command="{Binding AddSubtitleTrackName}"
+									UseLayoutRounding="True"
+									Visibility="{Binding UseCustomSubtitleTrackNames,
+									                     Converter={StaticResource VisibilityConverter}}">
+									<StackPanel Orientation="Horizontal">
+										<Polygon Style="{StaticResource PlusSign}" />
+										<TextBlock Text="{x:Static res:PickerRes.AddSubtitleTrackNameButton}" />
+									</StackPanel>
+								</Button>
 							</StackPanel>
 
 							<!--  Encoding  -->

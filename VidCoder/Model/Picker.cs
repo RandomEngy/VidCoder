@@ -200,6 +200,12 @@ namespace VidCoder.Model
 		public bool AudioLanguageAll { get; set; }
 
 		[JsonProperty]
+		public bool UseCustomAudioTrackNames { get; set; }
+
+		[JsonProperty]
+		public List<string> AudioTrackNames { get; set; }
+
+		[JsonProperty]
 		public SubtitleSelectionMode SubtitleSelectionMode { get; set; } = SubtitleSelectionMode.Disabled;
 
 	    [JsonProperty]
@@ -237,6 +243,12 @@ namespace VidCoder.Model
         // Applies when 0-1 subtitles can be picked.
         [JsonProperty]
 		public bool SubtitleBurnIn { get; set; }
+
+		[JsonProperty]
+		public bool UseCustomSubtitleTrackNames { get; set; }
+
+		[JsonProperty]
+		public List<string> SubtitleTrackNames { get; set; }
 
 		private bool useEncodingPreset;
 		[JsonProperty]

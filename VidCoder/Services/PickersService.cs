@@ -313,7 +313,7 @@ namespace VidCoder.Services
 		/// <summary>
 		/// Starts modification of the current picker, using the new passed-in picker.
 		/// </summary>
-		/// <param name="newPicker">The new picker. This should be a clone of the original, with a property modified.</param>
+		/// <param name="newPicker">The new picker. This should be a clone of the original. A property will be modified on it after this completes.</param>
 		public void ModifyPicker(Picker newPicker)
 		{
 			Trace.Assert(!this.SelectedPicker.Picker.IsModified, "Cannot start modification on already modified picker.");

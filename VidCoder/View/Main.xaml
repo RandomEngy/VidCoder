@@ -1603,7 +1603,7 @@
 								</Grid>
 							</DataTemplate>
 							<DataTemplate x:Key="SourceNameTemplate" DataType="viewModel:SourceSubtitleViewModel">
-								<Grid Visibility="{Binding IsForeignAudioSearch, Converter={StaticResource InverseVisibilityConverter}}">
+								<Grid>
 									<TextBlock
 										Style="{StaticResource SourceTrack}"
 										Text="{Binding SourceName}"

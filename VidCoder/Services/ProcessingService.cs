@@ -2682,6 +2682,8 @@ namespace VidCoder.Services
 		{
 			Picker picker = this.pickersService.SelectedPicker.Picker;
 
+			int outputIndex = 0;
+
 			job.AudioTracks = new List<ChosenAudioTrack>();
 			switch (picker.AudioSelectionMode)
 			{
@@ -2697,20 +2699,20 @@ namespace VidCoder.Services
 
 								if (title.AudioList.Count > audioIndex && this.main.SelectedTitle.AudioList[audioIndex].LanguageCode == title.AudioList[audioIndex].LanguageCode)
 								{
-									job.AudioTracks.Add(new ChosenAudioTrack { TrackNumber = audioIndex + 1 });
+									job.AudioTracks.Add(new ChosenAudioTrack { TrackNumber = audioIndex + 1, Name = GetPickerAudioName(picker, outputIndex++) });
 								}
 							}
 
 							// If we didn't manage to match any existing audio tracks, use the first audio track.
 							if (job.AudioTracks.Count == 0)
 							{
-								job.AudioTracks.Add(new ChosenAudioTrack { TrackNumber = 1 });
+								job.AudioTracks.Add(new ChosenAudioTrack { TrackNumber = 1, Name = GetPickerAudioName(picker, outputIndex++) });
 							}
 						}
 						else
 						{
 							// With no previous context, just pick the first track
-							job.AudioTracks.Add(new ChosenAudioTrack { TrackNumber = 1 });
+							job.AudioTracks.Add(new ChosenAudioTrack { TrackNumber = 1, Name = GetPickerAudioName(picker, outputIndex++) });
 						}
 					}
 
@@ -2719,7 +2721,7 @@ namespace VidCoder.Services
 				case AudioSelectionMode.ByIndex:
 				case AudioSelectionMode.Language:
 				case AudioSelectionMode.All:
-					job.AudioTracks.AddRange(ChooseAudioTracks(title.AudioList, picker).Select(track => new ChosenAudioTrack { TrackNumber = track.TrackNumber }));
+					job.AudioTracks.AddRange(ChooseAudioTracks(title.AudioList, picker).Select(track => new ChosenAudioTrack { TrackNumber = track.TrackNumber, Name = GetPickerAudioName(picker, outputIndex++) }));
 
 					break;
 				default:
@@ -2730,6 +2732,12 @@ namespace VidCoder.Services
 			if (job.AudioTracks.Count == 0 && title.AudioList.Count > 0)
 			{
 				job.AudioTracks.Add(new ChosenAudioTrack { TrackNumber = 1 });
+			}
+
+			// Use the picker to apply names to the chosen audio tracks
+			for (int i = 0; i < job.AudioTracks.Count; i++)
+			{
+				job.AudioTracks[i].Name = GetPickerAudioName(picker, i);
 			}
 		}
 
@@ -2835,6 +2843,33 @@ namespace VidCoder.Services
 			return result;
 		}
 
+		/// <summary>
+		/// Gets the audio track name according to the picker.
+		/// </summary>
+		/// <param name="picker">The picker to use to determine the audio track name.</param>
+		/// <param name="index">The 0-based index into the output audio track list.</param>
+		/// <returns>The name for the audio track, or null if one should not be set.</returns>
+		public static string GetPickerAudioName(Picker picker, int index)
+		{
+			if (!picker.UseCustomAudioTrackNames || picker.AudioTrackNames == null)
+			{
+				return null;
+			}
+
+			if (index >= picker.AudioTrackNames.Count)
+			{
+				return null;
+			}
+
+			string name = picker.AudioTrackNames[index];
+			if (name == string.Empty)
+			{
+				return null;
+			}
+
+			return name;
+		}
+
 		// Automatically pick the correct subtitles on the given job.
 		// Only relies on input from settings and the current title.
 		private void AutoPickSubtitles(VCJob job, SourceTitle title, bool useCurrentContext = false)
@@ -2876,6 +2911,12 @@ namespace VidCoder.Services
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
+			}
+
+			// Use the picker to apply track names to the chosen subtitles
+			for (int i = 0; i < job.Subtitles.SourceSubtitles.Count; i++)
+			{
+				job.Subtitles.SourceSubtitles[i].Name = GetPickerSubtitleName(picker, i);
 			}
 		}
 
@@ -3069,6 +3110,33 @@ namespace VidCoder.Services
 			}
 
 			return result;
+		}
+
+		/// <summary>
+		/// Gets the subtitle name according to the picker.
+		/// </summary>
+		/// <param name="picker">The picker to use to determine the subtitle name.</param>
+		/// <param name="index">The 0-based index into the output subtitle list.</param>
+		/// <returns>The name for the subtitle, or null if one should not be set.</returns>
+		public static string GetPickerSubtitleName(Picker picker, int index)
+		{
+			if (!picker.UseCustomSubtitleTrackNames || picker.SubtitleTrackNames == null)
+			{
+				return null;
+			}
+
+			if (index >= picker.SubtitleTrackNames.Count)
+			{
+				return null;
+			}
+
+			string name = picker.SubtitleTrackNames[index];
+			if (name == string.Empty)
+			{
+				return null;
+			}
+
+			return name;
 		}
 
 		private static List<SourceSubtitleTrack> FilterToPassthroughSourceSubtitles(List<SourceSubtitleTrack> sourceSubtitleList, int containerId)

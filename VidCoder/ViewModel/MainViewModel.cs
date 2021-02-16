@@ -1394,6 +1394,16 @@ namespace VidCoder.ViewModel
 
 				// Fill in rest of unselected audio tracks
 				this.FillInUnselectedAudioTracks(audioTracksInnerList);
+
+				// Apply subtitle names from the Picker.
+				int outputIndex = 0;
+				foreach (AudioTrackViewModel audioTrackViewModel in audioTracksInnerList)
+				{
+					if (audioTrackViewModel.Selected)
+					{
+						audioTrackViewModel.Name = ProcessingService.GetPickerAudioName(picker, outputIndex++);
+					}
+				}
 			});
 		}
 
@@ -1591,6 +1601,16 @@ namespace VidCoder.ViewModel
 
 					default:
 						throw new ArgumentOutOfRangeException();
+				}
+
+				// Apply subtitle names from the Picker.
+				int outputIndex = 0;
+				foreach (SourceSubtitleViewModel sourceSubtitleViewModel in sourceSubtitlesInnerList)
+				{
+					if (sourceSubtitleViewModel.Selected)
+					{
+						sourceSubtitleViewModel.Name = ProcessingService.GetPickerSubtitleName(picker, outputIndex++);
+					}
 				}
 			});
 

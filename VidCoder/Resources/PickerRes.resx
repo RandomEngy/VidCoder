@@ -354,4 +354,20 @@
   <data name="SourceNameCleanupSection" xml:space="preserve">
     <value>Source name cleanup</value>
   </data>
+  <data name="AddAudioTrackNameButton" xml:space="preserve">
+    <value>Add audio track name</value>
+    <comment>Button to add another name to the list of audio track names in the Picker.</comment>
+  </data>
+  <data name="AddSubtitleTrackNameButton" xml:space="preserve">
+    <value>Add subtitle track name</value>
+    <comment>Button to add another name to the list of subtitle track names in the Picker.</comment>
+  </data>
+  <data name="CustomTrackNamesCheckBox" xml:space="preserve">
+    <value>Custom track names</value>
+    <comment>Checkbox label to use custom audio or subtitle track names</comment>
+  </data>
+  <data name="TrackAutomationFormat" xml:space="preserve">
+    <value>Track {0}</value>
+    <comment>Screen reader format for track names in the Picker.</comment>
+  </data>
 </root>

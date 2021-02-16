@@ -35,6 +35,9 @@ namespace VidCoder.ViewModel
 		private bool userModifyingOutputDirectory;
 		private bool userModifyingEncodingPreset;
 
+		// True if we are in the middle of modifying a picker.
+		private bool modifyingPicker;
+
 		public PickerWindowViewModel()
 		{
 			using (this.autoChangeTracker.TrackAutoChange())
@@ -113,6 +116,32 @@ namespace VidCoder.ViewModel
 					}
 				});
 
+				this.PickersService.WhenAnyValue(x => x.SelectedPicker.Picker).Subscribe(picker =>
+				{
+					if (!this.modifyingPicker)
+					{
+						using (this.autoChangeTracker.TrackAutoChange())
+						{
+							this.audioTrackNames.Edit(audioTrackNamesInnerList =>
+							{
+								audioTrackNamesInnerList.Clear();
+
+								if (picker.AudioTrackNames == null)
+								{
+									audioTrackNamesInnerList.Add(new TrackNameViewModel(this, 1, string.Empty));
+									return;
+								}
+
+								int trackNumber = 1;
+								audioTrackNamesInnerList.AddRange(picker.AudioTrackNames.Select(n => new TrackNameViewModel(this, trackNumber++, n)));
+							});
+						}
+					}
+				});
+
+				var audioTrackNamesObservable = this.audioTrackNames.Connect();
+				audioTrackNamesObservable.Bind(this.AudioTrackNamesBindable).Subscribe();
+
 				this.PickersService.WhenAnyValue(x => x.SelectedPicker.Picker.SubtitleLanguageCodes).Subscribe(subtitleLanguageCodes =>
 				{
 					using (this.autoChangeTracker.TrackAutoChange())
@@ -141,6 +170,32 @@ namespace VidCoder.ViewModel
 						this.HandleSubtitleLanguageUpdate();
 					}
 				});
+
+				this.PickersService.WhenAnyValue(x => x.SelectedPicker.Picker).Subscribe(picker =>
+				{
+					if (!this.modifyingPicker)
+					{
+						using (this.autoChangeTracker.TrackAutoChange())
+						{
+							this.subtitleTrackNames.Edit(subtitleTrackNamesInnerList =>
+							{
+								subtitleTrackNamesInnerList.Clear();
+
+								if (picker.SubtitleTrackNames == null)
+								{
+									subtitleTrackNamesInnerList.Add(new TrackNameViewModel(this, 1, string.Empty));
+									return;
+								}
+
+								int trackNumber = 1;
+								subtitleTrackNamesInnerList.AddRange(picker.SubtitleTrackNames.Select(n => new TrackNameViewModel(this, trackNumber++, n)));
+							});
+						}
+					}
+				});
+
+				var subtitleTrackNamesObservable = this.subtitleTrackNames.Connect();
+				subtitleTrackNamesObservable.Bind(this.SubtitleTrackNamesBindable).Subscribe();
 
 				// HasMultipleAudioLanguages
 				IObservable<int> audioLanguageCountObservable = audioLanguagesObservable
@@ -259,7 +314,7 @@ namespace VidCoder.ViewModel
 					this.userModifyingOutputDirectory = false;
 				});
 
-				this.WhenAnyValue(x => x.SelectedPreset).Subscribe(selectedPreset =>
+				this.WhenAnyValue(x => x.SelectedPreset).Skip(1).Subscribe(selectedPreset =>
 				{
 					this.userModifyingEncodingPreset = true;
 					string presetName = selectedPreset == null ? null : selectedPreset.Preset.Name;
@@ -358,6 +413,16 @@ namespace VidCoder.ViewModel
 			this.RegisterPickerProperty(nameof(this.Picker.AudioLanguageCodes));
 			this.RegisterPickerProperty(nameof(this.Picker.AudioIndices));
 			this.RegisterPickerProperty(nameof(this.Picker.AudioLanguageAll));
+			this.RegisterPickerProperty(nameof(this.Picker.UseCustomAudioTrackNames), () =>
+			{
+				if (this.audioTrackNames.Count == 0)
+				{
+					this.audioTrackNames.Add(new TrackNameViewModel(this, 1, string.Empty));
+				}
+
+				this.View.FocusAudioTrackName(0);
+			});
+			this.RegisterPickerProperty(nameof(this.Picker.AudioTrackNames));
 			this.RegisterPickerProperty(nameof(this.Picker.SubtitleSelectionMode), () =>
 			{
 				if (this.SubtitleSelectionMode == SubtitleSelectionMode.All)
@@ -395,6 +460,16 @@ namespace VidCoder.ViewModel
 				}
 			});
 			this.RegisterPickerProperty(nameof(this.Picker.SubtitleForcedOnly));
+			this.RegisterPickerProperty(nameof(this.Picker.UseCustomSubtitleTrackNames), () =>
+			{
+				if (this.subtitleTrackNames.Count == 0)
+				{
+					this.subtitleTrackNames.Add(new TrackNameViewModel(this, 1, string.Empty));
+				}
+
+				this.View.FocusSubtitleTrackName(0);
+			});
+			this.RegisterPickerProperty(nameof(this.Picker.SubtitleTrackNames));
 			this.RegisterPickerProperty(nameof(this.Picker.UseEncodingPreset));
 			this.RegisterPickerProperty(nameof(this.Picker.EncodingPreset));
 			this.RegisterPickerProperty(nameof(this.Picker.AutoQueueOnScan), () =>
@@ -652,6 +727,15 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<string> audioAllTracksLabel;
 		public string AudioAllTracksLabel => this.audioAllTracksLabel.Value;
 
+		public bool UseCustomAudioTrackNames
+		{
+			get => this.Picker.UseCustomAudioTrackNames;
+			set => this.UpdatePickerProperty(nameof(this.Picker.UseCustomAudioTrackNames), value);
+		}
+
+		private readonly SourceList<TrackNameViewModel> audioTrackNames = new SourceList<TrackNameViewModel>();
+		public ObservableCollectionExtended<TrackNameViewModel> AudioTrackNamesBindable { get; } = new ObservableCollectionExtended<TrackNameViewModel>();
+
 		public SubtitleSelectionMode SubtitleSelectionMode
 		{
 			get => this.Picker.SubtitleSelectionMode;
@@ -720,6 +804,15 @@ namespace VidCoder.ViewModel
 			get => this.Picker.SubtitleBurnIn;
 			set => this.UpdatePickerProperty(nameof(this.Picker.SubtitleBurnIn), value);
 		}
+
+		public bool UseCustomSubtitleTrackNames
+		{
+			get => this.Picker.UseCustomSubtitleTrackNames;
+			set => this.UpdatePickerProperty(nameof(this.Picker.UseCustomSubtitleTrackNames), value);
+		}
+
+		private readonly SourceList<TrackNameViewModel> subtitleTrackNames = new SourceList<TrackNameViewModel>();
+		public ObservableCollectionExtended<TrackNameViewModel> SubtitleTrackNamesBindable { get; } = new ObservableCollectionExtended<TrackNameViewModel>();
 
 		public bool UseEncodingPreset
 		{
@@ -933,6 +1026,38 @@ namespace VidCoder.ViewModel
 			list.Add(new LanguageViewModel(this) { Code = LanguageUtilities.GetDefaultLanguageCode(list.Items.Select(l => l.Code).ToList()) });
 		}
 
+		private ReactiveCommand<Unit, Unit> addAudioTrackName;
+		public ICommand AddAudioTrackName
+		{
+			get
+			{
+				return this.addAudioTrackName ?? (this.addAudioTrackName = ReactiveCommand.Create(() =>
+				{
+					int trackNumber = this.audioTrackNames.Count + 1;
+					var trackNameViewModel = new TrackNameViewModel(this, trackNumber, string.Empty);
+					this.audioTrackNames.Add(trackNameViewModel);
+					this.View.FocusAudioTrackName(trackNumber - 1);
+					this.HandleAudioTrackNameUpdate();
+				}));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> addSubtitleTrackName;
+		public ICommand AddSubtitleTrackName
+		{
+			get
+			{
+				return this.addSubtitleTrackName ?? (this.addSubtitleTrackName = ReactiveCommand.Create(() =>
+				{
+					int trackNumber = this.subtitleTrackNames.Count + 1;
+					var trackNameViewModel = new TrackNameViewModel(this, trackNumber, string.Empty);
+					this.subtitleTrackNames.Add(trackNameViewModel);
+					this.View.FocusSubtitleTrackName(trackNumber - 1);
+					this.HandleSubtitleTrackNameUpdate();
+				}));
+			}
+		}
+
 		private ReactiveCommand<Unit, Unit> pickPostEncodeExecutable;
 		public ICommand PickPostEncodeExecutable
 		{
@@ -964,19 +1089,36 @@ namespace VidCoder.ViewModel
 
 		private void HandleAudioLanguageUpdate()
 		{
-			IList<string> languages = GetLanguageList(this.audioLanguages.Items);
+			List<string> languages = GetLanguageList(this.audioLanguages.Items);
 			this.UpdatePickerProperty(nameof(this.Picker.AudioLanguageCodes), languages, raisePropertyChanged: false);
+		}
+
+		private void HandleAudioTrackNameUpdate()
+		{
+			List<string> trackNames = GetTrackNameList(this.audioTrackNames.Items);
+			this.UpdatePickerProperty(nameof(this.Picker.AudioTrackNames), trackNames, raisePropertyChanged: false);
 		}
 
 		private void HandleSubtitleLanguageUpdate()
 		{
-			IList<string> languages = GetLanguageList(this.subtitleLanguages.Items);
+			List<string> languages = GetLanguageList(this.subtitleLanguages.Items);
 			this.UpdatePickerProperty(nameof(this.Picker.SubtitleLanguageCodes), languages, raisePropertyChanged: false);
 		}
 
-		private static IList<string> GetLanguageList(IEnumerable<LanguageViewModel> languageViewModels)
+		private void HandleSubtitleTrackNameUpdate()
+		{
+			List<string> trackNames = GetTrackNameList(this.subtitleTrackNames.Items);
+			this.UpdatePickerProperty(nameof(this.Picker.SubtitleTrackNames), trackNames, raisePropertyChanged: false);
+		}
+
+		private static List<string> GetLanguageList(IEnumerable<LanguageViewModel> languageViewModels)
 		{
 			return languageViewModels.Select(l => l.Code).ToList();
+		}
+
+		private static List<string> GetTrackNameList(IEnumerable<TrackNameViewModel> trackNames)
+		{
+			return trackNames.Select(n => n.Name).ToList();
 		}
 
 		public void RemoveAudioLanguage(LanguageViewModel viewModel)
@@ -989,6 +1131,47 @@ namespace VidCoder.ViewModel
 		{
 			this.subtitleLanguages.Remove(viewModel);
 			this.HandleSubtitleLanguageUpdate();
+		}
+
+		/// <summary>
+		/// Remove the given track name entry.
+		/// </summary>
+		/// <param name="viewModel">The viewmodel to remove</param>
+		/// <remarks>Used for both audio tracks and subtitles.</remarks>
+		public void RemoveTrackName(TrackNameViewModel viewModel)
+		{
+			if (this.audioTrackNames.Remove(viewModel))
+			{
+				UpdateTrackNumbering(this.audioTrackNames.Items);
+				this.HandleAudioTrackNameUpdate();
+			}
+			else
+			{
+				this.subtitleTrackNames.Remove(viewModel);
+				UpdateTrackNumbering(this.subtitleTrackNames.Items);
+				this.HandleSubtitleTrackNameUpdate();
+			}
+		}
+
+		public void HandleTrackNameUpdate(TrackNameViewModel viewModel)
+		{
+			if (this.audioTrackNames.Items.Contains(viewModel))
+			{
+				this.HandleAudioTrackNameUpdate();
+			}
+			else
+			{
+				this.HandleSubtitleTrackNameUpdate();
+			}
+		}
+
+		private static void UpdateTrackNumbering(IEnumerable<TrackNameViewModel> tracks)
+		{
+			int trackNumber = 1;
+			foreach (TrackNameViewModel track in tracks)
+			{
+				track.TrackNumber = trackNumber++;
+			}
 		}
 
 		private void RaiseAllChanged()
@@ -1008,6 +1191,8 @@ namespace VidCoder.ViewModel
 
 			if (!this.autoChangeTracker.OperationInProgress)
 			{
+				this.modifyingPicker = true;
+
 				bool createPicker = this.Picker.IsDefault;
 				if (createPicker)
 				{
@@ -1024,6 +1209,8 @@ namespace VidCoder.ViewModel
 						this.PickersService.ModifyPicker(newPicker);
 					}
 				}
+
+				this.modifyingPicker = false;
 			}
 
 			// Update the value and raise PropertyChanged

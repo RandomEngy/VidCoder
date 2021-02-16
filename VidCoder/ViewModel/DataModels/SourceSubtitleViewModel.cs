@@ -114,6 +114,10 @@ namespace VidCoder.ViewModel
 			{
 				return this.TrackSummary;
 			}
+			else if (this.TrackNumber == 0)
+			{
+				return SubtitleRes.ForeignAudioSearch + " " + this.Name;
+			}
 			else
 			{
 				return this.TrackNumber + " " + this.Name + " - " + this.inputSubtitle.Language;
