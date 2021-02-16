@@ -636,11 +636,7 @@
 							LargeIcon="/Icons/EncodingSettings.png"
 							MaxDropDownHeight="3000"
 							ToolTip="{x:Static res:MainRes.EncodingSettingsButtonToolTip}">
-							<controls:PresetTreeViewContainer
-								x:Name="presetTreeViewContainer"
-								MinWidth="250"
-								IsEnabled="{Binding PickersService.SelectedPicker.Picker.UseEncodingPreset,
-								                    Converter={StaticResource InverseBoolConverter}}" />
+							<controls:PresetTreeViewContainer x:Name="presetTreeViewContainer" MinWidth="250" />
 						</fluent:SplitButton>
 						<fluent:SplitButton
 							x:Name="pickerButton"

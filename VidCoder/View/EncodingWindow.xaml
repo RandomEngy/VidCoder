@@ -81,8 +81,6 @@
 					<controls:PresetTreeViewContainer
 						EnableFolderActions="True"
 						Focusable="True"
-						IsEnabled="{Binding PickersService.SelectedPicker.Picker.UseEncodingPreset,
-						                    Converter={StaticResource InverseBoolConverter}}"
 						IsTabStop="True"
 						PreviewKeyDown="OnPresetTreeKeyDown" />
 				</ScrollViewer>

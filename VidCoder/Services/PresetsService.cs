@@ -212,65 +212,82 @@ namespace VidCoder.Services
 
 			PresetViewModel previouslySelectedPreset = this.selectedPreset;
 			bool changeSelectedPreset = true;
+			bool revertToPreviousPreset = false;
 
-			if (this.selectedPreset != null && this.selectedPreset.Preset.IsModified)
+			if (this.selectedPreset != null)
 			{
-				string dialogMessage;
-				string dialogTitle;
-				MessageBoxButton buttons;
-
-				if (this.selectedPreset.Preset.IsBuiltIn)
+				Picker picker = StaticResolver.Resolve<PickersService>().SelectedPicker.Picker;
+				if (picker.UseEncodingPreset && picker.EncodingPreset != value.Preset.Name)
 				{
-					dialogMessage = MainRes.PresetDiscardConfirmMessage;
-					dialogTitle = MainRes.PresetDiscardConfirmTitle;
-					buttons = MessageBoxButton.OKCancel;
+					Utilities.MessageBox.Show(StaticResolver.Resolve<MainViewModel>(), EncodingRes.CannotSwitchEncodingPresetDueToPicker);
+
+					revertToPreviousPreset = true;
 				}
-				else
+				else if (this.selectedPreset.Preset.IsModified)
 				{
-					dialogMessage = MainRes.SaveChangesPresetMessage;
-					dialogTitle = MainRes.SaveChangesPresetTitle;
-					buttons = MessageBoxButton.YesNoCancel;
-				}
+					string dialogMessage;
+					string dialogTitle;
+					MessageBoxButton buttons;
 
-				this.tryChangePresetDialogOpen = true;
-
-				MessageBoxResult dialogResult = Utilities.MessageBox.Show(
-					StaticResolver.Resolve<MainViewModel>(),
-					dialogMessage,
-					dialogTitle,
-					buttons);
-
-				this.tryChangePresetDialogOpen = false;
-
-				if (dialogResult == MessageBoxResult.Yes)
-				{
-					// Yes, we wanted to save changes
-					this.SavePreset();
-				}
-				else if (dialogResult == MessageBoxResult.No || dialogResult == MessageBoxResult.OK)
-				{
-					// No, we didn't want to save changes or OK, we wanted to discard changes.
-					this.RevertPreset(userInitiated: false);
-				}
-				else if (dialogResult == MessageBoxResult.Cancel)
-				{
-					// Queue up an action to switch back to this preset.
-					int currentPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
-
-					DispatchUtilities.BeginInvoke(() =>
+					if (this.selectedPreset.Preset.IsBuiltIn)
 					{
-						this.SelectedPreset = this.AllPresets[currentPresetIndex];
-					});
+						dialogMessage = MainRes.PresetDiscardConfirmMessage;
+						dialogTitle = MainRes.PresetDiscardConfirmTitle;
+						buttons = MessageBoxButton.OKCancel;
+					}
+					else
+					{
+						dialogMessage = MainRes.SaveChangesPresetMessage;
+						dialogTitle = MainRes.SaveChangesPresetTitle;
+						buttons = MessageBoxButton.YesNoCancel;
+					}
 
-					changeSelectedPreset = false;
+					this.tryChangePresetDialogOpen = true;
+
+					MessageBoxResult dialogResult = Utilities.MessageBox.Show(
+						StaticResolver.Resolve<MainViewModel>(),
+						dialogMessage,
+						dialogTitle,
+						buttons);
+
+					this.tryChangePresetDialogOpen = false;
+
+					if (dialogResult == MessageBoxResult.Yes)
+					{
+						// Yes, we wanted to save changes
+						this.SavePreset();
+					}
+					else if (dialogResult == MessageBoxResult.No || dialogResult == MessageBoxResult.OK)
+					{
+						// No, we didn't want to save changes or OK, we wanted to discard changes.
+						this.RevertPreset(userInitiated: false);
+					}
+					else if (dialogResult == MessageBoxResult.Cancel)
+					{
+						revertToPreviousPreset = true;
+					}
 				}
 			}
 
+			if (revertToPreviousPreset)
+			{
+				// Queue up an action to switch back to this preset.
+				int currentPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
+
+				DispatchUtilities.BeginInvoke(() =>
+				{
+					this.SelectedPreset = this.AllPresets[currentPresetIndex];
+				});
+
+				changeSelectedPreset = false;
+			}
+
 			this.selectedPreset = value;
-			this.selectedPreset.IsSelected = true; // For TreeView
 
 			if (changeSelectedPreset)
 			{
+				this.selectedPreset.IsSelected = true; // For TreeView
+
 				this.NotifySelectedPresetChanged();
 
 				if (previouslySelectedPreset != null)

@@ -830,4 +830,8 @@ Lapsharp sharpens using convolution kernels approximating Laplacian edge filters
   <data name="MoreOptionsToolTip" xml:space="preserve">
     <value>Additional advanced arguments to pass to the video encoder.</value>
   </data>
+  <data name="CannotSwitchEncodingPresetDueToPicker" xml:space="preserve">
+    <value>Cannot switch encoding preset, it has been locked in the Picker window.</value>
+    <comment>Message to show when the user is blocked from switching an encoding preset due to a Picker setting.</comment>
+  </data>
 </root>

@@ -317,6 +317,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot switch encoding preset, it has been locked in the Picker window..
+        /// </summary>
+        public static string CannotSwitchEncodingPresetDueToPicker {
+            get {
+                return ResourceManager.GetString("CannotSwitchEncodingPresetDueToPicker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uses the listed framerate from the source title for a constant framerate..
         /// </summary>
         public static string CfrSameAsSourceToolTip {
