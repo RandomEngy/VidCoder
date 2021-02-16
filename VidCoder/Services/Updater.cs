@@ -136,6 +136,11 @@ namespace VidCoder.Services
 
 		public bool HandlePendingUpdate()
 		{
+			if (!Utilities.SupportsUpdates)
+			{
+				return false;
+			}
+
 			// This flag signifies VidCoder was closed to install an update.
 			// In this case we report success, delete the installer, clean up the update flags and exit.
 			bool updateInProgress = Config.UpdateInProgress;
