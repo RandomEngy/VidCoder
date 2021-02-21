@@ -2934,6 +2934,17 @@ namespace VidCoder.Services
 
 			int containerId = HandBrakeEncoderHelpers.GetContainer(containerName).Id;
 
+			if (picker.SubtitleAddForeignAudioScan)
+			{
+				result.Add(new ChosenSourceSubtitle
+				{
+					TrackNumber = 0,
+					BurnedIn = picker.SubtitleBurnInSelection.ForeignAudioIncluded(),
+					ForcedOnly = true,
+					Default = picker.SubtitleDefault
+				});
+			}
+
 			switch (picker.SubtitleSelectionMode)
 			{
 				case SubtitleSelectionMode.Disabled:
@@ -2946,7 +2957,8 @@ namespace VidCoder.Services
 						result.Add(new ChosenSourceSubtitle
 						{
 							TrackNumber = 1,
-							BurnedIn = picker.SubtitleBurnIn || !HandBrakeEncoderHelpers.SubtitleCanPassthrough(title.SubtitleList[0].Source, containerId),
+							BurnedIn = picker.SubtitleBurnInSelection.FirstTrackIncluded()
+								|| !HandBrakeEncoderHelpers.SubtitleCanPassthrough(title.SubtitleList[0].Source, containerId),
 							ForcedOnly = picker.SubtitleForcedOnly,
 							Default = picker.SubtitleDefault
 						});
@@ -2974,10 +2986,12 @@ namespace VidCoder.Services
 					if (subtitleIndicesThatPointToRealTracks.Count > 1)
 					{
 						bool defaultChosen = false;
+						bool isFirstTrack = true;
 						foreach (int trackNumber in subtitleIndicesThatPointToRealTracks)
 						{
+							bool burnIn = isFirstTrack && picker.SubtitleBurnInSelection.FirstTrackIncluded();
 							bool isDefault = false;
-							if (!defaultChosen && defaultSubtitleIndex != null && defaultSubtitleIndex.Value == trackNumber)
+							if (!burnIn && !defaultChosen && defaultSubtitleIndex != null && defaultSubtitleIndex.Value == trackNumber)
 							{
 								isDefault = true;
 								defaultChosen = true;
@@ -2986,10 +3000,12 @@ namespace VidCoder.Services
 							result.Add(new ChosenSourceSubtitle
 							{
 								TrackNumber = trackNumber,
-								BurnedIn = false,
+								BurnedIn = burnIn,
 								ForcedOnly = picker.SubtitleForcedOnly,
 								Default = isDefault
 							});
+
+							isFirstTrack = false;
 						}
 					}
 					else if (subtitleIndicesThatPointToRealTracks.Count > 0)
@@ -2997,21 +3013,11 @@ namespace VidCoder.Services
 						result.Add(new ChosenSourceSubtitle
 						{
 							TrackNumber = subtitleIndicesThatPointToRealTracks[0],
-							BurnedIn = picker.SubtitleBurnIn || !HandBrakeEncoderHelpers.SubtitleCanPassthrough(title.SubtitleList[subtitleIndicesThatPointToRealTracks[0] - 1].Source, containerId),
+							BurnedIn = picker.SubtitleBurnInSelection.FirstTrackIncluded() || !HandBrakeEncoderHelpers.SubtitleCanPassthrough(title.SubtitleList[subtitleIndicesThatPointToRealTracks[0] - 1].Source, containerId),
 							ForcedOnly = picker.SubtitleForcedOnly,
 							Default = defaultSubtitleIndex != null && defaultSubtitleIndex.Value == subtitleIndicesThatPointToRealTracks[0]
 						});
 					}
-
-					break;
-				case SubtitleSelectionMode.ForeignAudioSearch:
-					result.Add(new ChosenSourceSubtitle
-					{
-						TrackNumber = 0,
-						BurnedIn = picker.SubtitleBurnIn,
-						ForcedOnly = picker.SubtitleForcedOnly,
-						Default = picker.SubtitleDefault
-					});
 
 					break;
 				case SubtitleSelectionMode.Language:
@@ -3024,7 +3030,7 @@ namespace VidCoder.Services
 						result.Add(new ChosenSourceSubtitle
 						{
 							TrackNumber = chosenSubtitleTracks[0].TrackNumber,
-							BurnedIn = false,
+							BurnedIn = picker.SubtitleBurnInSelection.FirstTrackIncluded(),
 							ForcedOnly = picker.SubtitleForcedOnly,
 							Default = picker.SubtitleDefault
 						});
@@ -3047,7 +3053,7 @@ namespace VidCoder.Services
 						result.Add(new ChosenSourceSubtitle
 						{
 							TrackNumber = chosenSubtitleTracks[0].TrackNumber,
-							BurnedIn = picker.SubtitleBurnIn,
+							BurnedIn = picker.SubtitleBurnInSelection.FirstTrackIncluded(),
 							ForcedOnly = picker.SubtitleForcedOnly,
 							Default = picker.SubtitleDefault
 						});
@@ -3083,12 +3089,13 @@ namespace VidCoder.Services
 					if (chosenSubtitleTracks.Count > 0)
 					{
 						// First track
+						bool burnFirstTrack = picker.SubtitleBurnInSelection.FirstTrackIncluded();
 						result.Add(new ChosenSourceSubtitle
 						{
 							TrackNumber = chosenSubtitleTracks[0].TrackNumber,
-							BurnedIn = false,
+							BurnedIn = burnFirstTrack,
 							ForcedOnly = picker.SubtitleForcedOnly,
-							Default = picker.SubtitleDefault
+							Default = picker.SubtitleDefault && !burnFirstTrack
 						});
 
 						// The rest

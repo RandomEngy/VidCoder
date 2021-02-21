@@ -43,6 +43,12 @@ namespace VidCoder.ViewModel
 				return HandBrakeEncoderHelpers.SubtitleCanPassthrough(this.inputSubtitle.Source, HandBrakeEncoderHelpers.GetContainer(containerName).Id);
 			}).ToProperty(this, x => x.CanPass, out this.canPass, scheduler: Scheduler.Immediate);
 
+			// DefaultEnabled
+			this.WhenAnyValue(x => x.BurnedIn, x => x.TrackNumber, x => x.MainViewModel.DefaultSubtitlesEnabled, (burnedIn, trackNumber, defaultSubtitlesEnabled) =>
+			{
+				return !burnedIn && (trackNumber == 0 || defaultSubtitlesEnabled);
+			}).ToProperty(this, x => x.DefaultEnabled, out this.defaultEnabled);
+
 			// BurnedInEnabled
 			this.WhenAnyValue(x => x.CanPass, canPass =>
 			{
@@ -116,7 +122,7 @@ namespace VidCoder.ViewModel
 			}
 			else if (this.TrackNumber == 0)
 			{
-				return SubtitleRes.ForeignAudioSearch + " " + this.Name;
+				return SubtitleRes.ForeignAudioScan + " " + this.Name;
 			}
 			else
 			{
@@ -130,7 +136,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.TrackNumber == 0)
 				{
-					return SubtitleRes.ForeignAudioSearch;
+					return SubtitleRes.ForeignAudioScan;
 				}
 
 				return string.Format(
@@ -178,6 +184,9 @@ namespace VidCoder.ViewModel
 				}
 			}
 		}
+
+		private ObservableAsPropertyHelper<bool> defaultEnabled;
+		public bool DefaultEnabled => this.defaultEnabled.Value;
 
 		public bool ForcedOnly
 		{
@@ -230,6 +239,7 @@ namespace VidCoder.ViewModel
 
 				if (value)
 				{
+					this.Default = false;
 					this.MainViewModel.ReportBurnedSubtitle(this);
 				}
 
@@ -239,10 +249,7 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> burnedInEnabled;
-		public bool BurnedInEnabled
-		{
-			get { return this.burnedInEnabled.Value; }
-		}
+		public bool BurnedInEnabled => this.burnedInEnabled.Value;
 
 		public bool RemoveVisible
 		{

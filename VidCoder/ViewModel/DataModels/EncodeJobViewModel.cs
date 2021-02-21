@@ -612,7 +612,7 @@ namespace VidCoder.ViewModel
 							{
 								if (subtitle.TrackNumber == 0)
 								{
-									trackSummaries.Add(MainRes.ForeignAudioSearch);
+									trackSummaries.Add(SubtitleRes.ForeignAudioScan);
 								}
 								else if (title.SubtitleList != null && subtitle.TrackNumber <= title.SubtitleList.Count)
 								{

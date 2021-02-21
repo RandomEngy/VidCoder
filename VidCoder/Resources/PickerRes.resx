@@ -117,17 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AudioSelection" xml:space="preserve">
-    <value>Audio selection</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Burn in</value>
-  </data>
   <data name="DefaultCheckBox" xml:space="preserve">
     <value>Default</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Foreign Audio Search</value>
   </data>
   <data name="LanguagesRadioButton" xml:space="preserve">
     <value>Language(s)</value>
@@ -135,9 +126,6 @@
   <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
     <value>Only if different language from audio</value>
     <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
-  </data>
-  <data name="SubtitleSelection" xml:space="preserve">
-    <value>Subtitle selection</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>Picker: {0}</value>
@@ -219,21 +207,6 @@
     <value>Mark first as default</value>
     <comment>Label for checkbox to mark the first subtitle as default.</comment>
   </data>
-  <data name="AllSubtitlesToolTip" xml:space="preserve">
-    <value>Include all subtitles.</value>
-  </data>
-  <data name="SubtitleNoneToolTip" xml:space="preserve">
-    <value>No subtitles are included.</value>
-  </data>
-  <data name="AudioFirstToolTip" xml:space="preserve">
-    <value>Include only the first audio track.</value>
-  </data>
-  <data name="AudioAllToolTip" xml:space="preserve">
-    <value>Include all audio tracks.</value>
-  </data>
-  <data name="SubtitleFirstToolTip" xml:space="preserve">
-    <value>Include only the first subtitle.</value>
-  </data>
   <data name="PresetLabel" xml:space="preserve">
     <value>Use preset:</value>
   </data>
@@ -247,15 +220,8 @@
     <value>Forced only</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
-  <data name="AudioDefaultToolTip" xml:space="preserve">
-    <value>Picks the last selected audio track if a match is found, otherwise picks the first.</value>
-  </data>
   <data name="LastSelectedRadioButton" xml:space="preserve">
     <value>Last selected</value>
-  </data>
-  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
-    <value>Picks the last selected subtitle track if a match is found, otherwise pick no tracks.</value>
-    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
   </data>
   <data name="OverrideNameFormatLabel" xml:space="preserve">
     <value>Available options: {0}</value>
@@ -369,5 +335,39 @@
   <data name="TrackAutomationFormat" xml:space="preserve">
     <value>Track {0}</value>
     <comment>Screen reader format for track names in the Picker.</comment>
+  </data>
+  <data name="BurnInLabel" xml:space="preserve">
+    <value>Burn in:</value>
+  </data>
+  <data name="PickerAudioSectionName" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="PickerForeignAudioCheckBox" xml:space="preserve">
+    <value>Add 'Foreign audio scan' track</value>
+  </data>
+  <data name="PickerSubtitleSectionName" xml:space="preserve">
+    <value>Subtitles</value>
+  </data>
+  <data name="SubtitleSelectionMode_ForeignAudioSearch" xml:space="preserve">
+    <value>Foreign audio scan</value>
+  </data>
+  <data name="TrackSelectionLabel" xml:space="preserve">
+    <value>Track selection:</value>
+    <comment>Label for track selection mode for audio or subtitle tracks.</comment>
+  </data>
+  <data name="AudioSelectionModeToolTip" xml:space="preserve">
+    <value>Last selected - Picks the last selected audio track if a match is found, otherwise picks the first.
+First - Include only the first audio track.
+By index - Pick by track index (1-based)
+Language(s) - Pick by language
+All - Include all audio tracks.</value>
+  </data>
+  <data name="SubtitleSelectionModeToolTip" xml:space="preserve">
+    <value>Last selected - Picks the last selected subtitle track if a match is found, otherwise pick no tracks.
+None - No subtitles are included.
+First - Include only the first subtitle.
+By index - Pick by track index (1-based)
+Language(s) - Pick by language
+All - Include all subtitles.</value>
   </data>
 </root>

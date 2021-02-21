@@ -803,15 +803,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Foreign Audio Search.
-        /// </summary>
-        public static string ForeignAudioSearch {
-            get {
-                return ResourceManager.GetString("ForeignAudioSearch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Global options.
         /// </summary>
         public static string GlobalOptionsLabel {

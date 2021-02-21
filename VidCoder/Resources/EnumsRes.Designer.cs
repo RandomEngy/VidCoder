@@ -556,6 +556,42 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to First.
+        /// </summary>
+        public static string SubtitleBurnInSelection_First {
+            get {
+                return ResourceManager.GetString("SubtitleBurnInSelection_First", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Foreign audio track.
+        /// </summary>
+        public static string SubtitleBurnInSelection_ForeignAudioTrack {
+            get {
+                return ResourceManager.GetString("SubtitleBurnInSelection_ForeignAudioTrack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Foreign audio track, else First.
+        /// </summary>
+        public static string SubtitleBurnInSelection_ForeignAudioTrackElseFirst {
+            get {
+                return ResourceManager.GetString("SubtitleBurnInSelection_ForeignAudioTrackElseFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string SubtitleBurnInSelection_None {
+            get {
+                return ResourceManager.GetString("SubtitleBurnInSelection_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Every Word.
         /// </summary>
         public static string TitleCapitalizationChoice_EveryWord {

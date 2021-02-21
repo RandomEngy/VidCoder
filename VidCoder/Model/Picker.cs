@@ -208,6 +208,9 @@ namespace VidCoder.Model
 		[JsonProperty]
 		public SubtitleSelectionMode SubtitleSelectionMode { get; set; } = SubtitleSelectionMode.Disabled;
 
+		[JsonProperty]
+		public bool SubtitleAddForeignAudioScan { get; set; } = true;
+
 	    [JsonProperty]
 	    public string SubtitleIndices { get; set; } = "1";
 
@@ -240,9 +243,8 @@ namespace VidCoder.Model
         [JsonProperty]
         public bool SubtitleForcedOnly { get; set; }
 
-        // Applies when 0-1 subtitles can be picked.
-        [JsonProperty]
-		public bool SubtitleBurnIn { get; set; }
+		[JsonProperty]
+		public SubtitleBurnInSelection SubtitleBurnInSelection { get; set; } = SubtitleBurnInSelection.ForeignAudioTrack;
 
 		[JsonProperty]
 		public bool UseCustomSubtitleTrackNames { get; set; }
@@ -285,6 +287,12 @@ namespace VidCoder.Model
 		public string DisplayName => this.displayName.Value;
 
 		#region Obsolete
+
+		// Made obsolete on v6.25
+		[Obsolete("Use SubtitleBurnInSelection instead.")]
+		[DeserializeOnly]
+		[JsonProperty]
+		public bool SubtitleBurnIn { get; set; }
 
 		// Made obsolete before v6.13
 		[Obsolete("Use PickerTimeRangeMode instead.")]

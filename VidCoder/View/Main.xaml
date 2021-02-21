@@ -1670,7 +1670,7 @@
 									HorizontalContentAlignment="Center"
 									VerticalContentAlignment="Center"
 									IsChecked="{Binding Default}"
-									IsEnabled="{Binding MainViewModel.DefaultSubtitlesEnabled}"
+									IsEnabled="{Binding DefaultEnabled}"
 									Style="{StaticResource CheckBoxCenteredStyle}"
 									ToolTip="{x:Static res:CommonRes.DefaultSubtitleToolTip}"
 									ToolTipService.ShowOnDisabled="True"

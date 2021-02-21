@@ -94,7 +94,10 @@ namespace VidCoder.Model
 
 		public static void UpgradePicker(Picker picker, int oldDatabaseVersion)
 		{
-			// TODO: add more picker upgrades
+			if (oldDatabaseVersion < 41)
+			{
+				UpgradePickerTo41(picker);
+			}
 		}
 
 #pragma warning disable CS0618 // Type or member is obsolete
@@ -244,6 +247,35 @@ namespace VidCoder.Model
 				pickers.Insert(0, newPicker);
 
 				DatabaseConfig.Set<int>("LastPickerIndex", 1);
+			}
+		}
+
+		private static void UpgradePickerTo41(Picker picker)
+		{
+			if (picker.SubtitleSelectionMode == SubtitleSelectionMode.ForeignAudioSearch)
+			{
+				picker.SubtitleSelectionMode = SubtitleSelectionMode.None;
+				picker.SubtitleAddForeignAudioScan = true;
+
+				if (picker.SubtitleBurnIn)
+				{
+					picker.SubtitleBurnInSelection = SubtitleBurnInSelection.ForeignAudioTrack;
+				}
+				else
+				{
+					picker.SubtitleBurnInSelection = SubtitleBurnInSelection.None;
+				}
+			}
+			else
+			{
+				if (picker.SubtitleBurnIn)
+				{
+					picker.SubtitleBurnInSelection = SubtitleBurnInSelection.First;
+				}
+				else
+				{
+					picker.SubtitleBurnInSelection = SubtitleBurnInSelection.None;
+				}
 			}
 		}
 #pragma warning restore CS0618 // Type or member is obsolete

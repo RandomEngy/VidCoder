@@ -15,6 +15,7 @@ using DynamicData.Binding;
 using Microsoft.AnyContainer;
 using Omu.ValueInjecter;
 using ReactiveUI;
+using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -226,6 +227,12 @@ namespace VidCoder.ViewModel
 					.Select(count => count == 0)
 					.ToProperty(this, x => x.HasNoAudioLanguages, out this.hasNoAudioLanguages);
 
+				// BurnInVisible
+				this.WhenAnyValue(x => x.SubtitleSelectionMode, x => x.SubtitleAddForeignAudioScan, (subtitleSelectionMode, subtitleForeignAudioScan) =>
+				{
+					return subtitleSelectionMode != SubtitleSelectionMode.None || subtitleForeignAudioScan;
+				}).ToProperty(this, x => x.BurnInVisible, out this.burnInVisible);
+
 				// HasMultipleSubtitleLanguages
 				IObservable<int> subtitleLanguageCountObservable = subtitleLanguagesObservable
 					.Count()
@@ -282,10 +289,16 @@ namespace VidCoder.ViewModel
 					}
 				}).ToProperty(this, x => x.SubtitleQuantityClass, out this.subtitleQuantityClass);
 
-				// ShowMarkFirstAsDefaultCheckBox
-				this.WhenAnyValue(x => x.SubtitleQuantityClass, x => x.SubtitleSelectionMode, (subtitleQuantityClass, selectionMode) =>
+				// ShowDefaultCheckBox
+				this.WhenAnyValue(x => x.SubtitleQuantityClass, x => x.SubtitleSelectionMode, x => x.SubtitleBurnInSelection, (subtitleQuantityClass, selectionMode, subtitleBurnInSelection) =>
 				{
-					return subtitleQuantityClass == SubtitleQuantityClass.Multiple && selectionMode != SubtitleSelectionMode.ByIndex;
+					return subtitleQuantityClass == SubtitleQuantityClass.Single && !subtitleBurnInSelection.FirstTrackIncluded();
+				}).ToProperty(this, x => x.ShowDefaultCheckBox, out this.showDefaultCheckBox);
+
+				// ShowMarkFirstAsDefaultCheckBox
+				this.WhenAnyValue(x => x.SubtitleQuantityClass, x => x.SubtitleSelectionMode, x => x.SubtitleBurnInSelection, (subtitleQuantityClass, selectionMode, subtitleBurnInSelection) =>
+				{
+					return subtitleQuantityClass == SubtitleQuantityClass.Multiple && selectionMode != SubtitleSelectionMode.ByIndex && !subtitleBurnInSelection.FirstTrackIncluded();
 				}).ToProperty(this, x => x.ShowMarkFirstAsDefaultCheckBox, out this.showMarkFirstAsDefaultCheckBox);
 
 				this.PickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsDefault, x => x.SelectedPicker.Picker.IsModified, (isDefault, isModified) => !isDefault && !isModified).ToProperty(this, x => x.DeleteButtonVisible, out this.deleteButtonVisible);
@@ -332,6 +345,8 @@ namespace VidCoder.ViewModel
 
 					this.userModifyingEncodingPreset = false;
 				});
+
+				this.RefreshBurnInChoices();
 			}
 		}
 
@@ -439,6 +454,8 @@ namespace VidCoder.ViewModel
 
 					this.HandleSubtitleLanguageUpdate();
 				}
+
+				this.RefreshBurnInChoicesAndUpdateSelection();
 			});
 			this.RegisterPickerProperty(nameof(this.Picker.SubtitleIndices));
 			this.RegisterPickerProperty(nameof(this.Picker.SubtitleDefaultIndex));
@@ -447,14 +464,28 @@ namespace VidCoder.ViewModel
 			this.RegisterPickerProperty(nameof(this.Picker.SubtitleLanguageAll));
 			this.RegisterPickerProperty(nameof(this.Picker.SubtitleDefault), () =>
 			{
-				if (!this.HasMultipleSubtitleLanguages && this.SubtitleDefault && this.SubtitleBurnIn)
+				if (!this.HasMultipleSubtitleLanguages && this.SubtitleDefault)
 				{
-					this.SubtitleBurnIn = false;
+					if (this.SubtitleBurnInSelection == SubtitleBurnInSelection.First)
+					{
+						this.SubtitleBurnInSelection = SubtitleBurnInSelection.None;
+					}
+					else if (this.SubtitleBurnInSelection == SubtitleBurnInSelection.ForeignAudioTrackElseFirst)
+					{
+						this.SubtitleBurnInSelection = SubtitleBurnInSelection.ForeignAudioTrack;
+					}
 				}
 			});
-			this.RegisterPickerProperty(nameof(this.Picker.SubtitleBurnIn), () =>
+			this.RegisterPickerProperty(nameof(this.Picker.SubtitleAddForeignAudioScan), () =>
 			{
-				if (!this.HasMultipleSubtitleLanguages && this.SubtitleBurnIn && this.SubtitleDefault)
+				this.RefreshBurnInChoicesAndUpdateSelection();
+			});
+			this.RegisterPickerProperty(nameof(this.Picker.SubtitleBurnInSelection), () =>
+			{
+				// If we've selected an 
+				if (!this.HasMultipleSubtitleLanguages
+					&& (this.SubtitleBurnInSelection == SubtitleBurnInSelection.First || this.SubtitleBurnInSelection == SubtitleBurnInSelection.ForeignAudioTrackElseFirst)
+					&& this.SubtitleDefault)
 				{
 					this.SubtitleDefault = false;
 				}
@@ -483,6 +514,22 @@ namespace VidCoder.ViewModel
 			this.RegisterPickerProperty(nameof(this.Picker.PostEncodeActionEnabled));
 			this.RegisterPickerProperty(nameof(this.Picker.PostEncodeExecutable));
 			this.RegisterPickerProperty(nameof(this.Picker.PostEncodeArguments));
+		}
+
+		private void RefreshBurnInChoicesAndUpdateSelection()
+		{
+			var oldSubtitleBurnInSelection = this.SubtitleBurnInSelection;
+
+			this.RefreshBurnInChoices();
+
+			if (this.SubtitleBurnInChoices.Any(c => c.Value == oldSubtitleBurnInSelection))
+			{
+				this.SubtitleBurnInSelection = oldSubtitleBurnInSelection;
+			}
+			else
+			{
+				this.SubtitleBurnInSelection = this.SubtitleAddForeignAudioScan ? SubtitleBurnInSelection.ForeignAudioTrack : SubtitleBurnInSelection.None;
+			}
 		}
 
 		private void RegisterPickerProperty(string propertyName, Action action = null)
@@ -694,6 +741,15 @@ namespace VidCoder.ViewModel
 			set => this.UpdatePickerProperty(nameof(this.Picker.TimeRangeEnd), value);
 		}
 
+		public List<ComboChoice<AudioSelectionMode>> AudioSelectionModeChoices { get; } = new List<ComboChoice<AudioSelectionMode>>
+		{
+			new ComboChoice<AudioSelectionMode>(AudioSelectionMode.Disabled, PickerRes.LastSelectedRadioButton),
+			new ComboChoice<AudioSelectionMode>(AudioSelectionMode.First, CommonRes.First),
+			new ComboChoice<AudioSelectionMode>(AudioSelectionMode.ByIndex, PickerRes.ByIndexRadioButton),
+			new ComboChoice<AudioSelectionMode>(AudioSelectionMode.Language, PickerRes.LanguagesRadioButton),
+			new ComboChoice<AudioSelectionMode>(AudioSelectionMode.All, CommonRes.All)
+		};
+
 		public AudioSelectionMode AudioSelectionMode
 		{
 			get => this.Picker.AudioSelectionMode;
@@ -735,6 +791,16 @@ namespace VidCoder.ViewModel
 
 		private readonly SourceList<TrackNameViewModel> audioTrackNames = new SourceList<TrackNameViewModel>();
 		public ObservableCollectionExtended<TrackNameViewModel> AudioTrackNamesBindable { get; } = new ObservableCollectionExtended<TrackNameViewModel>();
+
+		public List<ComboChoice<SubtitleSelectionMode>> SubtitleSelectionModeChoices { get; } = new List<ComboChoice<SubtitleSelectionMode>>
+		{
+			new ComboChoice<SubtitleSelectionMode>(SubtitleSelectionMode.Disabled, PickerRes.LastSelectedRadioButton),
+			new ComboChoice<SubtitleSelectionMode>(SubtitleSelectionMode.None, CommonRes.None),
+			new ComboChoice<SubtitleSelectionMode>(SubtitleSelectionMode.First, CommonRes.First),
+			new ComboChoice<SubtitleSelectionMode>(SubtitleSelectionMode.ByIndex, PickerRes.ByIndexRadioButton),
+			new ComboChoice<SubtitleSelectionMode>(SubtitleSelectionMode.Language, PickerRes.LanguagesRadioButton),
+			new ComboChoice<SubtitleSelectionMode>(SubtitleSelectionMode.All, CommonRes.All)
+		};
 
 		public SubtitleSelectionMode SubtitleSelectionMode
 		{
@@ -784,6 +850,9 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<SubtitleQuantityClass> subtitleQuantityClass;
 		public SubtitleQuantityClass SubtitleQuantityClass => this.subtitleQuantityClass.Value;
 
+		private ObservableAsPropertyHelper<bool> showDefaultCheckBox;
+		public bool ShowDefaultCheckBox => this.showDefaultCheckBox.Value;
+
 		private ObservableAsPropertyHelper<bool> showMarkFirstAsDefaultCheckBox;
 		public bool ShowMarkFirstAsDefaultCheckBox => this.showMarkFirstAsDefaultCheckBox.Value;
 
@@ -799,10 +868,46 @@ namespace VidCoder.ViewModel
 			set => this.UpdatePickerProperty(nameof(this.Picker.SubtitleForcedOnly), value);
 		}
 
-		public bool SubtitleBurnIn
+		public bool SubtitleAddForeignAudioScan
 		{
-			get => this.Picker.SubtitleBurnIn;
-			set => this.UpdatePickerProperty(nameof(this.Picker.SubtitleBurnIn), value);
+			get => this.Picker.SubtitleAddForeignAudioScan;
+			set => this.UpdatePickerProperty(nameof(this.Picker.SubtitleAddForeignAudioScan), value);
+		}
+
+		private ObservableAsPropertyHelper<bool> burnInVisible;
+		public bool BurnInVisible => this.burnInVisible.Value;
+
+		private void RefreshBurnInChoices()
+		{
+			this.subtitleBurnInChoices = new List<ComboChoice<SubtitleBurnInSelection>>();
+
+			this.subtitleBurnInChoices.Add(new ComboChoice<SubtitleBurnInSelection>(SubtitleBurnInSelection.None, EnumsRes.SubtitleBurnInSelection_None));
+
+			if (this.SubtitleSelectionMode != SubtitleSelectionMode.None)
+			{
+				this.subtitleBurnInChoices.Add(new ComboChoice<SubtitleBurnInSelection>(SubtitleBurnInSelection.First, EnumsRes.SubtitleBurnInSelection_First));
+			}
+
+			if (this.SubtitleAddForeignAudioScan)
+			{
+				this.subtitleBurnInChoices.Add(new ComboChoice<SubtitleBurnInSelection>(SubtitleBurnInSelection.ForeignAudioTrack, EnumsRes.SubtitleBurnInSelection_ForeignAudioTrack));
+
+				if (this.SubtitleSelectionMode != SubtitleSelectionMode.None)
+				{
+					this.subtitleBurnInChoices.Add(new ComboChoice<SubtitleBurnInSelection>(SubtitleBurnInSelection.ForeignAudioTrackElseFirst, EnumsRes.SubtitleBurnInSelection_ForeignAudioTrackElseFirst));
+				}
+			}
+
+			this.RaisePropertyChanged(nameof(this.SubtitleBurnInChoices));
+		}
+
+		private List<ComboChoice<SubtitleBurnInSelection>> subtitleBurnInChoices = new List<ComboChoice<SubtitleBurnInSelection>>();
+		public List<ComboChoice<SubtitleBurnInSelection>> SubtitleBurnInChoices => this.subtitleBurnInChoices;
+
+		public SubtitleBurnInSelection SubtitleBurnInSelection
+		{
+			get => this.Picker.SubtitleBurnInSelection;
+			set => this.UpdatePickerProperty(nameof(this.Picker.SubtitleBurnInSelection), value);
 		}
 
 		public bool UseCustomSubtitleTrackNames

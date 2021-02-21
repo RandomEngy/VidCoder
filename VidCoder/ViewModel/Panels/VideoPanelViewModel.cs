@@ -31,7 +31,6 @@ namespace VidCoder.ViewModel
 		private OutputPathService outputPathService = StaticResolver.Resolve<OutputPathService>();
 		private MainViewModel main = StaticResolver.Resolve<MainViewModel>();
 
-		private List<VideoEncoderViewModel> encoderChoices;
 
 		private VideoEncoderViewModel selectedEncoder;
 		private List<double> framerateChoices;
@@ -562,13 +561,8 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<string> inputFramerate;
 		public string InputFramerate => this.inputFramerate.Value;
 
-		public List<VideoEncoderViewModel> EncoderChoices
-		{
-			get
-			{
-				return this.encoderChoices;
-			}
-		}
+		private List<VideoEncoderViewModel> encoderChoices;
+		public List<VideoEncoderViewModel> EncoderChoices => this.encoderChoices;
 
 		// True if a VideoEncoder change was done by a user explicitly on the combobox.
 		private bool userVideoEncoderChange;

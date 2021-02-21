@@ -1760,9 +1760,15 @@ namespace VidCoder.ViewModel
 
 		public void ReportBurnedSubtitle(SourceSubtitleViewModel subtitleViewModel)
 		{
+			// We can toggle the burn-in status of the FAS separately. Setting a regular subtitle and FAS as burn in will give precedence to the FAS track if it's found.
+			if (subtitleViewModel.TrackNumber == 0)
+			{
+				return;
+			}
+
 			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles.Items)
 			{
-				if (sourceVM != subtitleViewModel)
+				if (sourceVM != subtitleViewModel && sourceVM.TrackNumber != 0)
 				{
 					sourceVM.BurnedIn = false;
 				}
@@ -1778,7 +1784,11 @@ namespace VidCoder.ViewModel
 		{
 			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles.Items)
 			{
-				sourceVM.BurnedIn = false;
+				// We can toggle the burn-in status of the FAS separately. Setting a regular subtitle and FAS as burn in will give precedence to the FAS track if it's found.
+				if (sourceVM.TrackNumber != 0)
+				{
+					sourceVM.BurnedIn = false;
+				}
 			}
 
 			foreach (FileSubtitleViewModel fileSubtitleViewModel in this.FileSubtitles.Items)
@@ -1849,8 +1859,9 @@ namespace VidCoder.ViewModel
 
 		private void DeselectDefaultSubtitlesIfAnyBurned()
 		{
-			bool anyBurned = this.SourceSubtitles.Items.Any(sourceSub => sourceSub.BurnedIn) || this.FileSubtitles.Items.Any(sourceSub => sourceSub.BurnedIn);
-			this.DefaultSubtitlesEnabled = !anyBurned;
+			// FAS subtitle can be marked as burned without interfering with other subtitles
+			bool anyNormalTrackBurned = this.SourceSubtitles.Items.Any(sourceSub => sourceSub.BurnedIn && sourceSub.TrackNumber != 0) || this.FileSubtitles.Items.Any(sourceSub => sourceSub.BurnedIn);
+			this.DefaultSubtitlesEnabled = !anyNormalTrackBurned;
 
 			if (!this.DefaultSubtitlesEnabled)
 			{
@@ -1959,7 +1970,7 @@ namespace VidCoder.ViewModel
 					{
 						if (subtitle.TrackNumber == 0)
 						{
-							trackSummaries.Add(MainRes.ForeignAudioSearch);
+							trackSummaries.Add(SubtitleRes.ForeignAudioScan);
 						}
 						else if (this.SelectedTitle.SubtitleList != null && subtitle.TrackNumber <= this.SelectedTitle.SubtitleList.Count)
 						{

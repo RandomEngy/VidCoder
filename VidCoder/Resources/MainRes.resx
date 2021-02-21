@@ -232,9 +232,6 @@
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
     <value>Encodes in progress</value>
   </data>
-  <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Foreign Audio Search</value>
-  </data>
   <data name="NoneParen" xml:space="preserve">
     <value>(None)</value>
   </data>

@@ -333,4 +333,16 @@
     <value>Selected</value>
     <comment>Label for the option to order dragged files as they had been selected in File explorer</comment>
   </data>
+  <data name="SubtitleBurnInSelection_First" xml:space="preserve">
+    <value>First</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrack" xml:space="preserve">
+    <value>Foreign audio track</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrackElseFirst" xml:space="preserve">
+    <value>Foreign audio track, else First</value>
+  </data>
+  <data name="SubtitleBurnInSelection_None" xml:space="preserve">
+    <value>None</value>
+  </data>
 </root>
