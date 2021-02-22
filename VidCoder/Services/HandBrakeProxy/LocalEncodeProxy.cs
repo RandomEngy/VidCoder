@@ -9,10 +9,10 @@ using VidCoderCommon.Model;
 using System.Threading;
 using System.Threading.Tasks;
 using HandBrake.Interop.Interop;
-using HandBrake.Interop.Interop.EventArgs;
 using HandBrake.Interop.Interop.Json.Encode;
 using HandBrake.Interop.Interop.Json.Scan;
 using VidCoderCommon.Utilities;
+using HandBrake.Interop.Interop.Interfaces.EventArgs;
 
 namespace VidCoder
 {

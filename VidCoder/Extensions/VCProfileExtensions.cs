@@ -1,6 +1,6 @@
-﻿using HandBrake.Interop.Interop.Json.Scan;
-using HandBrake.Interop.Interop.Model.Encoding;
-using HandBrake.Interop.Interop.Model.Preview;
+﻿using HandBrake.Interop.Interop.Interfaces.Model.Picture;
+using HandBrake.Interop.Interop.Interfaces.Model.Preview;
+using HandBrake.Interop.Interop.Json.Scan;
 using VidCoderCommon.Model;
 
 namespace VidCoder.Extensions

@@ -88,9 +88,9 @@ namespace VidCoder.Services
 			this.PopulateCustomFolder(this.customPresetFolder);
 
 			// Populate built-in folder from HandBrake presets
-			IList<PresetCategory> handBrakePresets = HandBrakePresetService.GetBuiltInPresets();
+			IList<HBPresetCategory> handBrakePresets = HandBrakePresetService.GetBuiltInPresets();
 			this.builtInFolder = new PresetFolderViewModel(this, !this.collapsedBuiltInFolders.Contains(BuiltInFolderKey), isBuiltIn: true) { Name = EncodingRes.PresetFolder_BuiltIn };
-			foreach (PresetCategory handbrakePresetCategory in handBrakePresets)
+			foreach (HBPresetCategory handbrakePresetCategory in handBrakePresets)
 			{
 				var builtInSubfolder = new PresetFolderViewModel(this, !this.collapsedBuiltInFolders.Contains(handbrakePresetCategory.PresetName), isBuiltIn: true)
 				{

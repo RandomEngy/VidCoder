@@ -228,7 +228,7 @@ namespace VidCoderCommon.Model
 		public VCVideoEncodeRateType VideoEncodeRateType { get; set; }
 
 		[JsonProperty]
-		public double Quality { get; set; }
+		public decimal Quality { get; set; }
 
 		[JsonProperty]
 		public double TargetSize { get; set; }

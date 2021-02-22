@@ -434,7 +434,7 @@ namespace VidCoder.Services
 				string updateJson = await client.GetStringAsync(url);
 
 				JsonSerializerSettings settings = new JsonSerializerSettings();
-				settings.Converters.Add(new VersionConverter());
+				settings.Converters.Add(new Newtonsoft.Json.Converters.VersionConverter());
 
 				UpdateInfo updateInfo = JsonConvert.DeserializeObject<UpdateInfo>(updateJson, settings);
 				updateInfo.LatestVersion = updateInfo.LatestVersion.FillInWithZeroes();

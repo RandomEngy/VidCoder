@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using HandBrake.Interop.Interop;
-using HandBrake.Interop.Interop.EventArgs;
 using Microsoft.AnyContainer;
 using VidCoder.Model;
 

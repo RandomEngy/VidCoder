@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HandBrake.Interop.Interop.Model.Encoding;
+using HandBrake.Interop.Interop.Interfaces.Model.Encoders;
 
 namespace VidCoderCommon.Model
 {
