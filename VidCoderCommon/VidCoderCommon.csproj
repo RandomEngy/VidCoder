@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net471</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <AssemblyTitle>VidCoderCommon</AssemblyTitle>
     <Product>VidCoderCommon</Product>
     <Configurations>Debug;Release;Debug-Beta;Release-Beta</Configurations>
@@ -26,14 +26,11 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AnyContainer" Version="1.0.0-beta201808141" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="reactiveui" Version="9.4.1" />
-    <PackageReference Include="ReactiveUI.WPF" Version="9.4.1" />
-    <PackageReference Include="Splat" Version="5.1.4" />
-    <PackageReference Include="System.Reactive.Core" Version="4.0.0" />
-    <PackageReference Include="System.Reactive.Interfaces" Version="4.0.0" />
-    <PackageReference Include="System.Reactive.Linq" Version="4.0.0" />
-    <PackageReference Include="System.Reactive.PlatformServices" Version="4.0.0" />
-    <PackageReference Include="System.Reactive.Windows.Threading" Version="4.0.0" />
+    <PackageReference Include="ReactiveUI" Version="13.1.1" />
+    <PackageReference Include="System.Reactive.Core" Version="5.0.0" />
+    <PackageReference Include="System.Reactive.Interfaces" Version="5.0.0" />
+    <PackageReference Include="System.Reactive.Linq" Version="5.0.0" />
+    <PackageReference Include="System.Reactive.PlatformServices" Version="5.0.0" />
     <PackageReference Include="System.Text.Json" Version="5.0.1" />
     <PackageReference Include="valueinjecter" Version="3.1.3" />
   </ItemGroup>
@@ -41,6 +38,5 @@
     <Reference Include="HandBrake.Interop">
       <HintPath>..\Lib\HandBrake.Interop.dll</HintPath>
     </Reference>
-    <Reference Include="WindowsBase" />
   </ItemGroup>
 </Project>

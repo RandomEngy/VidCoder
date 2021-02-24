@@ -672,7 +672,7 @@ namespace VidCoderCommon.Model
 		/// <returns>The source sub-object</returns>
 		private Source CreateSource(VCJob job, SourceTitle title, int previewNumber, int previewSeconds, int previewCount)
 		{
-			var range = new Range();
+			var range = new HandBrake.Interop.Interop.Json.Encode.Range();
 
 			if (previewNumber >= 0)
 			{
