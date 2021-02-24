@@ -5,7 +5,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows.Input;
 using System.Windows.Media;
-using ColorPickerWPF;
+//using ColorPickerWPF;
 using Microsoft.AnyContainer;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -618,15 +618,15 @@ namespace VidCoder.ViewModel
 			{
 				return this.pickPadColor ?? (this.pickPadColor = ReactiveCommand.Create(() =>
 				{
-					if (ColorPickerWindow.ShowDialog(out Color color))
-					{
-						this.UpdateProfileProperty(
-							() => this.Profile,
-							nameof(this.Profile.PadColor),
-							nameof(this.PadColor),
-							ColorUtilities.ToHexString(color),
-							raisePropertyChanged: true);
-					}
+					//if (ColorPickerWindow.ShowDialog(out Color color))
+					//{
+					//	this.UpdateProfileProperty(
+					//		() => this.Profile,
+					//		nameof(this.Profile.PadColor),
+					//		nameof(this.PadColor),
+					//		ColorUtilities.ToHexString(color),
+					//		raisePropertyChanged: true);
+					//}
 				}));
 			}
 		}

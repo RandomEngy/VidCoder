@@ -55,7 +55,7 @@ namespace VidCoder.Model
 			}
 		}
 
-		public static string FromUdeCode(string charset)
+		public static string FromUtfUnknownCode(string charset)
 		{
 			switch (charset)
 			{

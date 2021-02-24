@@ -55,12 +55,12 @@ namespace VidCoder.Services.Notifications
 
 		private static void RegisterActivator(Type activatorType)
 		{
-			// Register type
-			var regService = new RegistrationServices();
-			regService.RegisterTypeForComClients(
-				activatorType,
-				RegistrationClassContext.LocalServer,
-				RegistrationConnectionType.MultipleUse);
+			//// Register type
+			//var regService = new RegistrationServices();
+			//regService.RegisterTypeForComClients(
+			//	activatorType,
+			//	RegistrationClassContext.LocalServer,
+			//	RegistrationConnectionType.MultipleUse);
 		}
 
 		public bool ToastEnabled => true;
