@@ -21,24 +21,16 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DesktopBridge.Helpers" Version="1.2.2" />
-    <PackageReference Include="DynamicData" Version="7.1.1" />
     <PackageReference Include="Fluent.Ribbon" Version="7.1.0" />
     <PackageReference Include="Microsoft.AnyContainer" Version="1.0.0-beta201808141" />
     <PackageReference Include="Microsoft.AnyContainer.DryIoc" Version="1.0.0-beta201808141" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="3.1.0" />
     <PackageReference Include="PipeMethodCalls" Version="2.0.2" />
-    <PackageReference Include="reactiveui" Version="13.1.1" />
     <PackageReference Include="ReactiveUI.WPF" Version="13.1.1" />
-    <PackageReference Include="Splat" Version="10.0.1" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.109.2" />
     <PackageReference Include="System.Management" Version="5.0.0" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
-    <PackageReference Include="System.Reactive" Version="5.0.0" />
-    <PackageReference Include="System.Reactive.Core" Version="5.0.0" />
-    <PackageReference Include="System.Reactive.Interfaces" Version="5.0.0" />
-    <PackageReference Include="System.Reactive.Linq" Version="5.0.0" />
-    <PackageReference Include="System.Reactive.PlatformServices" Version="5.0.0" />
     <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
     <PackageReference Include="UTF.Unknown" Version="2.3.0" />
     <PackageReference Include="valueinjecter" Version="3.1.3" />

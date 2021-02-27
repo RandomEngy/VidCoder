@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Newtonsoft.Json;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoderCommon.Model;
@@ -13,6 +12,7 @@ using HandBrake.Interop.Interop.Json.Encode;
 using HandBrake.Interop.Interop.Json.Scan;
 using VidCoderCommon.Utilities;
 using HandBrake.Interop.Interop.Interfaces.EventArgs;
+using System.Text.Json;
 
 namespace VidCoder
 {
@@ -61,7 +61,7 @@ namespace VidCoder
 							previewSeconds,
 							Config.PreviewCount);
 
-						return JsonConvert.SerializeObject(jsonEncodeObject, JsonSettings.HandBrakeJsonSerializerSettings);
+						return JsonSerializer.Serialize(jsonEncodeObject, JsonSettings.HandBrakeJsonSerializerOptions);
 					}
 					else
 					{
@@ -77,7 +77,7 @@ namespace VidCoder
 			this.logger = logger;
 
 			// Extract the scan title and path from the encode JSON.
-			JsonEncodeObject encodeObject = JsonConvert.DeserializeObject<JsonEncodeObject>(encodeJson);
+			JsonEncodeObject encodeObject = JsonSerializer.Deserialize<JsonEncodeObject>(encodeJson);
 
 			this.StartEncodeInternal(encodeObject.Source.Path, encodeObject.Source.Title, scanObject => encodeJson);
 			return Task.CompletedTask;
