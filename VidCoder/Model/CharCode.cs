@@ -59,18 +59,18 @@ namespace VidCoder.Model
 		{
 			switch (charset)
 			{
-				case "ASCII":
-				case "UTF-8":
-				case "ISO-8859-2":
-				case "ISO-8859-5":
-				case "ISO-8859-7":
-				case "ISO-8859-8":
-					return charset;
-				case "UTF-16LE":
-				case "UTF-16BE":
+				case "ascii":
+				case "utf-8":
+				case "iso-8859-2":
+				case "iso-8859-5":
+				case "iso-8859-7":
+				case "iso-8859-8":
+					return charset.ToUpperInvariant();
+				case "utf-16le":
+				case "utf-16be":
 					return "UTF-16";
-				case "UTF-32LE":
-				case "UTF-32BE":
+				case "utf-32le":
+				case "utf-32be":
 					return "UTF-32";
 				default:
 					return null;
