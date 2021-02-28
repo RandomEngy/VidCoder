@@ -431,6 +431,7 @@ namespace VidCoder.Services
 			try
 			{
 				HttpClient client = new HttpClient();
+				client.DefaultRequestHeaders.Add("User-Agent", "VidCoder");
 				string updateJson = await client.GetStringAsync(url);
 
 				JsonSerializerSettings settings = new JsonSerializerSettings();

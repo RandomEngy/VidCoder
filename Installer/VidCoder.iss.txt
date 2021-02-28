@@ -7,7 +7,7 @@ AppVersion=%version%
 AppPublisher=RandomEngy
 AppPublisherURL=http://vidcoder.net/
 
-DefaultDirName={pf}\%folderName%
+DefaultDirName={commonpf}\%folderName%
 DisableProgramGroupPage=yes
 UninstallDisplayIcon={app}\VidCoder.exe
 Compression=lzma
@@ -29,7 +29,7 @@ ArchitecturesInstallIn64BitMode=x64
 Name: "en"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "Files\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
+Source: "..\VidCoder\bin\publish\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
 
 [Registry]
 Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\EventHandlers\PlayBluRayOnArrival"; ValueType: string; ValueName: "%appNameNoSpace%RipDriveOnArrival"; ValueData: ""; Flags: uninsdeletevalue
