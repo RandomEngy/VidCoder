@@ -19,6 +19,7 @@ namespace VidCoder
 	using System.Globalization;
 	using System.Threading;
 	using Automation;
+	using ControlzEx.Theming;
 	using Microsoft.AnyContainer;
 	using Resources;
 
@@ -152,7 +153,7 @@ namespace VidCoder
 					bool isDark = appTheme == AppTheme.Dark;
 
 					string fluentTheme = isDark ? "Dark" : "Light";
-					ThemeManager.ChangeTheme(this, fluentTheme + ".Cobalt");
+					ThemeManager.Current.ChangeTheme(this, fluentTheme + ".Cobalt");
 
 					Color ribbonTextColor = isDark ? Colors.White : Colors.Black;
 					Color ribbonBackgroundColor = isDark ? Colors.Black : Colors.White;

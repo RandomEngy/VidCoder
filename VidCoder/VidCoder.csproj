@@ -21,7 +21,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DesktopBridge.Helpers" Version="1.2.2" />
-    <PackageReference Include="Fluent.Ribbon" Version="7.1.0" />
+    <PackageReference Include="Fluent.Ribbon" Version="8.0.3" />
     <PackageReference Include="Microsoft.AnyContainer" Version="1.0.0-beta201808141" />
     <PackageReference Include="Microsoft.AnyContainer.DryIoc" Version="1.0.0-beta201808141" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
