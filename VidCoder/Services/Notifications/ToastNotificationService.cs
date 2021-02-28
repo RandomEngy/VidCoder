@@ -7,60 +7,21 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Data.Xml.Dom;
-using Windows.UI.Notifications;
 using VidCoderCommon;
+using Microsoft.Toolkit.Uwp.Notifications;
+using Windows.UI.Notifications;
 
 namespace VidCoder.Services.Notifications
 {
 	public class ToastNotificationService : IToastNotificationService
 	{
-		public const string ToastActivatedLaunchArg = "-ToastActivated";
-
-		private const string BetaAumid = "VidCoder.VidCoderBeta";
-		private const string StableAumid = "VidCoder.VidCoder";
 		private readonly IAppLogger logger;
-
-		private IToastNotificationDispatchService dispatch;
+		private readonly ToastNotificationHistoryCompat history;
 
 		public ToastNotificationService(IAppLogger logger)
 		{
 			this.logger = logger;
-
-			Type notificationActivatorType = CommonUtilities.Beta ? typeof(BetaNotificationActivator) : typeof(StableNotificationActivator);
-
-			if (Utilities.IsRunningAsAppx)
-			{
-				this.dispatch = new BridgeToastNotificationDispatchService();
-			}
-			else
-			{
-				RegisterComServer(notificationActivatorType);
-
-				this.dispatch = new DesktopToastNotificationDispatchService(CommonUtilities.Beta ? BetaAumid : StableAumid);
-			}
-
-			RegisterActivator(notificationActivatorType);
-		}
-
-		private static void RegisterComServer(Type activatorType)
-		{
-			// We register the EXE to start up when the notification is activated
-			string regString = string.Format(CultureInfo.InvariantCulture, @"SOFTWARE\Classes\CLSID\{{{0}}}\LocalServer32", activatorType.GUID);
-			var key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(regString);
-
-			// Include a flag so we know this was a toast activation and should wait for COM to process
-			// We also wrap EXE path in quotes for extra security
-			key.SetValue(null, '"' + Process.GetCurrentProcess().MainModule.FileName + '"' + " " + ToastActivatedLaunchArg);
-		}
-
-		private static void RegisterActivator(Type activatorType)
-		{
-			//// Register type
-			//var regService = new RegistrationServices();
-			//regService.RegisterTypeForComClients(
-			//	activatorType,
-			//	RegistrationClassContext.LocalServer,
-			//	RegistrationConnectionType.MultipleUse);
+			this.history = ToastNotificationManagerCompat.History;
 		}
 
 		public bool ToastEnabled => true;
@@ -80,7 +41,7 @@ namespace VidCoder.Services.Notifications
 				var toast = new ToastNotification(doc);
 
 				// And then show it
-				this.dispatch.CreateToastNotifier().Show(toast);
+				ToastNotificationManagerCompat.CreateToastNotifier().Show(toast);
 			}
 			catch (Exception exception)
 			{
@@ -95,7 +56,7 @@ namespace VidCoder.Services.Notifications
 		{
 			try
 			{
-				this.dispatch.Clear();
+				this.history.Clear();
 			}
 			catch (Exception exception)
 			{
@@ -109,7 +70,7 @@ namespace VidCoder.Services.Notifications
 		/// <returns>A collection of toasts.</returns>
 		public IReadOnlyList<ToastNotification> GetHistory()
 		{
-			return this.dispatch.GetHistory();
+			return this.history.GetHistory();
 		}
 
 		/// <summary>
@@ -120,7 +81,7 @@ namespace VidCoder.Services.Notifications
 		{
 			try
 			{
-				this.dispatch.Remove(tag);
+				this.history.Remove(tag);
 			}
 			catch (Exception exception)
 			{
@@ -137,7 +98,7 @@ namespace VidCoder.Services.Notifications
 		{
 			try
 			{
-				this.dispatch.Remove(tag, group);
+				this.history.Remove(tag, group);
 			}
 			catch (Exception exception)
 			{
@@ -153,7 +114,7 @@ namespace VidCoder.Services.Notifications
 		{
 			try
 			{
-				this.dispatch.RemoveGroup(group);
+				this.history.RemoveGroup(group);
 			}
 			catch (Exception exception)
 			{

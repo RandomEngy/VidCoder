@@ -8,7 +8,6 @@ using VidCoder.Services;
 using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
 using System.Windows.Media;
-using Fluent;
 using HandBrake.Interop.Interop;
 using VidCoder.View;
 using VidCoderCommon;
@@ -21,6 +20,7 @@ namespace VidCoder
 	using Automation;
 	using ControlzEx.Theming;
 	using Microsoft.AnyContainer;
+	using Microsoft.Toolkit.Uwp.Notifications;
 	using Resources;
 
 	/// <summary>
@@ -186,7 +186,19 @@ namespace VidCoder
 				activityService.ReportDeactivated();
 			};
 
+			ToastNotificationManagerCompat.OnActivated += this.ToastOnActivated;
+
 			base.OnStartup(e);
+		}
+
+		private void ToastOnActivated(ToastNotificationActivatedEventArgsCompat e)
+		{
+			StaticResolver.Resolve<Main>().RestoreWindow();
+
+			DispatchUtilities.BeginInvoke(() =>
+			{
+				StaticResolver.Resolve<Main>().Activate();
+			});
 		}
 
 		protected override void OnExit(ExitEventArgs e)

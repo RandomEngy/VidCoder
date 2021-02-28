@@ -10,7 +10,6 @@ using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Interop;
-using Windows.Foundation.Metadata;
 using HandBrake.Interop.Interop.Json.Scan;
 using Microsoft.AnyContainer;
 using VidCoder.Extensions;
@@ -22,6 +21,7 @@ using VidCoder.View;
 using VidCoderCommon;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
+using Windows.Foundation.Metadata;
 
 namespace VidCoder
 {

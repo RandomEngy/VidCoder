@@ -95,8 +95,10 @@ if ($beta) {
 # Get master version number
 $version4Part = $versionShort + ".0.0"
 
+Get-ChildItem -Path ".\VidCoder\bin\publish" -Include * -File -Recurse | foreach { $_.Delete()}
+
 # Publish to VidCoder\bin\publish
-& dotnet publish .\VidCoder\VidCoder.csproj "/p:PublishProfile=FolderProfile;Version=$version4part" -c $configuration
+& dotnet publish .\VidCoder.sln "/p:PublishProfile=FolderProfile;Version=$version4part" -c $configuration
 
 # Copy some extra files for the installer
 $extraFiles = @(

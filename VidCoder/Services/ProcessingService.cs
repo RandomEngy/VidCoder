@@ -17,7 +17,6 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shell;
-using Windows.ApplicationModel.Contacts;
 using DynamicData;
 using DynamicData.Aggregation;
 using DynamicData.Binding;

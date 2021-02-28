@@ -16,16 +16,7 @@ namespace VidCoder
 			var container = new DryIocAnyContainer();
 			container.RegisterSingleton<IDriveService, DriveService>();
 			container.RegisterSingleton<IAppThemeService, AppThemeService>();
-
-			if (Utilities.IsRunningAsAppx)
-			{
-				container.RegisterSingleton<IToastNotificationService, ToastNotificationService>();
-			}
-			else
-			{
-				container.RegisterSingleton<IToastNotificationService, StubToastNotificationService>();
-			}
-
+			container.RegisterSingleton<IToastNotificationService, ToastNotificationService>();
 			container.RegisterSingleton<IUpdater, Updater>();
 			container.RegisterSingleton<IMessageBoxService, MessageBoxService>();
 			container.RegisterSingleton<IFileService, FileService>();

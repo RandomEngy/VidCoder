@@ -61,8 +61,8 @@ Root: HKCR; Subkey: "VidCoderQueue\shell\open\command"; ValueType: string; Value
 WelcomeLabel2=This will install [name/ver] on your computer.
 
 [Icons]
-Name: "{commonprograms}\%appName%"; Filename: "{app}\VidCoder.exe"; WorkingDir: "{app}"; AppUserModelID: "VidCoder.VidCoder"
-Name: "{commondesktop}\%appName%"; Filename: "{app}\VidCoder.exe"; WorkingDir: "{app}"; AppUserModelID: "VidCoder.VidCoder"; Tasks: desktopicon
+Name: "{commonprograms}\%appName%"; Filename: "{app}\VidCoder.exe"; WorkingDir: "{app}"
+Name: "{commondesktop}\%appName%"; Filename: "{app}\VidCoder.exe"; WorkingDir: "{app}"; Tasks: desktopicon
 
 [Tasks]
 Name: desktopicon; Description: "Create a desktop icon"
