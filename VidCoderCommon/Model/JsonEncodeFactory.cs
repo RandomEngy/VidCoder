@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Text.Json;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.HbLib;
@@ -599,6 +600,22 @@ namespace VidCoderCommon.Model
 			if (outputSizeInfo.Padding != null && !outputSizeInfo.Padding.IsZero)
 			{
 				var padColor = !string.IsNullOrEmpty(profile.PadColor) ? profile.PadColor : "000000";
+				if (padColor.StartsWith("#"))
+				{
+					padColor = padColor.Substring(1);
+				}
+
+				if (padColor.Length == 3)
+				{
+					StringBuilder builder = new StringBuilder();
+					foreach (char c in padColor)
+					{
+						builder.Append(c);
+						builder.Append(c);
+					}
+
+					padColor = builder.ToString();
+				}
 
 				JsonDocument padSettings = this.GetFilterSettingsCustom(
 					hb_filter_ids.HB_FILTER_PAD,

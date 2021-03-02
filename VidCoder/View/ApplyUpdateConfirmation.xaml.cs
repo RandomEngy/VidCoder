@@ -50,7 +50,7 @@ namespace VidCoder
 
 		private void changelogLink_Click(object sender, RoutedEventArgs e)
 		{
-			Process.Start(this.changelogLinkString);
+			FileService.Instance.LaunchUrl(this.changelogLinkString);
 		}
 	}
 }

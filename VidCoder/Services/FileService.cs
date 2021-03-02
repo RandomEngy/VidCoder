@@ -143,14 +143,20 @@ namespace VidCoder.Services
 
 		public void LaunchFile(string fileName)
 		{
-			Process.Start(fileName);
+			Process process = new Process();
+			process.StartInfo.UseShellExecute = true;
+			process.StartInfo.FileName = fileName;
+			process.Start();
 		}
 
 		public void LaunchUrl(string url)
 		{
 			try
 			{
-				Process.Start(url);
+				Process process = new Process();
+				process.StartInfo.UseShellExecute = true;
+				process.StartInfo.FileName = url;
+				process.Start();
 			}
 			catch (Win32Exception)
 			{

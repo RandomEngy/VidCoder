@@ -177,10 +177,10 @@ namespace VidCoder.ViewModel
 			}).ToProperty(this, x => x.PadColorEnabled, out this.padColorEnabled);
 
 			// PadBrush
-			this.WhenAnyValue(x => x.Profile.PadColor)
+			this.WhenAnyValue(x => x.PadColor)
 				.Select(padColor =>
 				{
-					return new SolidColorBrush(ColorUtilities.ToWindowsColor(this.Profile.PadColor));
+					return new SolidColorBrush(ColorUtilities.ToWindowsColor(this.PadColor));
 				}).ToProperty(this, x => x.PadBrush, out this.padBrush);
 
 			// CroppingUIEnabled
@@ -599,10 +599,10 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.padRight, value); }
 		}
 
-		public Color PadColor
+		public string PadColor
 		{
-			get { return ColorUtilities.ToWindowsColor(this.Profile.PadColor); }
-			set { this.UpdateProfileProperty(nameof(this.Profile.PadColor), ColorUtilities.ToHexString(value)); }
+			get { return this.Profile.PadColor; }
+			set { this.UpdateProfileProperty(nameof(this.Profile.PadColor), value); }
 		}
 
 		private ObservableAsPropertyHelper<Brush> padBrush;
@@ -610,26 +610,6 @@ namespace VidCoder.ViewModel
 
 		private ObservableAsPropertyHelper<bool> padColorEnabled;
 		public bool PadColorEnabled => this.padColorEnabled.Value;
-
-		private ReactiveCommand<Unit, Unit> pickPadColor;
-		public ICommand PickPadColor
-		{
-			get
-			{
-				return this.pickPadColor ?? (this.pickPadColor = ReactiveCommand.Create(() =>
-				{
-					//if (ColorPickerWindow.ShowDialog(out Color color))
-					//{
-					//	this.UpdateProfileProperty(
-					//		() => this.Profile,
-					//		nameof(this.Profile.PadColor),
-					//		nameof(this.PadColor),
-					//		ColorUtilities.ToHexString(color),
-					//		raisePropertyChanged: true);
-					//}
-				}));
-			}
-		}
 
 		public int Modulus
 		{
