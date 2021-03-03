@@ -201,10 +201,6 @@
     <Content Include="..\License.txt" Link="License.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\packages\System.Data.SQLite.Core.1.0.105.1\build\net46\x64\SQLite.Interop.dll">
-      <Link>SQLite.Interop.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\ThirdPartyLicenses.txt">
       <Link>ThirdPartyLicenses.txt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

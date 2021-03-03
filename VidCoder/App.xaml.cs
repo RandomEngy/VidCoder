@@ -94,14 +94,7 @@ namespace VidCoder
 
 			Ioc.SetUp();
 
-			try
-			{
-				Database.Initialize();
-			}
-			catch (Exception)
-			{
-				Environment.Exit(0);
-			}
+			Database.Initialize();
 
 			Config.EnsureInitialized(Database.Connection);
 
