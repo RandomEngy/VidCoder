@@ -34,8 +34,6 @@ namespace VidCoder
 		private const string AppDataFolderName = "VidCoder";
 		private const string LocalAppDataFolderName = "VidCoder";
 
-		private static string settingsDirectory;
-
 		static Utilities()
 		{
 			var tempFolderPath = Environment.GetEnvironmentVariable("temp");
@@ -48,11 +46,6 @@ namespace VidCoder
 			}
 
 			IsRunningAsAppx = new DesktopBridge.Helpers().IsRunningAsUwp();
-		    string settingsDirectorySetting = ConfigurationManager.AppSettings["SettingsDirectory"];
-		    if (settingsDirectorySetting != null)
-		    {
-                settingsDirectory = Path.GetFullPath(settingsDirectorySetting);
-		    }
 		}
 
 		public static Version CurrentVersion
@@ -330,11 +323,6 @@ namespace VidCoder
 
 		public static string GetAppFolder(bool beta)
 		{
-			if (settingsDirectory != null)
-			{
-				return settingsDirectory;
-			}
-
 			string folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AppDataFolderName);
 
 			if (beta)
