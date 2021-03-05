@@ -54,11 +54,6 @@ function CreateIssFile($version, $beta, $debugBuild) {
     ReplaceTokens "Installer\VidCoder.iss.txt" "Installer\VidCoder-gen.iss" $tokens
 }
 
-function CopyExtra($fileName) {
-    $dest = ".\VidCoder\bin\publish"
-    copy $fileName $dest; ExitIfFailed
-}
-
 function CreateLatestJson($outputFilePath, $versionShort, $versionTag, $installerFile) {
     $latestTemplateFile = "Installer\latest-template.json"
 
@@ -69,6 +64,23 @@ function CreateLatestJson($outputFilePath, $versionShort, $versionTag, $installe
     }
 
     ReplaceTokens "Installer\latest-template.json" $outputFilePath $tokens
+}
+
+function Publish($folderNameSuffix, $publishProfileName, $version4part) {
+    $publishFolderPath = ".\VidCoder\bin\publish-$folderNameSuffix"
+    Get-ChildItem -Path $publishFolderPath -Include * -File -Recurse | foreach { $_.Delete()}
+
+    # Publish to VidCoder\bin\publish
+    & dotnet publish .\VidCoder.sln "/p:PublishProfile=$publishProfileName;Version=$version4part" -c $configuration
+
+    # Copy some extra files for the installer
+    $extraFiles = @(
+        ".\VidCoder\Icons\File\VidCoderPreset.ico",
+        ".\VidCoder\Icons\File\VidCoderQueue.ico")
+
+    foreach ($extraFile in $extraFiles) {
+        copy $extraFile $publishFolderPath; ExitIfFailed
+    }
 }
 
 if ($debugBuild) {
@@ -95,19 +107,9 @@ if ($beta) {
 # Get master version number
 $version4Part = $versionShort + ".0.0"
 
-Get-ChildItem -Path ".\VidCoder\bin\publish" -Include * -File -Recurse | foreach { $_.Delete()}
-
-# Publish to VidCoder\bin\publish
-& dotnet publish .\VidCoder.sln "/p:PublishProfile=FolderProfile;Version=$version4part" -c $configuration
-
-# Copy some extra files for the installer
-$extraFiles = @(
-    ".\VidCoder\Icons\File\VidCoderPreset.ico",
-    ".\VidCoder\Icons\File\VidCoderQueue.ico")
-
-foreach ($extraFile in $extraFiles) {
-    CopyExtra $extraFile
-}
+# Publish the files
+Publish "installer" "InstallerProfile" $version4part
+Publish "portable" "PortableProfile" $version4part
 
 # Create portable installer
 
@@ -131,7 +133,7 @@ DeleteFileIfExists ($portableExeWithoutExtension + ".exe")
 
 $winRarExe = "c:\Program Files\WinRar\WinRAR.exe"
 
-& $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension .\VidCoder\bin\publish\** | Out-Null
+& $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension .\VidCoder\bin\publish-portable\** | Out-Null
 ExitIfFailed
 
 $latestFileDirectory = "Installer\"

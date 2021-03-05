@@ -29,7 +29,7 @@ ArchitecturesInstallIn64BitMode=x64
 Name: "en"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "..\VidCoder\bin\publish\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
+Source: "..\VidCoder\bin\publish-installer\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
 
 [Registry]
 Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\EventHandlers\PlayBluRayOnArrival"; ValueType: string; ValueName: "%appNameNoSpace%RipDriveOnArrival"; ValueData: ""; Flags: uninsdeletevalue
