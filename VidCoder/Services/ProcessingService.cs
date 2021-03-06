@@ -2941,7 +2941,7 @@ namespace VidCoder.Services
 					TrackNumber = 0,
 					BurnedIn = picker.SubtitleBurnInSelection.ForeignAudioIncluded(),
 					ForcedOnly = true,
-					Default = picker.SubtitleDefault
+					Default = false
 				});
 			}
 
