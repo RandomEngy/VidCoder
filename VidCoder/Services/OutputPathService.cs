@@ -163,7 +163,14 @@ namespace VidCoder.Services
 		// Returns a non-conflicting output path.
 		// May return the same value if there are no conflicts.
 		// null means cancel.
-		public string ResolveOutputPathConflicts(string initialOutputPath, string sourcePath, HashSet<string> excludedPaths, bool isBatch, Picker picker, bool allowConflictDialog)
+		public string ResolveOutputPathConflicts(
+			string initialOutputPath,
+			string sourcePath,
+			HashSet<string> excludedPaths,
+			bool isBatch,
+			Picker picker,
+			bool allowConflictDialog,
+			bool allowQueueRemoval)
 		{
 			// If the output is going to be the same as the source path, add (Encoded) to it
 			if (string.Compare(initialOutputPath, sourcePath, StringComparison.InvariantCultureIgnoreCase) == 0)
@@ -176,9 +183,9 @@ namespace VidCoder.Services
 			}
 
 			HashSet<string> queuedFiles = excludedPaths;
-			bool? conflict = Utilities.FileExists(initialOutputPath, queuedFiles);
+			FileQueueCheckResult checkResult = Utilities.FileExistsOnDiskOrInQueue(initialOutputPath, queuedFiles);
 
-			if (conflict == null)
+			if (checkResult == FileQueueCheckResult.NotFound)
 			{
 				return initialOutputPath;
 			}
@@ -203,6 +210,11 @@ namespace VidCoder.Services
 				case WhenFileExists.Prompt:
 					break;
 				case WhenFileExists.Overwrite:
+					if (checkResult == FileQueueCheckResult.InQueue && allowQueueRemoval)
+					{
+						this.RemoveQueuedJobWithOutputPath(initialOutputPath);
+					}
+
 					return initialOutputPath;
 				case WhenFileExists.AutoRename:
 					return FileUtilities.CreateUniqueFileName(initialOutputPath, queuedFiles);
@@ -212,13 +224,16 @@ namespace VidCoder.Services
 
 			// Continue and prompt user for resolution
 			string dialogMessageTemplate;
-			if ((bool)conflict)
+			string overwriteButtonText;
+			if (checkResult == FileQueueCheckResult.OnDisk || this.IsConflictingJobInProgress(initialOutputPath))
 			{
 				dialogMessageTemplate = MiscRes.FileConflictWarning;
+				overwriteButtonText = MiscRes.OverwriteButton;
 			}
 			else
 			{
 				dialogMessageTemplate = MiscRes.QueueFileConflictWarning;
+				overwriteButtonText = MiscRes.ReplaceJobButton;
 			}
 
 			string dialogMessage = string.Format(dialogMessageTemplate, initialOutputPath);
@@ -227,7 +242,7 @@ namespace VidCoder.Services
 				dialogMessage,
 				new List<CustomDialogButton<FileConflictResolution>>
 				{
-					new CustomDialogButton<FileConflictResolution>(FileConflictResolution.Overwrite, MiscRes.OverwriteButton, ButtonType.Default),
+					new CustomDialogButton<FileConflictResolution>(FileConflictResolution.Overwrite, overwriteButtonText, ButtonType.Default),
 					new CustomDialogButton<FileConflictResolution>(FileConflictResolution.AutoRename, MiscRes.AutoRenameButton),
 					new CustomDialogButton<FileConflictResolution>(FileConflictResolution.Cancel, CommonRes.Cancel, ButtonType.Cancel),
 				});
@@ -239,6 +254,11 @@ namespace VidCoder.Services
 				case FileConflictResolution.Cancel:
 					return null;
 				case FileConflictResolution.Overwrite:
+					if (checkResult == FileQueueCheckResult.InQueue && allowQueueRemoval)
+					{
+						this.RemoveQueuedJobWithOutputPath(initialOutputPath);
+					}
+
 					return initialOutputPath;
 				case FileConflictResolution.AutoRename:
 					return FileUtilities.CreateUniqueFileName(initialOutputPath, queuedFiles);
@@ -247,9 +267,23 @@ namespace VidCoder.Services
 			}
 		}
 
-		public string ResolveOutputPathConflicts(string initialOutputPath, string sourcePath, bool isBatch, Picker picker, bool allowConflictDialog)
+		private bool IsConflictingJobInProgress(string outputPath)
 		{
-			return this.ResolveOutputPathConflicts(initialOutputPath, sourcePath, this.ProcessingService.GetQueuedFiles(), isBatch, picker, allowConflictDialog);
+			return this.processingService.EncodingJobs.Any(j => string.Compare(j.Job.FinalOutputPath, outputPath, StringComparison.OrdinalIgnoreCase) == 0);
+		}
+
+		private void RemoveQueuedJobWithOutputPath(string outputPath)
+		{
+			EncodeJobViewModel jobToRemove = this.processingService.EncodeQueue.Items.FirstOrDefault(j => string.Compare(j.Job.FinalOutputPath, outputPath, StringComparison.OrdinalIgnoreCase) == 0 && !j.Encoding);
+			if (jobToRemove != null)
+			{
+				this.processingService.RemoveQueueJob(jobToRemove);
+			}
+		}
+
+		public string ResolveOutputPathConflicts(string initialOutputPath, string sourcePath, bool isBatch, Picker picker, bool allowConflictDialog, bool allowQueueRemoval)
+		{
+			return this.ResolveOutputPathConflicts(initialOutputPath, sourcePath, this.ProcessingService.GetQueuedFiles(), isBatch, picker, allowConflictDialog, allowQueueRemoval);
 		}
 
 		/// <summary>
@@ -408,7 +442,7 @@ namespace VidCoder.Services
 			string extension = this.GetOutputExtension();
 
 			string outputPathCandidate = this.BuildOutputPath(fileName, extension, sourcePath: main.SourcePath);
-			this.OutputPath = this.ResolveOutputPathConflicts(outputPathCandidate, main.SourcePath, false, picker, false);
+			this.OutputPath = this.ResolveOutputPathConflicts(outputPathCandidate, main.SourcePath, false, picker, allowConflictDialog: false, allowQueueRemoval: false);
 
 			// If we've pushed a new name into the destination text box, we need to update the "baseline" name so the
 			// auto-generated name doesn't get mistakenly labeled as manual when focus leaves it

@@ -1263,7 +1263,7 @@ namespace VidCoder.Services
 						picker: picker);
 					string outputExtension = this.outputPathService.GetOutputExtension();
 					string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
-					queueOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, source, excludedPaths, isBatch: true, picker: picker, allowConflictDialog: false);
+					queueOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, source, excludedPaths, isBatch: true, picker: picker, allowConflictDialog: false, allowQueueRemoval: true);
 
 					job.FinalOutputPath = queueOutputPath;
 				}
@@ -1289,7 +1289,7 @@ namespace VidCoder.Services
 			var newEncodeJobVM = this.main.CreateEncodeJobVM();
 
 			Picker picker = this.pickersService.SelectedPicker.Picker;
-			string resolvedOutputPath = this.outputPathService.ResolveOutputPathConflicts(newEncodeJobVM.Job.FinalOutputPath, newEncodeJobVM.Job.SourcePath, isBatch: false, picker, allowConflictDialog: true);
+			string resolvedOutputPath = this.outputPathService.ResolveOutputPathConflicts(newEncodeJobVM.Job.FinalOutputPath, newEncodeJobVM.Job.SourcePath, isBatch: false, picker, allowConflictDialog: true, allowQueueRemoval: true);
 			if (resolvedOutputPath == null)
 			{
 				return false;
@@ -1360,7 +1360,7 @@ namespace VidCoder.Services
 				string extension = this.outputPathService.GetOutputExtension();
 				string queueOutputPath = this.outputPathService.BuildOutputPath(queueOutputFileName, extension, sourcePath: null, outputFolder: outputFolder);
 
-				job.FinalOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, this.main.SourcePath, isBatch: true, picker, allowConflictDialog: false);
+				job.FinalOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, this.main.SourcePath, isBatch: true, picker, allowConflictDialog: false, allowQueueRemoval: true);
 
 				var jobVM = new EncodeJobViewModel(job)
 				{
@@ -1562,7 +1562,7 @@ namespace VidCoder.Services
 					multipleTitlesOnSource: titles.Count > 1);
 				string outputExtension = this.outputPathService.GetOutputExtension();
 				string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
-				queueOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, fileToQueue, excludedPaths, isBatch: true, picker, allowConflictDialog: false);
+				queueOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, fileToQueue, excludedPaths, isBatch: true, picker, allowConflictDialog: false, allowQueueRemoval: true);
 
 				job.FinalOutputPath = queueOutputPath;
 

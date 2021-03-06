@@ -421,7 +421,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A queue job already has an output path at {0}. Do you want to overwrite the file, automatically find a new output path for the encode job or cancel the operation?.
+        ///   Looks up a localized string similar to A queue job already has an output path at {0}. Do you want to replace the queued job, automatically find a new output path for the encode job or cancel the operation?.
         /// </summary>
         public static string QueueFileConflictWarning {
             get {
@@ -435,6 +435,15 @@ namespace VidCoder.Resources {
         public static string RefreshButton {
             get {
                 return ResourceManager.GetString("RefreshButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace job.
+        /// </summary>
+        public static string ReplaceJobButton {
+            get {
+                return ResourceManager.GetString("ReplaceJobButton", resourceCulture);
             }
         }
         

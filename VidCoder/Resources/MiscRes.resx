@@ -154,7 +154,7 @@
     <value>A file already exists at {0}. Do you want to overwrite the file, automatically find a new output path for the encode job or cancel the operation?</value>
   </data>
   <data name="QueueFileConflictWarning" xml:space="preserve">
-    <value>A queue job already has an output path at {0}. Do you want to overwrite the file, automatically find a new output path for the encode job or cancel the operation?</value>
+    <value>A queue job already has an output path at {0}. Do you want to replace the queued job, automatically find a new output path for the encode job or cancel the operation?</value>
   </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>Queue Columns</value>
@@ -262,5 +262,8 @@
   </data>
   <data name="DownloadInstallerButton" xml:space="preserve">
     <value>Download installer</value>
+  </data>
+  <data name="ReplaceJobButton" xml:space="preserve">
+    <value>Replace job</value>
   </data>
 </root>

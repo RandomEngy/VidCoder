@@ -530,19 +530,19 @@ namespace VidCoder
 		}
 
 		// Assumes the hashset has a comparer of StringComparer.OrdinalIgnoreCase
-		public static bool? FileExists(string path, HashSet<string> queuedPaths)
+		public static FileQueueCheckResult FileExistsOnDiskOrInQueue(string path, HashSet<string> queuedPaths)
 		{
-			if (File.Exists(path))
-			{
-				return true;
-			}
-
 			if (queuedPaths.Contains(path))
 			{
-				return false;
+				return FileQueueCheckResult.InQueue;
 			}
 
-			return null;
+			if (File.Exists(path))
+			{
+				return FileQueueCheckResult.OnDisk;
+			}
+
+			return FileQueueCheckResult.NotFound;
 		}
 
 		public static SourceType GetSourceType(string sourcePath)
