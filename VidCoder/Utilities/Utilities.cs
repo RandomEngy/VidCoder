@@ -45,7 +45,7 @@ namespace VidCoder
 				IsPortable = currentDirectoryInfo.FullName.StartsWith(tempFolderInfo.FullName, StringComparison.OrdinalIgnoreCase);
 			}
 
-			IsRunningAsAppx = new DesktopBridge.Helpers().IsRunningAsUwp();
+			IsRunningAsAppx = false;
 		}
 
 		public static Version CurrentVersion
