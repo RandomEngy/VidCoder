@@ -5,12 +5,11 @@ using System.Text;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Utilities;
 using VidCoder.Extensions;
+using VidCoder.Resources;
+using Utilities = VidCoder.Utilities;
 
 namespace VidCoder.ViewModel
 {
-	using Resources;
-	using Utilities = VidCoder.Utilities;
-
 	public class AboutDialogViewModel : OkCancelDialogViewModel
 	{
 		public string Version => Utilities.VersionString;

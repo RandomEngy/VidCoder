@@ -729,4 +729,7 @@
   <data name="AutoPauseResumeProcess" xml:space="preserve">
     <value>Automatically resuming, processes are gone.</value>
   </data>
+  <data name="AppxGetUpdateButton" xml:space="preserve">
+    <value>Get update...</value>
+  </data>
 </root>

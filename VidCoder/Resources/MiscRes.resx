@@ -254,4 +254,13 @@
   <data name="ExceptionDialogSubTextReported" xml:space="preserve">
     <value>The program needs to close, but the error will be automatically reported.</value>
   </data>
+  <data name="AppxUpdateWarningDialogTitle" xml:space="preserve">
+    <value>Get update</value>
+  </data>
+  <data name="AppxUpdateWarningText" xml:space="preserve">
+    <value>The Microsoft Store does not support WPF on .NET 5, so updates for VidCoder will only be available on the installer version. You can copy your settings, presets and pickers by copying VidCoder.sqlite from Help -&gt; Open App Data folder.</value>
+  </data>
+  <data name="DownloadInstallerButton" xml:space="preserve">
+    <value>Download installer</value>
+  </data>
 </root>

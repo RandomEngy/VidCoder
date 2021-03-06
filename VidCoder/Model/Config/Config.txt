@@ -51,6 +51,7 @@ UpdatesDisabled32BitOSWarningDisplayed|bool|false
 
 PreviewSeconds|int|10
 ApplicationVersion|string|""
+ShownAppxWarningDialog|bool|false
 
 QueueColumns|string|"Source:200|Title:35|Range:106|Destination:200"
 QueueLastColumnWidth|double|75.0

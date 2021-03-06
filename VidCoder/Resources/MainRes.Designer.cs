@@ -115,6 +115,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Get update....
+        /// </summary>
+        public static string AppxGetUpdateButton {
+            get {
+                return ResourceManager.GetString("AppxGetUpdateButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Audio encoding options.
         /// </summary>
         public static string AudioEncodingOptionsToolTip {

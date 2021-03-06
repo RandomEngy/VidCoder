@@ -386,6 +386,15 @@ namespace VidCoder.ViewModel
 			{
 				this.WindowMenuItems.Add(new WindowMenuItemViewModel(definition));
 			}
+
+			if (Utilities.IsRunningAsAppx && !Config.ShownAppxWarningDialog)
+			{
+				DispatchUtilities.BeginInvoke(() =>
+				{
+					this.OpenAppxUpdateWarningDialogImpl();
+					Config.ShownAppxWarningDialog = true;
+				});
+			}
 		}
 
 		public IMainView View
@@ -979,6 +988,8 @@ namespace VidCoder.ViewModel
 			get { return this.selectedSource; }
 			set { this.RaiseAndSetIfChanged(ref this.selectedSource, value); }
 		}
+
+		public bool ShowAppxUpdateWarning => Utilities.IsRunningAsAppx;
 
 		private double scanProgressFraction;
 
@@ -2884,6 +2895,29 @@ namespace VidCoder.ViewModel
 				{
 					FileUtilities.OpenFolderAndSelectItem(FileUtilities.GetRealFilePath(Database.DatabaseFile));
 				}));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> openAppxUpdateWarningDialog;
+		public ICommand OpenAppxUpdateWarningDialog
+		{
+			get
+			{
+				return this.openAppxUpdateWarningDialog ?? (this.openAppxUpdateWarningDialog = ReactiveCommand.Create(() =>
+				{
+					this.OpenAppxUpdateWarningDialogImpl();
+				}));
+			}
+		}
+
+		private void OpenAppxUpdateWarningDialogImpl()
+		{
+			var dialogVM = new AppxUpdateWarningDialogViewModel();
+			StaticResolver.Resolve<IWindowManager>().OpenDialog(dialogVM, this);
+
+			if (dialogVM.DialogResult)
+			{
+				FileService.Instance.LaunchUrl("https://vidcoder.net/");
 			}
 		}
 
