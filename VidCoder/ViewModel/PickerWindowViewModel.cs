@@ -292,7 +292,7 @@ namespace VidCoder.ViewModel
 				// ShowDefaultCheckBox
 				this.WhenAnyValue(x => x.SubtitleQuantityClass, x => x.SubtitleSelectionMode, x => x.SubtitleBurnInSelection, (subtitleQuantityClass, selectionMode, subtitleBurnInSelection) =>
 				{
-					return subtitleQuantityClass == SubtitleQuantityClass.Single && !subtitleBurnInSelection.FirstTrackIncluded();
+					return subtitleQuantityClass == SubtitleQuantityClass.Single && selectionMode != SubtitleSelectionMode.ByIndex && !subtitleBurnInSelection.FirstTrackIncluded();
 				}).ToProperty(this, x => x.ShowDefaultCheckBox, out this.showDefaultCheckBox);
 
 				// ShowMarkFirstAsDefaultCheckBox
