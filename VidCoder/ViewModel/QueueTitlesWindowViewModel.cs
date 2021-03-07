@@ -129,7 +129,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return !Utilities.IsRunningAsAppx && Utilities.IsDvdFolder(this.main.SourcePath);
+				return Utilities.IsDvdFolder(this.main.SourcePath);
 			}
 		}
 
@@ -194,7 +194,7 @@ namespace VidCoder.ViewModel
 
 						player.PlayTitle(this.main.SourcePath, this.SelectedTitles[0].Title.Index);
 					},
-					MvvmUtilities.CreateConstantObservable(!Utilities.IsRunningAsAppx && Players.Installed.Count > 0)));
+					MvvmUtilities.CreateConstantObservable(Players.Installed.Count > 0)));
 			}
 		}
 

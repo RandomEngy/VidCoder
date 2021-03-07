@@ -142,15 +142,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Windows store version cannot play DVD or Blu-ray source as it is not allowed to launch other processes..
-        /// </summary>
-        public static string PlaySourceDisabledAppxToolTip {
-            get {
-                return ResourceManager.GetString("PlaySourceDisabledAppxToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Source preview for Blu-ray not supported yet..
         /// </summary>
         public static string PlaySourceDisabledBluRayToolTip {

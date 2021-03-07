@@ -83,7 +83,7 @@ namespace VidCoder.ViewModel
 						bool isDvd = Utilities.IsDvdFolder(sourcePath);
 						bool playerInstalled = Players.Installed.Count > 0;
 
-						return isDvd && !Utilities.IsRunningAsAppx && playerInstalled;
+						return isDvd && playerInstalled;
 					}
 					else
 					{
@@ -121,11 +121,6 @@ namespace VidCoder.ViewModel
 				{
 					if (FileUtilities.IsDirectory(sourcePath))
 					{
-						if (Utilities.IsRunningAsAppx)
-						{
-							return PreviewRes.PlaySourceDisabledAppxToolTip;
-						}
-
 						// Path is a directory. Can only preview when it's a DVD and we have a supported player installed.
 						bool isDvd = Utilities.IsDvdFolder(sourcePath);
 						if (!isDvd)

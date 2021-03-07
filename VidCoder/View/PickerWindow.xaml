@@ -982,7 +982,7 @@
 							</StackPanel>
 
 							<!--  Post-encoding  -->
-							<StackPanel Orientation="Vertical" Visibility="{Binding IsRunningAsAppx, Source={x:Static vidCoder:XamlStatics.Instance}, Converter={StaticResource InverseVisibilityConverter}}">
+							<StackPanel Orientation="Vertical">
 								<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.PostEncodingSection}" />
 								<StackPanel Style="{StaticResource ConfigSectionStack}">
 									<Grid>

@@ -72,7 +72,6 @@ namespace VidCoder
 			cache.Add("UpdatesDisabled32BitOSWarningDisplayed", DatabaseConfig.Get("UpdatesDisabled32BitOSWarningDisplayed", false, connection));
 			cache.Add("PreviewSeconds", DatabaseConfig.Get("PreviewSeconds", 10, connection));
 			cache.Add("ApplicationVersion", DatabaseConfig.Get("ApplicationVersion", "", connection));
-			cache.Add("ShownAppxWarningDialog", DatabaseConfig.Get("ShownAppxWarningDialog", false, connection));
 			cache.Add("QueueColumns", DatabaseConfig.Get("QueueColumns", "Source:200|Title:35|Range:106|Destination:200", connection));
 			cache.Add("QueueLastColumnWidth", DatabaseConfig.Get("QueueLastColumnWidth", 75.0, connection));
 			cache.Add("CompletedColumnWidths", DatabaseConfig.Get("CompletedColumnWidths", "", connection));
@@ -390,11 +389,6 @@ namespace VidCoder
 		{
 			get { return (string)cache["ApplicationVersion"]; }
 			set { Set("ApplicationVersion", value); }
-		}
-		public static bool ShownAppxWarningDialog
-		{
-			get { return (bool)cache["ShownAppxWarningDialog"]; }
-			set { Set("ShownAppxWarningDialog", value); }
 		}
 		public static string QueueColumns
 		{
@@ -791,7 +785,6 @@ namespace VidCoder
 			public static IObservable<bool> UpdatesDisabled32BitOSWarningDisplayed => GetObservable<bool>("UpdatesDisabled32BitOSWarningDisplayed");
 			public static IObservable<int> PreviewSeconds => GetObservable<int>("PreviewSeconds");
 			public static IObservable<string> ApplicationVersion => GetObservable<string>("ApplicationVersion");
-			public static IObservable<bool> ShownAppxWarningDialog => GetObservable<bool>("ShownAppxWarningDialog");
 			public static IObservable<string> QueueColumns => GetObservable<string>("QueueColumns");
 			public static IObservable<double> QueueLastColumnWidth => GetObservable<double>("QueueLastColumnWidth");
 			public static IObservable<string> CompletedColumnWidths => GetObservable<string>("CompletedColumnWidths");

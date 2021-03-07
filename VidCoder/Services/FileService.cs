@@ -168,7 +168,7 @@ namespace VidCoder.Services
 		{
 			try
 			{
-				if (!Utilities.IsRunningAsAppx && Config.UseCustomVideoPlayer && !string.IsNullOrWhiteSpace(Config.CustomVideoPlayer))
+				if (Config.UseCustomVideoPlayer && !string.IsNullOrWhiteSpace(Config.CustomVideoPlayer))
 				{
 					if (File.Exists(Config.CustomVideoPlayer))
 					{

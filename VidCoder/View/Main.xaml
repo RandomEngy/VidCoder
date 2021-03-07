@@ -752,13 +752,6 @@
 								Header="{x:Static res:MainRes.AboutVidCoderMenuItem}"
 								Icon="/Icons/VidCoder32.png" />
 						</fluent:DropDownButton>
-						<fluent:Button
-							AutomationProperties.Name="{x:Static res:MainRes.AppxGetUpdateButton}"
-							Command="{Binding OpenAppxUpdateWarningDialog}"
-							Header="{x:Static res:MainRes.AppxGetUpdateButton}"
-							LargeIcon="/Icons/warning.png"
-							Visibility="{Binding ShowAppxUpdateWarning,
-							                     Converter={StaticResource VisibilityConverter}}" />
 					</fluent:RibbonGroupBox>
 				</fluent:RibbonTabItem>
 			</fluent:Ribbon>

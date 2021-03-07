@@ -125,7 +125,7 @@
 							<!--  Players  -->
 							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.PlayersSection}" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}">
-								<StackPanel Orientation="Vertical" Visibility="{Binding IsRunningAsAppx, Source={x:Static vidCoder:XamlStatics.Instance}, Converter={StaticResource InverseVisibilityConverter}}">
+								<StackPanel Orientation="Vertical">
 									<StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 										<TextBlock
 											Name="preferredDvdPlayerLabel"

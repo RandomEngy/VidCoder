@@ -44,8 +44,6 @@ namespace VidCoder
 
 				IsPortable = currentDirectoryInfo.FullName.StartsWith(tempFolderInfo.FullName, StringComparison.OrdinalIgnoreCase);
 			}
-
-			IsRunningAsAppx = false;
 		}
 
 		public static Version CurrentVersion
@@ -72,8 +70,6 @@ namespace VidCoder
 		}
 
 		public static bool IsPortable { get; }
-
-		public static bool IsRunningAsAppx { get; }
 
 		public static bool UwpApisAvailable
 		{
@@ -132,7 +128,7 @@ namespace VidCoder
 			}
 		}
 
-		public static bool SupportsUpdates => !IsPortable && !IsRunningAsAppx && CurrentVersion != new Version(1, 0, 0, 0);
+		public static bool SupportsUpdates => !IsPortable && CurrentVersion != new Version(1, 0, 0, 0);
 
 		public static bool IsDesigner
 		{

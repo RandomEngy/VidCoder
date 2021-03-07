@@ -180,27 +180,11 @@ namespace VidCoder
 
 		private void ToastOnActivated(ToastNotificationActivatedEventArgsCompat e)
 		{
-			StaticResolver.Resolve<Main>().RestoreWindow();
-
-			DispatchUtilities.BeginInvoke(() =>
-			{
-				StaticResolver.Resolve<Main>().Activate();
-			});
+			StaticResolver.Resolve<Main>().EnsureVisible();
 		}
 
 		protected override void OnExit(ExitEventArgs e)
 		{
-			//if (IsPrimaryInstance)
-			//{
-			//	try
-			//	{
-			//		this.mutex.ReleaseMutex();
-			//	}
-			//	catch (ApplicationException)
-			//	{
-			//	}
-			//}
-
 			this.appThemeService?.Dispose();
 		}
 

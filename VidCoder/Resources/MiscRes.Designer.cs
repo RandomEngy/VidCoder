@@ -106,24 +106,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Get update.
-        /// </summary>
-        public static string AppxUpdateWarningDialogTitle {
-            get {
-                return ResourceManager.GetString("AppxUpdateWarningDialogTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The Microsoft Store does not support WPF on .NET 5, so updates for VidCoder will only be available on the installer version. You can copy your settings, presets and pickers by copying VidCoder.sqlite from Help -&gt; Open App Data folder..
-        /// </summary>
-        public static string AppxUpdateWarningText {
-            get {
-                return ResourceManager.GetString("AppxUpdateWarningText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Auto-rename.
         /// </summary>
         public static string AutoRenameButton {

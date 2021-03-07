@@ -32,8 +32,6 @@ namespace VidCoder.View
 
 			InitializeComponent();
 
-			// The Microsoft Store version doesn't actually seem to report errors in any meaningful fashion. They all come back as unmanaged crashes or "Unknown"
-			//this.subText.Text = Utilities.IsRunningAsAppx ? MiscRes.ExceptionDialogSubTextReported : MiscRes.ExceptionDialogSubText;
 			this.subText.Text = MiscRes.ExceptionDialogSubText;
 
 			this.errorIcon.Source = WpfSystemIcons.Error;
