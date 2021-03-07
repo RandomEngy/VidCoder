@@ -17,11 +17,9 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shell;
-using Windows.ApplicationModel.Contacts;
 using DynamicData;
 using DynamicData.Aggregation;
 using DynamicData.Binding;
-using HandBrake.Interop.Interop.EventArgs;
 using HandBrake.Interop.Interop.Json.Scan;
 using Microsoft.AnyContainer;
 using ReactiveUI;
@@ -34,12 +32,12 @@ using VidCoder.ViewModel;
 using VidCoder.ViewModel.DataModels;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
-using Color = System.Windows.Media.Color;
 using System.Reactive.Subjects;
-using Microsoft.WindowsAPICodePack.Shell;
-using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 using System.Text;
 using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.Interfaces.EventArgs;
+using Microsoft.WindowsAPICodePack.Shell;
+using FileInfo = System.IO.FileInfo;
 
 namespace VidCoder.Services
 {
@@ -2118,10 +2116,10 @@ namespace VidCoder.Services
 								File.SetLastWriteTimeUtc(finishedJobViewModel.Job.FinalOutputPath, inputShellFile.Properties.System.DateModified.Value.Value);
 
 								// Writing Created/Modified time does not work via the ShellFile API, otherwise we would use this approach to set them all at once.
-								////ShellPropertyWriter propertyWriter = outputShellFile.Properties.GetPropertyWriter();
-								////propertyWriter.WriteProperty(SystemProperties.System.DateCreated, inputShellFile.Properties.System.DateCreated.Value);
-								////propertyWriter.WriteProperty(SystemProperties.System.DateModified, inputShellFile.Properties.System.DateModified.Value);
-								////propertyWriter.Close();
+								//ShellPropertyWriter propertyWriter = outputShellFile.Properties.GetPropertyWriter();
+								//propertyWriter.WriteProperty(SystemProperties.System.DateCreated, inputShellFile.Properties.System.DateCreated.Value);
+								//propertyWriter.WriteProperty(SystemProperties.System.DateModified, inputShellFile.Properties.System.DateModified.Value);
+								//propertyWriter.Close();
 							}
 							catch (Exception exception)
 							{

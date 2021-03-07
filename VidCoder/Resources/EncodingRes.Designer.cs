@@ -1032,6 +1032,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Format: FFFFFF.
+        /// </summary>
+        public static string PadColorTextToolTip {
+            get {
+                return ResourceManager.GetString("PadColorTextToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Padding.
         /// </summary>
         public static string PaddingLabel {
@@ -1190,15 +1199,6 @@ namespace VidCoder.Resources {
         public static string PassthroughSettingsLabel {
             get {
                 return ResourceManager.GetString("PassthroughSettingsLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Pick color….
-        /// </summary>
-        public static string PickColorButton {
-            get {
-                return ResourceManager.GetString("PickColorButton", resourceCulture);
             }
         }
         

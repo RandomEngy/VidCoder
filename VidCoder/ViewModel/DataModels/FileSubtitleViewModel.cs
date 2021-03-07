@@ -4,7 +4,7 @@ using System.IO;
 using System.Reactive;
 using System.Windows.Input;
 using HandBrake.Interop.Interop;
-using HandBrake.Interop.Interop.Model;
+using HandBrake.Interop.Interop.Interfaces.Model;
 using ReactiveUI;
 using VidCoder.Model;
 using VidCoderCommon.Model;

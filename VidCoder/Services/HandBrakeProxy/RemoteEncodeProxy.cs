@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using HandBrake.Interop.Interop.EventArgs;
+using HandBrake.Interop.Interop.Interfaces.EventArgs;
 using PipeMethodCalls;
 using VidCoder.Model;
 using VidCoder.Resources;

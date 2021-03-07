@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Markup.Localizer;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.HbLib;
-using HandBrake.Interop.Interop.Model.Encoding;
+using HandBrake.Interop.Interop.Interfaces.Model.Encoders;
 using Microsoft.AnyContainer;
 using Newtonsoft.Json;
 using Omu.ValueInjecter;
@@ -272,16 +272,6 @@ namespace VidCoder.Model
 			{
 				return Utilities.CurrentDatabaseVersion;
 			}
-
-			//if (presetVersion < 19)
-			//{
-			//	return 31;
-			//}
-
-			//if (presetVersion < 20)
-			//{
-			//	return 32;
-			//}
 
 			return Utilities.CurrentDatabaseVersion;
 		}

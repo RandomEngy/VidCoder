@@ -8,7 +8,6 @@ using VidCoder.Services;
 using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
 using System.Windows.Media;
-using Fluent;
 using HandBrake.Interop.Interop;
 using VidCoder.View;
 using VidCoderCommon;
@@ -19,7 +18,9 @@ namespace VidCoder
 	using System.Globalization;
 	using System.Threading;
 	using Automation;
+	using ControlzEx.Theming;
 	using Microsoft.AnyContainer;
+	using Microsoft.Toolkit.Uwp.Notifications;
 	using Resources;
 	using VidCoderCommon.Services;
 
@@ -99,14 +100,7 @@ namespace VidCoder
 
 			Ioc.SetUp();
 
-			try
-			{
-				Database.Initialize();
-			}
-			catch (Exception)
-			{
-				Environment.Exit(0);
-			}
+			Database.Initialize();
 
 			Config.EnsureInitialized(Database.Connection);
 
@@ -149,7 +143,7 @@ namespace VidCoder
 					bool isDark = appTheme == AppTheme.Dark;
 
 					string fluentTheme = isDark ? "Dark" : "Light";
-					ThemeManager.ChangeTheme(this, fluentTheme + ".Cobalt");
+					ThemeManager.Current.ChangeTheme(this, fluentTheme + ".Cobalt");
 
 					Color ribbonTextColor = isDark ? Colors.White : Colors.Black;
 					Color ribbonBackgroundColor = isDark ? Colors.Black : Colors.White;
@@ -179,7 +173,19 @@ namespace VidCoder
 				activityService.ReportDeactivated();
 			};
 
+			ToastNotificationManagerCompat.OnActivated += this.ToastOnActivated;
+
 			base.OnStartup(e);
+		}
+
+		private void ToastOnActivated(ToastNotificationActivatedEventArgsCompat e)
+		{
+			StaticResolver.Resolve<Main>().RestoreWindow();
+
+			DispatchUtilities.BeginInvoke(() =>
+			{
+				StaticResolver.Resolve<Main>().Activate();
+			});
 		}
 
 		protected override void OnExit(ExitEventArgs e)

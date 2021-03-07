@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using HandBrake.Interop.Interop;
-using HandBrake.Interop.Interop.Model;
+using HandBrake.Interop.Interop.Interfaces.Model;
 
 namespace VidCoder
 {

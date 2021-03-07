@@ -10,7 +10,6 @@ using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Interop;
-using Windows.Foundation.Metadata;
 using HandBrake.Interop.Interop.Json.Scan;
 using Microsoft.AnyContainer;
 using VidCoder.Extensions;
@@ -22,6 +21,7 @@ using VidCoder.View;
 using VidCoderCommon;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
+using Windows.Foundation.Metadata;
 
 namespace VidCoder
 {
@@ -34,8 +34,6 @@ namespace VidCoder
 		private const string AppDataFolderName = "VidCoder";
 		private const string LocalAppDataFolderName = "VidCoder";
 
-		private static string settingsDirectory;
-
 		static Utilities()
 		{
 			var tempFolderPath = Environment.GetEnvironmentVariable("temp");
@@ -47,12 +45,7 @@ namespace VidCoder
 				IsPortable = currentDirectoryInfo.FullName.StartsWith(tempFolderInfo.FullName, StringComparison.OrdinalIgnoreCase);
 			}
 
-			IsRunningAsAppx = new DesktopBridge.Helpers().IsRunningAsUwp();
-		    string settingsDirectorySetting = ConfigurationManager.AppSettings["SettingsDirectory"];
-		    if (settingsDirectorySetting != null)
-		    {
-                settingsDirectory = Path.GetFullPath(settingsDirectorySetting);
-		    }
+			IsRunningAsAppx = false;
 		}
 
 		public static Version CurrentVersion
@@ -330,11 +323,6 @@ namespace VidCoder
 
 		public static string GetAppFolder(bool beta)
 		{
-			if (settingsDirectory != null)
-			{
-				return settingsDirectory;
-			}
-
 			string folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AppDataFolderName);
 
 			if (beta)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -26,13 +27,14 @@ namespace VidCoderCommon.Utilities
 			};
 		}
 
-		public static JsonSerializerSettings HandBrakeJsonSerializerSettings
+		public static JsonSerializerOptions HandBrakeJsonSerializerOptions
 		{
 			get
 			{
-				return new JsonSerializerSettings
+				return new JsonSerializerOptions
 				{
-					NullValueHandling = NullValueHandling.Ignore,
+					IgnoreNullValues = true,
+					WriteIndented = true
 				};
 			}
 		}

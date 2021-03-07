@@ -431,10 +431,11 @@ namespace VidCoder.Services
 			try
 			{
 				HttpClient client = new HttpClient();
+				client.DefaultRequestHeaders.Add("User-Agent", "VidCoder");
 				string updateJson = await client.GetStringAsync(url);
 
 				JsonSerializerSettings settings = new JsonSerializerSettings();
-				settings.Converters.Add(new VersionConverter());
+				settings.Converters.Add(new Newtonsoft.Json.Converters.VersionConverter());
 
 				UpdateInfo updateInfo = JsonConvert.DeserializeObject<UpdateInfo>(updateJson, settings);
 				updateInfo.LatestVersion = updateInfo.LatestVersion.FillInWithZeroes();

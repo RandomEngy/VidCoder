@@ -11,9 +11,9 @@ using System.Windows.Input;
 using DynamicData;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.HbLib;
+using HandBrake.Interop.Interop.Interfaces.Model;
+using HandBrake.Interop.Interop.Interfaces.Model.Encoders;
 using HandBrake.Interop.Interop.Json.Scan;
-using HandBrake.Interop.Interop.Model;
-using HandBrake.Interop.Interop.Model.Encoding;
 using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Extensions;
@@ -21,6 +21,7 @@ using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoderCommon.Model;
+using VidCoderCommon.Utilities;
 using Brush = System.Windows.Media.Brush;
 
 namespace VidCoder.ViewModel
@@ -186,7 +187,7 @@ namespace VidCoder.ViewModel
 					return false;
 				}
 
-				if (HandBrakeEncoderHelpers.AudioEncoders.Any(e => e.Id == (NativeConstants.HB_ACODEC_PASS_FLAG | audioEncoder.Encoder.Id)))
+				if (HandBrakeEncoderHelpers.AudioEncoders.Any(e => e.Id == (HandBrakeNativeConstants.HB_ACODEC_PASS_FLAG | audioEncoder.Encoder.Id)))
 				{
 					return true;
 				}

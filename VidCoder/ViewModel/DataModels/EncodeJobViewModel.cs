@@ -709,7 +709,7 @@ namespace VidCoder.ViewModel
 					{
 						if (FileUtilities.IsDirectory(this.Job.SourcePath))
 						{
-							Process.Start(this.Job.SourcePath);
+							FileService.Instance.LaunchFile(this.Job.SourcePath);
 						}
 						else
 						{

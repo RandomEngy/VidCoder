@@ -574,7 +574,13 @@ namespace VidCoder.Services
 					    encoder.Frames.Add(BitmapFrame.Create(job.Image));
 					    encoder.Save(memoryStream);
 
-					    using (var fileStream = new FileStream(job.FilePath, FileMode.Create))
+						var directory = Path.GetDirectoryName(job.FilePath);
+						if (!Directory.Exists(directory))
+						{
+							Directory.CreateDirectory(directory);
+						}
+
+						using (var fileStream = new FileStream(job.FilePath, FileMode.Create))
 					    {
 						    fileStream.Write(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
 					    }

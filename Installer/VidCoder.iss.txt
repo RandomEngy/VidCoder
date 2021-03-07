@@ -7,7 +7,7 @@ AppVersion=%version%
 AppPublisher=RandomEngy
 AppPublisherURL=http://vidcoder.net/
 
-DefaultDirName={pf}\%folderName%
+DefaultDirName={commonpf}\%folderName%
 DisableProgramGroupPage=yes
 UninstallDisplayIcon={app}\VidCoder.exe
 Compression=lzma
@@ -29,7 +29,7 @@ ArchitecturesInstallIn64BitMode=x64
 Name: "en"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "Files\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
+Source: "..\VidCoder\bin\publish-installer\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
 
 [Registry]
 Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\EventHandlers\PlayBluRayOnArrival"; ValueType: string; ValueName: "%appNameNoSpace%RipDriveOnArrival"; ValueData: ""; Flags: uninsdeletevalue
@@ -61,8 +61,8 @@ Root: HKCR; Subkey: "VidCoderQueue\shell\open\command"; ValueType: string; Value
 WelcomeLabel2=This will install [name/ver] on your computer.
 
 [Icons]
-Name: "{commonprograms}\%appName%"; Filename: "{app}\VidCoder.exe"; WorkingDir: "{app}"; AppUserModelID: "VidCoder.VidCoder"
-Name: "{commondesktop}\%appName%"; Filename: "{app}\VidCoder.exe"; WorkingDir: "{app}"; AppUserModelID: "VidCoder.VidCoder"; Tasks: desktopicon
+Name: "{commonprograms}\%appName%"; Filename: "{app}\VidCoder.exe"; WorkingDir: "{app}"
+Name: "{commondesktop}\%appName%"; Filename: "{app}\VidCoder.exe"; WorkingDir: "{app}"; Tasks: desktopicon
 
 [Tasks]
 Name: desktopicon; Description: "Create a desktop icon"
@@ -75,30 +75,93 @@ Type: filesandordirs; Name: "{userappdata}\%folderName%\Updates"
 Type: filesandordirs; Name: "{localappdata}\%folderName%"
 
 [CustomMessages]
-IDP_DownloadFailed=Download of .NET Framework 4.7.2 failed. .NET Framework 4.7 is required to run VidCoder.
+IDP_DownloadFailed=Download of .NET 5 failed. .NET 5 Desktop runtime is required to run VidCoder.
 IDP_RetryCancel=Click 'Retry' to try downloading the files again, or click 'Cancel' to terminate setup.
-InstallingDotNetFramework=Installing .NET Framework 4.7.2. This might take a few minutes...
-DotNetFrameworkFailedToLaunch=Failed to launch .NET Framework Installer with error "%1". Please fix the error then run this installer again.
-DotNetFrameworkFailed1602=.NET Framework installation was cancelled. This installation can continue, but be aware that this application may not run unless the .NET Framework installation is completed successfully.
-DotNetFrameworkFailed1603=A fatal error occurred while installing the .NET Framework. Please fix the error, then run the installer again.
-DotNetFrameworkFailed5100=Your computer does not meet the requirements of the .NET Framework. Please consult the documentation.
-DotNetFrameworkFailedOther=The .NET Framework installer exited with an unexpected status code "%1". Please review any other messages shown by the installer to determine whether the installation completed successfully, and abort this installation and fix the problem if it did not.
+InstallingDotNetRuntime=Installing .NET 5 Desktop Runtime. This might take a few minutes...
+DotNetRuntimeFailedToLaunch=Failed to launch .NET Runtime Installer with error "%1". Please fix the error then run this installer again.
+DotNetRuntimeFailed1602=.NET Runtime installation was cancelled. This installation can continue, but be aware that this application may not run unless the .NET Runtime installation is completed successfully.
+DotNetRuntimeFailed1603=A fatal error occurred while installing the .NET Runtime. Please fix the error, then run the installer again.
+DotNetRuntimeFailed5100=Your computer does not meet the requirements of the .NET Runtime. Please consult the documentation.
+DotNetRuntimeFailedOther=The .NET Runtime installer exited with an unexpected status code "%1". Please review any other messages shown by the installer to determine whether the installation completed successfully, and abort this installation and fix the problem if it did not.
 
 [Code]
 
 var
   requiresRestart: boolean;
 
-function NetFrameworkIsMissing(): Boolean;
+function CompareVersion(V1, V2: string): Integer;
 var
-  bSuccess: Boolean;
-  regVersion: Cardinal;
+  P, N1, N2: Integer;
+begin
+  Result := 0;
+  while (Result = 0) and ((V1 <> '') or (V2 <> '')) do
+  begin
+    P := Pos('.', V1);
+    if P > 0 then
+    begin
+      N1 := StrToInt(Copy(V1, 1, P - 1));
+      Delete(V1, 1, P);
+    end
+      else
+    if V1 <> '' then
+    begin
+      N1 := StrToInt(V1);
+      V1 := '';
+    end
+      else
+    begin
+      N1 := 0;
+    end;
+    P := Pos('.', V2);
+    if P > 0 then
+    begin
+      N2 := StrToInt(Copy(V2, 1, P - 1));
+      Delete(V2, 1, P);
+    end
+      else
+    if V2 <> '' then
+    begin
+      N2 := StrToInt(V2);
+      V2 := '';
+    end
+      else
+    begin
+      N2 := 0;
+    end;
+    if N1 < N2 then Result := -1
+      else
+    if N1 > N2 then Result := 1;
+  end;
+end;
+
+function NetRuntimeIsMissing(): Boolean;
+var
+  runtimes: TArrayOfString;
+  registryKey: string;
+  I: Integer;
+  meetsMinimumVersion: Boolean;
+  meetsMaximumVersion: Boolean;
+  minimumVersion: string;
+  maximumExclusiveVersion: string;
 begin
   Result := True;
 
-  bSuccess := RegQueryDWordValue(HKLM, 'Software\Microsoft\NET Framework Setup\NDP\v4\Full', 'Release', regVersion);
-  if (True = bSuccess) and (regVersion >= 461308) then begin
-    Result := False;
+  minimumVersion := '5.0.0';
+  maximumExclusiveVersion := '6.0.0';
+  registryKey := 'SOFTWARE\WOW6432Node\dotnet\Setup\InstalledVersions\x64\sharedfx\Microsoft.WindowsDesktop.App';
+  if RegGetValueNames(HKLM, registryKey, runtimes) then
+  begin
+    for I := 0 to GetArrayLength(runtimes)-1 do
+    begin
+      meetsMinimumVersion := not (CompareVersion(runtimes[I], minimumVersion) = -1);
+      meetsMaximumVersion := CompareVersion(runtimes[I], maximumExclusiveVersion) = -1;
+      if meetsMinimumVersion and meetsMaximumVersion then
+      begin
+        Log(Format('[.NET] Selecting %s', [runtimes[I]]));
+        Result := False;
+          Exit;
+      end;
+    end;
   end;
 end;
 
@@ -106,38 +169,38 @@ function InitializeSetup(): Boolean;
 var
   Version: TWindowsVersion;
 begin
-	GetWindowsVersionEx(Version);
-	
-	if (Version.Major < 5) or ((Version.Major = 5) and (Version.Minor < 1)) or ((Version.Major = 5) and (Version.Minor = 1) and (Version.ServicePackMajor < 2)) then
-	begin
+  GetWindowsVersionEx(Version);
+
+  if (Version.Major < 5) or ((Version.Major = 5) and (Version.Minor < 1)) or ((Version.Major = 5) and (Version.Minor = 1) and (Version.ServicePackMajor < 2)) then
+  begin
     MsgBox('VidCoder cannot install on your operating system.', mbError, MB_OK);
     exit;
-	end;
-	
+  end;
+
   Result := true;
 end;
 
 procedure InitializeWizard;
 begin
-  if NetFrameworkIsMissing() then
+  if NetRuntimeIsMissing() then
   begin
-    idpAddFile('http://go.microsoft.com/fwlink/?LinkId=863262', ExpandConstant('{tmp}\NetFrameworkInstaller.exe'));
+    idpAddFile('http://go.microsoft.com/fwlink/?linkid=2155258', ExpandConstant('{tmp}\NetRuntimeInstaller.exe'));
     idpDownloadAfter(wpReady);
   end;
 end;
 
-function InstallFramework(): String;
+function InstallDotNetRuntime(): String;
 var
   StatusText: string;
   ResultCode: Integer;
 begin
   StatusText := WizardForm.StatusLabel.Caption;
-  WizardForm.StatusLabel.Caption := CustomMessage('InstallingDotNetFramework');
+  WizardForm.StatusLabel.Caption := CustomMessage('InstallingDotNetRuntime');
   WizardForm.ProgressGauge.Style := npbstMarquee;
   try
-    if not Exec(ExpandConstant('{tmp}\NetFrameworkInstaller.exe'), '/passive /norestart /showrmui /showfinalerror', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then
+    if not Exec(ExpandConstant('{tmp}\NetRuntimeInstaller.exe'), '/passive /norestart /showrmui /showfinalerror', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then
     begin
-      Result := FmtMessage(CustomMessage('DotNetFrameworkFailedToLaunch'), [SysErrorMessage(resultCode)]);
+      Result := FmtMessage(CustomMessage('DotNetRuntimeFailedToLaunch'), [SysErrorMessage(resultCode)]);
     end
     else
     begin
@@ -147,10 +210,10 @@ begin
           // Successful
         end;
         1602 : begin
-          MsgBox(CustomMessage('DotNetFrameworkFailed1602'), mbInformation, MB_OK);
+          MsgBox(CustomMessage('DotNetRuntimeFailed1602'), mbInformation, MB_OK);
         end;
         1603: begin
-          Result := CustomMessage('DotNetFrameworkFailed1603');
+          Result := CustomMessage('DotNetRuntimeFailed1603');
         end;
         1641: begin
           requiresRestart := True;
@@ -159,10 +222,10 @@ begin
           requiresRestart := True;
         end;
         5100: begin
-          Result := CustomMessage('DotNetFrameworkFailed5100');
+          Result := CustomMessage('DotNetRuntimeFailed5100');
         end;
         else begin
-          MsgBox(FmtMessage(CustomMessage('DotNetFrameworkFailedOther'), [IntToStr(resultCode)]), mbError, MB_OK);
+          MsgBox(FmtMessage(CustomMessage('DotNetRuntimeFailedOther'), [IntToStr(resultCode)]), mbError, MB_OK);
         end;
       end;
     end;
@@ -170,7 +233,7 @@ begin
     WizardForm.StatusLabel.Caption := StatusText;
     WizardForm.ProgressGauge.Style := npbstNormal;
     
-    DeleteFile(ExpandConstant('{tmp}\NetFrameworkInstaller.exe'));
+    DeleteFile(ExpandConstant('{tmp}\NetRuntimeInstaller.exe'));
   end;
 end;
 
@@ -310,9 +373,9 @@ begin
   // If the installers indicate that they want a restart, this should be done at the end of installation.
   // Therefore we set the global 'restartRequired' if a restart is needed, and return this from NeedRestart()
 
-  if NetFrameworkIsMissing() then
+  if NetRuntimeIsMissing() then
   begin
-    Result := InstallFramework();
+    Result := InstallDotNetRuntime();
   end;
 end;
 

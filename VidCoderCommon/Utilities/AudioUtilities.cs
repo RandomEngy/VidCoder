@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.Interfaces.Model.Encoders;
 using HandBrake.Interop.Interop.Json.Scan;
-using HandBrake.Interop.Interop.Model.Encoding;
 using VidCoderCommon.Model;
 
 namespace VidCoderCommon

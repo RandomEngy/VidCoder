@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using HandBrake.Interop.Interop.EventArgs;
+using HandBrake.Interop.Interop.Interfaces.EventArgs;
 using VidCoder.Services;
 using VidCoderCommon.Model;
 

@@ -8,8 +8,8 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.Interfaces.Model;
 using HandBrake.Interop.Interop.Json.Scan;
-using HandBrake.Interop.Interop.Model.Encoding;
 using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Extensions;
@@ -833,7 +833,7 @@ namespace VidCoder.Services
 					switch (profile.VideoEncodeRateType)
 					{
 						case VCVideoEncodeRateType.ConstantQuality:
-							quality = profile.Quality;
+							quality = (double)profile.Quality;
 							break;
 						case VCVideoEncodeRateType.AverageBitrate:
 							quality = profile.VideoBitrate;

@@ -6,7 +6,8 @@ using System.Reactive.Linq;
 using System.Resources;
 using DynamicData;
 using HandBrake.Interop.Interop;
-using HandBrake.Interop.Interop.Model.Encoding;
+using HandBrake.Interop.Interop.Interfaces.Model;
+using HandBrake.Interop.Interop.Interfaces.Model.Encoders;
 using HandBrake.Interop.Utilities;
 using Microsoft.AnyContainer;
 using ReactiveUI;
@@ -597,7 +598,7 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<bool> x264SettingsVisible;
 		public bool X264SettingsVisible => this.x264SettingsVisible.Value;
 
-		public bool QsvSettingsVisible => SystemInfo.IsQsvAvailable;
+		public bool QsvSettingsVisible => HandBrakeHardwareEncoderHelper.IsQsvAvailable;
 
 		public List<double> FramerateChoices
 		{
@@ -718,7 +719,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public double Quality
+		public decimal Quality
 		{
 			get { return this.Profile.Quality; }
 			set { this.UpdateProfileProperty(nameof(this.Profile.Quality), value); }

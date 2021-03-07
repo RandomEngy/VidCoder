@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Text.Json;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.HbLib;
-using HandBrake.Interop.Interop.HbLib.Wrappers;
+using HandBrake.Interop.Interop.Interfaces.Model;
+using HandBrake.Interop.Interop.Interfaces.Model.Encoders;
 using HandBrake.Interop.Interop.Json.Encode;
 using HandBrake.Interop.Interop.Json.Scan;
 using HandBrake.Interop.Interop.Json.Shared;
-using HandBrake.Interop.Interop.Model.Encoding;
 using Microsoft.AnyContainer;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -175,7 +177,7 @@ namespace VidCoderCommon.Model
 						inputCodec.ShortName.ToLowerInvariant().Contains("mp3") && encoder.ShortName.ToLowerInvariant().Contains("mp3"))) &&
 					(inputCodec.Id & passMask) > 0)
 				{
-					outputCodec = (uint)scanAudioTrack.Codec | NativeConstants.HB_ACODEC_PASS_FLAG;
+					outputCodec = (uint)scanAudioTrack.Codec | HandBrakeNativeConstants.HB_ACODEC_PASS_FLAG;
 					isPassthrough = true;
 				}
 
@@ -399,7 +401,7 @@ namespace VidCoderCommon.Model
 					? hb_filter_ids.HB_FILTER_DEINTERLACE
 					: hb_filter_ids.HB_FILTER_DECOMB;
 
-				JToken settings;
+				JsonDocument settings;
 				if (profile.DeinterlacePreset == "custom")
 				{
 					settings = this.GetFilterSettingsCustom(filterId, profile.CustomDeinterlace);
@@ -419,7 +421,7 @@ namespace VidCoderCommon.Model
 			// Comb detect
 			if (profile.DeinterlaceType != VCDeinterlace.Off && !string.IsNullOrEmpty(profile.CombDetect) && profile.CombDetect != "off")
 			{
-				JToken settings;
+				JsonDocument settings;
 				if (profile.CombDetect == "custom")
 				{
 					settings = this.GetFilterSettingsCustom(hb_filter_ids.HB_FILTER_COMB_DETECT, profile.CustomCombDetect);
@@ -441,7 +443,7 @@ namespace VidCoderCommon.Model
 			// 0 - True VFR, 1 - Constant framerate, 2 - VFR with peak framerate
 			if (profile.Framerate > 0 || profile.ConstantFramerate)
 			{
-				JToken framerateSettings;
+				JsonDocument framerateSettings;
 				if (profile.Framerate == 0)
 				{
 					// CFR with "Same as Source". Use the title rate
@@ -476,7 +478,7 @@ namespace VidCoderCommon.Model
 			// Deblock
 			if (profile.Deblock >= 5)
 			{
-				JToken settings = this.GetFilterSettingsCustom(
+				JsonDocument settings = this.GetFilterSettingsCustom(
 					hb_filter_ids.HB_FILTER_DEBLOCK,
 					string.Format(CultureInfo.InvariantCulture, "qp={0}", profile.Deblock));
 
@@ -489,7 +491,7 @@ namespace VidCoderCommon.Model
 			{
 				hb_filter_ids filterId = ModelConverters.VCDenoiseToHbDenoise(profile.DenoiseType);
 
-				JToken settings;
+				JsonDocument settings;
 				if (profile.DenoisePreset == "custom")
 				{
 					settings = this.GetFilterSettingsCustom(filterId, profile.CustomDenoise);
@@ -513,7 +515,7 @@ namespace VidCoderCommon.Model
 					? hb_filter_ids.HB_FILTER_LAPSHARP
 					: hb_filter_ids.HB_FILTER_UNSHARP;
 
-				JToken settings;
+				JsonDocument settings;
 				if (profile.SharpenPreset == "custom")
 				{
 					settings = this.GetFilterSettingsCustom(filterId, profile.CustomSharpen);
@@ -532,7 +534,7 @@ namespace VidCoderCommon.Model
 
 			// CropScale Filter
 			VCCropping cropping = GetCropping(profile, title);
-			JToken cropFilterSettings = this.GetFilterSettingsCustom(
+			JsonDocument cropFilterSettings = this.GetFilterSettingsCustom(
 				hb_filter_ids.HB_FILTER_CROP_SCALE,
 				string.Format(
 					CultureInfo.InvariantCulture,
@@ -571,7 +573,7 @@ namespace VidCoderCommon.Model
 					flipHorizontal = true;
 				}
 
-				JToken rotateSettings = this.GetFilterSettingsCustom(
+				JsonDocument rotateSettings = this.GetFilterSettingsCustom(
 					hb_filter_ids.HB_FILTER_ROTATE,
 					string.Format(
 						CultureInfo.InvariantCulture,
@@ -598,8 +600,24 @@ namespace VidCoderCommon.Model
 			if (outputSizeInfo.Padding != null && !outputSizeInfo.Padding.IsZero)
 			{
 				var padColor = !string.IsNullOrEmpty(profile.PadColor) ? profile.PadColor : "000000";
+				if (padColor.StartsWith("#"))
+				{
+					padColor = padColor.Substring(1);
+				}
 
-				JToken padSettings = this.GetFilterSettingsCustom(
+				if (padColor.Length == 3)
+				{
+					StringBuilder builder = new StringBuilder();
+					foreach (char c in padColor)
+					{
+						builder.Append(c);
+						builder.Append(c);
+					}
+
+					padColor = builder.ToString();
+				}
+
+				JsonDocument padSettings = this.GetFilterSettingsCustom(
 					hb_filter_ids.HB_FILTER_PAD,
 					FormattableString.Invariant($"width={outputSizeInfo.OutputWidth}:height={outputSizeInfo.OutputHeight}:x={outputSizeInfo.Padding.Left}:y={outputSizeInfo.Padding.Top}:color=0x{padColor}"));
 				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_PAD, Settings = padSettings };
@@ -609,22 +627,20 @@ namespace VidCoderCommon.Model
 			return filters;
 		}
 
-		private JToken GetFilterSettingsCustom(hb_filter_ids filter, string custom)
+		private JsonDocument GetFilterSettingsCustom(hb_filter_ids filter, string custom)
 		{
 			return this.GetFilterSettingsPresetAndTune(filter, "custom", null, custom);
 		}
 
-		private JToken GetFilterSettingsPresetOnly(hb_filter_ids filter, string preset, string custom)
+		private JsonDocument GetFilterSettingsPresetOnly(hb_filter_ids filter, string preset, string custom)
 		{
 			return this.GetFilterSettingsPresetAndTune(filter, preset, null, custom);
 		}
 
-		private JToken GetFilterSettingsPresetAndTune(hb_filter_ids filter, string preset, string tune, string custom)
+		private JsonDocument GetFilterSettingsPresetAndTune(hb_filter_ids filter, string preset, string tune, string custom)
 		{
 			custom = custom?.Trim();
-
-			IntPtr settingsPtr = new HbFunctionsDirect().hb_generate_filter_settings_json((int)filter, preset, tune, custom);
-			string unparsedJson = Marshal.PtrToStringAnsi(settingsPtr);
+			string unparsedJson = HandBrakeFilterHelpers.GenerateFilterSettingJson((int)filter, preset, tune, custom);
 
 			if (unparsedJson == null)
 			{
@@ -632,10 +648,10 @@ namespace VidCoderCommon.Model
 				return null;
 			}
 
-			return JObject.Parse(unparsedJson);
+			return JsonDocument.Parse(unparsedJson);
 		}
 
-		private JToken GetFramerateSettings(int framerateMode)
+		private JsonDocument GetFramerateSettings(int framerateMode)
 		{
 			return this.GetFilterSettingsCustom(
 				hb_filter_ids.HB_FILTER_VFR,
@@ -645,7 +661,7 @@ namespace VidCoderCommon.Model
 					framerateMode));
 		}
 
-		private JToken GetFramerateSettings(int framerateMode, int framerateNumerator, int framerateDenominator)
+		private JsonDocument GetFramerateSettings(int framerateMode, int framerateNumerator, int framerateDenominator)
 		{
 			return this.GetFilterSettingsCustom(
 				hb_filter_ids.HB_FILTER_VFR,
@@ -673,7 +689,7 @@ namespace VidCoderCommon.Model
 		/// <returns>The source sub-object</returns>
 		private Source CreateSource(VCJob job, SourceTitle title, int previewNumber, int previewSeconds, int previewCount)
 		{
-			var range = new Range();
+			var range = new HandBrake.Interop.Interop.Json.Encode.Range();
 
 			if (previewNumber >= 0)
 			{

@@ -418,19 +418,24 @@
 					Visibility="{Binding PadColorEnabled,
 					                     Converter={StaticResource VisibilityConverter}}">
 					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.PadColorLabel}" />
-					<Grid
-						Width="20"
-						Height="20"
+					<Border
 						Margin="8 0 0 0"
-						VerticalAlignment="Center"
-						Background="{Binding PadBrush}"
-						SnapsToDevicePixels="True" />
+						BorderBrush="#888888"
+						BorderThickness="1">
+						<Grid
+							Width="20"
+							Height="20"
+							VerticalAlignment="Center"
+							Background="{Binding PadBrush}"
+							SnapsToDevicePixels="True" />
+					</Border>
 
-					<Button
-						Margin="8 0 0 0"
-						Padding="6 2"
-						Command="{Binding PickPadColor}"
-						Content="{x:Static res:EncodingRes.PickColorButton}" />
+					<TextBox
+						Width="60"
+						VerticalContentAlignment="Center"
+						Text="{Binding PadColor,
+						               UpdateSourceTrigger=PropertyChanged}"
+						ToolTip="{x:Static res:EncodingRes.PadColorTextToolTip}" />
 				</StackPanel>
 			</StackPanel>
 

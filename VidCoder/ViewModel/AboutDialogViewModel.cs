@@ -6,7 +6,6 @@ using HandBrake.Interop.Interop;
 using HandBrake.Interop.Utilities;
 using VidCoder.Extensions;
 using VidCoder.Resources;
-using Utilities = VidCoder.Utilities;
 
 namespace VidCoder.ViewModel
 {
@@ -18,7 +17,12 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return string.Format(MiscRes.BasedOnHandBrake, VersionHelper.Version);
+				// We don't need to initialize or dispose the HandBrakeInstance because the Version actually doesn't use the hb_handle_t that's passed in so it can stay as IntPtr.Zero.
+				// Need to find out why it's being done this way
+				var tempInstance = new HandBrakeInstance();
+				string version = tempInstance.Version;
+
+				return string.Format(MiscRes.BasedOnHandBrake, version);
 			}
 		}
 
