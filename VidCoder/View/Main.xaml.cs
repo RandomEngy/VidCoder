@@ -113,8 +113,8 @@ namespace VidCoder.View
 			{
 				Visible = false
 			};
-			this.notifyIcon.Click += (sender, args) => { this.RestoreWindow(); };
-			this.notifyIcon.DoubleClick += (sender, args) => { this.RestoreWindow(); };
+			this.notifyIcon.Click += (sender, args) => { this.EnsureVisible(); };
+			this.notifyIcon.DoubleClick += (sender, args) => { this.EnsureVisible(); };
 
 			StreamResourceInfo streamResourceInfo = System.Windows.Application.GetResourceStream(new Uri("pack://application:,,,/VidCoder_icon.ico"));
 			if (streamResourceInfo != null)
@@ -291,6 +291,18 @@ namespace VidCoder.View
 			{
 				this.Show();
 				this.WindowState = this.RestoredWindowState;
+			});
+		}
+
+		public void EnsureVisible()
+		{
+			DispatchUtilities.Invoke(() =>
+			{
+				this.RestoreWindow();
+				DispatchUtilities.BeginInvoke(() =>
+				{
+					this.Activate();
+				});
 			});
 		}
 

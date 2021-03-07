@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using PipeMethodCalls;
 using VidCoderCommon;
-using VidCoderCLI;
+using VidCoderCommon.Services;
 
 namespace VidCoder.Automation
 {

@@ -17,12 +17,7 @@ namespace VidCoder.Services.Notifications
 	{
 		public void Activate(string appUserModelId, string invokedArgs, NOTIFICATION_USER_INPUT_DATA[] data, uint dataCount)
 		{
-			StaticResolver.Resolve<Main>().RestoreWindow();
-
-			DispatchUtilities.BeginInvoke(() =>
-			{
-				StaticResolver.Resolve<Main>().Activate();
-			});
+			StaticResolver.Resolve<Main>().EnsureVisible();
 		}
 
 		// These are the new APIs for Windows 10

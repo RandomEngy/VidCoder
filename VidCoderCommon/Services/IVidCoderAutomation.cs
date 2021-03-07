@@ -1,4 +1,4 @@
-﻿namespace VidCoderCLI
+﻿namespace VidCoderCommon.Services
 {
 	public interface IVidCoderAutomation
 	{
@@ -9,5 +9,7 @@
 		void ImportPreset(string filePath);
 
 		void ImportQueue(string filePath);
+
+		void BringToForeground();
 	}
 }

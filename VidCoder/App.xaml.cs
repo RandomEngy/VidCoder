@@ -21,31 +21,18 @@ namespace VidCoder
 	using Automation;
 	using Microsoft.AnyContainer;
 	using Resources;
+	using VidCoderCommon.Services;
 
 	/// <summary>
 	/// Interaction logic for App.xaml
 	/// </summary>
 	public partial class App : Application
 	{
-		public static bool IsPrimaryInstance { get; private set; }
-
-		private static Mutex mutex;
+		private Mutex mutex;
 
 		private IAppThemeService appThemeService;
 
 		private AppTheme currentTheme = AppTheme.Light;
-
-		static App()
-		{
-			if (CommonUtilities.Beta)
-			{
-				mutex = new Mutex(true, "VidCoderBetaPrimaryInstanceMutex");
-			}
-			else
-			{
-				mutex = new Mutex(true, "VidCoderPrimaryInstanceMutex");
-			}
-		}
 
 		protected override void OnStartup(StartupEventArgs e)
 		{
@@ -64,6 +51,25 @@ namespace VidCoder
 			if (setupExceptionHandler)
 			{
 				this.DispatcherUnhandledException += this.OnDispatcherUnhandledException;
+			}
+
+			string mutexName = CommonUtilities.Beta ? "VidCoderBetaInstanceMutex" : "VidCoderInstanceMutex";
+			bool createdNew;
+
+			try
+			{
+				this.mutex = new Mutex(true, mutexName, out createdNew);
+
+				if (!createdNew)
+				{
+					var automationClient = new AutomationClient();
+					automationClient.RunActionAsync(a => a.BringToForeground()).Wait();
+					Environment.Exit(0);
+					return;
+				}
+			}
+			catch (AbandonedMutexException)
+			{
 			}
 
 			OperatingSystem OS = Environment.OSVersion;
@@ -130,15 +136,6 @@ namespace VidCoder
 
 			updater.HandlePendingUpdate();
 
-			try
-			{
-				// Check if we're a secondary instance
-				IsPrimaryInstance = mutex.WaitOne(TimeSpan.Zero, true);
-			}
-			catch (AbandonedMutexException)
-			{
-			}
-
 			this.GlobalInitialize();
 
 			this.appThemeService = StaticResolver.Resolve<IAppThemeService>();
@@ -170,10 +167,7 @@ namespace VidCoder
 				mainVM.HandlePaths(new List<string> { e.Args[0] });
 			}
 
-			if (!Utilities.IsPortable && IsPrimaryInstance)
-			{
-				AutomationHost.StartListening();
-			}
+			AutomationHost.StartListening();
 				
 			ActivityService activityService = StaticResolver.Resolve<ActivityService>();
 			this.Activated += (object sender, EventArgs e2) =>
@@ -190,16 +184,16 @@ namespace VidCoder
 
 		protected override void OnExit(ExitEventArgs e)
 		{
-			if (IsPrimaryInstance)
-			{
-				try
-				{
-					mutex.ReleaseMutex();
-				}
-				catch (ApplicationException)
-				{
-				}
-			}
+			//if (IsPrimaryInstance)
+			//{
+			//	try
+			//	{
+			//		this.mutex.ReleaseMutex();
+			//	}
+			//	catch (ApplicationException)
+			//	{
+			//	}
+			//}
 
 			this.appThemeService?.Dispose();
 		}
