@@ -52,13 +52,5 @@ namespace VidCoder.ViewModel.DataModels
 				}));
 			}
 		}
-
-		public IList<Language> Languages
-		{
-			get
-			{
-				return HandBrakeLanguagesHelper.AllLanguages;
-			}
-		}
 	}
 }

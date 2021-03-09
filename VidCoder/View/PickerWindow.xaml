@@ -6,6 +6,7 @@
 	xmlns:controls="clr-namespace:VidCoder.Controls"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:dataModels="clr-namespace:VidCoder.ViewModel.DataModels"
+	xmlns:interop="clr-namespace:HandBrake.Interop.Interop;assembly=HandBrake.Interop"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:model="clr-namespace:VidCoder.Model"
 	xmlns:res="clr-namespace:VidCoder.Resources"
@@ -564,7 +565,7 @@
 														Height="23"
 														MinWidth="120"
 														DisplayMemberPath="Display"
-														ItemsSource="{Binding Languages}"
+														ItemsSource="{x:Static interop:HandBrakeLanguagesHelper.AllLanguages}"
 														SelectedValue="{Binding Code}"
 														SelectedValuePath="Code" />
 													<Button
@@ -639,7 +640,7 @@
 														Height="23"
 														MinWidth="120"
 														DisplayMemberPath="Display"
-														ItemsSource="{Binding Languages}"
+														ItemsSource="{x:Static interop:HandBrakeLanguagesHelper.AllLanguages}"
 														SelectedValue="{Binding Code}"
 														SelectedValuePath="Code" />
 													<Button
@@ -766,7 +767,7 @@
 														Height="23"
 														MinWidth="120"
 														DisplayMemberPath="Display"
-														ItemsSource="{Binding Languages}"
+														ItemsSource="{x:Static interop:HandBrakeLanguagesHelper.AllLanguages}"
 														SelectedValue="{Binding Code}"
 														SelectedValuePath="Code" />
 													<Button
@@ -846,7 +847,7 @@
 														Height="23"
 														MinWidth="120"
 														DisplayMemberPath="Display"
-														ItemsSource="{Binding Languages}"
+														ItemsSource="{x:Static interop:HandBrakeLanguagesHelper.AllLanguages}"
 														SelectedValue="{Binding Code}"
 														SelectedValuePath="Code" />
 													<Button

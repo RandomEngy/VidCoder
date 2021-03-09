@@ -125,8 +125,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public IList<Language> Languages => HandBrakeLanguagesHelper.AllLanguages;
-
 		public IList<string> CharCodes => CharCode.Codes;
 
 		private ReactiveCommand<Unit, Unit> removeSubtitle;

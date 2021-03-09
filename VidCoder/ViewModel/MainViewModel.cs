@@ -390,7 +390,7 @@ namespace VidCoder.ViewModel
 
 		public IMainView View
 		{
-			get { return this.view; }
+			get => this.view;
 			set
 			{
 				this.view = value;
@@ -845,15 +845,15 @@ namespace VidCoder.ViewModel
 		private string sourcePath;
 		public string SourcePath
 		{
-			get { return this.sourcePath; }
-			private set { this.RaiseAndSetIfChanged(ref this.sourcePath, value); }
+			get => this.sourcePath;
+			private set => this.RaiseAndSetIfChanged(ref this.sourcePath, value);
 		}
 
 		private string sourceName;
 		public string SourceName
 		{
-			get { return this.sourceName; }
-			set { this.RaiseAndSetIfChanged(ref this.sourceName, value); }
+			get => this.sourceName;
+			set => this.RaiseAndSetIfChanged(ref this.sourceName, value);
 		}
 
 		private ObservableAsPropertyHelper<string> scanningSourceLabel;
@@ -903,10 +903,7 @@ namespace VidCoder.ViewModel
 
 		public IList<DriveInformation> DriveCollection
 		{
-			get
-			{
-				return this.driveCollection;
-			}
+			get => this.driveCollection;
 
 			set
 			{
@@ -938,8 +935,8 @@ namespace VidCoder.ViewModel
 		private VideoSourceState videoSourceState;
 		public VideoSourceState VideoSourceState
 		{
-			get { return this.videoSourceState; }
-			set { this.RaiseAndSetIfChanged(ref this.videoSourceState, value); }
+			get => this.videoSourceState;
+			set => this.RaiseAndSetIfChanged(ref this.videoSourceState, value);
 		}
 
 		private ObservableAsPropertyHelper<string> sourceIcon;
@@ -976,8 +973,8 @@ namespace VidCoder.ViewModel
 		private SourceOption selectedSource;
 		public SourceOption SelectedSource
 		{
-			get { return this.selectedSource; }
-			set { this.RaiseAndSetIfChanged(ref this.selectedSource, value); }
+			get => this.selectedSource;
+			set => this.RaiseAndSetIfChanged(ref this.selectedSource, value);
 		}
 
 		private double scanProgressFraction;
@@ -987,8 +984,8 @@ namespace VidCoder.ViewModel
 		/// </summary>
 		public double ScanProgressFraction
 		{
-			get { return this.scanProgressFraction; }
-			set { this.RaiseAndSetIfChanged(ref this.scanProgressFraction, value); }
+			get => this.scanProgressFraction;
+			set => this.RaiseAndSetIfChanged(ref this.scanProgressFraction, value);
 		}
 
 		private ObservableAsPropertyHelper<bool> hasVideoSource;
@@ -1010,10 +1007,7 @@ namespace VidCoder.ViewModel
 		private SourceTitleViewModel selectedTitle;
 		public SourceTitleViewModel SelectedTitle
 		{
-			get
-			{
-				return this.selectedTitle;
-			}
+			get => this.selectedTitle;
 
 			set
 			{
@@ -1111,7 +1105,7 @@ namespace VidCoder.ViewModel
 					{
 						this.RangeType = VideoRangeType.Seconds;
 					}
-					else if (picker.PickerTimeRangeMode == PickerTimeRangeMode.Chapters ||this.selectedTitle.ChapterList.Count > 1)
+					else if (picker.PickerTimeRangeMode == PickerTimeRangeMode.Chapters || this.selectedTitle.ChapterList.Count > 1)
 					{
 						this.RangeType = VideoRangeType.Chapters;
 					}
@@ -1174,7 +1168,7 @@ namespace VidCoder.ViewModel
 		private int angle;
 		public int Angle
 		{
-			get { return this.angle; }
+			get => this.angle;
 			set
 			{
 				this.previewUpdateService.RefreshPreview();
@@ -1321,7 +1315,7 @@ namespace VidCoder.ViewModel
 		private bool videoExpanded;
 		public bool VideoExpanded
 		{
-			get { return this.videoExpanded; }
+			get => this.videoExpanded;
 			set
 			{
 				this.RaiseAndSetIfChanged(ref this.videoExpanded, value);
@@ -1335,7 +1329,7 @@ namespace VidCoder.ViewModel
 		private bool audioExpanded;
 		public bool AudioExpanded
 		{
-			get { return this.audioExpanded; }
+			get => this.audioExpanded;
 			set
 			{
 				this.RaiseAndSetIfChanged(ref this.audioExpanded, value);
@@ -1464,8 +1458,8 @@ namespace VidCoder.ViewModel
 		private string audioSummary;
 		public string AudioSummary
 		{
-			get { return this.audioSummary; }
-			set { this.RaiseAndSetIfChanged(ref this.audioSummary, value); }
+			get => this.audioSummary;
+			set => this.RaiseAndSetIfChanged(ref this.audioSummary, value);
 		}
 
 		public void RefreshAudioSummary()
@@ -1512,7 +1506,7 @@ namespace VidCoder.ViewModel
 		private bool subtitlesExpanded;
 		public bool SubtitlesExpanded
 		{
-			get { return this.subtitlesExpanded; }
+			get => this.subtitlesExpanded;
 			set
 			{
 				this.RaiseAndSetIfChanged(ref this.subtitlesExpanded, value);
@@ -1917,22 +1911,22 @@ namespace VidCoder.ViewModel
 		private bool defaultSubtitlesEnabled = true;
 		public bool DefaultSubtitlesEnabled
 		{
-			get { return this.defaultSubtitlesEnabled; }
-			set { this.RaiseAndSetIfChanged(ref this.defaultSubtitlesEnabled, value); }
+			get => this.defaultSubtitlesEnabled;
+			set => this.RaiseAndSetIfChanged(ref this.defaultSubtitlesEnabled, value);
 		}
 
 		private bool textSubtitleWarningVisible;
 		public bool TextSubtitleWarningVisible
 		{
-			get { return this.textSubtitleWarningVisible; }
-			set { this.RaiseAndSetIfChanged(ref this.textSubtitleWarningVisible, value); }
+			get => this.textSubtitleWarningVisible;
+			set => this.RaiseAndSetIfChanged(ref this.textSubtitleWarningVisible, value);
 		}
 
 		private bool burnedOverlapWarningVisible;
 		public bool BurnedOverlapWarningVisible
 		{
-			get { return this.burnedOverlapWarningVisible; }
-			set { this.RaiseAndSetIfChanged(ref this.burnedOverlapWarningVisible, value); }
+			get => this.burnedOverlapWarningVisible;
+			set => this.RaiseAndSetIfChanged(ref this.burnedOverlapWarningVisible, value);
 		}
 
 		private ObservableAsPropertyHelper<bool> hasSourceSubtitles;
@@ -2015,8 +2009,8 @@ namespace VidCoder.ViewModel
 		private string subtitlesSummary;
 		public string SubtitlesSummary
 		{
-			get { return this.subtitlesSummary; }
-			set { this.RaiseAndSetIfChanged(ref this.subtitlesSummary, value); }
+			get => this.subtitlesSummary;
+			set => this.RaiseAndSetIfChanged(ref this.subtitlesSummary, value);
 		}
 
 		private ObservableAsPropertyHelper<bool> showSourceSubtitlesLabel;
@@ -2025,15 +2019,15 @@ namespace VidCoder.ViewModel
 		private bool useDefaultChapterNames;
 		public bool UseDefaultChapterNames
 		{
-			get { return this.useDefaultChapterNames; }
-			set { this.RaiseAndSetIfChanged(ref this.useDefaultChapterNames, value); }
+			get => this.useDefaultChapterNames;
+			set => this.RaiseAndSetIfChanged(ref this.useDefaultChapterNames, value);
 		}
 
 		private List<string> customChapterNames;
 		public List<string> CustomChapterNames
 		{
-			get { return this.customChapterNames; }
-			set { this.RaiseAndSetIfChanged(ref this.customChapterNames, value); }
+			get => this.customChapterNames;
+			set => this.RaiseAndSetIfChanged(ref this.customChapterNames, value);
 		}
 
 		private ObservableAsPropertyHelper<string> chapterMarkersSummary;
@@ -2053,10 +2047,7 @@ namespace VidCoder.ViewModel
 
 		public VideoRangeType RangeType
 		{
-			get
-			{
-				return this.rangeType;
-			}
+			get => this.rangeType;
 
 			set
 			{
@@ -2105,25 +2096,22 @@ namespace VidCoder.ViewModel
 		private List<ChapterViewModel> startChapters;
 		public List<ChapterViewModel> StartChapters
 		{
-			get { return this.startChapters; }
-			set { this.RaiseAndSetIfChanged(ref this.startChapters, value); }
+			get => this.startChapters;
+			set => this.RaiseAndSetIfChanged(ref this.startChapters, value);
 		}
 
 		private List<ChapterViewModel> endChapters;
 		public List<ChapterViewModel> EndChapters
 		{
-			get { return this.endChapters; }
-			set { this.RaiseAndSetIfChanged(ref this.endChapters, value); }
+			get => this.endChapters;
+			set => this.RaiseAndSetIfChanged(ref this.endChapters, value);
 		}
 
 		// Properties for the range seek bar
 		private TimeSpan timeRangeStartBar;
 		public TimeSpan TimeRangeStartBar
 		{
-			get
-			{
-				return this.timeRangeStartBar;
-			}
+			get => this.timeRangeStartBar;
 
 			set
 			{
@@ -2141,10 +2129,7 @@ namespace VidCoder.ViewModel
 		private TimeSpan timeRangeEndBar;
 		public TimeSpan TimeRangeEndBar
 		{
-			get
-			{
-				return this.timeRangeEndBar;
-			}
+			get => this.timeRangeEndBar;
 
 			set
 			{
@@ -2163,10 +2148,7 @@ namespace VidCoder.ViewModel
 		private TimeSpan timeRangeStart;
 		public TimeSpan TimeRangeStart
 		{
-			get
-			{
-				return this.timeRangeStart;
-			}
+			get => this.timeRangeStart;
 
 			set
 			{
@@ -2206,10 +2188,7 @@ namespace VidCoder.ViewModel
 		private TimeSpan timeRangeEnd;
 		public TimeSpan TimeRangeEnd
 		{
-			get
-			{
-				return this.timeRangeEnd;
-			}
+			get => this.timeRangeEnd;
 
 			set
 			{
@@ -2250,10 +2229,7 @@ namespace VidCoder.ViewModel
 		private int framesRangeStart;
 		public int FramesRangeStart
 		{
-			get
-			{
-				return this.framesRangeStart;
-			}
+			get => this.framesRangeStart;
 
 			set
 			{
@@ -2283,10 +2259,7 @@ namespace VidCoder.ViewModel
 		private int framesRangeEnd;
 		public int FramesRangeEnd
 		{
-			get
-			{
-				return this.framesRangeEnd;
-			}
+			get => this.framesRangeEnd;
 
 			set
 			{
@@ -2316,10 +2289,7 @@ namespace VidCoder.ViewModel
 		private ChapterViewModel selectedStartChapter;
 		public ChapterViewModel SelectedStartChapter
 		{
-			get
-			{
-				return this.selectedStartChapter;
-			}
+			get => this.selectedStartChapter;
 
 			set
 			{
@@ -2346,10 +2316,7 @@ namespace VidCoder.ViewModel
 		private ChapterViewModel selectedEndChapter;
 		public ChapterViewModel SelectedEndChapter
 		{
-			get
-			{
-				return this.selectedEndChapter;
-			}
+			get => this.selectedEndChapter;
 
 			set
 			{
@@ -2406,10 +2373,7 @@ namespace VidCoder.ViewModel
 
 				return startChapter;
 			}
-			set
-			{
-				this.SelectedStartChapter = this.StartChapters.FirstOrDefault(c => c.ChapterNumber == value);
-			}
+			set => this.SelectedStartChapter = this.StartChapters.FirstOrDefault(c => c.ChapterNumber == value);
 		}
 
 		public int ChapterPreviewEnd
@@ -2441,10 +2405,7 @@ namespace VidCoder.ViewModel
 
 				return endChapter;
 			}
-			set
-			{
-				this.SelectedEndChapter = this.EndChapters.FirstOrDefault(c => c.ChapterNumber == value);
-			}
+			set => this.SelectedEndChapter = this.EndChapters.FirstOrDefault(c => c.ChapterNumber == value);
 		}
 
 		public TimeSpan RangePreviewStart
@@ -2581,8 +2542,8 @@ namespace VidCoder.ViewModel
 		private VideoSource sourceData;
 		public VideoSource SourceData
 		{
-			get { return this.sourceData; }
-			set { this.RaiseAndSetIfChanged(ref this.sourceData, value); }
+			get => this.sourceData;
+			set => this.RaiseAndSetIfChanged(ref this.sourceData, value);
 		}
 
 		private bool showTrayIcon;
@@ -2590,8 +2551,8 @@ namespace VidCoder.ViewModel
 
 		public bool ShowTrayIcon
 		{
-			get { return this.showTrayIcon; }
-			set { this.RaiseAndSetIfChanged(ref this.showTrayIcon, value); }
+			get => this.showTrayIcon;
+			set => this.RaiseAndSetIfChanged(ref this.showTrayIcon, value);
 		}
 
 		public string TrayIconToolTip

@@ -10,6 +10,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:fluent="urn:fluent-ribbon"
 	xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+	xmlns:interop="clr-namespace:HandBrake.Interop.Interop;assembly=HandBrake.Interop"
 	xmlns:layoutPanels="clr-namespace:VidCoder.LayoutPanels"
 	xmlns:local="clr-namespace:VidCoder"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -1681,7 +1682,7 @@
 								<ComboBox
 									MinWidth="80"
 									DisplayMemberPath="Display"
-									ItemsSource="{Binding Languages}"
+									ItemsSource="{x:Static interop:HandBrakeLanguagesHelper.AllLanguages}"
 									SelectedValue="{Binding LanguageCode}"
 									SelectedValuePath="Code" />
 							</DataTemplate>
