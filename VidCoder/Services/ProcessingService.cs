@@ -2285,7 +2285,7 @@ namespace VidCoder.Services
 			if (!Utilities.IsInForeground)
 			{
 				StaticResolver.Resolve<TrayService>().ShowBalloonMessage(MainRes.EncodeCompleteBalloonTitle, MainRes.EncodeCompleteBalloonMessage);
-				if (this.toastNotificationService.ToastEnabled)
+				if (Utilities.UwpApisAvailable)
 				{
 					const string toastFormat =
 						"<?xml version=\"1.0\" encoding=\"utf-8\"?><toast><visual><binding template=\"ToastGeneric\"><text>{0}</text><text>{1}</text></binding></visual></toast>";

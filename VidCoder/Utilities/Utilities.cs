@@ -89,6 +89,11 @@ namespace VidCoder
 
 		private static bool IsApiContractPresent()
 		{
+			if (System.Environment.OSVersion.Version.Major < 10)
+			{
+				return false;
+			}
+
 			return ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 1, 0);
 		}
 

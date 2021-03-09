@@ -6,6 +6,7 @@ using VidCoder.Services.Notifications;
 using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
 using VidCoderCommon.Services;
+using Windows.Foundation.Metadata;
 
 namespace VidCoder
 {
@@ -16,7 +17,16 @@ namespace VidCoder
 			var container = new DryIocAnyContainer();
 			container.RegisterSingleton<IDriveService, DriveService>();
 			container.RegisterSingleton<IAppThemeService, AppThemeService>();
-			container.RegisterSingleton<IToastNotificationService, ToastNotificationService>();
+
+			if (Utilities.UwpApisAvailable)
+			{
+				container.RegisterSingleton<IToastNotificationService, ToastNotificationService>();
+			}
+			else
+			{
+				container.RegisterSingleton<IToastNotificationService, StubNotificationService>();
+			}
+
 			container.RegisterSingleton<IUpdater, Updater>();
 			container.RegisterSingleton<IMessageBoxService, MessageBoxService>();
 			container.RegisterSingleton<IFileService, FileService>();

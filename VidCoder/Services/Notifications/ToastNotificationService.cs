@@ -10,6 +10,8 @@ using Windows.Data.Xml.Dom;
 using VidCoderCommon;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Windows.UI.Notifications;
+using Windows.Foundation.Metadata;
+using Windows.ApplicationModel.Calls;
 
 namespace VidCoder.Services.Notifications
 {

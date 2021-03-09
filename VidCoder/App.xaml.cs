@@ -22,7 +22,9 @@ namespace VidCoder
 	using Microsoft.AnyContainer;
 	using Microsoft.Toolkit.Uwp.Notifications;
 	using Resources;
+	using VidCoder.Services.Notifications;
 	using VidCoderCommon.Services;
+	using Windows.Foundation.Metadata;
 
 	/// <summary>
 	/// Interaction logic for App.xaml
@@ -173,7 +175,11 @@ namespace VidCoder
 				activityService.ReportDeactivated();
 			};
 
-			ToastNotificationManagerCompat.OnActivated += this.ToastOnActivated;
+			//if (ApiInformation.IsTypePresent("Windows.UI.Notifications.Notification"))
+			if (Utilities.UwpApisAvailable)
+			{
+				ToastNotificationManagerCompat.OnActivated += this.ToastOnActivated;
+			}
 
 			base.OnStartup(e);
 		}
