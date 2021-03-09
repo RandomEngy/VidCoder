@@ -21,8 +21,8 @@ namespace VidCoder
 		where TWork : class, IHandBrakeWorker
 		where TCallback : class, IHandBrakeWorkerCallback
 	{
-		// Ping interval (6s) longer than timeout (5s) so we don't have two overlapping pings
-		private const double PingTimerIntervalMs = 6000;
+		// Ping interval (11s) longer than timeout (10s) so we don't have two overlapping pings
+		private const double PingTimerIntervalMs = 11000;
 
 		private const int ConnectionRetryIntervalMs = 1000;
 		private const int ConnectionRetries = 10;
@@ -392,7 +392,7 @@ namespace VidCoder
 				{
 					try
 					{
-						CancellationTokenSource cancellationTokenSource = new CancellationTokenSource(5000);
+						CancellationTokenSource cancellationTokenSource = new CancellationTokenSource(10000);
 						await this.Client.InvokeAsync(x => x.Ping(), cancellationTokenSource.Token);
 
 						await this.ProcessLock.WaitAsync().ConfigureAwait(false);
