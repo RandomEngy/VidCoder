@@ -67,8 +67,15 @@ function CreateLatestJson($outputFilePath, $versionShort, $versionTag, $installe
 }
 
 function Publish($folderNameSuffix, $publishProfileName, $version4part) {
-    $publishFolderPath = ".\VidCoder\bin\publish-$folderNameSuffix"
-    Get-ChildItem -Path $publishFolderPath -Include * -File -Recurse | foreach { $_.Delete()}
+    $mainPublishFolderPath = ".\VidCoder\bin\publish-$folderNameSuffix"
+    if (Test-Path -Path $mainPublishFolderPath) {
+        Get-ChildItem -Path $mainPublishFolderPath -Include * -File -Recurse | foreach { $_.Delete()}
+    }
+
+    $workerPublishFolderPath = ".\VidCoderWorker\bin\publish-$folderNameSuffix"
+    if (Test-Path -Path $workerPublishFolderPath) {
+        Get-ChildItem -Path $workerPublishFolderPath -Include * -File -Recurse | foreach { $_.Delete()}
+    }
 
     # Publish to VidCoder\bin\publish
     & dotnet publish .\VidCoder.sln "/p:PublishProfile=$publishProfileName;Version=$version4part" -c $configuration
@@ -79,7 +86,7 @@ function Publish($folderNameSuffix, $publishProfileName, $version4part) {
         ".\VidCoder\Icons\File\VidCoderQueue.ico")
 
     foreach ($extraFile in $extraFiles) {
-        copy $extraFile $publishFolderPath; ExitIfFailed
+        copy $extraFile $mainPublishFolderPath; ExitIfFailed
     }
 }
 
@@ -110,6 +117,9 @@ $version4Part = $versionShort + ".0.0"
 # Publish the files
 Publish "installer" "InstallerProfile" $version4part
 Publish "portable" "PortableProfile" $version4part
+
+# We need to copy some files from the Worker publish over to the main publish output, because the main publish output doesn't properly set the Worker to self-contained mode
+copy ".\VidCoderWorker\bin\publish-portable\VidCoderWorker*" ".\VidCoder\bin\publish-portable"
 
 # Create portable installer
 

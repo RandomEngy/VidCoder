@@ -147,7 +147,7 @@ begin
   Result := True;
 
   minimumVersion := '5.0.0';
-  maximumExclusiveVersion := '6.0.0';
+  maximumExclusiveVersion := '5.1.0';
   registryKey := 'SOFTWARE\WOW6432Node\dotnet\Setup\InstalledVersions\x64\sharedfx\Microsoft.WindowsDesktop.App';
   if RegGetValueNames(HKLM, registryKey, runtimes) then
   begin
