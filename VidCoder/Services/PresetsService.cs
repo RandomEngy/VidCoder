@@ -190,6 +190,11 @@ namespace VidCoder.Services
 
 		public bool AutomaticChange { get; set; }
 
+		/// <summary>
+		/// Tracks if we are currently marking a preset as "modified". Some refresh actions on EncodingProfile changed don't need to fire when this is the case.
+		/// </summary>
+		public bool MarkingPresetModified { get; set; }
+
 		public PresetViewModel SelectedPreset
 		{
 			get
@@ -684,7 +689,9 @@ namespace VidCoder.Services
 		/// </summary>
 		public void FinalizeModifyPreset()
 		{
+			this.MarkingPresetModified = true;
 			this.SelectedPreset.Preset.RaiseEncodingProfile();
+			this.MarkingPresetModified = false;
 		}
 
 		public void SaveUserPresets()

@@ -553,6 +553,11 @@ namespace VidCoder.ViewModel
 
 		private void OnProfileChanged()
 		{
+			if (this.presetsService.MarkingPresetModified)
+			{
+				return;
+			}
+
 			foreach (var audioEncodingViewModel in this.audioEncodings.Items)
 			{
 				audioEncodingViewModel.Dispose();
