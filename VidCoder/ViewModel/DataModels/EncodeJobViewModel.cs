@@ -198,6 +198,11 @@ namespace VidCoder.ViewModel
 
 		public IEncodeProxy EncodeProxy { get; set; }
 
+		/// <summary>
+		/// The number of times the job has been tried and failed.
+		/// </summary>
+		public int FailedTries { get; set; }
+
 		private bool isSelected;
 		public bool IsSelected
 		{

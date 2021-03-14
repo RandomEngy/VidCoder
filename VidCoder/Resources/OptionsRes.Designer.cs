@@ -322,6 +322,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number of encode retries:.
+        /// </summary>
+        public static string EncodeRetriesLabel {
+            get {
+                return ResourceManager.GetString("EncodeRetriesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Encoding batch of files:.
         /// </summary>
         public static string EncodingBatchOfFiles {

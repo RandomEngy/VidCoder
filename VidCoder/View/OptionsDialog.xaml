@@ -477,6 +477,23 @@
 										Text="{Binding VideoFileExtensions}"
 										ToolTip="{x:Static res:OptionsRes.RecognizedExtensionsToolTip}" />
 								</Grid>
+								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
+									<TextBlock
+										Name="encodeRetriesLabel"
+										VerticalAlignment="Center"
+										Text="{x:Static res:OptionsRes.EncodeRetriesLabel}" />
+									<controls:NumberBox
+										Width="45"
+										Height="20"
+										Margin="6 0 0 0"
+										VerticalAlignment="Center"
+										AllowEmpty="False"
+										AutomationProperties.LabeledBy="{Binding ElementName=encodeRetriesLabel}"
+										Maximum="5"
+										Minimum="0"
+										Number="{Binding EncodeRetries,
+										                 Mode=TwoWay}" />
+								</StackPanel>
 							</StackPanel>
 
 							<!--  Scanning  -->

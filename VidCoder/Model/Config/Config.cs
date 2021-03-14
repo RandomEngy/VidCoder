@@ -129,6 +129,7 @@ namespace VidCoder
 			cache.Add("PreviewVolume", DatabaseConfig.Get("PreviewVolume", 0.5, connection));
 			cache.Add("CompareWindowIsMuted", DatabaseConfig.Get("CompareWindowIsMuted", true, connection));
 			cache.Add("TriggerEncodeCompleteActionWithErrors", DatabaseConfig.Get("TriggerEncodeCompleteActionWithErrors", true, connection));
+			cache.Add("EncodeRetries", DatabaseConfig.Get("EncodeRetries", 0, connection));
 			cache.Add("AudioLanguageCode", DatabaseConfig.Get("AudioLanguageCode", "und", connection));
 			cache.Add("SubtitleLanguageCode", DatabaseConfig.Get("SubtitleLanguageCode", "und", connection));
 			cache.Add("AutoAudio", DatabaseConfig.Get("AutoAudio", "Disabled", connection));
@@ -675,6 +676,11 @@ namespace VidCoder
 			get { return (bool)cache["TriggerEncodeCompleteActionWithErrors"]; }
 			set { Set("TriggerEncodeCompleteActionWithErrors", value); }
 		}
+		public static int EncodeRetries
+		{
+			get { return (int)cache["EncodeRetries"]; }
+			set { Set("EncodeRetries", value); }
+		}
 		public static string AudioLanguageCode
 		{
 			get { return (string)cache["AudioLanguageCode"]; }
@@ -842,6 +848,7 @@ namespace VidCoder
 			public static IObservable<double> PreviewVolume => GetObservable<double>("PreviewVolume");
 			public static IObservable<bool> CompareWindowIsMuted => GetObservable<bool>("CompareWindowIsMuted");
 			public static IObservable<bool> TriggerEncodeCompleteActionWithErrors => GetObservable<bool>("TriggerEncodeCompleteActionWithErrors");
+			public static IObservable<int> EncodeRetries => GetObservable<int>("EncodeRetries");
 			public static IObservable<string> AudioLanguageCode => GetObservable<string>("AudioLanguageCode");
 			public static IObservable<string> SubtitleLanguageCode => GetObservable<string>("SubtitleLanguageCode");
 			public static IObservable<string> AutoAudio => GetObservable<string>("AutoAudio");

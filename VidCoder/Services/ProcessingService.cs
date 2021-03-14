@@ -1375,6 +1375,22 @@ namespace VidCoder.Services
 			this.QueueMultiple(jobsToAdd);
 		}
 
+		private void RetryJobIfNeeded(EncodeJobViewModel encodeJobViewModel)
+		{
+			if (encodeJobViewModel.FailedTries < Config.EncodeRetries)
+			{
+				encodeJobViewModel.FailedTries++;
+
+				int encodingItemCount = this.EncodeQueue.Items.Count(i => i.Encoding);
+				this.EncodeQueue.Insert(encodingItemCount, encodeJobViewModel);
+
+				if (this.Encoding)
+				{
+					this.TotalTasks++;
+				}
+			}
+		}
+
 		public void QueueMultiple(IEnumerable<EncodeJobViewModel> encodeJobViewModels, bool allowPickerProfileOverride = true)
 		{
 			var encodeJobList = encodeJobViewModels.ToList();
@@ -2085,6 +2101,7 @@ namespace VidCoder.Services
 					}
 					else if (status != EncodeResultStatus.Succeeded)
 					{
+						// If failed, rename or delete the failed file as configured in settings
 						failedFilePath = TryHandleFailedFile(directOutputFileInfo, encodeLogger, "failed", finalOutputPath);
 					}
 
@@ -2148,6 +2165,7 @@ namespace VidCoder.Services
 
 					this.EncodeQueue.Remove(finishedJobViewModel);
 
+					// Run post-encode job
 					var picker = this.pickersService.SelectedPicker.Picker;
 					if (status == EncodeResultStatus.Succeeded && picker.PostEncodeActionEnabled && !string.IsNullOrWhiteSpace(picker.PostEncodeExecutable))
 					{
@@ -2165,6 +2183,11 @@ namespace VidCoder.Services
 
 					encodeLogger.Log("Job completed (Elapsed Time: " + finishedJobViewModel.EncodeTime.FormatFriendly() + ")");
 					this.logger.Log("Job completed: " + finishedJobViewModel.Job.FinalOutputPath);
+
+					if (status != EncodeResultStatus.Succeeded)
+					{
+						this.RetryJobIfNeeded(finishedJobViewModel);
+					}
 
 					if (this.EncodeQueue.Count == 0)
 					{

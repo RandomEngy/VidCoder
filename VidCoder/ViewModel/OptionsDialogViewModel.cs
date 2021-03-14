@@ -126,6 +126,7 @@ namespace VidCoder.ViewModel
 			this.autoPauseLowDiskSpaceGb = Config.AutoPauseLowDiskSpaceGb;
 			this.AutoPauseProcesses = new ObservableCollection<string>();
 			this.videoFileExtensions = Config.VideoFileExtensions;
+			this.encodeRetries = Config.EncodeRetries;
 			this.cpuThrottlingCores = (int)Math.Round(this.CpuThrottlingMaxCores * Config.CpuThrottlingFraction);
 			if (this.cpuThrottlingCores < 1)
 			{
@@ -272,8 +273,8 @@ namespace VidCoder.ViewModel
 		private int selectedTabIndex;
 		public int SelectedTabIndex
 		{
-			get { return this.selectedTabIndex; }
-			set { this.RaiseAndSetIfChanged(ref this.selectedTabIndex, value); }
+			get => this.selectedTabIndex;
+			set => this.RaiseAndSetIfChanged(ref this.selectedTabIndex, value);
 		}
 
 		public LogCoordinator LogCoordinator { get; } = StaticResolver.Resolve<LogCoordinator>();
@@ -286,8 +287,8 @@ namespace VidCoder.ViewModel
 
 		public ComboChoice<AppThemeChoice> AppTheme
 		{
-			get { return this.appTheme; }
-			set { this.RaiseAndSetIfChanged(ref this.appTheme, value); }
+			get => this.appTheme;
+			set => this.RaiseAndSetIfChanged(ref this.appTheme, value);
 		}
 
 		public List<ComboChoice> PriorityChoices { get; }
@@ -295,8 +296,8 @@ namespace VidCoder.ViewModel
 		private InterfaceLanguage interfaceLanguage;
 		public InterfaceLanguage InterfaceLanguage
 		{
-			get { return this.interfaceLanguage; }
-			set { this.RaiseAndSetIfChanged(ref this.interfaceLanguage, value); }
+			get => this.interfaceLanguage;
+			set => this.RaiseAndSetIfChanged(ref this.interfaceLanguage, value);
 		}
 
 		public string CurrentVersion
@@ -360,71 +361,71 @@ namespace VidCoder.ViewModel
 		private IVideoPlayer selectedPlayer;
 		public IVideoPlayer SelectedPlayer
 		{
-			get { return this.selectedPlayer; }
-			set { this.RaiseAndSetIfChanged(ref this.selectedPlayer, value); }
+			get => this.selectedPlayer;
+			set => this.RaiseAndSetIfChanged(ref this.selectedPlayer, value);
 		}
 
 		private bool useCustomVideoPlayer;
 		public bool UseCustomVideoPlayer
 		{
-			get { return this.useCustomVideoPlayer; }
-			set { this.RaiseAndSetIfChanged(ref this.useCustomVideoPlayer, value); }
+			get => this.useCustomVideoPlayer;
+			set => this.RaiseAndSetIfChanged(ref this.useCustomVideoPlayer, value);
 		}
 
 		private string customVideoPlayer;
 		public string CustomVideoPlayer
 		{
-			get { return this.customVideoPlayer; }
-			set { this.RaiseAndSetIfChanged(ref this.customVideoPlayer, value); }
+			get => this.customVideoPlayer;
+			set => this.RaiseAndSetIfChanged(ref this.customVideoPlayer, value);
 		}
 
 		private bool useBuiltInPlayerForPreviews;
 		public bool UseBuiltInPlayerForPreviews
 		{
-			get { return this.useBuiltInPlayerForPreviews; }
-			set { this.RaiseAndSetIfChanged(ref this.useBuiltInPlayerForPreviews, value); }
+			get => this.useBuiltInPlayerForPreviews;
+			set => this.RaiseAndSetIfChanged(ref this.useBuiltInPlayerForPreviews, value);
 		}
 
 		private bool useCustomPreviewFolder;
 		public bool UseCustomPreviewFolder
 		{
-			get { return this.useCustomPreviewFolder; }
-			set { this.RaiseAndSetIfChanged(ref this.useCustomPreviewFolder, value); }
+			get => this.useCustomPreviewFolder;
+			set => this.RaiseAndSetIfChanged(ref this.useCustomPreviewFolder, value);
 		}
 
 		private string previewOutputFolder;
 		public string PreviewOutputFolder
 		{
-			get { return this.previewOutputFolder; }
-			set { this.RaiseAndSetIfChanged(ref this.previewOutputFolder, value); }
+			get => this.previewOutputFolder;
+			set => this.RaiseAndSetIfChanged(ref this.previewOutputFolder, value);
 		}
 
 		private bool minimizeToTray;
 		public bool MinimizeToTray
 		{
-			get { return this.minimizeToTray; }
-			set { this.RaiseAndSetIfChanged(ref this.minimizeToTray, value); }
+			get => this.minimizeToTray;
+			set => this.RaiseAndSetIfChanged(ref this.minimizeToTray, value);
 		}
 
 		private bool playSoundOnCompletion;
 		public bool PlaySoundOnCompletion
 		{
-			get { return this.playSoundOnCompletion; }
-			set { this.RaiseAndSetIfChanged(ref this.playSoundOnCompletion, value); }
+			get => this.playSoundOnCompletion;
+			set => this.RaiseAndSetIfChanged(ref this.playSoundOnCompletion, value);
 		}
 
 		private bool useCustomCompletionSound;
 		public bool UseCustomCompletionSound
 		{
-			get { return this.useCustomCompletionSound; }
-			set { this.RaiseAndSetIfChanged(ref this.useCustomCompletionSound, value); }
+			get => this.useCustomCompletionSound;
+			set => this.RaiseAndSetIfChanged(ref this.useCustomCompletionSound, value);
 		}
 
 		private string customCompletionSound;
 		public string CustomCompletionSound
 		{
-			get { return this.customCompletionSound; }
-			set { this.RaiseAndSetIfChanged(ref this.customCompletionSound, value); }
+			get => this.customCompletionSound;
+			set => this.RaiseAndSetIfChanged(ref this.customCompletionSound, value);
 		}
 
 		public List<ComboChoice<int>> LogVerbosityChoices { get; } = new List<ComboChoice<int>>
@@ -437,52 +438,52 @@ namespace VidCoder.ViewModel
 		private int logVerbosity;
 		public int LogVerbosity
 		{
-			get { return this.logVerbosity; }
-			set { this.RaiseAndSetIfChanged(ref this.logVerbosity, value); }
+			get => this.logVerbosity;
+			set => this.RaiseAndSetIfChanged(ref this.logVerbosity, value);
 		}
 
 		private bool copyLogToOutputFolder;
 		public bool CopyLogToOutputFolder
 		{
-			get { return this.copyLogToOutputFolder; }
-			set { this.RaiseAndSetIfChanged(ref this.copyLogToOutputFolder, value); }
+			get => this.copyLogToOutputFolder;
+			set => this.RaiseAndSetIfChanged(ref this.copyLogToOutputFolder, value);
 		}
 
 		private bool copyLogToCustomFolder;
 
 		public bool CopyLogToCustomFolder
 		{
-			get { return this.copyLogToCustomFolder; }
-			set { this.RaiseAndSetIfChanged(ref this.copyLogToCustomFolder, value); }
+			get => this.copyLogToCustomFolder;
+			set => this.RaiseAndSetIfChanged(ref this.copyLogToCustomFolder, value);
 		}
 
 		private string logCustomFolder;
 
 		public string LogCustomFolder
 		{
-			get { return this.logCustomFolder; }
-			set { this.RaiseAndSetIfChanged(ref this.logCustomFolder, value); }
+			get => this.logCustomFolder;
+			set => this.RaiseAndSetIfChanged(ref this.logCustomFolder, value);
 		}
 
 		private bool autoPauseLowBattery;
 		public bool AutoPauseLowBattery
 		{
-			get { return this.autoPauseLowBattery; }
-			set { this.RaiseAndSetIfChanged(ref this.autoPauseLowBattery, value); }
+			get => this.autoPauseLowBattery;
+			set => this.RaiseAndSetIfChanged(ref this.autoPauseLowBattery, value);
 		}
 
 		private bool autoPauseLowDiskSpace;
 		public bool AutoPauseLowDiskSpace
 		{
-			get { return this.autoPauseLowDiskSpace; }
-			set { this.RaiseAndSetIfChanged(ref this.autoPauseLowDiskSpace, value); }
+			get => this.autoPauseLowDiskSpace;
+			set => this.RaiseAndSetIfChanged(ref this.autoPauseLowDiskSpace, value);
 		}
 
 		private int autoPauseLowDiskSpaceGb;
 		public int AutoPauseLowDiskSpaceGb
 		{
-			get { return this.autoPauseLowDiskSpaceGb; }
-			set { this.RaiseAndSetIfChanged(ref this.autoPauseLowDiskSpaceGb, value); }
+			get => this.autoPauseLowDiskSpaceGb;
+			set => this.RaiseAndSetIfChanged(ref this.autoPauseLowDiskSpaceGb, value);
 		}
 
 		public ObservableCollection<string> AutoPauseProcesses { get; }
@@ -490,43 +491,43 @@ namespace VidCoder.ViewModel
 		private string selectedProcess;
 		public string SelectedProcess
 		{
-			get { return this.selectedProcess; }
-			set { this.RaiseAndSetIfChanged(ref this.selectedProcess, value); }
+			get => this.selectedProcess;
+			set => this.RaiseAndSetIfChanged(ref this.selectedProcess, value);
 		}
 
 		private int previewCount;
 		public int PreviewCount
 		{
-			get { return this.previewCount; }
-			set { this.RaiseAndSetIfChanged(ref this.previewCount, value); }
+			get => this.previewCount;
+			set => this.RaiseAndSetIfChanged(ref this.previewCount, value);
 		}
 
 		private string workerProcessPriority;
 		public string WorkerProcessPriority
 		{
-			get { return this.workerProcessPriority; }
-			set { this.RaiseAndSetIfChanged(ref this.workerProcessPriority, value); }
+			get => this.workerProcessPriority;
+			set => this.RaiseAndSetIfChanged(ref this.workerProcessPriority, value);
 		}
 
 		private bool rememberPreviousFiles;
 		public bool RememberPreviousFiles
 		{
-			get { return this.rememberPreviousFiles; }
-			set { this.RaiseAndSetIfChanged(ref this.rememberPreviousFiles, value); }
+			get => this.rememberPreviousFiles;
+			set => this.RaiseAndSetIfChanged(ref this.rememberPreviousFiles, value);
 		}
 
 		private bool enableLibDvdNav;
 		public bool EnableLibDvdNav
 		{
-			get { return this.enableLibDvdNav; }
-			set { this.RaiseAndSetIfChanged(ref this.enableLibDvdNav, value); }
+			get => this.enableLibDvdNav;
+			set => this.RaiseAndSetIfChanged(ref this.enableLibDvdNav, value);
 		}
 
 		private bool deleteSourceFilesOnClearingCompleted;
 		public bool DeleteSourceFilesOnClearingCompleted
 		{
-			get { return this.deleteSourceFilesOnClearingCompleted; }
-			set { this.RaiseAndSetIfChanged(ref this.deleteSourceFilesOnClearingCompleted, value); }
+			get => this.deleteSourceFilesOnClearingCompleted;
+			set => this.RaiseAndSetIfChanged(ref this.deleteSourceFilesOnClearingCompleted, value);
 		}
 
 		public List<ComboChoice<DeleteSourceFilesMode>> DeleteSourceFilesModeChoices { get; }
@@ -534,65 +535,72 @@ namespace VidCoder.ViewModel
 		private DeleteSourceFilesMode selectedDeleteSourceFilesMode;
 		public DeleteSourceFilesMode SelectedDeleteSourceFilesMode
 		{
-			get { return this.selectedDeleteSourceFilesMode; }
-			set { this.RaiseAndSetIfChanged(ref this.selectedDeleteSourceFilesMode, value); }
+			get => this.selectedDeleteSourceFilesMode;
+			set => this.RaiseAndSetIfChanged(ref this.selectedDeleteSourceFilesMode, value);
 		}
 
 		private bool preserveModifyTimeFiles;
 		public bool PreserveModifyTimeFiles
 		{
-			get { return this.preserveModifyTimeFiles; }
-			set { this.RaiseAndSetIfChanged(ref this.preserveModifyTimeFiles, value); }
+			get => this.preserveModifyTimeFiles;
+			set => this.RaiseAndSetIfChanged(ref this.preserveModifyTimeFiles, value);
 		}
 
 		private bool resumeEncodingOnRestart;
 		public bool ResumeEncodingOnRestart
 		{
-			get { return this.resumeEncodingOnRestart; }
-			set { this.RaiseAndSetIfChanged(ref this.resumeEncodingOnRestart, value); }
+			get => this.resumeEncodingOnRestart;
+			set => this.RaiseAndSetIfChanged(ref this.resumeEncodingOnRestart, value);
 		}
 
 		private bool keepFailedFiles;
 
 		public bool KeepFailedFiles
 		{
-			get { return this.keepFailedFiles; }
-			set { this.RaiseAndSetIfChanged(ref this.keepFailedFiles, value); }
+			get => this.keepFailedFiles;
+			set => this.RaiseAndSetIfChanged(ref this.keepFailedFiles, value);
 		}
 
 		private bool triggerEncodeCompleteActionWithErrors;
 		public bool TriggerEncodeCompleteActionWithErrors
 		{
-			get { return this.triggerEncodeCompleteActionWithErrors; }
-			set { this.RaiseAndSetIfChanged(ref this.triggerEncodeCompleteActionWithErrors, value); }
+			get => this.triggerEncodeCompleteActionWithErrors;
+			set => this.RaiseAndSetIfChanged(ref this.triggerEncodeCompleteActionWithErrors, value);
 		}
 
 		private bool useWorkerProcess;
 		public bool UseWorkerProcess
 		{
-			get { return this.useWorkerProcess; }
-			set { this.RaiseAndSetIfChanged(ref this.useWorkerProcess, value); }
+			get => this.useWorkerProcess;
+			set => this.RaiseAndSetIfChanged(ref this.useWorkerProcess, value);
 		}
 
 		private int minimumTitleLengthSeconds;
 		public int MinimumTitleLengthSeconds
 		{
-			get { return this.minimumTitleLengthSeconds; }
-			set { this.RaiseAndSetIfChanged(ref this.minimumTitleLengthSeconds, value); }
+			get => this.minimumTitleLengthSeconds;
+			set => this.RaiseAndSetIfChanged(ref this.minimumTitleLengthSeconds, value);
 		}
 
 		private string videoFileExtensions;
 		public string VideoFileExtensions
 		{
-			get { return this.videoFileExtensions; }
-			set { this.RaiseAndSetIfChanged(ref this.videoFileExtensions, value); }
+			get => this.videoFileExtensions;
+			set => this.RaiseAndSetIfChanged(ref this.videoFileExtensions, value);
+		}
+
+		private int encodeRetries;
+		public int EncodeRetries
+		{
+			get => this.encodeRetries;
+			set => this.RaiseAndSetIfChanged(ref this.encodeRetries, value);
 		}
 
 		private int cpuThrottlingCores;
 		public int CpuThrottlingCores
 		{
-			get { return this.cpuThrottlingCores; }
-			set { this.RaiseAndSetIfChanged(ref this.cpuThrottlingCores, value); }
+			get => this.cpuThrottlingCores;
+			set => this.RaiseAndSetIfChanged(ref this.cpuThrottlingCores, value);
 		}
 
 		public int CpuThrottlingMaxCores
@@ -606,8 +614,8 @@ namespace VidCoder.ViewModel
 		private int maxSimultaneousEncodes;
 		public int MaxSimultaneousEncodes
 		{
-			get { return this.maxSimultaneousEncodes; }
-			set { this.RaiseAndSetIfChanged(ref this.maxSimultaneousEncodes, value); }
+			get => this.maxSimultaneousEncodes;
+			set => this.RaiseAndSetIfChanged(ref this.maxSimultaneousEncodes, value);
 		}
 
 		private ObservableAsPropertyHelper<string> cpuThrottlingDisplay;
@@ -697,6 +705,7 @@ namespace VidCoder.ViewModel
 						Config.TriggerEncodeCompleteActionWithErrors = this.TriggerEncodeCompleteActionWithErrors;
 						Config.MinimumTitleLengthSeconds = this.MinimumTitleLengthSeconds;
 						Config.VideoFileExtensions = this.VideoFileExtensions;
+						Config.EncodeRetries = this.EncodeRetries;
 						Config.CpuThrottlingFraction = (double)this.CpuThrottlingCores / this.CpuThrottlingMaxCores;
 						Config.MaxSimultaneousEncodes = this.MaxSimultaneousEncodes;
 
