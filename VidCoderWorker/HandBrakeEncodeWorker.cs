@@ -130,7 +130,7 @@ namespace VidCoderWorker
 					{
 						if (e.PassId > this.lastSetAffinityPassId && e.FractionComplete > 0)
 						{
-							this.ApplyCpuThrottling();
+							this.ApplyCpuThrottling(onlyIfReduced: true);
 							this.lastSetAffinityPassId = e.PassId;
 						}
 

@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using VidCoder.Model;
@@ -17,7 +18,7 @@ using Timer = System.Timers.Timer;
 
 namespace VidCoder
 {
-	public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallback
+	public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallback, IDisposable
 		where TWork : class, IHandBrakeWorker
 		where TCallback : class, IHandBrakeWorkerCallback
 	{
@@ -40,6 +41,9 @@ namespace VidCoder
 		private bool crashLogged;
 
 		private Process worker;
+
+		private IDisposable processPrioritySubscription;
+		private IDisposable cpuThrottlingSubscription;
 
 		// Timer that pings the worker process periodically to see if it's still alive.
 		private Timer pingTimer;
@@ -91,6 +95,8 @@ namespace VidCoder
 		{
 			this.CleanUpWorkerProcess();
 			this.pingTimer?.Dispose();
+			this.processPrioritySubscription?.Dispose();
+			this.cpuThrottlingSubscription?.Dispose();
 		}
 
 		protected abstract void OnOperationEnd(VCEncodeResultCode result);
@@ -419,6 +425,19 @@ namespace VidCoder
 			};
 
 			this.pingTimer.Start();
+
+			this.processPrioritySubscription = Config.Observables.WorkerProcessPriority.Skip(1).Subscribe(async _ =>
+			{
+				if (this.worker != null)
+				{
+					this.worker.PriorityClass = CustomConfig.WorkerProcessPriority;
+				}
+			});
+
+			this.cpuThrottlingSubscription = Config.Observables.CpuThrottlingFraction.Skip(1).Subscribe(async cpuThrottlingFraction =>
+			{
+				await this.ExecuteWorkerCallAsync(w => w.UpdateCpuThrottling(cpuThrottlingFraction), "UpdateCpuThrottling");
+			});
 
 			return true;
 		}

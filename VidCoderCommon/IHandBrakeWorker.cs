@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using VidCoderCommon.Model;
 
@@ -17,5 +18,7 @@ namespace VidCoderCommon
 		void TearDownWorker();
 
 		string Ping();
+
+		void UpdateCpuThrottling(double cpuThrottlingFraction);
 	}
 }
