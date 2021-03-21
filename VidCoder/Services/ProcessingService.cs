@@ -68,6 +68,7 @@ namespace VidCoder.Services
 		private ScanMultipleDialogViewModel scanMultipleDialogViewModel;
 		private bool selectedQueueItemModifyable = true;
 		private BehaviorSubject<bool> selectedQueueItemModifyableSubject;
+		private IDisposable simultaneousJobsSubscription;
 
 		public ProcessingService()
 		{
@@ -254,6 +255,14 @@ namespace VidCoder.Services
 			// JobsEncodingCount
 			this.EncodingJobsCountObservable = encodingJobsObservable.Count();
 			this.EncodingJobsCountObservable.ToProperty(this, x => x.JobsEncodingCount, out this.jobsEncodingCount);
+
+			this.simultaneousJobsSubscription = Config.Observables.MaxSimultaneousEncodes.Skip(1).Subscribe(maxSimultaneousEncodes =>
+			{
+				if (this.Encoding && maxSimultaneousEncodes > 1)
+				{
+					this.EncodeNextJobs();
+				}
+			});
 
 			this.selectedQueueItemModifyableSubject = new BehaviorSubject<bool>(this.selectedQueueItemModifyable);
 		}
