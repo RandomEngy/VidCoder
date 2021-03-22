@@ -2129,6 +2129,18 @@
 														<MenuItem Command="{Binding ProcessingService.MoveSelectedJobsToTop}" Header="{x:Static res:MainRes.MoveToTopMenuItem}" />
 														<MenuItem Command="{Binding ProcessingService.MoveSelectedJobsToBottom}" Header="{x:Static res:MainRes.MoveToBottomMenuItem}" />
 														<Separator />
+														<MenuItem
+															Command="{Binding Stop}"
+															Header="{x:Static res:MainRes.Stop}"
+															Visibility="{Binding Encoding,
+															                     Converter={StaticResource VisibilityConverter}}">
+															<MenuItem.Icon>
+																<Image
+																	Width="16"
+																	Height="16"
+																	Source="/Icons/Stop.png" />
+															</MenuItem.Icon>
+														</MenuItem>
 														<MenuItem Command="{Binding EditQueueJob}" Header="{x:Static res:MainRes.Edit}">
 															<MenuItem.Icon>
 																<Image

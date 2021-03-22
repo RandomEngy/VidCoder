@@ -803,7 +803,7 @@ namespace VidCoder.ViewModel
 			if (this.ProcessingService.Encoding)
 			{
 				// If so, stop it.
-				this.ProcessingService.StopAndWaitAsync(EncodeCompleteReason.AppExit).Wait();
+				this.ProcessingService.StopAndWaitAsync(EncodeCompleteReason.AppExitStop).Wait();
 			}
 
 			this.windowManager.CloseTrackedWindows();

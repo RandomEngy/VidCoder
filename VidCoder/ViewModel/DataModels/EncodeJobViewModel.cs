@@ -666,6 +666,19 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private ReactiveCommand<Unit, Unit> stop;
+		public ICommand Stop
+		{
+			get
+			{
+				return this.stop ?? (this.stop = ReactiveCommand.Create(
+					() =>
+					{
+						this.ProcessingService.Stop(this);
+					}));
+			}
+		}
+
 		private ReactiveCommand<Unit, Unit> editQueueJob;
 		public ICommand EditQueueJob
 		{

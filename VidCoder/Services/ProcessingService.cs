@@ -1721,11 +1721,24 @@ namespace VidCoder.Services
 
 		public void Stop()
 		{
-			this.encodeCompleteReason = EncodeCompleteReason.Manual;
+			this.encodeCompleteReason = EncodeCompleteReason.ManualStopAll;
 
 			this.RunForAllEncodeProxies(encodeProxy => encodeProxy.StopEncodeAsync(), "Stop");
 
 			this.logger.ShowStatus(MainRes.StoppedEncoding);
+		}
+
+		public void Stop(EncodeJobViewModel jobViewModel)
+		{
+			if (this.encodingJobList.Count == 1)
+			{
+				this.Stop();
+			}
+			else if (this.encodingJobList.Count > 1)
+			{
+				this.encodeCompleteReason = EncodeCompleteReason.ManualStopSingle;
+				this.StartEncodeProxyAction(jobViewModel.EncodeProxy, encodeProxy => encodeProxy.StopEncodeAsync(), "Stop");
+			}
 		}
 
 		public async Task StopAndWaitAsync(EncodeCompleteReason reason)
@@ -2039,29 +2052,7 @@ namespace VidCoder.Services
 
 				finishedJobViewModel.ReportEncodeEnd();
 
-				if (this.encodeCompleteReason != EncodeCompleteReason.Finished)
-				{
-					// If the encode was stopped manually
-					this.StopEncodingAndReport();
-
-					// Try to clean up the failed file
-					TryHandleFailedFile(directOutputFileInfo, encodeLogger, "stopped", finalOutputPath);
-
-					// If the user still has the video source up, clear the queue so they can change settings and try again.
-					// If the source isn't loaded they probably want to keep it in the queue.
-					if (this.TotalTasks == 1
-						&& this.encodeCompleteReason == EncodeCompleteReason.Manual
-						&& this.main.HasVideoSource
-						&& this.main.SourcePath == this.EncodeQueue.Items.First().Job.SourcePath)
-					{
-						this.EncodeQueue.Clear();
-					}
-
-					encodingStopped = true;
-					encodeLogger.Log("Encoding stopped");
-					this.logger.Log("Encoding stopped");
-				}
-				else
+				if (this.encodeCompleteReason == EncodeCompleteReason.Finished)
 				{
 					// If the encode finished naturally
 					this.WorkTracker.ReportFinished(finishedJobViewModel.Work);
@@ -2095,12 +2086,12 @@ namespace VidCoder.Services
 						// Rename from in progress path to final path
 						try
 						{
-							if (File.Exists(finishedJobViewModel.Job.FinalOutputPath))
+							if (File.Exists(finalOutputPath))
 							{
-								File.Delete(finishedJobViewModel.Job.FinalOutputPath);
+								File.Delete(finalOutputPath);
 							}
 
-							File.Move(finishedJobViewModel.Job.PartOutputPath, finishedJobViewModel.Job.FinalOutputPath);
+							File.Move(finishedJobViewModel.Job.PartOutputPath, finalOutputPath);
 						}
 						catch (Exception exception)
 						{
@@ -2121,7 +2112,7 @@ namespace VidCoder.Services
 							try
 							{
 								var inputShellFile = ShellFile.FromFilePath(finishedJobViewModel.Job.SourcePath);
-								var outputShellFile = ShellFile.FromFilePath(finishedJobViewModel.Job.FinalOutputPath);
+								var outputShellFile = ShellFile.FromFilePath(finalOutputPath);
 
 								try
 								{
@@ -2136,10 +2127,10 @@ namespace VidCoder.Services
 									encodeLogger.LogError("Could not set encoded date on file: " + exception);
 								}
 
-								File.SetCreationTimeUtc(finishedJobViewModel.Job.FinalOutputPath, inputShellFile.Properties.System.DateCreated.Value.Value);
+								File.SetCreationTimeUtc(finalOutputPath, inputShellFile.Properties.System.DateCreated.Value.Value);
 
 								// Set "last write" time last so it isn't reset by another property edit.
-								File.SetLastWriteTimeUtc(finishedJobViewModel.Job.FinalOutputPath, inputShellFile.Properties.System.DateModified.Value.Value);
+								File.SetLastWriteTimeUtc(finalOutputPath, inputShellFile.Properties.System.DateModified.Value.Value);
 
 								// Writing Created/Modified time does not work via the ShellFile API, otherwise we would use this approach to set them all at once.
 								//ShellPropertyWriter propertyWriter = outputShellFile.Properties.GetPropertyWriter();
@@ -2157,7 +2148,7 @@ namespace VidCoder.Services
 					addedResult = new EncodeResultViewModel(
 						new EncodeResult
 						{
-							Destination = finishedJobViewModel.Job.FinalOutputPath,
+							Destination = finalOutputPath,
 							FailedFilePath = failedFilePath,
 							Status = status,
 							EncodeTime = finishedJobViewModel.EncodeTime,
@@ -2191,7 +2182,7 @@ namespace VidCoder.Services
 					}
 
 					encodeLogger.Log("Job completed (Elapsed Time: " + finishedJobViewModel.EncodeTime.FormatFriendly() + ")");
-					this.logger.Log("Job completed: " + finishedJobViewModel.Job.FinalOutputPath);
+					this.logger.Log("Job completed: " + finalOutputPath);
 
 					if (status != EncodeResultStatus.Succeeded)
 					{
@@ -2229,6 +2220,49 @@ namespace VidCoder.Services
 					{
 						this.EncodeNextJobs();
 					}
+				}
+				else
+				{
+					// If the encode was stopped manually
+
+					string stopMessage;
+					if (this.encodeCompleteReason == EncodeCompleteReason.ManualStopSingle)
+					{
+						// If we're stopping just this job, we need to push it down the queue and start up the next job in line
+						this.EncodeQueue.Edit(encodeQueueInnerList =>
+						{
+							encodeQueueInnerList.Remove(finishedJobViewModel);
+							encodeQueueInnerList.Insert(Config.MaxSimultaneousEncodes, finishedJobViewModel);
+
+							this.EncodeNextJobs();
+						});
+
+						stopMessage = "Encoding stopped for " + finalOutputPath;
+					}
+					else
+					{
+						// If we're stopping all jobs, update encoding state.
+						this.StopEncodingAndReport();
+						encodingStopped = true;
+
+						stopMessage = "Encoding stopped";
+
+						// If the user still has the video source up, clear the queue so they can change settings and try again.
+						// If the source isn't loaded they probably want to keep it in the queue.
+						if (this.TotalTasks == 1
+							&& this.encodeCompleteReason == EncodeCompleteReason.ManualStopAll
+							&& this.main.HasVideoSource
+							&& this.main.SourcePath == this.EncodeQueue.Items.First().Job.SourcePath)
+						{
+							this.EncodeQueue.Clear();
+						}
+					}
+
+					encodeLogger.Log(stopMessage);
+					this.logger.Log(stopMessage);
+
+					// Try to clean up the failed file
+					TryHandleFailedFile(directOutputFileInfo, encodeLogger, "stopped", finalOutputPath);
 				}
 
 				this.RebuildEncodingJobsList();
