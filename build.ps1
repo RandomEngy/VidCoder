@@ -2,6 +2,7 @@
 Param(
   [Parameter(Mandatory=$True)]
   [string]$versionShort,
+  [string]$p,
   [switch]$beta,
   [switch]$debugBuild = $false
 )
@@ -90,6 +91,10 @@ function Publish($folderNameSuffix, $publishProfileName, $version4part) {
     }
 }
 
+function SignExe($installerPath) {
+    & signtool sign /f D:\certs\ComodoIndividualCert.pfx /p $p /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 $installerPath
+}
+
 if ($debugBuild) {
     $buildFlavor = "Debug"
 } else {
@@ -138,13 +143,16 @@ if ($debugBuild) {
 New-Item -ItemType Directory -Force -Path ".\$builtInstallerFolder"
 
 $portableExeWithoutExtension = ".\$builtInstallerFolder\VidCoder-$versionShort$betaNameSection-Portable"
+$portableExeWithExtension = $portableExeWithoutExtension + ".exe"
 
-DeleteFileIfExists ($portableExeWithoutExtension + ".exe")
+DeleteFileIfExists $portableExeWithExtension
 
 $winRarExe = "c:\Program Files\WinRar\WinRAR.exe"
 
 & $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension .\VidCoder\bin\publish-portable\** | Out-Null
 ExitIfFailed
+
+SignExe $portableExeWithExtension; ExitIfFailed
 
 $latestFileDirectory = "Installer\"
 if ($debugBuild) {
@@ -178,6 +186,8 @@ CreateIssFile $versionShort $beta $debugBuild
 # Build the installers
 & $InnoSetupExe Installer\VidCoder-gen.iss; ExitIfFailed
 
+$installerExePath = ".\$builtInstallerFolder\VidCoder-$versionShort$betaNameSection.exe"
+SignExe $installerExePath; ExitIfFailed
 
 WriteSuccess
 
