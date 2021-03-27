@@ -394,7 +394,29 @@
 							<!--  Video selection  -->
 							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.VideoSelectionSection}" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<CheckBox IsChecked="{Binding IgnoreFilesBelowMbEnabled}">
+									<StackPanel Orientation="Horizontal">
+										<TextBlock
+											Name="ignoreFilesBelowLabel"
+											VerticalAlignment="Center"
+											Text="{x:Static res:PickerRes.IgnoreFilesBelowCheckBox}" />
+										<controls:NumberBox
+											Width="46"
+											Margin="4 0 0 0"
+											AllowEmpty="False"
+											AutomationProperties.LabeledBy="{Binding ElementName=ignoreFilesBelowLabel}"
+											IsEnabled="{Binding IgnoreFilesBelowMbEnabled}"
+											Minimum="1"
+											Number="{Binding IgnoreFilesBelowMb,
+											                 Mode=TwoWay}" />
+										<TextBlock
+											Margin="4 0 0 0"
+											VerticalAlignment="Center"
+											Text="{x:Static res:CommonRes.MegabytesAbbreviation}" />
+									</StackPanel>
+								</CheckBox>
 								<CheckBox
+									Margin="0 6 0 0"
 									HorizontalAlignment="Left"
 									AutomationProperties.Name="{x:Static res:PickerRes.DurationFilterCheckBoxAutomationName}"
 									IsChecked="{Binding TitleRangeSelectEnabled}">

@@ -76,14 +76,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public bool ImageVisible
-		{
-			get
-			{
-				return this.sourceOption.Type != SourceType.None;
-			}
-		}
-
 		private ObservableAsPropertyHelper<string> text;
 		public string Text => this.text.Value;
 
@@ -122,7 +114,7 @@ namespace VidCoder.ViewModel
 						case SourceType.File:
 							if (this.SourcePath == null)
 							{
-								mainVM.SetSourceFromFile();
+								mainVM.PickAndSetSourceFromFile();
 							}
 							else
 							{
@@ -132,7 +124,7 @@ namespace VidCoder.ViewModel
 						case SourceType.DiscVideoFolder:
 							if (this.SourcePath == null)
 							{
-								mainVM.SetSourceFromFolder();
+								mainVM.PickAndHandleFolder();
 							}
 							else
 							{

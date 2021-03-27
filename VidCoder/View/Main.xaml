@@ -805,9 +805,7 @@
 											Width="16"
 											Height="16"
 											Margin="0 2 0 2"
-											Source="{Binding Image}"
-											Visibility="{Binding ImageVisible,
-											                     Converter={StaticResource VisibilityConverter}}" />
+											Source="{Binding Image}" />
 										<TextBlock
 											Margin="6 0 0 0"
 											FontSize="14"
@@ -882,9 +880,7 @@
 											Height="16"
 											Margin="4 2 0 2"
 											Source="{Binding Image}"
-											UseLayoutRounding="True"
-											Visibility="{Binding ImageVisible,
-											                     Converter={StaticResource VisibilityConverter}}" />
+											UseLayoutRounding="True" />
 										<controls:PathTextBlock
 											Grid.Column="1"
 											Margin="4"

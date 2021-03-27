@@ -299,6 +299,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ignore files below.
+        /// </summary>
+        public static string IgnoreFilesBelowCheckBox {
+            get {
+                return ResourceManager.GetString("IgnoreFilesBelowCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language(s).
         /// </summary>
         public static string LanguagesRadioButton {

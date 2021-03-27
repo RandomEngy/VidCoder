@@ -400,6 +400,8 @@ namespace VidCoder.ViewModel
 			this.RegisterPickerProperty(nameof(this.Picker.TitleCapitalization), () => this.RefreshOutputPathAndSourceNameCleanupPreview());
 			this.RegisterPickerProperty(nameof(this.Picker.OnlyChangeTitleCapitalizationWhenAllSame), () => this.RefreshOutputPathAndSourceNameCleanupPreview());
 			this.RegisterPickerProperty(nameof(this.Picker.WordBreakCharacters), () => this.RefreshOutputPathAndSourceNameCleanupPreview());
+			this.RegisterPickerProperty(nameof(this.Picker.IgnoreFilesBelowMbEnabled));
+			this.RegisterPickerProperty(nameof(this.Picker.IgnoreFilesBelowMb));
 			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectEnabled));
 			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectStartMinutes));
 			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectEndMinutes));
@@ -691,6 +693,18 @@ namespace VidCoder.ViewModel
 		{
 			this.RefreshSourceNameCleanupPreview();
 			this.outputPathService.GenerateOutputFileName();
+		}
+
+		public bool IgnoreFilesBelowMbEnabled
+		{
+			get => this.Picker.IgnoreFilesBelowMbEnabled;
+			set => this.UpdatePickerProperty(nameof(this.Picker.IgnoreFilesBelowMbEnabled), value);
+		}
+
+		public int IgnoreFilesBelowMb
+		{
+			get => this.Picker.IgnoreFilesBelowMb;
+			set => this.UpdatePickerProperty(nameof(this.Picker.IgnoreFilesBelowMb), value);
 		}
 
 		public List<ComboChoice<PickerTimeRangeMode>> PickerTimeRangeChoices { get; } = new List<ComboChoice<PickerTimeRangeMode>>

@@ -299,6 +299,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MB.
+        /// </summary>
+        public static string MegabytesAbbreviation {
+            get {
+                return ResourceManager.GetString("MegabytesAbbreviation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         public static string No {

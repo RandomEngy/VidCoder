@@ -447,6 +447,7 @@ namespace VidCoder.ViewModel
         /// </summary>
         /// <param name="paths">The paths to process.</param>
         /// <param name="alwaysQueue">True if the given items should always be queued, and never opened as source.</param>
+		/// <remarks>This can come in from drag/drop, command line argument or user picked folder.</remarks>
 	    public void HandlePaths(IList<string> paths, bool alwaysQueue = false)
 	    {
             if (paths.Count > 0)
@@ -529,7 +530,7 @@ namespace VidCoder.ViewModel
 		/// <param name="alwaysQueue">True if the given items should always be queued, and never opened as source.</param>
 		private void HandlePathsAsVideoSource(IList<string> itemList, bool alwaysQueue)
         {
-            List<SourcePath> fileList = GetPathList(itemList);
+            List<SourcePath> fileList = this.GetPathList(itemList);
             if (fileList.Count > 0)
             {
                 if (fileList.Count == 1 && !alwaysQueue)
@@ -548,7 +549,7 @@ namespace VidCoder.ViewModel
 		/// </summary>
 		/// <param name="itemList">The list of paths to process.</param>
 		/// <returns>The list of video sources in the given paths.</returns>
-		private static List<SourcePath> GetPathList(IList<string> itemList)
+		private List<SourcePath> GetPathList(IList<string> itemList)
         {
             var videoExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             string extensionsString = Config.VideoFileExtensions;
@@ -637,6 +638,31 @@ namespace VidCoder.ViewModel
 				}
 			}
 
+			Picker picker = this.PickersService.SelectedPicker.Picker;
+			if (picker.IgnoreFilesBelowMbEnabled)
+			{
+				long bytesThreshold = picker.IgnoreFilesBelowMb * 1024 * 1024;
+				var filteredList = new List<SourcePath>();
+				pathList = pathList.Where(p =>
+				{
+					if (p.SourceType != SourceType.File)
+					{
+						return true;
+					}
+
+					try
+					{
+						FileInfo info = new FileInfo(p.Path);
+						return info.Length >= bytesThreshold;
+					}
+					catch
+					{
+						// Ignore errors, and include the file.
+						return true;
+					}
+				}).ToList();
+			}
+
             return pathList;
         }
 
@@ -657,17 +683,87 @@ namespace VidCoder.ViewModel
 			{
 				string parentFolder = Path.GetDirectoryName(folder);
 				pathList.AddRange(
-					Utilities.GetFilesOrVideoFolders(folder, videoExtensions)
+					GetFilesOrVideoFolders(folder, videoExtensions)
 						.Select(p => new SourcePath
 						{
-							Path = p,
+							Path = p.Path,
 							ParentFolder = parentFolder,
-							SourceType = SourceType.None
+							SourceType = p.SourceType
 						}));
 			}
 		}
 
-        public bool SetSourceFromFile()
+		private class SourcePathWithType
+		{
+			public string Path { get; set; }
+			public SourceType SourceType { get; set; }
+		}
+
+		private static List<SourcePathWithType> GetFilesOrVideoFolders(string directory, ISet<string> videoExtensions)
+		{
+			var paths = new List<SourcePathWithType>();
+			var errors = new List<string>();
+			GetFilesOrVideoFoldersRecursive(directory, paths, errors, videoExtensions);
+
+			if (errors.Count > 0)
+			{
+				var messageBuilder = new StringBuilder(CommonRes.CouldNotAccessDirectoriesError + Environment.NewLine);
+				foreach (string accessError in errors)
+				{
+					messageBuilder.AppendLine(accessError);
+				}
+
+				MessageBox.Show(messageBuilder.ToString());
+			}
+
+			return paths;
+		}
+
+		private static void GetFilesOrVideoFoldersRecursive(string directory, List<SourcePathWithType> paths, List<string> errors, ISet<string> videoExtensions)
+		{
+			try
+			{
+				string[] subdirectories = Directory.GetDirectories(directory);
+				Array.Sort(subdirectories);
+				foreach (string subdirectory in subdirectories)
+				{
+					if (Utilities.IsDiscFolder(subdirectory))
+					{
+						paths.Add(new SourcePathWithType { Path = subdirectory, SourceType = SourceType.DiscVideoFolder });
+					}
+					else
+					{
+						GetFilesOrVideoFoldersRecursive(subdirectory, paths, errors, videoExtensions);
+					}
+				}
+			}
+			catch (Exception)
+			{
+				errors.Add(directory);
+			}
+
+			try
+			{
+				string[] files = Directory.GetFiles(directory);
+				Array.Sort(files);
+				paths.AddRange(files
+					.Where(file =>
+					{
+						return videoExtensions.Contains(Path.GetExtension(file));
+					})
+					.Select(path => new SourcePathWithType { Path = path, SourceType = SourceType.File }));
+			}
+			catch (Exception)
+			{
+				errors.Add(directory);
+			}
+		}
+
+		/// <summary>
+		/// Allows the user to pick a video file and sets the source to it.
+		/// </summary>
+		/// <returns>True if the user picked a file.</returns>
+		public bool PickAndSetSourceFromFile()
 		{
 			string videoFile = FileService.Instance.GetFileNameLoad(
 				Config.RememberPreviousFiles ? Config.LastInputFileFolder : null,
@@ -682,6 +778,10 @@ namespace VidCoder.ViewModel
 			return false;
 		}
 
+		/// <summary>
+		/// Sets the video source to the given file.
+		/// </summary>
+		/// <param name="videoFile"></param>
 		public void SetSourceFromFile(string videoFile)
 		{
 			if (Config.RememberPreviousFiles)
@@ -696,7 +796,11 @@ namespace VidCoder.ViewModel
 			this.SelectedSource = new SourceOption { Type = SourceType.File };
 		}
 
-		public bool SetSourceFromFolder()
+		/// <summary>
+		/// Allows the user to pick a folder and handles it. might be a disc folder to open or a folder full of video files to queue.
+		/// </summary>
+		/// <returns>True if we picked a folder, false if the user canceled out.</returns>
+		public bool PickAndHandleFolder()
 		{
 			string folderPath = FileService.Instance.GetFolderName(
 				Config.RememberPreviousFiles ? Config.LastVideoTSFolder : null,
@@ -2691,7 +2795,7 @@ namespace VidCoder.ViewModel
 				return this.openFile ?? (this.openFile = ReactiveCommand.Create(
 					() =>
 					{
-						this.SetSourceFromFile();
+						this.PickAndSetSourceFromFile();
 					},
 					this.NotScanningObservable));
 			}
@@ -2705,7 +2809,7 @@ namespace VidCoder.ViewModel
 				return this.openFolder ?? (this.openFolder = ReactiveCommand.Create(
 					() =>
 					{
-						this.SetSourceFromFolder();
+						this.PickAndHandleFolder();
 					},
 					this.NotScanningObservable));
 			}

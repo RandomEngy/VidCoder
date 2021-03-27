@@ -1522,7 +1522,7 @@ namespace VidCoder.Services
 							UseDefaultChapterNames = true
 						};
 
-						if (sourcePath.SourceType == SourceType.None)
+						if (sourcePath.SourceType == SourceType.Unknown)
 						{
 							if (Directory.Exists(sourcePath.Path))
 							{
@@ -1538,7 +1538,7 @@ namespace VidCoder.Services
 							job.SourceType = sourcePath.SourceType;
 						}
 
-						if (job.SourceType != SourceType.None)
+						if (job.SourceType != SourceType.Unknown)
 						{
 							var jobVM = new EncodeJobViewModel(job);
 							jobVM.VideoSource = videoSource;

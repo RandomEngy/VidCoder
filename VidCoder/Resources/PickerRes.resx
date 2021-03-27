@@ -364,6 +364,10 @@ By index - Pick by track index (1-based)
 Language(s) - Pick by language
 All - Include all subtitles.</value>
   </data>
+  <data name="IgnoreFilesBelowCheckBox" xml:space="preserve">
+    <value>Ignore files below</value>
+    <comment>A number box follows this string: Ignore files below [ 10 ] MB</comment>
+  </data>
   <data name="TimeRangeLabel" xml:space="preserve">
     <value>Time range:</value>
   </data>

@@ -116,6 +116,12 @@ namespace VidCoder.Model
 		[JsonProperty]
 		public TitleCapitalizationChoice TitleCapitalization { get; set; } = TitleCapitalizationChoice.EveryWord;
 
+		[JsonProperty]
+		public bool IgnoreFilesBelowMbEnabled { get; set; }
+
+		[JsonProperty]
+		public int IgnoreFilesBelowMb { get; set; } = 30;
+
 		private bool titleRangeSelectEnabled;
 		[JsonProperty]
 		public bool TitleRangeSelectEnabled

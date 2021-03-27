@@ -2,7 +2,7 @@
 {
     public enum SourceType
     {
-        None = 0,
+        Unknown = 0,
         File,
         DiscVideoFolder,
         Disc
