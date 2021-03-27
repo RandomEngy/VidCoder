@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DefaultCheckBox" xml:space="preserve">
     <value>Default</value>
@@ -129,9 +129,6 @@
   </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>Picker: {0}</value>
-  </data>
-  <data name="TitleSelection" xml:space="preserve">
-    <value>Title selection</value>
   </data>
   <data name="PickerButtonFormat" xml:space="preserve">
     <value>Picker: {0}</value>
@@ -239,9 +236,6 @@
   <data name="DurationFilterCheckBoxAutomationName" xml:space="preserve">
     <value>Filter titles by duration</value>
     <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
-  </data>
-  <data name="TimeRangeSelection" xml:space="preserve">
-    <value>Time range selection</value>
   </data>
   <data name="ChangeCaptializationLabel" xml:space="preserve">
     <value>Change capitalization to</value>
@@ -369,5 +363,11 @@ First - Include only the first subtitle.
 By index - Pick by track index (1-based)
 Language(s) - Pick by language
 All - Include all subtitles.</value>
+  </data>
+  <data name="TimeRangeLabel" xml:space="preserve">
+    <value>Time range:</value>
+  </data>
+  <data name="VideoSelectionSection" xml:space="preserve">
+    <value>Video selection</value>
   </data>
 </root>

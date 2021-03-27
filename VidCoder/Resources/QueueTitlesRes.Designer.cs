@@ -79,7 +79,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All titles from.
+        ///   Looks up a localized string similar to Pick only titles from.
         /// </summary>
         public static string LengthRangePre {
             get {

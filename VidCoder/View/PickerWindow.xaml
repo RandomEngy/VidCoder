@@ -391,8 +391,8 @@
 								</StackPanel>
 							</StackPanel>
 
-							<!--  Title selection  -->
-							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.TitleSelection}" />
+							<!--  Video selection  -->
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.VideoSelectionSection}" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}">
 								<CheckBox
 									HorizontalAlignment="Left"
@@ -429,28 +429,19 @@
 											Text="{x:Static res:QueueTitlesRes.LengthRangePost}" />
 									</StackPanel>
 								</CheckBox>
-							</StackPanel>
-
-							<!--  Time range selection  -->
-							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.TimeRangeSelection}" />
-							<StackPanel Style="{StaticResource ConfigSectionStack}">
-								<RadioButton
-									HorizontalAlignment="Left"
-									VerticalAlignment="Top"
-									Content="{x:Static res:CommonRes.All}"
-									GroupName="timeRange1"
-									IsChecked="{Binding PickerTimeRangeMode,
-									                    Converter={StaticResource EnumBoolConverter},
-									                    ConverterParameter={x:Static model:PickerTimeRangeMode.All}}" />
-								<RadioButton
-									Margin="0 6 0 0"
-									HorizontalAlignment="Left"
-									VerticalAlignment="Top"
-									Content="{x:Static res:EnumsRes.PickerTimeRangeMode_Chapters}"
-									GroupName="timeRange2"
-									IsChecked="{Binding PickerTimeRangeMode,
-									                    Converter={StaticResource EnumBoolConverter},
-									                    ConverterParameter={x:Static model:PickerTimeRangeMode.Chapters}}" />
+								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
+									<TextBlock
+										Name="timeRangeLabel"
+										VerticalAlignment="Center"
+										Text="{x:Static res:PickerRes.TimeRangeLabel}" />
+									<ComboBox
+										Margin="6 0 0 0"
+										AutomationProperties.LabeledBy="{Binding ElementName=timeRangeLabel}"
+										DisplayMemberPath="Display"
+										ItemsSource="{Binding PickerTimeRangeChoices}"
+										SelectedValue="{Binding PickerTimeRangeMode}"
+										SelectedValuePath="Value" />
+								</StackPanel>
 								<StackPanel
 									Margin="20 4 0 0"
 									Orientation="Horizontal"
@@ -472,16 +463,6 @@
 										Number="{Binding ChapterRangeEnd,
 										                 Mode=TwoWay}" />
 								</StackPanel>
-								<RadioButton
-									Margin="0 6 0 0"
-									HorizontalAlignment="Left"
-									VerticalAlignment="Top"
-									Content="{x:Static res:EnumsRes.PickerTimeRangeMode_Time}"
-									GroupName="timeRange3"
-									IsChecked="{Binding PickerTimeRangeMode,
-									                    Converter={StaticResource EnumBoolConverter},
-									                    ConverterParameter={x:Static model:PickerTimeRangeMode.Time}}" />
-
 								<StackPanel
 									Margin="20 4 0 0"
 									Orientation="Horizontal"
@@ -508,7 +489,6 @@
 										               Mode=TwoWay}" />
 								</StackPanel>
 							</StackPanel>
-
 
 							<!--  Audio selection  -->
 							<TextBlock

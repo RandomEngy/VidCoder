@@ -693,6 +693,13 @@ namespace VidCoder.ViewModel
 			this.outputPathService.GenerateOutputFileName();
 		}
 
+		public List<ComboChoice<PickerTimeRangeMode>> PickerTimeRangeChoices { get; } = new List<ComboChoice<PickerTimeRangeMode>>
+		{
+			new ComboChoice<PickerTimeRangeMode>(PickerTimeRangeMode.All, CommonRes.All),
+			new ComboChoice<PickerTimeRangeMode>(PickerTimeRangeMode.Chapters, EnumsRes.PickerTimeRangeMode_Chapters),
+			new ComboChoice<PickerTimeRangeMode>(PickerTimeRangeMode.Time, EnumsRes.PickerTimeRangeMode_Time),
+		};
+
 		public PickerTimeRangeMode PickerTimeRangeMode
 		{
 			get => this.Picker.PickerTimeRangeMode;

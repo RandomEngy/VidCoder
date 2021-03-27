@@ -592,11 +592,11 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Time range selection.
+        ///   Looks up a localized string similar to Time range:.
         /// </summary>
-        public static string TimeRangeSelection {
+        public static string TimeRangeLabel {
             get {
-                return ResourceManager.GetString("TimeRangeSelection", resourceCulture);
+                return ResourceManager.GetString("TimeRangeLabel", resourceCulture);
             }
         }
         
@@ -606,15 +606,6 @@ namespace VidCoder.Resources {
         public static string TimeRangeStartAutomationName {
             get {
                 return ResourceManager.GetString("TimeRangeStartAutomationName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Title selection.
-        /// </summary>
-        public static string TitleSelection {
-            get {
-                return ResourceManager.GetString("TitleSelection", resourceCulture);
             }
         }
         
@@ -651,6 +642,15 @@ namespace VidCoder.Resources {
         public static string UseGlobalSettingToolTip {
             get {
                 return ResourceManager.GetString("UseGlobalSettingToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video selection.
+        /// </summary>
+        public static string VideoSelectionSection {
+            get {
+                return ResourceManager.GetString("VideoSelectionSection", resourceCulture);
             }
         }
         
