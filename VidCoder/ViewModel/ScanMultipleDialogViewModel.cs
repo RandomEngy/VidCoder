@@ -22,6 +22,7 @@ namespace VidCoder.ViewModel
 		private float currentJobProgress;
 		private object currentJobIndexLock = new object();
 		private IScanProxy scanProxy;
+		private IAppLogger scanLogger;
 		private SourcePath currentPath;
 		private bool allowClose;
 
@@ -60,8 +61,8 @@ namespace VidCoder.ViewModel
 			this.currentPath = this.pathsToScan[this.currentJobIndex];
 			this.EnsureScanProxyCreated();
 
-			var scanLogger = StaticResolver.Resolve<AppLoggerFactory>().ResolveRemoteScanLogger(this.currentPath.Path);
-            scanProxy.StartScan(this.currentPath.Path, scanLogger);
+			this.scanLogger = StaticResolver.Resolve<AppLoggerFactory>().ResolveRemoteScanLogger(this.currentPath.Path);
+            this.scanProxy.StartScan(this.currentPath.Path, scanLogger);
 		}
 
 		private void EnsureScanProxyCreated()
@@ -95,6 +96,7 @@ namespace VidCoder.ViewModel
 						this.currentJobIndex++;
 						this.currentJobProgress = 0;
 						this.RaisePropertyChanged(nameof(this.Progress));
+						this.scanLogger.Dispose();
 
 						if (this.ScanFinished)
 						{
