@@ -26,7 +26,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AnyContainer" Version="1.0.0-beta201808141" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="PipeMethodCalls" Version="2.1.0" />
+    <PackageReference Include="PipeMethodCalls" Version="3.0.2" />
+    <PackageReference Include="PipeMethodCalls.NetJson" Version="3.0.0" />
     <PackageReference Include="ReactiveUI" Version="13.1.1" />
     <PackageReference Include="System.Text.Json" Version="5.0.1" />
     <PackageReference Include="valueinjecter" Version="3.2.0" />

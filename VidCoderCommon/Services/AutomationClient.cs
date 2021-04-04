@@ -1,4 +1,5 @@
 ﻿using PipeMethodCalls;
+using PipeMethodCalls.NetJson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace VidCoderCommon.Services
 					betaString = "Beta";
 				}
 
-				using (var client = new PipeClient<IVidCoderAutomation>("VidCoderAutomation" + betaString))
+				using (var client = new PipeClient<IVidCoderAutomation>(new NetJsonPipeSerializer(), "VidCoderAutomation" + betaString))
 				{
 					client.SetLogger(Console.WriteLine);
 

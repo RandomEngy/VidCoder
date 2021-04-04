@@ -17,7 +17,8 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="PipeMethodCalls" Version="2.1.0" />
+    <PackageReference Include="PipeMethodCalls" Version="3.0.2" />
+    <PackageReference Include="PipeMethodCalls.NetJson" Version="3.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="HandBrake.Interop">
