@@ -6,14 +6,9 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using HandBrake.Interop.Interop;
-using HandBrake.Interop.Interop.Json.Encode;
-using HandBrake.Interop.Interop.Json.Scan;
-using Newtonsoft.Json;
 using PipeMethodCalls;
 using VidCoderCommon;
-using VidCoderCommon.Model;
 using VidCoderCommon.Services;
-using VidCoderCommon.Utilities;
 
 namespace VidCoderWorker
 {

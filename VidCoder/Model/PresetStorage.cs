@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Markup.Localizer;
@@ -14,12 +15,12 @@ using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.HbLib;
 using HandBrake.Interop.Interop.Interfaces.Model.Encoders;
 using Microsoft.AnyContainer;
-using Newtonsoft.Json;
 using Omu.ValueInjecter;
 using VidCoder.Extensions;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoderCommon.Model;
+using VidCoderCommon.Utilities;
 using VidCoderCommon.Utilities.Injection;
 
 namespace VidCoder.Model
@@ -40,7 +41,7 @@ namespace VidCoder.Model
 			get
 			{
 				string builtInPresetsPath = Path.Combine(Utilities.ProgramFolder, BuiltInPresetsPath);
-				return JsonConvert.DeserializeObject<IList<Preset>>(File.ReadAllText(builtInPresetsPath));
+				return JsonSerializer.Deserialize<IList<Preset>>(File.ReadAllText(builtInPresetsPath), JsonOptions.WithUpgraders);
 			}
 		}
 
@@ -85,7 +86,7 @@ namespace VidCoder.Model
 		/// <returns>The serialized JSON of the preset.</returns>
 		public static string SerializePreset(Preset preset)
 		{
-			return JsonConvert.SerializeObject(preset);
+			return JsonSerializer.Serialize(preset, JsonOptions.WithUpgraders);
 		}
 
 		/// <summary>
@@ -100,7 +101,7 @@ namespace VidCoder.Model
 			{
 				var presetWrapper = new PresetWrapper { Version = CurrentPresetVersion, Preset = preset };
 
-				File.WriteAllText(filePath, JsonConvert.SerializeObject(presetWrapper));
+				File.WriteAllText(filePath, JsonSerializer.Serialize(presetWrapper, JsonOptions.WithUpgraders));
 
 				return true;
 			}
@@ -140,7 +141,7 @@ namespace VidCoder.Model
 				throw new ArgumentException("Preset file could not be found.");
 			}
 
-			PresetWrapper presetWrapper = JsonConvert.DeserializeObject<PresetWrapper>(File.ReadAllText(presetFile));
+			PresetWrapper presetWrapper = JsonSerializer.Deserialize<PresetWrapper>(File.ReadAllText(presetFile), JsonOptions.WithUpgraders);
 			if (presetWrapper.Version < 20)
 			{
 				throw new ArgumentException("Exported preset file is too old to open. Open with VidCoder 3.15 and export to upgrade it.");
@@ -160,7 +161,7 @@ namespace VidCoder.Model
 		{
 			try
 			{
-				return JsonConvert.DeserializeObject<Preset>(presetJson);
+				return JsonSerializer.Deserialize<Preset>(presetJson, JsonOptions.WithUpgraders);
 			}
 			catch (Exception exception)
 			{

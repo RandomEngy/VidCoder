@@ -62,7 +62,7 @@ namespace VidCoderWorker
 							previewSeconds,
 							this.PassedPreviewCount);
 
-						return JsonSerializer.Serialize(encodeObject, JsonSettings.HandBrakeJsonSerializerOptions);
+						return JsonSerializer.Serialize(encodeObject, JsonOptions.Plain);
 					}
 					else
 					{
@@ -79,7 +79,7 @@ namespace VidCoderWorker
 		public void StartEncodeFromJson(string encodeJson)
 		{
 			// Extract the scan title and path from the encode JSON.
-			JsonEncodeObject encodeObject = JsonSerializer.Deserialize<JsonEncodeObject>(encodeJson);
+			JsonEncodeObject encodeObject = JsonSerializer.Deserialize<JsonEncodeObject>(encodeJson, JsonOptions.Plain);
 
 			this.StartEncodeInternal(encodeObject.Source.Path, encodeObject.Source.Title, scanObject => encodeJson);
 		}

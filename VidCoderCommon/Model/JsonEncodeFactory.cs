@@ -13,8 +13,6 @@ using HandBrake.Interop.Interop.Json.Encode;
 using HandBrake.Interop.Interop.Json.Scan;
 using HandBrake.Interop.Interop.Json.Shared;
 using Microsoft.AnyContainer;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Services;
 using VidCoderCommon.Utilities;
@@ -1548,12 +1546,12 @@ namespace VidCoderCommon.Model
 			if (paddingNegative)
 			{
 				StaticResolver.Resolve<ILogger>().LogError(
-					"Output padding cannot be negative: " + JsonConvert.SerializeObject(padding, Formatting.None) + Environment.NewLine
+					"Output padding cannot be negative: " + JsonSerializer.Serialize(padding) + Environment.NewLine
 					+ $"Calculated from profile: Width {profile.Width}, Height {profile.Height}, "
-					+ $"Padding {JsonConvert.SerializeObject(profile.Padding, Formatting.None)}, PaddingMode {profile.PaddingMode}, "
+					+ $"Padding {JsonSerializer.Serialize(profile.Padding)}, PaddingMode {profile.PaddingMode}, "
 					+ $"SizingMode {profile.SizingMode}, ScalingMode {profile.ScalingMode}, Rotation {profile.Rotation}, "
 					+ $"PixelAspectX {profile.PixelAspectX}, PixelAspectY {profile.PixelAspectY}, UseAnamorphic {profile.UseAnamorphic}" + Environment.NewLine
-					+ "And source title geometry: " + JsonConvert.SerializeObject(title.Geometry, Formatting.None));
+					+ "And source title geometry: " + JsonSerializer.Serialize(title.Geometry));
 			}
 
 			return new OutputSizeInfo

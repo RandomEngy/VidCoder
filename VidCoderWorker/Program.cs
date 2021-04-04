@@ -38,8 +38,6 @@ namespace VidCoderWorker
 					return;
 				}
 
-				JsonSettings.SetDefaultSerializationSettings();
-
 				PipeName = args[1];
 
 				var action = (HandBrakeWorkerAction)Enum.Parse(typeof(HandBrakeWorkerAction), args[2]);

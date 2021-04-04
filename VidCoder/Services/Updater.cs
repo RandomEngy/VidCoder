@@ -14,8 +14,6 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AnyContainer;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.ViewModel;
@@ -24,6 +22,8 @@ using VidCoderCommon;
 namespace VidCoder.Services
 {
 	using Resources;
+	using System.Text.Json;
+	using VidCoderCommon.Utilities;
 
 	public class Updater : ReactiveObject, IUpdater
 	{
@@ -434,10 +434,7 @@ namespace VidCoder.Services
 				client.DefaultRequestHeaders.Add("User-Agent", "VidCoder");
 				string updateJson = await client.GetStringAsync(url);
 
-				JsonSerializerSettings settings = new JsonSerializerSettings();
-				settings.Converters.Add(new Newtonsoft.Json.Converters.VersionConverter());
-
-				UpdateInfo updateInfo = JsonConvert.DeserializeObject<UpdateInfo>(updateJson, settings);
+				UpdateInfo updateInfo = JsonSerializer.Deserialize<UpdateInfo>(updateJson, JsonOptions.WithUpgraders);
 				updateInfo.LatestVersion = updateInfo.LatestVersion.FillInWithZeroes();
 				return updateInfo;
 			}

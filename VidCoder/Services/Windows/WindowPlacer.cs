@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using Microsoft.AnyContainer;
-using Newtonsoft.Json;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Model.WindowPlacer;
@@ -225,7 +224,7 @@ namespace VidCoder.Services.Windows
 							ViewModelType = definition.ViewModelType
 						});
 					}
-					catch (JsonException)
+					catch (Exception)
 					{
 						// Parsing the placement JSON failed. Skip adding this to the list.
 					}

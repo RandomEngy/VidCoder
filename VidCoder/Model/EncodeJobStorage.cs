@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Newtonsoft.Json;
+using System.Text.Json;
 using VidCoder.Resources;
+using VidCoderCommon.Utilities;
 
 namespace VidCoder.Model
 {
@@ -71,14 +72,14 @@ namespace VidCoder.Model
 
 		internal static string SerializeJobs(IList<EncodeJobWithMetadata> jobs)
 		{
-			return JsonConvert.SerializeObject(jobs);
+			return JsonSerializer.Serialize(jobs, JsonOptions.WithUpgraders);
 		}
 
 		internal static IList<EncodeJobWithMetadata> ParseAndErrorCheckJobsJson(string jobsJson)
 		{
 			try
 			{
-				var jobsList = JsonConvert.DeserializeObject<IList<EncodeJobWithMetadata>>(jobsJson);
+				var jobsList = JsonSerializer.Deserialize<IList<EncodeJobWithMetadata>>(jobsJson, JsonOptions.WithUpgraders);
 				if (jobsList == null)
 				{
 					return new List<EncodeJobWithMetadata>();

@@ -11,6 +11,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Resources;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,7 +31,6 @@ using Fluent;
 using HandBrake.Interop.Interop.Json.Encode;
 using HandBrake.Interop.Interop.Json.Scan;
 using Microsoft.AnyContainer;
-using Newtonsoft.Json;
 using ReactiveUI;
 using VidCoder.Controls;
 using VidCoder.Extensions;
@@ -42,6 +42,7 @@ using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
 using VidCoderCommon;
 using VidCoderCommon.Model;
+using VidCoderCommon.Utilities;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using ListViewItem = System.Windows.Controls.ListViewItem;
 using MenuItem = System.Windows.Controls.MenuItem;
@@ -138,7 +139,7 @@ namespace VidCoder.View
 				{
 					try
 					{
-						var scanObject = JsonConvert.DeserializeObject<JsonScanObject>(dialog.Json);
+						var scanObject = JsonSerializer.Deserialize<JsonScanObject>(dialog.Json, JsonOptions.Plain);
 						this.viewModel.UpdateFromNewVideoSource(new VideoSource { Titles = scanObject.TitleList, FeatureTitle = scanObject.MainFeature });
 					}
 					catch (Exception exception)
@@ -166,7 +167,7 @@ namespace VidCoder.View
 				{
 					try
 					{
-						JsonEncodeObject encodeObject = JsonConvert.DeserializeObject<JsonEncodeObject>(dialog.Json);
+						JsonEncodeObject encodeObject = JsonSerializer.Deserialize<JsonEncodeObject>(dialog.Json, JsonOptions.Plain);
 
 						jobViewModel.DebugEncodeJsonOverride = dialog.Json;
 						jobViewModel.Job.FinalOutputPath = encodeObject.Destination.File;

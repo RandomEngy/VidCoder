@@ -98,8 +98,6 @@ namespace VidCoder
 			Delay.PseudoLocalizer.Enable(typeof(MiscRes));
 #endif
 
-			JsonSettings.SetDefaultSerializationSettings();
-
 			Ioc.SetUp();
 
 			Database.Initialize();

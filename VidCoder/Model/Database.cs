@@ -6,17 +6,13 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using Microsoft.AnyContainer;
-using Newtonsoft.Json;
 using VidCoder.Resources;
 using VidCoder.Services;
-using VidCoder.Services.Windows;
-using VidCoder.ViewModel;
 using VidCoderCommon;
 using VidCoderCommon.Model;
 

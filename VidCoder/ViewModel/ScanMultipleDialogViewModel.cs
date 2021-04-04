@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using DynamicData;
 using HandBrake.Interop.Interop.Json.Scan;
 using Microsoft.AnyContainer;
-using Newtonsoft.Json;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using ReactiveUI;
 using VidCoder.Services;
 using VidCoder.Services.HandBrakeProxy;
+using System.Text.Json;
+using VidCoderCommon.Utilities;
 
 namespace VidCoder.ViewModel
 {
@@ -83,7 +84,7 @@ namespace VidCoder.ViewModel
 				{
 					if (args.Value != null)
 					{
-						JsonScanObject scanObject = JsonConvert.DeserializeObject<JsonScanObject>(args.Value);
+						JsonScanObject scanObject = JsonSerializer.Deserialize<JsonScanObject>(args.Value, JsonOptions.Plain);
 						this.ScanResults.Add(new ScanResult { SourcePath = this.currentPath, VideoSource = scanObject.ToVideoSource() });
 					}
 					else

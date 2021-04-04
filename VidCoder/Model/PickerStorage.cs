@@ -4,8 +4,10 @@ using System.Data;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
-using Newtonsoft.Json;
+using System.Text.Json;
+using VidCoder.Extensions;
 using VidCoder.Resources;
+using VidCoderCommon.Utilities;
 
 namespace VidCoder.Model
 {
@@ -16,7 +18,7 @@ namespace VidCoder.Model
     {
         public static string SerializePicker(Picker picker)
         {
-	        return JsonConvert.SerializeObject(picker);
+	        return JsonSerializer.Serialize(picker, JsonOptions.WithUpgraders);
         }
 
 		/// <summary>
@@ -28,7 +30,7 @@ namespace VidCoder.Model
 	    {
 			try
 			{
-				return JsonConvert.DeserializeObject<Picker>(pickerJson);
+				return JsonSerializer.Deserialize<Picker>(pickerJson, JsonOptions.WithUpgraders);
 			}
 			catch (Exception exception)
 			{
@@ -100,7 +102,6 @@ namespace VidCoder.Model
 			}
 		}
 
-#pragma warning disable CS0618 // Type or member is obsolete
 	    private static void UpgradePickerTo36(Picker picker)
 	    {
 		    switch (picker.EncodingPreset)
@@ -141,7 +142,7 @@ namespace VidCoder.Model
 
 		private static void UpgradePickerTo37(Picker picker)
 		{
-			if (picker.TimeRangeSelectEnabled)
+			if (picker.ExtensionData.GetBool("TimeRangeSelectEnabled"))
 			{
 				picker.PickerTimeRangeMode = PickerTimeRangeMode.Time;
 			}
@@ -149,14 +150,16 @@ namespace VidCoder.Model
 			{
 				picker.PickerTimeRangeMode = PickerTimeRangeMode.All;
 			}
+
+			picker.ExtensionData.Remove("TimeRangeSelectEnabled");
 		}
 
 		private static void UpgradePickerTo39(Picker picker)
 		{
 			string configurationOutputDirectory = DatabaseConfig.Get<string>("AutoNameOutputFolder", null);
-			if (picker.OutputDirectoryOverrideEnabled)
+			if (picker.ExtensionData.GetBool("OutputDirectoryOverrideEnabled"))
 			{
-				picker.OutputDirectory = picker.OutputDirectoryOverride;
+				picker.OutputDirectory = picker.ExtensionData.GetString("OutputDirectoryOverride");
 			}
 			else if (!string.IsNullOrEmpty(configurationOutputDirectory))
 			{
@@ -167,28 +170,31 @@ namespace VidCoder.Model
 				picker.OutputDirectory = null;
 			}
 
-			if (picker.OutputToSourceDirectoryNullable == null)
+			bool? outputToSourceDirectoryNullable = picker.ExtensionData.GetNullableBool("OutputToSourceDirectory");
+			if (outputToSourceDirectoryNullable == null)
 			{
 				picker.OutputToSourceDirectory = DatabaseConfig.Get<bool>("OutputToSourceDirectory", false);
 			}
 			else
 			{
-				picker.OutputToSourceDirectory = picker.OutputToSourceDirectoryNullable.Value;
+				picker.OutputToSourceDirectory = outputToSourceDirectoryNullable.Value;
 			}
 
-			if (picker.PreserveFolderStructureInBatchNullable == null)
+			bool? preserveFolderStructureInBatchNullable = picker.ExtensionData.GetNullableBool("PreserveFolderStructureInBatch");
+			if (preserveFolderStructureInBatchNullable == null)
 			{
 				picker.PreserveFolderStructureInBatch = DatabaseConfig.Get<bool>("PreserveFolderStructureInBatch", false);
 			}
 			else
 			{
-				picker.PreserveFolderStructureInBatch = picker.PreserveFolderStructureInBatchNullable.Value;
+				picker.PreserveFolderStructureInBatch = preserveFolderStructureInBatchNullable.Value;
 			}
 
-			picker.UseCustomFileNameFormat = picker.NameFormatOverrideEnabled;
-			if (picker.NameFormatOverrideEnabled)
+			bool nameFormatOverrideEnabled = picker.ExtensionData.GetBool("NameFormatOverrideEnabled");
+			picker.UseCustomFileNameFormat = nameFormatOverrideEnabled;
+			if (nameFormatOverrideEnabled)
 			{
-				picker.OutputFileNameFormat = picker.NameFormatOverride;
+				picker.OutputFileNameFormat = picker.ExtensionData.GetString("NameFormatOverride");
 			}
 			else
 			{
@@ -200,6 +206,16 @@ namespace VidCoder.Model
 
 			string whenFileExistsBatchString = DatabaseConfig.Get<string>("WhenFileExistsBatch", "AutoRename");
 			picker.WhenFileExistsBatch = (WhenFileExists)Enum.Parse(typeof(WhenFileExists), whenFileExistsBatchString);
+
+			if (picker.ExtensionData != null)
+			{
+				picker.ExtensionData.Remove("OutputToSourceDirectory");
+				picker.ExtensionData.Remove("PreserveFolderStructureInBatch");
+				picker.ExtensionData.Remove("OutputDirectoryOverrideEnabled");
+				picker.ExtensionData.Remove("OutputDirectoryOverride");
+				picker.ExtensionData.Remove("NameFormatOverrideEnabled");
+				picker.ExtensionData.Remove("NameFormatOverride");
+			}
 		}
 
 		public static void UpgradePickersTo39(List<Picker> pickers)
@@ -252,12 +268,14 @@ namespace VidCoder.Model
 
 		private static void UpgradePickerTo41(Picker picker)
 		{
+			bool subtitleBurnIn = picker.ExtensionData.GetBool("SubtitleBurnIn");
+
 			if (picker.SubtitleSelectionMode == SubtitleSelectionMode.ForeignAudioSearch)
 			{
 				picker.SubtitleSelectionMode = SubtitleSelectionMode.None;
 				picker.SubtitleAddForeignAudioScan = true;
 
-				if (picker.SubtitleBurnIn)
+				if (subtitleBurnIn)
 				{
 					picker.SubtitleBurnInSelection = SubtitleBurnInSelection.ForeignAudioTrack;
 				}
@@ -268,7 +286,7 @@ namespace VidCoder.Model
 			}
 			else
 			{
-				if (picker.SubtitleBurnIn)
+				if (subtitleBurnIn)
 				{
 					picker.SubtitleBurnInSelection = SubtitleBurnInSelection.First;
 				}
@@ -277,8 +295,9 @@ namespace VidCoder.Model
 					picker.SubtitleBurnInSelection = SubtitleBurnInSelection.None;
 				}
 			}
+
+			picker.ExtensionData?.Remove("SubtitleBurnIn");
 		}
-#pragma warning restore CS0618 // Type or member is obsolete
 
 		public static string CreateCustomPickerName(List<Picker> existingPickers)
 		{

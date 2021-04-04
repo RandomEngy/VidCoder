@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Text.Json;
 using System.Windows;
-using Newtonsoft.Json;
 
 namespace VidCoder
 {
@@ -14,14 +14,6 @@ namespace VidCoder
 		public int Top;
 		public int Right;
 		public int Bottom;
-
-		public RECT(int left, int top, int right, int bottom)
-		{
-			this.Left = left;
-			this.Top = top;
-			this.Right = right;
-			this.Bottom = bottom;
-		}
 	}
 
 	// POINT structure required by WINDOWPLACEMENT structure
@@ -31,12 +23,6 @@ namespace VidCoder
 	{
 		public int X;
 		public int Y;
-
-		public POINT(int x, int y)
-		{
-			this.X = x;
-			this.Y = y;
-		}
 	}
 
 	// WINDOWPLACEMENT stores the position, size, and state of a window
@@ -73,6 +59,100 @@ namespace VidCoder
 
 	public static class WindowPlacement
 	{
+		// Need wrapper classes for the WINDOWPLACEMENT because System.Text.Json does not support JSON serialization of structs yet.
+		private class RectClass
+		{
+			public RectClass()
+			{
+			}
+
+			public RectClass(RECT rectStruct)
+			{
+				this.Left = rectStruct.Left;
+				this.Top = rectStruct.Top;
+				this.Right = rectStruct.Right;
+				this.Bottom = rectStruct.Bottom;
+			}
+
+			public int Left { get; set; }
+			public int Top { get; set; }
+			public int Right { get; set; }
+			public int Bottom { get; set; }
+
+			public RECT ToStruct()
+			{
+				return new RECT
+				{
+					Left = this.Left,
+					Top = this.Top,
+					Right = this.Right,
+					Bottom = this.Bottom
+				};
+			}
+		}
+
+		private class PointClass
+		{
+			public PointClass()
+			{
+			}
+
+			public PointClass(POINT pointStruct)
+			{
+				this.X = pointStruct.X;
+				this.Y = pointStruct.Y;
+			}
+
+			public int X { get; set; }
+			public int Y { get; set; }
+
+			public POINT ToStruct()
+			{
+				return new POINT
+				{
+					X = this.X,
+					Y = this.Y
+				};
+			}
+		}
+
+		private class WindowPlacementClass
+		{
+			public WindowPlacementClass()
+			{
+			}
+
+			public WindowPlacementClass(WINDOWPLACEMENT placementStruct)
+			{
+				this.length = placementStruct.length;
+				this.flags = placementStruct.flags;
+				this.showCmd = placementStruct.showCmd;
+				this.minPosition = new PointClass(placementStruct.minPosition);
+				this.maxPosition = new PointClass(placementStruct.maxPosition);
+				this.normalPosition = new RectClass(placementStruct.normalPosition);
+			}
+
+			public int length { get; set; }
+			public int flags { get; set; }
+			public int showCmd { get; set; }
+			public PointClass minPosition { get; set; }
+			public PointClass maxPosition { get; set; }
+			public RectClass normalPosition { get; set; }
+
+			public WINDOWPLACEMENT ToStruct()
+			{
+				return new WINDOWPLACEMENT
+				{
+					length = this.length,
+					flags = this.flags,
+					showCmd = this.showCmd,
+					minPosition = this.minPosition.ToStruct(),
+					maxPosition = this.maxPosition.ToStruct(),
+					normalPosition = this.normalPosition.ToStruct()
+				};
+			}
+		}
+
 		[DllImport("user32.dll")]
 		private static extern bool SetWindowPlacement(IntPtr hWnd, [In] ref WINDOWPLACEMENT lpwndpl);
 
@@ -126,7 +206,7 @@ namespace VidCoder
 
 				SetWindowPlacement(windowHandle, ref placement);
 			}
-			catch (JsonException)
+			catch (Exception)
 			{
 				// Parsing placement JSON failed. Fail silently.
 			}
@@ -134,7 +214,8 @@ namespace VidCoder
 
 		public static WINDOWPLACEMENT ParsePlacementJson(string placementJson)
 		{
-			return JsonConvert.DeserializeObject<WINDOWPLACEMENT>(placementJson);
+			WindowPlacementClass placementClass = JsonSerializer.Deserialize<WindowPlacementClass>(placementJson);
+			return placementClass.ToStruct();
 		}
 
 		public static string GetPlacement(IntPtr windowHandle)
@@ -142,7 +223,9 @@ namespace VidCoder
 			WINDOWPLACEMENT placement = new WINDOWPLACEMENT();
 			GetWindowPlacement(windowHandle, out placement);
 
-			return JsonConvert.SerializeObject(placement);
+			WindowPlacementClass placementClass = new WindowPlacementClass(placement);
+
+			return JsonSerializer.Serialize(placementClass);
 		}
 
 		private static bool RectanglesIntersect(RECT a, RECT b)

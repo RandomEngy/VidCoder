@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using Newtonsoft.Json;
-using VidCoderCommon.JsonConverters;
 
 namespace VidCoderCommon.Model
 {
@@ -36,7 +32,6 @@ namespace VidCoderCommon.Model
 		public int FramesEnd { get; set; }
 
 		[Obsolete("Use AudioTracks instead")]
-		[DeserializeOnly]
 		public List<int> ChosenAudioTracks { get; set; }
 
 		/// <summary>
@@ -49,7 +44,6 @@ namespace VidCoderCommon.Model
 		public List<string> CustomChapterNames { get; set; }
 
 		[Obsolete("Use FinalOutputPath instead")]
-		[DeserializeOnly]
 		public string OutputPath { get; set; }
 
 		/// <summary>
@@ -71,21 +65,5 @@ namespace VidCoderCommon.Model
 
 		// The length of video to encode.
 		public TimeSpan Length { get; set; }
-
-		[OnDeserialized]
-		internal void OnDeserializedMethod(StreamingContext context)
-		{
-#pragma warning disable 618
-			if (this.OutputPath != null && this.FinalOutputPath == null)
-			{
-				this.FinalOutputPath = this.OutputPath;
-			}
-
-			if (this.ChosenAudioTracks != null && this.AudioTracks == null)
-			{
-				this.AudioTracks = this.ChosenAudioTracks.Select(t => new ChosenAudioTrack { TrackNumber = t }).ToList();
-			}
-#pragma warning restore 618
-		}
 	}
 }

@@ -61,7 +61,7 @@ namespace VidCoder
 							previewSeconds,
 							Config.PreviewCount);
 
-						return JsonSerializer.Serialize(jsonEncodeObject, JsonSettings.HandBrakeJsonSerializerOptions);
+						return JsonSerializer.Serialize(jsonEncodeObject, JsonOptions.WithUpgraders);
 					}
 					else
 					{
@@ -77,7 +77,7 @@ namespace VidCoder
 			this.logger = logger;
 
 			// Extract the scan title and path from the encode JSON.
-			JsonEncodeObject encodeObject = JsonSerializer.Deserialize<JsonEncodeObject>(encodeJson);
+			JsonEncodeObject encodeObject = JsonSerializer.Deserialize<JsonEncodeObject>(encodeJson, JsonOptions.WithUpgraders);
 
 			this.StartEncodeInternal(encodeObject.Source.Path, encodeObject.Source.Title, scanObject => encodeJson);
 			return Task.CompletedTask;
