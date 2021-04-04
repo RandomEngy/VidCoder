@@ -67,8 +67,6 @@ namespace VidCoder.Model
 
 		public WhenFileExists WhenFileExistsBatch { get; set; } = WhenFileExists.AutoRename;
 
-		private List<string> wordBreakCharacters = new List<string> { " ", "_" };
-
 		/// <summary>
 		/// True if we want to update the word separator character in the title.
 		/// </summary>
@@ -78,6 +76,8 @@ namespace VidCoder.Model
 		/// The character to insert between words in titles.
 		/// </summary>
 		public string WordSeparator { get; set; } = " ";
+
+		private List<string> wordBreakCharacters = new List<string> { " ", "_" };
 
 		/// <summary>
 		/// The characters to use to separate words in titles.
