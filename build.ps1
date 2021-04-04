@@ -92,7 +92,7 @@ function Publish($folderNameSuffix, $publishProfileName, $version4part) {
 }
 
 function SignExe($installerPath) {
-    & signtool sign /f D:\certs\ComodoIndividualCert.pfx /p $p /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 $installerPath
+    & signtool sign /f D:\certs\ComodoIndividualCertv2.pfx /p $p /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 $installerPath
 }
 
 if ($debugBuild) {
