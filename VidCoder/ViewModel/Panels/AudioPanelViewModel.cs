@@ -344,6 +344,12 @@ namespace VidCoder.ViewModel
 					List<ChosenAudioTrack> chosenAudioTracks = this.MainViewModel.GetChosenAudioTracks();
 					var outputPreviews = new List<AudioOutputPreview>();
 
+					//var resolvedAudio = JsonEncodeFactory.ResolveAudio(this.main.EncodeJob, this.SelectedTitle);
+					//foreach (JsonEncodeFactory.ResolvedAudioTrack resolvedTrack in resolvedAudio.ResolvedTracks)
+					//{
+
+					//}
+
 					foreach (AudioEncodingViewModel audioVM in this.audioEncodings.Items)
 					{
 						if (audioVM.IsValid)

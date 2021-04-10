@@ -92,20 +92,39 @@ namespace VidCoderCommon.Model
 
 		private Audio CreateAudio(VCJob job, SourceTitle title)
 		{
-			Audio audio = new Audio();
+			ResolvedAudio resolvedAudio = ResolveAudio(job, title);
+
+			Audio audio = new Audio
+			{
+				FallbackEncoder = resolvedAudio.FallbackEncoder?.ShortName,
+				CopyMask = resolvedAudio.CopyMask,
+				AudioList = resolvedAudio.ResolvedTracks.Select(t => t.OutputTrack).ToList()
+			};
+
+			return audio;
+		}
+
+		/// <summary>
+		/// Resolves audio settings to use for the encode.
+		/// </summary>
+		/// <param name="job">The encode job to convert.</param>
+		/// <param name="title">The source title.</param>
+		/// <returns>The audio settings to use for the encode.</returns>
+		public static ResolvedAudio ResolveAudio(VCJob job, SourceTitle title)
+		{
+			var resolvedAudio = new ResolvedAudio();
 
 			VCProfile profile = job.EncodingProfile;
-			List<Tuple<AudioEncoding, ChosenAudioTrack>> outputTrackList = this.GetOutputTracks(job, title);
 
 			// If using auto-passthrough, set the fallback
 			if (profile.AudioEncodings.Any(e => e.Encoder == "copy"))
 			{
-			    audio.FallbackEncoder = GetFallbackAudioEncoder(profile).ShortName;
+				resolvedAudio.FallbackEncoder = GetFallbackAudioEncoder(profile);
 			}
 
 			if (profile.AudioCopyMask != null && profile.AudioCopyMask.Any())
 			{
-				audio.CopyMask = HandBrakeEncoderHelpers.AudioEncoders
+				resolvedAudio.CopyMask = HandBrakeEncoderHelpers.AudioEncoders
 					.Where(e =>
 					{
 						if (!e.IsPassthrough || !e.ShortName.Contains(":"))
@@ -137,16 +156,88 @@ namespace VidCoderCommon.Model
 					}
 				}
 
-				audio.CopyMask = copyCodecs.ToArray();
+				resolvedAudio.CopyMask = copyCodecs.ToArray();
 			}
 
-			audio.AudioList = new List<AudioTrack>();
+			List<PairedAudioTrack> pairedTracks = PairAudioTracks(job, title);
+			resolvedAudio.ResolvedTracks = ResolveAudioTracks(pairedTracks, resolvedAudio.FallbackEncoder);
 
-			foreach (Tuple<AudioEncoding, ChosenAudioTrack> outputTrack in outputTrackList)
+			return resolvedAudio;
+		}
+
+		public class ResolvedAudio
+		{
+			public HBAudioEncoder FallbackEncoder { get; set; }
+
+			public string[] CopyMask { get; set; }
+
+			public List<ResolvedAudioTrack> ResolvedTracks { get; set; }
+		}
+
+		/// <summary>
+		/// Pairs audio encodings with tracks to encode.
+		/// </summary>
+		/// <param name="job">The encode job</param>
+		/// <param name="title">The title the job is meant to encode.</param>
+		/// <returns>A list of tracks to encode and what encoding settings to use with them.</returns>
+		private static List<PairedAudioTrack> PairAudioTracks(VCJob job, SourceTitle title)
+		{
+			var list = new List<PairedAudioTrack>();
+
+			foreach (AudioEncoding encoding in job.EncodingProfile.AudioEncodings)
 			{
-				AudioEncoding encoding = outputTrack.Item1;
-				ChosenAudioTrack chosenAudioTrack = outputTrack.Item2;
-				int trackNumber = chosenAudioTrack.TrackNumber;
+				if (encoding.InputNumber == 0)
+				{
+					// Add this encoding for all chosen tracks
+					foreach (ChosenAudioTrack chosenTrack in job.AudioTracks)
+					{
+						// In normal cases we'll never have a chosen audio track that doesn't exist but when batch encoding
+						// we just choose the first audio track without checking if it exists.
+						if (chosenTrack.TrackNumber <= title.AudioList.Count)
+						{
+							list.Add(new PairedAudioTrack { Encoding = encoding, ChosenTrack = chosenTrack, SourceTrack = title.AudioList[chosenTrack.TrackNumber - 1] });
+						}
+					}
+				}
+				else if (encoding.InputNumber <= job.AudioTracks.Count)
+				{
+					// Add this encoding for the specified track, if it exists
+					ChosenAudioTrack chosenTrack = job.AudioTracks[encoding.InputNumber - 1];
+
+					// In normal cases we'll never have a chosen audio track that doesn't exist but when batch encoding
+					// we just choose the first audio track without checking if it exists.
+					if (chosenTrack.TrackNumber <= title.AudioList.Count)
+					{
+						list.Add(new PairedAudioTrack { Encoding = encoding, ChosenTrack = chosenTrack, SourceTrack = title.AudioList[chosenTrack.TrackNumber - 1] });
+					}
+				}
+			}
+
+			return list;
+		}
+
+		private class PairedAudioTrack
+		{
+			public AudioEncoding Encoding { get; set; }
+
+			public ChosenAudioTrack ChosenTrack { get; set; }
+
+			public SourceAudioTrack SourceTrack { get; set; }
+		}
+
+		/// <summary>
+		/// Resolves the picked audio tracks into final encoding settings, taking into account the source track type and encoding settings.
+		/// </summary>
+		/// <param name="pairedTracks">The paired tracks.</param>
+		/// <returns>The final resolved audio encoding settings.</returns>
+		private static List<ResolvedAudioTrack> ResolveAudioTracks(List<PairedAudioTrack> pairedTracks, HBAudioEncoder fallbackEncoder)
+		{
+			var resolvedTracks = new List<ResolvedAudioTrack>();
+
+			foreach (PairedAudioTrack pickedTrack in pairedTracks)
+			{
+				AudioEncoding encoding = pickedTrack.Encoding;
+				ChosenAudioTrack chosenTrack = pickedTrack.ChosenTrack;
 
 				HBAudioEncoder encoder = HandBrakeEncoderHelpers.GetAudioEncoder(encoding.Encoder);
 				if (encoder == null)
@@ -154,8 +245,8 @@ namespace VidCoderCommon.Model
 					throw new InvalidOperationException("Could not find audio encoder " + encoding.Name);
 				}
 
-				SourceAudioTrack scanAudioTrack = title.AudioList[trackNumber - 1];
-				HBAudioEncoder inputCodec = HandBrakeEncoderHelpers.GetAudioEncoder(scanAudioTrack.Codec);
+				SourceAudioTrack sourceTrack = pickedTrack.SourceTrack;
+				HBAudioEncoder inputCodec = HandBrakeEncoderHelpers.GetAudioEncoder(sourceTrack.Codec);
 
 				uint outputCodec = (uint)encoder.Id;
 				bool isPassthrough = encoder.IsPassthrough;
@@ -170,130 +261,98 @@ namespace VidCoderCommon.Model
 				}
 
 				if (encoding.PassthroughIfPossible &&
-					(encoder.Id == scanAudioTrack.Codec ||
+					(encoder.Id == sourceTrack.Codec ||
 						inputCodec != null && (inputCodec.ShortName.ToLowerInvariant().Contains("aac") && encoder.ShortName.ToLowerInvariant().Contains("aac") ||
 						inputCodec.ShortName.ToLowerInvariant().Contains("mp3") && encoder.ShortName.ToLowerInvariant().Contains("mp3"))) &&
 					(inputCodec.Id & passMask) > 0)
 				{
-					outputCodec = (uint)scanAudioTrack.Codec | HandBrakeNativeConstants.HB_ACODEC_PASS_FLAG;
+					outputCodec = (uint)sourceTrack.Codec | HandBrakeNativeConstants.HB_ACODEC_PASS_FLAG;
 					isPassthrough = true;
 				}
 
-				var audioTrack = new AudioTrack
+				var outputTrack = new AudioTrack
 				{
-					Track = trackNumber - 1,
+					Track = chosenTrack.TrackNumber - 1,
 					Encoder = HandBrakeEncoderHelpers.GetAudioEncoder((int)outputCodec).ShortName,
 				};
 
-				if (!string.IsNullOrEmpty(chosenAudioTrack.Name) && chosenAudioTrack.Name != scanAudioTrack.Name)
+				if (!string.IsNullOrEmpty(chosenTrack.Name) && chosenTrack.Name != sourceTrack.Name)
 				{
 					// If we have picked a name different from the source, use it.
-					audioTrack.Name = chosenAudioTrack.Name;
+					outputTrack.Name = chosenTrack.Name;
 				}
 				else if (!string.IsNullOrEmpty(encoding.Name))
 				{
 					// If the encoding has a name associated with it, use it.
-					audioTrack.Name = encoding.Name;
+					outputTrack.Name = encoding.Name;
 				}
-				else if (!string.IsNullOrEmpty(scanAudioTrack.Name))
+				else if (!string.IsNullOrEmpty(sourceTrack.Name))
 				{
 					// Else fall back to the name from the source.
-					audioTrack.Name = scanAudioTrack.Name;
+					outputTrack.Name = sourceTrack.Name;
 				}
 
-				HBAudioEncoder fallbackAudioEncoder = HandBrakeEncoderHelpers.GetAudioEncoder(audio.FallbackEncoder);
-                if (isPassthrough && fallbackAudioEncoder != null)
-			    {
-                    // If it's passthrough, find the settings for the fallback encoder and apply those, since they will be picked up if the passthrough doesn't work
-			        OutputAudioTrackInfo fallbackSettings = AudioUtilities.GetDefaultSettings(scanAudioTrack, fallbackAudioEncoder);
+				if (isPassthrough && fallbackEncoder != null)
+				{
+					// If it's passthrough, find the settings for the fallback encoder and apply those, since they will be picked up if the passthrough doesn't work
+					OutputAudioTrackInfo fallbackSettings = AudioUtilities.GetDefaultSettings(sourceTrack, fallbackEncoder);
 
-			        audioTrack.Samplerate = fallbackSettings.SampleRate;
-			        audioTrack.Mixdown = fallbackSettings.Mixdown.Id;
-			        audioTrack.CompressionLevel = fallbackSettings.CompressionLevel;
+					outputTrack.Samplerate = fallbackSettings.SampleRate;
+					outputTrack.Mixdown = fallbackSettings.Mixdown.Id;
+					outputTrack.CompressionLevel = fallbackSettings.CompressionLevel;
 
-			        if (fallbackSettings.EncodeRateType == AudioEncodeRateType.Bitrate)
-			        {
-			            audioTrack.Bitrate = fallbackSettings.Bitrate;
-			        }
-			        else
-			        {
-			            audioTrack.Quality = fallbackSettings.Quality;
-			        }
+					if (fallbackSettings.EncodeRateType == AudioEncodeRateType.Bitrate)
+					{
+						outputTrack.Bitrate = fallbackSettings.Bitrate;
+					}
+					else
+					{
+						outputTrack.Quality = fallbackSettings.Quality;
+					}
 
-			        audioTrack.Gain = fallbackSettings.Gain;
-			        audioTrack.DRC = fallbackSettings.Drc;
-                }
+					outputTrack.Gain = fallbackSettings.Gain;
+					outputTrack.DRC = fallbackSettings.Drc;
+				}
 				else if (!isPassthrough)
 				{
-					audioTrack.Samplerate = encoding.SampleRateRaw;
-					audioTrack.Mixdown = HandBrakeEncoderHelpers.GetMixdown(encoding.Mixdown).Id;
-					audioTrack.Gain = encoding.Gain;
-					audioTrack.DRC = encoding.Drc;
+					outputTrack.Samplerate = encoding.SampleRateRaw;
+					outputTrack.Mixdown = HandBrakeEncoderHelpers.GetMixdown(encoding.Mixdown).Id;
+					outputTrack.Gain = encoding.Gain;
+					outputTrack.DRC = encoding.Drc;
 
 					if (encoder.SupportsCompression)
 					{
-						audioTrack.CompressionLevel = encoding.Compression;
+						outputTrack.CompressionLevel = encoding.Compression;
 					}
 
 					switch (encoding.EncodeRateType)
 					{
 						case AudioEncodeRateType.Bitrate:
-							audioTrack.Bitrate = encoding.Bitrate;
+							outputTrack.Bitrate = encoding.Bitrate;
 							break;
 						case AudioEncodeRateType.Quality:
-							audioTrack.Quality = encoding.Quality;
+							outputTrack.Quality = encoding.Quality;
 							break;
 						default:
 							throw new ArgumentOutOfRangeException();
 					}
 				}
 
-				audio.AudioList.Add(audioTrack);
+				resolvedTracks.Add(new ResolvedAudioTrack
+				{
+					SourceTrack = sourceTrack,
+					OutputTrack = outputTrack
+				});
 			}
 
-			return audio;
+			return resolvedTracks;
 		}
 
-		/// <summary>
-		/// Gets a list of encodings and target track indices (1-based).
-		/// </summary>
-		/// <param name="job">The encode job</param>
-		/// <param name="title">The title the job is meant to encode.</param>
-		/// <returns>A list of encodings and target track indices (1-based).</returns>
-		private List<Tuple<AudioEncoding, ChosenAudioTrack>> GetOutputTracks(VCJob job, SourceTitle title)
+		public class ResolvedAudioTrack
 		{
-			var list = new List<Tuple<AudioEncoding, ChosenAudioTrack>>();
+			public SourceAudioTrack SourceTrack { get; set; }
 
-			foreach (AudioEncoding encoding in job.EncodingProfile.AudioEncodings)
-			{
-				if (encoding.InputNumber == 0)
-				{
-					// Add this encoding for all chosen tracks
-					foreach (ChosenAudioTrack chosenTrack in job.AudioTracks)
-					{
-						// In normal cases we'll never have a chosen audio track that doesn't exist but when batch encoding
-						// we just choose the first audio track without checking if it exists.
-						if (chosenTrack.TrackNumber <= title.AudioList.Count)
-						{
-							list.Add(new Tuple<AudioEncoding, ChosenAudioTrack>(encoding, chosenTrack));
-						}
-					}
-				}
-				else if (encoding.InputNumber <= job.AudioTracks.Count)
-				{
-					// Add this encoding for the specified track, if it exists
-					ChosenAudioTrack chosenTrack = job.AudioTracks[encoding.InputNumber - 1];
-
-					// In normal cases we'll never have a chosen audio track that doesn't exist but when batch encoding
-					// we just choose the first audio track without checking if it exists.
-					if (chosenTrack.TrackNumber <= title.AudioList.Count)
-					{
-						list.Add(new Tuple<AudioEncoding, ChosenAudioTrack>(encoding, chosenTrack));
-					}
-				}
-			}
-
-			return list;
+			public AudioTrack OutputTrack { get; set; }
 		}
 
 		private Destination CreateDestination(VCJob job, SourceTitle title, string defaultChapterNameFormat)
@@ -915,8 +974,8 @@ namespace VidCoderCommon.Model
 
 			availableBytes -= containerOverheadBytes;
 
-			List<Tuple<AudioEncoding, ChosenAudioTrack>> outputTrackList = this.GetOutputTracks(job, title);
-			long audioSizeBytes = this.GetAudioSize(lengthSeconds, title, outputTrackList, GetFallbackAudioEncoder(job.EncodingProfile), job.EncodingProfile.AudioCopyMask);
+			ResolvedAudio resolvedAudio = ResolveAudio(job, title);
+			long audioSizeBytes = this.GetAudioSize(lengthSeconds, title, resolvedAudio, job.EncodingProfile.AudioCopyMask);
 			this.logger.Log($"Calculating bitrate - Audio size: {audioSizeBytes} bytes");
 			availableBytes -= audioSizeBytes;
 
@@ -968,8 +1027,8 @@ namespace VidCoderCommon.Model
 			totalBytes += (long)(lengthSeconds * videoBitrate * 125);
 			totalBytes += frames * ContainerOverheadBytesPerFrame;
 
-			List<Tuple<AudioEncoding, ChosenAudioTrack>> outputTrackList = this.GetOutputTracks(job, title);
-			totalBytes += this.GetAudioSize(lengthSeconds, title, outputTrackList, GetFallbackAudioEncoder(job.EncodingProfile), job.EncodingProfile.AudioCopyMask);
+			ResolvedAudio resolvedAudio = ResolveAudio(job, title);
+			totalBytes += this.GetAudioSize(lengthSeconds, title, resolvedAudio, job.EncodingProfile.AudioCopyMask);
 
 			return (double)totalBytes / 1024 / 1024;
 		}
@@ -1003,48 +1062,49 @@ namespace VidCoderCommon.Model
 			return TimeSpan.Zero;
 		}
 
-	    /// <summary>
-	    /// Gets the size in bytes for the audio with the given parameters.
-	    /// </summary>
-	    /// <param name="lengthSeconds">The length of the encode in seconds.</param>
-	    /// <param name="title">The title to encode.</param>
-	    /// <param name="outputTrackList">The list of tracks to encode.</param>
-	    /// <param name="audioEncoderFallback">The fallback audio encoder for the job.</param>
-	    /// <param name="copyMask">The audio copy mask for the job.</param>
-	    /// <returns>The size in bytes for the audio with the given parameters.</returns>
-	    private long GetAudioSize(double lengthSeconds, SourceTitle title, List<Tuple<AudioEncoding, ChosenAudioTrack>> outputTrackList, HBAudioEncoder audioEncoderFallback, List<CopyMaskChoice> copyMask)
+		/// <summary>
+		/// Gets the size in bytes for the audio with the given parameters.
+		/// </summary>
+		/// <param name="lengthSeconds">The length of the encode in seconds.</param>
+		/// <param name="title">The title to encode.</param>
+		/// <param name="resolvedAudio">The resolved audio setttings.</param>
+		/// <param name="copyMask">The audio copy mask for the job.</param>
+		/// <returns>The size in bytes for the audio with the given parameters.</returns>
+		private long GetAudioSize(double lengthSeconds, SourceTitle title, ResolvedAudio resolvedAudio, List<CopyMaskChoice> copyMask)
 		{
 			long audioBytes = 0;
 			int outputTrackNumber = 1;
 
-			foreach (Tuple<AudioEncoding, ChosenAudioTrack> outputTrack in outputTrackList)
+			foreach (ResolvedAudioTrack resolvedTrack in resolvedAudio.ResolvedTracks)
 			{
-				AudioEncoding encoding = outputTrack.Item1;
-				SourceAudioTrack track = title.AudioList[outputTrack.Item2.TrackNumber - 1];
+				SourceAudioTrack sourceTrack = resolvedTrack.SourceTrack;
+				AudioTrack outputTrack = resolvedTrack.OutputTrack;
+				string encoderString = outputTrack.Encoder;
 
-				int samplesPerFrame = this.GetAudioSamplesPerFrame(encoding.Encoder);
+				int samplesPerFrame = this.GetAudioSamplesPerFrame(encoderString);
 				int audioBitrate;
 
-				HBAudioEncoder audioEncoder = HandBrakeEncoderHelpers.GetAudioEncoder(encoding.Encoder);
+				HBAudioEncoder encoder = HandBrakeEncoderHelpers.GetAudioEncoder(encoderString);
 
-				this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Encoder: {encoding.Encoder}");
+				this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Encoder: {encoderString}");
+				int sampleRate = outputTrack.Samplerate == 0 ? sourceTrack.SampleRate : outputTrack.Samplerate;
 
-				if (audioEncoder.IsPassthrough)
+				if (encoder.IsPassthrough)
 				{
-				    if (audioEncoder.ShortName == "copy")
+				    if (encoder.ShortName == "copy")
 				    {
                         // Auto-passthrough
 
-				        if (TrackIsEligibleForPassthrough(track, copyMask))
+				        if (TrackIsEligibleForPassthrough(sourceTrack, copyMask))
 				        {
 				            // Input bitrate is in bits/second.
-				            audioBitrate = track.BitRate / 8;
+				            audioBitrate = sourceTrack.BitRate / 8;
 
 				            this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is auto passthrough. {audioBitrate} bytes/second");
 				        }
 				        else
 				        {
-				            OutputAudioTrackInfo outputTrackInfo = AudioUtilities.GetDefaultSettings(track, audioEncoderFallback);
+				            OutputAudioTrackInfo outputTrackInfo = AudioUtilities.GetDefaultSettings(sourceTrack, resolvedAudio.FallbackEncoder);
 				            if (outputTrackInfo.EncodeRateType == AudioEncodeRateType.Quality)
 				            {
 				                audioBitrate = 0;
@@ -1063,12 +1123,12 @@ namespace VidCoderCommon.Model
 				    {
                         // Passthrough for specific codec
 
-				        if (HandBrakeEncoderHelpers.AudioEncoderIsCompatible(track.Codec, audioEncoder))
+				        if (HandBrakeEncoderHelpers.AudioEncoderIsCompatible(sourceTrack.Codec, encoder))
 				        {
 				            // Input bitrate is in bits/second.
-				            audioBitrate = track.BitRate / 8;
+				            audioBitrate = sourceTrack.BitRate / 8;
 
-				            this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is passthrough via {audioEncoder.ShortName}. {audioBitrate} bytes/second");
+				            this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is passthrough via {encoder.ShortName}. {audioBitrate} bytes/second");
 				        }
 				        else
 				        {
@@ -1079,7 +1139,7 @@ namespace VidCoderCommon.Model
                         }
                     }
 				}
-				else if (encoding.EncodeRateType == AudioEncodeRateType.Quality)
+				else if (outputTrack.Quality != null)
 				{
 					// Can't predict size of quality targeted audio encoding.
 					audioBitrate = 0;
@@ -1089,18 +1149,18 @@ namespace VidCoderCommon.Model
 				else
 				{
 					int outputBitrate;
-					if (encoding.Bitrate > 0)
+					if (outputTrack.Bitrate != null && outputTrack.Bitrate > 0)
 					{
-						outputBitrate = encoding.Bitrate;
+						outputBitrate = outputTrack.Bitrate.Value;
 
 						this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Output bitrate set at {outputBitrate} kbps");
 					}
 					else
 					{
 						outputBitrate = HandBrakeEncoderHelpers.GetDefaultBitrate(
-							audioEncoder,
-							encoding.SampleRateRaw == 0 ? track.SampleRate : encoding.SampleRateRaw,
-							HandBrakeEncoderHelpers.SanitizeMixdown(HandBrakeEncoderHelpers.GetMixdown(encoding.Mixdown), audioEncoder, (ulong)track.ChannelLayout));
+							encoder,
+							sampleRate,
+							HandBrakeEncoderHelpers.SanitizeMixdown(HandBrakeEncoderHelpers.GetMixdown(outputTrack.Mixdown), encoder, (ulong)sourceTrack.ChannelLayout));
 
 						this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Output bitrate is Auto, will be {outputBitrate} kbps");
 					}
@@ -1116,7 +1176,7 @@ namespace VidCoderCommon.Model
 				audioBytes += audioTrackBytes;
 
 				// Audio overhead
-				long audioTrackOverheadBytes = (encoding.SampleRateRaw == 0 ? track.SampleRate : encoding.SampleRateRaw) * ContainerOverheadBytesPerFrame / samplesPerFrame;
+				long audioTrackOverheadBytes = sampleRate * ContainerOverheadBytesPerFrame / samplesPerFrame;
 				this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Overhead is {audioTrackOverheadBytes} bytes");
 				audioBytes += audioTrackOverheadBytes;
 

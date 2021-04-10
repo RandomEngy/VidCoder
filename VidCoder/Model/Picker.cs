@@ -53,7 +53,7 @@ namespace VidCoder.Model
 
 		public bool UseCustomFileNameFormat { get; set; }
 
-		public string OutputFileNameFormat { get; set; }
+		public string OutputFileNameFormat { get; set; } 
 
 		// Used to be nullable
 		[JsonPropertyName("OutputToSourceDirectory2")]
