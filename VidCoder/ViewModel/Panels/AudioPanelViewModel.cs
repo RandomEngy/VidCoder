@@ -13,6 +13,7 @@ using DynamicData.Binding;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.Interfaces.Model;
 using HandBrake.Interop.Interop.Interfaces.Model.Encoders;
+using HandBrake.Interop.Interop.Json.Encode;
 using HandBrake.Interop.Interop.Json.Scan;
 using Microsoft.AnyContainer;
 using ReactiveUI;
@@ -344,39 +345,15 @@ namespace VidCoder.ViewModel
 					List<ChosenAudioTrack> chosenAudioTracks = this.MainViewModel.GetChosenAudioTracks();
 					var outputPreviews = new List<AudioOutputPreview>();
 
-					//var resolvedAudio = JsonEncodeFactory.ResolveAudio(this.main.EncodeJob, this.SelectedTitle);
-					//foreach (JsonEncodeFactory.ResolvedAudioTrack resolvedTrack in resolvedAudio.ResolvedTracks)
-					//{
-
-					//}
-
-					foreach (AudioEncodingViewModel audioVM in this.audioEncodings.Items)
+					var resolvedAudio = JsonEncodeFactory.ResolveAudio(this.main.EncodeJob, this.SelectedTitle);
+					foreach (JsonEncodeFactory.ResolvedAudioTrack resolvedTrack in resolvedAudio.ResolvedTracks)
 					{
-						if (audioVM.IsValid)
+						AudioOutputPreview audioPreview = this.GetAudioPreview(
+							resolvedTrack.SourceTrack,
+							resolvedTrack.OutputTrack);
+						if (audioPreview != null)
 						{
-							if (audioVM.TargetStreamIndex == 0)
-							{
-								foreach (AudioTrackViewModel audioTrack in this.MainViewModel.AudioTracks.Items.Where(t => t.Selected))
-								{
-									AudioOutputPreview audioPreview = this.GetAudioPreview(
-										this.SelectedTitle.AudioList[audioTrack.TrackIndex], audioVM);
-									if (audioPreview != null)
-									{
-										outputPreviews.Add(audioPreview);
-									}
-								}
-							}
-							else if (audioVM.TargetStreamIndex - 1 < chosenAudioTracks.Count)
-							{
-								int titleAudioIndex = chosenAudioTracks[audioVM.TargetStreamIndex - 1].TrackNumber;
-
-								AudioOutputPreview audioPreview = this.GetAudioPreview(this.SelectedTitle.AudioList[titleAudioIndex - 1],
-									audioVM);
-								if (audioPreview != null)
-								{
-									outputPreviews.Add(audioPreview);
-								}
-							}
+							outputPreviews.Add(audioPreview);
 						}
 					}
 
@@ -404,9 +381,9 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public AudioOutputPreview GetAudioPreview(SourceAudioTrack inputTrack, AudioEncodingViewModel audioVM)
+		public AudioOutputPreview GetAudioPreview(SourceAudioTrack inputTrack, AudioTrack handBrakeOutputTrack)
 		{
-			HBAudioEncoder encoder = audioVM.HBAudioEncoder;
+			HBAudioEncoder encoder = HandBrakeEncoderHelpers.GetAudioEncoder(handBrakeOutputTrack.Encoder);
 
 			var outputPreviewTrack = new AudioOutputPreview
 			{
@@ -421,10 +398,7 @@ namespace VidCoder.ViewModel
 				{
 					return null;
 				}
-			}
 
-			if (encoder.ShortName == "copy")
-			{
 				if (this.copyMaskChoices.Items.Any(
 					choice =>
 					{
@@ -463,26 +437,28 @@ namespace VidCoder.ViewModel
 			else
 			{
 			    HBMixdown previewMixdown;
-			    previewMixdown = HandBrakeEncoderHelpers.SanitizeMixdown(audioVM.SelectedMixdown.Mixdown, encoder, (ulong)inputTrack.ChannelLayout);
+			    previewMixdown = HandBrakeEncoderHelpers.SanitizeMixdown(HandBrakeEncoderHelpers.GetMixdown(handBrakeOutputTrack.Mixdown), encoder, (ulong)inputTrack.ChannelLayout);
 
-			    int previewSampleRate = audioVM.SampleRate;
+			    int previewSampleRate = handBrakeOutputTrack.Samplerate;
 			    if (previewSampleRate == 0)
 			    {
 			        previewSampleRate = inputTrack.SampleRate;
 			    }
 
-                // Collect the output values in the AudioTrack object
-                var outputTrack = new OutputAudioTrackInfo
+				AudioEncodeRateType encodeRateType = handBrakeOutputTrack.Quality != null ? AudioEncodeRateType.Quality : AudioEncodeRateType.Bitrate;
+
+				// Collect the output values in the AudioTrack object
+				var outputTrackInfo = new OutputAudioTrackInfo
                 {
                     Encoder = encoder,
                     Mixdown = previewMixdown,
                     SampleRate = HandBrakeEncoderHelpers.SanitizeSampleRate(encoder, previewSampleRate),
-                    EncodeRateType = audioVM.EncodeRateType
-                };
+                    EncodeRateType = encodeRateType
+				};
 
-			    if (audioVM.EncodeRateType == AudioEncodeRateType.Bitrate)
+			    if (encodeRateType == AudioEncodeRateType.Bitrate)
 			    {
-			        int previewBitrate = audioVM.SelectedBitrate.Bitrate;
+			        int previewBitrate = handBrakeOutputTrack.Bitrate.Value;
 			        if (previewBitrate == 0)
 			        {
 			            previewBitrate = HandBrakeEncoderHelpers.GetDefaultBitrate(encoder, previewSampleRate, previewMixdown);
@@ -492,18 +468,18 @@ namespace VidCoder.ViewModel
 			            previewBitrate = HandBrakeEncoderHelpers.SanitizeAudioBitrate(previewBitrate, encoder, previewSampleRate, previewMixdown);
 			        }
 
-			        outputTrack.Bitrate = previewBitrate;
+			        outputTrackInfo.Bitrate = previewBitrate;
 			    }
 			    else
 			    {
-			        outputTrack.Quality = audioVM.AudioQuality;
+			        outputTrackInfo.Quality = handBrakeOutputTrack.Quality.Value;
 			    }
 
-			    outputTrack.Gain = audioVM.Gain;
-			    outputTrack.Drc = audioVM.Drc;
+			    outputTrackInfo.Gain = handBrakeOutputTrack.Gain;
+			    outputTrackInfo.Drc = handBrakeOutputTrack.DRC;
 
                 // Apply the output values to the preview object 
-			    UpdateAudioPreviewTrack(outputPreviewTrack, outputTrack);
+			    UpdateAudioPreviewTrack(outputPreviewTrack, outputTrackInfo);
 			}
 
 			return outputPreviewTrack;
@@ -591,10 +567,10 @@ namespace VidCoder.ViewModel
 
 		public void NotifyAudioEncodingChanged()
 		{
-			this.RefreshAudioPreview();
 			this.UpdateAudioEncodings();
-
 			this.EncodingWindowViewModel.NotifyAudioEncodingChanged();
+
+			this.RefreshAudioPreview();
 		}
 
 		public void NotifyAudioInputChanged()
