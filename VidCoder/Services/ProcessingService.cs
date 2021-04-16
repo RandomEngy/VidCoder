@@ -2232,7 +2232,7 @@ namespace VidCoder.Services
 						this.EncodeQueue.Edit(encodeQueueInnerList =>
 						{
 							encodeQueueInnerList.Remove(finishedJobViewModel);
-							encodeQueueInnerList.Insert(Config.MaxSimultaneousEncodes, finishedJobViewModel);
+							encodeQueueInnerList.Insert(Math.Min(Config.MaxSimultaneousEncodes, encodeQueueInnerList.Count - 1), finishedJobViewModel);
 
 							this.EncodeNextJobs();
 						});

@@ -71,7 +71,7 @@ namespace VidCoderCommon.Model
 
 			if (profile == null)
 			{
-				throw new ArgumentException("job must have enoding profile.", nameof(job));
+				throw new ArgumentException("job must have encoding profile.", nameof(job));
 			}
 
 			JsonEncodeObject encode = new JsonEncodeObject
