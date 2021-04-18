@@ -3175,10 +3175,7 @@ namespace VidCoder.ViewModel
 
 		public VideoSourceMetadata GetVideoSourceMetadata()
 		{
-			var metadata = new VideoSourceMetadata
-			{
-				Name = this.SourceName
-			};
+			var metadata = new VideoSourceMetadata();
 
 			if (this.SelectedSource.Type == SourceType.Disc)
 			{
@@ -3237,28 +3234,24 @@ namespace VidCoder.ViewModel
 				// We need to reconstruct the source metadata since we've closed the scan since queuing.
 				var videoSourceMetadata = new VideoSourceMetadata();
 
-				switch (job.SourceType)
+				SourceOption sourceOption = new SourceOption { Type = job.SourceType };
+				if (job.SourceType == SourceType.Disc)
 				{
-					case SourceType.Disc:
-						DriveInformation driveInfo = this.DriveCollection.FirstOrDefault(d => string.Compare(d.RootDirectory, jobRoot, StringComparison.OrdinalIgnoreCase) == 0);
-						if (driveInfo == null)
-						{
-							StaticResolver.Resolve<IMessageBoxService>().Show(MainRes.DiscNotInDriveError);
-							return;
-						}
+					DriveInformation driveInfo = this.DriveCollection.FirstOrDefault(d => string.Compare(d.RootDirectory, jobRoot, StringComparison.OrdinalIgnoreCase) == 0);
+					if (driveInfo == null)
+					{
+						StaticResolver.Resolve<IMessageBoxService>().Show(MainRes.DiscNotInDriveError);
+						return;
+					}
 
-						videoSourceMetadata.Name = driveInfo.VolumeLabel;
-						videoSourceMetadata.DriveInfo = driveInfo;
-						break;
-					case SourceType.File:
-						videoSourceMetadata.Name = Utilities.GetSourceNameFile(job.SourcePath);
-						break;
-					case SourceType.DiscVideoFolder:
-						videoSourceMetadata.Name = Utilities.GetSourceNameFolder(job.SourcePath);
-						break;
+					sourceOption.DriveInfo = driveInfo;
 				}
 
-				this.LoadVideoSourceMetadata(job, videoSourceMetadata);
+				this.SourceName = jobVM.SourceName;
+				this.SourcePath = job.SourcePath;
+
+				this.SelectedSource = sourceOption;
+
 				this.StartScan(job.SourcePath, jobVM);
 			}
 
@@ -3487,21 +3480,6 @@ namespace VidCoder.ViewModel
 		private void ClearVideoSource()
 		{
 			this.SourceData = null;
-		}
-
-		private void LoadVideoSourceMetadata(VCJob job, VideoSourceMetadata metadata)
-		{
-			this.SourceName = metadata.Name;
-			this.SourcePath = job.SourcePath;
-
-			if (job.SourceType == SourceType.Disc)
-			{
-				this.SelectedSource = new SourceOption { Type = SourceType.Disc, DriveInfo = metadata.DriveInfo };
-			}
-			else
-			{
-				this.SelectedSource = new SourceOption { Type = job.SourceType };
-			}
 		}
 
 		// Applies the encode job choices to the viewmodel. Part of editing a queued item,

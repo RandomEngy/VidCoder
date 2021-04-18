@@ -720,7 +720,7 @@ namespace VidCoder.Services
 			VCJob job = jobViewModel.Job;
 			SourceTitle title = jobViewModel.VideoSource?.Titles.Single(t => t.Index == job.Title);
 
-			string sourceName = jobViewModel.VideoSourceMetadata != null ? jobViewModel.VideoSourceMetadata.Name : string.Empty;
+			string sourceName = jobViewModel.SourceName ?? string.Empty;
 			TimeSpan titleDuration = title?.Duration.ToSpan() ?? TimeSpan.Zero;
 			int chapterCount = title?.ChapterList.Count ?? 0;
 			bool hasMultipleTitles = jobViewModel.VideoSource != null && jobViewModel.VideoSource.Titles.Count > 1;

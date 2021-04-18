@@ -184,6 +184,24 @@ namespace VidCoder.ViewModel
 
 		public VideoSourceMetadata VideoSourceMetadata { get; set; }
 
+		public string SourceName
+		{
+			get
+			{
+				switch (this.Job.SourceType)
+				{
+					case SourceType.DiscVideoFolder:
+						return Utilities.GetSourceNameFolder(this.Job.SourcePath);
+					case SourceType.File:
+						return Utilities.GetSourceNameFile(this.Job.SourcePath);
+					case SourceType.Disc:
+						return this.VideoSourceMetadata.DriveInfo.VolumeLabel;
+					default:
+						throw new ArgumentException("Source type is unknown");
+				}
+			}
+		}
+
 		// The parent folder for the item (if it was inside a folder of files added in a batch)
 		public string SourceParentFolder { get; set; }
 
