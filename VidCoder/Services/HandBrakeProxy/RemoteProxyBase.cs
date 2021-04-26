@@ -429,15 +429,32 @@ namespace VidCoder
 
 			this.processPrioritySubscription = Config.Observables.WorkerProcessPriority.Skip(1).Subscribe(async _ =>
 			{
-				if (this.worker != null)
+				try
 				{
-					this.worker.PriorityClass = CustomConfig.WorkerProcessPriority;
+					if (this.worker != null && this.Running)
+					{
+						this.worker.PriorityClass = CustomConfig.WorkerProcessPriority;
+					}
+				}
+				catch
+				{
+					// Could not dynamically modify worker process priority. Ignore.
 				}
 			});
 
 			this.cpuThrottlingSubscription = Config.Observables.CpuThrottlingFraction.Skip(1).Subscribe(async cpuThrottlingFraction =>
 			{
-				await this.ExecuteWorkerCallAsync(w => w.UpdateCpuThrottling(cpuThrottlingFraction), "UpdateCpuThrottling");
+				try
+				{
+					if (this.worker != null && this.Running)
+					{
+						await this.ExecuteWorkerCallAsync(w => w.UpdateCpuThrottling(cpuThrottlingFraction), "UpdateCpuThrottling");
+					}
+				}
+				catch
+				{
+					// Could not dynamically update CPU throttling. Ignore.
+				}
 			});
 
 			return true;
