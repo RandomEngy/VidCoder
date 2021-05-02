@@ -1586,7 +1586,14 @@ namespace VidCoder.Services
 				queuedOutputFiles.Add(queueOutputPath);
 			}
 
-			this.QueueMultiple(itemsToQueue);
+			if (itemsToQueue.Count > 0)
+			{
+				// If this was a single item the user may have decided to cancel the encode on a file conflict.
+				if (isBatch || itemsToQueue[0].Job.FinalOutputPath != null)
+				{
+					this.QueueMultiple(itemsToQueue);
+				}
+			}
 
 			if (failedFiles.Count > 0)
 			{
