@@ -38,6 +38,8 @@ using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.Interfaces.EventArgs;
 using Microsoft.WindowsAPICodePack.Shell;
 using FileInfo = System.IO.FileInfo;
+using Omu.ValueInjecter;
+using VidCoderCommon.Utilities.Injection;
 
 namespace VidCoder.Services
 {
@@ -1246,19 +1248,14 @@ namespace VidCoder.Services
 				if (string.IsNullOrWhiteSpace(destination))
 				{
 					// Exclude all current queued files if overwrite is disabled
-					HashSet<string> excludedPaths;
-					if (picker.WhenFileExistsBatch == WhenFileExists.AutoRename)
-					{
-						excludedPaths = this.GetQueuedFiles();
-					}
-					else
-					{
-						excludedPaths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-					}
+					HashSet<string> queuedOutputFiles = this.GetQueuedOutputFiles();
+					HashSet<string> queuedInputFiles = this.GetQueuedInputFiles();
+
+					queuedInputFiles.Add(source);
 
 					string pathToQueue = job.SourcePath;
 
-					excludedPaths.Add(pathToQueue);
+					queuedOutputFiles.Add(pathToQueue);
 					string outputFolder = this.outputPathService.GetOutputFolder(pathToQueue, null, picker);
 					string outputFileName = this.outputPathService.BuildOutputFileName(
 						pathToQueue,
@@ -1270,7 +1267,7 @@ namespace VidCoder.Services
 						picker: picker);
 					string outputExtension = this.outputPathService.GetOutputExtension();
 					string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
-					queueOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, source, excludedPaths, isBatch: true, picker: picker, allowConflictDialog: false, allowQueueRemoval: true);
+					queueOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, source, queuedInputFiles, queuedOutputFiles, isBatch: true, picker: picker, allowConflictDialog: false, allowQueueRemoval: true);
 
 					job.FinalOutputPath = queueOutputPath;
 				}
@@ -1463,16 +1460,8 @@ namespace VidCoder.Services
 		{
 			Picker picker = this.pickersService.SelectedPicker.Picker;
 
-			// Exclude all current queued files if overwrite is disabled
-			HashSet<string> excludedPaths;
-			if (picker.WhenFileExistsBatch == WhenFileExists.AutoRename)
-			{
-				excludedPaths = this.GetQueuedFiles();
-			}
-			else
-			{
-				excludedPaths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-			}
+			HashSet<string> queuedOutputFiles = this.GetQueuedOutputFiles();
+			HashSet<string> queuedInputFiles = this.GetQueuedInputFiles();
 
 			List<SourcePath> sourcePathList = sourcePaths.ToList();
 
@@ -1556,6 +1545,8 @@ namespace VidCoder.Services
 				}
 			}
 
+			bool isBatch = itemsToQueue.Count > 1;
+
 			foreach (EncodeJobViewModel jobViewModel in itemsToQueue)
 			{
 				var titles = jobViewModel.VideoSource.Titles;
@@ -1574,7 +1565,7 @@ namespace VidCoder.Services
 				// Now that we have the title and subtitles we can determine the final output file name
 				string fileToQueue = job.SourcePath;
 
-				excludedPaths.Add(fileToQueue);
+				queuedInputFiles.Add(fileToQueue);
 				string outputFolder = this.outputPathService.GetOutputFolder(fileToQueue, jobViewModel.SourceParentFolder);
 				string outputFileName = this.outputPathService.BuildOutputFileName(
 					fileToQueue,
@@ -1585,11 +1576,11 @@ namespace VidCoder.Services
 					multipleTitlesOnSource: titles.Count > 1);
 				string outputExtension = this.outputPathService.GetOutputExtension();
 				string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
-				queueOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, fileToQueue, excludedPaths, isBatch: true, picker, allowConflictDialog: false, allowQueueRemoval: true);
+				queueOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, fileToQueue, queuedInputFiles, queuedOutputFiles, isBatch: isBatch, picker, allowConflictDialog: !isBatch, allowQueueRemoval: true);
 
 				job.FinalOutputPath = queueOutputPath;
 
-				excludedPaths.Add(queueOutputPath);
+				queuedOutputFiles.Add(queueOutputPath);
 			}
 
 			this.QueueMultiple(itemsToQueue);
@@ -1675,7 +1666,12 @@ namespace VidCoder.Services
 			});
 		}
 
-		public HashSet<string> GetQueuedFiles()
+		public HashSet<string> GetQueuedInputFiles()
+		{
+			return new HashSet<string>(this.EncodeQueue.Items.Select(j => j.Job.SourcePath), StringComparer.OrdinalIgnoreCase);
+		}
+
+		public HashSet<string> GetQueuedOutputFiles()
 		{
 			return new HashSet<string>(this.EncodeQueue.Items.Select(j => j.Job.FinalOutputPath), StringComparer.OrdinalIgnoreCase);
 		}

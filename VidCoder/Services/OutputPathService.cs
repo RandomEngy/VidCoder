@@ -166,7 +166,8 @@ namespace VidCoder.Services
 		public string ResolveOutputPathConflicts(
 			string initialOutputPath,
 			string sourcePath,
-			HashSet<string> excludedPaths,
+			HashSet<string> queuedInputFiles,
+			HashSet<string> queuedOutputFiles,
 			bool isBatch,
 			Picker picker,
 			bool allowConflictDialog,
@@ -182,8 +183,7 @@ namespace VidCoder.Services
 				initialOutputPath = Path.Combine(outputFolder, fileNameWithoutExtension + " (Encoded)" + extension);
 			}
 
-			HashSet<string> queuedFiles = excludedPaths;
-			FileQueueCheckResult checkResult = Utilities.FileExistsOnDiskOrInQueue(initialOutputPath, queuedFiles);
+			FileQueueCheckResult checkResult = Utilities.FileExistsOnDiskOrInQueue(initialOutputPath, queuedOutputFiles);
 
 			if (checkResult == FileQueueCheckResult.NotFound)
 			{
@@ -217,7 +217,10 @@ namespace VidCoder.Services
 
 					return initialOutputPath;
 				case WhenFileExists.AutoRename:
-					return FileUtilities.CreateUniqueFileName(initialOutputPath, queuedFiles);
+					HashSet<string> excludedFiles = new HashSet<string>(queuedInputFiles);
+					excludedFiles.UnionWith(queuedOutputFiles);
+
+					return FileUtilities.CreateUniqueFileName(initialOutputPath, excludedFiles);
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
@@ -261,7 +264,7 @@ namespace VidCoder.Services
 
 					return initialOutputPath;
 				case FileConflictResolution.AutoRename:
-					return FileUtilities.CreateUniqueFileName(initialOutputPath, queuedFiles);
+					return FileUtilities.CreateUniqueFileName(initialOutputPath, queuedOutputFiles);
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
@@ -269,21 +272,21 @@ namespace VidCoder.Services
 
 		private bool IsConflictingJobInProgress(string outputPath)
 		{
-			return this.processingService.EncodingJobs.Any(j => string.Compare(j.Job.FinalOutputPath, outputPath, StringComparison.OrdinalIgnoreCase) == 0);
+			return this.ProcessingService.EncodingJobs.Any(j => string.Compare(j.Job.FinalOutputPath, outputPath, StringComparison.OrdinalIgnoreCase) == 0);
 		}
 
 		private void RemoveQueuedJobWithOutputPath(string outputPath)
 		{
-			EncodeJobViewModel jobToRemove = this.processingService.EncodeQueue.Items.FirstOrDefault(j => string.Compare(j.Job.FinalOutputPath, outputPath, StringComparison.OrdinalIgnoreCase) == 0 && !j.Encoding);
+			EncodeJobViewModel jobToRemove = this.ProcessingService.EncodeQueue.Items.FirstOrDefault(j => string.Compare(j.Job.FinalOutputPath, outputPath, StringComparison.OrdinalIgnoreCase) == 0 && !j.Encoding);
 			if (jobToRemove != null)
 			{
-				this.processingService.RemoveQueueJob(jobToRemove);
+				this.ProcessingService.RemoveQueueJob(jobToRemove);
 			}
 		}
 
 		public string ResolveOutputPathConflicts(string initialOutputPath, string sourcePath, bool isBatch, Picker picker, bool allowConflictDialog, bool allowQueueRemoval)
 		{
-			return this.ResolveOutputPathConflicts(initialOutputPath, sourcePath, this.ProcessingService.GetQueuedFiles(), isBatch, picker, allowConflictDialog, allowQueueRemoval);
+			return this.ResolveOutputPathConflicts(initialOutputPath, sourcePath, this.ProcessingService.GetQueuedInputFiles(), this.ProcessingService.GetQueuedOutputFiles(), isBatch, picker, allowConflictDialog, allowQueueRemoval);
 		}
 
 		/// <summary>

@@ -13,9 +13,11 @@ using HandBrake.Interop.Interop.Json.Encode;
 using HandBrake.Interop.Interop.Json.Scan;
 using HandBrake.Interop.Interop.Json.Shared;
 using Microsoft.AnyContainer;
+using Omu.ValueInjecter;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Services;
 using VidCoderCommon.Utilities;
+using VidCoderCommon.Utilities.Injection;
 using Audio = HandBrake.Interop.Interop.Json.Encode.Audio;
 using Metadata = HandBrake.Interop.Interop.Json.Encode.Metadata;
 using Source = HandBrake.Interop.Interop.Json.Encode.Source;
@@ -73,14 +75,14 @@ namespace VidCoderCommon.Model
 			{
 				throw new ArgumentException("job must have encoding profile.", nameof(job));
 			}
-
+			
 			JsonEncodeObject encode = new JsonEncodeObject
 			{
 				SequenceID = 0,
 				Audio = this.CreateAudio(job, title),
 				Destination = this.CreateDestination(job, title, defaultChapterNameFormat),
 				Filters = this.CreateFilters(profile, title, outputSize),
-				Metadata = this.CreateMetadata(),
+				Metadata = this.CreateMetadata(title),
 				PAR = outputSize.Par,
 				Source = this.CreateSource(job, title, previewNumber, previewSeconds, previewCount),
 				Subtitle = this.CreateSubtitles(job, title),
@@ -730,9 +732,15 @@ namespace VidCoderCommon.Model
 					framerateDenominator));
 		}
 
-		private Metadata CreateMetadata()
+		private Metadata CreateMetadata(SourceTitle title)
 		{
-			return new Metadata();
+			var metadata = new Metadata();
+			if (title.MetaData != null)
+			{
+				metadata.InjectFrom<CloneInjection>(title.MetaData);
+			}
+
+			return metadata;
 		}
 
 		/// <summary>
