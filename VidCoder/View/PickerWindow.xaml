@@ -952,6 +952,12 @@
 								</Button>
 							</StackPanel>
 
+							<!--  Metadata  -->
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.MetadataSection}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<CheckBox Content="{x:Static res:PickerRes.PassThroughMetadataCheckBox}" IsChecked="{Binding PassThroughMetadata}" />
+							</StackPanel>
+
 							<!--  Encoding  -->
 							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.EncodingSection}" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}">

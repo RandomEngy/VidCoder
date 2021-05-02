@@ -374,4 +374,10 @@ All - Include all subtitles.</value>
   <data name="VideoSelectionSection" xml:space="preserve">
     <value>Video selection</value>
   </data>
+  <data name="MetadataSection" xml:space="preserve">
+    <value>Metadata</value>
+  </data>
+  <data name="PassThroughMetadataCheckBox" xml:space="preserve">
+    <value>Pass through video metadata (director, release date, actors, etc)</value>
+  </data>
 </root>

@@ -326,6 +326,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Metadata.
+        /// </summary>
+        public static string MetadataSection {
+            get {
+                return ResourceManager.GetString("MetadataSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mark the first subtitle track as default, so it shows up automatically when playing the video..
         /// </summary>
         public static string MultipleSubtitleDefaultToolTip {
@@ -394,6 +403,15 @@ namespace VidCoder.Resources {
         public static string OverrideNameFormatLabel {
             get {
                 return ResourceManager.GetString("OverrideNameFormatLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pass through video metadata (director, release date, actors, etc).
+        /// </summary>
+        public static string PassThroughMetadataCheckBox {
+            get {
+                return ResourceManager.GetString("PassThroughMetadataCheckBox", resourceCulture);
             }
         }
         

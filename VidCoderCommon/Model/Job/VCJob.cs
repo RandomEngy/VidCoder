@@ -43,6 +43,8 @@ namespace VidCoderCommon.Model
 		public bool UseDefaultChapterNames { get; set; }
 		public List<string> CustomChapterNames { get; set; }
 
+		public bool PassThroughMetadata { get; set; }
+
 		[Obsolete("Use FinalOutputPath instead")]
 		public string OutputPath { get; set; }
 

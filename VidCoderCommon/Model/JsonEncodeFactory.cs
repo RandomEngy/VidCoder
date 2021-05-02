@@ -82,7 +82,7 @@ namespace VidCoderCommon.Model
 				Audio = this.CreateAudio(job, title),
 				Destination = this.CreateDestination(job, title, defaultChapterNameFormat),
 				Filters = this.CreateFilters(profile, title, outputSize),
-				Metadata = this.CreateMetadata(title),
+				Metadata = this.CreateMetadata(job, title),
 				PAR = outputSize.Par,
 				Source = this.CreateSource(job, title, previewNumber, previewSeconds, previewCount),
 				Subtitle = this.CreateSubtitles(job, title),
@@ -732,10 +732,10 @@ namespace VidCoderCommon.Model
 					framerateDenominator));
 		}
 
-		private Metadata CreateMetadata(SourceTitle title)
+		private Metadata CreateMetadata(VCJob job, SourceTitle title)
 		{
 			var metadata = new Metadata();
-			if (title.MetaData != null)
+			if (job.PassThroughMetadata && title.MetaData != null)
 			{
 				metadata.InjectFrom<CloneInjection>(title.MetaData);
 			}

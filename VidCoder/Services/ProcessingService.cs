@@ -1226,6 +1226,7 @@ namespace VidCoder.Services
 					AudioTracks = new List<ChosenAudioTrack> { new ChosenAudioTrack { TrackNumber = 1 } },
 					FinalOutputPath = destination,
 					UseDefaultChapterNames = true,
+					PassThroughMetadata = picker.PassThroughMetadata
 				});
 
 				jobVM.VideoSource = videoSource;
@@ -1344,7 +1345,8 @@ namespace VidCoder.Services
 					Title = title.Index,
 					ChapterStart = 1,
 					ChapterEnd = title.ChapterList.Count,
-					UseDefaultChapterNames = true
+					UseDefaultChapterNames = true,
+					PassThroughMetadata = picker.PassThroughMetadata
 				};
 
 				this.AutoPickRange(job, title);
@@ -1508,7 +1510,8 @@ namespace VidCoder.Services
 							SourcePath = sourcePath.Path,
 							EncodingProfile = this.presetsService.SelectedPreset.Preset.EncodingProfile.Clone(),
 							Title = titleNumber,
-							UseDefaultChapterNames = true
+							UseDefaultChapterNames = true,
+							PassThroughMetadata = picker.PassThroughMetadata
 						};
 
 						if (sourcePath.SourceType == SourceType.Unknown)

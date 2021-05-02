@@ -214,6 +214,11 @@ namespace VidCoder.Model
 
 		public List<string> SubtitleTrackNames { get; set; }
 
+		/// <summary>
+		/// True to pass through video metadata like actors, release date, director.
+		/// </summary>
+		public bool PassThroughMetadata { get; set; } = true;
+
 		private bool useEncodingPreset;
 		public bool UseEncodingPreset
 		{

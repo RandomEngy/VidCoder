@@ -3104,7 +3104,8 @@ namespace VidCoder.ViewModel
 					Subtitles = this.CurrentSubtitles,
 					UseDefaultChapterNames = this.UseDefaultChapterNames,
 					CustomChapterNames = this.CustomChapterNames,
-					Length = this.SelectedTime
+					Length = this.SelectedTime,
+					PassThroughMetadata = this.PickersService.SelectedPicker.Picker.PassThroughMetadata
 				};
 
 				switch (this.RangeType)

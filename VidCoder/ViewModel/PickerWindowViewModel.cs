@@ -503,6 +503,7 @@ namespace VidCoder.ViewModel
 				this.View.FocusSubtitleTrackName(0);
 			});
 			this.RegisterPickerProperty(nameof(this.Picker.SubtitleTrackNames));
+			this.RegisterPickerProperty(nameof(this.Picker.PassThroughMetadata));
 			this.RegisterPickerProperty(nameof(this.Picker.UseEncodingPreset));
 			this.RegisterPickerProperty(nameof(this.Picker.EncodingPreset));
 			this.RegisterPickerProperty(nameof(this.Picker.AutoQueueOnScan), () =>
@@ -939,6 +940,12 @@ namespace VidCoder.ViewModel
 
 		private readonly SourceList<TrackNameViewModel> subtitleTrackNames = new SourceList<TrackNameViewModel>();
 		public ObservableCollectionExtended<TrackNameViewModel> SubtitleTrackNamesBindable { get; } = new ObservableCollectionExtended<TrackNameViewModel>();
+
+		public bool PassThroughMetadata
+		{
+			get => this.Picker.PassThroughMetadata;
+			set => this.UpdatePickerProperty(nameof(this.Picker.PassThroughMetadata), value);
+		}
 
 		public bool UseEncodingPreset
 		{
