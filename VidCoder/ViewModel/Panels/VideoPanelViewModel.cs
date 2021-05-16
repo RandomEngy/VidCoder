@@ -42,6 +42,9 @@ namespace VidCoder.ViewModel
 		private List<LevelChoiceViewModel> levelChoices;
 		private List<ComboChoice> tuneChoices;
 
+		// Encoders that start with these prefixes don't support 2-pass encoding.
+		private static readonly List<string> TwoPassDisablePrefixes = new List<string> { "mf_", "qsv_", "nvenc_", "vce_" };
+
 		public VideoPanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
 			: base(encodingWindowViewModel)
 		{
@@ -550,7 +553,15 @@ namespace VidCoder.ViewModel
 
 		private static bool EncoderSupportsTwoPass(string shortEncoderName)
 		{
-			return !shortEncoderName.StartsWith("nvenc_", StringComparison.Ordinal) && !shortEncoderName.StartsWith("vce_", StringComparison.Ordinal);
+			foreach (string disallowedPrefix in TwoPassDisablePrefixes)
+			{
+				if (shortEncoderName.StartsWith(disallowedPrefix, StringComparison.Ordinal))
+				{
+					return false;
+				}
+			}
+
+			return true;
 		}
 
 		private ObservableAsPropertyHelper<string> inputType;
