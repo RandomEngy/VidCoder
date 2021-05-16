@@ -48,6 +48,7 @@ SubtitlesExpanded|bool|true
 UpdatesEnabled|bool|true
 UpdatePromptTiming|string|"OnExit"
 UpdatesDisabled32BitOSWarningDisplayed|bool|false
+Win7WarningDisplayedTimes|int|0
 
 PreviewSeconds|int|10
 ApplicationVersion|string|""

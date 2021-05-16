@@ -1750,6 +1750,21 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to VidCoder is no longer supported on Windows 7 or 8.
+        ///
+        ///You can continue using VidCoder at your own risk. Certain features are non-functional and there may be other unknown issues. These is no support available when these issues occur.
+        ///
+        ///v5 was the last version tested for Windows 7/8.
+        ///
+        ///This warning will only display twice..
+        /// </summary>
+        public static string Win7DeprecationWarning {
+            get {
+                return ResourceManager.GetString("Win7DeprecationWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Windows.
         /// </summary>
         public static string WindowsMenu {

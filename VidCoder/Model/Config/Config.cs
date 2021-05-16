@@ -70,6 +70,7 @@ namespace VidCoder
 			cache.Add("UpdatesEnabled", DatabaseConfig.Get("UpdatesEnabled", true, connection));
 			cache.Add("UpdatePromptTiming", DatabaseConfig.Get("UpdatePromptTiming", "OnExit", connection));
 			cache.Add("UpdatesDisabled32BitOSWarningDisplayed", DatabaseConfig.Get("UpdatesDisabled32BitOSWarningDisplayed", false, connection));
+			cache.Add("Win7WarningDisplayedTimes", DatabaseConfig.Get("Win7WarningDisplayedTimes", 0, connection));
 			cache.Add("PreviewSeconds", DatabaseConfig.Get("PreviewSeconds", 10, connection));
 			cache.Add("ApplicationVersion", DatabaseConfig.Get("ApplicationVersion", "", connection));
 			cache.Add("QueueColumns", DatabaseConfig.Get("QueueColumns", "Source:200|Title:35|Range:106|Destination:200", connection));
@@ -380,6 +381,11 @@ namespace VidCoder
 		{
 			get { return (bool)cache["UpdatesDisabled32BitOSWarningDisplayed"]; }
 			set { Set("UpdatesDisabled32BitOSWarningDisplayed", value); }
+		}
+		public static int Win7WarningDisplayedTimes
+		{
+			get { return (int)cache["Win7WarningDisplayedTimes"]; }
+			set { Set("Win7WarningDisplayedTimes", value); }
 		}
 		public static int PreviewSeconds
 		{
@@ -789,6 +795,7 @@ namespace VidCoder
 			public static IObservable<bool> UpdatesEnabled => GetObservable<bool>("UpdatesEnabled");
 			public static IObservable<string> UpdatePromptTiming => GetObservable<string>("UpdatePromptTiming");
 			public static IObservable<bool> UpdatesDisabled32BitOSWarningDisplayed => GetObservable<bool>("UpdatesDisabled32BitOSWarningDisplayed");
+			public static IObservable<int> Win7WarningDisplayedTimes => GetObservable<int>("Win7WarningDisplayedTimes");
 			public static IObservable<int> PreviewSeconds => GetObservable<int>("PreviewSeconds");
 			public static IObservable<string> ApplicationVersion => GetObservable<string>("ApplicationVersion");
 			public static IObservable<string> QueueColumns => GetObservable<string>("QueueColumns");

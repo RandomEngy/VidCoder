@@ -729,4 +729,13 @@
   <data name="AutoPauseResumeProcess" xml:space="preserve">
     <value>Automatically resuming, processes are gone.</value>
   </data>
+  <data name="Win7DeprecationWarning" xml:space="preserve">
+    <value>VidCoder is no longer supported on Windows 7 or 8.
+
+You can continue using VidCoder at your own risk. Certain features are non-functional and there may be other unknown issues. These is no support available when these issues occur.
+
+v5 was the last version tested for Windows 7/8.
+
+This warning will only display twice.</value>
+  </data>
 </root>

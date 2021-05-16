@@ -79,6 +79,16 @@ namespace VidCoder.View
 			Ioc.Container.RegisterSingleton<Main>(() => this);
 			this.InitializeComponent();
 
+			if (Environment.OSVersion.Version.Major < 10 && Config.Win7WarningDisplayedTimes < 2)
+			{
+				DispatchUtilities.BeginInvoke(async () =>
+				{
+					await Task.Delay(TimeSpan.FromSeconds(1));
+					StaticResolver.Resolve<IMessageBoxService>().Show(MainRes.Win7DeprecationWarning);
+				});
+				Config.Win7WarningDisplayedTimes++;
+			}
+
 			try
 			{
 				var taskbarItemInfo = new TaskbarItemInfo();
