@@ -950,6 +950,41 @@
 										<TextBlock Text="{x:Static res:PickerRes.AddSubtitleTrackNameButton}" />
 									</StackPanel>
 								</Button>
+
+								<CheckBox
+									Margin="0 6 0 0"
+									Content="{Binding ExternalSubtitleImportCheckBoxTitle}"
+									IsChecked="{Binding EnableExternalSubtitleImport}" />
+								<StackPanel
+									Margin="0 6 0 0"
+									Orientation="Vertical"
+									Visibility="{Binding EnableExternalSubtitleImport,
+									                     Converter={StaticResource VisibilityConverter}}">
+									<StackPanel Margin="20 0 0 0" Orientation="Horizontal">
+										<TextBlock
+											Name="externalSubtitleImportLanguage"
+											VerticalAlignment="Center"
+											Text="{x:Static res:PickerRes.LanguageLabel}" />
+										<ComboBox
+											MinWidth="120"
+											Margin="6 0 0 0"
+											AutomationProperties.LabeledBy="{Binding ElementName=externalSubtitleImportLanguage}"
+											DisplayMemberPath="Display"
+											ItemsSource="{x:Static interop:HandBrakeLanguagesHelper.AllLanguages}"
+											SelectedValue="{Binding ExternalSubtitleImportLanguage}"
+											SelectedValuePath="Code" />
+									</StackPanel>
+									<CheckBox
+										Margin="20 6 0 0"
+										Content="{x:Static res:PickerRes.DefaultCheckBox}"
+										IsChecked="{Binding ExternalSubtitleImportDefault}"
+										IsEnabled="{Binding ExternalSubtitleImportBurnIn,
+										                    Converter={StaticResource InverseBoolConverter}}" />
+									<CheckBox
+										Margin="20 6 0 0"
+										Content="{x:Static res:PickerRes.BurnInCheckBox}"
+										IsChecked="{Binding ExternalSubtitleImportBurnIn}" />
+								</StackPanel>
 							</StackPanel>
 
 							<!--  Metadata  -->

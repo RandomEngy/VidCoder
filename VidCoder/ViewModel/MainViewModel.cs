@@ -1315,7 +1315,7 @@ namespace VidCoder.ViewModel
 			this.audioExpanded = expansion.HasFlag(SourceSection.Audio) && this.SelectedTitle.AudioList != null && this.SelectedTitle.AudioList.Count > 0;
 			this.RaisePropertyChanged(nameof(this.AudioExpanded));
 
-			this.subtitlesExpanded = expansion.HasFlag(SourceSection.Subtitles) && this.SelectedTitle.SubtitleList != null && this.SelectedTitle.SubtitleList.Count > 0;
+			this.subtitlesExpanded = expansion.HasFlag(SourceSection.Subtitles) && (this.SelectedTitle.SubtitleList != null && this.SelectedTitle.SubtitleList.Count > 0 || this.FileSubtitles.Count > 0);
 			this.RaisePropertyChanged(nameof(this.SubtitlesExpanded));
 		}
 
@@ -1713,6 +1713,20 @@ namespace VidCoder.ViewModel
 			});
 
 			this.UpdateSourceSubtitleBoxes();
+
+			if (picker.EnableExternalSubtitleImport && this.SelectedSource.Type == SourceType.File)
+			{
+				this.FileSubtitles.Edit(fileSubtitlesInnerList =>
+				{
+					fileSubtitlesInnerList.Clear();
+
+					FileSubtitle fileSubtitle = ProcessingService.FindSubtitleFile(this.SourcePath, picker);
+					if (fileSubtitle != null)
+					{
+						fileSubtitlesInnerList.Add(new FileSubtitleViewModel(this, fileSubtitle));
+					}
+				});
+			}
 		}
 
 		private void PopulateSourceSubtitles(IList<ChosenSourceSubtitle> selectedSubtitles, IExtendedList<SourceSubtitleViewModel> listToPopulate)

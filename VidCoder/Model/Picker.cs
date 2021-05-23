@@ -214,6 +214,14 @@ namespace VidCoder.Model
 
 		public List<string> SubtitleTrackNames { get; set; }
 
+		public bool EnableExternalSubtitleImport { get; set; }
+
+		public string ExternalSubtitleImportLanguage { get; set; } = "eng";
+
+		public bool ExternalSubtitleImportDefault { get; set; }
+
+		public bool ExternalSubtitleImportBurnIn { get; set; }
+
 		/// <summary>
 		/// True to pass through video metadata like actors, release date, director.
 		/// </summary>

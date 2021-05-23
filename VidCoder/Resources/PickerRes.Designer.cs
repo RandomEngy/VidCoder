@@ -137,6 +137,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Burn in.
+        /// </summary>
+        public static string BurnInCheckBox {
+            get {
+                return ResourceManager.GetString("BurnInCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Burn in:.
         /// </summary>
         public static string BurnInLabel {
@@ -263,6 +272,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add external subtitle files ({0}) with same name as input video file.
+        /// </summary>
+        public static string ExternalSubtitleImportCheckBox {
+            get {
+                return ResourceManager.GetString("ExternalSubtitleImportCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mark first as default.
         /// </summary>
         public static string FirstAsDefaultCheckBox {
@@ -304,6 +322,15 @@ namespace VidCoder.Resources {
         public static string IgnoreFilesBelowCheckBox {
             get {
                 return ResourceManager.GetString("IgnoreFilesBelowCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language:.
+        /// </summary>
+        public static string LanguageLabel {
+            get {
+                return ResourceManager.GetString("LanguageLabel", resourceCulture);
             }
         }
         

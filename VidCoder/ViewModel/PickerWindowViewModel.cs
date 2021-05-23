@@ -503,6 +503,16 @@ namespace VidCoder.ViewModel
 				this.View.FocusSubtitleTrackName(0);
 			});
 			this.RegisterPickerProperty(nameof(this.Picker.SubtitleTrackNames));
+			this.RegisterPickerProperty(nameof(this.Picker.EnableExternalSubtitleImport));
+			this.RegisterPickerProperty(nameof(this.Picker.ExternalSubtitleImportLanguage));
+			this.RegisterPickerProperty(nameof(this.Picker.ExternalSubtitleImportDefault));
+			this.RegisterPickerProperty(nameof(this.Picker.ExternalSubtitleImportBurnIn), () =>
+			{
+				if (this.ExternalSubtitleImportBurnIn)
+				{
+					this.ExternalSubtitleImportDefault = false;
+				}
+			});
 			this.RegisterPickerProperty(nameof(this.Picker.PassThroughMetadata));
 			this.RegisterPickerProperty(nameof(this.Picker.UseEncodingPreset));
 			this.RegisterPickerProperty(nameof(this.Picker.EncodingPreset));
@@ -940,6 +950,32 @@ namespace VidCoder.ViewModel
 
 		private readonly SourceList<TrackNameViewModel> subtitleTrackNames = new SourceList<TrackNameViewModel>();
 		public ObservableCollectionExtended<TrackNameViewModel> SubtitleTrackNamesBindable { get; } = new ObservableCollectionExtended<TrackNameViewModel>();
+
+		public bool EnableExternalSubtitleImport
+		{
+			get => this.Picker.EnableExternalSubtitleImport;
+			set => this.UpdatePickerProperty(nameof(this.Picker.EnableExternalSubtitleImport), value);
+		}
+
+		public string ExternalSubtitleImportCheckBoxTitle => string.Format(PickerRes.ExternalSubtitleImportCheckBox, string.Join(", ", FileUtilities.SubtitleExtensions));
+
+		public string ExternalSubtitleImportLanguage
+		{
+			get => this.Picker.ExternalSubtitleImportLanguage;
+			set => this.UpdatePickerProperty(nameof(this.Picker.ExternalSubtitleImportLanguage), value);
+		}
+
+		public bool ExternalSubtitleImportDefault
+		{
+			get => this.Picker.ExternalSubtitleImportDefault;
+			set => this.UpdatePickerProperty(nameof(this.Picker.ExternalSubtitleImportDefault), value);
+		}
+
+		public bool ExternalSubtitleImportBurnIn
+		{
+			get => this.Picker.ExternalSubtitleImportBurnIn;
+			set => this.UpdatePickerProperty(nameof(this.Picker.ExternalSubtitleImportBurnIn), value);
+		}
 
 		public bool PassThroughMetadata
 		{

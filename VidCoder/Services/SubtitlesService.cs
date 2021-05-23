@@ -21,7 +21,7 @@ namespace VidCoder.Services
 			this.logger = logger;
 		}
 
-		public FileSubtitle LoadSubtitleFile(string subtitlePath)
+		public FileSubtitle LoadSubtitleFile(string subtitlePath, string language = null)
 		{
 			try
 			{
@@ -50,7 +50,12 @@ namespace VidCoder.Services
 					characterCode = "UTF-8";
 				}
 
-				return new FileSubtitle { FileName = subtitlePath, Default = false, CharacterCode = characterCode, LanguageCode = LanguageUtilities.GetDefaultLanguageCode(), Offset = 0 };
+				if (language == null)
+				{
+					language = LanguageUtilities.GetDefaultLanguageCode();
+				}
+
+				return new FileSubtitle { FileName = subtitlePath, Default = false, CharacterCode = characterCode, LanguageCode = language, Offset = 0 };
 			}
 			catch (Exception exception)
 			{

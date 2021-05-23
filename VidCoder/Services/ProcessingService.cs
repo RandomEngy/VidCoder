@@ -2988,6 +2988,15 @@ namespace VidCoder.Services
 			{
 				job.Subtitles.SourceSubtitles[i].Name = GetPickerSubtitleName(picker, i);
 			}
+
+			if (picker.EnableExternalSubtitleImport && job.SourceType == SourceType.File)
+			{
+				FileSubtitle fileSubtitle = FindSubtitleFile(job.SourcePath, picker);
+				if (fileSubtitle != null)
+				{
+					job.Subtitles.FileSubtitles.Add(fileSubtitle);
+				}
+			}
 		}
 
 		/// <summary>
@@ -3187,6 +3196,37 @@ namespace VidCoder.Services
 			}
 
 			return result;
+		}
+
+		/// <summary>
+		/// Finds the file subtitle for the given path and picker.
+		/// </summary>
+		/// <param name="sourcePath">The source path to check.</param>
+		/// <param name="picker">The picker settings to use.</param>
+		/// <returns></returns>
+		public static FileSubtitle FindSubtitleFile(string sourcePath, Picker picker)
+		{
+			if (!picker.EnableExternalSubtitleImport)
+			{
+				return null;
+			}
+
+			string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(sourcePath);
+			string pathWithoutExtension = Path.Combine(Path.GetDirectoryName(sourcePath), fileNameWithoutExtension);
+			foreach (string subtitleExtension in FileUtilities.SubtitleExtensions)
+			{
+				string potentialSubtitlePath = pathWithoutExtension + subtitleExtension;
+				if (File.Exists(potentialSubtitlePath))
+				{
+					FileSubtitle fileSubtitle = StaticResolver.Resolve<SubtitlesService>().LoadSubtitleFile(potentialSubtitlePath, picker.ExternalSubtitleImportLanguage);
+					fileSubtitle.Default = picker.ExternalSubtitleImportDefault;
+					fileSubtitle.BurnedIn = picker.ExternalSubtitleImportBurnIn;
+
+					return fileSubtitle;
+				}
+			}
+
+			return null;
 		}
 
 		/// <summary>

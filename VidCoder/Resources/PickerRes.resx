@@ -380,4 +380,13 @@ All - Include all subtitles.</value>
   <data name="PassThroughMetadataCheckBox" xml:space="preserve">
     <value>Pass through video metadata (director, release date, actors, etc)</value>
   </data>
+  <data name="BurnInCheckBox" xml:space="preserve">
+    <value>Burn in</value>
+  </data>
+  <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
+    <value>Add external subtitle files ({0}) with same name as input video file</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Language:</value>
+  </data>
 </root>
