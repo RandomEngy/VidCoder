@@ -260,20 +260,7 @@ namespace VidCoder.ViewModel
 					{
 						this.AutomaticChange = true;
 
-						if (x.selectedTitle == null)
-						{
-							this.CropTop = 0;
-							this.CropBottom = 0;
-							this.CropLeft = 0;
-							this.CropRight = 0;
-						}
-						else
-						{
-							this.CropTop = x.selectedTitle.Crop[0];
-							this.CropBottom = x.selectedTitle.Crop[1];
-							this.CropLeft = x.selectedTitle.Crop[2];
-							this.CropRight = x.selectedTitle.Crop[3];
-						}
+						this.RefreshCropping();
 					}
 
 					this.AutomaticChange = oldAutoValue;
@@ -428,7 +415,6 @@ namespace VidCoder.ViewModel
 			// These actions fire when the user changes a property.
 			this.RegisterProfileProperty(nameof(this.Profile.Width), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.Profile.Height), this.RefreshOutputSize);
-			this.RegisterProfileProperty(nameof(this.Profile.Modulus), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.Profile.PixelAspectX), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.Profile.PixelAspectY), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.Profile.CroppingType), () =>
@@ -471,9 +457,18 @@ namespace VidCoder.ViewModel
 			this.RegisterProfileProperty(nameof(this.CropBottom), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.CropLeft), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.CropRight), this.RefreshOutputSize);
-			this.RegisterProfileProperty(nameof(this.Rotation), this.RefreshOutputSize);
-			this.RegisterProfileProperty(nameof(this.FlipHorizontal), () => this.previewUpdateService.RefreshPreview());
-			this.RegisterProfileProperty(nameof(this.FlipVertical), () => this.previewUpdateService.RefreshPreview());
+			this.RegisterProfileProperty(nameof(this.Rotation), () => {
+				this.RefreshOutputSize();
+				this.RefreshCropping();
+			});
+			this.RegisterProfileProperty(nameof(this.FlipHorizontal), () => {
+				this.previewUpdateService.RefreshPreview();
+				this.RefreshCropping();
+			});
+			this.RegisterProfileProperty(nameof(this.FlipVertical), () => {
+				this.previewUpdateService.RefreshPreview();
+				this.RefreshCropping();
+			});
 			this.RegisterProfileProperty(nameof(this.SizingMode), () =>
 			{
 				if (this.SizingMode == VCSizingMode.Manual)
@@ -611,12 +606,6 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<bool> padColorEnabled;
 		public bool PadColorEnabled => this.padColorEnabled.Value;
 
-		public int Modulus
-		{
-			get { return this.Profile.Modulus; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.Modulus), value); }
-		}
-
 		public int PixelAspectX
 		{
 			get { return this.Profile.PixelAspectX; }
@@ -702,6 +691,37 @@ namespace VidCoder.ViewModel
 		{
 			this.outputSizeService.Refresh();
 			this.previewUpdateService.RefreshPreview();
+		}
+
+		private void RefreshCropping()
+		{
+			if (this.CroppingType != VCCroppingType.Automatic)
+			{
+				return;
+			}
+
+			bool oldAutoValue = this.AutomaticChange;
+			this.AutomaticChange = true;
+
+			SourceTitleViewModel sourceTitle = this.MainViewModel.SelectedTitle;
+			if (sourceTitle == null)
+			{
+				this.CropTop = 0;
+				this.CropBottom = 0;
+				this.CropLeft = 0;
+				this.CropRight = 0;
+			}
+			else
+			{
+				VCCropping autoCropping = JsonEncodeFactory.GetAutomaticCropping(this.Rotation, this.FlipHorizontal, this.FlipVertical, this.MainViewModel.SelectedTitle.Title);
+
+				this.CropTop = autoCropping.Top;
+				this.CropBottom = autoCropping.Bottom;
+				this.CropLeft = autoCropping.Left;
+				this.CropRight = autoCropping.Right;
+			}
+
+			this.AutomaticChange = oldAutoValue;
 		}
 
 		private void EnsureResolutionPopulatedIfRequired()

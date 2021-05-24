@@ -17,6 +17,7 @@ using VidCoder.Services.Windows;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
 using ReactiveUI;
+using HandBrake.Interop.Interop.Json.Encode;
 
 namespace VidCoder.ViewModel
 {
@@ -77,15 +78,15 @@ namespace VidCoder.ViewModel
 						SourceTitle title = this.SelectedTitles[0].Title;
 
 						// Do preview
-						var previewProfile =
-							new VCProfile
-							{
-								Cropping = new VCCropping(),
-								VideoEncoder = "x264",
-								AudioEncodings = new List<AudioEncoding>()
-							};
+						VCJob job = this.main.EncodeJob;
+						JsonEncodeFactory factory = new JsonEncodeFactory(new StubLogger());
 
-						this.PreviewImage = BitmapUtilities.ConvertToBitmapImage(BitmapUtilities.ConvertByteArrayToBitmap(this.main.ScanInstance.GetPreview(previewProfile.CreatePreviewSettings(title), 2, deinterlace: false)));
+						JsonEncodeObject jsonEncodeObject = factory.CreateJsonObject(
+							job,
+							title,
+							EncodingRes.DefaultChapterName);
+
+						this.PreviewImage = BitmapUtilities.ConvertToBitmapImage(BitmapUtilities.ConvertByteArrayToBitmap(this.main.ScanInstance.GetPreview(jsonEncodeObject, 2)));
 						this.RaisePropertyChanged(nameof(this.TitleText));
 					}
 			    };

@@ -240,8 +240,8 @@ namespace VidCoderCommon.Tests.Model
 			OutputSizeInfo outputSize = JsonEncodeFactory.GetOutputSize(profile, sourceTitle);
 
 			// Assert
-			outputSize.ScaleWidth.ShouldBe(718);
-			outputSize.ScaleHeight.ShouldBe(276);
+			outputSize.ScaleWidth.ShouldBe(276);
+			outputSize.ScaleHeight.ShouldBe(718);
 			outputSize.OutputWidth.ShouldBe(276);
 			outputSize.OutputHeight.ShouldBe(718);
 			outputSize.Par.Num.ShouldBe(9);
@@ -299,8 +299,8 @@ namespace VidCoderCommon.Tests.Model
 			OutputSizeInfo outputSize = JsonEncodeFactory.GetOutputSize(profile, sourceTitle);
 
 			// Assert
-			outputSize.ScaleWidth.ShouldBe(718);
-			outputSize.ScaleHeight.ShouldBe(310);
+			outputSize.ScaleWidth.ShouldBe(310);
+			outputSize.ScaleHeight.ShouldBe(718);
 			outputSize.OutputWidth.ShouldBe(310);
 			outputSize.OutputHeight.ShouldBe(718);
 			AssertNormalPar(outputSize);
@@ -403,8 +403,8 @@ namespace VidCoderCommon.Tests.Model
 			OutputSizeInfo outputSize = JsonEncodeFactory.GetOutputSize(profile, sourceTitle);
 
 			// Assert
-			outputSize.ScaleWidth.ShouldBe(500);
-			outputSize.ScaleHeight.ShouldBe(192);
+			outputSize.ScaleWidth.ShouldBe(192);
+			outputSize.ScaleHeight.ShouldBe(500);
 			outputSize.OutputWidth.ShouldBe(500);
 			outputSize.OutputHeight.ShouldBe(500);
 			outputSize.Par.Num.ShouldBe(25875);
@@ -440,8 +440,8 @@ namespace VidCoderCommon.Tests.Model
 			OutputSizeInfo outputSize = JsonEncodeFactory.GetOutputSize(profile, sourceTitle);
 
 			// Assert
-			outputSize.ScaleWidth.ShouldBe(500);
-			outputSize.ScaleHeight.ShouldBe(216);
+			outputSize.ScaleWidth.ShouldBe(216);
+			outputSize.ScaleHeight.ShouldBe(500);
 			outputSize.OutputWidth.ShouldBe(500);
 			outputSize.OutputHeight.ShouldBe(500);
 			AssertNormalPar(outputSize);
@@ -552,8 +552,8 @@ namespace VidCoderCommon.Tests.Model
 			OutputSizeInfo outputSize = JsonEncodeFactory.GetOutputSize(profile, sourceTitle);
 
 			// Assert
-			outputSize.ScaleWidth.ShouldBe(1080);
-			outputSize.ScaleHeight.ShouldBe(448);
+			outputSize.ScaleWidth.ShouldBe(448);
+			outputSize.ScaleHeight.ShouldBe(1080);
 			outputSize.OutputWidth.ShouldBe(1920);
 			outputSize.OutputHeight.ShouldBe(1080);
 			AssertNormalPar(outputSize);

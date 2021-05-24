@@ -1274,17 +1274,8 @@ namespace VidCoderCommon.Model
 		{
 			if (profile.SizingMode == VCSizingMode.Manual)
 			{
-				int manualOutputWidth, manualOutputHeight;
-				if (profile.Rotation == VCPictureRotation.Clockwise90 || profile.Rotation == VCPictureRotation.Clockwise270)
-				{
-					manualOutputWidth = profile.Height;
-					manualOutputHeight = profile.Width;
-				}
-				else
-				{
-					manualOutputWidth = profile.Width;
-					manualOutputHeight = profile.Height;
-				}
+				int manualOutputWidth = profile.Width;
+				int manualOutputHeight = profile.Height;
 
 				manualOutputWidth += profile.Padding.Left + profile.Padding.Right;
 				manualOutputHeight += profile.Padding.Top + profile.Padding.Bottom;
@@ -1308,6 +1299,18 @@ namespace VidCoderCommon.Model
 
 			int sourceParWidth = title.Geometry.PAR.Num;
 			int sourceParHeight = title.Geometry.PAR.Den;
+
+			// If we are rotating 90/270, swap the source picture width/height and PAR
+			if (profile.Rotation == VCPictureRotation.Clockwise90 || profile.Rotation == VCPictureRotation.Clockwise270)
+			{
+				int temp = sourceWidth;
+				sourceWidth = sourceHeight;
+				sourceHeight = temp;
+
+				temp = sourceParWidth;
+				sourceParWidth = sourceParHeight;
+				sourceParHeight = temp;
+			}
 
 			VCCropping cropping = GetCropping(profile, title);
 			int croppedSourceWidth = sourceWidth - cropping.Left - cropping.Right;
@@ -1343,8 +1346,6 @@ namespace VidCoderCommon.Model
 				adjustedSourceAspect = sourceAspect * sourceParWidth / sourceParHeight;
 			}
 
-			bool swapDimensionsFromRotation = profile.Rotation == VCPictureRotation.Clockwise90 || profile.Rotation == VCPictureRotation.Clockwise270;
-
 			// When using padding fill/width/height, the dimensions we are specifying are post-rotation. We need to adjust here to give the right values to the scale filter.
 			int? maxPictureWidth = null, maxPictureHeight = null;
 			switch (profile.PaddingMode)
@@ -1352,8 +1353,8 @@ namespace VidCoderCommon.Model
 				case VCPaddingMode.Fill:
 				case VCPaddingMode.Width:
 				case VCPaddingMode.Height:
-					maxPictureWidth = swapDimensionsFromRotation ? profile.Height : profile.Width;
-					maxPictureHeight = swapDimensionsFromRotation ? profile.Width : profile.Height;
+					maxPictureWidth = profile.Width;
+					maxPictureHeight = profile.Height;
 					break;
 				case VCPaddingMode.Custom:
 				case VCPaddingMode.None:
@@ -1411,14 +1412,6 @@ namespace VidCoderCommon.Model
 
 			int scaleWidth = pictureOutputWidth;
 			int scaleHeight = pictureOutputHeight;
-
-			// Rotation happens before padding.
-			if (swapDimensionsFromRotation)
-			{
-				int swapDimension = pictureOutputWidth;
-				pictureOutputWidth = pictureOutputHeight;
-				pictureOutputHeight = swapDimension;
-			}
 
 			int outputWidth, outputHeight;
 			VCPadding padding;
@@ -1547,16 +1540,16 @@ namespace VidCoderCommon.Model
 			int totalVerticalPadding = padding.Top + padding.Bottom;
 			bool hasHorizontalPadding = totalHorizontalPadding > 0;
 			bool hasVerticalPadding = totalVerticalPadding > 0;
-			if (!hasHorizontalPadding && !swapDimensionsFromRotation || !hasVerticalPadding && swapDimensionsFromRotation)
+			if (!hasHorizontalPadding)
 			{
 				// The output dimensions at this point are after rotation, so we need to swap to get the pre-rotation sizing dimensions.
-				scaleWidth = swapDimensionsFromRotation ? roundedOutputHeight : roundedOutputWidth;
+				scaleWidth = roundedOutputWidth;
 			}
 
-			if (!hasVerticalPadding && !swapDimensionsFromRotation || !hasHorizontalPadding && swapDimensionsFromRotation)
+			if (!hasVerticalPadding)
 			{
 				// The output dimensions at this point are after rotation, so we need to swap to get the pre-rotation sizing dimensions.
-				scaleHeight = swapDimensionsFromRotation ? roundedOutputWidth : roundedOutputHeight;
+				scaleHeight = roundedOutputHeight;
 			}
 
 			// Refresh the picture output size after adjustment
@@ -1567,18 +1560,9 @@ namespace VidCoderCommon.Model
 			if (profile.UseAnamorphic)
 			{
 				// Calculate PAR from final picture size
-				if (swapDimensionsFromRotation)
-				{
-					outputPar = MathUtilities.CreatePar(
-						(long)croppedSourceHeight * sourceParHeight * pictureOutputHeight,
-						(long)croppedSourceWidth * sourceParWidth * pictureOutputWidth);
-				}
-				else
-				{
-					outputPar = MathUtilities.CreatePar(
-						(long)croppedSourceWidth * sourceParWidth * pictureOutputHeight,
-						(long)croppedSourceHeight * sourceParHeight * pictureOutputWidth);
-				}
+				outputPar = MathUtilities.CreatePar(
+					(long)croppedSourceWidth * sourceParWidth * pictureOutputHeight,
+					(long)croppedSourceHeight * sourceParHeight * pictureOutputWidth);
 			}
 			else
 			{
@@ -1638,8 +1622,7 @@ namespace VidCoderCommon.Model
 			switch (profile.CroppingType)
 			{
 				case VCCroppingType.Automatic:
-					var autoCrop = title.Crop;
-					return new VCCropping(autoCrop[0], autoCrop[1], autoCrop[2], autoCrop[3]);
+					return GetAutomaticCropping(profile.Rotation, profile.FlipHorizontal, profile.FlipVertical, title);
 				case VCCroppingType.None:
 					return new VCCropping(0, 0, 0, 0);
 				case VCCroppingType.Custom:
@@ -1647,6 +1630,61 @@ namespace VidCoderCommon.Model
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+		}
+
+		public static VCCropping GetAutomaticCropping(VCPictureRotation rotation, bool flipHorizontal, bool flipVertical, SourceTitle title)
+		{
+			var autoCrop = title.Crop;
+			int top = autoCrop[0];
+			int bottom = autoCrop[1];
+			int left = autoCrop[2];
+			int right = autoCrop[3];
+
+			int temp;
+
+			if (flipHorizontal)
+			{
+				temp = left;
+				left = right;
+				right = temp;
+			}
+
+			if (flipVertical)
+			{
+				temp = top;
+				top = bottom;
+				bottom = temp;
+			}
+
+			switch (rotation)
+			{
+				case VCPictureRotation.Clockwise90:
+					temp = top;
+					top = left;
+					left = bottom;
+					bottom = right;
+					right = temp;
+					break;
+				case VCPictureRotation.Clockwise180:
+					temp = top;
+					top = bottom;
+					bottom = temp;
+					temp = left;
+					left = right;
+					right = temp;
+					break;
+				case VCPictureRotation.Clockwise270:
+					temp = top;
+					top = right;
+					right = bottom;
+					bottom = left;
+					left = temp;
+					break;
+				default:
+					break;
+			}
+
+			return new VCCropping(top, bottom, left, right);
 		}
 	}
 }

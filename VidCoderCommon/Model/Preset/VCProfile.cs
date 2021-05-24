@@ -69,8 +69,6 @@ namespace VidCoderCommon.Model
 
 		public int PixelAspectY { get; set; }
 
-		public int Modulus { get; set; }
-
 		private VCPictureRotation rotation;
 		public VCPictureRotation Rotation
 		{

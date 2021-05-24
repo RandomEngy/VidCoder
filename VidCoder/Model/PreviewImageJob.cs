@@ -20,7 +20,7 @@ namespace VidCoder.Model
 		/// </summary>
 		public object ImageFileSync { get; set; }
 
-		public VCProfile Profile { get; set; }
+		public VCJob Job { get; set; }
 
 		public SourceTitle Title { get; set; }
 	}

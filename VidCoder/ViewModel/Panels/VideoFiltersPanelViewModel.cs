@@ -267,8 +267,13 @@ namespace VidCoder.ViewModel
 				{
 					this.CustomDetelecine = GetDefaultCustomFilterString(hb_filter_ids.HB_FILTER_DETELECINE);
 				}
+
+				this.previewUpdateService.RefreshPreview();
 			});
-			this.RegisterProfileProperty(nameof(this.CustomDetelecine));
+			this.RegisterProfileProperty(nameof(this.CustomDetelecine), () =>
+			{
+				this.previewUpdateService.RefreshPreview();
+			});
 
 			this.RegisterProfileProperty(nameof(this.DeinterlaceType), () =>
 			{
@@ -303,8 +308,13 @@ namespace VidCoder.ViewModel
 
 					this.CustomDeinterlace = GetDefaultCustomFilterString(GetDeinterlaceFilter(this.DeinterlaceType));
 				}
+
+				this.previewUpdateService.RefreshPreview();
 			});
-			this.RegisterProfileProperty(nameof(this.CustomDeinterlace));
+			this.RegisterProfileProperty(nameof(this.CustomDeinterlace), () =>
+			{
+				this.previewUpdateService.RefreshPreview();
+			});
 			this.RegisterProfileProperty(nameof(this.CombDetect), () =>
 			{
 				if (this.CombDetect == "custom" && string.IsNullOrWhiteSpace(this.CustomCombDetect))
@@ -312,7 +322,10 @@ namespace VidCoder.ViewModel
 					this.CustomCombDetect = GetDefaultCustomFilterString(hb_filter_ids.HB_FILTER_COMB_DETECT);
 				}
 			});
-			this.RegisterProfileProperty(nameof(this.CustomCombDetect));
+			this.RegisterProfileProperty(nameof(this.CustomCombDetect), () =>
+			{
+				this.previewUpdateService.RefreshPreview();
+			});
 
 			this.RegisterProfileProperty(nameof(this.DenoiseType), () =>
 			{
@@ -393,7 +406,10 @@ namespace VidCoder.ViewModel
 			this.RegisterProfileProperty(nameof(this.SharpenTune));
 			this.RegisterProfileProperty(nameof(this.CustomSharpen));
 			this.RegisterProfileProperty(nameof(this.Deblock));
-			this.RegisterProfileProperty(nameof(this.Grayscale));
+			this.RegisterProfileProperty(nameof(this.Grayscale), () =>
+			{
+				this.previewUpdateService.RefreshPreview();
+			});
 		}
 
 		public List<ComboChoice> DetelecineChoices { get; }
