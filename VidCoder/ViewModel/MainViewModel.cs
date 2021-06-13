@@ -1720,7 +1720,7 @@ namespace VidCoder.ViewModel
 				{
 					fileSubtitlesInnerList.Clear();
 
-					FileSubtitle fileSubtitle = ProcessingService.FindSubtitleFile(this.SourcePath, picker);
+					FileSubtitle fileSubtitle = ProcessingService.FindSubtitleFile(this.SourcePath, picker, openDialogOnMissingCharCode: true);
 					if (fileSubtitle != null)
 					{
 						fileSubtitlesInnerList.Add(new FileSubtitleViewModel(this, fileSubtitle));

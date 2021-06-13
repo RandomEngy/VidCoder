@@ -1563,7 +1563,7 @@ namespace VidCoder.Services
 
 				// Choose the correct audio/subtitle tracks based on settings
 				this.AutoPickAudio(job, title);
-				this.AutoPickSubtitles(job, title);
+				this.AutoPickSubtitles(job, title, openDialogOnMissingCharCode: itemsToQueue.Count <= 1);
 
 				// Now that we have the title and subtitles we can determine the final output file name
 				string fileToQueue = job.SourcePath;
@@ -2942,7 +2942,7 @@ namespace VidCoder.Services
 
 		// Automatically pick the correct subtitles on the given job.
 		// Only relies on input from settings and the current title.
-		private void AutoPickSubtitles(VCJob job, SourceTitle title, bool useCurrentContext = false)
+		private void AutoPickSubtitles(VCJob job, SourceTitle title, bool useCurrentContext = false, bool openDialogOnMissingCharCode = true)
 		{
 			Picker picker = this.pickersService.SelectedPicker.Picker;
 
@@ -2991,7 +2991,7 @@ namespace VidCoder.Services
 
 			if (picker.EnableExternalSubtitleImport && job.SourceType == SourceType.File)
 			{
-				FileSubtitle fileSubtitle = FindSubtitleFile(job.SourcePath, picker);
+				FileSubtitle fileSubtitle = FindSubtitleFile(job.SourcePath, picker, openDialogOnMissingCharCode);
 				if (fileSubtitle != null)
 				{
 					job.Subtitles.FileSubtitles.Add(fileSubtitle);
@@ -3203,8 +3203,9 @@ namespace VidCoder.Services
 		/// </summary>
 		/// <param name="sourcePath">The source path to check.</param>
 		/// <param name="picker">The picker settings to use.</param>
+		/// <param name="openDialogOnMissingCharCode">Open a dialog if the char code for the file cannot be determined.</param>
 		/// <returns></returns>
-		public static FileSubtitle FindSubtitleFile(string sourcePath, Picker picker)
+		public static FileSubtitle FindSubtitleFile(string sourcePath, Picker picker, bool openDialogOnMissingCharCode)
 		{
 			if (!picker.EnableExternalSubtitleImport)
 			{
@@ -3218,7 +3219,7 @@ namespace VidCoder.Services
 				string potentialSubtitlePath = pathWithoutExtension + subtitleExtension;
 				if (File.Exists(potentialSubtitlePath))
 				{
-					FileSubtitle fileSubtitle = StaticResolver.Resolve<SubtitlesService>().LoadSubtitleFile(potentialSubtitlePath, picker.ExternalSubtitleImportLanguage);
+					FileSubtitle fileSubtitle = StaticResolver.Resolve<SubtitlesService>().LoadSubtitleFile(potentialSubtitlePath, picker.ExternalSubtitleImportLanguage, openDialogOnMissingCharCode);
 					fileSubtitle.Default = picker.ExternalSubtitleImportDefault;
 					fileSubtitle.BurnedIn = picker.ExternalSubtitleImportBurnIn;
 

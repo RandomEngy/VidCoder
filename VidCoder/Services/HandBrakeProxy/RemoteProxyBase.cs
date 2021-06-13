@@ -427,7 +427,7 @@ namespace VidCoder
 
 			this.pingTimer.Start();
 
-			this.processPrioritySubscription = Config.Observables.WorkerProcessPriority.Skip(1).Subscribe(async _ =>
+			this.processPrioritySubscription = Config.Observables.WorkerProcessPriority.Skip(1).Subscribe(_ =>
 			{
 				try
 				{

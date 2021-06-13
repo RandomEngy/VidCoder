@@ -21,7 +21,7 @@ namespace VidCoder.Services
 			this.logger = logger;
 		}
 
-		public FileSubtitle LoadSubtitleFile(string subtitlePath, string language = null)
+		public FileSubtitle LoadSubtitleFile(string subtitlePath, string language = null, bool openDialogOnMissingCharCode = true)
 		{
 			try
 			{
@@ -46,7 +46,11 @@ namespace VidCoder.Services
 
 				if (characterCode == null)
 				{
-					StaticResolver.Resolve<IMessageBoxService>().Show(this, SubtitleRes.SubtitleCharsetDetectionFailedMessage);
+					if (openDialogOnMissingCharCode)
+					{
+						StaticResolver.Resolve<IMessageBoxService>().Show(this, SubtitleRes.SubtitleCharsetDetectionFailedMessage);
+					}
+
 					characterCode = "UTF-8";
 				}
 
