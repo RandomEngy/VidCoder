@@ -24,6 +24,7 @@ namespace VidCoder.ViewModel
 		private object currentJobIndexLock = new object();
 		private IScanProxy scanProxy;
 		private IAppLogger scanLogger;
+		private int scansDoneOnCurrentScanProxy;
 		private SourcePath currentPath;
 		private bool allowClose;
 
@@ -60,6 +61,15 @@ namespace VidCoder.ViewModel
 		private void ScanNextJob()
 		{
 			this.currentPath = this.pathsToScan[this.currentJobIndex];
+
+			// Workaround to fix hang when scanning too many items at once
+			if (this.scansDoneOnCurrentScanProxy > 40)
+			{
+				this.scanProxy.Dispose();
+				this.scanProxy = null;
+				this.scansDoneOnCurrentScanProxy = 0;
+			}
+
 			this.EnsureScanProxyCreated();
 
 			this.scanLogger = StaticResolver.Resolve<AppLoggerFactory>().ResolveRemoteScanLogger(this.currentPath.Path);
@@ -112,6 +122,7 @@ namespace VidCoder.ViewModel
 						}
 						else
 						{
+							this.scansDoneOnCurrentScanProxy++;
 							this.ScanNextJob();
 						}
 					}
