@@ -649,6 +649,17 @@ namespace VidCoder
 			return folderType == FolderType.Dvd || folderType == FolderType.BluRay;
 		}
 
+		public static string EnsureVideoTsFolder(string directory)
+		{
+			string videoTsPath = Path.Combine(directory, "VIDEO_TS");
+			if (Directory.Exists(videoTsPath))
+			{
+				return videoTsPath;
+			}
+
+			return directory;
+		}
+
 		public static string Wow64RegistryKey
 		{
 			get

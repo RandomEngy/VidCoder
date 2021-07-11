@@ -677,7 +677,7 @@ namespace VidCoder.ViewModel
 			if (Utilities.IsDiscFolder(folder))
 			{
 				// If it's a disc folder, add it
-				pathList.Add(new SourcePath { Path = folder, SourceType = SourceType.DiscVideoFolder });
+				pathList.Add(new SourcePath { Path = Utilities.EnsureVideoTsFolder(folder), SourceType = SourceType.DiscVideoFolder });
 			}
 			else
 			{
@@ -829,6 +829,8 @@ namespace VidCoder.ViewModel
 
 			this.SourceName = Utilities.GetSourceNameFolder(videoFolder);
 
+			videoFolder = Utilities.EnsureVideoTsFolder(videoFolder);
+
 			this.StartScan(videoFolder);
 
 			this.SourcePath = videoFolder;
@@ -843,7 +845,8 @@ namespace VidCoder.ViewModel
 			}
 
 			this.SourceName = driveInfo.VolumeLabel;
-			this.SourcePath = driveInfo.RootDirectory;
+
+			this.SourcePath = Utilities.EnsureVideoTsFolder(driveInfo.RootDirectory);
 
 			this.SelectedSource = new SourceOption { Type = SourceType.Disc, DriveInfo = driveInfo };
 			this.StartScan(this.SourcePath);
