@@ -1239,11 +1239,11 @@ namespace VidCoder.Services
 				jobVM.Job.Length = title.Duration.ToSpan();
 
 				// Choose the correct range based on picker settings
-				this.AutoPickRange(job, title);
+				this.AutoPickRange(job, title, picker: picker);
 
 				// Choose the correct audio/subtitle tracks based on settings
-				this.AutoPickAudio(job, title);
-				this.AutoPickSubtitles(job, title);
+				this.AutoPickAudio(job, title, picker: picker);
+				this.AutoPickSubtitles(job, title, picker: picker);
 
 				// Now that we have the title and subtitles we can determine the final output file name
 				if (string.IsNullOrWhiteSpace(destination))
@@ -2748,9 +2748,12 @@ namespace VidCoder.Services
 
 		// Automatically pick the correct audio on the given job.
 		// Only relies on input from settings and the current title.
-		private void AutoPickAudio(VCJob job, SourceTitle title, bool useCurrentContext = false)
+		private void AutoPickAudio(VCJob job, SourceTitle title, bool useCurrentContext = false, Picker picker = null)
 		{
-			Picker picker = this.pickersService.SelectedPicker.Picker;
+			if (picker == null)
+			{
+				picker = this.pickersService.SelectedPicker.Picker;
+			}
 
 			int outputIndex = 0;
 
@@ -2942,9 +2945,12 @@ namespace VidCoder.Services
 
 		// Automatically pick the correct subtitles on the given job.
 		// Only relies on input from settings and the current title.
-		private void AutoPickSubtitles(VCJob job, SourceTitle title, bool useCurrentContext = false, bool openDialogOnMissingCharCode = true)
+		private void AutoPickSubtitles(VCJob job, SourceTitle title, bool useCurrentContext = false, bool openDialogOnMissingCharCode = true, Picker picker = null)
 		{
-			Picker picker = this.pickersService.SelectedPicker.Picker;
+			if (picker == null)
+			{
+				Picker = this.pickersService.SelectedPicker.Picker;
+			}
 
 			job.Subtitles = new VCSubtitles { SourceSubtitles = new List<ChosenSourceSubtitle>(), FileSubtitles = new List<FileSubtitle>() };
 			switch (picker.SubtitleSelectionMode)
@@ -3303,9 +3309,14 @@ namespace VidCoder.Services
 		/// </summary>
 		/// <param name="job">The job to pick the range on.</param>
 		/// <param name="title">The title the job is applied to.</param>
-		private void AutoPickRange(VCJob job, SourceTitle title)
+		/// <param name="picker">The picker to use to pick the range.</param>
+		private void AutoPickRange(VCJob job, SourceTitle title, Picker picker = null)
 		{
-			Picker picker = this.pickersService.SelectedPicker.Picker;
+			if (picker == null)
+			{
+				picker = this.pickersService.SelectedPicker.Picker;
+			}
+
 			switch (picker.PickerTimeRangeMode)
 			{
 				case PickerTimeRangeMode.Chapters:
