@@ -2949,7 +2949,7 @@ namespace VidCoder.Services
 		{
 			if (picker == null)
 			{
-				Picker = this.pickersService.SelectedPicker.Picker;
+				picker = this.pickersService.SelectedPicker.Picker;
 			}
 
 			job.Subtitles = new VCSubtitles { SourceSubtitles = new List<ChosenSourceSubtitle>(), FileSubtitles = new List<FileSubtitle>() };
