@@ -57,7 +57,7 @@ namespace VidCoder
 			}
 
 			string mutexName = CommonUtilities.Beta ? "VidCoderBetaInstanceMutex" : "VidCoderInstanceMutex";
-			bool createdNew;
+			bool createdNew = true;
 
 			try
 			{
@@ -67,12 +67,27 @@ namespace VidCoder
 				{
 					var automationClient = new AutomationClient();
 					automationClient.RunActionAsync(a => a.BringToForeground()).Wait();
+
+					// BringToForeground succeeded. We can end this process and use the other one.
 					Environment.Exit(0);
 					return;
 				}
 			}
 			catch (AbandonedMutexException)
 			{
+				// Another instance has crashed, abandoning its mutex. But that's fine.
+			}
+			catch
+			{
+				// If we get here then we've failed to activate the other instance. It might be in a bad state so we'll kill it and continue.
+				Process[] processes = Process.GetProcesses();
+				foreach (Process process in processes)
+				{
+					if (process.ProcessName == "VidCoder" && process.Id != Process.GetCurrentProcess().Id)
+					{
+						process.Kill();
+					}
+				}
 			}
 
 			OperatingSystem OS = Environment.OSVersion;

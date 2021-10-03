@@ -2117,32 +2117,7 @@ namespace VidCoder.Services
 						{
 							try
 							{
-								var inputShellFile = ShellFile.FromFilePath(finishedJobViewModel.Job.SourcePath);
-								var outputShellFile = ShellFile.FromFilePath(finalOutputPath);
-
-								try
-								{
-									DateTime? inputFileMediaCreatedTime = inputShellFile.Properties.System.Media.DateEncoded.Value;
-									if (inputFileMediaCreatedTime != null)
-									{
-										outputShellFile.Properties.System.Media.DateEncoded.Value = inputFileMediaCreatedTime;
-									}
-								}
-								catch (Exception exception)
-								{
-									encodeLogger.LogError("Could not set encoded date on file: " + exception);
-								}
-
-								File.SetCreationTimeUtc(finalOutputPath, inputShellFile.Properties.System.DateCreated.Value.Value);
-
-								// Set "last write" time last so it isn't reset by another property edit.
-								File.SetLastWriteTimeUtc(finalOutputPath, inputShellFile.Properties.System.DateModified.Value.Value);
-
-								// Writing Created/Modified time does not work via the ShellFile API, otherwise we would use this approach to set them all at once.
-								//ShellPropertyWriter propertyWriter = outputShellFile.Properties.GetPropertyWriter();
-								//propertyWriter.WriteProperty(SystemProperties.System.DateCreated, inputShellFile.Properties.System.DateCreated.Value);
-								//propertyWriter.WriteProperty(SystemProperties.System.DateModified, inputShellFile.Properties.System.DateModified.Value);
-								//propertyWriter.Close();
+								UpdateFileTimes(finishedJobViewModel, encodeLogger, finalOutputPath);
 							}
 							catch (Exception exception)
 							{
@@ -2350,6 +2325,36 @@ namespace VidCoder.Services
 					}
 				}
 			});
+		}
+
+		private static void UpdateFileTimes(EncodeJobViewModel finishedJobViewModel, IAppLogger encodeLogger, string finalOutputPath)
+		{
+			var inputShellFile = ShellFile.FromFilePath(finishedJobViewModel.Job.SourcePath);
+			var outputShellFile = ShellFile.FromFilePath(finalOutputPath);
+
+			try
+			{
+				DateTime? inputFileMediaCreatedTime = inputShellFile.Properties.System.Media.DateEncoded.Value;
+				if (inputFileMediaCreatedTime != null)
+				{
+					outputShellFile.Properties.System.Media.DateEncoded.Value = inputFileMediaCreatedTime;
+				}
+			}
+			catch (Exception exception)
+			{
+				encodeLogger.LogError("Could not set encoded date on file: " + exception);
+			}
+
+			File.SetCreationTimeUtc(finalOutputPath, inputShellFile.Properties.System.DateCreated.Value.Value);
+
+			// Set "last write" time last so it isn't reset by another property edit.
+			File.SetLastWriteTimeUtc(finalOutputPath, inputShellFile.Properties.System.DateModified.Value.Value);
+
+			// Writing Created/Modified time does not work via the ShellFile API, otherwise we would use this approach to set them all at once.
+			//ShellPropertyWriter propertyWriter = outputShellFile.Properties.GetPropertyWriter();
+			//propertyWriter.WriteProperty(SystemProperties.System.DateCreated, inputShellFile.Properties.System.DateCreated.Value);
+			//propertyWriter.WriteProperty(SystemProperties.System.DateModified, inputShellFile.Properties.System.DateModified.Value);
+			//propertyWriter.Close();
 		}
 
 		private void TriggerQueueCompleteNotificationIfBackground()
