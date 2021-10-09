@@ -61,6 +61,7 @@ namespace VidCoder.Services
 		private OutputPathService outputPathService = StaticResolver.Resolve<OutputPathService>();
 		private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
 		private PickersService pickersService = StaticResolver.Resolve<PickersService>();
+		private HardwareResourceService hardwareResourceService = StaticResolver.Resolve<HardwareResourceService>();
 		private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
 		private IToastNotificationService toastNotificationService = StaticResolver.Resolve<IToastNotificationService>();
 		private IAppThemeService appThemeService = StaticResolver.Resolve<IAppThemeService>();
@@ -1783,17 +1784,24 @@ namespace VidCoder.Services
 				return;
 			}
 
-			// Make sure the top N jobs are encoding.
+			// Make sure we've started encoding the correct number of simultaneous jobs.
 			var encodeQueueList = this.EncodeQueue.Items.ToList();
-			int maxEncodes = Config.MaxSimultaneousEncodes > 0 ? Config.MaxSimultaneousEncodes : 1;
-			for (int i = 0; i < maxEncodes && i < this.EncodeQueue.Count; i++)
+			for (int i = 0; i < this.EncodeQueue.Count; i++)
 			{
 				EncodeJobViewModel jobViewModel = encodeQueueList[i];
-
 				if (!jobViewModel.Encoding)
 				{
-					this.TaskNumber++;
-					this.StartEncode(jobViewModel);
+					if (this.hardwareResourceService.TryAcquireSlot(jobViewModel))
+					{
+						// We acquired all the hardware we need, so we can start the encode.
+						this.TaskNumber++;
+						this.StartEncode(jobViewModel);
+					}
+					else
+					{
+						// If we couldn't acquire a hardware slot, bail.
+						break;
+					}
 				}
 			}
 
@@ -2038,6 +2046,8 @@ namespace VidCoder.Services
 
 			DispatchUtilities.BeginInvoke(() =>
 			{
+				this.hardwareResourceService.ReleaseSlot(finishedJobViewModel);
+
 				IAppLogger encodeLogger = finishedJobViewModel.EncodeLogger;
 				string finalOutputPath = finishedJobViewModel.Job.FinalOutputPath;
 				FileInfo directOutputFileInfo;
@@ -2060,7 +2070,7 @@ namespace VidCoder.Services
 
 				if (this.encodeCompleteReason == EncodeCompleteReason.Finished)
 				{
-					// If the encode finished naturally
+					// If the encode finished naturally (Not stopped by user)
 					this.WorkTracker.ReportFinished(finishedJobViewModel.Work);
 
 					long outputFileLength = 0;
