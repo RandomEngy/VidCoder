@@ -100,6 +100,11 @@ namespace VidCoder.Model
 			{
 				UpgradePickerTo41(picker);
 			}
+
+			if (oldDatabaseVersion < 43)
+			{
+				UpgradePickerTo43(picker);
+			}
 		}
 
 	    private static void UpgradePickerTo36(Picker picker)
@@ -297,6 +302,12 @@ namespace VidCoder.Model
 			}
 
 			picker.ExtensionData?.Remove("SubtitleBurnIn");
+		}
+
+		private static void UpgradePickerTo43(Picker picker)
+		{
+			// Somehow the extension data from some old pickers hadn't gotten cleared out.
+			picker.ExtensionData = null;
 		}
 
 		public static string CreateCustomPickerName(List<Picker> existingPickers)

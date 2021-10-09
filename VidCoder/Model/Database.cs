@@ -336,6 +336,9 @@ namespace VidCoder.Model
 			foreach (Picker picker in pickers)
 			{
 				PickerStorage.UpgradePicker(picker, databaseVersion);
+
+				// As a precaution, null out the extension data. This doesn't work with our cloning library and is only needed for JSON deserialization.
+				picker.ExtensionData = null;
 			}
 
 			var pickerJsonList = pickers.Select(PickerStorage.SerializePicker).ToList();
