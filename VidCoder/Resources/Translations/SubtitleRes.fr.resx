@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SubtitlesWindowTitle" xml:space="preserve">
-    <value>Sous-titres</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>Source de sous-titres  :</value>
   </data>
@@ -156,9 +153,7 @@
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Les autres pistes de sous-titres chevaucheront les sous-titres gravés.</value>
   </data>
-  <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Recherche piste audio étrangère</value>
-  </data>
+  
   
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Ne pouvait pas détecter l’encodage du fichier sous-titre. Pour s’assurer que les sous-titres apparaissent correctement, ré-enregistrez le fichier au format UTF-8.</value>

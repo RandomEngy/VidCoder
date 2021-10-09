@@ -112,25 +112,13 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AudioSelection" xml:space="preserve">
-    <value>音訊選擇</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>內嵌</value>
-  </data>
   <data name="DefaultCheckBox" xml:space="preserve">
     <value>預設</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>外語音訊搜尋</value>
-  </data>
-  <data name="IncludeAllTracksRadioButton" xml:space="preserve">
-    <value>所有軌道</value>
   </data>
   <data name="LanguagesRadioButton" xml:space="preserve">
     <value>語言</value>
@@ -139,14 +127,8 @@
     <value>僅於與音訊語言不同時</value>
     <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
   </data>
-  <data name="SubtitleSelection" xml:space="preserve">
-    <value>字幕選擇</value>
-  </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>選取器: {0}</value>
-  </data>
-  <data name="TitleSelection" xml:space="preserve">
-    <value>標題選擇</value>
   </data>
   <data name="PickerButtonFormat" xml:space="preserve">
     <value>選取器: {0}</value>
@@ -222,21 +204,6 @@
     <value>將第一項標為預設</value>
     <comment>Label for checkbox to mark the first subtitle as default.</comment>
   </data>
-  <data name="AllSubtitlesToolTip" xml:space="preserve">
-    <value>包含所有字幕。</value>
-  </data>
-  <data name="SubtitleNoneToolTip" xml:space="preserve">
-    <value>無包含任何字幕。</value>
-  </data>
-  <data name="AudioFirstToolTip" xml:space="preserve">
-    <value>僅包含第一音軌。</value>
-  </data>
-  <data name="AudioAllToolTip" xml:space="preserve">
-    <value>包含所有音軌。</value>
-  </data>
-  <data name="SubtitleFirstToolTip" xml:space="preserve">
-    <value>僅包含第一字幕軌。</value>
-  </data>
   <data name="PresetLabel" xml:space="preserve">
     <value>使用預設值:</value>
   </data>
@@ -250,15 +217,8 @@
     <value>僅強制</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
-  <data name="AudioDefaultToolTip" xml:space="preserve">
-    <value>若找到符合項目則選取上次選取的音軌，若否則選取第一音軌。</value>
-  </data>
   <data name="LastSelectedRadioButton" xml:space="preserve">
     <value>最後選取</value>
-  </data>
-  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
-    <value>若找到符合項目則選取上次選取的音軌，若否則不選取音軌。</value>
-    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
   </data>
   <data name="OverrideNameFormatLabel" xml:space="preserve">
     <value>可用選項: {0}</value>
@@ -277,14 +237,8 @@
     <value>依經過時間過濾標題</value>
     <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
   </data>
-  <data name="TimeRangeSelection" xml:space="preserve">
-    <value>時間範圍選擇</value>
-  </data>
-  <data name="SelectTimeRangeCheckBox" xml:space="preserve">
-    <value>選擇時間範圍</value>
-  </data>
-  <data name="TitleCaptializationLabel" xml:space="preserve">
-    <value>標題大寫:</value>
+  <data name="ChangeCaptializationLabel" xml:space="preserve">
+    <value>變更大寫設定為</value>
   </data>
   <data name="TimeRangeStartAutomationName" xml:space="preserve">
     <value>時間範圍起始</value>
@@ -307,5 +261,132 @@
   </data>
   <data name="ChapterRangeStartAutomationName" xml:space="preserve">
     <value>章節範圍起始處</value>
+  </data>
+  <data name="DestinationSection" xml:space="preserve">
+    <value>輸出位置</value>
+  </data>
+  <data name="OutputFolder" xml:space="preserve">
+    <value>輸出資料夾:</value>
+    <comment>Label for the output folder.</comment>
+  </data>
+  <data name="UseCustomFileNameFormatCheckBox" xml:space="preserve">
+    <value>使用自訂檔名格式:</value>
+  </data>
+  <data name="WhenFileExistsBatch" xml:space="preserve">
+    <value>若檔案存在 (批次):</value>
+  </data>
+  <data name="WhenFileExistsSingle" xml:space="preserve">
+    <value>若檔案存在 (單檔)</value>
+  </data>
+  <data name="CustomPickerNameTemplate" xml:space="preserve">
+    <value>自訂 {0}</value>
+    <comment>The name for a custom auto-created picker. {0} is a number like 2, or 3 or 4 to differentiate it</comment>
+  </data>
+  <data name="OutputFileNameFormatAutomationName" xml:space="preserve">
+    <value>檔名格式</value>
+    <comment>Name for screen readers for the output file name format text box</comment>
+  </data>
+  <data name="OnlyChangeCapitalizationIfAllSameLabel" xml:space="preserve">
+    <value>僅於全小寫或全大寫字母時變更大寫設定</value>
+  </data>
+  <data name="WordBreakCharacterAutomationNameFormat" xml:space="preserve">
+    <value>斷字字元 - {0}</value>
+    <comment>Screen reader format for word break checkboxes. These will determine if a character will be used to separate words.</comment>
+  </data>
+  <data name="WordBreakCharactersLabel" xml:space="preserve">
+    <value>認可的斷字字元:</value>
+  </data>
+  <data name="WordBreakCharacter_Dot" xml:space="preserve">
+    <value>點</value>
+  </data>
+  <data name="WordBreakCharacter_Space" xml:space="preserve">
+    <value>空白</value>
+  </data>
+  <data name="WordBreakCharacter_Underscore" xml:space="preserve">
+    <value>底線</value>
+  </data>
+  <data name="ChangeWordSeparatorLabel" xml:space="preserve">
+    <value>變更分隔字元為</value>
+  </data>
+  <data name="SourceCleanupPreviewLabel" xml:space="preserve">
+    <value>預覽:</value>
+  </data>
+  <data name="SourceNameCleanupSection" xml:space="preserve">
+    <value>來源檔名清除</value>
+  </data>
+  <data name="AddAudioTrackNameButton" xml:space="preserve">
+    <value>新增音軌名稱</value>
+    <comment>Button to add another name to the list of audio track names in the Picker.</comment>
+  </data>
+  <data name="AddSubtitleTrackNameButton" xml:space="preserve">
+    <value>新增字幕軌名稱</value>
+    <comment>Button to add another name to the list of subtitle track names in the Picker.</comment>
+  </data>
+  <data name="CustomTrackNamesCheckBox" xml:space="preserve">
+    <value>自訂軌道名稱</value>
+    <comment>Checkbox label to use custom audio or subtitle track names</comment>
+  </data>
+  <data name="TrackAutomationFormat" xml:space="preserve">
+    <value>軌 {0}</value>
+    <comment>Screen reader format for track names in the Picker.</comment>
+  </data>
+  <data name="BurnInLabel" xml:space="preserve">
+    <value>內嵌:</value>
+  </data>
+  <data name="PickerAudioSectionName" xml:space="preserve">
+    <value>音訊</value>
+  </data>
+  <data name="PickerForeignAudioCheckBox" xml:space="preserve">
+    <value>新增「外語音訊掃描」軌</value>
+  </data>
+  <data name="PickerSubtitleSectionName" xml:space="preserve">
+    <value>字幕</value>
+  </data>
+  <data name="SubtitleSelectionMode_ForeignAudioSearch" xml:space="preserve">
+    <value>外語音訊掃描</value>
+  </data>
+  <data name="TrackSelectionLabel" xml:space="preserve">
+    <value>軌道選擇模式:</value>
+    <comment>Label for track selection mode for audio or subtitle tracks.</comment>
+  </data>
+  <data name="AudioSelectionModeToolTip" xml:space="preserve">
+    <value>上次選擇 - 若存在上次選擇過的音軌則選擇之，否則選取首軌。
+首軌 - 僅放入首個音軌。
+索引 - 依索引選取軌道 (起始為 1)
+語言 - 依語言選取。
+全部 - 放入所有音軌。</value>
+  </data>
+  <data name="SubtitleSelectionModeToolTip" xml:space="preserve">
+    <value>上次選擇 - 若存在上次選擇過的字幕軌則選擇之，否則不選取任何軌。
+無 - 不放入任何字幕軌。
+首軌 - 僅放入首個字幕軌。
+索引 - 依索引選取軌道 (起始為 1)
+語言 - 依語言選取。
+全部 - 放入所有字幕軌。</value>
+  </data>
+  <data name="IgnoreFilesBelowCheckBox" xml:space="preserve">
+    <value>忽略以下檔案</value>
+    <comment>A number box follows this string: Ignore files below [ 10 ] MB</comment>
+  </data>
+  <data name="TimeRangeLabel" xml:space="preserve">
+    <value>時間範圍:</value>
+  </data>
+  <data name="VideoSelectionSection" xml:space="preserve">
+    <value>視訊選擇</value>
+  </data>
+  <data name="MetadataSection" xml:space="preserve">
+    <value>元資料</value>
+  </data>
+  <data name="PassThroughMetadataCheckBox" xml:space="preserve">
+    <value>直接傳送視訊元資料 (導演、出版日期、演員等)</value>
+  </data>
+  <data name="BurnInCheckBox" xml:space="preserve">
+    <value>內嵌</value>
+  </data>
+  <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
+    <value>新增與輸入視訊檔同檔名的外部字幕檔 ({0})</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>語言:</value>
   </data>
 </root>

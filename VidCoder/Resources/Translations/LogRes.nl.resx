@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="LogWindowTitle" xml:space="preserve">
-    <value>Log</value>
+    <value>Logboek</value>
   </data>
   <data name="GeneralLogLabel" xml:space="preserve">
     <value>Algemeen</value>

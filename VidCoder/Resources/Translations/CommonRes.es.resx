@@ -112,29 +112,29 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutLicense" xml:space="preserve">
-    <value>Este programa es software libre; Usted puede redistribuirlo y/o modificarlo bajo los terminos de la GNU General Public License publicada por la Free Software Foundation; sea version 2 de la licencia, o (a su opcion) cualquier version posterior.
+    <value>Este programa es software libre; puedes redistribuirlo y/o modificarlo bajo los terminos de la GNU General Public License publicada por la Free Software Foundation; ya sea, la versión 2 de la licencia, o (a su opción) cualquier versión posterior.
 
-Este programa se distribuye con la esperanza de que sea util, pero SIN GARANTIA ALGUNA; ni siquiera la garantia implicita de COMERCIABILIDAD o IDONEIDAD PARA UN FIN DETERMINADO. Consulte la GNU General Public License para obtener más detalles.
+Este programa se distribuye con la esperanza de que sea útil, pero SIN GARANTIA ALGUNA; ni siquiera la garantía implícita de COMERCIABILIDAD o IDONEIDAD PARA UN FIN DETERMINADO. Consulte la GNU General Public License para obtener más detalles.
 
-Una copia completa de la Licencia Publica General de GNU se ha incluido junto con este programa.</value>
+Una copia completa de la GNU General Public License se ha incluido con este programa.</value>
   </data>
   <data name="BurnedSubtitleToolTip" xml:space="preserve">
     <value>'Pega' los subtítulos en la imagen. Los subtítulos 'pegados' no pueden ser deshabilitados durante la reproducción del video.</value>
   </data>
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
-    <value>Define este subtítulo como predeterminado. Se mostrará durante la reproducción hasta que otra pista sea elegida.</value>
+    <value>Establece este subtítulo como predeterminado. Se mostrará durante la reproducción hasta que otra pista sea elegida.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Solo muestra los subtítulos forzados de la lista de subtítulos. Éstos suelen ser pequeños fragmentos de diálogo en idiomas extranjeros.</value>
+    <value>Sólo muestra los subtítulos forzados de la lista de subtítulos. Éstos suelen ser pequeños fragmentos de diálogo en idiomas extranjeros.</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
-    <value>La cantidad de tiempo a adelantar o atrasar la aparición de los subtítulos.</value>
+    <value>La cantidad de tiempo que demora el subtítulo en mostrarse (antes o después).</value>
   </data>
   <data name="QueueColumnNameRange" xml:space="preserve">
     <value>Rango</value>
@@ -163,7 +163,7 @@ Una copia completa de la Licencia Publica General de GNU se ha incluido junto co
     <value>Calidad de vídeo</value>
   </data>
   <data name="QueueEtaToolTip" xml:space="preserve">
-    <value>Estimación del tiempo restante para que finalicen todos los trabajos en cola.</value>
+    <value>Tiempo estimado restante para concluir todos los trabajos en cola.</value>
   </data>
   <data name="QueueColumnNameDuration" xml:space="preserve">
     <value>Duración</value>
@@ -251,7 +251,7 @@ Una copia completa de la Licencia Publica General de GNU se ha incluido junto co
     <value>No se pudo completar la operación del archivo.</value>
   </data>
   <data name="FileFailureErrorTitle" xml:space="preserve">
-    <value>Error en la operación con el archivo</value>
+    <value>Error durante la operación del archivo</value>
   </data>
   <data name="OverrideNameFormatCheckBox" xml:space="preserve">
     <value>Reemplazar el formato de nomenclatura:</value>
@@ -263,7 +263,7 @@ Una copia completa de la Licencia Publica General de GNU se ha incluido junto co
     <value>Conservar el árbol de carpetas durante la codificación en lote</value>
   </data>
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>Si codifica una carpeta repleta de archivos, la versión resultante sera guardada en sub carpetas conservando la estructura del directorio origen.</value>
+    <value>Si codifica una carpeta con archivos, la versión resultante sera guardada en sub carpetas conservando la estructura del directorio origen.</value>
   </data>
   <data name="DismissMessage" xml:space="preserve">
     <value>Descartar mensaje</value>
@@ -318,4 +318,11 @@ Una copia completa de la Licencia Publica General de GNU se ha incluido junto co
   <data name="DefaultLabel" xml:space="preserve">
     <value>Predeterminado:</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
 </root>

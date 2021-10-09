@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
     <value>ფაილი:</value>
@@ -181,12 +181,6 @@
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
     <value>VidCoder-ის შესახებ...</value>
   </data>
-  <data name="ChooseVideoSourceLabel" xml:space="preserve">
-    <value>აირჩიეთ ვიდეო:</value>
-  </data>
-  <data name="SourceLabel" xml:space="preserve">
-    <value>წყარო:</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>ბოლოს გახსნილი</value>
   </data>
@@ -195,9 +189,6 @@
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>სკანირებისას შეცდომა დაფიქსირდა.</value>
-  </data>
-  <data name="AddTrackButton" xml:space="preserve">
-    <value>წყაროს დამატება</value>
   </data>
   <data name="ChapterMarkersLabel" xml:space="preserve">
     <value>სათავის მნიშვნელი:</value>
@@ -210,12 +201,6 @@
   </data>
   <data name="DestinationToolTip" xml:space="preserve">
     <value>დააწაქით შენახვის ადგილის შესაცვლელად.</value>
-  </data>
-  <data name="SelectOutputPathButton" xml:space="preserve">
-    <value>დასამახსოვრებელი ადგილი...</value>
-  </data>
-  <data name="EncodingLabel" xml:space="preserve">
-    <value>კოდირება:</value>
   </data>
   <data name="Stop" xml:space="preserve">
     <value>შეწყვეტა</value>
@@ -233,10 +218,10 @@
     <value>მწკრივის პერსონალიზირება...</value>
   </data>
   <data name="CurrentFpsLabel" xml:space="preserve">
-    <value>აქტუალური FPS:</value>
+    <value>აქტუალური კადრი:</value>
   </data>
   <data name="AverageFpsLabel" xml:space="preserve">
-    <value>ცვლადი FPS:</value>
+    <value>ცვლადი კადრი:</value>
   </data>
   <data name="PickDiscFolderHelpText" xml:space="preserve">
     <value>აირჩიეთ DVD ან Blu-Ray ფოლდერი.</value>
@@ -247,14 +232,8 @@
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
     <value>კოდირება მიმდინარეობს</value>
   </data>
-  <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>უცხო ენის აუდიოს მოძიება</value>
-  </data>
   <data name="NoneParen" xml:space="preserve">
     <value>(არანაირი)</value>
-  </data>
-  <data name="TracksSummaryMultiple" xml:space="preserve">
-    <value>{0} წყარო</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
     <value>გსურთ აქტუალური შაბლონის ცვილებების დამახსოვრება?</value>
@@ -270,9 +249,6 @@
   </data>
   <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
     <value>აღდგენილია დასრულებულებიდან</value>
-  </data>
-  <data name="PresetLabel" xml:space="preserve">
-    <value>შაბლონი:</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
     <value>შენახვის ადგილი</value>
@@ -329,9 +305,6 @@
 
 {0}</value>
   </data>
-  <data name="DirectoryCreateErrorTitle" xml:space="preserve">
-    <value>ფოლდერის შექმნა შეუძლებელია</value>
-  </data>
   <data name="EncodeCompleted" xml:space="preserve">
     <value>კოდირება დასრულებულია.</value>
   </data>
@@ -340,12 +313,6 @@
   </data>
   <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
     <value>VidCoder-მა სიის ყველა სამუშაო დაასრულა.</value>
-  </data>
-  <data name="OutputFolderRequiredMessage" xml:space="preserve">
-    <value>სტანდარტული დასამახსოვრებელი ადგილის გარეშე, კოდირების დავალების დამატება შეუძლებელია. ასარჩევად დააწექით დათანხმებას.</value>
-  </data>
-  <data name="OutputFolderRequiredTitle" xml:space="preserve">
-    <value>მოითხოვს სტანდარტულ დასამახსოვრებელ ადგილს</value>
   </data>
   <data name="OutputPathNotValidMessage" xml:space="preserve">
     <value>დასამახსოვრებელ ადგილად არ გამოდგება.</value>
@@ -425,9 +392,6 @@
   <data name="RemoveConfirmTitle" xml:space="preserve">
     <value>წაშლა</value>
   </data>
-  <data name="UserConfigCorrupted" xml:space="preserve">
-    <value>დაზიანებული კონფიგურაციის გამო ჩატვირთვა ვერ მოხერხდა. ზოგი პარამეტრები სტანდარტზე აღდგება.</value>
-  </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
     <value>კოდირებული ვიდეო ფაილებისთვის აირჩეთ დასამახსოვრებელი ადგილი.</value>
   </data>
@@ -444,9 +408,6 @@
     <value>ფოლდერის გახსნა...</value>
   </data>
   <data name="CloseVideoSourceToolTip" xml:space="preserve">
-    <value>ვიდეოს დახურვა</value>
-  </data>
-  <data name="CloseVideoSourceMenuItem" xml:space="preserve">
     <value>ვიდეოს დახურვა</value>
   </data>
   <data name="UpdatesMenuItem" xml:space="preserve">
@@ -481,9 +442,6 @@
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>გსურთ ცვილებების გაუქმება?</value>
-  </data>
-  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
-    <value>აუდიო წყაროს წაშლა</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
     <value>დავალების სიიდან წაშლა</value>
@@ -544,10 +502,6 @@
   <data name="CouldNotLoadPickerMessage" xml:space="preserve">
     <value>ამომრჩევის ჩატვირთვა ვერ ხერხდება: </value>
   </data>
-  <data name="PickerNameTemplate" xml:space="preserve">
-    <value>{0} ამომრჩევი</value>
-    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
-  </data>
   <data name="SimilarTitlesToolTip" xml:space="preserve">
     <value>სხვა ფაილი {0} არსებობს მსგავსი ხანგრძლივობით.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
@@ -562,9 +516,6 @@
   <data name="CustomVideoPlayerError" xml:space="preserve">
     <value>პერსონალური რეპროდუქტორი {0}-ში ვერ მოიძებნა.</value>
     <comment>{0} is the path to the custom video player.</comment>
-  </data>
-  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
-    <value>გაფრთხილება: ინტერფეისის განზომილება შეიცვალა 2.0-ისთვის, შესაძლებელია შეიცვალა თქვენი შაბლონები და გსურთ პარამეტრების შემოწმება.</value>
   </data>
   <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
     <value>ვიდეო ფაილების ფოლდერის დავალებებში დამატება...</value>
@@ -692,7 +643,7 @@
     <value>წარმატებულის გასუფთავება</value>
   </data>
   <data name="ClearFailedMenuItem" xml:space="preserve">
-    <value>გასუფთავება წარუმატებულია</value>
+    <value>წარუმატებლის გასუფთავება</value>
   </data>
   <data name="ClearQueueConfirmationMessage" xml:space="preserve">
     <value>ნამდვილად გსურთ ყველაფრის სამუშაო სიიდან წაშლა?</value>
@@ -703,4 +654,26 @@
   <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
     <value>კოდირების დასრულების ქმედება არ სრულდება, იხილეთ შეცდომები პროგრამის შედეგების სიაში.</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

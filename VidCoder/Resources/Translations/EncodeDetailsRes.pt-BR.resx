@@ -118,20 +118,20 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="EncodeDetailsWindowTitle" xml:space="preserve">
-    <value>Codificar detalhes</value>
+    <value>Detalhes da codificação</value>
   </data>
   <data name="QueueSectionHeader" xml:space="preserve">
-    <value>Lista</value>
+    <value>Fila</value>
   </data>
   <data name="ScanPassLabel" xml:space="preserve">
     <value>Escaneamento:</value>
     <comment>This is the label for progress during the "scanning" pass of encoding. When you choose automatic subtitles it first needs to make a quick scan through the file to see which subtitles apply.</comment>
   </data>
   <data name="FirstPassLabel" xml:space="preserve">
-    <value>Primeira passagem:</value>
+    <value>Primeiro passo:</value>
   </data>
   <data name="SecondPassLabel" xml:space="preserve">
-    <value>Segunda passagem:</value>
+    <value>Segundo passo:</value>
   </data>
   <data name="EncodePassLabel" xml:space="preserve">
     <value>Codificar</value>
@@ -157,11 +157,11 @@
     <comment>Label for current file size on encode details window.</comment>
   </data>
   <data name="CurrentFpsLabel" xml:space="preserve">
-    <value>FPS atual:</value>
+    <value>Taxa atual de quadros:</value>
     <comment>Label for the current encoding rate in frames per second.</comment>
   </data>
   <data name="AverageFpsLabel" xml:space="preserve">
-    <value>FPS médio:</value>
+    <value>Taxa média de quadros:</value>
     <comment>Label for the average encoding rate in frames per second.</comment>
   </data>
 </root>

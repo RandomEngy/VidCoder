@@ -112,25 +112,13 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AudioSelection" xml:space="preserve">
-    <value>Hangválasztás</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Ráégetés</value>
-  </data>
   <data name="DefaultCheckBox" xml:space="preserve">
     <value>Alapértelmezett</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Idegen hangkeresés</value>
-  </data>
-  <data name="IncludeAllTracksRadioButton" xml:space="preserve">
-    <value>Összes sáv</value>
   </data>
   <data name="LanguagesRadioButton" xml:space="preserve">
     <value>Nyelv(ek)</value>
@@ -139,14 +127,8 @@
     <value>Csak ha a nyelv különbözik a hangtól</value>
     <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
   </data>
-  <data name="SubtitleSelection" xml:space="preserve">
-    <value>Felirat kiválasztása</value>
-  </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>Választó: {0}</value>
-  </data>
-  <data name="TitleSelection" xml:space="preserve">
-    <value>Cím kiválasztása</value>
   </data>
   <data name="PickerButtonFormat" xml:space="preserve">
     <value>Választó: {0}</value>
@@ -222,21 +204,6 @@
     <value>Első megjelölése alapértelmezettként</value>
     <comment>Label for checkbox to mark the first subtitle as default.</comment>
   </data>
-  <data name="AllSubtitlesToolTip" xml:space="preserve">
-    <value>Tartalmazza az összes feliratot.</value>
-  </data>
-  <data name="SubtitleNoneToolTip" xml:space="preserve">
-    <value>Nem tartalmaz feliratot.</value>
-  </data>
-  <data name="AudioFirstToolTip" xml:space="preserve">
-    <value>Csak az első hangsávot tartalmazza.</value>
-  </data>
-  <data name="AudioAllToolTip" xml:space="preserve">
-    <value>Tartalmazza az összes hangsávot.</value>
-  </data>
-  <data name="SubtitleFirstToolTip" xml:space="preserve">
-    <value>Csak az első feliratot tartalmazza.</value>
-  </data>
   <data name="PresetLabel" xml:space="preserve">
     <value>Séma használata:</value>
   </data>
@@ -250,15 +217,8 @@
     <value>Csak kényszerített</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
-  <data name="AudioDefaultToolTip" xml:space="preserve">
-    <value>Az utoljára kijelölt hangsávot választja ki, ha talál egyezést, egyéb esetben az elsőt választja.</value>
-  </data>
   <data name="LastSelectedRadioButton" xml:space="preserve">
     <value>Utoljára kiválasztott</value>
-  </data>
-  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
-    <value>Az utoljára kijelölt feliratsávot választja ki, ha talál egyezést, egyéb esetben nem választ semmit.</value>
-    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
   </data>
   <data name="OverrideNameFormatLabel" xml:space="preserve">
     <value>Elérhető beállítások: {0}</value>
@@ -277,14 +237,8 @@
     <value>Címek szűrése időtartam szerint</value>
     <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
   </data>
-  <data name="TimeRangeSelection" xml:space="preserve">
-    <value>Időintervallum kiválasztása</value>
-  </data>
-  <data name="SelectTimeRangeCheckBox" xml:space="preserve">
-    <value>Időintervallum kiválasztása</value>
-  </data>
-  <data name="TitleCaptializationLabel" xml:space="preserve">
-    <value>Nagy kezdőbetűs cím:</value>
+  <data name="ChangeCaptializationLabel" xml:space="preserve">
+    <value>Nagybetűs mód váltása erre:</value>
   </data>
   <data name="TimeRangeStartAutomationName" xml:space="preserve">
     <value>Időintervallum kezdés</value>
@@ -307,5 +261,132 @@
   </data>
   <data name="ChapterRangeStartAutomationName" xml:space="preserve">
     <value>Fejezet hatókör kezdés</value>
+  </data>
+  <data name="DestinationSection" xml:space="preserve">
+    <value>Útvonal</value>
+  </data>
+  <data name="OutputFolder" xml:space="preserve">
+    <value>Kimeneti mappa:</value>
+    <comment>Label for the output folder.</comment>
+  </data>
+  <data name="UseCustomFileNameFormatCheckBox" xml:space="preserve">
+    <value>Egyéni fájl elnevezési formátum használata:</value>
+  </data>
+  <data name="WhenFileExistsBatch" xml:space="preserve">
+    <value>Ha a fájl már létezik (több):</value>
+  </data>
+  <data name="WhenFileExistsSingle" xml:space="preserve">
+    <value>Ha a fájl már létezik (egy):</value>
+  </data>
+  <data name="CustomPickerNameTemplate" xml:space="preserve">
+    <value>Egyéni {0}</value>
+    <comment>The name for a custom auto-created picker. {0} is a number like 2, or 3 or 4 to differentiate it</comment>
+  </data>
+  <data name="OutputFileNameFormatAutomationName" xml:space="preserve">
+    <value>Fájlnév formátum</value>
+    <comment>Name for screen readers for the output file name format text box</comment>
+  </data>
+  <data name="OnlyChangeCapitalizationIfAllSameLabel" xml:space="preserve">
+    <value>Nagybetűs mód csak akkor, ha az összes kis- vagy nagybetű</value>
+  </data>
+  <data name="WordBreakCharacterAutomationNameFormat" xml:space="preserve">
+    <value>Szótörő karakter - {0}</value>
+    <comment>Screen reader format for word break checkboxes. These will determine if a character will be used to separate words.</comment>
+  </data>
+  <data name="WordBreakCharactersLabel" xml:space="preserve">
+    <value>Felismert szótörő karakterek:</value>
+  </data>
+  <data name="WordBreakCharacter_Dot" xml:space="preserve">
+    <value>Pont</value>
+  </data>
+  <data name="WordBreakCharacter_Space" xml:space="preserve">
+    <value>Szóköz</value>
+  </data>
+  <data name="WordBreakCharacter_Underscore" xml:space="preserve">
+    <value>Alsóvonás</value>
+  </data>
+  <data name="ChangeWordSeparatorLabel" xml:space="preserve">
+    <value>Szóelválasztó módosítása erre:</value>
+  </data>
+  <data name="SourceCleanupPreviewLabel" xml:space="preserve">
+    <value>Előnézet:</value>
+  </data>
+  <data name="SourceNameCleanupSection" xml:space="preserve">
+    <value>Forrásnév megtisztítás</value>
+  </data>
+  <data name="AddAudioTrackNameButton" xml:space="preserve">
+    <value>Hangsáv név hozzáadása</value>
+    <comment>Button to add another name to the list of audio track names in the Picker.</comment>
+  </data>
+  <data name="AddSubtitleTrackNameButton" xml:space="preserve">
+    <value>Feliratsáv név hozzáadása</value>
+    <comment>Button to add another name to the list of subtitle track names in the Picker.</comment>
+  </data>
+  <data name="CustomTrackNamesCheckBox" xml:space="preserve">
+    <value>Egyéni hangsáv nevek</value>
+    <comment>Checkbox label to use custom audio or subtitle track names</comment>
+  </data>
+  <data name="TrackAutomationFormat" xml:space="preserve">
+    <value>{0}. sáv</value>
+    <comment>Screen reader format for track names in the Picker.</comment>
+  </data>
+  <data name="BurnInLabel" xml:space="preserve">
+    <value>Ráégetés:</value>
+  </data>
+  <data name="PickerAudioSectionName" xml:space="preserve">
+    <value>Hang</value>
+  </data>
+  <data name="PickerForeignAudioCheckBox" xml:space="preserve">
+    <value>Idegen hangkeresés sáv hozzáadása</value>
+  </data>
+  <data name="PickerSubtitleSectionName" xml:space="preserve">
+    <value>Feliratok</value>
+  </data>
+  <data name="SubtitleSelectionMode_ForeignAudioSearch" xml:space="preserve">
+    <value>Idegen hangkeresés</value>
+  </data>
+  <data name="TrackSelectionLabel" xml:space="preserve">
+    <value>Sáv kiválasztása:</value>
+    <comment>Label for track selection mode for audio or subtitle tracks.</comment>
+  </data>
+  <data name="AudioSelectionModeToolTip" xml:space="preserve">
+    <value>Legutóbb kijelölt - A legutóbb kijelölt kiválasztott hangsávot választja ki, ha talál egyezést, egyébként az elsőt.
+Első - Csak az első hangsávot tartalmazza
+Sorszám - A hangsáv sorszáma alapján választja ki
+Nyelv(ek) - Nyelv alapján
+Összes - Az összes hangsávot tartalmazza</value>
+  </data>
+  <data name="SubtitleSelectionModeToolTip" xml:space="preserve">
+    <value>Legutóbb kijelölt - A legutóbb kijelölt kiválasztott feliratsávot választja ki, ha talál egyezést, egyébként az elsőt.
+Nincs - Nem tartalmaz feliratsávot
+Első - Csak az első feliratot tartalmazza
+Sorszám - A felirat sorszáma alapján választja ki
+Nyelv(ek) - Nyelv alapján
+Összes - Az összes feliratot tartalmazza</value>
+  </data>
+  <data name="IgnoreFilesBelowCheckBox" xml:space="preserve">
+    <value>Alábbi fájlok kihagyása</value>
+    <comment>A number box follows this string: Ignore files below [ 10 ] MB</comment>
+  </data>
+  <data name="TimeRangeLabel" xml:space="preserve">
+    <value>Időtartomány:</value>
+  </data>
+  <data name="VideoSelectionSection" xml:space="preserve">
+    <value>Videó kiválasztása</value>
+  </data>
+  <data name="MetadataSection" xml:space="preserve">
+    <value>Metaadat</value>
+  </data>
+  <data name="PassThroughMetadataCheckBox" xml:space="preserve">
+    <value>Videó pass-through metaadatok (rendező, kiadási dátum, színészek, stb.)</value>
+  </data>
+  <data name="BurnInCheckBox" xml:space="preserve">
+    <value>Ráégetés</value>
+  </data>
+  <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
+    <value>Külső feliratfájlok ({0}) hozzáadása a bemeneti videófájllal azonos névvel</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Nyelv:</value>
   </data>
 </root>

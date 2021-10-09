@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
     <value>Tytuł:</value>
@@ -181,12 +181,6 @@
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
     <value>O programie VidCoder...</value>
   </data>
-  <data name="ChooseVideoSourceLabel" xml:space="preserve">
-    <value>Wybierz źródło wideo:</value>
-  </data>
-  <data name="SourceLabel" xml:space="preserve">
-    <value>Źródło:</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>Ostatnie</value>
   </data>
@@ -195,9 +189,6 @@
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>Wystąpił błąd podczas skanowania.</value>
-  </data>
-  <data name="AddTrackButton" xml:space="preserve">
-    <value>Dodać Ścieżkę</value>
   </data>
   <data name="ChapterMarkersLabel" xml:space="preserve">
     <value>Znacznik rozdziałów:</value>
@@ -210,12 +201,6 @@
   </data>
   <data name="DestinationToolTip" xml:space="preserve">
     <value>Kliknij aby zmienić miejsce docelowe enkodowania.</value>
-  </data>
-  <data name="SelectOutputPathButton" xml:space="preserve">
-    <value>Wybierz ścieżkę wyjścową...</value>
-  </data>
-  <data name="EncodingLabel" xml:space="preserve">
-    <value>Enkodowanie:</value>
   </data>
   <data name="Stop" xml:space="preserve">
     <value>Stop</value>
@@ -247,14 +232,8 @@
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
     <value>Enkodowanie w toku</value>
   </data>
-  <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Wyszukiwanie Zagranicznych Ścieżek Audio</value>
-  </data>
   <data name="NoneParen" xml:space="preserve">
     <value>(Brak)</value>
-  </data>
-  <data name="TracksSummaryMultiple" xml:space="preserve">
-    <value>{0} utwory(ów)</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
     <value>Czy chcesz zapisać zmiany w ustawieniach?</value>
@@ -270,9 +249,6 @@
   </data>
   <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
     <value>Przywrócony z zakończonych</value>
-  </data>
-  <data name="PresetLabel" xml:space="preserve">
-    <value>Ustawienia zdefiniowane:</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
     <value>Miejsce docelowe</value>
@@ -325,9 +301,6 @@
   <data name="DirectoryCreateErrorMessage" xml:space="preserve">
     <value>Nie można utworzyć katalogu wyjściowego. Szczegóły błędu: {0}</value>
   </data>
-  <data name="DirectoryCreateErrorTitle" xml:space="preserve">
-    <value>Błąd tworzenia katalogu</value>
-  </data>
   <data name="EncodeCompleted" xml:space="preserve">
     <value>Enkodowanie zakończone.</value>
   </data>
@@ -336,12 +309,6 @@
   </data>
   <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
     <value>VidCoder zakończył enkodowanie wszystkich zadań z kolejki.</value>
-  </data>
-  <data name="OutputFolderRequiredMessage" xml:space="preserve">
-    <value>Nie można dodać zadań bez domyślnego folderu danych wyjściowych. Naciśnij przycisk OK, aby wybrać jeden.</value>
-  </data>
-  <data name="OutputFolderRequiredTitle" xml:space="preserve">
-    <value>Wymagany domyślny folder danych wyjściowych</value>
   </data>
   <data name="OutputPathNotValidMessage" xml:space="preserve">
     <value>Ścieżka wyjściowa nie jest prawidłowa.</value>
@@ -415,9 +382,6 @@
   <data name="RemoveConfirmTitle" xml:space="preserve">
     <value>Usuń</value>
   </data>
-  <data name="UserConfigCorrupted" xml:space="preserve">
-    <value>Konfiguracja jest uszkodzona i nie może być załadowana. Niektóre ustawienia mogą być zresetowane.</value>
-  </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
     <value>Wybierz katalog wyjściowy enkodowanych plików wideo.</value>
   </data>
@@ -435,9 +399,6 @@
   </data>
   <data name="CloseVideoSourceToolTip" xml:space="preserve">
     <value>Zamknij źródło wideo</value>
-  </data>
-  <data name="CloseVideoSourceMenuItem" xml:space="preserve">
-    <value>Zamknij Źródło Wideo</value>
   </data>
   <data name="UpdatesMenuItem" xml:space="preserve">
     <value>Aktualizacje...</value>
@@ -471,9 +432,6 @@
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>Odrzuć Zmiany?</value>
-  </data>
-  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
-    <value>Usuń ścieżkę dźwiękową</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
     <value>Usuń z kolejki</value>
@@ -530,7 +488,6 @@
   </data>
   
   
-  
   <data name="SimilarTitlesToolTip" xml:space="preserve">
     <value>{0} inne tytuły mają długość zbliżoną to tego.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
@@ -546,6 +503,27 @@
     <value>Nie można odnaleźć odtwarzacza wideo w {0}.</value>
     <comment>{0} is the path to the custom video player.</comment>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

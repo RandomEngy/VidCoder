@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Spremi</value>
@@ -218,9 +218,6 @@ Ovo radi samo sa AC3 izvorima.</value>
   <data name="MaxHeightLabel" xml:space="preserve">
     <value>Max Visina:</value>
   </data>
-  <data name="ModulusLabel" xml:space="preserve">
-    <value>Modulus:</value>
-  </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Izlaz</value>
   </data>
@@ -229,9 +226,6 @@ Ovo radi samo sa AC3 izvorima.</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>Detelecine:</value>
-  </data>
-  <data name="DecombLabel" xml:space="preserve">
-    <value>Decomb:</value>
   </data>
   <data name="DeinterlaceLabel" xml:space="preserve">
     <value>Deinterlace:</value>
@@ -477,12 +471,6 @@ Ovo radi samo sa AC3 izvorima.</value>
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} (Zadano)</value>
   </data>
-  <data name="EncodingWindowTitle" xml:space="preserve">
-    <value>Šablon enkodiranja: {0}</value>
-  </data>
-  <data name="AdvancedOptionsStringLabel" xml:space="preserve">
-    <value>Dodatne napredne postavke x264:</value>
-  </data>
   <data name="LevelToolTip" xml:space="preserve">
     <value>Namješta i održava slaganje sa zadanim nivoom enkodera.
 Odbacuje sva ostala podešavanja.</value>
@@ -502,14 +490,8 @@ Odbacuje sva ostala podešavanja.</value>
   <data name="VideoEncoder_x264" xml:space="preserve">
     <value>H.264 (x264)</value>
   </data>
-  <data name="AdvancedQuery" xml:space="preserve">
-    <value>Napredni upit</value>
-  </data>
   <data name="Video" xml:space="preserve">
     <value>Video</value>
-  </data>
-  <data name="X264Settings" xml:space="preserve">
-    <value>x264 Postavke</value>
   </data>
   <data name="LevelLabel" xml:space="preserve">
     <value>Nivo:</value>
@@ -534,9 +516,6 @@ Odbacuje sva ostala podešavanja.</value>
   </data>
   <data name="Modifiers" xml:space="preserve">
     <value>Parametri</value>
-  </data>
-  <data name="DtsMp4Warning" xml:space="preserve">
-    <value>Rijetki playeri podržavaju DTS audio u MP4 kontejner. MKV je preporučen za DTS audio.</value>
   </data>
   <data name="AudioEncoder_flac24" xml:space="preserve">
     <value>FLAC 24-bit</value>
@@ -582,10 +561,6 @@ Odbacuje sva ostala podešavanja.</value>
   </data>
   <data name="PresetToolTip" xml:space="preserve">
     <value>Promijenite opcije da zamjenite efikasnost kompresije za brzinu enkodiranja.</value>
-  </data>
-  <data name="ScaleMethodToolTip" xml:space="preserve">
-    <value>Lanczos: Namješteni skaler sa najboljom kvalitetom.
-Bicubic: OpenCL hardverski ubrzani algoritam za skaliranje.</value>
   </data>
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>Samo prolaz</value>
@@ -679,9 +654,6 @@ Bicubic: OpenCL hardverski ubrzani algoritam za skaliranje.</value>
   <data name="AnamorphicCheckbox" xml:space="preserve">
     <value>Koristi Anamorfno</value>
   </data>
-  <data name="AllowUpscalingCheckbox" xml:space="preserve">
-    <value>Dozvoli uvećavanje</value>
-  </data>
   <data name="SizingModeManual" xml:space="preserve">
     <value>Ručno</value>
     <comment>Choice for the user to enter all sizing information manually.</comment>
@@ -716,15 +688,6 @@ Bicubic: OpenCL hardverski ubrzani algoritam za skaliranje.</value>
   </data>
   <data name="PadColorLabel" xml:space="preserve">
     <value>Boja:</value>
-  </data>
-  <data name="ColorPickerAdvancedButton" xml:space="preserve">
-    <value>Napredno</value>
-  </data>
-  <data name="ColorPickerStandardButton" xml:space="preserve">
-    <value>Standardno</value>
-  </data>
-  <data name="ColorPickerStandardColorsHeader" xml:space="preserve">
-    <value>Standardne boje</value>
   </data>
   <data name="AnamorphicToolTip" xml:space="preserve">
     <value>Ukoliko je anamorfni mod označen, ne-kvadranti pikseli su dopušteni. Ovo može da učini spremanje efikasnijim, ali nije podržano od strane svih plejera.</value>
@@ -830,9 +793,6 @@ Lapsharp izoštrava korištenjem "convolution kernels" aproksimiranjem Laplacian
   <data name="NVEncPreset_hp" xml:space="preserve">
     <value>Visoke performanse</value>
   </data>
-  <data name="PickColorButton" xml:space="preserve">
-    <value>Odaberi boju…</value>
-  </data>
   <data name="Bottom" xml:space="preserve">
     <value>Dno</value>
   </data>
@@ -862,4 +822,6 @@ Lapsharp izoštrava korištenjem "convolution kernels" aproksimiranjem Laplacian
   <data name="MoreOptionsToolTip" xml:space="preserve">
     <value>Dodatne napredne varijable koje će biti prenešene do video enkodera.</value>
   </data>
+  
+  
 </root>

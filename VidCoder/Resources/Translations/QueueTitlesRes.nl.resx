@@ -112,25 +112,25 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="OverrideTitleNumberToolTip" xml:space="preserve">
-    <value>Als geselecteerd vervangt dit de normale titel ten behoeve van het creëren van de doel bestandsnaam. Bijvoorbeeld met titels 2, 3 en 4 en een overschrijving van 7, zullen ze worden aangeduid als 7, 8 en 9. Kan bruikbaar zijn voor het rippen van een schijf van een TV-serie.</value>
+    <value>Dit vervangt de normale titel ten behoeve van het creëren van de naam van het doelbestand. Bijvoorbeeld met titels 2, 3 en 4 en een overschrijving van 7, zullen ze worden aangeduid als 7, 8 en 9. Dit kan handig zijn voor het rippen van een schijf met een TV-serie.</value>
   </data>
   <data name="QueueTitlesWindowHeader" xml:space="preserve">
     <value>Kies meerdere titels om toe te voegen aan de wachtrij.</value>
   </data>
   <data name="PlaySourceToolTip" xml:space="preserve">
-    <value>Als een ondersteunde speler is geïnstalleerd (VLC of Media Player Classic Home Cinema), kunt u een voorbeeld van afzonderlijke titels van DVD's afspelen</value>
+    <value>Als een ondersteunde speler is geïnstalleerd (VLC of Media Player Classic Home Cinema), kunt u een voorbeeld van individuele titels van DVD's afspelen</value>
   </data>
   <data name="PlaySourceButton" xml:space="preserve">
     <value>Bron afspelen</value>
   </data>
   <data name="LengthRangePre" xml:space="preserve">
-    <value>Alle titels van</value>
+    <value>Kies alleen titels uit</value>
     <comment>Goes before the first number box in the length range specification.</comment>
   </data>
   <data name="LengthRangeMid" xml:space="preserve">
@@ -145,7 +145,7 @@
     <value>Titel overschrijven #: start op</value>
   </data>
   <data name="QueueTitlesDialogTitle" xml:space="preserve">
-    <value>Zet meerdere titels in de wachtrij</value>
+    <value>Meerdere titels in wachtrij plaatsen</value>
   </data>
   <data name="TitleFormat" xml:space="preserve">
     <value>Titel {0}</value>

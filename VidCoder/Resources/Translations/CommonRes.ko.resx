@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutLicense" xml:space="preserve">
     <value>이 프로그램은 자유 소프트웨어입니다; 자유 소프트웨어 재단에서 발행한 GNU 일반 공중 사용 허가서의 조건 하에서 재배포하거나 수정할 수 있습니다; 버전 2나 (옵션으로) 그 이후 버전의 라이센스.
@@ -281,6 +281,13 @@ GNU 일반 공중 사용 허가서의 사본이 이 프로그램에 포함되어
     <value>처음</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
+  
+  
+  
+  
+  
+  
+  
   
   
   

@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutLicense" xml:space="preserve">
     <value>本程式是自由軟體，您可以遵照自由軟體基金會 (Free Software Foundation) 出版的 GNU 通用公共許可證條款 (GNU General Public License) 第二版修改及重新發佈此程式，或自由選擇使用任何更新的版本。 
@@ -317,5 +317,28 @@
   </data>
   <data name="DefaultLabel" xml:space="preserve">
     <value>預設:</value>
+  </data>
+  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
+    <value>音軌</value>
+  </data>
+  <data name="QueueColumnNameCropping" xml:space="preserve">
+    <value>裁切</value>
+  </data>
+  <data name="QueueColumnNameOutputSize" xml:space="preserve">
+    <value>輸出大小</value>
+  </data>
+  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
+    <value>字幕軌</value>
+  </data>
+  <data name="Manual" xml:space="preserve">
+    <value>手動</value>
+    <comment>Shown when something has been set manually</comment>
+  </data>
+  <data name="FileNoLongerExists" xml:space="preserve">
+    <value>檔案不存在。</value>
+  </data>
+  <data name="MegabytesAbbreviation" xml:space="preserve">
+    <value>MB</value>
+    <comment>Abbreviation for megabytes</comment>
   </data>
 </root>

@@ -124,14 +124,14 @@
     <value>Wachtrij</value>
   </data>
   <data name="ScanPassLabel" xml:space="preserve">
-    <value>Controle:</value>
+    <value>Scan-fase:</value>
     <comment>This is the label for progress during the "scanning" pass of encoding. When you choose automatic subtitles it first needs to make a quick scan through the file to see which subtitles apply.</comment>
   </data>
   <data name="FirstPassLabel" xml:space="preserve">
-    <value>Eerste stap:</value>
+    <value>Eerste fase:</value>
   </data>
   <data name="SecondPassLabel" xml:space="preserve">
-    <value>Tweede stap:</value>
+    <value>Tweede fase:</value>
   </data>
   <data name="EncodePassLabel" xml:space="preserve">
     <value>Coderen:</value>
@@ -140,7 +140,7 @@
     <value>Taak:</value>
   </data>
   <data name="ProgressLabel" xml:space="preserve">
-    <value>Vooruitgang:</value>
+    <value>Voortgang:</value>
   </data>
   <data name="ElapsedTimeLabel" xml:space="preserve">
     <value>Verstreken tijd:</value>
@@ -149,7 +149,7 @@
     <value>Klaar in:</value>
   </data>
   <data name="FileProgressLabel" xml:space="preserve">
-    <value>Vooruitgang:</value>
+    <value>Voortgang bestand:</value>
     <comment>Label on the encode details window for % progress on the current file.</comment>
   </data>
   <data name="FileSizeLabel" xml:space="preserve">
@@ -157,11 +157,11 @@
     <comment>Label for current file size on encode details window.</comment>
   </data>
   <data name="CurrentFpsLabel" xml:space="preserve">
-    <value>Huidig aantal beelden/s:</value>
+    <value>Huidige FPS:</value>
     <comment>Label for the current encoding rate in frames per second.</comment>
   </data>
   <data name="AverageFpsLabel" xml:space="preserve">
-    <value>Gemiddeld aantal beelden/s:</value>
+    <value>Gemiddelde FPS:</value>
     <comment>Label for the average encoding rate in frames per second.</comment>
   </data>
 </root>

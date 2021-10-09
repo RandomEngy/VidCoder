@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>عام</value>
@@ -138,50 +138,14 @@
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
     <value>التحديثات التلقائية</value>
   </data>
-  <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>الانضمام إلى مسار تحديث بيتا</value>
-  </data>
-  <data name="FileNamingTab" xml:space="preserve">
-    <value>الملف المسمى</value>
-  </data>
-  <data name="DefaultFolderLabel" xml:space="preserve">
-    <value>مجلد افتراضي:</value>
-  </data>
-  <data name="FileFormatLabel" xml:space="preserve">
-    <value>تنسيق الملف:</value>
-  </data>
-  <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>تنسيق افتراضي</value>
-  </data>
-  <data name="CustomFormatRadioButton" xml:space="preserve">
-    <value>صيغة مخصصة:</value>
-  </data>
-  <data name="FileNameFormatOptions" xml:space="preserve">
-    <value>الخيارات المتاحة: {0}</value>
-  </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
     <value>عند وجود ملف بالفعل...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
     <value>تشفيرملف واحد:</value>
   </data>
-  <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>أسال إذا كنت تريد الكتابة فوقه</value>
-  </data>
-  <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>الكتابة فوق الملف دون المطالبة</value>
-  </data>
-  <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>التبديل تلقائيا إلى اسم مختلف</value>
-  </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
     <value>تشفير مجموعه من الملفات:</value>
-  </data>
-  <data name="OverwriteRadioButton" xml:space="preserve">
-    <value>الكتابه الفوقيه</value>
-  </data>
-  <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>أعاده تسميه تلقائيا</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>إيقاف التشفير تلقائيا عند تشغيل اي من هذه العمليات:</value>
@@ -195,15 +159,10 @@
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>تذكر الملفات والمجلدات المستخدمة سابقا</value>
   </data>
-  <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>السماح بتعيين اسم مخصص علي المسارات الصوتية (دعم لاعب محدود)</value>
-  </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>تمكين LibDVDNav (تغيير يتطلب أعاده تشغيل البرنامج. مطلوب لدعم زوايا متعددة)</value>
   </data>
-  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>حذف الملفات المصدر بعد مسح العناصر المكتملة الناجحة (مع تاكيد)</value>
-  </data>
+  
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>تسجيل الإسهاب:</value>
   </data>
@@ -282,9 +241,6 @@
   <data name="OutputFolderSection" xml:space="preserve">
     <value>مجلد الناتج</value>
   </data>
-  <data name="NamingFormatSection" xml:space="preserve">
-    <value>تنسيق التسمية</value>
-  </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
     <value>خيارات متقدمة</value>
   </data>
@@ -357,9 +313,6 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>استخدام العملية العاملة للتشفير</value>
   </data>
-  <data name="VideoSection" xml:space="preserve">
-    <value>فلم</value>
-  </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>الاحتفاظ بوقت الإنشاء والتعديل عند تحويل الملفات</value>
   </data>
@@ -407,4 +360,13 @@
   <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
     <value>تشغيل "عند الانتهاء" الإجراء عندما تكون هناك وظائف تشفير فاشلة</value>
   </data>
+  
+  
+  
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>الخيارات المتاحة: {0}</value>
+  </data>
+  
+  
+  
 </root>

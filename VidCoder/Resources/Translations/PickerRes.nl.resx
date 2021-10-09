@@ -112,41 +112,23 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AudioSelection" xml:space="preserve">
-    <value>Keuze audiokanaal</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Integreren met beeld</value>
-  </data>
   <data name="DefaultCheckBox" xml:space="preserve">
     <value>Standaard</value>
   </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Buitenlandse Audio zoeken</value>
-  </data>
-  <data name="IncludeAllTracksRadioButton" xml:space="preserve">
-    <value>Alle sporen</value>
-  </data>
   <data name="LanguagesRadioButton" xml:space="preserve">
-    <value>Talen</value>
+    <value>Taal</value>
   </data>
   <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
     <value>Alleen als de taal verschilt van het audiospoor</value>
     <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
   </data>
-  <data name="SubtitleSelection" xml:space="preserve">
-    <value>Keuze ondertiteling</value>
-  </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>Kleurkiezer: {0}</value>
-  </data>
-  <data name="TitleSelection" xml:space="preserve">
-    <value>Keuze titel</value>
+    <value>Kiezer: {0}</value>
   </data>
   <data name="PickerButtonFormat" xml:space="preserve">
     <value>Kiezer: {0}</value>
@@ -183,7 +165,7 @@
     <comment>Header for the post-encoding section in the picker window.</comment>
   </data>
   <data name="SendFileToLabel" xml:space="preserve">
-    <value>Verzend het bestaan aan:</value>
+    <value>Bestand verzenden naar:</value>
     <comment>Label for the option to run a program after encoding each file.</comment>
   </data>
   <data name="PostEncodeArgumentsLabel" xml:space="preserve">
@@ -195,7 +177,7 @@
     <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
   </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
-    <value>Kiezer heeft de coderingsvoorinstelling gezet.</value>
+    <value>Kiezer heeft de coderingsvoorinstelling gespecificeerd.</value>
   </data>
   <data name="AddLanguageButton" xml:space="preserve">
     <value>Taal toevoegen</value>
@@ -213,52 +195,30 @@
     <value>Eerste spoor</value>
   </data>
   <data name="SingleSubtitleDefaultToolTip" xml:space="preserve">
-    <value>Markeer het ondertitelspoor als standaard, zodat het automatisch zal verschijnen bij het afspelen van de video.</value>
+    <value>Markeer het ondertitelspoor als standaard, zodat het automatisch wordt getoond bij het afspelen van de video.</value>
   </data>
   <data name="MultipleSubtitleDefaultToolTip" xml:space="preserve">
-    <value>Markeer de eerste ondertitelspoor als standaard, zodat het automatisch verschijnt tijdens het afspelen van de video.</value>
+    <value>Markeer de eerste ondertitelspoor als standaard, zodat het automatisch wordt getoond bij het afspelen van de video.</value>
   </data>
   <data name="FirstAsDefaultCheckBox" xml:space="preserve">
-    <value>Eerst als standaard markeren</value>
+    <value>Eerste als standaard markeren</value>
     <comment>Label for checkbox to mark the first subtitle as default.</comment>
-  </data>
-  <data name="AllSubtitlesToolTip" xml:space="preserve">
-    <value>Alle ondertitels.</value>
-  </data>
-  <data name="SubtitleNoneToolTip" xml:space="preserve">
-    <value>Geen ondertitels.</value>
-  </data>
-  <data name="AudioFirstToolTip" xml:space="preserve">
-    <value>Alleen het eerste audiospoor.</value>
-  </data>
-  <data name="AudioAllToolTip" xml:space="preserve">
-    <value>Alle sporen meenemen.</value>
-  </data>
-  <data name="SubtitleFirstToolTip" xml:space="preserve">
-    <value>Alleen de eerste ondertitel.</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
     <value>Voorinstelling gebruiken:</value>
   </data>
   <data name="RemoveLanguageToolTip" xml:space="preserve">
-    <value>Taal verwijderen.</value>
+    <value>Deze taal verwijderen.</value>
   </data>
   <data name="SortLanguagesLabel" xml:space="preserve">
     <value>Taal/talen sorteren:</value>
   </data>
   <data name="ForcedOnlyCheckBox" xml:space="preserve">
-    <value>Alleen 'gedwongen'</value>
+    <value>Alleen geforceerd</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
-  </data>
-  <data name="AudioDefaultToolTip" xml:space="preserve">
-    <value>Pakt de laatste geselecteerde audio track als een overeenkomst wordt gevonden, anders de eerste.</value>
   </data>
   <data name="LastSelectedRadioButton" xml:space="preserve">
     <value>Laatst geselecteerd</value>
-  </data>
-  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
-    <value>Pakt de laatste ondertitelspoor als een overeenkomst wordt gevonden, anders of geen tracks geselecteerd.</value>
-    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
   </data>
   <data name="OverrideNameFormatLabel" xml:space="preserve">
     <value>Beschikbare opties: {0}</value>
@@ -277,14 +237,8 @@
     <value>Filter titels op tijdsduur</value>
     <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
   </data>
-  <data name="TimeRangeSelection" xml:space="preserve">
-    <value>Selectie van tijdbereik</value>
-  </data>
-  <data name="SelectTimeRangeCheckBox" xml:space="preserve">
-    <value>Selecteer een tijdsbereik</value>
-  </data>
-  <data name="TitleCaptializationLabel" xml:space="preserve">
-    <value>Hoofdlettergebruik bij titels:</value>
+  <data name="ChangeCaptializationLabel" xml:space="preserve">
+    <value>Hoofdlettergebruik wijzigen in</value>
   </data>
   <data name="TimeRangeStartAutomationName" xml:space="preserve">
     <value>Tijdbereik start</value>
@@ -297,15 +251,142 @@
     <comment>Label for the choice to choose audio or subtitle tracks by index</comment>
   </data>
   <data name="SelectTracksLabel" xml:space="preserve">
-    <value>Selecteer nummers:</value>
+    <value>Selecteer sporen:</value>
   </data>
   <data name="SelectTracksHelpText" xml:space="preserve">
     <value>Komma gescheiden - bijv. 2,5</value>
   </data>
   <data name="ChapterRangeEndAutomationName" xml:space="preserve">
-    <value>Hoofdstuk einde</value>
+    <value>Einde hoofdstuk</value>
   </data>
   <data name="ChapterRangeStartAutomationName" xml:space="preserve">
-    <value>Hoofdstuk begin</value>
+    <value>Begin hoofdstuk</value>
+  </data>
+  <data name="DestinationSection" xml:space="preserve">
+    <value>Bestemming</value>
+  </data>
+  <data name="OutputFolder" xml:space="preserve">
+    <value>Uitvoermap:</value>
+    <comment>Label for the output folder.</comment>
+  </data>
+  <data name="UseCustomFileNameFormatCheckBox" xml:space="preserve">
+    <value>Aangepaste bestandsnaamgeving:</value>
+  </data>
+  <data name="WhenFileExistsBatch" xml:space="preserve">
+    <value>Wanneer het bestand al bestaat (reeks):</value>
+  </data>
+  <data name="WhenFileExistsSingle" xml:space="preserve">
+    <value>Wanneer bestand al bestaat (enkel):</value>
+  </data>
+  <data name="CustomPickerNameTemplate" xml:space="preserve">
+    <value>Aangepast {0}</value>
+    <comment>The name for a custom auto-created picker. {0} is a number like 2, or 3 or 4 to differentiate it</comment>
+  </data>
+  <data name="OutputFileNameFormatAutomationName" xml:space="preserve">
+    <value>Bestandsnaamgeving</value>
+    <comment>Name for screen readers for the output file name format text box</comment>
+  </data>
+  <data name="OnlyChangeCapitalizationIfAllSameLabel" xml:space="preserve">
+    <value>Verander alleen hoofdletters als alle kleine letters of hoofdletters</value>
+  </data>
+  <data name="WordBreakCharacterAutomationNameFormat" xml:space="preserve">
+    <value>Woordafbrekingsteken - {0}</value>
+    <comment>Screen reader format for word break checkboxes. These will determine if a character will be used to separate words.</comment>
+  </data>
+  <data name="WordBreakCharactersLabel" xml:space="preserve">
+    <value>Herkende woordafbrekingstekens:</value>
+  </data>
+  <data name="WordBreakCharacter_Dot" xml:space="preserve">
+    <value>Punt</value>
+  </data>
+  <data name="WordBreakCharacter_Space" xml:space="preserve">
+    <value>Spatie</value>
+  </data>
+  <data name="WordBreakCharacter_Underscore" xml:space="preserve">
+    <value>Laag streepje</value>
+  </data>
+  <data name="ChangeWordSeparatorLabel" xml:space="preserve">
+    <value>Woordscheidingsteken wijzigen in</value>
+  </data>
+  <data name="SourceCleanupPreviewLabel" xml:space="preserve">
+    <value>Voorbeeld:</value>
+  </data>
+  <data name="SourceNameCleanupSection" xml:space="preserve">
+    <value>Bronnaam opruimen</value>
+  </data>
+  <data name="AddAudioTrackNameButton" xml:space="preserve">
+    <value>Naam audiospoor toevoegen</value>
+    <comment>Button to add another name to the list of audio track names in the Picker.</comment>
+  </data>
+  <data name="AddSubtitleTrackNameButton" xml:space="preserve">
+    <value>Naam ondertitelingsspoor toevoegen</value>
+    <comment>Button to add another name to the list of subtitle track names in the Picker.</comment>
+  </data>
+  <data name="CustomTrackNamesCheckBox" xml:space="preserve">
+    <value>Aangepaste spoornamen</value>
+    <comment>Checkbox label to use custom audio or subtitle track names</comment>
+  </data>
+  <data name="TrackAutomationFormat" xml:space="preserve">
+    <value>Spoor {0}</value>
+    <comment>Screen reader format for track names in the Picker.</comment>
+  </data>
+  <data name="BurnInLabel" xml:space="preserve">
+    <value>Inbranden:</value>
+  </data>
+  <data name="PickerAudioSectionName" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="PickerForeignAudioCheckBox" xml:space="preserve">
+    <value>'Onbekend audiospoor' toevoegen</value>
+  </data>
+  <data name="PickerSubtitleSectionName" xml:space="preserve">
+    <value>Ondertiteling</value>
+  </data>
+  <data name="SubtitleSelectionMode_ForeignAudioSearch" xml:space="preserve">
+    <value>Onbekende audiospoorscan</value>
+  </data>
+  <data name="TrackSelectionLabel" xml:space="preserve">
+    <value>Spoor:</value>
+    <comment>Label for track selection mode for audio or subtitle tracks.</comment>
+  </data>
+  <data name="AudioSelectionModeToolTip" xml:space="preserve">
+    <value>Laatst geselecteerd - Kiest het laatst geselecteerde audiospoor als een overeenkomst wordt gevonden, anders kiest de eerste.
+Eerst - Alleen het eerste audiospoor toevoegen.
+Op index - Kies op spoorindex (1-gebaseerde)
+Talen - Kiezen op taal
+Alle - Voeg alle audiosporen toe.</value>
+  </data>
+  <data name="SubtitleSelectionModeToolTip" xml:space="preserve">
+    <value>Laatst geselecteerd - Kiest het laatst geselecteerde ondertitelspoor als een overeenkomst wordt gevonden, anders kies geen nummers.
+Geen - Geen ondertitels zijn inbegrepen.
+Eerst - Voeg alleen de eerste ondertitel toe.
+Op index - Kies op track index (1-gebaseerd).
+Taal - Kiezen op taal.
+Alle - Bevat alle ondertitels.</value>
+  </data>
+  <data name="IgnoreFilesBelowCheckBox" xml:space="preserve">
+    <value>Onderstaande bestanden negeren</value>
+    <comment>A number box follows this string: Ignore files below [ 10 ] MB</comment>
+  </data>
+  <data name="TimeRangeLabel" xml:space="preserve">
+    <value>Tijdbereik:</value>
+  </data>
+  <data name="VideoSelectionSection" xml:space="preserve">
+    <value>Videoselectie</value>
+  </data>
+  <data name="MetadataSection" xml:space="preserve">
+    <value>Metagegevens</value>
+  </data>
+  <data name="PassThroughMetadataCheckBox" xml:space="preserve">
+    <value>Video-metadata doorgeven (regisseur, uitgavedatum, acteurs, etc.)</value>
+  </data>
+  <data name="BurnInCheckBox" xml:space="preserve">
+    <value>Integreren met beeld</value>
+  </data>
+  <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
+    <value>Externe ondertitelingsbestanden toevoegen ({0}) met dezelfde naam als invoer videobestand</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Taal:</value>
   </data>
 </root>

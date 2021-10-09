@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Guardar</value>
@@ -216,9 +216,6 @@
   <data name="MaxHeightLabel" xml:space="preserve">
     <value>Altura máxima:</value>
   </data>
-  <data name="ModulusLabel" xml:space="preserve">
-    <value>Modulus:</value>
-  </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Saída</value>
   </data>
@@ -227,9 +224,6 @@
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>Detelecine:</value>
-  </data>
-  <data name="DecombLabel" xml:space="preserve">
-    <value>Decomb:</value>
   </data>
   <data name="DeinterlaceLabel" xml:space="preserve">
     <value>Deinterlace:</value>
@@ -475,12 +469,6 @@
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} (Padrão)</value>
   </data>
-  <data name="EncodingWindowTitle" xml:space="preserve">
-    <value>Pré-ajuste de codificação: {0}</value>
-  </data>
-  <data name="AdvancedOptionsStringLabel" xml:space="preserve">
-    <value>Opções avançadas adicionais x264:</value>
-  </data>
   <data name="LevelToolTip" xml:space="preserve">
     <value>Define e garante a conformidade com o nível H.264 especificado.  Substitui todas as outras configurações.</value>
   </data>
@@ -499,14 +487,8 @@
   <data name="VideoEncoder_x264" xml:space="preserve">
     <value>H. 264 (264)</value>
   </data>
-  <data name="AdvancedQuery" xml:space="preserve">
-    <value>Consulta avançada</value>
-  </data>
   <data name="Video" xml:space="preserve">
     <value>Vídeo</value>
-  </data>
-  <data name="X264Settings" xml:space="preserve">
-    <value>Configurações x264</value>
   </data>
   <data name="LevelLabel" xml:space="preserve">
     <value>Nível:</value>
@@ -531,9 +513,6 @@
   </data>
   <data name="Modifiers" xml:space="preserve">
     <value>Modificadores</value>
-  </data>
-  <data name="DtsMp4Warning" xml:space="preserve">
-    <value>Alguns leitores suportam reprodução de áudio DTS em contentores MP4. É recomendado o formato MKV para áudio DTS.</value>
   </data>
   <data name="AudioEncoder_flac24" xml:space="preserve">
     <value>FLAC 24 bits</value>
@@ -579,10 +558,6 @@
   </data>
   <data name="PresetToolTip" xml:space="preserve">
     <value>Alter esta opção para ganhar eficiência de compressão em relação à velocidade de codificação. Por defeito deixe em "médio".</value>
-  </data>
-  <data name="ScaleMethodToolTip" xml:space="preserve">
-    <value>Lanczos: É o algoritmo de dimensionamento com a melhor qualidade. (Padrão)
-Bicubic: É um algoritmo de dimensionamento acelerado para hardware OpenCL.</value>
   </data>
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>Passagem directa</value>
@@ -676,9 +651,6 @@ Bicubic: É um algoritmo de dimensionamento acelerado para hardware OpenCL.</val
   <data name="AnamorphicCheckbox" xml:space="preserve">
     <value>Usar anamórfico</value>
   </data>
-  <data name="AllowUpscalingCheckbox" xml:space="preserve">
-    <value>Permitir "upscaling"</value>
-  </data>
   <data name="SizingModeManual" xml:space="preserve">
     <value>Manualmente</value>
     <comment>Choice for the user to enter all sizing information manually.</comment>
@@ -713,15 +685,6 @@ Bicubic: É um algoritmo de dimensionamento acelerado para hardware OpenCL.</val
   </data>
   <data name="PadColorLabel" xml:space="preserve">
     <value>Côr:</value>
-  </data>
-  <data name="ColorPickerAdvancedButton" xml:space="preserve">
-    <value>Avançado</value>
-  </data>
-  <data name="ColorPickerStandardButton" xml:space="preserve">
-    <value>Standard</value>
-  </data>
-  <data name="ColorPickerStandardColorsHeader" xml:space="preserve">
-    <value>Cores padrão</value>
   </data>
   <data name="AnamorphicToolTip" xml:space="preserve">
     <value>Com Anamorphic activo, pixels não quadrados são permitidos. Isso pode resultar em um armazenamento mais eficiente, mas nem todos os leitores suportam isto.</value>
@@ -827,9 +790,6 @@ Lapsharp actua usando núcleos de convolução próximos dos filtro de bordo Lap
   <data name="NVEncPreset_hp" xml:space="preserve">
     <value>Alto Desempenho</value>
   </data>
-  <data name="PickColorButton" xml:space="preserve">
-    <value>Seleccionar cor...</value>
-  </data>
   <data name="Bottom" xml:space="preserve">
     <value>Inferior</value>
   </data>
@@ -859,4 +819,6 @@ Lapsharp actua usando núcleos de convolução próximos dos filtro de bordo Lap
   <data name="MoreOptionsToolTip" xml:space="preserve">
     <value>Argumentos avançados adicionais para passar para o codificador de vídeo.</value>
   </data>
+  
+  
 </root>

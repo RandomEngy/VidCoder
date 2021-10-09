@@ -117,14 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SubtitlesWindowTitle" xml:space="preserve">
-    <value>Ondertitels</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>Ondertitels van bron:</value>
   </data>
   <data name="QuickTimeSubtitlesWarning" xml:space="preserve">
-    <value>Tekst ondertiteling zou niet kunnen verschijnen in Quicktime, tenzij de .m4v extensie wordt gebruikt.</value>
+    <value>Tekstondertiteling kan niet worden getoond in Quicktime, tenzij de .m4v extensie wordt gebruikt.</value>
   </data>
   <data name="NameColumn" xml:space="preserve">
     <value>Naam</value>
@@ -133,7 +130,7 @@
     <value>Standaard</value>
   </data>
   <data name="ForcedOnlyColumn" xml:space="preserve">
-    <value>Alleen 'gedwongen'</value>
+    <value>Alleen geforceerd</value>
   </data>
   <data name="BurnedInColumn" xml:space="preserve">
     <value>Integreren met beeld</value>
@@ -156,8 +153,8 @@
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Andere ondertitelsporen zullen overlappen met geïntegreerde ondertitels.</value>
   </data>
-  <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Buitenlandse Audio zoeken</value>
+  <data name="ForeignAudioScan" xml:space="preserve">
+    <value>Onbekende audioscan</value>
   </data>
   <data name="SubtitleFilePickerText" xml:space="preserve">
     <value>Ondertitelbestand toevoegen</value>

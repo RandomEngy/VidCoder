@@ -112,24 +112,26 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutLicense" xml:space="preserve">
-    <value>Dit programma is vrije software; u kunt het herdistribueren en/of aanpassen onder de voorwaarden van de GNU General Public License, gepubliceerd door de Free Software Foundation; versie 2 van de licentie, of (optioneel) een latere versie. 
+    <value>Dit programma is gratis software; u kunt het verspreiden en/of aanpassen onder de voorwaarden van de GNU General Public License zoals gepubliceerd door de Free Software Foundation; óf versie 2 van de Licentie, óf (naar uw keuze) elke latere versie.
 
-Dit programma is gedistribueerd in de hoop dat het nuttig zal zijn, maar zonder enige garantie; zelfs zonder enige garantie wat betreft VERKOOPBAARHEID or GESCHIKTHEID VOOR EEN BEPAALD DOEL.  Zie de GNU General Public License voor meer details.  Een volledige kopie van de GNU General Public License is opgenomen bij dit programma.</value>
+Dit programma wordt gedistribueerd in de hoop dat het nuttig is, maar ZONDER ENIGE GARANTIE; zonder de impliciete garantie van VERHANDELBAARHEID of GESCHIKTHEID VOOR EEN SPECIFIEK DOEL. Zie de GNU General Public License voor meer informatie.
+
+Een volledige kopie van de GNU General Public License is opgenomen bij dit programma.</value>
   </data>
   <data name="BurnedSubtitleToolTip" xml:space="preserve">
-    <value>Integreer de ondertitels met het beeldspoor. Met het beeldspoor geïntegreerde ondertitels kunt u niet uitschakelen tijdens het afspelen.</value>
+    <value>Ondertitels met het beeldspoor integreren. Geïntegreerde ondertitels kunt u niet uitschakelen tijdens het afspelen.</value>
   </data>
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
-    <value>Dit ondertitelspoor markeren als standaard. Dit spoor zal verschijnen tijdens het afspelen tenzij een ander ondertitel spoor wordt gekozen.</value>
+    <value>Markeer dit ondertitelspoor als standaard. Dit zal verschijnen tijdens het afspelen tot een ander nummer is gekozen.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Alleen 'gedwongen ondertitels' van het gegeven spoor tonen. Gewoonlijk zijn dit kleine stukjes buitenlandse dialoog.</value>
+    <value>Alleen geforceerde ondertiteling weergeven. Gewoonlijk betekent dit kleine stukjes buitenlandse dialoog.</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>De tijdsduur waarmee het tonen van ondertitels wordt vervroegd of vertraagd.</value>
@@ -161,13 +163,13 @@ Dit programma is gedistribueerd in de hoop dat het nuttig zal zijn, maar zonder 
     <value>Beeldkwaliteit</value>
   </data>
   <data name="QueueEtaToolTip" xml:space="preserve">
-    <value>Geschatte benodigde tijd om alle taken in de wachtrij te voltooien.</value>
+    <value>Geschatte tijd om alle taken in de wachtrij verder te voltooien.</value>
   </data>
   <data name="QueueColumnNameDuration" xml:space="preserve">
     <value>Duur</value>
   </data>
   <data name="ForeignAudioSearchToolTip" xml:space="preserve">
-    <value>Hiermee zoekt u naar een ondertitelspoor dat waarschijnlijk stukken buitenlandse dialoog bevat. Geschikt voor films die voornamelijk in je eigen taal zijn.</value>
+    <value>Hiermee zoekt u naar een ondertitelspoor dat waarschijnlijk stukken buitenlandse dialoog bevat. Geschikt voor films die voornamelijk in de eigen taal zijn.</value>
   </data>
   <data name="Default" xml:space="preserve">
     <value>Standaard</value>
@@ -181,10 +183,10 @@ Dit programma is gedistribueerd in de hoop dat het nuttig zal zijn, maar zonder 
     <value>Bladeren...</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Verwijder</value>
+    <value>Verwijderen</value>
   </data>
   <data name="PreviewLabel" xml:space="preserve">
-    <value>Voorbeeld</value>
+    <value>Voorvertoning</value>
   </data>
   <data name="Automatic" xml:space="preserve">
     <value>Automatisch</value>
@@ -197,7 +199,7 @@ Dit programma is gedistribueerd in de hoop dat het nuttig zal zijn, maar zonder 
     <value>Alle</value>
   </data>
   <data name="StreamChoice" xml:space="preserve">
-    <value>Spoor {0}</value>
+    <value>Stream {0}</value>
     <comment>Used in the encoding settings dialog to mark which audio stream an audio encoding is targeting. By default the encoding works on all streams but you can target it to affect only the first stream, in which case it would label it "Stream 1"</comment>
   </data>
   <data name="Ok" xml:space="preserve">
@@ -210,10 +212,10 @@ Dit programma is gedistribueerd in de hoop dat het nuttig zal zijn, maar zonder 
     <value>Uitgeschakeld</value>
   </data>
   <data name="Remove" xml:space="preserve">
-    <value>Verwijder</value>
+    <value>Verwijderen</value>
   </data>
   <data name="Copy" xml:space="preserve">
-    <value>Kopieer</value>
+    <value>Kopiëren</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Ja</value>
@@ -240,16 +242,16 @@ Dit programma is gedistribueerd in de hoop dat het nuttig zal zijn, maar zonder 
     <value>Voorkeursinstelling</value>
   </data>
   <data name="Success" xml:space="preserve">
-    <value>Gelukt</value>
+    <value>Geslaagd</value>
   </data>
   <data name="ConfirmDialogTitle" xml:space="preserve">
-    <value>Bevestig</value>
+    <value>Bevestigen</value>
   </data>
   <data name="FileFailureErrorMessage" xml:space="preserve">
     <value>De bestandsbewerking kon niet worden voltooid.</value>
   </data>
   <data name="FileFailureErrorTitle" xml:space="preserve">
-    <value>Bestandsbewerking niet gelukt</value>
+    <value>Bestandsbewerkingsfout</value>
   </data>
   <data name="OverrideNameFormatCheckBox" xml:space="preserve">
     <value>Overschrijf naamgevingformaat:</value>
@@ -280,7 +282,7 @@ Dit programma is gedistribueerd in de hoop dat het nuttig zal zijn, maar zonder 
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
   <data name="DuplicateTrack" xml:space="preserve">
-    <value>Dupliceer dit spoor</value>
+    <value>Dit spoor dupliceren</value>
     <comment>Tip to duplicate the audio or subtitle track.</comment>
   </data>
   <data name="RemoveTrack" xml:space="preserve">
@@ -306,7 +308,7 @@ Dit programma is gedistribueerd in de hoop dat het nuttig zal zijn, maar zonder 
 {0} - The name of the value the control is changing, for example "width"</comment>
   </data>
   <data name="OpenSplitButtonAutomationName" xml:space="preserve">
-    <value>Open gesplitste knop</value>
+    <value>Open knop Splitsen</value>
     <comment>Automation name for screen readers for the "open" arrow on a split button</comment>
   </data>
   <data name="Unknown" xml:space="preserve">
@@ -315,5 +317,28 @@ Dit programma is gedistribueerd in de hoop dat het nuttig zal zijn, maar zonder 
   </data>
   <data name="DefaultLabel" xml:space="preserve">
     <value>Standaard:</value>
+  </data>
+  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
+    <value>Audiosporen</value>
+  </data>
+  <data name="QueueColumnNameCropping" xml:space="preserve">
+    <value>Bijsnijden</value>
+  </data>
+  <data name="QueueColumnNameOutputSize" xml:space="preserve">
+    <value>Uitvoergrootte</value>
+  </data>
+  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
+    <value>Ondertitelingssporen</value>
+  </data>
+  <data name="Manual" xml:space="preserve">
+    <value>Handmatig</value>
+    <comment>Shown when something has been set manually</comment>
+  </data>
+  <data name="FileNoLongerExists" xml:space="preserve">
+    <value>Bestand bestaat niet meer</value>
+  </data>
+  <data name="MegabytesAbbreviation" xml:space="preserve">
+    <value>MB</value>
+    <comment>Abbreviation for megabytes</comment>
   </data>
 </root>

@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
     <value>Izenburua:</value>
@@ -181,12 +181,6 @@
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
     <value>VidCoder Buruz...</value>
   </data>
-  <data name="ChooseVideoSourceLabel" xml:space="preserve">
-    <value>Hautatu bideo iturburu bat:</value>
-  </data>
-  <data name="SourceLabel" xml:space="preserve">
-    <value>Iturburua:</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>Berrikikoak</value>
   </data>
@@ -195,9 +189,6 @@
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>Akats bat gertatu da mihaketan.</value>
-  </data>
-  <data name="AddTrackButton" xml:space="preserve">
-    <value>Gehitu Bidea</value>
   </data>
   <data name="ChapterMarkersLabel" xml:space="preserve">
     <value>Atal Markatzaileak:</value>
@@ -210,12 +201,6 @@
   </data>
   <data name="DestinationToolTip" xml:space="preserve">
     <value>Klikatu kodeaketa helmuga editatzeko.</value>
-  </data>
-  <data name="SelectOutputPathButton" xml:space="preserve">
-    <value>Hautatu irteera helburua...</value>
-  </data>
-  <data name="EncodingLabel" xml:space="preserve">
-    <value>Kodeaketa:</value>
   </data>
   <data name="Stop" xml:space="preserve">
     <value>Gelditu</value>
@@ -247,14 +232,8 @@
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
     <value>Kodeaketak garatzen</value>
   </data>
-  <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Beste hizkuntzako Audio Bilaketa</value>
-  </data>
   <data name="NoneParen" xml:space="preserve">
     <value>(Ezer ez)</value>
-  </data>
-  <data name="TracksSummaryMultiple" xml:space="preserve">
-    <value>{0} bide</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
     <value>Aldaketak zure oraingo aurrezarpenean gordetzea nahi dituzu?</value>
@@ -270,9 +249,6 @@
   </data>
   <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
     <value>Osatutatik Leheneratuta</value>
-  </data>
-  <data name="PresetLabel" xml:space="preserve">
-    <value>Aurrezarpena:</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
     <value>Helmuga</value>
@@ -329,9 +305,6 @@
 
 {0}</value>
   </data>
-  <data name="DirectoryCreateErrorTitle" xml:space="preserve">
-    <value>Akatsa zuzenbidea sortzerakoan</value>
-  </data>
   <data name="EncodeCompleted" xml:space="preserve">
     <value>Kodeaketa osatuta.</value>
   </data>
@@ -340,12 +313,6 @@
   </data>
   <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
     <value>VidCoder-ek amaitu du lerroko lan guztiak kodeatzeaz.</value>
-  </data>
-  <data name="OutputFolderRequiredMessage" xml:space="preserve">
-    <value>Ezin dira kodeaketa lanak gehitu berezko irteera agiritegi bat gabe. Sakatu Ongi bat hautatzeko.</value>
-  </data>
-  <data name="OutputFolderRequiredTitle" xml:space="preserve">
-    <value>Berezko Irteera Agiritegia Beharrezkoa</value>
   </data>
   <data name="OutputPathNotValidMessage" xml:space="preserve">
     <value>Irteera helburua ez da baliozkoa.</value>
@@ -425,9 +392,6 @@
   <data name="RemoveConfirmTitle" xml:space="preserve">
     <value>Kendu</value>
   </data>
-  <data name="UserConfigCorrupted" xml:space="preserve">
-    <value>Itxurapena hondatuta zegoen eta ezin izan da gertatu. Badaiteke zure zenbait ezarpen berrezarriak izana.</value>
-  </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
     <value>Hautatu kodeatutako bideo agirientzako irteera zuzenbidea.</value>
   </data>
@@ -445,9 +409,6 @@
   </data>
   <data name="CloseVideoSourceToolTip" xml:space="preserve">
     <value>Itxi bideo iturburua</value>
-  </data>
-  <data name="CloseVideoSourceMenuItem" xml:space="preserve">
-    <value>Itxi Bideo Iturburua</value>
   </data>
   <data name="UpdatesMenuItem" xml:space="preserve">
     <value>Eguneraketak...</value>
@@ -481,9 +442,6 @@
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>Baztertu Aldaketak?</value>
-  </data>
-  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
-    <value>Kendu audio bidea</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
     <value>Kendu lerrotik</value>
@@ -544,10 +502,6 @@
   <data name="CouldNotLoadPickerMessage" xml:space="preserve">
     <value>Ezinezkoa hautatzailea gertatzea: </value>
   </data>
-  <data name="PickerNameTemplate" xml:space="preserve">
-    <value>Hautatzailea {0}</value>
-    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
-  </data>
   <data name="SimilarTitlesToolTip" xml:space="preserve">
     <value>beste {0} izenburuk honen antzeko iraupena dute.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
@@ -562,9 +516,6 @@
   <data name="CustomVideoPlayerError" xml:space="preserve">
     <value>Norbere bideo irakurgailua ezin da aurkitu hemen: {0}.</value>
     <comment>{0} is the path to the custom video player.</comment>
-  </data>
-  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
-    <value>Kontuz: Neurriraketa interfazea 2.0-arekin berritu da, hortaz badaiteke zure aurrezarpenak aldatu izana. Badaiteke hauek ikuskatu eta oraindik ongi ezarrita daudela zihurtzea nahi izatea.</value>
   </data>
   <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
     <value>Lerrokatu Bideo Agirien Agiritegia...</value>
@@ -703,4 +654,26 @@
   <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
     <value>Kodeaketa osatze ekintza ez da ekin akatsak daudelako kodeaketa emaitza zerrendan.</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

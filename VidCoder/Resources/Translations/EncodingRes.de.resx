@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Speichern</value>
@@ -222,20 +222,14 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
   <data name="MaxHeightLabel" xml:space="preserve">
     <value>Max. Höhe:</value>
   </data>
-  <data name="ModulusLabel" xml:space="preserve">
-    <value>Modulus:</value>
-  </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Ausgabe</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
-    <value>Beschneiden</value>
+    <value>Zuschneiden</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>Detelecine:</value>
-  </data>
-  <data name="DecombLabel" xml:space="preserve">
-    <value>Decomb:</value>
   </data>
   <data name="DeinterlaceLabel" xml:space="preserve">
     <value>Zeilenentflechtung:</value>
@@ -481,12 +475,6 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} (Standard)</value>
   </data>
-  <data name="EncodingWindowTitle" xml:space="preserve">
-    <value>Encodierungs-Voreinstellung: {0}</value>
-  </data>
-  <data name="AdvancedOptionsStringLabel" xml:space="preserve">
-    <value>Zusätzliche, erweiterte x264 Optionen:</value>
-  </data>
   <data name="LevelToolTip" xml:space="preserve">
     <value>Legt das ausgewählte H.264 Level fest und stellt dessen Einhaltung sicher.
 
@@ -507,14 +495,8 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
   <data name="VideoEncoder_x264" xml:space="preserve">
     <value>H.264 (x264)</value>
   </data>
-  <data name="AdvancedQuery" xml:space="preserve">
-    <value>Erweiterte Abfrage</value>
-  </data>
   <data name="Video" xml:space="preserve">
     <value>Video</value>
-  </data>
-  <data name="X264Settings" xml:space="preserve">
-    <value>x264 Einstellungen</value>
   </data>
   <data name="LevelLabel" xml:space="preserve">
     <value>Level:</value>
@@ -539,9 +521,6 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
   </data>
   <data name="Modifiers" xml:space="preserve">
     <value>Bearbeiten</value>
-  </data>
-  <data name="DtsMp4Warning" xml:space="preserve">
-    <value>Nur wenige Wiedergabegeräte unterstützen die Wiedergabe von DTS-Audio in einem MP4-Container. MKV wird als Containerformat für DTS-Tonspuren empfohlen.</value>
   </data>
   <data name="AudioEncoder_flac24" xml:space="preserve">
     <value>FLAC 24-bit</value>
@@ -589,10 +568,6 @@ Hiermit legen Sie den Encodierer fest, auf den zurückgegriffen wird, falls die 
   <data name="PresetToolTip" xml:space="preserve">
     <value>Ändern Sie die Optionen, um die Komprimierungseffizienz gegen die Encodierungsgeschwindigkeit abzuwägen.</value>
   </data>
-  <data name="ScaleMethodToolTip" xml:space="preserve">
-    <value>Lanczos: Dies ist der Standardskalierer mit der besten Qualität.
-Bikubisch: Dies ist ein durch OpenCL-Hardware beschleunigter Skalierungsalgorithmus.</value>
-  </data>
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>Durchschleifen</value>
   </data>
@@ -618,7 +593,7 @@ Bikubisch: Dies ist ein durch OpenCL-Hardware beschleunigter Skalierungsalgorith
     <value>180°</value>
   </data>
   <data name="RotationToolTip" xml:space="preserve">
-    <value>Dreht das Bild. Wird nach Beschnitt und Skalierung des Bildes angewandt.</value>
+    <value>Dreht das Bild. Wird erst nach jeglichem Zuschneiden und Skalieren ausgeführt.</value>
   </data>
   <data name="FlipHorizontalToolTip" xml:space="preserve">
     <value>Spiegelt das Bild horizontal. Dies wird vor jedwedem Drehen angewandt.</value>
@@ -685,9 +660,6 @@ Bikubisch: Dies ist ein durch OpenCL-Hardware beschleunigter Skalierungsalgorith
   <data name="AnamorphicCheckbox" xml:space="preserve">
     <value>Anamorph verwenden</value>
   </data>
-  <data name="AllowUpscalingCheckbox" xml:space="preserve">
-    <value>Hochskalierung erlauben</value>
-  </data>
   <data name="SizingModeManual" xml:space="preserve">
     <value>Manuell</value>
     <comment>Choice for the user to enter all sizing information manually.</comment>
@@ -722,15 +694,6 @@ Bikubisch: Dies ist ein durch OpenCL-Hardware beschleunigter Skalierungsalgorith
   </data>
   <data name="PadColorLabel" xml:space="preserve">
     <value>Farbe:</value>
-  </data>
-  <data name="ColorPickerAdvancedButton" xml:space="preserve">
-    <value>Fortgeschritten</value>
-  </data>
-  <data name="ColorPickerStandardButton" xml:space="preserve">
-    <value>Standard</value>
-  </data>
-  <data name="ColorPickerStandardColorsHeader" xml:space="preserve">
-    <value>Standardfarben</value>
   </data>
   <data name="AnamorphicToolTip" xml:space="preserve">
     <value>Wenn Anamorph aktiviert ist, dann sind nicht-quadratische Pixel erlaubt. Das kann zu kleineren Dateien führen, wird aber nicht von allen Playern unterstützt.</value>
@@ -835,9 +798,6 @@ LapSharp verwendet Faltungsmatrizen, welche Laplace-Kanten-Filter annähern, zum
   <data name="NVEncPreset_hp" xml:space="preserve">
     <value>Hoher Durchsatz</value>
   </data>
-  <data name="PickColorButton" xml:space="preserve">
-    <value>Farbe auswählen…</value>
-  </data>
   <data name="Bottom" xml:space="preserve">
     <value>Unten</value>
   </data>
@@ -866,5 +826,12 @@ LapSharp verwendet Faltungsmatrizen, welche Laplace-Kanten-Filter annähern, zum
   </data>
   <data name="MoreOptionsToolTip" xml:space="preserve">
     <value>Zusätzliche Parameter, die an den Video-Encodierer weitergereicht werden sollen.</value>
+  </data>
+  <data name="CannotSwitchEncodingPresetDueToPicker" xml:space="preserve">
+    <value>Die Encodierungsvoreinstellung kann nicht gewechselt werden, da sie im Auswähler-Fenster fixiert wurde.</value>
+    <comment>Message to show when the user is blocked from switching an encoding preset due to a Picker setting.</comment>
+  </data>
+  <data name="PadColorTextToolTip" xml:space="preserve">
+    <value>Format: FFFFFF</value>
   </data>
 </root>

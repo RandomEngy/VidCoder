@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Általános</value>
@@ -138,50 +138,14 @@
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
     <value>Automatikus frissítés</value>
   </data>
-  <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>Csatlakozás a béta verziókhoz</value>
-  </data>
-  <data name="FileNamingTab" xml:space="preserve">
-    <value>Fájl elnevezés</value>
-  </data>
-  <data name="DefaultFolderLabel" xml:space="preserve">
-    <value>Alapértelmezett mappa:</value>
-  </data>
-  <data name="FileFormatLabel" xml:space="preserve">
-    <value>Fájlformátum:</value>
-  </data>
-  <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>Alapértelmezett formátum</value>
-  </data>
-  <data name="CustomFormatRadioButton" xml:space="preserve">
-    <value>Egyéni formátum:</value>
-  </data>
-  <data name="FileNameFormatOptions" xml:space="preserve">
-    <value>Elérhető beállítások: {0}</value>
-  </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
     <value>Ha a fájl már létezik...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
     <value>Egy fájl kódolása:</value>
   </data>
-  <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>Kérdezzen rá a felülírásra</value>
-  </data>
-  <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>Fájl felülírása rákérdezés nélkül</value>
-  </data>
-  <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>Automatikus átváltás egy másik névre</value>
-  </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
     <value>Több fájl kódolása:</value>
-  </data>
-  <data name="OverwriteRadioButton" xml:space="preserve">
-    <value>Felülírás</value>
-  </data>
-  <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>Automatikus átnevezés</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Automatikusan szüneteltesse a kódolást, ha a következő folyamatok egyike is fut:</value>
@@ -195,14 +159,11 @@
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>Emlékezzen a legutóbb használt fájlokra és mappákra</value>
   </data>
-  <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>Hangsávok egyedi neveinek engedélyzése (limitált lejátszótámogatás)</value>
-  </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>LibDVDNav engedélyezése (a megváltoztatás a program újraindítását igényli. Szükséges a több szög támogatásához)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Forrásfájlok törlése, miután eltávolítottad a befejezett elemeket (megerősítéssel)</value>
+    <value>Forrásfájlok törlése a sikeresen befejezett elemek eltávolítása után</value>
   </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Naplózási részletesség:</value>
@@ -282,9 +243,6 @@
   <data name="OutputFolderSection" xml:space="preserve">
     <value>Kimeneti mappa</value>
   </data>
-  <data name="NamingFormatSection" xml:space="preserve">
-    <value>Elnevezési formátum</value>
-  </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
     <value>Haladó beállítások</value>
   </data>
@@ -357,9 +315,6 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Munkavégző folyamat használata a kódoláshoz</value>
   </data>
-  <data name="VideoSection" xml:space="preserve">
-    <value>Videó</value>
-  </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Fájlok Létrehozva és Módosítva értékeinek megőrzése a konvertálás során</value>
   </data>
@@ -406,5 +361,27 @@
   </data>
   <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
     <value>"Amikor végez" művelet alkalmazása sikertelen kódolási feladatok esetén</value>
+  </data>
+  <data name="AutoPauseLowBatteryCheckbox" xml:space="preserve">
+    <value>Szünet alacsony akkutöltöttségnél</value>
+  </data>
+  <data name="AutoPauseLowDiskSpaceCheckbox" xml:space="preserve">
+    <value>Szünet, amikor a tárhely ez alá csökken:</value>
+  </data>
+  <data name="AutoPauseSectionLabel" xml:space="preserve">
+    <value>Automatikus szünet</value>
+  </data>
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>Elérhető beállítások: {0}</value>
+  </data>
+  <data name="LowDiskSpaceThresholdAutomationName" xml:space="preserve">
+    <value>Alacsony tárhely korlát gigabájtbaN</value>
+    <comment>Screen reader name for the low disk space threshold number box</comment>
+  </data>
+  <data name="DragDropScanOrderLabel" xml:space="preserve">
+    <value>Vizsgálati sorrend (fogd és vidd):</value>
+  </data>
+  <data name="EncodeRetriesLabel" xml:space="preserve">
+    <value>Kódolási újrapróbálkozások száma:</value>
   </data>
 </root>

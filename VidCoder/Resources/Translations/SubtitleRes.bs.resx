@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SubtitlesWindowTitle" xml:space="preserve">
-    <value>Podnaslovi</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>Podnaslovi iz izvora:</value>
   </data>
@@ -156,9 +153,7 @@
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Dodatni zapisi s podnaslovima će prekriti urezane podnaslove.</value>
   </data>
-  <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Traženje stranog audia</value>
-  </data>
+  
   <data name="SubtitleFilePickerText" xml:space="preserve">
     <value>Dodaj datoteku sa podnaslovima</value>
   </data>

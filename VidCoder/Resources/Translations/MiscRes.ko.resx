@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddButton" xml:space="preserve">
     <value>추가</value>
@@ -153,9 +153,7 @@
   <data name="FileConflictWarning" xml:space="preserve">
     <value>파일이 {0}에 이미 존재합니다. 파일을 덮어쓰고 해당 인코드 작업의 새 출력 경로를 자동으로 찾을까요, 아니면 이 동작을 취소할까요?</value>
   </data>
-  <data name="QueueFileConflictWarning" xml:space="preserve">
-    <value>대기열 작업은 이미 {0}에 출력 경로가 있습니다. 파일을 덮어쓰고 해당 인코드 작업의 새 출력 경로를 자동으로 찾을까요, 아니면 이 동작을 취소할까요?</value>
-  </data>
+  
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>대기열 세로열</value>
   </data>
@@ -248,5 +246,7 @@
   <data name="ChooseNamePicker" xml:space="preserve">
     <value>선택기 이름 선택하기:</value>
   </data>
+  
+  
   
 </root>

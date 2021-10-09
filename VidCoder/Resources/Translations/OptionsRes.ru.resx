@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Общие</value>
@@ -138,50 +138,14 @@
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
     <value>Автоматическое обновления</value>
   </data>
-  <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>Принять участие в бета-версии проекта</value>
-  </data>
-  <data name="FileNamingTab" xml:space="preserve">
-    <value>Именование файлов</value>
-  </data>
-  <data name="DefaultFolderLabel" xml:space="preserve">
-    <value>Папка по умолчанию:</value>
-  </data>
-  <data name="FileFormatLabel" xml:space="preserve">
-    <value>Формат файла:</value>
-  </data>
-  <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>Формат по умолчанию</value>
-  </data>
-  <data name="CustomFormatRadioButton" xml:space="preserve">
-    <value>Пользовательский формат:</value>
-  </data>
-  <data name="FileNameFormatOptions" xml:space="preserve">
-    <value>Доступные параметры: {0}</value>
-  </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
     <value>Если файл уже существует...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
     <value>Кодирование одного файла:</value>
   </data>
-  <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>Спросите, если вы хотите перезаписать его</value>
-  </data>
-  <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>Перезаписать файл без запроса</value>
-  </data>
-  <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>Автоматическое переключение на другое имя</value>
-  </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
     <value>Пакетное кодирование файлов:</value>
-  </data>
-  <data name="OverwriteRadioButton" xml:space="preserve">
-    <value>Перезаписать</value>
-  </data>
-  <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>Автоматическое переименование</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Автоматически пауза кодирования, если любой из этих процессов запущен:</value>
@@ -195,14 +159,11 @@
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>Запомнить недавно использованные файлы и папки</value>
   </data>
-  <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>Позволяет установить пользовательское имя для аудио-треков (ограниченная поддержка плееров)</value>
-  </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Включить LibDVDNav (Для изменения требуется перезапуск программы. Требуется для поддержки нескольких углов.)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Удалить исходные файлы после очистки успешно завершенных пунктов (с подтверждением)</value>
+    <value>Удалить исходные файлы после очистки успешно завершённых заданий</value>
   </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Подробное протоколирование:</value>
@@ -282,9 +243,6 @@
   <data name="OutputFolderSection" xml:space="preserve">
     <value>Выходная папка</value>
   </data>
-  <data name="NamingFormatSection" xml:space="preserve">
-    <value>Формат именования</value>
-  </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
     <value>Дополнительные возможности</value>
   </data>
@@ -357,9 +315,6 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Использовать рабочий процесс для кодирования</value>
   </data>
-  <data name="VideoSection" xml:space="preserve">
-    <value>Видео</value>
-  </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Заповедник создан и изменен время при преобразовании файлов</value>
   </data>
@@ -406,5 +361,27 @@
   </data>
   <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
     <value>Действие "Когда сделано" при наличии неудачных заданий кодирования</value>
+  </data>
+  <data name="AutoPauseLowBatteryCheckbox" xml:space="preserve">
+    <value>Пауза при низком заряде</value>
+  </data>
+  <data name="AutoPauseLowDiskSpaceCheckbox" xml:space="preserve">
+    <value>Пауза, если места на диске менее:</value>
+  </data>
+  <data name="AutoPauseSectionLabel" xml:space="preserve">
+    <value>Автоматическая пауза</value>
+  </data>
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>Доступные параметры: {0}</value>
+  </data>
+  <data name="LowDiskSpaceThresholdAutomationName" xml:space="preserve">
+    <value>Порог места на диске в гигабайтах</value>
+    <comment>Screen reader name for the low disk space threshold number box</comment>
+  </data>
+  <data name="DragDropScanOrderLabel" xml:space="preserve">
+    <value>Порядок сканирования при перетаскивании:</value>
+  </data>
+  <data name="EncodeRetriesLabel" xml:space="preserve">
+    <value>Количество проходов кодирования:</value>
   </data>
 </root>

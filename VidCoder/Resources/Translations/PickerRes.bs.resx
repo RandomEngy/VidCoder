@@ -112,25 +112,13 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AudioSelection" xml:space="preserve">
-    <value>Odabir audia</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Ureži u video</value>
-  </data>
   <data name="DefaultCheckBox" xml:space="preserve">
     <value>Zadano</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Traženje stranog audia</value>
-  </data>
-  <data name="IncludeAllTracksRadioButton" xml:space="preserve">
-    <value>Svi zapisi</value>
   </data>
   <data name="LanguagesRadioButton" xml:space="preserve">
     <value>Jezik(ci)</value>
@@ -139,14 +127,8 @@
     <value>Samo ako je različit jezik od audia</value>
     <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
   </data>
-  <data name="SubtitleSelection" xml:space="preserve">
-    <value>Izbor podnaslova</value>
-  </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>Izabirač: {0}</value>
-  </data>
-  <data name="TitleSelection" xml:space="preserve">
-    <value>Izbor naslova</value>
   </data>
   <data name="PickerButtonFormat" xml:space="preserve">
     <value>Izabirač: {0}</value>
@@ -222,21 +204,6 @@
     <value>Označi prvi kao zadani</value>
     <comment>Label for checkbox to mark the first subtitle as default.</comment>
   </data>
-  <data name="AllSubtitlesToolTip" xml:space="preserve">
-    <value>Uključi sve podnaslove.</value>
-  </data>
-  <data name="SubtitleNoneToolTip" xml:space="preserve">
-    <value>Podnaslovi nisu uključeni.</value>
-  </data>
-  <data name="AudioFirstToolTip" xml:space="preserve">
-    <value>Uključi samo prvi audio zapis.</value>
-  </data>
-  <data name="AudioAllToolTip" xml:space="preserve">
-    <value>Uključi sve audio zapise.</value>
-  </data>
-  <data name="SubtitleFirstToolTip" xml:space="preserve">
-    <value>Uključi samo prvi podnaslov.</value>
-  </data>
   <data name="PresetLabel" xml:space="preserve">
     <value>Koristi šablon:</value>
   </data>
@@ -250,15 +217,8 @@
     <value>Samo obavezne</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
-  <data name="AudioDefaultToolTip" xml:space="preserve">
-    <value>Odabire zadnje označeni zvučni zapis ako je utvrđeno podudaranje, inače bira prvi.</value>
-  </data>
   <data name="LastSelectedRadioButton" xml:space="preserve">
     <value>Posljednje označeno</value>
-  </data>
-  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
-    <value>Odabire zadnje označene podnaslove ako je utvrđeno podudaranje, inače neće biti odabrano ništa.</value>
-    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
   </data>
   <data name="OverrideNameFormatLabel" xml:space="preserve">
     <value>Dostupne opcije: {0}</value>
@@ -277,15 +237,7 @@
     <value>Filtriraj naslove po dužini trajanja</value>
     <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
   </data>
-  <data name="TimeRangeSelection" xml:space="preserve">
-    <value>Odabir raspona vremena</value>
-  </data>
-  <data name="SelectTimeRangeCheckBox" xml:space="preserve">
-    <value>Odaberite vremenski raspon</value>
-  </data>
-  <data name="TitleCaptializationLabel" xml:space="preserve">
-    <value>Veliko početno slovo u nazivu:</value>
-  </data>
+  
   <data name="TimeRangeStartAutomationName" xml:space="preserve">
     <value>Početak raspona vremena</value>
   </data>
@@ -308,4 +260,42 @@
   <data name="ChapterRangeStartAutomationName" xml:space="preserve">
     <value>Raspon poglavlja početak</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <data name="BurnInCheckBox" xml:space="preserve">
+    <value>Ureži u video</value>
+  </data>
+  
+  
 </root>

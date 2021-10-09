@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>General</value>
@@ -138,50 +138,14 @@
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
     <value>Actualizaciones automáticas</value>
   </data>
-  <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>Únete a la pista de actualización Beta</value>
-  </data>
-  <data name="FileNamingTab" xml:space="preserve">
-    <value>Nombre de archivo</value>
-  </data>
-  <data name="DefaultFolderLabel" xml:space="preserve">
-    <value>Carpeta predeterminada:</value>
-  </data>
-  <data name="FileFormatLabel" xml:space="preserve">
-    <value>Formato de archivo:</value>
-  </data>
-  <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>Formato predeterminado</value>
-  </data>
-  <data name="CustomFormatRadioButton" xml:space="preserve">
-    <value>Formato personalizado:</value>
-  </data>
-  <data name="FileNameFormatOptions" xml:space="preserve">
-    <value>Opciones disponibles: {0}</value>
-  </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
     <value>Cuando ya existe un archivo...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
     <value>Codificacion simple de archivo:</value>
   </data>
-  <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>Preguntar si quieres sobrescribirlo</value>
-  </data>
-  <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>Sobrescribir el archivo sin preguntar</value>
-  </data>
-  <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>Cambia automáticamente a un nombre diferente</value>
-  </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
-    <value>Codificación por lotes de archivos:</value>
-  </data>
-  <data name="OverwriteRadioButton" xml:space="preserve">
-    <value>Sobrescribir</value>
-  </data>
-  <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>Renombrar automaticamente</value>
+    <value>Codificando archivos en lote:</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Pausar automáticamente la codificación cuando alguno de estos procesos se estén ejecutando:</value>
@@ -190,29 +154,26 @@
     <value>Agregar...</value>
   </data>
   <data name="PreviewCountLabel" xml:space="preserve">
-    <value>Número de vistas previas de la imagen a escanear:</value>
+    <value>Número de avances de imagen a analizar:</value>
   </data>
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>Recordar archivos y carpetas usadas previamente</value>
   </data>
-  <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>Permite configurar nombre personalizado en pistas de audio (soporte limitado del reproductor)</value>
+  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
+    <value>Habilita LibDVDNav (El cambio requiere reiniciar VidCoder. Requerido para multi ángulos)</value>
   </data>
   
-  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Eliminar archivos de origen después de limpiar la lista de objetos completados (con confirmación)</value>
-  </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Nivel de detalle del Log:</value>
   </data>
   <data name="MinScanLengthLabel" xml:space="preserve">
-    <value>Longitud mínima del título para escanear (segundos):</value>
+    <value>Longitud mínima del título a analizar (segundos):</value>
   </data>
   <data name="RecognizedExtensionsLabel" xml:space="preserve">
     <value>Extensiones reconocidas:</value>
   </data>
   <data name="RecognizedExtensionsToolTip" xml:space="preserve">
-    <value>Durante la exploración de carpetas para archivos de vídeo, añadir archivos con estas extensiones. (Separados por comas)</value>
+    <value>Al buscar videos en carpetas, añadir los archivos con estas extensiones. (Separados por comas)</value>
   </data>
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Opciones</value>
@@ -224,10 +185,10 @@
     <value>Avanzado</value>
   </data>
   <data name="BetaUpdatesInBeta" xml:space="preserve">
-    <value>Estás ejecutando la versión Beta. Esta se puede ejecutar al mismo tiempo con la versión estable.</value>
+    <value>Estás ejecutando la versión Beta. Esta versión puede convivir con la versión estable.</value>
   </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
-    <value>Únete a la pista Beta para obtener las actualizaciones más frecuentes</value>
+    <value>Únete al Beta Track para obtener las actualizaciones más frecuentes</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
     <value>Actualización {0} lista. Se Instalará cuando salgas del programa.</value>
@@ -245,10 +206,10 @@
     <value>Idioma de la interfaz:</value>
   </data>
   <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
-    <value>El nuevo idioma surtirá efecto después de salir y reiniciar VidCoder.</value>
+    <value>El cambio de idioma surtirá efecto después de reiniciar VidCoder.</value>
   </data>
   <data name="UseOSLanguage" xml:space="preserve">
-    <value>Usar Idioma del SO</value>
+    <value>Usar Idioma del sistema</value>
   </data>
   <data name="UpdatesTab" xml:space="preserve">
     <value>Actualizaciones</value>
@@ -260,7 +221,7 @@
     <value>Falló la comprobación de las actualizaciones.</value>
   </data>
   <data name="CompletionWavFilePickTitle" xml:space="preserve">
-    <value>Elije el archivo .wav que deseas usar.</value>
+    <value>Elije el archivo .wav que deseas escuchar al concluir.</value>
   </data>
   <data name="CurrentVersionLabel" xml:space="preserve">
     <value>Versión actual: {0}</value>
@@ -279,9 +240,6 @@
   </data>
   <data name="OutputFolderSection" xml:space="preserve">
     <value>Carpeta de salida</value>
-  </data>
-  <data name="NamingFormatSection" xml:space="preserve">
-    <value>Formato de nombres</value>
   </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
     <value>Opciones avanzadas</value>
@@ -355,9 +313,6 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Utilizar 'workers' para codificar</value>
   </data>
-  <data name="VideoSection" xml:space="preserve">
-    <value>Video</value>
-  </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Conservar el tiempo de creación y modificación cuando se conviertan archivos</value>
   </data>
@@ -393,7 +348,24 @@
   <data name="PromptForUpdatesLabel" xml:space="preserve">
     <value>Solicitar actualizaciones:</value>
   </data>
+  <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
+    <value>La opción worker process se activará al reiniciar VidCoder.</value>
+  </data>
+  <data name="CopyLogToCustomFolderLabel" xml:space="preserve">
+    <value>Copiar el registro de codificación a una carpeta personalizada</value>
+  </data>
+  <data name="KeepFailedFilesCheckBox" xml:space="preserve">
+    <value>Conservar los archivos de codificaciones fallidas o detenidas</value>
+  </data>
+  <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
+    <value>Ejecutar la acción "Al terminar" con trabajos fallidos</value>
+  </data>
   
+  
+  
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>Opciones disponibles: {0}</value>
+  </data>
   
   
   

@@ -121,7 +121,7 @@
     <value>Personalizado</value>
   </data>
   <data name="Anamorphic_Loose" xml:space="preserve">
-    <value>Perder</value>
+    <value>Livre</value>
   </data>
   <data name="Anamorphic_None" xml:space="preserve">
     <value>Nenhum</value>
@@ -205,7 +205,7 @@
     <value>hqdn3d</value>
   </data>
   <data name="Denoise_NLMeans" xml:space="preserve">
-    <value>NL-meios</value>
+    <value>NL-Means</value>
   </data>
   <data name="EncodeCompleteActionType_CloseProgram" xml:space="preserve">
     <value>Fechar o VidCoder</value>
@@ -255,13 +255,13 @@
     <value>Capítulos</value>
   </data>
   <data name="VideoRangeType_Frames" xml:space="preserve">
-    <value>Frames</value>
+    <value>Quadros</value>
   </data>
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>Intervalo de tempo</value>
   </data>
   <data name="TitleCapitalizationChoice_EveryWord" xml:space="preserve">
-    <value>Cada hora</value>
+    <value>Toda hora</value>
     <comment>This will make Blu-ray and DVD titles capitalize every word</comment>
   </data>
   <data name="TitleCapitalizationChoice_FirstWord" xml:space="preserve">
@@ -288,5 +288,61 @@
   </data>
   <data name="PickerTimeRangeMode_Time" xml:space="preserve">
     <value>Intervalo de tempo</value>
+  </data>
+  <data name="DeleteSourceFilesMode_DeleteWithConfirmation" xml:space="preserve">
+    <value>Excluir arquivos (com confirmação)</value>
+  </data>
+  <data name="DeleteSourceFilesMode_Recycle" xml:space="preserve">
+    <value>Enviar para lixeira</value>
+  </data>
+  <data name="WhenFileExists_AutoRename" xml:space="preserve">
+    <value>Renomear automaticamente</value>
+  </data>
+  <data name="WhenFileExists_Overwrite" xml:space="preserve">
+    <value>Substituir</value>
+  </data>
+  <data name="WhenFileExists_Prompt" xml:space="preserve">
+    <value>Perguntar</value>
+  </data>
+  <data name="DenoiseTune_medium" xml:space="preserve">
+    <value>Médio</value>
+  </data>
+  <data name="DenoiseTune_none" xml:space="preserve">
+    <value>Nenhum</value>
+  </data>
+  <data name="DenoiseTune_small" xml:space="preserve">
+    <value>Pequeno</value>
+  </data>
+  <data name="DenoiseTune_tiny" xml:space="preserve">
+    <value>Minúsculo</value>
+  </data>
+  <data name="DenoiseTune_verywide" xml:space="preserve">
+    <value>Muito ampla</value>
+  </data>
+  <data name="DenoiseTune_wide" xml:space="preserve">
+    <value>Ampla</value>
+  </data>
+  <data name="Denoise_ChromaSmooth" xml:space="preserve">
+    <value>Croma suave</value>
+  </data>
+  <data name="DragDropOrder_Alphabetical" xml:space="preserve">
+    <value>Ordem alfabética</value>
+    <comment>Label for the option to order dragged files alphabetically</comment>
+  </data>
+  <data name="DragDropOrder_Selected" xml:space="preserve">
+    <value>Selecionado</value>
+    <comment>Label for the option to order dragged files as they had been selected in File explorer</comment>
+  </data>
+  <data name="SubtitleBurnInSelection_First" xml:space="preserve">
+    <value>Primeiro</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrack" xml:space="preserve">
+    <value>Faixa de áudio estrangeira</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrackElseFirst" xml:space="preserve">
+    <value>Faixa de áudio estrangeira, senão a Primeira</value>
+  </data>
+  <data name="SubtitleBurnInSelection_None" xml:space="preserve">
+    <value>Nenhum</value>
   </data>
 </root>

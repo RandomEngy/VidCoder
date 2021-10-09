@@ -112,19 +112,19 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
     <value>Título:</value>
   </data>
   <data name="AddToQueueLabel" xml:space="preserve">
-    <value>Add à fila</value>
+    <value>Adicionar à fila</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
-    <value>Add múltiplos títulos à fila...</value>
+    <value>Adicionar múltiplos títulos à fila...</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
     <value>Abrir arquivo de vídeo...</value>
@@ -154,7 +154,7 @@
     <value>Abrir conteúdo da pasta</value>
   </data>
   <data name="ClearCompleted" xml:space="preserve">
-    <value>Limpar concluídos</value>
+    <value>Remover concluídos</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Janelas</value>
@@ -167,7 +167,7 @@
     <value>Pré-Visualização</value>
   </data>
   <data name="LogMenuItem" xml:space="preserve">
-    <value>Log de eventos</value>
+    <value>Relatório de eventos</value>
   </data>
   <data name="HelpMenu" xml:space="preserve">
     <value>Ajuda</value>
@@ -181,12 +181,6 @@
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
     <value>Sobre o VidCoder...</value>
   </data>
-  <data name="ChooseVideoSourceLabel" xml:space="preserve">
-    <value>Escolher um vídeo de origem:</value>
-  </data>
-  <data name="SourceLabel" xml:space="preserve">
-    <value>Origem:</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>Recentes</value>
   </data>
@@ -194,10 +188,7 @@
     <value>(Ou arraste arquivos de vídeo ou pastas aqui)</value>
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
-    <value>Ocorreu um erro ao analisar arquivo.</value>
-  </data>
-  <data name="AddTrackButton" xml:space="preserve">
-    <value>Add faixa</value>
+    <value>Ocorreu um erro ao analisar o arquivo.</value>
   </data>
   <data name="ChapterMarkersLabel" xml:space="preserve">
     <value>Marcadores de capítulos:</value>
@@ -210,12 +201,6 @@
   </data>
   <data name="DestinationToolTip" xml:space="preserve">
     <value>Clique para editar o destino da codificação.</value>
-  </data>
-  <data name="SelectOutputPathButton" xml:space="preserve">
-    <value>Selecione a pasta para salvar...</value>
-  </data>
-  <data name="EncodingLabel" xml:space="preserve">
-    <value>Codificação:</value>
   </data>
   <data name="Stop" xml:space="preserve">
     <value>Parar</value>
@@ -233,10 +218,10 @@
     <value>Personalizar colunas...</value>
   </data>
   <data name="CurrentFpsLabel" xml:space="preserve">
-    <value>FPS atual:</value>
+    <value>Taxa atual de quadros:</value>
   </data>
   <data name="AverageFpsLabel" xml:space="preserve">
-    <value>FPS médio:</value>
+    <value>Taxa média de quadros:</value>
   </data>
   <data name="PickDiscFolderHelpText" xml:space="preserve">
     <value>Escolha uma pasta de DVD ou Blu-ray.</value>
@@ -247,20 +232,14 @@
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
     <value>Codificação em andamento</value>
   </data>
-  <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Pesquisa de áudio externo</value>
-  </data>
   <data name="NoneParen" xml:space="preserve">
     <value>(Nenhum)</value>
-  </data>
-  <data name="TracksSummaryMultiple" xml:space="preserve">
-    <value>{0} faixas</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
     <value>Deseja guardar as alterações do pré-ajuste atual?</value>
   </data>
   <data name="SaveChangesPresetTitle" xml:space="preserve">
-    <value>Guardar pré-ajuste atual?</value>
+    <value>Salvar predefinição atual?</value>
   </data>
   <data name="DiscNotInDriveError" xml:space="preserve">
     <value>Não foi possível carregar para edição. O disco não está na unidade.</value>
@@ -270,9 +249,6 @@
   </data>
   <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
     <value>Restaurado a partir de lista de concluídos</value>
-  </data>
-  <data name="PresetLabel" xml:space="preserve">
-    <value>Predefinição:</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
     <value>Destino</value>
@@ -308,7 +284,7 @@
     <value>Codificação parada.</value>
   </data>
   <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>Tem certeza de que deseja eliminar {0} ficheiro(s)/pasta(s) de origem?</value>
+    <value>Tem certeza de que deseja eliminar {0} arquivo(s)/pasta(s) de origem?</value>
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Confirmar exclusão</value>
@@ -325,9 +301,6 @@
   <data name="DirectoryCreateErrorMessage" xml:space="preserve">
     <value>Não foi possível criar a pasta de destino. Detalhes do erro: {0}</value>
   </data>
-  <data name="DirectoryCreateErrorTitle" xml:space="preserve">
-    <value>Erro ao criar pasta</value>
-  </data>
   <data name="EncodeCompleted" xml:space="preserve">
     <value>Codificação concluída.</value>
   </data>
@@ -336,12 +309,6 @@
   </data>
   <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
     <value>VidCoder terminou todas as tarefas de codificação.</value>
-  </data>
-  <data name="OutputFolderRequiredMessage" xml:space="preserve">
-    <value>Não é possível adicionar tarefas de codificação sem ter uma pasta de destino padrão. Pressione OK para escolher uma.</value>
-  </data>
-  <data name="OutputFolderRequiredTitle" xml:space="preserve">
-    <value>Pasta de destino padrão exigida</value>
   </data>
   <data name="OutputPathNotValidMessage" xml:space="preserve">
     <value>Pasta de destino inválida.</value>
@@ -421,9 +388,6 @@
   <data name="RemoveConfirmTitle" xml:space="preserve">
     <value>Remover</value>
   </data>
-  <data name="UserConfigCorrupted" xml:space="preserve">
-    <value>A configuração está corrompida e não pode ser carregada. Algumas das suas configurações podem ter sido apagadas.</value>
-  </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
     <value>Escolha a pasta de destino para os arquivos de vídeo codificados.</value>
   </data>
@@ -440,9 +404,6 @@
     <value>Abrindo pasta...</value>
   </data>
   <data name="CloseVideoSourceToolTip" xml:space="preserve">
-    <value>Fechar origem do vídeo</value>
-  </data>
-  <data name="CloseVideoSourceMenuItem" xml:space="preserve">
     <value>Fechar origem do vídeo</value>
   </data>
   <data name="UpdatesMenuItem" xml:space="preserve">
@@ -477,9 +438,6 @@
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>Descartar alterações?</value>
-  </data>
-  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
-    <value>Remover a faixa de áudio</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
     <value>Remover da lista de tarefas</value>
@@ -540,10 +498,6 @@
   <data name="CouldNotLoadPickerMessage" xml:space="preserve">
     <value>Não foi possível carregar o seletor: </value>
   </data>
-  <data name="PickerNameTemplate" xml:space="preserve">
-    <value>Seletor {0}</value>
-    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
-  </data>
   <data name="SimilarTitlesToolTip" xml:space="preserve">
     <value>{0} outros títulos têm duração semelhante.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
@@ -558,9 +512,6 @@
   <data name="CustomVideoPlayerError" xml:space="preserve">
     <value>O reprodutor de vídeo personalizado não pôde ser encontrado em {0}.</value>
     <comment>{0} is the path to the custom video player.</comment>
-  </data>
-  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
-    <value>Aviso: A interface de dimensionamento foi reajustada para 2.0, por isso suas predefinições podem ter mudado. Você pode querer inspecioná-las e certificar-se de que elas ainda estão configuradas corretamente.</value>
   </data>
   <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
     <value>Enfileirar Pasta de Arquivos de Vídeo...</value>
@@ -698,5 +649,89 @@
   </data>
   <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
     <value>Ação completa de codificação não foi executada devido a erros na lista de resultados do codificador.</value>
+  </data>
+  <data name="AudioPickerButtonToolTip" xml:space="preserve">
+    <value>Escolher faixas de áudio automaticamente...</value>
+  </data>
+  <data name="SubtitlePickerButtonToolTip" xml:space="preserve">
+    <value>Escolher faixas de legenda automaticamente...</value>
+  </data>
+  <data name="AudioSubtitleTrackColumnHeader" xml:space="preserve">
+    <value>Faixa</value>
+    <comment>Column header for the audio or subtitle track summary. This is an an auto-generated summary that includes language, format, etc.</comment>
+  </data>
+  <data name="AudioTrackNameAutomationName" xml:space="preserve">
+    <value>Adicionar nome da faixa de áudio</value>
+    <comment>Narrator label for the audio track name text box.</comment>
+  </data>
+  <data name="SubtitleNameAutomationName" xml:space="preserve">
+    <value>Nome da legenda</value>
+    <comment>Narrator label for the subtitle name text box.</comment>
+  </data>
+  <data name="CouldNotRecycleFile" xml:space="preserve">
+    <value>Erro ao enviar arquivos para a Lixeira.</value>
+  </data>
+  <data name="DestinationAutomaticToolTip" xml:space="preserve">
+    <value>O destino é definido automaticamente. Clique para editar as configurações.</value>
+  </data>
+  <data name="DestinationManualToolTip" xml:space="preserve">
+    <value>O destino está definido manualmente. Clique para mudar para automático.</value>
+  </data>
+  <data name="CompareAgainstOriginal" xml:space="preserve">
+    <value>Comparar com o original</value>
+  </data>
+  <data name="CompareEncodedLabel" xml:space="preserve">
+    <value>Codificado</value>
+    <comment>Label for the encoded video when comparing original vs encoded</comment>
+  </data>
+  <data name="CompareOriginalLabel" xml:space="preserve">
+    <value>Original</value>
+    <comment>Label for the original video when comparing original vs encoded</comment>
+  </data>
+  <data name="CompareWindowHelpText" xml:space="preserve">
+    <value>Clique ou segure Ctrl para mostrar a versão codificada.</value>
+  </data>
+  <data name="CompareWindowTitleFormat" xml:space="preserve">
+    <value>Comparar vídeo: {0} - {1}</value>
+    <comment>Title for the Video compare window.
+{0} is a string indicating if it's original or encoded.
+{1} is the file name, e.g. MyFile.mkv</comment>
+  </data>
+  <data name="MuteAutomationName" xml:space="preserve">
+    <value>Silenciar</value>
+    <comment>Text for screen readers for the mute button on video playback</comment>
+  </data>
+  <data name="UnmuteAutomationName" xml:space="preserve">
+    <value>Ativar Som</value>
+    <comment>Text for screen readers for the unmute button on video playback</comment>
+  </data>
+  <data name="AutoPauseLowBattery" xml:space="preserve">
+    <value>Pausar automaticamente devido a pouca bateria.</value>
+  </data>
+  <data name="AutoPauseLowDiskSpace" xml:space="preserve">
+    <value>Pausar automaticamente devido ao espaço livre em disco ser inferior a {0}GB.</value>
+    <comment>{0} is the disk space threshold for auto-pause in GB</comment>
+  </data>
+  <data name="AutoPauseProcessDetected" xml:space="preserve">
+    <value>Pausando automaticamente, processo detectado: {0}</value>
+    <comment>{0} is the name of the process we were waiting for to pause</comment>
+  </data>
+  <data name="AutoPauseResumeBattery" xml:space="preserve">
+    <value>Retomando automaticamente, conectado à fonte de alimentação.</value>
+  </data>
+  <data name="AutoPauseResumeDiskSpace" xml:space="preserve">
+    <value>Retomando automaticamente, o disco tem espaço livre.</value>
+  </data>
+  <data name="AutoPauseResumeProcess" xml:space="preserve">
+    <value>Retomando automaticamente, os processos desapareceram.</value>
+  </data>
+  <data name="Win7DeprecationWarning" xml:space="preserve">
+    <value>VidCoder não é mais suportado no Windows 7 ou 8.
+
+Você pode continuar usando VidCoder por seu próprio risco. Certos recursos não funcionam e pode haver outros problemas desconhecidos. Não há suporte disponível quando esses problemas ocorrem.
+
+V5 foi a última versão testada para Windows 7/8.
+
+Este aviso será exibido duas vezes.</value>
   </data>
 </root>

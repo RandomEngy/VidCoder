@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddButton" xml:space="preserve">
     <value>Hozzáad</value>
@@ -154,7 +154,7 @@
     <value>A fájl már létezik a(z) {0} helyen. Szeretnéd felülírni a fájlt, automatikusan új kimeneti útvonalat találni a kódolási műveletnek vagy megszakaítani a műveletet?</value>
   </data>
   <data name="QueueFileConflictWarning" xml:space="preserve">
-    <value>Egy sorba rendezett művelet már rendelkezik kimeneti útvonallal a(z) {0} helyen. Szeretnéd felülírni a fájlt, automatikusan új kimeneti útvonalat találni a kódolási műveletnek vagy megszakaítani a műveletet?</value>
+    <value>Egy sorba rendezett művelet már rendelkezik kimeneti útvonallal a(z) {0} helyen. Szeretnéd lecserélni a sorba rendezett műveletet, automatikusan új kimeneti útvonalat találni a kódolási műveletnek vagy megszakaítani a műveletet?</value>
   </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>Oszlopsorrend</value>
@@ -253,5 +253,11 @@
   </data>
   <data name="ExceptionDialogSubTextReported" xml:space="preserve">
     <value>A programnak be kell zárulnia, de a hiba automatikusan jelentésre kerül.</value>
+  </data>
+  <data name="DownloadInstallerButton" xml:space="preserve">
+    <value>Telepítő letöltése</value>
+  </data>
+  <data name="ReplaceJobButton" xml:space="preserve">
+    <value>Művelet lecserélése</value>
   </data>
 </root>

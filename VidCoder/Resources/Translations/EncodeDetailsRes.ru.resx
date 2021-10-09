@@ -128,10 +128,10 @@
     <comment>This is the label for progress during the "scanning" pass of encoding. When you choose automatic subtitles it first needs to make a quick scan through the file to see which subtitles apply.</comment>
   </data>
   <data name="FirstPassLabel" xml:space="preserve">
-    <value>Проходит первый:</value>
+    <value>Первый проход:</value>
   </data>
   <data name="SecondPassLabel" xml:space="preserve">
-    <value>Проходит второй:</value>
+    <value>Второй проход:</value>
   </data>
   <data name="EncodePassLabel" xml:space="preserve">
     <value>Проходит Кодирование:</value>

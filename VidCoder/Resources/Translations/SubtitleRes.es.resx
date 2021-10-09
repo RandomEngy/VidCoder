@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SubtitlesWindowTitle" xml:space="preserve">
-    <value>Subtítulos</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>Subtítulos de la fuente:</value>
   </data>
@@ -156,10 +153,10 @@
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Otras pistas de subtítulos se superpondrán a los subtítulos pegados.</value>
   </data>
-  <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Busqueda de Audio Externo</value>
-  </data>
   
+  <data name="SubtitleFilePickerText" xml:space="preserve">
+    <value>Agregar subtítulo</value>
+  </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>No se pudo detectar la codificación del archivo de subtítulos. Para asegurarse de que los subtítulos aparecen correctamente, vuelva a guardar el archivo con formato UTF-8.</value>
   </data>
@@ -170,6 +167,10 @@
     <value>{0} externo(s)</value>
     <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
   </data>
-  
-  
+  <data name="ImportSubtitleButton" xml:space="preserve">
+    <value>Importar desde archivo...</value>
+  </data>
+  <data name="FilePickerDescription" xml:space="preserve">
+    <value>Subítulos</value>
+  </data>
 </root>

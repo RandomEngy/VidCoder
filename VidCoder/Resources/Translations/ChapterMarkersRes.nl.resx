@@ -102,13 +102,13 @@
     <value xml:space="preserve">Hoofdstukmarkering</value>
   </data>
   <data name="DefaultChapterNamesRadioButton">
-    <value xml:space="preserve">Gebruik standaard hoofdstuk namen</value>
+    <value xml:space="preserve">Standaard hoofdstuknamen gebruiken</value>
   </data>
   <data name="CustomChapterNamesRadioButton">
-    <value xml:space="preserve">Gebruik aangepaste hoofdstuk namen:</value>
+    <value xml:space="preserve">Aangepaste hoofdstuknamen gebruiken:</value>
   </data>
   <data name="ImportFromCsvButton">
-    <value xml:space="preserve">Importeer uit .csv...</value>
+    <value xml:space="preserve">Importeren uit .csv...</value>
   </data>
   <data name="NumberColumn">
     <value xml:space="preserve">Nummer</value>

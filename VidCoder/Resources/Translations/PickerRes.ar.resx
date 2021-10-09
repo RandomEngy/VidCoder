@@ -112,25 +112,13 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AudioSelection" xml:space="preserve">
-    <value>اختيار الصوت</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>حرق في</value>
-  </data>
   <data name="DefaultCheckBox" xml:space="preserve">
     <value>افتراضي</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>البحث الصوتي الخارجي</value>
-  </data>
-  <data name="IncludeAllTracksRadioButton" xml:space="preserve">
-    <value>كل المسارات</value>
   </data>
   <data name="LanguagesRadioButton" xml:space="preserve">
     <value>اللغات</value>
@@ -139,14 +127,8 @@
     <value>فقط إذا بلغه مختلفه من الصوت</value>
     <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
   </data>
-  <data name="SubtitleSelection" xml:space="preserve">
-    <value>إختيار عنوان ثانوي</value>
-  </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>المنتقي {0}</value>
-  </data>
-  <data name="TitleSelection" xml:space="preserve">
-    <value>اختيار العنوان</value>
   </data>
   <data name="PickerButtonFormat" xml:space="preserve">
     <value>المنتقي: {0}</value>
@@ -222,21 +204,6 @@
     <value>علم أولا باسم افتراضي،</value>
     <comment>Label for checkbox to mark the first subtitle as default.</comment>
   </data>
-  <data name="AllSubtitlesToolTip" xml:space="preserve">
-    <value>تضمين كل العناوين الثانوية.</value>
-  </data>
-  <data name="SubtitleNoneToolTip" xml:space="preserve">
-    <value>لا عناوين ثانوية مضمنة.</value>
-  </data>
-  <data name="AudioFirstToolTip" xml:space="preserve">
-    <value>تضمين المسار الصوتي الأول فقط.</value>
-  </data>
-  <data name="AudioAllToolTip" xml:space="preserve">
-    <value>تضمين كل لمسارات الصوتية.</value>
-  </data>
-  <data name="SubtitleFirstToolTip" xml:space="preserve">
-    <value>تضمين العنوان الفرعي الأول فقط.</value>
-  </data>
   <data name="PresetLabel" xml:space="preserve">
     <value>استخدام الجاهز:</value>
   </data>
@@ -250,15 +217,8 @@
     <value>إجباري فقط</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
-  <data name="AudioDefaultToolTip" xml:space="preserve">
-    <value>يلتقط آخر مسار الصوت المحدد إذا تم العثور علي تطابق ، والا يختار الأول.</value>
-  </data>
   <data name="LastSelectedRadioButton" xml:space="preserve">
     <value>آخر اختيار</value>
-  </data>
-  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
-    <value>يلتقط مسار العنوان الثانوي المختار الأخير إذا تطابق توجد، ما عدا ذلك أو لا مسارات.</value>
-    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
   </data>
   <data name="OverrideNameFormatLabel" xml:space="preserve">
     <value>الخيارات المتاحة: {0}</value>
@@ -277,15 +237,7 @@
     <value>فلترة العناوين حسب المدة</value>
     <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
   </data>
-  <data name="TimeRangeSelection" xml:space="preserve">
-    <value>تحديد النطاق الزمني</value>
-  </data>
-  <data name="SelectTimeRangeCheckBox" xml:space="preserve">
-    <value>تحديد النطاق الزمني</value>
-  </data>
-  <data name="TitleCaptializationLabel" xml:space="preserve">
-    <value>عنوان الرسملة:</value>
-  </data>
+  
   <data name="TimeRangeStartAutomationName" xml:space="preserve">
     <value>بدء النطاق الزمني</value>
   </data>
@@ -308,4 +260,42 @@
   <data name="ChapterRangeStartAutomationName" xml:space="preserve">
     <value>بدء نطاق الفصل</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <data name="BurnInCheckBox" xml:space="preserve">
+    <value>حرق في</value>
+  </data>
+  
+  
 </root>

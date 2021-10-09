@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddButton" xml:space="preserve">
     <value>Agregar</value>
@@ -153,9 +153,7 @@
   <data name="FileConflictWarning" xml:space="preserve">
     <value>Ya existe un archivo en {0}. ¿Quieres sobrescribir el archivo, encontrar automáticamente una nueva ruta de salida para el trabajo o cancelar la operación?</value>
   </data>
-  <data name="QueueFileConflictWarning" xml:space="preserve">
-    <value>Un trabajo en cola ya tiene una ruta de salida en {0}. ¿Quieres sobrescribir el archivo, encontrar automáticamente una nueva ruta de salida para el trabajo o cancelar la operación?</value>
-  </data>
+  
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>Columnas de cola</value>
   </data>
@@ -254,4 +252,6 @@
   <data name="ExceptionDialogSubTextReported" xml:space="preserve">
     <value>Es necesario cerrar el programa, aunque el error será reportado automáticamente.</value>
   </data>
+  
+  
 </root>

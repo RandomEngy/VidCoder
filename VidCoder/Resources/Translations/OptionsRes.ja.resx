@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>全般</value>
@@ -138,50 +138,14 @@
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
     <value>自動更新</value>
   </data>
-  <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>ベータ版の更新に参加する</value>
-  </data>
-  <data name="FileNamingTab" xml:space="preserve">
-    <value>ファイルの名前付け</value>
-  </data>
-  <data name="DefaultFolderLabel" xml:space="preserve">
-    <value>既定のフォルダー：</value>
-  </data>
-  <data name="FileFormatLabel" xml:space="preserve">
-    <value>ファイル形式：</value>
-  </data>
-  <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>既定の形式</value>
-  </data>
-  <data name="CustomFormatRadioButton" xml:space="preserve">
-    <value>カスタム形式：</value>
-  </data>
-  <data name="FileNameFormatOptions" xml:space="preserve">
-    <value>使用可能なオプション: {0}</value>
-  </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
     <value>ファイルが既に存在する場合.</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
     <value>単一ファイルのエンコード時：</value>
   </data>
-  <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>上書きするか確認する</value>
-  </data>
-  <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>確認せずに上書きする</value>
-  </data>
-  <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>自動的に別の名前に切り替える</value>
-  </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
     <value>複数ファイルのエンコード時：</value>
-  </data>
-  <data name="OverwriteRadioButton" xml:space="preserve">
-    <value>上書き</value>
-  </data>
-  <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>自動的に名前を変更します。</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>これらのプロセスのいずれかを実行しているときに、エンコーディングを自動的に一時停止します。</value>
@@ -195,14 +159,11 @@
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>以前に使用したファイルとフォルダを記憶する</value>
   </data>
-  <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>音声トラックにカスタム名を許可する (限られたプレーヤーのみサポート)</value>
-  </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>LibDVDNavを有効化（アプリの再起動が必要。マルチアングルに対応）</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>問題なく完了したアイテムをクリアする際にソースファイルを削除します（確認あり）</value>
+    <value>完了したアイテムを消去した後にソースファイルを削除</value>
   </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>ログレベル：</value>
@@ -282,9 +243,6 @@
   <data name="OutputFolderSection" xml:space="preserve">
     <value>出力先：</value>
   </data>
-  <data name="NamingFormatSection" xml:space="preserve">
-    <value>ファイル名設定</value>
-  </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
     <value>詳細設定</value>
   </data>
@@ -357,9 +315,6 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>ワーカープロセスを使用してエンコード</value>
   </data>
-  <data name="VideoSection" xml:space="preserve">
-    <value>ビデオ</value>
-  </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>ファイル変換時に作成日時と更新日時を保持します。</value>
   </data>
@@ -406,5 +361,27 @@
   </data>
   <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
     <value>失敗したジョブがある際の終了時の動作</value>
+  </data>
+  <data name="AutoPauseLowBatteryCheckbox" xml:space="preserve">
+    <value>バッテリー残量が少ないときに一時停止する</value>
+  </data>
+  <data name="AutoPauseLowDiskSpaceCheckbox" xml:space="preserve">
+    <value>ディスク領域が以下になると一時停止する</value>
+  </data>
+  <data name="AutoPauseSectionLabel" xml:space="preserve">
+    <value>自動一時停止</value>
+  </data>
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>使用可能なオプション: {0}</value>
+  </data>
+  <data name="LowDiskSpaceThresholdAutomationName" xml:space="preserve">
+    <value>GB単位でディスク空き容量の下限値を設定</value>
+    <comment>Screen reader name for the low disk space threshold number box</comment>
+  </data>
+  <data name="DragDropScanOrderLabel" xml:space="preserve">
+    <value>D＆D時のスキャン順序:</value>
+  </data>
+  <data name="EncodeRetriesLabel" xml:space="preserve">
+    <value>エンコード再試行回数:</value>
   </data>
 </root>

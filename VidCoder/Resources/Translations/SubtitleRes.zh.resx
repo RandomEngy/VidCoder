@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SubtitlesWindowTitle" xml:space="preserve">
-    <value>字幕</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>源文件字幕：</value>
   </data>
@@ -156,9 +153,7 @@
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>其他字幕轨将与内嵌字幕重迭。</value>
   </data>
-  <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>搜索外语音频</value>
-  </data>
+  
   
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>无法检测字幕编码。若要保证字幕正确显示，请将文件重新保存为 UTF-8 编码。</value>

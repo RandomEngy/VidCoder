@@ -112,13 +112,13 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutLicense" xml:space="preserve">
-    <value>Questo programma è software libero; è lecito redistribuirlo o modificarlo secondo i termini della GNU General Public License come pubblicata dalla Free Software Foundation; sia la versione 2 della licenza, o (a tua scelta) qualsiasi versione successiva.  Questo programma è distribuito nella speranza che possa essere utile, ma senza alcuna garanzia; senza neppure la garanzia implicita di commerciabilità o idoneità per uno scopo particolare.  Vedi la GNU General Public License per maggiori dettagli.  Una copia completa della GNU General Public License è stato inclusa insieme a questo programma.</value>
+    <value>Questo programma è software libero; è lecito redistribuirlo o modificarlo secondo i termini della GNU General Public License come pubblicata dalla Free Software Foundation; sia la versione 2 della licenza, o (a tua scelta) qualsiasi versione successiva.  Questo programma è distribuito nella speranza che possa essere utile, ma senza alcuna garanzia; senza neppure la garanzia implicita di commerciabilità o idoneità per uno scopo particolare.  Vedi la GNU General Public License per maggiori dettagli.  Una copia completa della GNU General Public License è stata inclusa assieme a questo programma.</value>
   </data>
   <data name="BurnedSubtitleToolTip" xml:space="preserve">
     <value>Scrivere i sottotitoli sull'immagine. I sottotitoli scritti, non si possono disattivare durante la riproduzione.</value>
@@ -313,5 +313,28 @@
   </data>
   <data name="DefaultLabel" xml:space="preserve">
     <value>Predefinito:</value>
+  </data>
+  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
+    <value>Tracce audio</value>
+  </data>
+  <data name="QueueColumnNameCropping" xml:space="preserve">
+    <value>Ritaglio</value>
+  </data>
+  <data name="QueueColumnNameOutputSize" xml:space="preserve">
+    <value>Dimensione finale del file</value>
+  </data>
+  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
+    <value>Tracce sottotitoli</value>
+  </data>
+  <data name="Manual" xml:space="preserve">
+    <value>Manuale</value>
+    <comment>Shown when something has been set manually</comment>
+  </data>
+  <data name="FileNoLongerExists" xml:space="preserve">
+    <value>Il file non esiste.</value>
+  </data>
+  <data name="MegabytesAbbreviation" xml:space="preserve">
+    <value>MB</value>
+    <comment>Abbreviation for megabytes</comment>
   </data>
 </root>

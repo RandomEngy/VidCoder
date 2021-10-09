@@ -112,25 +112,13 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AudioSelection" xml:space="preserve">
-    <value>音声選択</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>書き込み</value>
-  </data>
   <data name="DefaultCheckBox" xml:space="preserve">
     <value>デフォルト</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>強制字幕検索</value>
-  </data>
-  <data name="IncludeAllTracksRadioButton" xml:space="preserve">
-    <value>すべてのトラック</value>
   </data>
   <data name="LanguagesRadioButton" xml:space="preserve">
     <value>言語</value>
@@ -139,14 +127,8 @@
     <value>音声と言語が違う場合のみ</value>
     <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
   </data>
-  <data name="SubtitleSelection" xml:space="preserve">
-    <value>字幕の選択</value>
-  </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>ピッカー: {0}</value>
-  </data>
-  <data name="TitleSelection" xml:space="preserve">
-    <value>タイトルを選択</value>
   </data>
   <data name="PickerButtonFormat" xml:space="preserve">
     <value>ピッカー: {0}</value>
@@ -222,21 +204,6 @@
     <value>最初を既定としてマークします</value>
     <comment>Label for checkbox to mark the first subtitle as default.</comment>
   </data>
-  <data name="AllSubtitlesToolTip" xml:space="preserve">
-    <value>すべての字幕を含める</value>
-  </data>
-  <data name="SubtitleNoneToolTip" xml:space="preserve">
-    <value>字幕を含めない</value>
-  </data>
-  <data name="AudioFirstToolTip" xml:space="preserve">
-    <value>最初の音声トラックのみを含める</value>
-  </data>
-  <data name="AudioAllToolTip" xml:space="preserve">
-    <value>すべての音声トラックを含める</value>
-  </data>
-  <data name="SubtitleFirstToolTip" xml:space="preserve">
-    <value>最初の字幕だけを含める</value>
-  </data>
   <data name="PresetLabel" xml:space="preserve">
     <value>使用するプリセット:</value>
   </data>
@@ -250,15 +217,8 @@
     <value>強制字幕のみ</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
-  <data name="AudioDefaultToolTip" xml:space="preserve">
-    <value>最後に選択した音声トラックを選択、なければ最初のトラックを選択します。</value>
-  </data>
   <data name="LastSelectedRadioButton" xml:space="preserve">
     <value>最後に選択したもの</value>
-  </data>
-  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
-    <value>最後に選択した字幕トラック番号と言語が一致し場合それを選択します。一致しない場合は選択しません。</value>
-    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
   </data>
   <data name="OverrideNameFormatLabel" xml:space="preserve">
     <value>利用可能なオプション：{0}</value>
@@ -277,14 +237,8 @@
     <value>長さでフィルター</value>
     <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
   </data>
-  <data name="TimeRangeSelection" xml:space="preserve">
-    <value>時間範囲の選択</value>
-  </data>
-  <data name="SelectTimeRangeCheckBox" xml:space="preserve">
-    <value>時間範囲で選択</value>
-  </data>
-  <data name="TitleCaptializationLabel" xml:space="preserve">
-    <value>タイトルの大文字変換：</value>
+  <data name="ChangeCaptializationLabel" xml:space="preserve">
+    <value>最初の文字を大文字に変更</value>
   </data>
   <data name="TimeRangeStartAutomationName" xml:space="preserve">
     <value>時間範囲開始</value>
@@ -307,5 +261,131 @@
   </data>
   <data name="ChapterRangeStartAutomationName" xml:space="preserve">
     <value>チャプター範囲開始</value>
+  </data>
+  <data name="DestinationSection" xml:space="preserve">
+    <value>保存先</value>
+  </data>
+  <data name="OutputFolder" xml:space="preserve">
+    <value>出力先：</value>
+    <comment>Label for the output folder.</comment>
+  </data>
+  <data name="UseCustomFileNameFormatCheckBox" xml:space="preserve">
+    <value>カスタムファイル名フォーマットを使用:</value>
+  </data>
+  <data name="WhenFileExistsBatch" xml:space="preserve">
+    <value>ファイルが既に存在する場合 (バッチ):</value>
+  </data>
+  <data name="WhenFileExistsSingle" xml:space="preserve">
+    <value>ファイルが既に存在する場合 (単体):</value>
+  </data>
+  <data name="CustomPickerNameTemplate" xml:space="preserve">
+    <value>カスタム {0}</value>
+    <comment>The name for a custom auto-created picker. {0} is a number like 2, or 3 or 4 to differentiate it</comment>
+  </data>
+  <data name="OutputFileNameFormatAutomationName" xml:space="preserve">
+    <value>ファイル名の形式</value>
+    <comment>Name for screen readers for the output file name format text box</comment>
+  </data>
+  <data name="OnlyChangeCapitalizationIfAllSameLabel" xml:space="preserve">
+    <value>すべて小文字または大文字の場合にのみ最初の文字を大文字にします</value>
+  </data>
+  <data name="WordBreakCharacterAutomationNameFormat" xml:space="preserve">
+    <value>改行文字 - {0}</value>
+    <comment>Screen reader format for word break checkboxes. These will determine if a character will be used to separate words.</comment>
+  </data>
+  <data name="WordBreakCharactersLabel" xml:space="preserve">
+    <value>認識された単語の改行文字:</value>
+  </data>
+  <data name="WordBreakCharacter_Dot" xml:space="preserve">
+    <value>ドット</value>
+  </data>
+  <data name="WordBreakCharacter_Space" xml:space="preserve">
+    <value>スペース</value>
+  </data>
+  <data name="WordBreakCharacter_Underscore" xml:space="preserve">
+    <value>下線</value>
+  </data>
+  <data name="ChangeWordSeparatorLabel" xml:space="preserve">
+    <value>単語の区切り文字を変更する</value>
+  </data>
+  <data name="SourceCleanupPreviewLabel" xml:space="preserve">
+    <value>プレビュー:</value>
+  </data>
+  <data name="SourceNameCleanupSection" xml:space="preserve">
+    <value>ソース名のクリーンアップ</value>
+  </data>
+  <data name="AddAudioTrackNameButton" xml:space="preserve">
+    <value>オーディオトラック名を追加</value>
+    <comment>Button to add another name to the list of audio track names in the Picker.</comment>
+  </data>
+  <data name="AddSubtitleTrackNameButton" xml:space="preserve">
+    <value>字幕トラック名を追加</value>
+    <comment>Button to add another name to the list of subtitle track names in the Picker.</comment>
+  </data>
+  <data name="CustomTrackNamesCheckBox" xml:space="preserve">
+    <value>トラック名を個別に設定</value>
+    <comment>Checkbox label to use custom audio or subtitle track names</comment>
+  </data>
+  <data name="TrackAutomationFormat" xml:space="preserve">
+    <value>トラック {0}</value>
+    <comment>Screen reader format for track names in the Picker.</comment>
+  </data>
+  <data name="BurnInLabel" xml:space="preserve">
+    <value>焼き付ける:</value>
+  </data>
+  <data name="PickerAudioSectionName" xml:space="preserve">
+    <value>音声</value>
+  </data>
+  <data name="PickerForeignAudioCheckBox" xml:space="preserve">
+    <value>「強制字幕検索」トラックを追加</value>
+  </data>
+  <data name="PickerSubtitleSectionName" xml:space="preserve">
+    <value>字幕</value>
+  </data>
+  <data name="SubtitleSelectionMode_ForeignAudioSearch" xml:space="preserve">
+    <value>強制字幕検索</value>
+  </data>
+  <data name="TrackSelectionLabel" xml:space="preserve">
+    <value>トラック選択:</value>
+    <comment>Label for track selection mode for audio or subtitle tracks.</comment>
+  </data>
+  <data name="AudioSelectionModeToolTip" xml:space="preserve">
+    <value>最後の選択 - 最後に選択した音声トラックにマッチするものがあった場合選択する、そうでなければ最初のものが選択される
+最初 - 最初に選択したもののみ選択する
+インデックス - 音声トラックのインデックスで選択する（1から始まる）
+言語 - 言語で選択する
+すべて - すべての音声を選択する</value>
+  </data>
+  <data name="SubtitleSelectionModeToolTip" xml:space="preserve">
+    <value>最後の選択 - 最後に選択した字幕トラックにマッチするものがあった場合選択する、そうでなければ最初のものが選択される
+最初 - 最初に選択したもののみ選択する
+インデックス - 字幕トラックのインデックスで選択する（1から始まる）
+言語 - 言語で選択する
+すべて - すべての字幕を選択する</value>
+  </data>
+  <data name="IgnoreFilesBelowCheckBox" xml:space="preserve">
+    <value>以下のファイルを無視</value>
+    <comment>A number box follows this string: Ignore files below [ 10 ] MB</comment>
+  </data>
+  <data name="TimeRangeLabel" xml:space="preserve">
+    <value>時間範囲:</value>
+  </data>
+  <data name="VideoSelectionSection" xml:space="preserve">
+    <value>ビデオの選択</value>
+  </data>
+  <data name="MetadataSection" xml:space="preserve">
+    <value>メタデータ</value>
+  </data>
+  <data name="PassThroughMetadataCheckBox" xml:space="preserve">
+    <value>動画メタデータをパススルーする（ディレクター、リリース日、アクターなど）</value>
+  </data>
+  <data name="BurnInCheckBox" xml:space="preserve">
+    <value>書き込み</value>
+  </data>
+  <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
+    <value>入力ビデオファイルと同じ名前の外部字幕ファイル（{0}）を追加</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>言語:</value>
   </data>
 </root>

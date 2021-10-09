@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutLicense" xml:space="preserve">
     <value>Program ini adalah perangkat lunak gratis; Anda diizinkan untuk mendistribusikan dan / atau memodifikasinya di bawah ketentuan GNU General Public License sebagaimana dipublikasikan oleh Free Software Foundation; baik versi 2 dari Lisensi, atau (dengan pilihan Anda) versi yang lebih baru.
@@ -317,5 +317,28 @@ Sebuah salinan lengkap dari GNU General Public License telah disertakan bersama 
   </data>
   <data name="DefaultLabel" xml:space="preserve">
     <value>Default:</value>
+  </data>
+  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
+    <value>Trek Audio</value>
+  </data>
+  <data name="QueueColumnNameCropping" xml:space="preserve">
+    <value>Memotong</value>
+  </data>
+  <data name="QueueColumnNameOutputSize" xml:space="preserve">
+    <value>Ukuran hasil</value>
+  </data>
+  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
+    <value>Trek Subtitle</value>
+  </data>
+  <data name="Manual" xml:space="preserve">
+    <value>Manual</value>
+    <comment>Shown when something has been set manually</comment>
+  </data>
+  <data name="FileNoLongerExists" xml:space="preserve">
+    <value>Berkas sudah tidak ada</value>
+  </data>
+  <data name="MegabytesAbbreviation" xml:space="preserve">
+    <value>MB</value>
+    <comment>Abbreviation for megabytes</comment>
   </data>
 </root>

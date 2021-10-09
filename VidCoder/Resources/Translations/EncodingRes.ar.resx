@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>حفظ</value>
@@ -220,9 +220,6 @@
   <data name="MaxHeightLabel" xml:space="preserve">
     <value>اقصى ارتفاع:</value>
   </data>
-  <data name="ModulusLabel" xml:space="preserve">
-    <value>المعامل:</value>
-  </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>الناتج</value>
   </data>
@@ -231,9 +228,6 @@
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>Detelecine:</value>
-  </data>
-  <data name="DecombLabel" xml:space="preserve">
-    <value>التحلل:</value>
   </data>
   <data name="DeinterlaceLabel" xml:space="preserve">
     <value>تشابك:</value>
@@ -479,12 +473,6 @@
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} (افتراضي)</value>
   </data>
-  <data name="EncodingWindowTitle" xml:space="preserve">
-    <value>الجاهز للتشفير: {0}</value>
-  </data>
-  <data name="AdvancedOptionsStringLabel" xml:space="preserve">
-    <value>خيارات x264 متقدمة اضافيه:</value>
-  </data>
   <data name="LevelToolTip" xml:space="preserve">
     <value>تعيين وضمان التوافق مع مستوي الترميز المحدد.
 
@@ -505,14 +493,8 @@
   <data name="VideoEncoder_x264" xml:space="preserve">
     <value>H.264 (x264)</value>
   </data>
-  <data name="AdvancedQuery" xml:space="preserve">
-    <value>استعلام متقدم</value>
-  </data>
   <data name="Video" xml:space="preserve">
     <value>فلم</value>
-  </data>
-  <data name="X264Settings" xml:space="preserve">
-    <value>x264 الاعدادات</value>
   </data>
   <data name="LevelLabel" xml:space="preserve">
     <value>المستوى:</value>
@@ -537,9 +519,6 @@
   </data>
   <data name="Modifiers" xml:space="preserve">
     <value>معدلات</value>
-  </data>
-  <data name="DtsMp4Warning" xml:space="preserve">
-    <value>عدد قليل من اللاعبين دعم تشغيل الصوت DTS في حاويات MP4. ويوصي MKV للصوت DTS.</value>
   </data>
   <data name="AudioEncoder_flac24" xml:space="preserve">
     <value>FLAC 24-bit</value>
@@ -585,10 +564,6 @@
   </data>
   <data name="PresetToolTip" xml:space="preserve">
     <value>تغيير الخيارات للتداول من كفاءه الضغط ضد سرعه الترميز.</value>
-  </data>
-  <data name="ScaleMethodToolTip" xml:space="preserve">
-    <value>لانزوس: هذا هو المستغل الافتراضي مع أفضل نوعيه.
-Bicubic: هذا هو الاجهزه OpenCL تسارع خوارزميه التحجيم.</value>
   </data>
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>العبور</value>
@@ -682,9 +657,6 @@ Bicubic: هذا هو الاجهزه OpenCL تسارع خوارزميه التح�
   <data name="AnamorphicCheckbox" xml:space="preserve">
     <value>استخدام مشوه</value>
   </data>
-  <data name="AllowUpscalingCheckbox" xml:space="preserve">
-    <value>السماح للارتقاء</value>
-  </data>
   <data name="SizingModeManual" xml:space="preserve">
     <value>دليل</value>
     <comment>Choice for the user to enter all sizing information manually.</comment>
@@ -719,15 +691,6 @@ Bicubic: هذا هو الاجهزه OpenCL تسارع خوارزميه التح�
   </data>
   <data name="PadColorLabel" xml:space="preserve">
     <value>اللون:</value>
-  </data>
-  <data name="ColorPickerAdvancedButton" xml:space="preserve">
-    <value>متقدم</value>
-  </data>
-  <data name="ColorPickerStandardButton" xml:space="preserve">
-    <value>قياسي</value>
-  </data>
-  <data name="ColorPickerStandardColorsHeader" xml:space="preserve">
-    <value>الوان قياسية</value>
   </data>
   <data name="AnamorphicToolTip" xml:space="preserve">
     <value>مع تمكين مشوه ، يسمح باستخدام البيكسلات غير المربعة. وهذا يمكن ان يؤدي إلى تخزين أكثر كفاءه ، ولكن ليس كل اللاعبين دعم هذا.</value>
@@ -835,9 +798,6 @@ HQDN3D هو فلتر التكيف منخفضه التمرير ، أسرع من N
   <data name="NVEncPreset_hp" xml:space="preserve">
     <value>اداء عالي</value>
   </data>
-  <data name="PickColorButton" xml:space="preserve">
-    <value>اختيار اللون…</value>
-  </data>
   <data name="Bottom" xml:space="preserve">
     <value>أسفل</value>
   </data>
@@ -867,4 +827,6 @@ HQDN3D هو فلتر التكيف منخفضه التمرير ، أسرع من N
   <data name="MoreOptionsToolTip" xml:space="preserve">
     <value>وسائط متقدمة إضافية لتمريرها إلى مشفر الفلم.</value>
   </data>
+  
+  
 </root>

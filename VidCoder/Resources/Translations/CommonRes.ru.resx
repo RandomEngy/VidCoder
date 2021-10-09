@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutLicense" xml:space="preserve">
     <value>Эта программа является свободным программным обеспечением; Вы можете распространять его и/или изменить его на условиях стандартной общественной лицензии GNU, опубликованной Фондом свободного программного обеспечения; либо версии 2 лицензии, либо (по вашему выбору) любой более поздней версии.  Эта программа распространяется в надежде, что она будет полезной, но без каких-либо гарантий; даже подразумеваемых гарантий товарности или пригодности для конкретной цели.  GNU General Public License для получения более подробной информации см.  Полная копия лицензии GNU General Public License был включен вместе с этой программой.</value>
@@ -313,5 +313,28 @@
   </data>
   <data name="DefaultLabel" xml:space="preserve">
     <value>По умолчанию:</value>
+  </data>
+  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
+    <value>Аудиотреки</value>
+  </data>
+  <data name="QueueColumnNameCropping" xml:space="preserve">
+    <value>Обрезка</value>
+  </data>
+  <data name="QueueColumnNameOutputSize" xml:space="preserve">
+    <value>Размер на выходе</value>
+  </data>
+  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
+    <value>Субтитры</value>
+  </data>
+  <data name="Manual" xml:space="preserve">
+    <value>Вручную</value>
+    <comment>Shown when something has been set manually</comment>
+  </data>
+  <data name="FileNoLongerExists" xml:space="preserve">
+    <value>Файл больше не существует.</value>
+  </data>
+  <data name="MegabytesAbbreviation" xml:space="preserve">
+    <value>МБ</value>
+    <comment>Abbreviation for megabytes</comment>
   </data>
 </root>

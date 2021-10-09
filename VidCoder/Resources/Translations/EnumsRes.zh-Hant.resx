@@ -289,4 +289,60 @@
   <data name="PickerTimeRangeMode_Time" xml:space="preserve">
     <value>時間範圍</value>
   </data>
+  <data name="DeleteSourceFilesMode_DeleteWithConfirmation" xml:space="preserve">
+    <value>刪除檔案 (確認)</value>
+  </data>
+  <data name="DeleteSourceFilesMode_Recycle" xml:space="preserve">
+    <value>移至資源回收桶</value>
+  </data>
+  <data name="WhenFileExists_AutoRename" xml:space="preserve">
+    <value>自動重新命名</value>
+  </data>
+  <data name="WhenFileExists_Overwrite" xml:space="preserve">
+    <value>覆寫</value>
+  </data>
+  <data name="WhenFileExists_Prompt" xml:space="preserve">
+    <value>詢問</value>
+  </data>
+  <data name="DenoiseTune_medium" xml:space="preserve">
+    <value>中</value>
+  </data>
+  <data name="DenoiseTune_none" xml:space="preserve">
+    <value>無</value>
+  </data>
+  <data name="DenoiseTune_small" xml:space="preserve">
+    <value>小</value>
+  </data>
+  <data name="DenoiseTune_tiny" xml:space="preserve">
+    <value>微</value>
+  </data>
+  <data name="DenoiseTune_verywide" xml:space="preserve">
+    <value>極大</value>
+  </data>
+  <data name="DenoiseTune_wide" xml:space="preserve">
+    <value>大</value>
+  </data>
+  <data name="Denoise_ChromaSmooth" xml:space="preserve">
+    <value>色度平滑</value>
+  </data>
+  <data name="DragDropOrder_Alphabetical" xml:space="preserve">
+    <value>按字母順序排列</value>
+    <comment>Label for the option to order dragged files alphabetically</comment>
+  </data>
+  <data name="DragDropOrder_Selected" xml:space="preserve">
+    <value>已選取</value>
+    <comment>Label for the option to order dragged files as they had been selected in File explorer</comment>
+  </data>
+  <data name="SubtitleBurnInSelection_First" xml:space="preserve">
+    <value>首軌</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrack" xml:space="preserve">
+    <value>外語音軌</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrackElseFirst" xml:space="preserve">
+    <value>外語音軌，否則首軌</value>
+  </data>
+  <data name="SubtitleBurnInSelection_None" xml:space="preserve">
+    <value>無</value>
+  </data>
 </root>

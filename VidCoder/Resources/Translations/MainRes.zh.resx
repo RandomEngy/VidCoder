@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
     <value>标题：</value>
@@ -181,12 +181,6 @@
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
     <value>关于 VidCoder...</value>
   </data>
-  <data name="ChooseVideoSourceLabel" xml:space="preserve">
-    <value>选择视频源：</value>
-  </data>
-  <data name="SourceLabel" xml:space="preserve">
-    <value>源文件：</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>最近使用项目</value>
   </data>
@@ -195,9 +189,6 @@
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>扫描时出现错误。</value>
-  </data>
-  <data name="AddTrackButton" xml:space="preserve">
-    <value>添加音轨</value>
   </data>
   <data name="ChapterMarkersLabel" xml:space="preserve">
     <value>章节标记：</value>
@@ -210,12 +201,6 @@
   </data>
   <data name="DestinationToolTip" xml:space="preserve">
     <value>点击编辑编码输出位置。</value>
-  </data>
-  <data name="SelectOutputPathButton" xml:space="preserve">
-    <value>选择输出路径...</value>
-  </data>
-  <data name="EncodingLabel" xml:space="preserve">
-    <value>编码：</value>
   </data>
   <data name="Stop" xml:space="preserve">
     <value>停止</value>
@@ -247,14 +232,8 @@
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
     <value>编码进行中</value>
   </data>
-  <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>外语音频搜索</value>
-  </data>
   <data name="NoneParen" xml:space="preserve">
     <value>(无)</value>
-  </data>
-  <data name="TracksSummaryMultiple" xml:space="preserve">
-    <value>{0} 个轨道</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
     <value>保存更改到当前预设吗？</value>
@@ -270,9 +249,6 @@
   </data>
   <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
     <value>从完成队列中还原</value>
-  </data>
-  <data name="PresetLabel" xml:space="preserve">
-    <value>预设：</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
     <value>输出位置</value>
@@ -329,9 +305,6 @@
 
  {0}</value>
   </data>
-  <data name="DirectoryCreateErrorTitle" xml:space="preserve">
-    <value>创建目录时出错</value>
-  </data>
   <data name="EncodeCompleted" xml:space="preserve">
     <value>编码完成。</value>
   </data>
@@ -340,12 +313,6 @@
   </data>
   <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
     <value>VidCoder 已完队列中所有编码作业。</value>
-  </data>
-  <data name="OutputFolderRequiredMessage" xml:space="preserve">
-    <value>未设定默认输出文件夹无法添加编码作业，请点击确定来进行选择。</value>
-  </data>
-  <data name="OutputFolderRequiredTitle" xml:space="preserve">
-    <value>必须设置默认输出文件夹</value>
   </data>
   <data name="OutputPathNotValidMessage" xml:space="preserve">
     <value>输出路径无效。</value>
@@ -425,9 +392,6 @@
   <data name="RemoveConfirmTitle" xml:space="preserve">
     <value>移除</value>
   </data>
-  <data name="UserConfigCorrupted" xml:space="preserve">
-    <value>配置损坏无法加载。您的部分设置可能会被重置。</value>
-  </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
     <value>选择编码视频文件输出目录。</value>
   </data>
@@ -444,9 +408,6 @@
     <value>打开文件夹...</value>
   </data>
   <data name="CloseVideoSourceToolTip" xml:space="preserve">
-    <value>关闭视频源</value>
-  </data>
-  <data name="CloseVideoSourceMenuItem" xml:space="preserve">
     <value>关闭视频源</value>
   </data>
   <data name="UpdatesMenuItem" xml:space="preserve">
@@ -481,9 +442,6 @@
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>放弃更改吗？</value>
-  </data>
-  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
-    <value>移除音轨</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
     <value>从队列中移除</value>
@@ -544,10 +502,6 @@
   <data name="CouldNotLoadPickerMessage" xml:space="preserve">
     <value>无法加载选择器： </value>
   </data>
-  <data name="PickerNameTemplate" xml:space="preserve">
-    <value>选择器 {0}</value>
-    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
-  </data>
   <data name="SimilarTitlesToolTip" xml:space="preserve">
     <value>其他 {0} 个标题具有与此相似的长度。</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
@@ -562,9 +516,6 @@
   <data name="CustomVideoPlayerError" xml:space="preserve">
     <value>在 {0} 找不到自定义的视频播放器。</value>
     <comment>{0} is the path to the custom video player.</comment>
-  </data>
-  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
-    <value>警告： 尺寸调整界面已更新至 2.0 版本，因此您的预设可能已发生变化。您可检查并确保其仍正确设置。</value>
   </data>
   <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
     <value>将视频文件夹加入队列...</value>
@@ -674,6 +625,28 @@
     <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion. This string is only used when there are multiple items queued.
 {0} is the encode complete action, ex "Shut down"</comment>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

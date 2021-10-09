@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
     <value>العنوان:</value>
@@ -181,12 +181,6 @@
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
     <value>حول VidCoder...</value>
   </data>
-  <data name="ChooseVideoSourceLabel" xml:space="preserve">
-    <value>اختر مصدر الفلم:</value>
-  </data>
-  <data name="SourceLabel" xml:space="preserve">
-    <value>المصدر:</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>الاخير</value>
   </data>
@@ -195,9 +189,6 @@
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>حدث خطا اثناء المسح الضوئي.</value>
-  </data>
-  <data name="AddTrackButton" xml:space="preserve">
-    <value>أضافه مسار</value>
   </data>
   <data name="ChapterMarkersLabel" xml:space="preserve">
     <value>علامات الفصل:</value>
@@ -210,12 +201,6 @@
   </data>
   <data name="DestinationToolTip" xml:space="preserve">
     <value>انقر لتحرير وجهة التشفير.</value>
-  </data>
-  <data name="SelectOutputPathButton" xml:space="preserve">
-    <value>حدد مسار النواتج...</value>
-  </data>
-  <data name="EncodingLabel" xml:space="preserve">
-    <value>الترميز:</value>
   </data>
   <data name="Stop" xml:space="preserve">
     <value>ايقاف</value>
@@ -247,14 +232,8 @@
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
     <value>التشفير قيد التقدم</value>
   </data>
-  <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>البحث الصوتي الخارجي</value>
-  </data>
   <data name="NoneParen" xml:space="preserve">
     <value>(لاشئ)</value>
-  </data>
-  <data name="TracksSummaryMultiple" xml:space="preserve">
-    <value>{0} المسارات</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
     <value>هل تريد حفظ التغييرات على الإعدادات الجاهز الحالي ؟</value>
@@ -270,9 +249,6 @@
   </data>
   <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
     <value>استعادة من المكتمل</value>
-  </data>
-  <data name="PresetLabel" xml:space="preserve">
-    <value>جاهز:</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
     <value>الوجهة</value>
@@ -325,9 +301,6 @@
   <data name="DirectoryCreateErrorMessage" xml:space="preserve">
     <value>تعذر إنشاء مجلد الناتج. تفاصيل الخطا</value>
   </data>
-  <data name="DirectoryCreateErrorTitle" xml:space="preserve">
-    <value>حدث خطا اثناء إنشاء المجلد</value>
-  </data>
   <data name="EncodeCompleted" xml:space="preserve">
     <value>التشفير مكتمل.</value>
   </data>
@@ -336,12 +309,6 @@
   </data>
   <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
     <value>لقد انتهي VidCoder من كافة وظائف التشفيرفي قائمه الانتظار.</value>
-  </data>
-  <data name="OutputFolderRequiredMessage" xml:space="preserve">
-    <value>لا يمكن أضافه ترميز مهام بدون مجلد انتاج افتراضي. اضغط موافق لاختيار واحد.</value>
-  </data>
-  <data name="OutputFolderRequiredTitle" xml:space="preserve">
-    <value>مطلوب مجلد الناتج الافتراضي</value>
   </data>
   <data name="OutputPathNotValidMessage" xml:space="preserve">
     <value>مسار الناتج غير صالح.</value>
@@ -421,9 +388,6 @@
   <data name="RemoveConfirmTitle" xml:space="preserve">
     <value>ازالة</value>
   </data>
-  <data name="UserConfigCorrupted" xml:space="preserve">
-    <value>تم اتلاف التكوين وتعذر تحميله. ربما تمت اعاده تعيين بعض اعداداتك.</value>
-  </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
     <value>اختر مجلد الناتج لملفات الفلم المشفر.</value>
   </data>
@@ -440,9 +404,6 @@
     <value>فتح المجلد...</value>
   </data>
   <data name="CloseVideoSourceToolTip" xml:space="preserve">
-    <value>اغلاق مصدر الفلم</value>
-  </data>
-  <data name="CloseVideoSourceMenuItem" xml:space="preserve">
     <value>اغلاق مصدر الفلم</value>
   </data>
   <data name="UpdatesMenuItem" xml:space="preserve">
@@ -477,9 +438,6 @@
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>تجاهل التغييرات؟</value>
-  </data>
-  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
-    <value>ازاله مسار الصوت</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
     <value>ازالة من قائمه الانتظار</value>
@@ -540,10 +498,6 @@
   <data name="CouldNotLoadPickerMessage" xml:space="preserve">
     <value>تعذر تحميل المنتقي: </value>
   </data>
-  <data name="PickerNameTemplate" xml:space="preserve">
-    <value>المنتقي {0}</value>
-    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
-  </data>
   <data name="SimilarTitlesToolTip" xml:space="preserve">
     <value>{0} عناوين أخرى لها مده قريبه من هذا واحد.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
@@ -558,9 +512,6 @@
   <data name="CustomVideoPlayerError" xml:space="preserve">
     <value>تعذر العثور على مشغل فلم مخصص في {0}.</value>
     <comment>{0} is the path to the custom video player.</comment>
-  </data>
-  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
-    <value>تحذير: تم تغيير واجهة التحجيم لـ 2.0 ، لذلك قد تكون إعداداتك الجاهزة قد تغيرت. قد ترغب في تفتيشها والتأكد من انها لا تزال قيد الإعداد بشكل صحيح.</value>
   </data>
   <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
     <value>مجلد قائمه انتظار ملفات الفلم...</value>
@@ -699,4 +650,26 @@
   <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
     <value>تشفير الاجراء الكامل لم يتم تنفيذه بسبب وجود أخطاء في قائمه نتائج التشفير.</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

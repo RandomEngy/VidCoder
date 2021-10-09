@@ -277,6 +277,32 @@
   <data name="UpdatePromptTiming_OnLaunch" xml:space="preserve">
     <value>Al iniciar</value>
   </data>
+  <data name="LogOperationType_Encode" xml:space="preserve">
+    <value>Codificar</value>
+  </data>
+  <data name="LogOperationType_Scan" xml:space="preserve">
+    <value>Analizar</value>
+  </data>
+  <data name="PickerTimeRangeMode_Chapters" xml:space="preserve">
+    <value>Capítulos</value>
+  </data>
+  <data name="PickerTimeRangeMode_Time" xml:space="preserve">
+    <value>Intervalo de tiempo</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

@@ -130,7 +130,7 @@
     <value>Strikt</value>
   </data>
   <data name="AppThemeChoice_Auto" xml:space="preserve">
-    <value>OS-thema gebruiken</value>
+    <value>Systeemthema gebruiken</value>
     <comment>Windows 10 you can choose Light or Dark for the app theme. This will cause VidCoder to respect that choice.</comment>
   </data>
   <data name="AppThemeChoice_Dark" xml:space="preserve">
@@ -181,7 +181,7 @@
     <value>Licht</value>
   </data>
   <data name="DenoisePreset_medium" xml:space="preserve">
-    <value>Medium</value>
+    <value>Gemiddeld</value>
   </data>
   <data name="DenoisePreset_strong" xml:space="preserve">
     <value>Sterk</value>
@@ -236,7 +236,7 @@
     <comment>The name for the "LapSharp" sharpen filter.</comment>
   </data>
   <data name="Sharpen_UnSharp" xml:space="preserve">
-    <value>Onscherp</value>
+    <value>Unsharp</value>
     <comment>The name for the "UnSharp" sharpen filter.</comment>
   </data>
   <data name="TitleType_Bluray" xml:space="preserve">
@@ -288,5 +288,61 @@
   </data>
   <data name="PickerTimeRangeMode_Time" xml:space="preserve">
     <value>Tijdsbereik</value>
+  </data>
+  <data name="DeleteSourceFilesMode_DeleteWithConfirmation" xml:space="preserve">
+    <value>Bestanden verwijderen (met bevestiging)</value>
+  </data>
+  <data name="DeleteSourceFilesMode_Recycle" xml:space="preserve">
+    <value>Stuur naar de prullenbak</value>
+  </data>
+  <data name="WhenFileExists_AutoRename" xml:space="preserve">
+    <value>Automatisch hernoemen</value>
+  </data>
+  <data name="WhenFileExists_Overwrite" xml:space="preserve">
+    <value>Overschrijven</value>
+  </data>
+  <data name="WhenFileExists_Prompt" xml:space="preserve">
+    <value>Vragen</value>
+  </data>
+  <data name="DenoiseTune_medium" xml:space="preserve">
+    <value>Gemiddeld</value>
+  </data>
+  <data name="DenoiseTune_none" xml:space="preserve">
+    <value>Geen</value>
+  </data>
+  <data name="DenoiseTune_small" xml:space="preserve">
+    <value>Klein</value>
+  </data>
+  <data name="DenoiseTune_tiny" xml:space="preserve">
+    <value>Minuscuul</value>
+  </data>
+  <data name="DenoiseTune_verywide" xml:space="preserve">
+    <value>Zeer breed</value>
+  </data>
+  <data name="DenoiseTune_wide" xml:space="preserve">
+    <value>Breed</value>
+  </data>
+  <data name="Denoise_ChromaSmooth" xml:space="preserve">
+    <value>Chroma vloeiend</value>
+  </data>
+  <data name="DragDropOrder_Alphabetical" xml:space="preserve">
+    <value>Alfabetisch</value>
+    <comment>Label for the option to order dragged files alphabetically</comment>
+  </data>
+  <data name="DragDropOrder_Selected" xml:space="preserve">
+    <value>Geselecteerd</value>
+    <comment>Label for the option to order dragged files as they had been selected in File explorer</comment>
+  </data>
+  <data name="SubtitleBurnInSelection_First" xml:space="preserve">
+    <value>Eerste</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrack" xml:space="preserve">
+    <value>Onbekend audiospoor</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrackElseFirst" xml:space="preserve">
+    <value>Onbekend audiospoor, anders eerst</value>
+  </data>
+  <data name="SubtitleBurnInSelection_None" xml:space="preserve">
+    <value>Geen</value>
   </data>
 </root>
