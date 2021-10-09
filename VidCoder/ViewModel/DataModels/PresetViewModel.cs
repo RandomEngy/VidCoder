@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using System.Reactive.Concurrency;
 using VidCoder.Extensions;
 using VidCoder.ViewModel.DataModels;
 using VidCoderCommon.Model;
@@ -18,7 +19,7 @@ namespace VidCoder.ViewModel
 				{
 					return PresetExtensions.GetDisplayName(name, isBuiltIn);
 				})
-				.ToProperty(this, x => x.DisplayName, out this.displayName);
+				.ToProperty(this, x => x.DisplayName, out this.displayName, scheduler: Scheduler.Immediate);
 
 			this.WhenAnyValue(
 				x => x.DisplayName,

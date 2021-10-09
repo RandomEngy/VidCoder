@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="OverrideTitleNumberToolTip" xml:space="preserve">
     <value>თუ არჩეულია, ეს გადააწერს ნორმალურ ფაილს, იმ მიზნით, რომ შექმნას საბოლოო დასამახსოვრებელი ფაილის სახელი. მაგალითად ფაილები 2, 3, 4 და 7-ის გადაწერისას მიენიჭება სახელი 7, 8 და 9. შეიძლება გამოსადეგი იყოს ტელესერიალის DVD დისკის გადასაწერად.</value>

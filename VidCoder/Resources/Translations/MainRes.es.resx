@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
     <value>Título:</value>
@@ -181,12 +181,6 @@
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
     <value>Acerca de VidCoder...</value>
   </data>
-  <data name="ChooseVideoSourceLabel" xml:space="preserve">
-    <value>Elegir una fuente de video:</value>
-  </data>
-  <data name="SourceLabel" xml:space="preserve">
-    <value>Fuente:</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>Reciente</value>
   </data>
@@ -195,9 +189,6 @@
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>Se ha producido un error durante el análisis.</value>
-  </data>
-  <data name="AddTrackButton" xml:space="preserve">
-    <value>Añadir pista</value>
   </data>
   <data name="ChapterMarkersLabel" xml:space="preserve">
     <value>Marcadores de capítulos:</value>
@@ -210,12 +201,6 @@
   </data>
   <data name="DestinationToolTip" xml:space="preserve">
     <value>Haga clic para editar la ruta y el nombre del archivo final.</value>
-  </data>
-  <data name="SelectOutputPathButton" xml:space="preserve">
-    <value>Selecciona la ruta de salida...</value>
-  </data>
-  <data name="EncodingLabel" xml:space="preserve">
-    <value>Codificando:</value>
   </data>
   <data name="Stop" xml:space="preserve">
     <value>Detener</value>
@@ -247,14 +232,8 @@
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
     <value>Codificaciones en progreso</value>
   </data>
-  <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Busqueda de Audio Externo</value>
-  </data>
   <data name="NoneParen" xml:space="preserve">
     <value>(Ninguno)</value>
-  </data>
-  <data name="TracksSummaryMultiple" xml:space="preserve">
-    <value>{0} pistas</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
     <value>¿Quieres guardar los cambios en tu preset actual?</value>
@@ -270,9 +249,6 @@
   </data>
   <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
     <value>Restaurado desde Completados</value>
-  </data>
-  <data name="PresetLabel" xml:space="preserve">
-    <value>Preset:</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
     <value>Destino</value>
@@ -308,7 +284,7 @@
     <value>La codificación se ha detenido.</value>
   </data>
   <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>¿Estás seguro de que desea borrar {0} archivo(s)/carpeta(s) fuente?</value>
+    <value>¿Desea borrar los {0} archivo(s)/carpeta(s) fuente?</value>
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Confirma para borrar</value>
@@ -325,9 +301,6 @@
   <data name="DirectoryCreateErrorMessage" xml:space="preserve">
     <value>No se pudo crear el directorio de salida. Detalles del error: {0}</value>
   </data>
-  <data name="DirectoryCreateErrorTitle" xml:space="preserve">
-    <value>Error al crear directorio</value>
-  </data>
   <data name="EncodeCompleted" xml:space="preserve">
     <value>Codificación completada.</value>
   </data>
@@ -336,12 +309,6 @@
   </data>
   <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
     <value>VidCoder ha terminado todos los trabajos en cola.</value>
-  </data>
-  <data name="OutputFolderRequiredMessage" xml:space="preserve">
-    <value>No se pueden agregar trabajos sin una carpeta de salida predeterminada. Pulse Aceptar para elegir una.</value>
-  </data>
-  <data name="OutputFolderRequiredTitle" xml:space="preserve">
-    <value>Se requiere una carpeta de salida predeterminada</value>
   </data>
   <data name="OutputPathNotValidMessage" xml:space="preserve">
     <value>La ruta de salida no es valida.</value>
@@ -410,7 +377,7 @@
     <value>¿Guardar selección actual?</value>
   </data>
   <data name="RevertConfirmMessage" xml:space="preserve">
-    <value>¿Estás seguro de deshacer todos los cambios no guardados?</value>
+    <value>¿Deseas descartar todos los cambios realizados?</value>
   </data>
   <data name="RevertConfirmTitle" xml:space="preserve">
     <value>Deshacer</value>
@@ -420,9 +387,6 @@
   </data>
   <data name="RemoveConfirmTitle" xml:space="preserve">
     <value>Quitar</value>
-  </data>
-  <data name="UserConfigCorrupted" xml:space="preserve">
-    <value>La configuración estaba dañada y no se pudo cargar. Algunos de los ajustes pueden haber sido reiniciados.</value>
   </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
     <value>Elije el directorio de salida para archivos codificados.</value>
@@ -440,9 +404,6 @@
     <value>Abriendo carpeta...</value>
   </data>
   <data name="CloseVideoSourceToolTip" xml:space="preserve">
-    <value>Cerrar vídeo</value>
-  </data>
-  <data name="CloseVideoSourceMenuItem" xml:space="preserve">
     <value>Cerrar vídeo</value>
   </data>
   <data name="UpdatesMenuItem" xml:space="preserve">
@@ -477,9 +438,6 @@
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>¿Quieres descartar los cambios?</value>
-  </data>
-  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
-    <value>Eliminar la pista de audio</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
     <value>Quitar de la cola</value>
@@ -540,10 +498,6 @@
   <data name="CouldNotLoadPickerMessage" xml:space="preserve">
     <value>No se pudo cargar el selector: </value>
   </data>
-  <data name="PickerNameTemplate" xml:space="preserve">
-    <value>Selector {0}</value>
-    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
-  </data>
   <data name="SimilarTitlesToolTip" xml:space="preserve">
     <value>{0} otros títulos tienen una duración similar a éste.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
@@ -558,9 +512,6 @@
   <data name="CustomVideoPlayerError" xml:space="preserve">
     <value>El reproductor de vídeo personalizado no se encuentra en {0}.</value>
     <comment>{0} is the path to the custom video player.</comment>
-  </data>
-  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
-    <value>Advertencia: La interfaz de tamaño ha sido revisada para 2.0, por lo que sus valores pueden haber cambiado. Puede que desee inspeccionarlos y asegurarse están configuradas correctamente.</value>
   </data>
   <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
     <value>Poner carpeta de archivos de vídeo en cola...</value>
@@ -670,6 +621,46 @@
     <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion. This string is only used when there are multiple items queued.
 {0} is the encode complete action, ex "Shut down"</comment>
   </data>
+  <data name="VideoEncodingOptionsToolTip" xml:space="preserve">
+    <value>Opciones de codificación de vídeo</value>
+  </data>
+  <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
+    <value>Opciones de codificación de audio</value>
+  </data>
+  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
+    <value>La versión {0} se ha descargado.</value>
+  </data>
+  <data name="RemoveFromQueueMenuItem" xml:space="preserve">
+    <value>Quitar de la cola</value>
+  </data>
+  <data name="ClearSucceededMenuItem" xml:space="preserve">
+    <value>Quitar trabajos concluidos de forma exitosa</value>
+  </data>
+  <data name="ClearFailedMenuItem" xml:space="preserve">
+    <value>Quitar trabajos inconclusos</value>
+  </data>
+  <data name="ClearQueueConfirmationMessage" xml:space="preserve">
+    <value>¿Deseas eliminar todos los elementos de la cola?</value>
+  </data>
+  <data name="RemoveAllFomQueueMenuItem" xml:space="preserve">
+    <value>Limpiar todos los trabajos en cola</value>
+  </data>
+  <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
+    <value>Acción post codificación no ejecutada, debido a errores en la lista de salida</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

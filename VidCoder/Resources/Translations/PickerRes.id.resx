@@ -112,25 +112,13 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AudioSelection" xml:space="preserve">
-    <value>Pilihan audio</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Burn In</value>
-  </data>
   <data name="DefaultCheckBox" xml:space="preserve">
     <value>Standar</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Cari Audio Bahasa Asing</value>
-  </data>
-  <data name="IncludeAllTracksRadioButton" xml:space="preserve">
-    <value>Semua trek</value>
   </data>
   <data name="LanguagesRadioButton" xml:space="preserve">
     <value>Pengelolaan Bahasa</value>
@@ -139,14 +127,8 @@
     <value>Hanya jika bahasa berbeda dari Audio</value>
     <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
   </data>
-  <data name="SubtitleSelection" xml:space="preserve">
-    <value>Pilihan subjudul</value>
-  </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>Picker: {0}</value>
-  </data>
-  <data name="TitleSelection" xml:space="preserve">
-    <value>Pilihan subjudul</value>
   </data>
   <data name="PickerButtonFormat" xml:space="preserve">
     <value>Picker: {0}</value>
@@ -222,21 +204,6 @@
     <value>Tandai pertama sebagai default</value>
     <comment>Label for checkbox to mark the first subtitle as default.</comment>
   </data>
-  <data name="AllSubtitlesToolTip" xml:space="preserve">
-    <value>Termasuk semua sub judul.</value>
-  </data>
-  <data name="SubtitleNoneToolTip" xml:space="preserve">
-    <value>Ada sub judul juga disertakan.</value>
-  </data>
-  <data name="AudioFirstToolTip" xml:space="preserve">
-    <value>Termasuk hanya audio lagu pertama.</value>
-  </data>
-  <data name="AudioAllToolTip" xml:space="preserve">
-    <value>Termasuk semua trek.</value>
-  </data>
-  <data name="SubtitleFirstToolTip" xml:space="preserve">
-    <value>Termasuk hanya audio lagu pertama.</value>
-  </data>
   <data name="PresetLabel" xml:space="preserve">
     <value>Menggunakan preset:</value>
   </data>
@@ -250,15 +217,8 @@
     <value>Hanya 'Forced'</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
-  <data name="AudioDefaultToolTip" xml:space="preserve">
-    <value>Pilih trek audio yang terakhir dipilih jika ada yang cocok, selain itu pilih yang pertama.</value>
-  </data>
   <data name="LastSelectedRadioButton" xml:space="preserve">
     <value>Pilihan terakhir</value>
-  </data>
-  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
-    <value>Pilih trek subtitle terakhir jika ada yang cocok, selain itu tidak ada trek.</value>
-    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
   </data>
   <data name="OverrideNameFormatLabel" xml:space="preserve">
     <value>Pilihan yang tersedia: {0}</value>
@@ -277,14 +237,8 @@
     <value>Filter judul dengan durasi</value>
     <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
   </data>
-  <data name="TimeRangeSelection" xml:space="preserve">
-    <value>Pemilihan jangka waktu</value>
-  </data>
-  <data name="SelectTimeRangeCheckBox" xml:space="preserve">
-    <value>Pilih jangka waktu</value>
-  </data>
-  <data name="TitleCaptializationLabel" xml:space="preserve">
-    <value>Kapitalisasi Judul:</value>
+  <data name="ChangeCaptializationLabel" xml:space="preserve">
+    <value>Gantikan pengkapitalan ke</value>
   </data>
   <data name="TimeRangeStartAutomationName" xml:space="preserve">
     <value>Jangka waktu mulai</value>
@@ -308,4 +262,103 @@
   <data name="ChapterRangeStartAutomationName" xml:space="preserve">
     <value>Permulaan rentang bab</value>
   </data>
+  <data name="DestinationSection" xml:space="preserve">
+    <value>Tujuan</value>
+  </data>
+  <data name="OutputFolder" xml:space="preserve">
+    <value>Folder keluaran:</value>
+    <comment>Label for the output folder.</comment>
+  </data>
+  <data name="UseCustomFileNameFormatCheckBox" xml:space="preserve">
+    <value>Gunakan format penamaan custom:</value>
+  </data>
+  <data name="WhenFileExistsBatch" xml:space="preserve">
+    <value>Jika berkas sudah ada (Batch):</value>
+  </data>
+  <data name="WhenFileExistsSingle" xml:space="preserve">
+    <value>Jika berkas sudah ada (Single):</value>
+  </data>
+  <data name="CustomPickerNameTemplate" xml:space="preserve">
+    <value>Custom {0}</value>
+    <comment>The name for a custom auto-created picker. {0} is a number like 2, or 3 or 4 to differentiate it</comment>
+  </data>
+  <data name="OutputFileNameFormatAutomationName" xml:space="preserve">
+    <value>Format nama berkas</value>
+    <comment>Name for screen readers for the output file name format text box</comment>
+  </data>
+  <data name="OnlyChangeCapitalizationIfAllSameLabel" xml:space="preserve">
+    <value>Hanya ganti kapitalisasi jika semua huruf kecil atau semua huruf besar</value>
+  </data>
+  <data name="WordBreakCharacterAutomationNameFormat" xml:space="preserve">
+    <value>Karakter pemotong kata - {0}</value>
+    <comment>Screen reader format for word break checkboxes. These will determine if a character will be used to separate words.</comment>
+  </data>
+  <data name="WordBreakCharactersLabel" xml:space="preserve">
+    <value>Kenali karakter pemotong kata:</value>
+  </data>
+  <data name="WordBreakCharacter_Dot" xml:space="preserve">
+    <value>Dot</value>
+  </data>
+  <data name="WordBreakCharacter_Space" xml:space="preserve">
+    <value>Spasi</value>
+  </data>
+  <data name="WordBreakCharacter_Underscore" xml:space="preserve">
+    <value>Menggarisbawahi</value>
+  </data>
+  <data name="ChangeWordSeparatorLabel" xml:space="preserve">
+    <value>Ganti pemisah kata menjadi</value>
+  </data>
+  <data name="SourceCleanupPreviewLabel" xml:space="preserve">
+    <value>Pratinjau:</value>
+  </data>
+  <data name="SourceNameCleanupSection" xml:space="preserve">
+    <value>Pembersihan nama sumber</value>
+  </data>
+  <data name="AddAudioTrackNameButton" xml:space="preserve">
+    <value>Tambah nama trek suara</value>
+    <comment>Button to add another name to the list of audio track names in the Picker.</comment>
+  </data>
+  <data name="AddSubtitleTrackNameButton" xml:space="preserve">
+    <value>Tambah nama trek subtitle</value>
+    <comment>Button to add another name to the list of subtitle track names in the Picker.</comment>
+  </data>
+  <data name="CustomTrackNamesCheckBox" xml:space="preserve">
+    <value>Nama - nama trek custom</value>
+    <comment>Checkbox label to use custom audio or subtitle track names</comment>
+  </data>
+  <data name="TrackAutomationFormat" xml:space="preserve">
+    <value>Trek {0}</value>
+    <comment>Screen reader format for track names in the Picker.</comment>
+  </data>
+  <data name="BurnInLabel" xml:space="preserve">
+    <value>Bakar ke</value>
+  </data>
+  <data name="PickerAudioSectionName" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="PickerForeignAudioCheckBox" xml:space="preserve">
+    <value>Tambah trek 'Pemindaian suara asing'</value>
+  </data>
+  <data name="PickerSubtitleSectionName" xml:space="preserve">
+    <value>Subjudul</value>
+  </data>
+  <data name="SubtitleSelectionMode_ForeignAudioSearch" xml:space="preserve">
+    <value>Pindai suara asing</value>
+  </data>
+  <data name="TrackSelectionLabel" xml:space="preserve">
+    <value>Pemilihan Trek:</value>
+    <comment>Label for track selection mode for audio or subtitle tracks.</comment>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  <data name="BurnInCheckBox" xml:space="preserve">
+    <value>Burn In</value>
+  </data>
+  
+  
 </root>

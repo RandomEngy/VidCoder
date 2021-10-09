@@ -232,6 +232,33 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete files (with confirmation).
+        /// </summary>
+        public static string DeleteSourceFilesMode_DeleteWithConfirmation {
+            get {
+                return ResourceManager.GetString("DeleteSourceFilesMode_DeleteWithConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send to Recycle Bin.
+        /// </summary>
+        public static string DeleteSourceFilesMode_Recycle {
+            get {
+                return ResourceManager.GetString("DeleteSourceFilesMode_Recycle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chroma smooth.
+        /// </summary>
+        public static string Denoise_ChromaSmooth {
+            get {
+                return ResourceManager.GetString("Denoise_ChromaSmooth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to hqdn3d.
         /// </summary>
         public static string Denoise_HQDN3D {
@@ -318,6 +345,78 @@ namespace VidCoder.Resources {
         public static string DenoiseTune_highmotion {
             get {
                 return ResourceManager.GetString("DenoiseTune_highmotion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Medium.
+        /// </summary>
+        public static string DenoiseTune_medium {
+            get {
+                return ResourceManager.GetString("DenoiseTune_medium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string DenoiseTune_none {
+            get {
+                return ResourceManager.GetString("DenoiseTune_none", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Small.
+        /// </summary>
+        public static string DenoiseTune_small {
+            get {
+                return ResourceManager.GetString("DenoiseTune_small", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tiny.
+        /// </summary>
+        public static string DenoiseTune_tiny {
+            get {
+                return ResourceManager.GetString("DenoiseTune_tiny", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Very wide.
+        /// </summary>
+        public static string DenoiseTune_verywide {
+            get {
+                return ResourceManager.GetString("DenoiseTune_verywide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wide.
+        /// </summary>
+        public static string DenoiseTune_wide {
+            get {
+                return ResourceManager.GetString("DenoiseTune_wide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alphabetical.
+        /// </summary>
+        public static string DragDropOrder_Alphabetical {
+            get {
+                return ResourceManager.GetString("DragDropOrder_Alphabetical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected.
+        /// </summary>
+        public static string DragDropOrder_Selected {
+            get {
+                return ResourceManager.GetString("DragDropOrder_Selected", resourceCulture);
             }
         }
         
@@ -457,6 +556,42 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to First.
+        /// </summary>
+        public static string SubtitleBurnInSelection_First {
+            get {
+                return ResourceManager.GetString("SubtitleBurnInSelection_First", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Foreign audio track.
+        /// </summary>
+        public static string SubtitleBurnInSelection_ForeignAudioTrack {
+            get {
+                return ResourceManager.GetString("SubtitleBurnInSelection_ForeignAudioTrack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Foreign audio track, else First.
+        /// </summary>
+        public static string SubtitleBurnInSelection_ForeignAudioTrackElseFirst {
+            get {
+                return ResourceManager.GetString("SubtitleBurnInSelection_ForeignAudioTrackElseFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string SubtitleBurnInSelection_None {
+            get {
+                return ResourceManager.GetString("SubtitleBurnInSelection_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Every Word.
         /// </summary>
         public static string TitleCapitalizationChoice_EveryWord {
@@ -543,6 +678,33 @@ namespace VidCoder.Resources {
         public static string VideoRangeType_Seconds {
             get {
                 return ResourceManager.GetString("VideoRangeType_Seconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically rename.
+        /// </summary>
+        public static string WhenFileExists_AutoRename {
+            get {
+                return ResourceManager.GetString("WhenFileExists_AutoRename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overwrite.
+        /// </summary>
+        public static string WhenFileExists_Overwrite {
+            get {
+                return ResourceManager.GetString("WhenFileExists_Overwrite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ask.
+        /// </summary>
+        public static string WhenFileExists_Prompt {
+            get {
+                return ResourceManager.GetString("WhenFileExists_Prompt", resourceCulture);
             }
         }
     }

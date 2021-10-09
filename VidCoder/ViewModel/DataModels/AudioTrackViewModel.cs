@@ -4,6 +4,7 @@ using System.Windows.Input;
 using HandBrake.Interop.Interop.Json.Scan;
 using ReactiveUI;
 using VidCoder.Resources;
+using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
@@ -16,12 +17,12 @@ namespace VidCoder.ViewModel
 		/// </summary>
 		/// <param name="mainViewModel">An instance of the main viewmodel.</param>
 		/// <param name="audioTrack">The audio track to wrap.</param>
-		/// <param name="trackNumber">The (1-based) track number.</param>
-		public AudioTrackViewModel(MainViewModel mainViewModel, SourceAudioTrack audioTrack, int trackNumber)
+		/// <param name="chosenAudioTrack">The chosen audio track, with 1-based track number.</param>
+		public AudioTrackViewModel(MainViewModel mainViewModel, SourceAudioTrack audioTrack, ChosenAudioTrack chosenAudioTrack)
 		{
 			this.mainViewModel = mainViewModel;
 			this.AudioTrack = audioTrack;
-			this.TrackNumber = trackNumber;
+			this.ChosenAudioTrack = chosenAudioTrack.Clone();
 		}
 
 		private bool selected;
@@ -80,12 +81,11 @@ namespace VidCoder.ViewModel
 		/// <summary>
 		/// Gets the 0-based index for the track.
 		/// </summary>
-		public int TrackIndex => this.TrackNumber - 1;
+		public int TrackIndex => this.ChosenAudioTrack.TrackNumber - 1;
 
-		/// <summary>
-		/// Gets the 1-based track number.
-		/// </summary>
-		public int TrackNumber { get; }
+		public int TrackNumber => this.ChosenAudioTrack.TrackNumber;
+		
+		public ChosenAudioTrack ChosenAudioTrack { get; }
 
 		public SourceAudioTrack AudioTrack { get; set; }
 
@@ -105,10 +105,35 @@ namespace VidCoder.ViewModel
 
 		public override string ToString()
 	    {
-            return this.TrackNumber + " " + this.AudioTrack.Description;
-        }
+			if (string.IsNullOrEmpty(this.AudioTrack.Name))
+			{
+				return this.TrackSummary;
+			}
+			else
+			{
+				return this.TrackNumber + " " + this.AudioTrack.Name + " - " + this.AudioTrack.Description;
+			}
+		}
 
-		public string Display => this.ToString();
+		public string TrackSummary
+		{
+			get
+			{
+				return this.TrackNumber + " " + this.AudioTrack.Description;
+			}
+		}
+
+		public string Name
+		{
+			get => this.ChosenAudioTrack.Name ?? this.AudioTrack.Name;
+			set
+			{
+				this.ChosenAudioTrack.Name = value;
+				this.RaisePropertyChanged();
+			}
+		}
+
+		public string SourceName => this.AudioTrack.Name;
 
 		public void UpdateButtonVisiblity()
 		{

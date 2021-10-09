@@ -18,131 +18,148 @@
 	ShowInTaskbar="False"
 	Style="{StaticResource NormalWindow}"
 	TextOptions.TextFormattingMode="Display"
-	WindowStyle="ToolWindow"
+	WindowStyle="None"
 	mc:Ignorable="d">
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition
-				Name="listColumn"
-				Width="150"
-				MinWidth="70"
-				MaxWidth="250" />
-			<ColumnDefinition Width="*" />
-		</Grid.ColumnDefinitions>
-
-		<ListBox
-			Name="logsListBox"
-			Margin="0 0 4 0"
-			Background="{DynamicResource AlternateBackgroundBrush}"
-			ItemsSource="{Binding LogCoordinator.LogsBindable}"
-			ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-			SelectedItem="{Binding LogCoordinator.SelectedLog}">
-			<ListBox.ItemTemplate>
-				<DataTemplate>
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto" />
-							<ColumnDefinition Width="*" />
-						</Grid.ColumnDefinitions>
-
-						<TextBlock
-							Grid.Column="0"
-							Margin="4 4 0 4"
-							Text="{Binding OperationTypeDisplay}" />
-
-						<controls:PathTextBlock
-							Grid.Column="1"
-							Margin="0 4 4 4"
-							Text="{Binding OperationPath}" />
-					</Grid>
-				</DataTemplate>
-			</ListBox.ItemTemplate>
-		</ListBox>
-
-		<GridSplitter
-			Grid.Column="0"
-			Width="4"
-			HorizontalAlignment="Right"
-			VerticalAlignment="Stretch"
-			Background="{DynamicResource SplitterBrush}"
-			Canvas.ZIndex="4"
-			ShowsPreview="True"
-			Visibility="{Binding PresetPanelOpen,
-			                     Converter={StaticResource VisibilityConverter}}" />
-
-		<Grid Grid.Column="1">
+	<WindowChrome.WindowChrome>
+		<WindowChrome CaptionHeight="30" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
+	</WindowChrome.WindowChrome>
+	<Border Style="{StaticResource WindowMainPanelStyle}">
+		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="*" />
 			</Grid.RowDefinitions>
-
-			<ToolBarPanel
+			<controls:ToolWindowTitleBar
+				Title="{x:Static res:LogRes.LogWindowTitle}"
 				Grid.Row="0"
-				Margin="-5 -1 -14 -1"
-				HorizontalAlignment="Stretch"
-				VerticalAlignment="Top"
-				UseLayoutRounding="True">
-				<ToolBar
-					Background="{DynamicResource ToolBarBackgroundBrush}"
-					KeyboardNavigation.TabNavigation="Continue"
-					Loaded="ToolBar_Loaded"
-					ToolBarTray.IsLocked="True">
-					<Button
-						Height="24"
-						MinWidth="70"
-						Margin="4 0 0 0"
-						Padding="5 0"
-						AutomationProperties.Name="{x:Static res:CommonRes.Copy}"
-						Command="{Binding Copy}">
-						<StackPanel Orientation="Horizontal">
-							<Image
-								Width="16"
-								Height="16"
-								Source="/Icons/copy.png" />
-							<TextBlock Margin="5 0 0 0" Text="{x:Static res:CommonRes.Copy}" />
-						</StackPanel>
-					</Button>
-					<Button
-						Height="24"
-						Padding="5 0"
-						Command="{Binding CopyToPastebin}"
-						Content="{x:Static res:LogRes.CopyToPastebinButton}" />
-					<Button
-						Height="24"
-						Padding="5 0"
-						Command="{Binding LogCoordinator.Clear}">
-						<StackPanel Orientation="Horizontal">
-							<Image
-								Width="16"
-								Height="16"
-								Source="/Icons/Clear.png" />
-							<TextBlock Margin="5 0 0 0" Text="{x:Static res:LogRes.ClearFinishedButton}" />
-						</StackPanel>
-					</Button>
-					<Button
-						Height="24"
-						MinWidth="70"
-						Padding="5 0"
-						Command="{Binding LogCoordinator.OpenLogFolder}"
-						Content="{x:Static res:OptionsRes.OpenLogFolderButton}" />
-				</ToolBar>
-			</ToolBarPanel>
+				IsActive="{Binding IsActive,
+				                   RelativeSource={RelativeSource AncestorType=Window}}" />
 
-			<RichTextBox
-				Name="logTextBox"
-				Grid.Row="1"
-				IsReadOnly="True"
-				VerticalScrollBarVisibility="Auto">
-				<FlowDocument Name="logDocument">
-					<FlowDocument.Resources>
-						<!--  Eliminate blank line between paragraphs  -->
-						<Style TargetType="{x:Type Paragraph}">
-							<Setter Property="Margin" Value="0" />
-						</Style>
-					</FlowDocument.Resources>
-					<Paragraph Name="logParagraph" />
-				</FlowDocument>
-			</RichTextBox>
+			<Grid Grid.Row="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition
+						Name="listColumn"
+						Width="150"
+						MinWidth="70"
+						MaxWidth="250" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+
+				<ListBox
+					Name="logsListBox"
+					Margin="0 0 4 0"
+					Background="{DynamicResource AlternateBackgroundBrush}"
+					ItemsSource="{Binding LogCoordinator.LogsBindable}"
+					ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+					SelectedItem="{Binding LogCoordinator.SelectedLog}">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+
+								<TextBlock
+									Grid.Column="0"
+									Margin="4 4 0 4"
+									Text="{Binding OperationTypeDisplay}" />
+
+								<controls:PathTextBlock
+									Grid.Column="1"
+									Margin="0 4 4 4"
+									Text="{Binding OperationPath}" />
+							</Grid>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+
+				<GridSplitter
+					Grid.Column="0"
+					Width="4"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Stretch"
+					Background="{DynamicResource SplitterBrush}"
+					Canvas.ZIndex="4"
+					ShowsPreview="True"
+					Visibility="{Binding PresetPanelOpen,
+					                     Converter={StaticResource VisibilityConverter}}" />
+
+				<Grid Grid.Column="1">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="*" />
+					</Grid.RowDefinitions>
+
+					<ToolBarPanel
+						Grid.Row="0"
+						Margin="-5 -1 -14 -1"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Top"
+						UseLayoutRounding="True">
+						<ToolBar
+							Background="{DynamicResource ToolBarBackgroundBrush}"
+							KeyboardNavigation.TabNavigation="Continue"
+							Loaded="ToolBar_Loaded"
+							ToolBarTray.IsLocked="True">
+							<Button
+								Height="24"
+								MinWidth="70"
+								Margin="4 0 0 0"
+								Padding="5 0"
+								AutomationProperties.Name="{x:Static res:CommonRes.Copy}"
+								Command="{Binding Copy}">
+								<StackPanel Orientation="Horizontal">
+									<Image
+										Width="16"
+										Height="16"
+										Source="/Icons/copy.png" />
+									<TextBlock Margin="5 0 0 0" Text="{x:Static res:CommonRes.Copy}" />
+								</StackPanel>
+							</Button>
+							<Button
+								Height="24"
+								Padding="5 0"
+								Command="{Binding CopyToPastebin}"
+								Content="{x:Static res:LogRes.CopyToPastebinButton}" />
+							<Button
+								Height="24"
+								Padding="5 0"
+								Command="{Binding LogCoordinator.Clear}">
+								<StackPanel Orientation="Horizontal">
+									<Image
+										Width="16"
+										Height="16"
+										Source="/Icons/Clear.png" />
+									<TextBlock Margin="5 0 0 0" Text="{x:Static res:LogRes.ClearFinishedButton}" />
+								</StackPanel>
+							</Button>
+							<Button
+								Height="24"
+								MinWidth="70"
+								Padding="5 0"
+								Command="{Binding LogCoordinator.OpenLogFolder}"
+								Content="{x:Static res:OptionsRes.OpenLogFolderButton}" />
+						</ToolBar>
+					</ToolBarPanel>
+
+					<RichTextBox
+						Name="logTextBox"
+						Grid.Row="1"
+						IsReadOnly="True"
+						VerticalScrollBarVisibility="Auto">
+						<FlowDocument Name="logDocument">
+							<FlowDocument.Resources>
+								<!--  Eliminate blank line between paragraphs  -->
+								<Style TargetType="{x:Type Paragraph}">
+									<Setter Property="Margin" Value="0" />
+								</Style>
+							</FlowDocument.Resources>
+							<Paragraph Name="logParagraph" />
+						</FlowDocument>
+					</RichTextBox>
+				</Grid>
+			</Grid>
 		</Grid>
-	</Grid>
+	</Border>
 </Window>

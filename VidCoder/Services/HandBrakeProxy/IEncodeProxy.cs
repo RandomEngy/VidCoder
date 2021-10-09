@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using HandBrake.Interop.Interop.EventArgs;
+using HandBrake.Interop.Interop.Interfaces.EventArgs;
 using VidCoder.Services;
 using VidCoderCommon.Model;
 
@@ -9,7 +9,7 @@ namespace VidCoder
 	/// <summary>
 	/// Abstraction for dealing with either a worker process or a local encoder.
 	/// </summary>
-	public interface IEncodeProxy
+	public interface IEncodeProxy : IDisposable
 	{
 		event EventHandler EncodeStarted;
 
@@ -21,7 +21,7 @@ namespace VidCoder
 		/// <summary>
 		/// Fires when an encode has completed.
 		/// </summary>
-		event EventHandler<EncodeCompletedEventArgs> EncodeCompleted;
+		event EventHandler<VCEncodeCompletedEventArgs> EncodeCompleted;
 
 		Task StartEncodeAsync(
 			VCJob job,

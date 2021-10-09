@@ -10,7 +10,6 @@ using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Interop;
-using Windows.Foundation.Metadata;
 using HandBrake.Interop.Interop.Json.Scan;
 using Microsoft.AnyContainer;
 using VidCoder.Extensions;
@@ -22,20 +21,18 @@ using VidCoder.View;
 using VidCoderCommon;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
+using Windows.Foundation.Metadata;
 
 namespace VidCoder
 {
 	public static class Utilities
 	{
-		public const string TimeFormat = @"h\:mm\:ss";
-		public const int CurrentDatabaseVersion = 37;
+		public const int CurrentDatabaseVersion = 43;
 		public const int LastUpdatedEncodingProfileDatabaseVersion = 33;
-		public const int LastUpdatedPickerDatabaseVersion = 37;
+		public const int LastUpdatedPickerDatabaseVersion = 43;
 
 		private const string AppDataFolderName = "VidCoder";
 		private const string LocalAppDataFolderName = "VidCoder";
-
-		private static string settingsDirectory;
 
 		static Utilities()
 		{
@@ -47,13 +44,6 @@ namespace VidCoder
 
 				IsPortable = currentDirectoryInfo.FullName.StartsWith(tempFolderInfo.FullName, StringComparison.OrdinalIgnoreCase);
 			}
-
-			IsRunningAsAppx = new DesktopBridge.Helpers().IsRunningAsUwp();
-		    string settingsDirectorySetting = ConfigurationManager.AppSettings["SettingsDirectory"];
-		    if (settingsDirectorySetting != null)
-		    {
-                settingsDirectory = Path.GetFullPath(settingsDirectorySetting);
-		    }
 		}
 
 		public static Version CurrentVersion
@@ -81,8 +71,6 @@ namespace VidCoder
 
 		public static bool IsPortable { get; }
 
-		public static bool IsRunningAsAppx { get; }
-
 		public static bool UwpApisAvailable
 		{
 			get
@@ -101,6 +89,11 @@ namespace VidCoder
 
 		private static bool IsApiContractPresent()
 		{
+			if (System.Environment.OSVersion.Version.Major < 10)
+			{
+				return false;
+			}
+
 			return ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 1, 0);
 		}
 
@@ -140,7 +133,7 @@ namespace VidCoder
 			}
 		}
 
-		public static bool SupportsUpdates => !IsPortable && !IsRunningAsAppx;
+		public static bool SupportsUpdates => !IsPortable && CurrentVersion != new Version(1, 0, 0, 0);
 
 		public static bool IsDesigner
 		{
@@ -318,20 +311,19 @@ namespace VidCoder
 			{"Range", 60},
 			{"Destination", 200},
 			{"VideoEncoder", 100},
-			{"AudioEncoder", 100},
 			{"VideoQuality", 80},
-			{"Duration", 60},
+			{"Cropping", 90},
+			{"OutputSize", 104},
+			{"AudioEncoder", 100},
 			{"AudioQuality", 80},
+			{"AudioTracks", 120},
+			{"SubtitleTracks", 120},
+			{"Duration", 60},
 			{"Preset", 120}
 		};
 
 		public static string GetAppFolder(bool beta)
 		{
-			if (settingsDirectory != null)
-			{
-				return settingsDirectory;
-			}
-
 			string folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AppDataFolderName);
 
 			if (beta)
@@ -408,36 +400,6 @@ namespace VidCoder
 			}
 
 			return resultList;
-		}
-
-		/// <summary>
-		/// Formats a TimeSpan into a short, friendly format.
-		/// </summary>
-		/// <param name="span">The TimeSpan to format.</param>
-		/// <returns>The display for the TimeSpan.</returns>
-		public static string FormatTimeSpan(TimeSpan span)
-		{
-			if (span == TimeSpan.MaxValue)
-			{
-				return "--";
-			}
-
-			if (span.TotalDays >= 1.0)
-			{
-				return string.Format("{0}d {1}h", Math.Floor(span.TotalDays), span.Hours);
-			}
-
-			if (span.TotalHours >= 1.0)
-			{
-				return string.Format("{0}h {1:d2}m", span.Hours, span.Minutes);
-			}
-
-			if (span.TotalMinutes >= 1.0)
-			{
-				return string.Format("{0}m {1:d2}s", span.Minutes, span.Seconds);
-			}
-
-			return string.Format("{0}s", span.Seconds);
 		}
 
 		public static string FormatFileSize(long bytes)
@@ -557,19 +519,19 @@ namespace VidCoder
 		}
 
 		// Assumes the hashset has a comparer of StringComparer.OrdinalIgnoreCase
-		public static bool? FileExists(string path, HashSet<string> queuedPaths)
+		public static FileQueueCheckResult FileExistsOnDiskOrInQueue(string path, HashSet<string> queuedPaths)
 		{
-			if (File.Exists(path))
-			{
-				return true;
-			}
-
 			if (queuedPaths.Contains(path))
 			{
-				return false;
+				return FileQueueCheckResult.InQueue;
 			}
 
-			return null;
+			if (File.Exists(path))
+			{
+				return FileQueueCheckResult.OnDisk;
+			}
+
+			return FileQueueCheckResult.NotFound;
 		}
 
 		public static SourceType GetSourceType(string sourcePath)
@@ -687,6 +649,17 @@ namespace VidCoder
 			return folderType == FolderType.Dvd || folderType == FolderType.BluRay;
 		}
 
+		public static string EnsureVideoTsFolder(string directory)
+		{
+			string videoTsPath = Path.Combine(directory, "VIDEO_TS");
+			if (Directory.Exists(videoTsPath))
+			{
+				return videoTsPath;
+			}
+
+			return directory;
+		}
+
 		public static string Wow64RegistryKey
 		{
 			get
@@ -763,62 +736,6 @@ namespace VidCoder
 			catch (UnauthorizedAccessException)
 			{
 				accessErrors.Add(directory);
-			}
-		}
-
-		public static List<string> GetFilesOrVideoFolders(string directory, IList<string> videoExtensions)
-		{
-			var path = new List<string>();
-			var errors = new List<string>();
-			GetFilesOrVideoFoldersRecursive(directory, path, errors, videoExtensions);
-
-			if (errors.Count > 0)
-			{
-				var messageBuilder = new StringBuilder(CommonRes.CouldNotAccessDirectoriesError + Environment.NewLine);
-				foreach (string accessError in errors)
-				{
-					messageBuilder.AppendLine(accessError);
-				}
-
-				MessageBox.Show(messageBuilder.ToString());
-			}
-
-			return path;
-		}
-
-		private static void GetFilesOrVideoFoldersRecursive(string directory, List<string> paths, List<string> errors, IList<string> videoExtensions)
-		{
-			try
-			{
-				string[] subdirectories = Directory.GetDirectories(directory);
-				foreach (string subdirectory in subdirectories)
-				{
-					if (IsDiscFolder(subdirectory))
-					{
-						paths.Add(subdirectory);
-					}
-					else
-					{
-						GetFilesOrVideoFoldersRecursive(subdirectory, paths, errors, videoExtensions);
-					}
-				}
-			}
-			catch (Exception)
-			{
-				errors.Add(directory);
-			}
-
-			try
-			{
-				string[] files = Directory.GetFiles(directory);
-				paths.AddRange(
-					files.Where(
-						f => videoExtensions.Any(
-							e => f.EndsWith(e, StringComparison.OrdinalIgnoreCase))));
-			}
-			catch (Exception)
-			{
-				errors.Add(directory);
 			}
 		}
 	}

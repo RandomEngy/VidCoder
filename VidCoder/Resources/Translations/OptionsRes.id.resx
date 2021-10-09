@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Umum</value>
@@ -138,50 +138,14 @@
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
     <value>Pembaruan otomatis</value>
   </data>
-  <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>Bergabung penguji Pembaruan Awal</value>
-  </data>
-  <data name="FileNamingTab" xml:space="preserve">
-    <value>Pemberian nama file</value>
-  </data>
-  <data name="DefaultFolderLabel" xml:space="preserve">
-    <value>Folder Baku:</value>
-  </data>
-  <data name="FileFormatLabel" xml:space="preserve">
-    <value>Format berkas:</value>
-  </data>
-  <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>Format Standar</value>
-  </data>
-  <data name="CustomFormatRadioButton" xml:space="preserve">
-    <value>Format Kustom:</value>
-  </data>
-  <data name="FileNameFormatOptions" xml:space="preserve">
-    <value>Pilihan yang tersedia: {0}</value>
-  </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
     <value>Jika file sudah ada...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
     <value>Pengkodean file tunggal:</value>
   </data>
-  <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>Tanya jika anda ingin menimpa</value>
-  </data>
-  <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>Timpa berkas tanpa peringatan</value>
-  </data>
-  <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>Otomatis berpindah ke nama berbeda</value>
-  </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
     <value>Pengkodean batch file:</value>
-  </data>
-  <data name="OverwriteRadioButton" xml:space="preserve">
-    <value>Timpa berkas</value>
-  </data>
-  <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>Otomanis merubah nama</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Otomatis tunda encoding saat salah satu proses ini berjalan:</value>
@@ -195,14 +159,11 @@
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>Ingat Berkas dan Folder yang sebelumnya digunakan</value>
   </data>
-  <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>Memungkinkan pengaturan nama kustom Track audio (dukungan Pemutar terbatas)</value>
-  </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Enable LibDVDNav (Perubahan membutuhkan program restart. Diperlukan untuk mendukung multiple angles)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Hapus file sumber selesai sukses menyelesaikan seluruh item ( dengan konfirmasi)</value>
+    <value>Hapus berkas sumber setelah membersihkan item yang berhasil diselesaikan </value>
   </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Pencatat Penuh:</value>
@@ -282,9 +243,6 @@
   <data name="OutputFolderSection" xml:space="preserve">
     <value>Output folder</value>
   </data>
-  <data name="NamingFormatSection" xml:space="preserve">
-    <value>Format penamaan</value>
-  </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
     <value>Pilihan lanjutan</value>
   </data>
@@ -357,9 +315,6 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Gunakan proses pekerja untuk penyandian</value>
   </data>
-  <data name="VideoSection" xml:space="preserve">
-    <value>Video</value>
-  </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Simpan waktu Pembuatan dan Perubahan saat mengkonversi berkas</value>
   </data>
@@ -406,5 +361,27 @@
   </data>
   <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
     <value>Memicu tindakan "Ketika Selesai" saat tidak ada pekerjaan yang gagal</value>
+  </data>
+  <data name="AutoPauseLowBatteryCheckbox" xml:space="preserve">
+    <value>Pause jika battery lemah</value>
+  </data>
+  <data name="AutoPauseLowDiskSpaceCheckbox" xml:space="preserve">
+    <value>Pause jika ruang disk kurang dari:</value>
+  </data>
+  <data name="AutoPauseSectionLabel" xml:space="preserve">
+    <value>Pause otomatis</value>
+  </data>
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>Pilihan yang tersedia: {0}</value>
+  </data>
+  <data name="LowDiskSpaceThresholdAutomationName" xml:space="preserve">
+    <value>Batas bawah ruang disk dalam gigabytes</value>
+    <comment>Screen reader name for the low disk space threshold number box</comment>
+  </data>
+  <data name="DragDropScanOrderLabel" xml:space="preserve">
+    <value>Urutan pemindahan drag-and-drop</value>
+  </data>
+  <data name="EncodeRetriesLabel" xml:space="preserve">
+    <value>Jumlah percobaan enkoding:</value>
   </data>
 </root>

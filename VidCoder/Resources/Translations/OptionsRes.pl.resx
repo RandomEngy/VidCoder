@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Ogólne</value>
@@ -138,50 +138,14 @@
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
     <value>Automatyczna aktualizacja</value>
   </data>
-  <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>Włącz aktualizacje w wersji beta</value>
-  </data>
-  <data name="FileNamingTab" xml:space="preserve">
-    <value>Nazewnictwo Plików</value>
-  </data>
-  <data name="DefaultFolderLabel" xml:space="preserve">
-    <value>Folder domyślny:</value>
-  </data>
-  <data name="FileFormatLabel" xml:space="preserve">
-    <value>Format pliku:</value>
-  </data>
-  <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>Domyślny format</value>
-  </data>
-  <data name="CustomFormatRadioButton" xml:space="preserve">
-    <value>Własny format:</value>
-  </data>
-  <data name="FileNameFormatOptions" xml:space="preserve">
-    <value>Dostępne opcje: {0}</value>
-  </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
     <value>Kiedy plik już istnieje, to...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
     <value>Enkodowanie pojedynczego pliku:</value>
   </data>
-  <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>Zapytaj przed zastąpieniem</value>
-  </data>
-  <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>Zastąp plik bez powiadamiania</value>
-  </data>
-  <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>Automatycznie przełącz na inna nazwę</value>
-  </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
     <value>Enkodowanie wielu plików:</value>
-  </data>
-  <data name="OverwriteRadioButton" xml:space="preserve">
-    <value>Nadpisz</value>
-  </data>
-  <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>Automatyczna zmiana nazwy</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Automatycznie wstrzymaj enkodowanie, gdy którykolwiek z tych procesów jest uruchomiony:</value>
@@ -195,13 +159,8 @@
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>Pamiętaj wcześniej używane pliki i foldery</value>
   </data>
-  <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>Umożliwia ustawienie niestandardowej nazwy ścieżek audio (obsługiwane tylko przez niektóre otwarzacze)</value>
-  </data>
   
-  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Usuń pliki źródłowe po wyczyszczeniu zakończonych pomyślnie zadań (z potwierdzeniem)</value>
-  </data>
+  
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Szczegółowość rejestrowania:</value>
   </data>
@@ -280,9 +239,6 @@
   <data name="OutputFolderSection" xml:space="preserve">
     <value>Folder wyjściowy</value>
   </data>
-  <data name="NamingFormatSection" xml:space="preserve">
-    <value>Format nazewnictwa</value>
-  </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
     <value>Opcje zaawansowane</value>
   </data>
@@ -355,9 +311,6 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Użyj procesu roboczego do enkodowania</value>
   </data>
-  <data name="VideoSection" xml:space="preserve">
-    <value>Wideo</value>
-  </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Zachowaj czasy Utworzono i Zmodyfikowano podczas konwersji plików</value>
   </data>
@@ -380,6 +333,15 @@
   
   
   
+  
+  
+  
+  
+  
+  
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>Dostępne opcje: {0}</value>
+  </data>
   
   
   

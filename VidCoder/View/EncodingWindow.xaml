@@ -19,7 +19,10 @@
 	Style="{StaticResource NormalWindow}"
 	TextOptions.TextFormattingMode="Display"
 	WindowStartupLocation="CenterOwner"
-	WindowStyle="ToolWindow">
+	WindowStyle="None">
+	<WindowChrome.WindowChrome>
+		<WindowChrome CaptionHeight="30" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
+	</WindowChrome.WindowChrome>
 	<Window.Resources />
 	<Window.InputBindings>
 		<KeyBinding
@@ -49,207 +52,218 @@
 			Modifiers="Control+Shift" />
 		<KeyBinding Key="F2" Command="{Binding Rename}" />
 	</Window.InputBindings>
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition
-				Name="listColumn"
-				Width="150"
-				MinWidth="70"
-				MaxWidth="250" />
-			<ColumnDefinition Width="*" />
-		</Grid.ColumnDefinitions>
+	<Border Name="rootGrid" Style="{StaticResource WindowMainPanelStyle}">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+			<controls:ToolWindowTitleBar
+				Title="{Binding WindowTitle}"
+				Icon="/Icons/Options.png"
+				IsActive="{Binding IsActive,
+				                   RelativeSource={RelativeSource AncestorType=Window}}" />
+			<Grid Grid.Row="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition
+						Name="listColumn"
+						Width="150"
+						MinWidth="70"
+						MaxWidth="250" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
 
-		<ScrollViewer
-			Grid.Column="0"
-			Margin="0 0 4 0"
-			Visibility="{Binding PresetPanelOpen,
-			                     Converter={StaticResource VisibilityConverter}}">
-			<controls:PresetTreeViewContainer
-				EnableFolderActions="True"
-				Focusable="True"
-				IsEnabled="{Binding PickersService.SelectedPicker.Picker.UseEncodingPreset,
-				                    Converter={StaticResource InverseBoolConverter}}"
-				IsTabStop="True"
-				PreviewKeyDown="OnPresetTreeKeyDown" />
-		</ScrollViewer>
+				<ScrollViewer
+					Grid.Column="0"
+					Margin="0 0 4 0"
+					Visibility="{Binding PresetPanelOpen,
+					                     Converter={StaticResource VisibilityConverter}}">
+					<controls:PresetTreeViewContainer
+						EnableFolderActions="True"
+						Focusable="True"
+						IsTabStop="True"
+						PreviewKeyDown="OnPresetTreeKeyDown" />
+				</ScrollViewer>
 
-		<GridSplitter
-			Grid.Column="0"
-			Width="4"
-			HorizontalAlignment="Right"
-			VerticalAlignment="Stretch"
-			Background="{DynamicResource SplitterBrush}"
-			Canvas.ZIndex="4"
-			ShowsPreview="True"
-			Visibility="{Binding PresetPanelOpen,
-			                     Converter={StaticResource VisibilityConverter}}" />
+				<GridSplitter
+					Grid.Column="0"
+					Width="4"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Stretch"
+					Background="{DynamicResource SplitterBrush}"
+					Canvas.ZIndex="4"
+					ShowsPreview="True"
+					Visibility="{Binding PresetPanelOpen,
+					                     Converter={StaticResource VisibilityConverter}}" />
 
-		<Grid
-			Name="mainGrid"
-			Grid.Column="1"
-			Background="{DynamicResource ToolBarBackgroundBrush}">
-			<ToolBarPanel
-				Margin="-5 0 -14 0"
-				HorizontalAlignment="Stretch"
-				VerticalAlignment="Top"
-				UseLayoutRounding="True">
-				<ToolBar
-					Background="{DynamicResource ToolBarBackgroundBrush}"
-					KeyboardNavigation.TabNavigation="Continue"
-					Loaded="ToolBar_Loaded"
-					ToolBarTray.IsLocked="True">
-					<Button
-						Height="24"
-						Margin="4 0 0 0"
-						Padding="5 0"
-						AutomationProperties.Name="{x:Static res:EncodingRes.ClosePresetsListToolTip}"
-						Command="{Binding TogglePresetPanel}"
-						ToolTip="{x:Static res:EncodingRes.ClosePresetsListToolTip}"
-						Visibility="{Binding PresetPanelOpen,
-						                     Converter={StaticResource VisibilityConverter}}">
-						<Path Data="M 8,0 L 9,1 L 2,8 L 9,15 L 8,16 L 0,8 Z" Fill="{DynamicResource WindowTextBrush}" />
-					</Button>
-					<Button
-						Height="24"
-						Margin="4 0 0 0"
-						Padding="5 0"
-						AutomationProperties.Name="{x:Static res:EncodingRes.OpenPresetsListToolTip}"
-						Command="{Binding TogglePresetPanel}"
-						ToolTip="{x:Static res:EncodingRes.OpenPresetsListToolTip}"
-						Visibility="{Binding PresetPanelOpen,
-						                     Converter={StaticResource InverseVisibilityConverter}}">
-						<Path Data="M 1,0 L 9,8 L 1,16 L 0,15 L 7,8 L 0,1 Z" Fill="{DynamicResource WindowTextBrush}" />
-					</Button>
-					<Button
-						Height="24"
-						MinWidth="70"
-						Margin="4 0 0 0"
-						Padding="5 0"
-						AutomationProperties.Name="{x:Static res:EncodingRes.Save}"
-						Command="{Binding Save}"
-						Visibility="{Binding SaveRenameButtonsVisible,
-						                     Converter={StaticResource VisibilityConverter}}">
-						<StackPanel Orientation="Horizontal">
-							<Image
-								Width="16"
-								Height="16"
-								Source="/Icons/save.png" />
-							<TextBlock Margin="5 0 0 0" Text="{x:Static res:EncodingRes.Save}" />
-						</StackPanel>
-					</Button>
-					<Button
-						Height="24"
-						MinWidth="70"
-						Padding="5 0"
-						Command="{Binding SaveAs}"
-						Content="{x:Static res:EncodingRes.SaveAs}" />
-					<Button
-						Height="24"
-						MinWidth="70"
-						Padding="5 0"
-						Command="{Binding Rename}"
-						Content="{x:Static res:EncodingRes.Rename}"
-						Visibility="{Binding SaveRenameButtonsVisible,
-						                     Converter={StaticResource VisibilityConverter}}" />
-					<Button
-						Height="24"
-						MinWidth="70"
-						Padding="5 0"
-						Command="{Binding ProcessingService.ApplyCurrentPresetToQueue}"
-						Content="{x:Static res:EncodingRes.ApplyToQueueButton}"
-						Visibility="{Binding ProcessingService.ShowApplyToQueueButton,
-						                     Converter={StaticResource VisibilityConverter}}" />
-					<Button
-						Height="24"
-						MinWidth="70"
-						Padding="5 0"
-						AutomationProperties.Name="{x:Static res:EncodingRes.Revert}"
-						Command="{Binding DeletePreset}"
-						Visibility="{Binding PresetsService.SelectedPreset.Preset.IsModified,
-						                     Converter={StaticResource VisibilityConverter}}">
-						<StackPanel Orientation="Horizontal">
-							<Image
-								Width="16"
-								Height="16"
-								Source="/Icons/undo_16x16.png" />
-							<TextBlock Margin="4 0 0 0" Text="{x:Static res:EncodingRes.Revert}" />
-						</StackPanel>
-					</Button>
-					<Button
-						Height="24"
-						MinWidth="70"
-						Padding="5 0"
-						AutomationProperties.Name="{x:Static res:CommonRes.Delete}"
-						Command="{Binding DeletePreset}"
-						Visibility="{Binding DeleteButtonVisible,
-						                     Converter={StaticResource VisibilityConverter}}">
-						<StackPanel Orientation="Horizontal">
-							<Grid Background="Transparent">
-								<Rectangle
-									Width="14"
-									Height="3"
-									Fill="{StaticResource RedFill}">
-									<Rectangle.LayoutTransform>
-										<RotateTransform Angle="-45" />
-									</Rectangle.LayoutTransform>
-								</Rectangle>
-								<Rectangle
-									Width="14"
-									Height="3"
-									Fill="{StaticResource RedFill}">
-									<Rectangle.LayoutTransform>
-										<RotateTransform Angle="45" />
-									</Rectangle.LayoutTransform>
-								</Rectangle>
-							</Grid>
-							<TextBlock Margin="4 0 0 0" Text="{x:Static res:CommonRes.Delete}" />
-						</StackPanel>
-					</Button>
-					<Button
-						Height="24"
-						MinWidth="70"
-						Padding="5 0"
-						AutomationProperties.Name="{x:Static res:CommonRes.PreviewLabel}"
-						Command="{Binding OpenPreviewWindow,
-						                  Source={StaticResource WindowXamlHelper}}"
-						IsEnabled="{Binding HasSourceData}"
-						Visibility="{Binding PreviewWindowOpen,
-						                     Source={StaticResource WindowXamlHelper},
-						                     Converter={StaticResource InverseVisibilityConverter}}">
-						<StackPanel Orientation="Horizontal">
-							<Image
-								Width="16"
-								Height="16"
-								Source="/Icons/Preview64.png" />
-							<TextBlock
-								Margin="5 0 0 0"
-								VerticalAlignment="Center"
-								Text="{x:Static res:CommonRes.PreviewLabel}" />
-						</StackPanel>
-					</Button>
-				</ToolBar>
-			</ToolBarPanel>
+				<Grid
+					Name="mainGrid"
+					Grid.Column="1"
+					Background="{DynamicResource ToolBarBackgroundBrush}">
+					<ToolBarPanel
+						Margin="-5 0 -14 0"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Top"
+						UseLayoutRounding="True">
+						<ToolBar
+							Background="{DynamicResource ToolBarBackgroundBrush}"
+							KeyboardNavigation.TabNavigation="Continue"
+							Loaded="ToolBar_Loaded"
+							ToolBarTray.IsLocked="True">
+							<Button
+								Height="24"
+								Margin="4 0 0 0"
+								Padding="5 0"
+								AutomationProperties.Name="{x:Static res:EncodingRes.ClosePresetsListToolTip}"
+								Command="{Binding TogglePresetPanel}"
+								ToolTip="{x:Static res:EncodingRes.ClosePresetsListToolTip}"
+								Visibility="{Binding PresetPanelOpen,
+								                     Converter={StaticResource VisibilityConverter}}">
+								<Path Data="M 8,0 L 9,1 L 2,8 L 9,15 L 8,16 L 0,8 Z" Fill="{DynamicResource WindowTextBrush}" />
+							</Button>
+							<Button
+								Height="24"
+								Margin="4 0 0 0"
+								Padding="5 0"
+								AutomationProperties.Name="{x:Static res:EncodingRes.OpenPresetsListToolTip}"
+								Command="{Binding TogglePresetPanel}"
+								ToolTip="{x:Static res:EncodingRes.OpenPresetsListToolTip}"
+								Visibility="{Binding PresetPanelOpen,
+								                     Converter={StaticResource InverseVisibilityConverter}}">
+								<Path Data="M 1,0 L 9,8 L 1,16 L 0,15 L 7,8 L 0,1 Z" Fill="{DynamicResource WindowTextBrush}" />
+							</Button>
+							<Button
+								Height="24"
+								MinWidth="70"
+								Margin="4 0 0 0"
+								Padding="5 0"
+								AutomationProperties.Name="{x:Static res:EncodingRes.Save}"
+								Command="{Binding Save}"
+								Visibility="{Binding SaveRenameButtonsVisible,
+								                     Converter={StaticResource VisibilityConverter}}">
+								<StackPanel Orientation="Horizontal">
+									<Image
+										Width="16"
+										Height="16"
+										Source="/Icons/save.png" />
+									<TextBlock Margin="5 0 0 0" Text="{x:Static res:EncodingRes.Save}" />
+								</StackPanel>
+							</Button>
+							<Button
+								Height="24"
+								MinWidth="70"
+								Padding="5 0"
+								Command="{Binding SaveAs}"
+								Content="{x:Static res:EncodingRes.SaveAs}" />
+							<Button
+								Height="24"
+								MinWidth="70"
+								Padding="5 0"
+								Command="{Binding Rename}"
+								Content="{x:Static res:EncodingRes.Rename}"
+								Visibility="{Binding SaveRenameButtonsVisible,
+								                     Converter={StaticResource VisibilityConverter}}" />
+							<Button
+								Height="24"
+								MinWidth="70"
+								Padding="5 0"
+								Command="{Binding ProcessingService.ApplyCurrentPresetToQueue}"
+								Content="{x:Static res:EncodingRes.ApplyToQueueButton}"
+								Visibility="{Binding ProcessingService.ShowApplyToQueueButton,
+								                     Converter={StaticResource VisibilityConverter}}" />
+							<Button
+								Height="24"
+								MinWidth="70"
+								Padding="5 0"
+								AutomationProperties.Name="{x:Static res:EncodingRes.Revert}"
+								Command="{Binding DeletePreset}"
+								Visibility="{Binding PresetsService.SelectedPreset.Preset.IsModified,
+								                     Converter={StaticResource VisibilityConverter}}">
+								<StackPanel Orientation="Horizontal">
+									<Image
+										Width="16"
+										Height="16"
+										Source="/Icons/undo_16x16.png" />
+									<TextBlock Margin="4 0 0 0" Text="{x:Static res:EncodingRes.Revert}" />
+								</StackPanel>
+							</Button>
+							<Button
+								Height="24"
+								MinWidth="70"
+								Padding="5 0"
+								AutomationProperties.Name="{x:Static res:CommonRes.Delete}"
+								Command="{Binding DeletePreset}"
+								Visibility="{Binding DeleteButtonVisible,
+								                     Converter={StaticResource VisibilityConverter}}">
+								<StackPanel Orientation="Horizontal">
+									<Grid Background="Transparent">
+										<Rectangle
+											Width="14"
+											Height="3"
+											Fill="{StaticResource RedFill}">
+											<Rectangle.LayoutTransform>
+												<RotateTransform Angle="-45" />
+											</Rectangle.LayoutTransform>
+										</Rectangle>
+										<Rectangle
+											Width="14"
+											Height="3"
+											Fill="{StaticResource RedFill}">
+											<Rectangle.LayoutTransform>
+												<RotateTransform Angle="45" />
+											</Rectangle.LayoutTransform>
+										</Rectangle>
+									</Grid>
+									<TextBlock Margin="4 0 0 0" Text="{x:Static res:CommonRes.Delete}" />
+								</StackPanel>
+							</Button>
+							<Button
+								Height="24"
+								MinWidth="70"
+								Padding="5 0"
+								AutomationProperties.Name="{x:Static res:CommonRes.PreviewLabel}"
+								Command="{Binding OpenPreviewWindow,
+								                  Source={StaticResource WindowXamlHelper}}"
+								IsEnabled="{Binding HasSourceData}"
+								Visibility="{Binding PreviewWindowOpen,
+								                     Source={StaticResource WindowXamlHelper},
+								                     Converter={StaticResource InverseVisibilityConverter}}">
+								<StackPanel Orientation="Horizontal">
+									<Image
+										Width="16"
+										Height="16"
+										Source="/Icons/Preview64.png" />
+									<TextBlock
+										Margin="5 0 0 0"
+										VerticalAlignment="Center"
+										Text="{x:Static res:CommonRes.PreviewLabel}" />
+								</StackPanel>
+							</Button>
+						</ToolBar>
+					</ToolBarPanel>
 
-			<TabControl
-				Name="tabControl"
-				Margin="0 28 0 0"
-				SelectedIndex="{Binding SelectedTabIndex}">
-				<TabItem Header="{x:Static res:EncodingRes.TabHeader_Container}">
-					<view:ContainerPanel DataContext="{Binding ContainerPanelViewModel}" />
-				</TabItem>
-				<TabItem Header="{x:Static res:EncodingRes.TabHeader_Sizing}">
-					<view:SizingPanel DataContext="{Binding SizingPanelViewModel}" />
-				</TabItem>
-				<TabItem Header="{x:Static res:EncodingRes.TabHeader_VideoFilters}">
-					<view:VideoFiltersPanel DataContext="{Binding VideoFiltersPanelViewModel}" />
-				</TabItem>
-				<TabItem Header="{x:Static res:EncodingRes.TabHeader_VideoEncoding}">
-					<view:VideoPanel DataContext="{Binding VideoPanelViewModel}" />
-				</TabItem>
-				<TabItem Header="{x:Static res:EncodingRes.TabHeader_AudioEncoding}">
-					<view:AudioPanel DataContext="{Binding AudioPanelViewModel}" />
-				</TabItem>
-			</TabControl>
+					<TabControl
+						Name="tabControl"
+						Margin="0 28 0 0"
+						SelectedIndex="{Binding SelectedTabIndex}">
+						<TabItem Header="{x:Static res:EncodingRes.TabHeader_Container}">
+							<view:ContainerPanel DataContext="{Binding ContainerPanelViewModel}" />
+						</TabItem>
+						<TabItem Header="{x:Static res:EncodingRes.TabHeader_Sizing}">
+							<view:SizingPanel DataContext="{Binding SizingPanelViewModel}" />
+						</TabItem>
+						<TabItem Header="{x:Static res:EncodingRes.TabHeader_VideoFilters}">
+							<view:VideoFiltersPanel DataContext="{Binding VideoFiltersPanelViewModel}" />
+						</TabItem>
+						<TabItem Header="{x:Static res:EncodingRes.TabHeader_VideoEncoding}">
+							<view:VideoPanel DataContext="{Binding VideoPanelViewModel}" />
+						</TabItem>
+						<TabItem Header="{x:Static res:EncodingRes.TabHeader_AudioEncoding}">
+							<view:AudioPanel DataContext="{Binding AudioPanelViewModel}" />
+						</TabItem>
+					</TabControl>
+				</Grid>
+			</Grid>
 		</Grid>
-	</Grid>
+	</Border>
 </Window>

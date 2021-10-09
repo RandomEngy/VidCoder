@@ -3,6 +3,7 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:VidCoderDragDrop="clr-namespace:VidCoder.DragDropUtils"
+	xmlns:controls="clr-namespace:VidCoder.Controls"
 	xmlns:prop="clr-namespace:VidCoder.Properties"
 	xmlns:res="clr-namespace:VidCoder.Resources"
 	Title="{x:Static res:MiscRes.QueueColumnsDialogTitle}"
@@ -12,7 +13,11 @@
 	ShowInTaskbar="False"
 	Style="{StaticResource NormalWindow}"
 	TextOptions.TextFormattingMode="Display"
-	WindowStartupLocation="CenterOwner">
+	WindowStartupLocation="CenterOwner"
+	WindowStyle="None">
+	<WindowChrome.WindowChrome>
+		<WindowChrome CaptionHeight="30" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
+	</WindowChrome.WindowChrome>
 	<Window.Resources>
 		<DataTemplate x:Key="ColumnDragTemplate">
 			<TextBlock Text="{Binding Title}" />
@@ -26,75 +31,88 @@
 			</Style.Triggers>
 		</Style>
 	</Window.Resources>
-	<Grid>
-		<Grid Name="grid1" Margin="0 0 0 41">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition />
-				<ColumnDefinition />
-			</Grid.ColumnDefinitions>
-			<TextBlock
-				Grid.ColumnSpan="2"
-				Margin="15 10 0 0"
-				HorizontalAlignment="Left"
-				VerticalAlignment="Top"
-				Text="{x:Static res:MiscRes.QueueColumnsDialogHeaderText}" />
+	<Border Style="{StaticResource WindowMainPanelStyle}">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<controls:ToolWindowTitleBar
+				Title="{x:Static res:MiscRes.QueueColumnsDialogTitle}"
+				Grid.Row="0"
+				IsActive="{Binding IsActive,
+				                   RelativeSource={RelativeSource AncestorType=Window}}" />
+			<Grid Grid.Row="1" Margin="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<TextBlock
+					Grid.ColumnSpan="2"
+					Margin="15 10 0 0"
+					HorizontalAlignment="Left"
+					VerticalAlignment="Top"
+					Text="{x:Static res:MiscRes.QueueColumnsDialogHeaderText}" />
 
-			<TextBlock
-				Margin="0 39 0 0"
-				HorizontalAlignment="Center"
-				VerticalAlignment="Top"
-				Text="{x:Static res:MiscRes.UnusedColumns}" />
-			<ListView
-				Margin="6 59 10 9"
-				VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource ColumnDragTemplate}"
-				VidCoderDragDrop:DragDropHelper.IsDragSource="True"
-				VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
-				DisplayMemberPath="Title"
-				Foreground="DarkGray"
-				ItemsSource="{Binding UnusedColumns}" />
+				<TextBlock
+					Margin="0 39 0 0"
+					HorizontalAlignment="Center"
+					VerticalAlignment="Top"
+					Text="{x:Static res:MiscRes.UnusedColumns}" />
+				<ListView
+					Margin="6 59 10 9"
+					VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource ColumnDragTemplate}"
+					VidCoderDragDrop:DragDropHelper.IsDragSource="True"
+					VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
+					DisplayMemberPath="Title"
+					Foreground="DarkGray"
+					ItemsSource="{Binding UnusedColumns}" />
 
-			<TextBlock
-				Grid.Column="1"
-				Margin="0 39 0 0"
-				HorizontalAlignment="Center"
-				VerticalAlignment="Top"
-				Text="{x:Static res:MiscRes.UsedColumns}" />
-			<ListView
-				Grid.Column="1"
-				Margin="10 59 12 9"
-				VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource ColumnDragTemplate}"
-				VidCoderDragDrop:DragDropHelper.IsDragSource="True"
-				VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
-				ItemsSource="{Binding UsedColumns}">
-				<ListView.ItemTemplate>
-					<DataTemplate>
-						<TextBlock Style="{StaticResource QueueColumnListViewTextBlockStyle}" Text="{Binding Title}" />
-					</DataTemplate>
-				</ListView.ItemTemplate>
-			</ListView>
+				<TextBlock
+					Grid.Column="1"
+					Margin="0 39 0 0"
+					HorizontalAlignment="Center"
+					VerticalAlignment="Top"
+					Text="{x:Static res:MiscRes.UsedColumns}" />
+				<ListView
+					Grid.Column="1"
+					Margin="10 59 12 9"
+					VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource ColumnDragTemplate}"
+					VidCoderDragDrop:DragDropHelper.IsDragSource="True"
+					VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
+					ItemsSource="{Binding UsedColumns}">
+					<ListView.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Style="{StaticResource QueueColumnListViewTextBlockStyle}" Text="{Binding Title}" />
+						</DataTemplate>
+					</ListView.ItemTemplate>
+				</ListView>
+			</Grid>
+			<StackPanel
+				Grid.Row="2"
+				Margin="0 0 12 12"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Bottom"
+				Orientation="Horizontal">
+				<Button
+					Height="23"
+					MinWidth="75"
+					Margin="0 0 6 0"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Bottom"
+					Command="{Binding Accept}"
+					Content="{x:Static res:CommonRes.Ok}"
+					IsDefault="True" />
+				<Button
+					Height="23"
+					MinWidth="75"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Bottom"
+					Command="{Binding Cancel}"
+					Content="{x:Static res:CommonRes.Cancel}"
+					IsCancel="True" />
+			</StackPanel>
 		</Grid>
-		<StackPanel
-			Margin="0 0 12 12"
-			HorizontalAlignment="Right"
-			VerticalAlignment="Bottom"
-			Orientation="Horizontal">
-			<Button
-				Height="23"
-				MinWidth="75"
-				Margin="0 0 6 0"
-				HorizontalAlignment="Right"
-				VerticalAlignment="Bottom"
-				Command="{Binding Accept}"
-				Content="{x:Static res:CommonRes.Ok}"
-				IsDefault="True" />
-			<Button
-				Height="23"
-				MinWidth="75"
-				HorizontalAlignment="Right"
-				VerticalAlignment="Bottom"
-				Command="{Binding Cancel}"
-				Content="{x:Static res:CommonRes.Cancel}"
-				IsCancel="True" />
-		</StackPanel>
-	</Grid>
+	</Border>
 </Window>

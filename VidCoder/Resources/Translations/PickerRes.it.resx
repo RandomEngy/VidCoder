@@ -112,25 +112,13 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AudioSelection" xml:space="preserve">
-    <value>Selezione audio</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Scrivi</value>
-  </data>
   <data name="DefaultCheckBox" xml:space="preserve">
     <value>Default</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Ricerca audio stranieri</value>
-  </data>
-  <data name="IncludeAllTracksRadioButton" xml:space="preserve">
-    <value>Tutte le canzoni</value>
   </data>
   <data name="LanguagesRadioButton" xml:space="preserve">
     <value>Lingua (e)</value>
@@ -139,14 +127,8 @@
     <value>Solo se una lingua diversa dall'audio</value>
     <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
   </data>
-  <data name="SubtitleSelection" xml:space="preserve">
-    <value>Selezione dei sottotitoli</value>
-  </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>Profilo di selezione: {0}</value>
-  </data>
-  <data name="TitleSelection" xml:space="preserve">
-    <value>Scelta del titolo</value>
   </data>
   <data name="PickerButtonFormat" xml:space="preserve">
     <value>Profilo di selezione: {0}</value>
@@ -191,7 +173,7 @@
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
   <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>Gli argomenti da passare al programma. Utilizzare {file} per il percorso del file in uscita, {folder} come percorso della cartella o altre opzioni per personalizzare il percorso, come {title} e {date} (Vedi il formato di denominazione).</value>
+    <value>Gli argomenti da passare al programma. Utilizzare {file} per il percorso del file in uscita, {folder} come percorso della cartella o altre opzioni per personalizzare il percorso, come {title} e {date} (Vedi il formato di denominazione file).</value>
     <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
   </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
@@ -222,21 +204,6 @@
     <value>Contrassegnare il primo come predefinito</value>
     <comment>Label for checkbox to mark the first subtitle as default.</comment>
   </data>
-  <data name="AllSubtitlesToolTip" xml:space="preserve">
-    <value>Includere tutti i sottotitoli.</value>
-  </data>
-  <data name="SubtitleNoneToolTip" xml:space="preserve">
-    <value>Nessun sottotitolo incluso.</value>
-  </data>
-  <data name="AudioFirstToolTip" xml:space="preserve">
-    <value>Includi solo la prima traccia audio.</value>
-  </data>
-  <data name="AudioAllToolTip" xml:space="preserve">
-    <value>Includere tutte le tracce audio.</value>
-  </data>
-  <data name="SubtitleFirstToolTip" xml:space="preserve">
-    <value>Includi solo il primo sottotitolo.</value>
-  </data>
   <data name="PresetLabel" xml:space="preserve">
     <value>Utilizzare profilo di codifica:</value>
   </data>
@@ -250,15 +217,8 @@
     <value>Solo Forzati</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
-  <data name="AudioDefaultToolTip" xml:space="preserve">
-    <value>Utilizza l'ultima traccia audio selezionata, se viene trovata una corrispondenza, altrimenti prende la prima.</value>
-  </data>
   <data name="LastSelectedRadioButton" xml:space="preserve">
     <value>Ultima selezionata</value>
-  </data>
-  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
-    <value>Utilizza l'ultima traccia dei sottotitoli selezionata, se viene trovata una corrispondenza, altrimenti non viene utilizzato alcun sottotitolo.</value>
-    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
   </data>
   <data name="OverrideNameFormatLabel" xml:space="preserve">
     <value>Opzioni disponibili: {0}</value>
@@ -277,14 +237,8 @@
     <value>Filtra i titoli per la loro durata</value>
     <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
   </data>
-  <data name="TimeRangeSelection" xml:space="preserve">
-    <value>Selezione per intervallo di tempo</value>
-  </data>
-  <data name="SelectTimeRangeCheckBox" xml:space="preserve">
-    <value>Seleziona per l'intervallo di tempo</value>
-  </data>
-  <data name="TitleCaptializationLabel" xml:space="preserve">
-    <value>Maiuscole/minuscole nel titolo:</value>
+  <data name="ChangeCaptializationLabel" xml:space="preserve">
+    <value>Cambia Maiuscole/minuscole in</value>
   </data>
   <data name="TimeRangeStartAutomationName" xml:space="preserve">
     <value>Orario di inizio dell'intervallo di tempo</value>
@@ -307,5 +261,132 @@
   </data>
   <data name="ChapterRangeStartAutomationName" xml:space="preserve">
     <value>Inizio intervallo capitoli</value>
+  </data>
+  <data name="DestinationSection" xml:space="preserve">
+    <value>Destinazione</value>
+  </data>
+  <data name="OutputFolder" xml:space="preserve">
+    <value>Cartella di destinazione:</value>
+    <comment>Label for the output folder.</comment>
+  </data>
+  <data name="UseCustomFileNameFormatCheckBox" xml:space="preserve">
+    <value>Usa un formato personalizzato per rinominare i file:</value>
+  </data>
+  <data name="WhenFileExistsBatch" xml:space="preserve">
+    <value>Quando il file esiste già (automatismo):</value>
+  </data>
+  <data name="WhenFileExistsSingle" xml:space="preserve">
+    <value>Quando il file esiste già (singolo):</value>
+  </data>
+  <data name="CustomPickerNameTemplate" xml:space="preserve">
+    <value>Personalizzato {0}</value>
+    <comment>The name for a custom auto-created picker. {0} is a number like 2, or 3 or 4 to differentiate it</comment>
+  </data>
+  <data name="OutputFileNameFormatAutomationName" xml:space="preserve">
+    <value>Formato nome file</value>
+    <comment>Name for screen readers for the output file name format text box</comment>
+  </data>
+  <data name="OnlyChangeCapitalizationIfAllSameLabel" xml:space="preserve">
+    <value>Cambia Maiuscole/minuscole solo se sono tutte minuscole o tutte maiuscole</value>
+  </data>
+  <data name="WordBreakCharacterAutomationNameFormat" xml:space="preserve">
+    <value>Carattere di "interruzione parola" - {0}</value>
+    <comment>Screen reader format for word break checkboxes. These will determine if a character will be used to separate words.</comment>
+  </data>
+  <data name="WordBreakCharactersLabel" xml:space="preserve">
+    <value>Caratteri di "interruzione parola" riconosciuti:</value>
+  </data>
+  <data name="WordBreakCharacter_Dot" xml:space="preserve">
+    <value>Punto</value>
+  </data>
+  <data name="WordBreakCharacter_Space" xml:space="preserve">
+    <value>Spazio</value>
+  </data>
+  <data name="WordBreakCharacter_Underscore" xml:space="preserve">
+    <value>Sottolineato</value>
+  </data>
+  <data name="ChangeWordSeparatorLabel" xml:space="preserve">
+    <value>Cambia il separatore di parola in</value>
+  </data>
+  <data name="SourceCleanupPreviewLabel" xml:space="preserve">
+    <value>Anteprima:</value>
+  </data>
+  <data name="SourceNameCleanupSection" xml:space="preserve">
+    <value>Pulizia nome sorgente</value>
+  </data>
+  <data name="AddAudioTrackNameButton" xml:space="preserve">
+    <value>Aggiungi nome traccia audio</value>
+    <comment>Button to add another name to the list of audio track names in the Picker.</comment>
+  </data>
+  <data name="AddSubtitleTrackNameButton" xml:space="preserve">
+    <value>Aggiungi nome traccia sottotitoli</value>
+    <comment>Button to add another name to the list of subtitle track names in the Picker.</comment>
+  </data>
+  <data name="CustomTrackNamesCheckBox" xml:space="preserve">
+    <value>Nomi di traccia personalizzati</value>
+    <comment>Checkbox label to use custom audio or subtitle track names</comment>
+  </data>
+  <data name="TrackAutomationFormat" xml:space="preserve">
+    <value>Traccia {0}</value>
+    <comment>Screen reader format for track names in the Picker.</comment>
+  </data>
+  <data name="BurnInLabel" xml:space="preserve">
+    <value>Scrivi in:</value>
+  </data>
+  <data name="PickerAudioSectionName" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="PickerForeignAudioCheckBox" xml:space="preserve">
+    <value>Aggiungi traccia "Ricerca audio estero"</value>
+  </data>
+  <data name="PickerSubtitleSectionName" xml:space="preserve">
+    <value>Sottotitoli</value>
+  </data>
+  <data name="SubtitleSelectionMode_ForeignAudioSearch" xml:space="preserve">
+    <value>Ricerca audio estero</value>
+  </data>
+  <data name="TrackSelectionLabel" xml:space="preserve">
+    <value>Selezione traccia:</value>
+    <comment>Label for track selection mode for audio or subtitle tracks.</comment>
+  </data>
+  <data name="AudioSelectionModeToolTip" xml:space="preserve">
+    <value>Ultima selezionata: sceglie l'ultima traccia audio selezionata se viene trovata una corrispondenza, altrimenti sceglie la prima.
+Prima: includi solo la prima traccia audio.
+Per indice: scegli la taccia audio in base all'indice di ordinamento.
+Lingua(e) : scegli la traccia audio in base alla lingua.
+Tutti: includi tutte le tracce audio.</value>
+  </data>
+  <data name="SubtitleSelectionModeToolTip" xml:space="preserve">
+    <value>Ultima selezionata: sceglie l'ultima traccia dei sottotitoli selezionata se viene trovata una corrispondenza, altrimenti sceglie la prima.
+Nessuna: non viene inclusa nessuna traccia dei sottotitoli.
+Prima: includi solo la prima traccia dei sottotitoli.
+Per indice: scegli la taccia dei sottotitoli in base all'indice di ordinamento.
+Lingua(e) : scegli la traccia dei sottotitoli in base alla lingua.
+Tutte: includi tutte le tracce dei sottotitoli.</value>
+  </data>
+  <data name="IgnoreFilesBelowCheckBox" xml:space="preserve">
+    <value>Ignora i file seguenti</value>
+    <comment>A number box follows this string: Ignore files below [ 10 ] MB</comment>
+  </data>
+  <data name="TimeRangeLabel" xml:space="preserve">
+    <value>Intervallo di tempo:</value>
+  </data>
+  <data name="VideoSelectionSection" xml:space="preserve">
+    <value>Selezione video</value>
+  </data>
+  <data name="MetadataSection" xml:space="preserve">
+    <value>Metadati</value>
+  </data>
+  <data name="PassThroughMetadataCheckBox" xml:space="preserve">
+    <value>Preserva i metadati video (regista, data di rilascio, attori, ecc.)</value>
+  </data>
+  <data name="BurnInCheckBox" xml:space="preserve">
+    <value>Scrivi</value>
+  </data>
+  <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
+    <value>Aggiungi ({0})  tracce dei sottotitoli provenienti da file esterni che hanno lo stesso nome del file video in elaborazione</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Lingua:</value>
   </data>
 </root>

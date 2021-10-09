@@ -112,25 +112,13 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AudioSelection" xml:space="preserve">
-    <value>Выбор аудио</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Записать в</value>
-  </data>
   <data name="DefaultCheckBox" xml:space="preserve">
     <value>По умолчанию</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>По поиску иностранного звука</value>
-  </data>
-  <data name="IncludeAllTracksRadioButton" xml:space="preserve">
-    <value>Все категории</value>
   </data>
   <data name="LanguagesRadioButton" xml:space="preserve">
     <value>Язык(и)</value>
@@ -139,14 +127,8 @@
     <value>Только если другой язык аудио</value>
     <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
   </data>
-  <data name="SubtitleSelection" xml:space="preserve">
-    <value>Выбор субтитров</value>
-  </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>Выбор: {0}</value>
-  </data>
-  <data name="TitleSelection" xml:space="preserve">
-    <value>Выбор субтитров</value>
   </data>
   <data name="PickerButtonFormat" xml:space="preserve">
     <value>Выбор: {0}</value>
@@ -222,21 +204,6 @@
     <value>Отмеченный как первый по умолчанию</value>
     <comment>Label for checkbox to mark the first subtitle as default.</comment>
   </data>
-  <data name="AllSubtitlesToolTip" xml:space="preserve">
-    <value>Включить все субтитры.</value>
-  </data>
-  <data name="SubtitleNoneToolTip" xml:space="preserve">
-    <value>Субтитры не включены.</value>
-  </data>
-  <data name="AudioFirstToolTip" xml:space="preserve">
-    <value>Включить только первую звуковую дорожку.</value>
-  </data>
-  <data name="AudioAllToolTip" xml:space="preserve">
-    <value>Включить все треки.</value>
-  </data>
-  <data name="SubtitleFirstToolTip" xml:space="preserve">
-    <value>Включать только первые субтитры.</value>
-  </data>
   <data name="PresetLabel" xml:space="preserve">
     <value>Использование настроек:</value>
   </data>
@@ -250,15 +217,8 @@
     <value>Только принудительно</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
-  <data name="AudioDefaultToolTip" xml:space="preserve">
-    <value>Выбирает последний выбранный аудиотрек, если найдено совпадение, в противном случае выбирает первый.</value>
-  </data>
   <data name="LastSelectedRadioButton" xml:space="preserve">
     <value>Последнее выбранное</value>
-  </data>
-  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
-    <value>Выбирает последние выбранные субтитры, если найдено совпадение, в противном случае выбирает первые.</value>
-    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
   </data>
   <data name="OverrideNameFormatLabel" xml:space="preserve">
     <value>Доступные параметры: {0}</value>
@@ -277,14 +237,8 @@
     <value>Фильтровать заголовки по продолжительности</value>
     <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
   </data>
-  <data name="TimeRangeSelection" xml:space="preserve">
-    <value>Выбор временного диапазона</value>
-  </data>
-  <data name="SelectTimeRangeCheckBox" xml:space="preserve">
-    <value>Выберите временной диапазон</value>
-  </data>
-  <data name="TitleCaptializationLabel" xml:space="preserve">
-    <value>Заголовок с заглавной буквы:</value>
+  <data name="ChangeCaptializationLabel" xml:space="preserve">
+    <value>Изменить заглавные</value>
   </data>
   <data name="TimeRangeStartAutomationName" xml:space="preserve">
     <value>Начало диапазона</value>
@@ -307,5 +261,132 @@
   </data>
   <data name="ChapterRangeStartAutomationName" xml:space="preserve">
     <value>Начало главы</value>
+  </data>
+  <data name="DestinationSection" xml:space="preserve">
+    <value>Место назначения</value>
+  </data>
+  <data name="OutputFolder" xml:space="preserve">
+    <value>Папка для сохранения:</value>
+    <comment>Label for the output folder.</comment>
+  </data>
+  <data name="UseCustomFileNameFormatCheckBox" xml:space="preserve">
+    <value>Использовать свой формат имён файлов:</value>
+  </data>
+  <data name="WhenFileExistsBatch" xml:space="preserve">
+    <value>Если файл уже существует (очередь заданий):</value>
+  </data>
+  <data name="WhenFileExistsSingle" xml:space="preserve">
+    <value>Если файл уже существует (один):</value>
+  </data>
+  <data name="CustomPickerNameTemplate" xml:space="preserve">
+    <value>Свой {0}</value>
+    <comment>The name for a custom auto-created picker. {0} is a number like 2, or 3 or 4 to differentiate it</comment>
+  </data>
+  <data name="OutputFileNameFormatAutomationName" xml:space="preserve">
+    <value>Формат имени файла</value>
+    <comment>Name for screen readers for the output file name format text box</comment>
+  </data>
+  <data name="OnlyChangeCapitalizationIfAllSameLabel" xml:space="preserve">
+    <value>Изменять регистр букв только в том случае, если все строчные или все прописные</value>
+  </data>
+  <data name="WordBreakCharacterAutomationNameFormat" xml:space="preserve">
+    <value>Символ разрыва слов - {0}</value>
+    <comment>Screen reader format for word break checkboxes. These will determine if a character will be used to separate words.</comment>
+  </data>
+  <data name="WordBreakCharactersLabel" xml:space="preserve">
+    <value>Известные символы разрыва слов:</value>
+  </data>
+  <data name="WordBreakCharacter_Dot" xml:space="preserve">
+    <value>Точка</value>
+  </data>
+  <data name="WordBreakCharacter_Space" xml:space="preserve">
+    <value>Пробел</value>
+  </data>
+  <data name="WordBreakCharacter_Underscore" xml:space="preserve">
+    <value>Подчёркивание</value>
+  </data>
+  <data name="ChangeWordSeparatorLabel" xml:space="preserve">
+    <value>Изменить разделитель слов на</value>
+  </data>
+  <data name="SourceCleanupPreviewLabel" xml:space="preserve">
+    <value>Предварительный просмотр:</value>
+  </data>
+  <data name="SourceNameCleanupSection" xml:space="preserve">
+    <value>Очистка имени источника</value>
+  </data>
+  <data name="AddAudioTrackNameButton" xml:space="preserve">
+    <value>Добавить название аудиотрека</value>
+    <comment>Button to add another name to the list of audio track names in the Picker.</comment>
+  </data>
+  <data name="AddSubtitleTrackNameButton" xml:space="preserve">
+    <value>Добавить название субтитров</value>
+    <comment>Button to add another name to the list of subtitle track names in the Picker.</comment>
+  </data>
+  <data name="CustomTrackNamesCheckBox" xml:space="preserve">
+    <value>Пользовательские названия треков</value>
+    <comment>Checkbox label to use custom audio or subtitle track names</comment>
+  </data>
+  <data name="TrackAutomationFormat" xml:space="preserve">
+    <value>Трек {0}</value>
+    <comment>Screen reader format for track names in the Picker.</comment>
+  </data>
+  <data name="BurnInLabel" xml:space="preserve">
+    <value>Записать в:</value>
+  </data>
+  <data name="PickerAudioSectionName" xml:space="preserve">
+    <value>Аудио</value>
+  </data>
+  <data name="PickerForeignAudioCheckBox" xml:space="preserve">
+    <value>Добавить трек 'По поиску иностранного звука'</value>
+  </data>
+  <data name="PickerSubtitleSectionName" xml:space="preserve">
+    <value>Субтитры</value>
+  </data>
+  <data name="SubtitleSelectionMode_ForeignAudioSearch" xml:space="preserve">
+    <value>По поиску иностранного звука</value>
+  </data>
+  <data name="TrackSelectionLabel" xml:space="preserve">
+    <value>Выбор трека:</value>
+    <comment>Label for track selection mode for audio or subtitle tracks.</comment>
+  </data>
+  <data name="AudioSelectionModeToolTip" xml:space="preserve">
+    <value>Последнее выбранное – выбирает последний выбранный аудиотрек, если найдено совпадение, в противном случае выбирает первый.
+Первые – выбирает только первый аудиотрек.
+По индексу – выбирает по индексу трека (начиная с 1)
+Язык(и) - выбирает по языку
+Все – выбирает все аудиотреки.</value>
+  </data>
+  <data name="SubtitleSelectionModeToolTip" xml:space="preserve">
+    <value>Последнее выбранное – включаются последние выбранные субтитры, если найдено совпадение, в противном случае выбирает первые.
+Нет – субтитры не включаются.
+Первые – включаются только первые субтитры.
+По индексу – включаются по индексу субтитров (начиная с 1)
+Язык(и) – включаются по языку
+Все – включаются все субтитры.</value>
+  </data>
+  <data name="IgnoreFilesBelowCheckBox" xml:space="preserve">
+    <value>Игнорировать файлы ниже</value>
+    <comment>A number box follows this string: Ignore files below [ 10 ] MB</comment>
+  </data>
+  <data name="TimeRangeLabel" xml:space="preserve">
+    <value>Диапазон времени:</value>
+  </data>
+  <data name="VideoSelectionSection" xml:space="preserve">
+    <value>Выбор видео</value>
+  </data>
+  <data name="MetadataSection" xml:space="preserve">
+    <value>Метаданные</value>
+  </data>
+  <data name="PassThroughMetadataCheckBox" xml:space="preserve">
+    <value>Пропустить метаданные видео (режиссёр, дата выпуска, исполнители и т. д.)</value>
+  </data>
+  <data name="BurnInCheckBox" xml:space="preserve">
+    <value>Записать в</value>
+  </data>
+  <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
+    <value>Добавить внешние файлы субтитров ({0}) с тем же именем, что и входной видеофайл</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Язык:</value>
   </data>
 </root>

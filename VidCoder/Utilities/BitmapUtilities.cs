@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HandBrake.Interop.Interop.Interfaces.Model.Preview;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -9,7 +10,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
-using HandBrake.Interop.Interop.Model.Preview;
 
 namespace VidCoder
 {

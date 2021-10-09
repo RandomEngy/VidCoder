@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutLicense" xml:space="preserve">
     <value>Dieses Programm ist freie Software; Sie können sie unter den Bedingungen der GNU General Public License weiterverteilen und/oder modifizieren, wie von der Free Software Foundation veröffentlicht; entweder gemäß Version 2 der Lizenz oder (nach Ihrer Option) jeder späteren Version. 
@@ -131,7 +131,7 @@ Diesem Programm wurde eine vollständige Kopie der GNU General Public beigelegt.
     <value>Untertitelspur als Wiedergabestandard festlegen, damit sie angezeigt wird bis eine andere ausgewählt wird.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Nur die erzwungenen Untertitel aus der/n Untertitelspur(en) zeigen. Gewöhnlich sind dies kurze ausländische Dialoge.</value>
+    <value>Nur die erzwungenen Untertitel aus der/n Untertitelspur(en) zeigen. Gewöhnlich sind dies kurze Dialoge in einer Fremdsprache.</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>Zeitspanne, um die der gewählten Untertitel vorgezogen oder verzögert angezeigt wird.</value>
@@ -169,7 +169,7 @@ Diesem Programm wurde eine vollständige Kopie der GNU General Public beigelegt.
     <value>Laufzeit</value>
   </data>
   <data name="ForeignAudioSearchToolTip" xml:space="preserve">
-    <value>Durchsucht und filtert Untertitelspuren, welche ausländische Dialoge enthalten könnten. Gut für Filme in Ihrer Muttersprache.</value>
+    <value>Bevorzugt Untertitelspuren, welche vermutlich Dialoge in einer Fremdsprache enthalten. Gut für Filme in Ihrer Muttersprache.</value>
   </data>
   <data name="Default" xml:space="preserve">
     <value>Standard</value>
@@ -317,5 +317,28 @@ Diesem Programm wurde eine vollständige Kopie der GNU General Public beigelegt.
   </data>
   <data name="DefaultLabel" xml:space="preserve">
     <value>Standard:</value>
+  </data>
+  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
+    <value>Audiospuren</value>
+  </data>
+  <data name="QueueColumnNameCropping" xml:space="preserve">
+    <value>Zuschneiden</value>
+  </data>
+  <data name="QueueColumnNameOutputSize" xml:space="preserve">
+    <value>Ausgabegröße</value>
+  </data>
+  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
+    <value>Untertitelspuren</value>
+  </data>
+  <data name="Manual" xml:space="preserve">
+    <value>Manuell</value>
+    <comment>Shown when something has been set manually</comment>
+  </data>
+  <data name="FileNoLongerExists" xml:space="preserve">
+    <value>Diese Datei ist nicht mehr vorhanden.</value>
+  </data>
+  <data name="MegabytesAbbreviation" xml:space="preserve">
+    <value>MB</value>
+    <comment>Abbreviation for megabytes</comment>
   </data>
 </root>

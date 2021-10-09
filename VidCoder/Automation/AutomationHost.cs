@@ -6,8 +6,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using PipeMethodCalls;
+using PipeMethodCalls.NetJson;
 using VidCoderCommon;
-using VidCoderCLI;
+using VidCoderCommon.Services;
 
 namespace VidCoder.Automation
 {
@@ -25,6 +26,7 @@ namespace VidCoder.Automation
 				while (true)
 				{
 					using (server = new PipeServer<IVidCoderAutomation>(
+						new NetJsonPipeSerializer(),
 						"VidCoderAutomation" + (CommonUtilities.Beta ? "Beta" : string.Empty),
 						() => new VidCoderAutomation()))
 					{

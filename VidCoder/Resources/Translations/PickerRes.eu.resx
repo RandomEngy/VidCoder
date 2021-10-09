@@ -112,25 +112,13 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AudioSelection" xml:space="preserve">
-    <value>Audio hautapena</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Erre</value>
-  </data>
   <data name="DefaultCheckBox" xml:space="preserve">
     <value>Berezkoa</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Beste Hizkuntzako Audio Bilaketa</value>
-  </data>
-  <data name="IncludeAllTracksRadioButton" xml:space="preserve">
-    <value>Bide guztiak</value>
   </data>
   <data name="LanguagesRadioButton" xml:space="preserve">
     <value>Hizkuntza(k)</value>
@@ -139,14 +127,8 @@
     <value>Audiotik hizkuntza ezberdina bada bakarrik</value>
     <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
   </data>
-  <data name="SubtitleSelection" xml:space="preserve">
-    <value>Azpidatzi hautapena</value>
-  </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>Hautatzailea: {0}</value>
-  </data>
-  <data name="TitleSelection" xml:space="preserve">
-    <value>Izenburu hautapena</value>
   </data>
   <data name="PickerButtonFormat" xml:space="preserve">
     <value>Hautatzailea: {0}</value>
@@ -222,21 +204,6 @@
     <value>Markatu lehena berezkoa bezala</value>
     <comment>Label for checkbox to mark the first subtitle as default.</comment>
   </data>
-  <data name="AllSubtitlesToolTip" xml:space="preserve">
-    <value>Barneratu azpidatzi guztiak.</value>
-  </data>
-  <data name="SubtitleNoneToolTip" xml:space="preserve">
-    <value>Ez da azpidatzirik barneratu.</value>
-  </data>
-  <data name="AudioFirstToolTip" xml:space="preserve">
-    <value>Barneratu lehen audio bidea bakarrik.</value>
-  </data>
-  <data name="AudioAllToolTip" xml:space="preserve">
-    <value>Barneratu audio bide guztiak.</value>
-  </data>
-  <data name="SubtitleFirstToolTip" xml:space="preserve">
-    <value>Barneratu lehen azpidatzia bakarrik.</value>
-  </data>
   <data name="PresetLabel" xml:space="preserve">
     <value>Erabili aurrezarpena:</value>
   </data>
@@ -250,15 +217,8 @@
     <value>Behartua bakarrik</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
-  <data name="AudioDefaultToolTip" xml:space="preserve">
-    <value>Hautaturiko azken audio bidea hautatzen du bat etortzea aurkituz gero, bestela lehena hautatzen du.</value>
-  </data>
   <data name="LastSelectedRadioButton" xml:space="preserve">
     <value>Hautaturiko azkena</value>
-  </data>
-  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
-    <value>Hautaturiko azken azpidatzi bidea hautatzen du bat etortzea aurkituz gero, bestela biderik ez.</value>
-    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
   </data>
   <data name="OverrideNameFormatLabel" xml:space="preserve">
     <value>Aukera eskuragarriak: {0}</value>
@@ -277,15 +237,7 @@
     <value>Iragazi izenburuak iraupenez</value>
     <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
   </data>
-  <data name="TimeRangeSelection" xml:space="preserve">
-    <value>Denbora maila hautapena</value>
-  </data>
-  <data name="SelectTimeRangeCheckBox" xml:space="preserve">
-    <value>Hautatu denbora maila</value>
-  </data>
-  <data name="TitleCaptializationLabel" xml:space="preserve">
-    <value>Izenburu hizki larri-xehetzea:</value>
-  </data>
+  
   <data name="TimeRangeStartAutomationName" xml:space="preserve">
     <value>Denbora maila hasiera</value>
   </data>
@@ -308,4 +260,42 @@
   <data name="ChapterRangeStartAutomationName" xml:space="preserve">
     <value>Atal tartearen hasiera</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <data name="BurnInCheckBox" xml:space="preserve">
+    <value>Erre</value>
+  </data>
+  
+  
 </root>

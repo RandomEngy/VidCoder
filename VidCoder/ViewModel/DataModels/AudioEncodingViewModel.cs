@@ -11,9 +11,9 @@ using System.Windows.Input;
 using DynamicData;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.HbLib;
+using HandBrake.Interop.Interop.Interfaces.Model;
+using HandBrake.Interop.Interop.Interfaces.Model.Encoders;
 using HandBrake.Interop.Interop.Json.Scan;
-using HandBrake.Interop.Interop.Model;
-using HandBrake.Interop.Interop.Model.Encoding;
 using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Extensions;
@@ -21,6 +21,7 @@ using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoderCommon.Model;
+using VidCoderCommon.Utilities;
 using Brush = System.Windows.Media.Brush;
 
 namespace VidCoder.ViewModel
@@ -68,7 +69,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public AudioEncodingViewModel(AudioEncoding audioEncoding, SourceTitle selectedTitle, List<int> chosenAudioTracks, AudioPanelViewModel audioPanelVM)
+		public AudioEncodingViewModel(AudioEncoding audioEncoding, SourceTitle selectedTitle, List<ChosenAudioTrack> chosenAudioTracks, AudioPanelViewModel audioPanelVM)
 		{
 			this.initializing = true;
 			this.audioPanelVM = audioPanelVM;
@@ -186,7 +187,7 @@ namespace VidCoder.ViewModel
 					return false;
 				}
 
-				if (HandBrakeEncoderHelpers.AudioEncoders.Any(e => e.Id == (NativeConstants.HB_ACODEC_PASS_FLAG | audioEncoder.Encoder.Id)))
+				if (HandBrakeEncoderHelpers.AudioEncoders.Any(e => e.Id == (HandBrakeNativeConstants.HB_ACODEC_PASS_FLAG | audioEncoder.Encoder.Id)))
 				{
 					return true;
 				}
@@ -372,8 +373,6 @@ namespace VidCoder.ViewModel
 				this.RefreshFromNewInput();
 			});
 
-			Config.Observables.ShowAudioTrackNameField.ToProperty(this, x => x.NameVisible, out this.nameVisible);
-
 			this.initializing = false;
 		}
 
@@ -397,6 +396,7 @@ namespace VidCoder.ViewModel
 			this.RefreshMixdownChoices();
 			this.RefreshBitrateChoices();
 			this.RefreshDrc();
+			this.RefreshSourceName();
 		}
 
 		public AudioPanelViewModel AudioPanelVM
@@ -416,10 +416,7 @@ namespace VidCoder.ViewModel
 
 				newAudioEncoding.Encoder = this.HBAudioEncoder.ShortName;
 
-				if (this.NameVisible)
-				{
-					newAudioEncoding.Name = this.Name;
-				}
+				newAudioEncoding.Name = this.Name;
 
 				if (!this.HBAudioEncoder.IsPassthrough)
 				{
@@ -693,9 +690,6 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<string> audioCompressionToolTip;
 		public string AudioCompressionToolTip => this.audioCompressionToolTip.Value;
 
-		private ObservableAsPropertyHelper<bool> nameVisible;
-		public bool NameVisible => this.nameVisible.Value;
-
 		public List<MixdownViewModel> MixdownChoices
 		{
 			get
@@ -877,6 +871,30 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public string SourceName
+		{
+			get
+			{
+				if (!this.main.HasVideoSource)
+				{
+					return string.Empty;
+				}
+
+				var track = this.GetTargetAudioTrack();
+				if (track != null)
+				{
+					return track.Name ?? string.Empty;
+				}
+
+				return string.Empty;
+			}
+		}
+
+		private void RefreshSourceName()
+		{
+			this.RaisePropertyChanged(nameof(this.SourceName));
+		}
+
 		public bool IsValid
 		{
 			get
@@ -903,7 +921,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public void SetChosenTracks(List<int> chosenAudioTracks, SourceTitle selectedTitle)
+		public void SetChosenTracks(List<ChosenAudioTrack> chosenAudioTracks, SourceTitle selectedTitle)
 		{
 			DispatchUtilities.Invoke(() =>
 			{
@@ -919,7 +937,7 @@ namespace VidCoder.ViewModel
 					string details = null;
 					if (i < chosenAudioTracks.Count && selectedTitle != null)
 					{
-						details = selectedTitle.AudioList[chosenAudioTracks[i] - 1].Description;
+						details = selectedTitle.AudioList[chosenAudioTracks[i].TrackNumber - 1].Description;
 					}
 
 					this.targetStreams.Add(
@@ -1202,11 +1220,11 @@ namespace VidCoder.ViewModel
 			}
 
 			SourceAudioTrack track = null;
-			List<int> chosenAudioTracks = this.main.GetChosenAudioTracks();
+			List<ChosenAudioTrack> chosenAudioTracks = this.main.GetChosenAudioTracks();
 
 			if (this.TargetStreamIndex > 0 && this.TargetStreamIndex <= chosenAudioTracks.Count)
 			{
-				int audioTrack = chosenAudioTracks[this.TargetStreamIndex - 1];
+				int audioTrack = chosenAudioTracks[this.TargetStreamIndex - 1].TrackNumber;
 				if (audioTrack <= this.main.SelectedTitle.AudioList.Count)
 				{
 					track = this.main.SelectedTitle.AudioList[audioTrack - 1];
@@ -1215,7 +1233,7 @@ namespace VidCoder.ViewModel
 
 			if (this.TargetStreamIndex == 0 && chosenAudioTracks.Count == 1)
 			{
-				int audioTrack = chosenAudioTracks[0];
+				int audioTrack = chosenAudioTracks[0].TrackNumber;
 				if (audioTrack <= this.main.SelectedTitle.AudioList.Count)
 				{
 					track = this.main.SelectedTitle.AudioList[audioTrack - 1];

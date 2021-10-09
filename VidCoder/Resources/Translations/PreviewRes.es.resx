@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="PlaySourceButton" xml:space="preserve">
     <value>Reproducir origen</value>
@@ -133,13 +133,13 @@
     <value>Preview de fuentes Blu-ray aun no soportado.</value>
   </data>
   <data name="PlaySourceDisabledNoPlayerToolTip" xml:space="preserve">
-    <value>No se encontró reproductor de DVD compatible. Instalar VLC o MPC-HC para utilizar esta función.</value>
+    <value>No se encontró reproductor de DVD compatible. Instala VLC o MPC-HC para utilizar esta función.</value>
   </data>
   <data name="PlaySourceToolTip" xml:space="preserve">
     <value>Reproduce el video fuente.</value>
   </data>
   <data name="PreviewClipGenerationFailedMessage" xml:space="preserve">
-    <value>Fallo la generación de clip previsualización. Ver la ventana de Log para mas detalles.</value>
+    <value>Fallo la generación del preview. Ver la ventana de Log para mas detalles.</value>
   </data>
   <data name="PreviewClipGenerationFailedTitle" xml:space="preserve">
     <value>Fallo la generación de clip avance</value>
@@ -148,7 +148,7 @@
     <value>Preview: {0}x{1}</value>
   </data>
   <data name="PreviewWindowTitleComplex" xml:space="preserve">
-    <value>Preview: Muestra {0}x{1} - Almacena {2}x{3}</value>
+    <value>Preview: Proyección {0}x{1} - Almacenada {2}x{3}</value>
   </data>
   <data name="NoVideoSourceTitle" xml:space="preserve">
     <value>Preview: Sin fuente de video</value>
@@ -180,11 +180,11 @@
   <data name="BottomMargin" xml:space="preserve">
     <value>Margen inferior</value>
   </data>
-	<data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
-    <value>No se pudo encontrar el archivo de origen.</value>
+  <data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
+    <value>Archivo origen no encontrado.</value>
   </data>
   <data name="CloseVideoButton" xml:space="preserve">
-    <value>Cerra video</value>
+    <value>Cerrar video</value>
     <comment>Button to close the preview video clip.</comment>
   </data>
   <data name="OpenInSystemPlayerButton" xml:space="preserve">
@@ -197,12 +197,9 @@
     <value>Repetir preview</value>
   </data>
   <data name="VideoErrorMessage" xml:space="preserve">
-    <value>El video no se pudo ver con el reproductor interno. Desea abrirlo con el reproductor predeterminado del sistema?</value>
+    <value>El video no se pudo ver con el reproductor interno. ¿Deseas abrirlo con el reproductor predeterminado del sistema?</value>
   </data>
   <data name="VideoErrorTitle" xml:space="preserve">
     <value>Error de video</value>
-  </data>
-  <data name="PlaySourceDisabledAppxToolTip" xml:space="preserve">
-    <value>La versión de la tienda de Windows no puede reproducir fuentes DVD o Blu-ray y no tiene permitido ejecutar otros procesos.</value>
   </data>
 </root>

@@ -10,6 +10,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:fluent="urn:fluent-ribbon"
 	xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+	xmlns:interop="clr-namespace:HandBrake.Interop.Interop;assembly=HandBrake.Interop"
 	xmlns:layoutPanels="clr-namespace:VidCoder.LayoutPanels"
 	xmlns:local="clr-namespace:VidCoder"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -23,6 +24,7 @@
 	MinWidth="617"
 	MinHeight="445"
 	d:DataContext="{d:DesignInstance viewmodel:MainViewModel}"
+	Background="{DynamicResource WindowBrush}"
 	Closing="Main_OnClosing"
 	Deactivated="OnWindowDeactivated"
 	MouseDown="Window_MouseDown"
@@ -30,7 +32,11 @@
 	StateChanged="Window_StateChanged"
 	Style="{StaticResource NormalWindow}"
 	TextOptions.TextFormattingMode="Display"
+	WindowStyle="None"
 	mc:Ignorable="d">
+	<WindowChrome.WindowChrome>
+		<WindowChrome CaptionHeight="32" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
+	</WindowChrome.WindowChrome>
 	<Window.Resources>
 		<converters:SampleRateDisplayConverter x:Key="SampleRateDisplayConverter" />
 		<converters:ChapterVMConverter x:Key="ChapterVMConverter" />
@@ -185,17 +191,29 @@
 		<DataTemplate x:Key="QueueTemplateVideoEncoder" DataType="viewmodel:EncodeJobViewModel">
 			<TextBlock Style="{StaticResource QueueText}" Text="{Binding VideoEncoderDisplay}" />
 		</DataTemplate>
-		<DataTemplate x:Key="QueueTemplateAudioEncoder" DataType="viewmodel:EncodeJobViewModel">
-			<TextBlock Style="{StaticResource QueueText}" Text="{Binding AudioEncodersDisplay}" />
-		</DataTemplate>
 		<DataTemplate x:Key="QueueTemplateVideoQuality" DataType="viewmodel:EncodeJobViewModel">
 			<TextBlock Style="{StaticResource QueueText}" Text="{Binding VideoQualityDisplay}" />
 		</DataTemplate>
-		<DataTemplate x:Key="QueueTemplateDuration" DataType="viewmodel:EncodeJobViewModel">
-			<TextBlock Style="{StaticResource QueueText}" Text="{Binding DurationDisplay}" />
+		<DataTemplate x:Key="QueueTemplateCropping" DataType="viewmodel:EncodeJobViewModel">
+			<TextBlock Style="{StaticResource QueueText}" Text="{Binding CroppingDisplay}" />
+		</DataTemplate>
+		<DataTemplate x:Key="QueueTemplateOutputSize" DataType="viewmodel:EncodeJobViewModel">
+			<TextBlock Style="{StaticResource QueueText}" Text="{Binding OutputSizeDisplay}" />
+		</DataTemplate>
+		<DataTemplate x:Key="QueueTemplateAudioEncoder" DataType="viewmodel:EncodeJobViewModel">
+			<TextBlock Style="{StaticResource QueueText}" Text="{Binding AudioEncodersDisplay}" />
 		</DataTemplate>
 		<DataTemplate x:Key="QueueTemplateAudioQuality" DataType="viewmodel:EncodeJobViewModel">
 			<TextBlock Style="{StaticResource QueueText}" Text="{Binding AudioQualityDisplay}" />
+		</DataTemplate>
+		<DataTemplate x:Key="QueueTemplateAudioTracks" DataType="viewmodel:EncodeJobViewModel">
+			<TextBlock Style="{StaticResource QueueText}" Text="{Binding AudioTracksDisplay}" />
+		</DataTemplate>
+		<DataTemplate x:Key="QueueTemplateSubtitleTracks" DataType="viewmodel:EncodeJobViewModel">
+			<TextBlock Style="{StaticResource QueueText}" Text="{Binding SubtitleTracksDisplay}" />
+		</DataTemplate>
+		<DataTemplate x:Key="QueueTemplateDuration" DataType="viewmodel:EncodeJobViewModel">
+			<TextBlock Style="{StaticResource QueueText}" Text="{Binding DurationDisplay}" />
 		</DataTemplate>
 		<DataTemplate x:Key="QueueTemplatePreset" DataType="viewmodel:EncodeJobViewModel">
 			<TextBlock Style="{StaticResource QueueText}" Text="{Binding PresetName}" />
@@ -238,6 +256,18 @@
 						Width="16"
 						Height="16"
 						Source="/Icons/edit_16x16.png" />
+				</MenuItem.Icon>
+			</MenuItem>
+			<MenuItem
+				Command="{Binding Compare}"
+				Header="{x:Static res:MainRes.CompareAgainstOriginal}"
+				Visibility="{Binding ShowCompare,
+				                     Converter={StaticResource VisibilityConverter}}">
+				<MenuItem.Icon>
+					<Image
+						Width="16"
+						Height="16"
+						Source="/Icons/Compare.png" />
 				</MenuItem.Icon>
 			</MenuItem>
 			<MenuItem Command="{Binding OpenContainingFolder}" Header="{x:Static res:MainRes.OpenContainingFolder}">
@@ -401,9 +431,13 @@
 			</Setter>
 		</Style>
 	</Window.Resources>
-	<Window.TaskbarItemInfo>
+	<!--
+		Working around bug where trying to set Window.TaskbarItemInfo throws an exception for some.
+		This is now done in the .xaml.cs file.
+	-->
+	<!--<Window.TaskbarItemInfo>
 		<TaskbarItemInfo ProgressState="{Binding TaskBarProgressTracker.ProgressState}" ProgressValue="{Binding TaskBarProgressTracker.ProgressFraction}" />
-	</Window.TaskbarItemInfo>
+	</Window.TaskbarItemInfo>-->
 	<Window.InputBindings>
 		<KeyBinding
 			Key="O"
@@ -440,9 +474,12 @@
 		original allocated size for it. We need to keep track of the window client area so we
 		know how to restore it in a way that fits.
 	-->
-	<Grid Name="rootGrid">
+	<Border Name="rootGrid" Style="{StaticResource WindowMainPanelStyle}">
 		<Grid Name="contentGrid">
 			<Grid.RowDefinitions>
+				<!--  Title bar  -->
+				<RowDefinition Height="30" />
+
 				<!--  Ribbon  -->
 				<RowDefinition Height="Auto" />
 
@@ -467,9 +504,94 @@
 				Height="0"
 				AutomationProperties.LiveSetting="Assertive" />
 
+			<!--  Title bar  -->
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Grid.Style>
+					<Style TargetType="Grid">
+						<Style.Triggers>
+							<DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False">
+								<Setter Property="Background" Value="{DynamicResource WindowTitleBarInactiveBackground}" />
+							</DataTrigger>
+						</Style.Triggers>
+					</Style>
+				</Grid.Style>
+				<Image
+					Grid.Column="0"
+					Width="22"
+					Height="22"
+					Margin="4"
+					Source="/Icons/VidCoder32.png" />
+				<TextBlock
+					Grid.Column="1"
+					Margin="4 0 0 1"
+					VerticalAlignment="Center"
+					FontSize="14"
+					Text="{Binding WindowTitle}" />
+
+
+				<Button
+					Grid.Column="2"
+					Click="OnMinimizeButtonClick"
+					RenderOptions.EdgeMode="Aliased"
+					Style="{StaticResource TitleBarButtonStyle}">
+					<Path
+						Width="46"
+						Height="32"
+						Data="M 18,15 H 28"
+						Stroke="{Binding Path=Foreground,
+						                 RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+						StrokeThickness="1" />
+				</Button>
+				<Button
+					Name="maximizeButton"
+					Grid.Column="3"
+					Click="OnMaximizeRestoreButtonClick"
+					Style="{StaticResource TitleBarButtonStyle}">
+					<Path
+						Width="46"
+						Height="32"
+						Data="M 18.5,10.5 H 27.5 V 19.5 H 18.5 Z"
+						Stroke="{Binding Path=Foreground,
+						                 RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+						StrokeThickness="1" />
+				</Button>
+				<Button
+					Name="restoreButton"
+					Grid.Column="3"
+					Click="OnMaximizeRestoreButtonClick"
+					Style="{StaticResource TitleBarButtonStyle}">
+					<Path
+						Width="46"
+						Height="32"
+						Data="M 18.5,12.5 H 25.5 V 19.5 H 18.5 Z M 20.5,12.5 V 10.5 H 27.5 V 17.5 H 25.5"
+						Stroke="{Binding Path=Foreground,
+						                 RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+						StrokeThickness="1" />
+				</Button>
+				<Button
+					Grid.Column="4"
+					Click="OnCloseButtonClick"
+					Style="{StaticResource TitleBarCloseButtonStyle}">
+					<Path
+						Width="46"
+						Height="32"
+						Data="M 18,11 27,20 M 18,20 27,11"
+						Stroke="{Binding Path=Foreground,
+						                 RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+						StrokeThickness="1" />
+				</Button>
+			</Grid>
+
 			<!--  Ribbon  -->
 			<fluent:Ribbon
-				Grid.Row="0"
+				Grid.Row="1"
 				AreTabHeadersVisible="False"
 				CanMinimize="False"
 				IsQuickAccessToolBarVisible="False"
@@ -513,12 +635,9 @@
 							Command="{Binding OpenEncodingWindow}"
 							Header="{Binding EncodingPresetButtonText}"
 							LargeIcon="/Icons/EncodingSettings.png"
+							MaxDropDownHeight="3000"
 							ToolTip="{x:Static res:MainRes.EncodingSettingsButtonToolTip}">
-							<controls:PresetTreeViewContainer
-								x:Name="presetTreeViewContainer"
-								MinWidth="250"
-								IsEnabled="{Binding PickersService.SelectedPicker.Picker.UseEncodingPreset,
-								                    Converter={StaticResource InverseBoolConverter}}" />
+							<controls:PresetTreeViewContainer x:Name="presetTreeViewContainer" MinWidth="250" />
 						</fluent:SplitButton>
 						<fluent:SplitButton
 							x:Name="pickerButton"
@@ -587,7 +706,7 @@
 							Visibility="{Binding ProcessingService.Encoding,
 							                     Converter={StaticResource VisibilityConverter}}" />
 					</fluent:RibbonGroupBox>
-					<fluent:RibbonGroupBox x:Name="toolsRibbonGroupBox" Header="{x:Static res:MainRes.ToolsMenu}">
+					<fluent:RibbonGroupBox x:Name="toolsRibbonGroupBox">
 						<fluent:DropDownButton
 							x:Name="windowsRibbonButton"
 							Header="{x:Static res:MainRes.WindowsMenu}"
@@ -640,7 +759,7 @@
 
 			<!--  Video choices on load  -->
 			<Grid
-				Grid.Row="1"
+				Grid.Row="2"
 				MinWidth="220"
 				Margin="0"
 				VerticalAlignment="Stretch"
@@ -686,9 +805,7 @@
 											Width="16"
 											Height="16"
 											Margin="0 2 0 2"
-											Source="{Binding Image}"
-											Visibility="{Binding ImageVisible,
-											                     Converter={StaticResource VisibilityConverter}}" />
+											Source="{Binding Image}" />
 										<TextBlock
 											Margin="6 0 0 0"
 											FontSize="14"
@@ -763,9 +880,7 @@
 											Height="16"
 											Margin="4 2 0 2"
 											Source="{Binding Image}"
-											UseLayoutRounding="True"
-											Visibility="{Binding ImageVisible,
-											                     Converter={StaticResource VisibilityConverter}}" />
+											UseLayoutRounding="True" />
 										<controls:PathTextBlock
 											Grid.Column="1"
 											Margin="4"
@@ -795,7 +910,7 @@
 			<!--  Source area  -->
 			<ScrollViewer
 				Name="sourceScrollViewer"
-				Grid.Row="1"
+				Grid.Row="2"
 				Margin="0"
 				Background="{DynamicResource AlternateBackgroundBrush}"
 				VerticalScrollBarVisibility="Auto"
@@ -905,6 +1020,7 @@
 										<!--  Video options button  -->
 										<Button
 											Margin="10 0 0 0"
+											AutomationProperties.Name="{x:Static res:MainRes.VideoEncodingOptionsToolTip}"
 											Command="{Binding OpenVideoEncoderOptions}"
 											Style="{StaticResource SummaryActionButton}"
 											ToolTip="{x:Static res:MainRes.VideoEncodingOptionsToolTip}">
@@ -1202,6 +1318,7 @@
 								<!--  Options button  -->
 								<Button
 									Margin="10 0 0 0"
+									AutomationProperties.Name="{x:Static res:MainRes.AudioEncodingOptionsToolTip}"
 									Command="{Binding OpenAudioEncoderOptions}"
 									Style="{StaticResource SummaryActionButton}"
 									ToolTip="{x:Static res:MainRes.AudioEncodingOptionsToolTip}">
@@ -1211,6 +1328,21 @@
 										HorizontalAlignment="Center"
 										VerticalAlignment="Center"
 										Source="/Icons/Options.png" />
+								</Button>
+
+								<!--  Audio picker button  -->
+								<Button
+									Margin="0"
+									AutomationProperties.Name="{x:Static res:MainRes.AudioPickerButtonToolTip}"
+									Command="{Binding OpenPickerToAudio}"
+									Style="{StaticResource SummaryActionButton}"
+									ToolTip="{x:Static res:MainRes.AudioPickerButtonToolTip}">
+									<Image
+										Width="20"
+										Height="20"
+										HorizontalAlignment="Center"
+										VerticalAlignment="Center"
+										Source="/Icons/Picker.png" />
 								</Button>
 							</StackPanel>
 						</Grid>
@@ -1265,19 +1397,44 @@
 														Height="22"
 														HorizontalAlignment="Stretch"
 														VerticalAlignment="Stretch"
+														HorizontalContentAlignment="Center"
+														VerticalContentAlignment="Center"
 														AutomationProperties.LiveSetting="Assertive"
 														IsChecked="{Binding Selected}"
-														Style="{StaticResource CenteredCheckBox}" />
+														Style="{StaticResource CheckBoxCenteredStyle}" />
+												</DataTemplate>
+											</GridViewColumn.CellTemplate>
+										</GridViewColumn>
+										<GridViewColumn x:Name="audioTrackSummaryColumn" Header="{x:Static res:MainRes.AudioSubtitleTrackColumnHeader}">
+											<GridViewColumn.CellTemplate>
+												<DataTemplate DataType="viewmodel:AudioTrackViewModel">
+													<TextBlock
+														VerticalAlignment="Center"
+														Style="{StaticResource SourceTrack}"
+														Text="{Binding TrackSummary}" />
 												</DataTemplate>
 											</GridViewColumn.CellTemplate>
 										</GridViewColumn>
 										<GridViewColumn x:Name="audioNameColumn" Header="{x:Static res:SubtitleRes.NameColumn}">
 											<GridViewColumn.CellTemplate>
 												<DataTemplate DataType="viewmodel:AudioTrackViewModel">
-													<TextBlock
-														VerticalAlignment="Center"
-														Style="{StaticResource SourceTrack}"
-														Text="{Binding}" />
+													<Grid>
+														<TextBlock
+															Style="{StaticResource SourceTrack}"
+															Text="{Binding SourceName}"
+															Visibility="{Binding Selected,
+															                     Converter={StaticResource InverseVisibilityConverter}}" />
+														<TextBox
+															Height="22"
+															MinWidth="100"
+															Margin="0"
+															VerticalContentAlignment="Center"
+															AutomationProperties.Name="{x:Static res:MainRes.AudioTrackNameAutomationName}"
+															Text="{Binding Name,
+															               UpdateSourceTrigger=PropertyChanged}"
+															Visibility="{Binding Selected,
+															                     Converter={StaticResource VisibilityConverter}}" />
+													</Grid>
 												</DataTemplate>
 											</GridViewColumn.CellTemplate>
 										</GridViewColumn>
@@ -1356,8 +1513,10 @@
 									Style="{StaticResource SourceSectionText}"
 									Text="{Binding SubtitlesSummary}"
 									TextTrimming="CharacterEllipsis" />
+								<!--  Add subtitle button  -->
 								<Button
-									Margin="10 0 16 0"
+									Margin="10 0 0 0"
+									AutomationProperties.Name="{x:Static res:SubtitleRes.ImportSubtitleButton}"
 									Command="{Binding AddFileSubtitle}"
 									Style="{StaticResource SummaryActionButton}"
 									ToolTip="{x:Static res:SubtitleRes.ImportSubtitleButton}">
@@ -1386,6 +1545,21 @@
 										</Rectangle>
 									</Grid>
 								</Button>
+
+								<!--  Subtitle picker button  -->
+								<Button
+									Margin="0"
+									AutomationProperties.Name="{x:Static res:MainRes.SubtitlePickerButtonToolTip}"
+									Command="{Binding OpenPickerToSubtitles}"
+									Style="{StaticResource SummaryActionButton}"
+									ToolTip="{x:Static res:MainRes.SubtitlePickerButtonToolTip}">
+									<Image
+										Width="20"
+										Height="20"
+										HorizontalAlignment="Center"
+										VerticalAlignment="Center"
+										Source="/Icons/Picker.png" />
+								</Button>
 							</StackPanel>
 						</Grid>
 					</ToggleButton>
@@ -1407,25 +1581,48 @@
 									Height="22"
 									HorizontalAlignment="Stretch"
 									VerticalAlignment="Stretch"
+									HorizontalContentAlignment="Center"
+									VerticalContentAlignment="Center"
 									AutomationProperties.LiveSetting="Assertive"
 									IsChecked="{Binding Selected}"
-									Style="{StaticResource CenteredCheckBox}" />
+									Style="{StaticResource CheckBoxCenteredStyle}" />
 							</DataTemplate>
-							<DataTemplate x:Key="NameTemplate" DataType="viewmodel:SourceSubtitleViewModel">
+							<DataTemplate x:Key="TrackSummaryTemplate" DataType="viewmodel:SourceSubtitleViewModel">
 								<Grid Height="22">
 									<TextBlock
 										VerticalAlignment="Center"
 										Style="{StaticResource SourceTrack}"
-										Text="{Binding SubtitleName}" />
+										Text="{Binding TrackSummary}" />
+								</Grid>
+							</DataTemplate>
+							<DataTemplate x:Key="SourceNameTemplate" DataType="viewModel:SourceSubtitleViewModel">
+								<Grid>
+									<TextBlock
+										Style="{StaticResource SourceTrack}"
+										Text="{Binding SourceName}"
+										Visibility="{Binding Selected,
+										                     Converter={StaticResource InverseVisibilityConverter}}" />
+									<TextBox
+										Height="22"
+										MinWidth="100"
+										Margin="0"
+										VerticalContentAlignment="Center"
+										AutomationProperties.Name="{x:Static res:MainRes.SubtitleNameAutomationName}"
+										Text="{Binding Name,
+										               UpdateSourceTrigger=PropertyChanged}"
+										Visibility="{Binding Selected,
+										                     Converter={StaticResource VisibilityConverter}}" />
 								</Grid>
 							</DataTemplate>
 							<DataTemplate x:Key="ForcedTemplate" DataType="viewmodel:SourceSubtitleViewModel">
 								<CheckBox
 									Width="75"
 									Height="22"
+									HorizontalContentAlignment="Center"
+									VerticalContentAlignment="Center"
 									IsChecked="{Binding ForcedOnly}"
 									IsEnabled="{Binding ForcedOnlyEnabled}"
-									Style="{StaticResource CenteredCheckBox}"
+									Style="{StaticResource CheckBoxCenteredStyle}"
 									ToolTip="{x:Static res:CommonRes.ForcedSubtitleToolTip}"
 									Visibility="{Binding Selected,
 									                     Converter={StaticResource VisibilityConverter}}" />
@@ -1434,9 +1631,11 @@
 								<CheckBox
 									Width="70"
 									Height="22"
+									HorizontalContentAlignment="Center"
+									VerticalContentAlignment="Center"
 									IsChecked="{Binding BurnedIn}"
 									IsEnabled="{Binding BurnedInEnabled}"
-									Style="{StaticResource CenteredCheckBox}"
+									Style="{StaticResource CheckBoxCenteredStyle}"
 									ToolTip="{x:Static res:CommonRes.BurnedSubtitleToolTip}"
 									ToolTipService.ShowOnDisabled="True"
 									Visibility="{Binding Selected,
@@ -1451,13 +1650,25 @@
 									Text="{Binding FileName}"
 									ToolTipService.ToolTip="{Binding FileName}" />
 							</DataTemplate>
+							<DataTemplate x:Key="ImportNameTemplate" DataType="viewmodel:FileSubtitleViewModel">
+								<TextBox
+									Height="22"
+									MinWidth="100"
+									Margin="0"
+									VerticalContentAlignment="Center"
+									AutomationProperties.Name="{x:Static res:MainRes.SubtitleNameAutomationName}"
+									Text="{Binding Name,
+									               UpdateSourceTrigger=PropertyChanged}" />
+							</DataTemplate>
 							<DataTemplate x:Key="DefaultTemplate" DataType="viewmodel:SourceSubtitleViewModel">
 								<CheckBox
 									Width="55"
 									Height="22"
+									HorizontalContentAlignment="Center"
+									VerticalContentAlignment="Center"
 									IsChecked="{Binding Default}"
-									IsEnabled="{Binding MainViewModel.DefaultSubtitlesEnabled}"
-									Style="{StaticResource CenteredCheckBox}"
+									IsEnabled="{Binding DefaultEnabled}"
+									Style="{StaticResource CheckBoxCenteredStyle}"
 									ToolTip="{x:Static res:CommonRes.DefaultSubtitleToolTip}"
 									ToolTipService.ShowOnDisabled="True"
 									Visibility="{Binding Selected,
@@ -1467,7 +1678,7 @@
 								<ComboBox
 									MinWidth="80"
 									DisplayMemberPath="Display"
-									ItemsSource="{Binding Languages}"
+									ItemsSource="{x:Static interop:HandBrakeLanguagesHelper.AllLanguages}"
 									SelectedValue="{Binding LanguageCode}"
 									SelectedValuePath="Code" />
 							</DataTemplate>
@@ -1564,9 +1775,17 @@
 										<GridView.Columns>
 											<GridViewColumn x:Name="sourceSelectedColumn" CellTemplate="{StaticResource SelectedTemplate}" />
 											<GridViewColumn
-												x:Name="sourceNameColumn"
-												CellTemplate="{StaticResource NameTemplate}"
-												Header="{x:Static res:SubtitleRes.NameColumn}" />
+												x:Name="sourceTrackSummaryColumn"
+												CellTemplate="{StaticResource TrackSummaryTemplate}"
+												Header="{x:Static res:MainRes.AudioSubtitleTrackColumnHeader}" />
+											<GridViewColumn x:Name="sourceNameColumn" CellTemplate="{StaticResource SourceNameTemplate}">
+												<GridViewColumn.Header>
+													<TextBlock
+														MinWidth="108"
+														Text="{x:Static res:SubtitleRes.NameColumn}"
+														TextAlignment="Center" />
+												</GridViewColumn.Header>
+											</GridViewColumn>
 											<GridViewColumn x:Name="sourceDefaultColumn" CellTemplate="{StaticResource DefaultTemplate}">
 												<GridViewColumn.Header>
 													<TextBlock
@@ -1643,6 +1862,10 @@
 												CellTemplate="{StaticResource FileNameTemplate}"
 												Header="{x:Static res:SubtitleRes.FileColumn}" />
 											<GridViewColumn
+												x:Name="fileSubtitleNameColumn"
+												CellTemplate="{StaticResource ImportNameTemplate}"
+												Header="{x:Static res:SubtitleRes.NameColumn}" />
+											<GridViewColumn
 												x:Name="fileSubtitleDefaultColumn"
 												CellTemplate="{StaticResource DefaultTemplate}"
 												Header="{x:Static res:SubtitleRes.DefaultColumn}" />
@@ -1717,7 +1940,7 @@
 
 			<!--  Scan progress  -->
 			<Grid
-				Grid.Row="1"
+				Grid.Row="2"
 				Margin="26 0 40 0"
 				VerticalAlignment="Center"
 				Visibility="{Binding VideoSourceState,
@@ -1762,7 +1985,7 @@
 			</Grid>
 
 			<GridSplitter
-				Grid.Row="2"
+				Grid.Row="3"
 				Grid.Column="0"
 				Height="4"
 				HorizontalAlignment="Stretch"
@@ -1772,7 +1995,7 @@
 				ShowsPreview="True" />
 
 			<!--  Below source - Destination / queue / Encode progress  -->
-			<Grid Grid.Row="3">
+			<Grid Grid.Row="4">
 				<Grid.RowDefinitions>
 					<!--  Destination  -->
 					<RowDefinition Height="Auto" />
@@ -1788,23 +2011,23 @@
 						<ColumnDefinition Width="Auto" />
 						<ColumnDefinition />
 						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="Auto" />
 					</Grid.ColumnDefinitions>
 					<TextBlock
 						Height="19"
-						Margin="12 8 0 8"
+						Margin="8 4 0 4"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
 						Style="{StaticResource MainSectionHeader}"
 						Text="{x:Static res:MainRes.DestinationLabel}" />
 					<Grid
 						Grid.Column="1"
-						Height="22"
-						Margin="6 8 6 8"
-						VerticalAlignment="Center"
-						Visibility="{Binding OutputPathService.OutputFolderChosen,
-						                     Converter={StaticResource VisibilityConverter}}">
+						Height="30"
+						Margin="6 0 0 0"
+						VerticalAlignment="Center">
 						<TextBox
 							Name="destinationEditBox"
+							Padding="4 0 4 0"
 							VerticalContentAlignment="Center"
 							GotFocus="DestinationEditBoxGotFocus"
 							LostFocus="DestinationEditBoxLostFocus"
@@ -1832,38 +2055,42 @@
 					</Grid>
 
 					<Button
-						Grid.Column="1"
-						Margin="10 8 0 8"
-						HorizontalAlignment="Left"
-						VerticalAlignment="Center"
-						Command="{Binding OutputPathService.PickDefaultOutputFolder}"
-						Visibility="{Binding OutputPathService.OutputFolderChosen,
-						                     Converter={StaticResource InverseVisibilityConverter}}">
-						<StackPanel Margin="4 2" Orientation="Horizontal">
-							<Image
-								Width="16"
-								Height="16"
-								Source="/Icons/win7foldericon.png" />
-							<TextBlock
-								Margin="7 0 0 0"
-								VerticalAlignment="Center"
-								Text="{x:Static res:MainRes.SelectOutputPathButton}" />
-						</StackPanel>
-					</Button>
-
-					<Button
 						Name="outputPathBrowseButton"
 						Grid.Column="2"
-						Height="22"
-						Margin="0 8 12 8"
-						Padding="5 0"
-						HorizontalAlignment="Right"
+						Height="30"
+						Margin="0"
+						Padding="8 0"
 						VerticalAlignment="Center"
 						Command="{Binding OutputPathService.PickOutputPath}"
-						Visibility="{Binding OutputPathService.OutputFolderChosen,
-						                     Converter={StaticResource VisibilityConverter}}">
-						<TextBlock Text="{x:Static res:CommonRes.Browse}" />
-					</Button>
+						Content="{x:Static res:CommonRes.Browse}"
+						Style="{StaticResource BorderlessButtonStyle}" />
+
+					<Button
+						Grid.Column="3"
+						Height="30"
+						MinWidth="75"
+						Margin="0"
+						Padding="8 0"
+						VerticalAlignment="Center"
+						Command="{Binding OutputPathService.ChangeToAutomatic}"
+						Content="{x:Static res:CommonRes.Manual}"
+						Style="{StaticResource BorderlessButtonStyle}"
+						ToolTip="{x:Static res:MainRes.DestinationManualToolTip}"
+						Visibility="{Binding OutputPathService.ManualOutputPath,
+						                     Converter={StaticResource VisibilityConverter}}" />
+					<Button
+						Grid.Column="3"
+						Height="30"
+						MinWidth="75"
+						Margin="0"
+						Padding="8 0"
+						VerticalAlignment="Center"
+						Command="{Binding OutputPathService.OpenPickerToDestination}"
+						Content="{x:Static res:CommonRes.Automatic}"
+						Style="{StaticResource BorderlessButtonStyle}"
+						ToolTip="{x:Static res:MainRes.DestinationAutomaticToolTip}"
+						Visibility="{Binding OutputPathService.ManualOutputPath,
+						                     Converter={StaticResource InverseVisibilityConverter}}" />
 				</Grid>
 
 				<!--  Queue section  -->
@@ -1898,6 +2125,18 @@
 														<MenuItem Command="{Binding ProcessingService.MoveSelectedJobsToTop}" Header="{x:Static res:MainRes.MoveToTopMenuItem}" />
 														<MenuItem Command="{Binding ProcessingService.MoveSelectedJobsToBottom}" Header="{x:Static res:MainRes.MoveToBottomMenuItem}" />
 														<Separator />
+														<MenuItem
+															Command="{Binding Stop}"
+															Header="{x:Static res:MainRes.Stop}"
+															Visibility="{Binding Encoding,
+															                     Converter={StaticResource VisibilityConverter}}">
+															<MenuItem.Icon>
+																<Image
+																	Width="16"
+																	Height="16"
+																	Source="/Icons/Stop.png" />
+															</MenuItem.Icon>
+														</MenuItem>
 														<MenuItem Command="{Binding EditQueueJob}" Header="{x:Static res:MainRes.Edit}">
 															<MenuItem.Icon>
 																<Image
@@ -2159,6 +2398,7 @@
 				<Grid
 					Grid.Row="2"
 					Height="28"
+					Background="{DynamicResource AlternateBackgroundBrush}"
 					Visibility="{Binding ProcessingService.Encoding,
 					                     Converter={StaticResource VisibilityConverter}}">
 					<Grid.ColumnDefinitions>
@@ -2276,6 +2516,6 @@
 				</Grid>
 			</Grid>
 		</Grid>
-	</Grid>
+	</Border>
 </Window>
 

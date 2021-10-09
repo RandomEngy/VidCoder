@@ -4,10 +4,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:controls="clr-namespace:VidCoder.Controls"
 	xmlns:converters="clr-namespace:VidCoder.Converters"
-	xmlns:mwt="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
 	xmlns:res="clr-namespace:VidCoder.Resources"
-	xmlns:s="clr-namespace:System;assembly=mscorlib"
-	xmlns:selectors="clr-namespace:VidCoder.View.Selectors"
 	xmlns:vidCoder="clr-namespace:VidCoder">
 	<Application.Resources>
 		<ResourceDictionary>
@@ -16,6 +13,9 @@
 				<ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
 
 				<ResourceDictionary Source="/XamlResources/Button.xaml" />
+				<ResourceDictionary Source="/XamlResources/CheckBox.xaml" />
+				<ResourceDictionary Source="/XamlResources/RadioButton.xaml" />
+				<ResourceDictionary Source="/XamlResources/TextBox.xaml" />
 				<ResourceDictionary Source="/XamlResources/ComboBox.xaml" />
 				<ResourceDictionary Source="/XamlResources/GridViewColumnHeader.xaml" />
 				<ResourceDictionary Source="/XamlResources/ListView.xaml" />
@@ -49,65 +49,6 @@
 						<Setter Property="Foreground" Value="#999999" />
 					</DataTrigger>
 				</Style.Triggers>
-			</Style>
-
-
-			<Style x:Key="CenteredCheckBox" TargetType="{x:Type CheckBox}">
-				<Setter Property="Template">
-					<Setter.Value>
-						<ControlTemplate TargetType="{x:Type CheckBox}">
-							<BulletDecorator Background="#00FFFFFF" SnapsToDevicePixels="True">
-								<mwt:BulletChrome
-									Width="13"
-									Height="13"
-									Background="{TemplateBinding Panel.Background}"
-									BorderBrush="{TemplateBinding Border.BorderBrush}"
-									IsChecked="{TemplateBinding IsChecked}"
-									RenderMouseOver="{TemplateBinding IsMouseOver}"
-									RenderPressed="{TemplateBinding IsPressed}" />
-							</BulletDecorator>
-							<ControlTemplate.Triggers>
-								<Trigger Property="HasContent">
-									<Trigger.Value>
-										<s:Boolean>True</s:Boolean>
-									</Trigger.Value>
-									<Setter Property="FocusVisualStyle">
-										<Setter.Value>
-											<Style TargetType="{x:Type IFrameworkInputElement}">
-												<Style.Resources>
-													<ResourceDictionary />
-												</Style.Resources>
-												<Setter Property="Control.Template">
-													<Setter.Value>
-														<ControlTemplate>
-															<Rectangle
-																Margin="14 0 0 0"
-																SnapsToDevicePixels="True"
-																Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
-																StrokeDashArray="1 2"
-																StrokeThickness="1" />
-														</ControlTemplate>
-													</Setter.Value>
-												</Setter>
-											</Style>
-										</Setter.Value>
-									</Setter>
-									<Setter Property="Padding">
-										<Setter.Value>
-											<Thickness>0,0,0,0</Thickness>
-										</Setter.Value>
-									</Setter>
-								</Trigger>
-								<Trigger Property="IsEnabled">
-									<Trigger.Value>
-										<s:Boolean>False</s:Boolean>
-									</Trigger.Value>
-									<Setter Property="TextElement.Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
-								</Trigger>
-							</ControlTemplate.Triggers>
-						</ControlTemplate>
-					</Setter.Value>
-				</Setter>
 			</Style>
 
 			<Style x:Key="GrayNonCompatible" TargetType="{x:Type ComboBoxItem}">
@@ -185,6 +126,19 @@
 				Direction="315"
 				Opacity="0.3"
 				ShadowDepth="3" />
+
+			<Style x:Key="WindowMainPanelStyle" TargetType="{x:Type Border}">
+				<Setter Property="BorderBrush" Value="{DynamicResource WindowInactiveBorderBrush}" />
+				<Setter Property="BorderThickness" Value="1" />
+				<Style.Triggers>
+					<DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=WindowState}" Value="Maximized">
+						<Setter Property="BorderThickness" Value="0" />
+					</DataTrigger>
+					<DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
+						<Setter Property="BorderBrush" Value="{DynamicResource WindowActiveBorderBrush}" />
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
 
 			<Grid x:Key="RedX" Background="Transparent">
 				<Rectangle

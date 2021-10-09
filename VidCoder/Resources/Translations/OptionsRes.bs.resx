@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Opšte</value>
@@ -138,50 +138,14 @@
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
     <value>Automatsko ažuriranje</value>
   </data>
-  <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>Pridružite se Beta ažuriranjima</value>
-  </data>
-  <data name="FileNamingTab" xml:space="preserve">
-    <value>Nazivanje fajlova</value>
-  </data>
-  <data name="DefaultFolderLabel" xml:space="preserve">
-    <value>Zadani folder:</value>
-  </data>
-  <data name="FileFormatLabel" xml:space="preserve">
-    <value>Format fajla:</value>
-  </data>
-  <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>Zadani format</value>
-  </data>
-  <data name="CustomFormatRadioButton" xml:space="preserve">
-    <value>Vlastiti format:</value>
-  </data>
-  <data name="FileNameFormatOptions" xml:space="preserve">
-    <value>Dostupne opcije: {0}</value>
-  </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
     <value>Ukoliko fajl već postoji...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
     <value>Enkodiranje jednog fajla:</value>
   </data>
-  <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>Pitaj da li želiš pisati preko</value>
-  </data>
-  <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>Piši preko fajla bez upita</value>
-  </data>
-  <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>Automatski promijeni na drugačije ime</value>
-  </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
     <value>Enkodiraj seriju fajlova:</value>
-  </data>
-  <data name="OverwriteRadioButton" xml:space="preserve">
-    <value>Napiši preko</value>
-  </data>
-  <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>Automatski preimenuj</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Automatski pauziraj enkodiranje ukoliko je bilo koji od ovih procesa pokrenut:</value>
@@ -195,15 +159,10 @@
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>Zapamti prethodno korištene fajlove i foldere</value>
   </data>
-  <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>Dopusti namještanje prilagođenog ime na audio zapis (podrška playera ograničena)</value>
-  </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Omogući LibDVDNav (Promjena zahtjeva ponovo pokretanje programa. Potrebno za korištenje opcije više uglova)</value>
   </data>
-  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Obriši izvorne fajlove nakon uspješnog uklanjanja završenih stavki (sa potvrdom)</value>
-  </data>
+  
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Opširnost zapisivanja:</value>
   </data>
@@ -282,9 +241,6 @@
   <data name="OutputFolderSection" xml:space="preserve">
     <value>Izlazni folder</value>
   </data>
-  <data name="NamingFormatSection" xml:space="preserve">
-    <value>Format nazivanja</value>
-  </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
     <value>Napredne opcije</value>
   </data>
@@ -357,9 +313,6 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Koristi radni proces za enkodiranje</value>
   </data>
-  <data name="VideoSection" xml:space="preserve">
-    <value>Video</value>
-  </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Sačuvaj vrijeme Stvaranja i Izmjene prilikom konverzije fajlova</value>
   </data>
@@ -407,4 +360,13 @@
   <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
     <value>Pokreni "Kada bude gotovo" akciju ukoliko bude neuspjelih enkodiranja</value>
   </data>
+  
+  
+  
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>Dostupne opcije: {0}</value>
+  </data>
+  
+  
+  
 </root>

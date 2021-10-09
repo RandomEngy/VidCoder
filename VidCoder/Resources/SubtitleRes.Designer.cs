@@ -61,7 +61,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Burn In.
+        ///   Looks up a localized string similar to Burn in.
         /// </summary>
         public static string BurnedInColumn {
             get {
@@ -133,7 +133,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Forced Only.
+        ///   Looks up a localized string similar to Forced only.
         /// </summary>
         public static string ForcedOnlyColumn {
             get {
@@ -142,11 +142,11 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Foreign Audio Search.
+        ///   Looks up a localized string similar to Foreign audio scan.
         /// </summary>
-        public static string ForeignAudioSearch {
+        public static string ForeignAudioScan {
             get {
-                return ResourceManager.GetString("ForeignAudioSearch", resourceCulture);
+                return ResourceManager.GetString("ForeignAudioScan", resourceCulture);
             }
         }
         
@@ -228,15 +228,6 @@ namespace VidCoder.Resources {
         public static string SubtitlesFromSourceLabel {
             get {
                 return ResourceManager.GetString("SubtitlesFromSourceLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Subtitles.
-        /// </summary>
-        public static string SubtitlesWindowTitle {
-            get {
-                return ResourceManager.GetString("SubtitlesWindowTitle", resourceCulture);
             }
         }
     }

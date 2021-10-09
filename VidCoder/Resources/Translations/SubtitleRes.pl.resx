@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SubtitlesWindowTitle" xml:space="preserve">
-    <value>Napisy</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>Napisy ze źródła:</value>
   </data>
@@ -156,9 +153,7 @@
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Inne ścieżki napisów zakryją już nałożone napisy.</value>
   </data>
-  <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Wyszukiwanie Zagranicznych Ścieżek Audio</value>
-  </data>
+  
   <data name="SubtitleFilePickerText" xml:space="preserve">
     <value>Dodaj plik napisów</value>
   </data>

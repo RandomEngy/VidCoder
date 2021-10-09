@@ -97,15 +97,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add Track.
-        /// </summary>
-        public static string AddTrackButton {
-            get {
-                return ResourceManager.GetString("AddTrackButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Angle:.
         /// </summary>
         public static string AngleLabel {
@@ -129,6 +120,87 @@ namespace VidCoder.Resources {
         public static string AudioEncodingOptionsToolTip {
             get {
                 return ResourceManager.GetString("AudioEncodingOptionsToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically pick audio tracks....
+        /// </summary>
+        public static string AudioPickerButtonToolTip {
+            get {
+                return ResourceManager.GetString("AudioPickerButtonToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Track.
+        /// </summary>
+        public static string AudioSubtitleTrackColumnHeader {
+            get {
+                return ResourceManager.GetString("AudioSubtitleTrackColumnHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Audio track name.
+        /// </summary>
+        public static string AudioTrackNameAutomationName {
+            get {
+                return ResourceManager.GetString("AudioTrackNameAutomationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically pausing due to low battery..
+        /// </summary>
+        public static string AutoPauseLowBattery {
+            get {
+                return ResourceManager.GetString("AutoPauseLowBattery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically pausing due to free disk space below {0}GB..
+        /// </summary>
+        public static string AutoPauseLowDiskSpace {
+            get {
+                return ResourceManager.GetString("AutoPauseLowDiskSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically pausing, process detected: {0}.
+        /// </summary>
+        public static string AutoPauseProcessDetected {
+            get {
+                return ResourceManager.GetString("AutoPauseProcessDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically resuming, connected to AC power..
+        /// </summary>
+        public static string AutoPauseResumeBattery {
+            get {
+                return ResourceManager.GetString("AutoPauseResumeBattery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically resuming, disk has free space..
+        /// </summary>
+        public static string AutoPauseResumeDiskSpace {
+            get {
+                return ResourceManager.GetString("AutoPauseResumeDiskSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically resuming, processes are gone..
+        /// </summary>
+        public static string AutoPauseResumeProcess {
+            get {
+                return ResourceManager.GetString("AutoPauseResumeProcess", resourceCulture);
             }
         }
         
@@ -187,15 +259,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose a video source:.
-        /// </summary>
-        public static string ChooseVideoSourceLabel {
-            get {
-                return ResourceManager.GetString("ChooseVideoSourceLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Clear completed.
         /// </summary>
         public static string ClearCompleted {
@@ -241,20 +304,56 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Close Video Source.
-        /// </summary>
-        public static string CloseVideoSourceMenuItem {
-            get {
-                return ResourceManager.GetString("CloseVideoSourceMenuItem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Close video source.
         /// </summary>
         public static string CloseVideoSourceToolTip {
             get {
                 return ResourceManager.GetString("CloseVideoSourceToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compare against original.
+        /// </summary>
+        public static string CompareAgainstOriginal {
+            get {
+                return ResourceManager.GetString("CompareAgainstOriginal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoded.
+        /// </summary>
+        public static string CompareEncodedLabel {
+            get {
+                return ResourceManager.GetString("CompareEncodedLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Original.
+        /// </summary>
+        public static string CompareOriginalLabel {
+            get {
+                return ResourceManager.GetString("CompareOriginalLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click or hold Ctrl to show the encoded version..
+        /// </summary>
+        public static string CompareWindowHelpText {
+            get {
+                return ResourceManager.GetString("CompareWindowHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video compare: {0} - {1}.
+        /// </summary>
+        public static string CompareWindowTitleFormat {
+            get {
+                return ResourceManager.GetString("CompareWindowTitleFormat", resourceCulture);
             }
         }
         
@@ -320,6 +419,15 @@ namespace VidCoder.Resources {
         public static string CouldNotLoadPresetMessage {
             get {
                 return ResourceManager.GetString("CouldNotLoadPresetMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error sending files to Recycle Bin..
+        /// </summary>
+        public static string CouldNotRecycleFile {
+            get {
+                return ResourceManager.GetString("CouldNotRecycleFile", resourceCulture);
             }
         }
         
@@ -396,6 +504,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Destination is automatically set. Click to edit settings..
+        /// </summary>
+        public static string DestinationAutomaticToolTip {
+            get {
+                return ResourceManager.GetString("DestinationAutomaticToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Destination.
         /// </summary>
         public static string DestinationColumnHeader {
@@ -410,6 +527,15 @@ namespace VidCoder.Resources {
         public static string DestinationLabel {
             get {
                 return ResourceManager.GetString("DestinationLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Destination is manually set. Click to revert to automatic..
+        /// </summary>
+        public static string DestinationManualToolTip {
+            get {
+                return ResourceManager.GetString("DestinationManualToolTip", resourceCulture);
             }
         }
         
@@ -430,15 +556,6 @@ namespace VidCoder.Resources {
         public static string DirectoryCreateErrorMessage {
             get {
                 return ResourceManager.GetString("DirectoryCreateErrorMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error creating folder.
-        /// </summary>
-        public static string DirectoryCreateErrorTitle {
-            get {
-                return ResourceManager.GetString("DirectoryCreateErrorTitle", resourceCulture);
             }
         }
         
@@ -569,15 +686,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Encoding:.
-        /// </summary>
-        public static string EncodingLabel {
-            get {
-                return ResourceManager.GetString("EncodingLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Encoding settings: {0}.
         /// </summary>
         public static string EncodingSettingsButton {
@@ -691,15 +799,6 @@ namespace VidCoder.Resources {
         public static string FileSizeColumnHeader {
             get {
                 return ResourceManager.GetString("FileSizeColumnHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Foreign Audio Search.
-        /// </summary>
-        public static string ForeignAudioSearch {
-            get {
-                return ResourceManager.GetString("ForeignAudioSearch", resourceCulture);
             }
         }
         
@@ -835,6 +934,15 @@ namespace VidCoder.Resources {
         public static string MoveToTopMenuItem {
             get {
                 return ResourceManager.GetString("MoveToTopMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mute.
+        /// </summary>
+        public static string MuteAutomationName {
+            get {
+                return ResourceManager.GetString("MuteAutomationName", resourceCulture);
             }
         }
         
@@ -1001,24 +1109,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot add encode jobs without a default output folder. Press OK to pick one..
-        /// </summary>
-        public static string OutputFolderRequiredMessage {
-            get {
-                return ResourceManager.GetString("OutputFolderRequiredMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Default Output Folder Required.
-        /// </summary>
-        public static string OutputFolderRequiredTitle {
-            get {
-                return ResourceManager.GetString("OutputFolderRequiredTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Output path is not valid..
         /// </summary>
         public static string OutputPathNotValidMessage {
@@ -1060,15 +1150,6 @@ namespace VidCoder.Resources {
         public static string PickerMenuItem {
             get {
                 return ResourceManager.GetString("PickerMenuItem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Picker {0}.
-        /// </summary>
-        public static string PickerNameTemplate {
-            get {
-                return ResourceManager.GetString("PickerNameTemplate", resourceCulture);
             }
         }
         
@@ -1141,15 +1222,6 @@ namespace VidCoder.Resources {
         public static string PresetImportSuccessMessage {
             get {
                 return ResourceManager.GetString("PresetImportSuccessMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Preset:.
-        /// </summary>
-        public static string PresetLabel {
-            get {
-                return ResourceManager.GetString("PresetLabel", resourceCulture);
             }
         }
         
@@ -1296,15 +1368,6 @@ namespace VidCoder.Resources {
         public static string RemoveAllFomQueueMenuItem {
             get {
                 return ResourceManager.GetString("RemoveAllFomQueueMenuItem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Remove audio track.
-        /// </summary>
-        public static string RemoveAudioTrackToolTip {
-            get {
-                return ResourceManager.GetString("RemoveAudioTrackToolTip", resourceCulture);
             }
         }
         
@@ -1489,38 +1552,11 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select output path....
-        /// </summary>
-        public static string SelectOutputPathButton {
-            get {
-                return ResourceManager.GetString("SelectOutputPathButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} other titles have a duration close to this one..
         /// </summary>
         public static string SimilarTitlesToolTip {
             get {
                 return ResourceManager.GetString("SimilarTitlesToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Warning: The sizing interface has been overhauled for 2.0, so your presets may have changed. You may want to inspect them and ensure that they are still set up correctly..
-        /// </summary>
-        public static string SizingPresetUpgradeWarning {
-            get {
-                return ResourceManager.GetString("SizingPresetUpgradeWarning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Source:.
-        /// </summary>
-        public static string SourceLabel {
-            get {
-                return ResourceManager.GetString("SourceLabel", resourceCulture);
             }
         }
         
@@ -1606,6 +1642,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Subtitle name.
+        /// </summary>
+        public static string SubtitleNameAutomationName {
+            get {
+                return ResourceManager.GetString("SubtitleNameAutomationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically pick subtitle tracks....
+        /// </summary>
+        public static string SubtitlePickerButtonToolTip {
+            get {
+                return ResourceManager.GetString("SubtitlePickerButtonToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title:.
         /// </summary>
         public static string TitleLabel {
@@ -1624,11 +1678,11 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} tracks.
+        ///   Looks up a localized string similar to Unmute.
         /// </summary>
-        public static string TracksSummaryMultiple {
+        public static string UnmuteAutomationName {
             get {
-                return ResourceManager.GetString("TracksSummaryMultiple", resourceCulture);
+                return ResourceManager.GetString("UnmuteAutomationName", resourceCulture);
             }
         }
         
@@ -1656,15 +1710,6 @@ namespace VidCoder.Resources {
         public static string UseBackupDatabaseLine {
             get {
                 return ResourceManager.GetString("UseBackupDatabaseLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Configuration was corrupted and could not be loaded. Some of your settings may have been reset..
-        /// </summary>
-        public static string UserConfigCorrupted {
-            get {
-                return ResourceManager.GetString("UserConfigCorrupted", resourceCulture);
             }
         }
         
@@ -1701,6 +1746,21 @@ namespace VidCoder.Resources {
         public static string WhenDoneLabel {
             get {
                 return ResourceManager.GetString("WhenDoneLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VidCoder is no longer supported on Windows 7 or 8.
+        ///
+        ///You can continue using VidCoder at your own risk. Certain features are non-functional and there may be other unknown issues. These is no support available when these issues occur.
+        ///
+        ///v5 was the last version tested for Windows 7/8.
+        ///
+        ///This warning will only display twice..
+        /// </summary>
+        public static string Win7DeprecationWarning {
+            get {
+                return ResourceManager.GetString("Win7DeprecationWarning", resourceCulture);
             }
         }
         

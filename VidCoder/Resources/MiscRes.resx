@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddButton" xml:space="preserve">
     <value>Add</value>
@@ -154,7 +154,7 @@
     <value>A file already exists at {0}. Do you want to overwrite the file, automatically find a new output path for the encode job or cancel the operation?</value>
   </data>
   <data name="QueueFileConflictWarning" xml:space="preserve">
-    <value>A queue job already has an output path at {0}. Do you want to overwrite the file, automatically find a new output path for the encode job or cancel the operation?</value>
+    <value>A queue job already has an output path at {0}. Do you want to replace the queued job, automatically find a new output path for the encode job or cancel the operation?</value>
   </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>Queue Columns</value>
@@ -253,5 +253,11 @@
   </data>
   <data name="ExceptionDialogSubTextReported" xml:space="preserve">
     <value>The program needs to close, but the error will be automatically reported.</value>
+  </data>
+  <data name="DownloadInstallerButton" xml:space="preserve">
+    <value>Download installer</value>
+  </data>
+  <data name="ReplaceJobButton" xml:space="preserve">
+    <value>Replace job</value>
   </data>
 </root>

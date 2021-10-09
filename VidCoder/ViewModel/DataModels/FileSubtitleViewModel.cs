@@ -1,48 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reactive;
 using System.Windows.Input;
 using HandBrake.Interop.Interop;
-using HandBrake.Interop.Interop.Model;
+using HandBrake.Interop.Interop.Interfaces.Model;
 using ReactiveUI;
 using VidCoder.Model;
 using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-
 	public class FileSubtitleViewModel : ReactiveObject
 	{
-		private FileSubtitle subtitle;
-
 		public FileSubtitleViewModel(MainViewModel mainViewModel, FileSubtitle subtitle)
 		{
 			this.MainViewModel = mainViewModel;
-			this.subtitle = subtitle;
+			this.Subtitle = subtitle;
 		}
 
 		public MainViewModel MainViewModel { get; }
 
-		public FileSubtitle Subtitle
-		{
-			get
-			{
-				return this.subtitle;
-			}
-		}
+		public FileSubtitle Subtitle { get; }
 
 		public bool Default
 		{
-			get
-			{
-				return this.subtitle.Default;
-			}
-
+			get => this.Subtitle.Default;
 			set
 			{
-				if (value != this.subtitle.Default)
+				if (value != this.Subtitle.Default)
 				{
-					this.subtitle.Default = value;
+					this.Subtitle.Default = value;
 					this.RaisePropertyChanged();
 
 					if (value)
@@ -62,12 +50,12 @@ namespace VidCoder.ViewModel
 					return false;
 				}
 
-				return this.subtitle.BurnedIn;
+				return this.Subtitle.BurnedIn;
 			}
 
 			set
 			{
-				this.subtitle.BurnedIn = value;
+				this.Subtitle.BurnedIn = value;
 				this.RaisePropertyChanged();
 
 				if (value)
@@ -80,85 +68,64 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public bool BurnedInEnabled
+		public bool BurnedInEnabled => HandBrakeEncoderHelpers.CanBurnSrt;
+
+		public override string ToString()
 		{
-			get
-			{
-				return HandBrakeEncoderHelpers.CanBurnSrt;
-			}
+			return Path.GetFileName(this.FileName);
 		}
 
 		public string FileName
 		{
-			get
-			{
-				return this.subtitle.FileName;
-			}
-
+			get => this.Subtitle.FileName;
 			set
 			{
-				this.subtitle.FileName = value;
+				this.Subtitle.FileName = value;
+				this.RaisePropertyChanged();
+			}
+		}
+
+		public string Name
+		{
+			get => this.Subtitle.Name;
+			set
+			{
+				this.Subtitle.Name = value;
 				this.RaisePropertyChanged();
 			}
 		}
 
 		public string LanguageCode
 		{
-			get
-			{
-				return this.subtitle.LanguageCode;
-			}
-
+			get => this.Subtitle.LanguageCode;
 			set
 			{
-				this.subtitle.LanguageCode = value;
+				this.Subtitle.LanguageCode = value;
 				this.RaisePropertyChanged();
 			}
 		}
 
 		public string CharacterCode
 		{
-			get
-			{
-				return this.subtitle.CharacterCode;
-			}
-
+			get => this.Subtitle.CharacterCode;
 			set
 			{
-				this.subtitle.CharacterCode = value;
+				this.Subtitle.CharacterCode = value;
 				this.RaisePropertyChanged();
 			}
 		}
 
 		public int Offset
 		{
-			get
-			{
-				return this.subtitle.Offset;
-			}
-
+			get => this.Subtitle.Offset;
 			set
 			{
-				this.subtitle.Offset = value;
+				this.Subtitle.Offset = value;
 				this.RaisePropertyChanged();
 			}
 		}
 
-		public IList<Language> Languages
-		{
-			get
-			{
-				return HandBrakeLanguagesHelper.AllLanguages;
-			}
-		}
-
-		public IList<string> CharCodes
-		{
-			get
-			{
-				return CharCode.Codes;
-			}
-		}
+		public IList<string> CharCodes => CharCode.Codes;
 
 		private ReactiveCommand<Unit, Unit> removeSubtitle;
 		public ICommand RemoveSubtitle

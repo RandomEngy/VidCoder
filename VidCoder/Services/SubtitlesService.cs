@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AnyContainer;
+using UtfUnknown;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoderCommon.Model;
@@ -20,39 +21,45 @@ namespace VidCoder.Services
 			this.logger = logger;
 		}
 
-		public FileSubtitle LoadSubtitleFile(string subtitlePath)
+		public FileSubtitle LoadSubtitleFile(string subtitlePath, string language = null, bool openDialogOnMissingCharCode = true)
 		{
 			try
 			{
-				string characterCode = null;
-				using (FileStream subtitleFileStream = File.OpenRead(subtitlePath))
-				{
-					Ude.CharsetDetector detector = new Ude.CharsetDetector();
-					detector.Feed(subtitleFileStream);
-					detector.DataEnd();
-					if (detector.Charset != null)
-					{
-						this.logger.Log($"Detected encoding {detector.Charset} for {subtitlePath} with confidence {detector.Confidence}.");
-						characterCode = CharCode.FromUdeCode(detector.Charset);
+				DetectionResult detectionResult = CharsetDetector.DetectFromFile(subtitlePath);
 
-						if (characterCode == null)
-						{
-							this.logger.Log("Detected encoding does not match with any available encoding.");
-						}
-						else
-						{
-							this.logger.Log("Picked encoding " + characterCode);
-						}
-					}
+				string characterCode = null;
+				DetectionDetail detail = detectionResult.Detected;
+				if (detail != null && detail.EncodingName != null)
+				{
+					this.logger.Log($"Detected encoding {detail.EncodingName} for {subtitlePath} with confidence {detail.Confidence}.");
+					characterCode = CharCode.FromUtfUnknownCode(detail.EncodingName);
 
 					if (characterCode == null)
 					{
-						StaticResolver.Resolve<IMessageBoxService>().Show(this, SubtitleRes.SubtitleCharsetDetectionFailedMessage);
-						characterCode = "UTF-8";
+						this.logger.Log("Detected encoding does not match with any available encoding.");
+					}
+					else
+					{
+						this.logger.Log("Picked encoding " + characterCode);
 					}
 				}
 
-				return new FileSubtitle { FileName = subtitlePath, Default = false, CharacterCode = characterCode, LanguageCode = LanguageUtilities.GetDefaultLanguageCode(), Offset = 0 };
+				if (characterCode == null)
+				{
+					if (openDialogOnMissingCharCode)
+					{
+						StaticResolver.Resolve<IMessageBoxService>().Show(this, SubtitleRes.SubtitleCharsetDetectionFailedMessage);
+					}
+
+					characterCode = "UTF-8";
+				}
+
+				if (language == null)
+				{
+					language = LanguageUtilities.GetDefaultLanguageCode();
+				}
+
+				return new FileSubtitle { FileName = subtitlePath, Default = false, CharacterCode = characterCode, LanguageCode = language, Offset = 0 };
 			}
 			catch (Exception exception)
 			{

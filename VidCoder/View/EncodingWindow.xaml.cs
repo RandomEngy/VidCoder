@@ -25,6 +25,7 @@ using VidCoder.ViewModel.DataModels;
 namespace VidCoder.View
 {
 	using System.Data.SQLite;
+	using System.Windows.Interop;
 	using Model;
 
 	/// <summary>

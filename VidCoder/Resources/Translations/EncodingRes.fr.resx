@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Enregistrer</value>
@@ -214,9 +214,6 @@ Vous devez définir ceci, si vous savez que votre appareil de lecture prend uniq
   <data name="MaxHeightLabel" xml:space="preserve">
     <value>Hauteur max :</value>
   </data>
-  <data name="ModulusLabel" xml:space="preserve">
-    <value>Modulo :</value>
-  </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Sortie</value>
   </data>
@@ -225,9 +222,6 @@ Vous devez définir ceci, si vous savez que votre appareil de lecture prend uniq
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>Dé-téléciné :</value>
-  </data>
-  <data name="DecombLabel" xml:space="preserve">
-    <value>Decomb :</value>
   </data>
   <data name="DeinterlaceLabel" xml:space="preserve">
     <value>Désentrelacement :</value>
@@ -471,12 +465,6 @@ Vous devez définir ceci, si vous savez que votre appareil de lecture prend uniq
   <data name="DefaultFormat" xml:space="preserve">
     <value>(Par défaut): {0}</value>
   </data>
-  <data name="EncodingWindowTitle" xml:space="preserve">
-    <value>Préréglage de codage : {0}</value>
-  </data>
-  <data name="AdvancedOptionsStringLabel" xml:space="preserve">
-    <value>options x264 additionnelles avancée :</value>
-  </data>
   <data name="LevelToolTip" xml:space="preserve">
     <value>Définit et assure la compatibilité avec le niveau spécifié de l'encodeur.
 
@@ -497,14 +485,8 @@ Remplace tous les autres réglages.</value>
   <data name="VideoEncoder_x264" xml:space="preserve">
     <value>H.264 (x 264)</value>
   </data>
-  <data name="AdvancedQuery" xml:space="preserve">
-    <value>Requête avancée</value>
-  </data>
   <data name="Video" xml:space="preserve">
     <value>Vidéo</value>
-  </data>
-  <data name="X264Settings" xml:space="preserve">
-    <value>Réglages x264</value>
   </data>
   <data name="LevelLabel" xml:space="preserve">
     <value>Niveau:</value>
@@ -529,9 +511,6 @@ Remplace tous les autres réglages.</value>
   </data>
   <data name="Modifiers" xml:space="preserve">
     <value>Modificateurs</value>
-  </data>
-  <data name="DtsMp4Warning" xml:space="preserve">
-    <value>Peu de lecteurs supporte la lecture de l'audio DTS dans un conteneur MP4. MKV est recommandé pour l'audio DTS.</value>
   </data>
   <data name="AudioEncoder_flac24" xml:space="preserve">
     <value>FLAC 24-bit</value>
@@ -577,10 +556,6 @@ Remplace tous les autres réglages.</value>
   </data>
   <data name="PresetToolTip" xml:space="preserve">
     <value>Modifier les options pour balancer entre la compression et la vitesse d'encodage.</value>
-  </data>
-  <data name="ScaleMethodToolTip" xml:space="preserve">
-    <value>Lanczos : Moteur de mise à l'échelle par défaut avec la meilleure qualité.
-Bicubique : Algorithme de mise à l'échelle basé sur l'accéléré matériel OpenCL.</value>
   </data>
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>Ignorer</value>
@@ -664,9 +639,6 @@ Bicubique : Algorithme de mise à l'échelle basé sur l'accéléré matériel O
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
   </data>
-  
-  
-  
   
   
   

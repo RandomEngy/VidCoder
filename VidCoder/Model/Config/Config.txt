@@ -13,9 +13,6 @@ LastSubtitleFolder|string|""
 LastCsvFolder|string|""
 LastPresetExportFolder|string|""
 
-AutoNameOutputFolder|string|""
-AutoNameCustomFormat|bool|false
-AutoNameCustomFormatString|string|"{source}-{title}"
 NativeLanguageCode|string|""
 DubAudio|bool|false
 
@@ -31,6 +28,7 @@ EncodingDialogPlacement|string|""
 ChapterMarkersDialogPlacement|string|""
 PreviewWindowPlacement|string|""
 QueueTitlesDialogPlacement2|string|""
+CompareWindowPlacement|string|""
 AddAutoPauseProcessDialogPlacement|string|""
 OptionsDialogPlacement|string|""
 EncodeDetailsWindowPlacement|string|""
@@ -50,6 +48,7 @@ SubtitlesExpanded|bool|true
 UpdatesEnabled|bool|true
 UpdatePromptTiming|string|"OnExit"
 UpdatesDisabled32BitOSWarningDisplayed|bool|false
+Win7WarningDisplayedTimes|int|0
 
 PreviewSeconds|int|10
 ApplicationVersion|string|""
@@ -66,28 +65,25 @@ EncodingListPaneOpen|bool|true
 EncodingListPaneWidth|double|150.0
 LogListPaneWidth|double|150.0
 
-ShowPickerWindowMessage|bool|true
-
 WorkerProcessPriority|string|"BelowNormal"
 LogVerbosity|int|1
 CopyLogToOutputFolder|bool|false
 CopyLogToCustomFolder|bool|false
 LogCustomFolder|string|""
+AutoPauseLowBattery|bool|true
+AutoPauseLowDiskSpace|bool|true
+AutoPauseLowDiskSpaceGb|int|1
 AutoPauseProcesses|string|""
 MaxSimultaneousEncodes|int|1
 PreviewCount|int|10
 PreviewDisplay|string|"FitToWindow"
 UseCustomPreviewFolder|bool|false
 PreviewOutputFolder|string|""
+DragDropOrder|string|"Alphabetical"
 QueueTitlesUseTitleOverride|bool|false
 QueueTitlesTitleOverride|int|1
-ShowAudioTrackNameField|bool|false
 SourceHistory|string|""
 MinimizeToTray|bool|false
-OutputToSourceDirectory|bool|false
-PreserveFolderStructureInBatch|bool|false
-WhenFileExists|string|"Prompt"
-WhenFileExistsBatch|string|"AutoRename"
 UseCustomVideoPlayer|bool|false
 CustomVideoPlayer|string|""
 PlaySoundOnCompletion|bool|false
@@ -98,10 +94,10 @@ QueueTitlesUseDirectoryOverride|bool|false
 QueueTitlesDirectoryOverride|string|""
 QueueTitlesUseNameOverride|bool|false
 QueueTitlesNameOverride|string|""
-DxvaDecoding|bool|false
 EnableLibDvdNav|bool|true
 MinimumTitleLengthSeconds|int|10
 DeleteSourceFilesOnClearingCompleted|bool|false
+DeleteSourceFilesMode|string|"Recycle"
 PreserveModifyTimeFiles|bool|false
 ResumeEncodingOnRestart|bool|false
 KeepFailedFiles|bool|false
@@ -115,7 +111,9 @@ AppTheme|string|"Auto"
 CpuThrottlingFraction|double|1.0
 UseBuiltInPlayerForPreviews|bool|true
 PreviewVolume|double|0.5
+CompareWindowIsMuted|bool|true
 TriggerEncodeCompleteActionWithErrors|bool|true
+EncodeRetries|int|0
 
 AudioLanguageCode|string|"und"
 SubtitleLanguageCode|string|"und"

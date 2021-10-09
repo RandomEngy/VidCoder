@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SubtitlesWindowTitle" xml:space="preserve">
-    <value>Untertitel</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>Untertitel aus Quelle:</value>
   </data>
@@ -156,9 +153,7 @@
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Andere Untertitelspuren werden die eingebrannten Untertitel überlagern.</value>
   </data>
-  <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Ausländische Dialoge extrahieren</value>
-  </data>
+  
   <data name="SubtitleFilePickerText" xml:space="preserve">
     <value>Füge Untertitel-Datei hinzu</value>
   </data>

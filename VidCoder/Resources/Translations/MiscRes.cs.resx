@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddButton" xml:space="preserve">
     <value>Přidat</value>
@@ -153,9 +153,7 @@
   <data name="FileConflictWarning" xml:space="preserve">
     <value>Soubor již existuje v {0}. Chcete soubor přepsat, automaticky najít novou výstupní cestu pro enkódování a nebo operaci zrušit?</value>
   </data>
-  <data name="QueueFileConflictWarning" xml:space="preserve">
-    <value>Úloha fronty již má výstupní cestu na {0}. Chcete soubor přepsat, automaticky najít novou výstupní cestu pro enkódování a nebo operaci zrušit?</value>
-  </data>
+  
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>Sloupce fronty</value>
   </data>
@@ -248,5 +246,7 @@
   <data name="ChooseNamePicker" xml:space="preserve">
     <value>Zvolte název pro selektor:</value>
   </data>
+  
+  
   
 </root>

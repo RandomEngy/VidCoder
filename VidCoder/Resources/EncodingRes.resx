@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
@@ -199,13 +199,13 @@ You should set this if you know your playback device only supports a certain pro
     <value>(none)</value>
   </data>
   <data name="StorageResolutionLabel" xml:space="preserve">
-    <value>Storage Resolution:</value>
+    <value>Storage resolution:</value>
   </data>
   <data name="PixelAspectRatioLabel" xml:space="preserve">
-    <value>Pixel Aspect Ratio:</value>
+    <value>Pixel aspect ratio:</value>
   </data>
   <data name="DisplayResolutionLabel" xml:space="preserve">
-    <value>Display Resolution:</value>
+    <value>Display resolution:</value>
   </data>
   <data name="SizingLabel" xml:space="preserve">
     <value>Sizing</value>
@@ -217,10 +217,10 @@ You should set this if you know your playback device only supports a certain pro
     <value>Height:</value>
   </data>
   <data name="MaxWidthLabel" xml:space="preserve">
-    <value>Max Width:</value>
+    <value>Max width:</value>
   </data>
   <data name="MaxHeightLabel" xml:space="preserve">
-    <value>Max Height:</value>
+    <value>Max height:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Output</value>
@@ -256,25 +256,25 @@ You should set this if you know your playback device only supports a certain pro
     <value>Framerate (FPS):</value>
   </data>
   <data name="ConstantFramerateRadioButton" xml:space="preserve">
-    <value>Constant Framerate</value>
+    <value>Constant framerate</value>
   </data>
   <data name="Quality" xml:space="preserve">
     <value>Quality</value>
   </data>
   <data name="TwoPassEncodingCheckBox" xml:space="preserve">
-    <value>2-pass Encoding</value>
+    <value>2-pass encoding</value>
   </data>
   <data name="TurboFirstPassCheckBox" xml:space="preserve">
-    <value>Turbo first Pass</value>
+    <value>Turbo first pass</value>
   </data>
   <data name="TargetSizeRadioButton" xml:space="preserve">
-    <value>Target Size (MB)</value>
+    <value>Target size (MB)</value>
   </data>
   <data name="AverageBitrateRadioButton" xml:space="preserve">
-    <value>Avg Bitrate (kbps)</value>
+    <value>Avg bitrate (kbps)</value>
   </data>
   <data name="ConstantQualityRadioButton" xml:space="preserve">
-    <value>Constant Quality</value>
+    <value>Constant quality</value>
   </data>
   <data name="ProfileLabel" xml:space="preserve">
     <value>Profile:</value>
@@ -295,13 +295,13 @@ You should set this if you know your playback device only supports a certain pro
     <value>High</value>
   </data>
   <data name="Preset_UltraFast" xml:space="preserve">
-    <value>Ultra Fast</value>
+    <value>Ultra fast</value>
   </data>
   <data name="Preset_SuperFast" xml:space="preserve">
-    <value>Super Fast</value>
+    <value>Super fast</value>
   </data>
   <data name="Preset_VeryFast" xml:space="preserve">
-    <value>Very Fast</value>
+    <value>Very fast</value>
   </data>
   <data name="Preset_Faster" xml:space="preserve">
     <value>Faster</value>
@@ -319,7 +319,7 @@ You should set this if you know your playback device only supports a certain pro
     <value>Slower</value>
   </data>
   <data name="Preset_VerySlow" xml:space="preserve">
-    <value>Very Slow</value>
+    <value>Very slow</value>
   </data>
   <data name="Preset_Placebo" xml:space="preserve">
     <value>Placebo</value>
@@ -334,7 +334,7 @@ You should set this if you know your playback device only supports a certain pro
     <value>Grain</value>
   </data>
   <data name="Tune_stillimage" xml:space="preserve">
-    <value>Still Image</value>
+    <value>Still image</value>
   </data>
   <data name="Tune_psnr" xml:space="preserve">
     <value>PSNR</value>
@@ -343,10 +343,10 @@ You should set this if you know your playback device only supports a certain pro
     <value>SSIM</value>
   </data>
   <data name="Tune_fastdecode" xml:space="preserve">
-    <value>Fast Decode</value>
+    <value>Fast decode</value>
   </data>
   <data name="Tune_zerolatency" xml:space="preserve">
-    <value>Zero Latency</value>
+    <value>Zero latency</value>
   </data>
   <data name="FpsFormat" xml:space="preserve">
     <value>{0:0.###} FPS</value>
@@ -364,10 +364,10 @@ You should set this if you know your playback device only supports a certain pro
     <value>Allow a variable framerate and use the specified rate as a peak. If the source has a variable frame rate, this setting will preserve it. Note that some players do not support variable frame rates.</value>
   </data>
   <data name="VfrChoice" xml:space="preserve">
-    <value>Variable Framerate</value>
+    <value>Variable framerate</value>
   </data>
   <data name="VfrPeakChoice" xml:space="preserve">
-    <value>Peak Framerate (VFR)</value>
+    <value>Peak framerate (VFR)</value>
   </data>
   <data name="HighQuality" xml:space="preserve">
     <value>High quality</value>
@@ -385,13 +385,13 @@ You should set this if you know your playback device only supports a certain pro
     <value>(No tracks)</value>
   </data>
   <data name="TargetStream" xml:space="preserve">
-    <value>Target Stream</value>
+    <value>Target stream</value>
   </data>
   <data name="MixdownLabel" xml:space="preserve">
     <value>Mixdown:</value>
   </data>
   <data name="SampleRateLabel" xml:space="preserve">
-    <value>Sample Rate:</value>
+    <value>Sample rate:</value>
   </data>
   <data name="BitrateLabel" xml:space="preserve">
     <value>Bitrate:</value>
@@ -484,7 +484,7 @@ Overrides all other settings.</value>
     <value>High 4:4:4 Predictive</value>
   </data>
   <data name="VideoCodecLabel" xml:space="preserve">
-    <value>Video Codec:</value>
+    <value>Video codec:</value>
   </data>
   <data name="VideoEncoder_ffmpeg2" xml:space="preserve">
     <value>MPEG-2 (Libav)</value>
@@ -502,7 +502,7 @@ Overrides all other settings.</value>
     <value>Level:</value>
   </data>
   <data name="MoreSettingsLabel" xml:space="preserve">
-    <value>More Settings:</value>
+    <value>More settings:</value>
   </data>
   <data name="Track" xml:space="preserve">
     <value>Track</value>
@@ -517,7 +517,7 @@ Overrides all other settings.</value>
     <value>Channel Layout</value>
   </data>
   <data name="SampleRate" xml:space="preserve">
-    <value>Sample Rate</value>
+    <value>Sample rate</value>
   </data>
   <data name="Modifiers" xml:space="preserve">
     <value>Modifiers</value>
@@ -544,7 +544,7 @@ Overrides all other settings.</value>
     <value>Passthrough does not work on all audio codecs. This specifies the encoder to fall back to if the track cannot be passed through.</value>
   </data>
   <data name="EncoderSettings" xml:space="preserve">
-    <value>Encoder Settings</value>
+    <value>Encoder settings</value>
   </data>
   <data name="QsvDecodingLabel" xml:space="preserve">
     <value>QSV Decoding</value>
@@ -620,7 +620,7 @@ Overrides all other settings.</value>
     <comment>What a chapter will be named when not given a custom name. {0} is the chapter number.</comment>
   </data>
   <data name="PassthroughSettingsLabel" xml:space="preserve">
-    <value>Passthrough Settings</value>
+    <value>Passthrough settings</value>
   </data>
   <data name="PassthroughMaskLabel" xml:space="preserve">
     <value>Allow passthrough for:</value>
@@ -686,10 +686,10 @@ Overrides all other settings.</value>
     <value>Height</value>
   </data>
   <data name="TargetWidthLabel" xml:space="preserve">
-    <value>Target Width:</value>
+    <value>Target width:</value>
   </data>
   <data name="TargetHeightLabel" xml:space="preserve">
-    <value>Target Height:</value>
+    <value>Target height:</value>
   </data>
   <data name="PadColorLabel" xml:space="preserve">
     <value>Color:</value>
@@ -798,9 +798,6 @@ Lapsharp sharpens using convolution kernels approximating Laplacian edge filters
   <data name="NVEncPreset_hp" xml:space="preserve">
     <value>High Performance</value>
   </data>
-  <data name="PickColorButton" xml:space="preserve">
-    <value>Pick color…</value>
-  </data>
   <data name="Bottom" xml:space="preserve">
     <value>Bottom</value>
   </data>
@@ -829,5 +826,12 @@ Lapsharp sharpens using convolution kernels approximating Laplacian edge filters
   </data>
   <data name="MoreOptionsToolTip" xml:space="preserve">
     <value>Additional advanced arguments to pass to the video encoder.</value>
+  </data>
+  <data name="CannotSwitchEncodingPresetDueToPicker" xml:space="preserve">
+    <value>Cannot switch encoding preset, it has been locked in the Picker window.</value>
+    <comment>Message to show when the user is blocked from switching an encoding preset due to a Picker setting.</comment>
+  </data>
+  <data name="PadColorTextToolTip" xml:space="preserve">
+    <value>Format: FFFFFF</value>
   </data>
 </root>

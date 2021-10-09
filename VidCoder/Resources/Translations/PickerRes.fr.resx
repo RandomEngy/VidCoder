@@ -112,25 +112,13 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AudioSelection" xml:space="preserve">
-    <value>Sélection audio</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Graver dans</value>
-  </data>
   <data name="DefaultCheckBox" xml:space="preserve">
     <value>Par défaut</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Recherche de piste audio étrangère</value>
-  </data>
-  <data name="IncludeAllTracksRadioButton" xml:space="preserve">
-    <value>Toutes les pistes</value>
   </data>
   <data name="LanguagesRadioButton" xml:space="preserve">
     <value>Langue(s)</value>
@@ -139,14 +127,8 @@
     <value>Uniquement si une langue différente de l'audio</value>
     <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
   </data>
-  <data name="SubtitleSelection" xml:space="preserve">
-    <value>Sélection de sous-titres</value>
-  </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>Sélecteur : {0}</value>
-  </data>
-  <data name="TitleSelection" xml:space="preserve">
-    <value>Sélection de titres</value>
   </data>
   <data name="PickerButtonFormat" xml:space="preserve">
     <value>Sélecteur : {0}</value>
@@ -219,21 +201,6 @@
     <value>Marquer tout d’abord comme valeur par défaut</value>
     <comment>Label for checkbox to mark the first subtitle as default.</comment>
   </data>
-  <data name="AllSubtitlesToolTip" xml:space="preserve">
-    <value>Inclure tous les sous-titres.</value>
-  </data>
-  <data name="SubtitleNoneToolTip" xml:space="preserve">
-    <value>Aucuns sous-titres inclus.</value>
-  </data>
-  <data name="AudioFirstToolTip" xml:space="preserve">
-    <value>Inclure uniquement la première piste audio.</value>
-  </data>
-  <data name="AudioAllToolTip" xml:space="preserve">
-    <value>Inclure toutes les pistes audio.</value>
-  </data>
-  <data name="SubtitleFirstToolTip" xml:space="preserve">
-    <value>Inclure uniquement le premier sous-titre.</value>
-  </data>
   <data name="PresetLabel" xml:space="preserve">
     <value>Utilisez le paramètre prédéfini :</value>
   </data>
@@ -259,6 +226,40 @@
   
   
   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <data name="BurnInCheckBox" xml:space="preserve">
+    <value>Graver dans</value>
+  </data>
   
   
 </root>

@@ -112,31 +112,31 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
     <value>Titel:</value>
   </data>
   <data name="AddToQueueLabel" xml:space="preserve">
-    <value>Voeg toe aan wachtrij</value>
+    <value>Toevoegen aan wachtrij</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
-    <value>Voeg meerdere titels toe aan wachtrij...</value>
+    <value>Meerdere titels toevoegen aan wachtrij...</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
-    <value>Open video bestand...</value>
+    <value>Videobestand openen...</value>
   </data>
   <data name="OpenDiscFolder" xml:space="preserve">
     <value>DVD/Blu-ray map openen...</value>
   </data>
   <data name="EnqueueMultipleFiles" xml:space="preserve">
-    <value>Zet meerdere bestanden in wachtrij...</value>
+    <value>Meerdere bestanden in wachtrij zetten...</value>
   </data>
   <data name="ToolsMenu" xml:space="preserve">
-    <value>Hulpprogramma's</value>
+    <value>Hulpmiddelen</value>
   </data>
   <data name="ImportPreset" xml:space="preserve">
     <value>Voorkeursinstelling importeren...</value>
@@ -154,50 +154,41 @@
     <value>Open bevattende map</value>
   </data>
   <data name="ClearCompleted" xml:space="preserve">
-    <value>Wis voltooide</value>
+    <value>Verwijder voltooide items</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
-    <value>Windows</value>
+    <value>Vensters</value>
     <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
     <value>Coderingsinstellingen</value>
   </data>
   <data name="PreviewMenuItem" xml:space="preserve">
-    <value>Voorbeeld</value>
+    <value>Voorvertoning</value>
   </data>
   <data name="LogMenuItem" xml:space="preserve">
-    <value>Log</value>
+    <value>Logboek</value>
   </data>
   <data name="HelpMenu" xml:space="preserve">
-    <value>Help</value>
+    <value>Hulp</value>
   </data>
   <data name="VidCoderHomepageMenuItem" xml:space="preserve">
-    <value>VidCoder Home pagina</value>
+    <value>VidCoder Homepage</value>
   </data>
   <data name="ReportABugMenuItem" xml:space="preserve">
-    <value>Rapporteer een fout</value>
+    <value>Een fout melden</value>
   </data>
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
     <value>Over VidCoder...</value>
   </data>
-  <data name="ChooseVideoSourceLabel" xml:space="preserve">
-    <value>Kies een videobron:</value>
-  </data>
-  <data name="SourceLabel" xml:space="preserve">
-    <value>Bron:</value>
-  </data>
   <data name="Recent" xml:space="preserve">
-    <value>Recent</value>
+    <value>Recentelijk</value>
   </data>
   <data name="DragFilesHereLabel" xml:space="preserve">
-    <value>(Of sleep videobestanden of mappen hier naar toe)</value>
+    <value>(Of sleep videobestanden of -mappen hier naartoe)</value>
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>Er is een fout opgetreden tijdens het scannen.</value>
-  </data>
-  <data name="AddTrackButton" xml:space="preserve">
-    <value>Spoor toevoegen</value>
   </data>
   <data name="ChapterMarkersLabel" xml:space="preserve">
     <value>Hoofdstukmarkering:</value>
@@ -211,23 +202,17 @@
   <data name="DestinationToolTip" xml:space="preserve">
     <value>Klik om de bestemming aan te passen.</value>
   </data>
-  <data name="SelectOutputPathButton" xml:space="preserve">
-    <value>Selecteer de doel map...</value>
-  </data>
-  <data name="EncodingLabel" xml:space="preserve">
-    <value>Codering:</value>
-  </data>
   <data name="Stop" xml:space="preserve">
     <value>Stoppen</value>
   </data>
   <data name="Pause" xml:space="preserve">
-    <value>Pauze</value>
+    <value>Pauzeren</value>
   </data>
   <data name="MoveToTopMenuItem" xml:space="preserve">
     <value>Verplaats naar boven</value>
   </data>
   <data name="MoveToBottomMenuItem" xml:space="preserve">
-    <value>Verplaats naar beneden</value>
+    <value>Verplaats naar onderen</value>
   </data>
   <data name="CustomizeColumnsMenuItem" xml:space="preserve">
     <value>Kolommen aanpassen...</value>
@@ -239,22 +224,16 @@
     <value>Gemiddelde FPS:</value>
   </data>
   <data name="PickDiscFolderHelpText" xml:space="preserve">
-    <value>Een DVD of Blu-ray map kiezen.</value>
+    <value>Kies een DVD of Blu-ray map.</value>
   </data>
   <data name="EncodesInProgressExitWarning" xml:space="preserve">
     <value>Er wordt nog gecodeerd. Weet u zeker dat u wilt afsluiten?</value>
   </data>
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
-    <value>Bezig met coderingen</value>
-  </data>
-  <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Buitenlandse Audio zoeken</value>
+    <value>Bezig met codering</value>
   </data>
   <data name="NoneParen" xml:space="preserve">
     <value>(Geen)</value>
-  </data>
-  <data name="TracksSummaryMultiple" xml:space="preserve">
-    <value>{0} sporen</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
     <value>Wilt u wijzigingen in uw huidige voorkeursinstelling opslaan?</value>
@@ -269,10 +248,7 @@
     <value>Hersteld uit wachtrij</value>
   </data>
   <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
-    <value>Hersteld vanaf voltooid</value>
-  </data>
-  <data name="PresetLabel" xml:space="preserve">
-    <value>Voorkeursinstelling:</value>
+    <value>Hersteld vanaf Voltooid</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
     <value>Bestemming</value>
@@ -284,7 +260,7 @@
     <value>Verstreken tijd</value>
   </data>
   <data name="PlayingVideoMessage" xml:space="preserve">
-    <value>Video aan het afspelen...</value>
+    <value>Video wordt afgespeeld...</value>
   </data>
   <data name="FileDoesNotExist" xml:space="preserve">
     <value>{0} bestaat niet.</value>
@@ -308,7 +284,7 @@
     <value>Codering gestopt.</value>
   </data>
   <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>Weet u zeker dat u {0} bron bestanden/mappen wilt verwijderen?</value>
+    <value>Weet u zeker dat u {0} bronbestand(en)/-map(pen) wilt verwijderen?</value>
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Verwijderen bevestigen</value>
@@ -319,39 +295,30 @@
 {1}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
-    <value>Probleem bij het scannen van video bestand(en)</value>
+    <value>Fout bij scannen van videobestand(en)</value>
   </data>
   <data name="StartedEncoding" xml:space="preserve">
     <value>Begonnen met codering.</value>
   </data>
   <data name="DirectoryCreateErrorMessage" xml:space="preserve">
-    <value>Kan de doel map niet maken. Details:
+    <value>Kan de doelmap niet aanmaken. Details:
 
 {0}</value>
   </data>
-  <data name="DirectoryCreateErrorTitle" xml:space="preserve">
-    <value>Probleem bij het maken van map</value>
-  </data>
   <data name="EncodeCompleted" xml:space="preserve">
-    <value>Coderen voltooid.</value>
+    <value>Codering voltooid.</value>
   </data>
   <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
     <value>Codering voltooid</value>
   </data>
   <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
-    <value>VidCoder is klaar met alle coderingstaken in de wachtrij.</value>
-  </data>
-  <data name="OutputFolderRequiredMessage" xml:space="preserve">
-    <value>Kan geen coderingstaak toevoegen zonder een standaard doel map. Klik op OK om er één te kiezen.</value>
-  </data>
-  <data name="OutputFolderRequiredTitle" xml:space="preserve">
-    <value>Standaard doel map vereist</value>
+    <value>VidCoder heeft alle coderingstaken in de wachtrij voltooid.</value>
   </data>
   <data name="OutputPathNotValidMessage" xml:space="preserve">
-    <value>Pad naar doel map is niet geldig.</value>
+    <value>Pad naar doelmap is niet geldig.</value>
   </data>
   <data name="OutputPathNotValidTitle" xml:space="preserve">
-    <value>Pad niet geldig</value>
+    <value>Ongeldig pad</value>
   </data>
   <data name="Encode" xml:space="preserve">
     <value>Coderen</value>
@@ -360,13 +327,13 @@
     <value>Hervatten</value>
   </data>
   <data name="EtaLabel" xml:space="preserve">
-    <value>ETA:</value>
+    <value>Klaar in:</value>
   </data>
   <data name="WhenDoneLabel" xml:space="preserve">
-    <value>Wanneer klaar</value>
+    <value>Wanneer gereed</value>
   </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
-    <value>Video bestand...</value>
+    <value>Videobestand...</value>
   </data>
   <data name="SourceOption_DiscFolder" xml:space="preserve">
     <value>DVD/Blu-ray map...</value>
@@ -390,13 +357,13 @@
     <value>Kan tekst niet kopiëren.</value>
   </data>
   <data name="LaunchUrlError" xml:space="preserve">
-    <value>Probleem bij openen URL: {0}</value>
+    <value>Fout bij starten URL: {0}</value>
   </data>
   <data name="PresetImportErrorMessage" xml:space="preserve">
     <value>Het is niet gelukt om de voorinstelling te importeren. Controleer het logboek voor details.</value>
   </data>
   <data name="ImportErrorTitle" xml:space="preserve">
-    <value>Importfout</value>
+    <value>Fout bij importeren</value>
   </data>
   <data name="PresetImportSuccessMessage" xml:space="preserve">
     <value>Voorkeursinstelling {0} met succes geïmporteerd.</value>
@@ -408,10 +375,10 @@
     <value>Voorkeursinstelling exporteren</value>
   </data>
   <data name="SaveChangesPickerMessage" xml:space="preserve">
-    <value>Wil je je veranderingen opslaan van je momentele voorkeurinstelling?</value>
+    <value>Wilt u de wijzigingen aan uw huidige kiezer opslaan?</value>
   </data>
   <data name="SaveChangesPickerTitle" xml:space="preserve">
-    <value>Sla momentele voorkeursinstelling op?</value>
+    <value>Huidige kiezer opslaan?</value>
   </data>
   <data name="RevertConfirmMessage" xml:space="preserve">
     <value>Weet u zeker dat u alle niet-opgeslagen wijzigingen ongedaan wilt maken?</value>
@@ -423,13 +390,10 @@
     <value>Weet je zeker dat je dit wilt verwijderen?</value>
   </data>
   <data name="RemoveConfirmTitle" xml:space="preserve">
-    <value>Verwijder</value>
-  </data>
-  <data name="UserConfigCorrupted" xml:space="preserve">
-    <value>Configuratie was beschadigd en kon niet worden geladen. Sommige van uw instellingen kunnen verloren zijn gegaan.</value>
+    <value>Verwijderen</value>
   </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
-    <value>Kies de doel map voor de gecodeerde video-bestanden.</value>
+    <value>Kies de doelmap voor de gecodeerde videobestanden.</value>
   </data>
   <data name="LengthPreviewLabel" xml:space="preserve">
     <value>({0})</value>
@@ -438,22 +402,19 @@
     <value>(Gewijzigd)</value>
   </data>
   <data name="PlayingVideoStatus" xml:space="preserve">
-    <value>Video aan het afspelen...</value>
+    <value>Video wordt afgespeeld...</value>
   </data>
   <data name="OpeningFolderStatus" xml:space="preserve">
-    <value>Map aan het openen...</value>
+    <value>Map openen...</value>
   </data>
   <data name="CloseVideoSourceToolTip" xml:space="preserve">
-    <value>Afsluiten video bron</value>
-  </data>
-  <data name="CloseVideoSourceMenuItem" xml:space="preserve">
-    <value>Afsluiten video bron</value>
+    <value>Videobron sluiten</value>
   </data>
   <data name="UpdatesMenuItem" xml:space="preserve">
     <value>Updates...</value>
   </data>
   <data name="CbrAuto" xml:space="preserve">
-    <value>CBR Auto</value>
+    <value>CBR automatisch</value>
   </data>
   <data name="RangeBarToolTip" xml:space="preserve">
     <value>Klik met de linkermuisknop om de begintijd in te stellen en met de rechtermuisknop om de eindtijd in te stellen.</value>
@@ -468,22 +429,19 @@
     <value>Alle</value>
   </data>
   <data name="CouldNotCopyLogError" xml:space="preserve">
-    <value>Kan log niet kopiëren:{0}{0}{1}</value>
+    <value>Kon logboek niet kopiëren:{0}{0}{1}</value>
   </data>
   <data name="OpenLog" xml:space="preserve">
     <value>Logboek openen</value>
   </data>
   <data name="CopyLog" xml:space="preserve">
-    <value>Log kopiëren</value>
+    <value>Logboek kopiëren</value>
   </data>
   <data name="PresetDiscardConfirmMessage" xml:space="preserve">
     <value>U hebt niet-opgeslagen wijzigingen. Weet u zeker dat u deze wijzigingen wilt negeren door over te schakelen naar een andere voorkeursinstelling?</value>
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>Wijzigingen negeren?</value>
-  </data>
-  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
-    <value>Audio spoor verwijderen</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
     <value>Verwijderen uit wachtrij</value>
@@ -492,22 +450,22 @@
     <value>Kan wachtrij niet opslaan:{0}{1}</value>
   </data>
   <data name="ExportQueue" xml:space="preserve">
-    <value>Exporteer wachtrij...</value>
+    <value>Wachtrij exporteren...</value>
   </data>
   <data name="ExportQueueFilePickerText" xml:space="preserve">
-    <value>Exporteren van wachtrij</value>
+    <value>Wachtrij exporteren</value>
   </data>
   <data name="QueueImportErrorMessage" xml:space="preserve">
-    <value>Niet gelukt de wachtrij te importeren. Controleer het logboek voor details.</value>
+    <value>Importeren van de wachtrij mislukt. Controleer het logboek voor details.</value>
   </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
-    <value>Importeer instellingen bestand</value>
+    <value>Voorkeursinstellingen importeren</value>
   </data>
   <data name="ImportQueueFilePickerTitle" xml:space="preserve">
-    <value>Wachtrij-bestand importeren</value>
+    <value>Wachtrijbestand importeren</value>
   </data>
   <data name="ImportQueue" xml:space="preserve">
-    <value>Importeren van wachtrij...</value>
+    <value>Wachtrij importeren...</value>
   </data>
   <data name="QueueExportSuccessMessage" xml:space="preserve">
     <value>Wachtrij succesvol geëxporteerd naar {0}</value>
@@ -516,26 +474,26 @@
     <value>Wachtrij succesvol geïmporteerd.</value>
   </data>
   <data name="StopEncodeConfirmationTitle" xml:space="preserve">
-    <value>Stop coderen?</value>
+    <value>Codering afbreken?</value>
   </data>
   <data name="StopEncodeConfirmationMessage" xml:space="preserve">
-    <value>Weet u zeker dat u wilt stoppen met het coderen?</value>
+    <value>Weet je zeker dat je de codering wilt afbreken?</value>
   </data>
   <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
-    <value>Het huidige bestand sluiten en de disc openen?</value>
+    <value>Het huidige bestand sluiten en de schijf openen?</value>
   </data>
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
-    <value>Encodeer details</value>
+    <value>Coderingsgegevens</value>
   </data>
   <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>Wil je het bestaande bestand hernoemen en beginnen met een nieuwe?</value>
   </data>
   <data name="RenameDatabaseFileLine1" xml:space="preserve">
-    <value>Kan versie {0} van het database bestand niet lezen. De hoogste versie die VidCoder {1} aankan is {2}</value>
+    <value>Kan versie {0} van het databasebestand niet lezen. De hoogste versie herkend door VidCoder {1} is {2}</value>
     <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
   </data>
   <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
-    <value>Database bestand is niet compatibel</value>
+    <value>Databasebestand is niet compatibel</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
   <data name="PickerMenuItem" xml:space="preserve">
@@ -543,10 +501,6 @@
   </data>
   <data name="CouldNotLoadPickerMessage" xml:space="preserve">
     <value>Kan de kiezer niet laden: </value>
-  </data>
-  <data name="PickerNameTemplate" xml:space="preserve">
-    <value>Kiezer {0}</value>
-    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
   </data>
   <data name="SimilarTitlesToolTip" xml:space="preserve">
     <value>{0} andere titels hebben een afspeelduur die dicht bij deze ligt.</value>
@@ -557,20 +511,17 @@
     <comment>{0} is the version of the database file you have a backup for.</comment>
   </data>
   <data name="VideoPlayError" xml:space="preserve">
-    <value>Fout bij het afspelen van video.</value>
+    <value>Fout bij afspelen video.</value>
   </data>
   <data name="CustomVideoPlayerError" xml:space="preserve">
     <value>Aangepaste video speler kan niet gevonden worden op {0}.</value>
     <comment>{0} is the path to the custom video player.</comment>
   </data>
-  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
-    <value>Let op: De formaat interface is geheel herzien voor 2.0, zodat uw voorinstellingen kunnen zijn gewijzigd. U wilt ze wellicht controleren om ervoor te zorgen dat zij nog steeds correct zijn ingesteld.</value>
-  </data>
   <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
-    <value>Wachtrij map voor Video-bestanden...</value>
+    <value>Map met videobestanden in wachtrij plaatsen...</value>
   </data>
   <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>Er waren fouten bij het scannen van sommige bestanden; deze werden niet toegevoegd aan de wachtrij:
+    <value>Er zijn fouten opgetreden bij het scannen van sommige bestanden en ze zijn niet toegevoegd aan de wachtrij:
 
 {0}</value>
   </data>
@@ -579,7 +530,7 @@
     <comment>Used on the "completed encodes" tab, to label the column that shows the final output file size.</comment>
   </data>
   <data name="OpenAppDataFolder" xml:space="preserve">
-    <value>Open App Data map</value>
+    <value>Open de gegevensmap van de App</value>
     <comment>Menu choice for opening the application data folder (that holds the VidCoder database file, logs, etc)</comment>
   </data>
   <data name="RibbonEncodingGroupLabel" xml:space="preserve">
@@ -599,14 +550,14 @@
     <value>Video- en audiocodecs, afmetingen, filters, container</value>
   </data>
   <data name="OpenSourceRibbonButton" xml:space="preserve">
-    <value>Open source</value>
+    <value>Open bron</value>
   </data>
   <data name="ImportExportRibbonButton" xml:space="preserve">
     <value>Importeren/Exporteren</value>
     <comment>Label for ribbon button to import or export presets or queues</comment>
   </data>
   <data name="AddedSubtitleFromFile" xml:space="preserve">
-    <value>Ondertitels van bestand {0} succesvol toegevoegd</value>
+    <value>Ondertitel succesvol toegevoegd uit bestand {0}</value>
   </data>
   <data name="OpenFormat" xml:space="preserve">
     <value>Open {0}</value>
@@ -620,32 +571,32 @@
     <comment>Summary text for when no audio tracks are found on the source</comment>
   </data>
   <data name="NoSubtitlesSummary" xml:space="preserve">
-    <value>Geen ondertitels</value>
+    <value>Geen ondertiteling</value>
     <comment>Summary text for when no subtitle tracks are found on the source and no external subtitles have been added</comment>
   </data>
   <data name="DataTooOldRunVidCoderVersion" xml:space="preserve">
-    <value>Uw gegevens zijn te oud om te upgraden. Voer VidCoder {0} eenmaal uit om het te upgraden naar een compatibele versie, en probeer deze versie opnieuw.</value>
+    <value>Uw gegevens zijn te oud om bij te werken. Voer VidCoder {0} eens uit om deze te upgraden naar een compatibele versie, probeer dan opnieuw.</value>
     <comment>This is shown on app start when old data is detected.</comment>
   </data>
   <data name="BitrateColumn" xml:space="preserve">
     <value>Bitsnelheid</value>
   </data>
   <data name="SampleRateColumn" xml:space="preserve">
-    <value>Sample snelheid</value>
+    <value>Samplesnelheid</value>
   </data>
   <data name="ClearRecentFilesButtonToolTip" xml:space="preserve">
-    <value>Recente bestanden wissen</value>
+    <value>Wis recente bestanden</value>
   </data>
   <data name="OpenSourceLabel" xml:space="preserve">
     <value>Openen</value>
     <comment>Label on top of the different options for opening video source on the startup screen.</comment>
   </data>
   <data name="ScanningSourceLabelFormat" xml:space="preserve">
-    <value>{0} scannen...</value>
+    <value>Scannen van {0}...</value>
     <comment>{0} is the name of the source being scanned.</comment>
   </data>
   <data name="RetryFailedItemsMenuItem" xml:space="preserve">
-    <value>Alle mislukte acties opnieuw proberen</value>
+    <value>Probeer alle mislukte taken opnieuw</value>
   </data>
   <data name="StartChapterAutomationName" xml:space="preserve">
     <value>Start hoofdstuk</value>
@@ -677,13 +628,13 @@
 {0} is the encode complete action, ex "Shut down"</comment>
   </data>
   <data name="VideoEncodingOptionsToolTip" xml:space="preserve">
-    <value>Videocoderingsopties</value>
+    <value>Opties voor codering van video</value>
   </data>
   <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
-    <value>Audiocodering opties</value>
+    <value>Opties voor codering van audio</value>
   </data>
   <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
-    <value>Versie {0} is klaar met downloaden.</value>
+    <value>Versie {0} is gedownload.</value>
   </data>
   <data name="RemoveFromQueueMenuItem" xml:space="preserve">
     <value>Verwijderen uit wachtrij</value>
@@ -702,5 +653,89 @@
   </data>
   <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
     <value>Codering is niet voltooid als gevolg van fouten in de lijst coderingsresultaten.</value>
+  </data>
+  <data name="AudioPickerButtonToolTip" xml:space="preserve">
+    <value>Automatisch audiosporen kiezen...</value>
+  </data>
+  <data name="SubtitlePickerButtonToolTip" xml:space="preserve">
+    <value>Automatisch ondertitelingssporen kiezen...</value>
+  </data>
+  <data name="AudioSubtitleTrackColumnHeader" xml:space="preserve">
+    <value>Spoor</value>
+    <comment>Column header for the audio or subtitle track summary. This is an an auto-generated summary that includes language, format, etc.</comment>
+  </data>
+  <data name="AudioTrackNameAutomationName" xml:space="preserve">
+    <value>Naam audiospoor</value>
+    <comment>Narrator label for the audio track name text box.</comment>
+  </data>
+  <data name="SubtitleNameAutomationName" xml:space="preserve">
+    <value>Naam ondertitelingsspoor</value>
+    <comment>Narrator label for the subtitle name text box.</comment>
+  </data>
+  <data name="CouldNotRecycleFile" xml:space="preserve">
+    <value>Fout bij het verzenden van bestanden naar de prullenbak.</value>
+  </data>
+  <data name="DestinationAutomaticToolTip" xml:space="preserve">
+    <value>Bestemming is automatisch ingesteld. Klik om de instellingen te bewerken.</value>
+  </data>
+  <data name="DestinationManualToolTip" xml:space="preserve">
+    <value>Bestemming is handmatig ingesteld. Klik om terug te keren naar automatisch.</value>
+  </data>
+  <data name="CompareAgainstOriginal" xml:space="preserve">
+    <value>Vergelijk met origineel</value>
+  </data>
+  <data name="CompareEncodedLabel" xml:space="preserve">
+    <value>Gecodeerd</value>
+    <comment>Label for the encoded video when comparing original vs encoded</comment>
+  </data>
+  <data name="CompareOriginalLabel" xml:space="preserve">
+    <value>Origineel</value>
+    <comment>Label for the original video when comparing original vs encoded</comment>
+  </data>
+  <data name="CompareWindowHelpText" xml:space="preserve">
+    <value>Klik of druk op Ctrl om de gecodeerde versie weer te geven.</value>
+  </data>
+  <data name="CompareWindowTitleFormat" xml:space="preserve">
+    <value>Videovergelijking: {0} - {1}</value>
+    <comment>Title for the Video compare window.
+{0} is a string indicating if it's original or encoded.
+{1} is the file name, e.g. MyFile.mkv</comment>
+  </data>
+  <data name="MuteAutomationName" xml:space="preserve">
+    <value>Dempen</value>
+    <comment>Text for screen readers for the mute button on video playback</comment>
+  </data>
+  <data name="UnmuteAutomationName" xml:space="preserve">
+    <value>Demping opheffen</value>
+    <comment>Text for screen readers for the unmute button on video playback</comment>
+  </data>
+  <data name="AutoPauseLowBattery" xml:space="preserve">
+    <value>Pauzeren als gevolg van lage accuspanning.</value>
+  </data>
+  <data name="AutoPauseLowDiskSpace" xml:space="preserve">
+    <value>Pauzeren als gevolg van vrije schijfruimte minder dan {0}GB.</value>
+    <comment>{0} is the disk space threshold for auto-pause in GB</comment>
+  </data>
+  <data name="AutoPauseProcessDetected" xml:space="preserve">
+    <value>Automatisch pauzeren, proces gedetecteerd: {0}</value>
+    <comment>{0} is the name of the process we were waiting for to pause</comment>
+  </data>
+  <data name="AutoPauseResumeBattery" xml:space="preserve">
+    <value>Automatisch hervatten, verbonden met AC-stroom.</value>
+  </data>
+  <data name="AutoPauseResumeDiskSpace" xml:space="preserve">
+    <value>Automatisch hervatten, schijf heeft vrije ruimte.</value>
+  </data>
+  <data name="AutoPauseResumeProcess" xml:space="preserve">
+    <value>Automatisch hervatten, processen zijn weg.</value>
+  </data>
+  <data name="Win7DeprecationWarning" xml:space="preserve">
+    <value>VidCoder wordt niet langer ondersteund op Windows 7 of 8.
+
+Je kunt VidCoder blijven gebruiken op eigen risico. Sommige functies zijn niet functioneel en er zijn mogelijk andere onbekende problemen. Dit is geen ondersteuning beschikbaar wanneer deze problemen zich voordoen.
+
+v5 was de laatste versie getest voor Windows 7/8.
+
+Deze waarschuwing wordt slechts twee keer weergegeven.</value>
   </data>
 </root>

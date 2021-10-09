@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Generale</value>
@@ -138,50 +138,14 @@
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
     <value>Aggiornamenti automatici</value>
   </data>
-  <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>Iscriviti al programma di aggiornamento Beta</value>
-  </data>
-  <data name="FileNamingTab" xml:space="preserve">
-    <value>Denominazione file</value>
-  </data>
-  <data name="DefaultFolderLabel" xml:space="preserve">
-    <value>Cartella predefinita:</value>
-  </data>
-  <data name="FileFormatLabel" xml:space="preserve">
-    <value>Formato file:</value>
-  </data>
-  <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>Formato predefinito</value>
-  </data>
-  <data name="CustomFormatRadioButton" xml:space="preserve">
-    <value>Formato personalizzato:</value>
-  </data>
-  <data name="FileNameFormatOptions" xml:space="preserve">
-    <value>Opzioni disponibili: {0}</value>
-  </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
     <value>Quando un file esiste già...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
-    <value>Codifica file singolo:</value>
-  </data>
-  <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>Chiedi se vuoi sovrascriverlo</value>
-  </data>
-  <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>Sovrascrivi il file senza chiedere conferma</value>
-  </data>
-  <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>Imposta automaticamente un nome diverso</value>
+    <value>Codifica di un singolo file:</value>
   </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
-    <value>Codifica non-interattiva di file:</value>
-  </data>
-  <data name="OverwriteRadioButton" xml:space="preserve">
-    <value>Sovrascrivi</value>
-  </data>
-  <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>Rinomina automaticamente</value>
+    <value>Codifica non-interattiva di più file:</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Metti in pausa la codifica automaticamente quando uno qualsiasi di questi processi sono in esecuzione:</value>
@@ -195,14 +159,11 @@
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>Ricorda cartelle e file utilizzati in precedenza</value>
   </data>
-  <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>Consenti l'impostazione personalizzata del nome sulle tracce audio (supporto del riproduttore limitato)</value>
-  </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Abilita LibDVDNav (la modifica richiede il riavvio del programma). Richiesto per supportare più angoli di visione</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Elimina i file di origine dopo la cancellazione degli elementi dall'elenco di quelli "Completati" con successo (con conferma)</value>
+    <value>Elimina i file sorgenti dopo aver cancellato gli elementi completati con successo</value>
   </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Livello di dettaglio dei registri:</value>
@@ -271,7 +232,7 @@
     <value>Attenzione: è probabile che questa versione sia affetta da problemi e blocchi.</value>
   </data>
   <data name="PlayersSection" xml:space="preserve">
-    <value>Riproduttori</value>
+    <value>Riproduttore video</value>
   </data>
   <data name="SoundSection" xml:space="preserve">
     <value>Suono</value>
@@ -281,9 +242,6 @@
   </data>
   <data name="OutputFolderSection" xml:space="preserve">
     <value>Cartella di salvataggio</value>
-  </data>
-  <data name="NamingFormatSection" xml:space="preserve">
-    <value>Formato di denominazione</value>
   </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
     <value>Opzioni avanzate</value>
@@ -349,16 +307,13 @@
     <value>Copia il registro di codifica nella stessa cartella del video codificato</value>
   </data>
   <data name="OpenLogFolderButton" xml:space="preserve">
-    <value>Apri cartella di registro</value>
+    <value>Apri cartella dei file di registro</value>
   </data>
   <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
     <value>Riprendere automaticamente la codifica al riavvio del programma</value>
   </data>
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Utilizza il processo di lavoro per la codifica</value>
-  </data>
-  <data name="VideoSection" xml:space="preserve">
-    <value>Video</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Preservare l'orario originale di Creazione e Modifica quando si converte un file</value>
@@ -393,7 +348,7 @@
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
   <data name="PromptForUpdatesLabel" xml:space="preserve">
-    <value>Richiesta per gli aggiornamenti:</value>
+    <value>Richiesta di aggiornamento:</value>
   </data>
   <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
     <value>L'opzione del processo lavorativo avrà effetto dopo l'uscita e il riavvio di VidCoder.</value>
@@ -406,5 +361,27 @@
   </data>
   <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
     <value>Attiva l'azione "Quando concluso" quando ci sono processi di codifica falliti</value>
+  </data>
+  <data name="AutoPauseLowBatteryCheckbox" xml:space="preserve">
+    <value>Metti in pausa quando la batteria è quasi scarica</value>
+  </data>
+  <data name="AutoPauseLowDiskSpaceCheckbox" xml:space="preserve">
+    <value>Metti in pausa quando lo spazio libero del disco è inferiore a:</value>
+  </data>
+  <data name="AutoPauseSectionLabel" xml:space="preserve">
+    <value>Messa in pausa automatica</value>
+  </data>
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>Opzioni disponibili: {0}</value>
+  </data>
+  <data name="LowDiskSpaceThresholdAutomationName" xml:space="preserve">
+    <value>Soglia di spazio libero su disco, in gigabyte</value>
+    <comment>Screen reader name for the low disk space threshold number box</comment>
+  </data>
+  <data name="DragDropScanOrderLabel" xml:space="preserve">
+    <value>Trascina e rilascia l'ordine di scansione:</value>
+  </data>
+  <data name="EncodeRetriesLabel" xml:space="preserve">
+    <value>Numero dei tentativi di codifica:</value>
   </data>
 </root>

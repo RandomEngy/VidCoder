@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.Json.Encode;
 using HandBrake.Interop.Interop.Json.Scan;
-using Newtonsoft.Json;
 using PipeMethodCalls;
 using VidCoderCommon;
 using VidCoderCommon.Model;
@@ -62,7 +62,7 @@ namespace VidCoderWorker
 							previewSeconds,
 							this.PassedPreviewCount);
 
-						return JsonConvert.SerializeObject(encodeObject, JsonSettings.HandBrakeJsonSerializerSettings);
+						return JsonSerializer.Serialize(encodeObject, JsonOptions.Plain);
 					}
 					else
 					{
@@ -79,7 +79,7 @@ namespace VidCoderWorker
 		public void StartEncodeFromJson(string encodeJson)
 		{
 			// Extract the scan title and path from the encode JSON.
-			JsonEncodeObject encodeObject = JsonConvert.DeserializeObject<JsonEncodeObject>(encodeJson);
+			JsonEncodeObject encodeObject = JsonSerializer.Deserialize<JsonEncodeObject>(encodeJson, JsonOptions.Plain);
 
 			this.StartEncodeInternal(encodeObject.Source.Path, encodeObject.Source.Title, scanObject => encodeJson);
 		}
@@ -113,7 +113,7 @@ namespace VidCoderWorker
 						}
 						else
 						{
-							this.MakeOneWayCallback(c => c.OnEncodeComplete(true));
+							this.MakeOneWayCallback(c => c.OnEncodeComplete(0));
 							this.CleanUpAndSignalCompletion();
 						}
 					}
@@ -130,7 +130,7 @@ namespace VidCoderWorker
 					{
 						if (e.PassId > this.lastSetAffinityPassId && e.FractionComplete > 0)
 						{
-							this.ApplyCpuThrottling();
+							this.ApplyCpuThrottling(onlyIfReduced: true);
 							this.lastSetAffinityPassId = e.PassId;
 						}
 
@@ -155,7 +155,7 @@ namespace VidCoderWorker
 					try
 					{
 						await this.SendPendingLogMessagesAsync().ConfigureAwait(false);
-						await this.CallbackInvoker.InvokeAsync(c => c.OnEncodeComplete(e.Error)).ConfigureAwait(false);
+						await this.CallbackInvoker.InvokeAsync(c => c.OnEncodeComplete((VCEncodeResultCode)e.Error)).ConfigureAwait(false);
 					}
 					catch (Exception exception)
 					{

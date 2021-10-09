@@ -1,18 +1,23 @@
 ﻿using System;
+using System.Windows;
 using Microsoft.AnyContainer;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
+using VidCoder.View;
 using VidCoder.ViewModel;
-using VidCoderCLI;
 using VidCoderCommon.Model;
+using VidCoderCommon.Services;
 
 namespace VidCoder.Automation
 {
 	public class VidCoderAutomation : IVidCoderAutomation
 	{
+		private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
+
 		public void Encode(string source, string destination, string preset, string picker)
 		{
+			this.logger.Log("Processing Encode request");
 			var processingService = StaticResolver.Resolve<ProcessingService>();
 			DispatchUtilities.Invoke(() =>
 			{
@@ -22,6 +27,7 @@ namespace VidCoder.Automation
 
 		public void Scan(string source)
 		{
+			this.logger.Log("Processing Scan request");
 			var mainVM = StaticResolver.Resolve<MainViewModel>();
 			DispatchUtilities.Invoke(() =>
 			{
@@ -31,6 +37,7 @@ namespace VidCoder.Automation
 
 		public void ImportPreset(string filePath)
 		{
+			this.logger.Log("Processing Import Preset request");
 			var presetImporter = StaticResolver.Resolve<IPresetImportExport>();
 			DispatchUtilities.Invoke(() =>
 			{
@@ -49,6 +56,7 @@ namespace VidCoder.Automation
 
 		public void ImportQueue(string filePath)
 		{
+			this.logger.Log("Processing Import Queue request");
 			var queueImporter = StaticResolver.Resolve<IQueueImportExport>();
 			DispatchUtilities.Invoke(() =>
 			{
@@ -63,6 +71,12 @@ namespace VidCoder.Automation
 					throw;
 				}
 			});
+		}
+
+		public void BringToForeground()
+		{
+			this.logger.Log("Processing Bring to Foreground request");
+			StaticResolver.Resolve<Main>().EnsureVisible();
 		}
 
 		private void ShowMessage(string message)

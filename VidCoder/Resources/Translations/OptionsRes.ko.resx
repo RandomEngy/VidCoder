@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>일반</value>
@@ -138,50 +138,14 @@
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
     <value>자동 업데이트</value>
   </data>
-  <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>베타 업데이트 트랙에 참여하기기</value>
-  </data>
-  <data name="FileNamingTab" xml:space="preserve">
-    <value>파일명 지정</value>
-  </data>
-  <data name="DefaultFolderLabel" xml:space="preserve">
-    <value>기본 폴더:</value>
-  </data>
-  <data name="FileFormatLabel" xml:space="preserve">
-    <value>파일 형식:</value>
-  </data>
-  <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>기본 형식</value>
-  </data>
-  <data name="CustomFormatRadioButton" xml:space="preserve">
-    <value>사용자 형식:</value>
-  </data>
-  <data name="FileNameFormatOptions" xml:space="preserve">
-    <value>사용 가능한 옵션: {0}</value>
-  </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
     <value>파일이 이미 존재할 때...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
     <value>단일 파일 인코딩:</value>
   </data>
-  <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>덮어 쓸지 묻습니다</value>
-  </data>
-  <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>확인 없이 파일을 덮어 씁니다</value>
-  </data>
-  <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>다른 이름으로 자동 전환합니다다</value>
-  </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
     <value>파일의 인코딩 배치:</value>
-  </data>
-  <data name="OverwriteRadioButton" xml:space="preserve">
-    <value>덮어쓰기</value>
-  </data>
-  <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>자동 이름 변경</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>다음 프로세스 중 하나가 실행 중일 때 인코딩 자동 일시 중지하기:</value>
@@ -195,13 +159,8 @@
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>이전에 사용한 파일 및 폴더를 기억합니다</value>
   </data>
-  <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>오디오 트랙에 사용자 정의 이름 설정을 허용합니다 (제한된 재생기 지원)</value>
-  </data>
   
-  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>성공적으로 완료한 항목을 지운 후 소스 파일을 삭제합니다 (삭제 확인)</value>
-  </data>
+  
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>로깅의 자세한 정도:</value>
   </data>
@@ -280,9 +239,6 @@
   <data name="OutputFolderSection" xml:space="preserve">
     <value>출력 폴더</value>
   </data>
-  <data name="NamingFormatSection" xml:space="preserve">
-    <value>이름 형식</value>
-  </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
     <value>고급 옵션</value>
   </data>
@@ -355,9 +311,6 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>작업 프로세스를 사용하여 인코드합니다</value>
   </data>
-  <data name="VideoSection" xml:space="preserve">
-    <value>비디오</value>
-  </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>파일 변환시 만든 시간과 수정 시간을 보존합니다</value>
   </data>
@@ -380,6 +333,15 @@
   
   
   
+  
+  
+  
+  
+  
+  
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>사용 가능한 옵션: {0}</value>
+  </data>
   
   
   

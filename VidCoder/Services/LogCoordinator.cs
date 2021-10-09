@@ -9,7 +9,7 @@ using System.Windows.Input;
 using DynamicData;
 using DynamicData.Binding;
 using HandBrake.Interop.Interop;
-using HandBrake.Interop.Interop.EventArgs;
+using HandBrake.Interop.Interop.Interfaces.EventArgs;
 using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Model;

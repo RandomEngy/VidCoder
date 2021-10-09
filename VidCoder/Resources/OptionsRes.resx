@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>General</value>
@@ -138,44 +138,17 @@
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
     <value>Automatic updates</value>
   </data>
-  <data name="FileNamingTab" xml:space="preserve">
-    <value>File Naming</value>
-  </data>
-  <data name="DefaultFolderLabel" xml:space="preserve">
-    <value>Default folder:</value>
-  </data>
-  <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>Default format</value>
-  </data>
-  <data name="CustomFormatRadioButton" xml:space="preserve">
-    <value>Custom format:</value>
-  </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
     <value>When a file already exists...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
     <value>Encoding single file:</value>
   </data>
-  <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>Ask if you want to overwrite it</value>
-  </data>
-  <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>Overwrite the file without prompting</value>
-  </data>
-  <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>Automatically switch to a different name</value>
-  </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
     <value>Encoding batch of files:</value>
   </data>
-  <data name="OverwriteRadioButton" xml:space="preserve">
-    <value>Overwrite</value>
-  </data>
-  <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>Automatically rename</value>
-  </data>
   <data name="AutoPauseLabel" xml:space="preserve">
-    <value>Automatically pause encoding when any of these processes are running:</value>
+    <value>Pause encoding when any of these processes are running:</value>
   </data>
   <data name="AddEllipsesButton" xml:space="preserve">
     <value>Add...</value>
@@ -186,14 +159,11 @@
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>Remember previously used files and folders</value>
   </data>
-  <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>Allow setting custom name on audio tracks (limited player support)</value>
-  </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Enable LibDVDNav (Change requires program restart. Required to support multiple angles)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Delete source files after clearing successful completed items (with confirmation)</value>
+    <value>Delete source files after clearing successful completed items</value>
   </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Logging Verbosity:</value>
@@ -272,9 +242,6 @@
   </data>
   <data name="OutputFolderSection" xml:space="preserve">
     <value>Output folder</value>
-  </data>
-  <data name="NamingFormatSection" xml:space="preserve">
-    <value>Naming format</value>
   </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
     <value>Advanced options</value>
@@ -395,7 +362,26 @@
   <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
     <value>Trigger "When done" action when there are failed encode jobs</value>
   </data>
+  <data name="AutoPauseLowBatteryCheckbox" xml:space="preserve">
+    <value>Pause when battery is low</value>
+  </data>
+  <data name="AutoPauseLowDiskSpaceCheckbox" xml:space="preserve">
+    <value>Pause when disk space falls below:</value>
+  </data>
+  <data name="AutoPauseSectionLabel" xml:space="preserve">
+    <value>Automatic pausing</value>
+  </data>
   <data name="FileNameFormatOptions" xml:space="preserve">
     <value>Available options: {0}</value>
+  </data>
+  <data name="LowDiskSpaceThresholdAutomationName" xml:space="preserve">
+    <value>Low disk space threshold in gigabytes</value>
+    <comment>Screen reader name for the low disk space threshold number box</comment>
+  </data>
+  <data name="DragDropScanOrderLabel" xml:space="preserve">
+    <value>Drag and drop scan order:</value>
+  </data>
+  <data name="EncodeRetriesLabel" xml:space="preserve">
+    <value>Number of encode retries:</value>
   </data>
 </root>

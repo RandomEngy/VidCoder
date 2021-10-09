@@ -37,7 +37,7 @@ namespace VidCoder.Extensions
 
 			return string.Format(
 				CultureInfo.CurrentCulture,
-				"{0}{1} ({2:00}:{3:00}:{4:00})",
+				"{0}{1} ({2:0}:{3:00}:{4:00})",
 				title.Index,
 				playlistPortion,
 				hours,

@@ -1,56 +1,74 @@
 ﻿<Window
-    x:Class="VidCoder.View.ChooseName"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:prop="clr-namespace:VidCoder.Properties"
-    xmlns:res="clr-namespace:VidCoder.Resources"
-    Title="{Binding Title}"
-    Width="250"
-    Height="152"
-    Loaded="Window_Loaded"
-    ResizeMode="NoResize"
-    ShowInTaskbar="False"
-    Style="{StaticResource NormalWindow}"
-    TextOptions.TextFormattingMode="Display"
-    WindowStartupLocation="CenterOwner">
-    <Grid>
-        <TextBlock
-            Margin="12 12 0 0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Text="{Binding Subtitle}"
-            TextWrapping="Wrap" />
-        <TextBox
-            Name="presetNameText"
-            Height="23"
-            Margin="12 43 12 0"
-            VerticalAlignment="Top"
-            VerticalContentAlignment="Center"
-            Text="{Binding Name,
-                           UpdateSourceTrigger=PropertyChanged}" />
+	x:Class="VidCoder.View.ChooseName"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:controls="clr-namespace:VidCoder.Controls"
+	xmlns:prop="clr-namespace:VidCoder.Properties"
+	xmlns:res="clr-namespace:VidCoder.Resources"
+	Title="{Binding Title}"
+	Width="250"
+	Height="152"
+	Loaded="Window_Loaded"
+	ResizeMode="NoResize"
+	ShowInTaskbar="False"
+	Style="{StaticResource NormalWindow}"
+	TextOptions.TextFormattingMode="Display"
+	WindowStartupLocation="CenterOwner"
+	WindowStyle="None">
+	<WindowChrome.WindowChrome>
+		<WindowChrome CaptionHeight="30" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
+	</WindowChrome.WindowChrome>
+	<Border Style="{StaticResource WindowMainPanelStyle}">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<controls:ToolWindowTitleBar
+				Title="{Binding Title}"
+				Grid.Row="0"
+				IsActive="{Binding IsActive,
+				                   RelativeSource={RelativeSource AncestorType=Window}}" />
+			<Grid Grid.Row="1">
+				<TextBlock
+					Margin="12 12 0 0"
+					HorizontalAlignment="Left"
+					VerticalAlignment="Top"
+					Text="{Binding Subtitle}"
+					TextWrapping="Wrap" />
+				<TextBox
+					Name="presetNameText"
+					Height="23"
+					Margin="12 43 12 0"
+					VerticalAlignment="Top"
+					VerticalContentAlignment="Center"
+					Text="{Binding Name,
+					               UpdateSourceTrigger=PropertyChanged}" />
 
-        <StackPanel
-            Margin="0 0 12 12"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Orientation="Horizontal">
-            <Button
-                Height="23"
-                MinWidth="75"
-                Margin="0 0 6 0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Command="{Binding Accept}"
-                Content="{x:Static res:CommonRes.Ok}"
-                IsDefault="True" />
-            <Button
-                Height="23"
-                MinWidth="75"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Command="{Binding Cancel}"
-                Content="{x:Static res:CommonRes.Cancel}"
-                IsCancel="True" />
-        </StackPanel>
-    </Grid>
+				<StackPanel
+					Margin="0 0 12 12"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Bottom"
+					Orientation="Horizontal">
+					<Button
+						Height="23"
+						MinWidth="75"
+						Margin="0 0 6 0"
+						HorizontalAlignment="Right"
+						VerticalAlignment="Bottom"
+						Command="{Binding Accept}"
+						Content="{x:Static res:CommonRes.Ok}"
+						IsDefault="True" />
+					<Button
+						Height="23"
+						MinWidth="75"
+						HorizontalAlignment="Right"
+						VerticalAlignment="Bottom"
+						Command="{Binding Cancel}"
+						Content="{x:Static res:CommonRes.Cancel}"
+						IsCancel="True" />
+				</StackPanel>
+			</Grid>
+		</Grid>
+	</Border>
 </Window>

@@ -3,14 +3,19 @@
 	public enum EncodeCompleteReason
 	{
 		/// <summary>
-		/// User hit stop button
+		/// User hit the general stop button
 		/// </summary>
-		Manual,
+		ManualStopAll,
+
+		/// <summary>
+		/// User stopped one of multiple encoding items
+		/// </summary>
+		ManualStopSingle,
 
 		/// <summary>
 		/// User exited app
 		/// </summary>
-		AppExit,
+		AppExitStop,
 
 		/// <summary>
 		/// The encode finished (successfully or unsuccessfully)

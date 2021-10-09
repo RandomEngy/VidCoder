@@ -36,7 +36,7 @@ namespace VidCoderWorker
 				}
 				finally
 				{
-					this.CleanUpAndSignalCompletion();
+					this.Instance.Dispose();
 				}
 			};
 

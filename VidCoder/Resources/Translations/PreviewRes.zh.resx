@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="PlaySourceButton" xml:space="preserve">
     <value>播放源文件</value>
@@ -180,7 +180,7 @@
   <data name="BottomMargin" xml:space="preserve">
     <value>底边距</value>
   </data>
-	<data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
+  <data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
     <value>找不到源文件。</value>
   </data>
   <data name="CloseVideoButton" xml:space="preserve">
@@ -201,8 +201,5 @@
   </data>
   <data name="VideoErrorTitle" xml:space="preserve">
     <value>视频错误</value>
-  </data>
-  <data name="PlaySourceDisabledAppxToolTip" xml:space="preserve">
-    <value>Windows 商店版本因不允许启动其他进程而无法播放 DVD 或 Blu-ray 源文件。</value>
   </data>
 </root>

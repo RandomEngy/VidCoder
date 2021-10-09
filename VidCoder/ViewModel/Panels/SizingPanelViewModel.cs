@@ -5,7 +5,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows.Input;
 using System.Windows.Media;
-using ColorPickerWPF;
+//using ColorPickerWPF;
 using Microsoft.AnyContainer;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -177,10 +177,10 @@ namespace VidCoder.ViewModel
 			}).ToProperty(this, x => x.PadColorEnabled, out this.padColorEnabled);
 
 			// PadBrush
-			this.WhenAnyValue(x => x.Profile.PadColor)
+			this.WhenAnyValue(x => x.PadColor)
 				.Select(padColor =>
 				{
-					return new SolidColorBrush(ColorUtilities.ToWindowsColor(this.Profile.PadColor));
+					return new SolidColorBrush(ColorUtilities.ToWindowsColor(this.PadColor));
 				}).ToProperty(this, x => x.PadBrush, out this.padBrush);
 
 			// CroppingUIEnabled
@@ -260,20 +260,7 @@ namespace VidCoder.ViewModel
 					{
 						this.AutomaticChange = true;
 
-						if (x.selectedTitle == null)
-						{
-							this.CropTop = 0;
-							this.CropBottom = 0;
-							this.CropLeft = 0;
-							this.CropRight = 0;
-						}
-						else
-						{
-							this.CropTop = x.selectedTitle.Crop[0];
-							this.CropBottom = x.selectedTitle.Crop[1];
-							this.CropLeft = x.selectedTitle.Crop[2];
-							this.CropRight = x.selectedTitle.Crop[3];
-						}
+						this.RefreshCropping();
 					}
 
 					this.AutomaticChange = oldAutoValue;
@@ -428,7 +415,6 @@ namespace VidCoder.ViewModel
 			// These actions fire when the user changes a property.
 			this.RegisterProfileProperty(nameof(this.Profile.Width), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.Profile.Height), this.RefreshOutputSize);
-			this.RegisterProfileProperty(nameof(this.Profile.Modulus), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.Profile.PixelAspectX), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.Profile.PixelAspectY), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.Profile.CroppingType), () =>
@@ -471,9 +457,18 @@ namespace VidCoder.ViewModel
 			this.RegisterProfileProperty(nameof(this.CropBottom), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.CropLeft), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.CropRight), this.RefreshOutputSize);
-			this.RegisterProfileProperty(nameof(this.Rotation), this.RefreshOutputSize);
-			this.RegisterProfileProperty(nameof(this.FlipHorizontal), () => this.previewUpdateService.RefreshPreview());
-			this.RegisterProfileProperty(nameof(this.FlipVertical), () => this.previewUpdateService.RefreshPreview());
+			this.RegisterProfileProperty(nameof(this.Rotation), () => {
+				this.RefreshOutputSize();
+				this.RefreshCropping();
+			});
+			this.RegisterProfileProperty(nameof(this.FlipHorizontal), () => {
+				this.previewUpdateService.RefreshPreview();
+				this.RefreshCropping();
+			});
+			this.RegisterProfileProperty(nameof(this.FlipVertical), () => {
+				this.previewUpdateService.RefreshPreview();
+				this.RefreshCropping();
+			});
 			this.RegisterProfileProperty(nameof(this.SizingMode), () =>
 			{
 				if (this.SizingMode == VCSizingMode.Manual)
@@ -599,10 +594,10 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.padRight, value); }
 		}
 
-		public Color PadColor
+		public string PadColor
 		{
-			get { return ColorUtilities.ToWindowsColor(this.Profile.PadColor); }
-			set { this.UpdateProfileProperty(nameof(this.Profile.PadColor), ColorUtilities.ToHexString(value)); }
+			get { return this.Profile.PadColor; }
+			set { this.UpdateProfileProperty(nameof(this.Profile.PadColor), value); }
 		}
 
 		private ObservableAsPropertyHelper<Brush> padBrush;
@@ -610,32 +605,6 @@ namespace VidCoder.ViewModel
 
 		private ObservableAsPropertyHelper<bool> padColorEnabled;
 		public bool PadColorEnabled => this.padColorEnabled.Value;
-
-		private ReactiveCommand<Unit, Unit> pickPadColor;
-		public ICommand PickPadColor
-		{
-			get
-			{
-				return this.pickPadColor ?? (this.pickPadColor = ReactiveCommand.Create(() =>
-				{
-					if (ColorPickerWindow.ShowDialog(out Color color))
-					{
-						this.UpdateProfileProperty(
-							() => this.Profile,
-							nameof(this.Profile.PadColor),
-							nameof(this.PadColor),
-							ColorUtilities.ToHexString(color),
-							raisePropertyChanged: true);
-					}
-				}));
-			}
-		}
-
-		public int Modulus
-		{
-			get { return this.Profile.Modulus; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.Modulus), value); }
-		}
 
 		public int PixelAspectX
 		{
@@ -722,6 +691,37 @@ namespace VidCoder.ViewModel
 		{
 			this.outputSizeService.Refresh();
 			this.previewUpdateService.RefreshPreview();
+		}
+
+		private void RefreshCropping()
+		{
+			if (this.CroppingType != VCCroppingType.Automatic)
+			{
+				return;
+			}
+
+			bool oldAutoValue = this.AutomaticChange;
+			this.AutomaticChange = true;
+
+			SourceTitleViewModel sourceTitle = this.MainViewModel.SelectedTitle;
+			if (sourceTitle == null)
+			{
+				this.CropTop = 0;
+				this.CropBottom = 0;
+				this.CropLeft = 0;
+				this.CropRight = 0;
+			}
+			else
+			{
+				VCCropping autoCropping = JsonEncodeFactory.GetAutomaticCropping(this.Rotation, this.FlipHorizontal, this.FlipVertical, this.MainViewModel.SelectedTitle.Title);
+
+				this.CropTop = autoCropping.Top;
+				this.CropBottom = autoCropping.Bottom;
+				this.CropLeft = autoCropping.Left;
+				this.CropRight = autoCropping.Right;
+			}
+
+			this.AutomaticChange = oldAutoValue;
 		}
 
 		private void EnsureResolutionPopulatedIfRequired()

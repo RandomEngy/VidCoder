@@ -62,5 +62,10 @@ namespace VidCoder.Model
 		public abstract string Id { get; }
 
 		public abstract string Display { get; }
+
+		public override string ToString()
+		{
+			return this.Display;
+		}
 	}
 }

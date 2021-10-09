@@ -6,10 +6,19 @@
 string fileName = this.Host.ResolvePath("Config.txt");
 var settings = new List<ConfigDeclaration>();
 var lines = File.ReadLines(fileName);
-foreach (string line in lines)
+foreach (string rawLine in lines)
 {
-	if (!string.IsNullOrWhiteSpace(line))
+	if (!string.IsNullOrWhiteSpace(rawLine) && rawLine[0] != '#')
 	{
+		string line = rawLine;
+
+		bool obsolete = false;
+		if (rawLine[0] == '!')
+		{
+			line = rawLine.Substring(1);
+			obsolete = true;
+		}
+
 		int firstPipeIndex = line.IndexOf('|');
 		string name = line.Substring(0, firstPipeIndex);
 
@@ -18,7 +27,7 @@ foreach (string line in lines)
 
 		string defaultValue = line.Substring(secondPipeIndex + 1);
 
-		settings.Add(new ConfigDeclaration { Name = name, ValueType = valueType, Default = defaultValue });
+		settings.Add(new ConfigDeclaration { Name = name, ValueType = valueType, Default = defaultValue, Obsolete = obsolete });
 	}
 }
 #>
@@ -97,6 +106,11 @@ foreach (var setting in settings)
 <#
 foreach (var setting in settings)
 {
+	if (setting.Obsolete) {
+#>
+		[Obsolete]
+<#
+	}
 #>
 		public static <#= setting.ValueType #> <#= setting.Name #>
 		{
@@ -111,6 +125,11 @@ foreach (var setting in settings)
 <#
 foreach (var setting in settings)
 {
+	if (setting.Obsolete) {
+#>
+			[Obsolete]
+<#
+	}
 #>
 			public static IObservable<<#= setting.ValueType #>> <#= setting.Name #> => GetObservable<<#= setting.ValueType #>>("<#= setting.Name #>");
 <#
@@ -139,6 +158,7 @@ public class ConfigDeclaration
 	public string Name { get; set; }
 	public string ValueType { get; set; }
 	public string Default { get; set; }
+	public bool Obsolete { get; set; }
 }
 
 #>

@@ -289,4 +289,60 @@
   <data name="PickerTimeRangeMode_Time" xml:space="preserve">
     <value>時間範囲</value>
   </data>
+  <data name="DeleteSourceFilesMode_DeleteWithConfirmation" xml:space="preserve">
+    <value>ファイルを削除(確認あり)</value>
+  </data>
+  <data name="DeleteSourceFilesMode_Recycle" xml:space="preserve">
+    <value>ごみ箱に移動</value>
+  </data>
+  <data name="WhenFileExists_AutoRename" xml:space="preserve">
+    <value>自動的に名前を変更</value>
+  </data>
+  <data name="WhenFileExists_Overwrite" xml:space="preserve">
+    <value>上書き</value>
+  </data>
+  <data name="WhenFileExists_Prompt" xml:space="preserve">
+    <value>確認する</value>
+  </data>
+  <data name="DenoiseTune_medium" xml:space="preserve">
+    <value>中</value>
+  </data>
+  <data name="DenoiseTune_none" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="DenoiseTune_small" xml:space="preserve">
+    <value>小</value>
+  </data>
+  <data name="DenoiseTune_tiny" xml:space="preserve">
+    <value>極小</value>
+  </data>
+  <data name="DenoiseTune_verywide" xml:space="preserve">
+    <value>最大</value>
+  </data>
+  <data name="DenoiseTune_wide" xml:space="preserve">
+    <value>大</value>
+  </data>
+  <data name="Denoise_ChromaSmooth" xml:space="preserve">
+    <value>クロマ平滑</value>
+  </data>
+  <data name="DragDropOrder_Alphabetical" xml:space="preserve">
+    <value>アルファベット順</value>
+    <comment>Label for the option to order dragged files alphabetically</comment>
+  </data>
+  <data name="DragDropOrder_Selected" xml:space="preserve">
+    <value>選択済み</value>
+    <comment>Label for the option to order dragged files as they had been selected in File explorer</comment>
+  </data>
+  <data name="SubtitleBurnInSelection_First" xml:space="preserve">
+    <value>最初</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrack" xml:space="preserve">
+    <value>強制字幕</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrackElseFirst" xml:space="preserve">
+    <value>強制字幕、それ以外の場合は最初</value>
+  </data>
+  <data name="SubtitleBurnInSelection_None" xml:space="preserve">
+    <value>なし</value>
+  </data>
 </root>

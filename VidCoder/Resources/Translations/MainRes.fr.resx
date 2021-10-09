@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
     <value>Titre:</value>
@@ -181,12 +181,6 @@
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
     <value>A propos de VidCoder...</value>
   </data>
-  <data name="ChooseVideoSourceLabel" xml:space="preserve">
-    <value>Choisir une source vidéo :</value>
-  </data>
-  <data name="SourceLabel" xml:space="preserve">
-    <value>Source:</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>Récents</value>
   </data>
@@ -195,9 +189,6 @@
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>Une erreur s'est produite pendant l'analyse.</value>
-  </data>
-  <data name="AddTrackButton" xml:space="preserve">
-    <value>Ajouter une piste</value>
   </data>
   <data name="ChapterMarkersLabel" xml:space="preserve">
     <value>Marqueurs de chapitre :</value>
@@ -210,12 +201,6 @@
   </data>
   <data name="DestinationToolTip" xml:space="preserve">
     <value>Cliquer pour modifier la destination de l'encodage.</value>
-  </data>
-  <data name="SelectOutputPathButton" xml:space="preserve">
-    <value>Sélectionnez le chemin de sortie...</value>
-  </data>
-  <data name="EncodingLabel" xml:space="preserve">
-    <value>Encodage :</value>
   </data>
   <data name="Stop" xml:space="preserve">
     <value>Stop</value>
@@ -247,14 +232,8 @@
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
     <value>Encodage en cours</value>
   </data>
-  <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Recherche Audio étrangere</value>
-  </data>
   <data name="NoneParen" xml:space="preserve">
     <value>(Aucune)</value>
-  </data>
-  <data name="TracksSummaryMultiple" xml:space="preserve">
-    <value>{0} pistes</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
     <value>Voulez-vous enregistrer les modifications apportées à votre pré-réglage en cours ?</value>
@@ -270,9 +249,6 @@
   </data>
   <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
     <value>Restauré à partir du terminé</value>
-  </data>
-  <data name="PresetLabel" xml:space="preserve">
-    <value>Pré-réglage:</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
     <value>Destination</value>
@@ -327,9 +303,6 @@
 
 {0}</value>
   </data>
-  <data name="DirectoryCreateErrorTitle" xml:space="preserve">
-    <value>Erreur de création de répertoire</value>
-  </data>
   <data name="EncodeCompleted" xml:space="preserve">
     <value>Encodage terminé.</value>
   </data>
@@ -338,12 +311,6 @@
   </data>
   <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
     <value>VidCoder a fini d'encoder les travaux de la file d'attente.</value>
-  </data>
-  <data name="OutputFolderRequiredMessage" xml:space="preserve">
-    <value>Impossible d'ajouter des travaux d'encodage sans un répertoire de sortie par défaut. Appuyez sur OK pour en choisir un.</value>
-  </data>
-  <data name="OutputFolderRequiredTitle" xml:space="preserve">
-    <value>Répertoire de sortie par défaut requis</value>
   </data>
   <data name="OutputPathNotValidMessage" xml:space="preserve">
     <value>Le chemin de sortie n'est pas valide.</value>
@@ -421,9 +388,6 @@
   <data name="RemoveConfirmTitle" xml:space="preserve">
     <value>Supprimer</value>
   </data>
-  <data name="UserConfigCorrupted" xml:space="preserve">
-    <value>La configuration a été altérée et ne peut pas être chargée. Certains de vos paramètres peuvent avoir été réinitialisées.</value>
-  </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
     <value>Choisissez le répertoire de sortie pour les fichiers vidéo encodés.</value>
   </data>
@@ -441,9 +405,6 @@
   </data>
   <data name="CloseVideoSourceToolTip" xml:space="preserve">
     <value>Fermer la source vidéo</value>
-  </data>
-  <data name="CloseVideoSourceMenuItem" xml:space="preserve">
-    <value>Fermer la Source Vidéo</value>
   </data>
   <data name="UpdatesMenuItem" xml:space="preserve">
     <value>Mises à jour...</value>
@@ -477,9 +438,6 @@
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>Ignorer les modifications ?</value>
-  </data>
-  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
-    <value>Supprimer la piste audio</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
     <value>Supprimer de la file d'attente</value>
@@ -540,14 +498,31 @@
   <data name="CouldNotLoadPickerMessage" xml:space="preserve">
     <value>Impossible de charger le pré-réglage : </value>
   </data>
-  <data name="PickerNameTemplate" xml:space="preserve">
-    <value>Sélecteur {0}</value>
-    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
-  </data>
   <data name="SimilarTitlesToolTip" xml:space="preserve">
     <value>{0} autres titres ont une durée proche de celui-ci.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

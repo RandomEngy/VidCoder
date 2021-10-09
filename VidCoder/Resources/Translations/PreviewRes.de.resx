@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="PlaySourceButton" xml:space="preserve">
     <value>Quelle abspielen</value>
@@ -180,7 +180,7 @@
   <data name="BottomMargin" xml:space="preserve">
     <value>Unterer Rand</value>
   </data>
-	<data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
+  <data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
     <value>Quelldatei konnte nicht gefunden werden.</value>
   </data>
   <data name="CloseVideoButton" xml:space="preserve">
@@ -201,8 +201,5 @@
   </data>
   <data name="VideoErrorTitle" xml:space="preserve">
     <value>Videofehler</value>
-  </data>
-  <data name="PlaySourceDisabledAppxToolTip" xml:space="preserve">
-    <value>Die Windows-Apps-Version kann keine DVD oder Blu-ray-Quellen wiedergeben, da ihr die Erlaubnis fehlt, um Drittprozesse starten zu können.</value>
   </data>
 </root>

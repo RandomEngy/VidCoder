@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HandBrake.Interop.Interop;
-using HandBrake.Interop.Interop.Model;
+using HandBrake.Interop.Interop.Interfaces.Model;
 using ReactiveUI;
 
 namespace VidCoder.ViewModel.DataModels
@@ -50,14 +50,6 @@ namespace VidCoder.ViewModel.DataModels
 				{
 					this.pickerWindowViewModel.RemoveSubtitleLanguage(this);
 				}));
-			}
-		}
-
-		public IList<Language> Languages
-		{
-			get
-			{
-				return HandBrakeLanguagesHelper.AllLanguages;
 			}
 		}
 	}

@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SubtitlesWindowTitle" xml:space="preserve">
-    <value>Azpidatziak</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>Iturburutiko azpidatziak:</value>
   </data>
@@ -156,9 +153,7 @@
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Beste azpidatzi bideak erretako azpidatzietan gainjarriko dira.</value>
   </data>
-  <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Beste Hizkuntzako Audio Bilaketa</value>
-  </data>
+  
   <data name="SubtitleFilePickerText" xml:space="preserve">
     <value>Gehitu azpidatzi agiria</value>
   </data>

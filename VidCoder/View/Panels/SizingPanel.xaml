@@ -21,6 +21,61 @@
 	</UserControl.Resources>
 	<ScrollViewer VerticalScrollBarVisibility="Auto">
 		<WrapPanel>
+			<!--  Rotation section  -->
+			<StackPanel
+				MinWidth="180"
+				Orientation="Vertical"
+				Style="{StaticResource SizingSectionStyle}">
+				<TextBlock
+					HorizontalAlignment="Left"
+					VerticalAlignment="Top"
+					Style="{StaticResource SectionHeader}"
+					Text="{x:Static res:EncodingRes.RotationLabel}" />
+				<ComboBox
+					MinWidth="140"
+					Margin="3"
+					HorizontalAlignment="Left"
+					VerticalAlignment="Center"
+					ItemsSource="{Binding RotationChoices}"
+					SelectedValue="{Binding Rotation}"
+					SelectedValuePath="Rotation"
+					ToolTipService.ShowDuration="20000">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<StackPanel d:DataContext="{d:DesignInstance dataModels:RotationViewModel}" Orientation="Horizontal">
+								<Image
+									Width="20"
+									Height="20"
+									Margin="0 0 6 0"
+									Source="{Binding Image}"
+									Visibility="{Binding ShowImage,
+									                     Converter={StaticResource VisibilityConverter}}" />
+								<TextBlock VerticalAlignment="Center" Text="{Binding Display}" />
+							</StackPanel>
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+					<ComboBox.ToolTip>
+						<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.RotationToolTip}" />
+					</ComboBox.ToolTip>
+				</ComboBox>
+				<CheckBox
+					Margin="3"
+					Content="{x:Static res:EncodingRes.FlipHorizontalCheckBox}"
+					IsChecked="{Binding FlipHorizontal}">
+					<CheckBox.ToolTip>
+						<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.FlipHorizontalToolTip}" />
+					</CheckBox.ToolTip>
+				</CheckBox>
+				<CheckBox
+					Margin="3"
+					Content="{x:Static res:EncodingRes.FlipVerticalCheckBox}"
+					IsChecked="{Binding FlipVertical}">
+					<CheckBox.ToolTip>
+						<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.FlipVerticalToolTip}" />
+					</CheckBox.ToolTip>
+				</CheckBox>
+			</StackPanel>
+
 			<!--  Cropping section  -->
 			<Grid Style="{StaticResource SizingSectionStyle}">
 				<TextBlock
@@ -269,63 +324,6 @@
 				</StackPanel>
 			</StackPanel>
 
-			<!--  Rotation section  -->
-			<StackPanel
-				MinWidth="180"
-				Orientation="Vertical"
-				Style="{StaticResource SizingSectionStyle}">
-				<TextBlock
-					HorizontalAlignment="Left"
-					VerticalAlignment="Top"
-					Style="{StaticResource SectionHeader}"
-					Text="{x:Static res:EncodingRes.RotationLabel}" />
-				<ComboBox
-					MinWidth="140"
-					Margin="3"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Center"
-					ItemsSource="{Binding RotationChoices}"
-					SelectedValue="{Binding Rotation}"
-					SelectedValuePath="Rotation"
-					ToolTipService.ShowDuration="20000">
-					<ComboBox.ItemTemplate>
-						<DataTemplate>
-							<StackPanel d:DataContext="{d:DesignInstance dataModels:RotationViewModel}" Orientation="Horizontal">
-								<Image
-									Width="20"
-									Height="20"
-									Margin="0 0 6 0"
-									Source="{Binding Image}"
-									Visibility="{Binding ShowImage,
-									                     Converter={StaticResource VisibilityConverter}}" />
-								<TextBlock VerticalAlignment="Center" Text="{Binding Display}" />
-							</StackPanel>
-						</DataTemplate>
-					</ComboBox.ItemTemplate>
-					<ComboBox.ToolTip>
-						<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.RotationToolTip}" />
-					</ComboBox.ToolTip>
-				</ComboBox>
-				<CheckBox
-					Margin="3"
-					Content="{x:Static res:EncodingRes.FlipHorizontalCheckBox}"
-					IsChecked="{Binding FlipHorizontal}"
-					Style="{StaticResource LongToolTipHolder}">
-					<CheckBox.ToolTip>
-						<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.FlipHorizontalToolTip}" />
-					</CheckBox.ToolTip>
-				</CheckBox>
-				<CheckBox
-					Margin="3"
-					Content="{x:Static res:EncodingRes.FlipVerticalCheckBox}"
-					IsChecked="{Binding FlipVertical}"
-					Style="{StaticResource LongToolTipHolder}">
-					<CheckBox.ToolTip>
-						<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.FlipVerticalToolTip}" />
-					</CheckBox.ToolTip>
-				</CheckBox>
-			</StackPanel>
-
 			<!--  Padding section  -->
 			<StackPanel Style="{StaticResource SizingSectionStyle}">
 				<TextBlock
@@ -420,19 +418,24 @@
 					Visibility="{Binding PadColorEnabled,
 					                     Converter={StaticResource VisibilityConverter}}">
 					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.PadColorLabel}" />
-					<Grid
-						Width="20"
-						Height="20"
+					<Border
 						Margin="8 0 0 0"
-						VerticalAlignment="Center"
-						Background="{Binding PadBrush}"
-						SnapsToDevicePixels="True" />
+						BorderBrush="#888888"
+						BorderThickness="1">
+						<Grid
+							Width="20"
+							Height="20"
+							VerticalAlignment="Center"
+							Background="{Binding PadBrush}"
+							SnapsToDevicePixels="True" />
+					</Border>
 
-					<Button
-						Margin="8 0 0 0"
-						Padding="6 2"
-						Command="{Binding PickPadColor}"
-						Content="{x:Static res:EncodingRes.PickColorButton}" />
+					<TextBox
+						Width="60"
+						VerticalContentAlignment="Center"
+						Text="{Binding PadColor,
+						               UpdateSourceTrigger=PropertyChanged}"
+						ToolTip="{x:Static res:EncodingRes.PadColorTextToolTip}" />
 				</StackPanel>
 			</StackPanel>
 

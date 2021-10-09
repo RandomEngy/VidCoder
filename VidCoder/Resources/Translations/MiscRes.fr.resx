@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddButton" xml:space="preserve">
     <value>Ajouter</value>
@@ -153,9 +153,7 @@
   <data name="FileConflictWarning" xml:space="preserve">
     <value>Il existe déjà un fichier à {0}. Voulez-vous remplacer le fichier, trouver automatiquement un nouveau répertoire de sortie pour le travail d'encodage ou annuler l'opération ?</value>
   </data>
-  <data name="QueueFileConflictWarning" xml:space="preserve">
-    <value>Un travail de file d'attente a déjà un chemin de sortie à {0}. Voulez-vous remplacer le fichier, trouver automatiquement un nouveau répertoire de sortie pour le travail d'encodage ou annuler l'opération ?</value>
-  </data>
+  
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>Colonnes de la file d'attente</value>
   </data>
@@ -248,5 +246,7 @@
   <data name="ChooseNamePicker" xml:space="preserve">
     <value>Choisir un nom pour le préréglage :</value>
   </data>
+  
+  
   
 </root>

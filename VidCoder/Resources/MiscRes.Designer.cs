@@ -19,7 +19,7 @@ namespace VidCoder.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class MiscRes {
@@ -183,6 +183,15 @@ namespace VidCoder.Resources {
         public static string DisableUpdatesButton {
             get {
                 return ResourceManager.GetString("DisableUpdatesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download installer.
+        /// </summary>
+        public static string DownloadInstallerButton {
+            get {
+                return ResourceManager.GetString("DownloadInstallerButton", resourceCulture);
             }
         }
         
@@ -394,7 +403,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A queue job already has an output path at {0}. Do you want to overwrite the file, automatically find a new output path for the encode job or cancel the operation?.
+        ///   Looks up a localized string similar to A queue job already has an output path at {0}. Do you want to replace the queued job, automatically find a new output path for the encode job or cancel the operation?.
         /// </summary>
         public static string QueueFileConflictWarning {
             get {
@@ -408,6 +417,15 @@ namespace VidCoder.Resources {
         public static string RefreshButton {
             get {
                 return ResourceManager.GetString("RefreshButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace job.
+        /// </summary>
+        public static string ReplaceJobButton {
+            get {
+                return ResourceManager.GetString("ReplaceJobButton", resourceCulture);
             }
         }
         

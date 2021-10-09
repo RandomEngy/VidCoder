@@ -208,32 +208,6 @@ namespace VidCoder
 			return CreateUniqueFileName(Path.GetFileName(filePath), Path.GetDirectoryName(filePath), excludedPaths);
 		}
 
-		/// <summary>
-		/// Gets the real location for the given file, substituting the local app data appropriately if running in desktop bridge
-		/// </summary>
-		/// <param name="filePath">The file location according to the program.</param>
-		/// <returns>The real file location.</returns>
-		public static string GetRealFilePath(string filePath)
-		{
-			if (Utilities.IsRunningAsAppx)
-			{
-				string roamingFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
-				if (filePath.StartsWith(roamingFolder, StringComparison.OrdinalIgnoreCase))
-				{
-					string relativePath = filePath.Substring(roamingFolder.Length);
-					if (relativePath.StartsWith("\\", StringComparison.Ordinal))
-					{
-						relativePath = relativePath.Substring(1);
-					}
-
-					return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Packages", Utilities.PackageFamilyName, @"LocalCache\Roaming", relativePath);
-				}
-			}
-
-			return filePath;
-		}
-
 		private static bool IsExcluded(string candidate, HashSet<string> exclusionList)
 		{
 			return exclusionList.Contains(candidate);

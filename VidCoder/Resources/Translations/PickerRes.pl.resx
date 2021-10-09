@@ -112,27 +112,15 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AudioSelection" xml:space="preserve">
-    <value>Wybór dźwięku</value>
-  </data>
   
-  
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Wyszukiwanie zagranicznych ścieżek dźwiękowych</value>
-  </data>
-  <data name="IncludeAllTracksRadioButton" xml:space="preserve">
-    <value>Wszystkie ścieżki</value>
-  </data>
   <data name="LanguagesRadioButton" xml:space="preserve">
     <value>Język(i)</value>
   </data>
-  
-  
   
   
   
@@ -181,25 +169,42 @@
   
   
   
-  <data name="AllSubtitlesToolTip" xml:space="preserve">
-    <value>Załącz wszystkie napisy.</value>
-  </data>
-  <data name="SubtitleNoneToolTip" xml:space="preserve">
-    <value>Żadne napisy nie są zawarte.</value>
-  </data>
-  <data name="AudioFirstToolTip" xml:space="preserve">
-    <value>Dołącz tylko pierwszą ścieżkę dźwiękową.</value>
-  </data>
-  <data name="AudioAllToolTip" xml:space="preserve">
-    <value>Dołącz wszystkie ścieżki dźwiękowe.</value>
-  </data>
-  <data name="SubtitleFirstToolTip" xml:space="preserve">
-    <value>Dołącz tylko pierwszą ścieżkę napisów.</value>
-  </data>
   
   <data name="RemoveLanguageToolTip" xml:space="preserve">
     <value>Usuń ten język.</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

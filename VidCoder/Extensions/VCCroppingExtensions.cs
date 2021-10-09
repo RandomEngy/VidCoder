@@ -1,4 +1,4 @@
-﻿using HandBrake.Interop.Interop.Model;
+﻿using HandBrake.Interop.Interop.Interfaces.Model.Picture;
 using VidCoderCommon.Model;
 
 namespace VidCoder.Extensions

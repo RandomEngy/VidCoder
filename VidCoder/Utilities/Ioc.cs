@@ -6,6 +6,7 @@ using VidCoder.Services.Notifications;
 using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
 using VidCoderCommon.Services;
+using Windows.Foundation.Metadata;
 
 namespace VidCoder
 {
@@ -17,13 +18,13 @@ namespace VidCoder
 			container.RegisterSingleton<IDriveService, DriveService>();
 			container.RegisterSingleton<IAppThemeService, AppThemeService>();
 
-			if (Utilities.IsRunningAsAppx)
+			if (Utilities.UwpApisAvailable)
 			{
 				container.RegisterSingleton<IToastNotificationService, ToastNotificationService>();
 			}
 			else
 			{
-				container.RegisterSingleton<IToastNotificationService, StubToastNotificationService>();
+				container.RegisterSingleton<IToastNotificationService, StubNotificationService>();
 			}
 
 			container.RegisterSingleton<IUpdater, Updater>();
@@ -32,7 +33,7 @@ namespace VidCoder
 			container.RegisterSingleton<IPresetImportExport, PresetImportExport>();
 			container.RegisterSingleton<IQueueImportExport, QueueImportExport>();
 			container.RegisterSingleton<IProcesses, Processes>();
-			container.RegisterSingleton<IProcessAutoPause, ProcessAutoPause>();
+			container.RegisterSingleton<IAutoPause, AutoPause>();
 			container.RegisterSingleton<ISystemOperations, SystemOperations>();
 			container.RegisterSingleton<IWindowManager, WindowManager>();
 			container.RegisterSingleton<IAppLogger>(() =>
@@ -68,6 +69,8 @@ namespace VidCoder
 			container.RegisterSingleton<LogCoordinator>();
 			container.RegisterSingleton<AllAppLogger>();
 			container.RegisterSingleton<PastebinService>();
+			container.RegisterSingleton<ActivityService>();
+			container.RegisterSingleton<HardwareResourceService>();
 
 			container.RegisterSingleton<EncodingWindowViewModel>();
 
@@ -77,6 +80,7 @@ namespace VidCoder
 			container.RegisterTransient<LogWindowViewModel>();
 			container.RegisterTransient<QueueTitlesWindowViewModel>();
 			container.RegisterTransient<EncodeDetailsWindowViewModel>();
+			container.RegisterTransient<CompareWindowViewModel>();
 
 			StaticResolver.SetResolver(container);
 			Container = container;

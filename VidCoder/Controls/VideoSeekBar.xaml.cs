@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VidCoder.Extensions;
 
 namespace VidCoder.Controls
 {
@@ -20,6 +21,12 @@ namespace VidCoder.Controls
 		public VideoSeekBar()
 		{
 			this.InitializeComponent();
+		}
+
+		public enum SeekBarColorChoice
+		{
+			Green,
+			Blue
 		}
 
 		public static readonly DependencyProperty VideoDurationProperty = DependencyProperty.Register(
@@ -49,6 +56,33 @@ namespace VidCoder.Controls
 			((VideoSeekBar)dependencyObject).RefreshBar();
 		}
 
+		public static readonly DependencyProperty SeekBarColorProperty = DependencyProperty.Register(
+			"SeekBarColor",
+			typeof(SeekBarColorChoice),
+			typeof(VideoSeekBar),
+			new UIPropertyMetadata(SeekBarColorChoice.Green, OnSeekBarColorChanged));
+		public SeekBarColorChoice SeekBarColor
+		{
+			get => (SeekBarColorChoice)this.GetValue(SeekBarColorProperty);
+			set => this.SetValue(SeekBarColorProperty, value);
+		}
+
+		private static void OnSeekBarColorChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+		{
+			((VideoSeekBar)dependencyObject).UpdateSeekBarColor((SeekBarColorChoice)eventArgs.NewValue);
+		}
+
+		private void UpdateSeekBarColor(SeekBarColorChoice seekBarColor)
+		{
+			var gradientStopCollection = new GradientStopCollection();
+			Color startColor = seekBarColor == SeekBarColorChoice.Green ? Color.FromRgb(0x3D, 0xAD, 0x35) : Color.FromRgb(0x25, 0x84, 0xC4);
+			Color endColor = seekBarColor == SeekBarColorChoice.Green ? Color.FromRgb(0x28, 0x72, 0x23) : Color.FromRgb(0x1A, 0x5D, 0x89);
+
+			gradientStopCollection.Add(new GradientStop(startColor, 0.0));
+			gradientStopCollection.Add(new GradientStop(endColor, 1.0));
+			this.barRectangle.Fill = new LinearGradientBrush(gradientStopCollection, new Point(0, 0), new Point(0, 1));
+		}
+
 		private void RefreshBar()
 		{
 			double controlWidth = this.ActualWidth;
@@ -66,6 +100,29 @@ namespace VidCoder.Controls
 			}
 
 			this.barRectangle.Width = ((double) this.Position.Ticks / this.VideoDuration.Ticks) * controlWidth;
+
+			if (this.EnableTimeText)
+			{
+				this.timeText.Text = this.Position.FormatShort() + " / " + this.VideoDuration.FormatShort();
+			}
+		}
+
+		private bool enableTimeText;
+		public bool EnableTimeText
+		{
+			get => this.enableTimeText;
+			set
+			{
+				this.enableTimeText = value;
+				if (value)
+				{
+					this.timeText.Visibility = Visibility.Visible;
+				}
+				else
+				{
+					this.timeText.Visibility = Visibility.Collapsed;
+				}
+			}
 		}
 
 		private void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -77,11 +134,13 @@ namespace VidCoder.Controls
 		{
 			this.HandleMouseEvent(e);
 			this.CaptureMouse();
+			e.Handled = true;
 		}
 
 		private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
 			this.ReleaseMouseCapture();
+			e.Handled = true;
 		}
 
 		private void OnMouseMove(object sender, MouseEventArgs e)
@@ -113,7 +172,7 @@ namespace VidCoder.Controls
 				fractionOfBar = 1;
 			}
 
-			int newPositionTicks = (int)(this.VideoDuration.Ticks * fractionOfBar);
+			long newPositionTicks = (long)(this.VideoDuration.Ticks * fractionOfBar);
 			TimeSpan newPosition = TimeSpan.FromTicks(newPositionTicks);
 
 			this.Position = newPosition;

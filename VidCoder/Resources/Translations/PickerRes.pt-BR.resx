@@ -112,25 +112,13 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AudioSelection" xml:space="preserve">
-    <value>Seleção de áudio</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Gravar em</value>
-  </data>
   <data name="DefaultCheckBox" xml:space="preserve">
     <value>Padrão</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Pesquisa de Áudio Externo</value>
-  </data>
-  <data name="IncludeAllTracksRadioButton" xml:space="preserve">
-    <value>Todas as faixas</value>
   </data>
   <data name="LanguagesRadioButton" xml:space="preserve">
     <value>Idioma(s)</value>
@@ -139,14 +127,8 @@
     <value>Somente se outro idioma de áudio</value>
     <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
   </data>
-  <data name="SubtitleSelection" xml:space="preserve">
-    <value>Seleção de legendas</value>
-  </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>Seletor: {0}</value>
-  </data>
-  <data name="TitleSelection" xml:space="preserve">
-    <value>Seleção de título</value>
   </data>
   <data name="PickerButtonFormat" xml:space="preserve">
     <value>Seletor: {0}</value>
@@ -222,21 +204,6 @@
     <value>Marcar primeiro como padrão</value>
     <comment>Label for checkbox to mark the first subtitle as default.</comment>
   </data>
-  <data name="AllSubtitlesToolTip" xml:space="preserve">
-    <value>Inclua todas as legendas.</value>
-  </data>
-  <data name="SubtitleNoneToolTip" xml:space="preserve">
-    <value>Nenhuma legenda é incluída.</value>
-  </data>
-  <data name="AudioFirstToolTip" xml:space="preserve">
-    <value>Inclui somente a primeira faixa de áudio.</value>
-  </data>
-  <data name="AudioAllToolTip" xml:space="preserve">
-    <value>Inclui todas as faixas de áudio.</value>
-  </data>
-  <data name="SubtitleFirstToolTip" xml:space="preserve">
-    <value>Inclui apenas a primeira legenda.</value>
-  </data>
   <data name="PresetLabel" xml:space="preserve">
     <value>Usar a predefinição:</value>
   </data>
@@ -250,15 +217,8 @@
     <value>Somente forçada</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
-  <data name="AudioDefaultToolTip" xml:space="preserve">
-    <value>Escolhe a última faixa de áudio selecionada se for encontrada uma correspondência, caso contrário escolhe a primeira.</value>
-  </data>
   <data name="LastSelectedRadioButton" xml:space="preserve">
     <value>Última selecionada</value>
-  </data>
-  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
-    <value>Escolhe a última faixa de legendas seleccionada se for encontrada uma correspondência, caso contrário não usa legendas.</value>
-    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
   </data>
   <data name="OverrideNameFormatLabel" xml:space="preserve">
     <value>Opções disponíveis: {0}</value>
@@ -277,14 +237,8 @@
     <value>Filtrar títulos por duração</value>
     <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
   </data>
-  <data name="TimeRangeSelection" xml:space="preserve">
-    <value>Seleção de intervalo de tempo</value>
-  </data>
-  <data name="SelectTimeRangeCheckBox" xml:space="preserve">
-    <value>Selecione o intervalo de tempo</value>
-  </data>
-  <data name="TitleCaptializationLabel" xml:space="preserve">
-    <value>Capitalização do título:</value>
+  <data name="ChangeCaptializationLabel" xml:space="preserve">
+    <value>Alterar capitalização para</value>
   </data>
   <data name="TimeRangeStartAutomationName" xml:space="preserve">
     <value>Início do intervalo de tempo</value>
@@ -307,5 +261,132 @@
   </data>
   <data name="ChapterRangeStartAutomationName" xml:space="preserve">
     <value>Início do intervalo de capítulos</value>
+  </data>
+  <data name="DestinationSection" xml:space="preserve">
+    <value>Destino</value>
+  </data>
+  <data name="OutputFolder" xml:space="preserve">
+    <value>Pasta de saída:</value>
+    <comment>Label for the output folder.</comment>
+  </data>
+  <data name="UseCustomFileNameFormatCheckBox" xml:space="preserve">
+    <value>Usar um formato de nomenclatura de arquivo personalizado:</value>
+  </data>
+  <data name="WhenFileExistsBatch" xml:space="preserve">
+    <value>Quando o arquivo já existe (Em Lote):</value>
+  </data>
+  <data name="WhenFileExistsSingle" xml:space="preserve">
+    <value>Quando o arquivo já existe (Individual):</value>
+  </data>
+  <data name="CustomPickerNameTemplate" xml:space="preserve">
+    <value>{0} Personalizado</value>
+    <comment>The name for a custom auto-created picker. {0} is a number like 2, or 3 or 4 to differentiate it</comment>
+  </data>
+  <data name="OutputFileNameFormatAutomationName" xml:space="preserve">
+    <value>Formato do nome</value>
+    <comment>Name for screen readers for the output file name format text box</comment>
+  </data>
+  <data name="OnlyChangeCapitalizationIfAllSameLabel" xml:space="preserve">
+    <value>Altere apenas se todas as letras forem minúsculas ou todas maiúsculas</value>
+  </data>
+  <data name="WordBreakCharacterAutomationNameFormat" xml:space="preserve">
+    <value>Caractere de quebra de palavra - {0}</value>
+    <comment>Screen reader format for word break checkboxes. These will determine if a character will be used to separate words.</comment>
+  </data>
+  <data name="WordBreakCharactersLabel" xml:space="preserve">
+    <value>Caracteres de quebra de palavra reconhecidos:</value>
+  </data>
+  <data name="WordBreakCharacter_Dot" xml:space="preserve">
+    <value>Ponto</value>
+  </data>
+  <data name="WordBreakCharacter_Space" xml:space="preserve">
+    <value>Espaço</value>
+  </data>
+  <data name="WordBreakCharacter_Underscore" xml:space="preserve">
+    <value>Sublinhado</value>
+  </data>
+  <data name="ChangeWordSeparatorLabel" xml:space="preserve">
+    <value>Alterar separador de palavras para</value>
+  </data>
+  <data name="SourceCleanupPreviewLabel" xml:space="preserve">
+    <value>Pré-Visualização</value>
+  </data>
+  <data name="SourceNameCleanupSection" xml:space="preserve">
+    <value>Limpeza do nome da fonte</value>
+  </data>
+  <data name="AddAudioTrackNameButton" xml:space="preserve">
+    <value>Adicionar nome da faixa de áudio</value>
+    <comment>Button to add another name to the list of audio track names in the Picker.</comment>
+  </data>
+  <data name="AddSubtitleTrackNameButton" xml:space="preserve">
+    <value>Adicionar nome da faixa de legenda</value>
+    <comment>Button to add another name to the list of subtitle track names in the Picker.</comment>
+  </data>
+  <data name="CustomTrackNamesCheckBox" xml:space="preserve">
+    <value>Nomes de faixas personalizadas</value>
+    <comment>Checkbox label to use custom audio or subtitle track names</comment>
+  </data>
+  <data name="TrackAutomationFormat" xml:space="preserve">
+    <value>Faixa {0}</value>
+    <comment>Screen reader format for track names in the Picker.</comment>
+  </data>
+  <data name="BurnInLabel" xml:space="preserve">
+    <value>Gravar em:</value>
+  </data>
+  <data name="PickerAudioSectionName" xml:space="preserve">
+    <value>Áudio</value>
+  </data>
+  <data name="PickerForeignAudioCheckBox" xml:space="preserve">
+    <value>Adicionar 'Escaneamento de áudio estrangeiro'</value>
+  </data>
+  <data name="PickerSubtitleSectionName" xml:space="preserve">
+    <value>Legendas</value>
+  </data>
+  <data name="SubtitleSelectionMode_ForeignAudioSearch" xml:space="preserve">
+    <value>Escanear áudio estrangeiro</value>
+  </data>
+  <data name="TrackSelectionLabel" xml:space="preserve">
+    <value>Seleção de faixa:</value>
+    <comment>Label for track selection mode for audio or subtitle tracks.</comment>
+  </data>
+  <data name="AudioSelectionModeToolTip" xml:space="preserve">
+    <value>Último selecionado - Escolher a última faixa de áudio selecionada se for encontrada uma correspondência, caso contrário escolher a primeira.
+Primeiro - Incluir apenas a primeira faixa de áudio.
+Por índice - Escolher pelo índice da faixa (1-base)
+Idioma(s) - Escolher por idioma
+Todas - Incluir todas as faixas de áudio.</value>
+  </data>
+  <data name="SubtitleSelectionModeToolTip" xml:space="preserve">
+    <value>Última selecionada - Escolher a última faixa de legenda selecionada se for encontrada uma correspondência, caso contrário não escolher nenhuma faixa.
+Nenhuma - Nenhuma legenda é incluída.
+Primeiro - Incluir apenas a primeira legenda.
+Por índice - Escolher pelo índice da faixa (1-base)
+Idioma(s) - Escolher por idioma
+Todas - Incluir todas as legendas.</value>
+  </data>
+  <data name="IgnoreFilesBelowCheckBox" xml:space="preserve">
+    <value>Ignorar arquivos abaixo</value>
+    <comment>A number box follows this string: Ignore files below [ 10 ] MB</comment>
+  </data>
+  <data name="TimeRangeLabel" xml:space="preserve">
+    <value>Intervalo de tempo</value>
+  </data>
+  <data name="VideoSelectionSection" xml:space="preserve">
+    <value>Seleção de vídeo</value>
+  </data>
+  <data name="MetadataSection" xml:space="preserve">
+    <value>Metadados</value>
+  </data>
+  <data name="PassThroughMetadataCheckBox" xml:space="preserve">
+    <value>Transmitir metadados de vídeo (diretor, data de lançamento, atores, etc.)</value>
+  </data>
+  <data name="BurnInCheckBox" xml:space="preserve">
+    <value>Gravar em</value>
+  </data>
+  <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
+    <value>Adicionar arquivos de legenda externos ({0}) com o mesmo nome do arquivo de vídeo</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Idioma:</value>
   </data>
 </root>

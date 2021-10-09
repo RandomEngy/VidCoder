@@ -2,6 +2,7 @@
 Param(
   [Parameter(Mandatory=$True)]
   [string]$versionShort,
+  [string]$p,
   [switch]$beta,
   [switch]$debugBuild = $false
 )
@@ -51,70 +52,47 @@ function CreateIssFile($version, $beta, $debugBuild) {
         $tokens["outputDirectory"] = "BuiltInstallers"
     }
 
-    ReplaceTokens "Installer\VidCoder.iss.txt" ("Installer\VidCoder-gen.iss") $tokens
+    ReplaceTokens "Installer\VidCoder.iss.txt" "Installer\VidCoder-gen.iss" $tokens
 }
 
-function UpdateAssemblyInfo($fileName, $version) {
-    $newVersionText = 'AssemblyVersion("' + $version + '")';
-    $newFileVersionText = 'AssemblyFileVersion("' + $version + '")';
+function CreateLatestJson($outputFilePath, $versionShort, $versionTag, $installerFile) {
+    $latestTemplateFile = "Installer\latest-template.json"
 
-    $tmpFile = $fileName + ".tmp"
+    $tokens = @{
+        versionShort = $versionShort;
+        versionTag = $versionTag;
+        installerFile = $installerFile
+    }
 
-    Get-Content $fileName | 
-    %{$_ -replace 'AssemblyVersion\("[0-9]+(\.([0-9]+|\*)){1,3}"\)', $newVersionText } |
-    %{$_ -replace 'AssemblyFileVersion\("[0-9]+(\.([0-9]+|\*)){1,3}"\)', $newFileVersionText } > $tmpFile
-
-    Move-Item $tmpFile $fileName -force
+    ReplaceTokens "Installer\latest-template.json" $outputFilePath $tokens
 }
 
-function UpdateAppxManifest($fileName, $version)
-{
-    $newVersionText = 'Version="' + $version + '"';
-    $tmpFile = $fileName + ".tmp"
+function Publish($folderNameSuffix, $publishProfileName, $version4part) {
+    $mainPublishFolderPath = ".\VidCoder\bin\publish-$folderNameSuffix"
+    if (Test-Path -Path $mainPublishFolderPath) {
+        Get-ChildItem -Path $mainPublishFolderPath -Include * -File -Recurse | foreach { $_.Delete()}
+    }
 
-    Get-Content $fileName | 
-    %{$_ -replace '(?<=<Identity[^/]+)Version="([\d\.]+)"', $newVersionText } | Out-File -Encoding utf8 $tmpFile
+    $workerPublishFolderPath = ".\VidCoderWorker\bin\publish-$folderNameSuffix"
+    if (Test-Path -Path $workerPublishFolderPath) {
+        Get-ChildItem -Path $workerPublishFolderPath -Include * -File -Recurse | foreach { $_.Delete()}
+    }
 
-    Move-Item $tmpFile $fileName -force
+    # Publish to VidCoder\bin\publish
+    & dotnet publish .\VidCoder.sln "/p:PublishProfile=$publishProfileName;Version=$version4part" -c $configuration
+
+    # Copy some extra files for the installer
+    $extraFiles = @(
+        ".\VidCoder\Icons\File\VidCoderPreset.ico",
+        ".\VidCoder\Icons\File\VidCoderQueue.ico")
+
+    foreach ($extraFile in $extraFiles) {
+        copy $extraFile $mainPublishFolderPath; ExitIfFailed
+    }
 }
 
-function CopyFromOutput($fileName, $buildFlavor) {
-    $dest = ".\Installer\Files\"
-    $source = ".\VidCoder\bin\$buildFlavor\"
-    copy ($source + $fileName) ($dest + $fileName); ExitIfFailed
-}
-
-function CopyFromOutputArchSpecific($fileName, $buildFlavor) {
-    $dest = ".\Installer\Files\"
-    $source64 = ".\VidCoder\bin\$buildFlavor\x64\"
-    copy ($source64 + $fileName) ($dest + $fileName); ExitIfFailed
-}
-
-function CopyLib($fileName) {
-    $dest = ".\Installer\Files\"
-    $source = ".\Lib\"
-    copy ($source + $fileName) ($dest + $fileName); ExitIfFailed
-}
-
-function CopyGeneral($fileName) {
-    $dest = ".\Installer\Files"
-    copy $fileName $dest; ExitIfFailed
-}
-
-function CopyLanguage($language, $buildFlavor) {
-    $dest = ".\Installer\Files\"
-    $source = ".\VidCoder\bin\$buildFlavor\"
-    copy ($source + $language) ($dest + $language) -recurse; ExitIfFailed
-}
-
-function UpdateLatestJson($latestFile, $versionShort, $versionTag, $installerFile) {
-    $latestJsonObject = Get-Content -Raw -Path $latestFile | ConvertFrom-Json
-
-    $latestJsonObject.LatestVersion = $versionShort
-    $latestJsonObject.DownloadUrl = "https://github.com/RandomEngy/VidCoder/releases/download/$versionTag/$installerFile"
-    $latestJsonObject.ChangelogUrl = "https://github.com/RandomEngy/VidCoder/releases/tag/$versionTag"
-
-    $latestJsonObject | ConvertTo-Json | Out-File $latestFile
+function SignExe($installerPath) {
+    & signtool sign /f D:\certs\ComodoIndividualCertv2.pfx /p $p /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 $installerPath
 }
 
 if ($debugBuild) {
@@ -141,128 +119,12 @@ if ($beta) {
 # Get master version number
 $version4Part = $versionShort + ".0.0"
 
-# Put version numbers into AssemblyInfo.cs files
-UpdateAssemblyInfo "VidCoder\Properties\AssemblyInfo.cs" $version4Part
-UpdateAssemblyInfo "VidCoderWorker\Properties\AssemblyInfo.cs" $version4Part
+# Publish the files
+Publish "installer" "InstallerProfile" $version4part
+Publish "portable" "PortableProfile" $version4part
 
-if ($beta) {
-    $manifestBaseFileName = "Package-Beta"
-} else {
-    $manifestBaseFileName = "Package-Stable"
-}
-
-UpdateAppxManifest "VidCoderPackage\$manifestBaseFileName.appxmanifest" $version4Part
-
-# Build VidCoder.sln
-& $MsBuildExe VidCoder.sln /t:rebuild "/p:Configuration=$configuration;Platform=x64;UapAppxPackageBuildMode=StoreUpload"; ExitIfFailed
-
-
-# Copy install files to staging folder
-$dest = ".\Installer\Files"
-
-ClearFolder $dest; ExitIfFailed
-
-$source = ".\VidCoder\bin\$buildFlavor\"
-
-# Files from the main output directory (some architecture-specific)
-$outputDirectoryFiles = @(
-    "VidCoder.exe",
-    "VidCoder.pdb",
-    "VidCoder.exe.config",
-    "VidCoderCommon.dll",
-    "VidCoderCommon.pdb",
-    "VidCoderWorker.exe",
-    "VidCoderWorker.exe.config",
-    "VidCoderWorker.pdb",
-    "VidCoderCLI.exe",
-    "VidCoderCLI.pdb",
-    "VidCoderWindowlessCLI.exe",
-    "VidCoderWindowlessCLI.pdb",
-    "ColorPickerWPF.dll",
-    "ControlzEx.dll",
-    "DesktopBridge.Helpers.dll",
-    "DryIoc.dll",
-    "DynamicData.dll",
-    "Fluent.dll",
-    "Fluent.pdb",
-    "Microsoft.AnyContainer.dll",
-    "Microsoft.AnyContainer.DryIoc.dll",
-    "Microsoft.Xaml.Behaviors.dll",
-    "Newtonsoft.Json.dll",
-    "Omu.ValueInjecter.dll",
-    "PipeMethodCalls.dll",
-    "ReactiveUI.dll",
-    "ReactiveUI.WPF.dll",
-    "Splat.dll",
-    "System.Data.SQLite.dll",
-    "System.Net.Http.dll",
-    "System.Reactive.dll",
-    "System.Reactive.Core.dll",
-    "System.Reactive.Experimental.dll",
-    "System.Reactive.Interfaces.dll",
-    "System.Reactive.Linq.dll",
-    "System.Reactive.PlatformServices.dll",
-    "System.Reactive.Providers.dll",
-    "System.Reactive.Runtime.Remoting.dll",
-    "System.Reactive.Windows.Forms.dll",
-    "System.Reactive.Windows.Threading.dll",
-    "System.Runtime.WindowsRuntime.dll",
-    "System.ValueTuple.dll",
-    "Ude.dll",
-    "WriteableBitmapEx.Wpf.dll")
-
-foreach ($outputDirectoryFile in $outputDirectoryFiles) {
-    CopyFromOutput $outputDirectoryFile $buildFlavor
-}
-
-CopyFromOutputArchSpecific "SQLite.Interop.dll" $buildFlavor
-
-# General files
-$generalFiles = @(
-    ".\Lib\HandBrake.Interop.dll",
-    ".\Lib\HandBrake.Interop.pdb",
-    ".\Lib\Ookii.Dialogs.Wpf.dll",
-    ".\Lib\Ookii.Dialogs.Wpf.pdb",
-    ".\VidCoder\Encode_Complete.wav",
-    ".\VidCoder\Icons\File\VidCoderPreset.ico",
-    ".\VidCoder\Icons\File\VidCoderQueue.ico",
-    ".\License.txt",
-    ".\ThirdPartyLicenses.txt")
-
-foreach ($generalFile in $generalFiles) {
-    CopyGeneral $generalFile
-}
-
-# Files from Lib folder
-CopyLib "hb.dll"
-
-# Languages
-$languages = @(
-    "hu",
-    "es",
-    "eu",
-    "pt",
-    "pt-BR",
-    "fr",
-    "de",
-    "zh",
-    "zh-Hant",
-    "it",
-    "cs",
-    "ja",
-    "pl",
-    "ru",
-    "nl",
-    "ka",
-    "tr",
-    "ko",
-    "bs",
-    "id")
-
-foreach ($language in $languages) {
-    CopyLanguage $language $buildFlavor
-}
-
+# We need to copy some files from the Worker publish over to the main publish output, because the main publish output doesn't properly set the Worker to self-contained mode
+copy ".\VidCoderWorker\bin\publish-portable\VidCoderWorker*" ".\VidCoder\bin\publish-portable"
 
 # Create portable installer
 
@@ -281,13 +143,16 @@ if ($debugBuild) {
 New-Item -ItemType Directory -Force -Path ".\$builtInstallerFolder"
 
 $portableExeWithoutExtension = ".\$builtInstallerFolder\VidCoder-$versionShort$betaNameSection-Portable"
+$portableExeWithExtension = $portableExeWithoutExtension + ".exe"
 
-DeleteFileIfExists ($portableExeWithoutExtension + ".exe")
+DeleteFileIfExists $portableExeWithExtension
 
 $winRarExe = "c:\Program Files\WinRar\WinRAR.exe"
 
-& $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension .\Installer\Files\** | Out-Null
+& $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension .\VidCoder\bin\publish-portable\** | Out-Null
 ExitIfFailed
+
+SignExe $portableExeWithExtension; ExitIfFailed
 
 $latestFileDirectory = "Installer\"
 if ($debugBuild) {
@@ -313,7 +178,7 @@ else
     $installerFile = "VidCoder-$versionShort.exe"
 }
 
-UpdateLatestJson $latestFile $versionShort $versionTag $installerFile
+CreateLatestJson $latestFile $versionShort $versionTag $installerFile
 
 # Create .iss files in the correct configuration
 CreateIssFile $versionShort $beta $debugBuild
@@ -321,6 +186,8 @@ CreateIssFile $versionShort $beta $debugBuild
 # Build the installers
 & $InnoSetupExe Installer\VidCoder-gen.iss; ExitIfFailed
 
+$installerExePath = ".\$builtInstallerFolder\VidCoder-$versionShort$betaNameSection.exe"
+SignExe $installerExePath; ExitIfFailed
 
 WriteSuccess
 

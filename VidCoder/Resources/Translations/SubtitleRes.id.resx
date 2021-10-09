@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SubtitlesWindowTitle" xml:space="preserve">
-    <value>Subjudul</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>Subjudul dari sumber:</value>
   </data>
@@ -156,8 +153,8 @@
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Trek sub judul lain akan tumpang tindih dengan yang 'Burn In'.</value>
   </data>
-  <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Cari Audio Bahasa Asing</value>
+  <data name="ForeignAudioScan" xml:space="preserve">
+    <value>Pindai suara asing</value>
   </data>
   <data name="SubtitleFilePickerText" xml:space="preserve">
     <value>Tambahkan file teks</value>

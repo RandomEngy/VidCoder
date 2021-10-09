@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddButton" xml:space="preserve">
     <value>新增</value>
@@ -154,7 +154,7 @@
     <value>{0} 已有同名檔案，您想要覆寫該檔、自動變更輸出路徑，還是取消編碼作業?</value>
   </data>
   <data name="QueueFileConflictWarning" xml:space="preserve">
-    <value>佇列工作於 {0} 已有同名的輸出檔案，您想要覆寫該檔、自動變更輸出路徑，還是取消編碼作業?</value>
+    <value>工作佇列中已有輸出路徑於 {0}，您想要為佇列的工作自動尋找新輸出路徑，或是取消作業？</value>
   </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>佇列欄位</value>
@@ -253,5 +253,11 @@
   </data>
   <data name="ExceptionDialogSubTextReported" xml:space="preserve">
     <value>程式需要關閉，但產生的錯誤將自動提報。</value>
+  </data>
+  <data name="DownloadInstallerButton" xml:space="preserve">
+    <value>下載安裝檔</value>
+  </data>
+  <data name="ReplaceJobButton" xml:space="preserve">
+    <value>更換工作</value>
   </data>
 </root>

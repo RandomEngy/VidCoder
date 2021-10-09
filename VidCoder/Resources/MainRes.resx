@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
     <value>Title:</value>
@@ -202,9 +202,6 @@
   <data name="DestinationToolTip" xml:space="preserve">
     <value>Click to edit the encode destination.</value>
   </data>
-  <data name="SelectOutputPathButton" xml:space="preserve">
-    <value>Select output path...</value>
-  </data>
   <data name="Stop" xml:space="preserve">
     <value>Stop</value>
   </data>
@@ -234,9 +231,6 @@
   </data>
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
     <value>Encodes in progress</value>
-  </data>
-  <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Foreign Audio Search</value>
   </data>
   <data name="NoneParen" xml:space="preserve">
     <value>(None)</value>
@@ -319,12 +313,6 @@
   </data>
   <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
     <value>VidCoder has finished all encode jobs in the queue.</value>
-  </data>
-  <data name="OutputFolderRequiredMessage" xml:space="preserve">
-    <value>Cannot add encode jobs without a default output folder. Press OK to pick one.</value>
-  </data>
-  <data name="OutputFolderRequiredTitle" xml:space="preserve">
-    <value>Default Output Folder Required</value>
   </data>
   <data name="OutputPathNotValidMessage" xml:space="preserve">
     <value>Output path is not valid.</value>
@@ -514,10 +502,6 @@
   <data name="CouldNotLoadPickerMessage" xml:space="preserve">
     <value>Could not load picker: </value>
   </data>
-  <data name="PickerNameTemplate" xml:space="preserve">
-    <value>Picker {0}</value>
-    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
-  </data>
   <data name="SimilarTitlesToolTip" xml:space="preserve">
     <value>{0} other titles have a duration close to this one.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
@@ -669,5 +653,89 @@
   </data>
   <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
     <value>Encode complete action not executed due to errors in the encode result list.</value>
+  </data>
+  <data name="AudioPickerButtonToolTip" xml:space="preserve">
+    <value>Automatically pick audio tracks...</value>
+  </data>
+  <data name="SubtitlePickerButtonToolTip" xml:space="preserve">
+    <value>Automatically pick subtitle tracks...</value>
+  </data>
+  <data name="AudioSubtitleTrackColumnHeader" xml:space="preserve">
+    <value>Track</value>
+    <comment>Column header for the audio or subtitle track summary. This is an an auto-generated summary that includes language, format, etc.</comment>
+  </data>
+  <data name="AudioTrackNameAutomationName" xml:space="preserve">
+    <value>Audio track name</value>
+    <comment>Narrator label for the audio track name text box.</comment>
+  </data>
+  <data name="SubtitleNameAutomationName" xml:space="preserve">
+    <value>Subtitle name</value>
+    <comment>Narrator label for the subtitle name text box.</comment>
+  </data>
+  <data name="CouldNotRecycleFile" xml:space="preserve">
+    <value>Error sending files to Recycle Bin.</value>
+  </data>
+  <data name="DestinationAutomaticToolTip" xml:space="preserve">
+    <value>Destination is automatically set. Click to edit settings.</value>
+  </data>
+  <data name="DestinationManualToolTip" xml:space="preserve">
+    <value>Destination is manually set. Click to revert to automatic.</value>
+  </data>
+  <data name="CompareAgainstOriginal" xml:space="preserve">
+    <value>Compare against original</value>
+  </data>
+  <data name="CompareEncodedLabel" xml:space="preserve">
+    <value>Encoded</value>
+    <comment>Label for the encoded video when comparing original vs encoded</comment>
+  </data>
+  <data name="CompareOriginalLabel" xml:space="preserve">
+    <value>Original</value>
+    <comment>Label for the original video when comparing original vs encoded</comment>
+  </data>
+  <data name="CompareWindowHelpText" xml:space="preserve">
+    <value>Click or hold Ctrl to show the encoded version.</value>
+  </data>
+  <data name="CompareWindowTitleFormat" xml:space="preserve">
+    <value>Video compare: {0} - {1}</value>
+    <comment>Title for the Video compare window.
+{0} is a string indicating if it's original or encoded.
+{1} is the file name, e.g. MyFile.mkv</comment>
+  </data>
+  <data name="MuteAutomationName" xml:space="preserve">
+    <value>Mute</value>
+    <comment>Text for screen readers for the mute button on video playback</comment>
+  </data>
+  <data name="UnmuteAutomationName" xml:space="preserve">
+    <value>Unmute</value>
+    <comment>Text for screen readers for the unmute button on video playback</comment>
+  </data>
+  <data name="AutoPauseLowBattery" xml:space="preserve">
+    <value>Automatically pausing due to low battery.</value>
+  </data>
+  <data name="AutoPauseLowDiskSpace" xml:space="preserve">
+    <value>Automatically pausing due to free disk space below {0}GB.</value>
+    <comment>{0} is the disk space threshold for auto-pause in GB</comment>
+  </data>
+  <data name="AutoPauseProcessDetected" xml:space="preserve">
+    <value>Automatically pausing, process detected: {0}</value>
+    <comment>{0} is the name of the process we were waiting for to pause</comment>
+  </data>
+  <data name="AutoPauseResumeBattery" xml:space="preserve">
+    <value>Automatically resuming, connected to AC power.</value>
+  </data>
+  <data name="AutoPauseResumeDiskSpace" xml:space="preserve">
+    <value>Automatically resuming, disk has free space.</value>
+  </data>
+  <data name="AutoPauseResumeProcess" xml:space="preserve">
+    <value>Automatically resuming, processes are gone.</value>
+  </data>
+  <data name="Win7DeprecationWarning" xml:space="preserve">
+    <value>VidCoder is no longer supported on Windows 7 or 8.
+
+You can continue using VidCoder at your own risk. Certain features are non-functional and there may be other unknown issues. These is no support available when these issues occur.
+
+v5 was the last version tested for Windows 7/8.
+
+This warning will only display twice.</value>
   </data>
 </root>

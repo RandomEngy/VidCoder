@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Général</value>
@@ -138,50 +138,14 @@
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
     <value>Mises à jour automatiques</value>
   </data>
-  <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>Rejoindre la recherche de mise à jour Bêta</value>
-  </data>
-  <data name="FileNamingTab" xml:space="preserve">
-    <value>Nommage des fichiers</value>
-  </data>
-  <data name="DefaultFolderLabel" xml:space="preserve">
-    <value>Dossier par défaut :</value>
-  </data>
-  <data name="FileFormatLabel" xml:space="preserve">
-    <value>Format de fichier :</value>
-  </data>
-  <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>Format par défaut</value>
-  </data>
-  <data name="CustomFormatRadioButton" xml:space="preserve">
-    <value>Format personnalisé :</value>
-  </data>
-  <data name="FileNameFormatOptions" xml:space="preserve">
-    <value>Options disponibles : {0}</value>
-  </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
     <value>Si un fichier existe déjà...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
     <value>Encodage d'un fichier unique :</value>
   </data>
-  <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>Demandez si vous voulez l'écraser</value>
-  </data>
-  <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>Remplacer le fichier sans invite</value>
-  </data>
-  <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>Basculer automatiquement vers un autre nom</value>
-  </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
     <value>Encodage par lots des fichiers :</value>
-  </data>
-  <data name="OverwriteRadioButton" xml:space="preserve">
-    <value>Écraser</value>
-  </data>
-  <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>Renommer automatiquement</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Mettre en pause automatiquement l'encodage lorsque n'importe lequel de ces processus est en cours d'exécution :</value>
@@ -195,13 +159,8 @@
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>Se rappeler des dossiers et fichiers précédemment utilisés</value>
   </data>
-  <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>Permettre des noms personnalisés pour les pistes audio (support de lecteurs limité)</value>
-  </data>
   
-  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Supprimer les fichiers sources une fois les articles nettoyés (avec confirmation)</value>
-  </data>
+  
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Journalisation Verbeuse :</value>
   </data>
@@ -280,9 +239,6 @@
   <data name="OutputFolderSection" xml:space="preserve">
     <value>Dossier de sortie</value>
   </data>
-  <data name="NamingFormatSection" xml:space="preserve">
-    <value>Format de nom</value>
-  </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
     <value>Options avancées</value>
   </data>
@@ -355,9 +311,6 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Utiliser des processus de travail pour encoder</value>
   </data>
-  <data name="VideoSection" xml:space="preserve">
-    <value>Vidéo</value>
-  </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Conserver l'horodatage lors de la conversion des fichiers</value>
   </data>
@@ -380,6 +333,15 @@
   
   
   
+  
+  
+  
+  
+  
+  
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>Options disponibles : {0}</value>
+  </data>
   
   
   

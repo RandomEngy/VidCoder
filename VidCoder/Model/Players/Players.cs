@@ -12,10 +12,10 @@ namespace VidCoder.Model
 			get
 			{
 				return new List<IVideoPlayer>
-				       {
-						   new VlcPlayer(),
-						   new MpchcPlayer()
-				       };
+				{
+					new VlcPlayer(),
+					new MpchcPlayer()
+				};
 			}
 		}
 
@@ -23,12 +23,6 @@ namespace VidCoder.Model
 		{
 			get
 			{
-				// When running under desktop bridge we cannot call other processes
-				if (Utilities.IsRunningAsAppx)
-				{
-					return new List<IVideoPlayer>();
-				}
-
 				return All.Where(player => player.Installed).ToList();
 			}
 		}

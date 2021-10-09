@@ -10,8 +10,13 @@
 	d:DesignHeight="300"
 	d:DesignWidth="300"
 	mc:Ignorable="d">
-	<StackPanel Orientation="Vertical" Background="{DynamicResource AlternateBackgroundBrush}">
+	<Grid Background="{DynamicResource AlternateBackgroundBrush}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
 		<controls:SlotSeekBar
+			Grid.Row="0"
 			Height="24"
 			HorizontalAlignment="Stretch"
 			IsEnabled="{Binding SeekBarEnabled}"
@@ -19,7 +24,11 @@
 			                   Mode=OneWay}"
 			Slot="{Binding PreviewImageServiceClient.PreviewIndex,
 			               Mode=TwoWay}" />
-		<Grid Margin="12 8" VerticalAlignment="Center">
+
+		<Grid
+			Grid.Row="1"
+			Margin="12 8"
+			VerticalAlignment="Center">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition />
@@ -46,5 +55,5 @@
 				Command="{Binding CancelPreview}"
 				Content="{x:Static res:CommonRes.Cancel}" />
 		</Grid>
-	</StackPanel>
+	</Grid>
 </UserControl>

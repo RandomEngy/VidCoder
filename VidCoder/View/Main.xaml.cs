@@ -11,6 +11,8 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Resources;
 using System.Text;
+using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Automation.Peers;
@@ -23,12 +25,12 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Resources;
+using System.Windows.Shell;
 using DynamicData;
 using Fluent;
 using HandBrake.Interop.Interop.Json.Encode;
 using HandBrake.Interop.Interop.Json.Scan;
 using Microsoft.AnyContainer;
-using Newtonsoft.Json;
 using ReactiveUI;
 using VidCoder.Controls;
 using VidCoder.Extensions;
@@ -40,6 +42,7 @@ using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
 using VidCoderCommon;
 using VidCoderCommon.Model;
+using VidCoderCommon.Utilities;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using ListViewItem = System.Windows.Controls.ListViewItem;
 using MenuItem = System.Windows.Controls.MenuItem;
@@ -76,6 +79,34 @@ namespace VidCoder.View
 			Ioc.Container.RegisterSingleton<Main>(() => this);
 			this.InitializeComponent();
 
+			if (Environment.OSVersion.Version.Major < 10 && Config.Win7WarningDisplayedTimes < 2)
+			{
+				DispatchUtilities.BeginInvoke(async () =>
+				{
+					await Task.Delay(TimeSpan.FromSeconds(1));
+					StaticResolver.Resolve<IMessageBoxService>().Show(MainRes.Win7DeprecationWarning);
+				});
+				Config.Win7WarningDisplayedTimes++;
+			}
+
+			try
+			{
+				var taskbarItemInfo = new TaskbarItemInfo();
+				BindingOperations.SetBinding(taskbarItemInfo, TaskbarItemInfo.ProgressStateProperty, new System.Windows.Data.Binding("TaskBarProgressTracker.ProgressState"));
+				BindingOperations.SetBinding(taskbarItemInfo, TaskbarItemInfo.ProgressValueProperty, new System.Windows.Data.Binding("TaskBarProgressTracker.ProgressFraction"));
+
+				this.TaskbarItemInfo = taskbarItemInfo;
+			}
+			catch (Exception exception)
+			{
+				StaticResolver.Resolve<IAppLogger>().Log("Could not set TaskbarItemInfo: " + exception);
+			}
+
+			if (LanguageUtilities.ShouldBeRightToLeft)
+			{
+				this.FlowDirection = System.Windows.FlowDirection.RightToLeft;
+			}
+
 			this.sourceRow.Height = new GridLength(Config.SourcePaneHeightStar, GridUnitType.Star);
 			this.queueRow.Height = new GridLength(Config.QueuePaneHeightStar, GridUnitType.Star);
 
@@ -93,8 +124,8 @@ namespace VidCoder.View
 			{
 				Visible = false
 			};
-			this.notifyIcon.Click += (sender, args) => { this.RestoreWindow(); };
-			this.notifyIcon.DoubleClick += (sender, args) => { this.RestoreWindow(); };
+			this.notifyIcon.Click += (sender, args) => { this.EnsureVisible(); };
+			this.notifyIcon.DoubleClick += (sender, args) => { this.EnsureVisible(); };
 
 			StreamResourceInfo streamResourceInfo = System.Windows.Application.GetResourceStream(new Uri("pack://application:,,,/VidCoder_icon.ico"));
 			if (streamResourceInfo != null)
@@ -118,7 +149,7 @@ namespace VidCoder.View
 				{
 					try
 					{
-						var scanObject = JsonConvert.DeserializeObject<JsonScanObject>(dialog.Json);
+						var scanObject = JsonSerializer.Deserialize<JsonScanObject>(dialog.Json, JsonOptions.Plain);
 						this.viewModel.UpdateFromNewVideoSource(new VideoSource { Titles = scanObject.TitleList, FeatureTitle = scanObject.MainFeature });
 					}
 					catch (Exception exception)
@@ -146,7 +177,7 @@ namespace VidCoder.View
 				{
 					try
 					{
-						JsonEncodeObject encodeObject = JsonConvert.DeserializeObject<JsonEncodeObject>(dialog.Json);
+						JsonEncodeObject encodeObject = JsonSerializer.Deserialize<JsonEncodeObject>(dialog.Json, JsonOptions.Plain);
 
 						jobViewModel.DebugEncodeJsonOverride = dialog.Json;
 						jobViewModel.Job.FinalOutputPath = encodeObject.Destination.File;
@@ -186,20 +217,29 @@ namespace VidCoder.View
 			};
 			debugDropDown.Items.Add(addTenLogItems);
 
-			var addLongLogItem = new Fluent.MenuItem {Header = "Add long log item"};
+			var addLongLogItem = new Fluent.MenuItem { Header = "Add long log item" };
 			addLongLogItem.Click += (sender, args) =>
 			{
 				StaticResolver.Resolve<IAppLogger>().Log("This is a log item\r\nthat is split into multiple lines\r\nOh yes indeed");
 			};
 			debugDropDown.Items.Add(addLongLogItem);
 
-			var doAnActionItem = new Fluent.MenuItem {Header = "Perform action"};
+			var doAnActionItem = new Fluent.MenuItem { Header = "Perform action" };
 			doAnActionItem.Click += (sender, args) =>
 			{
 				var app = (App)System.Windows.Application.Current;
 				app.ChangeTheme(new Uri("/Themes/Dark.xaml", UriKind.Relative));
 			};
 			debugDropDown.Items.Add(doAnActionItem);
+
+
+			var showDelayedStatusItem = new Fluent.MenuItem { Header = "Show a status message in 40 seconds" };
+			showDelayedStatusItem.Click += async (sender, args) =>
+			{
+				await Task.Delay(TimeSpan.FromSeconds(40));
+				StaticResolver.Resolve<StatusService>().Show("Some delayed message");
+			};
+			debugDropDown.Items.Add(showDelayedStatusItem);
 
 			this.toolsRibbonGroupBox.Items.Add(debugDropDown);
 #endif
@@ -247,6 +287,8 @@ namespace VidCoder.View
 			};
 
 			this.queueView.SelectionChanged += this.QueueView_SelectionChanged;
+
+			this.RefreshMaximizeRestoreButton();
 		}
 
 		private void QueueView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -260,6 +302,18 @@ namespace VidCoder.View
 			{
 				this.Show();
 				this.WindowState = this.RestoredWindowState;
+			});
+		}
+
+		public void EnsureVisible()
+		{
+			DispatchUtilities.Invoke(() =>
+			{
+				this.RestoreWindow();
+				DispatchUtilities.BeginInvoke(() =>
+				{
+					this.Activate();
+				});
 			});
 		}
 
@@ -292,12 +346,14 @@ namespace VidCoder.View
 				if (expanded)
 				{
 					ResizeGridViewColumn(this.sourceSelectedColumn);
-					ResizeGridViewColumn(this.sourceNameColumn);
+					ResizeGridViewColumn(this.sourceTrackSummaryColumn);
 					ResizeGridViewColumn(this.sourceDefaultColumn);
 					ResizeGridViewColumn(this.sourceForcedColumn);
 					ResizeGridViewColumn(this.sourceBurnedColumn);
+					ResizeGridViewColumn(this.sourceNameColumn);
 					ResizeGridViewColumn(this.sourceRemoveDuplicateColumn);
 					ResizeGridViewColumn(this.fileSubtitleFileColumn);
+					ResizeGridViewColumn(this.fileSubtitleNameColumn);
 					ResizeGridViewColumn(this.fileSubtitleDefaultColumn);
 					ResizeGridViewColumn(this.fileSubtitleBurnedInColumn);
 					ResizeGridViewColumn(this.fileSubtitleCharCodeColumn);
@@ -359,6 +415,7 @@ namespace VidCoder.View
 
 			sourceSubtitlesObservable.Subscribe(changeSet =>
 			{
+				ResizeGridViewColumn(this.sourceTrackSummaryColumn);
 				ResizeGridViewColumn(this.sourceNameColumn);
 			});
 
@@ -388,9 +445,10 @@ namespace VidCoder.View
 		public void ResizeAudioColumns()
 		{
 			ResizeGridViewColumn(this.audioSelectedColumn);
-			ResizeGridViewColumn(this.audioNameColumn);
+			ResizeGridViewColumn(this.audioTrackSummaryColumn);
 			ResizeGridViewColumn(this.audioBitrateColumn);
 			ResizeGridViewColumn(this.audioSampleRateColumn);
+			ResizeGridViewColumn(this.audioNameColumn);
 			ResizeGridViewColumn(this.audioRemoveDuplicateColumn);
 		}
 
@@ -553,7 +611,8 @@ namespace VidCoder.View
 				var menuItem = new Fluent.MenuItem
 				{
 					Header = string.Format(MainRes.OpenFormat, driveInfo.DisplayText),
-					Tag = DiscMenuItemTag
+					Tag = DiscMenuItemTag,
+					RecognizesAccessKey = false // We set this to stop Fluent Ribbon from removing underscores from the header text
 				};
 
 				ReactiveCommand<Unit, Unit> command = ReactiveCommand.Create(
@@ -640,26 +699,29 @@ namespace VidCoder.View
 			string path = this.outputVM.OutputPath;
 			string fileName = Path.GetFileName(path);
 
-			if (fileName == string.Empty)
+			if (fileName != null)
 			{
-				this.destinationEditBox.Select(path.Length, 0);
-			}
-			else
-			{
-				int selectStart = path.Length - fileName.Length;
-
-				string extension = Path.GetExtension(path);
-				if (extension == string.Empty)
+				if (fileName == string.Empty)
 				{
-					this.destinationEditBox.Select(selectStart, path.Length - selectStart);
+					this.destinationEditBox.Select(path.Length, 0);
 				}
 				else
 				{
-					this.destinationEditBox.Select(selectStart, path.Length - selectStart - extension.Length);
+					int selectStart = path.Length - fileName.Length;
+
+					string extension = Path.GetExtension(path);
+					if (extension == string.Empty)
+					{
+						this.destinationEditBox.Select(selectStart, path.Length - selectStart);
+					}
+					else
+					{
+						this.destinationEditBox.Select(selectStart, path.Length - selectStart - extension.Length);
+					}
 				}
 			}
 
-			this.outputVM.OldOutputPath = this.outputVM.OutputPath;
+			this.outputVM.OldOutputPath = path;
 		}
 
 		private void DestinationEditBoxLostFocus(object sender, RoutedEventArgs e)
@@ -727,6 +789,8 @@ namespace VidCoder.View
 			{
 				this.RestoredWindowState = this.WindowState;
 			}
+
+			this.RefreshMaximizeRestoreButton();
 
 			if (this.viewModel != null)
 			{
@@ -825,10 +889,11 @@ namespace VidCoder.View
 
 		private void ResizeSourceSubtitleColumns()
 		{
-			ResizeGridViewColumn(this.sourceNameColumn);
+			ResizeGridViewColumn(this.sourceTrackSummaryColumn);
 			ResizeGridViewColumn(this.sourceDefaultColumn);
 			ResizeGridViewColumn(this.sourceForcedColumn);
 			ResizeGridViewColumn(this.sourceBurnedColumn);
+			ResizeGridViewColumn(this.sourceNameColumn);
 		}
 
 		private static void ResizeGridViewColumn(GridViewColumn column)
@@ -918,6 +983,42 @@ namespace VidCoder.View
 		{
 			double summaryWidth = this.subtitlesSummaryColumn.ActualWidth;
 			this.subtitlesSummary.MaxWidth = summaryWidth - 40;
+		}
+
+		private void OnMinimizeButtonClick(object sender, RoutedEventArgs e)
+		{
+			this.WindowState = WindowState.Minimized;
+		}
+
+		private void OnMaximizeRestoreButtonClick(object sender, RoutedEventArgs e)
+		{
+			if (this.WindowState == WindowState.Maximized)
+			{
+				this.WindowState = WindowState.Normal;
+			}
+			else
+			{
+				this.WindowState = WindowState.Maximized;
+			}
+		}
+
+		private void OnCloseButtonClick(object sender, RoutedEventArgs e)
+		{
+			this.Close();
+		}
+
+		private void RefreshMaximizeRestoreButton()
+		{
+			if (this.WindowState == WindowState.Maximized)
+			{
+				this.maximizeButton.Visibility = Visibility.Collapsed;
+				this.restoreButton.Visibility = Visibility.Visible;
+			}
+			else
+			{
+				this.maximizeButton.Visibility = Visibility.Visible;
+				this.restoreButton.Visibility = Visibility.Collapsed;
+			}
 		}
 	}
 }

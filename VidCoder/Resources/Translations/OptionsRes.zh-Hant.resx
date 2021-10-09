@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>一般設定</value>
@@ -138,50 +138,14 @@
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
     <value>自動更新</value>
   </data>
-  <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>追蹤 Beta 更新</value>
-  </data>
-  <data name="FileNamingTab" xml:space="preserve">
-    <value>檔案命名</value>
-  </data>
-  <data name="DefaultFolderLabel" xml:space="preserve">
-    <value>預設資料夾:</value>
-  </data>
-  <data name="FileFormatLabel" xml:space="preserve">
-    <value>檔案格式:</value>
-  </data>
-  <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>預設格式</value>
-  </data>
-  <data name="CustomFormatRadioButton" xml:space="preserve">
-    <value>自訂格式:</value>
-  </data>
-  <data name="FileNameFormatOptions" xml:space="preserve">
-    <value>可用選項: {0}</value>
-  </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
     <value>當檔案存在時...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
     <value>編碼單一檔案:</value>
   </data>
-  <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>覆寫檔案時詢問</value>
-  </data>
-  <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>覆寫檔案時不詢問</value>
-  </data>
-  <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>自動切換至不同名稱</value>
-  </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
     <value>批次編碼檔案:</value>
-  </data>
-  <data name="OverwriteRadioButton" xml:space="preserve">
-    <value>覆寫</value>
-  </data>
-  <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>自動重新命名</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>當以下處理程序執行時自動暫停編碼:</value>
@@ -195,14 +159,11 @@
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>記錄先前使用的檔案及資料夾</value>
   </data>
-  <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>允許音軌設定自訂名稱 (非所有播放器皆支援)</value>
-  </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>啟用 LibDVDNav (需要重新啟動程式，支援多重角度之必要項目)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>清除完成項目後刪除來源檔案 (會彈出確認對話視窗)</value>
+    <value>清除完成項目後刪除來源檔案</value>
   </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>記錄詳細度:</value>
@@ -282,9 +243,6 @@
   <data name="OutputFolderSection" xml:space="preserve">
     <value>輸出資料夾</value>
   </data>
-  <data name="NamingFormatSection" xml:space="preserve">
-    <value>命名格式</value>
-  </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
     <value>進階選項</value>
   </data>
@@ -357,9 +315,6 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>使用 Worker 處理程序編碼</value>
   </data>
-  <data name="VideoSection" xml:space="preserve">
-    <value>視訊</value>
-  </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>轉換檔案時保留建立及修改時間</value>
   </data>
@@ -406,5 +361,27 @@
   </data>
   <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
     <value>當有編碼工作失敗時「完成時」會觸發的動作</value>
+  </data>
+  <data name="AutoPauseLowBatteryCheckbox" xml:space="preserve">
+    <value>電量低時暫停</value>
+  </data>
+  <data name="AutoPauseLowDiskSpaceCheckbox" xml:space="preserve">
+    <value>暫停當磁碟容量低於:</value>
+  </data>
+  <data name="AutoPauseSectionLabel" xml:space="preserve">
+    <value>自動暫停</value>
+  </data>
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>可用選項: {0}</value>
+  </data>
+  <data name="LowDiskSpaceThresholdAutomationName" xml:space="preserve">
+    <value>低磁碟容量門檻值 (GB)</value>
+    <comment>Screen reader name for the low disk space threshold number box</comment>
+  </data>
+  <data name="DragDropScanOrderLabel" xml:space="preserve">
+    <value>拖拉掃描順序:</value>
+  </data>
+  <data name="EncodeRetriesLabel" xml:space="preserve">
+    <value>編碼項目數:</value>
   </data>
 </root>

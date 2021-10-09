@@ -15,8 +15,8 @@
 		</DataTemplate>
 	</UserControl.Resources>
 	<ListBox
-		HorizontalAlignment="Stretch"
 		Name="listBox"
+		HorizontalAlignment="Stretch"
 		VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource PickerDragTemplate}"
 		Background="Transparent"
 		BorderThickness="0"

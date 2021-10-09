@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using HandBrake.Interop.Interop.EventArgs;
+using HandBrake.Interop.Interop.Interfaces.EventArgs;
 using PipeMethodCalls;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -29,7 +29,7 @@ namespace VidCoder
 		/// <summary>
 		/// Fires when an encode has completed.
 		/// </summary>
-		public event EventHandler<EncodeCompletedEventArgs> EncodeCompleted;
+		public event EventHandler<VCEncodeCompletedEventArgs> EncodeCompleted;
 
 		private SemaphoreSlim encodeStartEvent;
 		private SemaphoreSlim encodeEndEvent;
@@ -150,12 +150,12 @@ namespace VidCoder
 				});
 		}
 
-		public async void OnEncodeComplete(bool error)
+		public async void OnEncodeComplete(VCEncodeResultCode result)
 		{
 			await this.ProcessLock.WaitAsync().ConfigureAwait(false);
 			try
 			{
-				this.EndOperation(error);
+				this.EndOperation(result);
 			}
 			finally
 			{
@@ -169,11 +169,11 @@ namespace VidCoder
 
 		protected override IHandBrakeEncodeWorkerCallback CallbackInstance => this;
 
-		protected override void OnOperationEnd(bool error)
+		protected override void OnOperationEnd(VCEncodeResultCode result)
 		{
 			this.EncodeCompleted?.Invoke(
 				this,
-				new EncodeCompletedEventArgs(error));
+				new VCEncodeCompletedEventArgs(result));
 		}
 	}
 }

@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Obecné</value>
@@ -138,50 +138,14 @@
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
     <value>Automatická aktualizace</value>
   </data>
-  <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>Připojte se k aktualizacím Beta verze</value>
-  </data>
-  <data name="FileNamingTab" xml:space="preserve">
-    <value>Pojmenovávání souborů</value>
-  </data>
-  <data name="DefaultFolderLabel" xml:space="preserve">
-    <value>Výchozí složka:</value>
-  </data>
-  <data name="FileFormatLabel" xml:space="preserve">
-    <value>Formát souboru:</value>
-  </data>
-  <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>Výchozí formát</value>
-  </data>
-  <data name="CustomFormatRadioButton" xml:space="preserve">
-    <value>Vlastní formát:</value>
-  </data>
-  <data name="FileNameFormatOptions" xml:space="preserve">
-    <value>Dostupné možnosti: {0}</value>
-  </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
     <value>Pokud soubor již existuje...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
     <value>Enkódování jednoho souboru:</value>
   </data>
-  <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>Zeptejte se jestli to chcete přepsat</value>
-  </data>
-  <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>Přepsat soubor bez výzvy</value>
-  </data>
-  <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>Automaticky přepnout na jiný název</value>
-  </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
     <value>Enkódování skupiny souborů:</value>
-  </data>
-  <data name="OverwriteRadioButton" xml:space="preserve">
-    <value>Přepsat</value>
-  </data>
-  <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>Automaticky přejmenovat</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Automaticky pozastavit enkódování pokud jsou některé tyto procesy spuštěny:</value>
@@ -195,13 +159,8 @@
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>Pamatovat dříve použité soubory a složky</value>
   </data>
-  <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>Povolit nastavení vlastního názvu audio stop (omezená podpora přehrávačů)</value>
-  </data>
   
-  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Smazat zdrojové soubory po vymazání úspěšně dokončené položky (musí být potvrzeno)</value>
-  </data>
+  
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Úroveň logování:</value>
   </data>
@@ -280,9 +239,6 @@
   <data name="OutputFolderSection" xml:space="preserve">
     <value>Výstupní složka</value>
   </data>
-  <data name="NamingFormatSection" xml:space="preserve">
-    <value>Formát pojmenování</value>
-  </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
     <value>Pokročilé možnosti</value>
   </data>
@@ -355,9 +311,6 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Použit pracovní proces pro enkódování</value>
   </data>
-  <data name="VideoSection" xml:space="preserve">
-    <value>Video</value>
-  </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Při převodu souborů zachovat vytvořený a změněný čas</value>
   </data>
@@ -380,6 +333,15 @@
   
   
   
+  
+  
+  
+  
+  
+  
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>Dostupné možnosti: {0}</value>
+  </data>
   
   
   

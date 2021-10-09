@@ -11,11 +11,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using Microsoft.AnyContainer;
-using Newtonsoft.Json;
 using VidCoder.Resources;
 using VidCoder.Services;
-using VidCoder.Services.Windows;
-using VidCoder.ViewModel;
 using VidCoderCommon;
 using VidCoderCommon.Model;
 
@@ -67,6 +64,11 @@ namespace VidCoder.Model
 				if (databaseVersion < 36)
 				{
 					UpgradeDatabaseTo36();
+				}
+
+				if (databaseVersion < 39)
+				{
+					UpgradeDatabaseTo39();
 				}
 
 				// Update encoding profiles if we need to. Everything is at least 28 now from the JSON upgrade.
@@ -264,6 +266,7 @@ namespace VidCoder.Model
 			return ConfigDatabaseFileWithoutExtension + "-v" + databaseVersion + ConfigDatabaseFileExtension;
 		}
 
+#pragma warning disable CS0618 // Type or member is obsolete
 		private static void UpgradeDatabaseTo36()
 		{
 			ExecuteNonQuery(
@@ -273,6 +276,18 @@ namespace VidCoder.Model
 				"parentId INTEGER, " +
 				"isExpanded INTEGER)", connection);
 		}
+
+		private static void UpgradeDatabaseTo39()
+		{
+			// The "File naming" tab was removed, so the last index needs to be updated.
+			int optionsDialogLastTab = DatabaseConfig.Get<int>("OptionsDialogLastTab", 0);
+			if (optionsDialogLastTab > 0)
+			{
+				DatabaseConfig.Set<int>("OptionsDialogLastTab", optionsDialogLastTab - 1);
+			}
+		}
+
+#pragma warning restore CS0618 // Type or member is obsolete
 
 		private static void UpgradeEncodingProfiles(int databaseVersion)
 		{
@@ -309,7 +324,21 @@ namespace VidCoder.Model
 
 			foreach (Picker picker in pickers)
 			{
+				PickerStorage.UpgradePickerUpTo37(picker, databaseVersion);
+			}
+
+			// This is a special version upgrade where we can auto-add a picker
+			if (databaseVersion < 39)
+			{
+				PickerStorage.UpgradePickersTo39(pickers);
+			}
+
+			foreach (Picker picker in pickers)
+			{
 				PickerStorage.UpgradePicker(picker, databaseVersion);
+
+				// As a precaution, null out the extension data. This doesn't work with our cloning library and is only needed for JSON deserialization.
+				picker.ExtensionData = null;
 			}
 
 			var pickerJsonList = pickers.Select(PickerStorage.SerializePicker).ToList();

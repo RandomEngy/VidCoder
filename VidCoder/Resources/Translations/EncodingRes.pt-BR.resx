@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Salvar</value>
@@ -154,13 +154,13 @@
     <value>Ajuste opções adicionais para melhorar o seu conteúdo de entrada. Se especificar um ajuste, as alterações serão aplicadas depois da predefinição, mas antes de todos os outros parâmetros. Por padrão: Nenhum.</value>
   </data>
   <data name="ContainerLabel" xml:space="preserve">
-    <value>Contentor:</value>
+    <value>Formato:</value>
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
     <value>Extensão:</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
-    <value>Otimizado para Web</value>
+    <value>Otimizado para Internet</value>
   </data>
   <data name="Ipod5GSupportCheckBox" xml:space="preserve">
     <value>Suporte para iPod 5G</value>
@@ -169,7 +169,7 @@
     <value>Incluir capítulos</value>
   </data>
   <data name="TabHeader_Sizing" xml:space="preserve">
-    <value>Dimensionamento</value>
+    <value>Dimensionar</value>
   </data>
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>Filtros de vídeo</value>
@@ -196,7 +196,7 @@
     <value>Resolução de armazenamento:</value>
   </data>
   <data name="PixelAspectRatioLabel" xml:space="preserve">
-    <value>Proporções do pixel - Aspect Ratio:</value>
+    <value>Proporção do pixel:</value>
   </data>
   <data name="DisplayResolutionLabel" xml:space="preserve">
     <value>Resolução de tela:</value>
@@ -216,32 +216,26 @@
   <data name="MaxHeightLabel" xml:space="preserve">
     <value>Altura máxima:</value>
   </data>
-  <data name="ModulusLabel" xml:space="preserve">
-    <value>Módulos:</value>
-  </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Saída</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
-    <value>Corte</value>
+    <value>Cortando</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>Detelecine:</value>
   </data>
-  <data name="DecombLabel" xml:space="preserve">
-    <value>Decomb:</value>
-  </data>
   <data name="DeinterlaceLabel" xml:space="preserve">
-    <value>Deinterlace:</value>
+    <value>Desentrelaçar:</value>
   </data>
   <data name="DenoiseLabel" xml:space="preserve">
-    <value>Denoise:</value>
+    <value>Suavizar:</value>
   </data>
   <data name="DeblockLabel" xml:space="preserve">
-    <value>Deblock:</value>
+    <value>Redutor:</value>
   </data>
   <data name="GrayscaleCheckBox" xml:space="preserve">
-    <value>Codificação de tons de cinza</value>
+    <value>Codificação em tons de cinza</value>
   </data>
   <data name="TypeLabel" xml:space="preserve">
     <value>Tipo:</value>
@@ -262,16 +256,16 @@
     <value>Qualidade</value>
   </data>
   <data name="TwoPassEncodingCheckBox" xml:space="preserve">
-    <value>Codificação em 2 passagens</value>
+    <value>Codificação em 2 passos</value>
   </data>
   <data name="TurboFirstPassCheckBox" xml:space="preserve">
-    <value>Primeira passagem em modo Turbo</value>
+    <value>Primeiro passo em modo Turbo</value>
   </data>
   <data name="TargetSizeRadioButton" xml:space="preserve">
     <value>Tamanho Máximo (MB)</value>
   </data>
   <data name="AverageBitrateRadioButton" xml:space="preserve">
-    <value>AVG Bitrate (kbps)</value>
+    <value>Taxa de bits manual (kbps)</value>
   </data>
   <data name="ConstantQualityRadioButton" xml:space="preserve">
     <value>Qualidade constante</value>
@@ -292,10 +286,10 @@
     <value>Base</value>
   </data>
   <data name="Profile_high" xml:space="preserve">
-    <value>Alta</value>
+    <value>Alto</value>
   </data>
   <data name="Preset_UltraFast" xml:space="preserve">
-    <value>Ultra rápido</value>
+    <value>Ultrarrápido</value>
   </data>
   <data name="Preset_SuperFast" xml:space="preserve">
     <value>Super rápido</value>
@@ -334,7 +328,7 @@
     <value>Granulação</value>
   </data>
   <data name="Tune_stillimage" xml:space="preserve">
-    <value>Parar imagem</value>
+    <value>Imagem Estática</value>
   </data>
   <data name="Tune_psnr" xml:space="preserve">
     <value>PSNR</value>
@@ -364,7 +358,7 @@
     <value>Permitir uma taxa de frames variável e utiliza a taxa especificada como um pico. Se a fonte tem uma taxa de frames variável, esta configuração irá preservá-la. Note que alguns leitores não suportam taxas de frames variáveis.</value>
   </data>
   <data name="VfrChoice" xml:space="preserve">
-    <value>Framerate variável</value>
+    <value>Taxa de frames variável</value>
   </data>
   <data name="VfrPeakChoice" xml:space="preserve">
     <value>Pico da taxa de Frames (VFR)</value>
@@ -385,13 +379,13 @@
     <value>(Sem faixas)</value>
   </data>
   <data name="TargetStream" xml:space="preserve">
-    <value>Pista Alvo</value>
+    <value>Destino do fluxo</value>
   </data>
   <data name="MixdownLabel" xml:space="preserve">
-    <value>Mistura:</value>
+    <value>Mixagem:</value>
   </data>
   <data name="SampleRateLabel" xml:space="preserve">
-    <value>Taxa de amostragem:</value>
+    <value>Taxa de qualidade:</value>
   </data>
   <data name="BitrateLabel" xml:space="preserve">
     <value>Taxa de Bits (Bitrate):</value>
@@ -458,13 +452,13 @@
     <value>Dolby Pro Logic II</value>
   </data>
   <data name="Mixdown_left_only" xml:space="preserve">
-    <value>Mono (esquerda somente)</value>
+    <value>Mono (Somente esquerdo)</value>
   </data>
   <data name="Mixdown_mono" xml:space="preserve">
     <value>Mono</value>
   </data>
   <data name="Mixdown_right_only" xml:space="preserve">
-    <value>Mono (somente direito)</value>
+    <value>Mono (Somente direito)</value>
   </data>
   <data name="Mixdown_stereo" xml:space="preserve">
     <value>Estéreo</value>
@@ -475,17 +469,12 @@
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} (Padrão)</value>
   </data>
-  <data name="EncodingWindowTitle" xml:space="preserve">
-    <value>Codificação de predefinição: {0}</value>
-  </data>
-  <data name="AdvancedOptionsStringLabel" xml:space="preserve">
-    <value>Opções avançadas adicionais x264:</value>
-  </data>
   <data name="LevelToolTip" xml:space="preserve">
     <value>Define e garante a conformidade com o nível H.264 especificado.  Substitui todas as outras configurações.</value>
   </data>
   <data name="Profile_high444" xml:space="preserve">
-    <value>Alto 4:4:4 Preditivo</value>
+    <value>High 4:4:4 Predictive
+</value>
   </data>
   <data name="VideoCodecLabel" xml:space="preserve">
     <value>Codec de vídeo:</value>
@@ -497,16 +486,10 @@
     <value>MPEG-4 (Libav)</value>
   </data>
   <data name="VideoEncoder_x264" xml:space="preserve">
-    <value>H. 264 (264)</value>
-  </data>
-  <data name="AdvancedQuery" xml:space="preserve">
-    <value>Consulta avançada</value>
+    <value>H. 264 (x264)</value>
   </data>
   <data name="Video" xml:space="preserve">
     <value>Vídeo</value>
-  </data>
-  <data name="X264Settings" xml:space="preserve">
-    <value>Configurações x264</value>
   </data>
   <data name="LevelLabel" xml:space="preserve">
     <value>Nível:</value>
@@ -527,13 +510,10 @@
     <value>Canais</value>
   </data>
   <data name="SampleRate" xml:space="preserve">
-    <value>Taxa de amostragem</value>
+    <value>Taxa de qualidade:</value>
   </data>
   <data name="Modifiers" xml:space="preserve">
     <value>Modificadores</value>
-  </data>
-  <data name="DtsMp4Warning" xml:space="preserve">
-    <value>Alguns leitores suportam reprodução de áudio DTS em containers MP4. É recomendado o formato MKV para áudio DTS.</value>
   </data>
   <data name="AudioEncoder_flac24" xml:space="preserve">
     <value>FLAC 24 bits</value>
@@ -551,10 +531,10 @@
     <value>Remover a codificação de áudio</value>
   </data>
   <data name="AutoPassthroughFallbackLabel" xml:space="preserve">
-    <value>Segundo plano:</value>
+    <value>Recuar:</value>
   </data>
   <data name="AutoPassthroughFallbackToolTip" xml:space="preserve">
-    <value>PassThrough não funciona em todos os codecs de áudio. Isso especifica o codificador para por trás se a faixa não puder passar através.</value>
+    <value>A transmissão direta não funciona em todos os codecs de áudio. Isso especifica o codificador para por trás se a faixa não puder passar através.</value>
   </data>
   <data name="EncoderSettings" xml:space="preserve">
     <value>Configurações do codificador</value>
@@ -580,17 +560,14 @@
   <data name="PresetToolTip" xml:space="preserve">
     <value>Alterar as opções para o custo da eficiência de compressão contra a velocidade de codificação.</value>
   </data>
-  <data name="ScaleMethodToolTip" xml:space="preserve">
-    <value>Lanczos: Este é o scaler padrão com a melhor qualidade. Bicubic: Este é um algoritmo de dimensionamento acelerado com hardware de OpenCL.</value>
-  </data>
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
-    <value>PassThrough</value>
+    <value>Transmissão direta</value>
   </data>
   <data name="Passthrough_auto" xml:space="preserve">
     <value>Automático</value>
   </data>
   <data name="PassthroughScopeToolTip" xml:space="preserve">
-    <value>Especifica qual codecs de entrada serão aplicadas ao passthrough.</value>
+    <value>Especifica qual codecs de entrada serão aplicadas à transmissão direta.</value>
   </data>
   <data name="FlipHorizontalCheckBox" xml:space="preserve">
     <value>Inverter horizontalmente</value>
@@ -617,7 +594,7 @@
     <value>Inverter a imagem verticalmente. Isto é aplicado antes de qualquer rotação.</value>
   </data>
   <data name="PassthroughIfPossibleCheckBox" xml:space="preserve">
-    <value>Passagem directa se possível</value>
+    <value>Transmissão direta se possível</value>
   </data>
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Se a faixa de entrada coincidir com o codec, será copiado ao invés de codificado.</value>
@@ -675,19 +652,16 @@
   <data name="AnamorphicCheckbox" xml:space="preserve">
     <value>Usar anamórfico</value>
   </data>
-  <data name="AllowUpscalingCheckbox" xml:space="preserve">
-    <value>Permitir "upscaling"</value>
-  </data>
   <data name="SizingModeManual" xml:space="preserve">
     <value>Manual</value>
     <comment>Choice for the user to enter all sizing information manually.</comment>
   </data>
   <data name="UpscaleMaxFormat" xml:space="preserve">
-    <value>Upscale {0}x máximo</value>
+    <value>Aumentar {0}x máximo</value>
     <comment>Label for scaling option to allow upscaling, but only to a particular multiple of the source resolution. {0} is the multiple, e.g. 2, 3 or 4</comment>
   </data>
   <data name="ScalingMode_DownscaleOnly" xml:space="preserve">
-    <value>Apenas Downscale</value>
+    <value>Apenas diminuir</value>
   </data>
   <data name="ScalingMode_Fill" xml:space="preserve">
     <value>Dimensionar para cima/baixo</value>
@@ -713,15 +687,6 @@
   <data name="PadColorLabel" xml:space="preserve">
     <value>Cores:</value>
   </data>
-  <data name="ColorPickerAdvancedButton" xml:space="preserve">
-    <value>Avançado</value>
-  </data>
-  <data name="ColorPickerStandardButton" xml:space="preserve">
-    <value>Padrão</value>
-  </data>
-  <data name="ColorPickerStandardColorsHeader" xml:space="preserve">
-    <value>Cores padrão</value>
-  </data>
   <data name="AnamorphicToolTip" xml:space="preserve">
     <value>Com o Anamórfico habilitado, pixels não quadrados são permitidos. Isso pode resultar em um armazenamento mais eficiente, mas nem todos os reprodutores suportam isto.</value>
   </data>
@@ -734,7 +699,7 @@
     <comment>The "format" portion of the custom filter tooltip. When translating, keep the = and : the same and only replace "key1", "value2", etc.</comment>
   </data>
   <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
-    <value>Chaves:</value>
+    <value>Pontos-chave:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
   <data name="PaddingLabel" xml:space="preserve">
@@ -764,7 +729,7 @@
     <value>Nitidez</value>
   </data>
   <data name="DeblockToolTip" xml:space="preserve">
-    <value>O desbloqueio reduz os artefactos de blocos causados pela compressão de vídeo de baixa qualidade.</value>
+    <value>O redutor elimina os artefatos de blocos causados pela compressão de vídeo de baixa qualidade.</value>
   </data>
   <data name="DeinterlaceToolTip" xml:space="preserve">
     <value>Desentrelaçar remove artefactos ´tipo pente' da imagem.
@@ -774,10 +739,11 @@ O Yadif é um desentrelaçador popular e rápido.
 O Decomb alterna entre diversos algoritmos de interpolação para velocidade e qualidade.</value>
   </data>
   <data name="DenoiseToolTip" xml:space="preserve">
-    <value>O Denoise reduz ou remove o aparecimento de ruído e grão. Isso pode melhorar a eficiência da compressão e criar vídeo de maior qualidade em tamanhos de ficheiro mais pequenos. 
-Definições extremamente fortes de Denoise podem danificar a qualidade da imagem descartando o detalhe.
+    <value>O uso do Suavizar reduz ou remove o aparecimento de manchas e pontos na tela. Isso pode melhorar a eficiência da compressão e criar vídeo de maior qualidade em tamanhos menores de arquivos. 
+
+Definições extremamente fortes do Suavizar podem danificar a qualidade da imagem descartando o detalhe.
          
-NLMeans é um filtro 'denoise' de alta qualidade com custos para a velocidade. Use-o onde a qualidade for mais importante que a velocidade.
+NLMeans é um filtro 'suavizar' de alta qualidade com custos para a velocidade. Use-o onde a qualidade for mais importante que a velocidade.
          
 HQDN3D é um filtro 'low-pass' adaptativo, mais rápido que o NLMeans mas menos eficaz na preservação dos detalhes.</value>
   </data>
@@ -797,10 +763,10 @@ Lapsharp atua usando núcleos de convolução próximos dos filtro de borda Lapl
     <value>Personalizado</value>
   </data>
   <data name="PresetFolder_BuiltIn" xml:space="preserve">
-    <value>Embutido</value>
+    <value>Padrão</value>
   </data>
   <data name="PresetFolderCreateSubfolderMenuItem" xml:space="preserve">
-    <value>Criar sub-pasta</value>
+    <value>Criar subpasta</value>
   </data>
   <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
     <value>Renomear pasta</value>
@@ -812,7 +778,7 @@ Lapsharp atua usando núcleos de convolução próximos dos filtro de borda Lapl
     <value>Nova Pasta</value>
   </data>
   <data name="ChooseNameSubfolder" xml:space="preserve">
-    <value>Escolha um nome para a sub-pasta:</value>
+    <value>Escolha um nome para a subpasta:</value>
   </data>
   <data name="ChooseNewFolderName" xml:space="preserve">
     <value>Escolha um novo nome para a pasta:</value>
@@ -824,13 +790,10 @@ Lapsharp atua usando núcleos de convolução próximos dos filtro de borda Lapl
     <value>Alta qualidade</value>
   </data>
   <data name="NVEncPreset_hp" xml:space="preserve">
-    <value>Alto Desempenho</value>
-  </data>
-  <data name="PickColorButton" xml:space="preserve">
-    <value>Selecionar cor...</value>
+    <value>Alto desempenho</value>
   </data>
   <data name="Bottom" xml:space="preserve">
-    <value>Em baixo</value>
+    <value>Embaixo</value>
   </data>
   <data name="Left" xml:space="preserve">
     <value>Esquerda</value>
@@ -857,5 +820,12 @@ Lapsharp atua usando núcleos de convolução próximos dos filtro de borda Lapl
   </data>
   <data name="MoreOptionsToolTip" xml:space="preserve">
     <value>Argumentos avançados adicionais para o codificador de vídeo.</value>
+  </data>
+  <data name="CannotSwitchEncodingPresetDueToPicker" xml:space="preserve">
+    <value>Não é possível alternar a predefinição de codificação, ela foi bloqueada na janela de seleção.</value>
+    <comment>Message to show when the user is blocked from switching an encoding preset due to a Picker setting.</comment>
+  </data>
+  <data name="PadColorTextToolTip" xml:space="preserve">
+    <value>Formato: FFFFFF</value>
   </data>
 </root>

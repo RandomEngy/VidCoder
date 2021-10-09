@@ -7,11 +7,11 @@ using VidCoder.ViewModel;
 using System.IO;
 using System.Management;
 using Microsoft.AnyContainer;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace VidCoder.Services
 {
-	using System.Runtime.InteropServices;
-
 	public class DriveService : IDriveService
 	{
 		private MainViewModel mainViewModel = StaticResolver.Resolve<MainViewModel>();
@@ -19,12 +19,12 @@ namespace VidCoder.Services
 
 		public DriveService()
 		{
-			// Bind to local machine
-			var options = new ConnectionOptions { EnablePrivileges = true };
-			var scope = new ManagementScope(@"root\CIMV2", options);
-
 			try
 			{
+				// Bind to local machine
+				var options = new ConnectionOptions { EnablePrivileges = true };
+				var scope = new ManagementScope(@"root\CIMV2", options);
+
 				var query = new WqlEventQuery
 				{
 					EventClassName = "__InstanceModificationEvent",

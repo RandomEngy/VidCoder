@@ -19,7 +19,7 @@ namespace VidCoder.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class PreviewRes {
@@ -138,15 +138,6 @@ namespace VidCoder.Resources {
         public static string PlaySourceButton {
             get {
                 return ResourceManager.GetString("PlaySourceButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Windows store version cannot play DVD or Blu-ray source as it is not allowed to launch other processes..
-        /// </summary>
-        public static string PlaySourceDisabledAppxToolTip {
-            get {
-                return ResourceManager.GetString("PlaySourceDisabledAppxToolTip", resourceCulture);
             }
         }
         

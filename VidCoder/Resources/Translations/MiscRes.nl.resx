@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddButton" xml:space="preserve">
     <value>Toevoegen</value>
@@ -136,7 +136,7 @@
     <value>VidCoder heeft een onverwachte fout ervaren.</value>
   </data>
   <data name="ExceptionDialogSubText" xml:space="preserve">
-    <value>Rapporteer dit AUB zodat het in de toekomst kan worden verholpen.</value>
+    <value>Rapporteer dit alstublieft zodat het in de toekomst kan worden opgelost.</value>
   </data>
   <data name="ExceptionWindowTitle" xml:space="preserve">
     <value>Uitzondering</value>
@@ -154,13 +154,13 @@
     <value>Er bestaat al een bestand op pad {0}. Wilt u het overschrijven, automatisch een nieuw pad bepalen voor de coderingstaak of de bewerking annuleren?</value>
   </data>
   <data name="QueueFileConflictWarning" xml:space="preserve">
-    <value>Een taak in de wachtrij heeft al {0} als doel pad op. Wilt u het bestand overschrijven, automatisch een nieuw doel pad voor de coderingstaak bepalen of de bewerking annuleren?</value>
+    <value>Een wachtrijtaak heeft al een uitvoerpad op {0}. Wil je de taak in de wachtrij vervangen, automatisch een nieuw uitvoerpad vinden voor de coderingsopdracht of de bewerking annuleren?</value>
   </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>Wachtrij kolommen</value>
   </data>
   <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Slepen en neerzetten om kolommen toe te voegen, te verwijderen of de volgorde te wijzigen.</value>
+    <value>Sleep om kolommen toe te voegen, te verwijderen of te herschikken.</value>
   </data>
   <data name="UnusedColumns" xml:space="preserve">
     <value>Ongebruikte kolommen</value>
@@ -169,7 +169,7 @@
     <value>Gebruikte kolommen</value>
   </data>
   <data name="ScanMultipleWindowTitle" xml:space="preserve">
-    <value>Aan het scannen...</value>
+    <value>Scannen...</value>
   </data>
   <data name="AboutVidCoderDialogTitle" xml:space="preserve">
     <value>Over VidCoder</value>
@@ -204,7 +204,7 @@
     <value>Een update is gedownload. Wilt u deze nu toepassen?</value>
   </data>
   <data name="ViewFullChangelog" xml:space="preserve">
-    <value>Weergave volledig Changelog</value>
+    <value>Bekijk volledige Changelog</value>
   </data>
   <data name="DisableUpdatesButton" xml:space="preserve">
     <value>Updates uitschakelen</value>
@@ -213,10 +213,10 @@
     <value>Kennisgeving</value>
   </data>
   <data name="UnsupportedOSError" xml:space="preserve">
-    <value>Uw besturingssysteem wordt niet ondersteund door VidCoder. Windox XP en Server 2003 werken niet meer. Gelieve VidCoder 1.4 te installeren of werk uw besturingssysteem bij naar een nieuwere versie.</value>
+    <value>VidCoder wordt niet ondersteund op uw besturingssysteem. Windows XP en Server 2003 werken niet meer. Installeer VidCoder 1.4 of upgrade uw besturingssysteem.</value>
   </data>
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
-    <value>Het systeem gaat binnenkort in slaap modus</value>
+    <value>Het systeem gaat binnenkort in slaapstand</value>
   </data>
   <data name="EncodeCompleteWarning_LogOffTitle" xml:space="preserve">
     <value>Je wordt binnenkort uitgelogd</value>
@@ -225,7 +225,7 @@
     <value>Het systeem wordt binnenkort uitgeschakeld</value>
   </data>
   <data name="EncodeCompleteWarning_SleepMessage" xml:space="preserve">
-    <value>Het systeem gaat over {0} seconden in slaap modus.</value>
+    <value>Het systeem gaat over {0} seconden in slaapstand.</value>
   </data>
   <data name="EncodeCompleteWarning_LogOffMessage" xml:space="preserve">
     <value>Je wordt uitgelogd in {0} seconden.</value>
@@ -234,13 +234,13 @@
     <value>Het systeem schakelt uit over {0} seconden.</value>
   </data>
   <data name="EncodeCompleteWarning_Title" xml:space="preserve">
-    <value>Encodering is voltooid.</value>
+    <value>Codering is voltooid.</value>
   </data>
   <data name="CouldNotFindVideoPlayerError" xml:space="preserve">
-    <value>Kon geen video speler vinden voor {0}.</value>
+    <value>Kon geen videospeler vinden voor {0}.</value>
   </data>
   <data name="ErrorPlayingSource" xml:space="preserve">
-    <value>Probleem bij het afspelen van bron.</value>
+    <value>Fout bij afspelen bron.</value>
   </data>
   <data name="EncodeCompleteWarning_HibernateMessage" xml:space="preserve">
     <value>Het systeem gaat over {0} seconden in slaapstand.</value>
@@ -252,6 +252,12 @@
     <value>Kies een naam voor de kiezer:</value>
   </data>
   <data name="ExceptionDialogSubTextReported" xml:space="preserve">
-    <value>Het programma moet worden afgesloten, maar de fout zal automatisch worden gerapporteerd.</value>
+    <value>Het programma moet worden gesloten, maar de fout wordt automatisch gerapporteerd.</value>
+  </data>
+  <data name="DownloadInstallerButton" xml:space="preserve">
+    <value>Installatieprogramma downloaden</value>
+  </data>
+  <data name="ReplaceJobButton" xml:space="preserve">
+    <value>Taak vervangen</value>
   </data>
 </root>

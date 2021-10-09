@@ -130,10 +130,10 @@
     <value>Default</value>
   </data>
   <data name="ForcedOnlyColumn" xml:space="preserve">
-    <value>Forced Only</value>
+    <value>Forced only</value>
   </data>
   <data name="BurnedInColumn" xml:space="preserve">
-    <value>Burn In</value>
+    <value>Burn in</value>
   </data>
   <data name="ExternalSubtitlesLabel" xml:space="preserve">
     <value>External subtitles:</value>
@@ -153,8 +153,8 @@
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Other subtitle tracks will overlap burned subtitles.</value>
   </data>
-  <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Foreign Audio Search</value>
+  <data name="ForeignAudioScan" xml:space="preserve">
+    <value>Foreign audio scan</value>
   </data>
   <data name="SubtitleFilePickerText" xml:space="preserve">
     <value>Add subtitles file</value>

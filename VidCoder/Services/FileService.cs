@@ -143,14 +143,20 @@ namespace VidCoder.Services
 
 		public void LaunchFile(string fileName)
 		{
-			Process.Start(fileName);
+			Process process = new Process();
+			process.StartInfo.UseShellExecute = true;
+			process.StartInfo.FileName = fileName;
+			process.Start();
 		}
 
 		public void LaunchUrl(string url)
 		{
 			try
 			{
-				Process.Start(url);
+				Process process = new Process();
+				process.StartInfo.UseShellExecute = true;
+				process.StartInfo.FileName = url;
+				process.Start();
 			}
 			catch (Win32Exception)
 			{
@@ -162,7 +168,7 @@ namespace VidCoder.Services
 		{
 			try
 			{
-				if (!Utilities.IsRunningAsAppx && Config.UseCustomVideoPlayer && !string.IsNullOrWhiteSpace(Config.CustomVideoPlayer))
+				if (Config.UseCustomVideoPlayer && !string.IsNullOrWhiteSpace(Config.CustomVideoPlayer))
 				{
 					if (File.Exists(Config.CustomVideoPlayer))
 					{

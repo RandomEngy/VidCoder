@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutLicense" xml:space="preserve">
     <value>Este programa é um software livre; você pode redistribuí-lo e/ou modificá-lo sob os termos da Licença Pública Geral GNU, publicada pela Free Software Foundation; bem como a versão 2 da licença, ou qualquer versão posterior (a seu critério).
@@ -144,7 +144,7 @@ Uma cópia completa da Licença Pública Geral GNU foi incluída neste programa.
     <value>Destino</value>
   </data>
   <data name="QueueColumnNameSource" xml:space="preserve">
-    <value>Origem</value>
+    <value>Fonte</value>
   </data>
   <data name="QueueColumnNameTitle" xml:space="preserve">
     <value>Título</value>
@@ -260,7 +260,7 @@ Uma cópia completa da Licença Pública Geral GNU foi incluída neste programa.
     <value>Usar o diretório de origem, se possível</value>
   </data>
   <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>Preservar a estrutura de pastas nas codificações por lote</value>
+    <value>Preservar a estrutura de pastas nas codificações em lote</value>
   </data>
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
     <value>Se você codificar uma pasta inteira de arquivos, as versões codificadas serão colocados em subpastas, para coincidir com a estrutura do diretório de origem.</value>
@@ -308,7 +308,7 @@ Uma cópia completa da Licença Pública Geral GNU foi incluída neste programa.
 {0} - The name of the value the control is changing, for example "width"</comment>
   </data>
   <data name="OpenSplitButtonAutomationName" xml:space="preserve">
-    <value>Botão de divisão aberto</value>
+    <value>Abrir botão de divisão</value>
     <comment>Automation name for screen readers for the "open" arrow on a split button</comment>
   </data>
   <data name="Unknown" xml:space="preserve">
@@ -317,5 +317,28 @@ Uma cópia completa da Licença Pública Geral GNU foi incluída neste programa.
   </data>
   <data name="DefaultLabel" xml:space="preserve">
     <value>Padrão:</value>
+  </data>
+  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
+    <value>Faixas de áudio</value>
+  </data>
+  <data name="QueueColumnNameCropping" xml:space="preserve">
+    <value>Cortando</value>
+  </data>
+  <data name="QueueColumnNameOutputSize" xml:space="preserve">
+    <value>Tamanho de saída</value>
+  </data>
+  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
+    <value>Faixas de legenda</value>
+  </data>
+  <data name="Manual" xml:space="preserve">
+    <value>Manual</value>
+    <comment>Shown when something has been set manually</comment>
+  </data>
+  <data name="FileNoLongerExists" xml:space="preserve">
+    <value>O arquivo não existe mais.</value>
+  </data>
+  <data name="MegabytesAbbreviation" xml:space="preserve">
+    <value>MB</value>
+    <comment>Abbreviation for megabytes</comment>
   </data>
 </root>

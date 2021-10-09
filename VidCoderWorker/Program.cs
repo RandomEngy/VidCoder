@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using PipeMethodCalls;
+using PipeMethodCalls.NetJson;
 using VidCoderCommon;
 using VidCoderCommon.Model;
 using VidCoderCommon.Utilities;
@@ -36,8 +37,6 @@ namespace VidCoderWorker
 					PrintUsage();
 					return;
 				}
-
-				JsonSettings.SetDefaultSerializationSettings();
 
 				PipeName = args[1];
 
@@ -90,7 +89,7 @@ namespace VidCoderWorker
 				{
 					PipeServerWithCallback<IHandBrakeEncodeWorkerCallback, IHandBrakeEncodeWorker> encodeServer = null;
 					Lazy<IHandBrakeEncodeWorker> lazyEncodeWorker = new Lazy<IHandBrakeEncodeWorker>(() => new HandBrakeEncodeWorker(encodeServer.Invoker));
-					encodeServer = new PipeServerWithCallback<IHandBrakeEncodeWorkerCallback, IHandBrakeEncodeWorker>(PipeName, () => lazyEncodeWorker.Value);
+					encodeServer = new PipeServerWithCallback<IHandBrakeEncodeWorkerCallback, IHandBrakeEncodeWorker>(new NetJsonPipeSerializer(), PipeName, () => lazyEncodeWorker.Value);
 #if DEBUG
 					encodeServer.SetLogger(message => System.Diagnostics.Debug.WriteLine(message));
 #endif
@@ -100,7 +99,7 @@ namespace VidCoderWorker
 				{
 					PipeServerWithCallback<IHandBrakeScanWorkerCallback, IHandBrakeScanWorker> scanServer = null;
 					Lazy<IHandBrakeScanWorker> lazyScanWorker = new Lazy<IHandBrakeScanWorker>(() => new HandBrakeScanWorker(scanServer.Invoker));
-					scanServer = new PipeServerWithCallback<IHandBrakeScanWorkerCallback, IHandBrakeScanWorker>(PipeName, () => lazyScanWorker.Value);
+					scanServer = new PipeServerWithCallback<IHandBrakeScanWorkerCallback, IHandBrakeScanWorker>(new NetJsonPipeSerializer(), PipeName, () => lazyScanWorker.Value);
 #if DEBUG
 					scanServer.SetLogger(message => System.Diagnostics.Debug.WriteLine(message));
 #endif

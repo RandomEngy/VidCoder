@@ -6,14 +6,9 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using HandBrake.Interop.Interop;
-using HandBrake.Interop.Interop.Json.Encode;
-using HandBrake.Interop.Interop.Json.Scan;
-using Newtonsoft.Json;
 using PipeMethodCalls;
 using VidCoderCommon;
-using VidCoderCommon.Model;
 using VidCoderCommon.Services;
-using VidCoderCommon.Utilities;
 
 namespace VidCoderWorker
 {
@@ -23,7 +18,7 @@ namespace VidCoderWorker
 		private const int LogMessageSendDelayMs = 100;
 
 		// These are saved when SetUpWorker is called and used later.
-		private double passedCpuThrottlingFraction;
+		private double currentCpuThrottlingFraction;
 
 		// Batch log messages so the pipe messaging back to UI process is less chatty
 		private readonly List<string> logMessageList = new List<string>();
@@ -64,7 +59,7 @@ namespace VidCoderWorker
 			this.PassedVerbosity = verbosity;
 			this.PassedPreviewCount = previewCount;
 			this.PassedMinTitleDurationSeconds = minTitleDurationSeconds;
-			this.passedCpuThrottlingFraction = cpuThrottlingFraction;
+			this.currentCpuThrottlingFraction = cpuThrottlingFraction;
 
 			this.Logger = new WorkerLogger<TCallback>(this.CallbackInvoker);
 
@@ -75,7 +70,7 @@ namespace VidCoderWorker
 					Environment.SetEnvironmentVariable("TMP", tempFolder, EnvironmentVariableTarget.Process);
 				}
 
-				this.ApplyCpuThrottling();
+				this.ApplyCpuThrottling(onlyIfReduced: true);
 
 				HandBrakeUtils.MessageLogged += (o, e) =>
 				{
@@ -100,6 +95,19 @@ namespace VidCoderWorker
 				this.CallbackError(exception.ToString());
 				throw;
 			}
+		}
+
+		public void TearDownWorker()
+		{
+			Task.Run(async () =>
+			{
+				this.Instance?.Dispose();
+				HandBrakeUtils.DisposeGlobal();
+
+				await this.SendPendingLogMessagesAsync().ConfigureAwait(false);
+
+				Program.SignalEncodeComplete();
+			});
 		}
 
 		private async void ScheduleMessageSendIfNeeded()
@@ -172,11 +180,11 @@ namespace VidCoderWorker
 			Program.SignalEncodeComplete();
 		}
 
-		protected void ApplyCpuThrottling()
+		protected void ApplyCpuThrottling(bool onlyIfReduced)
 		{
-			if (this.passedCpuThrottlingFraction < 1.0)
+			if (!onlyIfReduced || this.currentCpuThrottlingFraction < 1.0)
 			{
-				int coresToUse = (int)Math.Round(Environment.ProcessorCount * this.passedCpuThrottlingFraction);
+				int coresToUse = (int)Math.Round(Environment.ProcessorCount * this.currentCpuThrottlingFraction);
 				if (coresToUse < 1)
 				{
 					coresToUse = 1;
@@ -207,6 +215,12 @@ namespace VidCoderWorker
 			catch (Exception)
 			{
 			}
+		}
+
+		public void UpdateCpuThrottling(double cpuThrottlingFraction)
+		{
+			this.currentCpuThrottlingFraction = cpuThrottlingFraction;
+			this.ApplyCpuThrottling(onlyIfReduced: false);
 		}
 	}
 }

@@ -3,19 +3,27 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:controls="clr-namespace:VidCoder.Controls"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:VidCoder"
 	xmlns:localmodel="clr-namespace:VidCoder.Model"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:preview="clr-namespace:VidCoder.View.Preview"
 	xmlns:res="clr-namespace:VidCoder.Resources"
+	xmlns:viewModel="clr-namespace:VidCoder.ViewModel"
 	Title="{Binding Title}"
 	Width="864"
 	Height="514"
 	MinWidth="405"
 	MinHeight="200"
+	d:DataContext="{d:DesignInstance viewModel:PreviewWindowViewModel}"
 	Closing="PreviewWindow_OnClosing"
 	ShowInTaskbar="False"
 	TextOptions.TextFormattingMode="Display"
-	WindowStyle="ToolWindow">
+	WindowStyle="None"
+	mc:Ignorable="d">
+	<WindowChrome.WindowChrome>
+		<WindowChrome CaptionHeight="30" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
+	</WindowChrome.WindowChrome>
 	<Window.InputBindings>
 		<KeyBinding
 			Key="Q"
@@ -34,32 +42,43 @@
 			Command="{Binding OutputPathService.PickOutputPath}"
 			Modifiers="Control" />
 	</Window.InputBindings>
-	<Grid
-		Name="rootGrid"
-		Focusable="True"
-		KeyDown="OnKeyDown"
-		MouseWheel="OnMouseWheel">
-		<Grid.RowDefinitions>
-			<RowDefinition />
-			<RowDefinition Height="Auto" />
-		</Grid.RowDefinitions>
+	<Border Style="{StaticResource WindowMainPanelStyle}">
 		<Grid
-			Name="previewArea"
-			Background="#666666"
-			SizeChanged="PreviewArea_OnSizeChanged" />
-		<Grid
-			Grid.Row="0"
-			Background="Transparent"
-			Cursor="Hand"
-			MouseDown="OnVideoClick"
-			Visibility="{Binding PlayingPreview,
-			                     Converter={StaticResource VisibilityConverter}}" />
-		<Grid
-			Name="previewControls"
-			Grid.Row="1"
-			Visibility="{Binding PreviewImageService.HasPreview,
-			                     Converter={StaticResource VisibilityConverter}}">
-			<preview:PreviewCreationControls />
+			Name="rootGrid"
+			Focusable="True"
+			KeyDown="OnKeyDown"
+			MouseWheel="OnMouseWheel">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<controls:ToolWindowTitleBar
+				Title="{Binding Title}"
+				Grid.Row="0"
+				Icon="/Icons/Preview64.png"
+				IsActive="{Binding IsActive,
+				                   RelativeSource={RelativeSource AncestorType=Window}}" />
+
+			<Grid
+				Name="previewArea"
+				Grid.Row="1"
+				Background="#666666"
+				SizeChanged="PreviewArea_OnSizeChanged" />
+			<Grid
+				Grid.Row="1"
+				Background="Transparent"
+				Cursor="Hand"
+				MouseDown="OnVideoClick"
+				Visibility="{Binding PlayingPreview,
+				                     Converter={StaticResource VisibilityConverter}}" />
+			<Grid
+				Name="previewControls"
+				Grid.Row="2"
+				Visibility="{Binding PreviewImageService.HasPreview,
+				                     Converter={StaticResource VisibilityConverter}}">
+				<preview:PreviewCreationControls />
+			</Grid>
 		</Grid>
-	</Grid>
+	</Border>
 </Window>

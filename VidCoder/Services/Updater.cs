@@ -14,8 +14,6 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AnyContainer;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.ViewModel;
@@ -24,6 +22,8 @@ using VidCoderCommon;
 namespace VidCoder.Services
 {
 	using Resources;
+	using System.Text.Json;
+	using VidCoderCommon.Utilities;
 
 	public class Updater : ReactiveObject, IUpdater
 	{
@@ -107,7 +107,7 @@ namespace VidCoder.Services
 
 				var installerProcess = new Process();
 				string extraParameter = relaunchWhenComplete ? "/launchWhenDone=\"yes\"" : "/showSuccessDialog=\"yes\"";
-				installerProcess.StartInfo = new ProcessStartInfo { FileName = installerPath, Arguments = "/silent /noicons " + extraParameter + " /dir=\"" + Utilities.ProgramFolder + "\"" };
+				installerProcess.StartInfo = new ProcessStartInfo { FileName = installerPath, Arguments = "/silent /noicons /mergetasks=\"!desktopicon\" " + extraParameter + " /dir=\"" + Utilities.ProgramFolder + "\"" };
 				installerProcess.Start();
 
 				// Caller will handle exiting
@@ -136,6 +136,11 @@ namespace VidCoder.Services
 
 		public bool HandlePendingUpdate()
 		{
+			if (!Utilities.SupportsUpdates)
+			{
+				return false;
+			}
+
 			// This flag signifies VidCoder was closed to install an update.
 			// In this case we report success, delete the installer, clean up the update flags and exit.
 			bool updateInProgress = Config.UpdateInProgress;
@@ -165,11 +170,7 @@ namespace VidCoder.Services
 					{
 						DeleteUpdatesFolder();
 					}
-					catch (IOException)
-					{
-						// Ignore this. Not critical that we delete the updates folder.
-					}
-					catch (UnauthorizedAccessException)
+					catch (Exception)
 					{
 						// Ignore this. Not critical that we delete the updates folder.
 					}
@@ -307,11 +308,7 @@ namespace VidCoder.Services
 
 							string newVersionStartedMessage = string.Format(MainRes.NewVersionDownloadStartedStatus, updateVersionText);
 							this.logger.Log(newVersionStartedMessage);
-
-							DispatchUtilities.BeginInvoke(() =>
-							{
-								this.logger.ShowStatus(newVersionStartedMessage);
-							});
+							this.logger.ShowStatus(newVersionStartedMessage);
 
 							this.State = UpdateState.DownloadingInstaller;
 							this.UpdateDownloadProgressFraction = 0;
@@ -383,7 +380,7 @@ namespace VidCoder.Services
 								}
 								else
 								{
-									// In this case the download must have been cancelled.
+									// In this case the download must have been canceled.
 									this.State = UpdateState.NotStarted;
 								}
 							}
@@ -434,12 +431,10 @@ namespace VidCoder.Services
 			try
 			{
 				HttpClient client = new HttpClient();
+				client.DefaultRequestHeaders.Add("User-Agent", "VidCoder");
 				string updateJson = await client.GetStringAsync(url);
 
-				JsonSerializerSettings settings = new JsonSerializerSettings();
-				settings.Converters.Add(new VersionConverter());
-
-				UpdateInfo updateInfo = JsonConvert.DeserializeObject<UpdateInfo>(updateJson, settings);
+				UpdateInfo updateInfo = JsonSerializer.Deserialize<UpdateInfo>(updateJson, JsonOptions.WithUpgraders);
 				updateInfo.LatestVersion = updateInfo.LatestVersion.FillInWithZeroes();
 				return updateInfo;
 			}

@@ -16,6 +16,7 @@
 		UseLayoutRounding="True">
 		<controls:VideoSeekBar
 			Height="24"
+			EnableTimeText="False"
 			Position="{Binding PreviewVideoPosition,
 			                   Mode=TwoWay}"
 			VideoDuration="{Binding PreviewVideoDuration}" />

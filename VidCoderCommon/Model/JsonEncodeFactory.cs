@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Text.Json;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.HbLib;
+using HandBrake.Interop.Interop.Interfaces.Model;
+using HandBrake.Interop.Interop.Interfaces.Model.Encoders;
 using HandBrake.Interop.Interop.Json.Encode;
 using HandBrake.Interop.Interop.Json.Scan;
 using HandBrake.Interop.Interop.Json.Shared;
-using HandBrake.Interop.Interop.Model.Encoding;
 using Microsoft.AnyContainer;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using Omu.ValueInjecter;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Services;
 using VidCoderCommon.Utilities;
+using VidCoderCommon.Utilities.Injection;
 using Audio = HandBrake.Interop.Interop.Json.Encode.Audio;
 using Metadata = HandBrake.Interop.Interop.Json.Encode.Metadata;
 using Source = HandBrake.Interop.Interop.Json.Encode.Source;
@@ -70,19 +73,19 @@ namespace VidCoderCommon.Model
 
 			if (profile == null)
 			{
-				throw new ArgumentException("job must have enoding profile.", nameof(job));
+				throw new ArgumentException("job must have encoding profile.", nameof(job));
 			}
-
+			
 			JsonEncodeObject encode = new JsonEncodeObject
 			{
 				SequenceID = 0,
 				Audio = this.CreateAudio(job, title),
 				Destination = this.CreateDestination(job, title, defaultChapterNameFormat),
 				Filters = this.CreateFilters(profile, title, outputSize),
-				Metadata = this.CreateMetadata(),
+				Metadata = this.CreateMetadata(job, title),
 				PAR = outputSize.Par,
 				Source = this.CreateSource(job, title, previewNumber, previewSeconds, previewCount),
-				Subtitle = this.CreateSubtitles(job),
+				Subtitle = this.CreateSubtitles(job, title),
 				Video = this.CreateVideo(job, title, previewSeconds)
 			};
 
@@ -91,20 +94,39 @@ namespace VidCoderCommon.Model
 
 		private Audio CreateAudio(VCJob job, SourceTitle title)
 		{
-			Audio audio = new Audio();
+			ResolvedAudio resolvedAudio = ResolveAudio(job, title);
+
+			Audio audio = new Audio
+			{
+				FallbackEncoder = resolvedAudio.FallbackEncoder?.ShortName,
+				CopyMask = resolvedAudio.CopyMask,
+				AudioList = resolvedAudio.ResolvedTracks.Select(t => t.OutputTrack).ToList()
+			};
+
+			return audio;
+		}
+
+		/// <summary>
+		/// Resolves audio settings to use for the encode.
+		/// </summary>
+		/// <param name="job">The encode job to convert.</param>
+		/// <param name="title">The source title.</param>
+		/// <returns>The audio settings to use for the encode.</returns>
+		public static ResolvedAudio ResolveAudio(VCJob job, SourceTitle title)
+		{
+			var resolvedAudio = new ResolvedAudio();
 
 			VCProfile profile = job.EncodingProfile;
-			List<Tuple<AudioEncoding, int>> outputTrackList = this.GetOutputTracks(job, title);
 
 			// If using auto-passthrough, set the fallback
 			if (profile.AudioEncodings.Any(e => e.Encoder == "copy"))
 			{
-			    audio.FallbackEncoder = GetFallbackAudioEncoder(profile).ShortName;
+				resolvedAudio.FallbackEncoder = GetFallbackAudioEncoder(profile);
 			}
 
 			if (profile.AudioCopyMask != null && profile.AudioCopyMask.Any())
 			{
-				audio.CopyMask = HandBrakeEncoderHelpers.AudioEncoders
+				resolvedAudio.CopyMask = HandBrakeEncoderHelpers.AudioEncoders
 					.Where(e =>
 					{
 						if (!e.IsPassthrough || !e.ShortName.Contains(":"))
@@ -136,15 +158,88 @@ namespace VidCoderCommon.Model
 					}
 				}
 
-				audio.CopyMask = copyCodecs.ToArray();
+				resolvedAudio.CopyMask = copyCodecs.ToArray();
 			}
 
-			audio.AudioList = new List<AudioTrack>();
+			List<PairedAudioTrack> pairedTracks = PairAudioTracks(job, title);
+			resolvedAudio.ResolvedTracks = ResolveAudioTracks(pairedTracks, resolvedAudio.FallbackEncoder);
 
-			foreach (Tuple<AudioEncoding, int> outputTrack in outputTrackList)
+			return resolvedAudio;
+		}
+
+		public class ResolvedAudio
+		{
+			public HBAudioEncoder FallbackEncoder { get; set; }
+
+			public string[] CopyMask { get; set; }
+
+			public List<ResolvedAudioTrack> ResolvedTracks { get; set; }
+		}
+
+		/// <summary>
+		/// Pairs audio encodings with tracks to encode.
+		/// </summary>
+		/// <param name="job">The encode job</param>
+		/// <param name="title">The title the job is meant to encode.</param>
+		/// <returns>A list of tracks to encode and what encoding settings to use with them.</returns>
+		private static List<PairedAudioTrack> PairAudioTracks(VCJob job, SourceTitle title)
+		{
+			var list = new List<PairedAudioTrack>();
+
+			foreach (AudioEncoding encoding in job.EncodingProfile.AudioEncodings)
 			{
-				AudioEncoding encoding = outputTrack.Item1;
-				int trackNumber = outputTrack.Item2;
+				if (encoding.InputNumber == 0)
+				{
+					// Add this encoding for all chosen tracks
+					foreach (ChosenAudioTrack chosenTrack in job.AudioTracks)
+					{
+						// In normal cases we'll never have a chosen audio track that doesn't exist but when batch encoding
+						// we just choose the first audio track without checking if it exists.
+						if (chosenTrack.TrackNumber <= title.AudioList.Count)
+						{
+							list.Add(new PairedAudioTrack { Encoding = encoding, ChosenTrack = chosenTrack, SourceTrack = title.AudioList[chosenTrack.TrackNumber - 1] });
+						}
+					}
+				}
+				else if (encoding.InputNumber <= job.AudioTracks.Count)
+				{
+					// Add this encoding for the specified track, if it exists
+					ChosenAudioTrack chosenTrack = job.AudioTracks[encoding.InputNumber - 1];
+
+					// In normal cases we'll never have a chosen audio track that doesn't exist but when batch encoding
+					// we just choose the first audio track without checking if it exists.
+					if (chosenTrack.TrackNumber <= title.AudioList.Count)
+					{
+						list.Add(new PairedAudioTrack { Encoding = encoding, ChosenTrack = chosenTrack, SourceTrack = title.AudioList[chosenTrack.TrackNumber - 1] });
+					}
+				}
+			}
+
+			return list;
+		}
+
+		private class PairedAudioTrack
+		{
+			public AudioEncoding Encoding { get; set; }
+
+			public ChosenAudioTrack ChosenTrack { get; set; }
+
+			public SourceAudioTrack SourceTrack { get; set; }
+		}
+
+		/// <summary>
+		/// Resolves the picked audio tracks into final encoding settings, taking into account the source track type and encoding settings.
+		/// </summary>
+		/// <param name="pairedTracks">The paired tracks.</param>
+		/// <returns>The final resolved audio encoding settings.</returns>
+		private static List<ResolvedAudioTrack> ResolveAudioTracks(List<PairedAudioTrack> pairedTracks, HBAudioEncoder fallbackEncoder)
+		{
+			var resolvedTracks = new List<ResolvedAudioTrack>();
+
+			foreach (PairedAudioTrack pickedTrack in pairedTracks)
+			{
+				AudioEncoding encoding = pickedTrack.Encoding;
+				ChosenAudioTrack chosenTrack = pickedTrack.ChosenTrack;
 
 				HBAudioEncoder encoder = HandBrakeEncoderHelpers.GetAudioEncoder(encoding.Encoder);
 				if (encoder == null)
@@ -152,8 +247,8 @@ namespace VidCoderCommon.Model
 					throw new InvalidOperationException("Could not find audio encoder " + encoding.Name);
 				}
 
-				SourceAudioTrack scanAudioTrack = title.AudioList[trackNumber - 1];
-				HBAudioEncoder inputCodec = HandBrakeEncoderHelpers.GetAudioEncoder(scanAudioTrack.Codec);
+				SourceAudioTrack sourceTrack = pickedTrack.SourceTrack;
+				HBAudioEncoder inputCodec = HandBrakeEncoderHelpers.GetAudioEncoder(sourceTrack.Codec);
 
 				uint outputCodec = (uint)encoder.Id;
 				bool isPassthrough = encoder.IsPassthrough;
@@ -168,119 +263,98 @@ namespace VidCoderCommon.Model
 				}
 
 				if (encoding.PassthroughIfPossible &&
-					(encoder.Id == scanAudioTrack.Codec ||
+					(encoder.Id == sourceTrack.Codec ||
 						inputCodec != null && (inputCodec.ShortName.ToLowerInvariant().Contains("aac") && encoder.ShortName.ToLowerInvariant().Contains("aac") ||
 						inputCodec.ShortName.ToLowerInvariant().Contains("mp3") && encoder.ShortName.ToLowerInvariant().Contains("mp3"))) &&
 					(inputCodec.Id & passMask) > 0)
 				{
-					outputCodec = (uint)scanAudioTrack.Codec | NativeConstants.HB_ACODEC_PASS_FLAG;
+					outputCodec = (uint)sourceTrack.Codec | HandBrakeNativeConstants.HB_ACODEC_PASS_FLAG;
 					isPassthrough = true;
 				}
 
-				var audioTrack = new AudioTrack
+				var outputTrack = new AudioTrack
 				{
-					Track = trackNumber - 1,
+					Track = chosenTrack.TrackNumber - 1,
 					Encoder = HandBrakeEncoderHelpers.GetAudioEncoder((int)outputCodec).ShortName,
 				};
 
-				if (!string.IsNullOrEmpty(encoding.Name))
+				if (!string.IsNullOrEmpty(chosenTrack.Name) && chosenTrack.Name != sourceTrack.Name)
 				{
-					audioTrack.Name = encoding.Name;
+					// If we have picked a name different from the source, use it.
+					outputTrack.Name = chosenTrack.Name;
+				}
+				else if (!string.IsNullOrEmpty(encoding.Name))
+				{
+					// If the encoding has a name associated with it, use it.
+					outputTrack.Name = encoding.Name;
+				}
+				else if (!string.IsNullOrEmpty(sourceTrack.Name))
+				{
+					// Else fall back to the name from the source.
+					outputTrack.Name = sourceTrack.Name;
 				}
 
-			    HBAudioEncoder fallbackAudioEncoder = HandBrakeEncoderHelpers.GetAudioEncoder(audio.FallbackEncoder);
-                if (isPassthrough && fallbackAudioEncoder != null)
-			    {
-                    // If it's passthrough, find the settings for the fallback encoder and apply those, since they will be picked up if the passthrough doesn't work
-			        OutputAudioTrackInfo fallbackSettings = AudioUtilities.GetDefaultSettings(scanAudioTrack, fallbackAudioEncoder);
+				if (isPassthrough && fallbackEncoder != null)
+				{
+					// If it's passthrough, find the settings for the fallback encoder and apply those, since they will be picked up if the passthrough doesn't work
+					OutputAudioTrackInfo fallbackSettings = AudioUtilities.GetDefaultSettings(sourceTrack, fallbackEncoder);
 
-			        audioTrack.Samplerate = fallbackSettings.SampleRate;
-			        audioTrack.Mixdown = fallbackSettings.Mixdown.Id;
-			        audioTrack.CompressionLevel = fallbackSettings.CompressionLevel;
+					outputTrack.Samplerate = fallbackSettings.SampleRate;
+					outputTrack.Mixdown = fallbackSettings.Mixdown.Id;
+					outputTrack.CompressionLevel = fallbackSettings.CompressionLevel;
 
-			        if (fallbackSettings.EncodeRateType == AudioEncodeRateType.Bitrate)
-			        {
-			            audioTrack.Bitrate = fallbackSettings.Bitrate;
-			        }
-			        else
-			        {
-			            audioTrack.Quality = fallbackSettings.Quality;
-			        }
+					if (fallbackSettings.EncodeRateType == AudioEncodeRateType.Bitrate)
+					{
+						outputTrack.Bitrate = fallbackSettings.Bitrate;
+					}
+					else
+					{
+						outputTrack.Quality = fallbackSettings.Quality;
+					}
 
-			        audioTrack.Gain = fallbackSettings.Gain;
-			        audioTrack.DRC = fallbackSettings.Drc;
-                }
+					outputTrack.Gain = fallbackSettings.Gain;
+					outputTrack.DRC = fallbackSettings.Drc;
+				}
 				else if (!isPassthrough)
 				{
-					audioTrack.Samplerate = encoding.SampleRateRaw;
-					audioTrack.Mixdown = HandBrakeEncoderHelpers.GetMixdown(encoding.Mixdown).Id;
-					audioTrack.Gain = encoding.Gain;
-					audioTrack.DRC = encoding.Drc;
+					outputTrack.Samplerate = encoding.SampleRateRaw;
+					outputTrack.Mixdown = HandBrakeEncoderHelpers.GetMixdown(encoding.Mixdown).Id;
+					outputTrack.Gain = encoding.Gain;
+					outputTrack.DRC = encoding.Drc;
 
 					if (encoder.SupportsCompression)
 					{
-						audioTrack.CompressionLevel = encoding.Compression;
+						outputTrack.CompressionLevel = encoding.Compression;
 					}
 
 					switch (encoding.EncodeRateType)
 					{
 						case AudioEncodeRateType.Bitrate:
-							audioTrack.Bitrate = encoding.Bitrate;
+							outputTrack.Bitrate = encoding.Bitrate;
 							break;
 						case AudioEncodeRateType.Quality:
-							audioTrack.Quality = encoding.Quality;
+							outputTrack.Quality = encoding.Quality;
 							break;
 						default:
 							throw new ArgumentOutOfRangeException();
 					}
 				}
 
-				audio.AudioList.Add(audioTrack);
+				resolvedTracks.Add(new ResolvedAudioTrack
+				{
+					SourceTrack = sourceTrack,
+					OutputTrack = outputTrack
+				});
 			}
 
-			return audio;
+			return resolvedTracks;
 		}
 
-		/// <summary>
-		/// Gets a list of encodings and target track indices (1-based).
-		/// </summary>
-		/// <param name="job">The encode job</param>
-		/// <param name="title">The title the job is meant to encode.</param>
-		/// <returns>A list of encodings and target track indices (1-based).</returns>
-		private List<Tuple<AudioEncoding, int>> GetOutputTracks(VCJob job, SourceTitle title)
+		public class ResolvedAudioTrack
 		{
-			var list = new List<Tuple<AudioEncoding, int>>();
+			public SourceAudioTrack SourceTrack { get; set; }
 
-			foreach (AudioEncoding encoding in job.EncodingProfile.AudioEncodings)
-			{
-				if (encoding.InputNumber == 0)
-				{
-					// Add this encoding for all chosen tracks
-					foreach (int chosenTrack in job.ChosenAudioTracks)
-					{
-						// In normal cases we'll never have a chosen audio track that doesn't exist but when batch encoding
-						// we just choose the first audio track without checking if it exists.
-						if (chosenTrack <= title.AudioList.Count)
-						{
-							list.Add(new Tuple<AudioEncoding, int>(encoding, chosenTrack));
-						}
-					}
-				}
-				else if (encoding.InputNumber <= job.ChosenAudioTracks.Count)
-				{
-					// Add this encoding for the specified track, if it exists
-					int trackNumber = job.ChosenAudioTracks[encoding.InputNumber - 1];
-
-					// In normal cases we'll never have a chosen audio track that doesn't exist but when batch encoding
-					// we just choose the first audio track without checking if it exists.
-					if (trackNumber <= title.AudioList.Count)
-					{
-						list.Add(new Tuple<AudioEncoding, int>(encoding, trackNumber));
-					}
-				}
-			}
-
-			return list;
+			public AudioTrack OutputTrack { get; set; }
 		}
 
 		private Destination CreateDestination(VCJob job, SourceTitle title, string defaultChapterNameFormat)
@@ -386,7 +460,7 @@ namespace VidCoderCommon.Model
 					? hb_filter_ids.HB_FILTER_DEINTERLACE
 					: hb_filter_ids.HB_FILTER_DECOMB;
 
-				JToken settings;
+				JsonDocument settings;
 				if (profile.DeinterlacePreset == "custom")
 				{
 					settings = this.GetFilterSettingsCustom(filterId, profile.CustomDeinterlace);
@@ -406,7 +480,7 @@ namespace VidCoderCommon.Model
 			// Comb detect
 			if (profile.DeinterlaceType != VCDeinterlace.Off && !string.IsNullOrEmpty(profile.CombDetect) && profile.CombDetect != "off")
 			{
-				JToken settings;
+				JsonDocument settings;
 				if (profile.CombDetect == "custom")
 				{
 					settings = this.GetFilterSettingsCustom(hb_filter_ids.HB_FILTER_COMB_DETECT, profile.CustomCombDetect);
@@ -428,11 +502,11 @@ namespace VidCoderCommon.Model
 			// 0 - True VFR, 1 - Constant framerate, 2 - VFR with peak framerate
 			if (profile.Framerate > 0 || profile.ConstantFramerate)
 			{
-				JToken framerateSettings;
+				JsonDocument framerateSettings;
 				if (profile.Framerate == 0)
 				{
 					// CFR with "Same as Source". Use the title rate
-					framerateSettings = this.GetFramerateSettings(1, title.FrameRate.Num, title.FrameRate.Den);
+					framerateSettings = this.GetFramerateSettings(1);
 				}
 				else
 				{
@@ -463,7 +537,7 @@ namespace VidCoderCommon.Model
 			// Deblock
 			if (profile.Deblock >= 5)
 			{
-				JToken settings = this.GetFilterSettingsCustom(
+				JsonDocument settings = this.GetFilterSettingsCustom(
 					hb_filter_ids.HB_FILTER_DEBLOCK,
 					string.Format(CultureInfo.InvariantCulture, "qp={0}", profile.Deblock));
 
@@ -474,11 +548,9 @@ namespace VidCoderCommon.Model
 			// Denoise
 			if (profile.DenoiseType != VCDenoise.Off)
 			{
-				hb_filter_ids filterId = profile.DenoiseType == VCDenoise.hqdn3d
-					? hb_filter_ids.HB_FILTER_HQDN3D
-					: hb_filter_ids.HB_FILTER_NLMEANS;
+				hb_filter_ids filterId = ModelConverters.VCDenoiseToHbDenoise(profile.DenoiseType);
 
-				JToken settings;
+				JsonDocument settings;
 				if (profile.DenoisePreset == "custom")
 				{
 					settings = this.GetFilterSettingsCustom(filterId, profile.CustomDenoise);
@@ -502,7 +574,7 @@ namespace VidCoderCommon.Model
 					? hb_filter_ids.HB_FILTER_LAPSHARP
 					: hb_filter_ids.HB_FILTER_UNSHARP;
 
-				JToken settings;
+				JsonDocument settings;
 				if (profile.SharpenPreset == "custom")
 				{
 					settings = this.GetFilterSettingsCustom(filterId, profile.CustomSharpen);
@@ -521,7 +593,7 @@ namespace VidCoderCommon.Model
 
 			// CropScale Filter
 			VCCropping cropping = GetCropping(profile, title);
-			JToken cropFilterSettings = this.GetFilterSettingsCustom(
+			JsonDocument cropFilterSettings = this.GetFilterSettingsCustom(
 				hb_filter_ids.HB_FILTER_CROP_SCALE,
 				string.Format(
 					CultureInfo.InvariantCulture,
@@ -560,7 +632,7 @@ namespace VidCoderCommon.Model
 					flipHorizontal = true;
 				}
 
-				JToken rotateSettings = this.GetFilterSettingsCustom(
+				JsonDocument rotateSettings = this.GetFilterSettingsCustom(
 					hb_filter_ids.HB_FILTER_ROTATE,
 					string.Format(
 						CultureInfo.InvariantCulture,
@@ -587,8 +659,24 @@ namespace VidCoderCommon.Model
 			if (outputSizeInfo.Padding != null && !outputSizeInfo.Padding.IsZero)
 			{
 				var padColor = !string.IsNullOrEmpty(profile.PadColor) ? profile.PadColor : "000000";
+				if (padColor.StartsWith("#"))
+				{
+					padColor = padColor.Substring(1);
+				}
 
-				JToken padSettings = this.GetFilterSettingsCustom(
+				if (padColor.Length == 3)
+				{
+					StringBuilder builder = new StringBuilder();
+					foreach (char c in padColor)
+					{
+						builder.Append(c);
+						builder.Append(c);
+					}
+
+					padColor = builder.ToString();
+				}
+
+				JsonDocument padSettings = this.GetFilterSettingsCustom(
 					hb_filter_ids.HB_FILTER_PAD,
 					FormattableString.Invariant($"width={outputSizeInfo.OutputWidth}:height={outputSizeInfo.OutputHeight}:x={outputSizeInfo.Padding.Left}:y={outputSizeInfo.Padding.Top}:color=0x{padColor}"));
 				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_PAD, Settings = padSettings };
@@ -598,22 +686,20 @@ namespace VidCoderCommon.Model
 			return filters;
 		}
 
-		private JToken GetFilterSettingsCustom(hb_filter_ids filter, string custom)
+		private JsonDocument GetFilterSettingsCustom(hb_filter_ids filter, string custom)
 		{
-			return this.GetFilterSettingsPresetAndTune(filter, null, null, custom);
+			return this.GetFilterSettingsPresetAndTune(filter, "custom", null, custom);
 		}
 
-		private JToken GetFilterSettingsPresetOnly(hb_filter_ids filter, string preset, string custom)
+		private JsonDocument GetFilterSettingsPresetOnly(hb_filter_ids filter, string preset, string custom)
 		{
 			return this.GetFilterSettingsPresetAndTune(filter, preset, null, custom);
 		}
 
-		private JToken GetFilterSettingsPresetAndTune(hb_filter_ids filter, string preset, string tune, string custom)
+		private JsonDocument GetFilterSettingsPresetAndTune(hb_filter_ids filter, string preset, string tune, string custom)
 		{
 			custom = custom?.Trim();
-
-			IntPtr settingsPtr = HBFunctions.hb_generate_filter_settings_json((int)filter, preset, tune, custom);
-			string unparsedJson = Marshal.PtrToStringAnsi(settingsPtr);
+			string unparsedJson = HandBrakeFilterHelpers.GenerateFilterSettingJson((int)filter, preset, tune, custom);
 
 			if (unparsedJson == null)
 			{
@@ -621,10 +707,20 @@ namespace VidCoderCommon.Model
 				return null;
 			}
 
-			return JObject.Parse(unparsedJson);
+			return JsonDocument.Parse(unparsedJson);
 		}
 
-		private JToken GetFramerateSettings(int framerateMode, int framerateNumerator, int framerateDenominator)
+		private JsonDocument GetFramerateSettings(int framerateMode)
+		{
+			return this.GetFilterSettingsCustom(
+				hb_filter_ids.HB_FILTER_VFR,
+				string.Format(
+					CultureInfo.InvariantCulture,
+					"mode={0}",
+					framerateMode));
+		}
+
+		private JsonDocument GetFramerateSettings(int framerateMode, int framerateNumerator, int framerateDenominator)
 		{
 			return this.GetFilterSettingsCustom(
 				hb_filter_ids.HB_FILTER_VFR,
@@ -636,9 +732,15 @@ namespace VidCoderCommon.Model
 					framerateDenominator));
 		}
 
-		private Metadata CreateMetadata()
+		private Metadata CreateMetadata(VCJob job, SourceTitle title)
 		{
-			return new Metadata();
+			var metadata = new Metadata();
+			if (job.PassThroughMetadata && title.MetaData != null)
+			{
+				metadata.InjectFrom<CloneInjection>(title.MetaData);
+			}
+
+			return metadata;
 		}
 
 		/// <summary>
@@ -652,7 +754,7 @@ namespace VidCoderCommon.Model
 		/// <returns>The source sub-object</returns>
 		private Source CreateSource(VCJob job, SourceTitle title, int previewNumber, int previewSeconds, int previewCount)
 		{
-			var range = new Range();
+			var range = new HandBrake.Interop.Interop.Json.Encode.Range();
 
 			if (previewNumber >= 0)
 			{
@@ -701,7 +803,7 @@ namespace VidCoderCommon.Model
 			return source;
 		}
 
-		private Subtitles CreateSubtitles(VCJob job)
+		private Subtitles CreateSubtitles(VCJob job, SourceTitle title)
 		{
 			Subtitles subtitles = new Subtitles
 			{
@@ -716,7 +818,7 @@ namespace VidCoderCommon.Model
 				SubtitleList = new List<SubtitleTrack>()
 			};
 
-			foreach (SourceSubtitle sourceSubtitle in job.Subtitles.SourceSubtitles)
+			foreach (ChosenSourceSubtitle sourceSubtitle in job.Subtitles.SourceSubtitles)
 			{
 				// Handle Foreign Audio Search
 				if (sourceSubtitle.TrackNumber == 0)
@@ -728,13 +830,26 @@ namespace VidCoderCommon.Model
 				}
 				else
 				{
+					SourceSubtitleTrack sourceSubtitleTrack = title.SubtitleList[sourceSubtitle.TrackNumber - 1];
+					bool forcedOnly = HandBrakeEncoderHelpers.SubtitleCanSetForcedOnly(sourceSubtitleTrack.Source) && sourceSubtitle.ForcedOnly;
+					string name;
+					if (string.IsNullOrEmpty(sourceSubtitle.Name))
+					{
+						name = sourceSubtitleTrack.Name;
+					}
+					else
+					{
+						name = sourceSubtitle.Name;
+					}
+
 					SubtitleTrack track = new SubtitleTrack
 					{
 						Burn = sourceSubtitle.BurnedIn,
 						Default = sourceSubtitle.Default,
-						Forced = sourceSubtitle.ForcedOnly,
+						Forced = forcedOnly,
 						ID = sourceSubtitle.TrackNumber,
-						Track = (sourceSubtitle.TrackNumber - 1)
+						Track = sourceSubtitle.TrackNumber - 1,
+						Name = name
 					};
 					subtitles.SubtitleList.Add(track);
 				}
@@ -745,6 +860,7 @@ namespace VidCoderCommon.Model
 				SubtitleTrack track = new SubtitleTrack
 				{
 					Track = -1, // Indicates SRT
+					Name = fileSubtitle.Name,
 					Default = fileSubtitle.Default,
 					Offset = fileSubtitle.Offset,
 					Burn = fileSubtitle.BurnedIn,
@@ -866,8 +982,8 @@ namespace VidCoderCommon.Model
 
 			availableBytes -= containerOverheadBytes;
 
-			List<Tuple<AudioEncoding, int>> outputTrackList = this.GetOutputTracks(job, title);
-			long audioSizeBytes = this.GetAudioSize(lengthSeconds, title, outputTrackList, GetFallbackAudioEncoder(job.EncodingProfile), job.EncodingProfile.AudioCopyMask);
+			ResolvedAudio resolvedAudio = ResolveAudio(job, title);
+			long audioSizeBytes = this.GetAudioSize(lengthSeconds, title, resolvedAudio, job.EncodingProfile.AudioCopyMask);
 			this.logger.Log($"Calculating bitrate - Audio size: {audioSizeBytes} bytes");
 			availableBytes -= audioSizeBytes;
 
@@ -919,8 +1035,8 @@ namespace VidCoderCommon.Model
 			totalBytes += (long)(lengthSeconds * videoBitrate * 125);
 			totalBytes += frames * ContainerOverheadBytesPerFrame;
 
-			List<Tuple<AudioEncoding, int>> outputTrackList = this.GetOutputTracks(job, title);
-			totalBytes += this.GetAudioSize(lengthSeconds, title, outputTrackList, GetFallbackAudioEncoder(job.EncodingProfile), job.EncodingProfile.AudioCopyMask);
+			ResolvedAudio resolvedAudio = ResolveAudio(job, title);
+			totalBytes += this.GetAudioSize(lengthSeconds, title, resolvedAudio, job.EncodingProfile.AudioCopyMask);
 
 			return (double)totalBytes / 1024 / 1024;
 		}
@@ -954,48 +1070,49 @@ namespace VidCoderCommon.Model
 			return TimeSpan.Zero;
 		}
 
-	    /// <summary>
-	    /// Gets the size in bytes for the audio with the given parameters.
-	    /// </summary>
-	    /// <param name="lengthSeconds">The length of the encode in seconds.</param>
-	    /// <param name="title">The title to encode.</param>
-	    /// <param name="outputTrackList">The list of tracks to encode.</param>
-	    /// <param name="audioEncoderFallback">The fallback audio encoder for the job.</param>
-	    /// <param name="copyMask">The audio copy mask for the job.</param>
-	    /// <returns>The size in bytes for the audio with the given parameters.</returns>
-	    private long GetAudioSize(double lengthSeconds, SourceTitle title, List<Tuple<AudioEncoding, int>> outputTrackList, HBAudioEncoder audioEncoderFallback, List<CopyMaskChoice> copyMask)
+		/// <summary>
+		/// Gets the size in bytes for the audio with the given parameters.
+		/// </summary>
+		/// <param name="lengthSeconds">The length of the encode in seconds.</param>
+		/// <param name="title">The title to encode.</param>
+		/// <param name="resolvedAudio">The resolved audio setttings.</param>
+		/// <param name="copyMask">The audio copy mask for the job.</param>
+		/// <returns>The size in bytes for the audio with the given parameters.</returns>
+		private long GetAudioSize(double lengthSeconds, SourceTitle title, ResolvedAudio resolvedAudio, List<CopyMaskChoice> copyMask)
 		{
 			long audioBytes = 0;
 			int outputTrackNumber = 1;
 
-			foreach (Tuple<AudioEncoding, int> outputTrack in outputTrackList)
+			foreach (ResolvedAudioTrack resolvedTrack in resolvedAudio.ResolvedTracks)
 			{
-				AudioEncoding encoding = outputTrack.Item1;
-				SourceAudioTrack track = title.AudioList[outputTrack.Item2 - 1];
+				SourceAudioTrack sourceTrack = resolvedTrack.SourceTrack;
+				AudioTrack outputTrack = resolvedTrack.OutputTrack;
+				string encoderString = outputTrack.Encoder;
 
-				int samplesPerFrame = this.GetAudioSamplesPerFrame(encoding.Encoder);
+				int samplesPerFrame = this.GetAudioSamplesPerFrame(encoderString);
 				int audioBitrate;
 
-				HBAudioEncoder audioEncoder = HandBrakeEncoderHelpers.GetAudioEncoder(encoding.Encoder);
+				HBAudioEncoder encoder = HandBrakeEncoderHelpers.GetAudioEncoder(encoderString);
 
-				this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Encoder: {encoding.Encoder}");
+				this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Encoder: {encoderString}");
+				int sampleRate = outputTrack.Samplerate == 0 ? sourceTrack.SampleRate : outputTrack.Samplerate;
 
-				if (audioEncoder.IsPassthrough)
+				if (encoder.IsPassthrough)
 				{
-				    if (audioEncoder.ShortName == "copy")
+				    if (encoder.ShortName == "copy")
 				    {
                         // Auto-passthrough
 
-				        if (TrackIsEligibleForPassthrough(track, copyMask))
+				        if (TrackIsEligibleForPassthrough(sourceTrack, copyMask))
 				        {
 				            // Input bitrate is in bits/second.
-				            audioBitrate = track.BitRate / 8;
+				            audioBitrate = sourceTrack.BitRate / 8;
 
 				            this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is auto passthrough. {audioBitrate} bytes/second");
 				        }
 				        else
 				        {
-				            OutputAudioTrackInfo outputTrackInfo = AudioUtilities.GetDefaultSettings(track, audioEncoderFallback);
+				            OutputAudioTrackInfo outputTrackInfo = AudioUtilities.GetDefaultSettings(sourceTrack, resolvedAudio.FallbackEncoder);
 				            if (outputTrackInfo.EncodeRateType == AudioEncodeRateType.Quality)
 				            {
 				                audioBitrate = 0;
@@ -1014,12 +1131,12 @@ namespace VidCoderCommon.Model
 				    {
                         // Passthrough for specific codec
 
-				        if (HandBrakeEncoderHelpers.AudioEncoderIsCompatible(track.Codec, audioEncoder))
+				        if (HandBrakeEncoderHelpers.AudioEncoderIsCompatible(sourceTrack.Codec, encoder))
 				        {
 				            // Input bitrate is in bits/second.
-				            audioBitrate = track.BitRate / 8;
+				            audioBitrate = sourceTrack.BitRate / 8;
 
-				            this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is passthrough via {audioEncoder.ShortName}. {audioBitrate} bytes/second");
+				            this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is passthrough via {encoder.ShortName}. {audioBitrate} bytes/second");
 				        }
 				        else
 				        {
@@ -1030,7 +1147,7 @@ namespace VidCoderCommon.Model
                         }
                     }
 				}
-				else if (encoding.EncodeRateType == AudioEncodeRateType.Quality)
+				else if (outputTrack.Quality != null)
 				{
 					// Can't predict size of quality targeted audio encoding.
 					audioBitrate = 0;
@@ -1040,18 +1157,18 @@ namespace VidCoderCommon.Model
 				else
 				{
 					int outputBitrate;
-					if (encoding.Bitrate > 0)
+					if (outputTrack.Bitrate != null && outputTrack.Bitrate > 0)
 					{
-						outputBitrate = encoding.Bitrate;
+						outputBitrate = outputTrack.Bitrate.Value;
 
 						this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Output bitrate set at {outputBitrate} kbps");
 					}
 					else
 					{
 						outputBitrate = HandBrakeEncoderHelpers.GetDefaultBitrate(
-							audioEncoder,
-							encoding.SampleRateRaw == 0 ? track.SampleRate : encoding.SampleRateRaw,
-							HandBrakeEncoderHelpers.SanitizeMixdown(HandBrakeEncoderHelpers.GetMixdown(encoding.Mixdown), audioEncoder, (ulong)track.ChannelLayout));
+							encoder,
+							sampleRate,
+							HandBrakeEncoderHelpers.SanitizeMixdown(HandBrakeEncoderHelpers.GetMixdown(outputTrack.Mixdown), encoder, (ulong)sourceTrack.ChannelLayout));
 
 						this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Output bitrate is Auto, will be {outputBitrate} kbps");
 					}
@@ -1067,7 +1184,7 @@ namespace VidCoderCommon.Model
 				audioBytes += audioTrackBytes;
 
 				// Audio overhead
-				long audioTrackOverheadBytes = (encoding.SampleRateRaw == 0 ? track.SampleRate : encoding.SampleRateRaw) * ContainerOverheadBytesPerFrame / samplesPerFrame;
+				long audioTrackOverheadBytes = sampleRate * ContainerOverheadBytesPerFrame / samplesPerFrame;
 				this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Overhead is {audioTrackOverheadBytes} bytes");
 				audioBytes += audioTrackOverheadBytes;
 
@@ -1157,17 +1274,8 @@ namespace VidCoderCommon.Model
 		{
 			if (profile.SizingMode == VCSizingMode.Manual)
 			{
-				int manualOutputWidth, manualOutputHeight;
-				if (profile.Rotation == VCPictureRotation.Clockwise90 || profile.Rotation == VCPictureRotation.Clockwise270)
-				{
-					manualOutputWidth = profile.Height;
-					manualOutputHeight = profile.Width;
-				}
-				else
-				{
-					manualOutputWidth = profile.Width;
-					manualOutputHeight = profile.Height;
-				}
+				int manualOutputWidth = profile.Width;
+				int manualOutputHeight = profile.Height;
 
 				manualOutputWidth += profile.Padding.Left + profile.Padding.Right;
 				manualOutputHeight += profile.Padding.Top + profile.Padding.Bottom;
@@ -1192,9 +1300,24 @@ namespace VidCoderCommon.Model
 			int sourceParWidth = title.Geometry.PAR.Num;
 			int sourceParHeight = title.Geometry.PAR.Den;
 
+			// If we are rotating 90/270, swap the source picture width/height and PAR
+			if (profile.Rotation == VCPictureRotation.Clockwise90 || profile.Rotation == VCPictureRotation.Clockwise270)
+			{
+				int temp = sourceWidth;
+				sourceWidth = sourceHeight;
+				sourceHeight = temp;
+
+				temp = sourceParWidth;
+				sourceParWidth = sourceParHeight;
+				sourceParHeight = temp;
+			}
+
 			VCCropping cropping = GetCropping(profile, title);
 			int croppedSourceWidth = sourceWidth - cropping.Left - cropping.Right;
 			int croppedSourceHeight = sourceHeight - cropping.Top - cropping.Bottom;
+
+			croppedSourceWidth = Math.Max(croppedSourceWidth, 2);
+			croppedSourceHeight = Math.Max(croppedSourceHeight, 2);
 
 			double sourceAspect = (double)croppedSourceWidth / croppedSourceHeight;
 			double adjustedSourceAspect; // Source aspect, adjusted for PAR
@@ -1223,8 +1346,6 @@ namespace VidCoderCommon.Model
 				adjustedSourceAspect = sourceAspect * sourceParWidth / sourceParHeight;
 			}
 
-			bool swapDimensionsFromRotation = profile.Rotation == VCPictureRotation.Clockwise90 || profile.Rotation == VCPictureRotation.Clockwise270;
-
 			// When using padding fill/width/height, the dimensions we are specifying are post-rotation. We need to adjust here to give the right values to the scale filter.
 			int? maxPictureWidth = null, maxPictureHeight = null;
 			switch (profile.PaddingMode)
@@ -1232,8 +1353,8 @@ namespace VidCoderCommon.Model
 				case VCPaddingMode.Fill:
 				case VCPaddingMode.Width:
 				case VCPaddingMode.Height:
-					maxPictureWidth = swapDimensionsFromRotation ? profile.Height : profile.Width;
-					maxPictureHeight = swapDimensionsFromRotation ? profile.Width : profile.Height;
+					maxPictureWidth = profile.Width;
+					maxPictureHeight = profile.Height;
 					break;
 				case VCPaddingMode.Custom:
 				case VCPaddingMode.None:
@@ -1291,14 +1412,6 @@ namespace VidCoderCommon.Model
 
 			int scaleWidth = pictureOutputWidth;
 			int scaleHeight = pictureOutputHeight;
-
-			// Rotation happens before padding.
-			if (swapDimensionsFromRotation)
-			{
-				int swapDimension = pictureOutputWidth;
-				pictureOutputWidth = pictureOutputHeight;
-				pictureOutputHeight = swapDimension;
-			}
 
 			int outputWidth, outputHeight;
 			VCPadding padding;
@@ -1427,16 +1540,16 @@ namespace VidCoderCommon.Model
 			int totalVerticalPadding = padding.Top + padding.Bottom;
 			bool hasHorizontalPadding = totalHorizontalPadding > 0;
 			bool hasVerticalPadding = totalVerticalPadding > 0;
-			if (!hasHorizontalPadding && !swapDimensionsFromRotation || !hasVerticalPadding && swapDimensionsFromRotation)
+			if (!hasHorizontalPadding)
 			{
 				// The output dimensions at this point are after rotation, so we need to swap to get the pre-rotation sizing dimensions.
-				scaleWidth = swapDimensionsFromRotation ? roundedOutputHeight : roundedOutputWidth;
+				scaleWidth = roundedOutputWidth;
 			}
 
-			if (!hasVerticalPadding && !swapDimensionsFromRotation || !hasHorizontalPadding && swapDimensionsFromRotation)
+			if (!hasVerticalPadding)
 			{
 				// The output dimensions at this point are after rotation, so we need to swap to get the pre-rotation sizing dimensions.
-				scaleHeight = swapDimensionsFromRotation ? roundedOutputWidth : roundedOutputHeight;
+				scaleHeight = roundedOutputHeight;
 			}
 
 			// Refresh the picture output size after adjustment
@@ -1447,18 +1560,9 @@ namespace VidCoderCommon.Model
 			if (profile.UseAnamorphic)
 			{
 				// Calculate PAR from final picture size
-				if (swapDimensionsFromRotation)
-				{
-					outputPar = MathUtilities.CreatePar(
-						(long)croppedSourceHeight * sourceParHeight * pictureOutputHeight,
-						(long)croppedSourceWidth * sourceParWidth * pictureOutputWidth);
-				}
-				else
-				{
-					outputPar = MathUtilities.CreatePar(
-						(long)croppedSourceWidth * sourceParWidth * pictureOutputHeight,
-						(long)croppedSourceHeight * sourceParHeight * pictureOutputWidth);
-				}
+				outputPar = MathUtilities.CreatePar(
+					(long)croppedSourceWidth * sourceParWidth * pictureOutputHeight,
+					(long)croppedSourceHeight * sourceParHeight * pictureOutputWidth);
 			}
 			else
 			{
@@ -1494,12 +1598,12 @@ namespace VidCoderCommon.Model
 			if (paddingNegative)
 			{
 				StaticResolver.Resolve<ILogger>().LogError(
-					"Output padding cannot be negative: " + JsonConvert.SerializeObject(padding, Formatting.None) + Environment.NewLine
+					"Output padding cannot be negative: " + JsonSerializer.Serialize(padding) + Environment.NewLine
 					+ $"Calculated from profile: Width {profile.Width}, Height {profile.Height}, "
-					+ $"Padding {JsonConvert.SerializeObject(profile.Padding, Formatting.None)}, PaddingMode {profile.PaddingMode}, "
+					+ $"Padding {JsonSerializer.Serialize(profile.Padding)}, PaddingMode {profile.PaddingMode}, "
 					+ $"SizingMode {profile.SizingMode}, ScalingMode {profile.ScalingMode}, Rotation {profile.Rotation}, "
 					+ $"PixelAspectX {profile.PixelAspectX}, PixelAspectY {profile.PixelAspectY}, UseAnamorphic {profile.UseAnamorphic}" + Environment.NewLine
-					+ "And source title geometry: " + JsonConvert.SerializeObject(title.Geometry, Formatting.None));
+					+ "And source title geometry: " + JsonSerializer.Serialize(title.Geometry));
 			}
 
 			return new OutputSizeInfo
@@ -1518,8 +1622,7 @@ namespace VidCoderCommon.Model
 			switch (profile.CroppingType)
 			{
 				case VCCroppingType.Automatic:
-					var autoCrop = title.Crop;
-					return new VCCropping(autoCrop[0], autoCrop[1], autoCrop[2], autoCrop[3]);
+					return GetAutomaticCropping(profile.Rotation, profile.FlipHorizontal, profile.FlipVertical, title);
 				case VCCroppingType.None:
 					return new VCCropping(0, 0, 0, 0);
 				case VCCroppingType.Custom:
@@ -1527,6 +1630,61 @@ namespace VidCoderCommon.Model
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+		}
+
+		public static VCCropping GetAutomaticCropping(VCPictureRotation rotation, bool flipHorizontal, bool flipVertical, SourceTitle title)
+		{
+			var autoCrop = title.Crop;
+			int top = autoCrop[0];
+			int bottom = autoCrop[1];
+			int left = autoCrop[2];
+			int right = autoCrop[3];
+
+			int temp;
+
+			if (flipHorizontal)
+			{
+				temp = left;
+				left = right;
+				right = temp;
+			}
+
+			if (flipVertical)
+			{
+				temp = top;
+				top = bottom;
+				bottom = temp;
+			}
+
+			switch (rotation)
+			{
+				case VCPictureRotation.Clockwise90:
+					temp = top;
+					top = left;
+					left = bottom;
+					bottom = right;
+					right = temp;
+					break;
+				case VCPictureRotation.Clockwise180:
+					temp = top;
+					top = bottom;
+					bottom = temp;
+					temp = left;
+					left = right;
+					right = temp;
+					break;
+				case VCPictureRotation.Clockwise270:
+					temp = top;
+					top = right;
+					right = bottom;
+					bottom = left;
+					left = temp;
+					break;
+				default:
+					break;
+			}
+
+			return new VCCropping(top, bottom, left, right);
 		}
 	}
 }

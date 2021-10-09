@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="PlaySourceButton" xml:space="preserve">
     <value>播放來源影片</value>
@@ -180,7 +180,7 @@
   <data name="BottomMargin" xml:space="preserve">
     <value>底部</value>
   </data>
-	<data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
+  <data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
     <value>無法找到來源檔案。</value>
   </data>
   <data name="CloseVideoButton" xml:space="preserve">
@@ -201,8 +201,5 @@
   </data>
   <data name="VideoErrorTitle" xml:space="preserve">
     <value>視訊錯誤</value>
-  </data>
-  <data name="PlaySourceDisabledAppxToolTip" xml:space="preserve">
-    <value>由於無法開啟其他程式，Windows 市集版本無法播放 DVD 或藍光視訊來源。</value>
   </data>
 </root>

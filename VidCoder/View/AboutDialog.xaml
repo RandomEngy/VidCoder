@@ -1,82 +1,102 @@
 ﻿<Window
-    x:Class="VidCoder.View.AboutDialog"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:prop="clr-namespace:VidCoder.Properties"
-    xmlns:res="clr-namespace:VidCoder.Resources"
-    Title="{x:Static res:MiscRes.AboutVidCoderDialogTitle}"
-    Width="480"
-    Height="425"
-    ResizeMode="NoResize"
-    Style="{StaticResource NormalWindow}"
-    TextOptions.TextFormattingMode="Display"
-    WindowStartupLocation="CenterOwner">
-    <Grid>
-        <Image
-            Width="120"
-            Height="120"
-            Margin="12 12 0 0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Source="/Icons/VidCoder.png"
-            Stretch="Fill" />
-        <StackPanel Margin="153 13 0 0" Orientation="Vertical">
-            <TextBlock
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                FontSize="34"
-                Text="VidCoder" />
+	x:Class="VidCoder.View.AboutDialog"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:controls="clr-namespace:VidCoder.Controls"
+	xmlns:prop="clr-namespace:VidCoder.Properties"
+	xmlns:res="clr-namespace:VidCoder.Resources"
+	Title="{x:Static res:MiscRes.AboutVidCoderDialogTitle}"
+	Width="480"
+	Height="425"
+	ResizeMode="NoResize"
+	Style="{StaticResource NormalWindow}"
+	TextOptions.TextFormattingMode="Display"
+	WindowStartupLocation="CenterOwner"
+	WindowStyle="None">
+	<WindowChrome.WindowChrome>
+		<WindowChrome CaptionHeight="30" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
+	</WindowChrome.WindowChrome>
+	<Border Style="{StaticResource WindowMainPanelStyle}">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<controls:ToolWindowTitleBar
+				Title="{x:Static res:MiscRes.AboutVidCoderDialogTitle}"
+				Grid.Row="0"
+				Icon="/Icons/Help.png"
+				IsActive="{Binding IsActive,
+				                   RelativeSource={RelativeSource AncestorType=Window}}" />
 
-            <StackPanel
-                Margin="0 0 0 6"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Orientation="Horizontal">
-                <TextBlock
-                    Name="versionLabel"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Text="{x:Static res:MiscRes.Version}" />
-                <TextBlock
-                    Name="versionText"
-                    Margin="5 0 0 0"
-                    Text="{Binding Version}" />
-            </StackPanel>
+			<Grid Grid.Row="1">
+				<Image
+					Width="120"
+					Height="120"
+					Margin="12 12 0 0"
+					HorizontalAlignment="Left"
+					VerticalAlignment="Top"
+					Source="/Icons/VidCoder.png"
+					Stretch="Fill" />
+				<StackPanel Margin="153 13 0 0" Orientation="Vertical">
+					<TextBlock
+						HorizontalAlignment="Left"
+						VerticalAlignment="Top"
+						FontSize="34"
+						Text="VidCoder" />
 
-            <TextBlock
-                Margin="0 0 0 6"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Text="{Binding BasedOnHandBrake}"
-                TextWrapping="Wrap" />
-            <TextBlock
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Text="{Binding Copyright}" />
-        </StackPanel>
+					<StackPanel
+						Margin="0 0 0 6"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Top"
+						Orientation="Horizontal">
+						<TextBlock
+							Name="versionLabel"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Top"
+							Text="{x:Static res:MiscRes.Version}" />
+						<TextBlock
+							Name="versionText"
+							Margin="5 0 0 0"
+							Text="{Binding Version}" />
+					</StackPanel>
 
-        <Label
-            Name="label1"
-            Height="28"
-            Margin="12 138 0 0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Content="{x:Static res:MiscRes.LicenseLabel}" />
+					<TextBlock
+						Margin="0 0 0 6"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Top"
+						Text="{Binding BasedOnHandBrake}"
+						TextWrapping="Wrap" />
+					<TextBlock
+						HorizontalAlignment="Left"
+						VerticalAlignment="Top"
+						Text="{Binding Copyright}" />
+				</StackPanel>
 
-        <TextBlock
-            Margin="13 162 12 41"
-            Text="{x:Static res:CommonRes.AboutLicense}"
-            TextWrapping="Wrap" />
-        <Button
-            Name="button1"
-            Height="23"
-            MinWidth="75"
-            Margin="0 0 12 12"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Command="{Binding Accept}"
-            Content="{x:Static res:CommonRes.Ok}"
-            IsCancel="True"
-            IsDefault="True" />
-    </Grid>
+				<Label
+					Name="label1"
+					Height="28"
+					Margin="12 138 0 0"
+					HorizontalAlignment="Left"
+					VerticalAlignment="Top"
+					Content="{x:Static res:MiscRes.LicenseLabel}" />
+
+				<TextBlock
+					Margin="13 162 12 41"
+					Text="{x:Static res:CommonRes.AboutLicense}"
+					TextWrapping="Wrap" />
+				<Button
+					Name="button1"
+					Height="23"
+					MinWidth="75"
+					Margin="0 0 12 12"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Bottom"
+					Command="{Binding Accept}"
+					Content="{x:Static res:CommonRes.Ok}"
+					IsCancel="True"
+					IsDefault="True" />
+			</Grid>
+		</Grid>
+	</Border>
 </Window>

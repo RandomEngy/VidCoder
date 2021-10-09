@@ -33,7 +33,6 @@ namespace VidCoder
 			profile.Width = hbPreset.PictureWidth ?? 0;
 			profile.Height = hbPreset.PictureHeight ?? 0;
 			profile.PaddingMode = VCPaddingMode.None;
-			profile.Modulus = hbPreset.PictureModulus;
 			profile.Rotation = VCPictureRotation.None;
 			profile.FlipHorizontal = false;
 			profile.FlipVertical = false;
@@ -76,7 +75,7 @@ namespace VidCoder
 			profile.VideoOptions = hbPreset.VideoOptionExtra;
 			profile.TwoPass = hbPreset.VideoTwoPass;
 			profile.TurboFirstPass = hbPreset.VideoTurboTwoPass;
-			profile.Quality = hbPreset.VideoQualitySlider;
+			profile.Quality = (decimal)hbPreset.VideoQualitySlider;
 			profile.VideoBitrate = hbPreset.VideoAvgBitrate ?? 0;
 			profile.QsvDecode = false;
 			switch (hbPreset.VideoQualityType)

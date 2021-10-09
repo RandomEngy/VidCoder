@@ -6,7 +6,8 @@ using System.Reactive.Linq;
 using System.Resources;
 using DynamicData;
 using HandBrake.Interop.Interop;
-using HandBrake.Interop.Interop.Model.Encoding;
+using HandBrake.Interop.Interop.Interfaces.Model;
+using HandBrake.Interop.Interop.Interfaces.Model.Encoders;
 using HandBrake.Interop.Utilities;
 using Microsoft.AnyContainer;
 using ReactiveUI;
@@ -31,7 +32,6 @@ namespace VidCoder.ViewModel
 		private OutputPathService outputPathService = StaticResolver.Resolve<OutputPathService>();
 		private MainViewModel main = StaticResolver.Resolve<MainViewModel>();
 
-		private List<VideoEncoderViewModel> encoderChoices;
 
 		private VideoEncoderViewModel selectedEncoder;
 		private List<double> framerateChoices;
@@ -41,6 +41,9 @@ namespace VidCoder.ViewModel
 		private List<ComboChoice> profileChoices;
 		private List<LevelChoiceViewModel> levelChoices;
 		private List<ComboChoice> tuneChoices;
+
+		// Encoders that start with these prefixes don't support 2-pass encoding.
+		private static readonly List<string> TwoPassDisablePrefixes = new List<string> { "mf_", "qsv_", "nvenc_", "vce_" };
 
 		public VideoPanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
 			: base(encodingWindowViewModel)
@@ -550,7 +553,15 @@ namespace VidCoder.ViewModel
 
 		private static bool EncoderSupportsTwoPass(string shortEncoderName)
 		{
-			return !shortEncoderName.StartsWith("nvenc_", StringComparison.Ordinal) && !shortEncoderName.StartsWith("vce_", StringComparison.Ordinal);
+			foreach (string disallowedPrefix in TwoPassDisablePrefixes)
+			{
+				if (shortEncoderName.StartsWith(disallowedPrefix, StringComparison.Ordinal))
+				{
+					return false;
+				}
+			}
+
+			return true;
 		}
 
 		private ObservableAsPropertyHelper<string> inputType;
@@ -562,13 +573,8 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<string> inputFramerate;
 		public string InputFramerate => this.inputFramerate.Value;
 
-		public List<VideoEncoderViewModel> EncoderChoices
-		{
-			get
-			{
-				return this.encoderChoices;
-			}
-		}
+		private List<VideoEncoderViewModel> encoderChoices;
+		public List<VideoEncoderViewModel> EncoderChoices => this.encoderChoices;
 
 		// True if a VideoEncoder change was done by a user explicitly on the combobox.
 		private bool userVideoEncoderChange;
@@ -603,7 +609,7 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<bool> x264SettingsVisible;
 		public bool X264SettingsVisible => this.x264SettingsVisible.Value;
 
-		public bool QsvSettingsVisible => SystemInfo.IsQsvAvailable;
+		public bool QsvSettingsVisible => HandBrakeHardwareEncoderHelper.IsQsvAvailable;
 
 		public List<double> FramerateChoices
 		{
@@ -724,7 +730,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public double Quality
+		public decimal Quality
 		{
 			get { return this.Profile.Quality; }
 			set { this.UpdateProfileProperty(nameof(this.Profile.Quality), value); }

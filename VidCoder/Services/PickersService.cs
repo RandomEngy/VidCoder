@@ -299,21 +299,7 @@ namespace VidCoder.Services
 		public void AutoCreatePicker()
 		{
 			Picker newPicker = new Picker();
-
-			for (int i = 1; i < 500; i++)
-			{
-				string newName = string.Format(MainRes.PickerNameTemplate, i);
-				if (!this.Pickers.Any(p => p.Picker.Name == newName))
-				{
-					newPicker.Name = newName;
-					break;
-				}
-			}
-
-			if (newPicker.Name == null)
-			{
-				newPicker.Name = string.Format(MainRes.PickerNameTemplate, 501);
-			}
+			newPicker.Name = PickerStorage.CreateCustomPickerName(this.Pickers.Select(p => p.Picker).ToList());
 
 			var newPickerVM = new PickerViewModel(newPicker);
 
@@ -327,7 +313,7 @@ namespace VidCoder.Services
 		/// <summary>
 		/// Starts modification of the current picker, using the new passed-in picker.
 		/// </summary>
-		/// <param name="newPicker">The new picker. This should be a clone of the original, with a property modified.</param>
+		/// <param name="newPicker">The new picker. This should be a clone of the original. A property will be modified on it after this completes.</param>
 		public void ModifyPicker(Picker newPicker)
 		{
 			Trace.Assert(!this.SelectedPicker.Picker.IsModified, "Cannot start modification on already modified picker.");

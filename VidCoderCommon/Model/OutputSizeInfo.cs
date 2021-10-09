@@ -10,12 +10,12 @@ namespace VidCoderCommon.Model
 	public class OutputSizeInfo
 	{
 		/// <summary>
-		/// The width to scale to (before rotation).
+		/// The width to scale to (after rotation).
 		/// </summary>
 		public int ScaleWidth { get; set; }
 
 		/// <summary>
-		/// The height to scale to (before rotation).
+		/// The height to scale to (after rotation).
 		/// </summary>
 		public int ScaleHeight { get; set; }
 
@@ -34,7 +34,7 @@ namespace VidCoderCommon.Model
 		public VCPadding Padding { get; set; }
 
 		/// <summary>
-		/// The post-rotation picture width.
+		/// The final picture width, post-rotation, scaling and not counting padding.
 		/// </summary>
 		public int PictureWidth
 		{
@@ -50,7 +50,7 @@ namespace VidCoderCommon.Model
 		}
 
 		/// <summary>
-		/// The post-rotation picture height.
+		/// The final picture height, post-rotation, scaling and not counting padding.
 		/// </summary>
 		public int PictureHeight
 		{

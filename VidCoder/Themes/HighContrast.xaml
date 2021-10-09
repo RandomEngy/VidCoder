@@ -7,6 +7,9 @@
 	<SolidColorBrush x:Key="ToolBarBackgroundBrush" Color="{x:Static SystemColors.WindowColor}" />
 	<SolidColorBrush x:Key="WindowBrush" Color="{x:Static SystemColors.WindowColor}" />
 	<SolidColorBrush x:Key="WindowTextBrush" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="WindowInactiveBorderBrush" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="WindowActiveBorderBrush" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="WindowTitleBarInactiveBackground" Color="{x:Static SystemColors.WindowColor}" />
 	<SolidColorBrush x:Key="SplitterBrush" Color="{x:Static SystemColors.ControlDarkColor}" />
 	<SolidColorBrush x:Key="SpecialTextBrush" Color="{x:Static SystemColors.WindowTextColor}" />
 	<SolidColorBrush x:Key="SpecialTextHighlightedBrush" Color="{x:Static SystemColors.HighlightTextColor}" />
@@ -14,6 +17,9 @@
 	<SolidColorBrush x:Key="MouseOverBackgroundBrush" Color="{x:Static SystemColors.HighlightColor}" />
 	<SolidColorBrush x:Key="MouseOverOverlayBackgroundBrush" Color="{x:Static SystemColors.HighlightColor}" />
 	<SolidColorBrush x:Key="PressedOverlayBackgroundBrush" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="MouseOverWindowCloseButtonBackgroundBrush" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="MouseOverWindowCloseButtonForegroundBrush" Color="{x:Static SystemColors.HighlightTextColor}" />
+	<SolidColorBrush x:Key="PressedWindowCloseButtonBackgroundBrush" Color="{x:Static SystemColors.HighlightColor}" />
 	<SolidColorBrush x:Key="SelectedBackgroundBrush" Color="{x:Static SystemColors.HighlightColor}" />
 	<SolidColorBrush x:Key="PopupInfoBackgroundBrush" Color="{x:Static SystemColors.WindowColor}" />
 	<SolidColorBrush x:Key="InlineWarningBackgroundBrush" Color="{x:Static SystemColors.WindowColor}" />
@@ -39,16 +45,43 @@
 	<SolidColorBrush x:Key="HighlightTextBrush" Color="{x:Static SystemColors.HighlightTextColor}" />
 
 
-	<SolidColorBrush x:Key="Button.Static.Background" Color="{x:Static SystemColors.ControlColor}"/>
-	<SolidColorBrush x:Key="Button.Static.Border" Color="{x:Static SystemColors.ControlDarkColor}"/>
-	<SolidColorBrush x:Key="Button.MouseOver.Background" Color="{x:Static SystemColors.HighlightColor}"/>
-	<SolidColorBrush x:Key="Button.MouseOver.Border" Color="{x:Static SystemColors.HighlightColor}"/>
-	<SolidColorBrush x:Key="Button.Pressed.Background" Color="{x:Static SystemColors.HighlightColor}"/>
-	<SolidColorBrush x:Key="Button.Pressed.Border" Color="{x:Static SystemColors.HighlightColor}"/>
-	<SolidColorBrush x:Key="Button.Disabled.Background" Color="{x:Static SystemColors.ControlColor}"/>
-	<SolidColorBrush x:Key="Button.Disabled.Border" Color="{x:Static SystemColors.ControlDarkColor}"/>
-	<SolidColorBrush x:Key="Button.Disabled.Foreground" Color="{x:Static SystemColors.GrayTextColor}"/>
+	<SolidColorBrush x:Key="Button.Static.Background" Color="{x:Static SystemColors.ControlColor}" />
+	<SolidColorBrush x:Key="Button.Static.Border" Color="{x:Static SystemColors.ControlDarkColor}" />
+	<SolidColorBrush x:Key="Button.MouseOver.Background" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="Button.MouseOver.Border" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="Button.Pressed.Background" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="Button.Pressed.Border" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="Button.Disabled.Background" Color="{x:Static SystemColors.ControlColor}" />
+	<SolidColorBrush x:Key="Button.Disabled.Border" Color="{x:Static SystemColors.ControlDarkColor}" />
+	<SolidColorBrush x:Key="Button.Disabled.Foreground" Color="{x:Static SystemColors.GrayTextColor}" />
 
+
+	<SolidColorBrush x:Key="OptionMark.Static.Background" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="OptionMark.Static.Border" Color="{x:Static SystemColors.ControlDarkColor}" />
+	<SolidColorBrush x:Key="OptionMark.Static.Glyph" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="OptionMark.MouseOver.Background" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="OptionMark.MouseOver.Border" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="OptionMark.MouseOver.Glyph" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="OptionMark.Disabled.Background" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="OptionMark.Disabled.Border" Color="{x:Static SystemColors.GrayTextColor}" />
+	<SolidColorBrush x:Key="OptionMark.Disabled.Glyph" Color="{x:Static SystemColors.GrayTextColor}" />
+	<SolidColorBrush x:Key="OptionMark.Pressed.Background" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="OptionMark.Pressed.Border" Color="{x:Static SystemColors.ControlDarkColor}" />
+	<SolidColorBrush x:Key="OptionMark.Pressed.Glyph" Color="{x:Static SystemColors.WindowTextColor}" />
+
+
+	<SolidColorBrush x:Key="RadioButton.Static.Background" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="RadioButton.Static.Border" Color="{x:Static SystemColors.ControlDarkColor}" />
+	<SolidColorBrush x:Key="RadioButton.Static.Glyph" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="RadioButton.MouseOver.Background" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="RadioButton.MouseOver.Border" Color="{x:Static SystemColors.HighlightColor}" />
+	<SolidColorBrush x:Key="RadioButton.MouseOver.Glyph" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="RadioButton.Disabled.Background" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="RadioButton.Disabled.Border" Color="{x:Static SystemColors.GrayTextColor}" />
+	<SolidColorBrush x:Key="RadioButton.Disabled.Glyph" Color="{x:Static SystemColors.GrayTextColor}" />
+	<SolidColorBrush x:Key="RadioButton.Pressed.Background" Color="{x:Static SystemColors.WindowColor}" />
+	<SolidColorBrush x:Key="RadioButton.Pressed.Border" Color="{x:Static SystemColors.ControlDarkColor}" />
+	<SolidColorBrush x:Key="RadioButton.Pressed.Glyph" Color="{x:Static SystemColors.WindowTextColor}" />
 
 
 	<SolidColorBrush x:Key="ComboBox.Static.Background" Color="{x:Static SystemColors.WindowColor}" />

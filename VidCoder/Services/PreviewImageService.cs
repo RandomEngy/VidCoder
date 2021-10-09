@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using DynamicData;
 using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.Json.Encode;
 using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Extensions;
@@ -135,6 +136,11 @@ namespace VidCoder.Services
 		/// <returns>The bitmap source at that index, or null if it doesn't exist yet.</returns>
 		public BitmapSource TryGetPreviewImage(int previewIndex)
 	    {
+			if (this.previewImageCache == null)
+			{
+				return null;
+			}
+
 		    BitmapSource cachedImage = this.previewImageCache[previewIndex];
 		    if (cachedImage != null)
 		    {
@@ -403,7 +409,7 @@ namespace VidCoder.Services
 			    UpdateVersion = updateVersion,
 			    ScanInstance = this.ScanInstance,
 			    PreviewIndex = previewNumber,
-			    Profile = this.job.EncodingProfile,
+			    Job = this.job,
 			    Title = this.mainViewModel.SelectedTitle.Title,
 			    ImageFileSync = this.imageFileSync[previewNumber]
 		    });
@@ -471,15 +477,23 @@ namespace VidCoder.Services
 
 			    if (imageSource == null && !imageJob.ScanInstance.IsDisposed)
 			    {
-				    // Make a HandBrake call to get the image
-				    imageSource = BitmapUtilities.ConvertToBitmapImage(BitmapUtilities.ConvertByteArrayToBitmap(imageJob.ScanInstance.GetPreview(imageJob.Profile.CreatePreviewSettings(imageJob.Title), imageJob.PreviewIndex, imageJob.Profile.DeinterlaceType != VCDeinterlace.Off)));
+					// Create the JsonEncodeObject
+					JsonEncodeFactory factory = new JsonEncodeFactory(new StubLogger());
 
-				    // Transform the image as per rotation and reflection settings
-				    VCProfile profile = imageJob.Profile;
-				    if (profile.FlipHorizontal || profile.FlipVertical || profile.Rotation != VCPictureRotation.None)
-				    {
-					    imageSource = CreateTransformedBitmap(imageSource, profile);
-				    }
+					JsonEncodeObject jsonEncodeObject = factory.CreateJsonObject(
+						imageJob.Job,
+						imageJob.Title,
+						EncodingRes.DefaultChapterName);
+
+					// Make a HandBrake call to get the image
+					imageSource = BitmapUtilities.ConvertToBitmapImage(BitmapUtilities.ConvertByteArrayToBitmap(imageJob.ScanInstance.GetPreview(jsonEncodeObject, imageJob.PreviewIndex)));
+
+				    //// Transform the image as per rotation and reflection settings
+				    //VCProfile profile = imageJob.Job.EncodingProfile;
+				    //if (profile.FlipHorizontal || profile.FlipVertical || profile.Rotation != VCPictureRotation.None)
+				    //{
+					   // imageSource = CreateTransformedBitmap(imageSource, profile);
+				    //}
 
 				    // Start saving the image file in the background and continue to process the queue.
 				    ThreadPool.QueueUserWorkItem(this.BackgroundFileSave, new SaveImageJob
@@ -513,38 +527,6 @@ namespace VidCoder.Services
 		    }
 	    }
 
-	    private static TransformedBitmap CreateTransformedBitmap(BitmapSource source, VCProfile profile)
-	    {
-		    var transformedBitmap = new TransformedBitmap();
-		    transformedBitmap.BeginInit();
-		    transformedBitmap.Source = source;
-		    var transformGroup = new TransformGroup();
-		    transformGroup.Children.Add(new ScaleTransform(profile.FlipHorizontal ? -1 : 1, profile.FlipVertical ? -1 : 1));
-		    transformGroup.Children.Add(new RotateTransform(ConvertRotationToDegrees(profile.Rotation)));
-		    transformedBitmap.Transform = transformGroup;
-		    transformedBitmap.EndInit();
-		    transformedBitmap.Freeze();
-
-		    return transformedBitmap;
-	    }
-
-	    private static double ConvertRotationToDegrees(VCPictureRotation rotation)
-	    {
-		    switch (rotation)
-		    {
-			    case VCPictureRotation.None:
-				    return 0;
-			    case VCPictureRotation.Clockwise90:
-				    return 90;
-			    case VCPictureRotation.Clockwise180:
-				    return 180;
-			    case VCPictureRotation.Clockwise270:
-				    return 270;
-		    }
-
-		    return 0;
-	    }
-
 	    private void BackgroundFileSave(object state)
 	    {
 		    var job = state as SaveImageJob;
@@ -561,8 +543,6 @@ namespace VidCoder.Services
 		    {
 			    try
 			    {
-					throw new InvalidOperationException("test");
-
 				    using (var memoryStream = new MemoryStream())
 				    {
 					    // Write the bitmap out to a memory stream before saving so that we won't be holding
@@ -571,7 +551,13 @@ namespace VidCoder.Services
 					    encoder.Frames.Add(BitmapFrame.Create(job.Image));
 					    encoder.Save(memoryStream);
 
-					    using (var fileStream = new FileStream(job.FilePath, FileMode.Create))
+						var directory = Path.GetDirectoryName(job.FilePath);
+						if (!Directory.Exists(directory))
+						{
+							Directory.CreateDirectory(directory);
+						}
+
+						using (var fileStream = new FileStream(job.FilePath, FileMode.Create))
 					    {
 						    fileStream.Write(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
 					    }

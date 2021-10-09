@@ -1,27 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
-using Newtonsoft.Json;
 using VidCoder.Model;
-using VidCoder.Properties;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
-using System.IO.Pipes;
-using System.IO;
-using System.ComponentModel;
-using System.Management;
-using System.Runtime.InteropServices;
-using System.Security.Principal;
 using System.Windows.Media;
-using Fluent;
 using HandBrake.Interop.Interop;
-using Microsoft.Win32;
-using VidCoder.Services.Notifications;
 using VidCoder.View;
 using VidCoderCommon;
 using VidCoderCommon.Utilities;
@@ -31,33 +18,24 @@ namespace VidCoder
 	using System.Globalization;
 	using System.Threading;
 	using Automation;
+	using ControlzEx.Theming;
 	using Microsoft.AnyContainer;
+	using Microsoft.Toolkit.Uwp.Notifications;
 	using Resources;
+	using VidCoder.Services.Notifications;
+	using VidCoderCommon.Services;
+	using Windows.Foundation.Metadata;
 
 	/// <summary>
 	/// Interaction logic for App.xaml
 	/// </summary>
 	public partial class App : Application
 	{
-		public static bool IsPrimaryInstance { get; private set; }
-
-		private static Mutex mutex;
+		private Mutex mutex;
 
 		private IAppThemeService appThemeService;
 
 		private AppTheme currentTheme = AppTheme.Light;
-
-		static App()
-		{
-			if (CommonUtilities.Beta)
-			{
-				mutex = new Mutex(true, "VidCoderBetaPrimaryInstanceMutex");
-			}
-			else
-			{
-				mutex = new Mutex(true, "VidCoderPrimaryInstanceMutex");
-			}
-		}
 
 		protected override void OnStartup(StartupEventArgs e)
 		{
@@ -66,9 +44,50 @@ namespace VidCoder
 				return;
 			}
 
-			if (!Debugger.IsAttached)
+			// Only include Debugger.IsAttached check in Debug build, as antivirus programs find the check suspicious.
+#if DEBUG
+			bool setupExceptionHandler = !Debugger.IsAttached;
+#else
+			bool setupExceptionHandler = true;
+#endif
+
+			if (setupExceptionHandler)
 			{
 				this.DispatcherUnhandledException += this.OnDispatcherUnhandledException;
+			}
+
+			string mutexName = CommonUtilities.Beta ? "VidCoderBetaInstanceMutex" : "VidCoderInstanceMutex";
+			bool createdNew = true;
+
+			try
+			{
+				this.mutex = new Mutex(true, mutexName, out createdNew);
+
+				if (!createdNew)
+				{
+					var automationClient = new AutomationClient();
+					automationClient.RunActionAsync(a => a.BringToForeground()).Wait();
+
+					// BringToForeground succeeded. We can end this process and use the other one.
+					Environment.Exit(0);
+					return;
+				}
+			}
+			catch (AbandonedMutexException)
+			{
+				// Another instance has crashed, abandoning its mutex. But that's fine.
+			}
+			catch
+			{
+				// If we get here then we've failed to activate the other instance. It might be in a bad state so we'll kill it and continue.
+				Process[] processes = Process.GetProcesses();
+				foreach (Process process in processes)
+				{
+					if (process.ProcessName == "VidCoder" && process.Id != Process.GetCurrentProcess().Id)
+					{
+						process.Kill();
+					}
+				}
 			}
 
 			OperatingSystem OS = Environment.OSVersion;
@@ -94,18 +113,9 @@ namespace VidCoder
 			Delay.PseudoLocalizer.Enable(typeof(MiscRes));
 #endif
 
-			JsonSettings.SetDefaultSerializationSettings();
-
 			Ioc.SetUp();
 
-			try
-			{
-				Database.Initialize();
-			}
-			catch (Exception)
-			{
-				Environment.Exit(0);
-			}
+			Database.Initialize();
 
 			Config.EnsureInitialized(Database.Connection);
 
@@ -113,10 +123,10 @@ namespace VidCoder
 			if (!string.IsNullOrWhiteSpace(interfaceLanguageCode))
 			{
 				var cultureInfo = new CultureInfo(interfaceLanguageCode);
-				Thread.CurrentThread.CurrentCulture = cultureInfo;
 				Thread.CurrentThread.CurrentUICulture = cultureInfo;
-				CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
 				CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
+				// Don't set CurrentCulture as well; we don't need to override the number/date formatting as well.
 			}
 
 			Stopwatch sw = Stopwatch.StartNew();
@@ -135,15 +145,6 @@ namespace VidCoder
 
 			updater.HandlePendingUpdate();
 
-			try
-			{
-				// Check if we're a secondary instance
-				IsPrimaryInstance = mutex.WaitOne(TimeSpan.Zero, true);
-			}
-			catch (AbandonedMutexException)
-			{
-			}
-
 			this.GlobalInitialize();
 
 			this.appThemeService = StaticResolver.Resolve<IAppThemeService>();
@@ -157,10 +158,12 @@ namespace VidCoder
 					bool isDark = appTheme == AppTheme.Dark;
 
 					string fluentTheme = isDark ? "Dark" : "Light";
-					ThemeManager.ChangeTheme(this, fluentTheme + ".Cobalt");
+					ThemeManager.Current.ChangeTheme(this, fluentTheme + ".Cobalt");
 
 					Color ribbonTextColor = isDark ? Colors.White : Colors.Black;
+					Color ribbonBackgroundColor = isDark ? Colors.Black : Colors.White;
 					this.Resources["Fluent.Ribbon.Brushes.LabelTextBrush"] = new SolidColorBrush(ribbonTextColor);
+					this.Resources["Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background"] = new SolidColorBrush(ribbonBackgroundColor);
 				}
 			});
 
@@ -173,27 +176,34 @@ namespace VidCoder
 				mainVM.HandlePaths(new List<string> { e.Args[0] });
 			}
 
-			if (!Utilities.IsPortable && IsPrimaryInstance)
+			AutomationHost.StartListening();
+				
+			ActivityService activityService = StaticResolver.Resolve<ActivityService>();
+			this.Activated += (object sender, EventArgs e2) =>
 			{
-				AutomationHost.StartListening();
+				activityService.ReportActivated();
+			};
+			this.Deactivated += (object sender, EventArgs e2) =>
+			{
+				activityService.ReportDeactivated();
+			};
+
+			//if (ApiInformation.IsTypePresent("Windows.UI.Notifications.Notification"))
+			if (Utilities.UwpApisAvailable)
+			{
+				ToastNotificationManagerCompat.OnActivated += this.ToastOnActivated;
 			}
 
 			base.OnStartup(e);
 		}
 
+		private void ToastOnActivated(ToastNotificationActivatedEventArgsCompat e)
+		{
+			StaticResolver.Resolve<Main>().EnsureVisible();
+		}
+
 		protected override void OnExit(ExitEventArgs e)
 		{
-			if (IsPrimaryInstance)
-			{
-				try
-				{
-					mutex.ReleaseMutex();
-				}
-				catch (ApplicationException)
-				{
-				}
-			}
-
 			this.appThemeService?.Dispose();
 		}
 

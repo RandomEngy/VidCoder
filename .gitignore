@@ -16,3 +16,6 @@ HandBrakeInterop.XmlSerializers.dll
 *.csproj.user
 *.user
 Installer/Files/*
+Installer/Test/*
+Installer/latest.json
+Installer/latest-beta.json

@@ -12,8 +12,10 @@ namespace VidCoder.Model
 		None = 4,
 		First = 5,
 		ByIndex = 6,
-		ForeignAudioSearch = 1,
 		Language = 2,
-		All = 3
+		All = 3,
+
+		// Obsolete. Now controlled by SubtitleAddForeignAudioScan
+		ForeignAudioSearch = 1
 	}
 }

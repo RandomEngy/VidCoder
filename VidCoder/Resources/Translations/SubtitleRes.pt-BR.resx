@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SubtitlesWindowTitle" xml:space="preserve">
-    <value>Legendas</value>
-  </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>Legendas da origem:</value>
   </data>
@@ -156,8 +153,8 @@
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Outras faixas de legendas irão sobrepor legendas embutidas.</value>
   </data>
-  <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Pesquisa de áudio externo</value>
+  <data name="ForeignAudioScan" xml:space="preserve">
+    <value>Escanear áudio estrangeiro</value>
   </data>
   <data name="SubtitleFilePickerText" xml:space="preserve">
     <value>Adicionar legendas</value>

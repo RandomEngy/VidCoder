@@ -32,7 +32,7 @@ namespace VidCoder.View
 
 			InitializeComponent();
 
-			this.subText.Text = Utilities.IsRunningAsAppx ? MiscRes.ExceptionDialogSubTextReported : MiscRes.ExceptionDialogSubText;
+			this.subText.Text = MiscRes.ExceptionDialogSubText;
 
 			this.errorIcon.Source = WpfSystemIcons.Error;
 			this.exceptionTextBox.Text = exception + Environment.NewLine;

@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Threading;
 using HandBrake.Interop.Interop;
 using Microsoft.AnyContainer;
@@ -36,7 +37,7 @@ namespace VidCoder.ViewModel
 		private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
 		private string previewFilePath;
 		private bool cancelPending;
-		private bool encodeCancelled;
+		private bool encodeCanceled;
 		private int previewSeconds;
 
 
@@ -82,7 +83,7 @@ namespace VidCoder.ViewModel
 						bool isDvd = Utilities.IsDvdFolder(sourcePath);
 						bool playerInstalled = Players.Installed.Count > 0;
 
-						return isDvd && !Utilities.IsRunningAsAppx && playerInstalled;
+						return isDvd && playerInstalled;
 					}
 					else
 					{
@@ -120,11 +121,6 @@ namespace VidCoder.ViewModel
 				{
 					if (FileUtilities.IsDirectory(sourcePath))
 					{
-						if (Utilities.IsRunningAsAppx)
-						{
-							return PreviewRes.PlaySourceDisabledAppxToolTip;
-						}
-
 						// Path is a directory. Can only preview when it's a DVD and we have a supported player installed.
 						bool isDvd = Utilities.IsDvdFolder(sourcePath);
 						if (!isDvd)
@@ -266,7 +262,7 @@ namespace VidCoder.ViewModel
 
 			if (this.GeneratingPreview)
 			{
-				this.encodeCancelled = true;
+				this.encodeCanceled = true;
 				this.encodeProxy.StopEncodeAsync();
 			}
 
@@ -347,14 +343,14 @@ namespace VidCoder.ViewModel
 		private TimeSpan previewVideoDuration;
 		public TimeSpan PreviewVideoDuration
 		{
-			get { return this.previewVideoDuration; }
-			set { this.RaiseAndSetIfChanged(ref this.previewVideoDuration, value); }
+			get => this.previewVideoDuration;
+			set => this.RaiseAndSetIfChanged(ref this.previewVideoDuration, value);
 		}
 
 		private double volume = Config.PreviewVolume;
 		public double Volume
 		{
-			get { return this.volume; }
+			get => this.volume;
 			set
 			{
 				this.RaiseAndSetIfChanged(ref this.volume, value);
@@ -385,13 +381,13 @@ namespace VidCoder.ViewModel
 
 		public double PreviewPercentComplete
 		{
-			get { return this.previewPercentComplete; }
-			set { this.RaiseAndSetIfChanged(ref this.previewPercentComplete, value); }
+			get => this.previewPercentComplete;
+			set => this.RaiseAndSetIfChanged(ref this.previewPercentComplete, value);
 		}
 
 		public int PreviewSeconds
 		{
-			get { return this.previewSeconds; }
+			get => this.previewSeconds;
 
 			set
 			{
@@ -425,7 +421,7 @@ namespace VidCoder.ViewModel
 
 		public PreviewDisplay DisplayType
 		{
-			get { return this.displayType; }
+			get => this.displayType;
 
 			set
 			{
@@ -460,7 +456,7 @@ namespace VidCoder.ViewModel
 						this.PreviewPercentComplete = 0;
 						this.EncodeState = PreviewEncodeState.EncodeStarting;
 						this.cancelPending = false;
-						this.encodeCancelled = false;
+						this.encodeCanceled = false;
 
 						this.SetPreviewFilePath();
 
@@ -468,7 +464,7 @@ namespace VidCoder.ViewModel
 
 						if (this.job.Subtitles?.SourceSubtitles != null)
 						{
-							SourceSubtitle scanTrack = this.job.Subtitles.SourceSubtitles.FirstOrDefault(s => s.TrackNumber == 0);
+							ChosenSourceSubtitle scanTrack = this.job.Subtitles.SourceSubtitles.FirstOrDefault(s => s.TrackNumber == 0);
 							if (scanTrack != null)
 							{
 								this.job.Subtitles.SourceSubtitles.Remove(scanTrack);
@@ -560,13 +556,13 @@ namespace VidCoder.ViewModel
 							{
 								this.EncodeState = PreviewEncodeState.NotEncoding;
 
-								if (this.encodeCancelled)
+								if (this.encodeCanceled)
 								{
-									this.logger.Log("Cancelled preview clip generation");
+									this.logger.Log("Canceled preview clip generation");
 								}
 								else
 								{
-									if (e.Error)
+									if (e.Result != VCEncodeResultCode.Succeeded)
 									{
 										this.logger.Log(PreviewRes.PreviewClipGenerationFailedTitle);
 										Utilities.MessageBox.Show(PreviewRes.PreviewClipGenerationFailedMessage);
@@ -605,8 +601,11 @@ namespace VidCoder.ViewModel
 				this.SetVideoPositionFromNonUser(TimeSpan.Zero);
 				this.PreviewPaused = false;
 
-				this.seekBarUpdateTimer = new DispatcherTimer();
-				this.seekBarUpdateTimer.Interval = TimeSpan.FromMilliseconds(250);
+				this.seekBarUpdateTimer = new DispatcherTimer
+				{
+					Interval = TimeSpan.FromMilliseconds(250)
+				};
+
 				this.seekBarUpdateTimer.Tick += (sender, args) => { this.View.RefreshViewModelFromMediaElement(); };
 
 				this.seekBarUpdateTimer.Start();
@@ -723,7 +722,7 @@ namespace VidCoder.ViewModel
 
 		private void CancelPreviewImpl()
 		{
-			this.encodeCancelled = true;
+			this.encodeCanceled = true;
 			this.encodeProxy.StopEncodeAsync();
 		}
 

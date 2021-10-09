@@ -5,6 +5,8 @@
 	xmlns:VidCoderDragDrop="clr-namespace:VidCoder.DragDropUtils"
 	xmlns:controls="clr-namespace:VidCoder.Controls"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:dataModels="clr-namespace:VidCoder.ViewModel.DataModels"
+	xmlns:interop="clr-namespace:HandBrake.Interop.Interop;assembly=HandBrake.Interop"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:model="clr-namespace:VidCoder.Model"
 	xmlns:res="clr-namespace:VidCoder.Resources"
@@ -18,8 +20,11 @@
 	d:DataContext="{d:DesignInstance viewModel:PickerWindowViewModel}"
 	Closing="PickerWindow_OnClosing"
 	ShowInTaskbar="False"
-	WindowStyle="ToolWindow"
+	WindowStyle="None"
 	mc:Ignorable="d">
+	<WindowChrome.WindowChrome>
+		<WindowChrome CaptionHeight="30" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
+	</WindowChrome.WindowChrome>
 	<Window.Resources>
 		<Style x:Key="TrackIndicesStyle" TargetType="TextBox">
 			<Setter Property="Width" Value="60" />
@@ -28,943 +33,1054 @@
 		<Style x:Key="TrackIndicesHelpTextStyle" TargetType="TextBlock">
 			<Setter Property="Margin" Value="15 0 0 0" />
 		</Style>
+		<DataTemplate x:Key="TrackNameDataTemplate" DataType="dataModels:TrackNameViewModel">
+			<StackPanel Margin="0 3 0 0" Orientation="Horizontal">
+				<TextBlock Text="{Binding TrackNumberDisplay}" />
+				<TextBox
+					MinWidth="100"
+					Margin="4 0 0 0"
+					AutomationProperties.Name="{Binding AutomationName}"
+					Text="{Binding Name,
+					               UpdateSourceTrigger=PropertyChanged}" />
+				<Button
+					VerticalAlignment="Center"
+					Command="{Binding Remove}"
+					Content="{x:Static res:CommonRes.Remove}"
+					Style="{StaticResource RemoveButtonStyle}" />
+			</StackPanel>
+		</DataTemplate>
 	</Window.Resources>
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition
-				Name="listColumn"
-				Width="135"
-				MinWidth="70"
-				MaxWidth="250" />
-			<ColumnDefinition Width="*" />
-		</Grid.ColumnDefinitions>
-
-		<controls:PickerList
-			Grid.Column="0"
-			HorizontalAlignment="Stretch"
-			Background="{DynamicResource AlternateBackgroundBrush}"
-			EnableDragDrop="True" />
-
-		<GridSplitter
-			Grid.Column="1"
-			Width="4"
-			HorizontalAlignment="Left"
-			VerticalAlignment="Stretch"
-			Background="{DynamicResource SplitterBrush}"
-			Canvas.ZIndex="4"
-			ShowsPreview="True" />
-
-		<Grid Grid.Column="1" Margin="4 0 0 0">
+	<Border Style="{StaticResource WindowMainPanelStyle}">
+		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-				<RowDefinition />
+				<RowDefinition Height="*" />
 			</Grid.RowDefinitions>
+			<controls:ToolWindowTitleBar
+				Title="{Binding WindowTitle}"
+				Icon="/Icons/Picker.png"
+				IsActive="{Binding IsActive,
+				                   RelativeSource={RelativeSource AncestorType=Window}}" />
 
-			<ToolBarPanel
-				Grid.Row="0"
-				Margin="-5 -1 -14 -1"
-				HorizontalAlignment="Stretch"
-				VerticalAlignment="Top"
-				UseLayoutRounding="True"
-				Visibility="{Binding PickersService.SelectedPicker.Picker.IsDefault,
-				                     Converter={StaticResource InverseVisibilityConverter}}">
-				<ToolBar
-					Background="{DynamicResource ToolBarBackgroundBrush}"
-					KeyboardNavigation.TabNavigation="Continue"
-					Loaded="ToolBar_Loaded"
-					ToolBarTray.IsLocked="True">
-					<Button
-						Height="24"
-						MinWidth="70"
-						Margin="4 0 0 0"
-						Padding="5 0"
-						AutomationProperties.Name="{x:Static res:EncodingRes.Save}"
-						Command="{Binding Save}">
-						<StackPanel Orientation="Horizontal">
-							<Image
-								Width="16"
-								Height="16"
-								Source="/Icons/save.png" />
-							<TextBlock Margin="5 0 0 0" Text="{x:Static res:EncodingRes.Save}" />
-						</StackPanel>
-					</Button>
-					<Button
-						Height="24"
-						MinWidth="70"
-						Padding="5 0"
-						Command="{Binding SaveAs}"
-						Content="{x:Static res:EncodingRes.SaveAs}" />
-					<Button
-						Height="24"
-						MinWidth="70"
-						Padding="5 0"
-						Command="{Binding Rename}"
-						Content="{x:Static res:EncodingRes.Rename}" />
-					<Button
-						Height="24"
-						MinWidth="70"
-						Padding="5 0"
-						AutomationProperties.Name="{x:Static res:EncodingRes.Revert}"
-						Command="{Binding Delete}"
-						Visibility="{Binding PickersService.SelectedPicker.Picker.IsModified,
-						                     Converter={StaticResource VisibilityConverter}}">
-						<StackPanel Orientation="Horizontal">
-							<Image
-								Width="16"
-								Height="16"
-								Source="/Icons/undo_16x16.png" />
-							<TextBlock Margin="4 0 0 0" Text="{x:Static res:EncodingRes.Revert}" />
-						</StackPanel>
-					</Button>
-					<Button
-						Height="24"
-						MinWidth="70"
-						Padding="5 0"
-						AutomationProperties.Name="{x:Static res:CommonRes.Delete}"
-						Command="{Binding Delete}"
-						Visibility="{Binding DeleteButtonVisible,
-						                     Converter={StaticResource VisibilityConverter}}">
-						<StackPanel Orientation="Horizontal">
-							<Grid Background="Transparent">
-								<Rectangle
-									Width="14"
-									Height="3"
-									Fill="{StaticResource RedFill}">
-									<Rectangle.LayoutTransform>
-										<RotateTransform Angle="-45" />
-									</Rectangle.LayoutTransform>
-								</Rectangle>
-								<Rectangle
-									Width="14"
-									Height="3"
-									Fill="{StaticResource RedFill}">
-									<Rectangle.LayoutTransform>
-										<RotateTransform Angle="45" />
-									</Rectangle.LayoutTransform>
-								</Rectangle>
-							</Grid>
-							<TextBlock Margin="4 0 0 0" Text="{x:Static res:CommonRes.Delete}" />
-						</StackPanel>
-					</Button>
-				</ToolBar>
-			</ToolBarPanel>
-
-			<Grid
-				Grid.Row="1"
-				Background="{DynamicResource DismissableMessageBrush}"
-				Visibility="{Binding ShowHelpMessage,
-				                     Converter={StaticResource VisibilityConverter}}">
+			<Grid Grid.Row="1">
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition />
-					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition
+						Name="listColumn"
+						Width="135"
+						MinWidth="70"
+						MaxWidth="250" />
+					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
-				<TextBlock
-					Margin="10 0"
-					VerticalAlignment="Center"
-					Text="{x:Static res:PickerRes.PickerHelpText}" />
-				<Button
+
+				<controls:PickerList
+					Grid.Column="0"
+					HorizontalAlignment="Stretch"
+					Background="{DynamicResource AlternateBackgroundBrush}"
+					EnableDragDrop="True" />
+
+				<GridSplitter
 					Grid.Column="1"
-					Width="35"
-					Height="35"
-					Padding="5"
-					HorizontalAlignment="Right"
-					VerticalAlignment="Top"
-					Command="{Binding DismissMessage}"
-					Content="{x:Static res:CommonRes.DismissMessage}"
-					Style="{StaticResource RemoveButtonStyle}" />
-			</Grid>
+					Width="4"
+					HorizontalAlignment="Left"
+					VerticalAlignment="Stretch"
+					Background="{DynamicResource SplitterBrush}"
+					Canvas.ZIndex="4"
+					ShowsPreview="True" />
 
-			<ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
-				<StackPanel
-					Margin="12"
-					VerticalAlignment="Top"
-					Orientation="Vertical">
-					<!--  Output location  -->
-					<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.OutputLocation}" />
-					<StackPanel Style="{StaticResource ConfigSectionStack}">
-						<Grid>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto" />
-								<ColumnDefinition />
-								<ColumnDefinition Width="Auto" />
-							</Grid.ColumnDefinitions>
+				<Grid Grid.Column="1" Margin="4 0 0 0">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition />
+					</Grid.RowDefinitions>
 
-							<CheckBox
-								Grid.Column="0"
-								HorizontalAlignment="Left"
-								VerticalAlignment="Center"
-								Content="{x:Static res:PickerRes.OverrideDirectoryCheckBox}"
-								IsChecked="{Binding OutputDirectoryOverrideEnabled}" />
-
-							<TextBox
-								Grid.Column="1"
-								Height="22"
-								Margin="5 0 0 0"
-								VerticalAlignment="Center"
-								VerticalContentAlignment="Center"
-								IsEnabled="{Binding OutputDirectoryOverrideEnabled}"
-								Text="{Binding OutputDirectoryOverride,
-								               Mode=TwoWay,
-								               UpdateSourceTrigger=PropertyChanged}" />
-
+					<ToolBarPanel
+						Grid.Row="0"
+						Margin="-5 -1 -14 -1"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Top"
+						UseLayoutRounding="True"
+						Visibility="{Binding PickersService.SelectedPicker.Picker.IsDefault,
+						                     Converter={StaticResource InverseVisibilityConverter}}">
+						<ToolBar
+							Background="{DynamicResource ToolBarBackgroundBrush}"
+							KeyboardNavigation.TabNavigation="Continue"
+							Loaded="ToolBar_Loaded"
+							ToolBarTray.IsLocked="True">
 							<Button
-								Grid.Column="2"
-								MinWidth="80"
-								Margin="10 0 0 0"
-								Padding="10 0"
-								Command="{Binding PickOutputDirectory}"
-								Content="{x:Static res:CommonRes.Browse}"
-								IsEnabled="{Binding OutputDirectoryOverrideEnabled}" />
-						</Grid>
-						<Grid Margin="0 10 0 0">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto" />
-								<ColumnDefinition />
-							</Grid.ColumnDefinitions>
+								Height="24"
+								MinWidth="70"
+								Margin="4 0 0 0"
+								Padding="5 0"
+								AutomationProperties.Name="{x:Static res:EncodingRes.Save}"
+								Command="{Binding Save}">
+								<StackPanel Orientation="Horizontal">
+									<Image
+										Width="16"
+										Height="16"
+										Source="/Icons/save.png" />
+									<TextBlock Margin="5 0 0 0" Text="{x:Static res:EncodingRes.Save}" />
+								</StackPanel>
+							</Button>
+							<Button
+								Height="24"
+								MinWidth="70"
+								Padding="5 0"
+								Command="{Binding SaveAs}"
+								Content="{x:Static res:EncodingRes.SaveAs}" />
+							<Button
+								Height="24"
+								MinWidth="70"
+								Padding="5 0"
+								Command="{Binding Rename}"
+								Content="{x:Static res:EncodingRes.Rename}" />
+							<Button
+								Height="24"
+								MinWidth="70"
+								Padding="5 0"
+								AutomationProperties.Name="{x:Static res:EncodingRes.Revert}"
+								Command="{Binding Delete}"
+								Visibility="{Binding PickersService.SelectedPicker.Picker.IsModified,
+								                     Converter={StaticResource VisibilityConverter}}">
+								<StackPanel Orientation="Horizontal">
+									<Image
+										Width="16"
+										Height="16"
+										Source="/Icons/undo_16x16.png" />
+									<TextBlock Margin="4 0 0 0" Text="{x:Static res:EncodingRes.Revert}" />
+								</StackPanel>
+							</Button>
+							<Button
+								Height="24"
+								MinWidth="70"
+								Padding="5 0"
+								AutomationProperties.Name="{x:Static res:CommonRes.Delete}"
+								Command="{Binding Delete}"
+								Visibility="{Binding DeleteButtonVisible,
+								                     Converter={StaticResource VisibilityConverter}}">
+								<StackPanel Orientation="Horizontal">
+									<Grid Background="Transparent">
+										<Rectangle
+											Width="14"
+											Height="3"
+											Fill="{StaticResource RedFill}">
+											<Rectangle.LayoutTransform>
+												<RotateTransform Angle="-45" />
+											</Rectangle.LayoutTransform>
+										</Rectangle>
+										<Rectangle
+											Width="14"
+											Height="3"
+											Fill="{StaticResource RedFill}">
+											<Rectangle.LayoutTransform>
+												<RotateTransform Angle="45" />
+											</Rectangle.LayoutTransform>
+										</Rectangle>
+									</Grid>
+									<TextBlock Margin="4 0 0 0" Text="{x:Static res:CommonRes.Delete}" />
+								</StackPanel>
+							</Button>
+						</ToolBar>
+					</ToolBarPanel>
 
-							<CheckBox
-								Grid.Column="0"
-								HorizontalAlignment="Left"
-								VerticalAlignment="Center"
-								Content="{x:Static res:CommonRes.OverrideNameFormatCheckBox}"
-								IsChecked="{Binding NameFormatOverrideEnabled}" />
-
-							<TextBox
-								Grid.Column="1"
-								Height="22"
-								Margin="5 0 0 0"
-								VerticalAlignment="Center"
-								VerticalContentAlignment="Center"
-								IsEnabled="{Binding NameFormatOverrideEnabled}"
-								Text="{Binding NameFormatOverride,
-								               Mode=TwoWay,
-								               UpdateSourceTrigger=PropertyChanged}" />
-						</Grid>
+					<Grid
+						Grid.Row="1"
+						MinHeight="27"
+						Background="{DynamicResource DismissableMessageBrush}"
+						Visibility="{Binding PickersService.SelectedPicker.Picker.IsDefault,
+						                     Converter={StaticResource VisibilityConverter}}">
 
 						<TextBlock
-							Margin="22 2 0 10"
-							Text="{Binding NameFormat}"
-							TextWrapping="Wrap"
-							Visibility="{Binding NameFormatOverrideEnabled,
-							                     Converter={StaticResource VisibilityConverter}}" />
+							Margin="10 2"
+							VerticalAlignment="Center"
+							Text="{x:Static res:PickerRes.PickerHelpText}"
+							TextWrapping="Wrap" />
+					</Grid>
 
-						<StackPanel Margin="0 10 0 0" Orientation="Horizontal">
-							<TextBlock
-								Name="titleCaptializationLabel"
-								VerticalAlignment="Center"
-								Text="{x:Static res:PickerRes.TitleCaptializationLabel}" />
-							<ComboBox
-								MinWidth="100"
-								Margin="6 0 0 0"
-								HorizontalAlignment="Left"
-								AutomationProperties.LabeledBy="{Binding ElementName=titleCaptializationLabel}"
-								ItemsSource="{Binding TitleCaptializationChoices}"
-								SelectedValue="{Binding TitleCapitalization}"
-								SelectedValuePath="Value" />
-						</StackPanel>
-
-						<CheckBox
-							Height="16"
-							Margin="0 6 0 0"
-							HorizontalAlignment="Left"
+					<ScrollViewer
+						Name="mainScrollViewer"
+						Grid.Row="2"
+						VerticalScrollBarVisibility="Auto">
+						<StackPanel
+							Name="mainScrollViewerContent"
+							Margin="12"
 							VerticalAlignment="Top"
-							Content="{x:Static res:CommonRes.OutputToSourceDirCheckBox}"
-							IsChecked="{Binding OutputToSourceDirectory}"
-							IsThreeState="True">
-							<CheckBox.ToolTip>
+							Orientation="Vertical">
+
+							<!--  Destination  -->
+							<TextBlock
+								Name="destinationSectionTitle"
+								Style="{StaticResource ConfigSectionHeader}"
+								Text="{x:Static res:PickerRes.DestinationSection}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition />
+										<ColumnDefinition Width="Auto" />
+									</Grid.ColumnDefinitions>
+
+									<TextBlock
+										Grid.Column="0"
+										Margin="0 0 5 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										Text="{x:Static res:PickerRes.OutputFolder}" />
+									<TextBox
+										Grid.Column="1"
+										Height="23"
+										VerticalAlignment="Center"
+										VerticalContentAlignment="Center"
+										Text="{Binding OutputDirectory,
+										               Mode=TwoWay,
+										               UpdateSourceTrigger=PropertyChanged}" />
+									<Button
+										Grid.Column="2"
+										Height="23"
+										MinWidth="75"
+										Margin="5 0 0 0"
+										HorizontalAlignment="Right"
+										VerticalAlignment="Top"
+										Command="{Binding PickOutputDirectory}"
+										Content="{x:Static res:CommonRes.Browse}" />
+								</Grid>
+								<CheckBox
+									Height="16"
+									Margin="0 6 0 0"
+									HorizontalAlignment="Left"
+									Content="{x:Static res:CommonRes.OutputToSourceDirCheckBox}"
+									IsChecked="{Binding OutputToSourceDirectory}" />
+								<CheckBox
+									Height="16"
+									Margin="0 6 0 0"
+									HorizontalAlignment="Left"
+									Content="{x:Static res:CommonRes.PreserveFolderStructureCheckBox}"
+									IsChecked="{Binding PreserveFolderStructureInBatch}"
+									ToolTip="{x:Static res:CommonRes.PreserveFolderStructureToolTip}" />
+								<Grid Margin="0 10 0 0">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition />
+									</Grid.ColumnDefinitions>
+
+									<CheckBox
+										Grid.Column="0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										Content="{x:Static res:PickerRes.UseCustomFileNameFormatCheckBox}"
+										IsChecked="{Binding UseCustomFileNameFormat}" />
+
+									<TextBox
+										Grid.Column="1"
+										Height="22"
+										Margin="5 0 0 0"
+										VerticalAlignment="Center"
+										VerticalContentAlignment="Center"
+										AutomationProperties.Name="{x:Static res:PickerRes.OutputFileNameFormatAutomationName}"
+										IsEnabled="{Binding UseCustomFileNameFormat}"
+										Text="{Binding OutputFileNameFormat,
+										               Mode=TwoWay,
+										               UpdateSourceTrigger=PropertyChanged}" />
+								</Grid>
+
+								<TextBlock
+									Margin="0 2 0 0"
+									Text="{Binding AvailableOptionsText}"
+									TextWrapping="Wrap"
+									Visibility="{Binding UseCustomFileNameFormat,
+									                     Converter={StaticResource VisibilityConverter}}" />
+
+
+
+								<StackPanel Margin="0 10 0 0" Orientation="Horizontal">
+									<TextBlock
+										Name="whenFileExistsSingleLabel"
+										VerticalAlignment="Center"
+										Text="{x:Static res:PickerRes.WhenFileExistsSingle}" />
+
+									<ComboBox
+										Margin="6 0 0 0"
+										AutomationProperties.LabeledBy="{Binding ElementName=whenFileExistsSingleLabel}"
+										DisplayMemberPath="Display"
+										ItemsSource="{Binding WhenFileExistsSingleChoices}"
+										SelectedValue="{Binding WhenFileExistsSingle}"
+										SelectedValuePath="Value" />
+								</StackPanel>
+
+								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
+									<TextBlock
+										Name="whenFileExistsBatchLabel"
+										VerticalAlignment="Center"
+										Text="{x:Static res:PickerRes.WhenFileExistsBatch}" />
+
+									<ComboBox
+										Margin="6 0 0 0"
+										AutomationProperties.LabeledBy="{Binding ElementName=whenFileExistsBatchLabel}"
+										DisplayMemberPath="Display"
+										ItemsSource="{Binding WhenFileExistsBatchChoices}"
+										SelectedValue="{Binding WhenFileExistsBatch}"
+										SelectedValuePath="Value" />
+								</StackPanel>
+							</StackPanel>
+
+							<!--  Source name  -->
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.SourceNameCleanupSection}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
 								<StackPanel Orientation="Horizontal">
 									<CheckBox
 										VerticalAlignment="Center"
-										IsChecked="{x:Null}"
-										IsHitTestVisible="False"
-										IsThreeState="True" />
-									<TextBlock VerticalAlignment="Center" Text=" - " />
-									<TextBlock VerticalAlignment="Center" Text="{x:Static res:PickerRes.UseGlobalSettingToolTip}" />
+										Content="{x:Static res:PickerRes.ChangeWordSeparatorLabel}"
+										IsChecked="{Binding ChangeWordSeparator}" />
+									<ComboBox
+										Margin="6 0 0 0"
+										DisplayMemberPath="Display"
+										ItemsSource="{Binding WordSeparatorChoices}"
+										SelectedValue="{Binding WordSeparator}"
+										SelectedValuePath="Value"
+										Visibility="{Binding ChangeWordSeparator,
+										                     Converter={StaticResource VisibilityConverter}}" />
 								</StackPanel>
-							</CheckBox.ToolTip>
-						</CheckBox>
-						<CheckBox
-							Height="16"
-							Margin="0 6 0 0"
-							HorizontalAlignment="Left"
-							VerticalAlignment="Top"
-							Content="{x:Static res:CommonRes.PreserveFolderStructureCheckBox}"
-							IsChecked="{Binding PreserveFolderStructureInBatch}"
-							IsThreeState="True">
-							<CheckBox.ToolTip>
-								<StackPanel Orientation="Vertical">
-									<TextBlock VerticalAlignment="Center" Text="{x:Static res:CommonRes.PreserveFolderStructureToolTip}" />
-									<StackPanel Margin="0 14 0 0" Orientation="Horizontal">
-										<CheckBox
+								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
+									<CheckBox
+										VerticalAlignment="Center"
+										Content="{x:Static res:PickerRes.ChangeCaptializationLabel}"
+										IsChecked="{Binding ChangeTitleCaptialization}" />
+									<ComboBox
+										MinWidth="100"
+										Margin="6 0 0 0"
+										HorizontalAlignment="Left"
+										ItemsSource="{Binding TitleCaptializationChoices}"
+										SelectedValue="{Binding TitleCapitalization}"
+										SelectedValuePath="Value"
+										Visibility="{Binding ChangeTitleCaptialization,
+										                     Converter={StaticResource VisibilityConverter}}" />
+								</StackPanel>
+								<CheckBox
+									Margin="20 4 0 0"
+									Content="{x:Static res:PickerRes.OnlyChangeCapitalizationIfAllSameLabel}"
+									IsChecked="{Binding OnlyChangeTitleCapitalizationWhenAllSame}"
+									Visibility="{Binding ChangeTitleCaptialization,
+									                     Converter={StaticResource VisibilityConverter}}" />
+								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
+									<TextBlock VerticalAlignment="Center" Text="{x:Static res:PickerRes.WordBreakCharactersLabel}" />
+									<ItemsControl ItemsSource="{Binding WordBreakCharacterChoices}">
+										<ItemsControl.ItemTemplate>
+											<DataTemplate DataType="dataModels:WordBreakCharacterChoice">
+												<CheckBox
+													Margin="8 0 0 0"
+													VerticalAlignment="Center"
+													AutomationProperties.Name="{Binding AutomationName}"
+													Content="{Binding Display}"
+													IsChecked="{Binding IsSelected}" />
+											</DataTemplate>
+										</ItemsControl.ItemTemplate>
+										<ItemsControl.ItemsPanel>
+											<ItemsPanelTemplate>
+												<StackPanel Orientation="Horizontal" />
+											</ItemsPanelTemplate>
+										</ItemsControl.ItemsPanel>
+									</ItemsControl>
+								</StackPanel>
+								<StackPanel
+									Margin="0 6 0 0"
+									Orientation="Horizontal"
+									Visibility="{Binding MainViewModel.HasVideoSource,
+									                     Converter={StaticResource VisibilityConverter}}">
+									<TextBlock Text="{x:Static res:PickerRes.SourceCleanupPreviewLabel}" />
+									<TextBlock Margin="6 0 0 0" Text="{Binding SourceNameCleanupPreview}" />
+								</StackPanel>
+							</StackPanel>
+
+							<!--  Video selection  -->
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.VideoSelectionSection}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<CheckBox IsChecked="{Binding IgnoreFilesBelowMbEnabled}">
+									<StackPanel Orientation="Horizontal">
+										<TextBlock
+											Name="ignoreFilesBelowLabel"
 											VerticalAlignment="Center"
-											IsChecked="{x:Null}"
-											IsHitTestVisible="False"
-											IsThreeState="True" />
-										<TextBlock VerticalAlignment="Center" Text=" - " />
-										<TextBlock VerticalAlignment="Center" Text="{x:Static res:PickerRes.UseGlobalSettingToolTip}" />
+											Text="{x:Static res:PickerRes.IgnoreFilesBelowCheckBox}" />
+										<controls:NumberBox
+											Width="46"
+											Margin="4 0 0 0"
+											AllowEmpty="False"
+											AutomationProperties.LabeledBy="{Binding ElementName=ignoreFilesBelowLabel}"
+											IsEnabled="{Binding IgnoreFilesBelowMbEnabled}"
+											Minimum="1"
+											Number="{Binding IgnoreFilesBelowMb,
+											                 Mode=TwoWay}" />
+										<TextBlock
+											Margin="4 0 0 0"
+											VerticalAlignment="Center"
+											Text="{x:Static res:CommonRes.MegabytesAbbreviation}" />
+									</StackPanel>
+								</CheckBox>
+								<CheckBox
+									Margin="0 6 0 0"
+									HorizontalAlignment="Left"
+									AutomationProperties.Name="{x:Static res:PickerRes.DurationFilterCheckBoxAutomationName}"
+									IsChecked="{Binding TitleRangeSelectEnabled}">
+									<StackPanel Orientation="Horizontal">
+										<TextBlock
+											Margin="0 0 4 0"
+											VerticalAlignment="Center"
+											Text="{x:Static res:QueueTitlesRes.LengthRangePre}" />
+										<controls:NumberBox
+											Width="46"
+											AllowEmpty="False"
+											AutomationProperties.Name="{x:Static res:PickerRes.DurationFilterStartAutomationName}"
+											IsEnabled="{Binding TitleRangeSelectEnabled}"
+											Minimum="0"
+											Number="{Binding TitleRangeSelectStartMinutes,
+											                 Mode=TwoWay}" />
+										<TextBlock
+											Margin="4 0 4 0"
+											VerticalAlignment="Center"
+											Text="{x:Static res:QueueTitlesRes.LengthRangeMid}" />
+										<controls:NumberBox
+											Width="46"
+											AllowEmpty="False"
+											AutomationProperties.Name="{x:Static res:PickerRes.DurationFilterEndAutomationName}"
+											IsEnabled="{Binding TitleRangeSelectEnabled}"
+											Minimum="0"
+											Number="{Binding TitleRangeSelectEndMinutes,
+											                 Mode=TwoWay}" />
+										<TextBlock
+											Margin="4 0 0 0"
+											VerticalAlignment="Center"
+											Text="{x:Static res:QueueTitlesRes.LengthRangePost}" />
+									</StackPanel>
+								</CheckBox>
+								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
+									<TextBlock
+										Name="timeRangeLabel"
+										VerticalAlignment="Center"
+										Text="{x:Static res:PickerRes.TimeRangeLabel}" />
+									<ComboBox
+										Margin="6 0 0 0"
+										AutomationProperties.LabeledBy="{Binding ElementName=timeRangeLabel}"
+										DisplayMemberPath="Display"
+										ItemsSource="{Binding PickerTimeRangeChoices}"
+										SelectedValue="{Binding PickerTimeRangeMode}"
+										SelectedValuePath="Value" />
+								</StackPanel>
+								<StackPanel
+									Margin="20 4 0 0"
+									Orientation="Horizontal"
+									Visibility="{Binding PickerTimeRangeMode,
+									                     Converter={StaticResource EnumVisibilityConverter},
+									                     ConverterParameter={x:Static model:PickerTimeRangeMode.Chapters}}">
+									<controls:NumberBox
+										Width="40"
+										AutomationProperties.Name="{x:Static res:PickerRes.ChapterRangeStartAutomationName}"
+										Number="{Binding ChapterRangeStart,
+										                 Mode=TwoWay}" />
+									<TextBlock
+										Margin="5 0"
+										VerticalAlignment="Center"
+										Text="-" />
+									<controls:NumberBox
+										Width="40"
+										AutomationProperties.Name="{x:Static res:PickerRes.ChapterRangeEndAutomationName}"
+										Number="{Binding ChapterRangeEnd,
+										                 Mode=TwoWay}" />
+								</StackPanel>
+								<StackPanel
+									Margin="20 4 0 0"
+									Orientation="Horizontal"
+									Visibility="{Binding PickerTimeRangeMode,
+									                     Converter={StaticResource EnumVisibilityConverter},
+									                     ConverterParameter={x:Static model:PickerTimeRangeMode.Time}}">
+									<controls:TimeBox
+										Width="46"
+										Height="22"
+										HorizontalAlignment="Left"
+										AutomationProperties.Name="{x:Static res:PickerRes.TimeRangeStartAutomationName}"
+										Time="{Binding TimeRangeStart,
+										               Mode=TwoWay}" />
+									<TextBlock
+										Margin="5 0"
+										VerticalAlignment="Center"
+										Text="-" />
+									<controls:TimeBox
+										Width="46"
+										Height="22"
+										HorizontalAlignment="Left"
+										AutomationProperties.Name="{x:Static res:PickerRes.TimeRangeEndAutomationName}"
+										Time="{Binding TimeRangeEnd,
+										               Mode=TwoWay}" />
+								</StackPanel>
+							</StackPanel>
+
+							<!--  Audio selection  -->
+							<TextBlock
+								Name="audioSectionTitle"
+								Style="{StaticResource ConfigSectionHeader}"
+								Text="{x:Static res:PickerRes.PickerAudioSectionName}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<StackPanel
+									Orientation="Horizontal"
+									ToolTip="{x:Static res:PickerRes.AudioSelectionModeToolTip}"
+									ToolTipService.ShowDuration="60000">
+									<TextBlock
+										Name="audioTrackSelectionLabel"
+										VerticalAlignment="Center"
+										Text="{x:Static res:PickerRes.TrackSelectionLabel}" />
+									<ComboBox
+										MinWidth="100"
+										Margin="6 0 0 0"
+										AutomationProperties.LabeledBy="{Binding ElementName=audioTrackSelectionLabel}"
+										DisplayMemberPath="Display"
+										ItemsSource="{Binding AudioSelectionModeChoices}"
+										SelectedValue="{Binding AudioSelectionMode}"
+										SelectedValuePath="Value" />
+								</StackPanel>
+
+								<StackPanel
+									Margin="20 6 0 0"
+									Orientation="Vertical"
+									Visibility="{Binding AudioSelectionMode,
+									                     Converter={StaticResource EnumVisibilityConverter},
+									                     ConverterParameter={x:Static model:AudioSelectionMode.ByIndex}}">
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Name="audioIndicesLabel" Text="{x:Static res:PickerRes.SelectTracksLabel}" />
+										<TextBox
+											AutomationProperties.LabeledBy="{Binding ElementName=audioIndicesLabel}"
+											Style="{StaticResource TrackIndicesStyle}"
+											Text="{Binding AudioIndices,
+											               UpdateSourceTrigger=PropertyChanged}" />
+										<TextBlock Style="{StaticResource TrackIndicesHelpTextStyle}" Text="{x:Static res:PickerRes.SelectTracksHelpText}" />
 									</StackPanel>
 								</StackPanel>
-							</CheckBox.ToolTip>
-						</CheckBox>
-					</StackPanel>
+								<StackPanel
+									Margin="20 6 0 0"
+									Orientation="Horizontal"
+									Visibility="{Binding AudioSelectionMode,
+									                     Converter={StaticResource EnumVisibilityConverter},
+									                     ConverterParameter={x:Static model:AudioSelectionMode.Language}}">
 
-					<!--  Title selection  -->
-					<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.TitleSelection}" />
-					<StackPanel Style="{StaticResource ConfigSectionStack}">
-						<CheckBox
-							HorizontalAlignment="Left"
-							AutomationProperties.Name="{x:Static res:PickerRes.DurationFilterCheckBoxAutomationName}"
-							IsChecked="{Binding TitleRangeSelectEnabled}">
-							<StackPanel Orientation="Horizontal">
-								<TextBlock
-									Margin="0 0 4 0"
-									VerticalAlignment="Center"
-									Text="{x:Static res:QueueTitlesRes.LengthRangePre}" />
-								<controls:NumberBox
-									Width="46"
-									AllowEmpty="False"
-									AutomationProperties.Name="{x:Static res:PickerRes.DurationFilterStartAutomationName}"
-									IsEnabled="{Binding TitleRangeSelectEnabled}"
-									Minimum="0"
-									Number="{Binding TitleRangeSelectStartMinutes,
-									                 Mode=TwoWay}" />
-								<TextBlock
-									Margin="4 0 4 0"
-									VerticalAlignment="Center"
-									Text="{x:Static res:QueueTitlesRes.LengthRangeMid}" />
-								<controls:NumberBox
-									Width="46"
-									AllowEmpty="False"
-									AutomationProperties.Name="{x:Static res:PickerRes.DurationFilterEndAutomationName}"
-									IsEnabled="{Binding TitleRangeSelectEnabled}"
-									Minimum="0"
-									Number="{Binding TitleRangeSelectEndMinutes,
-									                 Mode=TwoWay}" />
-								<TextBlock
-									Margin="4 0 0 0"
-									VerticalAlignment="Center"
-									Text="{x:Static res:QueueTitlesRes.LengthRangePost}" />
-							</StackPanel>
-						</CheckBox>
-					</StackPanel>
+									<ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding AudioLanguagesBindable}">
+										<ItemsControl.ItemTemplate>
+											<DataTemplate>
+												<StackPanel Margin="0 0 0 4" Orientation="Horizontal">
+													<ComboBox
+														Height="23"
+														MinWidth="120"
+														DisplayMemberPath="Display"
+														ItemsSource="{x:Static interop:HandBrakeLanguagesHelper.AllLanguages}"
+														SelectedValue="{Binding Code}"
+														SelectedValuePath="Code" />
+													<Button
+														Height="23"
+														Command="{Binding RemoveAudioLanguage}"
+														Content="{x:Static res:PickerRes.RemoveLanguageToolTip}"
+														Style="{StaticResource RemoveButtonStyle}"
+														Visibility="{Binding PickerWindowViewModel.HasMultipleAudioLanguages,
+														                     Converter={StaticResource VisibilityConverter}}" />
+												</StackPanel>
+											</DataTemplate>
+										</ItemsControl.ItemTemplate>
+									</ItemsControl>
+									<Button
+										Height="23"
+										Margin="10 0 0 0"
+										Padding="5 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Top"
+										AutomationProperties.Name="{x:Static res:PickerRes.AddLanguageButton}"
+										Command="{Binding AddAudioLanguage}"
+										UseLayoutRounding="True">
+										<StackPanel Orientation="Horizontal">
+											<Polygon Style="{StaticResource PlusSign}" />
+											<TextBlock Text="{x:Static res:PickerRes.AddLanguageButton}" />
+										</StackPanel>
+									</Button>
+								</StackPanel>
 
-					<!--  Time range selection  -->
-					<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.TimeRangeSelection}" />
-					<StackPanel Style="{StaticResource ConfigSectionStack}">
-						<RadioButton
-							HorizontalAlignment="Left"
-							VerticalAlignment="Top"
-							Content="{x:Static res:CommonRes.All}"
-							GroupName="timeRange1"
-							IsChecked="{Binding PickerTimeRangeMode,
-							                    Converter={StaticResource EnumBoolConverter},
-							                    ConverterParameter={x:Static model:PickerTimeRangeMode.All}}" />
-						<RadioButton
-							Margin="0 6 0 0"
-							HorizontalAlignment="Left"
-							VerticalAlignment="Top"
-							Content="{x:Static res:EnumsRes.PickerTimeRangeMode_Chapters}"
-							GroupName="timeRange2"
-							IsChecked="{Binding PickerTimeRangeMode,
-							                    Converter={StaticResource EnumBoolConverter},
-							                    ConverterParameter={x:Static model:PickerTimeRangeMode.Chapters}}" />
-						<StackPanel
-							Margin="20 4 0 0"
-							Orientation="Horizontal"
-							Visibility="{Binding PickerTimeRangeMode,
-							                     Converter={StaticResource EnumVisibilityConverter},
-							                     ConverterParameter={x:Static model:PickerTimeRangeMode.Chapters}}">
-							<controls:NumberBox
-								Width="40"
-								AutomationProperties.Name="{x:Static res:PickerRes.ChapterRangeStartAutomationName}"
-								Number="{Binding ChapterRangeStart,
-								                 Mode=TwoWay}" />
-							<TextBlock
-								Margin="5 0"
-								VerticalAlignment="Center"
-								Text="-" />
-							<controls:NumberBox
-								Width="40"
-								AutomationProperties.Name="{x:Static res:PickerRes.ChapterRangeEndAutomationName}"
-								Number="{Binding ChapterRangeEnd,
-								                 Mode=TwoWay}" />
-						</StackPanel>
-						<RadioButton
-							Margin="0 6 0 0"
-							HorizontalAlignment="Left"
-							VerticalAlignment="Top"
-							Content="{x:Static res:EnumsRes.PickerTimeRangeMode_Time}"
-							GroupName="timeRange3"
-							IsChecked="{Binding PickerTimeRangeMode,
-							                    Converter={StaticResource EnumBoolConverter},
-							                    ConverterParameter={x:Static model:PickerTimeRangeMode.Time}}" />
+								<StackPanel Margin="20 0 0 0" Visibility="{Binding AudioSelectionMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static model:AudioSelectionMode.Language}}">
+									<RadioButton
+										Margin="0 3 0 0"
+										Content="{Binding AudioFirstTrackLabel}"
+										GroupName="autoAudioLanguage1"
+										IsChecked="{Binding AudioLanguageAll,
+										                    Converter={StaticResource InverseBoolRadioConverter}}" />
 
-						<StackPanel
-							Margin="20 4 0 0"
-							Orientation="Horizontal"
-							Visibility="{Binding PickerTimeRangeMode,
-							                     Converter={StaticResource EnumVisibilityConverter},
-							                     ConverterParameter={x:Static model:PickerTimeRangeMode.Time}}">
-							<controls:TimeBox
-								Width="46"
-								Height="22"
-								HorizontalAlignment="Left"
-								AutomationProperties.Name="{x:Static res:PickerRes.TimeRangeStartAutomationName}"
-								Time="{Binding TimeRangeStart,
-								               Mode=TwoWay}" />
-							<TextBlock
-								Margin="5 0"
-								VerticalAlignment="Center"
-								Text="-" />
-							<controls:TimeBox
-								Width="46"
-								Height="22"
-								HorizontalAlignment="Left"
-								AutomationProperties.Name="{x:Static res:PickerRes.TimeRangeEndAutomationName}"
-								Time="{Binding TimeRangeEnd,
-								               Mode=TwoWay}" />
-						</StackPanel>
-					</StackPanel>
+									<RadioButton
+										Margin="0 6 0 0"
+										Content="{Binding AudioAllTracksLabel}"
+										GroupName="autoAudioLanguage2"
+										IsChecked="{Binding AudioLanguageAll,
+										                    Converter={StaticResource BoolRadioConverter}}" />
+								</StackPanel>
 
+								<StackPanel
+									Margin="20 4 0 0"
+									Orientation="Horizontal"
+									Visibility="{Binding AudioSelectionMode,
+									                     Converter={StaticResource EnumVisibilityConverter},
+									                     ConverterParameter={x:Static model:AudioSelectionMode.All}}">
+									<TextBlock
+										Margin="0 2 0 0"
+										VerticalAlignment="Top"
+										Text="{x:Static res:PickerRes.SortLanguagesLabel}" />
 
-					<!--  Audio selection  -->
-					<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.AudioSelection}" />
-					<StackPanel Style="{StaticResource ConfigSectionStack}">
-						<RadioButton
-							HorizontalAlignment="Left"
-							VerticalAlignment="Top"
-							Content="{x:Static res:CommonRes.Default}"
-							GroupName="autoAudio1"
-							IsChecked="{Binding AudioSelectionMode,
-							                    Converter={StaticResource EnumBoolConverter},
-							                    ConverterParameter={x:Static model:AudioSelectionMode.Disabled}}"
-							ToolTip="{x:Static res:PickerRes.AudioDefaultToolTip}" />
-						<RadioButton
-							Margin="0 6 0 0"
-							HorizontalAlignment="Left"
-							VerticalAlignment="Top"
-							Content="{x:Static res:CommonRes.First}"
-							GroupName="autoAudio2"
-							IsChecked="{Binding AudioSelectionMode,
-							                    Converter={StaticResource EnumBoolConverter},
-							                    ConverterParameter={x:Static model:AudioSelectionMode.First}}"
-							ToolTip="{x:Static res:PickerRes.AudioFirstToolTip}" />
-						<RadioButton
-							Margin="0 6 0 0"
-							HorizontalAlignment="Left"
-							VerticalAlignment="Top"
-							Content="{x:Static res:PickerRes.ByIndexRadioButton}"
-							GroupName="autoAudio3"
-							IsChecked="{Binding AudioSelectionMode,
-							                    Converter={StaticResource EnumBoolConverter},
-							                    ConverterParameter={x:Static model:AudioSelectionMode.ByIndex}}" />
-						<StackPanel
-							Margin="20 6 0 0"
-							Orientation="Vertical"
-							Visibility="{Binding AudioSelectionMode,
-							                     Converter={StaticResource EnumVisibilityConverter},
-							                     ConverterParameter={x:Static model:AudioSelectionMode.ByIndex}}">
-							<StackPanel Orientation="Horizontal">
-								<TextBlock Name="audioIndicesLabel" Text="{x:Static res:PickerRes.SelectTracksLabel}" />
-								<TextBox
-									AutomationProperties.LabeledBy="{Binding ElementName=audioIndicesLabel}"
-									Style="{StaticResource TrackIndicesStyle}"
-									Text="{Binding AudioIndices}" />
-								<TextBlock Style="{StaticResource TrackIndicesHelpTextStyle}" Text="{x:Static res:PickerRes.SelectTracksHelpText}" />
-							</StackPanel>
-						</StackPanel>
-						<StackPanel
-							Margin="0 6 0 0"
-							HorizontalAlignment="Left"
-							VerticalAlignment="Top"
-							Orientation="Horizontal">
-							<RadioButton
-								HorizontalAlignment="Left"
-								VerticalAlignment="Top"
-								Content="{x:Static res:PickerRes.LanguagesRadioButton}"
-								GroupName="autoAudio4"
-								IsChecked="{Binding AudioSelectionMode,
-								                    Converter={StaticResource EnumBoolConverter},
-								                    ConverterParameter={x:Static model:AudioSelectionMode.Language}}" />
-							<StackPanel
-								Margin="0 -3 0 0"
-								Orientation="Horizontal"
-								Visibility="{Binding AudioSelectionMode,
-								                     Converter={StaticResource EnumVisibilityConverter},
-								                     ConverterParameter={x:Static model:AudioSelectionMode.Language}}">
+									<TextBlock
+										Margin="10 0 0 0"
+										Style="{StaticResource DescriptiveText}"
+										Text="{x:Static res:MainRes.NoneParen}"
+										Visibility="{Binding HasNoAudioLanguages,
+										                     Converter={StaticResource VisibilityConverter}}" />
+
+									<ItemsControl
+										Margin="10 0 0 0"
+										HorizontalAlignment="Left"
+										ItemsSource="{Binding AudioLanguagesBindable}">
+										<ItemsControl.ItemTemplate>
+											<DataTemplate>
+												<StackPanel Margin="0 0 0 4" Orientation="Horizontal">
+													<ComboBox
+														Height="23"
+														MinWidth="120"
+														DisplayMemberPath="Display"
+														ItemsSource="{x:Static interop:HandBrakeLanguagesHelper.AllLanguages}"
+														SelectedValue="{Binding Code}"
+														SelectedValuePath="Code" />
+													<Button
+														Height="23"
+														Command="{Binding RemoveAudioLanguage}"
+														Content="{x:Static res:PickerRes.RemoveLanguageToolTip}"
+														Style="{StaticResource RemoveButtonStyle}" />
+												</StackPanel>
+											</DataTemplate>
+										</ItemsControl.ItemTemplate>
+									</ItemsControl>
+									<Button
+										Height="23"
+										Margin="10 0 0 0"
+										Padding="5 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Top"
+										AutomationProperties.Name="{x:Static res:PickerRes.AddLanguageButton}"
+										Command="{Binding AddAudioLanguage}"
+										UseLayoutRounding="True">
+										<StackPanel Orientation="Horizontal">
+											<Polygon Style="{StaticResource PlusSign}" />
+											<TextBlock Text="{x:Static res:PickerRes.AddLanguageButton}" />
+										</StackPanel>
+									</Button>
+								</StackPanel>
+								<CheckBox
+									Margin="0 12 0 0"
+									Content="{x:Static res:PickerRes.CustomTrackNamesCheckBox}"
+									IsChecked="{Binding UseCustomAudioTrackNames}" />
 								<ItemsControl
-									Margin="10 0 0 0"
-									HorizontalAlignment="Left"
-									ItemsSource="{Binding AudioLanguagesBindable}">
-									<ItemsControl.ItemTemplate>
-										<DataTemplate>
-											<StackPanel Margin="0 0 0 4" Orientation="Horizontal">
-												<ComboBox
-													Height="23"
-													MinWidth="120"
-													DisplayMemberPath="Display"
-													ItemsSource="{Binding Languages}"
-													SelectedValue="{Binding Code}"
-													SelectedValuePath="Code" />
-												<Button
-													Height="23"
-													Command="{Binding RemoveAudioLanguage}"
-													Content="{x:Static res:PickerRes.RemoveLanguageToolTip}"
-													Style="{StaticResource RemoveButtonStyle}"
-													Visibility="{Binding PickerWindowViewModel.HasMultipleAudioLanguages,
-													                     Converter={StaticResource VisibilityConverter}}" />
-											</StackPanel>
-										</DataTemplate>
-									</ItemsControl.ItemTemplate>
-								</ItemsControl>
+									Name="audioTrackNamesControl"
+									Margin="20 0 0 0"
+									ItemTemplate="{StaticResource TrackNameDataTemplate}"
+									ItemsSource="{Binding AudioTrackNamesBindable}"
+									Visibility="{Binding UseCustomAudioTrackNames,
+									                     Converter={StaticResource VisibilityConverter}}" />
 								<Button
 									Height="23"
-									Margin="10 0 0 0"
+									Margin="20 4 0 0"
 									Padding="5 0"
 									HorizontalAlignment="Left"
 									VerticalAlignment="Top"
-									AutomationProperties.Name="{x:Static res:PickerRes.AddLanguageButton}"
-									Command="{Binding AddAudioLanguage}"
-									UseLayoutRounding="True">
+									AutomationProperties.Name="{x:Static res:PickerRes.AddAudioTrackNameButton}"
+									Command="{Binding AddAudioTrackName}"
+									UseLayoutRounding="True"
+									Visibility="{Binding UseCustomAudioTrackNames,
+									                     Converter={StaticResource VisibilityConverter}}">
 									<StackPanel Orientation="Horizontal">
 										<Polygon Style="{StaticResource PlusSign}" />
-										<TextBlock Text="{x:Static res:PickerRes.AddLanguageButton}" />
+										<TextBlock Text="{x:Static res:PickerRes.AddAudioTrackNameButton}" />
 									</StackPanel>
 								</Button>
 							</StackPanel>
-						</StackPanel>
 
-						<StackPanel Margin="20 0 0 0" Visibility="{Binding AudioSelectionMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static model:AudioSelectionMode.Language}}">
-							<RadioButton
-								Margin="0 3 0 0"
-								Content="{Binding AudioFirstTrackLabel}"
-								GroupName="autoAudioLanguage1"
-								IsChecked="{Binding AudioLanguageAll,
-								                    Converter={StaticResource InverseBoolRadioConverter}}" />
-
-							<RadioButton
-								Margin="0 6 0 0"
-								Content="{Binding AudioAllTracksLabel}"
-								GroupName="autoAudioLanguage2"
-								IsChecked="{Binding AudioLanguageAll,
-								                    Converter={StaticResource BoolRadioConverter}}" />
-						</StackPanel>
-
-						<RadioButton
-							Margin="0 6 0 0"
-							HorizontalAlignment="Left"
-							VerticalAlignment="Top"
-							Content="{x:Static res:CommonRes.All}"
-							GroupName="autoAudio5"
-							IsChecked="{Binding AudioSelectionMode,
-							                    Converter={StaticResource EnumBoolConverter},
-							                    ConverterParameter={x:Static model:AudioSelectionMode.All}}"
-							ToolTip="{x:Static res:PickerRes.AudioAllToolTip}" />
-
-						<StackPanel
-							Margin="20 4 0 0"
-							Orientation="Horizontal"
-							Visibility="{Binding AudioSelectionMode,
-							                     Converter={StaticResource EnumVisibilityConverter},
-							                     ConverterParameter={x:Static model:AudioSelectionMode.All}}">
+							<!--  Subtitle selection  -->
 							<TextBlock
-								Margin="0 2 0 0"
-								VerticalAlignment="Top"
-								Text="{x:Static res:PickerRes.SortLanguagesLabel}" />
-
-							<TextBlock
-								Margin="10 0 0 0"
-								Style="{StaticResource DescriptiveText}"
-								Text="{x:Static res:MainRes.NoneParen}"
-								Visibility="{Binding HasNoAudioLanguages,
-								                     Converter={StaticResource VisibilityConverter}}" />
-
-							<ItemsControl
-								Margin="10 0 0 0"
-								HorizontalAlignment="Left"
-								ItemsSource="{Binding AudioLanguagesBindable}">
-								<ItemsControl.ItemTemplate>
-									<DataTemplate>
-										<StackPanel Margin="0 0 0 4" Orientation="Horizontal">
-											<ComboBox
-												Height="23"
-												MinWidth="120"
-												DisplayMemberPath="Display"
-												ItemsSource="{Binding Languages}"
-												SelectedValue="{Binding Code}"
-												SelectedValuePath="Code" />
-											<Button
-												Height="23"
-												Command="{Binding RemoveAudioLanguage}"
-												Content="{x:Static res:PickerRes.RemoveLanguageToolTip}"
-												Style="{StaticResource RemoveButtonStyle}" />
-										</StackPanel>
-									</DataTemplate>
-								</ItemsControl.ItemTemplate>
-							</ItemsControl>
-							<Button
-								Height="23"
-								Margin="10 0 0 0"
-								Padding="5 0"
-								HorizontalAlignment="Left"
-								VerticalAlignment="Top"
-								Command="{Binding AddAudioLanguage}"
-								UseLayoutRounding="True">
-								<StackPanel Orientation="Horizontal">
-									<Polygon Style="{StaticResource PlusSign}" />
-									<TextBlock Text="{x:Static res:PickerRes.AddLanguageButton}" />
+								Name="subtitlesSectionTitle"
+								Style="{StaticResource ConfigSectionHeader}"
+								Text="{x:Static res:PickerRes.PickerSubtitleSectionName}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<StackPanel
+									Orientation="Horizontal"
+									ToolTip="{x:Static res:PickerRes.SubtitleSelectionModeToolTip}"
+									ToolTipService.ShowDuration="60000">
+									<TextBlock
+										Name="subtitleTrackSelectionLabel"
+										VerticalAlignment="Center"
+										Text="{x:Static res:PickerRes.TrackSelectionLabel}" />
+									<ComboBox
+										MinWidth="100"
+										Margin="6 0 0 0"
+										AutomationProperties.LabeledBy="{Binding ElementName=subtitleTrackSelectionLabel}"
+										DisplayMemberPath="Display"
+										ItemsSource="{Binding SubtitleSelectionModeChoices}"
+										SelectedValue="{Binding SubtitleSelectionMode}"
+										SelectedValuePath="Value" />
 								</StackPanel>
-							</Button>
-						</StackPanel>
-					</StackPanel>
 
-					<!--  Subtitle selection  -->
-					<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.SubtitleSelection}" />
-					<StackPanel Style="{StaticResource ConfigSectionStack}">
-						<RadioButton
-							HorizontalAlignment="Left"
-							VerticalAlignment="Top"
-							Content="{x:Static res:PickerRes.LastSelectedRadioButton}"
-							GroupName="autoSubtitle1"
-							IsChecked="{Binding SubtitleSelectionMode,
-							                    Converter={StaticResource EnumBoolConverter},
-							                    ConverterParameter={x:Static model:SubtitleSelectionMode.Disabled}}"
-							ToolTip="{x:Static res:PickerRes.SubtitleLastSelectedToolTip}" />
-						<RadioButton
-							Margin="0 6 0 0"
-							HorizontalAlignment="Left"
-							VerticalAlignment="Top"
-							Content="{x:Static res:CommonRes.None}"
-							GroupName="autoSubtitle2"
-							IsChecked="{Binding SubtitleSelectionMode,
-							                    Converter={StaticResource EnumBoolConverter},
-							                    ConverterParameter={x:Static model:SubtitleSelectionMode.None}}"
-							ToolTip="{x:Static res:PickerRes.SubtitleNoneToolTip}" />
-						<RadioButton
-							Margin="0 6 0 0"
-							HorizontalAlignment="Left"
-							VerticalAlignment="Top"
-							Content="{x:Static res:CommonRes.First}"
-							GroupName="autoSubtitle2"
-							IsChecked="{Binding SubtitleSelectionMode,
-							                    Converter={StaticResource EnumBoolConverter},
-							                    ConverterParameter={x:Static model:SubtitleSelectionMode.First}}"
-							ToolTip="{x:Static res:PickerRes.SubtitleFirstToolTip}" />
-						<RadioButton
-							Margin="0 6 0 0"
-							HorizontalAlignment="Left"
-							VerticalAlignment="Top"
-							Content="{x:Static res:PickerRes.ByIndexRadioButton}"
-							GroupName="autoSubtitle3"
-							IsChecked="{Binding SubtitleSelectionMode,
-							                    Converter={StaticResource EnumBoolConverter},
-							                    ConverterParameter={x:Static model:SubtitleSelectionMode.ByIndex}}" />
-						<StackPanel
-							Margin="20 6 0 0"
-							Orientation="Vertical"
-							Visibility="{Binding SubtitleSelectionMode,
-							                     Converter={StaticResource EnumVisibilityConverter},
-							                     ConverterParameter={x:Static model:SubtitleSelectionMode.ByIndex}}">
-							<StackPanel Orientation="Horizontal">
-								<TextBlock Name="subtitleIndicesLabel" Text="{x:Static res:PickerRes.SelectTracksLabel}" />
-								<TextBox
-									AutomationProperties.LabeledBy="{Binding ElementName=subtitleIndicesLabel}"
-									Style="{StaticResource TrackIndicesStyle}"
-									Text="{Binding SubtitleIndices}" />
-								<TextBlock Style="{StaticResource TrackIndicesHelpTextStyle}" Text="{x:Static res:PickerRes.SelectTracksHelpText}" />
-							</StackPanel>
-							<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
-								<TextBlock VerticalAlignment="Center" Text="{x:Static res:CommonRes.DefaultLabel}" />
-								<controls:NumberBox
-									MinWidth="25"
-									Margin="6 0 0 0"
-									AllowEmpty="True"
-									AutomationProperties.Name="{x:Static res:CommonRes.DefaultLabel}"
-									Minimum="0"
-									NoneCaption="{x:Static res:EncodingRes.NoneCaption}"
-									Number="{Binding SubtitleDefaultIndex,
-									                 Mode=TwoWay}"
-									ShowIncrementButtons="False"
-									UpdateBindingOnTextChange="True" />
-							</StackPanel>
-						</StackPanel>
-						<RadioButton
-							Margin="0 6 0 0"
-							HorizontalAlignment="Left"
-							VerticalAlignment="Top"
-							Content="{x:Static res:PickerRes.ForeignAudioSearchRadioButton}"
-							GroupName="autoSubtitle4"
-							IsChecked="{Binding SubtitleSelectionMode,
-							                    Converter={StaticResource EnumBoolConverter},
-							                    ConverterParameter={x:Static model:SubtitleSelectionMode.ForeignAudioSearch}}"
-							ToolTip="{x:Static res:CommonRes.ForeignAudioSearchToolTip}" />
+								<StackPanel
+									Margin="20 6 0 0"
+									Orientation="Vertical"
+									Visibility="{Binding SubtitleSelectionMode,
+									                     Converter={StaticResource EnumVisibilityConverter},
+									                     ConverterParameter={x:Static model:SubtitleSelectionMode.ByIndex}}">
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Name="subtitleIndicesLabel" Text="{x:Static res:PickerRes.SelectTracksLabel}" />
+										<TextBox
+											AutomationProperties.LabeledBy="{Binding ElementName=subtitleIndicesLabel}"
+											Style="{StaticResource TrackIndicesStyle}"
+											Text="{Binding SubtitleIndices,
+											               UpdateSourceTrigger=PropertyChanged}" />
+										<TextBlock Style="{StaticResource TrackIndicesHelpTextStyle}" Text="{x:Static res:PickerRes.SelectTracksHelpText}" />
+									</StackPanel>
+									<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
+										<TextBlock VerticalAlignment="Center" Text="{x:Static res:CommonRes.DefaultLabel}" />
+										<controls:NumberBox
+											MinWidth="25"
+											Margin="6 0 0 0"
+											AllowEmpty="True"
+											AutomationProperties.Name="{x:Static res:CommonRes.DefaultLabel}"
+											Minimum="0"
+											NoneCaption="{x:Static res:EncodingRes.NoneCaption}"
+											Number="{Binding SubtitleDefaultIndex,
+											                 Mode=TwoWay}"
+											ShowIncrementButtons="False"
+											UpdateBindingOnTextChange="True" />
+									</StackPanel>
+								</StackPanel>
 
-						<StackPanel
-							Margin="0 6 0 0"
-							HorizontalAlignment="Left"
-							VerticalAlignment="Top"
-							Orientation="Horizontal">
-							<RadioButton
-								HorizontalAlignment="Left"
-								VerticalAlignment="Top"
-								Content="{x:Static res:PickerRes.LanguagesRadioButton}"
-								GroupName="autoSubtitle5"
-								IsChecked="{Binding SubtitleSelectionMode,
-								                    Converter={StaticResource EnumBoolConverter},
-								                    ConverterParameter={x:Static model:SubtitleSelectionMode.Language}}" />
-							<StackPanel
-								Margin="0 -3 0 0"
-								Orientation="Horizontal"
-								Visibility="{Binding SubtitleSelectionMode,
-								                     Converter={StaticResource EnumVisibilityConverter},
-								                     ConverterParameter={x:Static model:SubtitleSelectionMode.Language}}">
+								<StackPanel
+									Margin="20 6 0 0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Top"
+									Orientation="Horizontal"
+									Visibility="{Binding SubtitleSelectionMode,
+									                     Converter={StaticResource EnumVisibilityConverter},
+									                     ConverterParameter={x:Static model:SubtitleSelectionMode.Language}}">
+									<ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding SubtitleLanguagesBindable}">
+										<ItemsControl.ItemTemplate>
+											<DataTemplate>
+												<StackPanel Margin="0 0 0 4" Orientation="Horizontal">
+													<ComboBox
+														Height="23"
+														MinWidth="120"
+														DisplayMemberPath="Display"
+														ItemsSource="{x:Static interop:HandBrakeLanguagesHelper.AllLanguages}"
+														SelectedValue="{Binding Code}"
+														SelectedValuePath="Code" />
+													<Button
+														Height="23"
+														Command="{Binding RemoveSubtitleLanguage}"
+														Content="{x:Static res:PickerRes.RemoveLanguageToolTip}"
+														Style="{StaticResource RemoveButtonStyle}"
+														Visibility="{Binding PickerWindowViewModel.HasMultipleSubtitleLanguages,
+														                     Converter={StaticResource VisibilityConverter}}" />
+												</StackPanel>
+											</DataTemplate>
+										</ItemsControl.ItemTemplate>
+									</ItemsControl>
+									<Button
+										Height="23"
+										Margin="10 0 0 0"
+										Padding="5 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Top"
+										AutomationProperties.Name="{x:Static res:PickerRes.AddLanguageButton}"
+										Command="{Binding AddSubtitleLanguage}"
+										UseLayoutRounding="True">
+										<StackPanel Orientation="Horizontal">
+											<Polygon Style="{StaticResource PlusSign}" />
+											<TextBlock Text="{x:Static res:PickerRes.AddLanguageButton}" />
+										</StackPanel>
+									</Button>
+								</StackPanel>
+
+								<StackPanel Margin="20 0 0 0" Visibility="{Binding SubtitleSelectionMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static model:SubtitleSelectionMode.Language}}">
+									<CheckBox
+										Margin="0 6 0 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Top"
+										Content="{x:Static res:PickerRes.OnlyIfDifferentFromAudioCheckBox}"
+										IsChecked="{Binding SubtitleLanguageOnlyIfDifferent}" />
+									<RadioButton
+										Margin="0 10 0 0"
+										Content="{Binding SubtitleFirstTrackLabel}"
+										GroupName="autoSubtitleLanguage1"
+										IsChecked="{Binding SubtitleLanguageAll,
+										                    Converter={StaticResource InverseBoolRadioConverter}}" />
+									<RadioButton
+										Margin="0 6 0 0"
+										Content="{Binding SubtitleAllTracksLabel}"
+										GroupName="autoSubtitleLanguage2"
+										IsChecked="{Binding SubtitleLanguageAll,
+										                    Converter={StaticResource BoolRadioConverter}}" />
+								</StackPanel>
+
+								<StackPanel
+									Margin="20 4 0 0"
+									Orientation="Horizontal"
+									Visibility="{Binding SubtitleSelectionMode,
+									                     Converter={StaticResource EnumVisibilityConverter},
+									                     ConverterParameter={x:Static model:SubtitleSelectionMode.All}}">
+									<TextBlock
+										Margin="0 2 0 0"
+										VerticalAlignment="Top"
+										Text="{x:Static res:PickerRes.SortLanguagesLabel}" />
+
+									<TextBlock
+										Margin="10 0 0 0"
+										Style="{StaticResource DescriptiveText}"
+										Text="{x:Static res:MainRes.NoneParen}"
+										Visibility="{Binding HasNoSubtitleLanguages,
+										                     Converter={StaticResource VisibilityConverter}}" />
+
+									<ItemsControl
+										Margin="10 0 0 0"
+										HorizontalAlignment="Left"
+										ItemsSource="{Binding SubtitleLanguagesBindable}">
+										<ItemsControl.ItemTemplate>
+											<DataTemplate>
+												<StackPanel Margin="0 0 0 4" Orientation="Horizontal">
+													<ComboBox
+														Height="23"
+														MinWidth="120"
+														DisplayMemberPath="Display"
+														ItemsSource="{x:Static interop:HandBrakeLanguagesHelper.AllLanguages}"
+														SelectedValue="{Binding Code}"
+														SelectedValuePath="Code" />
+													<Button
+														Height="23"
+														Command="{Binding RemoveSubtitleLanguage}"
+														Content="{x:Static res:PickerRes.RemoveLanguageToolTip}"
+														Style="{StaticResource RemoveButtonStyle}" />
+												</StackPanel>
+											</DataTemplate>
+										</ItemsControl.ItemTemplate>
+									</ItemsControl>
+									<Button
+										Height="23"
+										Margin="10 0 0 0"
+										Padding="5 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Top"
+										AutomationProperties.Name="{x:Static res:PickerRes.AddLanguageButton}"
+										Command="{Binding AddSubtitleLanguage}"
+										UseLayoutRounding="True">
+										<StackPanel Orientation="Horizontal">
+											<Polygon Style="{StaticResource PlusSign}" />
+											<TextBlock Text="{x:Static res:PickerRes.AddLanguageButton}" />
+										</StackPanel>
+									</Button>
+								</StackPanel>
+
+								<CheckBox
+									Margin="0 6 0 0"
+									Content="{x:Static res:PickerRes.ForcedOnlyCheckBox}"
+									IsChecked="{Binding SubtitleForcedOnly}"
+									ToolTip="{x:Static res:CommonRes.ForcedSubtitleToolTip}"
+									Visibility="{Binding SubtitleQuantityClass,
+									                     Converter={StaticResource EnumVisibilityInverseConverter},
+									                     ConverterParameter={x:Static viewModel:SubtitleQuantityClass.None}}" />
+
+								<CheckBox
+									Margin="0 6 0 0"
+									Content="{x:Static res:PickerRes.DefaultCheckBox}"
+									IsChecked="{Binding SubtitleDefault}"
+									ToolTip="{x:Static res:PickerRes.SingleSubtitleDefaultToolTip}"
+									Visibility="{Binding ShowDefaultCheckBox,
+									                     Converter={StaticResource VisibilityConverter}}" />
+
+								<CheckBox
+									Margin="0 6 0 0"
+									Content="{x:Static res:PickerRes.FirstAsDefaultCheckBox}"
+									IsChecked="{Binding SubtitleDefault}"
+									ToolTip="{x:Static res:PickerRes.MultipleSubtitleDefaultToolTip}"
+									Visibility="{Binding ShowMarkFirstAsDefaultCheckBox,
+									                     Converter={StaticResource VisibilityConverter}}" />
+
+								<CheckBox
+									Margin="0 6 0 0"
+									Content="{x:Static res:PickerRes.PickerForeignAudioCheckBox}"
+									IsChecked="{Binding SubtitleAddForeignAudioScan}"
+									ToolTip="{x:Static res:CommonRes.ForeignAudioSearchToolTip}" />
+
+								<StackPanel
+									Margin="0 6 0 0"
+									Orientation="Horizontal"
+									Visibility="{Binding BurnInVisible,
+									                     Converter={StaticResource VisibilityConverter}}">
+									<TextBlock VerticalAlignment="Center" Text="{x:Static res:PickerRes.BurnInLabel}" />
+									<ComboBox
+										Margin="6 0 0 0"
+										DisplayMemberPath="Display"
+										ItemsSource="{Binding SubtitleBurnInChoices}"
+										SelectedValue="{Binding SubtitleBurnInSelection}"
+										SelectedValuePath="Value" />
+								</StackPanel>
+
+								<CheckBox
+									Margin="0 12 0 0"
+									Content="{x:Static res:PickerRes.CustomTrackNamesCheckBox}"
+									IsChecked="{Binding UseCustomSubtitleTrackNames}" />
 
 								<ItemsControl
-									Margin="10 0 0 0"
-									HorizontalAlignment="Left"
-									ItemsSource="{Binding SubtitleLanguagesBindable}">
-									<ItemsControl.ItemTemplate>
-										<DataTemplate>
-											<StackPanel Margin="0 0 0 4" Orientation="Horizontal">
-												<ComboBox
-													Height="23"
-													MinWidth="120"
-													DisplayMemberPath="Display"
-													ItemsSource="{Binding Languages}"
-													SelectedValue="{Binding Code}"
-													SelectedValuePath="Code" />
-												<Button
-													Height="23"
-													Command="{Binding RemoveSubtitleLanguage}"
-													Content="{x:Static res:PickerRes.RemoveLanguageToolTip}"
-													Style="{StaticResource RemoveButtonStyle}"
-													Visibility="{Binding PickerWindowViewModel.HasMultipleSubtitleLanguages,
-													                     Converter={StaticResource VisibilityConverter}}" />
-											</StackPanel>
-										</DataTemplate>
-									</ItemsControl.ItemTemplate>
-								</ItemsControl>
+									Name="subtitleTrackNamesControl"
+									Margin="20 0 0 0"
+									ItemTemplate="{StaticResource TrackNameDataTemplate}"
+									ItemsSource="{Binding SubtitleTrackNamesBindable}"
+									Visibility="{Binding UseCustomSubtitleTrackNames,
+									                     Converter={StaticResource VisibilityConverter}}" />
 								<Button
 									Height="23"
-									Margin="10 0 0 0"
+									Margin="20 4 0 0"
 									Padding="5 0"
 									HorizontalAlignment="Left"
 									VerticalAlignment="Top"
-									Command="{Binding AddSubtitleLanguage}"
-									UseLayoutRounding="True">
+									AutomationProperties.Name="{x:Static res:PickerRes.AddSubtitleTrackNameButton}"
+									Command="{Binding AddSubtitleTrackName}"
+									UseLayoutRounding="True"
+									Visibility="{Binding UseCustomSubtitleTrackNames,
+									                     Converter={StaticResource VisibilityConverter}}">
 									<StackPanel Orientation="Horizontal">
 										<Polygon Style="{StaticResource PlusSign}" />
-										<TextBlock Text="{x:Static res:PickerRes.AddLanguageButton}" />
+										<TextBlock Text="{x:Static res:PickerRes.AddSubtitleTrackNameButton}" />
 									</StackPanel>
 								</Button>
+
+								<CheckBox
+									Margin="0 12 0 0"
+									Content="{Binding ExternalSubtitleImportCheckBoxTitle}"
+									IsChecked="{Binding EnableExternalSubtitleImport}" />
+								<StackPanel
+									Margin="0 6 0 0"
+									Orientation="Vertical"
+									Visibility="{Binding EnableExternalSubtitleImport,
+									                     Converter={StaticResource VisibilityConverter}}">
+									<StackPanel Margin="20 0 0 0" Orientation="Horizontal">
+										<TextBlock
+											Name="externalSubtitleImportLanguage"
+											VerticalAlignment="Center"
+											Text="{x:Static res:PickerRes.LanguageLabel}" />
+										<ComboBox
+											MinWidth="120"
+											Margin="6 0 0 0"
+											AutomationProperties.LabeledBy="{Binding ElementName=externalSubtitleImportLanguage}"
+											DisplayMemberPath="Display"
+											ItemsSource="{x:Static interop:HandBrakeLanguagesHelper.AllLanguages}"
+											SelectedValue="{Binding ExternalSubtitleImportLanguage}"
+											SelectedValuePath="Code" />
+									</StackPanel>
+									<CheckBox
+										Margin="20 6 0 0"
+										Content="{x:Static res:PickerRes.DefaultCheckBox}"
+										IsChecked="{Binding ExternalSubtitleImportDefault}"
+										IsEnabled="{Binding ExternalSubtitleImportBurnIn,
+										                    Converter={StaticResource InverseBoolConverter}}" />
+									<CheckBox
+										Margin="20 6 0 0"
+										Content="{x:Static res:PickerRes.BurnInCheckBox}"
+										IsChecked="{Binding ExternalSubtitleImportBurnIn}" />
+								</StackPanel>
+							</StackPanel>
+
+							<!--  Metadata  -->
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.MetadataSection}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<CheckBox Content="{x:Static res:PickerRes.PassThroughMetadataCheckBox}" IsChecked="{Binding PassThroughMetadata}" />
+							</StackPanel>
+
+							<!--  Encoding  -->
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.EncodingSection}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<StackPanel Orientation="Horizontal" ToolTip="{x:Static res:PickerRes.PresetOverrideToolTip}">
+									<CheckBox
+										VerticalAlignment="Center"
+										Content="{x:Static res:PickerRes.PresetLabel}"
+										IsChecked="{Binding UseEncodingPreset}" />
+
+									<controls:PresetComboBox
+										Margin="6 0 0 0"
+										VerticalAlignment="Center"
+										PreviewKeyDown="OnPresetComboPreviewKeyDown"
+										SelectedItem="{Binding SelectedPreset,
+										                       Mode=TwoWay}"
+										UseLayoutRounding="True"
+										Visibility="{Binding UseEncodingPreset,
+										                     Converter={StaticResource VisibilityConverter}}" />
+								</StackPanel>
+
+								<CheckBox
+									Margin="0 6 0 0"
+									Content="{x:Static res:PickerRes.AutoQueueOnScanCheckBox}"
+									IsChecked="{Binding AutoQueueOnScan}" />
+
+								<CheckBox
+									Margin="20 6 0 0"
+									Content="{x:Static res:PickerRes.AutoEncodeOnScanCheckBox}"
+									IsChecked="{Binding AutoEncodeOnScan}"
+									IsEnabled="{Binding AutoQueueOnScan}" />
+							</StackPanel>
+
+							<!--  Post-encoding  -->
+							<StackPanel Orientation="Vertical">
+								<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.PostEncodingSection}" />
+								<StackPanel Style="{StaticResource ConfigSectionStack}">
+									<Grid>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="Auto" />
+											<ColumnDefinition />
+											<ColumnDefinition Width="Auto" />
+										</Grid.ColumnDefinitions>
+										<CheckBox Content="{x:Static res:PickerRes.SendFileToLabel}" IsChecked="{Binding PostEncodeActionEnabled}" />
+
+										<TextBox
+											Grid.Column="1"
+											Height="22"
+											Margin="5 0 0 0"
+											VerticalAlignment="Center"
+											VerticalContentAlignment="Center"
+											IsEnabled="{Binding PostEncodeActionEnabled}"
+											Text="{Binding PostEncodeExecutable,
+											               Mode=TwoWay,
+											               UpdateSourceTrigger=PropertyChanged}" />
+
+										<Button
+											Grid.Column="2"
+											Margin="10 0 0 0"
+											Padding="10 0"
+											Command="{Binding PickPostEncodeExecutable}"
+											Content="{x:Static res:CommonRes.Browse}"
+											IsEnabled="{Binding PostEncodeActionEnabled}" />
+									</Grid>
+									<Grid Margin="20 6 0 0" ToolTip="{x:Static res:PickerRes.PostEncodeArgumentsToolTip}">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="Auto" />
+											<ColumnDefinition />
+										</Grid.ColumnDefinitions>
+
+										<TextBlock Text="{x:Static res:PickerRes.PostEncodeArgumentsLabel}" />
+
+										<TextBox
+											Grid.Column="1"
+											Height="22"
+											Margin="5 0 0 0"
+											VerticalAlignment="Center"
+											VerticalContentAlignment="Center"
+											IsEnabled="{Binding PostEncodeActionEnabled}"
+											Text="{Binding PostEncodeArguments,
+											               Mode=TwoWay,
+											               UpdateSourceTrigger=PropertyChanged}" />
+									</Grid>
+								</StackPanel>
 							</StackPanel>
 						</StackPanel>
-
-						<StackPanel Margin="20 0 0 0" Visibility="{Binding SubtitleSelectionMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static model:SubtitleSelectionMode.Language}}">
-							<CheckBox
-								Margin="0 6 0 0"
-								HorizontalAlignment="Left"
-								VerticalAlignment="Top"
-								Content="{x:Static res:PickerRes.OnlyIfDifferentFromAudioCheckBox}"
-								IsChecked="{Binding SubtitleLanguageOnlyIfDifferent}" />
-							<RadioButton
-								Margin="0 10 0 0"
-								Content="{Binding SubtitleFirstTrackLabel}"
-								GroupName="autoSubtitleLanguage1"
-								IsChecked="{Binding SubtitleLanguageAll,
-								                    Converter={StaticResource InverseBoolRadioConverter}}" />
-							<RadioButton
-								Margin="0 6 0 0"
-								Content="{Binding SubtitleAllTracksLabel}"
-								GroupName="autoSubtitleLanguage2"
-								IsChecked="{Binding SubtitleLanguageAll,
-								                    Converter={StaticResource BoolRadioConverter}}" />
-						</StackPanel>
-
-						<RadioButton
-							Margin="0 6 0 0"
-							Content="{x:Static res:CommonRes.All}"
-							GroupName="autoSubtitle6"
-							IsChecked="{Binding SubtitleSelectionMode,
-							                    Converter={StaticResource EnumBoolConverter},
-							                    ConverterParameter={x:Static model:SubtitleSelectionMode.All}}"
-							ToolTip="{x:Static res:PickerRes.AllSubtitlesToolTip}" />
-
-						<StackPanel
-							Margin="20 4 0 0"
-							Orientation="Horizontal"
-							Visibility="{Binding SubtitleSelectionMode,
-							                     Converter={StaticResource EnumVisibilityConverter},
-							                     ConverterParameter={x:Static model:SubtitleSelectionMode.All}}">
-							<TextBlock
-								Margin="0 2 0 0"
-								VerticalAlignment="Top"
-								Text="{x:Static res:PickerRes.SortLanguagesLabel}" />
-
-							<TextBlock
-								Margin="10 0 0 0"
-								Style="{StaticResource DescriptiveText}"
-								Text="{x:Static res:MainRes.NoneParen}"
-								Visibility="{Binding HasNoSubtitleLanguages,
-								                     Converter={StaticResource VisibilityConverter}}" />
-
-							<ItemsControl
-								Margin="10 0 0 0"
-								HorizontalAlignment="Left"
-								ItemsSource="{Binding SubtitleLanguagesBindable}">
-								<ItemsControl.ItemTemplate>
-									<DataTemplate>
-										<StackPanel Margin="0 0 0 4" Orientation="Horizontal">
-											<ComboBox
-												Height="23"
-												MinWidth="120"
-												DisplayMemberPath="Display"
-												ItemsSource="{Binding Languages}"
-												SelectedValue="{Binding Code}"
-												SelectedValuePath="Code" />
-											<Button
-												Height="23"
-												Command="{Binding RemoveSubtitleLanguage}"
-												Content="{x:Static res:PickerRes.RemoveLanguageToolTip}"
-												Style="{StaticResource RemoveButtonStyle}" />
-										</StackPanel>
-									</DataTemplate>
-								</ItemsControl.ItemTemplate>
-							</ItemsControl>
-							<Button
-								Height="23"
-								Margin="10 0 0 0"
-								Padding="5 0"
-								HorizontalAlignment="Left"
-								VerticalAlignment="Top"
-								Command="{Binding AddSubtitleLanguage}"
-								UseLayoutRounding="True">
-								<StackPanel Orientation="Horizontal">
-									<Polygon Style="{StaticResource PlusSign}" />
-									<TextBlock Text="{x:Static res:PickerRes.AddLanguageButton}" />
-								</StackPanel>
-							</Button>
-						</StackPanel>
-
-						<CheckBox
-							Margin="0 15 0 0"
-							Content="{x:Static res:PickerRes.ForcedOnlyCheckBox}"
-							IsChecked="{Binding SubtitleForcedOnly}"
-							ToolTip="{x:Static res:CommonRes.ForcedSubtitleToolTip}"
-							Visibility="{Binding SubtitleQuantityClass,
-							                     Converter={StaticResource EnumVisibilityInverseConverter},
-							                     ConverterParameter={x:Static viewModel:SubtitleQuantityClass.None}}" />
-
-						<StackPanel Orientation="Vertical" Visibility="{Binding SubtitleQuantityClass, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static viewModel:SubtitleQuantityClass.Single}}">
-							<CheckBox
-								Margin="0 6 0 0"
-								Content="{x:Static res:PickerRes.DefaultCheckBox}"
-								IsChecked="{Binding SubtitleDefault}"
-								ToolTip="{x:Static res:PickerRes.SingleSubtitleDefaultToolTip}" />
-
-							<CheckBox
-								Margin="0 6 0 0"
-								Content="{x:Static res:PickerRes.BurnInCheckBox}"
-								IsChecked="{Binding SubtitleBurnIn}"
-								ToolTip="{x:Static res:CommonRes.BurnedSubtitleToolTip}" />
-						</StackPanel>
-
-						<CheckBox
-							Margin="0 6 0 0"
-							Content="{x:Static res:PickerRes.FirstAsDefaultCheckBox}"
-							IsChecked="{Binding SubtitleDefault}"
-							ToolTip="{x:Static res:PickerRes.MultipleSubtitleDefaultToolTip}"
-							Visibility="{Binding ShowMarkFirstAsDefaultCheckBox,
-							                     Converter={StaticResource VisibilityConverter}}" />
-					</StackPanel>
-
-					<!--  Encoding  -->
-					<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.EncodingSection}" />
-					<StackPanel Style="{StaticResource ConfigSectionStack}">
-						<StackPanel Orientation="Horizontal" ToolTip="{x:Static res:PickerRes.PresetOverrideToolTip}">
-							<CheckBox
-								VerticalAlignment="Center"
-								Content="{x:Static res:PickerRes.PresetLabel}"
-								IsChecked="{Binding UseEncodingPreset}" />
-
-							<controls:PresetComboBox
-								Margin="6 0 0 0"
-								VerticalAlignment="Center"
-								PreviewKeyDown="OnPresetComboPreviewKeyDown"
-								SelectedItem="{Binding SelectedPreset,
-								                       Mode=TwoWay}"
-								UseLayoutRounding="True"
-								Visibility="{Binding UseEncodingPreset,
-								                     Converter={StaticResource VisibilityConverter}}" />
-						</StackPanel>
-
-						<CheckBox
-							Margin="0 6 0 0"
-							Content="{x:Static res:PickerRes.AutoQueueOnScanCheckBox}"
-							IsChecked="{Binding AutoQueueOnScan}" />
-
-						<CheckBox
-							Margin="20 6 0 0"
-							Content="{x:Static res:PickerRes.AutoEncodeOnScanCheckBox}"
-							IsChecked="{Binding AutoEncodeOnScan}"
-							IsEnabled="{Binding AutoQueueOnScan}" />
-					</StackPanel>
-
-					<!--  Post-encoding  -->
-					<StackPanel Orientation="Vertical" Visibility="{Binding IsRunningAsAppx, Source={x:Static vidCoder:XamlStatics.Instance}, Converter={StaticResource InverseVisibilityConverter}}">
-						<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.PostEncodingSection}" />
-						<StackPanel Style="{StaticResource ConfigSectionStack}">
-							<Grid>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto" />
-									<ColumnDefinition />
-									<ColumnDefinition Width="Auto" />
-								</Grid.ColumnDefinitions>
-								<CheckBox Content="{x:Static res:PickerRes.SendFileToLabel}" IsChecked="{Binding PostEncodeActionEnabled}" />
-
-								<TextBox
-									Grid.Column="1"
-									Height="22"
-									Margin="5 0 0 0"
-									VerticalAlignment="Center"
-									VerticalContentAlignment="Center"
-									IsEnabled="{Binding PostEncodeActionEnabled}"
-									Text="{Binding PostEncodeExecutable,
-									               Mode=TwoWay,
-									               UpdateSourceTrigger=PropertyChanged}" />
-
-								<Button
-									Grid.Column="2"
-									Margin="10 0 0 0"
-									Padding="10 0"
-									Command="{Binding PickPostEncodeExecutable}"
-									Content="{x:Static res:CommonRes.Browse}"
-									IsEnabled="{Binding PostEncodeActionEnabled}" />
-							</Grid>
-							<Grid Margin="20 6 0 0" ToolTip="{x:Static res:PickerRes.PostEncodeArgumentsToolTip}">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto" />
-									<ColumnDefinition />
-								</Grid.ColumnDefinitions>
-
-								<TextBlock Text="{x:Static res:PickerRes.PostEncodeArgumentsLabel}" />
-
-								<TextBox
-									Grid.Column="1"
-									Height="22"
-									Margin="5 0 0 0"
-									VerticalAlignment="Center"
-									VerticalContentAlignment="Center"
-									IsEnabled="{Binding PostEncodeActionEnabled}"
-									Text="{Binding PostEncodeArguments,
-									               Mode=TwoWay,
-									               UpdateSourceTrigger=PropertyChanged}" />
-							</Grid>
-						</StackPanel>
-					</StackPanel>
-				</StackPanel>
-			</ScrollViewer>
+					</ScrollViewer>
+				</Grid>
+			</Grid>
 		</Grid>
-	</Grid>
+	</Border>
 </Window>

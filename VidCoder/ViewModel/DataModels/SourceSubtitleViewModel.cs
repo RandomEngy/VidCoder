@@ -16,13 +16,13 @@ namespace VidCoder.ViewModel
 {
 	public class SourceSubtitleViewModel : ReactiveObject
 	{
-		private SourceSubtitle subtitle;
+		private ChosenSourceSubtitle subtitle;
 
 		private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
 
 		private SourceSubtitleTrack inputSubtitle; 
 
-		public SourceSubtitleViewModel(MainViewModel mainViewModel, SourceSubtitle subtitle)
+		public SourceSubtitleViewModel(MainViewModel mainViewModel, ChosenSourceSubtitle subtitle)
 		{
 			this.MainViewModel = mainViewModel;
 			this.subtitle = subtitle;
@@ -42,6 +42,12 @@ namespace VidCoder.ViewModel
 
 				return HandBrakeEncoderHelpers.SubtitleCanPassthrough(this.inputSubtitle.Source, HandBrakeEncoderHelpers.GetContainer(containerName).Id);
 			}).ToProperty(this, x => x.CanPass, out this.canPass, scheduler: Scheduler.Immediate);
+
+			// DefaultEnabled
+			this.WhenAnyValue(x => x.BurnedIn, x => x.TrackNumber, x => x.MainViewModel.DefaultSubtitlesEnabled, (burnedIn, trackNumber, defaultSubtitlesEnabled) =>
+			{
+				return !burnedIn && (trackNumber == 0 || defaultSubtitlesEnabled);
+			}).ToProperty(this, x => x.DefaultEnabled, out this.defaultEnabled);
 
 			// BurnedInEnabled
 			this.WhenAnyValue(x => x.CanPass, canPass =>
@@ -78,7 +84,7 @@ namespace VidCoder.ViewModel
 			get { return this.MainViewModel.SelectedTitle.SubtitleList; }
 		}
 
-		public SourceSubtitle Subtitle
+		public ChosenSourceSubtitle Subtitle
 		{
 			get
 			{
@@ -104,24 +110,53 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool IsForeignAudioSearch => this.TrackNumber == 0;
+
 		public DateTimeOffset? LastMouseDownTime { get; set; }
 
-		public string SubtitleName
+		public override string ToString()
+		{
+			if (string.IsNullOrEmpty(this.Name))
+			{
+				return this.TrackSummary;
+			}
+			else if (this.TrackNumber == 0)
+			{
+				return SubtitleRes.ForeignAudioScan + " " + this.Name;
+			}
+			else
+			{
+				return this.TrackNumber + " " + this.Name + " - " + this.inputSubtitle.Language;
+			}
+		}
+
+		public string TrackSummary
 		{
 			get
 			{
 				if (this.TrackNumber == 0)
 				{
-					return SubtitleRes.ForeignAudioSearch;
+					return SubtitleRes.ForeignAudioScan;
 				}
 
 				return string.Format(
-					"{0} {1} ({2})", 
+					"{0} {1}", 
 					this.TrackNumber, 
-					this.inputSubtitle.Language, 
-					HandBrakeEncoderHelpers.GetSubtitleSourceName(this.inputSubtitle.Source));
+					this.inputSubtitle.Language);
 			}
 		}
+
+		public string Name
+		{
+			get => this.subtitle.Name ?? this.inputSubtitle?.Name;
+			set
+			{
+				this.subtitle.Name = value;
+				this.RaisePropertyChanged();
+			}
+		}
+
+		public string SourceName => this.inputSubtitle?.Name;
 
 		public int TrackNumber
 		{
@@ -149,6 +184,9 @@ namespace VidCoder.ViewModel
 				}
 			}
 		}
+
+		private ObservableAsPropertyHelper<bool> defaultEnabled;
+		public bool DefaultEnabled => this.defaultEnabled.Value;
 
 		public bool ForcedOnly
 		{
@@ -201,6 +239,7 @@ namespace VidCoder.ViewModel
 
 				if (value)
 				{
+					this.Default = false;
 					this.MainViewModel.ReportBurnedSubtitle(this);
 				}
 
@@ -210,10 +249,7 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> burnedInEnabled;
-		public bool BurnedInEnabled
-		{
-			get { return this.burnedInEnabled.Value; }
-		}
+		public bool BurnedInEnabled => this.burnedInEnabled.Value;
 
 		public bool RemoveVisible
 		{

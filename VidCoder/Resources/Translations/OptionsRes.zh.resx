@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>通用</value>
@@ -138,50 +138,14 @@
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
     <value>自动更新</value>
   </data>
-  <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>加入 Beta 更新</value>
-  </data>
-  <data name="FileNamingTab" xml:space="preserve">
-    <value>文件命名</value>
-  </data>
-  <data name="DefaultFolderLabel" xml:space="preserve">
-    <value>默认文件夹：</value>
-  </data>
-  <data name="FileFormatLabel" xml:space="preserve">
-    <value>文件格式：</value>
-  </data>
-  <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>默认格式</value>
-  </data>
-  <data name="CustomFormatRadioButton" xml:space="preserve">
-    <value>自定义格式：</value>
-  </data>
-  <data name="FileNameFormatOptions" xml:space="preserve">
-    <value>可用选项：{0}</value>
-  </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
     <value>当文件已存在时...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
     <value>单个文件编码：</value>
   </data>
-  <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>覆盖文件时询问</value>
-  </data>
-  <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>覆盖文件不提示</value>
-  </data>
-  <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>自动重命名</value>
-  </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
     <value>批量编码文件：</value>
-  </data>
-  <data name="OverwriteRadioButton" xml:space="preserve">
-    <value>覆盖</value>
-  </data>
-  <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>自动重命名</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>当以下进程运行时自动暂停编码：</value>
@@ -195,13 +159,8 @@
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>记忆曾用文件和文件夹</value>
   </data>
-  <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>允许自定义音轨名称 (部分播放器都支持)</value>
-  </data>
   
-  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>清除已完成项目时删除源文件 (需确认)</value>
-  </data>
+  
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>日志详细度：</value>
   </data>
@@ -280,9 +239,6 @@
   <data name="OutputFolderSection" xml:space="preserve">
     <value>输出文件夹</value>
   </data>
-  <data name="NamingFormatSection" xml:space="preserve">
-    <value>命名格式</value>
-  </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
     <value>高级选项</value>
   </data>
@@ -355,9 +311,6 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>使用工作进程进行编码</value>
   </data>
-  <data name="VideoSection" xml:space="preserve">
-    <value>视频</value>
-  </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>转换文件时保留创建和修改时间</value>
   </data>
@@ -394,6 +347,15 @@
     <value>提示更新：</value>
   </data>
   
+  
+  
+  
+  
+  
+  
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>可用选项：{0}</value>
+  </data>
   
   
   

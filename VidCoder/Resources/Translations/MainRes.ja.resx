@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
     <value>タイトル:</value>
@@ -181,12 +181,6 @@
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
     <value>VidCoderについて</value>
   </data>
-  <data name="ChooseVideoSourceLabel" xml:space="preserve">
-    <value>ビデオ ソースを選択：</value>
-  </data>
-  <data name="SourceLabel" xml:space="preserve">
-    <value>入力元：</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>最近利用したソース</value>
   </data>
@@ -195,9 +189,6 @@
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>スキャン中にエラーが発生しました。</value>
-  </data>
-  <data name="AddTrackButton" xml:space="preserve">
-    <value>トラック追加</value>
   </data>
   <data name="ChapterMarkersLabel" xml:space="preserve">
     <value>チャプターマーカー:</value>
@@ -210,12 +201,6 @@
   </data>
   <data name="DestinationToolTip" xml:space="preserve">
     <value>クリックして出力先を編集します</value>
-  </data>
-  <data name="SelectOutputPathButton" xml:space="preserve">
-    <value>出力パスを選択</value>
-  </data>
-  <data name="EncodingLabel" xml:space="preserve">
-    <value>エンコード:</value>
   </data>
   <data name="Stop" xml:space="preserve">
     <value>停止</value>
@@ -247,14 +232,8 @@
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
     <value>エンコード中</value>
   </data>
-  <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>強制字幕検索</value>
-  </data>
   <data name="NoneParen" xml:space="preserve">
     <value>(なし)</value>
-  </data>
-  <data name="TracksSummaryMultiple" xml:space="preserve">
-    <value>{0} トラック</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
     <value>プリセットの変更を保存しますか？</value>
@@ -270,9 +249,6 @@
   </data>
   <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
     <value>完了したジョブから復元しました</value>
-  </data>
-  <data name="PresetLabel" xml:space="preserve">
-    <value>プリセット:</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
     <value>出力先:</value>
@@ -327,9 +303,6 @@
   <data name="DirectoryCreateErrorMessage" xml:space="preserve">
     <value>出力フォルダを作成できませんでした。エラーの詳細：{0}</value>
   </data>
-  <data name="DirectoryCreateErrorTitle" xml:space="preserve">
-    <value>ディレクトリの作成エラー</value>
-  </data>
   <data name="EncodeCompleted" xml:space="preserve">
     <value>エンコード完了</value>
   </data>
@@ -338,12 +311,6 @@
   </data>
   <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
     <value>キュー内のすべてのエンコードが完了しました</value>
-  </data>
-  <data name="OutputFolderRequiredMessage" xml:space="preserve">
-    <value>エンコードジョブを追加できません。[OK]を押して既定の出力先を指定してください。</value>
-  </data>
-  <data name="OutputFolderRequiredTitle" xml:space="preserve">
-    <value>既定の出力先を設定してください</value>
   </data>
   <data name="OutputPathNotValidMessage" xml:space="preserve">
     <value>出力先が無効です</value>
@@ -423,9 +390,6 @@
   <data name="RemoveConfirmTitle" xml:space="preserve">
     <value>削除</value>
   </data>
-  <data name="UserConfigCorrupted" xml:space="preserve">
-    <value>設定ファイルが壊れているため読み込めません。一部の設定はリセットされています。</value>
-  </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
     <value>エンコードしたビデオファイルの出力先を選択してください。</value>
   </data>
@@ -442,9 +406,6 @@
     <value>フォルダを開く</value>
   </data>
   <data name="CloseVideoSourceToolTip" xml:space="preserve">
-    <value>ソースファイルを閉じる</value>
-  </data>
-  <data name="CloseVideoSourceMenuItem" xml:space="preserve">
     <value>ソースファイルを閉じる</value>
   </data>
   <data name="UpdatesMenuItem" xml:space="preserve">
@@ -479,9 +440,6 @@
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>変更を破棄しますか？</value>
-  </data>
-  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
-    <value>オーディオ トラックを削除</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
     <value>キューから削除</value>
@@ -542,10 +500,6 @@
   <data name="CouldNotLoadPickerMessage" xml:space="preserve">
     <value>ピッカーを読み込めませんでした： </value>
   </data>
-  <data name="PickerNameTemplate" xml:space="preserve">
-    <value>ピッカー {0}</value>
-    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
-  </data>
   <data name="SimilarTitlesToolTip" xml:space="preserve">
     <value>これと似たような時間のタイトルが {0} 個あります</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
@@ -560,9 +514,6 @@
   <data name="CustomVideoPlayerError" xml:space="preserve">
     <value>カスタムのビデオ プレーヤーは、{0} に見つかりませんでした。</value>
     <comment>{0} is the path to the custom video player.</comment>
-  </data>
-  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
-    <value>警告: Ver2.0でサイズ変更の設定画面が変更ました。そのためプリセットも変更された可能性があります。チェックし正しく設定されているか確認してください。</value>
   </data>
   <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
     <value>フォルダのファイルをキューに追加...</value>
@@ -700,5 +651,89 @@
   </data>
   <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
     <value>エラーが有ったためエンコード完了時の動作は実行されませんでした。</value>
+  </data>
+  <data name="AudioPickerButtonToolTip" xml:space="preserve">
+    <value>オーディオトラックを自動的に選択...</value>
+  </data>
+  <data name="SubtitlePickerButtonToolTip" xml:space="preserve">
+    <value>オーディオトラックを自動的に選択...</value>
+  </data>
+  <data name="AudioSubtitleTrackColumnHeader" xml:space="preserve">
+    <value>トラック</value>
+    <comment>Column header for the audio or subtitle track summary. This is an an auto-generated summary that includes language, format, etc.</comment>
+  </data>
+  <data name="AudioTrackNameAutomationName" xml:space="preserve">
+    <value>オーディオトラック名</value>
+    <comment>Narrator label for the audio track name text box.</comment>
+  </data>
+  <data name="SubtitleNameAutomationName" xml:space="preserve">
+    <value>字幕名</value>
+    <comment>Narrator label for the subtitle name text box.</comment>
+  </data>
+  <data name="CouldNotRecycleFile" xml:space="preserve">
+    <value>ごみ箱にファイルを送信中にエラーが発生しました。</value>
+  </data>
+  <data name="DestinationAutomaticToolTip" xml:space="preserve">
+    <value>保存先は自動的に設定されます。クリックして変更します。</value>
+  </data>
+  <data name="DestinationManualToolTip" xml:space="preserve">
+    <value>保存先は手動で設定されます。クリックすると自動に戻ります。</value>
+  </data>
+  <data name="CompareAgainstOriginal" xml:space="preserve">
+    <value>オリジナルと比較</value>
+  </data>
+  <data name="CompareEncodedLabel" xml:space="preserve">
+    <value>エンコード済み</value>
+    <comment>Label for the encoded video when comparing original vs encoded</comment>
+  </data>
+  <data name="CompareOriginalLabel" xml:space="preserve">
+    <value>オリジナル</value>
+    <comment>Label for the original video when comparing original vs encoded</comment>
+  </data>
+  <data name="CompareWindowHelpText" xml:space="preserve">
+    <value>エンコード版を表示するには、クリックかCtrlキーをホールドします。</value>
+  </data>
+  <data name="CompareWindowTitleFormat" xml:space="preserve">
+    <value>ビデオの比較: {0} - {1}</value>
+    <comment>Title for the Video compare window.
+{0} is a string indicating if it's original or encoded.
+{1} is the file name, e.g. MyFile.mkv</comment>
+  </data>
+  <data name="MuteAutomationName" xml:space="preserve">
+    <value>消音</value>
+    <comment>Text for screen readers for the mute button on video playback</comment>
+  </data>
+  <data name="UnmuteAutomationName" xml:space="preserve">
+    <value>ミュート解除</value>
+    <comment>Text for screen readers for the unmute button on video playback</comment>
+  </data>
+  <data name="AutoPauseLowBattery" xml:space="preserve">
+    <value>バッテリー残量が少なくなったため自動的に一時停止します</value>
+  </data>
+  <data name="AutoPauseLowDiskSpace" xml:space="preserve">
+    <value>{0}GB 以下の空き容量のため自動的に一時停止します。</value>
+    <comment>{0} is the disk space threshold for auto-pause in GB</comment>
+  </data>
+  <data name="AutoPauseProcessDetected" xml:space="preserve">
+    <value>自動的に一時停止、プロセス検出: {0}</value>
+    <comment>{0} is the name of the process we were waiting for to pause</comment>
+  </data>
+  <data name="AutoPauseResumeBattery" xml:space="preserve">
+    <value>AC 電源に接続したので、自動的に再開します。</value>
+  </data>
+  <data name="AutoPauseResumeDiskSpace" xml:space="preserve">
+    <value>ディ数領域に空き領域ができたので、自動的に再開します。</value>
+  </data>
+  <data name="AutoPauseResumeProcess" xml:space="preserve">
+    <value>プロセスが終了したので、自動的に再開します。</value>
+  </data>
+  <data name="Win7DeprecationWarning" xml:space="preserve">
+    <value>VidCoderは、Windows7あるいはWIndows8はもうサポートしません。
+
+自己責任で使い続けることができます。特定の機能は使えませんし未知の不具合がある可能性があります。その場合のサポートは一切受けることができません。
+
+バージョン5はWindows7/8で使える最新バージョンです。
+
+この警告は2回だけ表示されます。</value>
   </data>
 </root>

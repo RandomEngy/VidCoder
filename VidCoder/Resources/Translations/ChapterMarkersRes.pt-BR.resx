@@ -114,7 +114,7 @@
     <value xml:space="preserve">Número</value>
   </data>
   <data name="StartTimeColumn">
-    <value xml:space="preserve">Tempo Inicial</value>
+    <value xml:space="preserve">Horário inicial</value>
   </data>
   <data name="TitleColumn">
     <value xml:space="preserve">Título</value>

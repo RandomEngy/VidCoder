@@ -231,8 +231,14 @@
   <data name="Off" xml:space="preserve">
     <value>Выкл</value>
   </data>
-  
-  
+  <data name="Sharpen_LapSharp" xml:space="preserve">
+    <value>Пустые острые</value>
+    <comment>The name for the "LapSharp" sharpen filter.</comment>
+  </data>
+  <data name="Sharpen_UnSharp" xml:space="preserve">
+    <value>Отменить резкость</value>
+    <comment>The name for the "UnSharp" sharpen filter.</comment>
+  </data>
   <data name="TitleType_Bluray" xml:space="preserve">
     <value>Blu-ray</value>
     <comment>What to display when the source is a Blu-ray</comment>
@@ -282,5 +288,61 @@
   </data>
   <data name="PickerTimeRangeMode_Time" xml:space="preserve">
     <value>Временной диапазон</value>
+  </data>
+  <data name="DeleteSourceFilesMode_DeleteWithConfirmation" xml:space="preserve">
+    <value>Удалить файлы (с подтверждением)</value>
+  </data>
+  <data name="DeleteSourceFilesMode_Recycle" xml:space="preserve">
+    <value>Отправить в корзину</value>
+  </data>
+  <data name="WhenFileExists_AutoRename" xml:space="preserve">
+    <value>Автоматическое переименование</value>
+  </data>
+  <data name="WhenFileExists_Overwrite" xml:space="preserve">
+    <value>Перезаписать</value>
+  </data>
+  <data name="WhenFileExists_Prompt" xml:space="preserve">
+    <value>Спрашивать</value>
+  </data>
+  <data name="DenoiseTune_medium" xml:space="preserve">
+    <value>Средний</value>
+  </data>
+  <data name="DenoiseTune_none" xml:space="preserve">
+    <value>Отсутствует</value>
+  </data>
+  <data name="DenoiseTune_small" xml:space="preserve">
+    <value>Мелкий</value>
+  </data>
+  <data name="DenoiseTune_tiny" xml:space="preserve">
+    <value>Наименьший</value>
+  </data>
+  <data name="DenoiseTune_verywide" xml:space="preserve">
+    <value>Очень широкий</value>
+  </data>
+  <data name="DenoiseTune_wide" xml:space="preserve">
+    <value>Широкий</value>
+  </data>
+  <data name="Denoise_ChromaSmooth" xml:space="preserve">
+    <value>Гладкая Chroma</value>
+  </data>
+  <data name="DragDropOrder_Alphabetical" xml:space="preserve">
+    <value>Алфавитный</value>
+    <comment>Label for the option to order dragged files alphabetically</comment>
+  </data>
+  <data name="DragDropOrder_Selected" xml:space="preserve">
+    <value>Выбранный</value>
+    <comment>Label for the option to order dragged files as they had been selected in File explorer</comment>
+  </data>
+  <data name="SubtitleBurnInSelection_First" xml:space="preserve">
+    <value>Первые</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrack" xml:space="preserve">
+    <value>По треку иностранного звука</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrackElseFirst" xml:space="preserve">
+    <value>По треку иностранного звука, иначе первые</value>
+  </data>
+  <data name="SubtitleBurnInSelection_None" xml:space="preserve">
+    <value>Нет</value>
   </data>
 </root>

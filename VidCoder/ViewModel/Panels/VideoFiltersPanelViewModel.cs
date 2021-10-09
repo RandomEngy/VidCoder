@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.HbLib;
-using HandBrake.Interop.Interop.Model.Encoding;
+using HandBrake.Interop.Interop.Interfaces.Model.Filters;
 using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Model;
@@ -18,6 +18,7 @@ using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.ViewModel.DataModels;
 using VidCoderCommon.Model;
+using VidCoderCommon.Utilities;
 
 namespace VidCoder.ViewModel
 {
@@ -53,9 +54,8 @@ namespace VidCoder.ViewModel
                 new ComboChoice<VCDenoise>(VCDenoise.Off, CommonRes.Off),
                 new ComboChoice<VCDenoise>(VCDenoise.hqdn3d, EnumsRes.Denoise_HQDN3D),
                 new ComboChoice<VCDenoise>(VCDenoise.NLMeans, EnumsRes.Denoise_NLMeans),
+				new ComboChoice<VCDenoise>(VCDenoise.ChromaSmooth, EnumsRes.Denoise_ChromaSmooth)
             };
-
-			this.DenoiseTuneChoices = this.GetFilterTuneChoices(hb_filter_ids.HB_FILTER_NLMEANS, "DenoiseTune_");
 
 			this.SharpenChoices = new List<ComboChoice<VCSharpen>>
 			{
@@ -63,8 +63,6 @@ namespace VidCoder.ViewModel
 				new ComboChoice<VCSharpen>(VCSharpen.UnSharp, EnumsRes.Sharpen_UnSharp),
 				new ComboChoice<VCSharpen>(VCSharpen.LapSharp, EnumsRes.Sharpen_LapSharp),
 			};
-
-
 
 			// CustomDetelecineVisible
 			this.WhenAnyValue(x => x.Detelecine, detelecine =>
@@ -129,14 +127,26 @@ namespace VidCoder.ViewModel
 						return new List<ComboChoice>();
 					}
 
-					return this.GetFilterPresetChoices(GetDenoiseFilter(denoiseType), "DenoisePreset_");
+					return this.GetFilterPresetChoices(ModelConverters.VCDenoiseToHbDenoise(denoiseType), "DenoisePreset_");
 				}).ToProperty(this, x => x.DenoisePresetChoices, out this.denoisePresetChoices);
 
 			// DenoiseTuneVisible
 			this.WhenAnyValue(x => x.DenoiseType, x => x.DenoisePreset, (denoiseType, denoisePreset) =>
 			{
-				return denoiseType == VCDenoise.NLMeans && denoisePreset != "custom";
+				return (denoiseType == VCDenoise.NLMeans || denoiseType == VCDenoise.ChromaSmooth) && denoisePreset != "custom";
 			}).ToProperty(this, x => x.DenoiseTuneVisible, out this.denoiseTuneVisible);
+
+			// DenoiseTuneChoices
+			this.WhenAnyValue(x => x.DenoiseType)
+				.Select(denoiseType =>
+				{
+					if (denoiseType == VCDenoise.Off || denoiseType == VCDenoise.hqdn3d)
+					{
+						return new List<ComboChoice>();
+					}
+
+					return this.GetFilterTuneChoices(ModelConverters.VCDenoiseToHbDenoise(denoiseType), "DenoiseTune_");
+				}).ToProperty(this, x => x.DenoiseTuneChoices, out this.denoiseTuneChoices);
 
 			// CustomDenoiseVisible
 			this.WhenAnyValue(x => x.DenoiseType, x => x.DenoisePreset, (denoiseType, denoisePreset) =>
@@ -152,7 +162,7 @@ namespace VidCoder.ViewModel
 					return string.Empty;
 				}
 
-				return GetCustomFilterToolTip(GetDenoiseFilter(denoiseType));
+				return GetCustomFilterToolTip(ModelConverters.VCDenoiseToHbDenoise(denoiseType));
 			}).ToProperty(this, x => x.CustomDenoiseToolTip, out this.customDenoiseToolTip);
 
 			// SharpenPresetChoices
@@ -257,8 +267,13 @@ namespace VidCoder.ViewModel
 				{
 					this.CustomDetelecine = GetDefaultCustomFilterString(hb_filter_ids.HB_FILTER_DETELECINE);
 				}
+
+				this.previewUpdateService.RefreshPreview();
 			});
-			this.RegisterProfileProperty(nameof(this.CustomDetelecine));
+			this.RegisterProfileProperty(nameof(this.CustomDetelecine), () =>
+			{
+				this.previewUpdateService.RefreshPreview();
+			});
 
 			this.RegisterProfileProperty(nameof(this.DeinterlaceType), () =>
 			{
@@ -293,8 +308,13 @@ namespace VidCoder.ViewModel
 
 					this.CustomDeinterlace = GetDefaultCustomFilterString(GetDeinterlaceFilter(this.DeinterlaceType));
 				}
+
+				this.previewUpdateService.RefreshPreview();
 			});
-			this.RegisterProfileProperty(nameof(this.CustomDeinterlace));
+			this.RegisterProfileProperty(nameof(this.CustomDeinterlace), () =>
+			{
+				this.previewUpdateService.RefreshPreview();
+			});
 			this.RegisterProfileProperty(nameof(this.CombDetect), () =>
 			{
 				if (this.CombDetect == "custom" && string.IsNullOrWhiteSpace(this.CustomCombDetect))
@@ -302,7 +322,10 @@ namespace VidCoder.ViewModel
 					this.CustomCombDetect = GetDefaultCustomFilterString(hb_filter_ids.HB_FILTER_COMB_DETECT);
 				}
 			});
-			this.RegisterProfileProperty(nameof(this.CustomCombDetect));
+			this.RegisterProfileProperty(nameof(this.CustomCombDetect), () =>
+			{
+				this.previewUpdateService.RefreshPreview();
+			});
 
 			this.RegisterProfileProperty(nameof(this.DenoiseType), () =>
 			{
@@ -311,14 +334,14 @@ namespace VidCoder.ViewModel
 					this.DenoisePreset = "medium";
 				}
 
-				if (this.DenoiseType == VCDenoise.NLMeans && string.IsNullOrEmpty(this.DenoiseTune))
+				if ((this.DenoiseType == VCDenoise.NLMeans || this.DenoiseType == VCDenoise.ChromaSmooth) && string.IsNullOrEmpty(this.DenoiseTune))
 				{
 					this.DenoiseTune = "none";
 				}
 
 				if (this.DenoiseType != VCDenoise.Off && this.DenoisePreset == "custom")
 				{
-					this.CustomDenoise = GetDefaultCustomFilterString(GetDenoiseFilter(this.DenoiseType));
+					this.CustomDenoise = GetDefaultCustomFilterString(ModelConverters.VCDenoiseToHbDenoise(this.DenoiseType));
 				}
 
 				// Needs a kick to actually get it to change
@@ -336,7 +359,7 @@ namespace VidCoder.ViewModel
 						return;
 					}
 
-					this.CustomDenoise = GetDefaultCustomFilterString(GetDenoiseFilter(this.DenoiseType));
+					this.CustomDenoise = GetDefaultCustomFilterString(ModelConverters.VCDenoiseToHbDenoise(this.DenoiseType));
 				}
 			});
 			this.RegisterProfileProperty(nameof(this.DenoiseTune));
@@ -383,7 +406,10 @@ namespace VidCoder.ViewModel
 			this.RegisterProfileProperty(nameof(this.SharpenTune));
 			this.RegisterProfileProperty(nameof(this.CustomSharpen));
 			this.RegisterProfileProperty(nameof(this.Deblock));
-			this.RegisterProfileProperty(nameof(this.Grayscale));
+			this.RegisterProfileProperty(nameof(this.Grayscale), () =>
+			{
+				this.previewUpdateService.RefreshPreview();
+			});
 		}
 
 		public List<ComboChoice> DetelecineChoices { get; }
@@ -477,15 +503,7 @@ namespace VidCoder.ViewModel
 
 		public string DenoisePreset
 		{
-			get
-			{
-				if (this.Profile.UseCustomDenoise)
-				{
-					return CustomDenoisePreset;
-				}
-
-				return this.Profile.DenoisePreset;
-			}
+			get { return this.Profile.DenoisePreset; }
 
 			set
 			{
@@ -501,7 +519,8 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<bool> denoisePresetVisible;
 		public bool DenoisePresetVisible => this.denoisePresetVisible.Value;
 
-		public List<ComboChoice> DenoiseTuneChoices { get; }
+		private ObservableAsPropertyHelper<List<ComboChoice>> denoiseTuneChoices;
+		public List<ComboChoice> DenoiseTuneChoices => this.denoiseTuneChoices.Value;
 
 		public string DenoiseTune
 		{
@@ -683,19 +702,6 @@ namespace VidCoder.ViewModel
 					return hb_filter_ids.HB_FILTER_DECOMB;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(deinterlaceType), $"Could not find filter for deinterlace type {deinterlaceType}.");
-			}
-		}
-
-		private static hb_filter_ids GetDenoiseFilter(VCDenoise denoiseType)
-		{
-			switch (denoiseType)
-			{
-				case VCDenoise.hqdn3d:
-					return hb_filter_ids.HB_FILTER_HQDN3D;
-				case VCDenoise.NLMeans:
-					return hb_filter_ids.HB_FILTER_NLMEANS;
-				default:
-					throw new ArgumentOutOfRangeException(nameof(denoiseType), $"Could not find filter for denoise type {denoiseType}.");
 			}
 		}
 

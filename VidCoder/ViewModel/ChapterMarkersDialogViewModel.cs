@@ -10,6 +10,7 @@ using VidCoder.Services;
 using VidCoderCommon.Extensions;
 using ReactiveUI;
 using VidCoder.Resources;
+using VidCoder.Extensions;
 
 namespace VidCoder.ViewModel
 {
@@ -30,7 +31,7 @@ namespace VidCoder.ViewModel
 			{
 				SourceChapter chapter = this.chapters[i];
 
-				var viewModel = new ChapterNameViewModel { Number = i + 1, StartTime = startTime.ToString(Utilities.TimeFormat) };
+				var viewModel = new ChapterNameViewModel { Number = i + 1, StartTime = startTime.FormatWithHours() };
 				if (currentNames != null && i < currentNames.Count)
 				{
 					viewModel.Title = currentNames[i];

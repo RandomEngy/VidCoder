@@ -17,6 +17,7 @@ using VidCoder.Services.Windows;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
 using ReactiveUI;
+using HandBrake.Interop.Interop.Json.Encode;
 
 namespace VidCoder.ViewModel
 {
@@ -77,16 +78,15 @@ namespace VidCoder.ViewModel
 						SourceTitle title = this.SelectedTitles[0].Title;
 
 						// Do preview
-						var previewProfile =
-							new VCProfile
-							{
-								CustomCropping = true,
-								Cropping = new VCCropping(),
-								VideoEncoder = "x264",
-								AudioEncodings = new List<AudioEncoding>()
-							};
+						VCJob job = this.main.EncodeJob;
+						JsonEncodeFactory factory = new JsonEncodeFactory(new StubLogger());
 
-						this.PreviewImage = BitmapUtilities.ConvertToBitmapImage(BitmapUtilities.ConvertByteArrayToBitmap(this.main.ScanInstance.GetPreview(previewProfile.CreatePreviewSettings(title), 2, deinterlace: false)));
+						JsonEncodeObject jsonEncodeObject = factory.CreateJsonObject(
+							job,
+							title,
+							EncodingRes.DefaultChapterName);
+
+						this.PreviewImage = BitmapUtilities.ConvertToBitmapImage(BitmapUtilities.ConvertByteArrayToBitmap(this.main.ScanInstance.GetPreview(jsonEncodeObject, 2)));
 						this.RaisePropertyChanged(nameof(this.TitleText));
 					}
 			    };
@@ -130,7 +130,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return !Utilities.IsRunningAsAppx && Utilities.IsDvdFolder(this.main.SourcePath);
+				return Utilities.IsDvdFolder(this.main.SourcePath);
 			}
 		}
 
@@ -195,7 +195,7 @@ namespace VidCoder.ViewModel
 
 						player.PlayTitle(this.main.SourcePath, this.SelectedTitles[0].Title.Index);
 					},
-					MvvmUtilities.CreateConstantObservable(!Utilities.IsRunningAsAppx && Players.Installed.Count > 0)));
+					MvvmUtilities.CreateConstantObservable(Players.Installed.Count > 0)));
 			}
 		}
 
@@ -216,9 +216,9 @@ namespace VidCoder.ViewModel
 					else
 					{
 						var picker = this.PickersService.SelectedPicker.Picker;
-						if (picker.NameFormatOverrideEnabled)
+						if (picker.UseCustomFileNameFormat)
 						{
-							nameOverrideLocal = picker.NameFormatOverride;
+							nameOverrideLocal = picker.OutputFileNameFormat;
 						}
 						else
 						{

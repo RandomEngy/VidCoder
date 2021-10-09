@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Orokorra</value>
@@ -138,50 +138,14 @@
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
     <value>Berezgaitasunezko eguneraketak</value>
   </data>
-  <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>Batu Beta eguneraketa bidea</value>
-  </data>
-  <data name="FileNamingTab" xml:space="preserve">
-    <value>Agiri Izendapena</value>
-  </data>
-  <data name="DefaultFolderLabel" xml:space="preserve">
-    <value>Berezko agiritegia:</value>
-  </data>
-  <data name="FileFormatLabel" xml:space="preserve">
-    <value>Agiri heuskarria:</value>
-  </data>
-  <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>Berezko heuskarria</value>
-  </data>
-  <data name="CustomFormatRadioButton" xml:space="preserve">
-    <value>Norbere heuskarria:</value>
-  </data>
-  <data name="FileNameFormatOptions" xml:space="preserve">
-    <value>Aukera eskuragarriak: {0}</value>
-  </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
     <value>Agiri bat jadanik badagoenean...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
     <value>Agiri bakar kodeaketa:</value>
   </data>
-  <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>Galdetu gainidaztea nahi duzun</value>
-  </data>
-  <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>Gainidatzi agiria galdetu gabe</value>
-  </data>
-  <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>Berezgaitasunez aldatu izen ezberdin batera</value>
-  </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
     <value>Agiri multzo kodeaketa:</value>
-  </data>
-  <data name="OverwriteRadioButton" xml:space="preserve">
-    <value>Gainidatzi</value>
-  </data>
-  <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>Berezgaitasunez berrizendatu</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Berezgaitasunez pausatu kodeaketa prozesu hauetako bat ekinean dagoenean:</value>
@@ -195,15 +159,10 @@
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>Gogoratu aurretik erabilitako agiriak eta agiritegiak</value>
   </data>
-  <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>Ahalbidetu norbere izena ezartzea audio bideetan (irakurgailu sostengu mugatua)</value>
-  </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Gaitu LibDVDNav (Aldatzeak programa berrabiaraztea behar du. Beharrezkoa angelu anitz sostengatzeko)</value>
   </data>
-  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Ezabatu iturburu agiriak ongi osatutako gaiak garbitu ondoren (baieztapenarekin)</value>
-  </data>
+  
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Ohar Berritsukeria:</value>
   </data>
@@ -282,9 +241,6 @@
   <data name="OutputFolderSection" xml:space="preserve">
     <value>Irteera agiritegia</value>
   </data>
-  <data name="NamingFormatSection" xml:space="preserve">
-    <value>Izendapen heuskarria</value>
-  </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
     <value>Aukera aurreratuak</value>
   </data>
@@ -357,9 +313,6 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Erabili langile garapena kodeatzeko</value>
   </data>
-  <data name="VideoSection" xml:space="preserve">
-    <value>Bideoa</value>
-  </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Heutsi Sortutako eta Aldatutako denbora agiriak bihurtzerakoan</value>
   </data>
@@ -407,4 +360,13 @@
   <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
     <value>Eragin "Egindakoan" ekintza huts egindako kodeaketa lanak daudenean</value>
   </data>
+  
+  
+  
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>Aukera eskuragarriak: {0}</value>
+  </data>
+  
+  
+  
 </root>

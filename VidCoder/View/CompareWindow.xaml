@@ -1,0 +1,139 @@
+﻿<Window
+	x:Class="VidCoder.View.CompareWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:controls="clr-namespace:VidCoder.Controls"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:VidCoder.View"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:res="clr-namespace:VidCoder.Resources"
+	xmlns:viewModel="clr-namespace:VidCoder.ViewModel"
+	Width="800"
+	Height="450"
+	d:DataContext="{d:DesignInstance viewModel:CompareWindowViewModel}"
+	Closing="OnClosing"
+	KeyDown="Window_KeyDown"
+	KeyUp="Window_KeyUp"
+	ShowInTaskbar="False"
+	WindowState="Maximized"
+	WindowStyle="None"
+	mc:Ignorable="d">
+	<WindowChrome.WindowChrome>
+		<WindowChrome CaptionHeight="30" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
+	</WindowChrome.WindowChrome>
+	<Border Style="{StaticResource WindowMainPanelStyle}">
+		<Grid
+			Background="Black"
+			MouseDown="OnMouseDown"
+			MouseUp="OnMouseUp">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<controls:ToolWindowTitleBar
+				Title="{Binding Title}"
+				Grid.Row="0"
+				Icon="/Icons/Preview64.png"
+				IsActive="{Binding IsActive,
+				                   RelativeSource={RelativeSource AncestorType=Window}}" />
+			<Grid Grid.Row="1" Cursor="Hand">
+				<MediaElement
+					Name="originalVideo"
+					IsMuted="{Binding IsMuted}"
+					LoadedBehavior="Manual"
+					MediaOpened="originalVideo_MediaOpened"
+					ScrubbingEnabled="True"
+					Source="{Binding OriginalFilePath}" />
+
+				<MediaElement
+					Name="encodedVideo"
+					IsMuted="True"
+					LoadedBehavior="Manual"
+					MediaEnded="encodedVideo_MediaEnded"
+					MediaOpened="encodedVideo_MediaOpened"
+					Opacity="0"
+					ScrubbingEnabled="True"
+					Source="{Binding EncodedFilePath}" />
+			</Grid>
+
+			<Grid Grid.Row="2">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+
+				<Button
+					Width="40"
+					AutomationProperties.Name="{x:Static res:MainRes.Pause}"
+					Command="{Binding Pause}"
+					Style="{StaticResource BorderlessButtonStyle}"
+					Visibility="{Binding Paused,
+					                     Converter={StaticResource InverseVisibilityConverter}}">
+					<Path Data="M 0,0 L 0,14 L 4,14, 4,0 Z M 6,0 L 6,14 L 10,14 L 10,0 Z" Fill="White" />
+				</Button>
+				<Button
+					Width="40"
+					AutomationProperties.Name="{x:Static res:MainRes.Play}"
+					Command="{Binding Play}"
+					Style="{StaticResource BorderlessButtonStyle}"
+					Visibility="{Binding Paused,
+					                     Converter={StaticResource VisibilityConverter}}">
+					<Path Data="M 0,0 L 0,14 L 14,7 Z" Fill="White" />
+				</Button>
+				<Button
+					Grid.Column="1"
+					Width="30"
+					AutomationProperties.Name="{x:Static res:MainRes.MuteAutomationName}"
+					Command="{Binding Mute}"
+					Style="{StaticResource BorderlessButtonStyle}"
+					Visibility="{Binding IsMuted,
+					                     Converter={StaticResource InverseVisibilityConverter}}">
+					<Image
+						Width="18"
+						Height="18"
+						Source="/Icons/VolumeOn.png" />
+				</Button>
+				<Button
+					Grid.Column="1"
+					Width="30"
+					AutomationProperties.Name="{x:Static res:MainRes.UnmuteAutomationName}"
+					Command="{Binding Unmute}"
+					Style="{StaticResource BorderlessButtonStyle}"
+					Visibility="{Binding IsMuted,
+					                     Converter={StaticResource VisibilityConverter}}">
+					<Image
+						Width="18"
+						Height="18"
+						Source="/Icons/VolumeMute.png" />
+				</Button>
+				<controls:VideoSeekBar
+					Grid.Column="2"
+					Height="24"
+					EnableTimeText="True"
+					Position="{Binding VideoPosition,
+					                   Mode=TwoWay}"
+					SeekBarColor="{Binding SeekBarColor}"
+					VideoDuration="{Binding VideoDuration}" />
+			</Grid>
+			<WrapPanel Grid.Row="3" Background="{DynamicResource WindowBrush}">
+				<TextBlock Margin="12 4 0 4" Text="{x:Static res:MainRes.CompareWindowHelpText}" />
+				<TextBlock
+					Grid.Column="1"
+					Margin="12 4 0 4"
+					Text="{Binding OriginalVsEncoded}" />
+				<TextBlock
+					Grid.Column="1"
+					Margin="12 4 0 4"
+					Text="{Binding FileName}"
+					TextWrapping="Wrap" />
+				<TextBlock
+					Grid.Column="1"
+					Margin="12 4 0 4"
+					Text="{Binding SizeText}" />
+			</WrapPanel>
+		</Grid>
+	</Border>
+</Window>

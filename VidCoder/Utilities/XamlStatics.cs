@@ -11,8 +11,6 @@ namespace VidCoder
 	{
 		public static XamlStatics Instance { get; } = new XamlStatics();
 
-		public bool IsRunningAsAppx => Utilities.IsRunningAsAppx;
-
 		public bool IsBeta => CommonUtilities.Beta;
 	}
 }

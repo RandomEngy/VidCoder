@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using Microsoft.AnyContainer;
 using ReactiveUI;
+using VidCoder.Extensions;
+using VidCoder.ViewModel;
+using VidCoderCommon.Model;
 
 namespace VidCoder.Services
 {
@@ -17,6 +20,7 @@ namespace VidCoder.Services
 		private BitmapSource previewBitmapSource;
 
 		private readonly PreviewImageService previewImageService = StaticResolver.Resolve<PreviewImageService>();
+		private readonly MainViewModel mainViewModel = StaticResolver.Resolve<MainViewModel>();
 
 		public PreviewImageServiceClient()
 		{
@@ -26,6 +30,10 @@ namespace VidCoder.Services
 		}
 
 		private int previewIndex;
+
+		/// <summary>
+		/// Gets or sets the preview index (0-based)
+		/// </summary>
 	    public int PreviewIndex
 	    {
 		    get { return this.previewIndex; }
@@ -42,10 +50,7 @@ namespace VidCoder.Services
 		private BitmapSource previewImage;
 		public BitmapSource PreviewImage
 		{
-			get
-			{
-				return this.previewImage;
-			}
+			get => this.previewImage;
 			set { this.RaiseAndSetIfChanged(ref this.previewImage, value); }
 		}
 

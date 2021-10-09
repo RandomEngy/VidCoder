@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddButton" xml:space="preserve">
     <value>დამატება</value>
@@ -153,9 +153,7 @@
   <data name="FileConflictWarning" xml:space="preserve">
     <value>ფაილი არსებობს {0}. შეგიძლიათ გადააწეროთ ან ავტომატურად შეარჩევინოთ ახალი სახელი და ადგილი, აგრეთვე შეწყვეტოთ ოპერაცია.</value>
   </data>
-  <data name="QueueFileConflictWarning" xml:space="preserve">
-    <value>დავალების სია არსებობს {0}. შეგიძლიათ გადააწეროთ ან ავტომატურად შეარჩევინოთ ახალი სახელი და ადგილი, აგრეთვე შეწყვეტოთ ოპერაცია.</value>
-  </data>
+  
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>დავალების სიის მწკრივები</value>
   </data>
@@ -254,4 +252,6 @@
   <data name="ExceptionDialogSubTextReported" xml:space="preserve">
     <value>პროგრამას ესაჭიროება დახურვა, მაგრამ შეცდომა ავტომატურად გაიგზავნება.</value>
   </data>
+  
+  
 </root>

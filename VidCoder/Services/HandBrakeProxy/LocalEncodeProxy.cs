@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Newtonsoft.Json;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoderCommon.Model;
 using System.Threading;
 using System.Threading.Tasks;
 using HandBrake.Interop.Interop;
-using HandBrake.Interop.Interop.EventArgs;
 using HandBrake.Interop.Interop.Json.Encode;
 using HandBrake.Interop.Interop.Json.Scan;
 using VidCoderCommon.Utilities;
+using HandBrake.Interop.Interop.Interfaces.EventArgs;
+using System.Text.Json;
 
 namespace VidCoder
 {
@@ -31,7 +31,7 @@ namespace VidCoder
 
 		public event EventHandler EncodeStarted;
 		public event EventHandler<EncodeProgressEventArgs> EncodeProgress;
-		public event EventHandler<EncodeCompletedEventArgs> EncodeCompleted;
+		public event EventHandler<VCEncodeCompletedEventArgs> EncodeCompleted;
 
 		public Task StartEncodeAsync(
 			VCJob job,
@@ -61,7 +61,7 @@ namespace VidCoder
 							previewSeconds,
 							Config.PreviewCount);
 
-						return JsonConvert.SerializeObject(jsonEncodeObject, JsonSettings.HandBrakeJsonSerializerSettings);
+						return JsonSerializer.Serialize(jsonEncodeObject, JsonOptions.WithUpgraders);
 					}
 					else
 					{
@@ -77,7 +77,7 @@ namespace VidCoder
 			this.logger = logger;
 
 			// Extract the scan title and path from the encode JSON.
-			JsonEncodeObject encodeObject = JsonConvert.DeserializeObject<JsonEncodeObject>(encodeJson);
+			JsonEncodeObject encodeObject = JsonSerializer.Deserialize<JsonEncodeObject>(encodeJson, JsonOptions.WithUpgraders);
 
 			this.StartEncodeInternal(encodeObject.Source.Path, encodeObject.Source.Title, scanObject => encodeJson);
 			return Task.CompletedTask;
@@ -112,7 +112,7 @@ namespace VidCoder
 					}
 					else
 					{
-						this.EncodeCompleted?.Invoke(this, new EncodeCompletedEventArgs(error: true));
+						this.EncodeCompleted?.Invoke(this, new VCEncodeCompletedEventArgs(VCEncodeResultCode.ErrorScanFailed));
 
 						this.encodeStartEvent.Set();
 						this.encodeEndEvent.Set();
@@ -143,7 +143,7 @@ namespace VidCoder
 			{
 				if (this.encoding)
 				{
-					this.EncodeCompleted?.Invoke(this, e);
+					this.EncodeCompleted?.Invoke(this, new VCEncodeCompletedEventArgs((VCEncodeResultCode)e.Error));
 
 					this.encoding = false;
 				}
@@ -206,6 +206,10 @@ namespace VidCoder
 			this.encodeEndEvent.Wait();
 
 			return Task.CompletedTask;
+		}
+
+		public void Dispose()
+		{
 		}
 	}
 }

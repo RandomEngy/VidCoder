@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using VidCoder.Extensions;
+using System.Windows.Interop;
 
 namespace VidCoder.View
 {
