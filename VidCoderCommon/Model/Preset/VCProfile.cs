@@ -125,9 +125,11 @@ namespace VidCoderCommon.Model
 
 		public string CustomSharpen { get; set; }
 
+		public string DeblockPreset { get; set; }
 
-		public int Deblock { get; set; }
+		public string DeblockTune { get; set; }
 
+		public string CustomDeblock { get; set; }
 
 		public bool Grayscale { get; set; }
 

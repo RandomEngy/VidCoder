@@ -60,6 +60,8 @@ namespace VidCoder
 			profile.CustomDeinterlace = hbPreset.PictureDeinterlaceCustom;
 			profile.CombDetect = hbPreset.PictureCombDetectPreset;
 			profile.CustomCombDetect = hbPreset.PictureCombDetectCustom;
+			profile.DeblockPreset = hbPreset.PictureDeblockPreset;
+			profile.CustomDeblock = hbPreset.PictureDeblockCustom;
 
 			// Video encoding
 			profile.VideoEncoder = hbPreset.VideoEncoder;

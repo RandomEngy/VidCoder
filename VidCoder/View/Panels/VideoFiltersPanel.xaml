@@ -409,31 +409,59 @@
 					<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.DeblockToolTip}" />
 				</TextBlock.ToolTip>
 			</TextBlock>
-			<StackPanel
+			<ComboBox
 				Grid.Row="4"
 				Grid.Column="1"
-				Grid.ColumnSpan="2"
-				Margin="0 4"
-				Orientation="Horizontal"
-				ToolTipService.ShowDuration="20000">
-				<StackPanel.ToolTip>
+				AutomationProperties.LabeledBy="{Binding ElementName=deblockLabel}"
+				ItemsSource="{Binding DeblockChoices}"
+				SelectedValue="{Binding DeblockPreset}"
+				SelectedValuePath="Value"
+				Style="{StaticResource NormalComboBox}">
+				<ComboBox.ToolTip>
 					<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.DeblockToolTip}" />
-				</StackPanel.ToolTip>
-				<TextBlock
-					MinWidth="34"
-					VerticalAlignment="Center"
-					Text="{Binding DeblockText}"
-					TextAlignment="Center" />
-				<Slider
-					Width="155"
-					AutomationProperties.LabeledBy="{Binding ElementName=deblockLabel}"
-					IsSnapToTickEnabled="True"
-					Maximum="15"
-					Minimum="4"
-					TickFrequency="1"
-					TickPlacement="BottomRight"
-					Value="{Binding Deblock}" />
-			</StackPanel>
+				</ComboBox.ToolTip>
+			</ComboBox>
+
+			<Grid
+				Grid.Row="4"
+				Grid.Column="2"
+				Margin="0 2">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+
+				<StackPanel
+					Grid.Column="0"
+					Margin="12 0 0 0"
+					Orientation="Horizontal"
+					Visibility="{Binding DeblockTuneVisible,
+					                     Converter={StaticResource VisibilityConverter}}">
+					<TextBlock
+						Name="deblockTuneLabel"
+						VerticalAlignment="Center"
+						Text="{x:Static res:EncodingRes.TuneLabel}" />
+
+					<ComboBox
+						MinWidth="70"
+						Margin="6 0 0 0"
+						VerticalAlignment="Center"
+						AutomationProperties.LabeledBy="{Binding ElementName=deblockTuneLabel}"
+						ItemsSource="{Binding DeblockTuneChoices}"
+						SelectedValue="{Binding DeblockTune}"
+						SelectedValuePath="Value" />
+				</StackPanel>
+
+				<TextBox
+					Grid.Column="1"
+					Margin="6 3 0 3"
+					Style="{StaticResource OneLineCustomFilterBox}"
+					Text="{Binding CustomDeblock,
+					               UpdateSourceTrigger=PropertyChanged}"
+					ToolTip="{Binding CustomDeblockToolTip}"
+					Visibility="{Binding CustomDeblockVisible,
+					                     Converter={StaticResource VisibilityConverter}}" />
+			</Grid>
 
 			<CheckBox
 				Grid.Row="5"

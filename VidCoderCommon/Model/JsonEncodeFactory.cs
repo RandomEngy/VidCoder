@@ -535,14 +535,23 @@ namespace VidCoderCommon.Model
 			}
 
 			// Deblock
-			if (profile.Deblock >= 5)
+			if (profile.DeblockPreset != null && profile.DeblockPreset != "off")
 			{
-				JsonDocument settings = this.GetFilterSettingsCustom(
-					hb_filter_ids.HB_FILTER_DEBLOCK,
-					string.Format(CultureInfo.InvariantCulture, "qp={0}", profile.Deblock));
+				JsonDocument settings;
+				if (profile.DeblockPreset == "custom")
+				{
+					settings = this.GetFilterSettingsCustom(hb_filter_ids.HB_FILTER_DEBLOCK, profile.CustomDeblock);
+				}
+				else
+				{
+					settings = this.GetFilterSettingsPresetAndTune(hb_filter_ids.HB_FILTER_DEBLOCK, profile.DeblockPreset, profile.DeblockTune, null);
+				}
 
-				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_DEBLOCK, Settings = settings };
-				filters.FilterList.Add(filterItem);
+				if (settings != null)
+				{
+					Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_DEBLOCK, Settings = settings };
+					filters.FilterList.Add(filterItem);
+				}
 			}
 
 			// Denoise

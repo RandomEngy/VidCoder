@@ -185,9 +185,7 @@ namespace VidCoder.Model
 
 			List<EncodingProfileUpgrade> upgrades = new List<EncodingProfileUpgrade>
 			{
-				//new EncodingProfileUpgrade(31, UpgradeEncodingProfileTo31),
-				//new EncodingProfileUpgrade(32, UpgradeEncodingProfileTo32),
-				//new EncodingProfileUpgrade(33, UpgradeEncodingProfileTo33),
+				new EncodingProfileUpgrade(44, UpgradeEncodingProfileTo44)
 			};
 
 			foreach (EncodingProfileUpgrade upgrade in upgrades)
@@ -202,6 +200,11 @@ namespace VidCoder.Model
 					upgrade.UpgradeAction(profile);
 				}
 			}
+		}
+
+		private static void UpgradeEncodingProfileTo44(VCProfile profile)
+		{
+			profile.DeblockPreset = "off";
 		}
 
 		private static void ErrorCheckPresets(List<Preset> presets)
