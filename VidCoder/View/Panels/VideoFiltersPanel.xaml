@@ -65,6 +65,8 @@
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
@@ -312,10 +314,67 @@
 					                     Converter={StaticResource VisibilityConverter}}" />
 			</Grid>
 
+			<!--  Chroma smooth  -->
+			<TextBlock
+				Name="chromaSmoothLabel"
+				Grid.Row="3"
+				Grid.Column="0"
+				Style="{StaticResource FilterLabel}"
+				Text="{x:Static res:EncodingRes.ChromaSmoothLabel}" />
+			<ComboBox
+				Grid.Row="3"
+				Grid.Column="1"
+				AutomationProperties.LabeledBy="{Binding ElementName=chromaSmoothLabel}"
+				ItemsSource="{Binding ChromaSmoothChoices}"
+				SelectedValue="{Binding ChromaSmoothPreset}"
+				SelectedValuePath="Value"
+				Style="{StaticResource NormalComboBox}" />
+
+			<Grid
+				Grid.Row="3"
+				Grid.Column="2"
+				Margin="0 2">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+
+				<StackPanel
+					Grid.Column="0"
+					Margin="12 0 0 0"
+					Orientation="Horizontal"
+					Visibility="{Binding ChromaSmoothTuneVisible,
+					                     Converter={StaticResource VisibilityConverter}}">
+					<TextBlock
+						Name="chromaSmoothTuneLabel"
+						VerticalAlignment="Center"
+						Text="{x:Static res:EncodingRes.TuneLabel}" />
+
+					<ComboBox
+						MinWidth="70"
+						Margin="6 0 0 0"
+						VerticalAlignment="Center"
+						AutomationProperties.LabeledBy="{Binding ElementName=chromaSmoothTuneLabel}"
+						ItemsSource="{Binding ChromaSmoothTuneChoices}"
+						SelectedValue="{Binding ChromaSmoothTune}"
+						SelectedValuePath="Value" />
+				</StackPanel>
+
+				<TextBox
+					Grid.Column="1"
+					Margin="6 3 0 3"
+					Style="{StaticResource OneLineCustomFilterBox}"
+					Text="{Binding CustomChromaSmooth,
+					               UpdateSourceTrigger=PropertyChanged}"
+					ToolTip="{Binding CustomChromaSmoothToolTip}"
+					Visibility="{Binding CustomChromaSmoothVisible,
+					                     Converter={StaticResource VisibilityConverter}}" />
+			</Grid>
+
 			<!--  Sharpen  -->
 			<TextBlock
 				Name="sharpenLabel"
-				Grid.Row="3"
+				Grid.Row="4"
 				Grid.Column="0"
 				Style="{StaticResource FilterLabel}"
 				Text="{x:Static res:EncodingRes.SharpenLabel}">
@@ -324,7 +383,7 @@
 				</TextBlock.ToolTip>
 			</TextBlock>
 			<ComboBox
-				Grid.Row="3"
+				Grid.Row="4"
 				Grid.Column="1"
 				AutomationProperties.LabeledBy="{Binding ElementName=sharpenLabel}"
 				ItemsSource="{Binding SharpenChoices}"
@@ -337,7 +396,7 @@
 			</ComboBox>
 
 			<Grid
-				Grid.Row="3"
+				Grid.Row="4"
 				Grid.Column="2"
 				Margin="0 2">
 				<Grid.ColumnDefinitions>
@@ -401,7 +460,7 @@
 			<!--  Deblock  -->
 			<TextBlock
 				Name="deblockLabel"
-				Grid.Row="4"
+				Grid.Row="5"
 				Grid.Column="0"
 				Style="{StaticResource FilterLabel}"
 				Text="{x:Static res:EncodingRes.DeblockLabel}">
@@ -410,7 +469,7 @@
 				</TextBlock.ToolTip>
 			</TextBlock>
 			<ComboBox
-				Grid.Row="4"
+				Grid.Row="5"
 				Grid.Column="1"
 				AutomationProperties.LabeledBy="{Binding ElementName=deblockLabel}"
 				ItemsSource="{Binding DeblockChoices}"
@@ -423,7 +482,7 @@
 			</ComboBox>
 
 			<Grid
-				Grid.Row="4"
+				Grid.Row="5"
 				Grid.Column="2"
 				Margin="0 2">
 				<Grid.ColumnDefinitions>
@@ -463,8 +522,33 @@
 					                     Converter={StaticResource VisibilityConverter}}" />
 			</Grid>
 
+			<TextBlock
+				Name="colorspaceLabel"
+				Grid.Row="6"
+				Grid.Column="0"
+				Style="{StaticResource FilterLabel}"
+				Text="{x:Static res:EncodingRes.ColorspaceLabel}" />
+			<ComboBox
+				Grid.Row="6"
+				Grid.Column="1"
+				AutomationProperties.LabeledBy="{Binding ElementName=colorspaceLabel}"
+				ItemsSource="{Binding ColorspaceChoices}"
+				SelectedValue="{Binding ColorspacePreset}"
+				SelectedValuePath="Value"
+				Style="{StaticResource NormalComboBox}" />
+			<TextBox
+				Grid.Row="6"
+				Grid.Column="2"
+				Margin="6 3 0 3"
+				Style="{StaticResource OneLineCustomFilterBox}"
+				Text="{Binding CustomColorspace,
+				               UpdateSourceTrigger=PropertyChanged}"
+				ToolTip="{Binding CustomColorspaceToolTip}"
+				Visibility="{Binding CustomColorspaceVisible,
+				                     Converter={StaticResource VisibilityConverter}}" />
+
 			<CheckBox
-				Grid.Row="5"
+				Grid.Row="7"
 				Grid.Column="1"
 				Grid.ColumnSpan="2"
 				Margin="3 10 3 3"

@@ -371,6 +371,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chroma smooth:.
+        /// </summary>
+        public static string ChromaSmoothLabel {
+            get {
+                return ResourceManager.GetString("ChromaSmoothLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close the presets list.
         /// </summary>
         public static string ClosePresetsListToolTip {
@@ -385,6 +394,15 @@ namespace VidCoder.Resources {
         public static string CodecLabel {
             get {
                 return ResourceManager.GetString("CodecLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Colorspace:.
+        /// </summary>
+        public static string ColorspaceLabel {
+            get {
+                return ResourceManager.GetString("ColorspaceLabel", resourceCulture);
             }
         }
         

@@ -50,9 +50,11 @@ namespace VidCoder.ViewModel
             {
                 new ComboChoice<VCDenoise>(VCDenoise.Off, CommonRes.Off),
                 new ComboChoice<VCDenoise>(VCDenoise.hqdn3d, EnumsRes.Denoise_HQDN3D),
-                new ComboChoice<VCDenoise>(VCDenoise.NLMeans, EnumsRes.Denoise_NLMeans),
-				new ComboChoice<VCDenoise>(VCDenoise.ChromaSmooth, EnumsRes.Denoise_ChromaSmooth)
+                new ComboChoice<VCDenoise>(VCDenoise.NLMeans, EnumsRes.Denoise_NLMeans)
             };
+
+			this.ChromaSmoothChoices = this.GetFilterPresetChoices(hb_filter_ids.HB_FILTER_CHROMA_SMOOTH);
+			this.ChromaSmoothTuneChoices = this.GetFilterTuneChoices(hb_filter_ids.HB_FILTER_CHROMA_SMOOTH);
 
 			this.SharpenChoices = new List<ComboChoice<VCSharpen>>
 			{
@@ -62,8 +64,9 @@ namespace VidCoder.ViewModel
 			};
 
 			this.DeblockChoices = this.GetFilterPresetChoices(hb_filter_ids.HB_FILTER_DEBLOCK);
-
 			this.DeblockTuneChoices = this.GetFilterTuneChoices(hb_filter_ids.HB_FILTER_DEBLOCK);
+
+			this.ColorspaceChoices = this.GetFilterPresetChoices(hb_filter_ids.HB_FILTER_COLORSPACE);
 
 			// CustomDetelecineVisible
 			this.WhenAnyValue(x => x.Detelecine, detelecine =>
@@ -134,7 +137,7 @@ namespace VidCoder.ViewModel
 			// DenoiseTuneVisible
 			this.WhenAnyValue(x => x.DenoiseType, x => x.DenoisePreset, (denoiseType, denoisePreset) =>
 			{
-				return (denoiseType == VCDenoise.NLMeans || denoiseType == VCDenoise.ChromaSmooth) && denoisePreset != "custom";
+				return denoiseType == VCDenoise.NLMeans && denoisePreset != "custom";
 			}).ToProperty(this, x => x.DenoiseTuneVisible, out this.denoiseTuneVisible);
 
 			// DenoiseTuneChoices
@@ -165,6 +168,18 @@ namespace VidCoder.ViewModel
 
 				return GetCustomFilterToolTip(ModelConverters.VCDenoiseToHbDenoise(denoiseType));
 			}).ToProperty(this, x => x.CustomDenoiseToolTip, out this.customDenoiseToolTip);
+
+			// ChromaSmoothTuneVisible
+			this.WhenAnyValue(x => x.ChromaSmoothPreset, chromaSmoothPreset =>
+			{
+				return !string.IsNullOrEmpty(chromaSmoothPreset) && chromaSmoothPreset != "custom" && chromaSmoothPreset != "off";
+			}).ToProperty(this, x => x.ChromaSmoothTuneVisible, out this.chromaSmoothTuneVisible);
+
+			// CustomChromaSmoothVisible
+			this.WhenAnyValue(x => x.ChromaSmoothPreset, chromaSmoothPreset =>
+			{
+				return chromaSmoothPreset == "custom";
+			}).ToProperty(this, x => x.CustomChromaSmoothVisible, out this.customChromaSmoothVisible);
 
 			// SharpenPresetChoices
 			this.WhenAnyValue(x => x.SharpenType)
@@ -232,6 +247,13 @@ namespace VidCoder.ViewModel
 			{
 				return !string.IsNullOrEmpty(deblockPreset) && deblockPreset != "custom" && deblockPreset != "off";
 			}).ToProperty(this, x => x.DeblockTuneVisible, out this.deblockTuneVisible);
+
+
+			// CustomColorspaceVisible
+			this.WhenAnyValue(x => x.ColorspacePreset, colorspacePreset =>
+			{
+				return colorspacePreset == "custom";
+			}).ToProperty(this, x => x.CustomColorspaceVisible, out this.customColorspaceVisible);
 
 			this.AutomaticChange = false;
 		}
@@ -311,7 +333,7 @@ namespace VidCoder.ViewModel
 					this.DenoisePreset = "medium";
 				}
 
-				if ((this.DenoiseType == VCDenoise.NLMeans || this.DenoiseType == VCDenoise.ChromaSmooth) && string.IsNullOrEmpty(this.DenoiseTune))
+				if (this.DenoiseType == VCDenoise.NLMeans && string.IsNullOrEmpty(this.DenoiseTune))
 				{
 					this.DenoiseTune = "none";
 				}
@@ -341,6 +363,23 @@ namespace VidCoder.ViewModel
 			});
 			this.RegisterProfileProperty(nameof(this.DenoiseTune));
 			this.RegisterProfileProperty(nameof(this.CustomDenoise));
+
+			this.RegisterProfileProperty(nameof(this.ChromaSmoothPreset), () =>
+			{
+				if (this.ChromaSmoothPreset == "custom" && this.CustomChromaSmooth == null)
+				{
+					// GetDefaultCustomFilterString fails for this filter, so we leave empty
+					this.CustomChromaSmooth = string.Empty;
+				}
+
+				if (this.ChromaSmoothPreset != "off " && string.IsNullOrEmpty(this.ChromaSmoothTune))
+				{
+					this.ChromaSmoothTune = "none";
+				}
+			});
+			this.RegisterProfileProperty(nameof(this.ChromaSmoothTune));
+			this.RegisterProfileProperty(nameof(this.CustomChromaSmooth));
+
 			this.RegisterProfileProperty(nameof(this.SharpenType), () =>
 			{
 				if (this.SharpenType != VCSharpen.Off && string.IsNullOrEmpty(this.SharpenPreset))
@@ -382,6 +421,7 @@ namespace VidCoder.ViewModel
 			});
 			this.RegisterProfileProperty(nameof(this.SharpenTune));
 			this.RegisterProfileProperty(nameof(this.CustomSharpen));
+
 			this.RegisterProfileProperty(nameof(this.DeblockPreset), () =>
 			{
 				if (this.DeblockPreset == "custom" && string.IsNullOrWhiteSpace(this.CustomDeblock))
@@ -396,6 +436,15 @@ namespace VidCoder.ViewModel
 			});
 			this.RegisterProfileProperty(nameof(this.CustomDeblock));
 			this.RegisterProfileProperty(nameof(this.DeblockTune));
+
+			this.RegisterProfileProperty(nameof(this.ColorspacePreset));
+			this.RegisterProfileProperty(nameof(this.CustomColorspace), () =>
+			{
+				if (this.ColorspacePreset == "custom")
+				{
+					this.CustomColorspace = GetDefaultCustomFilterString(hb_filter_ids.HB_FILTER_COLORSPACE);
+				}
+			});
 
 			this.RegisterProfileProperty(nameof(this.Grayscale), () =>
 			{
@@ -534,6 +583,36 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<string> customDenoiseToolTip;
 		public string CustomDenoiseToolTip => this.customDenoiseToolTip.Value;
 
+		public List<ComboChoice> ChromaSmoothChoices { get; }
+
+		public string ChromaSmoothPreset
+		{
+			get => this.Profile.ChromaSmoothPreset;
+			set => this.UpdateProfileProperty(nameof(this.Profile.ChromaSmoothPreset), value);
+		}
+
+		public List<ComboChoice> ChromaSmoothTuneChoices { get; }
+
+		public string ChromaSmoothTune
+		{
+			get => this.Profile.ChromaSmoothTune;
+			set => this.UpdateProfileProperty(nameof(this.Profile.ChromaSmoothTune), value);
+		}
+
+		private ObservableAsPropertyHelper<bool> chromaSmoothTuneVisible;
+		public bool ChromaSmoothTuneVisible => this.chromaSmoothTuneVisible.Value;
+
+		public string CustomChromaSmooth
+		{
+			get => this.Profile.CustomChromaSmooth;
+			set => this.UpdateProfileProperty(nameof(this.Profile.CustomChromaSmooth), value);
+		}
+
+		private ObservableAsPropertyHelper<bool> customChromaSmoothVisible;
+		public bool CustomChromaSmoothVisible => this.customChromaSmoothVisible.Value;
+
+		public string CustomChromaSmoothToolTip => GetCustomFilterToolTip(hb_filter_ids.HB_FILTER_CHROMA_SMOOTH);
+
 		public List<ComboChoice<VCSharpen>> SharpenChoices { get; }
 
 		public VCSharpen SharpenType
@@ -616,6 +695,25 @@ namespace VidCoder.ViewModel
 		public bool DeblockTuneVisible => this.deblockTuneVisible.Value;
 
 		public string CustomDeblockToolTip => GetCustomFilterToolTip(hb_filter_ids.HB_FILTER_DEBLOCK);
+
+		public List<ComboChoice> ColorspaceChoices { get; }
+
+		public string ColorspacePreset
+		{
+			get => this.Profile.ColorspacePreset;
+			set => this.UpdateProfileProperty(nameof(this.Profile.ColorspacePreset), value);
+		}
+
+		public string CustomColorspace
+		{
+			get => this.Profile.CustomColorspace;
+			set => this.UpdateProfileProperty(nameof(this.Profile.CustomColorspace), value);
+		}
+
+		private ObservableAsPropertyHelper<bool> customColorspaceVisible;
+		public bool CustomColorspaceVisible => this.customColorspaceVisible.Value;
+
+		public string CustomColorspaceToolTip => GetCustomFilterToolTip(hb_filter_ids.HB_FILTER_COLORSPACE);
 
 		public bool Grayscale
 		{

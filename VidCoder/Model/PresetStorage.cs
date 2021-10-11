@@ -205,6 +205,17 @@ namespace VidCoder.Model
 		private static void UpgradeEncodingProfileTo44(VCProfile profile)
 		{
 			profile.DeblockPreset = "off";
+			if (profile.DenoiseType == VCDenoise.ChromaSmooth)
+			{
+				profile.DenoiseType = VCDenoise.Off;
+				profile.ChromaSmoothPreset = profile.DenoisePreset;
+			}
+			else
+			{
+				profile.ChromaSmoothPreset = "off";
+			}
+
+			profile.ColorspacePreset = "off";
 		}
 
 		private static void ErrorCheckPresets(List<Preset> presets)

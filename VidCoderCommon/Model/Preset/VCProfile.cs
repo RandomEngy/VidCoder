@@ -117,6 +117,13 @@ namespace VidCoderCommon.Model
 		public string CustomDenoise { get; set; }
 
 
+		public string ChromaSmoothPreset { get; set; }
+
+		public string ChromaSmoothTune { get; set; }
+
+		public string CustomChromaSmooth { get; set; }
+
+
 		public VCSharpen SharpenType { get; set; }
 
 		public string SharpenPreset { get; set; }
@@ -125,11 +132,18 @@ namespace VidCoderCommon.Model
 
 		public string CustomSharpen { get; set; }
 
+
 		public string DeblockPreset { get; set; }
 
 		public string DeblockTune { get; set; }
 
 		public string CustomDeblock { get; set; }
+
+
+		public string ColorspacePreset { get; set; }
+
+		public string CustomColorspace { get; set; }
+
 
 		public bool Grayscale { get; set; }
 

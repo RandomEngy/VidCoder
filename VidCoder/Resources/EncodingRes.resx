@@ -834,4 +834,10 @@ Lapsharp sharpens using convolution kernels approximating Laplacian edge filters
   <data name="PadColorTextToolTip" xml:space="preserve">
     <value>Format: FFFFFF</value>
   </data>
+  <data name="ChromaSmoothLabel" xml:space="preserve">
+    <value>Chroma smooth:</value>
+  </data>
+  <data name="ColorspaceLabel" xml:space="preserve">
+    <value>Colorspace:</value>
+  </data>
 </root>

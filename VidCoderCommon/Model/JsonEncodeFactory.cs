@@ -534,26 +534,6 @@ namespace VidCoderCommon.Model
 				filters.FilterList.Add(framerateShaper);
 			}
 
-			// Deblock
-			if (profile.DeblockPreset != null && profile.DeblockPreset != "off")
-			{
-				JsonDocument settings;
-				if (profile.DeblockPreset == "custom")
-				{
-					settings = this.GetFilterSettingsCustom(hb_filter_ids.HB_FILTER_DEBLOCK, profile.CustomDeblock);
-				}
-				else
-				{
-					settings = this.GetFilterSettingsPresetAndTune(hb_filter_ids.HB_FILTER_DEBLOCK, profile.DeblockPreset, profile.DeblockTune, null);
-				}
-
-				if (settings != null)
-				{
-					Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_DEBLOCK, Settings = settings };
-					filters.FilterList.Add(filterItem);
-				}
-			}
-
 			// Denoise
 			if (profile.DenoiseType != VCDenoise.Off)
 			{
@@ -572,6 +552,26 @@ namespace VidCoderCommon.Model
 				if (settings != null)
 				{
 					Filter filterItem = new Filter { ID = (int)filterId, Settings = settings };
+					filters.FilterList.Add(filterItem);
+				}
+			}
+
+			// Chroma smooth
+			if (profile.ChromaSmoothPreset != null && profile.ChromaSmoothPreset != "off")
+			{
+				JsonDocument settings;
+				if (profile.ChromaSmoothPreset == "custom")
+				{
+					settings = this.GetFilterSettingsCustom(hb_filter_ids.HB_FILTER_CHROMA_SMOOTH, profile.CustomChromaSmooth);
+				}
+				else
+				{
+					settings = this.GetFilterSettingsPresetAndTune(hb_filter_ids.HB_FILTER_CHROMA_SMOOTH, profile.ChromaSmoothPreset, profile.ChromaSmoothTune, null);
+				}
+
+				if (settings != null)
+				{
+					Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_CHROMA_SMOOTH, Settings = settings };
 					filters.FilterList.Add(filterItem);
 				}
 			}
@@ -596,6 +596,46 @@ namespace VidCoderCommon.Model
 				if (settings != null)
 				{
 					Filter filterItem = new Filter { ID = (int)filterId, Settings = settings };
+					filters.FilterList.Add(filterItem);
+				}
+			}
+
+			// Deblock
+			if (profile.DeblockPreset != null && profile.DeblockPreset != "off")
+			{
+				JsonDocument settings;
+				if (profile.DeblockPreset == "custom")
+				{
+					settings = this.GetFilterSettingsCustom(hb_filter_ids.HB_FILTER_DEBLOCK, profile.CustomDeblock);
+				}
+				else
+				{
+					settings = this.GetFilterSettingsPresetAndTune(hb_filter_ids.HB_FILTER_DEBLOCK, profile.DeblockPreset, profile.DeblockTune, null);
+				}
+
+				if (settings != null)
+				{
+					Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_DEBLOCK, Settings = settings };
+					filters.FilterList.Add(filterItem);
+				}
+			}
+
+			// Colorspace
+			if (profile.ColorspacePreset != null && profile.ColorspacePreset != "off")
+			{
+				JsonDocument settings;
+				if (profile.ColorspacePreset == "custom")
+				{
+					settings = this.GetFilterSettingsCustom(hb_filter_ids.HB_FILTER_COLORSPACE, profile.CustomColorspace);
+				}
+				else
+				{
+					settings = this.GetFilterSettingsPresetOnly(hb_filter_ids.HB_FILTER_COLORSPACE, profile.ColorspacePreset, null);
+				}
+
+				if (settings != null)
+				{
+					Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_COLORSPACE, Settings = settings };
 					filters.FilterList.Add(filterItem);
 				}
 			}
