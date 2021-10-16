@@ -24,9 +24,6 @@ namespace VidCoder.ViewModel
 {
 	public class VideoFiltersPanelViewModel : PanelViewModel, INotifyPropertyChanged
 	{
-		private const string CustomDenoisePreset = "custom";
-		private const int MinDeblock = 5;
-
 		private static readonly ResourceManager EnumResourceManager = new ResourceManager(typeof(EnumsRes));
 
 		private PreviewUpdateService previewUpdateService = StaticResolver.Resolve<PreviewUpdateService>();
@@ -53,9 +50,11 @@ namespace VidCoder.ViewModel
             {
                 new ComboChoice<VCDenoise>(VCDenoise.Off, CommonRes.Off),
                 new ComboChoice<VCDenoise>(VCDenoise.hqdn3d, EnumsRes.Denoise_HQDN3D),
-                new ComboChoice<VCDenoise>(VCDenoise.NLMeans, EnumsRes.Denoise_NLMeans),
-				new ComboChoice<VCDenoise>(VCDenoise.ChromaSmooth, EnumsRes.Denoise_ChromaSmooth)
+                new ComboChoice<VCDenoise>(VCDenoise.NLMeans, EnumsRes.Denoise_NLMeans)
             };
+
+			this.ChromaSmoothChoices = this.GetFilterPresetChoices(hb_filter_ids.HB_FILTER_CHROMA_SMOOTH);
+			this.ChromaSmoothTuneChoices = this.GetFilterTuneChoices(hb_filter_ids.HB_FILTER_CHROMA_SMOOTH);
 
 			this.SharpenChoices = new List<ComboChoice<VCSharpen>>
 			{
@@ -63,6 +62,11 @@ namespace VidCoder.ViewModel
 				new ComboChoice<VCSharpen>(VCSharpen.UnSharp, EnumsRes.Sharpen_UnSharp),
 				new ComboChoice<VCSharpen>(VCSharpen.LapSharp, EnumsRes.Sharpen_LapSharp),
 			};
+
+			this.DeblockChoices = this.GetFilterPresetChoices(hb_filter_ids.HB_FILTER_DEBLOCK);
+			this.DeblockTuneChoices = this.GetFilterTuneChoices(hb_filter_ids.HB_FILTER_DEBLOCK);
+
+			this.ColorspaceChoices = this.GetFilterPresetChoices(hb_filter_ids.HB_FILTER_COLORSPACE);
 
 			// CustomDetelecineVisible
 			this.WhenAnyValue(x => x.Detelecine, detelecine =>
@@ -133,7 +137,7 @@ namespace VidCoder.ViewModel
 			// DenoiseTuneVisible
 			this.WhenAnyValue(x => x.DenoiseType, x => x.DenoisePreset, (denoiseType, denoisePreset) =>
 			{
-				return (denoiseType == VCDenoise.NLMeans || denoiseType == VCDenoise.ChromaSmooth) && denoisePreset != "custom";
+				return denoiseType == VCDenoise.NLMeans && denoisePreset != "custom";
 			}).ToProperty(this, x => x.DenoiseTuneVisible, out this.denoiseTuneVisible);
 
 			// DenoiseTuneChoices
@@ -164,6 +168,18 @@ namespace VidCoder.ViewModel
 
 				return GetCustomFilterToolTip(ModelConverters.VCDenoiseToHbDenoise(denoiseType));
 			}).ToProperty(this, x => x.CustomDenoiseToolTip, out this.customDenoiseToolTip);
+
+			// ChromaSmoothTuneVisible
+			this.WhenAnyValue(x => x.ChromaSmoothPreset, chromaSmoothPreset =>
+			{
+				return !string.IsNullOrEmpty(chromaSmoothPreset) && chromaSmoothPreset != "custom" && chromaSmoothPreset != "off";
+			}).ToProperty(this, x => x.ChromaSmoothTuneVisible, out this.chromaSmoothTuneVisible);
+
+			// CustomChromaSmoothVisible
+			this.WhenAnyValue(x => x.ChromaSmoothPreset, chromaSmoothPreset =>
+			{
+				return chromaSmoothPreset == "custom";
+			}).ToProperty(this, x => x.CustomChromaSmoothVisible, out this.customChromaSmoothVisible);
 
 			// SharpenPresetChoices
 			this.WhenAnyValue(x => x.SharpenType)
@@ -220,41 +236,24 @@ namespace VidCoder.ViewModel
 					return GetCustomFilterToolTip(GetSharpenFilter(sharpenType));
 				}).ToProperty(this, x => x.CustomSharpenToolTip, out this.customSharpenToolTip);
 
-			// DeblockText
-			this.WhenAnyValue(x => x.Deblock, deblock =>
+			// CustomDeblockVisible
+			this.WhenAnyValue(x => x.DeblockPreset, deblockPreset =>
 			{
-				if (deblock >= MinDeblock)
-				{
-					return deblock.ToString(CultureInfo.CurrentCulture);
-				}
+				return deblockPreset == "custom";
+			}).ToProperty(this, x => x.CustomDeblockVisible, out this.customDeblockVisible);
 
-				return CommonRes.Off;
-			}).ToProperty(this, x => x.DeblockText, out this.deblockText);
+			// DeblockTuneVisible
+			this.WhenAnyValue(x => x.DeblockPreset, deblockPreset =>
+			{
+				return !string.IsNullOrEmpty(deblockPreset) && deblockPreset != "custom" && deblockPreset != "off";
+			}).ToProperty(this, x => x.DeblockTuneVisible, out this.deblockTuneVisible);
 
-			// The deinterlace and denoise presets need another nudge to change after the lists have changed.
-			//this.WhenAnyValue(x => x.DeinterlaceType)
-			//	.Subscribe(_ =>
-			//	{
-			//		DispatchUtilities.BeginInvoke(() =>
-			//		{
-			//			this.RaisePropertyChanged(nameof(this.DeinterlacePreset));
-			//			var oldValue = this.DeinterlacePreset;
-			//			this.DeinterlacePreset = "";
-			//			this.DeinterlacePreset = oldValue;
-			//		});
-			//	});
 
-			//this.WhenAnyValue(x => x.DenoiseType)
-			//	.Subscribe(_ =>
-			//	{
-			//		DispatchUtilities.BeginInvoke(() =>
-			//		{
-			//			this.RaisePropertyChanged(nameof(this.DenoisePreset));
-			//			var oldValue = this.DenoisePreset;
-			//			this.DenoisePreset = "";
-			//			this.DenoisePreset = oldValue;
-			//		});
-			//	});
+			// CustomColorspaceVisible
+			this.WhenAnyValue(x => x.ColorspacePreset, colorspacePreset =>
+			{
+				return colorspacePreset == "custom";
+			}).ToProperty(this, x => x.CustomColorspaceVisible, out this.customColorspaceVisible);
 
 			this.AutomaticChange = false;
 		}
@@ -334,7 +333,7 @@ namespace VidCoder.ViewModel
 					this.DenoisePreset = "medium";
 				}
 
-				if ((this.DenoiseType == VCDenoise.NLMeans || this.DenoiseType == VCDenoise.ChromaSmooth) && string.IsNullOrEmpty(this.DenoiseTune))
+				if (this.DenoiseType == VCDenoise.NLMeans && string.IsNullOrEmpty(this.DenoiseTune))
 				{
 					this.DenoiseTune = "none";
 				}
@@ -364,6 +363,23 @@ namespace VidCoder.ViewModel
 			});
 			this.RegisterProfileProperty(nameof(this.DenoiseTune));
 			this.RegisterProfileProperty(nameof(this.CustomDenoise));
+
+			this.RegisterProfileProperty(nameof(this.ChromaSmoothPreset), () =>
+			{
+				if (this.ChromaSmoothPreset == "custom" && this.CustomChromaSmooth == null)
+				{
+					// GetDefaultCustomFilterString fails for this filter, so we leave empty
+					this.CustomChromaSmooth = string.Empty;
+				}
+
+				if (this.ChromaSmoothPreset != "off " && string.IsNullOrEmpty(this.ChromaSmoothTune))
+				{
+					this.ChromaSmoothTune = "none";
+				}
+			});
+			this.RegisterProfileProperty(nameof(this.ChromaSmoothTune));
+			this.RegisterProfileProperty(nameof(this.CustomChromaSmooth));
+
 			this.RegisterProfileProperty(nameof(this.SharpenType), () =>
 			{
 				if (this.SharpenType != VCSharpen.Off && string.IsNullOrEmpty(this.SharpenPreset))
@@ -405,7 +421,31 @@ namespace VidCoder.ViewModel
 			});
 			this.RegisterProfileProperty(nameof(this.SharpenTune));
 			this.RegisterProfileProperty(nameof(this.CustomSharpen));
-			this.RegisterProfileProperty(nameof(this.Deblock));
+
+			this.RegisterProfileProperty(nameof(this.DeblockPreset), () =>
+			{
+				if (this.DeblockPreset == "custom" && string.IsNullOrWhiteSpace(this.CustomDeblock))
+				{
+					this.CustomDeblock = GetDefaultCustomFilterString(hb_filter_ids.HB_FILTER_DEBLOCK);
+				}
+
+				if (this.DeblockPreset != "none" && this.DeblockTune == null)
+				{
+					this.DeblockTune = "medium";
+				}
+			});
+			this.RegisterProfileProperty(nameof(this.CustomDeblock));
+			this.RegisterProfileProperty(nameof(this.DeblockTune));
+
+			this.RegisterProfileProperty(nameof(this.ColorspacePreset));
+			this.RegisterProfileProperty(nameof(this.CustomColorspace), () =>
+			{
+				if (this.ColorspacePreset == "custom")
+				{
+					this.CustomColorspace = GetDefaultCustomFilterString(hb_filter_ids.HB_FILTER_COLORSPACE);
+				}
+			});
+
 			this.RegisterProfileProperty(nameof(this.Grayscale), () =>
 			{
 				this.previewUpdateService.RefreshPreview();
@@ -416,14 +456,14 @@ namespace VidCoder.ViewModel
 
 		public string Detelecine
 		{
-			get { return this.Profile.Detelecine; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.Detelecine), value); }
+			get => this.Profile.Detelecine;
+			set => this.UpdateProfileProperty(nameof(this.Profile.Detelecine), value);
 		}
 
 		public string CustomDetelecine
 		{
-			get { return this.Profile.CustomDetelecine; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.CustomDetelecine), value); }
+			get => this.Profile.CustomDetelecine;
+			set => this.UpdateProfileProperty(nameof(this.Profile.CustomDetelecine), value);
 		}
 
 		private ObservableAsPropertyHelper<bool> customDetelecineVisible;
@@ -435,8 +475,8 @@ namespace VidCoder.ViewModel
 
 		public VCDeinterlace DeinterlaceType
 		{
-			get { return this.Profile.DeinterlaceType; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.DeinterlaceType), value); }
+			get => this.Profile.DeinterlaceType;
+			set => this.UpdateProfileProperty(nameof(this.Profile.DeinterlaceType), value);
 		}
 
 		private ObservableAsPropertyHelper<List<ComboChoice>> deinterlacePresetChoices;
@@ -444,7 +484,7 @@ namespace VidCoder.ViewModel
 
 		public string DeinterlacePreset
 		{
-			get { return this.Profile.DeinterlacePreset; }
+			get => this.Profile.DeinterlacePreset;
 			set
 			{
 				if (value == null)
@@ -458,8 +498,8 @@ namespace VidCoder.ViewModel
 
 		public string CustomDeinterlace
 		{
-			get { return AddSpacesAfterColons(this.Profile.CustomDeinterlace); }
-			set { this.UpdateProfileProperty(nameof(this.Profile.CustomDeinterlace), RemoveSpacesAfterColons(value)); }
+			get => AddSpacesAfterColons(this.Profile.CustomDeinterlace);
+			set => this.UpdateProfileProperty(nameof(this.Profile.CustomDeinterlace), RemoveSpacesAfterColons(value));
 		}
 
 		private ObservableAsPropertyHelper<bool> deinterlacePresetVisible;
@@ -475,14 +515,14 @@ namespace VidCoder.ViewModel
 
 		public string CombDetect
 		{
-			get { return this.Profile.CombDetect; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.CombDetect), value); }
+			get => this.Profile.CombDetect;
+			set => this.UpdateProfileProperty(nameof(this.Profile.CombDetect), value);
 		}
 
 		public string CustomCombDetect
 		{
-			get { return AddSpacesAfterColons(this.Profile.CustomCombDetect); }
-			set { this.UpdateProfileProperty(nameof(this.Profile.CustomCombDetect), RemoveSpacesAfterColons(value)); }
+			get => AddSpacesAfterColons(this.Profile.CustomCombDetect);
+			set => this.UpdateProfileProperty(nameof(this.Profile.CustomCombDetect), RemoveSpacesAfterColons(value));
 		}
 
 		private ObservableAsPropertyHelper<bool> customCombDetectVisible;
@@ -494,8 +534,8 @@ namespace VidCoder.ViewModel
 
 		public VCDenoise DenoiseType
 		{
-			get { return this.Profile.DenoiseType; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.DenoiseType), value); }
+			get => this.Profile.DenoiseType;
+			set => this.UpdateProfileProperty(nameof(this.Profile.DenoiseType), value);
 		}
 
 		private ObservableAsPropertyHelper<List<ComboChoice>> denoisePresetChoices;
@@ -503,7 +543,7 @@ namespace VidCoder.ViewModel
 
 		public string DenoisePreset
 		{
-			get { return this.Profile.DenoisePreset; }
+			get => this.Profile.DenoisePreset;
 
 			set
 			{
@@ -524,8 +564,8 @@ namespace VidCoder.ViewModel
 
 		public string DenoiseTune
 		{
-			get { return this.Profile.DenoiseTune; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.DenoiseTune), value); }
+			get => this.Profile.DenoiseTune;
+			set => this.UpdateProfileProperty(nameof(this.Profile.DenoiseTune), value);
 		}
 
 		private ObservableAsPropertyHelper<bool> denoiseTuneVisible;
@@ -533,8 +573,8 @@ namespace VidCoder.ViewModel
 
 		public string CustomDenoise
 		{
-			get { return this.Profile.CustomDenoise; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.CustomDenoise), value); }
+			get => this.Profile.CustomDenoise;
+			set => this.UpdateProfileProperty(nameof(this.Profile.CustomDenoise), value);
 		}
 
 		private ObservableAsPropertyHelper<bool> customDenoiseVisible;
@@ -543,12 +583,42 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<string> customDenoiseToolTip;
 		public string CustomDenoiseToolTip => this.customDenoiseToolTip.Value;
 
+		public List<ComboChoice> ChromaSmoothChoices { get; }
+
+		public string ChromaSmoothPreset
+		{
+			get => this.Profile.ChromaSmoothPreset;
+			set => this.UpdateProfileProperty(nameof(this.Profile.ChromaSmoothPreset), value);
+		}
+
+		public List<ComboChoice> ChromaSmoothTuneChoices { get; }
+
+		public string ChromaSmoothTune
+		{
+			get => this.Profile.ChromaSmoothTune;
+			set => this.UpdateProfileProperty(nameof(this.Profile.ChromaSmoothTune), value);
+		}
+
+		private ObservableAsPropertyHelper<bool> chromaSmoothTuneVisible;
+		public bool ChromaSmoothTuneVisible => this.chromaSmoothTuneVisible.Value;
+
+		public string CustomChromaSmooth
+		{
+			get => this.Profile.CustomChromaSmooth;
+			set => this.UpdateProfileProperty(nameof(this.Profile.CustomChromaSmooth), value);
+		}
+
+		private ObservableAsPropertyHelper<bool> customChromaSmoothVisible;
+		public bool CustomChromaSmoothVisible => this.customChromaSmoothVisible.Value;
+
+		public string CustomChromaSmoothToolTip => GetCustomFilterToolTip(hb_filter_ids.HB_FILTER_CHROMA_SMOOTH);
+
 		public List<ComboChoice<VCSharpen>> SharpenChoices { get; }
 
 		public VCSharpen SharpenType
 		{
-			get { return this.Profile.SharpenType; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.SharpenType), value); }
+			get => this.Profile.SharpenType;
+			set => this.UpdateProfileProperty(nameof(this.Profile.SharpenType), value);
 		}
 
 		private ObservableAsPropertyHelper<List<ComboChoice>> sharpenPresetChoices;
@@ -556,7 +626,7 @@ namespace VidCoder.ViewModel
 
 		public string SharpenPreset
 		{
-			get { return this.Profile.SharpenPreset; }
+			get => this.Profile.SharpenPreset;
 
 			set
 			{
@@ -577,8 +647,8 @@ namespace VidCoder.ViewModel
 
 		public string SharpenTune
 		{
-			get { return this.Profile.SharpenTune; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.SharpenTune), value); }
+			get => this.Profile.SharpenTune;
+			set => this.UpdateProfileProperty(nameof(this.Profile.SharpenTune), value);
 		}
 
 		private ObservableAsPropertyHelper<bool> sharpenTuneVisible;
@@ -586,8 +656,8 @@ namespace VidCoder.ViewModel
 
 		public string CustomSharpen
 		{
-			get { return this.Profile.CustomSharpen; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.CustomSharpen), value); }
+			get => this.Profile.CustomSharpen;
+			set => this.UpdateProfileProperty(nameof(this.Profile.CustomSharpen), value);
 		}
 
 		private ObservableAsPropertyHelper<bool> customSharpenVisible;
@@ -596,19 +666,59 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<string> customSharpenToolTip;
 		public string CustomSharpenToolTip => this.customSharpenToolTip.Value;
 
-		public int Deblock
+		public List<ComboChoice> DeblockChoices { get; }
+
+		public string DeblockPreset
 		{
-			get { return this.Profile.Deblock; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.Deblock), value); }
+			get => this.Profile.DeblockPreset;
+			set => this.UpdateProfileProperty(nameof(this.Profile.DeblockPreset), value);
 		}
 
-		private ObservableAsPropertyHelper<string> deblockText;
-		public string DeblockText => this.deblockText.Value;
+		public string CustomDeblock
+		{
+			get => this.Profile.CustomDeblock;
+			set => this.UpdateProfileProperty(nameof(this.Profile.CustomDeblock), value);
+		}
+
+		private ObservableAsPropertyHelper<bool> customDeblockVisible;
+		public bool CustomDeblockVisible => this.customDeblockVisible.Value;
+
+		public List<ComboChoice> DeblockTuneChoices { get; }
+
+		public string DeblockTune
+		{
+			get => this.Profile.DeblockTune;
+			set => this.UpdateProfileProperty(nameof(this.Profile.DeblockTune), value);
+		}
+
+		private ObservableAsPropertyHelper<bool> deblockTuneVisible;
+		public bool DeblockTuneVisible => this.deblockTuneVisible.Value;
+
+		public string CustomDeblockToolTip => GetCustomFilterToolTip(hb_filter_ids.HB_FILTER_DEBLOCK);
+
+		public List<ComboChoice> ColorspaceChoices { get; }
+
+		public string ColorspacePreset
+		{
+			get => this.Profile.ColorspacePreset;
+			set => this.UpdateProfileProperty(nameof(this.Profile.ColorspacePreset), value);
+		}
+
+		public string CustomColorspace
+		{
+			get => this.Profile.CustomColorspace;
+			set => this.UpdateProfileProperty(nameof(this.Profile.CustomColorspace), value);
+		}
+
+		private ObservableAsPropertyHelper<bool> customColorspaceVisible;
+		public bool CustomColorspaceVisible => this.customColorspaceVisible.Value;
+
+		public string CustomColorspaceToolTip => GetCustomFilterToolTip(hb_filter_ids.HB_FILTER_COLORSPACE);
 
 		public bool Grayscale
 		{
-			get { return this.Profile.Grayscale; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.Grayscale), value); }
+			get => this.Profile.Grayscale;
+			set => this.UpdateProfileProperty(nameof(this.Profile.Grayscale), value);
 		}
 
 		private List<ComboChoice> GetFilterPresetChoices(hb_filter_ids filter, string resourcePrefix = null)

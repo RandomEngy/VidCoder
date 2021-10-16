@@ -56,10 +56,25 @@ namespace VidCoder
 					break;
 			}
 
+			profile.DeinterlaceType = ConvertDeinterlaceType(hbPreset.PictureDeinterlaceFilter);
 			profile.DeinterlacePreset = hbPreset.PictureDeinterlacePreset;
 			profile.CustomDeinterlace = hbPreset.PictureDeinterlaceCustom;
 			profile.CombDetect = hbPreset.PictureCombDetectPreset;
 			profile.CustomCombDetect = hbPreset.PictureCombDetectCustom;
+			profile.DenoiseType = ConvertDenoiseType(hbPreset.PictureDenoiseFilter);
+			profile.DenoisePreset = hbPreset.PictureDenoisePreset;
+			profile.DenoiseTune = hbPreset.PictureDenoiseTune;
+			profile.CustomDenoise = hbPreset.PictureDenoiseCustom;
+			profile.ChromaSmoothPreset = hbPreset.PictureChromaSmoothPreset;
+			profile.ChromaSmoothTune = hbPreset.PictureChromaSmoothTune;
+			profile.CustomChromaSmooth = hbPreset.PictureChromaSmoothCustom;
+			profile.SharpenType = ConvertSharpenType(hbPreset.PictureSharpenFilter);
+			profile.SharpenPreset = hbPreset.PictureSharpenPreset;
+			profile.SharpenTune = hbPreset.PictureSharpenTune;
+			profile.DeblockPreset = hbPreset.PictureDeblockPreset;
+			profile.CustomDeblock = hbPreset.PictureDeblockCustom;
+			profile.ColorspacePreset = hbPreset.PictureColorspacePreset;
+			profile.CustomColorspace = hbPreset.PictureColorspaceCustom;
 
 			// Video encoding
 			profile.VideoEncoder = hbPreset.VideoEncoder;
@@ -175,6 +190,45 @@ namespace VidCoder
 				EncodingProfile = profile,
 				IsBuiltIn = true,
 			};
+		}
+
+		private static VCDeinterlace ConvertDeinterlaceType(string hbDeinterlaceFilter)
+		{
+			switch (hbDeinterlaceFilter)
+			{
+				case "yadif":
+					return VCDeinterlace.Yadif;
+				case "decomb":
+					return VCDeinterlace.Decomb;
+				default:
+					return VCDeinterlace.Off;
+			}
+		}
+
+		private static VCDenoise ConvertDenoiseType(string hbDenoiseFilter)
+		{
+			switch (hbDenoiseFilter)
+			{
+				case "hqdn3d":
+					return VCDenoise.hqdn3d;
+				case "nlmeans":
+					return VCDenoise.NLMeans;
+				default:
+					return VCDenoise.Off;
+			}
+		}
+
+		private static VCSharpen ConvertSharpenType(string hbSharpenFilter)
+		{
+			switch (hbSharpenFilter)
+			{
+				case "lapsharp":
+					return VCSharpen.LapSharp;
+				case "unsharp":
+					return VCSharpen.UnSharp;
+				default:
+					return VCSharpen.Off;
+			}
 		}
 	}
 }
