@@ -109,7 +109,7 @@ VidCoder is free software. If you like VidCoder and want to express your appreci
 
 ## Other info
 VidCoder is built on .NET 5/WPF in C#.
-It runs on the 64-bit versions of 10 and 11.
+It runs on the 64-bit versions of Windows 10 and 11.
 
 The VidCoder UI (and C# interop) is written by RandomEngy.
 The core encoding engine is written by the amazing HandBrake team. j45 in particular has been a huge help in getting this together.
