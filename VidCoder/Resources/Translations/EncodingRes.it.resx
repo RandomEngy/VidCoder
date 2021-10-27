@@ -825,4 +825,10 @@ NitidezzaCircolare rende più nitida l'immagine utilizzando il filtro con "nocci
   <data name="PadColorTextToolTip" xml:space="preserve">
     <value>Formato: FFFFFF</value>
   </data>
+  <data name="ChromaSmoothLabel" xml:space="preserve">
+    <value>Crominanza regolare:</value>
+  </data>
+  <data name="ColorspaceLabel" xml:space="preserve">
+    <value>Spazio colore:</value>
+  </data>
 </root>

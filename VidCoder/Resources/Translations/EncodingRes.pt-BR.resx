@@ -828,4 +828,10 @@ Lapsharp atua usando núcleos de convolução próximos dos filtro de borda Lapl
   <data name="PadColorTextToolTip" xml:space="preserve">
     <value>Formato: FFFFFF</value>
   </data>
+  <data name="ChromaSmoothLabel" xml:space="preserve">
+    <value>Suavidade Cromática</value>
+  </data>
+  <data name="ColorspaceLabel" xml:space="preserve">
+    <value>Espaço de cores:</value>
+  </data>
 </root>

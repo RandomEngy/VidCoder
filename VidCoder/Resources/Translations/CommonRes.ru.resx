@@ -118,29 +118,33 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutLicense" xml:space="preserve">
-    <value>Эта программа является свободным программным обеспечением; Вы можете распространять его и/или изменить его на условиях стандартной общественной лицензии GNU, опубликованной Фондом свободного программного обеспечения; либо версии 2 лицензии, либо (по вашему выбору) любой более поздней версии.  Эта программа распространяется в надежде, что она будет полезной, но без каких-либо гарантий; даже подразумеваемых гарантий товарности или пригодности для конкретной цели.  GNU General Public License для получения более подробной информации см.  Полная копия лицензии GNU General Public License был включен вместе с этой программой.</value>
+    <value>Эта программа является бесплатным программным обеспечением: вы можете распространять и / или изменять его в соответствии с условиями Стандартной общественной лицензии GNU, опубликованной Free Software Foundation; либо версии 2 Лицензии, либо (по вашему выбору) любой более поздней версии.
+
+Эта программа распространяется в надежде, что она будет полезна, но БЕЗ КАКИХ-ЛИБО ГАРАНТИЙ; даже без подразумеваемой гарантии ТОВАРНОЙ ПРИГОДНОСТИ или ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ. Подробнее см. Стандартную общественную лицензию GNU.
+
+Полная копия Стандартной общественной лицензии GNU включена в поставку этой программы.</value>
   </data>
   <data name="BurnedSubtitleToolTip" xml:space="preserve">
-    <value>Запись субтитров в видео. Вы не сможете отключить их во время воспроизведения.</value>
+    <value>Запись субтитров в само изображение. Вы не сможете отключить их во время воспроизведения.</value>
   </data>
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
-    <value>Отметьте трек субтитров в качестве стандарта воспроизведения. Он будет отображаться, пока не выбран другой.</value>
+    <value>Отметить эти субтитры по умолчанию при воспроизведении. Они будет отображаться, пока не выбраны другие.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Показывать только форсированные субтитры из трека. Они обычно содержат небольшие кусочки иностранного диалога.</value>
+    <value>Показывать только форсированные субтитры. Они обычно содержат небольшие кусочки иностранных диалогов.</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
-    <value>Период времени, чтобы подтолкнуть вперед или отсрочить появление данных субтитров.</value>
+    <value>Период времени, упреждающий или откладывающий отображение данных субтитров.</value>
   </data>
   <data name="QueueColumnNameRange" xml:space="preserve">
     <value>Диапазон</value>
     <comment>The label for the queue column that specifies what portion of the video to encode. (Like 25:23 - 37:50)</comment>
   </data>
   <data name="QueueColumnNameDestination" xml:space="preserve">
-    <value>Цель</value>
+    <value>Место назначения</value>
   </data>
   <data name="QueueColumnNameSource" xml:space="preserve">
-    <value>Исходный</value>
+    <value>Исходник</value>
   </data>
   <data name="QueueColumnNameTitle" xml:space="preserve">
     <value>Название</value>
@@ -150,33 +154,33 @@
     <value>Качество звука</value>
   </data>
   <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>Аудио кодирование</value>
+    <value>Кодирование аудио</value>
   </data>
   <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Видео кодирование</value>
+    <value>Кодирование видео</value>
   </data>
   <data name="QueueColumnNameVideoQuality" xml:space="preserve">
     <value>Качество видео</value>
   </data>
   <data name="QueueEtaToolTip" xml:space="preserve">
-    <value>Расчетное время завершения всех заданий в очереди.</value>
+    <value>Расчётное время завершения всех заданий в очереди.</value>
   </data>
   <data name="QueueColumnNameDuration" xml:space="preserve">
     <value>Длительность</value>
   </data>
   <data name="ForeignAudioSearchToolTip" xml:space="preserve">
-    <value>Поиски трека субтитров, которые могут включать иностранные диалоги. Хорошо для фильмов, которые в основном на своем родном языке.</value>
+    <value>Поиски субтитров, которые могут включать иностранные диалоги. Хорошо для фильмов, которые в основном на своём родном языке.</value>
   </data>
   <data name="Default" xml:space="preserve">
     <value>По умолчанию</value>
     <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="Custom" xml:space="preserve">
-    <value>Пользовательский</value>
+    <value>Своё</value>
     <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="Browse" xml:space="preserve">
-    <value>Обзор...</value>
+    <value>Обзор…</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Удалить</value>
@@ -188,7 +192,7 @@
     <value>Автоматически</value>
   </data>
   <data name="Off" xml:space="preserve">
-    <value>Выкл</value>
+    <value>ОТКЛ</value>
     <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="All" xml:space="preserve">
@@ -205,7 +209,7 @@
     <value>Отмена</value>
   </data>
   <data name="Disabled" xml:space="preserve">
-    <value>Отключить</value>
+    <value>Отключено</value>
   </data>
   <data name="Remove" xml:space="preserve">
     <value>Удалить</value>
@@ -220,7 +224,7 @@
     <value>Нет</value>
   </data>
   <data name="CouldNotAccessDirectoriesError" xml:space="preserve">
-    <value>Нет доступа к следующим каталогам:</value>
+    <value>Нет доступа к следующим папкам:</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>Ничего</value>
@@ -229,10 +233,10 @@
     <value>Успешно</value>
   </data>
   <data name="Failed" xml:space="preserve">
-    <value>Не удалось</value>
+    <value>Не выполнено</value>
   </data>
   <data name="FilePickerExtTemplate" xml:space="preserve">
-    <value>{0} файлы</value>
+    <value>{0} файлов</value>
   </data>
   <data name="QueueColumnNamePreset" xml:space="preserve">
     <value>Предустановка</value>
@@ -241,36 +245,36 @@
     <value>Успешно</value>
   </data>
   <data name="ConfirmDialogTitle" xml:space="preserve">
-    <value>Подтвердить</value>
+    <value>Подтверждение</value>
   </data>
   <data name="FileFailureErrorMessage" xml:space="preserve">
-    <value>Не удалось завершить операцию файла.</value>
+    <value>Невозможно завершить файловую операцию.</value>
   </data>
   <data name="FileFailureErrorTitle" xml:space="preserve">
     <value>Ошибка файловой операции</value>
   </data>
   <data name="OverrideNameFormatCheckBox" xml:space="preserve">
-    <value>Переопределить формат имен:</value>
+    <value>Переопределить формат имён:</value>
   </data>
   <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Вывод в исходный каталог, если это возможно</value>
+    <value>Вывод в исходную папку, если это возможно</value>
   </data>
   <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>Сохранить структуру папок в кодируемом пакете</value>
+    <value>Сохранять структуру папок при пакетном кодировании</value>
   </data>
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>Если вы кодируете папку с файлами закодированной версии поместит в подпапки в соответствии со структурой исходного каталога.</value>
+    <value>Если вы кодируете папку, полную файлов, закодированные версии будут помещены во вложенные папки в соответствии с исходной структурой.</value>
   </data>
   <data name="DismissMessage" xml:space="preserve">
     <value>Отклонить сообщение</value>
     <comment>Appears as a tooltip on inline, dismissable messages</comment>
   </data>
   <data name="PresetFileFilter" xml:space="preserve">
-    <value>VidCoder заданный файл</value>
+    <value>Файл предустановок VidCoder</value>
     <comment>File dialog description of a .vjpreset file: JSON file that stores an exported preset.</comment>
   </data>
   <data name="QueueFileFilter" xml:space="preserve">
-    <value>VidCoder заданный файл</value>
+    <value>Файл очереди VidCoder</value>
     <comment>File dialog description of a .vjqueue file: JSON file that stores an exported queue.</comment>
   </data>
   <data name="First" xml:space="preserve">
@@ -290,11 +294,11 @@
     <comment>{0} is the number of selected audio tracks and {1} is the number of total tracks on the source.</comment>
   </data>
   <data name="SelectedOverTotalSubtitleTracksFormat" xml:space="preserve">
-    <value>{0}/{1} субтитры</value>
+    <value>{0}/{1} субтитров</value>
     <comment>{0} is the number of selected subtitle tracks and {1} is the number of total tracks on the source.</comment>
   </data>
   <data name="NumberBoxIncreaseButtonAutomationTextFormat" xml:space="preserve">
-    <value>Увеличь {0}</value>
+    <value>Увеличить {0}</value>
     <comment>Automation text for the increase button on the number box.
 {0} - The name of the value the control is changing, for example "width"</comment>
   </data>

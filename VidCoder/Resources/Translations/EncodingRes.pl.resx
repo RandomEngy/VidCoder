@@ -166,12 +166,18 @@ Działa to tylko ze źródłami AC3.</value>
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>Dołącz znaczniki rozdziałów</value>
   </data>
-  
+  <data name="TabHeader_Sizing" xml:space="preserve">
+    <value>Wymiarowanie</value>
+  </data>
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>Filtry wideo</value>
   </data>
-  
-  
+  <data name="TabHeader_VideoEncoding" xml:space="preserve">
+    <value>Kodowanie obrazu</value>
+  </data>
+  <data name="TabHeader_AudioEncoding" xml:space="preserve">
+    <value>Kodowanie dźwięku</value>
+  </data>
   <data name="Rename" xml:space="preserve">
     <value>Zmień nazwę</value>
   </data>
@@ -295,7 +301,9 @@ Działa to tylko ze źródłami AC3.</value>
   <data name="Preset_Fast" xml:space="preserve">
     <value>Szybki</value>
   </data>
-  
+  <data name="Preset_Medium" xml:space="preserve">
+    <value>Nośnik</value>
+  </data>
   <data name="Preset_Slow" xml:space="preserve">
     <value>Wolny</value>
   </data>
@@ -552,7 +560,9 @@ Działa to tylko ze źródłami AC3.</value>
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>Przekazywanie</value>
   </data>
-  
+  <data name="Passthrough_auto" xml:space="preserve">
+    <value>Auto</value>
+  </data>
   <data name="PassthroughScopeToolTip" xml:space="preserve">
     <value>Określa, do których wejściowych kodeków ma zastosowanie funkcja przekazywanie.</value>
   </data>
@@ -565,17 +575,27 @@ Działa to tylko ze źródłami AC3.</value>
   <data name="Rotation_Clockwise90" xml:space="preserve">
     <value>90° w lewo</value>
   </data>
-  
+  <data name="Rotation_Counterclockwise90" xml:space="preserve">
+    <value>90° w lewo</value>
+  </data>
   <data name="Rotation_180" xml:space="preserve">
     <value>180°</value>
   </data>
-  
-  
-  
+  <data name="RotationToolTip" xml:space="preserve">
+    <value>Obróć obraz. Zostanie zastosowane po operacjach na wymiarowaniu i przycinaniu.</value>
+  </data>
+  <data name="FlipHorizontalToolTip" xml:space="preserve">
+    <value>Przerzuć obraz poziomo. Zostaje zastosowane przed każdą rotacją.</value>
+  </data>
+  <data name="FlipVerticalToolTip" xml:space="preserve">
+    <value>Przerzuć obraz pionowo. Zostanie zastosowane przed każdą rotacją.</value>
+  </data>
   <data name="PassthroughIfPossibleCheckBox" xml:space="preserve">
     <value>Passthrough Jeśli możliwe</value>
   </data>
-  
+  <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
+    <value>Jeśli ścieżka wejściowa pasuje do kodowania, będzie ona przekazywana zamiast kodowana.</value>
+  </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>Obrót:</value>
   </data>
@@ -620,30 +640,57 @@ Działa to tylko ze źródłami AC3.</value>
     <value>TrueHD</value>
   </data>
   
+  <data name="ModeLabel" xml:space="preserve">
+    <value>Tryb:</value>
+    <comment>Label for the sizing or padding mode.</comment>
+  </data>
+  <data name="AnamorphicCheckbox" xml:space="preserve">
+    <value>Użyj Anamorficznego</value>
+  </data>
+  <data name="SizingModeManual" xml:space="preserve">
+    <value>Ręcznie</value>
+    <comment>Choice for the user to enter all sizing information manually.</comment>
+  </data>
   
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="PaddingMode_Fill" xml:space="preserve">
+    <value>Wypełnienie</value>
+  </data>
+  <data name="PaddingMode_Width" xml:space="preserve">
+    <value>Szerokość</value>
+  </data>
+  <data name="PaddingMode_Height" xml:space="preserve">
+    <value>Wysokość</value>
+  </data>
+  <data name="TargetWidthLabel" xml:space="preserve">
+    <value>Szerokość docelowa:</value>
+  </data>
+  <data name="TargetHeightLabel" xml:space="preserve">
+    <value>Wysokość docelowa:</value>
+  </data>
+  <data name="PadColorLabel" xml:space="preserve">
+    <value>Kolor:</value>
+  </data>
   
   <data name="ResolutionLabel" xml:space="preserve">
     <value>Rozdzielczość:</value>
     <comment>Label for a video resolution in pixels.</comment>
   </data>
   
+  <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
+    <value>Klucze:</value>
+    <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
+  </data>
   
+  <data name="AlignAVStartCheckBox" xml:space="preserve">
+    <value>Wyrównaj Start A/V</value>
+  </data>
   
-  
-  
-  
+  <data name="TabHeader_Container" xml:space="preserve">
+    <value>Kontener</value>
+  </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>Wstępne ustawienie kodowania: {0}</value>
     <comment>Label for the encoding settings window.</comment>
@@ -665,11 +712,21 @@ Działa to tylko ze źródłami AC3.</value>
   
   
   
-  
-  
-  
-  
-  
+  <data name="PresetFolder_Custom" xml:space="preserve">
+    <value>Niestandardowe</value>
+  </data>
+  <data name="PresetFolder_BuiltIn" xml:space="preserve">
+    <value>Wbudowany</value>
+  </data>
+  <data name="PresetFolderCreateSubfolderMenuItem" xml:space="preserve">
+    <value>Utwórz podfolder</value>
+  </data>
+  <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
+    <value>Zmień nazwę folderu</value>
+  </data>
+  <data name="PresetFolderRemoveFolderMenuItem" xml:space="preserve">
+    <value>Usuń folder</value>
+  </data>
   <data name="DefaultPresetFolderName" xml:space="preserve">
     <value>Nowy Folder</value>
   </data>
@@ -688,11 +745,29 @@ Działa to tylko ze źródłami AC3.</value>
   <data name="NVEncPreset_hp" xml:space="preserve">
     <value>Wysoka Wydajność</value>
   </data>
-  
-  
-  
-  
-  
+  <data name="Bottom" xml:space="preserve">
+    <value>Dolny</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Lewy</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Prawy</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Górny</value>
+  </data>
+  <data name="PixelAspectRatioNumeratorAutomationName" xml:space="preserve">
+    <value>Licznik proporcji piksela</value>
+    <comment>Name for the pixel aspect ratio numerator box for screen readers</comment>
+  </data>
+  <data name="PixelAspectRatioDenominatorAutomationName" xml:space="preserve">
+    <value>Mianownik proporcji piksela</value>
+    <comment>Name for the pixel aspect ratio denominator box for screen readers</comment>
+  </data>
+  <data name="ApplyToQueueButton" xml:space="preserve">
+    <value>Dodaj do kolejki</value>
+  </data>
   
   
   

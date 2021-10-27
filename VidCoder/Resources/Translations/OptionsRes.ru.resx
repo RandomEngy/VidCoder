@@ -130,13 +130,13 @@
     <value>Звуковой сигнал после завершения очереди</value>
   </data>
   <data name="PreferredDvdPlayerLabel" xml:space="preserve">
-    <value>Предпочтительный DVD плеер:</value>
+    <value>Предпочтительный DVD-плеер:</value>
   </data>
   <data name="PreferredDvdPlayerToolTip" xml:space="preserve">
-    <value>Выберите плеер, который вы хотите использовать для источников DVD.</value>
+    <value>Выберите плеер, который вы хотите использовать для исходных DVD.</value>
   </data>
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
-    <value>Автоматическое обновления</value>
+    <value>Автоматические обновления</value>
   </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
     <value>Если файл уже существует...</value>
@@ -154,10 +154,10 @@
     <value>Добавить...</value>
   </data>
   <data name="PreviewCountLabel" xml:space="preserve">
-    <value>Номер изображения пред просмотра для сканирования:</value>
+    <value>Количество изображений предпросмотра для сканирования:</value>
   </data>
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
-    <value>Запомнить недавно использованные файлы и папки</value>
+    <value>Запоминать недавно использованные файлы и папки</value>
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Включить LibDVDNav (Для изменения требуется перезапуск программы. Требуется для поддержки нескольких углов.)</value>
@@ -166,16 +166,16 @@
     <value>Удалить исходные файлы после очистки успешно завершённых заданий</value>
   </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
-    <value>Подробное протоколирование:</value>
+    <value>Детализация журналирования:</value>
   </data>
   <data name="MinScanLengthLabel" xml:space="preserve">
     <value>Минимальная длительность названия для сканирования (секунды):</value>
   </data>
   <data name="RecognizedExtensionsLabel" xml:space="preserve">
-    <value>Признанные расширения:</value>
+    <value>Известные расширения:</value>
   </data>
   <data name="RecognizedExtensionsToolTip" xml:space="preserve">
-    <value>При сканировании папки для видео файлов, добавлять файлы с этими расширениями. (Через запятую)</value>
+    <value>При сканировании папки для видеофайлов, добавлять файлы с этими расширениями. (Через запятую)</value>
   </data>
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Параметры</value>
@@ -187,7 +187,7 @@
     <value>Дополнительно</value>
   </data>
   <data name="BetaUpdatesInBeta" xml:space="preserve">
-    <value>Вы используете бета-версию. Вы может работать бок о бок со стабильной версией.</value>
+    <value>Вы используете бета-версию. Она может работать бок о бок со стабильной версией.</value>
   </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Принять участие в бета-версии проекта для частых обновлений</value>
@@ -202,13 +202,13 @@
     <value>VidCoder в актуальном состоянии.</value>
   </data>
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
-    <value>Выберите выходной каталог по умолчанию для закодированных видео-файлов.</value>
+    <value>Выберите выходную папку по умолчанию для кодированных видеофайлов.</value>
   </data>
   <data name="InterfaceLanguageLabel" xml:space="preserve">
     <value>Язык интерфейса:</value>
   </data>
   <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
-    <value>Новый язык вступит в силу только после перезапуска VidCoder.</value>
+    <value>Новый язык будет применён после перезапуска VidCoder.</value>
   </data>
   <data name="UseOSLanguage" xml:space="preserve">
     <value>Использовать язык ОС</value>
@@ -223,16 +223,16 @@
     <value>Ошибка проверки обновления.</value>
   </data>
   <data name="CompletionWavFilePickTitle" xml:space="preserve">
-    <value>Выберите .wav файл, который будет проигрываться после завершения кодирования.</value>
+    <value>Выберите .wav-файл, который будет проигрываться после завершения кодирования.</value>
   </data>
   <data name="CurrentVersionLabel" xml:space="preserve">
     <value>Текущая версия: {0}</value>
   </data>
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
-    <value>Внимание: Данная версия может содержать ошибки и аварии.</value>
+    <value>Внимание: данная версия может содержать ошибки и приводить к сбоям.</value>
   </data>
   <data name="PlayersSection" xml:space="preserve">
-    <value>Игроки</value>
+    <value>Плееры</value>
   </data>
   <data name="SoundSection" xml:space="preserve">
     <value>Звук</value>
@@ -253,7 +253,7 @@
     <value>Ведение журнала</value>
   </data>
   <data name="DvdReadingSection" xml:space="preserve">
-    <value>DVD чтение</value>
+    <value>Чтение DVD</value>
   </data>
   <data name="UpdatesSection" xml:space="preserve">
     <value>Обновления</value>
@@ -265,7 +265,7 @@
     <value>Бета-версия</value>
   </data>
   <data name="UseCustomWavLabel" xml:space="preserve">
-    <value>Использование пользовательских WAV-файлов:</value>
+    <value>Использовать пользовательский .wav-файл:</value>
   </data>
   <data name="CheckNowButton" xml:space="preserve">
     <value>Проверить сейчас</value>
@@ -274,16 +274,16 @@
     <value>Использовать плеер системы</value>
   </data>
   <data name="VideoFilesLabel" xml:space="preserve">
-    <value>Видео-файл:</value>
+    <value>Видеофайл:</value>
   </data>
   <data name="CustomVideoPlayerToolTip" xml:space="preserve">
     <value>Выберите путь к программе воспроизведения, которую вы хотите использовать для видео.</value>
   </data>
   <data name="VideoPlayerFilePickTitle" xml:space="preserve">
-    <value>Выберите плеер, который будет использоваться для видео-файлов.</value>
+    <value>Выберите плеер, который будет использоваться для видеофайлов.</value>
   </data>
   <data name="CustomPlayerLabel" xml:space="preserve">
-    <value>Пользовательский проигрыватель:</value>
+    <value>Пользовательский плеер:</value>
   </data>
   <data name="Priority_High" xml:space="preserve">
     <value>Высокий</value>
@@ -292,10 +292,10 @@
     <value>Выше среднего</value>
   </data>
   <data name="Priority_Normal" xml:space="preserve">
-    <value>Норма</value>
+    <value>Средний</value>
   </data>
   <data name="Priority_BelowNormal" xml:space="preserve">
-    <value>Ниже нормы</value>
+    <value>Ниже среднего</value>
   </data>
   <data name="WorkerProcessPriorityLabel" xml:space="preserve">
     <value>Приоритет рабочего процесса:</value>
@@ -304,7 +304,7 @@
     <value>Низкий</value>
   </data>
   <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
-    <value>Скопировать журнал кодирования в каталог кодируемого видео</value>
+    <value>Копировать журнал кодирования в папку кодируемого видео</value>
   </data>
   <data name="OpenLogFolderButton" xml:space="preserve">
     <value>Открыть папку журнала</value>
@@ -316,29 +316,29 @@
     <value>Использовать рабочий процесс для кодирования</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
-    <value>Заповедник создан и изменен время при преобразовании файлов</value>
+    <value>Сохранять время создания и изменения при конвертации файлов</value>
   </data>
   <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Папка для просмотра:</value>
   </data>
   <data name="ProcessOptionsLabel" xml:space="preserve">
-    <value>Настройки процессов</value>
+    <value>Настройка процессов</value>
   </data>
   <data name="CpuThrottlingLabel" xml:space="preserve">
     <value>Пропуск тактов ЦП - доступные ядра:</value>
     <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use. It labels a slider that controls the percentage of allowed cores, where the max is 100%.</comment>
   </data>
   <data name="CpuThrottlingToolTip" xml:space="preserve">
-    <value>Использование ЦП, регулирования для ограничения числа процессорных ядер, VidCoder можно использовать при кодировании.</value>
+    <value>Используйте регулирование ЦП, чтобы ограничить количество ядер процессора, которые VidCoder может использовать при кодировании.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
-    <value>Использовать встроенный проигрыватель для просмотра</value>
+    <value>Использовать встроенный плеер для просмотра</value>
   </data>
   <data name="MaxSimultaneousEncodesLabel" xml:space="preserve">
     <value>Максимальное количество одновременных заданий кодирования:</value>
   </data>
   <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
-    <value>Количество разрешенных одновременных заданий кодирования. Полезно для компьютеров с большим количеством процессорных ядер.</value>
+    <value>Количество разрешённых одновременных заданий кодирования. Полезно для компьютеров с большим количеством процессорных ядер.</value>
   </data>
   <data name="GeneralSection" xml:space="preserve">
     <value>Общие</value>
@@ -354,13 +354,13 @@
     <value>Настройка рабочего процесса вступит в силу после перезапуска VidCoder.</value>
   </data>
   <data name="CopyLogToCustomFolderLabel" xml:space="preserve">
-    <value>Скопировать журнал кодирования в пользовательскую папку</value>
+    <value>Копировать журнал кодирования в пользовательскую папку</value>
   </data>
   <data name="KeepFailedFilesCheckBox" xml:space="preserve">
     <value>Сохранять файлы неудачных или остановленных кодирований</value>
   </data>
   <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
-    <value>Действие "Когда сделано" при наличии неудачных заданий кодирования</value>
+    <value>Действие «Когда сделано» при наличии неудачных заданий кодирования</value>
   </data>
   <data name="AutoPauseLowBatteryCheckbox" xml:space="preserve">
     <value>Пауза при низком заряде</value>

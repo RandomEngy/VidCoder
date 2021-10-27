@@ -121,7 +121,7 @@
     <value>По умолчанию</value>
   </data>
   <data name="LanguagesRadioButton" xml:space="preserve">
-    <value>Язык(и)</value>
+    <value>Языки</value>
   </data>
   <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
     <value>Только если другой язык аудио</value>
@@ -138,10 +138,10 @@
     <value>Настройки вывода</value>
   </data>
   <data name="OverrideDirectoryCheckBox" xml:space="preserve">
-    <value>Переопределить каталог:</value>
+    <value>Переопределить папку:</value>
   </data>
   <data name="PickerHelpText" xml:space="preserve">
-    <value>Автоматически выберите титулов, аудио, субтитры и назначения</value>
+    <value>Автоматический выбор названий, аудио, субтитров и путей назначения</value>
   </data>
   <data name="AutoQueueOnScanCheckBox" xml:space="preserve">
     <value>Автоматическая очередь после сканирования</value>
@@ -154,7 +154,7 @@
     <comment>Label for the "indeterminate" checkbox state that lets the user know that this will fall back to the global setting</comment>
   </data>
   <data name="PresetOverrideToolTip" xml:space="preserve">
-    <value>Это переопределит любой пресет, взял в главном окне.</value>
+    <value>Это переопределит любую предустановку выбором в главном окне.</value>
   </data>
   <data name="EncodingSection" xml:space="preserve">
     <value>Кодировка</value>
@@ -165,7 +165,7 @@
     <comment>Header for the post-encoding section in the picker window.</comment>
   </data>
   <data name="SendFileToLabel" xml:space="preserve">
-    <value>Отправить файл для:</value>
+    <value>Отправить файл в:</value>
     <comment>Label for the option to run a program after encoding each file.</comment>
   </data>
   <data name="PostEncodeArgumentsLabel" xml:space="preserve">
@@ -177,7 +177,7 @@
     <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
   </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
-    <value>Выбор указанной кодировки пресет.</value>
+    <value>Выбор задал предустановку кодирования.</value>
   </data>
   <data name="AddLanguageButton" xml:space="preserve">
     <value>Добавить язык</value>
@@ -195,23 +195,23 @@
     <value>Первый трек</value>
   </data>
   <data name="SingleSubtitleDefaultToolTip" xml:space="preserve">
-    <value>Отметьте дорожку субтитров по умолчанию, так она будет отображаться автоматически при воспроизведении видео.</value>
+    <value>Отметьте субтитры по умолчанию, так они будут отображаться автоматически при воспроизведении видео.</value>
   </data>
   <data name="MultipleSubtitleDefaultToolTip" xml:space="preserve">
-    <value>Отметьте дорожку субтитров по умолчанию, так она будет отображаться автоматически при воспроизведении видео.</value>
+    <value>Отметьте первые субтитры по умолчанию, так они будут отображаться автоматически при воспроизведении видео.</value>
   </data>
   <data name="FirstAsDefaultCheckBox" xml:space="preserve">
-    <value>Отмеченный как первый по умолчанию</value>
+    <value>Отметка как первые по умолчанию</value>
     <comment>Label for checkbox to mark the first subtitle as default.</comment>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>Использование настроек:</value>
+    <value>Использовать предустановку:</value>
   </data>
   <data name="RemoveLanguageToolTip" xml:space="preserve">
     <value>Удалить язык.</value>
   </data>
   <data name="SortLanguagesLabel" xml:space="preserve">
-    <value>Язык(и) сортировки к началу:</value>
+    <value>Сортировка языков сверху:</value>
   </data>
   <data name="ForcedOnlyCheckBox" xml:space="preserve">
     <value>Только принудительно</value>
@@ -312,7 +312,7 @@
     <value>Предварительный просмотр:</value>
   </data>
   <data name="SourceNameCleanupSection" xml:space="preserve">
-    <value>Очистка имени источника</value>
+    <value>Очистка имени исходника</value>
   </data>
   <data name="AddAudioTrackNameButton" xml:space="preserve">
     <value>Добавить название аудиотрека</value>
@@ -337,7 +337,7 @@
     <value>Аудио</value>
   </data>
   <data name="PickerForeignAudioCheckBox" xml:space="preserve">
-    <value>Добавить трек 'По поиску иностранного звука'</value>
+    <value>Добавить трек «По поиску иностранного звука»</value>
   </data>
   <data name="PickerSubtitleSectionName" xml:space="preserve">
     <value>Субтитры</value>

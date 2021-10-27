@@ -289,22 +289,60 @@
   <data name="PickerTimeRangeMode_Time" xml:space="preserve">
     <value>Intervalo de tiempo</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="DeleteSourceFilesMode_DeleteWithConfirmation" xml:space="preserve">
+    <value>Eliminar archivos (con confirmación)</value>
+  </data>
+  <data name="DeleteSourceFilesMode_Recycle" xml:space="preserve">
+    <value>Enviar a la papelera de reciclaje</value>
+  </data>
+  <data name="WhenFileExists_AutoRename" xml:space="preserve">
+    <value>Renombrar automáticamente</value>
+  </data>
+  <data name="WhenFileExists_Overwrite" xml:space="preserve">
+    <value>Sobrescribir</value>
+  </data>
+  <data name="WhenFileExists_Prompt" xml:space="preserve">
+    <value>Preguntar</value>
+  </data>
+  <data name="DenoiseTune_medium" xml:space="preserve">
+    <value>Medio</value>
+  </data>
+  <data name="DenoiseTune_none" xml:space="preserve">
+    <value>Ninguno</value>
+  </data>
+  <data name="DenoiseTune_small" xml:space="preserve">
+    <value>Pequeño</value>
+  </data>
+  <data name="DenoiseTune_tiny" xml:space="preserve">
+    <value>Muy pequeño</value>
+  </data>
+  <data name="DenoiseTune_verywide" xml:space="preserve">
+    <value>Muy amplio</value>
+  </data>
+  <data name="DenoiseTune_wide" xml:space="preserve">
+    <value>Amplio</value>
+  </data>
+  <data name="Denoise_ChromaSmooth" xml:space="preserve">
+    <value>Chroma suave</value>
+  </data>
+  <data name="DragDropOrder_Alphabetical" xml:space="preserve">
+    <value>Alfabético</value>
+    <comment>Label for the option to order dragged files alphabetically</comment>
+  </data>
+  <data name="DragDropOrder_Selected" xml:space="preserve">
+    <value>Seleccionado</value>
+    <comment>Label for the option to order dragged files as they had been selected in File explorer</comment>
+  </data>
+  <data name="SubtitleBurnInSelection_First" xml:space="preserve">
+    <value>Primera</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrack" xml:space="preserve">
+    <value>Pista de audio extranjero</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrackElseFirst" xml:space="preserve">
+    <value>Pista de audio extranjero, si no la primera</value>
+  </data>
+  <data name="SubtitleBurnInSelection_None" xml:space="preserve">
+    <value>Ninguno</value>
+  </data>
 </root>

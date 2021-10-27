@@ -99,7 +99,7 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
   <data name="ChapterMarkersDialogTitle">
-    <value xml:space="preserve">Метки разделов</value>
+    <value xml:space="preserve">Метки глав</value>
   </data>
   <data name="DefaultChapterNamesRadioButton">
     <value xml:space="preserve">Использовать стандартные имена глав</value>
@@ -120,6 +120,6 @@
     <value xml:space="preserve">Название</value>
   </data>
   <data name="CouldNotReadFileMessage">
-    <value xml:space="preserve">Не удалось прочитать файл.</value>
+    <value xml:space="preserve">Невозможно прочитать файл.</value>
   </data>
 </root>

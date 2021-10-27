@@ -831,4 +831,10 @@ Lapsharp 銳利化使用卷積核預估拉普拉斯邊緣濾波器，有時可�
   <data name="PadColorTextToolTip" xml:space="preserve">
     <value>格式: FFFFFF</value>
   </data>
+  <data name="ChromaSmoothLabel" xml:space="preserve">
+    <value>色度平滑:</value>
+  </data>
+  <data name="ColorspaceLabel" xml:space="preserve">
+    <value>色彩空間:</value>
+  </data>
 </root>

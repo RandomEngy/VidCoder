@@ -314,11 +314,27 @@
   <data name="DefaultLabel" xml:space="preserve">
     <value>Padrão:</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
+  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
+    <value>Faixas de Áudio</value>
+  </data>
+  <data name="QueueColumnNameCropping" xml:space="preserve">
+    <value>Corte</value>
+  </data>
+  <data name="QueueColumnNameOutputSize" xml:space="preserve">
+    <value>Tamanho de saída</value>
+  </data>
+  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
+    <value>Faixas de legenda</value>
+  </data>
+  <data name="Manual" xml:space="preserve">
+    <value>Manualmente</value>
+    <comment>Shown when something has been set manually</comment>
+  </data>
+  <data name="FileNoLongerExists" xml:space="preserve">
+    <value>Este ficheiro já não existe.</value>
+  </data>
+  <data name="MegabytesAbbreviation" xml:space="preserve">
+    <value>MB</value>
+    <comment>Abbreviation for megabytes</comment>
+  </data>
 </root>

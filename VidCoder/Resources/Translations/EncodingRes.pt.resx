@@ -819,6 +819,17 @@ Lapsharp actua usando núcleos de convolução próximos dos filtro de bordo Lap
   <data name="MoreOptionsToolTip" xml:space="preserve">
     <value>Argumentos avançados adicionais para passar para o codificador de vídeo.</value>
   </data>
-  
-  
+  <data name="CannotSwitchEncodingPresetDueToPicker" xml:space="preserve">
+    <value>Não é possível alternar a predefinição de codificação, ela foi bloqueada na janela de selecção.</value>
+    <comment>Message to show when the user is blocked from switching an encoding preset due to a Picker setting.</comment>
+  </data>
+  <data name="PadColorTextToolTip" xml:space="preserve">
+    <value>Formato: FFFFFF</value>
+  </data>
+  <data name="ChromaSmoothLabel" xml:space="preserve">
+    <value>Cor suave:</value>
+  </data>
+  <data name="ColorspaceLabel" xml:space="preserve">
+    <value>Espaço de cores:</value>
+  </data>
 </root>

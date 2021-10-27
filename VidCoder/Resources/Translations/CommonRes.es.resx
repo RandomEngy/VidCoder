@@ -318,11 +318,27 @@ Una copia completa de la GNU General Public License se ha incluido con este prog
   <data name="DefaultLabel" xml:space="preserve">
     <value>Predeterminado:</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
+  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
+    <value>Pistas de audio</value>
+  </data>
+  <data name="QueueColumnNameCropping" xml:space="preserve">
+    <value>Recortando</value>
+  </data>
+  <data name="QueueColumnNameOutputSize" xml:space="preserve">
+    <value>Tamaño de salida</value>
+  </data>
+  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
+    <value>Pistas de subtítulos</value>
+  </data>
+  <data name="Manual" xml:space="preserve">
+    <value>Manual</value>
+    <comment>Shown when something has been set manually</comment>
+  </data>
+  <data name="FileNoLongerExists" xml:space="preserve">
+    <value>El archivo ya no existe.</value>
+  </data>
+  <data name="MegabytesAbbreviation" xml:space="preserve">
+    <value>MB</value>
+    <comment>Abbreviation for megabytes</comment>
+  </data>
 </root>

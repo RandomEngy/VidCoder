@@ -648,26 +648,88 @@
   <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
     <value>A codificação não está completa devido a erros na lista de codificações.</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="AudioPickerButtonToolTip" xml:space="preserve">
+    <value>Escolher faixas de áudio automaticamente...</value>
+  </data>
+  <data name="SubtitlePickerButtonToolTip" xml:space="preserve">
+    <value>Escolher faixas de legendas automaticamente...</value>
+  </data>
+  <data name="AudioSubtitleTrackColumnHeader" xml:space="preserve">
+    <value>Faixa</value>
+    <comment>Column header for the audio or subtitle track summary. This is an an auto-generated summary that includes language, format, etc.</comment>
+  </data>
+  <data name="AudioTrackNameAutomationName" xml:space="preserve">
+    <value>Nome da faixa de áudio</value>
+    <comment>Narrator label for the audio track name text box.</comment>
+  </data>
+  <data name="SubtitleNameAutomationName" xml:space="preserve">
+    <value>Nome da legenda</value>
+    <comment>Narrator label for the subtitle name text box.</comment>
+  </data>
+  <data name="CouldNotRecycleFile" xml:space="preserve">
+    <value>Erro ao enviar ficheiros para a Reciclagem.</value>
+  </data>
+  <data name="DestinationAutomaticToolTip" xml:space="preserve">
+    <value>O destino está definido automaticamente. Clique para editar as definições.</value>
+  </data>
+  <data name="DestinationManualToolTip" xml:space="preserve">
+    <value>O destino está definido manualmente. Clique para reverter para automático.</value>
+  </data>
+  <data name="CompareAgainstOriginal" xml:space="preserve">
+    <value>Comparar com o original</value>
+  </data>
+  <data name="CompareEncodedLabel" xml:space="preserve">
+    <value>Codificado</value>
+    <comment>Label for the encoded video when comparing original vs encoded</comment>
+  </data>
+  <data name="CompareOriginalLabel" xml:space="preserve">
+    <value>Original</value>
+    <comment>Label for the original video when comparing original vs encoded</comment>
+  </data>
+  <data name="CompareWindowHelpText" xml:space="preserve">
+    <value>Clique ou mantenha premida Ctrl para mostrar a versão codificada.</value>
+  </data>
+  <data name="CompareWindowTitleFormat" xml:space="preserve">
+    <value>Comparar vídeo: {0} - {1}</value>
+    <comment>Title for the Video compare window.
+{0} is a string indicating if it's original or encoded.
+{1} is the file name, e.g. MyFile.mkv</comment>
+  </data>
+  <data name="MuteAutomationName" xml:space="preserve">
+    <value>Sem som</value>
+    <comment>Text for screen readers for the mute button on video playback</comment>
+  </data>
+  <data name="UnmuteAutomationName" xml:space="preserve">
+    <value>Activar som</value>
+    <comment>Text for screen readers for the unmute button on video playback</comment>
+  </data>
+  <data name="AutoPauseLowBattery" xml:space="preserve">
+    <value>A pausar automaticamente devido a bateria fraca.</value>
+  </data>
+  <data name="AutoPauseLowDiskSpace" xml:space="preserve">
+    <value>A pausar automaticamente devido ao espaço livre em disco inferior a {0}GB.</value>
+    <comment>{0} is the disk space threshold for auto-pause in GB</comment>
+  </data>
+  <data name="AutoPauseProcessDetected" xml:space="preserve">
+    <value>A pausar automaticamente, processo detectado: {0}</value>
+    <comment>{0} is the name of the process we were waiting for to pause</comment>
+  </data>
+  <data name="AutoPauseResumeBattery" xml:space="preserve">
+    <value>A continuar automaticamente, ligado a energia AC.</value>
+  </data>
+  <data name="AutoPauseResumeDiskSpace" xml:space="preserve">
+    <value>A continuar automaticamente, o disco tem espaço livre.</value>
+  </data>
+  <data name="AutoPauseResumeProcess" xml:space="preserve">
+    <value>A continuar automaticamente, os processos desapareceram.</value>
+  </data>
+  <data name="Win7DeprecationWarning" xml:space="preserve">
+    <value>O VidCoder deixou de ser suportado no Windows 7 ou 8.
+
+Pode continuar a usar o VidCoder por sua conta e  risco. Determinados recursos não estão funcionais e podem ocorrer outros problemas desconhecidos. Não há suporte disponível quando esses problemas ocorrerem.
+
+A v5 foi a última versão testada para Windows 7/8.
+
+Este aviso só será exibido duas vezes.</value>
+  </data>
 </root>

@@ -153,7 +153,9 @@
   <data name="FileConflictWarning" xml:space="preserve">
     <value>Já existe um ficheiro em {0}. Deseja substituir o ficheiro, renomear automaticamente ou cancelar a operação?</value>
   </data>
-  
+  <data name="QueueFileConflictWarning" xml:space="preserve">
+    <value>Uma tarefa em fila já tem um caminho de saída em {0}. Deseja substituir a tarefa na fila, encontrar automaticamente um novo caminho de saída para o trabalho de codificação ou cancelar a operação?</value>
+  </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>Colunas do Gestor de Tarefas</value>
   </data>
@@ -252,6 +254,10 @@
   <data name="ExceptionDialogSubTextReported" xml:space="preserve">
     <value>O programa precisa ser fechado, mas o erro será automaticamente reportado.</value>
   </data>
-  
-  
+  <data name="DownloadInstallerButton" xml:space="preserve">
+    <value>Transferir o instalador</value>
+  </data>
+  <data name="ReplaceJobButton" xml:space="preserve">
+    <value>Substituir tarefa</value>
+  </data>
 </root>

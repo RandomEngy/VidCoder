@@ -162,7 +162,9 @@
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Habilita LibDVDNav (El cambio requiere reiniciar VidCoder. Requerido para multi ángulos)</value>
   </data>
-  
+  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
+    <value>Eliminar archivos de origen después de borrar los elementos completados con éxito</value>
+  </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Nivel de detalle del Log:</value>
   </data>
@@ -360,13 +362,26 @@
   <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
     <value>Ejecutar la acción "Al terminar" con trabajos fallidos</value>
   </data>
-  
-  
-  
+  <data name="AutoPauseLowBatteryCheckbox" xml:space="preserve">
+    <value>Pausar cuando la batería está baja</value>
+  </data>
+  <data name="AutoPauseLowDiskSpaceCheckbox" xml:space="preserve">
+    <value>Pausar cuando el espacio en disco es inferior a:</value>
+  </data>
+  <data name="AutoPauseSectionLabel" xml:space="preserve">
+    <value>Pausa automática</value>
+  </data>
   <data name="FileNameFormatOptions" xml:space="preserve">
     <value>Opciones disponibles: {0}</value>
   </data>
-  
-  
-  
+  <data name="LowDiskSpaceThresholdAutomationName" xml:space="preserve">
+    <value>Umbral de espacio bajo en gigabytes</value>
+    <comment>Screen reader name for the low disk space threshold number box</comment>
+  </data>
+  <data name="DragDropScanOrderLabel" xml:space="preserve">
+    <value>Orden de escanear arrastrar y soltar:</value>
+  </data>
+  <data name="EncodeRetriesLabel" xml:space="preserve">
+    <value>Número de reintentos de codificación:</value>
+  </data>
 </root>

@@ -169,7 +169,7 @@
     <value>EEDI2 Bob</value>
   </data>
   <data name="DeinterlacePreset_skipspatial" xml:space="preserve">
-    <value>Пропустить Пространственную проверку</value>
+    <value>Пропустить пространственную проверку</value>
   </data>
   <data name="Deinterlace_Decomb" xml:space="preserve">
     <value>Decomb</value>
@@ -184,10 +184,10 @@
     <value>Средний</value>
   </data>
   <data name="DenoisePreset_strong" xml:space="preserve">
-    <value>Тяжелый</value>
+    <value>Тяжёлый</value>
   </data>
   <data name="DenoisePreset_ultralight" xml:space="preserve">
-    <value>Ultralight</value>
+    <value>Очень лёгкий</value>
   </data>
   <data name="DenoiseTune_animation" xml:space="preserve">
     <value>Анимация</value>
@@ -196,7 +196,7 @@
     <value>Фильм</value>
   </data>
   <data name="DenoiseTune_grain" xml:space="preserve">
-    <value>Зерна</value>
+    <value>Зёрна</value>
   </data>
   <data name="DenoiseTune_highmotion" xml:space="preserve">
     <value>Высокое движение</value>
@@ -229,14 +229,14 @@
     <value>Спящий режим</value>
   </data>
   <data name="Off" xml:space="preserve">
-    <value>Выкл</value>
+    <value>ОТКЛ</value>
   </data>
   <data name="Sharpen_LapSharp" xml:space="preserve">
-    <value>Пустые острые</value>
+    <value>LapSharp</value>
     <comment>The name for the "LapSharp" sharpen filter.</comment>
   </data>
   <data name="Sharpen_UnSharp" xml:space="preserve">
-    <value>Отменить резкость</value>
+    <value>UnSharp</value>
     <comment>The name for the "UnSharp" sharpen filter.</comment>
   </data>
   <data name="TitleType_Bluray" xml:space="preserve">
@@ -323,7 +323,7 @@
     <value>Широкий</value>
   </data>
   <data name="Denoise_ChromaSmooth" xml:space="preserve">
-    <value>Гладкая Chroma</value>
+    <value>Цветовое сглаживание</value>
   </data>
   <data name="DragDropOrder_Alphabetical" xml:space="preserve">
     <value>Алфавитный</value>

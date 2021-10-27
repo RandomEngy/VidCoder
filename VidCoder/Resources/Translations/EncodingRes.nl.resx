@@ -832,4 +832,10 @@ Lapsharp verscherpt middels plooikernen die Laplaciaanse randfilters benaderen e
   <data name="PadColorTextToolTip" xml:space="preserve">
     <value>Formaat: FFFFFF</value>
   </data>
+  <data name="ChromaSmoothLabel" xml:space="preserve">
+    <value>Chroma smooth:</value>
+  </data>
+  <data name="ColorspaceLabel" xml:space="preserve">
+    <value>Kleurruimte:</value>
+  </data>
 </root>

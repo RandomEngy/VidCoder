@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="EncodeDetailsWindowTitle" xml:space="preserve">
-    <value>Детали Кодирования</value>
+    <value>Детали кодирования</value>
   </data>
   <data name="QueueSectionHeader" xml:space="preserve">
     <value>Очередь</value>
   </data>
   <data name="ScanPassLabel" xml:space="preserve">
-    <value>Проходит сканирование:</value>
+    <value>Проход сканирования:</value>
     <comment>This is the label for progress during the "scanning" pass of encoding. When you choose automatic subtitles it first needs to make a quick scan through the file to see which subtitles apply.</comment>
   </data>
   <data name="FirstPassLabel" xml:space="preserve">
@@ -134,19 +134,19 @@
     <value>Второй проход:</value>
   </data>
   <data name="EncodePassLabel" xml:space="preserve">
-    <value>Проходит Кодирование:</value>
+    <value>Проход кодирования:</value>
   </data>
   <data name="JobLabel" xml:space="preserve">
-    <value>Работа:</value>
+    <value>Задание:</value>
   </data>
   <data name="ProgressLabel" xml:space="preserve">
-    <value>Прогресс:</value>
+    <value>Выполнение:</value>
   </data>
   <data name="ElapsedTimeLabel" xml:space="preserve">
-    <value>Прошедшее время:</value>
+    <value>Прошло:</value>
   </data>
   <data name="EtaLabel" xml:space="preserve">
-    <value>ETA:</value>
+    <value>Осталось:</value>
   </data>
   <data name="FileProgressLabel" xml:space="preserve">
     <value>Прогресс файла:</value>
@@ -157,11 +157,11 @@
     <comment>Label for current file size on encode details window.</comment>
   </data>
   <data name="CurrentFpsLabel" xml:space="preserve">
-    <value>Текущее FPS:</value>
+    <value>Текущая FPS:</value>
     <comment>Label for the current encoding rate in frames per second.</comment>
   </data>
   <data name="AverageFpsLabel" xml:space="preserve">
-    <value>Среднее FPS:</value>
+    <value>Средняя FPS:</value>
     <comment>Label for the average encoding rate in frames per second.</comment>
   </data>
 </root>

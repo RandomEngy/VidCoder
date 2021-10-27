@@ -828,4 +828,6 @@ Lapsharp menajamkan menggunakan kernel konvolusi dengan mengaproksimasi filter p
   <data name="PadColorTextToolTip" xml:space="preserve">
     <value>Format: FFFFFF</value>
   </data>
+  
+  
 </root>

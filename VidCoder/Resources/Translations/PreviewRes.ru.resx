@@ -121,43 +121,43 @@
     <value>Воспроизвести источник</value>
   </data>
   <data name="EncodePreviewClipButton" xml:space="preserve">
-    <value>Кодирование видео-превью</value>
+    <value>Кодирование предпросмотра видео</value>
   </data>
   <data name="EncodePreviewClipToolTip" xml:space="preserve">
-    <value>Кодирует и воспроизводит небольшие превью клипа от выбранного экрана. Используются текущие настройки кодирования.</value>
+    <value>Кодирует и воспроизводит небольшой фрагмент для предварительного просмотра с выбранного экрана. Использует текущие настройки кодировки.</value>
   </data>
   <data name="GeneratingPreview" xml:space="preserve">
-    <value>Генерации предварительного просмотра...</value>
+    <value>Создание предварительного просмотра...</value>
   </data>
   <data name="PlaySourceDisabledBluRayToolTip" xml:space="preserve">
-    <value>Пред просмотр Blu-Ray в качестве источника пока не поддерживается.</value>
+    <value>Предварительный просмотр исходного Blu-ray пока не поддерживается.</value>
   </data>
   <data name="PlaySourceDisabledNoPlayerToolTip" xml:space="preserve">
-    <value>Поддерживаемый DVD плеер не найден. Установите VLC или MPC-HC, чтобы использовать эту функцию.</value>
+    <value>Поддерживаемый DVD-плеер не найден. Установите VLC или MPC-HC, чтобы использовать эту функцию.</value>
   </data>
   <data name="PlaySourceToolTip" xml:space="preserve">
-    <value>Воспроизвести видео с источника.</value>
+    <value>Воспроизведение исходного видео.</value>
   </data>
   <data name="PreviewClipGenerationFailedMessage" xml:space="preserve">
-    <value>Создание видео-превью не удалось. Смотреть протокол, узнать более подробную информацию.</value>
+    <value>Невозможно создать предпросмотр видео. Смотрите журнал для подробностей.</value>
   </data>
   <data name="PreviewClipGenerationFailedTitle" xml:space="preserve">
-    <value>Не удалось создание видео-превью</value>
+    <value>Невозможно создать предварительный просмотр фрагмента</value>
   </data>
   <data name="PreviewWindowTitleSimple" xml:space="preserve">
-    <value>Пред просмотр: {0}x{1}</value>
+    <value>Предпросмотр: {0}x{1}</value>
   </data>
   <data name="PreviewWindowTitleComplex" xml:space="preserve">
-    <value>Пред просмотр: показ {0}x{1} - записан {2}x{3}</value>
+    <value>Предпросмотр: дисплей {0}x{1} - хранение {2}x{3}</value>
   </data>
   <data name="NoVideoSourceTitle" xml:space="preserve">
-    <value>Пред просмотр: Нет источника видео</value>
+    <value>Предпросмотр: нет исходного видео</value>
   </data>
   <data name="Seconds" xml:space="preserve">
-    <value>сек</value>
+    <value>сек.</value>
   </data>
   <data name="PreviewDisplay_Corners" xml:space="preserve">
-    <value>Угловые</value>
+    <value>Углы</value>
   </data>
   <data name="PreviewDisplay_FitToWindow" xml:space="preserve">
     <value>По размеру окна</value>
@@ -166,7 +166,7 @@
     <value>1:1</value>
   </data>
   <data name="ViewLabel" xml:space="preserve">
-    <value>Пред просмотр:</value>
+    <value>Предпросмотр:</value>
   </data>
   <data name="TopMargin" xml:space="preserve">
     <value>Верхнее поле</value>
@@ -181,14 +181,14 @@
     <value>Нижнее поле</value>
   </data>
   <data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
-    <value>Не удалось найти исходный файл.</value>
+    <value>Невозможно найти исходный файл.</value>
   </data>
   <data name="CloseVideoButton" xml:space="preserve">
     <value>Закрыть видео</value>
     <comment>Button to close the preview video clip.</comment>
   </data>
   <data name="OpenInSystemPlayerButton" xml:space="preserve">
-    <value>Открыть в проигрывателе системы</value>
+    <value>Открыть в системном плеере</value>
   </data>
   <data name="VolumeSliderLabel" xml:space="preserve">
     <value>Громкость</value>
@@ -197,9 +197,9 @@
     <value>Предварительный просмотр шаблона</value>
   </data>
   <data name="VideoErrorMessage" xml:space="preserve">
-    <value>Не может играть видео с встроенным плеером. Вы хотели бы открыть с системном плеере?</value>
+    <value>Невозможно воспроизвести видео во встроенном плеере. Открыть в системном плеере?</value>
   </data>
   <data name="VideoErrorTitle" xml:space="preserve">
-    <value>Ошибка Видео</value>
+    <value>Ошибка видео</value>
   </data>
 </root>

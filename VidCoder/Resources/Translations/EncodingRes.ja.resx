@@ -831,4 +831,10 @@ Lapsharpはラプラシアン輪郭フィルターを近似する畳込みカー
   <data name="PadColorTextToolTip" xml:space="preserve">
     <value>フォーマット：FFFFFF</value>
   </data>
+  <data name="ChromaSmoothLabel" xml:space="preserve">
+    <value>クロマ平滑:</value>
+  </data>
+  <data name="ColorspaceLabel" xml:space="preserve">
+    <value>色空間:</value>
+  </data>
 </root>

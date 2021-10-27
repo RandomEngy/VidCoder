@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="OverrideTitleNumberToolTip" xml:space="preserve">
-    <value>При выборе этой опции, обычное название переписывается, чтобы создать имя конечного файла. Например, с названиями 2, 3 и 4 и переопределением 7, они будут озаглавлены как 7, 8 и 9. Может быть полезно для копирования диска с сериалом.</value>
+    <value>При выборе этого параметра обычное название переписывается, чтобы создать имя конечного файла. Например, с названиями 2, 3 и 4 и переопределением 7, они будут озаглавлены как 7, 8 и 9. Может быть полезно для копирования диска с сериалом.</value>
   </data>
   <data name="QueueTitlesWindowHeader" xml:space="preserve">
     <value>Выберите несколько заголовков, чтобы добавить в очередь.</value>
@@ -127,18 +127,18 @@
     <value>Если поддерживается и установлен плеер (VLC или Media Player Classic Home Cinema), вы можете просматривать отдельные названия DVD-дисков</value>
   </data>
   <data name="PlaySourceButton" xml:space="preserve">
-    <value>Воспроизвести источник</value>
+    <value>Воспроизвести исходник</value>
   </data>
   <data name="LengthRangePre" xml:space="preserve">
     <value>Все названия из</value>
     <comment>Goes before the first number box in the length range specification.</comment>
   </data>
   <data name="LengthRangeMid" xml:space="preserve">
-    <value>к</value>
+    <value>до</value>
     <comment>Goes in between the two number boxes in the length range specification.</comment>
   </data>
   <data name="LengthRangePost" xml:space="preserve">
-    <value>мин</value>
+    <value>мин.</value>
     <comment>Goes after the second number box in the length range specification.</comment>
   </data>
   <data name="OverrideTitleCheckBox" xml:space="preserve">

@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
-    <value>Субтитры из источника:</value>
+    <value>Субтитры из исходника:</value>
   </data>
   <data name="QuickTimeSubtitlesWarning" xml:space="preserve">
-    <value>Текстовые субтитры могут не отображаться в Quicktime, если не используется m4v расширение.</value>
+    <value>Текстовые субтитры могут не отображаться в Quicktime, если не используется расширение .m4v.</value>
   </data>
   <data name="NameColumn" xml:space="preserve">
     <value>Имя</value>
@@ -151,7 +151,7 @@
     <value>Смещение (мс)</value>
   </data>
   <data name="BurnedOverlapWarning" xml:space="preserve">
-    <value>Другие треки субтитров будут накладываться на записанные вами субтитры.</value>
+    <value>Другие субтитры будут накладываться на записанные.</value>
   </data>
   <data name="ForeignAudioScan" xml:space="preserve">
     <value>По поиску иностранного звука</value>
@@ -160,7 +160,7 @@
     <value>Добавить файл субтитров</value>
   </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
-    <value>Не удалось обнаружить кодировку файла субтитров. Чтобы убедиться, что субтитры отображаются корректно, повторно сохранить файл как UTF-8.</value>
+    <value>Невозможно определить кодировку файла субтитров. Чтобы убедиться, что субтитры отображаются корректно, принудительно сохраните файл как UTF-8.</value>
   </data>
   <data name="NoSubtitlesText" xml:space="preserve">
     <value>Субтитры не найдены в источнике.</value>

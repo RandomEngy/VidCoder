@@ -153,7 +153,9 @@
   <data name="FileConflictWarning" xml:space="preserve">
     <value>Ya existe un archivo en {0}. ¿Quieres sobrescribir el archivo, encontrar automáticamente una nueva ruta de salida para el trabajo o cancelar la operación?</value>
   </data>
-  
+  <data name="QueueFileConflictWarning" xml:space="preserve">
+    <value>Un trabajo en cola ya tiene una ruta de salida en {0}. ¿Quieres reemplazar el trabajo en cola, encontrar automáticamente una nueva ruta de salida para el trabajo de codificación o cancelar la operación?</value>
+  </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>Columnas de cola</value>
   </data>
@@ -252,6 +254,10 @@
   <data name="ExceptionDialogSubTextReported" xml:space="preserve">
     <value>Es necesario cerrar el programa, aunque el error será reportado automáticamente.</value>
   </data>
-  
-  
+  <data name="DownloadInstallerButton" xml:space="preserve">
+    <value>Descargar instalador</value>
+  </data>
+  <data name="ReplaceJobButton" xml:space="preserve">
+    <value>Reemplazar trabajo</value>
+  </data>
 </root>

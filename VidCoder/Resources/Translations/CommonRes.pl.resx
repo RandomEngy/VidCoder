@@ -335,11 +335,27 @@ Replace the with
   <data name="DefaultLabel" xml:space="preserve">
     <value>Domyślny:</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
+  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
+    <value>Ścieżki audio</value>
+  </data>
+  <data name="QueueColumnNameCropping" xml:space="preserve">
+    <value>Przycinanie</value>
+  </data>
+  <data name="QueueColumnNameOutputSize" xml:space="preserve">
+    <value>Rozmiar wyjściowy</value>
+  </data>
+  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
+    <value>Ścieżki napisów</value>
+  </data>
+  <data name="Manual" xml:space="preserve">
+    <value>Instrukcja obsługi</value>
+    <comment>Shown when something has been set manually</comment>
+  </data>
+  <data name="FileNoLongerExists" xml:space="preserve">
+    <value>Ten plik już nie istnieje.</value>
+  </data>
+  <data name="MegabytesAbbreviation" xml:space="preserve">
+    <value>MB</value>
+    <comment>Abbreviation for megabytes</comment>
+  </data>
 </root>

@@ -127,10 +127,10 @@
     <value>Добавить несколько заголовков в очередь...</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
-    <value>Открыть файл...</value>
+    <value>Открыть видеофайл...</value>
   </data>
   <data name="OpenDiscFolder" xml:space="preserve">
-    <value>Откройте DVD/Blu-ray...</value>
+    <value>Открыть папку DVD/Blu-ray...</value>
   </data>
   <data name="EnqueueMultipleFiles" xml:space="preserve">
     <value>Поставить в очередь несколько файлов...</value>
@@ -139,10 +139,10 @@
     <value>Инструменты</value>
   </data>
   <data name="ImportPreset" xml:space="preserve">
-    <value>Добавить профиль...</value>
+    <value>Добавить предустановку...</value>
   </data>
   <data name="ExportPreset" xml:space="preserve">
-    <value>Сохранить профиль...</value>
+    <value>Сохранить предустановку...</value>
   </data>
   <data name="Play" xml:space="preserve">
     <value>Воспроизвести</value>
@@ -154,7 +154,7 @@
     <value>Открыть папку</value>
   </data>
   <data name="ClearCompleted" xml:space="preserve">
-    <value>Очистить выполненные</value>
+    <value>Очистить завершённые</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Окна</value>
@@ -167,7 +167,7 @@
     <value>Предпросмотр</value>
   </data>
   <data name="LogMenuItem" xml:space="preserve">
-    <value>Отчёт</value>
+    <value>Журнал</value>
   </data>
   <data name="HelpMenu" xml:space="preserve">
     <value>Помощь</value>
@@ -191,16 +191,16 @@
     <value>Ошибка сканирования.</value>
   </data>
   <data name="ChapterMarkersLabel" xml:space="preserve">
-    <value>Маркеры глав:</value>
+    <value>Метки глав:</value>
   </data>
   <data name="EditButton" xml:space="preserve">
     <value>Изменить...</value>
   </data>
   <data name="DestinationLabel" xml:space="preserve">
-    <value>Цель:</value>
+    <value>Место назначения:</value>
   </data>
   <data name="DestinationToolTip" xml:space="preserve">
-    <value>Нажмите, чтобы изменить цель кодирования.</value>
+    <value>Нажмите, чтобы изменить место назначения кодирования.</value>
   </data>
   <data name="Stop" xml:space="preserve">
     <value>Стоп</value>
@@ -218,40 +218,40 @@
     <value>Настроить столбцы...</value>
   </data>
   <data name="CurrentFpsLabel" xml:space="preserve">
-    <value>Текущее FPS:</value>
+    <value>Текущая FPS:</value>
   </data>
   <data name="AverageFpsLabel" xml:space="preserve">
-    <value>Среднее FPS:</value>
+    <value>Средняя FPS:</value>
   </data>
   <data name="PickDiscFolderHelpText" xml:space="preserve">
     <value>Выберите папку DVD или Blu-ray.</value>
   </data>
   <data name="EncodesInProgressExitWarning" xml:space="preserve">
-    <value>Кодировка еще не завершена. Вы уверены, что хотите выйти?</value>
+    <value>Кодировка ещё не завершена. Вы уверены, что хотите выйти?</value>
   </data>
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
-    <value>Кодирование в ходе</value>
+    <value>Выполнение кодирования</value>
   </data>
   <data name="NoneParen" xml:space="preserve">
     <value>(Нет)</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
-    <value>Вы хотите сохранить изменения в текущий конфигурации?</value>
+    <value>Сохранить изменения в текущую предустановку?</value>
   </data>
   <data name="SaveChangesPresetTitle" xml:space="preserve">
-    <value>Сохранение текущей конфигурации?</value>
+    <value>Сохранить текущую предустановку?</value>
   </data>
   <data name="DiscNotInDriveError" xml:space="preserve">
-    <value>Не удается загрузить для редактирования. Диск не в приводе.</value>
+    <value>Невозможно загрузить для редактирования. Диск не в приводе.</value>
   </data>
   <data name="PresetNameRestoredFromQueue" xml:space="preserve">
     <value>Восстановлено из очереди</value>
   </data>
   <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
-    <value>Восстановлено и завершено</value>
+    <value>Восстановлено из завершённых</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
-    <value>Цель</value>
+    <value>Место назначения</value>
   </data>
   <data name="StatusColumnHeader" xml:space="preserve">
     <value>Статус</value>
@@ -284,22 +284,22 @@
     <value>Кодирование остановлено.</value>
   </data>
   <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>Вы уверены, что хотите удалить {0} исходный файл(ы)/папку(и)?</value>
+    <value>Удалить исходный файлы/папки {0}?</value>
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
-    <value>Подтвердить удаление</value>
+    <value>Подтверждение удаления</value>
   </data>
   <data name="CouldNotDeleteFile" xml:space="preserve">
-    <value>{0} {1} не может быть удален.</value>
+    <value>{0} {1} не может быть удалён.</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
-    <value>Ошибка сканирования видео файла(ов)</value>
+    <value>Ошибка сканирования видеофайлов</value>
   </data>
   <data name="StartedEncoding" xml:space="preserve">
     <value>Начало кодирования.</value>
   </data>
   <data name="DirectoryCreateErrorMessage" xml:space="preserve">
-    <value>Не удалось создать выходной каталог. Сведения об ошибке: {0}</value>
+    <value>Невозможно создать выходную папку. Сведения об ошибке: {0}</value>
   </data>
   <data name="EncodeCompleted" xml:space="preserve">
     <value>Кодирование завершено.</value>
@@ -323,19 +323,19 @@
     <value>Возобновить</value>
   </data>
   <data name="EtaLabel" xml:space="preserve">
-    <value>ETA:</value>
+    <value>Осталось:</value>
   </data>
   <data name="WhenDoneLabel" xml:space="preserve">
     <value>После завершения</value>
   </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
-    <value>Видео-файл...</value>
+    <value>Видеофайл...</value>
   </data>
   <data name="SourceOption_DiscFolder" xml:space="preserve">
-    <value>DVD/Blu-Ray папка...</value>
+    <value>Папка DVD/Blu-Ray...</value>
   </data>
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
-    <value>Версия {0} доступна. Обновление уже загружено.</value>
+    <value>Доступна версия {0}. Обновление уже загружено.</value>
   </data>
   <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
     <value>Версия {0} полностью загружена и будет установлена при закрытии.</value>
@@ -344,43 +344,43 @@
     <value>Обновление не было установлено. Если вы не отмените его, попробуйте установить его вручную.</value>
   </data>
   <data name="CouldNotLoadPresetMessage" xml:space="preserve">
-    <value>Не удалось загрузить конфигурацию: </value>
+    <value> Невозможно загрузить предустановку: </value>
   </data>
   <data name="CouldNotSavePresetMessage" xml:space="preserve">
-    <value>Не удалось сохранить конфигурацию '{0}':{1}{2}</value>
+    <value>Невозможно сохранить предустановку «{0}»:{1}{2}</value>
   </data>
   <data name="CouldNotCopyTextError" xml:space="preserve">
-    <value>Не удалось скопировать текст.</value>
+    <value>Невозможно скопировать текст.</value>
   </data>
   <data name="LaunchUrlError" xml:space="preserve">
     <value>Ошибка при открытии URL: {0}</value>
   </data>
   <data name="PresetImportErrorMessage" xml:space="preserve">
-    <value>Не удалось импортировать пресет. Проверьте журнал для деталей.</value>
+    <value>Невозможно импортировать предустановку. Смотрите журнал для подробностей.</value>
   </data>
   <data name="ImportErrorTitle" xml:space="preserve">
     <value>Ошибка импорта</value>
   </data>
   <data name="PresetImportSuccessMessage" xml:space="preserve">
-    <value>Конфигурации {0} успешно импортированы.</value>
+    <value>Предустановка {0} успешно импортирована.</value>
   </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
-    <value>Конфигурации успешно экспортируются в {0}.</value>
+    <value>Предустановка успешно экспортирована в {0}.</value>
   </data>
   <data name="ExportPresetFilePickerText" xml:space="preserve">
-    <value>Сохранить профиль</value>
+    <value>Экспорт предустановки</value>
   </data>
   <data name="SaveChangesPickerMessage" xml:space="preserve">
-    <value>Вы хотите сохранить изменения в текущий конфигурации?</value>
+    <value>Сохранить изменения в текущий выбор?</value>
   </data>
   <data name="SaveChangesPickerTitle" xml:space="preserve">
-    <value>Сохранение текущей конфигурации?</value>
+    <value>Сохранить текущий выбор?</value>
   </data>
   <data name="RevertConfirmMessage" xml:space="preserve">
-    <value>Вы уверены, что вы хотите отменить все не сохраненные изменения к этой конфигурации?</value>
+    <value>Отменить все несохранённые изменения?</value>
   </data>
   <data name="RevertConfirmTitle" xml:space="preserve">
-    <value>Отмена</value>
+    <value>Вернуть</value>
   </data>
   <data name="RemoveConfirmMessage" xml:space="preserve">
     <value>Вы уверены, что вы хотите это сделать?</value>
@@ -389,43 +389,43 @@
     <value>Удалить</value>
   </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
-    <value>Выберите выходной каталог для кодированных видео файлов.</value>
+    <value>Выберите выходную папку для кодированных видеофайлов.</value>
   </data>
   <data name="LengthPreviewLabel" xml:space="preserve">
     <value>({0})</value>
   </data>
   <data name="ModifiedAffix" xml:space="preserve">
-    <value>(Изменения)</value>
+    <value>(Изменено)</value>
   </data>
   <data name="PlayingVideoStatus" xml:space="preserve">
     <value>Воспроизведение видео...</value>
   </data>
   <data name="OpeningFolderStatus" xml:space="preserve">
-    <value>Открыть папку...</value>
+    <value>Открывается папка...</value>
   </data>
   <data name="CloseVideoSourceToolTip" xml:space="preserve">
-    <value>Закрыть видео источник</value>
+    <value>Закрыть исходник видео</value>
   </data>
   <data name="UpdatesMenuItem" xml:space="preserve">
     <value>Обновления...</value>
   </data>
   <data name="CbrAuto" xml:space="preserve">
-    <value>CBR-Авто</value>
+    <value>АвтоCBR</value>
   </data>
   <data name="RangeBarToolTip" xml:space="preserve">
-    <value>Левой кнопкой мыши, чтобы установить время начала и правой кнопкой мыши, чтобы установить время окончания.</value>
+    <value>Щелчок левой кнопкой мыши, чтобы установить время начала и правой кнопкой мыши, чтобы установить время окончания.</value>
   </data>
   <data name="QueueFormat_Chapters" xml:space="preserve">
-    <value>Ch {0}</value>
+    <value>Гл {0}</value>
   </data>
   <data name="QueueFormat_Frames" xml:space="preserve">
-    <value>Fr {0}-{1}</value>
+    <value>Кд {0}-{1}</value>
   </data>
   <data name="QueueRangeAll" xml:space="preserve">
     <value>Все</value>
   </data>
   <data name="CouldNotCopyLogError" xml:space="preserve">
-    <value>Не удалось скопировать протокол:{0}{0}{1}</value>
+    <value>Невозможно скопировать журнал:{0}{0}{1}</value>
   </data>
   <data name="OpenLog" xml:space="preserve">
     <value>Открыть журнал</value>
@@ -434,7 +434,7 @@
     <value>Копировать журнал</value>
   </data>
   <data name="PresetDiscardConfirmMessage" xml:space="preserve">
-    <value>У вас есть не сохраненные изменения. Вы уверены, что хотите отменить эти изменения, переключившись на другую конфигурацию?</value>
+    <value>У вас есть несохранённые изменения. Вы уверены, что хотите отменить эти изменения, переключившись на другой предустановку?</value>
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>Отменить изменения?</value>
@@ -443,7 +443,7 @@
     <value>Удалить из очереди</value>
   </data>
   <data name="CouldNotSaveQueueMessage" xml:space="preserve">
-    <value>Не удалось сохранить в очереди: {0} {1}</value>
+    <value>Невозможно сохранить очередь: {0} {1}</value>
   </data>
   <data name="ExportQueue" xml:space="preserve">
     <value>Экспорт очереди...</value>
@@ -452,40 +452,40 @@
     <value>Экспорт очереди</value>
   </data>
   <data name="QueueImportErrorMessage" xml:space="preserve">
-    <value>Не удалось импортировать пресет. Проверьте журнал для деталей.</value>
+    <value>Невозможно импортировать очередь. Проверьте журнал для подробностей.</value>
   </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
-    <value>Задать файл конфигурации</value>
+    <value>Импорт файла предустановки</value>
   </data>
   <data name="ImportQueueFilePickerTitle" xml:space="preserve">
     <value>Импорт файла очереди</value>
   </data>
   <data name="ImportQueue" xml:space="preserve">
-    <value>Импортировать в очередь...</value>
+    <value>Импорт очереди...</value>
   </data>
   <data name="QueueExportSuccessMessage" xml:space="preserve">
-    <value>Успешно экспортированные в очередь для {0}</value>
+    <value>Очередь успешно экспортирована в {0}</value>
   </data>
   <data name="QueueImportSuccessMessage" xml:space="preserve">
-    <value>Успешно импортированные в очередь.</value>
+    <value>Очередь успешно импортирована.</value>
   </data>
   <data name="StopEncodeConfirmationTitle" xml:space="preserve">
     <value>Остановить кодирование?</value>
   </data>
   <data name="StopEncodeConfirmationMessage" xml:space="preserve">
-    <value>Вы уверены, что хотите остановить кодирование.</value>
+    <value>Остановить кодирование?</value>
   </data>
   <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
     <value>Закрыть текущий файл и открыть диск?</value>
   </data>
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
-    <value>Детали Кодирования</value>
+    <value>Подробности кодирования</value>
   </data>
   <data name="RenameDatabaseFileLine2" xml:space="preserve">
-    <value>Вы хотите переименовать существующий файл или начать с нового?</value>
+    <value>Переименовать существующий файл или начать с нового?</value>
   </data>
   <data name="RenameDatabaseFileLine1" xml:space="preserve">
-    <value>Не удается прочитать файл базы данных версии {0}. Самую старшую версию, признанные VidCoder {1} является {2}</value>
+    <value>Невозможно прочитать файл базы данных версии {0}. Самая старшая версия, признанная VidCoder {1}, является {2}.</value>
     <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
   </data>
   <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
@@ -496,21 +496,21 @@
     <value>Выбор</value>
   </data>
   <data name="CouldNotLoadPickerMessage" xml:space="preserve">
-    <value>Не удалось загрузить конфигурацию: </value>
+    <value>Невозможно загрузить выбор: </value>
   </data>
   <data name="SimilarTitlesToolTip" xml:space="preserve">
-    <value>{0} у других названий есть продолжительность близкая к этой.</value>
+    <value>{0} у других названий есть продолжительность, близкая к этой.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
   <data name="UseBackupDatabaseLine" xml:space="preserve">
-    <value>У вас есть резервная копия файла версии {0}. Вы хотели бы использовать её?</value>
+    <value>У вас есть резервная копия файла версии {0}. Использовать её?</value>
     <comment>{0} is the version of the database file you have a backup for.</comment>
   </data>
   <data name="VideoPlayError" xml:space="preserve">
     <value>Ошибка при воспроизведении видео.</value>
   </data>
   <data name="CustomVideoPlayerError" xml:space="preserve">
-    <value>Пользовательский проигрыватель видео не удалось найти на {0}.</value>
+    <value>Пользовательский видеоплеер не найден в {0}.</value>
     <comment>{0} is the path to the custom video player.</comment>
   </data>
   <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
@@ -544,7 +544,7 @@
     <value>Видео- и аудиокодеки, размер, фильтры и контейнер</value>
   </data>
   <data name="OpenSourceRibbonButton" xml:space="preserve">
-    <value>Открыть источник</value>
+    <value>Открыть исходник</value>
   </data>
   <data name="ImportExportRibbonButton" xml:space="preserve">
     <value>Импорт/Экспорт</value>
@@ -558,7 +558,7 @@
     <comment>Format for opening a source. For example: "Open E:\ - THE_INCREDIBLES"</comment>
   </data>
   <data name="NoAudioDescription" xml:space="preserve">
-    <value>Аудио не найдено в источнике.</value>
+    <value>Аудио не найдено в исходнике.</value>
   </data>
   <data name="NoAudioSummary" xml:space="preserve">
     <value>Нет аудио</value>
@@ -593,11 +593,11 @@
     <value>Повторить все задания с ошибками</value>
   </data>
   <data name="StartChapterAutomationName" xml:space="preserve">
-    <value>Начало главы</value>
+    <value>Первая глава</value>
     <comment>Narrator label for the chapter start combo box</comment>
   </data>
   <data name="EndChapterAutomationName" xml:space="preserve">
-    <value>Конец главы</value>
+    <value>Последняя глава</value>
     <comment>Narrator label for the end chapter combo box</comment>
   </data>
   <data name="EditChaptersButtonAutomationName" xml:space="preserve">
@@ -608,7 +608,7 @@
     <value>Применить текущие настройки кодирования</value>
   </data>
   <data name="OpenSourceFolderOption" xml:space="preserve">
-    <value>Открыть папку источника</value>
+    <value>Открыть папку исходника</value>
     <comment>Menu option to open the folder of the source file in the queue</comment>
   </data>
   <data name="WithCurrentJobsFormat" xml:space="preserve">
@@ -640,19 +640,19 @@
     <value>Ошибка при очистке</value>
   </data>
   <data name="ClearQueueConfirmationMessage" xml:space="preserve">
-    <value>Вы уверены, что хотите удалить все элементы из очереди?</value>
+    <value>Удалить все элементы из очереди?</value>
   </data>
   <data name="RemoveAllFomQueueMenuItem" xml:space="preserve">
-    <value>Удалить все из очереди</value>
+    <value>Удалить всё из очереди</value>
   </data>
   <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
     <value>Действие по завершении кодирования не будет выполнено, если в списке результатов были ошибки.</value>
   </data>
   <data name="AudioPickerButtonToolTip" xml:space="preserve">
-    <value>Автоматически выбирать аудиотреки...</value>
+    <value>Автоматический выбор аудиотреков...</value>
   </data>
   <data name="SubtitlePickerButtonToolTip" xml:space="preserve">
-    <value>Автоматически выбирать субтитры...</value>
+    <value>Автоматический выбор субтитров...</value>
   </data>
   <data name="AudioSubtitleTrackColumnHeader" xml:space="preserve">
     <value>Трек</value>

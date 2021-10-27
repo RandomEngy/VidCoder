@@ -834,4 +834,6 @@ LapSharp verwendet Faltungsmatrizen, welche Laplace-Kanten-Filter annähern, zum
   <data name="PadColorTextToolTip" xml:space="preserve">
     <value>Format: FFFFFF</value>
   </data>
+  
+  
 </root>

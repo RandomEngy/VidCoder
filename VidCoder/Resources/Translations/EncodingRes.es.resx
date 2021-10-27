@@ -829,6 +829,17 @@ Lapsharp funciona usando núcleos de circunvolución que se aproximan a los filt
   <data name="MoreOptionsToolTip" xml:space="preserve">
     <value>Agrega parámetros adicionales al codificador de video</value>
   </data>
-  
-  
+  <data name="CannotSwitchEncodingPresetDueToPicker" xml:space="preserve">
+    <value>No se puede cambiar el preajuste de codificación, se ha bloqueado en la ventana del selector.</value>
+    <comment>Message to show when the user is blocked from switching an encoding preset due to a Picker setting.</comment>
+  </data>
+  <data name="PadColorTextToolTip" xml:space="preserve">
+    <value>Formato: FFFFF</value>
+  </data>
+  <data name="ChromaSmoothLabel" xml:space="preserve">
+    <value>Chroma suave:</value>
+  </data>
+  <data name="ColorspaceLabel" xml:space="preserve">
+    <value>Espacio de color:</value>
+  </data>
 </root>
