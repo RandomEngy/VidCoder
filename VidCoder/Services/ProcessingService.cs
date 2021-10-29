@@ -2164,12 +2164,19 @@ namespace VidCoder.Services
 							.Replace("{file}", finalOutputPath)
 							.Replace("{folder}", Path.GetDirectoryName(finalOutputPath));
 
-						var process = new ProcessStartInfo(
-							picker.PostEncodeExecutable,
-							arguments);
-						System.Diagnostics.Process.Start(process);
+						try
+						{
+							var process = new ProcessStartInfo(
+								picker.PostEncodeExecutable,
+								arguments);
+							System.Diagnostics.Process.Start(process);
+							encodeLogger.Log($"Started post-encode action. Executable: {picker.PostEncodeExecutable} , Arguments: {arguments}");
+						}
+						catch (Exception exception)
+						{
+							encodeLogger.LogError($"Could not start post-encode action. Executable: {picker.PostEncodeExecutable} , Arguments: {arguments}." + Environment.NewLine + exception);
+						}
 
-						encodeLogger.Log($"Started post-encode action. Executable: {picker.PostEncodeExecutable} , Arguments: {arguments}");
 					}
 
 					encodeLogger.Log("Job completed (Elapsed Time: " + finishedJobViewModel.EncodeTime.FormatFriendly() + ")");
