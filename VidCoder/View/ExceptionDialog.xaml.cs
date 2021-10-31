@@ -26,6 +26,8 @@ namespace VidCoder.View
 	{
 		private Exception exception;
 
+		private string exceptionDetails;
+
 		public ExceptionDialog(Exception exception)
 		{
 			this.exception = exception;
@@ -35,12 +37,22 @@ namespace VidCoder.View
 			this.subText.Text = MiscRes.ExceptionDialogSubText;
 
 			this.errorIcon.Source = WpfSystemIcons.Error;
-			this.exceptionTextBox.Text = exception + Environment.NewLine;
+
+			string extraInfo = string.Empty;
+			try
+			{
+				string portableText = Utilities.IsPortable ? "Portable" : "Installer";
+				extraInfo = $"VidCoder {Utilities.VersionString} {portableText}";
+			}
+			catch { }
+
+			this.exceptionDetails = extraInfo + Environment.NewLine + exception + Environment.NewLine; ;
+			this.exceptionTextBox.Text = this.exceptionDetails;
 		}
 
 		private void copyButton_Click(object sender, RoutedEventArgs e)
 		{
-			StaticResolver.Resolve<ClipboardService>().SetText(this.exception.ToString());
+			StaticResolver.Resolve<ClipboardService>().SetText(this.exceptionDetails);
 		}
 	}
 }

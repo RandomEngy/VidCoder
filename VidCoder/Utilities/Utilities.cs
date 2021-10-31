@@ -52,7 +52,7 @@ namespace VidCoder
 		}
 
 		/// <summary>
-		/// Displays version number with architecture and optional Beta marker.
+		/// Displays version number with optional Beta marker.
 		/// </summary>
 		public static string VersionString
 		{
