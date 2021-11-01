@@ -79,6 +79,7 @@ namespace VidCoder.ViewModel
 
 						// Do preview
 						VCJob job = this.main.EncodeJob;
+						job.Title = title.Index;
 						JsonEncodeFactory factory = new JsonEncodeFactory(new StubLogger());
 
 						JsonEncodeObject jsonEncodeObject = factory.CreateJsonObject(
