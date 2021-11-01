@@ -775,9 +775,9 @@ namespace VidCoder.ViewModel
 
 		private static string GetDefaultCustomFilterString(hb_filter_ids filter)
 		{
-			IDictionary<string, string> customDictionary = HandBrakeFilterHelpers.GetDefaultCustomSettings((int)filter);
+			IDictionary<string, object> customDictionary = HandBrakeFilterHelpers.GetDefaultCustomSettings((int)filter);
 			List<string> keyValuePairList = new List<string>();
-			foreach (KeyValuePair<string, string> keyValuePair in customDictionary)
+			foreach (KeyValuePair<string, object> keyValuePair in customDictionary)
 			{
 				keyValuePairList.Add(keyValuePair.Key + "=" + keyValuePair.Value);
 			}
