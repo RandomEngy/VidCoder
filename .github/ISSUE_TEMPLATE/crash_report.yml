@@ -1,0 +1,24 @@
+name: Crash Report
+description: Report a VidCoder crash: when the program shows you an error message and closes unexpectedly.
+labels: [crash, bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+       Please fill out the following details to submit a crash report:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What were you doing when VidCoder crashed?
+      description: What were you doing when it crashed? If you have a set of steps that can reproduce the crash, list them here.
+    validations:
+      required: true
+  - type: textarea
+    id: crash-details
+    attributes:
+      label: Crash details
+      description: Paste the crash details from the error message window here.
+      render: text
+    validations:
+      required: true
+

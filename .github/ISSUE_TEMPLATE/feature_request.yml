@@ -1,0 +1,22 @@
+name: Feature request
+description: Suggest an idea for this project.
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+       Please fill out the following fields with as much detail as possible:
+  - type: textarea
+    id: feature
+    attributes:
+      label: Description of the feature or enhancement you'd like to see in VidCoder
+    validations:
+      required: true
+  - type: textarea
+    id: activity-log
+    attributes:
+      label: Activity Log, Crash Log or any other details
+      description: If the request is off the back of failure or unsupported file format, please post a log as it can help us track down what is missing. Please read https://handbrake.fr/docs/en/latest/help/activity-log.html for more information.
+      render: text
+    validations:
+      required: false

@@ -1,0 +1,31 @@
+name: Bug Report
+description: Create a report to help us improve. On the next screen, please fill in the template provided in the post description.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+       Please fill out the following details to submit a bug report:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Problem Description
+      description: Please describe your problem in as much detail as possible. Include any steps necessary to reproduce the problem. You can also include screenshots if desired. 
+    validations:
+      required: true
+  - type: input
+    id: vidcoder-version
+    attributes:
+      label: What version of VidCoder are you running?
+      placeholder: e.g. 6.42
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Encode Log, Crash Trace or any other details
+      description: Click "Copy Pastebin link" on the log window, or paste in the crash trace.
+      render: text
+    validations:
+      required: false
+
