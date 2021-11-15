@@ -20,12 +20,6 @@ namespace VidCoder.Services.Notifications
 		/// </summary>
 		void Clear();
 
-		///// <summary>
-		///// Gets all notifications sent by this app that are currently still in Action Center.
-		///// </summary>
-		///// <returns>A collection of toasts.</returns>
-		//IReadOnlyList<ToastNotification> GetHistory();
-
 		/// <summary>
 		/// Removes an individual toast, with the specified tag label, from action center.
 		/// </summary>

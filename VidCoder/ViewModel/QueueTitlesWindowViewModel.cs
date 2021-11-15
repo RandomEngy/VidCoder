@@ -27,6 +27,8 @@ namespace VidCoder.ViewModel
 
 		private MainViewModel main;
 
+		private List<IDisposable> subscriptions = new List<IDisposable>();
+
 		public QueueTitlesWindowViewModel()
 		{
 			this.main = StaticResolver.Resolve<MainViewModel>();
@@ -40,57 +42,58 @@ namespace VidCoder.ViewModel
 
 			this.RefreshTitles();
 
-			this.main.WhenAnyValue(x => x.SourceData)
+			this.subscriptions.Add(this.main.WhenAnyValue(x => x.SourceData)
 				.Skip(1)
 				.Subscribe(_ =>
 				{
 					this.RefreshTitles();
-				});
+				}));
 
-			this.PickersService.WhenAnyValue(x => x.SelectedPicker.Picker.TitleRangeSelectEnabled)
+			this.subscriptions.Add(this.PickersService.WhenAnyValue(x => x.SelectedPicker.Picker.TitleRangeSelectEnabled)
 				.Skip(1)
 				.Subscribe(_ =>
 				{
 					this.SetSelectedFromRange();
-				});
+				}));
 
-			this.PickersService.WhenAnyValue(x => x.SelectedPicker.Picker.TitleRangeSelectStartMinutes)
+			this.subscriptions.Add(this.PickersService.WhenAnyValue(x => x.SelectedPicker.Picker.TitleRangeSelectStartMinutes)
 				.Skip(1)
 				.Subscribe(_ =>
 				{
 					this.SetSelectedFromRange();
-				});
+				}));
 
-			this.PickersService.WhenAnyValue(x => x.SelectedPicker.Picker.TitleRangeSelectEndMinutes)
+			this.subscriptions.Add(this.PickersService.WhenAnyValue(x => x.SelectedPicker.Picker.TitleRangeSelectEndMinutes)
 				.Skip(1)
 				.Subscribe(_ =>
 				{
 					this.SetSelectedFromRange();
-				});
+				}));
 
-			this.SelectedTitles.CollectionChanged +=
-				(sender, args) =>
-			    {
-				    this.RaisePropertyChanged(nameof(this.TitleDetailsVisible));
+			this.SelectedTitles.CollectionChanged += this.OnSelectedTitlesCollectionChanged;
+		}
 
-					if (this.SelectedTitles.Count == 1)
-					{
-						SourceTitle title = this.SelectedTitles[0].Title;
+		private void OnSelectedTitlesCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+		{
+			this.RaisePropertyChanged(nameof(this.TitleDetailsVisible));
 
-						// Do preview
-						VCJob job = this.main.EncodeJob;
-						job.Title = title.Index;
-						JsonEncodeFactory factory = new JsonEncodeFactory(new StubLogger());
+			if (this.SelectedTitles.Count == 1 && this.main.SourceData != null)
+			{
+				SourceTitle title = this.SelectedTitles[0].Title;
 
-						JsonEncodeObject jsonEncodeObject = factory.CreateJsonObject(
-							job,
-							title,
-							EncodingRes.DefaultChapterName);
+				// Do preview
+				VCJob job = this.main.EncodeJob;
+				job.Title = title.Index;
+				JsonEncodeFactory factory = new JsonEncodeFactory(new StubLogger());
 
-						this.PreviewImage = BitmapUtilities.ConvertToBitmapImage(BitmapUtilities.ConvertByteArrayToBitmap(this.main.ScanInstance.GetPreview(jsonEncodeObject, 2)));
-						this.RaisePropertyChanged(nameof(this.TitleText));
-					}
-			    };
+				JsonEncodeObject jsonEncodeObject = factory.CreateJsonObject(
+					job,
+					title,
+					EncodingRes.DefaultChapterName);
+
+				this.PreviewImage = BitmapUtilities.ConvertToBitmapImage(BitmapUtilities.ConvertByteArrayToBitmap(this.main.ScanInstance.GetPreview(jsonEncodeObject, 2)));
+				this.RaisePropertyChanged(nameof(this.TitleText));
+			}
 		}
 
 		public PickersService PickersService { get; }
@@ -250,6 +253,13 @@ namespace VidCoder.ViewModel
 
 				transaction.Commit();
 			}
+
+			foreach (IDisposable disposable in this.subscriptions)
+			{
+				disposable.Dispose();
+			}
+
+			this.SelectedTitles.CollectionChanged -= this.OnSelectedTitlesCollectionChanged;
 
 			return base.OnClosing();
 		}

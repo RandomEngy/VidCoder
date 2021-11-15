@@ -23,7 +23,14 @@ namespace VidCoder.Services.Notifications
 		public ToastNotificationService(IAppLogger logger)
 		{
 			this.logger = logger;
-			this.history = ToastNotificationManagerCompat.History;
+			try
+			{
+				this.history = ToastNotificationManagerCompat.History;
+			}
+			catch (Exception exception)
+			{
+				logger.LogError("Could not initialize notification system:" + Environment.NewLine + exception.ToString());
+			}
 		}
 
 		public bool ToastEnabled => true;
@@ -64,15 +71,6 @@ namespace VidCoder.Services.Notifications
 			{
 				this.logger.LogError("Could not clear notifications:" + Environment.NewLine + exception);
 			}
-		}
-
-		/// <summary>
-		/// Gets all notifications sent by this app that are currently still in Action Center.
-		/// </summary>
-		/// <returns>A collection of toasts.</returns>
-		public IReadOnlyList<ToastNotification> GetHistory()
-		{
-			return this.history.GetHistory();
 		}
 
 		/// <summary>

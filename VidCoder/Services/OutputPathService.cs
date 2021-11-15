@@ -894,23 +894,22 @@ namespace VidCoder.Services
 		}
 
 		public string BuildOutputFileName(
-			string sourcePath, 
-			string sourceName, 
-			int title, 
-			TimeSpan titleDuration, 
-			VideoRangeType rangeType, 
-			int startChapter, 
-			int endChapter, 
-			int totalChapters, 
-			TimeSpan startTime, 
-			TimeSpan endTime, 
-			int startFrame, 
+			string sourcePath,
+			string sourceName,
+			int title,
+			TimeSpan titleDuration,
+			VideoRangeType rangeType,
+			int startChapter,
+			int endChapter,
+			int totalChapters,
+			TimeSpan startTime,
+			TimeSpan endTime,
+			int startFrame,
 			int endFrame,
 			string nameFormatOverride, 
 			bool multipleTitlesOnSource,
 			Picker picker)
 		{
-			
 			return FileUtilities.CleanFileName(
 				ReplaceArguments(sourcePath, sourceName, title, titleDuration, rangeType, startChapter,endChapter, totalChapters, startTime, endTime, startFrame, endFrame, nameFormatOverride, multipleTitlesOnSource, picker), 
 				allowBackslashes: true);
