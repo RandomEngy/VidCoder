@@ -1593,6 +1593,11 @@ namespace VidCoder.Services
 				if (isBatch || itemsToQueue[0].Job.FinalOutputPath != null)
 				{
 					this.QueueMultiple(itemsToQueue);
+
+					if (picker.AutoEncodeOnScan && !this.Encoding)
+					{
+						this.StartEncodeQueue();
+					}
 				}
 			}
 

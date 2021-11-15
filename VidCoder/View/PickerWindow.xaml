@@ -1019,10 +1019,9 @@
 									IsChecked="{Binding AutoQueueOnScan}" />
 
 								<CheckBox
-									Margin="20 6 0 0"
+									Margin="0 6 0 0"
 									Content="{x:Static res:PickerRes.AutoEncodeOnScanCheckBox}"
-									IsChecked="{Binding AutoEncodeOnScan}"
-									IsEnabled="{Binding AutoQueueOnScan}" />
+									IsChecked="{Binding AutoEncodeOnScan}" />
 							</StackPanel>
 
 							<!--  Post-encoding  -->
