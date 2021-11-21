@@ -2952,7 +2952,9 @@ namespace VidCoder.ViewModel
 			{
 				return this.reportBug ?? (this.reportBug = ReactiveCommand.Create(() =>
 				{
-					FileService.Instance.LaunchUrl("https://github.com/RandomEngy/VidCoder/issues/new/choose");
+					string portableText = Utilities.IsPortable ? "Portable" : "Installer";
+
+					FileService.Instance.LaunchUrl($"https://github.com/RandomEngy/VidCoder/issues/new?labels=bug&template=bug_report.yml&vidcoder-version={Utilities.VersionString}%20{portableText}");
 				}));
 			}
 		}
