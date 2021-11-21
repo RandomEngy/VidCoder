@@ -1661,8 +1661,6 @@ namespace VidCoder.Services
 
 			this.EncodeNextJobs();
 
-			this.RebuildEncodingJobsList();
-
 			// User had the window open when the encode ended last time, so we re-open when starting the queue again.
 			if (Config.EncodeDetailsWindowOpen)
 			{
@@ -1810,6 +1808,7 @@ namespace VidCoder.Services
 				}
 			}
 
+			this.RebuildEncodingJobsList();
 			this.RefreshEncodeCompleteActions();
 		}
 
@@ -2267,8 +2266,6 @@ namespace VidCoder.Services
 					// Try to clean up the failed file
 					TryHandleFailedFile(directOutputFileInfo, encodeLogger, "stopped", finalOutputPath);
 				}
-
-				this.RebuildEncodingJobsList();
 
 				if (encodingStopped)
 				{
