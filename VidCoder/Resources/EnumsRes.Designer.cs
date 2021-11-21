@@ -232,24 +232,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete files (with confirmation).
-        /// </summary>
-        public static string DeleteSourceFilesMode_DeleteWithConfirmation {
-            get {
-                return ResourceManager.GetString("DeleteSourceFilesMode_DeleteWithConfirmation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Send to Recycle Bin.
-        /// </summary>
-        public static string DeleteSourceFilesMode_Recycle {
-            get {
-                return ResourceManager.GetString("DeleteSourceFilesMode_Recycle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Chroma smooth.
         /// </summary>
         public static string Denoise_ChromaSmooth {

@@ -201,50 +201,40 @@ namespace VidCoder.ViewModel
 			{
 				return this.copyLog ?? (this.copyLog = ReactiveCommand.Create(() =>
 				{
-					if (this.encodeResult.LogPath == null)
-					{
-						return;
-					}
-
-					try
-					{
-						string logText = File.ReadAllText(this.encodeResult.LogPath);
-
-						StaticResolver.Resolve<ClipboardService>().SetText(logText);
-					}
-					catch (Exception exception)
-					{
-						StaticResolver.Resolve<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception));
-					}
+					this.CopyLogImpl();
 				}));
 			}
 		}
 
-		private ReactiveCommand<Unit, Unit> copyLogToPastebin;
-		public ICommand CopyLogToPastebin
+		private ReactiveCommand<Unit, Unit> copyLogAndReportProblem;
+		public ICommand CopyLogAndReportProblem
 		{
 			get
 			{
-				return this.copyLogToPastebin ?? (this.copyLogToPastebin = ReactiveCommand.CreateFromTask(async () =>
+				return this.copyLogAndReportProblem ?? (this.copyLogAndReportProblem = ReactiveCommand.Create(() =>
 				{
-					if (this.encodeResult.LogPath == null)
-					{
-						return;
-					}
-
-					try
-					{
-						string logText = File.ReadAllText(this.encodeResult.LogPath);
-						string pastebinUrl = await StaticResolver.Resolve<PastebinService>().SubmitToPastebinAsync(logText, EnumsRes.LogOperationType_Encode + " - " + this.Job.Job.FinalOutputPath);
-
-						StaticResolver.Resolve<ClipboardService>().SetText(pastebinUrl);
-						StaticResolver.Resolve<StatusService>().Show(LogRes.PastebinSuccessStatus);
-					}
-					catch (Exception exception)
-					{
-						StaticResolver.Resolve<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception));
-					}
+					this.CopyLogImpl();
+					FileService.Instance.ReportBug();
 				}));
+			}
+		}
+
+		private void CopyLogImpl()
+		{
+			if (this.encodeResult.LogPath == null)
+			{
+				return;
+			}
+
+			try
+			{
+				string logText = File.ReadAllText(this.encodeResult.LogPath);
+
+				StaticResolver.Resolve<ClipboardService>().SetText(logText);
+			}
+			catch (Exception exception)
+			{
+				StaticResolver.Resolve<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception));
 			}
 		}
 

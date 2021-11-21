@@ -376,6 +376,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy log and report problem.
+        /// </summary>
+        public static string CopyLogAndReportMenuItem {
+            get {
+                return ResourceManager.GetString("CopyLogAndReportMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not copy log:{0}{0}{1}.
         /// </summary>
         public static string CouldNotCopyLogError {

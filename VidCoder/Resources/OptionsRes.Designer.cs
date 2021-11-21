@@ -268,15 +268,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete source files after clearing successful completed items.
-        /// </summary>
-        public static string DeleteSourceAfterCompletionCheckBox {
-            get {
-                return ResourceManager.GetString("DeleteSourceAfterCompletionCheckBox", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Finding latest version....
         /// </summary>
         public static string DownloadingInfoStatus {

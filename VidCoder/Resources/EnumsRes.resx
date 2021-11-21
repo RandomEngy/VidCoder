@@ -289,12 +289,6 @@
   <data name="PickerTimeRangeMode_Time" xml:space="preserve">
     <value>Time range</value>
   </data>
-  <data name="DeleteSourceFilesMode_DeleteWithConfirmation" xml:space="preserve">
-    <value>Delete files (with confirmation)</value>
-  </data>
-  <data name="DeleteSourceFilesMode_Recycle" xml:space="preserve">
-    <value>Send to Recycle Bin</value>
-  </data>
   <data name="WhenFileExists_AutoRename" xml:space="preserve">
     <value>Automatically rename</value>
   </data>

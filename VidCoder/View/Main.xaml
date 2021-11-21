@@ -295,7 +295,7 @@
 						Source="/Icons/copy.png" />
 				</MenuItem.Icon>
 			</MenuItem>
-			<MenuItem Command="{Binding CopyLogToPastebin}" Header="{x:Static res:LogRes.CopyToPastebinButton}" />
+			<MenuItem Command="{Binding CopyLogAndReportProblem}" Header="{x:Static res:MainRes.CopyLogAndReportMenuItem}" />
 			<Separator />
 			<MenuItem
 				Command="{Binding ProcessingService.RetryFailed}"

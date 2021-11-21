@@ -162,9 +162,6 @@
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Enable LibDVDNav (Change requires program restart. Required to support multiple angles)</value>
   </data>
-  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Delete source files after clearing successful completed items</value>
-  </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Logging Verbosity:</value>
   </data>

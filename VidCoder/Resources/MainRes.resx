@@ -751,4 +751,7 @@ This warning will only display twice.</value>
   <data name="RequestFeatureMenuItem" xml:space="preserve">
     <value>Request a feature</value>
   </data>
+  <data name="CopyLogAndReportMenuItem" xml:space="preserve">
+    <value>Copy log and report problem</value>
+  </data>
 </root>
