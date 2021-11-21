@@ -284,7 +284,9 @@
     <value>Stopped encoding.</value>
   </data>
   <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>Are you sure you want to delete {0} source file(s)/folder(s)?</value>
+    <value>Are you sure you want to {0} {1} source file(s)/folder(s)?</value>
+    <comment>{0} is the verb, can be "recycle" or "delete"
+{1} is the number of files that will be removed</comment>
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Confirm delete</value>
@@ -737,5 +739,13 @@ You can continue using VidCoder at your own risk. Certain features are non-funct
 v5 was the last version tested for Windows 7/8.
 
 This warning will only display twice.</value>
+  </data>
+  <data name="RemoveSourceFiles_Delete" xml:space="preserve">
+    <value>delete</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RemoveSourceFiles_Recycle" xml:space="preserve">
+    <value>recycle</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
   </data>
 </root>

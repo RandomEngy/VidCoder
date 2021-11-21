@@ -1055,7 +1055,7 @@
 											Content="{x:Static res:CommonRes.Browse}"
 											IsEnabled="{Binding PostEncodeActionEnabled}" />
 									</Grid>
-									<Grid Margin="20 6 0 0" ToolTip="{x:Static res:PickerRes.PostEncodeArgumentsToolTip}">
+									<Grid Margin="20 4 0 0" ToolTip="{x:Static res:PickerRes.PostEncodeArgumentsToolTip}">
 										<Grid.ColumnDefinitions>
 											<ColumnDefinition Width="Auto" />
 											<ColumnDefinition />
@@ -1074,6 +1074,35 @@
 											               Mode=TwoWay,
 											               UpdateSourceTrigger=PropertyChanged}" />
 									</Grid>
+
+									<TextBlock
+										Name="sourceFileRemovalLabel"
+										Margin="0 6 0 0"
+										VerticalAlignment="Center"
+										Text="{x:Static res:PickerRes.SourceFileRemovalLabel}" />
+									<StackPanel Margin="20 4 0 0" Orientation="Horizontal">
+										<ComboBox
+											AutomationProperties.LabeledBy="{Binding ElementName=sourceFileRemovalLabel}"
+											DisplayMemberPath="Display"
+											ItemsSource="{Binding SourceFileRemovalChoices}"
+											SelectedValue="{Binding SourceFileRemoval}"
+											SelectedValuePath="Value" />
+										<ComboBox
+											Margin="10 0 0 0"
+											DisplayMemberPath="Display"
+											ItemsSource="{Binding SourceFileRemovalTimingChoices}"
+											SelectedValue="{Binding SourceFileRemovalTiming}"
+											SelectedValuePath="Value"
+											Visibility="{Binding SourceFileRemoval,
+											                     Converter={StaticResource EnumVisibilityInverseConverter},
+											                     ConverterParameter={x:Static model:SourceFileRemoval.Disabled}}" />
+									</StackPanel>
+									<CheckBox
+										Margin="20 4 0 0"
+										Content="{x:Static res:PickerRes.SourceFileRemovalConfirmationCheckBox}"
+										IsChecked="{Binding SourceFileRemovalConfirmation}"
+										Visibility="{Binding SourceFileRemovalConfirmationVisible,
+										                     Converter={StaticResource VisibilityConverter}}" />
 								</StackPanel>
 							</StackPanel>
 						</StackPanel>

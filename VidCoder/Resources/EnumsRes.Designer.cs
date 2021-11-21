@@ -556,6 +556,42 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ⚠️ Delete (IRREVERSIBLE) ⚠️.
+        /// </summary>
+        public static string SourceFileRemoval_Delete {
+            get {
+                return ResourceManager.GetString("SourceFileRemoval_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recycle.
+        /// </summary>
+        public static string SourceFileRemoval_Recycle {
+            get {
+                return ResourceManager.GetString("SourceFileRemoval_Recycle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to After clearing completed items.
+        /// </summary>
+        public static string SourceFileRemovalTiming_AfterClearingCompletedItems {
+            get {
+                return ResourceManager.GetString("SourceFileRemovalTiming_AfterClearingCompletedItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Immediately after the encode completes.
+        /// </summary>
+        public static string SourceFileRemovalTiming_Immediately {
+            get {
+                return ResourceManager.GetString("SourceFileRemovalTiming_Immediately", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to First.
         /// </summary>
         public static string SubtitleBurnInSelection_First {

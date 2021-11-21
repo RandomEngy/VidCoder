@@ -415,21 +415,6 @@
 									VerticalAlignment="Center"
 									Content="{x:Static res:OptionsRes.RememberPreviousFilesCheckBox}"
 									IsChecked="{Binding RememberPreviousFiles}" />
-								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
-									<CheckBox
-										HorizontalAlignment="Left"
-										VerticalAlignment="Center"
-										Content="{x:Static res:OptionsRes.DeleteSourceAfterCompletionCheckBox}"
-										IsChecked="{Binding DeleteSourceFilesOnClearingCompleted}" />
-									<ComboBox
-										Margin="6 0 0 0"
-										ItemsSource="{Binding DeleteSourceFilesModeChoices}"
-										SelectedValue="{Binding SelectedDeleteSourceFilesMode,
-										                        Mode=TwoWay}"
-										SelectedValuePath="Value"
-										Visibility="{Binding DeleteSourceFilesOnClearingCompleted,
-										                     Converter={StaticResource VisibilityConverter}}" />
-								</StackPanel>
 								<CheckBox
 									Margin="0 6 0 0"
 									HorizontalAlignment="Left"

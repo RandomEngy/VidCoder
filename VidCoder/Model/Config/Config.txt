@@ -96,8 +96,6 @@ QueueTitlesUseNameOverride|bool|false
 QueueTitlesNameOverride|string|""
 EnableLibDvdNav|bool|true
 MinimumTitleLengthSeconds|int|10
-DeleteSourceFilesOnClearingCompleted|bool|false
-DeleteSourceFilesMode|string|"Recycle"
 PreserveModifyTimeFiles|bool|false
 ResumeEncodingOnRestart|bool|false
 KeepFailedFiles|bool|false
@@ -114,17 +112,3 @@ PreviewVolume|double|0.5
 CompareWindowIsMuted|bool|true
 TriggerEncodeCompleteActionWithErrors|bool|true
 EncodeRetries|int|0
-
-AudioLanguageCode|string|"und"
-SubtitleLanguageCode|string|"und"
-AutoAudio|string|"Disabled"
-AutoSubtitle|string|"Disabled"
-AutoAudioAll|bool|false
-AutoSubtitleAll|bool|false
-AutoSubtitleOnlyIfDifferent|bool|true
-AutoSubtitleBurnIn|bool|true
-AutoSubtitleLanguageDefault|bool|false
-AutoSubtitleLanguageBurnIn|bool|false
-QueueTitlesStartTime|int|40
-QueueTitlesEndTime|int|45
-QueueTitlesUseRange|bool|false

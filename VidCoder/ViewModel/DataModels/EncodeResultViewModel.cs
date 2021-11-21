@@ -29,37 +29,15 @@ namespace VidCoder.ViewModel
 			this.job = job;
 		}
 
-		public MainViewModel MainViewModel
-		{
-			get
-			{
-				return this.main;
-			}
-		}
+		public MainViewModel MainViewModel => this.main;
 
-		public EncodeJobViewModel Job
-		{
-			get
-			{
-				return this.job;
-			}
-		}
+		public EncodeJobViewModel Job => this.job;
 
-		public ProcessingService ProcessingService
-		{
-			get
-			{
-				return this.processingService;
-			}
-		}
+		public ProcessingService ProcessingService => this.processingService;
 
-		public EncodeResult EncodeResult
-		{
-			get
-			{
-				return this.encodeResult;
-			}
-		}
+		public EncodeResult EncodeResult => this.encodeResult;
+
+		public bool SourceFileExists { get; set; } = true;
 
 		public string StatusText
 		{
@@ -77,13 +55,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public string TimeDisplay
-		{
-			get
-			{
-				return this.encodeResult.EncodeTime.ToString(@"h\:mm\:ss", CultureInfo.InvariantCulture);
-			}
-		}
+		public string TimeDisplay => this.encodeResult.EncodeTime.ToString(@"h\:mm\:ss", CultureInfo.InvariantCulture);
 
 		public string StatusImage
 		{
@@ -148,7 +120,7 @@ namespace VidCoder.ViewModel
 					},
 					this.WhenAnyValue(x => x.MainViewModel.VideoSourceState, videoSourceState =>
 					{
-						return videoSourceState != VideoSourceState.Scanning;
+						return videoSourceState != VideoSourceState.Scanning && this.SourceFileExists;
 					})));
 			}
 		}
@@ -195,7 +167,8 @@ namespace VidCoder.ViewModel
 						OutputSizeInfo outputSize = JsonEncodeFactory.GetOutputSize(this.Job.Profile, this.Job.SourceTitle);
 						CompareWindowViewModel compareViewModel = StaticResolver.Resolve<IWindowManager>().OpenOrFocusWindow<CompareWindowViewModel>(this.main);
 						compareViewModel.OpenVideos(this.Job.Job.SourcePath, this.Job.Job.FinalOutputPath, inputFileSizeBytes, this.encodeResult.SizeBytes);
-					}));
+					},
+					MvvmUtilities.CreateConstantObservable(this.SourceFileExists)));
 			}
 		}
 

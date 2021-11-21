@@ -105,6 +105,11 @@ namespace VidCoder.Model
 			{
 				UpgradePickerTo43(picker);
 			}
+
+			if (oldDatabaseVersion < 45)
+			{
+				UpgradePickerTo45(picker);
+			}
 		}
 
 	    private static void UpgradePickerTo36(Picker picker)
@@ -308,6 +313,19 @@ namespace VidCoder.Model
 		{
 			// Somehow the extension data from some old pickers hadn't gotten cleared out.
 			picker.ExtensionData = null;
+		}
+
+		private static void UpgradePickerTo45(Picker picker)
+		{
+			bool deleteSourceFiles = DatabaseConfig.Get<bool>("DeleteSourceFilesOnClearingCompleted", false);
+			bool recycle = DatabaseConfig.Get<string>("DeleteSourceFilesMode", "Recycle") == "Recycle";
+
+			if (deleteSourceFiles)
+			{
+				picker.SourceFileRemoval = recycle ? SourceFileRemoval.Recycle : SourceFileRemoval.Delete;
+				picker.SourceFileRemovalTiming = SourceFileRemovalTiming.AfterClearingCompletedItems;
+				picker.SourceFileRemovalConfirmation = !recycle;
+			}
 		}
 
 		public static string CreateCustomPickerName(List<Picker> existingPickers)

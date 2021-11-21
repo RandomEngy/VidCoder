@@ -114,7 +114,6 @@ namespace VidCoder.ViewModel
 			this.previewCount = Config.PreviewCount;
 			this.rememberPreviousFiles = Config.RememberPreviousFiles;
 			this.enableLibDvdNav = Config.EnableLibDvdNav;
-			this.deleteSourceFilesOnClearingCompleted = Config.DeleteSourceFilesOnClearingCompleted;
 			this.preserveModifyTimeFiles = Config.PreserveModifyTimeFiles;
 			this.resumeEncodingOnRestart = Config.ResumeEncodingOnRestart;
 			this.keepFailedFiles = Config.KeepFailedFiles;
@@ -221,13 +220,6 @@ namespace VidCoder.ViewModel
 					}
 				}
 			}
-
-			this.DeleteSourceFilesModeChoices = new List<ComboChoice<DeleteSourceFilesMode>>
-			{
-				new ComboChoice<DeleteSourceFilesMode>(DeleteSourceFilesMode.Recycle, EnumsRes.DeleteSourceFilesMode_Recycle),
-				new ComboChoice<DeleteSourceFilesMode>(DeleteSourceFilesMode.DeleteWithConfirmation, EnumsRes.DeleteSourceFilesMode_DeleteWithConfirmation)
-			};
-			this.selectedDeleteSourceFilesMode = CustomConfig.DeleteSourceFilesMode;
 
 			if (!CommonUtilities.Beta)
 			{
@@ -523,22 +515,6 @@ namespace VidCoder.ViewModel
 			set => this.RaiseAndSetIfChanged(ref this.enableLibDvdNav, value);
 		}
 
-		private bool deleteSourceFilesOnClearingCompleted;
-		public bool DeleteSourceFilesOnClearingCompleted
-		{
-			get => this.deleteSourceFilesOnClearingCompleted;
-			set => this.RaiseAndSetIfChanged(ref this.deleteSourceFilesOnClearingCompleted, value);
-		}
-
-		public List<ComboChoice<DeleteSourceFilesMode>> DeleteSourceFilesModeChoices { get; }
-
-		private DeleteSourceFilesMode selectedDeleteSourceFilesMode;
-		public DeleteSourceFilesMode SelectedDeleteSourceFilesMode
-		{
-			get => this.selectedDeleteSourceFilesMode;
-			set => this.RaiseAndSetIfChanged(ref this.selectedDeleteSourceFilesMode, value);
-		}
-
 		private bool preserveModifyTimeFiles;
 		public bool PreserveModifyTimeFiles
 		{
@@ -697,8 +673,6 @@ namespace VidCoder.ViewModel
 						}
 
 						Config.EnableLibDvdNav = this.EnableLibDvdNav;
-						Config.DeleteSourceFilesOnClearingCompleted = this.DeleteSourceFilesOnClearingCompleted;
-						CustomConfig.DeleteSourceFilesMode = this.SelectedDeleteSourceFilesMode;
 						Config.PreserveModifyTimeFiles = this.PreserveModifyTimeFiles;
 						Config.ResumeEncodingOnRestart = this.ResumeEncodingOnRestart;
 						Config.KeepFailedFiles = this.KeepFailedFiles;

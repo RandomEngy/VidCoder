@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace VidCoder.Model
 {
-	public enum DeleteSourceFilesMode
+	public enum SourceFileRemovalTiming
 	{
-		Recycle,
-		DeleteWithConfirmation
+		AfterClearingCompletedItems,
+		Immediately
 	}
 }

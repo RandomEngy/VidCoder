@@ -486,7 +486,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete {0} source file(s)/folder(s)?.
+        ///   Looks up a localized string similar to Are you sure you want to {0} {1} source file(s)/folder(s)?.
         /// </summary>
         public static string DeleteSourceFilesConfirmationMessage {
             get {
@@ -1404,6 +1404,24 @@ namespace VidCoder.Resources {
         public static string RemoveFromQueueToolTip {
             get {
                 return ResourceManager.GetString("RemoveFromQueueToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to delete.
+        /// </summary>
+        public static string RemoveSourceFiles_Delete {
+            get {
+                return ResourceManager.GetString("RemoveSourceFiles_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to recycle.
+        /// </summary>
+        public static string RemoveSourceFiles_Recycle {
+            get {
+                return ResourceManager.GetString("RemoveSourceFiles_Recycle", resourceCulture);
             }
         }
         
