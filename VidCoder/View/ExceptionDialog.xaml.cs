@@ -64,7 +64,7 @@ namespace VidCoder.View
 
 				Process process = new Process();
 				process.StartInfo.UseShellExecute = true;
-				process.StartInfo.FileName = "https://github.com/RandomEngy/VidCoder/issues/new?labels=crash%2Cbug&template=crash_report.yml&title=" + Uri.EscapeDataString(issueTitle);
+				process.StartInfo.FileName = "https://github.com/RandomEngy/VidCoder/issues/new?labels=crash&template=crash_report.yml&title=" + Uri.EscapeDataString(issueTitle);
 				process.Start();
 			}
 			catch
