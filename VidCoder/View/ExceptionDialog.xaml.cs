@@ -16,6 +16,7 @@ using System.Runtime.InteropServices;
 using Microsoft.AnyContainer;
 using VidCoder.Resources;
 using VidCoder.Services;
+using System.Diagnostics;
 
 namespace VidCoder.View
 {
@@ -53,6 +54,22 @@ namespace VidCoder.View
 		private void copyButton_Click(object sender, RoutedEventArgs e)
 		{
 			StaticResolver.Resolve<ClipboardService>().SetText(this.exceptionDetails);
+			try
+			{
+				string issueTitle = $"{this.exception.GetType().FullName}: {this.exception.Message}";
+				if (issueTitle.Length > 1000)
+				{
+					issueTitle = issueTitle.Substring(0, 1000) + "...";
+				}
+
+				Process process = new Process();
+				process.StartInfo.UseShellExecute = true;
+				process.StartInfo.FileName = "https://github.com/RandomEngy/VidCoder/issues/new?labels=crash%2Cbug&template=crash_report.yml&title=" + Uri.EscapeDataString(issueTitle);
+				process.Start();
+			}
+			catch
+			{
+			}
 		}
 	}
 }

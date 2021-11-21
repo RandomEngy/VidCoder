@@ -82,7 +82,7 @@
 							Width="16"
 							Height="16"
 							Source="/Icons/copy.png" />
-						<TextBlock Margin="4 0 0 0" Text="{x:Static res:CommonRes.Copy}" />
+						<TextBlock Margin="4 0 0 0" Text="{x:Static res:MiscRes.CopyAndReportIssueButton}" />
 					</StackPanel>
 				</Button>
 			</Grid>

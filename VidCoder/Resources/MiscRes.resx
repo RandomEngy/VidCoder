@@ -260,4 +260,7 @@
   <data name="ReplaceJobButton" xml:space="preserve">
     <value>Replace job</value>
   </data>
+  <data name="CopyAndReportIssueButton" xml:space="preserve">
+    <value>Copy and report issue</value>
+  </data>
 </root>

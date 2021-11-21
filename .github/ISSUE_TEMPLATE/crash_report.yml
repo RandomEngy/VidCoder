@@ -1,6 +1,6 @@
 name: Crash Report
 description: "Report a VidCoder crash: when the program shows you an error message and closes unexpectedly."
-labels: [crash, bug]
+labels: [crash]
 body:
   - type: markdown
     attributes:
@@ -17,8 +17,8 @@ body:
     id: crash-details
     attributes:
       label: Crash details
-      description: Paste the crash details from the error message window here.
       render: text
+      placeholder: Paste the crash details here.
     validations:
       required: true
 

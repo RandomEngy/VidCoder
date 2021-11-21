@@ -160,6 +160,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy and report issue.
+        /// </summary>
+        public static string CopyAndReportIssueButton {
+            get {
+                return ResourceManager.GetString("CopyAndReportIssueButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to © {0} VidCoder Developers.
         /// </summary>
         public static string Copyright {
