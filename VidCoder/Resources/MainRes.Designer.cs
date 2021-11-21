@@ -1444,11 +1444,20 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report a Bug.
+        ///   Looks up a localized string similar to Report a bug.
         /// </summary>
         public static string ReportABugMenuItem {
             get {
                 return ResourceManager.GetString("ReportABugMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request a feature.
+        /// </summary>
+        public static string RequestFeatureMenuItem {
+            get {
+                return ResourceManager.GetString("RequestFeatureMenuItem", resourceCulture);
             }
         }
         

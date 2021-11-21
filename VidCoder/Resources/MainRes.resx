@@ -176,7 +176,7 @@
     <value>VidCoder Homepage</value>
   </data>
   <data name="ReportABugMenuItem" xml:space="preserve">
-    <value>Report a Bug</value>
+    <value>Report a bug</value>
   </data>
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
     <value>About VidCoder...</value>
@@ -747,5 +747,8 @@ This warning will only display twice.</value>
   <data name="RemoveSourceFiles_Recycle" xml:space="preserve">
     <value>recycle</value>
     <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RequestFeatureMenuItem" xml:space="preserve">
+    <value>Request a feature</value>
   </data>
 </root>

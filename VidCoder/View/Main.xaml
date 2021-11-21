@@ -740,6 +740,8 @@
 							Size="Large">
 							<fluent:MenuItem Command="{Binding OpenHomepage}" Header="{x:Static res:MainRes.VidCoderHomepageMenuItem}" />
 							<fluent:MenuItem Command="{Binding ReportBug}" Header="{x:Static res:MainRes.ReportABugMenuItem}" />
+							<fluent:MenuItem Command="{Binding RequestFeature}" Header="{x:Static res:MainRes.RequestFeatureMenuItem}" />
+							<Rectangle Style="{StaticResource MenuSeparatorStyle}" />
 							<fluent:MenuItem Command="{Binding OpenAppData}" Header="{x:Static res:MainRes.OpenAppDataFolder}" />
 							<Rectangle Style="{StaticResource MenuSeparatorStyle}" Visibility="{Binding ShowUpdateMenuItem, Converter={StaticResource VisibilityConverter}}" />
 							<fluent:MenuItem

@@ -2959,6 +2959,18 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private ReactiveCommand<Unit, Unit> requestFeature;
+		public ICommand RequestFeature
+		{
+			get
+			{
+				return this.requestFeature ?? (this.requestFeature = ReactiveCommand.Create(() =>
+				{
+					FileService.Instance.LaunchUrl($"https://github.com/RandomEngy/VidCoder/issues/new?labels=enhancement&template=feature_request.yml");
+				}));
+			}
+		}
+
 		private ReactiveCommand<Unit, Unit> openAppData;
 		public ICommand OpenAppData
 		{
