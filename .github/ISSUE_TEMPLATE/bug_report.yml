@@ -10,7 +10,7 @@ body:
     id: what-happened
     attributes:
       label: Problem Description
-      description: Please describe your problem in as much detail as possible. Include any steps necessary to reproduce the problem. You can also include screenshots if desired. 
+      description: Please describe your problem in as much detail as possible. Include any steps necessary to reproduce the problem. You can include screenshots if desired. 
     validations:
       required: true
   - type: input
@@ -23,8 +23,9 @@ body:
   - type: textarea
     id: log
     attributes:
-      label: Encode Log, Crash Trace or any other details
-      description: Click "Copy Pastebin link" on the log window, or paste in the crash trace.
+      label: Encode Log
+      description: "You can right click on a completed item and click \"Copy log\" or click \"Copy\" in the log window."
+      placeholder: Paste the encode log here.
       render: text
     validations:
       required: false
