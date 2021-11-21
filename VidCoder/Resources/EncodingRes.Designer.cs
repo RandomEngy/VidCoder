@@ -380,6 +380,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reduces chroma noise, rainbows, and other prominent visual artifacts. Useful for resolving various color-related issues, especially with lower resolution content from analog sources, e.g. poor quality DVD and VHS sources. The blurring/smoothing algorithm is the same as used by the unsharp filter..
+        /// </summary>
+        public static string ChromaSmoothToolTip {
+            get {
+                return ResourceManager.GetString("ChromaSmoothToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close the presets list.
         /// </summary>
         public static string ClosePresetsListToolTip {

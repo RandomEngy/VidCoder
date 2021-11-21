@@ -840,4 +840,7 @@ Lapsharp sharpens using convolution kernels approximating Laplacian edge filters
   <data name="ColorspaceLabel" xml:space="preserve">
     <value>Colorspace:</value>
   </data>
+  <data name="ChromaSmoothToolTip" xml:space="preserve">
+    <value>Reduces chroma noise, rainbows, and other prominent visual artifacts. Useful for resolving various color-related issues, especially with lower resolution content from analog sources, e.g. poor quality DVD and VHS sources. The blurring/smoothing algorithm is the same as used by the unsharp filter.</value>
+  </data>
 </root>

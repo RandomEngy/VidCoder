@@ -320,7 +320,11 @@
 				Grid.Row="3"
 				Grid.Column="0"
 				Style="{StaticResource FilterLabel}"
-				Text="{x:Static res:EncodingRes.ChromaSmoothLabel}" />
+				Text="{x:Static res:EncodingRes.ChromaSmoothLabel}">
+				<TextBlock.ToolTip>
+					<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.ChromaSmoothToolTip}" />
+				</TextBlock.ToolTip>
+			</TextBlock>
 			<ComboBox
 				Grid.Row="3"
 				Grid.Column="1"
@@ -328,7 +332,11 @@
 				ItemsSource="{Binding ChromaSmoothChoices}"
 				SelectedValue="{Binding ChromaSmoothPreset}"
 				SelectedValuePath="Value"
-				Style="{StaticResource NormalComboBox}" />
+				Style="{StaticResource NormalComboBox}">
+				<ComboBox.ToolTip>
+					<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.ChromaSmoothToolTip}" />
+				</ComboBox.ToolTip>
+			</ComboBox>
 
 			<Grid
 				Grid.Row="3"
