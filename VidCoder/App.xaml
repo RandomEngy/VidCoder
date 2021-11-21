@@ -43,14 +43,6 @@
 			<Color x:Key="PresetGlowColor">#1696FF</Color>
 
 
-			<Style x:Key="GrayOnDisabledControl" TargetType="{x:Type Control}">
-				<Style.Triggers>
-					<DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
-						<Setter Property="Foreground" Value="#999999" />
-					</DataTrigger>
-				</Style.Triggers>
-			</Style>
-
 			<Style x:Key="GrayNonCompatible" TargetType="{x:Type ComboBoxItem}">
 				<Style.Triggers>
 					<DataTrigger Binding="{Binding IsCompatible}" Value="False">

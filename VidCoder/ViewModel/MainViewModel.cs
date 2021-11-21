@@ -2952,7 +2952,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.reportBug ?? (this.reportBug = ReactiveCommand.Create(() =>
 				{
-					FileService.Instance.LaunchUrl("https://github.com/RandomEngy/VidCoder/issues/new");
+					FileService.Instance.LaunchUrl("https://github.com/RandomEngy/VidCoder/issues/new/choose");
 				}));
 			}
 		}
