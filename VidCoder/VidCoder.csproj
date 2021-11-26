@@ -16,6 +16,7 @@
     <OutputPath>bin/$(Configuration)</OutputPath>
     <Platforms>x64</Platforms>
     <ValidateExecutableReferencesMatchSelfContained>false</ValidateExecutableReferencesMatchSelfContained>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <DefineConstants>DEBUG</DefineConstants>
