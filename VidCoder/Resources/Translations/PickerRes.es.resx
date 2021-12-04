@@ -336,11 +336,15 @@
   <data name="PickerAudioSectionName" xml:space="preserve">
     <value>Audio</value>
   </data>
-  
+  <data name="PickerForeignAudioCheckBox" xml:space="preserve">
+    <value>Agregar "Pista de audio extranjero"</value>
+  </data>
   <data name="PickerSubtitleSectionName" xml:space="preserve">
     <value>Subtítulos</value>
   </data>
-  
+  <data name="SubtitleSelectionMode_ForeignAudioSearch" xml:space="preserve">
+    <value>Pista de audio extranjero</value>
+  </data>
   <data name="TrackSelectionLabel" xml:space="preserve">
     <value>Selección de pistas:</value>
     <comment>Label for track selection mode for audio or subtitle tracks.</comment>

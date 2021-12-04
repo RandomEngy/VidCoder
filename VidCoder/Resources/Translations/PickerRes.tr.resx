@@ -237,7 +237,9 @@
     <value>Başlıkları süreye göre filtrele</value>
     <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
   </data>
-  
+  <data name="ChangeCaptializationLabel" xml:space="preserve">
+    <value>İlk harfi büyük harfe çevirmeyi değiştir</value>
+  </data>
   <data name="TimeRangeStartAutomationName" xml:space="preserve">
     <value>Zaman aralığı başlangıcı</value>
   </data>
@@ -260,42 +262,130 @@
   <data name="ChapterRangeStartAutomationName" xml:space="preserve">
     <value>Bölüm aralığı başlangıcı</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="DestinationSection" xml:space="preserve">
+    <value>Hedef</value>
+  </data>
+  <data name="OutputFolder" xml:space="preserve">
+    <value>Çıktı klasörü</value>
+    <comment>Label for the output folder.</comment>
+  </data>
+  <data name="UseCustomFileNameFormatCheckBox" xml:space="preserve">
+    <value>Özel dosya adlandırma biçimi kullan:</value>
+  </data>
+  <data name="WhenFileExistsBatch" xml:space="preserve">
+    <value>Dosya zaten varken (Toplu iş):</value>
+  </data>
+  <data name="WhenFileExistsSingle" xml:space="preserve">
+    <value>Dosya zaten varken (Tek iş):</value>
+  </data>
+  <data name="CustomPickerNameTemplate" xml:space="preserve">
+    <value>Özel {0}</value>
+    <comment>The name for a custom auto-created picker. {0} is a number like 2, or 3 or 4 to differentiate it</comment>
+  </data>
+  <data name="OutputFileNameFormatAutomationName" xml:space="preserve">
+    <value>Dosya adı formatı</value>
+    <comment>Name for screen readers for the output file name format text box</comment>
+  </data>
+  <data name="OnlyChangeCapitalizationIfAllSameLabel" xml:space="preserve">
+    <value>Sadece tümü küçük veya büyük harf ise ilk harfi büyük harfe çevir</value>
+  </data>
+  <data name="WordBreakCharacterAutomationNameFormat" xml:space="preserve">
+    <value>Kelime sonu karakteri - {0}</value>
+    <comment>Screen reader format for word break checkboxes. These will determine if a character will be used to separate words.</comment>
+  </data>
+  <data name="WordBreakCharactersLabel" xml:space="preserve">
+    <value>Tanınan sözcük sonu karakterleri:</value>
+  </data>
+  <data name="WordBreakCharacter_Dot" xml:space="preserve">
+    <value>Nokta</value>
+  </data>
+  <data name="WordBreakCharacter_Space" xml:space="preserve">
+    <value>Boşluk</value>
+  </data>
+  <data name="WordBreakCharacter_Underscore" xml:space="preserve">
+    <value>Altını çiz</value>
+  </data>
+  <data name="ChangeWordSeparatorLabel" xml:space="preserve">
+    <value>Sözcük ayırıcıyı değiştir</value>
+  </data>
+  <data name="SourceCleanupPreviewLabel" xml:space="preserve">
+    <value>Önizleme:</value>
+  </data>
+  <data name="SourceNameCleanupSection" xml:space="preserve">
+    <value>Kaynak adı temizle</value>
+  </data>
+  <data name="AddAudioTrackNameButton" xml:space="preserve">
+    <value>Ses parçası adı ekle</value>
+    <comment>Button to add another name to the list of audio track names in the Picker.</comment>
+  </data>
+  <data name="AddSubtitleTrackNameButton" xml:space="preserve">
+    <value>Altyazı adı ekle</value>
+    <comment>Button to add another name to the list of subtitle track names in the Picker.</comment>
+  </data>
+  <data name="CustomTrackNamesCheckBox" xml:space="preserve">
+    <value>Özel parça adları</value>
+    <comment>Checkbox label to use custom audio or subtitle track names</comment>
+  </data>
+  <data name="TrackAutomationFormat" xml:space="preserve">
+    <value>Parça {0}</value>
+    <comment>Screen reader format for track names in the Picker.</comment>
+  </data>
+  <data name="BurnInLabel" xml:space="preserve">
+    <value>Gömülü</value>
+  </data>
+  <data name="PickerAudioSectionName" xml:space="preserve">
+    <value>Ses</value>
+  </data>
+  <data name="PickerForeignAudioCheckBox" xml:space="preserve">
+    <value>'Yabancı ses taraması' parça ekle</value>
+  </data>
+  <data name="PickerSubtitleSectionName" xml:space="preserve">
+    <value>Altyazılar</value>
+  </data>
+  <data name="SubtitleSelectionMode_ForeignAudioSearch" xml:space="preserve">
+    <value>Yabancı ses taraması</value>
+  </data>
+  <data name="TrackSelectionLabel" xml:space="preserve">
+    <value>Parça seçimi:</value>
+    <comment>Label for track selection mode for audio or subtitle tracks.</comment>
+  </data>
+  <data name="AudioSelectionModeToolTip" xml:space="preserve">
+    <value>Son seçilen - Bir eşleşme bulunursa son seçilen ses parçasını seçer, aksi takdirde ilkini seçer.
+İlk - Yalnızca ilk ses parçasını ekler.
+Dizine göre - Parça dizinine göre seçer (1-tabanlı)
+Dil(ler) - Dile göre seçer
+Tümü - Tüm ses parçalarını dahil eder.</value>
+  </data>
+  <data name="SubtitleSelectionModeToolTip" xml:space="preserve">
+    <value>Son seçilen - Bir eşleşme bulunursa son seçilen altyazıyı seçer, aksi takdirde ilkini seçer.
+İlk - Yalnızca ilk altyazıyı ekler.
+Dizine göre - Parça dizinine göre seçer (1-tabanlı)
+Dil(ler) - Dile göre seçer
+Tümü - Tüm altyazıları dahil eder.</value>
+  </data>
+  <data name="IgnoreFilesBelowCheckBox" xml:space="preserve">
+    <value>Aşağıdaki dosyaları yoksay</value>
+    <comment>A number box follows this string: Ignore files below [ 10 ] MB</comment>
+  </data>
+  <data name="TimeRangeLabel" xml:space="preserve">
+    <value>Zaman aralığı:</value>
+  </data>
+  <data name="VideoSelectionSection" xml:space="preserve">
+    <value>Vidyo seçimi</value>
+  </data>
+  <data name="MetadataSection" xml:space="preserve">
+    <value>Üstveri</value>
+  </data>
+  <data name="PassThroughMetadataCheckBox" xml:space="preserve">
+    <value>Vidyo üstverilerini direkt geçir (yönetmen, çıkış tarihi, aktörler vb.)</value>
+  </data>
   <data name="BurnInCheckBox" xml:space="preserve">
     <value>Video'ya göm</value>
   </data>
-  
-  
+  <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
+    <value>Giriş video dosyasıyla aynı ada sahip harici altyazıları ({0}) ekle</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Dil:</value>
+  </data>
 </root>

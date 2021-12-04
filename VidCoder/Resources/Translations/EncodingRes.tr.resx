@@ -826,8 +826,17 @@ Keskinleştir (Lapsharp), Laplacian kenar filtrelerine yakın olan kıvrım tane
   <data name="MoreOptionsToolTip" xml:space="preserve">
     <value>Video kodlayıcıya geçmek için ek gelişmiş argümanlar.</value>
   </data>
-  
-  
-  
-  
+  <data name="CannotSwitchEncodingPresetDueToPicker" xml:space="preserve">
+    <value>Kodlama hazır ayarı değiştirilemez, Seçici Penceresinde kilitlenmiştir.</value>
+    <comment>Message to show when the user is blocked from switching an encoding preset due to a Picker setting.</comment>
+  </data>
+  <data name="PadColorTextToolTip" xml:space="preserve">
+    <value>Format: FFFFFF</value>
+  </data>
+  <data name="ChromaSmoothLabel" xml:space="preserve">
+    <value>Pürüzsüz Kroma</value>
+  </data>
+  <data name="ColorspaceLabel" xml:space="preserve">
+    <value>Renk Uzayı:</value>
+  </data>
 </root>

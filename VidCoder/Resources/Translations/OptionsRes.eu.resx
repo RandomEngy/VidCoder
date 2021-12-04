@@ -162,7 +162,9 @@
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Gaitu LibDVDNav (Aldatzeak programa berrabiaraztea behar du. Beharrezkoa angelu anitz sostengatzeko)</value>
   </data>
-  
+  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
+    <value>Ezabatu iturburu agiriak ongi osatutako gaiak garbitu ondoren</value>
+  </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Ohar Berritsukeria:</value>
   </data>
@@ -360,13 +362,26 @@
   <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
     <value>Eragin "Egindakoan" ekintza huts egindako kodeaketa lanak daudenean</value>
   </data>
-  
-  
-  
+  <data name="AutoPauseLowBatteryCheckbox" xml:space="preserve">
+    <value>Pausatu bateria agortzear badago</value>
+  </data>
+  <data name="AutoPauseLowDiskSpaceCheckbox" xml:space="preserve">
+    <value>Pausatu diskako tokia honen azpitik badago:</value>
+  </data>
+  <data name="AutoPauseSectionLabel" xml:space="preserve">
+    <value>Berezgaitasunezko pausaketa</value>
+  </data>
   <data name="FileNameFormatOptions" xml:space="preserve">
     <value>Aukera eskuragarriak: {0}</value>
   </data>
-  
-  
-  
+  <data name="LowDiskSpaceThresholdAutomationName" xml:space="preserve">
+    <value>Diskako toki gutxiren muga gigabyte-tann</value>
+    <comment>Screen reader name for the low disk space threshold number box</comment>
+  </data>
+  <data name="DragDropScanOrderLabel" xml:space="preserve">
+    <value>Arrastatu eta askatu berrantolatzeko:</value>
+  </data>
+  <data name="EncodeRetriesLabel" xml:space="preserve">
+    <value>Kodeaketa bersaiatze zenbatekoa:</value>
+  </data>
 </root>

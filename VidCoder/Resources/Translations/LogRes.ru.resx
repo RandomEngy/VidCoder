@@ -124,13 +124,13 @@
     <value>Общее</value>
   </data>
   <data name="LogVerbosity_Minimized" xml:space="preserve">
-    <value>Минимальный</value>
+    <value>Минимальная</value>
   </data>
   <data name="LogVerbosity_Standard" xml:space="preserve">
-    <value>Обычный</value>
+    <value>Обычная</value>
   </data>
   <data name="LogVerbosity_Extended" xml:space="preserve">
-    <value>Подробный</value>
+    <value>Подробная</value>
   </data>
   <data name="CopyToPastebinButton" xml:space="preserve">
     <value>Копировать ссылку на Pastebin</value>

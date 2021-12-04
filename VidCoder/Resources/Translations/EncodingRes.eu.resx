@@ -825,8 +825,17 @@ Lapsharp konboluzio kernelak erabiliz zorrozten du Laplacian herz iragazkien ant
   <data name="MoreOptionsToolTip" xml:space="preserve">
     <value>Bideo kodeatzaileari pasatzeko argumentu aurreratu gehigarriak.</value>
   </data>
-  
-  
-  
-  
+  <data name="CannotSwitchEncodingPresetDueToPicker" xml:space="preserve">
+    <value>Ezinezkoa kodeaketa berrezarpena aldatzea, Hautatzaile leihoan blokeatu da.</value>
+    <comment>Message to show when the user is blocked from switching an encoding preset due to a Picker setting.</comment>
+  </data>
+  <data name="PadColorTextToolTip" xml:space="preserve">
+    <value>Heuskarria: FFFFFF</value>
+  </data>
+  <data name="ChromaSmoothLabel" xml:space="preserve">
+    <value>Margo lehunketa:</value>
+  </data>
+  <data name="ColorspaceLabel" xml:space="preserve">
+    <value>Margo-tartea:</value>
+  </data>
 </root>

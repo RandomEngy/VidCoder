@@ -153,7 +153,9 @@
   <data name="FileConflictWarning" xml:space="preserve">
     <value>Dosya zaten var {0}. Üzerine yazabilir, otomatik olarak adlandırabilir veya işlemi iptal edebilirsiniz.</value>
   </data>
-  
+  <data name="QueueFileConflictWarning" xml:space="preserve">
+    <value>Dosya zaten var {0}. Üzerine yazabilir, otomatik olarak adlandırabilir veya işlemi iptal edebilirsiniz.</value>
+  </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>Kuyruk Sütunları</value>
   </data>
@@ -252,6 +254,10 @@
   <data name="ExceptionDialogSubTextReported" xml:space="preserve">
     <value>Programın kapanacak ve hata otomatik olarak bildirilecek.</value>
   </data>
-  
-  
+  <data name="DownloadInstallerButton" xml:space="preserve">
+    <value>Karşıdan indir</value>
+  </data>
+  <data name="ReplaceJobButton" xml:space="preserve">
+    <value>İşi değiştir</value>
+  </data>
 </root>

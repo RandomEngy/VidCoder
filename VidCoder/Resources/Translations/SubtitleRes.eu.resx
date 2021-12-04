@@ -153,7 +153,9 @@
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Beste azpidatzi bideak erretako azpidatzietan gainjarriko dira.</value>
   </data>
-  
+  <data name="ForeignAudioScan" xml:space="preserve">
+    <value>Beste hizkuntzako audio bilaketa</value>
+  </data>
   <data name="SubtitleFilePickerText" xml:space="preserve">
     <value>Gehitu azpidatzi agiria</value>
   </data>

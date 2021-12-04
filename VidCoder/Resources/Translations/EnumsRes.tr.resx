@@ -289,22 +289,60 @@
   <data name="PickerTimeRangeMode_Time" xml:space="preserve">
     <value>Zaman Aralığı</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="DeleteSourceFilesMode_DeleteWithConfirmation" xml:space="preserve">
+    <value>Dosyaları sil (onay ile)</value>
+  </data>
+  <data name="DeleteSourceFilesMode_Recycle" xml:space="preserve">
+    <value>Geri Dönüşüm Kutusuna Gönder</value>
+  </data>
+  <data name="WhenFileExists_AutoRename" xml:space="preserve">
+    <value>Otomatik adlandır</value>
+  </data>
+  <data name="WhenFileExists_Overwrite" xml:space="preserve">
+    <value>Üzerine yaz</value>
+  </data>
+  <data name="WhenFileExists_Prompt" xml:space="preserve">
+    <value>Sor</value>
+  </data>
+  <data name="DenoiseTune_medium" xml:space="preserve">
+    <value>Orta</value>
+  </data>
+  <data name="DenoiseTune_none" xml:space="preserve">
+    <value>Hiçbiri</value>
+  </data>
+  <data name="DenoiseTune_small" xml:space="preserve">
+    <value>Küçük</value>
+  </data>
+  <data name="DenoiseTune_tiny" xml:space="preserve">
+    <value>Çok Küçük</value>
+  </data>
+  <data name="DenoiseTune_verywide" xml:space="preserve">
+    <value>Çok geniş</value>
+  </data>
+  <data name="DenoiseTune_wide" xml:space="preserve">
+    <value>Geniş</value>
+  </data>
+  <data name="Denoise_ChromaSmooth" xml:space="preserve">
+    <value>Pürüzsüz Kroma</value>
+  </data>
+  <data name="DragDropOrder_Alphabetical" xml:space="preserve">
+    <value>Alfabetik</value>
+    <comment>Label for the option to order dragged files alphabetically</comment>
+  </data>
+  <data name="DragDropOrder_Selected" xml:space="preserve">
+    <value>Seçilen</value>
+    <comment>Label for the option to order dragged files as they had been selected in File explorer</comment>
+  </data>
+  <data name="SubtitleBurnInSelection_First" xml:space="preserve">
+    <value>İlk</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrack" xml:space="preserve">
+    <value>Yabancı ses parçası</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrackElseFirst" xml:space="preserve">
+    <value>Yabancı ses parçası, yoksa İlk</value>
+  </data>
+  <data name="SubtitleBurnInSelection_None" xml:space="preserve">
+    <value>Hiçbiri</value>
+  </data>
 </root>

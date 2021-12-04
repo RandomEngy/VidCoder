@@ -153,7 +153,9 @@
   <data name="FileConflictWarning" xml:space="preserve">
     <value>Agiria jadanik badago hemen: {0}. Agiria gainidaztea, kodeaketa lanarentzat irteera helburu berri bat berezgaitasunez bilatu edo eragiketa hau ezeztatzea nahi duzu?</value>
   </data>
-  
+  <data name="QueueFileConflictWarning" xml:space="preserve">
+    <value>Lerroko lan bat jadanik badago irteera helburuan hemen: {0}. Lerrokatutako agiria ordeztea, kodeaketa lanarentzat irteera helburu berri bat berezgaitasunez bilatu edo eragiketa hau ezeztatzea nahi duzu?</value>
+  </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>Lerro Zutabeak</value>
   </data>
@@ -252,6 +254,10 @@
   <data name="ExceptionDialogSubTextReported" xml:space="preserve">
     <value>Programak itxi beharra du, baina akatsa berezgaitasunez jakinaraziko da.</value>
   </data>
-  
-  
+  <data name="DownloadInstallerButton" xml:space="preserve">
+    <value>Jeitsi ezartzailea</value>
+  </data>
+  <data name="ReplaceJobButton" xml:space="preserve">
+    <value>Ordeztu lana</value>
+  </data>
 </root>
