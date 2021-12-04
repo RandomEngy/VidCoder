@@ -832,6 +832,10 @@ A lapsharp konvolúciós kernelek használatával élesít, megközelítve a Lap
   <data name="PadColorTextToolTip" xml:space="preserve">
     <value>Formátum: FFFFFF</value>
   </data>
-  
-  
+  <data name="ChromaSmoothLabel" xml:space="preserve">
+    <value>Chromasimítás:</value>
+  </data>
+  <data name="ColorspaceLabel" xml:space="preserve">
+    <value>Színtér:</value>
+  </data>
 </root>

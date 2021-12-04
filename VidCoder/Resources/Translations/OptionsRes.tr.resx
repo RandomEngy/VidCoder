@@ -162,7 +162,9 @@
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>LibDVDNav'u etkinleştir (Değişiklik programın yeniden başlatılmasını gerektirir. Birden fazla açıyı desteklemek için gereklidir)</value>
   </data>
-  
+  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
+    <value>Başarılı tamamlanmış işlerden sonra kaynak dosyaları sil</value>
+  </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Günlük Detayı:</value>
   </data>
@@ -360,13 +362,26 @@
   <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
     <value>Başarısız kodlama işleri olduğunda "Bittiğinde" eylemini tetikleyin</value>
   </data>
-  
-  
-  
+  <data name="AutoPauseLowBatteryCheckbox" xml:space="preserve">
+    <value>Düşük pilde duraklat</value>
+  </data>
+  <data name="AutoPauseLowDiskSpaceCheckbox" xml:space="preserve">
+    <value>Disk alanı altına düştüğünde duraklat:</value>
+  </data>
+  <data name="AutoPauseSectionLabel" xml:space="preserve">
+    <value>Otomatik duraklatma</value>
+  </data>
   <data name="FileNameFormatOptions" xml:space="preserve">
     <value>Kullanılabilir seçenekler: {0}</value>
   </data>
-  
-  
-  
+  <data name="LowDiskSpaceThresholdAutomationName" xml:space="preserve">
+    <value>Gigabayt cinsinden düşük disk alanı eşiği</value>
+    <comment>Screen reader name for the low disk space threshold number box</comment>
+  </data>
+  <data name="DragDropScanOrderLabel" xml:space="preserve">
+    <value>Tarama sırası için sürükle ve bırak:</value>
+  </data>
+  <data name="EncodeRetriesLabel" xml:space="preserve">
+    <value>Kodlama denemelerinin sayısı:</value>
+  </data>
 </root>

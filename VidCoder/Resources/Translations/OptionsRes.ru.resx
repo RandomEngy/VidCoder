@@ -121,7 +121,7 @@
     <value>Общие</value>
   </data>
   <data name="MinimizeToTaskBarRadioButton" xml:space="preserve">
-    <value>Свернуть в панель задач</value>
+    <value>Сворачивать в панель задач</value>
   </data>
   <data name="MinimizeToSystemTrayRadioButton" xml:space="preserve">
     <value>Минимизировать в системный трей</value>
@@ -344,7 +344,7 @@
     <value>Общие</value>
   </data>
   <data name="ThemeLabel" xml:space="preserve">
-    <value>Тема</value>
+    <value>Тема:</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
   <data name="PromptForUpdatesLabel" xml:space="preserve">
@@ -363,7 +363,7 @@
     <value>Действие «Когда сделано» при наличии неудачных заданий кодирования</value>
   </data>
   <data name="AutoPauseLowBatteryCheckbox" xml:space="preserve">
-    <value>Пауза при низком заряде</value>
+    <value>Пауза при низком заряде батареи</value>
   </data>
   <data name="AutoPauseLowDiskSpaceCheckbox" xml:space="preserve">
     <value>Пауза, если места на диске менее:</value>

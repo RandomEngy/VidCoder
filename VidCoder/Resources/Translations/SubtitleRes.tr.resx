@@ -153,7 +153,9 @@
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Diğer altyazı gömülü altyazıyla çakışacaktır.</value>
   </data>
-  
+  <data name="ForeignAudioScan" xml:space="preserve">
+    <value>Yabancı ses tarama</value>
+  </data>
   <data name="SubtitleFilePickerText" xml:space="preserve">
     <value>Altyazı ekle</value>
   </data>

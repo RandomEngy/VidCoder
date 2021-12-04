@@ -437,14 +437,14 @@ namespace VidCoder.ViewModel
 			this.RegisterProfileProperty(nameof(this.CustomDeblock));
 			this.RegisterProfileProperty(nameof(this.DeblockTune));
 
-			this.RegisterProfileProperty(nameof(this.ColorspacePreset));
-			this.RegisterProfileProperty(nameof(this.CustomColorspace), () =>
+			this.RegisterProfileProperty(nameof(this.ColorspacePreset), () =>
 			{
 				if (this.ColorspacePreset == "custom")
 				{
 					this.CustomColorspace = GetDefaultCustomFilterString(hb_filter_ids.HB_FILTER_COLORSPACE);
 				}
 			});
+			this.RegisterProfileProperty(nameof(this.CustomColorspace));
 
 			this.RegisterProfileProperty(nameof(this.Grayscale), () =>
 			{

@@ -153,7 +153,9 @@
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Otras pistas de subtítulos se superpondrán a los subtítulos pegados.</value>
   </data>
-  
+  <data name="ForeignAudioScan" xml:space="preserve">
+    <value>Pista de audio extranjero</value>
+  </data>
   <data name="SubtitleFilePickerText" xml:space="preserve">
     <value>Agregar subtítulo</value>
   </data>

@@ -318,11 +318,27 @@ GNU Baimen Publiko Orokorraren kopia oso bat barneratu da programa honekin bater
   <data name="DefaultLabel" xml:space="preserve">
     <value>Berezkoa:</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
+  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
+    <value>Audio bideak</value>
+  </data>
+  <data name="QueueColumnNameCropping" xml:space="preserve">
+    <value>Mozketa</value>
+  </data>
+  <data name="QueueColumnNameOutputSize" xml:space="preserve">
+    <value>Irteera neurria</value>
+  </data>
+  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
+    <value>Azpidatzi bideak</value>
+  </data>
+  <data name="Manual" xml:space="preserve">
+    <value>Eskuz</value>
+    <comment>Shown when something has been set manually</comment>
+  </data>
+  <data name="FileNoLongerExists" xml:space="preserve">
+    <value>Agiria ez dago jadanik.</value>
+  </data>
+  <data name="MegabytesAbbreviation" xml:space="preserve">
+    <value>MB</value>
+    <comment>Abbreviation for megabytes</comment>
+  </data>
 </root>

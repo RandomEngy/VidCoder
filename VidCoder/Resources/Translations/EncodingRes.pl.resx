@@ -148,9 +148,17 @@ Działa to tylko ze źródłami AC3.</value>
   <data name="Video_QualityTargetToolTip" xml:space="preserve">
     <value>Ustaw żądany współczynnik jakości. Skala używana przez każdy koder wideo jest inny.</value>
   </data>
-  
-  
-  
+  <data name="WebOptimizedToolTip" xml:space="preserve">
+    <value>Zorganizuj plik do lepszego odtwarzania jako pobieranie progresywne.</value>
+  </data>
+  <data name="ProfileToolTip" xml:space="preserve">
+    <value>Ogranicz profil strumienia wyjściowego. Jeśli określisz profil, nadpisuje wszystkie inne ustawienia, więc jeśli go używasz, otrzymasz gwarancję kompatybilnego strumienia.
+
+Powinieneś to ustawić jeśli wiesz, że urządzenie do odtwarzania obsługuje tylko określony profil.</value>
+  </data>
+  <data name="X264TuneToolTip" xml:space="preserve">
+    <value>Dostosuj opcje, aby zoptymalizować je dla treści wejściowych. Jeśli określisz dostrajanie, zmiany zostaną zastosowane po ustawieniu wstępnym, ale przed wszystkimi innymi parametrami.</value>
+  </data>
   <data name="ContainerLabel" xml:space="preserve">
     <value>Kontener:</value>
   </data>
@@ -639,7 +647,9 @@ Działa to tylko ze źródłami AC3.</value>
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
   </data>
-  
+  <data name="InterlaceDetectionLabel" xml:space="preserve">
+    <value>Wykrywanie przeplotu:</value>
+  </data>
   <data name="ModeLabel" xml:space="preserve">
     <value>Tryb:</value>
     <comment>Label for the sizing or padding mode.</comment>
@@ -651,10 +661,19 @@ Działa to tylko ze źródłami AC3.</value>
     <value>Ręcznie</value>
     <comment>Choice for the user to enter all sizing information manually.</comment>
   </data>
-  
-  
-  
-  
+  <data name="UpscaleMaxFormat" xml:space="preserve">
+    <value>Ekskluzywny {0}x max</value>
+    <comment>Label for scaling option to allow upscaling, but only to a particular multiple of the source resolution. {0} is the multiple, e.g. 2, 3 or 4</comment>
+  </data>
+  <data name="ScalingMode_DownscaleOnly" xml:space="preserve">
+    <value>Tylko w małej skali</value>
+  </data>
+  <data name="ScalingMode_Fill" xml:space="preserve">
+    <value>Zwiększenie/zmniejszenie skali do docelowego</value>
+  </data>
+  <data name="ScalingModeLabel" xml:space="preserve">
+    <value>Tryb skalowania:</value>
+  </data>
   <data name="PaddingMode_Fill" xml:space="preserve">
     <value>Wypełnienie</value>
   </data>
@@ -673,21 +692,30 @@ Działa to tylko ze źródłami AC3.</value>
   <data name="PadColorLabel" xml:space="preserve">
     <value>Kolor:</value>
   </data>
-  
+  <data name="AnamorphicToolTip" xml:space="preserve">
+    <value>Przy włączeniu Anamorfii, dozwolone są piksele inne niż kwadratowe. Może to skutkować bardziej efektywnym przechowywaniem, ale nie wszystkie odtwarzacze obsługują.</value>
+  </data>
   <data name="ResolutionLabel" xml:space="preserve">
     <value>Rozdzielczość:</value>
     <comment>Label for a video resolution in pixels.</comment>
   </data>
-  
+  <data name="CustomFilterToolTipFormatPart" xml:space="preserve">
+    <value>Format: key1=value1:key2=value2:...</value>
+    <comment>The "format" portion of the custom filter tooltip. When translating, keep the = and : the same and only replace "key1", "value2", etc.</comment>
+  </data>
   <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
     <value>Klucze:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
-  
+  <data name="PaddingLabel" xml:space="preserve">
+    <value>Wypełnienie</value>
+  </data>
   <data name="AlignAVStartCheckBox" xml:space="preserve">
     <value>Wyrównaj Start A/V</value>
   </data>
-  
+  <data name="AlignAVStartCheckBoxToolTip" xml:space="preserve">
+    <value>Wyrównuje początkowe sygnatury czasowe wszystkich strumieni audio i wideo, wstawiając puste klatki lub upuszczając klatki. Może poprawić synchronizację audio/wideo dla uszkodzonych odtwarzaczy, które nie honorują list edycji MP4.</value>
+  </data>
   <data name="TabHeader_Container" xml:space="preserve">
     <value>Kontener</value>
   </data>
@@ -708,10 +736,32 @@ Działa to tylko ze źródłami AC3.</value>
   <data name="DeblockToolTip" xml:space="preserve">
     <value>Deblock redukuje artefakty blokowe, spowodowane przez niską jakość kompresji wideo.</value>
   </data>
-  
-  
-  
-  
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>Deinterlace usuwa artefakty zazębień ze zdjęcia.
+
+Yadif jest popularnym i szybkim deinterlacerem.
+
+Dekomb przełącza pomiędzy wieloma algorytmami interpolacji dla zapewnienia szybkości i jakości.</value>
+  </data>
+  <data name="DenoiseToolTip" xml:space="preserve">
+    <value>Denoise redukuje lub usuwa szum i ziarno. Może to poprawić wydajność kompresji i stworzyć wideo o wyższej jakości przy mniejszych rozmiarach plików. Zbyt silne ustawienia funkcji Denoise może pogorszyć jakość obrazu, poprzez usunięcie szczegółów.
+
+NLMeans to wysokiej jakości filtr denoise z kosztem do szybkości. Używaj tam, gdzie jakość jest ważniejsza niż szybkość.
+
+HQDN3D jest adaptacyjnym filtrem nisko przepustowym, szybszym niż NLMeans, ale mniej skutecznym w zachowywaniu drobnych szczegółów.</value>
+  </data>
+  <data name="DetelecineToolTip" xml:space="preserve">
+    <value>Ten filtr usuwa artefakty, które są wynikiem telecyningu.
+
+Telecining to proces, który dostosowuje klatkę filmową 24fps do klatek wideo NTSC o częstotliwości 30fps.</value>
+  </data>
+  <data name="SharpenToolTip" xml:space="preserve">
+    <value>Sharpening (wyostrzenie) poprawia wygląd szczegółów, zwłaszcza krawędzi. Zbyt silne ustawienia funkcji Wyostrzenia może pogorszyć jakość obrazu, powodując powstawanie artefaktów pierścieniowych i zwiększając szumy, co może zmniejszyć wydajność kompresji.
+
+Unsharp to filtr maskujący nieostrości ogólnego przeznaczenia. Wyostrza ona obraz poprzez rozmycie, a następnie oblicza różnicę pomiędzy rozmytym obrazem a oryginałem.
+
+Lapsharp wyostrza za pomocą jądera konwolucji przybliżonych do filtrów krawędzi Laplacian, czasami dając lepsze wyniki jakościowe niż maskowanie bez wyostrzania.</value>
+  </data>
   <data name="PresetFolder_Custom" xml:space="preserve">
     <value>Niestandardowe</value>
   </data>
@@ -768,10 +818,23 @@ Działa to tylko ze źródłami AC3.</value>
   <data name="ApplyToQueueButton" xml:space="preserve">
     <value>Dodaj do kolejki</value>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="FullEncoderParameterLabel" xml:space="preserve">
+    <value>Pełna lista parametrów:</value>
+  </data>
+  <data name="MoreOptionsToolTip" xml:space="preserve">
+    <value>Dodatkowe zaawansowane argumenty do przejść do enkodera wideo.</value>
+  </data>
+  <data name="CannotSwitchEncodingPresetDueToPicker" xml:space="preserve">
+    <value>Nie można przełączać ustawienia wstępnego kodowania, został zablokowany w oknie Picker.</value>
+    <comment>Message to show when the user is blocked from switching an encoding preset due to a Picker setting.</comment>
+  </data>
+  <data name="PadColorTextToolTip" xml:space="preserve">
+    <value>Format: FFFF</value>
+  </data>
+  <data name="ChromaSmoothLabel" xml:space="preserve">
+    <value>Wygładzanie chroma:</value>
+  </data>
+  <data name="ColorspaceLabel" xml:space="preserve">
+    <value>Przestrzeń kolorów:</value>
+  </data>
 </root>

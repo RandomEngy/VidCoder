@@ -308,7 +308,7 @@
     <value>Codifica completata</value>
   </data>
   <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
-    <value>VidCoder ha finito di codificare tutti i lavori nella coda.</value>
+    <value>VidCoder ha finito di codificare tutti i lavori presenti nella coda.</value>
   </data>
   <data name="OutputPathNotValidMessage" xml:space="preserve">
     <value>Il percorso di destinazione non è valido.</value>
@@ -422,7 +422,7 @@
     <value>Fr {0}-{1}</value>
   </data>
   <data name="QueueRangeAll" xml:space="preserve">
-    <value>Tutti</value>
+    <value>Tutto</value>
   </data>
   <data name="CouldNotCopyLogError" xml:space="preserve">
     <value>Impossibile copiare il registro: {0} {0} {1}</value>

@@ -289,22 +289,60 @@
   <data name="PickerTimeRangeMode_Time" xml:space="preserve">
     <value>Denbora maila</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="DeleteSourceFilesMode_DeleteWithConfirmation" xml:space="preserve">
+    <value>Ezabatu agiriak (baieztapenarekin)</value>
+  </data>
+  <data name="DeleteSourceFilesMode_Recycle" xml:space="preserve">
+    <value>Bidali Birziklapen-ontzira</value>
+  </data>
+  <data name="WhenFileExists_AutoRename" xml:space="preserve">
+    <value>Berezgaitasunez berrizendatu</value>
+  </data>
+  <data name="WhenFileExists_Overwrite" xml:space="preserve">
+    <value>Gainidatzi</value>
+  </data>
+  <data name="WhenFileExists_Prompt" xml:space="preserve">
+    <value>Galdetu</value>
+  </data>
+  <data name="DenoiseTune_medium" xml:space="preserve">
+    <value>Ertaina</value>
+  </data>
+  <data name="DenoiseTune_none" xml:space="preserve">
+    <value>Ezer ez</value>
+  </data>
+  <data name="DenoiseTune_small" xml:space="preserve">
+    <value>Txikia</value>
+  </data>
+  <data name="DenoiseTune_tiny" xml:space="preserve">
+    <value>Oso txikia</value>
+  </data>
+  <data name="DenoiseTune_verywide" xml:space="preserve">
+    <value>Oso zabala</value>
+  </data>
+  <data name="DenoiseTune_wide" xml:space="preserve">
+    <value>Zabala</value>
+  </data>
+  <data name="Denoise_ChromaSmooth" xml:space="preserve">
+    <value>Margo lehunketa</value>
+  </data>
+  <data name="DragDropOrder_Alphabetical" xml:space="preserve">
+    <value>Alfabetikoa</value>
+    <comment>Label for the option to order dragged files alphabetically</comment>
+  </data>
+  <data name="DragDropOrder_Selected" xml:space="preserve">
+    <value>Hautatua</value>
+    <comment>Label for the option to order dragged files as they had been selected in File explorer</comment>
+  </data>
+  <data name="SubtitleBurnInSelection_First" xml:space="preserve">
+    <value>Lehena</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrack" xml:space="preserve">
+    <value>Beste hizkuntzako audio bidea</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrackElseFirst" xml:space="preserve">
+    <value>Beste hizkuntzako audio bidea, bestela Lehena</value>
+  </data>
+  <data name="SubtitleBurnInSelection_None" xml:space="preserve">
+    <value>Ezer ez</value>
+  </data>
 </root>

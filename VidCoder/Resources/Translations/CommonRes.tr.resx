@@ -318,11 +318,27 @@ GNU Genel Kamu Lisansının tam kopyası bu programla birlikte verilmiştir.</va
   <data name="DefaultLabel" xml:space="preserve">
     <value>Varsayılan:</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
+  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
+    <value>Ses Parçaları</value>
+  </data>
+  <data name="QueueColumnNameCropping" xml:space="preserve">
+    <value>Kırpma</value>
+  </data>
+  <data name="QueueColumnNameOutputSize" xml:space="preserve">
+    <value>Çıktı Boyutu</value>
+  </data>
+  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
+    <value>Altyazı Parçaları</value>
+  </data>
+  <data name="Manual" xml:space="preserve">
+    <value>Elle</value>
+    <comment>Shown when something has been set manually</comment>
+  </data>
+  <data name="FileNoLongerExists" xml:space="preserve">
+    <value>Dosya artık yok.</value>
+  </data>
+  <data name="MegabytesAbbreviation" xml:space="preserve">
+    <value>MB</value>
+    <comment>Abbreviation for megabytes</comment>
+  </data>
 </root>

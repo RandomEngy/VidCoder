@@ -654,26 +654,88 @@
   <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
     <value>Kodlama sonuç listesindeki hatalar nedeniyle kodlamanın tamamı gerçekleştirilmedi.</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="AudioPickerButtonToolTip" xml:space="preserve">
+    <value>Sesleri otomatik seç...</value>
+  </data>
+  <data name="SubtitlePickerButtonToolTip" xml:space="preserve">
+    <value>Altyazıları otomatik seç...</value>
+  </data>
+  <data name="AudioSubtitleTrackColumnHeader" xml:space="preserve">
+    <value>Parça</value>
+    <comment>Column header for the audio or subtitle track summary. This is an an auto-generated summary that includes language, format, etc.</comment>
+  </data>
+  <data name="AudioTrackNameAutomationName" xml:space="preserve">
+    <value>Ses adı</value>
+    <comment>Narrator label for the audio track name text box.</comment>
+  </data>
+  <data name="SubtitleNameAutomationName" xml:space="preserve">
+    <value>Altyazı adı</value>
+    <comment>Narrator label for the subtitle name text box.</comment>
+  </data>
+  <data name="CouldNotRecycleFile" xml:space="preserve">
+    <value>Geri Dönüşüm Kutusu'na gönderilirken hata oluştu.</value>
+  </data>
+  <data name="DestinationAutomaticToolTip" xml:space="preserve">
+    <value>Hedef otomatik ayarlı. Ayarları düzenlemek için tıklatın.</value>
+  </data>
+  <data name="DestinationManualToolTip" xml:space="preserve">
+    <value>Hedef el ile ayarlı. Otomatik'e dönmek için tıklatın.</value>
+  </data>
+  <data name="CompareAgainstOriginal" xml:space="preserve">
+    <value>Orijinalle karşılaştır</value>
+  </data>
+  <data name="CompareEncodedLabel" xml:space="preserve">
+    <value>Kodlanmış</value>
+    <comment>Label for the encoded video when comparing original vs encoded</comment>
+  </data>
+  <data name="CompareOriginalLabel" xml:space="preserve">
+    <value>Orijinal</value>
+    <comment>Label for the original video when comparing original vs encoded</comment>
+  </data>
+  <data name="CompareWindowHelpText" xml:space="preserve">
+    <value>Kodlanmış sürümü göstermek için tıklayın veya CTRL'yi basılı tutun.</value>
+  </data>
+  <data name="CompareWindowTitleFormat" xml:space="preserve">
+    <value>Video Karşılaştır: {0} - {1}</value>
+    <comment>Title for the Video compare window.
+{0} is a string indicating if it's original or encoded.
+{1} is the file name, e.g. MyFile.mkv</comment>
+  </data>
+  <data name="MuteAutomationName" xml:space="preserve">
+    <value>Sustur</value>
+    <comment>Text for screen readers for the mute button on video playback</comment>
+  </data>
+  <data name="UnmuteAutomationName" xml:space="preserve">
+    <value>Sesi Aç</value>
+    <comment>Text for screen readers for the unmute button on video playback</comment>
+  </data>
+  <data name="AutoPauseLowBattery" xml:space="preserve">
+    <value>Düşük pil nedeniyle otomatik duraklatma.</value>
+  </data>
+  <data name="AutoPauseLowDiskSpace" xml:space="preserve">
+    <value>{0}GB'nin altındaki boş disk alanı nedeniyle otomatik duraklatma.</value>
+    <comment>{0} is the disk space threshold for auto-pause in GB</comment>
+  </data>
+  <data name="AutoPauseProcessDetected" xml:space="preserve">
+    <value>Otomatik duraklatma, işlem algılandı: {0}</value>
+    <comment>{0} is the name of the process we were waiting for to pause</comment>
+  </data>
+  <data name="AutoPauseResumeBattery" xml:space="preserve">
+    <value>Otomatik devam etme, Şarja bağlandı.</value>
+  </data>
+  <data name="AutoPauseResumeDiskSpace" xml:space="preserve">
+    <value>Otomatik devam etme, disk boş alana sahip.</value>
+  </data>
+  <data name="AutoPauseResumeProcess" xml:space="preserve">
+    <value>Otomatik devam etme, işlemler gitti.</value>
+  </data>
+  <data name="Win7DeprecationWarning" xml:space="preserve">
+    <value>VidCoder artık Windows 7 veya 8'de desteklenmiyor.
+
+VidCoder'ı kullanmaya devam edebilirsiniz. Bazı özellikler işlevsel değil ve bilinmeyen başka sorunlar da olabilir. Bu sorunlar için destek kullanılamaz.
+
+v5, Windows 7/8 için test edilen son sürümdü.
+
+Bu uyarı yalnızca iki kez görüntülenir.</value>
+  </data>
 </root>
