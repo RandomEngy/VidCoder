@@ -841,7 +841,7 @@ namespace VidCoder.ViewModel
 					return this.tuneTempOverride;
 				}
 
-				return tune;
+				return this.tune;
 			}
 
 			set
@@ -1130,6 +1130,7 @@ namespace VidCoder.ViewModel
 
 				this.RaisePropertyChanged(nameof(this.Tune));
 				this.tuneTempOverride = null;
+				this.ReadTuneListFromProfile();
 				this.RaisePropertyChanged(nameof(this.Tune));
 			}
 
