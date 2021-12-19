@@ -4,8 +4,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace VidCoder
 {
@@ -92,34 +90,38 @@ namespace VidCoder
 				return;
 			}
 
-			Regex regex = new Regex(@"^hb\.(?<processId>\d+)$");
 
 			foreach (DirectoryInfo handBrakeTempDirectory in handBrakeTempDirectories)
 			{
-				Match match = regex.Match(handBrakeTempDirectory.Name);
-				if (match.Success)
+				bool deleteFolder = false;
+				try
 				{
-					string processIdString = match.Groups["processId"].Captures[0].Value;
+					string processIdString = handBrakeTempDirectory.Name.Substring(3);
+					var process = Process.GetProcessById(int.Parse(processIdString, CultureInfo.InvariantCulture));
+					if (process.HasExited)
+					{
+						deleteFolder = true;
+					}
+				}
+				catch (ArgumentException)
+				{
+					// If there is no process with that ID running anymore, attempt cleanup on the temp files.
+					deleteFolder = true;
+				}
+				catch (Exception)
+				{
+					// Do not attempt cleanup.
+				}
+
+				if (deleteFolder)
+				{
 					try
 					{
-						var process = Process.GetProcessById(int.Parse(processIdString, CultureInfo.InvariantCulture));
-					}
-					catch (ArgumentException)
-					{
-						// If there is no process with that ID running anymore, attempt cleanup on the temp files.
-
-						try
-						{
-							FileUtilities.DeleteDirectory(handBrakeTempDirectory.FullName);
-						}
-						catch (Exception)
-						{
-							// If cleanup fails, will be attempted next time.
-						}
+						FileUtilities.DeleteDirectory(handBrakeTempDirectory.FullName);
 					}
 					catch (Exception)
 					{
-						// Do not attempt cleanup.
+						// If cleanup fails, will be attempted next time.
 					}
 				}
 			}
