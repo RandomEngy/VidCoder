@@ -107,6 +107,7 @@ namespace VidCoder.ViewModel
 				this.MainViewModel.UpdateSourceSubtitleBoxes(this);
 				this.MainViewModel.UpdateSubtitleWarningVisibility();
 				this.MainViewModel.RefreshSubtitleSummary();
+				this.UpdateButtonVisiblity();
 			}
 		}
 
@@ -263,7 +264,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return !this.MainViewModel.HasMultipleSourceSubtitleTracks(this.TrackNumber);
+				return !this.MainViewModel.HasMultipleSourceSubtitleTracks(this.TrackNumber) && this.Selected;
 			}
 		}
 
