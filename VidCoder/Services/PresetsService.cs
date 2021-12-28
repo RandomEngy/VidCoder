@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.Interfaces.Model.Encoders;
 using HandBrake.Interop.Interop.Json.Presets;
 using Microsoft.AnyContainer;
 using ReactiveUI;
@@ -87,6 +88,13 @@ namespace VidCoder.Services
 			this.customPresetFolder = new PresetFolderViewModel(this, !this.collapsedBuiltInFolders.Contains(CustomFolderKey), isBuiltIn: false, id: 0) { Name = EncodingRes.PresetFolder_Custom };
 			this.PopulateCustomFolder(this.customPresetFolder);
 
+			// Prep a hashset of all valid encoders (will not include unsupported hardware encoders)
+			var validEncoders = new HashSet<string>();
+			foreach (HBVideoEncoder encoder in HandBrakeEncoderHelpers.VideoEncoders)
+			{
+				validEncoders.Add(encoder.ShortName);
+			}
+
 			// Populate built-in folder from HandBrake presets
 			IList<HBPresetCategory> handBrakePresets = HandBrakePresetService.GetBuiltInPresets();
 			this.builtInFolder = new PresetFolderViewModel(this, !this.collapsedBuiltInFolders.Contains(BuiltInFolderKey), isBuiltIn: true) { Name = EncodingRes.PresetFolder_BuiltIn };
@@ -101,16 +109,19 @@ namespace VidCoder.Services
 
 				foreach (HBPreset handbrakePreset in handbrakePresetCategory.ChildrenArray)
 				{
-					if (handbrakePreset.Default)
+					if (validEncoders.Contains(handbrakePreset.VideoEncoder))
 					{
-						defaultPresetIndex = this.AllPresets.Count;
+						if (handbrakePreset.Default)
+						{
+							defaultPresetIndex = this.AllPresets.Count;
+						}
+
+						Preset builtInPreset = PresetConverter.ConvertHandBrakePresetToVC(handbrakePreset);
+						PresetViewModel builtInPresetViewModel = new PresetViewModel(builtInPreset);
+
+						this.AllPresets.Add(builtInPresetViewModel);
+						builtInSubfolder.AddItem(builtInPresetViewModel);
 					}
-
-					Preset builtInPreset = PresetConverter.ConvertHandBrakePresetToVC(handbrakePreset);
-					PresetViewModel builtInPresetViewModel = new PresetViewModel(builtInPreset);
-
-					this.AllPresets.Add(builtInPresetViewModel);
-					builtInSubfolder.AddItem(builtInPresetViewModel);
 				}
 			}
 
