@@ -2138,11 +2138,52 @@ namespace VidCoder.Services
 						}
 					}
 
+					this.EncodeQueue.Remove(finishedJobViewModel);
+
+					addedResult = new EncodeResultViewModel(
+						new EncodeResult
+						{
+							Destination = finalOutputPath,
+							Status = status,
+							EncodeTime = finishedJobViewModel.EncodeTime,
+							LogPath = encodeLogger.LogPath,
+							SizeBytes = outputFileLength,
+						},
+						finishedJobViewModel);
+
+					// Before we delete the source file we need to set creation time
+					if (status == EncodeResultStatus.Succeeded && !FileUtilities.IsDirectory(finishedJobViewModel.Job.SourcePath))
+					{
+						if (Config.PreserveModifyTimeFiles)
+						{
+							try
+							{
+								UpdateFileTimes(finishedJobViewModel, encodeLogger, finishedJobViewModel.Job.PartOutputPath);
+							}
+							catch (Exception exception)
+							{
+								encodeLogger.LogError("Could not set create/modify dates on file: " + exception);
+							}
+						}
+					}
+
+					// Delete source files if successful and configured to do so immediately. This way if the destination was the same as source we can clear the way for swapping in the newly encoded file.
+					// This needs to run after removing from the encode queue, otherwise the logic will bail when seeing the finished job's output path as part of the encode queue.
+					var picker = this.pickersService.SelectedPicker.Picker;
+					if (status == EncodeResultStatus.Succeeded && picker.SourceFileRemoval != SourceFileRemoval.Disabled && picker.SourceFileRemovalTiming == SourceFileRemovalTiming.Immediately)
+					{
+						List<string> deletionCandidates = this.GetRemovalCandidates(new List<EncodeResultViewModel> { addedResult });
+						if (RemoveSourceFiles(deletionCandidates, picker, encodeLogger) > 0)
+						{
+							addedResult.SourceFileExists = false;
+						}
+					}
+
 					string failedFilePath = null;
 
 					if (status == EncodeResultStatus.Succeeded && finishedJobViewModel.Job.PartOutputPath != null)
 					{
-						// Rename from in progress path to final path
+						// Rename from in progress path to final path. Run after deleting source file, in case we are doing an in-place swap.
 						try
 						{
 							if (File.Exists(finalOutputPath))
@@ -2164,32 +2205,8 @@ namespace VidCoder.Services
 						failedFilePath = TryHandleFailedFile(directOutputFileInfo, encodeLogger, "failed", finalOutputPath);
 					}
 
-					if (status == EncodeResultStatus.Succeeded && !FileUtilities.IsDirectory(finishedJobViewModel.Job.SourcePath))
-					{
-						if (Config.PreserveModifyTimeFiles)
-						{
-							try
-							{
-								UpdateFileTimes(finishedJobViewModel, encodeLogger, finalOutputPath);
-							}
-							catch (Exception exception)
-							{
-								encodeLogger.LogError("Could not set create/modify dates on file: " + exception);
-							}
-						}
-					}
+					addedResult.EncodeResult.FailedFilePath = failedFilePath;
 
-					addedResult = new EncodeResultViewModel(
-						new EncodeResult
-						{
-							Destination = finalOutputPath,
-							FailedFilePath = failedFilePath,
-							Status = status,
-							EncodeTime = finishedJobViewModel.EncodeTime,
-							LogPath = encodeLogger.LogPath,
-							SizeBytes = outputFileLength
-						},
-						finishedJobViewModel);
 					this.completedJobs.Add(addedResult);
 
 					if (status != EncodeResultStatus.Succeeded)
@@ -2197,10 +2214,7 @@ namespace VidCoder.Services
 						this.HasFailedItems = true;
 					}
 
-					this.EncodeQueue.Remove(finishedJobViewModel);
-
 					// Run post-encode job
-					var picker = this.pickersService.SelectedPicker.Picker;
 					if (status == EncodeResultStatus.Succeeded)
 					{
 						if (picker.PostEncodeActionEnabled && !string.IsNullOrWhiteSpace(picker.PostEncodeExecutable))
@@ -2220,15 +2234,6 @@ namespace VidCoder.Services
 							catch (Exception exception)
 							{
 								encodeLogger.LogError($"Could not start post-encode action. Executable: {picker.PostEncodeExecutable} , Arguments: {arguments}." + Environment.NewLine + exception);
-							}
-						}
-
-						if (picker.SourceFileRemoval != SourceFileRemoval.Disabled && picker.SourceFileRemovalTiming == SourceFileRemovalTiming.Immediately)
-						{
-							List<string> deletionCandidates = this.GetRemovalCandidates(new List<EncodeResultViewModel> { addedResult });
-							if (RemoveSourceFiles(deletionCandidates, picker, encodeLogger) > 0)
-							{
-								addedResult.SourceFileExists = false;
 							}
 						}
 					}
@@ -2396,10 +2401,16 @@ namespace VidCoder.Services
 			});
 		}
 
-		private static void UpdateFileTimes(EncodeJobViewModel finishedJobViewModel, IAppLogger encodeLogger, string finalOutputPath)
+		private static void UpdateFileTimes(EncodeJobViewModel finishedJobViewModel, IAppLogger encodeLogger, string outputPath)
 		{
+			if (outputPath == null)
+			{
+				// Only would happen with very old queue items. Will abort if that's the case.
+				return;
+			}
+
 			var inputShellFile = ShellFile.FromFilePath(finishedJobViewModel.Job.SourcePath);
-			var outputShellFile = ShellFile.FromFilePath(finalOutputPath);
+			var outputShellFile = ShellFile.FromFilePath(outputPath);
 
 			try
 			{
@@ -2414,10 +2425,10 @@ namespace VidCoder.Services
 				encodeLogger.LogError("Could not set encoded date on file: " + exception);
 			}
 
-			File.SetCreationTimeUtc(finalOutputPath, inputShellFile.Properties.System.DateCreated.Value.Value);
+			File.SetCreationTimeUtc(outputPath, inputShellFile.Properties.System.DateCreated.Value.Value);
 
 			// Set "last write" time last so it isn't reset by another property edit.
-			File.SetLastWriteTimeUtc(finalOutputPath, inputShellFile.Properties.System.DateModified.Value.Value);
+			File.SetLastWriteTimeUtc(outputPath, inputShellFile.Properties.System.DateModified.Value.Value);
 
 			// Writing Created/Modified time does not work via the ShellFile API, otherwise we would use this approach to set them all at once.
 			//ShellPropertyWriter propertyWriter = outputShellFile.Properties.GetPropertyWriter();
