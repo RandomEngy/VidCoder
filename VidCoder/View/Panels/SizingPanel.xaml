@@ -79,33 +79,26 @@
 			</StackPanel>
 
 			<!--  Cropping section  -->
-			<Grid Style="{StaticResource SizingSectionStyle}">
+			<StackPanel Orientation="Vertical" Style="{StaticResource SizingSectionStyle}">
 				<TextBlock
 					Name="croppingLabel"
 					Margin="0 0 0 0"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Top"
 					Style="{StaticResource SectionHeader}"
 					Text="{x:Static res:EncodingRes.CroppingLabel}" />
 
 				<ComboBox
-					Margin="0 20 0 0"
-					VerticalAlignment="Top"
+					Margin="0 6 0 0"
 					AutomationProperties.LabeledBy="{Binding ElementName=croppingLabel}"
 					DisplayMemberPath="Display"
 					ItemsSource="{Binding CroppingTypeChoices}"
 					SelectedValue="{Binding CroppingType}"
 					SelectedValuePath="Value" />
 
-				<Grid
-					Width="121"
-					Margin="0 25 0 0"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Top">
+				<Grid Width="121" Margin="0 6 0 0">
 					<controls:NumberBox
 						Width="45"
 						Height="23"
-						Margin="0 28 0 0"
+						Margin="0 0 0 0"
 						HorizontalAlignment="Center"
 						VerticalAlignment="Top"
 						AllowEmpty="False"
@@ -120,7 +113,7 @@
 					<controls:NumberBox
 						Width="45"
 						Height="23"
-						Margin="0 56 0 0"
+						Margin="0 28 0 0"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Top"
 						AllowEmpty="False"
@@ -135,7 +128,7 @@
 					<controls:NumberBox
 						Width="45"
 						Height="22.96"
-						Margin="74 56 0 0"
+						Margin="74 28 0 0"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Top"
 						AllowEmpty="False"
@@ -150,7 +143,7 @@
 					<controls:NumberBox
 						Width="45"
 						Height="23"
-						Margin="0 82 0 0"
+						Margin="0 54 0 0"
 						HorizontalAlignment="Center"
 						VerticalAlignment="Top"
 						AllowEmpty="False"
@@ -162,7 +155,7 @@
 						Number="{Binding CropBottom,
 						                 Mode=TwoWay}" />
 				</Grid>
-			</Grid>
+			</StackPanel>
 
 			<!--  Sizing section  -->
 			<StackPanel
