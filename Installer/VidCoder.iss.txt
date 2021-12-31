@@ -75,9 +75,9 @@ Type: filesandordirs; Name: "{userappdata}\%folderName%\Updates"
 Type: filesandordirs; Name: "{localappdata}\%folderName%"
 
 [CustomMessages]
-IDP_DownloadFailed=Download of .NET 5 failed. .NET 5 Desktop runtime is required to run VidCoder.
+IDP_DownloadFailed=Download of .NET 6 failed. .NET 6 Desktop runtime is required to run VidCoder.
 IDP_RetryCancel=Click 'Retry' to try downloading the files again, or click 'Cancel' to terminate setup.
-InstallingDotNetRuntime=Installing .NET 5 Desktop Runtime. This might take a few minutes...
+InstallingDotNetRuntime=Installing .NET 6 Desktop Runtime. This might take a few minutes...
 DotNetRuntimeFailedToLaunch=Failed to launch .NET Runtime Installer with error "%1". Please fix the error then run this installer again.
 DotNetRuntimeFailed1602=.NET Runtime installation was cancelled. This installation can continue, but be aware that this application may not run unless the .NET Runtime installation is completed successfully.
 DotNetRuntimeFailed1603=A fatal error occurred while installing the .NET Runtime. Please fix the error, then run the installer again.
@@ -146,8 +146,8 @@ var
 begin
   Result := True;
 
-  minimumVersion := '5.0.0';
-  maximumExclusiveVersion := '5.1.0';
+  minimumVersion := '6.0.0';
+  maximumExclusiveVersion := '6.1.0';
   registryKey := 'SOFTWARE\WOW6432Node\dotnet\Setup\InstalledVersions\x64\sharedfx\Microsoft.WindowsDesktop.App';
   if RegGetValueNames(HKLM, registryKey, runtimes) then
   begin
@@ -184,7 +184,7 @@ procedure InitializeWizard;
 begin
   if NetRuntimeIsMissing() then
   begin
-    idpAddFile('http://go.microsoft.com/fwlink/?linkid=2155258', ExpandConstant('{tmp}\NetRuntimeInstaller.exe'));
+    idpAddFile('https://download.visualstudio.microsoft.com/download/pr/a865ccae-2219-4184-bcd6-0178dc580589/ba452d37e8396b7a49a9adc0e1a07e87/windowsdesktop-runtime-6.0.0-win-x64.exe', ExpandConstant('{tmp}\NetRuntimeInstaller.exe'));
     idpDownloadAfter(wpReady);
   end;
 end;
