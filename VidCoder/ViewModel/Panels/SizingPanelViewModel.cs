@@ -36,6 +36,13 @@ namespace VidCoder.ViewModel
 				new RotationViewModel { Rotation = VCPictureRotation.Clockwise180, Display = EncodingRes.Rotation_180, Image = "/Icons/rotate_180.png" }
 			};
 
+			this.CroppingTypeChoices = new List<ComboChoice<VCCroppingType>>
+			{
+				new ComboChoice<VCCroppingType>(VCCroppingType.Automatic, CommonRes.Automatic),
+				new ComboChoice<VCCroppingType>(VCCroppingType.None, CommonRes.None),
+				new ComboChoice<VCCroppingType>(VCCroppingType.Custom, CommonRes.Custom),
+			};
+
 			this.SizingModeChoices = new List<ComboChoice<VCSizingMode>>
 			{
 				new ComboChoice<VCSizingMode>(VCSizingMode.Automatic, CommonRes.Automatic),
@@ -617,6 +624,8 @@ namespace VidCoder.ViewModel
 			get { return this.Profile.PixelAspectY; }
 			set { this.UpdateProfileProperty(nameof(this.Profile.PixelAspectY), value); }
 		}
+
+		public List<ComboChoice<VCCroppingType>> CroppingTypeChoices { get; }
 
 		public VCCroppingType CroppingType
 		{

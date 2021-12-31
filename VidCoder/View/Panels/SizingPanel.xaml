@@ -9,7 +9,9 @@
 	xmlns:local="clr-namespace:VidCoder"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:res="clr-namespace:VidCoder.Resources"
+	xmlns:viewmodel="clr-namespace:VidCoder.ViewModel"
 	xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+	d:DataContext="{d:DesignInstance viewmodel:SizingPanelViewModel}"
 	d:DesignHeight="500"
 	d:DesignWidth="800"
 	mc:Ignorable="d">
@@ -79,45 +81,25 @@
 			<!--  Cropping section  -->
 			<Grid Style="{StaticResource SizingSectionStyle}">
 				<TextBlock
+					Name="croppingLabel"
 					Margin="0 0 0 0"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Top"
 					Style="{StaticResource SectionHeader}"
 					Text="{x:Static res:EncodingRes.CroppingLabel}" />
 
-				<RadioButton
-					Margin="0 27 0 0"
-					HorizontalAlignment="Left"
+				<ComboBox
+					Margin="0 20 0 0"
 					VerticalAlignment="Top"
-					AutomationProperties.HelpText="{x:Static res:EncodingRes.CroppingLabel}"
-					Content="{x:Static res:CommonRes.Automatic}"
-					GroupName="cropping1"
-					IsChecked="{Binding CroppingType,
-					                    Converter={StaticResource EnumBoolConverter},
-					                    ConverterParameter={x:Static commonModel:VCCroppingType.Automatic}}" />
-				<RadioButton
-					Margin="0 49 0 0"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Top"
-					AutomationProperties.HelpText="{x:Static res:EncodingRes.CroppingLabel}"
-					Content="{x:Static res:CommonRes.None}"
-					GroupName="cropping2"
-					IsChecked="{Binding CroppingType,
-					                    Converter={StaticResource EnumBoolConverter},
-					                    ConverterParameter={x:Static commonModel:VCCroppingType.None}}" />
-				<RadioButton
-					Margin="0 71 0 0"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Top"
-					AutomationProperties.HelpText="{x:Static res:EncodingRes.CroppingLabel}"
-					Content="{x:Static res:CommonRes.Custom}"
-					GroupName="cropping3"
-					IsChecked="{Binding CroppingType,
-					                    Converter={StaticResource EnumBoolConverter},
-					                    ConverterParameter={x:Static commonModel:VCCroppingType.Custom}}" />
+					AutomationProperties.LabeledBy="{Binding ElementName=croppingLabel}"
+					DisplayMemberPath="Display"
+					ItemsSource="{Binding CroppingTypeChoices}"
+					SelectedValue="{Binding CroppingType}"
+					SelectedValuePath="Value" />
+
 				<Grid
 					Width="121"
-					Margin="0 70 0 0"
+					Margin="0 25 0 0"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Top">
 					<controls:NumberBox
