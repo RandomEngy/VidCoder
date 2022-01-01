@@ -245,11 +245,13 @@ namespace VidCoder.ViewModel
 
 			// Auto-fill the cropping properties when type is Auto or None
 			this.WhenAnyValue(
-				x => x.CroppingType, 
+				x => x.CroppingType,
+				x => x.CroppingMinimum,
+				x => x.CroppingConstrainToOneAxis,
 				x => x.MainViewModel.SelectedTitle, 
-				(croppingType, selectedTitle) =>
+				(croppingType, croppingMinimum, constrainToOneAxis, selectedTitle) =>
 				{
-					return new { croppingType, selectedTitle };
+					return new { croppingType, croppingMinimum, constrainToOneAxis, selectedTitle };
 				})
 				.Subscribe(x =>
 				{
@@ -424,6 +426,8 @@ namespace VidCoder.ViewModel
 			this.RegisterProfileProperty(nameof(this.Profile.Height), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.Profile.PixelAspectX), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.Profile.PixelAspectY), this.RefreshOutputSize);
+			this.RegisterProfileProperty(nameof(this.Profile.CroppingMinimum), this.RefreshOutputSize);
+			this.RegisterProfileProperty(nameof(this.Profile.CroppingConstrainToOneAxis), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.Profile.CroppingType), () =>
 			{
 				// When changed to Custom, write the currently selected Crop values to the profile so they stay in sync
@@ -523,8 +527,8 @@ namespace VidCoder.ViewModel
 
 		public VCSizingMode SizingMode
 		{
-			get { return this.Profile.SizingMode; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.SizingMode), value);}
+			get => this.Profile.SizingMode;
+			set => this.UpdateProfileProperty(nameof(this.Profile.SizingMode), value);
 		}
 
 		private ObservableAsPropertyHelper<string> widthLabel;
@@ -535,14 +539,14 @@ namespace VidCoder.ViewModel
 
 		public int Width
 		{
-			get { return this.Profile.Width; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.Width), value); }
+			get => this.Profile.Width;
+			set => this.UpdateProfileProperty(nameof(this.Profile.Width), value);
 		}
 
 		public int Height
 		{
-			get { return this.Profile.Height; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.Height), value); }
+			get => this.Profile.Height;
+			set => this.UpdateProfileProperty(nameof(this.Profile.Height), value);
 		}
 
 		private ObservableAsPropertyHelper<bool> allowEmptyResolution;
@@ -550,24 +554,24 @@ namespace VidCoder.ViewModel
 
 		public bool UseAnamorphic
 		{
-			get { return this.Profile.UseAnamorphic; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.UseAnamorphic), value); }
+			get => this.Profile.UseAnamorphic;
+			set => this.UpdateProfileProperty(nameof(this.Profile.UseAnamorphic), value);
 		}
 
 		public List<ComboChoice<VCScalingMode>> ScalingModeChoices { get; }
 
 		public VCScalingMode ScalingMode
 		{
-			get { return this.Profile.ScalingMode; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.ScalingMode), value); }
+			get => this.Profile.ScalingMode;
+			set => this.UpdateProfileProperty(nameof(this.Profile.ScalingMode), value);
 		}
 
 		public List<ComboChoice<VCPaddingMode>> PaddingModeChoices { get; }
 
 		public VCPaddingMode PaddingMode
 		{
-			get { return this.Profile.PaddingMode; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.PaddingMode), value); }
+			get => this.Profile.PaddingMode;
+			set => this.UpdateProfileProperty(nameof(this.Profile.PaddingMode), value);
 		}
 
 		private ObservableAsPropertyHelper<bool> paddingUIEnabled;
@@ -576,35 +580,35 @@ namespace VidCoder.ViewModel
 		private int padTop;
 		public int PadTop
 		{
-			get { return this.padTop; }
-			set { this.RaiseAndSetIfChanged(ref this.padTop, value); }
+			get => this.padTop;
+			set => this.RaiseAndSetIfChanged(ref this.padTop, value);
 		}
 
 		private int padBottom;
 		public int PadBottom
 		{
-			get { return this.padBottom; }
-			set { this.RaiseAndSetIfChanged(ref this.padBottom, value); }
+			get => this.padBottom;
+			set => this.RaiseAndSetIfChanged(ref this.padBottom, value);
 		}
 
 		private int padLeft;
 		public int PadLeft
 		{
-			get { return this.padLeft; }
-			set { this.RaiseAndSetIfChanged(ref this.padLeft, value); }
+			get => this.padLeft;
+			set => this.RaiseAndSetIfChanged(ref this.padLeft, value);
 		}
 
 		private int padRight;
 		public int PadRight
 		{
-			get { return this.padRight; }
-			set { this.RaiseAndSetIfChanged(ref this.padRight, value); }
+			get => this.padRight;
+			set => this.RaiseAndSetIfChanged(ref this.padRight, value);
 		}
 
 		public string PadColor
 		{
-			get { return this.Profile.PadColor; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.PadColor), value); }
+			get => this.Profile.PadColor;
+			set => this.UpdateProfileProperty(nameof(this.Profile.PadColor), value);
 		}
 
 		private ObservableAsPropertyHelper<Brush> padBrush;
@@ -615,22 +619,34 @@ namespace VidCoder.ViewModel
 
 		public int PixelAspectX
 		{
-			get { return this.Profile.PixelAspectX; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.PixelAspectX), value); }
+			get => this.Profile.PixelAspectX;
+			set => this.UpdateProfileProperty(nameof(this.Profile.PixelAspectX), value);
 		}
 
 		public int PixelAspectY
 		{
-			get { return this.Profile.PixelAspectY; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.PixelAspectY), value); }
+			get => this.Profile.PixelAspectY;
+			set => this.UpdateProfileProperty(nameof(this.Profile.PixelAspectY), value);
 		}
 
 		public List<ComboChoice<VCCroppingType>> CroppingTypeChoices { get; }
 
 		public VCCroppingType CroppingType
 		{
-			get { return this.Profile.CroppingType; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.CroppingType), value); }
+			get => this.Profile.CroppingType;
+			set => this.UpdateProfileProperty(nameof(this.Profile.CroppingType), value);
+		}
+
+		public int CroppingMinimum
+		{
+			get => this.Profile.CroppingMinimum;
+			set => this.UpdateProfileProperty(nameof(this.Profile.CroppingMinimum), value);
+		}
+
+		public bool CroppingConstrainToOneAxis
+		{
+			get => this.Profile.CroppingConstrainToOneAxis;
+			set => this.UpdateProfileProperty(nameof(this.Profile.CroppingConstrainToOneAxis), value);
 		}
 
 		private ObservableAsPropertyHelper<bool> croppingUIEnabled;
@@ -639,49 +655,49 @@ namespace VidCoder.ViewModel
 		private int cropTop;
 		public int CropTop
 		{
-			get { return this.cropTop; }
-			set { this.RaiseAndSetIfChanged(ref this.cropTop, value); }
+			get => this.cropTop;
+			set => this.RaiseAndSetIfChanged(ref this.cropTop, value);
 		}
 
 		private int cropBottom;
 		public int CropBottom
 		{
-			get { return this.cropBottom; }
-			set { this.RaiseAndSetIfChanged(ref this.cropBottom, value); }
+			get => this.cropBottom;
+			set => this.RaiseAndSetIfChanged(ref this.cropBottom, value);
 		}
 
 		private int cropLeft;
 		public int CropLeft
 		{
-			get { return this.cropLeft; }
-			set { this.RaiseAndSetIfChanged(ref this.cropLeft, value); }
+			get => this.cropLeft;
+			set => this.RaiseAndSetIfChanged(ref this.cropLeft, value);
 		}
 
 		private int cropRight;
 		public int CropRight
 		{
-			get { return this.cropRight; }
-			set { this.RaiseAndSetIfChanged(ref this.cropRight, value); }
+			get => this.cropRight;
+			set => this.RaiseAndSetIfChanged(ref this.cropRight, value);
 		}
 
 		public List<RotationViewModel> RotationChoices { get; }
 
 		public VCPictureRotation Rotation
 		{
-			get { return this.Profile.Rotation; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.Rotation), value); }
+			get => this.Profile.Rotation;
+			set => this.UpdateProfileProperty(nameof(this.Profile.Rotation), value);
 		}
 
 		public bool FlipHorizontal
 		{
-			get { return this.Profile.FlipHorizontal; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.FlipHorizontal), value); }
+			get => this.Profile.FlipHorizontal;
+			set => this.UpdateProfileProperty(nameof(this.Profile.FlipHorizontal), value);
 		}
 
 		public bool FlipVertical
 		{
-			get { return this.Profile.FlipVertical; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.FlipVertical), value); }
+			get => this.Profile.FlipVertical;
+			set => this.UpdateProfileProperty(nameof(this.Profile.FlipVertical), value);
 		}
 
 		private static int GetNearestValue(int number, int modulus)
@@ -722,7 +738,7 @@ namespace VidCoder.ViewModel
 			}
 			else
 			{
-				VCCropping autoCropping = JsonEncodeFactory.GetAutomaticCropping(this.Rotation, this.FlipHorizontal, this.FlipVertical, this.MainViewModel.SelectedTitle.Title);
+				VCCropping autoCropping = JsonEncodeFactory.GetAutomaticCropping(this.Rotation, this.FlipHorizontal, this.FlipVertical, this.CroppingMinimum, this.CroppingConstrainToOneAxis, this.MainViewModel.SelectedTitle.Title);
 
 				this.CropTop = autoCropping.Top;
 				this.CropBottom = autoCropping.Bottom;

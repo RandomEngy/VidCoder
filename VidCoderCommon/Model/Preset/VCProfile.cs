@@ -43,6 +43,10 @@ namespace VidCoderCommon.Model
 
 		public VCCroppingType CroppingType { get; set; }
 
+		public int CroppingMinimum { get; set; } = 2;
+
+		public bool CroppingConstrainToOneAxis { get; set; }
+
 		public VCCropping Cropping { get; set; }
 
 		private VCPadding padding;
