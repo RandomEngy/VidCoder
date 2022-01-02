@@ -61,6 +61,35 @@ namespace VidCoder
 				this.DispatcherUnhandledException += this.OnDispatcherUnhandledException;
 			}
 
+			OperatingSystem OS = Environment.OSVersion;
+			if (OS.Version.Major <= 5)
+			{
+				MessageBox.Show(MiscRes.UnsupportedOSError, MiscRes.NoticeMessageTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+				this.Shutdown();
+				return;
+			}
+
+#if PSEUDOLOCALIZER_ENABLED
+			Delay.PseudoLocalizer.Enable(typeof(CommonRes));
+			Delay.PseudoLocalizer.Enable(typeof(MainRes));
+			Delay.PseudoLocalizer.Enable(typeof(EnumsRes));
+			Delay.PseudoLocalizer.Enable(typeof(EncodingRes));
+			Delay.PseudoLocalizer.Enable(typeof(OptionsRes));
+			Delay.PseudoLocalizer.Enable(typeof(PreviewRes));
+			Delay.PseudoLocalizer.Enable(typeof(LogRes));
+			Delay.PseudoLocalizer.Enable(typeof(SubtitleRes));
+			Delay.PseudoLocalizer.Enable(typeof(QueueTitlesRes));
+			Delay.PseudoLocalizer.Enable(typeof(ChapterMarkersRes));
+			Delay.PseudoLocalizer.Enable(typeof(MiscRes));
+#endif
+
+			// Set the AppUserModelID to match the shortcut that Squirrel is creating. This will allow any pinned shortcut on the taskbar to be updated.
+			SetCurrentProcessExplicitAppUserModelID("com.squirrel.VidCoder-Beta.VidCoder");
+
+			SquirrelAwareApp.HandleEvents(onInitialInstall: OnInitialInstall, onAppUninstall: OnAppUninstall);
+
+			// If we get here we know we are actually trying to launch the app (and this isn't part of a Squirrel update process.
+			// Enforce single-instance restrictions.
 			string mutexName = CommonUtilities.Beta ? "VidCoderBetaInstanceMutex" : "VidCoderInstanceMutex";
 			bool createdNew = true;
 
@@ -95,34 +124,6 @@ namespace VidCoder
 				}
 			}
 
-			OperatingSystem OS = Environment.OSVersion;
-			if (OS.Version.Major <= 5)
-			{
-				MessageBox.Show(MiscRes.UnsupportedOSError, MiscRes.NoticeMessageTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
-				MessageBox.Show(MiscRes.UnsupportedOSError, MiscRes.NoticeMessageTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
-				this.Shutdown();
-				return;
-			}
-
-#if PSEUDOLOCALIZER_ENABLED
-			Delay.PseudoLocalizer.Enable(typeof(CommonRes));
-			Delay.PseudoLocalizer.Enable(typeof(MainRes));
-			Delay.PseudoLocalizer.Enable(typeof(EnumsRes));
-			Delay.PseudoLocalizer.Enable(typeof(EncodingRes));
-			Delay.PseudoLocalizer.Enable(typeof(OptionsRes));
-			Delay.PseudoLocalizer.Enable(typeof(PreviewRes));
-			Delay.PseudoLocalizer.Enable(typeof(LogRes));
-			Delay.PseudoLocalizer.Enable(typeof(SubtitleRes));
-			Delay.PseudoLocalizer.Enable(typeof(QueueTitlesRes));
-			Delay.PseudoLocalizer.Enable(typeof(ChapterMarkersRes));
-			Delay.PseudoLocalizer.Enable(typeof(MiscRes));
-#endif
-
-			// Set the AppUserModelID to match the shortcut that Squirrel is creating. This will allow any pinned shortcut on the taskbar to be updated.
-			SetCurrentProcessExplicitAppUserModelID("com.squirrel.VidCoder-Beta.VidCoder");
-
-			SquirrelAwareApp.HandleEvents(onInitialInstall: OnInitialInstall, onAppUninstall: OnAppUninstall);
-
 			var splashWindow = new SplashWindow();
 			splashWindow.Show();
 
@@ -155,8 +156,6 @@ namespace VidCoder
 
 			sw.Stop();
 			System.Diagnostics.Debug.WriteLine("Startup time: " + sw.Elapsed);
-
-			updater.HandlePendingUpdate();
 
 			this.GlobalInitialize();
 

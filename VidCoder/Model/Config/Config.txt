@@ -46,7 +46,7 @@ AudioExpanded|bool|true
 SubtitlesExpanded|bool|true
 
 UpdatesEnabled|bool|true
-UpdatePromptTiming|string|"OnExit"
+UpdateMode|string|"SilentNextLaunch"
 UpdatesDisabled32BitOSWarningDisplayed|bool|false
 Win7WarningDisplayedTimes|int|0
 

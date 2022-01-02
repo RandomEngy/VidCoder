@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace VidCoder.Model
 {
-	public enum UpdatePromptTiming
-	{
-		OnExit,
-		OnLaunch
-	}
+    public enum UpdateMode
+    {
+		SilentNextLaunch,
+		PromptApplyImmediately
+    }
 }

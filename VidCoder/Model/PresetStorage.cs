@@ -228,8 +228,6 @@ namespace VidCoder.Model
 				{
 					presets.RemoveAt(i);
 
-					// Splash screen eats first dialog, need to show twice.
-					StaticResolver.Resolve<IMessageBoxService>().Show("Could not load corrupt preset '" + preset?.GetDisplayName() + "'.");
 					StaticResolver.Resolve<IMessageBoxService>().Show("Could not load corrupt preset '" + preset?.GetDisplayName() + "'.");
 				}
 				else

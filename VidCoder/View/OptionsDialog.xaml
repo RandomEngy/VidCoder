@@ -671,19 +671,19 @@
 										Content="{x:Static res:OptionsRes.AutomaticUpdatesCheckBox}"
 										IsChecked="{Binding UpdatesEnabledConfig}" />
 									<TextBlock
-										Name="promptForUpdatesLabel"
+										Name="updateModeLabel"
 										Margin="16 0 0 0"
 										VerticalAlignment="Center"
-										Text="{x:Static res:OptionsRes.PromptForUpdatesLabel}"
+										Text="{x:Static res:OptionsRes.UpdateModeLabel}"
 										Visibility="{Binding UpdatesEnabledConfig,
 										                     Converter={StaticResource VisibilityConverter}}" />
 									<ComboBox
 										Margin="6 0 0 0"
 										VerticalAlignment="Center"
-										AutomationProperties.LabeledBy="{Binding ElementName=promptForUpdatesLabel}"
+										AutomationProperties.LabeledBy="{Binding ElementName=updateModeLabel}"
 										DisplayMemberPath="Display"
-										ItemsSource="{Binding UpdatePromptTimingChoices}"
-										SelectedValue="{Binding UpdatePromptTiming}"
+										ItemsSource="{Binding UpdateModeChoices}"
+										SelectedValue="{Binding UpdateMode}"
 										SelectedValuePath="Value"
 										Visibility="{Binding UpdatesEnabledConfig,
 										                     Converter={StaticResource VisibilityConverter}}" />
@@ -705,12 +705,25 @@
 								Visibility="{Binding UpdatesEnabledConfig,
 								                     Converter={StaticResource VisibilityConverter}}" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}" Visibility="{Binding UpdatesEnabledConfig, Converter={StaticResource VisibilityConverter}}">
-								<TextBlock Margin="0 0 0 3" Text="{Binding UpdateStatus}" />
+								<StackPanel
+									Margin="0 0 0 3"
+									HorizontalAlignment="Left"
+									Orientation="Horizontal">
+									<TextBlock VerticalAlignment="Center" Text="{Binding UpdateStatus}" />
+									<Button
+										Margin="10 0 0 0"
+										Padding="10 4"
+										Command="{Binding ApplyUpdate}"
+										Content="{x:Static res:OptionsRes.ApplyUpdateButton}"
+										Visibility="{Binding Updater.State,
+										                     Converter={StaticResource EnumVisibilityConverter},
+										                     ConverterParameter={x:Static Model:UpdateState.UpdateReady}}" />
+								</StackPanel>
 								<ProgressBar
 									Grid.Column="1"
 									Height="20"
 									Margin="0 0 0 0"
-									Visibility="{Binding UpdateDownloading,
+									Visibility="{Binding CheckingForUpdate,
 									                     Converter={StaticResource VisibilityConverter}}"
 									Value="{Binding UpdateProgressPercent,
 									                Mode=OneWay}" />

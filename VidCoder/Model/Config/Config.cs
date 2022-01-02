@@ -68,7 +68,7 @@ namespace VidCoder
 			cache.Add("AudioExpanded", DatabaseConfig.Get("AudioExpanded", true, connection));
 			cache.Add("SubtitlesExpanded", DatabaseConfig.Get("SubtitlesExpanded", true, connection));
 			cache.Add("UpdatesEnabled", DatabaseConfig.Get("UpdatesEnabled", true, connection));
-			cache.Add("UpdatePromptTiming", DatabaseConfig.Get("UpdatePromptTiming", "OnExit", connection));
+			cache.Add("UpdateMode", DatabaseConfig.Get("UpdateMode", "SilentNextLaunch", connection));
 			cache.Add("UpdatesDisabled32BitOSWarningDisplayed", DatabaseConfig.Get("UpdatesDisabled32BitOSWarningDisplayed", false, connection));
 			cache.Add("Win7WarningDisplayedTimes", DatabaseConfig.Get("Win7WarningDisplayedTimes", 0, connection));
 			cache.Add("PreviewSeconds", DatabaseConfig.Get("PreviewSeconds", 10, connection));
@@ -357,10 +357,10 @@ namespace VidCoder
 			get { return (bool)cache["UpdatesEnabled"]; }
 			set { Set("UpdatesEnabled", value); }
 		}
-		public static string UpdatePromptTiming
+		public static string UpdateMode
 		{
-			get { return (string)cache["UpdatePromptTiming"]; }
-			set { Set("UpdatePromptTiming", value); }
+			get { return (string)cache["UpdateMode"]; }
+			set { Set("UpdateMode", value); }
 		}
 		public static bool UpdatesDisabled32BitOSWarningDisplayed
 		{
@@ -703,7 +703,7 @@ namespace VidCoder
 			public static IObservable<bool> AudioExpanded => GetObservable<bool>("AudioExpanded");
 			public static IObservable<bool> SubtitlesExpanded => GetObservable<bool>("SubtitlesExpanded");
 			public static IObservable<bool> UpdatesEnabled => GetObservable<bool>("UpdatesEnabled");
-			public static IObservable<string> UpdatePromptTiming => GetObservable<string>("UpdatePromptTiming");
+			public static IObservable<string> UpdateMode => GetObservable<string>("UpdateMode");
 			public static IObservable<bool> UpdatesDisabled32BitOSWarningDisplayed => GetObservable<bool>("UpdatesDisabled32BitOSWarningDisplayed");
 			public static IObservable<int> Win7WarningDisplayedTimes => GetObservable<int>("Win7WarningDisplayedTimes");
 			public static IObservable<int> PreviewSeconds => GetObservable<int>("PreviewSeconds");

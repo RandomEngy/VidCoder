@@ -57,7 +57,6 @@ namespace VidCoder.Model
 				{
 					string message = string.Format(CultureInfo.CurrentCulture, MainRes.DataTooOldRunVidCoderVersion, "3.15");
 					StaticResolver.Resolve<IMessageBoxService>().Show(message);
-					StaticResolver.Resolve<IMessageBoxService>().Show(message);
 					throw new InvalidOperationException("Database too old");
 				}
 
@@ -114,8 +113,6 @@ namespace VidCoder.Model
 					messageLine2);
 
 				var messageService = StaticResolver.Resolve<IMessageBoxService>();
-				messageService.Show(message, MainRes.IncompatibleDatabaseFileTitle, MessageBoxButton.YesNo);
-
 				if (messageService.Show(
 					message,
 					MainRes.IncompatibleDatabaseFileTitle,
@@ -158,7 +155,6 @@ namespace VidCoder.Model
 					messageLine2);
 
 				var messageService = StaticResolver.Resolve<IMessageBoxService>();
-				messageService.Show(message, MainRes.IncompatibleDatabaseFileTitle, MessageBoxButton.YesNo);
 				if (messageService.Show(
 					message,
 					MainRes.IncompatibleDatabaseFileTitle,

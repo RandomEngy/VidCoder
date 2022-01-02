@@ -9,10 +9,10 @@ namespace VidCoder
 {
 	public static class CustomConfig
 	{
-		public static UpdatePromptTiming UpdatePromptTiming
+		public static UpdateMode UpdateMode
 		{
-			get => (UpdatePromptTiming)Enum.Parse(typeof(UpdatePromptTiming), Config.UpdatePromptTiming);
-			set => Config.UpdatePromptTiming = value.ToString();
+			get => (UpdateMode)Enum.Parse(typeof(UpdateMode), Config.UpdateMode);
+			set => Config.UpdateMode = value.ToString();
 		}
 
 		public static List<string> AutoPauseProcesses

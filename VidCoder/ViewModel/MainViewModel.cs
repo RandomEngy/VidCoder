@@ -936,11 +936,6 @@ namespace VidCoder.ViewModel
 
 			StaticResolver.Resolve<IToastNotificationService>().Clear();
 
-			if (CustomConfig.UpdatePromptTiming == UpdatePromptTiming.OnExit)
-			{
-				this.updater.PromptToApplyUpdate(relaunchWhenComplete: false);
-			}
-
 			this.logger.Dispose();
 
 			return true;
