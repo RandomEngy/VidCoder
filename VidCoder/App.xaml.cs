@@ -123,6 +123,9 @@ namespace VidCoder
 
 			SquirrelAwareApp.HandleEvents(onInitialInstall: OnInitialInstall, onAppUninstall: OnAppUninstall);
 
+			var splashWindow = new SplashWindow();
+			splashWindow.Show();
+
 			Ioc.SetUp();
 
 			Database.Initialize();
@@ -188,6 +191,8 @@ namespace VidCoder
 					mainVM.HandlePaths(new List<string> { e.Args[0] });
 				}
 			}
+
+			splashWindow.Close();
 
 			AutomationHost.StartListening();
 				

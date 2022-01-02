@@ -977,13 +977,19 @@ namespace VidCoder.View
 		private void UpdateAudioSummaryMaxWidth()
 		{
 			double summaryWidth = this.audioSummaryColumn.ActualWidth;
-			this.audioSummary.MaxWidth = summaryWidth - 40;
+			if (summaryWidth > 40)
+			{
+				this.audioSummary.MaxWidth = summaryWidth - 40;
+			}
 		}
 
 		private void UpdateSubtitlesSummaryMaxWidth()
 		{
 			double summaryWidth = this.subtitlesSummaryColumn.ActualWidth;
-			this.subtitlesSummary.MaxWidth = summaryWidth - 40;
+			if (summaryWidth > 40)
+			{
+				this.subtitlesSummary.MaxWidth = summaryWidth - 40;
+			}
 		}
 
 		private void OnMinimizeButtonClick(object sender, RoutedEventArgs e)
