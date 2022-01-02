@@ -34,6 +34,8 @@ namespace VidCoder
 		private const string AppDataFolderName = "VidCoder";
 		private const string LocalAppDataFolderName = "VidCoder";
 
+		public const string SquirrelUpdateUrlBase = "https://engy.us/VidCoder/Squirrel";
+
 		static Utilities()
 		{
 			var tempFolderPath = Environment.GetEnvironmentVariable("temp");
@@ -130,6 +132,14 @@ namespace VidCoder
 				{
 					return "19358RandomEngy.VidCoder_cf0dg7w8q6vfw";
 				}
+			}
+		}
+
+		public static string SquirrelUpdateUrl
+		{
+			get
+			{
+				return SquirrelUpdateUrlBase + (CommonUtilities.Beta ? "-Beta" : "-Stable");
 			}
 		}
 

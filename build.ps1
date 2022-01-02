@@ -149,10 +149,10 @@ DeleteFileIfExists $portableExeWithExtension
 
 $winRarExe = "c:\Program Files\WinRar\WinRAR.exe"
 
-& $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension .\VidCoder\bin\publish-portable\** | Out-Null
-ExitIfFailed
+#& $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension .\VidCoder\bin\publish-portable\** | Out-Null
+#ExitIfFailed
 
-SignExe $portableExeWithExtension; ExitIfFailed
+#SignExe $portableExeWithExtension; ExitIfFailed
 
 $latestFileDirectory = "Installer\"
 if ($debugBuild) {
@@ -180,14 +180,17 @@ else
 
 CreateLatestJson $latestFile $versionShort $versionTag $installerFile
 
-# Create .iss files in the correct configuration
-CreateIssFile $versionShort $beta $debugBuild
+# Build Squirrel installer
+Set-Alias Squirrel ($env:USERPROFILE + "\.nuget\packages\clowd.squirrel\2.7.1-pre\tools\Squirrel.exe")
+if ($beta) {
+    $packName = "VidCoder-Beta"
+    $releaseDirSuffix = "Beta"
+} else {
+    $packName = "VidCoder"
+    $releaseDirSuffix = "Stable"
+}
 
-# Build the installers
-& $InnoSetupExe Installer\VidCoder-gen.iss; ExitIfFailed
-
-$installerExePath = ".\$builtInstallerFolder\VidCoder-$versionShort$betaNameSection.exe"
-SignExe $installerExePath; ExitIfFailed
+Squirrel pack --packName $packName --packVersion $versionShort --packAuthors RandomEngy --packDirectory .\VidCoder\bin\publish-installer --setupIcon .\Installer\VidCoder_Setup.ico --releaseDir .\Installer\Releases-$releaseDirSuffix --splashImage .\Installer\InstallerSplash.png --signParams "/f D:\certs\ComodoIndividualCertv2.pfx /p $p /fd SHA256 /tr http://timestamp.digicert.com /td SHA256"
 
 WriteSuccess
 

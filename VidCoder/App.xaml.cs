@@ -16,12 +16,14 @@ using VidCoderCommon.Utilities;
 namespace VidCoder
 {
 	using System.Globalization;
+	using System.Runtime.InteropServices;
 	using System.Threading;
 	using Automation;
 	using ControlzEx.Theming;
 	using Microsoft.AnyContainer;
 	using Microsoft.Toolkit.Uwp.Notifications;
 	using Resources;
+	using Squirrel;
 	using VidCoder.Services.Notifications;
 	using VidCoderCommon.Services;
 	using Windows.Foundation.Metadata;
@@ -36,6 +38,9 @@ namespace VidCoder
 		private IAppThemeService appThemeService;
 
 		private AppTheme currentTheme = AppTheme.Light;
+
+		[DllImport("shell32.dll", SetLastError = true)]
+		static extern void SetCurrentProcessExplicitAppUserModelID([MarshalAs(UnmanagedType.LPWStr)] string AppID);
 
 		protected override void OnStartup(StartupEventArgs e)
 		{
@@ -113,6 +118,11 @@ namespace VidCoder
 			Delay.PseudoLocalizer.Enable(typeof(MiscRes));
 #endif
 
+			// Set the AppUserModelID to match the shortcut that Squirrel is creating. This will allow any pinned shortcut on the taskbar to be updated.
+			SetCurrentProcessExplicitAppUserModelID("com.squirrel.VidCoder-Beta.VidCoder");
+
+			SquirrelAwareApp.HandleEvents(onInitialInstall: OnInitialInstall, onAppUninstall: OnAppUninstall);
+
 			Ioc.SetUp();
 
 			Database.Initialize();
@@ -173,7 +183,10 @@ namespace VidCoder
 
 			if (e.Args.Length > 0)
 			{
-				mainVM.HandlePaths(new List<string> { e.Args[0] });
+				if (!e.Args[0].StartsWith("-", StringComparison.Ordinal))
+				{
+					mainVM.HandlePaths(new List<string> { e.Args[0] });
+				}
 			}
 
 			AutomationHost.StartListening();
@@ -195,6 +208,20 @@ namespace VidCoder
 			}
 
 			base.OnStartup(e);
+		}
+
+		private static void OnInitialInstall(Version version)
+		{
+			using var mgr = new UpdateManager(Utilities.SquirrelUpdateUrl);
+			mgr.CreateUninstallerRegistryEntry();
+			mgr.CreateShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
+		}
+
+		private static void OnAppUninstall(Version version)
+		{
+			using var mgr = new UpdateManager(Utilities.SquirrelUpdateUrl);
+			mgr.RemoveUninstallerRegistryEntry();
+			mgr.RemoveShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
 		}
 
 		private void ToastOnActivated(ToastNotificationActivatedEventArgsCompat e)
