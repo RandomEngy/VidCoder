@@ -815,7 +815,7 @@ namespace VidCoder.ViewModel
 				return this.checkUpdate ?? (this.checkUpdate = ReactiveCommand.Create(
 					() =>
 					{
-						this.Updater.CheckUpdates();
+						this.Updater.CheckUpdates(isManualCheck: true);
 					},
 					this.Updater
 						.WhenAnyValue(x => x.State)

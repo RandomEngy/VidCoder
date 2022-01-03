@@ -9,7 +9,7 @@ namespace VidCoder.Services
 
 	public interface IUpdater
 	{
-		void CheckUpdates();
+		void CheckUpdates(bool isManualCheck);
 		bool PromptToApplyUpdate();
 		void HandleUpdatedSettings(bool updatesEnabled);
 

@@ -1,10 +1,6 @@
 ﻿MigratedConfigs|bool|false
 
 EncodeJobs2|string|""
-UpdateInProgress|bool|false
-UpdateVersion|string|""
-UpdateInstallerLocation|string|""
-UpdateChangelogLocation|string|""
 
 LastOutputFolder|string|""
 LastInputFileFolder|string|""

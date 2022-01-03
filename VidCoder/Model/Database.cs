@@ -70,6 +70,11 @@ namespace VidCoder.Model
 					UpgradeDatabaseTo39();
 				}
 
+				if (databaseVersion < 46)
+				{
+					UpgradeDatabaseTo46();
+				}
+
 				// Update encoding profiles if we need to. Everything is at least 28 now from the JSON upgrade.
 				int oldDatabaseVersion = Math.Max(databaseVersion, 28);
 				if (oldDatabaseVersion < Utilities.LastUpdatedEncodingProfileDatabaseVersion)
@@ -276,10 +281,31 @@ namespace VidCoder.Model
 		private static void UpgradeDatabaseTo39()
 		{
 			// The "File naming" tab was removed, so the last index needs to be updated.
-			int optionsDialogLastTab = DatabaseConfig.Get<int>("OptionsDialogLastTab", 0);
+			int optionsDialogLastTab = DatabaseConfig.Get<int>("OptionsDialogLastTab", 0, connection);
 			if (optionsDialogLastTab > 0)
 			{
-				DatabaseConfig.Set<int>("OptionsDialogLastTab", optionsDialogLastTab - 1);
+				DatabaseConfig.Set<int>("OptionsDialogLastTab", optionsDialogLastTab - 1, connection);
+			}
+		}
+
+		private static void UpgradeDatabaseTo46()
+		{
+			string updatePromptTiming = DatabaseConfig.Get<string>("UpdatePromptTiming", "OnExit", connection);
+			if (updatePromptTiming == "OnLaunch")
+			{
+				DatabaseConfig.Set<string>("UpdateMode", "PromptApplyImmediately", connection);
+			}
+
+			try
+			{
+				if (Directory.Exists(Utilities.UpdatesFolder))
+				{
+					Directory.Delete(Utilities.UpdatesFolder, true);
+				}
+			}
+			catch
+			{
+				// Eat exception, not critical that these are cleaned up
 			}
 		}
 

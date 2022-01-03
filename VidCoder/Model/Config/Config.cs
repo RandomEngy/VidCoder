@@ -31,10 +31,6 @@ namespace VidCoder
 			cache = new Dictionary<string, object>();
 			cache.Add("MigratedConfigs", DatabaseConfig.Get("MigratedConfigs", false, connection));
 			cache.Add("EncodeJobs2", DatabaseConfig.Get("EncodeJobs2", "", connection));
-			cache.Add("UpdateInProgress", DatabaseConfig.Get("UpdateInProgress", false, connection));
-			cache.Add("UpdateVersion", DatabaseConfig.Get("UpdateVersion", "", connection));
-			cache.Add("UpdateInstallerLocation", DatabaseConfig.Get("UpdateInstallerLocation", "", connection));
-			cache.Add("UpdateChangelogLocation", DatabaseConfig.Get("UpdateChangelogLocation", "", connection));
 			cache.Add("LastOutputFolder", DatabaseConfig.Get("LastOutputFolder", "", connection));
 			cache.Add("LastInputFileFolder", DatabaseConfig.Get("LastInputFileFolder", "", connection));
 			cache.Add("LastVideoTSFolder", DatabaseConfig.Get("LastVideoTSFolder", "", connection));
@@ -171,26 +167,6 @@ namespace VidCoder
 		{
 			get { return (string)cache["EncodeJobs2"]; }
 			set { Set("EncodeJobs2", value); }
-		}
-		public static bool UpdateInProgress
-		{
-			get { return (bool)cache["UpdateInProgress"]; }
-			set { Set("UpdateInProgress", value); }
-		}
-		public static string UpdateVersion
-		{
-			get { return (string)cache["UpdateVersion"]; }
-			set { Set("UpdateVersion", value); }
-		}
-		public static string UpdateInstallerLocation
-		{
-			get { return (string)cache["UpdateInstallerLocation"]; }
-			set { Set("UpdateInstallerLocation", value); }
-		}
-		public static string UpdateChangelogLocation
-		{
-			get { return (string)cache["UpdateChangelogLocation"]; }
-			set { Set("UpdateChangelogLocation", value); }
 		}
 		public static string LastOutputFolder
 		{
@@ -666,10 +642,6 @@ namespace VidCoder
 		{
 			public static IObservable<bool> MigratedConfigs => GetObservable<bool>("MigratedConfigs");
 			public static IObservable<string> EncodeJobs2 => GetObservable<string>("EncodeJobs2");
-			public static IObservable<bool> UpdateInProgress => GetObservable<bool>("UpdateInProgress");
-			public static IObservable<string> UpdateVersion => GetObservable<string>("UpdateVersion");
-			public static IObservable<string> UpdateInstallerLocation => GetObservable<string>("UpdateInstallerLocation");
-			public static IObservable<string> UpdateChangelogLocation => GetObservable<string>("UpdateChangelogLocation");
 			public static IObservable<string> LastOutputFolder => GetObservable<string>("LastOutputFolder");
 			public static IObservable<string> LastInputFileFolder => GetObservable<string>("LastInputFileFolder");
 			public static IObservable<string> LastVideoTSFolder => GetObservable<string>("LastVideoTSFolder");

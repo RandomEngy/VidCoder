@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using System.Diagnostics;
 using VidCoder.Model;
 using VidCoder.Services;
+using VidCoderCommon;
 
 namespace VidCoder
 {
@@ -23,11 +24,13 @@ namespace VidCoder
 	{
 		private string changelogLinkString;
 
-		public ApplyUpdateConfirmation()
+		public ApplyUpdateConfirmation(Version latestVersion)
 		{
 			InitializeComponent();
 
-			this.changelogLinkString = Config.UpdateChangelogLocation;
+			string betaPortion = CommonUtilities.Beta ? "-beta" : "";
+
+			this.changelogLinkString = $"https://github.com/RandomEngy/VidCoder/releases/tag/v{latestVersion.Major}.{latestVersion.Minor}{betaPortion}";
 		}
 
 		public bool Accepted { get; private set; }

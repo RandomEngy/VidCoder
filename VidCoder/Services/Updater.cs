@@ -1,26 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.ComponentModel;
 using System.IO;
-using System.Net;
-using System.Windows;
 using VidCoder.Model;
-using System.Diagnostics;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AnyContainer;
 using ReactiveUI;
-using VidCoder.Extensions;
-using VidCoder.ViewModel;
-using VidCoderCommon;
-using VidCoder.Resources;
-using System.Text.Json;
-using VidCoderCommon.Utilities;
 using Squirrel;
 
 namespace VidCoder.Services
@@ -54,7 +36,7 @@ namespace VidCoder.Services
 				if (Config.UpdatesEnabled && Utilities.CurrentProcessInstances == 1)
 				{
 					// An update is ready, to give a prompt to apply it.
-					var updateConfirmation = new ApplyUpdateConfirmation();
+					var updateConfirmation = new ApplyUpdateConfirmation(this.LatestVersion);
 					updateConfirmation.Owner = StaticResolver.Resolve<View.Main>();
 					updateConfirmation.ShowDialog();
 
@@ -71,16 +53,9 @@ namespace VidCoder.Services
 
 		public void HandleUpdatedSettings(bool updatesEnabled)
 		{
-			if (Utilities.SupportsUpdates)
+			if (Utilities.SupportsUpdates && updatesEnabled && this.processDownloadsUpdates)
 			{
-				if (updatesEnabled)
-				{
-					// If we don't already have an update waiting to install, check for updates.
-					if (this.processDownloadsUpdates && this.State == UpdateState.NotStarted)
-					{
-						this.StartBackgroundUpdate();
-					}
-				}
+				this.StartBackgroundUpdate(isManualCheck: false);
 			}
 		}
 
@@ -92,15 +67,8 @@ namespace VidCoder.Services
 			}
 		}
 
-		private static void ClearUpdateMetadata()
-		{
-			Config.UpdateVersion = string.Empty;
-			Config.UpdateInstallerLocation = string.Empty;
-			Config.UpdateChangelogLocation = string.Empty;
-		}
-
 		// Starts checking for updates
-		public void CheckUpdates()
+		public void CheckUpdates(bool isManualCheck)
 		{
 			// Only check for updates when non-portable
 			if (!Utilities.SupportsUpdates)
@@ -116,21 +84,13 @@ namespace VidCoder.Services
 
 			if (!Config.UpdatesEnabled)
 			{
-				// On a program restart, if updates are disabled, clean any pending installers.
-				Config.UpdateInstallerLocation = string.Empty;
-
-				if (Directory.Exists(Utilities.UpdatesFolder))
-				{
-					Directory.Delete(Utilities.UpdatesFolder, true);
-				}
-
 				return;
 			}
 
-			this.StartBackgroundUpdate();
+			this.StartBackgroundUpdate(isManualCheck);
 		}
 
-		private async void StartBackgroundUpdate()
+		private async void StartBackgroundUpdate(bool isManualCheck)
 		{
 			if (this.State != UpdateState.NotStarted && this.State != UpdateState.Failed && this.State != UpdateState.UpToDate)
 			{
@@ -146,7 +106,6 @@ namespace VidCoder.Services
 				using var updateManager = new UpdateManager(Utilities.SquirrelUpdateUrl);
 				ReleaseEntry releaseEntry = await updateManager.UpdateApp(progressNumber =>
 				{
-					System.Diagnostics.Debug.WriteLine("UpdateApp progress: " + progressNumber);
 					this.UpdateCheckProgressPercent = progressNumber;
 				});
 
@@ -159,7 +118,7 @@ namespace VidCoder.Services
 					this.LatestVersion = releaseEntry.Version.Version;
 					this.State = UpdateState.UpdateReady;
 
-					if (CustomConfig.UpdateMode == UpdateMode.PromptApplyImmediately)
+					if (CustomConfig.UpdateMode == UpdateMode.PromptApplyImmediately && !isManualCheck)
 					{
 						DispatchUtilities.BeginInvoke(() =>
 						{
