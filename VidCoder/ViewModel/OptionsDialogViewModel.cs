@@ -21,6 +21,9 @@ using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoderCommon;
 using Squirrel;
+using System.Net.Http;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace VidCoder.ViewModel
 {
@@ -221,22 +224,22 @@ namespace VidCoder.ViewModel
 			{
 				Task.Run(async () =>
 				{
-					//this.betaInfo = await Updater.GetUpdateInfoAsync(beta: true);
+					this.latestBetaVersion = await this.GetLatestBetaVersionAsync();
 
-					//this.betaInfoAvailable = false;
-					//if (this.betaInfo != null)
-					//{
-					//	if (this.betaInfo.LatestVersion.FillInWithZeroes() > Utilities.CurrentVersion)
-					//	{
-					//		this.betaInfoAvailable = true;
-					//	}
+					this.betaInfoAvailable = false;
+					if (latestBetaVersion != null)
+					{
+						if (latestBetaVersion > Utilities.CurrentVersion)
+						{
+							this.betaInfoAvailable = true;
+						}
 
-					//	await DispatchUtilities.InvokeAsync(() =>
-					//	{
-					//		this.RaisePropertyChanged(nameof(this.BetaChangelogUrl));
-					//		this.RaisePropertyChanged(nameof(this.BetaSectionVisible));
-					//	});
-					//}
+						await DispatchUtilities.InvokeAsync(() =>
+						{
+							this.RaisePropertyChanged(nameof(this.BetaChangelogUrl));
+							this.RaisePropertyChanged(nameof(this.BetaSectionVisible));
+						});
+					}
 				});
 			}
 
@@ -247,6 +250,44 @@ namespace VidCoder.ViewModel
 			}
 
 			this.SelectedTabIndex = tabIndex;
+		}
+
+		private async Task<Version> GetLatestBetaVersionAsync()
+		{
+			try
+			{
+				HttpClient client = new HttpClient();
+				string updateText = await client.GetStringAsync("https://engy.us/VidCoder/Squirrel-Beta/RELEASES");
+
+				using var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(updateText));
+				using var reader = new StreamReader(memoryStream);
+
+				// Find the last line, that will have the latest Beta version
+				string line;
+				string lastLine = null;
+				while ((line = reader.ReadLine()) != null) {
+					lastLine = line;
+				}
+
+				if (lastLine != null)
+				{
+					// A line something like:
+					// B21889C29564A29F1CB1AFE0DCA085458B13195F VidCoder-Beta-7.6.0-full.nupkg 43323684
+					var regex = new Regex(@"-([\d\.]+)-");
+					Match match = regex.Match(lastLine);
+					if (match.Success)
+					{
+						string versionString = match.Groups[1].Value;
+						return new Version(versionString);
+					}
+				}
+			}
+			catch (Exception exception)
+			{
+				StaticResolver.Resolve<IAppLogger>().Log("Could not get beta version info." + Environment.NewLine + exception);
+			}
+
+			return null;
 		}
 
 		public IUpdater Updater { get; }
@@ -343,7 +384,19 @@ namespace VidCoder.ViewModel
 
 		public string BetaUpdatesText => CommonUtilities.Beta ? OptionsRes.BetaUpdatesInBeta : OptionsRes.BetaUpdatesNonBeta;
 
-		//public string BetaChangelogUrl => CommonUtilities.Beta ? string.Empty : (this.betaInfo?.ChangelogUrl ?? string.Empty);
+		private Version latestBetaVersion;
+		public string BetaChangelogUrl
+		{
+			get
+			{
+				if (CommonUtilities.Beta || this.latestBetaVersion == null)
+				{
+					return string.Empty;
+				}
+
+				return Utilities.GetChangelogUrl(this.latestBetaVersion, beta: true);
+			}
+		}
 
 		public bool BetaSectionVisible => CommonUtilities.Beta || this.betaInfoAvailable;
 

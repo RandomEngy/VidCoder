@@ -210,6 +210,13 @@ namespace VidCoder
 			return 0;
 		}
 
+		public static string GetChangelogUrl(Version version, bool beta)
+		{
+			string betaPortion = beta ? "-beta" : "";
+
+			return $"https://github.com/RandomEngy/VidCoder/releases/tag/v{version.Major}.{version.Minor}{betaPortion}";
+		}
+
 		public static string GetFilePickerFilter(string extension)
 		{
 			if (extension.StartsWith("."))

@@ -28,9 +28,7 @@ namespace VidCoder
 		{
 			InitializeComponent();
 
-			string betaPortion = CommonUtilities.Beta ? "-beta" : "";
-
-			this.changelogLinkString = $"https://github.com/RandomEngy/VidCoder/releases/tag/v{latestVersion.Major}.{latestVersion.Minor}{betaPortion}";
+			this.changelogLinkString = Utilities.GetChangelogUrl(latestVersion, CommonUtilities.Beta);
 		}
 
 		public bool Accepted { get; private set; }
