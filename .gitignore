@@ -1,4 +1,6 @@
 Installer/BuiltInstallers/*
+Installer/Releases-Beta/*
+Installer/Releases-Stable/*
 Flags/*
 packages/*
 */AppPackages/*

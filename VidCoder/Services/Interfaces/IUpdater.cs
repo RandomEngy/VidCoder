@@ -11,7 +11,7 @@ namespace VidCoder.Services
 	{
 		void CheckUpdates();
 		bool HandlePendingUpdate();
-		bool PromptToApplyUpdate(bool relaunchWhenComplete);
+		bool PromptToApplyUpdate();
 		void HandleUpdatedSettings(bool updatesEnabled);
 
 		UpdateState State { get; }

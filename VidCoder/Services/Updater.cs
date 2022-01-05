@@ -27,7 +27,7 @@ namespace VidCoder.Services
 
 	public class Updater : ReactiveObject, IUpdater
 	{
-		private const string UpdateInfoUrlBase = "http://engy.us/VidCoder";
+		private const string UpdateInfoUrlBase = "http://engy.us/VidCoder/Test";
 
 		private CancellationTokenSource updateDownloadCancellationTokenSource;
 
@@ -50,7 +50,7 @@ namespace VidCoder.Services
 
 		public Version LatestVersion { get; set; }
 
-		public bool PromptToApplyUpdate(bool relaunchWhenComplete)
+		public bool PromptToApplyUpdate()
 		{
 			if (Utilities.SupportsUpdates)
 			{
@@ -78,7 +78,7 @@ namespace VidCoder.Services
 
 						if (updateConfirmation.Result == "Yes")
 						{
-							this.ApplyUpdate(relaunchWhenComplete);
+							this.ApplyUpdate();
 							return true;
 						}
 						else if (updateConfirmation.Result == "Disable")
@@ -96,19 +96,27 @@ namespace VidCoder.Services
 			return false;
 		}
 
-		public void ApplyUpdate(bool relaunchWhenComplete)
+		public void ApplyUpdate()
 		{
 			// Re-check the process count in case another one was opened while the prompt was active.
 			if (Utilities.CurrentProcessInstances == 1)
 			{
 				string installerPath = Config.UpdateInstallerLocation;
 
-				Config.UpdateInProgress = true;
+				// Make note of where the uninstaller is. The Squirrel installed version will use this to uninstall the Inno Setup version from Program Files.
+				string uninstallerPath = Path.Combine(Utilities.ProgramFolder, "unins000.exe");
+				if (File.Exists(uninstallerPath))
+				{
+					Config.UninstallerPath = uninstallerPath;
 
-				var installerProcess = new Process();
-				string extraParameter = relaunchWhenComplete ? "/launchWhenDone=\"yes\"" : "/showSuccessDialog=\"yes\"";
-				installerProcess.StartInfo = new ProcessStartInfo { FileName = installerPath, Arguments = "/silent /noicons /mergetasks=\"!desktopicon\" " + extraParameter + " /dir=\"" + Utilities.ProgramFolder + "\"" };
-				installerProcess.Start();
+					var installerProcess = new Process();
+					installerProcess.StartInfo = new ProcessStartInfo { FileName = installerPath };
+					installerProcess.Start();
+				}
+				else
+				{
+					StaticResolver.Resolve<IMessageBoxService>().Show("Could not find uninstaller at " + uninstallerPath);
+				}
 
 				// Caller will handle exiting
 			}
@@ -415,7 +423,7 @@ namespace VidCoder.Services
 				{
 					DispatchUtilities.BeginInvoke(() =>
 					{
-						if (this.PromptToApplyUpdate(relaunchWhenComplete: true))
+						if (this.PromptToApplyUpdate())
 						{
 							StaticResolver.Resolve<MainViewModel>().Exit.Execute(null);
 						}
