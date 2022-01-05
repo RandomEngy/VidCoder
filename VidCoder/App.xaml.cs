@@ -133,6 +133,18 @@ namespace VidCoder
 
 			Config.EnsureInitialized(Database.Connection);
 
+			if (!string.IsNullOrEmpty(Config.UninstallerPath))
+			{
+				MessageBox.Show(MiscRes.OneTimeInstallerCleanup);
+
+				var uninstallProcess = new Process();
+				uninstallProcess.StartInfo = new ProcessStartInfo(Config.UninstallerPath, "/SILENT");
+				uninstallProcess.Start();
+
+				uninstallProcess.WaitForExit();
+				Config.UninstallerPath = string.Empty;
+			}
+
 			var interfaceLanguageCode = Config.InterfaceLanguageCode;
 			if (!string.IsNullOrWhiteSpace(interfaceLanguageCode))
 			{
@@ -143,19 +155,12 @@ namespace VidCoder
 				// Don't set CurrentCulture as well; we don't need to override the number/date formatting as well.
 			}
 
-			Stopwatch sw = Stopwatch.StartNew();
-
 			if (Config.UseCustomPreviewFolder && FileUtilities.HasWriteAccessOnFolder(Config.PreviewOutputFolder))
 			{
 				Environment.SetEnvironmentVariable("TMP", Config.PreviewOutputFolder, EnvironmentVariableTarget.Process);
 				FileUtilities.OverrideTempFolder = true;
 				FileUtilities.TempFolderOverride = Config.PreviewOutputFolder;
 			}
-
-			var updater = StaticResolver.Resolve<IUpdater>();
-
-			sw.Stop();
-			System.Diagnostics.Debug.WriteLine("Startup time: " + sw.Elapsed);
 
 			this.GlobalInitialize();
 

@@ -31,6 +31,7 @@ namespace VidCoder
 			cache = new Dictionary<string, object>();
 			cache.Add("MigratedConfigs", DatabaseConfig.Get("MigratedConfigs", false, connection));
 			cache.Add("EncodeJobs2", DatabaseConfig.Get("EncodeJobs2", "", connection));
+			cache.Add("UninstallerPath", DatabaseConfig.Get("UninstallerPath", "", connection));
 			cache.Add("LastOutputFolder", DatabaseConfig.Get("LastOutputFolder", "", connection));
 			cache.Add("LastInputFileFolder", DatabaseConfig.Get("LastInputFileFolder", "", connection));
 			cache.Add("LastVideoTSFolder", DatabaseConfig.Get("LastVideoTSFolder", "", connection));
@@ -167,6 +168,11 @@ namespace VidCoder
 		{
 			get { return (string)cache["EncodeJobs2"]; }
 			set { Set("EncodeJobs2", value); }
+		}
+		public static string UninstallerPath
+		{
+			get { return (string)cache["UninstallerPath"]; }
+			set { Set("UninstallerPath", value); }
 		}
 		public static string LastOutputFolder
 		{
@@ -642,6 +648,7 @@ namespace VidCoder
 		{
 			public static IObservable<bool> MigratedConfigs => GetObservable<bool>("MigratedConfigs");
 			public static IObservable<string> EncodeJobs2 => GetObservable<string>("EncodeJobs2");
+			public static IObservable<string> UninstallerPath => GetObservable<string>("UninstallerPath");
 			public static IObservable<string> LastOutputFolder => GetObservable<string>("LastOutputFolder");
 			public static IObservable<string> LastInputFileFolder => GetObservable<string>("LastInputFileFolder");
 			public static IObservable<string> LastVideoTSFolder => GetObservable<string>("LastVideoTSFolder");

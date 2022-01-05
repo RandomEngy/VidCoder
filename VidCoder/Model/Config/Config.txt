@@ -1,6 +1,7 @@
 ﻿MigratedConfigs|bool|false
 
 EncodeJobs2|string|""
+UninstallerPath|string|""
 
 LastOutputFolder|string|""
 LastInputFileFolder|string|""
