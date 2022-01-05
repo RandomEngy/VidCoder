@@ -5,6 +5,7 @@ UpdateInProgress|bool|false
 UpdateVersion|string|""
 UpdateInstallerLocation|string|""
 UpdateChangelogLocation|string|""
+UninstallerPath|string|""
 
 LastOutputFolder|string|""
 LastInputFileFolder|string|""

@@ -35,6 +35,7 @@ namespace VidCoder
 			cache.Add("UpdateVersion", DatabaseConfig.Get("UpdateVersion", "", connection));
 			cache.Add("UpdateInstallerLocation", DatabaseConfig.Get("UpdateInstallerLocation", "", connection));
 			cache.Add("UpdateChangelogLocation", DatabaseConfig.Get("UpdateChangelogLocation", "", connection));
+			cache.Add("UninstallerPath", DatabaseConfig.Get("UninstallerPath", "", connection));
 			cache.Add("LastOutputFolder", DatabaseConfig.Get("LastOutputFolder", "", connection));
 			cache.Add("LastInputFileFolder", DatabaseConfig.Get("LastInputFileFolder", "", connection));
 			cache.Add("LastVideoTSFolder", DatabaseConfig.Get("LastVideoTSFolder", "", connection));
@@ -206,6 +207,11 @@ namespace VidCoder
 		{
 			get { return (string)cache["UpdateChangelogLocation"]; }
 			set { Set("UpdateChangelogLocation", value); }
+		}
+		public static string UninstallerPath
+		{
+			get { return (string)cache["UninstallerPath"]; }
+			set { Set("UninstallerPath", value); }
 		}
 		public static string LastOutputFolder
 		{
@@ -760,6 +766,7 @@ namespace VidCoder
 			public static IObservable<string> UpdateVersion => GetObservable<string>("UpdateVersion");
 			public static IObservable<string> UpdateInstallerLocation => GetObservable<string>("UpdateInstallerLocation");
 			public static IObservable<string> UpdateChangelogLocation => GetObservable<string>("UpdateChangelogLocation");
+			public static IObservable<string> UninstallerPath => GetObservable<string>("UninstallerPath");
 			public static IObservable<string> LastOutputFolder => GetObservable<string>("LastOutputFolder");
 			public static IObservable<string> LastInputFileFolder => GetObservable<string>("LastInputFileFolder");
 			public static IObservable<string> LastVideoTSFolder => GetObservable<string>("LastVideoTSFolder");

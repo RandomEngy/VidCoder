@@ -938,7 +938,7 @@ namespace VidCoder.ViewModel
 
 			if (CustomConfig.UpdatePromptTiming == UpdatePromptTiming.OnExit)
 			{
-				this.updater.PromptToApplyUpdate(relaunchWhenComplete: false);
+				this.updater.PromptToApplyUpdate();
 			}
 
 			this.logger.Dispose();
