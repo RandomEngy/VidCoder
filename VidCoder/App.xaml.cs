@@ -185,7 +185,7 @@ namespace VidCoder
 			});
 
 			var mainVM = new MainViewModel();
-			StaticResolver.Resolve<IWindowManager>().OpenWindow(mainVM);
+			this.MainWindow = StaticResolver.Resolve<IWindowManager>().OpenWindow(mainVM);
 			mainVM.OnLoaded();
 
 			if (e.Args.Length > 0)
