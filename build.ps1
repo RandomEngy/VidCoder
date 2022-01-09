@@ -9,7 +9,7 @@ Param(
 
 . ./build_common.ps1
 
-function Publish($folderNameSuffix, $publishProfileName, $version4part) {
+function Publish($folderNameSuffix, $publishProfileName, $version4part, $productName) {
     $mainPublishFolderPath = ".\VidCoder\bin\publish-$folderNameSuffix"
     if (Test-Path -Path $mainPublishFolderPath) {
         Get-ChildItem -Path $mainPublishFolderPath -Include * -File -Recurse | foreach { $_.Delete()}
@@ -21,7 +21,7 @@ function Publish($folderNameSuffix, $publishProfileName, $version4part) {
     }
 
     # Publish to VidCoder\bin\publish
-    & dotnet publish .\VidCoder.sln "/p:PublishProfile=$publishProfileName;Version=$version4part" -c $configuration
+    & dotnet publish .\VidCoder.sln "/p:PublishProfile=$publishProfileName;Version=$version4part;Product=$productName" -c $configuration
 
     # Copy some extra files for the installer
     $extraFiles = @(
@@ -54,16 +54,18 @@ if (!$beta -and ($branch -eq "beta")) {
 
 if ($beta) {
     $configuration = $buildFlavor + "-Beta"
+    $productName = "VidCoder Beta"
 } else {
     $configuration = $buildFlavor
+    $productName = "VidCoder"
 }
 
 # Get master version number
 $version4Part = $versionShort + ".0.0"
 
 # Publish the files
-Publish "installer" "InstallerProfile" $version4part
-Publish "portable" "PortableProfile" $version4part
+Publish "installer" "InstallerProfile" $version4part $productName
+Publish "portable" "PortableProfile" $version4part $productName
 
 # We need to copy some files from the Worker publish over to the main publish output, because the main publish output doesn't properly set the Worker to self-contained mode
 copy ".\VidCoderWorker\bin\publish-portable\VidCoderWorker*" ".\VidCoder\bin\publish-portable"
