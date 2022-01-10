@@ -27,11 +27,11 @@ namespace VidCoder.Model
 
 		private static SQLiteConnection connection;
 
-		private static ThreadLocal<SQLiteConnection> threadLocalConnection = new ThreadLocal<SQLiteConnection>();
+		private static ThreadLocal<SQLiteConnection> threadLocalConnection = new ThreadLocal<SQLiteConnection>(trackAllValues: true);
 
 		private static long mainThreadId;
 
-		private static Lazy<string> lazyDatabaseFile = new Lazy<string>(GetDatabaseFilePath); 
+		private static Lazy<string> lazyDatabaseFile = new Lazy<string>(GetDatabaseFilePath);
 
 		public static void Initialize()
 		{
@@ -125,8 +125,7 @@ namespace VidCoder.Model
 				{
 					try
 					{
-						Connection.Close();
-						connection = null;
+						CloseAllConnections();
 
 						MoveCurrentDatabaseFile(databaseVersion);
 						string backupFilePath = GetBackupDatabaseFilePath(backupVersion);
@@ -134,13 +133,13 @@ namespace VidCoder.Model
 
 						databaseVersion = backupVersion;
 					}
-					catch (IOException)
+					catch (IOException exception)
 					{
-						HandleCriticalFileError();
+						HandleCriticalFileError(exception);
 					}
-					catch (UnauthorizedAccessException)
+					catch (UnauthorizedAccessException exception)
 					{
-						HandleCriticalFileError();
+						HandleCriticalFileError(exception);
 					}
 				}
 				else
@@ -165,21 +164,20 @@ namespace VidCoder.Model
 					MainRes.IncompatibleDatabaseFileTitle,
 					MessageBoxButton.YesNo) == MessageBoxResult.Yes)
 				{
-					Connection.Close();
+					CloseAllConnections();
 
 					try
 					{
 						MoveCurrentDatabaseFile(databaseVersion);
-						connection = null;
 						databaseVersion = DatabaseConfig.Version;
 					}
-					catch (IOException)
+					catch (IOException exception)
 					{
-						HandleCriticalFileError();
+						HandleCriticalFileError(exception);
 					}
-					catch (UnauthorizedAccessException)
+					catch (UnauthorizedAccessException exception)
 					{
-						HandleCriticalFileError();
+						HandleCriticalFileError(exception);
 					}
 				}
 				else
@@ -201,8 +199,7 @@ namespace VidCoder.Model
 
 		private static void BackupDatabaseFile(int databaseVersion)
 		{
-			Connection.Close();
-			connection = null;
+			CloseAllConnections();
 
 			try
 			{
@@ -265,6 +262,22 @@ namespace VidCoder.Model
 		private static string GetBackupDatabaseFileName(int databaseVersion)
 		{
 			return ConfigDatabaseFileWithoutExtension + "-v" + databaseVersion + ConfigDatabaseFileExtension;
+		}
+
+		private static void CloseAllConnections()
+		{
+			Connection.Close();
+			connection = null;
+
+			if (threadLocalConnection.Values != null && threadLocalConnection.Values.Count > 0)
+			{
+				foreach (SQLiteConnection threadLocalConnectionValue in threadLocalConnection.Values)
+				{
+					threadLocalConnectionValue.Close();
+				}
+
+				threadLocalConnection = new ThreadLocal<SQLiteConnection>(trackAllValues: true);
+			}
 		}
 
 #pragma warning disable CS0618 // Type or member is obsolete
@@ -368,11 +381,11 @@ namespace VidCoder.Model
 			PickerStorage.SavePickers(pickerJsonList, Connection);
 		}
 
-		private static void HandleCriticalFileError()
+		private static void HandleCriticalFileError(Exception exception)
 		{
 			var messageService = StaticResolver.Resolve<IMessageBoxService>();
 
-			messageService.Show(CommonRes.FileFailureErrorMessage, CommonRes.FileFailureErrorTitle, MessageBoxButton.OK);
+			messageService.Show(CommonRes.FileFailureErrorMessage + Environment.NewLine + Environment.NewLine + exception.ToString(), CommonRes.FileFailureErrorTitle, MessageBoxButton.OK);
 			Environment.Exit(1);
 		}
 
@@ -536,7 +549,7 @@ namespace VidCoder.Model
 			{
 				CreateTables(newConnection);
 
-				var settingsList = new Dictionary<string, string> {{"Version", Utilities.CurrentDatabaseVersion.ToString(CultureInfo.InvariantCulture)}};
+				var settingsList = new Dictionary<string, string> { { "Version", Utilities.CurrentDatabaseVersion.ToString(CultureInfo.InvariantCulture) } };
 				AddSettingsList(newConnection, settingsList);
 			}
 
@@ -569,7 +582,7 @@ namespace VidCoder.Model
 				"CREATE TABLE workerLogs (" +
 				"workerGuid TEXT, " +
 				"message TEXT, " +
-				"level INTEGER, " + 
+				"level INTEGER, " +
 				"time TEXT)", connection);
 		}
 
