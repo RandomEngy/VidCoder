@@ -83,8 +83,10 @@ namespace VidCoder
 			Delay.PseudoLocalizer.Enable(typeof(MiscRes));
 #endif
 
+			string squirrelPackName = CommonUtilities.Beta ? "VidCoder_Beta" : "VidCoder";
+
 			// Set the AppUserModelID to match the shortcut that Squirrel is creating. This will allow any pinned shortcut on the taskbar to be updated.
-			SetCurrentProcessExplicitAppUserModelID("com.squirrel.VidCoder-Beta.VidCoder");
+			SetCurrentProcessExplicitAppUserModelID($"com.squirrel.{squirrelPackName}.VidCoder");
 
 			SquirrelAwareApp.HandleEvents(onInitialInstall: OnInitialInstall, onAppUninstall: OnAppUninstall);
 
@@ -127,6 +129,9 @@ namespace VidCoder
 			var splashWindow = new SplashWindow();
 			splashWindow.Show();
 
+			// Run some global initialization for the HandBrake library. This needs to run before doing database upgrades, as we access HandBrake helper functions there.
+			this.HandBrakeGlobalInitialize();
+
 			Ioc.SetUp();
 
 			Database.Initialize();
@@ -161,8 +166,6 @@ namespace VidCoder
 				FileUtilities.OverrideTempFolder = true;
 				FileUtilities.TempFolderOverride = Config.PreviewOutputFolder;
 			}
-
-			this.GlobalInitialize();
 
 			this.appThemeService = StaticResolver.Resolve<IAppThemeService>();
 			this.appThemeService.AppThemeObservable.Subscribe(appTheme =>
@@ -243,10 +246,10 @@ namespace VidCoder
 			this.appThemeService?.Dispose();
 		}
 
-		private void GlobalInitialize()
+		private void HandBrakeGlobalInitialize()
 		{
 			HandBrakeUtils.EnsureGlobalInit(initNoHardwareMode: false);
-			HandBrakeUtils.SetDvdNav(Config.EnableLibDvdNav);
+			HandBrakeUtils.SetDvdNav(DatabaseConfig.Get<bool>("EnableLibDvdNav", true)); // This runs early so we need to use the raw version to get the config value.
 		}
 
 		public void ChangeTheme(Uri uri)
