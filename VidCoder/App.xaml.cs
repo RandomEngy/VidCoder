@@ -113,6 +113,8 @@ namespace VidCoder
 			Delay.PseudoLocalizer.Enable(typeof(MiscRes));
 #endif
 
+			this.HandBrakeGlobalInitialize();
+
 			Ioc.SetUp();
 
 			Database.Initialize();
@@ -144,8 +146,6 @@ namespace VidCoder
 			System.Diagnostics.Debug.WriteLine("Startup time: " + sw.Elapsed);
 
 			updater.HandlePendingUpdate();
-
-			this.GlobalInitialize();
 
 			this.appThemeService = StaticResolver.Resolve<IAppThemeService>();
 			this.appThemeService.AppThemeObservable.Subscribe(appTheme =>
@@ -207,10 +207,10 @@ namespace VidCoder
 			this.appThemeService?.Dispose();
 		}
 
-		private void GlobalInitialize()
+		private void HandBrakeGlobalInitialize()
 		{
 			HandBrakeUtils.EnsureGlobalInit(initNoHardwareMode: false);
-			HandBrakeUtils.SetDvdNav(Config.EnableLibDvdNav);
+			HandBrakeUtils.SetDvdNav(DatabaseConfig.Get<bool>("EnableLibDvdNav", true)); // This runs early so we need to use the raw version to get the config value.
 		}
 
 		public void ChangeTheme(Uri uri)
