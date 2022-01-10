@@ -133,11 +133,7 @@ namespace VidCoder.Model
 
 						databaseVersion = backupVersion;
 					}
-					catch (IOException exception)
-					{
-						HandleCriticalFileError(exception);
-					}
-					catch (UnauthorizedAccessException exception)
+					catch (Exception exception)
 					{
 						HandleCriticalFileError(exception);
 					}
@@ -171,11 +167,7 @@ namespace VidCoder.Model
 						MoveCurrentDatabaseFile(databaseVersion);
 						databaseVersion = DatabaseConfig.Version;
 					}
-					catch (IOException exception)
-					{
-						HandleCriticalFileError(exception);
-					}
-					catch (UnauthorizedAccessException exception)
+					catch (Exception exception)
 					{
 						HandleCriticalFileError(exception);
 					}
