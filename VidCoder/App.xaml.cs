@@ -83,7 +83,7 @@ namespace VidCoder
 			Delay.PseudoLocalizer.Enable(typeof(MiscRes));
 #endif
 
-			string squirrelPackName = CommonUtilities.Beta ? "VidCoder_Beta" : "VidCoder";
+			string squirrelPackName = CommonUtilities.Beta ? "VidCoder-Beta" : "VidCoder";
 
 			// Set the AppUserModelID to match the shortcut that Squirrel is creating. This will allow any pinned shortcut on the taskbar to be updated.
 			SetCurrentProcessExplicitAppUserModelID($"com.squirrel.{squirrelPackName}.VidCoder");

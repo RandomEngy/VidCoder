@@ -99,9 +99,9 @@ $winRarExe = "c:\Program Files\WinRar\WinRAR.exe"
 #SignExe $portableExeWithExtension; ExitIfFailed
 
 # Build Squirrel installer
-Set-Alias Squirrel ($env:USERPROFILE + "\.nuget\packages\clowd.squirrel\2.7.1-pre\tools\Squirrel.exe")
+Set-Alias Squirrel ($env:USERPROFILE + "\.nuget\packages\clowd.squirrel\2.7.34-pre\tools\Squirrel.exe")
 if ($beta) {
-    $packName = "VidCoder_Beta"
+    $packName = "VidCoder-Beta"
     $releaseDirSuffix = "Beta"
 } else {
     $packName = "VidCoder"
