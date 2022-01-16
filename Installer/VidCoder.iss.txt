@@ -47,12 +47,12 @@ Root: HKCR; Subkey: "%appNameNoSpace%.RipDrive\shell"
 Root: HKCR; Subkey: "%appNameNoSpace%.RipDrive\shell\rip"
 Root: HKCR; Subkey: "%appNameNoSpace%.RipDrive\shell\rip\command"; ValueType: string; ValueData: """{app}\VidCoderWindowlessCLI.exe"" scan -s %L"
 
-Root: HKCR; Subkey: ".vjpreset"; ValueType: string; ValueName: ""; ValueData: "VidCoderPreset"; Flags: uninsdeletevalue 
+Root: HKCR; Subkey: ".vjpreset"; ValueType: string; ValueName: ""; ValueData: "VidCoderPreset"; Flags: uninsdeletekey 
 Root: HKCR; Subkey: "VidCoderPreset"; ValueType: string; ValueName: ""; ValueData: "VidCoder preset"; Flags: uninsdeletekey 
 Root: HKCR; Subkey: "VidCoderPreset\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: """{app}\VidCoderPreset.ico""" 
 Root: HKCR; Subkey: "VidCoderPreset\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\VidCoderWindowlessCLI.exe"" importpreset ""%1""" 
 
-Root: HKCR; Subkey: ".vjqueue"; ValueType: string; ValueName: ""; ValueData: "VidCoderQueue"; Flags: uninsdeletevalue 
+Root: HKCR; Subkey: ".vjqueue"; ValueType: string; ValueName: ""; ValueData: "VidCoderQueue"; Flags: uninsdeletekey 
 Root: HKCR; Subkey: "VidCoderQueue"; ValueType: string; ValueName: ""; ValueData: "VidCoder queue"; Flags: uninsdeletekey 
 Root: HKCR; Subkey: "VidCoderQueue\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: """{app}\VidCoderQueue.ico""" 
 Root: HKCR; Subkey: "VidCoderQueue\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\VidCoderWindowlessCLI.exe"" importqueue ""%1""" 
