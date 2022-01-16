@@ -22,6 +22,7 @@ using Microsoft.AnyContainer;
 using ControlzEx.Theming;
 using Microsoft.Toolkit.Uwp.Notifications;
 using VidCoder.Automation;
+using System.IO;
 
 namespace VidCoder
 {
@@ -208,7 +209,6 @@ namespace VidCoder
 				activityService.ReportDeactivated();
 			};
 
-			//if (ApiInformation.IsTypePresent("Windows.UI.Notifications.Notification"))
 			if (Utilities.UwpApisAvailable)
 			{
 				ToastNotificationManagerCompat.OnActivated += this.ToastOnActivated;
@@ -217,18 +217,48 @@ namespace VidCoder
 			base.OnStartup(e);
 		}
 
+		/// <summary>
+		/// Called when the app first installs. Will run this code and exit.
+		/// </summary>
+		/// <param name="version">The app version.</param>
 		private static void OnInitialInstall(Version version)
 		{
 			using var mgr = new UpdateManager(Utilities.SquirrelUpdateUrl, Utilities.SquirrelAppId);
 			mgr.CreateUninstallerRegistryEntry();
 			mgr.CreateShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
+
+			RunElevatedSetup(install: true);
 		}
 
+		/// <summary>
+		/// Called when the app is uninstalled. Will run this code and exit.
+		/// </summary>
+		/// <param name="version">The app version.</param>
 		private static void OnAppUninstall(Version version)
 		{
 			using var mgr = new UpdateManager(Utilities.SquirrelUpdateUrl, Utilities.SquirrelAppId);
 			mgr.RemoveUninstallerRegistryEntry();
 			mgr.RemoveShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
+
+			RunElevatedSetup(install: false);
+		}
+
+		private static void RunElevatedSetup(bool install)
+		{
+			string setupExe = Path.Combine(Utilities.ProgramFolder, "VidCoderElevatedSetup.exe");
+			var startInfo = new ProcessStartInfo(setupExe, install ? "install" : "uninstall");
+			startInfo.CreateNoWindow = true;
+			startInfo.WorkingDirectory = Utilities.ProgramFolder;
+			startInfo.UseShellExecute = true;
+			startInfo.Verb = "runas";
+
+			Process process = Process.Start(startInfo);
+			process.WaitForExit();
+
+			if (process.ExitCode != 0)
+			{
+				// TODO - Log this error somewhere
+			}
 		}
 
 		private void ToastOnActivated(ToastNotificationActivatedEventArgsCompat e)

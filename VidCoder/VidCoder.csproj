@@ -272,6 +272,7 @@
   <ItemGroup>
     <ProjectReference Include="..\VidCoderCLI\VidCoderCLI.csproj" />
     <ProjectReference Include="..\VidCoderCommon\VidCoderCommon.csproj" />
+    <ProjectReference Include="..\VidCoderElevatedSetup\VidCoderElevatedSetup.csproj" />
     <ProjectReference Include="..\VidCoderWindowlessCLI\VidCoderWindowlessCLI.csproj" />
     <ProjectReference Include="..\VidCoderWorker\VidCoderWorker.csproj" />
   </ItemGroup>

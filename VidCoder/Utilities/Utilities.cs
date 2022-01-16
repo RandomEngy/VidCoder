@@ -32,7 +32,6 @@ namespace VidCoder
 		public const int LastUpdatedPickerDatabaseVersion = 45;
 
 		private const string AppDataFolderName = "VidCoder";
-		private const string LocalAppDataFolderName = "VidCoder";
 
 		public const string SquirrelUpdateUrlBase = "https://engy.us/VidCoder/Squirrel";
 
@@ -249,23 +248,6 @@ namespace VidCoder
 			get
 			{
 				return GetAppFolder(CommonUtilities.Beta);
-			}
-		}
-
-		public static string LocalAppFolder
-		{
-			get
-			{
-				string folder = Path.Combine(
-					Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-					LocalAppDataFolderName);
-
-				if (CommonUtilities.Beta)
-				{
-					folder += "-Beta";
-				}
-
-				return folder;
 			}
 		}
 

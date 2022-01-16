@@ -23,6 +23,7 @@ using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
+using VidCoderCommon;
 using VidCoderCommon.Model;
 using Geometry = HandBrake.Interop.Interop.Json.Shared.Geometry;
 
@@ -623,7 +624,7 @@ namespace VidCoder.ViewModel
 			}
 			else
 			{
-				previewDirectory = Utilities.LocalAppFolder;
+				previewDirectory = CommonUtilities.LocalAppFolder;
 			}
 
 			try
@@ -636,7 +637,7 @@ namespace VidCoder.ViewModel
 			catch (Exception exception)
 			{
 				this.logger.LogError("Could not create preview directory " + Config.PreviewOutputFolder + Environment.NewLine + exception);
-				previewDirectory = Utilities.LocalAppFolder;
+				previewDirectory = CommonUtilities.LocalAppFolder;
 			}
 
 			this.previewFilePath = Path.Combine(previewDirectory, "preview" + extension);
