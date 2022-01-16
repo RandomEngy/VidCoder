@@ -12,22 +12,19 @@ using HandBrake.Interop.Interop;
 using VidCoder.View;
 using VidCoderCommon;
 using VidCoderCommon.Utilities;
+using System.Threading;
+using System.Runtime.InteropServices;
+using VidCoder.Resources;
+using Squirrel;
+using VidCoderCommon.Services;
+using System.Globalization;
+using Microsoft.AnyContainer;
+using ControlzEx.Theming;
+using Microsoft.Toolkit.Uwp.Notifications;
+using VidCoder.Automation;
 
 namespace VidCoder
 {
-	using System.Globalization;
-	using System.Runtime.InteropServices;
-	using System.Threading;
-	using Automation;
-	using ControlzEx.Theming;
-	using Microsoft.AnyContainer;
-	using Microsoft.Toolkit.Uwp.Notifications;
-	using Resources;
-	using Squirrel;
-	using VidCoder.Services.Notifications;
-	using VidCoderCommon.Services;
-	using Windows.Foundation.Metadata;
-
 	/// <summary>
 	/// Interaction logic for App.xaml
 	/// </summary>
@@ -83,10 +80,8 @@ namespace VidCoder
 			Delay.PseudoLocalizer.Enable(typeof(MiscRes));
 #endif
 
-			string squirrelPackName = CommonUtilities.Beta ? "VidCoder-Beta" : "VidCoder";
-
 			// Set the AppUserModelID to match the shortcut that Squirrel is creating. This will allow any pinned shortcut on the taskbar to be updated.
-			SetCurrentProcessExplicitAppUserModelID($"com.squirrel.{squirrelPackName}.VidCoder");
+			SetCurrentProcessExplicitAppUserModelID($"com.squirrel.{Utilities.SquirrelAppId}.VidCoder");
 
 			SquirrelAwareApp.HandleEvents(onInitialInstall: OnInitialInstall, onAppUninstall: OnAppUninstall);
 
@@ -224,14 +219,14 @@ namespace VidCoder
 
 		private static void OnInitialInstall(Version version)
 		{
-			using var mgr = new UpdateManager(Utilities.SquirrelUpdateUrl);
+			using var mgr = new UpdateManager(Utilities.SquirrelUpdateUrl, Utilities.SquirrelAppId);
 			mgr.CreateUninstallerRegistryEntry();
 			mgr.CreateShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
 		}
 
 		private static void OnAppUninstall(Version version)
 		{
-			using var mgr = new UpdateManager(Utilities.SquirrelUpdateUrl);
+			using var mgr = new UpdateManager(Utilities.SquirrelUpdateUrl, Utilities.SquirrelAppId);
 			mgr.RemoveUninstallerRegistryEntry();
 			mgr.RemoveShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
 		}

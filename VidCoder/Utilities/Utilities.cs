@@ -143,6 +143,14 @@ namespace VidCoder
 			}
 		}
 
+		public static string SquirrelAppId
+		{
+			get
+			{
+				return CommonUtilities.Beta ? "VidCoder" : "VidCoder-Beta";
+			}
+		}
+
 		public static bool SupportsUpdates => !IsPortable && CurrentVersion != new Version(1, 0, 0, 0);
 
 		public static bool IsDesigner

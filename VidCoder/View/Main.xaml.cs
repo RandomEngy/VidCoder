@@ -228,7 +228,7 @@ namespace VidCoder.View
 			var doAnActionItem = new Fluent.MenuItem { Header = "Perform action" };
 			doAnActionItem.Click += async (sender, args) =>
 			{
-				var updateManager = new UpdateManager(Utilities.SquirrelUpdateUrl);
+				var updateManager = new UpdateManager(Utilities.SquirrelUpdateUrl, Utilities.SquirrelAppId);
 				await updateManager.CheckForUpdate();
 			};
 			debugDropDown.Items.Add(doAnActionItem);

@@ -103,7 +103,7 @@ namespace VidCoder.Services
 				this.UpdateCheckProgressPercent = 0;
 				this.State = UpdateState.Checking;
 
-				using var updateManager = new UpdateManager(Utilities.SquirrelUpdateUrl);
+				using var updateManager = new UpdateManager(Utilities.SquirrelUpdateUrl, Utilities.SquirrelAppId);
 				ReleaseEntry releaseEntry = await updateManager.UpdateApp(progressNumber =>
 				{
 					this.UpdateCheckProgressPercent = progressNumber;
