@@ -78,6 +78,8 @@ if ($beta) {
     $betaNameSection = ""
 }
 
+$binaryNameBase = "VidCoder-$versionShort$betaNameSection"
+
 if ($debugBuild) {
     $builtInstallerFolder = "Installer\BuiltInstallers\Test"
 } else {
@@ -86,7 +88,7 @@ if ($debugBuild) {
 
 New-Item -ItemType Directory -Force -Path ".\$builtInstallerFolder"
 
-$portableExeWithoutExtension = ".\$builtInstallerFolder\VidCoder-$versionShort$betaNameSection-Portable"
+$portableExeWithoutExtension = ".\$builtInstallerFolder\$binaryNameBase-Portable"
 $portableExeWithExtension = $portableExeWithoutExtension + ".exe"
 
 DeleteFileIfExists $portableExeWithExtension
@@ -98,6 +100,12 @@ $winRarExe = "c:\Program Files\WinRar\WinRAR.exe"
 
 #SignExe $portableExeWithExtension; ExitIfFailed
 
+# Create zip file with binaries
+$zipFilePath = ".\Installer\BuiltInstallers\$binaryNameBase.zip"
+DeleteFileIfExists $zipFilePath
+
+& $winRarExe a -afzip -ep1 -r $zipFilePath .\VidCoder\bin\publish-installer\
+
 # Build Squirrel installer
 Set-Alias Squirrel ($env:USERPROFILE + "\.nuget\packages\clowd.squirrel\2.7.34-pre\tools\Squirrel.exe")
 if ($beta) {
@@ -108,16 +116,21 @@ if ($beta) {
     $releaseDirSuffix = "Stable"
 }
 
+$releaseDir = ".\Installer\Releases-$releaseDirSuffix"
+
 Squirrel pack `
     --packName $packName `
     --packVersion $versionShort `
     --packAuthors RandomEngy `
     --packDirectory .\VidCoder\bin\publish-installer `
     --setupIcon .\Installer\VidCoder_Setup.ico `
-    --releaseDir .\Installer\Releases-$releaseDirSuffix `
+    --releaseDir $releaseDir `
     --splashImage .\Installer\InstallerSplash.png `
     --signParams "/f D:\certs\ComodoIndividualCertv2.pfx /p $p /fd SHA256 /tr http://timestamp.digicert.com /td SHA256" `
     --framework net6-x64
+
+ExitIfFailed;
+copy ("$releaseDir\" + $packName + "Setup.exe") ".\Installer\BuiltInstallers\$binaryNameBase.exe"
 
 WriteSuccess
 
