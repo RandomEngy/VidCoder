@@ -6,6 +6,7 @@ using VidCoderCommon.Services;
 
 bool isBeta = CommonUtilities.Beta;
 string localAppFolder = CommonUtilities.LocalAppFolder;
+string windowlessCliExePath = Path.Combine(localAppFolder, "VidCoderWindowlessCLI.exe");
 
 string eventHandlersKeyPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\EventHandlers";
 
@@ -20,6 +21,12 @@ string ripDriveKeyPath = @$"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\A
 
 string ripDriveProgId = $"{appNameNoSpace}.RipDrive";
 
+string vjPresetKeyPath = ".vjpreset";
+string vjQueueKeyPath = ".vjqueue";
+
+string presetProgId = "VidCoderPreset";
+string queueProgId = "VidCoderQueue";
+
 ElevatedSetupLogger? logger = null;
 
 if (args.Length > 0)
@@ -31,14 +38,16 @@ if (args.Length > 0)
 			logger = new ElevatedSetupLogger("ElevatedInstall");
 			logger.Log("Running elevated jobs for install...");
 			AddRipDriveAction();
-			logger.Log("Jobs completed successfully.");
+			AddFileAssociations();
+			logger.Log("Jobs finished.");
 		}
 		else if (args[0] == "uninstall")
 		{
 			logger = new ElevatedSetupLogger("ElevatedUninstall");
 			logger.Log("Running elevated jobs for uninstall...");
 			RemoveRipDriveAction();
-			logger.Log("Jobs completed successfully.");
+			RemoveFileAssociations();
+			logger.Log("Jobs finished.");
 		}
 	}
 	finally
@@ -82,7 +91,6 @@ void AddRipDriveAction()
 		}
 
 		// 3: Define the program the rip drive action is invoking
-		string windowlessCliExePath = Path.Combine(localAppFolder, "VidCoderWindowlessCLI.exe");
 
 		// Clean up old path if it's there.
 		Registry.ClassesRoot.DeleteSubKeyTree(ripDriveProgId, throwOnMissingSubKey: false);
@@ -118,6 +126,63 @@ void RemoveRipDriveAction()
 		Registry.LocalMachine.DeleteSubKey(ripDriveKeyPath, throwOnMissingSubKey: false);
 
 		Registry.ClassesRoot.DeleteSubKeyTree(ripDriveProgId, throwOnMissingSubKey: false);
+	}
+	catch (Exception exception)
+	{
+		logger.Log(exception.ToString());
+	}
+}
+
+void AddFileAssociations()
+{
+	try
+	{
+		// .vjpreset file association
+		RegistryKey presetKey = Registry.ClassesRoot.CreateSubKey(vjPresetKeyPath);
+		presetKey.SetValue(null, presetProgId);
+		presetKey.Close();
+
+		string presetIconPath = Path.Combine(CommonUtilities.LocalAppFolder, "VidCoderPreset.ico");
+
+		RegistryKey presetIconKey = Registry.ClassesRoot.CreateSubKey($@"{presetProgId}\DefaultIcon");
+		presetIconKey.SetValue(null, $"\"{presetIconPath}\"");
+		presetIconKey.Close();
+
+		RegistryKey presetOpenCommandKey = Registry.ClassesRoot.CreateSubKey($@"{presetProgId}\shell\open\command");
+		presetOpenCommandKey.SetValue(null, $"\"{windowlessCliExePath}\" importpreset \"%1\"");
+		presetOpenCommandKey.Close();
+
+		// .vjqueue file association
+		RegistryKey queueKey = Registry.ClassesRoot.CreateSubKey(vjQueueKeyPath);
+		queueKey.SetValue(null, queueProgId);
+		queueKey.Close();
+
+		string queueIconPath = Path.Combine(CommonUtilities.LocalAppFolder, "VidCoderQueue.ico");
+
+		RegistryKey queueIconKey = Registry.ClassesRoot.CreateSubKey($@"{queueProgId}\DefaultIcon");
+		queueIconKey.SetValue(null, $"\"{queueIconPath}\"");
+		queueIconKey.Close();
+
+		RegistryKey queueOpenCommandKey = Registry.ClassesRoot.CreateSubKey($@"{queueProgId}\shell\open\command");
+		queueOpenCommandKey.SetValue(null, $"\"{windowlessCliExePath}\" importqueue \"%1\"");
+		queueOpenCommandKey.Close();
+
+	}
+	catch (Exception exception)
+	{
+		logger.Log(exception.ToString());
+	}
+}
+
+void RemoveFileAssociations()
+{
+	try
+	{
+		Registry.ClassesRoot.DeleteSubKey(vjPresetKeyPath);
+		Registry.ClassesRoot.DeleteSubKey(vjQueueKeyPath);
+
+		Registry.ClassesRoot.DeleteSubKeyTree(presetProgId);
+		Registry.ClassesRoot.DeleteSubKeyTree(queueProgId);
 	}
 	catch (Exception exception)
 	{

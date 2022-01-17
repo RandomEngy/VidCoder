@@ -11,18 +11,15 @@ using System.Windows.Media;
 using HandBrake.Interop.Interop;
 using VidCoder.View;
 using VidCoderCommon;
-using VidCoderCommon.Utilities;
 using System.Threading;
 using System.Runtime.InteropServices;
 using VidCoder.Resources;
-using Squirrel;
 using VidCoderCommon.Services;
 using System.Globalization;
 using Microsoft.AnyContainer;
 using ControlzEx.Theming;
 using Microsoft.Toolkit.Uwp.Notifications;
 using VidCoder.Automation;
-using System.IO;
 
 namespace VidCoder
 {
@@ -84,7 +81,7 @@ namespace VidCoder
 			// Set the AppUserModelID to match the shortcut that Squirrel is creating. This will allow any pinned shortcut on the taskbar to be updated.
 			SetCurrentProcessExplicitAppUserModelID($"com.squirrel.{Utilities.SquirrelAppId}.VidCoder");
 
-			SquirrelAwareApp.HandleEvents(onInitialInstall: OnInitialInstall, onAppUninstall: OnAppUninstall);
+			VidCoderInstall.HandleSquirrelEvents();
 
 			// If we get here we know we are actually trying to launch the app (and this isn't part of a Squirrel update process.
 			// Enforce single-instance restrictions.
@@ -215,88 +212,6 @@ namespace VidCoder
 			}
 
 			base.OnStartup(e);
-		}
-
-		/// <summary>
-		/// Called when the app first installs. Will run this code and exit.
-		/// </summary>
-		/// <param name="version">The app version.</param>
-		private static void OnInitialInstall(Version version)
-		{
-			var logger = new ElevatedSetupLogger("Install");
-			logger.Log("Running initial install actions...");
-
-			try
-			{
-				using var mgr = new UpdateManager(Utilities.SquirrelUpdateUrl, Utilities.SquirrelAppId);
-				mgr.CreateUninstallerRegistryEntry();
-				mgr.CreateShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
-
-				RunElevatedSetup(install: true, logger);
-				logger.Log("Initial install actions complete.");
-			}
-			catch (Exception exception)
-			{
-				logger.Log(exception.ToString());
-				throw;
-			}
-			finally
-			{
-				logger.Close();
-			}
-		}
-
-		/// <summary>
-		/// Called when the app is uninstalled. Will run this code and exit.
-		/// </summary>
-		/// <param name="version">The app version.</param>
-		private static void OnAppUninstall(Version version)
-		{
-			var logger = new ElevatedSetupLogger("Uninstall");
-			logger.Log("Running uninstall actions...");
-
-			try
-			{
-				using var mgr = new UpdateManager(Utilities.SquirrelUpdateUrl, Utilities.SquirrelAppId);
-				mgr.RemoveUninstallerRegistryEntry();
-				mgr.RemoveShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
-
-				RunElevatedSetup(install: false, logger);
-				logger.Log("Uninstall actions complete.");
-			}
-			catch (Exception exception)
-			{
-				logger.Log(exception.ToString());
-				throw;
-			}
-			finally
-			{
-				logger.Close();
-			}
-		}
-
-		private static void RunElevatedSetup(bool install, ElevatedSetupLogger logger)
-		{
-			logger.Log("Starting elevated setup...");
-
-			string setupExe = Path.Combine(Utilities.ProgramFolder, "VidCoderElevatedSetup.exe");
-			var startInfo = new ProcessStartInfo(setupExe, install ? "install" : "uninstall");
-			startInfo.CreateNoWindow = true;
-			startInfo.WorkingDirectory = Utilities.ProgramFolder;
-			startInfo.UseShellExecute = true;
-			startInfo.Verb = "runas";
-
-			Process process = Process.Start(startInfo);
-			process.WaitForExit();
-
-			if(process.ExitCode == 0)
-			{
-				logger.Log("Elevated setup completed successfully.");
-			}
-			else
-			{
-				logger.Log("Elevated setup failed. Check the ElevatedInstall log for more details.");
-			}
 		}
 
 		private void ToastOnActivated(ToastNotificationActivatedEventArgsCompat e)
