@@ -35,13 +35,25 @@ namespace VidCoder
 
 		static Utilities()
 		{
-			var tempFolderPath = Environment.GetEnvironmentVariable("temp");
-			if (tempFolderPath != null)
-			{
-				DirectoryInfo tempFolderInfo = new DirectoryInfo(tempFolderPath);
-				DirectoryInfo currentDirectoryInfo = new DirectoryInfo(Directory.GetCurrentDirectory());
+			InstallType = VidCoderInstallType.Zip;
 
-				IsPortable = currentDirectoryInfo.FullName.StartsWith(tempFolderInfo.FullName, StringComparison.OrdinalIgnoreCase);
+			if (ProgramFolder.StartsWith(CommonUtilities.LocalAppFolder, StringComparison.OrdinalIgnoreCase))
+			{
+				InstallType = VidCoderInstallType.SquirrelInstaller;
+			}
+			else
+			{
+				var tempFolderPath = Environment.GetEnvironmentVariable("temp");
+				if (tempFolderPath != null)
+				{
+					DirectoryInfo tempFolderInfo = new DirectoryInfo(tempFolderPath);
+					DirectoryInfo currentDirectoryInfo = new DirectoryInfo(Directory.GetCurrentDirectory());
+
+					if (currentDirectoryInfo.FullName.StartsWith(tempFolderInfo.FullName, StringComparison.OrdinalIgnoreCase))
+					{
+						InstallType = VidCoderInstallType.Portable;
+					}
+				}
 			}
 		}
 
@@ -68,7 +80,7 @@ namespace VidCoder
 			}
 		}
 
-		public static bool IsPortable { get; }
+		public static VidCoderInstallType InstallType { get; }
 
 		public static bool UwpApisAvailable
 		{
@@ -148,7 +160,7 @@ namespace VidCoder
 			}
 		}
 
-		public static bool SupportsUpdates => !IsPortable && CurrentVersion != new Version(1, 0, 0, 0);
+		public static bool SupportsUpdates => InstallType == VidCoderInstallType.SquirrelInstaller && CurrentVersion != new Version(1, 0, 0, 0);
 
 		public static bool IsDesigner
 		{

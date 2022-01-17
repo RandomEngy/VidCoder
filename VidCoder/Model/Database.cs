@@ -396,7 +396,7 @@ namespace VidCoder.Model
 
 		private static string GetDatabaseFilePath()
 		{
-			if (Utilities.IsPortable)
+			if (Utilities.InstallType == VidCoderInstallType.Portable)
 			{
 				string portableExeFolder = GetPortableExeFolder();
 				if (FileUtilities.HasWriteAccessOnFolder(portableExeFolder))
@@ -439,7 +439,7 @@ namespace VidCoder.Model
 		/// <returns></returns>
 		private static string GetPortableExeFolder()
 		{
-			if (!Utilities.IsPortable)
+			if (Utilities.InstallType != VidCoderInstallType.Portable)
 			{
 				throw new InvalidOperationException("Called GetPortableExeFolder on a non-portable install.");
 			}

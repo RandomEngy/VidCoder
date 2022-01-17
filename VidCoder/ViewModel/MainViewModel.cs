@@ -929,7 +929,7 @@ namespace VidCoder.ViewModel
 			FileCleanup.CleanPreviewFileCache();
 			FileCleanup.CleanHandBrakeTempFiles();
 
-			if (!Utilities.IsPortable)
+			if (Utilities.InstallType != VidCoderInstallType.Portable)
 			{
 				AutomationHost.StopListening();
 			}

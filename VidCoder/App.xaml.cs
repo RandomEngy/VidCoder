@@ -194,7 +194,10 @@ namespace VidCoder
 
 			splashWindow.Close();
 
-			AutomationHost.StartListening();
+			if (Utilities.InstallType != VidCoderInstallType.Portable)
+			{
+				AutomationHost.StartListening();
+			}
 				
 			ActivityService activityService = StaticResolver.Resolve<ActivityService>();
 			this.Activated += (object sender, EventArgs e2) =>

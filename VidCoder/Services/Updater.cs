@@ -103,7 +103,7 @@ namespace VidCoder.Services
 				this.UpdateCheckProgressPercent = 0;
 				this.State = UpdateState.Checking;
 
-				using var updateManager = new UpdateManager(Utilities.SquirrelUpdateUrl, Utilities.SquirrelAppId);
+				using var updateManager = new UpdateManager(Utilities.SquirrelUpdateUrl);
 				ReleaseEntry releaseEntry = await updateManager.UpdateApp(progressNumber =>
 				{
 					this.UpdateCheckProgressPercent = progressNumber;
@@ -115,7 +115,8 @@ namespace VidCoder.Services
 				}
 				else
 				{
-					this.LatestVersion = releaseEntry.Version.Version;
+					// Save latest version (just major and minor)
+					this.LatestVersion = new Version(releaseEntry.Version.Version.Major, releaseEntry.Version.Version.Minor);
 					this.State = UpdateState.UpdateReady;
 
 					if (CustomConfig.UpdateMode == UpdateMode.PromptApplyImmediately && !isManualCheck)

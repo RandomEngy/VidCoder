@@ -29,7 +29,7 @@ namespace VidCoder
 
 			try
 			{
-				using var mgr = new UpdateManager(Utilities.SquirrelUpdateUrl, Utilities.SquirrelAppId);
+				using var mgr = new UpdateManager(Utilities.SquirrelUpdateUrl);
 				mgr.CreateUninstallerRegistryEntry();
 				mgr.CreateShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
 
@@ -60,7 +60,7 @@ namespace VidCoder
 
 			try
 			{
-				using var mgr = new UpdateManager(Utilities.SquirrelUpdateUrl, Utilities.SquirrelAppId);
+				using var mgr = new UpdateManager(Utilities.SquirrelUpdateUrl);
 				mgr.RemoveUninstallerRegistryEntry();
 				mgr.RemoveShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
 
