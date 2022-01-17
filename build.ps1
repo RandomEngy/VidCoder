@@ -108,7 +108,16 @@ if ($beta) {
     $releaseDirSuffix = "Stable"
 }
 
-Squirrel pack --packName $packName --packVersion $versionShort --packAuthors RandomEngy --packDirectory .\VidCoder\bin\publish-installer --setupIcon .\Installer\VidCoder_Setup.ico --releaseDir .\Installer\Releases-$releaseDirSuffix --splashImage .\Installer\InstallerSplash.png --signParams "/f D:\certs\ComodoIndividualCertv2.pfx /p $p /fd SHA256 /tr http://timestamp.digicert.com /td SHA256" --framework net6-x64
+Squirrel pack `
+    --packName $packName `
+    --packVersion $versionShort `
+    --packAuthors RandomEngy `
+    --packDirectory .\VidCoder\bin\publish-installer `
+    --setupIcon .\Installer\VidCoder_Setup.ico `
+    --releaseDir .\Installer\Releases-$releaseDirSuffix `
+    --splashImage .\Installer\InstallerSplash.png `
+    --signParams "/f D:\certs\ComodoIndividualCertv2.pfx /p $p /fd SHA256 /tr http://timestamp.digicert.com /td SHA256" `
+    --framework net6-x64
 
 WriteSuccess
 
