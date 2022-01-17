@@ -31,8 +31,6 @@ namespace VidCoder
 		public const int LastUpdatedEncodingProfileDatabaseVersion = 44;
 		public const int LastUpdatedPickerDatabaseVersion = 45;
 
-		private const string AppDataFolderName = "VidCoder";
-
 		public const string SquirrelUpdateUrlBase = "https://engy.us/VidCoder/Squirrel";
 
 		static Utilities()
@@ -146,7 +144,7 @@ namespace VidCoder
 		{
 			get
 			{
-				return CommonUtilities.Beta ? "VidCoder" : "VidCoder-Beta";
+				return CommonUtilities.Beta ? "VidCoder-Beta" : "VidCoder";
 			}
 		}
 
@@ -243,14 +241,6 @@ namespace VidCoder
 			}
 		}
 
-		public static string AppFolder
-		{
-			get
-			{
-				return GetAppFolder(CommonUtilities.Beta);
-			}
-		}
-
 		public static string ProgramPath
 		{
 			get
@@ -267,14 +257,6 @@ namespace VidCoder
 			}
 		}
 
-		public static string LogsFolder
-		{
-			get
-			{
-				return Path.Combine(AppFolder, "Logs");
-			}
-		}
-
 		public static string WorkerLogsFolder
 		{
 			get
@@ -287,7 +269,7 @@ namespace VidCoder
 		{
 			get
 			{
-				string updatesFolder = Path.Combine(AppFolder, "Updates");
+				string updatesFolder = Path.Combine(CommonUtilities.AppFolder, "Updates");
 				if (!Directory.Exists(updatesFolder))
 				{
 					Directory.CreateDirectory(updatesFolder);
@@ -301,7 +283,7 @@ namespace VidCoder
 		{
 			get
 			{
-				string imageCacheFolder = Path.Combine(AppFolder, "ImageCache");
+				string imageCacheFolder = Path.Combine(CommonUtilities.AppFolder, "ImageCache");
 				if (!Directory.Exists(imageCacheFolder))
 				{
 					Directory.CreateDirectory(imageCacheFolder);
@@ -328,18 +310,6 @@ namespace VidCoder
 			{"Duration", 60},
 			{"Preset", 120}
 		};
-
-		public static string GetAppFolder(bool beta)
-		{
-			string folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AppDataFolderName);
-
-			if (beta)
-			{
-				folder += "-Beta";
-			}
-
-			return folder;
-		}
 
 		public static bool IsValidQueueColumn(string columnId)
 		{

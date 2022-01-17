@@ -223,11 +223,27 @@ namespace VidCoder
 		/// <param name="version">The app version.</param>
 		private static void OnInitialInstall(Version version)
 		{
-			using var mgr = new UpdateManager(Utilities.SquirrelUpdateUrl, Utilities.SquirrelAppId);
-			mgr.CreateUninstallerRegistryEntry();
-			mgr.CreateShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
+			var logger = new ElevatedSetupLogger("Install");
+			logger.Log("Running initial install actions...");
 
-			RunElevatedSetup(install: true);
+			try
+			{
+				using var mgr = new UpdateManager(Utilities.SquirrelUpdateUrl, Utilities.SquirrelAppId);
+				mgr.CreateUninstallerRegistryEntry();
+				mgr.CreateShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
+
+				RunElevatedSetup(install: true, logger);
+				logger.Log("Initial install actions complete.");
+			}
+			catch (Exception exception)
+			{
+				logger.Log(exception.ToString());
+				throw;
+			}
+			finally
+			{
+				logger.Close();
+			}
 		}
 
 		/// <summary>
@@ -236,15 +252,33 @@ namespace VidCoder
 		/// <param name="version">The app version.</param>
 		private static void OnAppUninstall(Version version)
 		{
-			using var mgr = new UpdateManager(Utilities.SquirrelUpdateUrl, Utilities.SquirrelAppId);
-			mgr.RemoveUninstallerRegistryEntry();
-			mgr.RemoveShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
+			var logger = new ElevatedSetupLogger("Uninstall");
+			logger.Log("Running uninstall actions...");
 
-			RunElevatedSetup(install: false);
+			try
+			{
+				using var mgr = new UpdateManager(Utilities.SquirrelUpdateUrl, Utilities.SquirrelAppId);
+				mgr.RemoveUninstallerRegistryEntry();
+				mgr.RemoveShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
+
+				RunElevatedSetup(install: false, logger);
+				logger.Log("Uninstall actions complete.");
+			}
+			catch (Exception exception)
+			{
+				logger.Log(exception.ToString());
+				throw;
+			}
+			finally
+			{
+				logger.Close();
+			}
 		}
 
-		private static void RunElevatedSetup(bool install)
+		private static void RunElevatedSetup(bool install, ElevatedSetupLogger logger)
 		{
+			logger.Log("Starting elevated setup...");
+
 			string setupExe = Path.Combine(Utilities.ProgramFolder, "VidCoderElevatedSetup.exe");
 			var startInfo = new ProcessStartInfo(setupExe, install ? "install" : "uninstall");
 			startInfo.CreateNoWindow = true;
@@ -255,9 +289,13 @@ namespace VidCoder
 			Process process = Process.Start(startInfo);
 			process.WaitForExit();
 
-			if (process.ExitCode != 0)
+			if(process.ExitCode == 0)
 			{
-				// TODO - Log this error somewhere
+				logger.Log("Elevated setup completed successfully.");
+			}
+			else
+			{
+				logger.Log("Elevated setup failed. Check the ElevatedInstall log for more details.");
 			}
 		}
 

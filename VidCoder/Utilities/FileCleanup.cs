@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using VidCoderCommon;
 
 namespace VidCoder
 {
@@ -48,7 +49,7 @@ namespace VidCoder
 
 		public static void CleanOldLogs()
 		{
-			string logsFolder = Path.Combine(Utilities.AppFolder, "Logs");
+			string logsFolder = CommonUtilities.LogsFolder;
 
 			if (!Directory.Exists(logsFolder))
 			{

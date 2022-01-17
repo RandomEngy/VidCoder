@@ -14,6 +14,7 @@ using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.ViewModel.DataModels;
+using VidCoderCommon;
 
 namespace VidCoder.Services
 {
@@ -60,14 +61,14 @@ namespace VidCoder.Services
 				return this.openLogFolder ?? (this.openLogFolder = ReactiveCommand.Create(
 					       () =>
 					       {
-						       string logFolder = Utilities.LogsFolder;
+						       string logFolder = CommonUtilities.LogsFolder;
 
 						       if (Directory.Exists(logFolder))
 						       {
 							       FileService.Instance.LaunchFile(logFolder);
 						       }
 					       },
-					       MvvmUtilities.CreateConstantObservable(Directory.Exists(Utilities.LogsFolder))));
+					       MvvmUtilities.CreateConstantObservable(Directory.Exists(CommonUtilities.LogsFolder))));
 			}
 		}
 

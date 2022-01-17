@@ -206,7 +206,7 @@ namespace VidCoder.Model
 			}
 		}
 
-		private static string BackupDatabaseFolder => Path.Combine(Utilities.AppFolder, BackupFolderName);
+		private static string BackupDatabaseFolder => Path.Combine(CommonUtilities.AppFolder, BackupFolderName);
 
 		/// <summary>
 		/// Returns the version number of highest version database file that is still compatible with this build of VidCoder.
@@ -456,7 +456,7 @@ namespace VidCoder.Model
 		{
 			get
 			{
-				string appDataFolder = Utilities.AppFolder;
+				string appDataFolder = CommonUtilities.AppFolder;
 
 				if (!Directory.Exists(appDataFolder))
 				{
@@ -511,16 +511,16 @@ namespace VidCoder.Model
 
 		public static SQLiteConnection CreateConnection()
 		{
-			if (!Directory.Exists(Utilities.AppFolder))
+			if (!Directory.Exists(CommonUtilities.AppFolder))
 			{
-				if (CommonUtilities.Beta && Directory.Exists(Utilities.GetAppFolder(beta: false)))
+				if (CommonUtilities.Beta && Directory.Exists(CommonUtilities.GetAppFolder(beta: false)))
 				{
 					// In beta mode if we don't have the appdata folder copy the stable appdata folder
 					try
 					{
 						FileUtilities.CopyDirectory(
-							Utilities.GetAppFolder(beta: false),
-							Utilities.GetAppFolder(beta: true));
+							CommonUtilities.GetAppFolder(beta: false),
+							CommonUtilities.GetAppFolder(beta: true));
 					}
 					catch (Exception)
 					{
@@ -528,7 +528,7 @@ namespace VidCoder.Model
 				}
 				else
 				{
-					Directory.CreateDirectory(Utilities.AppFolder);
+					Directory.CreateDirectory(CommonUtilities.AppFolder);
 				}
 			}
 

@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System.Reflection;
 using VidCoderCommon;
+using VidCoderCommon.Services;
 
 bool isBeta = CommonUtilities.Beta;
 string localAppFolder = CommonUtilities.LocalAppFolder;
@@ -19,18 +20,30 @@ string ripDriveKeyPath = @$"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\A
 
 string ripDriveProgId = $"{appNameNoSpace}.RipDrive";
 
+ElevatedSetupLogger? logger = null;
+
 if (args.Length > 0)
 {
-
-	if (args[0] == "install")
+	try
 	{
-		Console.WriteLine("Running elevated jobs for install...");
-		AddRipDriveAction();
+		if (args[0] == "install")
+		{
+			logger = new ElevatedSetupLogger("ElevatedInstall");
+			logger.Log("Running elevated jobs for install...");
+			AddRipDriveAction();
+			logger.Log("Jobs completed successfully.");
+		}
+		else if (args[0] == "uninstall")
+		{
+			logger = new ElevatedSetupLogger("ElevatedUninstall");
+			logger.Log("Running elevated jobs for uninstall...");
+			RemoveRipDriveAction();
+			logger.Log("Jobs completed successfully.");
+		}
 	}
-	else if (args[0] == "uninstall")
+	finally
 	{
-		Console.WriteLine("Running elevated jobs for uninstall...");
-		RemoveRipDriveAction();
+		logger?.Close();
 	}
 }
 
@@ -72,7 +85,7 @@ void AddRipDriveAction()
 		string windowlessCliExePath = Path.Combine(localAppFolder, "VidCoderWindowlessCLI.exe");
 
 		// Clean up old path if it's there.
-		Registry.ClassesRoot.DeleteSubKey(ripDriveProgId, throwOnMissingSubKey: false);
+		Registry.ClassesRoot.DeleteSubKeyTree(ripDriveProgId, throwOnMissingSubKey: false);
 
 		RegistryKey progEntryKey = Registry.ClassesRoot.CreateSubKey(@$"{ripDriveProgId}\shell\rip\command");
 		progEntryKey.SetValue(null, $"\"{windowlessCliExePath}\" scan -s %L");
@@ -80,7 +93,7 @@ void AddRipDriveAction()
 	}
 	catch (Exception exception)
 	{
-		Console.WriteLine(exception.ToString());
+		logger.Log(exception.ToString());
 	}
 }
 
@@ -108,6 +121,6 @@ void RemoveRipDriveAction()
 	}
 	catch (Exception exception)
 	{
-		Console.WriteLine(exception.ToString());
+		logger.Log(exception.ToString());
 	}
 }
