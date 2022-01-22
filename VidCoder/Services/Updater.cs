@@ -27,7 +27,7 @@ namespace VidCoder.Services
 
 	public class Updater : ReactiveObject, IUpdater
 	{
-		private const string UpdateInfoUrlBase = "http://engy.us/VidCoder/Test";
+		private const string UpdateInfoUrlBase = "http://engy.us/VidCoder/Bridge";
 
 		private CancellationTokenSource updateDownloadCancellationTokenSource;
 
