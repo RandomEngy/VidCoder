@@ -72,6 +72,7 @@ Filename: "{app}\VidCoder.exe"; Description: "Run VidCoder"; Flags: postinstall 
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{userappdata}\%folderName%\Updates"
+Type: filesandordirs; Name: "{localappdata}\%folderName%"
 
 [CustomMessages]
 IDP_DownloadFailed=Download of .NET 6 failed. .NET 6 Desktop runtime is required to run VidCoder.
