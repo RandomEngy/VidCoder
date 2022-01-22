@@ -11,8 +11,6 @@ namespace VidCoderCommon
 	{
 		private const string AppDataFolderName = "VidCoder";
 
-		private const string LocalAppDataFolderName = "VidCoder";
-
 		public static bool Beta
 		{
 			get
@@ -37,20 +35,21 @@ namespace VidCoderCommon
 			}
 		}
 
+		public static string SquirrelAppId
+		{
+			get
+			{
+				return Beta ? "VidCoder.Beta" : "VidCoder.Stable";
+			}
+		}
+
 		public static string LocalAppFolder
 		{
 			get
 			{
-				string folder = Path.Combine(
+				return Path.Combine(
 					Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-					LocalAppDataFolderName);
-
-				if (CommonUtilities.Beta)
-				{
-					folder += "-Beta";
-				}
-
-				return folder;
+					SquirrelAppId);
 			}
 		}
 
@@ -58,7 +57,7 @@ namespace VidCoderCommon
 		{
 			get
 			{
-				return GetAppFolder(CommonUtilities.Beta);
+				return GetAppFolder(Beta);
 			}
 		}
 

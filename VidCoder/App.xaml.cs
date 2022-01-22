@@ -79,7 +79,7 @@ namespace VidCoder
 #endif
 
 			// Set the AppUserModelID to match the shortcut that Squirrel is creating. This will allow any pinned shortcut on the taskbar to be updated.
-			SetCurrentProcessExplicitAppUserModelID($"com.squirrel.{Utilities.SquirrelAppId}.VidCoder");
+			SetCurrentProcessExplicitAppUserModelID($"com.squirrel.{CommonUtilities.SquirrelAppId}.VidCoder");
 
 			VidCoderInstall.HandleSquirrelEvents();
 

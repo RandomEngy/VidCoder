@@ -129,34 +129,11 @@ namespace VidCoder
 			}
 		}
 
-		public static string PackageFamilyName
-		{
-			get
-			{
-				if (CommonUtilities.Beta)
-				{
-					return "19358RandomEngy.VidCoderBeta_cf0dg7w8q6vfw";
-				}
-				else
-				{
-					return "19358RandomEngy.VidCoder_cf0dg7w8q6vfw";
-				}
-			}
-		}
-
 		public static string SquirrelUpdateUrl
 		{
 			get
 			{
 				return SquirrelUpdateUrlBase + (CommonUtilities.Beta ? "/beta" : "/stable");
-			}
-		}
-
-		public static string SquirrelAppId
-		{
-			get
-			{
-				return CommonUtilities.Beta ? "VidCoder-Beta" : "VidCoder";
 			}
 		}
 

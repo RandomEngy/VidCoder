@@ -109,10 +109,10 @@ DeleteFileIfExists $zipFilePath
 # Build Squirrel installer
 Set-Alias Squirrel ($env:USERPROFILE + "\.nuget\packages\clowd.squirrel\2.7.79-pre\tools\Squirrel.exe")
 if ($beta) {
-    $packId = "VidCoder-Beta"
+    $packId = "VidCoder.Beta"
     $releaseDirSuffix = "Beta"
 } else {
-    $packId = "VidCoder"
+    $packId = "VidCoder.Stable"
     $releaseDirSuffix = "Stable"
 }
 
