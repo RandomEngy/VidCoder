@@ -95,10 +95,10 @@ DeleteFileIfExists $portableExeWithExtension
 
 $winRarExe = "c:\Program Files\WinRar\WinRAR.exe"
 
-#& $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension .\VidCoder\bin\publish-portable\** | Out-Null
-#ExitIfFailed
+& $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension .\VidCoder\bin\publish-portable\** | Out-Null
+ExitIfFailed
 
-#SignExe $portableExeWithExtension; ExitIfFailed
+SignExe $portableExeWithExtension; ExitIfFailed
 
 # Create zip file with binaries
 $zipFilePath = ".\Installer\BuiltInstallers\$binaryNameBase.zip"
@@ -107,30 +107,31 @@ DeleteFileIfExists $zipFilePath
 & $winRarExe a -afzip -ep1 -r $zipFilePath .\VidCoder\bin\publish-installer\
 
 # Build Squirrel installer
-Set-Alias Squirrel ($env:USERPROFILE + "\.nuget\packages\clowd.squirrel\2.7.34-pre\tools\Squirrel.exe")
+Set-Alias Squirrel ($env:USERPROFILE + "\.nuget\packages\clowd.squirrel\2.7.79-pre\tools\Squirrel.exe")
 if ($beta) {
-    $packName = "VidCoder-Beta"
+    $packId = "VidCoder-Beta"
     $releaseDirSuffix = "Beta"
 } else {
-    $packName = "VidCoder"
+    $packId = "VidCoder"
     $releaseDirSuffix = "Stable"
 }
 
 $releaseDir = ".\Installer\Releases-$releaseDirSuffix"
 
 Squirrel pack `
-    --packName $packName `
-    --packVersion $versionShort `
+    --packId $packId `
+    --packTitle "$productName" `
+    --packVersion ($versionShort + ".0") `
     --packAuthors RandomEngy `
     --packDirectory .\VidCoder\bin\publish-installer `
-    --setupIcon .\Installer\VidCoder_Setup.ico `
+    --icon .\Installer\VidCoder_Setup.ico `
     --releaseDir $releaseDir `
     --splashImage .\Installer\InstallerSplash.png `
     --signParams "/f D:\certs\ComodoIndividualCertv2.pfx /p $p /fd SHA256 /tr http://timestamp.digicert.com /td SHA256" `
     --framework net6-x64
 
 ExitIfFailed;
-copy ("$releaseDir\" + $packName + "Setup.exe") ".\Installer\BuiltInstallers\$binaryNameBase.exe"
+copy ("$releaseDir\" + $packId + "Setup.exe") ".\Installer\BuiltInstallers\$binaryNameBase.exe"
 
 WriteSuccess
 

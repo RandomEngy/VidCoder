@@ -31,7 +31,7 @@ namespace VidCoder
 		public const int LastUpdatedEncodingProfileDatabaseVersion = 44;
 		public const int LastUpdatedPickerDatabaseVersion = 45;
 
-		public const string SquirrelUpdateUrlBase = "https://engy.us/VidCoder/Squirrel";
+		public const string SquirrelUpdateUrlBase = "https://vidcoder-squirrel.s3.us-west-2.amazonaws.com";
 
 		static Utilities()
 		{
@@ -148,7 +148,7 @@ namespace VidCoder
 		{
 			get
 			{
-				return SquirrelUpdateUrlBase + (CommonUtilities.Beta ? "-Beta" : "-Stable");
+				return SquirrelUpdateUrlBase + (CommonUtilities.Beta ? "/beta" : "/stable");
 			}
 		}
 
