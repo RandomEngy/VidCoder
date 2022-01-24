@@ -102,6 +102,15 @@ namespace VidCoder.ViewModel
 				});
 
 			HBAudioEncoder hbAudioEncoder = HandBrakeEncoderHelpers.GetAudioEncoder(audioEncoding.Encoder);
+			if (hbAudioEncoder == null)
+			{
+				// If the audio encoder isn't found, pick the default.
+				HBContainer container = HandBrakeEncoderHelpers.GetContainer(this.presetsService.SelectedPreset.Preset.EncodingProfile.ContainerName);
+				int hbAudioEncoderId = HandBrakeEncoderHelpers.GetDefaultAudioEncoder(container.Id);
+				hbAudioEncoder = HandBrakeEncoderHelpers.GetAudioEncoder(hbAudioEncoderId);
+				audioEncoding.Encoder = hbAudioEncoder.ShortName;
+			}
+
 			if (hbAudioEncoder.IsPassthrough)
 			{
 				this.selectedAudioEncoder = this.audioEncoders[0];
