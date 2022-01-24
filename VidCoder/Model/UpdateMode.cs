@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace VidCoder.Model
 {
-	public enum UpdateState
-	{
-		NotStarted,
-		Checking,
-		UpToDate,
-		UpdateReady,
-		Failed
-	}
+    public enum UpdateMode
+    {
+		SilentNextLaunch,
+		PromptApplyImmediately
+    }
 }

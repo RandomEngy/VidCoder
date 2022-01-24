@@ -19,7 +19,7 @@ namespace VidCoder.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class MiscRes {
@@ -372,6 +372,15 @@ namespace VidCoder.Resources {
         public static string NoticeMessageTitle {
             get {
                 return ResourceManager.GetString("NoticeMessageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We need to do some one-time cleanup of the old installer. Choose &apos;Yes&apos; on the next prompt to remove the old version of VidCoder..
+        /// </summary>
+        public static string OneTimeInstallerCleanup {
+            get {
+                return ResourceManager.GetString("OneTimeInstallerCleanup", resourceCulture);
             }
         }
         

@@ -19,7 +19,7 @@ namespace VidCoder.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class EnumsRes {
@@ -651,6 +651,24 @@ namespace VidCoder.Resources {
         public static string TitleType_Stream {
             get {
                 return ResourceManager.GetString("TitleType_Stream", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prompt to apply right away.
+        /// </summary>
+        public static string UpdateMode_PromptApplyImmediately {
+            get {
+                return ResourceManager.GetString("UpdateMode_PromptApplyImmediately", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Silent (Apply on next launch).
+        /// </summary>
+        public static string UpdateMode_SilentNextLaunch {
+            get {
+                return ResourceManager.GetString("UpdateMode_SilentNextLaunch", resourceCulture);
             }
         }
         

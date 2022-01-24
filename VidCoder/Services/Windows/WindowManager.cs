@@ -157,7 +157,7 @@ namespace VidCoder.Services.Windows
 		/// <param name="viewModel">The window's viewmodel.</param>
 		/// <param name="ownerViewModel">The viewmodel of the owner window.</param>
 		/// <param name="userInitiated">True if the user explicitly opened the window.</param>
-		public void OpenWindow(object viewModel, object ownerViewModel = null, bool userInitiated = true)
+		public Window OpenWindow(object viewModel, object ownerViewModel = null, bool userInitiated = true)
 		{
 			if (viewModel.GetType() == MainViewModelType)
 			{
@@ -170,6 +170,7 @@ namespace VidCoder.Services.Windows
 
 			Window windowToOpen = this.PrepareWindowForOpen(viewModel, ownerViewModel, userInitiated, isDialog: false);
 			windowToOpen.Show();
+			return windowToOpen;
 		}
 
 		/// <summary>

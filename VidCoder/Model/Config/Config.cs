@@ -31,10 +31,7 @@ namespace VidCoder
 			cache = new Dictionary<string, object>();
 			cache.Add("MigratedConfigs", DatabaseConfig.Get("MigratedConfigs", false, connection));
 			cache.Add("EncodeJobs2", DatabaseConfig.Get("EncodeJobs2", "", connection));
-			cache.Add("UpdateInProgress", DatabaseConfig.Get("UpdateInProgress", false, connection));
-			cache.Add("UpdateVersion", DatabaseConfig.Get("UpdateVersion", "", connection));
-			cache.Add("UpdateInstallerLocation", DatabaseConfig.Get("UpdateInstallerLocation", "", connection));
-			cache.Add("UpdateChangelogLocation", DatabaseConfig.Get("UpdateChangelogLocation", "", connection));
+			cache.Add("UninstallerPath", DatabaseConfig.Get("UninstallerPath", "", connection));
 			cache.Add("LastOutputFolder", DatabaseConfig.Get("LastOutputFolder", "", connection));
 			cache.Add("LastInputFileFolder", DatabaseConfig.Get("LastInputFileFolder", "", connection));
 			cache.Add("LastVideoTSFolder", DatabaseConfig.Get("LastVideoTSFolder", "", connection));
@@ -68,7 +65,7 @@ namespace VidCoder
 			cache.Add("AudioExpanded", DatabaseConfig.Get("AudioExpanded", true, connection));
 			cache.Add("SubtitlesExpanded", DatabaseConfig.Get("SubtitlesExpanded", true, connection));
 			cache.Add("UpdatesEnabled", DatabaseConfig.Get("UpdatesEnabled", true, connection));
-			cache.Add("UpdatePromptTiming", DatabaseConfig.Get("UpdatePromptTiming", "OnExit", connection));
+			cache.Add("UpdateMode", DatabaseConfig.Get("UpdateMode", "SilentNextLaunch", connection));
 			cache.Add("UpdatesDisabled32BitOSWarningDisplayed", DatabaseConfig.Get("UpdatesDisabled32BitOSWarningDisplayed", false, connection));
 			cache.Add("Win7WarningDisplayedTimes", DatabaseConfig.Get("Win7WarningDisplayedTimes", 0, connection));
 			cache.Add("PreviewSeconds", DatabaseConfig.Get("PreviewSeconds", 10, connection));
@@ -172,25 +169,10 @@ namespace VidCoder
 			get { return (string)cache["EncodeJobs2"]; }
 			set { Set("EncodeJobs2", value); }
 		}
-		public static bool UpdateInProgress
+		public static string UninstallerPath
 		{
-			get { return (bool)cache["UpdateInProgress"]; }
-			set { Set("UpdateInProgress", value); }
-		}
-		public static string UpdateVersion
-		{
-			get { return (string)cache["UpdateVersion"]; }
-			set { Set("UpdateVersion", value); }
-		}
-		public static string UpdateInstallerLocation
-		{
-			get { return (string)cache["UpdateInstallerLocation"]; }
-			set { Set("UpdateInstallerLocation", value); }
-		}
-		public static string UpdateChangelogLocation
-		{
-			get { return (string)cache["UpdateChangelogLocation"]; }
-			set { Set("UpdateChangelogLocation", value); }
+			get { return (string)cache["UninstallerPath"]; }
+			set { Set("UninstallerPath", value); }
 		}
 		public static string LastOutputFolder
 		{
@@ -357,10 +339,10 @@ namespace VidCoder
 			get { return (bool)cache["UpdatesEnabled"]; }
 			set { Set("UpdatesEnabled", value); }
 		}
-		public static string UpdatePromptTiming
+		public static string UpdateMode
 		{
-			get { return (string)cache["UpdatePromptTiming"]; }
-			set { Set("UpdatePromptTiming", value); }
+			get { return (string)cache["UpdateMode"]; }
+			set { Set("UpdateMode", value); }
 		}
 		public static bool UpdatesDisabled32BitOSWarningDisplayed
 		{
@@ -666,10 +648,7 @@ namespace VidCoder
 		{
 			public static IObservable<bool> MigratedConfigs => GetObservable<bool>("MigratedConfigs");
 			public static IObservable<string> EncodeJobs2 => GetObservable<string>("EncodeJobs2");
-			public static IObservable<bool> UpdateInProgress => GetObservable<bool>("UpdateInProgress");
-			public static IObservable<string> UpdateVersion => GetObservable<string>("UpdateVersion");
-			public static IObservable<string> UpdateInstallerLocation => GetObservable<string>("UpdateInstallerLocation");
-			public static IObservable<string> UpdateChangelogLocation => GetObservable<string>("UpdateChangelogLocation");
+			public static IObservable<string> UninstallerPath => GetObservable<string>("UninstallerPath");
 			public static IObservable<string> LastOutputFolder => GetObservable<string>("LastOutputFolder");
 			public static IObservable<string> LastInputFileFolder => GetObservable<string>("LastInputFileFolder");
 			public static IObservable<string> LastVideoTSFolder => GetObservable<string>("LastVideoTSFolder");
@@ -703,7 +682,7 @@ namespace VidCoder
 			public static IObservable<bool> AudioExpanded => GetObservable<bool>("AudioExpanded");
 			public static IObservable<bool> SubtitlesExpanded => GetObservable<bool>("SubtitlesExpanded");
 			public static IObservable<bool> UpdatesEnabled => GetObservable<bool>("UpdatesEnabled");
-			public static IObservable<string> UpdatePromptTiming => GetObservable<string>("UpdatePromptTiming");
+			public static IObservable<string> UpdateMode => GetObservable<string>("UpdateMode");
 			public static IObservable<bool> UpdatesDisabled32BitOSWarningDisplayed => GetObservable<bool>("UpdatesDisabled32BitOSWarningDisplayed");
 			public static IObservable<int> Win7WarningDisplayedTimes => GetObservable<int>("Win7WarningDisplayedTimes");
 			public static IObservable<int> PreviewSeconds => GetObservable<int>("PreviewSeconds");

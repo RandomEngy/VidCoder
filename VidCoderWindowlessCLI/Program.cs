@@ -19,7 +19,8 @@
 			Process.Start(new ProcessStartInfo(Path.Combine(programFolder, "VidCoderCLI.exe"))
 			{
 				Arguments = passArguments,
-				WindowStyle = ProcessWindowStyle.Hidden
+				WindowStyle = ProcessWindowStyle.Hidden,
+				CreateNoWindow = true
 			});
 		}
 

@@ -42,7 +42,7 @@ namespace VidCoder.View
 			string extraInfo = string.Empty;
 			try
 			{
-				string portableText = Utilities.IsPortable ? "Portable" : "Installer";
+				string portableText = Utilities.InstallType.ToString();
 				extraInfo = $"VidCoder {Utilities.VersionString} {portableText}";
 			}
 			catch { }

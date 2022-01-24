@@ -57,7 +57,6 @@ namespace VidCoder.Model
 				{
 					string message = string.Format(CultureInfo.CurrentCulture, MainRes.DataTooOldRunVidCoderVersion, "3.15");
 					StaticResolver.Resolve<IMessageBoxService>().Show(message);
-					StaticResolver.Resolve<IMessageBoxService>().Show(message);
 					throw new InvalidOperationException("Database too old");
 				}
 
@@ -69,6 +68,11 @@ namespace VidCoder.Model
 				if (databaseVersion < 39)
 				{
 					UpgradeDatabaseTo39();
+				}
+
+				if (databaseVersion < 46)
+				{
+					UpgradeDatabaseTo46();
 				}
 
 				// Update encoding profiles if we need to. Everything is at least 28 now from the JSON upgrade.
@@ -114,8 +118,6 @@ namespace VidCoder.Model
 					messageLine2);
 
 				var messageService = StaticResolver.Resolve<IMessageBoxService>();
-				messageService.Show(message, MainRes.IncompatibleDatabaseFileTitle, MessageBoxButton.YesNo);
-
 				if (messageService.Show(
 					message,
 					MainRes.IncompatibleDatabaseFileTitle,
@@ -131,11 +133,7 @@ namespace VidCoder.Model
 
 						databaseVersion = backupVersion;
 					}
-					catch (IOException exception)
-					{
-						HandleCriticalFileError(exception);
-					}
-					catch (UnauthorizedAccessException exception)
+					catch (Exception exception)
 					{
 						HandleCriticalFileError(exception);
 					}
@@ -157,7 +155,6 @@ namespace VidCoder.Model
 					messageLine2);
 
 				var messageService = StaticResolver.Resolve<IMessageBoxService>();
-				messageService.Show(message, MainRes.IncompatibleDatabaseFileTitle, MessageBoxButton.YesNo);
 				if (messageService.Show(
 					message,
 					MainRes.IncompatibleDatabaseFileTitle,
@@ -170,11 +167,7 @@ namespace VidCoder.Model
 						MoveCurrentDatabaseFile(databaseVersion);
 						databaseVersion = DatabaseConfig.Version;
 					}
-					catch (IOException exception)
-					{
-						HandleCriticalFileError(exception);
-					}
-					catch (UnauthorizedAccessException exception)
+					catch (Exception exception)
 					{
 						HandleCriticalFileError(exception);
 					}
@@ -213,7 +206,7 @@ namespace VidCoder.Model
 			}
 		}
 
-		private static string BackupDatabaseFolder => Path.Combine(Utilities.AppFolder, BackupFolderName);
+		private static string BackupDatabaseFolder => Path.Combine(CommonUtilities.AppFolder, BackupFolderName);
 
 		/// <summary>
 		/// Returns the version number of highest version database file that is still compatible with this build of VidCoder.
@@ -293,10 +286,31 @@ namespace VidCoder.Model
 		private static void UpgradeDatabaseTo39()
 		{
 			// The "File naming" tab was removed, so the last index needs to be updated.
-			int optionsDialogLastTab = DatabaseConfig.Get<int>("OptionsDialogLastTab", 0);
+			int optionsDialogLastTab = DatabaseConfig.Get<int>("OptionsDialogLastTab", 0, connection);
 			if (optionsDialogLastTab > 0)
 			{
-				DatabaseConfig.Set<int>("OptionsDialogLastTab", optionsDialogLastTab - 1);
+				DatabaseConfig.Set<int>("OptionsDialogLastTab", optionsDialogLastTab - 1, connection);
+			}
+		}
+
+		private static void UpgradeDatabaseTo46()
+		{
+			string updatePromptTiming = DatabaseConfig.Get<string>("UpdatePromptTiming", "OnExit", connection);
+			if (updatePromptTiming == "OnLaunch")
+			{
+				DatabaseConfig.Set<string>("UpdateMode", "PromptApplyImmediately", connection);
+			}
+
+			try
+			{
+				if (Directory.Exists(Utilities.UpdatesFolder))
+				{
+					Directory.Delete(Utilities.UpdatesFolder, true);
+				}
+			}
+			catch
+			{
+				// Eat exception, not critical that these are cleaned up
 			}
 		}
 
@@ -382,7 +396,7 @@ namespace VidCoder.Model
 
 		private static string GetDatabaseFilePath()
 		{
-			if (Utilities.IsPortable)
+			if (Utilities.InstallType == VidCoderInstallType.Portable)
 			{
 				string portableExeFolder = GetPortableExeFolder();
 				if (FileUtilities.HasWriteAccessOnFolder(portableExeFolder))
@@ -425,7 +439,7 @@ namespace VidCoder.Model
 		/// <returns></returns>
 		private static string GetPortableExeFolder()
 		{
-			if (!Utilities.IsPortable)
+			if (Utilities.InstallType != VidCoderInstallType.Portable)
 			{
 				throw new InvalidOperationException("Called GetPortableExeFolder on a non-portable install.");
 			}
@@ -442,7 +456,7 @@ namespace VidCoder.Model
 		{
 			get
 			{
-				string appDataFolder = Utilities.AppFolder;
+				string appDataFolder = CommonUtilities.AppFolder;
 
 				if (!Directory.Exists(appDataFolder))
 				{
@@ -497,16 +511,16 @@ namespace VidCoder.Model
 
 		public static SQLiteConnection CreateConnection()
 		{
-			if (!Directory.Exists(Utilities.AppFolder))
+			if (!Directory.Exists(CommonUtilities.AppFolder))
 			{
-				if (CommonUtilities.Beta && Directory.Exists(Utilities.GetAppFolder(beta: false)))
+				if (CommonUtilities.Beta && Directory.Exists(CommonUtilities.GetAppFolder(beta: false)))
 				{
 					// In beta mode if we don't have the appdata folder copy the stable appdata folder
 					try
 					{
 						FileUtilities.CopyDirectory(
-							Utilities.GetAppFolder(beta: false),
-							Utilities.GetAppFolder(beta: true));
+							CommonUtilities.GetAppFolder(beta: false),
+							CommonUtilities.GetAppFolder(beta: true));
 					}
 					catch (Exception)
 					{
@@ -514,7 +528,7 @@ namespace VidCoder.Model
 				}
 				else
 				{
-					Directory.CreateDirectory(Utilities.AppFolder);
+					Directory.CreateDirectory(CommonUtilities.AppFolder);
 				}
 			}
 

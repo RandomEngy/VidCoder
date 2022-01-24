@@ -20,6 +20,10 @@ using VidCoder.Services.Windows;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoderCommon;
+using Squirrel;
+using System.Net.Http;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace VidCoder.ViewModel
 {
@@ -28,15 +32,13 @@ namespace VidCoder.ViewModel
 		public const int UpdatesTabIndex = 3;
 
 #pragma warning disable 169
-		private UpdateInfo betaInfo;
+		//private UpdateInfo betaInfo;
 		private bool betaInfoAvailable;
 #pragma warning restore 169
 
-		private IUpdater updater;
-
 		public OptionsDialogViewModel(IUpdater updateService)
 		{
-			this.updater = updateService;
+			this.Updater = updateService;
 
 			this.Tabs = new List<string>
 			{
@@ -51,7 +53,7 @@ namespace VidCoder.ViewModel
 			}
 
 			// UpdateStatus
-			this.updater
+			this.Updater
 				.WhenAnyValue(x => x.State)
 				.Select(state =>
 				{
@@ -59,14 +61,12 @@ namespace VidCoder.ViewModel
 					{
 						case UpdateState.NotStarted:
 							return string.Empty;
-						case UpdateState.DownloadingInfo:
-							return OptionsRes.DownloadingInfoStatus;
-						case UpdateState.DownloadingInstaller:
-							return string.Format(OptionsRes.DownloadingStatus, this.updater.LatestVersion);
+						case UpdateState.Checking:
+							return OptionsRes.CheckingForUpdateStatus;
 						case UpdateState.UpToDate:
 							return OptionsRes.UpToDateStatus;
-						case UpdateState.InstallerReady:
-							return string.Format(OptionsRes.UpdateReadyStatus, this.updater.LatestVersion);
+						case UpdateState.UpdateReady:
+							return string.Format(OptionsRes.UpdateReadyStatus, this.Updater.LatestVersion);
 						case UpdateState.Failed:
 							return OptionsRes.UpdateFailedStatus;
 						default:
@@ -76,15 +76,14 @@ namespace VidCoder.ViewModel
 				.ToProperty(this, x => x.UpdateStatus, out this.updateStatus, scheduler: Scheduler.Immediate);
 
 			// UpdateDownloading
-			this.updater
+			this.Updater
 				.WhenAnyValue(x => x.State)
-				.Select(state => state == UpdateState.DownloadingInstaller)
-				.ToProperty(this, x => x.UpdateDownloading, out this.updateDownloading);
+				.Select(state => state == UpdateState.Checking)
+				.ToProperty(this, x => x.CheckingForUpdate, out this.checkingForUpdate);
 
 			// UpdateProgressPercent
-			this.updater
-				.WhenAnyValue(x => x.UpdateDownloadProgressFraction)
-				.Select(downloadFraction => downloadFraction * 100)
+			this.Updater
+				.WhenAnyValue(x => x.UpdateCheckProgressPercent)
 				.ToProperty(this, x => x.UpdateProgressPercent, out this.updateProgressPercent);
 
 			// CpuThrottlingDisplay
@@ -95,7 +94,7 @@ namespace VidCoder.ViewModel
 			}).ToProperty(this, x => x.CpuThrottlingDisplay, out this.cpuThrottlingDisplay, deferSubscription:true, scheduler: Scheduler.Immediate);
 
 			this.updatesEnabledConfig = Config.UpdatesEnabled;
-			this.updatePromptTiming = CustomConfig.UpdatePromptTiming;
+			this.updateMode = CustomConfig.UpdateMode;
 			this.useCustomPreviewFolder = Config.UseCustomPreviewFolder;
 			this.previewOutputFolder = Config.PreviewOutputFolder;
 			this.minimizeToTray = Config.MinimizeToTray;
@@ -225,12 +224,12 @@ namespace VidCoder.ViewModel
 			{
 				Task.Run(async () =>
 				{
-					this.betaInfo = await Updater.GetUpdateInfoAsync(beta: true);
+					this.latestBetaVersion = await this.GetLatestBetaVersionAsync();
 
 					this.betaInfoAvailable = false;
-					if (this.betaInfo != null)
+					if (latestBetaVersion != null)
 					{
-						if (this.betaInfo.LatestVersion.FillInWithZeroes() > Utilities.CurrentVersion)
+						if (latestBetaVersion > Utilities.CurrentVersion)
 						{
 							this.betaInfoAvailable = true;
 						}
@@ -252,6 +251,47 @@ namespace VidCoder.ViewModel
 
 			this.SelectedTabIndex = tabIndex;
 		}
+
+		private async Task<Version> GetLatestBetaVersionAsync()
+		{
+			try
+			{
+				HttpClient client = new HttpClient();
+				string updateText = await client.GetStringAsync("https://engy.us/VidCoder/Squirrel-Beta/RELEASES");
+
+				using var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(updateText));
+				using var reader = new StreamReader(memoryStream);
+
+				// Find the last line, that will have the latest Beta version
+				string line;
+				string lastLine = null;
+				while ((line = reader.ReadLine()) != null) {
+					lastLine = line;
+				}
+
+				if (lastLine != null)
+				{
+					// A line something like:
+					// B21889C29564A29F1CB1AFE0DCA085458B13195F VidCoder-Beta-7.6.0-full.nupkg 43323684
+					var regex = new Regex(@"-([\d\.]+)-");
+					Match match = regex.Match(lastLine);
+					if (match.Success)
+					{
+						string versionString = match.Groups[1].Value;
+						return new Version(versionString);
+					}
+				}
+			}
+			catch (Exception exception)
+			{
+				StaticResolver.Resolve<IAppLogger>().Log("Could not get beta version info." + Environment.NewLine + exception);
+			}
+
+			return null;
+		}
+
+		public IUpdater Updater { get; }
+
 
 		public override bool OnClosing()
 		{
@@ -320,31 +360,43 @@ namespace VidCoder.ViewModel
 			set => this.RaiseAndSetIfChanged(ref this.updatesEnabledConfig, value);
 		}
 
-		public List<ComboChoice<UpdatePromptTiming>> UpdatePromptTimingChoices { get; } = new List<ComboChoice<UpdatePromptTiming>>
+		public List<ComboChoice<UpdateMode>> UpdateModeChoices { get; } = new List<ComboChoice<UpdateMode>>
 		{
-			new ComboChoice<UpdatePromptTiming>(UpdatePromptTiming.OnExit, EnumsRes.UpdatePromptTiming_OnExit),
-			new ComboChoice<UpdatePromptTiming>(UpdatePromptTiming.OnLaunch, EnumsRes.UpdatePromptTiming_OnLaunch)
+			new ComboChoice<UpdateMode>(UpdateMode.SilentNextLaunch, EnumsRes.UpdateMode_SilentNextLaunch),
+			new ComboChoice<UpdateMode>(UpdateMode.PromptApplyImmediately, EnumsRes.UpdateMode_PromptApplyImmediately),
 		};
 
-		private UpdatePromptTiming updatePromptTiming;
-		public UpdatePromptTiming UpdatePromptTiming
+		private UpdateMode updateMode;
+		public UpdateMode UpdateMode
 		{
-			get => this.updatePromptTiming;
-			set => this.RaiseAndSetIfChanged(ref this.updatePromptTiming, value);
+			get => this.updateMode;
+			set => this.RaiseAndSetIfChanged(ref this.updateMode, value);
 		}
 
 		private ObservableAsPropertyHelper<string> updateStatus;
 		public string UpdateStatus => this.updateStatus.Value;
 
-		private ObservableAsPropertyHelper<bool> updateDownloading;
-		public bool UpdateDownloading => this.updateDownloading.Value;
+		private ObservableAsPropertyHelper<bool> checkingForUpdate;
+		public bool CheckingForUpdate => this.checkingForUpdate.Value;
 
-		private ObservableAsPropertyHelper<double> updateProgressPercent;
-		public double UpdateProgressPercent => this.updateProgressPercent.Value;
+		private ObservableAsPropertyHelper<int> updateProgressPercent;
+		public int UpdateProgressPercent => this.updateProgressPercent.Value;
 
 		public string BetaUpdatesText => CommonUtilities.Beta ? OptionsRes.BetaUpdatesInBeta : OptionsRes.BetaUpdatesNonBeta;
 
-		public string BetaChangelogUrl => CommonUtilities.Beta ? string.Empty : (this.betaInfo?.ChangelogUrl ?? string.Empty);
+		private Version latestBetaVersion;
+		public string BetaChangelogUrl
+		{
+			get
+			{
+				if (CommonUtilities.Beta || this.latestBetaVersion == null)
+				{
+					return string.Empty;
+				}
+
+				return Utilities.GetChangelogUrl(this.latestBetaVersion, beta: true);
+			}
+		}
 
 		public bool BetaSectionVisible => CommonUtilities.Beta || this.betaInfoAvailable;
 
@@ -604,93 +656,98 @@ namespace VidCoder.ViewModel
 			{
 				return this.saveSettings ?? (this.saveSettings = ReactiveCommand.Create(() =>
 				{
-					using (SQLiteTransaction transaction = Database.Connection.BeginTransaction())
-					{
-						if (Config.UpdatesEnabled != this.UpdatesEnabledConfig)
-						{
-							Config.UpdatesEnabled = this.UpdatesEnabledConfig;
-							this.updater.HandleUpdatedSettings(this.UpdatesEnabledConfig);
-						}
-
-						CustomConfig.UpdatePromptTiming = this.UpdatePromptTiming;
-
-						if (Config.InterfaceLanguageCode != this.InterfaceLanguage.CultureCode)
-						{
-							Config.InterfaceLanguageCode = this.InterfaceLanguage.CultureCode;
-							StaticResolver.Resolve<IMessageBoxService>().Show(this, OptionsRes.NewLanguageRestartDialogMessage);
-						}
-
-						if (Config.UseWorkerProcess != this.UseWorkerProcess)
-						{
-							// Override the value that the app uses with the old choice
-							CustomConfig.SetWorkerProcessOverride(Config.UseWorkerProcess);
-
-							// Set the stored value to the new choice
-							Config.UseWorkerProcess = this.UseWorkerProcess;
-
-							StaticResolver.Resolve<IMessageBoxService>().Show(this, OptionsRes.WorkerProcessRestartDialogMessage);
-						}
-
-						CustomConfig.AppTheme = this.AppTheme.Value;
-						Config.UseCustomPreviewFolder = this.UseCustomPreviewFolder;
-						Config.PreviewOutputFolder = this.PreviewOutputFolder;
-						Config.MinimizeToTray = this.MinimizeToTray;
-						Config.UseCustomVideoPlayer = this.UseCustomVideoPlayer;
-						Config.CustomVideoPlayer = this.CustomVideoPlayer;
-						Config.UseBuiltInPlayerForPreviews = this.UseBuiltInPlayerForPreviews;
-						Config.PlaySoundOnCompletion = this.PlaySoundOnCompletion;
-						Config.UseCustomCompletionSound = this.UseCustomCompletionSound;
-						Config.CustomCompletionSound = this.CustomCompletionSound;
-						Config.WorkerProcessPriority = this.WorkerProcessPriority;
-						CustomConfig.DragDropOrder = this.DragDropOrder;
-						Config.LogVerbosity = this.LogVerbosity;
-						Config.CopyLogToOutputFolder = this.CopyLogToOutputFolder;
-						Config.CopyLogToCustomFolder = this.CopyLogToCustomFolder;
-						Config.LogCustomFolder = this.LogCustomFolder;
-						Config.AutoPauseLowBattery = this.AutoPauseLowBattery;
-						Config.AutoPauseLowDiskSpace = this.AutoPauseLowDiskSpace;
-						Config.AutoPauseLowDiskSpaceGb = this.AutoPauseLowDiskSpaceGb;
-						var autoPauseList = new List<string>();
-						foreach (string process in this.AutoPauseProcesses)
-						{
-							autoPauseList.Add(process);
-						}
-
-						CustomConfig.AutoPauseProcesses = autoPauseList;
-						Config.PreviewCount = this.PreviewCount;
-						Config.RememberPreviousFiles = this.RememberPreviousFiles;
-						// Clear out any file/folder history when this is disabled.
-						if (!this.RememberPreviousFiles)
-						{
-							Config.LastCsvFolder = null;
-							Config.LastInputFileFolder = null;
-							Config.LastOutputFolder = null;
-							Config.LastPresetExportFolder = null;
-							Config.LastSubtitleFolder = null;
-							Config.LastVideoTSFolder = null;
-
-							Config.SourceHistory = null;
-						}
-
-						Config.EnableLibDvdNav = this.EnableLibDvdNav;
-						Config.PreserveModifyTimeFiles = this.PreserveModifyTimeFiles;
-						Config.ResumeEncodingOnRestart = this.ResumeEncodingOnRestart;
-						Config.KeepFailedFiles = this.KeepFailedFiles;
-						Config.TriggerEncodeCompleteActionWithErrors = this.TriggerEncodeCompleteActionWithErrors;
-						Config.MinimumTitleLengthSeconds = this.MinimumTitleLengthSeconds;
-						Config.VideoFileExtensions = this.VideoFileExtensions;
-						Config.EncodeRetries = this.EncodeRetries;
-						Config.CpuThrottlingFraction = (double)this.CpuThrottlingCores / this.CpuThrottlingMaxCores;
-						Config.MaxSimultaneousEncodes = this.MaxSimultaneousEncodes;
-
-						Config.PreferredPlayer = this.selectedPlayer.Id;
-
-						transaction.Commit();
-					}
-
-					this.Accept.Execute(null);
+					this.SaveSettingsImpl();
 				}));
 			}
+		}
+
+		private void SaveSettingsImpl()
+		{
+			using (SQLiteTransaction transaction = Database.Connection.BeginTransaction())
+			{
+				if (Config.UpdatesEnabled != this.UpdatesEnabledConfig)
+				{
+					Config.UpdatesEnabled = this.UpdatesEnabledConfig;
+					this.Updater.HandleUpdatedSettings(this.UpdatesEnabledConfig);
+				}
+
+				CustomConfig.UpdateMode = this.UpdateMode;
+
+				if (Config.InterfaceLanguageCode != this.InterfaceLanguage.CultureCode)
+				{
+					Config.InterfaceLanguageCode = this.InterfaceLanguage.CultureCode;
+					StaticResolver.Resolve<IMessageBoxService>().Show(this, OptionsRes.NewLanguageRestartDialogMessage);
+				}
+
+				if (Config.UseWorkerProcess != this.UseWorkerProcess)
+				{
+					// Override the value that the app uses with the old choice
+					CustomConfig.SetWorkerProcessOverride(Config.UseWorkerProcess);
+
+					// Set the stored value to the new choice
+					Config.UseWorkerProcess = this.UseWorkerProcess;
+
+					StaticResolver.Resolve<IMessageBoxService>().Show(this, OptionsRes.WorkerProcessRestartDialogMessage);
+				}
+
+				CustomConfig.AppTheme = this.AppTheme.Value;
+				Config.UseCustomPreviewFolder = this.UseCustomPreviewFolder;
+				Config.PreviewOutputFolder = this.PreviewOutputFolder;
+				Config.MinimizeToTray = this.MinimizeToTray;
+				Config.UseCustomVideoPlayer = this.UseCustomVideoPlayer;
+				Config.CustomVideoPlayer = this.CustomVideoPlayer;
+				Config.UseBuiltInPlayerForPreviews = this.UseBuiltInPlayerForPreviews;
+				Config.PlaySoundOnCompletion = this.PlaySoundOnCompletion;
+				Config.UseCustomCompletionSound = this.UseCustomCompletionSound;
+				Config.CustomCompletionSound = this.CustomCompletionSound;
+				Config.WorkerProcessPriority = this.WorkerProcessPriority;
+				CustomConfig.DragDropOrder = this.DragDropOrder;
+				Config.LogVerbosity = this.LogVerbosity;
+				Config.CopyLogToOutputFolder = this.CopyLogToOutputFolder;
+				Config.CopyLogToCustomFolder = this.CopyLogToCustomFolder;
+				Config.LogCustomFolder = this.LogCustomFolder;
+				Config.AutoPauseLowBattery = this.AutoPauseLowBattery;
+				Config.AutoPauseLowDiskSpace = this.AutoPauseLowDiskSpace;
+				Config.AutoPauseLowDiskSpaceGb = this.AutoPauseLowDiskSpaceGb;
+				var autoPauseList = new List<string>();
+				foreach (string process in this.AutoPauseProcesses)
+				{
+					autoPauseList.Add(process);
+				}
+
+				CustomConfig.AutoPauseProcesses = autoPauseList;
+				Config.PreviewCount = this.PreviewCount;
+				Config.RememberPreviousFiles = this.RememberPreviousFiles;
+				// Clear out any file/folder history when this is disabled.
+				if (!this.RememberPreviousFiles)
+				{
+					Config.LastCsvFolder = null;
+					Config.LastInputFileFolder = null;
+					Config.LastOutputFolder = null;
+					Config.LastPresetExportFolder = null;
+					Config.LastSubtitleFolder = null;
+					Config.LastVideoTSFolder = null;
+
+					Config.SourceHistory = null;
+				}
+
+				Config.EnableLibDvdNav = this.EnableLibDvdNav;
+				Config.PreserveModifyTimeFiles = this.PreserveModifyTimeFiles;
+				Config.ResumeEncodingOnRestart = this.ResumeEncodingOnRestart;
+				Config.KeepFailedFiles = this.KeepFailedFiles;
+				Config.TriggerEncodeCompleteActionWithErrors = this.TriggerEncodeCompleteActionWithErrors;
+				Config.MinimumTitleLengthSeconds = this.MinimumTitleLengthSeconds;
+				Config.VideoFileExtensions = this.VideoFileExtensions;
+				Config.EncodeRetries = this.EncodeRetries;
+				Config.CpuThrottlingFraction = (double)this.CpuThrottlingCores / this.CpuThrottlingMaxCores;
+				Config.MaxSimultaneousEncodes = this.MaxSimultaneousEncodes;
+
+				Config.PreferredPlayer = this.selectedPlayer.Id;
+
+				transaction.Commit();
+			}
+
+			this.Accept.Execute(null);
 		}
 
 		private ReactiveCommand<Unit, Unit> browseVideoPlayer;
@@ -811,9 +868,9 @@ namespace VidCoder.ViewModel
 				return this.checkUpdate ?? (this.checkUpdate = ReactiveCommand.Create(
 					() =>
 					{
-						this.updater.CheckUpdates();
+						this.Updater.CheckUpdates(isManualCheck: true);
 					},
-					this.updater
+					this.Updater
 						.WhenAnyValue(x => x.State)
 						.Select(state =>
 						{
@@ -823,6 +880,20 @@ namespace VidCoder.ViewModel
 									state == UpdateState.UpToDate);
 						})
 						.ObserveOnDispatcher()));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> applyUpdate;
+		public ICommand ApplyUpdate
+		{
+			get
+			{
+				return this.applyUpdate ?? (this.applyUpdate = ReactiveCommand.Create(
+					() =>
+					{
+						this.SaveSettingsImpl();
+						UpdateManager.RestartApp();
+					}));
 			}
 		}
 	}

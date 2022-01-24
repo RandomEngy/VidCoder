@@ -9,65 +9,7 @@ Param(
 
 . ./build_common.ps1
 
-function ReplaceTokens($inputFile, $outputFile, $replacements) {
-    $fileContent = Get-Content $inputFile
-
-    foreach($key in $($replacements.keys)){
-        $fileContent = $fileContent -replace ("%" + $key + "%"), $replacements[$key]
-    }
-
-    Set-Content $outputFile $fileContent
-}
-
-function CreateIssFile($version, $beta, $debugBuild) {
-    $tokens = @{}
-
-    if ($beta) {
-        $appId = "VidCoder-Beta-x64"
-    } else {
-        $appId = "VidCoder-x64"
-    }
-
-    $tokens["version"] = $version
-    $tokens["appId"] = $appId
-    if ($beta) {
-        $tokens["appName"] = "VidCoder Beta"
-        $tokens["appNameNoSpace"] = "VidCoderBeta"
-        $tokens["folderName"] = "VidCoder-Beta"
-        $tokens["outputBaseFileName"] = "VidCoder-" + $version + "-Beta"
-        $tokens["appVerName"] = "VidCoder " + $version + " Beta (Installer)"
-        $tokens["x86AppId"] = "VidCoder-Beta-x86"
-    } else {
-        $tokens["appName"] = "VidCoder"
-        $tokens["appNameNoSpace"] = "VidCoder"
-        $tokens["folderName"] = "VidCoder"
-        $tokens["outputBaseFileName"] = "VidCoder-" + $version
-        $tokens["appVerName"] = "VidCoder " + $version + " (Installer)"
-        $tokens["x86AppId"] = "VidCoder"
-    }
-
-    if ($debugBuild) {
-        $tokens["outputDirectory"] = "BuiltInstallers\Test"
-    } else {
-        $tokens["outputDirectory"] = "BuiltInstallers"
-    }
-
-    ReplaceTokens "Installer\VidCoder.iss.txt" "Installer\VidCoder-gen.iss" $tokens
-}
-
-function CreateLatestJson($outputFilePath, $versionShort, $versionTag, $installerFile) {
-    $latestTemplateFile = "Installer\latest-template.json"
-
-    $tokens = @{
-        versionShort = $versionShort;
-        versionTag = $versionTag;
-        installerFile = $installerFile
-    }
-
-    ReplaceTokens "Installer\latest-template.json" $outputFilePath $tokens
-}
-
-function Publish($folderNameSuffix, $publishProfileName, $version4part) {
+function Publish($folderNameSuffix, $publishProfileName, $version4part, $productName) {
     $mainPublishFolderPath = ".\VidCoder\bin\publish-$folderNameSuffix"
     if (Test-Path -Path $mainPublishFolderPath) {
         Get-ChildItem -Path $mainPublishFolderPath -Include * -File -Recurse | foreach { $_.Delete()}
@@ -79,7 +21,7 @@ function Publish($folderNameSuffix, $publishProfileName, $version4part) {
     }
 
     # Publish to VidCoder\bin\publish
-    & dotnet publish .\VidCoder.sln "/p:PublishProfile=$publishProfileName;Version=$version4part" -c $configuration
+    & dotnet publish .\VidCoder.sln "/p:PublishProfile=$publishProfileName;Version=$version4part;Product=$productName" -c $configuration
 
     # Copy some extra files for the installer
     $extraFiles = @(
@@ -112,16 +54,18 @@ if (!$beta -and ($branch -eq "beta")) {
 
 if ($beta) {
     $configuration = $buildFlavor + "-Beta"
+    $productName = "VidCoder Beta"
 } else {
     $configuration = $buildFlavor
+    $productName = "VidCoder"
 }
 
 # Get master version number
 $version4Part = $versionShort + ".0.0"
 
 # Publish the files
-Publish "installer" "InstallerProfile" $version4part
-Publish "portable" "PortableProfile" $version4part
+Publish "installer" "InstallerProfile" $version4part $productName
+Publish "portable" "PortableProfile" $version4part $productName
 
 # We need to copy some files from the Worker publish over to the main publish output, because the main publish output doesn't properly set the Worker to self-contained mode
 copy ".\VidCoderWorker\bin\publish-portable\VidCoderWorker*" ".\VidCoder\bin\publish-portable"
@@ -134,6 +78,8 @@ if ($beta) {
     $betaNameSection = ""
 }
 
+$binaryNameBase = "VidCoder-$versionShort$betaNameSection"
+
 if ($debugBuild) {
     $builtInstallerFolder = "Installer\BuiltInstallers\Test"
 } else {
@@ -142,7 +88,7 @@ if ($debugBuild) {
 
 New-Item -ItemType Directory -Force -Path ".\$builtInstallerFolder"
 
-$portableExeWithoutExtension = ".\$builtInstallerFolder\VidCoder-$versionShort$betaNameSection-Portable"
+$portableExeWithoutExtension = ".\$builtInstallerFolder\$binaryNameBase-Portable"
 $portableExeWithExtension = $portableExeWithoutExtension + ".exe"
 
 DeleteFileIfExists $portableExeWithExtension
@@ -154,40 +100,38 @@ ExitIfFailed
 
 SignExe $portableExeWithExtension; ExitIfFailed
 
-$latestFileDirectory = "Installer\"
-if ($debugBuild) {
-    $latestFileDirectory += "Test\"
-}
+# Create zip file with binaries
+$zipFilePath = ".\Installer\BuiltInstallers\$binaryNameBase.zip"
+DeleteFileIfExists $zipFilePath
 
-$latestFileBase = $latestFileDirectory + "latest"
+& $winRarExe a -afzip -ep1 -r $zipFilePath .\VidCoder\bin\publish-installer\
+
+# Build Squirrel installer
+Set-Alias Squirrel ($env:USERPROFILE + "\.nuget\packages\clowd.squirrel\2.7.79-pre\tools\Squirrel.exe")
 if ($beta) {
-    $latestFileBase += "-beta"
+    $packId = "VidCoder.Beta"
+    $releaseDirSuffix = "Beta"
+} else {
+    $packId = "VidCoder.Stable"
+    $releaseDirSuffix = "Stable"
 }
 
-$latestFile = $latestFileBase + ".json"
+$releaseDir = ".\Installer\Releases-$releaseDirSuffix"
 
-# Update latest.json file with version
-if ($beta)
-{
-    $versionTag = "v$versionShort-beta"
-    $installerFile = "VidCoder-$versionShort-Beta.exe"
-}
-else
-{
-    $versionTag = "v$versionShort"
-    $installerFile = "VidCoder-$versionShort.exe"
-}
+Squirrel pack `
+    --packId $packId `
+    --packTitle "$productName" `
+    --packVersion ($versionShort + ".0") `
+    --packAuthors RandomEngy `
+    --packDirectory .\VidCoder\bin\publish-installer `
+    --icon .\Installer\VidCoder_Setup.ico `
+    --releaseDir $releaseDir `
+    --splashImage .\Installer\InstallerSplash.png `
+    --signParams "/f D:\certs\ComodoIndividualCertv2.pfx /p $p /fd SHA256 /tr http://timestamp.digicert.com /td SHA256" `
+    --framework net6-x64
 
-CreateLatestJson $latestFile $versionShort $versionTag $installerFile
-
-# Create .iss files in the correct configuration
-CreateIssFile $versionShort $beta $debugBuild
-
-# Build the installers
-& $InnoSetupExe Installer\VidCoder-gen.iss; ExitIfFailed
-
-$installerExePath = ".\$builtInstallerFolder\VidCoder-$versionShort$betaNameSection.exe"
-SignExe $installerExePath; ExitIfFailed
+ExitIfFailed;
+copy ("$releaseDir\" + $packId + "Setup.exe") ".\Installer\BuiltInstallers\$binaryNameBase.exe"
 
 WriteSuccess
 

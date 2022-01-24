@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace VidCoder.Model
 {
-	public enum UpdatePromptTiming
+	public enum VidCoderInstallType
 	{
-		OnExit,
-		OnLaunch
+		SquirrelInstaller,
+		Portable,
+		Zip
 	}
 }

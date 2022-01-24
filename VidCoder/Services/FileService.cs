@@ -192,7 +192,7 @@ namespace VidCoder.Services
 
 		public void ReportBug()
 		{
-			string portableText = Utilities.IsPortable ? "Portable" : "Installer";
+			string portableText = Utilities.InstallType.ToString();
 			this.LaunchUrl($"https://github.com/RandomEngy/VidCoder/issues/new?labels=bug&template=bug_report.yml&vidcoder-version={Utilities.VersionString}%20{portableText}");
 		}
 

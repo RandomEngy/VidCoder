@@ -9,13 +9,12 @@ namespace VidCoder.Services
 
 	public interface IUpdater
 	{
-		void CheckUpdates();
-		bool HandlePendingUpdate();
-		bool PromptToApplyUpdate(bool relaunchWhenComplete);
+		void CheckUpdates(bool isManualCheck);
+		bool PromptToApplyUpdate();
 		void HandleUpdatedSettings(bool updatesEnabled);
 
 		UpdateState State { get; }
 		Version LatestVersion { get; }
-		double UpdateDownloadProgressFraction { get; set; }
+		int UpdateCheckProgressPercent { get; set; }
 	}
 }

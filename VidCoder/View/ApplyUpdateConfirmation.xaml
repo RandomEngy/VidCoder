@@ -64,15 +64,6 @@
 						VerticalAlignment="Bottom"
 						Content="{x:Static res:CommonRes.No}"
 						IsCancel="True" />
-					<Button
-						Name="disableUpdatesButton"
-						Height="23"
-						MinWidth="93"
-						Margin="20 0 0 0"
-						HorizontalAlignment="Right"
-						VerticalAlignment="Bottom"
-						Click="disableUpdatesButton_Click"
-						Content="{x:Static res:MiscRes.DisableUpdatesButton}" />
 				</StackPanel>
 
 			</Grid>
