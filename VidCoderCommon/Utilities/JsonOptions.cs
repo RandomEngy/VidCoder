@@ -25,7 +25,7 @@ namespace VidCoderCommon.Utilities
 		{
 			var defaultOptions = new JsonSerializerOptions
 			{
-				IgnoreNullValues = true,
+				DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
 				WriteIndented = true
 			};
 			defaultOptions.Converters.Add(new VersionConverter());

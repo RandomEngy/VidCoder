@@ -131,7 +131,7 @@ Squirrel pack `
     --framework net6-x64
 
 ExitIfFailed;
-copy ("$releaseDir\" + $packId + "Setup.exe") ".\Installer\BuiltInstallers\$binaryNameBase.exe"
+Move-Item -Path ("$releaseDir\" + $packId + "Setup.exe") -Destination ".\Installer\BuiltInstallers\$binaryNameBase.exe" -Force
 
 WriteSuccess
 
