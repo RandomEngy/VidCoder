@@ -31,7 +31,8 @@ namespace VidCoder
 		public const int LastUpdatedEncodingProfileDatabaseVersion = 44;
 		public const int LastUpdatedPickerDatabaseVersion = 45;
 
-		public const string SquirrelUpdateUrlBase = "https://vidcoder-squirrel.s3.us-west-2.amazonaws.com";
+		public const string SquirrelUpdateUrlBeta = "https://f001.backblazeb2.com/file/vidcoder-squirrel-beta";
+		public const string SquirrelUpdateUrlStable = "https://f001.backblazeb2.com/file/vidcoder-squirrel-stable";
 
 		static Utilities()
 		{
@@ -133,7 +134,7 @@ namespace VidCoder
 		{
 			get
 			{
-				return SquirrelUpdateUrlBase + (CommonUtilities.Beta ? "/beta" : "/stable");
+				return CommonUtilities.Beta ? SquirrelUpdateUrlBeta : SquirrelUpdateUrlStable;
 			}
 		}
 
