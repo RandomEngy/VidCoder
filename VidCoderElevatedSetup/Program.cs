@@ -76,7 +76,12 @@ void AddRipDriveAction()
 		}
 
 		// 2: Define what the rip drive action does
-		string programFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+		string? programFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+		if (programFolder == null)
+		{
+			throw new Exception("Could not get executing directory.");
+		}
+
 		string mainExePath = Path.Combine(programFolder, "VidCoder.exe");
 
 		RegistryKey ripDriveActionKey = Registry.LocalMachine.CreateSubKey(ripDriveKeyPath);

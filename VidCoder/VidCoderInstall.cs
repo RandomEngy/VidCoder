@@ -22,7 +22,7 @@ namespace VidCoder
 		/// Called when the app first installs. Will run this code and exit.
 		/// </summary>
 		/// <param name="version">The app version.</param>
-		private static void OnInitialInstall(Version version)
+		private static void OnInitialInstall(SemanticVersion version, IAppTools tools)
 		{
 			var logger = new ElevatedSetupLogger("Install");
 			logger.Log("Running initial install actions...");
@@ -53,7 +53,7 @@ namespace VidCoder
 		/// Called when the app is uninstalled. Will run this code and exit.
 		/// </summary>
 		/// <param name="version">The app version.</param>
-		private static void OnAppUninstall(Version version)
+		private static void OnAppUninstall(SemanticVersion version, IAppTools tools)
 		{
 			var logger = new ElevatedSetupLogger("Uninstall");
 			logger.Log("Running uninstall actions...");

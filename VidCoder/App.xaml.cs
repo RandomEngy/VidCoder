@@ -20,6 +20,7 @@ using Microsoft.AnyContainer;
 using ControlzEx.Theming;
 using Microsoft.Toolkit.Uwp.Notifications;
 using VidCoder.Automation;
+using Squirrel;
 
 namespace VidCoder
 {
@@ -33,9 +34,6 @@ namespace VidCoder
 		private IAppThemeService appThemeService;
 
 		private AppTheme currentTheme = AppTheme.Light;
-
-		[DllImport("shell32.dll", SetLastError = true)]
-		static extern void SetCurrentProcessExplicitAppUserModelID([MarshalAs(UnmanagedType.LPWStr)] string AppID);
 
 		protected override void OnStartup(StartupEventArgs e)
 		{
@@ -78,8 +76,9 @@ namespace VidCoder
 			Delay.PseudoLocalizer.Enable(typeof(MiscRes));
 #endif
 
-			// Set the AppUserModelID to match the shortcut that Squirrel is creating. This will allow any pinned shortcut on the taskbar to be updated.
-			SetCurrentProcessExplicitAppUserModelID($"com.squirrel.{CommonUtilities.SquirrelAppId}.VidCoder");
+			// Let Squirrel set the AppUserModelID. This will allow any pinned shortcut on the taskbar to be updated properly.
+			var updateManager = new UpdateManager(Utilities.SquirrelUpdateUrl);
+			updateManager.SetProcessAppUserModelId();
 
 			VidCoderInstall.HandleSquirrelEvents();
 
