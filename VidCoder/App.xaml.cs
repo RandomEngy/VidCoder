@@ -76,11 +76,14 @@ namespace VidCoder
 			Delay.PseudoLocalizer.Enable(typeof(MiscRes));
 #endif
 
-			// Let Squirrel set the AppUserModelID. This will allow any pinned shortcut on the taskbar to be updated properly.
-			var updateManager = new UpdateManager(Utilities.SquirrelUpdateUrl);
-			updateManager.SetProcessAppUserModelId();
+			if (Utilities.InstallType == VidCoderInstallType.SquirrelInstaller)
+			{
+				// Let Squirrel set the AppUserModelID. This will allow any pinned shortcut on the taskbar to be updated properly.
+				var updateManager = new UpdateManager(Utilities.SquirrelUpdateUrl);
+				updateManager.SetProcessAppUserModelId();
 
-			VidCoderInstall.HandleSquirrelEvents();
+				VidCoderInstall.HandleSquirrelEvents();
+			}
 
 			// If we get here we know we are actually trying to launch the app (and this isn't part of a Squirrel update process.
 			// Enforce single-instance restrictions.
