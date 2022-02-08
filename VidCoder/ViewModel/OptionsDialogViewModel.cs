@@ -36,6 +36,8 @@ namespace VidCoder.ViewModel
 		private bool betaInfoAvailable;
 #pragma warning restore 169
 
+		private bool startedBetaInfoFetch = false;
+
 		public OptionsDialogViewModel(IUpdater updateService)
 		{
 			this.Updater = updateService;
@@ -220,8 +222,23 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			if (!CommonUtilities.Beta)
+			int tabIndex = Config.OptionsDialogLastTab;
+			if (tabIndex >= this.Tabs.Count)
 			{
+				tabIndex = 0;
+			}
+
+			this.SelectedTabIndex = tabIndex;
+
+			this.StartBetaInfoFetchIfNeeded();
+		}
+
+		private void StartBetaInfoFetchIfNeeded()
+		{
+			if (!CommonUtilities.Beta && !this.startedBetaInfoFetch && this.SelectedTabIndex == UpdatesTabIndex)
+			{
+				this.startedBetaInfoFetch = true;
+
 				Task.Run(async () =>
 				{
 					this.latestBetaVersion = await this.GetLatestBetaVersionAsync();
@@ -242,14 +259,6 @@ namespace VidCoder.ViewModel
 					}
 				});
 			}
-
-			int tabIndex = Config.OptionsDialogLastTab;
-			if (tabIndex >= this.Tabs.Count)
-			{
-				tabIndex = 0;
-			}
-
-			this.SelectedTabIndex = tabIndex;
 		}
 
 		private async Task<Version> GetLatestBetaVersionAsync()
@@ -306,7 +315,11 @@ namespace VidCoder.ViewModel
 		public int SelectedTabIndex
 		{
 			get => this.selectedTabIndex;
-			set => this.RaiseAndSetIfChanged(ref this.selectedTabIndex, value);
+			set
+			{
+				this.RaiseAndSetIfChanged(ref this.selectedTabIndex, value);
+				this.StartBetaInfoFetchIfNeeded();
+			}
 		}
 
 		public LogCoordinator LogCoordinator { get; } = StaticResolver.Resolve<LogCoordinator>();

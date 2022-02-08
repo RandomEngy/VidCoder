@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Interop;
 using HandBrake.Interop.Interop.Json.Scan;
 using Microsoft.AnyContainer;
+using Squirrel;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -38,7 +39,8 @@ namespace VidCoder
 		{
 			InstallType = VidCoderInstallType.Zip;
 
-			if (ProgramFolder.StartsWith(CommonUtilities.LocalAppFolder, StringComparison.OrdinalIgnoreCase))
+			var updateManager = new UpdateManager(SquirrelUpdateUrl);
+			if (updateManager.IsInstalledApp)
 			{
 				InstallType = VidCoderInstallType.SquirrelInstaller;
 			}
