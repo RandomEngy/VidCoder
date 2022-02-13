@@ -605,6 +605,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm before removing.
+        /// </summary>
+        public static string SourceFileRemovalConfirmationCheckBox {
+            get {
+                return ResourceManager.GetString("SourceFileRemovalConfirmationCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source file removal after successful encode:.
+        /// </summary>
+        public static string SourceFileRemovalLabel {
+            get {
+                return ResourceManager.GetString("SourceFileRemovalLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Source name cleanup.
         /// </summary>
         public static string SourceNameCleanupSection {

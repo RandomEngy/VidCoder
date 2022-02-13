@@ -301,6 +301,12 @@ namespace VidCoder.ViewModel
 					return subtitleQuantityClass == SubtitleQuantityClass.Multiple && selectionMode != SubtitleSelectionMode.ByIndex && !subtitleBurnInSelection.FirstTrackIncluded();
 				}).ToProperty(this, x => x.ShowMarkFirstAsDefaultCheckBox, out this.showMarkFirstAsDefaultCheckBox);
 
+				// SourceFileRemovalConfirmationVisible
+				this.WhenAnyValue(x => x.SourceFileRemoval, x => x.SourceFileRemovalTiming, (sourceFileRemoval, sourceFileRemovalTiming) =>
+				{
+					return sourceFileRemoval != SourceFileRemoval.Disabled && sourceFileRemovalTiming == SourceFileRemovalTiming.AfterClearingCompletedItems;
+				}).ToProperty(this, x => x.SourceFileRemovalConfirmationVisible, out this.sourceFileRemovalConfirmationVisible);
+
 				this.PickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsDefault, x => x.SelectedPicker.Picker.IsModified, (isDefault, isModified) => !isDefault && !isModified).ToProperty(this, x => x.DeleteButtonVisible, out this.deleteButtonVisible);
 
 				this.PickersService.WhenAnyValue(x => x.SelectedPicker.Picker.DisplayName, x => x.SelectedPicker.Picker.IsModified, (displayName, isModified) =>
@@ -527,6 +533,9 @@ namespace VidCoder.ViewModel
 			this.RegisterPickerProperty(nameof(this.Picker.PostEncodeActionEnabled));
 			this.RegisterPickerProperty(nameof(this.Picker.PostEncodeExecutable));
 			this.RegisterPickerProperty(nameof(this.Picker.PostEncodeArguments));
+			this.RegisterPickerProperty(nameof(this.Picker.SourceFileRemoval));
+			this.RegisterPickerProperty(nameof(this.Picker.SourceFileRemovalTiming));
+			this.RegisterPickerProperty(nameof(this.Picker.SourceFileRemovalConfirmation));
 		}
 
 		private void RefreshBurnInChoicesAndUpdateSelection()
@@ -1055,6 +1064,40 @@ namespace VidCoder.ViewModel
 			get => this.Picker.PostEncodeArguments;
 			set => this.UpdatePickerProperty(nameof(this.Picker.PostEncodeArguments), value);
 		}
+
+		public List<ComboChoice<SourceFileRemoval>> SourceFileRemovalChoices { get; } = new List<ComboChoice<SourceFileRemoval>>
+		{
+			new ComboChoice<SourceFileRemoval>(SourceFileRemoval.Disabled, CommonRes.Disabled),
+			new ComboChoice<SourceFileRemoval>(SourceFileRemoval.Recycle, EnumsRes.SourceFileRemoval_Recycle),
+			new ComboChoice<SourceFileRemoval>(SourceFileRemoval.Delete, EnumsRes.SourceFileRemoval_Delete),
+		};
+
+		public SourceFileRemoval SourceFileRemoval
+		{
+			get => this.Picker.SourceFileRemoval;
+			set => this.UpdatePickerProperty(nameof(this.Picker.SourceFileRemoval), value);
+		}
+
+		public List<ComboChoice<SourceFileRemovalTiming>> SourceFileRemovalTimingChoices { get; } = new List<ComboChoice<SourceFileRemovalTiming>>
+		{
+			new ComboChoice<SourceFileRemovalTiming>(SourceFileRemovalTiming.AfterClearingCompletedItems, EnumsRes.SourceFileRemovalTiming_AfterClearingCompletedItems),
+			new ComboChoice<SourceFileRemovalTiming>(SourceFileRemovalTiming.Immediately, EnumsRes.SourceFileRemovalTiming_Immediately),
+		};
+
+		public SourceFileRemovalTiming SourceFileRemovalTiming
+		{
+			get => this.Picker.SourceFileRemovalTiming;
+			set => this.UpdatePickerProperty(nameof(this.Picker.SourceFileRemovalTiming), value);
+		}
+
+		public bool SourceFileRemovalConfirmation
+		{
+			get => this.Picker.SourceFileRemovalConfirmation;
+			set => this.UpdatePickerProperty(nameof(this.Picker.SourceFileRemovalConfirmation), value);
+		}
+
+		private ObservableAsPropertyHelper<bool> sourceFileRemovalConfirmationVisible;
+		public bool SourceFileRemovalConfirmationVisible => this.sourceFileRemovalConfirmationVisible.Value;
 
 		private ReactiveCommand<Unit, Unit> save;
 		public ICommand Save

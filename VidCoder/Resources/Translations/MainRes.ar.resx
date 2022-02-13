@@ -283,9 +283,7 @@
   <data name="StoppedEncoding" xml:space="preserve">
     <value>التشفير متوقف.</value>
   </data>
-  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>هل تريد بالتاكيد حذف {0} ملفات المصدر/المجلدات ؟</value>
-  </data>
+  
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>تأكيد الحذف</value>
   </data>
@@ -650,6 +648,10 @@
   <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
     <value>تشفير الاجراء الكامل لم يتم تنفيذه بسبب وجود أخطاء في قائمه نتائج التشفير.</value>
   </data>
+  
+  
+  
+  
   
   
   

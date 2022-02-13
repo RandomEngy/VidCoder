@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>全般</value>
@@ -162,9 +162,6 @@
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>LibDVDNavを有効化（アプリの再起動が必要。マルチアングルに対応）</value>
   </data>
-  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>完了したアイテムを消去した後にソースファイルを削除</value>
-  </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>ログレベル：</value>
   </data>
@@ -192,12 +189,7 @@
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>最新のベータバージョンを使う</value>
   </data>
-  <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>バージョン{0} への更新準備が出来ました。プログラム終了時にインストールされます。</value>
-  </data>
-  <data name="DownloadingStatus" xml:space="preserve">
-    <value>更新をダウンロードしています {0}：</value>
-  </data>
+  
   <data name="UpToDateStatus" xml:space="preserve">
     <value>最新の状態です</value>
   </data>
@@ -215,9 +207,6 @@
   </data>
   <data name="UpdatesTab" xml:space="preserve">
     <value>アップデート</value>
-  </data>
-  <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>最新バージョンを確認しています</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
     <value>最新バージョンの確認に失敗しました</value>
@@ -347,9 +336,6 @@
     <value>テーマ</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
-  <data name="PromptForUpdatesLabel" xml:space="preserve">
-    <value>アップデート時に確認する</value>
-  </data>
   <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
     <value>ワーカープロセスオプションは再起動後に有効になります</value>
   </data>
@@ -384,4 +370,7 @@
   <data name="EncodeRetriesLabel" xml:space="preserve">
     <value>エンコード再試行回数:</value>
   </data>
+  
+  
+  
 </root>

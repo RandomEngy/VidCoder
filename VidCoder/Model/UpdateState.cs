@@ -8,10 +8,9 @@ namespace VidCoder.Model
 	public enum UpdateState
 	{
 		NotStarted,
-		DownloadingInfo,
-		DownloadingInstaller,
+		Checking,
 		UpToDate,
-		InstallerReady,
+		UpdateReady,
 		Failed
 	}
 }

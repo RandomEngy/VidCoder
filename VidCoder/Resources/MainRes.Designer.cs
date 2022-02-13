@@ -376,6 +376,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy log and report problem.
+        /// </summary>
+        public static string CopyLogAndReportMenuItem {
+            get {
+                return ResourceManager.GetString("CopyLogAndReportMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not copy log:{0}{0}{1}.
         /// </summary>
         public static string CouldNotCopyLogError {
@@ -486,7 +495,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete {0} source file(s)/folder(s)?.
+        ///   Looks up a localized string similar to Are you sure you want to {0} {1} source file(s)/folder(s)?.
         /// </summary>
         public static string DeleteSourceFilesConfirmationMessage {
             get {
@@ -1408,6 +1417,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to delete.
+        /// </summary>
+        public static string RemoveSourceFiles_Delete {
+            get {
+                return ResourceManager.GetString("RemoveSourceFiles_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to recycle.
+        /// </summary>
+        public static string RemoveSourceFiles_Recycle {
+            get {
+                return ResourceManager.GetString("RemoveSourceFiles_Recycle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot read version {0} database file. The highest version recognized by VidCoder {1} is {2}.
         /// </summary>
         public static string RenameDatabaseFileLine1 {
@@ -1426,11 +1453,20 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report a Bug.
+        ///   Looks up a localized string similar to Report a bug.
         /// </summary>
         public static string ReportABugMenuItem {
             get {
                 return ResourceManager.GetString("ReportABugMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request a feature.
+        /// </summary>
+        public static string RequestFeatureMenuItem {
+            get {
+                return ResourceManager.GetString("RequestFeatureMenuItem", resourceCulture);
             }
         }
         

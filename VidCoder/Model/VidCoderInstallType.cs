@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace VidCoder.Model
 {
-	public enum DeleteSourceFilesMode
+	public enum VidCoderInstallType
 	{
-		Recycle,
-		DeleteWithConfirmation
+		SquirrelInstaller,
+		Portable,
+		Zip
 	}
 }

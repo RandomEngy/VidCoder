@@ -6,6 +6,7 @@ using System.IO;
 using HandBrake.Interop.Interop;
 using Microsoft.AnyContainer;
 using VidCoder.Model;
+using VidCoderCommon;
 
 namespace VidCoder.Services
 {
@@ -21,11 +22,7 @@ namespace VidCoder.Services
 		{
 			this.parent = parent;
 
-			string logFolder = Path.Combine(Utilities.AppFolder, "Logs");
-			if (!Directory.Exists(logFolder))
-			{
-				Directory.CreateDirectory(logFolder);
-			}
+			string logFolder = CommonUtilities.LogsFolder;
 
 			string logFileNameAffix;
 			if (baseFileName != null)

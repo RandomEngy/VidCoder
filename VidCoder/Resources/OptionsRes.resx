@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>General</value>
@@ -162,9 +162,6 @@
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Enable LibDVDNav (Change requires program restart. Required to support multiple angles)</value>
   </data>
-  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Delete source files after clearing successful completed items</value>
-  </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Logging Verbosity:</value>
   </data>
@@ -193,10 +190,7 @@
     <value>Join the Beta track to get more frequent updates</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>Update {0} ready. It will install when you exit the program.</value>
-  </data>
-  <data name="DownloadingStatus" xml:space="preserve">
-    <value>Downloading update {0}:</value>
+    <value>Update {0} ready.</value>
   </data>
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder is up to date.</value>
@@ -215,9 +209,6 @@
   </data>
   <data name="UpdatesTab" xml:space="preserve">
     <value>Updates</value>
-  </data>
-  <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>Finding latest version...</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
     <value>Update check failed.</value>
@@ -347,9 +338,6 @@
     <value>Theme</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
-  <data name="PromptForUpdatesLabel" xml:space="preserve">
-    <value>Prompt for updates:</value>
-  </data>
   <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
     <value>The worker process option will take effect after you exit and restart VidCoder.</value>
   </data>
@@ -383,5 +371,15 @@
   </data>
   <data name="EncodeRetriesLabel" xml:space="preserve">
     <value>Number of encode retries:</value>
+  </data>
+  <data name="ApplyUpdateButton" xml:space="preserve">
+    <value>Apply update</value>
+  </data>
+  <data name="CheckingForUpdateStatus" xml:space="preserve">
+    <value>Checking for update...</value>
+  </data>
+  <data name="UpdateModeLabel" xml:space="preserve">
+    <value>Update mode:</value>
+    <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
   </data>
 </root>

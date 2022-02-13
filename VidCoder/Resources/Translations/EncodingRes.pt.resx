@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Guardar</value>
@@ -831,5 +831,20 @@ Lapsharp actua usando núcleos de convolução próximos dos filtro de bordo Lap
   </data>
   <data name="ColorspaceLabel" xml:space="preserve">
     <value>Espaço de cores:</value>
+  </data>
+  <data name="ChromaSmoothToolTip" xml:space="preserve">
+    <value>Reduz o ruído de cromático, arco-íris e outros artefatos visuais proeminentes. Útil para resolver vários problemas relacionados com cores, especialmente com conteúdo de baixa resolução de fontes analógicas, por exemplo, fontes de DVD e VHS de baixa qualidade. O algoritmo de desfocagem/suavização é o mesmo usado pelo filtro de nitidez. </value>
+  </data>
+  <data name="ConstrainToOneAxisCheckBox" xml:space="preserve">
+    <value>Restringir a um eixo</value>
+  </data>
+  <data name="ConstrainToOneAxisToolTip" xml:space="preserve">
+    <value>Se activado, apenas o eixo com o maior corte total detectado será recortado. Por exemplo, se Topo+Base = 32 e Esquerda+Direita = 6, então o corte à esquerda e à direita será definido para 0.</value>
+  </data>
+  <data name="MinimumCroppingLabel" xml:space="preserve">
+    <value>Mínimo:</value>
+  </data>
+  <data name="MinimumCroppingToolTip" xml:space="preserve">
+    <value>Se o recorte automático estiver abaixo desse valor para um lado, desactive o corte para esse lado. Útil para evitar reamostragem em pequenos recortes. </value>
   </data>
 </root>

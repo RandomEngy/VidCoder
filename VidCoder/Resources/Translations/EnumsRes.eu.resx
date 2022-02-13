@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Anamorphic_Custom" xml:space="preserve">
     <value>Norberea</value>
@@ -289,12 +289,6 @@
   <data name="PickerTimeRangeMode_Time" xml:space="preserve">
     <value>Denbora maila</value>
   </data>
-  <data name="DeleteSourceFilesMode_DeleteWithConfirmation" xml:space="preserve">
-    <value>Ezabatu agiriak (baieztapenarekin)</value>
-  </data>
-  <data name="DeleteSourceFilesMode_Recycle" xml:space="preserve">
-    <value>Bidali Birziklapen-ontzira</value>
-  </data>
   <data name="WhenFileExists_AutoRename" xml:space="preserve">
     <value>Berezgaitasunez berrizendatu</value>
   </data>
@@ -345,4 +339,10 @@
   <data name="SubtitleBurnInSelection_None" xml:space="preserve">
     <value>Ezer ez</value>
   </data>
+  
+  
+  
+  
+  
+  
 </root>

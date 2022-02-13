@@ -19,6 +19,7 @@ using Omu.ValueInjecter;
 using VidCoder.Extensions;
 using VidCoder.Resources;
 using VidCoder.Services;
+using VidCoderCommon;
 using VidCoderCommon.Model;
 using VidCoderCommon.Utilities;
 using VidCoderCommon.Utilities.Injection;
@@ -29,7 +30,7 @@ namespace VidCoder.Model
 	{
 		private const int CurrentPresetVersion = 20;
 
-		private static readonly string UserPresetsFolder = Path.Combine(Utilities.AppFolder, "UserPresets");
+		private static readonly string UserPresetsFolder = Path.Combine(CommonUtilities.AppFolder, "UserPresets");
 		private static readonly string BuiltInPresetsPath = "BuiltInPresets.json";
 		private static object userPresetSync = new object();
 
@@ -228,8 +229,6 @@ namespace VidCoder.Model
 				{
 					presets.RemoveAt(i);
 
-					// Splash screen eats first dialog, need to show twice.
-					StaticResolver.Resolve<IMessageBoxService>().Show("Could not load corrupt preset '" + preset?.GetDisplayName() + "'.");
 					StaticResolver.Resolve<IMessageBoxService>().Show("Could not load corrupt preset '" + preset?.GetDisplayName() + "'.");
 				}
 				else

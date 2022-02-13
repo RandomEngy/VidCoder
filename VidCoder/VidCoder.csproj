@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
     <UseWPF>true</UseWPF>
     <CsWinRTWindowsMetadata>10.0.19041.0</CsWinRTWindowsMetadata>
     <ApplicationIcon>VidCoder_icon.ico</ApplicationIcon>
@@ -16,11 +16,13 @@
     <OutputPath>bin/$(Configuration)</OutputPath>
     <Platforms>x64</Platforms>
     <ValidateExecutableReferencesMatchSelfContained>false</ValidateExecutableReferencesMatchSelfContained>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <DefineConstants>DEBUG</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Clowd.Squirrel" Version="2.7.98-pre" />
     <PackageReference Include="Fluent.Ribbon" Version="8.0.3" />
     <PackageReference Include="Microsoft.AnyContainer" Version="1.0.0-beta201808141" />
     <PackageReference Include="Microsoft.AnyContainer.DryIoc" Version="1.0.0-beta201808141" />
@@ -185,6 +187,8 @@
     <EmbeddedResource Include="Resources\Translations\*.*.resx">
       <ManifestResourceName>$(TargetName).Resources.%(Filename)</ManifestResourceName>
     </EmbeddedResource>
+    <None Remove="Icons\Splash.png" />
+    <None Remove="Icons\VidCoder_Shadow_Smoothed.png" />
     <None Remove="Icons\VolumeMute.png" />
     <None Remove="Icons\VolumeOn.png" />
     <None Include="Model\Config\Config.tt">
@@ -207,7 +211,7 @@
     <Content Include="Encode_Complete.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <SplashScreen Include="splash.png" />
+    <Resource Include="Icons\Splash.png" />
     <Resource Include="Model\Config\Config.txt" />
     <Resource Include="VidCoder_icon.ico" />
     <Resource Include="Icons\dvd_folder.png" />
@@ -268,6 +272,7 @@
   <ItemGroup>
     <ProjectReference Include="..\VidCoderCLI\VidCoderCLI.csproj" />
     <ProjectReference Include="..\VidCoderCommon\VidCoderCommon.csproj" />
+    <ProjectReference Include="..\VidCoderElevatedSetup\VidCoderElevatedSetup.csproj" />
     <ProjectReference Include="..\VidCoderWindowlessCLI\VidCoderWindowlessCLI.csproj" />
     <ProjectReference Include="..\VidCoderWorker\VidCoderWorker.csproj" />
   </ItemGroup>

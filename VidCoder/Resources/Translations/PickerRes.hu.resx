@@ -389,4 +389,11 @@ Nyelv(ek) - Nyelv alapján
   <data name="LanguageLabel" xml:space="preserve">
     <value>Nyelv:</value>
   </data>
+  <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
+    <value>Megerősítés az eltávolítás előtt</value>
+  </data>
+  <data name="SourceFileRemovalLabel" xml:space="preserve">
+    <value>Forrásfájl eltávolítása sikeres kódolás után:</value>
+    <comment>Label for the option to automatically delete source files on completion.</comment>
+  </data>
 </root>

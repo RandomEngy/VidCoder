@@ -389,4 +389,11 @@
   <data name="LanguageLabel" xml:space="preserve">
     <value>語言:</value>
   </data>
+  <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
+    <value>移除前確認</value>
+  </data>
+  <data name="SourceFileRemovalLabel" xml:space="preserve">
+    <value>成功編碼後移除原始檔:</value>
+    <comment>Label for the option to automatically delete source files on completion.</comment>
+  </data>
 </root>

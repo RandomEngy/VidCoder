@@ -32,6 +32,7 @@ using HandBrake.Interop.Interop.Json.Encode;
 using HandBrake.Interop.Interop.Json.Scan;
 using Microsoft.AnyContainer;
 using ReactiveUI;
+using Squirrel;
 using VidCoder.Controls;
 using VidCoder.Extensions;
 using VidCoder.Model;
@@ -225,10 +226,10 @@ namespace VidCoder.View
 			debugDropDown.Items.Add(addLongLogItem);
 
 			var doAnActionItem = new Fluent.MenuItem { Header = "Perform action" };
-			doAnActionItem.Click += (sender, args) =>
+			doAnActionItem.Click += async (sender, args) =>
 			{
-				var app = (App)System.Windows.Application.Current;
-				app.ChangeTheme(new Uri("/Themes/Dark.xaml", UriKind.Relative));
+				var updateManager = new UpdateManager(Utilities.SquirrelUpdateUrl);
+				await updateManager.CheckForUpdate();
 			};
 			debugDropDown.Items.Add(doAnActionItem);
 
@@ -976,13 +977,19 @@ namespace VidCoder.View
 		private void UpdateAudioSummaryMaxWidth()
 		{
 			double summaryWidth = this.audioSummaryColumn.ActualWidth;
-			this.audioSummary.MaxWidth = summaryWidth - 40;
+			if (summaryWidth > 40)
+			{
+				this.audioSummary.MaxWidth = summaryWidth - 40;
+			}
 		}
 
 		private void UpdateSubtitlesSummaryMaxWidth()
 		{
 			double summaryWidth = this.subtitlesSummaryColumn.ActualWidth;
-			this.subtitlesSummary.MaxWidth = summaryWidth - 40;
+			if (summaryWidth > 40)
+			{
+				this.subtitlesSummary.MaxWidth = summaryWidth - 40;
+			}
 		}
 
 		private void OnMinimizeButtonClick(object sender, RoutedEventArgs e)

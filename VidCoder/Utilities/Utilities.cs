@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Interop;
 using HandBrake.Interop.Interop.Json.Scan;
 using Microsoft.AnyContainer;
+using Squirrel;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -27,22 +28,35 @@ namespace VidCoder
 {
 	public static class Utilities
 	{
-		public const int CurrentDatabaseVersion = 44;
+		public const int CurrentDatabaseVersion = 46;
 		public const int LastUpdatedEncodingProfileDatabaseVersion = 44;
-		public const int LastUpdatedPickerDatabaseVersion = 43;
+		public const int LastUpdatedPickerDatabaseVersion = 45;
 
-		private const string AppDataFolderName = "VidCoder";
-		private const string LocalAppDataFolderName = "VidCoder";
+		public const string SquirrelUpdateUrlBeta = "https://f001.backblazeb2.com/file/vidcoder-squirrel-beta";
+		public const string SquirrelUpdateUrlStable = "https://f001.backblazeb2.com/file/vidcoder-squirrel-stable";
 
 		static Utilities()
 		{
-			var tempFolderPath = Environment.GetEnvironmentVariable("temp");
-			if (tempFolderPath != null)
-			{
-				DirectoryInfo tempFolderInfo = new DirectoryInfo(tempFolderPath);
-				DirectoryInfo currentDirectoryInfo = new DirectoryInfo(Directory.GetCurrentDirectory());
+			InstallType = VidCoderInstallType.Zip;
 
-				IsPortable = currentDirectoryInfo.FullName.StartsWith(tempFolderInfo.FullName, StringComparison.OrdinalIgnoreCase);
+			var updateManager = new UpdateManager(SquirrelUpdateUrl);
+			if (updateManager.IsInstalledApp)
+			{
+				InstallType = VidCoderInstallType.SquirrelInstaller;
+			}
+			else
+			{
+				var tempFolderPath = Environment.GetEnvironmentVariable("temp");
+				if (tempFolderPath != null)
+				{
+					DirectoryInfo tempFolderInfo = new DirectoryInfo(tempFolderPath);
+					DirectoryInfo currentDirectoryInfo = new DirectoryInfo(Directory.GetCurrentDirectory());
+
+					if (currentDirectoryInfo.FullName.StartsWith(tempFolderInfo.FullName, StringComparison.OrdinalIgnoreCase))
+					{
+						InstallType = VidCoderInstallType.Portable;
+					}
+				}
 			}
 		}
 
@@ -69,7 +83,7 @@ namespace VidCoder
 			}
 		}
 
-		public static bool IsPortable { get; }
+		public static VidCoderInstallType InstallType { get; }
 
 		public static bool UwpApisAvailable
 		{
@@ -118,22 +132,15 @@ namespace VidCoder
 			}
 		}
 
-		public static string PackageFamilyName
+		public static string SquirrelUpdateUrl
 		{
 			get
 			{
-				if (CommonUtilities.Beta)
-				{
-					return "19358RandomEngy.VidCoderBeta_cf0dg7w8q6vfw";
-				}
-				else
-				{
-					return "19358RandomEngy.VidCoder_cf0dg7w8q6vfw";
-				}
+				return CommonUtilities.Beta ? SquirrelUpdateUrlBeta : SquirrelUpdateUrlStable;
 			}
 		}
 
-		public static bool SupportsUpdates => !IsPortable && CurrentVersion != new Version(1, 0, 0, 0);
+		public static bool SupportsUpdates => InstallType == VidCoderInstallType.SquirrelInstaller && CurrentVersion != new Version(1, 0, 0, 0);
 
 		public static bool IsDesigner
 		{
@@ -200,6 +207,13 @@ namespace VidCoder
 			return 0;
 		}
 
+		public static string GetChangelogUrl(Version version, bool beta)
+		{
+			string betaPortion = beta ? "-beta" : "";
+
+			return $"https://github.com/RandomEngy/VidCoder/releases/tag/v{version.Major}.{version.Minor}{betaPortion}";
+		}
+
 		public static string GetFilePickerFilter(string extension)
 		{
 			if (extension.StartsWith("."))
@@ -219,31 +233,6 @@ namespace VidCoder
 			}
 		}
 
-		public static string AppFolder
-		{
-			get
-			{
-				return GetAppFolder(CommonUtilities.Beta);
-			}
-		}
-
-		public static string LocalAppFolder
-		{
-			get
-			{
-				string folder = Path.Combine(
-					Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-					LocalAppDataFolderName);
-
-				if (CommonUtilities.Beta)
-				{
-					folder += "-Beta";
-				}
-
-				return folder;
-			}
-		}
-
 		public static string ProgramPath
 		{
 			get
@@ -260,14 +249,6 @@ namespace VidCoder
 			}
 		}
 
-		public static string LogsFolder
-		{
-			get
-			{
-				return Path.Combine(AppFolder, "Logs");
-			}
-		}
-
 		public static string WorkerLogsFolder
 		{
 			get
@@ -280,7 +261,7 @@ namespace VidCoder
 		{
 			get
 			{
-				string updatesFolder = Path.Combine(AppFolder, "Updates");
+				string updatesFolder = Path.Combine(CommonUtilities.AppFolder, "Updates");
 				if (!Directory.Exists(updatesFolder))
 				{
 					Directory.CreateDirectory(updatesFolder);
@@ -294,7 +275,7 @@ namespace VidCoder
 		{
 			get
 			{
-				string imageCacheFolder = Path.Combine(AppFolder, "ImageCache");
+				string imageCacheFolder = Path.Combine(CommonUtilities.AppFolder, "ImageCache");
 				if (!Directory.Exists(imageCacheFolder))
 				{
 					Directory.CreateDirectory(imageCacheFolder);
@@ -321,18 +302,6 @@ namespace VidCoder
 			{"Duration", 60},
 			{"Preset", 120}
 		};
-
-		public static string GetAppFolder(bool beta)
-		{
-			string folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AppDataFolderName);
-
-			if (beta)
-			{
-				folder += "-Beta";
-			}
-
-			return folder;
-		}
 
 		public static bool IsValidQueueColumn(string columnId)
 		{

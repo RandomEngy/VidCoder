@@ -283,9 +283,7 @@
   <data name="StoppedEncoding" xml:space="preserve">
     <value>인코딩 중단.</value>
   </data>
-  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>소스 파일/폴더 {0} 을 삭제할까요?</value>
-  </data>
+  
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>삭제 확인</value>
   </data>
@@ -523,6 +521,10 @@
 
 {0}</value>
   </data>
+  
+  
+  
+  
   
   
   

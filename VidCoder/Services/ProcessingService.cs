@@ -918,9 +918,16 @@ namespace VidCoder.Services
 				return this.clearCompleted ?? (this.clearCompleted = ReactiveCommand.Create(() =>
 				{
 					var itemsToClear = new List<EncodeResultViewModel>(this.completedJobs.Items);
-					List<string> deletionCandidates = this.GetDeletionCandidates(itemsToClear);
+					bool clearItems = true;
 
-					if (this.PromptAndDeleteSourceFiles(deletionCandidates))
+					Picker picker = this.pickersService.SelectedPicker.Picker;
+					if (picker.SourceFileRemoval != SourceFileRemoval.Disabled && picker.SourceFileRemovalTiming == SourceFileRemovalTiming.AfterClearingCompletedItems)
+					{
+						List<string> deletionCandidates = this.GetRemovalCandidates(itemsToClear);
+						clearItems = this.PromptAndRemoveSourceFiles(deletionCandidates, picker);
+					}
+
+					if (clearItems)
 					{
 						this.completedJobs.Clear();
 						this.HasFailedItems = false;
@@ -950,9 +957,16 @@ namespace VidCoder.Services
 				return this.clearSucceeded ?? (this.clearSucceeded = ReactiveCommand.Create(() =>
 				{
 					var itemsToClear = this.completedJobs.Items.Where(completedJob => completedJob.EncodeResult.Succeeded);
-					List<string> deletionCandidates = this.GetDeletionCandidates(itemsToClear);
+					bool clearItems = true;
 
-					if (this.PromptAndDeleteSourceFiles(deletionCandidates))
+					Picker picker = this.pickersService.SelectedPicker.Picker;
+					if (picker.SourceFileRemoval != SourceFileRemoval.Disabled && picker.SourceFileRemovalTiming == SourceFileRemovalTiming.AfterClearingCompletedItems)
+					{
+						List<string> deletionCandidates = this.GetRemovalCandidates(itemsToClear);
+						clearItems = this.PromptAndRemoveSourceFiles(deletionCandidates, picker);
+					}
+
+					if (clearItems)
 					{
 						this.ClearCompletedItems(encodeResultViewModel => encodeResultViewModel.EncodeResult.Succeeded);
 					}
@@ -961,187 +975,212 @@ namespace VidCoder.Services
 		}
 
 		/// <summary>
-		/// Gets candidate files for deletion given the completed items being cleared.
+		/// Gets candidate files for recycle/deletion given the completed items.
 		/// </summary>
-		/// <param name="itemsToClear">The completed items being cleared.</param>
-		/// <returns>The list of items to delete.</returns>
-		private List<string> GetDeletionCandidates(IEnumerable<EncodeResultViewModel> itemsToClear)
+		/// <param name="completedItems">The completed items to examine.</param>
+		/// <returns>The list of file paths to recycle/delete.</returns>
+		private List<string> GetRemovalCandidates(IEnumerable<EncodeResultViewModel> completedItems)
 		{
 			var deletionCandidates = new List<string>();
 
-			if (Config.DeleteSourceFilesOnClearingCompleted)
+			int totalItems = 0;
+			int failedItems = 0;
+			int notExistItems = 0;
+			int readOnlyItems = 0;
+			int itemsInEncodeQueue = 0;
+			int itemsCurrentlyScanned = 0;
+
+			foreach (var itemToClear in completedItems)
 			{
-				int totalItems = 0;
-				int failedItems = 0;
-				int notExistItems = 0;
-				int readOnlyItems = 0;
-				int itemsInEncodeQueue = 0;
-				int itemsCurrentlyScanned = 0;
+				totalItems++;
 
-				foreach (var itemToClear in itemsToClear)
+				// Mark for deletion if item succeeded
+				if (itemToClear.EncodeResult.Succeeded)
 				{
-					totalItems++;
+					// And if file exists and is not read-only
+					string sourcePath = itemToClear.Job.Job.SourcePath;
+					var fileInfo = new FileInfo(sourcePath);
+					var directoryInfo = new DirectoryInfo(sourcePath);
 
-					// Mark for deletion if item succeeded
-					if (itemToClear.EncodeResult.Succeeded)
+					if (fileInfo.Exists || directoryInfo.Exists)
 					{
-						// And if file exists and is not read-only
-						string sourcePath = itemToClear.Job.Job.SourcePath;
-						var fileInfo = new FileInfo(sourcePath);
-						var directoryInfo = new DirectoryInfo(sourcePath);
-
-						if (fileInfo.Exists || directoryInfo.Exists)
+						if (fileInfo.Exists && !fileInfo.IsReadOnly || directoryInfo.Exists && !directoryInfo.Attributes.HasFlag(FileAttributes.ReadOnly))
 						{
-							if (fileInfo.Exists && !fileInfo.IsReadOnly || directoryInfo.Exists && !directoryInfo.Attributes.HasFlag(FileAttributes.ReadOnly))
+							// And if it's not currently scanned or in the encode queue
+							bool sourceInEncodeQueue = this.EncodeQueue.Items.Any(job => string.Compare(job.Job.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) == 0);
+							if (!sourceInEncodeQueue)
 							{
-								// And if it's not currently scanned or in the encode queue
-								bool sourceInEncodeQueue = this.EncodeQueue.Items.Any(job => string.Compare(job.Job.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) == 0);
-								if (!sourceInEncodeQueue)
+								if (!this.main.HasVideoSource || string.Compare(this.main.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) != 0)
 								{
-									if (!this.main.HasVideoSource || string.Compare(this.main.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) != 0)
-									{
-										deletionCandidates.Add(sourcePath);
-									}
-									else
-									{
-										itemsCurrentlyScanned++;
-									}
+									deletionCandidates.Add(sourcePath);
 								}
 								else
 								{
-									itemsInEncodeQueue++;
+									itemsCurrentlyScanned++;
 								}
 							}
 							else
 							{
-								readOnlyItems++;
+								itemsInEncodeQueue++;
 							}
 						}
 						else
 						{
-							notExistItems++;
+							readOnlyItems++;
 						}
 					}
 					else
 					{
-						failedItems++;
+						notExistItems++;
 					}
 				}
-
-				var builder = new StringBuilder();
-				builder.AppendLine("Prepared candidates for deletion");
-				builder.AppendLine("Total: " + totalItems);
-				builder.Append("Eligible deletion candidates: " + deletionCandidates.Count);
-				if (failedItems > 0)
+				else
 				{
-					builder.AppendLine();
-					builder.Append("Skipped due to failed status: " + failedItems);
+					failedItems++;
 				}
-
-				if (notExistItems > 0)
-				{
-					builder.AppendLine();
-					builder.Append("Skipped due to file(s) no longer existing: " + notExistItems);
-				}
-
-				if (readOnlyItems > 0)
-				{
-					builder.AppendLine();
-					builder.Append("Skipped due to file(s) being read only: " + readOnlyItems);
-				}
-
-				if (itemsInEncodeQueue > 0)
-				{
-					builder.AppendLine();
-					builder.Append("Skipped due to file(s) existing in encode queue: " + itemsInEncodeQueue);
-				}
-
-				if (itemsCurrentlyScanned > 0)
-				{
-					builder.AppendLine();
-					builder.Append("Skipped due to file being currently scanned: " + itemsCurrentlyScanned);
-				}
-
-				this.logger.Log(builder.ToString());
 			}
+
+			var builder = new StringBuilder();
+			builder.AppendLine("Prepared candidates for deletion");
+			builder.AppendLine("Total: " + totalItems);
+			builder.Append("Eligible deletion candidates: " + deletionCandidates.Count);
+			if (failedItems > 0)
+			{
+				builder.AppendLine();
+				builder.Append("Skipped due to failed status: " + failedItems);
+			}
+
+			if (notExistItems > 0)
+			{
+				builder.AppendLine();
+				builder.Append("Skipped due to file(s) no longer existing: " + notExistItems);
+			}
+
+			if (readOnlyItems > 0)
+			{
+				builder.AppendLine();
+				builder.Append("Skipped due to file(s) being read only: " + readOnlyItems);
+			}
+
+			if (itemsInEncodeQueue > 0)
+			{
+				builder.AppendLine();
+				builder.Append("Skipped due to file(s) existing in encode queue: " + itemsInEncodeQueue);
+			}
+
+			if (itemsCurrentlyScanned > 0)
+			{
+				builder.AppendLine();
+				builder.Append("Skipped due to file being currently scanned: " + itemsCurrentlyScanned);
+			}
+
+			this.logger.Log(builder.ToString());
 
 			return deletionCandidates;
 		}
 
 		/// <summary>
-		/// Prompts the user to delete the given source files, and deletes them if the user answers yes.
+		/// Prompts the user to delete or recycle the given source files, and does so if the user answers yes.
 		/// </summary>
-		/// <param name="deletionCandidates">The files to prompt to delete</param>
+		/// <param name="deletionCandidates">The files to prompt to delete or recycle</param>
+		/// <param name="picker">The picker to use for the operation.</param>
 		/// <returns>True if the files should be cleared from the list.</returns>
-		private bool PromptAndDeleteSourceFiles(IList<string> deletionCandidates)
+		private bool PromptAndRemoveSourceFiles(IList<string> deletionCandidates, Picker picker)
 		{
 			bool clearItems = true;
 			if (deletionCandidates.Count > 0)
 			{
-				switch (CustomConfig.DeleteSourceFilesMode)
+				bool confirmRemoval = picker.SourceFileRemovalConfirmation;
+				bool removeFiles = true;
+				if (confirmRemoval)
 				{
-					case DeleteSourceFilesMode.DeleteWithConfirmation:
-						MessageBoxResult dialogResult = Utilities.MessageBox.Show(
-							string.Format(MainRes.DeleteSourceFilesConfirmationMessage, deletionCandidates.Count),
-							MainRes.DeleteSourceFilesConfirmationTitle,
-							MessageBoxButton.YesNoCancel);
-						if (dialogResult == MessageBoxResult.Yes)
-						{
-							int filesDeleted = 0;
-							foreach (string pathToDelete in deletionCandidates)
-							{
-								try
-								{
-									if (File.Exists(pathToDelete))
-									{
-										File.Delete(pathToDelete);
-									}
-									else if (Directory.Exists(pathToDelete))
-									{
-										FileUtilities.DeleteDirectory(pathToDelete);
-									}
+					string verb = picker.SourceFileRemoval == SourceFileRemoval.Recycle ? MainRes.RemoveSourceFiles_Recycle : MainRes.RemoveSourceFiles_Delete;
+					MessageBoxResult dialogResult = Utilities.MessageBox.Show(
+						string.Format(MainRes.DeleteSourceFilesConfirmationMessage, verb, deletionCandidates.Count),
+						MainRes.DeleteSourceFilesConfirmationTitle,
+						MessageBoxButton.YesNoCancel);
+					if (dialogResult == MessageBoxResult.No)
+					{
+						removeFiles = false;
+					}
+					else if (dialogResult == MessageBoxResult.Cancel)
+					{
+						clearItems = false;
+						removeFiles = false;
+					}
+				}
 
-									filesDeleted++;
-								}
-								catch (Exception exception)
-								{
-									Utilities.MessageBox.Show(string.Format(MainRes.CouldNotDeleteFile, pathToDelete, exception));
-								}
-							}
-
-							this.logger.Log($"Deleted {filesDeleted} source video(s).");
-						}
-						else if (dialogResult == MessageBoxResult.Cancel)
-						{
-							clearItems = false;
-						}
-						break;
-					case DeleteSourceFilesMode.Recycle:
-					default:
-						try
-						{
-							int result = FileOperationApiWrapper.SendToRecycle(deletionCandidates);
-							if (result > 0)
-							{
-								Utilities.MessageBox.Show(MainRes.CouldNotRecycleFile);
-								this.logger.LogError("Could not send files to recycle bin: Error code 0x" + result.ToString("X2"));
-							}
-							else
-							{
-								this.logger.Log($"Sent {deletionCandidates.Count} source video(s) to Recycle Bin");
-							}
-						}
-						catch (Exception exception)
-						{
-							Utilities.MessageBox.Show(MainRes.CouldNotRecycleFile);
-							this.logger.LogError("Could not recycle files: " + exception.ToString());
-						}
-
-						break;
+				if (removeFiles)
+				{
+					RemoveSourceFiles(deletionCandidates, picker, this.logger);
 				}
 			}
 
 			return clearItems;
+		}
+
+		/// <summary>
+		/// Recycles or deletes the given files, based on picker settings.
+		/// </summary>
+		/// <param name="filesToRemove">The files to recycle or delete.</param>
+		/// <param name="picker">The picker to use.</param>
+		/// <param name="operationLogger">The logger to use for the operation.</param>
+		/// <returns>The number of files removed.</returns>
+		private static int RemoveSourceFiles(IList<string> filesToRemove, Picker picker, IAppLogger operationLogger)
+		{
+			int filesRemoved = 0;
+			switch (picker.SourceFileRemoval)
+			{
+				case SourceFileRemoval.Delete:
+					foreach (string pathToDelete in filesToRemove)
+					{
+						try
+						{
+							if (File.Exists(pathToDelete))
+							{
+								File.Delete(pathToDelete);
+							}
+							else if (Directory.Exists(pathToDelete))
+							{
+								FileUtilities.DeleteDirectory(pathToDelete);
+							}
+
+							filesRemoved++;
+						}
+						catch (Exception exception)
+						{
+							Utilities.MessageBox.Show(string.Format(MainRes.CouldNotDeleteFile, pathToDelete, exception));
+						}
+					}
+
+					operationLogger.Log($"Deleted {filesRemoved} source video(s).");
+					break;
+				case SourceFileRemoval.Recycle:
+				default:
+					try
+					{
+						int result = FileOperationApiWrapper.SendToRecycle(filesToRemove);
+						if (result > 0)
+						{
+							Utilities.MessageBox.Show(MainRes.CouldNotRecycleFile);
+							operationLogger.LogError("Could not send files to recycle bin: Error code 0x" + result.ToString("X2"));
+						}
+						else
+						{
+							filesRemoved = filesToRemove.Count;
+							operationLogger.Log($"Sent {filesToRemove.Count} source video(s) to Recycle Bin");
+						}
+					}
+					catch (Exception exception)
+					{
+						Utilities.MessageBox.Show(MainRes.CouldNotRecycleFile);
+						operationLogger.LogError("Could not recycle files: " + exception.ToString());
+					}
+
+					break;
+			}
+
+			return filesRemoved;
 		}
 
 		/// <summary>
@@ -2099,11 +2138,52 @@ namespace VidCoder.Services
 						}
 					}
 
+					this.EncodeQueue.Remove(finishedJobViewModel);
+
+					addedResult = new EncodeResultViewModel(
+						new EncodeResult
+						{
+							Destination = finalOutputPath,
+							Status = status,
+							EncodeTime = finishedJobViewModel.EncodeTime,
+							LogPath = encodeLogger.LogPath,
+							SizeBytes = outputFileLength,
+						},
+						finishedJobViewModel);
+
+					// Before we delete the source file we need to set creation time
+					if (status == EncodeResultStatus.Succeeded && !FileUtilities.IsDirectory(finishedJobViewModel.Job.SourcePath))
+					{
+						if (Config.PreserveModifyTimeFiles)
+						{
+							try
+							{
+								UpdateFileTimes(finishedJobViewModel, encodeLogger, finishedJobViewModel.Job.PartOutputPath);
+							}
+							catch (Exception exception)
+							{
+								encodeLogger.LogError("Could not set create/modify dates on file: " + exception);
+							}
+						}
+					}
+
+					// Delete source files if successful and configured to do so immediately. This way if the destination was the same as source we can clear the way for swapping in the newly encoded file.
+					// This needs to run after removing from the encode queue, otherwise the logic will bail when seeing the finished job's output path as part of the encode queue.
+					var picker = this.pickersService.SelectedPicker.Picker;
+					if (status == EncodeResultStatus.Succeeded && picker.SourceFileRemoval != SourceFileRemoval.Disabled && picker.SourceFileRemovalTiming == SourceFileRemovalTiming.Immediately)
+					{
+						List<string> deletionCandidates = this.GetRemovalCandidates(new List<EncodeResultViewModel> { addedResult });
+						if (RemoveSourceFiles(deletionCandidates, picker, encodeLogger) > 0)
+						{
+							addedResult.SourceFileExists = false;
+						}
+					}
+
 					string failedFilePath = null;
 
 					if (status == EncodeResultStatus.Succeeded && finishedJobViewModel.Job.PartOutputPath != null)
 					{
-						// Rename from in progress path to final path
+						// Rename from in progress path to final path. Run after deleting source file, in case we are doing an in-place swap.
 						try
 						{
 							if (File.Exists(finalOutputPath))
@@ -2125,32 +2205,8 @@ namespace VidCoder.Services
 						failedFilePath = TryHandleFailedFile(directOutputFileInfo, encodeLogger, "failed", finalOutputPath);
 					}
 
-					if (status == EncodeResultStatus.Succeeded && !FileUtilities.IsDirectory(finishedJobViewModel.Job.SourcePath))
-					{
-						if (Config.PreserveModifyTimeFiles)
-						{
-							try
-							{
-								UpdateFileTimes(finishedJobViewModel, encodeLogger, finalOutputPath);
-							}
-							catch (Exception exception)
-							{
-								encodeLogger.LogError("Could not set create/modify dates on file: " + exception);
-							}
-						}
-					}
+					addedResult.EncodeResult.FailedFilePath = failedFilePath;
 
-					addedResult = new EncodeResultViewModel(
-						new EncodeResult
-						{
-							Destination = finalOutputPath,
-							FailedFilePath = failedFilePath,
-							Status = status,
-							EncodeTime = finishedJobViewModel.EncodeTime,
-							LogPath = encodeLogger.LogPath,
-							SizeBytes = outputFileLength
-						},
-						finishedJobViewModel);
 					this.completedJobs.Add(addedResult);
 
 					if (status != EncodeResultStatus.Succeeded)
@@ -2158,29 +2214,28 @@ namespace VidCoder.Services
 						this.HasFailedItems = true;
 					}
 
-					this.EncodeQueue.Remove(finishedJobViewModel);
-
 					// Run post-encode job
-					var picker = this.pickersService.SelectedPicker.Picker;
-					if (status == EncodeResultStatus.Succeeded && picker.PostEncodeActionEnabled && !string.IsNullOrWhiteSpace(picker.PostEncodeExecutable))
+					if (status == EncodeResultStatus.Succeeded)
 					{
-						string arguments = this.outputPathService.ReplaceArguments(picker.PostEncodeArguments, picker, finishedJobViewModel)
-							.Replace("{file}", finalOutputPath)
-							.Replace("{folder}", Path.GetDirectoryName(finalOutputPath));
-
-						try
+						if (picker.PostEncodeActionEnabled && !string.IsNullOrWhiteSpace(picker.PostEncodeExecutable))
 						{
-							var process = new ProcessStartInfo(
-								picker.PostEncodeExecutable,
-								arguments);
-							System.Diagnostics.Process.Start(process);
-							encodeLogger.Log($"Started post-encode action. Executable: {picker.PostEncodeExecutable} , Arguments: {arguments}");
-						}
-						catch (Exception exception)
-						{
-							encodeLogger.LogError($"Could not start post-encode action. Executable: {picker.PostEncodeExecutable} , Arguments: {arguments}." + Environment.NewLine + exception);
-						}
+							string arguments = this.outputPathService.ReplaceArguments(picker.PostEncodeArguments, picker, finishedJobViewModel)
+								.Replace("{file}", finalOutputPath)
+								.Replace("{folder}", Path.GetDirectoryName(finalOutputPath));
 
+							try
+							{
+								var process = new ProcessStartInfo(
+									picker.PostEncodeExecutable,
+									arguments);
+								System.Diagnostics.Process.Start(process);
+								encodeLogger.Log($"Started post-encode action. Executable: {picker.PostEncodeExecutable} , Arguments: {arguments}");
+							}
+							catch (Exception exception)
+							{
+								encodeLogger.LogError($"Could not start post-encode action. Executable: {picker.PostEncodeExecutable} , Arguments: {arguments}." + Environment.NewLine + exception);
+							}
+						}
 					}
 
 					encodeLogger.Log("Job completed (Elapsed Time: " + finishedJobViewModel.EncodeTime.FormatFriendly() + ")");
@@ -2346,10 +2401,16 @@ namespace VidCoder.Services
 			});
 		}
 
-		private static void UpdateFileTimes(EncodeJobViewModel finishedJobViewModel, IAppLogger encodeLogger, string finalOutputPath)
+		private static void UpdateFileTimes(EncodeJobViewModel finishedJobViewModel, IAppLogger encodeLogger, string outputPath)
 		{
+			if (outputPath == null)
+			{
+				// Only would happen with very old queue items. Will abort if that's the case.
+				return;
+			}
+
 			var inputShellFile = ShellFile.FromFilePath(finishedJobViewModel.Job.SourcePath);
-			var outputShellFile = ShellFile.FromFilePath(finalOutputPath);
+			var outputShellFile = ShellFile.FromFilePath(outputPath);
 
 			try
 			{
@@ -2364,10 +2425,10 @@ namespace VidCoder.Services
 				encodeLogger.LogError("Could not set encoded date on file: " + exception);
 			}
 
-			File.SetCreationTimeUtc(finalOutputPath, inputShellFile.Properties.System.DateCreated.Value.Value);
+			File.SetCreationTimeUtc(outputPath, inputShellFile.Properties.System.DateCreated.Value.Value);
 
 			// Set "last write" time last so it isn't reset by another property edit.
-			File.SetLastWriteTimeUtc(finalOutputPath, inputShellFile.Properties.System.DateModified.Value.Value);
+			File.SetLastWriteTimeUtc(outputPath, inputShellFile.Properties.System.DateModified.Value.Value);
 
 			// Writing Created/Modified time does not work via the ShellFile API, otherwise we would use this approach to set them all at once.
 			//ShellPropertyWriter propertyWriter = outputShellFile.Properties.GetPropertyWriter();

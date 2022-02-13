@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Сохранить</value>
@@ -839,5 +839,20 @@ Lapsharp — усиливает резкость, используя  ядра �
   </data>
   <data name="ColorspaceLabel" xml:space="preserve">
     <value>Цветовое пространство:</value>
+  </data>
+  <data name="ChromaSmoothToolTip" xml:space="preserve">
+    <value>Уменьшает цветовые шумы, радужность и другие заметные визуальные артефакты. Полезно для решения различных проблем, связанных с цветом, особенно при работе с материалом низкого разрешения, полученным с аналоговых источников, например, некачественных DVD и VHS. Алгоритм размытия/сглаживания такой же, как и в нерезком фильтре.</value>
+  </data>
+  <data name="ConstrainToOneAxisCheckBox" xml:space="preserve">
+    <value>Ограничить одной осью</value>
+  </data>
+  <data name="ConstrainToOneAxisToolTip" xml:space="preserve">
+    <value>Если включено, обрезка будет выполнена только по оси с наибольшим общим обнаруженным обрезанием. Например: если сверху+снизу = 32 и слева+справа = 6, тогда обрезка слева и справа будет установлена в 0.</value>
+  </data>
+  <data name="MinimumCroppingLabel" xml:space="preserve">
+    <value>Минимум:</value>
+  </data>
+  <data name="MinimumCroppingToolTip" xml:space="preserve">
+    <value>Если автоматическая обрезка меньше этой величины для стороны, то обрезка для неё будет отключена. Полезно для предотвращения повторной обрезки при малых значениях.</value>
   </data>
 </root>

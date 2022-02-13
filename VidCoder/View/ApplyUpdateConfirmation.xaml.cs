@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using System.Diagnostics;
 using VidCoder.Model;
 using VidCoder.Services;
+using VidCoderCommon;
 
 namespace VidCoder
 {
@@ -23,28 +24,18 @@ namespace VidCoder
 	{
 		private string changelogLinkString;
 
-		public ApplyUpdateConfirmation()
+		public ApplyUpdateConfirmation(Version latestVersion)
 		{
 			InitializeComponent();
 
-			this.changelogLinkString = Config.UpdateChangelogLocation;
+			this.changelogLinkString = Utilities.GetChangelogUrl(latestVersion, CommonUtilities.Beta);
 		}
 
-		public string Result
-		{
-			get;
-			set;
-		}
+		public bool Accepted { get; private set; }
 
 		private void yesButton_Click(object sender, RoutedEventArgs e)
 		{
-			this.Result = "Yes";
-			this.Close();
-		}
-
-		private void disableUpdatesButton_Click(object sender, RoutedEventArgs e)
-		{
-			this.Result = "Disable";
+			this.Accepted = true;
 			this.Close();
 		}
 

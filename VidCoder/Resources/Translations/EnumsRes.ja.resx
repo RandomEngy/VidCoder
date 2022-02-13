@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Anamorphic_Custom" xml:space="preserve">
     <value>カスタム</value>
@@ -289,12 +289,6 @@
   <data name="PickerTimeRangeMode_Time" xml:space="preserve">
     <value>時間範囲</value>
   </data>
-  <data name="DeleteSourceFilesMode_DeleteWithConfirmation" xml:space="preserve">
-    <value>ファイルを削除(確認あり)</value>
-  </data>
-  <data name="DeleteSourceFilesMode_Recycle" xml:space="preserve">
-    <value>ごみ箱に移動</value>
-  </data>
   <data name="WhenFileExists_AutoRename" xml:space="preserve">
     <value>自動的に名前を変更</value>
   </data>
@@ -345,4 +339,10 @@
   <data name="SubtitleBurnInSelection_None" xml:space="preserve">
     <value>なし</value>
   </data>
+  
+  
+  
+  
+  
+  
 </root>

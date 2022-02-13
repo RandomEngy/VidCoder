@@ -342,7 +342,7 @@ namespace VidCoder.ViewModel
 				return includeChapterMarkers && selectedTitle != null && selectedTitle.ChapterList != null && selectedTitle.ChapterList.Count > 1;
 			}).ToProperty(this, x => x.ShowChapterMarkerUI, out this.showChapterMarkerUI);
 
-			this.updater.CheckUpdates();
+			this.updater.CheckUpdates(isManualCheck: false);
 
 			this.JobCreationAvailable = false;
 
@@ -929,17 +929,12 @@ namespace VidCoder.ViewModel
 			FileCleanup.CleanPreviewFileCache();
 			FileCleanup.CleanHandBrakeTempFiles();
 
-			if (!Utilities.IsPortable)
+			if (Utilities.InstallType != VidCoderInstallType.Portable)
 			{
 				AutomationHost.StopListening();
 			}
 
 			StaticResolver.Resolve<IToastNotificationService>().Clear();
-
-			if (CustomConfig.UpdatePromptTiming == UpdatePromptTiming.OnExit)
-			{
-				this.updater.PromptToApplyUpdate(relaunchWhenComplete: false);
-			}
 
 			this.logger.Dispose();
 
@@ -2952,9 +2947,19 @@ namespace VidCoder.ViewModel
 			{
 				return this.reportBug ?? (this.reportBug = ReactiveCommand.Create(() =>
 				{
-					string portableText = Utilities.IsPortable ? "Portable" : "Installer";
+					FileService.Instance.ReportBug();
+				}));
+			}
+		}
 
-					FileService.Instance.LaunchUrl($"https://github.com/RandomEngy/VidCoder/issues/new?labels=bug&template=bug_report.yml&vidcoder-version={Utilities.VersionString}%20{portableText}");
+		private ReactiveCommand<Unit, Unit> requestFeature;
+		public ICommand RequestFeature
+		{
+			get
+			{
+				return this.requestFeature ?? (this.requestFeature = ReactiveCommand.Create(() =>
+				{
+					FileService.Instance.LaunchUrl($"https://github.com/RandomEngy/VidCoder/issues/new?labels=enhancement&template=feature_request.yml");
 				}));
 			}
 		}

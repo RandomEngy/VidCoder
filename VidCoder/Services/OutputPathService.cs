@@ -173,8 +173,8 @@ namespace VidCoder.Services
 			bool allowConflictDialog,
 			bool allowQueueRemoval)
 		{
-			// If the output is going to be the same as the source path, add (Encoded) to it
-			if (string.Compare(initialOutputPath, sourcePath, StringComparison.InvariantCultureIgnoreCase) == 0)
+			// If the output is going to be the same as the source path, add (Encoded) to it if we aren't immediately removing the source file.
+			if (string.Compare(initialOutputPath, sourcePath, StringComparison.InvariantCultureIgnoreCase) == 0 && (picker.SourceFileRemoval == SourceFileRemoval.Disabled || picker.SourceFileRemovalTiming != SourceFileRemovalTiming.Immediately))
 			{
 				string outputFolder = Path.GetDirectoryName(initialOutputPath);
 				string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(initialOutputPath);

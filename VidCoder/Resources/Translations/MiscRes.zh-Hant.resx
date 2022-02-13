@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddButton" xml:space="preserve">
     <value>新增</value>
@@ -259,5 +259,11 @@
   </data>
   <data name="ReplaceJobButton" xml:space="preserve">
     <value>更換工作</value>
+  </data>
+  <data name="CopyAndReportIssueButton" xml:space="preserve">
+    <value>複製並回報問題</value>
+  </data>
+  <data name="OneTimeInstallerCleanup" xml:space="preserve">
+    <value>我們需對舊有安裝項目進行一次性清除，請於下一步跳出的對話框中選取「是」以移除舊版 VidCoder。</value>
   </data>
 </root>

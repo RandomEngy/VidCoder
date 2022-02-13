@@ -283,9 +283,7 @@
   <data name="StoppedEncoding" xml:space="preserve">
     <value>エンコードを停止します。</value>
   </data>
-  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>{0}個のフィアル・フォルダを本当に削除しますか？</value>
-  </data>
+  
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>削除の確認</value>
   </data>
@@ -736,4 +734,8 @@
 
 この警告は2回だけ表示されます。</value>
   </data>
+  
+  
+  
+  
 </root>

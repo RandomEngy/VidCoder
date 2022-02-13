@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>General</value>
@@ -162,9 +162,6 @@
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Habilita LibDVDNav (El cambio requiere reiniciar VidCoder. Requerido para multi ángulos)</value>
   </data>
-  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Eliminar archivos de origen después de borrar los elementos completados con éxito</value>
-  </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Nivel de detalle del Log:</value>
   </data>
@@ -192,12 +189,7 @@
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Únete al Beta Track para obtener las actualizaciones más frecuentes</value>
   </data>
-  <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>Actualización {0} lista. Se Instalará cuando salgas del programa.</value>
-  </data>
-  <data name="DownloadingStatus" xml:space="preserve">
-    <value>Descargando actualización {0}:</value>
-  </data>
+  
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder esta actualizado.</value>
   </data>
@@ -215,9 +207,6 @@
   </data>
   <data name="UpdatesTab" xml:space="preserve">
     <value>Actualizaciones</value>
-  </data>
-  <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>Buscando la ultima versión...</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
     <value>Falló la comprobación de las actualizaciones.</value>
@@ -347,9 +336,6 @@
     <value>Tema</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
-  <data name="PromptForUpdatesLabel" xml:space="preserve">
-    <value>Solicitar actualizaciones:</value>
-  </data>
   <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
     <value>La opción worker process se activará al reiniciar VidCoder.</value>
   </data>
@@ -384,4 +370,7 @@
   <data name="EncodeRetriesLabel" xml:space="preserve">
     <value>Número de reintentos de codificación:</value>
   </data>
+  
+  
+  
 </root>

@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Algemeen</value>
@@ -162,9 +162,6 @@
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>LibDVDNav inschakelen (nodig voor ondersteuning van meerdere kijkhoeken) (herstart van programma vereist)</value>
   </data>
-  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Bronbestanden verwijderen na succesvolle afronding van taken</value>
-  </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Hoe uitgebreid zijn de logs:</value>
   </data>
@@ -193,10 +190,7 @@
     <value>Neem deel aan het bèta-programma om vaker updates te krijgen</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>Update {0} klaar. De update wordt geïnstalleerd wanneer u het programma afsluit.</value>
-  </data>
-  <data name="DownloadingStatus" xml:space="preserve">
-    <value>Update {0} downloaden:</value>
+    <value>Update {0} gereed.</value>
   </data>
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder is up-to-date.</value>
@@ -215,9 +209,6 @@
   </data>
   <data name="UpdatesTab" xml:space="preserve">
     <value>Updates</value>
-  </data>
-  <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>Laatste versie zoeken...</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
     <value>Update controle mislukt.</value>
@@ -347,9 +338,6 @@
     <value>Thema</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
-  <data name="PromptForUpdatesLabel" xml:space="preserve">
-    <value>Vragen om updates:</value>
-  </data>
   <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
     <value>De optie werkproces wordt van kracht nadat VidCoder opnieuw is gestart.</value>
   </data>
@@ -383,5 +371,15 @@
   </data>
   <data name="EncodeRetriesLabel" xml:space="preserve">
     <value>Aantal coderingspogingen:</value>
+  </data>
+  <data name="ApplyUpdateButton" xml:space="preserve">
+    <value>Update toepassen</value>
+  </data>
+  <data name="CheckingForUpdateStatus" xml:space="preserve">
+    <value>Controleren op updates...</value>
+  </data>
+  <data name="UpdateModeLabel" xml:space="preserve">
+    <value>Updatemodus:</value>
+    <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
   </data>
 </root>

@@ -11,21 +11,19 @@ using System.Windows.Media;
 using HandBrake.Interop.Interop;
 using VidCoder.View;
 using VidCoderCommon;
-using VidCoderCommon.Utilities;
+using System.Threading;
+using System.Runtime.InteropServices;
+using VidCoder.Resources;
+using VidCoderCommon.Services;
+using System.Globalization;
+using Microsoft.AnyContainer;
+using ControlzEx.Theming;
+using Microsoft.Toolkit.Uwp.Notifications;
+using VidCoder.Automation;
+using Squirrel;
 
 namespace VidCoder
 {
-	using System.Globalization;
-	using System.Threading;
-	using Automation;
-	using ControlzEx.Theming;
-	using Microsoft.AnyContainer;
-	using Microsoft.Toolkit.Uwp.Notifications;
-	using Resources;
-	using VidCoder.Services.Notifications;
-	using VidCoderCommon.Services;
-	using Windows.Foundation.Metadata;
-
 	/// <summary>
 	/// Interaction logic for App.xaml
 	/// </summary>
@@ -56,6 +54,39 @@ namespace VidCoder
 				this.DispatcherUnhandledException += this.OnDispatcherUnhandledException;
 			}
 
+			OperatingSystem OS = Environment.OSVersion;
+			if (OS.Version.Major <= 5)
+			{
+				MessageBox.Show(MiscRes.UnsupportedOSError, MiscRes.NoticeMessageTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+				this.Shutdown();
+				return;
+			}
+
+#if PSEUDOLOCALIZER_ENABLED
+			Delay.PseudoLocalizer.Enable(typeof(CommonRes));
+			Delay.PseudoLocalizer.Enable(typeof(MainRes));
+			Delay.PseudoLocalizer.Enable(typeof(EnumsRes));
+			Delay.PseudoLocalizer.Enable(typeof(EncodingRes));
+			Delay.PseudoLocalizer.Enable(typeof(OptionsRes));
+			Delay.PseudoLocalizer.Enable(typeof(PreviewRes));
+			Delay.PseudoLocalizer.Enable(typeof(LogRes));
+			Delay.PseudoLocalizer.Enable(typeof(SubtitleRes));
+			Delay.PseudoLocalizer.Enable(typeof(QueueTitlesRes));
+			Delay.PseudoLocalizer.Enable(typeof(ChapterMarkersRes));
+			Delay.PseudoLocalizer.Enable(typeof(MiscRes));
+#endif
+
+			if (Utilities.InstallType == VidCoderInstallType.SquirrelInstaller)
+			{
+				// Let Squirrel set the AppUserModelID. This will allow any pinned shortcut on the taskbar to be updated properly.
+				var updateManager = new UpdateManager(Utilities.SquirrelUpdateUrl);
+				updateManager.SetProcessAppUserModelId();
+
+				VidCoderInstall.HandleSquirrelEvents();
+			}
+
+			// If we get here we know we are actually trying to launch the app (and this isn't part of a Squirrel update process.
+			// Enforce single-instance restrictions.
 			string mutexName = CommonUtilities.Beta ? "VidCoderBetaInstanceMutex" : "VidCoderInstanceMutex";
 			bool createdNew = true;
 
@@ -90,34 +121,29 @@ namespace VidCoder
 				}
 			}
 
-			OperatingSystem OS = Environment.OSVersion;
-			if (OS.Version.Major <= 5)
-			{
-				MessageBox.Show(MiscRes.UnsupportedOSError, MiscRes.NoticeMessageTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
-				MessageBox.Show(MiscRes.UnsupportedOSError, MiscRes.NoticeMessageTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
-				this.Shutdown();
-				return;
-			}
+			var splashWindow = new SplashWindow();
+			splashWindow.Show();
 
-#if PSEUDOLOCALIZER_ENABLED
-			Delay.PseudoLocalizer.Enable(typeof(CommonRes));
-			Delay.PseudoLocalizer.Enable(typeof(MainRes));
-			Delay.PseudoLocalizer.Enable(typeof(EnumsRes));
-			Delay.PseudoLocalizer.Enable(typeof(EncodingRes));
-			Delay.PseudoLocalizer.Enable(typeof(OptionsRes));
-			Delay.PseudoLocalizer.Enable(typeof(PreviewRes));
-			Delay.PseudoLocalizer.Enable(typeof(LogRes));
-			Delay.PseudoLocalizer.Enable(typeof(SubtitleRes));
-			Delay.PseudoLocalizer.Enable(typeof(QueueTitlesRes));
-			Delay.PseudoLocalizer.Enable(typeof(ChapterMarkersRes));
-			Delay.PseudoLocalizer.Enable(typeof(MiscRes));
-#endif
+			// Run some global initialization for the HandBrake library. This needs to run before doing database upgrades, as we access HandBrake helper functions there.
+			this.HandBrakeGlobalInitialize();
 
 			Ioc.SetUp();
 
 			Database.Initialize();
 
 			Config.EnsureInitialized(Database.Connection);
+
+			if (!string.IsNullOrEmpty(Config.UninstallerPath))
+			{
+				MessageBox.Show(MiscRes.OneTimeInstallerCleanup);
+
+				var uninstallProcess = new Process();
+				uninstallProcess.StartInfo = new ProcessStartInfo(Config.UninstallerPath, "/SILENT");
+				uninstallProcess.Start();
+
+				uninstallProcess.WaitForExit();
+				Config.UninstallerPath = string.Empty;
+			}
 
 			var interfaceLanguageCode = Config.InterfaceLanguageCode;
 			if (!string.IsNullOrWhiteSpace(interfaceLanguageCode))
@@ -129,23 +155,12 @@ namespace VidCoder
 				// Don't set CurrentCulture as well; we don't need to override the number/date formatting as well.
 			}
 
-			Stopwatch sw = Stopwatch.StartNew();
-
 			if (Config.UseCustomPreviewFolder && FileUtilities.HasWriteAccessOnFolder(Config.PreviewOutputFolder))
 			{
 				Environment.SetEnvironmentVariable("TMP", Config.PreviewOutputFolder, EnvironmentVariableTarget.Process);
 				FileUtilities.OverrideTempFolder = true;
 				FileUtilities.TempFolderOverride = Config.PreviewOutputFolder;
 			}
-
-			var updater = StaticResolver.Resolve<IUpdater>();
-
-			sw.Stop();
-			System.Diagnostics.Debug.WriteLine("Startup time: " + sw.Elapsed);
-
-			updater.HandlePendingUpdate();
-
-			this.GlobalInitialize();
 
 			this.appThemeService = StaticResolver.Resolve<IAppThemeService>();
 			this.appThemeService.AppThemeObservable.Subscribe(appTheme =>
@@ -168,15 +183,23 @@ namespace VidCoder
 			});
 
 			var mainVM = new MainViewModel();
-			StaticResolver.Resolve<IWindowManager>().OpenWindow(mainVM);
+			this.MainWindow = StaticResolver.Resolve<IWindowManager>().OpenWindow(mainVM);
 			mainVM.OnLoaded();
 
 			if (e.Args.Length > 0)
 			{
-				mainVM.HandlePaths(new List<string> { e.Args[0] });
+				if (!e.Args[0].StartsWith("-", StringComparison.Ordinal))
+				{
+					mainVM.HandlePaths(new List<string> { e.Args[0] });
+				}
 			}
 
-			AutomationHost.StartListening();
+			splashWindow.Close();
+
+			if (Utilities.InstallType != VidCoderInstallType.Portable)
+			{
+				AutomationHost.StartListening();
+			}
 				
 			ActivityService activityService = StaticResolver.Resolve<ActivityService>();
 			this.Activated += (object sender, EventArgs e2) =>
@@ -188,7 +211,6 @@ namespace VidCoder
 				activityService.ReportDeactivated();
 			};
 
-			//if (ApiInformation.IsTypePresent("Windows.UI.Notifications.Notification"))
 			if (Utilities.UwpApisAvailable)
 			{
 				ToastNotificationManagerCompat.OnActivated += this.ToastOnActivated;
@@ -207,10 +229,10 @@ namespace VidCoder
 			this.appThemeService?.Dispose();
 		}
 
-		private void GlobalInitialize()
+		private void HandBrakeGlobalInitialize()
 		{
 			HandBrakeUtils.EnsureGlobalInit(initNoHardwareMode: false);
-			HandBrakeUtils.SetDvdNav(Config.EnableLibDvdNav);
+			HandBrakeUtils.SetDvdNav(DatabaseConfig.Get<bool>("EnableLibDvdNav", true)); // This runs early so we need to use the raw version to get the config value.
 		}
 
 		public void ChangeTheme(Uri uri)

@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddButton" xml:space="preserve">
     <value>Добавить</value>
@@ -259,5 +259,11 @@
   </data>
   <data name="ReplaceJobButton" xml:space="preserve">
     <value>Заменить задание</value>
+  </data>
+  <data name="CopyAndReportIssueButton" xml:space="preserve">
+    <value>Скопировать и сообщить о проблеме</value>
+  </data>
+  <data name="OneTimeInstallerCleanup" xml:space="preserve">
+    <value>Необходимо выполнить разовую очистку от старого установщика. Выберите «Да» в следующем запросе, чтобы удалить старую версию VidCoder.</value>
   </data>
 </root>

@@ -19,7 +19,7 @@ namespace VidCoder.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class EnumsRes {
@@ -228,24 +228,6 @@ namespace VidCoder.Resources {
         public static string DeinterlacePreset_skipspatial {
             get {
                 return ResourceManager.GetString("DeinterlacePreset_skipspatial", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete files (with confirmation).
-        /// </summary>
-        public static string DeleteSourceFilesMode_DeleteWithConfirmation {
-            get {
-                return ResourceManager.GetString("DeleteSourceFilesMode_DeleteWithConfirmation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Send to Recycle Bin.
-        /// </summary>
-        public static string DeleteSourceFilesMode_Recycle {
-            get {
-                return ResourceManager.GetString("DeleteSourceFilesMode_Recycle", resourceCulture);
             }
         }
         
@@ -556,6 +538,42 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ⚠️ Delete (IRREVERSIBLE) ⚠️.
+        /// </summary>
+        public static string SourceFileRemoval_Delete {
+            get {
+                return ResourceManager.GetString("SourceFileRemoval_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recycle.
+        /// </summary>
+        public static string SourceFileRemoval_Recycle {
+            get {
+                return ResourceManager.GetString("SourceFileRemoval_Recycle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to After clearing completed items.
+        /// </summary>
+        public static string SourceFileRemovalTiming_AfterClearingCompletedItems {
+            get {
+                return ResourceManager.GetString("SourceFileRemovalTiming_AfterClearingCompletedItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Immediately after the encode completes.
+        /// </summary>
+        public static string SourceFileRemovalTiming_Immediately {
+            get {
+                return ResourceManager.GetString("SourceFileRemovalTiming_Immediately", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to First.
         /// </summary>
         public static string SubtitleBurnInSelection_First {
@@ -633,6 +651,24 @@ namespace VidCoder.Resources {
         public static string TitleType_Stream {
             get {
                 return ResourceManager.GetString("TitleType_Stream", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prompt to apply right away.
+        /// </summary>
+        public static string UpdateMode_PromptApplyImmediately {
+            get {
+                return ResourceManager.GetString("UpdateMode_PromptApplyImmediately", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Silent (Apply on next launch).
+        /// </summary>
+        public static string UpdateMode_SilentNextLaunch {
+            get {
+                return ResourceManager.GetString("UpdateMode_SilentNextLaunch", resourceCulture);
             }
         }
         

@@ -1671,7 +1671,7 @@ namespace VidCoderCommon.Model
 			switch (profile.CroppingType)
 			{
 				case VCCroppingType.Automatic:
-					return GetAutomaticCropping(profile.Rotation, profile.FlipHorizontal, profile.FlipVertical, title);
+					return GetAutomaticCropping(profile.Rotation, profile.FlipHorizontal, profile.FlipVertical, profile.CroppingMinimum, profile.CroppingConstrainToOneAxis, title);
 				case VCCroppingType.None:
 					return new VCCropping(0, 0, 0, 0);
 				case VCCroppingType.Custom:
@@ -1681,7 +1681,7 @@ namespace VidCoderCommon.Model
 			}
 		}
 
-		public static VCCropping GetAutomaticCropping(VCPictureRotation rotation, bool flipHorizontal, bool flipVertical, SourceTitle title)
+		public static VCCropping GetAutomaticCropping(VCPictureRotation rotation, bool flipHorizontal, bool flipVertical, int croppingMinimum, bool constrainToOneAxis, SourceTitle title)
 		{
 			var autoCrop = title.Crop;
 			int top = autoCrop[0];
@@ -1731,6 +1731,39 @@ namespace VidCoderCommon.Model
 					break;
 				default:
 					break;
+			}
+
+			if (top < croppingMinimum)
+			{
+				top = 0;
+			}
+
+			if (bottom < croppingMinimum)
+			{
+				bottom = 0;
+			}
+
+			if (left < croppingMinimum)
+			{
+				left = 0;
+			}
+
+			if (right < croppingMinimum)
+			{
+				right = 0;
+			}
+
+			if (constrainToOneAxis)
+			{
+				int vertical = top + bottom;
+				int horizontal = left + right;
+				if (vertical > horizontal)
+				{
+					left = right = 0;
+				} else
+				{
+					top = bottom = 0;
+				}
 			}
 
 			return new VCCropping(top, bottom, left, right);

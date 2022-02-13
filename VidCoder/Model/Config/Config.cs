@@ -31,10 +31,7 @@ namespace VidCoder
 			cache = new Dictionary<string, object>();
 			cache.Add("MigratedConfigs", DatabaseConfig.Get("MigratedConfigs", false, connection));
 			cache.Add("EncodeJobs2", DatabaseConfig.Get("EncodeJobs2", "", connection));
-			cache.Add("UpdateInProgress", DatabaseConfig.Get("UpdateInProgress", false, connection));
-			cache.Add("UpdateVersion", DatabaseConfig.Get("UpdateVersion", "", connection));
-			cache.Add("UpdateInstallerLocation", DatabaseConfig.Get("UpdateInstallerLocation", "", connection));
-			cache.Add("UpdateChangelogLocation", DatabaseConfig.Get("UpdateChangelogLocation", "", connection));
+			cache.Add("UninstallerPath", DatabaseConfig.Get("UninstallerPath", "", connection));
 			cache.Add("LastOutputFolder", DatabaseConfig.Get("LastOutputFolder", "", connection));
 			cache.Add("LastInputFileFolder", DatabaseConfig.Get("LastInputFileFolder", "", connection));
 			cache.Add("LastVideoTSFolder", DatabaseConfig.Get("LastVideoTSFolder", "", connection));
@@ -68,7 +65,7 @@ namespace VidCoder
 			cache.Add("AudioExpanded", DatabaseConfig.Get("AudioExpanded", true, connection));
 			cache.Add("SubtitlesExpanded", DatabaseConfig.Get("SubtitlesExpanded", true, connection));
 			cache.Add("UpdatesEnabled", DatabaseConfig.Get("UpdatesEnabled", true, connection));
-			cache.Add("UpdatePromptTiming", DatabaseConfig.Get("UpdatePromptTiming", "OnExit", connection));
+			cache.Add("UpdateMode", DatabaseConfig.Get("UpdateMode", "SilentNextLaunch", connection));
 			cache.Add("UpdatesDisabled32BitOSWarningDisplayed", DatabaseConfig.Get("UpdatesDisabled32BitOSWarningDisplayed", false, connection));
 			cache.Add("Win7WarningDisplayedTimes", DatabaseConfig.Get("Win7WarningDisplayedTimes", 0, connection));
 			cache.Add("PreviewSeconds", DatabaseConfig.Get("PreviewSeconds", 10, connection));
@@ -113,8 +110,6 @@ namespace VidCoder
 			cache.Add("QueueTitlesNameOverride", DatabaseConfig.Get("QueueTitlesNameOverride", "", connection));
 			cache.Add("EnableLibDvdNav", DatabaseConfig.Get("EnableLibDvdNav", true, connection));
 			cache.Add("MinimumTitleLengthSeconds", DatabaseConfig.Get("MinimumTitleLengthSeconds", 10, connection));
-			cache.Add("DeleteSourceFilesOnClearingCompleted", DatabaseConfig.Get("DeleteSourceFilesOnClearingCompleted", false, connection));
-			cache.Add("DeleteSourceFilesMode", DatabaseConfig.Get("DeleteSourceFilesMode", "Recycle", connection));
 			cache.Add("PreserveModifyTimeFiles", DatabaseConfig.Get("PreserveModifyTimeFiles", false, connection));
 			cache.Add("ResumeEncodingOnRestart", DatabaseConfig.Get("ResumeEncodingOnRestart", false, connection));
 			cache.Add("KeepFailedFiles", DatabaseConfig.Get("KeepFailedFiles", false, connection));
@@ -131,19 +126,6 @@ namespace VidCoder
 			cache.Add("CompareWindowIsMuted", DatabaseConfig.Get("CompareWindowIsMuted", true, connection));
 			cache.Add("TriggerEncodeCompleteActionWithErrors", DatabaseConfig.Get("TriggerEncodeCompleteActionWithErrors", true, connection));
 			cache.Add("EncodeRetries", DatabaseConfig.Get("EncodeRetries", 0, connection));
-			cache.Add("AudioLanguageCode", DatabaseConfig.Get("AudioLanguageCode", "und", connection));
-			cache.Add("SubtitleLanguageCode", DatabaseConfig.Get("SubtitleLanguageCode", "und", connection));
-			cache.Add("AutoAudio", DatabaseConfig.Get("AutoAudio", "Disabled", connection));
-			cache.Add("AutoSubtitle", DatabaseConfig.Get("AutoSubtitle", "Disabled", connection));
-			cache.Add("AutoAudioAll", DatabaseConfig.Get("AutoAudioAll", false, connection));
-			cache.Add("AutoSubtitleAll", DatabaseConfig.Get("AutoSubtitleAll", false, connection));
-			cache.Add("AutoSubtitleOnlyIfDifferent", DatabaseConfig.Get("AutoSubtitleOnlyIfDifferent", true, connection));
-			cache.Add("AutoSubtitleBurnIn", DatabaseConfig.Get("AutoSubtitleBurnIn", true, connection));
-			cache.Add("AutoSubtitleLanguageDefault", DatabaseConfig.Get("AutoSubtitleLanguageDefault", false, connection));
-			cache.Add("AutoSubtitleLanguageBurnIn", DatabaseConfig.Get("AutoSubtitleLanguageBurnIn", false, connection));
-			cache.Add("QueueTitlesStartTime", DatabaseConfig.Get("QueueTitlesStartTime", 40, connection));
-			cache.Add("QueueTitlesEndTime", DatabaseConfig.Get("QueueTitlesEndTime", 45, connection));
-			cache.Add("QueueTitlesUseRange", DatabaseConfig.Get("QueueTitlesUseRange", false, connection));
 		}
 
 		public static T Get<T>(string key)
@@ -187,25 +169,10 @@ namespace VidCoder
 			get { return (string)cache["EncodeJobs2"]; }
 			set { Set("EncodeJobs2", value); }
 		}
-		public static bool UpdateInProgress
+		public static string UninstallerPath
 		{
-			get { return (bool)cache["UpdateInProgress"]; }
-			set { Set("UpdateInProgress", value); }
-		}
-		public static string UpdateVersion
-		{
-			get { return (string)cache["UpdateVersion"]; }
-			set { Set("UpdateVersion", value); }
-		}
-		public static string UpdateInstallerLocation
-		{
-			get { return (string)cache["UpdateInstallerLocation"]; }
-			set { Set("UpdateInstallerLocation", value); }
-		}
-		public static string UpdateChangelogLocation
-		{
-			get { return (string)cache["UpdateChangelogLocation"]; }
-			set { Set("UpdateChangelogLocation", value); }
+			get { return (string)cache["UninstallerPath"]; }
+			set { Set("UninstallerPath", value); }
 		}
 		public static string LastOutputFolder
 		{
@@ -372,10 +339,10 @@ namespace VidCoder
 			get { return (bool)cache["UpdatesEnabled"]; }
 			set { Set("UpdatesEnabled", value); }
 		}
-		public static string UpdatePromptTiming
+		public static string UpdateMode
 		{
-			get { return (string)cache["UpdatePromptTiming"]; }
-			set { Set("UpdatePromptTiming", value); }
+			get { return (string)cache["UpdateMode"]; }
+			set { Set("UpdateMode", value); }
 		}
 		public static bool UpdatesDisabled32BitOSWarningDisplayed
 		{
@@ -597,16 +564,6 @@ namespace VidCoder
 			get { return (int)cache["MinimumTitleLengthSeconds"]; }
 			set { Set("MinimumTitleLengthSeconds", value); }
 		}
-		public static bool DeleteSourceFilesOnClearingCompleted
-		{
-			get { return (bool)cache["DeleteSourceFilesOnClearingCompleted"]; }
-			set { Set("DeleteSourceFilesOnClearingCompleted", value); }
-		}
-		public static string DeleteSourceFilesMode
-		{
-			get { return (string)cache["DeleteSourceFilesMode"]; }
-			set { Set("DeleteSourceFilesMode", value); }
-		}
 		public static bool PreserveModifyTimeFiles
 		{
 			get { return (bool)cache["PreserveModifyTimeFiles"]; }
@@ -687,79 +644,11 @@ namespace VidCoder
 			get { return (int)cache["EncodeRetries"]; }
 			set { Set("EncodeRetries", value); }
 		}
-		public static string AudioLanguageCode
-		{
-			get { return (string)cache["AudioLanguageCode"]; }
-			set { Set("AudioLanguageCode", value); }
-		}
-		public static string SubtitleLanguageCode
-		{
-			get { return (string)cache["SubtitleLanguageCode"]; }
-			set { Set("SubtitleLanguageCode", value); }
-		}
-		public static string AutoAudio
-		{
-			get { return (string)cache["AutoAudio"]; }
-			set { Set("AutoAudio", value); }
-		}
-		public static string AutoSubtitle
-		{
-			get { return (string)cache["AutoSubtitle"]; }
-			set { Set("AutoSubtitle", value); }
-		}
-		public static bool AutoAudioAll
-		{
-			get { return (bool)cache["AutoAudioAll"]; }
-			set { Set("AutoAudioAll", value); }
-		}
-		public static bool AutoSubtitleAll
-		{
-			get { return (bool)cache["AutoSubtitleAll"]; }
-			set { Set("AutoSubtitleAll", value); }
-		}
-		public static bool AutoSubtitleOnlyIfDifferent
-		{
-			get { return (bool)cache["AutoSubtitleOnlyIfDifferent"]; }
-			set { Set("AutoSubtitleOnlyIfDifferent", value); }
-		}
-		public static bool AutoSubtitleBurnIn
-		{
-			get { return (bool)cache["AutoSubtitleBurnIn"]; }
-			set { Set("AutoSubtitleBurnIn", value); }
-		}
-		public static bool AutoSubtitleLanguageDefault
-		{
-			get { return (bool)cache["AutoSubtitleLanguageDefault"]; }
-			set { Set("AutoSubtitleLanguageDefault", value); }
-		}
-		public static bool AutoSubtitleLanguageBurnIn
-		{
-			get { return (bool)cache["AutoSubtitleLanguageBurnIn"]; }
-			set { Set("AutoSubtitleLanguageBurnIn", value); }
-		}
-		public static int QueueTitlesStartTime
-		{
-			get { return (int)cache["QueueTitlesStartTime"]; }
-			set { Set("QueueTitlesStartTime", value); }
-		}
-		public static int QueueTitlesEndTime
-		{
-			get { return (int)cache["QueueTitlesEndTime"]; }
-			set { Set("QueueTitlesEndTime", value); }
-		}
-		public static bool QueueTitlesUseRange
-		{
-			get { return (bool)cache["QueueTitlesUseRange"]; }
-			set { Set("QueueTitlesUseRange", value); }
-		}
 		public static class Observables
 		{
 			public static IObservable<bool> MigratedConfigs => GetObservable<bool>("MigratedConfigs");
 			public static IObservable<string> EncodeJobs2 => GetObservable<string>("EncodeJobs2");
-			public static IObservable<bool> UpdateInProgress => GetObservable<bool>("UpdateInProgress");
-			public static IObservable<string> UpdateVersion => GetObservable<string>("UpdateVersion");
-			public static IObservable<string> UpdateInstallerLocation => GetObservable<string>("UpdateInstallerLocation");
-			public static IObservable<string> UpdateChangelogLocation => GetObservable<string>("UpdateChangelogLocation");
+			public static IObservable<string> UninstallerPath => GetObservable<string>("UninstallerPath");
 			public static IObservable<string> LastOutputFolder => GetObservable<string>("LastOutputFolder");
 			public static IObservable<string> LastInputFileFolder => GetObservable<string>("LastInputFileFolder");
 			public static IObservable<string> LastVideoTSFolder => GetObservable<string>("LastVideoTSFolder");
@@ -793,7 +682,7 @@ namespace VidCoder
 			public static IObservable<bool> AudioExpanded => GetObservable<bool>("AudioExpanded");
 			public static IObservable<bool> SubtitlesExpanded => GetObservable<bool>("SubtitlesExpanded");
 			public static IObservable<bool> UpdatesEnabled => GetObservable<bool>("UpdatesEnabled");
-			public static IObservable<string> UpdatePromptTiming => GetObservable<string>("UpdatePromptTiming");
+			public static IObservable<string> UpdateMode => GetObservable<string>("UpdateMode");
 			public static IObservable<bool> UpdatesDisabled32BitOSWarningDisplayed => GetObservable<bool>("UpdatesDisabled32BitOSWarningDisplayed");
 			public static IObservable<int> Win7WarningDisplayedTimes => GetObservable<int>("Win7WarningDisplayedTimes");
 			public static IObservable<int> PreviewSeconds => GetObservable<int>("PreviewSeconds");
@@ -838,8 +727,6 @@ namespace VidCoder
 			public static IObservable<string> QueueTitlesNameOverride => GetObservable<string>("QueueTitlesNameOverride");
 			public static IObservable<bool> EnableLibDvdNav => GetObservable<bool>("EnableLibDvdNav");
 			public static IObservable<int> MinimumTitleLengthSeconds => GetObservable<int>("MinimumTitleLengthSeconds");
-			public static IObservable<bool> DeleteSourceFilesOnClearingCompleted => GetObservable<bool>("DeleteSourceFilesOnClearingCompleted");
-			public static IObservable<string> DeleteSourceFilesMode => GetObservable<string>("DeleteSourceFilesMode");
 			public static IObservable<bool> PreserveModifyTimeFiles => GetObservable<bool>("PreserveModifyTimeFiles");
 			public static IObservable<bool> ResumeEncodingOnRestart => GetObservable<bool>("ResumeEncodingOnRestart");
 			public static IObservable<bool> KeepFailedFiles => GetObservable<bool>("KeepFailedFiles");
@@ -856,19 +743,6 @@ namespace VidCoder
 			public static IObservable<bool> CompareWindowIsMuted => GetObservable<bool>("CompareWindowIsMuted");
 			public static IObservable<bool> TriggerEncodeCompleteActionWithErrors => GetObservable<bool>("TriggerEncodeCompleteActionWithErrors");
 			public static IObservable<int> EncodeRetries => GetObservable<int>("EncodeRetries");
-			public static IObservable<string> AudioLanguageCode => GetObservable<string>("AudioLanguageCode");
-			public static IObservable<string> SubtitleLanguageCode => GetObservable<string>("SubtitleLanguageCode");
-			public static IObservable<string> AutoAudio => GetObservable<string>("AutoAudio");
-			public static IObservable<string> AutoSubtitle => GetObservable<string>("AutoSubtitle");
-			public static IObservable<bool> AutoAudioAll => GetObservable<bool>("AutoAudioAll");
-			public static IObservable<bool> AutoSubtitleAll => GetObservable<bool>("AutoSubtitleAll");
-			public static IObservable<bool> AutoSubtitleOnlyIfDifferent => GetObservable<bool>("AutoSubtitleOnlyIfDifferent");
-			public static IObservable<bool> AutoSubtitleBurnIn => GetObservable<bool>("AutoSubtitleBurnIn");
-			public static IObservable<bool> AutoSubtitleLanguageDefault => GetObservable<bool>("AutoSubtitleLanguageDefault");
-			public static IObservable<bool> AutoSubtitleLanguageBurnIn => GetObservable<bool>("AutoSubtitleLanguageBurnIn");
-			public static IObservable<int> QueueTitlesStartTime => GetObservable<int>("QueueTitlesStartTime");
-			public static IObservable<int> QueueTitlesEndTime => GetObservable<int>("QueueTitlesEndTime");
-			public static IObservable<bool> QueueTitlesUseRange => GetObservable<bool>("QueueTitlesUseRange");
 			private static IObservable<T> GetObservable<T>(string configName)
 			{
 				object observableObject;

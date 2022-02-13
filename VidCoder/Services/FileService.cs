@@ -190,6 +190,12 @@ namespace VidCoder.Services
 			}
 		}
 
+		public void ReportBug()
+		{
+			string portableText = Utilities.InstallType.ToString();
+			this.LaunchUrl($"https://github.com/RandomEngy/VidCoder/issues/new?labels=bug&template=bug_report.yml&vidcoder-version={Utilities.VersionString}%20{portableText}");
+		}
+
 		private static (bool? result, Microsoft.Win32.OpenFileDialog createdDialog) ShowOpenDialogWithInitialDirectory(Func<Microsoft.Win32.OpenFileDialog> dialogFunc, string initialDirectory)
 		{
 			var dialog = dialogFunc();

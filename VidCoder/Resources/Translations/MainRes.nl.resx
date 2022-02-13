@@ -284,7 +284,9 @@
     <value>Codering gestopt.</value>
   </data>
   <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>Weet u zeker dat u {0} bronbestand(en)/-map(pen) wilt verwijderen?</value>
+    <value>Weet je zeker dat je {1} bronbestand(en)/-map(pen) wilt {0}?</value>
+    <comment>{0} is the verb, can be "recycle" or "delete"
+{1} is the number of files that will be removed</comment>
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Verwijderen bevestigen</value>
@@ -737,5 +739,19 @@ Je kunt VidCoder blijven gebruiken op eigen risico. Sommige functies zijn niet f
 v5 was de laatste versie getest voor Windows 7/8.
 
 Deze waarschuwing wordt slechts twee keer weergegeven.</value>
+  </data>
+  <data name="RemoveSourceFiles_Delete" xml:space="preserve">
+    <value>verwijderen</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RemoveSourceFiles_Recycle" xml:space="preserve">
+    <value>recyclen</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RequestFeatureMenuItem" xml:space="preserve">
+    <value>Vraag een functie aan</value>
+  </data>
+  <data name="CopyLogAndReportMenuItem" xml:space="preserve">
+    <value>Logboek kopiëren en probleem melden </value>
   </data>
 </root>

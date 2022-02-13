@@ -27,11 +27,11 @@ namespace VidCoder.Model
 
 		private static SQLiteConnection connection;
 
-		private static ThreadLocal<SQLiteConnection> threadLocalConnection = new ThreadLocal<SQLiteConnection>();
+		private static ThreadLocal<SQLiteConnection> threadLocalConnection = new ThreadLocal<SQLiteConnection>(trackAllValues: true);
 
 		private static long mainThreadId;
 
-		private static Lazy<string> lazyDatabaseFile = new Lazy<string>(GetDatabaseFilePath); 
+		private static Lazy<string> lazyDatabaseFile = new Lazy<string>(GetDatabaseFilePath);
 
 		public static void Initialize()
 		{
@@ -57,7 +57,6 @@ namespace VidCoder.Model
 				{
 					string message = string.Format(CultureInfo.CurrentCulture, MainRes.DataTooOldRunVidCoderVersion, "3.15");
 					StaticResolver.Resolve<IMessageBoxService>().Show(message);
-					StaticResolver.Resolve<IMessageBoxService>().Show(message);
 					throw new InvalidOperationException("Database too old");
 				}
 
@@ -69,6 +68,11 @@ namespace VidCoder.Model
 				if (databaseVersion < 39)
 				{
 					UpgradeDatabaseTo39();
+				}
+
+				if (databaseVersion < 46)
+				{
+					UpgradeDatabaseTo46();
 				}
 
 				// Update encoding profiles if we need to. Everything is at least 28 now from the JSON upgrade.
@@ -114,8 +118,6 @@ namespace VidCoder.Model
 					messageLine2);
 
 				var messageService = StaticResolver.Resolve<IMessageBoxService>();
-				messageService.Show(message, MainRes.IncompatibleDatabaseFileTitle, MessageBoxButton.YesNo);
-
 				if (messageService.Show(
 					message,
 					MainRes.IncompatibleDatabaseFileTitle,
@@ -123,8 +125,7 @@ namespace VidCoder.Model
 				{
 					try
 					{
-						Connection.Close();
-						connection = null;
+						CloseAllConnections();
 
 						MoveCurrentDatabaseFile(databaseVersion);
 						string backupFilePath = GetBackupDatabaseFilePath(backupVersion);
@@ -132,13 +133,9 @@ namespace VidCoder.Model
 
 						databaseVersion = backupVersion;
 					}
-					catch (IOException)
+					catch (Exception exception)
 					{
-						HandleCriticalFileError();
-					}
-					catch (UnauthorizedAccessException)
-					{
-						HandleCriticalFileError();
+						HandleCriticalFileError(exception);
 					}
 				}
 				else
@@ -158,27 +155,21 @@ namespace VidCoder.Model
 					messageLine2);
 
 				var messageService = StaticResolver.Resolve<IMessageBoxService>();
-				messageService.Show(message, MainRes.IncompatibleDatabaseFileTitle, MessageBoxButton.YesNo);
 				if (messageService.Show(
 					message,
 					MainRes.IncompatibleDatabaseFileTitle,
 					MessageBoxButton.YesNo) == MessageBoxResult.Yes)
 				{
-					Connection.Close();
+					CloseAllConnections();
 
 					try
 					{
 						MoveCurrentDatabaseFile(databaseVersion);
-						connection = null;
 						databaseVersion = DatabaseConfig.Version;
 					}
-					catch (IOException)
+					catch (Exception exception)
 					{
-						HandleCriticalFileError();
-					}
-					catch (UnauthorizedAccessException)
-					{
-						HandleCriticalFileError();
+						HandleCriticalFileError(exception);
 					}
 				}
 				else
@@ -200,8 +191,7 @@ namespace VidCoder.Model
 
 		private static void BackupDatabaseFile(int databaseVersion)
 		{
-			Connection.Close();
-			connection = null;
+			CloseAllConnections();
 
 			try
 			{
@@ -216,7 +206,7 @@ namespace VidCoder.Model
 			}
 		}
 
-		private static string BackupDatabaseFolder => Path.Combine(Utilities.AppFolder, BackupFolderName);
+		private static string BackupDatabaseFolder => Path.Combine(CommonUtilities.AppFolder, BackupFolderName);
 
 		/// <summary>
 		/// Returns the version number of highest version database file that is still compatible with this build of VidCoder.
@@ -266,6 +256,22 @@ namespace VidCoder.Model
 			return ConfigDatabaseFileWithoutExtension + "-v" + databaseVersion + ConfigDatabaseFileExtension;
 		}
 
+		private static void CloseAllConnections()
+		{
+			Connection.Close();
+			connection = null;
+
+			if (threadLocalConnection.Values != null && threadLocalConnection.Values.Count > 0)
+			{
+				foreach (SQLiteConnection threadLocalConnectionValue in threadLocalConnection.Values)
+				{
+					threadLocalConnectionValue.Close();
+				}
+
+				threadLocalConnection = new ThreadLocal<SQLiteConnection>(trackAllValues: true);
+			}
+		}
+
 #pragma warning disable CS0618 // Type or member is obsolete
 		private static void UpgradeDatabaseTo36()
 		{
@@ -280,10 +286,31 @@ namespace VidCoder.Model
 		private static void UpgradeDatabaseTo39()
 		{
 			// The "File naming" tab was removed, so the last index needs to be updated.
-			int optionsDialogLastTab = DatabaseConfig.Get<int>("OptionsDialogLastTab", 0);
+			int optionsDialogLastTab = DatabaseConfig.Get<int>("OptionsDialogLastTab", 0, connection);
 			if (optionsDialogLastTab > 0)
 			{
-				DatabaseConfig.Set<int>("OptionsDialogLastTab", optionsDialogLastTab - 1);
+				DatabaseConfig.Set<int>("OptionsDialogLastTab", optionsDialogLastTab - 1, connection);
+			}
+		}
+
+		private static void UpgradeDatabaseTo46()
+		{
+			string updatePromptTiming = DatabaseConfig.Get<string>("UpdatePromptTiming", "OnExit", connection);
+			if (updatePromptTiming == "OnLaunch")
+			{
+				DatabaseConfig.Set<string>("UpdateMode", "PromptApplyImmediately", connection);
+			}
+
+			try
+			{
+				if (Directory.Exists(Utilities.UpdatesFolder))
+				{
+					Directory.Delete(Utilities.UpdatesFolder, true);
+				}
+			}
+			catch
+			{
+				// Eat exception, not critical that these are cleaned up
 			}
 		}
 
@@ -346,11 +373,11 @@ namespace VidCoder.Model
 			PickerStorage.SavePickers(pickerJsonList, Connection);
 		}
 
-		private static void HandleCriticalFileError()
+		private static void HandleCriticalFileError(Exception exception)
 		{
 			var messageService = StaticResolver.Resolve<IMessageBoxService>();
 
-			messageService.Show(CommonRes.FileFailureErrorMessage, CommonRes.FileFailureErrorTitle, MessageBoxButton.OK);
+			messageService.Show(CommonRes.FileFailureErrorMessage + Environment.NewLine + Environment.NewLine + exception.ToString(), CommonRes.FileFailureErrorTitle, MessageBoxButton.OK);
 			Environment.Exit(1);
 		}
 
@@ -369,7 +396,7 @@ namespace VidCoder.Model
 
 		private static string GetDatabaseFilePath()
 		{
-			if (Utilities.IsPortable)
+			if (Utilities.InstallType == VidCoderInstallType.Portable)
 			{
 				string portableExeFolder = GetPortableExeFolder();
 				if (FileUtilities.HasWriteAccessOnFolder(portableExeFolder))
@@ -412,7 +439,7 @@ namespace VidCoder.Model
 		/// <returns></returns>
 		private static string GetPortableExeFolder()
 		{
-			if (!Utilities.IsPortable)
+			if (Utilities.InstallType != VidCoderInstallType.Portable)
 			{
 				throw new InvalidOperationException("Called GetPortableExeFolder on a non-portable install.");
 			}
@@ -429,7 +456,7 @@ namespace VidCoder.Model
 		{
 			get
 			{
-				string appDataFolder = Utilities.AppFolder;
+				string appDataFolder = CommonUtilities.AppFolder;
 
 				if (!Directory.Exists(appDataFolder))
 				{
@@ -484,16 +511,16 @@ namespace VidCoder.Model
 
 		public static SQLiteConnection CreateConnection()
 		{
-			if (!Directory.Exists(Utilities.AppFolder))
+			if (!Directory.Exists(CommonUtilities.AppFolder))
 			{
-				if (CommonUtilities.Beta && Directory.Exists(Utilities.GetAppFolder(beta: false)))
+				if (CommonUtilities.Beta && Directory.Exists(CommonUtilities.GetAppFolder(beta: false)))
 				{
 					// In beta mode if we don't have the appdata folder copy the stable appdata folder
 					try
 					{
 						FileUtilities.CopyDirectory(
-							Utilities.GetAppFolder(beta: false),
-							Utilities.GetAppFolder(beta: true));
+							CommonUtilities.GetAppFolder(beta: false),
+							CommonUtilities.GetAppFolder(beta: true));
 					}
 					catch (Exception)
 					{
@@ -501,7 +528,7 @@ namespace VidCoder.Model
 				}
 				else
 				{
-					Directory.CreateDirectory(Utilities.AppFolder);
+					Directory.CreateDirectory(CommonUtilities.AppFolder);
 				}
 			}
 
@@ -514,7 +541,7 @@ namespace VidCoder.Model
 			{
 				CreateTables(newConnection);
 
-				var settingsList = new Dictionary<string, string> {{"Version", Utilities.CurrentDatabaseVersion.ToString(CultureInfo.InvariantCulture)}};
+				var settingsList = new Dictionary<string, string> { { "Version", Utilities.CurrentDatabaseVersion.ToString(CultureInfo.InvariantCulture) } };
 				AddSettingsList(newConnection, settingsList);
 			}
 
@@ -547,7 +574,7 @@ namespace VidCoder.Model
 				"CREATE TABLE workerLogs (" +
 				"workerGuid TEXT, " +
 				"message TEXT, " +
-				"level INTEGER, " + 
+				"level INTEGER, " +
 				"time TEXT)", connection);
 		}
 

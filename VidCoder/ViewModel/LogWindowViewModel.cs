@@ -47,29 +47,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand<Unit, Unit> copyToPastebin;
-		public ICommand CopyToPastebin
-		{
-			get
-			{
-				return this.copyToPastebin ?? (this.copyToPastebin = ReactiveCommand.CreateFromTask(async () =>
-				{
-					var selectedLogViewModel = this.LogCoordinator.SelectedLog;
-					string logContents = GetLogContents(selectedLogViewModel.Logger);
-
-					string pasteName = selectedLogViewModel.OperationTypeDisplay;
-					if (selectedLogViewModel.OperationPath != null)
-					{
-						pasteName += selectedLogViewModel.OperationPath;
-					}
-
-					string pastebinUrl = await StaticResolver.Resolve<PastebinService>().SubmitToPastebinAsync(logContents, pasteName);
-					StaticResolver.Resolve<ClipboardService>().SetText(pastebinUrl);
-					StaticResolver.Resolve<StatusService>().Show(LogRes.PastebinSuccessStatus);
-				}));
-			}
-		}
-
 		private static string GetLogContents(IAppLogger fileLogger)
 		{
 			lock (fileLogger.LogLock)

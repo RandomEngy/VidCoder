@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Genel</value>
@@ -162,9 +162,6 @@
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>LibDVDNav'u etkinleştir (Değişiklik programın yeniden başlatılmasını gerektirir. Birden fazla açıyı desteklemek için gereklidir)</value>
   </data>
-  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Başarılı tamamlanmış işlerden sonra kaynak dosyaları sil</value>
-  </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Günlük Detayı:</value>
   </data>
@@ -192,12 +189,7 @@
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Güncellemeleri daha sık almak için Beta kanalına katılın</value>
   </data>
-  <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>Sürüm {0} güncellemesi hazır. Programdan çıktığınızda yüklenecek.</value>
-  </data>
-  <data name="DownloadingStatus" xml:space="preserve">
-    <value>Sürüm {0} güncellemesi indiriliyor:</value>
-  </data>
+  
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder güncel.</value>
   </data>
@@ -215,9 +207,6 @@
   </data>
   <data name="UpdatesTab" xml:space="preserve">
     <value>Güncellemeler</value>
-  </data>
-  <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>Son sürümü buluyor...</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
     <value>Güncelleme denetimi başarısız oldu.</value>
@@ -347,9 +336,6 @@
     <value>Tema</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
-  <data name="PromptForUpdatesLabel" xml:space="preserve">
-    <value>Güncellemeler için sor:</value>
-  </data>
   <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
     <value>Alt işlem seçeneği, VidCoder'dan çıkıp yeniden başlatınca geçerli olacaktır.</value>
   </data>
@@ -384,4 +370,7 @@
   <data name="EncodeRetriesLabel" xml:space="preserve">
     <value>Kodlama denemelerinin sayısı:</value>
   </data>
+  
+  
+  
 </root>

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace VidCoder.Model
 {
-	public enum UpdatePromptTiming
+	public enum SourceFileRemovalTiming
 	{
-		OnExit,
-		OnLaunch
+		AfterClearingCompletedItems,
+		Immediately
 	}
 }

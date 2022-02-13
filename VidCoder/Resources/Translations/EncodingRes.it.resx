@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Salva</value>
@@ -830,5 +830,20 @@ NitidezzaCircolare rende più nitida l'immagine utilizzando il filtro con "nocci
   </data>
   <data name="ColorspaceLabel" xml:space="preserve">
     <value>Spazio colore:</value>
+  </data>
+  <data name="ChromaSmoothToolTip" xml:space="preserve">
+    <value>Riduce il rumore cromatico, gli arcobaleni ed altri artefatti visivi di rilievo. Utile per risolvere vari problemi legati al colore, soprattutto con contenuti a bassa risoluzione da fonti analogiche, come scarsa qualità DVD e fonti VHS. L'algoritmo di sfocatura/levigatura è lo stesso usato dal filtro di contrasto.</value>
+  </data>
+  <data name="ConstrainToOneAxisCheckBox" xml:space="preserve">
+    <value>Vincola ad un asse</value>
+  </data>
+  <data name="ConstrainToOneAxisToolTip" xml:space="preserve">
+    <value>Se abilitata, verrà ritagliato solo l'asse con il ritaglio più alto rilevato. Per esempio se Alto+Basso = 32 e Sinistra+Destra = 6, il ritaglio su Sinistra e Destra sarà impostato a 0.</value>
+  </data>
+  <data name="MinimumCroppingLabel" xml:space="preserve">
+    <value>Minimo:</value>
+  </data>
+  <data name="MinimumCroppingToolTip" xml:space="preserve">
+    <value>Se il ritaglio automatico è inferiore a questo importo per un lato, disabilita il ritaglio per quel lato. Utile per impedire il ricampionamento su piccoli ritagli.</value>
   </data>
 </root>

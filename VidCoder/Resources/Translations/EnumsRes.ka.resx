@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Anamorphic_Custom" xml:space="preserve">
     <value>პერსონალური</value>
@@ -289,22 +289,72 @@
   <data name="PickerTimeRangeMode_Time" xml:space="preserve">
     <value>დროის ინტერვალი</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="WhenFileExists_AutoRename" xml:space="preserve">
+    <value>ავტომატურად სახელის შეცვლა</value>
+  </data>
+  <data name="WhenFileExists_Overwrite" xml:space="preserve">
+    <value>გადაწერა</value>
+  </data>
+  <data name="WhenFileExists_Prompt" xml:space="preserve">
+    <value>შეკითხვა</value>
+  </data>
+  <data name="DenoiseTune_medium" xml:space="preserve">
+    <value>საშუალო</value>
+  </data>
+  <data name="DenoiseTune_none" xml:space="preserve">
+    <value>არანაირი</value>
+  </data>
+  <data name="DenoiseTune_small" xml:space="preserve">
+    <value>მცირე</value>
+  </data>
+  <data name="DenoiseTune_tiny" xml:space="preserve">
+    <value>უმცირესი</value>
+  </data>
+  <data name="DenoiseTune_verywide" xml:space="preserve">
+    <value>ძალიან ფართო</value>
+  </data>
+  <data name="DenoiseTune_wide" xml:space="preserve">
+    <value>ფართო</value>
+  </data>
+  <data name="Denoise_ChromaSmooth" xml:space="preserve">
+    <value>ქრომის ინტენსიურობა</value>
+  </data>
+  <data name="DragDropOrder_Alphabetical" xml:space="preserve">
+    <value>ანბანის მიხედვით</value>
+    <comment>Label for the option to order dragged files alphabetically</comment>
+  </data>
+  <data name="DragDropOrder_Selected" xml:space="preserve">
+    <value>მონიშნული</value>
+    <comment>Label for the option to order dragged files as they had been selected in File explorer</comment>
+  </data>
+  <data name="SubtitleBurnInSelection_First" xml:space="preserve">
+    <value>პირველი</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrack" xml:space="preserve">
+    <value>სხვა წყაროს აუდიო</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrackElseFirst" xml:space="preserve">
+    <value>ჯერ სხვა წყაროს აუდიო</value>
+  </data>
+  <data name="SubtitleBurnInSelection_None" xml:space="preserve">
+    <value>არანაირი</value>
+  </data>
+  <data name="SourceFileRemovalTiming_AfterClearingCompletedItems" xml:space="preserve">
+    <value>დასრულებული ფაილების წაშლის შემგედ</value>
+  </data>
+  <data name="SourceFileRemovalTiming_Immediately" xml:space="preserve">
+    <value>კოდირების დადასრულებისა შემგედ</value>
+  </data>
+  <data name="SourceFileRemoval_Delete" xml:space="preserve">
+    <value>⚠️ წაშლა (აუღდგენლად) ⚠️</value>
+  </data>
+  <data name="SourceFileRemoval_Recycle" xml:space="preserve">
+    <value>სანაგვეში მოთავსება</value>
+  </data>
+  <data name="UpdateMode_PromptApplyImmediately" xml:space="preserve">
+    <value>აქტუალიზირება</value>
+  </data>
+  <data name="UpdateMode_SilentNextLaunch" xml:space="preserve">
+    <value>ჩუმად (შემდეგი ჩართვისას აქტუალიზირება)</value>
+  </data>
 </root>

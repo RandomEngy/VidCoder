@@ -84,6 +84,5 @@ function DeleteFileIfExists($fileName)
     if (Test-Path $fileName) { Remove-Item $fileName }
 }
 
-$VSFolder = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional"
-$MsBuildExe = "$VSFolder\MSBuild\Current\Bin\MSBuild.exe"
-$InnoSetupExe = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+$VSFolder = "C:\Program Files\Microsoft Visual Studio\2022\Professional"
+$MsBuildExe = "$VSFolder\Msbuild\Current\Bin\MSBuild.exe"

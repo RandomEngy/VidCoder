@@ -19,7 +19,7 @@ namespace VidCoder.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class EncodingRes {
@@ -380,6 +380,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reduces chroma noise, rainbows, and other prominent visual artifacts. Useful for resolving various color-related issues, especially with lower resolution content from analog sources, e.g. poor quality DVD and VHS sources. The blurring/smoothing algorithm is the same as used by the unsharp filter..
+        /// </summary>
+        public static string ChromaSmoothToolTip {
+            get {
+                return ResourceManager.GetString("ChromaSmoothToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close the presets list.
         /// </summary>
         public static string ClosePresetsListToolTip {
@@ -430,6 +439,24 @@ namespace VidCoder.Resources {
         public static string ConstantQualityRadioButton {
             get {
                 return ResourceManager.GetString("ConstantQualityRadioButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Constrain to one axis.
+        /// </summary>
+        public static string ConstrainToOneAxisCheckBox {
+            get {
+                return ResourceManager.GetString("ConstrainToOneAxisCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If enabled, only the axis with the most total detected cropping will be cropped. For example if Top+Bottom = 32 and Left+Right = 6, then cropping on Left and Right will be set to 0..
+        /// </summary>
+        public static string ConstrainToOneAxisToolTip {
+            get {
+                return ResourceManager.GetString("ConstrainToOneAxisToolTip", resourceCulture);
             }
         }
         
@@ -848,6 +875,24 @@ namespace VidCoder.Resources {
         public static string MaxWidthLabel {
             get {
                 return ResourceManager.GetString("MaxWidthLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimum:.
+        /// </summary>
+        public static string MinimumCroppingLabel {
+            get {
+                return ResourceManager.GetString("MinimumCroppingLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If the automatic cropping is below this amount for a side, disable the cropping for that side. Useful for preventing resampling on small cropping amounts..
+        /// </summary>
+        public static string MinimumCroppingToolTip {
+            get {
+                return ResourceManager.GetString("MinimumCroppingToolTip", resourceCulture);
             }
         }
         

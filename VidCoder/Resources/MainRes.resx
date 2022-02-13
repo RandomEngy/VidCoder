@@ -176,7 +176,7 @@
     <value>VidCoder Homepage</value>
   </data>
   <data name="ReportABugMenuItem" xml:space="preserve">
-    <value>Report a Bug</value>
+    <value>Report a bug</value>
   </data>
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
     <value>About VidCoder...</value>
@@ -284,7 +284,9 @@
     <value>Stopped encoding.</value>
   </data>
   <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>Are you sure you want to delete {0} source file(s)/folder(s)?</value>
+    <value>Are you sure you want to {0} {1} source file(s)/folder(s)?</value>
+    <comment>{0} is the verb, can be "recycle" or "delete"
+{1} is the number of files that will be removed</comment>
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Confirm delete</value>
@@ -737,5 +739,19 @@ You can continue using VidCoder at your own risk. Certain features are non-funct
 v5 was the last version tested for Windows 7/8.
 
 This warning will only display twice.</value>
+  </data>
+  <data name="RemoveSourceFiles_Delete" xml:space="preserve">
+    <value>delete</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RemoveSourceFiles_Recycle" xml:space="preserve">
+    <value>recycle</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RequestFeatureMenuItem" xml:space="preserve">
+    <value>Request a feature</value>
+  </data>
+  <data name="CopyLogAndReportMenuItem" xml:space="preserve">
+    <value>Copy log and report problem</value>
   </data>
 </root>

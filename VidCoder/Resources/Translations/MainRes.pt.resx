@@ -284,7 +284,9 @@
     <value>Codificação parada.</value>
   </data>
   <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>Tem a certeza de que deseja eliminar {0} ficheiro(s)/pasta(s) de origem?</value>
+    <value>Tem a certeza que deseja {0} {1} ficheiro(s)/pasta(s) de origem?</value>
+    <comment>{0} is the verb, can be "recycle" or "delete"
+{1} is the number of files that will be removed</comment>
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Confirme a eliminação</value>
@@ -731,5 +733,19 @@ Pode continuar a usar o VidCoder por sua conta e  risco. Determinados recursos n
 A v5 foi a última versão testada para Windows 7/8.
 
 Este aviso só será exibido duas vezes.</value>
+  </data>
+  <data name="RemoveSourceFiles_Delete" xml:space="preserve">
+    <value>eliminar</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RemoveSourceFiles_Recycle" xml:space="preserve">
+    <value>reciclar</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RequestFeatureMenuItem" xml:space="preserve">
+    <value>Solicitar uma funcionalidade</value>
+  </data>
+  <data name="CopyLogAndReportMenuItem" xml:space="preserve">
+    <value>Copiar registo e reportar problema</value>
   </data>
 </root>

@@ -33,6 +33,7 @@ namespace VidCoder.ViewModel
 			{
 				this.RaiseAndSetIfChanged(ref this.selected, value);
 				this.mainViewModel.RefreshAudioSummary();
+				this.UpdateButtonVisiblity();
 			}
 		}
 
@@ -50,7 +51,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return !this.mainViewModel.HasMultipleAudioTracks(this.TrackNumber);
+				return !this.mainViewModel.HasMultipleAudioTracks(this.TrackNumber) && this.Selected;
 			}
 		}
 

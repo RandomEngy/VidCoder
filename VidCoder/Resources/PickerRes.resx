@@ -389,4 +389,11 @@ All - Include all subtitles.</value>
   <data name="LanguageLabel" xml:space="preserve">
     <value>Language:</value>
   </data>
+  <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
+    <value>Confirm before removing</value>
+  </data>
+  <data name="SourceFileRemovalLabel" xml:space="preserve">
+    <value>Source file removal after successful encode:</value>
+    <comment>Label for the option to automatically delete source files on completion.</comment>
+  </data>
 </root>

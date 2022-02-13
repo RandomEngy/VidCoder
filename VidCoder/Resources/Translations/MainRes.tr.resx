@@ -283,9 +283,7 @@
   <data name="StoppedEncoding" xml:space="preserve">
     <value>Kodlama durduruldu.</value>
   </data>
-  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>{0} kaynak dosyayı(ları) / klasörü(leri) silmek istediğinizden emin misiniz?</value>
-  </data>
+  
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Silmeyi Onayla</value>
   </data>
@@ -738,4 +736,8 @@ v5, Windows 7/8 için test edilen son sürümdü.
 
 Bu uyarı yalnızca iki kez görüntülenir.</value>
   </data>
+  
+  
+  
+  
 </root>

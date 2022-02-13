@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Общие</value>
@@ -162,9 +162,6 @@
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Включить LibDVDNav (Для изменения требуется перезапуск программы. Требуется для поддержки нескольких углов.)</value>
   </data>
-  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Удалить исходные файлы после очистки успешно завершённых заданий</value>
-  </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Детализация журналирования:</value>
   </data>
@@ -193,10 +190,7 @@
     <value>Принять участие в бета-версии проекта для частых обновлений</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>Обновление {0} готово к установке. Оно установится после выхода из программы.</value>
-  </data>
-  <data name="DownloadingStatus" xml:space="preserve">
-    <value>Загрузка обновления {0}:</value>
+    <value>Обновление {0} готово.</value>
   </data>
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder в актуальном состоянии.</value>
@@ -215,9 +209,6 @@
   </data>
   <data name="UpdatesTab" xml:space="preserve">
     <value>Обновления</value>
-  </data>
-  <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>Найти последнюю версию...</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
     <value>Ошибка проверки обновления.</value>
@@ -347,9 +338,6 @@
     <value>Тема:</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
-  <data name="PromptForUpdatesLabel" xml:space="preserve">
-    <value>Запрос на обновление:</value>
-  </data>
   <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
     <value>Настройка рабочего процесса вступит в силу после перезапуска VidCoder.</value>
   </data>
@@ -383,5 +371,15 @@
   </data>
   <data name="EncodeRetriesLabel" xml:space="preserve">
     <value>Количество проходов кодирования:</value>
+  </data>
+  <data name="ApplyUpdateButton" xml:space="preserve">
+    <value>Применить обновление</value>
+  </data>
+  <data name="CheckingForUpdateStatus" xml:space="preserve">
+    <value>Проверка обновления...</value>
+  </data>
+  <data name="UpdateModeLabel" xml:space="preserve">
+    <value>Режим обновления:</value>
+    <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
   </data>
 </root>

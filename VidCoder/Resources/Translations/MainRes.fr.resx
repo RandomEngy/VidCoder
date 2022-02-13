@@ -283,9 +283,7 @@
   <data name="StoppedEncoding" xml:space="preserve">
     <value>Arrêter l'encodage.</value>
   </data>
-  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>Êtes-vous sûr de vouloir supprimer {0} fichier(s) source / dossier(s) ?</value>
-  </data>
+  
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Confirmer la suppression</value>
   </data>
@@ -502,6 +500,10 @@
     <value>{0} autres titres ont une durée proche de celui-ci.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
+  
+  
+  
+  
   
   
   

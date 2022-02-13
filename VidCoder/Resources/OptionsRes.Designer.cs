@@ -19,7 +19,7 @@ namespace VidCoder.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class OptionsRes {
@@ -84,6 +84,15 @@ namespace VidCoder.Resources {
         public static string AdvancedTab {
             get {
                 return ResourceManager.GetString("AdvancedTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply update.
+        /// </summary>
+        public static string ApplyUpdateButton {
+            get {
+                return ResourceManager.GetString("ApplyUpdateButton", resourceCulture);
             }
         }
         
@@ -165,6 +174,15 @@ namespace VidCoder.Resources {
         public static string BetaUpdatesNonBetaWarning {
             get {
                 return ResourceManager.GetString("BetaUpdatesNonBetaWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking for update....
+        /// </summary>
+        public static string CheckingForUpdateStatus {
+            get {
+                return ResourceManager.GetString("CheckingForUpdateStatus", resourceCulture);
             }
         }
         
@@ -264,33 +282,6 @@ namespace VidCoder.Resources {
         public static string CustomVideoPlayerToolTip {
             get {
                 return ResourceManager.GetString("CustomVideoPlayerToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete source files after clearing successful completed items.
-        /// </summary>
-        public static string DeleteSourceAfterCompletionCheckBox {
-            get {
-                return ResourceManager.GetString("DeleteSourceAfterCompletionCheckBox", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Finding latest version....
-        /// </summary>
-        public static string DownloadingInfoStatus {
-            get {
-                return ResourceManager.GetString("DownloadingInfoStatus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Downloading update {0}:.
-        /// </summary>
-        public static string DownloadingStatus {
-            get {
-                return ResourceManager.GetString("DownloadingStatus", resourceCulture);
             }
         }
         
@@ -619,15 +610,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prompt for updates:.
-        /// </summary>
-        public static string PromptForUpdatesLabel {
-            get {
-                return ResourceManager.GetString("PromptForUpdatesLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Recognized Extensions:.
         /// </summary>
         public static string RecognizedExtensionsLabel {
@@ -718,7 +700,16 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update {0} ready. It will install when you exit the program..
+        ///   Looks up a localized string similar to Update mode:.
+        /// </summary>
+        public static string UpdateModeLabel {
+            get {
+                return ResourceManager.GetString("UpdateModeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update {0} ready..
         /// </summary>
         public static string UpdateReadyStatus {
             get {

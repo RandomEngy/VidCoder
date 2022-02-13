@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="LogWindowTitle" xml:space="preserve">
     <value>Журнал</value>
@@ -131,13 +131,6 @@
   </data>
   <data name="LogVerbosity_Extended" xml:space="preserve">
     <value>Подробная</value>
-  </data>
-  <data name="CopyToPastebinButton" xml:space="preserve">
-    <value>Копировать ссылку на Pastebin</value>
-    <comment>Label for button that copies the log to Pastebin and puts the URL on the clipboard.</comment>
-  </data>
-  <data name="PastebinSuccessStatus" xml:space="preserve">
-    <value>Ссылка на журнал в Pastebin скопирована в буфер обмена.</value>
   </data>
   <data name="ClearFinishedButton" xml:space="preserve">
     <value>Очистить завершённое</value>

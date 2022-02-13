@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>一般設定</value>
@@ -162,9 +162,6 @@
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>啟用 LibDVDNav (需要重新啟動程式，支援多重角度之必要項目)</value>
   </data>
-  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>清除完成項目後刪除來源檔案</value>
-  </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>記錄詳細度:</value>
   </data>
@@ -193,10 +190,7 @@
     <value>追蹤 Beta 取得更頻繁的更新</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>更新 {0} 已準備好，將於您離開程式時安裝。</value>
-  </data>
-  <data name="DownloadingStatus" xml:space="preserve">
-    <value>下載更新中 {0}:</value>
+    <value>更新 {0} 已準備好。</value>
   </data>
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder 為最新版。</value>
@@ -215,9 +209,6 @@
   </data>
   <data name="UpdatesTab" xml:space="preserve">
     <value>更新</value>
-  </data>
-  <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>尋找最新版本中...</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
     <value>更新檢查失敗。</value>
@@ -347,9 +338,6 @@
     <value>主題</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
-  <data name="PromptForUpdatesLabel" xml:space="preserve">
-    <value>提示更新:</value>
-  </data>
   <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
     <value>工作執行緒選項將在您離開並重新啟動 VidCoder 後生效。</value>
   </data>
@@ -383,5 +371,15 @@
   </data>
   <data name="EncodeRetriesLabel" xml:space="preserve">
     <value>編碼項目數:</value>
+  </data>
+  <data name="ApplyUpdateButton" xml:space="preserve">
+    <value>套用更新</value>
+  </data>
+  <data name="CheckingForUpdateStatus" xml:space="preserve">
+    <value>檢查更新中...</value>
+  </data>
+  <data name="UpdateModeLabel" xml:space="preserve">
+    <value>更新模式:</value>
+    <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
   </data>
 </root>

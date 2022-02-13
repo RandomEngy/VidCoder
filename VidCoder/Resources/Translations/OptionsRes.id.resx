@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Umum</value>
@@ -162,9 +162,6 @@
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Enable LibDVDNav (Perubahan membutuhkan program restart. Diperlukan untuk mendukung multiple angles)</value>
   </data>
-  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Hapus berkas sumber setelah membersihkan item yang berhasil diselesaikan </value>
-  </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Pencatat Penuh:</value>
   </data>
@@ -192,12 +189,7 @@
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Gabung penguji Beta agar mendapat pembaruan berkala</value>
   </data>
-  <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>Memperbarui {0} siap. Ini akan menginstal ketika Anda keluar program.</value>
-  </data>
-  <data name="DownloadingStatus" xml:space="preserve">
-    <value>Mengunduh pembaruan {0}:</value>
-  </data>
+  
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VoipRaider sudah terbarukan.</value>
   </data>
@@ -215,9 +207,6 @@
   </data>
   <data name="UpdatesTab" xml:space="preserve">
     <value>Pemutakhiran</value>
-  </data>
-  <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>Mencari versi terbaru...</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
     <value>Pemeriksaan pemutakhiran gagal.</value>
@@ -347,9 +336,6 @@
     <value>Tema</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
-  <data name="PromptForUpdatesLabel" xml:space="preserve">
-    <value>Tanyakan Pembaharuan:</value>
-  </data>
   <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
     <value>Pilihan proses pengerjaan akan berlaku setelah Anda keluar dan restart VidCoder.</value>
   </data>
@@ -384,4 +370,7 @@
   <data name="EncodeRetriesLabel" xml:space="preserve">
     <value>Jumlah percobaan enkoding:</value>
   </data>
+  
+  
+  
 </root>

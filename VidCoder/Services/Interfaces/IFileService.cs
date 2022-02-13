@@ -15,5 +15,6 @@ namespace VidCoder.Services
 		void LaunchFile(string fileName);
 		void LaunchUrl(string url);
 		void PlayVideo(string fileName);
+		void ReportBug();
 	}
 }

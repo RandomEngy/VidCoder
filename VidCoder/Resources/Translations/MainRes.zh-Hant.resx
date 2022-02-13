@@ -284,7 +284,9 @@
     <value>停止編碼。</value>
   </data>
   <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>您確定要刪除 {0} 來源檔/資料夾 嗎?</value>
+    <value>您確定要 {0} {1} 個原始檔 / 資料夾嗎?</value>
+    <comment>{0} is the verb, can be "recycle" or "delete"
+{1} is the number of files that will be removed</comment>
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>確認刪除</value>
@@ -733,5 +735,19 @@
 v5 為在 Windows 7/8 上測試過的最新版本。
 
 此警告只會顯示兩次。</value>
+  </data>
+  <data name="RemoveSourceFiles_Delete" xml:space="preserve">
+    <value>刪除</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RemoveSourceFiles_Recycle" xml:space="preserve">
+    <value>回收</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RequestFeatureMenuItem" xml:space="preserve">
+    <value>建議功能</value>
+  </data>
+  <data name="CopyLogAndReportMenuItem" xml:space="preserve">
+    <value>複製記錄檔並回報問題</value>
   </data>
 </root>

@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>通用</value>
@@ -160,7 +160,6 @@
     <value>记忆曾用文件和文件夹</value>
   </data>
   
-  
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>日志详细度：</value>
   </data>
@@ -188,12 +187,7 @@
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>加入 Beta 渠道以获得更多更新</value>
   </data>
-  <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>{0} 更新准备好了。将在退出该程序时安装。</value>
-  </data>
-  <data name="DownloadingStatus" xml:space="preserve">
-    <value>正在下载 {0} 更新：</value>
-  </data>
+  
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder 已是最新版本。</value>
   </data>
@@ -211,9 +205,6 @@
   </data>
   <data name="UpdatesTab" xml:space="preserve">
     <value>更新</value>
-  </data>
-  <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>检查最新版本......</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
     <value>检查更新失败。</value>
@@ -343,9 +334,6 @@
     <value>主题</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
-  <data name="PromptForUpdatesLabel" xml:space="preserve">
-    <value>提示更新：</value>
-  </data>
   
   
   
@@ -356,6 +344,9 @@
   <data name="FileNameFormatOptions" xml:space="preserve">
     <value>可用选项：{0}</value>
   </data>
+  
+  
+  
   
   
   

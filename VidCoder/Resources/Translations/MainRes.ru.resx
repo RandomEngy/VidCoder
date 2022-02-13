@@ -284,7 +284,9 @@
     <value>Кодирование остановлено.</value>
   </data>
   <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>Удалить исходный файлы/папки {0}?</value>
+    <value>Удалить исходные файлы/папки {0} {1}?</value>
+    <comment>{0} is the verb, can be "recycle" or "delete"
+{1} is the number of files that will be removed</comment>
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Подтверждение удаления</value>
@@ -731,5 +733,19 @@
 Версия 5 – последняя, протестированная на Windows 7/8.
 
 Это предупреждение будет отображаться только дважды.</value>
+  </data>
+  <data name="RemoveSourceFiles_Delete" xml:space="preserve">
+    <value>удалить</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RemoveSourceFiles_Recycle" xml:space="preserve">
+    <value>корзина</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RequestFeatureMenuItem" xml:space="preserve">
+    <value>Запросить функционал</value>
+  </data>
+  <data name="CopyLogAndReportMenuItem" xml:space="preserve">
+    <value>Копировать журнал и сообщить о проблеме</value>
   </data>
 </root>

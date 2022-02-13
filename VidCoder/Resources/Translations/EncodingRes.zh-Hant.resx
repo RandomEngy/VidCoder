@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>儲存</value>
@@ -836,5 +836,20 @@ Lapsharp 銳利化使用卷積核預估拉普拉斯邊緣濾波器，有時可�
   </data>
   <data name="ColorspaceLabel" xml:space="preserve">
     <value>色彩空間:</value>
+  </data>
+  <data name="ChromaSmoothToolTip" xml:space="preserve">
+    <value>降低彩度雜訊、虹彩及其他顯眼的視覺雜訊，對於解決許多色彩相關的問題有幫助，尤其是由類比訊源轉換來的低解析度內容，如品質不佳的 DVD 及 VHS，反銳化濾鏡使用的模糊 / 平滑演算法相同。</value>
+  </data>
+  <data name="ConstrainToOneAxisCheckBox" xml:space="preserve">
+    <value>限制單軸</value>
+  </data>
+  <data name="ConstrainToOneAxisToolTip" xml:space="preserve">
+    <value>若啟用，僅切割偵測到最大可切割之軸。比方說 上+下 = 32 及 左+右 = 6，則左右切割量會被設定為 0。</value>
+  </data>
+  <data name="MinimumCroppingLabel" xml:space="preserve">
+    <value>最小:</value>
+  </data>
+  <data name="MinimumCroppingToolTip" xml:space="preserve">
+    <value>若自動切割於單側低於此值，取消該側之切割，對於預防微小切割量造成的重新取樣有幫助。</value>
   </data>
 </root>

@@ -9,10 +9,10 @@ namespace VidCoder
 {
 	public static class CustomConfig
 	{
-		public static UpdatePromptTiming UpdatePromptTiming
+		public static UpdateMode UpdateMode
 		{
-			get => (UpdatePromptTiming)Enum.Parse(typeof(UpdatePromptTiming), Config.UpdatePromptTiming);
-			set => Config.UpdatePromptTiming = value.ToString();
+			get => (UpdateMode)Enum.Parse(typeof(UpdateMode), Config.UpdateMode);
+			set => Config.UpdateMode = value.ToString();
 		}
 
 		public static List<string> AutoPauseProcesses
@@ -60,18 +60,6 @@ namespace VidCoder
 			useWorkerProcessOverride = value;
 		}
 
-		public static AudioSelectionMode AutoAudio
-		{
-			get => (AudioSelectionMode)Enum.Parse(typeof(AudioSelectionMode), Config.AutoAudio);
-			set => Config.AutoAudio = value.ToString();
-		}
-
-		public static SubtitleSelectionMode AutoSubtitle
-		{
-			get => (SubtitleSelectionMode)Enum.Parse(typeof(SubtitleSelectionMode), Config.AutoSubtitle);
-			set => Config.AutoSubtitle = value.ToString();
-		}
-
 		public static PreviewDisplay PreviewDisplay
 		{
 			get => (PreviewDisplay) Enum.Parse(typeof (PreviewDisplay), Config.PreviewDisplay);
@@ -82,12 +70,6 @@ namespace VidCoder
 		{
 			get => (AppThemeChoice)Enum.Parse(typeof(AppThemeChoice), Config.AppTheme);
 			set => Config.AppTheme = value.ToString();
-		}
-
-		public static DeleteSourceFilesMode DeleteSourceFilesMode
-		{
-			get => (DeleteSourceFilesMode)Enum.Parse(typeof(DeleteSourceFilesMode), Config.DeleteSourceFilesMode);
-			set => Config.DeleteSourceFilesMode = value.ToString();
 		}
 
 		public static DragDropOrder DragDropOrder

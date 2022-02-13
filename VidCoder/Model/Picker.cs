@@ -251,6 +251,12 @@ namespace VidCoder.Model
 
 		public string PostEncodeArguments { get; set; } = "\"{file}\"";
 
+		public SourceFileRemoval SourceFileRemoval { get; set; } = SourceFileRemoval.Disabled;
+
+		public SourceFileRemovalTiming SourceFileRemovalTiming { get; set; } = SourceFileRemovalTiming.AfterClearingCompletedItems;
+
+		public bool SourceFileRemovalConfirmation { get; set; } = true;
+
 		private ObservableAsPropertyHelper<string> displayName;
 
 		[JsonIgnore]
