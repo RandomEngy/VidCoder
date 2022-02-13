@@ -1,4 +1,5 @@
 Installer/BuiltInstallers/*
+Installer/Releases-Beta
 Flags/*
 packages/*
 */AppPackages/*
