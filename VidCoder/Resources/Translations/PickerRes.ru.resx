@@ -389,4 +389,11 @@
   <data name="LanguageLabel" xml:space="preserve">
     <value>Язык:</value>
   </data>
+  <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
+    <value>Подтвердить перед удалением</value>
+  </data>
+  <data name="SourceFileRemovalLabel" xml:space="preserve">
+    <value>Удаление исходного файла после успешного кодирования:</value>
+    <comment>Label for the option to automatically delete source files on completion.</comment>
+  </data>
 </root>

@@ -283,9 +283,7 @@
   <data name="StoppedEncoding" xml:space="preserve">
     <value>Enkodowanie zatrzymane.</value>
   </data>
-  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>Czy na pewno chcesz usunąć {0} źródłowe pliki/foldery?</value>
-  </data>
+  
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Potwierdź usunięcie</value>
   </data>
@@ -503,6 +501,10 @@
     <value>Nie można odnaleźć odtwarzacza wideo w {0}.</value>
     <comment>{0} is the path to the custom video player.</comment>
   </data>
+  
+  
+  
+  
   
   
   

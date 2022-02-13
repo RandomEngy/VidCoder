@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Opslaan</value>
@@ -837,5 +837,20 @@ Lapsharp verscherpt middels plooikernen die Laplaciaanse randfilters benaderen e
   </data>
   <data name="ColorspaceLabel" xml:space="preserve">
     <value>Kleurruimte:</value>
+  </data>
+  <data name="ChromaSmoothToolTip" xml:space="preserve">
+    <value>Vermindert chroma-ruis, regenbogen en andere prominente visuele artefacten. Handig voor het oplossen van verschillende kleurgerelateerde problemen, vooral bij inhoud met een lagere resolutie van analoge bronnen, bijvoorbeeld dvd- en VHS-bronnen van slechte kwaliteit. Het vervagings-/afvlakalgoritme is hetzelfde als dat van het onscherpe filter</value>
+  </data>
+  <data name="ConstrainToOneAxisCheckBox" xml:space="preserve">
+    <value>Beperken tot één as</value>
+  </data>
+  <data name="ConstrainToOneAxisToolTip" xml:space="preserve">
+    <value>Indien ingeschakeld zal alleen de as met het meest gedetecteerde uitsnijding worden bijgesneden Bijvoorbeeld als Top+Onderaan = 32 en Links+Rechter = 6, dan links en rechts bijsnijden op 0.</value>
+  </data>
+  <data name="MinimumCroppingLabel" xml:space="preserve">
+    <value>Minimum:</value>
+  </data>
+  <data name="MinimumCroppingToolTip" xml:space="preserve">
+    <value>Als het automatisch bijsnijden voor een zijde onder deze waarde ligt, schakel dan het bijsnijden voor die zijde uit. Handig om resampling op kleine bijsnijdhoeveelheden te voorkomen </value>
   </data>
 </root>

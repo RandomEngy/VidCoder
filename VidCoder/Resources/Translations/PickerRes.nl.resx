@@ -389,4 +389,11 @@ Alle - Bevat alle ondertitels.</value>
   <data name="LanguageLabel" xml:space="preserve">
     <value>Taal:</value>
   </data>
+  <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
+    <value>Bevestigen voor verwijderen</value>
+  </data>
+  <data name="SourceFileRemovalLabel" xml:space="preserve">
+    <value>Bronbestand verwijderen na succesvolle codering:</value>
+    <comment>Label for the option to automatically delete source files on completion.</comment>
+  </data>
 </root>

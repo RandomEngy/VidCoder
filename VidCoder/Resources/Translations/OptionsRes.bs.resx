@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Opšte</value>
@@ -162,7 +162,6 @@
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Omogući LibDVDNav (Promjena zahtjeva ponovo pokretanje programa. Potrebno za korištenje opcije više uglova)</value>
   </data>
-  
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Opširnost zapisivanja:</value>
   </data>
@@ -190,12 +189,7 @@
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Pridružite se Beta kanalu da bi dobijali češća ažuriranja</value>
   </data>
-  <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>Ažuriranje {0} je spremno. Biti će instalirano kada izađete iz programa.</value>
-  </data>
-  <data name="DownloadingStatus" xml:space="preserve">
-    <value>Preuzimam ažuriranja {0}:</value>
-  </data>
+  
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder je ažuran.</value>
   </data>
@@ -213,9 +207,6 @@
   </data>
   <data name="UpdatesTab" xml:space="preserve">
     <value>Ažuriranja</value>
-  </data>
-  <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>Pronađi posljednju verziju...</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
     <value>Provjera ažuriranja nije uspjela.</value>
@@ -345,9 +336,6 @@
     <value>Tema</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
-  <data name="PromptForUpdatesLabel" xml:space="preserve">
-    <value>Upit za ažuriranja:</value>
-  </data>
   <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
     <value>Ova opcija radnog procesa će biti u upotrebni nakon što izađete i ponovo pokrenete VidCoder.</value>
   </data>
@@ -366,6 +354,9 @@
   <data name="FileNameFormatOptions" xml:space="preserve">
     <value>Dostupne opcije: {0}</value>
   </data>
+  
+  
+  
   
   
   

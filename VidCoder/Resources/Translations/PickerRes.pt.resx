@@ -389,4 +389,11 @@ Todas - Inclui todas as legendas.</value>
   <data name="LanguageLabel" xml:space="preserve">
     <value>Idioma:</value>
   </data>
+  <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
+    <value>Confirmar antes de remover</value>
+  </data>
+  <data name="SourceFileRemovalLabel" xml:space="preserve">
+    <value>Remoção do ficheiro original após codificação com êxito:</value>
+    <comment>Label for the option to automatically delete source files on completion.</comment>
+  </data>
 </root>

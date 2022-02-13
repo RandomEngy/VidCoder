@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Ogólne</value>
@@ -160,7 +160,6 @@
     <value>Pamiętaj wcześniej używane pliki i foldery</value>
   </data>
   
-  
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Szczegółowość rejestrowania:</value>
   </data>
@@ -188,12 +187,7 @@
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Dołącz do trybu Beta aby otrzymywać częstsze aktualizacje</value>
   </data>
-  <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>Aktualizacja {0} gotowa. Zostanie zainstalowana po wyjściu z programu.</value>
-  </data>
-  <data name="DownloadingStatus" xml:space="preserve">
-    <value>Pobieranie aktualizacji {0}:</value>
-  </data>
+  
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder jest aktualny.</value>
   </data>
@@ -211,9 +205,6 @@
   </data>
   <data name="UpdatesTab" xml:space="preserve">
     <value>Aktualizacje</value>
-  </data>
-  <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>Wyszukiwanie najnowszej wersji...</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
     <value>Sprawdzanie aktualizacji nie powiodło się.</value>
@@ -338,10 +329,12 @@
   
   
   
-  
   <data name="FileNameFormatOptions" xml:space="preserve">
     <value>Dostępne opcje: {0}</value>
   </data>
+  
+  
+  
   
   
   

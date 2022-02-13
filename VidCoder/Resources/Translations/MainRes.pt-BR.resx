@@ -285,6 +285,8 @@
   </data>
   <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
     <value>Tem certeza de que deseja eliminar {0} arquivo(s)/pasta(s) de origem?</value>
+    <comment>{0} is the verb, can be "recycle" or "delete"
+{1} is the number of files that will be removed</comment>
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Confirmar exclusão</value>
@@ -733,5 +735,19 @@ Você pode continuar usando VidCoder por seu próprio risco. Certos recursos nã
 V5 foi a última versão testada para Windows 7/8.
 
 Este aviso será exibido duas vezes.</value>
+  </data>
+  <data name="RemoveSourceFiles_Delete" xml:space="preserve">
+    <value>Excluir</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RemoveSourceFiles_Recycle" xml:space="preserve">
+    <value>Reciclar</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RequestFeatureMenuItem" xml:space="preserve">
+    <value>Solicitação de recurso</value>
+  </data>
+  <data name="CopyLogAndReportMenuItem" xml:space="preserve">
+    <value>Copiar registro e relatar problemas</value>
   </data>
 </root>

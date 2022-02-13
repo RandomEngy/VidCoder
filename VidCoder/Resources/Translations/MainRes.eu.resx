@@ -283,9 +283,7 @@
   <data name="StoppedEncoding" xml:space="preserve">
     <value>Kodeaketa geldituta.</value>
   </data>
-  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>Zihur zaude {0} iturburuko agiria(k)/agiritegia(k) ezabatzea nahi d(it)uzula?</value>
-  </data>
+  
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Baieztatu ezabapena</value>
   </data>
@@ -738,4 +736,8 @@ v5 da Windows 7/8-rako dagoen azken bertsioa.
 
 Kontuz-ohar hau bi aldiz bakarrik erakutsiko da.</value>
   </data>
+  
+  
+  
+  
 </root>

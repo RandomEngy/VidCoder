@@ -283,9 +283,7 @@
   <data name="StoppedEncoding" xml:space="preserve">
     <value>Pengkodean dihentikan.</value>
   </data>
-  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>Apakah Anda yakin Anda ingin menghapus {0} sumber file / folder?</value>
-  </data>
+  
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Konfirmasi Hapus</value>
   </data>
@@ -648,6 +646,10 @@
   <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
     <value>Tindakan setelah pengkodean selesai gagal dikerjakan karena ada kesalahan pada daftar hasil pengkodean.</value>
   </data>
+  
+  
+  
+  
   
   
   

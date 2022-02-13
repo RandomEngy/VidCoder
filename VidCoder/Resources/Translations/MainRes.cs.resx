@@ -283,9 +283,7 @@
   <data name="StoppedEncoding" xml:space="preserve">
     <value>Enkódování zastaveno.</value>
   </data>
-  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>Opravdu chcete odstranit {0} zdrojový soubor(y)/složku(y)?</value>
-  </data>
+  
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Potvrdit odstranění</value>
   </data>
@@ -517,6 +515,10 @@
   <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
     <value>Došlo k chybě při načítání některých souborů a nebyly přidány do fronty: {0}</value>
   </data>
+  
+  
+  
+  
   
   
   

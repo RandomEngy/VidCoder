@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Orokorra</value>
@@ -162,9 +162,6 @@
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Gaitu LibDVDNav (Aldatzeak programa berrabiaraztea behar du. Beharrezkoa angelu anitz sostengatzeko)</value>
   </data>
-  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Ezabatu iturburu agiriak ongi osatutako gaiak garbitu ondoren</value>
-  </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Ohar Berritsukeria:</value>
   </data>
@@ -192,12 +189,7 @@
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Batu Beta bidera eguneraketak sarriago lortzeko</value>
   </data>
-  <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>{0} eguneraketa gertu. Programatik irtetzen zarenean ezarriko da.</value>
-  </data>
-  <data name="DownloadingStatus" xml:space="preserve">
-    <value>Eguneraketa jeisten {0}:</value>
-  </data>
+  
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder eguneratuta dago.</value>
   </data>
@@ -215,9 +207,6 @@
   </data>
   <data name="UpdatesTab" xml:space="preserve">
     <value>Eguneraketak</value>
-  </data>
-  <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>Azken bertsioa bilatzen...</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
     <value>Eguneraketa egiaztapen hutsegitea.</value>
@@ -347,9 +336,6 @@
     <value>Azalgaia</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
-  <data name="PromptForUpdatesLabel" xml:space="preserve">
-    <value>Galdetu eguneraketak:</value>
-  </data>
   <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
     <value>Langile prozesua aukerak irten eta VidCoder berrabiarazi ondoren izango du eragina.</value>
   </data>
@@ -384,4 +370,7 @@
   <data name="EncodeRetriesLabel" xml:space="preserve">
     <value>Kodeaketa bersaiatze zenbatekoa:</value>
   </data>
+  
+  
+  
 </root>

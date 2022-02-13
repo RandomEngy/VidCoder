@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutLicense" xml:space="preserve">
     <value>ეს არის თავისუფალი პროგრამა. შესაძლებელია გავრცელება და/ან მოდიფიცირება "GNU" ძირითადი საჯარო ლიცენზიის პირობების გათვალისწინებით, როგორც გამოქვეყნებულია თავისუფალი პროგრამის ფონდის მიერ. ლიცენზიის II ვერსიით, ან (თქვენი არჩევით) მომდევნო ვერსიით.
@@ -316,11 +316,27 @@
   <data name="DefaultLabel" xml:space="preserve">
     <value>სტანდარტი:</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
+  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
+    <value>აუდიო წყაროები</value>
+  </data>
+  <data name="QueueColumnNameCropping" xml:space="preserve">
+    <value>შემოჭრა</value>
+  </data>
+  <data name="QueueColumnNameOutputSize" xml:space="preserve">
+    <value>საბოლოო ზომა</value>
+  </data>
+  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
+    <value>ტიტრის წყაროები</value>
+  </data>
+  <data name="Manual" xml:space="preserve">
+    <value>პერსონალური</value>
+    <comment>Shown when something has been set manually</comment>
+  </data>
+  <data name="FileNoLongerExists" xml:space="preserve">
+    <value>ფაილი არ არსებობს.</value>
+  </data>
+  <data name="MegabytesAbbreviation" xml:space="preserve">
+    <value>MB</value>
+    <comment>Abbreviation for megabytes</comment>
+  </data>
 </root>

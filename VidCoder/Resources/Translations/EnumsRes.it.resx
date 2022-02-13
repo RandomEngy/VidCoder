@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Anamorphic_Custom" xml:space="preserve">
     <value>Personalizzato</value>
@@ -208,25 +208,25 @@
     <value>NL-Means</value>
   </data>
   <data name="EncodeCompleteActionType_CloseProgram" xml:space="preserve">
-    <value>Chiudi VidCoder</value>
+    <value>chiudi VidCoder</value>
   </data>
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
-    <value>Nessuna azione</value>
+    <value>nessuna azione</value>
   </data>
   <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
     <value>Espelli {0}:</value>
   </data>
   <data name="EncodeCompleteActionType_Hibernate" xml:space="preserve">
-    <value>Iberna il PC</value>
+    <value>metti in ibernazione</value>
   </data>
   <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
-    <value>Disconnetti</value>
+    <value>disconnetti</value>
   </data>
   <data name="EncodeCompleteActionType_Shutdown" xml:space="preserve">
-    <value>Spegni PC</value>
+    <value>spegni il PC</value>
   </data>
   <data name="EncodeCompleteActionType_Sleep" xml:space="preserve">
-    <value>Sospendi</value>
+    <value>sospendi</value>
   </data>
   <data name="Off" xml:space="preserve">
     <value>Spento</value>
@@ -289,12 +289,6 @@
   <data name="PickerTimeRangeMode_Time" xml:space="preserve">
     <value>Intervallo di tempo</value>
   </data>
-  <data name="DeleteSourceFilesMode_DeleteWithConfirmation" xml:space="preserve">
-    <value>Elimina file (con conferma)</value>
-  </data>
-  <data name="DeleteSourceFilesMode_Recycle" xml:space="preserve">
-    <value>Sposta nel Cestino</value>
-  </data>
   <data name="WhenFileExists_AutoRename" xml:space="preserve">
     <value>Rinomina automaticamente</value>
   </data>
@@ -344,5 +338,23 @@
   </data>
   <data name="SubtitleBurnInSelection_None" xml:space="preserve">
     <value>Nessuna</value>
+  </data>
+  <data name="SourceFileRemovalTiming_AfterClearingCompletedItems" xml:space="preserve">
+    <value>Dopo aver eliminato gli elementi completati</value>
+  </data>
+  <data name="SourceFileRemovalTiming_Immediately" xml:space="preserve">
+    <value>Subito dopo il completamento della codifica</value>
+  </data>
+  <data name="SourceFileRemoval_Delete" xml:space="preserve">
+    <value>⚠️ Elimina (IRREVERSIBLE) ⚠️</value>
+  </data>
+  <data name="SourceFileRemoval_Recycle" xml:space="preserve">
+    <value>Ricicla</value>
+  </data>
+  <data name="UpdateMode_PromptApplyImmediately" xml:space="preserve">
+    <value>Richiesta conferma se applica subito</value>
+  </data>
+  <data name="UpdateMode_SilentNextLaunch" xml:space="preserve">
+    <value>Silenzioso (Applica al prossimo avvio)</value>
   </data>
 </root>

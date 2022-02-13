@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Anamorphic_Custom" xml:space="preserve">
     <value>Personalizado</value>
@@ -289,12 +289,6 @@
   <data name="PickerTimeRangeMode_Time" xml:space="preserve">
     <value>Intervalo de tempo</value>
   </data>
-  <data name="DeleteSourceFilesMode_DeleteWithConfirmation" xml:space="preserve">
-    <value>Eliminar ficheiros (com confirmação)</value>
-  </data>
-  <data name="DeleteSourceFilesMode_Recycle" xml:space="preserve">
-    <value>Enviar para a Reciclagem</value>
-  </data>
   <data name="WhenFileExists_AutoRename" xml:space="preserve">
     <value>Renomear automaticamente</value>
   </data>
@@ -344,5 +338,23 @@
   </data>
   <data name="SubtitleBurnInSelection_None" xml:space="preserve">
     <value>Nenhuma</value>
+  </data>
+  <data name="SourceFileRemovalTiming_AfterClearingCompletedItems" xml:space="preserve">
+    <value>Após limpar os itens concluídos</value>
+  </data>
+  <data name="SourceFileRemovalTiming_Immediately" xml:space="preserve">
+    <value>Imediatamente após conclusão da codificação</value>
+  </data>
+  <data name="SourceFileRemoval_Delete" xml:space="preserve">
+    <value>⚠️ Eliminar (IRREVERSÍVEL) ⚠️</value>
+  </data>
+  <data name="SourceFileRemoval_Recycle" xml:space="preserve">
+    <value>Reciclar</value>
+  </data>
+  <data name="UpdateMode_PromptApplyImmediately" xml:space="preserve">
+    <value>Perguntar para aplicar imediatamente</value>
+  </data>
+  <data name="UpdateMode_SilentNextLaunch" xml:space="preserve">
+    <value>Silencioso (Aplicar na próxima inicialização)</value>
   </data>
 </root>

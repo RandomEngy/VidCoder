@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>შენახვა</value>
@@ -482,7 +482,7 @@
 გადააწერს ყველა სხვა პარამეტრს.</value>
   </data>
   <data name="Profile_high444" xml:space="preserve">
-    <value>მაღალი 4:4:4 ამოცნობა</value>
+    <value>მაღალი 4:4:4-ის ამოცნობა</value>
   </data>
   <data name="VideoCodecLabel" xml:space="preserve">
     <value>ვიდეო კოდეკი:</value>
@@ -617,7 +617,7 @@
     <value>შაბლონის სიის გახსნა</value>
   </data>
   <data name="DefaultChapterName" xml:space="preserve">
-    <value>თავი {0}</value>
+    <value>სათავე {0}</value>
     <comment>What a chapter will be named when not given a custom name. {0} is the chapter number.</comment>
   </data>
   <data name="PassthroughSettingsLabel" xml:space="preserve">
@@ -759,7 +759,7 @@ HQDN3D-ი ადაპტური დაბალი ხარისხის 
 ტელესინი პროცესია, რომელიც გარდაქმნის 24fps კადრის სიხშირეს NTSC 30fps ვიდეო კადრზე.</value>
   </data>
   <data name="SharpenToolTip" xml:space="preserve">
-    <value>სიმკვეთრის ფილტრი, აძლიერებს კადრის გამოსახულებას, განსაკუთრებით ხედს. მოჭარბებულად გაზრდილმა სიმკვეთრის პარამეტრებამა შესაძლებელია დააძიანოს კადრის ხარისხი, რომელიც შეამცირებს შეკუმშვის ეფექტურობას.
+    <value>სიმკვეთრის ფილტრი, აძლიერებს კადრის გამოსახულებას, განსაკუთრებით ხედს. მოჭარბებულად გაზრდილმა სიმკვეთრის პარამეტრებამა შესაძლებელია დააზიანოს კადრის ხარისხი, რომელიც შეამცირებს შეკუმშვის ეფექტურობას.
 
 სიბაცის ფილტრი, ზოგადი მიზანის დანიშნულებისაა. რომელიც ამკვეთრებს სიბაცით, შემდეგ კი გამოითვლის სხვაობას ორიგინალი და ბაცი კადრებს შორის.
 
@@ -827,8 +827,32 @@ HQDN3D-ი ადაპტური დაბალი ხარისხის 
   <data name="MoreOptionsToolTip" xml:space="preserve">
     <value>კოდირების დამატებითი გაფართოებული პარამეტრების დამატება.</value>
   </data>
-  
-  
-  
-  
+  <data name="CannotSwitchEncodingPresetDueToPicker" xml:space="preserve">
+    <value>კოდირების შაბლონი ბლოკირებულია ამომრჩევის ფანჯარაში</value>
+    <comment>Message to show when the user is blocked from switching an encoding preset due to a Picker setting.</comment>
+  </data>
+  <data name="PadColorTextToolTip" xml:space="preserve">
+    <value>ფორმატი: FFFFFF</value>
+  </data>
+  <data name="ChromaSmoothLabel" xml:space="preserve">
+    <value>ქრომის ინტენსიურობა:</value>
+  </data>
+  <data name="ColorspaceLabel" xml:space="preserve">
+    <value>ფერის სივრცე:</value>
+  </data>
+  <data name="ChromaSmoothToolTip" xml:space="preserve">
+    <value>ამცირებს ქრომის წერტილებს, ცისარტყელის და სხვა ცნობილ ვიზუალურ ხარვეზებს. გამოსადეგია მრავალჯერადი ფერების პრობლების აღმოსაფრხველად, განსაკუთრებით ანალოგიური პატარა წყაროს განზომილების შემცველობისთვის, მაგალითად დაბალი ხარისხის DVD და VHS-ის წყაროსთვის. სიბაცის/გაუმჯობესების ალგორითმი, იგივეა რასაც იყენებს სიბაცის ფილტრი.</value>
+  </data>
+  <data name="ConstrainToOneAxisCheckBox" xml:space="preserve">
+    <value>ვიზუალიზირების დაძალება</value>
+  </data>
+  <data name="ConstrainToOneAxisToolTip" xml:space="preserve">
+    <value>თუ მონიშნულია, შემოჭრის მხოლოდ ვიზუალურად დაფიქსირებულს. მაგალითად თუ ზევით + ქვევით = 32 და მარცხნივ + მარჯვნივ = 6, მაშინ შემოჭრა მარცხნივ და მარჯვნივ დაფიქსირდება 0-ად.</value>
+  </data>
+  <data name="MinimumCroppingLabel" xml:space="preserve">
+    <value>მინიმუმი:</value>
+  </data>
+  <data name="MinimumCroppingToolTip" xml:space="preserve">
+    <value>თუ ავტომატური გვერდების შემოჭრაა მონიშნული, დეააქტივირეთ მინიმალური გვერდების შემოჭრა. გამოსადეგია პატარა შემოჭრის არის დასაცავად.</value>
+  </data>
 </root>

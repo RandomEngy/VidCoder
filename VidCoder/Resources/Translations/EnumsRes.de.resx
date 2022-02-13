@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Anamorphic_Custom" xml:space="preserve">
     <value>Benutzerdefiniert</value>
@@ -289,6 +289,15 @@
   <data name="PickerTimeRangeMode_Time" xml:space="preserve">
     <value>Zeitbereich</value>
   </data>
+  <data name="WhenFileExists_AutoRename" xml:space="preserve">
+    <value>Automatisch umbenennen</value>
+  </data>
+  <data name="WhenFileExists_Overwrite" xml:space="preserve">
+    <value>Überschreiben</value>
+  </data>
+  <data name="WhenFileExists_Prompt" xml:space="preserve">
+    <value>Fragen</value>
+  </data>
   
   
   
@@ -296,15 +305,34 @@
   
   
   
+  <data name="DragDropOrder_Alphabetical" xml:space="preserve">
+    <value>Alphabetisch</value>
+    <comment>Label for the option to order dragged files alphabetically</comment>
+  </data>
+  <data name="DragDropOrder_Selected" xml:space="preserve">
+    <value>Ausgewählt</value>
+    <comment>Label for the option to order dragged files as they had been selected in File explorer</comment>
+  </data>
   
+  <data name="SubtitleBurnInSelection_ForeignAudioTrack" xml:space="preserve">
+    <value>Fremdsprachige Dialoge extrahieren</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrackElseFirst" xml:space="preserve">
+    <value>Fremdsprachige Audiospur, sonst zuerst</value>
+  </data>
+  <data name="SubtitleBurnInSelection_None" xml:space="preserve">
+    <value>Keine</value>
+  </data>
   
-  
-  
-  
-  
-  
-  
-  
+  <data name="SourceFileRemovalTiming_Immediately" xml:space="preserve">
+    <value>Sofort nach der Encodierung</value>
+  </data>
+  <data name="SourceFileRemoval_Delete" xml:space="preserve">
+    <value>⚠️ Löschen (nicht rückgängig zu machen) ⚠️</value>
+  </data>
+  <data name="SourceFileRemoval_Recycle" xml:space="preserve">
+    <value>Papierkorb</value>
+  </data>
   
   
 </root>

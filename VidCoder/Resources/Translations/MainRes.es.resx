@@ -283,9 +283,7 @@
   <data name="StoppedEncoding" xml:space="preserve">
     <value>La codificación se ha detenido.</value>
   </data>
-  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>¿Desea borrar los {0} archivo(s)/carpeta(s) fuente?</value>
-  </data>
+  
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Confirma para borrar</value>
   </data>
@@ -732,4 +730,8 @@ La v5 fue la última versión probada para Windows 7/8.
 
 Esta advertencia solo se mostrará un par de veces.</value>
   </data>
+  
+  
+  
+  
 </root>

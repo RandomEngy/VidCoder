@@ -389,4 +389,11 @@ Tutte: includi tutte le tracce dei sottotitoli.</value>
   <data name="LanguageLabel" xml:space="preserve">
     <value>Lingua:</value>
   </data>
+  <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
+    <value>Conferma prima di rimuovere</value>
+  </data>
+  <data name="SourceFileRemovalLabel" xml:space="preserve">
+    <value>Rimozione file sorgente dopo una codifica conclusasi con successo:</value>
+    <comment>Label for the option to automatically delete source files on completion.</comment>
+  </data>
 </root>

@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Geral</value>
@@ -162,9 +162,6 @@
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Habilitar LibDVDNav (Requer reinicialização do programa. Necessário para suportar múltiplos ângulos)</value>
   </data>
-  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Excluir arquivos de origem após limpeza dos itens concluídos com sucesso</value>
-  </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Detalhe do Relatório:</value>
   </data>
@@ -193,10 +190,7 @@
     <value>Junte-se à lista de testadores da versão Beta para obter atualizações mais frequentes</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>Atualização {0} pronta. Será instalada quando sair do programa.</value>
-  </data>
-  <data name="DownloadingStatus" xml:space="preserve">
-    <value>Baixar atualização {0}:</value>
+    <value>Atualização {0} pronta.</value>
   </data>
   <data name="UpToDateStatus" xml:space="preserve">
     <value>O VidCoder está atualizado.</value>
@@ -215,9 +209,6 @@
   </data>
   <data name="UpdatesTab" xml:space="preserve">
     <value>Atualizações</value>
-  </data>
-  <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>Procurando uma versão mais recente...</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
     <value>Verificação de atualização falhou.</value>
@@ -347,9 +338,6 @@
     <value>Tema</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
-  <data name="PromptForUpdatesLabel" xml:space="preserve">
-    <value>Alertas para atualizações:</value>
-  </data>
   <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
     <value>A opção de processar a tarefa, entrará em vigor após você sair e reiniciar o VidCoder.</value>
   </data>
@@ -383,5 +371,15 @@
   </data>
   <data name="EncodeRetriesLabel" xml:space="preserve">
     <value>Número de tentativas de codificação:</value>
+  </data>
+  <data name="ApplyUpdateButton" xml:space="preserve">
+    <value>Instalar atualização</value>
+  </data>
+  <data name="CheckingForUpdateStatus" xml:space="preserve">
+    <value>Verificando atualizações...</value>
+  </data>
+  <data name="UpdateModeLabel" xml:space="preserve">
+    <value>Modo de atualização:</value>
+    <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
   </data>
 </root>

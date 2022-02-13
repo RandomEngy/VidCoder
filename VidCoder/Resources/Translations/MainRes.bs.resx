@@ -283,9 +283,7 @@
   <data name="StoppedEncoding" xml:space="preserve">
     <value>Enkodiranje zaustavljeno.</value>
   </data>
-  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>Jeste li sigurni da želite izbrisati {0} izvorni(e) fajl(ove)/folder(e)?</value>
-  </data>
+  
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Potvrdite brisanje</value>
   </data>
@@ -652,6 +650,10 @@
   <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
     <value>Akcija završeno enkodiranje nije pokrenuta zbog greški u listi rezultata enkodiranja.</value>
   </data>
+  
+  
+  
+  
   
   
   

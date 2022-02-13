@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Obecné</value>
@@ -160,7 +160,6 @@
     <value>Pamatovat dříve použité soubory a složky</value>
   </data>
   
-  
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Úroveň logování:</value>
   </data>
@@ -188,12 +187,7 @@
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Připojte se k testování Beta verzí s vyšší frekvencí aktualizací</value>
   </data>
-  <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>Aktualizace {0} připravena. Instalace bude zahájena po ukončení programu.</value>
-  </data>
-  <data name="DownloadingStatus" xml:space="preserve">
-    <value>Stahování aktualizace {0}:</value>
-  </data>
+  
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder je aktualizován.</value>
   </data>
@@ -211,9 +205,6 @@
   </data>
   <data name="UpdatesTab" xml:space="preserve">
     <value>Aktualizace</value>
-  </data>
-  <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>Zjištění poslední verze...</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
     <value>Kontrola aktualizace se nezdařila.</value>
@@ -338,10 +329,12 @@
   
   
   
-  
   <data name="FileNameFormatOptions" xml:space="preserve">
     <value>Dostupné možnosti: {0}</value>
   </data>
+  
+  
+  
   
   
   

@@ -153,7 +153,9 @@
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Andere Untertitelspuren werden die eingebrannten Untertitel überlagern.</value>
   </data>
-  
+  <data name="ForeignAudioScan" xml:space="preserve">
+    <value>Fremdsprachige Dialoge extrahieren</value>
+  </data>
   <data name="SubtitleFilePickerText" xml:space="preserve">
     <value>Füge Untertitel-Datei hinzu</value>
   </data>

@@ -284,7 +284,9 @@
     <value>Ferma la codifica.</value>
   </data>
   <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>Sei sicuro di voler cancellare il file o i files di origine: {0} / o la/le cartelle?</value>
+    <value>Sei sicuro di voler {0} {1} il o i file sorgenti / la o le cartelle?</value>
+    <comment>{0} is the verb, can be "recycle" or "delete"
+{1} is the number of files that will be removed</comment>
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Conferma eliminazione</value>
@@ -326,7 +328,7 @@
     <value>Rimanente:</value>
   </data>
   <data name="WhenDoneLabel" xml:space="preserve">
-    <value>Quando concluso</value>
+    <value>Quando concludi l'elaborazione: </value>
   </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>File video...</value>
@@ -733,5 +735,19 @@
 La versione 5.x è stata l'ultima testata per Windows 7/8.
 
 Questo avviso verrà visualizzato solo due volte.</value>
+  </data>
+  <data name="RemoveSourceFiles_Delete" xml:space="preserve">
+    <value>elimina</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RemoveSourceFiles_Recycle" xml:space="preserve">
+    <value>Ricicla</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RequestFeatureMenuItem" xml:space="preserve">
+    <value>Richiedi una funzionalità</value>
+  </data>
+  <data name="CopyLogAndReportMenuItem" xml:space="preserve">
+    <value>Copia il file di tracciamento e segnala il problema</value>
   </data>
 </root>

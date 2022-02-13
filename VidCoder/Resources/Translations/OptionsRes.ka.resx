@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>ძირითადი</value>
@@ -162,7 +162,6 @@
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>LibDVDNav-ის ჩართვა (საჭიროებს პროგრამის გადატვირთვას. მოითხოვება მრავალჯერადი ფუნქციებისთვის)</value>
   </data>
-  
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>დაწვრილებითი პროტოკოლი:</value>
   </data>
@@ -191,10 +190,7 @@
     <value>მიიღეთ ბეტა პროექტში მონაწილეობა, ხშირი აქტუალიზირებებისთვის</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>აქტუალიზირება {0} მზადაა. აქტუალიზირდება პროგრამიდან გასვლის შემდეგ.</value>
-  </data>
-  <data name="DownloadingStatus" xml:space="preserve">
-    <value>აქტუალიზირება {0} იტვირთება:</value>
+    <value>{0}-ზე აქტუალიზირება მზადაა.</value>
   </data>
   <data name="UpToDateStatus" xml:space="preserve">
     <value>თქვენ იყენებთ VidCoder-ის აქტუალურ ვერსიას.</value>
@@ -213,9 +209,6 @@
   </data>
   <data name="UpdatesTab" xml:space="preserve">
     <value>აქტუალიზირებები</value>
-  </data>
-  <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>უახლესი ვერსიის ძებნა...</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
     <value>აქტუალიზირების შემოწმება წარუმატებელია.</value>
@@ -345,9 +338,6 @@
     <value>თემა</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
-  <data name="PromptForUpdatesLabel" xml:space="preserve">
-    <value>აქტუალიზირებისთვის შემოთავაზება:</value>
-  </data>
   <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
     <value>სამუშაო პროცესი გაგრძელება VidCoder-ის გადატვირთვის შემდეგ.</value>
   </data>
@@ -360,13 +350,36 @@
   <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
     <value>ქმედება "დასრულებისას" როდესაც კოდირების დავალება წარუმატებელია</value>
   </data>
-  
-  
-  
+  <data name="AutoPauseLowBatteryCheckbox" xml:space="preserve">
+    <value>დაბალი ელემენტისას კოდირების შეჩერება</value>
+  </data>
+  <data name="AutoPauseLowDiskSpaceCheckbox" xml:space="preserve">
+    <value>კოდირების შეჩერება, თუ მყარი დისკის მოცულობა ნაკლებია:</value>
+  </data>
+  <data name="AutoPauseSectionLabel" xml:space="preserve">
+    <value>ავტომატურად შეჩერება</value>
+  </data>
   <data name="FileNameFormatOptions" xml:space="preserve">
     <value>დაშვებული პარამეტრებია: {0}</value>
   </data>
-  
-  
-  
+  <data name="LowDiskSpaceThresholdAutomationName" xml:space="preserve">
+    <value>მყარი დისკის დაბალი მოცულობის ბარიერი გიგაბაიტებში</value>
+    <comment>Screen reader name for the low disk space threshold number box</comment>
+  </data>
+  <data name="DragDropScanOrderLabel" xml:space="preserve">
+    <value>გადმოიტანეთ სკანირებისთვის ფოლდერი:</value>
+  </data>
+  <data name="EncodeRetriesLabel" xml:space="preserve">
+    <value>კოდირების განმეორების რაოდენობა:</value>
+  </data>
+  <data name="ApplyUpdateButton" xml:space="preserve">
+    <value>აქტუალიზირების დაყენება</value>
+  </data>
+  <data name="CheckingForUpdateStatus" xml:space="preserve">
+    <value>აქტუალიზირების ძებნა...</value>
+  </data>
+  <data name="UpdateModeLabel" xml:space="preserve">
+    <value>აქტუალიზირების რეჯიმი:</value>
+    <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
+  </data>
 </root>

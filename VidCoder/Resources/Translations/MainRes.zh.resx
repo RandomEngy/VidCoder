@@ -283,9 +283,7 @@
   <data name="StoppedEncoding" xml:space="preserve">
     <value>停止编码。</value>
   </data>
-  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>您确实要删除 {0} 源文件 / 文件夹吗？</value>
-  </data>
+  
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>确认删除</value>
   </data>
@@ -625,6 +623,10 @@
     <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion. This string is only used when there are multiple items queued.
 {0} is the encode complete action, ex "Shut down"</comment>
   </data>
+  
+  
+  
+  
   
   
   
