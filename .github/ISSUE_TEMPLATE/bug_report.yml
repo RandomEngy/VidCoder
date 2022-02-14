@@ -24,7 +24,7 @@ body:
     id: log
     attributes:
       label: Encode Log
-      description: "You can right click on a completed item and click \"Copy log\" or click \"Copy\" in the log window."
+      description: "You can right click on a completed item and click \"Copy log\" or click \"Copy\" in the log window. Or click on \"Windows\" -> \"Log\" -> \"Copy\" for scan errors."
       placeholder: Paste the encode log here.
       render: text
     validations:
