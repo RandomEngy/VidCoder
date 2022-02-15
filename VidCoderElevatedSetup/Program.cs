@@ -27,7 +27,7 @@ string vjQueueKeyPath = ".vjqueue";
 string presetProgId = "VidCoderPreset";
 string queueProgId = "VidCoderQueue";
 
-ElevatedSetupLogger? logger = null;
+SetupLogger? logger = null;
 
 if (args.Length > 0)
 {
@@ -35,7 +35,7 @@ if (args.Length > 0)
 	{
 		if (args[0] == "install")
 		{
-			logger = new ElevatedSetupLogger("ElevatedInstall");
+			logger = new SetupLogger("ElevatedInstall");
 			logger.Log("Running elevated jobs for install...");
 			AddRipDriveAction();
 			AddFileAssociations();
@@ -43,7 +43,7 @@ if (args.Length > 0)
 		}
 		else if (args[0] == "uninstall")
 		{
-			logger = new ElevatedSetupLogger("ElevatedUninstall");
+			logger = new SetupLogger("ElevatedUninstall");
 			logger.Log("Running elevated jobs for uninstall...");
 			RemoveRipDriveAction();
 			RemoveFileAssociations();

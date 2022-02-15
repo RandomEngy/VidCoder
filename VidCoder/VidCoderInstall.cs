@@ -24,7 +24,7 @@ namespace VidCoder
 		/// <param name="version">The app version.</param>
 		private static void OnInitialInstall(SemanticVersion version, IAppTools tools)
 		{
-			var logger = new ElevatedSetupLogger("Install");
+			var logger = new SetupLogger("Install");
 			logger.Log("Running initial install actions...");
 
 			try
@@ -55,7 +55,7 @@ namespace VidCoder
 		/// <param name="version">The app version.</param>
 		private static void OnAppUninstall(SemanticVersion version, IAppTools tools)
 		{
-			var logger = new ElevatedSetupLogger("Uninstall");
+			var logger = new SetupLogger("Uninstall");
 			logger.Log("Running uninstall actions...");
 
 			try
@@ -83,7 +83,7 @@ namespace VidCoder
 		/// </summary>
 		/// <param name="install">True if we are installing, false if we are uninstalling.</param>
 		/// <param name="logger">The logger to use.</param>
-		private static void RunElevatedSetup(bool install, ElevatedSetupLogger logger)
+		private static void RunElevatedSetup(bool install, SetupLogger logger)
 		{
 			logger.Log("Starting elevated setup...");
 
@@ -111,7 +111,7 @@ namespace VidCoder
 		/// Copies some icon files to the root local app data folder so they can be in a stable location for file associations.
 		/// </summary>
 		/// <param name="logger">The logger to use.</param>
-		private static void CopyIconFilesToRoot(ElevatedSetupLogger logger)
+		private static void CopyIconFilesToRoot(SetupLogger logger)
 		{
 			try
 			{

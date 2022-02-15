@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace VidCoderCommon.Services
 {
-	public class ElevatedSetupLogger
+	public class SetupLogger
 	{
 		private StreamWriter logWriter;
 
-		public ElevatedSetupLogger(string type)
+		public SetupLogger(string type)
 		{
 			string logFolder = CommonUtilities.LogsFolder;
 			string logFileName = DateTimeOffset.Now.ToString("yyyy-MM-dd HH.mm.ss ") + type + ".txt";
@@ -24,6 +24,7 @@ namespace VidCoderCommon.Services
 		public void Log(string message)
 		{
 			this.logWriter.WriteLine(message);
+			this.logWriter.Flush();
 		}
 
 		public void Close()
