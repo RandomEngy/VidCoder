@@ -21,6 +21,7 @@ using ControlzEx.Theming;
 using Microsoft.Toolkit.Uwp.Notifications;
 using VidCoder.Automation;
 using Squirrel;
+using System.IO;
 
 namespace VidCoder
 {
@@ -133,15 +134,19 @@ namespace VidCoder
 
 			Config.EnsureInitialized(Database.Connection);
 
-			if (!string.IsNullOrEmpty(Config.UninstallerPath))
+			if (Utilities.InstallType == VidCoderInstallType.SquirrelInstaller && !string.IsNullOrEmpty(Config.UninstallerPath))
 			{
-				MessageBox.Show(MiscRes.OneTimeInstallerCleanup);
+				if (File.Exists(Config.UninstallerPath))
+				{
+					MessageBox.Show(MiscRes.OneTimeInstallerCleanup);
 
-				var uninstallProcess = new Process();
-				uninstallProcess.StartInfo = new ProcessStartInfo(Config.UninstallerPath, "/SILENT");
-				uninstallProcess.Start();
+					var uninstallProcess = new Process();
+					uninstallProcess.StartInfo = new ProcessStartInfo(Config.UninstallerPath, "/SILENT");
+					uninstallProcess.Start();
 
-				uninstallProcess.WaitForExit();
+					uninstallProcess.WaitForExit();
+				}
+
 				Config.UninstallerPath = string.Empty;
 			}
 
