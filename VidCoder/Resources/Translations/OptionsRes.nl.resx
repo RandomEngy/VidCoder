@@ -130,7 +130,7 @@
     <value>Speel geluid af bij voltooiing van de wachtrij</value>
   </data>
   <data name="PreferredDvdPlayerLabel" xml:space="preserve">
-    <value>Voorkeur DVD-speler:</value>
+    <value>Voorkeur Dvd-speler:</value>
   </data>
   <data name="PreferredDvdPlayerToolTip" xml:space="preserve">
     <value>Kies de speler die u wilt gebruiken voor DVD-bronnen.</value>
@@ -169,7 +169,7 @@
     <value>Minimale duur van de te scannen titel (seconden):</value>
   </data>
   <data name="RecognizedExtensionsLabel" xml:space="preserve">
-    <value>Ondersteunde Extensies:</value>
+    <value>Herkende extensies:</value>
   </data>
   <data name="RecognizedExtensionsToolTip" xml:space="preserve">
     <value>Bij het scannen van mappen voor video bestanden, bestanden met deze extensies toevoegen. (Komma gescheiden)</value>
@@ -190,7 +190,7 @@
     <value>Neem deel aan het bèta-programma om vaker updates te krijgen</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>Update {0} gereed.</value>
+    <value>Update {0} staat klaar.</value>
   </data>
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder is up-to-date.</value>
@@ -202,10 +202,10 @@
     <value>Interfacetaal:</value>
   </data>
   <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
-    <value>De nieuwe taal wordt van kracht na het afsluiten en herstarten van Video der.</value>
+    <value>De nieuwe taal wordt van kracht na het opnieuw starten van VidCoder.</value>
   </data>
   <data name="UseOSLanguage" xml:space="preserve">
-    <value>Systeemtaal gebruiken</value>
+    <value>Systeemtaal</value>
   </data>
   <data name="UpdatesTab" xml:space="preserve">
     <value>Updates</value>
@@ -214,13 +214,13 @@
     <value>Update controle mislukt.</value>
   </data>
   <data name="CompletionWavFilePickTitle" xml:space="preserve">
-    <value>Kies het .wav-bestand dat u wilt gebruiken voor het geluid van de voltooiing.</value>
+    <value>Kies het wav-bestand dat u wilt gebruiken voor het geluid van de voltooiing.</value>
   </data>
   <data name="CurrentVersionLabel" xml:space="preserve">
     <value>Huidige versie: {0}</value>
   </data>
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
-    <value>Let op: deze versie heeft waarschijnlijk meer bugs en crashes.</value>
+    <value>Let op: deze versie heeft mogelijk meer bugs en crashes.</value>
   </data>
   <data name="PlayersSection" xml:space="preserve">
     <value>Spelers</value>
@@ -256,13 +256,13 @@
     <value>Bèta</value>
   </data>
   <data name="UseCustomWavLabel" xml:space="preserve">
-    <value>Gebruik aangepast .wav-bestand:</value>
+    <value>Aangepast wav-bestand:</value>
   </data>
   <data name="CheckNowButton" xml:space="preserve">
     <value>Nu controleren</value>
   </data>
   <data name="UseSystemPlayer" xml:space="preserve">
-    <value>Gebruik systeemspeler</value>
+    <value>Systeemspeler</value>
   </data>
   <data name="VideoFilesLabel" xml:space="preserve">
     <value>Videobestanden:</value>
@@ -295,7 +295,7 @@
     <value>Laag</value>
   </data>
   <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
-    <value>De codeer-log kopiëren naar dezelfde map als de gecodeerde video</value>
+    <value>Coderingslogboek kopiëren naar dezelfde map als de gecodeerde video</value>
   </data>
   <data name="OpenLogFolderButton" xml:space="preserve">
     <value>De logboekmap openen</value>
@@ -307,20 +307,20 @@
     <value>Werkproces gebruiken om te coderen</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
-    <value>Behoud Gemaakte en Aangepaste tijd wanneer u bestanden converteert</value>
+    <value>Behoud Gemaakte en Gewijzigde tijd bij het converteren van bestanden</value>
   </data>
   <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
-    <value>Aangepaste map voor previews:</value>
+    <value>Aangepaste map voor voorvertoningen:</value>
   </data>
   <data name="ProcessOptionsLabel" xml:space="preserve">
     <value>Verwerkingsopties</value>
   </data>
   <data name="CpuThrottlingLabel" xml:space="preserve">
-    <value>CPU-beperking - Toegestane Cores:</value>
+    <value>CPU-beperking - aantal cores:</value>
     <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use. It labels a slider that controls the percentage of allowed cores, where the max is 100%.</comment>
   </data>
   <data name="CpuThrottlingToolTip" xml:space="preserve">
-    <value>Gebruik CPU-regulering om het aantal CPU-cores te beperken dat VidCoder's kan gebruiken in het coderingsproces.</value>
+    <value>Gebruik CPU-beperking om het aantal CPU-cores te beperken dat VidCoder kan gebruiken in het coderingsproces.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Gebruik de ingebouwde mediaspeler</value>
@@ -329,7 +329,7 @@
     <value>Maximum gelijktijdige coderingstaken:</value>
   </data>
   <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
-    <value>Dit is hoeveel gelijktijdige coderingstaken zijn toegestaan. Nuttig voor machines met veel CPU cores.</value>
+    <value>Dit is hoeveel gelijktijdige coderingstaken zijn toegestaan. Nuttig voor machines met veel CPU-cores.</value>
   </data>
   <data name="GeneralSection" xml:space="preserve">
     <value>Algemeen</value>
@@ -342,10 +342,10 @@
     <value>De optie werkproces wordt van kracht nadat VidCoder opnieuw is gestart.</value>
   </data>
   <data name="CopyLogToCustomFolderLabel" xml:space="preserve">
-    <value>Kopieer de code-log naar een specifieke map</value>
+    <value>Kopieer het coderingslogboek naar een specifieke map</value>
   </data>
   <data name="KeepFailedFilesCheckBox" xml:space="preserve">
-    <value>Bestanden van mislukte of gestopte coderingen behouden</value>
+    <value>Bestanden van mislukte of onderbroken coderingen behouden</value>
   </data>
   <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
     <value>Activeer de actie "Wanneer klaar" bij mislukte coderingstaken</value>

@@ -379,7 +379,7 @@
     <value>Controllo presenza aggiornamenti...</value>
   </data>
   <data name="UpdateModeLabel" xml:space="preserve">
-    <value>Modalità di aggiornamento:</value>
+    <value>Modalità aggiornamento:</value>
     <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
   </data>
 </root>

@@ -173,10 +173,10 @@
     <value>Hulp</value>
   </data>
   <data name="VidCoderHomepageMenuItem" xml:space="preserve">
-    <value>VidCoder Homepage</value>
+    <value>VidCoder website</value>
   </data>
   <data name="ReportABugMenuItem" xml:space="preserve">
-    <value>Een fout melden</value>
+    <value>Rapporteer een fout</value>
   </data>
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
     <value>Over VidCoder...</value>
@@ -197,10 +197,10 @@
     <value>Bewerken...</value>
   </data>
   <data name="DestinationLabel" xml:space="preserve">
-    <value>Bestemming:</value>
+    <value>Doelmap:</value>
   </data>
   <data name="DestinationToolTip" xml:space="preserve">
-    <value>Klik om de bestemming aan te passen.</value>
+    <value>Klik om de doelmap aan te passen.</value>
   </data>
   <data name="Stop" xml:space="preserve">
     <value>Stoppen</value>
@@ -251,7 +251,7 @@
     <value>Hersteld vanaf Voltooid</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
-    <value>Bestemming</value>
+    <value>Doelmap</value>
   </data>
   <data name="StatusColumnHeader" xml:space="preserve">
     <value>Status</value>
@@ -377,7 +377,7 @@
     <value>Voorkeursinstelling exporteren</value>
   </data>
   <data name="SaveChangesPickerMessage" xml:space="preserve">
-    <value>Wilt u de wijzigingen aan uw huidige kiezer opslaan?</value>
+    <value>Wil je de wijzigingen aan de huidige kiezer opslaan?</value>
   </data>
   <data name="SaveChangesPickerTitle" xml:space="preserve">
     <value>Huidige kiezer opslaan?</value>
@@ -485,7 +485,7 @@
     <value>Het huidige bestand sluiten en de schijf openen?</value>
   </data>
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
-    <value>Coderingsgegevens</value>
+    <value>Coderingsdetails</value>
   </data>
   <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>Wil je het bestaande bestand hernoemen en beginnen met een nieuwe?</value>
@@ -542,10 +542,10 @@
     <value>Instellingen</value>
   </data>
   <data name="GlobalOptionsLabel" xml:space="preserve">
-    <value>Algemene Opties</value>
+    <value>Algemeen</value>
   </data>
   <data name="EncodingSettingsButton" xml:space="preserve">
-    <value>Coderingsinstellingen: {0}</value>
+    <value>Codering: {0}</value>
     <comment>{0} is a placeholder for the name of the encoding preset currently selected.</comment>
   </data>
   <data name="EncodingSettingsButtonToolTip" xml:space="preserve">
@@ -555,7 +555,7 @@
     <value>Open bron</value>
   </data>
   <data name="ImportExportRibbonButton" xml:space="preserve">
-    <value>Importeren/Exporteren</value>
+    <value>Import/Export</value>
     <comment>Label for ribbon button to import or export presets or queues</comment>
   </data>
   <data name="AddedSubtitleFromFile" xml:space="preserve">
@@ -678,10 +678,10 @@
     <value>Fout bij het verzenden van bestanden naar de prullenbak.</value>
   </data>
   <data name="DestinationAutomaticToolTip" xml:space="preserve">
-    <value>Bestemming is automatisch ingesteld. Klik om de instellingen te bewerken.</value>
+    <value>Doelmap is automatisch ingesteld. Klik om dit te bewerken.</value>
   </data>
   <data name="DestinationManualToolTip" xml:space="preserve">
-    <value>Bestemming is handmatig ingesteld. Klik om terug te keren naar automatisch.</value>
+    <value>Doelmap is handmatig ingesteld. Klik om terug te zetten in automatisch.</value>
   </data>
   <data name="CompareAgainstOriginal" xml:space="preserve">
     <value>Vergelijk met origineel</value>

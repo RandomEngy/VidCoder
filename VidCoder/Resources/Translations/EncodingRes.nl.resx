@@ -124,17 +124,17 @@
     <value>Opslaan als...</value>
   </data>
   <data name="Revert" xml:space="preserve">
-    <value>Ongedaan maken</value>
+    <value>Terugzetten</value>
   </data>
   <data name="Audio_DrcToolTip" xml:space="preserve">
-    <value>Dynamisch bereik compressie. Geldige waarden zijn 0-4.
+    <value>Dynamisch bereikcompressie. Geldige waarden zijn 0-4.
 
-Voor audio bronnen met een breek dynamisch bereik (erg luide en erg zachte gedeeltes) maakt DRC het mogelijk om het bereik te 'comprimeren' door luide gedeeltes wat zachter te maken en zachte gedeeltes wat luider.
+Voor audiobronnen met een groot dynamisch bereik (erg luide en erg zachte gedeeltes) maakt DRC het mogelijk om het bereik te 'comprimeren' door luide gedeeltes wat zachter te maken en zachte gedeeltes wat luider.
 
 Dit werkt alleen als de audiobron van het type AC3 is.</value>
   </data>
   <data name="Audio_GainToolTip" xml:space="preserve">
-    <value>Versterk of verzacht de audio voor de encodering. Geldige waarden zijn -20 tot +20 dB.</value>
+    <value>Versterk of verzacht de audio vóór de codering. Geldige waarden zijn -20 tot +20 dB.</value>
   </data>
   <data name="IncludeChapterMarkersToolTip" xml:space="preserve">
     <value>Neem hoofdstukmarkering van de originele video over in de gecodeerde video.</value>
@@ -146,18 +146,18 @@ Dit werkt alleen als de audiobron van het type AC3 is.</value>
     <value>Stel handmatig een Pixel Aspect Ratio in.</value>
   </data>
   <data name="Video_QualityTargetToolTip" xml:space="preserve">
-    <value>Stel de gewenste kwaliteit in. De schaal is verschillend voor elke video encoder.</value>
+    <value>Stel de gewenste kwaliteit in. De schaal is verschillend voor elke video-encoder.</value>
   </data>
   <data name="WebOptimizedToolTip" xml:space="preserve">
-    <value>Optimaliseer het bestand zodat het beter geschikt is voor streaming (progressive download).</value>
+    <value>Optimaliseer het bestand zodat het beter geschikt is voor streaming (progressieve download).</value>
   </data>
   <data name="ProfileToolTip" xml:space="preserve">
-    <value>Beperk het video codec profiel van de resulterende video. Als je hier een profiel instelt, gaat deze instelling vóór alle andere instellingen, waardoor je zeker kunt zijn dat het resultaat compatibel gaat zijn voor jouw apparaat.
+    <value>Beperk het profiel van de resulterende video. De instellingen van dit profiel gaan vóór alle andere instellingen, waardoor je zeker kunt zijn dat het resultaat compatibel gaat zijn voor jouw apparaat.
 
-Stel dit in als je weet dat een apparaat waarvoor je dit doet niet alle profielen aan kan.</value>
+Stel dit in als je weet dat een apparaat waarvoor je dit doet niet alle profielen aankan.</value>
   </data>
   <data name="X264TuneToolTip" xml:space="preserve">
-    <value>Fijnafstemming opties ten behoeve van specifiek bronnen. Als je fijnafstemming instelt zullen de wijzigingen worden doorgevoerd na de Voorinstelling maar vóór alle andere instellingen.</value>
+    <value>Pas opties aan om ze verder te optimaliseren voor uw invoer inhoud. Als u een afstemming opgeeft, zullen de wijzigingen worden toegepast na de Voorkeursinstelling maar vóór alle andere parameters.</value>
   </data>
   <data name="ContainerLabel" xml:space="preserve">
     <value>Container:</value>
@@ -256,7 +256,7 @@ Stel dit in als je weet dat een apparaat waarvoor je dit doet niet alle profiele
     <value>Framesnelheid (FPS):</value>
   </data>
   <data name="ConstantFramerateRadioButton" xml:space="preserve">
-    <value>Constante Framesnelheid</value>
+    <value>Constante framerate</value>
   </data>
   <data name="Quality" xml:space="preserve">
     <value>Kwaliteit</value>
@@ -283,10 +283,10 @@ Stel dit in als je weet dat een apparaat waarvoor je dit doet niet alle profiele
     <value>Voorkeursinstelling:</value>
   </data>
   <data name="TuneLabel" xml:space="preserve">
-    <value>Tuning:</value>
+    <value>Afstemming:</value>
   </data>
   <data name="Profile_baseline" xml:space="preserve">
-    <value>Basis</value>
+    <value>Basislijn</value>
   </data>
   <data name="Profile_main" xml:space="preserve">
     <value>Algemeen</value>
@@ -476,12 +476,12 @@ Stel dit in als je weet dat een apparaat waarvoor je dit doet niet alle profiele
     <value>{0} (Standaard)</value>
   </data>
   <data name="LevelToolTip" xml:space="preserve">
-    <value>Zorgt voor conformering aan het opgegeven H. 264 niveau.
+    <value>Hiermee stelt u in en zorgt u voor naleving van het opgegeven encoder niveau.
 
-Vervangt alle andere instellingen.</value>
+Negeert alle andere instellingen.</value>
   </data>
   <data name="Profile_high444" xml:space="preserve">
-    <value>Hoge 4:4:4 voorspellende</value>
+    <value>Hoge 4:4:4 voorspelling</value>
   </data>
   <data name="VideoCodecLabel" xml:space="preserve">
     <value>Video-codec:</value>
@@ -514,7 +514,7 @@ Vervangt alle andere instellingen.</value>
     <value>Encoder</value>
   </data>
   <data name="ChannelLayout" xml:space="preserve">
-    <value>Kanaal lay-out</value>
+    <value>Kanaalopmaak</value>
   </data>
   <data name="SampleRate" xml:space="preserve">
     <value>Sample-snelheid</value>
@@ -541,13 +541,13 @@ Vervangt alle andere instellingen.</value>
     <value>Terugvallen op:</value>
   </data>
   <data name="AutoPassthroughFallbackToolTip" xml:space="preserve">
-    <value>Overnemen (passthrough) werkt niet voor alle audio-codecs. Deze instelling geeft aan op welke encodering wordt teruggevallen als het spoor niet rechtstreeks kan worden overgenomen.</value>
+    <value>Doorvoer (passthrough) werkt niet voor alle audio-codecs. Deze instelling geeft aan op welke encodering wordt teruggevallen als het spoor niet rechtstreeks kan worden overgenomen.</value>
   </data>
   <data name="EncoderSettings" xml:space="preserve">
-    <value>Encoder instellingen</value>
+    <value>Coderingsinstellingen</value>
   </data>
   <data name="QsvDecodingLabel" xml:space="preserve">
-    <value>QSV decodering</value>
+    <value>QSV-decodering</value>
   </data>
   <data name="ScaleMethod_Lanczos" xml:space="preserve">
     <value>Lanczos</value>
@@ -568,13 +568,13 @@ Vervangt alle andere instellingen.</value>
     <value>Verander opties die de balans beïnvloeden tussen betere compressie en codeersnelheid.</value>
   </data>
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
-    <value>Overnemen</value>
+    <value>Doorvoer</value>
   </data>
   <data name="Passthrough_auto" xml:space="preserve">
     <value>Automatisch</value>
   </data>
   <data name="PassthroughScopeToolTip" xml:space="preserve">
-    <value>Bepaalt welke invoer codecs worden overgenomen.</value>
+    <value>Geeft aan op welke invoercodecs de doorvoer van toepassing zal zijn.</value>
   </data>
   <data name="FlipHorizontalCheckBox" xml:space="preserve">
     <value>Horizontaal spiegelen</value>
@@ -583,16 +583,16 @@ Vervangt alle andere instellingen.</value>
     <value>Verticaal spiegelen</value>
   </data>
   <data name="Rotation_Clockwise90" xml:space="preserve">
-    <value>90° met de klok mee</value>
+    <value>90° rechtsom</value>
   </data>
   <data name="Rotation_Counterclockwise90" xml:space="preserve">
-    <value>90° tegen de klok in</value>
+    <value>90° linksom</value>
   </data>
   <data name="Rotation_180" xml:space="preserve">
     <value>180°</value>
   </data>
   <data name="RotationToolTip" xml:space="preserve">
-    <value>Draai de afbeelding. Dit wordt uitgevoerd na eventueel schalen en/of bijsnijden.</value>
+    <value>Roteer het beeld. Dit wordt uitgevoerd na eventueel schalen en/of bijsnijden.</value>
   </data>
   <data name="FlipHorizontalToolTip" xml:space="preserve">
     <value>Het beeld horizontaal spiegelen. Dit wordt uitgevoerd voor een eventuele rotatie.</value>
@@ -601,29 +601,29 @@ Vervangt alle andere instellingen.</value>
     <value>Het beeld verticaal spiegelen. Dit wordt uitgevoerd vóór een eventuele rotatie.</value>
   </data>
   <data name="PassthroughIfPossibleCheckBox" xml:space="preserve">
-    <value>Overnemen indien mogelijk</value>
+    <value>Indien mogelijk doorvoeren</value>
   </data>
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
-    <value>Als de invoer track ondersteunt wordt door de codec wordt deze overgenomen in plaats van geencodeerd.</value>
+    <value>Als het invoerspoor ondersteund wordt door de codec wordt deze doorgevoerd in plaats van gecodeerd.</value>
   </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>Rotatie:</value>
   </data>
   <data name="ClosePresetsListToolTip" xml:space="preserve">
-    <value>Lijst met voorinstellingen sluiten</value>
+    <value>Voorinstellingen sluiten</value>
   </data>
   <data name="OpenPresetsListToolTip" xml:space="preserve">
-    <value>Lijst met voorinstellingen openen</value>
+    <value>Voorinstellingen openen</value>
   </data>
   <data name="DefaultChapterName" xml:space="preserve">
     <value>Hoofdstuk {0}</value>
     <comment>What a chapter will be named when not given a custom name. {0} is the chapter number.</comment>
   </data>
   <data name="PassthroughSettingsLabel" xml:space="preserve">
-    <value>Passthrough-instellingen</value>
+    <value>Instellingen voor doorvoer</value>
   </data>
   <data name="PassthroughMaskLabel" xml:space="preserve">
-    <value>Passthrough toestaan voor:</value>
+    <value>Doorvoer toestaan voor:</value>
   </data>
   <data name="Passthrough_aac" xml:space="preserve">
     <value>AAC</value>
@@ -657,14 +657,14 @@ Vervangt alle andere instellingen.</value>
     <comment>Label for the sizing or padding mode.</comment>
   </data>
   <data name="AnamorphicCheckbox" xml:space="preserve">
-    <value>Gebruik Anamorf</value>
+    <value>Anamorfie gebruiken</value>
   </data>
   <data name="SizingModeManual" xml:space="preserve">
     <value>Handmatig</value>
     <comment>Choice for the user to enter all sizing information manually.</comment>
   </data>
   <data name="UpscaleMaxFormat" xml:space="preserve">
-    <value>Max upscale {0}x</value>
+    <value>Max vergroting {0}x</value>
     <comment>Label for scaling option to allow upscaling, but only to a particular multiple of the source resolution. {0} is the multiple, e.g. 2, 3 or 4</comment>
   </data>
   <data name="ScalingMode_DownscaleOnly" xml:space="preserve">
@@ -695,7 +695,7 @@ Vervangt alle andere instellingen.</value>
     <value>Kleur:</value>
   </data>
   <data name="AnamorphicToolTip" xml:space="preserve">
-    <value>Met Anamorf zijn niet-vierkante pixels toegestaan. Dit kan leiden tot efficiëntere opslag, maar niet alle spelers ondersteunen dit.</value>
+    <value>Bij Anamorfie zijn niet-vierkante pixels toegestaan. Dit kan leiden tot efficiëntere opslag, maar niet alle spelers ondersteunen dit.</value>
   </data>
   <data name="ResolutionLabel" xml:space="preserve">
     <value>Resolutie:</value>
@@ -730,17 +730,17 @@ Vervangt alle andere instellingen.</value>
     <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
   </data>
   <data name="SizingModeToolTip" xml:space="preserve">
-    <value>Automatisch zal de grootte kiezen op basis van de gegeven beperkingen. Handmatig laat u een specifieke grootte en pixel breedte-hoogteverhouding invoeren.</value>
+    <value>Bij Automatisch wordt de grootte gekozen op basis van de gegeven beperkingen. Bij Handmatig voert u een specifieke grootte en pixel breedte-hoogteverhouding in.</value>
   </data>
   <data name="SharpenLabel" xml:space="preserve">
-    <value>Verscherpen</value>
+    <value>Sharpen</value>
   </data>
   <data name="DeblockToolTip" xml:space="preserve">
     <value>Deblock vermindert hoekige artefacten, veroorzaakt door videocompressie met lage kwaliteit.</value>
   </data>
   <data name="DeinterlaceToolTip" xml:space="preserve">
-    <value>Deinterlace verwijdert 'kam' artefacten uit de afbeelding.
-Yadif is een populaire en snelle deïnterlacer.
+    <value>Deinterlace verwijdert 'kam' artefacten uit het beeld.
+Yadif is een populaire en snelle deinterlacer.
 Decomb schakelt tussen verschillende interpolatie-algoritmes voor snelheid en kwaliteit.</value>
   </data>
   <data name="DenoiseToolTip" xml:space="preserve">
@@ -757,7 +757,7 @@ HQDN3D is een adaptief low-pass filter, sneller dan NLMeans, maar minder effecti
 Telecining is een proces dat film met een framesnelheid van 24fps aanpast voor NTSC video framesnelheden van 30fps.</value>
   </data>
   <data name="SharpenToolTip" xml:space="preserve">
-    <value>Verscherping verbetert de weergave van detail, met name van randen. Al te sterke verscherping kan de beeldkwaliteit verslechteren door het creëren van ring-artefacten en versterking van ruis, waardoor de compressie-efficiëntie kan verminderen.
+    <value>Sharpen verbetert de weergave van detail, met name van randen. Al te sterke verscherping kan de beeldkwaliteit verslechteren door het creëren van ring-artefacten en versterking van ruis, waardoor de compressie-efficiëntie kan verminderen.
 
 Unsharp is een algemene onscherpmasker. Het verscherpt door vervaging en dan het verschil te berekenen tussen het vervaagde beeld en het origineel.
 
@@ -809,11 +809,11 @@ Lapsharp verscherpt middels plooikernen die Laplaciaanse randfilters benaderen e
     <value>Boven</value>
   </data>
   <data name="PixelAspectRatioNumeratorAutomationName" xml:space="preserve">
-    <value>Pixel beeldverhouding numerator</value>
+    <value>Teller pixel beeldverhouding</value>
     <comment>Name for the pixel aspect ratio numerator box for screen readers</comment>
   </data>
   <data name="PixelAspectRatioDenominatorAutomationName" xml:space="preserve">
-    <value>Pixel beeldverhouding</value>
+    <value>Noemer pixel beeldverhouding</value>
     <comment>Name for the pixel aspect ratio denominator box for screen readers</comment>
   </data>
   <data name="ApplyToQueueButton" xml:space="preserve">
@@ -823,7 +823,7 @@ Lapsharp verscherpt middels plooikernen die Laplaciaanse randfilters benaderen e
     <value>Volledige parameterlijst:</value>
   </data>
   <data name="MoreOptionsToolTip" xml:space="preserve">
-    <value>Extra geavanceerde argumenten om aan de video-encoder door te geven.</value>
+    <value>Aanvullende geavanceerde argumenten om aan de video-encoder door te geven.</value>
   </data>
   <data name="CannotSwitchEncodingPresetDueToPicker" xml:space="preserve">
     <value>Kan niet wisselen van coderingsvoorkeur, deze is vergrendeld in het keuzevenster.</value>
@@ -833,10 +833,10 @@ Lapsharp verscherpt middels plooikernen die Laplaciaanse randfilters benaderen e
     <value>Formaat: FFFFFF</value>
   </data>
   <data name="ChromaSmoothLabel" xml:space="preserve">
-    <value>Chroma smooth:</value>
+    <value>Chroma-smooth:</value>
   </data>
   <data name="ColorspaceLabel" xml:space="preserve">
-    <value>Kleurruimte:</value>
+    <value>Colorspace:</value>
   </data>
   <data name="ChromaSmoothToolTip" xml:space="preserve">
     <value>Vermindert chroma-ruis, regenbogen en andere prominente visuele artefacten. Handig voor het oplossen van verschillende kleurgerelateerde problemen, vooral bij inhoud met een lagere resolutie van analoge bronnen, bijvoorbeeld dvd- en VHS-bronnen van slechte kwaliteit. Het vervagings-/afvlakalgoritme is hetzelfde als dat van het onscherpe filter</value>

@@ -352,9 +352,9 @@
     <value>Ricicla</value>
   </data>
   <data name="UpdateMode_PromptApplyImmediately" xml:space="preserve">
-    <value>Richiesta conferma se applica subito</value>
+    <value>Chiedi conferma se applica subito</value>
   </data>
   <data name="UpdateMode_SilentNextLaunch" xml:space="preserve">
-    <value>Silenzioso (Applica al prossimo avvio)</value>
+    <value>Silenzioso (Applica prossimo avvio)</value>
   </data>
 </root>

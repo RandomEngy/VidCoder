@@ -205,7 +205,7 @@
     <value>hqdn3d</value>
   </data>
   <data name="Denoise_NLMeans" xml:space="preserve">
-    <value>NL-Means</value>
+    <value>NL-gemiddelde</value>
   </data>
   <data name="EncodeCompleteActionType_CloseProgram" xml:space="preserve">
     <value>VidCoder sluiten</value>

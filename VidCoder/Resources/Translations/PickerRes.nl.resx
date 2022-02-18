@@ -263,7 +263,7 @@
     <value>Begin hoofdstuk</value>
   </data>
   <data name="DestinationSection" xml:space="preserve">
-    <value>Bestemming</value>
+    <value>Doelmap</value>
   </data>
   <data name="OutputFolder" xml:space="preserve">
     <value>Uitvoermap:</value>
@@ -276,7 +276,7 @@
     <value>Wanneer het bestand al bestaat (reeks):</value>
   </data>
   <data name="WhenFileExistsSingle" xml:space="preserve">
-    <value>Wanneer bestand al bestaat (enkel):</value>
+    <value>Wanneer het bestand al bestaat (enkel):</value>
   </data>
   <data name="CustomPickerNameTemplate" xml:space="preserve">
     <value>Aangepast {0}</value>

@@ -130,7 +130,7 @@
     <value>Bron afspelen</value>
   </data>
   <data name="LengthRangePre" xml:space="preserve">
-    <value>Kies alleen titels uit</value>
+    <value>Alle titels van</value>
     <comment>Goes before the first number box in the length range specification.</comment>
   </data>
   <data name="LengthRangeMid" xml:space="preserve">

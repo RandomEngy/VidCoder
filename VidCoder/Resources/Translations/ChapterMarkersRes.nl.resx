@@ -108,13 +108,13 @@
     <value xml:space="preserve">Aangepaste hoofdstuknamen gebruiken:</value>
   </data>
   <data name="ImportFromCsvButton">
-    <value xml:space="preserve">Importeren uit .csv...</value>
+    <value xml:space="preserve">Importeren uit csv...</value>
   </data>
   <data name="NumberColumn">
     <value xml:space="preserve">Nummer</value>
   </data>
   <data name="StartTimeColumn">
-    <value xml:space="preserve">Begintijd</value>
+    <value xml:space="preserve">Starttijd</value>
   </data>
   <data name="TitleColumn">
     <value xml:space="preserve">Titel</value>

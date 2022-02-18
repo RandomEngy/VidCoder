@@ -128,10 +128,10 @@ Een volledige kopie van de GNU General Public License is opgenomen bij dit progr
     <value>Ondertitels met het beeldspoor integreren. Geïntegreerde ondertitels kunt u niet uitschakelen tijdens het afspelen.</value>
   </data>
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
-    <value>Markeer dit ondertitelspoor als standaard. Dit zal verschijnen tijdens het afspelen tot een ander nummer is gekozen.</value>
+    <value>Markeer dit ondertitelspoor als standaard. Dit wordt bij het afspelen weergegeven tot een ander spoor wordt geselecteerd.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Alleen geforceerde ondertiteling weergeven. Gewoonlijk betekent dit kleine stukjes buitenlandse dialoog.</value>
+    <value>Alleen geforceerde ondertiteling weergeven. Gewoonlijk betekent dit korte stukken buitenlandse dialoog.</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>De tijdsduur waarmee het tonen van ondertitels wordt vervroegd of vertraagd.</value>
@@ -141,7 +141,7 @@ Een volledige kopie van de GNU General Public License is opgenomen bij dit progr
     <comment>The label for the queue column that specifies what portion of the video to encode. (Like 25:23 - 37:50)</comment>
   </data>
   <data name="QueueColumnNameDestination" xml:space="preserve">
-    <value>Bestemming</value>
+    <value>Doelmap</value>
   </data>
   <data name="QueueColumnNameSource" xml:space="preserve">
     <value>Bron</value>
@@ -236,7 +236,7 @@ Een volledige kopie van de GNU General Public License is opgenomen bij dit progr
     <value>Mislukt</value>
   </data>
   <data name="FilePickerExtTemplate" xml:space="preserve">
-    <value>{0} Bestanden</value>
+    <value>{0} bestanden</value>
   </data>
   <data name="QueueColumnNamePreset" xml:space="preserve">
     <value>Voorkeursinstelling</value>
