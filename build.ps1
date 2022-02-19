@@ -107,7 +107,7 @@ DeleteFileIfExists $zipFilePath
 & $winRarExe a -afzip -ep1 -r $zipFilePath .\VidCoder\bin\publish-installer\
 
 # Build Squirrel installer
-Set-Alias Squirrel ($env:USERPROFILE + "\.nuget\packages\clowd.squirrel\2.7.98-pre\tools\Squirrel.exe")
+Set-Alias Squirrel ($env:USERPROFILE + "\.nuget\packages\clowd.squirrel\2.8.1-pre\tools\Squirrel.exe")
 if ($beta) {
     $packId = "VidCoder.Beta"
     $releaseDirSuffix = "Beta"
@@ -128,7 +128,7 @@ Squirrel pack `
     --releaseDir $releaseDir `
     --splashImage .\Installer\InstallerSplash.png `
     --signParams "/f D:\certs\ComodoIndividualCertv2.pfx /p $p /fd SHA256 /tr http://timestamp.digicert.com /td SHA256" `
-    --framework net6-x64
+    --framework net6.0.2-x64
 
 ExitIfFailed;
 Move-Item -Path ("$releaseDir\" + $packId + "Setup.exe") -Destination ".\Installer\BuiltInstallers\$binaryNameBase.exe" -Force
