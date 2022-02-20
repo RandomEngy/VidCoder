@@ -198,7 +198,7 @@
     <value>თუ ტიტრის სყარო სტანდარტადაა არჩეული, ვიდეოს რეპროდუქციისას ავტომატურად წარმოისახება.</value>
   </data>
   <data name="MultipleSubtitleDefaultToolTip" xml:space="preserve">
-    <value>თუ ტიტრის სყარო პირველადადაა არჩეული, ვიდეოს რეპროდუქციისას ავტომატურად წარმოისახება.</value>
+    <value>თუ ტიტრის სყარო პირველადაა არჩეული, ვიდეოს რეპროდუქციისას ავტომატურად წარმოისახება.</value>
   </data>
   <data name="FirstAsDefaultCheckBox" xml:space="preserve">
     <value>პირველის სტანდარტად არჩევა</value>
