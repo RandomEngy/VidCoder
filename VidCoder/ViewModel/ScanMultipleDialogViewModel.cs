@@ -63,7 +63,7 @@ namespace VidCoder.ViewModel
 			this.currentPath = this.pathsToScan[this.currentJobIndex];
 
 			// Workaround to fix hang when scanning too many items at once
-			if (this.scansDoneOnCurrentScanProxy > 40)
+			if (this.scansDoneOnCurrentScanProxy > 35)
 			{
 				this.scanProxy.Dispose();
 				this.scanProxy = null;
