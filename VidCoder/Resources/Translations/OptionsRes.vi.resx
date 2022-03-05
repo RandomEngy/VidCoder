@@ -1,0 +1,385 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="GeneralTab" xml:space="preserve">
+    <value>Tổng quan</value>
+  </data>
+  <data name="MinimizeToTaskBarRadioButton" xml:space="preserve">
+    <value>Thu nhỏ xuống thanh công cụ</value>
+  </data>
+  <data name="MinimizeToSystemTrayRadioButton" xml:space="preserve">
+    <value>Thu nhỏ vào khay hệ thống</value>
+  </data>
+  <data name="PlaySoundOnQueueCompletionCheckBox" xml:space="preserve">
+    <value>Phát âm thanh khi hoàn thành hàng đợi</value>
+  </data>
+  <data name="PreferredDvdPlayerLabel" xml:space="preserve">
+    <value>Đầu DVD ưa thích:</value>
+  </data>
+  <data name="PreferredDvdPlayerToolTip" xml:space="preserve">
+    <value>Chọn đầu phát bạn muốn sử dụng cho các nguồn DVD.</value>
+  </data>
+  <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
+    <value>Tự động cập nhật</value>
+  </data>
+  <data name="WhenFileAlreadyExists" xml:space="preserve">
+    <value>Khi một tệp đã tồn tại...</value>
+  </data>
+  <data name="EncodingSingleFile" xml:space="preserve">
+    <value>Mã hóa một tệp:</value>
+  </data>
+  <data name="EncodingBatchOfFiles" xml:space="preserve">
+    <value>Mã hóa hàng loạt tệp:</value>
+  </data>
+  <data name="AutoPauseLabel" xml:space="preserve">
+    <value>Tạm dừng mã hóa khi bất kỳ quá trình nào trong số này đang chạy:</value>
+  </data>
+  <data name="AddEllipsesButton" xml:space="preserve">
+    <value>Thêm...</value>
+  </data>
+  <data name="PreviewCountLabel" xml:space="preserve">
+    <value>Số bản xem trước hình ảnh cần quét:</value>
+  </data>
+  <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
+    <value>Ghi nhớ các tệp và thư mục đã sử dụng trước đó</value>
+  </data>
+  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
+    <value>Bật LibDVDNav (Thay đổi yêu cầu khởi động lại chương trình. Yêu cầu hỗ trợ nhiều góc độ)</value>
+  </data>
+  <data name="LoggingVerbosityLabel" xml:space="preserve">
+    <value>Ghi chi tiết:</value>
+  </data>
+  <data name="MinScanLengthLabel" xml:space="preserve">
+    <value>Độ dài tiêu đề tối thiểu để quét (giây):</value>
+  </data>
+  <data name="RecognizedExtensionsLabel" xml:space="preserve">
+    <value>Các tiện ích mở rộng được công nhận:</value>
+  </data>
+  <data name="RecognizedExtensionsToolTip" xml:space="preserve">
+    <value>Khi quét thư mục cho tệp video, hãy thêm tệp có các phần mở rộng này. (Phân tách bằng dấu phẩy)</value>
+  </data>
+  <data name="OptionsDialogTitle" xml:space="preserve">
+    <value>Tùy chọn</value>
+  </data>
+  <data name="ProcessTab" xml:space="preserve">
+    <value>Quy trình</value>
+  </data>
+  <data name="AdvancedTab" xml:space="preserve">
+    <value>Nâng cao</value>
+  </data>
+  <data name="BetaUpdatesInBeta" xml:space="preserve">
+    <value>Bạn đang chạy phiên bản Beta. Điều này có thể chạy song song với phiên bản ổn định.</value>
+  </data>
+  <data name="BetaUpdatesNonBeta" xml:space="preserve">
+    <value>Tham gia theo dõi Beta để nhận các bản cập nhật thường xuyên hơn</value>
+  </data>
+  <data name="UpdateReadyStatus" xml:space="preserve">
+    <value>Cập nhật {0} đã sẵn sàng.</value>
+  </data>
+  <data name="UpToDateStatus" xml:space="preserve">
+    <value>VidCoder được cập nhật.</value>
+  </data>
+  <data name="ChooseDefaultOutputFolder" xml:space="preserve">
+    <value>Chọn thư mục đầu ra mặc định cho các tệp video được mã hóa.</value>
+  </data>
+  <data name="InterfaceLanguageLabel" xml:space="preserve">
+    <value>Ngôn ngữ giao diện:</value>
+  </data>
+  <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
+    <value>Ngôn ngữ mới sẽ có hiệu lực sau khi bạn thoát và khởi động lại VidCoder.</value>
+  </data>
+  <data name="UseOSLanguage" xml:space="preserve">
+    <value>Sử dụng ngôn ngữ hệ thống.</value>
+  </data>
+  <data name="UpdatesTab" xml:space="preserve">
+    <value>Cập nhật</value>
+  </data>
+  <data name="UpdateFailedStatus" xml:space="preserve">
+    <value>Kiểm tra cập nhật thất bại.</value>
+  </data>
+  <data name="CompletionWavFilePickTitle" xml:space="preserve">
+    <value>Chọn tệp .wav bạn muốn sử dụng cho âm thanh hoàn thành.</value>
+  </data>
+  <data name="CurrentVersionLabel" xml:space="preserve">
+    <value>Phiên bản hiện tại: {0}</value>
+  </data>
+  <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
+    <value>Hãy cẩn thận: phiên bản này có nhiều khả năng có lỗi và bị treo.</value>
+  </data>
+  <data name="PlayersSection" xml:space="preserve">
+    <value>Trình phát</value>
+  </data>
+  <data name="SoundSection" xml:space="preserve">
+    <value>Âm thanh</value>
+  </data>
+  <data name="SystemTraySection" xml:space="preserve">
+    <value>Khay hệ thống</value>
+  </data>
+  <data name="OutputFolderSection" xml:space="preserve">
+    <value>Thư mục đầu ra</value>
+  </data>
+  <data name="AdvancedOptionsSection" xml:space="preserve">
+    <value>Tùy chọn nâng cao</value>
+  </data>
+  <data name="ScanningSection" xml:space="preserve">
+    <value>Đang quét</value>
+  </data>
+  <data name="LoggingSection" xml:space="preserve">
+    <value>Nhật ký</value>
+  </data>
+  <data name="DvdReadingSection" xml:space="preserve">
+    <value>Đọc DVD</value>
+  </data>
+  <data name="UpdatesSection" xml:space="preserve">
+    <value>Cập nhật</value>
+  </data>
+  <data name="UpdateStatusSection" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="BetaSection" xml:space="preserve">
+    <value>Beta</value>
+  </data>
+  <data name="UseCustomWavLabel" xml:space="preserve">
+    <value>Sử dụng tệp .wav tùy chỉnh:</value>
+  </data>
+  <data name="CheckNowButton" xml:space="preserve">
+    <value>Kiểm tra ngay</value>
+  </data>
+  <data name="UseSystemPlayer" xml:space="preserve">
+    <value>Sử dụng trình phát hệ thống</value>
+  </data>
+  <data name="VideoFilesLabel" xml:space="preserve">
+    <value>Tệp Video:</value>
+  </data>
+  <data name="CustomVideoPlayerToolTip" xml:space="preserve">
+    <value>Chỉ định đường dẫn đến trình phát video mà bạn muốn sử dụng cho các tệp.</value>
+  </data>
+  <data name="VideoPlayerFilePickTitle" xml:space="preserve">
+    <value>Chọn trình phát để sử dụng cho các tệp video.</value>
+  </data>
+  <data name="CustomPlayerLabel" xml:space="preserve">
+    <value>Trình phát tùy chỉnh:</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>Cao</value>
+  </data>
+  <data name="Priority_AboveNormal" xml:space="preserve">
+    <value>Trên bình thường</value>
+  </data>
+  <data name="Priority_Normal" xml:space="preserve">
+    <value>Bình thường</value>
+  </data>
+  <data name="Priority_BelowNormal" xml:space="preserve">
+    <value>Dưới mức trung bình</value>
+  </data>
+  <data name="WorkerProcessPriorityLabel" xml:space="preserve">
+    <value>Ưu tiên quy trình thực hiện:</value>
+  </data>
+  <data name="Priority_Idle" xml:space="preserve">
+    <value>Thấp</value>
+  </data>
+  <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
+    <value>Sao chép nhật ký mã hóa vào cùng một thư mục với video được mã hóa</value>
+  </data>
+  <data name="OpenLogFolderButton" xml:space="preserve">
+    <value>Mở thư mục nhật ký</value>
+  </data>
+  <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
+    <value>Tự động tiếp tục mã hóa khi khởi động lại</value>
+  </data>
+  <data name="UseWorkerProcessCheckBox" xml:space="preserve">
+    <value>Sử dụng quy trình thực hiện để mã hóa</value>
+  </data>
+  <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
+    <value>Duy trì thời gian đã tạo và sửa đổi khi chuyển đổi tệp</value>
+  </data>
+  <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+    <value>Thư mục tùy chỉnh để xem trước:</value>
+  </data>
+  <data name="ProcessOptionsLabel" xml:space="preserve">
+    <value>Xử lý các tùy chọn</value>
+  </data>
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>Điều chỉnh CPU - Lõi được phép:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use. It labels a slider that controls the percentage of allowed cores, where the max is 100%.</comment>
+  </data>
+  <data name="CpuThrottlingToolTip" xml:space="preserve">
+    <value>Sử dụng bộ điều chỉnh CPU để giới hạn số lõi bộ xử lý mà VidCoder có thể sử dụng khi mã hóa.</value>
+  </data>
+  <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
+    <value>Sử dụng trình phát tích hợp để xem trước</value>
+  </data>
+  <data name="MaxSimultaneousEncodesLabel" xml:space="preserve">
+    <value>Công việc mã hóa đồng thời tối đa:</value>
+  </data>
+  <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
+    <value>Đây là số lượng công việc mã hóa đồng thời được phép. Hữu ích cho các máy có nhiều lõi CPU.</value>
+  </data>
+  <data name="GeneralSection" xml:space="preserve">
+    <value>Tổng quan</value>
+  </data>
+  <data name="ThemeLabel" xml:space="preserve">
+    <value>Giao diện</value>
+    <comment>Label for the app theme (auto, light, dark)</comment>
+  </data>
+  <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
+    <value>Tùy chọn quy trình thực hiện sẽ có hiệu lực sau khi bạn thoát và khởi động lại VidCoder.</value>
+  </data>
+  <data name="CopyLogToCustomFolderLabel" xml:space="preserve">
+    <value>Sao chép nhật ký mã hóa vào một thư mục tùy chỉnh</value>
+  </data>
+  <data name="KeepFailedFilesCheckBox" xml:space="preserve">
+    <value>Giữ các tệp khỏi mã hóa không thành công hoặc bị dừng</value>
+  </data>
+  <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
+    <value>Kích hoạt hành động "Khi hoàn thành" khi không có công việc mã hóa không thành công</value>
+  </data>
+  <data name="AutoPauseLowBatteryCheckbox" xml:space="preserve">
+    <value>Tạm dừng khi pin yếu</value>
+  </data>
+  <data name="AutoPauseLowDiskSpaceCheckbox" xml:space="preserve">
+    <value>Tạm dừng khi dung lượng ổ đĩa giảm xuống dưới:</value>
+  </data>
+  <data name="AutoPauseSectionLabel" xml:space="preserve">
+    <value>Tự động tạm dừng</value>
+  </data>
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>Các tùy chọn có sẵn: {0}</value>
+  </data>
+  <data name="LowDiskSpaceThresholdAutomationName" xml:space="preserve">
+    <value>Ngưỡng dung lượng ổ đĩa thấp tính bằng gigabyte</value>
+    <comment>Screen reader name for the low disk space threshold number box</comment>
+  </data>
+  <data name="DragDropScanOrderLabel" xml:space="preserve">
+    <value>Kéo và thả thứ tự quét:</value>
+  </data>
+  <data name="EncodeRetriesLabel" xml:space="preserve">
+    <value>Số lần thử lại mã hóa:</value>
+  </data>
+  <data name="ApplyUpdateButton" xml:space="preserve">
+    <value>Áp dụng bản cập nhật</value>
+  </data>
+  <data name="CheckingForUpdateStatus" xml:space="preserve">
+    <value>Đang kiểm tra bản cập nhật...</value>
+  </data>
+  <data name="UpdateModeLabel" xml:space="preserve">
+    <value>Chế độ cập nhật:</value>
+    <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
+  </data>
+</root>

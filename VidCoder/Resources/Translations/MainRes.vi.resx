@@ -1,0 +1,753 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TitleLabel" xml:space="preserve">
+    <value>Tiêu đề:</value>
+  </data>
+  <data name="AddToQueueLabel" xml:space="preserve">
+    <value>Thêm vào hàng đợi</value>
+  </data>
+  <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
+    <value>Thêm nhiều hơn vào hàng đợi...</value>
+  </data>
+  <data name="OpenVideoFile" xml:space="preserve">
+    <value>Mở tệp Video...</value>
+  </data>
+  <data name="OpenDiscFolder" xml:space="preserve">
+    <value>Mở thư mục DVD/Blu-ray...</value>
+  </data>
+  <data name="EnqueueMultipleFiles" xml:space="preserve">
+    <value>Thêm nhiều tập tin vào hàng đợi...</value>
+  </data>
+  <data name="ToolsMenu" xml:space="preserve">
+    <value>Công cụ</value>
+  </data>
+  <data name="ImportPreset" xml:space="preserve">
+    <value>Thêm cài đặt có sẵn...</value>
+  </data>
+  <data name="ExportPreset" xml:space="preserve">
+    <value>Xuất cài đặt có sẵn...</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Phát</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="OpenContainingFolder" xml:space="preserve">
+    <value>Mở thư mục chứa</value>
+  </data>
+  <data name="ClearCompleted" xml:space="preserve">
+    <value>Xoá hoàn thành.</value>
+  </data>
+  <data name="WindowsMenu" xml:space="preserve">
+    <value>Cửa sổ</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
+  </data>
+  <data name="EncodingSettingsMenuItem" xml:space="preserve">
+    <value>Cài đặt mã hóa</value>
+  </data>
+  <data name="PreviewMenuItem" xml:space="preserve">
+    <value>Xem trước</value>
+  </data>
+  <data name="LogMenuItem" xml:space="preserve">
+    <value>Nhật kí</value>
+  </data>
+  <data name="HelpMenu" xml:space="preserve">
+    <value>Trợ giúp</value>
+  </data>
+  <data name="VidCoderHomepageMenuItem" xml:space="preserve">
+    <value>Trang chủ VidCoder</value>
+  </data>
+  <data name="ReportABugMenuItem" xml:space="preserve">
+    <value>Báo cáo lỗi</value>
+  </data>
+  <data name="AboutVidCoderMenuItem" xml:space="preserve">
+    <value>Về VidCoder...</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>Gần đây </value>
+  </data>
+  <data name="DragFilesHereLabel" xml:space="preserve">
+    <value>(Hoặc kéo các tệp hoặc thư mục video vào đây)</value>
+  </data>
+  <data name="ScanErrorLabel" xml:space="preserve">
+    <value>Đã xảy ra lỗi khi quét.</value>
+  </data>
+  <data name="ChapterMarkersLabel" xml:space="preserve">
+    <value>Đánh dấu Chapter:</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Chỉnh sửa...</value>
+  </data>
+  <data name="DestinationLabel" xml:space="preserve">
+    <value>Điểm đến:</value>
+  </data>
+  <data name="DestinationToolTip" xml:space="preserve">
+    <value>Nhấp để chỉnh sửa đích mã hóa.</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Dừng</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Tạm dừng</value>
+  </data>
+  <data name="MoveToTopMenuItem" xml:space="preserve">
+    <value>Chuyển đến trên cùng</value>
+  </data>
+  <data name="MoveToBottomMenuItem" xml:space="preserve">
+    <value>Chuyển đến dưới cùng</value>
+  </data>
+  <data name="CustomizeColumnsMenuItem" xml:space="preserve">
+    <value>Tuỳ chỉnh các cột...</value>
+  </data>
+  <data name="CurrentFpsLabel" xml:space="preserve">
+    <value>FPS hiện tại:</value>
+  </data>
+  <data name="AverageFpsLabel" xml:space="preserve">
+    <value>FPS trung bình:</value>
+  </data>
+  <data name="PickDiscFolderHelpText" xml:space="preserve">
+    <value>Chọn một thư mục DVD hoặc Blu-ray.</value>
+  </data>
+  <data name="EncodesInProgressExitWarning" xml:space="preserve">
+    <value>Có mã hóa đang được tiến hành. Bạn có chắc bạn muốn thoát?</value>
+  </data>
+  <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
+    <value>Đang tiến hành mã hóa</value>
+  </data>
+  <data name="NoneParen" xml:space="preserve">
+    <value>(Không có)</value>
+  </data>
+  <data name="SaveChangesPresetMessage" xml:space="preserve">
+    <value>Bạn có muốn lưu các thay đổi đối với cài đặt sẵn hiện tại của mình không?</value>
+  </data>
+  <data name="SaveChangesPresetTitle" xml:space="preserve">
+    <value>Lưu cài đặt sẵn hiện tại?</value>
+  </data>
+  <data name="DiscNotInDriveError" xml:space="preserve">
+    <value>Không thể tải để chỉnh sửa. The disc is no longer in the drive.</value>
+  </data>
+  <data name="PresetNameRestoredFromQueue" xml:space="preserve">
+    <value>Khôi phục từ hàng đợi</value>
+  </data>
+  <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
+    <value>Khôi phục từ hoàn thành</value>
+  </data>
+  <data name="DestinationColumnHeader" xml:space="preserve">
+    <value>Nơi đến</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>Tình trạng</value>
+  </data>
+  <data name="ElapsedTimeColumnHeader" xml:space="preserve">
+    <value>Thời gian đã qua</value>
+  </data>
+  <data name="PlayingVideoMessage" xml:space="preserve">
+    <value>Đang phát video...</value>
+  </data>
+  <data name="FileDoesNotExist" xml:space="preserve">
+    <value>{0} không tồn tại.</value>
+  </data>
+  <data name="AngleLabel" xml:space="preserve">
+    <value>Góc:</value>
+  </data>
+  <data name="ChaptersSummary" xml:space="preserve">
+    <value>của {0}</value>
+  </data>
+  <data name="Queued" xml:space="preserve">
+    <value>Hàng đợi</value>
+  </data>
+  <data name="QueuedWithTotal" xml:space="preserve">
+    <value>Hàng đợi ({0})</value>
+  </data>
+  <data name="CompletedWithTotal" xml:space="preserve">
+    <value>Hoàn thành ({0})</value>
+  </data>
+  <data name="StoppedEncoding" xml:space="preserve">
+    <value>Dừng mã hoá.</value>
+  </data>
+  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn {0} {1} tệp/thư mục nguồn không?</value>
+    <comment>{0} is the verb, can be "recycle" or "delete"
+{1} is the number of files that will be removed</comment>
+  </data>
+  <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
+    <value>Xác nhận xoá</value>
+  </data>
+  <data name="CouldNotDeleteFile" xml:space="preserve">
+    <value>Không thể xóa {0}
+
+{1}</value>
+  </data>
+  <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
+    <value>Lỗi khi quét tệp tin video</value>
+  </data>
+  <data name="StartedEncoding" xml:space="preserve">
+    <value>Đã bắt đầu mã hóa.</value>
+  </data>
+  <data name="DirectoryCreateErrorMessage" xml:space="preserve">
+    <value>Không thể tạo thư mục đầu ra. Chi tiết lỗi:</value>
+  </data>
+  <data name="EncodeCompleted" xml:space="preserve">
+    <value>Mã hóa hoàn thành.</value>
+  </data>
+  <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
+    <value>Mã hóa đã hoàn thành</value>
+  </data>
+  <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
+    <value>VidCoder đã hoàn thành tất cả các công việc mã hóa trong hàng đợi.</value>
+  </data>
+  <data name="OutputPathNotValidMessage" xml:space="preserve">
+    <value>Đường dẫn đầu ra không hợp lệ.</value>
+  </data>
+  <data name="OutputPathNotValidTitle" xml:space="preserve">
+    <value>Đường dẫn không hợp lệ</value>
+  </data>
+  <data name="Encode" xml:space="preserve">
+    <value>Mã hoá</value>
+  </data>
+  <data name="Resume" xml:space="preserve">
+    <value>Khôi phục</value>
+  </data>
+  <data name="EtaLabel" xml:space="preserve">
+    <value>ETA:</value>
+  </data>
+  <data name="WhenDoneLabel" xml:space="preserve">
+    <value>Khi hoàn thành</value>
+  </data>
+  <data name="SourceOption_VideoFile" xml:space="preserve">
+    <value>Tệp Video...</value>
+  </data>
+  <data name="SourceOption_DiscFolder" xml:space="preserve">
+    <value>Thư mục DVD/Blu-ray...</value>
+  </data>
+  <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
+    <value>Phiên bản {0} có sẵn. Đã bắt đầu tải xuống bản cập nhật.</value>
+  </data>
+  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
+    <value>Phiên bản {0} đã hoàn tất tải xuống và sẽ cài đặt khi thoát.</value>
+  </data>
+  <data name="UpdateNotAppliedError" xml:space="preserve">
+    <value>Bản cập nhật không được áp dụng. Nếu bạn không thể huỷ, hãy thử cài đặt theo cách thủ công.</value>
+  </data>
+  <data name="CouldNotLoadPresetMessage" xml:space="preserve">
+    <value>Không thể tải bản ghi trước:</value>
+  </data>
+  <data name="CouldNotSavePresetMessage" xml:space="preserve">
+    <value>Không thể lưu bản ghi trước '{0}': {1} {2}</value>
+  </data>
+  <data name="CouldNotCopyTextError" xml:space="preserve">
+    <value>Không thể sao chép văn bản.</value>
+  </data>
+  <data name="LaunchUrlError" xml:space="preserve">
+    <value>Lỗi khi khởi chạy URL: {0}</value>
+  </data>
+  <data name="PresetImportErrorMessage" xml:space="preserve">
+    <value>Không thể nhập giá trị đặt trước. Kiểm tra nhật ký để xem chi tiết.</value>
+  </data>
+  <data name="ImportErrorTitle" xml:space="preserve">
+    <value>Lỗi nhập...</value>
+  </data>
+  <data name="PresetImportSuccessMessage" xml:space="preserve">
+    <value>Đã nhập bản ghi thành công {0}</value>
+  </data>
+  <data name="PresetExportSuccessMessage" xml:space="preserve">
+    <value>Đã xuất bản ghi thành công đến {0}</value>
+  </data>
+  <data name="ExportPresetFilePickerText" xml:space="preserve">
+    <value>Xuất bản ghi</value>
+  </data>
+  <data name="SaveChangesPickerMessage" xml:space="preserve">
+    <value>Bạn có muốn lưu các thay đổi đối với tuỳ chọn hiện tại của mình không?</value>
+  </data>
+  <data name="SaveChangesPickerTitle" xml:space="preserve">
+    <value>Lưu tuỳ chọn hiện tại?</value>
+  </data>
+  <data name="RevertConfirmMessage" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn xóa tất cả các thay đổi chưa lưu không?</value>
+  </data>
+  <data name="RevertConfirmTitle" xml:space="preserve">
+    <value>Phục hồi</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn xóa cái này không?</value>
+  </data>
+  <data name="RemoveConfirmTitle" xml:space="preserve">
+    <value>Xoá</value>
+  </data>
+  <data name="OutputDirectoryPickerText" xml:space="preserve">
+    <value>Chọn thư mục đầu ra cho các tệp video được mã hóa.</value>
+  </data>
+  <data name="LengthPreviewLabel" xml:space="preserve">
+    <value>({0})</value>
+  </data>
+  <data name="ModifiedAffix" xml:space="preserve">
+    <value>(Đã sửa đổi)</value>
+  </data>
+  <data name="PlayingVideoStatus" xml:space="preserve">
+    <value>Phát video...</value>
+  </data>
+  <data name="OpeningFolderStatus" xml:space="preserve">
+    <value>Mở thư mục...</value>
+  </data>
+  <data name="CloseVideoSourceToolTip" xml:space="preserve">
+    <value>Đóng video gốc</value>
+  </data>
+  <data name="UpdatesMenuItem" xml:space="preserve">
+    <value>Cập nhật...</value>
+  </data>
+  <data name="CbrAuto" xml:space="preserve">
+    <value>CBR Tự động</value>
+  </data>
+  <data name="RangeBarToolTip" xml:space="preserve">
+    <value>Nhấp chuột trái để đặt thời gian bắt đầu và nhấp chuột phải để đặt thời gian kết thúc.</value>
+  </data>
+  <data name="QueueFormat_Chapters" xml:space="preserve">
+    <value>Ch {0}</value>
+  </data>
+  <data name="QueueFormat_Frames" xml:space="preserve">
+    <value>Fr {0}-{1}</value>
+  </data>
+  <data name="QueueRangeAll" xml:space="preserve">
+    <value>Tất cả</value>
+  </data>
+  <data name="CouldNotCopyLogError" xml:space="preserve">
+    <value>Không thể sao chép nhật ký: {0} {0} {1}</value>
+  </data>
+  <data name="OpenLog" xml:space="preserve">
+    <value>Mở nhật ký</value>
+  </data>
+  <data name="CopyLog" xml:space="preserve">
+    <value>Sao chép nhật ký</value>
+  </data>
+  <data name="PresetDiscardConfirmMessage" xml:space="preserve">
+    <value>Bạn có các thay đổi chưa lưu. Bạn có chắc chắn muốn hủy những thay đổi này bằng cách chuyển sang cài đặt trước khác không?</value>
+  </data>
+  <data name="PresetDiscardConfirmTitle" xml:space="preserve">
+    <value>Loại bỏ những thay đổi?</value>
+  </data>
+  <data name="RemoveFromQueueToolTip" xml:space="preserve">
+    <value>Xóa khỏi hàng đợi</value>
+  </data>
+  <data name="CouldNotSaveQueueMessage" xml:space="preserve">
+    <value>Không thể lưu hàng đợi: {0}{1}</value>
+  </data>
+  <data name="ExportQueue" xml:space="preserve">
+    <value>Xuất Hàng đợi...</value>
+  </data>
+  <data name="ExportQueueFilePickerText" xml:space="preserve">
+    <value>Xuất hàng đợi</value>
+  </data>
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>Không thể nhập hàng đợi. Kiểm tra nhật ký để biết chi tiết.</value>
+  </data>
+  <data name="ImportPresetFilePickerTitle" xml:space="preserve">
+    <value>Nhập tệp có sẵn</value>
+  </data>
+  <data name="ImportQueueFilePickerTitle" xml:space="preserve">
+    <value>Nhập tệp có sẵn</value>
+  </data>
+  <data name="ImportQueue" xml:space="preserve">
+    <value>Nhập Hàng đợi...</value>
+  </data>
+  <data name="QueueExportSuccessMessage" xml:space="preserve">
+    <value>Đã xuất thành công hàng đợi đến {0}</value>
+  </data>
+  <data name="QueueImportSuccessMessage" xml:space="preserve">
+    <value>Đã nhập thành công hàng đợi.</value>
+  </data>
+  <data name="StopEncodeConfirmationTitle" xml:space="preserve">
+    <value>Dừng mã hoá?</value>
+  </data>
+  <data name="StopEncodeConfirmationMessage" xml:space="preserve">
+    <value>Bạn có chắc muốn dừng mã hóa không?</value>
+  </data>
+  <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
+    <value>Đóng tệp hiện tại và mở đĩa?</value>
+  </data>
+  <data name="EncodeDetailsMenuItem" xml:space="preserve">
+    <value>Chi tiết mã hóa</value>
+  </data>
+  <data name="RenameDatabaseFileLine2" xml:space="preserve">
+    <value>Bạn có muốn đổi tên tệp hiện có và bắt đầu bằng tệp mới không?</value>
+  </data>
+  <data name="RenameDatabaseFileLine1" xml:space="preserve">
+    <value>Không thể đọc tệp cơ sở dữ liệu phiên bản {0}. Phiên bản cao nhất được VidCoder công nhận {1} là {2}</value>
+    <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
+  </data>
+  <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+    <value>Tệp cơ sở dữ liệu không tương thích</value>
+    <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
+  </data>
+  <data name="PickerMenuItem" xml:space="preserve">
+    <value>Tuỳ chọn</value>
+  </data>
+  <data name="CouldNotLoadPickerMessage" xml:space="preserve">
+    <value>Không thể tải tuỳ chọn:</value>
+  </data>
+  <data name="SimilarTitlesToolTip" xml:space="preserve">
+    <value>{0} các tên khác có thời lượng gần với thời lượng này.</value>
+    <comment>{0} is the number of titles that have a similar duration.</comment>
+  </data>
+  <data name="UseBackupDatabaseLine" xml:space="preserve">
+    <value>Bạn có tệp phiên bản {0} đã sao lưu. Bạn có muốn sử dụng nó không?</value>
+    <comment>{0} is the version of the database file you have a backup for.</comment>
+  </data>
+  <data name="VideoPlayError" xml:space="preserve">
+    <value>Lỗi khi phát video.</value>
+  </data>
+  <data name="CustomVideoPlayerError" xml:space="preserve">
+    <value>Không thể tìm thấy trình phát video tùy chỉnh tại {0}.</value>
+    <comment>{0} is the path to the custom video player.</comment>
+  </data>
+  <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
+    <value>Xếp hàng thư mục tệp video...</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>Đã xảy ra lỗi khi quét một số tệp và chúng không được thêm vào hàng đợi:</value>
+  </data>
+  <data name="FileSizeColumnHeader" xml:space="preserve">
+    <value>Kích thước</value>
+    <comment>Used on the "completed encodes" tab, to label the column that shows the final output file size.</comment>
+  </data>
+  <data name="OpenAppDataFolder" xml:space="preserve">
+    <value>Mở thư mục dữ liệu ứng dụng</value>
+    <comment>Menu choice for opening the application data folder (that holds the VidCoder database file, logs, etc)</comment>
+  </data>
+  <data name="RibbonEncodingGroupLabel" xml:space="preserve">
+    <value>Mã hóa</value>
+  </data>
+  <data name="RibbonSettingsGroupLabel" xml:space="preserve">
+    <value>Cài đặt</value>
+  </data>
+  <data name="GlobalOptionsLabel" xml:space="preserve">
+    <value>Tùy chọn toàn cầu</value>
+  </data>
+  <data name="EncodingSettingsButton" xml:space="preserve">
+    <value>Cài đặt mã hóa: {0}</value>
+    <comment>{0} is a placeholder for the name of the encoding preset currently selected.</comment>
+  </data>
+  <data name="EncodingSettingsButtonToolTip" xml:space="preserve">
+    <value>Codec video và âm thanh, kích cỡ, bộ lọc, vùng chứa</value>
+  </data>
+  <data name="OpenSourceRibbonButton" xml:space="preserve">
+    <value>Mở mã nguồn</value>
+  </data>
+  <data name="ImportExportRibbonButton" xml:space="preserve">
+    <value>Nhập/Xuất</value>
+    <comment>Label for ribbon button to import or export presets or queues</comment>
+  </data>
+  <data name="AddedSubtitleFromFile" xml:space="preserve">
+    <value>Đã thêm thành công phụ đề từ tệp {0}</value>
+  </data>
+  <data name="OpenFormat" xml:space="preserve">
+    <value>Mở</value>
+    <comment>Format for opening a source. For example: "Open E:\ - THE_INCREDIBLES"</comment>
+  </data>
+  <data name="NoAudioDescription" xml:space="preserve">
+    <value>Không tìm thấy âm thanh trên nguồn.</value>
+  </data>
+  <data name="NoAudioSummary" xml:space="preserve">
+    <value>Không có âm thanh</value>
+    <comment>Summary text for when no audio tracks are found on the source</comment>
+  </data>
+  <data name="NoSubtitlesSummary" xml:space="preserve">
+    <value>Không có phụ đề</value>
+    <comment>Summary text for when no subtitle tracks are found on the source and no external subtitles have been added</comment>
+  </data>
+  <data name="DataTooOldRunVidCoderVersion" xml:space="preserve">
+    <value>Dữ liệu của bạn quá cũ để nâng cấp. Chạy VidCoder {0} một lần để nâng cấp lên phiên bản tương thích, sau đó thử lại phiên bản này.</value>
+    <comment>This is shown on app start when old data is detected.</comment>
+  </data>
+  <data name="BitrateColumn" xml:space="preserve">
+    <value>Tốc độ bit</value>
+  </data>
+  <data name="SampleRateColumn" xml:space="preserve">
+    <value>Tỷ lệ lấy mẫu</value>
+  </data>
+  <data name="ClearRecentFilesButtonToolTip" xml:space="preserve">
+    <value>Xoá lịch sử gần đây</value>
+  </data>
+  <data name="OpenSourceLabel" xml:space="preserve">
+    <value>Mở</value>
+    <comment>Label on top of the different options for opening video source on the startup screen.</comment>
+  </data>
+  <data name="ScanningSourceLabelFormat" xml:space="preserve">
+    <value>Đang quét {0}...</value>
+    <comment>{0} is the name of the source being scanned.</comment>
+  </data>
+  <data name="RetryFailedItemsMenuItem" xml:space="preserve">
+    <value>Thử lại tất cả các công việc thất bại</value>
+  </data>
+  <data name="StartChapterAutomationName" xml:space="preserve">
+    <value>Bắt đầu chương</value>
+    <comment>Narrator label for the chapter start combo box</comment>
+  </data>
+  <data name="EndChapterAutomationName" xml:space="preserve">
+    <value>Kết thúc chương</value>
+    <comment>Narrator label for the end chapter combo box</comment>
+  </data>
+  <data name="EditChaptersButtonAutomationName" xml:space="preserve">
+    <value>Chỉnh sửa chương</value>
+    <comment>Help text for screen readers for the Edit chapters button</comment>
+  </data>
+  <data name="ApplyCurrentEncodingSettings" xml:space="preserve">
+    <value>Áp dụng cài đặt mã hóa hiện tại</value>
+  </data>
+  <data name="OpenSourceFolderOption" xml:space="preserve">
+    <value>Mở thư mục nguồn</value>
+    <comment>Menu option to open the folder of the source file in the queue</comment>
+  </data>
+  <data name="WithCurrentJobsFormat" xml:space="preserve">
+    <value>với công việc hiện tại: {0}</value>
+    <comment>Shown as options for the "When done" combo box for actions that trigger when currently encoding job(s) complete. This string is only used when there are multiple items queued.
+{0} is the encode complete action, ex "Shut down"</comment>
+  </data>
+  <data name="WithQueueFormat" xml:space="preserve">
+    <value>với hàng đợi: {0}</value>
+    <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion. This string is only used when there are multiple items queued.
+{0} is the encode complete action, ex "Shut down"</comment>
+  </data>
+  <data name="VideoEncodingOptionsToolTip" xml:space="preserve">
+    <value>Tùy chọn mã hóa video</value>
+  </data>
+  <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
+    <value>Tùy chọn mã hóa âm thanh</value>
+  </data>
+  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
+    <value>Phiên bản {0} đã hoàn tất tải xuống.</value>
+  </data>
+  <data name="RemoveFromQueueMenuItem" xml:space="preserve">
+    <value>Xóa khỏi hàng đợi</value>
+  </data>
+  <data name="ClearSucceededMenuItem" xml:space="preserve">
+    <value>Xóa thành công</value>
+  </data>
+  <data name="ClearFailedMenuItem" xml:space="preserve">
+    <value>Xóa thất bại</value>
+  </data>
+  <data name="ClearQueueConfirmationMessage" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn xóa tất cả các mục khỏi hàng đợi không?</value>
+  </data>
+  <data name="RemoveAllFomQueueMenuItem" xml:space="preserve">
+    <value>Xóa tất cả khỏi hàng đợi</value>
+  </data>
+  <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
+    <value>Mã hóa hành động không được thực hiện do lỗi trong danh sách kết quả mã hóa.</value>
+  </data>
+  <data name="AudioPickerButtonToolTip" xml:space="preserve">
+    <value>Tự động chọn rãnh âm thanh...</value>
+  </data>
+  <data name="SubtitlePickerButtonToolTip" xml:space="preserve">
+    <value>Tự động chọn rãnh phụ đề...</value>
+  </data>
+  <data name="AudioSubtitleTrackColumnHeader" xml:space="preserve">
+    <value>Rãnh</value>
+    <comment>Column header for the audio or subtitle track summary. This is an an auto-generated summary that includes language, format, etc.</comment>
+  </data>
+  <data name="AudioTrackNameAutomationName" xml:space="preserve">
+    <value>Tên rãnh âm thanh</value>
+    <comment>Narrator label for the audio track name text box.</comment>
+  </data>
+  <data name="SubtitleNameAutomationName" xml:space="preserve">
+    <value>Tên phụ đề</value>
+    <comment>Narrator label for the subtitle name text box.</comment>
+  </data>
+  <data name="CouldNotRecycleFile" xml:space="preserve">
+    <value>Lỗi khi gửi tệp vào Thùng rác.</value>
+  </data>
+  <data name="DestinationAutomaticToolTip" xml:space="preserve">
+    <value>Đích đến được đặt tự động. Nhấp để chỉnh sửa cài đặt.</value>
+  </data>
+  <data name="DestinationManualToolTip" xml:space="preserve">
+    <value>Đích đến được đặt thủ công. Nhấp để hoàn tác về tự động.</value>
+  </data>
+  <data name="CompareAgainstOriginal" xml:space="preserve">
+    <value>So sánh với bản gốc</value>
+  </data>
+  <data name="CompareEncodedLabel" xml:space="preserve">
+    <value>Được mã hóa</value>
+    <comment>Label for the encoded video when comparing original vs encoded</comment>
+  </data>
+  <data name="CompareOriginalLabel" xml:space="preserve">
+    <value>Bản gốc</value>
+    <comment>Label for the original video when comparing original vs encoded</comment>
+  </data>
+  <data name="CompareWindowHelpText" xml:space="preserve">
+    <value>Nhấp hoặc giữ Ctrl để hiển thị phiên bản được mã hóa.</value>
+  </data>
+  <data name="CompareWindowTitleFormat" xml:space="preserve">
+    <value>So sánh video: {0} - {1}</value>
+    <comment>Title for the Video compare window.
+{0} is a string indicating if it's original or encoded.
+{1} is the file name, e.g. MyFile.mkv</comment>
+  </data>
+  <data name="MuteAutomationName" xml:space="preserve">
+    <value>Tắt tiếng</value>
+    <comment>Text for screen readers for the mute button on video playback</comment>
+  </data>
+  <data name="UnmuteAutomationName" xml:space="preserve">
+    <value>Bật tiếng</value>
+    <comment>Text for screen readers for the unmute button on video playback</comment>
+  </data>
+  <data name="AutoPauseLowBattery" xml:space="preserve">
+    <value>Tự động tạm dừng do pin yếu.</value>
+  </data>
+  <data name="AutoPauseLowDiskSpace" xml:space="preserve">
+    <value>Tự động tạm dừng do dung lượng đĩa trống dưới {0} GB.</value>
+    <comment>{0} is the disk space threshold for auto-pause in GB</comment>
+  </data>
+  <data name="AutoPauseProcessDetected" xml:space="preserve">
+    <value>Tự động tạm dừng, quá trình được phát hiện: {0}</value>
+    <comment>{0} is the name of the process we were waiting for to pause</comment>
+  </data>
+  <data name="AutoPauseResumeBattery" xml:space="preserve">
+    <value>Tự động tiếp tục, kết nối với nguồn sạc.</value>
+  </data>
+  <data name="AutoPauseResumeDiskSpace" xml:space="preserve">
+    <value>Tự động tiếp tục, đĩa có dung lượng trống.</value>
+  </data>
+  <data name="AutoPauseResumeProcess" xml:space="preserve">
+    <value>Tự động tiếp tục, các tiến trình đã biến mất.</value>
+  </data>
+  <data name="Win7DeprecationWarning" xml:space="preserve">
+    <value>VidCoder không còn được hỗ trợ trên Windows 7 hoặc 8.
+
+Bạn có thể tiếp tục sử dụng VidCoder nhưng sẽ gặp lỗi. Một số tính năng không hoạt động và có thể có các vấn đề không xác định khác. Không có hỗ trợ nào khắc phục khi những sự cố này xảy ra.
+
+v5 là phiên bản cuối cùng được thử nghiệm cho Windows 7/8.
+
+Cảnh báo này sẽ chỉ hiển thị hai lần.</value>
+  </data>
+  <data name="RemoveSourceFiles_Delete" xml:space="preserve">
+    <value>xoá</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RemoveSourceFiles_Recycle" xml:space="preserve">
+    <value>phục hồi</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RequestFeatureMenuItem" xml:space="preserve">
+    <value>Yêu cầu tính năng</value>
+  </data>
+  <data name="CopyLogAndReportMenuItem" xml:space="preserve">
+    <value>Sao chép nhật ký và báo cáo sự cố</value>
+  </data>
+</root>

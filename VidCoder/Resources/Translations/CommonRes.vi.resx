@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutLicense" xml:space="preserve">
+    <value>Chương trình này là phần mềm miễn phí; bạn có thể phân phối lại và / hoặc sửa đổi nó theo các điều khoản của Giấy phép Công cộng GNU do Tổ chức Phần mềm Tự do xuất bản; hoặc phiên bản 2 của Giấy phép hoặc (theo tùy chọn của bạn) bất kỳ phiên bản nào mới hơn.
+
+Chương trình này được phân phối với hy vọng rằng nó sẽ hữu ích, nhưng KHÔNG CÓ BẤT KỲ BẢO HÀNH NÀO; thậm chí không có sự bảo đảm ngụ ý về KHẢ NĂNG LÊN LỚN hoặc SỰ PHÙ HỢP VỚI MỤC ĐÍCH CỤ THỂ. Xem Giấy phép Công cộng GNU để biết thêm chi tiết.
+
+Một bản sao đầy đủ của Giấy phép Công cộng GNU đã được đính kèm cùng với chương trình này.</value>
+  </data>
+  <data name="BurnedSubtitleToolTip" xml:space="preserve">
+    <value>Ghi phụ đề vào hình ảnh. Với phụ đề đã ghi, bạn không thể tắt chúng trong khi phát lại.</value>
+  </data>
+  <data name="DefaultSubtitleToolTip" xml:space="preserve">
+    <value>Đánh dấu phụ đề này làm phụ đề mặc định. Điều này sẽ hiển thị trong khi phát lại cho đến khi một bản nhạc khác được chọn.</value>
+  </data>
+  <data name="ForcedSubtitleToolTip" xml:space="preserve">
+    <value>Chỉ hiển thị phụ đề bắt buộc từ các bản phụ đề. Thông thường, điều này có nghĩa là những đoạn hội thoại nước ngoài nhỏ.</value>
+  </data>
+  <data name="OffsetSubtitleToolTip" xml:space="preserve">
+    <value>Khoảng thời gian để đẩy về phía trước hoặc trì hoãn sự xuất hiện của phụ đề đã cho.</value>
+  </data>
+  <data name="QueueColumnNameRange" xml:space="preserve">
+    <value>Khoảng</value>
+    <comment>The label for the queue column that specifies what portion of the video to encode. (Like 25:23 - 37:50)</comment>
+  </data>
+  <data name="QueueColumnNameDestination" xml:space="preserve">
+    <value>Đích đến</value>
+  </data>
+  <data name="QueueColumnNameSource" xml:space="preserve">
+    <value>Nguồn</value>
+  </data>
+  <data name="QueueColumnNameTitle" xml:space="preserve">
+    <value>Tiêu đề</value>
+    <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
+  </data>
+  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
+    <value>Chất lượng âm thanh</value>
+  </data>
+  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
+    <value>Bộ mã hóa âm thanh</value>
+  </data>
+  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
+    <value>Bộ mã hóa video</value>
+  </data>
+  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
+    <value>Chất lượng video</value>
+  </data>
+  <data name="QueueEtaToolTip" xml:space="preserve">
+    <value>Thời gian ước tính còn lại để tất cả các công việc trong hàng đợi hoàn thành.</value>
+  </data>
+  <data name="QueueColumnNameDuration" xml:space="preserve">
+    <value>Thời lượng</value>
+  </data>
+  <data name="ForeignAudioSearchToolTip" xml:space="preserve">
+    <value>Tìm kiếm phụ đề có thể chứa các đoạn hội thoại nước ngoài. Tốt cho các bộ phim chủ yếu bằng ngôn ngữ quốc gia của bạn.</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Mặc định</value>
+    <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Tùy chỉnh</value>
+    <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Duyệt…</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="PreviewLabel" xml:space="preserve">
+    <value>Xem trước</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>Tự động</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>Tắt</value>
+    <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Tất cả</value>
+  </data>
+  <data name="StreamChoice" xml:space="preserve">
+    <value>Luồng {0}</value>
+    <comment>Used in the encoding settings dialog to mark which audio stream an audio encoding is targeting. By default the encoding works on all streams but you can target it to affect only the first stream, in which case it would label it "Stream 1"</comment>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Hủy bỏ</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Vô hiệu hóa</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Loại bỏ</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Sao chép</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Có</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Không</value>
+  </data>
+  <data name="CouldNotAccessDirectoriesError" xml:space="preserve">
+    <value>Không thể truy cập các thư mục sau:</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Không có</value>
+  </data>
+  <data name="Succeeded" xml:space="preserve">
+    <value>Thành công</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Thất bại</value>
+  </data>
+  <data name="FilePickerExtTemplate" xml:space="preserve">
+    <value>{0} Tệp</value>
+  </data>
+  <data name="QueueColumnNamePreset" xml:space="preserve">
+    <value>Mẫu thiết lập</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Thành công</value>
+  </data>
+  <data name="ConfirmDialogTitle" xml:space="preserve">
+    <value>Xác nhận</value>
+  </data>
+  <data name="FileFailureErrorMessage" xml:space="preserve">
+    <value>Không thể hoàn thành thao tác tệp.</value>
+  </data>
+  <data name="FileFailureErrorTitle" xml:space="preserve">
+    <value>Lỗi hoạt động tệp</value>
+  </data>
+  <data name="OverrideNameFormatCheckBox" xml:space="preserve">
+    <value>Ghi đè định dạng đặt tên:</value>
+  </data>
+  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
+    <value>Xuất ra thư mục nguồn nếu có thể</value>
+  </data>
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>Giữ nguyên cấu trúc thư mục trong mã hóa hàng loạt</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>Nếu bạn mã hóa một thư mục chứa đầy tệp, các phiên bản mã hóa sẽ được đưa vào các thư mục con để phù hợp với cấu trúc thư mục nguồn.</value>
+  </data>
+  <data name="DismissMessage" xml:space="preserve">
+    <value>Loại bỏ tin nhắn</value>
+    <comment>Appears as a tooltip on inline, dismissable messages</comment>
+  </data>
+  <data name="PresetFileFilter" xml:space="preserve">
+    <value>Tệp đặt trước VidCoder</value>
+    <comment>File dialog description of a .vjpreset file: JSON file that stores an exported preset.</comment>
+  </data>
+  <data name="QueueFileFilter" xml:space="preserve">
+    <value>Tệp hàng đợi VidCoder</value>
+    <comment>File dialog description of a .vjqueue file: JSON file that stores an exported queue.</comment>
+  </data>
+  <data name="First" xml:space="preserve">
+    <value>Đầu tiên</value>
+    <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
+  </data>
+  <data name="DuplicateTrack" xml:space="preserve">
+    <value>Nhân bản track này</value>
+    <comment>Tip to duplicate the audio or subtitle track.</comment>
+  </data>
+  <data name="RemoveTrack" xml:space="preserve">
+    <value>Xóa track này</value>
+    <comment>Tip for button to remove the audio or subtitle track.</comment>
+  </data>
+  <data name="SelectedOverTotalAudioTracksFormat" xml:space="preserve">
+    <value>{0}/{1} track âm thanh</value>
+    <comment>{0} is the number of selected audio tracks and {1} is the number of total tracks on the source.</comment>
+  </data>
+  <data name="SelectedOverTotalSubtitleTracksFormat" xml:space="preserve">
+    <value>{0}/{1} track phụ đề</value>
+    <comment>{0} is the number of selected subtitle tracks and {1} is the number of total tracks on the source.</comment>
+  </data>
+  <data name="NumberBoxIncreaseButtonAutomationTextFormat" xml:space="preserve">
+    <value>Tăng {0}</value>
+    <comment>Automation text for the increase button on the number box.
+{0} - The name of the value the control is changing, for example "width"</comment>
+  </data>
+  <data name="NumberBoxDecreaseButtonAutomationTextFormat" xml:space="preserve">
+    <value>Giảm {0}</value>
+    <comment>Automation text for the decrease button on the number box.
+{0} - The name of the value the control is changing, for example "width"</comment>
+  </data>
+  <data name="OpenSplitButtonAutomationName" xml:space="preserve">
+    <value>Mở nút tách</value>
+    <comment>Automation name for screen readers for the "open" arrow on a split button</comment>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Không xác định</value>
+    <comment>Used when a value is not known.</comment>
+  </data>
+  <data name="DefaultLabel" xml:space="preserve">
+    <value>Mặc định:</value>
+  </data>
+  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
+    <value>Track âm thanh</value>
+  </data>
+  <data name="QueueColumnNameCropping" xml:space="preserve">
+    <value>Cắt xén</value>
+  </data>
+  <data name="QueueColumnNameOutputSize" xml:space="preserve">
+    <value>Kích thước đầu ra</value>
+  </data>
+  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
+    <value>Track phụ đề</value>
+  </data>
+  <data name="Manual" xml:space="preserve">
+    <value>Thủ công</value>
+    <comment>Shown when something has been set manually</comment>
+  </data>
+  <data name="FileNoLongerExists" xml:space="preserve">
+    <value>Tệp không còn tồn tại.</value>
+  </data>
+  <data name="MegabytesAbbreviation" xml:space="preserve">
+    <value>MB</value>
+    <comment>Abbreviation for megabytes</comment>
+  </data>
+</root>
