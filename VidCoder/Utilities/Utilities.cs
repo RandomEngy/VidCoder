@@ -39,24 +39,23 @@ namespace VidCoder
 		{
 			InstallType = VidCoderInstallType.Zip;
 
+			var tempFolderPath = Environment.GetEnvironmentVariable("temp");
+			if (tempFolderPath != null)
+			{
+				DirectoryInfo tempFolderInfo = new DirectoryInfo(tempFolderPath);
+				DirectoryInfo currentDirectoryInfo = new DirectoryInfo(Directory.GetCurrentDirectory());
+
+				if (currentDirectoryInfo.FullName.StartsWith(tempFolderInfo.FullName, StringComparison.OrdinalIgnoreCase))
+				{
+					InstallType = VidCoderInstallType.Portable;
+					return;
+				}
+			}
+
 			var updateManager = new UpdateManager(SquirrelUpdateUrl);
 			if (updateManager.IsInstalledApp)
 			{
 				InstallType = VidCoderInstallType.SquirrelInstaller;
-			}
-			else
-			{
-				var tempFolderPath = Environment.GetEnvironmentVariable("temp");
-				if (tempFolderPath != null)
-				{
-					DirectoryInfo tempFolderInfo = new DirectoryInfo(tempFolderPath);
-					DirectoryInfo currentDirectoryInfo = new DirectoryInfo(Directory.GetCurrentDirectory());
-
-					if (currentDirectoryInfo.FullName.StartsWith(tempFolderInfo.FullName, StringComparison.OrdinalIgnoreCase))
-					{
-						InstallType = VidCoderInstallType.Portable;
-					}
-				}
 			}
 		}
 
