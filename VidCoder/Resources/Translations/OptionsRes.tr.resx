@@ -189,7 +189,9 @@
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Güncellemeleri daha sık almak için Beta kanalına katılın</value>
   </data>
-  
+  <data name="UpdateReadyStatus" xml:space="preserve">
+    <value>Güncelleme {0} hazır.</value>
+  </data>
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder güncel.</value>
   </data>
@@ -370,7 +372,14 @@
   <data name="EncodeRetriesLabel" xml:space="preserve">
     <value>Kodlama denemelerinin sayısı:</value>
   </data>
-  
-  
-  
+  <data name="ApplyUpdateButton" xml:space="preserve">
+    <value>Güncellemeyi uygula</value>
+  </data>
+  <data name="CheckingForUpdateStatus" xml:space="preserve">
+    <value>Güncelleme kontrol ediliyor...</value>
+  </data>
+  <data name="UpdateModeLabel" xml:space="preserve">
+    <value>Güncelleme modu:</value>
+    <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
+  </data>
 </root>

@@ -388,6 +388,11 @@ Tümü - Tüm altyazıları dahil eder.</value>
   <data name="LanguageLabel" xml:space="preserve">
     <value>Dil:</value>
   </data>
-  
-  
+  <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
+    <value>Kaldırmadan önce onaylayın</value>
+  </data>
+  <data name="SourceFileRemovalLabel" xml:space="preserve">
+    <value>Başarılı kodlamadan sonra kaynak dosya kaldırma:</value>
+    <comment>Label for the option to automatically delete source files on completion.</comment>
+  </data>
 </root>

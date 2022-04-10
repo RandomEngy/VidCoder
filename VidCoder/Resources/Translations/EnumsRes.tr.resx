@@ -339,10 +339,22 @@
   <data name="SubtitleBurnInSelection_None" xml:space="preserve">
     <value>Hiçbiri</value>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="SourceFileRemovalTiming_AfterClearingCompletedItems" xml:space="preserve">
+    <value>Tamamlananlar temizledikten sonra</value>
+  </data>
+  <data name="SourceFileRemovalTiming_Immediately" xml:space="preserve">
+    <value>Kodlama tamamlandıktan hemen sonra</value>
+  </data>
+  <data name="SourceFileRemoval_Delete" xml:space="preserve">
+    <value>⚠️ Sil (GERİ GETİRİLEMEZ) ⚠️</value>
+  </data>
+  <data name="SourceFileRemoval_Recycle" xml:space="preserve">
+    <value>Geri Dönüşüm Kutusu</value>
+  </data>
+  <data name="UpdateMode_PromptApplyImmediately" xml:space="preserve">
+    <value>Hemen başvurun</value>
+  </data>
+  <data name="UpdateMode_SilentNextLaunch" xml:space="preserve">
+    <value>Sessiz (Bir sonraki açılışta uygula)</value>
+  </data>
 </root>

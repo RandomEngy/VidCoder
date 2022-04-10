@@ -839,9 +839,19 @@ Keskinleştir (Lapsharp), Laplacian kenar filtrelerine yakın olan kıvrım tane
   <data name="ColorspaceLabel" xml:space="preserve">
     <value>Renk Uzayı:</value>
   </data>
-  
-  
-  
-  
-  
+  <data name="ChromaSmoothToolTip" xml:space="preserve">
+    <value>Kroma gürültüsünü, gökkuşağını ve diğer göze çarpan görsel artifikatları azaltır. Özellikle düşük kaliteli DVD ve VHS gibi analog kaynaklardan gelen daha düşük çözünürlüklü içeriklerde renkle ilgili çeşitli sorunları çözmek için kullanışlıdır. Bulanıklaştırma/yumuşatma algoritması, keskinleştirilmemiş filtre tarafından kullanılanla aynıdır.</value>
+  </data>
+  <data name="ConstrainToOneAxisCheckBox" xml:space="preserve">
+    <value>Bir eksenle sınırla</value>
+  </data>
+  <data name="ConstrainToOneAxisToolTip" xml:space="preserve">
+    <value>Etkinleştirilirse, sadece en fazla toplam tespit edilen kırpmaya sahip eksen kırpılacaktır. Örneğin, Üst+Alt = 32 ve Sol+Sağ = 6 ise, Sol ve Sağda kırpma 0 olarak ayarlanacaktır.</value>
+  </data>
+  <data name="MinimumCroppingLabel" xml:space="preserve">
+    <value>En Az:</value>
+  </data>
+  <data name="MinimumCroppingToolTip" xml:space="preserve">
+    <value>Otomatik kırpma bir eksen için bu miktarın altındaysa, o eksen için kırpmayı devre dışı bırakın. Küçük kırpma miktarlarında yeniden örneklemeyi önlemek için kullanışlıdır.</value>
+  </data>
 </root>

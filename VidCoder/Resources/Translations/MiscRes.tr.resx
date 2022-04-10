@@ -142,13 +142,13 @@
     <value>İstisna</value>
   </data>
   <data name="FileConflictDialogTitle" xml:space="preserve">
-    <value>Dosya çakışması</value>
+    <value>Dosya Çakışması</value>
   </data>
   <data name="OverwriteButton" xml:space="preserve">
-    <value>Üzerine yaz</value>
+    <value>Üzerine Yaz</value>
   </data>
   <data name="AutoRenameButton" xml:space="preserve">
-    <value>Otomatik adlandır</value>
+    <value>Otomatik Adlandır</value>
   </data>
   <data name="FileConflictWarning" xml:space="preserve">
     <value>Dosya zaten var {0}. Üzerine yazabilir, otomatik olarak adlandırabilir veya işlemi iptal edebilirsiniz.</value>
@@ -260,6 +260,10 @@
   <data name="ReplaceJobButton" xml:space="preserve">
     <value>İşi değiştir</value>
   </data>
-  
-  
+  <data name="CopyAndReportIssueButton" xml:space="preserve">
+    <value>Sorunu kopyala ve bildir</value>
+  </data>
+  <data name="OneTimeInstallerCleanup" xml:space="preserve">
+    <value>Eski kurulumu bir kerelik temizlememiz gerekiyor. Vidcoder'ın eski sürümünü kaldırmak için bir sonraki istemde 'Evet'i seçin.</value>
+  </data>
 </root>

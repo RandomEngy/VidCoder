@@ -283,7 +283,11 @@
   <data name="StoppedEncoding" xml:space="preserve">
     <value>Kodlama durduruldu.</value>
   </data>
-  
+  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
+    <value>{0} {1} kaynak dosya(ları)/klasör(leri) silmek istediğinizden emin misiniz?</value>
+    <comment>{0} is the verb, can be "recycle" or "delete"
+{1} is the number of files that will be removed</comment>
+  </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Silmeyi Onayla</value>
   </data>
@@ -736,8 +740,18 @@ v5, Windows 7/8 için test edilen son sürümdü.
 
 Bu uyarı yalnızca iki kez görüntülenir.</value>
   </data>
-  
-  
-  
-  
+  <data name="RemoveSourceFiles_Delete" xml:space="preserve">
+    <value>Sil</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RemoveSourceFiles_Recycle" xml:space="preserve">
+    <value>Geri Dönüşüm Kutusu</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RequestFeatureMenuItem" xml:space="preserve">
+    <value>Özellik Öner</value>
+  </data>
+  <data name="CopyLogAndReportMenuItem" xml:space="preserve">
+    <value>Günlüğü kopyala ve sorunu bildir</value>
+  </data>
 </root>
