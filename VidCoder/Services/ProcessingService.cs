@@ -2481,9 +2481,9 @@ namespace VidCoder.Services
 			{
 				soundPlayer.Play();
 			}
-			catch (InvalidOperationException)
+			catch (Exception exception)
 			{
-				this.logger.LogError(string.Format("Completion sound \"{0}\" was not a supported WAV file.", soundPath));
+				this.logger.LogError($"Failed to play completion sound from \"{soundPath}\".${Environment.NewLine}${exception}");
 			}
 		}
 
