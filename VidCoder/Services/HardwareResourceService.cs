@@ -120,16 +120,18 @@ namespace VidCoder.Services
 			DriveInformation driveInfo = job.VideoSourceMetadata?.DriveInfo;
 			if (driveInfo != null)
 			{
-				string driveRootDirectory = driveInfo?.RootDirectory;
-
-				HardwarePool drivePool;
-				if (!this.discDrivePools.TryGetValue(driveRootDirectory, out drivePool))
+				string driveRootDirectory = driveInfo.RootDirectory;
+				if (driveRootDirectory != null)
 				{
-					drivePool = new HardwarePool(driveRootDirectory, 1);
-					this.discDrivePools.Add(driveRootDirectory, drivePool);
-				}
+					HardwarePool drivePool;
+					if (!this.discDrivePools.TryGetValue(driveRootDirectory, out drivePool))
+					{
+						drivePool = new HardwarePool(driveRootDirectory, 1);
+						this.discDrivePools.Add(driveRootDirectory, drivePool);
+					}
 
-				result.Add(drivePool);
+					result.Add(drivePool);
+				}
 			}
 
 			// Add hardware encoder pool
