@@ -528,6 +528,12 @@
 										<ComboBoxItem>20</ComboBoxItem>
 										<ComboBoxItem>25</ComboBoxItem>
 										<ComboBoxItem>30</ComboBoxItem>
+										<ComboBoxItem>35</ComboBoxItem>
+										<ComboBoxItem>40</ComboBoxItem>
+										<ComboBoxItem>45</ComboBoxItem>
+										<ComboBoxItem>50</ComboBoxItem>
+										<ComboBoxItem>55</ComboBoxItem>
+										<ComboBoxItem>60</ComboBoxItem>
 									</ComboBox>
 								</StackPanel>
 								<Grid Margin="0 6 0 0">
