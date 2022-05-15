@@ -164,6 +164,7 @@ namespace VidCoder.ViewModel
 						new InterfaceLanguage { CultureCode = "eu-ES", Display = "Euskara / Basque" },
 						new InterfaceLanguage { CultureCode = "fr-FR", Display = "Français / French" },
 						new InterfaceLanguage { CultureCode = "it-IT", Display = "italiano / Italian" },
+						new InterfaceLanguage { CultureCode = "hr-HR", Display = "hrvatski / Croatian" },
 						new InterfaceLanguage { CultureCode = "hu-HU", Display = "Magyar / Hungarian" },
 						new InterfaceLanguage { CultureCode = "nl-BE", Display = "Nederlands / Dutch" },
 						new InterfaceLanguage { CultureCode = "pl-PL", Display = "polski / Polish" },

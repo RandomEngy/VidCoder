@@ -118,282 +118,282 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DefaultCheckBox" xml:space="preserve">
-    <value>Predeterminado</value>
+    <value>Zadano</value>
   </data>
   <data name="LanguagesRadioButton" xml:space="preserve">
-    <value>Idioma(s)</value>
+    <value>Jezik(ci)</value>
   </data>
   <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Solo si el lenguaje es diferente del audio</value>
+    <value>Samo ako se jezik razlikuje od zvuka</value>
     <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>Selección: {0}</value>
+    <value>Birač: {0}</value>
   </data>
   <data name="PickerButtonFormat" xml:space="preserve">
-    <value>Slección: {0}</value>
+    <value>Birač: {0}</value>
     <comment>{0} is the name of the picker. This string shows up on the picker split button.</comment>
   </data>
   <data name="OutputLocation" xml:space="preserve">
-    <value>Ubicación de salida</value>
+    <value>Odredišna lokacija</value>
   </data>
   <data name="OverrideDirectoryCheckBox" xml:space="preserve">
-    <value>Reemplazar el directorio:</value>
+    <value>Nadjačavanje mape:</value>
   </data>
   <data name="PickerHelpText" xml:space="preserve">
-    <value>Automáticamente escoge títulos, audio, subtítulos y destino</value>
+    <value>Automatski odaberi naslov, zvuk, podnaslove i odredište</value>
   </data>
   <data name="AutoQueueOnScanCheckBox" xml:space="preserve">
-    <value>Automáticamente pone en cola después de analizar el archivo</value>
+    <value>Automatski dodaj u red ćekanja nakon skeniranja</value>
   </data>
   <data name="AutoEncodeOnScanCheckBox" xml:space="preserve">
-    <value>Empezar la codificación después de analizar el archivo</value>
+    <value>Pokreni kodiranje nakon skeniranja</value>
   </data>
   <data name="UseGlobalSettingToolTip" xml:space="preserve">
-    <value>Usar configuración global</value>
+    <value>Koristi globalne postavke</value>
     <comment>Label for the "indeterminate" checkbox state that lets the user know that this will fall back to the global setting</comment>
   </data>
   <data name="PresetOverrideToolTip" xml:space="preserve">
-    <value>Esto reemplazará cualquier preset seleccionado en la ventana principal.</value>
+    <value>Time će se nadjačati svi predlošci izdvojeni u glavnom prozoru.</value>
   </data>
   <data name="EncodingSection" xml:space="preserve">
-    <value>Codificación</value>
+    <value>Kodiranje</value>
     <comment>The header for the Encoding section in the Picker window.</comment>
   </data>
   <data name="PostEncodingSection" xml:space="preserve">
-    <value>Post codificación</value>
+    <value>Nakon kodiranja</value>
     <comment>Header for the post-encoding section in the picker window.</comment>
   </data>
   <data name="SendFileToLabel" xml:space="preserve">
-    <value>Enviar archivo a:</value>
+    <value>Pošalji datoteku u:</value>
     <comment>Label for the option to run a program after encoding each file.</comment>
   </data>
   <data name="PostEncodeArgumentsLabel" xml:space="preserve">
-    <value>Argumentos:</value>
+    <value>Argumenti:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
   <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>Son los parámetros que el programa necesita. Usa {file} para indicar la ruta del archivo de salida,{folder} como la ruta de salida u otras opciones como son {title} y {date} (ver Nomenclatura de Nombres).</value>
+    <value>Argumenti koji će biti proslijeđeni programu. Koristi {file} za putanju izlazne datoteke, {folder} za putanju do mape ili druge opcije putanje kao {title} i {date} (pogledaj format nazivanja).</value>
     <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
   </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
-    <value>El selector ha especificado el preset de codificación.</value>
+    <value>Birač je odredio predložak kodiranja.</value>
   </data>
   <data name="AddLanguageButton" xml:space="preserve">
-    <value>Agregar Idioma</value>
+    <value>Dodaj jezik</value>
   </data>
   <data name="AllTracksForTheseLanguagesRadioButton" xml:space="preserve">
-    <value>Todas las pistas para estos idiomas</value>
+    <value>Svi zapisi u ovim jezicima</value>
   </data>
   <data name="AllTracksForThisLanguageRadioButton" xml:space="preserve">
-    <value>Todas las pistas para este idioma</value>
+    <value>Svi zapisi u ovom jeziku</value>
   </data>
   <data name="FirstTrackOfEachLanguageRadioButton" xml:space="preserve">
-    <value>Primera pista de cada idioma</value>
+    <value>Prvi zapis od svakog jezika</value>
   </data>
   <data name="FirstTrackRadioButton" xml:space="preserve">
-    <value>Primera pista</value>
+    <value>Prvi zapis</value>
   </data>
   <data name="SingleSubtitleDefaultToolTip" xml:space="preserve">
-    <value>Selecciona la pista de subtítulos por defecto; estos se mostrarán automáticamente al reproducir el video.</value>
+    <value>Označi zapis podnaslova kao zadan, tako da će se automatski prikazati prilikom reprodukcije videozapisa.</value>
   </data>
   <data name="MultipleSubtitleDefaultToolTip" xml:space="preserve">
-    <value>Seleccione la primera pista de subtítulos por defecto; estos se mostrarán automáticamente al reproducir el video.</value>
+    <value>Označi prvi zapis podnaslova kao zadan, tako da će se automatski prikazati prilikom reprodukcije videozapisa.</value>
   </data>
   <data name="FirstAsDefaultCheckBox" xml:space="preserve">
-    <value>Selecciona el primero como predeterminado</value>
+    <value>Označi prvi kao zadan</value>
     <comment>Label for checkbox to mark the first subtitle as default.</comment>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>Preset utilizado:</value>
+    <value>Koristi predložak:</value>
   </data>
   <data name="RemoveLanguageToolTip" xml:space="preserve">
-    <value>Quita éste idioma.</value>
+    <value>Ukloni ovaj jezik.</value>
   </data>
   <data name="SortLanguagesLabel" xml:space="preserve">
-    <value>Ordenar idioma(s) al principio:</value>
+    <value>Sortiraj jezik(e) na vrh:</value>
   </data>
   <data name="ForcedOnlyCheckBox" xml:space="preserve">
-    <value>Sólo forzados</value>
+    <value>Samo obavezne</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
   <data name="LastSelectedRadioButton" xml:space="preserve">
-    <value>Última selección</value>
+    <value>Posljednje označeno</value>
   </data>
   <data name="OverrideNameFormatLabel" xml:space="preserve">
-    <value>Opciones disponibles: {0}</value>
+    <value>Dostupne mogućnosti: {0}</value>
   </data>
   <data name="DurationFilterStartAutomationName" xml:space="preserve">
-    <value>Inicio en minutos del filtro de duración</value>
+    <value>Početne minute za filter trajanja</value>
     <comment>Screen reader text for number box that represents the start of the filter range in minutes. The number chosen in this box represents the minimum title length in minutes that will be chosen.
 </comment>
   </data>
   <data name="DurationFilterEndAutomationName" xml:space="preserve">
-    <value>Término en minutos del filtro de duración</value>
+    <value>Krajnje minute za filter trajanja</value>
     <comment>Screen reader text for number box that represents the end of the filter range in minutes. The number chosen in this box represents the maximum title length in minutes that will be chosen.
 </comment>
   </data>
   <data name="DurationFilterCheckBoxAutomationName" xml:space="preserve">
-    <value>Filtro de títulos por duración</value>
+    <value>Filtriraj naslove po dužini trajanja</value>
     <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
   </data>
   <data name="ChangeCaptializationLabel" xml:space="preserve">
-    <value>Cambiar mayúsculas a</value>
+    <value>Promijeni velika i mala slova u</value>
   </data>
   <data name="TimeRangeStartAutomationName" xml:space="preserve">
-    <value>Inicio de rango de tiempo</value>
+    <value>Početak raspona vremena</value>
   </data>
   <data name="TimeRangeEndAutomationName" xml:space="preserve">
-    <value>Final de rango de tiempo</value>
+    <value>Kraj raspona vremena</value>
   </data>
   <data name="ByIndexRadioButton" xml:space="preserve">
-    <value>Por índice</value>
+    <value>Prema indeksu</value>
     <comment>Label for the choice to choose audio or subtitle tracks by index</comment>
   </data>
   <data name="SelectTracksLabel" xml:space="preserve">
-    <value>Seleccione pistas:</value>
+    <value>Odaberi zapise:</value>
   </data>
   <data name="SelectTracksHelpText" xml:space="preserve">
-    <value>Separado por comas - p. ej. 2,5</value>
+    <value>Odvojeno zarezom - npr. 2,5</value>
   </data>
   <data name="ChapterRangeEndAutomationName" xml:space="preserve">
-    <value>Fin del rango de capítulos</value>
+    <value>Raspon poglavlja kraj</value>
   </data>
   <data name="ChapterRangeStartAutomationName" xml:space="preserve">
-    <value>Inicio del rango de capítulos</value>
+    <value>Raspon poglavlja početak</value>
   </data>
   <data name="DestinationSection" xml:space="preserve">
-    <value>Destino</value>
+    <value>Odredište</value>
   </data>
   <data name="OutputFolder" xml:space="preserve">
-    <value>Carpeta de salida:</value>
+    <value>Izlazna mapa:</value>
     <comment>Label for the output folder.</comment>
   </data>
   <data name="UseCustomFileNameFormatCheckBox" xml:space="preserve">
-    <value>Usar formato de nombre de archivo personalizado:</value>
+    <value>Koristi prilagođeni oblik imenovanja datoteka:</value>
   </data>
   <data name="WhenFileExistsBatch" xml:space="preserve">
-    <value>Cuando el archivo ya existe (por lotes):</value>
+    <value>Kada datoteka već postoji (Skupna):</value>
   </data>
   <data name="WhenFileExistsSingle" xml:space="preserve">
-    <value>Cuando el archivo ya existe (uno solo):</value>
+    <value>Kada datoteka već postoji (Pojedinačna):</value>
   </data>
   <data name="CustomPickerNameTemplate" xml:space="preserve">
-    <value>Personalizado {0}</value>
+    <value>Prilagođeno {0}</value>
     <comment>The name for a custom auto-created picker. {0} is a number like 2, or 3 or 4 to differentiate it</comment>
   </data>
   <data name="OutputFileNameFormatAutomationName" xml:space="preserve">
-    <value>Formato de nombre de archivo</value>
+    <value>Oblik naziva datoteke</value>
     <comment>Name for screen readers for the output file name format text box</comment>
   </data>
   <data name="OnlyChangeCapitalizationIfAllSameLabel" xml:space="preserve">
-    <value>Solo se cambian las mayúsculas si son todas minúsculas o todas mayúsculas</value>
+    <value>Promijeni velika i mala slova samo ako su sva mala ili sva velika slova</value>
   </data>
   <data name="WordBreakCharacterAutomationNameFormat" xml:space="preserve">
-    <value>Carácter de salto de palabras - {0}</value>
+    <value>Znak prijeloma riječi - {0}</value>
     <comment>Screen reader format for word break checkboxes. These will determine if a character will be used to separate words.</comment>
   </data>
   <data name="WordBreakCharactersLabel" xml:space="preserve">
-    <value>Caracteres de salto de palabra reconocidos:</value>
+    <value>Prepoznati znakovi prijeloma riječi:</value>
   </data>
   <data name="WordBreakCharacter_Dot" xml:space="preserve">
-    <value>Punto</value>
+    <value>Točka</value>
   </data>
   <data name="WordBreakCharacter_Space" xml:space="preserve">
-    <value>Espacio</value>
+    <value>Razmak</value>
   </data>
   <data name="WordBreakCharacter_Underscore" xml:space="preserve">
-    <value>Barra baja</value>
+    <value>Podvlaka</value>
   </data>
   <data name="ChangeWordSeparatorLabel" xml:space="preserve">
-    <value>Cambiar separador de palabras a</value>
+    <value>Promjena razdjelnika riječi u</value>
   </data>
   <data name="SourceCleanupPreviewLabel" xml:space="preserve">
-    <value>Vista previa:</value>
+    <value>Pretpregled:</value>
   </data>
   <data name="SourceNameCleanupSection" xml:space="preserve">
-    <value>Limpieza de nombre fuente</value>
+    <value>Čišćenje naziva izvora</value>
   </data>
   <data name="AddAudioTrackNameButton" xml:space="preserve">
-    <value>Añadir nombre de pista de audio</value>
+    <value>Dodavanje naziva audio zapisa</value>
     <comment>Button to add another name to the list of audio track names in the Picker.</comment>
   </data>
   <data name="AddSubtitleTrackNameButton" xml:space="preserve">
-    <value>Añadir nombre de pista de subtítulos</value>
+    <value>Dodavanje naziva zapisa titlova</value>
     <comment>Button to add another name to the list of subtitle track names in the Picker.</comment>
   </data>
   <data name="CustomTrackNamesCheckBox" xml:space="preserve">
-    <value>Nombres de pista personalizados</value>
+    <value>Prilagođeni nazivi zapisa</value>
     <comment>Checkbox label to use custom audio or subtitle track names</comment>
   </data>
   <data name="TrackAutomationFormat" xml:space="preserve">
-    <value>Pista {0}</value>
+    <value>Zapis {0}</value>
     <comment>Screen reader format for track names in the Picker.</comment>
   </data>
   <data name="BurnInLabel" xml:space="preserve">
-    <value>Incrustados:</value>
+    <value>Ureži u:</value>
   </data>
   <data name="PickerAudioSectionName" xml:space="preserve">
-    <value>Audio</value>
+    <value>Zvuk</value>
   </data>
   <data name="PickerForeignAudioCheckBox" xml:space="preserve">
-    <value>Agregar "Pista de audio extranjero"</value>
+    <value>Dodaj 'Skeniranje stranog zvuka' zapis</value>
   </data>
   <data name="PickerSubtitleSectionName" xml:space="preserve">
-    <value>Subtítulos</value>
+    <value>Podnaslovi</value>
   </data>
   <data name="SubtitleSelectionMode_ForeignAudioSearch" xml:space="preserve">
-    <value>Pista de audio extranjero</value>
+    <value>Skeniranje stranog zvuka</value>
   </data>
   <data name="TrackSelectionLabel" xml:space="preserve">
-    <value>Selección de pistas:</value>
+    <value>Odabir zapisa:</value>
     <comment>Label for track selection mode for audio or subtitle tracks.</comment>
   </data>
   <data name="AudioSelectionModeToolTip" xml:space="preserve">
-    <value>Última seleccionada: elige la última pista de audio seleccionada si se encuentra una coincidencia, de lo contrario elige la primera.
-Primera: incluye solo la primera pista de audio.
-Por índice: elige por índice de pista (basado en 1).
-Idioma(s): elige por idioma.
-Todo: incluye todas las pistas de audio.</value>
+    <value>Zadnji odabrani – odabire posljednji odabrani zapis zvuka ako je pronađeno podudaranje, inače odabire prvi.
+Prvi – Uključi samo prvi zapis zvuka.
+Po indeksu – Izdvajanje prema indeksu zapisa (1-based)
+Jezik(ci) – odabir po jeziku
+Sve - Uključi sve zapise zvuka.</value>
   </data>
   <data name="SubtitleSelectionModeToolTip" xml:space="preserve">
-    <value>Última seleccionada: elige la última pista de subtítulos seleccionada si se encuentra una coincidencia, de lo contrario no elige ninguna pista.
-Ninguna: no se incluyen subtítulos.
-Primera: incluye solo la primera pista de subtítulos.
-Por índice: elige por índice de pista (basado en 1).
-Idioma(s): elige por idioma.
-Todas: incluye todos los subtítulos.</value>
+    <value>Zadnji odabrani – odabire posljednji odabrani podnaslov ako je pronađeno podudaranje, inače odabire prvi.
+Ništa – nisu uključeni podnaslovi.
+Prvi – Uključi samo prvi podnaslov.
+Po indeksu - Izdvajanje prema indeksu zapisa (1-based)
+Jezik(ci) – odabir po jeziku
+Sve - Uključi sve podnaslove.</value>
   </data>
   <data name="IgnoreFilesBelowCheckBox" xml:space="preserve">
-    <value>Ignorar archivos inferiores a</value>
+    <value>Zanemari datoteke u nastavku</value>
     <comment>A number box follows this string: Ignore files below [ 10 ] MB</comment>
   </data>
   <data name="TimeRangeLabel" xml:space="preserve">
-    <value>Intervalo de tiempo:</value>
+    <value>Vremenski raspon:</value>
   </data>
   <data name="VideoSelectionSection" xml:space="preserve">
-    <value>Selección de vídeo</value>
+    <value>Odabir videozapisa</value>
   </data>
   <data name="MetadataSection" xml:space="preserve">
-    <value>Metadatos</value>
+    <value>Metadata</value>
   </data>
   <data name="PassThroughMetadataCheckBox" xml:space="preserve">
-    <value>Transferir los metadatos del vídeo (director, fecha de estreno, actores, etc.)</value>
+    <value>Prolazak kroz video metadata podatke (redatelj, datum izlaska, glumci itd.)</value>
   </data>
   <data name="BurnInCheckBox" xml:space="preserve">
-    <value>"Pegados" al video</value>
+    <value>Ureži u</value>
   </data>
   <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
-    <value>Añadir archivos de subtítulos externos ({0}) con el mismo nombre que el archivo de vídeo de entrada</value>
+    <value>Dodavanje vanjskih datoteka s podnaslovima ({0}) istog naziva kao ulazna videodatoteka</value>
   </data>
   <data name="LanguageLabel" xml:space="preserve">
-    <value>Idioma:</value>
+    <value>Jezik:</value>
   </data>
   <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
-    <value>Confirmar antes de eliminar</value>
+    <value>Potvrdi prije uklanjanja</value>
   </data>
   <data name="SourceFileRemovalLabel" xml:space="preserve">
-    <value>Eliminar archivos origen tras codificación exitosa:</value>
+    <value>Uklanjanje izvorišne datoteke nakon uspješnog kodiranja:</value>
     <comment>Label for the option to automatically delete source files on completion.</comment>
   </data>
 </root>

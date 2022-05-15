@@ -118,152 +118,152 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddButton" xml:space="preserve">
-    <value>Agregar</value>
+    <value>Dodaj</value>
   </data>
   <data name="RefreshButton" xml:space="preserve">
-    <value>Actualizar</value>
+    <value>Osvježi</value>
   </data>
   <data name="ChooseFromProcessesLabel" xml:space="preserve">
-    <value>Elegir los procesos existentes:</value>
+    <value>Odaberi iz postojećih procesa:</value>
   </data>
   <data name="AddAutoPauseProcessDialogTitle" xml:space="preserve">
-    <value>Agregar proceso de Auto Pause</value>
+    <value>Dodaj Automatski Pauziraj Proces</value>
   </data>
   <data name="ProcessNameLabel" xml:space="preserve">
-    <value>Nombre del proceso:</value>
+    <value>Naziv procesa:</value>
   </data>
   <data name="ExceptionDialogMainText" xml:space="preserve">
-    <value>VidCoder ha experimentado un error inesperado.</value>
+    <value>Došlo je do neočekivane greške u VidCoderu.</value>
   </data>
   <data name="ExceptionDialogSubText" xml:space="preserve">
-    <value>Por favor reportelo, asi puede arreglarse en el futuro.</value>
+    <value>Molimo prijavi to kako bi se ubuduće moglo popraviti.</value>
   </data>
   <data name="ExceptionWindowTitle" xml:space="preserve">
-    <value>Excepcion</value>
+    <value>Iznimka</value>
   </data>
   <data name="FileConflictDialogTitle" xml:space="preserve">
-    <value>Conflicto de archivo</value>
+    <value>Konflikt datoteka</value>
   </data>
   <data name="OverwriteButton" xml:space="preserve">
-    <value>Sobrescribir</value>
+    <value>Prepiši</value>
   </data>
   <data name="AutoRenameButton" xml:space="preserve">
-    <value>Auto-renombrar</value>
+    <value>Automatski preimenuj</value>
   </data>
   <data name="FileConflictWarning" xml:space="preserve">
-    <value>Ya existe un archivo en {0}. ¿Quieres sobrescribir el archivo, encontrar automáticamente una nueva ruta de salida para el trabajo o cancelar la operación?</value>
+    <value>Datoteka već postoji u {0}. Želiš li pisati preko datoteke, automatski naći novu izlaznu putanju za ovaj posao kodiranja ili otkazati operaciju?</value>
   </data>
   <data name="QueueFileConflictWarning" xml:space="preserve">
-    <value>Un trabajo en cola ya tiene una ruta de salida en {0}. ¿Quieres reemplazar el trabajo en cola, encontrar automáticamente una nueva ruta de salida para el trabajo de codificación o cancelar la operación?</value>
+    <value>Red čekanja već ima izlaznu putanju u {0}. Želiš li pisati preko datoteke, automatski naći novu izlaznu putanju za ovaj posao kodiranja ili otkazati operaciju?</value>
   </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Columnas de cola</value>
+    <value>Stupci reda čekanja</value>
   </data>
   <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Arrastrar y soltar para agregar, eliminar o reordenar las columnas.</value>
+    <value>Povuci i ispusti za dodavanje, uklanjanje ili promjenu redoslijeda stupaca.</value>
   </data>
   <data name="UnusedColumns" xml:space="preserve">
-    <value>Columnas sin usar</value>
+    <value>Neiskorišteni stupci</value>
   </data>
   <data name="UsedColumns" xml:space="preserve">
-    <value>Columnas usadas</value>
+    <value>Iskorišteni stupci</value>
   </data>
   <data name="ScanMultipleWindowTitle" xml:space="preserve">
-    <value>Analizando...</value>
+    <value>Skeniranje...</value>
   </data>
   <data name="AboutVidCoderDialogTitle" xml:space="preserve">
-    <value>Acerca de VidCoder</value>
+    <value>O VidCoderu</value>
   </data>
   <data name="LicenseLabel" xml:space="preserve">
-    <value>Licencia:</value>
+    <value>Licenca:</value>
   </data>
   <data name="Version" xml:space="preserve">
-    <value>Version</value>
+    <value>Verzija</value>
   </data>
   <data name="BasedOnHandBrake" xml:space="preserve">
-    <value>Basado en HandBrake ({0})</value>
+    <value>Bazirano na HandBrake ({0})</value>
   </data>
   <data name="Copyright" xml:space="preserve">
-    <value>© {0} Desarrolladores de VidCoder</value>
+    <value>© {0} VidCoder Programeri</value>
   </data>
   <data name="BetaVersionFormat2" xml:space="preserve">
     <value>{0} Beta</value>
     <comment>{0} is a placeholder for version. For example: 1.4.2 Beta</comment>
   </data>
   <data name="NameDialogTitle" xml:space="preserve">
-    <value>Nombre</value>
+    <value>Naziv</value>
     <comment>Title for dialog when  naming a preset or  picker</comment>
   </data>
   <data name="ChooseNamePreset" xml:space="preserve">
-    <value>Elije un nombre para el preset:</value>
+    <value>Odaberi ime za predložak:</value>
   </data>
   <data name="ApplyUpdateDialogTitle" xml:space="preserve">
-    <value>¿Aplicar la actualización?</value>
+    <value>Primijeni ažuriranje?</value>
   </data>
   <data name="ApplyUpdateDialogMessage" xml:space="preserve">
-    <value>Se ha descargado una actualización. ¿Quieres aplicarla ahora?</value>
+    <value>Ažuriranje je preuzeto. Želiš li ga primjeniti odmah?</value>
   </data>
   <data name="ViewFullChangelog" xml:space="preserve">
-    <value>Ver la lista completa de cambios</value>
+    <value>Pogledaj kompletan zapisnik promjena</value>
   </data>
   <data name="DisableUpdatesButton" xml:space="preserve">
-    <value>Desactivar las actualizaciones</value>
+    <value>Onemogući ažuriranja</value>
   </data>
   <data name="NoticeMessageTitle" xml:space="preserve">
-    <value>¡Aviso!</value>
+    <value>Obavijest</value>
   </data>
   <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder no es compatible con tú sistema operativo. Vidcoder no funciona en Windows XP y Server 2003 . Por favor Instala VidCoder 1.4 o actualiza tú sistema operativo.</value>
+    <value>VidCoder nije podržan na vašem operativnom sustavu. Windows XP i Server 2003 više ne rade. Molimo instalirajte VidCoder 1.4 ili ažurirajte vaš operativni sistem.</value>
   </data>
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
-    <value>Hibernacion del sistema inminente</value>
+    <value>Slijedi mirovanje</value>
   </data>
   <data name="EncodeCompleteWarning_LogOffTitle" xml:space="preserve">
-    <value>Cierre la sesión inminente</value>
+    <value>Slijedi odjava</value>
   </data>
   <data name="EncodeCompleteWarning_ShutdownTitle" xml:space="preserve">
-    <value>Apagado inminente</value>
+    <value>Slijedi gašenje</value>
   </data>
   <data name="EncodeCompleteWarning_SleepMessage" xml:space="preserve">
-    <value>El sistema hibernara en {0} segundos.</value>
+    <value>Sustav će se prebaciti u mod mirovanja za {0} sekundi.</value>
   </data>
   <data name="EncodeCompleteWarning_LogOffMessage" xml:space="preserve">
-    <value>Cerraras sesión en {0} segundos.</value>
+    <value>Bit ćete odjavljeni za {0} sekundi.</value>
   </data>
   <data name="EncodeCompleteWarning_ShutdownMessage" xml:space="preserve">
-    <value>El sistema se apagará en {0} segundos.</value>
+    <value>Sustav će se ugasiti za {0} sekundi.</value>
   </data>
   <data name="EncodeCompleteWarning_Title" xml:space="preserve">
-    <value>Se ha completado la codificación.</value>
+    <value>Kodiranje je završeno.</value>
   </data>
   <data name="CouldNotFindVideoPlayerError" xml:space="preserve">
-    <value>No se pudo encontrar un reproductor de vídeo para {0}.</value>
+    <value>Nije pronađen video reproduktor za {0}.</value>
   </data>
   <data name="ErrorPlayingSource" xml:space="preserve">
-    <value>Error al reproducir el archivo fuente.</value>
+    <value>Greška kod reprodukcije izvora.</value>
   </data>
   <data name="EncodeCompleteWarning_HibernateMessage" xml:space="preserve">
-    <value>El sistema hibernara en {0} segundos.</value>
+    <value>Sustav će se prebaciti u mod hibernacije za {0} sekundi.</value>
   </data>
   <data name="EncodeCompleteWarning_HibernateTitle" xml:space="preserve">
-    <value>Hibernación inminente</value>
+    <value>Slijedi hibernacija</value>
   </data>
   <data name="ChooseNamePicker" xml:space="preserve">
-    <value>Elije un nombre para el selector:</value>
+    <value>Odaberite ime za birač:</value>
   </data>
   <data name="ExceptionDialogSubTextReported" xml:space="preserve">
-    <value>Es necesario cerrar el programa, aunque el error será reportado automáticamente.</value>
+    <value>Program se mora zatvoriti, ali greška će se automatski prijaviti.</value>
   </data>
   <data name="DownloadInstallerButton" xml:space="preserve">
-    <value>Descargar instalador</value>
+    <value>Preuzmi instalacijski program</value>
   </data>
   <data name="ReplaceJobButton" xml:space="preserve">
-    <value>Reemplazar trabajo</value>
+    <value>Zamijeni posao</value>
   </data>
   <data name="CopyAndReportIssueButton" xml:space="preserve">
-    <value>Copiar e informar del problema</value>
+    <value>Kopiranje i prijavljivanje problema</value>
   </data>
   <data name="OneTimeInstallerCleanup" xml:space="preserve">
-    <value>Se requiere limpiar la instalación anterior. Elija 'Si' en el siguiente aviso para eliminar la versión anterior de VidCoder.</value>
+    <value>Moramo napraviti jednokratno čišćenje starog instalacijskog programa. U sljedećem upitu odaberi "Da" za uklanjanje stare verzije VidCodera.</value>
   </data>
 </root>

@@ -118,210 +118,208 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
-    <value>Guardar</value>
+    <value>Spremi</value>
   </data>
   <data name="SaveAs" xml:space="preserve">
-    <value>Guardar como...</value>
+    <value>Spremi kao…</value>
   </data>
   <data name="Revert" xml:space="preserve">
-    <value>Deshacer</value>
+    <value>Vrati</value>
   </data>
   <data name="Audio_DrcToolTip" xml:space="preserve">
-    <value>Dynamic Range Compression. Los valores válidos son de 0 a 4.  
+    <value>Sažimanje dinamičkog raspona. Valjane vrijednosti su 0-4.
 
-Para fuentes de audio con rango dinámico amplio (secuencias muy fuertes y muy suaves), DRC permite "comprimir" el rango haciendo fuertes las secciones más blandas y las suaves más fuerte.
+Za izvorni zvuk koji ima širok dinamički raspon (vrlo glasne i vrlo mekane sekvence), DRC vam omogućuje da "komprimirate" raspon čineći glasnije dijelove mekšim i mekim dijelovima.
 
-Esta opción funciona solamente con fuentes de audio de tipo AC3.</value>
+To radi samo s AC3 izvorima.</value>
   </data>
   <data name="Audio_GainToolTip" xml:space="preserve">
-    <value>Amplifica o atenua el audio antes de codificarlo. Los valores válidos son de -20 a + 20 dB.</value>
+    <value>Pojačaj ili smanji zvuk prije kodiranja. Prihvatljive vrijednosti su -20 to +20 dB.</value>
   </data>
   <data name="IncludeChapterMarkersToolTip" xml:space="preserve">
-    <value>Incluir marcadores de capítulo de la entrada de vídeo en el vídeo codificado.</value>
+    <value>Dodaj oznake poglavlja iz izvornog video zapisa u kodirani video zapis.</value>
   </data>
   <data name="IPod5GSupportToolTip" xml:space="preserve">
-    <value>Aplica un marcador al archivo que iPods antiguos requerían para permitir la sincronización de video H.264.</value>
+    <value>Primjenjuje oznaku na datoteku koja je potrebna starijim iPodima prije nego što dopuste sinkronizaciju H.264 videozapisa.</value>
   </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
-    <value>Especificar manualmente la relación de aspecto de pixeles.</value>
+    <value>Ručno navedite omjer slike.</value>
   </data>
   <data name="Video_QualityTargetToolTip" xml:space="preserve">
-    <value>Establece el factor de calidad deseada. La escala utilizada por cada codificador de vídeo es diferente.</value>
+    <value>Postavite željeni faktor kvalitete. Ljestvica koju koristi svaki video koder je različita.</value>
   </data>
   <data name="WebOptimizedToolTip" xml:space="preserve">
-    <value>Organizar el archivo como una descarga progresiva, para una mejor reproducir.</value>
+    <value>Rasporedi datoteku tako da se bolje reproducira kao progresivno preuzimanje.</value>
   </data>
   <data name="ProfileToolTip" xml:space="preserve">
-    <value>Limitar el perfil del archivo de salida. Si especificas un perfil, tus configuraciones 
- serán reemplazadas, garantizando un archivo compatible.  
+    <value>Ograniči profil izlaznog strujanja. Ako se navede profil, on nadjačava sve ostale postavke, pa ako se koristi, bit će zajamčeno kompatibilno strujanje.
 
-Elige esta opción para hacer compatible el archivo final con tu reproductor.</value>
+To bi se trebalo postaviti ako uređaj za reprodukciju podržava samo određeni profil.</value>
   </data>
   <data name="X264TuneToolTip" xml:space="preserve">
-    <value>La opción TUNE, sirve para optimizar aún más los parámetros en base al tipo de video. Si especificas la opción TUNE, los cambios se aplicarán después del PRESET, pero antes de los demás parámetros.</value>
+    <value>Podesi mogućnosti za dodatnu optimizaciju ulaznog sadržaja. Ako je navedeno ugađanje, promjene će se primijeniti nakon predloška, ali prije svih ostalih parametara.</value>
   </data>
   <data name="ContainerLabel" xml:space="preserve">
-    <value>Contenedor:</value>
+    <value>Oblik spremnika:</value>
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
-    <value>Extensión:</value>
+    <value>Ekstenzija:</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
-    <value>Optimizado para web</value>
+    <value>Optimizirano za Web</value>
   </data>
   <data name="Ipod5GSupportCheckBox" xml:space="preserve">
-    <value>Soporte para iPod 5G</value>
+    <value>iPod 5G podrška</value>
   </data>
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
-    <value>Incluir marcadores de capítulo</value>
+    <value>Uključi oznake poglavlja</value>
   </data>
   <data name="TabHeader_Sizing" xml:space="preserve">
-    <value>Tamaño</value>
+    <value>Veličina</value>
   </data>
   <data name="TabHeader_VideoFilters" xml:space="preserve">
-    <value>Filtros de vídeo</value>
+    <value>Video filteri</value>
   </data>
   <data name="TabHeader_VideoEncoding" xml:space="preserve">
-    <value>Codificación de vídeo</value>
+    <value>Kodiranje videa</value>
   </data>
   <data name="TabHeader_AudioEncoding" xml:space="preserve">
-    <value>Codificación de audio</value>
+    <value>Kodiranje zvuka</value>
   </data>
   <data name="Rename" xml:space="preserve">
-    <value>Renombrar</value>
+    <value>Preimenuj</value>
   </data>
   <data name="Input" xml:space="preserve">
-    <value>Entrada</value>
+    <value>Ulaz</value>
   </data>
   <data name="AutoCaption" xml:space="preserve">
-    <value>(auto)</value>
+    <value>(automatski)</value>
   </data>
   <data name="NoneCaption" xml:space="preserve">
-    <value>(ninguno)</value>
+    <value>(ništa)</value>
   </data>
   <data name="StorageResolutionLabel" xml:space="preserve">
-    <value>Resolución almacenada:</value>
+    <value>Rezolucija spremišta:</value>
   </data>
   <data name="PixelAspectRatioLabel" xml:space="preserve">
-    <value>Relación de aspecto de pixeles:</value>
+    <value>Omjer slike:</value>
   </data>
   <data name="DisplayResolutionLabel" xml:space="preserve">
-    <value>Resolución proyectada:</value>
+    <value>Rezolucija prikaza:</value>
   </data>
   <data name="SizingLabel" xml:space="preserve">
-    <value>Tamaño</value>
+    <value>Veličina</value>
   </data>
   <data name="WidthLabel" xml:space="preserve">
-    <value>Ancho:</value>
+    <value>Širina:</value>
   </data>
   <data name="HeightLabel" xml:space="preserve">
-    <value>Altura:</value>
+    <value>Visina:</value>
   </data>
   <data name="MaxWidthLabel" xml:space="preserve">
-    <value>Ancho máximo:</value>
+    <value>Maks. širina</value>
   </data>
   <data name="MaxHeightLabel" xml:space="preserve">
-    <value>Alto máximo:</value>
+    <value>Maks. visina</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
-    <value>Salida</value>
+    <value>Izlaz</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
-    <value>Recorte</value>
+    <value>Obrezivanje</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>Detelecine:</value>
   </data>
   <data name="DeinterlaceLabel" xml:space="preserve">
-    <value>Desentrelazado:</value>
+    <value>Deinterlace:</value>
   </data>
   <data name="DenoiseLabel" xml:space="preserve">
-    <value>Eliminación de ruido:</value>
+    <value>Denoise:</value>
   </data>
   <data name="DeblockLabel" xml:space="preserve">
-    <value>Desbloquear:</value>
+    <value>Deblock:</value>
   </data>
   <data name="GrayscaleCheckBox" xml:space="preserve">
-    <value>Codificación en escala de grises</value>
+    <value>Kodiranje u nijasama sive</value>
   </data>
   <data name="TypeLabel" xml:space="preserve">
-    <value>Tipo:
-</value>
+    <value>Vrsta:</value>
   </data>
   <data name="ShortFramerateLabel" xml:space="preserve">
-    <value>Cuadros por segundo:</value>
+    <value>Brzina kadra:</value>
   </data>
   <data name="CodecLabel" xml:space="preserve">
-    <value>Códec:</value>
+    <value>Kodek:</value>
   </data>
   <data name="FramerateLabel" xml:space="preserve">
-    <value>Cuadros por segundo (FPS):</value>
+    <value>Brzina kadra (FPS):</value>
   </data>
   <data name="ConstantFramerateRadioButton" xml:space="preserve">
-    <value>Framerate constante</value>
+    <value>Konstantna brzina kadra</value>
   </data>
   <data name="Quality" xml:space="preserve">
-    <value>Calidad</value>
+    <value>Kvaliteta</value>
   </data>
   <data name="TwoPassEncodingCheckBox" xml:space="preserve">
-    <value>Codificación en dos pasadas</value>
+    <value>2-prolazno kodiranje</value>
   </data>
   <data name="TurboFirstPassCheckBox" xml:space="preserve">
-    <value>Usar "Turbo" en la Primera pasada</value>
+    <value>Brzi prvi prolaz</value>
   </data>
   <data name="TargetSizeRadioButton" xml:space="preserve">
-    <value>Tamaño específico (MB)</value>
+    <value>Ciljana veličina (MB)</value>
   </data>
   <data name="AverageBitrateRadioButton" xml:space="preserve">
-    <value>Bitrate Promedio (kbps)</value>
+    <value>Prosječana brzina prijenosa (kbps)</value>
   </data>
   <data name="ConstantQualityRadioButton" xml:space="preserve">
-    <value>Calidad constante</value>
+    <value>Ravnomjerna kvaliteta</value>
   </data>
   <data name="ProfileLabel" xml:space="preserve">
-    <value>Profile:</value>
+    <value>Profil:</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>Preset:</value>
+    <value>Predložak:</value>
   </data>
   <data name="TuneLabel" xml:space="preserve">
-    <value>Tune:</value>
+    <value>Namještanje:</value>
   </data>
   <data name="Profile_baseline" xml:space="preserve">
-    <value>Baseline</value>
+    <value>Osnovni</value>
   </data>
   <data name="Profile_main" xml:space="preserve">
-    <value>Main</value>
+    <value>Glavni</value>
   </data>
   <data name="Profile_high" xml:space="preserve">
-    <value>High</value>
+    <value>Visoko</value>
   </data>
   <data name="Preset_UltraFast" xml:space="preserve">
-    <value>Ultra Fast</value>
+    <value>Ultra brzo</value>
   </data>
   <data name="Preset_SuperFast" xml:space="preserve">
-    <value>Super Fast</value>
+    <value>Super brzo</value>
   </data>
   <data name="Preset_VeryFast" xml:space="preserve">
-    <value>Very Fast</value>
+    <value>Jako brzo</value>
   </data>
   <data name="Preset_Faster" xml:space="preserve">
-    <value>Faster</value>
+    <value>Brže</value>
   </data>
   <data name="Preset_Fast" xml:space="preserve">
-    <value>Fast</value>
+    <value>Brzo</value>
   </data>
   <data name="Preset_Medium" xml:space="preserve">
-    <value>Medium</value>
+    <value>Srednje</value>
   </data>
   <data name="Preset_Slow" xml:space="preserve">
-    <value>Slow</value>
+    <value>Sporo</value>
   </data>
   <data name="Preset_Slower" xml:space="preserve">
-    <value>Slower</value>
+    <value>Sporije</value>
   </data>
   <data name="Preset_VerySlow" xml:space="preserve">
-    <value>Very Slow</value>
+    <value>Jako sporo</value>
   </data>
   <data name="Preset_Placebo" xml:space="preserve">
     <value>Placebo</value>
@@ -330,13 +328,13 @@ Elige esta opción para hacer compatible el archivo final con tu reproductor.</v
     <value>Film</value>
   </data>
   <data name="Tune_animation" xml:space="preserve">
-    <value>Animation</value>
+    <value>Animacija</value>
   </data>
   <data name="Tune_grain" xml:space="preserve">
-    <value>Grain</value>
+    <value>Zrnato</value>
   </data>
   <data name="Tune_stillimage" xml:space="preserve">
-    <value>Imagen fija</value>
+    <value>Statična slika</value>
   </data>
   <data name="Tune_psnr" xml:space="preserve">
     <value>PSNR</value>
@@ -345,88 +343,88 @@ Elige esta opción para hacer compatible el archivo final con tu reproductor.</v
     <value>SSIM</value>
   </data>
   <data name="Tune_fastdecode" xml:space="preserve">
-    <value>Decodificación Rápida</value>
+    <value>Brzo dekodiranje</value>
   </data>
   <data name="Tune_zerolatency" xml:space="preserve">
-    <value>Cero latencia</value>
+    <value>Bez kašnjenja</value>
   </data>
   <data name="FpsFormat" xml:space="preserve">
-    <value>{0:0. ###} FPS</value>
+    <value>{0:0.###} FPS</value>
   </data>
   <data name="CfrSameAsSourceToolTip" xml:space="preserve">
-    <value>Utiliza el framerate indicado en el video fuente, para mantener la velocidad de fotogramas constante.</value>
+    <value>Koristi navedenu brzinu kadra iz izvornog naslova za stalnu brzinu kadra.</value>
   </data>
   <data name="CfrToolTip" xml:space="preserve">
-    <value>Utiliza una velocidad constante de fotogramas.</value>
+    <value>Koristi stalnu brzinu kadrova.</value>
   </data>
   <data name="VfrSameAsSourceToolTip" xml:space="preserve">
-    <value>Permite una velocidad de fotograma variable. Si el video origen tiene una velocidad de fotograma variable, esta configuración la conservará. Algunos reproductores no son compatibles con velocidades de fotograma variables.</value>
+    <value>Dopusti promjenjivu brzinu kadra. Ako izvor ima promjenjivu brzinu kadra, ova postavka će ga sačuvati. Imajte na umu da neki reproduktori ne podržavaju promjenjive brzine kadrova.</value>
   </data>
   <data name="VfrPeakFramerateToolTip" xml:space="preserve">
-    <value>Permite una velocidad de fotograma variable y usa la tasa especificada como tope. Si el video origen tiene una velocidad de fotograma variable, esta configuración la conservará. Algunos reproductores no son compatibles con velocidades de fotograma variables.</value>
+    <value>Dopusti promjenjivu brzinu kadra i koristi navedenu brzinu kao vrh. Ako izvor ima promjenjivu brzinu kadra, ova postavka će ga sačuvati. Imajte na umu da neki reproduktori ne podržavaju promjenjive brzine kadrova.</value>
   </data>
   <data name="VfrChoice" xml:space="preserve">
-    <value>Velocidad variable de fotogramas</value>
+    <value>Promjenjiva brzina kadra</value>
   </data>
   <data name="VfrPeakChoice" xml:space="preserve">
-    <value>Tasa de fotograma límite (VFR)</value>
+    <value>Vršna brzina kadra (VFR)</value>
   </data>
   <data name="HighQuality" xml:space="preserve">
-    <value>Alta calidad</value>
+    <value>Visoka kvaliteta</value>
   </data>
   <data name="LowQuality" xml:space="preserve">
-    <value>Baja calidad</value>
+    <value>Niska kvaliteta</value>
   </data>
   <data name="SameAsSource" xml:space="preserve">
-    <value>Igual que el origen</value>
+    <value>Isto kao izvor</value>
   </data>
   <data name="AddAudioEncodingButton" xml:space="preserve">
-    <value>Añadir la codificación de audio</value>
+    <value>Dodaj kodiranje zvuka</value>
   </data>
   <data name="NoTracksPlaceholder" xml:space="preserve">
-    <value>(Sin pistas)</value>
+    <value>(Nema zapisa)</value>
   </data>
   <data name="TargetStream" xml:space="preserve">
-    <value>Flujo objetivo</value>
+    <value>Ciljani zapis</value>
   </data>
   <data name="MixdownLabel" xml:space="preserve">
-    <value>Mezcla:</value>
+    <value>Mixdown:</value>
   </data>
   <data name="SampleRateLabel" xml:space="preserve">
-    <value>Frecuencia de muestreo:</value>
+    <value>Brzina uzorkovanja:</value>
   </data>
   <data name="BitrateLabel" xml:space="preserve">
-    <value>Tasa de bits:</value>
+    <value>Brzina prijenosa:</value>
   </data>
   <data name="CompressionLabel" xml:space="preserve">
-    <value>Compresión:</value>
+    <value>Kompresija:</value>
   </data>
   <data name="GainLabel" xml:space="preserve">
-    <value>Ganancia (dB):</value>
+    <value>Dobitak (dB):</value>
   </data>
   <data name="DrcLabel" xml:space="preserve">
     <value>DRC:</value>
   </data>
   <data name="NameLabel" xml:space="preserve">
-    <value>Nombre:</value>
+    <value>Naziv:</value>
   </data>
   <data name="AscendingQualityToolTip" xml:space="preserve">
-    <value>Valores altos significan alta calidad.</value>
+    <value>Visoke vrijednosti znače visoku kvalitetu.</value>
   </data>
   <data name="DescendingQualityToolTip" xml:space="preserve">
-    <value>Valores bajos significan alta calidad.</value>
+    <value>Niske vrijednosti znače visoku kvalitetu.</value>
   </data>
   <data name="AudioQualityToolTip" xml:space="preserve">
-    <value>La calidad de audio elegida. {0} Los valores válidos son de {1} a {2}.</value>
+    <value>Ciljana kvaliteta zvuka. {0} Ispravne vrijednosti su od {1} do {2}.</value>
   </data>
   <data name="AscendingCompressionToolTip" xml:space="preserve">
-    <value>Valores altos significan alta compresión: mejor calidad/tamaño mas pequeño pero la codificación es lenta.</value>
+    <value>Visoke vrijednosti znače bolju kompresiju: bolja kvaliteta/manja veličina datoteke, ali duže vrijeme kodiranja.</value>
   </data>
   <data name="DescendingCompressionToolTip" xml:space="preserve">
-    <value>Valores bajos significan alta compresión: mejor calidad/tamaño mas pequeño pero la codificación es lenta.</value>
+    <value>Niske vrijednosti znače bolju kompresiju: bolja kvaliteta/manja veličina datoteke, ali duže vrijeme kodiranja.</value>
   </data>
   <data name="AudioCompressionToolTip" xml:space="preserve">
-    <value>La cantidad de compresión a aplicar. {0} Los valores válidos son de {1} a {2}.</value>
+    <value>Količina kompresije koja će biti primjenjena. {0} Ispravni iznosi od {1} do {2}.</value>
   </data>
   <data name="AudioEncoder_faac" xml:space="preserve">
     <value>AAC (FAAC)</value>
@@ -448,7 +446,7 @@ Elige esta opción para hacer compatible el archivo final con tu reproductor.</v
     <value>Vorbis</value>
   </data>
   <data name="Mixdown_5point1" xml:space="preserve">
-    <value>Canales 5.1</value>
+    <value>5.1 kanala</value>
   </data>
   <data name="Mixdown_5_2_lfe" xml:space="preserve">
     <value>7.1 (5F/2R/LFE)</value>
@@ -460,33 +458,32 @@ Elige esta opción para hacer compatible el archivo final con tu reproductor.</v
     <value>Dolby Pro Logic II</value>
   </data>
   <data name="Mixdown_left_only" xml:space="preserve">
-    <value>Mono (sólo canal izquierdo)</value>
+    <value>Mono (Samo Lijevi)</value>
   </data>
   <data name="Mixdown_mono" xml:space="preserve">
     <value>Mono</value>
   </data>
   <data name="Mixdown_right_only" xml:space="preserve">
-    <value>Mono (sólo canal derecho)</value>
+    <value>Mono (Samo Desni)</value>
   </data>
   <data name="Mixdown_stereo" xml:space="preserve">
-    <value>Estéreo</value>
+    <value>Stereo</value>
   </data>
   <data name="Bitrate" xml:space="preserve">
-    <value>Tasa de bits</value>
+    <value>Brzina prijenosa</value>
   </data>
   <data name="DefaultFormat" xml:space="preserve">
-    <value>{0} (Por defecto)</value>
+    <value>{0} (Zadano)</value>
   </data>
   <data name="LevelToolTip" xml:space="preserve">
-    <value>Establece y garantiza el cumplimiento con el nivel especificado del codificador. 
-
-Reemplaza las demás configuraciones.</value>
+    <value>Namješta i održava slaganje sa zadanim nivoom kodera.
+Odbacuje sva ostala podešavanja.</value>
   </data>
   <data name="Profile_high444" xml:space="preserve">
-    <value>High 4:4:4 Predictive</value>
+    <value>Predvidljivi visoki 4:4:4</value>
   </data>
   <data name="VideoCodecLabel" xml:space="preserve">
-    <value>Codec de video:</value>
+    <value>Video kodek:</value>
   </data>
   <data name="VideoEncoder_ffmpeg2" xml:space="preserve">
     <value>MPEG-2 (Libav)</value>
@@ -501,31 +498,31 @@ Reemplaza las demás configuraciones.</value>
     <value>Video</value>
   </data>
   <data name="LevelLabel" xml:space="preserve">
-    <value>Nivel:</value>
+    <value>Nivo:</value>
   </data>
   <data name="MoreSettingsLabel" xml:space="preserve">
-    <value>Más opciones:</value>
+    <value>Dodatne Postavke:</value>
   </data>
   <data name="Track" xml:space="preserve">
-    <value>Pista</value>
+    <value>Zapis</value>
   </data>
   <data name="Source" xml:space="preserve">
-    <value>Origen</value>
+    <value>Izvor</value>
   </data>
   <data name="Encoder" xml:space="preserve">
-    <value>Codificador</value>
+    <value>Koder:</value>
   </data>
   <data name="ChannelLayout" xml:space="preserve">
-    <value>Diseño de canal</value>
+    <value>Raspored kanala</value>
   </data>
   <data name="SampleRate" xml:space="preserve">
-    <value>Frecuencia de muestreo</value>
+    <value>Brzina uzorkovanja</value>
   </data>
   <data name="Modifiers" xml:space="preserve">
-    <value>Modificadores</value>
+    <value>Parametri</value>
   </data>
   <data name="AudioEncoder_flac24" xml:space="preserve">
-    <value>FLAC 24 bits</value>
+    <value>FLAC 24-bit</value>
   </data>
   <data name="VideoEncoder_mpeg2" xml:space="preserve">
     <value>MPEG-2</value>
@@ -537,19 +534,19 @@ Reemplaza las demás configuraciones.</value>
     <value>Theora</value>
   </data>
   <data name="RemoveAudioEncodingToolTip" xml:space="preserve">
-    <value>Quitar la codificación de audio</value>
+    <value>Ukloni kodiranje zvuka</value>
   </data>
   <data name="AutoPassthroughFallbackLabel" xml:space="preserve">
-    <value>Fallback:</value>
+    <value>Vrati na:</value>
   </data>
   <data name="AutoPassthroughFallbackToolTip" xml:space="preserve">
-    <value>PASSTHROUGH o copia directa, no funciona con todos los codecs de audio. Indica al codificador que hacer si la pista no puede ser copiada.</value>
+    <value>Samo prolaz ne radi sa svim audio kodekima. To označava koderu na što da se vrati ukoliko zapis nije moguće samo propustiti.</value>
   </data>
   <data name="EncoderSettings" xml:space="preserve">
-    <value>Configuración del codificador</value>
+    <value>Postavke kodera</value>
   </data>
   <data name="QsvDecodingLabel" xml:space="preserve">
-    <value>Decodificación QSV</value>
+    <value>QSV Dekodiranje</value>
   </data>
   <data name="ScaleMethod_Lanczos" xml:space="preserve">
     <value>Lanczos</value>
@@ -558,74 +555,74 @@ Reemplaza las demás configuraciones.</value>
     <value>Bicubic (OpenCL)</value>
   </data>
   <data name="QsvPreset_Speed" xml:space="preserve">
-    <value>Velocidad</value>
+    <value>Brzina</value>
   </data>
   <data name="QsvPreset_Balanced" xml:space="preserve">
-    <value>Balanceado</value>
+    <value>Uravnoteženo</value>
   </data>
   <data name="QsvPreset_Quality" xml:space="preserve">
-    <value>Calidad</value>
+    <value>Kvaliteta</value>
   </data>
   <data name="PresetToolTip" xml:space="preserve">
-    <value>Ajusta las opciones compensando la eficiencia de compresión contra la velocidad de codificación.</value>
+    <value>Promijeni opcije učinkovitosti kompresije nauštrb brzine kodiranja.</value>
   </data>
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
-    <value>Passthrough</value>
+    <value>Prolaz</value>
   </data>
   <data name="Passthrough_auto" xml:space="preserve">
-    <value>Auto</value>
+    <value>Automatski</value>
   </data>
   <data name="PassthroughScopeToolTip" xml:space="preserve">
-    <value>Especifica a que codecs de entrada se aplicará PASSTHROUGH o copia directa.</value>
+    <value>Precizira na koje ulazne kodeke se "prolaz" odnosi.</value>
   </data>
   <data name="FlipHorizontalCheckBox" xml:space="preserve">
-    <value>Girar horizontalmente</value>
+    <value>Preokreni vodoravno</value>
   </data>
   <data name="FlipVerticalCheckBox" xml:space="preserve">
-    <value>Girar verticalmente</value>
+    <value>Preokreni uspravno</value>
   </data>
   <data name="Rotation_Clockwise90" xml:space="preserve">
-    <value>Hacia la derecha 90°</value>
+    <value>U smjeru kazaljke sata 90°</value>
   </data>
   <data name="Rotation_Counterclockwise90" xml:space="preserve">
-    <value>Hacia la izquierda 90°</value>
+    <value>U smjeru suprotnom od kazaljke sata 90°</value>
   </data>
   <data name="Rotation_180" xml:space="preserve">
     <value>180°</value>
   </data>
   <data name="RotationToolTip" xml:space="preserve">
-    <value>Rotar la imagen. Este efecto es aplicado después del escalado y recorte.</value>
+    <value>Rotiraj sliku. Ovo se primjenjuje prije razvlačenja i sječenja.</value>
   </data>
   <data name="FlipHorizontalToolTip" xml:space="preserve">
-    <value>Girar la imagen horizontalmente. Esté efecto es aplicado antes de cualquier efecto de rotación.</value>
+    <value>Preokreni sliku vodoravno. Ovo se primjenjuje prije bilo kakve rotacije.</value>
   </data>
   <data name="FlipVerticalToolTip" xml:space="preserve">
-    <value>Girar la imagen verticalmente. Este efecto es aplicado antes de cualquier efecto de rotación.</value>
+    <value>Preokreni sliku uspravno. Ovo se primjenjuje prije bilo kakve rotacije.</value>
   </data>
   <data name="PassthroughIfPossibleCheckBox" xml:space="preserve">
-    <value>De ser posible, se utiliza PASSTHROUGH o copia directa</value>
+    <value>Prolaz ako je moguće</value>
   </data>
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
-    <value>Si la pista de entrada coincide con el codec, esta será 'pasada' directamente sin codificar.</value>
+    <value>Ako se ulazni zapis podudara s kodekom, bit će prekopiran a ne kodiran.</value>
   </data>
   <data name="RotationLabel" xml:space="preserve">
-    <value>Rotación:</value>
+    <value>Rotacija:</value>
   </data>
   <data name="ClosePresetsListToolTip" xml:space="preserve">
-    <value>Cerrar la lista de presets</value>
+    <value>Zatvori listu predložaka</value>
   </data>
   <data name="OpenPresetsListToolTip" xml:space="preserve">
-    <value>Abrir la lista de presets</value>
+    <value>Otvori listu predložaka</value>
   </data>
   <data name="DefaultChapterName" xml:space="preserve">
-    <value>Capítulo {0}</value>
+    <value>Poglavlje {0}</value>
     <comment>What a chapter will be named when not given a custom name. {0} is the chapter number.</comment>
   </data>
   <data name="PassthroughSettingsLabel" xml:space="preserve">
-    <value>Configuración de copia directa</value>
+    <value>Postavke prolaza</value>
   </data>
   <data name="PassthroughMaskLabel" xml:space="preserve">
-    <value>Permitir copia directa a:</value>
+    <value>Dozvoli prolaz za:</value>
   </data>
   <data name="Passthrough_aac" xml:space="preserve">
     <value>AAC</value>
@@ -652,209 +649,210 @@ Reemplaza las demás configuraciones.</value>
     <value>TrueHD</value>
   </data>
   <data name="InterlaceDetectionLabel" xml:space="preserve">
-    <value>Detección de entrelazado:</value>
+    <value>Otkrivanje Isprepletenosti:</value>
   </data>
   <data name="ModeLabel" xml:space="preserve">
-    <value>Modalidad:</value>
+    <value>Način:</value>
     <comment>Label for the sizing or padding mode.</comment>
   </data>
   <data name="AnamorphicCheckbox" xml:space="preserve">
-    <value>Utilizar Anamórfico</value>
+    <value>Koristi Anamorfno</value>
   </data>
   <data name="SizingModeManual" xml:space="preserve">
-    <value>Manual</value>
+    <value>Ručno</value>
     <comment>Choice for the user to enter all sizing information manually.</comment>
   </data>
   <data name="UpscaleMaxFormat" xml:space="preserve">
-    <value>Ampliar {0}x max</value>
+    <value>Uvećavanje {0}x max</value>
     <comment>Label for scaling option to allow upscaling, but only to a particular multiple of the source resolution. {0} is the multiple, e.g. 2, 3 or 4</comment>
   </data>
   <data name="ScalingMode_DownscaleOnly" xml:space="preserve">
-    <value>Reducir solamente</value>
+    <value>Samo umanjivanje</value>
   </data>
   <data name="ScalingMode_Fill" xml:space="preserve">
-    <value>Ajustar arriba/abajo</value>
+    <value>Uvećanje/Umanjenje do cilja</value>
   </data>
   <data name="ScalingModeLabel" xml:space="preserve">
-    <value>Modo de escalado:</value>
+    <value>Mod skaliranja:</value>
   </data>
   <data name="PaddingMode_Fill" xml:space="preserve">
-    <value>Rellenar</value>
+    <value>Popuni</value>
   </data>
   <data name="PaddingMode_Width" xml:space="preserve">
-    <value>Ancho</value>
+    <value>Širina</value>
   </data>
   <data name="PaddingMode_Height" xml:space="preserve">
-    <value>Alto</value>
+    <value>Visina</value>
   </data>
   <data name="TargetWidthLabel" xml:space="preserve">
-    <value>Ancho deseado:</value>
+    <value>Ciljana širina:</value>
   </data>
   <data name="TargetHeightLabel" xml:space="preserve">
-    <value>Alto deseado:</value>
+    <value>Ciljana visina:</value>
   </data>
   <data name="PadColorLabel" xml:space="preserve">
-    <value>Color:</value>
+    <value>Boja:</value>
   </data>
   <data name="AnamorphicToolTip" xml:space="preserve">
-    <value>Con el Anamórfico activo, se permiten pixeles no cuadrados. Esto puede resultar en un almacenamiento más eficiente, pero no todos los reproductores soportan esta característica.</value>
+    <value>Ukoliko je anamorfni mod označen, ne-kvadranti pikseli su dopušteni. To može rezultirati učinkovitijom pohranom, ali nije podržano od strane svih reproduktora.</value>
   </data>
   <data name="ResolutionLabel" xml:space="preserve">
-    <value>Resolución:</value>
+    <value>Rezolucija:</value>
     <comment>Label for a video resolution in pixels.</comment>
   </data>
   <data name="CustomFilterToolTipFormatPart" xml:space="preserve">
-    <value>Formato: parametro1 = valor1:parametro2 = valor2:...</value>
+    <value>Format: ključ1=vrijednost1:ključ2=vrijednost2:...</value>
     <comment>The "format" portion of the custom filter tooltip. When translating, keep the = and : the same and only replace "key1", "value2", etc.</comment>
   </data>
   <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
-    <value>Claves:</value>
+    <value>Ključevi:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
   <data name="PaddingLabel" xml:space="preserve">
-    <value>Relleno</value>
+    <value>Unutarnji odmak</value>
   </data>
   <data name="AlignAVStartCheckBox" xml:space="preserve">
-    <value>Alinear inicio de audio y vídeo</value>
+    <value>Usklađivanje A/V pokretanja</value>
   </data>
   <data name="AlignAVStartCheckBoxToolTip" xml:space="preserve">
-    <value>Alinea las marcas de tiempo iniciales de todos los flujos de audio y video insertando cuadros en blanco o eliminándolos. Puede mejorar la sincronía de audio y video en reproductores que no respetan las listas de edición MP4.</value>
+    <value>Usklađivanje početnih vremenskih oznaka sveg zvučnog i video sturjanja umetanjem praznih kadrova ili izbacivanjem kadrova. Može popraviti usklađenost zvučnu/video sinkronizaciju za reproduktore koji ne poštuju MP4 liste editiranja.</value>
   </data>
   <data name="TabHeader_Container" xml:space="preserve">
-    <value>Contenedor</value>
+    <value>Spremnik</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>Preajuste de codificación: {0}</value>
+    <value>Predložak kodiranja: {0}</value>
     <comment>Label for the encoding settings window.</comment>
   </data>
   <data name="AudioEncoder_none" xml:space="preserve">
-    <value>Ninguno</value>
+    <value>Ništa</value>
     <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
   </data>
   <data name="SizingModeToolTip" xml:space="preserve">
-    <value>«Automático» escoge el tamaño según límites establecidos. «Manual» permite especificar tamaño y razón de aspecto.</value>
+    <value>Automatski će izabrati veličinu na temelju postavljenih ograničenja. Ručno će dopustiti da unos određene veličine i omjer slike u pikselima.</value>
   </data>
   <data name="SharpenLabel" xml:space="preserve">
-    <value>Enfocar</value>
+    <value>Izoštravanje</value>
   </data>
   <data name="DeblockToolTip" xml:space="preserve">
-    <value>Reduce los artefactos de bloque causado por la compresión de vídeo de baja calidad.</value>
+    <value>Deblock uklanja smetnje nalik blokovima koje su uzrokovane lošom kvalitetom video kompresije.</value>
   </data>
   <data name="DeinterlaceToolTip" xml:space="preserve">
-    <value>Deinterlace elimina los residuos de entrelazado de la imagen.
+    <value>Deinterlace uklanja smetnje nalik češlju sa slike.
 
-Yadif es un rápido y popular filtro de dentrelazado.
+Yadif je popularan i brz deinterlacer.
 
-Decomb alterna entre varios algoritmos de interpolación para obtener calidad y velocidad.</value>
+Decomb se prebacuje između više algoritama interpolacije za brzinu i kvalitetu.</value>
   </data>
   <data name="DenoiseToolTip" xml:space="preserve">
-    <value>Denoise reduce o elimina la apariencia de ruido y grano, mejorando la compresión y consiguiente un video de mayor calidad a un tamaño menor.
-Aplicar un fuerte Denoise puede llevar a una perdida de calidad de imagen.
-
-NLMeans es un filtro de alta calidad pero lento. Aplíquese cuando la calidad sea más importante que la velocidad.
-
-HQDN3D es un filtro adaptable low-pass, mas rápido que NLMeans pero menos efectivo para conservar detalle fino.</value>
+    <value>Denoise smanjuje ili uklanja pojavu šuma ili zrnatosti. To može poboljšati učinkovitost kompresije i stvoriti kvalitetniji videozapis sa manjim veličinama datoteka. 
+Pretjerano jake postavke Denoise mogu oštetiti kvalitetu slike uklanjanjem detalja.
+         
+NLMeans je visokokvalitetni filtar za denoise s utjecajem na brzinu. Koristi se tamo gdje je kvaliteta važnija od brzine.
+         
+HQDN3D je prilagodljivi filtar s niskim prolaskom, brži od NLMeansa, ali manje učinkovit u očuvanju finih detalja.</value>
   </data>
   <data name="DetelecineToolTip" xml:space="preserve">
-    <value>Este filtro elimina defectos del 'combinado' que resultan del telecine.
+    <value>Ovaj filtar uklanja artefakte "češljanja" koji su rezultat teleciniranja.
 
-Telecinado es un proceso que ajusta la velocidad de reproducción del video de 24 a 30 cuadros por segundo.</value>
+Telecining je proces koji prilagođava brzinu kadroviranja filma koja iznosi 24 fps na NTSC brzinu sličica videozapisa koja iznosi 30 fps.</value>
   </data>
   <data name="SharpenToolTip" xml:space="preserve">
-    <value>El Sharpening mejora la apariencia del detalle, particularmente los bordes. Excederse en las configuraciones puede dañar la calidad de la imagen creando artefactos en los bordes y ruido, reduciendo la compresión del video.
+    <value>Izoštravanje pojačava izgleda detalja, pogotovo rubova. Pretjerano jake Postavke izoštravanja mogu oštetiti kvalitetu slike stvaranjem prstenastih artefakata i povećanjem šuma, što može smanjiti učinkovitost kompresije.
 
-Unsharp es un filtro de uso general. Mejora la imagen aplicando desenfoque par posteriormente calcula la diferencia entre la imagen con desenfoque y la original.
+Unsharp je filtar za uklanjanje maski opće namjene. Izoštrava se zamagljivanjem, a zatim izračunava razliku između zamagljene slike i originala.
 
-Lapsharp funciona usando núcleos de circunvolución que se aproximan a los filtros de borde laplacianos, dando en ocasiones, mejores resultados que Unsharp.</value>
+Lapsharp izoštrava pomoću konvolucijskih zrna koja približavaju laplacijskim rubnim filtrima, ponekad proizvodeći kvalitetnije rezultate od neoblikovanja maskiranja.</value>
   </data>
   <data name="PresetFolder_Custom" xml:space="preserve">
-    <value>Personalizado</value>
+    <value>Prilagođen</value>
   </data>
   <data name="PresetFolder_BuiltIn" xml:space="preserve">
-    <value>Incorporado</value>
+    <value>Ugrađeni</value>
   </data>
   <data name="PresetFolderCreateSubfolderMenuItem" xml:space="preserve">
-    <value>Crear subcarpeta</value>
+    <value>Napravi podmapu</value>
   </data>
   <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
-    <value>Cambiar nombre de carpeta</value>
+    <value>Preimenuj mapu</value>
   </data>
   <data name="PresetFolderRemoveFolderMenuItem" xml:space="preserve">
-    <value>Eliminar carpeta</value>
+    <value>Ukloni mapu</value>
   </data>
   <data name="DefaultPresetFolderName" xml:space="preserve">
-    <value>Nueva carpeta</value>
+    <value>Nova mapa</value>
   </data>
   <data name="ChooseNameSubfolder" xml:space="preserve">
-    <value>Nombre de subcarpeta:</value>
+    <value>Odaberi ime za podmapu:</value>
   </data>
   <data name="ChooseNewFolderName" xml:space="preserve">
-    <value>Nuevo nombre de carpeta:</value>
+    <value>Odaberi novo ime za mapu:</value>
   </data>
   <data name="NVEncPreset_ll" xml:space="preserve">
-    <value>Baja latencia</value>
+    <value>Nisko kašnjenje</value>
   </data>
   <data name="NVEncPreset_hq" xml:space="preserve">
-    <value>Alta calidad</value>
+    <value>Visoka kvaliteta</value>
   </data>
   <data name="NVEncPreset_hp" xml:space="preserve">
-    <value>Alto Rendimiento</value>
+    <value>Visoke performanse</value>
   </data>
   <data name="Bottom" xml:space="preserve">
-    <value>Abajo</value>
+    <value>Dno</value>
   </data>
   <data name="Left" xml:space="preserve">
-    <value>Izquierda</value>
+    <value>Lijevo</value>
   </data>
   <data name="Right" xml:space="preserve">
-    <value>Derecha</value>
+    <value>Desno</value>
   </data>
   <data name="Top" xml:space="preserve">
-    <value>Arriba</value>
+    <value>Vrh</value>
   </data>
   <data name="PixelAspectRatioNumeratorAutomationName" xml:space="preserve">
-    <value>Numerador de la relación de aspecto del pixel</value>
+    <value>Brojnik omjera piksela
+</value>
     <comment>Name for the pixel aspect ratio numerator box for screen readers</comment>
   </data>
   <data name="PixelAspectRatioDenominatorAutomationName" xml:space="preserve">
-    <value>Denominador de la relación de aspecto del pixel</value>
+    <value>Nazivnik omjera piksela</value>
     <comment>Name for the pixel aspect ratio denominator box for screen readers</comment>
   </data>
   <data name="ApplyToQueueButton" xml:space="preserve">
-    <value>Agregar a la cola</value>
+    <value>Primjeni na red čekanja</value>
   </data>
   <data name="FullEncoderParameterLabel" xml:space="preserve">
-    <value>Lista completa de argumentos:</value>
+    <value>Kompletna lista parametara:</value>
   </data>
   <data name="MoreOptionsToolTip" xml:space="preserve">
-    <value>Agrega parámetros adicionales al codificador de video</value>
+    <value>Dodatne napredne varijable koje će biti prenešene do video kodera.</value>
   </data>
   <data name="CannotSwitchEncodingPresetDueToPicker" xml:space="preserve">
-    <value>No se puede cambiar el preajuste de codificación, se ha bloqueado en la ventana del selector.</value>
+    <value>Nije moguće promijeniti gotovu konfiguraciju kodiranja, zaključana je u prozoru Birača.</value>
     <comment>Message to show when the user is blocked from switching an encoding preset due to a Picker setting.</comment>
   </data>
   <data name="PadColorTextToolTip" xml:space="preserve">
-    <value>Formato: FFFFF</value>
+    <value>Oblik: FFFFFF</value>
   </data>
   <data name="ChromaSmoothLabel" xml:space="preserve">
-    <value>Chroma suave:</value>
+    <value>Chroma smooth:</value>
   </data>
   <data name="ColorspaceLabel" xml:space="preserve">
-    <value>Espacio de color:</value>
+    <value>Prostor boja:</value>
   </data>
   <data name="ChromaSmoothToolTip" xml:space="preserve">
-    <value>Reduce el ruido de croma, efecto arcoiris y otros artefactos visuales. Útil para resolver problemas relacionados con el color, especialmente de fuentes análogas de baja resolución, por ejemplo DVD y VHS de mala calidad. El algoritmo de desenfoque y suavizado es el mismo que el filtro unsharp utiliza.</value>
+    <value>Smanjuje buku kroma, duge i druge istaknute vizualne artefakte. Korisno za rješavanje različitih problema povezanih s bojama, posebno sa sadržajem niže razlučivosti iz analognih izvora, npr. DVD i VHS izvora loše kvalitete. Algoritam za zamućenja/izglađivanja isti je kao i kod filtra za odstranjivanje.</value>
   </data>
   <data name="ConstrainToOneAxisCheckBox" xml:space="preserve">
-    <value>Restringir a los bordes</value>
+    <value>Ograniči na jednu os</value>
   </data>
   <data name="ConstrainToOneAxisToolTip" xml:space="preserve">
-    <value>Si se habilita, sólo los bordes con mayor cantidad de pixeles detectados será recortado. Por ejemplo si Arriba+Abajo = 32 e Izquierda+Derecha = 6, entonces el recorte de Izquierda y Derecha será 0.</value>
+    <value>Ako je omogućeno, obrezat će se samo os s najviše otkrivenih otkrivenih obrezivanja. Na primjer, ako je vrh +dno = 32 i lijevo +desno = 6, obrezivanje na lijevoj i desnoj strani bit će postavljeno na 0.</value>
   </data>
   <data name="MinimumCroppingLabel" xml:space="preserve">
-    <value>Mínimo:</value>
+    <value>Minimalno:</value>
   </data>
   <data name="MinimumCroppingToolTip" xml:space="preserve">
-    <value>Si el recorte automático es menor que éste valor, desactiva el recorte para ese borde. Útil para prevenir el remuestreo de pequeños cortes.</value>
+    <value>Ako je automatsko obrezivanje ispod tog iznosa za stranu, onemogućite obrezivanje za tu stranu. Korisno za sprečavanje ponovnog uzorkovanja kod malog obrezivanja.</value>
   </data>
 </root>

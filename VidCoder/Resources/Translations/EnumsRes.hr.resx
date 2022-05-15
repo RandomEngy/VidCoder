@@ -118,45 +118,45 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Anamorphic_Custom" xml:space="preserve">
-    <value>Personalizado</value>
+    <value>Prilagođeno</value>
   </data>
   <data name="Anamorphic_Loose" xml:space="preserve">
-    <value>Loose</value>
+    <value>Labavo</value>
   </data>
   <data name="Anamorphic_None" xml:space="preserve">
-    <value>Ninguno</value>
+    <value>Nijedno</value>
   </data>
   <data name="Anamorphic_Strict" xml:space="preserve">
-    <value>Strict</value>
+    <value>Strogo</value>
   </data>
   <data name="AppThemeChoice_Auto" xml:space="preserve">
-    <value>Aplicar tema del sistema operativo</value>
+    <value>Koristi temu OS-a</value>
     <comment>Windows 10 you can choose Light or Dark for the app theme. This will cause VidCoder to respect that choice.</comment>
   </data>
   <data name="AppThemeChoice_Dark" xml:space="preserve">
-    <value>Oscuro</value>
+    <value>Tamno</value>
   </data>
   <data name="AppThemeChoice_Light" xml:space="preserve">
-    <value>Claro</value>
+    <value>Svijetlo</value>
   </data>
   <data name="CombDetect_fast" xml:space="preserve">
-    <value>Fast</value>
+    <value>Brzo</value>
   </data>
   <data name="CombDetect_permissive" xml:space="preserve">
-    <value>Menos sensible</value>
+    <value>Manje osjetljivo</value>
     <comment>This mode allows higher levels of combing before triggering.</comment>
   </data>
   <data name="Custom" xml:space="preserve">
-    <value>Personalizado</value>
+    <value>Prilagođeno</value>
   </data>
   <data name="Decomb_Bob" xml:space="preserve">
     <value>Bob</value>
   </data>
   <data name="Decomb_Fast" xml:space="preserve">
-    <value>Fast</value>
+    <value>Brzo</value>
   </data>
   <data name="Default" xml:space="preserve">
-    <value>Predeterminado</value>
+    <value>Zadano</value>
   </data>
   <data name="DeinterlacePreset_bob" xml:space="preserve">
     <value>Bob</value>
@@ -169,7 +169,7 @@
     <value>EEDI2 Bob</value>
   </data>
   <data name="DeinterlacePreset_skipspatial" xml:space="preserve">
-    <value>Saltar verificación espacial</value>
+    <value>Preskoči "Prostornu provjeru"</value>
   </data>
   <data name="Deinterlace_Decomb" xml:space="preserve">
     <value>Decomb</value>
@@ -178,65 +178,65 @@
     <value>Yadif</value>
   </data>
   <data name="DenoisePreset_light" xml:space="preserve">
-    <value>Light</value>
+    <value>Lagano</value>
   </data>
   <data name="DenoisePreset_medium" xml:space="preserve">
-    <value>Medium</value>
+    <value>Srednje</value>
   </data>
   <data name="DenoisePreset_strong" xml:space="preserve">
-    <value>Strong</value>
+    <value>Jako</value>
   </data>
   <data name="DenoisePreset_ultralight" xml:space="preserve">
-    <value>Ultralight</value>
+    <value>Superlagano</value>
   </data>
   <data name="DenoiseTune_animation" xml:space="preserve">
-    <value>Animation</value>
+    <value>Animacija</value>
   </data>
   <data name="DenoiseTune_film" xml:space="preserve">
     <value>Film</value>
   </data>
   <data name="DenoiseTune_grain" xml:space="preserve">
-    <value>Grain</value>
+    <value>Zrnato</value>
   </data>
   <data name="DenoiseTune_highmotion" xml:space="preserve">
-    <value>Mucho movimiento</value>
+    <value>Puno pokreta</value>
   </data>
   <data name="Denoise_HQDN3D" xml:space="preserve">
-    <value>HQDN3D</value>
+    <value>hqdn3d</value>
   </data>
   <data name="Denoise_NLMeans" xml:space="preserve">
     <value>NL-Means</value>
   </data>
   <data name="EncodeCompleteActionType_CloseProgram" xml:space="preserve">
-    <value>Cerrar Vidcoder</value>
+    <value>Zatvori VidCoder</value>
   </data>
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
-    <value>No hacer nada</value>
+    <value>Ne poduzimaj ništa</value>
   </data>
   <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
-    <value>Expulsar {0}:</value>
+    <value>Izbaci {0}:</value>
   </data>
   <data name="EncodeCompleteActionType_Hibernate" xml:space="preserve">
-    <value>Hibernar</value>
+    <value>Hibernacija</value>
   </data>
   <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
-    <value>Cerrar sesión</value>
+    <value>Odjava</value>
   </data>
   <data name="EncodeCompleteActionType_Shutdown" xml:space="preserve">
-    <value>Apagar</value>
+    <value>Gašenje</value>
   </data>
   <data name="EncodeCompleteActionType_Sleep" xml:space="preserve">
-    <value>Suspender</value>
+    <value>Mirovanje</value>
   </data>
   <data name="Off" xml:space="preserve">
-    <value>Desactivado</value>
+    <value>Isključeno</value>
   </data>
   <data name="Sharpen_LapSharp" xml:space="preserve">
     <value>LapSharp</value>
     <comment>The name for the "LapSharp" sharpen filter.</comment>
   </data>
   <data name="Sharpen_UnSharp" xml:space="preserve">
-    <value>UnSharp</value>
+    <value>Unsharp</value>
     <comment>The name for the "UnSharp" sharpen filter.</comment>
   </data>
   <data name="TitleType_Bluray" xml:space="preserve">
@@ -248,113 +248,113 @@
     <comment>What to display when the source is a DVD</comment>
   </data>
   <data name="TitleType_Stream" xml:space="preserve">
-    <value>Archivo</value>
+    <value>Datoteka</value>
     <comment>What to display when the source is a file</comment>
   </data>
   <data name="VideoRangeType_Chapters" xml:space="preserve">
-    <value>Capítulos</value>
+    <value>Poglavlja</value>
   </data>
   <data name="VideoRangeType_Frames" xml:space="preserve">
-    <value>Fotogramas</value>
+    <value>Okviri:</value>
   </data>
   <data name="VideoRangeType_Seconds" xml:space="preserve">
-    <value>Intervalo de tiempo</value>
+    <value>Vremenski raspon</value>
   </data>
   <data name="TitleCapitalizationChoice_EveryWord" xml:space="preserve">
-    <value>Cada palabra</value>
+    <value>Svaka riječ</value>
     <comment>This will make Blu-ray and DVD titles capitalize every word</comment>
   </data>
   <data name="TitleCapitalizationChoice_FirstWord" xml:space="preserve">
-    <value>Primera palabra</value>
+    <value>Prva riječ</value>
     <comment>This will make Blu-ray and DVD titles capitalize only the first word</comment>
   </data>
   <data name="EncodeCompleteActionType_StopEncoding" xml:space="preserve">
-    <value>Detener codificación</value>
+    <value>Zaustavi kodiranje</value>
   </data>
   <data name="UpdatePromptTiming_OnExit" xml:space="preserve">
-    <value>Al salir</value>
+    <value>Prilikom izlaza</value>
   </data>
   <data name="UpdatePromptTiming_OnLaunch" xml:space="preserve">
-    <value>Al iniciar</value>
+    <value>Prilikom pokretanja</value>
   </data>
   <data name="LogOperationType_Encode" xml:space="preserve">
-    <value>Codificar</value>
+    <value>Kodiraj</value>
   </data>
   <data name="LogOperationType_Scan" xml:space="preserve">
-    <value>Analizar</value>
+    <value>Skeniraj</value>
   </data>
   <data name="PickerTimeRangeMode_Chapters" xml:space="preserve">
-    <value>Capítulos</value>
+    <value>Poglavlja</value>
   </data>
   <data name="PickerTimeRangeMode_Time" xml:space="preserve">
-    <value>Intervalo de tiempo</value>
+    <value>Vremenski raspon</value>
   </data>
   <data name="WhenFileExists_AutoRename" xml:space="preserve">
-    <value>Renombrar automáticamente</value>
+    <value>Automatski preimenuj</value>
   </data>
   <data name="WhenFileExists_Overwrite" xml:space="preserve">
-    <value>Sobrescribir</value>
+    <value>Prepiši</value>
   </data>
   <data name="WhenFileExists_Prompt" xml:space="preserve">
-    <value>Preguntar</value>
+    <value>Pitaj</value>
   </data>
   <data name="DenoiseTune_medium" xml:space="preserve">
-    <value>Medio</value>
+    <value>Srednje</value>
   </data>
   <data name="DenoiseTune_none" xml:space="preserve">
-    <value>Ninguno</value>
+    <value>Nijedno</value>
   </data>
   <data name="DenoiseTune_small" xml:space="preserve">
-    <value>Pequeño</value>
+    <value>Malo</value>
   </data>
   <data name="DenoiseTune_tiny" xml:space="preserve">
-    <value>Muy pequeño</value>
+    <value>Sitno</value>
   </data>
   <data name="DenoiseTune_verywide" xml:space="preserve">
-    <value>Muy amplio</value>
+    <value>Jako široko</value>
   </data>
   <data name="DenoiseTune_wide" xml:space="preserve">
-    <value>Amplio</value>
+    <value>Široko</value>
   </data>
   <data name="Denoise_ChromaSmooth" xml:space="preserve">
-    <value>Chroma suave</value>
+    <value>Chroma glatko</value>
   </data>
   <data name="DragDropOrder_Alphabetical" xml:space="preserve">
-    <value>Alfabético</value>
+    <value>Abecedno</value>
     <comment>Label for the option to order dragged files alphabetically</comment>
   </data>
   <data name="DragDropOrder_Selected" xml:space="preserve">
-    <value>Seleccionado</value>
+    <value>Odabrano</value>
     <comment>Label for the option to order dragged files as they had been selected in File explorer</comment>
   </data>
   <data name="SubtitleBurnInSelection_First" xml:space="preserve">
-    <value>Primera</value>
+    <value>Prvi</value>
   </data>
   <data name="SubtitleBurnInSelection_ForeignAudioTrack" xml:space="preserve">
-    <value>Pista de audio extranjero</value>
+    <value>Strana zvučna datoteka</value>
   </data>
   <data name="SubtitleBurnInSelection_ForeignAudioTrackElseFirst" xml:space="preserve">
-    <value>Pista de audio extranjero, si no la primera</value>
+    <value>Strana zvučna datoteka, u protivnom Prvi</value>
   </data>
   <data name="SubtitleBurnInSelection_None" xml:space="preserve">
-    <value>Ninguno</value>
+    <value>Nijedno</value>
   </data>
   <data name="SourceFileRemovalTiming_AfterClearingCompletedItems" xml:space="preserve">
-    <value>Después de limpiar elementos concluidos</value>
+    <value>Nakon brisanja dovršenih stavki</value>
   </data>
   <data name="SourceFileRemovalTiming_Immediately" xml:space="preserve">
-    <value>Inmediatamente después de completar la codificación</value>
+    <value>Odmah nakon dovršetka kodiranja</value>
   </data>
   <data name="SourceFileRemoval_Delete" xml:space="preserve">
-    <value>⚠️ Eliminar (NO SE PUEDE DESHACER) ⚠️</value>
+    <value>⚠️ Izbriši (NEPOVRATNO) ⚠️</value>
   </data>
   <data name="SourceFileRemoval_Recycle" xml:space="preserve">
-    <value>Reciclar</value>
+    <value>Recikliraj</value>
   </data>
   <data name="UpdateMode_PromptApplyImmediately" xml:space="preserve">
-    <value>Avisar si aplica inmediatamente</value>
+    <value>Upitaj za trenutnu primjenu</value>
   </data>
   <data name="UpdateMode_SilentNextLaunch" xml:space="preserve">
-    <value>Silenciar (Efectivo en la proxima ejecución)</value>
+    <value>Tiho (Primijeni prilikom sljedećeg pokretanja)</value>
   </data>
 </root>

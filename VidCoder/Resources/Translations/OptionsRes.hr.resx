@@ -118,268 +118,268 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
-    <value>General</value>
+    <value>Općenito</value>
   </data>
   <data name="MinimizeToTaskBarRadioButton" xml:space="preserve">
-    <value>Minimizar a la barra de tareas</value>
+    <value>Minimiziraj u Programsku Traku</value>
   </data>
   <data name="MinimizeToSystemTrayRadioButton" xml:space="preserve">
-    <value>Minimizar a la bandeja del sistema</value>
+    <value>Minimiziraj na paletu sustava</value>
   </data>
   <data name="PlaySoundOnQueueCompletionCheckBox" xml:space="preserve">
-    <value>Reproducir un sonido al finalizar la cola</value>
+    <value>Reproduciraj zvuk po završetku reda čekanja</value>
   </data>
   <data name="PreferredDvdPlayerLabel" xml:space="preserve">
-    <value>Reproductor de DVD preferido:</value>
+    <value>Preferirani DVD reproduktor:</value>
   </data>
   <data name="PreferredDvdPlayerToolTip" xml:space="preserve">
-    <value>Elije el reproductor que deseas utilizar para fuentes de DVD.</value>
+    <value>Odaberi reproduktor za korištenje DVD izvora.</value>
   </data>
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
-    <value>Actualizaciones automáticas</value>
+    <value>Automatske dopune</value>
   </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
-    <value>Cuando ya existe un archivo...</value>
+    <value>Ukoliko datoteka već postoji...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
-    <value>Codificacion simple de archivo:</value>
+    <value>Kodiranje jedne datoteke:</value>
   </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
-    <value>Codificando archivos en lote:</value>
+    <value>Kodiranje serije datoteka:</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
-    <value>Pausar automáticamente la codificación cuando alguno de estos procesos se estén ejecutando:</value>
+    <value>Automatski pauziraj kodiranje kada je pokrenut bilo koji od ovih procesa:</value>
   </data>
   <data name="AddEllipsesButton" xml:space="preserve">
-    <value>Agregar...</value>
+    <value>Dodaj...</value>
   </data>
   <data name="PreviewCountLabel" xml:space="preserve">
-    <value>Número de avances de imagen a analizar:</value>
+    <value>Broj prikaznih slika za skeniranje:</value>
   </data>
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
-    <value>Recordar archivos y carpetas usadas previamente</value>
+    <value>Zapamti prethodno korištene datoteke i mape</value>
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>Habilita LibDVDNav (El cambio requiere reiniciar VidCoder. Requerido para multi ángulos)</value>
+    <value>Omogući LibDVDNav (Promjena zahtjeva ponovo pokretanje programa. Potrebno za podržavanje više kutova)</value>
   </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
-    <value>Nivel de detalle del Log:</value>
+    <value>Zapisivanje opširnosti:</value>
   </data>
   <data name="MinScanLengthLabel" xml:space="preserve">
-    <value>Longitud mínima del título a analizar (segundos):</value>
+    <value>Minimalna dužina zapisa da bi bio skeniran (sekunde):</value>
   </data>
   <data name="RecognizedExtensionsLabel" xml:space="preserve">
-    <value>Extensiones reconocidas:</value>
+    <value>Prepoznati nastavci:</value>
   </data>
   <data name="RecognizedExtensionsToolTip" xml:space="preserve">
-    <value>Al buscar videos en carpetas, añadir los archivos con estas extensiones. (Separados por comas)</value>
+    <value>Prilikom skeniranja mape za videodatoteke, dodaj datoteke s tim nastavcima. (Odvojeni zarezom)</value>
   </data>
   <data name="OptionsDialogTitle" xml:space="preserve">
-    <value>Opciones</value>
+    <value>Mogućnosti</value>
   </data>
   <data name="ProcessTab" xml:space="preserve">
-    <value>Procesos</value>
+    <value>Proces</value>
   </data>
   <data name="AdvancedTab" xml:space="preserve">
-    <value>Avanzado</value>
+    <value>Napredno</value>
   </data>
   <data name="BetaUpdatesInBeta" xml:space="preserve">
-    <value>Estás ejecutando la versión Beta. Esta versión puede convivir con la versión estable.</value>
+    <value>Koristite beta verziju. Može se koristi uporedno sa stabilnom verzijom.</value>
   </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
-    <value>Únete al Beta Track para obtener las actualizaciones más frecuentes</value>
+    <value>Pridruži se Beta kanalu za dobivanje češćih ažuriranja</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>Actualización {0} lista.</value>
+    <value>Ažuriranje {0} spremno.</value>
   </data>
   <data name="UpToDateStatus" xml:space="preserve">
-    <value>VidCoder esta actualizado.</value>
+    <value>VidCoder je ažuran.</value>
   </data>
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
-    <value>Elige el directorio de salida para los videos codificados.</value>
+    <value>Izaberi zadanu odredišnu mapu za kodirane video datoteke.</value>
   </data>
   <data name="InterfaceLanguageLabel" xml:space="preserve">
-    <value>Idioma de la interfaz:</value>
+    <value>Jezik sučelja:</value>
   </data>
   <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
-    <value>El cambio de idioma surtirá efecto después de reiniciar VidCoder.</value>
+    <value>Novi jezik će biti u upotrebi nakon izlaska i ponovnog pokretanja VidCodera.</value>
   </data>
   <data name="UseOSLanguage" xml:space="preserve">
-    <value>Usar Idioma del sistema</value>
+    <value>Koristi jezik OS-a</value>
   </data>
   <data name="UpdatesTab" xml:space="preserve">
-    <value>Actualizaciones</value>
+    <value>Ažuriranja</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
-    <value>Falló la comprobación de las actualizaciones.</value>
+    <value>Provjera ažuriranja nije uspjela.</value>
   </data>
   <data name="CompletionWavFilePickTitle" xml:space="preserve">
-    <value>Elije el archivo .wav que deseas escuchar al concluir.</value>
+    <value>Izaberi .wav datoteku koja će se koristiti kao zvuk dovršetka.</value>
   </data>
   <data name="CurrentVersionLabel" xml:space="preserve">
-    <value>Versión actual: {0}</value>
+    <value>Trenutna verzija: {0}</value>
   </data>
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
-    <value>Atención: ésta versión es inestable, puede contener errores o fallar inesperadamente.</value>
+    <value>Upozorenje: Vrlo je vjerojatno da će ova verzija imati greške i padove.</value>
   </data>
   <data name="PlayersSection" xml:space="preserve">
-    <value>Reproductores</value>
+    <value>Reproduktori</value>
   </data>
   <data name="SoundSection" xml:space="preserve">
-    <value>Sonido</value>
+    <value>Zvuk</value>
   </data>
   <data name="SystemTraySection" xml:space="preserve">
-    <value>Bandeja del sistema</value>
+    <value>Paleta sustava</value>
   </data>
   <data name="OutputFolderSection" xml:space="preserve">
-    <value>Carpeta de salida</value>
+    <value>Izlazna mapa</value>
   </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
-    <value>Opciones avanzadas</value>
+    <value>Napredne mogućnosti</value>
   </data>
   <data name="ScanningSection" xml:space="preserve">
-    <value>Exploración</value>
+    <value>Skeniranje</value>
   </data>
   <data name="LoggingSection" xml:space="preserve">
-    <value>Registro</value>
+    <value>Zapisivanje</value>
   </data>
   <data name="DvdReadingSection" xml:space="preserve">
-    <value>Lectura de DVD</value>
+    <value>Čitanje DVD-a</value>
   </data>
   <data name="UpdatesSection" xml:space="preserve">
-    <value>Actualizaciones</value>
+    <value>Ažuriranja</value>
   </data>
   <data name="UpdateStatusSection" xml:space="preserve">
-    <value>Estado</value>
+    <value>Status</value>
   </data>
   <data name="BetaSection" xml:space="preserve">
     <value>Beta</value>
   </data>
   <data name="UseCustomWavLabel" xml:space="preserve">
-    <value>Usar un archivo .wav personalizado:</value>
+    <value>Koristi prilagođenu .wav datoteku:</value>
   </data>
   <data name="CheckNowButton" xml:space="preserve">
-    <value>Comprobar ahora</value>
+    <value>Provjeri sada</value>
   </data>
   <data name="UseSystemPlayer" xml:space="preserve">
-    <value>Usar el reproductor del sistema</value>
+    <value>Koristi sistemski reproduktor</value>
   </data>
   <data name="VideoFilesLabel" xml:space="preserve">
-    <value>Archivos de video:</value>
+    <value>Video datoteke:</value>
   </data>
   <data name="CustomVideoPlayerToolTip" xml:space="preserve">
-    <value>Especifica la ruta del reproductor de video que deseas usar.</value>
+    <value>Odredi putanju do reproduktora videozapisa za korištenje datoteke.</value>
   </data>
   <data name="VideoPlayerFilePickTitle" xml:space="preserve">
-    <value>Elije el reproductor de video a utilizar con los archivos de video.</value>
+    <value>Izaberi reproduktor za video datoteke.</value>
   </data>
   <data name="CustomPlayerLabel" xml:space="preserve">
-    <value>Reproductor personalizado:</value>
+    <value>Prilagođeni reproduktor:</value>
   </data>
   <data name="Priority_High" xml:space="preserve">
-    <value>Alto</value>
+    <value>Visoko</value>
   </data>
   <data name="Priority_AboveNormal" xml:space="preserve">
-    <value>Arriba de lo normal</value>
+    <value>Iznadprosječno</value>
   </data>
   <data name="Priority_Normal" xml:space="preserve">
-    <value>Normal</value>
+    <value>Normalno</value>
   </data>
   <data name="Priority_BelowNormal" xml:space="preserve">
-    <value>Por debajo de lo normal</value>
+    <value>Ispod Normalnog</value>
   </data>
   <data name="WorkerProcessPriorityLabel" xml:space="preserve">
-    <value>Prioridad del proceso de trabajador:</value>
+    <value>Prioritet radnog procesa:</value>
   </data>
   <data name="Priority_Idle" xml:space="preserve">
-    <value>Bajo</value>
+    <value>Nisko</value>
   </data>
   <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
-    <value>Copiar registro en el mismo directorio que el video codificado</value>
+    <value>Kopiranje zapisnika kodiranja u istu mapu u kojoj se nalazi kodirani videozapis</value>
   </data>
   <data name="OpenLogFolderButton" xml:space="preserve">
-    <value>Abrir carpeta de registro</value>
+    <value>Otvori mapu zapisa</value>
   </data>
   <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
-    <value>Reanudar automaticamente la codificacion despues de reiniciar</value>
+    <value>Automatski nastavi kodiranje pri ponovnom pokretanju</value>
   </data>
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
-    <value>Utilizar 'workers' para codificar</value>
+    <value>Koristi radni proces za kodiranje</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
-    <value>Conservar el tiempo de creación y modificación cuando se conviertan archivos</value>
+    <value>Sačuvaj vrijeme Stvaranja i Izmjene prilikom konverzije datoteka</value>
   </data>
   <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
-    <value>Carpeta personalizada para las previsualizaciones:</value>
+    <value>Prilagođena mapa za pretpreglede:</value>
   </data>
   <data name="ProcessOptionsLabel" xml:space="preserve">
-    <value>Opciones de proceso</value>
+    <value>Mogućnosti procesa</value>
   </data>
   <data name="CpuThrottlingLabel" xml:space="preserve">
-    <value>Rendimiento del CPU - Cores permitidos:</value>
+    <value>CPU prigušivanje - Dopuštene jezgre:</value>
     <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use. It labels a slider that controls the percentage of allowed cores, where the max is 100%.</comment>
   </data>
   <data name="CpuThrottlingToolTip" xml:space="preserve">
-    <value>Limita el número de núcleos del procesador que VidCoder puede utilizar durante la codificación.</value>
+    <value>Koristi CPU prigušavanje za ograničavanje broja procesorskih jezgri koje VidCoder može koristiti prilikom kodiranja.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
-    <value>Utilizar el reproductor interno para las previsualizaciones</value>
+    <value>Koristi ugrađeni reproduktor za pretpreglede</value>
   </data>
   <data name="MaxSimultaneousEncodesLabel" xml:space="preserve">
-    <value>Cantidad máxima de trabajos simultáneos:</value>
+    <value>Maksimalni simultani poslovi kodiranja:</value>
   </data>
   <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
-    <value>Indica cuantos trabajos se ejecutan simultáneamente. Es útil en equipos con CPUs de muchos núcleos.</value>
+    <value>Toliko je istovremenih poslova kodiranja dopušteno. Korisno za strojeve s mnogo CPU jezgri.</value>
   </data>
   <data name="GeneralSection" xml:space="preserve">
-    <value>General</value>
+    <value>Općenito</value>
   </data>
   <data name="ThemeLabel" xml:space="preserve">
     <value>Tema</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
   <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
-    <value>La opción worker process se activará al reiniciar VidCoder.</value>
+    <value>Opcija radnog procesa stupit će na snagu nakon izlaska i ponovnog pokretanja VidCodera.</value>
   </data>
   <data name="CopyLogToCustomFolderLabel" xml:space="preserve">
-    <value>Copiar el registro de codificación a una carpeta personalizada</value>
+    <value>Napravi kopiju zapisnika kodiranja u korisnički odabranu mapu</value>
   </data>
   <data name="KeepFailedFilesCheckBox" xml:space="preserve">
-    <value>Conservar los archivos de codificaciones fallidas o detenidas</value>
+    <value>Sačuvaj datoteke neuspješnih ili zaustavljenih kodiranja</value>
   </data>
   <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
-    <value>Ejecutar la acción "Al terminar" con trabajos fallidos</value>
+    <value>Aktiviranje akcije "Kada je gotovo" kada postoje neuspjeli poslovi kodiranja</value>
   </data>
   <data name="AutoPauseLowBatteryCheckbox" xml:space="preserve">
-    <value>Pausar cuando la batería está baja</value>
+    <value>Pauziraj kada je baterija slaba</value>
   </data>
   <data name="AutoPauseLowDiskSpaceCheckbox" xml:space="preserve">
-    <value>Pausar cuando el espacio en disco es inferior a:</value>
+    <value>Pauziraj kada prostor na disku padne ispod:</value>
   </data>
   <data name="AutoPauseSectionLabel" xml:space="preserve">
-    <value>Pausa automática</value>
+    <value>Automatsko pauziranje</value>
   </data>
   <data name="FileNameFormatOptions" xml:space="preserve">
-    <value>Opciones disponibles: {0}</value>
+    <value>Dostupne mogućnosti: {0}</value>
   </data>
   <data name="LowDiskSpaceThresholdAutomationName" xml:space="preserve">
-    <value>Umbral de espacio bajo en gigabytes</value>
+    <value>Prag niskog prostora na disku u gigabajtima</value>
     <comment>Screen reader name for the low disk space threshold number box</comment>
   </data>
   <data name="DragDropScanOrderLabel" xml:space="preserve">
-    <value>Orden de escanear arrastrar y soltar:</value>
+    <value>Redoslijed povlačenja i ispuštanja skeniranja:</value>
   </data>
   <data name="EncodeRetriesLabel" xml:space="preserve">
-    <value>Número de reintentos de codificación:</value>
+    <value>Broj ponovnih pokušaja kodiranja:</value>
   </data>
   <data name="ApplyUpdateButton" xml:space="preserve">
-    <value>Aplicar actualización</value>
+    <value>Primijeni ažuriranje</value>
   </data>
   <data name="CheckingForUpdateStatus" xml:space="preserve">
-    <value>Buscando actualizaciones...</value>
+    <value>Provjera nadopuna…</value>
   </data>
   <data name="UpdateModeLabel" xml:space="preserve">
-    <value>Modo de actualización:</value>
+    <value>Način ažuriranja:</value>
     <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
   </data>
 </root>
