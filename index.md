@@ -111,7 +111,7 @@ Interested in translating VidCoder to your own language? [Help out on Crowdin](h
 VidCoder is free software. If you like VidCoder and want to express your appreciation, please [donate the GiveWell Maximum Impact Fund](https://www.givewell.org/maximum-impact-fund). It's the most effective charity in the world.
 
 ## Other info
-VidCoder is built on .NET 5/WPF in C#.
+VidCoder is built on .NET 6/WPF in C#.
 It runs on the 64-bit versions of Windows 10 and 11.
 
 The VidCoder UI (and C# interop) is written by RandomEngy.
