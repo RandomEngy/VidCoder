@@ -84,7 +84,7 @@ VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application
 ![Encoding settings]({{ site.baseurl }}/images/encoding_settings.png)
 
 ## Prerequisites
-You'll need the [.NET 5 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/5.0). If you don't have it, VidCoder will prompt you to download and install it. The Portable version is self-contained and does not require any .NET Runtime to be installed.
+You'll need the [.NET 6 Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/6.0). If you don't have it, VidCoder will prompt you to download and install it. The Portable version is self-contained and does not require any .NET Runtime to be installed.
 
 You *do not* need to install HandBrake for VidCoder to work.
 
