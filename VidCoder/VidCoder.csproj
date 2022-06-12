@@ -23,6 +23,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Clowd.Squirrel" Version="2.8.1-pre" />
+    <PackageReference Include="ControlzEx" Version="5.0.1" />
     <PackageReference Include="Fluent.Ribbon" Version="9.0.4" />
     <PackageReference Include="Microsoft.AnyContainer" Version="1.0.0-beta201808141" />
     <PackageReference Include="Microsoft.AnyContainer.DryIoc" Version="1.0.0-beta201808141" />
