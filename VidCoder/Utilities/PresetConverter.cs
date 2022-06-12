@@ -41,21 +41,6 @@ namespace VidCoder
 			profile.Grayscale = hbPreset.VideoGrayScale;
 			profile.Detelecine = hbPreset.PictureDetelecine;
 			profile.CustomDetelecine = hbPreset.PictureDetelecineCustom;
-
-			switch (hbPreset.PictureDeinterlaceFilter)
-			{
-				case "yadif":
-					profile.DeinterlaceType = VCDeinterlace.Yadif;
-					break;
-				case "decomb":
-					profile.DeinterlaceType = VCDeinterlace.Decomb;
-					break;
-				case "off":
-				default:
-					profile.DeinterlaceType = VCDeinterlace.Off;
-					break;
-			}
-
 			profile.DeinterlaceType = ConvertDeinterlaceType(hbPreset.PictureDeinterlaceFilter);
 			profile.DeinterlacePreset = hbPreset.PictureDeinterlacePreset;
 			profile.CustomDeinterlace = hbPreset.PictureDeinterlaceCustom;
@@ -198,6 +183,8 @@ namespace VidCoder
 			{
 				case "yadif":
 					return VCDeinterlace.Yadif;
+				case "bwdif":
+					return VCDeinterlace.Bwdif;
 				case "decomb":
 					return VCDeinterlace.Decomb;
 				default:

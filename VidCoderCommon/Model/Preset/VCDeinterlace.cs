@@ -4,6 +4,7 @@
 	{
 		Off = 0,
 		Yadif,
-		Decomb
+		Decomb,
+		Bwdif
 	}
 }

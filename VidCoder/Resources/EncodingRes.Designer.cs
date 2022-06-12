@@ -553,7 +553,7 @@ namespace VidCoder.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Deinterlace removes comb artifacts from the picture.
         ///
-        ///Yadif is a popular and fast deinterlacer.
+        ///Bwdif and Yadif are two popular and fast deinterlacers.
         ///
         ///Decomb switches between multiple interpolation algorithms for speed and quality..
         /// </summary>

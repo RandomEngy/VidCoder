@@ -178,6 +178,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bwdif.
+        /// </summary>
+        public static string Deinterlace_Bwdif {
+            get {
+                return ResourceManager.GetString("Deinterlace_Bwdif", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Decomb.
         /// </summary>
         public static string Deinterlace_Decomb {

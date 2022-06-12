@@ -41,6 +41,7 @@ namespace VidCoder.ViewModel
 			{
 				new ComboChoice<VCDeinterlace>(VCDeinterlace.Off, CommonRes.Off),
 				new ComboChoice<VCDeinterlace>(VCDeinterlace.Yadif, EnumsRes.Deinterlace_Yadif),
+				new ComboChoice<VCDeinterlace>(VCDeinterlace.Bwdif, EnumsRes.Deinterlace_Bwdif),
 				new ComboChoice<VCDeinterlace>(VCDeinterlace.Decomb, EnumsRes.Deinterlace_Decomb),
 			};
 
@@ -83,7 +84,7 @@ namespace VidCoder.ViewModel
 						return new List<ComboChoice>();
 					}
 
-					return this.GetFilterPresetChoices(GetDeinterlaceFilter(deinterlaceType), "DeinterlacePreset_");
+					return this.GetFilterPresetChoices(ModelConverters.VCDeinterlaceToHbFilter(deinterlaceType), "DeinterlacePreset_");
 				}).ToProperty(this, x => x.DeinterlacePresetChoices, out this.deinterlacePresetChoices);
 
 			// DeinterlacePresetVisible
@@ -107,7 +108,7 @@ namespace VidCoder.ViewModel
 					return string.Empty;
 				}
 
-				return GetCustomFilterToolTip(GetDeinterlaceFilter(deinterlaceType));
+				return GetCustomFilterToolTip(ModelConverters.VCDeinterlaceToHbFilter(deinterlaceType));
 			}).ToProperty(this, x => x.CustomDeinterlaceToolTip, out this.customDeinterlaceToolTip);
 
 			// CustomCombDetectVisible
@@ -131,7 +132,7 @@ namespace VidCoder.ViewModel
 						return new List<ComboChoice>();
 					}
 
-					return this.GetFilterPresetChoices(ModelConverters.VCDenoiseToHbDenoise(denoiseType), "DenoisePreset_");
+					return this.GetFilterPresetChoices(ModelConverters.VCDenoiseToHbFilter(denoiseType), "DenoisePreset_");
 				}).ToProperty(this, x => x.DenoisePresetChoices, out this.denoisePresetChoices);
 
 			// DenoiseTuneVisible
@@ -149,7 +150,7 @@ namespace VidCoder.ViewModel
 						return new List<ComboChoice>();
 					}
 
-					return this.GetFilterTuneChoices(ModelConverters.VCDenoiseToHbDenoise(denoiseType), "DenoiseTune_");
+					return this.GetFilterTuneChoices(ModelConverters.VCDenoiseToHbFilter(denoiseType), "DenoiseTune_");
 				}).ToProperty(this, x => x.DenoiseTuneChoices, out this.denoiseTuneChoices);
 
 			// CustomDenoiseVisible
@@ -166,7 +167,7 @@ namespace VidCoder.ViewModel
 					return string.Empty;
 				}
 
-				return GetCustomFilterToolTip(ModelConverters.VCDenoiseToHbDenoise(denoiseType));
+				return GetCustomFilterToolTip(ModelConverters.VCDenoiseToHbFilter(denoiseType));
 			}).ToProperty(this, x => x.CustomDenoiseToolTip, out this.customDenoiseToolTip);
 
 			// ChromaSmoothTuneVisible
@@ -190,7 +191,7 @@ namespace VidCoder.ViewModel
 						return new List<ComboChoice>();
 					}
 
-					return this.GetFilterPresetChoices(GetSharpenFilter(sharpenType));
+					return this.GetFilterPresetChoices(ModelConverters.VCSharpenToHbFilter(sharpenType));
 				}).ToProperty(this, x => x.SharpenPresetChoices, out this.sharpenPresetChoices);
 
 			// SharpenPresetVisible
@@ -209,7 +210,7 @@ namespace VidCoder.ViewModel
 						return new List<ComboChoice>();
 					}
 
-					return this.GetFilterTuneChoices(GetSharpenFilter(sharpenType));
+					return this.GetFilterTuneChoices(ModelConverters.VCSharpenToHbFilter(sharpenType));
 				}).ToProperty(this, x => x.SharpenTuneChoices, out this.sharpenTuneChoices);
 
 			// SharpenTuneVisible
@@ -233,7 +234,7 @@ namespace VidCoder.ViewModel
 						return string.Empty;
 					}
 
-					return GetCustomFilterToolTip(GetSharpenFilter(sharpenType));
+					return GetCustomFilterToolTip(ModelConverters.VCSharpenToHbFilter(sharpenType));
 				}).ToProperty(this, x => x.CustomSharpenToolTip, out this.customSharpenToolTip);
 
 			// CustomDeblockVisible
@@ -305,7 +306,7 @@ namespace VidCoder.ViewModel
 						return;
 					}
 
-					this.CustomDeinterlace = GetDefaultCustomFilterString(GetDeinterlaceFilter(this.DeinterlaceType));
+					this.CustomDeinterlace = GetDefaultCustomFilterString(ModelConverters.VCDeinterlaceToHbFilter(this.DeinterlaceType));
 				}
 
 				this.previewUpdateService.RefreshPreview();
@@ -340,7 +341,7 @@ namespace VidCoder.ViewModel
 
 				if (this.DenoiseType != VCDenoise.Off && this.DenoisePreset == "custom")
 				{
-					this.CustomDenoise = GetDefaultCustomFilterString(ModelConverters.VCDenoiseToHbDenoise(this.DenoiseType));
+					this.CustomDenoise = GetDefaultCustomFilterString(ModelConverters.VCDenoiseToHbFilter(this.DenoiseType));
 				}
 
 				// Needs a kick to actually get it to change
@@ -358,7 +359,7 @@ namespace VidCoder.ViewModel
 						return;
 					}
 
-					this.CustomDenoise = GetDefaultCustomFilterString(ModelConverters.VCDenoiseToHbDenoise(this.DenoiseType));
+					this.CustomDenoise = GetDefaultCustomFilterString(ModelConverters.VCDenoiseToHbFilter(this.DenoiseType));
 				}
 			});
 			this.RegisterProfileProperty(nameof(this.DenoiseTune));
@@ -398,7 +399,7 @@ namespace VidCoder.ViewModel
 
 				if (this.SharpenType != VCSharpen.Off && this.SharpenPreset == "custom")
 				{
-					this.CustomSharpen = GetDefaultCustomFilterString(GetSharpenFilter(this.SharpenType));
+					this.CustomSharpen = GetDefaultCustomFilterString(ModelConverters.VCSharpenToHbFilter(this.SharpenType));
 				}
 
 				// Needs a kick to actually get it to change
@@ -416,7 +417,7 @@ namespace VidCoder.ViewModel
 						return;
 					}
 
-					this.CustomSharpen = GetDefaultCustomFilterString(GetSharpenFilter(this.SharpenType));
+					this.CustomSharpen = GetDefaultCustomFilterString(ModelConverters.VCSharpenToHbFilter(this.SharpenType));
 				}
 			});
 			this.RegisterProfileProperty(nameof(this.SharpenTune));
@@ -800,32 +801,6 @@ namespace VidCoder.ViewModel
 			}
 
 			return builder.ToString();
-		}
-
-		private static hb_filter_ids GetDeinterlaceFilter(VCDeinterlace deinterlaceType)
-		{
-			switch (deinterlaceType)
-			{
-				case VCDeinterlace.Yadif:
-					return hb_filter_ids.HB_FILTER_DEINTERLACE;
-				case VCDeinterlace.Decomb:
-					return hb_filter_ids.HB_FILTER_DECOMB;
-				default:
-					throw new ArgumentOutOfRangeException(nameof(deinterlaceType), $"Could not find filter for deinterlace type {deinterlaceType}.");
-			}
-		}
-
-		private static hb_filter_ids GetSharpenFilter(VCSharpen sharpenType)
-		{
-			switch (sharpenType)
-			{
-				case VCSharpen.UnSharp:
-					return hb_filter_ids.HB_FILTER_UNSHARP;
-				case VCSharpen.LapSharp:
-					return hb_filter_ids.HB_FILTER_LAPSHARP;
-				default:
-					throw new ArgumentOutOfRangeException(nameof(sharpenType), $"Could not find filter for sharpen type {sharpenType}.");
-			}
 		}
 
 		private static List<ComboChoice> ConvertParameterListToComboChoices(IList<HBPresetTune> parameters, string resourcePrefix)

@@ -456,9 +456,7 @@ namespace VidCoderCommon.Model
 			// Deinterlace
 			if (profile.DeinterlaceType != VCDeinterlace.Off)
 			{
-				hb_filter_ids filterId = profile.DeinterlaceType == VCDeinterlace.Yadif
-					? hb_filter_ids.HB_FILTER_DEINTERLACE
-					: hb_filter_ids.HB_FILTER_DECOMB;
+				hb_filter_ids filterId = ModelConverters.VCDeinterlaceToHbFilter(profile.DeinterlaceType);
 
 				JsonDocument settings;
 				if (profile.DeinterlacePreset == "custom")
@@ -537,7 +535,7 @@ namespace VidCoderCommon.Model
 			// Denoise
 			if (profile.DenoiseType != VCDenoise.Off)
 			{
-				hb_filter_ids filterId = ModelConverters.VCDenoiseToHbDenoise(profile.DenoiseType);
+				hb_filter_ids filterId = ModelConverters.VCDenoiseToHbFilter(profile.DenoiseType);
 
 				JsonDocument settings;
 				if (profile.DenoisePreset == "custom")
@@ -579,9 +577,7 @@ namespace VidCoderCommon.Model
 			// Sharpen
 			if (profile.SharpenType != VCSharpen.Off)
 			{
-				hb_filter_ids filterId = profile.SharpenType == VCSharpen.LapSharp
-					? hb_filter_ids.HB_FILTER_LAPSHARP
-					: hb_filter_ids.HB_FILTER_UNSHARP;
+				hb_filter_ids filterId = ModelConverters.VCSharpenToHbFilter(profile.SharpenType);
 
 				JsonDocument settings;
 				if (profile.SharpenPreset == "custom")
