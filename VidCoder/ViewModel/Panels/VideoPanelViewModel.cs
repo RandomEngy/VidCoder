@@ -247,6 +247,17 @@ namespace VidCoder.ViewModel
 				}
 			}).ToProperty(this, x => x.QualitySliderRightText, out this.qualitySliderRightText);
 
+			// QualityName
+			this.WhenAnyValue(x => x.SelectedEncoder, selectedEncoder =>
+			{
+				if (selectedEncoder == null)
+				{
+					return string.Empty;
+				}
+
+				return HandBrakeEncoderHelpers.GetVideoQualityRateControlName(selectedEncoder.Encoder.ShortName);
+			}).ToProperty(this, x => x.QualityName, out this.qualityName);
+
 			// PresetName
 			this.WhenAnyValue(x => x.SelectedEncoder, x => x.Presets, x => x.PresetIndex, (selectedEncoder, localPresets, presetIndex) =>
 			{
@@ -734,6 +745,8 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<string> qualitySliderRightText;
 		public string QualitySliderRightText => this.qualitySliderRightText.Value;
 
+		private ObservableAsPropertyHelper<string> qualityName;
+		public string QualityName => this.qualityName.Value;
 
 		public List<ComboChoice> ProfileChoices
 		{

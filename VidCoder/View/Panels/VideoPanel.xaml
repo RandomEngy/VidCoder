@@ -305,28 +305,35 @@
 								<TextBlock Style="{StaticResource LargeToolTip}" Text="{x:Static res:EncodingRes.Video_QualityTargetToolTip}" />
 							</RadioButton.ToolTip>
 						</RadioButton>
-						<controls:NumberBox
+						<StackPanel
 							Grid.Row="2"
 							Grid.Column="1"
-							Width="49"
-							Height="23"
-							Margin="8 0 0 0"
-							HorizontalAlignment="Left"
-							VerticalAlignment="Center"
-							AllowEmpty="False"
-							AutomationProperties.Name="{x:Static res:EncodingRes.ConstantQualityRadioButton}"
-							Maximum="51"
-							Minimum="0"
-							Modulus="{Binding QualityModulus}"
-							Number="{Binding Quality,
-							                 Mode=TwoWay}"
+							Orientation="Horizontal"
 							Visibility="{Binding VideoEncodeRateType,
 							                     Converter={StaticResource EnumVisibilityConverter},
 							                     ConverterParameter={x:Static model:VCVideoEncodeRateType.ConstantQuality}}">
-							<controls:NumberBox.ToolTip>
-								<TextBlock Style="{StaticResource LargeToolTip}" Text="{x:Static res:EncodingRes.Video_QualityTargetToolTip}" />
-							</controls:NumberBox.ToolTip>
-						</controls:NumberBox>
+							<controls:NumberBox
+								Width="49"
+								Height="23"
+								Margin="8 0 0 0"
+								HorizontalAlignment="Left"
+								VerticalAlignment="Center"
+								AllowEmpty="False"
+								AutomationProperties.Name="{x:Static res:EncodingRes.ConstantQualityRadioButton}"
+								Maximum="51"
+								Minimum="0"
+								Modulus="{Binding QualityModulus}"
+								Number="{Binding Quality,
+								                 Mode=TwoWay}">
+								<controls:NumberBox.ToolTip>
+									<TextBlock Style="{StaticResource LargeToolTip}" Text="{x:Static res:EncodingRes.Video_QualityTargetToolTip}" />
+								</controls:NumberBox.ToolTip>
+							</controls:NumberBox>
+							<TextBlock
+								Margin="6 0 0 0"
+								VerticalAlignment="Center"
+								Text="{Binding QualityName}" />
+						</StackPanel>
 					</Grid>
 
 					<CheckBox
