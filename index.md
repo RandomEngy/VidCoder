@@ -46,7 +46,7 @@ VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application
 </tr>
 </table>
 
-<!-- <table class="releasesTable">
+<table class="releasesTable">
 <tr><td colspan="4">
 <h2 class="versionHeader betaVersionHeader">Latest Beta: {{ betaVersion }}</h2>
 </td></tr>
@@ -56,7 +56,7 @@ VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application
 <td><a href="{{ betaSourceUrl }}" class="secondaryInstallLink">Source (.zip)</a></td>
 <td><a href="{{ betaNotesUrl }}" class="secondaryInstallLink">Release Notes</a></td>
 </tr>
-</table> -->
+</table>
 
 ![Main UI screenshot]({{ site.baseurl }}/images/main.png)
 
