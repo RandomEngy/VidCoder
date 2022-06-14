@@ -24,12 +24,12 @@
     <Optimize>false</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AnyContainer" Version="1.0.0-beta201808141" />
-    <PackageReference Include="PipeMethodCalls" Version="3.0.2" />
-    <PackageReference Include="PipeMethodCalls.NetJson" Version="3.0.0" />
-    <PackageReference Include="ReactiveUI" Version="13.1.1" />
-    <PackageReference Include="System.Text.Json" Version="5.0.1" />
-    <PackageReference Include="valueinjecter" Version="3.2.0" />
+    <PackageReference Include="Microsoft.AnyContainer"  />
+    <PackageReference Include="PipeMethodCalls" />
+    <PackageReference Include="PipeMethodCalls.NetJson" />
+    <PackageReference Include="ReactiveUI" />
+    <PackageReference Include="System.Text.Json"  />
+    <PackageReference Include="valueinjecter" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="HandBrake.Interop">

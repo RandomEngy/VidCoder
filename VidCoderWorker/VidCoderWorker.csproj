@@ -16,8 +16,8 @@
     <ApplicationIcon>VidCoderWorker.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="PipeMethodCalls" Version="3.0.2" />
-    <PackageReference Include="PipeMethodCalls.NetJson" Version="3.0.0" />
+    <PackageReference Include="PipeMethodCalls" />
+    <PackageReference Include="PipeMethodCalls.NetJson" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="HandBrake.Interop">
