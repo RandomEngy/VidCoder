@@ -1554,9 +1554,16 @@ namespace VidCoder.Services
 				string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
 				queueOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, fileToQueue, queuedInputFiles, queuedOutputFiles, isBatch: isBatch, picker, allowConflictDialog: !isBatch, allowQueueRemoval: true);
 
-				job.FinalOutputPath = queueOutputPath;
+				if (Utilities.IsValidFullPath(queueOutputPath))
+				{
+					job.FinalOutputPath = queueOutputPath;
 
-				queuedOutputFiles.Add(queueOutputPath);
+					queuedOutputFiles.Add(queueOutputPath);
+				}
+				else
+				{
+					this.logger.LogError($"Could not add \"{queueOutputPath}\" to queue; it is not a valid full file path.");
+				}
 			}
 
 			if (itemsToQueue.Count > 0)

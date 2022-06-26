@@ -103,67 +103,74 @@ namespace VidCoder.Controls
 
 			this.textBlock.ToolTip = fullPath;
 
-			// Split the path into segments
-			List<string> pathSegments = GetPathSegments(fullPath);
-
-			// Find the greatest number of segments that falls under the maximum width
-			int low = 0;
-			int high = pathSegments.Count - 1;
-
-			while (low < high)
+			try
 			{
-				int mid = (low + high) / 2;
-				if ((high - low) % 2 != 0)
+				// Split the path into segments
+				List<string> pathSegments = GetPathSegments(fullPath);
+
+				// Find the greatest number of segments that falls under the maximum width
+				int low = 0;
+				int high = pathSegments.Count - 1;
+
+				while (low < high)
 				{
-					// When there are two valid midpoints, pick the higher one. This allows our
-					// algorithm to terminate gracefully.
-					mid++;
+					int mid = (low + high) / 2;
+					if ((high - low) % 2 != 0)
+					{
+						// When there are two valid midpoints, pick the higher one. This allows our
+						// algorithm to terminate gracefully.
+						mid++;
+					}
+
+					double stringWidth = this.MeasureStringWidth(ConstructShortenedPath(pathSegments, GetSegmentSet(pathSegments.Count, mid), "..."));
+					if (stringWidth > maxWidth)
+					{
+						// Midpoint is too large. Restrict search range to less than it.
+						high = mid - 1;
+					}
+					else
+					{
+						low = mid;
+					}
 				}
 
-				double stringWidth = this.MeasureStringWidth(ConstructShortenedPath(pathSegments, GetSegmentSet(pathSegments.Count, mid), "..."));
-				if (stringWidth > maxWidth)
+				int numSegments = low;
+
+				if (numSegments > 0)
 				{
-					// Midpoint is too large. Restrict search range to less than it.
-					high = mid - 1;
+					return ConstructShortenedPath(pathSegments, GetSegmentSet(pathSegments.Count, numSegments), "...");
 				}
-				else
+
+				// Settle for a subset of the file name.
+				// We'll show the last part of the name; we find the index to start from.
+				string lastSegment = pathSegments[pathSegments.Count - 1];
+				low = 0;
+				high = lastSegment.Length - 1;
+
+				while (low < high)
 				{
-					low = mid;
+					int mid = (low + high) / 2;
+
+					double stringWidth = this.MeasureStringWidth("..." + lastSegment.Substring(mid));
+					if (stringWidth > maxWidth)
+					{
+						// We are too far to the left (string is too big).
+						// Move the search area to the right.
+						low = mid + 1;
+					}
+					else
+					{
+						high = mid;
+					}
 				}
+
+				int cutoffIndex = low;
+				return "..." + lastSegment.Substring(cutoffIndex);
 			}
-
-			int numSegments = low;
-
-			if (numSegments > 0)
+			catch
 			{
-				return ConstructShortenedPath(pathSegments, GetSegmentSet(pathSegments.Count, numSegments), "...");
+				return fullPath;
 			}
-
-			// Settle for a subset of the file name.
-			// We'll show the last part of the name; we find the index to start from.
-			string lastSegment = pathSegments[pathSegments.Count - 1];
-			low = 0;
-			high = lastSegment.Length - 1;
-
-			while (low < high)
-			{
-				int mid = (low + high) / 2;
-
-				double stringWidth = this.MeasureStringWidth("..." + lastSegment.Substring(mid));
-				if (stringWidth > maxWidth)
-				{
-					// We are too far to the left (string is too big).
-					// Move the search area to the right.
-					low = mid + 1;
-				}
-				else
-				{
-					high = mid;
-				}
-			}
-
-			int cutoffIndex = low;
-			return "..." + lastSegment.Substring(cutoffIndex);
 		}
 
 		private static List<string> GetPathSegments(string path)
