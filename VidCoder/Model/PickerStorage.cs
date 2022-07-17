@@ -110,6 +110,11 @@ namespace VidCoder.Model
 			{
 				UpgradePickerTo45(picker);
 			}
+
+			if (oldDatabaseVersion < 47)
+			{
+				UpgradePickerTo47(picker);
+			}
 		}
 
 	    private static void UpgradePickerTo36(Picker picker)
@@ -325,6 +330,15 @@ namespace VidCoder.Model
 				picker.SourceFileRemoval = recycle ? SourceFileRemoval.Recycle : SourceFileRemoval.Delete;
 				picker.SourceFileRemovalTiming = SourceFileRemovalTiming.AfterClearingCompletedItems;
 				picker.SourceFileRemovalConfirmation = !recycle;
+			}
+		}
+
+		private static void UpgradePickerTo47(Picker picker)
+		{
+			string videoFileExtensions = DatabaseConfig.Get<string>("VideoFileExtensions", null);
+			if (videoFileExtensions != null)
+			{
+				picker.VideoFileExtensions = videoFileExtensions;
 			}
 		}
 

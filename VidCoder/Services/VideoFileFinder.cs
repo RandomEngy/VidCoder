@@ -28,7 +28,7 @@ namespace VidCoder.Services
 		public List<SourcePath> GetPathList(IList<string> itemList, Picker picker = null)
 		{
 			var videoExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-			string extensionsString = Config.VideoFileExtensions;
+			string extensionsString = picker.VideoFileExtensions;
 			string[] rawExtensions = extensionsString.Split(',', ';');
 			foreach (string rawExtension in rawExtensions)
 			{

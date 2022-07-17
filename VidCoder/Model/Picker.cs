@@ -100,6 +100,11 @@ namespace VidCoder.Model
 
 		public TitleCapitalizationChoice TitleCapitalization { get; set; } = TitleCapitalizationChoice.EveryWord;
 
+		/// <summary>
+		/// The extensions to include when adding video files from a folder.
+		/// </summary>
+		public string VideoFileExtensions { get; set; } = "avi, mkv, mp4, m4v, mpg, mpeg, mov, webm, wmv";
+
 		public bool IgnoreFilesBelowMbEnabled { get; set; }
 
 		public int IgnoreFilesBelowMb { get; set; } = 30;

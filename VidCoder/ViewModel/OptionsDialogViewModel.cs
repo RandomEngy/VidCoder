@@ -125,7 +125,6 @@ namespace VidCoder.ViewModel
 			this.autoPauseLowDiskSpace = Config.AutoPauseLowDiskSpace;
 			this.autoPauseLowDiskSpaceGb = Config.AutoPauseLowDiskSpaceGb;
 			this.AutoPauseProcesses = new ObservableCollection<string>();
-			this.videoFileExtensions = Config.VideoFileExtensions;
 			this.encodeRetries = Config.EncodeRetries;
 			this.cpuThrottlingCores = (int)Math.Round(this.CpuThrottlingMaxCores * Config.CpuThrottlingFraction);
 			if (this.cpuThrottlingCores < 1)
@@ -625,13 +624,6 @@ namespace VidCoder.ViewModel
 			set => this.RaiseAndSetIfChanged(ref this.minimumTitleLengthSeconds, value);
 		}
 
-		private string videoFileExtensions;
-		public string VideoFileExtensions
-		{
-			get => this.videoFileExtensions;
-			set => this.RaiseAndSetIfChanged(ref this.videoFileExtensions, value);
-		}
-
 		private int encodeRetries;
 		public int EncodeRetries
 		{
@@ -752,7 +744,6 @@ namespace VidCoder.ViewModel
 				Config.KeepFailedFiles = this.KeepFailedFiles;
 				Config.TriggerEncodeCompleteActionWithErrors = this.TriggerEncodeCompleteActionWithErrors;
 				Config.MinimumTitleLengthSeconds = this.MinimumTitleLengthSeconds;
-				Config.VideoFileExtensions = this.VideoFileExtensions;
 				Config.EncodeRetries = this.EncodeRetries;
 				Config.CpuThrottlingFraction = (double)this.CpuThrottlingCores / this.CpuThrottlingMaxCores;
 				Config.MaxSimultaneousEncodes = this.MaxSimultaneousEncodes;

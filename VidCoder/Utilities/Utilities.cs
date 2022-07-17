@@ -28,9 +28,9 @@ namespace VidCoder
 {
 	public static class Utilities
 	{
-		public const int CurrentDatabaseVersion = 46;
+		public const int CurrentDatabaseVersion = 47;
 		public const int LastUpdatedEncodingProfileDatabaseVersion = 44;
-		public const int LastUpdatedPickerDatabaseVersion = 45;
+		public const int LastUpdatedPickerDatabaseVersion = 47;
 
 		public const string SquirrelUpdateUrlBeta = "https://f001.backblazeb2.com/file/vidcoder-squirrel-beta";
 		public const string SquirrelUpdateUrlStable = "https://f001.backblazeb2.com/file/vidcoder-squirrel-stable";

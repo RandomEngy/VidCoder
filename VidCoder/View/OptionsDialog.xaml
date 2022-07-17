@@ -45,8 +45,7 @@
 				Grid.Row="0"
 				Grid.ColumnSpan="2"
 				Icon="/Icons/Options.png"
-				IsActive="{Binding IsActive,
-				                   RelativeSource={RelativeSource AncestorType=Window}}" />
+				IsActive="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" />
 
 			<Grid
 				Grid.Row="1"
@@ -80,16 +79,14 @@
 			<Grid
 				Grid.Row="1"
 				Grid.Column="1"
-				Margin="0 0 0 0">
+				Margin="0,0,0,0">
 				<ScrollViewer Background="{DynamicResource WindowBrush}" VerticalScrollBarVisibility="Auto">
-					<Grid Margin="15 8 10 5">
+					<Grid Margin="15,8,10,5">
 						<!--  General  -->
 						<StackPanel
 							VerticalAlignment="Top"
 							Orientation="Vertical"
-							Visibility="{Binding SelectedTabIndex,
-							                     Converter={StaticResource IntVisibilityConverter},
-							                     ConverterParameter=0}">
+							Visibility="{Binding SelectedTabIndex, Converter={StaticResource IntVisibilityConverter}, ConverterParameter=0}">
 
 							<!--  Languages  -->
 							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.GeneralSection}" />
@@ -102,12 +99,12 @@
 									<ComboBox
 										Height="23"
 										MinWidth="100"
-										Margin="6 0 0 0"
+										Margin="6,0,0,0"
 										AutomationProperties.LabeledBy="{Binding ElementName=interfaceLanguageLabel}"
 										ItemsSource="{Binding LanguageChoices}"
 										SelectedItem="{Binding InterfaceLanguage}" />
 								</StackPanel>
-								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
+								<StackPanel Margin="0,6,0,0" Orientation="Horizontal">
 									<TextBlock
 										Name="themeLabel"
 										VerticalAlignment="Center"
@@ -115,7 +112,7 @@
 									<ComboBox
 										Height="23"
 										MinWidth="100"
-										Margin="6 0 0 0"
+										Margin="6,0,0,0"
 										AutomationProperties.LabeledBy="{Binding ElementName=themeLabel}"
 										ItemsSource="{Binding AppThemeChoices}"
 										SelectedItem="{Binding AppTheme}" />
@@ -134,7 +131,7 @@
 											ToolTip="{x:Static res:OptionsRes.PreferredDvdPlayerToolTip}" />
 										<ComboBox
 											Height="23"
-											Margin="5 0 0 0"
+											Margin="5,0,0,0"
 											HorizontalAlignment="Left"
 											VerticalAlignment="Top"
 											AutomationProperties.LabeledBy="{Binding ElementName=preferredDvdPlayerLabel}"
@@ -143,16 +140,15 @@
 											SelectedItem="{Binding SelectedPlayer}"
 											ToolTip="{x:Static res:OptionsRes.PreferredDvdPlayerToolTip}" />
 									</StackPanel>
-									<TextBlock Margin="0 6 0 0" Text="{x:Static res:OptionsRes.VideoFilesLabel}" />
+									<TextBlock Margin="0,6,0,0" Text="{x:Static res:OptionsRes.VideoFilesLabel}" />
 									<RadioButton
-										Margin="20 6 0 0"
+										Margin="20,6,0,0"
 										HorizontalAlignment="Left"
 										Content="{x:Static res:OptionsRes.UseSystemPlayer}"
 										GroupName="customVideo1"
-										IsChecked="{Binding UseCustomVideoPlayer,
-										                    Converter={StaticResource InverseBoolConverter}}" />
+										IsChecked="{Binding UseCustomVideoPlayer, Converter={StaticResource InverseBoolConverter}}" />
 									<Grid
-										Margin="20 6 0 0"
+										Margin="20,6,0,0"
 										HorizontalAlignment="Stretch"
 										ToolTip="{x:Static res:OptionsRes.CustomVideoPlayerToolTip}">
 										<Grid.ColumnDefinitions>
@@ -161,7 +157,7 @@
 											<ColumnDefinition Width="Auto" />
 										</Grid.ColumnDefinitions>
 										<RadioButton
-											Margin="0 0 6 0"
+											Margin="0,0,6,0"
 											HorizontalAlignment="Left"
 											VerticalAlignment="Center"
 											Content="{x:Static res:OptionsRes.CustomPlayerLabel}"
@@ -176,8 +172,8 @@
 											Text="{Binding CustomVideoPlayer}" />
 										<Button
 											Grid.Column="2"
-											Margin="6 0 0 0"
-											Padding="3 2"
+											Margin="6,0,0,0"
+											Padding="3,2"
 											VerticalAlignment="Center"
 											Command="{Binding BrowseVideoPlayer}"
 											Content="{x:Static res:CommonRes.Browse}"
@@ -185,7 +181,7 @@
 									</Grid>
 								</StackPanel>
 								<CheckBox
-									Margin="0 6 0 0"
+									Margin="0,6,0,0"
 									HorizontalAlignment="Left"
 									VerticalAlignment="Center"
 									Content="{x:Static res:OptionsRes.UseBuiltInPlayerForPreviewsCheckBox}"
@@ -196,18 +192,18 @@
 							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.SoundSection}" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}">
 								<CheckBox
-									Margin="0 0 0 4"
+									Margin="0,0,0,4"
 									HorizontalAlignment="Left"
 									Content="{x:Static res:OptionsRes.PlaySoundOnQueueCompletionCheckBox}"
 									IsChecked="{Binding PlaySoundOnCompletion}" />
-								<Grid Margin="20 0 0 0" HorizontalAlignment="Stretch">
+								<Grid Margin="20,0,0,0" HorizontalAlignment="Stretch">
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="Auto" />
 										<ColumnDefinition />
 										<ColumnDefinition Width="Auto" />
 									</Grid.ColumnDefinitions>
 									<CheckBox
-										Margin="0 0 6 0"
+										Margin="0,0,6,0"
 										HorizontalAlignment="Left"
 										VerticalAlignment="Center"
 										Content="{x:Static res:OptionsRes.UseCustomWavLabel}"
@@ -222,8 +218,8 @@
 										Text="{Binding CustomCompletionSound}" />
 									<Button
 										Grid.Column="2"
-										Margin="6 0 0 0"
-										Padding="3 2"
+										Margin="6,0,0,0"
+										Padding="3,2"
 										VerticalAlignment="Center"
 										Command="{Binding BrowseCompletionSound}"
 										Content="{x:Static res:CommonRes.Browse}"
@@ -235,12 +231,11 @@
 							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.SystemTraySection}" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}">
 								<RadioButton
-									Margin="0 0 0 4"
+									Margin="0,0,0,4"
 									HorizontalAlignment="Left"
 									Content="{x:Static res:OptionsRes.MinimizeToTaskBarRadioButton}"
 									GroupName="minimize1"
-									IsChecked="{Binding MinimizeToTray,
-									                    Converter={StaticResource InverseBoolConverter}}" />
+									IsChecked="{Binding MinimizeToTray, Converter={StaticResource InverseBoolConverter}}" />
 								<RadioButton
 									HorizontalAlignment="Left"
 									Content="{x:Static res:OptionsRes.MinimizeToSystemTrayRadioButton}"
@@ -254,35 +249,32 @@
 						<StackPanel
 							VerticalAlignment="Top"
 							Orientation="Vertical"
-							Visibility="{Binding SelectedTabIndex,
-							                     Converter={StaticResource IntVisibilityConverter},
-							                     ConverterParameter=1}">
+							Visibility="{Binding SelectedTabIndex, Converter={StaticResource IntVisibilityConverter}, ConverterParameter=1}">
 							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.ProcessOptionsLabel}" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}">
 								<CheckBox
-									Margin="0 6 0 0"
+									Margin="0,6,0,0"
 									HorizontalAlignment="Left"
 									VerticalAlignment="Center"
 									Content="{x:Static res:OptionsRes.UseWorkerProcessCheckBox}"
 									IsChecked="{Binding UseWorkerProcess}" />
 
-								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
+								<StackPanel Margin="0,6,0,0" Orientation="Horizontal">
 									<TextBlock
 										Name="workerProcessPriorityLabel"
 										VerticalAlignment="Center"
 										Text="{x:Static res:OptionsRes.WorkerProcessPriorityLabel}" />
 									<ComboBox
 										MinWidth="100"
-										Margin="6 0 0 0"
+										Margin="6,0,0,0"
 										AutomationProperties.LabeledBy="{Binding ElementName=workerProcessPriorityLabel}"
 										ItemsSource="{Binding PriorityChoices}"
-										SelectedValue="{Binding WorkerProcessPriority,
-										                        Mode=TwoWay}"
+										SelectedValue="{Binding WorkerProcessPriority, Mode=TwoWay}"
 										SelectedValuePath="Value" />
 								</StackPanel>
 
 								<StackPanel
-									Margin="0 6 0 0"
+									Margin="0,6,0,0"
 									Orientation="Horizontal"
 									ToolTip="{x:Static res:OptionsRes.MaxSimultaneousEncodesToolTip}">
 									<TextBlock
@@ -292,17 +284,16 @@
 									<controls:NumberBox
 										Width="35"
 										Height="23"
-										Margin="10 0 0 0"
+										Margin="10,0,0,0"
 										VerticalAlignment="Center"
 										AllowEmpty="False"
 										AutomationProperties.LabeledBy="{Binding ElementName=maxSimultaneousEncodesLabel}"
 										Maximum="8"
 										Minimum="1"
-										Number="{Binding MaxSimultaneousEncodes,
-										                 Mode=TwoWay}" />
+										Number="{Binding MaxSimultaneousEncodes, Mode=TwoWay}" />
 								</StackPanel>
 
-								<Grid Margin="0 6 0 0" ToolTip="{x:Static res:OptionsRes.CpuThrottlingToolTip}">
+								<Grid Margin="0,6,0,0" ToolTip="{x:Static res:OptionsRes.CpuThrottlingToolTip}">
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="Auto" />
 										<ColumnDefinition />
@@ -312,7 +303,7 @@
 									<TextBlock Name="cpuThrottlingLabel" Text="{x:Static res:OptionsRes.CpuThrottlingLabel}" />
 									<Slider
 										Grid.Column="1"
-										Margin="10 0 0 0"
+										Margin="10,0,0,0"
 										HorizontalAlignment="Stretch"
 										AutomationProperties.LabeledBy="{Binding ElementName=cpuThrottlingLabel}"
 										Maximum="{Binding CpuThrottlingMaxCores}"
@@ -323,7 +314,7 @@
 									<TextBlock
 										Grid.Column="2"
 										MinWidth="40"
-										Margin="6 0 0 0"
+										Margin="6,0,0,0"
 										Text="{Binding CpuThrottlingDisplay}" />
 								</Grid>
 							</StackPanel>
@@ -334,12 +325,12 @@
 								TextWrapping="Wrap" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}">
 								<CheckBox
-									Margin="0 6 0 0"
+									Margin="0,6,0,0"
 									HorizontalAlignment="Left"
 									VerticalAlignment="Center"
 									Content="{x:Static res:OptionsRes.AutoPauseLowBatteryCheckbox}"
 									IsChecked="{Binding AutoPauseLowBattery}" />
-								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
+								<StackPanel Margin="0,6,0,0" Orientation="Horizontal">
 									<CheckBox
 										HorizontalAlignment="Left"
 										VerticalAlignment="Center"
@@ -349,38 +340,37 @@
 									<controls:NumberBox
 										Width="45"
 										Height="20"
-										Margin="6 0 0 0"
+										Margin="6,0,0,0"
 										VerticalAlignment="Center"
 										AllowEmpty="False"
 										AutomationProperties.Name="{x:Static res:OptionsRes.LowDiskSpaceThresholdAutomationName}"
 										IsEnabled="{Binding AutoPauseLowDiskSpace}"
 										Minimum="1"
 										Modulus="1"
-										Number="{Binding AutoPauseLowDiskSpaceGb,
-										                 Mode=TwoWay}"
+										Number="{Binding AutoPauseLowDiskSpaceGb, Mode=TwoWay}"
 										ShowIncrementButtons="False" />
 
 									<TextBlock
-										Margin="4 0 0 0"
+										Margin="4,0,0,0"
 										VerticalAlignment="Center"
 										Text="GB" />
 								</StackPanel>
 
-								<TextBlock Margin="0 6 0 0" Text="{x:Static res:OptionsRes.AutoPauseLabel}" />
+								<TextBlock Margin="0,6,0,0" Text="{x:Static res:OptionsRes.AutoPauseLabel}" />
 								<ListBox
 									MinHeight="60"
-									Margin="0 0 0 0"
+									Margin="0,0,0,0"
 									Background="{DynamicResource WindowBrush}"
 									ItemsSource="{Binding AutoPauseProcesses}"
 									SelectedItem="{Binding SelectedProcess}" />
 								<StackPanel
-									Margin="0 6 0 0"
+									Margin="0,6,0,0"
 									HorizontalAlignment="Left"
 									Orientation="Horizontal">
 									<Button
 										Height="23"
 										MinWidth="75"
-										Margin="0 0 0 0"
+										Margin="0,0,0,0"
 										HorizontalAlignment="Right"
 										VerticalAlignment="Top"
 										Command="{Binding OpenAddProcessDialog}"
@@ -388,7 +378,7 @@
 									<Button
 										Height="23"
 										MinWidth="75"
-										Margin="8 0 0 0"
+										Margin="8,0,0,0"
 										HorizontalAlignment="Right"
 										VerticalAlignment="Top"
 										Command="{Binding RemoveProcess}"
@@ -401,9 +391,7 @@
 						<StackPanel
 							VerticalAlignment="Top"
 							Orientation="Vertical"
-							Visibility="{Binding SelectedTabIndex,
-							                     Converter={StaticResource IntVisibilityConverter},
-							                     ConverterParameter=2}">
+							Visibility="{Binding SelectedTabIndex, Converter={StaticResource IntVisibilityConverter}, ConverterParameter=2}">
 							<!--  Advanced options  -->
 							<TextBlock
 								Style="{StaticResource ConfigSectionHeader}"
@@ -416,53 +404,30 @@
 									Content="{x:Static res:OptionsRes.RememberPreviousFilesCheckBox}"
 									IsChecked="{Binding RememberPreviousFiles}" />
 								<CheckBox
-									Margin="0 6 0 0"
+									Margin="0,6,0,0"
 									HorizontalAlignment="Left"
 									VerticalAlignment="Center"
 									Content="{x:Static res:OptionsRes.PreserveModifyTimeFilesCheckBox}"
 									IsChecked="{Binding PreserveModifyTimeFiles}" />
 								<CheckBox
-									Margin="0 6 0 0"
+									Margin="0,6,0,0"
 									HorizontalAlignment="Left"
 									VerticalAlignment="Center"
 									Content="{x:Static res:OptionsRes.ResumeEncodingOnRestartCheckBox}"
 									IsChecked="{Binding ResumeEncodingOnRestart}" />
 								<CheckBox
-									Margin="0 6 0 0"
+									Margin="0,6,0,0"
 									HorizontalAlignment="Left"
 									VerticalAlignment="Center"
 									Content="{x:Static res:OptionsRes.KeepFailedFilesCheckBox}"
 									IsChecked="{Binding KeepFailedFiles}" />
 								<CheckBox
-									Margin="0 6 0 0"
+									Margin="0,6,0,0"
 									HorizontalAlignment="Left"
 									VerticalAlignment="Center"
 									Content="{x:Static res:OptionsRes.TriggerWhenDoneWithFailedJobsCheckBox}"
 									IsChecked="{Binding TriggerEncodeCompleteActionWithErrors}" />
-								<Grid Margin="0 6 0 0">
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="Auto" />
-										<ColumnDefinition />
-									</Grid.ColumnDefinitions>
-
-									<TextBlock
-										Name="recognizedExtensionsLabel"
-										Grid.Column="0"
-										HorizontalAlignment="Left"
-										VerticalAlignment="Center"
-										Text="{x:Static res:OptionsRes.RecognizedExtensionsLabel}"
-										ToolTip="{x:Static res:OptionsRes.RecognizedExtensionsToolTip}" />
-									<TextBox
-										Grid.Column="1"
-										Height="23"
-										Margin="6 0 0 0"
-										VerticalAlignment="Center"
-										VerticalContentAlignment="Center"
-										AutomationProperties.LabeledBy="{Binding ElementName=recognizedExtensionsLabel}"
-										Text="{Binding VideoFileExtensions}"
-										ToolTip="{x:Static res:OptionsRes.RecognizedExtensionsToolTip}" />
-								</Grid>
-								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
+								<StackPanel Margin="0,6,0,0" Orientation="Horizontal">
 									<TextBlock
 										Name="encodeRetriesLabel"
 										VerticalAlignment="Center"
@@ -470,14 +435,13 @@
 									<controls:NumberBox
 										Width="45"
 										Height="20"
-										Margin="6 0 0 0"
+										Margin="6,0,0,0"
 										VerticalAlignment="Center"
 										AllowEmpty="False"
 										AutomationProperties.LabeledBy="{Binding ElementName=encodeRetriesLabel}"
 										Maximum="5"
 										Minimum="0"
-										Number="{Binding EncodeRetries,
-										                 Mode=TwoWay}" />
+										Number="{Binding EncodeRetries, Mode=TwoWay}" />
 								</StackPanel>
 							</StackPanel>
 
@@ -496,17 +460,16 @@
 									<controls:NumberBox
 										Width="45"
 										Height="20"
-										Margin="6 0 0 0"
+										Margin="6,0,0,0"
 										HorizontalAlignment="Left"
 										VerticalAlignment="Center"
 										AllowEmpty="False"
 										AutomationProperties.LabeledBy="{Binding ElementName=minScanLengthLabel}"
 										Minimum="0"
-										Number="{Binding MinimumTitleLengthSeconds,
-										                 Mode=TwoWay}" />
+										Number="{Binding MinimumTitleLengthSeconds, Mode=TwoWay}" />
 								</StackPanel>
 								<StackPanel
-									Margin="0 6 0 0"
+									Margin="0,6,0,0"
 									HorizontalAlignment="Left"
 									Orientation="Horizontal">
 									<TextBlock
@@ -517,7 +480,7 @@
 									<ComboBox
 										Width="61"
 										Height="23"
-										Margin="6 0 0 0"
+										Margin="6,0,0,0"
 										HorizontalAlignment="Left"
 										VerticalAlignment="Center"
 										AutomationProperties.LabeledBy="{Binding ElementName=previewCountLabel}"
@@ -536,7 +499,7 @@
 										<ComboBoxItem>60</ComboBoxItem>
 									</ComboBox>
 								</StackPanel>
-								<Grid Margin="0 6 0 0">
+								<Grid Margin="0,6,0,0">
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="Auto" />
 										<ColumnDefinition />
@@ -544,7 +507,7 @@
 									</Grid.ColumnDefinitions>
 									<CheckBox
 										Height="16"
-										Margin="0 0 5 0"
+										Margin="0,0,5,0"
 										VerticalAlignment="Center"
 										Content="{x:Static res:OptionsRes.CustomPreviewFolderCheckBox}"
 										IsChecked="{Binding UseCustomPreviewFolder}" />
@@ -556,15 +519,15 @@
 										Text="{Binding PreviewOutputFolder}" />
 									<Button
 										Grid.Column="2"
-										Margin="6 0 0 0"
-										Padding="3 2"
+										Margin="6,0,0,0"
+										Padding="3,2"
 										VerticalAlignment="Center"
 										Command="{Binding BrowsePreviewFolder}"
 										Content="{x:Static res:CommonRes.Browse}"
 										IsEnabled="{Binding UseCustomPreviewFolder}" />
 								</Grid>
 								<StackPanel
-									Margin="0 6 0 0"
+									Margin="0,6,0,0"
 									HorizontalAlignment="Left"
 									Orientation="Horizontal">
 									<TextBlock
@@ -572,7 +535,7 @@
 										VerticalAlignment="Center"
 										Text="{x:Static res:OptionsRes.DragDropScanOrderLabel}" />
 									<ComboBox
-										Margin="6 0 0 0"
+										Margin="6,0,0,0"
 										VerticalAlignment="Center"
 										AutomationProperties.LabeledBy="{Binding ElementName=dragDropScanOrderLabel}"
 										DisplayMemberPath="Display"
@@ -588,7 +551,7 @@
 								Text="{x:Static res:OptionsRes.LoggingSection}"
 								TextWrapping="Wrap" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}">
-								<StackPanel Margin="0 0 0 0" Orientation="Horizontal">
+								<StackPanel Margin="0,0,0,0" Orientation="Horizontal">
 									<TextBlock
 										Name="loggingVerbosityLabel"
 										HorizontalAlignment="Left"
@@ -597,7 +560,7 @@
 									<ComboBox
 										Height="23"
 										MinWidth="90"
-										Margin="6 0 0 0"
+										Margin="6,0,0,0"
 										HorizontalAlignment="Left"
 										VerticalAlignment="Center"
 										AutomationProperties.LabeledBy="{Binding ElementName=loggingVerbosityLabel}"
@@ -607,14 +570,14 @@
 										SelectedValuePath="Value" />
 								</StackPanel>
 								<CheckBox
-									Margin="0 6 0 0"
+									Margin="0,6,0,0"
 									Content="{x:Static res:OptionsRes.CopyLogToOutputFolderLabel}"
 									IsChecked="{Binding CopyLogToOutputFolder}" />
 								<CheckBox
-									Margin="0 6 0 0"
+									Margin="0,6,0,0"
 									Content="{x:Static res:OptionsRes.CopyLogToCustomFolderLabel}"
 									IsChecked="{Binding CopyLogToCustomFolder}" />
-								<Grid Margin="20 6 0 0">
+								<Grid Margin="20,6,0,0">
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition />
 										<ColumnDefinition Width="Auto" />
@@ -625,14 +588,14 @@
 										Text="{Binding LogCustomFolder}" />
 									<Button
 										Grid.Column="1"
-										Margin="6 0 0 0"
-										Padding="6 2"
+										Margin="6,0,0,0"
+										Padding="6,2"
 										Command="{Binding PickLogCustomFolder}"
 										Content="{x:Static res:CommonRes.Browse}"
 										IsEnabled="{Binding CopyLogToCustomFolder}" />
 								</Grid>
 								<Button
-									Margin="0 8 0 0"
+									Margin="0,8,0,0"
 									Padding="3"
 									HorizontalAlignment="Left"
 									Command="{Binding LogCoordinator.OpenLogFolder}"
@@ -646,7 +609,7 @@
 								TextWrapping="Wrap" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}">
 								<CheckBox
-									Margin="0 0 0 0"
+									Margin="0,0,0,0"
 									HorizontalAlignment="Left"
 									VerticalAlignment="Center"
 									Content="{x:Static res:OptionsRes.EnableLibDvdNavCheckBox}"
@@ -658,16 +621,14 @@
 						<StackPanel
 							VerticalAlignment="Top"
 							Orientation="Vertical"
-							Visibility="{Binding SelectedTabIndex,
-							                     Converter={StaticResource IntVisibilityConverter},
-							                     ConverterParameter=3}">
+							Visibility="{Binding SelectedTabIndex, Converter={StaticResource IntVisibilityConverter}, ConverterParameter=3}">
 
 							<!--  Updates  -->
 							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.UpdatesSection}" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}">
-								<TextBlock Margin="0 0 0 6" Text="{Binding CurrentVersion}" />
+								<TextBlock Margin="0,0,0,6" Text="{Binding CurrentVersion}" />
 								<StackPanel
-									Margin="0 0 0 6"
+									Margin="0,0,0,6"
 									HorizontalAlignment="Left"
 									VerticalAlignment="Top"
 									Orientation="Horizontal">
@@ -678,21 +639,19 @@
 										IsChecked="{Binding UpdatesEnabledConfig}" />
 									<TextBlock
 										Name="updateModeLabel"
-										Margin="16 0 0 0"
+										Margin="16,0,0,0"
 										VerticalAlignment="Center"
 										Text="{x:Static res:OptionsRes.UpdateModeLabel}"
-										Visibility="{Binding UpdatesEnabledConfig,
-										                     Converter={StaticResource VisibilityConverter}}" />
+										Visibility="{Binding UpdatesEnabledConfig, Converter={StaticResource VisibilityConverter}}" />
 									<ComboBox
-										Margin="6 0 0 0"
+										Margin="6,0,0,0"
 										VerticalAlignment="Center"
 										AutomationProperties.LabeledBy="{Binding ElementName=updateModeLabel}"
 										DisplayMemberPath="Display"
 										ItemsSource="{Binding UpdateModeChoices}"
 										SelectedValue="{Binding UpdateMode}"
 										SelectedValuePath="Value"
-										Visibility="{Binding UpdatesEnabledConfig,
-										                     Converter={StaticResource VisibilityConverter}}" />
+										Visibility="{Binding UpdatesEnabledConfig, Converter={StaticResource VisibilityConverter}}" />
 								</StackPanel>
 
 								<Button
@@ -700,47 +659,40 @@
 									HorizontalAlignment="Left"
 									Command="{Binding CheckUpdate}"
 									Content="{x:Static res:OptionsRes.CheckNowButton}"
-									Visibility="{Binding UpdatesEnabledConfig,
-									                     Converter={StaticResource VisibilityConverter}}" />
+									Visibility="{Binding UpdatesEnabledConfig, Converter={StaticResource VisibilityConverter}}" />
 							</StackPanel>
 
 							<!--  Status  -->
 							<TextBlock
 								Style="{StaticResource ConfigSectionHeader}"
 								Text="{x:Static res:OptionsRes.UpdateStatusSection}"
-								Visibility="{Binding UpdatesEnabledConfig,
-								                     Converter={StaticResource VisibilityConverter}}" />
+								Visibility="{Binding UpdatesEnabledConfig, Converter={StaticResource VisibilityConverter}}" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}" Visibility="{Binding UpdatesEnabledConfig, Converter={StaticResource VisibilityConverter}}">
 								<StackPanel
-									Margin="0 0 0 3"
+									Margin="0,0,0,3"
 									HorizontalAlignment="Left"
 									Orientation="Horizontal">
 									<TextBlock VerticalAlignment="Center" Text="{Binding UpdateStatus}" />
 									<Button
-										Margin="10 0 0 0"
-										Padding="10 4"
+										Margin="10,0,0,0"
+										Padding="10,4"
 										Command="{Binding ApplyUpdate}"
 										Content="{x:Static res:OptionsRes.ApplyUpdateButton}"
-										Visibility="{Binding Updater.State,
-										                     Converter={StaticResource EnumVisibilityConverter},
-										                     ConverterParameter={x:Static Model:UpdateState.UpdateReady}}" />
+										Visibility="{Binding Updater.State, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static Model:UpdateState.UpdateReady}}" />
 								</StackPanel>
 								<ProgressBar
 									Grid.Column="1"
 									Height="20"
-									Margin="0 0 0 0"
-									Visibility="{Binding CheckingForUpdate,
-									                     Converter={StaticResource VisibilityConverter}}"
-									Value="{Binding UpdateProgressPercent,
-									                Mode=OneWay}" />
+									Margin="0,0,0,0"
+									Visibility="{Binding CheckingForUpdate, Converter={StaticResource VisibilityConverter}}"
+									Value="{Binding UpdateProgressPercent, Mode=OneWay}" />
 							</StackPanel>
 
 							<!--  Beta  -->
 							<TextBlock
 								Style="{StaticResource ConfigSectionHeader}"
 								Text="{x:Static res:OptionsRes.BetaSection}"
-								Visibility="{Binding BetaSectionVisible,
-								                     Converter={StaticResource VisibilityConverter}}" />
+								Visibility="{Binding BetaSectionVisible, Converter={StaticResource VisibilityConverter}}" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}" Visibility="{Binding BetaSectionVisible, Converter={StaticResource VisibilityConverter}}">
 								<TextBlock TextWrapping="Wrap" Visibility="{Binding IsBeta, Source={x:Static vidCoder:XamlStatics.Instance}, Converter={StaticResource InverseVisibilityConverter}}">
 									<Hyperlink NavigateUri="{Binding BetaChangelogUrl}" RequestNavigate="Hyperlink_OnRequestNavigate">
@@ -750,15 +702,11 @@
 								<TextBlock
 									Text="{x:Static res:OptionsRes.BetaUpdatesNonBetaWarning}"
 									TextWrapping="Wrap"
-									Visibility="{Binding IsBeta,
-									                     Source={x:Static vidCoder:XamlStatics.Instance},
-									                     Converter={StaticResource InverseVisibilityConverter}}" />
+									Visibility="{Binding IsBeta, Source={x:Static vidCoder:XamlStatics.Instance}, Converter={StaticResource InverseVisibilityConverter}}" />
 								<TextBlock
 									Text="{x:Static res:OptionsRes.BetaUpdatesInBeta}"
 									TextWrapping="Wrap"
-									Visibility="{Binding IsBeta,
-									                     Source={x:Static vidCoder:XamlStatics.Instance},
-									                     Converter={StaticResource VisibilityConverter}}" />
+									Visibility="{Binding IsBeta, Source={x:Static vidCoder:XamlStatics.Instance}, Converter={StaticResource VisibilityConverter}}" />
 							</StackPanel>
 						</StackPanel>
 					</Grid>
@@ -768,14 +716,14 @@
 			<StackPanel
 				Grid.Row="2"
 				Grid.Column="1"
-				Margin="0 6 6 6"
+				Margin="0,6,6,6"
 				HorizontalAlignment="Right"
 				VerticalAlignment="Bottom"
 				Orientation="Horizontal">
 				<Button
 					Height="23"
 					MinWidth="75"
-					Margin="0 0 6 0"
+					Margin="0,0,6,0"
 					HorizontalAlignment="Right"
 					VerticalAlignment="Bottom"
 					Command="{Binding SaveSettings}"

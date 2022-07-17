@@ -115,7 +115,6 @@ namespace VidCoder
 			cache.Add("KeepFailedFiles", DatabaseConfig.Get("KeepFailedFiles", false, connection));
 			cache.Add("UseWorkerProcess", DatabaseConfig.Get("UseWorkerProcess", true, connection));
 			cache.Add("RememberPreviousFiles", DatabaseConfig.Get("RememberPreviousFiles", true, connection));
-			cache.Add("VideoFileExtensions", DatabaseConfig.Get("VideoFileExtensions", "avi, mkv, mp4, m4v, mpg, mpeg, mov, wmv", connection));
 			cache.Add("PreferredPlayer", DatabaseConfig.Get("PreferredPlayer", "vlc", connection));
 			cache.Add("BetaUpdates", DatabaseConfig.Get("BetaUpdates", false, connection));
 			cache.Add("InterfaceLanguageCode", DatabaseConfig.Get("InterfaceLanguageCode", "", connection));
@@ -589,11 +588,6 @@ namespace VidCoder
 			get { return (bool)cache["RememberPreviousFiles"]; }
 			set { Set("RememberPreviousFiles", value); }
 		}
-		public static string VideoFileExtensions
-		{
-			get { return (string)cache["VideoFileExtensions"]; }
-			set { Set("VideoFileExtensions", value); }
-		}
 		public static string PreferredPlayer
 		{
 			get { return (string)cache["PreferredPlayer"]; }
@@ -732,7 +726,6 @@ namespace VidCoder
 			public static IObservable<bool> KeepFailedFiles => GetObservable<bool>("KeepFailedFiles");
 			public static IObservable<bool> UseWorkerProcess => GetObservable<bool>("UseWorkerProcess");
 			public static IObservable<bool> RememberPreviousFiles => GetObservable<bool>("RememberPreviousFiles");
-			public static IObservable<string> VideoFileExtensions => GetObservable<string>("VideoFileExtensions");
 			public static IObservable<string> PreferredPlayer => GetObservable<string>("PreferredPlayer");
 			public static IObservable<bool> BetaUpdates => GetObservable<bool>("BetaUpdates");
 			public static IObservable<string> InterfaceLanguageCode => GetObservable<string>("InterfaceLanguageCode");

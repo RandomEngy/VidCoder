@@ -98,7 +98,6 @@ ResumeEncodingOnRestart|bool|false
 KeepFailedFiles|bool|false
 UseWorkerProcess|bool|true
 RememberPreviousFiles|bool|true
-VideoFileExtensions|string|"avi, mkv, mp4, m4v, mpg, mpeg, mov, wmv"
 PreferredPlayer|string|"vlc"
 BetaUpdates|bool|false
 InterfaceLanguageCode|string|""

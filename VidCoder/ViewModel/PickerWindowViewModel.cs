@@ -406,6 +406,7 @@ namespace VidCoder.ViewModel
 			this.RegisterPickerProperty(nameof(this.Picker.TitleCapitalization), () => this.RefreshOutputPathAndSourceNameCleanupPreview());
 			this.RegisterPickerProperty(nameof(this.Picker.OnlyChangeTitleCapitalizationWhenAllSame), () => this.RefreshOutputPathAndSourceNameCleanupPreview());
 			this.RegisterPickerProperty(nameof(this.Picker.WordBreakCharacters), () => this.RefreshOutputPathAndSourceNameCleanupPreview());
+			this.RegisterPickerProperty(nameof(this.Picker.VideoFileExtensions));
 			this.RegisterPickerProperty(nameof(this.Picker.IgnoreFilesBelowMbEnabled));
 			this.RegisterPickerProperty(nameof(this.Picker.IgnoreFilesBelowMb));
 			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectEnabled));
@@ -713,6 +714,12 @@ namespace VidCoder.ViewModel
 		{
 			this.RefreshSourceNameCleanupPreview();
 			this.outputPathService.GenerateOutputFileName();
+		}
+
+		public string VideoFileExtensions
+		{
+			get => this.Picker.VideoFileExtensions;
+			set => this.UpdatePickerProperty(nameof(this.Picker.VideoFileExtensions), value);
 		}
 
 		public bool IgnoreFilesBelowMbEnabled
