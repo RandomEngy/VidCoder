@@ -240,7 +240,7 @@ namespace VidCoder.Services.Windows
 		/// <remarks>Call on app exit.</remarks>
 		public void CloseTrackedWindows()
 		{
-			using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
+			using (SQLiteTransaction transaction = Database.Connection.BeginTransaction())
 			{
 				foreach (var definition in Definitions.Where(d => d.IsOpenConfigKey != null))
 				{

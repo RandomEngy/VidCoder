@@ -78,7 +78,7 @@ namespace VidCoder.View
 
 		private void Window_Closing(object sender, CancelEventArgs e)
 		{
-			using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
+			using (SQLiteTransaction transaction = Database.Connection.BeginTransaction())
 			{
 				Config.EncodingDialogLastTab = this.tabControl.SelectedIndex;
 				Config.EncodingListPaneWidth = this.listColumn.ActualWidth;

@@ -244,7 +244,7 @@ namespace VidCoder.ViewModel
 
 		public override bool OnClosing()
 		{
-			using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
+			using (SQLiteTransaction transaction = Database.Connection.BeginTransaction())
 			{
 				Config.QueueTitlesUseTitleOverride = this.TitleStartOverrideEnabled;
 				Config.QueueTitlesTitleOverride = this.TitleStartOverride;

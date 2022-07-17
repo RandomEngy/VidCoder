@@ -14,7 +14,7 @@ namespace VidCoder.Model
 		{
 			get
 			{
-				return Get("Version", Utilities.CurrentDatabaseVersion, Database.ThreadLocalConnection);
+				return Get("Version", Utilities.CurrentDatabaseVersion, Database.Connection);
 			}
 		}
 
@@ -30,7 +30,7 @@ namespace VidCoder.Model
 		{
 			if (connection == null)
 			{
-				connection = Database.ThreadLocalConnection;
+				connection = Database.Connection;
 			}
 
 			string configValue = GetConfigStringRaw(configName, connection);
@@ -95,7 +95,7 @@ namespace VidCoder.Model
 		{
 			if (connection == null)
 			{
-				connection = Database.ThreadLocalConnection;
+				connection = Database.Connection;
 			}
 
 			string configValue = GetConfigValue(value);
@@ -113,7 +113,7 @@ namespace VidCoder.Model
 		{
 			if (connection == null)
 			{
-				connection = Database.ThreadLocalConnection;
+				connection = Database.Connection;
 			}
 
 			string configValue = GetConfigValue(value);

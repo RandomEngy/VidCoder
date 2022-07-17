@@ -951,7 +951,7 @@ namespace VidCoder.View
 
 		private void Main_OnClosing(object sender, CancelEventArgs e)
 		{
-			using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
+			using (SQLiteTransaction transaction = Database.Connection.BeginTransaction())
 			{
 				Config.SourcePaneHeightStar = this.sourceRow.Height.Value;
 				Config.QueuePaneHeightStar = this.queueRow.Height.Value;

@@ -449,8 +449,8 @@ namespace VidCoder.Model
 		}
 
 		/// <summary>
-		/// Gets the database file path for a non-portable version. This may be in
-		/// the standard %appdata% folder or it may be in a user-specified directory.
+		/// Gets the database file path for a non-portable version.
+		/// This is in %appdata% .
 		/// </summary>
 		public static string NonPortableDatabaseFile
 		{
@@ -474,24 +474,10 @@ namespace VidCoder.Model
 				return "Data Source=" + DatabaseFile;
 			}
 		}
-
 		public static SQLiteConnection Connection
 		{
 			get
 			{
-				return connection ?? (connection = CreateConnection());
-			}
-		}
-
-		public static SQLiteConnection ThreadLocalConnection
-		{
-			get
-			{
-				if (IsMainThread)
-				{
-					return Connection;
-				}
-
 				if (!threadLocalConnection.IsValueCreated)
 				{
 					threadLocalConnection.Value = Database.CreateConnection();
