@@ -50,6 +50,7 @@ if (args.Length > 0)
 				logger.Log("Running elevated jobs for uninstall...");
 				RemoveRipDriveAction();
 				RemoveFileAssociations();
+				RemoveFileWatcherService();
 				logger.Log("Jobs finished.");
 				break;
 			case "activateFileWatcher":
