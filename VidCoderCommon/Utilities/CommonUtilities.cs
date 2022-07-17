@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -84,6 +85,22 @@ namespace VidCoderCommon
 				}
 
 				return logFolder;
+			}
+		}
+
+		public static string ProgramPath
+		{
+			get
+			{
+				return Assembly.GetExecutingAssembly().Location;
+			}
+		}
+
+		public static string ProgramFolder
+		{
+			get
+			{
+				return Path.GetDirectoryName(ProgramPath);
 			}
 		}
 	}

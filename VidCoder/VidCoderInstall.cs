@@ -13,6 +13,14 @@ namespace VidCoder
 {
 	public static class VidCoderInstall
 	{
+		public enum ElevatedSetupAction
+		{
+			Install,
+			Uninstall,
+			ActivateFileWatcher,
+			DeactivateFileWatcher
+		}
+
 		public static void HandleSquirrelEvents()
 		{
 			SquirrelAwareApp.HandleEvents(onInitialInstall: OnInitialInstall, onAppUninstall: OnAppUninstall);
@@ -35,7 +43,7 @@ namespace VidCoder
 
 				CopyIconFilesToRoot(logger);
 
-				RunElevatedSetup(install: true, logger);
+				RunElevatedSetup("install", logger);
 				logger.Log("Initial install actions complete.");
 			}
 			catch (Exception exception)
@@ -64,7 +72,7 @@ namespace VidCoder
 				mgr.RemoveUninstallerRegistryEntry();
 				mgr.RemoveShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
 
-				RunElevatedSetup(install: false, logger);
+				RunElevatedSetup("uninstall", logger);
 				logger.Log("Uninstall actions complete.");
 			}
 			catch (Exception exception)
@@ -81,16 +89,16 @@ namespace VidCoder
 		/// <summary>
 		/// Runs portions of setup that need admin privilege escalation (e.g. registry edits).
 		/// </summary>
-		/// <param name="install">True if we are installing, false if we are uninstalling.</param>
+		/// <param name="action">The action to execute. install | uninstall | activateFileWatcher | deactivateFileWatcher</param>
 		/// <param name="logger">The logger to use.</param>
-		private static void RunElevatedSetup(bool install, SetupLogger logger)
+		private static void RunElevatedSetup(string action, SetupLogger logger)
 		{
 			logger.Log("Starting elevated setup...");
 
-			string setupExe = Path.Combine(Utilities.ProgramFolder, "VidCoderElevatedSetup.exe");
-			var startInfo = new ProcessStartInfo(setupExe, install ? "install" : "uninstall");
+			string setupExe = Path.Combine(CommonUtilities.ProgramFolder, "VidCoderElevatedSetup.exe");
+			var startInfo = new ProcessStartInfo(setupExe, action);
 			startInfo.CreateNoWindow = true;
-			startInfo.WorkingDirectory = Utilities.ProgramFolder;
+			startInfo.WorkingDirectory = CommonUtilities.ProgramFolder;
 			startInfo.UseShellExecute = true;
 			startInfo.Verb = "runas";
 
@@ -118,8 +126,8 @@ namespace VidCoder
 				const string presetIconFileName = "VidCoderPreset.ico";
 				const string queueIconFileName = "VidCoderQueue.ico";
 
-				string presetIconSourcePath = Path.Combine(Utilities.ProgramFolder, presetIconFileName);
-				string queueIconSourcePath = Path.Combine(Utilities.ProgramFolder, queueIconFileName);
+				string presetIconSourcePath = Path.Combine(CommonUtilities.ProgramFolder, presetIconFileName);
+				string queueIconSourcePath = Path.Combine(CommonUtilities.ProgramFolder, queueIconFileName);
 
 				string presetIconDestinationPath = Path.Combine(CommonUtilities.LocalAppFolder, presetIconFileName);
 				string queueIconDestinationPath = Path.Combine(CommonUtilities.LocalAppFolder, queueIconFileName);
@@ -130,6 +138,23 @@ namespace VidCoder
 			catch (Exception exception)
 			{
 				logger.Log(exception.ToString());
+			}
+		}
+
+		private static string GetActionString(ElevatedSetupAction action)
+		{
+			switch (action)
+			{
+				case ElevatedSetupAction.Install:
+					return "install";
+				case ElevatedSetupAction.Uninstall:
+					return "uninstall";
+				case ElevatedSetupAction.ActivateFileWatcher:
+					return "activateFileWatcher";
+				case ElevatedSetupAction.DeactivateFileWatcher:
+					return "deactivateFileWatcher";
+				default:
+					throw new ArgumentOutOfRangeException(nameof(action));
 			}
 		}
 	}

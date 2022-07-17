@@ -40,6 +40,7 @@ using Microsoft.WindowsAPICodePack.Shell;
 using FileInfo = System.IO.FileInfo;
 using Omu.ValueInjecter;
 using VidCoderCommon.Utilities.Injection;
+using VidCoderCommon;
 
 namespace VidCoder.Services
 {
@@ -2412,7 +2413,7 @@ namespace VidCoder.Services
 
 			if (soundPath == null)
 			{
-				soundPath = Path.Combine(Utilities.ProgramFolder, "Encode_Complete.wav");
+				soundPath = Path.Combine(CommonUtilities.ProgramFolder, "Encode_Complete.wav");
 			}
 
 			var soundPlayer = new SoundPlayer(soundPath);

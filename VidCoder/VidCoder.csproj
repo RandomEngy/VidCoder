@@ -274,10 +274,14 @@
     <ProjectReference Include="..\VidCoderCLI\VidCoderCLI.csproj" />
     <ProjectReference Include="..\VidCoderCommon\VidCoderCommon.csproj" />
     <ProjectReference Include="..\VidCoderElevatedSetup\VidCoderElevatedSetup.csproj" />
+    <ProjectReference Include="..\VidCoderFileWatcher\VidCoderFileWatcher.csproj" />
     <ProjectReference Include="..\VidCoderWindowlessCLI\VidCoderWindowlessCLI.csproj" />
     <ProjectReference Include="..\VidCoderWorker\VidCoderWorker.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /y /d &quot;$(SolutionDir)Lib\System.Diagnostics.EventLog.dll&quot; &quot;$(TargetDir)runtimes\win\lib\net6.0\*&quot;" />
+  </Target>
 </Project>

@@ -1,5 +1,6 @@
 ﻿// Run setup actions for VidCoder
 using Microsoft.Win32;
+using System.Diagnostics;
 using System.Reflection;
 using VidCoderCommon;
 using VidCoderCommon.Services;
@@ -27,27 +28,38 @@ string vjQueueKeyPath = ".vjqueue";
 string presetProgId = "VidCoderPreset";
 string queueProgId = "VidCoderQueue";
 
+string windowsServiceName = isBeta ? "VidCoder Beta File Watcher" : "VidCoder File Watcher";
+
 SetupLogger? logger = null;
 
 if (args.Length > 0)
 {
 	try
 	{
-		if (args[0] == "install")
+		switch(args[0])
 		{
-			logger = new SetupLogger("ElevatedInstall");
-			logger.Log("Running elevated jobs for install...");
-			AddRipDriveAction();
-			AddFileAssociations();
-			logger.Log("Jobs finished.");
-		}
-		else if (args[0] == "uninstall")
-		{
-			logger = new SetupLogger("ElevatedUninstall");
-			logger.Log("Running elevated jobs for uninstall...");
-			RemoveRipDriveAction();
-			RemoveFileAssociations();
-			logger.Log("Jobs finished.");
+			case "install":
+				logger = new SetupLogger("ElevatedInstall");
+				logger.Log("Running elevated jobs for install...");
+				AddRipDriveAction();
+				AddFileAssociations();
+				logger.Log("Jobs finished.");
+				break;
+			case "uninstall":
+				logger = new SetupLogger("ElevatedUninstall");
+				logger.Log("Running elevated jobs for uninstall...");
+				RemoveRipDriveAction();
+				RemoveFileAssociations();
+				logger.Log("Jobs finished.");
+				break;
+			case "activateFileWatcher":
+				AddFileWatcherService();
+				break;
+			case "deactivateFileWatcher":
+				RemoveFileWatcherService();
+				break;
+			default:
+				break;
 		}
 	}
 	finally
@@ -193,4 +205,28 @@ void RemoveFileAssociations()
 	{
 		logger.Log(exception.ToString());
 	}
+}
+
+void RunSCCommand(string arguments)
+{
+	var startInfo = new ProcessStartInfo("sc.exe", arguments);
+	startInfo.CreateNoWindow = true;
+
+	Process process = Process.Start(startInfo);
+	process.WaitForExit();
+}
+
+void AddFileWatcherService()
+{
+	string serviceExePath = Path.Combine(CommonUtilities.ProgramFolder, "VidCoderFileWatcher.exe");
+
+	RunSCCommand($"create \"{windowsServiceName}\" binpath=\"{serviceExePath}\" start= auto");
+	RunSCCommand($"description \"{windowsServiceName}\" \"Watches folders for new video files and encodes them with VidCoder.\"");
+	RunSCCommand($"start \"{windowsServiceName}\"");
+}
+
+void RemoveFileWatcherService()
+{
+	RunSCCommand($"stop \"{windowsServiceName}\"");
+	RunSCCommand($"delete \"{windowsServiceName}\"");
 }

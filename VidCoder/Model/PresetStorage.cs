@@ -41,7 +41,7 @@ namespace VidCoder.Model
 		{
 			get
 			{
-				string builtInPresetsPath = Path.Combine(Utilities.ProgramFolder, BuiltInPresetsPath);
+				string builtInPresetsPath = Path.Combine(CommonUtilities.ProgramFolder, BuiltInPresetsPath);
 				return JsonSerializer.Deserialize<IList<Preset>>(File.ReadAllText(builtInPresetsPath), JsonOptions.WithUpgraders);
 			}
 		}

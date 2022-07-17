@@ -226,12 +226,54 @@ namespace VidCoder.View
 			debugDropDown.Items.Add(addLongLogItem);
 
 			var doAnActionItem = new Fluent.MenuItem { Header = "Perform action" };
-			doAnActionItem.Click += async (sender, args) =>
+			doAnActionItem.Click += (sender, args) =>
 			{
-				var updateManager = new UpdateManager(Utilities.SquirrelUpdateUrl);
-				await updateManager.CheckForUpdate();
+				string setupExe = Path.Combine(CommonUtilities.ProgramFolder, "VidCoderElevatedSetup.exe");
+				var startInfo = new System.Diagnostics.ProcessStartInfo(setupExe, "activateFileWatcher");
+				startInfo.CreateNoWindow = true;
+				startInfo.WorkingDirectory = CommonUtilities.ProgramFolder;
+				startInfo.UseShellExecute = true;
+				startInfo.Verb = "runas";
+
+				//System.Diagnostics.EventLog.WriteEntry("VidCoder", "activateFileWatcher");
+
+				System.Diagnostics.Process process = System.Diagnostics.Process.Start(startInfo);
+				process.WaitForExit();
+
+				if (process.ExitCode == 0)
+				{
+					System.Diagnostics.Debug.WriteLine("Elevated setup completed successfully.");
+				}
+				else
+				{
+					System.Diagnostics.Debug.WriteLine("Elevated setup failed. Check the ElevatedInstall log for more details.");
+				}
 			};
 			debugDropDown.Items.Add(doAnActionItem);
+
+			var doAnActionItem2 = new Fluent.MenuItem { Header = "Perform action 2" };
+			doAnActionItem2.Click += (sender, args) =>
+			{
+				string setupExe = Path.Combine(CommonUtilities.ProgramFolder, "VidCoderElevatedSetup.exe");
+				var startInfo = new System.Diagnostics.ProcessStartInfo(setupExe, "deactivateFileWatcher");
+				startInfo.CreateNoWindow = true;
+				startInfo.WorkingDirectory = CommonUtilities.ProgramFolder;
+				startInfo.UseShellExecute = true;
+				startInfo.Verb = "runas";
+
+				System.Diagnostics.Process process = System.Diagnostics.Process.Start(startInfo);
+				process.WaitForExit();
+
+				if (process.ExitCode == 0)
+				{
+					System.Diagnostics.Debug.WriteLine("Elevated setup completed successfully.");
+				}
+				else
+				{
+					System.Diagnostics.Debug.WriteLine("Elevated setup failed. Check the ElevatedInstall log for more details.");
+				}
+			};
+			debugDropDown.Items.Add(doAnActionItem2);
 
 
 			var showDelayedStatusItem = new Fluent.MenuItem { Header = "Show a status message in 40 seconds" };
