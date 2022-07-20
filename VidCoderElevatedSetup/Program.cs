@@ -28,7 +28,7 @@ string vjQueueKeyPath = ".vjqueue";
 string presetProgId = "VidCoderPreset";
 string queueProgId = "VidCoderQueue";
 
-string windowsServiceName = isBeta ? "VidCoder Beta File Watcher" : "VidCoder File Watcher";
+string windowsServiceName = CommonUtilities.WatcherServiceName;
 
 SetupLogger? logger = null;
 

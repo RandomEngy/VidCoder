@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace VidCoder
+namespace VidCoderCommon.Extensions
 {
 	public static class DataReaderExtensions
 	{

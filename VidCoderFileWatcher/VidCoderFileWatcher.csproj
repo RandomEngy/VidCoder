@@ -14,6 +14,7 @@
     <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" />
     <PackageReference Include="PipeMethodCalls" />
     <PackageReference Include="PipeMethodCalls.NetJson" />
+    <PackageReference Include="System.Data.SQLite.Core" />
   </ItemGroup>
 
   <ItemGroup>

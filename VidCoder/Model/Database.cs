@@ -21,11 +21,6 @@ namespace VidCoder.Model
 	public static class Database
 	{
 		private const string BackupFolderName = "Backups";
-		private const string ConfigDatabaseFileWithoutExtension = "VidCoder";
-		private const string ConfigDatabaseFileExtension = ".sqlite";
-		private const string ConfigDatabaseFile = ConfigDatabaseFileWithoutExtension + ConfigDatabaseFileExtension;
-
-		private static SQLiteConnection connection;
 
 		private static ThreadLocal<SQLiteConnection> threadLocalConnection = new ThreadLocal<SQLiteConnection>(trackAllValues: true);
 
@@ -73,6 +68,11 @@ namespace VidCoder.Model
 				if (databaseVersion < 46)
 				{
 					UpgradeDatabaseTo46();
+				}
+
+				if (databaseVersion < 47)
+				{
+					UpgradeDatabaseTo47();
 				}
 
 				// Update encoding profiles if we need to. Everything is at least 28 now from the JSON upgrade.
@@ -253,13 +253,12 @@ namespace VidCoder.Model
 
 		private static string GetBackupDatabaseFileName(int databaseVersion)
 		{
-			return ConfigDatabaseFileWithoutExtension + "-v" + databaseVersion + ConfigDatabaseFileExtension;
+			return CommonDatabase.ConfigDatabaseFileWithoutExtension + "-v" + databaseVersion + CommonDatabase.ConfigDatabaseFileExtension;
 		}
 
 		private static void CloseAllConnections()
 		{
 			Connection.Close();
-			connection = null;
 
 			if (threadLocalConnection.Values != null && threadLocalConnection.Values.Count > 0)
 			{
@@ -280,25 +279,25 @@ namespace VidCoder.Model
 				"id INTEGER PRIMARY KEY AUTOINCREMENT," +
 				"name TEXT, " +
 				"parentId INTEGER, " +
-				"isExpanded INTEGER)", connection);
+				"isExpanded INTEGER)", Connection);
 		}
 
 		private static void UpgradeDatabaseTo39()
 		{
 			// The "File naming" tab was removed, so the last index needs to be updated.
-			int optionsDialogLastTab = DatabaseConfig.Get<int>("OptionsDialogLastTab", 0, connection);
+			int optionsDialogLastTab = DatabaseConfig.Get<int>("OptionsDialogLastTab", 0, Connection);
 			if (optionsDialogLastTab > 0)
 			{
-				DatabaseConfig.Set<int>("OptionsDialogLastTab", optionsDialogLastTab - 1, connection);
+				DatabaseConfig.Set<int>("OptionsDialogLastTab", optionsDialogLastTab - 1, Connection);
 			}
 		}
 
 		private static void UpgradeDatabaseTo46()
 		{
-			string updatePromptTiming = DatabaseConfig.Get<string>("UpdatePromptTiming", "OnExit", connection);
+			string updatePromptTiming = DatabaseConfig.Get<string>("UpdatePromptTiming", "OnExit", Connection);
 			if (updatePromptTiming == "OnLaunch")
 			{
-				DatabaseConfig.Set<string>("UpdateMode", "PromptApplyImmediately", connection);
+				DatabaseConfig.Set<string>("UpdateMode", "PromptApplyImmediately", Connection);
 			}
 
 			try
@@ -312,6 +311,20 @@ namespace VidCoder.Model
 			{
 				// Eat exception, not critical that these are cleaned up
 			}
+		}
+
+		private static void UpgradeDatabaseTo47()
+		{
+			ExecuteNonQuery(
+				"CREATE TABLE watchedFolders (" +
+				"json TEXT)", Connection);
+
+			ExecuteNonQuery(
+				"CREATE TABLE watchedFiles (" +
+				"path TEXT COLLATE NOCASE PRIMARY KEY, " +
+				"lastModified TEXT, " +
+				"status TEXT, " +
+				"reason TEXT)", Connection);
 		}
 
 #pragma warning restore CS0618 // Type or member is obsolete
@@ -402,14 +415,14 @@ namespace VidCoder.Model
 				if (FileUtilities.HasWriteAccessOnFolder(portableExeFolder))
 				{
 					// Portable location for database is beside the portable exe.
-					string portableDatabasePath = Path.Combine(portableExeFolder, ConfigDatabaseFile);
+					string portableDatabasePath = Path.Combine(portableExeFolder, CommonDatabase.ConfigDatabaseFile);
 					if (File.Exists(portableDatabasePath))
 					{
 						// Use portable location for database file if it exists
 						return portableDatabasePath;
 					}
 
-					string appDataDatabaseFile = NonPortableDatabaseFile;
+					string appDataDatabaseFile = CommonDatabase.NonPortableDatabaseFile;
 					if (File.Exists(appDataDatabaseFile))
 					{
 						// If database file does exist in appdata, use it.
@@ -424,12 +437,12 @@ namespace VidCoder.Model
 				else
 				{
 					// Fall back to non-portable path if we don't have write access to the folder.
-					return NonPortableDatabaseFile;
+					return CommonDatabase.NonPortableDatabaseFile;
 				}
 			}
 			else
 			{
-				return NonPortableDatabaseFile;
+				return CommonDatabase.NonPortableDatabaseFile;
 			}
 		}
 
@@ -448,25 +461,6 @@ namespace VidCoder.Model
 			return Path.GetDirectoryName(parentProcess.MainModule.FileName);
 		}
 
-		/// <summary>
-		/// Gets the database file path for a non-portable version.
-		/// This is in %appdata% .
-		/// </summary>
-		public static string NonPortableDatabaseFile
-		{
-			get
-			{
-				string appDataFolder = CommonUtilities.AppFolder;
-
-				if (!Directory.Exists(appDataFolder))
-				{
-					Directory.CreateDirectory(appDataFolder);
-				}
-
-				return Path.Combine(appDataFolder, ConfigDatabaseFile);
-			}
-		}
-
 		public static string ConnectionString
 		{
 			get
@@ -474,13 +468,14 @@ namespace VidCoder.Model
 				return "Data Source=" + DatabaseFile;
 			}
 		}
+
 		public static SQLiteConnection Connection
 		{
 			get
 			{
 				if (!threadLocalConnection.IsValueCreated)
 				{
-					threadLocalConnection.Value = Database.CreateConnection();
+					threadLocalConnection.Value = CreateConnection();
 				}
 
 				return threadLocalConnection.Value;
@@ -562,6 +557,17 @@ namespace VidCoder.Model
 				"message TEXT, " +
 				"level INTEGER, " +
 				"time TEXT)", connection);
+
+			ExecuteNonQuery(
+				"CREATE TABLE watchedFolders (" +
+				"json TEXT)", connection);
+
+			ExecuteNonQuery(
+				"CREATE TABLE watchedFiles (" +
+				"path TEXT COLLATE NOCASE PRIMARY KEY, " +
+				"lastModified TEXT, " +
+				"status TEXT, " +
+				"reason TEXT)", connection);
 		}
 
 		public static void ExecuteNonQuery(string query, SQLiteConnection connection)

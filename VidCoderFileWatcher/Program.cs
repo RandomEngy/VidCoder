@@ -4,7 +4,7 @@ using VidCoderFileWatcher;
 IHost host = Host.CreateDefaultBuilder(args)
 	.UseWindowsService(options =>
 	{
-		options.ServiceName = CommonUtilities.Beta ? "VidCoder Beta File Watcher" :  "VidCoder File Watcher";
+		options.ServiceName = CommonUtilities.WatcherServiceName;
 	})
     .ConfigureServices(services =>
     {

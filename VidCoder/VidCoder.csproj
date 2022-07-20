@@ -121,6 +121,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>SubtitleRes.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\WatcherRes.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WatcherRes.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\ChapterMarkersRes.resx">
@@ -184,6 +189,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CommonRes.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\WatcherRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WatcherRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Translations\*.*.resx">
       <ManifestResourceName>$(TargetName).Resources.%(Filename)</ManifestResourceName>

@@ -30,5 +30,23 @@ namespace VidCoder
 				return error;
 			}
 		}
+
+		private static ImageSource uacShield;
+
+		public static ImageSource UacShield
+		{
+			get
+			{
+				if (uacShield == null)
+				{
+					uacShield = Imaging.CreateBitmapSourceFromHIcon(
+						SystemIcons.Shield.Handle,
+						Int32Rect.Empty,
+						BitmapSizeOptions.FromEmptyOptions());
+				}
+
+				return uacShield;
+			}
+		}
 	}
 }

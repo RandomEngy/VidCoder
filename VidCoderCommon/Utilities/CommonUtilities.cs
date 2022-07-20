@@ -36,13 +36,7 @@ namespace VidCoderCommon
 			}
 		}
 
-		public static string SquirrelAppId
-		{
-			get
-			{
-				return Beta ? "VidCoder.Beta" : "VidCoder.Stable";
-			}
-		}
+		public static string SquirrelAppId => Beta ? "VidCoder.Beta" : "VidCoder.Stable";
 
 		public static string LocalAppFolder
 		{
@@ -54,13 +48,7 @@ namespace VidCoderCommon
 			}
 		}
 
-		public static string AppFolder
-		{
-			get
-			{
-				return GetAppFolder(Beta);
-			}
-		}
+		public static string AppFolder => GetAppFolder(Beta);
 
 		public static string GetAppFolder(bool beta)
 		{
@@ -88,20 +76,10 @@ namespace VidCoderCommon
 			}
 		}
 
-		public static string ProgramPath
-		{
-			get
-			{
-				return Assembly.GetExecutingAssembly().Location;
-			}
-		}
+		public static string ProgramPath => Assembly.GetExecutingAssembly().Location;
 
-		public static string ProgramFolder
-		{
-			get
-			{
-				return Path.GetDirectoryName(ProgramPath);
-			}
-		}
+		public static string ProgramFolder => Path.GetDirectoryName(ProgramPath);
+
+		public static string WatcherServiceName => Beta ? "VidCoder Beta File Watcher" : "VidCoder File Watcher";
 	}
 }

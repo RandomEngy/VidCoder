@@ -84,6 +84,16 @@ namespace VidCoder.Services.Windows
 
 				new WindowDefinition
 				{
+					ViewModelType = typeof(WatcherWindowViewModel),
+					InMenu = true,
+					PlacementConfigKey = "WatcherWindowPlacement",
+					IsOpenConfigKey = "WatcherWindowOpen",
+					InputGestureText = "Ctrl+W",
+					MenuLabel = MainRes.WatcherMenuItem
+				},
+
+				new WindowDefinition
+				{
 					ViewModelType = typeof(LogWindowViewModel), 
 					InMenu = true,
 					PlacementConfigKey = "LogWindowPlacement",

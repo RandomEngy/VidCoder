@@ -8,6 +8,7 @@ using System.Text.Json.Serialization;
 using ReactiveUI;
 using VidCoder.Resources;
 using VidCoderCommon.Model;
+using VidCoderCommon.Utilities;
 
 namespace VidCoder.Model
 {
@@ -103,11 +104,11 @@ namespace VidCoder.Model
 		/// <summary>
 		/// The extensions to include when adding video files from a folder.
 		/// </summary>
-		public string VideoFileExtensions { get; set; } = "avi, mkv, mp4, m4v, mpg, mpeg, mov, webm, wmv";
+		public string VideoFileExtensions { get; set; } = PickerDefaults.VideoFileExtensions;
 
 		public bool IgnoreFilesBelowMbEnabled { get; set; }
 
-		public int IgnoreFilesBelowMb { get; set; } = 30;
+		public int IgnoreFilesBelowMb { get; set; } = PickerDefaults.IgnoreFilesBelowMb;
 
 		private bool titleRangeSelectEnabled;
 		public bool TitleRangeSelectEnabled

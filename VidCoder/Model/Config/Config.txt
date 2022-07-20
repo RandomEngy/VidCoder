@@ -30,6 +30,7 @@ AddAutoPauseProcessDialogPlacement|string|""
 OptionsDialogPlacement|string|""
 EncodeDetailsWindowPlacement|string|""
 PickerWindowPlacement|string|""
+WatcherWindowPlacement|string|""
 LogWindowPlacement|string|""
 
 EncodingWindowOpen|bool|false
@@ -37,6 +38,7 @@ PreviewWindowOpen|bool|false
 LogWindowOpen|bool|false
 EncodeDetailsWindowOpen|bool|false
 PickerWindowOpen|bool|false
+WatcherWindowOpen|bool|false
 
 VideoExpanded|bool|true
 AudioExpanded|bool|true

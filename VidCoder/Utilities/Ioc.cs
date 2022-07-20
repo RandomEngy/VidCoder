@@ -81,6 +81,7 @@ namespace VidCoder
 			container.RegisterTransient<QueueTitlesWindowViewModel>();
 			container.RegisterTransient<EncodeDetailsWindowViewModel>();
 			container.RegisterTransient<CompareWindowViewModel>();
+			container.RegisterTransient<WatcherWindowViewModel>();
 
 			StaticResolver.SetResolver(container);
 			Container = container;

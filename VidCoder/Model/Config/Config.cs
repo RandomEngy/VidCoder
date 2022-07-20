@@ -55,12 +55,14 @@ namespace VidCoder
 			cache.Add("OptionsDialogPlacement", DatabaseConfig.Get("OptionsDialogPlacement", "", connection));
 			cache.Add("EncodeDetailsWindowPlacement", DatabaseConfig.Get("EncodeDetailsWindowPlacement", "", connection));
 			cache.Add("PickerWindowPlacement", DatabaseConfig.Get("PickerWindowPlacement", "", connection));
+			cache.Add("WatcherWindowPlacement", DatabaseConfig.Get("WatcherWindowPlacement", "", connection));
 			cache.Add("LogWindowPlacement", DatabaseConfig.Get("LogWindowPlacement", "", connection));
 			cache.Add("EncodingWindowOpen", DatabaseConfig.Get("EncodingWindowOpen", false, connection));
 			cache.Add("PreviewWindowOpen", DatabaseConfig.Get("PreviewWindowOpen", false, connection));
 			cache.Add("LogWindowOpen", DatabaseConfig.Get("LogWindowOpen", false, connection));
 			cache.Add("EncodeDetailsWindowOpen", DatabaseConfig.Get("EncodeDetailsWindowOpen", false, connection));
 			cache.Add("PickerWindowOpen", DatabaseConfig.Get("PickerWindowOpen", false, connection));
+			cache.Add("WatcherWindowOpen", DatabaseConfig.Get("WatcherWindowOpen", false, connection));
 			cache.Add("VideoExpanded", DatabaseConfig.Get("VideoExpanded", true, connection));
 			cache.Add("AudioExpanded", DatabaseConfig.Get("AudioExpanded", true, connection));
 			cache.Add("SubtitlesExpanded", DatabaseConfig.Get("SubtitlesExpanded", true, connection));
@@ -288,6 +290,11 @@ namespace VidCoder
 			get { return (string)cache["PickerWindowPlacement"]; }
 			set { Set("PickerWindowPlacement", value); }
 		}
+		public static string WatcherWindowPlacement
+		{
+			get { return (string)cache["WatcherWindowPlacement"]; }
+			set { Set("WatcherWindowPlacement", value); }
+		}
 		public static string LogWindowPlacement
 		{
 			get { return (string)cache["LogWindowPlacement"]; }
@@ -317,6 +324,11 @@ namespace VidCoder
 		{
 			get { return (bool)cache["PickerWindowOpen"]; }
 			set { Set("PickerWindowOpen", value); }
+		}
+		public static bool WatcherWindowOpen
+		{
+			get { return (bool)cache["WatcherWindowOpen"]; }
+			set { Set("WatcherWindowOpen", value); }
 		}
 		public static bool VideoExpanded
 		{
@@ -666,12 +678,14 @@ namespace VidCoder
 			public static IObservable<string> OptionsDialogPlacement => GetObservable<string>("OptionsDialogPlacement");
 			public static IObservable<string> EncodeDetailsWindowPlacement => GetObservable<string>("EncodeDetailsWindowPlacement");
 			public static IObservable<string> PickerWindowPlacement => GetObservable<string>("PickerWindowPlacement");
+			public static IObservable<string> WatcherWindowPlacement => GetObservable<string>("WatcherWindowPlacement");
 			public static IObservable<string> LogWindowPlacement => GetObservable<string>("LogWindowPlacement");
 			public static IObservable<bool> EncodingWindowOpen => GetObservable<bool>("EncodingWindowOpen");
 			public static IObservable<bool> PreviewWindowOpen => GetObservable<bool>("PreviewWindowOpen");
 			public static IObservable<bool> LogWindowOpen => GetObservable<bool>("LogWindowOpen");
 			public static IObservable<bool> EncodeDetailsWindowOpen => GetObservable<bool>("EncodeDetailsWindowOpen");
 			public static IObservable<bool> PickerWindowOpen => GetObservable<bool>("PickerWindowOpen");
+			public static IObservable<bool> WatcherWindowOpen => GetObservable<bool>("WatcherWindowOpen");
 			public static IObservable<bool> VideoExpanded => GetObservable<bool>("VideoExpanded");
 			public static IObservable<bool> AudioExpanded => GetObservable<bool>("AudioExpanded");
 			public static IObservable<bool> SubtitlesExpanded => GetObservable<bool>("SubtitlesExpanded");

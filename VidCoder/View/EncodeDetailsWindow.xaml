@@ -4,15 +4,19 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:Resources="clr-namespace:VidCoder.Resources"
 	xmlns:controls="clr-namespace:VidCoder.Controls"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:viewModel="clr-namespace:VidCoder.ViewModel"
 	Title="{x:Static Resources:EncodeDetailsRes.EncodeDetailsWindowTitle}"
 	Width="360"
 	Height="374"
 	MinWidth="200"
 	MinHeight="300"
+	d:DataContext="{d:DesignInstance viewModel:EncodeDetailsWindowViewModel}"
 	ShowInTaskbar="False"
 	Style="{StaticResource NormalWindow}"
-	WindowStyle="None">
+	WindowStyle="None"
+	mc:Ignorable="d">
 	<WindowChrome.WindowChrome>
 		<WindowChrome CaptionHeight="30" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
 	</WindowChrome.WindowChrome>
@@ -38,8 +42,7 @@
 			<controls:ToolWindowTitleBar
 				Title="{x:Static Resources:EncodeDetailsRes.EncodeDetailsWindowTitle}"
 				Grid.Row="0"
-				IsActive="{Binding IsActive,
-				                   RelativeSource={RelativeSource AncestorType=Window}}" />
+				IsActive="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" />
 			<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
 				<StackPanel Margin="10 10 0 0" Orientation="Vertical">
 					<Grid Margin="0">
@@ -83,14 +86,12 @@
 								Height="15"
 								VerticalAlignment="Center"
 								Style="{StaticResource EncodeDetailsProgress}"
-								Value="{Binding ProcessingService.OverallEncodeProgressPercent,
-								                Mode=OneWay}" />
+								Value="{Binding ProcessingService.OverallEncodeProgressPercent, Mode=OneWay}" />
 							<TextBlock
 								HorizontalAlignment="Center"
 								VerticalAlignment="Center"
 								Style="{StaticResource ItemValue}"
-								Text="{Binding ProcessingService.OverallEncodeProgressPercent,
-								               Converter={StaticResource PercentDisplayConverter}}" />
+								Text="{Binding ProcessingService.OverallEncodeProgressPercent, Converter={StaticResource PercentDisplayConverter}}" />
 						</Grid>
 
 
@@ -125,9 +126,7 @@
 							Grid.Row="5"
 							Grid.Column="1"
 							Style="{StaticResource ItemValue}"
-							Text="{Binding ProcessingService.CurrentFps,
-							               Mode=OneWay,
-							               Converter={StaticResource DoubleDisplayConverter}}" />
+							Text="{Binding ProcessingService.CurrentFps, Mode=OneWay, Converter={StaticResource DoubleDisplayConverter}}" />
 
 						<TextBlock
 							Grid.Row="6"
@@ -138,9 +137,7 @@
 							Grid.Row="6"
 							Grid.Column="1"
 							Style="{StaticResource ItemValue}"
-							Text="{Binding ProcessingService.AverageFps,
-							               Mode=OneWay,
-							               Converter={StaticResource DoubleDisplayConverter}}" />
+							Text="{Binding ProcessingService.AverageFps, Mode=OneWay, Converter={StaticResource DoubleDisplayConverter}}" />
 					</Grid>
 
 					<ItemsControl ItemsSource="{Binding ProcessingService.EncodingJobListBindable}">
@@ -178,14 +175,12 @@
 											Height="15"
 											VerticalAlignment="Center"
 											Style="{StaticResource EncodeDetailsProgress}"
-											Value="{Binding PercentComplete,
-											                Mode=OneWay}" />
+											Value="{Binding PercentComplete, Mode=OneWay}" />
 										<TextBlock
 											HorizontalAlignment="Center"
 											VerticalAlignment="Center"
 											Style="{StaticResource ItemValue}"
-											Text="{Binding PercentComplete,
-											               Converter={StaticResource PercentDisplayConverter}}" />
+											Text="{Binding PercentComplete, Converter={StaticResource PercentDisplayConverter}}" />
 									</Grid>
 
 
@@ -194,25 +189,21 @@
 										Grid.Column="0"
 										Style="{StaticResource ItemLabel}"
 										Text="{Binding PassProgressDisplay}"
-										Visibility="{Binding ShowPassProgress,
-										                     Converter={StaticResource VisibilityConverter}}" />
+										Visibility="{Binding ShowPassProgress, Converter={StaticResource VisibilityConverter}}" />
 									<Grid
 										Grid.Row="2"
 										Grid.Column="1"
-										Visibility="{Binding ShowPassProgress,
-										                     Converter={StaticResource VisibilityConverter}}">
+										Visibility="{Binding ShowPassProgress, Converter={StaticResource VisibilityConverter}}">
 										<ProgressBar
 											Height="15"
 											VerticalAlignment="Center"
 											Style="{StaticResource EncodeDetailsProgress}"
-											Value="{Binding PassProgressPercent,
-											                Mode=OneWay}" />
+											Value="{Binding PassProgressPercent, Mode=OneWay}" />
 										<TextBlock
 											HorizontalAlignment="Center"
 											VerticalAlignment="Center"
 											Style="{StaticResource ItemValue}"
-											Text="{Binding PassProgressPercent,
-											               Converter={StaticResource PercentDisplayConverter}}" />
+											Text="{Binding PassProgressPercent, Converter={StaticResource PercentDisplayConverter}}" />
 									</Grid>
 
 
@@ -254,34 +245,26 @@
 										Grid.Column="0"
 										Style="{StaticResource ItemLabel}"
 										Text="{x:Static Resources:EncodeDetailsRes.CurrentFpsLabel}"
-										Visibility="{Binding ShowFps,
-										                     Converter={StaticResource VisibilityConverter}}" />
+										Visibility="{Binding ShowFps, Converter={StaticResource VisibilityConverter}}" />
 									<TextBlock
 										Grid.Row="6"
 										Grid.Column="1"
 										Style="{StaticResource ItemValue}"
-										Text="{Binding CurrentFps,
-										               Mode=OneWay,
-										               Converter={StaticResource DoubleDisplayConverter}}"
-										Visibility="{Binding ShowFps,
-										                     Converter={StaticResource VisibilityConverter}}" />
+										Text="{Binding CurrentFps, Mode=OneWay, Converter={StaticResource DoubleDisplayConverter}}"
+										Visibility="{Binding ShowFps, Converter={StaticResource VisibilityConverter}}" />
 
 									<TextBlock
 										Grid.Row="7"
 										Grid.Column="0"
 										Style="{StaticResource ItemLabel}"
 										Text="{x:Static Resources:EncodeDetailsRes.AverageFpsLabel}"
-										Visibility="{Binding ShowFps,
-										                     Converter={StaticResource VisibilityConverter}}" />
+										Visibility="{Binding ShowFps, Converter={StaticResource VisibilityConverter}}" />
 									<TextBlock
 										Grid.Row="7"
 										Grid.Column="1"
 										Style="{StaticResource ItemValue}"
-										Text="{Binding AverageFps,
-										               Mode=OneWay,
-										               Converter={StaticResource DoubleDisplayConverter}}"
-										Visibility="{Binding ShowFps,
-										                     Converter={StaticResource VisibilityConverter}}" />
+										Text="{Binding AverageFps, Mode=OneWay, Converter={StaticResource DoubleDisplayConverter}}"
+										Visibility="{Binding ShowFps, Converter={StaticResource VisibilityConverter}}" />
 								</Grid>
 							</DataTemplate>
 						</ItemsControl.ItemTemplate>

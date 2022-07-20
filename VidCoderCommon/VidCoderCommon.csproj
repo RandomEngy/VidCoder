@@ -28,6 +28,7 @@
     <PackageReference Include="PipeMethodCalls" />
     <PackageReference Include="PipeMethodCalls.NetJson" />
     <PackageReference Include="ReactiveUI" />
+    <PackageReference Include="System.Data.SQLite.Core" />
     <PackageReference Include="System.Text.Json"  />
     <PackageReference Include="valueinjecter" />
   </ItemGroup>
