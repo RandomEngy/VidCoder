@@ -4,10 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VidCoderCommon.Model;
 
 namespace VidCoderCommon.Services
 {
-	public class SetupLogger
+	public class SetupLogger : IBasicLogger
 	{
 		private StreamWriter logWriter;
 

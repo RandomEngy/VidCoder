@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VidCoderCommon;
+using VidCoderCommon.Model;
 using VidCoderCommon.Services;
 
 namespace VidCoder
@@ -91,7 +92,7 @@ namespace VidCoder
 		/// </summary>
 		/// <param name="action">The action to execute. install | uninstall | activateFileWatcher | deactivateFileWatcher</param>
 		/// <param name="logger">The logger to use.</param>
-		private static void RunElevatedSetup(string action, SetupLogger logger)
+		public static bool RunElevatedSetup(string action, IBasicLogger logger)
 		{
 			logger.Log("Starting elevated setup...");
 
@@ -108,10 +109,12 @@ namespace VidCoder
 			if (process.ExitCode == 0)
 			{
 				logger.Log("Elevated setup completed successfully.");
+				return true;
 			}
 			else
 			{
 				logger.Log("Elevated setup failed. Check the ElevatedInstall log for more details.");
+				return false;
 			}
 		}
 

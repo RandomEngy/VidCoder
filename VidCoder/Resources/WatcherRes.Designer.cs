@@ -70,6 +70,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not install file watcher service..
+        /// </summary>
+        public static string ServiceInstallError {
+            get {
+                return ResourceManager.GetString("ServiceInstallError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not uninstall file watcher service..
+        /// </summary>
+        public static string ServiceUninstallError {
+            get {
+                return ResourceManager.GetString("ServiceUninstallError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uninstall Watcher service.
         /// </summary>
         public static string UninstallWatcherButton {

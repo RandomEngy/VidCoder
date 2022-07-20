@@ -120,6 +120,12 @@
   <data name="InstallWatcherButton" xml:space="preserve">
     <value>Install Watcher service</value>
   </data>
+  <data name="ServiceInstallError" xml:space="preserve">
+    <value>Could not install file watcher service.</value>
+  </data>
+  <data name="ServiceUninstallError" xml:space="preserve">
+    <value>Could not uninstall file watcher service.</value>
+  </data>
   <data name="UninstallWatcherButton" xml:space="preserve">
     <value>Uninstall Watcher service</value>
   </data>

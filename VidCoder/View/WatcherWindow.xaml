@@ -39,7 +39,10 @@
 					HorizontalAlignment="Center"
 					Text="{x:Static Resources:WatcherRes.WatcherIntroText}"
 					TextWrapping="Wrap" />
-				<Button MinHeight="60" Margin="0 6 0 0">
+				<Button
+					MinHeight="60"
+					Margin="0 6 0 0"
+					Command="{Binding InstallWatcherService}">
 					<StackPanel Orientation="Horizontal">
 						<Image
 							Name="installUacShieldIcon"
@@ -61,7 +64,10 @@
 				</Grid.RowDefinitions>
 				<!--  Button toolbar  -->
 				<StackPanel Grid.Row="0" Orientation="Horizontal">
-					<Button Padding="6" Style="{StaticResource BorderlessButtonStyle}">
+					<Button
+						Padding="6"
+						Command="{Binding UninstallWatcherService}"
+						Style="{StaticResource BorderlessButtonStyle}">
 						<StackPanel Orientation="Horizontal">
 							<Image
 								Name="uninstallUacShieldIcon"

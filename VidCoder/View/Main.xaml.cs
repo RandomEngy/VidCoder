@@ -228,50 +228,14 @@ namespace VidCoder.View
 			var doAnActionItem = new Fluent.MenuItem { Header = "Perform action" };
 			doAnActionItem.Click += (sender, args) =>
 			{
-				string setupExe = Path.Combine(CommonUtilities.ProgramFolder, "VidCoderElevatedSetup.exe");
-				var startInfo = new System.Diagnostics.ProcessStartInfo(setupExe, "activateFileWatcher");
-				startInfo.CreateNoWindow = true;
-				startInfo.WorkingDirectory = CommonUtilities.ProgramFolder;
-				startInfo.UseShellExecute = true;
-				startInfo.Verb = "runas";
-
-				//System.Diagnostics.EventLog.WriteEntry("VidCoder", "activateFileWatcher");
-
-				System.Diagnostics.Process process = System.Diagnostics.Process.Start(startInfo);
-				process.WaitForExit();
-
-				if (process.ExitCode == 0)
-				{
-					System.Diagnostics.Debug.WriteLine("Elevated setup completed successfully.");
-				}
-				else
-				{
-					System.Diagnostics.Debug.WriteLine("Elevated setup failed. Check the ElevatedInstall log for more details.");
-				}
+				VidCoderInstall.RunElevatedSetup("activateFileWatcher", StaticResolver.Resolve<IAppLogger>());
 			};
 			debugDropDown.Items.Add(doAnActionItem);
 
 			var doAnActionItem2 = new Fluent.MenuItem { Header = "Perform action 2" };
 			doAnActionItem2.Click += (sender, args) =>
 			{
-				string setupExe = Path.Combine(CommonUtilities.ProgramFolder, "VidCoderElevatedSetup.exe");
-				var startInfo = new System.Diagnostics.ProcessStartInfo(setupExe, "deactivateFileWatcher");
-				startInfo.CreateNoWindow = true;
-				startInfo.WorkingDirectory = CommonUtilities.ProgramFolder;
-				startInfo.UseShellExecute = true;
-				startInfo.Verb = "runas";
-
-				System.Diagnostics.Process process = System.Diagnostics.Process.Start(startInfo);
-				process.WaitForExit();
-
-				if (process.ExitCode == 0)
-				{
-					System.Diagnostics.Debug.WriteLine("Elevated setup completed successfully.");
-				}
-				else
-				{
-					System.Diagnostics.Debug.WriteLine("Elevated setup failed. Check the ElevatedInstall log for more details.");
-				}
+				VidCoderInstall.RunElevatedSetup("deactivateFileWatcher", StaticResolver.Resolve<IAppLogger>());
 			};
 			debugDropDown.Items.Add(doAnActionItem2);
 
