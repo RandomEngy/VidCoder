@@ -129,8 +129,14 @@
   <data name="PickerLabel" xml:space="preserve">
     <value>Picker:</value>
   </data>
+  <data name="PickWatchedFolderDialogDescription" xml:space="preserve">
+    <value>Pick the folder to watch</value>
+  </data>
   <data name="PresetLabel" xml:space="preserve">
     <value>Encoding preset:</value>
+  </data>
+  <data name="RemoveWatchedFolder" xml:space="preserve">
+    <value>Remove watched folder</value>
   </data>
   <data name="ServiceInstallError" xml:space="preserve">
     <value>Could not install file watcher service.</value>

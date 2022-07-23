@@ -22,7 +22,7 @@ namespace VidCoder.ViewModel
 
 		public WatcherConfigDialogViewModel()
 		{
-			this.watchedFolders.AddRange(WatcherStorage.GetWatchedFolders(Database.Connection).Select(watchedFolder => new WatchedFolderViewModel(watchedFolder)));
+			this.watchedFolders.AddRange(WatcherStorage.GetWatchedFolders(Database.Connection).Select(watchedFolder => new WatchedFolderViewModel(this, watchedFolder)));
 			this.watchedFolders.Connect().Bind(this.WatchedFoldersBindable).Subscribe();
 		}
 
@@ -40,9 +40,22 @@ namespace VidCoder.ViewModel
 				return this.addWatchedFolder ?? (this.addWatchedFolder = ReactiveCommand.Create(
 					() =>
 					{
-						this.WatchedFolders.Add(new WatchedFolderViewModel(new WatchedFolder { Preset = this.presetsService.AllPresets[0].Preset.Name }));
+						var newViewModel = new WatchedFolderViewModel(
+							this,
+							new WatchedFolder
+							{
+								Picker = string.Empty, // This is the default picker
+								Preset = this.presetsService.AllPresets[0].Preset.Name
+							});
+						this.WatchedFolders.Add(newViewModel);
+						newViewModel.PickFolder.Execute(null);
 					}));
 			}
+		}
+
+		public void RemoveFolder(WatchedFolderViewModel folderToRemove)
+		{
+			this.WatchedFolders.Remove(folderToRemove);
 		}
 	}
 }

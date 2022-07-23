@@ -45,7 +45,7 @@ namespace VidCoder.Services
 			Picker nonePicker = new Picker
 			{
 				IsDefault = true,
-				Name = ""
+				Name = string.Empty
 			};
 			this.pickers.Add(new PickerViewModel(nonePicker));
 

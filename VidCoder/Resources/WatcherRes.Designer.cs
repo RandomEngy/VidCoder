@@ -97,11 +97,29 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pick the folder to watch.
+        /// </summary>
+        public static string PickWatchedFolderDialogDescription {
+            get {
+                return ResourceManager.GetString("PickWatchedFolderDialogDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Encoding preset:.
         /// </summary>
         public static string PresetLabel {
             get {
                 return ResourceManager.GetString("PresetLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove watched folder.
+        /// </summary>
+        public static string RemoveWatchedFolder {
+            get {
+                return ResourceManager.GetString("RemoveWatchedFolder", resourceCulture);
             }
         }
         

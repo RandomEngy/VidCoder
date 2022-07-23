@@ -43,10 +43,11 @@
 						</ItemsControl.ItemsPanel>
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
-								<Grid>
+								<Grid Margin="0 0 0 10">
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="Auto" />
 										<ColumnDefinition />
+										<ColumnDefinition Width="Auto" />
 										<ColumnDefinition Width="Auto" />
 									</Grid.ColumnDefinitions>
 									<CheckBox
@@ -59,16 +60,17 @@
 										Margin="10 0 0 0"
 										Orientation="Vertical">
 										<TextBlock Text="{x:Static res:WatcherRes.WatchedFolderTextBoxLabel}" />
-										<Grid>
+										<Grid Margin="0 2 0 0">
 											<Grid.ColumnDefinitions>
 												<ColumnDefinition />
 												<ColumnDefinition Width="Auto" />
 											</Grid.ColumnDefinitions>
-											<TextBox Grid.Column="0" Text="{Binding WatchedFolder.Path}" />
+											<TextBox Grid.Column="0" Text="{Binding Path}" />
 											<Button
 												Grid.Column="1"
 												Margin="6 0 0 0"
 												Padding="8 2"
+												Command="{Binding PickFolder}"
 												Content="{x:Static res:CommonRes.Browse}" />
 										</Grid>
 									</StackPanel>
@@ -80,22 +82,32 @@
 										</Grid.RowDefinitions>
 										<Grid.ColumnDefinitions>
 											<ColumnDefinition Width="Auto" />
+											<ColumnDefinition Width="6" />
 											<ColumnDefinition Width="Auto" />
 										</Grid.ColumnDefinitions>
 										<TextBlock
+											x:Name="pickerLabel"
 											Grid.Row="0"
 											Grid.Column="0"
 											VerticalAlignment="Center"
 											Text="{x:Static res:WatcherRes.PickerLabel}" />
+										<ComboBox
+											Grid.Row="0"
+											Grid.Column="2"
+											AutomationProperties.LabeledBy="{Binding ElementName=pickerLabel}"
+											ItemsSource="{Binding PickersService.Pickers}"
+											SelectedValue="{Binding WatchedFolder.Picker}"
+											SelectedValuePath="Picker.Name" />
 										<TextBlock
+											Name="presetLabel"
 											Grid.Row="2"
 											Grid.Column="0"
 											VerticalAlignment="Center"
 											Text="{x:Static res:WatcherRes.PresetLabel}" />
 										<controls:PresetComboBox
 											Grid.Row="2"
-											Grid.Column="1"
-											Margin="6 0 0 0"
+											Grid.Column="2"
+											AutomationProperties.LabeledBy="{Binding ElementName=presetLabel}"
 											SelectedItem="{Binding SelectedPreset, Mode=TwoWay}"
 											UseLayoutRounding="True">
 											<controls:PresetComboBox.InputBindings>
@@ -110,6 +122,13 @@
 											</controls:PresetComboBox.InputBindings>
 										</controls:PresetComboBox>
 									</Grid>
+									<Button
+										Grid.Column="3"
+										Padding="10"
+										VerticalAlignment="Stretch"
+										Command="{Binding RemoveFolder}"
+										Content="{x:Static res:WatcherRes.RemoveWatchedFolder}"
+										Style="{StaticResource RemoveButtonStyle}" />
 								</Grid>
 							</DataTemplate>
 						</ItemsControl.ItemTemplate>
