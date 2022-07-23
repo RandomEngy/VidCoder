@@ -24,6 +24,11 @@ namespace VidCoder.ViewModel
 		{
 			this.watchedFolders.AddRange(WatcherStorage.GetWatchedFolders(Database.Connection).Select(watchedFolder => new WatchedFolderViewModel(this, watchedFolder)));
 			this.watchedFolders.Connect().Bind(this.WatchedFoldersBindable).Subscribe();
+
+			if (this.watchedFolders.Count == 0)
+			{
+				this.AddWatchedFolder.Execute(null);
+			}
 		}
 
 		public SourceList<WatchedFolderViewModel> WatchedFolders => watchedFolders;

@@ -45,6 +45,7 @@ namespace VidCoder.ViewModel
 						if (VidCoderInstall.RunElevatedSetup("activateFileWatcher", StaticResolver.Resolve<IAppLogger>()))
 						{
 							this.ServiceIsInstalled = true;
+							this.OpenConfig.Execute(null);
 						}
 						else
 						{
