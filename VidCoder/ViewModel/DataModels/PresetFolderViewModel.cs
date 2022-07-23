@@ -81,11 +81,7 @@ namespace VidCoder.ViewModel.DataModels
 
 		public SourceList<PresetFolderViewModel> SubFolders { get; } = new SourceList<PresetFolderViewModel>();
 
-		//private readonly IObservable<int> subFolderCountObservable;
-
 		public SourceList<PresetViewModel> Items { get; } = new SourceList<PresetViewModel>();
-
-		//private readonly IObservable<int> itemsCountObservable;
 
 		private bool isExpanded;
 		public bool IsExpanded
@@ -266,6 +262,36 @@ namespace VidCoder.ViewModel.DataModels
 			}
 
 			return false;
+		}
+
+		/// <summary>
+		/// Clone is needed to support ComboBoxes that do not want to affect the main tree.
+		/// </summary>
+		/// <returns>The cloned folder.</returns>
+		public PresetFolderViewModel Clone(PresetFolderViewModel parent)
+		{
+			var presetFolderViewModel = new PresetFolderViewModel(this.presetsService, this.isExpanded, this.IsBuiltIn, this.Id)
+			{
+				Parent = parent,
+				ParentId = this.ParentId,
+				Name = this.Name
+			};
+
+			foreach (PresetFolderViewModel subFolder in this.SubFolders.Items)
+			{
+				PresetFolderViewModel clonedSubFolder = subFolder.Clone(presetFolderViewModel);
+				presetFolderViewModel.SubFolders.Add(clonedSubFolder);
+				presetFolderViewModel.AllItems.Add(clonedSubFolder);
+			}
+
+			foreach (PresetViewModel item in this.Items.Items)
+			{
+				PresetViewModel clonedPreset = item.Clone(presetFolderViewModel);
+				presetFolderViewModel.Items.Add(clonedPreset);
+				presetFolderViewModel.AllItems.Add(clonedPreset);
+			}
+
+			return presetFolderViewModel;
 		}
 	}
 }

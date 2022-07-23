@@ -61,11 +61,47 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add folder to watch.
+        /// </summary>
+        public static string AddFolderToWatch {
+            get {
+                return ResourceManager.GetString("AddFolderToWatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configure folders.
+        /// </summary>
+        public static string ConfigureFoldersButton {
+            get {
+                return ResourceManager.GetString("ConfigureFoldersButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Install Watcher service.
         /// </summary>
         public static string InstallWatcherButton {
             get {
                 return ResourceManager.GetString("InstallWatcherButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Picker:.
+        /// </summary>
+        public static string PickerLabel {
+            get {
+                return ResourceManager.GetString("PickerLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoding preset:.
+        /// </summary>
+        public static string PresetLabel {
+            get {
+                return ResourceManager.GetString("PresetLabel", resourceCulture);
             }
         }
         
@@ -93,6 +129,24 @@ namespace VidCoder.Resources {
         public static string UninstallWatcherButton {
             get {
                 return ResourceManager.GetString("UninstallWatcherButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Watched folder.
+        /// </summary>
+        public static string WatchedFolderTextBoxLabel {
+            get {
+                return ResourceManager.GetString("WatchedFolderTextBoxLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Watcher configuration.
+        /// </summary>
+        public static string WatcherConfigDialogTitle {
+            get {
+                return ResourceManager.GetString("WatcherConfigDialogTitle", resourceCulture);
             }
         }
         

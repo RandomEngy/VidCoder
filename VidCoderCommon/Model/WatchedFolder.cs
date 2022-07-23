@@ -12,9 +12,14 @@ namespace VidCoderCommon.Model
 	public class WatchedFolder
 	{
 		/// <summary>
+		/// True if this folder watch is enabled.
+		/// </summary>
+		public bool Enabled { get; set; } = true;
+
+		/// <summary>
 		/// The path of the folder to watch.
 		/// </summary>
-		public string Path { get; set; }
+		public string Path { get; set; } = string.Empty;
 
 		/// <summary>
 		/// The name of the picker to use.

@@ -40,7 +40,7 @@ namespace VidCoder.Controls
 
 	        this.presetsService.PresetFolderManuallyExpanded += (sender, model) =>
 	        {
-		        var item =  UIUtilities.FindDescendant<TreeViewItem>(this.presetTreeView, viewItem =>
+		        var item = UIUtilities.FindDescendant<TreeViewItem>(this.presetTreeView, viewItem =>
 		        {
 			        return viewItem.Header == model;
 		        });

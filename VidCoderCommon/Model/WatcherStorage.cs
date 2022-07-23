@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using VidCoderCommon.Extensions;
+using static VidCoderCommon.Model.CommonDatabase;
 
 namespace VidCoderCommon.Model
 {
@@ -31,6 +33,25 @@ namespace VidCoderCommon.Model
 			}
 
 			return result;
+		}
+
+		public static void SaveWatchedFolders(SQLiteConnection connection, List<WatchedFolder> watchedFolders)
+		{
+			using (var transaction = connection.BeginTransaction())
+			{
+				ExecuteNonQuery("DELETE FROM watchedFolders", connection);
+
+				var insertCommand = new SQLiteCommand("INSERT INTO watchedFolders (json) VALUES (?)", connection);
+				SQLiteParameter insertJsonParam = insertCommand.Parameters.Add("json", DbType.String);
+
+				foreach (WatchedFolder watchedFolder in watchedFolders)
+				{
+					insertJsonParam.Value = JsonSerializer.Serialize(watchedFolder);
+					insertCommand.ExecuteNonQuery();
+				}
+
+				transaction.Commit();
+			}
 		}
 	}
 }

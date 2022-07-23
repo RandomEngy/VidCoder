@@ -66,6 +66,21 @@
 				<StackPanel Grid.Row="0" Orientation="Horizontal">
 					<Button
 						Padding="6"
+						Command="{Binding OpenConfig}"
+						Style="{StaticResource BorderlessButtonStyle}">
+						<StackPanel Orientation="Horizontal">
+							<Image
+								Width="20"
+								Height="20"
+								Source="/Icons/folder.png" />
+							<TextBlock
+								Margin="6 0 0 0"
+								VerticalAlignment="Center"
+								Text="{x:Static Resources:WatcherRes.ConfigureFoldersButton}" />
+						</StackPanel>
+					</Button>
+					<Button
+						Padding="6"
 						Command="{Binding UninstallWatcherService}"
 						Style="{StaticResource BorderlessButtonStyle}">
 						<StackPanel Orientation="Horizontal">
@@ -73,7 +88,10 @@
 								Name="uninstallUacShieldIcon"
 								Width="20"
 								Height="20" />
-							<TextBlock Margin="6 0 0 0" Text="{x:Static Resources:WatcherRes.UninstallWatcherButton}" />
+							<TextBlock
+								Margin="6 0 0 0"
+								VerticalAlignment="Center"
+								Text="{x:Static Resources:WatcherRes.UninstallWatcherButton}" />
 						</StackPanel>
 					</Button>
 				</StackPanel>

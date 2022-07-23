@@ -15,6 +15,7 @@ using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoderCommon;
 using VidCoderCommon.Model;
+using static VidCoderCommon.Model.CommonDatabase;
 
 namespace VidCoder.Model
 {
@@ -568,15 +569,6 @@ namespace VidCoder.Model
 				"lastModified TEXT, " +
 				"status TEXT, " +
 				"reason TEXT)", connection);
-		}
-
-		public static void ExecuteNonQuery(string query, SQLiteConnection connection)
-		{
-			using (var command = new SQLiteCommand(connection))
-			{
-				command.CommandText = query;
-				command.ExecuteNonQuery();
-			}
 		}
 
 		private static void AddSettingsList(SQLiteConnection connection, Dictionary<string, string> settingsList)

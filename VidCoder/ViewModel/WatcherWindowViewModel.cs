@@ -8,14 +8,19 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
+using VidCoder.Services.Windows;
 using VidCoderCommon;
+using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
 	public class WatcherWindowViewModel : ReactiveObject
 	{
+		private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
+
 		public WatcherWindowViewModel()
 		{
 			ServiceController controller = ServiceController.GetServices().FirstOrDefault(service => service.ServiceName == CommonUtilities.WatcherServiceName);
@@ -64,6 +69,25 @@ namespace VidCoder.ViewModel
 						else
 						{
 							Utilities.MessageBox.Show(WatcherRes.ServiceUninstallError);
+						}
+					}));
+			}
+		}
+
+		private ReactiveCommand<Unit, Unit> openConfig;
+		public ICommand OpenConfig
+		{
+			get
+			{
+				return this.openConfig ?? (this.openConfig = ReactiveCommand.Create(
+					() =>
+					{
+						var watcherConfigDialog = new WatcherConfigDialogViewModel();
+						this.windowManager.OpenDialog(watcherConfigDialog, this);
+
+						if (watcherConfigDialog.DialogResult)
+						{
+							WatcherStorage.SaveWatchedFolders(Database.Connection, watcherConfigDialog.WatchedFolders.Items.Select(watchedFolderViewModel => watchedFolderViewModel.WatchedFolder).ToList());
 						}
 					}));
 			}

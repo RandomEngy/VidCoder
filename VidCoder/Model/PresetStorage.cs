@@ -330,7 +330,7 @@ namespace VidCoder.Model
 
 		public static void SavePresets(List<string> presetJsonList, SQLiteConnection connection)
 		{
-			Database.ExecuteNonQuery("DELETE FROM presetsJson", connection);
+			CommonDatabase.ExecuteNonQuery("DELETE FROM presetsJson", connection);
 
 			var insertCommand = new SQLiteCommand("INSERT INTO presetsJson (json) VALUES (?)", connection);
 			SQLiteParameter insertJsonParam = insertCommand.Parameters.Add("json", DbType.String);

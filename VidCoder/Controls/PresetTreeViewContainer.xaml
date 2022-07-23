@@ -105,8 +105,7 @@
 										<MenuItem
 											Command="{Binding RenameFolder}"
 											Header="{x:Static res:EncodingRes.PrestFolderRenameFolderMenuItem}"
-											Visibility="{Binding IsNotRoot,
-											                     Converter={StaticResource VisibilityConverter}}">
+											Visibility="{Binding IsNotRoot, Converter={StaticResource VisibilityConverter}}">
 											<MenuItem.Icon>
 												<Image
 													Width="16"
@@ -117,8 +116,7 @@
 										<MenuItem
 											Command="{Binding RemoveFolder}"
 											Header="{x:Static res:EncodingRes.PresetFolderRemoveFolderMenuItem}"
-											Visibility="{Binding IsNotRoot,
-											                     Converter={StaticResource VisibilityConverter}}">
+											Visibility="{Binding IsNotRoot, Converter={StaticResource VisibilityConverter}}">
 											<MenuItem.Icon>
 												<Image
 													Width="16"
@@ -151,8 +149,7 @@
 									HorizontalAlignment="Stretch"
 									VerticalAlignment="Stretch"
 									ClickMode="Press"
-									IsChecked="{Binding IsExpanded,
-									                    RelativeSource={RelativeSource TemplatedParent}}"
+									IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
 									Style="{StaticResource ExpandCollapseToggleStyle}" />
 								<Button
 									x:Name="PresetFolderMenu"
@@ -281,7 +278,7 @@
 		Background="{DynamicResource AlternateBackgroundBrush}"
 		BorderThickness="0"
 		Canvas.ZIndex="3"
-		ItemsSource="{Binding PresetsService.AllPresetsTree}"
+		ItemsSource="{Binding AllPresetsTree}"
 		SelectedItemChanged="TreeView_OnSelectedItemChanged">
 		<TreeView.ItemTemplateSelector>
 			<selectors:PresetTreeTemplateSelector>

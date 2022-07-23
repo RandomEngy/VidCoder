@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Reactive;
@@ -70,6 +71,11 @@ namespace VidCoder.ViewModel
 		public ProcessingService ProcessingService { get; } = StaticResolver.Resolve<ProcessingService>();
 		public OutputPathService OutputPathService { get; } = StaticResolver.Resolve<OutputPathService>();
 		public PickersService PickersService { get; } = StaticResolver.Resolve<PickersService>();
+
+		/// <summary>
+		/// The PresetTreeViewContainer binds to this to get the ViewModel tree of presets.
+		/// </summary>
+		public ObservableCollection<PresetFolderViewModel> AllPresetsTree => this.PresetsService.AllPresetsTree;
 
 		public ContainerPanelViewModel ContainerPanelViewModel { get; set; }
 		public SizingPanelViewModel SizingPanelViewModel { get; set; }

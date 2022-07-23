@@ -29,7 +29,7 @@ namespace VidCoder.ViewModel
 					string suffix = isModified ? " *" : string.Empty;
 					return displayNameParameter + suffix;
 				})
-				.ToProperty(this, x => x.DisplayNameWithStar, out this.displayNameWithStar);
+				.ToProperty(this, x => x.DisplayNameWithStar, out this.displayNameWithStar, scheduler: Scheduler.Immediate);
 		}
 
 		public Preset Preset { get; }
@@ -55,6 +55,15 @@ namespace VidCoder.ViewModel
 		public override string ToString()
 		{
 			return this.DisplayName;
+		}
+
+		public PresetViewModel Clone(PresetFolderViewModel parent)
+		{
+			return new PresetViewModel(this.Preset)
+			{
+				Parent = parent,
+				OriginalProfile = this.OriginalProfile,
+			};
 		}
 	}
 }

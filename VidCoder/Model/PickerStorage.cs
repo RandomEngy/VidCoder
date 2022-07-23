@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text.Json;
 using VidCoder.Extensions;
 using VidCoder.Resources;
+using VidCoderCommon.Model;
 using VidCoderCommon.Utilities;
 
 namespace VidCoder.Model
@@ -361,7 +362,7 @@ namespace VidCoder.Model
 
 		public static void SavePickers(List<string> pickerJsonList, SQLiteConnection connection)
         {
-            Database.ExecuteNonQuery("DELETE FROM pickersJson", connection);
+            CommonDatabase.ExecuteNonQuery("DELETE FROM pickersJson", connection);
 
 			var insertCommand = new SQLiteCommand("INSERT INTO pickersJson (json) VALUES (?)", connection);
             SQLiteParameter insertJsonParam = insertCommand.Parameters.Add("json", DbType.String);

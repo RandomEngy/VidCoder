@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.AnyContainer;
 using Omu.ValueInjecter;
@@ -35,25 +34,13 @@ namespace VidCoder.ViewModel
 				.ToProperty(this, x => x.HasSourceData, out this.hasSourceData);
 		}
 
-		public PresetsService PresetsService
-		{
-			get { return this.presetsService; }
-		}
+		public PresetsService PresetsService => this.presetsService;
 
-		public MainViewModel MainViewModel
-		{
-			get { return this.mainViewModel; }
-		}
+		public MainViewModel MainViewModel => this.mainViewModel;
 
-		public Preset Preset
-		{
-			get { return this.presetsService.SelectedPreset.Preset; }
-		}
+		public Preset Preset => this.presetsService.SelectedPreset.Preset;
 
-		public VCProfile Profile
-		{
-			get { return this.presetsService.SelectedPreset.Preset.EncodingProfile; }
-		}
+		public VCProfile Profile => this.presetsService.SelectedPreset.Preset.EncodingProfile;
 
 		public bool AutomaticChange
 		{

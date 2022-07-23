@@ -754,6 +754,11 @@ namespace VidCoder.ViewModel
 
 		public PresetsService PresetsService { get; }
 
+		/// <summary>
+		/// The PresetTreeViewContainer binds to this to get the ViewModel tree of presets.
+		/// </summary>
+		public ObservableCollection<PresetFolderViewModel> AllPresetsTree => this.PresetsService.AllPresetsTree;
+
 		public PickersService PickersService { get; }
 
 		public ProcessingService ProcessingService { get; }

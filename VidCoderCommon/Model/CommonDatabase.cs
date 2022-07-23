@@ -33,5 +33,14 @@ namespace VidCoderCommon.Model
 				return Path.Combine(appDataFolder, ConfigDatabaseFile);
 			}
 		}
+
+		public static void ExecuteNonQuery(string query, SQLiteConnection connection)
+		{
+			using (var command = new SQLiteCommand(connection))
+			{
+				command.CommandText = query;
+				command.ExecuteNonQuery();
+			}
+		}
 	}
 }
