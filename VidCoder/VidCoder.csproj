@@ -22,21 +22,21 @@
     <DefineConstants>DEBUG</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Clowd.Squirrel" Version="2.8.1-pre" />
+    <PackageReference Include="Clowd.Squirrel" Version="2.9.42" />
     <PackageReference Include="Fluent.Ribbon" Version="9.0.4" />
     <PackageReference Include="Microsoft.AnyContainer" Version="1.0.0-beta201808141" />
     <PackageReference Include="Microsoft.AnyContainer.DryIoc" Version="1.0.0-beta201808141" />
-    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.0.0-preview5" />
-    <PackageReference Include="Ookii.Dialogs.Wpf" Version="3.1.0" />
-    <PackageReference Include="PipeMethodCalls" Version="3.0.2" />
+    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.2" />
+    <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
+    <PackageReference Include="PipeMethodCalls" Version="3.2.0" />
     <PackageReference Include="PipeMethodCalls.NetJson" Version="3.0.0" />
-    <PackageReference Include="ReactiveUI.WPF" Version="13.1.1" />
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.7" />
-    <PackageReference Include="System.Management" Version="5.0.0" />
+    <PackageReference Include="ReactiveUI.WPF" Version="18.3.1" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.116" />
+    <PackageReference Include="System.Management" Version="6.0.0" />
     <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
-    <PackageReference Include="UTF.Unknown" Version="2.3.0" />
+    <PackageReference Include="UTF.Unknown" Version="2.5.1" />
     <PackageReference Include="valueinjecter" Version="3.2.0" />
-    <PackageReference Include="WinCopies.WindowsAPICodePack.Shell" Version="2.1.1" />
+    <PackageReference Include="WinCopies.WindowsAPICodePack.Shell" Version="2.12.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="HandBrake.Interop">

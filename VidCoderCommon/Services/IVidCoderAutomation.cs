@@ -2,7 +2,7 @@
 {
 	public interface IVidCoderAutomation
 	{
-		void Encode(string source, string destination, string preset, string picker);
+		void Encode(string _RangeTypeParam, string source, string destination, string preset, string picker);
 
 		void Scan(string source);
 

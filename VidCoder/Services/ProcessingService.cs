@@ -1210,7 +1210,7 @@ namespace VidCoder.Services
 		/// <param name="presetName">The name of the preset to use to encode.</param>
 		/// <param name="pickerName">The name of the picker to use. Will use default picker if null.</param>
 		/// <returns>True if the item was successfully queued for processing.</returns>
-		public void Process(string source, string destination, string presetName, string pickerName)
+		public void Process(string _RangeTypeParam, string source, string destination, string presetName, string pickerName)
 		{
 			if (string.IsNullOrWhiteSpace(source))
 			{
@@ -1279,7 +1279,7 @@ namespace VidCoder.Services
 				jobVM.Job.Length = title.Duration.ToSpan();
 
 				// Choose the correct range based on picker settings
-				this.AutoPickRange(job, title, picker: picker);
+				this.AutoPickRange(_RangeTypeParam, job, title, picker: picker);
 
 				// Choose the correct audio/subtitle tracks based on settings
 				this.AutoPickAudio(job, title, picker: picker);
@@ -1317,6 +1317,11 @@ namespace VidCoder.Services
 			}
 
 			this.logger.Log("Queued " + titleNumbers.Count + " titles from " + source);
+
+			if (_RangeTypeParam != null)
+			{
+				this.encodeCompleteAction.ActionType = EncodeCompleteActionType.CloseProgram;
+			}
 
 			if (titleNumbers.Count > 0 && !this.Encoding)
 			{
@@ -1389,7 +1394,7 @@ namespace VidCoder.Services
 					PassThroughMetadata = picker.PassThroughMetadata
 				};
 
-				this.AutoPickRange(job, title);
+				this.AutoPickRange(string.Empty, job, title);
 
 				this.AutoPickAudio(job, title, useCurrentContext: true);
 				this.AutoPickSubtitles(job, title, useCurrentContext: true);
@@ -1599,7 +1604,7 @@ namespace VidCoder.Services
 				job.Length = title.Duration.ToSpan();
 
 				// Choose the correct range based on picker settings
-				this.AutoPickRange(job, title);
+				this.AutoPickRange(string.Empty, job, title);
 
 				// Choose the correct audio/subtitle tracks based on settings
 				this.AutoPickAudio(job, title);
@@ -3395,7 +3400,7 @@ namespace VidCoder.Services
 		/// <param name="job">The job to pick the range on.</param>
 		/// <param name="title">The title the job is applied to.</param>
 		/// <param name="picker">The picker to use to pick the range.</param>
-		private void AutoPickRange(VCJob job, SourceTitle title, Picker picker = null)
+		private void AutoPickRange(string _RangeTypeParam, VCJob job, SourceTitle title, Picker picker = null)
 		{
 			if (picker == null)
 			{
@@ -3436,6 +3441,18 @@ namespace VidCoder.Services
 				default:
 					job.RangeType = VideoRangeType.All;
 					job.Length = title.Duration.ToSpan();
+					
+					if (_RangeTypeParam != null) 
+					{
+						string[] times = _RangeTypeParam.Split('-');
+						job.RangeType = VideoRangeType.Seconds;
+						range = (TimeSpan.Parse(times[0]),TimeSpan.Parse(times[1]));
+
+						job.SecondsStart = range.start.TotalSeconds;
+						job.SecondsEnd = range.end.TotalSeconds;
+						job.Length = range.end - range.start;
+					}
+
 					break;
 			}
 		}
