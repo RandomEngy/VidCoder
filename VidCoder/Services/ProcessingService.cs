@@ -1205,6 +1205,7 @@ namespace VidCoder.Services
 		/// <summary>
 		/// Adds the given source to the encode queue.
 		/// </summary>
+		/// <param name="timeSpan">Optional CLI Timespan Encoding > Start-End > (HHHH:MM:SS.ms-HHHH:MM:SS.ms) </param>
 		/// <param name="source">The path to the source file to encode.</param>
 		/// <param name="destination">The destination path for the encoded file.</param>
 		/// <param name="presetName">The name of the preset to use to encode.</param>
