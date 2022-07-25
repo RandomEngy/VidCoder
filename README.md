@@ -1,0 +1,3 @@
+# VidCoder - CLI Command '-timespan' added + close Program after that usage
+
+USAGE: VidCoderWindowlessCLI.exe encode -timespan "00:00:00.000-00:01:54.638" ...
