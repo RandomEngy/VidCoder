@@ -15,13 +15,13 @@ namespace VidCoder.Automation
 	{
 		private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
 
-		public void Encode(string _RangeTypeParam, string source, string destination, string preset, string picker)
+		public void Encode(string timeSpan, string source, string destination, string preset, string picker)
 		{
 			this.logger.Log("Processing Encode request");
 			var processingService = StaticResolver.Resolve<ProcessingService>();
 			DispatchUtilities.Invoke(() =>
 			{
-				processingService.Process(_RangeTypeParam, source, destination, preset, picker);
+				processingService.Process(timeSpan, source, destination, preset, picker);
 			});
 		}
 

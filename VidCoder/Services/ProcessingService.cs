@@ -1210,7 +1210,7 @@ namespace VidCoder.Services
 		/// <param name="presetName">The name of the preset to use to encode.</param>
 		/// <param name="pickerName">The name of the picker to use. Will use default picker if null.</param>
 		/// <returns>True if the item was successfully queued for processing.</returns>
-		public void Process(string _RangeTypeParam, string source, string destination, string presetName, string pickerName)
+		public void Process(string timeSpan, string source, string destination, string presetName, string pickerName)
 		{
 			if (string.IsNullOrWhiteSpace(source))
 			{
@@ -1279,7 +1279,7 @@ namespace VidCoder.Services
 				jobVM.Job.Length = title.Duration.ToSpan();
 
 				// Choose the correct range based on picker settings
-				this.AutoPickRange(_RangeTypeParam, job, title, picker: picker);
+				this.AutoPickRange(timeSpan, job, title, picker: picker);
 
 				// Choose the correct audio/subtitle tracks based on settings
 				this.AutoPickAudio(job, title, picker: picker);
@@ -1318,7 +1318,7 @@ namespace VidCoder.Services
 
 			this.logger.Log("Queued " + titleNumbers.Count + " titles from " + source);
 
-			if (_RangeTypeParam != null)
+			if (timeSpan != null)
 			{
 				this.encodeCompleteAction.ActionType = EncodeCompleteActionType.CloseProgram;
 			}
@@ -3397,10 +3397,11 @@ namespace VidCoder.Services
 		/// <summary>
 		/// Populates range and length information on job.
 		/// </summary>
+		/// <param name="timeSpan">Optional CLI Timespan Encoding > Start-End > (HHHH:MM:SS.ms-HHHH:MM:SS.ms) </param>
 		/// <param name="job">The job to pick the range on.</param>
 		/// <param name="title">The title the job is applied to.</param>
 		/// <param name="picker">The picker to use to pick the range.</param>
-		private void AutoPickRange(string _RangeTypeParam, VCJob job, SourceTitle title, Picker picker = null)
+		private void AutoPickRange(string timeSpan, VCJob job, SourceTitle title, Picker picker = null)
 		{
 			if (picker == null)
 			{
@@ -3441,17 +3442,41 @@ namespace VidCoder.Services
 				default:
 					job.RangeType = VideoRangeType.All;
 					job.Length = title.Duration.ToSpan();
-					
-					if (_RangeTypeParam != null) 
-					{
-						string[] times = _RangeTypeParam.Split('-');
-						job.RangeType = VideoRangeType.Seconds;
-						range = (TimeSpan.Parse(times[0]),TimeSpan.Parse(times[1]));
 
-						job.SecondsStart = range.start.TotalSeconds;
-						job.SecondsEnd = range.end.TotalSeconds;
-						job.Length = range.end - range.start;
+					#region "Optional CLI timespan Parameter"
+					try
+					{
+						if (timeSpan != null) // timespan CLI Parameter
+						{
+							string[] times = timeSpan.Split('-');
+							job.RangeType = VideoRangeType.Seconds;
+							TimeSpan timespanStart = TimeSpan.Parse(times[0]);
+							TimeSpan timespanEnd = TimeSpan.Parse(times[1]);
+
+							if (timespanStart >= timespanEnd | timespanEnd >= title.Duration.ToSpan())
+							{
+								// Timespan out of Range > Switching back to default Full Duration Encoding
+								job.RangeType = VideoRangeType.All;
+								job.Length = title.Duration.ToSpan();
+								return;
+							}
+							else
+							{
+								job.SecondsStart = timespanStart.TotalSeconds;
+								job.SecondsEnd = timespanEnd.TotalSeconds;
+								job.Length = timespanEnd - timespanStart;
+								return;
+							}
+						}
 					}
+					catch
+					{
+						// If any other Error, like invalid timespan Format > Switching back to default Full Duration Encoding
+						job.RangeType = VideoRangeType.All;
+						job.Length = title.Duration.ToSpan();
+						return;
+					}
+					#endregion "Optional CLI timespan Parameter"
 
 					break;
 			}

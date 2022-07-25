@@ -14,7 +14,7 @@ namespace VidCoderCLI
 {
 	public class Program
 	{
-		private static string _RangeTypeParam;
+		private static string timeSpan;
 		private static string source;
 		private static string destination;
 		private static string preset;
@@ -78,7 +78,7 @@ namespace VidCoderCLI
 						picker = argumentDict[token];
 						break;
 					case "timespan":
-						_RangeTypeParam = argumentDict[token];
+						timeSpan = argumentDict[token];
 						break;
 					default:
 						PrintUsage();
@@ -110,7 +110,7 @@ namespace VidCoderCLI
 				return;
 			}
 
-			await SetupAndRunActionAsync(a => a.Encode(_RangeTypeParam, source, destination, preset, picker), "Encode started.", "Could not start encode.").ConfigureAwait(false);
+			await SetupAndRunActionAsync(a => a.Encode(timeSpan, source, destination, preset, picker), "Encode started.", "Could not start encode.").ConfigureAwait(false);
 		}
 
 		private static async Task ScanAsync(Dictionary<string, string> argumentDict)
