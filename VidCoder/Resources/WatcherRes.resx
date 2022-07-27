@@ -117,14 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivateWatcherButton" xml:space="preserve">
+    <value>Activate File Watcher</value>
+  </data>
   <data name="AddFolderToWatch" xml:space="preserve">
     <value>Add folder to watch</value>
   </data>
   <data name="ConfigureFoldersButton" xml:space="preserve">
     <value>Configure folders</value>
   </data>
-  <data name="InstallWatcherButton" xml:space="preserve">
-    <value>Install Watcher service</value>
+  <data name="DeactivateWatcherButton" xml:space="preserve">
+    <value>Deactivate File Watcher</value>
   </data>
   <data name="PickerLabel" xml:space="preserve">
     <value>Picker:</value>
@@ -138,14 +141,14 @@
   <data name="RemoveWatchedFolder" xml:space="preserve">
     <value>Remove watched folder</value>
   </data>
+  <data name="RunWhenClosedCheckBox" xml:space="preserve">
+    <value>Run when VidCoder is closed</value>
+  </data>
   <data name="ServiceInstallError" xml:space="preserve">
     <value>Could not install file watcher service.</value>
   </data>
   <data name="ServiceUninstallError" xml:space="preserve">
     <value>Could not uninstall file watcher service.</value>
-  </data>
-  <data name="UninstallWatcherButton" xml:space="preserve">
-    <value>Uninstall Watcher service</value>
   </data>
   <data name="WatchedFolderTextBoxLabel" xml:space="preserve">
     <value>Watched folder</value>
@@ -154,9 +157,9 @@
     <value>Watcher configuration</value>
   </data>
   <data name="WatcherIntroText" xml:space="preserve">
-    <value>You can set up the Watcher to observe folders and automatically encode videos that show up in them. The Watcher service will run when VidCoder is closed and launch it to encode files.</value>
+    <value>You can set up the Watcher to observe folders and automatically encode videos that show up in them. The Watcher process will run when VidCoder is closed and launch it to encode files.</value>
   </data>
   <data name="WatcherWindowTitle" xml:space="preserve">
-    <value>Watcher</value>
+    <value>Watcher - {0}</value>
   </data>
 </root>

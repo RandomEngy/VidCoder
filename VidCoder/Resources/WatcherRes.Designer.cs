@@ -61,6 +61,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activate File Watcher.
+        /// </summary>
+        public static string ActivateWatcherButton {
+            get {
+                return ResourceManager.GetString("ActivateWatcherButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add folder to watch.
         /// </summary>
         public static string AddFolderToWatch {
@@ -79,11 +88,11 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Install Watcher service.
+        ///   Looks up a localized string similar to Deactivate File Watcher.
         /// </summary>
-        public static string InstallWatcherButton {
+        public static string DeactivateWatcherButton {
             get {
-                return ResourceManager.GetString("InstallWatcherButton", resourceCulture);
+                return ResourceManager.GetString("DeactivateWatcherButton", resourceCulture);
             }
         }
         
@@ -124,6 +133,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Run when VidCoder is closed.
+        /// </summary>
+        public static string RunWhenClosedCheckBox {
+            get {
+                return ResourceManager.GetString("RunWhenClosedCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not install file watcher service..
         /// </summary>
         public static string ServiceInstallError {
@@ -138,15 +156,6 @@ namespace VidCoder.Resources {
         public static string ServiceUninstallError {
             get {
                 return ResourceManager.GetString("ServiceUninstallError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Uninstall Watcher service.
-        /// </summary>
-        public static string UninstallWatcherButton {
-            get {
-                return ResourceManager.GetString("UninstallWatcherButton", resourceCulture);
             }
         }
         
@@ -169,7 +178,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can set up the Watcher to observe folders and automatically encode videos that show up in them. The Watcher service will run when VidCoder is closed and launch it to encode files..
+        ///   Looks up a localized string similar to You can set up the Watcher to observe folders and automatically encode videos that show up in them. The Watcher process will run when VidCoder is closed and launch it to encode files..
         /// </summary>
         public static string WatcherIntroText {
             get {
@@ -178,7 +187,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Watcher.
+        ///   Looks up a localized string similar to Watcher - {0}.
         /// </summary>
         public static string WatcherWindowTitle {
             get {

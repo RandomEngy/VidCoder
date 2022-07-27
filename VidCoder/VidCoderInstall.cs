@@ -14,17 +14,9 @@ namespace VidCoder
 {
 	public static class VidCoderInstall
 	{
-		public enum ElevatedSetupAction
-		{
-			Install,
-			Uninstall,
-			ActivateFileWatcher,
-			DeactivateFileWatcher
-		}
-
 		public static void HandleSquirrelEvents()
 		{
-			SquirrelAwareApp.HandleEvents(onInitialInstall: OnInitialInstall, onAppUninstall: OnAppUninstall);
+			SquirrelAwareApp.HandleEvents(onInitialInstall: OnInitialInstall, onAppUninstall: OnAppUninstall, onAppUpdate: OnAppUpdate);
 		}
 
 		/// <summary>
@@ -33,18 +25,17 @@ namespace VidCoder
 		/// <param name="version">The app version.</param>
 		private static void OnInitialInstall(SemanticVersion version, IAppTools tools)
 		{
-			var logger = new SetupLogger("Install");
+			var logger = new SupportLogger("Install");
 			logger.Log("Running initial install actions...");
 
 			try
 			{
-				using var mgr = new UpdateManager(Utilities.SquirrelUpdateUrl);
-				mgr.CreateUninstallerRegistryEntry();
-				mgr.CreateShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
+				tools.CreateUninstallerRegistryEntry();
+				tools.CreateShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
 
 				CopyIconFilesToRoot(logger);
 
-				RunElevatedSetup("install", logger);
+				RegistryUtilities.Install(logger);
 				logger.Log("Initial install actions complete.");
 			}
 			catch (Exception exception)
@@ -58,22 +49,40 @@ namespace VidCoder
 			}
 		}
 
+		private static void OnAppUpdate(SemanticVersion version, IAppTools tools)
+		{
+			// Check if we have new reg keys. If not, we need to get rid of old ones and swap to new ones.
+			// We should be able to remove this code after a while as everyone has updated far past 8.4 Beta (July 2022).
+			if (!RegistryUtilities.AreRegKeysInstalled())
+			{
+				var logger = new SupportLogger("Update");
+				try
+				{
+					RunElevatedSetup("uninstall", logger);
+					RegistryUtilities.Install(logger);
+				}
+				finally
+				{
+					logger.Close();
+				}
+			}
+		}
+
 		/// <summary>
 		/// Called when the app is uninstalled. Will run this code and exit.
 		/// </summary>
 		/// <param name="version">The app version.</param>
 		private static void OnAppUninstall(SemanticVersion version, IAppTools tools)
 		{
-			var logger = new SetupLogger("Uninstall");
+			var logger = new SupportLogger("Uninstall");
 			logger.Log("Running uninstall actions...");
 
 			try
 			{
-				using var mgr = new UpdateManager(Utilities.SquirrelUpdateUrl);
-				mgr.RemoveUninstallerRegistryEntry();
-				mgr.RemoveShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
+				tools.RemoveUninstallerRegistryEntry();
+				tools.RemoveShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
 
-				RunElevatedSetup("uninstall", logger);
+				RegistryUtilities.Uninstall(logger);
 				logger.Log("Uninstall actions complete.");
 			}
 			catch (Exception exception)
@@ -122,7 +131,7 @@ namespace VidCoder
 		/// Copies some icon files to the root local app data folder so they can be in a stable location for file associations.
 		/// </summary>
 		/// <param name="logger">The logger to use.</param>
-		private static void CopyIconFilesToRoot(SetupLogger logger)
+		private static void CopyIconFilesToRoot(SupportLogger logger)
 		{
 			try
 			{
@@ -141,23 +150,6 @@ namespace VidCoder
 			catch (Exception exception)
 			{
 				logger.Log(exception.ToString());
-			}
-		}
-
-		private static string GetActionString(ElevatedSetupAction action)
-		{
-			switch (action)
-			{
-				case ElevatedSetupAction.Install:
-					return "install";
-				case ElevatedSetupAction.Uninstall:
-					return "uninstall";
-				case ElevatedSetupAction.ActivateFileWatcher:
-					return "activateFileWatcher";
-				case ElevatedSetupAction.DeactivateFileWatcher:
-					return "deactivateFileWatcher";
-				default:
-					throw new ArgumentOutOfRangeException(nameof(action));
 			}
 		}
 	}

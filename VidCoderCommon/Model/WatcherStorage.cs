@@ -35,6 +35,14 @@ namespace VidCoderCommon.Model
 			return result;
 		}
 
+		public static long GetWatchedFolderCount(SQLiteConnection connection)
+		{
+			using (var getWatchedFolderCountCommand = new SQLiteCommand("SELECT COUNT(*) FROM watchedFolders", connection))
+			{
+				return (long)getWatchedFolderCountCommand.ExecuteScalar();
+			}
+		}
+
 		public static void SaveWatchedFolders(SQLiteConnection connection, List<WatchedFolder> watchedFolders)
 		{
 			using (var transaction = connection.BeginTransaction())

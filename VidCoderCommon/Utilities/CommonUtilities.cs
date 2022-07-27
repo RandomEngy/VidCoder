@@ -10,6 +10,8 @@ namespace VidCoderCommon
 {
 	public static class CommonUtilities
 	{
+		public static readonly string FileWatcherPipeName = "VidCoderFileWatcher." + Environment.UserName;
+
 		private const string AppDataFolderName = "VidCoder";
 
 		public static bool Beta
@@ -79,7 +81,5 @@ namespace VidCoderCommon
 		public static string ProgramPath => Assembly.GetExecutingAssembly().Location;
 
 		public static string ProgramFolder => Path.GetDirectoryName(ProgramPath);
-
-		public static string WatcherServiceName => Beta ? "VidCoder Beta File Watcher" : "VidCoder File Watcher";
 	}
 }

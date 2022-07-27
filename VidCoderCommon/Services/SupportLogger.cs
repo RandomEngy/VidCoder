@@ -8,13 +8,17 @@ using VidCoderCommon.Model;
 
 namespace VidCoderCommon.Services
 {
-	public class SetupLogger : IBasicLogger
+	/// <summary>
+	/// Logs for a support process like installer or windows service.
+	/// </summary>
+	public class SupportLogger : IBasicLogger
 	{
 		private StreamWriter logWriter;
 
-		public SetupLogger(string type)
+		public SupportLogger(string type)
 		{
-			string logFolder = CommonUtilities.LogsFolder;
+			string logFolder = @"C:\Users\david\AppData\Roaming\VidCoder-Beta\Logs";
+			//string logFolder = CommonUtilities.LogsFolder;
 			string logFileName = DateTimeOffset.Now.ToString("yyyy-MM-dd HH.mm.ss ") + type + ".txt";
 
 			string logFilePath = Path.Combine(logFolder, logFileName);

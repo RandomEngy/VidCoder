@@ -127,6 +127,7 @@ namespace VidCoder
 			cache.Add("CompareWindowIsMuted", DatabaseConfig.Get("CompareWindowIsMuted", true, connection));
 			cache.Add("TriggerEncodeCompleteActionWithErrors", DatabaseConfig.Get("TriggerEncodeCompleteActionWithErrors", true, connection));
 			cache.Add("EncodeRetries", DatabaseConfig.Get("EncodeRetries", 0, connection));
+			cache.Add("WatcherEnabled", DatabaseConfig.Get("WatcherEnabled", false, connection));
 		}
 
 		public static T Get<T>(string key)
@@ -650,6 +651,11 @@ namespace VidCoder
 			get { return (int)cache["EncodeRetries"]; }
 			set { Set("EncodeRetries", value); }
 		}
+		public static bool WatcherEnabled
+		{
+			get { return (bool)cache["WatcherEnabled"]; }
+			set { Set("WatcherEnabled", value); }
+		}
 		public static class Observables
 		{
 			public static IObservable<bool> MigratedConfigs => GetObservable<bool>("MigratedConfigs");
@@ -750,6 +756,7 @@ namespace VidCoder
 			public static IObservable<bool> CompareWindowIsMuted => GetObservable<bool>("CompareWindowIsMuted");
 			public static IObservable<bool> TriggerEncodeCompleteActionWithErrors => GetObservable<bool>("TriggerEncodeCompleteActionWithErrors");
 			public static IObservable<int> EncodeRetries => GetObservable<int>("EncodeRetries");
+			public static IObservable<bool> WatcherEnabled => GetObservable<bool>("WatcherEnabled");
 			private static IObservable<T> GetObservable<T>(string configName)
 			{
 				object observableObject;

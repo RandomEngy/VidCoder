@@ -26,48 +26,37 @@
 				<RowDefinition />
 			</Grid.RowDefinitions>
 			<controls:ToolWindowTitleBar
-				Title="{x:Static Resources:WatcherRes.WatcherWindowTitle}"
+				Title="{Binding WindowTitle}"
 				Grid.Row="0"
 				IsActive="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" />
-			<StackPanel
-				Grid.Row="1"
-				Margin="16"
-				VerticalAlignment="Center"
-				Orientation="Vertical"
-				Visibility="{Binding ServiceIsInstalled, Converter={StaticResource InverseVisibilityConverter}}">
-				<TextBlock
-					HorizontalAlignment="Center"
-					Text="{x:Static Resources:WatcherRes.WatcherIntroText}"
-					TextWrapping="Wrap" />
-				<Button
-					MinHeight="60"
-					Margin="0 6 0 0"
-					Command="{Binding InstallWatcherService}">
-					<StackPanel Orientation="Horizontal">
-						<Image
-							Name="installUacShieldIcon"
-							Width="30"
-							Height="30" />
-						<TextBlock
-							Margin="6 0 0 0"
-							VerticalAlignment="Center"
-							FontSize="20"
-							Text="{x:Static Resources:WatcherRes.InstallWatcherButton}" />
-					</StackPanel>
-				</Button>
-			</StackPanel>
-
-			<Grid Grid.Row="2" Visibility="{Binding ServiceIsInstalled, Converter={StaticResource VisibilityConverter}}">
+			<Grid Grid.Row="2">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 					<RowDefinition />
 				</Grid.RowDefinitions>
 				<!--  Button toolbar  -->
-				<StackPanel Grid.Row="0" Orientation="Horizontal">
+				<StackPanel
+					Grid.Row="0"
+					MinHeight="30"
+					Margin="12 0 0 0"
+					Orientation="Horizontal">
+					<CheckBox
+						VerticalContentAlignment="Center"
+						Content="{x:Static Resources:CommonRes.Enabled}"
+						IsChecked="{Binding WatcherEnabled}" />
+					<CheckBox
+						Margin="12 0 0 0"
+						VerticalContentAlignment="Center"
+						Content="{x:Static Resources:WatcherRes.RunWhenClosedCheckBox}"
+						IsChecked="{Binding RunWhenClosed}"
+						Visibility="{Binding WatcherEnabled, Converter={StaticResource VisibilityConverter}}" />
 					<Button
+						Margin="6 0 0 0"
 						Padding="6"
+						AutomationProperties.Name="{x:Static Resources:WatcherRes.ConfigureFoldersButton}"
 						Command="{Binding OpenConfig}"
-						Style="{StaticResource BorderlessButtonStyle}">
+						Style="{StaticResource BorderlessButtonStyle}"
+						Visibility="{Binding WatcherEnabled, Converter={StaticResource VisibilityConverter}}">
 						<StackPanel Orientation="Horizontal">
 							<Image
 								Width="20"
@@ -77,21 +66,6 @@
 								Margin="6 0 0 0"
 								VerticalAlignment="Center"
 								Text="{x:Static Resources:WatcherRes.ConfigureFoldersButton}" />
-						</StackPanel>
-					</Button>
-					<Button
-						Padding="6"
-						Command="{Binding UninstallWatcherService}"
-						Style="{StaticResource BorderlessButtonStyle}">
-						<StackPanel Orientation="Horizontal">
-							<Image
-								Name="uninstallUacShieldIcon"
-								Width="20"
-								Height="20" />
-							<TextBlock
-								Margin="6 0 0 0"
-								VerticalAlignment="Center"
-								Text="{x:Static Resources:WatcherRes.UninstallWatcherButton}" />
 						</StackPanel>
 					</Button>
 				</StackPanel>

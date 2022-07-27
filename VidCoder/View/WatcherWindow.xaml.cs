@@ -22,8 +22,6 @@ namespace VidCoder.View
 		public WatcherWindow()
 		{
 			InitializeComponent();
-			this.installUacShieldIcon.Source = WpfSystemIcons.UacShield;
-			this.uninstallUacShieldIcon.Source = WpfSystemIcons.UacShield;
 		}
 	}
 }

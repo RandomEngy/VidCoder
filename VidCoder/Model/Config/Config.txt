@@ -110,3 +110,5 @@ PreviewVolume|double|0.5
 CompareWindowIsMuted|bool|true
 TriggerEncodeCompleteActionWithErrors|bool|true
 EncodeRetries|int|0
+
+WatcherEnabled|bool|false

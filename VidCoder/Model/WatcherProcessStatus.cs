@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoderFileWatcher.Model
+namespace VidCoder.Model
 {
-	public interface IWatcherCommands
+	public enum WatcherProcessStatus
 	{
-		void RefreshFromWatchedFolders();
-
-		void Ping();
+		Disabled,
+		Stopped,
+		Starting,
+		Running
 	}
 }

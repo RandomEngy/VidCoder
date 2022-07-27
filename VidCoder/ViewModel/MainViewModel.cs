@@ -700,6 +700,12 @@ namespace VidCoder.ViewModel
 				this.ProcessingService.StopAndWaitAsync(EncodeCompleteReason.AppExitStop).Wait();
 			}
 
+			// Close the watcher service if the user has asked to on program close
+			if (!RegistryUtilities.IsFileWatcherAutoStart())
+			{
+				StaticResolver.Resolve<WatcherProcessManager>().Stop();
+			}
+
 			this.windowManager.CloseTrackedWindows();
 
 			this.driveService.Dispose();

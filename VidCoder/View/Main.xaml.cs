@@ -228,14 +228,14 @@ namespace VidCoder.View
 			var doAnActionItem = new Fluent.MenuItem { Header = "Perform action" };
 			doAnActionItem.Click += (sender, args) =>
 			{
-				VidCoderInstall.RunElevatedSetup("activateFileWatcher", StaticResolver.Resolve<IAppLogger>());
+				// Nothing for now
 			};
 			debugDropDown.Items.Add(doAnActionItem);
 
 			var doAnActionItem2 = new Fluent.MenuItem { Header = "Perform action 2" };
 			doAnActionItem2.Click += (sender, args) =>
 			{
-				VidCoderInstall.RunElevatedSetup("deactivateFileWatcher", StaticResolver.Resolve<IAppLogger>());
+				// Nothing for now
 			};
 			debugDropDown.Items.Add(doAnActionItem2);
 

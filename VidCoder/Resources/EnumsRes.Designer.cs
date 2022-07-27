@@ -727,6 +727,42 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disabled.
+        /// </summary>
+        public static string WatcherProcessStatus_Disabled {
+            get {
+                return ResourceManager.GetString("WatcherProcessStatus_Disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Running.
+        /// </summary>
+        public static string WatcherProcessStatus_Running {
+            get {
+                return ResourceManager.GetString("WatcherProcessStatus_Running", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starting....
+        /// </summary>
+        public static string WatcherProcessStatus_Starting {
+            get {
+                return ResourceManager.GetString("WatcherProcessStatus_Starting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stopped.
+        /// </summary>
+        public static string WatcherProcessStatus_Stopped {
+            get {
+                return ResourceManager.GetString("WatcherProcessStatus_Stopped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Automatically rename.
         /// </summary>
         public static string WhenFileExists_AutoRename {

@@ -360,4 +360,16 @@
   <data name="Deinterlace_Bwdif" xml:space="preserve">
     <value>Bwdif</value>
   </data>
+  <data name="WatcherProcessStatus_Disabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="WatcherProcessStatus_Running" xml:space="preserve">
+    <value>Running</value>
+  </data>
+  <data name="WatcherProcessStatus_Starting" xml:space="preserve">
+    <value>Starting...</value>
+  </data>
+  <data name="WatcherProcessStatus_Stopped" xml:space="preserve">
+    <value>Stopped</value>
+  </data>
 </root>

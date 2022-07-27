@@ -2,8 +2,11 @@
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
 using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,58 +23,57 @@ namespace VidCoder.ViewModel
 	public class WatcherWindowViewModel : ReactiveObject
 	{
 		private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
+		private WatcherProcessManager watcherProcessManager = StaticResolver.Resolve<WatcherProcessManager>();
+		private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
 
 		public WatcherWindowViewModel()
 		{
-			ServiceController controller = ServiceController.GetServices().FirstOrDefault(service => service.ServiceName == CommonUtilities.WatcherServiceName);
-			this.serviceIsInstalled = controller != null;
+			// WindowTitle
+			this.WhenAnyValue(x => x.watcherProcessManager.Status)
+				.Select(status =>
+				{
+					return string.Format(WatcherRes.WatcherWindowTitle, GetStatusString(status));
+				})
+				.ToProperty(this, x => x.WindowTitle, out this.windowTitle);
 		}
 
-		private bool serviceIsInstalled;
-		public bool ServiceIsInstalled
-		{
-			get { return this.serviceIsInstalled; }
-			set { this.RaiseAndSetIfChanged(ref this.serviceIsInstalled, value); }
-		}
+		private ObservableAsPropertyHelper<string> windowTitle;
+		public string WindowTitle => this.windowTitle.Value;
 
-		private ReactiveCommand<Unit, Unit> installWatcherService;
-		public ICommand InstallWatcherService
+		private bool watcherEnabled = Config.WatcherEnabled;
+		public bool WatcherEnabled
 		{
-			get
+			get { return this.watcherEnabled; }
+			set
 			{
-				return this.installWatcherService ?? (this.installWatcherService = ReactiveCommand.Create(
-					() =>
-					{
-						if (VidCoderInstall.RunElevatedSetup("activateFileWatcher", StaticResolver.Resolve<IAppLogger>()))
-						{
-							this.ServiceIsInstalled = true;
-							this.OpenConfig.Execute(null);
-						}
-						else
-						{
-							Utilities.MessageBox.Show(WatcherRes.ServiceInstallError);
-						}
-					}));
+				Config.WatcherEnabled = value;
+				this.RaiseAndSetIfChanged(ref this.watcherEnabled, value);
+				if (value)
+				{
+					this.watcherProcessManager.Start();
+				}
+				else
+				{
+					this.watcherProcessManager.Stop();
+				}
 			}
 		}
 
-		private ReactiveCommand<Unit, Unit> uninstallWatcherService;
-		public ICommand UninstallWatcherService
+		private bool runWhenClosed = RegistryUtilities.IsFileWatcherAutoStart();
+		public bool RunWhenClosed
 		{
-			get
+			get { return this.runWhenClosed; }
+			set
 			{
-				return this.uninstallWatcherService ?? (this.uninstallWatcherService = ReactiveCommand.Create(
-					() =>
-					{
-						if (VidCoderInstall.RunElevatedSetup("deactivateFileWatcher", StaticResolver.Resolve<IAppLogger>()))
-						{
-							this.ServiceIsInstalled = false;
-						}
-						else
-						{
-							Utilities.MessageBox.Show(WatcherRes.ServiceUninstallError);
-						}
-					}));
+				this.RaiseAndSetIfChanged(ref this.runWhenClosed, value);
+				if (value)
+				{
+					RegistryUtilities.SetFileWatcherAutoStart(this.logger);
+				}
+				else
+				{
+					RegistryUtilities.RemoveFileWatcherAutoStart(this.logger);
+				}
 			}
 		}
 
@@ -91,6 +93,23 @@ namespace VidCoder.ViewModel
 							WatcherStorage.SaveWatchedFolders(Database.Connection, watcherConfigDialog.WatchedFolders.Items.Select(watchedFolderViewModel => watchedFolderViewModel.WatchedFolder).ToList());
 						}
 					}));
+			}
+		}
+
+		private static string GetStatusString(WatcherProcessStatus status)
+		{
+			switch (status)
+			{
+				case WatcherProcessStatus.Running:
+					return EnumsRes.WatcherProcessStatus_Running;
+				case WatcherProcessStatus.Starting:
+					return EnumsRes.WatcherProcessStatus_Starting;
+				case WatcherProcessStatus.Stopped:
+					return EnumsRes.WatcherProcessStatus_Stopped;
+				case WatcherProcessStatus.Disabled:
+					return EnumsRes.WatcherProcessStatus_Disabled;
+				default:
+					return string.Empty;
 			}
 		}
 	}

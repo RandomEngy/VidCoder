@@ -1,15 +1,44 @@
+﻿// See https://aka.ms/new-console-template for more information
+using PipeMethodCalls;
+using PipeMethodCalls.NetJson;
 using VidCoderCommon;
-using VidCoderFileWatcher;
+using VidCoderCommon.Model;
+using VidCoderCommon.Services;
+using VidCoderFileWatcher.Model;
+using VidCoderFileWatcher.Services;
 
-IHost host = Host.CreateDefaultBuilder(args)
-	.UseWindowsService(options =>
+IBasicLogger logger = new SupportLogger("Watcher");
+
+var service = new WatcherService(logger);
+service.RefreshFromWatchedFolders();
+CancellationTokenSource tokenSource = new CancellationTokenSource();
+
+bool firstLineWritten = false;
+
+while (!tokenSource.IsCancellationRequested)
+{
+	var pipeServer = new PipeServer<IWatcherCommands>(new NetJsonPipeSerializer(), CommonUtilities.FileWatcherPipeName, () => service);
+	try
 	{
-		options.ServiceName = CommonUtilities.WatcherServiceName;
-	})
-    .ConfigureServices(services =>
-    {
-        services.AddHostedService<Worker>();
-    })
-    .Build();
+		pipeServer.SetLogger(message => logger.Log(message));
+		Task connectTask = pipeServer.WaitForConnectionAsync(tokenSource.Token);
 
-await host.RunAsync();
+		if (!firstLineWritten)
+		{
+			// Write a line to let the client know we are ready for connections
+			Console.WriteLine("Pipe is open");
+			firstLineWritten = true;
+		}
+
+		await connectTask;
+		await pipeServer.WaitForRemotePipeCloseAsync(tokenSource.Token);
+	}
+	catch (Exception exception)
+	{
+		logger.Log(exception.ToString());
+	}
+	finally
+	{
+		pipeServer.Dispose();
+	}
+}
