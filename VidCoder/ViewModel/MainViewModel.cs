@@ -540,7 +540,7 @@ namespace VidCoder.ViewModel
                 }
                 else
                 {
-                    StaticResolver.Resolve<ProcessingService>().QueueMultipleSourcePaths(fileList);
+                    StaticResolver.Resolve<ProcessingService>().QueueMultipleSourcePaths(string.Empty, fileList);
                 }
             }
         }
