@@ -1206,12 +1206,13 @@ namespace VidCoder.Services
 		/// <summary>
 		/// Adds the given source to the encode queue.
 		/// </summary>
+		/// <param name="cli_timespan">Optional CLI Timespan Encoding > Start-End > (HHHH:MM:SS.ms-HHHH:MM:SS.ms) </param>
 		/// <param name="source">The path to the source file to encode.</param>
 		/// <param name="destination">The destination path for the encoded file.</param>
 		/// <param name="presetName">The name of the preset to use to encode.</param>
 		/// <param name="pickerName">The name of the picker to use. Will use default picker if null.</param>
 		/// <returns>True if the item was successfully queued for processing.</returns>
-		public void Process(string source, string destination, string presetName, string pickerName)
+		public void Process(string cli_timespan, string source, string destination, string presetName, string pickerName)
 		{
 			if (string.IsNullOrWhiteSpace(source))
 			{
@@ -1241,7 +1242,12 @@ namespace VidCoder.Services
 			}
 
 			List<SourcePath> pathList = this.videoFileFinder.GetPathList(new List<string> { source }, picker);
-			this.QueueMultipleSourcePaths(pathList, profile, picker);
+			this.QueueMultipleSourcePaths(cli_timespan, pathList, profile, picker);
+
+			if (cli_timespan != null)
+			{
+				this.encodeCompleteAction.ActionType = EncodeCompleteActionType.CloseProgram;
+			}
 
 			if (!this.encoding)
 			{
@@ -1314,7 +1320,7 @@ namespace VidCoder.Services
 					PassThroughMetadata = picker.PassThroughMetadata
 				};
 
-				this.AutoPickRange(job, title);
+				this.AutoPickRange(string.Empty, job, title);
 
 				this.AutoPickAudio(job, title, useCurrentContext: true);
 				this.AutoPickSubtitles(job, title, useCurrentContext: true);
@@ -1419,11 +1425,11 @@ namespace VidCoder.Services
 
 		public void QueueMultipleRawPaths(IEnumerable<string> pathsToQueue)
 		{
-			this.QueueMultipleSourcePaths(pathsToQueue.Select(p => new SourcePath { Path = p }));
+			this.QueueMultipleSourcePaths(string.Empty, pathsToQueue.Select(p => new SourcePath { Path = p }));
 		}
 
 		// Queues a list of files or video folders.
-		public void QueueMultipleSourcePaths(IEnumerable<SourcePath> sourcePaths, VCProfile profile = null, Picker picker = null)
+		public void QueueMultipleSourcePaths(string cli_timespan, IEnumerable<SourcePath> sourcePaths, VCProfile profile = null, Picker picker = null)
 		{
 			if (profile == null)
 			{
@@ -1532,7 +1538,7 @@ namespace VidCoder.Services
 				job.Length = title.Duration.ToSpan();
 
 				// Choose the correct range based on picker settings
-				this.AutoPickRange(job, title);
+				this.AutoPickRange(cli_timespan, job, title);
 
 				// Choose the correct audio/subtitle tracks based on settings
 				this.AutoPickAudio(job, title);
@@ -3332,10 +3338,11 @@ namespace VidCoder.Services
 		/// <summary>
 		/// Populates range and length information on job.
 		/// </summary>
+		/// <param name="cli_timespan">Optional CLI Timespan Encoding > Start-End > (HHHH:MM:SS.ms-HHHH:MM:SS.ms) </param>
 		/// <param name="job">The job to pick the range on.</param>
 		/// <param name="title">The title the job is applied to.</param>
 		/// <param name="picker">The picker to use to pick the range.</param>
-		private void AutoPickRange(VCJob job, SourceTitle title, Picker picker = null)
+		private void AutoPickRange(string cli_timespan, VCJob job, SourceTitle title, Picker picker = null)
 		{
 			if (picker == null)
 			{
@@ -3376,6 +3383,42 @@ namespace VidCoder.Services
 				default:
 					job.RangeType = VideoRangeType.All;
 					job.Length = title.Duration.ToSpan();
+
+					#region "Optional CLI timespan Parameter"
+					try
+					{
+						if (cli_timespan != null) // timespan CLI Parameter
+						{
+							string[] times = cli_timespan.Split('-');
+							job.RangeType = VideoRangeType.Seconds;
+							TimeSpan timespanStart = TimeSpan.Parse(times[0]);
+							TimeSpan timespanEnd = TimeSpan.Parse(times[1]);
+
+							if (timespanStart >= timespanEnd | timespanEnd >= title.Duration.ToSpan())
+							{
+								// Timespan out of Range > Switching back to default Full Duration Encoding
+								job.RangeType = VideoRangeType.All;
+								job.Length = title.Duration.ToSpan();
+								return;
+							}
+							else
+							{
+								job.SecondsStart = timespanStart.TotalSeconds;
+								job.SecondsEnd = timespanEnd.TotalSeconds;
+								job.Length = timespanEnd - timespanStart;
+								return;
+							}
+						}
+					}
+					catch
+					{
+						// If any other Error, like invalid timespan Format > Switching back to default Full Duration Encoding
+						job.RangeType = VideoRangeType.All;
+						job.Length = title.Duration.ToSpan();
+						return;
+					}
+					#endregion "Optional CLI timespan Parameter"
+
 					break;
 			}
 		}
