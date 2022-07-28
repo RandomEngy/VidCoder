@@ -231,6 +231,7 @@ namespace VidCoderCLI
 		private static void PrintUsage()
 		{
 			Console.WriteLine("Usage:");
+			Console.WriteLine("VidCoderCLI encode > optional use 'timespan' encode > -timespan \"0:00:10-0:22:01\"");
 			Console.WriteLine("VidCoderCLI encode -s[ource] \"<source path>\" [-d[estination] \"<encode file destination>\"] -p[reset] \"<preset name>\" [-picker \"<picker name>\"]");
 			Console.WriteLine("VidCoderCLI scan -s[ource] \"<source path>\"");
 			Console.WriteLine("VidCoderCLI importpreset \"<preset file path>\"");
