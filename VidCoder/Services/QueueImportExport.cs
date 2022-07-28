@@ -34,7 +34,7 @@ namespace VidCoder.Services
 
 				foreach (var job in jobs)
 				{
-					this.processingService.Queue(new EncodeJobViewModel(job.Job)
+					this.processingService.QueueJob(new EncodeJobViewModel(job.Job)
 						{
 							SourceParentFolder = job.SourceParentFolder,
 							ManualOutputPath = job.ManualOutputPath,

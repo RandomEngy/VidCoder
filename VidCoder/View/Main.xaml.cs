@@ -184,7 +184,7 @@ namespace VidCoder.View
 						jobViewModel.Job.FinalOutputPath = encodeObject.Destination.File;
 						jobViewModel.Job.SourcePath = encodeObject.Source.Path;
 
-						this.processingService.Queue(jobViewModel);
+						this.processingService.QueueJob(jobViewModel);
 					}
 					catch (Exception exception)
 					{

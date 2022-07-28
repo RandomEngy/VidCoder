@@ -1117,7 +1117,7 @@ namespace VidCoder.ViewModel
 			this.bitrateChoices = new List<BitrateChoiceViewModel>();
 			BitrateLimits bitrateLimits = null;
 
-			// Determine if we should gray out "out of range" bitrates
+			// Determine if we should gray out "out of range" bitratesc
 			// Can only do this if a source is loaded
 			if (this.main.HasVideoSource)
 			{
@@ -1143,7 +1143,11 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			BitrateLimits encoderBitrateLimits = CodecUtilities.GetAudioEncoderLimits(this.HBAudioEncoder);
+			// Find the bitrate limits for the max case (lots of channels, high sample rate)
+			BitrateLimits limitsForMax = HandBrakeEncoderHelpers.GetBitrateLimits(this.HBAudioEncoder, 48000, HandBrakeEncoderHelpers.GetMixdown("7point1"));
+
+			// Find the bitrate limits for the min case (one channel, low sample rate)
+			BitrateLimits limitsForMin = HandBrakeEncoderHelpers.GetBitrateLimits(this.HBAudioEncoder, 8000, HandBrakeEncoderHelpers.GetMixdown("mono"));
 
 			this.bitrateChoices.Add(new BitrateChoiceViewModel
 			    {
@@ -1153,7 +1157,7 @@ namespace VidCoder.ViewModel
 
 			foreach (int bitrateChoice in HandBrakeEncoderHelpers.AudioBitrates)
 			{
-				if (bitrateChoice >= encoderBitrateLimits.Low && bitrateChoice <= encoderBitrateLimits.High)
+				if (bitrateChoice >= limitsForMin.Low && bitrateChoice <= limitsForMax.High)
 				{
 					bool isCompatible = bitrateLimits == null || bitrateChoice >= bitrateLimits.Low && bitrateChoice <= bitrateLimits.High;
 

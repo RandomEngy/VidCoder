@@ -59,6 +59,7 @@ namespace VidCoder
 			container.RegisterSingleton<PresetsService>();
 			container.RegisterSingleton<PickersService>();
 			container.RegisterSingleton<ProcessingService>();
+			container.RegisterSingleton<VideoFileFinder>();
 			container.RegisterSingleton<SubtitlesService>();
 			container.RegisterSingleton<StatusService>();
 			container.RegisterSingleton<PreviewUpdateService>();
