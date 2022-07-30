@@ -1248,19 +1248,28 @@ namespace VidCoder.Services
 			}
 			else
 			{
-				// Batch Converting, when not using the timespan command // Should be depending of the destination.. someday
-				List<SourcePath> pathList = this.videoFileFinder.GetPathList(new List<string> { source }, picker);
-				this.QueueMultipleSourcePaths(pathList, profile, picker);
+				// Batch Converting // Should be depending of the destination.. someday
+				//List<SourcePath> pathList = this.videoFileFinder.GetPathList(new List<string> { source }, picker);
+				//this.QueueMultipleSourcePaths(pathList, profile, picker);
+
+				var scanMultipleDialog = new ScanMultipleDialogViewModel(new List<SourcePath> { new SourcePath { Path = source } });
+				this.windowManager.OpenDialog(scanMultipleDialog);
+				VideoSource videoSource = scanMultipleDialog.ScanResults[0].VideoSource;
+				this.QueueSingleSourcePath(String.Empty, videoSource, source, destination, presetName, profile, picker);
 			}
 
 			if (!this.encoding)
 			{
-				this.StartEncodeQueue();
+				//this.StartEncodeQueue();
 			}
 		}
 
 		public void CLI_TimespanLogic(string cli_timespan, string source, string destination, string presetName, VCProfile profile = null, Picker picker = null)
 		{
+			var scanMultipleDialog = new ScanMultipleDialogViewModel(new List<SourcePath> { new SourcePath { Path = source } });
+			this.windowManager.OpenDialog(scanMultipleDialog);
+			VideoSource videoSource = scanMultipleDialog.ScanResults[0].VideoSource;
+
 			// found multi timespan
 			int rangecheck_errors = 0;
 			if (cli_timespan.Contains(";")) // timespan CLI Parameter
@@ -1270,7 +1279,7 @@ namespace VidCoder.Services
 
 				for (int i = 0; i < array_timespan.Length; i++)
 				{
-					bool result_rangecheck = this.CLI_CheckTimespanInRange(array_timespan[i], source, destination, presetName, profile, picker);
+					bool result_rangecheck = this.CLI_CheckTimespanInRange(array_timespan[i], videoSource, source, destination, presetName, profile, picker);
 					if (result_rangecheck == false) { rangecheck_errors += 1; }
 				}
 				if (rangecheck_errors == 0)
@@ -1279,39 +1288,34 @@ namespace VidCoder.Services
 					for (int i = 0; i < array_timespan.Length; i++)
 					{
 						string new_destination = destination.Replace(fi.Extension, $"#merge{i}{fi.Extension}"); // Name + index of array
-						this.QueueSingleSourcePath(array_timespan[i], source, new_destination, presetName, profile, picker);
+						this.QueueSingleSourcePath(array_timespan[i], videoSource, source, new_destination, presetName, profile, picker);
 					}
 				}
 				else
 				{
-					MessageBox.Show("Skipped File - invalid timespan");
+					MessageBox.Show(source + "\nSkipped File - invalid timespan");
 				}
 			}
 			else
 			{
 				// found single timespan
-				bool result_rangecheck = this.CLI_CheckTimespanInRange(cli_timespan, source, destination, presetName, profile, picker);
+				bool result_rangecheck = this.CLI_CheckTimespanInRange(cli_timespan, videoSource, source, destination, presetName, profile, picker);
 				if (result_rangecheck == false) { rangecheck_errors += 1; }
 				if (rangecheck_errors == 0)
 				{
 					// Convert only when the timespan is in File Range
-					this.QueueSingleSourcePath(cli_timespan, source, destination, presetName, profile, picker);
+					this.QueueSingleSourcePath(cli_timespan, videoSource, source, destination, presetName, profile, picker);
 				}
 				else
 				{
-					MessageBox.Show("Skipped File - invalid timespan");
+					MessageBox.Show(source + "\nSkipped File - invalid timespan");
 				}
 
 			}
 		}
 
-		public bool CLI_CheckTimespanInRange(string cli_timespan, string source, string destination, string presetName, VCProfile profile = null, Picker picker = null)
+		public bool CLI_CheckTimespanInRange(string cli_timespan, VideoSource videoSource, string source, string destination, string presetName, VCProfile profile = null, Picker picker = null)
 		{
-			var scanMultipleDialog = new ScanMultipleDialogViewModel(new List<SourcePath> { new SourcePath { Path = source } });
-			this.windowManager.OpenDialog(scanMultipleDialog);
-
-			VideoSource videoSource = scanMultipleDialog.ScanResults[0].VideoSource;
-
 			List<int> titleNumbers;
 			if (videoSource != null)
 			{
@@ -1365,8 +1369,9 @@ namespace VidCoder.Services
 						}
 					}
 				}
-				catch
+				catch (Exception ex)
 				{
+					MessageBox.Show("Probably Values are bigger than 59...\n" + ex.Message);
 					return false;
 				}
 
@@ -1375,13 +1380,8 @@ namespace VidCoder.Services
 			return false;
 		}
 
-		public void QueueSingleSourcePath(string cli_timespan, string source, string destination, string presetName, VCProfile profile = null, Picker picker = null)
+		public void QueueSingleSourcePath(string cli_timespan, VideoSource videoSource, string source, string destination, string presetName, VCProfile profile = null, Picker picker = null)
 		{
-			var scanMultipleDialog = new ScanMultipleDialogViewModel(new List<SourcePath> { new SourcePath { Path = source } });
-			this.windowManager.OpenDialog(scanMultipleDialog);
-
-			VideoSource videoSource = scanMultipleDialog.ScanResults[0].VideoSource;
-
 			List<int> titleNumbers;
 			if (videoSource != null)
 			{
