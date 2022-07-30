@@ -1244,7 +1244,7 @@ namespace VidCoder.Services
 			if (cli_timespan != null)
 			{
 				this.encodeCompleteAction.ActionType = EncodeCompleteActionType.CloseProgram;
-				this.QueueSingleSourcePath(cli_timespan, source, destination, presetName, profile, picker);
+				this.CLI_TimespanLogic(cli_timespan, source, destination, presetName, profile, picker);
 			}
 			else
 			{
@@ -1255,8 +1255,124 @@ namespace VidCoder.Services
 
 			if (!this.encoding)
 			{
-				this.StartEncodeQueue();
+				//this.StartEncodeQueue();
 			}
+		}
+
+		public void CLI_TimespanLogic(string cli_timespan, string source, string destination, string presetName, VCProfile profile = null, Picker picker = null)
+		{
+			// found multi timespan
+			int rangecheck_errors = 0;
+			if (cli_timespan.Contains(";")) // timespan CLI Parameter
+			{
+				string[] array_timespan = cli_timespan.Split(';');
+				FileInfo fi = new FileInfo(destination);
+
+				for (int i = 0; i < array_timespan.Length; i++)
+				{
+					bool result_rangecheck = this.CLI_CheckTimespanInRange(array_timespan[i], source, destination, presetName, profile, picker);
+					if (result_rangecheck == false) { rangecheck_errors += 1; }
+				}
+				if (rangecheck_errors == 0)
+				{
+					// Convert only when all timespans are in File Range
+					for (int i = 0; i < array_timespan.Length; i++)
+					{
+						string new_destination = destination.Replace(fi.Extension, $"#merge{i}{fi.Extension}"); // Name + index of array
+						this.QueueSingleSourcePath(array_timespan[i], source, new_destination, presetName, profile, picker);
+					}
+				}
+				else
+				{
+					MessageBox.Show("Skipped File - invalid timespan");
+				}
+			}
+			else
+			{
+				// found single timespan
+				bool result_rangecheck = this.CLI_CheckTimespanInRange(cli_timespan, source, destination, presetName, profile, picker);
+				if (result_rangecheck == false) { rangecheck_errors += 1; }
+				if (rangecheck_errors == 0)
+				{
+					// Convert only when the timespan is in File Range
+					this.QueueSingleSourcePath(cli_timespan, source, destination, presetName, profile, picker);
+				}
+				else
+				{
+					MessageBox.Show("Skipped File - invalid timespan");
+				}
+
+			}
+		}
+
+		public bool CLI_CheckTimespanInRange(string cli_timespan, string source, string destination, string presetName, VCProfile profile = null, Picker picker = null)
+		{
+			var scanMultipleDialog = new ScanMultipleDialogViewModel(new List<SourcePath> { new SourcePath { Path = source } });
+			this.windowManager.OpenDialog(scanMultipleDialog);
+
+			VideoSource videoSource = scanMultipleDialog.ScanResults[0].VideoSource;
+
+			List<int> titleNumbers;
+			if (videoSource != null)
+			{
+				titleNumbers = this.PickTitles(videoSource, picker);
+			}
+			else
+			{
+				titleNumbers = new List<int>();
+			}
+
+			foreach (int titleNumber in titleNumbers)
+			{
+				var jobVM = new EncodeJobViewModel(new VCJob
+				{
+					SourcePath = source,
+					SourceType = Utilities.GetSourceType(source),
+					Title = titleNumber,
+					RangeType = VideoRangeType.All,
+					EncodingProfile = profile,
+					AudioTracks = new List<ChosenAudioTrack> { new ChosenAudioTrack { TrackNumber = 1 } },
+					FinalOutputPath = destination,
+					UseDefaultChapterNames = true,
+					PassThroughMetadata = picker.PassThroughMetadata
+				});
+
+				jobVM.VideoSource = videoSource;
+				jobVM.PresetName = presetName;
+				jobVM.ManualOutputPath = !string.IsNullOrWhiteSpace(destination);
+
+				VCJob job = jobVM.Job;
+
+				SourceTitle title = jobVM.VideoSource.Titles.Single(t => t.Index == titleNumber);
+				jobVM.Job.Length = title.Duration.ToSpan();
+
+				try
+				{
+					if (cli_timespan != null) // timespan CLI Parameter
+					{
+						string[] times = cli_timespan.Split('-');
+						job.RangeType = VideoRangeType.Seconds;
+						TimeSpan timespanStart = TimeSpan.Parse(times[0]);
+						TimeSpan timespanEnd = TimeSpan.Parse(times[1]);
+
+						if (timespanStart >= timespanEnd | timespanEnd >= title.Duration.ToSpan())
+						{
+							return false; // Timespan out of Range
+						}
+						else
+						{
+							return true; // Timespan is in Range
+						}
+					}
+				}
+				catch
+				{
+					return false;
+				}
+
+				return true;
+			}
+			return false;
 		}
 
 		public void QueueSingleSourcePath(string cli_timespan, string source, string destination, string presetName, VCProfile profile = null, Picker picker = null)
