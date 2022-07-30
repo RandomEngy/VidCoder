@@ -1255,7 +1255,7 @@ namespace VidCoder.Services
 
 			if (!this.encoding)
 			{
-				//this.StartEncodeQueue();
+				this.StartEncodeQueue();
 			}
 		}
 
