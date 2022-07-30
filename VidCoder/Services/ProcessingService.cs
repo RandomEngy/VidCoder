@@ -1248,7 +1248,7 @@ namespace VidCoder.Services
 			}
 			else
 			{
-				// Batch Converting, when not using the timespan command // Should be depending of the destination.. someday
+				// Batch Converting // Should be depending of the destination.. someday
 				List<SourcePath> pathList = this.videoFileFinder.GetPathList(new List<string> { source }, picker);
 				this.QueueMultipleSourcePaths(pathList, profile, picker);
 			}
