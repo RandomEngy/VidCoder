@@ -28,6 +28,27 @@ namespace VidCoderCommon.Utilities
 			return (paths, inacessibleDirectories);
 		}
 
+		public static ISet<string> ParseVideoExtensionList(string videoExtensionString)
+		{
+			var videoExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+			string[] rawExtensions = videoExtensionString.Split(',', ';');
+			foreach (string rawExtension in rawExtensions)
+			{
+				string extension = rawExtension.Trim();
+				if (extension.Length > 0)
+				{
+					if (!extension.StartsWith("."))
+					{
+						extension = "." + extension;
+					}
+
+					videoExtensions.Add(extension);
+				}
+			}
+
+			return videoExtensions;
+		}
+
 		private static void GetFilesOrVideoFoldersRecursive(DirectoryInfo directory, List<SourcePathWithType> paths, List<string> inacessibleDirectories, ISet<string> videoExtensions, int ignoreFilesBelowMb)
 		{
 			if (IsDiscFolder(directory.FullName))

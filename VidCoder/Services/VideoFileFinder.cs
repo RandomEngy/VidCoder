@@ -33,22 +33,7 @@ namespace VidCoder.Services
 				picker = this.PickersService.SelectedPicker.Picker;
 			}
 
-			var videoExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-			string extensionsString = picker.VideoFileExtensions;
-			string[] rawExtensions = extensionsString.Split(',', ';');
-			foreach (string rawExtension in rawExtensions)
-			{
-				string extension = rawExtension.Trim();
-				if (extension.Length > 0)
-				{
-					if (!extension.StartsWith("."))
-					{
-						extension = "." + extension;
-					}
-
-					videoExtensions.Add(extension);
-				}
-			}
+			ISet<string> videoExtensions = CommonFileUtilities.ParseVideoExtensionList(picker.VideoFileExtensions);
 
 			var pathList = new List<SourcePathWithMetadata>();
 

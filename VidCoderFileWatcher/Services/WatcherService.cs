@@ -32,7 +32,7 @@ namespace VidCoderFileWatcher.Services
 			this.logger.Log("Refreshing file list...");
 			List<WatchedFolder> folders = WatcherStorage.GetWatchedFolders(WatcherDatabase.Connection);
 
-			foreach(WatchedFolder folder in folders)
+			foreach (WatchedFolder folder in folders)
 			{
 				this.logger.Log("Enumerating folder: " + folder.Path);
 
@@ -44,6 +44,21 @@ namespace VidCoderFileWatcher.Services
 				else
 				{
 					picker = DefaultPicker;
+				}
+
+				ISet<string> videoExtensions = CommonFileUtilities.ParseVideoExtensionList(picker.VideoFileExtensions);
+				(List<SourcePathWithType> sourcePaths, List<string> inacessibleDirectories) = CommonFileUtilities.GetFilesOrVideoFolders(
+					folder.Path, videoExtensions,
+					picker.IgnoreFilesBelowMbEnabled ? picker.IgnoreFilesBelowMb : 0);
+
+				foreach (string inaccessibleDirectory in inacessibleDirectories)
+				{
+					this.logger.Log("Could not access directory: " + inaccessibleDirectory);
+				}
+
+				foreach (SourcePathWithType sourcePath in sourcePaths)
+				{
+					this.logger.Log("Found video file: " + sourcePath.Path);
 				}
 			}
 		}
