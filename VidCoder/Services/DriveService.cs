@@ -9,6 +9,8 @@ using System.Management;
 using Microsoft.AnyContainer;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using VidCoderCommon.Model;
+using VidCoderCommon.Utilities;
 
 namespace VidCoder.Services
 {
@@ -58,7 +60,7 @@ namespace VidCoder.Services
 			{
 				if (driveInfo.DriveType == DriveType.CDRom && driveInfo.IsReady)
 				{
-					FolderType folderType = Utilities.GetFolderType(driveInfo.RootDirectory.ToString());
+					FolderType folderType = CommonFileUtilities.GetFolderType(driveInfo.RootDirectory.ToString());
 					if (folderType == FolderType.Dvd)
 					{
 						driveList.Add(new DriveInformation

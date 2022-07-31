@@ -128,14 +128,14 @@ namespace VidCoder
 		{
 			try
 			{
-				RegistryKey? playBluRayKey = Registry.CurrentUser.OpenSubKey(PlayBluRayOnArrivalKeyPath, writable: true);
+				RegistryKey playBluRayKey = Registry.CurrentUser.OpenSubKey(PlayBluRayOnArrivalKeyPath, writable: true);
 				if (playBluRayKey != null)
 				{
 					playBluRayKey.DeleteValue(RipDriveActionName, throwOnMissingValue: false);
 					playBluRayKey.Close();
 				}
 
-				RegistryKey? playDvdKey = Registry.CurrentUser.OpenSubKey(PlayDvdOnArrivalKeyPath, writable: true);
+				RegistryKey playDvdKey = Registry.CurrentUser.OpenSubKey(PlayDvdOnArrivalKeyPath, writable: true);
 				if (playDvdKey != null)
 				{
 					playDvdKey.DeleteValue(RipDriveActionName, throwOnMissingValue: false);

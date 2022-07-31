@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VidCoderCommon.Model;
 using VidCoderCommon.Services;
+using VidCoderCommon.Utilities;
 using VidCoderFileWatcher.Model;
 
 namespace VidCoderFileWatcher.Services
@@ -12,10 +13,18 @@ namespace VidCoderFileWatcher.Services
 	public class WatcherService : IWatcherCommands
 	{
 		private readonly IBasicLogger logger;
+		private Dictionary<string, StrippedPicker> pickers;
+		private static readonly StrippedPicker DefaultPicker = new StrippedPicker
+		{
+			Name = "Default",
+			IgnoreFilesBelowMbEnabled = false,
+			VideoFileExtensions = PickerDefaults.VideoFileExtensions
+		};
 
 		public WatcherService(IBasicLogger logger)
 		{
 			this.logger = logger;
+			this.RefreshPickers();
 		}
 
 		public void RefreshFromWatchedFolders()
@@ -25,12 +34,32 @@ namespace VidCoderFileWatcher.Services
 
 			foreach(WatchedFolder folder in folders)
 			{
-				this.logger.Log("Folder: " + folder.Path);
+				this.logger.Log("Enumerating folder: " + folder.Path);
+
+				StrippedPicker picker;
+				if (this.pickers.ContainsKey(folder.Picker))
+				{
+					picker = this.pickers[folder.Picker];
+				}
+				else
+				{
+					picker = DefaultPicker;
+				}
 			}
 		}
 
 		public void Ping()
 		{
+		}
+
+		private void RefreshPickers()
+		{
+			// TODO - thread protection
+			this.pickers = new Dictionary<string, StrippedPicker>();
+			foreach (StrippedPicker picker in WatcherRepository.GetPickerList())
+			{
+				this.pickers.Add(picker.Name, picker);
+			}
 		}
 	}
 }

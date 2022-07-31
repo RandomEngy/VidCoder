@@ -1241,7 +1241,7 @@ namespace VidCoder.Services
 				picker = pickersService.Pickers[0].Picker;
 			}
 
-			List<SourcePath> pathList = this.videoFileFinder.GetPathList(new List<string> { source }, picker);
+			List<SourcePathWithMetadata> pathList = this.videoFileFinder.GetPathList(new List<string> { source }, picker);
 			this.QueueMultipleSourcePaths(pathList, profile, picker);
 
 			if (!this.encoding)
@@ -1420,11 +1420,11 @@ namespace VidCoder.Services
 
 		public void QueueMultipleRawPaths(IEnumerable<string> pathsToQueue)
 		{
-			this.QueueMultipleSourcePaths(pathsToQueue.Select(p => new SourcePath { Path = p }));
+			this.QueueMultipleSourcePaths(pathsToQueue.Select(p => new SourcePathWithMetadata { Path = p }));
 		}
 
 		// Queues a list of files or video folders.
-		public void QueueMultipleSourcePaths(IEnumerable<SourcePath> sourcePaths, VCProfile profile = null, Picker picker = null)
+		public void QueueMultipleSourcePaths(IEnumerable<SourcePathWithMetadata> sourcePaths, VCProfile profile = null, Picker picker = null)
 		{
 			if (profile == null)
 			{
@@ -1439,7 +1439,7 @@ namespace VidCoder.Services
 			HashSet<string> queuedOutputFiles = this.GetQueuedOutputFiles();
 			HashSet<string> queuedInputFiles = this.GetQueuedInputFiles();
 
-			List<SourcePath> sourcePathList = sourcePaths.ToList();
+			List<SourcePathWithMetadata> sourcePathList = sourcePaths.ToList();
 
 			if (this.scanMultipleDialogViewModel != null)
 			{
@@ -1469,7 +1469,7 @@ namespace VidCoder.Services
 
 			foreach (ScanMultipleDialogViewModel.ScanResult scanResult in scanResults)
 			{
-				SourcePath sourcePath = scanResult.SourcePath;
+				SourcePathWithMetadata sourcePath = scanResult.SourcePath;
 
 				if (scanResult.VideoSource?.Titles != null && scanResult.VideoSource.Titles.Count > 0)
 				{

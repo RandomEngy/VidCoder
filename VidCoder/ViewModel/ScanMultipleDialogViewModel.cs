@@ -18,17 +18,17 @@ namespace VidCoder.ViewModel
 	/// </summary>
 	public class ScanMultipleDialogViewModel : OkCancelDialogViewModel
 	{
-		private IList<SourcePath> pathsToScan;
+		private IList<SourcePathWithMetadata> pathsToScan;
 		private int currentJobIndex;
 		private float currentJobProgress;
 		private object currentJobIndexLock = new object();
 		private IScanProxy scanProxy;
 		private IAppLogger scanLogger;
 		private int scansDoneOnCurrentScanProxy;
-		private SourcePath currentPath;
+		private SourcePathWithMetadata currentPath;
 		private bool allowClose;
 
-		public ScanMultipleDialogViewModel(IList<SourcePath> pathsToScan)
+		public ScanMultipleDialogViewModel(IList<SourcePathWithMetadata> pathsToScan)
 		{
 			this.pathsToScan = pathsToScan;
 			this.ScanResults = new List<ScanResult>();
@@ -136,7 +136,7 @@ namespace VidCoder.ViewModel
 			return this.allowClose;
 		}
 
-		public bool TryAddScanPaths(IList<SourcePath> additionalPaths)
+		public bool TryAddScanPaths(IList<SourcePathWithMetadata> additionalPaths)
 		{
 			lock (this.currentJobIndexLock)
 			{
@@ -154,7 +154,7 @@ namespace VidCoder.ViewModel
 
 	    public class ScanResult
 	    {
-            public SourcePath SourcePath { get; set; }
+            public SourcePathWithMetadata SourcePath { get; set; }
 
             public VideoSource VideoSource { get; set; }
 	    }

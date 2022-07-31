@@ -9,6 +9,7 @@ using System.Windows;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoderCommon.Model;
+using VidCoderCommon.Utilities;
 
 namespace VidCoder.Services
 {
@@ -25,8 +26,13 @@ namespace VidCoder.Services
 		/// <param name="itemList">The list of paths to process.</param>
 		/// <param name="picker">The picker to use.</param>
 		/// <returns>The list of video sources in the given paths.</returns>
-		public List<SourcePath> GetPathList(IList<string> itemList, Picker picker = null)
+		public List<SourcePathWithMetadata> GetPathList(IList<string> itemList, Picker picker = null)
 		{
+			if (picker == null)
+			{
+				picker = this.PickersService.SelectedPicker.Picker;
+			}
+
 			var videoExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 			string extensionsString = picker.VideoFileExtensions;
 			string[] rawExtensions = extensionsString.Split(',', ';');
@@ -44,7 +50,9 @@ namespace VidCoder.Services
 				}
 			}
 
-			var pathList = new List<SourcePath>();
+			var pathList = new List<SourcePathWithMetadata>();
+
+			int ignoreFilesBelowMb = picker.IgnoreFilesBelowMbEnabled ? picker.IgnoreFilesBelowMb : 0;
 
 			if (CustomConfig.DragDropOrder == DragDropOrder.Alphabetical)
 			{
@@ -80,14 +88,14 @@ namespace VidCoder.Services
 				// Now add all folders
 				foreach (string folder in folders)
 				{
-					AddDirectoryToPathList(folder, pathList, videoExtensions);
+					AddDirectoryToPathList(folder, pathList, videoExtensions, ignoreFilesBelowMb);
 				}
 
 				// Now add all files
 				foreach (string file in files)
 				{
 					// Path is a file
-					pathList.Add(new SourcePath { Path = file, SourceType = SourceType.File });
+					pathList.Add(new SourcePathWithMetadata { Path = file, SourceType = SourceType.File });
 				}
 			}
 			else
@@ -99,12 +107,12 @@ namespace VidCoder.Services
 					{
 						if (FileUtilities.IsDirectory(item))
 						{
-							AddDirectoryToPathList(item, pathList, videoExtensions);
+							AddDirectoryToPathList(item, pathList, videoExtensions, ignoreFilesBelowMb);
 						}
 						else
 						{
 							// Path is a file
-							pathList.Add(new SourcePath { Path = item, SourceType = SourceType.File });
+							pathList.Add(new SourcePathWithMetadata { Path = item, SourceType = SourceType.File });
 						}
 					}
 					catch (Exception exception)
@@ -112,35 +120,6 @@ namespace VidCoder.Services
 						StaticResolver.Resolve<IAppLogger>().LogError($"Could not process {item} : " + Environment.NewLine + exception);
 					}
 				}
-			}
-
-			if (picker == null)
-			{
-				picker = this.PickersService.SelectedPicker.Picker;
-			}
-
-			if (picker.IgnoreFilesBelowMbEnabled)
-			{
-				long bytesThreshold = picker.IgnoreFilesBelowMb * 1024 * 1024;
-				var filteredList = new List<SourcePath>();
-				pathList = pathList.Where(p =>
-				{
-					if (p.SourceType != SourceType.File)
-					{
-						return true;
-					}
-
-					try
-					{
-						FileInfo info = new FileInfo(p.Path);
-						return info.Length >= bytesThreshold;
-					}
-					catch
-					{
-						// Ignore errors, and include the file.
-						return true;
-					}
-				}).ToList();
 			}
 
 			return pathList;
@@ -152,43 +131,15 @@ namespace VidCoder.Services
 		/// <param name="folder">The folder to add.</param>
 		/// <param name="pathList">The path list to add to.</param>
 		/// <param name="videoExtensions">The set of valid video extensions.</param>
-		private static void AddDirectoryToPathList(string folder, List<SourcePath> pathList, HashSet<string> videoExtensions)
+		private static void AddDirectoryToPathList(string folder, List<SourcePathWithMetadata> pathList, ISet<string> videoExtensions, int ignoreFilesBelowMb)
 		{
-			if (Utilities.IsDiscFolder(folder))
-			{
-				// If it's a disc folder, add it
-				pathList.Add(new SourcePath { Path = Utilities.EnsureVideoTsFolder(folder), SourceType = SourceType.DiscVideoFolder });
-			}
-			else
-			{
-				string parentFolder = Path.GetDirectoryName(folder);
-				pathList.AddRange(
-					GetFilesOrVideoFolders(folder, videoExtensions)
-						.Select(p => new SourcePath
-						{
-							Path = p.Path,
-							ParentFolder = parentFolder,
-							SourceType = p.SourceType
-						}));
-			}
-		}
+			string parentFolder = Path.GetDirectoryName(folder);
+			(List<SourcePathWithType> paths, List<string> inacessibleDirectories) = CommonFileUtilities.GetFilesOrVideoFolders(folder, videoExtensions, ignoreFilesBelowMb);
 
-		private class SourcePathWithType
-		{
-			public string Path { get; set; }
-			public SourceType SourceType { get; set; }
-		}
-
-		private static List<SourcePathWithType> GetFilesOrVideoFolders(string directory, ISet<string> videoExtensions)
-		{
-			var paths = new List<SourcePathWithType>();
-			var errors = new List<string>();
-			GetFilesOrVideoFoldersRecursive(directory, paths, errors, videoExtensions);
-
-			if (errors.Count > 0)
+			if (inacessibleDirectories.Count > 0)
 			{
 				var messageBuilder = new StringBuilder(CommonRes.CouldNotAccessDirectoriesError + Environment.NewLine);
-				foreach (string accessError in errors)
+				foreach (string accessError in inacessibleDirectories)
 				{
 					messageBuilder.AppendLine(accessError);
 				}
@@ -196,47 +147,14 @@ namespace VidCoder.Services
 				MessageBox.Show(messageBuilder.ToString());
 			}
 
-			return paths;
-		}
-
-		private static void GetFilesOrVideoFoldersRecursive(string directory, List<SourcePathWithType> paths, List<string> errors, ISet<string> videoExtensions)
-		{
-			try
-			{
-				string[] subdirectories = Directory.GetDirectories(directory);
-				Array.Sort(subdirectories);
-				foreach (string subdirectory in subdirectories)
-				{
-					if (Utilities.IsDiscFolder(subdirectory))
+			pathList.AddRange(
+				paths
+					.Select(p => new SourcePathWithMetadata
 					{
-						paths.Add(new SourcePathWithType { Path = subdirectory, SourceType = SourceType.DiscVideoFolder });
-					}
-					else
-					{
-						GetFilesOrVideoFoldersRecursive(subdirectory, paths, errors, videoExtensions);
-					}
-				}
-			}
-			catch (Exception)
-			{
-				errors.Add(directory);
-			}
-
-			try
-			{
-				string[] files = Directory.GetFiles(directory);
-				Array.Sort(files);
-				paths.AddRange(files
-					.Where(file =>
-					{
-						return videoExtensions.Contains(Path.GetExtension(file));
-					})
-					.Select(path => new SourcePathWithType { Path = path, SourceType = SourceType.File }));
-			}
-			catch (Exception)
-			{
-				errors.Add(directory);
-			}
+						Path = p.Path,
+						ParentFolder = parentFolder,
+						SourceType = p.SourceType
+					}));
 		}
 	}
 }

@@ -567,51 +567,6 @@ namespace VidCoder
 			return Path.GetFileName(directory) == "VIDEO_TS" || Directory.Exists(Path.Combine(directory, "VIDEO_TS"));
 		}
 
-		public static FolderType GetFolderType(string directory)
-		{
-			try
-			{
-				var directoryInfo = new DirectoryInfo(directory);
-				if (!directoryInfo.Exists)
-				{
-					return FolderType.NonExistent;
-				}
-
-				if (File.Exists(Path.Combine(directory, @"VIDEO_TS.IFO")) || File.Exists(Path.Combine(directory, @"VIDEO_TS\VIDEO_TS.IFO")))
-				{
-					return FolderType.Dvd;
-				}
-
-				if (Directory.Exists(Path.Combine(directory, "BDMV")))
-				{
-					return FolderType.BluRay;
-				}
-			}
-			catch (UnauthorizedAccessException ex)
-			{
-				StaticResolver.Resolve<IAppLogger>().Log("Could not determine folder type: " + ex);
-			}
-
-			return FolderType.VideoFiles;
-		}
-
-		public static bool IsDiscFolder(string directory)
-		{
-			FolderType folderType = GetFolderType(directory);
-			return folderType == FolderType.Dvd || folderType == FolderType.BluRay;
-		}
-
-		public static string EnsureVideoTsFolder(string directory)
-		{
-			string videoTsPath = Path.Combine(directory, "VIDEO_TS");
-			if (Directory.Exists(videoTsPath))
-			{
-				return videoTsPath;
-			}
-
-			return directory;
-		}
-
 		public static string Wow64RegistryKey
 		{
 			get

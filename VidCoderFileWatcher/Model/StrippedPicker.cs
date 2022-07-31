@@ -12,6 +12,8 @@ namespace VidCoderFileWatcher.Model
 	/// </summary>
 	public class StrippedPicker
 	{
+		public string Name { get; set; }
+
 		public string VideoFileExtensions { get; set; } = PickerDefaults.VideoFileExtensions;
 
 		public bool IgnoreFilesBelowMbEnabled { get; set; }

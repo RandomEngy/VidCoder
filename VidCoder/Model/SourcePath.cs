@@ -5,7 +5,7 @@ namespace VidCoder.Model
 	/// <summary>
 	/// A pointer to a video source with any relevant metadata
 	/// </summary>
-	public class SourcePath
+	public class SourcePathWithMetadata
 	{
 		/// <summary>
 		/// The absolute path to the video source.

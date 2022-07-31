@@ -32,6 +32,7 @@ using VidCoder.ViewModel.DataModels;
 using VidCoderCommon;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
+using VidCoderCommon.Utilities;
 
 namespace VidCoder.ViewModel
 {
@@ -497,7 +498,7 @@ namespace VidCoder.ViewModel
 								}
 							}
 						}
-						else if (Utilities.IsDiscFolder(item))
+						else if (CommonFileUtilities.IsDiscFolder(item))
 						{
 							// It's a disc folder or disc
 							if (alwaysQueue)
@@ -531,7 +532,7 @@ namespace VidCoder.ViewModel
 		/// <param name="alwaysQueue">True if the given items should always be queued, and never opened as source.</param>
 		private void HandlePathsAsVideoSource(IList<string> itemList, bool alwaysQueue)
         {
-            List<SourcePath> fileList = this.VideoFileFinder.GetPathList(itemList);
+            List<SourcePathWithMetadata> fileList = this.VideoFileFinder.GetPathList(itemList);
             if (fileList.Count > 0)
             {
                 if (fileList.Count == 1 && !alwaysQueue)
@@ -616,7 +617,7 @@ namespace VidCoder.ViewModel
 
 			this.SourceName = Utilities.GetSourceNameFolder(videoFolder);
 
-			videoFolder = Utilities.EnsureVideoTsFolder(videoFolder);
+			videoFolder = CommonFileUtilities.EnsureVideoTsFolder(videoFolder);
 
 			this.StartScan(videoFolder);
 
@@ -633,7 +634,7 @@ namespace VidCoder.ViewModel
 
 			this.SourceName = driveInfo.VolumeLabel;
 
-			this.SourcePath = Utilities.EnsureVideoTsFolder(driveInfo.RootDirectory);
+			this.SourcePath = CommonFileUtilities.EnsureVideoTsFolder(driveInfo.RootDirectory);
 
 			this.SelectedSource = new SourceOption { Type = SourceType.Disc, DriveInfo = driveInfo };
 			this.StartScan(this.SourcePath);
