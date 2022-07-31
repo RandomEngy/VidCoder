@@ -36,29 +36,34 @@ namespace VidCoder.Model
 		public static void RenameFolder(long id, string newName)
 		{
 			SQLiteConnection connection = Database.Connection;
-			var updateCommand = new SQLiteCommand("UPDATE presetFolders SET name = @name WHERE id = @id", connection);
-			updateCommand.Parameters.AddWithValue("@name", newName);
-			updateCommand.Parameters.AddWithValue("@id", id);
-			updateCommand.ExecuteNonQuery();
+			using (var updateCommand = new SQLiteCommand("UPDATE presetFolders SET name = @name WHERE id = @id", connection))
+			{
+				updateCommand.Parameters.AddWithValue("@name", newName);
+				updateCommand.Parameters.AddWithValue("@id", id);
+				updateCommand.ExecuteNonQuery();
+			}
 		}
 
 		public static void MoveFolder(long id, long newParent)
 		{
 			SQLiteConnection connection = Database.Connection;
-			var updateCommand = new SQLiteCommand("UPDATE presetFolders SET parentId = @parentId WHERE id = @id", connection);
-			updateCommand.Parameters.AddWithValue("@parentId", newParent);
-			updateCommand.Parameters.AddWithValue("@id", id);
-			updateCommand.ExecuteNonQuery();
+			using (var updateCommand = new SQLiteCommand("UPDATE presetFolders SET parentId = @parentId WHERE id = @id", connection))
+			{
+				updateCommand.Parameters.AddWithValue("@parentId", newParent);
+				updateCommand.Parameters.AddWithValue("@id", id);
+				updateCommand.ExecuteNonQuery();
+			}
 		}
 
 		public static PresetFolder AddFolder(string name, long parentId)
 		{
 			SQLiteConnection connection = Database.Connection;
-
-			var insertCommand = new SQLiteCommand("INSERT INTO presetFolders (name, parentId, isExpanded) VALUES (@name, @parentId, 1)", connection);
-			insertCommand.Parameters.AddWithValue("@name", name);
-			insertCommand.Parameters.AddWithValue("@parentId", parentId);
-			insertCommand.ExecuteNonQuery();
+			using (var insertCommand = new SQLiteCommand("INSERT INTO presetFolders (name, parentId, isExpanded) VALUES (@name, @parentId, 1)", connection))
+			{
+				insertCommand.Parameters.AddWithValue("@name", name);
+				insertCommand.Parameters.AddWithValue("@parentId", parentId);
+				insertCommand.ExecuteNonQuery();
+			}
 
 			return new PresetFolder { Id = connection.LastInsertRowId, Name = name, ParentId = parentId };
 		}
@@ -66,18 +71,22 @@ namespace VidCoder.Model
 		public static void RemoveFolder(long id)
 		{
 			SQLiteConnection connection = Database.Connection;
-			var deleteCommand = new SQLiteCommand("DELETE FROM presetFolders WHERE id = @id", connection);
-			deleteCommand.Parameters.AddWithValue("@id", id);
-			deleteCommand.ExecuteNonQuery();
+			using (var deleteCommand = new SQLiteCommand("DELETE FROM presetFolders WHERE id = @id", connection))
+			{
+				deleteCommand.Parameters.AddWithValue("@id", id);
+				deleteCommand.ExecuteNonQuery();
+			}
 		}
 
 		public static void SetFolderIsExpanded(long id, bool isExpanded)
 		{
 			SQLiteConnection connection = Database.Connection;
-			var updateCommand = new SQLiteCommand("UPDATE presetFolders SET isExpanded = @isExpanded WHERE id = @id", connection);
-			updateCommand.Parameters.AddWithValue("@isExpanded", isExpanded);
-			updateCommand.Parameters.AddWithValue("@id", id);
-			updateCommand.ExecuteNonQuery();
+			using (var updateCommand = new SQLiteCommand("UPDATE presetFolders SET isExpanded = @isExpanded WHERE id = @id", connection))
+			{
+				updateCommand.Parameters.AddWithValue("@isExpanded", isExpanded);
+				updateCommand.Parameters.AddWithValue("@id", id);
+				updateCommand.ExecuteNonQuery();
+			}
 		}
 	}
 }

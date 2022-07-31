@@ -323,8 +323,7 @@ namespace VidCoder.Model
 			ExecuteNonQuery(
 				"CREATE TABLE watchedFiles (" +
 				"path TEXT COLLATE NOCASE PRIMARY KEY, " +
-				"lastModified TEXT, " +
-				"status TEXT, " +
+				"status TEXT NOT NULL, " +
 				"reason TEXT)", Connection);
 		}
 
@@ -566,8 +565,7 @@ namespace VidCoder.Model
 			ExecuteNonQuery(
 				"CREATE TABLE watchedFiles (" +
 				"path TEXT COLLATE NOCASE PRIMARY KEY, " +
-				"lastModified TEXT, " +
-				"status TEXT, " +
+				"status TEXT NOT NULL, " +
 				"reason TEXT)", connection);
 		}
 

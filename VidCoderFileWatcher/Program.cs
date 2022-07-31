@@ -9,36 +9,43 @@ using VidCoderFileWatcher.Services;
 
 IBasicLogger logger = new SupportLogger("Watcher");
 
-var service = new WatcherService(logger);
-service.RefreshFromWatchedFolders();
-CancellationTokenSource tokenSource = new CancellationTokenSource();
-
-bool firstLineWritten = false;
-
-while (!tokenSource.IsCancellationRequested)
+try
 {
-	var pipeServer = new PipeServer<IWatcherCommands>(new NetJsonPipeSerializer(), CommonUtilities.FileWatcherPipeName, () => service);
-	try
-	{
-		pipeServer.SetLogger(message => logger.Log(message));
-		Task connectTask = pipeServer.WaitForConnectionAsync(tokenSource.Token);
+	var service = new WatcherService(logger);
+	service.RefreshFromWatchedFolders();
+	CancellationTokenSource tokenSource = new CancellationTokenSource();
 
-		if (!firstLineWritten)
+	bool firstLineWritten = false;
+
+	while (!tokenSource.IsCancellationRequested)
+	{
+		var pipeServer = new PipeServer<IWatcherCommands>(new NetJsonPipeSerializer(), CommonUtilities.FileWatcherPipeName, () => service);
+		try
 		{
-			// Write a line to let the client know we are ready for connections
-			Console.WriteLine("Pipe is open");
-			firstLineWritten = true;
-		}
+			pipeServer.SetLogger(message => logger.Log(message));
+			Task connectTask = pipeServer.WaitForConnectionAsync(tokenSource.Token);
 
-		await connectTask;
-		await pipeServer.WaitForRemotePipeCloseAsync(tokenSource.Token);
+			if (!firstLineWritten)
+			{
+				// Write a line to let the client know we are ready for connections
+				Console.WriteLine("Pipe is open");
+				firstLineWritten = true;
+			}
+
+			await connectTask;
+			await pipeServer.WaitForRemotePipeCloseAsync(tokenSource.Token);
+		}
+		catch (Exception exception)
+		{
+			logger.Log(exception.ToString());
+		}
+		finally
+		{
+			pipeServer.Dispose();
+		}
 	}
-	catch (Exception exception)
-	{
-		logger.Log(exception.ToString());
-	}
-	finally
-	{
-		pipeServer.Dispose();
-	}
+}
+catch (Exception exception)
+{
+	logger.Log(exception.ToString());
 }

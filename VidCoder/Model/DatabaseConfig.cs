@@ -148,9 +148,8 @@ namespace VidCoder.Model
 
 		private static void SetInternal(string configName, string configValue, SQLiteConnection connection)
 		{
-			using (var settingsInsert = new SQLiteCommand(connection))
+			using (var settingsInsert = new SQLiteCommand("REPLACE INTO settings (name, value) VALUES (?, ?)", connection))
 			{
-				settingsInsert.CommandText = "REPLACE INTO settings (name, value) VALUES (?, ?)";
 				settingsInsert.Parameters.Add("name", DbType.String).Value = configName;
 				settingsInsert.Parameters.Add("value", DbType.String).Value = configValue;
 
@@ -167,9 +166,8 @@ namespace VidCoder.Model
 			if (command.ExecuteNonQuery() == 0)
 			{
 				// If the setting did not exist, add it
-				using (var settingsInsert = new SQLiteCommand(connection))
+				using (var settingsInsert = new SQLiteCommand("INSERT INTO settings (name, value) VALUES (?, ?)", connection))
 				{
-					settingsInsert.CommandText = "INSERT INTO settings (name, value) VALUES (?, ?)";
 					settingsInsert.Parameters.Add("name", DbType.String).Value = configName;
 					settingsInsert.Parameters.Add("value", DbType.String).Value = configValue;
 
