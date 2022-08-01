@@ -9,6 +9,7 @@ using PipeMethodCalls;
 using VidCoderCommon;
 using VidCoderCommon.Model;
 using VidCoderCommon.Services;
+using VidCoderCommon.Utilities;
 
 namespace VidCoderCLI
 {
@@ -36,22 +37,33 @@ namespace VidCoderCLI
 			RunActionStringAsync(action, args).Wait();
 		}
 
-		private static Task RunActionStringAsync(string action, string[] args)
+		private static async Task RunActionStringAsync(string action, string[] args)
 		{
-			switch (action)
+			try
 			{
-				case "encode":
-					return EncodeAsync(ReadArguments(args));
-				case "scan":
-					return ScanAsync(ReadArguments(args));
-				case "importpreset":
-					return ImportPresetAsync(args);
-				case "importqueue":
-					return ImportQueueAsync(args);
-				default:
-					WriteError("Action not recognized.");
-					PrintUsage();
-					return Task.CompletedTask;
+				switch (action)
+				{
+					case "encode":
+						await EncodeAsync(ReadArguments(args));
+						break;
+					case "scan":
+						await ScanAsync(ReadArguments(args));
+						break;
+					case "importpreset":
+						await ImportPresetAsync(args);
+						break;
+					case "importqueue":
+						await ImportQueueAsync(args);
+						break;
+					default:
+						WriteError("Action not recognized.");
+						PrintUsage();
+						break;
+				}
+			}
+			catch (Exception exception)
+			{
+				WriteError(exception.ToString());
 			}
 		}
 
@@ -106,7 +118,8 @@ namespace VidCoderCLI
 				return;
 			}
 
-			await SetupAndRunActionAsync(a => a.Encode(source, destination, preset, picker), "Encode started.", "Could not start encode.").ConfigureAwait(false);
+			await VidCoderLauncher.SetupAndRunActionAsync(a => a.Encode(source, destination, preset, picker)).ConfigureAwait(false);
+			Console.WriteLine("Encode started.");
 		}
 
 		private static async Task ScanAsync(Dictionary<string, string> argumentDict)
@@ -133,7 +146,8 @@ namespace VidCoderCLI
 				return;
 			}
 
-			await SetupAndRunActionAsync(a => a.Scan(source), "Scan started.", "Could not start scan.").ConfigureAwait(false);
+			await VidCoderLauncher.SetupAndRunActionAsync(a => a.Scan(source)).ConfigureAwait(false);
+			Console.WriteLine("Scan started.");
 		}
 
 		private static async Task ImportPresetAsync(string[] args)
@@ -147,7 +161,8 @@ namespace VidCoderCLI
 			string filePath = args[1];
 
 			// Further checks on the file path will happen inside the app
-			await SetupAndRunActionAsync(a => a.ImportPreset(filePath), "Preset imported.", "Failed to import preset.").ConfigureAwait(false);
+			await VidCoderLauncher.SetupAndRunActionAsync(a => a.ImportPreset(filePath)).ConfigureAwait(false);
+			Console.WriteLine("Preset imported.");
 		}
 
 		private static async Task ImportQueueAsync(string[] args)
@@ -161,40 +176,8 @@ namespace VidCoderCLI
 			string filePath = args[1];
 
 			// Further checks on the file path will happen inside the app
-			await SetupAndRunActionAsync(a => a.ImportQueue(filePath), "Queue imported.", "Failed to import queue.").ConfigureAwait(false);
-		}
-
-		private static async Task SetupAndRunActionAsync(Expression<Action<IVidCoderAutomation>> action, string startedText, string failedText)
-		{
-			string vidCoderExe = GetVidCoderExePath();
-
-			if (!VidCoderIsRunning(vidCoderExe))
-			{
-				Console.WriteLine("Could not find a running instance of VidCoder. Starting it now.");
-				Process.Start(vidCoderExe);
-				await Task.Delay(1000).ConfigureAwait(false);
-			}
-
-			var client = new AutomationClient();
-			try
-			{
-				AutomationResult result = await client.RunActionAsync(action);
-				switch (result)
-				{
-					case AutomationResult.Success:
-						Console.WriteLine(startedText);
-						break;
-					case AutomationResult.ConnectionFailed:
-						WriteError(failedText);
-						break;
-					default:
-						break;
-				}
-			}
-			catch (Exception exception)
-			{
-				WriteError(exception.ToString());
-			}
+			await VidCoderLauncher.SetupAndRunActionAsync(a => a.ImportQueue(filePath)).ConfigureAwait(false);
+			Console.WriteLine("Queue imported.");
 		}
 
 		private static Dictionary<string, string> ReadArguments(string[] args)
@@ -233,49 +216,11 @@ namespace VidCoderCLI
 			Console.WriteLine("VidCoderCLI importqueue \"<queue file path>\"");
 		}
 
-		private static bool VidCoderIsRunning(string vidCoderExe)
-		{
-			var processes1 = Process.GetProcessesByName("VidCoder");
-			var processes2 = Process.GetProcessesByName("VidCoder.vshost");
-
-			var processes = new List<Process>();
-			processes.AddRange(processes1);
-			processes.AddRange(processes2);
-
-			foreach (var process in processes)
-			{
-				if (process.Modules != null && process.Modules.Count > 0 && process.Modules[0].FileName != null)
-				{
-					if (string.Compare(process.Modules[0].FileName, vidCoderExe, StringComparison.InvariantCultureIgnoreCase) == 0)
-					{
-						return true;
-					}
-				}
-			}
-
-			return false;
-		}
-
 		private static void WriteError(string error)
 		{
 			Console.ForegroundColor = ConsoleColor.Red;
 			Console.WriteLine(error);
 			Console.ResetColor();
-		}
-
-		private static string GetVidCoderExePath()
-		{
-			string currentExePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-			string currentDirectory = Path.GetDirectoryName(currentExePath);
-
-			string vidCoderExeCandidate = Path.Combine(currentDirectory, "VidCoder.exe");
-
-			if (File.Exists(vidCoderExeCandidate))
-			{
-				return vidCoderExeCandidate;
-			}
-
-			return null;
 		}
 	}
 }
