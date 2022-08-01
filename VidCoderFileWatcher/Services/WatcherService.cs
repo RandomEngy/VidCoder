@@ -21,43 +21,35 @@ namespace VidCoderFileWatcher.Services
 			VideoFileExtensions = PickerDefaults.VideoFileExtensions
 		};
 
-		private readonly object sync = new object();
+		private readonly SemaphoreSlim sync = new SemaphoreSlim(1, 1);
+		private readonly SemaphoreSlim processCommunicationSync = new SemaphoreSlim(1, 1);
 
-		private readonly IList<FileSystemWatcher> fileSystemWatchers = new List<FileSystemWatcher>();
-
-		private readonly Action scheduleFileProcess;
-
-		private readonly IList<string> filesPendingCreate = new List<string>();
-
-		private readonly IList<string> filesPendingDelete = new List<string>();
+		private readonly IList<FolderWatcher> folderWatchers = new List<FolderWatcher>();
 
 		public WatcherService(IBasicLogger logger)
 		{
 			this.logger = logger;
-			Action processPendingFiles = () =>
-			{
-				this.ProcessPendingFiles();
-			};
-			
-			this.scheduleFileProcess = processPendingFiles.Debounce(500);
 			this.RefreshPickers();
+
+			////System.Diagnostics.Debugger.Launch();
 		}
 
-		public void RefreshFromWatchedFolders()
+		public async void RefreshFromWatchedFolders()
 		{
-			lock (this.sync)
+			await this.sync.WaitAsync().ConfigureAwait(false);
+			try
 			{
 				this.logger.Log("Refreshing file list...");
 
 				List<WatchedFolder> folders = WatcherStorage.GetWatchedFolders(WatcherDatabase.Connection);
-				IDictionary<string, MarkableFile> existingFiles = this.GetFilesInWatchedFolders(folders);
+				IDictionary<string, ExistingFile> existingFiles = this.GetFilesInWatchedFolders(folders);
 				Dictionary<string, WatchedFile> entries = WatcherStorage.GetWatchedFiles(WatcherDatabase.Connection);
 
 				// Go over all entries, marking any matches along the way
 				var entriesToRemove = new List<string>();
 				foreach (string path in entries.Keys)
 				{
-					if (existingFiles.TryGetValue(path, out MarkableFile file))
+					if (existingFiles.TryGetValue(path, out ExistingFile file))
 					{
 						file.HasEntry = true;
 					}
@@ -80,118 +72,91 @@ namespace VidCoderFileWatcher.Services
 				}
 
 				// Any files without matching entries are new and should be enqueued
-				var filesToEnqueue = new List<string>();
+				var filesToEnqueue = new Dictionary<WatchedFolder, List<string>>();
 				foreach (string path in existingFiles.Keys)
 				{
-					if (!existingFiles[path].HasEntry)
+					ExistingFile file = existingFiles[path];
+					if (!file.HasEntry)
 					{
-						filesToEnqueue.Add(path);
+						if (!filesToEnqueue.ContainsKey(file.Folder))
+						{
+							filesToEnqueue.Add(file.Folder, new List<string>());
+						}
+
+						filesToEnqueue[file.Folder].Add(file.Path);
 					}
 				}
 
-				this.QueueInMainProcess(filesToEnqueue);
-				this.RefreshFileSystemWatchers(folders);
+				foreach (KeyValuePair<WatchedFolder, List<string>> pair in filesToEnqueue)
+				{
+					await this.QueueInMainProcess(pair.Key, pair.Value).ConfigureAwait(false);
+				}
+
+				this.RefreshFolderWatchers(folders);
+			}
+			finally
+			{
+				this.sync.Release();
 			}
 		}
 
-		private void RefreshFileSystemWatchers(IEnumerable<WatchedFolder> folders)
+		private void RefreshFolderWatchers(IEnumerable<WatchedFolder> folders)
 		{
-			foreach (FileSystemWatcher watcher in this.fileSystemWatchers)
+			foreach (FolderWatcher watcher in this.folderWatchers)
 			{
 				watcher.Dispose();
 			}
 
-			this.fileSystemWatchers.Clear();
+			this.folderWatchers.Clear();
 
 			foreach (WatchedFolder folder in folders)
 			{
-				var watcher = new FileSystemWatcher(folder.Path);
-				watcher.NotifyFilter = NotifyFilters.FileName;
-				watcher.Created += OnFileCreated;
-				watcher.Renamed += OnFileRenamed;
-				watcher.Deleted += OnFileDeleted;
-				watcher.Filter = string.Empty;
-				watcher.IncludeSubdirectories = true;
-				watcher.EnableRaisingEvents = true;
-
-				this.fileSystemWatchers.Add(watcher);
-			}
-		}
-
-		private void OnFileCreated(object sender, FileSystemEventArgs e)
-		{
-			lock (this.sync)
-			{
-				this.logger.Log("Detected new file: " + e.FullPath);
-				this.filesPendingCreate.Add(e.FullPath);
-				this.scheduleFileProcess();
-			}
-		}
-
-		private void OnFileRenamed(object sender, RenamedEventArgs e)
-		{
-			lock (this.sync)
-			{
-				this.logger.Log($"File renamed from {e.OldFullPath} to {e.FullPath}");
-				this.filesPendingCreate.Add(e.FullPath);
-				this.filesPendingDelete.Add(e.OldFullPath);
-				this.scheduleFileProcess();
-			}
-		}
-
-		private void OnFileDeleted(object sender, FileSystemEventArgs e)
-		{
-			lock (this.sync)
-			{
-				this.logger.Log("Detected file removed: " + e.FullPath);
-				this.filesPendingDelete.Add(e.FullPath);
-				this.scheduleFileProcess();
-			}
-		}
-
-		/// <summary>
-		/// Processes the files in filesPendingCreate and filesPendingDelete.
-		/// </summary>
-		private void ProcessPendingFiles()
-		{
-			lock (this.sync)
-			{
-				this.QueueInMainProcess(this.filesPendingCreate);
-				this.filesPendingCreate.Clear();
-
-				WatcherStorage.RemoveEntries(WatcherDatabase.Connection, filesPendingDelete);
-				this.filesPendingDelete.Clear();
+				var watcher = new FolderWatcher(this, folder, this.logger);
+				this.folderWatchers.Add(watcher);
 			}
 		}
 
 		/// <summary>
 		/// Queue the given files in the main process.
 		/// </summary>
-		/// <param name="paths">The paths to the video files/folders to queue.</param>
-		private void QueueInMainProcess(IList<string> paths)
+		/// <param name="watchedFolder">The folder being watched</param>
+		/// <param name="files">The paths to the video files/folders to queue, and some metadata.</param>
+		public async Task QueueInMainProcess(WatchedFolder watchedFolder, IList<string> files)
 		{
-			if (paths.Count == 0)
+			if (files.Count == 0)
 			{
 				return;
 			}
 
-			WatcherStorage.AddEntries(WatcherDatabase.Connection, paths);
+			WatcherStorage.AddEntries(WatcherDatabase.Connection, files);
 			this.logger.Log("Sending video(s) to be queued:");
-			foreach (string path in paths)
+			foreach (string file in files)
 			{
-				this.logger.Log("    " + path);
+				this.logger.Log("    " + file);
 			}
 
-			// TODO - signal main VidCoder process to start these
+			await this.processCommunicationSync.WaitAsync().ConfigureAwait(false);
+			try
+			{
+				await VidCoderLauncher.SetupAndRunActionAsync(a => a.EncodeWatchedFiles(watchedFolder.Path, files.ToArray(), watchedFolder.Preset, watchedFolder.Picker));
+			}
+			catch (Exception exception)
+			{
+				this.logger.Log(exception.ToString());
+			}
+			finally
+			{
+				this.processCommunicationSync.Release();
+			}
 		}
 
 		/// <summary>
 		/// Gets the source paths (files or folders) in the currently watched folders.
 		/// </summary>
 		/// <returns>The source paths in the currently watched folders.</returns>
-		private IDictionary<string, MarkableFile> GetFilesInWatchedFolders(IEnumerable<WatchedFolder> folders)
+		private IDictionary<string, ExistingFile> GetFilesInWatchedFolders(IEnumerable<WatchedFolder> folders)
 		{
-			var files = new Dictionary<string, MarkableFile>(StringComparer.OrdinalIgnoreCase);
+			var files = new Dictionary<string, ExistingFile>(StringComparer.OrdinalIgnoreCase);
 
 			foreach (WatchedFolder folder in folders)
 			{
@@ -220,7 +185,13 @@ namespace VidCoderFileWatcher.Services
 				foreach (SourcePathWithType sourcePath in sourcePaths)
 				{
 					this.logger.Log("    " + sourcePath.Path);
-					files.Add(sourcePath.Path, new MarkableFile { Path = sourcePath.Path });
+					files.Add(
+						sourcePath.Path,
+						new ExistingFile
+						{
+							Path = sourcePath.Path,
+							Folder = folder
+						});
 				}
 			}
 
@@ -241,11 +212,13 @@ namespace VidCoderFileWatcher.Services
 			}
 		}
 
-		private class MarkableFile
+		private class ExistingFile
 		{
 			public string Path { get; set; }
 
 			public bool HasEntry { get; set; }
+
+			public WatchedFolder Folder { get; set; }
 		}
 	}
 }

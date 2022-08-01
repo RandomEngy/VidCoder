@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using Microsoft.AnyContainer;
+using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
@@ -21,7 +23,17 @@ namespace VidCoder.Automation
 			var processingService = StaticResolver.Resolve<ProcessingService>();
 			DispatchUtilities.Invoke(() =>
 			{
-				processingService.Process(source, destination, preset, picker);
+				processingService.QueueAndStartFromNames(source, destination, preset, picker);
+			});
+		}
+
+		public void EncodeWatchedFiles(string watchedFolderPath, string[] sourcePaths, string preset, string picker)
+		{
+			this.logger.Log("Processing file watcher queue request");
+			var processingService = StaticResolver.Resolve<ProcessingService>();
+			DispatchUtilities.Invoke(() =>
+			{
+				processingService.QueueAndStartMultipleFromNames(watchedFolderPath, sourcePaths, preset, picker);
 			});
 		}
 

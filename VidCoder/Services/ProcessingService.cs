@@ -1205,14 +1205,13 @@ namespace VidCoder.Services
 		}
 
 		/// <summary>
-		/// Adds the given source to the encode queue.
+		/// Adds the given source to the encode queue and starts the encode. Takes preset and picker names.
 		/// </summary>
-		/// <param name="source">The path to the source file to encode.</param>
+		/// <param name="source">The path to the source file or folder to encode.</param>
 		/// <param name="destination">The destination path for the encoded file.</param>
 		/// <param name="presetName">The name of the preset to use to encode.</param>
 		/// <param name="pickerName">The name of the picker to use. Will use default picker if null.</param>
-		/// <returns>True if the item was successfully queued for processing.</returns>
-		public void Process(string source, string destination, string presetName, string pickerName)
+		public void QueueAndStartFromNames(string source, string destination, string presetName, string pickerName)
 		{
 			if (string.IsNullOrWhiteSpace(source))
 			{
@@ -1244,7 +1243,41 @@ namespace VidCoder.Services
 			List<SourcePathWithMetadata> pathList = this.videoFileFinder.GetPathList(new List<string> { source }, picker);
 			this.QueueMultipleSourcePaths(pathList, profile, picker);
 
-			if (!this.encoding)
+			if (!this.encoding && this.EncodeQueue.Count > 0)
+			{
+				this.StartEncodeQueue();
+			}
+		}
+
+		/// <summary>
+		/// Adds the given sources to the encode queue and starts the encode. Takes preset and picker names.
+		/// </summary>
+		/// <param name="parentFolder">The parent folder.</param>
+		/// <param name="sourcePaths">The paths to add.</param>
+		/// <param name="presetName">The name of the preset to use to encode.</param>
+		/// <param name="pickerName">The name of the picker to use. Will use default picker if null.</param>
+		public void QueueAndStartMultipleFromNames(string parentFolder, string[] sourcePaths, string presetName, string pickerName)
+		{
+			VCProfile profile = this.presetsService.GetProfileByName(presetName);
+			if (profile == null)
+			{
+				throw new ArgumentException("Cannot find preset: " + presetName);
+			}
+
+			PickerViewModel pickerVM = this.pickersService.Pickers.FirstOrDefault(p => p.Picker.Name == pickerName);
+			Picker picker = null;
+			if (pickerVM != null)
+			{
+				picker = pickerVM.Picker;
+			}
+			else
+			{
+				picker = pickersService.Pickers[0].Picker;
+			}
+
+			this.QueueMultipleSourcePaths(sourcePaths.Select(p => new SourcePathWithMetadata { Path = p, ParentFolder = parentFolder }), profile, picker);
+
+			if (!this.encoding && this.EncodeQueue.Count > 0)
 			{
 				this.StartEncodeQueue();
 			}
