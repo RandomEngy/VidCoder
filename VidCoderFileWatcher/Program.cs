@@ -22,7 +22,7 @@ try
 		var pipeServer = new PipeServer<IWatcherCommands>(new NetJsonPipeSerializer(), CommonUtilities.FileWatcherPipeName, () => service);
 		try
 		{
-			pipeServer.SetLogger(message => logger.Log(message));
+			//pipeServer.SetLogger(message => logger.Log(message));
 			Task connectTask = pipeServer.WaitForConnectionAsync(tokenSource.Token);
 
 			if (!firstLineWritten)

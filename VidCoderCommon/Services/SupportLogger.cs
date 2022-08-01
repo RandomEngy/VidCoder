@@ -15,6 +15,8 @@ namespace VidCoderCommon.Services
 	{
 		private StreamWriter logWriter;
 
+		private object sync = new object();
+
 		public SupportLogger(string type)
 		{
 			string logFolder = @"C:\Users\david\AppData\Roaming\VidCoder-Beta\Logs";
@@ -28,13 +30,19 @@ namespace VidCoderCommon.Services
 
 		public void Log(string message)
 		{
-			this.logWriter.WriteLine(message);
-			this.logWriter.Flush();
+			lock (this.sync)
+			{
+				this.logWriter.WriteLine(message);
+				this.logWriter.Flush();
+			}
 		}
 
 		public void Close()
 		{
-			this.logWriter.Close();
+			lock (this.sync)
+			{
+				this.logWriter.Close();
+			}
 		}
 	}
 }
