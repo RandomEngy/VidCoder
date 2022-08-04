@@ -126,6 +126,9 @@
   <data name="DeactivateWatcherButton" xml:space="preserve">
     <value>Deactivate File Watcher</value>
   </data>
+  <data name="PathColumnHeader" xml:space="preserve">
+    <value>Path</value>
+  </data>
   <data name="PickerLabel" xml:space="preserve">
     <value>Picker:</value>
   </data>
@@ -138,6 +141,9 @@
   <data name="RemoveWatchedFolder" xml:space="preserve">
     <value>Remove watched folder</value>
   </data>
+  <data name="RetryMenuItem" xml:space="preserve">
+    <value>Retry</value>
+  </data>
   <data name="RunWhenClosedCheckBox" xml:space="preserve">
     <value>Run when VidCoder is closed</value>
   </data>
@@ -146,6 +152,12 @@
   </data>
   <data name="ServiceUninstallError" xml:space="preserve">
     <value>Could not uninstall file watcher service.</value>
+  </data>
+  <data name="SkipMenuItem" xml:space="preserve">
+    <value>Skip</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>Status</value>
   </data>
   <data name="WatchedFolderTextBoxLabel" xml:space="preserve">
     <value>Folder:</value>

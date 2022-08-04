@@ -23,7 +23,6 @@ namespace VidCoder.ViewModel
 		public const int VideoEncodingTabIndex = 3;
 		public const int AudioEncodingTabIndex = 4;
 
-
 		public EncodingWindowViewModel()
 		{
 			this.AutomaticChange = true;

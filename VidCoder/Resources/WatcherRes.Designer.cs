@@ -88,6 +88,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Path.
+        /// </summary>
+        public static string PathColumnHeader {
+            get {
+                return ResourceManager.GetString("PathColumnHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Picker:.
         /// </summary>
         public static string PickerLabel {
@@ -124,6 +133,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Retry.
+        /// </summary>
+        public static string RetryMenuItem {
+            get {
+                return ResourceManager.GetString("RetryMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Run when VidCoder is closed.
         /// </summary>
         public static string RunWhenClosedCheckBox {
@@ -147,6 +165,24 @@ namespace VidCoder.Resources {
         public static string ServiceUninstallError {
             get {
                 return ResourceManager.GetString("ServiceUninstallError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip.
+        /// </summary>
+        public static string SkipMenuItem {
+            get {
+                return ResourceManager.GetString("SkipMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string StatusColumnHeader {
+            get {
+                return ResourceManager.GetString("StatusColumnHeader", resourceCulture);
             }
         }
         

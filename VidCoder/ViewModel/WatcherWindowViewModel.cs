@@ -33,9 +33,11 @@ namespace VidCoder.ViewModel
 
 		public WatcherWindowViewModel()
 		{
-
 			this.WatchedFolders.AddRange(WatcherStorage.GetWatchedFolders(Database.Connection).Select(watchedFolder => new WatchedFolderViewModel(this, watchedFolder)));
 			this.WatchedFolders.Connect().Bind(this.WatchedFoldersBindable).Subscribe();
+
+			this.WatchedFiles.AddRange(WatcherStorage.GetWatchedFiles(Database.Connection).Select(pair => new WatchedFileViewModel(pair.Value)));
+			this.WatchedFiles.Connect().Bind(this.WatchedFilesBindable).Subscribe();
 
 			// WindowTitle
 			this.WhenAnyValue(x => x.watcherProcessManager.Status)
@@ -48,6 +50,12 @@ namespace VidCoder.ViewModel
 
 		private ObservableAsPropertyHelper<string> windowTitle;
 		public string WindowTitle => this.windowTitle.Value;
+
+		public SourceList<WatchedFolderViewModel> WatchedFolders { get; } = new SourceList<WatchedFolderViewModel>();
+		public ObservableCollectionExtended<WatchedFolderViewModel> WatchedFoldersBindable { get; } = new ObservableCollectionExtended<WatchedFolderViewModel>();
+
+		public SourceList<WatchedFileViewModel> WatchedFiles { get; } = new SourceList<WatchedFileViewModel>();
+		public ObservableCollectionExtended<WatchedFileViewModel> WatchedFilesBindable { get; } = new ObservableCollectionExtended<WatchedFileViewModel>();
 
 		private bool watcherEnabled = Config.WatcherEnabled;
 		public bool WatcherEnabled
@@ -111,9 +119,6 @@ namespace VidCoder.ViewModel
 					}));
 			}
 		}
-
-		public SourceList<WatchedFolderViewModel> WatchedFolders { get; } = new SourceList<WatchedFolderViewModel>();
-		public ObservableCollectionExtended<WatchedFolderViewModel> WatchedFoldersBindable { get; } = new ObservableCollectionExtended<WatchedFolderViewModel>();
 
 		public void EditFolder(WatchedFolderViewModel folderToEdit)
 		{

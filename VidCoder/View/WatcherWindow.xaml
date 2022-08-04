@@ -158,11 +158,8 @@
 												Margin="8 0"
 												Source="/Icons/edit_16x16.png" />
 										</StackPanel>
-
 									</Grid>
 								</Button>
-
-
 
 								<Button
 									Grid.Column="1"
@@ -177,7 +174,42 @@
 				</ItemsControl>
 
 				<!--  Watched file grid  -->
-				<Grid Grid.Row="2" />
+				<controls:EnhancedListView Grid.Row="2" ItemsSource="{Binding WatchedFilesBindable}">
+					<controls:EnhancedListView.ItemContainerStyle>
+						<Style BasedOn="{StaticResource ListViewItemBaseStyle}" TargetType="ListViewItem">
+							<Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}" />
+							<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+							<Setter Property="ContextMenu">
+								<Setter.Value>
+									<ContextMenu>
+										<MenuItem Header="{x:Static res:WatcherRes.RetryMenuItem}" />
+										<MenuItem Header="{x:Static res:WatcherRes.SkipMenuItem}" />
+									</ContextMenu>
+								</Setter.Value>
+							</Setter>
+						</Style>
+					</controls:EnhancedListView.ItemContainerStyle>
+					<controls:EnhancedListView.View>
+						<GridView AllowsColumnReorder="False">
+							<GridView.Columns>
+								<GridViewColumn Width="450" Header="{x:Static res:WatcherRes.PathColumnHeader}">
+									<GridViewColumn.CellTemplate>
+										<DataTemplate>
+											<TextBlock Style="{DynamicResource ListViewTextBlockBaseStyle}" Text="{Binding WatchedFile.Path}" />
+										</DataTemplate>
+									</GridViewColumn.CellTemplate>
+								</GridViewColumn>
+								<GridViewColumn Header="{x:Static res:WatcherRes.StatusColumnHeader}">
+									<GridViewColumn.CellTemplate>
+										<DataTemplate>
+											<TextBlock Style="{DynamicResource ListViewTextBlockBaseStyle}" Text="{Binding WatchedFile.Status}" />
+										</DataTemplate>
+									</GridViewColumn.CellTemplate>
+								</GridViewColumn>
+							</GridView.Columns>
+						</GridView>
+					</controls:EnhancedListView.View>
+				</controls:EnhancedListView>
 			</Grid>
 		</Grid>
 	</Border>
