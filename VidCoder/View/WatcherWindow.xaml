@@ -2,13 +2,13 @@
 	x:Class="VidCoder.View.WatcherWindow"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:Resources="clr-namespace:VidCoder.Resources"
 	xmlns:controls="clr-namespace:VidCoder.Controls"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:VidCoder.View"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:res="clr-namespace:VidCoder.Resources"
 	xmlns:viewModel="clr-namespace:VidCoder.ViewModel"
-	Title="{x:Static Resources:WatcherRes.WatcherWindowTitle}"
+	Title="{x:Static res:WatcherRes.WatcherWindowTitle}"
 	Width="600"
 	Height="300"
 	d:DataContext="{d:DesignInstance viewModel:WatcherWindowViewModel}"
@@ -32,6 +32,7 @@
 			<Grid Grid.Row="2">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
 					<RowDefinition />
 				</Grid.RowDefinitions>
 				<!--  Button toolbar  -->
@@ -42,36 +43,141 @@
 					Orientation="Horizontal">
 					<CheckBox
 						VerticalContentAlignment="Center"
-						Content="{x:Static Resources:CommonRes.Enabled}"
+						Content="{x:Static res:CommonRes.Enabled}"
 						IsChecked="{Binding WatcherEnabled}" />
 					<CheckBox
 						Margin="12 0 0 0"
 						VerticalContentAlignment="Center"
-						Content="{x:Static Resources:WatcherRes.RunWhenClosedCheckBox}"
+						Content="{x:Static res:WatcherRes.RunWhenClosedCheckBox}"
 						IsChecked="{Binding RunWhenClosed}"
 						Visibility="{Binding WatcherEnabled, Converter={StaticResource VisibilityConverter}}" />
 					<Button
-						Margin="6 0 0 0"
-						Padding="6"
-						AutomationProperties.Name="{x:Static Resources:WatcherRes.ConfigureFoldersButton}"
-						Command="{Binding OpenConfig}"
+						Margin="12 0 0 0"
+						AutomationProperties.Name="{x:Static res:WatcherRes.AddFolderToWatch}"
+						Command="{Binding AddWatchedFolder}"
 						Style="{StaticResource BorderlessButtonStyle}"
 						Visibility="{Binding WatcherEnabled, Converter={StaticResource VisibilityConverter}}">
 						<StackPanel Orientation="Horizontal">
-							<Image
-								Width="20"
-								Height="20"
-								Source="/Icons/folder.png" />
+							<Grid
+								Width="15"
+								Height="15"
+								Background="Transparent">
+								<Grid.ToolTip>
+									<ContentPresenter />
+								</Grid.ToolTip>
+								<Rectangle
+									x:Name="rect2"
+									Width="14"
+									Height="2"
+									Fill="Green">
+									<Rectangle.LayoutTransform>
+										<RotateTransform Angle="0" />
+									</Rectangle.LayoutTransform>
+								</Rectangle>
+								<Rectangle
+									x:Name="rect1"
+									Width="14"
+									Height="2"
+									Fill="Green">
+									<Rectangle.LayoutTransform>
+										<RotateTransform Angle="90" />
+									</Rectangle.LayoutTransform>
+								</Rectangle>
+							</Grid>
 							<TextBlock
 								Margin="6 0 0 0"
 								VerticalAlignment="Center"
-								Text="{x:Static Resources:WatcherRes.ConfigureFoldersButton}" />
+								Text="{x:Static res:WatcherRes.AddFolderToWatch}" />
 						</StackPanel>
 					</Button>
 				</StackPanel>
 
+				<ItemsControl Grid.Row="1" ItemsSource="{Binding WatchedFoldersBindable}">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel Orientation="Vertical" />
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+								<Button
+									HorizontalContentAlignment="Stretch"
+									Command="{Binding EditFolder}"
+									Style="{StaticResource BorderlessButtonStyle}">
+									<Grid>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="Auto" />
+											<ColumnDefinition />
+											<ColumnDefinition Width="Auto" />
+										</Grid.ColumnDefinitions>
+										<Image
+											Grid.Column="0"
+											Width="20"
+											Height="20"
+											Margin="12 0 0 0"
+											Source="/Icons/folder.png" />
+
+
+										<controls:PathTextBlock
+											Grid.Column="1"
+											Margin="6 0 0 0"
+											VerticalAlignment="Center"
+											Text="{Binding WatchedFolder.Path}" />
+
+										<StackPanel Grid.Column="2" Orientation="Horizontal">
+											<Image
+												Width="16"
+												Height="16"
+												Margin="10 0 0 0"
+												Source="/Icons/EncodingSettings.png" />
+											<TextBlock
+												Margin="2 0 0 0"
+												VerticalAlignment="Center"
+												Foreground="{DynamicResource DescriptiveTextBrush}"
+												Text="{Binding WatchedFolder.Preset}" />
+
+											<Image
+												Width="16"
+												Height="16"
+												Margin="10 0 0 0"
+												Source="/Icons/Picker.png" />
+											<TextBlock
+												Margin="2 0 0 0"
+												VerticalAlignment="Center"
+												Foreground="{DynamicResource DescriptiveTextBrush}"
+												Text="{Binding WatchedFolder.Picker}" />
+											<Image
+												Grid.Column="2"
+												Width="16"
+												Height="16"
+												Margin="8 0"
+												Source="/Icons/edit_16x16.png" />
+										</StackPanel>
+
+									</Grid>
+								</Button>
+
+
+
+								<Button
+									Grid.Column="1"
+									Padding="10"
+									VerticalAlignment="Stretch"
+									Command="{Binding RemoveFolder}"
+									Content="{x:Static res:WatcherRes.RemoveWatchedFolder}"
+									Style="{StaticResource RemoveButtonStyle}" />
+							</Grid>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+
 				<!--  Watched file grid  -->
-				<Grid Grid.Row="1" />
+				<Grid Grid.Row="2" />
 			</Grid>
 		</Grid>
 	</Border>

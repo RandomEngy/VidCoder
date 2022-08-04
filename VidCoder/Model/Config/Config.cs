@@ -57,6 +57,7 @@ namespace VidCoder
 			cache.Add("PickerWindowPlacement", DatabaseConfig.Get("PickerWindowPlacement", "", connection));
 			cache.Add("WatcherWindowPlacement", DatabaseConfig.Get("WatcherWindowPlacement", "", connection));
 			cache.Add("LogWindowPlacement", DatabaseConfig.Get("LogWindowPlacement", "", connection));
+			cache.Add("WatcherEditDialogPlacement", DatabaseConfig.Get("WatcherEditDialogPlacement", "", connection));
 			cache.Add("EncodingWindowOpen", DatabaseConfig.Get("EncodingWindowOpen", false, connection));
 			cache.Add("PreviewWindowOpen", DatabaseConfig.Get("PreviewWindowOpen", false, connection));
 			cache.Add("LogWindowOpen", DatabaseConfig.Get("LogWindowOpen", false, connection));
@@ -300,6 +301,11 @@ namespace VidCoder
 		{
 			get { return (string)cache["LogWindowPlacement"]; }
 			set { Set("LogWindowPlacement", value); }
+		}
+		public static string WatcherEditDialogPlacement
+		{
+			get { return (string)cache["WatcherEditDialogPlacement"]; }
+			set { Set("WatcherEditDialogPlacement", value); }
 		}
 		public static bool EncodingWindowOpen
 		{
@@ -686,6 +692,7 @@ namespace VidCoder
 			public static IObservable<string> PickerWindowPlacement => GetObservable<string>("PickerWindowPlacement");
 			public static IObservable<string> WatcherWindowPlacement => GetObservable<string>("WatcherWindowPlacement");
 			public static IObservable<string> LogWindowPlacement => GetObservable<string>("LogWindowPlacement");
+			public static IObservable<string> WatcherEditDialogPlacement => GetObservable<string>("WatcherEditDialogPlacement");
 			public static IObservable<bool> EncodingWindowOpen => GetObservable<bool>("EncodingWindowOpen");
 			public static IObservable<bool> PreviewWindowOpen => GetObservable<bool>("PreviewWindowOpen");
 			public static IObservable<bool> LogWindowOpen => GetObservable<bool>("LogWindowOpen");

@@ -1,4 +1,6 @@
-﻿using Microsoft.AnyContainer;
+﻿using DynamicData;
+using DynamicData.Binding;
+using Microsoft.AnyContainer;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -15,6 +17,7 @@ using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
+using VidCoder.ViewModel.DataModels;
 using VidCoderCommon;
 using VidCoderCommon.Model;
 
@@ -26,8 +29,14 @@ namespace VidCoder.ViewModel
 		private WatcherProcessManager watcherProcessManager = StaticResolver.Resolve<WatcherProcessManager>();
 		private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
 
+		private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
+
 		public WatcherWindowViewModel()
 		{
+
+			this.WatchedFolders.AddRange(WatcherStorage.GetWatchedFolders(Database.Connection).Select(watchedFolder => new WatchedFolderViewModel(this, watchedFolder)));
+			this.WatchedFolders.Connect().Bind(this.WatchedFoldersBindable).Subscribe();
+
 			// WindowTitle
 			this.WhenAnyValue(x => x.watcherProcessManager.Status)
 				.Select(status =>
@@ -77,23 +86,56 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ReactiveCommand<Unit, Unit> openConfig;
-		public ICommand OpenConfig
+		private ReactiveCommand<Unit, Unit> addWatchedFolder;
+		public ICommand AddWatchedFolder
 		{
 			get
 			{
-				return this.openConfig ?? (this.openConfig = ReactiveCommand.Create(
+				return this.addWatchedFolder ?? (this.addWatchedFolder = ReactiveCommand.Create(
 					() =>
 					{
-						var watcherConfigDialog = new WatcherConfigDialogViewModel();
-						this.windowManager.OpenDialog(watcherConfigDialog, this);
-
-						if (watcherConfigDialog.DialogResult)
+						var newWatchedFolder = new WatchedFolder
 						{
-							WatcherStorage.SaveWatchedFolders(Database.Connection, watcherConfigDialog.WatchedFolders.Items.Select(watchedFolderViewModel => watchedFolderViewModel.WatchedFolder).ToList());
+							Picker = string.Empty, // This is the default picker
+							Preset = this.presetsService.AllPresets[0].Preset.Name
+						};
+
+						var addWatchedFolderViewModel = new WatcherEditDialogViewModel(newWatchedFolder, isAdd: true);
+						this.windowManager.OpenDialog(addWatchedFolderViewModel, this);
+
+						if (addWatchedFolderViewModel.DialogResult)
+						{
+							this.WatchedFolders.Add(new WatchedFolderViewModel(this, addWatchedFolderViewModel.WatchedFolder));
+							this.SaveWatchedFolders();
 						}
 					}));
 			}
+		}
+
+		public SourceList<WatchedFolderViewModel> WatchedFolders { get; } = new SourceList<WatchedFolderViewModel>();
+		public ObservableCollectionExtended<WatchedFolderViewModel> WatchedFoldersBindable { get; } = new ObservableCollectionExtended<WatchedFolderViewModel>();
+
+		public void EditFolder(WatchedFolderViewModel folderToEdit)
+		{
+			var editWatchedFolderViewModel = new WatcherEditDialogViewModel(folderToEdit.WatchedFolder.Clone(), isAdd: false);
+			this.windowManager.OpenDialog(editWatchedFolderViewModel, this);
+
+			if (editWatchedFolderViewModel.DialogResult)
+			{
+				this.WatchedFolders.Replace(folderToEdit, new WatchedFolderViewModel(this, editWatchedFolderViewModel.WatchedFolder));
+				this.SaveWatchedFolders();
+			}
+		}
+
+		public void RemoveFolder(WatchedFolderViewModel folderToRemove)
+		{
+			this.WatchedFolders.Remove(folderToRemove);
+			this.SaveWatchedFolders();
+		}
+
+		private void SaveWatchedFolders()
+		{ 
+			WatcherStorage.SaveWatchedFolders(Database.Connection, this.WatchedFolders.Items.Select(f => f.WatchedFolder));
 		}
 
 		private static string GetStatusString(WatcherProcessStatus status)

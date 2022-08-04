@@ -32,6 +32,7 @@ EncodeDetailsWindowPlacement|string|""
 PickerWindowPlacement|string|""
 WatcherWindowPlacement|string|""
 LogWindowPlacement|string|""
+WatcherEditDialogPlacement|string|""
 
 EncodingWindowOpen|bool|false
 PreviewWindowOpen|bool|false

@@ -141,6 +141,12 @@ namespace VidCoder.Services.Windows
 					ViewModelType = typeof(OptionsDialogViewModel),
 					PlacementConfigKey = "OptionsDialogPlacement"
 				},
+
+				new WindowDefinition
+				{
+					ViewModelType = typeof(WatcherEditDialogViewModel),
+					PlacementConfigKey = "WatcherEditDialogPlacement"
+				}
 			};
 		}
 

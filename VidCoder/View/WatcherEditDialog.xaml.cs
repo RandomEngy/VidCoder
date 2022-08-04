@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace VidCoder.View
 {
 	/// <summary>
-	/// Interaction logic for WatcherConfigDialog.xaml
+	/// Interaction logic for WatcherAddDialog.xaml
 	/// </summary>
-	public partial class WatcherConfigDialog : Window
+	public partial class WatcherEditDialog : Window
 	{
-		public WatcherConfigDialog()
+		public WatcherEditDialog()
 		{
 			InitializeComponent();
 		}

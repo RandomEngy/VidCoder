@@ -79,15 +79,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configure folders.
-        /// </summary>
-        public static string ConfigureFoldersButton {
-            get {
-                return ResourceManager.GetString("ConfigureFoldersButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Deactivate File Watcher.
         /// </summary>
         public static string DeactivateWatcherButton {
@@ -160,7 +151,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Watched folder.
+        ///   Looks up a localized string similar to Folder:.
         /// </summary>
         public static string WatchedFolderTextBoxLabel {
             get {
@@ -169,11 +160,20 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Watcher configuration.
+        ///   Looks up a localized string similar to Add watched folder.
         /// </summary>
-        public static string WatcherConfigDialogTitle {
+        public static string WatcherAddDialogTitle {
             get {
-                return ResourceManager.GetString("WatcherConfigDialogTitle", resourceCulture);
+                return ResourceManager.GetString("WatcherAddDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit watched folder.
+        /// </summary>
+        public static string WatcherEditDialogTitle {
+            get {
+                return ResourceManager.GetString("WatcherEditDialogTitle", resourceCulture);
             }
         }
         

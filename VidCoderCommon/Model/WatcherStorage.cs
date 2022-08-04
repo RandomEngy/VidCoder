@@ -43,7 +43,7 @@ namespace VidCoderCommon.Model
 			}
 		}
 
-		public static void SaveWatchedFolders(SQLiteConnection connection, List<WatchedFolder> watchedFolders)
+		public static void SaveWatchedFolders(SQLiteConnection connection, IEnumerable<WatchedFolder> watchedFolders)
 		{
 			using (var transaction = connection.BeginTransaction())
 			{

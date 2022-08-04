@@ -12,11 +12,6 @@ namespace VidCoderCommon.Model
 	public class WatchedFolder
 	{
 		/// <summary>
-		/// True if this folder watch is enabled.
-		/// </summary>
-		public bool Enabled { get; set; } = true;
-
-		/// <summary>
 		/// The path of the folder to watch.
 		/// </summary>
 		public string Path { get; set; } = string.Empty;
@@ -30,5 +25,15 @@ namespace VidCoderCommon.Model
 		/// The name of the encoding preset to use.
 		/// </summary>
 		public string Preset { get; set; }
+
+		public WatchedFolder Clone()
+		{
+			return new WatchedFolder
+			{
+				Path = this.Path,
+				Picker = this.Picker,
+				Preset = this.Preset
+			};
+		}
 	}
 }

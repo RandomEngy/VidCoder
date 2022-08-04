@@ -123,9 +123,6 @@
   <data name="AddFolderToWatch" xml:space="preserve">
     <value>Add folder to watch</value>
   </data>
-  <data name="ConfigureFoldersButton" xml:space="preserve">
-    <value>Configure folders</value>
-  </data>
   <data name="DeactivateWatcherButton" xml:space="preserve">
     <value>Deactivate File Watcher</value>
   </data>
@@ -151,10 +148,13 @@
     <value>Could not uninstall file watcher service.</value>
   </data>
   <data name="WatchedFolderTextBoxLabel" xml:space="preserve">
-    <value>Watched folder</value>
+    <value>Folder:</value>
   </data>
-  <data name="WatcherConfigDialogTitle" xml:space="preserve">
-    <value>Watcher configuration</value>
+  <data name="WatcherAddDialogTitle" xml:space="preserve">
+    <value>Add watched folder</value>
+  </data>
+  <data name="WatcherEditDialogTitle" xml:space="preserve">
+    <value>Edit watched folder</value>
   </data>
   <data name="WatcherIntroText" xml:space="preserve">
     <value>You can set up the Watcher to observe folders and automatically encode videos that show up in them. The Watcher process will run when VidCoder is closed and launch it to encode files.</value>
