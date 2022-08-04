@@ -51,5 +51,7 @@ namespace VidCoder.ViewModel.DataModels
 					}));
 			}
 		}
+
+		public string PickerName => string.IsNullOrEmpty(this.WatchedFolder.Picker) ? CommonRes.Default : this.WatchedFolder.Picker;
 	}
 }

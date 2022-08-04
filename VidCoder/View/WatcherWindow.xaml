@@ -136,7 +136,7 @@
 												Margin="10 0 0 0"
 												Source="/Icons/EncodingSettings.png" />
 											<TextBlock
-												Margin="2 0 0 0"
+												Margin="3 0 0 0"
 												VerticalAlignment="Center"
 												Foreground="{DynamicResource DescriptiveTextBrush}"
 												Text="{Binding WatchedFolder.Preset}" />
@@ -147,10 +147,10 @@
 												Margin="10 0 0 0"
 												Source="/Icons/Picker.png" />
 											<TextBlock
-												Margin="2 0 0 0"
+												Margin="3 0 0 0"
 												VerticalAlignment="Center"
 												Foreground="{DynamicResource DescriptiveTextBrush}"
-												Text="{Binding WatchedFolder.Picker}" />
+												Text="{Binding PickerName}" />
 											<Image
 												Grid.Column="2"
 												Width="16"
