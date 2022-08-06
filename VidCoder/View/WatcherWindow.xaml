@@ -7,6 +7,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:VidCoder"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:model="clr-namespace:VidCoder.Model"
 	xmlns:res="clr-namespace:VidCoder.Resources"
 	xmlns:viewModel="clr-namespace:VidCoder.ViewModel"
 	Title="{x:Static res:WatcherRes.WatcherWindowTitle}"
@@ -21,7 +22,7 @@
 		<WindowChrome CaptionHeight="30" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
 	</WindowChrome.WindowChrome>
 	<Window.Resources>
-		<local:EnumDisplayer x:Key="StatusConverter" Type="{x:Type commonModel:WatchedFileStatus}" />
+		<local:EnumDisplayer x:Key="StatusConverter" Type="{x:Type model:WatchedFileStatusLive}" />
 	</Window.Resources>
 	<Border Style="{StaticResource WindowMainPanelStyle}">
 		<Grid>
@@ -199,14 +200,14 @@
 								<GridViewColumn Width="450" Header="{x:Static res:WatcherRes.PathColumnHeader}">
 									<GridViewColumn.CellTemplate>
 										<DataTemplate>
-											<TextBlock Style="{DynamicResource ListViewTextBlockBaseStyle}" Text="{Binding WatchedFile.Path}" />
+											<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding WatchedFile.Path}" />
 										</DataTemplate>
 									</GridViewColumn.CellTemplate>
 								</GridViewColumn>
-								<GridViewColumn Header="{x:Static res:WatcherRes.StatusColumnHeader}">
+								<GridViewColumn Width="90" Header="{x:Static res:WatcherRes.StatusColumnHeader}">
 									<GridViewColumn.CellTemplate>
 										<DataTemplate>
-											<TextBlock Style="{DynamicResource ListViewTextBlockBaseStyle}" Text="{Binding WatchedFile.Status, Converter={StaticResource StatusConverter}}" />
+											<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding Status, Converter={StaticResource StatusConverter}}" />
 										</DataTemplate>
 									</GridViewColumn.CellTemplate>
 								</GridViewColumn>

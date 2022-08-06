@@ -272,6 +272,15 @@ namespace VidCoder.Services
 			this.selectedQueueItemModifyableSubject = new BehaviorSubject<bool>(this.selectedQueueItemModifyable);
 		}
 
+		public event EventHandler<EventArgs<EncodeJobViewModel>> JobQueued;
+
+		/// <summary>
+		/// Fires when the item has been removed from queue without completing.
+		/// </summary>
+		public event EventHandler<EventArgs<EncodeJobViewModel>> JobRemovedFromQueue;
+		public event EventHandler<EventArgs<EncodeJobViewModel>> JobStarted;
+		public event EventHandler<JobCompletedEventArgs> JobCompleted;
+
 		public QueueWorkTracker WorkTracker { get; } = new QueueWorkTracker();
 
 		public SourceList<EncodeJobViewModel> EncodeQueue { get; } = new SourceList<EncodeJobViewModel>();
@@ -839,12 +848,8 @@ namespace VidCoder.Services
 					if (!selectedJob.Encoding)
 					{
 						encodeQueueInnerList.Remove(selectedJob);
+						this.ReportJobRemovedFromQueue(selectedJob);
 
-						if (this.Encoding)
-						{
-							this.TotalTasks--;
-							this.WorkTracker.ReportRemovedFromQueue(selectedJob.Work);
-						}
 					}
 				}
 			});
@@ -1438,6 +1443,12 @@ namespace VidCoder.Services
 				}
 			});
 
+			// Fire events for the jobs added
+			foreach (var encodeJobViewModel in encodeJobList)
+			{
+				this.JobQueued?.Invoke(this, new EventArgs<EncodeJobViewModel>(encodeJobViewModel));
+			}
+
 			// Select the Queued tab.
 			if (this.SelectedTabIndex != QueuedTabIndex)
 			{
@@ -1641,12 +1652,18 @@ namespace VidCoder.Services
 		public void RemoveQueueJob(EncodeJobViewModel job)
 		{
 			this.EncodeQueue.Remove(job);
+			this.ReportJobRemovedFromQueue(job);
+		}
 
+		private void ReportJobRemovedFromQueue(EncodeJobViewModel job)
+		{
 			if (this.Encoding)
 			{
 				this.TotalTasks--;
 				this.WorkTracker.ReportRemovedFromQueue(job.Work);
 			}
+
+			this.JobRemovedFromQueue?.Invoke(this, new EventArgs<EncodeJobViewModel>(job));
 		}
 
 		public void StartEncodeQueue()
@@ -1859,6 +1876,7 @@ namespace VidCoder.Services
 			this.logger.Log("Starting encode: " + job.FinalOutputPath);
 
 			jobViewModel.ReportEncodeStart();
+			this.JobStarted?.Invoke(this, new EventArgs<EncodeJobViewModel>(jobViewModel));
 
 			string destinationDirectory = Path.GetDirectoryName(job.FinalOutputPath);
 			if (!Directory.Exists(destinationDirectory))
@@ -2212,6 +2230,8 @@ namespace VidCoder.Services
 						}
 					}
 
+					this.JobCompleted?.Invoke(this, new JobCompletedEventArgs(finishedJobViewModel, this.encodeCompleteReason, status));
+
 					encodeLogger.Log("Job completed (Elapsed Time: " + finishedJobViewModel.EncodeTime.FormatFriendly() + ")");
 					this.logger.Log("Job completed: " + finalOutputPath);
 
@@ -2291,6 +2311,8 @@ namespace VidCoder.Services
 
 					encodeLogger.Log(stopMessage);
 					this.logger.Log(stopMessage);
+
+					this.JobCompleted?.Invoke(this, new JobCompletedEventArgs(finishedJobViewModel, this.encodeCompleteReason));
 
 					// Try to clean up the failed file
 					TryHandleFailedFile(directOutputFileInfo, encodeLogger, "stopped", finalOutputPath);

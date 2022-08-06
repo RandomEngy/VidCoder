@@ -125,7 +125,7 @@
 
 		<Style
 			x:Key="QueueText"
-			BasedOn="{StaticResource ListViewTextBlockBaseStyle}"
+			BasedOn="{StaticResource TextBlockBaseStyle}"
 			TargetType="TextBlock">
 			<Style.Triggers>
 				<DataTrigger Binding="{Binding Encoding}" Value="True">
@@ -235,10 +235,8 @@
 					Foreground="{Binding ProcessingService.ProgressBarBrush}"
 					ToolTip="{Binding ProgressToolTip}"
 					ToolTipService.ShowDuration="120000"
-					Visibility="{Binding ShowProgressBar,
-					                     Converter={StaticResource VisibilityConverter}}"
-					Value="{Binding PercentComplete,
-					                Mode=OneWay}" />
+					Visibility="{Binding ShowProgressBar, Converter={StaticResource VisibilityConverter}}"
+					Value="{Binding PercentComplete, Mode=OneWay}" />
 			</Grid>
 		</DataTemplate>
 		<ContextMenu x:Key="CompletedItemContextMenu" d:DataContext="{d:DesignInstance viewmodel:EncodeResultViewModel}">
@@ -261,8 +259,7 @@
 			<MenuItem
 				Command="{Binding Compare}"
 				Header="{x:Static res:MainRes.CompareAgainstOriginal}"
-				Visibility="{Binding ShowCompare,
-				                     Converter={StaticResource VisibilityConverter}}">
+				Visibility="{Binding ShowCompare, Converter={StaticResource VisibilityConverter}}">
 				<MenuItem.Icon>
 					<Image
 						Width="16"
@@ -300,8 +297,7 @@
 			<MenuItem
 				Command="{Binding ProcessingService.RetryFailed}"
 				Header="{x:Static res:MainRes.RetryFailedItemsMenuItem}"
-				Visibility="{Binding ProcessingService.HasFailedItems,
-				                     Converter={StaticResource VisibilityConverter}}">
+				Visibility="{Binding ProcessingService.HasFailedItems, Converter={StaticResource VisibilityConverter}}">
 				<MenuItem.Icon>
 					<Image
 						Width="16"
@@ -328,8 +324,7 @@
 			<MenuItem
 				Command="{Binding ProcessingService.ClearFailed}"
 				Header="{x:Static res:MainRes.ClearFailedMenuItem}"
-				Visibility="{Binding ProcessingService.HasFailedItems,
-				                     Converter={StaticResource VisibilityConverter}}">
+				Visibility="{Binding ProcessingService.HasFailedItems, Converter={StaticResource VisibilityConverter}}">
 				<MenuItem.Icon>
 					<Image
 						Width="16"
@@ -545,8 +540,7 @@
 						Width="46"
 						Height="32"
 						Data="M 18,15 H 28"
-						Stroke="{Binding Path=Foreground,
-						                 RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+						Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
 						StrokeThickness="1" />
 				</Button>
 				<Button
@@ -558,8 +552,7 @@
 						Width="46"
 						Height="32"
 						Data="M 18.5,10.5 H 27.5 V 19.5 H 18.5 Z"
-						Stroke="{Binding Path=Foreground,
-						                 RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+						Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
 						StrokeThickness="1" />
 				</Button>
 				<Button
@@ -571,8 +564,7 @@
 						Width="46"
 						Height="32"
 						Data="M 18.5,12.5 H 25.5 V 19.5 H 18.5 Z M 20.5,12.5 V 10.5 H 27.5 V 17.5 H 25.5"
-						Stroke="{Binding Path=Foreground,
-						                 RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+						Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
 						StrokeThickness="1" />
 				</Button>
 				<Button
@@ -583,8 +575,7 @@
 						Width="46"
 						Height="32"
 						Data="M 18,11 27,20 M 18,20 27,11"
-						Stroke="{Binding Path=Foreground,
-						                 RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+						Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
 						StrokeThickness="1" />
 				</Button>
 			</Grid>
@@ -641,8 +632,7 @@
 						</fluent:SplitButton>
 						<fluent:SplitButton
 							x:Name="pickerButton"
-							Command="{Binding OpenPickerWindow,
-							                  Source={StaticResource WindowXamlHelper}}"
+							Command="{Binding OpenPickerWindow, Source={StaticResource WindowXamlHelper}}"
 							Header="{Binding PickersService.PickerButtonText}"
 							LargeIcon="/Icons/Picker.png"
 							ToolTip="{x:Static res:PickerRes.PickerHelpText}">
@@ -651,21 +641,17 @@
 					</fluent:RibbonGroupBox>
 					<fluent:RibbonGroupBox Header="{x:Static res:MainRes.RibbonEncodingGroupLabel}">
 						<fluent:Button
-							Command="{Binding OpenPreviewWindow,
-							                  Source={StaticResource WindowXamlHelper}}"
+							Command="{Binding OpenPreviewWindow, Source={StaticResource WindowXamlHelper}}"
 							Header="{x:Static res:CommonRes.PreviewLabel}"
 							KeyTip="Ctrl+P"
 							LargeIcon="/Icons/Preview64.png"
-							Visibility="{Binding PreviewWindowOpen,
-							                     Source={StaticResource WindowXamlHelper},
-							                     Converter={StaticResource InverseVisibilityConverter}}" />
+							Visibility="{Binding PreviewWindowOpen, Source={StaticResource WindowXamlHelper}, Converter={StaticResource InverseVisibilityConverter}}" />
 						<fluent:SplitButton
 							Command="{Binding ProcessingService.AddToQueue}"
 							Header="{x:Static res:MainRes.AddToQueueLabel}"
 							LargeIcon="/Icons/AddToQueue.png"
 							SizeDefinition="Large"
-							Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
-							                     Converter={StaticResource VisibilityConverter}}">
+							Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles, Converter={StaticResource VisibilityConverter}}">
 							<fluent:MenuItem
 								Command="{Binding ProcessingService.AddToQueue}"
 								Header="{x:Static res:MainRes.AddToQueueLabel}"
@@ -680,31 +666,27 @@
 							Header="{x:Static res:MainRes.AddToQueueLabel}"
 							LargeIcon="/Icons/AddToQueue.png"
 							SizeDefinition="Large"
-							Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
-							                     Converter={StaticResource InverseVisibilityConverter}}" />
+							Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles, Converter={StaticResource InverseVisibilityConverter}}" />
 						<fluent:Button
 							Command="{Binding ProcessingService.Encode}"
 							Header="{Binding ProcessingService.EncodeButtonText}"
 							KeyTip="F5"
 							LargeIcon="/Icons/Encode.png"
 							SizeDefinition="Large"
-							Visibility="{Binding ProcessingService.PauseVisible,
-							                     Converter={StaticResource InverseVisibilityConverter}}" />
+							Visibility="{Binding ProcessingService.PauseVisible, Converter={StaticResource InverseVisibilityConverter}}" />
 
 						<fluent:Button
 							Command="{Binding ProcessingService.Pause}"
 							Header="{x:Static res:MainRes.Pause}"
 							LargeIcon="/Icons/Pause.png"
 							SizeDefinition="Large"
-							Visibility="{Binding ProcessingService.PauseVisible,
-							                     Converter={StaticResource VisibilityConverter}}" />
+							Visibility="{Binding ProcessingService.PauseVisible, Converter={StaticResource VisibilityConverter}}" />
 
 						<fluent:Button
 							Command="{Binding ProcessingService.StopEncode}"
 							Header="{x:Static res:MainRes.Stop}"
 							LargeIcon="/Icons/Stop.png"
-							Visibility="{Binding ProcessingService.Encoding,
-							                     Converter={StaticResource VisibilityConverter}}" />
+							Visibility="{Binding ProcessingService.Encoding, Converter={StaticResource VisibilityConverter}}" />
 					</fluent:RibbonGroupBox>
 					<fluent:RibbonGroupBox x:Name="toolsRibbonGroupBox">
 						<fluent:DropDownButton
@@ -747,8 +729,7 @@
 							<fluent:MenuItem
 								Command="{Binding OpenUpdates}"
 								Header="{x:Static res:MainRes.UpdatesMenuItem}"
-								Visibility="{Binding ShowUpdateMenuItem,
-								                     Converter={StaticResource VisibilityConverter}}" />
+								Visibility="{Binding ShowUpdateMenuItem, Converter={StaticResource VisibilityConverter}}" />
 							<Rectangle Style="{StaticResource MenuSeparatorStyle}" />
 							<fluent:MenuItem
 								Command="{Binding OpenAboutDialog}"
@@ -766,9 +747,7 @@
 				Margin="0"
 				VerticalAlignment="Stretch"
 				Background="{DynamicResource AlternateBackgroundBrush}"
-				Visibility="{Binding VideoSourceState,
-				                     Converter={StaticResource EnumVisibilityConverter},
-				                     ConverterParameter={x:Static model:VideoSourceState.Choices}}">
+				Visibility="{Binding VideoSourceState, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static model:VideoSourceState.Choices}}">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 					<RowDefinition />
@@ -861,8 +840,7 @@
 						Margin="0 4 0 0"
 						Focusable="False"
 						ItemsSource="{Binding RecentSourceOptions}"
-						Visibility="{Binding RecentSourcesVisible,
-						                     Converter={StaticResource VisibilityConverter}}">
+						Visibility="{Binding RecentSourcesVisible, Converter={StaticResource VisibilityConverter}}">
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
 								<Button
@@ -886,8 +864,7 @@
 										<controls:PathTextBlock
 											Grid.Column="1"
 											Margin="4"
-											Text="{Binding Text,
-											               Mode=OneWay}" />
+											Text="{Binding Text, Mode=OneWay}" />
 									</Grid>
 								</Button>
 							</DataTemplate>
@@ -916,9 +893,7 @@
 				Margin="0"
 				Background="{DynamicResource AlternateBackgroundBrush}"
 				VerticalScrollBarVisibility="Auto"
-				Visibility="{Binding VideoSourceState,
-				                     Converter={StaticResource EnumVisibilityConverter},
-				                     ConverterParameter={x:Static model:VideoSourceState.ScannedSource}}">
+				Visibility="{Binding VideoSourceState, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static model:VideoSourceState.ScannedSource}}">
 				<!--  Video, audio, subtitles, chapters grid  -->
 				<Grid Margin="0 8 0 0" VerticalAlignment="Top">
 					<Grid.RowDefinitions>
@@ -956,8 +931,7 @@
 									Margin="0 0 0 0"
 									VerticalAlignment="Center"
 									Source="{Binding SourceIcon}"
-									Visibility="{Binding SourceIconVisible,
-									                     Converter={StaticResource VisibilityConverter}}" />
+									Visibility="{Binding SourceIconVisible, Converter={StaticResource VisibilityConverter}}" />
 
 								<Grid Grid.Column="1">
 									<Grid.ColumnDefinitions>
@@ -972,8 +946,7 @@
 										VerticalAlignment="Center"
 										FontSize="13"
 										FontWeight="Bold"
-										Text="{Binding SourceText,
-										               Mode=OneWay}" />
+										Text="{Binding SourceText, Mode=OneWay}" />
 
 									<StackPanel
 										Name="videoTitleAngle"
@@ -1002,8 +975,7 @@
 												Source="/Icons/warning.png"
 												ToolTip="{Binding TitleWarning}"
 												ToolTipService.InitialShowDelay="0"
-												Visibility="{Binding TitleWarningVisible,
-												                     Converter={StaticResource VisibilityConverter}}" />
+												Visibility="{Binding TitleWarningVisible, Converter={StaticResource VisibilityConverter}}" />
 
 										</StackPanel>
 
@@ -1051,8 +1023,7 @@
 							Command="{Binding CloseVideoSource}"
 							Content="{x:Static res:MainRes.CloseVideoSourceToolTip}"
 							Style="{StaticResource RemoveButtonStyle}"
-							Visibility="{Binding CanCloseVideoSource,
-							                     Converter={StaticResource VisibilityConverter}}" />
+							Visibility="{Binding CanCloseVideoSource, Converter={StaticResource VisibilityConverter}}" />
 					</Grid>
 
 					<!--  Video Detail  -->
@@ -1060,8 +1031,7 @@
 						Grid.Row="1"
 						Height="110"
 						Margin="0 0 0 0"
-						Visibility="{Binding VideoExpanded,
-						                     Converter={StaticResource VisibilityConverter}}">
+						Visibility="{Binding VideoExpanded, Converter={StaticResource VisibilityConverter}}">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition />
 							<ColumnDefinition Width="Auto" />
@@ -1113,17 +1083,14 @@
 								<StackPanel
 									VerticalAlignment="Center"
 									Orientation="Horizontal"
-									Visibility="{Binding RangeType,
-									                     Converter={StaticResource EnumVisibilityConverter},
-									                     ConverterParameter={x:Static common:VideoRangeType.Seconds}}">
+									Visibility="{Binding RangeType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static common:VideoRangeType.Seconds}}">
 									<controls:TimeBox
 										Width="46"
 										Height="22"
 										GotFocus="StartTimeGotFocus"
 										Maximum="{Binding SelectedTitle.Duration}"
 										Style="{StaticResource RangeNumberBox}"
-										Time="{Binding TimeRangeStart,
-										               Mode=TwoWay}" />
+										Time="{Binding TimeRangeStart, Mode=TwoWay}" />
 									<TextBlock Style="{StaticResource PlainTitle}" Text="-" />
 									<controls:TimeBox
 										Width="46"
@@ -1131,8 +1098,7 @@
 										GotFocus="EndTimeGotFocus"
 										Maximum="{Binding SelectedTitle.Duration}"
 										Style="{StaticResource RangeNumberBox}"
-										Time="{Binding TimeRangeEnd,
-										               Mode=TwoWay}" />
+										Time="{Binding TimeRangeEnd, Mode=TwoWay}" />
 								</StackPanel>
 
 								<!--  Frames range  -->
@@ -1142,8 +1108,7 @@
 										AllowEmpty="False"
 										GotFocus="FramesStartGotFocus"
 										Minimum="0"
-										Number="{Binding FramesRangeStart,
-										                 Mode=TwoWay}"
+										Number="{Binding FramesRangeStart, Mode=TwoWay}"
 										Style="{StaticResource RangeNumberBox}" />
 									<TextBlock Style="{StaticResource PlainTitle}" Text="-" />
 									<controls:NumberBox
@@ -1151,8 +1116,7 @@
 										AllowEmpty="False"
 										GotFocus="FramesEndGotFocus"
 										Minimum="1"
-										Number="{Binding FramesRangeEnd,
-										                 Mode=TwoWay}"
+										Number="{Binding FramesRangeEnd, Mode=TwoWay}"
 										Style="{StaticResource RangeNumberBox}" />
 								</StackPanel>
 								<TextBlock Style="{StaticResource PlainTitle}" Text="{Binding TotalChaptersText}" />
@@ -1171,17 +1135,12 @@
 									HorizontalAlignment="Stretch"
 									VerticalAlignment="Center"
 									ChaptersEnabled="{Binding UsingChaptersRange}"
-									EndChapter="{Binding ChapterPreviewEnd,
-									                     Mode=TwoWay}"
-									EndTime="{Binding TimeRangeEndBar,
-									                  Mode=TwoWay}"
-									StartChapter="{Binding ChapterPreviewStart,
-									                       Mode=TwoWay}"
-									StartTime="{Binding TimeRangeStartBar,
-									                    Mode=TwoWay}"
+									EndChapter="{Binding ChapterPreviewEnd, Mode=TwoWay}"
+									EndTime="{Binding TimeRangeEndBar, Mode=TwoWay}"
+									StartChapter="{Binding ChapterPreviewStart, Mode=TwoWay}"
+									StartTime="{Binding TimeRangeStartBar, Mode=TwoWay}"
 									ToolTip="{x:Static res:MainRes.RangeBarToolTip}"
-									Visibility="{Binding RangeBarVisible,
-									                     Converter={StaticResource VisibilityConverter}}" />
+									Visibility="{Binding RangeBarVisible, Converter={StaticResource VisibilityConverter}}" />
 
 								<!--  Range preview text  -->
 								<StackPanel
@@ -1190,8 +1149,7 @@
 									HorizontalAlignment="Right"
 									VerticalAlignment="Center"
 									Orientation="Horizontal"
-									Visibility="{Binding RangeBarVisible,
-									                     Converter={StaticResource VisibilityConverter}}">
+									Visibility="{Binding RangeBarVisible, Converter={StaticResource VisibilityConverter}}">
 									<TextBlock VerticalAlignment="Bottom" Text="{Binding RangePreviewText}" />
 									<TextBlock
 										Margin="10 0 0 0"
@@ -1354,15 +1312,13 @@
 					<StackPanel
 						Grid.Row="3"
 						Orientation="Vertical"
-						Visibility="{Binding AudioExpanded,
-						                     Converter={StaticResource VisibilityConverter}}">
+						Visibility="{Binding AudioExpanded, Converter={StaticResource VisibilityConverter}}">
 						<TextBlock
 							Margin="16 0 0 0"
 							HorizontalAlignment="Left"
 							VerticalAlignment="Top"
 							Text="{x:Static res:MainRes.NoAudioDescription}"
-							Visibility="{Binding HasAudio,
-							                     Converter={StaticResource InverseVisibilityConverter}}" />
+							Visibility="{Binding HasAudio, Converter={StaticResource InverseVisibilityConverter}}" />
 						<ListView
 							Margin="-1 0 -1 0"
 							VerticalAlignment="Top"
@@ -1371,8 +1327,7 @@
 							VidCoderDragDrop:DragDropHelper.SourceList="{Binding AudioTracks}"
 							ItemsSource="{Binding AudioTracksBindable}"
 							UseLayoutRounding="True"
-							Visibility="{Binding HasAudio,
-							                     Converter={StaticResource VisibilityConverter}}">
+							Visibility="{Binding HasAudio, Converter={StaticResource VisibilityConverter}}">
 							<VidCoderDragDrop:DragDropHelper.DragDropTemplate>
 								<DataTemplate>
 									<TextBlock Background="White" Text="{Binding Display, Mode=OneWay}" />
@@ -1424,18 +1379,15 @@
 														<TextBlock
 															Style="{StaticResource SourceTrack}"
 															Text="{Binding SourceName}"
-															Visibility="{Binding Selected,
-															                     Converter={StaticResource InverseVisibilityConverter}}" />
+															Visibility="{Binding Selected, Converter={StaticResource InverseVisibilityConverter}}" />
 														<TextBox
 															Height="22"
 															MinWidth="100"
 															Margin="0"
 															VerticalContentAlignment="Center"
 															AutomationProperties.Name="{x:Static res:MainRes.AudioTrackNameAutomationName}"
-															Text="{Binding Name,
-															               UpdateSourceTrigger=PropertyChanged}"
-															Visibility="{Binding Selected,
-															                     Converter={StaticResource VisibilityConverter}}" />
+															Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+															Visibility="{Binding Selected, Converter={StaticResource VisibilityConverter}}" />
 													</Grid>
 												</DataTemplate>
 											</GridViewColumn.CellTemplate>
@@ -1458,8 +1410,7 @@
 														MinWidth="65"
 														VerticalAlignment="Center"
 														Style="{StaticResource SourceTrack}"
-														Text="{Binding AudioTrack.SampleRate,
-														               Converter={StaticResource SampleRateDisplayConverter}}" />
+														Text="{Binding AudioTrack.SampleRate, Converter={StaticResource SampleRateDisplayConverter}}" />
 												</DataTemplate>
 											</GridViewColumn.CellTemplate>
 										</GridViewColumn>
@@ -1472,15 +1423,13 @@
 															Command="{Binding Remove}"
 															Content="{x:Static res:CommonRes.RemoveTrack}"
 															Style="{StaticResource RemoveButtonStyle}"
-															Visibility="{Binding RemoveVisible,
-															                     Converter={StaticResource VisibilityConverter}}" />
+															Visibility="{Binding RemoveVisible, Converter={StaticResource VisibilityConverter}}" />
 														<Button
 															VerticalContentAlignment="Center"
 															Command="{Binding Duplicate}"
 															Content="{x:Static res:CommonRes.DuplicateTrack}"
 															Style="{StaticResource AddButtonStyle}"
-															Visibility="{Binding DuplicateVisible,
-															                     Converter={StaticResource VisibilityConverter}}" />
+															Visibility="{Binding DuplicateVisible, Converter={StaticResource VisibilityConverter}}" />
 													</Grid>
 												</DataTemplate>
 											</GridViewColumn.CellTemplate>
@@ -1602,18 +1551,15 @@
 									<TextBlock
 										Style="{StaticResource SourceTrack}"
 										Text="{Binding SourceName}"
-										Visibility="{Binding Selected,
-										                     Converter={StaticResource InverseVisibilityConverter}}" />
+										Visibility="{Binding Selected, Converter={StaticResource InverseVisibilityConverter}}" />
 									<TextBox
 										Height="22"
 										MinWidth="100"
 										Margin="0"
 										VerticalContentAlignment="Center"
 										AutomationProperties.Name="{x:Static res:MainRes.SubtitleNameAutomationName}"
-										Text="{Binding Name,
-										               UpdateSourceTrigger=PropertyChanged}"
-										Visibility="{Binding Selected,
-										                     Converter={StaticResource VisibilityConverter}}" />
+										Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+										Visibility="{Binding Selected, Converter={StaticResource VisibilityConverter}}" />
 								</Grid>
 							</DataTemplate>
 							<DataTemplate x:Key="ForcedTemplate" DataType="viewmodel:SourceSubtitleViewModel">
@@ -1626,8 +1572,7 @@
 									IsEnabled="{Binding ForcedOnlyEnabled}"
 									Style="{StaticResource CheckBoxCenteredStyle}"
 									ToolTip="{x:Static res:CommonRes.ForcedSubtitleToolTip}"
-									Visibility="{Binding Selected,
-									                     Converter={StaticResource VisibilityConverter}}" />
+									Visibility="{Binding Selected, Converter={StaticResource VisibilityConverter}}" />
 							</DataTemplate>
 							<DataTemplate x:Key="BurnedInTemplate" DataType="viewmodel:SourceSubtitleViewModel">
 								<CheckBox
@@ -1640,8 +1585,7 @@
 									Style="{StaticResource CheckBoxCenteredStyle}"
 									ToolTip="{x:Static res:CommonRes.BurnedSubtitleToolTip}"
 									ToolTipService.ShowOnDisabled="True"
-									Visibility="{Binding Selected,
-									                     Converter={StaticResource VisibilityConverter}}" />
+									Visibility="{Binding Selected, Converter={StaticResource VisibilityConverter}}" />
 							</DataTemplate>
 							<DataTemplate x:Key="SubtitleFileDragTemplate">
 								<TextBox Text="{Binding FileName, Mode=OneWay}" />
@@ -1659,8 +1603,7 @@
 									Margin="0"
 									VerticalContentAlignment="Center"
 									AutomationProperties.Name="{x:Static res:MainRes.SubtitleNameAutomationName}"
-									Text="{Binding Name,
-									               UpdateSourceTrigger=PropertyChanged}" />
+									Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
 							</DataTemplate>
 							<DataTemplate x:Key="DefaultTemplate" DataType="viewmodel:SourceSubtitleViewModel">
 								<CheckBox
@@ -1673,8 +1616,7 @@
 									Style="{StaticResource CheckBoxCenteredStyle}"
 									ToolTip="{x:Static res:CommonRes.DefaultSubtitleToolTip}"
 									ToolTipService.ShowOnDisabled="True"
-									Visibility="{Binding Selected,
-									                     Converter={StaticResource VisibilityConverter}}" />
+									Visibility="{Binding Selected, Converter={StaticResource VisibilityConverter}}" />
 							</DataTemplate>
 							<DataTemplate x:Key="LanguageTemplate" DataType="viewmodel:FileSubtitleViewModel">
 								<ComboBox
@@ -1695,8 +1637,7 @@
 									Width="40"
 									Height="22"
 									AllowEmpty="False"
-									Number="{Binding Offset,
-									                 Mode=TwoWay}"
+									Number="{Binding Offset, Mode=TwoWay}"
 									ToolTip="{x:Static res:CommonRes.OffsetSubtitleToolTip}" />
 							</DataTemplate>
 							<DataTemplate x:Key="RemoveTemplate" DataType="viewmodel:SourceSubtitleViewModel">
@@ -1715,15 +1656,13 @@
 										Command="{Binding RemoveSubtitle}"
 										Content="{x:Static res:CommonRes.RemoveTrack}"
 										Style="{StaticResource RemoveButtonStyle}"
-										Visibility="{Binding RemoveVisible,
-										                     Converter={StaticResource VisibilityConverter}}" />
+										Visibility="{Binding RemoveVisible, Converter={StaticResource VisibilityConverter}}" />
 									<Button
 										VerticalContentAlignment="Center"
 										Command="{Binding DuplicateSubtitle}"
 										Content="{x:Static res:CommonRes.DuplicateTrack}"
 										Style="{StaticResource AddButtonStyle}"
-										Visibility="{Binding DuplicateVisible,
-										                     Converter={StaticResource VisibilityConverter}}" />
+										Visibility="{Binding DuplicateVisible, Converter={StaticResource VisibilityConverter}}" />
 								</Grid>
 							</DataTemplate>
 						</Grid.Resources>
@@ -1741,15 +1680,13 @@
 								HorizontalAlignment="Left"
 								VerticalAlignment="Top"
 								Text="{x:Static res:SubtitleRes.NoSubtitlesText}"
-								Visibility="{Binding HasSourceSubtitles,
-								                     Converter={StaticResource InverseVisibilityConverter}}" />
+								Visibility="{Binding HasSourceSubtitles, Converter={StaticResource InverseVisibilityConverter}}" />
 							<TextBlock
 								Margin="27 0 0 2"
 								HorizontalAlignment="Left"
 								VerticalAlignment="Top"
 								Text="{x:Static res:SubtitleRes.SubtitlesFromSourceLabel}"
-								Visibility="{Binding ShowSourceSubtitlesLabel,
-								                     Converter={StaticResource VisibilityConverter}}" />
+								Visibility="{Binding ShowSourceSubtitlesLabel, Converter={StaticResource VisibilityConverter}}" />
 
 							<ListView
 								Margin="-1 0"
@@ -1760,8 +1697,7 @@
 								VidCoderDragDrop:DragDropHelper.SourceList="{Binding SourceSubtitles}"
 								ItemsSource="{Binding SourceSubtitlesBindable}"
 								UseLayoutRounding="True"
-								Visibility="{Binding HasSourceSubtitles,
-								                     Converter={StaticResource VisibilityConverter}}">
+								Visibility="{Binding HasSourceSubtitles, Converter={StaticResource VisibilityConverter}}">
 								<i:Interaction.Behaviors>
 									<behaviors:IgnoreMouseWheelBehavior />
 								</i:Interaction.Behaviors>
@@ -1823,8 +1759,7 @@
 							</ListView>
 							<controls:InlineWarning
 								Margin="16 6 16 0"
-								Visibility="{Binding TextSubtitleWarningVisible,
-								                     Converter={StaticResource VisibilityConverter}}"
+								Visibility="{Binding TextSubtitleWarningVisible, Converter={StaticResource VisibilityConverter}}"
 								WarningText="{x:Static res:SubtitleRes.QuickTimeSubtitlesWarning}" />
 						</StackPanel>
 
@@ -1834,15 +1769,13 @@
 							Grid.Row="1"
 							Margin="0 4 0 0"
 							Orientation="Vertical"
-							Visibility="{Binding HasFileSubtitles,
-							                     Converter={StaticResource VisibilityConverter}}">
+							Visibility="{Binding HasFileSubtitles, Converter={StaticResource VisibilityConverter}}">
 							<TextBlock
 								Margin="27 0 0 2"
 								HorizontalAlignment="Left"
 								VerticalAlignment="Top"
 								Text="{x:Static res:SubtitleRes.ExternalSubtitlesLabel}"
-								Visibility="{Binding HasFileSubtitles,
-								                     Converter={StaticResource VisibilityConverter}}" />
+								Visibility="{Binding HasFileSubtitles, Converter={StaticResource VisibilityConverter}}" />
 
 							<ListView
 								Name="fileSubtitleListView"
@@ -1892,8 +1825,7 @@
 
 							<controls:InlineWarning
 								Margin="16 6 16 0"
-								Visibility="{Binding BurnedOverlapWarningVisible,
-								                     Converter={StaticResource VisibilityConverter}}"
+								Visibility="{Binding BurnedOverlapWarningVisible, Converter={StaticResource VisibilityConverter}}"
 								WarningText="{x:Static res:SubtitleRes.BurnedOverlapWarning}" />
 						</StackPanel>
 
@@ -1904,14 +1836,12 @@
 					<Grid
 						Grid.Row="6"
 						Height="30"
-						Visibility="{Binding ShowChapterMarkerUI,
-						                     Converter={StaticResource VisibilityConverter}}" />
+						Visibility="{Binding ShowChapterMarkerUI, Converter={StaticResource VisibilityConverter}}" />
 					<StackPanel
 						Grid.Row="6"
 						Margin="26 0 0 0"
 						Orientation="Horizontal"
-						Visibility="{Binding ShowChapterMarkerUI,
-						                     Converter={StaticResource VisibilityConverter}}">
+						Visibility="{Binding ShowChapterMarkerUI, Converter={StaticResource VisibilityConverter}}">
 						<Image
 							Width="16"
 							Height="16"
@@ -1945,9 +1875,7 @@
 				Grid.Row="2"
 				Margin="26 0 40 0"
 				VerticalAlignment="Center"
-				Visibility="{Binding VideoSourceState,
-				                     Converter={StaticResource EnumVisibilityConverter},
-				                     ConverterParameter={x:Static model:VideoSourceState.Scanning}}">
+				Visibility="{Binding VideoSourceState, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static model:VideoSourceState.Scanning}}">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 					<RowDefinition />
@@ -2034,8 +1962,7 @@
 							GotFocus="DestinationEditBoxGotFocus"
 							LostFocus="DestinationEditBoxLostFocus"
 							PreviewKeyDown="DestinationEditBoxPreviewKeyDown"
-							Text="{Binding OutputPathService.OutputPath,
-							               UpdateSourceTrigger=PropertyChanged}" />
+							Text="{Binding OutputPathService.OutputPath, UpdateSourceTrigger=PropertyChanged}" />
 						<Grid
 							Name="destinationReadCover"
 							Margin="0"
@@ -2043,16 +1970,13 @@
 							Cursor="Hand"
 							MouseLeftButtonDown="DestinationReadCoverMouseLeftButtonDown"
 							ToolTip="{x:Static res:MainRes.DestinationToolTip}"
-							Visibility="{Binding OutputPathService.EditingDestination,
-							                     Converter={StaticResource InverseVisibilityConverter}}">
+							Visibility="{Binding OutputPathService.EditingDestination, Converter={StaticResource InverseVisibilityConverter}}">
 							<Image
 								Height="20"
 								Margin="0 0 4 0"
 								HorizontalAlignment="Right"
 								Source="/Icons/edit_2.png"
-								Visibility="{Binding IsMouseOver,
-								                     ElementName=destinationReadCover,
-								                     Converter={StaticResource VisibilityConverter}}" />
+								Visibility="{Binding IsMouseOver, ElementName=destinationReadCover, Converter={StaticResource VisibilityConverter}}" />
 						</Grid>
 					</Grid>
 
@@ -2078,8 +2002,7 @@
 						Content="{x:Static res:CommonRes.Manual}"
 						Style="{StaticResource BorderlessButtonStyle}"
 						ToolTip="{x:Static res:MainRes.DestinationManualToolTip}"
-						Visibility="{Binding OutputPathService.ManualOutputPath,
-						                     Converter={StaticResource VisibilityConverter}}" />
+						Visibility="{Binding OutputPathService.ManualOutputPath, Converter={StaticResource VisibilityConverter}}" />
 					<Button
 						Grid.Column="3"
 						Height="30"
@@ -2091,8 +2014,7 @@
 						Content="{x:Static res:CommonRes.Automatic}"
 						Style="{StaticResource BorderlessButtonStyle}"
 						ToolTip="{x:Static res:MainRes.DestinationAutomaticToolTip}"
-						Visibility="{Binding OutputPathService.ManualOutputPath,
-						                     Converter={StaticResource InverseVisibilityConverter}}" />
+						Visibility="{Binding OutputPathService.ManualOutputPath, Converter={StaticResource InverseVisibilityConverter}}" />
 				</Grid>
 
 				<!--  Queue section  -->
@@ -2130,8 +2052,7 @@
 														<MenuItem
 															Command="{Binding Stop}"
 															Header="{x:Static res:MainRes.Stop}"
-															Visibility="{Binding Encoding,
-															                     Converter={StaticResource VisibilityConverter}}">
+															Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}">
 															<MenuItem.Icon>
 																<Image
 																	Width="16"
@@ -2159,8 +2080,7 @@
 														<MenuItem
 															Command="{Binding ProcessingService.RemoveAllJobs}"
 															Header="{x:Static res:MainRes.RemoveAllFomQueueMenuItem}"
-															Visibility="{Binding ProcessingService.CanClearQueue,
-															                     Converter={StaticResource VisibilityConverter}}">
+															Visibility="{Binding ProcessingService.CanClearQueue, Converter={StaticResource VisibilityConverter}}">
 															<MenuItem.Icon>
 																<Image
 																	Width="16"
@@ -2202,8 +2122,7 @@
 											<MenuItem
 												Command="{Binding ProcessingService.RemoveAllJobs}"
 												Header="{x:Static res:MainRes.RemoveAllFomQueueMenuItem}"
-												Visibility="{Binding ProcessingService.CanClearQueue,
-												                     Converter={StaticResource VisibilityConverter}}">
+												Visibility="{Binding ProcessingService.CanClearQueue, Converter={StaticResource VisibilityConverter}}">
 												<MenuItem.Icon>
 													<Image
 														Width="16"
@@ -2229,8 +2148,7 @@
 												<MenuItem
 													Command="{Binding ProcessingService.RetryFailed}"
 													Header="{x:Static res:MainRes.RetryFailedItemsMenuItem}"
-													Visibility="{Binding ProcessingService.HasFailedItems,
-													                     Converter={StaticResource VisibilityConverter}}">
+													Visibility="{Binding ProcessingService.HasFailedItems, Converter={StaticResource VisibilityConverter}}">
 													<MenuItem.Icon>
 														<Image
 															Width="16"
@@ -2257,8 +2175,7 @@
 												<MenuItem
 													Command="{Binding ProcessingService.ClearFailed}"
 													Header="{x:Static res:MainRes.ClearFailedMenuItem}"
-													Visibility="{Binding ProcessingService.HasFailedItems,
-													                     Converter={StaticResource VisibilityConverter}}">
+													Visibility="{Binding ProcessingService.HasFailedItems, Converter={StaticResource VisibilityConverter}}">
 													<MenuItem.Icon>
 														<Image
 															Width="16"
@@ -2295,7 +2212,7 @@
 																	Source="{Binding StatusImage}" />
 																<TextBlock
 																	Margin="4 0 0 0"
-																	Style="{DynamicResource ListViewTextBlockBaseStyle}"
+																	Style="{DynamicResource TextBlockBaseStyle}"
 																	Text="{Binding StatusText}" />
 															</StackPanel>
 														</DataTemplate>
@@ -2304,14 +2221,14 @@
 												<GridViewColumn Width="90" Header="{x:Static res:MainRes.ElapsedTimeColumnHeader}">
 													<GridViewColumn.CellTemplate>
 														<DataTemplate>
-															<TextBlock Style="{DynamicResource ListViewTextBlockBaseStyle}" Text="{Binding TimeDisplay}" />
+															<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding TimeDisplay}" />
 														</DataTemplate>
 													</GridViewColumn.CellTemplate>
 												</GridViewColumn>
 												<GridViewColumn Width="80" Header="{x:Static res:MainRes.FileSizeColumnHeader}">
 													<GridViewColumn.CellTemplate>
 														<DataTemplate>
-															<TextBlock Style="{DynamicResource ListViewTextBlockBaseStyle}" Text="{Binding OutputFileSize}" />
+															<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding OutputFileSize}" />
 														</DataTemplate>
 													</GridViewColumn.CellTemplate>
 												</GridViewColumn>
@@ -2323,8 +2240,7 @@
 											<MenuItem
 												Command="{Binding ProcessingService.RetryFailed}"
 												Header="{x:Static res:MainRes.RetryFailedItemsMenuItem}"
-												Visibility="{Binding ProcessingService.HasFailedItems,
-												                     Converter={StaticResource VisibilityConverter}}">
+												Visibility="{Binding ProcessingService.HasFailedItems, Converter={StaticResource VisibilityConverter}}">
 												<MenuItem.Icon>
 													<Image
 														Width="16"
@@ -2351,8 +2267,7 @@
 											<MenuItem
 												Command="{Binding ProcessingService.ClearFailed}"
 												Header="{x:Static res:MainRes.ClearFailedMenuItem}"
-												Visibility="{Binding ProcessingService.HasFailedItems,
-												                     Converter={StaticResource VisibilityConverter}}">
+												Visibility="{Binding ProcessingService.HasFailedItems, Converter={StaticResource VisibilityConverter}}">
 												<MenuItem.Icon>
 													<Image
 														Width="16"
@@ -2401,8 +2316,7 @@
 					Grid.Row="2"
 					Height="28"
 					Background="{DynamicResource AlternateBackgroundBrush}"
-					Visibility="{Binding ProcessingService.Encoding,
-					                     Converter={StaticResource VisibilityConverter}}">
+					Visibility="{Binding ProcessingService.Encoding, Converter={StaticResource VisibilityConverter}}">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*" />
 						<ColumnDefinition Width="Auto" />
@@ -2416,22 +2330,18 @@
 						VerticalAlignment="Center"
 						MouseEnter="ProgressMouseEnter"
 						MouseLeave="ProgressMouseLeave"
-						Visibility="{Binding ProcessingService.Encoding,
-						                     Converter={StaticResource VisibilityConverter}}">
+						Visibility="{Binding ProcessingService.Encoding, Converter={StaticResource VisibilityConverter}}">
 						<ProgressBar
 							Name="overallEncodeProgressBar"
 							Height="24"
 							VerticalAlignment="Top"
 							Background="{DynamicResource WindowBrush}"
 							Foreground="{Binding ProcessingService.ProgressBarBrush}"
-							Value="{Binding ProcessingService.OverallEncodeProgressPercent,
-							                Mode=OneWay}" />
+							Value="{Binding ProcessingService.OverallEncodeProgressPercent, Mode=OneWay}" />
 						<TextBlock
 							HorizontalAlignment="Center"
 							VerticalAlignment="Center"
-							Text="{Binding ProcessingService.OverallEncodeProgressPercent,
-							               Mode=OneWay,
-							               Converter={StaticResource PercentDisplayConverter}}" />
+							Text="{Binding ProcessingService.OverallEncodeProgressPercent, Mode=OneWay, Converter={StaticResource PercentDisplayConverter}}" />
 						<Popup
 							Name="encodeProgressDetailsPopup"
 							AllowsTransparency="True"
@@ -2458,9 +2368,7 @@
 										Grid.Row="0"
 										Grid.Column="1"
 										Style="{StaticResource EncodeDetailsText}"
-										Text="{Binding ProcessingService.CurrentFps,
-										               Mode=OneWay,
-										               Converter={StaticResource DoubleDisplayConverter}}"
+										Text="{Binding ProcessingService.CurrentFps, Mode=OneWay, Converter={StaticResource DoubleDisplayConverter}}"
 										TextAlignment="Center" />
 									<TextBlock
 										Grid.Row="1"
@@ -2471,9 +2379,7 @@
 										Grid.Row="1"
 										Grid.Column="1"
 										Style="{StaticResource EncodeDetailsText}"
-										Text="{Binding ProcessingService.AverageFps,
-										               Mode=OneWay,
-										               Converter={StaticResource DoubleDisplayConverter}}"
+										Text="{Binding ProcessingService.AverageFps, Mode=OneWay, Converter={StaticResource DoubleDisplayConverter}}"
 										TextAlignment="Center" />
 								</Grid>
 							</ContentControl>
@@ -2490,16 +2396,14 @@
 							VerticalAlignment="Center"
 							Text="{x:Static res:MainRes.EtaLabel}"
 							ToolTip="{x:Static res:CommonRes.QueueEtaToolTip}"
-							Visibility="{Binding ProcessingService.EncodeSpeedDetailsAvailable,
-							                     Converter={StaticResource VisibilityConverter}}" />
+							Visibility="{Binding ProcessingService.EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}" />
 						<TextBlock
 							Margin="3 0 0 0"
 							HorizontalAlignment="Right"
 							VerticalAlignment="Center"
 							Text="{Binding ProcessingService.WorkTracker.EstimatedTimeRemaining}"
 							ToolTip="{x:Static res:CommonRes.QueueEtaToolTip}"
-							Visibility="{Binding ProcessingService.EncodeSpeedDetailsAvailable,
-							                     Converter={StaticResource VisibilityConverter}}" />
+							Visibility="{Binding ProcessingService.EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}" />
 						<TextBlock
 							Name="whenDoneLabel"
 							Margin="8 0 3 0"

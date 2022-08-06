@@ -4,17 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoderCommon.Model
+namespace VidCoder.Model
 {
 	/// <summary>
-	/// Status of a watched file as persisted in the SQLite database.
+	/// Status of a watched file as shown in the Watcher window, reflecting queued and encoding status.
 	/// </summary>
-	public enum WatchedFileStatus
+	public enum WatchedFileStatusLive
 	{
 		/// <summary>
-		/// VidCoder is planning on encoding this file but hasn't finished it yet.
+		/// VidCoder has planned to encode this file but it has not yet been added to the queue. It should only be in this state as long as it takes to scan the item.
 		/// </summary>
 		Planned,
+
+		/// <summary>
+		/// The file has been added to the queue.
+		/// </summary>
+		Queued,
+
+		/// <summary>
+		/// The file is currently encoding.
+		/// </summary>
+		Encoding,
 
 		/// <summary>
 		/// VidCoder has successfully encoded this file.

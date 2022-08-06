@@ -55,18 +55,6 @@
 				<Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
 			</Style>
 
-			<Style x:Key="ListViewTextBlockBaseStyle" TargetType="TextBlock">
-				<Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
-				<Style.Triggers>
-					<DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
-						<Setter Property="Foreground" Value="{DynamicResource HighlightTextBrush}" />
-					</DataTrigger>
-					<DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
-						<Setter Property="Foreground" Value="{DynamicResource HighlightTextBrush}" />
-					</DataTrigger>
-				</Style.Triggers>
-			</Style>
-
 			<Style
 				x:Key="SectionHeader"
 				BasedOn="{StaticResource TextBlockBaseStyle}"

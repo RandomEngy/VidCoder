@@ -729,45 +729,63 @@ namespace VidCoder.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Canceled.
         /// </summary>
-        public static string WatchedFileStatus_Canceled {
+        public static string WatchedFileStatusLive_Canceled {
             get {
-                return ResourceManager.GetString("WatchedFileStatus_Canceled", resourceCulture);
+                return ResourceManager.GetString("WatchedFileStatusLive_Canceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoding.
+        /// </summary>
+        public static string WatchedFileStatusLive_Encoding {
+            get {
+                return ResourceManager.GetString("WatchedFileStatusLive_Encoding", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Failed.
         /// </summary>
-        public static string WatchedFileStatus_Failed {
+        public static string WatchedFileStatusLive_Failed {
             get {
-                return ResourceManager.GetString("WatchedFileStatus_Failed", resourceCulture);
+                return ResourceManager.GetString("WatchedFileStatusLive_Failed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Planned.
         /// </summary>
-        public static string WatchedFileStatus_Planned {
+        public static string WatchedFileStatusLive_Planned {
             get {
-                return ResourceManager.GetString("WatchedFileStatus_Planned", resourceCulture);
+                return ResourceManager.GetString("WatchedFileStatusLive_Planned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Queued.
+        /// </summary>
+        public static string WatchedFileStatusLive_Queued {
+            get {
+                return ResourceManager.GetString("WatchedFileStatusLive_Queued", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Skipped.
         /// </summary>
-        public static string WatchedFileStatus_Skipped {
+        public static string WatchedFileStatusLive_Skipped {
             get {
-                return ResourceManager.GetString("WatchedFileStatus_Skipped", resourceCulture);
+                return ResourceManager.GetString("WatchedFileStatusLive_Skipped", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Succeeded.
         /// </summary>
-        public static string WatchedFileStatus_Succeeded {
+        public static string WatchedFileStatusLive_Succeeded {
             get {
-                return ResourceManager.GetString("WatchedFileStatus_Succeeded", resourceCulture);
+                return ResourceManager.GetString("WatchedFileStatusLive_Succeeded", resourceCulture);
             }
         }
         

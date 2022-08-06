@@ -29,7 +29,13 @@ namespace VidCoder.ViewModel
 		private WatcherProcessManager watcherProcessManager = StaticResolver.Resolve<WatcherProcessManager>();
 		private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
 
+		/// <summary>
+		/// Maps file path directly to WatchedFileViewModel.
+		/// </summary>
+		private Dictionary<string, WatchedFileViewModel> fileMap = new Dictionary<string, WatchedFileViewModel>(StringComparer.OrdinalIgnoreCase);
+
 		private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
+		private ProcessingService processingService = StaticResolver.Resolve<ProcessingService>();
 
 		public WatcherWindowViewModel()
 		{
@@ -38,6 +44,14 @@ namespace VidCoder.ViewModel
 
 			this.WatchedFiles.AddRange(WatcherStorage.GetWatchedFiles(Database.Connection).Select(pair => new WatchedFileViewModel(pair.Value)));
 			this.WatchedFiles.Connect().Bind(this.WatchedFilesBindable).Subscribe();
+			this.RebuildFileMap();
+
+			this.InitializeLiveStatus();
+
+			if (this.WatcherEnabled)
+			{
+				this.SubscribeToJobEvents();
+			}
 
 			// WindowTitle
 			this.WhenAnyValue(x => x.watcherProcessManager.Status)
@@ -141,6 +155,120 @@ namespace VidCoder.ViewModel
 		private void SaveWatchedFolders()
 		{ 
 			WatcherStorage.SaveWatchedFolders(Database.Connection, this.WatchedFolders.Items.Select(f => f.WatchedFolder));
+		}
+
+		private void SubscribeToJobEvents()
+		{
+			this.processingService.JobQueued += this.OnJobQueued;
+			this.processingService.JobRemovedFromQueue += this.OnJobRemovedFromQueue;
+			this.processingService.JobStarted += this.OnJobStarted;
+			this.processingService.JobCompleted += this.OnJobCompleted;
+		}
+
+		private void UnsubscribeFromJobEvents()
+		{
+			this.processingService.JobQueued -= this.OnJobQueued;
+			this.processingService.JobRemovedFromQueue -= this.OnJobRemovedFromQueue;
+			this.processingService.JobStarted -= this.OnJobStarted;
+			this.processingService.JobCompleted -= this.OnJobCompleted;
+		}
+
+		private void OnJobQueued(object sender, EventArgs<EncodeJobViewModel> e)
+		{
+			WatchedFileViewModel watchedFile = this.GetWatchedFileForJob(e.Value);
+			if (watchedFile != null)
+			{
+				watchedFile.Status = WatchedFileStatusLive.Queued;
+			}
+		}
+
+		private void OnJobRemovedFromQueue(object sender, EventArgs<EncodeJobViewModel> e)
+		{
+			WatchedFileViewModel watchedFile = this.GetWatchedFileForJob(e.Value);
+			if (watchedFile != null)
+			{
+				watchedFile.Status = WatchedFileStatusLive.Canceled;
+			}
+		}
+
+		private void OnJobStarted(object sender, EventArgs<EncodeJobViewModel> e)
+		{
+			WatchedFileViewModel watchedFile = this.GetWatchedFileForJob(e.Value);
+			if (watchedFile != null)
+			{
+				watchedFile.Status = WatchedFileStatusLive.Encoding;
+			}
+		}
+
+		private void OnJobCompleted(object sender, JobCompletedEventArgs e)
+		{
+			WatchedFileViewModel watchedFile = this.GetWatchedFileForJob(e.JobViewModel);
+			if (watchedFile != null)
+			{
+				if (e.Reason == EncodeCompleteReason.Finished)
+				{
+					if (e.ResultStatus == EncodeResultStatus.Succeeded)
+					{
+						watchedFile.Status = WatchedFileStatusLive.Succeeded;
+					}
+					else if (e.ResultStatus == EncodeResultStatus.Failed)
+					{
+						watchedFile.Status = WatchedFileStatusLive.Failed;
+					}
+				}
+				else
+				{
+					watchedFile.Status = WatchedFileStatusLive.Queued;
+				}
+			}
+		}
+
+		private void RebuildFileMap()
+		{
+			this.fileMap.Clear();
+			foreach (var watchedFileViewModel in this.WatchedFiles.Items)
+			{
+				this.fileMap.Add(watchedFileViewModel.WatchedFile.Path, watchedFileViewModel);
+			}
+		}
+
+		/// <summary>
+		/// Gets the watched file that corresponds with the job, or null if there is no watched file for that job.
+		/// </summary>
+		/// <param name="job">The job to look up.</param>
+		/// <returns>The watched file that corresponds to the job, or null if there is no watched file for that job.</returns>
+		private WatchedFileViewModel GetWatchedFileForJob(EncodeJobViewModel job)
+		{
+			if (this.fileMap.TryGetValue(job.Job.SourcePath, out WatchedFileViewModel watchedFile))
+			{
+				return watchedFile;
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		/// <summary>
+		/// Find the current live status of all the items. Update the status of any that are queued or encoding.
+		/// </summary>
+		private void InitializeLiveStatus()
+		{
+			// Run through the queue and see if there are any matches
+			foreach (var job in this.processingService.EncodeQueue.Items)
+			{
+				if (this.fileMap.TryGetValue(job.Job.SourcePath, out WatchedFileViewModel watchedFile))
+				{
+					if (job.Encoding)
+					{
+						watchedFile.Status = WatchedFileStatusLive.Encoding;
+					}
+					else
+					{
+						watchedFile.Status = WatchedFileStatusLive.Queued;
+					}
+				}
+			}
 		}
 
 		private static string GetStatusString(WatcherProcessStatus status)
