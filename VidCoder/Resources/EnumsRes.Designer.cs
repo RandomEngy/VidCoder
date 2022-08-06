@@ -727,6 +727,51 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Canceled.
+        /// </summary>
+        public static string WatchedFileStatus_Canceled {
+            get {
+                return ResourceManager.GetString("WatchedFileStatus_Canceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed.
+        /// </summary>
+        public static string WatchedFileStatus_Failed {
+            get {
+                return ResourceManager.GetString("WatchedFileStatus_Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Planned.
+        /// </summary>
+        public static string WatchedFileStatus_Planned {
+            get {
+                return ResourceManager.GetString("WatchedFileStatus_Planned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skipped.
+        /// </summary>
+        public static string WatchedFileStatus_Skipped {
+            get {
+                return ResourceManager.GetString("WatchedFileStatus_Skipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Succeeded.
+        /// </summary>
+        public static string WatchedFileStatus_Succeeded {
+            get {
+                return ResourceManager.GetString("WatchedFileStatus_Succeeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disabled.
         /// </summary>
         public static string WatcherProcessStatus_Disabled {

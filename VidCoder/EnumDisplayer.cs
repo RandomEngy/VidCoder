@@ -121,7 +121,7 @@ namespace VidCoder
 				enumType = resourceAliases[enumType];
 			}
 
-			return enumResourceManager.GetString(enumType + " " + enumValue);
+			return enumResourceManager.GetString(enumType + "_" + enumValue);
 		}
 
 		private string GetBackupDisplayString(string enumValueString)

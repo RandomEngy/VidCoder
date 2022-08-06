@@ -372,4 +372,19 @@
   <data name="WatcherProcessStatus_Stopped" xml:space="preserve">
     <value>Stopped</value>
   </data>
+  <data name="WatchedFileStatus_Canceled" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="WatchedFileStatus_Failed" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="WatchedFileStatus_Planned" xml:space="preserve">
+    <value>Planned</value>
+  </data>
+  <data name="WatchedFileStatus_Skipped" xml:space="preserve">
+    <value>Skipped</value>
+  </data>
+  <data name="WatchedFileStatus_Succeeded" xml:space="preserve">
+    <value>Succeeded</value>
+  </data>
 </root>
