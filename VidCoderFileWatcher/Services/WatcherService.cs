@@ -138,7 +138,11 @@ namespace VidCoderFileWatcher.Services
 			await this.processCommunicationSync.WaitAsync().ConfigureAwait(false);
 			try
 			{
-				await VidCoderLauncher.SetupAndRunActionAsync(a => a.EncodeWatchedFiles(watchedFolder.Path, files.ToArray(), watchedFolder.Preset, watchedFolder.Picker));
+				if (!VidCoderLauncher.LaunchVidCoderIfNotRunning())
+				{
+					// If VidCoder was already running, notify it of the added files. Otherwise, we just let the launch code find the watched file entries and queue them.
+					await VidCoderLauncher.SetupAndRunActionAsync(a => a.EncodeWatchedFiles(watchedFolder.Path, files.ToArray(), watchedFolder.Preset, watchedFolder.Picker));
+				}
 			}
 			catch (Exception exception)
 			{

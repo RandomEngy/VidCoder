@@ -27,6 +27,7 @@ namespace VidCoder.ViewModel
 	{
 		private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
 		private WatcherProcessManager watcherProcessManager = StaticResolver.Resolve<WatcherProcessManager>();
+		private WatchedFileStatusTracker watchedFileStatusTracker = StaticResolver.Resolve<WatchedFileStatusTracker>();
 		private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
 
 		/// <summary>
@@ -80,11 +81,13 @@ namespace VidCoder.ViewModel
 				if (value)
 				{
 					this.watcherProcessManager.Start();
+					this.watchedFileStatusTracker.Start();
 					this.SubscribeToJobEvents();
 				}
 				else
 				{
 					this.watcherProcessManager.Stop();
+					this.watchedFileStatusTracker.Stop();
 					this.UnsubscribeFromJobEvents();
 				}
 			}

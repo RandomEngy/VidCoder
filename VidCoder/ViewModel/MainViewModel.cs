@@ -444,16 +444,16 @@ namespace VidCoder.ViewModel
 			this.View.RefreshDiscMenuItems();
 		}
 
-        /// <summary>
-        /// Handles a list of provided file paths. Can be preset, subtitle, input file or folder.
-        /// </summary>
-        /// <param name="paths">The paths to process.</param>
-        /// <param name="alwaysQueue">True if the given items should always be queued, and never opened as source.</param>
+		/// <summary>
+		/// Handles a list of provided file paths. Can be preset, subtitle, input file or folder.
+		/// </summary>
+		/// <param name="paths">The paths to process.</param>
+		/// <param name="alwaysQueue">True if the given items should always be queued, and never opened as source.</param>
 		/// <remarks>This can come in from drag/drop, command line argument or user picked folder.</remarks>
-	    public void HandlePaths(IList<string> paths, bool alwaysQueue = false)
-	    {
-            if (paths.Count > 0)
-            {
+		public void HandlePaths(IList<string> paths, bool alwaysQueue = false)
+		{
+			if (paths.Count > 0)
+			{
 				DispatchUtilities.BeginInvoke(() =>
 				{
 					if (paths.Count == 1)
@@ -503,7 +503,7 @@ namespace VidCoder.ViewModel
 							// It's a disc folder or disc
 							if (alwaysQueue)
 							{
-								this.ProcessingService.QueueMultipleRawPaths(new []{ item });
+								this.ProcessingService.QueueMultipleRawPaths(new[] { item });
 							}
 							else
 							{
@@ -522,8 +522,8 @@ namespace VidCoder.ViewModel
 						this.HandlePathsAsVideoSource(paths, alwaysQueue);
 					}
 				});
-            }
-        }
+			}
+		}
 
 		/// <summary>
 		/// Handles a list of given file paths as video source files/folders.
@@ -531,20 +531,20 @@ namespace VidCoder.ViewModel
 		/// <param name="itemList">The list of paths to process.</param>
 		/// <param name="alwaysQueue">True if the given items should always be queued, and never opened as source.</param>
 		private void HandlePathsAsVideoSource(IList<string> itemList, bool alwaysQueue)
-        {
-            List<SourcePathWithMetadata> fileList = this.VideoFileFinder.GetPathList(itemList);
-            if (fileList.Count > 0)
-            {
-                if (fileList.Count == 1 && !alwaysQueue)
-                {
-                    this.SetSourceFromFile(fileList[0].Path);
-                }
-                else
-                {
-                    StaticResolver.Resolve<ProcessingService>().QueueMultipleSourcePaths(fileList);
-                }
-            }
-        }
+		{
+			List<SourcePathWithMetadata> fileList = this.VideoFileFinder.GetPathList(itemList);
+			if (fileList.Count > 0)
+			{
+				if (fileList.Count == 1 && !alwaysQueue)
+				{
+					this.SetSourceFromFile(fileList[0].Path);
+				}
+				else
+				{
+					StaticResolver.Resolve<ProcessingService>().QueueMultipleSourcePaths(fileList);
+				}
+			}
+		}
 
 
 		/// <summary>

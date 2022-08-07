@@ -15,17 +15,18 @@ namespace VidCoderCommon.Utilities
 	{
 		public static async Task SetupAndRunActionAsync(Expression<Action<IVidCoderAutomation>> action)
 		{
-			string vidCoderExe = GetVidCoderExePath();
-
-			if (!VidCoderIsRunning(vidCoderExe))
+			if (LaunchVidCoderIfNotRunning())
 			{
-				Console.WriteLine("Could not find a running instance of VidCoder. Starting it now.");
-				Process.Start(vidCoderExe);
 				await Task.Delay(1000).ConfigureAwait(false);
 			}
 
+			await RunActionAsync(action).ConfigureAwait(false);
+		}
+
+		public static async Task RunActionAsync(Expression<Action<IVidCoderAutomation>> action)
+		{
 			var client = new AutomationClient();
-			AutomationResult result = await client.RunActionAsync(action);
+			AutomationResult result = await client.RunActionAsync(action).ConfigureAwait(false);
 			switch (result)
 			{
 				case AutomationResult.ConnectionFailed:
@@ -35,6 +36,24 @@ namespace VidCoderCommon.Utilities
 				default:
 					break;
 			}
+		}
+
+		/// <summary>
+		/// Launches VidCoder if it isn't running.
+		/// </summary>
+		/// <returns>True if we had to launch VidCoder.</returns>
+		public static bool LaunchVidCoderIfNotRunning()
+		{
+			string vidCoderExe = GetVidCoderExePath();
+
+			if (VidCoderIsRunning(vidCoderExe))
+			{
+				return false;
+			}
+
+			Console.WriteLine("Could not find a running instance of VidCoder. Starting it now.");
+			Process.Start(vidCoderExe);
+			return true;
 		}
 
 		private static bool VidCoderIsRunning(string vidCoderExe)

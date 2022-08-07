@@ -119,6 +119,12 @@ namespace VidCoder.Services
 						this.StartEncodeQueue();
 					});
 				}
+
+				if (Config.WatcherEnabled)
+				{
+					var watchedFileStatusTracker = StaticResolver.Resolve<WatchedFileStatusTracker>();
+					watchedFileStatusTracker.Start();
+				}
 			});
 
 			this.autoPause.PauseEncoding += this.AutoPauseEncoding;

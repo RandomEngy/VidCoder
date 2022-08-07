@@ -64,9 +64,19 @@ namespace VidCoderCommon.Model
 
 		public static Dictionary<string, WatchedFile> GetWatchedFiles(SQLiteConnection connection)
 		{
+			return GetFileEntries(connection, "SELECT * FROM watchedFiles");
+		}
+
+		public static Dictionary<string, WatchedFile> GetPlannedFiles(SQLiteConnection connection)
+		{
+			return GetFileEntries(connection, "SELECT * FROM watchedFiles WHERE status = 'Planned'");
+		}
+
+		private static Dictionary<string, WatchedFile> GetFileEntries(SQLiteConnection connection, string selectStatement)
+		{
 			var result = new Dictionary<string, WatchedFile>(StringComparer.OrdinalIgnoreCase);
 
-			using (var selectWatchedFoldersCommand = new SQLiteCommand("SELECT * FROM watchedFiles", connection))
+			using (var selectWatchedFoldersCommand = new SQLiteCommand(selectStatement, connection))
 			using (SQLiteDataReader reader = selectWatchedFoldersCommand.ExecuteReader())
 			{
 				while (reader.Read())
@@ -129,6 +139,16 @@ namespace VidCoderCommon.Model
 				}
 
 				transaction.Commit();
+			}
+		}
+
+		public static void UpdateEntryStatus(SQLiteConnection connection, string path, WatchedFileStatus status)
+		{
+			using (var updateCommand = new SQLiteCommand("UPDATE watchedFiles SET status = @status WHERE path = @path", connection))
+			{
+				updateCommand.Parameters.AddWithValue("@status", status);
+				updateCommand.Parameters.AddWithValue("@path", path);
+				updateCommand.ExecuteNonQuery();
 			}
 		}
 	}
