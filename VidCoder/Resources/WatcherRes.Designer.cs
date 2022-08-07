@@ -79,11 +79,29 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string CancelMenuItem {
+            get {
+                return ResourceManager.GetString("CancelMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deactivate File Watcher.
         /// </summary>
         public static string DeactivateWatcherButton {
             get {
                 return ResourceManager.GetString("DeactivateWatcherButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open containing folder.
+        /// </summary>
+        public static string OpenContainingFolderMenuItem {
+            get {
+                return ResourceManager.GetString("OpenContainingFolderMenuItem", resourceCulture);
             }
         }
         
@@ -165,15 +183,6 @@ namespace VidCoder.Resources {
         public static string ServiceUninstallError {
             get {
                 return ResourceManager.GetString("ServiceUninstallError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Skip.
-        /// </summary>
-        public static string SkipMenuItem {
-            get {
-                return ResourceManager.GetString("SkipMenuItem", resourceCulture);
             }
         }
         

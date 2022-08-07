@@ -74,6 +74,7 @@ namespace VidCoder.Services
 		private bool selectedQueueItemModifyable = true;
 		private BehaviorSubject<bool> selectedQueueItemModifyableSubject;
 		private IDisposable simultaneousJobsSubscription;
+		private TaskCompletionSource queueReadyTcs = new TaskCompletionSource();
 
 		public ProcessingService()
 		{
@@ -117,7 +118,11 @@ namespace VidCoder.Services
 					DispatchUtilities.BeginInvoke(() =>
 					{
 						this.StartEncodeQueue();
+						queueReadyTcs.SetResult();
 					});
+				} else
+				{
+					queueReadyTcs.SetResult();
 				}
 
 				if (Config.WatcherEnabled)
@@ -1962,6 +1967,11 @@ namespace VidCoder.Services
 			{
 				jobViewModel.EncodeProxy.StartEncodeAsync(job, encodeLogger, false, 0, 0, 0);
 			}
+		}
+
+		public async Task WaitForQueueReadyAsync()
+		{
+			await this.queueReadyTcs.Task.ConfigureAwait(false);
 		}
 
 		private BehaviorSubject<bool> canPauseOrStopSubject = new BehaviorSubject<bool>(false);

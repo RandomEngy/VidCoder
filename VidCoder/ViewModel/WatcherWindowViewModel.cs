@@ -53,14 +53,7 @@ namespace VidCoder.ViewModel
 
 			IObservable<int> folderCountObservable = watchedFoldersObservable.Count().StartWith(this.WatchedFolders.Count);
 
-			this.RefreshFiles();
-
-			this.WatchedFiles.Connect().Bind(this.WatchedFilesBindable).Subscribe();
-
-			if (this.WatcherEnabled)
-			{
-				this.SubscribeToJobEvents();
-			}
+			this.InitializeFiles();
 
 			// WindowTitle
 			this.WhenAnyValue(x => x.watcherProcessManager.Status)
@@ -76,6 +69,21 @@ namespace VidCoder.ViewModel
 				{
 					return count > 0;
 				}).ToProperty(this, x => x.HasFolders, out this.hasFolders);
+		}
+
+		private async void InitializeFiles()
+		{
+			// Wait for queue to be ready
+			await this.processingService.WaitForQueueReadyAsync();
+
+			this.RefreshFiles();
+
+			this.WatchedFiles.Connect().Bind(this.WatchedFilesBindable).Subscribe();
+
+			if (this.WatcherEnabled)
+			{
+				this.SubscribeToJobEvents();
+			}
 		}
 
 		private ObservableAsPropertyHelper<string> windowTitle;
@@ -278,8 +286,6 @@ namespace VidCoder.ViewModel
 			this.processingService.JobsAddedFromWatcher += this.OnJobsAddedFromWatcher;
 			this.processingService.WatchedFilesRemoved += this.OnWatchedFilesRemoved;
 		}
-
-
 
 		private void UnsubscribeFromJobEvents()
 		{

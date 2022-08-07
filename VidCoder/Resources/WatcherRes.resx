@@ -123,8 +123,14 @@
   <data name="AddFolderToWatch" xml:space="preserve">
     <value>Add folder to watch</value>
   </data>
+  <data name="CancelMenuItem" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="DeactivateWatcherButton" xml:space="preserve">
     <value>Deactivate File Watcher</value>
+  </data>
+  <data name="OpenContainingFolderMenuItem" xml:space="preserve">
+    <value>Open containing folder</value>
   </data>
   <data name="PathColumnHeader" xml:space="preserve">
     <value>Path</value>
@@ -152,9 +158,6 @@
   </data>
   <data name="ServiceUninstallError" xml:space="preserve">
     <value>Could not uninstall file watcher service.</value>
-  </data>
-  <data name="SkipMenuItem" xml:space="preserve">
-    <value>Skip</value>
   </data>
   <data name="StatusCanceledToolTip" xml:space="preserve">
     <value>The encode was canceled by removing from the queue.</value>
