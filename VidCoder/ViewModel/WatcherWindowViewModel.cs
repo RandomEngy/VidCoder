@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.ServiceProcess;
 using System.Text;
@@ -48,10 +49,7 @@ namespace VidCoder.ViewModel
 			this.PopulateStatusFilters();
 
 			this.WatchedFolders.AddRange(WatcherStorage.GetWatchedFolders(Database.Connection).Select(watchedFolder => new WatchedFolderViewModel(this, watchedFolder)));
-			var watchedFoldersObservable = this.WatchedFolders.Connect();
-			watchedFoldersObservable.Bind(this.WatchedFoldersBindable).Subscribe();
-
-			IObservable<int> folderCountObservable = watchedFoldersObservable.Count().StartWith(this.WatchedFolders.Count);
+			this.WatchedFolders.Connect().Bind(this.WatchedFoldersBindable).Subscribe();
 
 			this.InitializeFiles();
 
@@ -64,11 +62,11 @@ namespace VidCoder.ViewModel
 				.ToProperty(this, x => x.WindowTitle, out this.windowTitle);
 
 			// HasFolders
-			folderCountObservable
+			this.WatchedFolders.CountChanged
 				.Select(count =>
 				{
 					return count > 0;
-				}).ToProperty(this, x => x.HasFolders, out this.hasFolders);
+				}).ToProperty(this, x => x.HasFolders, out this.hasFolders, scheduler: Scheduler.Immediate);
 		}
 
 		private async void InitializeFiles()
@@ -246,6 +244,7 @@ namespace VidCoder.ViewModel
 		private void SaveWatchedFolders()
 		{ 
 			WatcherStorage.SaveWatchedFolders(Database.Connection, this.WatchedFolders.Items.Select(f => f.WatchedFolder));
+			this.watcherProcessManager.RefreshFromWatchedFolders();
 		}
 
 		public void RefreshFiles()

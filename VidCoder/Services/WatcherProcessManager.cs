@@ -195,6 +195,21 @@ namespace VidCoder.Services
 			}
 		}
 
+		public async void RefreshFromWatchedFolders()
+		{
+			try
+			{
+				if (this.pipeClient != null)
+				{
+					await this.pipeClient.InvokeAsync(commands => commands.RefreshFromWatchedFolders());
+				}
+			}
+			catch (Exception exception)
+			{
+				this.logger.LogError("Could not refresh folders in file watcher." + Environment.NewLine + exception.ToString());
+			}
+		}
+
 		private Process GetRunningFileWatcher()
 		{
 			return this.processes.GetProcesses().FirstOrDefault(process =>

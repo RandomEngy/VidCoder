@@ -60,6 +60,7 @@ namespace VidCoderFileWatcher.Services
 					}
 				}
 
+				// Remove any entries without a file match.
 				if (entriesToRemove.Count > 0)
 				{
 					this.logger.Log("Removing entries for file(s) that no longer exist:");
@@ -69,6 +70,8 @@ namespace VidCoderFileWatcher.Services
 					}
 
 					WatcherStorage.RemoveEntries(WatcherDatabase.Connection, entriesToRemove);
+
+					await this.NotifyMainProcessOfFilesRemoved(entriesToRemove);
 				}
 
 				// Any files without matching entries are new and should be enqueued
@@ -154,7 +157,7 @@ namespace VidCoderFileWatcher.Services
 			}
 		}
 
-		public async Task NotifyMainProcessOfFilesRemoved(WatchedFolder watchedFolder, IList<string> removedFiles)
+		public async Task NotifyMainProcessOfFilesRemoved(IList<string> removedFiles)
 		{
 			if (removedFiles.Count == 0)
 			{
@@ -172,7 +175,7 @@ namespace VidCoderFileWatcher.Services
 			await this.processCommunicationSync.WaitAsync().ConfigureAwait(false);
 			try
 			{
-				await VidCoderLauncher.SetupAndRunActionAsync(a => a.NotifyRemovedFiles(watchedFolder.Path, removedFiles.ToArray()));
+				await VidCoderLauncher.SetupAndRunActionAsync(a => a.NotifyRemovedFiles(removedFiles.ToArray()));
 			}
 			catch (Exception exception)
 			{

@@ -221,8 +221,8 @@ namespace VidCoder.ViewModel.DataModels
 				if (this.removeFolder == null)
 				{
 					this.canRemoveFolderObservable = Observable.CombineLatest(
-						this.SubFolders.Connect().Count().StartWith(this.SubFolders.Count),
-						this.Items.Connect().Count().StartWith(this.Items.Count),
+						this.SubFolders.CountChanged,
+						this.Items.CountChanged,
 						(numSubfolders, numItems) =>
 						{
 							return numSubfolders == 0 && numItems == 0 && this.Id != 0;

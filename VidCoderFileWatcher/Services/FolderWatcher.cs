@@ -151,7 +151,7 @@ namespace VidCoderFileWatcher.Services
 
 				if (this.filesPendingRemoveEntry.Count > 0)
 				{
-					await this.watcherService.NotifyMainProcessOfFilesRemoved(this.watchedFolder, this.filesPendingRemoveEntry).ConfigureAwait(false);
+					await this.watcherService.NotifyMainProcessOfFilesRemoved(this.filesPendingRemoveEntry).ConfigureAwait(false);
 					this.filesPendingRemoveEntry.Clear();
 				}
 

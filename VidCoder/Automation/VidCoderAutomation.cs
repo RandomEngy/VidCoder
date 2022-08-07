@@ -37,7 +37,7 @@ namespace VidCoder.Automation
 			});
 		}
 
-		public void NotifyRemovedFiles(string watchedFolderPath, string[] removedFiles)
+		public void NotifyRemovedFiles(string[] removedFiles)
 		{
 			this.logger.Log("Processing file removal notification");
 			var processingService = StaticResolver.Resolve<ProcessingService>();
