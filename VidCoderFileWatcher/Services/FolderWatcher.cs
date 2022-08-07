@@ -149,8 +149,11 @@ namespace VidCoderFileWatcher.Services
 					this.filesPendingSend.Clear();
 				}
 
-				WatcherStorage.RemoveEntries(WatcherDatabase.Connection, filesPendingRemoveEntry);
-				this.filesPendingRemoveEntry.Clear();
+				if (this.filesPendingRemoveEntry.Count > 0)
+				{
+					await this.watcherService.NotifyMainProcessOfFilesRemoved(this.watchedFolder, this.filesPendingRemoveEntry).ConfigureAwait(false);
+					this.filesPendingRemoveEntry.Clear();
+				}
 
 				if (this.filesPendingWriteComplete.Count == 0)
 				{

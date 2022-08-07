@@ -272,15 +272,35 @@ namespace VidCoder.Services
 			this.selectedQueueItemModifyableSubject = new BehaviorSubject<bool>(this.selectedQueueItemModifyable);
 		}
 
+		/// <summary>
+		/// Fires when a job has been added to the queue.
+		/// </summary>
 		public event EventHandler<EventArgs<EncodeJobViewModel>> JobQueued;
 
 		/// <summary>
 		/// Fires when the item has been removed from queue without completing.
 		/// </summary>
 		public event EventHandler<EventArgs<EncodeJobViewModel>> JobRemovedFromQueue;
+
+		/// <summary>
+		/// Fires when a job has started encoding.
+		/// </summary>
 		public event EventHandler<EventArgs<EncodeJobViewModel>> JobStarted;
+
+		/// <summary>
+		/// Fires when a job has completed (stopped, succeded or failed)
+		/// </summary>
 		public event EventHandler<JobCompletedEventArgs> JobCompleted;
+
+		/// <summary>
+		/// Fires when jobs have been added from the watcher. For now no details are needed on the event and it just refreshes the file list.
+		/// </summary>
 		public event EventHandler JobsAddedFromWatcher;
+
+		/// <summary>
+		/// Fires when watched files have been removed. For now no details are needed on the event and it just refreshes the file list.
+		/// </summary>
+		public event EventHandler WatchedFilesRemoved;
 
 		public QueueWorkTracker WorkTracker { get; } = new QueueWorkTracker();
 
@@ -1289,6 +1309,11 @@ namespace VidCoder.Services
 			}
 
 			this.JobsAddedFromWatcher?.Invoke(this, new EventArgs());
+		}
+
+		public void NotifyWatchedFilesRemoved()
+		{
+			this.WatchedFilesRemoved?.Invoke(this, new EventArgs());
 		}
 
 		public bool TryQueue()

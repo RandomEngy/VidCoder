@@ -37,6 +37,16 @@ namespace VidCoder.Automation
 			});
 		}
 
+		public void NotifyRemovedFiles(string watchedFolderPath, string[] removedFiles)
+		{
+			this.logger.Log("Processing file removal notification");
+			var processingService = StaticResolver.Resolve<ProcessingService>();
+			DispatchUtilities.Invoke(() =>
+			{
+				processingService.NotifyWatchedFilesRemoved();
+			});
+		}
+
 		public void Scan(string source)
 		{
 			this.logger.Log("Processing Scan request");

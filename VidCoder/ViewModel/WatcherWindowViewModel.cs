@@ -183,7 +183,10 @@ namespace VidCoder.ViewModel
 			this.processingService.JobStarted += this.OnJobStarted;
 			this.processingService.JobCompleted += this.OnJobCompleted;
 			this.processingService.JobsAddedFromWatcher += this.OnJobsAddedFromWatcher;
+			this.processingService.WatchedFilesRemoved += this.OnWatchedFilesRemoved;
 		}
+
+
 
 		private void UnsubscribeFromJobEvents()
 		{
@@ -192,6 +195,7 @@ namespace VidCoder.ViewModel
 			this.processingService.JobStarted -= this.OnJobStarted;
 			this.processingService.JobCompleted -= this.OnJobCompleted;
 			this.processingService.JobsAddedFromWatcher -= this.OnJobsAddedFromWatcher;
+			this.processingService.WatchedFilesRemoved -= this.OnWatchedFilesRemoved;
 		}
 
 		private void OnJobQueued(object sender, EventArgs<EncodeJobViewModel> e)
@@ -245,6 +249,11 @@ namespace VidCoder.ViewModel
 		}
 
 		private void OnJobsAddedFromWatcher(object sender, EventArgs e)
+		{
+			this.RefreshFiles();
+		}
+
+		private void OnWatchedFilesRemoved(object sender, EventArgs e)
 		{
 			this.RefreshFiles();
 		}

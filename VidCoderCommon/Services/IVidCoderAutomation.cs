@@ -8,6 +8,8 @@ namespace VidCoderCommon.Services
 
 		void EncodeWatchedFiles(string watchedFolderPath, string[] sourcePaths, string preset, string picker);
 
+		void NotifyRemovedFiles(string watchedFolderPath, string[] removedFiles);
+
 		void Scan(string source);
 
 		void ImportPreset(string filePath);
