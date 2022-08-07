@@ -25,6 +25,8 @@ namespace VidCoder.ViewModel
 {
 	public class WatcherWindowViewModel : ReactiveObject, IClosableWindow
 	{
+		private const string StatusFilterConfigPrefix = "WatcherShowStatus_";
+
 		private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
 		private WatcherProcessManager watcherProcessManager = StaticResolver.Resolve<WatcherProcessManager>();
 		private WatchedFileStatusTracker watchedFileStatusTracker = StaticResolver.Resolve<WatchedFileStatusTracker>();
@@ -32,16 +34,24 @@ namespace VidCoder.ViewModel
 
 		/// <summary>
 		/// Maps file path directly to WatchedFileViewModel.
+		/// This contains all files and is not filtered, so does not need to be rebuilt when changing filters.
 		/// </summary>
 		private Dictionary<string, WatchedFileViewModel> fileMap = new Dictionary<string, WatchedFileViewModel>(StringComparer.OrdinalIgnoreCase);
 
 		private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
 		private ProcessingService processingService = StaticResolver.Resolve<ProcessingService>();
 
+		private readonly Dictionary<WatchedFileStatusLive, bool> statusFilters = new Dictionary<WatchedFileStatusLive, bool>();
+
 		public WatcherWindowViewModel()
 		{
+			this.PopulateStatusFilters();
+
 			this.WatchedFolders.AddRange(WatcherStorage.GetWatchedFolders(Database.Connection).Select(watchedFolder => new WatchedFolderViewModel(this, watchedFolder)));
-			this.WatchedFolders.Connect().Bind(this.WatchedFoldersBindable).Subscribe();
+			var watchedFoldersObservable = this.WatchedFolders.Connect();
+			watchedFoldersObservable.Bind(this.WatchedFoldersBindable).Subscribe();
+
+			IObservable<int> folderCountObservable = watchedFoldersObservable.Count().StartWith(this.WatchedFolders.Count);
 
 			this.RefreshFiles();
 
@@ -59,6 +69,13 @@ namespace VidCoder.ViewModel
 					return string.Format(WatcherRes.WatcherWindowTitle, GetStatusString(status));
 				})
 				.ToProperty(this, x => x.WindowTitle, out this.windowTitle);
+
+			// HasFolders
+			folderCountObservable
+				.Select(count =>
+				{
+					return count > 0;
+				}).ToProperty(this, x => x.HasFolders, out this.hasFolders);
 		}
 
 		private ObservableAsPropertyHelper<string> windowTitle;
@@ -69,6 +86,9 @@ namespace VidCoder.ViewModel
 
 		public SourceList<WatchedFileViewModel> WatchedFiles { get; } = new SourceList<WatchedFileViewModel>();
 		public ObservableCollectionExtended<WatchedFileViewModel> WatchedFilesBindable { get; } = new ObservableCollectionExtended<WatchedFileViewModel>();
+
+		private ObservableAsPropertyHelper<bool> hasFolders;
+		public bool HasFolders => this.hasFolders.Value;
 
 		private bool watcherEnabled = Config.WatcherEnabled;
 		public bool WatcherEnabled
@@ -108,6 +128,56 @@ namespace VidCoder.ViewModel
 				{
 					RegistryUtilities.RemoveFileWatcherAutoStart(this.logger);
 				}
+			}
+		}
+
+		public bool ShowQueued
+		{
+			get => this.GetStatusShown(WatchedFileStatusLive.Queued);
+			set => this.SetStatusShown(WatchedFileStatusLive.Queued, value);
+		}
+
+		public bool ShowSucceeded
+		{
+			get => this.GetStatusShown(WatchedFileStatusLive.Succeeded);
+			set => this.SetStatusShown(WatchedFileStatusLive.Succeeded, value);
+		}
+
+		public bool ShowFailed
+		{
+			get => this.GetStatusShown(WatchedFileStatusLive.Failed);
+			set => this.SetStatusShown(WatchedFileStatusLive.Failed, value);
+		}
+
+		public bool ShowCanceled
+		{
+			get => this.GetStatusShown(WatchedFileStatusLive.Canceled);
+			set => this.SetStatusShown(WatchedFileStatusLive.Canceled, value);
+		}
+
+		public bool ShowSkipped
+		{
+			get => this.GetStatusShown(WatchedFileStatusLive.Skipped);
+			set => this.SetStatusShown(WatchedFileStatusLive.Skipped, value);
+		}
+
+		private bool GetStatusShown(WatchedFileStatusLive status)
+		{
+			return this.statusFilters[status];
+		}
+
+		private void SetStatusShown(WatchedFileStatusLive status, bool shown)
+		{
+			DatabaseConfig.Set<bool>(StatusFilterConfigPrefix + status.ToString(), shown);
+			this.statusFilters[status] = shown;
+			this.RefreshWatchedFilesFromFileMap();
+		}
+
+		private void PopulateStatusFilters()
+		{
+			foreach (WatchedFileStatusLive status in Enum.GetValues(typeof(WatchedFileStatusLive)))
+			{
+				this.statusFilters[status] = DatabaseConfig.Get<bool>(StatusFilterConfigPrefix + status.ToString(), true);
 			}
 		}
 
@@ -172,11 +242,31 @@ namespace VidCoder.ViewModel
 
 		public void RefreshFiles()
 		{
-			this.WatchedFiles.Clear();
-			this.WatchedFiles.AddRange(WatcherStorage.GetWatchedFiles(Database.Connection).Select(pair => new WatchedFileViewModel(pair.Value)));
-			this.RebuildFileMap();
+			Dictionary<string, WatchedFile> newFiles = WatcherStorage.GetWatchedFiles(Database.Connection);
+			var viewModelList = new List<WatchedFileViewModel>(newFiles.Select(pair => new WatchedFileViewModel(pair.Value)));
 
+			this.RebuildFileMap(viewModelList);
 			this.InitializeLiveStatus();
+
+			this.RefreshWatchedFilesFromFileMap();
+		}
+
+		/// <summary>
+		/// Refreshes WatchedFiles from fileMap, applying any relevant filters.
+		/// </summary>
+		private void RefreshWatchedFilesFromFileMap()
+		{
+			this.WatchedFiles.Edit(watchedFilesInnerList =>
+			{
+				watchedFilesInnerList.Clear();
+				foreach (WatchedFileViewModel fileViewModel in this.fileMap.Values)
+				{
+					if (this.GetStatusShown(fileViewModel.Status))
+					{
+						watchedFilesInnerList.Add(fileViewModel);
+					}
+				}
+			});
 		}
 
 		private void SubscribeToJobEvents()
@@ -261,10 +351,10 @@ namespace VidCoder.ViewModel
 			this.RefreshFiles();
 		}
 
-		private void RebuildFileMap()
+		private void RebuildFileMap(IEnumerable<WatchedFileViewModel> items)
 		{
 			this.fileMap.Clear();
-			foreach (var watchedFileViewModel in this.WatchedFiles.Items)
+			foreach (var watchedFileViewModel in items)
 			{
 				this.fileMap.Add(watchedFileViewModel.WatchedFile.Path, watchedFileViewModel);
 			}

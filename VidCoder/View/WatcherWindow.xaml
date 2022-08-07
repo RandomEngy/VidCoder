@@ -23,6 +23,14 @@
 	</WindowChrome.WindowChrome>
 	<Window.Resources>
 		<local:EnumDisplayer x:Key="StatusConverter" Type="{x:Type model:WatchedFileStatusLive}" />
+		<Style
+			x:Key="ToolbarCheckBox"
+			BasedOn="{StaticResource CheckBoxBaseStyle}"
+			TargetType="CheckBox">
+			<Setter Property="MinHeight" Value="30" />
+			<Setter Property="Margin" Value="12 0 0 0" />
+			<Setter Property="VerticalContentAlignment" Value="Center" />
+		</Style>
 	</Window.Resources>
 	<Border Style="{StaticResource WindowMainPanelStyle}">
 		<Grid>
@@ -38,25 +46,30 @@
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
+					<RowDefinition Height="4" />
+					<RowDefinition Height="Auto" />
 					<RowDefinition />
 				</Grid.RowDefinitions>
 				<!--  Button toolbar  -->
-				<StackPanel
+				<WrapPanel
 					Grid.Row="0"
-					MinHeight="30"
 					Margin="12 0 0 0"
 					Orientation="Horizontal">
+					<TextBlock
+						VerticalAlignment="Center"
+						FontWeight="Bold"
+						Text="{x:Static res:WatcherRes.WatchedFoldersHeader}" />
 					<CheckBox
-						VerticalContentAlignment="Center"
 						Content="{x:Static res:CommonRes.Enabled}"
-						IsChecked="{Binding WatcherEnabled}" />
+						IsChecked="{Binding WatcherEnabled}"
+						Style="{StaticResource ToolbarCheckBox}" />
 					<CheckBox
-						Margin="12 0 0 0"
-						VerticalContentAlignment="Center"
 						Content="{x:Static res:WatcherRes.RunWhenClosedCheckBox}"
 						IsChecked="{Binding RunWhenClosed}"
+						Style="{StaticResource ToolbarCheckBox}"
 						Visibility="{Binding WatcherEnabled, Converter={StaticResource VisibilityConverter}}" />
 					<Button
+						MinHeight="30"
 						Margin="12 0 0 0"
 						AutomationProperties.Name="{x:Static res:WatcherRes.AddFolderToWatch}"
 						Command="{Binding AddWatchedFolder}"
@@ -95,8 +108,9 @@
 								Text="{x:Static res:WatcherRes.AddFolderToWatch}" />
 						</StackPanel>
 					</Button>
-				</StackPanel>
+				</WrapPanel>
 
+				<!--  Watched folder list  -->
 				<ItemsControl Grid.Row="1" ItemsSource="{Binding WatchedFoldersBindable}">
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
@@ -178,8 +192,45 @@
 					</ItemsControl.ItemTemplate>
 				</ItemsControl>
 
+				<Rectangle Grid.Row="2" Fill="{DynamicResource SplitterBrush}" />
+
+				<!--  File grid header  -->
+				<WrapPanel
+					Grid.Row="3"
+					Margin="12 0 0 0"
+					Orientation="Horizontal"
+					Visibility="{Binding HasFolders, Converter={StaticResource VisibilityConverter}}">
+					<TextBlock
+						VerticalAlignment="Center"
+						FontWeight="Bold"
+						Text="{x:Static res:WatcherRes.WatchedFilesHeader}" />
+					<CheckBox
+						Content="{x:Static res:EnumsRes.WatchedFileStatusLive_Queued}"
+						IsChecked="{Binding ShowQueued}"
+						Style="{StaticResource ToolbarCheckBox}" />
+					<CheckBox
+						Content="{x:Static res:EnumsRes.WatchedFileStatusLive_Succeeded}"
+						IsChecked="{Binding ShowSucceeded}"
+						Style="{StaticResource ToolbarCheckBox}" />
+					<CheckBox
+						Content="{x:Static res:EnumsRes.WatchedFileStatusLive_Failed}"
+						IsChecked="{Binding ShowFailed}"
+						Style="{StaticResource ToolbarCheckBox}" />
+					<CheckBox
+						Content="{x:Static res:EnumsRes.WatchedFileStatusLive_Canceled}"
+						IsChecked="{Binding ShowCanceled}"
+						Style="{StaticResource ToolbarCheckBox}" />
+					<CheckBox
+						Content="{x:Static res:EnumsRes.WatchedFileStatusLive_Skipped}"
+						IsChecked="{Binding ShowSkipped}"
+						Style="{StaticResource ToolbarCheckBox}" />
+				</WrapPanel>
+
 				<!--  Watched file grid  -->
-				<controls:EnhancedListView Grid.Row="2" ItemsSource="{Binding WatchedFilesBindable}">
+				<controls:EnhancedListView
+					Grid.Row="4"
+					ItemsSource="{Binding WatchedFilesBindable}"
+					Visibility="{Binding HasFolders, Converter={StaticResource VisibilityConverter}}">
 					<controls:EnhancedListView.ItemContainerStyle>
 						<Style BasedOn="{StaticResource ListViewItemBaseStyle}" TargetType="ListViewItem">
 							<Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}" />

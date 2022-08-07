@@ -156,8 +156,29 @@
   <data name="SkipMenuItem" xml:space="preserve">
     <value>Skip</value>
   </data>
+  <data name="StatusCanceledToolTip" xml:space="preserve">
+    <value>The encode was canceled by removing from the queue.</value>
+  </data>
   <data name="StatusColumnHeader" xml:space="preserve">
     <value>Status</value>
+  </data>
+  <data name="StatusFailedToolTip" xml:space="preserve">
+    <value>The encode failed.</value>
+  </data>
+  <data name="StatusQueuedToolTip" xml:space="preserve">
+    <value>The source file is in the queue.</value>
+  </data>
+  <data name="StatusSkippedToolTip" xml:space="preserve">
+    <value>The encode was skipped due to conditions set in the picker (such as a file size that is too small).</value>
+  </data>
+  <data name="StatusSucceededToolTip" xml:space="preserve">
+    <value>The encode completed successfully.</value>
+  </data>
+  <data name="WatchedFilesHeader" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="WatchedFoldersHeader" xml:space="preserve">
+    <value>Watch folders</value>
   </data>
   <data name="WatchedFolderTextBoxLabel" xml:space="preserve">
     <value>Folder:</value>

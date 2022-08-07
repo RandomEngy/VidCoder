@@ -178,11 +178,74 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The encode was canceled by removing from the queue..
+        /// </summary>
+        public static string StatusCanceledToolTip {
+            get {
+                return ResourceManager.GetString("StatusCanceledToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string StatusColumnHeader {
             get {
                 return ResourceManager.GetString("StatusColumnHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The encode failed..
+        /// </summary>
+        public static string StatusFailedToolTip {
+            get {
+                return ResourceManager.GetString("StatusFailedToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The source file is in the queue..
+        /// </summary>
+        public static string StatusQueuedToolTip {
+            get {
+                return ResourceManager.GetString("StatusQueuedToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The encode was skipped due to conditions set in the picker (such as a file size that is too small)..
+        /// </summary>
+        public static string StatusSkippedToolTip {
+            get {
+                return ResourceManager.GetString("StatusSkippedToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The encode completed successfully..
+        /// </summary>
+        public static string StatusSucceededToolTip {
+            get {
+                return ResourceManager.GetString("StatusSucceededToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files.
+        /// </summary>
+        public static string WatchedFilesHeader {
+            get {
+                return ResourceManager.GetString("WatchedFilesHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Watch folders.
+        /// </summary>
+        public static string WatchedFoldersHeader {
+            get {
+                return ResourceManager.GetString("WatchedFoldersHeader", resourceCulture);
             }
         }
         
