@@ -76,6 +76,7 @@ namespace VidCoder
 			cache.Add("QueueColumns", DatabaseConfig.Get("QueueColumns", "Source:200|Title:35|Range:106|Destination:200", connection));
 			cache.Add("QueueLastColumnWidth", DatabaseConfig.Get("QueueLastColumnWidth", 75.0, connection));
 			cache.Add("CompletedColumnWidths", DatabaseConfig.Get("CompletedColumnWidths", "", connection));
+			cache.Add("WatcherFileColumnWidths", DatabaseConfig.Get("WatcherFileColumnWidths", "", connection));
 			cache.Add("SourcePaneHeightStar", DatabaseConfig.Get("SourcePaneHeightStar", 2.0, connection));
 			cache.Add("QueuePaneHeightStar", DatabaseConfig.Get("QueuePaneHeightStar", 1.0, connection));
 			cache.Add("PickerListPaneWidth", DatabaseConfig.Get("PickerListPaneWidth", 135.0, connection));
@@ -397,6 +398,11 @@ namespace VidCoder
 			get { return (string)cache["CompletedColumnWidths"]; }
 			set { Set("CompletedColumnWidths", value); }
 		}
+		public static string WatcherFileColumnWidths
+		{
+			get { return (string)cache["WatcherFileColumnWidths"]; }
+			set { Set("WatcherFileColumnWidths", value); }
+		}
 		public static double SourcePaneHeightStar
 		{
 			get { return (double)cache["SourcePaneHeightStar"]; }
@@ -711,6 +717,7 @@ namespace VidCoder
 			public static IObservable<string> QueueColumns => GetObservable<string>("QueueColumns");
 			public static IObservable<double> QueueLastColumnWidth => GetObservable<double>("QueueLastColumnWidth");
 			public static IObservable<string> CompletedColumnWidths => GetObservable<string>("CompletedColumnWidths");
+			public static IObservable<string> WatcherFileColumnWidths => GetObservable<string>("WatcherFileColumnWidths");
 			public static IObservable<double> SourcePaneHeightStar => GetObservable<double>("SourcePaneHeightStar");
 			public static IObservable<double> QueuePaneHeightStar => GetObservable<double>("QueuePaneHeightStar");
 			public static IObservable<double> PickerListPaneWidth => GetObservable<double>("PickerListPaneWidth");

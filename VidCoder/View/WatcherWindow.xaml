@@ -195,7 +195,7 @@
 						</Style>
 					</controls:EnhancedListView.ItemContainerStyle>
 					<controls:EnhancedListView.View>
-						<GridView AllowsColumnReorder="False">
+						<GridView x:Name="filesGridView" AllowsColumnReorder="False">
 							<GridView.Columns>
 								<GridViewColumn Width="450" Header="{x:Static res:WatcherRes.PathColumnHeader}">
 									<GridViewColumn.CellTemplate>

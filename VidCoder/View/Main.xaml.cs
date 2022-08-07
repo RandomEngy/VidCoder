@@ -545,11 +545,6 @@ namespace VidCoder.View
 
 		void IMainView.SaveCompletedColumnWidths()
 		{
-			this.SaveCompletedColumnWidths();
-		}
-
-		private void SaveCompletedColumnWidths()
-		{
 			var completedColumnsBuilder = new StringBuilder();
 			for (int i = 0; i < this.completedGridView.Columns.Count; i++)
 			{

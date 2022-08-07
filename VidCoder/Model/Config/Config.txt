@@ -57,6 +57,7 @@ QueueColumns|string|"Source:200|Title:35|Range:106|Destination:200"
 QueueLastColumnWidth|double|75.0
 
 CompletedColumnWidths|string|""
+WatcherFileColumnWidths|string|""
 
 SourcePaneHeightStar|double|2.0
 QueuePaneHeightStar|double|1.0
