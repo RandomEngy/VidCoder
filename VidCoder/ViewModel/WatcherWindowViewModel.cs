@@ -61,12 +61,14 @@ namespace VidCoder.ViewModel
 				})
 				.ToProperty(this, x => x.WindowTitle, out this.windowTitle);
 
-			// HasFolders
-			this.WatchedFolders.CountChanged
-				.Select(count =>
+			// ShowFiles
+			Observable.CombineLatest(
+				this.WhenAnyValue(x => x.WatcherEnabled),
+				this.WatchedFolders.CountChanged,
+				(enabled, folderCount) =>
 				{
-					return count > 0;
-				}).ToProperty(this, x => x.HasFolders, out this.hasFolders, scheduler: Scheduler.Immediate);
+					return enabled && folderCount > 0;
+				}).ToProperty(this, x => x.ShowFiles, out this.showFiles);
 		}
 
 		private async void InitializeFiles()
@@ -93,8 +95,8 @@ namespace VidCoder.ViewModel
 		public SourceList<WatchedFileViewModel> WatchedFiles { get; } = new SourceList<WatchedFileViewModel>();
 		public ObservableCollectionExtended<WatchedFileViewModel> WatchedFilesBindable { get; } = new ObservableCollectionExtended<WatchedFileViewModel>();
 
-		private ObservableAsPropertyHelper<bool> hasFolders;
-		public bool HasFolders => this.hasFolders.Value;
+		private ObservableAsPropertyHelper<bool> showFiles;
+		public bool ShowFiles => this.showFiles.Value;
 
 		private bool watcherEnabled = Config.WatcherEnabled;
 		public bool WatcherEnabled

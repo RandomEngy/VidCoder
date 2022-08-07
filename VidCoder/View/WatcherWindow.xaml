@@ -111,7 +111,10 @@
 				</WrapPanel>
 
 				<!--  Watched folder list  -->
-				<ItemsControl Grid.Row="1" ItemsSource="{Binding WatchedFoldersBindable}">
+				<ItemsControl
+					Grid.Row="1"
+					ItemsSource="{Binding WatchedFoldersBindable}"
+					Visibility="{Binding WatcherEnabled, Converter={StaticResource VisibilityConverter}}">
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
 							<StackPanel Orientation="Vertical" />
@@ -192,14 +195,17 @@
 					</ItemsControl.ItemTemplate>
 				</ItemsControl>
 
-				<Rectangle Grid.Row="2" Fill="{DynamicResource SplitterBrush}" />
+				<Rectangle
+					Grid.Row="2"
+					Fill="{DynamicResource SplitterBrush}"
+					Visibility="{Binding ShowFiles, Converter={StaticResource VisibilityConverter}}" />
 
 				<!--  File grid header  -->
 				<WrapPanel
 					Grid.Row="3"
 					Margin="12 0 0 0"
 					Orientation="Horizontal"
-					Visibility="{Binding HasFolders, Converter={StaticResource VisibilityConverter}}">
+					Visibility="{Binding ShowFiles, Converter={StaticResource VisibilityConverter}}">
 					<TextBlock
 						VerticalAlignment="Center"
 						FontWeight="Bold"
@@ -235,7 +241,7 @@
 				<controls:EnhancedListView
 					Grid.Row="4"
 					ItemsSource="{Binding WatchedFilesBindable}"
-					Visibility="{Binding HasFolders, Converter={StaticResource VisibilityConverter}}">
+					Visibility="{Binding ShowFiles, Converter={StaticResource VisibilityConverter}}">
 					<controls:EnhancedListView.ItemContainerStyle>
 						<Style BasedOn="{StaticResource ListViewItemBaseStyle}" TargetType="ListViewItem">
 							<Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}" />
