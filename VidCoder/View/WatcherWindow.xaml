@@ -207,7 +207,27 @@
 								<GridViewColumn Width="90" Header="{x:Static res:WatcherRes.StatusColumnHeader}">
 									<GridViewColumn.CellTemplate>
 										<DataTemplate>
-											<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding Status, Converter={StaticResource StatusConverter}}" />
+											<TextBlock Text="{Binding Status, Converter={StaticResource StatusConverter}}">
+												<TextBlock.Style>
+													<Style TargetType="TextBlock">
+														<Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
+														<Style.Triggers>
+															<DataTrigger Binding="{Binding Status}" Value="Encoding">
+																<Setter Property="FontWeight" Value="Bold" />
+															</DataTrigger>
+															<DataTrigger Binding="{Binding Status}" Value="Succeeded">
+																<Setter Property="Foreground" Value="{DynamicResource GreenText}" />
+															</DataTrigger>
+															<DataTrigger Binding="{Binding Status}" Value="Canceled">
+																<Setter Property="Foreground" Value="{DynamicResource DescriptiveTextBrush}" />
+															</DataTrigger>
+															<DataTrigger Binding="{Binding Status}" Value="Skipped">
+																<Setter Property="Foreground" Value="{DynamicResource DescriptiveTextBrush}" />
+															</DataTrigger>
+														</Style.Triggers>
+													</Style>
+												</TextBlock.Style>
+											</TextBlock>
 										</DataTemplate>
 									</GridViewColumn.CellTemplate>
 								</GridViewColumn>

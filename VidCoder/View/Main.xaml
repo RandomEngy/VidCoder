@@ -129,7 +129,7 @@
 			TargetType="TextBlock">
 			<Style.Triggers>
 				<DataTrigger Binding="{Binding Encoding}" Value="True">
-					<Setter Property="Foreground" Value="{DynamicResource EncodingQueueItemTextBrush}" />
+					<Setter Property="Foreground" Value="{DynamicResource GreenText}" />
 					<Setter Property="FontWeight" Value="Bold" />
 				</DataTrigger>
 			</Style.Triggers>
@@ -151,7 +151,7 @@
 			TargetType="{x:Type controls:PathTextBlock}">
 			<Style.Triggers>
 				<DataTrigger Binding="{Binding Encoding}" Value="True">
-					<Setter Property="Foreground" Value="{DynamicResource EncodingQueueItemTextBrush}" />
+					<Setter Property="Foreground" Value="{DynamicResource GreenText}" />
 					<Setter Property="FontWeight" Value="Bold" />
 				</DataTrigger>
 			</Style.Triggers>

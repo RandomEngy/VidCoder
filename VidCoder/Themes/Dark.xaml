@@ -34,7 +34,7 @@
 		<GradientStop Offset="1.0" Color="#287223" />
 	</LinearGradientBrush>
 	<SolidColorBrush x:Key="GridViewHeaderBorderBrush" Color="#212121" />
-	<SolidColorBrush x:Key="EncodingQueueItemTextBrush" Color="LightGreen" />
+	<SolidColorBrush x:Key="GreenText" Color="LightGreen" />
 	<SolidColorBrush x:Key="RedFill" Color="Red" />
 	<SolidColorBrush x:Key="BlueFill" Color="#92BDE5" />
 	<SolidColorBrush x:Key="BlueHoverFill" Color="#AAC8E2" />
@@ -275,10 +275,8 @@
 						<ContentPresenter
 							x:Name="contentPresenter"
 							Margin="{TemplateBinding Padding}"
-							HorizontalAlignment="{Binding HorizontalContentAlignment,
-							                              RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
-							VerticalAlignment="{Binding VerticalContentAlignment,
-							                            RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+							HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+							VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
 							ContentSource="Header"
 							Focusable="False"
 							RecognizesAccessKey="True"

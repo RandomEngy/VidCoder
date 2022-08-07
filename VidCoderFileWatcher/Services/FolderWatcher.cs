@@ -116,7 +116,7 @@ namespace VidCoderFileWatcher.Services
 			{
 				this.pendingCheckTimer = new Timer
 				{
-					AutoReset = true,
+					AutoReset = false,
 					Interval = 500
 				};
 
@@ -130,12 +130,15 @@ namespace VidCoderFileWatcher.Services
 			await this.sync.WaitAsync().ConfigureAwait(false);
 			try
 			{
-				foreach (string file in this.filesPendingWriteComplete)
+				this.logger.Log("Checking lock for files pending write complete");
+
+				for (int i = this.filesPendingWriteComplete.Count - 1; i >= 0; i--)
 				{
+					string file = this.filesPendingWriteComplete[i];
 					if (!IsFileLocked(file))
 					{
 						this.logger.Log(file + " is no longer locked");
-						this.filesPendingWriteComplete.Remove(file);
+						this.filesPendingWriteComplete.RemoveAt(i);
 						this.filesPendingSend.Add(file);
 					}
 				}
@@ -157,7 +160,12 @@ namespace VidCoderFileWatcher.Services
 				else
 				{
 					this.pendingCheckTimer.Interval = 1000;
+					this.pendingCheckTimer.Start();
 				}
+			}
+			catch (Exception exception)
+			{
+				this.logger.Log(exception.ToString());
 			}
 			finally
 			{

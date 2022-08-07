@@ -33,7 +33,7 @@ namespace VidCoder.Automation
 			var processingService = StaticResolver.Resolve<ProcessingService>();
 			DispatchUtilities.Invoke(() =>
 			{
-				processingService.QueueAndStartMultipleFromNames(watchedFolderPath, sourcePaths, preset, picker);
+				processingService.QueueFromFileWatcher(watchedFolderPath, sourcePaths, preset, picker);
 			});
 		}
 

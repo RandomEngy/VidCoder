@@ -280,6 +280,7 @@ namespace VidCoder.Services
 		public event EventHandler<EventArgs<EncodeJobViewModel>> JobRemovedFromQueue;
 		public event EventHandler<EventArgs<EncodeJobViewModel>> JobStarted;
 		public event EventHandler<JobCompletedEventArgs> JobCompleted;
+		public event EventHandler JobsAddedFromWatcher;
 
 		public QueueWorkTracker WorkTracker { get; } = new QueueWorkTracker();
 
@@ -1261,7 +1262,7 @@ namespace VidCoder.Services
 		/// <param name="sourcePaths">The paths to add.</param>
 		/// <param name="presetName">The name of the preset to use to encode.</param>
 		/// <param name="pickerName">The name of the picker to use. Will use default picker if null.</param>
-		public void QueueAndStartMultipleFromNames(string parentFolder, string[] sourcePaths, string presetName, string pickerName)
+		public void QueueFromFileWatcher(string parentFolder, string[] sourcePaths, string presetName, string pickerName)
 		{
 			VCProfile profile = this.presetsService.GetProfileByName(presetName);
 			if (profile == null)
@@ -1286,6 +1287,8 @@ namespace VidCoder.Services
 			{
 				this.StartEncodeQueue();
 			}
+
+			this.JobsAddedFromWatcher?.Invoke(this, new EventArgs());
 		}
 
 		public bool TryQueue()

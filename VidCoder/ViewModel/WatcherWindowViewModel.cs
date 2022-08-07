@@ -23,7 +23,7 @@ using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	public class WatcherWindowViewModel : ReactiveObject
+	public class WatcherWindowViewModel : ReactiveObject, IClosableWindow
 	{
 		private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
 		private WatcherProcessManager watcherProcessManager = StaticResolver.Resolve<WatcherProcessManager>();
@@ -42,11 +42,9 @@ namespace VidCoder.ViewModel
 			this.WatchedFolders.AddRange(WatcherStorage.GetWatchedFolders(Database.Connection).Select(watchedFolder => new WatchedFolderViewModel(this, watchedFolder)));
 			this.WatchedFolders.Connect().Bind(this.WatchedFoldersBindable).Subscribe();
 
-			this.WatchedFiles.AddRange(WatcherStorage.GetWatchedFiles(Database.Connection).Select(pair => new WatchedFileViewModel(pair.Value)));
-			this.WatchedFiles.Connect().Bind(this.WatchedFilesBindable).Subscribe();
-			this.RebuildFileMap();
+			this.RefreshFiles();
 
-			this.InitializeLiveStatus();
+			this.WatchedFiles.Connect().Bind(this.WatchedFilesBindable).Subscribe();
 
 			if (this.WatcherEnabled)
 			{
@@ -82,10 +80,12 @@ namespace VidCoder.ViewModel
 				if (value)
 				{
 					this.watcherProcessManager.Start();
+					this.SubscribeToJobEvents();
 				}
 				else
 				{
 					this.watcherProcessManager.Stop();
+					this.UnsubscribeFromJobEvents();
 				}
 			}
 		}
@@ -134,6 +134,16 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool OnClosing()
+		{
+			if (this.WatcherEnabled)
+			{
+				this.UnsubscribeFromJobEvents();
+			}
+
+			return true;
+		}
+
 		public void EditFolder(WatchedFolderViewModel folderToEdit)
 		{
 			var editWatchedFolderViewModel = new WatcherEditDialogViewModel(folderToEdit.WatchedFolder.Clone(), isAdd: false);
@@ -157,12 +167,22 @@ namespace VidCoder.ViewModel
 			WatcherStorage.SaveWatchedFolders(Database.Connection, this.WatchedFolders.Items.Select(f => f.WatchedFolder));
 		}
 
+		public void RefreshFiles()
+		{
+			this.WatchedFiles.Clear();
+			this.WatchedFiles.AddRange(WatcherStorage.GetWatchedFiles(Database.Connection).Select(pair => new WatchedFileViewModel(pair.Value)));
+			this.RebuildFileMap();
+
+			this.InitializeLiveStatus();
+		}
+
 		private void SubscribeToJobEvents()
 		{
 			this.processingService.JobQueued += this.OnJobQueued;
 			this.processingService.JobRemovedFromQueue += this.OnJobRemovedFromQueue;
 			this.processingService.JobStarted += this.OnJobStarted;
 			this.processingService.JobCompleted += this.OnJobCompleted;
+			this.processingService.JobsAddedFromWatcher += this.OnJobsAddedFromWatcher;
 		}
 
 		private void UnsubscribeFromJobEvents()
@@ -171,6 +191,7 @@ namespace VidCoder.ViewModel
 			this.processingService.JobRemovedFromQueue -= this.OnJobRemovedFromQueue;
 			this.processingService.JobStarted -= this.OnJobStarted;
 			this.processingService.JobCompleted -= this.OnJobCompleted;
+			this.processingService.JobsAddedFromWatcher -= this.OnJobsAddedFromWatcher;
 		}
 
 		private void OnJobQueued(object sender, EventArgs<EncodeJobViewModel> e)
@@ -221,6 +242,11 @@ namespace VidCoder.ViewModel
 					watchedFile.Status = WatchedFileStatusLive.Queued;
 				}
 			}
+		}
+
+		private void OnJobsAddedFromWatcher(object sender, EventArgs e)
+		{
+			this.RefreshFiles();
 		}
 
 		private void RebuildFileMap()

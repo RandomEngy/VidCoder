@@ -32,8 +32,8 @@ try
 				firstLineWritten = true;
 			}
 
-			await connectTask;
-			await pipeServer.WaitForRemotePipeCloseAsync(tokenSource.Token);
+			await connectTask.ConfigureAwait(false);
+			await pipeServer.WaitForRemotePipeCloseAsync(tokenSource.Token).ConfigureAwait(false);
 		}
 		catch (Exception exception)
 		{

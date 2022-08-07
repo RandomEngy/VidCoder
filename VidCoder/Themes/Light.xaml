@@ -30,7 +30,7 @@
 		<GradientStop Offset="1.0" Color="#B7E0B3" />
 	</LinearGradientBrush>
 	<SolidColorBrush x:Key="GridViewHeaderBorderBrush" Color="#DFDFDF" />
-	<SolidColorBrush x:Key="EncodingQueueItemTextBrush" Color="Green" />
+	<SolidColorBrush x:Key="GreenText" Color="Green" />
 	<RadialGradientBrush x:Key="RedFill" Center="7,1.5" GradientOrigin="7,1.5" MappingMode="Absolute" RadiusX="10" RadiusY="10">
 		<GradientStop Offset="0" Color="#DD0008" />
 		<GradientStop Offset="1" Color="#A30008" />

@@ -27,7 +27,7 @@
 	<SolidColorBrush x:Key="InputBrush" Color="{x:Static SystemColors.WindowColor}" />
 	<SolidColorBrush x:Key="OutputBrush" Color="{x:Static SystemColors.WindowColor}" />
 	<SolidColorBrush x:Key="GridViewHeaderBorderBrush" Color="{x:Static SystemColors.WindowTextColor}" />
-	<SolidColorBrush x:Key="EncodingQueueItemTextBrush" Color="{x:Static SystemColors.WindowTextColor}" />
+	<SolidColorBrush x:Key="GreenText" Color="{x:Static SystemColors.WindowTextColor}" />
 	<SolidColorBrush x:Key="RedFill" Color="{x:Static SystemColors.WindowTextColor}" />
 	<SolidColorBrush x:Key="BlueFill" Color="{x:Static SystemColors.WindowTextColor}" />
 	<SolidColorBrush x:Key="BlueHoverFill" Color="{x:Static SystemColors.HighlightColor}" />
