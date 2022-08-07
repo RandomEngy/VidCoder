@@ -251,7 +251,7 @@ namespace VidCoder.ViewModel
 		public void RefreshFiles()
 		{
 			Dictionary<string, WatchedFile> newFiles = WatcherStorage.GetWatchedFiles(Database.Connection);
-			var viewModelList = new List<WatchedFileViewModel>(newFiles.Select(pair => new WatchedFileViewModel(pair.Value)));
+			var viewModelList = new List<WatchedFileViewModel>(newFiles.Select(pair => new WatchedFileViewModel(this, pair.Value)));
 
 			this.RebuildFileMap(viewModelList);
 			this.InitializeLiveStatus();
@@ -275,6 +275,44 @@ namespace VidCoder.ViewModel
 					}
 				}
 			});
+		}
+
+		public void RetrySelectedFiles()
+		{
+			var filesToQueue = new List<WatchedFile>();
+
+			foreach (WatchedFileViewModel fileViewModel in this.WatchedFiles.Items)
+			{
+				if (fileViewModel.IsSelected && fileViewModel.CanRetry)
+				{
+					filesToQueue.Add(fileViewModel.WatchedFile);
+				}
+			}
+
+			if (filesToQueue.Count > 0)
+			{
+				this.processingService.QueueWatchedFiles(filesToQueue);
+			}
+		}
+
+		public void CancelSelectedFiles()
+		{
+			var pathSet = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+			foreach (WatchedFileViewModel fileViewModel in this.WatchedFiles.Items)
+			{
+				if (fileViewModel.IsSelected && fileViewModel.CanCancel)
+				{
+					string filePath = fileViewModel.WatchedFile.Path;
+					WatcherStorage.UpdateEntryStatus(Database.Connection, filePath, WatchedFileStatus.Canceled);
+					pathSet.Add(filePath);
+				}
+			}
+
+			if (pathSet.Count > 0)
+			{
+				this.processingService.RemoveJobsBySourcePath(pathSet);
+			}
 		}
 
 		private void SubscribeToJobEvents()

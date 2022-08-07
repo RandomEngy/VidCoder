@@ -16,9 +16,12 @@ namespace VidCoder.ViewModel.DataModels
 {
 	public class WatchedFileViewModel : ReactiveObject, IListItemViewModel
 	{
-		public WatchedFileViewModel(WatchedFile watchedFile)
+		private readonly WatcherWindowViewModel windowViewModel;
+
+		public WatchedFileViewModel(WatcherWindowViewModel windowViewModel, WatchedFile watchedFile)
 		{
-			WatchedFile = watchedFile;
+			this.windowViewModel = windowViewModel;
+			this.WatchedFile = watchedFile;
 			this.status = watchedFile.Status.ToLive();
 
 			// CanCancel
@@ -65,7 +68,7 @@ namespace VidCoder.ViewModel.DataModels
 				return this.cancel ?? (this.cancel = ReactiveCommand.Create(
 					() =>
 					{
-
+						this.windowViewModel.CancelSelectedFiles();
 					}));
 			}
 		}
@@ -81,12 +84,13 @@ namespace VidCoder.ViewModel.DataModels
 				return this.retry ?? (this.retry = ReactiveCommand.Create(
 					() =>
 					{
-
+						this.windowViewModel.RetrySelectedFiles();
 					}));
 			}
 		}
 
 		private ReactiveCommand<Unit, Unit> openContainingFolder;
+
 		public ICommand OpenContainingFolder
 		{
 			get

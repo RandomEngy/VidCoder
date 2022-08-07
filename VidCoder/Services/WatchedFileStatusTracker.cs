@@ -43,46 +43,7 @@ namespace VidCoder.Services
 
 			if (plannedFiles.Count > 0)
 			{
-				// Key is the folder path, value is the list of files added under that path.
-				List<WatchedFolder> folders = WatcherStorage.GetWatchedFolders(connection);
-				var folderMap = new Dictionary<string, List<string>>();
-				foreach (var folder in folders)
-				{
-					folderMap.Add(folder.Path, new List<string>());
-				}
-
-				foreach (WatchedFile watchedFile in plannedFiles.Values)
-				{
-					string folderPath = null;
-
-					// Find out what folder we're in
-					foreach (WatchedFolder folder in folders)
-					{
-						if (watchedFile.Path.StartsWith(folder.Path, StringComparison.OrdinalIgnoreCase))
-						{
-							folderPath = folder.Path;
-							break;
-						}
-					}
-
-					if (folderPath == null)
-					{
-						StaticResolver.Resolve<IAppLogger>().LogError("Could not find folder for watched file " + watchedFile.Path);
-					}
-					else
-					{
-						folderMap[folderPath].Add(watchedFile.Path);
-					}
-				}
-
-				foreach (var pair in folderMap)
-				{
-					if (pair.Value.Count > 0)
-					{
-						WatchedFolder watchedFolder = folders.First(f => f.Path.Equals(pair.Key));
-						this.processingService.QueueFromFileWatcher(pair.Key, pair.Value.ToArray(), watchedFolder.Preset, watchedFolder.Picker);
-					}
-				}
+				this.processingService.QueueWatchedFiles(plannedFiles.Values);
 			}
 		}
 

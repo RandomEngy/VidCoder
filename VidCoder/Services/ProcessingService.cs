@@ -1322,6 +1322,54 @@ namespace VidCoder.Services
 			this.JobsAddedFromWatcher?.Invoke(this, new EventArgs());
 		}
 
+		/// <summary>
+		/// Queues the given <c>WatchedFile</c>s
+		/// </summary>
+		/// <param name="watchedFiles">The files to queue.</param>
+		public void QueueWatchedFiles(IEnumerable<WatchedFile> watchedFiles)
+		{
+			// Key is the folder path, value is the list of files added under that path.
+			List<WatchedFolder> folders = WatcherStorage.GetWatchedFolders(Database.Connection);
+			var folderMap = new Dictionary<string, List<string>>();
+			foreach (var folder in folders)
+			{
+				folderMap.Add(folder.Path, new List<string>());
+			}
+
+			foreach (WatchedFile watchedFile in watchedFiles)
+			{
+				string folderPath = null;
+
+				// Find out what folder we're in
+				foreach (WatchedFolder folder in folders)
+				{
+					if (watchedFile.Path.StartsWith(folder.Path, StringComparison.OrdinalIgnoreCase))
+					{
+						folderPath = folder.Path;
+						break;
+					}
+				}
+
+				if (folderPath == null)
+				{
+					StaticResolver.Resolve<IAppLogger>().LogError("Could not find folder for watched file " + watchedFile.Path);
+				}
+				else
+				{
+					folderMap[folderPath].Add(watchedFile.Path);
+				}
+			}
+
+			foreach (var pair in folderMap)
+			{
+				if (pair.Value.Count > 0)
+				{
+					WatchedFolder watchedFolder = folders.First(f => f.Path.Equals(pair.Key));
+					this.QueueFromFileWatcher(pair.Key, pair.Value.ToArray(), watchedFolder.Preset, watchedFolder.Picker);
+				}
+			}
+		}
+
 		public void NotifyWatchedFilesRemoved()
 		{
 			this.WatchedFilesRemoved?.Invoke(this, new EventArgs());
@@ -1692,6 +1740,23 @@ namespace VidCoder.Services
 		{
 			this.EncodeQueue.Remove(job);
 			this.ReportJobRemovedFromQueue(job);
+		}
+
+		public void RemoveJobsBySourcePath(ISet<string> pathSet)
+		{
+			this.EncodeQueue.Edit(encodeQueueInnerList =>
+			{
+				for (int i = encodeQueueInnerList.Count - 1; i >= 0; i--)
+				{
+					EncodeJobViewModel jobViewModel = encodeQueueInnerList[i];
+					string jobSourcePath = jobViewModel.Job.SourcePath;
+					if (pathSet.Contains(jobSourcePath))
+					{
+						this.JobRemovedFromQueue?.Invoke(this, new EventArgs<EncodeJobViewModel>(jobViewModel));
+						encodeQueueInnerList.RemoveAt(i);
+					}
+				}
+			});
 		}
 
 		private void ReportJobRemovedFromQueue(EncodeJobViewModel job)

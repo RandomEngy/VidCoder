@@ -37,6 +37,7 @@ namespace VidCoder.Model
 			private List<IObserver<T1>> observers;
 			private IObserver<T1> observer;
 			private readonly object disposeLock = new object();
+			private bool disposed = false;
 
 			public ConfigObservableDisposeToken(List<IObserver<T1>> observers, IObserver<T1> observer)
 			{
@@ -48,9 +49,14 @@ namespace VidCoder.Model
 			{
 				lock (this.disposeLock)
 				{
-					if (this.observers.Contains(this.observer))
+					if (!this.disposed)
 					{
-						this.observers.Remove(this.observer);
+						if (this.observers.Contains(this.observer))
+						{
+							this.observers.Remove(this.observer);
+						}
+
+						this.disposed = true;
 					}
 				}
 			}
