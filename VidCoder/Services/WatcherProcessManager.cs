@@ -36,6 +36,8 @@ namespace VidCoder.Services
 		private IProcesses processes;
 		private readonly IAppLogger logger;
 
+		private readonly object sync = new object();
+
 		/// <summary>
 		/// The watcher process. Will be null iff the status is Stopped.
 		/// </summary>
@@ -61,53 +63,59 @@ namespace VidCoder.Services
 
 		public void Start(bool refreshStatus = true)
 		{
-			if (refreshStatus)
+			lock (this.sync)
 			{
-				this.RefreshStatus();
-			}
-
-			if (this.Status == WatcherProcessStatus.Stopped || this.Status == WatcherProcessStatus.Disabled)
-			{
-				var startInfo = new ProcessStartInfo
+				if (refreshStatus)
 				{
-					FileName = FileWatcherFullPath,
-					RedirectStandardOutput = true,
-					RedirectStandardError = true,
-					UseShellExecute = false,
-					CreateNoWindow = true
-				};
+					this.RefreshStatus();
+				}
 
-				this.Status = WatcherProcessStatus.Starting;
-				this.watcherProcess = Process.Start(startInfo);
-
-				Task.Run(async () =>
+				if (this.Status == WatcherProcessStatus.Stopped || this.Status == WatcherProcessStatus.Disabled)
 				{
-					// When the process writes out a line, its pipe server is ready.
-					await this.watcherProcess.StandardOutput.ReadLineAsync();
-					await this.ConnectToServiceAsync();
-					this.Status = WatcherProcessStatus.Running;
-					this.StartPolling();
-				});
+					var startInfo = new ProcessStartInfo
+					{
+						FileName = FileWatcherFullPath,
+						RedirectStandardOutput = true,
+						RedirectStandardError = true,
+						UseShellExecute = false,
+						CreateNoWindow = true
+					};
+
+					this.Status = WatcherProcessStatus.Starting;
+					this.watcherProcess = Process.Start(startInfo);
+
+					Task.Run(async () =>
+					{
+						// When the process writes out a line, its pipe server is ready.
+						await this.watcherProcess.StandardOutput.ReadLineAsync();
+						await this.ConnectToServiceAsync();
+						this.Status = WatcherProcessStatus.Running;
+						this.StartPolling();
+					});
+				}
 			}
 		}
 
 		public void Stop()
 		{
-			this.RefreshStatus();
-			if (this.Status != WatcherProcessStatus.Stopped && this.Status != WatcherProcessStatus.Disabled)
+			lock (this.sync)
 			{
-				if (this.pipeClient != null)
+				this.RefreshStatus();
+				if (this.Status != WatcherProcessStatus.Stopped && this.Status != WatcherProcessStatus.Disabled)
 				{
-					this.pipeClient.Dispose();
-					this.pipeClient = null;
-				}
+					if (this.pipeClient != null)
+					{
+						this.pipeClient.Dispose();
+						this.pipeClient = null;
+					}
 
-				this.watcherProcess.Kill();
-				this.SetStatusToStopped();
+					this.watcherProcess.Kill();
+					this.SetStatusToStopped();
+				}
 			}
 		}
 
-		public void RefreshStatus()
+		private void RefreshStatus()
 		{
 			WatcherProcessStatus oldStatus = this.Status;
 
@@ -182,7 +190,7 @@ namespace VidCoder.Services
 				if (this.pipeClient != null)
 				{
 					var cts = new CancellationTokenSource(5000);
-					await this.pipeClient.InvokeAsync(commands => commands.Ping(), cts.Token);
+					await this.pipeClient?.InvokeAsync(commands => commands.Ping(), cts.Token);
 				}
 			}
 			catch (Exception exception)
@@ -199,10 +207,7 @@ namespace VidCoder.Services
 		{
 			try
 			{
-				if (this.pipeClient != null)
-				{
-					await this.pipeClient.InvokeAsync(commands => commands.RefreshFromWatchedFolders());
-				}
+				await this.pipeClient?.InvokeAsync(commands => commands.RefreshFromWatchedFolders());
 			}
 			catch (Exception exception)
 			{
