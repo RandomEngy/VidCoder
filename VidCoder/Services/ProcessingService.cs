@@ -1277,7 +1277,7 @@ namespace VidCoder.Services
 			}
 
 			List<SourcePathWithMetadata> pathList = this.videoFileFinder.GetPathList(new List<string> { source }, picker);
-			this.QueueMultipleSourcePaths(pathList, profile, picker);
+			this.QueueMultipleSourcePaths(pathList, profile, picker, destination);
 
 			if (!this.encoding && this.EncodeQueue.Count > 0)
 			{
@@ -1554,7 +1554,7 @@ namespace VidCoder.Services
 		}
 
 		// Queues a list of files or video folders.
-		public void QueueMultipleSourcePaths(IEnumerable<SourcePathWithMetadata> sourcePaths, VCProfile profile = null, Picker picker = null)
+		public void QueueMultipleSourcePaths(IEnumerable<SourcePathWithMetadata> sourcePaths, VCProfile profile = null, Picker picker = null, string destinationOverride = null)
 		{
 			if (profile == null)
 			{
@@ -1695,6 +1695,11 @@ namespace VidCoder.Services
 				{
 					this.logger.LogError($"Could not add \"{queueOutputPath}\" to queue; it is not a valid full file path.");
 				}
+			}
+
+			if (itemsToQueue.Count == 1 && !string.IsNullOrWhiteSpace(destinationOverride))
+			{
+				itemsToQueue[0].Job.FinalOutputPath = destinationOverride;
 			}
 
 			if (itemsToQueue.Count > 0)
