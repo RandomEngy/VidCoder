@@ -207,23 +207,28 @@
 					<CheckBox
 						Content="{x:Static res:EnumsRes.WatchedFileStatusLive_Queued}"
 						IsChecked="{Binding ShowQueued}"
-						Style="{StaticResource ToolbarCheckBox}" />
+						Style="{StaticResource ToolbarCheckBox}"
+						ToolTip="{x:Static res:WatcherRes.StatusQueuedToolTip}" />
 					<CheckBox
 						Content="{x:Static res:EnumsRes.WatchedFileStatusLive_Succeeded}"
 						IsChecked="{Binding ShowSucceeded}"
-						Style="{StaticResource ToolbarCheckBox}" />
+						Style="{StaticResource ToolbarCheckBox}"
+						ToolTip="{x:Static res:WatcherRes.StatusSucceededToolTip}" />
 					<CheckBox
 						Content="{x:Static res:EnumsRes.WatchedFileStatusLive_Failed}"
 						IsChecked="{Binding ShowFailed}"
-						Style="{StaticResource ToolbarCheckBox}" />
+						Style="{StaticResource ToolbarCheckBox}"
+						ToolTip="{x:Static res:WatcherRes.StatusFailedToolTip}" />
 					<CheckBox
 						Content="{x:Static res:EnumsRes.WatchedFileStatusLive_Canceled}"
 						IsChecked="{Binding ShowCanceled}"
-						Style="{StaticResource ToolbarCheckBox}" />
+						Style="{StaticResource ToolbarCheckBox}"
+						ToolTip="{x:Static res:WatcherRes.StatusCanceledToolTip}" />
 					<CheckBox
 						Content="{x:Static res:EnumsRes.WatchedFileStatusLive_Skipped}"
 						IsChecked="{Binding ShowSkipped}"
-						Style="{StaticResource ToolbarCheckBox}" />
+						Style="{StaticResource ToolbarCheckBox}"
+						ToolTip="{x:Static res:WatcherRes.StatusSkippedToolTip}" />
 				</WrapPanel>
 
 				<!--  Watched file grid  -->

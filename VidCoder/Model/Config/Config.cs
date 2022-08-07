@@ -130,11 +130,6 @@ namespace VidCoder
 			cache.Add("TriggerEncodeCompleteActionWithErrors", DatabaseConfig.Get("TriggerEncodeCompleteActionWithErrors", true, connection));
 			cache.Add("EncodeRetries", DatabaseConfig.Get("EncodeRetries", 0, connection));
 			cache.Add("WatcherEnabled", DatabaseConfig.Get("WatcherEnabled", false, connection));
-			cache.Add("WatcherShowQueued", DatabaseConfig.Get("WatcherShowQueued", true, connection));
-			cache.Add("WatcherShowSucceeded", DatabaseConfig.Get("WatcherShowSucceeded", true, connection));
-			cache.Add("WatcherShowFailed", DatabaseConfig.Get("WatcherShowFailed", true, connection));
-			cache.Add("WatcherShowCanceled", DatabaseConfig.Get("WatcherShowCanceled", true, connection));
-			cache.Add("WatcherShowSkipped", DatabaseConfig.Get("WatcherShowSkipped", true, connection));
 		}
 
 		public static T Get<T>(string key)
@@ -673,31 +668,6 @@ namespace VidCoder
 			get { return (bool)cache["WatcherEnabled"]; }
 			set { Set("WatcherEnabled", value); }
 		}
-		public static bool WatcherShowQueued
-		{
-			get { return (bool)cache["WatcherShowQueued"]; }
-			set { Set("WatcherShowQueued", value); }
-		}
-		public static bool WatcherShowSucceeded
-		{
-			get { return (bool)cache["WatcherShowSucceeded"]; }
-			set { Set("WatcherShowSucceeded", value); }
-		}
-		public static bool WatcherShowFailed
-		{
-			get { return (bool)cache["WatcherShowFailed"]; }
-			set { Set("WatcherShowFailed", value); }
-		}
-		public static bool WatcherShowCanceled
-		{
-			get { return (bool)cache["WatcherShowCanceled"]; }
-			set { Set("WatcherShowCanceled", value); }
-		}
-		public static bool WatcherShowSkipped
-		{
-			get { return (bool)cache["WatcherShowSkipped"]; }
-			set { Set("WatcherShowSkipped", value); }
-		}
 		public static class Observables
 		{
 			public static IObservable<bool> MigratedConfigs => GetObservable<bool>("MigratedConfigs");
@@ -801,11 +771,6 @@ namespace VidCoder
 			public static IObservable<bool> TriggerEncodeCompleteActionWithErrors => GetObservable<bool>("TriggerEncodeCompleteActionWithErrors");
 			public static IObservable<int> EncodeRetries => GetObservable<int>("EncodeRetries");
 			public static IObservable<bool> WatcherEnabled => GetObservable<bool>("WatcherEnabled");
-			public static IObservable<bool> WatcherShowQueued => GetObservable<bool>("WatcherShowQueued");
-			public static IObservable<bool> WatcherShowSucceeded => GetObservable<bool>("WatcherShowSucceeded");
-			public static IObservable<bool> WatcherShowFailed => GetObservable<bool>("WatcherShowFailed");
-			public static IObservable<bool> WatcherShowCanceled => GetObservable<bool>("WatcherShowCanceled");
-			public static IObservable<bool> WatcherShowSkipped => GetObservable<bool>("WatcherShowSkipped");
 			private static IObservable<T> GetObservable<T>(string configName)
 			{
 				object observableObject;

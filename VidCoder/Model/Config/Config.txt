@@ -114,8 +114,3 @@ TriggerEncodeCompleteActionWithErrors|bool|true
 EncodeRetries|int|0
 
 WatcherEnabled|bool|false
-WatcherShowQueued|bool|true
-WatcherShowSucceeded|bool|true
-WatcherShowFailed|bool|true
-WatcherShowCanceled|bool|true
-WatcherShowSkipped|bool|true
