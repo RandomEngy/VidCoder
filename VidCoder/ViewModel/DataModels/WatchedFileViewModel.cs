@@ -103,5 +103,9 @@ namespace VidCoder.ViewModel.DataModels
 			}
 		}
 
+		public override string ToString()
+		{
+			return this.WatchedFile.Path + " " + this.Status;
+		}
 	}
 }

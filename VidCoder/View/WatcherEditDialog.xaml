@@ -44,6 +44,7 @@
 					<ColumnDefinition />
 				</Grid.ColumnDefinitions>
 				<TextBlock
+					Name="folderTextBoxLabel"
 					Grid.Row="0"
 					Grid.Column="0"
 					Text="{x:Static res:WatcherRes.WatchedFolderTextBoxLabel}" />
@@ -59,6 +60,7 @@
 					<TextBox
 						Grid.Column="0"
 						VerticalContentAlignment="Center"
+						AutomationProperties.LabeledBy="{Binding ElementName=folderTextBoxLabel}"
 						Text="{Binding Path}" />
 					<Button
 						Grid.Column="1"

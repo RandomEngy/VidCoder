@@ -129,6 +129,7 @@
 								</Grid.ColumnDefinitions>
 								<Button
 									HorizontalContentAlignment="Stretch"
+									AutomationProperties.Name="{Binding WatchedFolder.Path}"
 									Command="{Binding EditFolder}"
 									Style="{StaticResource BorderlessButtonStyle}">
 									<Grid>
