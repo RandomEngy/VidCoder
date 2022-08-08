@@ -13,7 +13,8 @@ namespace VidCoderFileWatcher.Services
 	public class WatcherService : IWatcherCommands
 	{
 		private readonly IBasicLogger logger;
-		private Dictionary<string, StrippedPicker> pickers;
+		private Dictionary<string, StrippedPicker>? pickers;
+		private readonly Dictionary<string, PickerFileFilter> pickerFileFilters = new Dictionary<string, PickerFileFilter>();
 		private static readonly StrippedPicker DefaultPicker = new StrippedPicker
 		{
 			Name = "Default",
@@ -29,17 +30,22 @@ namespace VidCoderFileWatcher.Services
 		public WatcherService(IBasicLogger logger)
 		{
 			this.logger = logger;
-			this.RefreshPickers();
 
 			////System.Diagnostics.Debugger.Launch();
 		}
 
 		public async void RefreshFromWatchedFolders()
 		{
+			await this.RefreshFromWatchedFoldersAsync().ConfigureAwait(false);
+		}
+
+		public async Task RefreshFromWatchedFoldersAsync()
+		{
 			await this.sync.WaitAsync().ConfigureAwait(false);
 			try
 			{
 				this.logger.Log("Refreshing file list...");
+				this.PopulatePickersIfNeeded();
 
 				List<WatchedFolder> folders = WatcherStorage.GetWatchedFolders(WatcherDatabase.Connection);
 				IDictionary<string, ExistingFile> existingFiles = this.GetFilesInWatchedFolders(folders);
@@ -199,20 +205,12 @@ namespace VidCoderFileWatcher.Services
 			{
 				this.logger.Log("Enumerating folder: " + folder.Path);
 
-				StrippedPicker picker;
-				if (this.pickers.ContainsKey(folder.Picker))
-				{
-					picker = this.pickers[folder.Picker];
-				}
-				else
-				{
-					picker = DefaultPicker;
-				}
+				StrippedPicker picker = this.GetPickerForWatchedFolder(folder);
 
 				ISet<string> videoExtensions = CommonFileUtilities.ParseVideoExtensionList(picker.VideoFileExtensions);
 				(List<SourcePathWithType> sourcePaths, List<string> inacessibleDirectories) = CommonFileUtilities.GetFilesOrVideoFolders(
-					folder.Path, videoExtensions,
-					picker.IgnoreFilesBelowMbEnabled ? picker.IgnoreFilesBelowMb : 0);
+					folder.Path,
+					this.GetFileFilterForWatchedFolder(folder));
 
 				foreach (string inaccessibleDirectory in inacessibleDirectories)
 				{
@@ -235,17 +233,90 @@ namespace VidCoderFileWatcher.Services
 			return files;
 		}
 
+		private StrippedPicker GetPickerForWatchedFolder(WatchedFolder watchedFolder)
+		{
+			this.PopulatePickersIfNeeded();
+			if (this.pickers.ContainsKey(watchedFolder.Picker))
+			{
+				return this.pickers[watchedFolder.Picker];
+			}
+			else
+			{
+				return DefaultPicker;
+			}
+		}
+
+		private PickerFileFilter GetFileFilterForWatchedFolder(WatchedFolder watchedFolder)
+		{
+			StrippedPicker picker = GetPickerForWatchedFolder(watchedFolder);
+
+			if (this.pickerFileFilters.TryGetValue(watchedFolder.Picker, out PickerFileFilter? result))
+			{
+				return result;
+			}
+			else
+			{
+				var filter = new PickerFileFilter
+				{
+					Extensions = CommonFileUtilities.ParseVideoExtensionList(picker.VideoFileExtensions),
+					IgnoreFilesBelowMb = picker.IgnoreFilesBelowMbEnabled ? picker.IgnoreFilesBelowMb : 0
+				};
+				this.pickerFileFilters[watchedFolder.Picker] = filter;
+				return filter;
+			}
+		}
+
+		public bool FilePassesPicker(WatchedFolder watchedFolder, string filePath)
+		{
+			try
+			{
+				PickerFileFilter filter = GetFileFilterForWatchedFolder(watchedFolder);
+				return CommonFileUtilities.FilePassesPickerFilter(new FileInfo(filePath), filter);
+			}
+			catch (Exception exception)
+			{
+				this.logger.Log("Could not get file info to check if it passes the picker." + Environment.NewLine + exception.ToString());
+				return true;
+			}
+		}
+
 		public void Ping()
 		{
 		}
 
-		private void RefreshPickers()
+		private void PopulatePickersIfNeeded()
 		{
-			// TODO - thread protection
-			this.pickers = new Dictionary<string, StrippedPicker>();
-			foreach (StrippedPicker picker in WatcherRepository.GetPickerList())
+			if (this.pickers == null)
 			{
-				this.pickers.Add(picker.Name, picker);
+				this.pickers = new Dictionary<string, StrippedPicker>();
+				foreach (StrippedPicker picker in WatcherRepository.GetPickerList())
+				{
+					if (this.pickers.TryGetValue(picker.Name, out StrippedPicker? existingPicker))
+					{
+						if (picker.IsModified && !existingPicker.IsModified)
+						{
+							this.pickers[picker.Name] = picker;
+						}
+					}
+					else
+					{
+						this.pickers.Add(picker.Name, picker);
+					}
+				}
+			}
+		}
+
+		public async void InvalidatePickers()
+		{
+			await this.sync.WaitAsync().ConfigureAwait(false);
+			try
+			{
+				this.pickers = null;
+				this.pickerFileFilters.Clear();
+			}
+			finally
+			{
+				this.sync.Release();
 			}
 		}
 

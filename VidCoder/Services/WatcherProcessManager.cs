@@ -215,6 +215,18 @@ namespace VidCoder.Services
 			}
 		}
 
+		public async void InvalidatePickers()
+		{
+			try
+			{
+				await this.pipeClient?.InvokeAsync(commands => commands.InvalidatePickers());
+			}
+			catch (Exception exception)
+			{
+				this.logger.LogError("Could not invalidate pickers." + Environment.NewLine + exception.ToString());
+			}
+		}
+
 		private Process GetRunningFileWatcher()
 		{
 			return this.processes.GetProcesses().FirstOrDefault(process =>

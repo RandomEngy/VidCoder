@@ -14,6 +14,8 @@ namespace VidCoderFileWatcher.Model
 	{
 		public string Name { get; set; }
 
+		public bool IsModified { get; set; }
+
 		public string VideoFileExtensions { get; set; } = PickerDefaults.VideoFileExtensions;
 
 		public bool IgnoreFilesBelowMbEnabled { get; set; }

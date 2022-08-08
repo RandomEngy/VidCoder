@@ -10,7 +10,7 @@ namespace VidCoderCommon.Utilities
 {
 	public static class CommonFileUtilities
 	{
-		public static (List<SourcePathWithType> paths, List<string> inacessibleDirectories) GetFilesOrVideoFolders(string directory, ISet<string> videoExtensions, int ignoreFilesBelowMb)
+		public static (List<SourcePathWithType> paths, List<string> inacessibleDirectories) GetFilesOrVideoFolders(string directory, PickerFileFilter fileFilter)
 		{
 			var paths = new List<SourcePathWithType>();
 			var inacessibleDirectories = new List<string>();
@@ -18,7 +18,7 @@ namespace VidCoderCommon.Utilities
 			try
 			{
 				DirectoryInfo directoryInfo = new DirectoryInfo(directory);
-				GetFilesOrVideoFoldersRecursive(directoryInfo, paths, inacessibleDirectories, videoExtensions, ignoreFilesBelowMb);
+				GetFilesOrVideoFoldersRecursive(directoryInfo, paths, inacessibleDirectories, fileFilter);
 			}
 			catch
 			{
@@ -49,7 +49,7 @@ namespace VidCoderCommon.Utilities
 			return videoExtensions;
 		}
 
-		private static void GetFilesOrVideoFoldersRecursive(DirectoryInfo directory, List<SourcePathWithType> paths, List<string> inacessibleDirectories, ISet<string> videoExtensions, int ignoreFilesBelowMb)
+		private static void GetFilesOrVideoFoldersRecursive(DirectoryInfo directory, List<SourcePathWithType> paths, List<string> inacessibleDirectories, PickerFileFilter fileFilter)
 		{
 			if (IsDiscFolder(directory.FullName))
 			{
@@ -63,7 +63,7 @@ namespace VidCoderCommon.Utilities
 				Array.Sort(subdirectories, (a, b) => a.Name.CompareTo(b.Name));
 				foreach (DirectoryInfo subdirectory in subdirectories)
 				{
-					GetFilesOrVideoFoldersRecursive(subdirectory, paths, inacessibleDirectories, videoExtensions, ignoreFilesBelowMb);
+					GetFilesOrVideoFoldersRecursive(subdirectory, paths, inacessibleDirectories, fileFilter);
 				}
 
 				FileInfo[] files = directory.GetFiles();
@@ -71,7 +71,7 @@ namespace VidCoderCommon.Utilities
 				paths.AddRange(files
 					.Where(file =>
 					{
-						return videoExtensions.Contains(file.Extension) && file.Length >= ignoreFilesBelowMb * 1024 * 1024;
+						return FilePassesPickerFilter(file, fileFilter);
 					})
 					.Select(path => new SourcePathWithType { Path = path.FullName, SourceType = SourceType.File }));
 			}
@@ -79,6 +79,11 @@ namespace VidCoderCommon.Utilities
 			{
 				inacessibleDirectories.Add(directory.FullName);
 			}
+		}
+
+		public static bool FilePassesPickerFilter(FileInfo file, PickerFileFilter filter)
+		{
+			return filter.Extensions.Contains(file.Extension) && file.Length >= filter.IgnoreFilesBelowMb * 1024 * 1024;
 		}
 
 		public static FolderType GetFolderType(string directory)

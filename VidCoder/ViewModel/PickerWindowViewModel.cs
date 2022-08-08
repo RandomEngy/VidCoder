@@ -725,19 +725,31 @@ namespace VidCoder.ViewModel
 		public string VideoFileExtensions
 		{
 			get => this.Picker.VideoFileExtensions;
-			set => this.UpdatePickerProperty(nameof(this.Picker.VideoFileExtensions), value);
+			set
+			{
+				this.UpdatePickerProperty(nameof(this.Picker.VideoFileExtensions), value);
+				this.InvalidatePickersForWatcher();
+			}
 		}
 
 		public bool IgnoreFilesBelowMbEnabled
 		{
 			get => this.Picker.IgnoreFilesBelowMbEnabled;
-			set => this.UpdatePickerProperty(nameof(this.Picker.IgnoreFilesBelowMbEnabled), value);
+			set
+			{
+				this.UpdatePickerProperty(nameof(this.Picker.IgnoreFilesBelowMbEnabled), value);
+				this.InvalidatePickersForWatcher();
+			}
 		}
 
 		public int IgnoreFilesBelowMb
 		{
 			get => this.Picker.IgnoreFilesBelowMb;
-			set => this.UpdatePickerProperty(nameof(this.Picker.IgnoreFilesBelowMb), value);
+			set
+			{
+				this.UpdatePickerProperty(nameof(this.Picker.IgnoreFilesBelowMb), value);
+				this.InvalidatePickersForWatcher();
+			}
 		}
 
 		public List<ComboChoice<PickerTimeRangeMode>> PickerTimeRangeChoices { get; } = new List<ComboChoice<PickerTimeRangeMode>>
@@ -768,19 +780,31 @@ namespace VidCoder.ViewModel
 		public bool TitleRangeSelectEnabled
 		{
 			get => this.Picker.TitleRangeSelectEnabled;
-			set => this.UpdatePickerProperty(nameof(this.Picker.TitleRangeSelectEnabled), value);
+			set
+			{
+				this.UpdatePickerProperty(nameof(this.Picker.TitleRangeSelectEnabled), value);
+				this.InvalidatePickersForWatcher();
+			}
 		}
 
 		public int TitleRangeSelectStartMinutes
 		{
 			get => this.Picker.TitleRangeSelectStartMinutes;
-			set => this.UpdatePickerProperty(nameof(this.Picker.TitleRangeSelectStartMinutes), value);
+			set
+			{
+				this.UpdatePickerProperty(nameof(this.Picker.TitleRangeSelectStartMinutes), value);
+				this.InvalidatePickersForWatcher();
+			}
 		}
 
 		public int TitleRangeSelectEndMinutes
 		{
 			get => this.Picker.TitleRangeSelectEndMinutes;
-			set => this.UpdatePickerProperty(nameof(this.Picker.TitleRangeSelectEndMinutes), value);
+			set
+			{
+				this.UpdatePickerProperty(nameof(this.Picker.TitleRangeSelectEndMinutes), value);
+				this.InvalidatePickersForWatcher();
+			}
 		}
 
 		public TimeSpan TimeRangeStart
@@ -1396,6 +1420,14 @@ namespace VidCoder.ViewModel
 			foreach (TrackNameViewModel track in tracks)
 			{
 				track.TrackNumber = trackNumber++;
+			}
+		}
+
+		private void InvalidatePickersForWatcher()
+		{
+			if (Config.WatcherEnabled)
+			{
+				StaticResolver.Resolve<WatcherProcessManager>().InvalidatePickers();
 			}
 		}
 

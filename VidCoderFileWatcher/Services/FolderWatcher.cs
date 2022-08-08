@@ -50,8 +50,10 @@ namespace VidCoderFileWatcher.Services
 			try
 			{
 				this.logger.Log("Detected new file: " + e.FullPath);
-				this.filesPendingWriteComplete.Add(e.FullPath);
-				this.SetUpPendingTimer();
+				if (this.HandleAndFilterNewFile(e.FullPath))
+				{
+					this.SetUpPendingTimer();
+				}
 			}
 			finally
 			{
@@ -65,7 +67,7 @@ namespace VidCoderFileWatcher.Services
 			try
 			{
 				this.logger.Log($"File renamed from {e.OldFullPath} to {e.FullPath}");
-				this.filesPendingWriteComplete.Add(e.FullPath);
+				this.HandleAndFilterNewFile(e.FullPath);
 				this.filesPendingRemoveEntry.Add(e.OldFullPath);
 				this.SetUpPendingTimer();
 			}
@@ -88,6 +90,17 @@ namespace VidCoderFileWatcher.Services
 			{
 				this.sync.Release();
 			}
+		}
+
+		private bool HandleAndFilterNewFile(string path)
+		{
+			if (this.watcherService.FilePassesPicker(this.watchedFolder, path))
+			{
+				this.filesPendingWriteComplete.Add(path);
+				return true;
+			}
+
+			return false;
 		}
 
 		private static bool IsFileLocked(string filePath)

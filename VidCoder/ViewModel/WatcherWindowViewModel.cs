@@ -319,6 +319,7 @@ namespace VidCoder.ViewModel
 		private void SubscribeToJobEvents()
 		{
 			this.processingService.JobQueued += this.OnJobQueued;
+			this.processingService.JobQueueSkipped += this.OnJobQueueSkipped;
 			this.processingService.JobRemovedFromQueue += this.OnJobRemovedFromQueue;
 			this.processingService.JobStarted += this.OnJobStarted;
 			this.processingService.JobCompleted += this.OnJobCompleted;
@@ -329,6 +330,7 @@ namespace VidCoder.ViewModel
 		private void UnsubscribeFromJobEvents()
 		{
 			this.processingService.JobQueued -= this.OnJobQueued;
+			this.processingService.JobQueueSkipped -= this.OnJobQueueSkipped;
 			this.processingService.JobRemovedFromQueue -= this.OnJobRemovedFromQueue;
 			this.processingService.JobStarted -= this.OnJobStarted;
 			this.processingService.JobCompleted -= this.OnJobCompleted;
@@ -342,6 +344,15 @@ namespace VidCoder.ViewModel
 			if (watchedFile != null)
 			{
 				watchedFile.Status = WatchedFileStatusLive.Queued;
+			}
+		}
+
+		private void OnJobQueueSkipped(object sender, EventArgs<string> e)
+		{
+			WatchedFileViewModel watchedFile = this.GetWatchedFileForSourcePath(e.Value);
+			if (watchedFile != null)
+			{
+				watchedFile.Status = WatchedFileStatusLive.Skipped;
 			}
 		}
 
@@ -412,7 +423,17 @@ namespace VidCoder.ViewModel
 		/// <returns>The watched file that corresponds to the job, or null if there is no watched file for that job.</returns>
 		private WatchedFileViewModel GetWatchedFileForJob(EncodeJobViewModel job)
 		{
-			if (this.fileMap.TryGetValue(job.Job.SourcePath, out WatchedFileViewModel watchedFile))
+			return this.GetWatchedFileForSourcePath(job.Job.SourcePath);
+		}
+
+		/// <summary>
+		/// Gets the watched file that corresponds with the source path, or null if there is no watched file for that source path.
+		/// </summary>
+		/// <param name="sourcePath">The source path to look up.</param>
+		/// <returns>The watched file for the source path, or null if there is no watched file for that source path.</returns>
+		private WatchedFileViewModel GetWatchedFileForSourcePath(string sourcePath)
+		{
+			if (this.fileMap.TryGetValue(sourcePath, out WatchedFileViewModel watchedFile))
 			{
 				return watchedFile;
 			}

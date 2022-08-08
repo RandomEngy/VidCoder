@@ -12,7 +12,7 @@ IBasicLogger logger = new SupportLogger("Watcher");
 try
 {
 	var service = new WatcherService(logger);
-	service.RefreshFromWatchedFolders();
+	await service.RefreshFromWatchedFoldersAsync().ConfigureAwait(false);
 	CancellationTokenSource tokenSource = new CancellationTokenSource();
 
 	bool firstLineWritten = false;

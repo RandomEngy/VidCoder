@@ -288,6 +288,11 @@ namespace VidCoder.Services
 		public event EventHandler<EventArgs<EncodeJobViewModel>> JobQueued;
 
 		/// <summary>
+		/// Fires when a job got skipped because it had no titles.
+		/// </summary>
+		public event EventHandler<EventArgs<string>> JobQueueSkipped;
+
+		/// <summary>
 		/// Fires when the item has been removed from queue without completing.
 		/// </summary>
 		public event EventHandler<EventArgs<EncodeJobViewModel>> JobRemovedFromQueue;
@@ -1606,6 +1611,10 @@ namespace VidCoder.Services
 					VideoSource videoSource = scanResult.VideoSource;
 
 					List<int> titleNumbers = this.PickTitles(videoSource);
+					if (titleNumbers.Count == 0)
+					{
+						this.JobQueueSkipped?.Invoke(this, new EventArgs<string>(sourcePath.Path));
+					}
 
 					foreach (int titleNumber in titleNumbers)
 					{

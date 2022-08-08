@@ -33,11 +33,13 @@ namespace VidCoder.Services
 				picker = this.PickersService.SelectedPicker.Picker;
 			}
 
-			ISet<string> videoExtensions = CommonFileUtilities.ParseVideoExtensionList(picker.VideoFileExtensions);
-
 			var pathList = new List<SourcePathWithMetadata>();
 
-			int ignoreFilesBelowMb = picker.IgnoreFilesBelowMbEnabled ? picker.IgnoreFilesBelowMb : 0;
+			var fileFilter = new PickerFileFilter
+			{
+				Extensions = CommonFileUtilities.ParseVideoExtensionList(picker.VideoFileExtensions),
+				IgnoreFilesBelowMb = picker.IgnoreFilesBelowMbEnabled ? picker.IgnoreFilesBelowMb : 0
+			};
 
 			if (CustomConfig.DragDropOrder == DragDropOrder.Alphabetical)
 			{
@@ -73,7 +75,7 @@ namespace VidCoder.Services
 				// Now add all folders
 				foreach (string folder in folders)
 				{
-					AddDirectoryToPathList(folder, pathList, videoExtensions, ignoreFilesBelowMb);
+					AddDirectoryToPathList(folder, pathList, fileFilter);
 				}
 
 				// Now add all files
@@ -92,7 +94,7 @@ namespace VidCoder.Services
 					{
 						if (FileUtilities.IsDirectory(item))
 						{
-							AddDirectoryToPathList(item, pathList, videoExtensions, ignoreFilesBelowMb);
+							AddDirectoryToPathList(item, pathList, fileFilter);
 						}
 						else
 						{
@@ -114,12 +116,11 @@ namespace VidCoder.Services
 		/// Adds the contents of the given folder to the path list. Determines if the folder is a disc folder.
 		/// </summary>
 		/// <param name="folder">The folder to add.</param>
-		/// <param name="pathList">The path list to add to.</param>
-		/// <param name="videoExtensions">The set of valid video extensions.</param>
-		private static void AddDirectoryToPathList(string folder, List<SourcePathWithMetadata> pathList, ISet<string> videoExtensions, int ignoreFilesBelowMb)
+		/// <param name="fileFilter">The filter to use.</param>
+		private static void AddDirectoryToPathList(string folder, List<SourcePathWithMetadata> pathList, PickerFileFilter fileFilter)
 		{
 			string parentFolder = Path.GetDirectoryName(folder);
-			(List<SourcePathWithType> paths, List<string> inacessibleDirectories) = CommonFileUtilities.GetFilesOrVideoFolders(folder, videoExtensions, ignoreFilesBelowMb);
+			(List<SourcePathWithType> paths, List<string> inacessibleDirectories) = CommonFileUtilities.GetFilesOrVideoFolders(folder, fileFilter);
 
 			if (inacessibleDirectories.Count > 0)
 			{

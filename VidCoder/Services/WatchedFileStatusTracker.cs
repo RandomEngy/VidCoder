@@ -26,6 +26,7 @@ namespace VidCoder.Services
 		{
 			this.processingService.JobCompleted += this.OnJobCompleted;
 			this.processingService.JobRemovedFromQueue += this.OnJobRemovedFromQueue;
+			this.processingService.JobQueueSkipped += this.OnJobQueueSkipped;
 
 			SQLiteConnection connection = Database.Connection;
 
@@ -51,6 +52,7 @@ namespace VidCoder.Services
 		{
 			this.processingService.JobCompleted -= this.OnJobCompleted;
 			this.processingService.JobRemovedFromQueue -= this.OnJobRemovedFromQueue;
+			this.processingService.JobQueueSkipped -= this.OnJobQueueSkipped;
 		}
 
 		private void OnJobCompleted(object sender, Model.JobCompletedEventArgs e)
@@ -70,6 +72,14 @@ namespace VidCoder.Services
 				Database.Connection,
 				e.Value.Job.SourcePath,
 				WatchedFileStatus.Canceled);
+		}
+
+		private void OnJobQueueSkipped(object sender, EventArgs<string> e)
+		{
+			WatcherStorage.UpdateEntryStatus(
+				Database.Connection,
+				e.Value,
+				WatchedFileStatus.Skipped);
 		}
 	}
 }
