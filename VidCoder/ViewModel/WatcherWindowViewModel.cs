@@ -203,7 +203,10 @@ namespace VidCoder.ViewModel
 							Preset = this.presetsService.AllPresets[0].Preset.Name
 						};
 
-						var addWatchedFolderViewModel = new WatcherEditDialogViewModel(newWatchedFolder, isAdd: true);
+						var addWatchedFolderViewModel = new WatcherEditDialogViewModel(
+							newWatchedFolder,
+							this.WatchedFolders.Items.Select(f => f.WatchedFolder.Path).ToList(),
+							isAdd: true);
 						this.windowManager.OpenDialog(addWatchedFolderViewModel, this);
 
 						if (addWatchedFolderViewModel.DialogResult)
@@ -227,7 +230,10 @@ namespace VidCoder.ViewModel
 
 		public void EditFolder(WatchedFolderViewModel folderToEdit)
 		{
-			var editWatchedFolderViewModel = new WatcherEditDialogViewModel(folderToEdit.WatchedFolder.Clone(), isAdd: false);
+			var editWatchedFolderViewModel = new WatcherEditDialogViewModel(
+				folderToEdit.WatchedFolder.Clone(),
+				this.WatchedFolders.Items.Select(f => f.WatchedFolder.Path).ToList(),
+				isAdd: false);
 			this.windowManager.OpenDialog(editWatchedFolderViewModel, this);
 
 			if (editWatchedFolderViewModel.DialogResult)

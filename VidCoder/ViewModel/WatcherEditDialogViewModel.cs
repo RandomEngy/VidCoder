@@ -2,8 +2,11 @@
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
+using System.Reactive.Concurrency;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -19,8 +22,11 @@ namespace VidCoder.ViewModel
 		public PickersService PickersService { get; } = StaticResolver.Resolve<PickersService>();
 		public PresetsService PresetsService { get; } = StaticResolver.Resolve<PresetsService>();
 
-		public WatcherEditDialogViewModel(WatchedFolder watchedFolder, bool isAdd)
+		public WatcherEditDialogViewModel(WatchedFolder watchedFolder, IList<string> existingWatchedFolders, bool isAdd)
 		{
+			// Remove ourselves from the list to check
+			existingWatchedFolders.Remove(watchedFolder.Path);
+
 			this.WindowTitle = isAdd ? WatcherRes.WatcherAddDialogTitle : WatcherRes.WatcherEditDialogTitle;
 			WatchedFolder = watchedFolder;
 
@@ -33,7 +39,38 @@ namespace VidCoder.ViewModel
 				this.selectedPreset = this.PresetsService.AllPresets[0];
 				this.WatchedFolder.Preset = this.selectedPreset.Preset.Name;
 			}
+
+			this.WhenAnyValue(x => x.Path)
+				.Select(path =>
+				{
+					try
+					{
+						if (string.IsNullOrWhiteSpace(path) || !Directory.Exists(path))
+						{
+							return false;
+						}
+
+						foreach (string existingPath in existingWatchedFolders)
+						{
+							if (path.StartsWith(existingPath + "\\", StringComparison.OrdinalIgnoreCase)
+							|| existingPath.StartsWith(path + "\\", StringComparison.OrdinalIgnoreCase)
+							|| path.Equals(existingPath, StringComparison.OrdinalIgnoreCase))
+							{
+								return false;
+							}
+						}
+
+						return true;
+					}
+					catch
+					{
+						return false;
+					}
+				}).ToProperty(this, x => x.CanClose, out this.canClose, scheduler: Scheduler.Immediate);
 		}
+
+		private ObservableAsPropertyHelper<bool> canClose;
+		public override bool CanClose => this.canClose.Value;
 
 		public string WindowTitle { get; }
 
