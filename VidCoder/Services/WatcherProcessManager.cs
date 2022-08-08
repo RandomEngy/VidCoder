@@ -30,7 +30,7 @@ namespace VidCoder.Services
 
 		private PipeClient<IWatcherCommands> pipeClient;
 
-		private static readonly string FileWatcherFolder = CommonUtilities.DebugMode ? CommonUtilities.ProgramFolder : CommonUtilities.LocalAppFolder;
+		private static readonly string FileWatcherFolder = (CommonUtilities.DebugMode || Utilities.InstallType == VidCoderInstallType.Zip) ? CommonUtilities.ProgramFolder : CommonUtilities.LocalAppFolder;
 		private static readonly string FileWatcherFullPath = Path.Combine(FileWatcherFolder, FileWatcherExecutableName + ".exe");
 
 		private IProcesses processes;

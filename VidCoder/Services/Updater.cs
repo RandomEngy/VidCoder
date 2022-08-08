@@ -59,14 +59,6 @@ namespace VidCoder.Services
 			}
 		}
 
-		private static void DeleteUpdatesFolder()
-		{
-			if (Directory.Exists(Utilities.UpdatesFolder))
-			{
-				Directory.Delete(Utilities.UpdatesFolder, true);
-			}
-		}
-
 		// Starts checking for updates
 		public void CheckUpdates(bool isManualCheck)
 		{
