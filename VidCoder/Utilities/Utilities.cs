@@ -141,6 +141,14 @@ namespace VidCoder
 
 		public static bool SupportsUpdates => InstallType == VidCoderInstallType.SquirrelInstaller && CurrentVersion != new Version(1, 0, 0, 0);
 
+		public static bool WatcherSupportedAndEnabled
+		{
+			get
+			{
+				return InstallType != VidCoderInstallType.Portable && Config.WatcherEnabled;
+			}
+		}
+
 		public static bool IsDesigner
 		{
 			get

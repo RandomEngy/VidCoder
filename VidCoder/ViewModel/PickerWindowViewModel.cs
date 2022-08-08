@@ -1425,7 +1425,7 @@ namespace VidCoder.ViewModel
 
 		private void InvalidatePickersForWatcher()
 		{
-			if (Config.WatcherEnabled)
+			if (Utilities.WatcherSupportedAndEnabled)
 			{
 				StaticResolver.Resolve<WatcherProcessManager>().InvalidatePickers();
 			}

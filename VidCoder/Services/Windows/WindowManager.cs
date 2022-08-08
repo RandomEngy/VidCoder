@@ -84,16 +84,6 @@ namespace VidCoder.Services.Windows
 
 				new WindowDefinition
 				{
-					ViewModelType = typeof(WatcherWindowViewModel),
-					InMenu = true,
-					PlacementConfigKey = "WatcherWindowPlacement",
-					IsOpenConfigKey = "WatcherWindowOpen",
-					InputGestureText = "Ctrl+W",
-					MenuLabel = MainRes.WatcherMenuItem
-				},
-
-				new WindowDefinition
-				{
 					ViewModelType = typeof(LogWindowViewModel), 
 					InMenu = true,
 					PlacementConfigKey = "LogWindowPlacement",
@@ -148,6 +138,19 @@ namespace VidCoder.Services.Windows
 					PlacementConfigKey = "WatcherEditDialogPlacement"
 				}
 			};
+
+			if (Utilities.InstallType != VidCoderInstallType.Portable)
+			{
+				Definitions.Add(new WindowDefinition
+				{
+					ViewModelType = typeof(WatcherWindowViewModel),
+					InMenu = true,
+					PlacementConfigKey = "WatcherWindowPlacement",
+					IsOpenConfigKey = "WatcherWindowOpen",
+					InputGestureText = "Ctrl+W",
+					MenuLabel = MainRes.WatcherMenuItem
+				});
+			}
 		}
 
 		public WindowManager()

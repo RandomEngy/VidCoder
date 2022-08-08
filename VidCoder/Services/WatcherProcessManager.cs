@@ -48,7 +48,7 @@ namespace VidCoder.Services
 			this.processes = processes;
 			this.logger = logger;
 			this.RefreshStatus();
-			if (this.Status == WatcherProcessStatus.Stopped && Config.WatcherEnabled)
+			if (this.Status == WatcherProcessStatus.Stopped && Utilities.WatcherSupportedAndEnabled)
 			{
 				this.Start(refreshStatus: false);
 			}

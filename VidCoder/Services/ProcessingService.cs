@@ -125,7 +125,7 @@ namespace VidCoder.Services
 					queueReadyTcs.SetResult();
 				}
 
-				if (Config.WatcherEnabled)
+				if (Utilities.WatcherSupportedAndEnabled)
 				{
 					var watchedFileStatusTracker = StaticResolver.Resolve<WatchedFileStatusTracker>();
 					watchedFileStatusTracker.Start();
