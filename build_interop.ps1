@@ -11,7 +11,7 @@ $HandBrakeInteropFolder = $HandBrakeFolder + "\HandBrake.Interop"
 $HandBrakeInteropProject = $HandBrakeInteropFolder + "\HandBrake.Interop.csproj"
 $HandBrakeInteropBinFolder = $HandBrakeInteropFolder + "\bin\Any CPU\Release";
 
-& $MsBuildExe $HandBrakeInteropProject /t:rebuild "/p:Configuration=Release;Platform=Any CPU"; ExitIfFailed
+msbuild $HandBrakeInteropProject /t:rebuild "/p:Configuration=Release;Platform=Any CPU"; ExitIfFailed
 copy ($HandBrakeInteropBinFolder + "\HandBrake.Interop.dll") Lib -force
 copy ($HandBrakeInteropBinFolder + "\HandBrake.Interop.pdb") Lib -force
 "Files copied."
