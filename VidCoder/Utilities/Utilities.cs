@@ -35,6 +35,10 @@ namespace VidCoder
 		public const string SquirrelUpdateUrlBeta = "https://f001.backblazeb2.com/file/vidcoder-squirrel-beta";
 		public const string SquirrelUpdateUrlStable = "https://f001.backblazeb2.com/file/vidcoder-squirrel-stable";
 
+		public const string FileWatcherExecutableName = "VidCoderFileWatcher";
+
+		public static readonly string FileWatcherFullPath = Path.Combine(CommonUtilities.ProgramFolder, FileWatcherExecutableName + ".exe");
+
 		static Utilities()
 		{
 			InstallType = VidCoderInstallType.Zip;

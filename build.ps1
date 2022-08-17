@@ -21,7 +21,7 @@ function Publish($folderNameSuffix, $publishProfileName, $version4part, $product
     }
 
     # Publish to VidCoder\bin\publish
-    & dotnet publish .\VidCoder.sln "/p:PublishProfile=$publishProfileName;Version=$version4part;Product=$productName" -c $configuration
+    & dotnet publish .\VidCoder.sln /p:PublishProfile=$publishProfileName /p:Version=$version4part "/p:Product=$productName" -c $configuration
 
     # Copy some extra files for the installer
     $extraFiles = @(
@@ -64,7 +64,10 @@ if ($beta) {
 $version4Part = $versionShort + ".0.0"
 
 # Publish the files
+Write-Host "Publishing installer..."
 Publish "installer" "InstallerProfile" $version4part $productName
+
+Write-Host "Publishing portable..."
 Publish "portable" "PortableProfile" $version4part $productName
 
 # We need to copy some files from the Worker publish over to the main publish output, because the main publish output doesn't properly set the Worker to self-contained mode
@@ -72,6 +75,7 @@ copy ".\VidCoderWorker\bin\publish-portable\VidCoderWorker*" ".\VidCoder\bin\pub
 
 # Create portable installer
 
+Write-Host "Creating portable installer..."
 if ($beta) {
     $betaNameSection = "-Beta"
 } else {
@@ -107,7 +111,7 @@ DeleteFileIfExists $zipFilePath
 & $winRarExe a -afzip -ep1 -r $zipFilePath .\VidCoder\bin\publish-installer\
 
 # Build Squirrel installer
-Set-Alias Squirrel ($env:USERPROFILE + "\.nuget\packages\clowd.squirrel\2.8.1-pre\tools\Squirrel.exe")
+Set-Alias Squirrel ($env:USERPROFILE + "\.nuget\packages\clowd.squirrel\2.9.42\tools\Squirrel.exe")
 if ($beta) {
     $packId = "VidCoder.Beta"
     $releaseDirSuffix = "Beta"

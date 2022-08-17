@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VidCoder.Model;
 using VidCoderCommon;
 using VidCoderCommon.Model;
 
@@ -224,8 +225,20 @@ namespace VidCoder
 			{
 				if (!CommonUtilities.DebugMode)
 				{
+					string fileWatcherPath;
+					if (Utilities.InstallType == VidCoderInstallType.SquirrelInstaller)
+					{
+						// For Squirrel installer, use the "stable" path in the local app data folder that is not specific to a version.
+						fileWatcherPath = Path.Combine(CommonUtilities.LocalAppFolder, Utilities.FileWatcherExecutableName + ".exe");
+					}
+					else
+					{
+						// Otherwise (Zip install) use the version-specific path.
+						fileWatcherPath = Utilities.FileWatcherFullPath;
+					}
+
 					RegistryKey autoRunKey = Registry.CurrentUser.CreateSubKey(AutoRunKeyPath);
-					autoRunKey.SetValue(AutoRunAppName, Path.Combine(CommonUtilities.LocalAppFolder, "VidCoderFileWatcher.exe"));
+					autoRunKey.SetValue(AutoRunAppName, fileWatcherPath);
 					autoRunKey.Close();
 				}
 			}

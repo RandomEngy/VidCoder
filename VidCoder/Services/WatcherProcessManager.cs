@@ -20,7 +20,6 @@ namespace VidCoder.Services
 	public class WatcherProcessManager : ReactiveObject
 	{
 		private const double ProcessPollIntervalMsec = 10000;
-		private const string FileWatcherExecutableName = "VidCoderFileWatcher";
 
 		/// <summary>
 		/// The poll timer. Will be null if the the status is Stopped or when the status is Starting and the pipe connection is being established.
@@ -29,9 +28,6 @@ namespace VidCoder.Services
 		private Timer pollTimer;
 
 		private PipeClient<IWatcherCommands> pipeClient;
-
-		private static readonly string FileWatcherFolder = (CommonUtilities.DebugMode || Utilities.InstallType == VidCoderInstallType.Zip) ? CommonUtilities.ProgramFolder : CommonUtilities.LocalAppFolder;
-		private static readonly string FileWatcherFullPath = Path.Combine(FileWatcherFolder, FileWatcherExecutableName + ".exe");
 
 		private IProcesses processes;
 		private readonly IAppLogger logger;
@@ -47,6 +43,9 @@ namespace VidCoder.Services
 		{
 			this.processes = processes;
 			this.logger = logger;
+
+			this.KillFileWatchersFromOtherVersions();
+
 			this.RefreshStatus();
 			if (this.Status == WatcherProcessStatus.Stopped && Utilities.WatcherSupportedAndEnabled)
 			{
@@ -74,7 +73,7 @@ namespace VidCoder.Services
 				{
 					var startInfo = new ProcessStartInfo
 					{
-						FileName = FileWatcherFullPath,
+						FileName = Utilities.FileWatcherFullPath,
 						RedirectStandardOutput = true,
 						RedirectStandardError = true,
 						UseShellExecute = false,
@@ -227,11 +226,23 @@ namespace VidCoder.Services
 			}
 		}
 
+		private void KillFileWatchersFromOtherVersions()
+		{
+			var fileWatcherProcesses = this.processes.GetProcesses().Where(p => p.ProcessName == Utilities.FileWatcherExecutableName && p.MainModule.FileName.StartsWith(CommonUtilities.LocalAppFolder, StringComparison.OrdinalIgnoreCase));
+			foreach (var process in fileWatcherProcesses)
+			{
+				if (!process.MainModule.FileName.Equals(Utilities.FileWatcherFullPath, StringComparison.OrdinalIgnoreCase))
+				{
+					process.Kill();
+				}
+			}
+		}
+
 		private Process GetRunningFileWatcher()
 		{
 			return this.processes.GetProcesses().FirstOrDefault(process =>
-				process.ProcessName == FileWatcherExecutableName
-				&& process.MainModule.FileName.Equals(FileWatcherFullPath, StringComparison.OrdinalIgnoreCase));
+				process.ProcessName == Utilities.FileWatcherExecutableName
+				&& process.MainModule.FileName.Equals(Utilities.FileWatcherFullPath, StringComparison.OrdinalIgnoreCase));
 		}
 	}
 }
