@@ -171,25 +171,29 @@ namespace VidCoderFileWatcher.Services
 			}
 
 			WatcherStorage.RemoveEntries(WatcherDatabase.Connection, removedFiles);
-			this.logger.Log("Notifying main process of removed files:");
+			this.logger.Log("Detected removed files:");
 			foreach (string file in removedFiles)
 			{
 				this.logger.Log("    " + file);
 			}
 
+			if (VidCoderLauncher.VidCoderIsRunning())
+			{
+				this.logger.Log("Notifying main process of removed files.");
 
-			await this.processCommunicationSync.WaitAsync().ConfigureAwait(false);
-			try
-			{
-				await VidCoderLauncher.SetupAndRunActionAsync(a => a.NotifyRemovedFiles(removedFiles.ToArray()));
-			}
-			catch (Exception exception)
-			{
-				this.logger.Log(exception.ToString());
-			}
-			finally
-			{
-				this.processCommunicationSync.Release();
+				await this.processCommunicationSync.WaitAsync().ConfigureAwait(false);
+				try
+				{
+					await VidCoderLauncher.RunActionAsync(a => a.NotifyRemovedFiles(removedFiles.ToArray()));
+				}
+				catch (Exception exception)
+				{
+					this.logger.Log(exception.ToString());
+				}
+				finally
+				{
+					this.processCommunicationSync.Release();
+				}
 			}
 		}
 

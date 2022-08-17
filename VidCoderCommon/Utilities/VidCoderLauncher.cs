@@ -56,6 +56,11 @@ namespace VidCoderCommon.Utilities
 			return true;
 		}
 
+		public static bool VidCoderIsRunning()
+		{
+			return VidCoderIsRunning(GetVidCoderExePath());
+		}
+
 		private static bool VidCoderIsRunning(string vidCoderExe)
 		{
 			var processes1 = Process.GetProcessesByName("VidCoder");
