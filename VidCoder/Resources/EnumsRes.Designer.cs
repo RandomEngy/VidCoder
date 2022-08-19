@@ -754,6 +754,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Output.
+        /// </summary>
+        public static string WatchedFileStatusLive_Output {
+            get {
+                return ResourceManager.GetString("WatchedFileStatusLive_Output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Planned.
         /// </summary>
         public static string WatchedFileStatusLive_Planned {

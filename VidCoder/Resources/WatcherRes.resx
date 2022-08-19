@@ -168,6 +168,9 @@
   <data name="StatusFailedToolTip" xml:space="preserve">
     <value>The encode failed.</value>
   </data>
+  <data name="StatusOutputToolTip" xml:space="preserve">
+    <value>The file was encoded by VidCoder.</value>
+  </data>
   <data name="StatusQueuedToolTip" xml:space="preserve">
     <value>The source file is in the queue.</value>
   </data>

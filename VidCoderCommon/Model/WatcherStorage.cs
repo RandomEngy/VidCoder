@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -103,6 +104,38 @@ namespace VidCoderCommon.Model
 			return result;
 		}
 
+		public static WatchedFile GetFileEntry(SQLiteConnection connection, string path)
+		{
+			using (var selectWatchedFoldersCommand = new SQLiteCommand("SELECT * FROM watchedFiles WHERE path = @path", connection))
+			{
+				selectWatchedFoldersCommand.Parameters.AddWithValue("@path", path);
+
+				using (SQLiteDataReader reader = selectWatchedFoldersCommand.ExecuteReader())
+				{
+					if (reader.Read())
+					{
+						string status = reader.GetString("status");
+						string reason = reader.IsDBNull("reason") ? null : reader.GetString("reason");
+
+						var watchedFile = new WatchedFile
+						{
+							Path = path,
+							Status = Enum.Parse<WatchedFileStatus>(status)
+						};
+
+						if (reason != null)
+						{
+							watchedFile.Reason = Enum.Parse<WatchedFileStatusReason>(reason);
+						}
+
+						return watchedFile;
+					}
+				}
+			}
+
+			return null;
+		}
+
 		public static void RemoveEntries(SQLiteConnection connection, IEnumerable<string> paths)
 		{
 			using (var transaction = connection.BeginTransaction())
@@ -126,10 +159,9 @@ namespace VidCoderCommon.Model
 		{
 			using (var transaction = connection.BeginTransaction())
 			{
-				using (var addCommand = new SQLiteCommand("INSERT INTO watchedFiles (path, status) VALUES (@path, @status)", connection))
+				using (var addCommand = new SQLiteCommand("INSERT INTO watchedFiles (path, status) VALUES (@path, 'Planned') ON CONFLICT(path) DO UPDATE SET status = 'Planned'", connection))
 				{
 					SQLiteParameter pathParameter = addCommand.Parameters.Add("@path", DbType.String);
-					addCommand.Parameters.AddWithValue("@status", WatchedFileStatus.Planned.ToString());
 
 					foreach (string path in paths)
 					{
@@ -146,7 +178,7 @@ namespace VidCoderCommon.Model
 		{
 			using (var updateCommand = new SQLiteCommand("UPDATE watchedFiles SET status = @status WHERE path = @path", connection))
 			{
-				updateCommand.Parameters.AddWithValue("@status", status);
+				updateCommand.Parameters.AddWithValue("@status", status.ToString());
 				updateCommand.Parameters.AddWithValue("@path", path);
 				updateCommand.ExecuteNonQuery();
 			}

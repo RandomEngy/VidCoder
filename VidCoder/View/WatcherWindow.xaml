@@ -237,6 +237,11 @@
 						IsChecked="{Binding ShowSkipped}"
 						Style="{StaticResource ToolbarCheckBox}"
 						ToolTip="{x:Static res:WatcherRes.StatusSkippedToolTip}" />
+					<CheckBox
+						Content="{x:Static res:EnumsRes.WatchedFileStatusLive_Output}"
+						IsChecked="{Binding ShowOutput}"
+						Style="{StaticResource ToolbarCheckBox}"
+						ToolTip="{x:Static res:WatcherRes.StatusOutputToolTip}" />
 				</WrapPanel>
 
 				<!--  Watched file grid  -->
@@ -315,6 +320,9 @@
 																<Setter Property="Foreground" Value="{DynamicResource DescriptiveTextBrush}" />
 															</DataTrigger>
 															<DataTrigger Binding="{Binding Status}" Value="Skipped">
+																<Setter Property="Foreground" Value="{DynamicResource DescriptiveTextBrush}" />
+															</DataTrigger>
+															<DataTrigger Binding="{Binding Status}" Value="Output">
 																<Setter Property="Foreground" Value="{DynamicResource DescriptiveTextBrush}" />
 															</DataTrigger>
 														</Style.Triggers>

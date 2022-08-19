@@ -169,6 +169,12 @@ namespace VidCoder.ViewModel
 			set => this.SetStatusShown(WatchedFileStatusLive.Skipped, value);
 		}
 
+		public bool ShowOutput
+		{
+			get => this.GetStatusShown(WatchedFileStatusLive.Output);
+			set => this.SetStatusShown(WatchedFileStatusLive.Output, value);
+		}
+
 		private bool GetStatusShown(WatchedFileStatusLive status)
 		{
 			return this.statusFilters[status];

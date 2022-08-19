@@ -214,6 +214,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The file was encoded by VidCoder..
+        /// </summary>
+        public static string StatusOutputToolTip {
+            get {
+                return ResourceManager.GetString("StatusOutputToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The source file is in the queue..
         /// </summary>
         public static string StatusQueuedToolTip {

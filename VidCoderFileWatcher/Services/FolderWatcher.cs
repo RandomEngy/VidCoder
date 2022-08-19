@@ -96,6 +96,12 @@ namespace VidCoderFileWatcher.Services
 		{
 			if (this.watcherService.FilePassesPicker(this.watchedFolder, path))
 			{
+				WatchedFile entry = WatcherStorage.GetFileEntry(WatcherDatabase.Connection, path);
+				if (entry != null && entry.Status != WatchedFileStatus.Planned)
+				{
+					return false;
+				}
+
 				this.filesPendingWriteComplete.Add(path);
 				return true;
 			}
@@ -156,16 +162,16 @@ namespace VidCoderFileWatcher.Services
 					}
 				}
 
-				if (this.filesPendingSend.Count > 0)
-				{
-					await this.watcherService.QueueInMainProcess(this.watchedFolder, this.filesPendingSend).ConfigureAwait(false);
-					this.filesPendingSend.Clear();
-				}
-
 				if (this.filesPendingRemoveEntry.Count > 0)
 				{
 					await this.watcherService.NotifyMainProcessOfFilesRemoved(this.filesPendingRemoveEntry).ConfigureAwait(false);
 					this.filesPendingRemoveEntry.Clear();
+				}
+
+				if (this.filesPendingSend.Count > 0)
+				{
+					await this.watcherService.QueueInMainProcess(this.watchedFolder, this.filesPendingSend).ConfigureAwait(false);
+					this.filesPendingSend.Clear();
 				}
 
 				if (this.filesPendingWriteComplete.Count == 0)

@@ -24,6 +24,8 @@ namespace VidCoder.Extensions
 					return WatchedFileStatusLive.Failed;
 				case WatchedFileStatus.Skipped:
 					return WatchedFileStatusLive.Skipped;
+				case WatchedFileStatus.Output:
+					return WatchedFileStatusLive.Output;
 				default:
 					throw new ArgumentException("The WatchedFileStatus is unrecognized.");
 			}

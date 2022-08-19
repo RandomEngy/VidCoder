@@ -83,7 +83,9 @@ namespace VidCoderCommon.Utilities
 
 		public static bool FilePassesPickerFilter(FileInfo file, PickerFileFilter filter)
 		{
-			return filter.Extensions.Contains(file.Extension) && file.Length >= filter.IgnoreFilesBelowMb * 1024 * 1024;
+			return filter.Extensions.Contains(file.Extension)
+				&& !Path.GetFileNameWithoutExtension(file.Name).EndsWith(".part")
+				&& file.Length >= filter.IgnoreFilesBelowMb * 1024 * 1024;
 		}
 
 		public static FolderType GetFolderType(string directory)

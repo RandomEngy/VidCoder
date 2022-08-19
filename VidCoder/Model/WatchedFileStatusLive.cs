@@ -44,6 +44,11 @@ namespace VidCoder.Model
 		/// <summary>
 		/// The file was skipped by the system due to filtering rules.
 		/// </summary>
-		Skipped
+		Skipped,
+
+		/// <summary>
+		/// The file is an output file from VidCoder and does not need to be re-encoded.
+		/// </summary>
+		Output
 	}
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VidCoder.Model;
+using VidCoder.ViewModel;
 using VidCoderCommon.Model;
 
 namespace VidCoder.Services
@@ -66,7 +67,7 @@ namespace VidCoder.Services
 			}
 		}
 
-		private void OnJobRemovedFromQueue(object sender, EventArgs<ViewModel.EncodeJobViewModel> e)
+		private void OnJobRemovedFromQueue(object sender, EventArgs<EncodeJobViewModel> e)
 		{
 			WatcherStorage.UpdateEntryStatus(
 				Database.Connection,

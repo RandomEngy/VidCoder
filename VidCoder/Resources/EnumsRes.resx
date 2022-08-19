@@ -393,4 +393,7 @@
   <data name="WatchedFileStatusLive_Succeeded" xml:space="preserve">
     <value>Succeeded</value>
   </data>
+  <data name="WatchedFileStatusLive_Output" xml:space="preserve">
+    <value>Output</value>
+  </data>
 </root>

@@ -75,6 +75,7 @@ namespace VidCoder.Services
 		private BehaviorSubject<bool> selectedQueueItemModifyableSubject;
 		private IDisposable simultaneousJobsSubscription;
 		private TaskCompletionSource queueReadyTcs = new TaskCompletionSource();
+		private Dictionary<string, DateTimeOffset> recentlySucceeded = new Dictionary<string, DateTimeOffset>(StringComparer.OrdinalIgnoreCase);
 
 		public ProcessingService()
 		{
@@ -1316,11 +1317,31 @@ namespace VidCoder.Services
 				picker = pickersService.Pickers[0].Picker;
 			}
 
-			this.QueueMultipleSourcePaths(sourcePaths.Select(p => new SourcePathWithMetadata { Path = p, ParentFolder = parentFolder }), profile, picker);
-
-			if (!this.encoding && this.EncodeQueue.Count > 0)
+			var pathsToQueue = new List<SourcePathWithMetadata>();
+			foreach (string sourcePath in sourcePaths)
 			{
-				this.StartEncodeQueue();
+				if (this.recentlySucceeded.TryGetValue(sourcePath, out DateTimeOffset timestamp))
+				{
+					if (DateTimeOffset.UtcNow - timestamp < TimeSpan.FromSeconds(10))
+					{
+						// This file has recently completed. We should not re-queue it. Instead, mark the entry as "Output".
+						WatcherStorage.UpdateEntryStatus(Database.Connection, sourcePath, WatchedFileStatus.Output);
+
+						continue;
+					}
+				}
+
+				pathsToQueue.Add(new SourcePathWithMetadata { Path = sourcePath, ParentFolder = parentFolder });
+			}
+
+			if (pathsToQueue.Count > 0)
+			{
+				this.QueueMultipleSourcePaths(pathsToQueue, profile, picker);
+
+				if (!this.encoding && this.EncodeQueue.Count > 0)
+				{
+					this.StartEncodeQueue();
+				}
 			}
 
 			this.JobsAddedFromWatcher?.Invoke(this, new EventArgs());
@@ -2303,6 +2324,13 @@ namespace VidCoder.Services
 							if (File.Exists(finalOutputPath))
 							{
 								File.Delete(finalOutputPath);
+							}
+
+							this.recentlySucceeded[finalOutputPath] = DateTimeOffset.UtcNow;
+
+							if (this.recentlySucceeded.Count > 100)
+							{
+								this.ScavengeRecentlySucceeded();
 							}
 
 							File.Move(finishedJobViewModel.Job.PartOutputPath, finalOutputPath);
@@ -3580,6 +3608,26 @@ namespace VidCoder.Services
 			}
 
 			return (rangeStart, rangeEnd);
+		}
+
+		private void ScavengeRecentlySucceeded()
+		{
+			var pathsToRemove = new List<string>();
+			DateTimeOffset now = DateTimeOffset.UtcNow;
+			var threshold = TimeSpan.FromMinutes(10);
+
+			foreach (var pair in this.recentlySucceeded)
+			{
+				if (now - pair.Value > threshold)
+				{
+					pathsToRemove.Add(pair.Key);
+				}
+			}
+
+			foreach (string pathToRemove in pathsToRemove)
+			{
+				this.recentlySucceeded.Remove(pathToRemove);
+			}
 		}
 	}
 }
