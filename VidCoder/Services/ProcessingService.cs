@@ -75,6 +75,10 @@ namespace VidCoder.Services
 		private BehaviorSubject<bool> selectedQueueItemModifyableSubject;
 		private IDisposable simultaneousJobsSubscription;
 		private TaskCompletionSource queueReadyTcs = new TaskCompletionSource();
+
+		/// <summary>
+		/// Recently succeeded jobs. Used by the Watcher to determine if a recently detected file should be enqueued or marked as an output file.
+		/// </summary>
 		private Dictionary<string, DateTimeOffset> recentlySucceeded = new Dictionary<string, DateTimeOffset>(StringComparer.OrdinalIgnoreCase);
 
 		public ProcessingService()
@@ -2326,11 +2330,14 @@ namespace VidCoder.Services
 								File.Delete(finalOutputPath);
 							}
 
-							this.recentlySucceeded[finalOutputPath] = DateTimeOffset.UtcNow;
-
-							if (this.recentlySucceeded.Count > 100)
+							if (Config.WatcherEnabled)
 							{
-								this.ScavengeRecentlySucceeded();
+								this.recentlySucceeded[finalOutputPath] = DateTimeOffset.UtcNow;
+
+								if (this.recentlySucceeded.Count > 100)
+								{
+									this.ScavengeRecentlySucceeded();
+								}
 							}
 
 							File.Move(finishedJobViewModel.Job.PartOutputPath, finalOutputPath);
