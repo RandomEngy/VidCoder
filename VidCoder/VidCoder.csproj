@@ -197,6 +197,7 @@
     <EmbeddedResource Include="Resources\Translations\*.*.resx">
       <ManifestResourceName>$(TargetName).Resources.%(Filename)</ManifestResourceName>
     </EmbeddedResource>
+    <None Remove="Icons\Eye.png" />
     <None Remove="Icons\Splash.png" />
     <None Remove="Icons\VidCoder_Shadow_Smoothed.png" />
     <None Remove="Icons\VolumeMute.png" />
@@ -221,6 +222,7 @@
     <Content Include="Encode_Complete.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\Eye.png" />
     <Resource Include="Icons\Splash.png" />
     <Resource Include="Model\Config\Config.txt" />
     <Resource Include="VidCoder_icon.ico" />

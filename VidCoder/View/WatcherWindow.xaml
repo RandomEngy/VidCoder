@@ -41,6 +41,7 @@
 			<controls:ToolWindowTitleBar
 				Title="{Binding WindowTitle}"
 				Grid.Row="0"
+				Icon="/Icons/Eye.png"
 				IsActive="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" />
 			<Grid Grid.Row="2">
 				<Grid.RowDefinitions>
