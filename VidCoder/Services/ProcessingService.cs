@@ -64,13 +64,13 @@ namespace VidCoder.Services
 		private PickersService pickersService = StaticResolver.Resolve<PickersService>();
 		private VideoFileFinder videoFileFinder = StaticResolver.Resolve<VideoFileFinder>();
 		private HardwareResourceService hardwareResourceService = StaticResolver.Resolve<HardwareResourceService>();
+		private QueueAdderService queueAdderService = StaticResolver.Resolve<QueueAdderService>();
 		private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
 		private IToastNotificationService toastNotificationService = StaticResolver.Resolve<IToastNotificationService>();
 		private IAppThemeService appThemeService = StaticResolver.Resolve<IAppThemeService>();
 		private bool paused;
 		private EncodeCompleteReason encodeCompleteReason;
 		private List<EncodeCompleteAction> encodeCompleteActions;
-		private ScanMultipleDialogViewModel scanMultipleDialogViewModel;
 		private bool selectedQueueItemModifyable = true;
 		private BehaviorSubject<bool> selectedQueueItemModifyableSubject;
 		private IDisposable simultaneousJobsSubscription;
@@ -1580,11 +1580,11 @@ namespace VidCoder.Services
 
 		public void QueueMultipleRawPaths(IEnumerable<string> pathsToQueue)
 		{
-			this.QueueMultipleSourcePaths(pathsToQueue.Select(p => new SourcePathWithMetadata { Path = p }));
+			this.QueueMultipleSourcePaths(pathsToQueue.Select(p => new SourcePathWithMetadata { Path = p }).ToList());
 		}
 
 		// Queues a list of files or video folders.
-		public void QueueMultipleSourcePaths(IEnumerable<SourcePathWithMetadata> sourcePaths, VCProfile profile = null, Picker picker = null, string destinationOverride = null)
+		public void QueueMultipleSourcePaths(IList<SourcePathWithMetadata> sourcePaths, VCProfile profile = null, Picker picker = null, string destinationOverride = null)
 		{
 			if (profile == null)
 			{
@@ -1596,44 +1596,33 @@ namespace VidCoder.Services
 				picker = this.pickersService.SelectedPicker.Picker;
 			}
 
+			List<SourcePathWithMetadata> sourcePathList = sourcePaths.ToList();
+			this.queueAdderService.ScanAndAddToQueue(
+				sourcePaths,
+				new JobInstructions
+				{
+					Profile = profile,
+					Picker = picker,
+					DestinationOverride = destinationOverride,
+					IsBatch = sourcePaths.Count > 0
+				});
+		}
+
+		public void QueueFromScanResults(IList<ScanResult> scanResults)
+		{
 			HashSet<string> queuedOutputFiles = this.GetQueuedOutputFiles();
 			HashSet<string> queuedInputFiles = this.GetQueuedInputFiles();
 
-			List<SourcePathWithMetadata> sourcePathList = sourcePaths.ToList();
-
-			if (this.scanMultipleDialogViewModel != null)
-			{
-				if (this.scanMultipleDialogViewModel.TryAddScanPaths(sourcePathList))
-				{
-					return;
-				}
-			}
-
-			// This dialog will scan the items in the list, calculating length.
-			this.scanMultipleDialogViewModel = new ScanMultipleDialogViewModel(sourcePathList);
-			this.windowManager.OpenDialog(this.scanMultipleDialogViewModel);
-
-			if (this.scanMultipleDialogViewModel.CancelPending)
-			{
-				// Scan dialog was closed before it could complete. Abort.
-				this.logger.Log("Batch scan canceled. Aborting queue operation.");
-				this.scanMultipleDialogViewModel = null;
-				return;
-			}
-
-			List<ScanMultipleDialogViewModel.ScanResult> scanResults = this.scanMultipleDialogViewModel.ScanResults;
-			this.scanMultipleDialogViewModel = null;
-
 			var itemsToQueue = new List<EncodeJobViewModel>();
-			var failedFiles = new List<string>();
 
-			foreach (ScanMultipleDialogViewModel.ScanResult scanResult in scanResults)
+			foreach (ScanResult scanResult in scanResults)
 			{
 				SourcePathWithMetadata sourcePath = scanResult.SourcePath;
 
 				if (scanResult.VideoSource?.Titles != null && scanResult.VideoSource.Titles.Count > 0)
 				{
 					VideoSource videoSource = scanResult.VideoSource;
+					Picker picker = scanResult.JobInstructions.Picker;
 
 					List<int> titleNumbers = this.PickTitles(videoSource);
 					if (titleNumbers.Count == 0)
@@ -1646,7 +1635,7 @@ namespace VidCoder.Services
 						var job = new VCJob
 						{
 							SourcePath = sourcePath.Path,
-							EncodingProfile = profile.Clone(),
+							EncodingProfile = scanResult.JobInstructions.Profile.Clone(),
 							Title = titleNumber,
 							UseDefaultChapterNames = true,
 							PassThroughMetadata = picker.PassThroughMetadata
@@ -1676,65 +1665,64 @@ namespace VidCoder.Services
 							jobVM.ManualOutputPath = false;
 							jobVM.PresetName = this.presetsService.SelectedPreset.DisplayName;
 							itemsToQueue.Add(jobVM);
+
+							var titles = jobVM.VideoSource.Titles;
+
+							SourceTitle title = titles.Single(t => t.Index == job.Title);
+							job.Length = title.Duration.ToSpan();
+
+							// Choose the correct range based on picker settings
+							this.AutoPickRange(job, title);
+
+							// Choose the correct audio/subtitle tracks based on settings
+							this.AutoPickAudio(job, title);
+							this.AutoPickSubtitles(job, title, openDialogOnMissingCharCode: itemsToQueue.Count <= 1);
+
+							// Now that we have the title and subtitles we can determine the final output file name
+							string fileToQueue = job.SourcePath;
+
+							queuedInputFiles.Add(fileToQueue);
+							string outputFolder = this.outputPathService.GetOutputFolder(fileToQueue, jobVM.SourceParentFolder);
+							string outputFileName = this.outputPathService.BuildOutputFileName(
+								fileToQueue,
+								this.outputPathService.CleanUpSourceName(picker, Utilities.GetSourceNameFile(fileToQueue)),
+								job.Title,
+								title.Duration.ToSpan(),
+								title.ChapterList.Count,
+								multipleTitlesOnSource: titles.Count > 1);
+							string outputExtension = this.outputPathService.GetOutputExtension();
+							string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
+							queueOutputPath = this.outputPathService.ResolveOutputPathConflicts(
+								queueOutputPath,
+								fileToQueue,
+								queuedInputFiles,
+								queuedOutputFiles,
+								isBatch: scanResult.JobInstructions.IsBatch,
+								picker: picker,
+								allowConflictDialog: !scanResult.JobInstructions.IsBatch,
+								allowQueueRemoval: true);
+
+							if (Utilities.IsValidFullPath(queueOutputPath))
+							{
+								job.FinalOutputPath = queueOutputPath;
+
+								queuedOutputFiles.Add(queueOutputPath);
+							}
+							else
+							{
+								this.logger.LogError($"Could not add \"{queueOutputPath}\" to queue; it is not a valid full file path.");
+							}
+
+							if (scanResults.Count == 1 && !string.IsNullOrWhiteSpace(scanResult.JobInstructions.DestinationOverride))
+							{
+								job.FinalOutputPath = scanResult.JobInstructions.DestinationOverride;
+							}
 						}
 					}
-				}
-				else
-				{
-					// If the scan call failed outright or has no titles, mark as failed.
-					failedFiles.Add(sourcePath.Path);
 				}
 			}
 
 			bool isBatch = itemsToQueue.Count > 1;
-
-			foreach (EncodeJobViewModel jobViewModel in itemsToQueue)
-			{
-				var titles = jobViewModel.VideoSource.Titles;
-
-				VCJob job = jobViewModel.Job;
-				SourceTitle title = titles.Single(t => t.Index == job.Title);
-				job.Length = title.Duration.ToSpan();
-
-				// Choose the correct range based on picker settings
-				this.AutoPickRange(job, title);
-
-				// Choose the correct audio/subtitle tracks based on settings
-				this.AutoPickAudio(job, title);
-				this.AutoPickSubtitles(job, title, openDialogOnMissingCharCode: itemsToQueue.Count <= 1);
-
-				// Now that we have the title and subtitles we can determine the final output file name
-				string fileToQueue = job.SourcePath;
-
-				queuedInputFiles.Add(fileToQueue);
-				string outputFolder = this.outputPathService.GetOutputFolder(fileToQueue, jobViewModel.SourceParentFolder);
-				string outputFileName = this.outputPathService.BuildOutputFileName(
-					fileToQueue,
-					this.outputPathService.CleanUpSourceName(picker, Utilities.GetSourceNameFile(fileToQueue)),
-					job.Title,
-					title.Duration.ToSpan(),
-					title.ChapterList.Count,
-					multipleTitlesOnSource: titles.Count > 1);
-				string outputExtension = this.outputPathService.GetOutputExtension();
-				string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
-				queueOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, fileToQueue, queuedInputFiles, queuedOutputFiles, isBatch: isBatch, picker, allowConflictDialog: !isBatch, allowQueueRemoval: true);
-
-				if (Utilities.IsValidFullPath(queueOutputPath))
-				{
-					job.FinalOutputPath = queueOutputPath;
-
-					queuedOutputFiles.Add(queueOutputPath);
-				}
-				else
-				{
-					this.logger.LogError($"Could not add \"{queueOutputPath}\" to queue; it is not a valid full file path.");
-				}
-			}
-
-			if (itemsToQueue.Count == 1 && !string.IsNullOrWhiteSpace(destinationOverride))
-			{
-				itemsToQueue[0].Job.FinalOutputPath = destinationOverride;
-			}
 
 			if (itemsToQueue.Count > 0)
 			{
@@ -1743,20 +1731,11 @@ namespace VidCoder.Services
 				{
 					this.QueueMultipleJobs(itemsToQueue);
 
-					if (picker.AutoEncodeOnScan && !this.Encoding)
+					if (scanResults.Any(result => result.JobInstructions.Picker.AutoEncodeOnScan) && !this.Encoding)
 					{
 						this.StartEncodeQueue();
 					}
 				}
-			}
-
-			if (failedFiles.Count > 0)
-			{
-				Utilities.MessageBox.Show(
-					string.Format(MainRes.QueueMultipleScanErrorMessage, string.Join(Environment.NewLine, failedFiles)),
-					MainRes.QueueMultipleScanErrorTitle,
-					MessageBoxButton.OK,
-					MessageBoxImage.Warning);
 			}
 		}
 

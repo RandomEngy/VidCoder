@@ -757,4 +757,9 @@ This warning will only display twice.</value>
   <data name="WatcherMenuItem" xml:space="preserve">
     <value>Watcher</value>
   </data>
+  <data name="QueueProgressLabel" xml:space="preserve">
+    <value>Queuing {0}/{1}:</value>
+    <comment>{0} is the current job number for scanning and adding an item to the queue
+{1} is the total number of scanned items this session</comment>
+  </data>
 </root>

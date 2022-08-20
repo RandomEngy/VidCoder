@@ -1345,6 +1345,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Queuing {0}/{1}:.
+        /// </summary>
+        public static string QueueProgressLabel {
+            get {
+                return ResourceManager.GetString("QueueProgressLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All.
         /// </summary>
         public static string QueueRangeAll {

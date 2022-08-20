@@ -308,6 +308,7 @@ namespace VidCoder.ViewModel
 			this.ProcessingService = StaticResolver.Resolve<ProcessingService>();
 			this.PresetsService = StaticResolver.Resolve<PresetsService>();
 			this.PickersService = StaticResolver.Resolve<PickersService>();
+			this.QueueAdderService = StaticResolver.Resolve<QueueAdderService>();
 			this.VideoFileFinder = StaticResolver.Resolve<VideoFileFinder>();
 			this.windowManager = StaticResolver.Resolve<IWindowManager>();
 			this.previewUpdateService = StaticResolver.Resolve<PreviewUpdateService>();
@@ -769,6 +770,8 @@ namespace VidCoder.ViewModel
 		public PickersService PickersService { get; }
 
 		public ProcessingService ProcessingService { get; }
+
+		public QueueAdderService QueueAdderService { get; }
 
 		public TaskBarProgressTracker TaskBarProgressTracker { get; }
 

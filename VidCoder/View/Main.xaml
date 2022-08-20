@@ -1929,6 +1929,8 @@
 				<Grid.RowDefinitions>
 					<!--  Destination  -->
 					<RowDefinition Height="Auto" />
+					<!--  Queue add progress bar  -->
+					<RowDefinition Height="Auto" />
 					<!--  Queue  -->
 					<RowDefinition Height="*" />
 					<!--  Encode progress  -->
@@ -2017,8 +2019,31 @@
 						Visibility="{Binding OutputPathService.ManualOutputPath, Converter={StaticResource InverseVisibilityConverter}}" />
 				</Grid>
 
+				<!--  Queue add progress bar  -->
+				<Grid
+					Grid.Row="1"
+					Margin="8 4"
+					Visibility="{Binding QueueAdderService.IsScanning, Converter={StaticResource VisibilityConverter}}">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+					<TextBlock
+						Margin="0 0 6 0"
+						VerticalAlignment="Center"
+						Text="{Binding QueueAdderService.ProgressLabel}" />
+					<ProgressBar Grid.Column="1" Value="{Binding QueueAdderService.Progress, Mode=OneWay}" />
+					<Button
+						Grid.Column="2"
+						Margin="10 0 0 0"
+						Padding="6 2"
+						Command="{Binding QueueAdderService.Cancel}"
+						Content="{x:Static res:CommonRes.Cancel}" />
+				</Grid>
+
 				<!--  Queue section  -->
-				<Grid Grid.Row="1" Canvas.ZIndex="2">
+				<Grid Grid.Row="2" Canvas.ZIndex="2">
 					<Grid Name="tabsArea" Margin="0">
 						<TabControl
 							Name="queueItemsTabControl"
@@ -2313,7 +2338,7 @@
 
 				<!--  Encode progress section  -->
 				<Grid
-					Grid.Row="2"
+					Grid.Row="3"
 					Height="28"
 					Background="{DynamicResource AlternateBackgroundBrush}"
 					Visibility="{Binding ProcessingService.Encoding, Converter={StaticResource VisibilityConverter}}">

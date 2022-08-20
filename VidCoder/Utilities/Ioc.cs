@@ -73,6 +73,7 @@ namespace VidCoder
 			container.RegisterSingleton<HardwareResourceService>();
 			container.RegisterSingleton<WatcherProcessManager>();
 			container.RegisterSingleton<WatchedFileStatusTracker>();
+			container.RegisterSingleton<QueueAdderService>();
 
 			container.RegisterSingleton<EncodingWindowViewModel>();
 
