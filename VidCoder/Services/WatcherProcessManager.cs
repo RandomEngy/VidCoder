@@ -82,12 +82,37 @@ namespace VidCoder.Services
 
 					this.Status = WatcherProcessStatus.Starting;
 					this.watcherProcess = Process.Start(startInfo);
+					if (this.watcherProcess == null)
+					{
+						this.logger.LogError("Watcher process start returned null.");
+						return;
+					}
 
 					Task.Run(async () =>
 					{
+						if (this.watcherProcess.HasExited)
+						{
+							this.logger.LogError("Watcher process immediately exited with code " + this.watcherProcess.ExitCode);
+							return;
+						}
+
 						// When the process writes out a line, its pipe server is ready.
+						if (Utilities.DebugLogging)
+						{
+							this.logger.Log("Waiting for watcher process to output a line.");
+						}
 						await this.watcherProcess.StandardOutput.ReadLineAsync();
+						if (Utilities.DebugLogging)
+						{
+							this.logger.Log("Line read from watcher process. Connecting now...");
+						}
+
 						await this.ConnectToServiceAsync();
+						if (Utilities.DebugLogging)
+						{
+							this.logger.Log("Connection succeeded. Watcher process is running.");
+						}
+
 						this.Status = WatcherProcessStatus.Running;
 						this.StartPolling();
 					});

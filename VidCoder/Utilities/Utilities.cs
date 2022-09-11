@@ -68,6 +68,11 @@ namespace VidCoder
 			get { return Assembly.GetExecutingAssembly().GetName().Version; }
 		}
 
+		public static bool DebugLogging
+		{
+			get => Config.LogVerbosity >= 2;
+		}
+
 		/// <summary>
 		/// Displays version number with optional Beta marker.
 		/// </summary>

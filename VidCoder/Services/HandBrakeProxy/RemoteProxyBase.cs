@@ -216,7 +216,7 @@ namespace VidCoder
 					this.Client = new PipeClientWithCallback<TWork, TCallback>(new NetJsonPipeSerializer(), this.pipeName, () => this.CallbackInstance);
 
 					// With extended logging, log the pipe messages.
-					if (Config.LogVerbosity >= 2)
+					if (Utilities.DebugLogging)
 					{
 						this.Client.SetLogger(message => 
 							{

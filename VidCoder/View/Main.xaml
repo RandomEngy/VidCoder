@@ -2033,7 +2033,11 @@
 						Margin="0 0 6 0"
 						VerticalAlignment="Center"
 						Text="{Binding QueueAdderService.ProgressLabel}" />
-					<ProgressBar Grid.Column="1" Value="{Binding QueueAdderService.Progress, Mode=OneWay}" />
+					<ProgressBar
+						Grid.Column="1"
+						Background="{DynamicResource WindowBrush}"
+						Foreground="{Binding ProcessingService.ProgressBarBrush}"
+						Value="{Binding QueueAdderService.Progress, Mode=OneWay}" />
 					<Button
 						Grid.Column="2"
 						Margin="10 0 0 0"
