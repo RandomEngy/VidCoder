@@ -253,21 +253,39 @@ namespace VidCoder.Services
 
 		private void KillFileWatchersFromOtherVersions()
 		{
-			var fileWatcherProcesses = this.processes.GetProcesses().Where(p => p.ProcessName == Utilities.FileWatcherExecutableName && p.MainModule.FileName.StartsWith(CommonUtilities.LocalAppFolder, StringComparison.OrdinalIgnoreCase));
+			var fileWatcherProcesses = this.processes.GetProcessesByName(Utilities.FileWatcherExecutableName);
 			foreach (var process in fileWatcherProcesses)
 			{
-				if (!process.MainModule.FileName.Equals(Utilities.FileWatcherFullPath, StringComparison.OrdinalIgnoreCase))
+				try
 				{
-					process.Kill();
+					string mainModuleFileName = process.MainModule.FileName;
+					if (mainModuleFileName.StartsWith(CommonUtilities.LocalAppFolder, StringComparison.OrdinalIgnoreCase)
+						&& !mainModuleFileName.Equals(Utilities.FileWatcherFullPath, StringComparison.OrdinalIgnoreCase))
+					{
+						process.Kill();
+					}
+				}
+				catch (Exception exception)
+				{
+					this.logger.LogError(exception.ToString());
 				}
 			}
 		}
 
 		private Process GetRunningFileWatcher()
 		{
-			return this.processes.GetProcesses().FirstOrDefault(process =>
-				process.ProcessName == Utilities.FileWatcherExecutableName
-				&& process.MainModule.FileName.Equals(Utilities.FileWatcherFullPath, StringComparison.OrdinalIgnoreCase));
+			var fileWatcherProcesses = this.processes.GetProcessesByName(Utilities.FileWatcherExecutableName);
+			return fileWatcherProcesses.FirstOrDefault(process => {
+				try
+				{
+					return process.MainModule.FileName.Equals(Utilities.FileWatcherFullPath, StringComparison.OrdinalIgnoreCase);
+				}
+				catch (Exception exception)
+				{
+					this.logger.LogError(exception.ToString());
+					return false;
+				}
+			});
 		}
 	}
 }

@@ -12,5 +12,10 @@ namespace VidCoder.Services
 		{
 			return Process.GetProcesses();
 		}
+
+		public Process[] GetProcessesByName(string processName)
+		{
+			return Process.GetProcessesByName(processName);
+		}
 	}
 }
