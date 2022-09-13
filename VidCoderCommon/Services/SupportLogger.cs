@@ -19,8 +19,7 @@ namespace VidCoderCommon.Services
 
 		public SupportLogger(string type)
 		{
-			string logFolder = @"C:\Users\david\AppData\Roaming\VidCoder-Beta\Logs";
-			//string logFolder = CommonUtilities.LogsFolder;
+			string logFolder = CommonUtilities.LogsFolder;
 			string logFileName = DateTimeOffset.Now.ToString("yyyy-MM-dd HH.mm.ss ") + type + ".txt";
 
 			string logFilePath = Path.Combine(logFolder, logFileName);
