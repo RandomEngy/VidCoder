@@ -177,6 +177,13 @@ namespace VidCoder.Services
 		private async Task ConnectToServiceAsync()
 		{
 			this.pipeClient = new PipeClient<IWatcherCommands>(new NetJsonPipeSerializer(), CommonUtilities.FileWatcherPipeName);
+			if (Utilities.DebugLogging)
+			{
+				this.pipeClient.SetLogger(message =>
+				{
+					this.logger.Log(message);
+				});
+			}
 			await this.pipeClient.ConnectAsync();
 			await this.pipeClient.InvokeAsync(commands => commands.Ping());
 		}
