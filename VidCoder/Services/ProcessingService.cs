@@ -1287,12 +1287,7 @@ namespace VidCoder.Services
 			}
 
 			List<SourcePathWithMetadata> pathList = this.videoFileFinder.GetPathList(new List<string> { source }, picker);
-			this.QueueMultipleSourcePaths(pathList, profile, picker, destination);
-
-			if (!this.encoding && this.EncodeQueue.Count > 0)
-			{
-				this.StartEncodeQueue();
-			}
+			this.QueueMultipleSourcePaths(pathList, profile, picker, destination, start: true);
 		}
 
 		/// <summary>
@@ -1340,12 +1335,7 @@ namespace VidCoder.Services
 
 			if (pathsToQueue.Count > 0)
 			{
-				this.QueueMultipleSourcePaths(pathsToQueue, profile, picker);
-
-				if (!this.encoding && this.EncodeQueue.Count > 0)
-				{
-					this.StartEncodeQueue();
-				}
+				this.QueueMultipleSourcePaths(pathsToQueue, profile, picker, start: true);
 			}
 
 			this.JobsAddedFromWatcher?.Invoke(this, new EventArgs());
@@ -1584,7 +1574,7 @@ namespace VidCoder.Services
 		}
 
 		// Queues a list of files or video folders.
-		public void QueueMultipleSourcePaths(IList<SourcePathWithMetadata> sourcePaths, VCProfile profile = null, Picker picker = null, string destinationOverride = null)
+		public void QueueMultipleSourcePaths(IList<SourcePathWithMetadata> sourcePaths, VCProfile profile = null, Picker picker = null, string destinationOverride = null, bool start = false)
 		{
 			if (profile == null)
 			{
@@ -1596,7 +1586,6 @@ namespace VidCoder.Services
 				picker = this.pickersService.SelectedPicker.Picker;
 			}
 
-			List<SourcePathWithMetadata> sourcePathList = sourcePaths.ToList();
 			this.queueAdderService.ScanAndAddToQueue(
 				sourcePaths,
 				new JobInstructions
@@ -1604,11 +1593,12 @@ namespace VidCoder.Services
 					Profile = profile,
 					Picker = picker,
 					DestinationOverride = destinationOverride,
-					IsBatch = sourcePaths.Count > 0
+					IsBatch = sourcePaths.Count > 0,
+					Start = start
 				});
 		}
 
-		public void QueueFromScanResults(IList<ScanResult> scanResults)
+		public void QueueFromScanResults(IList<ScanResult> scanResults, bool start)
 		{
 			HashSet<string> queuedOutputFiles = this.GetQueuedOutputFiles();
 			HashSet<string> queuedInputFiles = this.GetQueuedInputFiles();
@@ -1731,7 +1721,7 @@ namespace VidCoder.Services
 				{
 					this.QueueMultipleJobs(itemsToQueue);
 
-					if (scanResults.Any(result => result.JobInstructions.Picker.AutoEncodeOnScan) && !this.Encoding)
+					if ((start || scanResults.Any(result => result.JobInstructions.Picker.AutoEncodeOnScan)) && !this.Encoding)
 					{
 						this.StartEncodeQueue();
 					}

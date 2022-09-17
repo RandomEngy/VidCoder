@@ -37,6 +37,7 @@ namespace VidCoder.Services
 		private int scansDoneOnCurrentScanProxy;
 		private PendingScan currentScan;
 		private bool isCanceled = false;
+		private bool startPending = false;
 
 		public double Progress
 		{
@@ -146,6 +147,11 @@ namespace VidCoder.Services
 									JobInstructions = this.currentScan.JobInstructions
 								});
 
+							if (this.currentScan.JobInstructions.Start)
+							{
+								this.startPending = true;
+							}
+
 							if (this.scanResults.Count >= QueueAddChunkSize)
 							{
 								this.AddResultsToQueue();
@@ -239,7 +245,8 @@ namespace VidCoder.Services
 
 			DispatchUtilities.BeginInvoke(() =>
 			{
-				StaticResolver.Resolve<ProcessingService>().QueueFromScanResults(scanResultsLocal);
+				StaticResolver.Resolve<ProcessingService>().QueueFromScanResults(scanResultsLocal, this.startPending);
+				this.startPending = false;
 			});
 
 			this.scanResults.Clear();

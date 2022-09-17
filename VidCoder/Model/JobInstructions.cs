@@ -19,5 +19,7 @@ namespace VidCoder.Model
 		public string DestinationOverride { get; set; }
 
 		public bool IsBatch { get; set; }
+
+		public bool Start { get; set; }
 	}
 }
