@@ -58,27 +58,34 @@ namespace VidCoder.Services
 
 			foreach (DriveInfo driveInfo in driveCollection)
 			{
-				if (driveInfo.DriveType == DriveType.CDRom && driveInfo.IsReady)
+				try
 				{
-					FolderType folderType = CommonFileUtilities.GetFolderType(driveInfo.RootDirectory.ToString());
-					if (folderType == FolderType.Dvd)
+					if (driveInfo.DriveType == DriveType.CDRom && driveInfo.IsReady)
 					{
-						driveList.Add(new DriveInformation
+						FolderType folderType = CommonFileUtilities.GetFolderType(driveInfo.RootDirectory.ToString());
+						if (folderType == FolderType.Dvd)
 						{
-							RootDirectory = driveInfo.RootDirectory.FullName,
-							VolumeLabel = driveInfo.VolumeLabel,
-							DiscType = DiscType.Dvd
-						});
-					}
-					else if (folderType == FolderType.BluRay)
-					{
-						driveList.Add(new DriveInformation
+							driveList.Add(new DriveInformation
+							{
+								RootDirectory = driveInfo.RootDirectory.FullName,
+								VolumeLabel = driveInfo.VolumeLabel,
+								DiscType = DiscType.Dvd
+							});
+						}
+						else if (folderType == FolderType.BluRay)
 						{
-							RootDirectory = driveInfo.RootDirectory.FullName,
-							VolumeLabel = driveInfo.VolumeLabel,
-							DiscType = DiscType.BluRay
-						});
+							driveList.Add(new DriveInformation
+							{
+								RootDirectory = driveInfo.RootDirectory.FullName,
+								VolumeLabel = driveInfo.VolumeLabel,
+								DiscType = DiscType.BluRay
+							});
+						}
 					}
+				}
+				catch (Exception exception)
+				{
+					StaticResolver.Resolve<IAppLogger>().LogError("Could not read drive." + Environment.NewLine + exception.ToString());
 				}
 			}
 
