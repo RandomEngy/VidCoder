@@ -1302,7 +1302,8 @@ namespace VidCoder.Services
 			VCProfile profile = this.presetsService.GetProfileByName(presetName);
 			if (profile == null)
 			{
-				throw new ArgumentException("Cannot find preset: " + presetName);
+				this.logger.LogError("Unable to queue watched file. Cannot find preset: " + presetName);
+				return;
 			}
 
 			PickerViewModel pickerVM = this.pickersService.Pickers.FirstOrDefault(p => p.Picker.Name == pickerName);
