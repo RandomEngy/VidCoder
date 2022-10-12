@@ -1197,7 +1197,7 @@ namespace VidCoder.Services
 						}
 						catch (Exception exception)
 						{
-							Utilities.MessageBox.Show(string.Format(MainRes.CouldNotDeleteFile, pathToDelete, exception));
+							operationLogger.LogError($"Could not delete {pathToDelete}:{Environment.NewLine}{exception}");
 						}
 					}
 

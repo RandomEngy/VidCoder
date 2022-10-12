@@ -291,11 +291,6 @@
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Confirm delete</value>
   </data>
-  <data name="CouldNotDeleteFile" xml:space="preserve">
-    <value>Could not delete {0}
-
-{1}</value>
-  </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>Error scanning video file(s)</value>
   </data>

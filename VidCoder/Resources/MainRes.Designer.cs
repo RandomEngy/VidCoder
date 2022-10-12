@@ -403,17 +403,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not delete {0}
-        ///
-        ///{1}.
-        /// </summary>
-        public static string CouldNotDeleteFile {
-            get {
-                return ResourceManager.GetString("CouldNotDeleteFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Could not load picker: .
         /// </summary>
         public static string CouldNotLoadPickerMessage {
