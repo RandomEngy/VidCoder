@@ -41,6 +41,7 @@ using FileInfo = System.IO.FileInfo;
 using Omu.ValueInjecter;
 using VidCoderCommon.Utilities.Injection;
 using VidCoderCommon;
+using HandBrake.Interop.Interop.Interfaces.Model;
 
 namespace VidCoder.Services
 {
@@ -3107,9 +3108,16 @@ namespace VidCoder.Services
 
 			foreach (string code in languageCodes)
 			{
+				Language language = HandBrakeLanguagesHelper.Get(code);
+
 				foreach (SourceAudioTrack track in audioTracks)
 				{
-					if (track.LanguageCode == code)
+					// If the code matches, add it. Else check if the english or native language name is preset in the track name.
+					if (track.LanguageCode == code
+						|| (language != null
+							&& track.Name != null
+							&& (track.Name.Contains(language.NativeName, StringComparison.InvariantCultureIgnoreCase)
+								|| track.Name.Contains(language.EnglishName, StringComparison.InvariantCultureIgnoreCase))))
 					{
 						result.Add(track);
 
@@ -3490,13 +3498,19 @@ namespace VidCoder.Services
 
 			foreach (string code in languageCodes)
 			{
+				Language language = HandBrakeLanguagesHelper.Get(code);
+
 				if (!onlyIfDifferentFromAudio || code != audioLanguageCode)
 				{
 					for (int i = 0; i < sourceSubtitleTracks.Count; i++)
 					{
 						SourceSubtitleTrack track = sourceSubtitleTracks[i];
 
-						if (track.LanguageCode == code)
+						// If the code matches, add it. Else check if the english or native language name is preset in the track name.
+						if (track.LanguageCode == code || (language != null
+							&& track.Name != null
+							&& (track.Name.Contains(language.NativeName, StringComparison.InvariantCultureIgnoreCase)
+								|| track.Name.Contains(language.EnglishName, StringComparison.InvariantCultureIgnoreCase))))
 						{
 							result.Add(track);
 
