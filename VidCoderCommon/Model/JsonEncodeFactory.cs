@@ -875,16 +875,18 @@ namespace VidCoderCommon.Model
 				}
 				else
 				{
-					SourceSubtitleTrack sourceSubtitleTrack = title.SubtitleList[sourceSubtitle.TrackNumber - 1];
-					bool forcedOnly = HandBrakeEncoderHelpers.SubtitleCanSetForcedOnly(sourceSubtitleTrack.Source) && sourceSubtitle.ForcedOnly;
-					string name;
-					if (string.IsNullOrEmpty(sourceSubtitle.Name))
+					bool forcedOnly = sourceSubtitle.ForcedOnly;
+					string name = sourceSubtitle.Name;
+
+					if (sourceSubtitle.TrackNumber > 0 && sourceSubtitle.TrackNumber < title.SubtitleList.Count)
 					{
-						name = sourceSubtitleTrack.Name;
-					}
-					else
-					{
-						name = sourceSubtitle.Name;
+						SourceSubtitleTrack sourceSubtitleTrack = title.SubtitleList[sourceSubtitle.TrackNumber - 1];
+						forcedOnly = forcedOnly && HandBrakeEncoderHelpers.SubtitleCanSetForcedOnly(sourceSubtitleTrack.Source);
+
+						if (string.IsNullOrEmpty(name))
+						{
+							name = sourceSubtitleTrack.Name;
+						}
 					}
 
 					SubtitleTrack track = new SubtitleTrack
