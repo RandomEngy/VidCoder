@@ -70,7 +70,6 @@ namespace VidCoder.Services
 		private IToastNotificationService toastNotificationService = StaticResolver.Resolve<IToastNotificationService>();
 		private IAppThemeService appThemeService = StaticResolver.Resolve<IAppThemeService>();
 		private bool paused;
-		private EncodeCompleteReason encodeCompleteReason;
 		private List<EncodeCompleteAction> encodeCompleteActions;
 		private bool selectedQueueItemModifyable = true;
 		private BehaviorSubject<bool> selectedQueueItemModifyableSubject;
@@ -1798,8 +1797,6 @@ namespace VidCoder.Services
 			SystemSleepManagement.PreventSleep();
 			this.Paused = false;
 
-			// If the encode is stopped we will change
-			this.encodeCompleteReason = EncodeCompleteReason.Finished;
 			this.autoPause.ReportStart();
 
 			this.EncodeNextJobs();
@@ -1874,7 +1871,10 @@ namespace VidCoder.Services
 
 		public void Stop()
 		{
-			this.encodeCompleteReason = EncodeCompleteReason.ManualStopAll;
+			foreach (var jobViewModel in this.encodingJobList.Items)
+			{
+				jobViewModel.CompleteReason = EncodeCompleteReason.ManualStopAll;
+			}
 
 			this.RunForAllEncodeProxies(encodeProxy => encodeProxy.StopEncodeAsync(), "Stop");
 
@@ -1889,14 +1889,17 @@ namespace VidCoder.Services
 			}
 			else if (this.encodingJobList.Count > 1)
 			{
-				this.encodeCompleteReason = EncodeCompleteReason.ManualStopSingle;
+				jobViewModel.CompleteReason = EncodeCompleteReason.ManualStopSingle;
 				this.StartEncodeProxyAction(jobViewModel.EncodeProxy, encodeProxy => encodeProxy.StopEncodeAsync(), "Stop");
 			}
 		}
 
 		public async Task StopAndWaitAsync(EncodeCompleteReason reason)
 		{
-			this.encodeCompleteReason = reason;
+			foreach (var jobViewModel in this.encodingJobList.Items)
+			{
+				jobViewModel.CompleteReason = reason;
+			}
 
 			var stopTasks = this.EncodeQueue.Items.Where(j => j.Encoding).Select(j => this.RunEncodeProxyAction(j.EncodeProxy, encodeProxy => encodeProxy.StopAndWaitAsync(), "StopAndWait"));
 			await Task.WhenAll(stopTasks).ConfigureAwait(false);
@@ -2033,8 +2036,8 @@ namespace VidCoder.Services
 			jobViewModel.CanPauseOrStop = false;
 			this.canPauseOrStopSubject.OnNext(false);
 
-			// Reset this state
-			this.encodeCompleteReason = EncodeCompleteReason.Finished;
+			// Reset complete reason
+			jobViewModel.CompleteReason = EncodeCompleteReason.Finished;
 
 			if (!string.IsNullOrWhiteSpace(jobViewModel.DebugEncodeJsonOverride))
 			{
@@ -2200,6 +2203,8 @@ namespace VidCoder.Services
 
 			finishedJobViewModel.EncodeProxy?.Dispose();
 
+			EncodeCompleteReason completeReason = finishedJobViewModel.CompleteReason;
+
 			DispatchUtilities.BeginInvoke(() =>
 			{
 				this.hardwareResourceService.ReleaseSlot(finishedJobViewModel);
@@ -2224,7 +2229,7 @@ namespace VidCoder.Services
 
 				finishedJobViewModel.ReportEncodeEnd();
 
-				if (this.encodeCompleteReason == EncodeCompleteReason.Finished)
+				if (completeReason == EncodeCompleteReason.Finished)
 				{
 					// If the encode finished naturally (Not stopped by user)
 					this.WorkTracker.ReportFinished(finishedJobViewModel.Work);
@@ -2361,7 +2366,7 @@ namespace VidCoder.Services
 						}
 					}
 
-					this.JobCompleted?.Invoke(this, new JobCompletedEventArgs(finishedJobViewModel, this.encodeCompleteReason, status));
+					this.JobCompleted?.Invoke(this, new JobCompletedEventArgs(finishedJobViewModel, status));
 
 					encodeLogger.Log("Job completed (Elapsed Time: " + finishedJobViewModel.EncodeTime.FormatFriendly() + ")");
 					this.logger.Log("Job completed: " + finalOutputPath);
@@ -2408,7 +2413,7 @@ namespace VidCoder.Services
 					// If the encode was stopped manually
 
 					string stopMessage;
-					if (this.encodeCompleteReason == EncodeCompleteReason.ManualStopSingle)
+					if (completeReason == EncodeCompleteReason.ManualStopSingle)
 					{
 						// If we're stopping just this job, we need to push it down the queue and start up the next job in line
 						this.EncodeQueue.Edit(encodeQueueInnerList =>
@@ -2432,7 +2437,7 @@ namespace VidCoder.Services
 						// If the user still has the video source up, clear the queue so they can change settings and try again.
 						// If the source isn't loaded they probably want to keep it in the queue.
 						if (this.TotalTasks == 1
-							&& this.encodeCompleteReason == EncodeCompleteReason.ManualStopAll
+							&& completeReason == EncodeCompleteReason.ManualStopAll
 							&& this.main.HasVideoSource
 							&& this.main.SourcePath == this.EncodeQueue.Items.First().Job.SourcePath)
 						{
@@ -2443,7 +2448,7 @@ namespace VidCoder.Services
 					encodeLogger.Log(stopMessage);
 					this.logger.Log(stopMessage);
 
-					this.JobCompleted?.Invoke(this, new JobCompletedEventArgs(finishedJobViewModel, this.encodeCompleteReason));
+					this.JobCompleted?.Invoke(this, new JobCompletedEventArgs(finishedJobViewModel));
 
 					// Try to clean up the failed file
 					TryHandleFailedFile(directOutputFileInfo, encodeLogger, "stopped", finalOutputPath);
@@ -2458,7 +2463,7 @@ namespace VidCoder.Services
 				encodeLogger.Dispose();
 
 				string logAffix;
-				if (this.encodeCompleteReason != EncodeCompleteReason.Finished)
+				if (completeReason != EncodeCompleteReason.Finished)
 				{
 					logAffix = "aborted";
 				}

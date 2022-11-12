@@ -249,6 +249,8 @@ namespace VidCoder.ViewModel
 			private set { this.RaiseAndSetIfChanged(ref this.isPaused, value); }
 		}
 
+		public EncodeCompleteReason CompleteReason { get; set; } = EncodeCompleteReason.Finished;
+
 		/// <summary>
 		/// Returns true if a subtitle scan will be performed on this job.
 		/// </summary>

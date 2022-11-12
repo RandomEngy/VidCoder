@@ -391,7 +391,7 @@ namespace VidCoder.ViewModel
 			WatchedFileViewModel watchedFile = this.GetWatchedFileForJob(e.JobViewModel);
 			if (watchedFile != null)
 			{
-				if (e.Reason == EncodeCompleteReason.Finished)
+				if (e.JobViewModel.CompleteReason == EncodeCompleteReason.Finished)
 				{
 					if (e.ResultStatus == EncodeResultStatus.Succeeded)
 					{

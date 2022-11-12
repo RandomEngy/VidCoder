@@ -56,14 +56,14 @@ namespace VidCoder.Services
 			this.processingService.JobQueueSkipped -= this.OnJobQueueSkipped;
 		}
 
-		private void OnJobCompleted(object sender, Model.JobCompletedEventArgs e)
+		private void OnJobCompleted(object sender, JobCompletedEventArgs e)
 		{
-			if (e.Reason == Model.EncodeCompleteReason.Finished)
+			if (e.JobViewModel.CompleteReason == EncodeCompleteReason.Finished)
 			{
 				WatcherStorage.UpdateEntryStatus(
 					Database.Connection,
 					e.JobViewModel.Job.SourcePath,
-					e.ResultStatus == Model.EncodeResultStatus.Succeeded ? WatchedFileStatus.Succeeded : WatchedFileStatus.Failed);
+					e.ResultStatus == EncodeResultStatus.Succeeded ? WatchedFileStatus.Succeeded : WatchedFileStatus.Failed);
 			}
 		}
 
