@@ -2033,6 +2033,9 @@ namespace VidCoder.Services
 			jobViewModel.CanPauseOrStop = false;
 			this.canPauseOrStopSubject.OnNext(false);
 
+			// Reset this state
+			this.encodeCompleteReason = EncodeCompleteReason.Finished;
+
 			if (!string.IsNullOrWhiteSpace(jobViewModel.DebugEncodeJsonOverride))
 			{
 				jobViewModel.EncodeProxy.StartEncodeAsync(jobViewModel.DebugEncodeJsonOverride, encodeLogger);
