@@ -479,6 +479,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Conservative.
+        /// </summary>
+        public static string CroppingType_Conservative {
+            get {
+                return ResourceManager.GetString("CroppingType_Conservative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Format: key1=value1:key2=value2:....
         /// </summary>
         public static string CustomFilterToolTipFormatPart {

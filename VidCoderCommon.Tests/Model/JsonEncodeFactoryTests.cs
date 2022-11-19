@@ -482,6 +482,7 @@ namespace VidCoderCommon.Tests.Model
 			AssertZeroPadding(outputSize);
 		}
 
+
 		[TestMethod]
 		public void GetOutputSize_NonAnamorphicToNonAnamorphicWithCropping()
 		{
@@ -502,6 +503,30 @@ namespace VidCoderCommon.Tests.Model
 
 			// Assert
 			AssertResolution(outputSize, 1920, 796);
+			AssertNormalPar(outputSize);
+			AssertZeroPadding(outputSize);
+		}
+
+		[TestMethod]
+		public void GetOutputSize_NonAnamorphicToNonAnamorphicWithLooseCropping()
+		{
+			// Arrange
+			var profile = new VCProfile
+			{
+				SizingMode = VCSizingMode.Automatic,
+				Width = 0,
+				Height = 0,
+				CroppingType = VCCroppingType.Loose,
+				UseAnamorphic = true
+			};
+
+			var sourceTitle = this.CreateNonAnamorphicTitle();
+
+			// Act
+			OutputSizeInfo outputSize = JsonEncodeFactory.GetOutputSize(profile, sourceTitle);
+
+			// Assert
+			AssertResolution(outputSize, 1920, 800);
 			AssertNormalPar(outputSize);
 			AssertZeroPadding(outputSize);
 		}
@@ -594,6 +619,13 @@ namespace VidCoderCommon.Tests.Model
 					104,
 					0,
 					2
+				},
+				LooseCrop = new List<int>
+				{
+					100,
+					104,
+					0,
+					0
 				}
 			};
 		}
@@ -620,6 +652,13 @@ namespace VidCoderCommon.Tests.Model
 				{
 					142,
 					142,
+					0,
+					0
+				},
+				LooseCrop = new List<int>
+				{
+					140,
+					140,
 					0,
 					0
 				}

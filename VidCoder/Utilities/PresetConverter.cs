@@ -24,7 +24,7 @@ namespace VidCoder
 
 			// Sizing
 			profile.Cropping = new VCCropping(hbPreset.PictureTopCrop, hbPreset.PictureBottomCrop, hbPreset.PictureLeftCrop, hbPreset.PictureRightCrop);
-			profile.CroppingType = hbPreset.PictureAutoCrop ? VCCroppingType.Automatic : VCCroppingType.Custom;
+			profile.CroppingType = (VCCroppingType)hbPreset.PictureCropMode;
 			profile.SizingMode = VCSizingMode.Automatic;
 			profile.ScalingMode = VCScalingMode.DownscaleOnly;
 			profile.UseAnamorphic = hbPreset.PicturePAR != "off";

@@ -1669,7 +1669,9 @@ namespace VidCoderCommon.Model
 			switch (profile.CroppingType)
 			{
 				case VCCroppingType.Automatic:
-					return GetAutomaticCropping(profile.Rotation, profile.FlipHorizontal, profile.FlipVertical, profile.CroppingMinimum, profile.CroppingConstrainToOneAxis, title);
+					return GetAutomaticCropping(profile.Rotation, profile.FlipHorizontal, profile.FlipVertical, profile.CroppingMinimum, profile.CroppingConstrainToOneAxis, title, isLoose: false);
+				case VCCroppingType.Loose:
+					return GetAutomaticCropping(profile.Rotation, profile.FlipHorizontal, profile.FlipVertical, profile.CroppingMinimum, profile.CroppingConstrainToOneAxis, title, isLoose: true);
 				case VCCroppingType.None:
 					return new VCCropping(0, 0, 0, 0);
 				case VCCroppingType.Custom:
@@ -1679,9 +1681,9 @@ namespace VidCoderCommon.Model
 			}
 		}
 
-		public static VCCropping GetAutomaticCropping(VCPictureRotation rotation, bool flipHorizontal, bool flipVertical, int croppingMinimum, bool constrainToOneAxis, SourceTitle title)
+		public static VCCropping GetAutomaticCropping(VCPictureRotation rotation, bool flipHorizontal, bool flipVertical, int croppingMinimum, bool constrainToOneAxis, SourceTitle title, bool isLoose)
 		{
-			var autoCrop = title.Crop;
+			var autoCrop = isLoose ? title.LooseCrop : title.Crop;
 			int top = autoCrop[0];
 			int bottom = autoCrop[1];
 			int left = autoCrop[2];

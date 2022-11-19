@@ -855,4 +855,7 @@ Lapsharp sharpens using convolution kernels approximating Laplacian edge filters
   <data name="MinimumCroppingToolTip" xml:space="preserve">
     <value>If the automatic cropping is below this amount for a side, disable the cropping for that side. Useful for preventing resampling on small cropping amounts.</value>
   </data>
+  <data name="CroppingType_Conservative" xml:space="preserve">
+    <value>Conservative</value>
+  </data>
 </root>

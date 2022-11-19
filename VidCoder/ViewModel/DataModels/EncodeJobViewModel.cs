@@ -486,13 +486,14 @@ namespace VidCoder.ViewModel
 						VCCropping cropping = this.Profile.Cropping;
 						return $"{cropping.Top}/{cropping.Bottom}/{cropping.Left}/{cropping.Right}";
 					case VCCroppingType.Automatic:
+					case VCCroppingType.Loose:
 						SourceTitle title = this.VideoSource.Titles.Single(t => t.Index == this.Job.Title);
 						if (title == null)
 						{
 							return string.Empty;
 						}
 
-						List<int> titleCrop = title.Crop;
+						List<int> titleCrop = this.Profile.CroppingType == VCCroppingType.Loose ? title.LooseCrop : title.Crop;
 						return $"{titleCrop[0]}/{titleCrop[1]}/{titleCrop[2]}/{titleCrop[3]}";
 					default:
 						return string.Empty;

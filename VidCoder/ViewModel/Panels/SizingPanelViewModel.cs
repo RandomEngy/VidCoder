@@ -39,6 +39,7 @@ namespace VidCoder.ViewModel
 			this.CroppingTypeChoices = new List<ComboChoice<VCCroppingType>>
 			{
 				new ComboChoice<VCCroppingType>(VCCroppingType.Automatic, CommonRes.Automatic),
+				new ComboChoice<VCCroppingType>(VCCroppingType.Loose, EncodingRes.CroppingType_Conservative),
 				new ComboChoice<VCCroppingType>(VCCroppingType.None, CommonRes.None),
 				new ComboChoice<VCCroppingType>(VCCroppingType.Custom, CommonRes.Custom),
 			};
@@ -190,6 +191,12 @@ namespace VidCoder.ViewModel
 					return new SolidColorBrush(ColorUtilities.ToWindowsColor(this.PadColor));
 				}).ToProperty(this, x => x.PadBrush, out this.padBrush);
 
+			// AutomaticCropUIEnabled
+			this.WhenAnyValue(x => x.CroppingType, croppingType =>
+			{
+				return croppingType == VCCroppingType.Automatic || croppingType == VCCroppingType.Loose;
+			}).ToProperty(this, x => x.AutomaticCropUIEnabled, out this.automaticCropUIEnabled);
+
 			// CroppingUIEnabled
 			this.WhenAnyValue(x => x.CroppingType, croppingType =>
 			{
@@ -265,7 +272,7 @@ namespace VidCoder.ViewModel
 						this.CropLeft = 0;
 						this.CropRight = 0;
 					}
-					else if (x.croppingType == VCCroppingType.Automatic)
+					else if (x.croppingType == VCCroppingType.Automatic || x.croppingType == VCCroppingType.Loose)
 					{
 						this.AutomaticChange = true;
 
@@ -649,6 +656,9 @@ namespace VidCoder.ViewModel
 			set => this.UpdateProfileProperty(nameof(this.Profile.CroppingConstrainToOneAxis), value);
 		}
 
+		private ObservableAsPropertyHelper<bool> automaticCropUIEnabled;
+		public bool AutomaticCropUIEnabled => this.automaticCropUIEnabled.Value;
+
 		private ObservableAsPropertyHelper<bool> croppingUIEnabled;
 		public bool CroppingUIEnabled => this.croppingUIEnabled.Value;
 
@@ -720,7 +730,7 @@ namespace VidCoder.ViewModel
 
 		private void RefreshCropping()
 		{
-			if (this.CroppingType != VCCroppingType.Automatic)
+			if (this.CroppingType != VCCroppingType.Automatic && this.CroppingType != VCCroppingType.Loose)
 			{
 				return;
 			}
@@ -738,7 +748,14 @@ namespace VidCoder.ViewModel
 			}
 			else
 			{
-				VCCropping autoCropping = JsonEncodeFactory.GetAutomaticCropping(this.Rotation, this.FlipHorizontal, this.FlipVertical, this.CroppingMinimum, this.CroppingConstrainToOneAxis, this.MainViewModel.SelectedTitle.Title);
+				VCCropping autoCropping = JsonEncodeFactory.GetAutomaticCropping(
+					this.Rotation,
+					this.FlipHorizontal,
+					this.FlipVertical,
+					this.CroppingMinimum,
+					this.CroppingConstrainToOneAxis,
+					this.MainViewModel.SelectedTitle.Title,
+					isLoose: this.CroppingType == VCCroppingType.Loose);
 
 				this.CropTop = autoCropping.Top;
 				this.CropBottom = autoCropping.Bottom;
