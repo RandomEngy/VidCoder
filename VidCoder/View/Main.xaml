@@ -1784,6 +1784,7 @@
 								VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource SubtitleFileDragTemplate}"
 								VidCoderDragDrop:DragDropHelper.IsDragSource="True"
 								VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
+								VidCoderDragDrop:DragDropHelper.SourceList="{Binding FileSubtitles}"
 								ItemContainerStyle="{StaticResource ListViewItemNoSelectionNoHoverStyle}"
 								ItemsSource="{Binding FileSubtitlesBindable}">
 								<i:Interaction.Behaviors>
