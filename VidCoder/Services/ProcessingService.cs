@@ -3243,7 +3243,7 @@ namespace VidCoder.Services
 
 			int containerId = HandBrakeEncoderHelpers.GetContainer(containerName).Id;
 
-			if (picker.SubtitleAddForeignAudioScan)
+			if (picker.SubtitleAddForeignAudioScan && title.SubtitleList.Count > 0)
 			{
 				result.Add(new ChosenSourceSubtitle
 				{
