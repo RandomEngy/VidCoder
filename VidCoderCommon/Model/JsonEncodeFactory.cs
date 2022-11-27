@@ -866,7 +866,7 @@ namespace VidCoderCommon.Model
 			foreach (ChosenSourceSubtitle sourceSubtitle in job.Subtitles.SourceSubtitles)
 			{
 				// Handle Foreign Audio Search
-				if (sourceSubtitle.TrackNumber == 0)
+				if (sourceSubtitle.TrackNumber == 0 && title.SubtitleList.Count > 0)
 				{
 					subtitles.Search.Enable = true;
 					subtitles.Search.Burn = sourceSubtitle.BurnedIn;
