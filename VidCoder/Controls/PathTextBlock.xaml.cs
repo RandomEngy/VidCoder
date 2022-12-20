@@ -271,6 +271,8 @@ namespace VidCoder.Controls
 
 		private Size MeasureString(string candidate)
 		{
+			var dpiInfo = VisualTreeHelper.GetDpi(this.textBlock);
+
 			var formattedText = new FormattedText(
 				candidate,
 				CultureInfo.CurrentCulture,
@@ -280,7 +282,7 @@ namespace VidCoder.Controls
 				Brushes.Black,
 				new NumberSubstitution(),
 				TextFormattingMode.Display,
-				1);
+				dpiInfo.PixelsPerDip);
 
 			return new Size(formattedText.Width, formattedText.Height);
 		}

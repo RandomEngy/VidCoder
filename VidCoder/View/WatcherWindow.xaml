@@ -299,7 +299,7 @@
 								<GridViewColumn Width="450" Header="{x:Static res:WatcherRes.PathColumnHeader}">
 									<GridViewColumn.CellTemplate>
 										<DataTemplate>
-											<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding WatchedFile.Path}" />
+											<controls:PathTextBlock Foreground="{DynamicResource WindowTextBrush}" Text="{Binding WatchedFile.Path}" />
 										</DataTemplate>
 									</GridViewColumn.CellTemplate>
 								</GridViewColumn>
