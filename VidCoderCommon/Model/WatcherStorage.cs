@@ -24,7 +24,7 @@ namespace VidCoderCommon.Model
 				while (reader.Read())
 				{
 					string watchedFolderJson = reader.GetString("json");
-					WatchedFolder? watchedFolder = JsonSerializer.Deserialize<WatchedFolder>(watchedFolderJson);
+					WatchedFolder watchedFolder = JsonSerializer.Deserialize<WatchedFolder>(watchedFolderJson);
 
 					if (watchedFolder != null)
 					{

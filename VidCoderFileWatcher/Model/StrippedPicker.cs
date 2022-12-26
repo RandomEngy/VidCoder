@@ -12,7 +12,7 @@ namespace VidCoderFileWatcher.Model
 	/// </summary>
 	public class StrippedPicker
 	{
-		public string Name { get; set; }
+		public string Name { get; set; } = string.Empty;
 
 		public bool IsModified { get; set; }
 

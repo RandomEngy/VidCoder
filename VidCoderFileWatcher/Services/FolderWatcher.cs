@@ -176,13 +176,19 @@ namespace VidCoderFileWatcher.Services
 
 				if (this.filesPendingWriteComplete.Count == 0)
 				{
-					this.pendingCheckTimer.Dispose();
-					this.pendingCheckTimer = null;
+					if (this.pendingCheckTimer != null)
+					{
+						this.pendingCheckTimer.Dispose();
+						this.pendingCheckTimer = null;
+					}
 				}
 				else
 				{
-					this.pendingCheckTimer.Interval = 1000;
-					this.pendingCheckTimer.Start();
+					if (this.pendingCheckTimer != null)
+					{
+						this.pendingCheckTimer.Interval = 1000;
+						this.pendingCheckTimer.Start();
+					}
 				}
 			}
 			catch (Exception exception)

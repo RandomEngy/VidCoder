@@ -9,8 +9,6 @@ namespace VidCoderCommon.Services
 {
 	public interface ILogger : IBasicLogger
 	{
-		void Log(string message);
-
 		void LogError(string message);
 	}
 }

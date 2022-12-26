@@ -55,7 +55,7 @@ namespace VidCoderFileWatcher.Services
 				var entriesToRemove = new List<string>();
 				foreach (string path in entries.Keys)
 				{
-					if (existingFiles.TryGetValue(path, out ExistingFile file))
+					if (existingFiles.TryGetValue(path, out ExistingFile? file))
 					{
 						file.HasEntry = true;
 					}
@@ -226,11 +226,7 @@ namespace VidCoderFileWatcher.Services
 					this.logger.Log("    " + sourcePath.Path);
 					files.Add(
 						sourcePath.Path,
-						new ExistingFile
-						{
-							Path = sourcePath.Path,
-							Folder = folder
-						});
+						new ExistingFile(sourcePath.Path, folder));
 				}
 			}
 
@@ -240,7 +236,7 @@ namespace VidCoderFileWatcher.Services
 		private StrippedPicker GetPickerForWatchedFolder(WatchedFolder watchedFolder)
 		{
 			this.PopulatePickersIfNeeded();
-			if (this.pickers.ContainsKey(watchedFolder.Picker))
+			if (this.pickers != null && this.pickers.ContainsKey(watchedFolder.Picker))
 			{
 				return this.pickers[watchedFolder.Picker];
 			}
@@ -326,6 +322,12 @@ namespace VidCoderFileWatcher.Services
 
 		private class ExistingFile
 		{
+			public ExistingFile(string path, WatchedFolder folder)
+			{
+				this.Path = path;
+				this.Folder = folder;
+			}
+
 			public string Path { get; set; }
 
 			public bool HasEntry { get; set; }
