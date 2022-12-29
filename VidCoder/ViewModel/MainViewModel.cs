@@ -3073,9 +3073,11 @@ namespace VidCoder.ViewModel
 						return;
 					}
 
+					videoSourceMetadata.DriveInfo = driveInfo;
 					sourceOption.DriveInfo = driveInfo;
 				}
 
+				jobVM.VideoSourceMetadata = videoSourceMetadata;
 				this.SourceName = jobVM.SourceName;
 				this.SourcePath = job.SourcePath;
 
