@@ -1231,7 +1231,8 @@ namespace VidCoderCommon.Model
 				audioBytes += audioTrackBytes;
 
 				// Audio overhead
-				long audioTrackOverheadBytes = sampleRate * ContainerOverheadBytesPerFrame / samplesPerFrame;
+				long audioTrackOverheadBytesPerSecond = sampleRate * ContainerOverheadBytesPerFrame / samplesPerFrame;
+				long audioTrackOverheadBytes = (long)(lengthSeconds * audioTrackOverheadBytesPerSecond);
 				this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Overhead is {audioTrackOverheadBytes} bytes");
 				audioBytes += audioTrackOverheadBytes;
 
