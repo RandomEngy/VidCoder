@@ -1673,7 +1673,7 @@ namespace VidCoder.Services
 							string fileToQueue = job.SourcePath;
 
 							queuedInputFiles.Add(fileToQueue);
-							string outputFolder = this.outputPathService.GetOutputFolder(fileToQueue, jobVM.SourceParentFolder);
+							string outputFolder = this.outputPathService.GetOutputFolder(fileToQueue, jobVM.SourceParentFolder, picker);
 							string outputFileName = this.outputPathService.BuildOutputFileName(
 								fileToQueue,
 								this.outputPathService.CleanUpSourceName(picker, Utilities.GetSourceNameFile(fileToQueue)),
