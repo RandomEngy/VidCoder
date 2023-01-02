@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>حفظ</value>
@@ -736,15 +736,7 @@
   <data name="DeblockToolTip" xml:space="preserve">
     <value>يخفض يشتت المصنوعات المملوئة يدويا سببها ضغط الفيديو الممتاز المنخفض.</value>
   </data>
-  <data name="DeinterlaceToolTip" xml:space="preserve">
-    <value>المصنوعات اليدوية
-
-غير متشابك يزيل المصنوعات اليدوية مشط من الصورة.
-
-يادلو هو غير متشابك شعبيه وسريعة.
-
-تبديل فك الضغط بين خوارزميات الاستيفاء المتعددة للسرعة والجودة.</value>
-  </data>
+  
   <data name="DenoiseToolTip" xml:space="preserve">
     <value>Denoise يقلل أو يزيل ظهور الضوضاء والحبوب. وهذا يمكن تحسين كفاءه الضغط وإنشاء الفيديو عاليه الجودة في احجام الملفات الأصغر حجما. 
 قد تتلف إعدادات Denoise قويه بشكل مفرط جوده الصورة عن طريق تجاهل التفاصيل.
@@ -827,6 +819,7 @@ HQDN3D هو فلتر التكيف منخفضه التمرير ، أسرع من N
   <data name="MoreOptionsToolTip" xml:space="preserve">
     <value>وسائط متقدمة إضافية لتمريرها إلى مشفر الفلم.</value>
   </data>
+  
   
   
   

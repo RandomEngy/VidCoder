@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>შენახვა</value>
@@ -739,13 +739,7 @@
   <data name="DeblockToolTip" xml:space="preserve">
     <value>დებლოკირება ამცირებს დაბალი ხარისხის ვიდეოსგან გამოწვეულ კვადრატებს.</value>
   </data>
-  <data name="DeinterlaceToolTip" xml:space="preserve">
-    <value>დეინთერლეისი ასუფთავებს კადრზე დაყოლილ ზოლებს.
-
-Yadif-ი პოპულარული და სწრაფი მეთოდია.
-
-დეკომბი ირჩევს მრავალჯერადი ინტერპოლაციის ალგორითმს სიჩქარის და ხარისხითვის.</value>
-  </data>
+  
   <data name="DenoiseToolTip" xml:space="preserve">
     <value>გასუფთავება ამცირებს ან ასუფთავებს წერტილებს და მარცვლებს კადრიდან. ამან შესაძლებელია გააუმჯობესოს შეკუმშვის ეფექტურობა და მიიღოთ პატარა ზომის ვიდეო მაღალი ხარისხით.
          
@@ -855,4 +849,5 @@ HQDN3D-ი ადაპტური დაბალი ხარისხის 
   <data name="MinimumCroppingToolTip" xml:space="preserve">
     <value>თუ ავტომატური გვერდების შემოჭრაა მონიშნული, დეააქტივირეთ მინიმალური გვერდების შემოჭრა. გამოსადეგია პატარა შემოჭრის არის დასაცავად.</value>
   </data>
+  
 </root>

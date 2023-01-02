@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Spremi</value>
@@ -733,13 +733,7 @@ Odbacuje sva ostala podešavanja.</value>
   <data name="DeblockToolTip" xml:space="preserve">
     <value>Deblock uklanja smetnja nalik blokovima koji su uzrokovani lošom kvalitetom video kompresije.</value>
   </data>
-  <data name="DeinterlaceToolTip" xml:space="preserve">
-    <value>Deinterlace uklanja smetnje nalik češlju iz slike.
-
-Yadif je popularan i brz deinterlacer.
-
-Decomb izmjenjuje više algoritama za interpolaciju za brzinu i kvalitet.</value>
-  </data>
+  
   <data name="DenoiseToolTip" xml:space="preserve">
     <value>Denoise smanjuje ili uklanja pojavu šuma ili zrnatosti. Ovo može poboljšati efikasnost kompresije i rezultirati videom više kvalitete sa manjom veličinom datoteke. 
 Prejake postavke Denoise mogu štetiti kvalitetu slike uklanjanjem detalja.
@@ -822,6 +816,7 @@ Lapsharp izoštrava korištenjem "convolution kernels" aproksimiranjem Laplacian
   <data name="MoreOptionsToolTip" xml:space="preserve">
     <value>Dodatne napredne varijable koje će biti prenešene do video enkodera.</value>
   </data>
+  
   
   
   

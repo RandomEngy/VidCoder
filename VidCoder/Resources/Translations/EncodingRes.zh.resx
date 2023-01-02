@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>保存</value>
@@ -736,13 +736,7 @@
   <data name="DeblockToolTip" xml:space="preserve">
     <value>去块能减少因低质量视频压缩造成的块状瑕疵。</value>
   </data>
-  <data name="DeinterlaceToolTip" xml:space="preserve">
-    <value>反交错去除图像中的梳状瑕疵。
-
-Yadif 是一种流行且快速的反交错器。
-
-Decomb 为速度和质量在多种插补算法中切换。</value>
-  </data>
+  
   <data name="DenoiseToolTip" xml:space="preserve">
     <value>降噪减少或去除噪点和颗粒的出现。可以提高压缩质量并在更小的文件尺寸基础上获得更高品质的视频。 
 过强的降噪设置将因丧失细节而损害画面质量。
@@ -819,6 +813,7 @@ Lapsharp 利用卷积核来近似拉普拉斯边缘滤镜进行锐化，有时�
   <data name="ApplyToQueueButton" xml:space="preserve">
     <value>应用到队列</value>
   </data>
+  
   
   
   

@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
     <value>標題:</value>
@@ -290,9 +290,6 @@
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>確認刪除</value>
-  </data>
-  <data name="CouldNotDeleteFile" xml:space="preserve">
-    <value>無法刪除 {0} {1}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>掃描視訊檔時出現錯誤</value>
@@ -750,4 +747,6 @@ v5 為在 Windows 7/8 上測試過的最新版本。
   <data name="CopyLogAndReportMenuItem" xml:space="preserve">
     <value>複製記錄檔並回報問題</value>
   </data>
+  
+  
 </root>

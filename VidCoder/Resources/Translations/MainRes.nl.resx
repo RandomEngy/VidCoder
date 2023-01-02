@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
     <value>Titel:</value>
@@ -290,11 +290,6 @@
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Verwijderen bevestigen</value>
-  </data>
-  <data name="CouldNotDeleteFile" xml:space="preserve">
-    <value>Kan {0} niet verwijderen
-
-{1}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>Fout bij scannen van videobestand(en)</value>
@@ -754,4 +749,6 @@ Deze waarschuwing wordt slechts twee keer weergegeven.</value>
   <data name="CopyLogAndReportMenuItem" xml:space="preserve">
     <value>Logboek kopiëren en probleem melden </value>
   </data>
+  
+  
 </root>

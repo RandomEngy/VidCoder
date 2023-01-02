@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
     <value>Название:</value>
@@ -133,7 +133,7 @@
     <value>Открыть папку DVD/Blu-ray...</value>
   </data>
   <data name="EnqueueMultipleFiles" xml:space="preserve">
-    <value>Поставить в очередь несколько файлов...</value>
+    <value>Несколько файлов в очередь...</value>
   </data>
   <data name="ToolsMenu" xml:space="preserve">
     <value>Инструменты</value>
@@ -154,7 +154,7 @@
     <value>Открыть папку</value>
   </data>
   <data name="ClearCompleted" xml:space="preserve">
-    <value>Очистить завершённые</value>
+    <value>Очистить выполненные</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Окна</value>
@@ -290,9 +290,6 @@
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Подтверждение удаления</value>
-  </data>
-  <data name="CouldNotDeleteFile" xml:space="preserve">
-    <value>{0} {1} не может быть удалён.</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>Ошибка сканирования видеофайлов</value>
@@ -516,7 +513,7 @@
     <comment>{0} is the path to the custom video player.</comment>
   </data>
   <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
-    <value>Папка видеофайлов в очереди...</value>
+    <value>Папка видеофайлов в очередь...</value>
   </data>
   <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
     <value>Обнаружены ошибки при сканировании некоторых файлов и они не были добавлены в очередь:{0}</value>
@@ -636,10 +633,10 @@
     <value>Удалить из очереди</value>
   </data>
   <data name="ClearSucceededMenuItem" xml:space="preserve">
-    <value>Очистка выполнена успешно</value>
+    <value>Очистить успешные</value>
   </data>
   <data name="ClearFailedMenuItem" xml:space="preserve">
-    <value>Ошибка при очистке</value>
+    <value>Очистить неудачные</value>
   </data>
   <data name="ClearQueueConfirmationMessage" xml:space="preserve">
     <value>Удалить все элементы из очереди?</value>
@@ -747,5 +744,13 @@
   </data>
   <data name="CopyLogAndReportMenuItem" xml:space="preserve">
     <value>Копировать журнал и сообщить о проблеме</value>
+  </data>
+  <data name="WatcherMenuItem" xml:space="preserve">
+    <value>Наблюдатель</value>
+  </data>
+  <data name="QueueProgressLabel" xml:space="preserve">
+    <value>Очередь {0}/{1}:</value>
+    <comment>{0} is the current job number for scanning and adding an item to the queue
+{1} is the total number of scanned items this session</comment>
   </data>
 </root>

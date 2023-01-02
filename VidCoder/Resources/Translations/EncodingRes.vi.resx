@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Lưu</value>
@@ -738,13 +738,7 @@ Ghi đè tất cả các cài đặt khác.</value>
   <data name="DeblockToolTip" xml:space="preserve">
     <value>Deblock làm giảm các hiện tượng khối do nén video chất lượng thấp.</value>
   </data>
-  <data name="DeinterlaceToolTip" xml:space="preserve">
-    <value>Deinterlace xóa các tạo tác lược khỏi hình ảnh.
-
-Yadif là một trình khử băng giá phổ biến và nhanh chóng.
-
-Decomb chuyển đổi giữa nhiều thuật toán nội suy về tốc độ và chất lượng.</value>
-  </data>
+  
   <data name="DenoiseToolTip" xml:space="preserve">
     <value>Khử nhiễu làm giảm hoặc loại bỏ sự xuất hiện của nhiễu và hạt. Điều này có thể cải thiện hiệu quả nén và tạo video chất lượng cao hơn ở kích thước tệp nhỏ hơn.
 Cài đặt khử nhiễu quá mạnh có thể làm hỏng chất lượng hình ảnh do loại bỏ chi tiết.
@@ -855,4 +849,5 @@ Lapsharp sắc nét hơn bằng cách sử dụng nhân chập xấp xỉ bộ l
   <data name="MinimumCroppingToolTip" xml:space="preserve">
     <value>Nếu cắt tự động dưới mức này cho một mặt, hãy tắt chế độ cắt cho mặt đó. Hữu ích để ngăn việc lấy lại mẫu đối với số lượng cắt xén nhỏ.</value>
   </data>
+  
 </root>

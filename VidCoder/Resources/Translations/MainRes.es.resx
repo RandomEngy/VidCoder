@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
     <value>Título:</value>
@@ -290,9 +290,6 @@
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Confirma para borrar</value>
-  </data>
-  <data name="CouldNotDeleteFile" xml:space="preserve">
-    <value>No se pudo eliminar {0} {1}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>Error al analizar el(los) archivo(s) de vídeo</value>
@@ -748,4 +745,6 @@ Esta advertencia solo se mostrará un par de veces.</value>
   <data name="CopyLogAndReportMenuItem" xml:space="preserve">
     <value>Copiar el registro de informe y reportar el problema</value>
   </data>
+  
+  
 </root>

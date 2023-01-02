@@ -1,0 +1,756 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TitleLabel" xml:space="preserve">
+    <value>Τίτλος:</value>
+  </data>
+  <data name="AddToQueueLabel" xml:space="preserve">
+    <value>Προσθήκη στην Ουρά</value>
+  </data>
+  <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
+    <value>Προσθήκη Πολλαπλών Τίτλων στην Ουρά...</value>
+  </data>
+  <data name="OpenVideoFile" xml:space="preserve">
+    <value>Άνοιγμα Αρχείου Βίντεο...</value>
+  </data>
+  <data name="OpenDiscFolder" xml:space="preserve">
+    <value>Άνοιγμα Φακέλου DVD/Blu-ray...</value>
+  </data>
+  <data name="EnqueueMultipleFiles" xml:space="preserve">
+    <value>Εισαγωγή Πολλαπλών Αρχείων...</value>
+  </data>
+  <data name="ToolsMenu" xml:space="preserve">
+    <value>Εργαλεία</value>
+  </data>
+  <data name="ImportPreset" xml:space="preserve">
+    <value>Εισαγωγή ρυθμίσεων...</value>
+  </data>
+  <data name="ExportPreset" xml:space="preserve">
+    <value>Εξαγωγή ρυθμίσεων...</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Αναπαραγωγή</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Επεξεργασία</value>
+  </data>
+  <data name="OpenContainingFolder" xml:space="preserve">
+    <value>Άνοιγμα Φακέλου Περιεχομένων</value>
+  </data>
+  <data name="ClearCompleted" xml:space="preserve">
+    <value>Εκκαθάριση Ολοκληρωμένων</value>
+  </data>
+  <data name="WindowsMenu" xml:space="preserve">
+    <value>Windows</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
+  </data>
+  <data name="EncodingSettingsMenuItem" xml:space="preserve">
+    <value>Ρυθμίσεις Κωδικοποίησης</value>
+  </data>
+  <data name="PreviewMenuItem" xml:space="preserve">
+    <value>Προεπισκόπηση</value>
+  </data>
+  <data name="LogMenuItem" xml:space="preserve">
+    <value>Καταγραφή</value>
+  </data>
+  <data name="HelpMenu" xml:space="preserve">
+    <value>Βοήθεια</value>
+  </data>
+  <data name="VidCoderHomepageMenuItem" xml:space="preserve">
+    <value>Ιστοσελίδα VidCoder</value>
+  </data>
+  <data name="ReportABugMenuItem" xml:space="preserve">
+    <value>Αναφορά σφάλματος</value>
+  </data>
+  <data name="AboutVidCoderMenuItem" xml:space="preserve">
+    <value>Περί του VidCoder...</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>Πρόσφατα</value>
+  </data>
+  <data name="DragFilesHereLabel" xml:space="preserve">
+    <value>(ή σύρετε αρχεία ή φακέλους εδώ)</value>
+  </data>
+  <data name="ScanErrorLabel" xml:space="preserve">
+    <value>Παροσυσιάστηκε ένα σφάλφα κατά την αναγνώριση.</value>
+  </data>
+  <data name="ChapterMarkersLabel" xml:space="preserve">
+    <value>Σημειωτές Κεφαλαίου:</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Επεξεργασία...</value>
+  </data>
+  <data name="DestinationLabel" xml:space="preserve">
+    <value>Προορισμός:</value>
+  </data>
+  <data name="DestinationToolTip" xml:space="preserve">
+    <value>Επιλέξτε για αλλαγή του προορισμού του τελικού αρχείου.</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Διακοπή</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Παύση</value>
+  </data>
+  <data name="MoveToTopMenuItem" xml:space="preserve">
+    <value>Μετακίνηση στην Κορυφή</value>
+  </data>
+  <data name="MoveToBottomMenuItem" xml:space="preserve">
+    <value>Μετακίνηση στο τέλος</value>
+  </data>
+  <data name="CustomizeColumnsMenuItem" xml:space="preserve">
+    <value>Διαμόρφωση στηλών...</value>
+  </data>
+  <data name="CurrentFpsLabel" xml:space="preserve">
+    <value>Στιγμιαία τιμή FPS:</value>
+  </data>
+  <data name="AverageFpsLabel" xml:space="preserve">
+    <value>Μέση τιμή FPS:</value>
+  </data>
+  <data name="PickDiscFolderHelpText" xml:space="preserve">
+    <value>Επιλογή DVD ή φακέλου Blu-ray.</value>
+  </data>
+  <data name="EncodesInProgressExitWarning" xml:space="preserve">
+    <value>Υπάρχουν μετατροπές σε διαδικασία. Είστε σίγουροι ότι θέλετε να εγκαταλείψετε;</value>
+  </data>
+  <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
+    <value>Μετατροπές σε εξέλιξη</value>
+  </data>
+  <data name="NoneParen" xml:space="preserve">
+    <value>(Κενό)</value>
+  </data>
+  <data name="SaveChangesPresetMessage" xml:space="preserve">
+    <value>Θέλετε να αποθηκεύσετε αλλαγές στην τρέχουσα προρύθμιση;</value>
+  </data>
+  <data name="SaveChangesPresetTitle" xml:space="preserve">
+    <value>Αποθήκευση τρέχουσας προρύθμισης;</value>
+  </data>
+  <data name="DiscNotInDriveError" xml:space="preserve">
+    <value>Αδυναμία ανοίγματος για επεξεργασία. Ο δίσκος δεν υπάρχει στον οδηγό δίσκου.</value>
+  </data>
+  <data name="PresetNameRestoredFromQueue" xml:space="preserve">
+    <value>Ανάκληση από την ουρά</value>
+  </data>
+  <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
+    <value>Ανάκληση από τα ολοκληρωμένα</value>
+  </data>
+  <data name="DestinationColumnHeader" xml:space="preserve">
+    <value>Προορισμός</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>Κατάσταση</value>
+  </data>
+  <data name="ElapsedTimeColumnHeader" xml:space="preserve">
+    <value>Χρόνος που έχει περάσει</value>
+  </data>
+  <data name="PlayingVideoMessage" xml:space="preserve">
+    <value>Αναπαραγωγή βίντεο...</value>
+  </data>
+  <data name="FileDoesNotExist" xml:space="preserve">
+    <value>το {0} αρχείο δεν υπάρχει.</value>
+  </data>
+  <data name="AngleLabel" xml:space="preserve">
+    <value>Γωνία:</value>
+  </data>
+  <data name="ChaptersSummary" xml:space="preserve">
+    <value>από {0}</value>
+  </data>
+  <data name="Queued" xml:space="preserve">
+    <value>Σε αναμονή</value>
+  </data>
+  <data name="QueuedWithTotal" xml:space="preserve">
+    <value>Σε αναμονή ({0})</value>
+  </data>
+  <data name="CompletedWithTotal" xml:space="preserve">
+    <value>Ολοκληρωμένα ({0})</value>
+  </data>
+  <data name="StoppedEncoding" xml:space="preserve">
+    <value>Διακοπή μετατροπής.</value>
+  </data>
+  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
+    <value>Είστε βέβαιοι πως επιθυμείτε να διαγράψετε {0} αρχεία/φακέλους;</value>
+    <comment>{0} is the verb, can be "recycle" or "delete"
+{1} is the number of files that will be removed</comment>
+  </data>
+  <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
+    <value>Επιβεβαίωση διαγραφής</value>
+  </data>
+  <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
+    <value>Λάθος στην ανίχνευση του/των αρχείων</value>
+  </data>
+  <data name="StartedEncoding" xml:space="preserve">
+    <value>Εκκίνηση μετατροπής.</value>
+  </data>
+  <data name="DirectoryCreateErrorMessage" xml:space="preserve">
+    <value>Αδυναμία δημιουργίας φακέλου αποθήκευσης. Λεπτομέρειες σφάλματος: {0}</value>
+  </data>
+  <data name="EncodeCompleted" xml:space="preserve">
+    <value>Ολοκλήρωση μετατροπής.</value>
+  </data>
+  <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
+    <value>Ολοκλήρωση μετατροπής</value>
+  </data>
+  <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
+    <value>Το VidCoder έχει ολοκληρώσει όλες τις μετατροπές στην ουρά.</value>
+  </data>
+  <data name="OutputPathNotValidMessage" xml:space="preserve">
+    <value>Ο φάκελος εξόδου δεν είναι έγκυρος.</value>
+  </data>
+  <data name="OutputPathNotValidTitle" xml:space="preserve">
+    <value>Η διαδρομή δεν είναι έγκυρη</value>
+  </data>
+  <data name="Encode" xml:space="preserve">
+    <value>Μετατροπή</value>
+  </data>
+  <data name="Resume" xml:space="preserve">
+    <value>Συνέχιση</value>
+  </data>
+  <data name="EtaLabel" xml:space="preserve">
+    <value>ETA:</value>
+  </data>
+  <data name="WhenDoneLabel" xml:space="preserve">
+    <value>Όταν ολοκληρωθεί</value>
+  </data>
+  <data name="SourceOption_VideoFile" xml:space="preserve">
+    <value>Αρχείο βίντεο...</value>
+  </data>
+  <data name="SourceOption_DiscFolder" xml:space="preserve">
+    <value>Φάκέλος DVD/Blu-ray...</value>
+  </data>
+  <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
+    <value>Η έκδοση {0} δεν είναι διαθέσιμη. Η μεταφόρτωση της αναβάθμισης έχει ξεκινήσει.</value>
+  </data>
+  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
+    <value>Η μεταφόρτωση της έκδοσης {0} έχει ολοκληρωθεί και θα εγκατασταθεί στην έξοδο.</value>
+  </data>
+  <data name="UpdateNotAppliedError" xml:space="preserve">
+    <value>Η αναβάθμιση δεν έγινε. Αν δεν την σταματήσατε, εγκαταστήσετε την χειροκίνητα.</value>
+  </data>
+  <data name="CouldNotLoadPresetMessage" xml:space="preserve">
+    <value>Δεν έγινε φόρτωση της προρύθμισης: </value>
+  </data>
+  <data name="CouldNotSavePresetMessage" xml:space="preserve">
+    <value>Δεν μπόρεσε να αποθηκευτεί η προρύθμιση '{0}':{1}{2}</value>
+  </data>
+  <data name="CouldNotCopyTextError" xml:space="preserve">
+    <value>Δεν μπόρε να αντιγραφεί το κείμενο.</value>
+  </data>
+  <data name="LaunchUrlError" xml:space="preserve">
+    <value>Σφάλμα στην εκκίνηση του URL: {0}</value>
+  </data>
+  <data name="PresetImportErrorMessage" xml:space="preserve">
+    <value>Σφάλμα εισαγωγής προ΄ρύθμισης. Δείτε το αρχείο καταγραφής για λεπτομέρειες.</value>
+  </data>
+  <data name="ImportErrorTitle" xml:space="preserve">
+    <value>Σφάλμα εισαγωγής</value>
+  </data>
+  <data name="PresetImportSuccessMessage" xml:space="preserve">
+    <value>Επιτυχημένη εισαγωγή προρύθμισης {0}</value>
+  </data>
+  <data name="PresetExportSuccessMessage" xml:space="preserve">
+    <value>Επιτυχημένη εξαγωγή προρύθμισης {0}</value>
+  </data>
+  <data name="ExportPresetFilePickerText" xml:space="preserve">
+    <value>Εξαγωγή προρύθμισης</value>
+  </data>
+  <data name="SaveChangesPickerMessage" xml:space="preserve">
+    <value>Θέλετε να αποθηκεύσετε αλλαγές στον τρέχοντα επιλογέα;</value>
+  </data>
+  <data name="SaveChangesPickerTitle" xml:space="preserve">
+    <value>Αποθήκευση επιλογέα;</value>
+  </data>
+  <data name="RevertConfirmMessage" xml:space="preserve">
+    <value>Είστε βέβαιοι πως επιθυμείτε να απορρίψετε τις μη αποθηκευμένες μεταβολές;</value>
+  </data>
+  <data name="RevertConfirmTitle" xml:space="preserve">
+    <value>Επαναφορά</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Είστε βέβαιοι ότι θέλετε να το διαγράψετε;</value>
+  </data>
+  <data name="RemoveConfirmTitle" xml:space="preserve">
+    <value>Αφαίρεση</value>
+  </data>
+  <data name="OutputDirectoryPickerText" xml:space="preserve">
+    <value>Επιλέξτε τον φάκελο εξόδου για κωδικοποιημένα αρχεία βίντεο.</value>
+  </data>
+  <data name="LengthPreviewLabel" xml:space="preserve">
+    <value>({0})</value>
+  </data>
+  <data name="ModifiedAffix" xml:space="preserve">
+    <value>(Τροποποιημένο)</value>
+  </data>
+  <data name="PlayingVideoStatus" xml:space="preserve">
+    <value>Αναπαραγωγή βίντεο...</value>
+  </data>
+  <data name="OpeningFolderStatus" xml:space="preserve">
+    <value>Άνοιγμα φακέλου...</value>
+  </data>
+  <data name="CloseVideoSourceToolTip" xml:space="preserve">
+    <value>Κλαίσιμο αρχείου βίντεο</value>
+  </data>
+  <data name="UpdatesMenuItem" xml:space="preserve">
+    <value>Ενημερώσεις...</value>
+  </data>
+  <data name="CbrAuto" xml:space="preserve">
+    <value>CBR Auto</value>
+  </data>
+  <data name="RangeBarToolTip" xml:space="preserve">
+    <value>Κάντε αριστερό κλικ για να ορίσετε την ώρα έναρξης και κάντε δεξί κλικ για να ρυθμίσετε την ώρα λήξης.</value>
+  </data>
+  <data name="QueueFormat_Chapters" xml:space="preserve">
+    <value>Ch {0}</value>
+  </data>
+  <data name="QueueFormat_Frames" xml:space="preserve">
+    <value>Fr {0}-{1}</value>
+  </data>
+  <data name="QueueRangeAll" xml:space="preserve">
+    <value>Όλα</value>
+  </data>
+  <data name="CouldNotCopyLogError" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η αντιγραφή αρχείου καταγραφής:{0}{0}{1}</value>
+  </data>
+  <data name="OpenLog" xml:space="preserve">
+    <value>Άνοιγμα αρχίου καταγραφής</value>
+  </data>
+  <data name="CopyLog" xml:space="preserve">
+    <value>Αντιγραφή αρχείου καταγραφής</value>
+  </data>
+  <data name="PresetDiscardConfirmMessage" xml:space="preserve">
+    <value>Έχετε μη αποθηκευμένες αλλαγές. Είστε βέβαιοι ότι θέλετε να απορρίψετε αυτές τις αλλαγές μεταβαίνοντας σε άλλη προκαθορισμένη ρύθμιση;</value>
+  </data>
+  <data name="PresetDiscardConfirmTitle" xml:space="preserve">
+    <value>Απόρριψη Αλλαγών;</value>
+  </data>
+  <data name="RemoveFromQueueToolTip" xml:space="preserve">
+    <value>Αφαίρεση από την ουρά</value>
+  </data>
+  <data name="CouldNotSaveQueueMessage" xml:space="preserve">
+    <value>Αδυναμία αποθήκευσης ουράς: {0}{1}</value>
+  </data>
+  <data name="ExportQueue" xml:space="preserve">
+    <value>Εξαγωγή ουράς...</value>
+  </data>
+  <data name="ExportQueueFilePickerText" xml:space="preserve">
+    <value>Εξαγωγή ουράς</value>
+  </data>
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>Σφάλμα εισαγωγής ουράς. Δείτε το αρχείο καταγραφής για λεπτομέρειες.</value>
+  </data>
+  <data name="ImportPresetFilePickerTitle" xml:space="preserve">
+    <value>Εισαγωγή προρύθμισης</value>
+  </data>
+  <data name="ImportQueueFilePickerTitle" xml:space="preserve">
+    <value>Εισαγωγή αρχείου ουράς</value>
+  </data>
+  <data name="ImportQueue" xml:space="preserve">
+    <value>Εισαγωγή Ουράς...</value>
+  </data>
+  <data name="QueueExportSuccessMessage" xml:space="preserve">
+    <value>Επιτυχημένη εξαγωγή ουράς στο {0}</value>
+  </data>
+  <data name="QueueImportSuccessMessage" xml:space="preserve">
+    <value>Επιτυχημένη εισαγωγή ουράς.</value>
+  </data>
+  <data name="StopEncodeConfirmationTitle" xml:space="preserve">
+    <value>Διακοπή μετατροπής;</value>
+  </data>
+  <data name="StopEncodeConfirmationMessage" xml:space="preserve">
+    <value>Είστε σίγουροι πως θέλετε να σταματήσετε τη μετατροπή;</value>
+  </data>
+  <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
+    <value>Κλείσμο του αρχείου και άνοιγμα του δίσκου;</value>
+  </data>
+  <data name="EncodeDetailsMenuItem" xml:space="preserve">
+    <value>Πληροφορίες Κωδικοποίησης</value>
+  </data>
+  <data name="RenameDatabaseFileLine2" xml:space="preserve">
+    <value>Θέλετε να μετονομάσετε το παρόν αρχείο και να δημιουργήσετε ένα νέο;</value>
+  </data>
+  <data name="RenameDatabaseFileLine1" xml:space="preserve">
+    <value>Αδυναμία ανάγνωσης αρχείου βάσης δεδομένων έκδοσης {0}. Η μεγαλύτερη έκδοση που μπορεί να αναγνωσθεί από το VidCoder {1} είναι η {2}</value>
+    <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
+  </data>
+  <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+    <value>Ασύμβατο αρχείο βάσης δεδομένων</value>
+    <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
+  </data>
+  <data name="PickerMenuItem" xml:space="preserve">
+    <value>Επιλογέας</value>
+  </data>
+  <data name="CouldNotLoadPickerMessage" xml:space="preserve">
+    <value>Αδυναμία φόρτωσης επιλογέα: </value>
+  </data>
+  <data name="SimilarTitlesToolTip" xml:space="preserve">
+    <value>{0} άλλοι τίτλοι έχουν διάρκεια κοντά σε αυτή.</value>
+    <comment>{0} is the number of titles that have a similar duration.</comment>
+  </data>
+  <data name="UseBackupDatabaseLine" xml:space="preserve">
+    <value>Έχετε ένα αντίγραφο ασφαλείας της έκδοσης {0}. Θα θέλατε να το χρησιμοποιήσετε;</value>
+    <comment>{0} is the version of the database file you have a backup for.</comment>
+  </data>
+  <data name="VideoPlayError" xml:space="preserve">
+    <value>Σφάλμα αναπαραγωγής βίντεο.</value>
+  </data>
+  <data name="CustomVideoPlayerError" xml:space="preserve">
+    <value>Η προσαρμοσμένη εφαρμογή αναπαραγωγής βίντεο δεν βρέθηκε στο {0}.</value>
+    <comment>{0} is the path to the custom video player.</comment>
+  </data>
+  <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
+    <value>Φόρτωση φακέλου αρχείων βίντεο...</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>Παρουσιάστηκαν σφάλματα κατά τη σάρωση ορισμένων αρχείων και δεν προστέθηκαν στην ουρά: {0}</value>
+  </data>
+  <data name="FileSizeColumnHeader" xml:space="preserve">
+    <value>Μέγεθος</value>
+    <comment>Used on the "completed encodes" tab, to label the column that shows the final output file size.</comment>
+  </data>
+  <data name="OpenAppDataFolder" xml:space="preserve">
+    <value>Άνοιγμα φακέλου δεδομένων εφαρμογής</value>
+    <comment>Menu choice for opening the application data folder (that holds the VidCoder database file, logs, etc)</comment>
+  </data>
+  <data name="RibbonEncodingGroupLabel" xml:space="preserve">
+    <value>Κωδικοποίηση</value>
+  </data>
+  <data name="RibbonSettingsGroupLabel" xml:space="preserve">
+    <value>Ρυθμίσεις</value>
+  </data>
+  <data name="GlobalOptionsLabel" xml:space="preserve">
+    <value>Γενικές επιλογές</value>
+  </data>
+  <data name="EncodingSettingsButton" xml:space="preserve">
+    <value>Ρυθμίσεις Κωδικοποίησης: {0}</value>
+    <comment>{0} is a placeholder for the name of the encoding preset currently selected.</comment>
+  </data>
+  <data name="EncodingSettingsButtonToolTip" xml:space="preserve">
+    <value>Κωδικοποιητές βίντεο και ήχου, μέγεθος, φίλτρα, κελύφοι</value>
+  </data>
+  <data name="OpenSourceRibbonButton" xml:space="preserve">
+    <value>Άνοιγμα πηγής</value>
+  </data>
+  <data name="ImportExportRibbonButton" xml:space="preserve">
+    <value>Εισαγωγή/Εξαγωγή</value>
+    <comment>Label for ribbon button to import or export presets or queues</comment>
+  </data>
+  <data name="AddedSubtitleFromFile" xml:space="preserve">
+    <value>Επιτυχής πρόσθεση υποτίτλων από το αρχείο {0}</value>
+  </data>
+  <data name="OpenFormat" xml:space="preserve">
+    <value>Άνοιγμα {0}</value>
+    <comment>Format for opening a source. For example: "Open E:\ - THE_INCREDIBLES"</comment>
+  </data>
+  <data name="NoAudioDescription" xml:space="preserve">
+    <value>Δεν βρέθηκε ήχος στην πηγή.</value>
+  </data>
+  <data name="NoAudioSummary" xml:space="preserve">
+    <value>Χωρίς ήχο</value>
+    <comment>Summary text for when no audio tracks are found on the source</comment>
+  </data>
+  <data name="NoSubtitlesSummary" xml:space="preserve">
+    <value>Χωρίς υπότιτλους</value>
+    <comment>Summary text for when no subtitle tracks are found on the source and no external subtitles have been added</comment>
+  </data>
+  <data name="DataTooOldRunVidCoderVersion" xml:space="preserve">
+    <value>Τα δεδομένα σας είναι πολύ παλιά για αναβάθμιση. Εκτελέστε το VidCoder {0} μία φορά για να την αναβαθμίσετε σε μια συμβατή έκδοση, στη συνέχεια δοκιμάστε ξανά αυτή την έκδοση.</value>
+    <comment>This is shown on app start when old data is detected.</comment>
+  </data>
+  <data name="BitrateColumn" xml:space="preserve">
+    <value>Ρυθμός μετάδοσης bit</value>
+  </data>
+  <data name="SampleRateColumn" xml:space="preserve">
+    <value>Ρυθμός δειγματοληψίας</value>
+  </data>
+  <data name="ClearRecentFilesButtonToolTip" xml:space="preserve">
+    <value>Εκκαθάριση πρόσφατων αρχείων</value>
+  </data>
+  <data name="OpenSourceLabel" xml:space="preserve">
+    <value>Άνοιγμα</value>
+    <comment>Label on top of the different options for opening video source on the startup screen.</comment>
+  </data>
+  <data name="ScanningSourceLabelFormat" xml:space="preserve">
+    <value>Σάρωση {0}...</value>
+    <comment>{0} is the name of the source being scanned.</comment>
+  </data>
+  <data name="RetryFailedItemsMenuItem" xml:space="preserve">
+    <value>Επανάληψη αποτυχημένων εργασιών</value>
+  </data>
+  <data name="StartChapterAutomationName" xml:space="preserve">
+    <value>Έναρξη κεφαλαίου</value>
+    <comment>Narrator label for the chapter start combo box</comment>
+  </data>
+  <data name="EndChapterAutomationName" xml:space="preserve">
+    <value>Λήξη κεφαλαίου</value>
+    <comment>Narrator label for the end chapter combo box</comment>
+  </data>
+  <data name="EditChaptersButtonAutomationName" xml:space="preserve">
+    <value>Διαμόρφωση κεφαλαίων</value>
+    <comment>Help text for screen readers for the Edit chapters button</comment>
+  </data>
+  <data name="ApplyCurrentEncodingSettings" xml:space="preserve">
+    <value>Εφαρμογή τρέχουσων ρυθμίσεων κωδικοποίησης</value>
+  </data>
+  <data name="OpenSourceFolderOption" xml:space="preserve">
+    <value>Άνοιγμα πηγαίου φακέλου</value>
+    <comment>Menu option to open the folder of the source file in the queue</comment>
+  </data>
+  <data name="WithCurrentJobsFormat" xml:space="preserve">
+    <value>με τις τρέχουσες εργασίες: {0}</value>
+    <comment>Shown as options for the "When done" combo box for actions that trigger when currently encoding job(s) complete. This string is only used when there are multiple items queued.
+{0} is the encode complete action, ex "Shut down"</comment>
+  </data>
+  <data name="WithQueueFormat" xml:space="preserve">
+    <value>με την ουρά: {0}</value>
+    <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion. This string is only used when there are multiple items queued.
+{0} is the encode complete action, ex "Shut down"</comment>
+  </data>
+  <data name="VideoEncodingOptionsToolTip" xml:space="preserve">
+    <value>Επιλογές κωδικοποίησης βίντεο</value>
+  </data>
+  <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
+    <value>Επιλογές κωδικοποίησης ήχου</value>
+  </data>
+  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
+    <value>Η έκδοση {0} μόλις κατέβηκε.</value>
+  </data>
+  <data name="RemoveFromQueueMenuItem" xml:space="preserve">
+    <value>Αφαίρεση από την ουρά</value>
+  </data>
+  <data name="ClearSucceededMenuItem" xml:space="preserve">
+    <value>Εκκαθάριση επιτυχημένων</value>
+  </data>
+  <data name="ClearFailedMenuItem" xml:space="preserve">
+    <value>Εκκαθάριση αποτυχημένων</value>
+  </data>
+  <data name="ClearQueueConfirmationMessage" xml:space="preserve">
+    <value>Είστε σίγουροι ότι θέλετε να αφαιρέσετε όλες τα στοιχεία από την ουρά;</value>
+  </data>
+  <data name="RemoveAllFomQueueMenuItem" xml:space="preserve">
+    <value>Αφαίρεση όλων από την ουρά</value>
+  </data>
+  <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
+    <value>Δεν εκτελέστηκε η ολοκλήρωση της κωδικοποίησης λόγω σφαλμάτων στον κατάλογο αποτελεσμάτων κωδικού.</value>
+  </data>
+  <data name="AudioPickerButtonToolTip" xml:space="preserve">
+    <value>Αυτόματη επιλογή κομματιών ήχου...</value>
+  </data>
+  <data name="SubtitlePickerButtonToolTip" xml:space="preserve">
+    <value>Αυτόματη επιλογή κομματιών υποτίτλων...</value>
+  </data>
+  <data name="AudioSubtitleTrackColumnHeader" xml:space="preserve">
+    <value>Κομμάτι</value>
+    <comment>Column header for the audio or subtitle track summary. This is an an auto-generated summary that includes language, format, etc.</comment>
+  </data>
+  <data name="AudioTrackNameAutomationName" xml:space="preserve">
+    <value>Όνομα κομματιού ήχου</value>
+    <comment>Narrator label for the audio track name text box.</comment>
+  </data>
+  <data name="SubtitleNameAutomationName" xml:space="preserve">
+    <value>Όνομα υποτίτλων</value>
+    <comment>Narrator label for the subtitle name text box.</comment>
+  </data>
+  <data name="CouldNotRecycleFile" xml:space="preserve">
+    <value>Σφάλμα κατά την αποστολή αρχείων στον κάδο ανακύκλωσης.</value>
+  </data>
+  <data name="DestinationAutomaticToolTip" xml:space="preserve">
+    <value>Ο Προορισμός ορίζεται αυτόματα. Κάντε κλικ για να επεξεργαστείτε τις ρυθμίσεις.</value>
+  </data>
+  <data name="DestinationManualToolTip" xml:space="preserve">
+    <value>Ο Προορισμός ορίζεται χειροκίνητα. Κάντε κλικ για να επιστρέψετε σε αυτόματο ορισμό.</value>
+  </data>
+  <data name="CompareAgainstOriginal" xml:space="preserve">
+    <value>Σύγκριση με το πρωτότυπο</value>
+  </data>
+  <data name="CompareEncodedLabel" xml:space="preserve">
+    <value>Κωδικοποιήθηκε</value>
+    <comment>Label for the encoded video when comparing original vs encoded</comment>
+  </data>
+  <data name="CompareOriginalLabel" xml:space="preserve">
+    <value>Πρωτότυπο</value>
+    <comment>Label for the original video when comparing original vs encoded</comment>
+  </data>
+  <data name="CompareWindowHelpText" xml:space="preserve">
+    <value>Κάντε κλικ ή κρατήστε πατημένο το Ctrl για να εμφανίσετε την κωδικοποιημένη έκδοση.</value>
+  </data>
+  <data name="CompareWindowTitleFormat" xml:space="preserve">
+    <value>Σύγκριση βίντεο: {0} - {1}</value>
+    <comment>Title for the Video compare window.
+{0} is a string indicating if it's original or encoded.
+{1} is the file name, e.g. MyFile.mkv</comment>
+  </data>
+  <data name="MuteAutomationName" xml:space="preserve">
+    <value>Σίγαση</value>
+    <comment>Text for screen readers for the mute button on video playback</comment>
+  </data>
+  <data name="UnmuteAutomationName" xml:space="preserve">
+    <value>Αναίρεση σίγασης</value>
+    <comment>Text for screen readers for the unmute button on video playback</comment>
+  </data>
+  <data name="AutoPauseLowBattery" xml:space="preserve">
+    <value>Αυτόματη παύση λόγω χαμηλής μπαταρίας.</value>
+  </data>
+  <data name="AutoPauseLowDiskSpace" xml:space="preserve">
+    <value>Αυτόματη παύση λόγω ελεύθερου χώρου στο δίσκο κάτω από {0}GB.</value>
+    <comment>{0} is the disk space threshold for auto-pause in GB</comment>
+  </data>
+  <data name="AutoPauseProcessDetected" xml:space="preserve">
+    <value>Αυτόματη παύση, ανίχνευση διεργασίας: {0}</value>
+    <comment>{0} is the name of the process we were waiting for to pause</comment>
+  </data>
+  <data name="AutoPauseResumeBattery" xml:space="preserve">
+    <value>Αυτόματη επανέναρξη, συνδεμένο στο ρεύμα.</value>
+  </data>
+  <data name="AutoPauseResumeDiskSpace" xml:space="preserve">
+    <value>Αυτόματη επανέναρξη του δίσκου, ο δίσκος έχει ελεύθερο χώρο.</value>
+  </data>
+  <data name="AutoPauseResumeProcess" xml:space="preserve">
+    <value>Αυτόματη επανέναρξη των διαδικασιών, οι διαδικασίες τελείωσαν.</value>
+  </data>
+  <data name="Win7DeprecationWarning" xml:space="preserve">
+    <value>Το VidCoder δεν υποστηρίζεται πλέον στα Windows 7 ή 8.
+
+Μπορείτε να συνεχίσετε να χρησιμοποιείτε το VidCoder με δική σας ευθύνη. Ορισμένα χαρακτηριστικά είναι μη λειτουργικά και μπορεί να υπάρχουν και άλλα μη γνωστα προβλήματα. Δεν είναι διαθέσιμη υποστήριξη όταν αυτά τα προβλήματα συμβαίνουν.
+
+Η v5 ήταν η τελευταία έκδοση που δοκιμάστηκε για Windows 7/8.
+
+Αυτή η προειδοποίηση θα εμφανιστεί μόνο δύο φορές.</value>
+  </data>
+  <data name="RemoveSourceFiles_Delete" xml:space="preserve">
+    <value>Διαγραφή</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RemoveSourceFiles_Recycle" xml:space="preserve">
+    <value>Ανακύκλωση</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RequestFeatureMenuItem" xml:space="preserve">
+    <value>Ζητήστε ένα χαρακτηριστικό</value>
+  </data>
+  <data name="CopyLogAndReportMenuItem" xml:space="preserve">
+    <value>Αντιγραφή αρχείου καταγραφής και αναφορά του προβλήματος</value>
+  </data>
+  <data name="WatcherMenuItem" xml:space="preserve">
+    <value>Ανιχνευτής</value>
+  </data>
+  <data name="QueueProgressLabel" xml:space="preserve">
+    <value>Ουρά {0}/{1}:</value>
+    <comment>{0} is the current job number for scanning and adding an item to the queue
+{1} is the total number of scanned items this session</comment>
+  </data>
+</root>

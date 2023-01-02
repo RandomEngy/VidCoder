@@ -261,6 +261,10 @@
     <value>Anfangskapitel</value>
   </data>
   
+  <data name="OutputFolder" xml:space="preserve">
+    <value>Speicherort:</value>
+    <comment>Label for the output folder.</comment>
+  </data>
   
   
   
@@ -273,31 +277,42 @@
   
   
   
+  <data name="SourceCleanupPreviewLabel" xml:space="preserve">
+    <value>Vorschau:</value>
+  </data>
   
   
   
   
   
   
+  <data name="PickerAudioSectionName" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  
+  <data name="PickerSubtitleSectionName" xml:space="preserve">
+    <value>Untertitel</value>
+  </data>
   
   
   
   
   
   
-  
-  
-  
-  
-  
-  
-  
+  <data name="VideoSelectionSection" xml:space="preserve">
+    <value>Videoauswahl</value>
+  </data>
+  <data name="MetadataSection" xml:space="preserve">
+    <value>Metadaten</value>
+  </data>
   
   <data name="BurnInCheckBox" xml:space="preserve">
     <value>Einbrennen</value>
   </data>
   
-  
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Sprache:</value>
+  </data>
   
   
 </root>

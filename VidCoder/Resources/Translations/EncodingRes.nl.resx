@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Opslaan</value>
@@ -738,11 +738,7 @@ Negeert alle andere instellingen.</value>
   <data name="DeblockToolTip" xml:space="preserve">
     <value>Deblock vermindert hoekige artefacten, veroorzaakt door videocompressie met lage kwaliteit.</value>
   </data>
-  <data name="DeinterlaceToolTip" xml:space="preserve">
-    <value>Deinterlace verwijdert 'kam' artefacten uit het beeld.
-Yadif is een populaire en snelle deinterlacer.
-Decomb schakelt tussen verschillende interpolatie-algoritmes voor snelheid en kwaliteit.</value>
-  </data>
+  
   <data name="DenoiseToolTip" xml:space="preserve">
     <value>Denoise vermindert of verwijdert ruis en korreligheid. Dit kan de efficiëntie van de compressie verbeteren en video van hogere kwaliteit opleveren met een kleinere bestandsgrootte.
 Een al te sterke Denoise-instelling kan de beeldkwaliteit verminderen door detail te verwijderen.
@@ -853,4 +849,5 @@ Lapsharp verscherpt middels plooikernen die Laplaciaanse randfilters benaderen e
   <data name="MinimumCroppingToolTip" xml:space="preserve">
     <value>Als het automatisch bijsnijden voor een zijde onder deze waarde ligt, schakel dan het bijsnijden voor die zijde uit. Handig om resampling op kleine bijsnijdhoeveelheden te voorkomen </value>
   </data>
+  
 </root>

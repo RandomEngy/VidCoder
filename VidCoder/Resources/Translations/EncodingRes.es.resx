@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Guardar</value>
@@ -740,13 +740,7 @@ Reemplaza las demás configuraciones.</value>
   <data name="DeblockToolTip" xml:space="preserve">
     <value>Reduce los artefactos de bloque causado por la compresión de vídeo de baja calidad.</value>
   </data>
-  <data name="DeinterlaceToolTip" xml:space="preserve">
-    <value>Deinterlace elimina los residuos de entrelazado de la imagen.
-
-Yadif es un rápido y popular filtro de dentrelazado.
-
-Decomb alterna entre varios algoritmos de interpolación para obtener calidad y velocidad.</value>
-  </data>
+  
   <data name="DenoiseToolTip" xml:space="preserve">
     <value>Denoise reduce o elimina la apariencia de ruido y grano, mejorando la compresión y consiguiente un video de mayor calidad a un tamaño menor.
 Aplicar un fuerte Denoise puede llevar a una perdida de calidad de imagen.
@@ -857,4 +851,5 @@ Lapsharp funciona usando núcleos de circunvolución que se aproximan a los filt
   <data name="MinimumCroppingToolTip" xml:space="preserve">
     <value>Si el recorte automático es menor que éste valor, desactiva el recorte para ese borde. Útil para prevenir el remuestreo de pequeños cortes.</value>
   </data>
+  
 </root>

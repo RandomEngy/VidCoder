@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddButton" xml:space="preserve">
+    <value>Προσθήκη</value>
+  </data>
+  <data name="RefreshButton" xml:space="preserve">
+    <value>Ανανέωση</value>
+  </data>
+  <data name="ChooseFromProcessesLabel" xml:space="preserve">
+    <value>Επιλέξτε από τις υπάρχουσες διαδικασίες:</value>
+  </data>
+  <data name="AddAutoPauseProcessDialogTitle" xml:space="preserve">
+    <value>Προσθήκη της διαδικασίας αυτόματης παύσης</value>
+  </data>
+  <data name="ProcessNameLabel" xml:space="preserve">
+    <value>Όνομα διαδικασίας:</value>
+  </data>
+  <data name="ExceptionDialogMainText" xml:space="preserve">
+    <value>Το VidCoder αντιμετώπισε ένα μη αναμενόμενο σφάλμα.</value>
+  </data>
+  <data name="ExceptionDialogSubText" xml:space="preserve">
+    <value>Αναφέρετε αυτό το θέμα ώστε να το διορθωθεί στο μέλλον.</value>
+  </data>
+  <data name="ExceptionWindowTitle" xml:space="preserve">
+    <value>Εξαίρεση</value>
+  </data>
+  <data name="FileConflictDialogTitle" xml:space="preserve">
+    <value>Διένεξη αρχείων</value>
+  </data>
+  <data name="OverwriteButton" xml:space="preserve">
+    <value>Αντικατάσταση</value>
+  </data>
+  <data name="AutoRenameButton" xml:space="preserve">
+    <value>Αυτόματη ονομασία</value>
+  </data>
+  <data name="FileConflictWarning" xml:space="preserve">
+    <value>Ένα αρχείο υπάρχει ήδη στο {0}. Θέλετε να αντικαταστήσετε το αρχείο, να βρείτε αυτόματα μια νέα διαδρομή εξόδου για την εργασία κωδικοποίησης ή να ακυρώσετε τη λειτουργία;</value>
+  </data>
+  <data name="QueueFileConflictWarning" xml:space="preserve">
+    <value>Μια εργασία στην ουρά έχει ήδη μια διαδρομή εξόδου στο {0}. Θέλετε να αντικαταστήσετε την εργασία στην ουρά, να βρείτε αυτόματα μια νέα διαδρομή εξόδου για την εργασία κωδικοποίησης ή να ακυρώσετε τη διαδικασία;</value>
+  </data>
+  <data name="QueueColumnsDialogTitle" xml:space="preserve">
+    <value>Στήλες Ουράς</value>
+  </data>
+  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
+    <value>Σύρισμο και εναπόθεση για προσθήκη, αφαίρεση ή αναδιάταξη στηλών.</value>
+  </data>
+  <data name="UnusedColumns" xml:space="preserve">
+    <value>Αχρησιμοποίητες στήλες</value>
+  </data>
+  <data name="UsedColumns" xml:space="preserve">
+    <value>Χρησιμοποιημένες στήλες</value>
+  </data>
+  <data name="ScanMultipleWindowTitle" xml:space="preserve">
+    <value>Σάρωση...</value>
+  </data>
+  <data name="AboutVidCoderDialogTitle" xml:space="preserve">
+    <value>Περί του VidCoder</value>
+  </data>
+  <data name="LicenseLabel" xml:space="preserve">
+    <value>Άδεια:</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Έκδοση</value>
+  </data>
+  <data name="BasedOnHandBrake" xml:space="preserve">
+    <value>Βασισμένο στο HandBrake ({0})</value>
+  </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>© {0} VidCoder Developers</value>
+  </data>
+  <data name="BetaVersionFormat2" xml:space="preserve">
+    <value>{0} Beta</value>
+    <comment>{0} is a placeholder for version. For example: 1.4.2 Beta</comment>
+  </data>
+  <data name="NameDialogTitle" xml:space="preserve">
+    <value>Όνομα</value>
+    <comment>Title for dialog when  naming a preset or  picker</comment>
+  </data>
+  <data name="ChooseNamePreset" xml:space="preserve">
+    <value>Επιλέξτε ένα όνομα για την προρύθμιση:</value>
+  </data>
+  <data name="ApplyUpdateDialogTitle" xml:space="preserve">
+    <value>Εφαρμογή Ενημέρωσης;</value>
+  </data>
+  <data name="ApplyUpdateDialogMessage" xml:space="preserve">
+    <value>Έγινε λήψη μιας ενημέρωσης. Θέλετε να την εφαρμόσετε τώρα;</value>
+  </data>
+  <data name="ViewFullChangelog" xml:space="preserve">
+    <value>Προβολή ολόκληρου του αρχείου μεταβολών</value>
+  </data>
+  <data name="DisableUpdatesButton" xml:space="preserve">
+    <value>Απενεργοποίηση ενημερώσεων</value>
+  </data>
+  <data name="NoticeMessageTitle" xml:space="preserve">
+    <value>Σημείωση</value>
+  </data>
+  <data name="UnsupportedOSError" xml:space="preserve">
+    <value>Το VidCoder δεν υποστηρίζεται στο λειτουργικό σας σύστημα. Τα Windows XP και Server 2003 δεν λειτουργούν πλέον. Εγκαταστήστε το VidCoder 1.4 ή αναβαθμίστε το λειτουργικό σας σύστημα.</value>
+  </data>
+  <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
+    <value>Ύπνος συστήματος</value>
+  </data>
+  <data name="EncodeCompleteWarning_LogOffTitle" xml:space="preserve">
+    <value>Άμεση αποσύνδεση</value>
+  </data>
+  <data name="EncodeCompleteWarning_ShutdownTitle" xml:space="preserve">
+    <value>Άμεσος τερματισμός</value>
+  </data>
+  <data name="EncodeCompleteWarning_SleepMessage" xml:space="preserve">
+    <value>Θα γίνει αναστολή του συστήματος σε {0} δευτερόλεπτα.</value>
+  </data>
+  <data name="EncodeCompleteWarning_LogOffMessage" xml:space="preserve">
+    <value>Θα γίνει αποσύνδεση σε {0} δευτερόλεπτα.</value>
+  </data>
+  <data name="EncodeCompleteWarning_ShutdownMessage" xml:space="preserve">
+    <value>Το σύστημα θα τερματιστεί σε {0} δευτερόλεπτα.</value>
+  </data>
+  <data name="EncodeCompleteWarning_Title" xml:space="preserve">
+    <value>Ολοκλήρωση μετατροπής.</value>
+  </data>
+  <data name="CouldNotFindVideoPlayerError" xml:space="preserve">
+    <value>Αδυναμία εύρεσης αναπαραγωγού βίντεο για το {0}.</value>
+  </data>
+  <data name="ErrorPlayingSource" xml:space="preserve">
+    <value>Σφάλμα αναπαραγωγής της πηγής.</value>
+  </data>
+  <data name="EncodeCompleteWarning_HibernateMessage" xml:space="preserve">
+    <value>Θα γίνει αδρανοποίηση του συστήματος σε {0} δευτερόλεπτα.</value>
+  </data>
+  <data name="EncodeCompleteWarning_HibernateTitle" xml:space="preserve">
+    <value>Άμεση αδρανοποίηση</value>
+  </data>
+  <data name="ChooseNamePicker" xml:space="preserve">
+    <value>Ορισμός ονόματος για τον επιλογέα:</value>
+  </data>
+  <data name="ExceptionDialogSubTextReported" xml:space="preserve">
+    <value>Το πρόγραμμα πρέπει να κλείσει, αλλά το σφάλμα θα αναφερθεί αυτόματα.</value>
+  </data>
+  <data name="DownloadInstallerButton" xml:space="preserve">
+    <value>Κατεβάστε το πρόγραμμα εγκατάστασης</value>
+  </data>
+  <data name="ReplaceJobButton" xml:space="preserve">
+    <value>Αντικατάσταση εργασίας</value>
+  </data>
+  <data name="CopyAndReportIssueButton" xml:space="preserve">
+    <value> Αντιγραφής και αναφορά προβλήματος</value>
+  </data>
+  <data name="OneTimeInstallerCleanup" xml:space="preserve">
+    <value>Πρέπει να κάνουμε μια εφάπαξ εκκαθάριση της παλιάς εγκατάστασης. Επιλέξτε 'Ναι' στην επόμενη προτροπή για να αφαιρέσετε την παλιά έκδοση του VidCoder.</value>
+  </data>
+</root>

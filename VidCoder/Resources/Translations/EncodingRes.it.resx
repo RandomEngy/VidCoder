@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Salva</value>
@@ -734,9 +734,9 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Il Deblock riduce gli artefatti causati da una compressione video di bassa qualità.</value>
   </data>
   <data name="DeinterlaceToolTip" xml:space="preserve">
-    <value>Il Deinterlacciamento rimuove dalla foto gli artefatti a "pettine".
-Yadif è un deinterlacciatore popolare e veloce. 
-Decomb utilizza più algoritmi di interpolazione per bilanciare velocità e qualità.</value>
+    <value>Il de-interlacciamento rimuove dall'immagine gli artefatti a "pettine".
+Bwdif e Yadif sono due popolari e veloci algoritmi di de-interlacciamento. 
+L'opzione Decomb utilizza più algoritmi d'interpolazione per bilanciare velocità e qualità.</value>
   </data>
   <data name="DenoiseToolTip" xml:space="preserve">
     <value>Denoise riduce o elimina l'aspetto del disturbo e granulosità. Questo può migliorare l'efficienza di compressione e creare maggiore qualità video con una dimensioni minore dei file. 
@@ -845,5 +845,8 @@ NitidezzaCircolare rende più nitida l'immagine utilizzando il filtro con "nocci
   </data>
   <data name="MinimumCroppingToolTip" xml:space="preserve">
     <value>Se il ritaglio automatico è inferiore a questo importo per un lato, disabilita il ritaglio per quel lato. Utile per impedire il ricampionamento su piccoli ritagli.</value>
+  </data>
+  <data name="CroppingType_Conservative" xml:space="preserve">
+    <value>Conservativo</value>
   </data>
 </root>

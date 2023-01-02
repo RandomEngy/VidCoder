@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
     <value>Título:</value>
@@ -290,9 +290,6 @@
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Confirmar exclusão</value>
-  </data>
-  <data name="CouldNotDeleteFile" xml:space="preserve">
-    <value>Não foi possível eliminar {0} {1}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>Erro ao analizar o(s) arquivos(s) de vídeo</value>
@@ -749,5 +746,13 @@ Este aviso será exibido duas vezes.</value>
   </data>
   <data name="CopyLogAndReportMenuItem" xml:space="preserve">
     <value>Copiar registro e relatar problemas</value>
+  </data>
+  <data name="WatcherMenuItem" xml:space="preserve">
+    <value>Espectador</value>
+  </data>
+  <data name="QueueProgressLabel" xml:space="preserve">
+    <value>Enfileirando {0}/{1}:</value>
+    <comment>{0} is the current job number for scanning and adding an item to the queue
+{1} is the total number of scanned items this session</comment>
   </data>
 </root>

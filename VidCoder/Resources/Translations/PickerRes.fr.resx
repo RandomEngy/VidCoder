@@ -245,7 +245,9 @@
   
   
   
-  
+  <data name="PickerAudioSectionName" xml:space="preserve">
+    <value>Audio</value>
+  </data>
   
   
   

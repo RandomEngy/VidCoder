@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Speichern</value>
@@ -739,13 +739,7 @@ Hiermit legen Sie den Encodierer fest, auf den zurückgegriffen wird, falls die 
   <data name="DeblockToolTip" xml:space="preserve">
     <value>Entblocken reduziert die Sichtbarkeit von Blockartefakten, welche durch schlechte Videokomprimierung hervorgerufen werden.</value>
   </data>
-  <data name="DeinterlaceToolTip" xml:space="preserve">
-    <value>Zeilenentflechtung entfernt Kammartefakte aus dem Bild.
-
-Yadif ist ein beliebter und schnell.
-
-Decomb ("Entkämmer") wechselt sich zwischen verschiedenen Interpolationsalgorithmen, um sowohl schnelle als auch hochwertige Resultate liefern zu können.</value>
-  </data>
+  
   <data name="DenoiseToolTip" xml:space="preserve">
     <value>Entrauschen reduziert oder entfernt das Auftreten von Rauschen und Filmkorn. Dies kann die Komprimierungseffizienz verbessern und somit qualitativ hochwertigere Videos bei geringeren Dateigrößen ermöglichen. 
          
@@ -841,6 +835,11 @@ LapSharp verwendet Faltungsmatrizen, welche Laplace-Kanten-Filter annähern, zum
   
   
   
+  <data name="MinimumCroppingLabel" xml:space="preserve">
+    <value>Mindestens</value>
+  </data>
   
-  
+  <data name="CroppingType_Conservative" xml:space="preserve">
+    <value>Konservativ</value>
+  </data>
 </root>

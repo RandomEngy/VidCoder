@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Kaydet</value>
@@ -738,13 +738,7 @@ Diğer tüm ayarları geçersiz kılar.</value>
   <data name="DeblockToolTip" xml:space="preserve">
     <value>Blok Giderme, düşük kaliteli video sıkıştırma işleminden kaynaklanan bloklu eserleri azaltır.</value>
   </data>
-  <data name="DeinterlaceToolTip" xml:space="preserve">
-    <value>Taraklanma Giderme, taraklanmaları videodan kaldırır.
-
-Yadif popüler ve hızlı bir taraklanma gidericidir.
-
-Taraksız, hız ve kalite için çoklu ara değer algoritmaları arasında geçiş yapar.</value>
-  </data>
+  
   <data name="DenoiseToolTip" xml:space="preserve">
     <value>Gültü Giderme, gürültü ve gren görünümünü azaltır veya kaldırır. Bu, sıkıştırma verimini artırabilir ve daha küçük dosya boyutlarında daha yüksek kalitede video oluşturabilir. Aşırı güçlü Gültü Giderme ayarları, ayrıntıları kaldırarak görüntü kalitesine zarar verebilir. 
          
@@ -854,4 +848,5 @@ Keskinleştir (Lapsharp), Laplacian kenar filtrelerine yakın olan kıvrım tane
   <data name="MinimumCroppingToolTip" xml:space="preserve">
     <value>Otomatik kırpma bir eksen için bu miktarın altındaysa, o eksen için kırpmayı devre dışı bırakın. Küçük kırpma miktarlarında yeniden örneklemeyi önlemek için kullanışlıdır.</value>
   </data>
+  
 </root>

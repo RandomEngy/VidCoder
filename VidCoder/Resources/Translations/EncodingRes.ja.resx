@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>保存</value>
@@ -734,13 +734,7 @@
   <data name="DeblockToolTip" xml:space="preserve">
     <value>デブロックは低品質圧縮時のブロックノイズを低減します</value>
   </data>
-  <data name="DeinterlaceToolTip" xml:space="preserve">
-    <value>デインターレースは櫛形ノイズを除去します。
-
-Yadifは一般的で高速なデインターレース方法です。
-
-Decombはスピードと品質を両立するために、複数の補間アルゴリズムを切り替えます。</value>
-  </data>
+  
   <data name="DenoiseToolTip" xml:space="preserve">
     <value>ノイズ除去はノイズと粒状感を削除または低減します。圧縮率が向上するので、高品質でファイルサイズを小さくできます。
 オーバーレイは強力な設定のため、ディテールを破棄し品質に影響が出る場合があります。
@@ -837,6 +831,7 @@ Lapsharpはラプラシアン輪郭フィルターを近似する畳込みカー
   <data name="ColorspaceLabel" xml:space="preserve">
     <value>色空間:</value>
   </data>
+  
   
   
   

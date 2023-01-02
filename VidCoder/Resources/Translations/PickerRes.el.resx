@@ -1,0 +1,399 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DefaultCheckBox" xml:space="preserve">
+    <value>Προεπιλογή</value>
+  </data>
+  <data name="LanguagesRadioButton" xml:space="preserve">
+    <value>Γλώσσα(ες)</value>
+  </data>
+  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
+    <value>Μόνο εάν έχουν διαφορετική γλώσσα από τον ήχο</value>
+    <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Επιλογέας: {0}</value>
+  </data>
+  <data name="PickerButtonFormat" xml:space="preserve">
+    <value>Επιλογέας: {0}</value>
+    <comment>{0} is the name of the picker. This string shows up on the picker split button.</comment>
+  </data>
+  <data name="OutputLocation" xml:space="preserve">
+    <value>Τοποθεσία εξόδου</value>
+  </data>
+  <data name="OverrideDirectoryCheckBox" xml:space="preserve">
+    <value>Παράκαμψη καταλόγου:</value>
+  </data>
+  <data name="PickerHelpText" xml:space="preserve">
+    <value>Αυτόματη επιλογή τίτλων, ήχου, υποτίτλων και προορισμού</value>
+  </data>
+  <data name="AutoQueueOnScanCheckBox" xml:space="preserve">
+    <value>Αυτόματη τοποθέτηση στην ουρά μετά τη σάρωση</value>
+  </data>
+  <data name="AutoEncodeOnScanCheckBox" xml:space="preserve">
+    <value>Εκκίνηση της κωδικοποίησης μετά τη σάρωση</value>
+  </data>
+  <data name="UseGlobalSettingToolTip" xml:space="preserve">
+    <value>Χρήση καθολικής ρύθμισης</value>
+    <comment>Label for the "indeterminate" checkbox state that lets the user know that this will fall back to the global setting</comment>
+  </data>
+  <data name="PresetOverrideToolTip" xml:space="preserve">
+    <value>Αυτό θα αντικαταστήσει οποιαδήποτε προρύθμιση έχει επιλεγεί στο κύριο παράθυρο.</value>
+  </data>
+  <data name="EncodingSection" xml:space="preserve">
+    <value>Κωδικοποίηση</value>
+    <comment>The header for the Encoding section in the Picker window.</comment>
+  </data>
+  <data name="PostEncodingSection" xml:space="preserve">
+    <value>Μετά την κωδικοποίηση</value>
+    <comment>Header for the post-encoding section in the picker window.</comment>
+  </data>
+  <data name="SendFileToLabel" xml:space="preserve">
+    <value>Αποστολή αρχείου στο:</value>
+    <comment>Label for the option to run a program after encoding each file.</comment>
+  </data>
+  <data name="PostEncodeArgumentsLabel" xml:space="preserve">
+    <value>Μεταβλητές:</value>
+    <comment>The label for the arguments to pass to the post-encode executable.</comment>
+  </data>
+  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
+    <value>Οι μεταβλητές που πρέπει να περάσετε στο πρόγραμμα. Χρησιμοποιήστε {file} για τη διαδρομή εξόδου αρχείου, {folder} όπως περιέχει διαδρομή φακέλου ή άλλες επιλογές διαδρομής όπως {title} και {date} (ανατρέξτε στην ενότητα Μορφή ονομασίας).</value>
+    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  </data>
+  <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
+    <value>Ο επιλογέας έχει καθορίσει την προκαθορισμένη κωδικοποίηση.</value>
+  </data>
+  <data name="AddLanguageButton" xml:space="preserve">
+    <value>Προσθήκη Γλώσσας</value>
+  </data>
+  <data name="AllTracksForTheseLanguagesRadioButton" xml:space="preserve">
+    <value>Όλα τα κομμάτια για αυτές τις γλώσσες</value>
+  </data>
+  <data name="AllTracksForThisLanguageRadioButton" xml:space="preserve">
+    <value>Όλα τα κομμάτια για τη γλώσσα</value>
+  </data>
+  <data name="FirstTrackOfEachLanguageRadioButton" xml:space="preserve">
+    <value>Πρώτη φέρουσα κάθε γλώσσας</value>
+  </data>
+  <data name="FirstTrackRadioButton" xml:space="preserve">
+    <value>Πρώτη φέρουσα</value>
+  </data>
+  <data name="SingleSubtitleDefaultToolTip" xml:space="preserve">
+    <value>Σημειώστε το κομμάτι υποτίτλων ως προεπιλογή, επομένως αυτό θα εμφανιστεί αυτόματα κατά την αναπαραγωγή του βίντεο.</value>
+  </data>
+  <data name="MultipleSubtitleDefaultToolTip" xml:space="preserve">
+    <value>Σημειώστε το πρώτο κομμάτι υποτίτλων ως προεπιλογή, έτσι θα εμφανίζεται αυτόματα κατά την αναπαραγωγή του βίντεο.</value>
+  </data>
+  <data name="FirstAsDefaultCheckBox" xml:space="preserve">
+    <value>Σημειώστε το πρώτο ως προεπιλογή</value>
+    <comment>Label for checkbox to mark the first subtitle as default.</comment>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>Χρήση προρύθμισης:</value>
+  </data>
+  <data name="RemoveLanguageToolTip" xml:space="preserve">
+    <value>Αφαιρέστε αυτή τη γλώσσα.</value>
+  </data>
+  <data name="SortLanguagesLabel" xml:space="preserve">
+    <value>Ταξινόμηση των γλωσσών στην κορυφή:</value>
+  </data>
+  <data name="ForcedOnlyCheckBox" xml:space="preserve">
+    <value>Μόνο εξαναγκασμένοι</value>
+    <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
+  </data>
+  <data name="LastSelectedRadioButton" xml:space="preserve">
+    <value>Τελευταίο επιλεγμένο</value>
+  </data>
+  <data name="OverrideNameFormatLabel" xml:space="preserve">
+    <value>Διαθέσιμες επιλογές: {0}</value>
+  </data>
+  <data name="DurationFilterStartAutomationName" xml:space="preserve">
+    <value>Φίλτρο ελάχιστης διάρκειας χρόνου</value>
+    <comment>Screen reader text for number box that represents the start of the filter range in minutes. The number chosen in this box represents the minimum title length in minutes that will be chosen.
+</comment>
+  </data>
+  <data name="DurationFilterEndAutomationName" xml:space="preserve">
+    <value>Φίλτρο μέγιστης διάρκειας χρόνου</value>
+    <comment>Screen reader text for number box that represents the end of the filter range in minutes. The number chosen in this box represents the maximum title length in minutes that will be chosen.
+</comment>
+  </data>
+  <data name="DurationFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>Επιλογή αρχείων βάσει χρόνου</value>
+    <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
+  </data>
+  <data name="ChangeCaptializationLabel" xml:space="preserve">
+    <value>Αλλαγή κεφαλαιοποίησης σε</value>
+  </data>
+  <data name="TimeRangeStartAutomationName" xml:space="preserve">
+    <value>Χρόνος έναρξης</value>
+  </data>
+  <data name="TimeRangeEndAutomationName" xml:space="preserve">
+    <value>Χρόνος λήξης</value>
+  </data>
+  <data name="ByIndexRadioButton" xml:space="preserve">
+    <value>Με βάση τον κωδικό αριθμό</value>
+    <comment>Label for the choice to choose audio or subtitle tracks by index</comment>
+  </data>
+  <data name="SelectTracksLabel" xml:space="preserve">
+    <value>Επιλογή κομματιών:</value>
+  </data>
+  <data name="SelectTracksHelpText" xml:space="preserve">
+    <value>Διαχωρισμός με κόμμα - πχ. 2,5</value>
+  </data>
+  <data name="ChapterRangeEndAutomationName" xml:space="preserve">
+    <value>Τέλος εύρους κεφαλαίου</value>
+  </data>
+  <data name="ChapterRangeStartAutomationName" xml:space="preserve">
+    <value>Αρχή εύρους κεφαλαίου</value>
+  </data>
+  <data name="DestinationSection" xml:space="preserve">
+    <value>Προορισμός</value>
+  </data>
+  <data name="OutputFolder" xml:space="preserve">
+    <value>Φάκελος εξόδου:</value>
+    <comment>Label for the output folder.</comment>
+  </data>
+  <data name="UseCustomFileNameFormatCheckBox" xml:space="preserve">
+    <value>Χρήση προσαρμοσμένης μορφής ονομασίας αρχείων:</value>
+  </data>
+  <data name="WhenFileExistsBatch" xml:space="preserve">
+    <value>Όταν το αρχείο υπάρχει ήδη (Στοίβα):</value>
+  </data>
+  <data name="WhenFileExistsSingle" xml:space="preserve">
+    <value>Όταν το αρχείο υπάρχει ήδη (Μονό):</value>
+  </data>
+  <data name="CustomPickerNameTemplate" xml:space="preserve">
+    <value>Προσαρμοσμένο {0}</value>
+    <comment>The name for a custom auto-created picker. {0} is a number like 2, or 3 or 4 to differentiate it</comment>
+  </data>
+  <data name="OutputFileNameFormatAutomationName" xml:space="preserve">
+    <value>Μορφή ονόματος αρχείου</value>
+    <comment>Name for screen readers for the output file name format text box</comment>
+  </data>
+  <data name="OnlyChangeCapitalizationIfAllSameLabel" xml:space="preserve">
+    <value>Αλλαγή κεφαλαιοποίησης μόνο αν όλα είναι πεζά ή κεφαλαία</value>
+  </data>
+  <data name="WordBreakCharacterAutomationNameFormat" xml:space="preserve">
+    <value>Χαρακτήρας αποκοπής λέξης - {0}</value>
+    <comment>Screen reader format for word break checkboxes. These will determine if a character will be used to separate words.</comment>
+  </data>
+  <data name="WordBreakCharactersLabel" xml:space="preserve">
+    <value>Αναγνωρισμένοι χαρακτήρες αποκοπής λέξης:</value>
+  </data>
+  <data name="WordBreakCharacter_Dot" xml:space="preserve">
+    <value>Τελεία</value>
+  </data>
+  <data name="WordBreakCharacter_Space" xml:space="preserve">
+    <value>Κενό</value>
+  </data>
+  <data name="WordBreakCharacter_Underscore" xml:space="preserve">
+    <value>Υπογράμμιση</value>
+  </data>
+  <data name="ChangeWordSeparatorLabel" xml:space="preserve">
+    <value>Αλλαγή διαχωριστικού λέξεων σε</value>
+  </data>
+  <data name="SourceCleanupPreviewLabel" xml:space="preserve">
+    <value>Προεπισκόπηση:</value>
+  </data>
+  <data name="SourceNameCleanupSection" xml:space="preserve">
+    <value>Εκκαθάριση ονόματος πηγής</value>
+  </data>
+  <data name="AddAudioTrackNameButton" xml:space="preserve">
+    <value>Προσθήκη ονόματος κομματιού ήχου</value>
+    <comment>Button to add another name to the list of audio track names in the Picker.</comment>
+  </data>
+  <data name="AddSubtitleTrackNameButton" xml:space="preserve">
+    <value>Προσθήκη ονόματος κομματιού υπότιτλου</value>
+    <comment>Button to add another name to the list of subtitle track names in the Picker.</comment>
+  </data>
+  <data name="CustomTrackNamesCheckBox" xml:space="preserve">
+    <value>Προσαρμοσμένα ονόματα κομματιών</value>
+    <comment>Checkbox label to use custom audio or subtitle track names</comment>
+  </data>
+  <data name="TrackAutomationFormat" xml:space="preserve">
+    <value>Κομμάτι {0}</value>
+    <comment>Screen reader format for track names in the Picker.</comment>
+  </data>
+  <data name="BurnInLabel" xml:space="preserve">
+    <value>Ενσωμάτωση:</value>
+  </data>
+  <data name="PickerAudioSectionName" xml:space="preserve">
+    <value>Ήχος</value>
+  </data>
+  <data name="PickerForeignAudioCheckBox" xml:space="preserve">
+    <value>Προσθήκη Κομματιού 'Ξενόγλωσσης σάρωσης'</value>
+  </data>
+  <data name="PickerSubtitleSectionName" xml:space="preserve">
+    <value>Υπότιτλοι</value>
+  </data>
+  <data name="SubtitleSelectionMode_ForeignAudioSearch" xml:space="preserve">
+    <value>Ξενόγλωσση σάρωση</value>
+  </data>
+  <data name="TrackSelectionLabel" xml:space="preserve">
+    <value>Επιλογή κομματιού:</value>
+    <comment>Label for track selection mode for audio or subtitle tracks.</comment>
+  </data>
+  <data name="AudioSelectionModeToolTip" xml:space="preserve">
+    <value>Τελευταία επιλογή - Επιλογή του τελευταίου επιλεγμένου κομματιού ήχου αν βρεθεί αντιστοιχία, αλλιώς επιλέγει το πρώτο.
+Πρώτα - Συμπεριλάβετε μόνο το πρώτο κομμάτι ήχου.
+Ανά στοιχεία - Διαλέξτε κατά στοιχεία κομμaτιού (1-based)
+Γλώσσα(-ες) - Επιλέξτε ανά γλώσσα
+Όλα - Συμπεριλάβετε όλα τα κομμάτια ήχου.</value>
+  </data>
+  <data name="SubtitleSelectionModeToolTip" xml:space="preserve">
+    <value>Τελευταία επιλογή - Επιλογή του τελευταίου επιλεγμένου κομματιού υποτίτλων αν βρεθεί αντιστοιχία, αλλιώς μην επιλέξτε κομμάτι.
+Κανένα - Δεν περιλαμβάνονται υπότιτλοι.
+Πρώτο - Συμπεριλάβετε μόνο τον πρώτο υπότιτλο.
+Ανά στοιχεία - Επιλέξτε κατά κομμάτι ευρετήριο (1-based)
+Γλώσσα(-ες) - Επιλέξτε ανά γλώσσα
+Όλα - Συμπεριλάβετε όλους τους υπότιτλους.</value>
+  </data>
+  <data name="IgnoreFilesBelowCheckBox" xml:space="preserve">
+    <value>Αγνοήστε τα παρακάτω αρχεία</value>
+    <comment>A number box follows this string: Ignore files below [ 10 ] MB</comment>
+  </data>
+  <data name="TimeRangeLabel" xml:space="preserve">
+    <value>Χρονικό εύρος:</value>
+  </data>
+  <data name="VideoSelectionSection" xml:space="preserve">
+    <value>Επιλογή βίντεο</value>
+  </data>
+  <data name="MetadataSection" xml:space="preserve">
+    <value>Μεταδεδομένα</value>
+  </data>
+  <data name="PassThroughMetadataCheckBox" xml:space="preserve">
+    <value>Αυτούσιο πέρασμα μεταδεδομένων βίντεο (σκηνοθέτης, ημερομηνία έκδοσης, ηθοποιοί κλπ)</value>
+  </data>
+  <data name="BurnInCheckBox" xml:space="preserve">
+    <value>Ενσωμάτωση</value>
+  </data>
+  <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
+    <value>Προσθήκη εξωτερικών αρχείων υποτίτλων ({0}) με το ίδιο όνομα όπως το εισαγόμενο βίντεο</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Γλώσσα:</value>
+  </data>
+  <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
+    <value>Επιβεβαίωση πριν την αφαίρεση</value>
+  </data>
+  <data name="SourceFileRemovalLabel" xml:space="preserve">
+    <value>Αφαίρεση αρχικού αρχείου μετά από επιτυχή κωδικοποίηση:</value>
+    <comment>Label for the option to automatically delete source files on completion.</comment>
+  </data>
+</root>

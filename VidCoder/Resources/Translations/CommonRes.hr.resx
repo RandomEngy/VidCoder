@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutLicense" xml:space="preserve">
     <value>Ovaj program je slobodan; možete ga distribuirati i/ili mijenjati pod uvjetima GNU Opće javne licence kako ju je objavio Free Software Foundation; ili verzije 2 Licence, ili (po vašem izboru) bilo koje novije verzije.
@@ -341,4 +341,5 @@ Kompletna kopija GNU Opće javne licence dolazi s ovim programom.</value>
     <value>MB</value>
     <comment>Abbreviation for megabytes</comment>
   </data>
+  
 </root>

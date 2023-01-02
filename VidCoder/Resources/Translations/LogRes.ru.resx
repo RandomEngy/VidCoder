@@ -133,6 +133,6 @@
     <value>Подробная</value>
   </data>
   <data name="ClearFinishedButton" xml:space="preserve">
-    <value>Очистить завершённое</value>
+    <value>Очистить завершённые</value>
   </data>
 </root>

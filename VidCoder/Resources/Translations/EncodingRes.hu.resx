@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Mentés</value>
@@ -736,13 +736,7 @@ Felülírja az összes többi beállítást.</value>
   <data name="DeblockToolTip" xml:space="preserve">
     <value>A deblock csökkenti az alacsony videótömörítés által okozott kockahibákat.</value>
   </data>
-  <data name="DeinterlaceToolTip" xml:space="preserve">
-    <value>A deinterlace eltávolítja a képről a fésűs hibákat.
-
-A yadif egy népszerű és gyors deinterlacer.
-
-A decomb többféle interpolációs algoritmus között váltogat a sebesség és a minőség érdekében.</value>
-  </data>
+  
   <data name="DenoiseToolTip" xml:space="preserve">
     <value>A denoise csökkenti vagy eltávolítja a zaj és szemcsék megjelenését. Ez javíthatja a tömörítési hatékonyságot, valamint jobb minőségű videófelvételt hozhat létre kisebb fájlméret mellett. 
 A túl erős denoise beállítások károsíthatják a képminőséget a részletek elvetésével.
@@ -841,6 +835,9 @@ A lapsharp konvolúciós kernelek használatával élesít, megközelítve a Lap
   
   
   
+  <data name="MinimumCroppingLabel" xml:space="preserve">
+    <value>Minimum</value>
+  </data>
   
   
 </root>

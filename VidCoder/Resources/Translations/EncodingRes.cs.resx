@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Uložit</value>
@@ -718,33 +718,70 @@ Přepíše všechna ostatní nastavení.</value>
   
   
   
+  <data name="PresetFolder_Custom" xml:space="preserve">
+    <value>Vlastní</value>
+  </data>
+  <data name="PresetFolder_BuiltIn" xml:space="preserve">
+    <value>Vestavěné</value>
+  </data>
+  <data name="PresetFolderCreateSubfolderMenuItem" xml:space="preserve">
+    <value>Vytvořit podsložku</value>
+  </data>
+  <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
+    <value>Přejmenovat složku</value>
+  </data>
+  <data name="PresetFolderRemoveFolderMenuItem" xml:space="preserve">
+    <value>Odstranit složku</value>
+  </data>
+  <data name="DefaultPresetFolderName" xml:space="preserve">
+    <value>Nová složka</value>
+  </data>
+  
+  
+  <data name="NVEncPreset_ll" xml:space="preserve">
+    <value>Nízká latence</value>
+  </data>
+  <data name="NVEncPreset_hq" xml:space="preserve">
+    <value>Vysoká kvalita</value>
+  </data>
+  <data name="NVEncPreset_hp" xml:space="preserve">
+    <value>Vysoký výkon</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>Dole</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Vlevo</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Vpravo</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Nahoře</value>
+  </data>
+  
+  
+  <data name="ApplyToQueueButton" xml:space="preserve">
+    <value>Přidat do fronty</value>
+  </data>
+  <data name="FullEncoderParameterLabel" xml:space="preserve">
+    <value>Úplný seznam parametrů:</value>
+  </data>
+  
+  
+  <data name="PadColorTextToolTip" xml:space="preserve">
+    <value>Formát: FFFFFF</value>
+  </data>
+  
+  <data name="ColorspaceLabel" xml:space="preserve">
+    <value>Barevný prostor:</value>
+  </data>
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="MinimumCroppingLabel" xml:space="preserve">
+    <value>Minimum:</value>
+  </data>
   
   
 </root>

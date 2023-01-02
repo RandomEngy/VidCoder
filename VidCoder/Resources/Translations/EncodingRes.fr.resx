@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Enregistrer</value>
@@ -648,6 +648,35 @@ Remplace tous les autres réglages.</value>
   
   
   
+  <data name="PaddingMode_Width" xml:space="preserve">
+    <value>Largeur</value>
+  </data>
+  <data name="PaddingMode_Height" xml:space="preserve">
+    <value>Hauteur</value>
+  </data>
+  
+  
+  <data name="PadColorLabel" xml:space="preserve">
+    <value>Couleur :</value>
+  </data>
+  
+  <data name="ResolutionLabel" xml:space="preserve">
+    <value>Résolution :</value>
+    <comment>Label for a video resolution in pixels.</comment>
+  </data>
+  
+  
+  
+  
+  
+  <data name="TabHeader_Container" xml:space="preserve">
+    <value>Conteneur</value>
+  </data>
+  
+  <data name="AudioEncoder_none" xml:space="preserve">
+    <value>Aucun</value>
+    <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
+  </data>
   
   
   
@@ -666,31 +695,27 @@ Remplace tous les autres réglages.</value>
   
   
   
+  <data name="Bottom" xml:space="preserve">
+    <value>Bas</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Gauche</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Droite</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Haut</value>
+  </data>
   
   
   
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="PadColorTextToolTip" xml:space="preserve">
+    <value>Format : FFFFFF</value>
+  </data>
   
   
   

@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Gorde</value>
@@ -736,13 +736,7 @@ Beste ezarpen guztiak ezeztatzen ditu.</value>
   <data name="DeblockToolTip" xml:space="preserve">
     <value>Deblokeatzeak kalitate gutxiko bideo konpresioak eragindako blokeatzeak gutxitzen ditu.</value>
   </data>
-  <data name="DeinterlaceToolTip" xml:space="preserve">
-    <value>Deselkarloturak comb artifaktoak kentzen ditu iruditik.
-
-Yadif deselkarloturatzaile ezaguna eta azkarra da.
-
-Decomb-ek interpolazio algoritmo ugariren artean aldatzen da abiadura eta kalitatea hobetzeko.</value>
-  </data>
+  
   <data name="DenoiseToolTip" xml:space="preserve">
     <value>Zarata-kentzeak zarataren eta bikorraren agerpenak gutxitzen edo kentzen ditu. Hau konpresio eraginkortasunez hobetu daiteke eta kalitate handiagoko bideo sortu agiri neurri txikiagoarekin.
 Zarata-kentze ezarpen gogorregiak irudiaren kalitatea kaltetu dezake xehetasunak baztertuz.
@@ -838,6 +832,7 @@ Lapsharp konboluzio kernelak erabiliz zorrozten du Laplacian herz iragazkien ant
   <data name="ColorspaceLabel" xml:space="preserve">
     <value>Margo-tartea:</value>
   </data>
+  
   
   
   

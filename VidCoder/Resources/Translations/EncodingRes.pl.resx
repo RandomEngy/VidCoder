@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Zapisz</value>
@@ -736,13 +736,7 @@ Powinieneś to ustawić jeśli wiesz, że urządzenie do odtwarzania obsługuje 
   <data name="DeblockToolTip" xml:space="preserve">
     <value>Deblock redukuje artefakty blokowe, spowodowane przez niską jakość kompresji wideo.</value>
   </data>
-  <data name="DeinterlaceToolTip" xml:space="preserve">
-    <value>Deinterlace usuwa artefakty zazębień ze zdjęcia.
-
-Yadif jest popularnym i szybkim deinterlacerem.
-
-Dekomb przełącza pomiędzy wieloma algorytmami interpolacji dla zapewnienia szybkości i jakości.</value>
-  </data>
+  
   <data name="DenoiseToolTip" xml:space="preserve">
     <value>Denoise redukuje lub usuwa szum i ziarno. Może to poprawić wydajność kompresji i stworzyć wideo o wyższej jakości przy mniejszych rozmiarach plików. Zbyt silne ustawienia funkcji Denoise może pogorszyć jakość obrazu, poprzez usunięcie szczegółów.
 
@@ -837,6 +831,7 @@ Lapsharp wyostrza za pomocą jądera konwolucji przybliżonych do filtrów kraw�
   <data name="ColorspaceLabel" xml:space="preserve">
     <value>Przestrzeń kolorów:</value>
   </data>
+  
   
   
   

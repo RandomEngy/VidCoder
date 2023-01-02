@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
     <value>Judul:</value>
@@ -286,9 +286,6 @@
   
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Konfirmasi Hapus</value>
-  </data>
-  <data name="CouldNotDeleteFile" xml:space="preserve">
-    <value>Tidak dapat menghapus {0}{1}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>Kesalahan memindai file video</value>
@@ -646,6 +643,8 @@
   <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
     <value>Tindakan setelah pengkodean selesai gagal dikerjakan karena ada kesalahan pada daftar hasil pengkodean.</value>
   </data>
+  
+  
   
   
   

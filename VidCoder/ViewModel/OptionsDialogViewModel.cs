@@ -173,6 +173,7 @@ namespace VidCoder.ViewModel
 						new InterfaceLanguage { CultureCode = "vi-VN", Display = "Tiếng Việt / Vietnamese" },
 						new InterfaceLanguage { CultureCode = "ar-EG", Display = "العربية‏ / Arabic" },
 						new InterfaceLanguage { CultureCode = "ka-GE", Display = "ქართული / Georgian" },
+						new InterfaceLanguage { CultureCode = "el-GR", Display = "ελληνικά / Greek" },
 						new InterfaceLanguage { CultureCode = "ru-RU", Display = "русский / Russian" },
 						new InterfaceLanguage { CultureCode = "ko-KO", Display = "한국어 / Korean" },
 						new InterfaceLanguage { CultureCode = "zh-Hans", Display = "中文(简体) / Chinese (Simplified)" },

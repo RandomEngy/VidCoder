@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Guardar</value>
@@ -733,7 +733,7 @@
   <data name="DeinterlaceToolTip" xml:space="preserve">
     <value>Desentrelaçar remove artefactos ´tipo pente' da imagem.
 
-O Yadif é um desentrelaçador popular e rápido.
+O Bwdif e o Yadif são dois desentrelaçadores populares e rápidos.
 
 O Decomb alterna entre diversos algoritmos de interpolação para velocidade e qualidade.</value>
   </data>
@@ -846,5 +846,8 @@ Lapsharp actua usando núcleos de convolução próximos dos filtro de bordo Lap
   </data>
   <data name="MinimumCroppingToolTip" xml:space="preserve">
     <value>Se o recorte automático estiver abaixo desse valor para um lado, desactive o corte para esse lado. Útil para evitar reamostragem em pequenos recortes. </value>
+  </data>
+  <data name="CroppingType_Conservative" xml:space="preserve">
+    <value>Conservador</value>
   </data>
 </root>

@@ -260,6 +260,10 @@
   <data name="ReplaceJobButton" xml:space="preserve">
     <value>Művelet lecserélése</value>
   </data>
-  
-  
+  <data name="CopyAndReportIssueButton" xml:space="preserve">
+    <value>Hiba másolása és jelentése</value>
+  </data>
+  <data name="OneTimeInstallerCleanup" xml:space="preserve">
+    <value>Egyszeri tisztítást kell elvégeznünk a régi telepítőn. Válaszd az Igen lehetőséget a következő értesítésnél a VidCoder régi verziójának eltávolításához!</value>
+  </data>
 </root>

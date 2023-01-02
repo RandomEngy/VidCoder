@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Salvar</value>
@@ -732,11 +732,11 @@
     <value>O redutor elimina os artefatos de blocos causados pela compressão de vídeo de baixa qualidade.</value>
   </data>
   <data name="DeinterlaceToolTip" xml:space="preserve">
-    <value>Desentrelaçar remove artefactos ´tipo pente' da imagem.
+    <value>Desentrelaçar remove artefatos "tipo penteado" da imagem.
 
-O Yadif é um desentrelaçador popular e rápido.
+Bwdif e Yadif são dois desentrelaçadores populares e rápidos.
 
-O Decomb alterna entre diversos algoritmos de interpolação para velocidade e qualidade.</value>
+Decomb alterna entre diversos algoritmos de interpolação, para velocidade e qualidade.</value>
   </data>
   <data name="DenoiseToolTip" xml:space="preserve">
     <value>O uso do Suavizar reduz ou remove o aparecimento de manchas e pontos na tela. Isso pode melhorar a eficiência da compressão e criar vídeo de maior qualidade em tamanhos menores de arquivos. 
@@ -848,5 +848,8 @@ Lapsharp atua usando núcleos de convolução próximos dos filtro de borda Lapl
   </data>
   <data name="MinimumCroppingToolTip" xml:space="preserve">
     <value>Se o corte automático estiver abaixo deste valor de um lado, desabilite o recorte para esse lado. Útil para prevenir a amostragem de pequenos cortes.</value>
+  </data>
+  <data name="CroppingType_Conservative" xml:space="preserve">
+    <value>Conservador</value>
   </data>
 </root>

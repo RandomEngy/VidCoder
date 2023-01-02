@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
     <value>Simpan</value>
@@ -736,9 +736,7 @@ Anda akan dijamin aliran yang kompatibel. Anda harus menyetel ini jika anda tahu
   <data name="DeblockToolTip" xml:space="preserve">
     <value>Deblock mengurangi artifak yang membuat blok yang disebabkan oleh kompresi gambar kualitas rendah.</value>
   </data>
-  <data name="DeinterlaceToolTip" xml:space="preserve">
-    <value>Deinterlace membuang artifak garis - garis dari gambar.</value>
-  </data>
+  
   <data name="DenoiseToolTip" xml:space="preserve">
     <value>Denoise mengurangi atau membuang tampilan kotor dan bertitik-titik. Ini akan memperbaiki efisiensi kompresi dan membuat gambar dengan kualitas lebih tinggi pada ukuran berkas lebih kecil.
 Terlalu banyak pada pengaturan denoise akan merusak kualitas gambar karena banyak detail hilang.
@@ -828,6 +826,7 @@ Lapsharp menajamkan menggunakan kernel konvolusi dengan mengaproksimasi filter p
   <data name="PadColorTextToolTip" xml:space="preserve">
     <value>Format: FFFFFF</value>
   </data>
+  
   
   
   

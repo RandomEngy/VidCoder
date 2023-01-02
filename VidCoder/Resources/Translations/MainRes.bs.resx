@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
     <value>Naslov:</value>
@@ -286,11 +286,6 @@
   
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Potvrdite brisanje</value>
-  </data>
-  <data name="CouldNotDeleteFile" xml:space="preserve">
-    <value>Nije moguće obrisati {0}
-
-{1}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>Greška kod skeniranja video zapis(a)</value>
@@ -650,6 +645,8 @@
   <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
     <value>Akcija završeno enkodiranje nije pokrenuta zbog greški u listi rezultata enkodiranja.</value>
   </data>
+  
+  
   
   
   
