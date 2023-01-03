@@ -31,9 +31,12 @@ namespace VidCoder.Model
 
 		public void OnNext(T value)
 		{
-			foreach (IObserver<T> observer in this.observers)
+			lock (this.disposeLock)
 			{
-				observer.OnNext(value);
+				foreach (IObserver<T> observer in this.observers)
+				{
+					observer.OnNext(value);
+				}
 			}
 		}
 
