@@ -293,9 +293,13 @@ namespace VidCoder.Services
 		/// Gets the extension that should be used for the current encoding profile.
 		/// </summary>
 		/// <returns>The extension that should be used for current encoding profile.</returns>
-		public string GetOutputExtension(bool includeDot = true)
+		public string GetOutputExtension(VCProfile profile = null, bool includeDot = true)
 		{
-			VCProfile profile = this.PresetsService.SelectedPreset.Preset.EncodingProfile;
+			if (profile == null)
+			{
+				profile = this.PresetsService.SelectedPreset.Preset.EncodingProfile;
+			}
+
 			return GetExtensionForProfile(profile, includeDot);
 		}
 

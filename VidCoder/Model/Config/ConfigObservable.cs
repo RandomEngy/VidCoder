@@ -10,6 +10,7 @@ namespace VidCoder.Model
 	{
 		private string key;
 		private List<IObserver<T>> observers = new List<IObserver<T>>();
+		private readonly object disposeLock = new object();
 
 		public ConfigObservable(string key)
 		{
@@ -19,9 +20,13 @@ namespace VidCoder.Model
 		public IDisposable Subscribe(IObserver<T> observer)
 		{
 			observer.OnNext(Config.Get<T>(this.key));
-			this.observers.Add(observer);
 
-			return new ConfigObservableDisposeToken<T>(this.observers, observer);
+			lock (this.disposeLock)
+			{
+				this.observers.Add(observer);
+			}
+
+			return new ConfigObservableDisposeToken<T>(this.observers, observer, disposeLock);
 		}
 
 		public void OnNext(T value)
@@ -36,13 +41,14 @@ namespace VidCoder.Model
 		{
 			private List<IObserver<T1>> observers;
 			private IObserver<T1> observer;
-			private readonly object disposeLock = new object();
+			private readonly object disposeLock;
 			private bool disposed = false;
 
-			public ConfigObservableDisposeToken(List<IObserver<T1>> observers, IObserver<T1> observer)
+			public ConfigObservableDisposeToken(List<IObserver<T1>> observers, IObserver<T1> observer, object disposeLock)
 			{
 				this.observers = observers;
 				this.observer = observer;
+				this.disposeLock = disposeLock;
 			}
 
 			public void Dispose()
@@ -51,11 +57,7 @@ namespace VidCoder.Model
 				{
 					if (!this.disposed)
 					{
-						if (this.observers.Contains(this.observer))
-						{
-							this.observers.Remove(this.observer);
-						}
-
+						this.observers.Remove(this.observer);
 						this.disposed = true;
 					}
 				}

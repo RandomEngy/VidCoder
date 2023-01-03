@@ -1614,6 +1614,7 @@ namespace VidCoder.Services
 				{
 					VideoSource videoSource = scanResult.VideoSource;
 					Picker picker = scanResult.JobInstructions.Picker;
+					VCProfile profile = scanResult.JobInstructions.Profile.Clone();
 
 					List<int> titleNumbers = this.PickTitles(videoSource);
 					if (titleNumbers.Count == 0)
@@ -1626,7 +1627,7 @@ namespace VidCoder.Services
 						var job = new VCJob
 						{
 							SourcePath = sourcePath.Path,
-							EncodingProfile = scanResult.JobInstructions.Profile.Clone(),
+							EncodingProfile = profile,
 							Title = titleNumber,
 							UseDefaultChapterNames = true,
 							PassThroughMetadata = picker.PassThroughMetadata
@@ -1680,8 +1681,9 @@ namespace VidCoder.Services
 								job.Title,
 								title.Duration.ToSpan(),
 								title.ChapterList.Count,
-								multipleTitlesOnSource: titles.Count > 1);
-							string outputExtension = this.outputPathService.GetOutputExtension();
+								multipleTitlesOnSource: titles.Count > 1,
+								picker: picker);
+							string outputExtension = this.outputPathService.GetOutputExtension(profile: profile);
 							string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
 							queueOutputPath = this.outputPathService.ResolveOutputPathConflicts(
 								queueOutputPath,

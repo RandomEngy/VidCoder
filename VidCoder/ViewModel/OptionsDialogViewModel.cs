@@ -148,7 +148,7 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			// List of language codes and names: http://msdn.microsoft.com/en-us/goglobal/bb896001.aspx
+			// List of language codes and names: https://web.archive.org/web/20170115084704/https://www.microsoft.com/resources/msdn/goglobal/default.mspx
 
 			this.LanguageChoices =
 				new List<InterfaceLanguage>
