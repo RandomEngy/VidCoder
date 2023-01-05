@@ -67,7 +67,7 @@ namespace VidCoder.ViewModel
 				this.WatchedFolders.CountChanged,
 				(enabled, folderCount) =>
 				{
-					return enabled && folderCount > 0;
+					return folderCount > 0;
 				}).ToProperty(this, x => x.ShowFiles, out this.showFiles);
 		}
 
@@ -258,7 +258,10 @@ namespace VidCoder.ViewModel
 		private void SaveWatchedFolders()
 		{ 
 			WatcherStorage.SaveWatchedFolders(Database.Connection, this.WatchedFolders.Items.Select(f => f.WatchedFolder));
-			this.watcherProcessManager.RefreshFromWatchedFolders();
+			if (this.WatcherEnabled)
+			{
+				this.watcherProcessManager.RefreshFromWatchedFolders();
+			}
 		}
 
 		public void RefreshFiles()

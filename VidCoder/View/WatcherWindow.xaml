@@ -75,8 +75,7 @@
 						Padding="6 0"
 						AutomationProperties.Name="{x:Static res:WatcherRes.AddFolderToWatch}"
 						Command="{Binding AddWatchedFolder}"
-						Style="{StaticResource BorderlessButtonStyle}"
-						Visibility="{Binding WatcherEnabled, Converter={StaticResource VisibilityConverter}}">
+						Style="{StaticResource BorderlessButtonStyle}">
 						<StackPanel Orientation="Horizontal">
 							<Grid
 								Width="15"
@@ -113,10 +112,7 @@
 				</WrapPanel>
 
 				<!--  Watched folder list  -->
-				<ItemsControl
-					Grid.Row="1"
-					ItemsSource="{Binding WatchedFoldersBindable}"
-					Visibility="{Binding WatcherEnabled, Converter={StaticResource VisibilityConverter}}">
+				<ItemsControl Grid.Row="1" ItemsSource="{Binding WatchedFoldersBindable}">
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
 							<StackPanel Orientation="Vertical" />
