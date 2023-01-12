@@ -33,8 +33,8 @@ function Publish($folderNameSuffix, $publishProfileName, $version4part, $product
     }
 }
 
-function SignExe($installerPath) {
-    & signtool sign /f D:\certs\ComodoIndividualCertv2.pfx /p $p /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 $installerPath
+function SignExe($filePath) {
+    & signtool sign /f D:\certs\ComodoIndividualCertv2.pfx /p $p /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 $filePath
 }
 
 if ($debugBuild) {
@@ -103,6 +103,13 @@ $winRarExe = "c:\Program Files\WinRar\WinRAR.exe"
 ExitIfFailed
 
 SignExe $portableExeWithExtension; ExitIfFailed
+
+# Sign executables in publish-installer
+
+$publishedExes = Get-ChildItem -Path .\VidCoder\bin\publish-installer\ -Filter *.exe
+foreach ($exeFile in $publishedExes) {
+    SignExe $exeFile.FullName; ExitIfFailed
+}
 
 # Create zip file with binaries
 $zipFilePath = ".\Installer\BuiltInstallers\$binaryNameBase.zip"
