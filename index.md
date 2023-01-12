@@ -46,7 +46,7 @@ VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application
 </tr>
 </table>
 
-<table class="releasesTable">
+<!--<table class="releasesTable">
 <tr><td colspan="4">
 <h2 class="versionHeader betaVersionHeader">Latest Beta: {{ betaVersion }}</h2>
 </td></tr>
@@ -56,7 +56,7 @@ VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application
 <td><a href="{{ betaSourceUrl }}" class="secondaryInstallLink">Source (.zip)</a></td>
 <td><a href="{{ betaNotesUrl }}" class="secondaryInstallLink">Release Notes</a></td>
 </tr>
-</table>
+</table>-->
 
 ![Main UI screenshot]({{ site.baseurl }}/images/main.png)
 
@@ -101,9 +101,9 @@ VidCoder can rip Blu-rays and DVDs but does not defeat the encryption found on c
 If you encounter any bugs with encoding, please see if they happen with the official HandBrake client as well. If the problem is reproducible on HandBrake, submit the issue to them. If it's only VidCoder that has the problem, submit it here.
 
 ## Languages
-![English]({{ site.baseurl }}/images/flags/english.png){:class="flagImage"} ![Spanish]({{ site.baseurl }}/images/flags/spanish.png){:class="flagImage"} ![German]({{ site.baseurl }}/images/flags/german.png){:class="flagImage"} ![French]({{ site.baseurl }}/images/flags/french.png){:class="flagImage"} ![Italian]({{ site.baseurl }}/images/flags/italian.png){:class="flagImage"} ![Portuguese]({{ site.baseurl }}/images/flags/portuguese.png){:class="flagImage"} ![Brazilian Portuguese]({{ site.baseurl }}/images/flags/portuguese_brazilian.png){:class="flagImage"} ![Dutch]({{ site.baseurl }}/images/flags/dutch.png){:class="flagImage"} ![Turkish]({{ site.baseurl }}/images/flags/turkish.png){:class="flagImage"} ![Bosnian]({{ site.baseurl }}/images/flags/bosnian.png){:class="flagImage"} ![Korean]({{ site.baseurl }}/images/flags/korean.png){:class="flagImage"} ![Czech]({{ site.baseurl }}/images/flags/czech.png){:class="flagImage"} ![Polish]({{ site.baseurl }}/images/flags/polish.png){:class="flagImage"} ![Indonesian]({{ site.baseurl }}/images/flags/indonesian.png){:class="flagImage"} ![Russian]({{ site.baseurl }}/images/flags/russian.png){:class="flagImage"} ![Chinese Simplified]({{ site.baseurl }}/images/flags/chinese_simplified.png){:class="flagImage"} ![Chinese Traditional]({{ site.baseurl }}/images/flags/chinese_traditional.png){:class="flagImage"} ![Japanese]({{ site.baseurl }}/images/flags/japanese.png){:class="flagImage"} ![Hungarian]({{ site.baseurl }}/images/flags/hungarian.png){:class="flagImage"} ![Georgian]({{ site.baseurl }}/images/flags/georgian.png){:class="flagImage"} ![Basque]({{ site.baseurl }}/images/flags/basque.png){:class="flagImage"} ![Arabic]({{ site.baseurl }}/images/flags/arabic.png){:class="flagImage"} ![Vietnamese]({{ site.baseurl }}/images/flags/vietnamese.png){:class="flagImage"} ![Croatian]({{ site.baseurl }}/images/flags/croatian.png){:class="flagImage"}
+![English]({{ site.baseurl }}/images/flags/english.png){:class="flagImage"} ![Spanish]({{ site.baseurl }}/images/flags/spanish.png){:class="flagImage"} ![German]({{ site.baseurl }}/images/flags/german.png){:class="flagImage"} ![French]({{ site.baseurl }}/images/flags/french.png){:class="flagImage"} ![Italian]({{ site.baseurl }}/images/flags/italian.png){:class="flagImage"} ![Portuguese]({{ site.baseurl }}/images/flags/portuguese.png){:class="flagImage"} ![Brazilian Portuguese]({{ site.baseurl }}/images/flags/portuguese_brazilian.png){:class="flagImage"} ![Dutch]({{ site.baseurl }}/images/flags/dutch.png){:class="flagImage"} ![Greek]({{ site.baseurl }}/images/flags/greek.png){:class="flagImage"} ![Turkish]({{ site.baseurl }}/images/flags/turkish.png){:class="flagImage"} ![Bosnian]({{ site.baseurl }}/images/flags/bosnian.png){:class="flagImage"} ![Korean]({{ site.baseurl }}/images/flags/korean.png){:class="flagImage"} ![Czech]({{ site.baseurl }}/images/flags/czech.png){:class="flagImage"} ![Polish]({{ site.baseurl }}/images/flags/polish.png){:class="flagImage"} ![Indonesian]({{ site.baseurl }}/images/flags/indonesian.png){:class="flagImage"} ![Russian]({{ site.baseurl }}/images/flags/russian.png){:class="flagImage"} ![Chinese Simplified]({{ site.baseurl }}/images/flags/chinese_simplified.png){:class="flagImage"} ![Chinese Traditional]({{ site.baseurl }}/images/flags/chinese_traditional.png){:class="flagImage"} ![Japanese]({{ site.baseurl }}/images/flags/japanese.png){:class="flagImage"} ![Hungarian]({{ site.baseurl }}/images/flags/hungarian.png){:class="flagImage"} ![Georgian]({{ site.baseurl }}/images/flags/georgian.png){:class="flagImage"} ![Basque]({{ site.baseurl }}/images/flags/basque.png){:class="flagImage"} ![Arabic]({{ site.baseurl }}/images/flags/arabic.png){:class="flagImage"} ![Vietnamese]({{ site.baseurl }}/images/flags/vietnamese.png){:class="flagImage"} ![Croatian]({{ site.baseurl }}/images/flags/croatian.png){:class="flagImage"}
 
-VidCoder includes English, Spanish, German, French, Italian, Portuguese, Brazilian Portuguese, Dutch, Turkish, Bosnian, Korean, Czech, Polish, Indonesian, Russian, Chinese Simplified, Chinese Traditional, Japanese, Hungarian, Georgian, Basque, Arabic, Vietnamese and Croatian translations. The correct language will be selected automatically based on your OS language, or it can be selected manually.
+VidCoder includes English, Spanish, German, French, Italian, Portuguese, Brazilian Portuguese, Dutch, Greek, Turkish, Bosnian, Korean, Czech, Polish, Indonesian, Russian, Chinese Simplified, Chinese Traditional, Japanese, Hungarian, Georgian, Basque, Arabic, Vietnamese and Croatian translations. The correct language will be selected automatically based on your OS language, or it can be selected manually.
 
 Interested in translating VidCoder to your own language? [Help out on Crowdin](http://crowdin.net/project/vidcoder).
 
