@@ -357,17 +357,43 @@
   <data name="UpdateMode_SilentNextLaunch" xml:space="preserve">
     <value>Stil (toepassen bij de volgende start)</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="Deinterlace_Bwdif" xml:space="preserve">
+    <value>Bwdif</value>
+  </data>
+  <data name="WatcherProcessStatus_Disabled" xml:space="preserve">
+    <value>Uitgeschakeld</value>
+  </data>
+  <data name="WatcherProcessStatus_Running" xml:space="preserve">
+    <value>Actief</value>
+  </data>
+  <data name="WatcherProcessStatus_Starting" xml:space="preserve">
+    <value>Starten...</value>
+  </data>
+  <data name="WatcherProcessStatus_Stopped" xml:space="preserve">
+    <value>Gestopt</value>
+  </data>
+  <data name="WatchedFileStatusLive_Canceled" xml:space="preserve">
+    <value>Geannuleerd</value>
+  </data>
+  <data name="WatchedFileStatusLive_Encoding" xml:space="preserve">
+    <value>Coderen</value>
+  </data>
+  <data name="WatchedFileStatusLive_Failed" xml:space="preserve">
+    <value>Mislukt</value>
+  </data>
+  <data name="WatchedFileStatusLive_Planned" xml:space="preserve">
+    <value>Gepland</value>
+  </data>
+  <data name="WatchedFileStatusLive_Queued" xml:space="preserve">
+    <value>In wachtrij</value>
+  </data>
+  <data name="WatchedFileStatusLive_Skipped" xml:space="preserve">
+    <value>Overgeslagen</value>
+  </data>
+  <data name="WatchedFileStatusLive_Succeeded" xml:space="preserve">
+    <value>Geslaagd</value>
+  </data>
+  <data name="WatchedFileStatusLive_Output" xml:space="preserve">
+    <value>Uitvoer</value>
+  </data>
 </root>

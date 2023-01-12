@@ -747,6 +747,12 @@ Ovo će se upozorenje prikazati samo dva puta.</value>
   <data name="CopyLogAndReportMenuItem" xml:space="preserve">
     <value>Kopiraj zapisnik i prijavi problem</value>
   </data>
-  
-  
+  <data name="WatcherMenuItem" xml:space="preserve">
+    <value>Nadziratelj</value>
+  </data>
+  <data name="QueueProgressLabel" xml:space="preserve">
+    <value>U redu čekanja {0}/{1}:</value>
+    <comment>{0} is the current job number for scanning and adding an item to the queue
+{1} is the total number of scanned items this session</comment>
+  </data>
 </root>

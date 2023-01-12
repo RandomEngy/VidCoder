@@ -341,5 +341,7 @@ A full copy of the GNU General Public License has been included along with this 
     <value>MB</value>
     <comment>Abbreviation for megabytes</comment>
   </data>
-  
+  <data name="Enabled" xml:space="preserve">
+    <value>有効</value>
+  </data>
 </root>

@@ -341,5 +341,7 @@
     <value>MB</value>
     <comment>Abbreviation for megabytes</comment>
   </data>
-  
+  <data name="Enabled" xml:space="preserve">
+    <value>已啟用</value>
+  </data>
 </root>

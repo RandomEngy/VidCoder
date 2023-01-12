@@ -117,4 +117,88 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivateWatcherButton" xml:space="preserve">
+    <value>ファイル監視を有効にする</value>
+  </data>
+  <data name="AddFolderToWatch" xml:space="preserve">
+    <value>監視するフォルダを追加</value>
+  </data>
+  <data name="CancelMenuItem" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="DeactivateWatcherButton" xml:space="preserve">
+    <value>ファイル監視を無効にする</value>
+  </data>
+  <data name="OpenContainingFolderMenuItem" xml:space="preserve">
+    <value>ファイルの場所を開く</value>
+  </data>
+  <data name="PathColumnHeader" xml:space="preserve">
+    <value>パス</value>
+  </data>
+  <data name="PickerLabel" xml:space="preserve">
+    <value>ピッカー:</value>
+  </data>
+  <data name="PickWatchedFolderDialogDescription" xml:space="preserve">
+    <value>監視するフォルダを選択</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>エンコードプリセット: </value>
+  </data>
+  <data name="RemoveWatchedFolder" xml:space="preserve">
+    <value>監視フォルダを削除</value>
+  </data>
+  <data name="RetryMenuItem" xml:space="preserve">
+    <value>再試行</value>
+  </data>
+  <data name="RunWhenClosedCheckBox" xml:space="preserve">
+    <value>VidCoder終了時に実行</value>
+  </data>
+  <data name="ServiceInstallError" xml:space="preserve">
+    <value>ファイル監視サービスをインストールできません。</value>
+  </data>
+  <data name="ServiceUninstallError" xml:space="preserve">
+    <value>ファイル監視サービスをアンインストールできません。</value>
+  </data>
+  <data name="StatusCanceledToolTip" xml:space="preserve">
+    <value>エンコードはキューから削除されたため中止されました</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>状態</value>
+  </data>
+  <data name="StatusFailedToolTip" xml:space="preserve">
+    <value>エンコード失敗</value>
+  </data>
+  <data name="StatusOutputToolTip" xml:space="preserve">
+    <value>ファイルはVidCoderによってエンコードされました。</value>
+  </data>
+  <data name="StatusQueuedToolTip" xml:space="preserve">
+    <value>ソースファイルがキューに入っています。</value>
+  </data>
+  <data name="StatusSkippedToolTip" xml:space="preserve">
+    <value>ピッカーで設定された条件(ファイルサイズが小さすぎるなど)によりエンコードがスキップされました。</value>
+  </data>
+  <data name="StatusSucceededToolTip" xml:space="preserve">
+    <value>エンコード完了</value>
+  </data>
+  <data name="WatchedFilesHeader" xml:space="preserve">
+    <value>ファイル</value>
+  </data>
+  <data name="WatchedFoldersHeader" xml:space="preserve">
+    <value>監視フォルダ</value>
+  </data>
+  <data name="WatchedFolderTextBoxLabel" xml:space="preserve">
+    <value>フォルダ:</value>
+  </data>
+  <data name="WatcherAddDialogTitle" xml:space="preserve">
+    <value>監視フォルダ追加</value>
+  </data>
+  <data name="WatcherEditDialogTitle" xml:space="preserve">
+    <value>監視フォルダ編集</value>
+  </data>
+  <data name="WatcherIntroText" xml:space="preserve">
+    <value>ファイル監視を設定すると、フォルダを監視し新しいファイルがあると自動的にエンコードを実行します。監視プロセスはVidCoderを実行していなくても実行され、ファイルをエンコードするためにVidCoderを起動します。</value>
+  </data>
+  <data name="WatcherWindowTitle" xml:space="preserve">
+    <value>ファイル監視 - {0}</value>
+  </data>
 </root>

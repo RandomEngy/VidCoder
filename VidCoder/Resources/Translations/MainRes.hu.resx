@@ -283,7 +283,11 @@
   <data name="StoppedEncoding" xml:space="preserve">
     <value>Kódolás megállítva.</value>
   </data>
-  
+  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
+    <value>Biztosan törölni akarod a(z) {0} {1} forrásfájlt/mappát?</value>
+    <comment>{0} is the verb, can be "recycle" or "delete"
+{1} is the number of files that will be removed</comment>
+  </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Törlés megerősítése</value>
   </data>
@@ -731,10 +735,26 @@ A v5 volt az utolsó Windows 7/8-ra tesztelt verzió.
 
 Ez a figyelmeztetés csak kétszer jelenik meg.</value>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="RemoveSourceFiles_Delete" xml:space="preserve">
+    <value>törlés</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RemoveSourceFiles_Recycle" xml:space="preserve">
+    <value>újrahasznosít</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RequestFeatureMenuItem" xml:space="preserve">
+    <value>Funkció kérése</value>
+  </data>
+  <data name="CopyLogAndReportMenuItem" xml:space="preserve">
+    <value>Napló másolása és probléma jelentése</value>
+  </data>
+  <data name="WatcherMenuItem" xml:space="preserve">
+    <value>Figyelő</value>
+  </data>
+  <data name="QueueProgressLabel" xml:space="preserve">
+    <value>{0}/{1} sorbaállítása:</value>
+    <comment>{0} is the current job number for scanning and adding an item to the queue
+{1} is the total number of scanned items this session</comment>
+  </data>
 </root>

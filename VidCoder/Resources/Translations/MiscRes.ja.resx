@@ -260,6 +260,10 @@
   <data name="ReplaceJobButton" xml:space="preserve">
     <value>ジョブを置き換える</value>
   </data>
-  
-  
+  <data name="CopyAndReportIssueButton" xml:space="preserve">
+    <value>問題をコピーして報告する</value>
+  </data>
+  <data name="OneTimeInstallerCleanup" xml:space="preserve">
+    <value>古いインストーラを一度にクリーンアップする必要があります。VidCoderの古いバージョンを削除するには、次のプロンプトで「はい」を選択してください。</value>
+  </data>
 </root>

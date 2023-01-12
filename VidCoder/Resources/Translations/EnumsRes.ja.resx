@@ -339,23 +339,61 @@
   <data name="SubtitleBurnInSelection_None" xml:space="preserve">
     <value>なし</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="SourceFileRemovalTiming_AfterClearingCompletedItems" xml:space="preserve">
+    <value>完了したアイテムをクリアした後</value>
+  </data>
+  <data name="SourceFileRemovalTiming_Immediately" xml:space="preserve">
+    <value>エンコードが完了した直後</value>
+  </data>
+  <data name="SourceFileRemoval_Delete" xml:space="preserve">
+    <value>⚠️ 削除 (やり直し不可) ⚠️</value>
+  </data>
+  <data name="SourceFileRemoval_Recycle" xml:space="preserve">
+    <value>再利用</value>
+  </data>
+  <data name="UpdateMode_PromptApplyImmediately" xml:space="preserve">
+    <value>すぐに適用するか確認する</value>
+  </data>
+  <data name="UpdateMode_SilentNextLaunch" xml:space="preserve">
+    <value>サイレント（次回起動時に適用）</value>
+  </data>
+  <data name="Deinterlace_Bwdif" xml:space="preserve">
+    <value>Bwdif</value>
+  </data>
+  <data name="WatcherProcessStatus_Disabled" xml:space="preserve">
+    <value>無効</value>
+  </data>
+  <data name="WatcherProcessStatus_Running" xml:space="preserve">
+    <value>実行中</value>
+  </data>
+  <data name="WatcherProcessStatus_Starting" xml:space="preserve">
+    <value>開始中...</value>
+  </data>
+  <data name="WatcherProcessStatus_Stopped" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="WatchedFileStatusLive_Canceled" xml:space="preserve">
+    <value>取消し済</value>
+  </data>
+  <data name="WatchedFileStatusLive_Encoding" xml:space="preserve">
+    <value>エンコード中</value>
+  </data>
+  <data name="WatchedFileStatusLive_Failed" xml:space="preserve">
+    <value>失敗</value>
+  </data>
+  <data name="WatchedFileStatusLive_Planned" xml:space="preserve">
+    <value>計画済</value>
+  </data>
+  <data name="WatchedFileStatusLive_Queued" xml:space="preserve">
+    <value>キュー済</value>
+  </data>
+  <data name="WatchedFileStatusLive_Skipped" xml:space="preserve">
+    <value>スキップ済</value>
+  </data>
+  <data name="WatchedFileStatusLive_Succeeded" xml:space="preserve">
+    <value>成功</value>
+  </data>
+  <data name="WatchedFileStatusLive_Output" xml:space="preserve">
+    <value>出力</value>
+  </data>
 </root>

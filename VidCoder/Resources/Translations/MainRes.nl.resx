@@ -139,10 +139,10 @@
     <value>Hulpmiddelen</value>
   </data>
   <data name="ImportPreset" xml:space="preserve">
-    <value>Voorkeursinstelling importeren...</value>
+    <value>Voorinstelling importeren...</value>
   </data>
   <data name="ExportPreset" xml:space="preserve">
-    <value>Voorkeursinstelling exporteren...</value>
+    <value>Voorinstelling exporteren...</value>
   </data>
   <data name="Play" xml:space="preserve">
     <value>Afspelen</value>
@@ -236,10 +236,10 @@
     <value>(Geen)</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
-    <value>Wilt u wijzigingen in uw huidige voorkeursinstelling opslaan?</value>
+    <value>Wilt u wijzigingen in uw huidige voorinstelling opslaan?</value>
   </data>
   <data name="SaveChangesPresetTitle" xml:space="preserve">
-    <value>Huidige voorkeursinstelling opslaan?</value>
+    <value>Huidige voorinstelling opslaan?</value>
   </data>
   <data name="DiscNotInDriveError" xml:space="preserve">
     <value>Kan niet laden om te bewerken. De schijf is niet langer in het station.</value>
@@ -345,10 +345,10 @@
     <value>De update is niet toegepast. Als u niet heeft geannuleerd probeer het dan handmatig te installeren.</value>
   </data>
   <data name="CouldNotLoadPresetMessage" xml:space="preserve">
-    <value>Kan voorkeursinstelling niet laden: </value>
+    <value>Kan voorinstelling niet laden: </value>
   </data>
   <data name="CouldNotSavePresetMessage" xml:space="preserve">
-    <value>Kan voorkeursinstelling niet opslaan '{0}':{1}{2}</value>
+    <value>Kan voorinstelling niet opslaan '{0}':{1}{2}</value>
   </data>
   <data name="CouldNotCopyTextError" xml:space="preserve">
     <value>Kan tekst niet kopiëren.</value>
@@ -363,13 +363,13 @@
     <value>Fout bij importeren</value>
   </data>
   <data name="PresetImportSuccessMessage" xml:space="preserve">
-    <value>Voorkeursinstelling {0} met succes geïmporteerd.</value>
+    <value>Voorinstelling {0} met succes geïmporteerd.</value>
   </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
-    <value>Voorkeurinstelling met succes geëxporteerd naar {0}</value>
+    <value>Voorinstelling met succes geëxporteerd naar {0}</value>
   </data>
   <data name="ExportPresetFilePickerText" xml:space="preserve">
-    <value>Voorkeursinstelling exporteren</value>
+    <value>Voorinstelling exporteren</value>
   </data>
   <data name="SaveChangesPickerMessage" xml:space="preserve">
     <value>Wil je de wijzigingen aan de huidige kiezer opslaan?</value>
@@ -435,7 +435,7 @@
     <value>Logboek kopiëren</value>
   </data>
   <data name="PresetDiscardConfirmMessage" xml:space="preserve">
-    <value>U hebt niet-opgeslagen wijzigingen. Weet u zeker dat u deze wijzigingen wilt negeren door over te schakelen naar een andere voorkeursinstelling?</value>
+    <value>U hebt niet-opgeslagen wijzigingen. Weet u zeker dat u deze wijzigingen wilt negeren door over te schakelen naar een andere voorinstelling?</value>
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>Wijzigingen negeren?</value>
@@ -456,7 +456,7 @@
     <value>Importeren van de wachtrij mislukt. Controleer het logboek voor details.</value>
   </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
-    <value>Voorkeursinstellingen importeren</value>
+    <value>Voorinstellingen importeren</value>
   </data>
   <data name="ImportQueueFilePickerTitle" xml:space="preserve">
     <value>Wachtrijbestand importeren</value>
@@ -749,6 +749,12 @@ Deze waarschuwing wordt slechts twee keer weergegeven.</value>
   <data name="CopyLogAndReportMenuItem" xml:space="preserve">
     <value>Logboek kopiëren en probleem melden </value>
   </data>
-  
-  
+  <data name="WatcherMenuItem" xml:space="preserve">
+    <value>Bewaking</value>
+  </data>
+  <data name="QueueProgressLabel" xml:space="preserve">
+    <value>Wachtrij {0}/{1}:</value>
+    <comment>{0} is the current job number for scanning and adding an item to the queue
+{1} is the total number of scanned items this session</comment>
+  </data>
 </root>

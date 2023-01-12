@@ -283,7 +283,11 @@
   <data name="StoppedEncoding" xml:space="preserve">
     <value>エンコードを停止します。</value>
   </data>
-  
+  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
+    <value>本当に{1}のソースファイル・フォルダを{0}しますか？</value>
+    <comment>{0} is the verb, can be "recycle" or "delete"
+{1} is the number of files that will be removed</comment>
+  </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>削除の確認</value>
   </data>
@@ -729,10 +733,26 @@
 
 この警告は2回だけ表示されます。</value>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="RemoveSourceFiles_Delete" xml:space="preserve">
+    <value>削除</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RemoveSourceFiles_Recycle" xml:space="preserve">
+    <value>再利用</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RequestFeatureMenuItem" xml:space="preserve">
+    <value>新機能のリクエスト</value>
+  </data>
+  <data name="CopyLogAndReportMenuItem" xml:space="preserve">
+    <value>ログをコピーし問題を報告する</value>
+  </data>
+  <data name="WatcherMenuItem" xml:space="preserve">
+    <value>監視</value>
+  </data>
+  <data name="QueueProgressLabel" xml:space="preserve">
+    <value>キュー {0}/{1}:</value>
+    <comment>{0} is the current job number for scanning and adding an item to the queue
+{1} is the total number of scanned items this session</comment>
+  </data>
 </root>

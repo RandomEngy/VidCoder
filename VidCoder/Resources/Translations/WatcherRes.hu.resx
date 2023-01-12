@@ -117,4 +117,88 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivateWatcherButton" xml:space="preserve">
+    <value>Fájlfigyelő aktiválása</value>
+  </data>
+  <data name="AddFolderToWatch" xml:space="preserve">
+    <value>Megfigyelendő mappa</value>
+  </data>
+  <data name="CancelMenuItem" xml:space="preserve">
+    <value>Mégse</value>
+  </data>
+  <data name="DeactivateWatcherButton" xml:space="preserve">
+    <value>Fájlfigyelő kikapcsolása</value>
+  </data>
+  <data name="OpenContainingFolderMenuItem" xml:space="preserve">
+    <value>Tartalmazó mappa megnyitása</value>
+  </data>
+  <data name="PathColumnHeader" xml:space="preserve">
+    <value>Útvonal</value>
+  </data>
+  <data name="PickerLabel" xml:space="preserve">
+    <value>Választó:</value>
+  </data>
+  <data name="PickWatchedFolderDialogDescription" xml:space="preserve">
+    <value>Megfigyelendő mappa kiválasztása</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>Kódolási séma:</value>
+  </data>
+  <data name="RemoveWatchedFolder" xml:space="preserve">
+    <value>Figyelt mappa eltávolítása</value>
+  </data>
+  <data name="RetryMenuItem" xml:space="preserve">
+    <value>Újra</value>
+  </data>
+  <data name="RunWhenClosedCheckBox" xml:space="preserve">
+    <value>Futtatás, amikor a VidCoder bezárult</value>
+  </data>
+  <data name="ServiceInstallError" xml:space="preserve">
+    <value>A fájlfigyelő szolgáltatás nem telepíthető.</value>
+  </data>
+  <data name="ServiceUninstallError" xml:space="preserve">
+    <value>A fájlfigyelő szolgáltatás nem távolítható el.</value>
+  </data>
+  <data name="StatusCanceledToolTip" xml:space="preserve">
+    <value>A kódolás megszakításra került a sorból eltávolítással.</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>Állapot</value>
+  </data>
+  <data name="StatusFailedToolTip" xml:space="preserve">
+    <value>A kódolás sikertelen.</value>
+  </data>
+  <data name="StatusOutputToolTip" xml:space="preserve">
+    <value>A fájlt VidCoderrel kódolták.</value>
+  </data>
+  <data name="StatusQueuedToolTip" xml:space="preserve">
+    <value>A forrásfájl a sorban van.</value>
+  </data>
+  <data name="StatusSkippedToolTip" xml:space="preserve">
+    <value>A kódolás a kiválasztóban beállított feltételek (például túl kicsi fájlméret) miatt kihagyásra került.</value>
+  </data>
+  <data name="StatusSucceededToolTip" xml:space="preserve">
+    <value>A kódolás sikeresen befejeződött.</value>
+  </data>
+  <data name="WatchedFilesHeader" xml:space="preserve">
+    <value>Fájlok</value>
+  </data>
+  <data name="WatchedFoldersHeader" xml:space="preserve">
+    <value>Mappák figyelése</value>
+  </data>
+  <data name="WatchedFolderTextBoxLabel" xml:space="preserve">
+    <value>Mappa:</value>
+  </data>
+  <data name="WatcherAddDialogTitle" xml:space="preserve">
+    <value>Figyelt mappa hozzáadása</value>
+  </data>
+  <data name="WatcherEditDialogTitle" xml:space="preserve">
+    <value>Figyelt mappa szerkesztése</value>
+  </data>
+  <data name="WatcherIntroText" xml:space="preserve">
+    <value>A Figyelőt beállíthatod úgy, hogy figyelje a mappákat és automatikusan kódolja az azokban megjelenő videókat. A Figyelő folyamat a VidCoder bezárásakor fut le és elindítja azt a fájlok kódolásához.</value>
+  </data>
+  <data name="WatcherWindowTitle" xml:space="preserve">
+    <value>Figyelő - {0}</value>
+  </data>
 </root>

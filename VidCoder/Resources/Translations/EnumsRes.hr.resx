@@ -357,17 +357,43 @@
   <data name="UpdateMode_SilentNextLaunch" xml:space="preserve">
     <value>Tiho (Primijeni prilikom sljedećeg pokretanja)</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="Deinterlace_Bwdif" xml:space="preserve">
+    <value>Bwdif</value>
+  </data>
+  <data name="WatcherProcessStatus_Disabled" xml:space="preserve">
+    <value>Onemogućeno</value>
+  </data>
+  <data name="WatcherProcessStatus_Running" xml:space="preserve">
+    <value>Pokrenuto</value>
+  </data>
+  <data name="WatcherProcessStatus_Starting" xml:space="preserve">
+    <value>Pokretanje…</value>
+  </data>
+  <data name="WatcherProcessStatus_Stopped" xml:space="preserve">
+    <value>Zaustavljeno</value>
+  </data>
+  <data name="WatchedFileStatusLive_Canceled" xml:space="preserve">
+    <value>Otkazano</value>
+  </data>
+  <data name="WatchedFileStatusLive_Encoding" xml:space="preserve">
+    <value>Kodiranje</value>
+  </data>
+  <data name="WatchedFileStatusLive_Failed" xml:space="preserve">
+    <value>Nije uspjelo</value>
+  </data>
+  <data name="WatchedFileStatusLive_Planned" xml:space="preserve">
+    <value>Planirano</value>
+  </data>
+  <data name="WatchedFileStatusLive_Queued" xml:space="preserve">
+    <value>Dodano u red čekanja</value>
+  </data>
+  <data name="WatchedFileStatusLive_Skipped" xml:space="preserve">
+    <value>Preskočeno</value>
+  </data>
+  <data name="WatchedFileStatusLive_Succeeded" xml:space="preserve">
+    <value>Uspjelo</value>
+  </data>
+  <data name="WatchedFileStatusLive_Output" xml:space="preserve">
+    <value>Izlaz</value>
+  </data>
 </root>

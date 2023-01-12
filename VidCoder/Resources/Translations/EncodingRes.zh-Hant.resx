@@ -736,7 +736,13 @@
   <data name="DeblockToolTip" xml:space="preserve">
     <value>去塊可減低因低品質視訊壓縮造成的塊狀人造雜訊。</value>
   </data>
-  
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>去交錯可移除畫面間的梳狀現象。
+
+Bwdif 及 Yadif 為兩個受歡迎的快速去交錯器。
+
+在多個內插演算法間去除梳狀現象的話可提升速度及品質。</value>
+  </data>
   <data name="DenoiseToolTip" xml:space="preserve">
     <value>去雜訊可降低或移除畫面的雜訊或顆粒效果，可增加壓縮效率及在同樣檔案大小下提高畫面品質，但過強的去雜訊設定可能會因抹除太多細節而傷害畫面品質。
 
@@ -846,5 +852,7 @@ Lapsharp 銳利化使用卷積核預估拉普拉斯邊緣濾波器，有時可�
   <data name="MinimumCroppingToolTip" xml:space="preserve">
     <value>若自動切割於單側低於此值，取消該側之切割，對於預防微小切割量造成的重新取樣有幫助。</value>
   </data>
-  
+  <data name="CroppingType_Conservative" xml:space="preserve">
+    <value>保守</value>
+  </data>
 </root>

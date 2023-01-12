@@ -178,11 +178,14 @@ namespace VidCoder.View
 				{
 					try
 					{
+						// Patch the current source and destination file onto the job
 						JsonEncodeObject encodeObject = JsonSerializer.Deserialize<JsonEncodeObject>(dialog.Json, JsonOptions.Plain);
+						encodeObject.Destination.File = jobViewModel.Job.FinalOutputPath;
+						encodeObject.Source.Path = jobViewModel.Job.SourcePath;
 
-						jobViewModel.DebugEncodeJsonOverride = dialog.Json;
-						jobViewModel.Job.FinalOutputPath = encodeObject.Destination.File;
-						jobViewModel.Job.SourcePath = encodeObject.Source.Path;
+						jobViewModel.DebugEncodeJsonOverride = JsonSerializer.Serialize(encodeObject, new JsonSerializerOptions { DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull });
+						//jobViewModel.Job.FinalOutputPath = encodeObject.Destination.File;
+						//jobViewModel.Job.SourcePath = encodeObject.Source.Path;
 
 						this.processingService.QueueJob(jobViewModel);
 					}

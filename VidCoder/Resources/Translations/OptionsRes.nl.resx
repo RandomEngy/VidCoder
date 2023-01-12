@@ -211,7 +211,7 @@
     <value>Updates</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
-    <value>Update controle mislukt.</value>
+    <value>Updatecontrole mislukt.</value>
   </data>
   <data name="CompletionWavFilePickTitle" xml:space="preserve">
     <value>Kies het wav-bestand dat u wilt gebruiken voor het geluid van de voltooiing.</value>
@@ -307,7 +307,7 @@
     <value>Werkproces gebruiken om te coderen</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
-    <value>Behoud Gemaakte en Gewijzigde tijd bij het converteren van bestanden</value>
+    <value>Gemaakte en gewijzigde tijd behouden bij het converteren van bestanden</value>
   </data>
   <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Aangepaste map voor voorvertoningen:</value>
@@ -351,10 +351,10 @@
     <value>Activeer de actie "Wanneer klaar" bij mislukte coderingstaken</value>
   </data>
   <data name="AutoPauseLowBatteryCheckbox" xml:space="preserve">
-    <value>Pauzeer wanneer de batterij bijna leeg is</value>
+    <value>Pauzeer wanneer de accu bijna leeg is</value>
   </data>
   <data name="AutoPauseLowDiskSpaceCheckbox" xml:space="preserve">
-    <value>Pauzeer wanneer schijfruimte hieronder valt:</value>
+    <value>Pauzeer bij schijfruimte minder dan:</value>
   </data>
   <data name="AutoPauseSectionLabel" xml:space="preserve">
     <value>Automatisch pauzeren</value>

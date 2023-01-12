@@ -736,7 +736,13 @@ Felülírja az összes többi beállítást.</value>
   <data name="DeblockToolTip" xml:space="preserve">
     <value>A deblock csökkenti az alacsony videótömörítés által okozott kockahibákat.</value>
   </data>
-  
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>A deinterlace eltávolítja a képről a fésűs hibákat.
+
+A bwdif és yadif két népszerű és gyors deinterlacer.
+
+A decomb többféle interpolációs algoritmus között váltogat a sebesség és a minőség érdekében.</value>
+  </data>
   <data name="DenoiseToolTip" xml:space="preserve">
     <value>A denoise csökkenti vagy eltávolítja a zaj és szemcsék megjelenését. Ez javíthatja a tömörítési hatékonyságot, valamint jobb minőségű videófelvételt hozhat létre kisebb fájlméret mellett. 
 A túl erős denoise beállítások károsíthatják a képminőséget a részletek elvetésével.
@@ -832,12 +838,22 @@ A lapsharp konvolúciós kernelek használatával élesít, megközelítve a Lap
   <data name="ColorspaceLabel" xml:space="preserve">
     <value>Színtér:</value>
   </data>
-  
-  
-  
+  <data name="ChromaSmoothToolTip" xml:space="preserve">
+    <value>Csökkenti a színképzajt, a szivárványozódást és más feltűnő, vizuális hibákat. Hasznos a különböző színnel kapcsolatos problémák megoldására, különösen analóg forrásokból származó, alacsonyabb felbontású tartalmak, pl. rossz minőségű DVD- és VHS-források esetén. Az elmosás/simítás algoritmusa megegyezik az unsharp szűrő által használt algoritmussal.</value>
+  </data>
+  <data name="ConstrainToOneAxisCheckBox" xml:space="preserve">
+    <value>Korlátozás egy tengelyre</value>
+  </data>
+  <data name="ConstrainToOneAxisToolTip" xml:space="preserve">
+    <value>Ha engedélyezett, akkor csak a legtöbbet észlelt tengelyt vágja le a rendszer. Például ha a Felső+Alul = 32 és a Bal+Jobb = 6, akkor a bal és jobb oldali levágás 0-ra lesz állítva.</value>
+  </data>
   <data name="MinimumCroppingLabel" xml:space="preserve">
     <value>Minimum</value>
   </data>
-  
-  
+  <data name="MinimumCroppingToolTip" xml:space="preserve">
+    <value>Ha az automatikus levágás egy oldal esetében nem éri el ezt az értéket, tiltsd le a levágást az adott oldalon! Hasznos az újramintavételezés megakadályozására kisebb levágási mennyiség esetén.</value>
+  </data>
+  <data name="CroppingType_Conservative" xml:space="preserve">
+    <value>Konzervatív</value>
+  </data>
 </root>

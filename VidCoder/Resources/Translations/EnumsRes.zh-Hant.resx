@@ -357,17 +357,43 @@
   <data name="UpdateMode_SilentNextLaunch" xml:space="preserve">
     <value>靜音 (於下次啟動後套用更新)</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="Deinterlace_Bwdif" xml:space="preserve">
+    <value>Bwdif</value>
+  </data>
+  <data name="WatcherProcessStatus_Disabled" xml:space="preserve">
+    <value>已停用</value>
+  </data>
+  <data name="WatcherProcessStatus_Running" xml:space="preserve">
+    <value>執行中</value>
+  </data>
+  <data name="WatcherProcessStatus_Starting" xml:space="preserve">
+    <value>啟動中...</value>
+  </data>
+  <data name="WatcherProcessStatus_Stopped" xml:space="preserve">
+    <value>已停止</value>
+  </data>
+  <data name="WatchedFileStatusLive_Canceled" xml:space="preserve">
+    <value>已取消</value>
+  </data>
+  <data name="WatchedFileStatusLive_Encoding" xml:space="preserve">
+    <value>編碼</value>
+  </data>
+  <data name="WatchedFileStatusLive_Failed" xml:space="preserve">
+    <value>失敗</value>
+  </data>
+  <data name="WatchedFileStatusLive_Planned" xml:space="preserve">
+    <value>已計畫</value>
+  </data>
+  <data name="WatchedFileStatusLive_Queued" xml:space="preserve">
+    <value>已排入佇列</value>
+  </data>
+  <data name="WatchedFileStatusLive_Skipped" xml:space="preserve">
+    <value>已跳過</value>
+  </data>
+  <data name="WatchedFileStatusLive_Succeeded" xml:space="preserve">
+    <value>成功</value>
+  </data>
+  <data name="WatchedFileStatusLive_Output" xml:space="preserve">
+    <value>輸出</value>
+  </data>
 </root>

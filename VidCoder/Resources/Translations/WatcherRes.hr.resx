@@ -117,4 +117,88 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivateWatcherButton" xml:space="preserve">
+    <value>Aktiviraj Nadzor datoteka</value>
+  </data>
+  <data name="AddFolderToWatch" xml:space="preserve">
+    <value>Dodaj mapu za nadzor</value>
+  </data>
+  <data name="CancelMenuItem" xml:space="preserve">
+    <value>Otkaži</value>
+  </data>
+  <data name="DeactivateWatcherButton" xml:space="preserve">
+    <value>Deaktiviraj Nadzor datoteka</value>
+  </data>
+  <data name="OpenContainingFolderMenuItem" xml:space="preserve">
+    <value>Otvori sadržajnu mapu</value>
+  </data>
+  <data name="PathColumnHeader" xml:space="preserve">
+    <value>Putanja</value>
+  </data>
+  <data name="PickerLabel" xml:space="preserve">
+    <value>Birač:</value>
+  </data>
+  <data name="PickWatchedFolderDialogDescription" xml:space="preserve">
+    <value>Odaberi mapu za nadzor</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>Predložak kodiranja:</value>
+  </data>
+  <data name="RemoveWatchedFolder" xml:space="preserve">
+    <value>Makni nadziranu mapu</value>
+  </data>
+  <data name="RetryMenuItem" xml:space="preserve">
+    <value>Pokušaj ponovno</value>
+  </data>
+  <data name="RunWhenClosedCheckBox" xml:space="preserve">
+    <value>Pokreni kada je VidCoder zatvoren</value>
+  </data>
+  <data name="ServiceInstallError" xml:space="preserve">
+    <value>Nije moguće instalirati servis nadzora datoteka.</value>
+  </data>
+  <data name="ServiceUninstallError" xml:space="preserve">
+    <value>Nije moguće deinstalirati servis nadzora datoteka.</value>
+  </data>
+  <data name="StatusCanceledToolTip" xml:space="preserve">
+    <value>Kodiranje je otkazano uklanjanjem iz reda čekanja.</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="StatusFailedToolTip" xml:space="preserve">
+    <value>Kodiranje nije uspjeo.</value>
+  </data>
+  <data name="StatusOutputToolTip" xml:space="preserve">
+    <value>Datoteka je kodirana pomoću VidCodera.</value>
+  </data>
+  <data name="StatusQueuedToolTip" xml:space="preserve">
+    <value>Izvorna datoteka je u redu čekanja.</value>
+  </data>
+  <data name="StatusSkippedToolTip" xml:space="preserve">
+    <value>Kodiranje je preskočeno zbog uvjeta postavljenih u biraču (kao što je veličina datoteke koja je premala).</value>
+  </data>
+  <data name="StatusSucceededToolTip" xml:space="preserve">
+    <value>Kodiranje je uspješno završeno.</value>
+  </data>
+  <data name="WatchedFilesHeader" xml:space="preserve">
+    <value>Datoteke</value>
+  </data>
+  <data name="WatchedFoldersHeader" xml:space="preserve">
+    <value>Nadziri mape</value>
+  </data>
+  <data name="WatchedFolderTextBoxLabel" xml:space="preserve">
+    <value>Mapa:</value>
+  </data>
+  <data name="WatcherAddDialogTitle" xml:space="preserve">
+    <value>Dodaj nadziranu mapu</value>
+  </data>
+  <data name="WatcherEditDialogTitle" xml:space="preserve">
+    <value>Uredi nadziranu mapu</value>
+  </data>
+  <data name="WatcherIntroText" xml:space="preserve">
+    <value>Možete postaviti Nadziratelja da promatra mape i automatski kodira videozapise koji se u njima pojavljuju. Proces Nadziranja bit će pokrenut kada je VidCoder zatvoren i pokrenut će ga za kodiranje datoteka.</value>
+  </data>
+  <data name="WatcherWindowTitle" xml:space="preserve">
+    <value>Nadziratelj - {0}</value>
+  </data>
 </root>

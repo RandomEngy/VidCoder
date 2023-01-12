@@ -117,4 +117,88 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivateWatcherButton" xml:space="preserve">
+    <value>啟動檔案監看</value>
+  </data>
+  <data name="AddFolderToWatch" xml:space="preserve">
+    <value>新增欲監看的資料夾</value>
+  </data>
+  <data name="CancelMenuItem" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="DeactivateWatcherButton" xml:space="preserve">
+    <value>停用檔案監看</value>
+  </data>
+  <data name="OpenContainingFolderMenuItem" xml:space="preserve">
+    <value>開啟所在資料夾</value>
+  </data>
+  <data name="PathColumnHeader" xml:space="preserve">
+    <value>路徑</value>
+  </data>
+  <data name="PickerLabel" xml:space="preserve">
+    <value>選取器:</value>
+  </data>
+  <data name="PickWatchedFolderDialogDescription" xml:space="preserve">
+    <value>選取欲監看的資料夾</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>編碼設定:</value>
+  </data>
+  <data name="RemoveWatchedFolder" xml:space="preserve">
+    <value>移除監看資料夾</value>
+  </data>
+  <data name="RetryMenuItem" xml:space="preserve">
+    <value>重試</value>
+  </data>
+  <data name="RunWhenClosedCheckBox" xml:space="preserve">
+    <value>VidCoder 關閉後執行</value>
+  </data>
+  <data name="ServiceInstallError" xml:space="preserve">
+    <value>無法安裝檔案監看服務。</value>
+  </data>
+  <data name="ServiceUninstallError" xml:space="preserve">
+    <value>無法移除檔案監看服務。</value>
+  </data>
+  <data name="StatusCanceledToolTip" xml:space="preserve">
+    <value>因被移出佇列，編碼已取消。</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>狀態</value>
+  </data>
+  <data name="StatusFailedToolTip" xml:space="preserve">
+    <value>編碼失敗。</value>
+  </data>
+  <data name="StatusOutputToolTip" xml:space="preserve">
+    <value>檔案由 VidCider 進行編碼。</value>
+  </data>
+  <data name="StatusQueuedToolTip" xml:space="preserve">
+    <value>來源檔案位於佇列中。</value>
+  </data>
+  <data name="StatusSkippedToolTip" xml:space="preserve">
+    <value>編碼因選取器設定的條件而跳過 (如檔案過小)。</value>
+  </data>
+  <data name="StatusSucceededToolTip" xml:space="preserve">
+    <value>編碼已成功完成。</value>
+  </data>
+  <data name="WatchedFilesHeader" xml:space="preserve">
+    <value>檔案</value>
+  </data>
+  <data name="WatchedFoldersHeader" xml:space="preserve">
+    <value>監看資料夾</value>
+  </data>
+  <data name="WatchedFolderTextBoxLabel" xml:space="preserve">
+    <value>資料夾:</value>
+  </data>
+  <data name="WatcherAddDialogTitle" xml:space="preserve">
+    <value>新增監看資料夾</value>
+  </data>
+  <data name="WatcherEditDialogTitle" xml:space="preserve">
+    <value>編輯監看資料夾</value>
+  </data>
+  <data name="WatcherIntroText" xml:space="preserve">
+    <value>您可以設定監看資料夾，當有新影片檔案出現在監看資料夾中時可自動進行編碼，監看程序在 VidCoder 關閉時會自動執行以編碼影片。</value>
+  </data>
+  <data name="WatcherWindowTitle" xml:space="preserve">
+    <value>監看 - {0}</value>
+  </data>
 </root>

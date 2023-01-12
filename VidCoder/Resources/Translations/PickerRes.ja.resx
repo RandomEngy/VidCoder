@@ -388,6 +388,11 @@
   <data name="LanguageLabel" xml:space="preserve">
     <value>言語:</value>
   </data>
-  
-  
+  <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
+    <value>削除する前に確認する</value>
+  </data>
+  <data name="SourceFileRemovalLabel" xml:space="preserve">
+    <value>エンコード成功後にソースファイルを削除:</value>
+    <comment>Label for the option to automatically delete source files on completion.</comment>
+  </data>
 </root>

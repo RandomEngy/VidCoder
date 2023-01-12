@@ -734,7 +734,13 @@
   <data name="DeblockToolTip" xml:space="preserve">
     <value>デブロックは低品質圧縮時のブロックノイズを低減します</value>
   </data>
-  
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>Deinterlaceはくし形ノイズを除去します。
+
+BwdifとYadifは一般的で高速なDeinterlaceです。
+
+Decombは品質とスピードを両立するために複数の保管アルゴリズムを切り替えます。</value>
+  </data>
   <data name="DenoiseToolTip" xml:space="preserve">
     <value>ノイズ除去はノイズと粒状感を削除または低減します。圧縮率が向上するので、高品質でファイルサイズを小さくできます。
 オーバーレイは強力な設定のため、ディテールを破棄し品質に影響が出る場合があります。
@@ -831,10 +837,22 @@ Lapsharpはラプラシアン輪郭フィルターを近似する畳込みカー
   <data name="ColorspaceLabel" xml:space="preserve">
     <value>色空間:</value>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="ChromaSmoothToolTip" xml:space="preserve">
+    <value>クロマノイズ、虹、その他の顕著な視覚的ノイズを除去します。特にアナログソースからの低解像度ソース（低品質のDVDやVHSソース）の様々な色に関する問題を解決するのに便利です。ぼかし、平滑化アルゴリズムは案#フィルタで使用されるアルゴリズムと同じです。</value>
+  </data>
+  <data name="ConstrainToOneAxisCheckBox" xml:space="preserve">
+    <value>一つの軸に拘束する</value>
+  </data>
+  <data name="ConstrainToOneAxisToolTip" xml:space="preserve">
+    <value>有効にすると、最も検出されたクロップの軸のみクロップされます。例えば、上下が32で左右が6の場合、左右はクロップされません。</value>
+  </data>
+  <data name="MinimumCroppingLabel" xml:space="preserve">
+    <value>最小：</value>
+  </data>
+  <data name="MinimumCroppingToolTip" xml:space="preserve">
+    <value>自動クロップがこの値以下の場合は、その辺のクロップは無効にします。わずかなクロップ量でのリサンプリングを防ぐのに役立ちます。</value>
+  </data>
+  <data name="CroppingType_Conservative" xml:space="preserve">
+    <value>控え目</value>
+  </data>
 </root>

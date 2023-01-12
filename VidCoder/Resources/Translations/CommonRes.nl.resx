@@ -125,16 +125,16 @@ Dit programma wordt gedistribueerd in de hoop dat het nuttig is, maar ZONDER ENI
 Een volledige kopie van de GNU General Public License is opgenomen bij dit programma.</value>
   </data>
   <data name="BurnedSubtitleToolTip" xml:space="preserve">
-    <value>Ondertitels met het beeldspoor integreren. Geïntegreerde ondertitels kunt u niet uitschakelen tijdens het afspelen.</value>
+    <value>Ondertitels met het beeld samenvoegen. Geïntegreerde ondertitels kunt u niet uitschakelen tijdens het afspelen.</value>
   </data>
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
-    <value>Markeer dit ondertitelspoor als standaard. Dit wordt bij het afspelen weergegeven tot een ander spoor wordt geselecteerd.</value>
+    <value>Markeer dit ondertitelspoor als standaard. Dit wordt bij het afspelen weergegeven tenzij een ander spoor wordt geselecteerd.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Alleen geforceerde ondertiteling weergeven. Gewoonlijk betekent dit korte stukken buitenlandse dialoog.</value>
+    <value>Alleen geforceerde ondertiteling weergeven. Dit betreft gewoonlijk korte stukken buitenlandse dialoog.</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
-    <value>De tijdsduur waarmee het tonen van ondertitels wordt vervroegd of vertraagd.</value>
+    <value>De hoeveelheid waarmee het tonen van ondertitels wordt vervroegd of vertraagd.</value>
   </data>
   <data name="QueueColumnNameRange" xml:space="preserve">
     <value>Bereik</value>
@@ -239,7 +239,7 @@ Een volledige kopie van de GNU General Public License is opgenomen bij dit progr
     <value>{0} bestanden</value>
   </data>
   <data name="QueueColumnNamePreset" xml:space="preserve">
-    <value>Voorkeursinstelling</value>
+    <value>Voorinstelling</value>
   </data>
   <data name="Success" xml:space="preserve">
     <value>Geslaagd</value>
@@ -341,5 +341,7 @@ Een volledige kopie van de GNU General Public License is opgenomen bij dit progr
     <value>MB</value>
     <comment>Abbreviation for megabytes</comment>
   </data>
-  
+  <data name="Enabled" xml:space="preserve">
+    <value>Ingeschakeld</value>
+  </data>
 </root>
