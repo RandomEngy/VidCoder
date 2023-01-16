@@ -367,7 +367,7 @@
     <comment>Screen reader name for the low disk space threshold number box</comment>
   </data>
   <data name="DragDropScanOrderLabel" xml:space="preserve">
-    <value>გადმოიტანეთ სკანირებისთვის ფოლდერი:</value>
+    <value>გადმოიტანილი სკანირებისთვის ფოლდერის დახარისხება:</value>
   </data>
   <data name="EncodeRetriesLabel" xml:space="preserve">
     <value>კოდირების განმეორების რაოდენობა:</value>

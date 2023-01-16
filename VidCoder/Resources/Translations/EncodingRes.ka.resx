@@ -739,7 +739,13 @@
   <data name="DeblockToolTip" xml:space="preserve">
     <value>დებლოკირება ამცირებს დაბალი ხარისხის ვიდეოსგან გამოწვეულ კვადრატებს.</value>
   </data>
-  
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>დეინთერლეისი ასუფთავებს კადრზე დაყოლილ ზოლებს.
+
+Bwdif და Yadif-ი პოპულარული და სწრაფი მეთოდებია.
+
+დეკომბი ირჩევს მრავალჯერადი ინტერპოლაციის ალგორითმს სიჩქარის და ხარისხითვის.</value>
+  </data>
   <data name="DenoiseToolTip" xml:space="preserve">
     <value>გასუფთავება ამცირებს ან ასუფთავებს წერტილებს და მარცვლებს კადრიდან. ამან შესაძლებელია გააუმჯობესოს შეკუმშვის ეფექტურობა და მიიღოთ პატარა ზომის ვიდეო მაღალი ხარისხით.
          
@@ -849,5 +855,7 @@ HQDN3D-ი ადაპტური დაბალი ხარისხის 
   <data name="MinimumCroppingToolTip" xml:space="preserve">
     <value>თუ ავტომატური გვერდების შემოჭრაა მონიშნული, დეააქტივირეთ მინიმალური გვერდების შემოჭრა. გამოსადეგია პატარა შემოჭრის არის დასაცავად.</value>
   </data>
-  
+  <data name="CroppingType_Conservative" xml:space="preserve">
+    <value>შენარჩუნებადი</value>
+  </data>
 </root>

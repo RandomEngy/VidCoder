@@ -748,7 +748,7 @@ Questo avviso verrà visualizzato solo due volte.</value>
     <value>Copia il file di tracciamento e segnala il problema</value>
   </data>
   <data name="WatcherMenuItem" xml:space="preserve">
-    <value>Controllore</value>
+    <value>Controllo cartelle</value>
   </data>
   <data name="QueueProgressLabel" xml:space="preserve">
     <value>In coda {0}/{1}:</value>

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ActivateWatcherButton" xml:space="preserve">
-    <value>Attiva controllore file</value>
+    <value>Attiva controllo cartelle</value>
   </data>
   <data name="AddFolderToWatch" xml:space="preserve">
     <value>Aggiungi cartella da controllare</value>
@@ -127,7 +127,7 @@
     <value>Annulla</value>
   </data>
   <data name="DeactivateWatcherButton" xml:space="preserve">
-    <value>Disattiva controllore file</value>
+    <value>Disattiva controllo cartelle</value>
   </data>
   <data name="OpenContainingFolderMenuItem" xml:space="preserve">
     <value>Apri contenuto cartella</value>
@@ -154,10 +154,10 @@
     <value>Esegui anche quando VidCoder è chiuso</value>
   </data>
   <data name="ServiceInstallError" xml:space="preserve">
-    <value>Impossibile installare il servizio di controllo file.</value>
+    <value>Impossibile installare il servizio di controllo cartelle.</value>
   </data>
   <data name="ServiceUninstallError" xml:space="preserve">
-    <value>Impossibile disinstallare il servizio di controllo file.</value>
+    <value>Impossibile disinstallare il servizio di controllo cartelle.</value>
   </data>
   <data name="StatusCanceledToolTip" xml:space="preserve">
     <value>La codifica è stata annullata a causa della sua rimozione dalla coda.</value>
@@ -196,9 +196,9 @@
     <value>Modifica cartella da controllare</value>
   </data>
   <data name="WatcherIntroText" xml:space="preserve">
-    <value>È possibile impostare il Controllore per tenere sotto controllo delle cartelle e codificare automaticamente i video appiono di volta in volta. Il processo Controllore verrà eseguito quando VidCoder è chiuso e avvierà VidCoder per la codifica dei file.</value>
+    <value>È possibile impostare il "Controllo cartelle" per tenere sotto controllo delle cartelle e codificare automaticamente i video che appiono di volta in volta. Il processo "Controllo cartelle" è in esecuzione anche quando VidCoder è chiuso e avvierà VidCoder per la codifica dei file.</value>
   </data>
   <data name="WatcherWindowTitle" xml:space="preserve">
-    <value>Controllore - {0}</value>
+    <value>Controllo cartelle - {0}</value>
   </data>
 </root>

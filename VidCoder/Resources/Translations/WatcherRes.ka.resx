@@ -117,4 +117,88 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivateWatcherButton" xml:space="preserve">
+    <value>ფაილის მეთვალყურის აქტივირება</value>
+  </data>
+  <data name="AddFolderToWatch" xml:space="preserve">
+    <value>ფოლდერის სამეთვალყუროდ დამატება</value>
+  </data>
+  <data name="CancelMenuItem" xml:space="preserve">
+    <value>გაუქმება</value>
+  </data>
+  <data name="DeactivateWatcherButton" xml:space="preserve">
+    <value>ფაილის მეთვალყურის დეაქტივირება</value>
+  </data>
+  <data name="OpenContainingFolderMenuItem" xml:space="preserve">
+    <value>შემცველი ფოლდერის გახსნა</value>
+  </data>
+  <data name="PathColumnHeader" xml:space="preserve">
+    <value>მდებარეობა</value>
+  </data>
+  <data name="PickerLabel" xml:space="preserve">
+    <value>ამომრჩევი</value>
+  </data>
+  <data name="PickWatchedFolderDialogDescription" xml:space="preserve">
+    <value>ფოლდერის სამეთვალყუროდ არჩევა</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>კოდირების შაბლონი:</value>
+  </data>
+  <data name="RemoveWatchedFolder" xml:space="preserve">
+    <value>მეთვალყურე ფოლდერის წაშლა</value>
+  </data>
+  <data name="RetryMenuItem" xml:space="preserve">
+    <value>განმეორება</value>
+  </data>
+  <data name="RunWhenClosedCheckBox" xml:space="preserve">
+    <value>იმუშავოს თუ VidCoder-ი დახურულია</value>
+  </data>
+  <data name="ServiceInstallError" xml:space="preserve">
+    <value>მეთვალყურის სერვისი ვერ ყენდება.</value>
+  </data>
+  <data name="ServiceUninstallError" xml:space="preserve">
+    <value>მეთვალყურის სერვისი ვერ დეინსტალირდება.</value>
+  </data>
+  <data name="StatusCanceledToolTip" xml:space="preserve">
+    <value>კოდირება შეწყდა, დავალების სიიდან წაშლის გამო.</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>სტატუსი</value>
+  </data>
+  <data name="StatusFailedToolTip" xml:space="preserve">
+    <value>კოდირება წარუმატებელია.</value>
+  </data>
+  <data name="StatusOutputToolTip" xml:space="preserve">
+    <value>ფაილი კოდირებულია VidCoder-ით.</value>
+  </data>
+  <data name="StatusQueuedToolTip" xml:space="preserve">
+    <value>წყაროს ფაილი დავალების სიაშია.</value>
+  </data>
+  <data name="StatusSkippedToolTip" xml:space="preserve">
+    <value>კოდირება გამოტოვებულია, სცადეთ პარამეტრების დაყენება ამომრჩევში (რამდენადაც ფაილის განზომილება ძალიან პატარაა).</value>
+  </data>
+  <data name="StatusSucceededToolTip" xml:space="preserve">
+    <value>კოდირება დასრულდა წარმატებით.</value>
+  </data>
+  <data name="WatchedFilesHeader" xml:space="preserve">
+    <value>ფაილები</value>
+  </data>
+  <data name="WatchedFoldersHeader" xml:space="preserve">
+    <value>ფოლდერების მეთვალყურეობა</value>
+  </data>
+  <data name="WatchedFolderTextBoxLabel" xml:space="preserve">
+    <value>ფოლდერი:</value>
+  </data>
+  <data name="WatcherAddDialogTitle" xml:space="preserve">
+    <value>მეთვალყურე ფოლდერის დამატება</value>
+  </data>
+  <data name="WatcherEditDialogTitle" xml:space="preserve">
+    <value>მეთვალყურე ფოლდერის დამუშავება</value>
+  </data>
+  <data name="WatcherIntroText" xml:space="preserve">
+    <value>შეგიძლიათ დააყენოთ მეთვალყურე ფოლდერების დასაკვირვებლად და ავტომატური ვიდეოს კოდირებისთვის რომელსაც ისინი შეიცავენ. მეთვალყურე პროცესი მუშაობს როდესაც VidCoder-ი დახურულია და რთავს პროგრამას ფაილების კოდირებისთვის.</value>
+  </data>
+  <data name="WatcherWindowTitle" xml:space="preserve">
+    <value>მეთვალყურეობა - {0}</value>
+  </data>
 </root>
