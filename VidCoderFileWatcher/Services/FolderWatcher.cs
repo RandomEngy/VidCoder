@@ -50,10 +50,7 @@ namespace VidCoderFileWatcher.Services
 			try
 			{
 				this.logger.Log("Detected new file: " + e.FullPath);
-				if (this.HandleAndFilterNewFile(e.FullPath))
-				{
-					this.SetUpPendingTimer();
-				}
+				this.HandleAndFilterNewFile(e.FullPath);
 			}
 			finally
 			{
@@ -68,8 +65,7 @@ namespace VidCoderFileWatcher.Services
 			{
 				this.logger.Log($"File renamed from {e.OldFullPath} to {e.FullPath}");
 				this.HandleAndFilterNewFile(e.FullPath);
-				this.filesPendingRemoveEntry.Add(e.OldFullPath);
-				this.SetUpPendingTimer();
+				this.HandleDeletedFile(e.OldFullPath);
 			}
 			finally
 			{
@@ -83,8 +79,8 @@ namespace VidCoderFileWatcher.Services
 			try
 			{
 				this.logger.Log("Detected file removed: " + e.FullPath);
-				this.filesPendingRemoveEntry.Add(e.FullPath);
-				this.SetUpPendingTimer();
+
+				this.HandleDeletedFile(e.FullPath);
 			}
 			finally
 			{
@@ -92,21 +88,38 @@ namespace VidCoderFileWatcher.Services
 			}
 		}
 
-		private bool HandleAndFilterNewFile(string path)
+		/// <summary>
+		/// Handles a new file, applying filters to it.
+		/// </summary>
+		/// <param name="path">The path to the new video file.</param>
+		/// <returns>True if the file should be added.</returns>
+		private void HandleAndFilterNewFile(string path)
 		{
 			if (this.watcherService.FilePassesPicker(this.watchedFolder, path))
 			{
 				WatchedFile entry = WatcherStorage.GetFileEntry(WatcherDatabase.Connection, path);
 				if (entry != null && entry.Status != WatchedFileStatus.Planned)
 				{
-					return false;
+					return;
+				}
+
+				if (this.filesPendingWriteComplete.Contains(path))
+				{
+					return;
 				}
 
 				this.filesPendingWriteComplete.Add(path);
-				return true;
+				this.SetUpPendingTimer();
 			}
+		}
 
-			return false;
+		private void HandleDeletedFile(string path)
+		{
+			if (!this.filesPendingRemoveEntry.Contains(path))
+			{
+				this.filesPendingRemoveEntry.Add(path);
+				this.SetUpPendingTimer();
+			}
 		}
 
 		private static bool IsFileLocked(string filePath)

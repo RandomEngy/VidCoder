@@ -120,6 +120,7 @@ namespace VidCoderFileWatcher.Services
 
 			foreach (WatchedFolder folder in folders)
 			{
+				this.logger.Log("Starting FolderWatcher for " + folder.Path);
 				var watcher = new FolderWatcher(this, folder, this.logger);
 				this.folderWatchers.Add(watcher);
 			}
