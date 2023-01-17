@@ -1287,7 +1287,7 @@ namespace VidCoder.Services
 			}
 
 			List<SourcePathWithMetadata> pathList = this.videoFileFinder.GetPathList(new List<string> { source }, picker);
-			this.QueueMultipleSourcePaths(pathList, profile, picker, destination, start: true);
+			this.QueueMultipleSourcePaths(pathList, profile, presetName, picker, destination, start: true);
 		}
 
 		/// <summary>
@@ -1336,7 +1336,7 @@ namespace VidCoder.Services
 
 			if (pathsToQueue.Count > 0)
 			{
-				this.QueueMultipleSourcePaths(pathsToQueue, profile, picker, start: true);
+				this.QueueMultipleSourcePaths(pathsToQueue, profile, presetName, picker, start: true);
 			}
 
 			this.JobsAddedFromWatcher?.Invoke(this, new EventArgs());
@@ -1575,11 +1575,13 @@ namespace VidCoder.Services
 		}
 
 		// Queues a list of files or video folders.
-		public void QueueMultipleSourcePaths(IList<SourcePathWithMetadata> sourcePaths, VCProfile profile = null, Picker picker = null, string destinationOverride = null, bool start = false)
+		public void QueueMultipleSourcePaths(IList<SourcePathWithMetadata> sourcePaths, VCProfile profile = null, string presetName = null, Picker picker = null, string destinationOverride = null, bool start = false)
 		{
 			if (profile == null)
 			{
-				profile = this.presetsService.SelectedPreset.Preset.EncodingProfile;
+				var preset = this.presetsService.SelectedPreset.Preset;
+				profile = preset.EncodingProfile;
+				presetName = preset.Name;
 			}
 
 			if (picker == null)
@@ -1592,6 +1594,7 @@ namespace VidCoder.Services
 				new JobInstructions
 				{
 					Profile = profile,
+					PresetName = presetName,
 					Picker = picker,
 					DestinationOverride = destinationOverride,
 					IsBatch = sourcePaths.Count > 0,
@@ -1655,7 +1658,7 @@ namespace VidCoder.Services
 							jobVM.VideoSource = videoSource;
 							jobVM.SourceParentFolder = sourcePath.ParentFolder;
 							jobVM.ManualOutputPath = false;
-							jobVM.PresetName = this.presetsService.SelectedPreset.DisplayName;
+							jobVM.PresetName = scanResult.JobInstructions.PresetName;
 							itemsToQueue.Add(jobVM);
 
 							var titles = jobVM.VideoSource.Titles;

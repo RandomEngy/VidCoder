@@ -138,7 +138,7 @@ namespace VidCoderFileWatcher.Services
 			}
 
 			WatcherStorage.AddEntries(WatcherDatabase.Connection, files);
-			this.logger.Log("Sending video(s) to be queued:");
+			this.logger.Log($"Sending video(s) to be queued with picker '{watchedFolder.Picker}' and preset '{watchedFolder.Preset}':");
 			foreach (string file in files)
 			{
 				this.logger.Log("    " + file);

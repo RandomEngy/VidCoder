@@ -14,6 +14,8 @@ namespace VidCoder.Model
 	{
 		public VCProfile Profile { get; set; }
 
+		public string PresetName { get; set; }
+
 		public Picker Picker { get; set; }
 
 		public string DestinationOverride { get; set; }
