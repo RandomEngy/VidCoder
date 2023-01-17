@@ -133,6 +133,18 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public JobPreset JobPreset
+		{
+			get
+			{
+				return new JobPreset
+				{
+					Name = this.PresetName,
+					Profile = this.Job.EncodingProfile
+				};
+			}
+		}
+
 		public SourceTitle SourceTitle
 		{
 			get

@@ -321,6 +321,47 @@ namespace VidCoder.Services
 			return changeSelectedPreset;
 		}
 
+		public JobPreset SelectedJobPreset
+		{
+			get
+			{
+				Preset preset = this.SelectedPreset.Preset;
+				return new JobPreset
+				{
+					Name = preset.Name,
+					Profile = preset.EncodingProfile
+				};
+			}
+		}
+
+		public JobPreset ResolveJobPreset(string presetName)
+		{
+			foreach (var preset in this.AllPresets)
+			{
+				if (string.Compare(presetName.Trim(), preset.DisplayName.Trim(), ignoreCase: true, culture: CultureInfo.CurrentUICulture) == 0)
+				{
+					if (preset.Preset.IsModified)
+					{
+						return new JobPreset
+						{
+							Name = preset.Preset.Name,
+							Profile = preset.OriginalProfile
+						};
+					}
+					else
+					{
+						return new JobPreset
+						{
+							Name = preset.Preset.Name,
+							Profile = preset.Preset.EncodingProfile
+						};
+					}
+				}
+			}
+
+			return null;
+		}
+
 		public VCProfile GetProfileByName(string presetName)
 		{
 			foreach (var preset in this.AllPresets)

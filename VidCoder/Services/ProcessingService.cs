@@ -1275,6 +1275,12 @@ namespace VidCoder.Services
 				throw new ArgumentException("Cannot find preset: " + presetName);
 			}
 
+			JobPreset preset = new JobPreset
+			{
+				Name = presetName,
+				Profile = profile
+			};
+
 			PickerViewModel pickerVM = this.pickersService.Pickers.FirstOrDefault(p => p.Picker.Name == pickerName);
 			Picker picker = null;
 			if (pickerVM != null)
@@ -1287,7 +1293,7 @@ namespace VidCoder.Services
 			}
 
 			List<SourcePathWithMetadata> pathList = this.videoFileFinder.GetPathList(new List<string> { source }, picker);
-			this.QueueMultipleSourcePaths(pathList, profile, presetName, picker, destination, start: true);
+			this.QueueMultipleSourcePaths(pathList, preset, picker, destination, start: true);
 		}
 
 		/// <summary>
@@ -1305,6 +1311,12 @@ namespace VidCoder.Services
 				this.logger.LogError("Unable to queue watched file. Cannot find preset: " + presetName);
 				return;
 			}
+
+			JobPreset preset = new JobPreset
+			{
+				Name = presetName,
+				Profile = profile,
+			};
 
 			PickerViewModel pickerVM = this.pickersService.Pickers.FirstOrDefault(p => p.Picker.Name == pickerName);
 			Picker picker = null;
@@ -1336,7 +1348,7 @@ namespace VidCoder.Services
 
 			if (pathsToQueue.Count > 0)
 			{
-				this.QueueMultipleSourcePaths(pathsToQueue, profile, presetName, picker, start: true);
+				this.QueueMultipleSourcePaths(pathsToQueue, preset, picker, start: true);
 			}
 
 			this.JobsAddedFromWatcher?.Invoke(this, new EventArgs());
@@ -1575,13 +1587,11 @@ namespace VidCoder.Services
 		}
 
 		// Queues a list of files or video folders.
-		public void QueueMultipleSourcePaths(IList<SourcePathWithMetadata> sourcePaths, VCProfile profile = null, string presetName = null, Picker picker = null, string destinationOverride = null, bool start = false)
+		public void QueueMultipleSourcePaths(IList<SourcePathWithMetadata> sourcePaths, JobPreset jobPreset = null, Picker picker = null, string destinationOverride = null, bool start = false)
 		{
-			if (profile == null)
+			if (jobPreset == null)
 			{
-				var preset = this.presetsService.SelectedPreset.Preset;
-				profile = preset.EncodingProfile;
-				presetName = preset.Name;
+				jobPreset = this.presetsService.SelectedJobPreset;
 			}
 
 			if (picker == null)
@@ -1593,8 +1603,7 @@ namespace VidCoder.Services
 				sourcePaths,
 				new JobInstructions
 				{
-					Profile = profile,
-					PresetName = presetName,
+					Preset = jobPreset,
 					Picker = picker,
 					DestinationOverride = destinationOverride,
 					IsBatch = sourcePaths.Count > 0,
@@ -1617,7 +1626,8 @@ namespace VidCoder.Services
 				{
 					VideoSource videoSource = scanResult.VideoSource;
 					Picker picker = scanResult.JobInstructions.Picker;
-					VCProfile profile = scanResult.JobInstructions.Profile.Clone();
+					JobPreset preset = scanResult.JobInstructions.Preset;
+					VCProfile profile = preset.Profile.Clone();
 
 					List<int> titleNumbers = this.PickTitles(videoSource);
 					if (titleNumbers.Count == 0)
@@ -1658,7 +1668,7 @@ namespace VidCoder.Services
 							jobVM.VideoSource = videoSource;
 							jobVM.SourceParentFolder = sourcePath.ParentFolder;
 							jobVM.ManualOutputPath = false;
-							jobVM.PresetName = scanResult.JobInstructions.PresetName;
+							jobVM.PresetName = preset.Name;
 							itemsToQueue.Add(jobVM);
 
 							var titles = jobVM.VideoSource.Titles;
@@ -1685,6 +1695,7 @@ namespace VidCoder.Services
 								title.Duration.ToSpan(),
 								title.ChapterList.Count,
 								multipleTitlesOnSource: titles.Count > 1,
+								preset: preset,
 								picker: picker);
 							string outputExtension = this.outputPathService.GetOutputExtension(profile: profile);
 							string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);

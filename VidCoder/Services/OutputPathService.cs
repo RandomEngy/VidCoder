@@ -428,6 +428,8 @@ namespace VidCoder.Services
 				}
 			}
 
+			JobPreset preset = this.presetsService.SelectedJobPreset;
+
 			fileName = this.BuildOutputFileName(
 				main.SourcePath,
 				// Change casing on DVD titles to be a little more friendly
@@ -444,6 +446,7 @@ namespace VidCoder.Services
 				main.FramesRangeEnd,
 				nameFormat,
 				multipleTitlesOnSource: main.ScanInstance.Titles.TitleList.Count > 1,
+				preset: preset,
 				picker: picker);
 
 			string extension = this.GetOutputExtension();
@@ -561,6 +564,7 @@ namespace VidCoder.Services
 			int totalChapters,
 			string nameFormatOverride = null,
 			bool multipleTitlesOnSource = false,
+			JobPreset preset = null,
 			Picker picker = null)
 		{
 			return this.BuildOutputFileName(
@@ -578,6 +582,7 @@ namespace VidCoder.Services
 				0,
 				nameFormatOverride,
 				multipleTitlesOnSource,
+				preset,
 				picker);
 		}
 
@@ -689,9 +694,10 @@ namespace VidCoder.Services
 		/// Replace arguments with the currently loaded source.
 		/// </summary>
 		/// <param name="nameFormat">The name format to use.</param>
+		/// <param name="preset">The job preset.</param>
 		/// <param name="picker">The picker.</param>
 		/// <returns>The new name with arguments replaced.</returns>
-		public string ReplaceArguments(string nameFormat, Picker picker = null)
+		public string ReplaceArguments(string nameFormat, JobPreset preset = null, Picker picker = null)
 		{
 			MainViewModel main = this.mainViewModel.Value;
 
@@ -710,6 +716,7 @@ namespace VidCoder.Services
 				main.FramesRangeEnd,
 				nameFormat,
 				multipleTitlesOnSource: main.ScanInstance.Titles.TitleList.Count > 1,
+				preset: preset,
 				picker: picker);
 		}
 
@@ -747,6 +754,7 @@ namespace VidCoder.Services
 				job.FramesEnd,
 				nameFormat,
 				hasMultipleTitles,
+				jobViewModel.JobPreset,
 				picker);
 		}
 
@@ -765,9 +773,16 @@ namespace VidCoder.Services
 			int endFrame,
 			string nameFormatOverride,
 			bool multipleTitlesOnSource,
+			JobPreset preset,
 			Picker picker)
 		{
 			string fileName;
+
+			if (preset == null)
+			{
+				preset = this.PresetsService.SelectedJobPreset;
+			}
+
 			if (picker == null)
 			{
 				picker = this.PickersService.SelectedPicker.Picker;
@@ -819,7 +834,7 @@ namespace VidCoder.Services
 				// {chapters} is deprecated in favor of {range} but we replace here for backwards compatibility.
 				fileName = fileName.Replace("{chapters}", rangeString);
 
-				fileName = fileName.Replace("{preset}", this.PresetsService.SelectedPreset.Preset.Name);
+				fileName = fileName.Replace("{preset}", preset.Name);
 				fileName = ReplaceParents(fileName, sourcePath);
 
 				DateTime now = DateTime.Now;
@@ -835,7 +850,7 @@ namespace VidCoder.Services
 
 				if (fileName.Contains("{quality}"))
 				{
-					VCProfile profile = this.PresetsService.SelectedPreset.Preset.EncodingProfile;
+					VCProfile profile = preset.Profile;
 					double quality = 0;
 					switch (profile.VideoEncodeRateType)
 					{
@@ -912,11 +927,27 @@ namespace VidCoder.Services
 			int endFrame,
 			string nameFormatOverride, 
 			bool multipleTitlesOnSource,
+			JobPreset preset,
 			Picker picker)
 		{
-			return FileUtilities.CleanFileName(
-				ReplaceArguments(sourcePath, sourceName, title, titleDuration, rangeType, startChapter,endChapter, totalChapters, startTime, endTime, startFrame, endFrame, nameFormatOverride, multipleTitlesOnSource, picker), 
-				allowBackslashes: true);
+			string rawFileName = ReplaceArguments(
+					sourcePath,
+					sourceName,
+					title,
+					titleDuration,
+					rangeType,
+					startChapter,
+					endChapter,
+					totalChapters,
+					startTime,
+					endTime,
+					startFrame,
+					endFrame,
+					nameFormatOverride,
+					multipleTitlesOnSource,
+					preset,
+					picker);
+			return FileUtilities.CleanFileName(rawFileName, allowBackslashes: true);
 		}
 
 		public bool PathIsValid()
