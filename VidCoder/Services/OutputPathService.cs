@@ -428,7 +428,7 @@ namespace VidCoder.Services
 				}
 			}
 
-			JobPreset preset = this.presetsService.SelectedJobPreset;
+			JobPreset preset = this.PresetsService.SelectedJobPreset;
 
 			fileName = this.BuildOutputFileName(
 				main.SourcePath,

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.AnyContainer;
 using ReactiveUI;
+using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -55,7 +56,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public string TimeDisplay => this.encodeResult.EncodeTime.ToString(@"h\:mm\:ss", CultureInfo.InvariantCulture);
+		public string TimeDisplay => this.encodeResult.EncodeTime.FormatShort();
 
 		public string StatusImage
 		{
