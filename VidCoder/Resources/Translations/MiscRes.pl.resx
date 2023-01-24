@@ -153,7 +153,9 @@
   <data name="FileConflictWarning" xml:space="preserve">
     <value>Plik już istnieje w {0}. Czy chcesz zastąpić plik, automatycznie znaleźć nową ścieżkę wyjściową do pracy kodowania lub anulować operację?</value>
   </data>
-  
+  <data name="QueueFileConflictWarning" xml:space="preserve">
+    <value>Zadanie w kolejce ma już ścieżkę wyjściową w {0}. Czy chcesz zastąpić zadanie w kolejce, automatycznie znaleźć nową ścieżkę wyjściową dla zadania kodowania lub anulować operację?</value>
+  </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>Kolumny kolejki</value>
   </data>
@@ -184,7 +186,10 @@
   <data name="Copyright" xml:space="preserve">
     <value>© {0} VidCoder Developers</value>
   </data>
-  
+  <data name="BetaVersionFormat2" xml:space="preserve">
+    <value>Beta {0}</value>
+    <comment>{0} is a placeholder for version. For example: 1.4.2 Beta</comment>
+  </data>
   <data name="NameDialogTitle" xml:space="preserve">
     <value>Nazwa</value>
     <comment>Title for dialog when  naming a preset or  picker</comment>
@@ -240,13 +245,25 @@
   <data name="EncodeCompleteWarning_HibernateMessage" xml:space="preserve">
     <value>System przejdzie w stan hibernacji za {0} sekund(y).</value>
   </data>
-  
+  <data name="EncodeCompleteWarning_HibernateTitle" xml:space="preserve">
+    <value>Hibernacja nieuchronna</value>
+  </data>
   <data name="ChooseNamePicker" xml:space="preserve">
     <value>Wybierz nazwę dla próbnika:</value>
   </data>
-  
-  
-  
-  
-  
+  <data name="ExceptionDialogSubTextReported" xml:space="preserve">
+    <value>Program musi zostać zamknięty, ale błąd zostanie automatycznie zgłoszony.</value>
+  </data>
+  <data name="DownloadInstallerButton" xml:space="preserve">
+    <value>Pobierz instalator</value>
+  </data>
+  <data name="ReplaceJobButton" xml:space="preserve">
+    <value>Zastąp zadanie</value>
+  </data>
+  <data name="CopyAndReportIssueButton" xml:space="preserve">
+    <value>Skopiuj i zgłoś problem</value>
+  </data>
+  <data name="OneTimeInstallerCleanup" xml:space="preserve">
+    <value>Musimy zrobić jednorazowe czyszczenie starego instalatora. Wybierz "Tak" w następnym monicie, aby usunąć starą wersję VidCodera.</value>
+  </data>
 </root>

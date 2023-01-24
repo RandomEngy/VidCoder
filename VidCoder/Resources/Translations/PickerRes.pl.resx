@@ -117,25 +117,45 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  
+  <data name="DefaultCheckBox" xml:space="preserve">
+    <value>Domyślne</value>
+  </data>
   <data name="LanguagesRadioButton" xml:space="preserve">
     <value>Język(i)</value>
   </data>
-  
-  
-  
+  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
+    <value>Tylko jeśli inny język niż audio</value>
+    <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Wybierz: {0}</value>
+  </data>
+  <data name="PickerButtonFormat" xml:space="preserve">
+    <value>Wybierz: {0}</value>
+    <comment>{0} is the name of the picker. This string shows up on the picker split button.</comment>
+  </data>
   <data name="OutputLocation" xml:space="preserve">
     <value>Położenie wyjścia pliku</value>
   </data>
-  
-  
-  
-  
+  <data name="OverrideDirectoryCheckBox" xml:space="preserve">
+    <value>Nadpisz folder:</value>
+  </data>
+  <data name="PickerHelpText" xml:space="preserve">
+    <value>Automatycznie wybieraj tytuły, dźwięk, napisy i miejsce docelowe</value>
+  </data>
+  <data name="AutoQueueOnScanCheckBox" xml:space="preserve">
+    <value>Automatyczne w kolejce po skanowaniu</value>
+  </data>
+  <data name="AutoEncodeOnScanCheckBox" xml:space="preserve">
+    <value>Rozpocznij kodowanie po skanowaniu</value>
+  </data>
   <data name="UseGlobalSettingToolTip" xml:space="preserve">
     <value>Użyj ustawień globalnych</value>
     <comment>Label for the "indeterminate" checkbox state that lets the user know that this will fall back to the global setting</comment>
   </data>
-  
+  <data name="PresetOverrideToolTip" xml:space="preserve">
+    <value>Zastąpi to wszelkie ustawienia wstępne wybrane w oknie głównym.</value>
+  </data>
   <data name="EncodingSection" xml:space="preserve">
     <value>Enkodowanie</value>
     <comment>The header for the Encoding section in the Picker window.</comment>

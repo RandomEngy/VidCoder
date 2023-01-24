@@ -129,11 +129,23 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>Dokładny</value>
   </data>
-  
-  
-  
-  
-  
+  <data name="AppThemeChoice_Auto" xml:space="preserve">
+    <value>Użyj motywu OS</value>
+    <comment>Windows 10 you can choose Light or Dark for the app theme. This will cause VidCoder to respect that choice.</comment>
+  </data>
+  <data name="AppThemeChoice_Dark" xml:space="preserve">
+    <value>Ciemny</value>
+  </data>
+  <data name="AppThemeChoice_Light" xml:space="preserve">
+    <value>Jasny</value>
+  </data>
+  <data name="CombDetect_fast" xml:space="preserve">
+    <value>Szybko</value>
+  </data>
+  <data name="CombDetect_permissive" xml:space="preserve">
+    <value>Mniej czuły</value>
+    <comment>This mode allows higher levels of combing before triggering.</comment>
+  </data>
   <data name="Custom" xml:space="preserve">
     <value>Ustawienia własne</value>
   </data>
@@ -149,17 +161,35 @@
   
   
   
+  <data name="DeinterlacePreset_skipspatial" xml:space="preserve">
+    <value>Pomiń sprawdzenie przestrzenne</value>
+  </data>
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="DenoisePreset_light" xml:space="preserve">
+    <value>Jasność</value>
+  </data>
+  <data name="DenoisePreset_medium" xml:space="preserve">
+    <value>Średnie</value>
+  </data>
+  <data name="DenoisePreset_strong" xml:space="preserve">
+    <value>Silne</value>
+  </data>
+  <data name="DenoisePreset_ultralight" xml:space="preserve">
+    <value>Ultralekki</value>
+  </data>
+  <data name="DenoiseTune_animation" xml:space="preserve">
+    <value>Animacja</value>
+  </data>
+  <data name="DenoiseTune_film" xml:space="preserve">
+    <value>Film</value>
+  </data>
+  <data name="DenoiseTune_grain" xml:space="preserve">
+    <value>Ziarno</value>
+  </data>
+  <data name="DenoiseTune_highmotion" xml:space="preserve">
+    <value>Wysoki ruch</value>
+  </data>
   <data name="Denoise_HQDN3D" xml:space="preserve">
     <value>hqdn3d</value>
   </data>
@@ -213,35 +243,96 @@
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>Zakres czasu</value>
   </data>
+  <data name="TitleCapitalizationChoice_EveryWord" xml:space="preserve">
+    <value>Każde słowo</value>
+    <comment>This will make Blu-ray and DVD titles capitalize every word</comment>
+  </data>
+  <data name="TitleCapitalizationChoice_FirstWord" xml:space="preserve">
+    <value>Pierwsze słowo</value>
+    <comment>This will make Blu-ray and DVD titles capitalize only the first word</comment>
+  </data>
+  <data name="EncodeCompleteActionType_StopEncoding" xml:space="preserve">
+    <value>Zatrzymaj kodowanie</value>
+  </data>
+  <data name="UpdatePromptTiming_OnExit" xml:space="preserve">
+    <value>Przy wyjściu</value>
+  </data>
+  <data name="UpdatePromptTiming_OnLaunch" xml:space="preserve">
+    <value>Przy uruchomieniu</value>
+  </data>
+  <data name="LogOperationType_Encode" xml:space="preserve">
+    <value>Koduj</value>
+  </data>
+  <data name="LogOperationType_Scan" xml:space="preserve">
+    <value>Skanuj</value>
+  </data>
+  <data name="PickerTimeRangeMode_Chapters" xml:space="preserve">
+    <value>Rozdziały</value>
+  </data>
+  <data name="PickerTimeRangeMode_Time" xml:space="preserve">
+    <value>Przedział czasu</value>
+  </data>
+  <data name="WhenFileExists_AutoRename" xml:space="preserve">
+    <value>Automatyczna zmiana nazwy</value>
+  </data>
+  <data name="WhenFileExists_Overwrite" xml:space="preserve">
+    <value>Nadpisz</value>
+  </data>
+  <data name="WhenFileExists_Prompt" xml:space="preserve">
+    <value>Zapytaj</value>
+  </data>
+  <data name="DenoiseTune_medium" xml:space="preserve">
+    <value>Średnie</value>
+  </data>
+  <data name="DenoiseTune_none" xml:space="preserve">
+    <value>Żadne</value>
+  </data>
+  <data name="DenoiseTune_small" xml:space="preserve">
+    <value>Małe</value>
+  </data>
+  <data name="DenoiseTune_tiny" xml:space="preserve">
+    <value>Malutki
+</value>
+  </data>
+  <data name="DenoiseTune_verywide" xml:space="preserve">
+    <value>Bardzo szeroki</value>
+  </data>
+  <data name="DenoiseTune_wide" xml:space="preserve">
+    <value>Szerokie</value>
+  </data>
+  <data name="Denoise_ChromaSmooth" xml:space="preserve">
+    <value>Wygładzanie chroma</value>
+  </data>
+  <data name="DragDropOrder_Alphabetical" xml:space="preserve">
+    <value>Alfabetycznie</value>
+    <comment>Label for the option to order dragged files alphabetically</comment>
+  </data>
+  <data name="DragDropOrder_Selected" xml:space="preserve">
+    <value>Wybrano</value>
+    <comment>Label for the option to order dragged files as they had been selected in File explorer</comment>
+  </data>
+  <data name="SubtitleBurnInSelection_First" xml:space="preserve">
+    <value>Pierwsza</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrack" xml:space="preserve">
+    <value>Ścieżka audio obcego</value>
+  </data>
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="SubtitleBurnInSelection_None" xml:space="preserve">
+    <value>Żadne</value>
+  </data>
+  <data name="SourceFileRemovalTiming_AfterClearingCompletedItems" xml:space="preserve">
+    <value>Po wyczyszczeniu zakończonych elementów</value>
+  </data>
+  <data name="SourceFileRemovalTiming_Immediately" xml:space="preserve">
+    <value>Natychmiast po zakończeniu enkodowania</value>
+  </data>
+  <data name="SourceFileRemoval_Delete" xml:space="preserve">
+    <value>⚠️ Usuń (NIEODWRACALNIE) ⚠️</value>
+  </data>
+  <data name="SourceFileRemoval_Recycle" xml:space="preserve">
+    <value>Kosz</value>
+  </data>
   
   
   

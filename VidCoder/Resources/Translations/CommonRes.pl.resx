@@ -358,5 +358,7 @@ Replace the with
     <value>MB</value>
     <comment>Abbreviation for megabytes</comment>
   </data>
-  
+  <data name="Enabled" xml:space="preserve">
+    <value>Włączony</value>
+  </data>
 </root>

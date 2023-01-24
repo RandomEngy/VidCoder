@@ -736,7 +736,13 @@ Powinieneś to ustawić jeśli wiesz, że urządzenie do odtwarzania obsługuje 
   <data name="DeblockToolTip" xml:space="preserve">
     <value>Deblock redukuje artefakty blokowe, spowodowane przez niską jakość kompresji wideo.</value>
   </data>
-  
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>Usuń przeplot usuwa artefakty grzebienia z obrazu.
+
+Bwdif i Yadif to dwa popularne i szybkie narzędzia do usuwania przeplotu.
+
+Decomb przełącza między wieloma algorytmami interpolacji dla szybkości i jakości.</value>
+  </data>
   <data name="DenoiseToolTip" xml:space="preserve">
     <value>Denoise redukuje lub usuwa szum i ziarno. Może to poprawić wydajność kompresji i stworzyć wideo o wyższej jakości przy mniejszych rozmiarach plików. Zbyt silne ustawienia funkcji Denoise może pogorszyć jakość obrazu, poprzez usunięcie szczegółów.
 
@@ -831,10 +837,22 @@ Lapsharp wyostrza za pomocą jądera konwolucji przybliżonych do filtrów kraw�
   <data name="ColorspaceLabel" xml:space="preserve">
     <value>Przestrzeń kolorów:</value>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="ChromaSmoothToolTip" xml:space="preserve">
+    <value>Redukuje szum chrominancji, tęcze i inne widoczne artefakty wizualne. Przydatny do rozwiązywania różnych problemów związanych z kolorami, szczególnie w przypadku treści o niższej rozdzielczości ze źródeł analogowych, np. Słabej jakości źródeł DVD i VHS. Algorytm rozmycia/wygładzania jest taki sam, jak używany przez filtr wyostrzający.</value>
+  </data>
+  <data name="ConstrainToOneAxisCheckBox" xml:space="preserve">
+    <value>Ogranicz do jednej osi</value>
+  </data>
+  <data name="ConstrainToOneAxisToolTip" xml:space="preserve">
+    <value>Jeśli ta opcja jest włączona, przycięta zostanie tylko oś z największą liczbą wykrytych przycięć. Na przykład, jeśli Góra+Dół = 32 i Lewy+Prawy = 6, przycinanie po lewej i prawej stronie zostanie ustawione na 0.</value>
+  </data>
+  <data name="MinimumCroppingLabel" xml:space="preserve">
+    <value>Minimum:</value>
+  </data>
+  <data name="MinimumCroppingToolTip" xml:space="preserve">
+    <value>Jeśli automatyczne przycinanie jest poniżej tej wartości dla strony, wyłącz przycinanie dla tej strony. Przydatne do zapobiegania ponownemu próbkowaniu przy małych ilościach kadrowania.</value>
+  </data>
+  <data name="CroppingType_Conservative" xml:space="preserve">
+    <value>Zachowawczy</value>
+  </data>
 </root>

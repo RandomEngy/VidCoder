@@ -159,7 +159,9 @@
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>Pamiętaj wcześniej używane pliki i foldery</value>
   </data>
-  
+  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
+    <value>Włącz LibDVDNav (Zmiana wymaga restartu programu. Wymagane do obsługi wielu kątów)</value>
+  </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Szczegółowość rejestrowania:</value>
   </data>
@@ -187,7 +189,9 @@
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Dołącz do trybu Beta aby otrzymywać częstsze aktualizacje</value>
   </data>
-  
+  <data name="UpdateReadyStatus" xml:space="preserve">
+    <value>Aktualizacja {0} gotowa.</value>
+  </data>
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder jest aktualny.</value>
   </data>
@@ -311,31 +315,71 @@
   <data name="ProcessOptionsLabel" xml:space="preserve">
     <value>Opcje procesu</value>
   </data>
-  
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>Ograniczanie CPU - Dozwolone rdzenie:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use. It labels a slider that controls the percentage of allowed cores, where the max is 100%.</comment>
+  </data>
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>Użyj opcji wykorzystania mocy procesora, aby ograniczyć liczbę używanych rdzeni procesora, przez VidCoder podczas kodowania.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Użyj wbudowanego odtwarzacza dla podglądów</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="MaxSimultaneousEncodesLabel" xml:space="preserve">
+    <value>Maksymalna liczba jednoczesnych zadań kodowania:</value>
+  </data>
+  <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
+    <value>Tyle jednoczesnych zadań kodowania jest dozwolonych. Przydatny dla komputerów z wieloma rdzeniami procesora.</value>
+  </data>
+  <data name="GeneralSection" xml:space="preserve">
+    <value>Ogólne</value>
+  </data>
+  <data name="ThemeLabel" xml:space="preserve">
+    <value>Motyw</value>
+    <comment>Label for the app theme (auto, light, dark)</comment>
+  </data>
+  <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
+    <value>Opcja procesu roboczego zacznie obowiązywać po zamknięciu i ponownym uruchomieniu VidCoder.</value>
+  </data>
+  <data name="CopyLogToCustomFolderLabel" xml:space="preserve">
+    <value>Skopiuj dziennik kodowania do niestandardowego folderu</value>
+  </data>
+  <data name="KeepFailedFilesCheckBox" xml:space="preserve">
+    <value>Zachowaj pliki z nieudanych lub zatrzymanych kodowań</value>
+  </data>
+  <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
+    <value>Wyzwól akcję "Gdy zrobisz” w przypadku nieudanych zadań kodowania</value>
+  </data>
+  <data name="AutoPauseLowBatteryCheckbox" xml:space="preserve">
+    <value>Wstrzymaj gdy bateria jest słaba</value>
+  </data>
+  <data name="AutoPauseLowDiskSpaceCheckbox" xml:space="preserve">
+    <value>Wstrzymaj gdy spacja na dysku spadnie poniżej:</value>
+  </data>
+  <data name="AutoPauseSectionLabel" xml:space="preserve">
+    <value>Automatyczne wstrzymanie</value>
+  </data>
   <data name="FileNameFormatOptions" xml:space="preserve">
     <value>Dostępne opcje: {0}</value>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="LowDiskSpaceThresholdAutomationName" xml:space="preserve">
+    <value>Niski próg przestrzeni dysku w gigabajtach</value>
+    <comment>Screen reader name for the low disk space threshold number box</comment>
+  </data>
+  <data name="DragDropScanOrderLabel" xml:space="preserve">
+    <value>Przeciągnij i upuść kolejność skanowania:</value>
+  </data>
+  <data name="EncodeRetriesLabel" xml:space="preserve">
+    <value>Liczba powtórzeń kodowania:</value>
+  </data>
+  <data name="ApplyUpdateButton" xml:space="preserve">
+    <value>Zastosuj aktualizację</value>
+  </data>
+  <data name="CheckingForUpdateStatus" xml:space="preserve">
+    <value>Sprawdzanie aktualizacji...</value>
+  </data>
+  <data name="UpdateModeLabel" xml:space="preserve">
+    <value>Tryb aktualizacji:</value>
+    <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
+  </data>
 </root>

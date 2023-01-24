@@ -120,9 +120,19 @@
   <data name="LogWindowTitle" xml:space="preserve">
     <value>Dziennik</value>
   </data>
-  
-  
-  
-  
-  
+  <data name="GeneralLogLabel" xml:space="preserve">
+    <value>Ogólne</value>
+  </data>
+  <data name="LogVerbosity_Minimized" xml:space="preserve">
+    <value>Zminimalizowano</value>
+  </data>
+  <data name="LogVerbosity_Standard" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="LogVerbosity_Extended" xml:space="preserve">
+    <value>Rozszerzony</value>
+  </data>
+  <data name="ClearFinishedButton" xml:space="preserve">
+    <value>Wyczyść zakończone</value>
+  </data>
 </root>
