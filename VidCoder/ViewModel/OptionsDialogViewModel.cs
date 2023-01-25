@@ -375,6 +375,11 @@ namespace VidCoder.ViewModel
 			set => this.RaiseAndSetIfChanged(ref this.updatesEnabledConfig, value);
 		}
 
+		public bool SupportsUpdates
+		{
+			get => Utilities.SupportsUpdates;
+		}
+
 		public List<ComboChoice<UpdateMode>> UpdateModeChoices { get; } = new List<ComboChoice<UpdateMode>>
 		{
 			new ComboChoice<UpdateMode>(UpdateMode.SilentNextLaunch, EnumsRes.UpdateMode_SilentNextLaunch),
@@ -881,7 +886,7 @@ namespace VidCoder.ViewModel
 						.WhenAnyValue(x => x.State)
 						.Select(state =>
 						{
-							return Config.UpdatesEnabled &&
+							return Utilities.SupportsUpdates &&
 									(state == UpdateState.Failed ||
 									state == UpdateState.NotStarted ||
 									state == UpdateState.UpToDate);

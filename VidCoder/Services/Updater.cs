@@ -10,9 +10,8 @@ namespace VidCoder.Services
 	public class Updater : ReactiveObject, IUpdater
 	{
 		private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
-		private bool processDownloadsUpdates = true;
 
-		private UpdateState state;
+		private UpdateState state = UpdateState.NotStarted;
 		public UpdateState State
 		{
 			get { return this.state; }
@@ -32,8 +31,8 @@ namespace VidCoder.Services
 		{
 			if (Utilities.SupportsUpdates)
 			{
-				// If updates are enabled, and we are the last process instance, prompt to apply the update.
-				if (Config.UpdatesEnabled && Utilities.CurrentProcessInstances == 1)
+				// If updates are enabled prompt to apply the update.
+				if (Config.UpdatesEnabled)
 				{
 					// An update is ready, to give a prompt to apply it.
 					var updateConfirmation = new ApplyUpdateConfirmation(this.LatestVersion);
@@ -53,7 +52,7 @@ namespace VidCoder.Services
 
 		public void HandleUpdatedSettings(bool updatesEnabled)
 		{
-			if (Utilities.SupportsUpdates && updatesEnabled && this.processDownloadsUpdates)
+			if (Utilities.SupportsUpdates && updatesEnabled)
 			{
 				this.StartBackgroundUpdate(isManualCheck: false);
 			}
@@ -68,13 +67,7 @@ namespace VidCoder.Services
 				return;
 			}
 
-			if (Utilities.CurrentProcessInstances > 1)
-			{
-				this.processDownloadsUpdates = false;
-				return;
-			}
-
-			if (!Config.UpdatesEnabled)
+			if (!Config.UpdatesEnabled && !isManualCheck)
 			{
 				return;
 			}
