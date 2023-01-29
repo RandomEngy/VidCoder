@@ -13,6 +13,10 @@ namespace VidCoder.Services
 		{
 		}
 
+		public void LogDebug(string message)
+		{
+		}
+
 		public void LogError(string message)
 		{
 		}

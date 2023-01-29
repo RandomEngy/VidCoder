@@ -111,6 +111,14 @@ namespace VidCoder.Services
 			}
 		}
 
+		public void LogDebug(string message)
+		{
+			if (Utilities.DebugLogging)
+			{
+				this.Log(message);
+			}
+		}
+
 		public void LogError(string message)
 		{
 			var entry = new LogEntry

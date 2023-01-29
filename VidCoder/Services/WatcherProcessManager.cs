@@ -269,6 +269,7 @@ namespace VidCoder.Services
 					if (mainModuleFileName.StartsWith(CommonUtilities.LocalAppFolder, StringComparison.OrdinalIgnoreCase)
 						&& !mainModuleFileName.Equals(Utilities.FileWatcherFullPath, StringComparison.OrdinalIgnoreCase))
 					{
+						this.logger.Log($"Killing watcher process at {mainModuleFileName} , expected watcher path is {Utilities.FileWatcherFullPath}");
 						process.Kill();
 					}
 				}

@@ -18,6 +18,8 @@ namespace VidCoder.Services
 	{
 		private ProcessingService processingService;
 
+		private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
+
 		public WatchedFileStatusTracker(ProcessingService processingService)
 		{
 			this.processingService = processingService;
@@ -33,6 +35,7 @@ namespace VidCoder.Services
 
 			// Queue up anything that hasn't been encoded yet
 			Dictionary<string, WatchedFile> plannedFiles = WatcherStorage.GetPlannedFiles(connection);
+			this.logger.LogDebug($"Starting WatchedFileStatusTracker. Found {plannedFiles.Count} planned files.");
 
 			foreach (var job in this.processingService.EncodeQueue.Items)
 			{
@@ -43,6 +46,7 @@ namespace VidCoder.Services
 				}
 			}
 
+			this.logger.LogDebug($"{plannedFiles.Count} files were not already in queue; adding these now.");
 			if (plannedFiles.Count > 0)
 			{
 				this.processingService.QueueWatchedFiles(plannedFiles.Values);

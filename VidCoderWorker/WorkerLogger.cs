@@ -30,6 +30,11 @@ namespace VidCoderWorker
 			}
 		}
 
+		public void LogDebug(string message)
+		{
+			this.Log(message);
+		}
+
 		public async void LogError(string message)
 		{
 			try

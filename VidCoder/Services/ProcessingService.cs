@@ -1338,11 +1338,13 @@ namespace VidCoder.Services
 					{
 						// This file has recently completed. We should not re-queue it. Instead, mark the entry as "Output".
 						WatcherStorage.UpdateEntryStatus(Database.Connection, sourcePath, WatchedFileStatus.Output);
+						this.logger.LogDebug($"Marking as Output: {sourcePath}");
 
 						continue;
 					}
 				}
 
+				this.logger.LogDebug($"Queuing from file watcher: {sourcePath}");
 				pathsToQueue.Add(new SourcePathWithMetadata { Path = sourcePath, ParentFolder = parentFolder });
 			}
 
