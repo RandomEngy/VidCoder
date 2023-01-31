@@ -49,6 +49,12 @@ namespace VidCoderCommon.Utilities
 			return videoExtensions;
 		}
 
+		public static bool IsDirectory(string filePath)
+		{
+			var fileAttributes = File.GetAttributes(filePath);
+			return (fileAttributes & FileAttributes.Directory) == FileAttributes.Directory;
+		}
+
 		private static void GetFilesOrVideoFoldersRecursive(DirectoryInfo directory, List<SourcePathWithType> paths, List<string> inacessibleDirectories, PickerFileFilter fileFilter)
 		{
 			if (IsDiscFolder(directory.FullName))

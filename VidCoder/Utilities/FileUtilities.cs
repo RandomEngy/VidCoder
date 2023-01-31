@@ -88,12 +88,6 @@ namespace VidCoder
 			}
 		}
 
-		public static bool IsDirectory(string filePath)
-		{
-			var fileAttributes = File.GetAttributes(filePath);
-			return (fileAttributes & FileAttributes.Directory) == FileAttributes.Directory;
-		}
-
 		public static void CopyDirectory(string sourceDir, string destDir)
 		{
 			// Create root directory

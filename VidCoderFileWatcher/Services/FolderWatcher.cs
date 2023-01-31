@@ -35,7 +35,7 @@ namespace VidCoderFileWatcher.Services
 
 
 			this.watcher = new FileSystemWatcher(watchedFolder.Path);
-			this.watcher.NotifyFilter = NotifyFilters.FileName;
+			this.watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.DirectoryName;
 			this.watcher.Created += OnFileCreated;
 			this.watcher.Renamed += OnFileRenamed;
 			this.watcher.Deleted += OnFileDeleted;
@@ -49,8 +49,8 @@ namespace VidCoderFileWatcher.Services
 			await this.sync.WaitAsync().ConfigureAwait(false);
 			try
 			{
-				this.logger.Log("Detected new file: " + e.FullPath);
-				this.HandleAndFilterNewFile(e.FullPath);
+				this.logger.Log("Detected new file/folder: " + e.FullPath);
+				this.HandleAndFilterNewFileOrFolder(e.FullPath);
 			}
 			finally
 			{
@@ -58,14 +58,16 @@ namespace VidCoderFileWatcher.Services
 			}
 		}
 
+
+
 		private async void OnFileRenamed(object sender, RenamedEventArgs e)
 		{
 			await this.sync.WaitAsync().ConfigureAwait(false);
 			try
 			{
-				this.logger.Log($"File renamed from {e.OldFullPath} to {e.FullPath}");
-				this.HandleAndFilterNewFile(e.FullPath);
-				this.HandleDeletedFile(e.OldFullPath);
+				this.logger.Log($"File/folder renamed from {e.OldFullPath} to {e.FullPath}");
+				this.HandleAndFilterNewFileOrFolder(e.FullPath);
+				this.HandleDeletedFileOrFolder(e.OldFullPath);
 			}
 			finally
 			{
@@ -78,13 +80,51 @@ namespace VidCoderFileWatcher.Services
 			await this.sync.WaitAsync().ConfigureAwait(false);
 			try
 			{
-				this.logger.Log("Detected file removed: " + e.FullPath);
-
-				this.HandleDeletedFile(e.FullPath);
+				this.logger.Log("Detected file/folder removed: " + e.FullPath);
+				this.HandleDeletedFileOrFolder(e.FullPath);
 			}
 			finally
 			{
 				this.sync.Release();
+			}
+		}
+
+		private void HandleAndFilterNewFileOrFolder(string path)
+		{
+			if (CommonFileUtilities.IsDirectory(path))
+			{
+				this.logger.Log("Path is a folder. Searching for video sources inside.");
+				List<SourcePathWithType> paths = this.watcherService.GetPathsInWatchedFolder(path, this.watchedFolder);
+				foreach (var sourcePath in paths)
+				{
+					this.logger.Log("Found new source: " + sourcePath.Path);
+					this.HandleAndFilterNewFile(sourcePath.Path);
+				}
+			}
+			else
+			{
+				this.HandleAndFilterNewFile(path);
+			}
+		}
+
+		private void HandleDeletedFileOrFolder(string path)
+		{
+			WatchedFile fileEntry = WatcherStorage.GetFileEntry(WatcherDatabase.Connection, path);
+			if (fileEntry == null)
+			{
+				// If there is no direct entry for it, see if this is a folder and there are sub-items under it.
+				List<string> paths = WatcherStorage.GetFileEntriesUnderFolder(WatcherDatabase.Connection, path);
+				this.logger.Log("Path is a folder. Searching for video sources inside.");
+				foreach (var sourcePath in paths)
+				{
+					this.logger.Log("Found entry for deleted source: " + sourcePath);
+					this.HandleDeletedFile(sourcePath);
+				}
+			}
+			else
+			{
+				// If there is a direct entry, delete it.
+				this.HandleDeletedFile(path);
 			}
 		}
 

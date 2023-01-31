@@ -42,6 +42,7 @@ using Omu.ValueInjecter;
 using VidCoderCommon.Utilities.Injection;
 using VidCoderCommon;
 using HandBrake.Interop.Interop.Interfaces.Model;
+using VidCoderCommon.Utilities;
 
 namespace VidCoder.Services
 {
@@ -2288,7 +2289,7 @@ namespace VidCoder.Services
 						finishedJobViewModel);
 
 					// Before we delete the source file we need to set creation time
-					if (status == EncodeResultStatus.Succeeded && !FileUtilities.IsDirectory(finishedJobViewModel.Job.SourcePath))
+					if (status == EncodeResultStatus.Succeeded && !CommonFileUtilities.IsDirectory(finishedJobViewModel.Job.SourcePath))
 					{
 						if (Config.PreserveModifyTimeFiles)
 						{

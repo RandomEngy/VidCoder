@@ -25,6 +25,7 @@ using VidCoder.Services;
 using VidCoder.Services.Windows;
 using VidCoderCommon;
 using VidCoderCommon.Model;
+using VidCoderCommon.Utilities;
 using Geometry = HandBrake.Interop.Interop.Json.Shared.Geometry;
 
 namespace VidCoder.ViewModel
@@ -78,7 +79,7 @@ namespace VidCoder.ViewModel
 
 				try
 				{
-					if (FileUtilities.IsDirectory(sourcePath))
+					if (CommonFileUtilities.IsDirectory(sourcePath))
 					{
 						// Path is a directory. Can only preview when it's a DVD and we have a supported player installed.
 						bool isDvd = Utilities.IsDvdFolder(sourcePath);
@@ -120,7 +121,7 @@ namespace VidCoder.ViewModel
 
 				try
 				{
-					if (FileUtilities.IsDirectory(sourcePath))
+					if (CommonFileUtilities.IsDirectory(sourcePath))
 					{
 						// Path is a directory. Can only preview when it's a DVD and we have a supported player installed.
 						bool isDvd = Utilities.IsDvdFolder(sourcePath);
@@ -669,7 +670,7 @@ namespace VidCoder.ViewModel
 
 						try
 						{
-							if (FileUtilities.IsDirectory(sourcePath))
+							if (CommonFileUtilities.IsDirectory(sourcePath))
 							{
 								// Path is a directory
 								IVideoPlayer player = Players.Installed.FirstOrDefault(p => p.Id == Config.PreferredPlayer);

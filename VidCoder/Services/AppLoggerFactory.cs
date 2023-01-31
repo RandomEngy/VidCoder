@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AnyContainer;
 using VidCoder.Model;
+using VidCoderCommon.Utilities;
 
 namespace VidCoder.Services
 {
@@ -61,7 +62,7 @@ namespace VidCoder.Services
 			try
 			{
 				string fileNameCleaned;
-				if (FileUtilities.IsDirectory(sourcePath))
+				if (CommonFileUtilities.IsDirectory(sourcePath))
 				{
 					var info = new DirectoryInfo(sourcePath);
 					fileNameCleaned = FileUtilities.CleanFileName(info.Name);

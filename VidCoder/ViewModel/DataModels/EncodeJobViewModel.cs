@@ -18,6 +18,7 @@ using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoderCommon.Model;
+using VidCoderCommon.Utilities;
 
 namespace VidCoder.ViewModel
 {
@@ -758,7 +759,7 @@ namespace VidCoder.ViewModel
 				{
 					try
 					{
-						if (FileUtilities.IsDirectory(this.Job.SourcePath))
+						if (CommonFileUtilities.IsDirectory(this.Job.SourcePath))
 						{
 							FileService.Instance.LaunchFile(this.Job.SourcePath);
 						}

@@ -73,6 +73,26 @@ namespace VidCoderCommon.Model
 			return GetFileEntries(connection, "SELECT * FROM watchedFiles WHERE status = 'Planned'");
 		}
 
+		public static List<string> GetFileEntriesUnderFolder(SQLiteConnection connection, string folderPath)
+		{
+			using (var selectFilesCommand = new SQLiteCommand("SELECT * FROM watchedFiles WHERE path LIKE @path", connection))
+			{
+				selectFilesCommand.Parameters.AddWithValue("@path", $"{folderPath}\\%");
+
+				using (SQLiteDataReader reader = selectFilesCommand.ExecuteReader())
+				{
+					var result = new List<string>();
+					while (reader.Read())
+					{
+						result.Add(reader.GetString("path"));
+					}
+
+					return result;
+				}
+			}
+
+		}
+
 		private static Dictionary<string, WatchedFile> GetFileEntries(SQLiteConnection connection, string selectStatement)
 		{
 			var result = new Dictionary<string, WatchedFile>(StringComparer.OrdinalIgnoreCase);
@@ -82,22 +102,8 @@ namespace VidCoderCommon.Model
 			{
 				while (reader.Read())
 				{
-					string path = reader.GetString("path");
-					string status = reader.GetString("status");
-					string reason = reader.IsDBNull("reason") ? null : reader.GetString("reason");
-
-					var watchedFile = new WatchedFile
-					{
-						Path = path,
-						Status = Enum.Parse<WatchedFileStatus>(status)
-					};
-
-					if (reason != null)
-					{
-						watchedFile.Reason = Enum.Parse<WatchedFileStatusReason>(reason);
-					}
-
-					result.Add(path, watchedFile);
+					WatchedFile watchedFile = ReadWatchedFile(reader);
+					result.Add(watchedFile.Path, ReadWatchedFile(reader));
 				}
 			}
 
@@ -114,26 +120,32 @@ namespace VidCoderCommon.Model
 				{
 					if (reader.Read())
 					{
-						string status = reader.GetString("status");
-						string reason = reader.IsDBNull("reason") ? null : reader.GetString("reason");
-
-						var watchedFile = new WatchedFile
-						{
-							Path = path,
-							Status = Enum.Parse<WatchedFileStatus>(status)
-						};
-
-						if (reason != null)
-						{
-							watchedFile.Reason = Enum.Parse<WatchedFileStatusReason>(reason);
-						}
-
-						return watchedFile;
+						return ReadWatchedFile(reader);
 					}
 				}
 			}
 
 			return null;
+		}
+
+		private static WatchedFile ReadWatchedFile(SQLiteDataReader reader)
+		{
+			string path = reader.GetString("path");
+			string status = reader.GetString("status");
+			string reason = reader.IsDBNull("reason") ? null : reader.GetString("reason");
+
+			var watchedFile = new WatchedFile
+			{
+				Path = path,
+				Status = Enum.Parse<WatchedFileStatus>(status)
+			};
+
+			if (reason != null)
+			{
+				watchedFile.Reason = Enum.Parse<WatchedFileStatusReason>(reason);
+			}
+
+			return watchedFile;
 		}
 
 		public static void RemoveEntries(SQLiteConnection connection, IEnumerable<string> paths)

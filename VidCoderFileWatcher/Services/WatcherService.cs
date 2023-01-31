@@ -210,17 +210,7 @@ namespace VidCoderFileWatcher.Services
 			{
 				this.logger.Log("Enumerating folder: " + folder.Path);
 
-				StrippedPicker picker = this.GetPickerForWatchedFolder(folder);
-
-				ISet<string> videoExtensions = CommonFileUtilities.ParseVideoExtensionList(picker.VideoFileExtensions);
-				(List<SourcePathWithType> sourcePaths, List<string> inacessibleDirectories) = CommonFileUtilities.GetFilesOrVideoFolders(
-					folder.Path,
-					this.GetFileFilterForWatchedFolder(folder));
-
-				foreach (string inaccessibleDirectory in inacessibleDirectories)
-				{
-					this.logger.Log("Could not access directory: " + inaccessibleDirectory);
-				}
+				List<SourcePathWithType> sourcePaths = this.GetPathsInWatchedFolder(folder.Path, folder);
 
 				foreach (SourcePathWithType sourcePath in sourcePaths)
 				{
@@ -232,6 +222,26 @@ namespace VidCoderFileWatcher.Services
 			}
 
 			return files;
+		}
+
+		/// <summary>
+		/// Gets the source paths (files or folder) in the given watched folder.
+		/// </summary>
+		/// <param name="path">The path to look under.</param>
+		/// <param name="watchedFolder">The folder to look in.</param>
+		/// <returns>The source paths in the folder.</returns>
+		public List<SourcePathWithType> GetPathsInWatchedFolder(string path, WatchedFolder watchedFolder)
+		{
+			(List<SourcePathWithType> sourcePaths, List<string> inacessibleDirectories) = CommonFileUtilities.GetFilesOrVideoFolders(
+				path,
+				this.GetFileFilterForWatchedFolder(watchedFolder));
+
+			foreach (string inaccessibleDirectory in inacessibleDirectories)
+			{
+				this.logger.Log("Could not access directory: " + inaccessibleDirectory);
+			}
+
+			return sourcePaths;
 		}
 
 		private StrippedPicker GetPickerForWatchedFolder(WatchedFolder watchedFolder)

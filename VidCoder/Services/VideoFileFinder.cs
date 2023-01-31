@@ -51,7 +51,7 @@ namespace VidCoder.Services
 				{
 					try
 					{
-						if (FileUtilities.IsDirectory(item))
+						if (CommonFileUtilities.IsDirectory(item))
 						{
 							folders.Add(item);
 						}
@@ -92,7 +92,7 @@ namespace VidCoder.Services
 				{
 					try
 					{
-						if (FileUtilities.IsDirectory(item))
+						if (CommonFileUtilities.IsDirectory(item))
 						{
 							AddDirectoryToPathList(item, pathList, fileFilter);
 						}
