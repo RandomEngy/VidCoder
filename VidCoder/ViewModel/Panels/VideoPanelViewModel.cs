@@ -330,7 +330,7 @@ namespace VidCoder.ViewModel
 				x => x.OutputSizeService.Size,
 				(selectedEncoder, videoPreset, videoTunes, videoOptions, videoProfile, videoLevel, outputSize) =>
 				{
-					if (selectedEncoder == null)
+					if (selectedEncoder == null || selectedEncoder.Encoder.ShortName != "x264")
 					{
 						return string.Empty;
 					}

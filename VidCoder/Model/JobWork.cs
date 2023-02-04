@@ -38,6 +38,9 @@ namespace VidCoder.Model
 
 		public TimeSpan JobVideoLength { get; }
 
+		/// <summary>
+		/// The cost of the job, where the units are seconds of video to convert, multiplied by pass count.
+		/// </summary>
 		public double Cost { get; }
 
 		public double CompletedWork { get; set; }
