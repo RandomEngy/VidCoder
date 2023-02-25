@@ -878,7 +878,7 @@ namespace VidCoderCommon.Model
 					bool forcedOnly = sourceSubtitle.ForcedOnly;
 					string name = sourceSubtitle.Name;
 
-					if (sourceSubtitle.TrackNumber > 0 && sourceSubtitle.TrackNumber < title.SubtitleList.Count)
+					if (sourceSubtitle.TrackNumber > 0 && sourceSubtitle.TrackNumber <= title.SubtitleList.Count)
 					{
 						SourceSubtitleTrack sourceSubtitleTrack = title.SubtitleList[sourceSubtitle.TrackNumber - 1];
 						forcedOnly = forcedOnly && HandBrakeEncoderHelpers.SubtitleCanSetForcedOnly(sourceSubtitleTrack.Source);
