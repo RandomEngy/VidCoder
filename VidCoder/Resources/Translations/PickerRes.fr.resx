@@ -172,7 +172,10 @@
     <value>Arguments :</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  
+  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
+    <value>Les arguments à passer au programme. Utiliser {file} pour le chemin de sortie du fichier, {folder} contient le chemin du dossier ou d'autres options de chemin comme {title} et {date} (voir format de nommage).</value>
+    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>Sélecteur a spécifié le préréglage de codage.</value>
   </data>
@@ -210,9 +213,16 @@
   <data name="SortLanguagesLabel" xml:space="preserve">
     <value>Trier les langue (s) haut de la page :</value>
   </data>
-  
-  
-  
+  <data name="ForcedOnlyCheckBox" xml:space="preserve">
+    <value>Forcé uniquement</value>
+    <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
+  </data>
+  <data name="LastSelectedRadioButton" xml:space="preserve">
+    <value>Dernier sélectionné</value>
+  </data>
+  <data name="OverrideNameFormatLabel" xml:space="preserve">
+    <value>Options disponibles : {0}</value>
+  </data>
   
   
   

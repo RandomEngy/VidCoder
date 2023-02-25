@@ -120,9 +120,19 @@
   <data name="LogWindowTitle" xml:space="preserve">
     <value>Journal</value>
   </data>
-  
-  
-  
-  
-  
+  <data name="GeneralLogLabel" xml:space="preserve">
+    <value>Général</value>
+  </data>
+  <data name="LogVerbosity_Minimized" xml:space="preserve">
+    <value>Minimiser</value>
+  </data>
+  <data name="LogVerbosity_Standard" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="LogVerbosity_Extended" xml:space="preserve">
+    <value>Étendu</value>
+  </data>
+  <data name="ClearFinishedButton" xml:space="preserve">
+    <value>Effacer les tâches terminées</value>
+  </data>
 </root>

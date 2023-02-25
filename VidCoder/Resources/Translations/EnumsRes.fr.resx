@@ -129,15 +129,23 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>Strict</value>
   </data>
-  
+  <data name="AppThemeChoice_Auto" xml:space="preserve">
+    <value>Utiliser le thème du système d'exploitation</value>
+    <comment>Windows 10 you can choose Light or Dark for the app theme. This will cause VidCoder to respect that choice.</comment>
+  </data>
   <data name="AppThemeChoice_Dark" xml:space="preserve">
     <value>Sombre</value>
   </data>
   <data name="AppThemeChoice_Light" xml:space="preserve">
     <value>Clair</value>
   </data>
-  
-  
+  <data name="CombDetect_fast" xml:space="preserve">
+    <value>Rapide</value>
+  </data>
+  <data name="CombDetect_permissive" xml:space="preserve">
+    <value>Moins sensible</value>
+    <comment>This mode allows higher levels of combing before triggering.</comment>
+  </data>
   <data name="Custom" xml:space="preserve">
     <value>Personnalisé</value>
   </data>
@@ -150,20 +158,49 @@
   <data name="Default" xml:space="preserve">
     <value>Par défaut</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="DeinterlacePreset_bob" xml:space="preserve">
+    <value>Bob</value>
+    <comment>A deinterlace method named "Bob". The original name most likely refers to an object bobbing up and down.</comment>
+  </data>
+  <data name="DeinterlacePreset_eedi2" xml:space="preserve">
+    <value>EEDI2</value>
+  </data>
+  <data name="DeinterlacePreset_eedi2bob" xml:space="preserve">
+    <value>EEDI2 Bob</value>
+  </data>
+  <data name="DeinterlacePreset_skipspatial" xml:space="preserve">
+    <value>Passer la vérification de l'espace</value>
+  </data>
+  <data name="Deinterlace_Decomb" xml:space="preserve">
+    <value>Decomb</value>
+  </data>
+  <data name="Deinterlace_Yadif" xml:space="preserve">
+    <value>Yadif</value>
+  </data>
+  <data name="DenoisePreset_light" xml:space="preserve">
+    <value>Léger</value>
+  </data>
+  <data name="DenoisePreset_medium" xml:space="preserve">
+    <value>Moyen</value>
+  </data>
+  <data name="DenoisePreset_strong" xml:space="preserve">
+    <value>Fort</value>
+  </data>
+  <data name="DenoisePreset_ultralight" xml:space="preserve">
+    <value>Très léger</value>
+  </data>
+  <data name="DenoiseTune_animation" xml:space="preserve">
+    <value>Animation</value>
+  </data>
+  <data name="DenoiseTune_film" xml:space="preserve">
+    <value>Film</value>
+  </data>
+  <data name="DenoiseTune_grain" xml:space="preserve">
+    <value>Grain</value>
+  </data>
+  <data name="DenoiseTune_highmotion" xml:space="preserve">
+    <value>Mouvement rapide</value>
+  </data>
   <data name="Denoise_HQDN3D" xml:space="preserve">
     <value>hqdn3d</value>
   </data>
@@ -194,8 +231,14 @@
   <data name="Off" xml:space="preserve">
     <value>Inactif</value>
   </data>
-  
-  
+  <data name="Sharpen_LapSharp" xml:space="preserve">
+    <value>LapSharp</value>
+    <comment>The name for the "LapSharp" sharpen filter.</comment>
+  </data>
+  <data name="Sharpen_UnSharp" xml:space="preserve">
+    <value>UnSharp</value>
+    <comment>The name for the "UnSharp" sharpen filter.</comment>
+  </data>
   <data name="TitleType_Bluray" xml:space="preserve">
     <value>Blu-ray</value>
     <comment>What to display when the source is a Blu-ray</comment>
@@ -217,52 +260,140 @@
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>Plage de temps (s)</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="TitleCapitalizationChoice_EveryWord" xml:space="preserve">
+    <value>Chaque mot</value>
+    <comment>This will make Blu-ray and DVD titles capitalize every word</comment>
+  </data>
+  <data name="TitleCapitalizationChoice_FirstWord" xml:space="preserve">
+    <value>Premier mot</value>
+    <comment>This will make Blu-ray and DVD titles capitalize only the first word</comment>
+  </data>
+  <data name="EncodeCompleteActionType_StopEncoding" xml:space="preserve">
+    <value>Arrêter l'encodage</value>
+  </data>
+  <data name="UpdatePromptTiming_OnExit" xml:space="preserve">
+    <value>À la sortie</value>
+  </data>
+  <data name="UpdatePromptTiming_OnLaunch" xml:space="preserve">
+    <value>Au lancement</value>
+  </data>
+  <data name="LogOperationType_Encode" xml:space="preserve">
+    <value>Encoder</value>
+  </data>
+  <data name="LogOperationType_Scan" xml:space="preserve">
+    <value>Balayage</value>
+  </data>
+  <data name="PickerTimeRangeMode_Chapters" xml:space="preserve">
+    <value>Chapitres</value>
+  </data>
+  <data name="PickerTimeRangeMode_Time" xml:space="preserve">
+    <value>Intervalle de temps</value>
+  </data>
+  <data name="WhenFileExists_AutoRename" xml:space="preserve">
+    <value>Renommer automatiquement</value>
+  </data>
+  <data name="WhenFileExists_Overwrite" xml:space="preserve">
+    <value>Écraser</value>
+  </data>
+  <data name="WhenFileExists_Prompt" xml:space="preserve">
+    <value>Demander</value>
+  </data>
+  <data name="DenoiseTune_medium" xml:space="preserve">
+    <value>Moyen</value>
+  </data>
   <data name="DenoiseTune_none" xml:space="preserve">
     <value>Aucun</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="DenoiseTune_small" xml:space="preserve">
+    <value>Petit</value>
+  </data>
+  <data name="DenoiseTune_tiny" xml:space="preserve">
+    <value>Très petit</value>
+  </data>
+  <data name="DenoiseTune_verywide" xml:space="preserve">
+    <value>Très large</value>
+  </data>
+  <data name="DenoiseTune_wide" xml:space="preserve">
+    <value>Large</value>
+  </data>
+  <data name="Denoise_ChromaSmooth" xml:space="preserve">
+    <value>Chroma lisse</value>
+  </data>
+  <data name="DragDropOrder_Alphabetical" xml:space="preserve">
+    <value>Alphabétique</value>
+    <comment>Label for the option to order dragged files alphabetically</comment>
+  </data>
+  <data name="DragDropOrder_Selected" xml:space="preserve">
+    <value>Sélectionnés</value>
+    <comment>Label for the option to order dragged files as they had been selected in File explorer</comment>
+  </data>
+  <data name="SubtitleBurnInSelection_First" xml:space="preserve">
+    <value>Premier</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrack" xml:space="preserve">
+    <value>Piste audio étrangère</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrackElseFirst" xml:space="preserve">
+    <value>Piste audio étrangère, sinon en premier</value>
+  </data>
   <data name="SubtitleBurnInSelection_None" xml:space="preserve">
     <value>Aucun</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="SourceFileRemovalTiming_AfterClearingCompletedItems" xml:space="preserve">
+    <value>Après avoir effacé les objets terminés</value>
+  </data>
+  <data name="SourceFileRemovalTiming_Immediately" xml:space="preserve">
+    <value>Immédiatement après la fin de l'encodage</value>
+  </data>
+  <data name="SourceFileRemoval_Delete" xml:space="preserve">
+    <value>⚠️ Supprimer (IRRÉVERSIBLE) ⚠️</value>
+  </data>
+  <data name="SourceFileRemoval_Recycle" xml:space="preserve">
+    <value>Recycler</value>
+  </data>
+  <data name="UpdateMode_PromptApplyImmediately" xml:space="preserve">
+    <value>Demander à appliquer immédiatement</value>
+  </data>
+  <data name="UpdateMode_SilentNextLaunch" xml:space="preserve">
+    <value>Silencieux (Appliquer au prochain lancement)</value>
+  </data>
+  <data name="Deinterlace_Bwdif" xml:space="preserve">
+    <value>Bwdif</value>
+  </data>
+  <data name="WatcherProcessStatus_Disabled" xml:space="preserve">
+    <value>Désactivé</value>
+  </data>
+  <data name="WatcherProcessStatus_Running" xml:space="preserve">
+    <value>En cours d'exécution</value>
+  </data>
+  <data name="WatcherProcessStatus_Starting" xml:space="preserve">
+    <value>Démarrage...</value>
+  </data>
+  <data name="WatcherProcessStatus_Stopped" xml:space="preserve">
+    <value>Arrêté</value>
+  </data>
+  <data name="WatchedFileStatusLive_Canceled" xml:space="preserve">
+    <value>Annulé</value>
+  </data>
+  <data name="WatchedFileStatusLive_Encoding" xml:space="preserve">
+    <value>Encodage</value>
+  </data>
+  <data name="WatchedFileStatusLive_Failed" xml:space="preserve">
+    <value>Échoué</value>
+  </data>
+  <data name="WatchedFileStatusLive_Planned" xml:space="preserve">
+    <value>Planifié</value>
+  </data>
+  <data name="WatchedFileStatusLive_Queued" xml:space="preserve">
+    <value>En file d'attente</value>
+  </data>
+  <data name="WatchedFileStatusLive_Skipped" xml:space="preserve">
+    <value>Ignoré</value>
+  </data>
+  <data name="WatchedFileStatusLive_Succeeded" xml:space="preserve">
+    <value>Réussi</value>
+  </data>
+  <data name="WatchedFileStatusLive_Output" xml:space="preserve">
+    <value>Sortie</value>
+  </data>
 </root>

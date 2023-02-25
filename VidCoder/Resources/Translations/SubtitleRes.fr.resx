@@ -153,13 +153,26 @@
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Les autres pistes de sous-titres chevaucheront les sous-titres gravés.</value>
   </data>
-  
-  
+  <data name="ForeignAudioScan" xml:space="preserve">
+    <value>Recherche de piste audio étrangère</value>
+  </data>
+  <data name="SubtitleFilePickerText" xml:space="preserve">
+    <value>Ajouter un fichier de sous-titres</value>
+  </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Ne pouvait pas détecter l’encodage du fichier sous-titre. Pour s’assurer que les sous-titres apparaissent correctement, ré-enregistrez le fichier au format UTF-8.</value>
   </data>
-  
-  
-  
-  
+  <data name="NoSubtitlesText" xml:space="preserve">
+    <value>Aucun sous-titre trouvé dans la source.</value>
+  </data>
+  <data name="ExternalSubtitlesSummaryFormat" xml:space="preserve">
+    <value>{0} externe</value>
+    <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
+  </data>
+  <data name="ImportSubtitleButton" xml:space="preserve">
+    <value>Importer à partir du fichier...</value>
+  </data>
+  <data name="FilePickerDescription" xml:space="preserve">
+    <value>Fichiers de sous-titres</value>
+  </data>
 </root>

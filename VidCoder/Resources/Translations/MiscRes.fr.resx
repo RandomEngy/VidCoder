@@ -153,7 +153,9 @@
   <data name="FileConflictWarning" xml:space="preserve">
     <value>Il existe déjà un fichier à {0}. Voulez-vous remplacer le fichier, trouver automatiquement un nouveau répertoire de sortie pour le travail d'encodage ou annuler l'opération ?</value>
   </data>
-  
+  <data name="QueueFileConflictWarning" xml:space="preserve">
+    <value>Un travail en file d'attente a déjà un chemin de sortie vers {0}. Voulez-vous remplacer le travail en file d'attente, trouver automatiquement un nouveau répertoire de sortie pour le travail d'encodage ou annuler l'opération ?</value>
+  </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>Colonnes de la file d'attente</value>
   </data>
@@ -184,7 +186,10 @@
   <data name="Copyright" xml:space="preserve">
     <value>© {0} Développeurs VidCoder</value>
   </data>
-  
+  <data name="BetaVersionFormat2" xml:space="preserve">
+    <value>{0} Bêta</value>
+    <comment>{0} is a placeholder for version. For example: 1.4.2 Beta</comment>
+  </data>
   <data name="NameDialogTitle" xml:space="preserve">
     <value>Nom</value>
     <comment>Title for dialog when  naming a preset or  picker</comment>
@@ -246,9 +251,19 @@
   <data name="ChooseNamePicker" xml:space="preserve">
     <value>Choisir un nom pour le préréglage :</value>
   </data>
-  
-  
-  
-  
-  
+  <data name="ExceptionDialogSubTextReported" xml:space="preserve">
+    <value>Le programme doit se fermer, mais l'erreur sera automatiquement signalée.</value>
+  </data>
+  <data name="DownloadInstallerButton" xml:space="preserve">
+    <value>Télécharger l'installateur</value>
+  </data>
+  <data name="ReplaceJobButton" xml:space="preserve">
+    <value>Remplacer la tâche</value>
+  </data>
+  <data name="CopyAndReportIssueButton" xml:space="preserve">
+    <value>Copier et signaler le problème</value>
+  </data>
+  <data name="OneTimeInstallerCleanup" xml:space="preserve">
+    <value>Nous devons faire un nettoyage ponctuel de l'ancien installateur. Choisissez 'Oui' à l'invite suivante pour supprimer l'ancienne version de VidCoder.</value>
+  </data>
 </root>

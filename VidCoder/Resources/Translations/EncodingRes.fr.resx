@@ -172,12 +172,18 @@ Vous devez définir ceci, si vous savez que votre appareil de lecture prend uniq
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>Inclure les marqueurs de chapitre</value>
   </data>
-  
+  <data name="TabHeader_Sizing" xml:space="preserve">
+    <value>Dimensions</value>
+  </data>
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>Filtres vidéo</value>
   </data>
-  
-  
+  <data name="TabHeader_VideoEncoding" xml:space="preserve">
+    <value>Encodage vidéo</value>
+  </data>
+  <data name="TabHeader_AudioEncoding" xml:space="preserve">
+    <value>Encodage audio</value>
+  </data>
   <data name="Rename" xml:space="preserve">
     <value>Renommer</value>
   </data>
@@ -301,7 +307,9 @@ Vous devez définir ceci, si vous savez que votre appareil de lecture prend uniq
   <data name="Preset_Fast" xml:space="preserve">
     <value>Rapide</value>
   </data>
-  
+  <data name="Preset_Medium" xml:space="preserve">
+    <value>Moyen</value>
+  </data>
   <data name="Preset_Slow" xml:space="preserve">
     <value>Lent</value>
   </data>
@@ -639,62 +647,155 @@ Remplace tous les autres réglages.</value>
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="InterlaceDetectionLabel" xml:space="preserve">
+    <value>Détection d'entrelacement :</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>Mode :</value>
+    <comment>Label for the sizing or padding mode.</comment>
+  </data>
+  <data name="AnamorphicCheckbox" xml:space="preserve">
+    <value>Utiliser l'anamorphose</value>
+  </data>
+  <data name="SizingModeManual" xml:space="preserve">
+    <value>Manuel</value>
+    <comment>Choice for the user to enter all sizing information manually.</comment>
+  </data>
+  <data name="UpscaleMaxFormat" xml:space="preserve">
+    <value>Rehaussez {0}x maximum</value>
+    <comment>Label for scaling option to allow upscaling, but only to a particular multiple of the source resolution. {0} is the multiple, e.g. 2, 3 or 4</comment>
+  </data>
+  <data name="ScalingMode_DownscaleOnly" xml:space="preserve">
+    <value>Réduction seulement</value>
+  </data>
+  <data name="ScalingMode_Fill" xml:space="preserve">
+    <value>Mettre à l'échelle de la cible</value>
+  </data>
+  <data name="ScalingModeLabel" xml:space="preserve">
+    <value>Mode de mise à l'échelle :</value>
+  </data>
+  <data name="PaddingMode_Fill" xml:space="preserve">
+    <value>Remplir</value>
+  </data>
   <data name="PaddingMode_Width" xml:space="preserve">
     <value>Largeur</value>
   </data>
   <data name="PaddingMode_Height" xml:space="preserve">
     <value>Hauteur</value>
   </data>
-  
-  
+  <data name="TargetWidthLabel" xml:space="preserve">
+    <value>Largeur cible :</value>
+  </data>
+  <data name="TargetHeightLabel" xml:space="preserve">
+    <value>Hauteur de la cible :</value>
+  </data>
   <data name="PadColorLabel" xml:space="preserve">
     <value>Couleur :</value>
   </data>
-  
+  <data name="AnamorphicToolTip" xml:space="preserve">
+    <value>Avec l'anamorphose activée, les pixels non carrés sont autorisés. Cela peut améliorer l'efficacité du stockage, mais cette fonction n'est pas supportée par tous les lecteurs multimédia.</value>
+  </data>
   <data name="ResolutionLabel" xml:space="preserve">
     <value>Résolution :</value>
     <comment>Label for a video resolution in pixels.</comment>
   </data>
-  
-  
-  
-  
-  
+  <data name="CustomFilterToolTipFormatPart" xml:space="preserve">
+    <value>Format : clé1=valeur1:clé2=valeur2:...</value>
+    <comment>The "format" portion of the custom filter tooltip. When translating, keep the = and : the same and only replace "key1", "value2", etc.</comment>
+  </data>
+  <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
+    <value>Clés :</value>
+    <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
+  </data>
+  <data name="PaddingLabel" xml:space="preserve">
+    <value>Marge</value>
+  </data>
+  <data name="AlignAVStartCheckBox" xml:space="preserve">
+    <value>Aligner le début A/V</value>
+  </data>
+  <data name="AlignAVStartCheckBoxToolTip" xml:space="preserve">
+    <value>Aligne les horodatages initiaux de tous les flux audio et vidéo en insérant des images vierges ou en en omettant. Peut améliorer la synchronisation audio/vidéo pour les lecteurs multimédia défectueux qui n'honorent pas les listes d'édition MP4.</value>
+  </data>
   <data name="TabHeader_Container" xml:space="preserve">
     <value>Conteneur</value>
   </data>
-  
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Préréglage d'encodage : {0}</value>
+    <comment>Label for the encoding settings window.</comment>
+  </data>
   <data name="AudioEncoder_none" xml:space="preserve">
     <value>Aucun</value>
     <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="SizingModeToolTip" xml:space="preserve">
+    <value>Le mode automatique choisira pour vous la taille en fonction des contraintes fournies. Le mode manuel vous permettra de saisir une taille spécifique et un ratio d'aspect en pixels.</value>
+  </data>
+  <data name="SharpenLabel" xml:space="preserve">
+    <value>Netteté</value>
+  </data>
+  <data name="DeblockToolTip" xml:space="preserve">
+    <value>Le filtre anti-blocs réduit les effets de bloc causés par la compression vidéo de faible qualité.</value>
+  </data>
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>Le désentrelacement élimine les artefacts « dents de scie » de l'image.
+
+Bwdif et Yadif sont deux filtres de désentrelacement populaires et rapides.
+
+Decomb bascule entre plusieurs algorithmes d'interpolation pour améliorer la vitesse et la qualité.</value>
+  </data>
+  <data name="DenoiseToolTip" xml:space="preserve">
+    <value>Le débruitage réduit ou élimine l'apparence du bruit et du grain, ce qui peut améliorer l'efficacité de la compression et créer des vidéos de meilleure qualité et de plus petite taille. 
+Les paramètres de débruitage trop forts peuvent endommager la qualité d'image en réduisant les détails.
+         
+NLMeans est un filtre de débruitage de haute qualité au prix de la vitesse. Utiliser quand la qualité est plus importante que la vitesse.
+         
+HQDN3D est un filtre adaptatif passe-bas plus rapide que NLMeans, mais moins efficace pour préserver les détails fins.</value>
+  </data>
+  <data name="DetelecineToolTip" xml:space="preserve">
+    <value>Ce filtre supprime les artefacts 'dents de scie' résultant du télécinéma.
+
+Le télécinéma est un processus qui ajuste les images de film de 24 images/s vers les fréquences vidéo NTSC de 30 images/s.</value>
+  </data>
+  <data name="SharpenToolTip" xml:space="preserve">
+    <value>Le déflouage améliore l'apparence des détails, en particulier les bords. Les réglages de déflouage trop robustes peuvent endommager la qualité de l'image en créant des artefacts de suroscillation et en augmentant le bruit, ce qui peut réduire l'efficacité de la compression.
+
+Unsharp est un filtre général de masque flou. Il améliore la netteté en flouant, puis calcule la différence entre l'image floue et l'originale.
+
+Lapsharp améliore la netteté en utilisant des noyaux de convolution approchant les filtres laplaciens, produisant parfois des résultats de meilleure qualité que le masquage flou.</value>
+  </data>
+  <data name="PresetFolder_Custom" xml:space="preserve">
+    <value>Personnalisé</value>
+  </data>
+  <data name="PresetFolder_BuiltIn" xml:space="preserve">
+    <value>Intégré</value>
+  </data>
+  <data name="PresetFolderCreateSubfolderMenuItem" xml:space="preserve">
+    <value>Créer un sous-dossier</value>
+  </data>
+  <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
+    <value>Renommer le dossier</value>
+  </data>
+  <data name="PresetFolderRemoveFolderMenuItem" xml:space="preserve">
+    <value>Supprimer le dossier</value>
+  </data>
+  <data name="DefaultPresetFolderName" xml:space="preserve">
+    <value>Nouveau dossier</value>
+  </data>
+  <data name="ChooseNameSubfolder" xml:space="preserve">
+    <value>Choisissez un nom pour le sous-dossier :</value>
+  </data>
+  <data name="ChooseNewFolderName" xml:space="preserve">
+    <value>Choisissez un nouveau nom pour le dossier :</value>
+  </data>
+  <data name="NVEncPreset_ll" xml:space="preserve">
+    <value>Faible latence</value>
+  </data>
+  <data name="NVEncPreset_hq" xml:space="preserve">
+    <value>Haute qualité</value>
+  </data>
+  <data name="NVEncPreset_hp" xml:space="preserve">
+    <value>Haute performance</value>
+  </data>
   <data name="Bottom" xml:space="preserve">
     <value>Bas</value>
   </data>
@@ -707,21 +808,52 @@ Remplace tous les autres réglages.</value>
   <data name="Top" xml:space="preserve">
     <value>Haut</value>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="PixelAspectRatioNumeratorAutomationName" xml:space="preserve">
+    <value>Numérateur de rapport d'aspect de pixel</value>
+    <comment>Name for the pixel aspect ratio numerator box for screen readers</comment>
+  </data>
+  <data name="PixelAspectRatioDenominatorAutomationName" xml:space="preserve">
+    <value>Dénominateur de rapport d'aspect de pixel</value>
+    <comment>Name for the pixel aspect ratio denominator box for screen readers</comment>
+  </data>
+  <data name="ApplyToQueueButton" xml:space="preserve">
+    <value>Appliquer à la file d'attente</value>
+  </data>
+  <data name="FullEncoderParameterLabel" xml:space="preserve">
+    <value>Liste complète des paramètres :</value>
+  </data>
+  <data name="MoreOptionsToolTip" xml:space="preserve">
+    <value>Arguments avancés supplémentaires à passer à l'encodeur vidéo.</value>
+  </data>
+  <data name="CannotSwitchEncodingPresetDueToPicker" xml:space="preserve">
+    <value>Impossible de changer le préréglage d'encodage, il a été verrouillé dans la fenêtre de sélection.</value>
+    <comment>Message to show when the user is blocked from switching an encoding preset due to a Picker setting.</comment>
+  </data>
   <data name="PadColorTextToolTip" xml:space="preserve">
     <value>Format : FFFFFF</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="ChromaSmoothLabel" xml:space="preserve">
+    <value>Chroma lisse :</value>
+  </data>
+  <data name="ColorspaceLabel" xml:space="preserve">
+    <value>Espace de couleurs :</value>
+  </data>
+  <data name="ChromaSmoothToolTip" xml:space="preserve">
+    <value>Réduit le bruit chromatique, arc-en-ciel et autres artefacts visuels proéminents. Utile pour résoudre divers problèmes liés à la couleur, en particulier avec un contenu à faible résolution provenant de sources analogiques, e.g. les sources DVD et VHS de mauvaise qualité. L'algorithme de flouage et de lissage est le même que celui utilisé par le filtre de masque flou.</value>
+  </data>
+  <data name="ConstrainToOneAxisCheckBox" xml:space="preserve">
+    <value>Contraindre à un axe</value>
+  </data>
+  <data name="ConstrainToOneAxisToolTip" xml:space="preserve">
+    <value>Si activé, seul l'axe ayant le plus de recadrage détecté sera coupé. Par exemple, si Haut+Bas = 32 et Gauche+Droite = 6, alors le recadrage sur Gauche et Droite sera de 0.</value>
+  </data>
+  <data name="MinimumCroppingLabel" xml:space="preserve">
+    <value>Minimum :</value>
+  </data>
+  <data name="MinimumCroppingToolTip" xml:space="preserve">
+    <value>Si le recadrage automatique pour un côté est inférieur à ce montant, désactiver le recadrage pour ce côté. Utile pour éviter de rééchantillonner sur de petites quantités de recadrage.</value>
+  </data>
+  <data name="CroppingType_Conservative" xml:space="preserve">
+    <value>Conservateur</value>
+  </data>
 </root>
