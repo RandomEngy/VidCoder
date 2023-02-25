@@ -83,7 +83,3 @@ function DeleteFileIfExists($fileName)
 {
     if (Test-Path $fileName) { Remove-Item $fileName }
 }
-
-# vswhere.exe is documented to have a consistent install location, no matter the version or edition of VS that is installed.
-$MSBuildPath = (&"${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -prerelease -products * -requires Microsoft.Component.MSBuild -find MSBuild\**\Bin\MSBuild.exe) | Out-String
-Set-Alias msbuild $MSBuildPath.Trim()
