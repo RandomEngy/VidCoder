@@ -58,7 +58,10 @@ namespace VidCoder
 
 		public static void SetWorkerProcessOverride(bool value)
 		{
-			useWorkerProcessOverride = value;
+			if (useWorkerProcessOverride == null)
+			{
+				useWorkerProcessOverride = value;
+			}
 		}
 
 		public static PreviewDisplay PreviewDisplay

@@ -102,8 +102,10 @@
 										MinWidth="100"
 										Margin="6 0 0 0"
 										AutomationProperties.LabeledBy="{Binding ElementName=interfaceLanguageLabel}"
+										DisplayMemberPath="Display"
 										ItemsSource="{Binding LanguageChoices}"
-										SelectedItem="{Binding InterfaceLanguage}" />
+										SelectedValue="{Binding InterfaceLanguageCode}"
+										SelectedValuePath="CultureCode" />
 								</StackPanel>
 								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
 									<TextBlock
@@ -115,8 +117,10 @@
 										MinWidth="100"
 										Margin="6 0 0 0"
 										AutomationProperties.LabeledBy="{Binding ElementName=themeLabel}"
+										DisplayMemberPath="Display"
 										ItemsSource="{Binding AppThemeChoices}"
-										SelectedItem="{Binding AppTheme}" />
+										SelectedValue="{Binding AppTheme}"
+										SelectedValuePath="Value" />
 								</StackPanel>
 							</StackPanel>
 
@@ -138,7 +142,8 @@
 											AutomationProperties.LabeledBy="{Binding ElementName=preferredDvdPlayerLabel}"
 											DisplayMemberPath="Display"
 											ItemsSource="{Binding PlayerChoices}"
-											SelectedItem="{Binding SelectedPlayer}"
+											SelectedValue="{Binding SelectedPlayerId}"
+											SelectedValuePath="Id"
 											ToolTip="{x:Static res:OptionsRes.PreferredDvdPlayerToolTip}" />
 									</StackPanel>
 									<TextBlock Margin="0 6 0 0" Text="{x:Static res:OptionsRes.VideoFilesLabel}" />
@@ -753,31 +758,16 @@
 				</ScrollViewer>
 			</Grid>
 
-			<StackPanel
+			<Button
 				Grid.Row="2"
 				Grid.Column="1"
 				Margin="0 6 6 6"
+				Padding="10 4"
 				HorizontalAlignment="Right"
 				VerticalAlignment="Bottom"
-				Orientation="Horizontal">
-				<Button
-					Height="23"
-					MinWidth="75"
-					Margin="0 0 6 0"
-					HorizontalAlignment="Right"
-					VerticalAlignment="Bottom"
-					Command="{Binding SaveSettings}"
-					Content="{x:Static res:CommonRes.Ok}"
-					IsDefault="True" />
-				<Button
-					Height="23"
-					MinWidth="75"
-					HorizontalAlignment="Right"
-					VerticalAlignment="Bottom"
-					Command="{Binding Cancel}"
-					Content="{x:Static res:CommonRes.Cancel}"
-					IsCancel="True" />
-			</StackPanel>
+				Content="{x:Static res:CommonRes.Close}"
+				IsCancel="True"
+				IsDefault="True" />
 		</Grid>
 	</Border>
 </Window>

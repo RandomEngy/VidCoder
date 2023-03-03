@@ -344,4 +344,8 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="Enabled" xml:space="preserve">
     <value>Enabled</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+    <comment>Label to close a window or item.</comment>
+  </data>
 </root>
