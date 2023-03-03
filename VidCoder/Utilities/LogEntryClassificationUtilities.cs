@@ -9,13 +9,14 @@ namespace VidCoder
 {
 	public static class LogEntryClassificationUtilities
 	{
-		private static readonly Dictionary<LogColor, string> ColorToPrefixMapping = new Dictionary<LogColor, string>();
+		private static readonly Dictionary<string, LogSource> SourcePrefixes = new Dictionary<string, LogSource> {
+			{ "VC ", LogSource.VidCoder },
+			{ "VW ", LogSource.VidCoderWorker },
+			{ "HB ", LogSource.HandBrake },
+		};
 
 		static LogEntryClassificationUtilities()
 		{
-			ColorToPrefixMapping.Add(LogColor.VidCoder, "# ");
-			ColorToPrefixMapping.Add(LogColor.VidCoderWorker, "w# ");
-			ColorToPrefixMapping.Add(LogColor.Error, "ERROR: ");
 		}
 
 		public static LogColor GetEntryColor(LogEntry entry)
@@ -41,33 +42,22 @@ namespace VidCoder
 			return LogColor.Normal;
 		}
 
-		public static string GetEntryPrefix(LogType type, LogSource source)
-		{
-			LogColor color = GetEntryColor(type, source);
-			return GetEntryPrefix(color);
-		}
-
-		public static string GetEntryPrefix(LogColor color)
-		{
-			if (ColorToPrefixMapping.TryGetValue(color, out string prefix))
-			{
-				return prefix;
-			}
-
-			return string.Empty;
-		}
-
 		public static LogColor GetLineColor(string line)
 		{
-			foreach (var pair in ColorToPrefixMapping)
+			if (line.Length < 3)
 			{
-				if (line.StartsWith(pair.Value, StringComparison.Ordinal))
-				{
-					return pair.Key;
-				}
+				return LogColor.NoChange;
 			}
 
-			return LogColor.Normal;
+			string sourceString = line.Substring(0, 3);
+			if (SourcePrefixes.TryGetValue(sourceString, out LogSource source))
+			{
+				LogType logType = line.Length >= 5 && line.Substring(3, 2) == "E " ? LogType.Error : LogType.Message;
+
+				return GetEntryColor(logType, source);
+			}
+
+			return LogColor.NoChange;
 		}
 	}
 }

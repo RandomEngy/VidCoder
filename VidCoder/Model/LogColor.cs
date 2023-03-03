@@ -11,6 +11,7 @@ namespace VidCoder.Model
 		Error,
 		VidCoder,
 		VidCoderWorker,
-		Normal
+		Normal,
+		NoChange,
 	}
 }

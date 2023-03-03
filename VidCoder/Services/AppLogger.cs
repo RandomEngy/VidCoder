@@ -7,6 +7,8 @@ using HandBrake.Interop.Interop;
 using Microsoft.AnyContainer;
 using VidCoder.Model;
 using VidCoderCommon;
+using SharpCompress.Common;
+using VidCoder.Extensions;
 
 namespace VidCoder.Services
 {
@@ -42,7 +44,7 @@ namespace VidCoder.Services
 			{
 				LogType = LogType.Message,
 				Source = LogSource.VidCoder,
-				Text = "# VidCoder " + Utilities.VersionString
+				Text = "VidCoder " + Utilities.VersionString
 			};
 
 			this.AddEntry(initialEntry, logParent: false);
@@ -91,13 +93,11 @@ namespace VidCoder.Services
 
 		public void Log(string message)
 		{
-			string prefix = string.IsNullOrEmpty(message) ? string.Empty : "# ";
-
 			var entry = new LogEntry
 			{
 			    LogType = LogType.Message,
 				Source = LogSource.VidCoder,
-				Text = prefix + message
+				Text = message
 			};
 
 			this.AddEntry(entry);
@@ -125,7 +125,7 @@ namespace VidCoder.Services
 			{
 				LogType = LogType.Error,
 				Source = LogSource.VidCoder,
-				Text = "ERROR: " + message
+				Text = message
 			};
 
 			this.AddEntry(entry);
@@ -139,7 +139,7 @@ namespace VidCoder.Services
 			{
 				LogType = logType,
 				Source = LogSource.VidCoderWorker,
-				Text = LogEntryClassificationUtilities.GetEntryPrefix(logType, LogSource.VidCoderWorker) + message
+				Text = message
 			};
 
 			this.AddEntry(entry);
@@ -189,9 +189,11 @@ namespace VidCoder.Services
 			{
 				this.EntryLogged?.Invoke(this, new EventArgs<LogEntry>(entry));
 
+				string logText = entry.FormatMessage();
+
 				try
 				{
-					this.logFileWriter?.WriteLine(entry.Text);
+					this.logFileWriter?.WriteLine(logText);
 					this.logFileWriter?.Flush();
 
 					if (this.parent != null && logParent)

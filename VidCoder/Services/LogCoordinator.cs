@@ -59,16 +59,16 @@ namespace VidCoder.Services
 			get
 			{
 				return this.openLogFolder ?? (this.openLogFolder = ReactiveCommand.Create(
-					       () =>
-					       {
-						       string logFolder = CommonUtilities.LogsFolder;
+					() =>
+					{
+						string logFolder = CommonUtilities.LogsFolder;
 
-						       if (Directory.Exists(logFolder))
-						       {
-							       FileService.Instance.LaunchFile(logFolder);
-						       }
-					       },
-					       MvvmUtilities.CreateConstantObservable(Directory.Exists(CommonUtilities.LogsFolder))));
+						if (Directory.Exists(logFolder))
+						{
+							FileService.Instance.LaunchFile(logFolder);
+						}
+					},
+					MvvmUtilities.CreateConstantObservable(Directory.Exists(CommonUtilities.LogsFolder))));
 			}
 		}
 

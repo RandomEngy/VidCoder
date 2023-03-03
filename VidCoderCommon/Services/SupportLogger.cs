@@ -9,7 +9,7 @@ using VidCoderCommon.Model;
 namespace VidCoderCommon.Services
 {
 	/// <summary>
-	/// Logs for a support process like installer or windows service.
+	/// Logs for a support process like installer or watcher.
 	/// </summary>
 	public class SupportLogger : IBasicLogger
 	{
@@ -29,9 +29,11 @@ namespace VidCoderCommon.Services
 
 		public void Log(string message)
 		{
+			string messageText = FormattableString.Invariant($"[{DateTimeOffset.Now.ToString("HH:mm:ss")}] {message}");
+
 			lock (this.sync)
 			{
-				this.logWriter.WriteLine(message);
+				this.logWriter.WriteLine(messageText);
 				this.logWriter.Flush();
 			}
 		}

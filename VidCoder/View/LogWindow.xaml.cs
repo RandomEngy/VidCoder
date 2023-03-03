@@ -134,7 +134,7 @@ namespace VidCoder.View
 							LogColor color = LogEntryClassificationUtilities.GetLineColor(line);
 
 							// If we need to start a new group
-							if (currentGroup == null || color != currentGroup.Color)
+							if (currentGroup == null || (color != LogColor.NoChange && color != currentGroup.Color))
 							{
 								// Write out the last group (if it exists)
 								if (currentGroup != null)
@@ -143,7 +143,7 @@ namespace VidCoder.View
 								}
 
 								// Start the new group
-								currentGroup = new ColoredLogGroup(color);
+								currentGroup = new ColoredLogGroup(color == LogColor.NoChange ? LogColor.Normal : color);
 							}
 
 							// Add the entry
@@ -217,13 +217,13 @@ namespace VidCoder.View
 				{
 					LogEntry entry = this.pendingEntries.Dequeue();
 					LogColor entryColor = LogEntryClassificationUtilities.GetEntryColor(entry);
-					if (currentGroup == null || entryColor != currentGroup.Color)
+					if (currentGroup == null || (entryColor != LogColor.NoChange && entryColor != currentGroup.Color))
 					{
-						currentGroup = new ColoredLogGroup(entryColor);
+						currentGroup = new ColoredLogGroup(entryColor == LogColor.NoChange ? LogColor.Normal : entryColor);
 						entryGroups.Add(currentGroup);
 					}
 
-					currentGroup.Entries.Add(entry.Text);
+					currentGroup.Entries.Add(entry.FormatMessage());
 					currentLines++;
 				}
 			}
