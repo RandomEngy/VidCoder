@@ -22,6 +22,7 @@ using Microsoft.Toolkit.Uwp.Notifications;
 using VidCoder.Automation;
 using Squirrel;
 using System.IO;
+using VidCoderCommon.Model;
 
 namespace VidCoder
 {
@@ -237,7 +238,7 @@ namespace VidCoder
 		private void HandBrakeGlobalInitialize()
 		{
 			HandBrakeUtils.EnsureGlobalInit(initNoHardwareMode: false);
-			HandBrakeUtils.SetDvdNav(DatabaseConfig.Get<bool>("EnableLibDvdNav", true)); // This runs early so we need to use the raw version to get the config value.
+			HandBrakeUtils.SetDvdNav(DatabaseConfig.Get<bool>("EnableLibDvdNav", true, Database.Connection)); // This runs early so we need to use the raw version to get the config value.
 		}
 
 		public void ChangeTheme(Uri uri)

@@ -185,7 +185,7 @@ namespace VidCoder.Services
 				});
 			}
 			await this.pipeClient.ConnectAsync();
-			await this.pipeClient.InvokeAsync(commands => commands.Ping());
+			await this.pipeClient.InvokeAsync(commands => commands.RefreshFromWatchedFolders());
 		}
 
 		private void SetStatusToStopped()

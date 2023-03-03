@@ -66,6 +66,8 @@ EncodingListPaneOpen|bool|true
 EncodingListPaneWidth|double|150.0
 LogListPaneWidth|double|150.0
 
+WatcherMode|string|"FileSystemWatcher"
+WatcherPollIntervalSeconds|int|5
 WorkerProcessPriority|string|"BelowNormal"
 LogVerbosity|int|1
 CopyLogToOutputFolder|bool|false

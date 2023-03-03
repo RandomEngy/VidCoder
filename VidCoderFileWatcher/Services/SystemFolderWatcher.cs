@@ -10,7 +10,10 @@ using Timer = System.Timers.Timer;
 
 namespace VidCoderFileWatcher.Services
 {
-	public class FolderWatcher : IDisposable
+	/// <summary>
+	/// Watches a folder with the FileSystemWatcher OS notifications.
+	/// </summary>
+	public class SystemFolderWatcher : IDisposable
 	{
 		private bool isDisposed;
 
@@ -27,7 +30,7 @@ namespace VidCoderFileWatcher.Services
 
 		private Timer? pendingCheckTimer;
 
-		public FolderWatcher(WatcherService watcherService, WatchedFolder watchedFolder, IBasicLogger logger)
+		public SystemFolderWatcher(WatcherService watcherService, WatchedFolder watchedFolder, IBasicLogger logger)
 		{
 			this.watcherService = watcherService;
 			this.watchedFolder = watchedFolder;

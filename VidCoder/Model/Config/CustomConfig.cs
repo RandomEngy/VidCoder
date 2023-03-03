@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using VidCoder.Model;
+using VidCoderCommon.Model;
 
 namespace VidCoder
 {
@@ -76,6 +77,12 @@ namespace VidCoder
 		{
 			get => (DragDropOrder)Enum.Parse(typeof(DragDropOrder), Config.DragDropOrder);
 			set => Config.DragDropOrder = value.ToString();
+		}
+
+		public static WatcherMode WatcherMode
+		{
+			get => (WatcherMode)Enum.Parse(typeof(WatcherMode), Config.WatcherMode);
+			set => Config.WatcherMode = value.ToString();
 		}
 
 		public static ProcessPriorityClass WorkerProcessPriority

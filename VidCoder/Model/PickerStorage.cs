@@ -172,7 +172,9 @@ namespace VidCoder.Model
 
 		private static void UpgradePickerTo39(Picker picker)
 		{
-			string configurationOutputDirectory = DatabaseConfig.Get<string>("AutoNameOutputFolder", null);
+			SQLiteConnection connection = Database.Connection;
+
+			string configurationOutputDirectory = DatabaseConfig.Get<string>("AutoNameOutputFolder", null, connection);
 			if (picker.ExtensionData.GetBool("OutputDirectoryOverrideEnabled"))
 			{
 				picker.OutputDirectory = picker.ExtensionData.GetString("OutputDirectoryOverride");
@@ -189,7 +191,7 @@ namespace VidCoder.Model
 			bool? outputToSourceDirectoryNullable = picker.ExtensionData.GetNullableBool("OutputToSourceDirectory");
 			if (outputToSourceDirectoryNullable == null)
 			{
-				picker.OutputToSourceDirectory = DatabaseConfig.Get<bool>("OutputToSourceDirectory", false);
+				picker.OutputToSourceDirectory = DatabaseConfig.Get<bool>("OutputToSourceDirectory", false, connection);
 			}
 			else
 			{
@@ -199,7 +201,7 @@ namespace VidCoder.Model
 			bool? preserveFolderStructureInBatchNullable = picker.ExtensionData.GetNullableBool("PreserveFolderStructureInBatch");
 			if (preserveFolderStructureInBatchNullable == null)
 			{
-				picker.PreserveFolderStructureInBatch = DatabaseConfig.Get<bool>("PreserveFolderStructureInBatch", false);
+				picker.PreserveFolderStructureInBatch = DatabaseConfig.Get<bool>("PreserveFolderStructureInBatch", false, connection);
 			}
 			else
 			{
@@ -217,10 +219,10 @@ namespace VidCoder.Model
 				picker.OutputFileNameFormat = null;
 			}
 
-			string whenFileExistsSingleString = DatabaseConfig.Get<string>("WhenFileExists", "Prompt");
+			string whenFileExistsSingleString = DatabaseConfig.Get<string>("WhenFileExists", "Prompt", connection);
 			picker.WhenFileExistsSingle = (WhenFileExists)Enum.Parse(typeof(WhenFileExists), whenFileExistsSingleString);
 
-			string whenFileExistsBatchString = DatabaseConfig.Get<string>("WhenFileExistsBatch", "AutoRename");
+			string whenFileExistsBatchString = DatabaseConfig.Get<string>("WhenFileExistsBatch", "AutoRename", connection);
 			picker.WhenFileExistsBatch = (WhenFileExists)Enum.Parse(typeof(WhenFileExists), whenFileExistsBatchString);
 
 			if (picker.ExtensionData != null)
@@ -242,16 +244,18 @@ namespace VidCoder.Model
 				UpgradePickerTo39(picker);
 			}
 
+			SQLiteConnection connection = Database.Connection;
+
 			// And if we have the "default" picker selected right now, add a new one with our settings copied over.
-			int lastPickerIndex = DatabaseConfig.Get<int>("LastPickerIndex", 0);
+			int lastPickerIndex = DatabaseConfig.Get<int>("LastPickerIndex", 0, connection);
 			if (lastPickerIndex == 0)
 			{
-				bool useCustomNameFormat = DatabaseConfig.Get<bool>("AutoNameCustomFormat", false);
-				bool outputToSourceDirectory = DatabaseConfig.Get<bool>("OutputToSourceDirectory", false);
-				bool preserveFolderStructureInBatch = DatabaseConfig.Get<bool>("PreserveFolderStructureInBatch", false);
-				string whenFileExistsSingleString = DatabaseConfig.Get<string>("WhenFileExists", "Prompt");
+				bool useCustomNameFormat = DatabaseConfig.Get<bool>("AutoNameCustomFormat", false, connection);
+				bool outputToSourceDirectory = DatabaseConfig.Get<bool>("OutputToSourceDirectory", false, connection);
+				bool preserveFolderStructureInBatch = DatabaseConfig.Get<bool>("PreserveFolderStructureInBatch", false, connection);
+				string whenFileExistsSingleString = DatabaseConfig.Get<string>("WhenFileExists", "Prompt", connection);
 				WhenFileExists whenFileExistsSingle = (WhenFileExists)Enum.Parse(typeof(WhenFileExists), whenFileExistsSingleString);
-				string whenFileExistsBatchString = DatabaseConfig.Get<string>("WhenFileExistsBatch", "AutoRename");
+				string whenFileExistsBatchString = DatabaseConfig.Get<string>("WhenFileExistsBatch", "AutoRename", connection);
 				WhenFileExists whenFileExistsBatch = (WhenFileExists)Enum.Parse(typeof(WhenFileExists), whenFileExistsBatchString);
 
 				var newPicker = new Picker
@@ -266,11 +270,11 @@ namespace VidCoder.Model
 
 				if (useCustomNameFormat)
 				{
-					string outputFileNameFormat = DatabaseConfig.Get<string>("AutoNameCustomFormatString", null);
+					string outputFileNameFormat = DatabaseConfig.Get<string>("AutoNameCustomFormatString", null, connection);
 					newPicker.OutputFileNameFormat = outputFileNameFormat;
 				}
 
-				string outputDirectory = DatabaseConfig.Get<string>("AutoNameOutputFolder", null);
+				string outputDirectory = DatabaseConfig.Get<string>("AutoNameOutputFolder", null, connection);
 				if (!string.IsNullOrEmpty(outputDirectory))
 				{
 					newPicker.OutputDirectory = outputDirectory;
@@ -278,7 +282,7 @@ namespace VidCoder.Model
 
 				pickers.Insert(0, newPicker);
 
-				DatabaseConfig.Set<int>("LastPickerIndex", 1);
+				DatabaseConfig.Set<int>("LastPickerIndex", 1, connection);
 			}
 		}
 
@@ -323,8 +327,10 @@ namespace VidCoder.Model
 
 		private static void UpgradePickerTo45(Picker picker)
 		{
-			bool deleteSourceFiles = DatabaseConfig.Get<bool>("DeleteSourceFilesOnClearingCompleted", false);
-			bool recycle = DatabaseConfig.Get<string>("DeleteSourceFilesMode", "Recycle") == "Recycle";
+			SQLiteConnection connection = Database.Connection;
+
+			bool deleteSourceFiles = DatabaseConfig.Get<bool>("DeleteSourceFilesOnClearingCompleted", false, connection);
+			bool recycle = DatabaseConfig.Get<string>("DeleteSourceFilesMode", "Recycle", connection) == "Recycle";
 
 			if (deleteSourceFiles)
 			{
@@ -336,7 +342,7 @@ namespace VidCoder.Model
 
 		private static void UpgradePickerTo47(Picker picker)
 		{
-			string videoFileExtensions = DatabaseConfig.Get<string>("VideoFileExtensions", null);
+			string videoFileExtensions = DatabaseConfig.Get<string>("VideoFileExtensions", null, Database.Connection);
 			if (videoFileExtensions != null)
 			{
 				picker.VideoFileExtensions = videoFileExtensions;

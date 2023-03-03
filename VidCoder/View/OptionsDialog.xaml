@@ -2,11 +2,12 @@
 	x:Class="VidCoder.View.OptionsDialog"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:Model="clr-namespace:VidCoder.Model"
+	xmlns:commonModel="clr-namespace:VidCoderCommon.Model;assembly=VidCoderCommon"
 	xmlns:controls="clr-namespace:VidCoder.Controls"
 	xmlns:converters="clr-namespace:VidCoder.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:model="clr-namespace:VidCoder.Model"
 	xmlns:prop="clr-namespace:VidCoder.Properties"
 	xmlns:res="clr-namespace:VidCoder.Resources"
 	xmlns:vidCoder="clr-namespace:VidCoder"
@@ -443,6 +444,46 @@
 										Minimum="0"
 										Number="{Binding EncodeRetries, Mode=TwoWay}" />
 								</StackPanel>
+								<StackPanel
+									Margin="0 6 0 0"
+									Orientation="Horizontal"
+									ToolTip="{x:Static res:OptionsRes.WatcherModelToolTip}">
+									<TextBlock
+										Name="watcherModeLabel"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										Text="{x:Static res:OptionsRes.WatcherModeLabel}" />
+									<ComboBox
+										Height="23"
+										MinWidth="90"
+										Margin="6 0 0 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										AutomationProperties.LabeledBy="{Binding ElementName=watcherModeLabel}"
+										DisplayMemberPath="Display"
+										ItemsSource="{Binding WatcherModeChoices}"
+										SelectedValue="{Binding WatcherMode}"
+										SelectedValuePath="Value" />
+
+									<StackPanel
+										Margin="10 0 0 0"
+										Orientation="Horizontal"
+										Visibility="{Binding WatcherMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static commonModel:WatcherMode.Polling}}">
+										<TextBlock
+											Name="watcherPollIntervalLabel"
+											VerticalAlignment="Center"
+											Text="{x:Static res:OptionsRes.WatcherPollIntervalLabel}" />
+										<controls:NumberBox
+											Width="45"
+											Height="20"
+											Margin="6 0 0 0"
+											AllowEmpty="False"
+											Maximum="3600"
+											Minimum="1"
+											Number="{Binding WatcherPollIntervalSeconds, Mode=TwoWay}" />
+									</StackPanel>
+
+								</StackPanel>
 							</StackPanel>
 
 							<!--  Scanning  -->
@@ -663,7 +704,7 @@
 							</StackPanel>
 
 							<!--  Status  -->
-							<StackPanel Orientation="Vertical" Visibility="{Binding Updater.State, Converter={StaticResource EnumVisibilityInverseConverter}, ConverterParameter={x:Static Model:UpdateState.NotStarted}}">
+							<StackPanel Orientation="Vertical" Visibility="{Binding Updater.State, Converter={StaticResource EnumVisibilityInverseConverter}, ConverterParameter={x:Static model:UpdateState.NotStarted}}">
 								<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.UpdateStatusSection}" />
 								<StackPanel Style="{StaticResource ConfigSectionStack}">
 									<StackPanel
@@ -676,7 +717,7 @@
 											Padding="10 4"
 											Command="{Binding ApplyUpdate}"
 											Content="{x:Static res:OptionsRes.ApplyUpdateButton}"
-											Visibility="{Binding Updater.State, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static Model:UpdateState.UpdateReady}}" />
+											Visibility="{Binding Updater.State, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static model:UpdateState.UpdateReady}}" />
 									</StackPanel>
 									<ProgressBar
 										Grid.Column="1"

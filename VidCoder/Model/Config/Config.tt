@@ -35,6 +35,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using VidCoder.Model;
+using VidCoderCommon.Model;
 
 namespace VidCoder
 {
@@ -80,7 +81,7 @@ foreach (var setting in settings)
 		public static void Set<T>(string key, T value)
 		{
 			cache[key] = value;
-			DatabaseConfig.Set(key, value);
+			DatabaseConfig.Set(key, value, Database.Connection);
 
 			NotifyObservable(key, value);
 		}
@@ -88,7 +89,7 @@ foreach (var setting in settings)
 		public static void SetLegacy<T>(string key, T value)
 		{
 			cache[key] = value;
-			DatabaseConfig.SetLegacy(key, value);
+			DatabaseConfig.SetLegacy(key, value, Database.Connection);
 
 			NotifyObservable(key, value);
 		}

@@ -24,6 +24,7 @@ using Squirrel;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
+using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
@@ -106,6 +107,8 @@ namespace VidCoder.ViewModel
 			this.playSoundOnCompletion = Config.PlaySoundOnCompletion;
 			this.useCustomCompletionSound = Config.UseCustomCompletionSound;
 			this.customCompletionSound = Config.CustomCompletionSound;
+			this.watcherMode = CustomConfig.WatcherMode;
+			this.watcherPollIntervalSeconds = Config.WatcherPollIntervalSeconds;
 			this.workerProcessPriority = Config.WorkerProcessPriority;
 			this.logVerbosity = Config.LogVerbosity;
 			this.copyLogToOutputFolder = Config.CopyLogToOutputFolder;
@@ -492,6 +495,26 @@ namespace VidCoder.ViewModel
 			set => this.RaiseAndSetIfChanged(ref this.customCompletionSound, value);
 		}
 
+		public List<ComboChoice<WatcherMode>> WatcherModeChoices { get; } = new List<ComboChoice<WatcherMode>>
+		{
+			new ComboChoice<WatcherMode>(WatcherMode.FileSystemWatcher, EnumsRes.WatcherMode_FileSystemWatcher),
+			new ComboChoice<WatcherMode>(WatcherMode.Polling, EnumsRes.WatcherMode_Polling),
+		};
+
+		private WatcherMode watcherMode;
+		public WatcherMode WatcherMode
+		{
+			get => this.watcherMode;
+			set => this.RaiseAndSetIfChanged(ref this.watcherMode, value);
+		}
+
+		private int watcherPollIntervalSeconds;
+		public int WatcherPollIntervalSeconds
+		{
+			get => this.watcherPollIntervalSeconds;
+			set => this.RaiseAndSetIfChanged(ref this.watcherPollIntervalSeconds, value);
+		}
+
 		public List<ComboChoice<int>> LogVerbosityChoices { get; } = new List<ComboChoice<int>>
 		{
 			new ComboChoice<int>(0, LogRes.LogVerbosity_Minimized),
@@ -703,6 +726,9 @@ namespace VidCoder.ViewModel
 					StaticResolver.Resolve<IMessageBoxService>().Show(this, OptionsRes.WorkerProcessRestartDialogMessage);
 				}
 
+				WatcherMode oldWatcherMode = CustomConfig.WatcherMode;
+				int oldPollIntervalSeconds = Config.WatcherPollIntervalSeconds;
+
 				CustomConfig.AppTheme = this.AppTheme.Value;
 				Config.UseCustomPreviewFolder = this.UseCustomPreviewFolder;
 				Config.PreviewOutputFolder = this.PreviewOutputFolder;
@@ -713,6 +739,8 @@ namespace VidCoder.ViewModel
 				Config.PlaySoundOnCompletion = this.PlaySoundOnCompletion;
 				Config.UseCustomCompletionSound = this.UseCustomCompletionSound;
 				Config.CustomCompletionSound = this.CustomCompletionSound;
+				CustomConfig.WatcherMode = this.WatcherMode;
+				Config.WatcherPollIntervalSeconds = this.WatcherPollIntervalSeconds;
 				Config.WorkerProcessPriority = this.WorkerProcessPriority;
 				CustomConfig.DragDropOrder = this.DragDropOrder;
 				Config.LogVerbosity = this.LogVerbosity;
@@ -757,6 +785,12 @@ namespace VidCoder.ViewModel
 				Config.PreferredPlayer = this.selectedPlayer.Id;
 
 				transaction.Commit();
+
+				if (oldWatcherMode != this.WatcherMode || oldPollIntervalSeconds != this.WatcherPollIntervalSeconds)
+				{
+					// The watcher mode changed. We need to tell the watcher process to restart the watch operation.
+					StaticResolver.Resolve<WatcherProcessManager>().RefreshFromWatchedFolders();
+				}
 			}
 
 			this.Accept.Execute(null);

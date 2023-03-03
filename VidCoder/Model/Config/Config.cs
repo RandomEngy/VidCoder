@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using VidCoder.Model;
+using VidCoderCommon.Model;
 
 namespace VidCoder
 {
@@ -83,6 +84,8 @@ namespace VidCoder
 			cache.Add("EncodingListPaneOpen", DatabaseConfig.Get("EncodingListPaneOpen", true, connection));
 			cache.Add("EncodingListPaneWidth", DatabaseConfig.Get("EncodingListPaneWidth", 150.0, connection));
 			cache.Add("LogListPaneWidth", DatabaseConfig.Get("LogListPaneWidth", 150.0, connection));
+			cache.Add("WatcherMode", DatabaseConfig.Get("WatcherMode", "FileSystemWatcher", connection));
+			cache.Add("WatcherPollIntervalSeconds", DatabaseConfig.Get("WatcherPollIntervalSeconds", 5, connection));
 			cache.Add("WorkerProcessPriority", DatabaseConfig.Get("WorkerProcessPriority", "BelowNormal", connection));
 			cache.Add("LogVerbosity", DatabaseConfig.Get("LogVerbosity", 1, connection));
 			cache.Add("CopyLogToOutputFolder", DatabaseConfig.Get("CopyLogToOutputFolder", false, connection));
@@ -140,7 +143,7 @@ namespace VidCoder
 		public static void Set<T>(string key, T value)
 		{
 			cache[key] = value;
-			DatabaseConfig.Set(key, value);
+			DatabaseConfig.Set(key, value, Database.Connection);
 
 			NotifyObservable(key, value);
 		}
@@ -148,7 +151,7 @@ namespace VidCoder
 		public static void SetLegacy<T>(string key, T value)
 		{
 			cache[key] = value;
-			DatabaseConfig.SetLegacy(key, value);
+			DatabaseConfig.SetLegacy(key, value, Database.Connection);
 
 			NotifyObservable(key, value);
 		}
@@ -432,6 +435,16 @@ namespace VidCoder
 		{
 			get { return (double)cache["LogListPaneWidth"]; }
 			set { Set("LogListPaneWidth", value); }
+		}
+		public static string WatcherMode
+		{
+			get { return (string)cache["WatcherMode"]; }
+			set { Set("WatcherMode", value); }
+		}
+		public static int WatcherPollIntervalSeconds
+		{
+			get { return (int)cache["WatcherPollIntervalSeconds"]; }
+			set { Set("WatcherPollIntervalSeconds", value); }
 		}
 		public static string WorkerProcessPriority
 		{
@@ -724,6 +737,8 @@ namespace VidCoder
 			public static IObservable<bool> EncodingListPaneOpen => GetObservable<bool>("EncodingListPaneOpen");
 			public static IObservable<double> EncodingListPaneWidth => GetObservable<double>("EncodingListPaneWidth");
 			public static IObservable<double> LogListPaneWidth => GetObservable<double>("LogListPaneWidth");
+			public static IObservable<string> WatcherMode => GetObservable<string>("WatcherMode");
+			public static IObservable<int> WatcherPollIntervalSeconds => GetObservable<int>("WatcherPollIntervalSeconds");
 			public static IObservable<string> WorkerProcessPriority => GetObservable<string>("WorkerProcessPriority");
 			public static IObservable<int> LogVerbosity => GetObservable<int>("LogVerbosity");
 			public static IObservable<bool> CopyLogToOutputFolder => GetObservable<bool>("CopyLogToOutputFolder");

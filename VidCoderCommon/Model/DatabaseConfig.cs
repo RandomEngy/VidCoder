@@ -3,21 +3,13 @@ using System.Data;
 using System.Data.SQLite;
 using System.Globalization;
 
-namespace VidCoder.Model
+namespace VidCoderCommon.Model
 {
 	/// <summary>
 	/// Accesses config values in database directly without any local caching.
 	/// </summary>
 	public static class DatabaseConfig
 	{
-		public static int Version
-		{
-			get
-			{
-				return Get("Version", Utilities.CurrentDatabaseVersion, Database.Connection);
-			}
-		}
-
 		/// <summary>
 		/// Gets a config value from the database.
 		/// </summary>
@@ -26,36 +18,31 @@ namespace VidCoder.Model
 		/// <param name="defaultValue">The default value to use if it's not set.</param>
 		/// <param name="connection">The connection to use.</param>
 		/// <returns>The </returns>
-		public static T Get<T>(string configName, T defaultValue, SQLiteConnection connection = null)
+		public static T Get<T>(string configName, T defaultValue, SQLiteConnection connection)
 		{
-			if (connection == null)
-			{
-				connection = Database.Connection;
-			}
-
 			string configValue = GetConfigStringRaw(configName, connection);
 			if (configValue == null)
 			{
 				return defaultValue;
 			}
 
-			Type type = typeof (T);
-			if (type == typeof (bool))
+			Type type = typeof(T);
+			if (type == typeof(bool))
 			{
 				return (T)(object)bool.Parse(configValue);
 			}
 
-			if (type == typeof (int))
+			if (type == typeof(int))
 			{
 				return (T)(object)int.Parse(configValue, CultureInfo.InvariantCulture);
 			}
 
-			if (type == typeof (double))
+			if (type == typeof(double))
 			{
 				return (T)(object)double.Parse(configValue, CultureInfo.InvariantCulture);
 			}
 
-			if (type == typeof (string))
+			if (type == typeof(string))
 			{
 				return (T)(object)configValue;
 			}
@@ -91,13 +78,8 @@ namespace VidCoder.Model
 		/// <param name="configName">The configuration key.</param>
 		/// <param name="value">The value to set.</param>
 		/// <param name="connection">The connection to save to.</param>
-		public static void Set<T>(string configName, T value, SQLiteConnection connection = null)
+		public static void Set<T>(string configName, T value, SQLiteConnection connection)
 		{
-			if (connection == null)
-			{
-				connection = Database.Connection;
-			}
-
 			string configValue = GetConfigValue(value);
 			SetInternal(configName, configValue, connection);
 		}
@@ -109,13 +91,8 @@ namespace VidCoder.Model
 		/// <param name="configName">The configuration key.</param>
 		/// <param name="value">The value to set.</param>
 		/// <param name="connection">The connection to save to.</param>
-		public static void SetLegacy<T>(string configName, T value, SQLiteConnection connection = null)
+		public static void SetLegacy<T>(string configName, T value, SQLiteConnection connection)
 		{
-			if (connection == null)
-			{
-				connection = Database.Connection;
-			}
-
 			string configValue = GetConfigValue(value);
 			SetInternalLegacy(configName, configValue, connection);
 		}

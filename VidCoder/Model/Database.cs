@@ -33,7 +33,7 @@ namespace VidCoder.Model
 		{
 			mainThreadId = Thread.CurrentThread.ManagedThreadId;
 
-			int databaseVersion = DatabaseConfig.Version;
+			int databaseVersion = Version;
 			if (databaseVersion > Utilities.CurrentDatabaseVersion)
 			{
 				databaseVersion = HandleTooHighDatabaseVersion(databaseVersion);
@@ -90,6 +90,14 @@ namespace VidCoder.Model
 
 				SetDatabaseVersionToLatest();
 				transaction.Commit();
+			}
+		}
+
+		public static int Version
+		{
+			get
+			{
+				return DatabaseConfig.Get("Version", Utilities.CurrentDatabaseVersion, Connection);
 			}
 		}
 
@@ -166,7 +174,7 @@ namespace VidCoder.Model
 					try
 					{
 						MoveCurrentDatabaseFile(databaseVersion);
-						databaseVersion = DatabaseConfig.Version;
+						databaseVersion = Version;
 					}
 					catch (Exception exception)
 					{

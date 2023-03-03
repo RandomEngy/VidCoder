@@ -799,6 +799,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to System watcher.
+        /// </summary>
+        public static string WatcherMode_FileSystemWatcher {
+            get {
+                return ResourceManager.GetString("WatcherMode_FileSystemWatcher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Polling.
+        /// </summary>
+        public static string WatcherMode_Polling {
+            get {
+                return ResourceManager.GetString("WatcherMode_Polling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disabled.
         /// </summary>
         public static string WatcherProcessStatus_Disabled {

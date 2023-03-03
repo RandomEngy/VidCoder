@@ -182,7 +182,7 @@ namespace VidCoder.ViewModel
 
 		private void SetStatusShown(WatchedFileStatusLive status, bool shown)
 		{
-			DatabaseConfig.Set<bool>(StatusFilterConfigPrefix + status.ToString(), shown);
+			DatabaseConfig.Set<bool>(StatusFilterConfigPrefix + status.ToString(), shown, Database.Connection);
 			this.statusFilters[status] = shown;
 			this.RefreshWatchedFilesFromFileMap();
 		}
@@ -191,7 +191,7 @@ namespace VidCoder.ViewModel
 		{
 			foreach (WatchedFileStatusLive status in Enum.GetValues(typeof(WatchedFileStatusLive)))
 			{
-				this.statusFilters[status] = DatabaseConfig.Get<bool>(StatusFilterConfigPrefix + status.ToString(), true);
+				this.statusFilters[status] = DatabaseConfig.Get<bool>(StatusFilterConfigPrefix + status.ToString(), true, Database.Connection);
 			}
 		}
 

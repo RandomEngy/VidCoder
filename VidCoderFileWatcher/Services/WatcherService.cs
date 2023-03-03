@@ -25,7 +25,7 @@ namespace VidCoderFileWatcher.Services
 		private readonly SemaphoreSlim sync = new SemaphoreSlim(1, 1);
 		private readonly SemaphoreSlim processCommunicationSync = new SemaphoreSlim(1, 1);
 
-		private readonly IList<FolderWatcher> folderWatchers = new List<FolderWatcher>();
+		private readonly IList<IDisposable> folderWatchers = new List<IDisposable>();
 
 		public WatcherService(IBasicLogger logger)
 		{
@@ -48,58 +48,9 @@ namespace VidCoderFileWatcher.Services
 				this.PopulatePickersIfNeeded();
 
 				List<WatchedFolder> folders = WatcherStorage.GetWatchedFolders(WatcherDatabase.Connection);
-				IDictionary<string, ExistingFile> existingFiles = this.GetFilesInWatchedFolders(folders);
-				Dictionary<string, WatchedFile> entries = WatcherStorage.GetWatchedFiles(WatcherDatabase.Connection);
 
-				// Go over all entries, marking any matches along the way
-				var entriesToRemove = new List<string>();
-				foreach (string path in entries.Keys)
-				{
-					if (existingFiles.TryGetValue(path, out ExistingFile? file))
-					{
-						file.HasEntry = true;
-					}
-					else
-					{
-						// The file for this entry no longer exists. We can clean up the entry.
-						entriesToRemove.Add(path);
-					}
-				}
-
-				// Remove any entries without a file match.
-				if (entriesToRemove.Count > 0)
-				{
-					this.logger.Log("Removing entries for file(s) that no longer exist:");
-					foreach (string path in entriesToRemove)
-					{
-						this.logger.Log("    " + path);
-					}
-
-					WatcherStorage.RemoveEntries(WatcherDatabase.Connection, entriesToRemove);
-
-					await this.NotifyMainProcessOfFilesRemoved(entriesToRemove);
-				}
-
-				// Any files without matching entries are new and should be enqueued
-				var filesToEnqueue = new Dictionary<WatchedFolder, List<string>>();
-				foreach (string path in existingFiles.Keys)
-				{
-					ExistingFile file = existingFiles[path];
-					if (!file.HasEntry)
-					{
-						if (!filesToEnqueue.ContainsKey(file.Folder))
-						{
-							filesToEnqueue.Add(file.Folder, new List<string>());
-						}
-
-						filesToEnqueue[file.Folder].Add(file.Path);
-					}
-				}
-
-				foreach (KeyValuePair<WatchedFolder, List<string>> pair in filesToEnqueue)
-				{
-					await this.QueueInMainProcess(pair.Key, pair.Value).ConfigureAwait(false);
-				}
+				var folderEnumerator = new FolderEnumerator(folders, this, this.logger, logVerbose: true);
+				await folderEnumerator.CheckFolders();
 
 				this.RefreshFolderWatchers(folders);
 			}
@@ -109,20 +60,31 @@ namespace VidCoderFileWatcher.Services
 			}
 		}
 
-		private void RefreshFolderWatchers(IEnumerable<WatchedFolder> folders)
+		private void RefreshFolderWatchers(IList<WatchedFolder> folders)
 		{
-			foreach (FolderWatcher watcher in this.folderWatchers)
+			foreach (IDisposable watcher in this.folderWatchers)
 			{
 				watcher.Dispose();
 			}
 
+			string mode = DatabaseConfig.Get<string>("WatcherMode", "FileSystemWatcher", WatcherDatabase.Connection);
+
 			this.folderWatchers.Clear();
 
-			foreach (WatchedFolder folder in folders)
+			if (mode == "Polling")
 			{
-				this.logger.Log("Starting FolderWatcher for " + folder.Path);
-				var watcher = new FolderWatcher(this, folder, this.logger);
-				this.folderWatchers.Add(watcher);
+				this.logger.Log("Starting PollingFolderWatcher");
+				this.folderWatchers.Add(new PollingFolderWatcher(this, folders, this.logger));
+			}
+			else
+			{
+				// FileSystemWatcher
+				foreach (WatchedFolder folder in folders)
+				{
+					this.logger.Log("Starting SystemFolderWatcher for " + folder.Path);
+					var watcher = new SystemFolderWatcher(this, folder, this.logger);
+					this.folderWatchers.Add(watcher);
+				}
 			}
 		}
 
@@ -199,32 +161,6 @@ namespace VidCoderFileWatcher.Services
 		}
 
 		/// <summary>
-		/// Gets the source paths (files or folders) in the currently watched folders.
-		/// </summary>
-		/// <returns>The source paths in the currently watched folders.</returns>
-		private IDictionary<string, ExistingFile> GetFilesInWatchedFolders(IEnumerable<WatchedFolder> folders)
-		{
-			var files = new Dictionary<string, ExistingFile>(StringComparer.OrdinalIgnoreCase);
-
-			foreach (WatchedFolder folder in folders)
-			{
-				this.logger.Log("Enumerating folder: " + folder.Path);
-
-				List<SourcePathWithType> sourcePaths = this.GetPathsInWatchedFolder(folder.Path, folder);
-
-				foreach (SourcePathWithType sourcePath in sourcePaths)
-				{
-					this.logger.Log("    " + sourcePath.Path);
-					files.Add(
-						sourcePath.Path,
-						new ExistingFile(sourcePath.Path, folder));
-				}
-			}
-
-			return files;
-		}
-
-		/// <summary>
 		/// Gets the source paths (files or folder) in the given watched folder.
 		/// </summary>
 		/// <param name="path">The path to look under.</param>
@@ -257,7 +193,7 @@ namespace VidCoderFileWatcher.Services
 			}
 		}
 
-		private PickerFileFilter GetFileFilterForWatchedFolder(WatchedFolder watchedFolder)
+		public PickerFileFilter GetFileFilterForWatchedFolder(WatchedFolder watchedFolder)
 		{
 			StrippedPicker picker = GetPickerForWatchedFolder(watchedFolder);
 

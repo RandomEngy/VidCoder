@@ -817,6 +817,34 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Watcher mode:.
+        /// </summary>
+        public static string WatcherModeLabel {
+            get {
+                return ResourceManager.GetString("WatcherModeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System watcher: Uses the operating system to notify VidCoder of new files. It&apos;s the fastest and uses minimal CPU and disk resources.
+        ///Polling: Periodically checks the contents of the folders. Uses significant CPU and disk resources. Use only if the system watcher is not working..
+        /// </summary>
+        public static string WatcherModelToolTip {
+            get {
+                return ResourceManager.GetString("WatcherModelToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Poll interval (seconds):.
+        /// </summary>
+        public static string WatcherPollIntervalLabel {
+            get {
+                return ResourceManager.GetString("WatcherPollIntervalLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to When a file already exists....
         /// </summary>
         public static string WhenFileAlreadyExists {
