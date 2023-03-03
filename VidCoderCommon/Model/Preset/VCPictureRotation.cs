@@ -1,5 +1,5 @@
-﻿namespace VidCoderCommon.Model
-{
+﻿namespace VidCoderCommon.Model;
+
     public enum VCPictureRotation
     {
         None = 0,
@@ -7,4 +7,3 @@
         Clockwise180 = 180,
         Clockwise270 = 270
     }
-}

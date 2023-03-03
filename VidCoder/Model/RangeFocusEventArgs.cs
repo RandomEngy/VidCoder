@@ -1,14 +1,13 @@
 ﻿using System;
 using VidCoderCommon.Model;
 
-namespace VidCoder.Model
+namespace VidCoder.Model;
+
+public class RangeFocusEventArgs : EventArgs
 {
-	public class RangeFocusEventArgs : EventArgs
-	{
-		public VideoRangeType RangeType { get; set; }
+	public VideoRangeType RangeType { get; set; }
 
-		public bool GotFocus { get; set; }
+	public bool GotFocus { get; set; }
 
-		public bool Start { get; set; }
-	}
+	public bool Start { get; set; }
 }

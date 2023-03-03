@@ -3,18 +3,18 @@ using HandBrake.Interop.Interop.Interfaces.Model.Encoders;
 using ReactiveUI;
 using VidCoder.Resources;
 
-namespace VidCoder.ViewModel
-{
+namespace VidCoder.ViewModel;
+
     public class AudioEncoderViewModel : ReactiveObject
-	{
-		private static ResourceManager manager = new ResourceManager(typeof(EncodingRes));
+{
+	private static ResourceManager manager = new ResourceManager(typeof(EncodingRes));
 
-		public HBAudioEncoder Encoder { get; set; }
+	public HBAudioEncoder Encoder { get; set; }
 
-		public bool IsPassthrough { get; set; }
+	public bool IsPassthrough { get; set; }
 
-	    public override string ToString()
-	    {
+    public override string ToString()
+    {
             if (this.IsPassthrough)
             {
                 return EncodingRes.AudioEncoder_Passthrough;
@@ -29,5 +29,4 @@ namespace VidCoder.ViewModel
 
             return resourceString;
         }
-	}
 }

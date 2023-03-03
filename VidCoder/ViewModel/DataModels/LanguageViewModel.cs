@@ -9,48 +9,47 @@ using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.Interfaces.Model;
 using ReactiveUI;
 
-namespace VidCoder.ViewModel.DataModels
+namespace VidCoder.ViewModel.DataModels;
+
+public class LanguageViewModel : ReactiveObject
 {
-	public class LanguageViewModel : ReactiveObject
+	private readonly PickerWindowViewModel pickerWindowViewModel;
+
+	public LanguageViewModel(PickerWindowViewModel pickerWindowViewModel)
 	{
-		private readonly PickerWindowViewModel pickerWindowViewModel;
+		this.pickerWindowViewModel = pickerWindowViewModel;
+	}
 
-		public LanguageViewModel(PickerWindowViewModel pickerWindowViewModel)
+	private string code;
+	public string Code
+	{
+		get { return this.code; }
+		set { this.RaiseAndSetIfChanged(ref this.code, value); }
+	}
+
+	public PickerWindowViewModel PickerWindowViewModel => this.pickerWindowViewModel;
+
+	private ReactiveCommand<Unit, Unit> removeAudioLanguage;
+	public ICommand RemoveAudioLanguage
+	{
+		get
 		{
-			this.pickerWindowViewModel = pickerWindowViewModel;
-		}
-
-		private string code;
-		public string Code
-		{
-			get { return this.code; }
-			set { this.RaiseAndSetIfChanged(ref this.code, value); }
-		}
-
-		public PickerWindowViewModel PickerWindowViewModel => this.pickerWindowViewModel;
-
-		private ReactiveCommand<Unit, Unit> removeAudioLanguage;
-		public ICommand RemoveAudioLanguage
-		{
-			get
+			return this.removeAudioLanguage ?? (this.removeAudioLanguage = ReactiveCommand.Create(() =>
 			{
-				return this.removeAudioLanguage ?? (this.removeAudioLanguage = ReactiveCommand.Create(() =>
-				{
-					this.pickerWindowViewModel.RemoveAudioLanguage(this);
-				}));
-			}
+				this.pickerWindowViewModel.RemoveAudioLanguage(this);
+			}));
 		}
+	}
 
-		private ReactiveCommand<Unit, Unit> removeSubtitleLanguage;
-		public ICommand RemoveSubtitleLanguage
+	private ReactiveCommand<Unit, Unit> removeSubtitleLanguage;
+	public ICommand RemoveSubtitleLanguage
+	{
+		get
 		{
-			get
+			return this.removeSubtitleLanguage ?? (this.removeSubtitleLanguage = ReactiveCommand.Create(() =>
 			{
-				return this.removeSubtitleLanguage ?? (this.removeSubtitleLanguage = ReactiveCommand.Create(() =>
-				{
-					this.pickerWindowViewModel.RemoveSubtitleLanguage(this);
-				}));
-			}
+				this.pickerWindowViewModel.RemoveSubtitleLanguage(this);
+			}));
 		}
 	}
 }

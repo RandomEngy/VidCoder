@@ -5,12 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using VidCoderCommon;
 
-namespace VidCoder
-{
-	public class XamlStatics
-	{
-		public static XamlStatics Instance { get; } = new XamlStatics();
+namespace VidCoder;
 
-		public bool IsBeta => CommonUtilities.Beta;
-	}
+public class XamlStatics
+{
+	public static XamlStatics Instance { get; } = new XamlStatics();
+
+	public bool IsBeta => CommonUtilities.Beta;
 }

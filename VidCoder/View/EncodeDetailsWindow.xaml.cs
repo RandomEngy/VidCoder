@@ -1,15 +1,14 @@
 ﻿using System.Windows;
 
-namespace VidCoder.View
+namespace VidCoder.View;
+
+/// <summary>
+/// Interaction logic for EncodeDetailsWindow.xaml
+/// </summary>
+public partial class EncodeDetailsWindow : Window
 {
-	/// <summary>
-	/// Interaction logic for EncodeDetailsWindow.xaml
-	/// </summary>
-	public partial class EncodeDetailsWindow : Window
+	public EncodeDetailsWindow()
 	{
-		public EncodeDetailsWindow()
-		{
-			this.InitializeComponent();
-		}
+		this.InitializeComponent();
 	}
 }

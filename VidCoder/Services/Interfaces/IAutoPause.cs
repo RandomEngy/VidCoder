@@ -1,13 +1,12 @@
 ﻿using System;
-namespace VidCoder.Services
+namespace VidCoder.Services;
+
+public interface IAutoPause
 {
-	public interface IAutoPause
-	{
-		event EventHandler PauseEncoding;
-		void ReportPause();
-		void ReportResume();
-		void ReportStart();
-		void ReportStop();
-		event EventHandler ResumeEncoding;
-	}
+	event EventHandler PauseEncoding;
+	void ReportPause();
+	void ReportResume();
+	void ReportStart();
+	void ReportStop();
+	event EventHandler ResumeEncoding;
 }

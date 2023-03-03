@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VidCoder.Model
+namespace VidCoder.Model;
+
+public enum Side
 {
-	public enum Side
-	{
-		Top,
-		Bottom,
-		Left,
-		Right
-	}
+	Top,
+	Bottom,
+	Left,
+	Right
 }

@@ -5,28 +5,27 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 
-namespace VidCoder.Services
+namespace VidCoder.Services;
+
+using Resources;
+
+public class ClipboardService
 {
-	using Resources;
-
-	public class ClipboardService
+	public virtual void SetText(string text)
 	{
-		public virtual void SetText(string text)
+		for (int i = 0; i < 5; i++)
 		{
-			for (int i = 0; i < 5; i++)
+			try
 			{
-				try
-				{
-					Clipboard.SetText(text);
-					return;
-				}
-				catch (COMException)
-				{
-					// retry
-				}
+				Clipboard.SetText(text);
+				return;
 			}
-
-			MessageBox.Show(MainRes.CouldNotCopyTextError);
+			catch (COMException)
+			{
+				// retry
+			}
 		}
+
+		MessageBox.Show(MainRes.CouldNotCopyTextError);
 	}
 }

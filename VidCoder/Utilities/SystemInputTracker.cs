@@ -5,34 +5,33 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoder
+namespace VidCoder;
+
+public static class SystemInputTracker
 {
-	public static class SystemInputTracker
+	[DllImport("user32.dll")]
+	private static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
+
+	public static TimeSpan GetTimeSinceLastInput()
 	{
-		[DllImport("user32.dll")]
-		private static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
+		int systemUptime = Environment.TickCount,
+			idleTicks = 0;
 
-		public static TimeSpan GetTimeSinceLastInput()
+		LASTINPUTINFO lastInputInfo = new LASTINPUTINFO();
+		lastInputInfo.cbSize = (uint)Marshal.SizeOf(lastInputInfo);
+		lastInputInfo.dwTime = 0;
+
+		if (GetLastInputInfo(ref lastInputInfo))
 		{
-			int systemUptime = Environment.TickCount,
-				idleTicks = 0;
-
-			LASTINPUTINFO lastInputInfo = new LASTINPUTINFO();
-			lastInputInfo.cbSize = (uint)Marshal.SizeOf(lastInputInfo);
-			lastInputInfo.dwTime = 0;
-
-			if (GetLastInputInfo(ref lastInputInfo))
-			{
-				idleTicks = systemUptime - (int)lastInputInfo.dwTime;
-			}
-
-			return new TimeSpan(0, 0, 0, 0, idleTicks);
+			idleTicks = systemUptime - (int)lastInputInfo.dwTime;
 		}
 
-		private struct LASTINPUTINFO
-		{
-			public uint cbSize;
-			public uint dwTime;
-		}
+		return new TimeSpan(0, 0, 0, 0, idleTicks);
+	}
+
+	private struct LASTINPUTINFO
+	{
+		public uint cbSize;
+		public uint dwTime;
 	}
 }

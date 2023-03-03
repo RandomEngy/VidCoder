@@ -7,43 +7,42 @@ using PipeMethodCalls;
 using VidCoderCommon;
 using VidCoderCommon.Services;
 
-namespace VidCoderWorker
+namespace VidCoderWorker;
+
+public class WorkerLogger<TCallback> : ILogger
+	where TCallback : class, IHandBrakeWorkerCallback
 {
-	public class WorkerLogger<TCallback> : ILogger
-		where TCallback : class, IHandBrakeWorkerCallback
+	private readonly IPipeInvoker<TCallback> callbackInvoker;
+
+	public WorkerLogger(IPipeInvoker<TCallback> callbackInvoker)
 	{
-		private readonly IPipeInvoker<TCallback> callbackInvoker;
+		this.callbackInvoker = callbackInvoker;
+	}
 
-		public WorkerLogger(IPipeInvoker<TCallback> callbackInvoker)
+	public async void Log(string message)
+	{
+		try
 		{
-			this.callbackInvoker = callbackInvoker;
+			await this.callbackInvoker.InvokeAsync(c => c.OnMessageLogged(message));
 		}
-
-		public async void Log(string message)
+		catch (Exception)
 		{
-			try
-			{
-				await this.callbackInvoker.InvokeAsync(c => c.OnMessageLogged(message));
-			}
-			catch (Exception)
-			{
-			}
 		}
+	}
 
-		public void LogDebug(string message)
+	public void LogDebug(string message)
+	{
+		this.Log(message);
+	}
+
+	public async void LogError(string message)
+	{
+		try
 		{
-			this.Log(message);
+			await this.callbackInvoker.InvokeAsync(c => c.OnErrorLogged(message));
 		}
-
-		public async void LogError(string message)
+		catch (Exception)
 		{
-			try
-			{
-				await this.callbackInvoker.InvokeAsync(c => c.OnErrorLogged(message));
-			}
-			catch (Exception)
-			{
-			}
 		}
 	}
 }

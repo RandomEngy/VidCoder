@@ -12,42 +12,41 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace VidCoder.Controls
+namespace VidCoder.Controls;
+
+/// <summary>
+/// Interaction logic for InlineWarning.xaml
+/// </summary>
+public partial class InlineWarning : UserControl
 {
-	/// <summary>
-	/// Interaction logic for InlineWarning.xaml
-	/// </summary>
-	public partial class InlineWarning : UserControl
+	public InlineWarning()
 	{
-		public InlineWarning()
+		InitializeComponent();
+	}
+
+	public static readonly DependencyProperty WarningTextProperty = DependencyProperty.Register(
+		"WarningText",
+		typeof(string),
+		typeof(InlineWarning),
+		new PropertyMetadata(new PropertyChangedCallback(OnWarningTextChanged)));
+	public string WarningText
+	{
+		get
 		{
-			InitializeComponent();
+			return (string)GetValue(WarningTextProperty);
 		}
 
-		public static readonly DependencyProperty WarningTextProperty = DependencyProperty.Register(
-			"WarningText",
-			typeof(string),
-			typeof(InlineWarning),
-			new PropertyMetadata(new PropertyChangedCallback(OnWarningTextChanged)));
-		public string WarningText
+		set
 		{
-			get
-			{
-				return (string)GetValue(WarningTextProperty);
-			}
-
-			set
-			{
-				SetValue(WarningTextProperty, value);
-			}
+			SetValue(WarningTextProperty, value);
 		}
+	}
 
-		private static void OnWarningTextChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
-		{
-			var inlineWarning = dependencyObject as InlineWarning;
-			string newText = (string)eventArgs.NewValue;
+	private static void OnWarningTextChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+	{
+		var inlineWarning = dependencyObject as InlineWarning;
+		string newText = (string)eventArgs.NewValue;
 
-			inlineWarning.warningText.Text = newText;
-		}
+		inlineWarning.warningText.Text = newText;
 	}
 }

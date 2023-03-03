@@ -15,33 +15,32 @@ using VidCoder.Model;
 using VidCoder.Services;
 using VidCoderCommon;
 
-namespace VidCoder
+namespace VidCoder;
+
+/// <summary>
+/// Interaction logic for ApplyUpdateConfirmation.xaml
+/// </summary>
+public partial class ApplyUpdateConfirmation : Window
 {
-	/// <summary>
-	/// Interaction logic for ApplyUpdateConfirmation.xaml
-	/// </summary>
-	public partial class ApplyUpdateConfirmation : Window
+	private string changelogLinkString;
+
+	public ApplyUpdateConfirmation(Version latestVersion)
 	{
-		private string changelogLinkString;
+		InitializeComponent();
 
-		public ApplyUpdateConfirmation(Version latestVersion)
-		{
-			InitializeComponent();
+		this.changelogLinkString = Utilities.GetChangelogUrl(latestVersion, CommonUtilities.Beta);
+	}
 
-			this.changelogLinkString = Utilities.GetChangelogUrl(latestVersion, CommonUtilities.Beta);
-		}
+	public bool Accepted { get; private set; }
 
-		public bool Accepted { get; private set; }
+	private void yesButton_Click(object sender, RoutedEventArgs e)
+	{
+		this.Accepted = true;
+		this.Close();
+	}
 
-		private void yesButton_Click(object sender, RoutedEventArgs e)
-		{
-			this.Accepted = true;
-			this.Close();
-		}
-
-		private void changelogLink_Click(object sender, RoutedEventArgs e)
-		{
-			FileService.Instance.LaunchUrl(this.changelogLinkString);
-		}
+	private void changelogLink_Click(object sender, RoutedEventArgs e)
+	{
+		FileService.Instance.LaunchUrl(this.changelogLinkString);
 	}
 }

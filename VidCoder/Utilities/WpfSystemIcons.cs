@@ -9,26 +9,25 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Runtime.InteropServices;
 
-namespace VidCoder
+namespace VidCoder;
+
+public static class WpfSystemIcons
 {
-	public static class WpfSystemIcons
+	private static ImageSource error;
+
+	public static ImageSource Error
 	{
-		private static ImageSource error;
-
-		public static ImageSource Error
+		get
 		{
-			get
+			if (error == null)
 			{
-				if (error == null)
-				{
-					error = Imaging.CreateBitmapSourceFromHIcon(
-						SystemIcons.Error.Handle,
-						Int32Rect.Empty,
-						BitmapSizeOptions.FromEmptyOptions());
-				}
-
-				return error;
+				error = Imaging.CreateBitmapSourceFromHIcon(
+					SystemIcons.Error.Handle,
+					Int32Rect.Empty,
+					BitmapSizeOptions.FromEmptyOptions());
 			}
+
+			return error;
 		}
 	}
 }

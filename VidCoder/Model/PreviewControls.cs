@@ -1,9 +1,8 @@
-﻿namespace VidCoder.Model
+﻿namespace VidCoder.Model;
+
+public enum PreviewControls
 {
-	public enum PreviewControls
-	{
-		Creation,
-		Generation,
-		Playback
-	}
+	Creation,
+	Generation,
+	Playback
 }

@@ -1,10 +1,9 @@
-﻿namespace VidCoder.Model
+﻿namespace VidCoder.Model;
+
+public enum VideoSourceState
 {
-	public enum VideoSourceState
-	{
-		Choices,
-		Scanning,
-		ScannedSource,
-		EmptyDrive
-	}
+	Choices,
+	Scanning,
+	ScannedSource,
+	EmptyDrive
 }

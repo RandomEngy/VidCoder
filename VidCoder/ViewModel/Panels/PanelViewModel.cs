@@ -1,33 +1,32 @@
 ﻿using HandBrake.Interop.Interop.Json.Scan;
 
-namespace VidCoder.ViewModel
+namespace VidCoder.ViewModel;
+
+/// <summary>
+/// Base class for view models of panels on the encoding settings window.
+/// </summary>
+public abstract class PanelViewModel : ProfileViewModelBase
 {
-	/// <summary>
-	/// Base class for view models of panels on the encoding settings window.
-	/// </summary>
-	public abstract class PanelViewModel : ProfileViewModelBase
+	private EncodingWindowViewModel encodingWindowViewModel;
+
+	protected PanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
 	{
-		private EncodingWindowViewModel encodingWindowViewModel;
+		this.encodingWindowViewModel = encodingWindowViewModel;
+	}
 
-		protected PanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
+	public EncodingWindowViewModel EncodingWindowViewModel
+	{
+		get
 		{
-			this.encodingWindowViewModel = encodingWindowViewModel;
+			return this.encodingWindowViewModel;
 		}
+	}
 
-		public EncodingWindowViewModel EncodingWindowViewModel
+	public SourceTitle SelectedTitle
+	{
+		get
 		{
-			get
-			{
-				return this.encodingWindowViewModel;
-			}
-		}
-
-		public SourceTitle SelectedTitle
-		{
-			get
-			{
-				return this.encodingWindowViewModel.MainViewModel.SelectedTitle?.Title;
-			}
+			return this.encodingWindowViewModel.MainViewModel.SelectedTitle?.Title;
 		}
 	}
 }

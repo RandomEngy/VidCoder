@@ -12,16 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace VidCoder.View
+namespace VidCoder.View;
+
+/// <summary>
+/// Interaction logic for Window1.xaml
+/// </summary>
+public partial class AboutDialog : Window
 {
-	/// <summary>
-	/// Interaction logic for Window1.xaml
-	/// </summary>
-	public partial class AboutDialog : Window
+	public AboutDialog()
 	{
-		public AboutDialog()
-		{
-			InitializeComponent();
-		}
+		InitializeComponent();
 	}
 }

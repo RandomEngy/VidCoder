@@ -6,53 +6,52 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace VidCoder.LayoutPanels
+namespace VidCoder.LayoutPanels;
+
+public class TruncatePanel : Panel
 {
-	public class TruncatePanel : Panel
+	protected override Size MeasureOverride(Size availableSize)
 	{
-		protected override Size MeasureOverride(Size availableSize)
+		foreach (UIElement child in this.InternalChildren)
 		{
-			foreach (UIElement child in this.InternalChildren)
-			{
-				child.Measure(new Size(availableSize.Width, double.PositiveInfinity));
-			}
-
-			double currentHeight = 0;
-			foreach (UIElement child in this.InternalChildren)
-			{
-				double newHeight = currentHeight + child.DesiredSize.Height;
-
-				if (newHeight > availableSize.Height)
-				{
-					break;
-				}
-				else
-				{
-					currentHeight = newHeight;
-				}
-			}
-
-			return new Size(availableSize.Width, currentHeight);
+			child.Measure(new Size(availableSize.Width, double.PositiveInfinity));
 		}
 
-		protected override Size ArrangeOverride(Size finalSize)
+		double currentHeight = 0;
+		foreach (UIElement child in this.InternalChildren)
 		{
-			double currentHeight = 0;
-			foreach (UIElement child in this.InternalChildren)
-			{
-				if (currentHeight + child.DesiredSize.Height <= finalSize.Height + .0001)
-				{
-					child.Arrange(new Rect(new Point(0, currentHeight), child.DesiredSize));
-				}
-				else
-				{
-					child.Arrange(new Rect(new Point(0, -100000), child.DesiredSize));
-				}
+			double newHeight = currentHeight + child.DesiredSize.Height;
 
-				currentHeight += child.DesiredSize.Height;
+			if (newHeight > availableSize.Height)
+			{
+				break;
+			}
+			else
+			{
+				currentHeight = newHeight;
+			}
+		}
+
+		return new Size(availableSize.Width, currentHeight);
+	}
+
+	protected override Size ArrangeOverride(Size finalSize)
+	{
+		double currentHeight = 0;
+		foreach (UIElement child in this.InternalChildren)
+		{
+			if (currentHeight + child.DesiredSize.Height <= finalSize.Height + .0001)
+			{
+				child.Arrange(new Rect(new Point(0, currentHeight), child.DesiredSize));
+			}
+			else
+			{
+				child.Arrange(new Rect(new Point(0, -100000), child.DesiredSize));
 			}
 
-			return finalSize;
+			currentHeight += child.DesiredSize.Height;
 		}
+
+		return finalSize;
 	}
 }

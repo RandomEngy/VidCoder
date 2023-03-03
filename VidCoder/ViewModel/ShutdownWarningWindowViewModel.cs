@@ -11,116 +11,115 @@ using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
 
-namespace VidCoder.ViewModel
+namespace VidCoder.ViewModel;
+
+public class ShutdownWarningWindowViewModel : OkCancelDialogViewModel
 {
-	public class ShutdownWarningWindowViewModel : OkCancelDialogViewModel
+	private EncodeCompleteActionType actionType;
+
+	private ISystemOperations systemOperations = StaticResolver.Resolve<ISystemOperations>();
+	private int secondsRemaining = 30;
+	private DispatcherTimer timer;
+
+	public ShutdownWarningWindowViewModel(EncodeCompleteActionType actionType)
 	{
-		private EncodeCompleteActionType actionType;
+		this.actionType = actionType;
 
-		private ISystemOperations systemOperations = StaticResolver.Resolve<ISystemOperations>();
-		private int secondsRemaining = 30;
-		private DispatcherTimer timer;
-
-		public ShutdownWarningWindowViewModel(EncodeCompleteActionType actionType)
+		this.timer = new DispatcherTimer();
+		this.timer.Interval = TimeSpan.FromSeconds(1);
+		this.timer.Tick += (o, e) =>
 		{
-			this.actionType = actionType;
+			secondsRemaining--;
+			this.RaisePropertyChanged(nameof(this.Message));
 
-			this.timer = new DispatcherTimer();
-			this.timer.Interval = TimeSpan.FromSeconds(1);
-			this.timer.Tick += (o, e) =>
+			if (secondsRemaining == 0)
 			{
-				secondsRemaining--;
-				this.RaisePropertyChanged(nameof(this.Message));
-
-				if (secondsRemaining == 0)
-				{
-					this.timer.Stop();
-					this.Cancel.Execute(null);
-					this.ExecuteAction();
-				}
-			};
-
-			this.timer.Start();
-		}
-
-		public string Title
-		{
-			get
-			{
-				switch (this.actionType)
-				{
-					case EncodeCompleteActionType.Sleep:
-						return MiscRes.EncodeCompleteWarning_SleepTitle;
-					case EncodeCompleteActionType.LogOff:
-						return MiscRes.EncodeCompleteWarning_LogOffTitle;
-					case EncodeCompleteActionType.Shutdown:
-						return MiscRes.EncodeCompleteWarning_ShutdownTitle;
-					case EncodeCompleteActionType.Hibernate:
-						return MiscRes.EncodeCompleteWarning_HibernateTitle;
-					default:
-						return string.Empty;
-				}
+				this.timer.Stop();
+				this.Cancel.Execute(null);
+				this.ExecuteAction();
 			}
-		}
+		};
 
-		public string Message
+		this.timer.Start();
+	}
+
+	public string Title
+	{
+		get
 		{
-			get
-			{
-				string messageFormat = string.Empty;
-				switch (this.actionType)
-				{
-					case EncodeCompleteActionType.Sleep:
-						messageFormat = MiscRes.EncodeCompleteWarning_SleepMessage;
-						break;
-					case EncodeCompleteActionType.LogOff:
-						messageFormat = MiscRes.EncodeCompleteWarning_LogOffMessage;
-						break;
-					case EncodeCompleteActionType.Shutdown:
-						messageFormat = MiscRes.EncodeCompleteWarning_ShutdownMessage;
-						break;
-					case EncodeCompleteActionType.Hibernate:
-						messageFormat = MiscRes.EncodeCompleteWarning_HibernateMessage;
-						break;
-				}
-
-				return string.Format(CultureInfo.CurrentCulture, messageFormat, this.secondsRemaining);
-			}
-		}
-
-		private void ExecuteAction()
-		{
-			var processingService = StaticResolver.Resolve<ProcessingService>();
-			processingService.EncodeCompleteAction = processingService.EncodeCompleteActions.Single(a => a.ActionType == EncodeCompleteActionType.DoNothing);
-
-			switch (actionType)
+			switch (this.actionType)
 			{
 				case EncodeCompleteActionType.Sleep:
-					this.systemOperations.Sleep();
-					break;
+					return MiscRes.EncodeCompleteWarning_SleepTitle;
 				case EncodeCompleteActionType.LogOff:
-					this.systemOperations.LogOff();
-					break;
+					return MiscRes.EncodeCompleteWarning_LogOffTitle;
 				case EncodeCompleteActionType.Shutdown:
-					this.systemOperations.ShutDown();
-					break;
+					return MiscRes.EncodeCompleteWarning_ShutdownTitle;
 				case EncodeCompleteActionType.Hibernate:
-					this.systemOperations.Hibernate();
-					break;
+					return MiscRes.EncodeCompleteWarning_HibernateTitle;
+				default:
+					return string.Empty;
 			}
 		}
+	}
 
-		private ReactiveCommand<Unit, Unit> cancelOperation;
-		public ICommand CancelOperation
+	public string Message
+	{
+		get
 		{
-			get
+			string messageFormat = string.Empty;
+			switch (this.actionType)
 			{
-				return this.cancelOperation ?? (this.cancelOperation = ReactiveCommand.Create(() =>
-				{
-					this.timer.Stop();
-					this.Cancel.Execute(null);
-				}));
+				case EncodeCompleteActionType.Sleep:
+					messageFormat = MiscRes.EncodeCompleteWarning_SleepMessage;
+					break;
+				case EncodeCompleteActionType.LogOff:
+					messageFormat = MiscRes.EncodeCompleteWarning_LogOffMessage;
+					break;
+				case EncodeCompleteActionType.Shutdown:
+					messageFormat = MiscRes.EncodeCompleteWarning_ShutdownMessage;
+					break;
+				case EncodeCompleteActionType.Hibernate:
+					messageFormat = MiscRes.EncodeCompleteWarning_HibernateMessage;
+					break;
 			}
+
+			return string.Format(CultureInfo.CurrentCulture, messageFormat, this.secondsRemaining);
+		}
+	}
+
+	private void ExecuteAction()
+	{
+		var processingService = StaticResolver.Resolve<ProcessingService>();
+		processingService.EncodeCompleteAction = processingService.EncodeCompleteActions.Single(a => a.ActionType == EncodeCompleteActionType.DoNothing);
+
+		switch (actionType)
+		{
+			case EncodeCompleteActionType.Sleep:
+				this.systemOperations.Sleep();
+				break;
+			case EncodeCompleteActionType.LogOff:
+				this.systemOperations.LogOff();
+				break;
+			case EncodeCompleteActionType.Shutdown:
+				this.systemOperations.ShutDown();
+				break;
+			case EncodeCompleteActionType.Hibernate:
+				this.systemOperations.Hibernate();
+				break;
+		}
+	}
+
+	private ReactiveCommand<Unit, Unit> cancelOperation;
+	public ICommand CancelOperation
+	{
+		get
+		{
+			return this.cancelOperation ?? (this.cancelOperation = ReactiveCommand.Create(() =>
+			{
+				this.timer.Stop();
+				this.Cancel.Execute(null);
+			}));
 		}
 	}
 }

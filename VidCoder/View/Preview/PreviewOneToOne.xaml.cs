@@ -14,21 +14,20 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using VidCoder.Model;
 
-namespace VidCoder.View.Preview
+namespace VidCoder.View.Preview;
+
+public partial class PreviewOneToOne : UserControl, IPreviewFrame
 {
-	public partial class PreviewOneToOne : UserControl, IPreviewFrame
+	public PreviewOneToOne()
 	{
-		public PreviewOneToOne()
-		{
-			this.InitializeComponent();
-		}
+		this.InitializeComponent();
+	}
 
-		public Grid Holder => this.previewHolder;
+	public Grid Holder => this.previewHolder;
 
-		public void ResizeHolder(double widthPixels, double heightPixels)
-		{
-			this.previewHolder.Width = widthPixels / ImageUtilities.DpiXFactor;
-			this.previewHolder.Height = heightPixels / ImageUtilities.DpiYFactor;
-		}
+	public void ResizeHolder(double widthPixels, double heightPixels)
+	{
+		this.previewHolder.Width = widthPixels / ImageUtilities.DpiXFactor;
+		this.previewHolder.Height = heightPixels / ImageUtilities.DpiYFactor;
 	}
 }

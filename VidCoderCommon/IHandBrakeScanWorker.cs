@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoderCommon
+namespace VidCoderCommon;
+
+public interface IHandBrakeScanWorker : IHandBrakeWorker
 {
-	public interface IHandBrakeScanWorker : IHandBrakeWorker
-	{
-		void StartScan(
-			string path);
-	}
+	void StartScan(
+		string path);
 }

@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoderCommon.Model
+namespace VidCoderCommon.Model;
+
+public enum VCScalingMode
 {
-	public enum VCScalingMode
-	{
-		DownscaleOnly,
-		UpscaleFill,
-		Upscale2X,
-		Upscale3X,
-		Upscale4X,
-	}
+	DownscaleOnly,
+	UpscaleFill,
+	Upscale2X,
+	Upscale3X,
+	Upscale4X,
 }

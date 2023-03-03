@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoderCommon.Model
+namespace VidCoderCommon.Model;
+
+public enum FolderType
 {
-	public enum FolderType
-	{
-		NonExistent,
-		VideoFiles,
-		Dvd,
-		BluRay
-	}
+	NonExistent,
+	VideoFiles,
+	Dvd,
+	BluRay
 }

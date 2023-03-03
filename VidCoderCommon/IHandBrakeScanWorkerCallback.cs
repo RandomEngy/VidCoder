@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoderCommon
-{
-	public interface IHandBrakeScanWorkerCallback : IHandBrakeWorkerCallback
-	{
-		void OnScanComplete(string scanJson);
+namespace VidCoderCommon;
 
-		void OnScanProgress(float fractionComplete);
-	}
+public interface IHandBrakeScanWorkerCallback : IHandBrakeWorkerCallback
+{
+	void OnScanComplete(string scanJson);
+
+	void OnScanProgress(float fractionComplete);
 }

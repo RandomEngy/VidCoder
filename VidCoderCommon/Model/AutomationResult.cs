@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VidCoderCommon.Model
+namespace VidCoderCommon.Model;
+
+public enum AutomationResult
 {
-	public enum AutomationResult
-	{
-		Success,
-		ConnectionFailed,
-		FailedInVidCoder
-	}
+	Success,
+	ConnectionFailed,
+	FailedInVidCoder
 }

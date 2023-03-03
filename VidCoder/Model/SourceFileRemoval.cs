@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoder.Model
+namespace VidCoder.Model;
+
+public enum SourceFileRemoval
 {
-	public enum SourceFileRemoval
-	{
-		Disabled,
-		Recycle,
-		Delete
-	}
+	Disabled,
+	Recycle,
+	Delete
 }

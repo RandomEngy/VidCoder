@@ -5,18 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using VidCoder.ViewModel.DataModels;
 
-namespace VidCoder.ViewModel
+namespace VidCoder.ViewModel;
+
+public interface IPickerWindowView
 {
-	public interface IPickerWindowView
-	{
-		void ScrollAudioSectionIntoView();
+	void ScrollAudioSectionIntoView();
 
-		void ScrollSubtitlesSectionIntoView();
+	void ScrollSubtitlesSectionIntoView();
 
-		void ScrollDestinationSectionIntoView();
+	void ScrollDestinationSectionIntoView();
 
-		void FocusAudioTrackName(int index);
+	void FocusAudioTrackName(int index);
 
-		void FocusSubtitleTrackName(int index);
-	}
+	void FocusSubtitleTrackName(int index);
 }

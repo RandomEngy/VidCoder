@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoder.ViewModel
+namespace VidCoder.ViewModel;
+
+public interface ICompareView
 {
-	public interface ICompareView
-	{
-		void RefreshViewModelFromMediaElement();
-		void SeekToViewModelPosition(TimeSpan position);
-	}
+	void RefreshViewModelFromMediaElement();
+	void SeekToViewModelPosition(TimeSpan position);
 }

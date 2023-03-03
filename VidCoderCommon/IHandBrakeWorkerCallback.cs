@@ -1,15 +1,14 @@
 ﻿using System;
 
-namespace VidCoderCommon
+namespace VidCoderCommon;
+
+public interface IHandBrakeWorkerCallback
 {
-	public interface IHandBrakeWorkerCallback
-	{
-		void OnMessageLogged(string message);
+	void OnMessageLogged(string message);
 
-		void OnVidCoderMessageLogged(string message);
+	void OnVidCoderMessageLogged(string message);
 
-		void OnErrorLogged(string message);
+	void OnErrorLogged(string message);
 
-		void OnException(string exceptionString);
-	}
+	void OnException(string exceptionString);
 }

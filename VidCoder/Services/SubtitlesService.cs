@@ -10,62 +10,61 @@ using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoderCommon.Model;
 
-namespace VidCoder.Services
+namespace VidCoder.Services;
+
+public class SubtitlesService
 {
-	public class SubtitlesService
+	private readonly IAppLogger logger;
+
+	public SubtitlesService(IAppLogger logger)
 	{
-		private readonly IAppLogger logger;
+		this.logger = logger;
+	}
 
-		public SubtitlesService(IAppLogger logger)
+	public FileSubtitle LoadSubtitleFile(string subtitlePath, string language = null, bool openDialogOnMissingCharCode = true)
+	{
+		try
 		{
-			this.logger = logger;
-		}
+			DetectionResult detectionResult = CharsetDetector.DetectFromFile(subtitlePath);
 
-		public FileSubtitle LoadSubtitleFile(string subtitlePath, string language = null, bool openDialogOnMissingCharCode = true)
-		{
-			try
+			string characterCode = null;
+			DetectionDetail detail = detectionResult.Detected;
+			if (detail != null && detail.EncodingName != null)
 			{
-				DetectionResult detectionResult = CharsetDetector.DetectFromFile(subtitlePath);
-
-				string characterCode = null;
-				DetectionDetail detail = detectionResult.Detected;
-				if (detail != null && detail.EncodingName != null)
-				{
-					this.logger.Log($"Detected encoding {detail.EncodingName} for {subtitlePath} with confidence {detail.Confidence}.");
-					characterCode = CharCode.FromUtfUnknownCode(detail.EncodingName);
-
-					if (characterCode == null)
-					{
-						this.logger.Log("Detected encoding does not match with any available encoding.");
-					}
-					else
-					{
-						this.logger.Log("Picked encoding " + characterCode);
-					}
-				}
+				this.logger.Log($"Detected encoding {detail.EncodingName} for {subtitlePath} with confidence {detail.Confidence}.");
+				characterCode = CharCode.FromUtfUnknownCode(detail.EncodingName);
 
 				if (characterCode == null)
 				{
-					if (openDialogOnMissingCharCode)
-					{
-						StaticResolver.Resolve<IMessageBoxService>().Show(this, SubtitleRes.SubtitleCharsetDetectionFailedMessage);
-					}
-
-					characterCode = "UTF-8";
+					this.logger.Log("Detected encoding does not match with any available encoding.");
 				}
-
-				if (language == null)
+				else
 				{
-					language = LanguageUtilities.GetDefaultLanguageCode();
+					this.logger.Log("Picked encoding " + characterCode);
+				}
+			}
+
+			if (characterCode == null)
+			{
+				if (openDialogOnMissingCharCode)
+				{
+					StaticResolver.Resolve<IMessageBoxService>().Show(this, SubtitleRes.SubtitleCharsetDetectionFailedMessage);
 				}
 
-				return new FileSubtitle { FileName = subtitlePath, Default = false, CharacterCode = characterCode, LanguageCode = language, Offset = 0 };
+				characterCode = "UTF-8";
 			}
-			catch (Exception exception)
+
+			if (language == null)
 			{
-				this.logger.LogError("Could not load subtitle file: " + exception);
-				return null;
+				language = LanguageUtilities.GetDefaultLanguageCode();
 			}
+
+			return new FileSubtitle { FileName = subtitlePath, Default = false, CharacterCode = characterCode, LanguageCode = language, Offset = 0 };
+		}
+		catch (Exception exception)
+		{
+			this.logger.LogError("Could not load subtitle file: " + exception);
+			return null;
 		}
 	}
 }

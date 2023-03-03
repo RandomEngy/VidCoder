@@ -11,19 +11,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace VidCoder.View
-{
-	public partial class ChooseName : Window
-	{
-		public ChooseName()
-		{
-			this.InitializeComponent();
-		}
+namespace VidCoder.View;
 
-		private void Window_Loaded(object sender, RoutedEventArgs e)
-		{
-			this.presetNameText.Focus();
-			this.presetNameText.SelectAll();
-		}
+public partial class ChooseName : Window
+{
+	public ChooseName()
+	{
+		this.InitializeComponent();
+	}
+
+	private void Window_Loaded(object sender, RoutedEventArgs e)
+	{
+		this.presetNameText.Focus();
+		this.presetNameText.SelectAll();
 	}
 }

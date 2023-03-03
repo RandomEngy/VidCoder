@@ -7,21 +7,20 @@ using System.Windows;
 using System.Windows.Controls;
 using VidCoder.ViewModel.DataModels;
 
-namespace VidCoder.View.Selectors
+namespace VidCoder.View.Selectors;
+
+public class PresetTreeTemplateSelector : DataTemplateSelector
 {
-	public class PresetTreeTemplateSelector : DataTemplateSelector
+	public DataTemplate FolderTemplate { get; set; }
+	public DataTemplate PresetTemplate { get; set; }
+
+	public override DataTemplate SelectTemplate(object item, DependencyObject container)
 	{
-		public DataTemplate FolderTemplate { get; set; }
-		public DataTemplate PresetTemplate { get; set; }
-
-		public override DataTemplate SelectTemplate(object item, DependencyObject container)
+		if (item is PresetFolderViewModel)
 		{
-			if (item is PresetFolderViewModel)
-			{
-				return this.FolderTemplate;
-			}
-
-			return this.PresetTemplate;
+			return this.FolderTemplate;
 		}
+
+		return this.PresetTemplate;
 	}
 }

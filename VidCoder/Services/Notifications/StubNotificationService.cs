@@ -4,30 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoder.Services.Notifications
+namespace VidCoder.Services.Notifications;
+
+public class StubNotificationService : IToastNotificationService
 {
-	public class StubNotificationService : IToastNotificationService
+	public bool ToastEnabled => false;
+
+	public void Clear()
 	{
-		public bool ToastEnabled => false;
+	}
 
-		public void Clear()
-		{
-		}
+	public void Remove(string tag)
+	{
+	}
 
-		public void Remove(string tag)
-		{
-		}
+	public void Remove(string tag, string group)
+	{
+	}
 
-		public void Remove(string tag, string group)
-		{
-		}
+	public void RemoveGroup(string group)
+	{
+	}
 
-		public void RemoveGroup(string group)
-		{
-		}
-
-		public void ShowToast(string toastContent)
-		{
-		}
+	public void ShowToast(string toastContent)
+	{
 	}
 }

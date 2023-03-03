@@ -1,10 +1,9 @@
 ﻿using VidCoderCommon.Model;
 
-namespace VidCoder.Services
+namespace VidCoder.Services;
+
+public interface IPresetImportExport
 {
-	public interface IPresetImportExport
-	{
-		Preset ImportPreset(string presetFile);
-		void ExportPreset(Preset preset);
-	}
+	Preset ImportPreset(string presetFile);
+	void ExportPreset(Preset preset);
 }

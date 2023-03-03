@@ -1,8 +1,7 @@
-﻿namespace VidCoder.Model
+﻿namespace VidCoder.Model;
+
+public enum TitleCapitalizationChoice
 {
-	public enum TitleCapitalizationChoice
-	{
-		EveryWord,
-		FirstWord
-	}
+	EveryWord,
+	FirstWord
 }

@@ -7,49 +7,48 @@ using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.Interfaces.EventArgs;
 using VidCoder.Model;
 
-namespace VidCoder.Services
+namespace VidCoder.Services;
+
+public class LocalScanAppLogger : AppLogger
 {
-	public class LocalScanAppLogger : AppLogger
+	public LocalScanAppLogger(IAppLogger parent, string baseFileName) 
+		: base(parent, baseFileName)
 	{
-		public LocalScanAppLogger(IAppLogger parent, string baseFileName) 
-			: base(parent, baseFileName)
+		HandBrakeUtils.MessageLogged += this.OnMessageLoggedLocal;
+		HandBrakeUtils.ErrorLogged += this.OnErrorLoggedLocal;
+	}
+
+	protected override void Dispose(bool disposing)
+	{
+		base.Dispose(disposing);
+		if (disposing)
 		{
-			HandBrakeUtils.MessageLogged += this.OnMessageLoggedLocal;
-			HandBrakeUtils.ErrorLogged += this.OnErrorLoggedLocal;
+			HandBrakeUtils.MessageLogged -= this.OnMessageLoggedLocal;
+			HandBrakeUtils.ErrorLogged -= this.OnErrorLoggedLocal;
 		}
+	}
 
-		protected override void Dispose(bool disposing)
+	private void OnMessageLoggedLocal(object sender, MessageLoggedEventArgs e)
+	{
+		var entry = new LogEntry
 		{
-			base.Dispose(disposing);
-			if (disposing)
-			{
-				HandBrakeUtils.MessageLogged -= this.OnMessageLoggedLocal;
-				HandBrakeUtils.ErrorLogged -= this.OnErrorLoggedLocal;
-			}
-		}
+			LogType = LogType.Message,
+			Source = LogSource.HandBrake,
+			Text = e.Message
+		};
 
-		private void OnMessageLoggedLocal(object sender, MessageLoggedEventArgs e)
+		this.AddEntry(entry);
+	}
+
+	private void OnErrorLoggedLocal(object sender, MessageLoggedEventArgs e)
+	{
+		var entry = new LogEntry
 		{
-			var entry = new LogEntry
-			{
-				LogType = LogType.Message,
-				Source = LogSource.HandBrake,
-				Text = e.Message
-			};
+			LogType = LogType.Error,
+			Source = LogSource.HandBrake,
+			Text = "ERROR: " + e.Message
+		};
 
-			this.AddEntry(entry);
-		}
-
-		private void OnErrorLoggedLocal(object sender, MessageLoggedEventArgs e)
-		{
-			var entry = new LogEntry
-			{
-				LogType = LogType.Error,
-				Source = LogSource.HandBrake,
-				Text = "ERROR: " + e.Message
-			};
-
-			this.AddEntry(entry);
-		}
+		this.AddEntry(entry);
 	}
 }

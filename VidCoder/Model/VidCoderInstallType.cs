@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoder.Model
+namespace VidCoder.Model;
+
+public enum VidCoderInstallType
 {
-	public enum VidCoderInstallType
-	{
-		SquirrelInstaller,
-		Portable,
-		Zip
-	}
+	SquirrelInstaller,
+	Portable,
+	Zip
 }

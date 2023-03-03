@@ -16,27 +16,26 @@ using System.Windows.Shapes;
 using VidCoder.Extensions;
 using VidCoder.Services;
 
-namespace VidCoder.View
+namespace VidCoder.View;
+
+/// <summary>
+/// Interaction logic for OptionsDialog.xaml
+/// </summary>
+public partial class OptionsDialog : Window
 {
-	/// <summary>
-	/// Interaction logic for OptionsDialog.xaml
-	/// </summary>
-	public partial class OptionsDialog : Window
+	public OptionsDialog()
 	{
-		public OptionsDialog()
-		{
-			this.InitializeComponent();
-		}
+		this.InitializeComponent();
+	}
 
-		private void Window_Closed(object sender, EventArgs e)
-		{
-			this.DataContext = null;
-		}
+	private void Window_Closed(object sender, EventArgs e)
+	{
+		this.DataContext = null;
+	}
 
-		private void Hyperlink_OnRequestNavigate(object sender, RequestNavigateEventArgs e)
-		{
-			FileService.Instance.LaunchUrl(e.Uri.AbsoluteUri);
-			e.Handled = true;
-		}
+	private void Hyperlink_OnRequestNavigate(object sender, RequestNavigateEventArgs e)
+	{
+		FileService.Instance.LaunchUrl(e.Uri.AbsoluteUri);
+		e.Handled = true;
 	}
 }

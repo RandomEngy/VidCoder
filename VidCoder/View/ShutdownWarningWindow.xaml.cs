@@ -11,16 +11,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace VidCoder.View
+namespace VidCoder.View;
+
+/// <summary>
+/// Interaction logic for ShutdownWarningWindow.xaml
+/// </summary>
+public partial class ShutdownWarningWindow : Window
 {
-	/// <summary>
-	/// Interaction logic for ShutdownWarningWindow.xaml
-	/// </summary>
-	public partial class ShutdownWarningWindow : Window
+	public ShutdownWarningWindow()
 	{
-		public ShutdownWarningWindow()
-		{
-			InitializeComponent();
-		}
+		InitializeComponent();
 	}
 }

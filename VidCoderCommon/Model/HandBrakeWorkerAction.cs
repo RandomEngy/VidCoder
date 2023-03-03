@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoderCommon.Model
+namespace VidCoderCommon.Model;
+
+public enum HandBrakeWorkerAction
 {
-	public enum HandBrakeWorkerAction
-	{
-		Scan,
-		Encode
-	}
+	Scan,
+	Encode
 }

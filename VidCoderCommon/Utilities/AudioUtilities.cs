@@ -8,8 +8,8 @@ using HandBrake.Interop.Interop.Interfaces.Model.Encoders;
 using HandBrake.Interop.Interop.Json.Scan;
 using VidCoderCommon.Model;
 
-namespace VidCoderCommon
-{
+namespace VidCoderCommon;
+
     public static class AudioUtilities
     {
         public static OutputAudioTrackInfo GetDefaultSettings(SourceAudioTrack source, HBAudioEncoder encoder)
@@ -59,4 +59,3 @@ namespace VidCoderCommon
             return result;
         }
     }
-}

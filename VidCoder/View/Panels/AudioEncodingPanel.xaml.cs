@@ -14,31 +14,30 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using VidCoder.ViewModel;
 
-namespace VidCoder.View.Panels
+namespace VidCoder.View.Panels;
+
+/// <summary>
+/// Interaction logic for AudioEncodingPanel.xaml
+/// </summary>
+public partial class AudioEncodingPanel : UserControl
 {
-	/// <summary>
-	/// Interaction logic for AudioEncodingPanel.xaml
-	/// </summary>
-	public partial class AudioEncodingPanel : UserControl
+	private AudioEncodingViewModel viewModel;
+
+	public AudioEncodingPanel()
 	{
-		private AudioEncodingViewModel viewModel;
+		InitializeComponent();
 
-		public AudioEncodingPanel()
+		this.DataContextChanged += this.OnDataContextChanged;
+	}
+
+	private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+	{
+		this.viewModel = (AudioEncodingViewModel)this.DataContext;
+		this.viewModel.WhenAnyValue(x => x.DrcEnabled).Subscribe(enabled =>
 		{
-			InitializeComponent();
-
-			this.DataContextChanged += this.OnDataContextChanged;
-		}
-
-		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-		{
-			this.viewModel = (AudioEncodingViewModel)this.DataContext;
-			this.viewModel.WhenAnyValue(x => x.DrcEnabled).Subscribe(enabled =>
-			{
-				this.drcLabel.SetResourceReference(
-					Control.ForegroundProperty,
-					enabled ? SystemColors.ControlTextBrushKey : SystemColors.GrayTextBrushKey);
-			});
-		}
+			this.drcLabel.SetResourceReference(
+				Control.ForegroundProperty,
+				enabled ? SystemColors.ControlTextBrushKey : SystemColors.GrayTextBrushKey);
+		});
 	}
 }

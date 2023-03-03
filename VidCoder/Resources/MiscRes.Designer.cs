@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VidCoder.Resources {
+namespace VidCoder.Resources; 
     using System;
     
     
@@ -501,4 +501,3 @@ namespace VidCoder.Resources {
             }
         }
     }
-}

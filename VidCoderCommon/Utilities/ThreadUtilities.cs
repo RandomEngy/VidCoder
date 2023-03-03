@@ -5,28 +5,27 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace VidCoderCommon.Utilities
+namespace VidCoderCommon.Utilities;
+
+public static class ThreadUtilities
 {
-	public static class ThreadUtilities
+	public static Action Debounce(this Action func, int milliseconds)
 	{
-		public static Action Debounce(this Action func, int milliseconds)
+		CancellationTokenSource cancelTokenSource = null;
+
+		return () =>
 		{
-			CancellationTokenSource cancelTokenSource = null;
+			cancelTokenSource?.Cancel();
+			cancelTokenSource = new CancellationTokenSource();
 
-			return () =>
-			{
-				cancelTokenSource?.Cancel();
-				cancelTokenSource = new CancellationTokenSource();
-
-				Task.Delay(milliseconds, cancelTokenSource.Token)
-					.ContinueWith(t =>
+			Task.Delay(milliseconds, cancelTokenSource.Token)
+				.ContinueWith(t =>
+				{
+					if (t.IsCompletedSuccessfully)
 					{
-						if (t.IsCompletedSuccessfully)
-						{
-							func();
-						}
-					}, TaskScheduler.Default);
-			};
-		}
+						func();
+					}
+				}, TaskScheduler.Default);
+		};
 	}
 }

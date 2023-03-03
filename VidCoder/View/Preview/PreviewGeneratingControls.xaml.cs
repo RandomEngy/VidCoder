@@ -13,13 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace VidCoder.View.Preview
+namespace VidCoder.View.Preview;
+
+public partial class PreviewGeneratingControls : UserControl
 {
-	public partial class PreviewGeneratingControls : UserControl
+	public PreviewGeneratingControls()
 	{
-		public PreviewGeneratingControls()
-		{
-			this.InitializeComponent();
-		}
+		this.InitializeComponent();
 	}
 }

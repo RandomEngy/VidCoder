@@ -7,57 +7,56 @@ using System.Windows.Threading;
 using System.Collections;
 using System.Windows;
 
-namespace VidCoder
+namespace VidCoder;
+
+public static class DispatchUtilities
 {
-	public static class DispatchUtilities
+	public static void Invoke(Action action)
 	{
-		public static void Invoke(Action action)
-		{
-			Dispatcher dispatchObject = Application.Current.Dispatcher;
+		Dispatcher dispatchObject = Application.Current.Dispatcher;
 
-			if (dispatchObject == null || dispatchObject.CheckAccess())
-		    {
-		        action();
-		    }
-		    else
-		    {
-		        dispatchObject.Invoke(action);
-		    }
+		if (dispatchObject == null || dispatchObject.CheckAccess())
+	    {
+	        action();
+	    }
+	    else
+	    {
+	        dispatchObject.Invoke(action);
+	    }
+	}
+
+	public static void BeginInvoke(Action action, DispatcherPriority priority = DispatcherPriority.Normal)
+	{
+		Dispatcher dispatchObject = Application.Current.Dispatcher;
+
+		dispatchObject.BeginInvoke(action, priority);
+	}
+
+	public static Task InvokeAsync(Action action)
+	{
+		Dispatcher dispatchObject = Application.Current.Dispatcher;
+		var tcs = new TaskCompletionSource<object>();
+
+		if (dispatchObject == null || dispatchObject.CheckAccess())
+		{
+			action();
+			tcs.SetResult(null);
+			return tcs.Task;
 		}
 
-		public static void BeginInvoke(Action action, DispatcherPriority priority = DispatcherPriority.Normal)
+		dispatchObject.BeginInvoke(new Action(() =>
 		{
-			Dispatcher dispatchObject = Application.Current.Dispatcher;
-
-			dispatchObject.BeginInvoke(action, priority);
-		}
-
-		public static Task InvokeAsync(Action action)
-		{
-			Dispatcher dispatchObject = Application.Current.Dispatcher;
-			var tcs = new TaskCompletionSource<object>();
-
-			if (dispatchObject == null || dispatchObject.CheckAccess())
+			try
 			{
 				action();
 				tcs.SetResult(null);
-				return tcs.Task;
 			}
-
-			dispatchObject.BeginInvoke(new Action(() =>
+			catch (Exception exception)
 			{
-				try
-				{
-					action();
-					tcs.SetResult(null);
-				}
-				catch (Exception exception)
-				{
-					tcs.SetException(exception);
-				}
-			}));
+				tcs.SetException(exception);
+			}
+		}));
 
-			return tcs.Task;
-		}
+		return tcs.Task;
 	}
 }

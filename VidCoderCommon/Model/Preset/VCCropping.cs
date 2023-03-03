@@ -1,10 +1,10 @@
-﻿namespace VidCoderCommon.Model
-{
+﻿namespace VidCoderCommon.Model;
+
     /// <summary>
     /// The Cropping Model
     /// </summary>
     public class VCCropping
-	{
+{
         /// <summary>
         /// Initializes a new instance of the <see cref="VCCropping"/> class. 
         /// </summary>
@@ -20,7 +20,7 @@
             this.Right = cropping.Right;
         }
 
-		public VCCropping(int top, int bottom, int left, int right)
+	public VCCropping(int top, int bottom, int left, int right)
         {
             this.Top = top;
             this.Bottom = bottom;
@@ -35,5 +35,4 @@
         public int Left { get; set; }
 
         public int Right { get; set; }
-	}
 }

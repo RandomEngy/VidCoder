@@ -11,69 +11,68 @@ using ReactiveUI;
 using System.Reactive.Linq;
 using Microsoft.AnyContainer;
 
-namespace VidCoder.ViewModel
+namespace VidCoder.ViewModel;
+
+public class AddAutoPauseProcessDialogViewModel : OkCancelDialogViewModel
 {
-	public class AddAutoPauseProcessDialogViewModel : OkCancelDialogViewModel
+	private ObservableCollection<string> currentProcesses;
+	private string selectedProcess;
+	private IProcesses processes;
+
+	public AddAutoPauseProcessDialogViewModel()
 	{
-		private ObservableCollection<string> currentProcesses;
-		private string selectedProcess;
-		private IProcesses processes;
+		this.processes = StaticResolver.Resolve<IProcesses>();
+		this.currentProcesses = new ObservableCollection<string>();
+		this.RefreshCurrentProcessesImpl();
+	}
 
-		public AddAutoPauseProcessDialogViewModel()
+	private string processName;
+	public string ProcessName
+	{
+		get { return this.processName; }
+		set { this.RaiseAndSetIfChanged(ref this.processName, value); }
+	}
+
+	public ObservableCollection<string> CurrentProcesses
+	{
+		get
 		{
-			this.processes = StaticResolver.Resolve<IProcesses>();
-			this.currentProcesses = new ObservableCollection<string>();
-			this.RefreshCurrentProcessesImpl();
+			return this.currentProcesses;
+		}
+	}
+
+	public string SelectedProcess
+	{
+		get
+		{
+			return this.selectedProcess;
 		}
 
-		private string processName;
-		public string ProcessName
+		set
 		{
-			get { return this.processName; }
-			set { this.RaiseAndSetIfChanged(ref this.processName, value); }
+			this.selectedProcess = value;
+			this.ProcessName = value;
+			this.RaisePropertyChanged();
 		}
+	}
 
-		public ObservableCollection<string> CurrentProcesses
+	private ReactiveCommand<Unit, Unit> refreshCurrentProcesses;
+	public ICommand RefreshCurrentProcesses
+	{
+		get
 		{
-			get
-			{
-				return this.currentProcesses;
-			}
+			return this.refreshCurrentProcesses ?? (this.refreshCurrentProcesses = ReactiveCommand.Create(() => { this.RefreshCurrentProcessesImpl(); }));
 		}
+	}
 
-		public string SelectedProcess
+	private void RefreshCurrentProcessesImpl()
+	{
+		Process[] processes = this.processes.GetProcesses();
+		this.currentProcesses.Clear();
+
+		foreach (Process process in processes)
 		{
-			get
-			{
-				return this.selectedProcess;
-			}
-
-			set
-			{
-				this.selectedProcess = value;
-				this.ProcessName = value;
-				this.RaisePropertyChanged();
-			}
-		}
-
-		private ReactiveCommand<Unit, Unit> refreshCurrentProcesses;
-		public ICommand RefreshCurrentProcesses
-		{
-			get
-			{
-				return this.refreshCurrentProcesses ?? (this.refreshCurrentProcesses = ReactiveCommand.Create(() => { this.RefreshCurrentProcessesImpl(); }));
-			}
-		}
-
-		private void RefreshCurrentProcessesImpl()
-		{
-			Process[] processes = this.processes.GetProcesses();
-			this.currentProcesses.Clear();
-
-			foreach (Process process in processes)
-			{
-				this.currentProcesses.Add(process.ProcessName);
-			}
+			this.currentProcesses.Add(process.ProcessName);
 		}
 	}
 }

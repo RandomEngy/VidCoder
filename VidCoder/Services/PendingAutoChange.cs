@@ -4,22 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoder.Services
+namespace VidCoder.Services;
+
+public class PendingAutoChange : IDisposable
 {
-	public class PendingAutoChange : IDisposable
+	private readonly AutoChangeTracker tracker;
+	private readonly Guid id;
+
+	public PendingAutoChange(AutoChangeTracker tracker, Guid id)
 	{
-		private readonly AutoChangeTracker tracker;
-		private readonly Guid id;
+		this.tracker = tracker;
+		this.id = id;
+	}
 
-		public PendingAutoChange(AutoChangeTracker tracker, Guid id)
-		{
-			this.tracker = tracker;
-			this.id = id;
-		}
-
-		public void Dispose()
-		{
-			this.tracker.ReportChangeComplete(this.id);
-		}
+	public void Dispose()
+	{
+		this.tracker.ReportChangeComplete(this.id);
 	}
 }

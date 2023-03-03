@@ -6,42 +6,41 @@ using System.Linq;
 using System.Text;
 using Microsoft.Win32;
 
-namespace VidCoder.Model
-{
-	using System.IO;
+namespace VidCoder.Model;
 
-	public class MpchcPlayer : VideoPlayerBase
+using System.IO;
+
+public class MpchcPlayer : VideoPlayerBase
+{
+	public override string PlayerExecutable
 	{
-		public override string PlayerExecutable
+		get
 		{
-			get
+			using (RegistryKey key = NewRegKey ?? OldRegKey)
 			{
-				using (RegistryKey key = NewRegKey ?? OldRegKey)
-				{
-					return key?.GetValue("ExePath") as string;
-				}
+				return key?.GetValue("ExePath") as string;
 			}
 		}
-
-		public override void PlayTitleInternal(string executablePath, string discPath, int title)
-		{
-			var process = new Process();
-			process.StartInfo =
-				new ProcessStartInfo
-				{
-					FileName = executablePath,
-					Arguments = "\"" + discPath + "\"\"" + " /dvdpos " + title
-				};
-
-			process.Start();
-		}
-
-		public override string Id => "mpchc";
-
-		public override string Display => "MPC-HC";
-
-		private static RegistryKey OldRegKey => Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Gabest\Media Player Classic");
-
-		private static RegistryKey NewRegKey => Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MPC-HC\MPC-HC");
 	}
+
+	public override void PlayTitleInternal(string executablePath, string discPath, int title)
+	{
+		var process = new Process();
+		process.StartInfo =
+			new ProcessStartInfo
+			{
+				FileName = executablePath,
+				Arguments = "\"" + discPath + "\"\"" + " /dvdpos " + title
+			};
+
+		process.Start();
+	}
+
+	public override string Id => "mpchc";
+
+	public override string Display => "MPC-HC";
+
+	private static RegistryKey OldRegKey => Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Gabest\Media Player Classic");
+
+	private static RegistryKey NewRegKey => Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MPC-HC\MPC-HC");
 }

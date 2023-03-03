@@ -12,100 +12,99 @@ using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoderCommon.Model;
 
-namespace VidCoder.ViewModel.DataModels
+namespace VidCoder.ViewModel.DataModels;
+
+public class WatchedFileViewModel : ReactiveObject, IListItemViewModel
 {
-	public class WatchedFileViewModel : ReactiveObject, IListItemViewModel
+	private readonly WatcherWindowViewModel windowViewModel;
+
+	public WatchedFileViewModel(WatcherWindowViewModel windowViewModel, WatchedFile watchedFile)
 	{
-		private readonly WatcherWindowViewModel windowViewModel;
+		this.windowViewModel = windowViewModel;
+		this.WatchedFile = watchedFile;
+		this.status = watchedFile.Status.ToLive();
 
-		public WatchedFileViewModel(WatcherWindowViewModel windowViewModel, WatchedFile watchedFile)
+		// CanCancel
+		this.WhenAnyValue(x => x.Status)
+			.Select(status =>
+			{
+				return status == WatchedFileStatusLive.Queued;
+			})
+			.ToProperty(this, x => x.CanCancel, out this.canCancel);
+
+		// CanRetry
+		this.WhenAnyValue(x => x.Status)
+			.Select(status =>
+			{
+				return status == WatchedFileStatusLive.Succeeded || status == WatchedFileStatusLive.Failed || status == WatchedFileStatusLive.Canceled;
+			})
+			.ToProperty(this, x => x.CanRetry, out this.canRetry);
+	}
+
+	public WatchedFile WatchedFile { get; }
+
+	private WatchedFileStatusLive status;
+	public WatchedFileStatusLive Status
+	{
+		get => this.status;
+		set => this.RaiseAndSetIfChanged(ref this.status, value);
+	}
+
+	private bool isSelected;
+	public bool IsSelected
+	{
+		get => this.isSelected;
+		set => this.RaiseAndSetIfChanged(ref this.isSelected, value);
+	}
+
+	private ObservableAsPropertyHelper<bool> canCancel;
+	public bool CanCancel => this.canCancel.Value;
+
+	private ReactiveCommand<Unit, Unit> cancel;
+	public ICommand Cancel
+	{
+		get
 		{
-			this.windowViewModel = windowViewModel;
-			this.WatchedFile = watchedFile;
-			this.status = watchedFile.Status.ToLive();
-
-			// CanCancel
-			this.WhenAnyValue(x => x.Status)
-				.Select(status =>
+			return this.cancel ?? (this.cancel = ReactiveCommand.Create(
+				() =>
 				{
-					return status == WatchedFileStatusLive.Queued;
-				})
-				.ToProperty(this, x => x.CanCancel, out this.canCancel);
+					this.windowViewModel.CancelSelectedFiles();
+				}));
+		}
+	}
 
-			// CanRetry
-			this.WhenAnyValue(x => x.Status)
-				.Select(status =>
+	private ObservableAsPropertyHelper<bool> canRetry;
+	public bool CanRetry => this.canRetry.Value;
+
+	private ReactiveCommand<Unit, Unit> retry;
+	public ICommand Retry
+	{
+		get
+		{
+			return this.retry ?? (this.retry = ReactiveCommand.Create(
+				() =>
 				{
-					return status == WatchedFileStatusLive.Succeeded || status == WatchedFileStatusLive.Failed || status == WatchedFileStatusLive.Canceled;
-				})
-				.ToProperty(this, x => x.CanRetry, out this.canRetry);
+					this.windowViewModel.RetrySelectedFiles();
+				}));
 		}
+	}
 
-		public WatchedFile WatchedFile { get; }
+	private ReactiveCommand<Unit, Unit> openContainingFolder;
 
-		private WatchedFileStatusLive status;
-		public WatchedFileStatusLive Status
+	public ICommand OpenContainingFolder
+	{
+		get
 		{
-			get => this.status;
-			set => this.RaiseAndSetIfChanged(ref this.status, value);
+			return this.openContainingFolder ?? (this.openContainingFolder = ReactiveCommand.Create(
+				() =>
+				{
+					FileUtilities.OpenFolderAndSelectItem(this.WatchedFile.Path);
+				}));
 		}
+	}
 
-		private bool isSelected;
-		public bool IsSelected
-		{
-			get => this.isSelected;
-			set => this.RaiseAndSetIfChanged(ref this.isSelected, value);
-		}
-
-		private ObservableAsPropertyHelper<bool> canCancel;
-		public bool CanCancel => this.canCancel.Value;
-
-		private ReactiveCommand<Unit, Unit> cancel;
-		public ICommand Cancel
-		{
-			get
-			{
-				return this.cancel ?? (this.cancel = ReactiveCommand.Create(
-					() =>
-					{
-						this.windowViewModel.CancelSelectedFiles();
-					}));
-			}
-		}
-
-		private ObservableAsPropertyHelper<bool> canRetry;
-		public bool CanRetry => this.canRetry.Value;
-
-		private ReactiveCommand<Unit, Unit> retry;
-		public ICommand Retry
-		{
-			get
-			{
-				return this.retry ?? (this.retry = ReactiveCommand.Create(
-					() =>
-					{
-						this.windowViewModel.RetrySelectedFiles();
-					}));
-			}
-		}
-
-		private ReactiveCommand<Unit, Unit> openContainingFolder;
-
-		public ICommand OpenContainingFolder
-		{
-			get
-			{
-				return this.openContainingFolder ?? (this.openContainingFolder = ReactiveCommand.Create(
-					() =>
-					{
-						FileUtilities.OpenFolderAndSelectItem(this.WatchedFile.Path);
-					}));
-			}
-		}
-
-		public override string ToString()
-		{
-			return this.WatchedFile.Path + " " + this.Status;
-		}
+	public override string ToString()
+	{
+		return this.WatchedFile.Path + " " + this.Status;
 	}
 }

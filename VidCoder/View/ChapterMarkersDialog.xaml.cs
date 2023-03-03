@@ -14,27 +14,26 @@ using System.ComponentModel;
 using VidCoder.Extensions;
 using System.Windows.Interop;
 
-namespace VidCoder.View
+namespace VidCoder.View;
+
+/// <summary>
+/// Interaction logic for ChapterMarkersDialog.xaml
+/// </summary>
+public partial class ChapterMarkersDialog : Window
 {
-	/// <summary>
-	/// Interaction logic for ChapterMarkersDialog.xaml
-	/// </summary>
-	public partial class ChapterMarkersDialog : Window
+	public ChapterMarkersDialog()
 	{
-		public ChapterMarkersDialog()
-		{
-			InitializeComponent();
-		}
+		InitializeComponent();
+	}
 
-		private void TitleBoxGotFocus(object sender, RoutedEventArgs e)
-		{
-			TextBox titleBox = sender as TextBox;
-			titleBox.SelectAll();
-		}
+	private void TitleBoxGotFocus(object sender, RoutedEventArgs e)
+	{
+		TextBox titleBox = sender as TextBox;
+		titleBox.SelectAll();
+	}
 
-		private void Window_Closed(object sender, EventArgs e)
-		{
-			this.DataContext = null;
-		}
+	private void Window_Closed(object sender, EventArgs e)
+	{
+		this.DataContext = null;
 	}
 }

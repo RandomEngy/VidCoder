@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoderCommon.Model
+namespace VidCoderCommon.Model;
+
+public interface IBasicLogger
 {
-	public interface IBasicLogger
-	{
-		void Log(string message);
-	}
+	void Log(string message);
 }

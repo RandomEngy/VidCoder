@@ -20,820 +20,819 @@ using VidCoder.ViewModel;
 using VidCoder.ViewModel.DataModels;
 using VidCoderCommon.Model;
 
-namespace VidCoder.Services
+namespace VidCoder.Services;
+
+/// <summary>
+/// Controls creation/modification/deletion/import/export of presets.
+/// </summary>
+public class PresetsService : ReactiveObject
 {
+	private const string CustomFolderKey = "custom";
+	private const string BuiltInFolderKey = "builtIn";
+
+	private OutputPathService outputPathService;
+
+	private PresetViewModel selectedPreset;
+
+	private PresetFolderViewModel customPresetFolder;
+	private PresetFolderViewModel builtInFolder;
+
+	private PreviewUpdateService previewUpdateService = StaticResolver.Resolve<PreviewUpdateService>();
+
+	private bool tryChangePresetDialogOpen;
+
 	/// <summary>
-	/// Controls creation/modification/deletion/import/export of presets.
+	/// List of folders from the database. Only used when first building the tree.
 	/// </summary>
-	public class PresetsService : ReactiveObject
+	private IList<PresetFolder> presetFolders;
+
+	private HashSet<string> collapsedBuiltInFolders;
+
+	public event EventHandler PresetChanged;
+
+	public event EventHandler<PresetFolderViewModel> PresetFolderManuallyExpanded;
+
+	private bool isAutomaticExpansion = false;
+
+	public PresetsService()
 	{
-		private const string CustomFolderKey = "custom";
-		private const string BuiltInFolderKey = "builtIn";
+		List<Preset> userPresets = PresetStorage.UserPresets;
+		this.presetFolders = PresetFolderStorage.PresetFolders;
+		this.collapsedBuiltInFolders = CustomConfig.CollapsedBuiltInFolders;
 
-		private OutputPathService outputPathService;
+		var unmodifiedPresets = userPresets.Where(preset => !preset.IsModified);
+		Preset modifiedPreset = userPresets.FirstOrDefault(preset => preset.IsModified);
 
-		private PresetViewModel selectedPreset;
+		this.AllPresets = new ObservableCollection<PresetViewModel>();
+		int modifiedPresetIndex = -1;
+		int defaultPresetIndex = 0;
 
-		private PresetFolderViewModel customPresetFolder;
-		private PresetFolderViewModel builtInFolder;
-
-		private PreviewUpdateService previewUpdateService = StaticResolver.Resolve<PreviewUpdateService>();
-
-		private bool tryChangePresetDialogOpen;
-
-		/// <summary>
-		/// List of folders from the database. Only used when first building the tree.
-		/// </summary>
-		private IList<PresetFolder> presetFolders;
-
-		private HashSet<string> collapsedBuiltInFolders;
-
-		public event EventHandler PresetChanged;
-
-		public event EventHandler<PresetFolderViewModel> PresetFolderManuallyExpanded;
-
-		private bool isAutomaticExpansion = false;
-
-		public PresetsService()
+		foreach (Preset userPreset in unmodifiedPresets)
 		{
-			List<Preset> userPresets = PresetStorage.UserPresets;
-			this.presetFolders = PresetFolderStorage.PresetFolders;
-			this.collapsedBuiltInFolders = CustomConfig.CollapsedBuiltInFolders;
-
-			var unmodifiedPresets = userPresets.Where(preset => !preset.IsModified);
-			Preset modifiedPreset = userPresets.FirstOrDefault(preset => preset.IsModified);
-
-			this.AllPresets = new ObservableCollection<PresetViewModel>();
-			int modifiedPresetIndex = -1;
-			int defaultPresetIndex = 0;
-
-			foreach (Preset userPreset in unmodifiedPresets)
+			PresetViewModel presetVM;
+			if (modifiedPreset != null && modifiedPreset.Name == userPreset.Name)
 			{
-				PresetViewModel presetVM;
-				if (modifiedPreset != null && modifiedPreset.Name == userPreset.Name)
-				{
-					modifiedPresetIndex = this.AllPresets.Count;
-					presetVM = new PresetViewModel(modifiedPreset);
-					presetVM.OriginalProfile = userPreset.EncodingProfile;
-				}
-				else
-				{
-					presetVM = new PresetViewModel(userPreset);
-				}
-
-				this.AllPresets.Add(presetVM);
-			}
-
-			// Populate the custom preset folder before built-in presets are added to AllPresets collection.
-			this.customPresetFolder = new PresetFolderViewModel(this, !this.collapsedBuiltInFolders.Contains(CustomFolderKey), isBuiltIn: false, id: 0) { Name = EncodingRes.PresetFolder_Custom };
-			this.PopulateCustomFolder(this.customPresetFolder);
-
-			// Prep a hashset of all valid encoders (will not include unsupported hardware encoders)
-			var validEncoders = new HashSet<string>();
-			foreach (HBVideoEncoder encoder in HandBrakeEncoderHelpers.VideoEncoders)
-			{
-				validEncoders.Add(encoder.ShortName);
-			}
-
-			// Populate built-in folder from HandBrake presets
-			IList<HBPresetCategory> handBrakePresets = HandBrakePresetService.GetBuiltInPresets();
-			this.builtInFolder = new PresetFolderViewModel(this, !this.collapsedBuiltInFolders.Contains(BuiltInFolderKey), isBuiltIn: true) { Name = EncodingRes.PresetFolder_BuiltIn };
-			foreach (HBPresetCategory handbrakePresetCategory in handBrakePresets)
-			{
-				var builtInSubfolder = new PresetFolderViewModel(this, !this.collapsedBuiltInFolders.Contains(handbrakePresetCategory.PresetName), isBuiltIn: true)
-				{
-					Name = handbrakePresetCategory.PresetName,
-				};
-
-				this.builtInFolder.AddSubfolder(builtInSubfolder);
-
-				foreach (HBPreset handbrakePreset in handbrakePresetCategory.ChildrenArray)
-				{
-					if (validEncoders.Contains(handbrakePreset.VideoEncoder))
-					{
-						if (handbrakePreset.Default)
-						{
-							defaultPresetIndex = this.AllPresets.Count;
-						}
-
-						Preset builtInPreset = PresetConverter.ConvertHandBrakePresetToVC(handbrakePreset);
-						PresetViewModel builtInPresetViewModel = new PresetViewModel(builtInPreset);
-
-						this.AllPresets.Add(builtInPresetViewModel);
-						builtInSubfolder.AddItem(builtInPresetViewModel);
-					}
-				}
-			}
-
-			this.AllPresetsTree = new ObservableCollection<PresetFolderViewModel>();
-
-			if (this.customPresetFolder.Items.Count > 0 || this.customPresetFolder.SubFolders.Count > 0)
-			{
-				this.AllPresetsTree.Add(this.customPresetFolder);
-			}
-
-			this.AllPresetsTree.Add(this.builtInFolder);
-
-
-
-			// Always select the modified preset if it exists.
-			// Otherwise, choose the last selected preset.
-			int presetIndex;
-			if (modifiedPresetIndex >= 0)
-			{
-				presetIndex = modifiedPresetIndex;
+				modifiedPresetIndex = this.AllPresets.Count;
+				presetVM = new PresetViewModel(modifiedPreset);
+				presetVM.OriginalProfile = userPreset.EncodingProfile;
 			}
 			else
 			{
-				int lastPresetIndex = Config.LastPresetIndex;
-				if (lastPresetIndex >= 0)
-				{
-					presetIndex = lastPresetIndex;
-				}
-				else
-				{
-					presetIndex = defaultPresetIndex;
-				}
+				presetVM = new PresetViewModel(userPreset);
 			}
 
-			if (presetIndex >= this.AllPresets.Count)
-			{
-				presetIndex = 0;
-			}
-
-			this.SelectedPreset = this.AllPresets[presetIndex];
+			this.AllPresets.Add(presetVM);
 		}
 
-		private void PopulateCustomFolder(PresetFolderViewModel folderViewModel)
-		{
-			// Add all child folders
-			var childFolders = this.presetFolders.Where(f => f.ParentId == folderViewModel.Id);
-			foreach (PresetFolder childPresetFolder in childFolders)
-			{
-				var childFolderViewModel = PresetFolderViewModel.FromPresetFolder(childPresetFolder, this);
-				this.PopulateCustomFolder(childFolderViewModel);
-				folderViewModel.AddSubfolder(childFolderViewModel);
-			}
+		// Populate the custom preset folder before built-in presets are added to AllPresets collection.
+		this.customPresetFolder = new PresetFolderViewModel(this, !this.collapsedBuiltInFolders.Contains(CustomFolderKey), isBuiltIn: false, id: 0) { Name = EncodingRes.PresetFolder_Custom };
+		this.PopulateCustomFolder(this.customPresetFolder);
 
-			// Add all presets directly in folder
-			var folderPresets = this.AllPresets.Where(p => p.Preset.FolderId == folderViewModel.Id);
-			foreach (PresetViewModel presetViewModel in folderPresets)
-			{
-				folderViewModel.AddItem(presetViewModel);
-			}
+		// Prep a hashset of all valid encoders (will not include unsupported hardware encoders)
+		var validEncoders = new HashSet<string>();
+		foreach (HBVideoEncoder encoder in HandBrakeEncoderHelpers.VideoEncoders)
+		{
+			validEncoders.Add(encoder.ShortName);
 		}
 
-		private OutputPathService OutputPathService
+		// Populate built-in folder from HandBrake presets
+		IList<HBPresetCategory> handBrakePresets = HandBrakePresetService.GetBuiltInPresets();
+		this.builtInFolder = new PresetFolderViewModel(this, !this.collapsedBuiltInFolders.Contains(BuiltInFolderKey), isBuiltIn: true) { Name = EncodingRes.PresetFolder_BuiltIn };
+		foreach (HBPresetCategory handbrakePresetCategory in handBrakePresets)
 		{
-			get
+			var builtInSubfolder = new PresetFolderViewModel(this, !this.collapsedBuiltInFolders.Contains(handbrakePresetCategory.PresetName), isBuiltIn: true)
 			{
-				if (this.outputPathService == null)
-				{
-					this.outputPathService = StaticResolver.Resolve<OutputPathService>();
-				}
-
-				return this.outputPathService;
-			}
-		}
-
-		public ObservableCollection<PresetViewModel> AllPresets { get; }
-		public ObservableCollection<PresetFolderViewModel> AllPresetsTree { get; }
-
-		public bool AutomaticChange { get; set; }
-
-		/// <summary>
-		/// Tracks if we are currently marking a preset as "modified". Some refresh actions on EncodingProfile changed don't need to fire when this is the case.
-		/// </summary>
-		public bool MarkingPresetModified { get; set; }
-
-		public PresetViewModel SelectedPreset
-		{
-			get
-			{
-				return this.selectedPreset;
-			}
-
-			set
-			{
-				this.TryUpdateSelectedPreset(value);
-			}
-		}
-
-		public bool TryUpdateSelectedPreset(PresetViewModel value)
-		{
-			if (value == null || this.selectedPreset == value || this.tryChangePresetDialogOpen)
-			{
-				return false;
-			}
-
-			PresetViewModel previouslySelectedPreset = this.selectedPreset;
-			bool changeSelectedPreset = true;
-			bool revertToPreviousPreset = false;
-
-			if (this.selectedPreset != null)
-			{
-				Picker picker = StaticResolver.Resolve<PickersService>().SelectedPicker.Picker;
-				if (picker.UseEncodingPreset && picker.EncodingPreset != value.Preset.Name)
-				{
-					Utilities.MessageBox.Show(StaticResolver.Resolve<MainViewModel>(), EncodingRes.CannotSwitchEncodingPresetDueToPicker);
-
-					revertToPreviousPreset = true;
-				}
-				else if (this.selectedPreset.Preset.IsModified)
-				{
-					string dialogMessage;
-					string dialogTitle;
-					MessageBoxButton buttons;
-
-					if (this.selectedPreset.Preset.IsBuiltIn)
-					{
-						dialogMessage = MainRes.PresetDiscardConfirmMessage;
-						dialogTitle = MainRes.PresetDiscardConfirmTitle;
-						buttons = MessageBoxButton.OKCancel;
-					}
-					else
-					{
-						dialogMessage = MainRes.SaveChangesPresetMessage;
-						dialogTitle = MainRes.SaveChangesPresetTitle;
-						buttons = MessageBoxButton.YesNoCancel;
-					}
-
-					this.tryChangePresetDialogOpen = true;
-
-					MessageBoxResult dialogResult = Utilities.MessageBox.Show(
-						StaticResolver.Resolve<MainViewModel>(),
-						dialogMessage,
-						dialogTitle,
-						buttons);
-
-					this.tryChangePresetDialogOpen = false;
-
-					if (dialogResult == MessageBoxResult.Yes)
-					{
-						// Yes, we wanted to save changes
-						this.SavePreset();
-					}
-					else if (dialogResult == MessageBoxResult.No || dialogResult == MessageBoxResult.OK)
-					{
-						// No, we didn't want to save changes or OK, we wanted to discard changes.
-						this.RevertPreset(userInitiated: false);
-					}
-					else if (dialogResult == MessageBoxResult.Cancel)
-					{
-						revertToPreviousPreset = true;
-					}
-				}
-			}
-
-			if (revertToPreviousPreset)
-			{
-				// Queue up an action to switch back to this preset.
-				int currentPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
-
-				DispatchUtilities.BeginInvoke(() =>
-				{
-					this.SelectedPreset = this.AllPresets[currentPresetIndex];
-				});
-
-				changeSelectedPreset = false;
-			}
-
-			this.selectedPreset = value;
-
-			if (changeSelectedPreset)
-			{
-				this.selectedPreset.IsSelected = true; // For TreeView
-
-				this.NotifySelectedPresetChanged();
-
-				if (previouslySelectedPreset != null)
-				{
-					Config.LastPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
-				}
-
-				// If we're switching away from a temporary queue preset, remove it.
-				if (previouslySelectedPreset != null && previouslySelectedPreset.Preset.IsQueue && previouslySelectedPreset != value)
-				{
-					this.RemovePresetFromTreeAndList(previouslySelectedPreset);
-				}
-			}
-
-			return changeSelectedPreset;
-		}
-
-		public JobPreset SelectedJobPreset
-		{
-			get
-			{
-				Preset preset = this.SelectedPreset.Preset;
-				return new JobPreset
-				{
-					Name = preset.Name,
-					Profile = preset.EncodingProfile
-				};
-			}
-		}
-
-		public JobPreset ResolveJobPreset(string presetName)
-		{
-			foreach (var preset in this.AllPresets)
-			{
-				if (string.Compare(presetName.Trim(), preset.DisplayName.Trim(), ignoreCase: true, culture: CultureInfo.CurrentUICulture) == 0)
-				{
-					if (preset.Preset.IsModified)
-					{
-						return new JobPreset
-						{
-							Name = preset.Preset.Name,
-							Profile = preset.OriginalProfile
-						};
-					}
-					else
-					{
-						return new JobPreset
-						{
-							Name = preset.Preset.Name,
-							Profile = preset.Preset.EncodingProfile
-						};
-					}
-				}
-			}
-
-			return null;
-		}
-
-		public VCProfile GetProfileByName(string presetName)
-		{
-			foreach (var preset in this.AllPresets)
-			{
-				if (string.Compare(presetName.Trim(), preset.DisplayName.Trim(), ignoreCase: true, culture: CultureInfo.CurrentUICulture) == 0)
-				{
-					if (preset.Preset.IsModified)
-					{
-						return preset.OriginalProfile;
-					}
-					else
-					{
-						return preset.Preset.EncodingProfile;
-					}
-				}
-			}
-
-			return null;
-		}
-
-		public void SavePreset()
-		{
-			if (this.SelectedPreset.Preset.IsModified)
-			{
-				this.SelectedPreset.OriginalProfile = null;
-				this.SelectedPreset.Preset.IsModified = false;
-			}
-
-			this.SaveUserPresets();
-		}
-
-		public void SavePresetAs(string newPresetName)
-		{
-			var newPreset = new Preset
-			{
-				IsBuiltIn = false,
-				IsModified = false,
-				Name = newPresetName,
-				EncodingProfile = this.SelectedPreset.Preset.EncodingProfile.Clone()
+				Name = handbrakePresetCategory.PresetName,
 			};
 
-			var newPresetVM = new PresetViewModel(newPreset);
+			this.builtInFolder.AddSubfolder(builtInSubfolder);
 
-			this.InsertNewPreset(newPresetVM);
-
-			if (this.SelectedPreset.Preset.IsModified)
+			foreach (HBPreset handbrakePreset in handbrakePresetCategory.ChildrenArray)
 			{
-				this.RevertPreset(userInitiated: false);
-			}
-
-			this.selectedPreset = null;
-			this.SelectedPreset = newPresetVM;
-
-			this.SaveUserPresets();
-		}
-
-		public void RenamePreset(string newPresetName)
-		{
-			this.SelectedPreset.Preset.Name = newPresetName;
-
-			// Remove from the folder and add it back again so it goes in the right place.
-			PresetFolderViewModel currentFolder = this.FindFolderViewModel(this.SelectedPreset.Preset.FolderId);
-			currentFolder.RemoveItem(this.SelectedPreset);
-			currentFolder.AddItem(this.SelectedPreset);
-
-			this.SavePreset();
-		}
-
-		public void AddPreset(Preset newPreset)
-		{
-			var newPresetVM = new PresetViewModel(newPreset);
-
-			this.InsertNewPreset(newPresetVM);
-
-			// Switch to the new preset if we can do it cleanly.
-			if (!this.SelectedPreset.Preset.IsModified)
-			{
-				this.selectedPreset = null;
-				this.SelectedPreset = newPresetVM;
-			}
-
-			this.SaveUserPresets();
-		}
-
-		/// <summary>
-		/// Reverts changes to the current preset back to last saved.
-		/// </summary>
-		public void RevertPreset(bool userInitiated)
-		{
-			Trace.Assert(this.SelectedPreset.OriginalProfile != null, "Error reverting preset: Original profile cannot be null.");
-			Trace.Assert(this.SelectedPreset.OriginalProfile != this.SelectedPreset.Preset.EncodingProfile, "Error reverting preset: Original profile must be different from current profile.");
-
-			if (this.SelectedPreset.OriginalProfile == null || this.SelectedPreset.OriginalProfile == this.SelectedPreset.Preset.EncodingProfile)
-			{
-				return;
-			}
-
-			this.SelectedPreset.Preset.EncodingProfile = this.SelectedPreset.OriginalProfile;
-			this.SelectedPreset.OriginalProfile = null;
-			this.SelectedPreset.Preset.IsModified = false;
-
-			this.SaveUserPresets();
-
-			// Refresh file name.
-			this.OutputPathService.GenerateOutputFileName();
-		}
-
-		/// <summary>
-		/// Deletes the current preset.
-		/// </summary>
-		public void DeletePreset()
-		{
-			PresetViewModel presetToDelete = this.SelectedPreset;
-
-			this.RemovePresetFromTreeAndList(presetToDelete);
-
-			this.selectedPreset = null;
-			this.SelectedPreset = this.AllPresets[0];
-
-			this.SaveUserPresets();
-		}
-
-		private void RemovePresetFromTreeAndList(PresetViewModel presetToRemove)
-		{
-			this.RemovePresetFromTree(presetToRemove);
-			this.AllPresets.Remove(presetToRemove);
-		}
-
-		public void MovePresetToFolder(PresetViewModel presetViewModel, PresetFolderViewModel targetFolder)
-		{
-			PresetFolderViewModel previousFolder = this.FindFolderViewModel(presetViewModel.Preset.FolderId);
-			previousFolder.RemoveItem(presetViewModel);
-
-			targetFolder.AddItem(presetViewModel);
-			presetViewModel.Preset.FolderId = targetFolder.Id;
-
-			targetFolder.IsExpanded = true;
-
-			this.SaveUserPresets();
-		}
-
-		public void CreateSubFolder(PresetFolderViewModel folderViewModel)
-		{
-			var dialogVM = new ChooseNameViewModel(EncodingRes.ChooseNameSubfolder, new List<string>());
-			dialogVM.Name = EncodingRes.DefaultPresetFolderName;
-			var windowManager = StaticResolver.Resolve<IWindowManager>();
-			windowManager.OpenDialog(dialogVM, windowManager.Find<EncodingWindowViewModel>());
-
-			if (dialogVM.DialogResult)
-			{
-				string subfolderName = dialogVM.Name;
-
-				PresetFolder newFolder = PresetFolderStorage.AddFolder(subfolderName, folderViewModel.Id);
-				folderViewModel.AddSubfolder(PresetFolderViewModel.FromPresetFolder(newFolder, this));
-			}
-		}
-
-		public void RenameFolder(PresetFolderViewModel folderViewModel)
-		{
-			var dialogVM = new ChooseNameViewModel(EncodingRes.ChooseNewFolderName, new List<string>());
-			dialogVM.Name = folderViewModel.Name;
-			var windowManager = StaticResolver.Resolve<IWindowManager>();
-			windowManager.OpenDialog(dialogVM, windowManager.Find<EncodingWindowViewModel>());
-
-			if (dialogVM.DialogResult)
-			{
-				string newName = dialogVM.Name;
-				if (newName != folderViewModel.Name)
+				if (validEncoders.Contains(handbrakePreset.VideoEncoder))
 				{
-					PresetFolderStorage.RenameFolder(folderViewModel.Id, newName);
-					folderViewModel.Name = newName;
+					if (handbrakePreset.Default)
+					{
+						defaultPresetIndex = this.AllPresets.Count;
+					}
 
-					// Remove and re-add the folder to get the folder in the right order.
-					PresetFolderViewModel parentFolder = folderViewModel.Parent;
-					parentFolder.RemoveSubfolder(folderViewModel);
-					parentFolder.AddSubfolder(folderViewModel);
+					Preset builtInPreset = PresetConverter.ConvertHandBrakePresetToVC(handbrakePreset);
+					PresetViewModel builtInPresetViewModel = new PresetViewModel(builtInPreset);
+
+					this.AllPresets.Add(builtInPresetViewModel);
+					builtInSubfolder.AddItem(builtInPresetViewModel);
 				}
 			}
 		}
 
-		public void RemoveFolder(PresetFolderViewModel folderViewModel)
+		this.AllPresetsTree = new ObservableCollection<PresetFolderViewModel>();
+
+		if (this.customPresetFolder.Items.Count > 0 || this.customPresetFolder.SubFolders.Count > 0)
 		{
-			PresetFolderStorage.RemoveFolder(folderViewModel.Id);
-			this.RemoveFolderFromTree(this.customPresetFolder, folderViewModel);
+			this.AllPresetsTree.Add(this.customPresetFolder);
 		}
 
-		public void SaveFolderIsExpanded(PresetFolderViewModel folderViewModel)
+		this.AllPresetsTree.Add(this.builtInFolder);
+
+
+
+		// Always select the modified preset if it exists.
+		// Otherwise, choose the last selected preset.
+		int presetIndex;
+		if (modifiedPresetIndex >= 0)
 		{
-			if (folderViewModel.Id > 0)
+			presetIndex = modifiedPresetIndex;
+		}
+		else
+		{
+			int lastPresetIndex = Config.LastPresetIndex;
+			if (lastPresetIndex >= 0)
 			{
-				// If ID > 0 then this is a custom preset folder.
-				PresetFolderStorage.SetFolderIsExpanded(folderViewModel.Id, folderViewModel.IsExpanded);
+				presetIndex = lastPresetIndex;
 			}
 			else
 			{
-				// If not stored in preset folder table, save in config.
-				string key;
-				if (folderViewModel == this.customPresetFolder)
-				{
-					key = CustomFolderKey;
-				}
-				else if (folderViewModel == this.builtInFolder)
-				{
-					key = BuiltInFolderKey;
-				}
-				else
-				{
-					key = folderViewModel.Name;
-				}
-
-				if (folderViewModel.IsExpanded)
-				{
-					if (this.collapsedBuiltInFolders.Contains(key))
-					{
-						this.collapsedBuiltInFolders.Remove(key);
-					}
-				}
-				else
-				{
-					if (!this.collapsedBuiltInFolders.Contains(key))
-					{
-						this.collapsedBuiltInFolders.Add(key);
-					}
-				}
-
-				CustomConfig.CollapsedBuiltInFolders = this.collapsedBuiltInFolders;
+				presetIndex = defaultPresetIndex;
 			}
 		}
 
-		public void ReportFolderExpanded(PresetFolderViewModel presetFolderViewModel)
+		if (presetIndex >= this.AllPresets.Count)
 		{
-			if (!this.isAutomaticExpansion)
-			{
-				this.PresetFolderManuallyExpanded?.Invoke(this, presetFolderViewModel);
-			}
+			presetIndex = 0;
 		}
 
-		public void HandleKey(KeyEventArgs args)
+		this.SelectedPreset = this.AllPresets[presetIndex];
+	}
+
+	private void PopulateCustomFolder(PresetFolderViewModel folderViewModel)
+	{
+		// Add all child folders
+		var childFolders = this.presetFolders.Where(f => f.ParentId == folderViewModel.Id);
+		foreach (PresetFolder childPresetFolder in childFolders)
 		{
-			if (args.Key == Key.Up)
-			{
-				int selectedIndex = this.AllPresets.IndexOf(this.SelectedPreset);
-				if (selectedIndex > 0)
-				{
-					this.SelectedPreset = this.AllPresets[selectedIndex - 1];
-					this.EnsurePresetVisible(this.SelectedPreset);
-
-					args.Handled = true;
-				}
-			}
-			else if (args.Key == Key.Down)
-			{
-				int selectedIndex = this.AllPresets.IndexOf(this.SelectedPreset);
-				if (selectedIndex < this.AllPresets.Count - 1)
-				{
-					this.SelectedPreset = this.AllPresets[selectedIndex + 1];
-					this.EnsurePresetVisible(this.SelectedPreset);
-
-					args.Handled = true;
-				}
-			}
+			var childFolderViewModel = PresetFolderViewModel.FromPresetFolder(childPresetFolder, this);
+			this.PopulateCustomFolder(childFolderViewModel);
+			folderViewModel.AddSubfolder(childFolderViewModel);
 		}
 
-		private void EnsurePresetVisible(PresetViewModel presetViewModel)
+		// Add all presets directly in folder
+		var folderPresets = this.AllPresets.Where(p => p.Preset.FolderId == folderViewModel.Id);
+		foreach (PresetViewModel presetViewModel in folderPresets)
 		{
-			this.EnsurePresetFolderExpanded(presetViewModel.Parent);
+			folderViewModel.AddItem(presetViewModel);
+		}
+	}
+
+	private OutputPathService OutputPathService
+	{
+		get
+		{
+			if (this.outputPathService == null)
+			{
+				this.outputPathService = StaticResolver.Resolve<OutputPathService>();
+			}
+
+			return this.outputPathService;
+		}
+	}
+
+	public ObservableCollection<PresetViewModel> AllPresets { get; }
+	public ObservableCollection<PresetFolderViewModel> AllPresetsTree { get; }
+
+	public bool AutomaticChange { get; set; }
+
+	/// <summary>
+	/// Tracks if we are currently marking a preset as "modified". Some refresh actions on EncodingProfile changed don't need to fire when this is the case.
+	/// </summary>
+	public bool MarkingPresetModified { get; set; }
+
+	public PresetViewModel SelectedPreset
+	{
+		get
+		{
+			return this.selectedPreset;
 		}
 
-		private void EnsurePresetFolderExpanded(PresetFolderViewModel presetFolderViewModel)
+		set
 		{
-			if (presetFolderViewModel == null)
-			{
-				return;
-			}
-
-			this.isAutomaticExpansion = true;
-			presetFolderViewModel.IsExpanded = true;
-			this.isAutomaticExpansion = false;
-
-			this.EnsurePresetFolderExpanded(presetFolderViewModel.Parent);
+			this.TryUpdateSelectedPreset(value);
 		}
+	}
 
-		private PresetFolderViewModel FindFolderViewModel(long folderId)
+	public bool TryUpdateSelectedPreset(PresetViewModel value)
+	{
+		if (value == null || this.selectedPreset == value || this.tryChangePresetDialogOpen)
 		{
-			return this.FindFolderRecursive(this.customPresetFolder, folderId);
-		}
-
-		private PresetFolderViewModel FindFolderRecursive(PresetFolderViewModel currentFolder, long folderId)
-		{
-			if (currentFolder.Id == folderId)
-			{
-				return currentFolder;
-			}
-
-			foreach (PresetFolderViewModel subFolder in currentFolder.SubFolders.Items)
-			{
-				PresetFolderViewModel childResult = this.FindFolderRecursive(subFolder, folderId);
-				if (childResult != null)
-				{
-					return childResult;
-				}
-			}
-
-			return null;
-		}
-
-		private bool RemoveFolderFromTree(PresetFolderViewModel folderToSearchIn, PresetFolderViewModel folderToRemove)
-		{
-			if (folderToSearchIn.SubFolders.Items.Contains(folderToRemove))
-			{
-				folderToSearchIn.RemoveSubfolder(folderToRemove);
-				return true;
-			}
-
-			foreach (PresetFolderViewModel folder in folderToSearchIn.SubFolders.Items)
-			{
-				if (this.RemoveFolderFromTree(folder, folderToRemove))
-				{
-					return true;
-				}
-			}
-
 			return false;
 		}
 
-		private void RemovePresetFromTree(PresetViewModel presetViewModel)
+		PresetViewModel previouslySelectedPreset = this.selectedPreset;
+		bool changeSelectedPreset = true;
+		bool revertToPreviousPreset = false;
+
+		if (this.selectedPreset != null)
 		{
-			foreach (PresetFolderViewModel folder in this.AllPresetsTree)
+			Picker picker = StaticResolver.Resolve<PickersService>().SelectedPicker.Picker;
+			if (picker.UseEncodingPreset && picker.EncodingPreset != value.Preset.Name)
 			{
-				if (this.RemovePresetFromFolder(folder, presetViewModel))
+				Utilities.MessageBox.Show(StaticResolver.Resolve<MainViewModel>(), EncodingRes.CannotSwitchEncodingPresetDueToPicker);
+
+				revertToPreviousPreset = true;
+			}
+			else if (this.selectedPreset.Preset.IsModified)
+			{
+				string dialogMessage;
+				string dialogTitle;
+				MessageBoxButton buttons;
+
+				if (this.selectedPreset.Preset.IsBuiltIn)
 				{
-					return;
+					dialogMessage = MainRes.PresetDiscardConfirmMessage;
+					dialogTitle = MainRes.PresetDiscardConfirmTitle;
+					buttons = MessageBoxButton.OKCancel;
+				}
+				else
+				{
+					dialogMessage = MainRes.SaveChangesPresetMessage;
+					dialogTitle = MainRes.SaveChangesPresetTitle;
+					buttons = MessageBoxButton.YesNoCancel;
+				}
+
+				this.tryChangePresetDialogOpen = true;
+
+				MessageBoxResult dialogResult = Utilities.MessageBox.Show(
+					StaticResolver.Resolve<MainViewModel>(),
+					dialogMessage,
+					dialogTitle,
+					buttons);
+
+				this.tryChangePresetDialogOpen = false;
+
+				if (dialogResult == MessageBoxResult.Yes)
+				{
+					// Yes, we wanted to save changes
+					this.SavePreset();
+				}
+				else if (dialogResult == MessageBoxResult.No || dialogResult == MessageBoxResult.OK)
+				{
+					// No, we didn't want to save changes or OK, we wanted to discard changes.
+					this.RevertPreset(userInitiated: false);
+				}
+				else if (dialogResult == MessageBoxResult.Cancel)
+				{
+					revertToPreviousPreset = true;
 				}
 			}
 		}
 
-		private bool RemovePresetFromFolder(PresetFolderViewModel folder, PresetViewModel presetViewModel)
+		if (revertToPreviousPreset)
 		{
-			if (folder.Items.Items.Contains(presetViewModel))
-			{
-				folder.RemoveItem(presetViewModel);
-				return true;
-			}
+			// Queue up an action to switch back to this preset.
+			int currentPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
 
-			foreach (var subFolder in folder.SubFolders.Items)
+			DispatchUtilities.BeginInvoke(() =>
 			{
-				if (this.RemovePresetFromFolder(subFolder, presetViewModel))
-				{
-					return true;
-				}
-			}
+				this.SelectedPreset = this.AllPresets[currentPresetIndex];
+			});
 
-			return false;
+			changeSelectedPreset = false;
 		}
 
-		/// <summary>
-		/// Prepares to modify the current preset. Called when just before making a change to a preset.
-		/// </summary>
-		/// <param name="newProfile">The new encoding profile to use.</param>
-		public void PrepareModifyPreset(VCProfile newProfile)
-		{
-			Trace.Assert(!this.SelectedPreset.Preset.IsModified, "Cannot start modification on already modified preset.");
-			Trace.Assert(this.SelectedPreset.OriginalProfile == null, "Preset already has OriginalProfile.");
+		this.selectedPreset = value;
 
-			if (this.SelectedPreset.Preset.IsModified || this.SelectedPreset.OriginalProfile != null)
+		if (changeSelectedPreset)
+		{
+			this.selectedPreset.IsSelected = true; // For TreeView
+
+			this.NotifySelectedPresetChanged();
+
+			if (previouslySelectedPreset != null)
 			{
-				return;
+				Config.LastPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
 			}
 
-			this.SelectedPreset.OriginalProfile = this.SelectedPreset.Preset.EncodingProfile;
-			this.SelectedPreset.Preset.SetEncodingProfileSilent(newProfile);
-			this.SelectedPreset.Preset.IsModified = true;
-		}
-
-		/// <summary>
-		/// Finalizes the preset modification.
-		/// </summary>
-		public void FinalizeModifyPreset()
-		{
-			this.MarkingPresetModified = true;
-			this.SelectedPreset.Preset.RaiseEncodingProfile();
-			this.MarkingPresetModified = false;
-		}
-
-		public void SaveUserPresets()
-		{
-			List<Preset> userPresets = new List<Preset>();
-
-			foreach (PresetViewModel presetVM in this.AllPresets)
+			// If we're switching away from a temporary queue preset, remove it.
+			if (previouslySelectedPreset != null && previouslySelectedPreset.Preset.IsQueue && previouslySelectedPreset != value)
 			{
-				if ((!presetVM.Preset.IsBuiltIn || presetVM.Preset.IsModified) && !presetVM.Preset.IsQueue)
-				{
-					userPresets.Add(presetVM.Preset);
-				}
+				this.RemovePresetFromTreeAndList(previouslySelectedPreset);
+			}
+		}
 
-				// Add the original version of the preset, if we're working with a more recent version.
-				if (!presetVM.Preset.IsBuiltIn && presetVM.Preset.IsModified)
+		return changeSelectedPreset;
+	}
+
+	public JobPreset SelectedJobPreset
+	{
+		get
+		{
+			Preset preset = this.SelectedPreset.Preset;
+			return new JobPreset
+			{
+				Name = preset.Name,
+				Profile = preset.EncodingProfile
+			};
+		}
+	}
+
+	public JobPreset ResolveJobPreset(string presetName)
+	{
+		foreach (var preset in this.AllPresets)
+		{
+			if (string.Compare(presetName.Trim(), preset.DisplayName.Trim(), ignoreCase: true, culture: CultureInfo.CurrentUICulture) == 0)
+			{
+				if (preset.Preset.IsModified)
 				{
-					Trace.Assert(presetVM.OriginalProfile != null, "Error saving user presets: Preset marked as modified but no OriginalProfile could be found.");
-					if (presetVM.OriginalProfile != null)
+					return new JobPreset
 					{
-						var originalPreset = new Preset
-						{
-							Name = presetVM.Preset.Name,
-							IsBuiltIn = presetVM.Preset.IsBuiltIn,
-							IsModified = false,
-							EncodingProfile = presetVM.OriginalProfile
-						};
-
-						userPresets.Add(originalPreset);
-					}
+						Name = preset.Preset.Name,
+						Profile = preset.OriginalProfile
+					};
+				}
+				else
+				{
+					return new JobPreset
+					{
+						Name = preset.Preset.Name,
+						Profile = preset.Preset.EncodingProfile
+					};
 				}
 			}
-
-			PresetStorage.UserPresets = userPresets;
-
-			this.PresetChanged?.Invoke(this, EventArgs.Empty);
 		}
 
-		public void InsertQueuePreset(PresetViewModel queuePreset)
+		return null;
+	}
+
+	public VCProfile GetProfileByName(string presetName)
+	{
+		foreach (var preset in this.AllPresets)
 		{
-			// Bring in encoding profile and put in a placeholder preset.
-
-			if (this.AllPresets[0].Preset.IsQueue)
+			if (string.Compare(presetName.Trim(), preset.DisplayName.Trim(), ignoreCase: true, culture: CultureInfo.CurrentUICulture) == 0)
 			{
-				this.RemovePresetFromTreeAndList(this.AllPresets[0]);
+				if (preset.Preset.IsModified)
+				{
+					return preset.OriginalProfile;
+				}
+				else
+				{
+					return preset.Preset.EncodingProfile;
+				}
 			}
+		}
 
-			this.InsertNewPreset(queuePreset, insertAtStart: true);
+		return null;
+	}
 
+	public void SavePreset()
+	{
+		if (this.SelectedPreset.Preset.IsModified)
+		{
+			this.SelectedPreset.OriginalProfile = null;
+			this.SelectedPreset.Preset.IsModified = false;
+		}
+
+		this.SaveUserPresets();
+	}
+
+	public void SavePresetAs(string newPresetName)
+	{
+		var newPreset = new Preset
+		{
+			IsBuiltIn = false,
+			IsModified = false,
+			Name = newPresetName,
+			EncodingProfile = this.SelectedPreset.Preset.EncodingProfile.Clone()
+		};
+
+		var newPresetVM = new PresetViewModel(newPreset);
+
+		this.InsertNewPreset(newPresetVM);
+
+		if (this.SelectedPreset.Preset.IsModified)
+		{
+			this.RevertPreset(userInitiated: false);
+		}
+
+		this.selectedPreset = null;
+		this.SelectedPreset = newPresetVM;
+
+		this.SaveUserPresets();
+	}
+
+	public void RenamePreset(string newPresetName)
+	{
+		this.SelectedPreset.Preset.Name = newPresetName;
+
+		// Remove from the folder and add it back again so it goes in the right place.
+		PresetFolderViewModel currentFolder = this.FindFolderViewModel(this.SelectedPreset.Preset.FolderId);
+		currentFolder.RemoveItem(this.SelectedPreset);
+		currentFolder.AddItem(this.SelectedPreset);
+
+		this.SavePreset();
+	}
+
+	public void AddPreset(Preset newPreset)
+	{
+		var newPresetVM = new PresetViewModel(newPreset);
+
+		this.InsertNewPreset(newPresetVM);
+
+		// Switch to the new preset if we can do it cleanly.
+		if (!this.SelectedPreset.Preset.IsModified)
+		{
 			this.selectedPreset = null;
-			this.SelectedPreset = queuePreset;
+			this.SelectedPreset = newPresetVM;
 		}
 
-		private void InsertNewPreset(PresetViewModel presetVM, bool insertAtStart = false)
+		this.SaveUserPresets();
+	}
+
+	/// <summary>
+	/// Reverts changes to the current preset back to last saved.
+	/// </summary>
+	public void RevertPreset(bool userInitiated)
+	{
+		Trace.Assert(this.SelectedPreset.OriginalProfile != null, "Error reverting preset: Original profile cannot be null.");
+		Trace.Assert(this.SelectedPreset.OriginalProfile != this.SelectedPreset.Preset.EncodingProfile, "Error reverting preset: Original profile must be different from current profile.");
+
+		if (this.SelectedPreset.OriginalProfile == null || this.SelectedPreset.OriginalProfile == this.SelectedPreset.Preset.EncodingProfile)
 		{
-			this.customPresetFolder.AddItem(presetVM);
-
-			// If the Custom folder hasn't been added to the tree, add it now.
-			if (!this.AllPresetsTree.Contains(this.customPresetFolder))
-			{
-				this.AllPresetsTree.Insert(0, this.customPresetFolder);
-			}
-
-			if (insertAtStart)
-			{
-				this.AllPresets.Insert(0, presetVM);
-			}
-
-			for (int i = 0; i < this.AllPresets.Count; i++)
-			{
-				if (this.AllPresets[i].Preset.IsBuiltIn)
-				{
-					this.AllPresets.Insert(i, presetVM);
-					return;
-				}
-
-				if (string.Compare(presetVM.Preset.Name, this.AllPresets[i].Preset.Name, StringComparison.CurrentCultureIgnoreCase) < 0)
-				{
-					this.AllPresets.Insert(i, presetVM);
-					return;
-				}
-			}
-
-			Trace.Assert(true, "Did not find place to insert new preset.");
+			return;
 		}
 
-		private void NotifySelectedPresetChanged()
+		this.SelectedPreset.Preset.EncodingProfile = this.SelectedPreset.OriginalProfile;
+		this.SelectedPreset.OriginalProfile = null;
+		this.SelectedPreset.Preset.IsModified = false;
+
+		this.SaveUserPresets();
+
+		// Refresh file name.
+		this.OutputPathService.GenerateOutputFileName();
+	}
+
+	/// <summary>
+	/// Deletes the current preset.
+	/// </summary>
+	public void DeletePreset()
+	{
+		PresetViewModel presetToDelete = this.SelectedPreset;
+
+		this.RemovePresetFromTreeAndList(presetToDelete);
+
+		this.selectedPreset = null;
+		this.SelectedPreset = this.AllPresets[0];
+
+		this.SaveUserPresets();
+	}
+
+	private void RemovePresetFromTreeAndList(PresetViewModel presetToRemove)
+	{
+		this.RemovePresetFromTree(presetToRemove);
+		this.AllPresets.Remove(presetToRemove);
+	}
+
+	public void MovePresetToFolder(PresetViewModel presetViewModel, PresetFolderViewModel targetFolder)
+	{
+		PresetFolderViewModel previousFolder = this.FindFolderViewModel(presetViewModel.Preset.FolderId);
+		previousFolder.RemoveItem(presetViewModel);
+
+		targetFolder.AddItem(presetViewModel);
+		presetViewModel.Preset.FolderId = targetFolder.Id;
+
+		targetFolder.IsExpanded = true;
+
+		this.SaveUserPresets();
+	}
+
+	public void CreateSubFolder(PresetFolderViewModel folderViewModel)
+	{
+		var dialogVM = new ChooseNameViewModel(EncodingRes.ChooseNameSubfolder, new List<string>());
+		dialogVM.Name = EncodingRes.DefaultPresetFolderName;
+		var windowManager = StaticResolver.Resolve<IWindowManager>();
+		windowManager.OpenDialog(dialogVM, windowManager.Find<EncodingWindowViewModel>());
+
+		if (dialogVM.DialogResult)
 		{
-			this.OutputPathService.GenerateOutputFileName();
-			this.RaisePropertyChanged(nameof(this.SelectedPreset));
-			this.previewUpdateService.RefreshPreview();
+			string subfolderName = dialogVM.Name;
+
+			PresetFolder newFolder = PresetFolderStorage.AddFolder(subfolderName, folderViewModel.Id);
+			folderViewModel.AddSubfolder(PresetFolderViewModel.FromPresetFolder(newFolder, this));
 		}
+	}
+
+	public void RenameFolder(PresetFolderViewModel folderViewModel)
+	{
+		var dialogVM = new ChooseNameViewModel(EncodingRes.ChooseNewFolderName, new List<string>());
+		dialogVM.Name = folderViewModel.Name;
+		var windowManager = StaticResolver.Resolve<IWindowManager>();
+		windowManager.OpenDialog(dialogVM, windowManager.Find<EncodingWindowViewModel>());
+
+		if (dialogVM.DialogResult)
+		{
+			string newName = dialogVM.Name;
+			if (newName != folderViewModel.Name)
+			{
+				PresetFolderStorage.RenameFolder(folderViewModel.Id, newName);
+				folderViewModel.Name = newName;
+
+				// Remove and re-add the folder to get the folder in the right order.
+				PresetFolderViewModel parentFolder = folderViewModel.Parent;
+				parentFolder.RemoveSubfolder(folderViewModel);
+				parentFolder.AddSubfolder(folderViewModel);
+			}
+		}
+	}
+
+	public void RemoveFolder(PresetFolderViewModel folderViewModel)
+	{
+		PresetFolderStorage.RemoveFolder(folderViewModel.Id);
+		this.RemoveFolderFromTree(this.customPresetFolder, folderViewModel);
+	}
+
+	public void SaveFolderIsExpanded(PresetFolderViewModel folderViewModel)
+	{
+		if (folderViewModel.Id > 0)
+		{
+			// If ID > 0 then this is a custom preset folder.
+			PresetFolderStorage.SetFolderIsExpanded(folderViewModel.Id, folderViewModel.IsExpanded);
+		}
+		else
+		{
+			// If not stored in preset folder table, save in config.
+			string key;
+			if (folderViewModel == this.customPresetFolder)
+			{
+				key = CustomFolderKey;
+			}
+			else if (folderViewModel == this.builtInFolder)
+			{
+				key = BuiltInFolderKey;
+			}
+			else
+			{
+				key = folderViewModel.Name;
+			}
+
+			if (folderViewModel.IsExpanded)
+			{
+				if (this.collapsedBuiltInFolders.Contains(key))
+				{
+					this.collapsedBuiltInFolders.Remove(key);
+				}
+			}
+			else
+			{
+				if (!this.collapsedBuiltInFolders.Contains(key))
+				{
+					this.collapsedBuiltInFolders.Add(key);
+				}
+			}
+
+			CustomConfig.CollapsedBuiltInFolders = this.collapsedBuiltInFolders;
+		}
+	}
+
+	public void ReportFolderExpanded(PresetFolderViewModel presetFolderViewModel)
+	{
+		if (!this.isAutomaticExpansion)
+		{
+			this.PresetFolderManuallyExpanded?.Invoke(this, presetFolderViewModel);
+		}
+	}
+
+	public void HandleKey(KeyEventArgs args)
+	{
+		if (args.Key == Key.Up)
+		{
+			int selectedIndex = this.AllPresets.IndexOf(this.SelectedPreset);
+			if (selectedIndex > 0)
+			{
+				this.SelectedPreset = this.AllPresets[selectedIndex - 1];
+				this.EnsurePresetVisible(this.SelectedPreset);
+
+				args.Handled = true;
+			}
+		}
+		else if (args.Key == Key.Down)
+		{
+			int selectedIndex = this.AllPresets.IndexOf(this.SelectedPreset);
+			if (selectedIndex < this.AllPresets.Count - 1)
+			{
+				this.SelectedPreset = this.AllPresets[selectedIndex + 1];
+				this.EnsurePresetVisible(this.SelectedPreset);
+
+				args.Handled = true;
+			}
+		}
+	}
+
+	private void EnsurePresetVisible(PresetViewModel presetViewModel)
+	{
+		this.EnsurePresetFolderExpanded(presetViewModel.Parent);
+	}
+
+	private void EnsurePresetFolderExpanded(PresetFolderViewModel presetFolderViewModel)
+	{
+		if (presetFolderViewModel == null)
+		{
+			return;
+		}
+
+		this.isAutomaticExpansion = true;
+		presetFolderViewModel.IsExpanded = true;
+		this.isAutomaticExpansion = false;
+
+		this.EnsurePresetFolderExpanded(presetFolderViewModel.Parent);
+	}
+
+	private PresetFolderViewModel FindFolderViewModel(long folderId)
+	{
+		return this.FindFolderRecursive(this.customPresetFolder, folderId);
+	}
+
+	private PresetFolderViewModel FindFolderRecursive(PresetFolderViewModel currentFolder, long folderId)
+	{
+		if (currentFolder.Id == folderId)
+		{
+			return currentFolder;
+		}
+
+		foreach (PresetFolderViewModel subFolder in currentFolder.SubFolders.Items)
+		{
+			PresetFolderViewModel childResult = this.FindFolderRecursive(subFolder, folderId);
+			if (childResult != null)
+			{
+				return childResult;
+			}
+		}
+
+		return null;
+	}
+
+	private bool RemoveFolderFromTree(PresetFolderViewModel folderToSearchIn, PresetFolderViewModel folderToRemove)
+	{
+		if (folderToSearchIn.SubFolders.Items.Contains(folderToRemove))
+		{
+			folderToSearchIn.RemoveSubfolder(folderToRemove);
+			return true;
+		}
+
+		foreach (PresetFolderViewModel folder in folderToSearchIn.SubFolders.Items)
+		{
+			if (this.RemoveFolderFromTree(folder, folderToRemove))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private void RemovePresetFromTree(PresetViewModel presetViewModel)
+	{
+		foreach (PresetFolderViewModel folder in this.AllPresetsTree)
+		{
+			if (this.RemovePresetFromFolder(folder, presetViewModel))
+			{
+				return;
+			}
+		}
+	}
+
+	private bool RemovePresetFromFolder(PresetFolderViewModel folder, PresetViewModel presetViewModel)
+	{
+		if (folder.Items.Items.Contains(presetViewModel))
+		{
+			folder.RemoveItem(presetViewModel);
+			return true;
+		}
+
+		foreach (var subFolder in folder.SubFolders.Items)
+		{
+			if (this.RemovePresetFromFolder(subFolder, presetViewModel))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/// <summary>
+	/// Prepares to modify the current preset. Called when just before making a change to a preset.
+	/// </summary>
+	/// <param name="newProfile">The new encoding profile to use.</param>
+	public void PrepareModifyPreset(VCProfile newProfile)
+	{
+		Trace.Assert(!this.SelectedPreset.Preset.IsModified, "Cannot start modification on already modified preset.");
+		Trace.Assert(this.SelectedPreset.OriginalProfile == null, "Preset already has OriginalProfile.");
+
+		if (this.SelectedPreset.Preset.IsModified || this.SelectedPreset.OriginalProfile != null)
+		{
+			return;
+		}
+
+		this.SelectedPreset.OriginalProfile = this.SelectedPreset.Preset.EncodingProfile;
+		this.SelectedPreset.Preset.SetEncodingProfileSilent(newProfile);
+		this.SelectedPreset.Preset.IsModified = true;
+	}
+
+	/// <summary>
+	/// Finalizes the preset modification.
+	/// </summary>
+	public void FinalizeModifyPreset()
+	{
+		this.MarkingPresetModified = true;
+		this.SelectedPreset.Preset.RaiseEncodingProfile();
+		this.MarkingPresetModified = false;
+	}
+
+	public void SaveUserPresets()
+	{
+		List<Preset> userPresets = new List<Preset>();
+
+		foreach (PresetViewModel presetVM in this.AllPresets)
+		{
+			if ((!presetVM.Preset.IsBuiltIn || presetVM.Preset.IsModified) && !presetVM.Preset.IsQueue)
+			{
+				userPresets.Add(presetVM.Preset);
+			}
+
+			// Add the original version of the preset, if we're working with a more recent version.
+			if (!presetVM.Preset.IsBuiltIn && presetVM.Preset.IsModified)
+			{
+				Trace.Assert(presetVM.OriginalProfile != null, "Error saving user presets: Preset marked as modified but no OriginalProfile could be found.");
+				if (presetVM.OriginalProfile != null)
+				{
+					var originalPreset = new Preset
+					{
+						Name = presetVM.Preset.Name,
+						IsBuiltIn = presetVM.Preset.IsBuiltIn,
+						IsModified = false,
+						EncodingProfile = presetVM.OriginalProfile
+					};
+
+					userPresets.Add(originalPreset);
+				}
+			}
+		}
+
+		PresetStorage.UserPresets = userPresets;
+
+		this.PresetChanged?.Invoke(this, EventArgs.Empty);
+	}
+
+	public void InsertQueuePreset(PresetViewModel queuePreset)
+	{
+		// Bring in encoding profile and put in a placeholder preset.
+
+		if (this.AllPresets[0].Preset.IsQueue)
+		{
+			this.RemovePresetFromTreeAndList(this.AllPresets[0]);
+		}
+
+		this.InsertNewPreset(queuePreset, insertAtStart: true);
+
+		this.selectedPreset = null;
+		this.SelectedPreset = queuePreset;
+	}
+
+	private void InsertNewPreset(PresetViewModel presetVM, bool insertAtStart = false)
+	{
+		this.customPresetFolder.AddItem(presetVM);
+
+		// If the Custom folder hasn't been added to the tree, add it now.
+		if (!this.AllPresetsTree.Contains(this.customPresetFolder))
+		{
+			this.AllPresetsTree.Insert(0, this.customPresetFolder);
+		}
+
+		if (insertAtStart)
+		{
+			this.AllPresets.Insert(0, presetVM);
+		}
+
+		for (int i = 0; i < this.AllPresets.Count; i++)
+		{
+			if (this.AllPresets[i].Preset.IsBuiltIn)
+			{
+				this.AllPresets.Insert(i, presetVM);
+				return;
+			}
+
+			if (string.Compare(presetVM.Preset.Name, this.AllPresets[i].Preset.Name, StringComparison.CurrentCultureIgnoreCase) < 0)
+			{
+				this.AllPresets.Insert(i, presetVM);
+				return;
+			}
+		}
+
+		Trace.Assert(true, "Did not find place to insert new preset.");
+	}
+
+	private void NotifySelectedPresetChanged()
+	{
+		this.OutputPathService.GenerateOutputFileName();
+		this.RaisePropertyChanged(nameof(this.SelectedPreset));
+		this.previewUpdateService.RefreshPreview();
 	}
 }

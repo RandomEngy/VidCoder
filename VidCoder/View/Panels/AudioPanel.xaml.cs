@@ -16,16 +16,15 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using VidCoder.ViewModel;
 
-namespace VidCoder.View
+namespace VidCoder.View;
+
+/// <summary>
+/// Interaction logic for AudioPanel.xaml
+/// </summary>
+public partial class AudioPanel : UserControl
 {
-	/// <summary>
-	/// Interaction logic for AudioPanel.xaml
-	/// </summary>
-	public partial class AudioPanel : UserControl
+	public AudioPanel()
 	{
-		public AudioPanel()
-		{
-			InitializeComponent();
-		}
+		InitializeComponent();
 	}
 }

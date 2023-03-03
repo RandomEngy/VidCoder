@@ -1,23 +1,22 @@
 ﻿using System;
 
-namespace VidCoder.Services
+namespace VidCoder.Services;
+
+public class StatusService
 {
-	public class StatusService
+	private readonly ActivityService activityService;
+
+	public event EventHandler<EventArgs<string>> MessageShown;
+
+	public StatusService(ActivityService activityService)
 	{
-		private readonly ActivityService activityService;
+		this.activityService = activityService;
+	}
 
-		public event EventHandler<EventArgs<string>> MessageShown;
+	public async void Show(string message)
+	{
+		await activityService.WaitForActiveAsync();
 
-		public StatusService(ActivityService activityService)
-		{
-			this.activityService = activityService;
-		}
-
-		public async void Show(string message)
-		{
-			await activityService.WaitForActiveAsync();
-
-			this.MessageShown?.Invoke(this, new EventArgs<string>(message));
-		}
+		this.MessageShown?.Invoke(this, new EventArgs<string>(message));
 	}
 }

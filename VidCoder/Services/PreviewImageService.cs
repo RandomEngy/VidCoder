@@ -21,408 +21,417 @@ using VidCoder.Resources;
 using VidCoder.ViewModel;
 using VidCoderCommon.Model;
 
-namespace VidCoder.Services
-{
+namespace VidCoder.Services;
+
     public class PreviewImageService : ReactiveObject
     {
-		private const int PreviewImageCacheDistance = 1;
+	private const int PreviewImageCacheDistance = 1;
 
-		private static readonly TimeSpan MinPreviewImageRefreshInterval = TimeSpan.FromSeconds(0.5);
-	    private static int updateVersion;
+	private static readonly TimeSpan MinPreviewImageRefreshInterval = TimeSpan.FromSeconds(0.5);
+    private static int updateVersion;
 
-		private VCJob job;
-		private int previewCount;
-		private DateTime lastImageRefreshTime;
-	    private System.Timers.Timer previewImageRefreshTimer;
-	    private Queue<PreviewImageJob> previewImageWorkQueue = new Queue<PreviewImageJob>();
-		private bool previewImageQueueProcessing;
-	    private BitmapSource[] previewImageCache;
-	    private bool waitingOnRefresh;
-		private bool loggedFileSaveError;
+	private VCJob job;
+	private int previewCount;
+	private DateTime lastImageRefreshTime;
+    private System.Timers.Timer previewImageRefreshTimer;
+    private Queue<PreviewImageJob> previewImageWorkQueue = new Queue<PreviewImageJob>();
+	private bool previewImageQueueProcessing;
+    private BitmapSource[] previewImageCache;
+    private bool waitingOnRefresh;
+	private bool loggedFileSaveError;
 
-	    private IDisposable presetsSubscription;
+    private IDisposable presetsSubscription;
 
-		private readonly SourceList<PreviewImageServiceClient> clients = new SourceList<PreviewImageServiceClient>();
+	private readonly SourceList<PreviewImageServiceClient> clients = new SourceList<PreviewImageServiceClient>();
 
-		private object imageSync = new object();
-	    private List<object> imageFileSync;
+	private object imageSync = new object();
+    private List<object> imageFileSync;
 
-		private readonly OutputSizeService outputSizeService = StaticResolver.Resolve<OutputSizeService>();
-	    private readonly MainViewModel mainViewModel = StaticResolver.Resolve<MainViewModel>();
-	    private readonly PreviewUpdateService previewUpdateService = StaticResolver.Resolve<PreviewUpdateService>();
+	private readonly OutputSizeService outputSizeService = StaticResolver.Resolve<OutputSizeService>();
+    private readonly MainViewModel mainViewModel = StaticResolver.Resolve<MainViewModel>();
+    private readonly PreviewUpdateService previewUpdateService = StaticResolver.Resolve<PreviewUpdateService>();
 
-		public PreviewImageService()
+	public PreviewImageService()
+    {
+		this.previewUpdateService.PreviewInputChanged += this.OnPreviewInputChanged;
+
+	    this.presetsSubscription = this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile).Skip(1).Subscribe(x =>
 	    {
-			this.previewUpdateService.PreviewInputChanged += this.OnPreviewInputChanged;
-
-		    this.presetsSubscription = this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile).Skip(1).Subscribe(x =>
-		    {
-			    this.RequestRefreshPreviews();
-		    });
-
-			this.clients
-				.Connect()
-				.WhenValueChanged(client => client.PreviewIndex)
-				.Skip(1)
-				.Subscribe(client =>
-				{
-					this.ClearOutOfRangeItems();
-					this.BeginBackgroundImageLoad();
-				});
-
-			this.RequestRefreshPreviews();
-		}
-
-		public event EventHandler<PreviewImageLoadInfo> ImageLoaded;
-
-		public PresetsService PresetsService { get; } = StaticResolver.Resolve<PresetsService>();
-
-
-		private OutputSizeInfo outputSizeInfo;
-	    public OutputSizeInfo OutputSizeInfo
-	    {
-		    get { return this.outputSizeInfo; }
-		    set { this.RaiseAndSetIfChanged(ref this.outputSizeInfo, value); }
-	    }
-
-	    private Color padColor;
-	    public Color PadColor
-	    {
-		    get { return this.padColor; }
-		    set { this.RaiseAndSetIfChanged(ref this.padColor, value); }
-	    }
-
-	    private bool hasPreview;
-	    public bool HasPreview
-	    {
-		    get { return this.hasPreview; }
-		    set { this.RaiseAndSetIfChanged(ref this.hasPreview, value); }
-	    }
-
-	    public HandBrakeInstance ScanInstance
-	    {
-		    get { return this.mainViewModel.ScanInstance; }
-	    }
-
-	    public int PreviewCount
-	    {
-		    get
-		    {
-			    if (this.previewCount > 0)
-			    {
-				    return this.previewCount;
-			    }
-
-			    return Config.PreviewCount;
-		    }
-	    }
-
-		public void RegisterClient(PreviewImageServiceClient client)
-	    {
-		    this.clients.Add(client);
-
 		    this.RequestRefreshPreviews();
-		}
+	    });
 
-		public void RemoveClient(PreviewImageServiceClient client)
-	    {
-			this.clients.Remove(client);
-	    }
-
-		/// <summary>
-		/// Tries to get the preview at the given index.
-		/// </summary>
-		/// <param name="previewIndex">The 0-based index of the preview to start creation for.</param>
-		/// <returns>The bitmap source at that index, or null if it doesn't exist yet.</returns>
-		public BitmapSource TryGetPreviewImage(int previewIndex)
-	    {
-			if (this.previewImageCache == null)
+		this.clients
+			.Connect()
+			.WhenValueChanged(client => client.PreviewIndex)
+			.Skip(1)
+			.Subscribe(client =>
 			{
-				return null;
-			}
+				this.ClearOutOfRangeItems();
+				this.BeginBackgroundImageLoad();
+			});
 
-		    BitmapSource cachedImage = this.previewImageCache[previewIndex];
-		    if (cachedImage != null)
+		this.RequestRefreshPreviews();
+	}
+
+	public event EventHandler<PreviewImageLoadInfo> ImageLoaded;
+
+	public PresetsService PresetsService { get; } = StaticResolver.Resolve<PresetsService>();
+
+
+	private OutputSizeInfo outputSizeInfo;
+    public OutputSizeInfo OutputSizeInfo
+    {
+	    get { return this.outputSizeInfo; }
+	    set { this.RaiseAndSetIfChanged(ref this.outputSizeInfo, value); }
+    }
+
+    private Color padColor;
+    public Color PadColor
+    {
+	    get { return this.padColor; }
+	    set { this.RaiseAndSetIfChanged(ref this.padColor, value); }
+    }
+
+    private bool hasPreview;
+    public bool HasPreview
+    {
+	    get { return this.hasPreview; }
+	    set { this.RaiseAndSetIfChanged(ref this.hasPreview, value); }
+    }
+
+    public HandBrakeInstance ScanInstance
+    {
+	    get { return this.mainViewModel.ScanInstance; }
+    }
+
+    public int PreviewCount
+    {
+	    get
+	    {
+		    if (this.previewCount > 0)
 		    {
-			    return cachedImage;
+			    return this.previewCount;
 		    }
 
-		    return null;
+		    return Config.PreviewCount;
+	    }
+    }
+
+	public void RegisterClient(PreviewImageServiceClient client)
+    {
+	    this.clients.Add(client);
+
+	    this.RequestRefreshPreviews();
+	}
+
+	public void RemoveClient(PreviewImageServiceClient client)
+    {
+		this.clients.Remove(client);
+    }
+
+	/// <summary>
+	/// Tries to get the preview at the given index.
+	/// </summary>
+	/// <param name="previewIndex">The 0-based index of the preview to start creation for.</param>
+	/// <returns>The bitmap source at that index, or null if it doesn't exist yet.</returns>
+	public BitmapSource TryGetPreviewImage(int previewIndex)
+    {
+		if (this.previewImageCache == null)
+		{
+			return null;
+		}
+
+	    BitmapSource cachedImage = this.previewImageCache[previewIndex];
+	    if (cachedImage != null)
+	    {
+		    return cachedImage;
 	    }
 
-	    private void OnPreviewInputChanged(object sender, EventArgs eventArgs)
+	    return null;
+    }
+
+    private void OnPreviewInputChanged(object sender, EventArgs eventArgs)
+    {
+	    this.RequestRefreshPreviews();
+    }
+
+	private void RequestRefreshPreviews()
+    {
+	    if (this.clients.Count == 0)
 	    {
-		    this.RequestRefreshPreviews();
+		    return;
 	    }
 
-		private void RequestRefreshPreviews()
+	    if (!this.mainViewModel.HasVideoSource || this.outputSizeService.Size == null)
 	    {
-		    if (this.clients.Count == 0)
-		    {
-			    return;
-		    }
-
-		    if (!this.mainViewModel.HasVideoSource || this.outputSizeService.Size == null)
-		    {
-			    this.HasPreview = false;
-			    return;
-		    }
-
-		    if (this.waitingOnRefresh)
-		    {
-			    return;
-		    }
-
-		    DateTime now = DateTime.Now;
-		    TimeSpan timeSinceLastRefresh = now - this.lastImageRefreshTime;
-		    if (timeSinceLastRefresh < MinPreviewImageRefreshInterval)
-		    {
-			    this.waitingOnRefresh = true;
-			    TimeSpan timeUntilNextRefresh = MinPreviewImageRefreshInterval - timeSinceLastRefresh;
-			    this.previewImageRefreshTimer = new System.Timers.Timer(timeUntilNextRefresh.TotalMilliseconds);
-			    this.previewImageRefreshTimer.Elapsed += this.previewImageRefreshTimer_Elapsed;
-			    this.previewImageRefreshTimer.AutoReset = false;
-			    this.previewImageRefreshTimer.Start();
-
-			    return;
-		    }
-
-		    this.lastImageRefreshTime = now;
-
-		    this.RefreshPreviews();
+		    this.HasPreview = false;
+		    return;
 	    }
 
-	    private void previewImageRefreshTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+	    if (this.waitingOnRefresh)
 	    {
-		    this.waitingOnRefresh = false;
-		    this.lastImageRefreshTime = DateTime.MinValue;
-		    DispatchUtilities.BeginInvoke(this.RefreshPreviews);
+		    return;
 	    }
 
-	    private void RefreshPreviews()
+	    DateTime now = DateTime.Now;
+	    TimeSpan timeSinceLastRefresh = now - this.lastImageRefreshTime;
+	    if (timeSinceLastRefresh < MinPreviewImageRefreshInterval)
 	    {
-		    this.job = this.mainViewModel.EncodeJob;
+		    this.waitingOnRefresh = true;
+		    TimeSpan timeUntilNextRefresh = MinPreviewImageRefreshInterval - timeSinceLastRefresh;
+		    this.previewImageRefreshTimer = new System.Timers.Timer(timeUntilNextRefresh.TotalMilliseconds);
+		    this.previewImageRefreshTimer.Elapsed += this.previewImageRefreshTimer_Elapsed;
+		    this.previewImageRefreshTimer.AutoReset = false;
+		    this.previewImageRefreshTimer.Start();
 
-		    OutputSizeInfo newOutputSizeInfo = this.outputSizeService.Size;
+		    return;
+	    }
 
-		    int width = newOutputSizeInfo.OutputWidth;
-		    int height = newOutputSizeInfo.OutputHeight;
-		    int parWidth = newOutputSizeInfo.Par.Num;
-		    int parHeight = newOutputSizeInfo.Par.Den;
+	    this.lastImageRefreshTime = now;
 
-		    if (parWidth <= 0 || parHeight <= 0)
+	    this.RefreshPreviews();
+    }
+
+    private void previewImageRefreshTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+    {
+	    this.waitingOnRefresh = false;
+	    this.lastImageRefreshTime = DateTime.MinValue;
+	    DispatchUtilities.BeginInvoke(this.RefreshPreviews);
+    }
+
+    private void RefreshPreviews()
+    {
+	    this.job = this.mainViewModel.EncodeJob;
+
+	    OutputSizeInfo newOutputSizeInfo = this.outputSizeService.Size;
+
+	    int width = newOutputSizeInfo.OutputWidth;
+	    int height = newOutputSizeInfo.OutputHeight;
+	    int parWidth = newOutputSizeInfo.Par.Num;
+	    int parHeight = newOutputSizeInfo.Par.Den;
+
+	    if (parWidth <= 0 || parHeight <= 0)
+	    {
+		    this.HasPreview = false;
+
+		    StaticResolver.Resolve<IAppLogger>().LogError("HandBrake returned a negative pixel aspect ratio. Cannot show preview.");
+		    return;
+	    }
+
+	    if (width < 100 || height < 100)
+	    {
+		    this.HasPreview = false;
+
+		    return;
+	    }
+
+	    this.OutputSizeInfo = newOutputSizeInfo;
+
+	    var profile = this.PresetsService.SelectedPreset.Preset.EncodingProfile;
+	    this.PadColor = ColorUtilities.ToWindowsColor(profile.PadColor);
+
+	    // Update the number of previews.
+	    this.previewCount = this.ScanInstance?.PreviewCount ?? 10;
+	    foreach (PreviewImageServiceClient client in this.clients.Items)
+	    {
+		    if (client.PreviewIndex >= this.previewCount)
 		    {
-			    this.HasPreview = false;
-
-			    StaticResolver.Resolve<IAppLogger>().LogError("HandBrake returned a negative pixel aspect ratio. Cannot show preview.");
-			    return;
-		    }
-
-		    if (width < 100 || height < 100)
-		    {
-			    this.HasPreview = false;
-
-			    return;
-		    }
-
-		    this.OutputSizeInfo = newOutputSizeInfo;
-
-		    var profile = this.PresetsService.SelectedPreset.Preset.EncodingProfile;
-		    this.PadColor = ColorUtilities.ToWindowsColor(profile.PadColor);
-
-		    // Update the number of previews.
-		    this.previewCount = this.ScanInstance?.PreviewCount ?? 10;
-		    foreach (PreviewImageServiceClient client in this.clients.Items)
-		    {
-			    if (client.PreviewIndex >= this.previewCount)
-			    {
-				    client.PreviewIndex = this.previewCount - 1;
-			    }
-		    }
-
-		    this.RaisePropertyChanged(nameof(this.PreviewCount));
-
-		    this.HasPreview = true;
-
-		    lock (this.imageSync)
-		    {
-			    this.previewImageCache = new BitmapSource[this.previewCount];
-			    updateVersion++;
-
-			    // Clear main work queue.
-			    this.previewImageWorkQueue.Clear();
-
-			    // Clear old images out of the file cache.
-			    this.ClearImageFileCache();
-
-			    this.imageFileSync = new List<object>(this.previewCount);
-			    for (int i = 0; i < this.previewCount; i++)
-			    {
-				    this.imageFileSync.Add(new object());
-			    }
-
-			    this.BeginBackgroundImageLoad();
+			    client.PreviewIndex = this.previewCount - 1;
 		    }
 	    }
 
-	    private void ClearImageFileCache()
+	    this.RaisePropertyChanged(nameof(this.PreviewCount));
+
+	    this.HasPreview = true;
+
+	    lock (this.imageSync)
 	    {
-		    try
-		    {
-			    string processCacheFolder = Path.Combine(Utilities.ImageCacheFolder, Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture));
-			    if (!Directory.Exists(processCacheFolder))
-			    {
-				    return;
-			    }
+		    this.previewImageCache = new BitmapSource[this.previewCount];
+		    updateVersion++;
 
-			    int lowestUpdate = -1;
-			    for (int i = updateVersion - 1; i >= 1; i--)
-			    {
-				    if (Directory.Exists(Path.Combine(processCacheFolder, i.ToString(CultureInfo.InvariantCulture))))
-				    {
-					    lowestUpdate = i;
-				    }
-				    else
-				    {
-					    break;
-				    }
-			    }
+		    // Clear main work queue.
+		    this.previewImageWorkQueue.Clear();
 
-			    if (lowestUpdate == -1)
-			    {
-				    return;
-			    }
+		    // Clear old images out of the file cache.
+		    this.ClearImageFileCache();
 
-			    for (int i = lowestUpdate; i <= updateVersion - 1; i++)
-			    {
-				    FileUtilities.DeleteDirectory(Path.Combine(processCacheFolder, i.ToString(CultureInfo.InvariantCulture)));
-			    }
-		    }
-		    catch (Exception)
-		    {
-			    // Ignore. Later checks will clear the cache.
-		    }
-	    }
-
-	    private void ClearOutOfRangeItems()
-	    {
-		    if (this.previewCount <= 0)
-		    {
-			    return;
-		    } 
-
-			// Determine which slots are in range of a client
-		    bool[] inRange = new bool[this.previewCount];
-		    foreach (PreviewImageServiceClient client in this.clients.Items)
-		    {
-			    inRange[client.PreviewIndex] = true;
-			    for (int i = 1; i <= PreviewImageCacheDistance; i++)
-			    {
-				    if (client.PreviewIndex - i >= 0)
-				    {
-					    inRange[client.PreviewIndex - i] = true;
-				    }
-
-				    if (client.PreviewIndex + i < this.previewCount)
-				    {
-					    inRange[client.PreviewIndex + i] = true;
-				    }
-			    }
-		    }
-
-		    // Remove out of range items from work queue
-		    var newWorkQueue = new Queue<PreviewImageJob>();
-		    while (this.previewImageWorkQueue.Count > 0)
-		    {
-			    PreviewImageJob job = this.previewImageWorkQueue.Dequeue();
-			    if (inRange[job.PreviewIndex])
-			    {
-				    newWorkQueue.Enqueue(job);
-			    }
-		    }
-
-		    // Remove out of range cache entries
+		    this.imageFileSync = new List<object>(this.previewCount);
 		    for (int i = 0; i < this.previewCount; i++)
 		    {
-			    if (!inRange[i])
-			    {
-				    this.previewImageCache[i] = null;
-			    }
+			    this.imageFileSync.Add(new object());
 		    }
-	    }
 
-	    private void BeginBackgroundImageLoad()
+		    this.BeginBackgroundImageLoad();
+	    }
+    }
+
+    private void ClearImageFileCache()
+    {
+	    try
 	    {
-		    if (this.previewCount <= 0 || this.ScanInstance == null)
+		    string processCacheFolder = Path.Combine(Utilities.ImageCacheFolder, Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture));
+		    if (!Directory.Exists(processCacheFolder))
 		    {
 			    return;
 		    }
 
-		    foreach (PreviewImageServiceClient client in this.clients.Items)
+		    int lowestUpdate = -1;
+		    for (int i = updateVersion - 1; i >= 1; i--)
 		    {
-			    if (!this.ImageLoadedOrLoading(client.PreviewIndex))
+			    if (Directory.Exists(Path.Combine(processCacheFolder, i.ToString(CultureInfo.InvariantCulture))))
 			    {
-				    this.EnqueueWork(client.PreviewIndex);
+				    lowestUpdate = i;
+			    }
+			    else
+			    {
+				    break;
+			    }
+		    }
+
+		    if (lowestUpdate == -1)
+		    {
+			    return;
+		    }
+
+		    for (int i = lowestUpdate; i <= updateVersion - 1; i++)
+		    {
+			    FileUtilities.DeleteDirectory(Path.Combine(processCacheFolder, i.ToString(CultureInfo.InvariantCulture)));
+		    }
+	    }
+	    catch (Exception)
+	    {
+		    // Ignore. Later checks will clear the cache.
+	    }
+    }
+
+    private void ClearOutOfRangeItems()
+    {
+	    if (this.previewCount <= 0)
+	    {
+		    return;
+	    } 
+
+		// Determine which slots are in range of a client
+	    bool[] inRange = new bool[this.previewCount];
+	    foreach (PreviewImageServiceClient client in this.clients.Items)
+	    {
+		    inRange[client.PreviewIndex] = true;
+		    for (int i = 1; i <= PreviewImageCacheDistance; i++)
+		    {
+			    if (client.PreviewIndex - i >= 0)
+			    {
+				    inRange[client.PreviewIndex - i] = true;
 			    }
 
-			    for (int i = 1; i <= PreviewImageCacheDistance; i++)
+			    if (client.PreviewIndex + i < this.previewCount)
 			    {
-				    if (client.PreviewIndex - i >= 0 && !this.ImageLoadedOrLoading(client.PreviewIndex - i))
-				    {
-					    this.EnqueueWork(client.PreviewIndex - i);
-				    }
-
-				    if (client.PreviewIndex + i < this.previewCount && !this.ImageLoadedOrLoading(client.PreviewIndex + i))
-				    {
-					    this.EnqueueWork(client.PreviewIndex + i);
-				    }
+				    inRange[client.PreviewIndex + i] = true;
 			    }
-			}
-
-		    // Start a queue processing thread if one is not going already.
-		    if (!this.previewImageQueueProcessing && this.previewImageWorkQueue.Count > 0)
-		    {
-			    ThreadPool.QueueUserWorkItem(this.ProcessPreviewImageWork);
-			    this.previewImageQueueProcessing = true;
 		    }
 	    }
 
-	    private bool ImageLoadedOrLoading(int previewNumber)
+	    // Remove out of range items from work queue
+	    var newWorkQueue = new Queue<PreviewImageJob>();
+	    while (this.previewImageWorkQueue.Count > 0)
 	    {
-		    if (this.previewImageCache[previewNumber] != null)
+		    PreviewImageJob job = this.previewImageWorkQueue.Dequeue();
+		    if (inRange[job.PreviewIndex])
 		    {
-			    return true;
+			    newWorkQueue.Enqueue(job);
 		    }
-
-		    if (this.previewImageWorkQueue.Count(j => j.PreviewIndex == previewNumber) > 0)
-		    {
-			    return true;
-		    }
-
-		    return false;
 	    }
 
-	    private void EnqueueWork(int previewNumber)
+	    // Remove out of range cache entries
+	    for (int i = 0; i < this.previewCount; i++)
 	    {
-		    this.previewImageWorkQueue.Enqueue(new PreviewImageJob
+		    if (!inRange[i])
 		    {
-			    UpdateVersion = updateVersion,
-			    ScanInstance = this.ScanInstance,
-			    PreviewIndex = previewNumber,
-			    Job = this.job,
-			    Title = this.mainViewModel.SelectedTitle.Title,
-			    ImageFileSync = this.imageFileSync[previewNumber]
-		    });
+			    this.previewImageCache[i] = null;
+		    }
+	    }
+    }
+
+    private void BeginBackgroundImageLoad()
+    {
+	    if (this.previewCount <= 0 || this.ScanInstance == null)
+	    {
+		    return;
 	    }
 
-	    private void ProcessPreviewImageWork(object state)
+	    foreach (PreviewImageServiceClient client in this.clients.Items)
 	    {
-		    PreviewImageJob imageJob;
-		    bool workLeft = true;
-
-		    while (workLeft)
+		    if (!this.ImageLoadedOrLoading(client.PreviewIndex))
 		    {
-			    lock (this.imageSync)
+			    this.EnqueueWork(client.PreviewIndex);
+		    }
+
+		    for (int i = 1; i <= PreviewImageCacheDistance; i++)
+		    {
+			    if (client.PreviewIndex - i >= 0 && !this.ImageLoadedOrLoading(client.PreviewIndex - i))
+			    {
+				    this.EnqueueWork(client.PreviewIndex - i);
+			    }
+
+			    if (client.PreviewIndex + i < this.previewCount && !this.ImageLoadedOrLoading(client.PreviewIndex + i))
+			    {
+				    this.EnqueueWork(client.PreviewIndex + i);
+			    }
+		    }
+		}
+
+	    // Start a queue processing thread if one is not going already.
+	    if (!this.previewImageQueueProcessing && this.previewImageWorkQueue.Count > 0)
+	    {
+		    ThreadPool.QueueUserWorkItem(this.ProcessPreviewImageWork);
+		    this.previewImageQueueProcessing = true;
+	    }
+    }
+
+    private bool ImageLoadedOrLoading(int previewNumber)
+    {
+	    if (this.previewImageCache[previewNumber] != null)
+	    {
+		    return true;
+	    }
+
+	    if (this.previewImageWorkQueue.Count(j => j.PreviewIndex == previewNumber) > 0)
+	    {
+		    return true;
+	    }
+
+	    return false;
+    }
+
+    private void EnqueueWork(int previewNumber)
+    {
+	    this.previewImageWorkQueue.Enqueue(new PreviewImageJob
+	    {
+		    UpdateVersion = updateVersion,
+		    ScanInstance = this.ScanInstance,
+		    PreviewIndex = previewNumber,
+		    Job = this.job,
+		    Title = this.mainViewModel.SelectedTitle.Title,
+		    ImageFileSync = this.imageFileSync[previewNumber]
+	    });
+    }
+
+    private void ProcessPreviewImageWork(object state)
+    {
+	    PreviewImageJob imageJob;
+	    bool workLeft = true;
+
+	    while (workLeft)
+	    {
+		    lock (this.imageSync)
+		    {
+			    if (this.previewImageWorkQueue.Count == 0)
+			    {
+				    this.previewImageQueueProcessing = false;
+				    return;
+			    }
+
+			    imageJob = this.previewImageWorkQueue.Dequeue();
+			    while (imageJob.UpdateVersion < updateVersion)
 			    {
 				    if (this.previewImageWorkQueue.Count == 0)
 				    {
@@ -431,147 +440,137 @@ namespace VidCoder.Services
 				    }
 
 				    imageJob = this.previewImageWorkQueue.Dequeue();
-				    while (imageJob.UpdateVersion < updateVersion)
-				    {
-					    if (this.previewImageWorkQueue.Count == 0)
-					    {
-						    this.previewImageQueueProcessing = false;
-						    return;
-					    }
-
-					    imageJob = this.previewImageWorkQueue.Dequeue();
-				    }
 			    }
+		    }
 
-			    string imagePath = Path.Combine(
-				    Utilities.ImageCacheFolder,
-				    Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture),
-				    imageJob.UpdateVersion.ToString(CultureInfo.InvariantCulture),
-				    imageJob.PreviewIndex.ToString(CultureInfo.InvariantCulture) + ".bmp");
-			    BitmapSource imageSource = null;
+		    string imagePath = Path.Combine(
+			    Utilities.ImageCacheFolder,
+			    Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture),
+			    imageJob.UpdateVersion.ToString(CultureInfo.InvariantCulture),
+			    imageJob.PreviewIndex.ToString(CultureInfo.InvariantCulture) + ".bmp");
+		    BitmapSource imageSource = null;
 
-			    // Check the disc cache for the image
-			    lock (imageJob.ImageFileSync)
+		    // Check the disc cache for the image
+		    lock (imageJob.ImageFileSync)
+		    {
+			    if (File.Exists(imagePath))
 			    {
-				    if (File.Exists(imagePath))
+				    Uri imageUri;
+				    if (Uri.TryCreate(imagePath, UriKind.Absolute, out imageUri))
 				    {
-					    Uri imageUri;
-					    if (Uri.TryCreate(imagePath, UriKind.Absolute, out imageUri))
-					    {
-						    // When we read from disc cache the image is already transformed.
-						    var bitmapImage = new BitmapImage();
-						    bitmapImage.BeginInit();
-						    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-						    bitmapImage.UriSource = imageUri;
-						    bitmapImage.EndInit();
-						    bitmapImage.Freeze();
+					    // When we read from disc cache the image is already transformed.
+					    var bitmapImage = new BitmapImage();
+					    bitmapImage.BeginInit();
+					    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+					    bitmapImage.UriSource = imageUri;
+					    bitmapImage.EndInit();
+					    bitmapImage.Freeze();
 
-						    imageSource = bitmapImage;
-					    }
-					    else
-					    {
-						    StaticResolver.Resolve<IAppLogger>().LogError($"Could not load cached preview image from {imagePath} . Did not parse as a URI.");
-					    }
+					    imageSource = bitmapImage;
 				    }
-			    }
-
-			    if (imageSource == null && !imageJob.ScanInstance.IsDisposed)
-			    {
-					// Create the JsonEncodeObject
-					JsonEncodeFactory factory = new JsonEncodeFactory(new StubLogger());
-
-					JsonEncodeObject jsonEncodeObject = factory.CreateJsonObject(
-						imageJob.Job,
-						imageJob.Title,
-						EncodingRes.DefaultChapterName);
-
-					// Make a HandBrake call to get the image
-					imageSource = BitmapUtilities.ConvertToBitmapImage(BitmapUtilities.ConvertByteArrayToBitmap(imageJob.ScanInstance.GetPreview(jsonEncodeObject, imageJob.PreviewIndex)));
-
-				    //// Transform the image as per rotation and reflection settings
-				    //VCProfile profile = imageJob.Job.EncodingProfile;
-				    //if (profile.FlipHorizontal || profile.FlipVertical || profile.Rotation != VCPictureRotation.None)
-				    //{
-					   // imageSource = CreateTransformedBitmap(imageSource, profile);
-				    //}
-
-				    // Start saving the image file in the background and continue to process the queue.
-				    ThreadPool.QueueUserWorkItem(this.BackgroundFileSave, new SaveImageJob
+				    else
 				    {
-					    PreviewNumber = imageJob.PreviewIndex,
-					    UpdateVersion = imageJob.UpdateVersion,
-					    FilePath = imagePath,
-					    Image = imageSource,
-					    ImageFileSync = imageJob.ImageFileSync
-				    });
-			    }
-
-			    lock (this.imageSync)
-			    {
-				    if (imageJob.UpdateVersion == updateVersion)
-				    {
-					    this.previewImageCache[imageJob.PreviewIndex] = imageSource;
-					    int previewIndex = imageJob.PreviewIndex;
-					    DispatchUtilities.BeginInvoke(() =>
-					    {
-							this.ImageLoaded?.Invoke(this, new PreviewImageLoadInfo { PreviewImage = imageSource, PreviewIndex = previewIndex });
-					    });
-				    }
-
-				    if (this.previewImageWorkQueue.Count == 0)
-				    {
-					    workLeft = false;
-					    this.previewImageQueueProcessing = false;
+					    StaticResolver.Resolve<IAppLogger>().LogError($"Could not load cached preview image from {imagePath} . Did not parse as a URI.");
 				    }
 			    }
 		    }
-	    }
 
-	    private void BackgroundFileSave(object state)
-	    {
-		    var job = state as SaveImageJob;
+		    if (imageSource == null && !imageJob.ScanInstance.IsDisposed)
+		    {
+				// Create the JsonEncodeObject
+				JsonEncodeFactory factory = new JsonEncodeFactory(new StubLogger());
+
+				JsonEncodeObject jsonEncodeObject = factory.CreateJsonObject(
+					imageJob.Job,
+					imageJob.Title,
+					EncodingRes.DefaultChapterName);
+
+				// Make a HandBrake call to get the image
+				imageSource = BitmapUtilities.ConvertToBitmapImage(BitmapUtilities.ConvertByteArrayToBitmap(imageJob.ScanInstance.GetPreview(jsonEncodeObject, imageJob.PreviewIndex)));
+
+			    //// Transform the image as per rotation and reflection settings
+			    //VCProfile profile = imageJob.Job.EncodingProfile;
+			    //if (profile.FlipHorizontal || profile.FlipVertical || profile.Rotation != VCPictureRotation.None)
+			    //{
+				   // imageSource = CreateTransformedBitmap(imageSource, profile);
+			    //}
+
+			    // Start saving the image file in the background and continue to process the queue.
+			    ThreadPool.QueueUserWorkItem(this.BackgroundFileSave, new SaveImageJob
+			    {
+				    PreviewNumber = imageJob.PreviewIndex,
+				    UpdateVersion = imageJob.UpdateVersion,
+				    FilePath = imagePath,
+				    Image = imageSource,
+				    ImageFileSync = imageJob.ImageFileSync
+			    });
+		    }
 
 		    lock (this.imageSync)
 		    {
-			    if (job.UpdateVersion < updateVersion)
+			    if (imageJob.UpdateVersion == updateVersion)
 			    {
-				    return;
-			    }
-		    }
-
-		    lock (job.ImageFileSync)
-		    {
-			    try
-			    {
-				    using (var memoryStream = new MemoryStream())
+				    this.previewImageCache[imageJob.PreviewIndex] = imageSource;
+				    int previewIndex = imageJob.PreviewIndex;
+				    DispatchUtilities.BeginInvoke(() =>
 				    {
-					    // Write the bitmap out to a memory stream before saving so that we won't be holding
-					    // a write lock on the BitmapImage for very long; it's used in the UI.
-					    var encoder = new BmpBitmapEncoder();
-					    encoder.Frames.Add(BitmapFrame.Create(job.Image));
-					    encoder.Save(memoryStream);
-
-						var directory = Path.GetDirectoryName(job.FilePath);
-						if (!Directory.Exists(directory))
-						{
-							Directory.CreateDirectory(directory);
-						}
-
-						using (var fileStream = new FileStream(job.FilePath, FileMode.Create))
-					    {
-						    fileStream.Write(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
-					    }
-				    }
+						this.ImageLoaded?.Invoke(this, new PreviewImageLoadInfo { PreviewImage = imageSource, PreviewIndex = previewIndex });
+				    });
 			    }
-			    catch (Exception exception)
+
+			    if (this.previewImageWorkQueue.Count == 0)
 			    {
-					if (!this.loggedFileSaveError)
-					{
-						StaticResolver.Resolve<IAppLogger>().LogError($"Could not cache preview image to {job.FilePath}: {exception}");
-						this.loggedFileSaveError = true;
-					}
-				}
+				    workLeft = false;
+				    this.previewImageQueueProcessing = false;
+			    }
 		    }
 	    }
-	}
+    }
+
+    private void BackgroundFileSave(object state)
+    {
+	    var job = state as SaveImageJob;
+
+	    lock (this.imageSync)
+	    {
+		    if (job.UpdateVersion < updateVersion)
+		    {
+			    return;
+		    }
+	    }
+
+	    lock (job.ImageFileSync)
+	    {
+		    try
+		    {
+			    using (var memoryStream = new MemoryStream())
+			    {
+				    // Write the bitmap out to a memory stream before saving so that we won't be holding
+				    // a write lock on the BitmapImage for very long; it's used in the UI.
+				    var encoder = new BmpBitmapEncoder();
+				    encoder.Frames.Add(BitmapFrame.Create(job.Image));
+				    encoder.Save(memoryStream);
+
+					var directory = Path.GetDirectoryName(job.FilePath);
+					if (!Directory.Exists(directory))
+					{
+						Directory.CreateDirectory(directory);
+					}
+
+					using (var fileStream = new FileStream(job.FilePath, FileMode.Create))
+				    {
+					    fileStream.Write(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
+				    }
+			    }
+		    }
+		    catch (Exception exception)
+		    {
+				if (!this.loggedFileSaveError)
+				{
+					StaticResolver.Resolve<IAppLogger>().LogError($"Could not cache preview image to {job.FilePath}: {exception}");
+					this.loggedFileSaveError = true;
+				}
+			}
+	    }
+    }
 }

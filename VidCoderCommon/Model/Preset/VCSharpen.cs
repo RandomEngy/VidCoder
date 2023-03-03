@@ -1,9 +1,8 @@
-﻿namespace VidCoderCommon.Model
+﻿namespace VidCoderCommon.Model;
+
+public enum VCSharpen
 {
-	public enum VCSharpen
-	{
-		Off,
-		UnSharp,
-		LapSharp,
-	}
+	Off,
+	UnSharp,
+	LapSharp,
 }

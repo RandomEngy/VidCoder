@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VidCoder
+namespace VidCoder;
+
+public class Constants
 {
-	public class Constants
-	{
-		public static readonly TimeSpan TimeRangeBuffer = TimeSpan.FromSeconds(1);
-	}
+	public static readonly TimeSpan TimeRangeBuffer = TimeSpan.FromSeconds(1);
 }

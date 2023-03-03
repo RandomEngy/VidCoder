@@ -5,26 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using VidCoderCommon.Model;
 
-namespace VidCoderCommon
+namespace VidCoderCommon;
+
+public interface IHandBrakeEncodeWorker : IHandBrakeWorker
 {
-	public interface IHandBrakeEncodeWorker : IHandBrakeWorker
-	{
-		void StartEncode(
-			VCJob job,
-			int previewNumber,
-			int previewSeconds,
-			string defaultChapterNameFormat);
+	void StartEncode(
+		VCJob job,
+		int previewNumber,
+		int previewSeconds,
+		string defaultChapterNameFormat);
 
-		/// <summary>
-		/// Starts an encode with the given encode JSON.
-		/// </summary>
-		/// <param name="encodeJson">The encode JSON.</param>
-		void StartEncodeFromJson(string encodeJson);
+	/// <summary>
+	/// Starts an encode with the given encode JSON.
+	/// </summary>
+	/// <param name="encodeJson">The encode JSON.</param>
+	void StartEncodeFromJson(string encodeJson);
 
-		void PauseEncode();
+	void PauseEncode();
 
-		void ResumeEncode();
+	void ResumeEncode();
 
-		void StopEncode();
-	}
+	void StopEncode();
 }

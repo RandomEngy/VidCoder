@@ -9,58 +9,57 @@ using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
 
-namespace VidCoder.ViewModel
+namespace VidCoder.ViewModel;
+
+public class LogWindowViewModel : ReactiveObject
 {
-	public class LogWindowViewModel : ReactiveObject
+	private MainViewModel mainViewModel = StaticResolver.Resolve<MainViewModel>();
+	private IAppLogger generalLogger = StaticResolver.Resolve<IAppLogger>();
+
+	public MainViewModel MainViewModel
 	{
-		private MainViewModel mainViewModel = StaticResolver.Resolve<MainViewModel>();
-		private IAppLogger generalLogger = StaticResolver.Resolve<IAppLogger>();
-
-		public MainViewModel MainViewModel
+		get
 		{
-			get
-			{
-				return this.mainViewModel;
-			}
+			return this.mainViewModel;
 		}
+	}
 
-		public LogCoordinator LogCoordinator { get; } = StaticResolver.Resolve<LogCoordinator>();
+	public LogCoordinator LogCoordinator { get; } = StaticResolver.Resolve<LogCoordinator>();
 
-		private ReactiveCommand<Unit, Unit> copy;
-		public ICommand Copy
+	private ReactiveCommand<Unit, Unit> copy;
+	public ICommand Copy
+	{
+		get
 		{
-			get
+			return this.copy ?? (this.copy = ReactiveCommand.Create(() =>
 			{
-				return this.copy ?? (this.copy = ReactiveCommand.Create(() =>
-				{
-					try
-					{
-						var selectedLogger = this.LogCoordinator.SelectedLog.Logger;
-						string logContents = GetLogContents(selectedLogger);
-						StaticResolver.Resolve<ClipboardService>().SetText(logContents);
-					}
-					catch (Exception exception)
-					{
-						this.generalLogger.LogError("Could not copy text." + Environment.NewLine + exception);
-					}
-				}));
-			}
-		}
-
-		private static string GetLogContents(IAppLogger fileLogger)
-		{
-			lock (fileLogger.LogLock)
-			{
-				fileLogger.SuspendWriter();
-
 				try
 				{
-					return File.ReadAllText(fileLogger.LogPath);
+					var selectedLogger = this.LogCoordinator.SelectedLog.Logger;
+					string logContents = GetLogContents(selectedLogger);
+					StaticResolver.Resolve<ClipboardService>().SetText(logContents);
 				}
-				finally
+				catch (Exception exception)
 				{
-					fileLogger.ResumeWriter();
+					this.generalLogger.LogError("Could not copy text." + Environment.NewLine + exception);
 				}
+			}));
+		}
+	}
+
+	private static string GetLogContents(IAppLogger fileLogger)
+	{
+		lock (fileLogger.LogLock)
+		{
+			fileLogger.SuspendWriter();
+
+			try
+			{
+				return File.ReadAllText(fileLogger.LogPath);
+			}
+			finally
+			{
+				fileLogger.ResumeWriter();
 			}
 		}
 	}

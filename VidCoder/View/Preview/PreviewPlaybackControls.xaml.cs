@@ -13,16 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace VidCoder.View.Preview
+namespace VidCoder.View.Preview;
+
+/// <summary>
+/// Interaction logic for PreviewPlaybackControls.xaml
+/// </summary>
+public partial class PreviewPlaybackControls : UserControl
 {
-	/// <summary>
-	/// Interaction logic for PreviewPlaybackControls.xaml
-	/// </summary>
-	public partial class PreviewPlaybackControls : UserControl
+	public PreviewPlaybackControls()
 	{
-		public PreviewPlaybackControls()
-		{
-			InitializeComponent();
-		}
+		InitializeComponent();
 	}
 }

@@ -6,57 +6,56 @@ using HandBrake.Interop.Interop.Json.Scan;
 using ReactiveUI;
 using VidCoder.Extensions;
 
-namespace VidCoder.ViewModel
+namespace VidCoder.ViewModel;
+
+public class TitleSelectionViewModel : ReactiveObject
 {
-	public class TitleSelectionViewModel : ReactiveObject
+	private QueueTitlesWindowViewModel titlesDialogVM;
+	private bool selected;
+
+	public TitleSelectionViewModel(SourceTitle title, QueueTitlesWindowViewModel titlesDialogVM)
 	{
-		private QueueTitlesWindowViewModel titlesDialogVM;
-		private bool selected;
+		this.Title = title;
+		this.titlesDialogVM = titlesDialogVM;
+	}
 
-		public TitleSelectionViewModel(SourceTitle title, QueueTitlesWindowViewModel titlesDialogVM)
+	public bool Selected
+	{
+		get
 		{
-			this.Title = title;
-			this.titlesDialogVM = titlesDialogVM;
+			return this.selected;
 		}
 
-		public bool Selected
+		set
 		{
-			get
-			{
-				return this.selected;
-			}
-
-			set
-			{
-				this.selected = value;
-				this.RaisePropertyChanged();
-				this.titlesDialogVM.HandleCheckChanged(this, value);
-			}
+			this.selected = value;
+			this.RaisePropertyChanged();
+			this.titlesDialogVM.HandleCheckChanged(this, value);
 		}
+	}
 
-		public SourceTitle Title { get; set; }
+	public SourceTitle Title { get; set; }
 
-		public string Text
+	public string Text
+	{
+		get
 		{
-			get
-			{
-				return this.Title.GetDisplayString();
-			}
+			return this.Title.GetDisplayString();
 		}
+	}
 
-		/// <summary>
-		/// Set the selected value for this item.
-		/// </summary>
-		/// <param name="newValue"></param>
-		public void SetSelected(bool newValue)
-		{
-			this.selected = newValue;
-			this.RaisePropertyChanged(nameof(this.Selected));
-		}
+	/// <summary>
+	/// Set the selected value for this item.
+	/// </summary>
+	/// <param name="newValue"></param>
+	public void SetSelected(bool newValue)
+	{
+		this.selected = newValue;
+		this.RaisePropertyChanged(nameof(this.Selected));
+	}
 
-		public override string ToString()
-		{
-			return this.Text;
-		}
+	public override string ToString()
+	{
+		return this.Text;
 	}
 }

@@ -5,57 +5,56 @@ using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Services.Windows;
 
-namespace VidCoder.ViewModel
+namespace VidCoder.ViewModel;
+
+public abstract class OkCancelDialogViewModel : ReactiveObject, IClosableWindow
 {
-	public abstract class OkCancelDialogViewModel : ReactiveObject, IClosableWindow
+	private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
+
+	protected OkCancelDialogViewModel()
 	{
-		private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
+	}
 
-		protected OkCancelDialogViewModel()
-		{
-		}
-
-		public virtual bool CanClose
-		{
-			get
-			{
-				return true;
-			}
-		}
-
-		public virtual bool OnClosing()
+	public virtual bool CanClose
+	{
+		get
 		{
 			return true;
 		}
+	}
 
-		public bool DialogResult { get; set; }
+	public virtual bool OnClosing()
+	{
+		return true;
+	}
 
-		private ReactiveCommand<Unit, Unit> cancel;
-		public ICommand Cancel
+	public bool DialogResult { get; set; }
+
+	private ReactiveCommand<Unit, Unit> cancel;
+	public ICommand Cancel
+	{
+		get
 		{
-			get
+			return this.cancel ?? (this.cancel = ReactiveCommand.Create(() =>
 			{
-				return this.cancel ?? (this.cancel = ReactiveCommand.Create(() =>
-				{
-					this.DialogResult = false;
-					this.windowManager.Close(this);
-				}));
-			}
+				this.DialogResult = false;
+				this.windowManager.Close(this);
+			}));
 		}
+	}
 
-		private ReactiveCommand<Unit, Unit> accept;
-		public ICommand Accept
+	private ReactiveCommand<Unit, Unit> accept;
+	public ICommand Accept
+	{
+		get
 		{
-			get
-			{
-				return this.accept ?? (this.accept = ReactiveCommand.Create(
-					() =>
-					{
-						this.DialogResult = true;
-						this.windowManager.Close(this);
-					},
-					this.WhenAnyValue(x => x.CanClose)));
-			}
+			return this.accept ?? (this.accept = ReactiveCommand.Create(
+				() =>
+				{
+					this.DialogResult = true;
+					this.windowManager.Close(this);
+				},
+				this.WhenAnyValue(x => x.CanClose)));
 		}
 	}
 }

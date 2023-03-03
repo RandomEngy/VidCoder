@@ -6,76 +6,75 @@ using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.ViewModel;
 
-namespace VidCoder.Services
+namespace VidCoder.Services;
+
+public class QueueImportExport : IQueueImportExport
 {
-	public class QueueImportExport : IQueueImportExport
+	private IFileService fileService;
+	private IMessageBoxService messageBoxService;
+	private ProcessingService processingService = StaticResolver.Resolve<ProcessingService>();
+	private IAppLogger logger;
+
+	public QueueImportExport(IFileService fileService, IMessageBoxService messageBoxService, IAppLogger logger)
 	{
-		private IFileService fileService;
-		private IMessageBoxService messageBoxService;
-		private ProcessingService processingService = StaticResolver.Resolve<ProcessingService>();
-		private IAppLogger logger;
+		this.fileService = fileService;
+		this.messageBoxService = messageBoxService;
+		this.logger = logger;
+	}
 
-		public QueueImportExport(IFileService fileService, IMessageBoxService messageBoxService, IAppLogger logger)
+	public IList<EncodeJobWithMetadata> Import(string queueFile)
+	{
+		try
 		{
-			this.fileService = fileService;
-			this.messageBoxService = messageBoxService;
-			this.logger = logger;
-		}
-
-		public IList<EncodeJobWithMetadata> Import(string queueFile)
-		{
-			try
+			IList<EncodeJobWithMetadata> jobs = EncodeJobStorage.LoadQueueFile(queueFile);
+			if (jobs == null)
 			{
-				IList<EncodeJobWithMetadata> jobs = EncodeJobStorage.LoadQueueFile(queueFile);
-				if (jobs == null)
-				{
-					throw new ArgumentException("Queue file is malformed.");
-				}
-
-				foreach (var job in jobs)
-				{
-					this.processingService.QueueJob(new EncodeJobViewModel(job.Job)
-						{
-							SourceParentFolder = job.SourceParentFolder,
-							ManualOutputPath = job.ManualOutputPath,
-							NameFormatOverride = job.NameFormatOverride,
-							PresetName = job.PresetName
-						});
-				}
-
-				return jobs;
+				throw new ArgumentException("Queue file is malformed.");
 			}
-			catch (Exception exception)
+
+			foreach (var job in jobs)
 			{
-				this.logger.LogError("Queue import failed: " + exception.Message);
-				throw;
+				this.processingService.QueueJob(new EncodeJobViewModel(job.Job)
+					{
+						SourceParentFolder = job.SourceParentFolder,
+						ManualOutputPath = job.ManualOutputPath,
+						NameFormatOverride = job.NameFormatOverride,
+						PresetName = job.PresetName
+					});
 			}
+
+			return jobs;
 		}
-
-		public void Export(IList<EncodeJobWithMetadata> jobs)
+		catch (Exception exception)
 		{
-			string initialFileName = "Queue";
+			this.logger.LogError("Queue import failed: " + exception.Message);
+			throw;
+		}
+	}
 
-			string exportFileName = this.fileService.GetFileNameSave(
-				Config.RememberPreviousFiles ? Config.LastPresetExportFolder : null,
-				MainRes.ExportQueueFilePickerText,
-				FileUtilities.CleanFileName(initialFileName + ".vjqueue"),
-				"vjqueue",
-				CommonRes.QueueFileFilter + "|*.vjqueue");
-			if (exportFileName != null)
+	public void Export(IList<EncodeJobWithMetadata> jobs)
+	{
+		string initialFileName = "Queue";
+
+		string exportFileName = this.fileService.GetFileNameSave(
+			Config.RememberPreviousFiles ? Config.LastPresetExportFolder : null,
+			MainRes.ExportQueueFilePickerText,
+			FileUtilities.CleanFileName(initialFileName + ".vjqueue"),
+			"vjqueue",
+			CommonRes.QueueFileFilter + "|*.vjqueue");
+		if (exportFileName != null)
+		{
+			if (Config.RememberPreviousFiles)
 			{
-				if (Config.RememberPreviousFiles)
-				{
-					Config.LastPresetExportFolder = Path.GetDirectoryName(exportFileName);
-				}
+				Config.LastPresetExportFolder = Path.GetDirectoryName(exportFileName);
+			}
 
-				if (EncodeJobStorage.SaveQueueToFile(jobs, exportFileName))
-				{
-					this.messageBoxService.Show(
-						string.Format(MainRes.QueueExportSuccessMessage, exportFileName),
-						CommonRes.Success,
-						System.Windows.MessageBoxButton.OK);
-				}
+			if (EncodeJobStorage.SaveQueueToFile(jobs, exportFileName))
+			{
+				this.messageBoxService.Show(
+					string.Format(MainRes.QueueExportSuccessMessage, exportFileName),
+					CommonRes.Success,
+					System.Windows.MessageBoxButton.OK);
 			}
 		}
 	}

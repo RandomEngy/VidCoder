@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoder.Model
-{
+namespace VidCoder.Model;
+
     public enum UpdateMode
     {
-		SilentNextLaunch,
-		PromptApplyImmediately
+	SilentNextLaunch,
+	PromptApplyImmediately
     }
-}

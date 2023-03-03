@@ -1,13 +1,12 @@
 ﻿using System;
 using HandBrake.Interop.Interop.Json.Scan;
 
-namespace VidCoderCommon.Extensions
+namespace VidCoderCommon.Extensions;
+
+public static class JsonDurationExtensions
 {
-	public static class JsonDurationExtensions
+	public static TimeSpan ToSpan(this Duration duration)
 	{
-		public static TimeSpan ToSpan(this Duration duration)
-		{
-			return TimeSpan.FromSeconds((double) duration.Ticks / 90000);
-		}
+		return TimeSpan.FromSeconds((double) duration.Ticks / 90000);
 	}
 }

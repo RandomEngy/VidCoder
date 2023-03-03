@@ -7,69 +7,68 @@ using System.Timers;
 using VidCoderCommon.Model;
 using VidCoderFileWatcher.Model;
 
-namespace VidCoderFileWatcher.Services
+namespace VidCoderFileWatcher.Services;
+
+/// <summary>
+/// Watches a folder using polling.
+/// </summary>
+public class PollingFolderWatcher : IDisposable
 {
-	/// <summary>
-	/// Watches a folder using polling.
-	/// </summary>
-	public class PollingFolderWatcher : IDisposable
+	private bool isDisposed;
+
+	private readonly WatcherService watcherService;
+	private readonly IList<WatchedFolder> watchedFolders;
+	private readonly IBasicLogger logger;
+
+	private readonly System.Timers.Timer timer;
+
+	private bool checkingFolders = false;
+
+	public PollingFolderWatcher(WatcherService watcherService, IList<WatchedFolder> watchedFolders, IBasicLogger logger)
 	{
-		private bool isDisposed;
+		this.watcherService = watcherService;
+		this.watchedFolders = watchedFolders;
+		this.logger = logger;
 
-		private readonly WatcherService watcherService;
-		private readonly IList<WatchedFolder> watchedFolders;
-		private readonly IBasicLogger logger;
+		int pollIntervalSeconds = DatabaseConfig.Get<int>("WatcherPollIntervalSeconds", 5, WatcherDatabase.Connection);
 
-		private readonly System.Timers.Timer timer;
+		this.timer = new System.Timers.Timer(pollIntervalSeconds * 1000);
+		this.timer.Elapsed += this.OnTimerElapsed;
+		this.timer.Start();
+	}
 
-		private bool checkingFolders = false;
-
-		public PollingFolderWatcher(WatcherService watcherService, IList<WatchedFolder> watchedFolders, IBasicLogger logger)
+	private async void OnTimerElapsed(object? sender, ElapsedEventArgs e)
+	{
+		if (this.checkingFolders)
 		{
-			this.watcherService = watcherService;
-			this.watchedFolders = watchedFolders;
-			this.logger = logger;
-
-			int pollIntervalSeconds = DatabaseConfig.Get<int>("WatcherPollIntervalSeconds", 5, WatcherDatabase.Connection);
-
-			this.timer = new System.Timers.Timer(pollIntervalSeconds * 1000);
-			this.timer.Elapsed += this.OnTimerElapsed;
-			this.timer.Start();
+			// Don't start another check while a previous one is still in progress.
+			return;
 		}
 
-		private async void OnTimerElapsed(object? sender, ElapsedEventArgs e)
+		var folderEnumerator = new FolderEnumerator(this.watchedFolders, this.watcherService, this.logger, logVerbose: false);
+
+		this.checkingFolders = true;
+		await folderEnumerator.CheckFolders();
+		this.checkingFolders = false;
+	}
+
+	protected virtual void Dispose(bool disposing)
+	{
+		if (!this.isDisposed)
 		{
-			if (this.checkingFolders)
+			if (disposing)
 			{
-				// Don't start another check while a previous one is still in progress.
-				return;
+				this.timer.Dispose();
 			}
 
-			var folderEnumerator = new FolderEnumerator(this.watchedFolders, this.watcherService, this.logger, logVerbose: false);
-
-			this.checkingFolders = true;
-			await folderEnumerator.CheckFolders();
-			this.checkingFolders = false;
+			this.isDisposed = true;
 		}
+	}
 
-		protected virtual void Dispose(bool disposing)
-		{
-			if (!this.isDisposed)
-			{
-				if (disposing)
-				{
-					this.timer.Dispose();
-				}
-
-				this.isDisposed = true;
-			}
-		}
-
-		public void Dispose()
-		{
-			// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-			this.Dispose(disposing: true);
-			GC.SuppressFinalize(this);
-		}
+	public void Dispose()
+	{
+		// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+		this.Dispose(disposing: true);
+		GC.SuppressFinalize(this);
 	}
 }

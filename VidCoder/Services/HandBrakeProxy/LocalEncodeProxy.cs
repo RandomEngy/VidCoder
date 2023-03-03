@@ -14,202 +14,201 @@ using VidCoderCommon.Utilities;
 using HandBrake.Interop.Interop.Interfaces.EventArgs;
 using System.Text.Json;
 
-namespace VidCoder
+namespace VidCoder;
+
+public class LocalEncodeProxy : IEncodeProxy
 {
-	public class LocalEncodeProxy : IEncodeProxy
+	private IAppLogger logger;
+
+	// Instance and lock only used when doing in-process encode (for debugging)
+	private HandBrakeInstance instance;
+	private readonly object encoderLock = new object();
+
+	private ManualResetEventSlim encodeStartEvent;
+	private ManualResetEventSlim encodeEndEvent;
+
+	private bool encoding;
+
+	public event EventHandler EncodeStarted;
+	public event EventHandler<EncodeProgressEventArgs> EncodeProgress;
+	public event EventHandler<VCEncodeCompletedEventArgs> EncodeCompleted;
+
+	public Task StartEncodeAsync(
+		VCJob job,
+		IAppLogger logger,
+		bool preview, 
+		int previewNumber, 
+		int previewSeconds, 
+		double overallSelectedLengthSeconds)
 	{
-		private IAppLogger logger;
+		this.logger = logger;
 
-		// Instance and lock only used when doing in-process encode (for debugging)
-		private HandBrakeInstance instance;
-		private readonly object encoderLock = new object();
-
-		private ManualResetEventSlim encodeStartEvent;
-		private ManualResetEventSlim encodeEndEvent;
-
-		private bool encoding;
-
-		public event EventHandler EncodeStarted;
-		public event EventHandler<EncodeProgressEventArgs> EncodeProgress;
-		public event EventHandler<VCEncodeCompletedEventArgs> EncodeCompleted;
-
-		public Task StartEncodeAsync(
-			VCJob job,
-			IAppLogger logger,
-			bool preview, 
-			int previewNumber, 
-			int previewSeconds, 
-			double overallSelectedLengthSeconds)
-		{
-			this.logger = logger;
-
-			this.StartEncodeInternal(
-				job.SourcePath,
-				job.Title,
-				scanObject =>
-				{
-					SourceTitle encodeTitle = scanObject.TitleList.FirstOrDefault(title => title.Index == job.Title);
-					if (encodeTitle != null)
-					{
-						JsonEncodeFactory factory = new JsonEncodeFactory(logger);
-
-						JsonEncodeObject jsonEncodeObject = factory.CreateJsonObject(
-							job,
-							encodeTitle,
-							EncodingRes.DefaultChapterName,
-							preview ? previewNumber : -1,
-							previewSeconds,
-							Config.PreviewCount);
-
-						return JsonSerializer.Serialize(jsonEncodeObject, JsonOptions.WithUpgraders);
-					}
-					else
-					{
-						return null;
-					}
-				});
-
-			return Task.CompletedTask;
-		}
-
-		public Task StartEncodeAsync(string encodeJson, IAppLogger logger)
-		{
-			this.logger = logger;
-
-			// Extract the scan title and path from the encode JSON.
-			JsonEncodeObject encodeObject = JsonSerializer.Deserialize<JsonEncodeObject>(encodeJson, JsonOptions.WithUpgraders);
-
-			this.StartEncodeInternal(encodeObject.Source.Path, encodeObject.Source.Title, scanObject => encodeJson);
-			return Task.CompletedTask;
-		}
-
-		private void StartEncodeInternal(string scanPath, int titleNumber, Func<JsonScanObject, string> jsonFunc)
-		{
-			this.logger.Log("Starting encode in-process");
-
-			this.encoding = true;
-
-			this.encodeStartEvent = new ManualResetEventSlim(false);
-			this.encodeEndEvent = new ManualResetEventSlim(false);
-
-			this.instance = new HandBrakeInstance();
-			this.instance.Initialize(Config.LogVerbosity, noHardware: false);
-
-			this.instance.ScanCompleted += (o, e) =>
+		this.StartEncodeInternal(
+			job.SourcePath,
+			job.Title,
+			scanObject =>
 			{
-				try
+				SourceTitle encodeTitle = scanObject.TitleList.FirstOrDefault(title => title.Index == job.Title);
+				if (encodeTitle != null)
 				{
-					string encodeJson = jsonFunc(this.instance.Titles);
-					if (encodeJson != null)
-					{
-						lock (this.encoderLock)
-						{
-							this.instance.StartEncode(encodeJson);
-							this.EncodeStarted?.Invoke(this, EventArgs.Empty);
+					JsonEncodeFactory factory = new JsonEncodeFactory(logger);
 
-							this.encodeStartEvent.Set();
-						}
-					}
-					else
-					{
-						this.EncodeCompleted?.Invoke(this, new VCEncodeCompletedEventArgs(VCEncodeResultCode.ErrorScanFailed));
+					JsonEncodeObject jsonEncodeObject = factory.CreateJsonObject(
+						job,
+						encodeTitle,
+						EncodingRes.DefaultChapterName,
+						preview ? previewNumber : -1,
+						previewSeconds,
+						Config.PreviewCount);
 
-						this.encodeStartEvent.Set();
-						this.encodeEndEvent.Set();
-					}
+					return JsonSerializer.Serialize(jsonEncodeObject, JsonOptions.WithUpgraders);
 				}
-				catch (Exception exception)
+				else
 				{
-					this.logger.LogError("Encoding failed. Please report this error so it can be fixed in the future:" + Environment.NewLine + exception);
+					return null;
 				}
-			};
+			});
 
-			this.instance.EncodeProgress += (o, e) =>
+		return Task.CompletedTask;
+	}
+
+	public Task StartEncodeAsync(string encodeJson, IAppLogger logger)
+	{
+		this.logger = logger;
+
+		// Extract the scan title and path from the encode JSON.
+		JsonEncodeObject encodeObject = JsonSerializer.Deserialize<JsonEncodeObject>(encodeJson, JsonOptions.WithUpgraders);
+
+		this.StartEncodeInternal(encodeObject.Source.Path, encodeObject.Source.Title, scanObject => encodeJson);
+		return Task.CompletedTask;
+	}
+
+	private void StartEncodeInternal(string scanPath, int titleNumber, Func<JsonScanObject, string> jsonFunc)
+	{
+		this.logger.Log("Starting encode in-process");
+
+		this.encoding = true;
+
+		this.encodeStartEvent = new ManualResetEventSlim(false);
+		this.encodeEndEvent = new ManualResetEventSlim(false);
+
+		this.instance = new HandBrakeInstance();
+		this.instance.Initialize(Config.LogVerbosity, noHardware: false);
+
+		this.instance.ScanCompleted += (o, e) =>
+		{
+			try
 			{
-				// Dispatch to avoid deadlocks on callbacks
-				DispatchUtilities.BeginInvoke(() =>
+				string encodeJson = jsonFunc(this.instance.Titles);
+				if (encodeJson != null)
 				{
 					lock (this.encoderLock)
 					{
-						if (this.encoding)
-						{
-							this.EncodeProgress?.Invoke(this, e);
-						}
+						this.instance.StartEncode(encodeJson);
+						this.EncodeStarted?.Invoke(this, EventArgs.Empty);
+
+						this.encodeStartEvent.Set();
 					}
-				});
-			};
-
-			this.instance.EncodeCompleted += (o, e) =>
-			{
-				if (this.encoding)
-				{
-					this.EncodeCompleted?.Invoke(this, new VCEncodeCompletedEventArgs((VCEncodeResultCode)e.Error));
-
-					this.encoding = false;
 				}
+				else
+				{
+					this.EncodeCompleted?.Invoke(this, new VCEncodeCompletedEventArgs(VCEncodeResultCode.ErrorScanFailed));
 
-				this.encodeEndEvent.Set();
-				this.instance.Dispose();
-			};
-
-			this.instance.StartScan(scanPath, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds), titleNumber);
-
-			this.encoding = true;
-		}
-
-		public Task PauseEncodeAsync()
-		{
-			this.encodeStartEvent.Wait();
-
-			lock (this.encoderLock)
+					this.encodeStartEvent.Set();
+					this.encodeEndEvent.Set();
+				}
+			}
+			catch (Exception exception)
 			{
-				this.instance.PauseEncode();
+				this.logger.LogError("Encoding failed. Please report this error so it can be fixed in the future:" + Environment.NewLine + exception);
+			}
+		};
+
+		this.instance.EncodeProgress += (o, e) =>
+		{
+			// Dispatch to avoid deadlocks on callbacks
+			DispatchUtilities.BeginInvoke(() =>
+			{
+				lock (this.encoderLock)
+				{
+					if (this.encoding)
+					{
+						this.EncodeProgress?.Invoke(this, e);
+					}
+				}
+			});
+		};
+
+		this.instance.EncodeCompleted += (o, e) =>
+		{
+			if (this.encoding)
+			{
+				this.EncodeCompleted?.Invoke(this, new VCEncodeCompletedEventArgs((VCEncodeResultCode)e.Error));
+
+				this.encoding = false;
 			}
 
-			return Task.CompletedTask;
+			this.encodeEndEvent.Set();
+			this.instance.Dispose();
+		};
+
+		this.instance.StartScan(scanPath, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds), titleNumber);
+
+		this.encoding = true;
+	}
+
+	public Task PauseEncodeAsync()
+	{
+		this.encodeStartEvent.Wait();
+
+		lock (this.encoderLock)
+		{
+			this.instance.PauseEncode();
 		}
 
-		public Task ResumeEncodeAsync()
-		{
-			lock (this.encoderLock)
-			{
-				this.instance.ResumeEncode();
-			}
+		return Task.CompletedTask;
+	}
 
-			return Task.CompletedTask;
+	public Task ResumeEncodeAsync()
+	{
+		lock (this.encoderLock)
+		{
+			this.instance.ResumeEncode();
 		}
 
-		public Task StopEncodeAsync()
-		{
-			this.encodeStartEvent.Wait();
+		return Task.CompletedTask;
+	}
 
-			lock (this.encoderLock)
+	public Task StopEncodeAsync()
+	{
+		this.encodeStartEvent.Wait();
+
+		lock (this.encoderLock)
+		{
+			this.instance.StopEncode();
+		}
+
+		return Task.CompletedTask;
+	}
+
+	public Task StopAndWaitAsync()
+	{
+		this.encodeStartEvent.Wait();
+
+		lock (this.encoderLock)
+		{
+			if (this.encoding)
 			{
 				this.instance.StopEncode();
 			}
-
-			return Task.CompletedTask;
 		}
 
-		public Task StopAndWaitAsync()
-		{
-			this.encodeStartEvent.Wait();
+		this.encodeEndEvent.Wait();
 
-			lock (this.encoderLock)
-			{
-				if (this.encoding)
-				{
-					this.instance.StopEncode();
-				}
-			}
+		return Task.CompletedTask;
+	}
 
-			this.encodeEndEvent.Wait();
-
-			return Task.CompletedTask;
-		}
-
-		public void Dispose()
-		{
-		}
+	public void Dispose()
+	{
 	}
 }

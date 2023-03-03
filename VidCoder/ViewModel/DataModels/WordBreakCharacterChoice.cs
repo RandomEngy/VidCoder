@@ -6,53 +6,52 @@ using System.Text;
 using System.Threading.Tasks;
 using VidCoder.Resources;
 
-namespace VidCoder.ViewModel.DataModels
+namespace VidCoder.ViewModel.DataModels;
+
+public class WordBreakCharacterChoice : ReactiveObject
 {
-	public class WordBreakCharacterChoice : ReactiveObject
+	private readonly PickerWindowViewModel pickerWindowViewModel;
+
+	public WordBreakCharacterChoice(PickerWindowViewModel pickerWindowViewModel, bool isSelected)
 	{
-		private readonly PickerWindowViewModel pickerWindowViewModel;
+		this.pickerWindowViewModel = pickerWindowViewModel;
+		this.isSelected = isSelected;
+	}
 
-		public WordBreakCharacterChoice(PickerWindowViewModel pickerWindowViewModel, bool isSelected)
+	/// <summary>
+	/// The word break character.
+	/// </summary>
+	public string Character { get; set; }
+
+	/// <summary>
+	/// The word for the character. Used for the screen reader and when DisplayUsingWord is true.
+	/// </summary>
+	public string CharacterWord { get; set; }
+
+	/// <summary>
+	/// True if we should display the character using the word instead.
+	/// </summary>
+	public bool DisplayUsingWord { get; set; }
+
+	public string Display
+	{
+		get
 		{
-			this.pickerWindowViewModel = pickerWindowViewModel;
-			this.isSelected = isSelected;
+			return this.DisplayUsingWord ? this.CharacterWord : this.Character;
 		}
+	}
 
-		/// <summary>
-		/// The word break character.
-		/// </summary>
-		public string Character { get; set; }
+	public string AutomationName => string.Format(PickerRes.WordBreakCharacterAutomationNameFormat, this.CharacterWord);
 
-		/// <summary>
-		/// The word for the character. Used for the screen reader and when DisplayUsingWord is true.
-		/// </summary>
-		public string CharacterWord { get; set; }
+	private bool isSelected;
 
-		/// <summary>
-		/// True if we should display the character using the word instead.
-		/// </summary>
-		public bool DisplayUsingWord { get; set; }
-
-		public string Display
+	public bool IsSelected
+	{
+		get => this.isSelected;
+		set
 		{
-			get
-			{
-				return this.DisplayUsingWord ? this.CharacterWord : this.Character;
-			}
-		}
-
-		public string AutomationName => string.Format(PickerRes.WordBreakCharacterAutomationNameFormat, this.CharacterWord);
-
-		private bool isSelected;
-
-		public bool IsSelected
-		{
-			get => this.isSelected;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref this.isSelected, value);
-				this.pickerWindowViewModel.HandleWordBreakCharacterUpdate();
-			}
+			this.RaiseAndSetIfChanged(ref this.isSelected, value);
+			this.pickerWindowViewModel.HandleWordBreakCharacterUpdate();
 		}
 	}
 }

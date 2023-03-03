@@ -1,8 +1,7 @@
-﻿namespace VidCoderCommon.Model
-{
+﻿namespace VidCoderCommon.Model;
+
     public enum AudioEncodeRateType
-	{
-		Bitrate = 0,
-		Quality = 1
-	}
+{
+	Bitrate = 0,
+	Quality = 1
 }

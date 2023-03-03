@@ -10,87 +10,86 @@ using VidCoder.Extensions;
 using VidCoder.ViewModel;
 using VidCoderCommon.Model;
 
-namespace VidCoder.Services
-{
-	/// <summary>
-	/// Represents a client to the preview image service.
-	/// </summary>
+namespace VidCoder.Services;
+
+/// <summary>
+/// Represents a client to the preview image service.
+/// </summary>
     public class PreviewImageServiceClient : ReactiveObject
+{
+	private BitmapSource previewBitmapSource;
+
+	private readonly PreviewImageService previewImageService = StaticResolver.Resolve<PreviewImageService>();
+	private readonly MainViewModel mainViewModel = StaticResolver.Resolve<MainViewModel>();
+
+	public PreviewImageServiceClient()
 	{
-		private BitmapSource previewBitmapSource;
+		this.previewImageService.ImageLoaded += this.OnImageLoaded;
 
-		private readonly PreviewImageService previewImageService = StaticResolver.Resolve<PreviewImageService>();
-		private readonly MainViewModel mainViewModel = StaticResolver.Resolve<MainViewModel>();
+		this.previewIndex = 1;
+	}
 
-		public PreviewImageServiceClient()
-		{
-			this.previewImageService.ImageLoaded += this.OnImageLoaded;
+	private int previewIndex;
 
-			this.previewIndex = 1;
-		}
+	/// <summary>
+	/// Gets or sets the preview index (0-based)
+	/// </summary>
+    public int PreviewIndex
+    {
+	    get { return this.previewIndex; }
 
-		private int previewIndex;
-
-		/// <summary>
-		/// Gets or sets the preview index (0-based)
-		/// </summary>
-	    public int PreviewIndex
+	    set
 	    {
-		    get { return this.previewIndex; }
+		    this.RaiseAndSetIfChanged(ref this.previewIndex, value);
 
-		    set
-		    {
-			    this.RaiseAndSetIfChanged(ref this.previewIndex, value);
-
-			    this.previewBitmapSource = this.previewImageService.TryGetPreviewImage(value);
-			    this.RefreshFromBitmapImage();
-			}
+		    this.previewBitmapSource = this.previewImageService.TryGetPreviewImage(value);
+		    this.RefreshFromBitmapImage();
 		}
+	}
 
-		private BitmapSource previewImage;
-		public BitmapSource PreviewImage
+	private BitmapSource previewImage;
+	public BitmapSource PreviewImage
+	{
+		get => this.previewImage;
+		set { this.RaiseAndSetIfChanged(ref this.previewImage, value); }
+	}
+
+	public void ShowPreviousPreview()
+	{
+		if (this.PreviewIndex > 0)
 		{
-			get => this.previewImage;
-			set { this.RaiseAndSetIfChanged(ref this.previewImage, value); }
+			this.PreviewIndex--;
 		}
+	}
 
-		public void ShowPreviousPreview()
+	public void ShowNextPreview()
+	{
+		if (this.PreviewIndex < this.previewImageService.PreviewCount - 1)
 		{
-			if (this.PreviewIndex > 0)
-			{
-				this.PreviewIndex--;
-			}
+			this.PreviewIndex++;
 		}
+	}
 
-		public void ShowNextPreview()
+	private void OnImageLoaded(object sender, PreviewImageLoadInfo e)
+	{
+		// If the image that loaded happens to be on our slot, show it.
+		if (this.PreviewIndex == e.PreviewIndex)
 		{
-			if (this.PreviewIndex < this.previewImageService.PreviewCount - 1)
-			{
-				this.PreviewIndex++;
-			}
+			this.previewBitmapSource = e.PreviewImage;
+			this.RefreshFromBitmapImage();
 		}
+	}
 
-		private void OnImageLoaded(object sender, PreviewImageLoadInfo e)
+	/// <summary>
+	/// Refreshes the view using this.previewBitmapSource.
+	/// </summary>
+	private void RefreshFromBitmapImage()
+	{
+		if (this.previewBitmapSource == null)
 		{
-			// If the image that loaded happens to be on our slot, show it.
-			if (this.PreviewIndex == e.PreviewIndex)
-			{
-				this.previewBitmapSource = e.PreviewImage;
-				this.RefreshFromBitmapImage();
-			}
+			return;
 		}
 
-		/// <summary>
-		/// Refreshes the view using this.previewBitmapSource.
-		/// </summary>
-		private void RefreshFromBitmapImage()
-		{
-			if (this.previewBitmapSource == null)
-			{
-				return;
-			}
-
-			this.PreviewImage = this.previewBitmapSource;
-		}
+		this.PreviewImage = this.previewBitmapSource;
 	}
 }

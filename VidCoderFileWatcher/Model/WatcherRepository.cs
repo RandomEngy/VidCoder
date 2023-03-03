@@ -9,30 +9,29 @@ using System.Threading.Tasks;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
 
-namespace VidCoderFileWatcher.Model
+namespace VidCoderFileWatcher.Model;
+
+public class WatcherRepository
 {
-	public class WatcherRepository
+	public static List<StrippedPicker> GetPickerList()
 	{
-		public static List<StrippedPicker> GetPickerList()
+		var result = new List<StrippedPicker>();
+
+		using (var selectPickersCommand = new SQLiteCommand("SELECT * FROM pickersJson", WatcherDatabase.Connection))
+		using (SQLiteDataReader reader = selectPickersCommand.ExecuteReader())
 		{
-			var result = new List<StrippedPicker>();
-
-			using (var selectPickersCommand = new SQLiteCommand("SELECT * FROM pickersJson", WatcherDatabase.Connection))
-			using (SQLiteDataReader reader = selectPickersCommand.ExecuteReader())
+			while (reader.Read())
 			{
-				while (reader.Read())
-				{
-					string pickerJson = reader.GetString("json");
-					StrippedPicker? picker = JsonSerializer.Deserialize<StrippedPicker>(pickerJson);
+				string pickerJson = reader.GetString("json");
+				StrippedPicker? picker = JsonSerializer.Deserialize<StrippedPicker>(pickerJson);
 
-					if (picker != null)
-					{
-						result.Add(picker);
-					}
+				if (picker != null)
+				{
+					result.Add(picker);
 				}
 			}
-
-			return result;
 		}
+
+		return result;
 	}
 }

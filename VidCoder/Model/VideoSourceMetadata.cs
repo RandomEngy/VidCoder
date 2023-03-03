@@ -1,7 +1,6 @@
-﻿namespace VidCoder.Model
+﻿namespace VidCoder.Model;
+
+public class VideoSourceMetadata
 {
-	public class VideoSourceMetadata
-	{
-		public DriveInformation DriveInfo { get; set; }
-	}
+	public DriveInformation DriveInfo { get; set; }
 }

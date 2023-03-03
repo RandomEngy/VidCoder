@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoder.Model
+namespace VidCoder.Model;
+
+public enum PickerTimeRangeMode
 {
-	public enum PickerTimeRangeMode
-	{
-		All,
-		Chapters,
-		Time
-	}
+	All,
+	Chapters,
+	Time
 }

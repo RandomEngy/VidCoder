@@ -2,28 +2,27 @@
 using System.Collections.Generic;
 using VidCoder.Model;
 
-namespace VidCoder.ViewModel
+namespace VidCoder.ViewModel;
+
+public interface IMainView
 {
-	public interface IMainView
-	{
-		event EventHandler<RangeFocusEventArgs> RangeControlGotFocus;
+	event EventHandler<RangeFocusEventArgs> RangeControlGotFocus;
 
-		void SaveQueueColumns();
+	void SaveQueueColumns();
 
-		void SaveCompletedColumnWidths();
+	void SaveCompletedColumnWidths();
 
-		void ApplyQueueColumns();
+	void ApplyQueueColumns();
 
-		IList<EncodeJobViewModel> SelectedJobs { get; }
+	IList<EncodeJobViewModel> SelectedJobs { get; }
 
-		void RefreshDiscMenuItems();
+	void RefreshDiscMenuItems();
 
-		void ResizeAudioColumns();
+	void ResizeAudioColumns();
 
-		double SourceAreaHeight { get; }
+	double SourceAreaHeight { get; }
 
-		void RefreshSummaryMaxSizes();
+	void RefreshSummaryMaxSizes();
 
-		void BringExternalSubtitlesIntoView();
-	}
+	void BringExternalSubtitlesIntoView();
 }

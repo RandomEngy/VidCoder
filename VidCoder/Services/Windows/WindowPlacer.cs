@@ -10,276 +10,275 @@ using VidCoder.Model.WindowPlacer;
 using VidCoder.ViewModel;
 using VidCoder.ViewModel.DataModels;
 
-namespace VidCoder.Services.Windows
+namespace VidCoder.Services.Windows;
+
+/// <summary>
+/// Places new windows. Finds open space for them dynamically.
+/// </summary>
+public class WindowPlacer
 {
-	/// <summary>
-	/// Places new windows. Finds open space for them dynamically.
-	/// </summary>
-	public class WindowPlacer
+	private const double Spacing = 4;
+
+	private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
+
+	public Rect? PlaceWindow(Window window)
 	{
-		private const double Spacing = 4;
+		double width = window.Width;
+		double height = window.Height;
 
-		private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
+		Size size = new Size(width, height);
 
-		public Rect? PlaceWindow(Window window)
+		List<WindowPosition> openedWindowPositions = this.windowManager.GetOpenedWindowPositions(excludeWindow: window);
+		List<WindowPosition> savedWindowPositions = GetSavedWindowPositions();
+
+		if (openedWindowPositions.Count == 0)
 		{
-			double width = window.Width;
-			double height = window.Height;
+			// Open at top left
+			Rect workArea = SystemParameters.WorkArea;
+			return new Rect(workArea.X + 15, workArea.Y + 15, width, height);
+		}
 
-			Size size = new Size(width, height);
-
-			List<WindowPosition> openedWindowPositions = this.windowManager.GetOpenedWindowPositions(excludeWindow: window);
-			List<WindowPosition> savedWindowPositions = GetSavedWindowPositions();
-
-			if (openedWindowPositions.Count == 0)
+		var mergedWindowPositions = new List<WindowPosition>(openedWindowPositions);
+		foreach (var windowPosition in savedWindowPositions)
+		{
+			if (!mergedWindowPositions.Any(p => p.ViewModelType == windowPosition.ViewModelType))
 			{
-				// Open at top left
-				Rect workArea = SystemParameters.WorkArea;
-				return new Rect(workArea.X + 15, workArea.Y + 15, width, height);
+				mergedWindowPositions.Add(windowPosition);
 			}
+		}
 
-			var mergedWindowPositions = new List<WindowPosition>(openedWindowPositions);
-			foreach (var windowPosition in savedWindowPositions)
-			{
-				if (!mergedWindowPositions.Any(p => p.ViewModelType == windowPosition.ViewModelType))
-				{
-					mergedWindowPositions.Add(windowPosition);
-				}
-			}
+		// Get candidate locations
+		List<WindowPlacerLocation> candidates = GetCandidateLocations(mergedWindowPositions.Select(p => p.Position).ToList(), size);
+		Rect mainWindowPosition = openedWindowPositions.Single(p => p.ViewModelType == typeof (MainViewModel)).Position;
+		if (candidates.Count == 0)
+		{
+			return null;
+			//return GetDefaultPosition(mainWindowPosition, size);
+		}
 
-			// Get candidate locations
-			List<WindowPlacerLocation> candidates = GetCandidateLocations(mergedWindowPositions.Select(p => p.Position).ToList(), size);
-			Rect mainWindowPosition = openedWindowPositions.Single(p => p.ViewModelType == typeof (MainViewModel)).Position;
-			if (candidates.Count == 0)
-			{
-				return null;
-				//return GetDefaultPosition(mainWindowPosition, size);
-			}
+		// Calculate how far each one is from the main window
+		foreach (var windowPosition in candidates)
+		{
+			windowPosition.DistanceToMain = Distance(windowPosition.Position, mainWindowPosition);
+		}
 
-			// Calculate how far each one is from the main window
-			foreach (var windowPosition in candidates)
-			{
-				windowPosition.DistanceToMain = Distance(windowPosition.Position, mainWindowPosition);
-			}
-
-			// Pick the closest one to the main window
-			double minDistance = candidates.Min(c => c.DistanceToMain);
-			candidates = candidates.Where(c => c.DistanceToMain == minDistance).ToList();
-			if (candidates.Count == 1)
-			{
-				return candidates[0].Position;
-			}
-
-			// Tiebreak by anchor side similarity
-			foreach (var windowPosition in candidates)
-			{
-				double windowSideSize = windowPosition.Position.GetSide(windowPosition.AnchorSide);
-				double anchorSideSize = windowPosition.AnchorPosition.GetSide(windowPosition.AnchorSide);
-
-				if (windowSideSize > anchorSideSize)
-				{
-					windowPosition.AnchorSimilarityFraction = anchorSideSize / windowSideSize;
-				}
-				else
-				{
-					windowPosition.AnchorSimilarityFraction = windowSideSize / anchorSideSize;
-				}
-			}
-
-			double maxSimilarity = candidates.Max(c => c.AnchorSimilarityFraction);
-			candidates = candidates.Where(c => c.AnchorSimilarityFraction == maxSimilarity).ToList();
-
-			if (candidates.Count == 1)
-			{
-				return candidates[0].Position;
-			}
-
-			// Prefer anchoring to the right or bottom side
-			bool anyLeft = false, anyRight = false, anyTop = false, anyBottom = false;
-			foreach (var windowPosition in candidates)
-			{
-				switch (windowPosition.AnchorSide)
-				{
-					case Side.Top:
-						anyTop = true;
-						break;
-					case Side.Bottom:
-						anyBottom = true;
-						break;
-					case Side.Left:
-						anyLeft = true;
-						break;
-					case Side.Right:
-						anyRight = true;
-						break;
-				}
-			}
-
-			if (anyLeft && anyRight || anyTop && anyBottom)
-			{
-				candidates = candidates.Where(c => c.AnchorSide == Side.Right || c.AnchorSide == Side.Bottom).ToList();
-
-				if (candidates.Count == 1)
-				{
-					return candidates[0].Position;
-				}
-			}
-
-			// Prefer aligning top or left
-			anyLeft = anyRight = anyTop = anyBottom = false;
-			foreach (var windowPosition in candidates)
-			{
-				switch (windowPosition.Alignment)
-				{
-					case Side.Top:
-						anyTop = true;
-						break;
-					case Side.Bottom:
-						anyBottom = true;
-						break;
-					case Side.Left:
-						anyLeft = true;
-						break;
-					case Side.Right:
-						anyRight = true;
-						break;
-				}
-			}
-
-			if (anyLeft && anyRight || anyTop && anyBottom)
-			{
-				candidates = candidates.Where(c => c.Alignment == Side.Left || c.Alignment == Side.Top).ToList();
-			}
-
-			// If there are still ties, go with the first match
+		// Pick the closest one to the main window
+		double minDistance = candidates.Min(c => c.DistanceToMain);
+		candidates = candidates.Where(c => c.DistanceToMain == minDistance).ToList();
+		if (candidates.Count == 1)
+		{
 			return candidates[0].Position;
 		}
 
-		private static List<WindowPlacerLocation> GetCandidateLocations(IList<Rect> existingWindows, Size size)
+		// Tiebreak by anchor side similarity
+		foreach (var windowPosition in candidates)
 		{
-			var candidates = new List<WindowPlacerLocation>();
-			double width = size.Width;
-			double height = size.Height;
-			foreach (var pos in existingWindows)
+			double windowSideSize = windowPosition.Position.GetSide(windowPosition.AnchorSide);
+			double anchorSideSize = windowPosition.AnchorPosition.GetSide(windowPosition.AnchorSide);
+
+			if (windowSideSize > anchorSideSize)
 			{
-				Rect leftTopPosition = new Rect(pos.Left - width - Spacing, pos.Top, width, height);
-				AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Left, Alignment = Side.Top, Position = leftTopPosition, AnchorPosition = pos }, candidates, existingWindows);
-
-				Rect leftBottomPosition = new Rect(pos.Left - width - Spacing, pos.Bottom - height, width, height);
-				AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Left, Alignment = Side.Bottom, Position = leftBottomPosition, AnchorPosition = pos }, candidates, existingWindows);
-
-				Rect rightTopPosition = new Rect(pos.Right + Spacing, pos.Top, width, height);
-				AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Right, Alignment = Side.Top, Position = rightTopPosition, AnchorPosition = pos }, candidates, existingWindows);
-
-				Rect rightBottomPosition = new Rect(pos.Left + Spacing, pos.Bottom - height, width, height);
-				AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Right, Alignment = Side.Bottom, Position = rightBottomPosition, AnchorPosition = pos }, candidates, existingWindows);
-
-				Rect topLeftPosition = new Rect(pos.Left, pos.Top - height - Spacing, width, height);
-				AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Top, Alignment = Side.Left, Position = topLeftPosition, AnchorPosition = pos }, candidates, existingWindows);
-
-				Rect topRightPosition = new Rect(pos.Right - width, pos.Top - height - Spacing, width, height);
-				AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Top, Alignment = Side.Right, Position = topRightPosition, AnchorPosition = pos }, candidates, existingWindows);
-
-				Rect bottomLeftPosition = new Rect(pos.Left, pos.Bottom + Spacing, width, height);
-				AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Bottom, Alignment = Side.Left, Position = bottomLeftPosition, AnchorPosition = pos }, candidates, existingWindows);
-
-				Rect bottomRightPosition = new Rect(pos.Right - width, pos.Bottom + Spacing, width, height);
-				AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Bottom, Alignment = Side.Right, Position = bottomRightPosition, AnchorPosition = pos }, candidates, existingWindows);
+				windowPosition.AnchorSimilarityFraction = anchorSideSize / windowSideSize;
 			}
-
-			return candidates;
+			else
+			{
+				windowPosition.AnchorSimilarityFraction = windowSideSize / anchorSideSize;
+			}
 		}
 
-		private static void AddIfValid(WindowPlacerLocation windowPlacerLocation, List<WindowPlacerLocation> list, IEnumerable<Rect> existingWindows)
+		double maxSimilarity = candidates.Max(c => c.AnchorSimilarityFraction);
+		candidates = candidates.Where(c => c.AnchorSimilarityFraction == maxSimilarity).ToList();
+
+		if (candidates.Count == 1)
 		{
-			Rect workArea = SystemParameters.WorkArea;
-			if (!workArea.Contains(windowPlacerLocation.Position))
-			{
-				return;
-			}
-
-			if (Overlaps(windowPlacerLocation.Position, existingWindows))
-			{
-				return;
-			}
-
-			list.Add(windowPlacerLocation);
+			return candidates[0].Position;
 		}
 
-
-
-		private static List<WindowPosition> GetSavedWindowPositions()
+		// Prefer anchoring to the right or bottom side
+		bool anyLeft = false, anyRight = false, anyTop = false, anyBottom = false;
+		foreach (var windowPosition in candidates)
 		{
-			var result = new List<WindowPosition>();
-			foreach (var definition in WindowManager.Definitions.Where(d => d.PlacementConfigKey != null))
+			switch (windowPosition.AnchorSide)
 			{
-				string placementJson = Config.Get<string>(definition.PlacementConfigKey);
-				if (!string.IsNullOrEmpty(placementJson))
+				case Side.Top:
+					anyTop = true;
+					break;
+				case Side.Bottom:
+					anyBottom = true;
+					break;
+				case Side.Left:
+					anyLeft = true;
+					break;
+				case Side.Right:
+					anyRight = true;
+					break;
+			}
+		}
+
+		if (anyLeft && anyRight || anyTop && anyBottom)
+		{
+			candidates = candidates.Where(c => c.AnchorSide == Side.Right || c.AnchorSide == Side.Bottom).ToList();
+
+			if (candidates.Count == 1)
+			{
+				return candidates[0].Position;
+			}
+		}
+
+		// Prefer aligning top or left
+		anyLeft = anyRight = anyTop = anyBottom = false;
+		foreach (var windowPosition in candidates)
+		{
+			switch (windowPosition.Alignment)
+			{
+				case Side.Top:
+					anyTop = true;
+					break;
+				case Side.Bottom:
+					anyBottom = true;
+					break;
+				case Side.Left:
+					anyLeft = true;
+					break;
+				case Side.Right:
+					anyRight = true;
+					break;
+			}
+		}
+
+		if (anyLeft && anyRight || anyTop && anyBottom)
+		{
+			candidates = candidates.Where(c => c.Alignment == Side.Left || c.Alignment == Side.Top).ToList();
+		}
+
+		// If there are still ties, go with the first match
+		return candidates[0].Position;
+	}
+
+	private static List<WindowPlacerLocation> GetCandidateLocations(IList<Rect> existingWindows, Size size)
+	{
+		var candidates = new List<WindowPlacerLocation>();
+		double width = size.Width;
+		double height = size.Height;
+		foreach (var pos in existingWindows)
+		{
+			Rect leftTopPosition = new Rect(pos.Left - width - Spacing, pos.Top, width, height);
+			AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Left, Alignment = Side.Top, Position = leftTopPosition, AnchorPosition = pos }, candidates, existingWindows);
+
+			Rect leftBottomPosition = new Rect(pos.Left - width - Spacing, pos.Bottom - height, width, height);
+			AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Left, Alignment = Side.Bottom, Position = leftBottomPosition, AnchorPosition = pos }, candidates, existingWindows);
+
+			Rect rightTopPosition = new Rect(pos.Right + Spacing, pos.Top, width, height);
+			AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Right, Alignment = Side.Top, Position = rightTopPosition, AnchorPosition = pos }, candidates, existingWindows);
+
+			Rect rightBottomPosition = new Rect(pos.Left + Spacing, pos.Bottom - height, width, height);
+			AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Right, Alignment = Side.Bottom, Position = rightBottomPosition, AnchorPosition = pos }, candidates, existingWindows);
+
+			Rect topLeftPosition = new Rect(pos.Left, pos.Top - height - Spacing, width, height);
+			AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Top, Alignment = Side.Left, Position = topLeftPosition, AnchorPosition = pos }, candidates, existingWindows);
+
+			Rect topRightPosition = new Rect(pos.Right - width, pos.Top - height - Spacing, width, height);
+			AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Top, Alignment = Side.Right, Position = topRightPosition, AnchorPosition = pos }, candidates, existingWindows);
+
+			Rect bottomLeftPosition = new Rect(pos.Left, pos.Bottom + Spacing, width, height);
+			AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Bottom, Alignment = Side.Left, Position = bottomLeftPosition, AnchorPosition = pos }, candidates, existingWindows);
+
+			Rect bottomRightPosition = new Rect(pos.Right - width, pos.Bottom + Spacing, width, height);
+			AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Bottom, Alignment = Side.Right, Position = bottomRightPosition, AnchorPosition = pos }, candidates, existingWindows);
+		}
+
+		return candidates;
+	}
+
+	private static void AddIfValid(WindowPlacerLocation windowPlacerLocation, List<WindowPlacerLocation> list, IEnumerable<Rect> existingWindows)
+	{
+		Rect workArea = SystemParameters.WorkArea;
+		if (!workArea.Contains(windowPlacerLocation.Position))
+		{
+			return;
+		}
+
+		if (Overlaps(windowPlacerLocation.Position, existingWindows))
+		{
+			return;
+		}
+
+		list.Add(windowPlacerLocation);
+	}
+
+
+
+	private static List<WindowPosition> GetSavedWindowPositions()
+	{
+		var result = new List<WindowPosition>();
+		foreach (var definition in WindowManager.Definitions.Where(d => d.PlacementConfigKey != null))
+		{
+			string placementJson = Config.Get<string>(definition.PlacementConfigKey);
+			if (!string.IsNullOrEmpty(placementJson))
+			{
+				try
 				{
-					try
+					result.Add(new WindowPosition
 					{
-						result.Add(new WindowPosition
-						{
-							Position = WindowPlacement.ParsePlacementJson(placementJson).ToRect(),
-							ViewModelType = definition.ViewModelType
-						});
-					}
-					catch (Exception)
-					{
-						// Parsing the placement JSON failed. Skip adding this to the list.
-					}
+						Position = WindowPlacement.ParsePlacementJson(placementJson).ToRect(),
+						ViewModelType = definition.ViewModelType
+					});
+				}
+				catch (Exception)
+				{
+					// Parsing the placement JSON failed. Skip adding this to the list.
 				}
 			}
-
-			return result;
 		}
 
-		private static bool Overlaps(Rect placement, IEnumerable<Rect> openWindows)
+		return result;
+	}
+
+	private static bool Overlaps(Rect placement, IEnumerable<Rect> openWindows)
+	{
+		return openWindows.Any(w => w.IntersectsWith(placement));
+	}
+
+	private double Distance(Rect a, Rect b)
+	{
+		if (a.IntersectsWith(b))
 		{
-			return openWindows.Any(w => w.IntersectsWith(placement));
+			return 0;
 		}
 
-		private double Distance(Rect a, Rect b)
+		bool isHorizontallyAligned = a.Right >= b.Left && b.Right >= a.Left;
+		if (isHorizontallyAligned)
 		{
-			if (a.IntersectsWith(b))
+			if (a.Top > b.Top)
 			{
-				return 0;
+				// a is below b
+				return a.Top - b.Bottom;
 			}
-
-			bool isHorizontallyAligned = a.Right >= b.Left && b.Right >= a.Left;
-			if (isHorizontallyAligned)
+			else
 			{
-				if (a.Top > b.Top)
-				{
-					// a is below b
-					return a.Top - b.Bottom;
-				}
-				else
-				{
-					// b is below a
-					return b.Top - a.Bottom;
-				}
+				// b is below a
+				return b.Top - a.Bottom;
 			}
-
-			bool isVerticallyAligned = a.Bottom >= b.Top && b.Bottom >= a.Top;
-			if (isVerticallyAligned)
-			{
-				if (a.Left > b.Left)
-				{
-					// a is to the right of b
-					return a.Left - b.Right;
-				}
-				else
-				{
-					// b is to the right of a
-					return b.Left - a.Right;
-				}
-			}
-
-			double horizontalDistance = Math.Min(Math.Abs(a.Left - b.Right), Math.Abs(a.Right - b.Left));
-			double verticalDistance = Math.Min(Math.Abs(a.Top - b.Bottom), Math.Abs(a.Bottom - b.Top));
-
-			return horizontalDistance + verticalDistance;
 		}
+
+		bool isVerticallyAligned = a.Bottom >= b.Top && b.Bottom >= a.Top;
+		if (isVerticallyAligned)
+		{
+			if (a.Left > b.Left)
+			{
+				// a is to the right of b
+				return a.Left - b.Right;
+			}
+			else
+			{
+				// b is to the right of a
+				return b.Left - a.Right;
+			}
+		}
+
+		double horizontalDistance = Math.Min(Math.Abs(a.Left - b.Right), Math.Abs(a.Right - b.Left));
+		double verticalDistance = Math.Min(Math.Abs(a.Top - b.Bottom), Math.Abs(a.Bottom - b.Top));
+
+		return horizontalDistance + verticalDistance;
 	}
 }

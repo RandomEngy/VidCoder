@@ -1,8 +1,7 @@
-﻿namespace VidCoder.Model
+﻿namespace VidCoder.Model;
+
+public enum LogType
 {
-	public enum LogType
-	{
-		Message = 0,
-		Error = 1
-	}
+	Message = 0,
+	Error = 1
 }

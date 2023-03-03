@@ -7,37 +7,36 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 
-namespace VidCoder.DragDropUtils
+namespace VidCoder.DragDropUtils;
+
+public class MoveToFolderAdorner : Adorner
 {
-	public class MoveToFolderAdorner : Adorner
+	private static readonly Brush AdornerBrush;
+
+	private AdornerLayer adornerLayer;
+
+	static MoveToFolderAdorner()
 	{
-		private static readonly Brush AdornerBrush;
+		AdornerBrush = new SolidColorBrush(Color.FromArgb(0x22, 0, 0xaa, 0xff));
+		AdornerBrush.Freeze();
+	}
 
-		private AdornerLayer adornerLayer;
+	public MoveToFolderAdorner(UIElement adornedElement, AdornerLayer adornerLayer)
+		: base(adornedElement)
+	{
+		this.adornerLayer = adornerLayer;
+		this.IsHitTestVisible = false;
 
-		static MoveToFolderAdorner()
-		{
-			AdornerBrush = new SolidColorBrush(Color.FromArgb(0x22, 0, 0xaa, 0xff));
-			AdornerBrush.Freeze();
-		}
+		this.adornerLayer.Add(this);
+	}
 
-		public MoveToFolderAdorner(UIElement adornedElement, AdornerLayer adornerLayer)
-			: base(adornedElement)
-		{
-			this.adornerLayer = adornerLayer;
-			this.IsHitTestVisible = false;
+	protected override void OnRender(DrawingContext drawingContext)
+	{
+		drawingContext.DrawRectangle(AdornerBrush, null, new Rect(new Point(0, 0), new Size(this.AdornedElement.RenderSize.Width, this.AdornedElement.RenderSize.Height)));
+	}
 
-			this.adornerLayer.Add(this);
-		}
-
-		protected override void OnRender(DrawingContext drawingContext)
-		{
-			drawingContext.DrawRectangle(AdornerBrush, null, new Rect(new Point(0, 0), new Size(this.AdornedElement.RenderSize.Width, this.AdornedElement.RenderSize.Height)));
-		}
-
-		public void Detach()
-		{
-			this.adornerLayer.Remove(this);
-		}
+	public void Detach()
+	{
+		this.adornerLayer.Remove(this);
 	}
 }

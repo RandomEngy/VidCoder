@@ -5,18 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using VidCoder.Model;
 
-namespace VidCoder.Extensions
-{
-	public static class SubtitleBurnInSelectionExtensions
-	{
-		public static bool ForeignAudioIncluded(this SubtitleBurnInSelection subtitleBurnInSelection)
-		{
-			return subtitleBurnInSelection == SubtitleBurnInSelection.ForeignAudioTrack || subtitleBurnInSelection == SubtitleBurnInSelection.ForeignAudioTrackElseFirst;
-		}
+namespace VidCoder.Extensions;
 
-		public static bool FirstTrackIncluded(this SubtitleBurnInSelection subtitleBurnInSelection)
-		{
-			return subtitleBurnInSelection == SubtitleBurnInSelection.First || subtitleBurnInSelection == SubtitleBurnInSelection.ForeignAudioTrackElseFirst;
-		}
+public static class SubtitleBurnInSelectionExtensions
+{
+	public static bool ForeignAudioIncluded(this SubtitleBurnInSelection subtitleBurnInSelection)
+	{
+		return subtitleBurnInSelection == SubtitleBurnInSelection.ForeignAudioTrack || subtitleBurnInSelection == SubtitleBurnInSelection.ForeignAudioTrackElseFirst;
+	}
+
+	public static bool FirstTrackIncluded(this SubtitleBurnInSelection subtitleBurnInSelection)
+	{
+		return subtitleBurnInSelection == SubtitleBurnInSelection.First || subtitleBurnInSelection == SubtitleBurnInSelection.ForeignAudioTrackElseFirst;
 	}
 }

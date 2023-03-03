@@ -7,14 +7,14 @@ using HandBrake.Interop.Interop;
 using ReactiveUI;
 using VidCoder.Extensions;
 
-namespace VidCoder.Services.HandBrakeProxy
-{
+namespace VidCoder.Services.HandBrakeProxy;
+
     public class LocalScanProxy : IScanProxy
     {
         public event EventHandler<EventArgs<float>> ScanProgress;
         public event EventHandler<EventArgs<string>> ScanCompleted;
 
-		public void StartScan(string path, IAppLogger logger)
+	public void StartScan(string path, IAppLogger logger)
         {
             var onDemandInstance = new HandBrakeInstance();
             onDemandInstance.Initialize(Config.LogVerbosity, noHardware: false);
@@ -31,8 +31,7 @@ namespace VidCoder.Services.HandBrakeProxy
             onDemandInstance.StartScan(path, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds), 0);
         }
 
-		public void Dispose()
-		{
-		}
+	public void Dispose()
+	{
 	}
 }

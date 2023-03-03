@@ -6,18 +6,18 @@ using System.Text;
 using HandBrake.Interop.Interop.Interfaces.Model.Encoders;
 using VidCoder.Resources;
 
-namespace VidCoder.ViewModel
+namespace VidCoder.ViewModel;
+
+public class MixdownViewModel
 {
-	public class MixdownViewModel
-	{
-		private static ResourceManager manager = new ResourceManager(typeof (EncodingRes));
+	private static ResourceManager manager = new ResourceManager(typeof (EncodingRes));
 
-		public HBMixdown Mixdown { get; set; }
+	public HBMixdown Mixdown { get; set; }
 
-		public bool IsCompatible { get; set; }
+	public bool IsCompatible { get; set; }
 
-	    public override string ToString()
-	    {
+    public override string ToString()
+    {
             string resourceString = manager.GetString("Mixdown_" + this.Mixdown.ShortName);
 
             if (string.IsNullOrWhiteSpace(resourceString))
@@ -27,5 +27,4 @@ namespace VidCoder.ViewModel
 
             return resourceString;
         }
-	}
 }

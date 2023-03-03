@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoderCommon.Model
+namespace VidCoderCommon.Model;
+
+public class SourcePathWithType
 {
-	public class SourcePathWithType
-	{
-		public string Path { get; set; }
-		public SourceType SourceType { get; set; }
-	}
+	public string Path { get; set; }
+	public SourceType SourceType { get; set; }
 }

@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VidCoder.Model
+namespace VidCoder.Model;
+
+public interface IVideoPlayer
 {
-	public interface IVideoPlayer
-	{
-		bool Installed { get; }
+	bool Installed { get; }
 
-		void PlayTitle(string discPath, int title);
+	void PlayTitle(string discPath, int title);
 
-		string Id { get; }
+	string Id { get; }
 
-		string Display { get; }
-	}
+	string Display { get; }
 }

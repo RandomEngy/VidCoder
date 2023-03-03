@@ -3,28 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VidCoder.Model
-{
-	public static class Players
-	{
-		public static List<IVideoPlayer> All
-		{
-			get
-			{
-				return new List<IVideoPlayer>
-				{
-					new VlcPlayer(),
-					new MpchcPlayer()
-				};
-			}
-		}
+namespace VidCoder.Model;
 
-		public static List<IVideoPlayer> Installed
+public static class Players
+{
+	public static List<IVideoPlayer> All
+	{
+		get
 		{
-			get
+			return new List<IVideoPlayer>
 			{
-				return All.Where(player => player.Installed).ToList();
-			}
+				new VlcPlayer(),
+				new MpchcPlayer()
+			};
+		}
+	}
+
+	public static List<IVideoPlayer> Installed
+	{
+		get
+		{
+			return All.Where(player => player.Installed).ToList();
 		}
 	}
 }

@@ -6,27 +6,26 @@ using System.Resources;
 using ReactiveUI;
 using VidCoder.Properties;
 
-namespace VidCoder.ViewModel
+namespace VidCoder.ViewModel;
+
+using Resources;
+
+public class ColumnViewModel : ReactiveObject
 {
-	using Resources;
+	private static ResourceManager resources = new ResourceManager("VidCoder.Resources.CommonRes", typeof(CommonRes).Assembly);
 
-	public class ColumnViewModel : ReactiveObject
+	public ColumnViewModel(string id)
 	{
-		private static ResourceManager resources = new ResourceManager("VidCoder.Resources.CommonRes", typeof(CommonRes).Assembly);
+		this.Id = id;
+	}
 
-		public ColumnViewModel(string id)
+	public string Id { get; set; }
+
+	public string Title
+	{
+		get
 		{
-			this.Id = id;
-		}
-
-		public string Id { get; set; }
-
-		public string Title
-		{
-			get
-			{
-				return resources.GetString("QueueColumnName" + this.Id);
-			}
+			return resources.GetString("QueueColumnName" + this.Id);
 		}
 	}
 }

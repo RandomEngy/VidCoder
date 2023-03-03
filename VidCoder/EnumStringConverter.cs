@@ -6,46 +6,45 @@ using System.Text;
 using System.Reflection;
 using System.Resources;
 
-namespace VidCoder
+namespace VidCoder;
+
+public class EnumStringConverter<T>
 {
-	public class EnumStringConverter<T>
+	private Dictionary<T, string> displayValues;
+
+	public EnumStringConverter()
 	{
-		private Dictionary<T, string> displayValues;
+		this.displayValues = new Dictionary<T, string>();
 
-		public EnumStringConverter()
+		Type type = typeof(T);
+		var fields = type.GetFields(BindingFlags.Public | BindingFlags.Static);
+		foreach (var field in fields)
 		{
-			this.displayValues = new Dictionary<T, string>();
+			DisplayAttribute[] a = (DisplayAttribute[])field.GetCustomAttributes(typeof(DisplayAttribute), false);
 
-			Type type = typeof(T);
-			var fields = type.GetFields(BindingFlags.Public | BindingFlags.Static);
-			foreach (var field in fields)
-			{
-				DisplayAttribute[] a = (DisplayAttribute[])field.GetCustomAttributes(typeof(DisplayAttribute), false);
+			string displayString = GetDisplayStringValue(a);
+			T enumValue = (T)field.GetValue(null);
 
-				string displayString = GetDisplayStringValue(a);
-				T enumValue = (T)field.GetValue(null);
+			displayValues.Add(enumValue, displayString);
+		}
+	}
 
-				displayValues.Add(enumValue, displayString);
-			}
+	public string Convert(T enumValue)
+	{
+		return displayValues[enumValue];
+	}
+
+	private string GetDisplayStringValue(DisplayAttribute[] a)
+	{
+		if (a == null || a.Length == 0) return null;
+		DisplayAttribute displayAttribute = a[0];
+
+		if (displayAttribute.ResourceType != null)
+		{
+			ResourceManager resourceManager = new ResourceManager(displayAttribute.ResourceType);
+			return resourceManager.GetString(displayAttribute.Name);
 		}
 
-		public string Convert(T enumValue)
-		{
-			return displayValues[enumValue];
-		}
-
-		private string GetDisplayStringValue(DisplayAttribute[] a)
-		{
-			if (a == null || a.Length == 0) return null;
-			DisplayAttribute displayAttribute = a[0];
-
-			if (displayAttribute.ResourceType != null)
-			{
-				ResourceManager resourceManager = new ResourceManager(displayAttribute.ResourceType);
-				return resourceManager.GetString(displayAttribute.Name);
-			}
-
-			return displayAttribute.Name;
-		}
+		return displayAttribute.Name;
 	}
 }

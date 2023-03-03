@@ -5,35 +5,34 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace VidCoder.Controls
+namespace VidCoder.Controls;
+
+public class EnhancedListView : ListView
 {
-	public class EnhancedListView : ListView
+	private readonly List<IListItemViewModel> selectedItems = new List<IListItemViewModel>();
+
+	protected override void OnSelectionChanged(SelectionChangedEventArgs e)
 	{
-		private readonly List<IListItemViewModel> selectedItems = new List<IListItemViewModel>();
+		base.OnSelectionChanged(e);
 
-		protected override void OnSelectionChanged(SelectionChangedEventArgs e)
+		bool isVirtualizing = VirtualizingPanel.GetIsVirtualizing(this);
+		bool isMultiSelect = this.SelectionMode != SelectionMode.Single;
+
+		if (isVirtualizing && isMultiSelect)
 		{
-			base.OnSelectionChanged(e);
+			var newSelectedItems = this.SelectedItems.Cast<IListItemViewModel>().ToList();
 
-			bool isVirtualizing = VirtualizingPanel.GetIsVirtualizing(this);
-			bool isMultiSelect = this.SelectionMode != SelectionMode.Single;
-
-			if (isVirtualizing && isMultiSelect)
+			foreach (var deselectedItem in this.selectedItems.Except(newSelectedItems))
 			{
-				var newSelectedItems = this.SelectedItems.Cast<IListItemViewModel>().ToList();
+				deselectedItem.IsSelected = false;
+			}
 
-				foreach (var deselectedItem in this.selectedItems.Except(newSelectedItems))
-				{
-					deselectedItem.IsSelected = false;
-				}
+			this.selectedItems.Clear();
+			this.selectedItems.AddRange(newSelectedItems);
 
-				this.selectedItems.Clear();
-				this.selectedItems.AddRange(newSelectedItems);
-
-				foreach (var newlySelectedItem in this.selectedItems)
-				{
-					newlySelectedItem.IsSelected = true;
-				}
+			foreach (var newlySelectedItem in this.selectedItems)
+			{
+				newlySelectedItem.IsSelected = true;
 			}
 		}
 	}

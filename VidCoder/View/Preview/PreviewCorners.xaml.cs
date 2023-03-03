@@ -17,106 +17,105 @@ using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.ViewModel;
 
-namespace VidCoder.View.Preview
+namespace VidCoder.View.Preview;
+
+/// <summary>
+/// Interaction logic for PreviewCorners.xaml
+/// </summary>
+public partial class PreviewCorners : UserControl
 {
-	/// <summary>
-	/// Interaction logic for PreviewCorners.xaml
-	/// </summary>
-	public partial class PreviewCorners : UserControl
+	private const double ZoomedPixelSize = 4;
+
+	private PreviewWindowViewModel viewModel;
+
+	private IDisposable updateCornerImageSubscription;
+
+	public PreviewCorners()
 	{
-		private const double ZoomedPixelSize = 4;
+		this.InitializeComponent();
 
-		private PreviewWindowViewModel viewModel;
+		this.DataContextChanged += this.OnDataContextChanged;
+	}
 
-		private IDisposable updateCornerImageSubscription;
+	private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+	{
+		var newViewModel = e.NewValue as PreviewWindowViewModel;
 
-		public PreviewCorners()
+		this.viewModel = newViewModel;
+		if (newViewModel == null)
 		{
-			this.InitializeComponent();
-
-			this.DataContextChanged += this.OnDataContextChanged;
+			this.updateCornerImageSubscription?.Dispose();
 		}
-
-		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+		else
 		{
-			var newViewModel = e.NewValue as PreviewWindowViewModel;
+			this.updateCornerImageSubscription = newViewModel.PreviewImageServiceClient.WhenAnyValue(x => x.PreviewImage).Subscribe(_ =>
+			{
+				this.UpdateCornerImages();
+			});
+		}
+	}
 
-			this.viewModel = newViewModel;
-			if (newViewModel == null)
+	public void UpdateCornerImages()
+	{
+		if (this.viewModel.PreviewImageServiceClient.PreviewImage != null)
+		{
+			// Top left
+			UpdateCornerImage(
+				this.topLeftImage,
+				this.topLeftImageHolder,
+				this.viewModel.PreviewImageServiceClient.PreviewImage,
+				(imageWidth, imageHeight, regionWidth, regionHeight) => new Int32Rect(0, 0, regionWidth, regionHeight));
+
+			// Bottom right
+			UpdateCornerImage(
+				this.bottomRightImage,
+				this.bottomRightImageHolder,
+				this.viewModel.PreviewImageServiceClient.PreviewImage,
+				(imageWidth, imageHeight, regionWidth, regionHeight) => new Int32Rect(imageWidth - regionWidth, imageHeight - regionHeight, regionWidth, regionHeight));
+		}
+	}
+
+	private static void UpdateCornerImage(Image image, Grid imageHolder, BitmapSource bitmap, RegionChooser regionChooser, bool isRetry = false)
+	{
+		// Image dimensions
+		int imageWidth = bitmap.PixelWidth;
+		int imageHeight = bitmap.PixelHeight;
+
+		double availableWidth = imageHolder.ActualWidth;
+		double availableHeight = imageHolder.ActualHeight;
+
+		if (availableWidth == 0 || availableHeight == 0)
+		{
+			// Intermittent bug causing this. In this case we queue it up to go again after a layout pass has been done.
+			if (!isRetry)
 			{
-				this.updateCornerImageSubscription?.Dispose();
-			}
-			else
-			{
-				this.updateCornerImageSubscription = newViewModel.PreviewImageServiceClient.WhenAnyValue(x => x.PreviewImage).Subscribe(_ =>
+				DispatchUtilities.BeginInvoke(() =>
 				{
-					this.UpdateCornerImages();
+					UpdateCornerImage(image, imageHolder, bitmap, regionChooser, isRetry: true);
 				});
 			}
+
+			return;
 		}
 
-		public void UpdateCornerImages()
-		{
-			if (this.viewModel.PreviewImageServiceClient.PreviewImage != null)
-			{
-				// Top left
-				UpdateCornerImage(
-					this.topLeftImage,
-					this.topLeftImageHolder,
-					this.viewModel.PreviewImageServiceClient.PreviewImage,
-					(imageWidth, imageHeight, regionWidth, regionHeight) => new Int32Rect(0, 0, regionWidth, regionHeight));
+		int cornerWidthPixels = (int)(availableWidth / ZoomedPixelSize);
+		int cornerHeightPixels = (int)(availableHeight / ZoomedPixelSize);
 
-				// Bottom right
-				UpdateCornerImage(
-					this.bottomRightImage,
-					this.bottomRightImageHolder,
-					this.viewModel.PreviewImageServiceClient.PreviewImage,
-					(imageWidth, imageHeight, regionWidth, regionHeight) => new Int32Rect(imageWidth - regionWidth, imageHeight - regionHeight, regionWidth, regionHeight));
-			}
-		}
+		// Make sure the subsection of the image is not larger than the image itself
+		cornerWidthPixels = Math.Min(cornerWidthPixels, imageWidth);
+		cornerHeightPixels = Math.Min(cornerHeightPixels, imageHeight);
 
-		private static void UpdateCornerImage(Image image, Grid imageHolder, BitmapSource bitmap, RegionChooser regionChooser, bool isRetry = false)
-		{
-			// Image dimensions
-			int imageWidth = bitmap.PixelWidth;
-			int imageHeight = bitmap.PixelHeight;
+		double cornerWidth = cornerWidthPixels * ZoomedPixelSize;
+		double cornerHeight = cornerHeightPixels * ZoomedPixelSize;
 
-			double availableWidth = imageHolder.ActualWidth;
-			double availableHeight = imageHolder.ActualHeight;
+		var croppedBitmap = new CroppedBitmap();
+		croppedBitmap.BeginInit();
+		croppedBitmap.SourceRect = regionChooser(imageWidth, imageHeight, cornerWidthPixels, cornerHeightPixels);
+		croppedBitmap.Source = bitmap;
+		croppedBitmap.EndInit();
 
-			if (availableWidth == 0 || availableHeight == 0)
-			{
-				// Intermittent bug causing this. In this case we queue it up to go again after a layout pass has been done.
-				if (!isRetry)
-				{
-					DispatchUtilities.BeginInvoke(() =>
-					{
-						UpdateCornerImage(image, imageHolder, bitmap, regionChooser, isRetry: true);
-					});
-				}
-
-				return;
-			}
-
-			int cornerWidthPixels = (int)(availableWidth / ZoomedPixelSize);
-			int cornerHeightPixels = (int)(availableHeight / ZoomedPixelSize);
-
-			// Make sure the subsection of the image is not larger than the image itself
-			cornerWidthPixels = Math.Min(cornerWidthPixels, imageWidth);
-			cornerHeightPixels = Math.Min(cornerHeightPixels, imageHeight);
-
-			double cornerWidth = cornerWidthPixels * ZoomedPixelSize;
-			double cornerHeight = cornerHeightPixels * ZoomedPixelSize;
-
-			var croppedBitmap = new CroppedBitmap();
-			croppedBitmap.BeginInit();
-			croppedBitmap.SourceRect = regionChooser(imageWidth, imageHeight, cornerWidthPixels, cornerHeightPixels);
-			croppedBitmap.Source = bitmap;
-			croppedBitmap.EndInit();
-
-			image.Source = croppedBitmap;
-			image.Width = cornerWidth;
-			image.Height = cornerHeight;
-		}
+		image.Source = croppedBitmap;
+		image.Width = cornerWidth;
+		image.Height = cornerHeight;
 	}
 }

@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VidCoderWorker
+namespace VidCoderWorker;
+
+using System.Runtime.Serialization;
+
+[DataContract]
+public class PreviewImage
 {
-	using System.Runtime.Serialization;
+	[DataMember]
+	public int Width { get; set; }
 
-	[DataContract]
-	public class PreviewImage
-	{
-		[DataMember]
-		public int Width { get; set; }
+	[DataMember]
+	public int Height { get; set; }
 
-		[DataMember]
-		public int Height { get; set; }
-
-		[DataMember]
-		public byte[] Data { get; set; }
-	}
+	[DataMember]
+	public byte[] Data { get; set; }
 }
