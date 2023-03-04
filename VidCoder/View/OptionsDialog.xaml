@@ -89,8 +89,70 @@
 							Orientation="Vertical"
 							Visibility="{Binding SelectedTabIndex, Converter={StaticResource IntVisibilityConverter}, ConverterParameter=0}">
 
-							<!--  Languages  -->
-							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.GeneralSection}" />
+							<!--  Encoding settings shortcut  -->
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.EncodingSettingsSection}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition />
+										<ColumnDefinition Width="Auto" />
+									</Grid.ColumnDefinitions>
+									<TextBlock
+										Grid.Column="0"
+										Text="{x:Static res:OptionsRes.EncodingSettingsDescription}"
+										TextWrapping="Wrap" />
+									<Button
+										Grid.Column="1"
+										Margin="6 0 0 0"
+										Padding="4"
+										Command="{Binding OpenEncodingSettings}">
+										<StackPanel Orientation="Horizontal">
+											<Image
+												Width="32"
+												Height="32"
+												Source="/Icons/EncodingSettings.png" />
+											<TextBlock
+												Margin="4 0 0 0"
+												VerticalAlignment="Center"
+												Text="{x:Static res:OptionsRes.EncodingSettingsShortcutButton}" />
+										</StackPanel>
+									</Button>
+								</Grid>
+							</StackPanel>
+
+							<!--  Picker settings shortcut  -->
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.PickerSettingsSection}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition />
+										<ColumnDefinition Width="Auto" />
+									</Grid.ColumnDefinitions>
+									<TextBlock
+										Grid.Column="0"
+										Text="{x:Static res:OptionsRes.PickerDescription}"
+										TextWrapping="Wrap" />
+									<Button
+										Grid.Column="1"
+										Margin="6 0 0 0"
+										Padding="4"
+										Command="{Binding OpenPicker}">
+										<StackPanel Orientation="Horizontal">
+											<Image
+												Width="32"
+												Height="32"
+												Source="/Icons/Picker.png" />
+											<TextBlock
+												Margin="4 0 0 0"
+												VerticalAlignment="Center"
+												Text="{x:Static res:OptionsRes.PickerShortcutButton}" />
+										</StackPanel>
+									</Button>
+								</Grid>
+							</StackPanel>
+
+							<!--  Application  -->
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.ApplicationSection}" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}">
 								<StackPanel Orientation="Horizontal">
 									<TextBlock

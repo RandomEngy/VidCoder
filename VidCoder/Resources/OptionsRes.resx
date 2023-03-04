@@ -331,9 +331,6 @@
   <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
     <value>This is how many simultaneous encode jobs are allowed. Useful for machines with many CPU cores.</value>
   </data>
-  <data name="GeneralSection" xml:space="preserve">
-    <value>General</value>
-  </data>
   <data name="ThemeLabel" xml:space="preserve">
     <value>Theme</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
@@ -391,5 +388,26 @@ Polling: Periodically checks the contents of the folders. Uses significant CPU a
   </data>
   <data name="WatcherPollIntervalLabel" xml:space="preserve">
     <value>Poll interval (seconds):</value>
+  </data>
+  <data name="ApplicationSection" xml:space="preserve">
+    <value>Application</value>
+  </data>
+  <data name="EncodingSettingsDescription" xml:space="preserve">
+    <value>Encoding settings determine how your video is encoded: codec, bitrate, filters. This will affect how the video looks and sounds, the file size and which players support it. (HOW to encode)</value>
+  </data>
+  <data name="EncodingSettingsSection" xml:space="preserve">
+    <value>Encoding settings</value>
+  </data>
+  <data name="EncodingSettingsShortcutButton" xml:space="preserve">
+    <value>Edit encoding settings</value>
+  </data>
+  <data name="PickerDescription" xml:space="preserve">
+    <value>The picker chooses an output file location, audio tracks and subtitles. Customize the picker to automatically encode the tracks you want and pick the file name and the destination folder. (WHAT to encode)</value>
+  </data>
+  <data name="PickerSettingsSection" xml:space="preserve">
+    <value>Output location, track selection</value>
+  </data>
+  <data name="PickerShortcutButton" xml:space="preserve">
+    <value>Edit Picker settings</value>
   </data>
 </root>

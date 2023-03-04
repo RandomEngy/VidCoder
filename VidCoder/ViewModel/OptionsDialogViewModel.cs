@@ -32,6 +32,8 @@ public class OptionsDialogViewModel : ReactiveObject
 {
 	public const int UpdatesTabIndex = 3;
 
+	private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
+
 #pragma warning disable 169
 	//private UpdateInfo betaInfo;
 	private bool betaInfoAvailable;
@@ -817,6 +819,32 @@ public class OptionsDialogViewModel : ReactiveObject
 					}
 				},
 				this.WhenAnyValue(x => x.UseCustomCompletionSound)));
+		}
+	}
+
+	private ReactiveCommand<Unit, Unit> openEncodingSettings;
+	public ICommand OpenEncodingSettings
+	{
+		get
+		{
+			return this.openEncodingSettings ?? (this.openEncodingSettings = ReactiveCommand.Create(() =>
+			{
+				this.windowManager.Close(this);
+				this.windowManager.OpenOrFocusWindow<EncodingWindowViewModel>();
+			}));
+		}
+	}
+
+	private ReactiveCommand<Unit, Unit> openPicker;
+	public ICommand OpenPicker
+	{
+		get
+		{
+			return this.openPicker ?? (this.openPicker = ReactiveCommand.Create(() =>
+			{
+				this.windowManager.Close(this);
+				this.windowManager.OpenOrFocusWindow<PickerWindowViewModel>();
+			}));
 		}
 	}
 

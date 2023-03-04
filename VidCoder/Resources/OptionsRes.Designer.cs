@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VidCoder.Resources; 
+namespace VidCoder.Resources {
     using System;
     
     
@@ -84,6 +84,15 @@ namespace VidCoder.Resources;
         public static string AdvancedTab {
             get {
                 return ResourceManager.GetString("AdvancedTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application.
+        /// </summary>
+        public static string ApplicationSection {
+            get {
+                return ResourceManager.GetString("ApplicationSection", resourceCulture);
             }
         }
         
@@ -331,6 +340,33 @@ namespace VidCoder.Resources;
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Encoding settings determine how your video is encoded: codec, bitrate, filters. This will affect how the video looks and sounds, the file size and which players support it. (HOW to encode).
+        /// </summary>
+        public static string EncodingSettingsDescription {
+            get {
+                return ResourceManager.GetString("EncodingSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoding settings.
+        /// </summary>
+        public static string EncodingSettingsSection {
+            get {
+                return ResourceManager.GetString("EncodingSettingsSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit encoding settings.
+        /// </summary>
+        public static string EncodingSettingsShortcutButton {
+            get {
+                return ResourceManager.GetString("EncodingSettingsShortcutButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Encoding single file:.
         /// </summary>
         public static string EncodingSingleFile {
@@ -345,15 +381,6 @@ namespace VidCoder.Resources;
         public static string FileNameFormatOptions {
             get {
                 return ResourceManager.GetString("FileNameFormatOptions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to General.
-        /// </summary>
-        public static string GeneralSection {
-            get {
-                return ResourceManager.GetString("GeneralSection", resourceCulture);
             }
         }
         
@@ -489,6 +516,33 @@ namespace VidCoder.Resources;
         public static string OutputFolderSection {
             get {
                 return ResourceManager.GetString("OutputFolderSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The picker chooses an output file location, audio tracks and subtitles. Customize the picker to automatically encode the tracks you want and pick the file name and the destination folder. (WHAT to encode).
+        /// </summary>
+        public static string PickerDescription {
+            get {
+                return ResourceManager.GetString("PickerDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output location, track selection.
+        /// </summary>
+        public static string PickerSettingsSection {
+            get {
+                return ResourceManager.GetString("PickerSettingsSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Picker settings.
+        /// </summary>
+        public static string PickerShortcutButton {
+            get {
+                return ResourceManager.GetString("PickerShortcutButton", resourceCulture);
             }
         }
         
@@ -871,3 +925,4 @@ namespace VidCoder.Resources;
             }
         }
     }
+}
