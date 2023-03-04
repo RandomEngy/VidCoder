@@ -340,7 +340,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Encoding settings determine how your video is encoded: codec, bitrate, filters. This will affect how the video looks and sounds, the file size and which players support it. (HOW to encode).
+        ///   Looks up a localized string similar to Encoding settings include codec, bitrate, picture size and filters. This will affect how the video looks and sounds, the file size and which players support it. (HOW to encode).
         /// </summary>
         public static string EncodingSettingsDescription {
             get {
@@ -520,7 +520,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The picker chooses an output file location, audio tracks and subtitles. Customize the picker to automatically encode the tracks you want and pick the file name and the destination folder. (WHAT to encode).
+        ///   Looks up a localized string similar to The Picker chooses an output file location, audio tracks and subtitles. Customize the Picker to automatically add the tracks you want and to pick the file name and the destination folder. (WHAT to encode).
         /// </summary>
         public static string PickerDescription {
             get {

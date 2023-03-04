@@ -393,7 +393,7 @@ Polling: Periodically checks the contents of the folders. Uses significant CPU a
     <value>Application</value>
   </data>
   <data name="EncodingSettingsDescription" xml:space="preserve">
-    <value>Encoding settings determine how your video is encoded: codec, bitrate, filters. This will affect how the video looks and sounds, the file size and which players support it. (HOW to encode)</value>
+    <value>Encoding settings include codec, bitrate, picture size and filters. This will affect how the video looks and sounds, the file size and which players support it. (HOW to encode)</value>
   </data>
   <data name="EncodingSettingsSection" xml:space="preserve">
     <value>Encoding settings</value>
@@ -402,7 +402,7 @@ Polling: Periodically checks the contents of the folders. Uses significant CPU a
     <value>Edit encoding settings</value>
   </data>
   <data name="PickerDescription" xml:space="preserve">
-    <value>The picker chooses an output file location, audio tracks and subtitles. Customize the picker to automatically encode the tracks you want and pick the file name and the destination folder. (WHAT to encode)</value>
+    <value>The Picker chooses an output file location, audio tracks and subtitles. Customize the Picker to automatically add the tracks you want and to pick the file name and the destination folder. (WHAT to encode)</value>
   </data>
   <data name="PickerSettingsSection" xml:space="preserve">
     <value>Output location, track selection</value>
