@@ -165,26 +165,6 @@ public class SystemFolderWatcher : IDisposable
 		}
 	}
 
-	private static bool IsFileLocked(string filePath)
-	{
-		FileStream? stream = null;
-
-		try
-		{
-			stream = File.OpenRead(filePath);
-		}
-		catch (Exception)
-		{
-			return true;
-		}
-		finally
-		{
-			stream?.Close();
-		}
-
-		return false;
-	}
-
 	private void SetUpPendingTimer()
 	{
 		if (this.pendingCheckTimer == null)
@@ -210,7 +190,7 @@ public class SystemFolderWatcher : IDisposable
 			for (int i = this.filesPendingWriteComplete.Count - 1; i >= 0; i--)
 			{
 				string file = this.filesPendingWriteComplete[i];
-				if (!IsFileLocked(file))
+				if (!CommonFileUtilities.IsFileLocked(file))
 				{
 					this.logger.Log(file + " is no longer locked");
 					this.filesPendingWriteComplete.RemoveAt(i);

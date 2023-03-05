@@ -55,6 +55,26 @@ public static class CommonFileUtilities
 		return (fileAttributes & FileAttributes.Directory) == FileAttributes.Directory;
 	}
 
+	public static bool IsFileLocked(string filePath)
+	{
+		FileStream? stream = null;
+
+		try
+		{
+			stream = File.OpenRead(filePath);
+		}
+		catch (Exception)
+		{
+			return true;
+		}
+		finally
+		{
+			stream?.Close();
+		}
+
+		return false;
+	}
+
 	private static void GetFilesOrVideoFoldersRecursive(DirectoryInfo directory, List<SourcePathWithType> paths, List<string> inacessibleDirectories, PickerFileFilter fileFilter)
 	{
 		if (IsDiscFolder(directory.FullName))

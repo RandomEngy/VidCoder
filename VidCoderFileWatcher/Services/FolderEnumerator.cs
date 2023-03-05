@@ -64,7 +64,7 @@ public class FolderEnumerator
 		foreach (string path in existingFiles.Keys)
 		{
 			ExistingFile file = existingFiles[path];
-			if (!file.HasEntry)
+			if (!file.HasEntry && !CommonFileUtilities.IsFileLocked(path))
 			{
 				if (!filesToEnqueue.ContainsKey(file.Folder))
 				{
