@@ -57,7 +57,7 @@ public static class CommonFileUtilities
 
 	public static bool IsFileLocked(string filePath)
 	{
-		FileStream? stream = null;
+		FileStream stream = null;
 
 		try
 		{

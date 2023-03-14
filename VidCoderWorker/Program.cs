@@ -8,6 +8,7 @@ using PipeMethodCalls;
 using PipeMethodCalls.NetJson;
 using VidCoderCommon;
 using VidCoderCommon.Model;
+using VidCoderCommon.Services;
 using VidCoderCommon.Utilities;
 
 namespace VidCoderWorker;
@@ -42,6 +43,12 @@ class Program
 
 			var action = (HandBrakeWorkerAction)Enum.Parse(typeof(HandBrakeWorkerAction), args[2]);
 
+			bool debugLogging = false;
+			if (args.Length >= 4)
+			{
+				bool.TryParse(args[3], out debugLogging);
+			}
+
 			parentCheckTimer = new System.Timers.Timer();
 			parentCheckTimer.Interval = ParentCheckInterval;
 			parentCheckTimer.AutoReset = true;
@@ -68,7 +75,7 @@ class Program
 
 			parentCheckTimer.Start();
 
-			StartService(action);
+			StartService(action, debugLogging);
 
 			encodeComplete = new SemaphoreSlim(0, 1);
 			await encodeComplete.WaitAsync().ConfigureAwait(false);
@@ -80,7 +87,7 @@ class Program
 		}
 	}
 
-	private static async void StartService(HandBrakeWorkerAction action)
+	private static async void StartService(HandBrakeWorkerAction action, bool debugLogging)
 	{
 		try
 		{
@@ -90,9 +97,13 @@ class Program
 				PipeServerWithCallback<IHandBrakeEncodeWorkerCallback, IHandBrakeEncodeWorker> encodeServer = null;
 				Lazy<IHandBrakeEncodeWorker> lazyEncodeWorker = new Lazy<IHandBrakeEncodeWorker>(() => new HandBrakeEncodeWorker(encodeServer.Invoker));
 				encodeServer = new PipeServerWithCallback<IHandBrakeEncodeWorkerCallback, IHandBrakeEncodeWorker>(new NetJsonPipeSerializer(), PipeName, () => lazyEncodeWorker.Value);
-#if DEBUG
-				encodeServer.SetLogger(message => System.Diagnostics.Debug.WriteLine(message));
-#endif
+
+				if (debugLogging)
+				{
+					var logger = new SupportLogger("PipeServer Encode " + PipeName);
+					encodeServer.SetLogger(message => logger.Log(message));
+				}
+
 				server = encodeServer;
 			}
 			else if (action == HandBrakeWorkerAction.Scan)
@@ -100,9 +111,13 @@ class Program
 				PipeServerWithCallback<IHandBrakeScanWorkerCallback, IHandBrakeScanWorker> scanServer = null;
 				Lazy<IHandBrakeScanWorker> lazyScanWorker = new Lazy<IHandBrakeScanWorker>(() => new HandBrakeScanWorker(scanServer.Invoker));
 				scanServer = new PipeServerWithCallback<IHandBrakeScanWorkerCallback, IHandBrakeScanWorker>(new NetJsonPipeSerializer(), PipeName, () => lazyScanWorker.Value);
-#if DEBUG
-				scanServer.SetLogger(message => System.Diagnostics.Debug.WriteLine(message));
-#endif
+
+				if (debugLogging)
+				{
+					var logger = new SupportLogger("PipeServer Scan " + PipeName);
+					scanServer.SetLogger(message => logger.Log(message));
+				}
+
 				server = scanServer;
 			}
 			else

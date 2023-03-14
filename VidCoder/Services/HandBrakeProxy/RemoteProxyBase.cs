@@ -328,7 +328,7 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 		var startInfo = new ProcessStartInfo
 		{
 			FileName = "VidCoderWorker.exe",
-			Arguments = Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture) + " " + this.pipeName + " " + this.Action,
+			Arguments = Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture) + " " + this.pipeName + " " + this.Action + " " + Utilities.DebugLogging,
 			RedirectStandardOutput = true,
 			RedirectStandardError = true,
 			UseShellExecute = false,
