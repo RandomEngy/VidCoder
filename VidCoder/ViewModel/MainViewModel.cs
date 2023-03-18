@@ -703,7 +703,7 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 		}
 
 		// Close the watcher service if the user has asked to on program close
-		if (!RegistryUtilities.IsFileWatcherAutoStart())
+		if (Utilities.WatcherSupportedAndEnabled && !RegistryUtilities.IsFileWatcherAutoStart())
 		{
 			StaticResolver.Resolve<WatcherProcessManager>().Stop();
 		}
