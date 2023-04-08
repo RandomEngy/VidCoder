@@ -57,6 +57,7 @@ public class LocalEncodeProxy : IEncodeProxy
 						job,
 						encodeTitle,
 						EncodingRes.DefaultChapterName,
+						Config.EnableNVDec,
 						preview ? previewNumber : -1,
 						previewSeconds,
 						Config.PreviewCount);

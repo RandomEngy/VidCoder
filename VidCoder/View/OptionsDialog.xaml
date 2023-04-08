@@ -461,10 +461,7 @@
 							Orientation="Vertical"
 							Visibility="{Binding SelectedTabIndex, Converter={StaticResource IntVisibilityConverter}, ConverterParameter=2}">
 							<!--  Advanced options  -->
-							<TextBlock
-								Style="{StaticResource ConfigSectionHeader}"
-								Text="{x:Static res:OptionsRes.AdvancedOptionsSection}"
-								TextWrapping="Wrap" />
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.AdvancedOptionsSection}" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}">
 								<CheckBox
 									HorizontalAlignment="Left"
@@ -554,10 +551,7 @@
 							</StackPanel>
 
 							<!--  Scanning  -->
-							<TextBlock
-								Style="{StaticResource ConfigSectionHeader}"
-								Text="{x:Static res:OptionsRes.ScanningSection}"
-								TextWrapping="Wrap" />
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.ScanningSection}" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}">
 								<StackPanel Margin="0" Orientation="Horizontal">
 									<TextBlock
@@ -654,10 +648,7 @@
 							</StackPanel>
 
 							<!--  Logging  -->
-							<TextBlock
-								Style="{StaticResource ConfigSectionHeader}"
-								Text="{x:Static res:OptionsRes.LoggingSection}"
-								TextWrapping="Wrap" />
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.LoggingSection}" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}">
 								<StackPanel Margin="0 0 0 0" Orientation="Horizontal">
 									<TextBlock
@@ -710,18 +701,29 @@
 									Content="{x:Static res:OptionsRes.OpenLogFolderButton}" />
 							</StackPanel>
 
+							<!--  Hardware encoding  -->
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.HardwareEncodingSection}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<CheckBox
+									Margin="0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									IsChecked="{Binding EnableNVDec}">
+									<TextBlock Text="{x:Static res:OptionsRes.EnableNVDecCheckBox}" TextWrapping="Wrap" />
+								</CheckBox>
+							</StackPanel>
+
+
 							<!--  DVD reading  -->
-							<TextBlock
-								Style="{StaticResource ConfigSectionHeader}"
-								Text="{x:Static res:OptionsRes.DvdReadingSection}"
-								TextWrapping="Wrap" />
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.DvdReadingSection}" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}">
 								<CheckBox
 									Margin="0 0 0 0"
 									HorizontalAlignment="Left"
 									VerticalAlignment="Center"
-									Content="{x:Static res:OptionsRes.EnableLibDvdNavCheckBox}"
-									IsChecked="{Binding EnableLibDvdNav}" />
+									IsChecked="{Binding EnableLibDvdNav}">
+									<TextBlock Text="{x:Static res:OptionsRes.EnableLibDvdNavCheckBox}" TextWrapping="Wrap" />
+								</CheckBox>
 							</StackPanel>
 						</StackPanel>
 

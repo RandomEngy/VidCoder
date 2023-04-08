@@ -483,7 +483,8 @@ namespace VidCoder.Services;
 				JsonEncodeObject jsonEncodeObject = factory.CreateJsonObject(
 					imageJob.Job,
 					imageJob.Title,
-					EncodingRes.DefaultChapterName);
+					EncodingRes.DefaultChapterName,
+					Config.EnableNVDec);
 
 				// Make a HandBrake call to get the image
 				imageSource = BitmapUtilities.ConvertToBitmapImage(BitmapUtilities.ConvertByteArrayToBitmap(imageJob.ScanInstance.GetPreview(jsonEncodeObject, imageJob.PreviewIndex)));

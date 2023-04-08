@@ -657,6 +657,16 @@ public class OptionsDialogViewModel : ReactiveObject
 		} 
 	}
 
+	public bool EnableNVDec
+	{
+		get => Config.EnableNVDec;
+		set
+		{
+			Config.EnableNVDec = value;
+			this.RaisePropertyChanged();
+		}
+	}
+
 	public bool EnableLibDvdNav
 	{
 		get => Config.EnableLibDvdNav;

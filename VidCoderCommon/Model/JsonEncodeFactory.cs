@@ -46,6 +46,7 @@ public class JsonEncodeFactory
 	/// <param name="job">The encode job to convert.</param>
 	/// <param name="title">The source title.</param>
 	/// <param name="defaultChapterNameFormat">The format for a default chapter name.</param>
+	/// <param name="enableNVDec">True to enable NVDec decoding.</param>
 	/// <param name="previewNumber">The preview number to start at (0-based). Leave off for a normal encode.</param>
 	/// <param name="previewSeconds">The number of seconds long to make the preview.</param>
 	/// <param name="previewCount">The total number of previews.</param>
@@ -54,6 +55,7 @@ public class JsonEncodeFactory
 		VCJob job,
 		SourceTitle title,
 		string defaultChapterNameFormat,
+		bool enableNVDec,
 		int previewNumber = -1,
 		int previewSeconds = 0,
 		int previewCount = 0)
@@ -86,7 +88,7 @@ public class JsonEncodeFactory
 			PAR = outputSize.Par,
 			Source = this.CreateSource(job, title, previewNumber, previewSeconds, previewCount),
 			Subtitle = this.CreateSubtitles(job, title),
-			Video = this.CreateVideo(job, title, previewSeconds)
+			Video = this.CreateVideo(job, title, enableNVDec, previewSeconds)
 		};
 
 		return encode;
@@ -927,7 +929,7 @@ public class JsonEncodeFactory
 		return subtitles;
 	}
 
-	private Video CreateVideo(VCJob job, SourceTitle title, int previewLengthSeconds)
+	private Video CreateVideo(VCJob job, SourceTitle title, bool enableNVDec, int previewLengthSeconds)
 	{
 		Video video = new Video();
 		VCProfile profile = job.EncodingProfile;
@@ -943,6 +945,11 @@ public class JsonEncodeFactory
 		{
 			Decode = profile.QsvDecode
 		};
+
+		if (enableNVDec)
+		{
+			video.HardwareDecode = (int)NativeConstants.HB_DECODE_SUPPORT_NVDEC;
+		}
 
 		video.Level = profile.VideoLevel ?? "auto";
 		video.Options = profile.VideoOptions?.Trim();

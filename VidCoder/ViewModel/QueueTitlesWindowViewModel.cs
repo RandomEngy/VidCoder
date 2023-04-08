@@ -89,7 +89,8 @@ public class QueueTitlesWindowViewModel : OkCancelDialogViewModel
 			JsonEncodeObject jsonEncodeObject = factory.CreateJsonObject(
 				job,
 				title,
-				EncodingRes.DefaultChapterName);
+				EncodingRes.DefaultChapterName,
+				Config.EnableNVDec);
 
 			this.PreviewImage = BitmapUtilities.ConvertToBitmapImage(BitmapUtilities.ConvertByteArrayToBitmap(this.main.ScanInstance.GetPreview(jsonEncodeObject, 2)));
 			this.RaisePropertyChanged(nameof(this.TitleText));

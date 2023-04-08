@@ -13,7 +13,8 @@ public interface IHandBrakeEncodeWorker : IHandBrakeWorker
 		VCJob job,
 		int previewNumber,
 		int previewSeconds,
-		string defaultChapterNameFormat);
+		string defaultChapterNameFormat,
+		bool enableNVDec);
 
 	/// <summary>
 	/// Starts an encode with the given encode JSON.

@@ -322,6 +322,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Nvidia NVDec to decode video when using an NVEnc encoder and the hardware is available.
+        /// </summary>
+        public static string EnableNVDecCheckBox {
+            get {
+                return ResourceManager.GetString("EnableNVDecCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number of encode retries:.
         /// </summary>
         public static string EncodeRetriesLabel {
@@ -390,6 +399,15 @@ namespace VidCoder.Resources {
         public static string GeneralTab {
             get {
                 return ResourceManager.GetString("GeneralTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hardware encoding.
+        /// </summary>
+        public static string HardwareEncodingSection {
+            get {
+                return ResourceManager.GetString("HardwareEncodingSection", resourceCulture);
             }
         }
         

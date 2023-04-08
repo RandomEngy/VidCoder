@@ -410,4 +410,10 @@ Polling: Periodically checks the contents of the folders. Uses significant CPU a
   <data name="PickerShortcutButton" xml:space="preserve">
     <value>Edit Picker settings</value>
   </data>
+  <data name="EnableNVDecCheckBox" xml:space="preserve">
+    <value>Use Nvidia NVDec to decode video when using an NVEnc encoder and the hardware is available</value>
+  </data>
+  <data name="HardwareEncodingSection" xml:space="preserve">
+    <value>Hardware encoding</value>
+  </data>
 </root>
