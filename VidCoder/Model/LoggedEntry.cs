@@ -11,4 +11,6 @@ public class LoggedEntry
 	public LogEntry Entry { get; set; }
 
 	public long ByteCount { get; set; }
+
+	public LogChunk Chunk { get; set; }
 }

@@ -15,6 +15,7 @@ using DynamicData;
 using ImTools;
 using Microsoft.AnyContainer;
 using ReactiveUI;
+using SharpCompress.Common;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Services;
@@ -56,6 +57,7 @@ public partial class LogWindow : Window
 	private int loadedChunkStart = 0;
 	private int loadedChunkCount = 0;
 	private double averageLineHeight = 0;
+	private int lastFullyMeasuredChunk = -1;
 
 	private bool suppressScrollListener = false;
 
@@ -499,6 +501,10 @@ public partial class LogWindow : Window
 				{
 					this.logScroller.ScrollToEnd();
 				}
+				else
+				{
+					this.RefreshPlaceholderSpace();
+				}
 
 				this.workerRunning = false;
 				return;
@@ -510,6 +516,7 @@ public partial class LogWindow : Window
 			}
 
 			// Update chunk data
+			int addedChunkCount = 0;
 			foreach (LoggedEntry entry in entries)
 			{
 				LogChunk chunk;
@@ -522,6 +529,7 @@ public partial class LogWindow : Window
 						BytePosition = this.chunks.Count == 0 ? 0 : this.chunks[^1].BytePosition + this.chunks[^1].ByteCount
 					};
 					this.chunks.Add(chunk);
+					addedChunkCount++;
 				}
 				else
 				{
@@ -532,21 +540,72 @@ public partial class LogWindow : Window
 
 				chunk.ByteCount += entry.ByteCount;
 				chunk.LineCount += lines.Length;
+				chunk.MeasuredHeight = 0;
+
+				entry.Chunk = chunk;
 			}
 
+			// If we are scrolled to near the end, add the Runs to the document
 			if (this.logScroller.VerticalOffset + this.logScroller.ViewportHeight + EstimatedLineHeight * BufferLines >= this.logScroller.ExtentHeight)
 			{
-				// If we are scrolled to near the end, add the text
-				List<ColoredLogGroup> entryGroups = this.GroupPendingEntries(entries);
-				this.AddLogGroupRunsToEnd(entryGroups);
-			}
-			else
-			{
-				// Update margins
+				List<Run> runs = this.CreateRunsFromPendingEntries(entries);
+
+				this.AddRunsToEnd(runs);
+
+				this.loadedChunkCount += addedChunkCount;
 			}
 		}
 
 		this.ProcessPendingEntries();
+	}
+
+	private List<Run> CreateRunsFromPendingEntries(IList<LoggedEntry> entries)
+	{
+		LogChunk currentChunk = null;
+		ColoredLogGroup currentGroup = null;
+		var runs = new List<Run>();
+
+		foreach (LoggedEntry entry in entries)
+		{
+			LogColor entryColor = LogEntryClassificationUtilities.GetEntryColor(entry.Entry);
+			if (currentGroup == null || (entryColor != LogColor.NoChange && entryColor != currentGroup.Color) || entry.Chunk != currentChunk)
+			{
+				if (currentGroup != null)
+				{
+					this.CommitColoredLogGroupToChunk(currentGroup, runs, entry.Chunk);
+				}
+
+				// Update the current group and chunk
+				currentGroup = new ColoredLogGroup(entryColor == LogColor.NoChange ? LogColor.Normal : entryColor);
+				currentChunk = entry.Chunk;
+			}
+
+			currentGroup.Entries.Add(entry.Entry.FormatMessage());
+		}
+
+		if (currentGroup != null)
+		{
+			this.CommitColoredLogGroupToChunk(currentGroup, runs, currentChunk);
+		}
+
+		return runs;
+	}
+
+	private void CommitColoredLogGroupToChunk(ColoredLogGroup currentGroup, List<Run> runs, LogChunk chunk)
+	{
+		// Create the Run
+		Run run = this.CreateLogGroupRun(currentGroup);
+
+		// Add the Run to the chunk registry so it can be removed properly when the chunk unloads
+		if (chunk.Runs == null)
+		{
+			chunk.Runs = new List<Run>();
+		}
+
+		chunk.Runs.Add(run);
+
+		// Add the Run to the result
+		runs.Add(run);
 	}
 
 	/// <summary>
@@ -577,11 +636,6 @@ public partial class LogWindow : Window
 	{
 		// Add a little buffer to account for rounding issues.
 		return this.logScroller.VerticalOffset + this.logScroller.ViewportHeight + 1 >= this.logScroller.ExtentHeight;
-	}
-
-	private void AddLogGroupRunsToEnd(IEnumerable<ColoredLogGroup> groups)
-	{
-		this.AddRunsToEnd(groups.Map(group => this.CreateLogGroupRun(group)).ToList());
 	}
 
 	private Run CreateLogGroupRun(ColoredLogGroup group)
