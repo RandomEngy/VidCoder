@@ -109,9 +109,22 @@ public partial class LogWindow : Window
 	private void ConnectToLogger(IAppLogger newLogger)
 	{
 		this.logger = newLogger;
-		this.PopulateLogEntryChunks();
-		this.ShowInitialTextRuns();
-		newLogger.EntryLogged += this.OnEntryLogged;
+		lock (this.logger.LogLock)
+		{
+			this.logger.SuspendWriter();
+
+			try
+			{
+				this.PopulateLogEntryChunks();
+				this.ShowInitialTextRuns();
+				newLogger.EntryLogged += this.OnEntryLogged;
+			}
+			finally
+			{
+				this.logger.ResumeWriter();
+			}
+		}
+
 		this.logTextBox.ScrollToEnd();
 	}
 
@@ -143,66 +156,55 @@ public partial class LogWindow : Window
 	/// </summary>
 	private void PopulateLogEntryChunks()
 	{
-		lock (this.logger.LogLock)
+		this.chunks.Clear();
+
+		using (var stream = new FileStream(this.logger.LogPath, FileMode.Open, FileAccess.Read))
+		using (var reader = new TrackingStreamReader(stream, Encoding.UTF8))
 		{
-			this.logger.SuspendWriter();
-			try
+			string line;
+			int currentChunkLineCount = 0;
+			long currentChunkBytePosition = 0;
+			long lastLineReadBytePosition = 0;
+
+			while ((line = reader.ReadLine()) != null)
 			{
-				this.chunks.Clear();
+				currentChunkLineCount++;
 
-				using (var stream = new FileStream(this.logger.LogPath, FileMode.Open, FileAccess.Read))
-				using (var reader = new TrackingStreamReader(stream, Encoding.UTF8))
+				// Check if we want to end this chunk
+				if (currentChunkLineCount > LogEntryTargetChunkLines)
 				{
-					string line;
-					int currentChunkLineCount = 0;
-					long currentChunkBytePosition = 0;
-					long lastLineReadBytePosition = 0;
-
-					while ((line = reader.ReadLine()) != null)
+					// If this is a marked line...
+					LogColor color = LogEntryClassificationUtilities.GetLineColor(line);
+					if (color != LogColor.NoChange)
 					{
-						currentChunkLineCount++;
-
-						// Check if we want to end this chunk
-						if (currentChunkLineCount > LogEntryTargetChunkLines)
+						// It's safe to make this the first line in the next chunk.
+						this.chunks.Add(new LogChunk
 						{
-							// If this is a marked line...
-							LogColor color = LogEntryClassificationUtilities.GetLineColor(line);
-							if (color != LogColor.NoChange)
-							{
-								// It's safe to make this the first line in the next chunk.
-								this.chunks.Add(new LogChunk
-								{
-									LineCount = currentChunkLineCount - 1,
-									BytePosition = currentChunkBytePosition,
-									ByteCount = lastLineReadBytePosition - currentChunkBytePosition
-								});
-								currentChunkBytePosition = lastLineReadBytePosition;
-								currentChunkLineCount = 1;
-							}
-						}
-
-						// Getting ready to wrap up this chunk. Start noting the byte position before the next read.
-						if (currentChunkLineCount >= LogEntryTargetChunkLines)
-						{
-							lastLineReadBytePosition = reader.BytePosition;
-						}
-					}
-
-					if (currentChunkLineCount > 0)
-					{
-						this.chunks.Add(new LogChunk { LineCount = currentChunkLineCount, BytePosition = currentChunkBytePosition, ByteCount = reader.BytePosition - currentChunkBytePosition });
+							LineCount = currentChunkLineCount - 1,
+							BytePosition = currentChunkBytePosition,
+							ByteCount = lastLineReadBytePosition - currentChunkBytePosition
+						});
+						currentChunkBytePosition = lastLineReadBytePosition;
+						currentChunkLineCount = 1;
 					}
 				}
+
+				// Getting ready to wrap up this chunk. Start noting the byte position before the next read.
+				if (currentChunkLineCount >= LogEntryTargetChunkLines)
+				{
+					lastLineReadBytePosition = reader.BytePosition;
+				}
 			}
-			finally
+
+			if (currentChunkLineCount > 0)
 			{
-				this.logger.ResumeWriter();
+				this.chunks.Add(new LogChunk { LineCount = currentChunkLineCount, BytePosition = currentChunkBytePosition, ByteCount = reader.BytePosition - currentChunkBytePosition });
 			}
 		}
 	}
 
 	/// <summary>
-	/// Initialize view state and show first text runs.
+	/// Initialize view state and show first text runs. You must have this.logger.LogLock and suspend writes before calling this.
 	/// </summary>
 	private void ShowInitialTextRuns()
 	{
@@ -332,7 +334,7 @@ public partial class LogWindow : Window
 	}
 
 	/// <summary>
-	/// Reads text from the given chunk index and displays it in the UI.
+	/// Reads text from the given chunk index and displays it in the UI. You must have this.logger.LogLock and suspend writes before calling this.
 	/// </summary>
 	/// <param name="chunkIndex">The chunk index to read.</param>
 	/// <param name="addToEnd">True if the text should be added to the end of the FlowDocument, false to add to the start.</param>
@@ -412,6 +414,12 @@ public partial class LogWindow : Window
 		}
 	}
 
+	/// <summary>
+	/// Gets lines from the log file. You must have this.logger.LogLock and suspend writes before calling this.
+	/// </summary>
+	/// <param name="chunkStartIndex">The chunk to start reading.</param>
+	/// <param name="chunkCount">The number of chunks to read.</param>
+	/// <returns>The list of lines in the given chunks.</returns>
 	private string[] GetLines(int chunkStartIndex, int chunkCount)
 	{
 		long totalBytes = 0;
@@ -422,29 +430,17 @@ public partial class LogWindow : Window
 			totalBytes += chunk.ByteCount;
 		}
 
-		lock (this.logger.LogLock)
+		using (var stream = new FileStream(this.logger.LogPath, FileMode.Open, FileAccess.Read))
 		{
-			this.logger.SuspendWriter();
+			byte[] buffer = new byte[totalBytes];
 
-			try
-			{
-				using (var stream = new FileStream(this.logger.LogPath, FileMode.Open, FileAccess.Read))
-				{
-					byte[] buffer = new byte[totalBytes];
+			stream.Position = this.chunks[chunkStartIndex].BytePosition;
+			stream.Read(buffer, 0, (int)totalBytes);
 
-					stream.Position = this.chunks[chunkStartIndex].BytePosition;
-					stream.Read(buffer, 0, (int)totalBytes);
-
-					string logs = Encoding.UTF8.GetString(buffer);
-					return logs.Split(
-						Environment.NewLine,
-						StringSplitOptions.RemoveEmptyEntries);
-				}
-			}
-			finally
-			{
-				this.logger.ResumeWriter();
-			}
+			string logs = Encoding.UTF8.GetString(buffer);
+			return logs.Split(
+				Environment.NewLine,
+				StringSplitOptions.RemoveEmptyEntries);
 		}
 	}
 
@@ -776,18 +772,30 @@ public partial class LogWindow : Window
 
 	private void LoadChunkRange(int startChunkIndex, int count, bool addToEnd)
 	{
-		if (addToEnd)
+		lock (this.logger.LogLock)
 		{
-			for (int i = startChunkIndex; i < startChunkIndex + count; i++)
+			this.logger.SuspendWriter();
+
+			try
 			{
-				this.LoadChunk(i, addToEnd);
+				if (addToEnd)
+				{
+					for (int i = startChunkIndex; i < startChunkIndex + count; i++)
+					{
+						this.LoadChunk(i, addToEnd);
+					}
+				}
+				else
+				{
+					for (int i = startChunkIndex + count - 1; i >= startChunkIndex; i--)
+					{
+						this.LoadChunk(i, addToEnd);
+					}
+				}
 			}
-		}
-		else
-		{
-			for (int i = startChunkIndex + count - 1; i >= startChunkIndex; i--)
+			finally
 			{
-				this.LoadChunk(i, addToEnd);
+				this.logger.ResumeWriter();
 			}
 		}
 	}
