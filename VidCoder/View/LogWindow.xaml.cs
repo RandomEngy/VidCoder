@@ -28,26 +28,20 @@ namespace VidCoder.View;
 /// </summary>
 public partial class LogWindow : Window
 {
-	// The maximum number of Runs to add to the log window in a single dispatcher call
-	private const int MaxRunsPerDispatch = 10;
-
-	// The maximum number of lines to add to log window in a single dispatcher call
-	private const int MaxLinesPerDispatch = 100;
-
 	// The target chunk line count for log entries, may be higher
-	private const int LogEntryTargetChunkLines = 40;
+	private const int LogEntryTargetChunkLines = 60;
 
 	private const double EstimatedLineHeight = 16.6666666;
 
 	/// <summary>
-	/// Buffer lines to load in on initial chunk load.
-	/// </summary>
-	private const int BufferLines = 80;
-
-	/// <summary>
 	/// Buffer to load in, in device independent pixels
 	/// </summary>
-	private const double BufferDip = 600;
+	private const double BufferDip = 1000;
+
+	/// <summary>
+	/// Buffer lines to load in on initial chunk load.
+	/// </summary>
+	private const int BufferLines = (int)(BufferDip / EstimatedLineHeight);
 
 	private readonly IAppThemeService appThemeService = StaticResolver.Resolve<IAppThemeService>();
 	private readonly LogCoordinator logCoordinator = StaticResolver.Resolve<LogCoordinator>();
@@ -215,7 +209,7 @@ public partial class LogWindow : Window
 
 		int lines = 0;
 
-		int requiredLines = (int)(this.logTextBox.ViewportHeight / EstimatedLineHeight) + BufferLines;
+		int requiredLines = (int)(this.logScroller.ViewportHeight / EstimatedLineHeight) + BufferLines;
 
 		// Count back from end of file to get the required number of lines
 		for (int i = this.chunks.Count - 1; i >= 0; i--)

@@ -46,9 +46,9 @@ public class WatchedFileStatusTracker
 			}
 		}
 
-		this.logger.LogDebug($"{plannedFiles.Count} files were not already in queue; adding these now.");
 		if (plannedFiles.Count > 0)
 		{
+			this.logger.LogDebug($"{plannedFiles.Count} files were not already in queue; adding these now.");
 			this.processingService.QueueWatchedFiles(plannedFiles.Values);
 		}
 	}
