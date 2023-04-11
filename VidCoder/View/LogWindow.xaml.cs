@@ -101,7 +101,7 @@ public partial class LogWindow : Window
 			this.Dispatcher.BeginInvoke(new Action(() =>
 			{
 				this.PopulateLogColorBrushMapping();
-				//this.ShowTextRuns();
+				this.RefreshRuns();
 			}));
 		});
 	}
@@ -604,30 +604,6 @@ public partial class LogWindow : Window
 		runs.Add(run);
 	}
 
-	/// <summary>
-	/// Reads pending entries and puts them into log groups.
-	/// </summary>
-	/// <returns>The log groups.</returns>
-	private List<ColoredLogGroup> GroupPendingEntries(IList<LoggedEntry> entries)
-	{
-		var entryGroups = new List<ColoredLogGroup>();
-
-		ColoredLogGroup currentGroup = null;
-		foreach (LoggedEntry entry in entries)
-		{
-			LogColor entryColor = LogEntryClassificationUtilities.GetEntryColor(entry.Entry);
-			if (currentGroup == null || (entryColor != LogColor.NoChange && entryColor != currentGroup.Color))
-			{
-				currentGroup = new ColoredLogGroup(entryColor == LogColor.NoChange ? LogColor.Normal : entryColor);
-				entryGroups.Add(currentGroup);
-			}
-
-			currentGroup.Entries.Add(entry.Entry.FormatMessage());
-		}
-
-		return entryGroups;
-	}
-
 	private bool ScrolledToEnd()
 	{
 		// Add a little buffer to account for rounding issues.
@@ -664,6 +640,19 @@ public partial class LogWindow : Window
 		{
 			this.logParagraph.Inlines.Add(run);
 		}
+	}
+
+	private void RefreshRuns()
+	{
+		this.logParagraph.Inlines.Clear();
+
+		for (int i = this.loadedChunkStart; i < this.loadedChunkStart + this.loadedChunkCount; i++)
+		{
+			LogChunk chunk = this.chunks[i];
+			chunk.Runs = null;
+		}
+
+		this.LoadChunkRange(this.loadedChunkStart, this.loadedChunkCount, addToEnd: true);
 	}
 
 	private void OnScrollChanged(object sender, ScrollChangedEventArgs e)
