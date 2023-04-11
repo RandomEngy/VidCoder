@@ -11,7 +11,7 @@ public interface IAppLogger : ILogger, IDisposable
 	object LogLock { get; }
 	string LogPath { get; set; }
 
-	event EventHandler<EventArgs<LogEntry>> EntryLogged;
+	event EventHandler<EventArgs<LoggedEntry>> EntryLogged;
 	void ShowStatus(string message);
 	void LogWorker(string message, bool isError);
 	void Log(IEnumerable<LogEntry> entries);

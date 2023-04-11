@@ -14,11 +14,11 @@ namespace VidCoder.Services;
 
 public class AppLogger : IAppLogger
 {
-	private StreamWriter logFileWriter;
+	private FileStream logFileStream;
 	private readonly IAppLogger parent;
 	private readonly object disposeLock = new object();
 
-	public event EventHandler<EventArgs<LogEntry>> EntryLogged;
+	public event EventHandler<EventArgs<LoggedEntry>> EntryLogged;
 
 	public AppLogger(IAppLogger parent, string baseFileName)
 	{
@@ -54,7 +54,7 @@ public class AppLogger : IAppLogger
 	{
 		try
 		{
-			this.logFileWriter = new StreamWriter(new FileStream(this.LogPath, FileMode.Append, FileAccess.Write));
+			this.logFileStream = new FileStream(this.LogPath, FileMode.Append, FileAccess.Write);
 		}
 		catch (PathTooLongException)
 		{
@@ -76,8 +76,8 @@ public class AppLogger : IAppLogger
 	/// </summary>
 	public void SuspendWriter()
 	{
-		this.logFileWriter?.Close();
-		this.logFileWriter = null;
+		this.logFileStream?.Close();
+		this.logFileStream = null;
 	}
 
 	/// <summary>
@@ -160,8 +160,8 @@ public class AppLogger : IAppLogger
 				this.Closed = true;
 				if (disposing)
 				{
-					this.logFileWriter?.Dispose();
-					this.logFileWriter = null;
+					this.logFileStream?.Dispose();
+					this.logFileStream = null;
 				}
 			}
 		}
@@ -187,14 +187,15 @@ public class AppLogger : IAppLogger
 
 		lock (this.LogLock)
 		{
-			this.EntryLogged?.Invoke(this, new EventArgs<LogEntry>(entry));
+			string logText = entry.FormatMessage() + Environment.NewLine;
+			byte[] logBytes = Encoding.UTF8.GetBytes(logText);
 
-			string logText = entry.FormatMessage();
+			this.EntryLogged?.Invoke(this, new EventArgs<LoggedEntry>(new LoggedEntry { Entry = entry, ByteCount = logBytes.LongLength }));
 
 			try
 			{
-				this.logFileWriter?.WriteLine(logText);
-				this.logFileWriter?.Flush();
+				this.logFileStream?.Write(logBytes);
+				this.logFileStream?.Flush();
 
 				if (this.parent != null && logParent)
 				{
