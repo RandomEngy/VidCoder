@@ -17,6 +17,11 @@ public record LogChunk
 	public double MeasuredHeight { get; set; }
 
 	/// <summary>
+	/// True if we should refresh the MeasuredHeight on the next opportunity.
+	/// </summary>
+	public bool HeightIsDirty { get; set; }
+
+	/// <summary>
 	/// Gets or sets the byte position in the file for the batch.
 	/// </summary>
 	public long BytePosition { get; set; }

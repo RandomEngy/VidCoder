@@ -75,6 +75,8 @@ public partial class LogWindow : Window
 			this.logTextBox.ScrollToEnd();
 		};
 
+		this.logScroller.SizeChanged += this.OnSizeChanged;
+
 		this.logCoordinator.Logs
 			.Connect()
 			.OnItemAdded(addedLogViewModel =>
@@ -250,7 +252,7 @@ public partial class LogWindow : Window
 		for (int i = this.loadedChunkStart; i < this.loadedChunkStart + this.loadedChunkCount; i++)
 		{
 			LogChunk chunk = this.chunks[i];
-			if (chunk.MeasuredHeight == 0 && chunk.Runs != null)
+			if ((chunk.MeasuredHeight == 0 || chunk.HeightIsDirty) && chunk.Runs != null)
 			{
 				Rect start = chunk.Runs[0].ElementStart.GetCharacterRect(LogicalDirection.Forward);
 				Rect end = chunk.Runs[^1].ElementEnd.GetCharacterRect(LogicalDirection.Forward);
@@ -757,6 +759,19 @@ public partial class LogWindow : Window
 		this.loadedChunkCount = newEndChunk - newStartChunk + 1;
 
 		this.MeasureAndAdjustPlaceholders();
+	}
+
+	private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+	{
+		foreach (var chunk in this.chunks)
+		{
+			if (chunk.MeasuredHeight > 0)
+			{
+				chunk.HeightIsDirty = true;
+			}
+		}
+
+		this.MeasureLoadedChunks();
 	}
 
 	private void LoadChunkRange(int startChunkIndex, int count, bool addToEnd)
