@@ -347,6 +347,12 @@ public partial class LogWindow : Window
 		string[] lines = this.GetLines(chunkIndex, 1);
 
 		LogChunk chunk = this.chunks[chunkIndex];
+		if (chunk.Runs != null)
+		{
+			// The chunk is already loaded
+			return;
+		}
+
 		chunk.Runs = new List<Run>();
 
 		var sw2 = Stopwatch.StartNew();
@@ -459,6 +465,11 @@ public partial class LogWindow : Window
 		int firstRunIndex = this.logParagraph.Inlines.IndexOf(chunk.Runs[0]);
 		if (firstRunIndex >= 0)
 		{
+			if (firstRunIndex + chunk.Runs.Count > this.logParagraph.Inlines.Count)
+			{
+				Debugger.Break();
+			}
+
 			this.logParagraph.Inlines.RemoveRange(firstRunIndex, chunk.Runs.Count);
 		}
 

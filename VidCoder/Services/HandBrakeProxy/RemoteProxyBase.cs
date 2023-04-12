@@ -221,9 +221,6 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 					this.Client.SetLogger(message => 
 						{
 							this.Logger.Log(message);
-#if DEBUG
-							System.Diagnostics.Debug.WriteLine(message);
-#endif
 						}
 					);
 				}
