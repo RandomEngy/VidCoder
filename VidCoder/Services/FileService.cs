@@ -73,46 +73,36 @@ public class FileService : IFileService
 
 	public string GetFileNameSave(string initialDirectory = null, string title = null, string initialFileName = null, string defaultExt = null, string filter = null)
 	{
-		var dialog = new Microsoft.Win32.SaveFileDialog();
-
-		if (!string.IsNullOrEmpty(initialDirectory))
-		{
-			string fullDirectory = Path.GetFullPath(initialDirectory);
-
-			if (Directory.Exists(fullDirectory))
+		var dialogResult = ShowSaveDialogWithInitialDirectoryAndName(
+			() =>
 			{
-				dialog.InitialDirectory = fullDirectory;
-			}
-		}
+				var dialog = new Microsoft.Win32.SaveFileDialog();
+				if (title != null)
+				{
+					dialog.Title = title;
+				}
 
-		if (title != null)
-		{
-			dialog.Title = title;
-		}
+				if (defaultExt != null)
+				{
+					dialog.DefaultExt = defaultExt;
+				}
 
-		if (initialFileName != null)
-		{
-			dialog.FileName = initialFileName;
-		}
+				if (filter != null)
+				{
+					dialog.Filter = filter;
+				}
 
-		if (defaultExt != null)
-		{
-			dialog.DefaultExt = defaultExt;
-		}
+				return dialog;
+			},
+			initialDirectory,
+			initialFileName);
 
-		if (filter != null)
-		{
-			dialog.Filter = filter;
-		}
-
-		bool? result = dialog.ShowDialog();
-
-		if (result == false)
+		if (dialogResult.result == false)
 		{
 			return null;
 		}
 
-		return dialog.FileName;
+		return dialogResult.createdDialog.FileName;
 	}
 
 	public string GetFolderName(string initialDirectory)
@@ -211,7 +201,7 @@ public class FileService : IFileService
 					dialog.InitialDirectory = fullDirectory;
 				}
 			}
-			catch (NotSupportedException)
+			catch (Exception)
 			{
 				StaticResolver.Resolve<IAppLogger>().Log("Could not recognize initial directory " + initialDirectory);
 			}
@@ -225,12 +215,57 @@ public class FileService : IFileService
 		{
 			if (initialDirectory != null)
 			{
-				StaticResolver.Resolve<IAppLogger>().Log($"Error showing file dialog with initial directory '{initialDirectory}'" + Environment.NewLine + exception);
+				StaticResolver.Resolve<IAppLogger>().Log($"Error showing file open dialog with initial directory '{initialDirectory}'" + Environment.NewLine + exception);
 				return ShowOpenDialogWithInitialDirectory(dialogFunc, null);
 			}
 			else
 			{
-				StaticResolver.Resolve<IAppLogger>().Log($"Error showing file dialog with no initial directory" + Environment.NewLine + exception);
+				StaticResolver.Resolve<IAppLogger>().Log($"Error showing file open dialog with no initial directory" + Environment.NewLine + exception);
+				return (false, null);
+			}
+		}
+	}
+
+	private static (bool? result, Microsoft.Win32.SaveFileDialog createdDialog) ShowSaveDialogWithInitialDirectoryAndName(Func<Microsoft.Win32.SaveFileDialog> dialogFunc, string initialDirectory, string initialFileName)
+	{
+		var dialog = dialogFunc();
+
+		if (!string.IsNullOrEmpty(initialDirectory))
+		{
+			try
+			{
+				string fullDirectory = Path.GetFullPath(initialDirectory);
+
+				if (Directory.Exists(fullDirectory))
+				{
+					dialog.InitialDirectory = fullDirectory;
+				}
+			}
+			catch (Exception)
+			{
+				StaticResolver.Resolve<IAppLogger>().Log("Could not recognize initial directory " + initialDirectory);
+			}
+		}
+
+		if (initialFileName != null)
+		{
+			dialog.FileName = initialFileName;
+		}
+
+		try
+		{
+			return (dialog.ShowDialog(), dialog);
+		}
+		catch (Exception exception)
+		{
+			if (initialDirectory != null || initialFileName != null)
+			{
+				StaticResolver.Resolve<IAppLogger>().Log($"Error showing file save dialog with initial directory '{initialDirectory}'" + Environment.NewLine + exception);
+				return ShowSaveDialogWithInitialDirectoryAndName(dialogFunc, null, null);
+			}
+			else
+			{
+				StaticResolver.Resolve<IAppLogger>().Log($"Error showing file save dialog with no initial directory" + Environment.NewLine + exception);
 				return (false, null);
 			}
 		}
