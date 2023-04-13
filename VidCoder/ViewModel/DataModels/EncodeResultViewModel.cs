@@ -148,6 +148,12 @@ public class EncodeResultViewModel : ReactiveObject
 			return this.compare ?? (this.compare = ReactiveCommand.Create(
 				() =>
 				{
+					if (this.Job.VideoSource == null)
+					{
+						StaticResolver.Resolve<IAppLogger>().LogError("Could not compare files. VideoSource missing on the job.");
+						return;
+					}
+
 					long inputFileSizeBytes = 0;
 					try
 					{

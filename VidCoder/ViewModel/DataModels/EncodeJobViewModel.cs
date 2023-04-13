@@ -31,9 +31,27 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 	private ProcessingService processingService;
 	private Stopwatch encodeTimeStopwatch;
 
-	public EncodeJobViewModel(VCJob job)
+	public EncodeJobViewModel(
+		VCJob job,
+		VideoSource videoSource,
+		VideoSourceMetadata videoSourceMetadata,
+		string sourceParentFolder,
+		bool manualOutputPath,
+		string nameFormatOverride,
+		string presetName)
 	{
+		if (job == null)
+		{
+			throw new ArgumentNullException(nameof(job));
+		}
+
 		this.Job = job;
+		this.VideoSource = videoSource;
+		this.VideoSourceMetadata = videoSourceMetadata;
+		this.SourceParentFolder = sourceParentFolder;
+		this.ManualOutputPath = manualOutputPath;
+		this.NameFormatOverride = nameFormatOverride;
+		this.PresetName = presetName;
 
 		// ShowProgressBar
 		Observable.CombineLatest(
@@ -193,8 +211,11 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 	/// </summary>
 	public IAppLogger EncodeLogger { get; set; }
 
-	public VideoSource VideoSource { get; set; }
+	public VideoSource VideoSource { get; }
 
+	/// <summary>
+	/// Gets the video source metadata. This can be null for file sources.
+	/// </summary>
 	public VideoSourceMetadata VideoSourceMetadata { get; set; }
 
 	public string SourceName
@@ -215,13 +236,18 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 		}
 	}
 
-	// The parent folder for the item (if it was inside a folder of files added in a batch)
-	public string SourceParentFolder { get; set; }
+	/// <summary>
+	/// Gets the parent folder for the item (if it was inside a folder of files added in a batch). <c>null</c> otherwise.
+	/// </summary>
+	public string SourceParentFolder { get; }
 
 	// True if the output path was picked manually rather than auto-generated
-	public bool ManualOutputPath { get; set; }
+	public bool ManualOutputPath { get; }
 
-	public string NameFormatOverride { get; set; }
+	/// <summary>
+	/// The name format to use for this job instead of the Picker name format. <c>null</c> if not overridden.
+	/// </summary>
+	public string NameFormatOverride { get; }
 
 	public string PresetName { get; set; }
 

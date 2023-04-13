@@ -34,13 +34,14 @@ public class QueueImportExport : IQueueImportExport
 
 			foreach (var job in jobs)
 			{
-				this.processingService.QueueJob(new EncodeJobViewModel(job.Job)
-					{
-						SourceParentFolder = job.SourceParentFolder,
-						ManualOutputPath = job.ManualOutputPath,
-						NameFormatOverride = job.NameFormatOverride,
-						PresetName = job.PresetName
-					});
+				this.processingService.QueueJob(new EncodeJobViewModel(
+					job.Job,
+					job.VideoSource,
+					job.VideoSourceMetadata,
+					sourceParentFolder: job.SourceParentFolder,
+					manualOutputPath: job.ManualOutputPath,
+					nameFormatOverride: job.NameFormatOverride,
+					presetName: job.PresetName));
 			}
 
 			return jobs;

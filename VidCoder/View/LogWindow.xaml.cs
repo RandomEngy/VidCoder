@@ -57,7 +57,6 @@ public partial class LogWindow : Window
 	private int loadedChunkStart = 0;
 	private int loadedChunkCount = 0;
 	private double averageLineHeight = 0;
-	private int lastFullyMeasuredChunk = -1;
 
 	private bool suppressScrollListener = false;
 

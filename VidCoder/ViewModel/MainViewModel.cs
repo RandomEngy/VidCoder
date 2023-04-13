@@ -3016,13 +3016,14 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 
 	public EncodeJobViewModel CreateEncodeJobVM()
 	{
-		var newEncodeJobVM = new EncodeJobViewModel(this.EncodeJob);
-		newEncodeJobVM.VideoSource = this.SourceData;
-		newEncodeJobVM.VideoSourceMetadata = this.GetVideoSourceMetadata();
-		newEncodeJobVM.SourceParentFolder = this.OutputPathService.SourceParentFolder;
-		newEncodeJobVM.ManualOutputPath = this.OutputPathService.ManualOutputPath;
-		newEncodeJobVM.NameFormatOverride = this.OutputPathService.NameFormatOverride;
-		newEncodeJobVM.PresetName = this.PresetsService.SelectedPreset.DisplayName;
+		var newEncodeJobVM = new EncodeJobViewModel(
+			this.EncodeJob,
+			this.SourceData,
+			this.GetVideoSourceMetadata(),
+			sourceParentFolder: this.OutputPathService.SourceParentFolder,
+			manualOutputPath: this.OutputPathService.ManualOutputPath,
+			nameFormatOverride: this.OutputPathService.NameFormatOverride,
+			presetName: this.PresetsService.SelectedPreset.DisplayName);
 
 		return newEncodeJobVM;
 	}

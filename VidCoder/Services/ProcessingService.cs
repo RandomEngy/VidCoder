@@ -98,15 +98,14 @@ public class ProcessingService : ReactiveObject
 			{
 				foreach (EncodeJobWithMetadata job in jobs)
 				{
-					encodeQueueInnerList.Add(new EncodeJobViewModel(job.Job)
-					{
-						SourceParentFolder = job.SourceParentFolder,
-						ManualOutputPath = job.ManualOutputPath,
-						NameFormatOverride = job.NameFormatOverride,
-						PresetName = job.PresetName,
-						VideoSource = job.VideoSource,
-						VideoSourceMetadata = job.VideoSourceMetadata
-					});
+					encodeQueueInnerList.Add(new EncodeJobViewModel(
+						job.Job,
+						job.VideoSource,
+						job.VideoSourceMetadata,
+						sourceParentFolder: job.SourceParentFolder,
+						manualOutputPath: job.ManualOutputPath,
+						nameFormatOverride: job.NameFormatOverride,
+						presetName: job.PresetName));
 				}
 			});
 
@@ -824,6 +823,8 @@ public class ProcessingService : ReactiveObject
 						new EncodeJobWithMetadata
 						{
 							Job = jobVM.Job,
+							VideoSource = jobVM.VideoSource,
+							VideoSourceMetadata = jobVM.VideoSourceMetadata,
 							SourceParentFolder = jobVM.SourceParentFolder,
 							ManualOutputPath = jobVM.ManualOutputPath,
 							NameFormatOverride = jobVM.NameFormatOverride,
@@ -1494,14 +1495,14 @@ public class ProcessingService : ReactiveObject
 
 			job.FinalOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, this.main.SourcePath, isBatch: true, picker, allowConflictDialog: false, allowQueueRemoval: true);
 
-			var jobVM = new EncodeJobViewModel(job)
-			{
-				VideoSource = this.main.SourceData,
-				VideoSourceMetadata = this.main.GetVideoSourceMetadata(),
-				ManualOutputPath = false,
-				NameFormatOverride = nameFormatOverride,
-				PresetName = this.presetsService.SelectedPreset.DisplayName
-			};
+			var jobVM = new EncodeJobViewModel(
+				job,
+				this.main.SourceData,
+				this.main.GetVideoSourceMetadata(),
+				sourceParentFolder: null,
+				manualOutputPath: false,
+				nameFormatOverride: nameFormatOverride,
+				presetName: this.presetsService.SelectedPreset.DisplayName);
 
 			jobsToAdd.Add(jobVM);
 		}
@@ -1667,11 +1668,15 @@ public class ProcessingService : ReactiveObject
 
 					if (job.SourceType != SourceType.Unknown)
 					{
-						var jobVM = new EncodeJobViewModel(job);
-						jobVM.VideoSource = videoSource;
-						jobVM.SourceParentFolder = sourcePath.ParentFolder;
-						jobVM.ManualOutputPath = false;
-						jobVM.PresetName = preset.Name;
+						var jobVM = new EncodeJobViewModel(
+							job,
+							videoSource,
+							new VideoSourceMetadata(),
+							sourceParentFolder: sourcePath.ParentFolder,
+							manualOutputPath: false,
+							nameFormatOverride: null,
+							presetName: preset.Name);
+
 						itemsToQueue.Add(jobVM);
 
 						var titles = jobVM.VideoSource.Titles;
