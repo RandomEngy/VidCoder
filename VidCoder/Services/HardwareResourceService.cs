@@ -21,6 +21,7 @@ public class HardwareResourceService
 	private readonly object lockObject = new object();
 
 	private readonly IDisposable simultaneousJobsSubscription;
+	private readonly IDisposable capNVEncSubscription;
 
 	private readonly HardwarePool qsvPool;
 	private readonly HardwarePool nvencPool;
@@ -38,7 +39,7 @@ public class HardwareResourceService
 	public HardwareResourceService()
 	{
 		this.qsvPool = new HardwarePool("QSV", HandBrakeEncoderHelpers.GetQsvAdaptorList().Count() * 2); // Two instances per GPU
-		this.nvencPool = new HardwarePool("NVEnc", 3);
+		this.nvencPool = new HardwarePool("NVEnc", GetNVEncSlotCount(Config.CapNVEnc));
 		this.vcePool = new HardwarePool("VCE", 3);
 		this.mfPool = new HardwarePool("MF", 1);
 		this.totalPool = new HardwarePool(TotalPoolName, Config.MaxSimultaneousEncodes);
@@ -50,6 +51,19 @@ public class HardwareResourceService
 				this.totalPool.SlotCount = maxSimultaneousEncodes;
 			}
 		});
+
+		this.capNVEncSubscription = Config.Observables.CapNVEnc.Skip(1).Subscribe(capNVEnc =>
+		{
+			lock (this.lockObject)
+			{
+				this.nvencPool.SlotCount = GetNVEncSlotCount(capNVEnc);
+			}
+		});
+	}
+
+	private static int GetNVEncSlotCount(bool capped)
+	{
+		return capped ? 3 : 1000;
 	}
 
 	/// <summary>

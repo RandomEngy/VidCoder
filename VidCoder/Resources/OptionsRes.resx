@@ -416,4 +416,7 @@ Polling: Periodically checks the contents of the folders. Uses significant CPU a
   <data name="HardwareEncodingSection" xml:space="preserve">
     <value>Hardware encoding</value>
   </data>
+  <data name="CapNVEncCheckBox" xml:space="preserve">
+    <value>Cap simultaneous NVEnc encodes. Removing this requires a custom NVidia driver patch.</value>
+  </data>
 </root>

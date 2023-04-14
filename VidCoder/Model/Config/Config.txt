@@ -79,6 +79,7 @@ AutoPauseLowDiskSpace|bool|true
 AutoPauseLowDiskSpaceGb|int|1
 AutoPauseProcesses|string|""
 MaxSimultaneousEncodes|int|1
+CapNVEnc|bool|true
 PreviewCount|int|10
 PreviewDisplay|string|"FitToWindow"
 UseCustomPreviewFolder|bool|false

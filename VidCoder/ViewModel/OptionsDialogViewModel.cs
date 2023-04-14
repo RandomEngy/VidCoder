@@ -786,6 +786,16 @@ public class OptionsDialogViewModel : ReactiveObject
 		}
 	}
 
+	public bool CapNVEnc
+	{
+		get => Config.CapNVEnc;
+		set
+		{
+			Config.CapNVEnc = value;
+			this.RaisePropertyChanged();
+		}
+	}
+
 	private ObservableAsPropertyHelper<string> cpuThrottlingDisplay;
 	public string CpuThrottlingDisplay => this.cpuThrottlingDisplay.Value;
 

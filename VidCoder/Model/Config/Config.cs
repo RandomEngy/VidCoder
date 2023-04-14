@@ -97,6 +97,7 @@ namespace VidCoder
 			cache.Add("AutoPauseLowDiskSpaceGb", DatabaseConfig.Get("AutoPauseLowDiskSpaceGb", 1, connection));
 			cache.Add("AutoPauseProcesses", DatabaseConfig.Get("AutoPauseProcesses", "", connection));
 			cache.Add("MaxSimultaneousEncodes", DatabaseConfig.Get("MaxSimultaneousEncodes", 1, connection));
+			cache.Add("CapNVEnc", DatabaseConfig.Get("CapNVEnc", true, connection));
 			cache.Add("PreviewCount", DatabaseConfig.Get("PreviewCount", 10, connection));
 			cache.Add("PreviewDisplay", DatabaseConfig.Get("PreviewDisplay", "FitToWindow", connection));
 			cache.Add("UseCustomPreviewFolder", DatabaseConfig.Get("UseCustomPreviewFolder", false, connection));
@@ -502,6 +503,11 @@ namespace VidCoder
 			get { return (int)cache["MaxSimultaneousEncodes"]; }
 			set { Set("MaxSimultaneousEncodes", value); }
 		}
+		public static bool CapNVEnc
+		{
+			get { return (bool)cache["CapNVEnc"]; }
+			set { Set("CapNVEnc", value); }
+		}
 		public static int PreviewCount
 		{
 			get { return (int)cache["PreviewCount"]; }
@@ -756,6 +762,7 @@ namespace VidCoder
 			public static IObservable<int> AutoPauseLowDiskSpaceGb => GetObservable<int>("AutoPauseLowDiskSpaceGb");
 			public static IObservable<string> AutoPauseProcesses => GetObservable<string>("AutoPauseProcesses");
 			public static IObservable<int> MaxSimultaneousEncodes => GetObservable<int>("MaxSimultaneousEncodes");
+			public static IObservable<bool> CapNVEnc => GetObservable<bool>("CapNVEnc");
 			public static IObservable<int> PreviewCount => GetObservable<int>("PreviewCount");
 			public static IObservable<string> PreviewDisplay => GetObservable<string>("PreviewDisplay");
 			public static IObservable<bool> UseCustomPreviewFolder => GetObservable<bool>("UseCustomPreviewFolder");

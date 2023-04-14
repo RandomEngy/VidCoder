@@ -187,6 +187,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cap simultaneous NVEnc encodes. Removing this requires a custom NVidia driver patch..
+        /// </summary>
+        public static string CapNVEncCheckBox {
+            get {
+                return ResourceManager.GetString("CapNVEncCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checking for update....
         /// </summary>
         public static string CheckingForUpdateStatus {

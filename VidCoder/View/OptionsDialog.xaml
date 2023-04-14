@@ -356,10 +356,14 @@
 										VerticalAlignment="Center"
 										AllowEmpty="False"
 										AutomationProperties.LabeledBy="{Binding ElementName=maxSimultaneousEncodesLabel}"
-										Maximum="8"
+										Maximum="16"
 										Minimum="1"
 										Number="{Binding MaxSimultaneousEncodes, Mode=TwoWay}" />
 								</StackPanel>
+
+								<CheckBox Margin="0 6 0 0" IsChecked="{Binding CapNVEnc}">
+									<TextBlock Text="{x:Static res:OptionsRes.CapNVEncCheckBox}" TextWrapping="Wrap" />
+								</CheckBox>
 
 								<Grid Margin="0 6 0 0" ToolTip="{x:Static res:OptionsRes.CpuThrottlingToolTip}">
 									<Grid.ColumnDefinitions>
