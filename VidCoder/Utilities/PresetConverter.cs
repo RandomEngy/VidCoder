@@ -73,8 +73,8 @@ public static class PresetConverter
 		}
 
 		profile.VideoOptions = hbPreset.VideoOptionExtra;
-		profile.TwoPass = hbPreset.VideoTwoPass;
-		profile.TurboFirstPass = hbPreset.VideoTurboTwoPass;
+		profile.TwoPass = hbPreset.VideoMultiPass;
+		profile.TurboFirstPass = hbPreset.VideoTurboMultiPass;
 		profile.Quality = (decimal)hbPreset.VideoQualitySlider;
 		profile.VideoBitrate = hbPreset.VideoAvgBitrate ?? 0;
 		profile.QsvDecode = false;

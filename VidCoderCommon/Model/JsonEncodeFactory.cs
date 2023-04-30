@@ -960,7 +960,7 @@ public class JsonEncodeFactory
 		{
 			case VCVideoEncodeRateType.TargetSize:
 				video.Bitrate = this.CalculateBitrate(job, title, profile.TargetSize, previewLengthSeconds);
-				video.TwoPass = profile.TwoPass;
+				video.MultiPass = profile.TwoPass;
 				video.Turbo = profile.TurboFirstPass;
 				break;
 			case VCVideoEncodeRateType.AverageBitrate:
