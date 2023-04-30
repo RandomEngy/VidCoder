@@ -965,7 +965,7 @@ public class JsonEncodeFactory
 				break;
 			case VCVideoEncodeRateType.AverageBitrate:
 				video.Bitrate = profile.VideoBitrate;
-				video.TwoPass = profile.TwoPass;
+				video.MultiPass = profile.TwoPass;
 				video.Turbo = profile.TurboFirstPass;
 				break;
 			case VCVideoEncodeRateType.ConstantQuality:
