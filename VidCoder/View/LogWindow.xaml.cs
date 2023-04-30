@@ -464,11 +464,6 @@ public partial class LogWindow : Window
 		int firstRunIndex = this.logParagraph.Inlines.IndexOf(chunk.Runs[0]);
 		if (firstRunIndex >= 0)
 		{
-			if (firstRunIndex + chunk.Runs.Count > this.logParagraph.Inlines.Count)
-			{
-				Debugger.Break();
-			}
-
 			this.logParagraph.Inlines.RemoveRange(firstRunIndex, chunk.Runs.Count);
 		}
 

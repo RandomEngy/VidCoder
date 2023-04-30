@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using Microsoft.AnyContainer;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VidCoder.Services;
 using VidCoder.ViewModel;
 
 namespace VidCoder.View;
@@ -28,6 +30,8 @@ public partial class CompareWindow : Window, ICompareView
 	private IDisposable previewPausedSubscription;
 
 	private CompareWindowViewModel viewModel;
+
+	private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
 
 	public CompareWindow()
 	{
@@ -87,6 +91,16 @@ public partial class CompareWindow : Window, ICompareView
 		this.viewModel.OnVideoEnded();
 		this.encodedVideo.Stop();
 		this.originalVideo.Stop();
+	}
+
+	private void originalVideo_MediaFailed(object sender, ExceptionRoutedEventArgs e)
+	{
+		this.logger.LogError("Could not play original video:" + Environment.NewLine + e.ErrorException.ToString());
+	}
+
+	private void encodedVideo_MediaFailed(object sender, ExceptionRoutedEventArgs e)
+	{
+		this.logger.LogError("Could not play encoded video:" + Environment.NewLine + e.ErrorException.ToString());
 	}
 
 	private void SetPositionIfBothVideosLoaded()
