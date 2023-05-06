@@ -1633,7 +1633,7 @@ public class ProcessingService : ReactiveObject
 				JobPreset preset = scanResult.JobInstructions.Preset;
 				VCProfile profile = preset.Profile.Clone();
 
-				List<int> titleNumbers = this.PickTitles(videoSource);
+				List<int> titleNumbers = this.PickTitles(videoSource, picker);
 				if (titleNumbers.Count == 0)
 				{
 					this.JobQueueSkipped?.Invoke(this, new EventArgs<string>(sourcePath.Path));
