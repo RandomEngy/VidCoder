@@ -2916,15 +2916,11 @@ public class ProcessingService : ReactiveObject
 			picker = this.pickersService.SelectedPicker.Picker;
 		}
 
-		if (picker.TitleRangeSelectEnabled)
+		if (picker.TitleRangeSelectEnabled || picker.WidthFilterEnabled || picker.HeightFilterEnabled)
 		{
-			TimeSpan startDuration = TimeSpan.FromMinutes(picker.TitleRangeSelectStartMinutes);
-			TimeSpan endDuration = TimeSpan.FromMinutes(picker.TitleRangeSelectEndMinutes);
-
 			foreach (SourceTitle title in videoSource.Titles)
 			{
-				TimeSpan titleDuration = title.Duration.ToSpan();
-				if (titleDuration >= startDuration && titleDuration <= endDuration)
+				if (TitlePassesPicker(title, picker))
 				{
 					result.Add(title.Index);
 				}
@@ -2937,6 +2933,51 @@ public class ProcessingService : ReactiveObject
 		}
 
 		return result;
+	}
+
+	private static bool TitlePassesPicker(SourceTitle title, Picker picker)
+	{
+		if (picker.TitleRangeSelectEnabled)
+		{
+			TimeSpan startDuration = TimeSpan.FromMinutes(picker.TitleRangeSelectStartMinutes);
+			TimeSpan endDuration = TimeSpan.FromMinutes(picker.TitleRangeSelectEndMinutes);
+
+			TimeSpan titleDuration = title.Duration.ToSpan();
+			if (titleDuration < startDuration || titleDuration > endDuration)
+			{
+				return false;
+			}
+		}
+
+		if (picker.WidthFilterEnabled)
+		{
+			int width = title.Geometry.Width;
+			if (picker.WidthFilterDirection && width <= picker.WidthFilterValue)
+			{
+				return false;
+			}
+
+			if (!picker.WidthFilterDirection && width >= picker.WidthFilterValue)
+			{
+				return false;
+			}
+		}
+
+		if (picker.HeightFilterEnabled)
+		{
+			int height = title.Geometry.Height;
+			if (picker.HeightFilterDirection && height <= picker.HeightFilterValue)
+			{
+				return false;
+			}
+
+			if (!picker.HeightFilterDirection && height >= picker.HeightFilterValue)
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	/// <summary>

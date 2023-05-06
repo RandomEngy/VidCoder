@@ -40,8 +40,6 @@ public class AutomationClient
 
 			using (var client = new PipeClient<IVidCoderAutomation>(new NetJsonPipeSerializer(), "VidCoderAutomation" + betaString))
 			{
-				client.SetLogger(Console.WriteLine);
-
 				await client.ConnectAsync().ConfigureAwait(false);
 				await client.InvokeAsync(action).ConfigureAwait(false);
 			}

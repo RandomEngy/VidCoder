@@ -413,6 +413,12 @@ public class PickerWindowViewModel : ReactiveObject
 		this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectEnabled));
 		this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectStartMinutes));
 		this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectEndMinutes));
+		this.RegisterPickerProperty(nameof(this.Picker.WidthFilterEnabled));
+		this.RegisterPickerProperty(nameof(this.Picker.WidthFilterDirection));
+		this.RegisterPickerProperty(nameof(this.Picker.WidthFilterValue));
+		this.RegisterPickerProperty(nameof(this.Picker.HeightFilterEnabled));
+		this.RegisterPickerProperty(nameof(this.Picker.HeightFilterDirection));
+		this.RegisterPickerProperty(nameof(this.Picker.HeightFilterValue));
 		this.RegisterPickerProperty(nameof(this.Picker.PickerTimeRangeMode));
 		this.RegisterPickerProperty(nameof(this.Picker.ChapterRangeStart));
 		this.RegisterPickerProperty(nameof(this.Picker.ChapterRangeEnd));
@@ -805,6 +811,48 @@ public class PickerWindowViewModel : ReactiveObject
 			this.UpdatePickerProperty(nameof(this.Picker.TitleRangeSelectEndMinutes), value);
 			this.InvalidatePickersForWatcher();
 		}
+	}
+
+	public List<ComboChoice<bool>> DimensionFilterDirectionChoices { get; } = new List<ComboChoice<bool>>
+	{
+		new ComboChoice<bool>(false, "<"),
+		new ComboChoice<bool>(true, ">")
+	};
+
+	public bool WidthFilterEnabled
+	{
+		get => this.Picker.WidthFilterEnabled;
+		set => this.UpdatePickerProperty(nameof(this.Picker.WidthFilterEnabled), value);
+	}
+
+	public bool WidthFilterDirection
+	{
+		get => this.Picker.WidthFilterDirection;
+		set => this.UpdatePickerProperty(nameof(this.Picker.WidthFilterDirection), value);
+	}
+
+	public int WidthFilterValue
+	{
+		get => this.Picker.WidthFilterValue;
+		set => this.UpdatePickerProperty(nameof(this.Picker.WidthFilterValue), value);
+	}
+
+	public bool HeightFilterEnabled
+	{
+		get => this.Picker.HeightFilterEnabled;
+		set => this.UpdatePickerProperty(nameof(this.Picker.HeightFilterEnabled), value);
+	}
+
+	public bool HeightFilterDirection
+	{
+		get => this.Picker.HeightFilterDirection;
+		set => this.UpdatePickerProperty(nameof(this.Picker.HeightFilterDirection), value);
+	}
+
+	public int HeightFilterValue
+	{
+		get => this.Picker.HeightFilterValue;
+		set => this.UpdatePickerProperty(nameof(this.Picker.HeightFilterValue), value);
 	}
 
 	public TimeSpan TimeRangeStart

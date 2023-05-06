@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VidCoder.Resources; 
+namespace VidCoder.Resources {
     using System;
     
     
@@ -19,7 +19,7 @@ namespace VidCoder.Resources;
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class PickerRes {
@@ -313,6 +313,33 @@ namespace VidCoder.Resources;
         public static string ForcedOnlyCheckBox {
             get {
                 return ResourceManager.GetString("ForcedOnlyCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick only titles with height.
+        /// </summary>
+        public static string HeightFilterCheckBox {
+            get {
+                return ResourceManager.GetString("HeightFilterCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter titles by height.
+        /// </summary>
+        public static string HeightFilterCheckBoxAutomationName {
+            get {
+                return ResourceManager.GetString("HeightFilterCheckBoxAutomationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Height filter value.
+        /// </summary>
+        public static string HeightFilterValueAutomationName {
+            get {
+                return ResourceManager.GetString("HeightFilterValueAutomationName", resourceCulture);
             }
         }
         
@@ -745,6 +772,33 @@ namespace VidCoder.Resources;
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pick only titles with width.
+        /// </summary>
+        public static string WidthFilterCheckBox {
+            get {
+                return ResourceManager.GetString("WidthFilterCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter titles by width.
+        /// </summary>
+        public static string WidthFilterCheckBoxAutomationName {
+            get {
+                return ResourceManager.GetString("WidthFilterCheckBoxAutomationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Width filter value.
+        /// </summary>
+        public static string WidthFilterValueAutomationName {
+            get {
+                return ResourceManager.GetString("WidthFilterValueAutomationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Picker: {0}.
         /// </summary>
         public static string WindowTitle {
@@ -798,3 +852,4 @@ namespace VidCoder.Resources;
             }
         }
     }
+}

@@ -131,6 +131,25 @@ namespace VidCoder.Model;
 		set => this.RaiseAndSetIfChanged(ref this.titleRangeSelectEndMinutes, value);
 	}
 
+	public bool WidthFilterEnabled { get; set; }
+
+	/// <summary>
+	/// True for greater than, false for less than.
+	/// </summary>
+	public bool WidthFilterDirection { get; set; } = true;
+
+	public int WidthFilterValue { get; set; } = 640;
+
+	public bool HeightFilterEnabled { get; set; }
+
+	/// <summary>
+	/// True for greater than, false for less than.
+	/// </summary>
+	public bool HeightFilterDirection { get; set; } = true;
+
+	public int HeightFilterValue { get; set; } = 480;
+
+
 	private PickerTimeRangeMode pickerTimeRangeMode;
 	public PickerTimeRangeMode PickerTimeRangeMode
 	{
