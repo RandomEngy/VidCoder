@@ -188,7 +188,9 @@ namespace VidCoder.Controls;
 	    {
 		    Point currentPosition = e.GetPosition(this.presetTreeView);
 
-		    if (DragDropUtilities.IsMovementBigEnough(this.lastPresetTreeViewMouseDown, currentPosition))
+			// For some reason there is a hang on DoDragDrop if we are resizing the left side of the encode settings window on top of another window.
+			// Trying this workaround to skip this if the mouse position is too close to the left of the window.
+		    if (currentPosition.X > 20 && DragDropUtilities.IsMovementBigEnough(this.lastPresetTreeViewMouseDown, currentPosition))
 		    {
 			    this.draggedPreset = this.presetTreeView.SelectedItem as PresetViewModel;
 
