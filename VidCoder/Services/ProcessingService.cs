@@ -2417,7 +2417,10 @@ public class ProcessingService : ReactiveObject
 					}
 
 					encodingStopped = true;
-					this.TriggerEncodeCompleteAction();
+					if (!this.TriggerEncodeCompleteAction())
+					{
+						SystemSleepManagement.AllowSleep();
+					}
 				}
 				else if (this.EncodeCompleteAction.Trigger == EncodeCompleteTrigger.DoneWithCurrentJobs && !this.EncodeQueue.Items.Any(j => j.Encoding))
 				{
@@ -2425,7 +2428,9 @@ public class ProcessingService : ReactiveObject
 					this.StopEncodingAndReport();
 
 					encodingStopped = true;
-					this.TriggerEncodeCompleteAction();
+					if (!this.TriggerEncodeCompleteAction()) {
+						SystemSleepManagement.AllowSleep();
+					}
 				}
 				else
 				{
@@ -2454,6 +2459,7 @@ public class ProcessingService : ReactiveObject
 				{
 					// If we're stopping all jobs, update encoding state.
 					this.StopEncodingAndReport();
+					SystemSleepManagement.AllowSleep();
 					encodingStopped = true;
 
 					stopMessage = "Encoding stopped";
@@ -2643,32 +2649,37 @@ public class ProcessingService : ReactiveObject
 		}
 	}
 
-	private void TriggerEncodeCompleteAction()
+	/// <summary>
+	/// Triggers an encode complete action.
+	/// </summary>
+	/// <returns>True if there are pending operations to execute before allowing system sleep.</returns>
+	/// <exception cref="ArgumentOutOfRangeException">Thrown if the encode complete action type is not recognized.</exception>
+	private bool TriggerEncodeCompleteAction()
 	{
 		if (this.EncodeCompleteAction.ActionType != EncodeCompleteActionType.DoNothing && !Config.TriggerEncodeCompleteActionWithErrors && this.completedJobs.Items.Any(job => !job.EncodeResult.Succeeded))
 		{
 			StaticResolver.Resolve<IMessageBoxService>().Show(MainRes.EncodeCompleteActionAbortedDueToErrorsMessage);
 			this.logger.Log(MainRes.EncodeCompleteActionAbortedDueToErrorsMessage);
-			return;
+			return false;
 		}
 
 		switch (this.EncodeCompleteAction.ActionType)
 		{
 			case EncodeCompleteActionType.DoNothing:
 			case EncodeCompleteActionType.StopEncoding:
-				break;
+				return false;
 			case EncodeCompleteActionType.EjectDisc:
 				this.systemOperations.Eject(this.EncodeCompleteAction.DriveLetter);
-				break;
+				return false;
 			case EncodeCompleteActionType.CloseProgram:
 				this.windowManager.Close(this.main);
-				break;
+				return false;
 			case EncodeCompleteActionType.Sleep:
 			case EncodeCompleteActionType.LogOff:
 			case EncodeCompleteActionType.Shutdown:
 			case EncodeCompleteActionType.Hibernate:
 				this.windowManager.OpenWindow(new ShutdownWarningWindowViewModel(this.EncodeCompleteAction.ActionType));
-				break;
+				return true;
 			default:
 				throw new ArgumentOutOfRangeException();
 		}
@@ -2762,7 +2773,6 @@ public class ProcessingService : ReactiveObject
 		this.WorkTracker.ReportEncodeStop();
 		this.Encoding = false;
 		this.EncodeSpeedDetailsAvailable = false;
-		SystemSleepManagement.AllowSleep();
 		this.autoPause.ReportStop();
 	}
 

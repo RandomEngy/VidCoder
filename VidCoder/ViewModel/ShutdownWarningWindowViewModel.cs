@@ -108,6 +108,8 @@ public class ShutdownWarningWindowViewModel : OkCancelDialogViewModel
 				this.systemOperations.Hibernate();
 				break;
 		}
+
+		SystemSleepManagement.AllowSleep();
 	}
 
 	private ReactiveCommand<Unit, Unit> cancelOperation;
@@ -119,6 +121,7 @@ public class ShutdownWarningWindowViewModel : OkCancelDialogViewModel
 			{
 				this.timer.Stop();
 				this.Cancel.Execute(null);
+				SystemSleepManagement.AllowSleep();
 			}));
 		}
 	}
