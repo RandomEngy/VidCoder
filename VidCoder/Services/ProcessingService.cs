@@ -105,7 +105,8 @@ public class ProcessingService : ReactiveObject
 						sourceParentFolder: job.SourceParentFolder,
 						manualOutputPath: job.ManualOutputPath,
 						nameFormatOverride: job.NameFormatOverride,
-						presetName: job.PresetName));
+						presetName: job.PresetName,
+						pickerName: job.PickerName));
 				}
 			});
 
@@ -828,7 +829,8 @@ public class ProcessingService : ReactiveObject
 							SourceParentFolder = jobVM.SourceParentFolder,
 							ManualOutputPath = jobVM.ManualOutputPath,
 							NameFormatOverride = jobVM.NameFormatOverride,
-							PresetName = jobVM.PresetName
+							PresetName = jobVM.PresetName,
+							PickerName = jobVM.PickerName,
 						});
 				}
 
@@ -968,16 +970,7 @@ public class ProcessingService : ReactiveObject
 			return this.clearCompleted ?? (this.clearCompleted = ReactiveCommand.Create(() =>
 			{
 				var itemsToClear = new List<EncodeResultViewModel>(this.completedJobs.Items);
-				bool clearItems = true;
-
-				Picker picker = this.pickersService.SelectedPicker.Picker;
-				if (picker.SourceFileRemoval != SourceFileRemoval.Disabled && picker.SourceFileRemovalTiming == SourceFileRemovalTiming.AfterClearingCompletedItems)
-				{
-					List<string> deletionCandidates = this.GetRemovalCandidates(itemsToClear);
-					clearItems = this.PromptAndRemoveSourceFiles(deletionCandidates, picker);
-				}
-
-				if (clearItems)
+				if (this.RemoveSourceFilesIfNeeded(itemsToClear))
 				{
 					this.completedJobs.Clear();
 					this.HasFailedItems = false;
@@ -1007,21 +1000,63 @@ public class ProcessingService : ReactiveObject
 			return this.clearSucceeded ?? (this.clearSucceeded = ReactiveCommand.Create(() =>
 			{
 				var itemsToClear = this.completedJobs.Items.Where(completedJob => completedJob.EncodeResult.Succeeded);
-				bool clearItems = true;
-
-				Picker picker = this.pickersService.SelectedPicker.Picker;
-				if (picker.SourceFileRemoval != SourceFileRemoval.Disabled && picker.SourceFileRemovalTiming == SourceFileRemovalTiming.AfterClearingCompletedItems)
-				{
-					List<string> deletionCandidates = this.GetRemovalCandidates(itemsToClear);
-					clearItems = this.PromptAndRemoveSourceFiles(deletionCandidates, picker);
-				}
-
-				if (clearItems)
+				if (this.RemoveSourceFilesIfNeeded(itemsToClear))
 				{
 					this.ClearCompletedItems(encodeResultViewModel => encodeResultViewModel.EncodeResult.Succeeded);
 				}
 			}));
 		}
+	}
+
+	/// <summary>
+	/// Removes source files for the given completed items, if the picker is configured to do so.
+	/// </summary>
+	/// <param name="itemsToClear">The cleared items.</param>
+	/// <returns>True if the items were cleared out, or false if the user canceled the operation.</returns>
+	private bool RemoveSourceFilesIfNeeded(IEnumerable<EncodeResultViewModel> itemsToClear)
+	{
+		bool clearItems = true;
+		bool requireConfirmation = false;
+
+		var itemsToRecycle = new List<EncodeResultViewModel>();
+		var itemsToDelete = new List<EncodeResultViewModel>();
+		foreach (EncodeResultViewModel itemToClear in itemsToClear)
+		{
+			Picker picker = this.pickersService.GetPickerByName(itemToClear.Job.PickerName).Picker;
+			if (picker.SourceFileRemoval != SourceFileRemoval.Disabled && picker.SourceFileRemovalTiming == SourceFileRemovalTiming.AfterClearingCompletedItems)
+			{
+				if (picker.SourceFileRemovalConfirmation)
+				{
+					requireConfirmation = true;
+				}
+
+				if (picker.SourceFileRemoval == SourceFileRemoval.Recycle)
+				{
+					itemsToRecycle.Add(itemToClear);
+				}
+				else if (picker.SourceFileRemoval == SourceFileRemoval.Delete)
+				{
+					itemsToDelete.Add(itemToClear);
+				}
+			}
+		}
+
+		if (itemsToRecycle.Count > 0)
+		{
+			List<string> recycleCandidates = this.GetRemovalCandidates(itemsToRecycle);
+			clearItems = this.PromptAndRemoveSourceFiles(recycleCandidates, requireConfirmation, SourceFileRemoval.Recycle);
+		}
+
+		if (itemsToDelete.Count > 0)
+		{
+			List<string> deletionCandidates = this.GetRemovalCandidates(itemsToDelete);
+			if (!this.PromptAndRemoveSourceFiles(deletionCandidates, requireConfirmation, SourceFileRemoval.Delete))
+			{
+				clearItems = false;
+			}
+		}
+
+		return clearItems;
 	}
 
 	/// <summary>
@@ -1133,18 +1168,18 @@ public class ProcessingService : ReactiveObject
 	/// Prompts the user to delete or recycle the given source files, and does so if the user answers yes.
 	/// </summary>
 	/// <param name="deletionCandidates">The files to prompt to delete or recycle</param>
-	/// <param name="picker">The picker to use for the operation.</param>
+	/// <param name="confirmRemoval">True if the user should be prompted to remove the items.</param>
+	/// <param name="removalMode">The removal mode to use.</param>
 	/// <returns>True if the files should be cleared from the list.</returns>
-	private bool PromptAndRemoveSourceFiles(IList<string> deletionCandidates, Picker picker)
+	private bool PromptAndRemoveSourceFiles(IList<string> deletionCandidates, bool confirmRemoval, SourceFileRemoval removalMode)
 	{
 		bool clearItems = true;
 		if (deletionCandidates.Count > 0)
 		{
-			bool confirmRemoval = picker.SourceFileRemovalConfirmation;
 			bool removeFiles = true;
 			if (confirmRemoval)
 			{
-				string verb = picker.SourceFileRemoval == SourceFileRemoval.Recycle ? MainRes.RemoveSourceFiles_Recycle : MainRes.RemoveSourceFiles_Delete;
+				string verb = removalMode == SourceFileRemoval.Recycle ? MainRes.RemoveSourceFiles_Recycle : MainRes.RemoveSourceFiles_Delete;
 				MessageBoxResult dialogResult = Utilities.MessageBox.Show(
 					string.Format(MainRes.DeleteSourceFilesConfirmationMessage, verb, deletionCandidates.Count),
 					MainRes.DeleteSourceFilesConfirmationTitle,
@@ -1162,7 +1197,7 @@ public class ProcessingService : ReactiveObject
 
 			if (removeFiles)
 			{
-				RemoveSourceFiles(deletionCandidates, picker, this.logger);
+				RemoveSourceFiles(deletionCandidates, removalMode, this.logger);
 			}
 		}
 
@@ -1173,13 +1208,13 @@ public class ProcessingService : ReactiveObject
 	/// Recycles or deletes the given files, based on picker settings.
 	/// </summary>
 	/// <param name="filesToRemove">The files to recycle or delete.</param>
-	/// <param name="picker">The picker to use.</param>
+	/// <param name="removalMode">The removal mode to use.</param>
 	/// <param name="operationLogger">The logger to use for the operation.</param>
 	/// <returns>The number of files removed.</returns>
-	private static int RemoveSourceFiles(IList<string> filesToRemove, Picker picker, IAppLogger operationLogger)
+	private static int RemoveSourceFiles(IList<string> filesToRemove, SourceFileRemoval removalMode, IAppLogger operationLogger)
 	{
 		int filesRemoved = 0;
-		switch (picker.SourceFileRemoval)
+		switch (removalMode)
 		{
 			case SourceFileRemoval.Delete:
 				foreach (string pathToDelete in filesToRemove)
@@ -1502,7 +1537,8 @@ public class ProcessingService : ReactiveObject
 				sourceParentFolder: null,
 				manualOutputPath: false,
 				nameFormatOverride: nameFormatOverride,
-				presetName: this.presetsService.SelectedPreset.DisplayName);
+				presetName: this.presetsService.SelectedPreset.DisplayName,
+				pickerName: picker.Name);
 
 			jobsToAdd.Add(jobVM);
 		}
@@ -1675,7 +1711,8 @@ public class ProcessingService : ReactiveObject
 							sourceParentFolder: sourcePath.ParentFolder,
 							manualOutputPath: false,
 							nameFormatOverride: null,
-							presetName: preset.Name);
+							presetName: preset.Name,
+							pickerName: picker.Name);
 
 						itemsToQueue.Add(jobVM);
 
@@ -2012,6 +2049,7 @@ public class ProcessingService : ReactiveObject
 		}
 
 		encodeLogger.Log("  Preset: " + jobViewModel.PresetName);
+		encodeLogger.Log("  Picker: " + jobViewModel.PickerName);
 
 		this.logger.Log("Starting encode: " + job.FinalOutputPath);
 
@@ -2311,11 +2349,11 @@ public class ProcessingService : ReactiveObject
 
 				// Delete source files if successful and configured to do so immediately. This way if the destination was the same as source we can clear the way for swapping in the newly encoded file.
 				// This needs to run after removing from the encode queue, otherwise the logic will bail when seeing the finished job's output path as part of the encode queue.
-				var picker = this.pickersService.SelectedPicker.Picker;
+				var picker = this.pickersService.GetPickerByName(finishedJobViewModel.PickerName).Picker;
 				if (status == EncodeResultStatus.Succeeded && picker.SourceFileRemoval != SourceFileRemoval.Disabled && picker.SourceFileRemovalTiming == SourceFileRemovalTiming.Immediately)
 				{
 					List<string> deletionCandidates = this.GetRemovalCandidates(new List<EncodeResultViewModel> { addedResult });
-					if (RemoveSourceFiles(deletionCandidates, picker, encodeLogger) > 0)
+					if (RemoveSourceFiles(deletionCandidates, picker.SourceFileRemoval, encodeLogger) > 0)
 					{
 						addedResult.SourceFileExists = false;
 					}

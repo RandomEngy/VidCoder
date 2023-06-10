@@ -38,7 +38,8 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 		string sourceParentFolder,
 		bool manualOutputPath,
 		string nameFormatOverride,
-		string presetName)
+		string presetName,
+		string pickerName)
 	{
 		if (job == null)
 		{
@@ -52,6 +53,7 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 		this.ManualOutputPath = manualOutputPath;
 		this.NameFormatOverride = nameFormatOverride;
 		this.PresetName = presetName;
+		this.PickerName = pickerName;
 
 		// ShowProgressBar
 		Observable.CombineLatest(
@@ -250,6 +252,8 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 	public string NameFormatOverride { get; }
 
 	public string PresetName { get; set; }
+
+	public string PickerName { get; set; }
 
 	public string ShortFileName => Path.GetFileName(this.Job.FinalOutputPath);
 

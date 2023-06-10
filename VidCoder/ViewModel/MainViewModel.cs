@@ -3023,7 +3023,8 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 			sourceParentFolder: this.OutputPathService.SourceParentFolder,
 			manualOutputPath: this.OutputPathService.ManualOutputPath,
 			nameFormatOverride: this.OutputPathService.NameFormatOverride,
-			presetName: this.PresetsService.SelectedPreset.DisplayName);
+			presetName: this.PresetsService.SelectedPreset.DisplayName,
+			pickerName: this.PickersService.SelectedPicker.Picker.Name);
 
 		return newEncodeJobVM;
 	}

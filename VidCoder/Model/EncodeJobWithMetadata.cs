@@ -15,6 +15,8 @@ public class EncodeJobWithMetadata
 
 	public string PresetName { get; set; }
 
+	public string PickerName { get; set; }
+
 	public VideoSource VideoSource { get; set; }
 
 	public VideoSourceMetadata VideoSourceMetadata { get; set; }

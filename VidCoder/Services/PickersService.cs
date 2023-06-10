@@ -180,6 +180,11 @@ public class PickersService : ReactiveObject
 		}
 	}
 
+	public PickerViewModel GetPickerByName(string name)
+	{
+		return this.Pickers.FirstOrDefault(picker => picker.Picker.Name == name) ?? this.SelectedPicker;
+	}
+
 	private ObservableAsPropertyHelper<string> pickerButtonText;
 	public string PickerButtonText => this.pickerButtonText.Value;
 

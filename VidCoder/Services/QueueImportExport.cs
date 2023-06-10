@@ -41,7 +41,8 @@ public class QueueImportExport : IQueueImportExport
 					sourceParentFolder: job.SourceParentFolder,
 					manualOutputPath: job.ManualOutputPath,
 					nameFormatOverride: job.NameFormatOverride,
-					presetName: job.PresetName));
+					presetName: job.PresetName,
+					pickerName: job.PickerName));
 			}
 
 			return jobs;
