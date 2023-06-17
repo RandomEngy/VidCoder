@@ -32,6 +32,8 @@ namespace VidCoder.Controls;
     {
     private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
 
+	private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
+
 	public static bool HandlingItemChange { get; set; }
 
         public PresetTreeViewContainer()
@@ -187,20 +189,19 @@ namespace VidCoder.Controls;
 	    if (e.LeftButton == MouseButtonState.Pressed)
 	    {
 		    Point currentPosition = e.GetPosition(this.presetTreeView);
+			var timeSinceLastResize = DateTimeOffset.UtcNow - this.windowManager.LastEncodingWindowReize;
 
 			// For some reason there is a hang on DoDragDrop if we are resizing the left side of the encode settings window on top of another window.
-			// Trying this workaround to skip this if the mouse position is too close to the left of the window.
-		    if (currentPosition.X > 20 && DragDropUtilities.IsMovementBigEnough(this.lastPresetTreeViewMouseDown, currentPosition))
+			// Suppress drag drop if we are resizing.
+		    if (timeSinceLastResize > TimeSpan.FromMilliseconds(500) && DragDropUtilities.IsMovementBigEnough(this.lastPresetTreeViewMouseDown, currentPosition))
 		    {
 			    this.draggedPreset = this.presetTreeView.SelectedItem as PresetViewModel;
 
 			    if (this.draggedPreset != null)
 			    {
-				    var windowManager = StaticResolver.Resolve<IWindowManager>();
-
-				    windowManager.SuspendDropOnWindows();
+				    this.windowManager.SuspendDropOnWindows();
 				    DragDrop.DoDragDrop((DependencyObject)sender, this.presetTreeView.SelectedItem, DragDropEffects.Move);
-				    windowManager.ResumeDropOnWindows();
+				    this.windowManager.ResumeDropOnWindows();
 			    }
 		    }
 	    }

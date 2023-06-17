@@ -130,4 +130,9 @@ public interface IWindowManager
 	/// <param name="ownerViewModel">The owner view model (main view model).</param>
 	/// <returns>The opened viewmodel.</returns>
 	T OpenOrFocusWindow<T>(object ownerViewModel = null) where T : class;
+
+	/// <summary>
+	/// Gets or sets the last time the encoding window was resized.
+	/// </summary>
+	public DateTimeOffset LastEncodingWindowReize { get; set; }
 }

@@ -34,6 +34,7 @@ using Model;
 public partial class EncodingWindow : Window
 {
 	private EncodingWindowViewModel viewModel;
+	private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
 
 	public EncodingWindow()
 	{
@@ -106,4 +107,9 @@ public partial class EncodingWindow : Window
 	{
 		StaticResolver.Resolve<PresetsService>().HandleKey(e);
 	}
+
+	private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+	{
+		this.windowManager.LastEncodingWindowReize = DateTimeOffset.UtcNow;
+    }
 }
