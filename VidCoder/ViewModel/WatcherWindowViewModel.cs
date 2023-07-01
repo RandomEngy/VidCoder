@@ -117,6 +117,11 @@ public class WatcherWindowViewModel : ReactiveObject, IClosableWindow
 				this.watcherProcessManager.Stop();
 				this.watchedFileStatusTracker.Stop();
 				this.UnsubscribeFromJobEvents();
+
+				if (this.RunWhenClosed)
+				{
+					this.RunWhenClosed = false;
+				}
 			}
 		}
 	}
