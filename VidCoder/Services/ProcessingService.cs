@@ -2715,6 +2715,7 @@ public class ProcessingService : ReactiveObject
 			case EncodeCompleteActionType.Sleep:
 			case EncodeCompleteActionType.LogOff:
 			case EncodeCompleteActionType.Shutdown:
+			case EncodeCompleteActionType.Restart:
 			case EncodeCompleteActionType.Hibernate:
 				this.windowManager.OpenWindow(new ShutdownWarningWindowViewModel(this.EncodeCompleteAction.ActionType));
 				return true;
@@ -2841,12 +2842,14 @@ public class ProcessingService : ReactiveObject
 					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.LogOff, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
 					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Hibernate, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
 					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Shutdown, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
+					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Restart, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
 					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.StopEncoding, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
 					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.CloseProgram, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
 					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Sleep, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
 					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.LogOff, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
 					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Hibernate, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
 					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Shutdown, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
+					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Restart, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
 				};
 		}
 		else
@@ -2862,6 +2865,7 @@ public class ProcessingService : ReactiveObject
 					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.LogOff, Trigger = EncodeCompleteTrigger.DoneWithQueue },
 					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Hibernate, Trigger = EncodeCompleteTrigger.DoneWithQueue },
 					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Shutdown, Trigger = EncodeCompleteTrigger.DoneWithQueue },
+					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Restart, Trigger = EncodeCompleteTrigger.DoneWithQueue },
 				};
 		}
 

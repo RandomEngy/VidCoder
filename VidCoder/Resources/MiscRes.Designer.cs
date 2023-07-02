@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VidCoder.Resources; 
+namespace VidCoder.Resources {
     using System;
     
     
@@ -237,6 +237,24 @@ namespace VidCoder.Resources;
         public static string EncodeCompleteWarning_LogOffTitle {
             get {
                 return ResourceManager.GetString("EncodeCompleteWarning_LogOffTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The system will restart in {0} seconds..
+        /// </summary>
+        public static string EncodeCompleteWarning_RestartMessage {
+            get {
+                return ResourceManager.GetString("EncodeCompleteWarning_RestartMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart imminent.
+        /// </summary>
+        public static string EncodeCompleteWarning_RestartTitle {
+            get {
+                return ResourceManager.GetString("EncodeCompleteWarning_RestartTitle", resourceCulture);
             }
         }
         
@@ -501,3 +519,4 @@ namespace VidCoder.Resources;
             }
         }
     }
+}

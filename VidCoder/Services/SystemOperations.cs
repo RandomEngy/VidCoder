@@ -114,6 +114,12 @@ public class SystemOperations : ISystemOperations
 			ShutdownReason.MajorOther | ShutdownReason.MinorOther | ShutdownReason.FlagPlanned);
 	}
 
+	public void Restart()
+	{
+		logger.Log("Restarting.");
+		ExitWindowsEx(ExitWindows.Reboot, ShutdownReason.MajorOther | ShutdownReason.MinorOther | ShutdownReason.FlagPlanned);
+	}
+
 	public void Hibernate()
 	{
 		logger.Log("Hibernating.");

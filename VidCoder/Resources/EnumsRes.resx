@@ -402,4 +402,7 @@
   <data name="WatcherMode_Polling" xml:space="preserve">
     <value>Polling</value>
   </data>
+  <data name="EncodeCompleteActionType_Restart" xml:space="preserve">
+    <value>Restart</value>
+  </data>
 </root>

@@ -32,5 +32,8 @@ public enum EncodeCompleteActionType
 	Hibernate,
 
 	[Display(ResourceType = typeof(EnumsRes), Name = "EncodeCompleteActionType_Shutdown")]
-	Shutdown
+	Shutdown,
+
+	[Display(ResourceType = typeof(EnumsRes), Name = "EncodeCompleteActionType_Restart")]
+	Restart,
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VidCoder.Resources; 
+namespace VidCoder.Resources {
     using System;
     
     
@@ -457,6 +457,15 @@ namespace VidCoder.Resources;
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Restart.
+        /// </summary>
+        public static string EncodeCompleteActionType_Restart {
+            get {
+                return ResourceManager.GetString("EncodeCompleteActionType_Restart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shut down.
         /// </summary>
         public static string EncodeCompleteActionType_Shutdown {
@@ -879,3 +888,4 @@ namespace VidCoder.Resources;
             }
         }
     }
+}

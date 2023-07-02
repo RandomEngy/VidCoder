@@ -19,13 +19,13 @@ public class EncodeCompleteAction
 
     public override string ToString()
     {
-            var converter = new EnumStringConverter<EncodeCompleteActionType>();
-            string actionDisplayString = converter.Convert(this.ActionType);
+        var converter = new EnumStringConverter<EncodeCompleteActionType>();
+        string actionDisplayString = converter.Convert(this.ActionType);
 
-            if (this.ActionType == EncodeCompleteActionType.EjectDisc)
-            {
-                actionDisplayString = string.Format(actionDisplayString, this.DriveLetter);
-            }
+        if (this.ActionType == EncodeCompleteActionType.EjectDisc)
+        {
+            actionDisplayString = string.Format(actionDisplayString, this.DriveLetter);
+        }
 
 	    if (!this.ShowTriggerInDisplay)
 	    {

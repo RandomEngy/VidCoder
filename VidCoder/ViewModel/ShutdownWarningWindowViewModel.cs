@@ -55,6 +55,8 @@ public class ShutdownWarningWindowViewModel : OkCancelDialogViewModel
 					return MiscRes.EncodeCompleteWarning_LogOffTitle;
 				case EncodeCompleteActionType.Shutdown:
 					return MiscRes.EncodeCompleteWarning_ShutdownTitle;
+				case EncodeCompleteActionType.Restart:
+					return MiscRes.EncodeCompleteWarning_RestartTitle;
 				case EncodeCompleteActionType.Hibernate:
 					return MiscRes.EncodeCompleteWarning_HibernateTitle;
 				default:
@@ -78,6 +80,9 @@ public class ShutdownWarningWindowViewModel : OkCancelDialogViewModel
 					break;
 				case EncodeCompleteActionType.Shutdown:
 					messageFormat = MiscRes.EncodeCompleteWarning_ShutdownMessage;
+					break;
+				case EncodeCompleteActionType.Restart:
+					messageFormat = MiscRes.EncodeCompleteWarning_RestartMessage;
 					break;
 				case EncodeCompleteActionType.Hibernate:
 					messageFormat = MiscRes.EncodeCompleteWarning_HibernateMessage;
@@ -103,6 +108,9 @@ public class ShutdownWarningWindowViewModel : OkCancelDialogViewModel
 				break;
 			case EncodeCompleteActionType.Shutdown:
 				this.systemOperations.ShutDown();
+				break;
+			case EncodeCompleteActionType.Restart:
+				this.systemOperations.Restart();
 				break;
 			case EncodeCompleteActionType.Hibernate:
 				this.systemOperations.Hibernate();
