@@ -44,9 +44,9 @@ public class SourceSubtitleViewModel : ReactiveObject
 		}).ToProperty(this, x => x.CanPass, out this.canPass, scheduler: Scheduler.Immediate);
 
 		// DefaultEnabled
-		this.WhenAnyValue(x => x.BurnedIn, x => x.TrackNumber, x => x.MainViewModel.DefaultSubtitlesEnabled, (burnedIn, trackNumber, defaultSubtitlesEnabled) =>
+		this.WhenAnyValue(x => x.BurnedIn, x => x.TrackNumber, (burnedIn, trackNumber) =>
 		{
-			return !burnedIn && (trackNumber == 0 || defaultSubtitlesEnabled);
+			return !burnedIn;
 		}).ToProperty(this, x => x.DefaultEnabled, out this.defaultEnabled);
 
 		// BurnedInEnabled

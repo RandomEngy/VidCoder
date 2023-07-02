@@ -1579,8 +1579,6 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 	// Update state of checked boxes after a change
 	public void UpdateSourceSubtitleBoxes(SourceSubtitleViewModel updatedSubtitle = null)
 	{
-		this.DeselectDefaultSubtitlesIfAnyBurned();
-
 		if (updatedSubtitle != null && updatedSubtitle.Selected)
 		{
 			if (!updatedSubtitle.CanPass)
@@ -1771,26 +1769,6 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 		}
 	}
 
-	private void DeselectDefaultSubtitlesIfAnyBurned()
-	{
-		// FAS subtitle can be marked as burned without interfering with other subtitles
-		bool anyNormalTrackBurned = this.SourceSubtitles.Items.Any(sourceSub => sourceSub.BurnedIn && sourceSub.TrackNumber != 0) || this.FileSubtitles.Items.Any(sourceSub => sourceSub.BurnedIn);
-		this.DefaultSubtitlesEnabled = !anyNormalTrackBurned;
-
-		if (!this.DefaultSubtitlesEnabled)
-		{
-			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles.Items)
-			{
-				sourceVM.Default = false;
-			}
-
-			foreach (FileSubtitleViewModel srtVM in this.FileSubtitles.Items)
-			{
-				srtVM.Default = false;
-			}
-		}
-	}
-
 	private ReactiveCommand<Unit, Unit> addFileSubtitle;
 	public ICommand AddFileSubtitle
 	{
@@ -1826,13 +1804,6 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 				this.RefreshSubtitleSummary();
 			}));
 		}
-	}
-
-	private bool defaultSubtitlesEnabled = true;
-	public bool DefaultSubtitlesEnabled
-	{
-		get => this.defaultSubtitlesEnabled;
-		set => this.RaiseAndSetIfChanged(ref this.defaultSubtitlesEnabled, value);
 	}
 
 	private bool textSubtitleWarningVisible;
