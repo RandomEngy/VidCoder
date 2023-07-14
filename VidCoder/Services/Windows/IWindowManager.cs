@@ -135,4 +135,9 @@ public interface IWindowManager
 	/// Gets or sets the last time the encoding window was resized.
 	/// </summary>
 	public DateTimeOffset LastEncodingWindowReize { get; set; }
+
+	/// <summary>
+	/// Gets or sets the last time the encoding window moved.
+	/// </summary>
+	public DateTimeOffset LastEncodingWindowMove { get; set; }
 }

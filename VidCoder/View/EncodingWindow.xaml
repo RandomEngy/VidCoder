@@ -16,6 +16,7 @@
 	Closed="Window_Closed"
 	Closing="Window_Closing"
 	SizeChanged="Window_SizeChanged"
+	LocationChanged="Window_LocationChanged"
 	ShowInTaskbar="False"
 	Style="{StaticResource NormalWindow}"
 	TextOptions.TextFormattingMode="Display"

@@ -112,4 +112,9 @@ public partial class EncodingWindow : Window
 	{
 		this.windowManager.LastEncodingWindowReize = DateTimeOffset.UtcNow;
     }
+
+	private void Window_LocationChanged(object sender, EventArgs e)
+	{
+		this.windowManager.LastEncodingWindowMove = DateTimeOffset.UtcNow;
+	}
 }

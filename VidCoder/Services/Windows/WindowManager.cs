@@ -479,6 +479,11 @@ public class WindowManager : ReactiveObject, IWindowManager
 	public DateTimeOffset LastEncodingWindowReize { get; set; } = DateTimeOffset.MinValue;
 
 	/// <summary>
+	/// Gets or sets the last time the encoding window moved.
+	/// </summary>
+	public DateTimeOffset LastEncodingWindowMove { get; set; } = DateTimeOffset.MinValue;
+
+	/// <summary>
 	/// Prepares a window for opening.
 	/// </summary>
 	/// <param name="viewModel">The window viewmodel to use.</param>
