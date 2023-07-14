@@ -127,13 +127,22 @@ public partial class App : Application
 		splashWindow.Show();
 
 		// Run some global initialization for the HandBrake library. This needs to run before doing database upgrades, as we access HandBrake helper functions there.
-		this.HandBrakeGlobalInitialize();
+		HandBrakeUtils.EnsureGlobalInit(initNoHardwareMode: false);
 
 		Ioc.SetUp();
 
 		Database.Initialize();
 
 		Config.EnsureInitialized(Database.Connection);
+
+		HandBrakeUtils.SetDvdNav(Config.EnableLibDvdNav);
+		var logger = StaticResolver.Resolve<IAppLogger>();
+		foreach (string error in Database.InitErrors)
+		{
+			logger.LogError(error);
+		}
+
+		Database.InitErrors.Clear();
 
 		if (Utilities.InstallType == VidCoderInstallType.SquirrelInstaller && !string.IsNullOrEmpty(Config.UninstallerPath))
 		{
@@ -233,12 +242,6 @@ public partial class App : Application
 	protected override void OnExit(ExitEventArgs e)
 	{
 		this.appThemeService?.Dispose();
-	}
-
-	private void HandBrakeGlobalInitialize()
-	{
-		HandBrakeUtils.EnsureGlobalInit(initNoHardwareMode: false);
-		HandBrakeUtils.SetDvdNav(DatabaseConfig.Get<bool>("EnableLibDvdNav", true, Database.Connection)); // This runs early so we need to use the raw version to get the config value.
 	}
 
 	public void ChangeTheme(Uri uri)

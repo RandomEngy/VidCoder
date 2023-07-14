@@ -511,8 +511,10 @@ public static class Database
 						CommonUtilities.GetAppFolder(beta: false),
 						CommonUtilities.GetAppFolder(beta: true));
 				}
-				catch (Exception)
+				catch (Exception e)
 				{
+					// Too early to log directly, so save the error until we get further into initialization.
+					InitErrors.Add("Could not copy Stable app folder to Beta." + Environment.NewLine + e);
 				}
 			}
 			else
@@ -536,6 +538,8 @@ public static class Database
 
 		return newConnection;
 	}
+
+	public static List<string> InitErrors { get; private set; } = new List<string>();
 
 	public static void CreateTables(SQLiteConnection connection)
 	{
