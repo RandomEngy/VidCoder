@@ -3237,7 +3237,7 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 			});
 		};
 
-		this.scanInstance.StartScan(path, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds), 0);
+		this.scanInstance.StartScan(new List<string> { path }, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds), 0, new List<string>());
 
 		oldInstance?.Dispose();
 	}

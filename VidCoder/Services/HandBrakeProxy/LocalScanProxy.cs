@@ -28,7 +28,7 @@ namespace VidCoder.Services.HandBrakeProxy;
                 onDemandInstance.Dispose();
             };
 
-            onDemandInstance.StartScan(path, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds), 0);
+            onDemandInstance.StartScan(new List<string> { path }, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds), 0, new List<string>());
         }
 
 	public void Dispose()
