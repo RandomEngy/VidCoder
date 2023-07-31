@@ -1256,41 +1256,32 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 		{
 			audioTracksInnerList.Clear();
 
-			switch (picker.AudioSelectionMode)
+			if (picker.AudioSelectionMode == AudioSelectionMode.Disabled)
 			{
-				case AudioSelectionMode.Disabled:
-					// If no auto-selection is done, keep audio from previous selection.
-					if (oldTracks.Count > 0)
+				// If no auto-selection is done, keep audio from previous selection.
+				if (oldTracks.Count > 0)
+				{
+					foreach (AudioTrackViewModel audioTrackVM in oldTracks)
 					{
-						foreach (AudioTrackViewModel audioTrackVM in oldTracks)
+						if (audioTrackVM.TrackIndex < this.selectedTitle.AudioList.Count &&
+							audioTrackVM.AudioTrack.Language == this.selectedTitle.AudioList[audioTrackVM.TrackIndex].Language)
 						{
-							if (audioTrackVM.TrackIndex < this.selectedTitle.AudioList.Count &&
-							    audioTrackVM.AudioTrack.Language == this.selectedTitle.AudioList[audioTrackVM.TrackIndex].Language)
-							{
-								audioTracksInnerList.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[audioTrackVM.TrackIndex], new ChosenAudioTrack { TrackNumber = audioTrackVM.TrackNumber }) { Selected = true });
-							}
+							audioTracksInnerList.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[audioTrackVM.TrackIndex], new ChosenAudioTrack { TrackNumber = audioTrackVM.TrackNumber }) { Selected = true });
 						}
 					}
+				}
 
-					// If nothing got selected and we have not explicitly left it out, add the first one.
-					if (this.selectedTitle.AudioList.Count > 0 && audioTracksInnerList.Count == 0)
-					{
-						audioTracksInnerList.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[0], new ChosenAudioTrack { TrackNumber = 1 }) { Selected = true });
-					}
-
-					break;
-				case AudioSelectionMode.None:
-				case AudioSelectionMode.First:
-				case AudioSelectionMode.ByIndex:
-				case AudioSelectionMode.Language:
-				case AudioSelectionMode.All:
-					audioTracksInnerList.AddRange(ProcessingService
-						.ChooseAudioTracks(this.selectedTitle.AudioList, picker)
-						.Select(track => new AudioTrackViewModel(this, track, new ChosenAudioTrack { TrackNumber = track.TrackNumber }) { Selected = true }));
-
-					break;
-				default:
-					throw new ArgumentOutOfRangeException();
+				// If nothing got selected and we have not explicitly left it out, add the first one.
+				if (this.selectedTitle.AudioList.Count > 0 && audioTracksInnerList.Count == 0)
+				{
+					audioTracksInnerList.Add(new AudioTrackViewModel(this, this.selectedTitle.AudioList[0], new ChosenAudioTrack { TrackNumber = 1 }) { Selected = true });
+				}
+			}
+			else
+			{
+				audioTracksInnerList.AddRange(ProcessingService
+					.ChooseAudioTracks(this.selectedTitle.AudioList, picker)
+					.Select(track => new AudioTrackViewModel(this, track, new ChosenAudioTrack { TrackNumber = track.TrackNumber }) { Selected = true }));
 			}
 
 			// Fill in rest of unselected audio tracks

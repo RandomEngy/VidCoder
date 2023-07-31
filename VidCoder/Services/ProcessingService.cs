@@ -3092,48 +3092,39 @@ public class ProcessingService : ReactiveObject
 		int outputIndex = 0;
 
 		job.AudioTracks = new List<ChosenAudioTrack>();
-		switch (picker.AudioSelectionMode)
+		if (picker.AudioSelectionMode == AudioSelectionMode.Disabled)
 		{
-			case AudioSelectionMode.Disabled:
-				if (title.AudioList.Count > 0)
+			if (title.AudioList.Count > 0)
+			{
+				if (useCurrentContext)
 				{
-					if (useCurrentContext)
+					// With previous context, pick similarly
+					foreach (AudioTrackViewModel audioVM in this.main.AudioTracks.Items.Where(t => t.Selected))
 					{
-						// With previous context, pick similarly
-						foreach (AudioTrackViewModel audioVM in this.main.AudioTracks.Items.Where(t => t.Selected))
-						{
-							int audioIndex = audioVM.TrackIndex;
+						int audioIndex = audioVM.TrackIndex;
 
-							if (title.AudioList.Count > audioIndex && this.main.SelectedTitle.AudioList[audioIndex].LanguageCode == title.AudioList[audioIndex].LanguageCode)
-							{
-								job.AudioTracks.Add(new ChosenAudioTrack { TrackNumber = audioIndex + 1, Name = GetPickerAudioName(picker, outputIndex++) });
-							}
-						}
-
-						// If we didn't manage to match any existing audio tracks, use the first audio track.
-						if (job.AudioTracks.Count == 0)
+						if (title.AudioList.Count > audioIndex && this.main.SelectedTitle.AudioList[audioIndex].LanguageCode == title.AudioList[audioIndex].LanguageCode)
 						{
-							job.AudioTracks.Add(new ChosenAudioTrack { TrackNumber = 1, Name = GetPickerAudioName(picker, outputIndex++) });
+							job.AudioTracks.Add(new ChosenAudioTrack { TrackNumber = audioIndex + 1, Name = GetPickerAudioName(picker, outputIndex++) });
 						}
 					}
-					else
+
+					// If we didn't manage to match any existing audio tracks, use the first audio track.
+					if (job.AudioTracks.Count == 0)
 					{
-						// With no previous context, just pick the first track
 						job.AudioTracks.Add(new ChosenAudioTrack { TrackNumber = 1, Name = GetPickerAudioName(picker, outputIndex++) });
 					}
 				}
-
-				break;
-			case AudioSelectionMode.None:
-			case AudioSelectionMode.First:
-			case AudioSelectionMode.ByIndex:
-			case AudioSelectionMode.Language:
-			case AudioSelectionMode.All:
-				job.AudioTracks.AddRange(ChooseAudioTracks(title.AudioList, picker).Select(track => new ChosenAudioTrack { TrackNumber = track.TrackNumber, Name = GetPickerAudioName(picker, outputIndex++) }));
-
-				break;
-			default:
-				throw new ArgumentOutOfRangeException();
+				else
+				{
+					// With no previous context, just pick the first track
+					job.AudioTracks.Add(new ChosenAudioTrack { TrackNumber = 1, Name = GetPickerAudioName(picker, outputIndex++) });
+				}
+			}
+		}
+		else
+		{
+			job.AudioTracks.AddRange(ChooseAudioTracks(title.AudioList, picker).Select(track => new ChosenAudioTrack { TrackNumber = track.TrackNumber, Name = GetPickerAudioName(picker, outputIndex++) }));
 		}
 
 		// Use the picker to apply names to the chosen audio tracks
