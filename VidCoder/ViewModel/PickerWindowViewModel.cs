@@ -870,6 +870,7 @@ public class PickerWindowViewModel : ReactiveObject
 	public List<ComboChoice<AudioSelectionMode>> AudioSelectionModeChoices { get; } = new List<ComboChoice<AudioSelectionMode>>
 	{
 		new ComboChoice<AudioSelectionMode>(AudioSelectionMode.Disabled, PickerRes.LastSelectedRadioButton),
+		new ComboChoice<AudioSelectionMode>(AudioSelectionMode.None, CommonRes.None),
 		new ComboChoice<AudioSelectionMode>(AudioSelectionMode.First, CommonRes.First),
 		new ComboChoice<AudioSelectionMode>(AudioSelectionMode.ByIndex, PickerRes.ByIndexRadioButton),
 		new ComboChoice<AudioSelectionMode>(AudioSelectionMode.Language, PickerRes.LanguagesRadioButton),

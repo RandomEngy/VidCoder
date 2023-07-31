@@ -3124,6 +3124,7 @@ public class ProcessingService : ReactiveObject
 				}
 
 				break;
+			case AudioSelectionMode.None:
 			case AudioSelectionMode.First:
 			case AudioSelectionMode.ByIndex:
 			case AudioSelectionMode.Language:
@@ -3133,12 +3134,6 @@ public class ProcessingService : ReactiveObject
 				break;
 			default:
 				throw new ArgumentOutOfRangeException();
-		}
-
-		// If none get chosen, pick the first one.
-		if (job.AudioTracks.Count == 0 && title.AudioList.Count > 0)
-		{
-			job.AudioTracks.Add(new ChosenAudioTrack { TrackNumber = 1 });
 		}
 
 		// Use the picker to apply names to the chosen audio tracks
@@ -3162,6 +3157,8 @@ public class ProcessingService : ReactiveObject
 		{
 			case AudioSelectionMode.Disabled:
 				throw new ArgumentException("Disabled is an invalid mode.");
+			case AudioSelectionMode.None:
+				break;
 			case AudioSelectionMode.First:
 				if (audioTracks.Count > 0)
 				{
@@ -3212,7 +3209,7 @@ public class ProcessingService : ReactiveObject
 		}
 
 		// If none are chosen and we have not explicitly left it out, add the first one.
-		if (result.Count == 0 && audioTracks.Count > 0 && picker.AudioSelectionMode != AudioSelectionMode.ByIndex)
+		if (result.Count == 0 && audioTracks.Count > 0 && picker.AudioSelectionMode != AudioSelectionMode.ByIndex && picker.AudioSelectionMode != AudioSelectionMode.None)
 		{
 			result.Add(audioTracks[0]);
 		}
