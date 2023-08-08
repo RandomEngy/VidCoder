@@ -378,7 +378,7 @@
     <value>მეტადატა</value>
   </data>
   <data name="PassThroughMetadataCheckBox" xml:space="preserve">
-    <value>ვიდეო მეტადატის შენარჩუნდება (დირექტორი, წარმოების თარიღი, მსახიობები, დ.ა.შ)</value>
+    <value>ვიდეო მეტადატის შენარჩუნება (დირექტორი, წარმოების თარიღი, მსახიობები, დ.ა.შ)</value>
   </data>
   <data name="BurnInCheckBox" xml:space="preserve">
     <value>ტიტრის კოდირება</value>

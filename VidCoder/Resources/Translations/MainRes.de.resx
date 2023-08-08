@@ -283,7 +283,11 @@
   <data name="StoppedEncoding" xml:space="preserve">
     <value>Encodierung beendet.</value>
   </data>
-  
+  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie die Quelldatei(en)/-Ordner {0} löschen möchten?</value>
+    <comment>{0} is the verb, can be "recycle" or "delete"
+{1} is the number of files that will be removed</comment>
+  </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Wirklich löschen?</value>
   </data>
@@ -663,13 +667,18 @@
     <value>Untertitelname</value>
     <comment>Narrator label for the subtitle name text box.</comment>
   </data>
-  
+  <data name="CouldNotRecycleFile" xml:space="preserve">
+    <value>Fehler beim Senden der Dateien in den Papierkorb.</value>
+  </data>
   
   
   <data name="CompareAgainstOriginal" xml:space="preserve">
     <value>Vergleiche mit Original</value>
   </data>
-  
+  <data name="CompareEncodedLabel" xml:space="preserve">
+    <value>Encodieren</value>
+    <comment>Label for the encoded video when comparing original vs encoded</comment>
+  </data>
   <data name="CompareOriginalLabel" xml:space="preserve">
     <value>Original</value>
     <comment>Label for the original video when comparing original vs encoded</comment>
@@ -689,7 +698,9 @@
     <value>Stummschaltung ausschalten</value>
     <comment>Text for screen readers for the unmute button on video playback</comment>
   </data>
-  
+  <data name="AutoPauseLowBattery" xml:space="preserve">
+    <value>Automatisch pausieren, da die Batterie niedrig ist.</value>
+  </data>
   <data name="AutoPauseLowDiskSpace" xml:space="preserve">
     <value>Automatisch pausieren, da freier Speicherplatz unter {0}GB liegt.</value>
     <comment>{0} is the disk space threshold for auto-pause in GB</comment>
@@ -701,11 +712,31 @@
   
   
   
+  <data name="Win7DeprecationWarning" xml:space="preserve">
+    <value>VidCoder wird unter Windows 7 oder 8 nicht mehr unterstützt.
+
+Sie können VidCoder auf eigene Gefahr weiter verwenden. Bestimmte Funktionen sind nicht funktionsfähig und es kann auch zu anderen unbekannten Problemen kommen. Wenn diese Probleme auftreten, steht keine Unterstützung zur Verfügung.
+
+v5 war die letzte unter Windows 7/8 getestete Version.
+
+Diese Warnung wird nur zweimal angezeigt.</value>
+  </data>
+  <data name="RemoveSourceFiles_Delete" xml:space="preserve">
+    <value>löschen</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RemoveSourceFiles_Recycle" xml:space="preserve">
+    <value>Papierkorb</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
   
+  <data name="CopyLogAndReportMenuItem" xml:space="preserve">
+    <value>Log- und Berichtsproblem kopieren</value>
+  </data>
   
-  
-  
-  
-  
-  
+  <data name="QueueProgressLabel" xml:space="preserve">
+    <value>Warteschlange {0}/{1}:</value>
+    <comment>{0} is the current job number for scanning and adding an item to the queue
+{1} is the total number of scanned items this session</comment>
+  </data>
 </root>

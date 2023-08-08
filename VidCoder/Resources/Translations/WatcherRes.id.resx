@@ -117,4 +117,88 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivateWatcherButton" xml:space="preserve">
+    <value>Aktifkan Pengamat File</value>
+  </data>
+  <data name="AddFolderToWatch" xml:space="preserve">
+    <value>Menambahkan folder untuk diamati</value>
+  </data>
+  <data name="CancelMenuItem" xml:space="preserve">
+    <value>Batal</value>
+  </data>
+  <data name="DeactivateWatcherButton" xml:space="preserve">
+    <value>Nonaktifkan Pengamat File</value>
+  </data>
+  <data name="OpenContainingFolderMenuItem" xml:space="preserve">
+    <value>Buka Folder</value>
+  </data>
+  <data name="PathColumnHeader" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="PickerLabel" xml:space="preserve">
+    <value>Picker</value>
+  </data>
+  <data name="PickWatchedFolderDialogDescription" xml:space="preserve">
+    <value>Pilih folder untuk diamati</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>Pengkodean preset:</value>
+  </data>
+  <data name="RemoveWatchedFolder" xml:space="preserve">
+    <value>Hapus folder yang diamati</value>
+  </data>
+  <data name="RetryMenuItem" xml:space="preserve">
+    <value>Ulangi</value>
+  </data>
+  <data name="RunWhenClosedCheckBox" xml:space="preserve">
+    <value>Jalankan saat VidCoder ditutup</value>
+  </data>
+  <data name="ServiceInstallError" xml:space="preserve">
+    <value>Tidak dapat menginstal layanan pengamat file.</value>
+  </data>
+  <data name="ServiceUninstallError" xml:space="preserve">
+    <value>Tidak dapat menghapus layanan pengamat file.</value>
+  </data>
+  <data name="StatusCanceledToolTip" xml:space="preserve">
+    <value>Pengkodean dibatalkan dengan menghapusnya dari antrean.</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="StatusFailedToolTip" xml:space="preserve">
+    <value>Penyandian gagal.</value>
+  </data>
+  <data name="StatusOutputToolTip" xml:space="preserve">
+    <value>File tersebut dikodekan oleh VidCoder.</value>
+  </data>
+  <data name="StatusQueuedToolTip" xml:space="preserve">
+    <value>File sumber ada di dalam antrean.</value>
+  </data>
+  <data name="StatusSkippedToolTip" xml:space="preserve">
+    <value>Pengkodean dilewati karena kondisi yang ditetapkan dalam pemilih (misalnya, ukuran file yang terlalu kecil).</value>
+  </data>
+  <data name="StatusSucceededToolTip" xml:space="preserve">
+    <value>Penyandian berhasil diselesaikan.</value>
+  </data>
+  <data name="WatchedFilesHeader" xml:space="preserve">
+    <value>Berkas</value>
+  </data>
+  <data name="WatchedFoldersHeader" xml:space="preserve">
+    <value>Folder teramati</value>
+  </data>
+  <data name="WatchedFolderTextBoxLabel" xml:space="preserve">
+    <value>Folder:</value>
+  </data>
+  <data name="WatcherAddDialogTitle" xml:space="preserve">
+    <value>Tambahkan folder yang dipantau</value>
+  </data>
+  <data name="WatcherEditDialogTitle" xml:space="preserve">
+    <value>Ubah folder termonitor</value>
+  </data>
+  <data name="WatcherIntroText" xml:space="preserve">
+    <value>Anda dapat mengatur Pengamat untuk mengamati folder dan secara otomatis meng-encode video yang muncul di dalamnya. Proses Pengamat akan berjalan ketika VidCoder ditutup dan meluncurkannya untuk meng-enkode file.</value>
+  </data>
+  <data name="WatcherWindowTitle" xml:space="preserve">
+    <value>Pengamat - {0}</value>
+  </data>
 </root>

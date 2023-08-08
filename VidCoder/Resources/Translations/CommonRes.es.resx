@@ -118,11 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutLicense" xml:space="preserve">
-    <value>Este programa es software libre; puedes redistribuirlo y/o modificarlo bajo los terminos de la GNU General Public License publicada por la Free Software Foundation; ya sea, la versión 2 de la licencia, o (a su opción) cualquier versión posterior.
+    <value>Este programa es software libre; puede redistribuirlo y/o modificarlo bajo los términos de la Licencia Pública General de GNU publicada por la Free Software Foundation; o bien la versión 2 de la Licencia, o (a su elección) cualquier versión posterior.
 
-Este programa se distribuye con la esperanza de que sea útil, pero SIN GARANTIA ALGUNA; ni siquiera la garantía implícita de COMERCIABILIDAD o IDONEIDAD PARA UN FIN DETERMINADO. Consulte la GNU General Public License para obtener más detalles.
+Este programa se distribuye con la esperanza de que sea útil, pero SIN NINGUNA PRECIÓN; sin siquiera la garantía implícita de MERCHANTABILITY o ADECUACIÓN PARA UN PROPÓSITO PARTICULAR. Consulte la Licencia Pública General de GNU para más detalles.
 
-Una copia completa de la GNU General Public License se ha incluido con este programa.</value>
+Se ha incluido una copia completa de la Licencia Pública General de GNU junto con este programa.</value>
   </data>
   <data name="BurnedSubtitleToolTip" xml:space="preserve">
     <value>'Pega' los subtítulos en la imagen. Los subtítulos 'pegados' no pueden ser deshabilitados durante la reproducción del video.</value>
@@ -131,10 +131,10 @@ Una copia completa de la GNU General Public License se ha incluido con este prog
     <value>Establece este subtítulo como predeterminado. Se mostrará durante la reproducción hasta que otra pista sea elegida.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Sólo muestra los subtítulos forzados de la lista de subtítulos. Éstos suelen ser pequeños fragmentos de diálogo en idiomas extranjeros.</value>
+    <value>Muestra solamente los subtítulos forzados de la lista de subtítulos. Normalmente éstos suelen ser pequeños fragmentos de diálogo en idiomas extranjeros.</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
-    <value>La cantidad de tiempo que demora el subtítulo en mostrarse (antes o después).</value>
+    <value>La cantidad de tiempo a adelantar o atrasar la aparición de los subtítulos.</value>
   </data>
   <data name="QueueColumnNameRange" xml:space="preserve">
     <value>Rango</value>
@@ -144,7 +144,7 @@ Una copia completa de la GNU General Public License se ha incluido con este prog
     <value>Destino</value>
   </data>
   <data name="QueueColumnNameSource" xml:space="preserve">
-    <value>Fuente</value>
+    <value>Origen</value>
   </data>
   <data name="QueueColumnNameTitle" xml:space="preserve">
     <value>Título</value>
@@ -169,7 +169,7 @@ Una copia completa de la GNU General Public License se ha incluido con este prog
     <value>Duración</value>
   </data>
   <data name="ForeignAudioSearchToolTip" xml:space="preserve">
-    <value>Busca la pista de subtítulo que contenga fragmentos de dialogo extranjero. Se recomienda para películas que se estén principalmente en su idioma original.</value>
+    <value>Busca la pista de subtítulos que probablemente contenga fragmentos de diálogo extranjero. Bueno para películas que están principalmente en tu idioma nativo.</value>
   </data>
   <data name="Default" xml:space="preserve">
     <value>Predeterminado</value>
@@ -230,7 +230,7 @@ Una copia completa de la GNU General Public License se ha incluido con este prog
     <value>Ninguno</value>
   </data>
   <data name="Succeeded" xml:space="preserve">
-    <value>Completado</value>
+    <value>Éxito</value>
   </data>
   <data name="Failed" xml:space="preserve">
     <value>Fallido</value>
@@ -239,10 +239,10 @@ Una copia completa de la GNU General Public License se ha incluido con este prog
     <value>{0} Archivos</value>
   </data>
   <data name="QueueColumnNamePreset" xml:space="preserve">
-    <value>Preset</value>
+    <value>Preajustes</value>
   </data>
   <data name="Success" xml:space="preserve">
-    <value>Completado</value>
+    <value>Correcto</value>
   </data>
   <data name="ConfirmDialogTitle" xml:space="preserve">
     <value>Confirmar</value>
@@ -260,10 +260,10 @@ Una copia completa de la GNU General Public License se ha incluido con este prog
     <value>Guardar en el directorio de origen si es posible</value>
   </data>
   <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>Conservar el árbol de carpetas durante la codificación en lote</value>
+    <value>Conservar el arbol de carpetas durante la codificación en lote</value>
   </data>
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>Si codifica una carpeta con archivos, la versión resultante sera guardada en sub carpetas conservando la estructura del directorio origen.</value>
+    <value>Si codifica una carpeta con archivos, la versión resultante será guardada en sub carpetas conservando la estructura del directorio origen.</value>
   </data>
   <data name="DismissMessage" xml:space="preserve">
     <value>Descartar mensaje</value>

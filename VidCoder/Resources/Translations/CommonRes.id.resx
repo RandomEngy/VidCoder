@@ -341,5 +341,7 @@ Sebuah salinan lengkap dari GNU General Public License telah disertakan bersama 
     <value>MB</value>
     <comment>Abbreviation for megabytes</comment>
   </data>
-  
+  <data name="Enabled" xml:space="preserve">
+    <value>Diaktifkan</value>
+  </data>
 </root>

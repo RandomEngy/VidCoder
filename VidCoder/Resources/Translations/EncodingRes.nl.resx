@@ -256,7 +256,7 @@ Stel dit in als je weet dat een apparaat waarvoor je dit doet niet alle profiele
     <value>Framesnelheid (FPS):</value>
   </data>
   <data name="ConstantFramerateRadioButton" xml:space="preserve">
-    <value>Constante framerate</value>
+    <value>Constante framesnelheid</value>
   </data>
   <data name="Quality" xml:space="preserve">
     <value>Kwaliteit</value>
