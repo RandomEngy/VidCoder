@@ -30,12 +30,9 @@ public static class PreviewFrameExtensions
 
 		PreviewWindowViewModel viewModel;
 
-		var paddingFrame = new PaddingFrame();
-		paddingFrame.SetBinding(PaddingFrame.SourceProperty, nameof(viewModel.PreviewImageServiceClient) + "." + nameof(viewModel.PreviewImageServiceClient.PreviewImage));
-		paddingFrame.SetBinding(PaddingFrame.OutputSizeProperty, nameof(viewModel.PreviewImageService) + "." + nameof(viewModel.PreviewImageService.OutputSizeInfo));
-		paddingFrame.SetBinding(PaddingFrame.PadColorProperty, nameof(viewModel.PreviewImageService) + "." + nameof(viewModel.PreviewImageService.PadColor));
-
-		previewFrame.Holder.Children.Add(paddingFrame);
+		var image = new Image();
+		image.SetBinding(Image.SourceProperty, nameof(viewModel.PreviewImageServiceClient) + "." + nameof(viewModel.PreviewImageServiceClient.PreviewImage));
+		previewFrame.Holder.Children.Add(image);
 	}
 
 	public static void SetVideo(this IPreviewFrame previewFrame, Action onCompleted, Action onFailed, IObservable<double> volume)
