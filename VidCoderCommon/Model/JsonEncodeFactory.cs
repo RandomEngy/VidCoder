@@ -412,10 +412,10 @@ public class JsonEncodeFactory
 		{
 			File = job.PartOutputPath ?? job.FinalOutputPath,
 			AlignAVStart = profile.AlignAVStart,
-			Mp4Options = new Mp4Options
+			Options = new Options
 			{
 				IpodAtom = profile.IPod5GSupport,
-				Mp4Optimize = profile.Optimize
+				Optimize = profile.Optimize,
 			},
 			Mux = profile.ContainerName,
 			ChapterMarkers = profile.IncludeChapterMarkers,

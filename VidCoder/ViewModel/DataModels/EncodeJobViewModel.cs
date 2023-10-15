@@ -710,7 +710,7 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 					List<string> trackSummaries = new List<string>();
 					foreach (FileSubtitle subtitle in fileSubtitles)
 					{
-						trackSummaries.Add(HandBrakeLanguagesHelper.Get(subtitle.LanguageCode).Display);
+						trackSummaries.Add(HandBrakeLanguagesHelper.GetByCode(subtitle.LanguageCode).Display);
 					}
 
 					externalSubtitlesDescription += $": {string.Join(", ", trackSummaries)}";

@@ -19,7 +19,7 @@ public static class PresetConverter
 		profile.PreferredExtension = VCOutputExtension.Mp4;
 		profile.IncludeChapterMarkers = hbPreset.ChapterMarkers;
 		profile.AlignAVStart = hbPreset.AlignAVStart;
-		profile.Optimize = hbPreset.Mp4HttpOptimize;
+		profile.Optimize = hbPreset.Optimize;
 		profile.IPod5GSupport = hbPreset.Mp4iPodCompatible;
 
 		// Sizing

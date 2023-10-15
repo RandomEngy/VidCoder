@@ -19,7 +19,7 @@ public static class PreviewFrameExtensions
 	{
 		Grid holder = previewFrame.Holder;
 
-		if (HasChild<PaddingFrame>(holder))
+		if (HasChild<Image>(holder))
 		{
 			// There is already an image on here.
 			RemoveVideo(holder);
@@ -200,7 +200,7 @@ public static class PreviewFrameExtensions
 		for (int i = holder.Children.Count - 1; i >= 0; i--)
 		{
 			UIElement child = holder.Children[i];
-			var image = child as PaddingFrame;
+			var image = child as Image;
 			if (image != null)
 			{
 				holder.Children.RemoveAt(i);

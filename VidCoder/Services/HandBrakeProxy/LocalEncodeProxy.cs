@@ -153,7 +153,13 @@ public class LocalEncodeProxy : IEncodeProxy
 			this.instance.Dispose();
 		};
 
-		this.instance.StartScan(new List<string> { scanPath }, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds), titleNumber, new List<string>());
+		this.instance.StartScan(
+			paths: new List<string> { scanPath },
+			previewCount: Config.PreviewCount,
+			minDuration: TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds),
+			titleIndex: titleNumber,
+			excludedExtensions: new List<string>(),
+			hwDecode: 0);
 
 		this.encoding = true;
 	}

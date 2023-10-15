@@ -171,7 +171,13 @@ public class HandBrakeEncodeWorker : HandBrakeWorkerBase<IHandBrakeEncodeWorkerC
 			};
 
 
-			this.Instance.StartScan(new List<string> { scanPath }, this.PassedPreviewCount, TimeSpan.FromSeconds(this.PassedMinTitleDurationSeconds), titleNumber, new List<string>());
+			this.Instance.StartScan(
+				paths: new List<string> { scanPath },
+				previewCount: this.PassedPreviewCount,
+				minDuration: TimeSpan.FromSeconds(this.PassedMinTitleDurationSeconds),
+				titleIndex: titleNumber,
+				excludedExtensions: new List<string>(),
+				hwDecode: 0);
 			this.state = EncodeState.Scanning;
 		}
 		catch (Exception exception)

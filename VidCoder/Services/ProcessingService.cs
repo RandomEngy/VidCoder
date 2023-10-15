@@ -3221,7 +3221,7 @@ public class ProcessingService : ReactiveObject
 
 		foreach (string code in languageCodes)
 		{
-			Language language = HandBrakeLanguagesHelper.Get(code);
+			Language language = HandBrakeLanguagesHelper.GetByCode(code);
 
 			foreach (SourceAudioTrack track in audioTracks)
 			{
@@ -3611,7 +3611,7 @@ public class ProcessingService : ReactiveObject
 
 		foreach (string code in languageCodes)
 		{
-			Language language = HandBrakeLanguagesHelper.Get(code);
+			Language language = HandBrakeLanguagesHelper.GetByCode(code);
 
 			if (!onlyIfDifferentFromAudio || code != audioLanguageCode)
 			{

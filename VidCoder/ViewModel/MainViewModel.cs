@@ -1870,7 +1870,7 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 				List<string> trackSummaries = new List<string>();
 				foreach (FileSubtitleViewModel subtitle in this.FileSubtitles.Items)
 				{
-					trackSummaries.Add(HandBrakeLanguagesHelper.Get(subtitle.LanguageCode).Display);
+					trackSummaries.Add(HandBrakeLanguagesHelper.GetByCode(subtitle.LanguageCode).Display);
 				}
 
 				externalSubtitlesDescription += $": {string.Join(", ", trackSummaries)}";
@@ -3237,7 +3237,13 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 			});
 		};
 
-		this.scanInstance.StartScan(new List<string> { path }, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds), 0, new List<string>());
+		this.scanInstance.StartScan(
+			paths: new List<string> { path },
+			previewCount: Config.PreviewCount,
+			minDuration: TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds),
+			titleIndex: 0,
+			excludedExtensions: new List<string>(),
+			hwDecode: 0);
 
 		oldInstance?.Dispose();
 	}

@@ -40,6 +40,12 @@ public class HandBrakeScanWorker : HandBrakeWorkerBase<IHandBrakeScanWorkerCallb
 			}
 		};
 
-		this.Instance.StartScan(new List<string> { path }, this.PassedPreviewCount, TimeSpan.FromSeconds(this.PassedMinTitleDurationSeconds), 0, new List<string>());
+		this.Instance.StartScan(
+			paths: new List<string> { path },
+			previewCount: this.PassedPreviewCount,
+			minDuration: TimeSpan.FromSeconds(this.PassedMinTitleDurationSeconds),
+			titleIndex: 0,
+			excludedExtensions: new List<string>(),
+			hwDecode: 0);
 	}
 }
