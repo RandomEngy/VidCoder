@@ -3051,7 +3051,18 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 			this.StartScan(job.SourcePath, jobVM);
 		}
 
-		string presetName = isQueueItem ? MainRes.PresetNameRestoredFromQueue : MainRes.PresetNameRestoredFromCompleted;
+		string originalPresetName = jobVM.PresetName;
+		if (originalPresetName.EndsWith(MainRes.PresetNameRestoredFromQueue))
+		{
+			originalPresetName = originalPresetName.Substring(0, originalPresetName.Length - MainRes.PresetNameRestoredFromQueue.Length - 3);
+		}
+
+		if (originalPresetName.EndsWith(MainRes.PresetNameRestoredFromCompleted))
+		{
+			originalPresetName = originalPresetName.Substring(0, originalPresetName.Length - MainRes.PresetNameRestoredFromCompleted.Length - 3);
+		}
+
+		string presetModifier = isQueueItem ? MainRes.PresetNameRestoredFromQueue : MainRes.PresetNameRestoredFromCompleted;
 
 		var queuePreset = new PresetViewModel(
 			new Preset
@@ -3059,7 +3070,7 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 				IsBuiltIn = false,
 				IsModified = false,
 				IsQueue = true,
-				Name = presetName,
+				Name = originalPresetName + " - " + presetModifier,
 				EncodingProfile = jobVM.Job.EncodingProfile.Clone()
 			});
 
