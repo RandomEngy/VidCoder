@@ -3052,12 +3052,12 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 		}
 
 		string originalPresetName = jobVM.PresetName;
-		if (originalPresetName.EndsWith(MainRes.PresetNameRestoredFromQueue))
+		if (originalPresetName.Length > MainRes.PresetNameRestoredFromQueue.Length + 3 && originalPresetName.EndsWith(MainRes.PresetNameRestoredFromQueue))
 		{
 			originalPresetName = originalPresetName.Substring(0, originalPresetName.Length - MainRes.PresetNameRestoredFromQueue.Length - 3);
 		}
 
-		if (originalPresetName.EndsWith(MainRes.PresetNameRestoredFromCompleted))
+		if (originalPresetName.Length > MainRes.PresetNameRestoredFromCompleted.Length + 3 && originalPresetName.EndsWith(MainRes.PresetNameRestoredFromCompleted))
 		{
 			originalPresetName = originalPresetName.Substring(0, originalPresetName.Length - MainRes.PresetNameRestoredFromCompleted.Length - 3);
 		}
