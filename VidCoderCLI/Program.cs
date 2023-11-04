@@ -55,6 +55,12 @@ public class Program
 				case "importqueue":
 					await ImportQueueAsync(args);
 					break;
+				case "pause":
+					await PauseAsync();
+					break;
+				case "resume":
+					await ResumeAsync();
+					break;
 				default:
 					WriteError("Action not recognized.");
 					PrintUsage();
@@ -180,6 +186,16 @@ public class Program
 		Console.WriteLine("Queue imported.");
 	}
 
+	private static async Task PauseAsync()
+	{
+		await VidCoderLauncher.RunActionIfVidCoderIsRunning(a => a.Pause()).ConfigureAwait(false);
+	}
+
+	private static async Task ResumeAsync()
+	{
+		await VidCoderLauncher.RunActionIfVidCoderIsRunning(a => a.Resume()).ConfigureAwait(false);
+	}
+
 	private static Dictionary<string, string> ReadArguments(string[] args)
 	{
 		var result = new Dictionary<string, string>();
@@ -214,6 +230,8 @@ public class Program
 		Console.WriteLine("VidCoderCLI scan -s[ource] \"<source path>\"");
 		Console.WriteLine("VidCoderCLI importpreset \"<preset file path>\"");
 		Console.WriteLine("VidCoderCLI importqueue \"<queue file path>\"");
+		Console.WriteLine("VidCoderCLI pause");
+		Console.WriteLine("VidCoderCLI resume");
 	}
 
 	private static void WriteError(string error)

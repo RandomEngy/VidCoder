@@ -16,5 +16,9 @@ public interface IVidCoderAutomation
 
 	void ImportQueue(string filePath);
 
+	void Pause();
+
+	void Resume();
+
 	void BringToForeground();
 }

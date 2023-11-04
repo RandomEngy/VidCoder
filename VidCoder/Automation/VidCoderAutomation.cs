@@ -95,6 +95,32 @@ public class VidCoderAutomation : IVidCoderAutomation
 		});
 	}
 
+	public void Pause()
+	{
+		this.logger.Log("Processing Pause request");
+		var processingService = StaticResolver.Resolve<ProcessingService>();
+		DispatchUtilities.Invoke(() =>
+		{
+			if (processingService.Encoding && !processingService.Paused)
+			{
+				processingService.Pause.Execute(null);
+			}
+		});
+	}
+
+	public void Resume()
+	{
+		this.logger.Log("Processing Resume request");
+		var processingService = StaticResolver.Resolve<ProcessingService>();
+		DispatchUtilities.Invoke(() =>
+		{
+			if (processingService.Encoding && processingService.Paused)
+			{
+				processingService.Encode.Execute(null);
+			}
+		});
+	}
+
 	public void BringToForeground()
 	{
 		this.logger.Log("Processing Bring to Foreground request");

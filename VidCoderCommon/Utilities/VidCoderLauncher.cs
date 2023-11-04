@@ -56,6 +56,18 @@ public static class VidCoderLauncher
 		return true;
 	}
 
+	public static async Task RunActionIfVidCoderIsRunning(Expression<Action<IVidCoderAutomation>> action)
+	{
+		if (VidCoderIsRunning())
+		{
+			await RunActionAsync(action).ConfigureAwait(false);
+		}
+		else
+		{
+			Console.WriteLine("Could not find a running instance of VidCoder.");
+		}
+	}
+
 	public static bool VidCoderIsRunning()
 	{
 		return VidCoderIsRunning(GetVidCoderExePath());
