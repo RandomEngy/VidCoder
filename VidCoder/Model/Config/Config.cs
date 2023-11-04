@@ -95,6 +95,7 @@ namespace VidCoder
 			cache.Add("AutoPauseLowBattery", DatabaseConfig.Get("AutoPauseLowBattery", true, connection));
 			cache.Add("AutoPauseLowDiskSpace", DatabaseConfig.Get("AutoPauseLowDiskSpace", true, connection));
 			cache.Add("AutoPauseLowDiskSpaceGb", DatabaseConfig.Get("AutoPauseLowDiskSpaceGb", 1, connection));
+			cache.Add("AutoPauseProcessesEnabled", DatabaseConfig.Get("AutoPauseProcessesEnabled", true, connection));
 			cache.Add("AutoPauseProcesses", DatabaseConfig.Get("AutoPauseProcesses", "", connection));
 			cache.Add("MaxSimultaneousEncodes", DatabaseConfig.Get("MaxSimultaneousEncodes", 1, connection));
 			cache.Add("CapNVEnc", DatabaseConfig.Get("CapNVEnc", true, connection));
@@ -493,6 +494,11 @@ namespace VidCoder
 			get { return (int)cache["AutoPauseLowDiskSpaceGb"]; }
 			set { Set("AutoPauseLowDiskSpaceGb", value); }
 		}
+		public static bool AutoPauseProcessesEnabled
+		{
+			get { return (bool)cache["AutoPauseProcessesEnabled"]; }
+			set { Set("AutoPauseProcessesEnabled", value); }
+		}
 		public static string AutoPauseProcesses
 		{
 			get { return (string)cache["AutoPauseProcesses"]; }
@@ -760,6 +766,7 @@ namespace VidCoder
 			public static IObservable<bool> AutoPauseLowBattery => GetObservable<bool>("AutoPauseLowBattery");
 			public static IObservable<bool> AutoPauseLowDiskSpace => GetObservable<bool>("AutoPauseLowDiskSpace");
 			public static IObservable<int> AutoPauseLowDiskSpaceGb => GetObservable<int>("AutoPauseLowDiskSpaceGb");
+			public static IObservable<bool> AutoPauseProcessesEnabled => GetObservable<bool>("AutoPauseProcessesEnabled");
 			public static IObservable<string> AutoPauseProcesses => GetObservable<string>("AutoPauseProcesses");
 			public static IObservable<int> MaxSimultaneousEncodes => GetObservable<int>("MaxSimultaneousEncodes");
 			public static IObservable<bool> CapNVEnc => GetObservable<bool>("CapNVEnc");

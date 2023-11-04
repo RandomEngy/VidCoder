@@ -18,6 +18,7 @@
 				<ResourceDictionary Source="/XamlResources/TextBox.xaml" />
 				<ResourceDictionary Source="/XamlResources/ComboBox.xaml" />
 				<ResourceDictionary Source="/XamlResources/GridViewColumnHeader.xaml" />
+				<ResourceDictionary Source="/XamlResources/ListBox.xaml" />
 				<ResourceDictionary Source="/XamlResources/ListView.xaml" />
 				<ResourceDictionary Source="/XamlResources/ListViewItem.xaml" />
 				<ResourceDictionary Source="/XamlResources/PresetComboBox.xaml" />

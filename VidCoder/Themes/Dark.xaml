@@ -63,6 +63,11 @@
 
 
 
+	<SolidColorBrush x:Key="ListBox.Static.Background" Color="Black" />
+	<SolidColorBrush x:Key="ListBox.Static.Border" Color="#FFABADB3" />
+	<SolidColorBrush x:Key="ListBox.Disabled.Background" Color="#444444" />
+	<SolidColorBrush x:Key="ListBox.Disabled.Border" Color="#888888" />
+
 
 	<SolidColorBrush x:Key="Button.Static.Background" Color="#333333" />
 	<SolidColorBrush x:Key="Button.Static.Border" Color="#DDDDDD" />
@@ -275,8 +280,10 @@
 						<ContentPresenter
 							x:Name="contentPresenter"
 							Margin="{TemplateBinding Padding}"
-							HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
-							VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+							HorizontalAlignment="{Binding HorizontalContentAlignment,
+							                              RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+							VerticalAlignment="{Binding VerticalContentAlignment,
+							                            RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
 							ContentSource="Header"
 							Focusable="False"
 							RecognizesAccessKey="True"

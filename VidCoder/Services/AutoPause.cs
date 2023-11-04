@@ -275,6 +275,11 @@ public class AutoPause : IAutoPause
 
 	private string GetProcessToAutoPauseOn()
 	{
+		if (!Config.AutoPauseProcessesEnabled)
+		{
+			return null;
+		}
+
 		Process[] processes = this.processes.GetProcesses();
 		List<string> autoPauseList = CustomConfig.AutoPauseProcesses;
 

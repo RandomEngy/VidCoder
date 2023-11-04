@@ -595,6 +595,16 @@ public class OptionsDialogViewModel : ReactiveObject
 		}
 	}
 
+	public bool AutoPauseProcessesEnabled
+	{
+		get => Config.AutoPauseProcessesEnabled;
+		set
+		{
+			Config.AutoPauseProcessesEnabled = value;
+			this.RaisePropertyChanged();
+		}
+	}
+
 	public ObservableCollection<string> AutoPauseProcesses { get; }
 
 	private void SaveAutoPauseProcesses()
