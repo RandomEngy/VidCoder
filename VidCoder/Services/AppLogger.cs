@@ -7,7 +7,6 @@ using HandBrake.Interop.Interop;
 using Microsoft.AnyContainer;
 using VidCoder.Model;
 using VidCoderCommon;
-using SharpCompress.Common;
 using VidCoder.Extensions;
 
 namespace VidCoder.Services;

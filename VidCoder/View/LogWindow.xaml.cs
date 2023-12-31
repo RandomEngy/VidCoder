@@ -15,12 +15,10 @@ using DynamicData;
 using ImTools;
 using Microsoft.AnyContainer;
 using ReactiveUI;
-using SharpCompress.Common;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Services;
 using WinCopies.Util;
-using Math = System.Math;
 
 namespace VidCoder.View;
 

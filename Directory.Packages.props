@@ -3,7 +3,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Clowd.Squirrel" Version="2.9.42" />
+    <PackageVersion Include="Clowd.Squirrel" Version="2.11.1" />
     <PackageVersion Include="ControlzEx" Version="5.0.1" />
     <PackageVersion Include="Fluent.Ribbon" Version="9.0.4" />
     <PackageVersion Include="Microsoft.AnyContainer" Version="1.0.0-beta201808141" />
