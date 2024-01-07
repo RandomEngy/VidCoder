@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Interop.HbLib;
 using HandBrake.Interop.Interop.Interfaces.Model.Filters;
@@ -27,6 +29,10 @@ public class VideoFiltersPanelViewModel : PanelViewModel, INotifyPropertyChanged
 	private static readonly ResourceManager EnumResourceManager = new ResourceManager(typeof(EnumsRes));
 
 	private PreviewUpdateService previewUpdateService = StaticResolver.Resolve<PreviewUpdateService>();
+
+	// Used to force updates after switching encoding profiles.
+	private bool overrideDenoisePresetToNull;
+	private bool overrideDeinterlacePresetToNull;
 
 	public VideoFiltersPanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
 		: base(encodingWindowViewModel)
@@ -255,6 +261,13 @@ public class VideoFiltersPanelViewModel : PanelViewModel, INotifyPropertyChanged
 		{
 			return colorspacePreset == "custom";
 		}).ToProperty(this, x => x.CustomColorspaceVisible, out this.customColorspaceVisible);
+
+		// For some reason the WPF binding for these dropdowns just doesn't work correctly when swapping presets, so we need to kick it
+		// to get it to update.
+		this.PresetsService.WhenAnyValue(x => x.SelectedPreset).Skip(1).Subscribe(_ =>
+		{
+			this.ForceRefreshDenoiseAndDeinterlacePresets();
+		});
 
 		this.AutomaticChange = false;
 	}
@@ -485,7 +498,15 @@ public class VideoFiltersPanelViewModel : PanelViewModel, INotifyPropertyChanged
 
 	public string DeinterlacePreset
 	{
-		get => this.Profile.DeinterlacePreset;
+		get
+		{
+			if (this.overrideDeinterlacePresetToNull)
+			{
+				return null;
+			}
+
+			return this.Profile.DeinterlacePreset;
+		}
 		set
 		{
 			if (value == null)
@@ -544,8 +565,15 @@ public class VideoFiltersPanelViewModel : PanelViewModel, INotifyPropertyChanged
 
 	public string DenoisePreset
 	{
-		get => this.Profile.DenoisePreset;
+		get
+		{
+			if (this.overrideDenoisePresetToNull)
+			{
+				return null;
+			}
 
+			return this.Profile.DenoisePreset;
+		}
 		set
 		{
 			if (value == null)
@@ -744,6 +772,47 @@ public class VideoFiltersPanelViewModel : PanelViewModel, INotifyPropertyChanged
 	{
 		get => this.Profile.Grayscale;
 		set => this.UpdateProfileProperty(nameof(this.Profile.Grayscale), value);
+	}
+
+
+
+
+	private ReactiveCommand<Unit, Unit> refreshThing;
+	public ICommand RefreshThing
+	{
+		get
+		{
+			return this.refreshThing ?? (this.refreshThing = ReactiveCommand.Create(
+				() =>
+				{
+					this.ForceRefreshDenoiseAndDeinterlacePresets();
+				}));
+		}
+	}
+
+	private void ForceRefreshDenoiseAndDeinterlacePresets()
+	{
+		if (this.DenoisePresetVisible)
+		{
+			this.overrideDenoisePresetToNull = true;
+			this.RaisePropertyChanged(nameof(this.DenoisePreset));
+			DispatchUtilities.BeginInvoke(() =>
+			{
+				this.overrideDenoisePresetToNull = false;
+				this.RaisePropertyChanged(nameof(this.DenoisePreset));
+			});
+		}
+
+		if (this.DeinterlacePresetVisible)
+		{
+			this.overrideDeinterlacePresetToNull = true;
+			this.RaisePropertyChanged(nameof(this.DeinterlacePreset));
+			DispatchUtilities.BeginInvoke(() =>
+			{
+				this.overrideDeinterlacePresetToNull = false;
+				this.RaisePropertyChanged(nameof(this.DeinterlacePreset));
+			});
+		}
 	}
 
 	private List<ComboChoice> GetFilterPresetChoices(hb_filter_ids filter, string resourcePrefix = null)
