@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddButton" xml:space="preserve">
     <value>Добавить</value>
@@ -216,13 +216,13 @@
     <value>VidCoder не поддерживает вашу операционную систему. Windows XP и Server 2003 больше не поддерживаются. Установите VidCoder 1.4 или обновите операционную систему.</value>
   </data>
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
-    <value>Неизбежный сон системы</value>
+    <value>Предстоящий сон системы</value>
   </data>
   <data name="EncodeCompleteWarning_LogOffTitle" xml:space="preserve">
-    <value>Неизбежный выход</value>
+    <value>Предстоящий выход</value>
   </data>
   <data name="EncodeCompleteWarning_ShutdownTitle" xml:space="preserve">
-    <value>Неизбежное завершение работы</value>
+    <value>Предстоящее завершение работы</value>
   </data>
   <data name="EncodeCompleteWarning_SleepMessage" xml:space="preserve">
     <value>Система уйдёт в спящий режим через {0} сек.</value>
@@ -246,7 +246,7 @@
     <value>Система уйдёт в режим гибернации через {0} сек.</value>
   </data>
   <data name="EncodeCompleteWarning_HibernateTitle" xml:space="preserve">
-    <value>Неизбежный режим гибернации</value>
+    <value>Предстоящий режим гибернации</value>
   </data>
   <data name="ChooseNamePicker" xml:space="preserve">
     <value>Имя для выбора:</value>
@@ -265,5 +265,11 @@
   </data>
   <data name="OneTimeInstallerCleanup" xml:space="preserve">
     <value>Необходимо выполнить разовую очистку от старого установщика. Выберите «Да» в следующем запросе, чтобы удалить старую версию VidCoder.</value>
+  </data>
+  <data name="EncodeCompleteWarning_RestartTitle" xml:space="preserve">
+    <value>Предстоящая перезагрузка</value>
+  </data>
+  <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
+    <value>Система будет перезагружена через {0} сек.</value>
   </data>
 </root>

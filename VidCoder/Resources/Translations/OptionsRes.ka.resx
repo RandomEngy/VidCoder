@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>ძირითადი</value>
@@ -331,9 +331,6 @@
   <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
     <value>ეს არის, თუ რამდენი ერთდროულად კოდირების დავალებები დაიშვება, გამოსადეგია რამოდენიმე ბირთვიანი პროცესორისთვის.</value>
   </data>
-  <data name="GeneralSection" xml:space="preserve">
-    <value>ძირითადი</value>
-  </data>
   <data name="ThemeLabel" xml:space="preserve">
     <value>თემა</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
@@ -381,5 +378,47 @@
   <data name="UpdateModeLabel" xml:space="preserve">
     <value>აქტუალიზირების რეჯიმი:</value>
     <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
+  </data>
+  <data name="WatcherModeLabel" xml:space="preserve">
+    <value>მეთვალყურის რეჯიმი:</value>
+  </data>
+  <data name="WatcherModelToolTip" xml:space="preserve">
+    <value>სისტემის მეთვალყურე:  იყენებს ოპერატიულ სისტემას რომ აცნობოს VidCoder-ს ახალი ფაილები. ჩქარია და იყენებს ცოტა პროცესის რესურსებს.
+გამომკითხველი: პერიოდულად ამოწმებს ფოლდერის შემცველობას. იყენებს მნიშვნელოვნად ბევრ პროცესის რესურსებს.
+გამოიყენედ მხოლოდ თუ 'სისტემის მეთვალყურე' არაა ჩართული.</value>
+  </data>
+  <data name="WatcherPollIntervalLabel" xml:space="preserve">
+    <value>გამოკითხვის ინტერვალი (წამებში):</value>
+  </data>
+  <data name="ApplicationSection" xml:space="preserve">
+    <value>პროგრამა</value>
+  </data>
+  <data name="EncodingSettingsDescription" xml:space="preserve">
+    <value>კოდირების პარამეტრები შეიცავს: კოდეკს, კადრის ზომა და ფილტრს. რომელიც აისახება ვიდეო-აუდიო ხარისხზე, ზომაზე და შეთავსებაზე.</value>
+  </data>
+  <data name="EncodingSettingsSection" xml:space="preserve">
+    <value>კოდირების პარამეტრები</value>
+  </data>
+  <data name="EncodingSettingsShortcutButton" xml:space="preserve">
+    <value>კოდირების პარამეტრების შეცვლა</value>
+  </data>
+  <data name="PickerDescription" xml:space="preserve">
+    <value>ამომრჩეი ირჩევს 
+ფაილის დასამახსოვრებელ ადგილს, აუდიო წყაროს და ტიტრს. პერსონალიზირებული ამომრჩევით შეგიძლიათ ავტომატურად დაამატოდ წყაროები და დასამახსოვრებელი ადგილი. </value>
+  </data>
+  <data name="PickerSettingsSection" xml:space="preserve">
+    <value>შენახვის ადგილი, წყაროს არჩევა</value>
+  </data>
+  <data name="PickerShortcutButton" xml:space="preserve">
+    <value>ამომრჩევის პარამეტრების შეცვლა</value>
+  </data>
+  <data name="EnableNVDecCheckBox" xml:space="preserve">
+    <value>გამოიყენეთ Nvidia NVDec ვიდეოს დეკოდირებისთვის თუ იყენებთ NVEnc და ჰარდვერის მიერ ხელმისაწვდომია</value>
+  </data>
+  <data name="HardwareEncodingSection" xml:space="preserve">
+    <value>მოწყობილობის კოდირება</value>
+  </data>
+  <data name="CapNVEncCheckBox" xml:space="preserve">
+    <value>იყენებს მრავალჯერად NVEnc-ის კოდირებას. წაშლის შემთხვევაში დასჭირდება პერსონალიზირებულ NVidia-ს დრაივერი.</value>
   </data>
 </root>

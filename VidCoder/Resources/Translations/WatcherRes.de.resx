@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivateWatcherButton" xml:space="preserve">
+    <value>Datei-Beobachter aktivieren</value>
+  </data>
+  <data name="AddFolderToWatch" xml:space="preserve">
+    <value>Ordner zur Beobachtung hinzufügen</value>
+  </data>
   <data name="CancelMenuItem" xml:space="preserve">
     <value>Abbrechen</value>
+  </data>
+  <data name="DeactivateWatcherButton" xml:space="preserve">
+    <value>Dateibeobachter deaktivieren</value>
   </data>
   <data name="OpenContainingFolderMenuItem" xml:space="preserve">
     <value>Ordner öffnen</value>
@@ -126,17 +135,35 @@
   <data name="PathColumnHeader" xml:space="preserve">
     <value>Pfad</value>
   </data>
+  <data name="PickerLabel" xml:space="preserve">
+    <value>Auswahl:</value>
+  </data>
+  <data name="PickWatchedFolderDialogDescription" xml:space="preserve">
+    <value>Wählen Sie den zu beobachtenden Ordner</value>
+  </data>
   <data name="PresetLabel" xml:space="preserve">
     <value>Encodierungs-Voreinstellung: {0}</value>
   </data>
+  <data name="RemoveWatchedFolder" xml:space="preserve">
+    <value> überwachten Ordner entfernen</value>
+  </data>
   <data name="RetryMenuItem" xml:space="preserve">
     <value>Wiederholen</value>
+  </data>
+  <data name="RunWhenClosedCheckBox" xml:space="preserve">
+    <value>Wird ausgeführt, wenn VidCoder geschlossen ist</value>
   </data>
   <data name="StatusColumnHeader" xml:space="preserve">
     <value>Status</value>
   </data>
   <data name="StatusFailedToolTip" xml:space="preserve">
     <value>Die Encodierung ist fehlgeschlagen.</value>
+  </data>
+  <data name="StatusQueuedToolTip" xml:space="preserve">
+    <value>Die Quelldatei befindet sich in der Warteschlange.</value>
+  </data>
+  <data name="StatusSkippedToolTip" xml:space="preserve">
+    <value>Der Kodierungscode wurde übersprungen, da in der Auswahl bestimmte Bedingungen festgelegt wurden (zum Beispiel eine zu kleine Dateigröße).</value>
   </data>
   <data name="StatusSucceededToolTip" xml:space="preserve">
     <value>Import erfolgreich abgeschlossen</value>
@@ -149,5 +176,8 @@
   </data>
   <data name="WatchedFolderTextBoxLabel" xml:space="preserve">
     <value>Ordner:</value>
+  </data>
+  <data name="WatcherAddDialogTitle" xml:space="preserve">
+    <value>Überwachten Ordner hinzufügen</value>
   </data>
 </root>

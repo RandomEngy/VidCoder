@@ -224,7 +224,7 @@
     <value>FPS promedio:</value>
   </data>
   <data name="PickDiscFolderHelpText" xml:space="preserve">
-    <value>Elije una carpeta de DVD o Blu-ray.</value>
+    <value>Elige una carpeta de DVD o Blu-ray.</value>
   </data>
   <data name="EncodesInProgressExitWarning" xml:space="preserve">
     <value>Hay codificaciones en progreso. ¿Estás seguro que quieres salir?</value>

@@ -117,4 +117,88 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivateWatcherButton" xml:space="preserve">
+    <value>Activer l'observateur de fichiers</value>
+  </data>
+  <data name="AddFolderToWatch" xml:space="preserve">
+    <value>Ajouter un dossier à observer</value>
+  </data>
+  <data name="CancelMenuItem" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="DeactivateWatcherButton" xml:space="preserve">
+    <value>Désactiver l'observateur de fichiers</value>
+  </data>
+  <data name="OpenContainingFolderMenuItem" xml:space="preserve">
+    <value>Ouvrir le contenu du dossier</value>
+  </data>
+  <data name="PathColumnHeader" xml:space="preserve">
+    <value>Chemin</value>
+  </data>
+  <data name="PickerLabel" xml:space="preserve">
+    <value>Sélecteur :</value>
+  </data>
+  <data name="PickWatchedFolderDialogDescription" xml:space="preserve">
+    <value>Choisissez le dossier à observer</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>Préréglage d'encodage :</value>
+  </data>
+  <data name="RemoveWatchedFolder" xml:space="preserve">
+    <value>Supprimer le dossier observé</value>
+  </data>
+  <data name="RetryMenuItem" xml:space="preserve">
+    <value>Réessayer</value>
+  </data>
+  <data name="RunWhenClosedCheckBox" xml:space="preserve">
+    <value>Exécuter même quand VidCoder est fermé</value>
+  </data>
+  <data name="ServiceInstallError" xml:space="preserve">
+    <value>Impossible d'installer le service d'observation de fichiers.</value>
+  </data>
+  <data name="ServiceUninstallError" xml:space="preserve">
+    <value>Impossible de désinstaller le service d'observation de fichiers.</value>
+  </data>
+  <data name="StatusCanceledToolTip" xml:space="preserve">
+    <value>L'encodage a été annulé à la suite de sa suppression de la file d'attente.</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>État</value>
+  </data>
+  <data name="StatusFailedToolTip" xml:space="preserve">
+    <value>L'encodage a échoué.</value>
+  </data>
+  <data name="StatusOutputToolTip" xml:space="preserve">
+    <value>Le fichier a été encodé par VidCoder.</value>
+  </data>
+  <data name="StatusQueuedToolTip" xml:space="preserve">
+    <value>Le fichier source est dans la file d'attente.</value>
+  </data>
+  <data name="StatusSkippedToolTip" xml:space="preserve">
+    <value>L'encodage a été ignoré en raison des conditions définies dans le sélecteur (comme une taille de fichier trop petite).</value>
+  </data>
+  <data name="StatusSucceededToolTip" xml:space="preserve">
+    <value>L'encodage a été complété avec succès.</value>
+  </data>
+  <data name="WatchedFilesHeader" xml:space="preserve">
+    <value>Fichiers</value>
+  </data>
+  <data name="WatchedFoldersHeader" xml:space="preserve">
+    <value>Observer les dossiers</value>
+  </data>
+  <data name="WatchedFolderTextBoxLabel" xml:space="preserve">
+    <value>Dossier :</value>
+  </data>
+  <data name="WatcherAddDialogTitle" xml:space="preserve">
+    <value>Ajouter un dossier observé</value>
+  </data>
+  <data name="WatcherEditDialogTitle" xml:space="preserve">
+    <value>Modifier le dossier observé</value>
+  </data>
+  <data name="WatcherIntroText" xml:space="preserve">
+    <value>Vous pouvez configurer l'observateur pour surveiller les dossiers et encoder automatiquement les vidéos qui s'y trouvent. Le processus de l'observateur s'exécutera lorsque VidCoder est fermé et le démarrera pour encoder des fichiers.</value>
+  </data>
+  <data name="WatcherWindowTitle" xml:space="preserve">
+    <value>Observateur - {0}</value>
+  </data>
 </root>

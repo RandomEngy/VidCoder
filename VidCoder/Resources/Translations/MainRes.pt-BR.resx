@@ -209,10 +209,10 @@
     <value>Pausar</value>
   </data>
   <data name="MoveToTopMenuItem" xml:space="preserve">
-    <value>Mover para frente</value>
+    <value>Mover para o início</value>
   </data>
   <data name="MoveToBottomMenuItem" xml:space="preserve">
-    <value>Mover para o fundo</value>
+    <value>Mover para o fim</value>
   </data>
   <data name="CustomizeColumnsMenuItem" xml:space="preserve">
     <value>Personalizar colunas...</value>

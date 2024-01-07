@@ -372,10 +372,10 @@
     <value>Séma exportálása</value>
   </data>
   <data name="SaveChangesPickerMessage" xml:space="preserve">
-    <value>Szeretnéd elmenteni a változásokat a jelenlegi sémába?</value>
+    <value>Szeretnéd elmenteni a változásokat a jelenlegi kiválasztóba?</value>
   </data>
   <data name="SaveChangesPickerTitle" xml:space="preserve">
-    <value>Elmented a jelenlegi sémát?</value>
+    <value>Elmented a jelenlegi kiválasztót?</value>
   </data>
   <data name="RevertConfirmMessage" xml:space="preserve">
     <value>Biztosan szeretnéd elvetni a jelenlegi séma változásait?</value>
@@ -494,10 +494,10 @@
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
   <data name="PickerMenuItem" xml:space="preserve">
-    <value>Választó</value>
+    <value>Kiválasztó</value>
   </data>
   <data name="CouldNotLoadPickerMessage" xml:space="preserve">
-    <value>Választó betöltése nem sikerült: </value>
+    <value>Nem sikerült a kiválasztó betöltése: </value>
   </data>
   <data name="SimilarTitlesToolTip" xml:space="preserve">
     <value>További {0} cím rendelkezik ehhez hasonló lejátszási idővel.</value>

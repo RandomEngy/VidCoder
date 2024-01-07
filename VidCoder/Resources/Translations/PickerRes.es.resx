@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DefaultCheckBox" xml:space="preserve">
     <value>Predeterminado</value>
@@ -396,4 +396,13 @@ Todas: incluye todos los subtítulos.</value>
     <value>Eliminar archivos origen tras codificación exitosa:</value>
     <comment>Label for the option to automatically delete source files on completion.</comment>
   </data>
+  <data name="HeightFilterCheckBox" xml:space="preserve">
+    <value>Elegir sólo títulos con una altura de</value>
+    <comment>Label before the UI to pick the title height limitation. For example, it might read "Pick only titles with height [ &gt; ] [ 480 ]"</comment>
+  </data>
+  
+  
+  
+  
+  
 </root>

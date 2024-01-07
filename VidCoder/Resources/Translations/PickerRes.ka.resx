@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DefaultCheckBox" xml:space="preserve">
     <value>სტანდარტი</value>
@@ -337,7 +337,7 @@
     <value>აუდიო</value>
   </data>
   <data name="PickerForeignAudioCheckBox" xml:space="preserve">
-    <value>'სხვა აუდიოს სკანირების' წყაროს დამატება</value>
+    <value>სხვა ენის სკანირების წყაროს დამატება</value>
   </data>
   <data name="PickerSubtitleSectionName" xml:space="preserve">
     <value>ტიტრები</value>
@@ -378,7 +378,7 @@
     <value>მეტადატა</value>
   </data>
   <data name="PassThroughMetadataCheckBox" xml:space="preserve">
-    <value>ვიდეო მეტადატის შენარჩუნდება (დირექტორი, წარმოების თარიღი, მსახიობები, დ.ა.შ)</value>
+    <value>ვიდეო მეტადატის შენარჩუნება (დირექტორი, წარმოების თარიღი, მსახიობები, დ.ა.შ)</value>
   </data>
   <data name="BurnInCheckBox" xml:space="preserve">
     <value>ტიტრის კოდირება</value>
@@ -395,5 +395,29 @@
   <data name="SourceFileRemovalLabel" xml:space="preserve">
     <value>წარმატებული კოდირების შემდეგ წყაროს ფაილის წაშლა:</value>
     <comment>Label for the option to automatically delete source files on completion.</comment>
+  </data>
+  <data name="HeightFilterCheckBox" xml:space="preserve">
+    <value>მხოლოდ სიმაღლის მიხედვით არჩევა</value>
+    <comment>Label before the UI to pick the title height limitation. For example, it might read "Pick only titles with height [ &gt; ] [ 480 ]"</comment>
+  </data>
+  <data name="HeightFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>სიმაღლის მიხედვით გაფილტრვა</value>
+    <comment>Screen reader text for the height filter checkbox</comment>
+  </data>
+  <data name="HeightFilterValueAutomationName" xml:space="preserve">
+    <value>სიმაღლის გაფილტრვა</value>
+    <comment>Screen reader text for the height filter value</comment>
+  </data>
+  <data name="WidthFilterCheckBox" xml:space="preserve">
+    <value>მხოლოდ სიგანის მიხედვით არჩევა</value>
+    <comment>Label before the UI to pick the title width limitation. For example, it might read "Pick only titles with width [ &gt; ] [ 640 ]"</comment>
+  </data>
+  <data name="WidthFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>სიგანის მიხედვით გაფილტრვა</value>
+    <comment>Screen reader text for the width filter checkbox</comment>
+  </data>
+  <data name="WidthFilterValueAutomationName" xml:space="preserve">
+    <value>სიგანის გაფილტრვა</value>
+    <comment>Screen reader text for the width filter value</comment>
   </data>
 </root>

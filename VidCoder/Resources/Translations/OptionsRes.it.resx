@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Generale</value>
@@ -331,9 +331,6 @@
   <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
     <value>Potete indicare quanti processori di codifica simultanei sono permessi. Utile per macchine con CPU a più processori.</value>
   </data>
-  <data name="GeneralSection" xml:space="preserve">
-    <value>Generale</value>
-  </data>
   <data name="ThemeLabel" xml:space="preserve">
     <value>Tema</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
@@ -381,5 +378,45 @@
   <data name="UpdateModeLabel" xml:space="preserve">
     <value>Modalità aggiornamento:</value>
     <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
+  </data>
+  <data name="WatcherModeLabel" xml:space="preserve">
+    <value>Modalità controllo:</value>
+  </data>
+  <data name="WatcherModelToolTip" xml:space="preserve">
+    <value>Controllo sistema: utilizza le risorse del sistema operativo per notificare a VidCoder la presenza di nuovi file. È il più veloce e utilizza risorse minime della CPU e del disco.
+Interrogazione: controlla periodicamente il contenuto delle cartelle. Utilizza risorse significative della CPU e del disco. Da usare solo se il conrollo di sistema non funziona.</value>
+  </data>
+  <data name="WatcherPollIntervalLabel" xml:space="preserve">
+    <value>Intervallo d'interrogazione (secondi):</value>
+  </data>
+  <data name="ApplicationSection" xml:space="preserve">
+    <value>Applicazione</value>
+  </data>
+  <data name="EncodingSettingsDescription" xml:space="preserve">
+    <value>Le impostazioni di codifica includono il codificatore, la velocità in bps, la dimensioni dell'immagine e i filtri. Questo influenzerà l'aspetto e i suoni del video, le dimensioni del file e l'esecutore che lo supporta (COME  codificare)</value>
+  </data>
+  <data name="EncodingSettingsSection" xml:space="preserve">
+    <value>Impostazioni di codifica</value>
+  </data>
+  <data name="EncodingSettingsShortcutButton" xml:space="preserve">
+    <value>Modifica le impostazioni di codifica</value>
+  </data>
+  <data name="PickerDescription" xml:space="preserve">
+    <value>Il Selettore sceglie la posizione dei file prodotti: tracce audio e sottotitoli. Personalizza il Selettore per aggiungere automaticamente le tracce che vuoi e per scegliere il nome del file e la cartella di destinazione. (COSA codificare)</value>
+  </data>
+  <data name="PickerSettingsSection" xml:space="preserve">
+    <value>Posizione d'uscita, selezione traccia</value>
+  </data>
+  <data name="PickerShortcutButton" xml:space="preserve">
+    <value>Modifica le impostazioni del Selettore</value>
+  </data>
+  <data name="EnableNVDecCheckBox" xml:space="preserve">
+    <value>Utilizza l'Nvidia NVDec per decodificare il video quando il video è codificato NVEnc e l'hardware lo supporta</value>
+  </data>
+  <data name="HardwareEncodingSection" xml:space="preserve">
+    <value>Codifica hardware</value>
+  </data>
+  <data name="CapNVEncCheckBox" xml:space="preserve">
+    <value>Limita le codifiche NVEnc simultanee. Questo richiede una modifica personalizzata dei driver NVidia.</value>
   </data>
 </root>

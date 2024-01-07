@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DefaultCheckBox" xml:space="preserve">
     <value>Alapértelmezett</value>
@@ -128,10 +128,10 @@
     <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>Választó: {0}</value>
+    <value>Kiválasztó: {0}</value>
   </data>
   <data name="PickerButtonFormat" xml:space="preserve">
-    <value>Választó: {0}</value>
+    <value>Kiválasztó: {0}</value>
     <comment>{0} is the name of the picker. This string shows up on the picker split button.</comment>
   </data>
   <data name="OutputLocation" xml:space="preserve">
@@ -177,7 +177,7 @@
     <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
   </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
-    <value>A választó meghatározta a kódolási sémát.</value>
+    <value>A kiválasztó meghatározta a kódolási sémát.</value>
   </data>
   <data name="AddLanguageButton" xml:space="preserve">
     <value>Nyelv hozzáadása</value>
@@ -395,5 +395,29 @@ Nyelv(ek) - Nyelv alapján
   <data name="SourceFileRemovalLabel" xml:space="preserve">
     <value>Forrásfájl eltávolítása sikeres kódolás után:</value>
     <comment>Label for the option to automatically delete source files on completion.</comment>
+  </data>
+  <data name="HeightFilterCheckBox" xml:space="preserve">
+    <value>Címek csak ilyen magassággal</value>
+    <comment>Label before the UI to pick the title height limitation. For example, it might read "Pick only titles with height [ &gt; ] [ 480 ]"</comment>
+  </data>
+  <data name="HeightFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>Címek szűrése magasság szerint</value>
+    <comment>Screen reader text for the height filter checkbox</comment>
+  </data>
+  <data name="HeightFilterValueAutomationName" xml:space="preserve">
+    <value>Magasságszűrő értéke</value>
+    <comment>Screen reader text for the height filter value</comment>
+  </data>
+  <data name="WidthFilterCheckBox" xml:space="preserve">
+    <value>Címek csak ilyen szélességgel</value>
+    <comment>Label before the UI to pick the title width limitation. For example, it might read "Pick only titles with width [ &gt; ] [ 640 ]"</comment>
+  </data>
+  <data name="WidthFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>Címek szűrése szélesség szerint</value>
+    <comment>Screen reader text for the width filter checkbox</comment>
+  </data>
+  <data name="WidthFilterValueAutomationName" xml:space="preserve">
+    <value>Szélességszűrő értéke</value>
+    <comment>Screen reader text for the width filter value</comment>
   </data>
 </root>

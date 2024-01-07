@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Общие</value>
@@ -331,9 +331,6 @@
   <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
     <value>Количество разрешённых одновременных заданий кодирования. Полезно для компьютеров с большим количеством процессорных ядер.</value>
   </data>
-  <data name="GeneralSection" xml:space="preserve">
-    <value>Общие</value>
-  </data>
   <data name="ThemeLabel" xml:space="preserve">
     <value>Тема:</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
@@ -381,5 +378,45 @@
   <data name="UpdateModeLabel" xml:space="preserve">
     <value>Режим обновления:</value>
     <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
+  </data>
+  <data name="WatcherModeLabel" xml:space="preserve">
+    <value>Режим наблюдения:</value>
+  </data>
+  <data name="WatcherModelToolTip" xml:space="preserve">
+    <value>Системный: использует ОС для уведомления VidCoder о новых файлах. Самый быстрый и использует минимум ресурсов процессора и диска.
+Опрос: периодически проверяет содержимое папок. Использует значительные ресурсы процессора и диска. Используйте только в том случае, если системный режим не работает.</value>
+  </data>
+  <data name="WatcherPollIntervalLabel" xml:space="preserve">
+    <value>Интервал опроса (сек.):</value>
+  </data>
+  <data name="ApplicationSection" xml:space="preserve">
+    <value>Приложение</value>
+  </data>
+  <data name="EncodingSettingsDescription" xml:space="preserve">
+    <value>Настройки кодирования включают кодек, битрейт, размер изображения и фильтры. Они влияют на внешний вид и звук видео, размер файла и на то, какие проигрыватели его поддерживают. (КАК кодировать)</value>
+  </data>
+  <data name="EncodingSettingsSection" xml:space="preserve">
+    <value>Настройки кодирования</value>
+  </data>
+  <data name="EncodingSettingsShortcutButton" xml:space="preserve">
+    <value>Изменить настройки кодирования</value>
+  </data>
+  <data name="PickerDescription" xml:space="preserve">
+    <value>Средство выбора указывает местоположение выходного файла, звуковые дорожки и субтитры. Изменение настроек позволяет автоматически добавлять нужные треки и выбирать имя файла и папку назначения. (ЧТО кодировать)</value>
+  </data>
+  <data name="PickerSettingsSection" xml:space="preserve">
+    <value>Местоположение выходного файла, выбор треков</value>
+  </data>
+  <data name="PickerShortcutButton" xml:space="preserve">
+    <value>Изменить настройки средства выбора</value>
+  </data>
+  <data name="EnableNVDecCheckBox" xml:space="preserve">
+    <value>Использовать Nvidia NVDec для декодирования видео, если используется кодер NVEnc и доступно соответствующее оборудование</value>
+  </data>
+  <data name="HardwareEncodingSection" xml:space="preserve">
+    <value>Аппаратное кодирование</value>
+  </data>
+  <data name="CapNVEncCheckBox" xml:space="preserve">
+    <value>Ограничение одновременного кодирования NVEnc. Для снятия ограничения требуется модификация драйвера NVidia пользователем.</value>
   </data>
 </root>

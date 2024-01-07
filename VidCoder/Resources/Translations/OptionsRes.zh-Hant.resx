@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>一般設定</value>
@@ -331,9 +331,6 @@
   <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
     <value>允許同時編碼工作的數目，適用於多核心的機器。</value>
   </data>
-  <data name="GeneralSection" xml:space="preserve">
-    <value>一般設定</value>
-  </data>
   <data name="ThemeLabel" xml:space="preserve">
     <value>主題</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
@@ -381,5 +378,45 @@
   <data name="UpdateModeLabel" xml:space="preserve">
     <value>更新模式:</value>
     <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
+  </data>
+  <data name="WatcherModeLabel" xml:space="preserve">
+    <value>監測器模式:</value>
+  </data>
+  <data name="WatcherModelToolTip" xml:space="preserve">
+    <value>系統監測器: 使用作業系統通知 VidCoder 是否有新檔案，此為最快速且使用最少 CPU 及磁碟資源的方式。
+輪詢: 間歇性檢查資料夾內容，使用較多 CPU 及磁碟資源，僅於系統監測器無法運作時使用。</value>
+  </data>
+  <data name="WatcherPollIntervalLabel" xml:space="preserve">
+    <value>輪詢間隔 (秒):</value>
+  </data>
+  <data name="ApplicationSection" xml:space="preserve">
+    <value>應用程式</value>
+  </data>
+  <data name="EncodingSettingsDescription" xml:space="preserve">
+    <value>編碼設定包含編碼器、位元率、圖片大小及過濾器，這些設定會影響影片的視覺及聽覺效果、檔案大小及播放器是否支援。</value>
+  </data>
+  <data name="EncodingSettingsSection" xml:space="preserve">
+    <value>編碼設定</value>
+  </data>
+  <data name="EncodingSettingsShortcutButton" xml:space="preserve">
+    <value>編輯編碼設定</value>
+  </data>
+  <data name="PickerDescription" xml:space="preserve">
+    <value>選取器會選擇輸出檔案位置、音軌及字幕，請自訂您希望揀取器自動新增的軌道及檔案名稱與目的資料夾。</value>
+  </data>
+  <data name="PickerSettingsSection" xml:space="preserve">
+    <value>輸出位置、軌道選擇</value>
+  </data>
+  <data name="PickerShortcutButton" xml:space="preserve">
+    <value>編輯選取器設定</value>
+  </data>
+  <data name="EnableNVDecCheckBox" xml:space="preserve">
+    <value>當使用 Nvidia NVEnc 編碼器及硬體支援時使用 Nvidia NVDec 解碼影片</value>
+  </data>
+  <data name="HardwareEncodingSection" xml:space="preserve">
+    <value>硬體編碼</value>
+  </data>
+  <data name="CapNVEncCheckBox" xml:space="preserve">
+    <value>限制同時處理的 NVEnc 編碼數量，移除此選項需要自訂 Nvidia 驅動程式補釘。</value>
   </data>
 </root>

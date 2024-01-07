@@ -396,4 +396,13 @@
   <data name="WatchedFileStatusLive_Output" xml:space="preserve">
     <value>შედეგი</value>
   </data>
+  <data name="WatcherMode_FileSystemWatcher" xml:space="preserve">
+    <value>სისტემის მეთვალყურე</value>
+  </data>
+  <data name="WatcherMode_Polling" xml:space="preserve">
+    <value>გამოკითხვა</value>
+  </data>
+  <data name="EncodeCompleteActionType_Restart" xml:space="preserve">
+    <value>გადატვირთვა</value>
+  </data>
 </root>

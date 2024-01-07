@@ -136,7 +136,7 @@
     <value>Útvonal</value>
   </data>
   <data name="PickerLabel" xml:space="preserve">
-    <value>Választó:</value>
+    <value>Kiválasztó:</value>
   </data>
   <data name="PickWatchedFolderDialogDescription" xml:space="preserve">
     <value>Megfigyelendő mappa kiválasztása</value>

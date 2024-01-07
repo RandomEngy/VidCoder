@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Umum</value>
@@ -189,7 +189,9 @@
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Gabung penguji Beta agar mendapat pembaruan berkala</value>
   </data>
-  
+  <data name="UpdateReadyStatus" xml:space="preserve">
+    <value>Pembaruan {0} siap.</value>
+  </data>
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VoipRaider sudah terbarukan.</value>
   </data>
@@ -329,9 +331,6 @@
   <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
     <value>Ini adalah jumlah proses menyandi secara bersamaan yang diperbolehkan. Berguna untuk mesin dengan banyak inti CPU.</value>
   </data>
-  <data name="GeneralSection" xml:space="preserve">
-    <value>Umum</value>
-  </data>
   <data name="ThemeLabel" xml:space="preserve">
     <value>Tema</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
@@ -370,6 +369,26 @@
   <data name="EncodeRetriesLabel" xml:space="preserve">
     <value>Jumlah percobaan enkoding:</value>
   </data>
+  <data name="ApplyUpdateButton" xml:space="preserve">
+    <value>Terapkan pembaruan</value>
+  </data>
+  <data name="CheckingForUpdateStatus" xml:space="preserve">
+    <value>Memeriksa pembaruan</value>
+  </data>
+  <data name="UpdateModeLabel" xml:space="preserve">
+    <value>Mode pembaruan:</value>
+    <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   
