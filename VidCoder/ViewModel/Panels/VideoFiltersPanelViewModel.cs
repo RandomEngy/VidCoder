@@ -588,7 +588,15 @@ public class VideoFiltersPanelViewModel : PanelViewModel, INotifyPropertyChanged
 
 	public string ChromaSmoothPreset
 	{
-		get => this.Profile.ChromaSmoothPreset;
+		get
+		{
+			if (this.Profile.ChromaSmoothPreset != null)
+			{
+				return this.Profile.ChromaSmoothPreset;
+			}
+
+			return this.ChromaSmoothChoices.First().Value;
+		}
 		set => this.UpdateProfileProperty(nameof(this.Profile.ChromaSmoothPreset), value);
 	}
 
@@ -671,7 +679,15 @@ public class VideoFiltersPanelViewModel : PanelViewModel, INotifyPropertyChanged
 
 	public string DeblockPreset
 	{
-		get => this.Profile.DeblockPreset;
+		get
+		{
+			if (this.Profile.DeblockPreset != null)
+			{
+				return this.Profile.DeblockPreset;
+			}
+
+			return this.DeblockChoices.First().Value;
+		}
 		set => this.UpdateProfileProperty(nameof(this.Profile.DeblockPreset), value);
 	}
 
@@ -701,7 +717,15 @@ public class VideoFiltersPanelViewModel : PanelViewModel, INotifyPropertyChanged
 
 	public string ColorspacePreset
 	{
-		get => this.Profile.ColorspacePreset;
+		get
+		{
+			if (this.Profile.ColorspacePreset != null)
+			{
+				return this.Profile.ColorspacePreset;
+			}
+
+			return this.ColorspaceChoices.First().Value;
+		}
 		set => this.UpdateProfileProperty(nameof(this.Profile.ColorspacePreset), value);
 	}
 
