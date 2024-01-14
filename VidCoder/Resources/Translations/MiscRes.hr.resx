@@ -266,6 +266,10 @@
   <data name="OneTimeInstallerCleanup" xml:space="preserve">
     <value>Moramo napraviti jednokratno čišćenje starog instalacijskog programa. U sljedećem upitu odaberi "Da" za uklanjanje stare verzije VidCodera.</value>
   </data>
-  
-  
+  <data name="EncodeCompleteWarning_RestartTitle" xml:space="preserve">
+    <value>Predstoji ponovno pokretanje</value>
+  </data>
+  <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
+    <value>Sustav će se ponovno pokrenuti za {0} sekundi.</value>
+  </data>
 </root>

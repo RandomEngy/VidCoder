@@ -343,7 +343,7 @@
     <value>ტიტრები</value>
   </data>
   <data name="SubtitleSelectionMode_ForeignAudioSearch" xml:space="preserve">
-    <value>სხვა წყაროს აუდიოს სკანირება</value>
+    <value>სხვა წყაროს ენის სკანირება</value>
   </data>
   <data name="TrackSelectionLabel" xml:space="preserve">
     <value>წყაროს ამორჩევა:</value>

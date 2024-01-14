@@ -379,17 +379,44 @@
     <value>Modo de atualização:</value>
     <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="WatcherModeLabel" xml:space="preserve">
+    <value>Modo observador:</value>
+  </data>
+  <data name="WatcherModelToolTip" xml:space="preserve">
+    <value>Observador do sistema: usa o sistema operacional para notificar o VidCoder sobre novos arquivos. É o mais rápido e usa recursos mínimos de CPU e disco.
+Verificador: checa periodicamente o conteúdo das pastas. Usa recursos significativos de CPU e disco. Use somente se o observador do sistema não estiver funcionando.</value>
+  </data>
+  <data name="WatcherPollIntervalLabel" xml:space="preserve">
+    <value>Intervalo de verificação (segundos):</value>
+  </data>
+  <data name="ApplicationSection" xml:space="preserve">
+    <value>Aplicação</value>
+  </data>
+  <data name="EncodingSettingsDescription" xml:space="preserve">
+    <value>As configurações de codificação incluem codec, bitrate, tamanho da imagem e filtros. Isto afetará a aparência e o som do vídeo, o tamanho do arquivo e quais jogadores o suportam. (Como encodar)</value>
+  </data>
+  <data name="EncodingSettingsSection" xml:space="preserve">
+    <value>Opções de Codificação</value>
+  </data>
+  <data name="EncodingSettingsShortcutButton" xml:space="preserve">
+    <value>Editar configurações de codificação</value>
+  </data>
+  <data name="PickerDescription" xml:space="preserve">
+    <value>O seletor escolhe o local do arquivo de saída, faixas de áudio e legendas. Personalize o Seletor para adicionar automaticamente as faixas que deseja e escolher o nome do arquivo e a pasta de destino. (O que encodar)</value>
+  </data>
+  <data name="PickerSettingsSection" xml:space="preserve">
+    <value>Local de saída, seleção da faixa</value>
+  </data>
+  <data name="PickerShortcutButton" xml:space="preserve">
+    <value>Editar configurações do Selecionador</value>
+  </data>
+  <data name="EnableNVDecCheckBox" xml:space="preserve">
+    <value>Use Nvidia NVDec para decodificar vídeo quando estiver usando um codificador NVEnc e o hardware está disponível</value>
+  </data>
+  <data name="HardwareEncodingSection" xml:space="preserve">
+    <value>Codificação por hardware</value>
+  </data>
+  <data name="CapNVEncCheckBox" xml:space="preserve">
+    <value>Limitar codificações simultâneas de NVEnc. Removendo isso requer um patch personalizado de driver NVidia.</value>
+  </data>
 </root>

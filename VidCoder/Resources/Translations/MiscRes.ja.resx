@@ -266,6 +266,10 @@
   <data name="OneTimeInstallerCleanup" xml:space="preserve">
     <value>古いインストーラを一度にクリーンアップする必要があります。VidCoderの古いバージョンを削除するには、次のプロンプトで「はい」を選択してください。</value>
   </data>
-  
-  
+  <data name="EncodeCompleteWarning_RestartTitle" xml:space="preserve">
+    <value>まもなく再起動します</value>
+  </data>
+  <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
+    <value>システムは {0} 秒後に再起動します。</value>
+  </data>
 </root>

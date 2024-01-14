@@ -379,17 +379,44 @@
     <value>アップデート方法:</value>
     <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="WatcherModeLabel" xml:space="preserve">
+    <value>ウォッチャーモード:</value>
+  </data>
+  <data name="WatcherModelToolTip" xml:space="preserve">
+    <value>システムウォッチャー: オペレーティングシステムを使用して、新しいファイルをVidCoderに通知します。最速で、最小限のCPUとディスクリソースを使用します。
+ポーリング: フォルダの内容を定期的にチェックします。重要なCPUとディスクリソースを使用します。システムウォッチャーが動作していない場合にのみ使用します。</value>
+  </data>
+  <data name="WatcherPollIntervalLabel" xml:space="preserve">
+    <value>ポーリング間隔（秒）:</value>
+  </data>
+  <data name="ApplicationSection" xml:space="preserve">
+    <value>アプリ</value>
+  </data>
+  <data name="EncodingSettingsDescription" xml:space="preserve">
+    <value>エンコード設定には、コーデック、ビットレート、画像サイズ、フィルタが含まれます。 これは動画の見た目やサウンド、ファイルサイズ、どのプレーヤーがサポートしているかに影響します。（エンコード方法）</value>
+  </data>
+  <data name="EncodingSettingsSection" xml:space="preserve">
+    <value>エンコード設定</value>
+  </data>
+  <data name="EncodingSettingsShortcutButton" xml:space="preserve">
+    <value>エンコード設定</value>
+  </data>
+  <data name="PickerDescription" xml:space="preserve">
+    <value>ピッカーは出力ファイルの場所、オーディオトラック、字幕を選択します。 ピッカーをカスタマイズして、トラックを自動的に追加し、ファイル名と保存先フォルダを選択します。(エンコードするフォルダ)</value>
+  </data>
+  <data name="PickerSettingsSection" xml:space="preserve">
+    <value>出力場所、トラック選択</value>
+  </data>
+  <data name="PickerShortcutButton" xml:space="preserve">
+    <value>ピッカー設定の編集</value>
+  </data>
+  <data name="EnableNVDecCheckBox" xml:space="preserve">
+    <value>NVEncエンコーダーを利用しかつハードウェアが利用可能な場合、NVDecででコードする</value>
+  </data>
+  <data name="HardwareEncodingSection" xml:space="preserve">
+    <value>ハードウェアエンコード</value>
+  </data>
+  <data name="CapNVEncCheckBox" xml:space="preserve">
+    <value>同時NVEnc エンコードをキャップします。これを削除するには、カスタム NVidia ドライバーパッチが必要です。</value>
+  </data>
 </root>

@@ -160,7 +160,7 @@
     <value>ბოლოს გამოყენებული ფაილის და ფოლდერის დამახსოვრება</value>
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>LibDVDNav-ის ჩართვა (საჭიროებს პროგრამის გადატვირთვას. მოითხოვება მრავალჯერადი ფუნქციებისთვის)</value>
+    <value>LibDVDNav-ის ჩართვა (საჭიროებს პროგრამის გადატვირთვას. გამოიყენება მრავალჯერადი ფუნქციებისთვის)</value>
   </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>დაწვრილებითი პროტოკოლი:</value>
@@ -384,11 +384,11 @@
   </data>
   <data name="WatcherModelToolTip" xml:space="preserve">
     <value>სისტემის მეთვალყურე:  იყენებს ოპერატიულ სისტემას რომ აცნობოს VidCoder-ს ახალი ფაილები. ჩქარია და იყენებს ცოტა პროცესის რესურსებს.
-გამომკითხველი: პერიოდულად ამოწმებს ფოლდერის შემცველობას. იყენებს მნიშვნელოვნად ბევრ პროცესის რესურსებს.
+დამკვირვებელი: პერიოდულად ამოწმებს ფოლდერის შემცველობას. იყენებს მნიშვნელოვნად ბევრ პროცესის რესურსებს.
 გამოიყენედ მხოლოდ თუ 'სისტემის მეთვალყურე' არაა ჩართული.</value>
   </data>
   <data name="WatcherPollIntervalLabel" xml:space="preserve">
-    <value>გამოკითხვის ინტერვალი (წამებში):</value>
+    <value>დაკვირვების ინტერვალი (წამებში):</value>
   </data>
   <data name="ApplicationSection" xml:space="preserve">
     <value>პროგრამა</value>
@@ -403,7 +403,7 @@
     <value>კოდირების პარამეტრების შეცვლა</value>
   </data>
   <data name="PickerDescription" xml:space="preserve">
-    <value>ამომრჩეი ირჩევს 
+    <value>ამომრჩევი ირჩევს 
 ფაილის დასამახსოვრებელ ადგილს, აუდიო წყაროს და ტიტრს. პერსონალიზირებული ამომრჩევით შეგიძლიათ ავტომატურად დაამატოდ წყაროები და დასამახსოვრებელი ადგილი. </value>
   </data>
   <data name="PickerSettingsSection" xml:space="preserve">
@@ -413,12 +413,12 @@
     <value>ამომრჩევის პარამეტრების შეცვლა</value>
   </data>
   <data name="EnableNVDecCheckBox" xml:space="preserve">
-    <value>გამოიყენეთ Nvidia NVDec ვიდეოს დეკოდირებისთვის თუ იყენებთ NVEnc და ჰარდვერის მიერ ხელმისაწვდომია</value>
+    <value>გამოიყენეთ Nvidia NVDec ვიდეოს დეკოდირებისთვის თუ იყენებთ NVEnc და ჰარდვეირის მიერ ხელმისაწვდომია</value>
   </data>
   <data name="HardwareEncodingSection" xml:space="preserve">
     <value>მოწყობილობის კოდირება</value>
   </data>
   <data name="CapNVEncCheckBox" xml:space="preserve">
-    <value>იყენებს მრავალჯერად NVEnc-ის კოდირებას. წაშლის შემთხვევაში დასჭირდება პერსონალიზირებულ NVidia-ს დრაივერი.</value>
+    <value>იყენებს მრავალჯერად NVEnc-ის კოდირებას. დეაქტივირების შემთხვევაში საჭიროებს პერსონალიზირებულ NVidia-ს დრაივერს.</value>
   </data>
 </root>

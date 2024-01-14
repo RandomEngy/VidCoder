@@ -358,16 +358,28 @@
   
   
   
+  <data name="WatcherModelToolTip" xml:space="preserve">
+    <value>System-Beobachter: Verwendet das Betriebssystem, um VidCoder über neue Dateien zu informieren. Dies ist die schnellste Methode und verbraucht nur minimale CPU- und Festplattenressourcen.
+
+Abfrage: Überprüft periodisch den Inhalt der Ordner. Benötigt erhebliche CPU- und Festplattenressourcen. Nur verwenden, wenn der System Watcher nicht funktioniert.</value>
+  </data>
+  
+  
+  <data name="EncodingSettingsDescription" xml:space="preserve">
+    <value>Zu den Kodierungseinstellungen gehören Codec, Bitrate, Bildgröße und Filter. Dies wirkt sich darauf aus, wie das Video aussieht und klingt, wie groß die Datei ist und welche Player es unterstützen. (WIE man kodiert)</value>
+  </data>
   
   
   
   
+  <data name="PickerShortcutButton" xml:space="preserve">
+    <value>Picker-Einstellungen bearbeiten</value>
+  </data>
+  <data name="EnableNVDecCheckBox" xml:space="preserve">
+    <value>Verwenden Sie Nvidia NVDec zum Dekodieren von Videos, wenn Sie einen NVEnc-Encoder verwenden und die Hardware verfügbar ist</value>
+  </data>
   
-  
-  
-  
-  
-  
-  
-  
+  <data name="CapNVEncCheckBox" xml:space="preserve">
+    <value>Gleichzeitige NVEnc-Codierungen begrenzen. Um dies zu entfernen, ist ein eigener NVidia-Treiber-Patch erforderlich.</value>
+  </data>
 </root>

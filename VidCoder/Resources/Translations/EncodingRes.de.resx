@@ -739,7 +739,13 @@ Hiermit legen Sie den Encodierer fest, auf den zurückgegriffen wird, falls die 
   <data name="DeblockToolTip" xml:space="preserve">
     <value>Entblocken reduziert die Sichtbarkeit von Blockartefakten, welche durch schlechte Videokomprimierung hervorgerufen werden.</value>
   </data>
-  
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>Mit Deinterlace werden Kamm-Artefakte aus dem Bild entfernt.
+
+Bwdif und Yadif sind zwei beliebte und schnelle Deinterlacer.
+
+Decomb wechselt zwischen mehreren Interpolations-Algorithmen für Geschwindigkeit und Qualität.</value>
+  </data>
   <data name="DenoiseToolTip" xml:space="preserve">
     <value>Entrauschen reduziert oder entfernt das Auftreten von Rauschen und Filmkorn. Dies kann die Komprimierungseffizienz verbessern und somit qualitativ hochwertigere Videos bei geringeren Dateigrößen ermöglichen. 
          
@@ -828,17 +834,27 @@ LapSharp verwendet Faltungsmatrizen, welche Laplace-Kanten-Filter annähern, zum
   <data name="PadColorTextToolTip" xml:space="preserve">
     <value>Format: FFFFFF</value>
   </data>
-  
+  <data name="ChromaSmoothLabel" xml:space="preserve">
+    <value/>
+  </data>
   <data name="ColorspaceLabel" xml:space="preserve">
     <value>Farbraum:</value>
   </data>
-  
-  
-  
+  <data name="ChromaSmoothToolTip" xml:space="preserve">
+    <value>Reduziert Chroma-Rauschen, Regenbögen und andere auffällige visuelle Artefakte. Nützlich zur Lösung verschiedener farbbezogener Probleme, insbesondere bei Inhalten mit geringerer Auflösung aus analogen Quellen, z. B. DVD- und VHS-Quellen von schlechter Qualität. Der Unschärfe-/Glättungsalgorithmus ist der gleiche wie der des Unschärfefilters.</value>
+  </data>
+  <data name="ConstrainToOneAxisCheckBox" xml:space="preserve">
+    <value>Beschränkung auf eine Achse</value>
+  </data>
+  <data name="ConstrainToOneAxisToolTip" xml:space="preserve">
+    <value>Wenn diese Option aktiviert ist, wird nur die Achse mit dem größten erkannten Beschnitt beschnitten. Wenn z. B. Oben+Unten = 32 und Links+Rechts = 6, dann wird der Beschnitt auf Links und Rechts auf 0 gesetzt.</value>
+  </data>
   <data name="MinimumCroppingLabel" xml:space="preserve">
     <value>Mindestens</value>
   </data>
-  
+  <data name="MinimumCroppingToolTip" xml:space="preserve">
+    <value>Wenn der automatische Beschnitt für eine Seite unter diesem Wert liegt, deaktivieren Sie den Beschnitt für diese Seite. Nützlich, um ein Resampling bei kleinen Beschnittmengen zu verhindern.</value>
+  </data>
   <data name="CroppingType_Conservative" xml:space="preserve">
     <value>Konservativ</value>
   </data>

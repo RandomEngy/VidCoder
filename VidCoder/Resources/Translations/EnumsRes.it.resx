@@ -130,7 +130,7 @@
     <value>Preciso</value>
   </data>
   <data name="AppThemeChoice_Auto" xml:space="preserve">
-    <value>Utilizza il tema del SO</value>
+    <value>Utilizza il tema del sistema operativo</value>
     <comment>Windows 10 you can choose Light or Dark for the app theme. This will cause VidCoder to respect that choice.</comment>
   </data>
   <data name="AppThemeChoice_Dark" xml:space="preserve">

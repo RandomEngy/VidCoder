@@ -396,10 +396,28 @@ Todas - Inclui todas as legendas.</value>
     <value>Remoção do ficheiro original após codificação com êxito:</value>
     <comment>Label for the option to automatically delete source files on completion.</comment>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="HeightFilterCheckBox" xml:space="preserve">
+    <value>Escolher apenas títulos com altura</value>
+    <comment>Label before the UI to pick the title height limitation. For example, it might read "Pick only titles with height [ &gt; ] [ 480 ]"</comment>
+  </data>
+  <data name="HeightFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>Filtrar títulos por altura</value>
+    <comment>Screen reader text for the height filter checkbox</comment>
+  </data>
+  <data name="HeightFilterValueAutomationName" xml:space="preserve">
+    <value>Valor do filtro de altura</value>
+    <comment>Screen reader text for the height filter value</comment>
+  </data>
+  <data name="WidthFilterCheckBox" xml:space="preserve">
+    <value>Escolher apenas títulos com largura</value>
+    <comment>Label before the UI to pick the title width limitation. For example, it might read "Pick only titles with width [ &gt; ] [ 640 ]"</comment>
+  </data>
+  <data name="WidthFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>Filtrar títulos por largura</value>
+    <comment>Screen reader text for the width filter checkbox</comment>
+  </data>
+  <data name="WidthFilterValueAutomationName" xml:space="preserve">
+    <value>Valor do filtro de largura</value>
+    <comment>Screen reader text for the width filter value</comment>
+  </data>
 </root>

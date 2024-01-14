@@ -344,5 +344,8 @@ Diesem Programm wurde eine vollständige Kopie der GNU General Public beigelegt.
   <data name="Enabled" xml:space="preserve">
     <value>Aktiviert</value>
   </data>
-  
+  <data name="Close" xml:space="preserve">
+    <value>Schließen</value>
+    <comment>Label to close a window or item.</comment>
+  </data>
 </root>

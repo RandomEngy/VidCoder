@@ -331,10 +331,10 @@
     <value>პირველი</value>
   </data>
   <data name="SubtitleBurnInSelection_ForeignAudioTrack" xml:space="preserve">
-    <value>სხვა წყაროს აუდიო</value>
+    <value>სხვა წყაროს ენა</value>
   </data>
   <data name="SubtitleBurnInSelection_ForeignAudioTrackElseFirst" xml:space="preserve">
-    <value>ჯერ სხვა წყაროს აუდიო</value>
+    <value>ჯერ სხვა წყაროს ენა</value>
   </data>
   <data name="SubtitleBurnInSelection_None" xml:space="preserve">
     <value>არანაირი</value>
@@ -388,7 +388,7 @@
     <value>სიაშია</value>
   </data>
   <data name="WatchedFileStatusLive_Skipped" xml:space="preserve">
-    <value>გამოტოვილია</value>
+    <value>გამოტოვებულია</value>
   </data>
   <data name="WatchedFileStatusLive_Succeeded" xml:space="preserve">
     <value>წარმატებულია</value>
@@ -400,7 +400,7 @@
     <value>სისტემის მეთვალყურე</value>
   </data>
   <data name="WatcherMode_Polling" xml:space="preserve">
-    <value>გამოკითხვა</value>
+    <value>დამკვირვებელი</value>
   </data>
   <data name="EncodeCompleteActionType_Restart" xml:space="preserve">
     <value>გადატვირთვა</value>

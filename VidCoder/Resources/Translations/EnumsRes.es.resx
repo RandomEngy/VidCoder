@@ -121,7 +121,7 @@
     <value>Personalizado</value>
   </data>
   <data name="Anamorphic_Loose" xml:space="preserve">
-    <value>Loose</value>
+    <value>Pérdida</value>
   </data>
   <data name="Anamorphic_None" xml:space="preserve">
     <value>Ninguno</value>
@@ -163,7 +163,7 @@
     <comment>A deinterlace method named "Bob". The original name most likely refers to an object bobbing up and down.</comment>
   </data>
   <data name="DeinterlacePreset_eedi2" xml:space="preserve">
-    <value>EEDI2</value>
+    <value>Preselección de desentrelazado EEDI2</value>
   </data>
   <data name="DeinterlacePreset_eedi2bob" xml:space="preserve">
     <value>EEDI2 Bob</value>
@@ -178,7 +178,7 @@
     <value>Yadif</value>
   </data>
   <data name="DenoisePreset_light" xml:space="preserve">
-    <value>Light</value>
+    <value>Ligero</value>
   </data>
   <data name="DenoisePreset_medium" xml:space="preserve">
     <value>Medium</value>
@@ -187,7 +187,7 @@
     <value>Strong</value>
   </data>
   <data name="DenoisePreset_ultralight" xml:space="preserve">
-    <value>Ultralight</value>
+    <value>Ultra ligero</value>
   </data>
   <data name="DenoiseTune_animation" xml:space="preserve">
     <value>Animation</value>
@@ -355,22 +355,54 @@
     <value>Avisar si aplica inmediatamente</value>
   </data>
   <data name="UpdateMode_SilentNextLaunch" xml:space="preserve">
-    <value>Silenciar (Efectivo en la proxima ejecución)</value>
+    <value>Silencioso (Se aplicará en la próxima ejecución)</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="Deinterlace_Bwdif" xml:space="preserve">
+    <value>Bwdif (Bob Weaver deingterlacing filter)</value>
+  </data>
+  <data name="WatcherProcessStatus_Disabled" xml:space="preserve">
+    <value>Deshabilitado</value>
+  </data>
+  <data name="WatcherProcessStatus_Running" xml:space="preserve">
+    <value>En ejecución</value>
+  </data>
+  <data name="WatcherProcessStatus_Starting" xml:space="preserve">
+    <value>Iniciando...</value>
+  </data>
+  <data name="WatcherProcessStatus_Stopped" xml:space="preserve">
+    <value>Detenido</value>
+  </data>
+  <data name="WatchedFileStatusLive_Canceled" xml:space="preserve">
+    <value>Cancelado</value>
+  </data>
+  <data name="WatchedFileStatusLive_Encoding" xml:space="preserve">
+    <value>Codificando</value>
+  </data>
+  <data name="WatchedFileStatusLive_Failed" xml:space="preserve">
+    <value>Fallado</value>
+  </data>
+  <data name="WatchedFileStatusLive_Planned" xml:space="preserve">
+    <value>Planificado</value>
+  </data>
+  <data name="WatchedFileStatusLive_Queued" xml:space="preserve">
+    <value>En cola</value>
+  </data>
+  <data name="WatchedFileStatusLive_Skipped" xml:space="preserve">
+    <value>Omitido</value>
+  </data>
+  <data name="WatchedFileStatusLive_Succeeded" xml:space="preserve">
+    <value>Con éxito</value>
+  </data>
+  <data name="WatchedFileStatusLive_Output" xml:space="preserve">
+    <value>Salida</value>
+  </data>
+  <data name="WatcherMode_FileSystemWatcher" xml:space="preserve">
+    <value>Vigilante del sistema</value>
+  </data>
+  <data name="WatcherMode_Polling" xml:space="preserve">
+    <value>Sondeo</value>
+  </data>
+  <data name="EncodeCompleteActionType_Restart" xml:space="preserve">
+    <value>Reiniciar</value>
+  </data>
 </root>
