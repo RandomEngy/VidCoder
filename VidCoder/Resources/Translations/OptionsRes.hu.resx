@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Általános</value>
@@ -331,9 +331,6 @@
   <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
     <value>A párhuzamosan engedélyezett kódolási feladatok száma. Hasznos a sok processzormaggal rendelkező gépek esetében.</value>
   </data>
-  <data name="GeneralSection" xml:space="preserve">
-    <value>Általános</value>
-  </data>
   <data name="ThemeLabel" xml:space="preserve">
     <value>Téma</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
@@ -381,5 +378,45 @@
   <data name="UpdateModeLabel" xml:space="preserve">
     <value>Frissítési mód:</value>
     <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
+  </data>
+  <data name="WatcherModeLabel" xml:space="preserve">
+    <value>Figyelő mód:</value>
+  </data>
+  <data name="WatcherModelToolTip" xml:space="preserve">
+    <value>Rendszerfigyelő: Az operációs rendszert használja arra, hogy értesítse a VidCodert az új fájlokról. Ez a leggyorsabb, és minimális CPU- és lemezerőforrást használ.
+Lekérdezés: Rendszeresen ellenőrzi a mappák tartalmát. Jelentős processzor- és lemezerőforrásokat használ. Csak akkor használd, ha a rendszerfigyelő nem működik!</value>
+  </data>
+  <data name="WatcherPollIntervalLabel" xml:space="preserve">
+    <value>Lekérdezési időköz (mp):</value>
+  </data>
+  <data name="ApplicationSection" xml:space="preserve">
+    <value>Alkalmazás</value>
+  </data>
+  <data name="EncodingSettingsDescription" xml:space="preserve">
+    <value>A kódolási beállítások közé tartozik a kodek, a bitráta, a képméret és a szűrők. Ez befolyásolja a videó kinézetét és hangzását, a fájlméretet és azt, hogy mely lejátszók támogatják azt. (HOGYAN kell kódolni)</value>
+  </data>
+  <data name="EncodingSettingsSection" xml:space="preserve">
+    <value>Kódolási beállítások</value>
+  </data>
+  <data name="EncodingSettingsShortcutButton" xml:space="preserve">
+    <value>Kódolási beállítások szerkesztése</value>
+  </data>
+  <data name="PickerDescription" xml:space="preserve">
+    <value>A kiválasztó kiválasztja a kimeneti fájl helyét, a hangsávokat és a feliratokat. Testreszabhatod a kiválasztót, hogy automatikusan hozzáadd a kívánt sávokat és kiválaszthasd a fájlnevet és a célmappát. (MIT kell kódolni)</value>
+  </data>
+  <data name="PickerSettingsSection" xml:space="preserve">
+    <value>Kimeneti hely, sáv kiválasztása</value>
+  </data>
+  <data name="PickerShortcutButton" xml:space="preserve">
+    <value>Kiválasztó beállítások szerkesztése</value>
+  </data>
+  <data name="EnableNVDecCheckBox" xml:space="preserve">
+    <value>Nvidia NVDec használata a videó dekódolásához NVEnc kódoló használata esetén és ha a hardver rendelkezésre áll</value>
+  </data>
+  <data name="HardwareEncodingSection" xml:space="preserve">
+    <value>Hardveres kódolás</value>
+  </data>
+  <data name="CapNVEncCheckBox" xml:space="preserve">
+    <value>Egyidejű NVEnc-kódolás korlátozása. Ennek eltávolítása egyedi NVidia illesztőprogram-javítást igényel.</value>
   </data>
 </root>

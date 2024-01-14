@@ -341,5 +341,11 @@ Se ha incluido una copia completa de la Licencia Pública General de GNU junto c
     <value>MB</value>
     <comment>Abbreviation for megabytes</comment>
   </data>
-  
+  <data name="Enabled" xml:space="preserve">
+    <value>Habilitado</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Cerrar</value>
+    <comment>Label to close a window or item.</comment>
+  </data>
 </root>

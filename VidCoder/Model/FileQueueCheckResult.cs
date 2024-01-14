@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoder.Model
+namespace VidCoder.Model;
+
+public enum FileQueueCheckResult
 {
-	public enum FileQueueCheckResult
-	{
-		NotFound,
-		OnDisk,
-		InQueue
-	}
+	NotFound,
+	OnDisk,
+	InQueue
 }

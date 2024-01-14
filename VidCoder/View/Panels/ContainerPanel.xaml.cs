@@ -13,16 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace VidCoder.View
+namespace VidCoder.View;
+
+/// <summary>
+/// Interaction logic for ContainerPanel.xaml
+/// </summary>
+public partial class ContainerPanel : UserControl
 {
-	/// <summary>
-	/// Interaction logic for ContainerPanel.xaml
-	/// </summary>
-	public partial class ContainerPanel : UserControl
+	public ContainerPanel()
 	{
-		public ContainerPanel()
-		{
-			InitializeComponent();
-		}
+		InitializeComponent();
 	}
 }

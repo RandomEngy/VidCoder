@@ -9,61 +9,60 @@ using System.Windows.Data;
 using System.Windows.Input;
 using VidCoder.ViewModel;
 
-namespace VidCoder.Controls
-{
+namespace VidCoder.Controls;
+
     public class PresetTreeView : TreeView
     {
-	    protected override DependencyObject GetContainerForItemOverride()
-	    {
-		    var childItem = new PresetTreeViewItem();
+    protected override DependencyObject GetContainerForItemOverride()
+    {
+	    var childItem = new PresetTreeViewItem();
 
-			childItem.OnHierarchyMouseUp += this.OnChildItemMouseLeftButtonUp;
+		childItem.OnHierarchyMouseUp += this.OnChildItemMouseLeftButtonUp;
 
-		    return childItem;
-	    }
+	    return childItem;
+    }
 
-	    private void OnChildItemMouseLeftButtonUp(object sender, MouseEventArgs e)
-	    {
-		    this.OnHierarchyMouseUp?.Invoke(this, e);
-	    }
+    private void OnChildItemMouseLeftButtonUp(object sender, MouseEventArgs e)
+    {
+	    this.OnHierarchyMouseUp?.Invoke(this, e);
+    }
 
-	    public event MouseEventHandler OnHierarchyMouseUp;
-	}
+    public event MouseEventHandler OnHierarchyMouseUp;
+}
 
-	public class PresetTreeViewItem : TreeViewItem
+public class PresetTreeViewItem : TreeViewItem
+{
+	public PresetTreeViewItem()
 	{
-		public PresetTreeViewItem()
+		this.MouseLeftButtonUp += this.OnMouseLeftButtonUp;
+		this.Selected += (sender, args) =>
 		{
-			this.MouseLeftButtonUp += this.OnMouseLeftButtonUp;
-			this.Selected += (sender, args) =>
+			if (!object.ReferenceEquals(sender, args.OriginalSource))
 			{
-				if (!object.ReferenceEquals(sender, args.OriginalSource))
-				{
-					return;
-				}
+				return;
+			}
 
-				var item = args.OriginalSource as TreeViewItem;
-				if (item?.Header is PresetViewModel)
-				{
-					UIUtilities.BringIntoView(item);
-				}
-			};
-		}
-
-		private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-		{
-			this.OnHierarchyMouseUp?.Invoke(this, e);
-		}
-
-		protected override DependencyObject GetContainerForItemOverride()
-		{
-			var childItem = new PresetTreeViewItem();
-
-			childItem.MouseLeftButtonUp += this.OnMouseLeftButtonUp;
-
-			return childItem;
-		}
-
-		public event MouseEventHandler OnHierarchyMouseUp;
+			var item = args.OriginalSource as TreeViewItem;
+			if (item?.Header is PresetViewModel)
+			{
+				UIUtilities.BringIntoView(item);
+			}
+		};
 	}
+
+	private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+	{
+		this.OnHierarchyMouseUp?.Invoke(this, e);
+	}
+
+	protected override DependencyObject GetContainerForItemOverride()
+	{
+		var childItem = new PresetTreeViewItem();
+
+		childItem.MouseLeftButtonUp += this.OnMouseLeftButtonUp;
+
+		return childItem;
+	}
+
+	public event MouseEventHandler OnHierarchyMouseUp;
 }

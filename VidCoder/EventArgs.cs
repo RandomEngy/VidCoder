@@ -3,23 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VidCoder
+namespace VidCoder;
+
+public class EventArgs<T> : EventArgs
 {
-	public class EventArgs<T> : EventArgs
+	private T value;
+
+	public EventArgs(T value)
 	{
-		private T value;
+		this.value = value;
+	}
 
-		public EventArgs(T value)
+	public T Value
+	{
+		get
 		{
-			this.value = value;
-		}
-
-		public T Value
-		{
-			get
-			{
-				return this.value;
-			}
+			return this.value;
 		}
 	}
 }

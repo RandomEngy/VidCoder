@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoderCommon.Model
-{
-	public class PickerFileFilter
-	{
-		public ISet<string> Extensions { get; set; }
+namespace VidCoderCommon.Model;
 
-		public int IgnoreFilesBelowMb { get; set; }
-	}
+public class PickerFileFilter
+{
+	public ISet<string> Extensions { get; set; }
+
+	public int IgnoreFilesBelowMb { get; set; }
 }

@@ -5,12 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using VidCoderCommon.Model;
 
-namespace VidCoder.Model
-{
-	public class PendingScan
-	{
-		public SourcePathWithMetadata SourcePath { get; set; }
+namespace VidCoder.Model;
 
-		public JobInstructions JobInstructions { get; set; }
-	}
+public class PendingScan
+{
+	public SourcePathWithMetadata SourcePath { get; set; }
+
+	public JobInstructions JobInstructions { get; set; }
 }

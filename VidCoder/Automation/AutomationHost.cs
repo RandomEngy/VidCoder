@@ -10,39 +10,38 @@ using PipeMethodCalls.NetJson;
 using VidCoderCommon;
 using VidCoderCommon.Services;
 
-namespace VidCoder.Automation
+namespace VidCoder.Automation;
+
+public static class AutomationHost
 {
-	public static class AutomationHost
+	private static PipeServer<IVidCoderAutomation> server;
+	private static CancellationTokenSource cancellationTokenSource;
+
+	public static async void StartListening()
 	{
-		private static PipeServer<IVidCoderAutomation> server;
-		private static CancellationTokenSource cancellationTokenSource;
+		cancellationTokenSource = new CancellationTokenSource();
 
-		public static async void StartListening()
+		try
 		{
-			cancellationTokenSource = new CancellationTokenSource();
-
-			try
+			while (true)
 			{
-				while (true)
+				using (server = new PipeServer<IVidCoderAutomation>(
+					new NetJsonPipeSerializer(),
+					"VidCoderAutomation" + (CommonUtilities.Beta ? "Beta" : string.Empty),
+					() => new VidCoderAutomation()))
 				{
-					using (server = new PipeServer<IVidCoderAutomation>(
-						new NetJsonPipeSerializer(),
-						"VidCoderAutomation" + (CommonUtilities.Beta ? "Beta" : string.Empty),
-						() => new VidCoderAutomation()))
-					{
-						await server.WaitForConnectionAsync().ConfigureAwait(false);
-						await server.WaitForRemotePipeCloseAsync().ConfigureAwait(false);
-					}
+					await server.WaitForConnectionAsync().ConfigureAwait(false);
+					await server.WaitForRemotePipeCloseAsync().ConfigureAwait(false);
 				}
 			}
-			catch (Exception)
-			{
-			}
 		}
-
-		public static void StopListening()
+		catch (Exception)
 		{
-			cancellationTokenSource?.Cancel();
 		}
+	}
+
+	public static void StopListening()
+	{
+		cancellationTokenSource?.Cancel();
 	}
 }

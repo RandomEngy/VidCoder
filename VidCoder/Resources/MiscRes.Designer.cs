@@ -241,6 +241,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The system will restart in {0} seconds..
+        /// </summary>
+        public static string EncodeCompleteWarning_RestartMessage {
+            get {
+                return ResourceManager.GetString("EncodeCompleteWarning_RestartMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart imminent.
+        /// </summary>
+        public static string EncodeCompleteWarning_RestartTitle {
+            get {
+                return ResourceManager.GetString("EncodeCompleteWarning_RestartTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The system will shut down in {0} seconds..
         /// </summary>
         public static string EncodeCompleteWarning_ShutdownMessage {

@@ -236,7 +236,7 @@ A full copy of the GNU General Public License has been included along with this 
     <value>Sikertelen</value>
   </data>
   <data name="FilePickerExtTemplate" xml:space="preserve">
-    <value>{0} fájlok</value>
+    <value>{0} fájl</value>
   </data>
   <data name="QueueColumnNamePreset" xml:space="preserve">
     <value>Séma</value>
@@ -343,5 +343,9 @@ A full copy of the GNU General Public License has been included along with this 
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>Engedélyezve</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Bezárás</value>
+    <comment>Label to close a window or item.</comment>
   </data>
 </root>

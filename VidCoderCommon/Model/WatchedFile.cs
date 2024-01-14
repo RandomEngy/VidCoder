@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoderCommon.Model
+namespace VidCoderCommon.Model;
+
+public class WatchedFile
 {
-	public class WatchedFile
-	{
-		public string Path { get; set; }
+	public string Path { get; set; }
 
-		public WatchedFileStatus Status { get; set; }
+	public WatchedFileStatus Status { get; set; }
 
-		public WatchedFileStatusReason Reason { get; set; }
-	}
+	public WatchedFileStatusReason Reason { get; set; }
 }

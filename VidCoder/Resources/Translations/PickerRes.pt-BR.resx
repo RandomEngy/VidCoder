@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DefaultCheckBox" xml:space="preserve">
     <value>Padrão</value>
@@ -395,5 +395,29 @@ Todas - Incluir todas as legendas.</value>
   <data name="SourceFileRemovalLabel" xml:space="preserve">
     <value>Remoção do arquivo de origem após codificação bem-sucedida:</value>
     <comment>Label for the option to automatically delete source files on completion.</comment>
+  </data>
+  <data name="HeightFilterCheckBox" xml:space="preserve">
+    <value>Escolha apenas títulos com altura</value>
+    <comment>Label before the UI to pick the title height limitation. For example, it might read "Pick only titles with height [ &gt; ] [ 480 ]"</comment>
+  </data>
+  <data name="HeightFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>Filtrar títulos por altura</value>
+    <comment>Screen reader text for the height filter checkbox</comment>
+  </data>
+  <data name="HeightFilterValueAutomationName" xml:space="preserve">
+    <value>Valor do filtro de altura</value>
+    <comment>Screen reader text for the height filter value</comment>
+  </data>
+  <data name="WidthFilterCheckBox" xml:space="preserve">
+    <value>Escolher apenas títulos com largura</value>
+    <comment>Label before the UI to pick the title width limitation. For example, it might read "Pick only titles with width [ &gt; ] [ 640 ]"</comment>
+  </data>
+  <data name="WidthFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>Filtrar títulos por largura</value>
+    <comment>Screen reader text for the width filter checkbox</comment>
+  </data>
+  <data name="WidthFilterValueAutomationName" xml:space="preserve">
+    <value>Valor do filtro de largura</value>
+    <comment>Screen reader text for the width filter value</comment>
   </data>
 </root>

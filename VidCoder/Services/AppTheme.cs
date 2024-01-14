@@ -1,9 +1,8 @@
-﻿namespace VidCoder.Services
+﻿namespace VidCoder.Services;
+
+public enum AppTheme
 {
-	public enum AppTheme
-	{
-		Light,
-		Dark,
-		HighContrast
-	}
+	Light,
+	Dark,
+	HighContrast
 }

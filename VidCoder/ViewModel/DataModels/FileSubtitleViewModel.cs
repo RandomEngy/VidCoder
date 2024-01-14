@@ -9,134 +9,133 @@ using ReactiveUI;
 using VidCoder.Model;
 using VidCoderCommon.Model;
 
-namespace VidCoder.ViewModel
+namespace VidCoder.ViewModel;
+
+public class FileSubtitleViewModel : ReactiveObject
 {
-	public class FileSubtitleViewModel : ReactiveObject
+	public FileSubtitleViewModel(MainViewModel mainViewModel, FileSubtitle subtitle)
 	{
-		public FileSubtitleViewModel(MainViewModel mainViewModel, FileSubtitle subtitle)
+		this.MainViewModel = mainViewModel;
+		this.Subtitle = subtitle;
+	}
+
+	public MainViewModel MainViewModel { get; }
+
+	public FileSubtitle Subtitle { get; }
+
+	public bool Default
+	{
+		get => this.Subtitle.Default;
+		set
 		{
-			this.MainViewModel = mainViewModel;
-			this.Subtitle = subtitle;
-		}
-
-		public MainViewModel MainViewModel { get; }
-
-		public FileSubtitle Subtitle { get; }
-
-		public bool Default
-		{
-			get => this.Subtitle.Default;
-			set
+			if (value != this.Subtitle.Default)
 			{
-				if (value != this.Subtitle.Default)
-				{
-					this.Subtitle.Default = value;
-					this.RaisePropertyChanged();
-
-					if (value)
-					{
-						this.MainViewModel.ReportDefaultSubtitle(this);
-					}
-				}
-			}
-		}
-
-		public bool BurnedIn
-		{
-			get
-			{
-				if (!BurnedInEnabled)
-				{
-					return false;
-				}
-
-				return this.Subtitle.BurnedIn;
-			}
-
-			set
-			{
-				this.Subtitle.BurnedIn = value;
+				this.Subtitle.Default = value;
 				this.RaisePropertyChanged();
 
 				if (value)
 				{
-					this.MainViewModel.ReportBurnedSubtitle(this);
+					this.MainViewModel.ReportDefaultSubtitle(this);
 				}
-
-				this.MainViewModel.UpdateSourceSubtitleBoxes();
-				this.MainViewModel.UpdateSubtitleWarningVisibility();
 			}
 		}
+	}
 
-		public bool BurnedInEnabled => HandBrakeEncoderHelpers.CanBurnSrt;
-
-		public override string ToString()
+	public bool BurnedIn
+	{
+		get
 		{
-			return Path.GetFileName(this.FileName);
-		}
-
-		public string FileName
-		{
-			get => this.Subtitle.FileName;
-			set
+			if (!BurnedInEnabled)
 			{
-				this.Subtitle.FileName = value;
-				this.RaisePropertyChanged();
+				return false;
 			}
+
+			return this.Subtitle.BurnedIn;
 		}
 
-		public string Name
+		set
 		{
-			get => this.Subtitle.Name;
-			set
+			this.Subtitle.BurnedIn = value;
+			this.RaisePropertyChanged();
+
+			if (value)
 			{
-				this.Subtitle.Name = value;
-				this.RaisePropertyChanged();
+				this.MainViewModel.ReportBurnedSubtitle(this);
 			}
+
+			this.MainViewModel.UpdateSourceSubtitleBoxes();
+			this.MainViewModel.UpdateSubtitleWarningVisibility();
 		}
+	}
 
-		public string LanguageCode
+	public bool BurnedInEnabled => HandBrakeEncoderHelpers.CanBurnSrt;
+
+	public override string ToString()
+	{
+		return Path.GetFileName(this.FileName);
+	}
+
+	public string FileName
+	{
+		get => this.Subtitle.FileName;
+		set
 		{
-			get => this.Subtitle.LanguageCode;
-			set
-			{
-				this.Subtitle.LanguageCode = value;
-				this.RaisePropertyChanged();
-			}
+			this.Subtitle.FileName = value;
+			this.RaisePropertyChanged();
 		}
+	}
 
-		public string CharacterCode
+	public string Name
+	{
+		get => this.Subtitle.Name;
+		set
 		{
-			get => this.Subtitle.CharacterCode;
-			set
-			{
-				this.Subtitle.CharacterCode = value;
-				this.RaisePropertyChanged();
-			}
+			this.Subtitle.Name = value;
+			this.RaisePropertyChanged();
 		}
+	}
 
-		public int Offset
+	public string LanguageCode
+	{
+		get => this.Subtitle.LanguageCode;
+		set
 		{
-			get => this.Subtitle.Offset;
-			set
-			{
-				this.Subtitle.Offset = value;
-				this.RaisePropertyChanged();
-			}
+			this.Subtitle.LanguageCode = value;
+			this.RaisePropertyChanged();
 		}
+	}
 
-		public IList<string> CharCodes => CharCode.Codes;
-
-		private ReactiveCommand<Unit, Unit> removeSubtitle;
-		public ICommand RemoveSubtitle
+	public string CharacterCode
+	{
+		get => this.Subtitle.CharacterCode;
+		set
 		{
-			get
+			this.Subtitle.CharacterCode = value;
+			this.RaisePropertyChanged();
+		}
+	}
+
+	public int Offset
+	{
+		get => this.Subtitle.Offset;
+		set
+		{
+			this.Subtitle.Offset = value;
+			this.RaisePropertyChanged();
+		}
+	}
+
+	public IList<string> CharCodes => CharCode.Codes;
+
+	private ReactiveCommand<Unit, Unit> removeSubtitle;
+	public ICommand RemoveSubtitle
+	{
+		get
+		{
+			return this.removeSubtitle ?? (this.removeSubtitle = ReactiveCommand.Create(() =>
 			{
-				return this.removeSubtitle ?? (this.removeSubtitle = ReactiveCommand.Create(() =>
-				{
-					this.MainViewModel.RemoveFileSubtitle(this);
-				}));
-			}
+				this.MainViewModel.RemoveFileSubtitle(this);
+			}));
 		}
 	}
 }

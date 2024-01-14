@@ -8,76 +8,75 @@ using Microsoft.AnyContainer;
 using VidCoder.Model;
 using VidCoderCommon.Utilities;
 
-namespace VidCoder.Services
+namespace VidCoder.Services;
+
+public class AppLoggerFactory
 {
-	public class AppLoggerFactory
+	private readonly IAppLogger allAppLogger = StaticResolver.Resolve<AllAppLogger>();
+	private readonly LogCoordinator logCoordinator = StaticResolver.Resolve<LogCoordinator>();
+
+	public IAppLogger ResolveEncodeLogger(string outputPath)
 	{
-		private readonly IAppLogger allAppLogger = StaticResolver.Resolve<AllAppLogger>();
-		private readonly LogCoordinator logCoordinator = StaticResolver.Resolve<LogCoordinator>();
-
-		public IAppLogger ResolveEncodeLogger(string outputPath)
+		if (CustomConfig.UseWorkerProcess)
 		{
-			if (CustomConfig.UseWorkerProcess)
+			var newLogger = new AppLogger(this.allAppLogger, "Encode " + Path.GetFileName(outputPath));
+			this.logCoordinator.AddLogger(newLogger, LogOperationType.Encode, outputPath);
+			return newLogger;
+		}
+		else
+		{
+			return this.allAppLogger;
+		}
+	}
+
+	public IAppLogger ResolveRemoteScanLogger(string sourcePath)
+	{
+		if (CustomConfig.UseWorkerProcess)
+		{
+			var newLogger = new AppLogger(this.allAppLogger, GetJobDescriptionFromSourcePath(sourcePath));
+			this.logCoordinator.AddLogger(newLogger, LogOperationType.Scan, sourcePath);
+			return newLogger;
+		}
+		else
+		{
+			return this.allAppLogger;
+		}
+	}
+
+	public IAppLogger ResolveLocalScanLogger(string sourcePath)
+	{
+		if (CustomConfig.UseWorkerProcess)
+		{
+			var newLogger = new LocalScanAppLogger(this.allAppLogger, GetJobDescriptionFromSourcePath(sourcePath));
+			this.logCoordinator.AddLogger(newLogger, LogOperationType.Scan, sourcePath);
+			return newLogger;
+		}
+		else
+		{
+			return this.allAppLogger;
+		}
+	}
+
+	private static string GetJobDescriptionFromSourcePath(string sourcePath)
+	{
+		try
+		{
+			string fileNameCleaned;
+			if (CommonFileUtilities.IsDirectory(sourcePath))
 			{
-				var newLogger = new AppLogger(this.allAppLogger, "Encode " + Path.GetFileName(outputPath));
-				this.logCoordinator.AddLogger(newLogger, LogOperationType.Encode, outputPath);
-				return newLogger;
+				var info = new DirectoryInfo(sourcePath);
+				fileNameCleaned = FileUtilities.CleanFileName(info.Name);
 			}
 			else
 			{
-				return this.allAppLogger;
+				fileNameCleaned = Path.GetFileNameWithoutExtension(sourcePath);
 			}
+
+			return "Scan " + fileNameCleaned;
 		}
-
-		public IAppLogger ResolveRemoteScanLogger(string sourcePath)
+		catch (Exception)
 		{
-			if (CustomConfig.UseWorkerProcess)
-			{
-				var newLogger = new AppLogger(this.allAppLogger, GetJobDescriptionFromSourcePath(sourcePath));
-				this.logCoordinator.AddLogger(newLogger, LogOperationType.Scan, sourcePath);
-				return newLogger;
-			}
-			else
-			{
-				return this.allAppLogger;
-			}
-		}
-
-		public IAppLogger ResolveLocalScanLogger(string sourcePath)
-		{
-			if (CustomConfig.UseWorkerProcess)
-			{
-				var newLogger = new LocalScanAppLogger(this.allAppLogger, GetJobDescriptionFromSourcePath(sourcePath));
-				this.logCoordinator.AddLogger(newLogger, LogOperationType.Scan, sourcePath);
-				return newLogger;
-			}
-			else
-			{
-				return this.allAppLogger;
-			}
-		}
-
-		private static string GetJobDescriptionFromSourcePath(string sourcePath)
-		{
-			try
-			{
-				string fileNameCleaned;
-				if (CommonFileUtilities.IsDirectory(sourcePath))
-				{
-					var info = new DirectoryInfo(sourcePath);
-					fileNameCleaned = FileUtilities.CleanFileName(info.Name);
-				}
-				else
-				{
-					fileNameCleaned = Path.GetFileNameWithoutExtension(sourcePath);
-				}
-
-				return "Scan " + fileNameCleaned;
-			}
-			catch (Exception)
-			{
-				return "Scan";
-			}
+			return "Scan";
 		}
 	}
 }

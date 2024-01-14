@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VidCoder.Model
+namespace VidCoder.Model;
+
+public enum UpdateState
 {
-	public enum UpdateState
-	{
-		NotStarted,
-		Checking,
-		UpToDate,
-		UpdateReady,
-		Failed
-	}
+	NotStarted,
+	Checking,
+	UpToDate,
+	UpdateReady,
+	Failed
 }

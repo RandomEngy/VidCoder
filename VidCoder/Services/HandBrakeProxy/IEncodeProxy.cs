@@ -4,41 +4,40 @@ using HandBrake.Interop.Interop.Interfaces.EventArgs;
 using VidCoder.Services;
 using VidCoderCommon.Model;
 
-namespace VidCoder
+namespace VidCoder;
+
+/// <summary>
+/// Abstraction for dealing with either a worker process or a local encoder.
+/// </summary>
+public interface IEncodeProxy : IDisposable
 {
+	event EventHandler EncodeStarted;
+
 	/// <summary>
-	/// Abstraction for dealing with either a worker process or a local encoder.
+	/// Fires for progress updates when encoding.
 	/// </summary>
-	public interface IEncodeProxy : IDisposable
-	{
-		event EventHandler EncodeStarted;
+	event EventHandler<EncodeProgressEventArgs> EncodeProgress;
 
-		/// <summary>
-		/// Fires for progress updates when encoding.
-		/// </summary>
-		event EventHandler<EncodeProgressEventArgs> EncodeProgress;
+	/// <summary>
+	/// Fires when an encode has completed.
+	/// </summary>
+	event EventHandler<VCEncodeCompletedEventArgs> EncodeCompleted;
 
-		/// <summary>
-		/// Fires when an encode has completed.
-		/// </summary>
-		event EventHandler<VCEncodeCompletedEventArgs> EncodeCompleted;
+	Task StartEncodeAsync(
+		VCJob job,
+		IAppLogger logger,
+		bool preview, 
+		int previewNumber, 
+		int previewSeconds, 
+		double overallSelectedLengthSeconds);
 
-		Task StartEncodeAsync(
-			VCJob job,
-			IAppLogger logger,
-			bool preview, 
-			int previewNumber, 
-			int previewSeconds, 
-			double overallSelectedLengthSeconds);
+	Task StartEncodeAsync(string encodeJson, IAppLogger logger);
 
-		Task StartEncodeAsync(string encodeJson, IAppLogger logger);
+	Task PauseEncodeAsync();
 
-		Task PauseEncodeAsync();
+	Task ResumeEncodeAsync();
 
-		Task ResumeEncodeAsync();
+	Task StopEncodeAsync();
 
-		Task StopEncodeAsync();
-
-		Task StopAndWaitAsync();
-	}
+	Task StopAndWaitAsync();
 }

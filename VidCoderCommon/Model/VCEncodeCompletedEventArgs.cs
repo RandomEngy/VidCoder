@@ -4,15 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoderCommon.Model
-{
-	public class VCEncodeCompletedEventArgs : EventArgs
-	{
-		public VCEncodeCompletedEventArgs(VCEncodeResultCode result)
-		{
-			this.Result = result;
-		}
+namespace VidCoderCommon.Model;
 
-		public VCEncodeResultCode Result { get; }
+public class VCEncodeCompletedEventArgs : EventArgs
+{
+	public VCEncodeCompletedEventArgs(VCEncodeResultCode result)
+	{
+		this.Result = result;
 	}
+
+	public VCEncodeResultCode Result { get; }
 }

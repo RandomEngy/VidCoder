@@ -4,32 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoder.Extensions
+namespace VidCoder.Extensions;
+
+public static class VersionExtensions
 {
-	public static class VersionExtensions
+	public static string ToShortString(this Version version)
 	{
-		public static string ToShortString(this Version version)
+		if (version.Build == 0 && version.Revision == 0)
 		{
-			if (version.Build == 0 && version.Revision == 0)
-			{
-				return FormattableString.Invariant($"{version.Major}.{version.Minor}");
-			}
-
-			if (version.Revision == 0)
-			{
-				return FormattableString.Invariant($"{version.Major}.{version.Minor}.{version.Build}");
-			}
-
-			return version.ToString();
+			return FormattableString.Invariant($"{version.Major}.{version.Minor}");
 		}
 
-	    public static Version FillInWithZeroes(this Version version)
-	    {
+		if (version.Revision == 0)
+		{
+			return FormattableString.Invariant($"{version.Major}.{version.Minor}.{version.Build}");
+		}
+
+		return version.ToString();
+	}
+
+    public static Version FillInWithZeroes(this Version version)
+    {
             return new Version(
                 version.Major,
                 version.Minor >= 0 ? version.Minor : 0,
                 version.Build >= 0 ? version.Build : 0,
                 version.Revision >= 0 ? version.Revision : 0);
         }
-	}
 }

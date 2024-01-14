@@ -5,68 +5,67 @@ using System.Windows.Input;
 using Microsoft.AnyContainer;
 using ReactiveUI;
 
-namespace VidCoder.Services.Windows
+namespace VidCoder.Services.Windows;
+
+public class WindowMenuItemViewModel : ReactiveObject
 {
-	public class WindowMenuItemViewModel : ReactiveObject
+	private bool automaticChange = false;
+
+	public WindowMenuItemViewModel(WindowDefinition definition)
 	{
-		private bool automaticChange = false;
+		var windowManager = StaticResolver.Resolve<IWindowManager>();
+		this.Definition = definition;
 
-		public WindowMenuItemViewModel(WindowDefinition definition)
+		if (definition.CanOpen == null)
 		{
-			var windowManager = StaticResolver.Resolve<IWindowManager>();
-			this.Definition = definition;
-
-			if (definition.CanOpen == null)
-			{
-				Observable.Never<bool>().StartWith(true).ToProperty(this, x => x.CanOpen, out this.canOpen);
-			}
-			else
-			{
-				definition.CanOpen().ToProperty(this, x => x.CanOpen, out this.canOpen);
-			}
-
-			windowManager.WindowOpened += (o, e) =>
-			{
-				if (e.Value == definition.ViewModelType)
-				{
-					this.automaticChange = true;
-					this.IsOpen = true;
-					this.automaticChange = false;
-				}
-			};
-			windowManager.WindowClosed += (o, e) =>
-			{
-				if (e.Value == definition.ViewModelType)
-				{
-					this.automaticChange = true;
-					this.IsOpen = false;
-					this.automaticChange = false;
-				}
-			};
-
-			this.Command = windowManager.CreateOpenCommand(definition.ViewModelType);
+			Observable.Never<bool>().StartWith(true).ToProperty(this, x => x.CanOpen, out this.canOpen);
+		}
+		else
+		{
+			definition.CanOpen().ToProperty(this, x => x.CanOpen, out this.canOpen);
 		}
 
-		public WindowDefinition Definition { get; private set; }
-
-		public ICommand Command { get; private set; }
-
-		private bool isOpen;
-		public bool IsOpen
+		windowManager.WindowOpened += (o, e) =>
 		{
-			get { return this.isOpen; }
-
-			set
+			if (e.Value == definition.ViewModelType)
 			{
-				// We want to ignore attempts to toggle from the Windows menu
-				if (this.automaticChange)
-				{
-					this.RaiseAndSetIfChanged(ref this.isOpen, value);
-				}
+				this.automaticChange = true;
+				this.IsOpen = true;
+				this.automaticChange = false;
 			}
-		}
+		};
+		windowManager.WindowClosed += (o, e) =>
+		{
+			if (e.Value == definition.ViewModelType)
+			{
+				this.automaticChange = true;
+				this.IsOpen = false;
+				this.automaticChange = false;
+			}
+		};
 
-		private ObservableAsPropertyHelper<bool> canOpen;
-		public bool CanOpen => this.canOpen.Value;
+		this.Command = windowManager.CreateOpenCommand(definition.ViewModelType);
 	}
+
+	public WindowDefinition Definition { get; private set; }
+
+	public ICommand Command { get; private set; }
+
+	private bool isOpen;
+	public bool IsOpen
+	{
+		get { return this.isOpen; }
+
+		set
+		{
+			// We want to ignore attempts to toggle from the Windows menu
+			if (this.automaticChange)
+			{
+				this.RaiseAndSetIfChanged(ref this.isOpen, value);
+			}
+		}
+	}
+
+	private ObservableAsPropertyHelper<bool> canOpen;
+	public bool CanOpen => this.canOpen.Value;
 }

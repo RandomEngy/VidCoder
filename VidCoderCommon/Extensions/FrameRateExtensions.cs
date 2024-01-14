@@ -1,12 +1,11 @@
 ﻿using HandBrake.Interop.Interop.Json.Scan;
 
-namespace VidCoderCommon.Extensions
+namespace VidCoderCommon.Extensions;
+
+public static class FrameRateExtensions
 {
-	public static class FrameRateExtensions
+	public static double ToDouble(this FrameRate frameRate)
 	{
-		public static double ToDouble(this FrameRate frameRate)
-		{
-			return (double) frameRate.Num / frameRate.Den;
-		}
+		return (double) frameRate.Num / frameRate.Den;
 	}
 }

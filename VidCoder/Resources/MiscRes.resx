@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddButton" xml:space="preserve">
     <value>Add</value>
@@ -265,5 +265,11 @@
   </data>
   <data name="OneTimeInstallerCleanup" xml:space="preserve">
     <value>We need to do some one-time cleanup of the old installer. Choose 'Yes' on the next prompt to remove the old version of VidCoder.</value>
+  </data>
+  <data name="EncodeCompleteWarning_RestartTitle" xml:space="preserve">
+    <value>Restart imminent</value>
+  </data>
+  <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
+    <value>The system will restart in {0} seconds.</value>
   </data>
 </root>

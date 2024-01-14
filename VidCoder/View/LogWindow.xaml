@@ -32,8 +32,7 @@
 			<controls:ToolWindowTitleBar
 				Title="{x:Static res:LogRes.LogWindowTitle}"
 				Grid.Row="0"
-				IsActive="{Binding IsActive,
-				                   RelativeSource={RelativeSource AncestorType=Window}}" />
+				IsActive="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" />
 
 			<Grid Grid.Row="1">
 				<Grid.ColumnDefinitions>
@@ -82,8 +81,7 @@
 					Background="{DynamicResource SplitterBrush}"
 					Canvas.ZIndex="4"
 					ShowsPreview="True"
-					Visibility="{Binding PresetPanelOpen,
-					                     Converter={StaticResource VisibilityConverter}}" />
+					Visibility="{Binding PresetPanelOpen, Converter={StaticResource VisibilityConverter}}" />
 
 				<Grid Grid.Column="1">
 					<Grid.RowDefinitions>
@@ -138,21 +136,23 @@
 						</ToolBar>
 					</ToolBarPanel>
 
-					<RichTextBox
-						Name="logTextBox"
+					<ScrollViewer
+						Name="logScroller"
 						Grid.Row="1"
-						IsReadOnly="True"
+						Background="{DynamicResource WindowBrush}"
+						ScrollChanged="OnScrollChanged"
 						VerticalScrollBarVisibility="Auto">
-						<FlowDocument Name="logDocument">
-							<FlowDocument.Resources>
-								<!--  Eliminate blank line between paragraphs  -->
-								<Style TargetType="{x:Type Paragraph}">
-									<Setter Property="Margin" Value="0" />
-								</Style>
-							</FlowDocument.Resources>
-							<Paragraph Name="logParagraph" />
-						</FlowDocument>
-					</RichTextBox>
+						<RichTextBox
+							Name="logTextBox"
+							VerticalAlignment="Top"
+							BorderThickness="0"
+							IsReadOnly="True"
+							VerticalScrollBarVisibility="Disabled">
+							<FlowDocument Name="logDocument">
+								<Paragraph Name="logParagraph" />
+							</FlowDocument>
+						</RichTextBox>
+					</ScrollViewer>
 				</Grid>
 			</Grid>
 		</Grid>

@@ -14,234 +14,239 @@ using VidCoder.Services;
 using VidCoder.Services.Windows;
 using VidCoderCommon.Model;
 
-namespace VidCoder.ViewModel
+namespace VidCoder.ViewModel;
+
+public class EncodeResultViewModel : ReactiveObject
 {
-	public class EncodeResultViewModel : ReactiveObject
+	private MainViewModel main = StaticResolver.Resolve<MainViewModel>();
+	private ProcessingService processingService = StaticResolver.Resolve<ProcessingService>();
+
+	private EncodeResult encodeResult;
+	private EncodeJobViewModel job;
+
+	public EncodeResultViewModel(EncodeResult result, EncodeJobViewModel job)
 	{
-		private MainViewModel main = StaticResolver.Resolve<MainViewModel>();
-		private ProcessingService processingService = StaticResolver.Resolve<ProcessingService>();
+		this.encodeResult = result;
+		this.job = job;
+	}
 
-		private EncodeResult encodeResult;
-		private EncodeJobViewModel job;
+	public MainViewModel MainViewModel => this.main;
 
-		public EncodeResultViewModel(EncodeResult result, EncodeJobViewModel job)
+	public EncodeJobViewModel Job => this.job;
+
+	public ProcessingService ProcessingService => this.processingService;
+
+	public EncodeResult EncodeResult => this.encodeResult;
+
+	public bool SourceFileExists { get; set; } = true;
+
+	public string StatusText
+	{
+		get
 		{
-			this.encodeResult = result;
-			this.job = job;
-		}
-
-		public MainViewModel MainViewModel => this.main;
-
-		public EncodeJobViewModel Job => this.job;
-
-		public ProcessingService ProcessingService => this.processingService;
-
-		public EncodeResult EncodeResult => this.encodeResult;
-
-		public bool SourceFileExists { get; set; } = true;
-
-		public string StatusText
-		{
-			get
+			switch (this.encodeResult.Status)
 			{
-				switch (this.encodeResult.Status)
+				case EncodeResultStatus.Succeeded:
+					return CommonRes.Succeeded;
+				case EncodeResultStatus.Failed:
+					return CommonRes.Failed;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
+	}
+
+	public string TimeDisplay => this.encodeResult.EncodeTime.FormatShort();
+
+	public string StatusImage
+	{
+		get
+		{
+			switch (this.encodeResult.Status)
+			{
+				case EncodeResultStatus.Succeeded:
+					return "/Icons/succeeded.png";
+				case EncodeResultStatus.Failed:
+					return "/Icons/failed.png";
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
+	}
+
+	public string OutputFileSize => Utilities.FormatFileSize(this.encodeResult.SizeBytes);
+
+	private ReactiveCommand<Unit, Unit> play;
+	public ICommand Play
+	{
+		get
+		{
+			return this.play ?? (this.play = ReactiveCommand.Create(
+				() =>
 				{
-					case EncodeResultStatus.Succeeded:
-						return CommonRes.Succeeded;
-					case EncodeResultStatus.Failed:
-						return CommonRes.Failed;
-					default:
-						throw new ArgumentOutOfRangeException();
-				}
-			}
+					StaticResolver.Resolve<StatusService>().Show(MainRes.PlayingVideoStatus);
+					FileService.Instance.PlayVideo(this.encodeResult.Destination);
+				},
+				this.WhenAnyValue(x => x.EncodeResult.Succeeded)));
 		}
+	}
 
-		public string TimeDisplay => this.encodeResult.EncodeTime.FormatShort();
-
-		public string StatusImage
+	private ReactiveCommand<Unit, Unit> openContainingFolder;
+	public ICommand OpenContainingFolder
+	{
+		get
 		{
-			get
-			{
-				switch (this.encodeResult.Status)
+			return this.openContainingFolder ?? (this.openContainingFolder = ReactiveCommand.Create(
+				() =>
 				{
-					case EncodeResultStatus.Succeeded:
-						return "/Icons/succeeded.png";
-					case EncodeResultStatus.Failed:
-						return "/Icons/failed.png";
-					default:
-						throw new ArgumentOutOfRangeException();
-				}
-			}
-		}
-
-		public string OutputFileSize => Utilities.FormatFileSize(this.encodeResult.SizeBytes);
-
-		private ReactiveCommand<Unit, Unit> play;
-		public ICommand Play
-		{
-			get
-			{
-				return this.play ?? (this.play = ReactiveCommand.Create(
-					() =>
-					{
-						StaticResolver.Resolve<StatusService>().Show(MainRes.PlayingVideoStatus);
-						FileService.Instance.PlayVideo(this.encodeResult.Destination);
-					},
-					this.WhenAnyValue(x => x.EncodeResult.Succeeded)));
-			}
-		}
-
-		private ReactiveCommand<Unit, Unit> openContainingFolder;
-		public ICommand OpenContainingFolder
-		{
-			get
-			{
-				return this.openContainingFolder ?? (this.openContainingFolder = ReactiveCommand.Create(
-					() =>
-					{
-						StaticResolver.Resolve<StatusService>().Show(MainRes.OpeningFolderStatus);
-						FileUtilities.OpenFolderAndSelectItem(this.encodeResult.FailedFilePath ?? this.encodeResult.Destination);
-					},
-					this.WhenAnyValue(x => x.EncodeResult.Succeeded, x => x.EncodeResult.FailedFilePath, (succeeded, failedFilePath) =>
-					{
-						return succeeded || failedFilePath != null;
-					})));
-			}
-		}
-
-		private ReactiveCommand<Unit, Unit> edit;
-		public ICommand Edit
-		{
-			get
-			{
-				return this.edit ?? (this.edit = ReactiveCommand.Create(
-					() =>
-					{
-						this.main.EditJob(this.job, isQueueItem: false);
-					},
-					this.WhenAnyValue(x => x.MainViewModel.VideoSourceState, videoSourceState =>
-					{
-						return videoSourceState != VideoSourceState.Scanning && this.SourceFileExists;
-					})));
-			}
-		}
-
-		public bool ShowCompare
-		{
-			get
-			{
-				VCJob vcJob = this.Job.Job;
-				return this.encodeResult.Succeeded
-					&& vcJob.SourceType == SourceType.File
-					&& (vcJob.RangeType == VideoRangeType.All
-						|| vcJob.RangeType == VideoRangeType.Chapters && vcJob.ChapterStart == 1
-						|| vcJob.RangeType == VideoRangeType.Seconds && vcJob.SecondsStart == 0
-						|| vcJob.RangeType == VideoRangeType.Frames && vcJob.FramesStart == 0);
-			}
-		}
-
-		private ReactiveCommand<Unit, Unit> compare;
-		public ICommand Compare
-		{
-			get
-			{
-				return this.compare ?? (this.compare = ReactiveCommand.Create(
-					() =>
-					{
-						long inputFileSizeBytes = 0;
-						try
-						{
-							FileInfo inputFileInfo = new FileInfo(this.Job.Job.SourcePath);
-							if (!inputFileInfo.Exists)
-							{
-								StaticResolver.Resolve<IMessageBoxService>().Show(this.main, CommonRes.FileNoLongerExists);
-								return;
-							}
-
-							inputFileSizeBytes = inputFileInfo.Length;
-						}
-						catch
-						{
-							// It's OK if we don't get the file size.
-						}
-
-						OutputSizeInfo outputSize = JsonEncodeFactory.GetOutputSize(this.Job.Profile, this.Job.SourceTitle);
-						CompareWindowViewModel compareViewModel = StaticResolver.Resolve<IWindowManager>().OpenOrFocusWindow<CompareWindowViewModel>(this.main);
-						compareViewModel.OpenVideos(this.Job.Job.SourcePath, this.Job.Job.FinalOutputPath, inputFileSizeBytes, this.encodeResult.SizeBytes);
-					},
-					MvvmUtilities.CreateConstantObservable(this.SourceFileExists)));
-			}
-		}
-
-		private ReactiveCommand<Unit, Unit> openLog;
-		public ICommand OpenLog
-		{
-			get
-			{
-				return this.openLog ?? (this.openLog = ReactiveCommand.Create(() =>
+					StaticResolver.Resolve<StatusService>().Show(MainRes.OpeningFolderStatus);
+					FileUtilities.OpenFolderAndSelectItem(this.encodeResult.FailedFilePath ?? this.encodeResult.Destination);
+				},
+				this.WhenAnyValue(x => x.EncodeResult.Succeeded, x => x.EncodeResult.FailedFilePath, (succeeded, failedFilePath) =>
 				{
-					if (this.encodeResult.LogPath != null)
+					return succeeded || failedFilePath != null;
+				})));
+		}
+	}
+
+	private ReactiveCommand<Unit, Unit> edit;
+	public ICommand Edit
+	{
+		get
+		{
+			return this.edit ?? (this.edit = ReactiveCommand.Create(
+				() =>
+				{
+					this.main.EditJob(this.job, isQueueItem: false);
+				},
+				this.WhenAnyValue(x => x.MainViewModel.VideoSourceState, videoSourceState =>
+				{
+					return videoSourceState != VideoSourceState.Scanning && this.SourceFileExists;
+				})));
+		}
+	}
+
+	public bool ShowCompare
+	{
+		get
+		{
+			VCJob vcJob = this.Job.Job;
+			return this.encodeResult.Succeeded
+				&& vcJob.SourceType == SourceType.File
+				&& (vcJob.RangeType == VideoRangeType.All
+					|| vcJob.RangeType == VideoRangeType.Chapters && vcJob.ChapterStart == 1
+					|| vcJob.RangeType == VideoRangeType.Seconds && vcJob.SecondsStart == 0
+					|| vcJob.RangeType == VideoRangeType.Frames && vcJob.FramesStart == 0);
+		}
+	}
+
+	private ReactiveCommand<Unit, Unit> compare;
+	public ICommand Compare
+	{
+		get
+		{
+			return this.compare ?? (this.compare = ReactiveCommand.Create(
+				() =>
+				{
+					if (this.Job.VideoSource == null)
 					{
-						try
-						{
-							FileService.Instance.LaunchFile(this.encodeResult.LogPath);
-						}
-						catch (Exception exception)
-						{
-							StaticResolver.Resolve<IAppLogger>().LogError("Could not open log file " + this.encodeResult.LogPath + Environment.NewLine + exception);
-						}
+						StaticResolver.Resolve<IAppLogger>().LogError("Could not compare files. VideoSource missing on the job.");
+						return;
 					}
-				}));
-			}
-		}
 
-		private ReactiveCommand<Unit, Unit> copyLog;
-		public ICommand CopyLog
+					long inputFileSizeBytes = 0;
+					try
+					{
+						FileInfo inputFileInfo = new FileInfo(this.Job.Job.SourcePath);
+						if (!inputFileInfo.Exists)
+						{
+							StaticResolver.Resolve<IMessageBoxService>().Show(this.main, CommonRes.FileNoLongerExists);
+							return;
+						}
+
+						inputFileSizeBytes = inputFileInfo.Length;
+					}
+					catch
+					{
+						// It's OK if we don't get the file size.
+					}
+
+					OutputSizeInfo outputSize = JsonEncodeFactory.GetOutputSize(this.Job.Profile, this.Job.SourceTitle);
+					CompareWindowViewModel compareViewModel = StaticResolver.Resolve<IWindowManager>().OpenOrFocusWindow<CompareWindowViewModel>(this.main);
+					compareViewModel.OpenVideos(this.Job.Job.SourcePath, this.Job.Job.FinalOutputPath, inputFileSizeBytes, this.encodeResult.SizeBytes);
+				},
+				MvvmUtilities.CreateConstantObservable(this.SourceFileExists)));
+		}
+	}
+
+	private ReactiveCommand<Unit, Unit> openLog;
+	public ICommand OpenLog
+	{
+		get
 		{
-			get
+			return this.openLog ?? (this.openLog = ReactiveCommand.Create(() =>
 			{
-				return this.copyLog ?? (this.copyLog = ReactiveCommand.Create(() =>
+				if (this.encodeResult.LogPath != null)
 				{
-					this.CopyLogImpl();
-				}));
-			}
+					try
+					{
+						FileService.Instance.LaunchFile(this.encodeResult.LogPath);
+					}
+					catch (Exception exception)
+					{
+						StaticResolver.Resolve<IAppLogger>().LogError("Could not open log file " + this.encodeResult.LogPath + Environment.NewLine + exception);
+					}
+				}
+			}));
 		}
+	}
 
-		private ReactiveCommand<Unit, Unit> copyLogAndReportProblem;
-		public ICommand CopyLogAndReportProblem
+	private ReactiveCommand<Unit, Unit> copyLog;
+	public ICommand CopyLog
+	{
+		get
 		{
-			get
+			return this.copyLog ?? (this.copyLog = ReactiveCommand.Create(() =>
 			{
-				return this.copyLogAndReportProblem ?? (this.copyLogAndReportProblem = ReactiveCommand.Create(() =>
-				{
-					this.CopyLogImpl();
-					FileService.Instance.ReportBug();
-				}));
-			}
+				this.CopyLogImpl();
+			}));
 		}
+	}
 
-		private void CopyLogImpl()
+	private ReactiveCommand<Unit, Unit> copyLogAndReportProblem;
+	public ICommand CopyLogAndReportProblem
+	{
+		get
 		{
-			if (this.encodeResult.LogPath == null)
+			return this.copyLogAndReportProblem ?? (this.copyLogAndReportProblem = ReactiveCommand.Create(() =>
 			{
-				return;
-			}
-
-			try
-			{
-				string logText = File.ReadAllText(this.encodeResult.LogPath);
-
-				StaticResolver.Resolve<ClipboardService>().SetText(logText);
-			}
-			catch (Exception exception)
-			{
-				StaticResolver.Resolve<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception));
-			}
+				this.CopyLogImpl();
+				FileService.Instance.ReportBug();
+			}));
 		}
+	}
 
-		public override string ToString()
+	private void CopyLogImpl()
+	{
+		if (this.encodeResult.LogPath == null)
 		{
-			return this.Job.Job.FinalOutputPath + " " + this.StatusText;
+			return;
 		}
+
+		try
+		{
+			string logText = File.ReadAllText(this.encodeResult.LogPath);
+
+			StaticResolver.Resolve<ClipboardService>().SetText(logText);
+		}
+		catch (Exception exception)
+		{
+			StaticResolver.Resolve<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception));
+		}
+	}
+
+	public override string ToString()
+	{
+		return this.Job.Job.FinalOutputPath + " " + this.StatusText;
 	}
 }

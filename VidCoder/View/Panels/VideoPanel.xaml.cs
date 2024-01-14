@@ -12,18 +12,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace VidCoder.View
-{
-	using ViewModel;
+namespace VidCoder.View;
 
-	/// <summary>
-	/// Interaction logic for VideoPanel.xaml
-	/// </summary>
-	public partial class VideoPanel : UserControl
+using ViewModel;
+
+/// <summary>
+/// Interaction logic for VideoPanel.xaml
+/// </summary>
+public partial class VideoPanel : UserControl
+{
+	public VideoPanel()
 	{
-		public VideoPanel()
-		{
-			InitializeComponent();
-		}
+		InitializeComponent();
 	}
 }

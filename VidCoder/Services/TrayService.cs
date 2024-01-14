@@ -5,13 +5,12 @@ using System.Text;
 using Microsoft.AnyContainer;
 using VidCoder.View;
 
-namespace VidCoder.Services
+namespace VidCoder.Services;
+
+public class TrayService
 {
-	public class TrayService
+	public void ShowBalloonMessage(string title, string message)
 	{
-		public void ShowBalloonMessage(string title, string message)
-		{
-			StaticResolver.Resolve<Main>().ShowBalloonMessage(title, message);
-		}
+		StaticResolver.Resolve<Main>().ShowBalloonMessage(title, message);
 	}
 }

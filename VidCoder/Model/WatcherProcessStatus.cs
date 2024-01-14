@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoder.Model
+namespace VidCoder.Model;
+
+public enum WatcherProcessStatus
 {
-	public enum WatcherProcessStatus
-	{
-		Disabled,
-		Stopped,
-		Starting,
-		Running
-	}
+	Disabled,
+	Stopped,
+	Starting,
+	Running
 }

@@ -130,7 +130,7 @@
     <value>Preciso</value>
   </data>
   <data name="AppThemeChoice_Auto" xml:space="preserve">
-    <value>Utilizza il tema del SO</value>
+    <value>Utilizza il tema del sistema operativo</value>
     <comment>Windows 10 you can choose Light or Dark for the app theme. This will cause VidCoder to respect that choice.</comment>
   </data>
   <data name="AppThemeChoice_Dark" xml:space="preserve">
@@ -395,5 +395,14 @@
   </data>
   <data name="WatchedFileStatusLive_Output" xml:space="preserve">
     <value>Uscita</value>
+  </data>
+  <data name="WatcherMode_FileSystemWatcher" xml:space="preserve">
+    <value>Controllo sistema</value>
+  </data>
+  <data name="WatcherMode_Polling" xml:space="preserve">
+    <value>Interrogazione</value>
+  </data>
+  <data name="EncodeCompleteActionType_Restart" xml:space="preserve">
+    <value>Riavvia</value>
   </data>
 </root>

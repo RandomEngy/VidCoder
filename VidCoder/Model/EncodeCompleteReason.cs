@@ -1,25 +1,24 @@
-﻿namespace VidCoder.Model
+﻿namespace VidCoder.Model;
+
+public enum EncodeCompleteReason
 {
-	public enum EncodeCompleteReason
-	{
-		/// <summary>
-		/// User hit the general stop button
-		/// </summary>
-		ManualStopAll,
+	/// <summary>
+	/// User hit the general stop button
+	/// </summary>
+	ManualStopAll,
 
-		/// <summary>
-		/// User stopped one of multiple encoding items
-		/// </summary>
-		ManualStopSingle,
+	/// <summary>
+	/// User stopped one of multiple encoding items
+	/// </summary>
+	ManualStopSingle,
 
-		/// <summary>
-		/// User exited app
-		/// </summary>
-		AppExitStop,
+	/// <summary>
+	/// User exited app
+	/// </summary>
+	AppExitStop,
 
-		/// <summary>
-		/// The encode finished (successfully or unsuccessfully)
-		/// </summary>
-		Finished
-	}
+	/// <summary>
+	/// The encode finished (successfully or unsuccessfully)
+	/// </summary>
+	Finished
 }

@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Općenito</value>
@@ -331,9 +331,6 @@
   <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
     <value>Toliko je istovremenih poslova kodiranja dopušteno. Korisno za strojeve s mnogo CPU jezgri.</value>
   </data>
-  <data name="GeneralSection" xml:space="preserve">
-    <value>Općenito</value>
-  </data>
   <data name="ThemeLabel" xml:space="preserve">
     <value>Tema</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
@@ -381,5 +378,44 @@
   <data name="UpdateModeLabel" xml:space="preserve">
     <value>Način ažuriranja:</value>
     <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
+  </data>
+  <data name="WatcherModeLabel" xml:space="preserve">
+    <value>Način promatranja:</value>
+  </data>
+  <data name="WatcherModelToolTip" xml:space="preserve">
+    <value>Promatrač sustava: Koristi operativni sustav kako bi obavijestio VidCoder o novim datotekama. Najbrži je i koristi minimalne resurse procesora i diska. Ispitivanje: Periodički provjerava sadržaj mapa. Koristi značajne resurse procesora i diska. Koristi se samo ako promatrač sustava ne radi.</value>
+  </data>
+  <data name="WatcherPollIntervalLabel" xml:space="preserve">
+    <value>Interval ispitivanja (sekunde):</value>
+  </data>
+  <data name="ApplicationSection" xml:space="preserve">
+    <value>Aplikacija</value>
+  </data>
+  <data name="EncodingSettingsDescription" xml:space="preserve">
+    <value>Postavke kodiranja uključuju kodek, bit brzine, veličinu slike i filtre. To će utjecati na izgled i zvuk videa, veličinu datoteke i podršku koju pružaju određeni reproduktori. (KAKO kodirati)</value>
+  </data>
+  <data name="EncodingSettingsSection" xml:space="preserve">
+    <value>Postavke kodiranja</value>
+  </data>
+  <data name="EncodingSettingsShortcutButton" xml:space="preserve">
+    <value>Uredi postavke kodiranja</value>
+  </data>
+  <data name="PickerDescription" xml:space="preserve">
+    <value>Birač odabire lokaciju izlazne datoteke, zvučne zapise i podnaslove. Prilagodite Birač da automatski dodaje željene zapise te odabere naziv datoteke i odredišnu mapu. (ŠTO kodirati)</value>
+  </data>
+  <data name="PickerSettingsSection" xml:space="preserve">
+    <value>Lokacija izlaza, odabir zapisa</value>
+  </data>
+  <data name="PickerShortcutButton" xml:space="preserve">
+    <value>Uredi postavke Birača</value>
+  </data>
+  <data name="EnableNVDecCheckBox" xml:space="preserve">
+    <value>Koristite Nvidia NVDec za dekodiranje videa kada koristite NVEnc koder i hardver je dostupan.</value>
+  </data>
+  <data name="HardwareEncodingSection" xml:space="preserve">
+    <value>Enkodiranje pomoću hardvera</value>
+  </data>
+  <data name="CapNVEncCheckBox" xml:space="preserve">
+    <value>Ograniči istovremena NVEnc kodiranja. Uklanjanje ovog zahtijeva prilagođenu zakrpu NVidia upravljačkog programa.</value>
   </data>
 </root>

@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Γενικά</value>
@@ -331,9 +331,6 @@
   <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
     <value>Πόσες ταυτόχρονες εργασίες κωδικοποίησης επιτρέπονται. Χρήσιμο για επεξεργαστές με πολλούς πυρήνες.</value>
   </data>
-  <data name="GeneralSection" xml:space="preserve">
-    <value>Γενικά</value>
-  </data>
   <data name="ThemeLabel" xml:space="preserve">
     <value>Θέμα</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
@@ -381,5 +378,46 @@
   <data name="UpdateModeLabel" xml:space="preserve">
     <value>Λειτουργία ενημέρωσης:</value>
     <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
+  </data>
+  <data name="WatcherModeLabel" xml:space="preserve">
+    <value>Λειτουργία παρακολουθητή:</value>
+  </data>
+  <data name="WatcherModelToolTip" xml:space="preserve">
+    <value>Παρακολουθητής συστήματος: Χρησιμοποιεί το λειτουργικό σύστημα για να ειδοποιήσει το VidCoder για νέα αρχεία. Είναι η ταχύτερη επιλογή και χρησιμοποιεί ελάχιστους πόρους της CPU και του δίσκου.
+Ανίχνευση: Ελέγχει περιοδικά τα περιεχόμενα των φακέλων. Χρησιμοποιεί σημαντικούς πόρους της CPU και του δίσκου. Χρησιμοποιήστε μόνο αν ο παρακολουθητής συστήματος δεν λειτουργεί.</value>
+  </data>
+  <data name="WatcherPollIntervalLabel" xml:space="preserve">
+    <value>Ανίχνευση</value>
+  </data>
+  <data name="ApplicationSection" xml:space="preserve">
+    <value>Εφαρμογή</value>
+  </data>
+  <data name="EncodingSettingsDescription" xml:space="preserve">
+    <value>Οι ρυθμίσεις κωδικοποίησης περιλαμβάνουν codec, bitrate, μέγεθος εικόνας και φίλτρα. Αυτό θα επηρεάσει την εικόνα και τον ήχο του βίντεο, το μέγεθος του αρχείου και τους players που θα το υποστηρίζουν (Πώς να κωδικοποιήσετε)</value>
+  </data>
+  <data name="EncodingSettingsSection" xml:space="preserve">
+    <value>Ρυθμίσεις κωδικοποίησης</value>
+  </data>
+  <data name="EncodingSettingsShortcutButton" xml:space="preserve">
+    <value>Επεξεργασία ρυθμίσεων κωδικοποίησης</value>
+  </data>
+  <data name="PickerDescription" xml:space="preserve">
+    <value>Το Συλλέκτης επιλέγει μια τοποθεσία για το τελικό αρχείο, τα κομμάτια ήχου και τους υπότιτλους. Προσαρμόστε το Συλλέκτη για να προσθέσετε αυτόματα τα κομμάτια που θέλετε και να επιλέξετε το όνομα του αρχείου και το φάκελο προορισμού. (Τί να κωδικοποιήσετε)</value>
+  </data>
+  <data name="PickerSettingsSection" xml:space="preserve">
+    <value>Τοποθεσία φακέλου προορισμού, επιλογή κομματιού</value>
+  </data>
+  <data name="PickerShortcutButton" xml:space="preserve">
+    <value>Επεξεργασία ρυθμίσεων Συλλέκτη</value>
+  </data>
+  <data name="EnableNVDecCheckBox" xml:space="preserve">
+    <value>Χρήση του Nvidia NVDec για την αποκωδικοποίηση βίντεο όταν χρησιμοποιείτε κωδικοποιητή NVEnc και 
+όταν το Ηardware είναι διαθέσιμο</value>
+  </data>
+  <data name="HardwareEncodingSection" xml:space="preserve">
+    <value>Κωδικοποίηση με τη χρήση Ηardware </value>
+  </data>
+  <data name="CapNVEncCheckBox" xml:space="preserve">
+    <value>Περιορισμός ταυτόχρονων κωδικοποιήσεων NVEnc. Για την αφαίρεση του περιορισμού απαιτείται μια προσαρμοσμένη ενημέρωση του προγράμματος οδήγησης της NVidia.</value>
   </data>
 </root>

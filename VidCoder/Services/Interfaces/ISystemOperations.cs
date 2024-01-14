@@ -1,11 +1,11 @@
-namespace VidCoder.Services
+namespace VidCoder.Services;
+
+public interface ISystemOperations
 {
-	public interface ISystemOperations
-	{
-		void Sleep();
-		void LogOff();
-		void ShutDown();
-		void Eject(string driveLetter);
-		void Hibernate();
-	}
+	void Sleep();
+	void LogOff();
+	void ShutDown();
+	void Restart();
+	void Eject(string driveLetter);
+	void Hibernate();
 }

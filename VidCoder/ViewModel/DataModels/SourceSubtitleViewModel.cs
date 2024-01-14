@@ -12,315 +12,314 @@ using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoderCommon.Model;
 
-namespace VidCoder.ViewModel
+namespace VidCoder.ViewModel;
+
+public class SourceSubtitleViewModel : ReactiveObject
 {
-	public class SourceSubtitleViewModel : ReactiveObject
+	private ChosenSourceSubtitle subtitle;
+
+	private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
+
+	private SourceSubtitleTrack inputSubtitle; 
+
+	public SourceSubtitleViewModel(MainViewModel mainViewModel, ChosenSourceSubtitle subtitle)
 	{
-		private ChosenSourceSubtitle subtitle;
+		this.MainViewModel = mainViewModel;
+		this.subtitle = subtitle;
 
-		private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
-
-		private SourceSubtitleTrack inputSubtitle; 
-
-		public SourceSubtitleViewModel(MainViewModel mainViewModel, ChosenSourceSubtitle subtitle)
+		if (subtitle.TrackNumber != 0)
 		{
-			this.MainViewModel = mainViewModel;
-			this.subtitle = subtitle;
+			this.inputSubtitle = this.MainViewModel.SelectedTitle.SubtitleList[subtitle.TrackNumber - 1];
+		}
 
-			if (subtitle.TrackNumber != 0)
+		// CanPass
+		this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.ContainerName, containerName =>
+		{
+			if (this.TrackNumber == 0)
 			{
-				this.inputSubtitle = this.MainViewModel.SelectedTitle.SubtitleList[subtitle.TrackNumber - 1];
-			}
-
-			// CanPass
-			this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.ContainerName, containerName =>
-			{
-				if (this.TrackNumber == 0)
-				{
-					return true;
-				}
-
-				return HandBrakeEncoderHelpers.SubtitleCanPassthrough(this.inputSubtitle.Source, HandBrakeEncoderHelpers.GetContainer(containerName).Id);
-			}).ToProperty(this, x => x.CanPass, out this.canPass, scheduler: Scheduler.Immediate);
-
-			// DefaultEnabled
-			this.WhenAnyValue(x => x.BurnedIn, x => x.TrackNumber, x => x.MainViewModel.DefaultSubtitlesEnabled, (burnedIn, trackNumber, defaultSubtitlesEnabled) =>
-			{
-				return !burnedIn && (trackNumber == 0 || defaultSubtitlesEnabled);
-			}).ToProperty(this, x => x.DefaultEnabled, out this.defaultEnabled);
-
-			// BurnedInEnabled
-			this.WhenAnyValue(x => x.CanPass, canPass =>
-			{
-				if (this.TrackNumber == 0)
-				{
-					return true;
-				}
-
-				if (!canPass)
-				{
-					return false;
-				}
-
-				if (!this.CanBurn)
-				{
-					return false;
-				}
-
 				return true;
-			}).ToProperty(this, x => x.BurnedInEnabled, out this.burnedInEnabled);
+			}
 
-			// When BurnedInEnabled changes, refresh to see if it should be updated to a predetermined value.
-			this.WhenAnyValue(x => x.BurnedInEnabled).Subscribe(_ =>
-			{
-				this.RaisePropertyChanged(nameof(this.BurnedIn));
-			});
-		}
+			return HandBrakeEncoderHelpers.SubtitleCanPassthrough(this.inputSubtitle.Source, HandBrakeEncoderHelpers.GetContainer(containerName).Id);
+		}).ToProperty(this, x => x.CanPass, out this.canPass, scheduler: Scheduler.Immediate);
 
-		public MainViewModel MainViewModel { get; }
-
-		public List<SourceSubtitleTrack> InputSubtitles
+		// DefaultEnabled
+		this.WhenAnyValue(x => x.BurnedIn, x => x.TrackNumber, (burnedIn, trackNumber) =>
 		{
-			get { return this.MainViewModel.SelectedTitle.SubtitleList; }
-		}
+			return !burnedIn;
+		}).ToProperty(this, x => x.DefaultEnabled, out this.defaultEnabled);
 
-		public ChosenSourceSubtitle Subtitle
+		// BurnedInEnabled
+		this.WhenAnyValue(x => x.CanPass, canPass =>
 		{
-			get
+			if (this.TrackNumber == 0)
 			{
-				return this.subtitle;
+				return true;
 			}
-		}
 
-		private bool selected;
-		public bool Selected
+			if (!canPass)
+			{
+				return false;
+			}
+
+			if (!this.CanBurn)
+			{
+				return false;
+			}
+
+			return true;
+		}).ToProperty(this, x => x.BurnedInEnabled, out this.burnedInEnabled);
+
+		// When BurnedInEnabled changes, refresh to see if it should be updated to a predetermined value.
+		this.WhenAnyValue(x => x.BurnedInEnabled).Subscribe(_ =>
 		{
-			get
-			{
-				return this.selected;
-			}
+			this.RaisePropertyChanged(nameof(this.BurnedIn));
+		});
+	}
 
-			set
-			{
-				this.selected = value;
-				this.RaisePropertyChanged();
-				this.MainViewModel.UpdateSourceSubtitleBoxes(this);
-				this.MainViewModel.UpdateSubtitleWarningVisibility();
-				this.MainViewModel.RefreshSubtitleSummary();
-				this.UpdateButtonVisiblity();
-			}
-		}
+	public MainViewModel MainViewModel { get; }
 
-		public bool IsForeignAudioSearch => this.TrackNumber == 0;
+	public List<SourceSubtitleTrack> InputSubtitles
+	{
+		get { return this.MainViewModel.SelectedTitle.SubtitleList; }
+	}
 
-		public DateTimeOffset? LastMouseDownTime { get; set; }
-
-		public override string ToString()
+	public ChosenSourceSubtitle Subtitle
+	{
+		get
 		{
-			if (string.IsNullOrEmpty(this.Name))
-			{
-				return this.TrackSummary;
-			}
-			else if (this.TrackNumber == 0)
-			{
-				return SubtitleRes.ForeignAudioScan + " " + this.Name;
-			}
-			else
-			{
-				return this.TrackNumber + " " + this.Name + " - " + this.inputSubtitle.Language;
-			}
+			return this.subtitle;
 		}
+	}
 
-		public string TrackSummary
+	private bool selected;
+	public bool Selected
+	{
+		get
 		{
-			get
-			{
-				if (this.TrackNumber == 0)
-				{
-					return SubtitleRes.ForeignAudioScan;
-				}
-
-				return string.Format(
-					"{0} {1}", 
-					this.TrackNumber, 
-					this.inputSubtitle.Language);
-			}
+			return this.selected;
 		}
 
-		public string Name
+		set
 		{
-			get => this.subtitle.Name ?? this.inputSubtitle?.Name;
-			set
-			{
-				this.subtitle.Name = value;
-				this.RaisePropertyChanged();
-			}
+			this.selected = value;
+			this.RaisePropertyChanged();
+			this.MainViewModel.UpdateSourceSubtitleBoxes(this);
+			this.MainViewModel.UpdateSubtitleWarningVisibility();
+			this.MainViewModel.RefreshSubtitleSummary();
+			this.UpdateButtonVisiblity();
 		}
+	}
 
-		public string SourceName => this.inputSubtitle?.Name;
+	public bool IsForeignAudioSearch => this.TrackNumber == 0;
 
-		public int TrackNumber
+	public DateTimeOffset? LastMouseDownTime { get; set; }
+
+	public override string ToString()
+	{
+		if (string.IsNullOrEmpty(this.Name))
 		{
-			get
-			{
-				return this.subtitle.TrackNumber;
-			}
+			return this.TrackSummary;
 		}
-
-		public bool Default
+		else if (this.TrackNumber == 0)
 		{
-			get
-			{
-				return this.subtitle.Default;
-			}
-
-			set
-			{
-				this.subtitle.Default = value;
-				this.RaisePropertyChanged();
-
-				if (value)
-				{
-					this.MainViewModel.ReportDefaultSubtitle(this);
-				}
-			}
+			return SubtitleRes.ForeignAudioScan + " " + this.Name;
 		}
-
-		private ObservableAsPropertyHelper<bool> defaultEnabled;
-		public bool DefaultEnabled => this.defaultEnabled.Value;
-
-		public bool ForcedOnly
+		else
 		{
-			get
-			{
-				if (this.TrackNumber > 0 && !HandBrakeEncoderHelpers.SubtitleCanSetForcedOnly(this.inputSubtitle.Source))
-				{
-					return false;
-				}
+			return this.TrackNumber + " " + this.Name + " - " + this.inputSubtitle.Language;
+		}
+	}
 
-				return this.subtitle.ForcedOnly;
+	public string TrackSummary
+	{
+		get
+		{
+			if (this.TrackNumber == 0)
+			{
+				return SubtitleRes.ForeignAudioScan;
 			}
 
-			set
+			return string.Format(
+				"{0} {1}", 
+				this.TrackNumber, 
+				this.inputSubtitle.Language);
+		}
+	}
+
+	public string Name
+	{
+		get => this.subtitle.Name ?? this.inputSubtitle?.Name;
+		set
+		{
+			this.subtitle.Name = value;
+			this.RaisePropertyChanged();
+		}
+	}
+
+	public string SourceName => this.inputSubtitle?.Name;
+
+	public int TrackNumber
+	{
+		get
+		{
+			return this.subtitle.TrackNumber;
+		}
+	}
+
+	public bool Default
+	{
+		get
+		{
+			return this.subtitle.Default;
+		}
+
+		set
+		{
+			this.subtitle.Default = value;
+			this.RaisePropertyChanged();
+
+			if (value)
 			{
-				this.subtitle.ForcedOnly = value;
-				this.RaisePropertyChanged();
+				this.MainViewModel.ReportDefaultSubtitle(this);
 			}
 		}
+	}
 
-		public bool ForcedOnlyEnabled
+	private ObservableAsPropertyHelper<bool> defaultEnabled;
+	public bool DefaultEnabled => this.defaultEnabled.Value;
+
+	public bool ForcedOnly
+	{
+		get
 		{
-			get
+			if (this.TrackNumber > 0 && !HandBrakeEncoderHelpers.SubtitleCanSetForcedOnly(this.inputSubtitle.Source))
 			{
-				return this.TrackNumber == 0 || HandBrakeEncoderHelpers.SubtitleCanSetForcedOnly(this.inputSubtitle.Source);
-			}
-		}
-
-		public bool BurnedIn
-		{
-			get
-			{
-				if (!this.CanPass)
-				{
-					return true;
-				}
-
-				if (!this.CanBurn)
-				{
-					return false;
-				}
-
-				return this.subtitle.BurnedIn;
+				return false;
 			}
 
-			set
+			return this.subtitle.ForcedOnly;
+		}
+
+		set
+		{
+			this.subtitle.ForcedOnly = value;
+			this.RaisePropertyChanged();
+		}
+	}
+
+	public bool ForcedOnlyEnabled
+	{
+		get
+		{
+			return this.TrackNumber == 0 || HandBrakeEncoderHelpers.SubtitleCanSetForcedOnly(this.inputSubtitle.Source);
+		}
+	}
+
+	public bool BurnedIn
+	{
+		get
+		{
+			if (!this.CanPass)
 			{
-				this.subtitle.BurnedIn = value;
-				this.RaisePropertyChanged();
-
-				if (value)
-				{
-					this.Default = false;
-					this.MainViewModel.ReportBurnedSubtitle(this);
-				}
-
-				this.MainViewModel.UpdateSourceSubtitleBoxes();
-				this.MainViewModel.UpdateSubtitleWarningVisibility();
+				return true;
 			}
-		}
 
-		private ObservableAsPropertyHelper<bool> burnedInEnabled;
-		public bool BurnedInEnabled => this.burnedInEnabled.Value;
-
-		public bool RemoveVisible
-		{
-			get
+			if (!this.CanBurn)
 			{
-				return this.MainViewModel.HasMultipleSourceSubtitleTracks(this.TrackNumber);
+				return false;
 			}
+
+			return this.subtitle.BurnedIn;
 		}
 
-		public bool DuplicateVisible
+		set
 		{
-			get
+			this.subtitle.BurnedIn = value;
+			this.RaisePropertyChanged();
+
+			if (value)
 			{
-				return !this.MainViewModel.HasMultipleSourceSubtitleTracks(this.TrackNumber) && this.Selected;
+				this.Default = false;
+				this.MainViewModel.ReportBurnedSubtitle(this);
 			}
-		}
 
-		private ObservableAsPropertyHelper<bool> canPass;
-		public bool CanPass
-		{
-			get { return this.canPass.Value; }
+			this.MainViewModel.UpdateSourceSubtitleBoxes();
+			this.MainViewModel.UpdateSubtitleWarningVisibility();
 		}
+	}
 
-		public bool CanBurn
+	private ObservableAsPropertyHelper<bool> burnedInEnabled;
+	public bool BurnedInEnabled => this.burnedInEnabled.Value;
+
+	public bool RemoveVisible
+	{
+		get
 		{
-			get
+			return this.MainViewModel.HasMultipleSourceSubtitleTracks(this.TrackNumber);
+		}
+	}
+
+	public bool DuplicateVisible
+	{
+		get
+		{
+			return !this.MainViewModel.HasMultipleSourceSubtitleTracks(this.TrackNumber) && this.Selected;
+		}
+	}
+
+	private ObservableAsPropertyHelper<bool> canPass;
+	public bool CanPass
+	{
+		get { return this.canPass.Value; }
+	}
+
+	public bool CanBurn
+	{
+		get
+		{
+			if (this.TrackNumber == 0)
 			{
-				if (this.TrackNumber == 0)
-				{
-					return true;
-				}
-
-				return HandBrakeEncoderHelpers.SubtitleCanBurn(this.inputSubtitle.Source);
+				return true;
 			}
-		}
 
-		private ReactiveCommand<Unit, Unit> duplicateSubtitle;
-		public ICommand DuplicateSubtitle
+			return HandBrakeEncoderHelpers.SubtitleCanBurn(this.inputSubtitle.Source);
+		}
+	}
+
+	private ReactiveCommand<Unit, Unit> duplicateSubtitle;
+	public ICommand DuplicateSubtitle
+	{
+		get
 		{
-			get
+			return this.duplicateSubtitle ?? (this.duplicateSubtitle = ReactiveCommand.Create(() =>
 			{
-				return this.duplicateSubtitle ?? (this.duplicateSubtitle = ReactiveCommand.Create(() =>
-				{
-					this.MainViewModel.DuplicateSourceSubtitle(this);
-				}));
-			}
+				this.MainViewModel.DuplicateSourceSubtitle(this);
+			}));
 		}
+	}
 
-		private ReactiveCommand<Unit, Unit> removeSubtitle;
-		public ICommand RemoveSubtitle
+	private ReactiveCommand<Unit, Unit> removeSubtitle;
+	public ICommand RemoveSubtitle
+	{
+		get
 		{
-			get
+			return this.removeSubtitle ?? (this.removeSubtitle = ReactiveCommand.Create(() =>
 			{
-				return this.removeSubtitle ?? (this.removeSubtitle = ReactiveCommand.Create(() =>
-				{
-					this.MainViewModel.RemoveSourceSubtitle(this);
-				}));
-			}
+				this.MainViewModel.RemoveSourceSubtitle(this);
+			}));
 		}
+	}
 
-		public void Deselect()
-		{
-			this.selected = false;
-			this.RaisePropertyChanged(nameof(this.Selected));
-		}
+	public void Deselect()
+	{
+		this.selected = false;
+		this.RaisePropertyChanged(nameof(this.Selected));
+	}
 
-		public void UpdateButtonVisiblity()
-		{
-			this.RaisePropertyChanged(nameof(this.DuplicateVisible));
-			this.RaisePropertyChanged(nameof(this.RemoveVisible));
-		}
+	public void UpdateButtonVisiblity()
+	{
+		this.RaisePropertyChanged(nameof(this.DuplicateVisible));
+		this.RaisePropertyChanged(nameof(this.RemoveVisible));
 	}
 }

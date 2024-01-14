@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Allgemein</value>
@@ -329,9 +329,6 @@
   <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
     <value>Hiermit können Sie festlegen, wieviele Encodierungsaufträge gleichzeitig erlaubt sind. Dies ist nützlich für Systeme mit vielen CPU-Kernen.</value>
   </data>
-  <data name="GeneralSection" xml:space="preserve">
-    <value>Allgemein</value>
-  </data>
   <data name="ThemeLabel" xml:space="preserve">
     <value>Theme</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
@@ -360,4 +357,29 @@
   
   
   
+  
+  <data name="WatcherModelToolTip" xml:space="preserve">
+    <value>System-Beobachter: Verwendet das Betriebssystem, um VidCoder über neue Dateien zu informieren. Dies ist die schnellste Methode und verbraucht nur minimale CPU- und Festplattenressourcen.
+
+Abfrage: Überprüft periodisch den Inhalt der Ordner. Benötigt erhebliche CPU- und Festplattenressourcen. Nur verwenden, wenn der System Watcher nicht funktioniert.</value>
+  </data>
+  
+  
+  <data name="EncodingSettingsDescription" xml:space="preserve">
+    <value>Zu den Kodierungseinstellungen gehören Codec, Bitrate, Bildgröße und Filter. Dies wirkt sich darauf aus, wie das Video aussieht und klingt, wie groß die Datei ist und welche Player es unterstützen. (WIE man kodiert)</value>
+  </data>
+  
+  
+  
+  
+  <data name="PickerShortcutButton" xml:space="preserve">
+    <value>Picker-Einstellungen bearbeiten</value>
+  </data>
+  <data name="EnableNVDecCheckBox" xml:space="preserve">
+    <value>Verwenden Sie Nvidia NVDec zum Dekodieren von Videos, wenn Sie einen NVEnc-Encoder verwenden und die Hardware verfügbar ist</value>
+  </data>
+  
+  <data name="CapNVEncCheckBox" xml:space="preserve">
+    <value>Gleichzeitige NVEnc-Codierungen begrenzen. Um dies zu entfernen, ist ein eigener NVidia-Treiber-Patch erforderlich.</value>
+  </data>
 </root>

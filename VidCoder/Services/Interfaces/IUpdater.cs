@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VidCoder.Services
+namespace VidCoder.Services;
+
+using Model;
+
+public interface IUpdater
 {
-	using Model;
+	void CheckUpdates(bool isManualCheck);
+	bool PromptToApplyUpdate();
+	void HandleUpdatedSettings(bool updatesEnabled);
 
-	public interface IUpdater
-	{
-		void CheckUpdates(bool isManualCheck);
-		bool PromptToApplyUpdate();
-		void HandleUpdatedSettings(bool updatesEnabled);
-
-		UpdateState State { get; }
-		Version LatestVersion { get; }
-		int UpdateCheckProgressPercent { get; set; }
-	}
+	UpdateState State { get; }
+	Version LatestVersion { get; }
+	int UpdateCheckProgressPercent { get; set; }
 }

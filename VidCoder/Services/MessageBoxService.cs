@@ -1,91 +1,90 @@
 ﻿using System.Windows;
 using VidCoder.Services.Windows;
 
-namespace VidCoder.Services
+namespace VidCoder.Services;
+
+public class MessageBoxService : IMessageBoxService
 {
-	public class MessageBoxService : IMessageBoxService
+	private IWindowManager windowManager;
+
+	public MessageBoxService(IWindowManager windowManager)
 	{
-		private IWindowManager windowManager;
+		this.windowManager = windowManager;
+	}
 
-		public MessageBoxService(IWindowManager windowManager)
-		{
-			this.windowManager = windowManager;
-		}
+	public MessageBoxResult Show(string messageBoxText)
+	{
+		return MessageBox.Show(messageBoxText);
+	}
 
-		public MessageBoxResult Show(string messageBoxText)
+	public MessageBoxResult Show(object ownerViewModel, string messageBoxText)
+	{
+		Window ownerWindow = this.windowManager.GetView(ownerViewModel);
+
+		if (ownerWindow == null)
 		{
 			return MessageBox.Show(messageBoxText);
 		}
-
-		public MessageBoxResult Show(object ownerViewModel, string messageBoxText)
+		else
 		{
-			Window ownerWindow = this.windowManager.GetView(ownerViewModel);
-
-			if (ownerWindow == null)
-			{
-				return MessageBox.Show(messageBoxText);
-			}
-			else
-			{
-				return MessageBox.Show(ownerWindow, messageBoxText);
-			}
+			return MessageBox.Show(ownerWindow, messageBoxText);
 		}
+	}
 
-		public MessageBoxResult Show(string messageBoxText, string caption)
+	public MessageBoxResult Show(string messageBoxText, string caption)
+	{
+		return MessageBox.Show(messageBoxText, caption);
+	}
+
+	public MessageBoxResult Show(object ownerViewModel, string messageBoxText, string caption)
+	{
+		Window ownerWindow = this.windowManager.GetView(ownerViewModel);
+
+		if (ownerWindow == null)
 		{
 			return MessageBox.Show(messageBoxText, caption);
 		}
-
-		public MessageBoxResult Show(object ownerViewModel, string messageBoxText, string caption)
+		else
 		{
-			Window ownerWindow = this.windowManager.GetView(ownerViewModel);
-
-			if (ownerWindow == null)
-			{
-				return MessageBox.Show(messageBoxText, caption);
-			}
-			else
-			{
-				return MessageBox.Show(ownerWindow, messageBoxText, caption);
-			}
+			return MessageBox.Show(ownerWindow, messageBoxText, caption);
 		}
+	}
 
-		public MessageBoxResult Show(string messageBoxText, string caption, MessageBoxButton button)
+	public MessageBoxResult Show(string messageBoxText, string caption, MessageBoxButton button)
+	{
+		return MessageBox.Show(messageBoxText, caption, button);
+	}
+
+	public MessageBoxResult Show(object ownerViewModel, string messageBoxText, string caption, MessageBoxButton button)
+	{
+		Window ownerWindow = this.windowManager.GetView(ownerViewModel);
+
+		if (ownerWindow == null)
 		{
 			return MessageBox.Show(messageBoxText, caption, button);
 		}
-
-		public MessageBoxResult Show(object ownerViewModel, string messageBoxText, string caption, MessageBoxButton button)
+		else
 		{
-			Window ownerWindow = this.windowManager.GetView(ownerViewModel);
-
-			if (ownerWindow == null)
-			{
-				return MessageBox.Show(messageBoxText, caption, button);
-			}
-			else
-			{
-				return MessageBox.Show(ownerWindow, messageBoxText, caption, button);
-			}
+			return MessageBox.Show(ownerWindow, messageBoxText, caption, button);
 		}
+	}
 
-		public MessageBoxResult Show(string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon)
+	public MessageBoxResult Show(string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon)
+	{
+		return MessageBox.Show(messageBoxText, caption, button, icon);
+	}
+
+	public MessageBoxResult Show(object ownerViewModel, string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon)
+	{
+		Window ownerWindow = this.windowManager.GetView(ownerViewModel);
+
+		if (ownerWindow == null)
 		{
 			return MessageBox.Show(messageBoxText, caption, button, icon);
 		}
-
-		public MessageBoxResult Show(object ownerViewModel, string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon)
+		else
 		{
-			Window ownerWindow = this.windowManager.GetView(ownerViewModel);
-
-			if (ownerWindow == null)
-			{
-				return MessageBox.Show(messageBoxText, caption, button, icon);
-			}
-			else
-			{
-				return MessageBox.Show(ownerWindow, messageBoxText, caption, button, icon);
-			}
+			return MessageBox.Show(ownerWindow, messageBoxText, caption, button, icon);
 		}
 	}
 }

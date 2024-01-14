@@ -1,9 +1,8 @@
-﻿namespace VidCoder.Model
+﻿namespace VidCoder.Model;
+
+public enum LogSource
 {
-	public enum LogSource
-	{
-		VidCoder,
-		HandBrake,
-		VidCoderWorker
-	}
+	VidCoder,
+	HandBrake,
+	VidCoderWorker
 }

@@ -3,24 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VidCoder.ViewModel
+namespace VidCoder.ViewModel;
+
+public class TargetStreamViewModel
 {
-	public class TargetStreamViewModel
+	public string Text { get; set; }
+	public string TrackDetails { get; set; }
+
+	public bool HasTrackDetails
 	{
-		public string Text { get; set; }
-		public string TrackDetails { get; set; }
-
-		public bool HasTrackDetails
+		get
 		{
-			get
-			{
-				return this.TrackDetails != null;
-			}
+			return this.TrackDetails != null;
 		}
+	}
 
-		public override string ToString()
-		{
-			return this.Text;
-		}
+	public override string ToString()
+	{
+		return this.Text;
 	}
 }

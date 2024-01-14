@@ -5,14 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using VidCoderCommon.Model;
 
-namespace VidCoder.Model
+namespace VidCoder.Model;
+
+public class ScanResult
 {
-	public class ScanResult
-	{
-		public SourcePathWithMetadata SourcePath { get; set; }
+	public SourcePathWithMetadata SourcePath { get; set; }
 
-		public VideoSource VideoSource { get; set; }
+	public VideoSource VideoSource { get; set; }
 
-		public JobInstructions JobInstructions { get; set; }
-	}
+	public JobInstructions JobInstructions { get; set; }
 }

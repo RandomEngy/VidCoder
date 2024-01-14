@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>General</value>
@@ -127,13 +127,13 @@
     <value>Minimizar a la bandeja del sistema</value>
   </data>
   <data name="PlaySoundOnQueueCompletionCheckBox" xml:space="preserve">
-    <value>Reproducir un sonido al finalizar la cola</value>
+    <value>Reproducir un sonido al completar la cola</value>
   </data>
   <data name="PreferredDvdPlayerLabel" xml:space="preserve">
     <value>Reproductor de DVD preferido:</value>
   </data>
   <data name="PreferredDvdPlayerToolTip" xml:space="preserve">
-    <value>Elije el reproductor que deseas utilizar para fuentes de DVD.</value>
+    <value>Elija el reproductor que desea utilizar para fuentes de DVD.</value>
   </data>
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
     <value>Actualizaciones automáticas</value>
@@ -142,31 +142,31 @@
     <value>Cuando ya existe un archivo...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
-    <value>Codificacion simple de archivo:</value>
+    <value>Codificando un solo archivo:</value>
   </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
     <value>Codificando archivos en lote:</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
-    <value>Pausar automáticamente la codificación cuando alguno de estos procesos se estén ejecutando:</value>
+    <value>Pausar la codificación cuando alguno de estos procesos se estén ejecutando:</value>
   </data>
   <data name="AddEllipsesButton" xml:space="preserve">
     <value>Agregar...</value>
   </data>
   <data name="PreviewCountLabel" xml:space="preserve">
-    <value>Número de avances de imagen a analizar:</value>
+    <value>Número de previsualizaciones de imagen a analizar:</value>
   </data>
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>Recordar archivos y carpetas usadas previamente</value>
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>Habilita LibDVDNav (El cambio requiere reiniciar VidCoder. Requerido para multi ángulos)</value>
+    <value>Habilitar LibDVDNav (El cambio requiere reiniciar el programa. Requerido para multi ángulos)</value>
   </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
-    <value>Nivel de detalle del Log:</value>
+    <value>Nivel de detalle del registro:</value>
   </data>
   <data name="MinScanLengthLabel" xml:space="preserve">
-    <value>Longitud mínima del título a analizar (segundos):</value>
+    <value>Longitud mínima del título para analizar (en segundos):</value>
   </data>
   <data name="RecognizedExtensionsLabel" xml:space="preserve">
     <value>Extensiones reconocidas:</value>
@@ -178,7 +178,7 @@
     <value>Opciones</value>
   </data>
   <data name="ProcessTab" xml:space="preserve">
-    <value>Procesos</value>
+    <value>Proceso</value>
   </data>
   <data name="AdvancedTab" xml:space="preserve">
     <value>Avanzado</value>
@@ -193,19 +193,19 @@
     <value>Actualización {0} lista.</value>
   </data>
   <data name="UpToDateStatus" xml:space="preserve">
-    <value>VidCoder esta actualizado.</value>
+    <value>VidCoder está actualizado.</value>
   </data>
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
-    <value>Elige el directorio de salida para los videos codificados.</value>
+    <value>Elija el directorio de salida para los videos codificados.</value>
   </data>
   <data name="InterfaceLanguageLabel" xml:space="preserve">
     <value>Idioma de la interfaz:</value>
   </data>
   <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
-    <value>El cambio de idioma surtirá efecto después de reiniciar VidCoder.</value>
+    <value>El cambio de idioma surtirá efecto después de salir y reiniciar VidCoder.</value>
   </data>
   <data name="UseOSLanguage" xml:space="preserve">
-    <value>Usar Idioma del sistema</value>
+    <value>Usar Idioma del sistema operativo</value>
   </data>
   <data name="UpdatesTab" xml:space="preserve">
     <value>Actualizaciones</value>
@@ -214,13 +214,13 @@
     <value>Falló la comprobación de las actualizaciones.</value>
   </data>
   <data name="CompletionWavFilePickTitle" xml:space="preserve">
-    <value>Elije el archivo .wav que deseas escuchar al concluir.</value>
+    <value>Elija el archivo .wav que desea utilizar como sonido de finalización.</value>
   </data>
   <data name="CurrentVersionLabel" xml:space="preserve">
     <value>Versión actual: {0}</value>
   </data>
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
-    <value>Atención: ésta versión es inestable, puede contener errores o fallar inesperadamente.</value>
+    <value>Cuidado: esta versión es probable que tenga errores y se cuelgue.</value>
   </data>
   <data name="PlayersSection" xml:space="preserve">
     <value>Reproductores</value>
@@ -331,9 +331,6 @@
   <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
     <value>Indica cuantos trabajos se ejecutan simultáneamente. Es útil en equipos con CPUs de muchos núcleos.</value>
   </data>
-  <data name="GeneralSection" xml:space="preserve">
-    <value>General</value>
-  </data>
   <data name="ThemeLabel" xml:space="preserve">
     <value>Tema</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
@@ -381,5 +378,45 @@
   <data name="UpdateModeLabel" xml:space="preserve">
     <value>Modo de actualización:</value>
     <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
+  </data>
+  <data name="WatcherModeLabel" xml:space="preserve">
+    <value>Modo vigilante:</value>
+  </data>
+  <data name="WatcherModelToolTip" xml:space="preserve">
+    <value>Vigilante del sistema: Utiliza el sistema operativo para notificar a VidCoder que hay nuevos archivos. Es el más rápido y utiliza los mínimos recursos de CPU y disco.
+Sondeador: Comprueba periódicamente el contenido de las carpetas. Utiliza significativos recursos de CPU y disco. Úselo solo si el vigilante del sistema no funciona.</value>
+  </data>
+  <data name="WatcherPollIntervalLabel" xml:space="preserve">
+    <value>Intervalo de sondeo (en segundos):</value>
+  </data>
+  <data name="ApplicationSection" xml:space="preserve">
+    <value>Aplicación</value>
+  </data>
+  <data name="EncodingSettingsDescription" xml:space="preserve">
+    <value>Los ajustes de codificación incluyen codec, tasa de bits (bitrate), tamaño de imagen y filtros. Esto afectará a la apariencia y el sonido del vídeo, el tamaño del archivo y que reproductores lo soportarán. (CÓMO codificar)</value>
+  </data>
+  <data name="EncodingSettingsSection" xml:space="preserve">
+    <value>Ajustes de codificación</value>
+  </data>
+  <data name="EncodingSettingsShortcutButton" xml:space="preserve">
+    <value>Editar ajustes de codificación</value>
+  </data>
+  <data name="PickerDescription" xml:space="preserve">
+    <value>El selector elige una ubicación de archivo de salida, pistas de sonido y subtítulos. Personalice el selector para que automáticamente añada las pistas que desee y para seleccionar el nombre de archivo y la carpeta de destino. (QUÉ codificar)</value>
+  </data>
+  <data name="PickerSettingsSection" xml:space="preserve">
+    <value>Ubicación de salida, selección de pista</value>
+  </data>
+  <data name="PickerShortcutButton" xml:space="preserve">
+    <value>Editar ajustes del selector</value>
+  </data>
+  <data name="EnableNVDecCheckBox" xml:space="preserve">
+    <value>Usar Nvidia NVDec para decodificar vídeo cuando el codificador NVENnc y el hardware están disponibles.</value>
+  </data>
+  <data name="HardwareEncodingSection" xml:space="preserve">
+    <value>Codificación por hardware</value>
+  </data>
+  <data name="CapNVEncCheckBox" xml:space="preserve">
+    <value>Limitar codificaciones NVEnc simultáneas. Configurar esto requiere un parche personalizado para el driver de NVidia.</value>
   </data>
 </root>

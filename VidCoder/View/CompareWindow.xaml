@@ -36,13 +36,13 @@
 				Title="{Binding Title}"
 				Grid.Row="0"
 				Icon="/Icons/Preview64.png"
-				IsActive="{Binding IsActive,
-				                   RelativeSource={RelativeSource AncestorType=Window}}" />
+				IsActive="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" />
 			<Grid Grid.Row="1" Cursor="Hand">
 				<MediaElement
 					Name="originalVideo"
 					IsMuted="{Binding IsMuted}"
 					LoadedBehavior="Manual"
+					MediaFailed="originalVideo_MediaFailed"
 					MediaOpened="originalVideo_MediaOpened"
 					ScrubbingEnabled="True"
 					Source="{Binding OriginalFilePath}" />
@@ -52,6 +52,7 @@
 					IsMuted="True"
 					LoadedBehavior="Manual"
 					MediaEnded="encodedVideo_MediaEnded"
+					MediaFailed="encodedVideo_MediaFailed"
 					MediaOpened="encodedVideo_MediaOpened"
 					Opacity="0"
 					ScrubbingEnabled="True"
@@ -70,8 +71,7 @@
 					AutomationProperties.Name="{x:Static res:MainRes.Pause}"
 					Command="{Binding Pause}"
 					Style="{StaticResource BorderlessButtonStyle}"
-					Visibility="{Binding Paused,
-					                     Converter={StaticResource InverseVisibilityConverter}}">
+					Visibility="{Binding Paused, Converter={StaticResource InverseVisibilityConverter}}">
 					<Path Data="M 0,0 L 0,14 L 4,14, 4,0 Z M 6,0 L 6,14 L 10,14 L 10,0 Z" Fill="White" />
 				</Button>
 				<Button
@@ -79,8 +79,7 @@
 					AutomationProperties.Name="{x:Static res:MainRes.Play}"
 					Command="{Binding Play}"
 					Style="{StaticResource BorderlessButtonStyle}"
-					Visibility="{Binding Paused,
-					                     Converter={StaticResource VisibilityConverter}}">
+					Visibility="{Binding Paused, Converter={StaticResource VisibilityConverter}}">
 					<Path Data="M 0,0 L 0,14 L 14,7 Z" Fill="White" />
 				</Button>
 				<Button
@@ -89,8 +88,7 @@
 					AutomationProperties.Name="{x:Static res:MainRes.MuteAutomationName}"
 					Command="{Binding Mute}"
 					Style="{StaticResource BorderlessButtonStyle}"
-					Visibility="{Binding IsMuted,
-					                     Converter={StaticResource InverseVisibilityConverter}}">
+					Visibility="{Binding IsMuted, Converter={StaticResource InverseVisibilityConverter}}">
 					<Image
 						Width="18"
 						Height="18"
@@ -102,8 +100,7 @@
 					AutomationProperties.Name="{x:Static res:MainRes.UnmuteAutomationName}"
 					Command="{Binding Unmute}"
 					Style="{StaticResource BorderlessButtonStyle}"
-					Visibility="{Binding IsMuted,
-					                     Converter={StaticResource VisibilityConverter}}">
+					Visibility="{Binding IsMuted, Converter={StaticResource VisibilityConverter}}">
 					<Image
 						Width="18"
 						Height="18"
@@ -113,8 +110,7 @@
 					Grid.Column="2"
 					Height="24"
 					EnableTimeText="True"
-					Position="{Binding VideoPosition,
-					                   Mode=TwoWay}"
+					Position="{Binding VideoPosition, Mode=TwoWay}"
 					SeekBarColor="{Binding SeekBarColor}"
 					VideoDuration="{Binding VideoDuration}" />
 			</Grid>

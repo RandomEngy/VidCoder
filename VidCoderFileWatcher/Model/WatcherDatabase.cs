@@ -8,48 +8,47 @@ using VidCoderCommon.Model;
 using VidCoderCommon.Extensions;
 using System.Text.Json;
 
-namespace VidCoderFileWatcher.Model
+namespace VidCoderFileWatcher.Model;
+
+/// <summary>
+/// SQLite database access for the watcher process.
+/// This is a stripped down version that does not do any upgrades, backups or checking for portable file locations.
+/// </summary>
+public static class WatcherDatabase
 {
-	/// <summary>
-	/// SQLite database access for the watcher process.
-	/// This is a stripped down version that does not do any upgrades, backups or checking for portable file locations.
-	/// </summary>
-	public static class WatcherDatabase
+	private static ThreadLocal<SQLiteConnection> threadLocalConnection = new ThreadLocal<SQLiteConnection>(trackAllValues: true);
+
+	public static SQLiteConnection? Connection
 	{
-		private static ThreadLocal<SQLiteConnection> threadLocalConnection = new ThreadLocal<SQLiteConnection>(trackAllValues: true);
-
-		public static SQLiteConnection? Connection
+		get
 		{
-			get
+			if (!threadLocalConnection.IsValueCreated)
 			{
-				if (!threadLocalConnection.IsValueCreated)
+				SQLiteConnection? connection = CreateConnection();
+				if (connection == null)
 				{
-					SQLiteConnection? connection = CreateConnection();
-					if (connection == null)
-					{
-						return null;
-					}
-					else
-					{
-						threadLocalConnection.Value = connection;
-					}
+					return null;
 				}
-
-				return threadLocalConnection.Value;
+				else
+				{
+					threadLocalConnection.Value = connection;
+				}
 			}
-		}
 
-		public static SQLiteConnection? CreateConnection()
+			return threadLocalConnection.Value;
+		}
+	}
+
+	public static SQLiteConnection? CreateConnection()
+	{
+		if (!File.Exists(CommonDatabase.NonPortableDatabaseFile))
 		{
-			if (!File.Exists(CommonDatabase.NonPortableDatabaseFile))
-			{
-				return null;
-			}
-
-			var connection = new SQLiteConnection("Data Source=" + CommonDatabase.NonPortableDatabaseFile);
-			connection.Open();
-
-			return connection;
+			return null;
 		}
+
+		var connection = new SQLiteConnection("Data Source=" + CommonDatabase.NonPortableDatabaseFile);
+		connection.Open();
+
+		return connection;
 	}
 }

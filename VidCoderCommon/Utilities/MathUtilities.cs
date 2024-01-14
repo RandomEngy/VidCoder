@@ -5,82 +5,81 @@ using System.Text;
 using System.Threading.Tasks;
 using HandBrake.Interop.Interop.Json.Shared;
 
-namespace VidCoderCommon.Utilities
+namespace VidCoderCommon.Utilities;
+
+public class MathUtilities
 {
-	public class MathUtilities
+	public static long Gcd(long a, long b)
 	{
-		public static long Gcd(long a, long b)
+		if (a < 0 || b < 0)
 		{
-			if (a < 0 || b < 0)
-			{
-				return 1;
-			}
+			return 1;
+		}
 
-			while (a != 0 && b != 0)
+		while (a != 0 && b != 0)
+		{
+			if (a > b)
 			{
-				if (a > b)
-				{
-					a %= b;
-				}
-				else
-				{
-					b %= a;
-				}
-			}
-
-			if (a == 0)
-			{
-				return b;
+				a %= b;
 			}
 			else
 			{
-				return a;
+				b %= a;
 			}
 		}
 
-		public static int Gcd(int a, int b)
+		if (a == 0)
 		{
-			if (a < 0 || b < 0)
-			{
-				return 1;
-			}
+			return b;
+		}
+		else
+		{
+			return a;
+		}
+	}
 
-			while (a != 0 && b != 0)
-			{
-				if (a > b)
-				{
-					a %= b;
-				}
-				else
-				{
-					b %= a;
-				}
-			}
+	public static int Gcd(int a, int b)
+	{
+		if (a < 0 || b < 0)
+		{
+			return 1;
+		}
 
-			if (a == 0)
+		while (a != 0 && b != 0)
+		{
+			if (a > b)
 			{
-				return b;
+				a %= b;
 			}
 			else
 			{
-				return a;
+				b %= a;
 			}
 		}
 
-		public static PAR CreatePar(long num, long den)
+		if (a == 0)
 		{
-			if (num == 0 || den == 0)
-			{
-				return new PAR { Num = (int)num, Den = (int)den };
-			}
+			return b;
+		}
+		else
+		{
+			return a;
+		}
+	}
 
-			long gcd = Gcd(num, den);
-			return new PAR { Num = (int)(num / gcd), Den = (int)(den / gcd) };
+	public static PAR CreatePar(long num, long den)
+	{
+		if (num == 0 || den == 0)
+		{
+			return new PAR { Num = (int)num, Den = (int)den };
 		}
 
-		public static int RoundToModulus(int number, int modulus)
-		{
-			return (int)Math.Round((double)number / modulus) * modulus;
-		}
+		long gcd = Gcd(num, den);
+		return new PAR { Num = (int)(num / gcd), Den = (int)(den / gcd) };
+	}
+
+	public static int RoundToModulus(int number, int modulus)
+	{
+		return (int)Math.Round((double)number / modulus) * modulus;
 	}
 }

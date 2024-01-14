@@ -344,4 +344,8 @@ Kompletna kopija GNU Opće javne licence dolazi s ovim programom.</value>
   <data name="Enabled" xml:space="preserve">
     <value>Omogućeno</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Zatvaranje</value>
+    <comment>Label to close a window or item.</comment>
+  </data>
 </root>

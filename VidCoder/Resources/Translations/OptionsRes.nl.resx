@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>Algemeen</value>
@@ -331,9 +331,6 @@
   <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
     <value>Dit is hoeveel gelijktijdige coderingstaken zijn toegestaan. Nuttig voor machines met veel CPU-cores.</value>
   </data>
-  <data name="GeneralSection" xml:space="preserve">
-    <value>Algemeen</value>
-  </data>
   <data name="ThemeLabel" xml:space="preserve">
     <value>Thema</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
@@ -381,5 +378,45 @@
   <data name="UpdateModeLabel" xml:space="preserve">
     <value>Updatemodus:</value>
     <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
+  </data>
+  <data name="WatcherModeLabel" xml:space="preserve">
+    <value>Bewakingsmodus:</value>
+  </data>
+  <data name="WatcherModelToolTip" xml:space="preserve">
+    <value>Systeembewaking: Gebruikt het besturingssysteem om VidCoder te informeren over nieuwe bestanden. Dit is het snelst en gebruikt minimale CPU- en schijfbronnen.
+Peiling: Periodieke controle van de inhoud van de mappen. Gebruikt aanzienlijke CPU- en schijfbronnen. Gebruik dit alleen als de System watcher niet werkt.</value>
+  </data>
+  <data name="WatcherPollIntervalLabel" xml:space="preserve">
+    <value>Peilingsinterval (seconden):</value>
+  </data>
+  <data name="ApplicationSection" xml:space="preserve">
+    <value>Toepassing</value>
+  </data>
+  <data name="EncodingSettingsDescription" xml:space="preserve">
+    <value>Coderingsinstellingen omvatten codec, bitrate, afbeeldingsgrootte en filters. Dit beïnvloedt hoe de video eruit ziet en klinkt, de bestandsgrootte en welke spelers het ondersteunen. (HOE te coderen)</value>
+  </data>
+  <data name="EncodingSettingsSection" xml:space="preserve">
+    <value>Coderingsinstellingen</value>
+  </data>
+  <data name="EncodingSettingsShortcutButton" xml:space="preserve">
+    <value>Coderingsinstellingen aanpassen</value>
+  </data>
+  <data name="PickerDescription" xml:space="preserve">
+    <value>De kiezer kiest een uitvoer-bestandslocatie, audiosporen en ondertitels. Pas de kiezer aan om automatisch de gewenste nummers toe te voegen en om de bestandsnaam en de doelmap te kiezen. (WAT coderen)</value>
+  </data>
+  <data name="PickerSettingsSection" xml:space="preserve">
+    <value>Uitvoerlocatie, selectie van sporen</value>
+  </data>
+  <data name="PickerShortcutButton" xml:space="preserve">
+    <value>Instellingen van de Kiezer bewerken</value>
+  </data>
+  <data name="EnableNVDecCheckBox" xml:space="preserve">
+    <value>Gebruik Nvidia NVDec om video te decoderen wanneer je een NVEnc encoder gebruikt en de hardware is beschikbaar</value>
+  </data>
+  <data name="HardwareEncodingSection" xml:space="preserve">
+    <value>Hardware codering</value>
+  </data>
+  <data name="CapNVEncCheckBox" xml:space="preserve">
+    <value>Gelijktijdige NVEnc codering beperken. Uitschakeling hiervan vereist een aangepast NVidia stuurprogramma.</value>
   </data>
 </root>

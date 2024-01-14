@@ -6,140 +6,139 @@ using ReactiveUI;
 using VidCoder.Resources;
 using VidCoderCommon.Model;
 
-namespace VidCoder.ViewModel
+namespace VidCoder.ViewModel;
+
+public class AudioTrackViewModel : ReactiveObject
 {
-	public class AudioTrackViewModel : ReactiveObject
+	private readonly MainViewModel mainViewModel;
+
+	/// <summary>
+	/// Creates an instance of the AudioTrackViewModel class.
+	/// </summary>
+	/// <param name="mainViewModel">An instance of the main viewmodel.</param>
+	/// <param name="audioTrack">The audio track to wrap.</param>
+	/// <param name="chosenAudioTrack">The chosen audio track, with 1-based track number.</param>
+	public AudioTrackViewModel(MainViewModel mainViewModel, SourceAudioTrack audioTrack, ChosenAudioTrack chosenAudioTrack)
 	{
-		private readonly MainViewModel mainViewModel;
+		this.mainViewModel = mainViewModel;
+		this.AudioTrack = audioTrack;
+		this.ChosenAudioTrack = chosenAudioTrack.Clone();
+	}
 
-		/// <summary>
-		/// Creates an instance of the AudioTrackViewModel class.
-		/// </summary>
-		/// <param name="mainViewModel">An instance of the main viewmodel.</param>
-		/// <param name="audioTrack">The audio track to wrap.</param>
-		/// <param name="chosenAudioTrack">The chosen audio track, with 1-based track number.</param>
-		public AudioTrackViewModel(MainViewModel mainViewModel, SourceAudioTrack audioTrack, ChosenAudioTrack chosenAudioTrack)
+	private bool selected;
+	public bool Selected
+	{
+		get { return this.selected; }
+		set
 		{
-			this.mainViewModel = mainViewModel;
-			this.AudioTrack = audioTrack;
-			this.ChosenAudioTrack = chosenAudioTrack.Clone();
+			this.RaiseAndSetIfChanged(ref this.selected, value);
+			this.mainViewModel.RefreshAudioSummary();
+			this.UpdateButtonVisiblity();
 		}
+	}
 
-		private bool selected;
-		public bool Selected
+	public DateTimeOffset? LastMouseDownTime { get; set; }
+
+	public bool RemoveVisible
+	{
+		get
 		{
-			get { return this.selected; }
-			set
-			{
-				this.RaiseAndSetIfChanged(ref this.selected, value);
-				this.mainViewModel.RefreshAudioSummary();
-				this.UpdateButtonVisiblity();
-			}
+			return this.mainViewModel.HasMultipleAudioTracks(this.TrackNumber);
 		}
+	}
 
-		public DateTimeOffset? LastMouseDownTime { get; set; }
-
-		public bool RemoveVisible
+	public bool DuplicateVisible
+	{
+		get
 		{
-			get
-			{
-				return this.mainViewModel.HasMultipleAudioTracks(this.TrackNumber);
-			}
+			return !this.mainViewModel.HasMultipleAudioTracks(this.TrackNumber) && this.Selected;
 		}
+	}
 
-		public bool DuplicateVisible
+	private ReactiveCommand<Unit, Unit> duplicate;
+	public ICommand Duplicate
+	{
+		get
 		{
-			get
+			return this.duplicate ?? (this.duplicate = ReactiveCommand.Create(() =>
 			{
-				return !this.mainViewModel.HasMultipleAudioTracks(this.TrackNumber) && this.Selected;
-			}
+				this.mainViewModel.DuplicateAudioTrack(this);
+			}));
 		}
+	}
 
-		private ReactiveCommand<Unit, Unit> duplicate;
-		public ICommand Duplicate
+	private ReactiveCommand<Unit, Unit> remove;
+	public ICommand Remove
+	{
+		get
 		{
-			get
+			return this.remove ?? (this.remove = ReactiveCommand.Create(() =>
 			{
-				return this.duplicate ?? (this.duplicate = ReactiveCommand.Create(() =>
-				{
-					this.mainViewModel.DuplicateAudioTrack(this);
-				}));
-			}
+				this.mainViewModel.RemoveAudioTrack(this);
+			}));
 		}
+	}
 
-		private ReactiveCommand<Unit, Unit> remove;
-		public ICommand Remove
+	/// <summary>
+	/// Gets the 0-based index for the track.
+	/// </summary>
+	public int TrackIndex => this.ChosenAudioTrack.TrackNumber - 1;
+
+	public int TrackNumber => this.ChosenAudioTrack.TrackNumber;
+	
+	public ChosenAudioTrack ChosenAudioTrack { get; }
+
+	public SourceAudioTrack AudioTrack { get; set; }
+
+	public string SourceBitrate
+	{
+		get
 		{
-			get
+			int bitRateKbps = (this.AudioTrack.BitRate / 1000);
+			if (bitRateKbps == 0)
 			{
-				return this.remove ?? (this.remove = ReactiveCommand.Create(() =>
-				{
-					this.mainViewModel.RemoveAudioTrack(this);
-				}));
+				return CommonRes.Unknown;
 			}
+
+			return bitRateKbps.ToString();
 		}
+	} 
 
-		/// <summary>
-		/// Gets the 0-based index for the track.
-		/// </summary>
-		public int TrackIndex => this.ChosenAudioTrack.TrackNumber - 1;
-
-		public int TrackNumber => this.ChosenAudioTrack.TrackNumber;
-		
-		public ChosenAudioTrack ChosenAudioTrack { get; }
-
-		public SourceAudioTrack AudioTrack { get; set; }
-
-		public string SourceBitrate
+	public override string ToString()
+    {
+		if (string.IsNullOrEmpty(this.AudioTrack.Name))
 		{
-			get
-			{
-				int bitRateKbps = (this.AudioTrack.BitRate / 1000);
-				if (bitRateKbps == 0)
-				{
-					return CommonRes.Unknown;
-				}
-
-				return bitRateKbps.ToString();
-			}
-		} 
-
-		public override string ToString()
-	    {
-			if (string.IsNullOrEmpty(this.AudioTrack.Name))
-			{
-				return this.TrackSummary;
-			}
-			else
-			{
-				return this.TrackNumber + " " + this.AudioTrack.Name + " - " + this.AudioTrack.Description;
-			}
+			return this.TrackSummary;
 		}
-
-		public string TrackSummary
+		else
 		{
-			get
-			{
-				return this.TrackNumber + " " + this.AudioTrack.Description;
-			}
+			return this.TrackNumber + " " + this.AudioTrack.Name + " - " + this.AudioTrack.Description;
 		}
+	}
 
-		public string Name
+	public string TrackSummary
+	{
+		get
 		{
-			get => this.ChosenAudioTrack.Name ?? this.AudioTrack.Name;
-			set
-			{
-				this.ChosenAudioTrack.Name = value;
-				this.RaisePropertyChanged();
-			}
+			return this.TrackNumber + " " + this.AudioTrack.Description;
 		}
+	}
 
-		public string SourceName => this.AudioTrack.Name;
-
-		public void UpdateButtonVisiblity()
+	public string Name
+	{
+		get => this.ChosenAudioTrack.Name ?? this.AudioTrack.Name;
+		set
 		{
-			this.RaisePropertyChanged(nameof(this.DuplicateVisible));
-			this.RaisePropertyChanged(nameof(this.RemoveVisible));
+			this.ChosenAudioTrack.Name = value;
+			this.RaisePropertyChanged();
 		}
+	}
+
+	public string SourceName => this.AudioTrack.Name;
+
+	public void UpdateButtonVisiblity()
+	{
+		this.RaisePropertyChanged(nameof(this.DuplicateVisible));
+		this.RaisePropertyChanged(nameof(this.RemoveVisible));
 	}
 }

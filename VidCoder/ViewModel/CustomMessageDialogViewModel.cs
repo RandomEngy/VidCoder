@@ -9,77 +9,76 @@ using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Services.Windows;
 
-namespace VidCoder.ViewModel
+namespace VidCoder.ViewModel;
+
+public class CustomMessageDialogViewModel<T>
 {
-	public class CustomMessageDialogViewModel<T>
+	private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
+
+	public CustomMessageDialogViewModel(string title, string message, IEnumerable<CustomDialogButton<T>> buttons)
 	{
-		private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
+		this.Title = title;
+		this.Message = message;
+		this.Buttons = buttons.ToList();
 
-		public CustomMessageDialogViewModel(string title, string message, IEnumerable<CustomDialogButton<T>> buttons)
+		foreach (var button in this.Buttons)
 		{
-			this.Title = title;
-			this.Message = message;
-			this.Buttons = buttons.ToList();
+			button.Parent = this;
+		}
+	}
 
-			foreach (var button in this.Buttons)
+	public string Title { get; }
+
+	public string Message { get; }
+
+	public List<CustomDialogButton<T>> Buttons { get; }
+
+	public T Result { get; private set; }
+
+	public void SetResult(T result)
+	{
+		this.Result = result;
+		this.windowManager.Close(this);
+	}
+}
+
+public class CustomDialogButton<T>
+{
+	public CustomDialogButton(T value, string display, ButtonType type = ButtonType.Normal)
+	{
+		this.Value = value;
+		this.Display = display;
+
+		this.IsDefault = type == ButtonType.Default;
+		this.IsCancel = type == ButtonType.Cancel;
+	}
+
+	public T Value { get; }
+
+	public string Display { get; }
+
+	public bool IsDefault { get; }
+
+	public bool IsCancel { get; }
+
+	public CustomMessageDialogViewModel<T> Parent { get; set; }
+
+	private ReactiveCommand<Unit, Unit> choose;
+	public ICommand Choose
+	{
+		get
+		{
+			return this.choose ?? (this.choose = ReactiveCommand.Create(() =>
 			{
-				button.Parent = this;
-			}
-		}
-
-		public string Title { get; }
-
-		public string Message { get; }
-
-		public List<CustomDialogButton<T>> Buttons { get; }
-
-		public T Result { get; private set; }
-
-		public void SetResult(T result)
-		{
-			this.Result = result;
-			this.windowManager.Close(this);
+				this.Parent.SetResult(this.Value);
+			}));
 		}
 	}
+}
 
-	public class CustomDialogButton<T>
-	{
-		public CustomDialogButton(T value, string display, ButtonType type = ButtonType.Normal)
-		{
-			this.Value = value;
-			this.Display = display;
-
-			this.IsDefault = type == ButtonType.Default;
-			this.IsCancel = type == ButtonType.Cancel;
-		}
-
-		public T Value { get; }
-
-		public string Display { get; }
-
-		public bool IsDefault { get; }
-
-		public bool IsCancel { get; }
-
-		public CustomMessageDialogViewModel<T> Parent { get; set; }
-
-		private ReactiveCommand<Unit, Unit> choose;
-		public ICommand Choose
-		{
-			get
-			{
-				return this.choose ?? (this.choose = ReactiveCommand.Create(() =>
-				{
-					this.Parent.SetResult(this.Value);
-				}));
-			}
-		}
-	}
-
-	public enum ButtonType
-	{
-		Normal,
-		Default,
-		Cancel
-	}
+public enum ButtonType
+{
+	Normal,
+	Default,
+	Cancel
 }

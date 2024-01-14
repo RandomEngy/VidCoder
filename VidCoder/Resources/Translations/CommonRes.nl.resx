@@ -344,4 +344,8 @@ Een volledige kopie van de GNU General Public License is opgenomen bij dit progr
   <data name="Enabled" xml:space="preserve">
     <value>Ingeschakeld</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Sluiten</value>
+    <comment>Label to close a window or item.</comment>
+  </data>
 </root>

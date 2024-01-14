@@ -4,131 +4,140 @@ using System.Windows;
 using System.Windows.Input;
 using VidCoder.Model.WindowPlacer;
 
-namespace VidCoder.Services.Windows
+namespace VidCoder.Services.Windows;
+
+public interface IWindowManager
 {
-	public interface IWindowManager
-	{
-		/// <summary>
-		/// Opens the viewmodel as a window.
-		/// </summary>
-		/// <param name="viewModel">The window's viewmodel.</param>
-		/// <param name="ownerViewModel">The viewmodel of the owner window.</param>
-		/// <param name="userInitiated">True if the user explicitly opened the window.</param>
-		Window OpenWindow(object viewModel, object ownerViewModel = null, bool userInitiated = true);
+	/// <summary>
+	/// Opens the viewmodel as a window.
+	/// </summary>
+	/// <param name="viewModel">The window's viewmodel.</param>
+	/// <param name="ownerViewModel">The viewmodel of the owner window.</param>
+	/// <param name="userInitiated">True if the user explicitly opened the window.</param>
+	Window OpenWindow(object viewModel, object ownerViewModel = null, bool userInitiated = true);
 
-		/// <summary>
-		/// Opens the viewmodel as a dialog.
-		/// </summary>
-		/// <param name="viewModel">The dialog's viewmodel.</param>
-		/// <param name="ownerViewModel">The viewmodel of the owner window.</param>
-		void OpenDialog(object viewModel, object ownerViewModel = null);
+	/// <summary>
+	/// Opens the viewmodel as a dialog.
+	/// </summary>
+	/// <param name="viewModel">The dialog's viewmodel.</param>
+	/// <param name="ownerViewModel">The viewmodel of the owner window.</param>
+	void OpenDialog(object viewModel, object ownerViewModel = null);
 
-		/// <summary>
-		/// Opens all tracked windows that are open according to config.
-		/// </summary>
-		/// <remarks>Call at app startup.</remarks>
-		void OpenTrackedWindows();
+	/// <summary>
+	/// Opens all tracked windows that are open according to config.
+	/// </summary>
+	/// <remarks>Call at app startup.</remarks>
+	void OpenTrackedWindows();
 
-		/// <summary>
-		/// Closes all tracked windows.
-		/// </summary>
-		/// <remarks>Call on app exit.</remarks>
-		void CloseTrackedWindows();
+	/// <summary>
+	/// Closes all tracked windows.
+	/// </summary>
+	/// <remarks>Call on app exit.</remarks>
+	void CloseTrackedWindows();
 
-		/// <summary>
-		/// Opens or focuses the viewmodel type's window.
-		/// </summary>
-		/// <param name="viewModelType">The type of the window viewmodel.</param>
-		/// <param name="ownerViewModel">The owner view model (main view model).</param>
-		void OpenOrFocusWindow(Type viewModelType, object ownerViewModel = null);
+	/// <summary>
+	/// Opens or focuses the viewmodel type's window.
+	/// </summary>
+	/// <param name="viewModelType">The type of the window viewmodel.</param>
+	/// <param name="ownerViewModel">The owner view model (main view model).</param>
+	void OpenOrFocusWindow(Type viewModelType, object ownerViewModel = null);
 
-		/// <summary>
-		/// Focuses the window.
-		/// </summary>
-		/// <param name="viewModel">The viewmodel of the window to focus.</param>
-		void Focus(object viewModel);
+	/// <summary>
+	/// Focuses the window.
+	/// </summary>
+	/// <param name="viewModel">The viewmodel of the window to focus.</param>
+	void Focus(object viewModel);
 
-		/// <summary>
-		/// Activates the window.
-		/// </summary>
-		/// <param name="viewModel">The viewmodel of the window to activate.</param>
-		void Activate(object viewModel);
+	/// <summary>
+	/// Activates the window.
+	/// </summary>
+	/// <param name="viewModel">The viewmodel of the window to activate.</param>
+	void Activate(object viewModel);
 
-		/// <summary>
-		/// Closes the window.
-		/// </summary>
-		/// <param name="viewModel">The viewmodel of the window to close.</param>
-		void Close(object viewModel);
+	/// <summary>
+	/// Closes the window.
+	/// </summary>
+	/// <param name="viewModel">The viewmodel of the window to close.</param>
+	void Close(object viewModel);
 
-		/// <summary>
-		/// Creates a command to open a window.
-		/// </summary>
-		/// <param name="viewModelType">The type of window viewmodel to open.</param>
-		/// <param name="openAsDialog">True to open as a dialog, false to open as a window.</param>
-		/// <returns>The command.</returns>
-		ICommand CreateOpenCommand(Type viewModelType, bool openAsDialog = false);
+	/// <summary>
+	/// Creates a command to open a window.
+	/// </summary>
+	/// <param name="viewModelType">The type of window viewmodel to open.</param>
+	/// <param name="openAsDialog">True to open as a dialog, false to open as a window.</param>
+	/// <returns>The command.</returns>
+	ICommand CreateOpenCommand(Type viewModelType, bool openAsDialog = false);
 
-		/// <summary>
-		/// Closes the window of the given type.
-		/// </summary>
-		/// <typeparam name="T">The viewmodel type of the window to close.</typeparam>
-		/// <param name="userInitiated">True if the user specifically asked this window to close.</param>
-		void Close<T>(bool userInitiated) where T : class;
+	/// <summary>
+	/// Closes the window of the given type.
+	/// </summary>
+	/// <typeparam name="T">The viewmodel type of the window to close.</typeparam>
+	/// <param name="userInitiated">True if the user specifically asked this window to close.</param>
+	void Close<T>(bool userInitiated) where T : class;
 
-		/// <summary>
-		/// Gets the view for the given viewmodel.
-		/// </summary>
-		/// <param name="viewModel">The viewmodel.</param>
-		/// <returns>The view for the given viewmodel.</returns>
-		Window GetView(object viewModel);
+	/// <summary>
+	/// Gets the view for the given viewmodel.
+	/// </summary>
+	/// <param name="viewModel">The viewmodel.</param>
+	/// <returns>The view for the given viewmodel.</returns>
+	Window GetView(object viewModel);
 
-		/// <summary>
-		/// Gets a list of window positions.
-		/// </summary>
-		/// <param name="excludeWindow">The window to exclude.</param>
-		/// <returns>A list of open window positions.</returns>
-		List<WindowPosition> GetOpenedWindowPositions(Window excludeWindow = null);
+	/// <summary>
+	/// Gets a list of window positions.
+	/// </summary>
+	/// <param name="excludeWindow">The window to exclude.</param>
+	/// <returns>A list of open window positions.</returns>
+	List<WindowPosition> GetOpenedWindowPositions(Window excludeWindow = null);
 
-		/// <summary>
-		/// Finds an open window with the given viewmodel type.
-		/// </summary>
-		/// <typeparam name="T">The viewmodel type.</typeparam>
-		/// <returns>The open window viewmodel.</returns>
-		T Find<T>() where T : class;
+	/// <summary>
+	/// Finds an open window with the given viewmodel type.
+	/// </summary>
+	/// <typeparam name="T">The viewmodel type.</typeparam>
+	/// <returns>The open window viewmodel.</returns>
+	T Find<T>() where T : class;
 
-		/// <summary>
-		/// Fires when a window opens.
-		/// </summary>
-		event EventHandler<EventArgs<Type>> WindowOpened;
+	/// <summary>
+	/// Fires when a window opens.
+	/// </summary>
+	event EventHandler<EventArgs<Type>> WindowOpened;
 
-		/// <summary>
-		/// Fires when a window closes.
-		/// </summary>
-		event EventHandler<EventArgs<Type>> WindowClosed;
+	/// <summary>
+	/// Fires when a window closes.
+	/// </summary>
+	event EventHandler<EventArgs<Type>> WindowClosed;
 
-		/// <summary>
-		/// Opens the viewmodel type as a dialog.
-		/// </summary>
-		/// <typeparam name="T">The type of the viewmodel.</typeparam>
-		/// <param name="ownerViewModel">The viewmodel of the owner window.</param>
-		void OpenDialog<T>(object ownerViewModel = null) where T : class;
+	/// <summary>
+	/// Opens the viewmodel type as a dialog.
+	/// </summary>
+	/// <typeparam name="T">The type of the viewmodel.</typeparam>
+	/// <param name="ownerViewModel">The viewmodel of the owner window.</param>
+	void OpenDialog<T>(object ownerViewModel = null) where T : class;
 
-		/// <summary>
-		/// Suspends the AllowDrop property on all windows (used when a smaller drag/drop operation is starting).
-		/// </summary>
-		void SuspendDropOnWindows();
+	/// <summary>
+	/// Suspends the AllowDrop property on all windows (used when a smaller drag/drop operation is starting).
+	/// </summary>
+	void SuspendDropOnWindows();
 
-		/// <summary>
-		/// Resumes the AllowDrop property on all windows (used when a smaller drag/drop operation is finished).
-		/// </summary>
-		void ResumeDropOnWindows();
+	/// <summary>
+	/// Resumes the AllowDrop property on all windows (used when a smaller drag/drop operation is finished).
+	/// </summary>
+	void ResumeDropOnWindows();
 
-		/// <summary>
-		/// Opens or focuses the viewmodel type's window.
-		/// </summary>
-		/// <typeparam name="T">The type of the window viewmodel.</typeparam>
-		/// <param name="ownerViewModel">The owner view model (main view model).</param>
-		/// <returns>The opened viewmodel.</returns>
-		T OpenOrFocusWindow<T>(object ownerViewModel = null) where T : class;
-	}
+	/// <summary>
+	/// Opens or focuses the viewmodel type's window.
+	/// </summary>
+	/// <typeparam name="T">The type of the window viewmodel.</typeparam>
+	/// <param name="ownerViewModel">The owner view model (main view model).</param>
+	/// <returns>The opened viewmodel.</returns>
+	T OpenOrFocusWindow<T>(object ownerViewModel = null) where T : class;
+
+	/// <summary>
+	/// Gets or sets the last time the encoding window was resized.
+	/// </summary>
+	public DateTimeOffset LastEncodingWindowReize { get; set; }
+
+	/// <summary>
+	/// Gets or sets the last time the encoding window moved.
+	/// </summary>
+	public DateTimeOffset LastEncodingWindowMove { get; set; }
 }

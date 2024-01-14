@@ -342,4 +342,8 @@
   <data name="Enabled" xml:space="preserve">
     <value>აქტივირებულია</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>დახურვა</value>
+    <comment>Label to close a window or item.</comment>
+  </data>
 </root>

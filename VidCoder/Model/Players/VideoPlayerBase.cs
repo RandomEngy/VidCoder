@@ -8,64 +8,63 @@ using Microsoft.AnyContainer;
 using VidCoder.Resources;
 using VidCoder.Services;
 
-namespace VidCoder.Model
+namespace VidCoder.Model;
+
+public abstract class VideoPlayerBase : IVideoPlayer
 {
-	public abstract class VideoPlayerBase : IVideoPlayer
+	public bool Installed
 	{
-		public bool Installed
+		get
 		{
-			get
+			string executable = this.PlayerExecutable;
+			if (string.IsNullOrEmpty(executable))
 			{
-				string executable = this.PlayerExecutable;
-				if (string.IsNullOrEmpty(executable))
-				{
-					return false;
-				}
-
-				return File.Exists(executable);
+				return false;
 			}
+
+			return File.Exists(executable);
+		}
+	}
+
+	public void PlayTitle(string discPath, int title)
+	{
+		string executablePath = this.PlayerExecutable;
+		if (!File.Exists(executablePath))
+		{
+			string message = string.Format(
+				MiscRes.CouldNotFindVideoPlayerError,
+				this.Display);
+			StaticResolver.Resolve<IMessageBoxService>().Show(message);
+			return;
 		}
 
-		public void PlayTitle(string discPath, int title)
+		if (!discPath.EndsWith(@"\", StringComparison.Ordinal))
 		{
-			string executablePath = this.PlayerExecutable;
-			if (!File.Exists(executablePath))
-			{
-				string message = string.Format(
-					MiscRes.CouldNotFindVideoPlayerError,
-					this.Display);
-				StaticResolver.Resolve<IMessageBoxService>().Show(message);
-				return;
-			}
-
-			if (!discPath.EndsWith(@"\", StringComparison.Ordinal))
-			{
-				discPath += @"\";
-			}
-
-			try
-			{
-				this.PlayTitleInternal(executablePath, discPath, title);
-			}
-			catch (Exception exception)
-			{
-				string message = 
-					MiscRes.ErrorPlayingSource + Environment.NewLine + Environment.NewLine + exception.Message;
-				StaticResolver.Resolve<IMessageBoxService>().Show(message);
-			}
+			discPath += @"\";
 		}
 
-		public abstract string PlayerExecutable { get; }
-
-		public abstract void PlayTitleInternal(string executablePath, string discPath, int title);
-
-		public abstract string Id { get; }
-
-		public abstract string Display { get; }
-
-		public override string ToString()
+		try
 		{
-			return this.Display;
+			this.PlayTitleInternal(executablePath, discPath, title);
 		}
+		catch (Exception exception)
+		{
+			string message = 
+				MiscRes.ErrorPlayingSource + Environment.NewLine + Environment.NewLine + exception.Message;
+			StaticResolver.Resolve<IMessageBoxService>().Show(message);
+		}
+	}
+
+	public abstract string PlayerExecutable { get; }
+
+	public abstract void PlayTitleInternal(string executablePath, string discPath, int title);
+
+	public abstract string Id { get; }
+
+	public abstract string Display { get; }
+
+	public override string ToString()
+	{
+		return this.Display;
 	}
 }

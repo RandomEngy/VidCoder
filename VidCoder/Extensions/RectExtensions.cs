@@ -5,23 +5,22 @@ using System.Text;
 using System.Windows;
 using VidCoder.Model;
 
-namespace VidCoder.Extensions
-{
-	public static class RectExtensions
-	{
-		public static double GetSide(this Rect rect, Side side)
-		{
-			switch (side)
-			{
-				case Side.Top:
-				case Side.Bottom:
-					return rect.Width;
-				case Side.Left:
-				case Side.Right:
-					return rect.Height;
-			}
+namespace VidCoder.Extensions;
 
-			return 0;
+public static class RectExtensions
+{
+	public static double GetSide(this Rect rect, Side side)
+	{
+		switch (side)
+		{
+			case Side.Top:
+			case Side.Bottom:
+				return rect.Width;
+			case Side.Left:
+			case Side.Right:
+				return rect.Height;
 		}
+
+		return 0;
 	}
 }

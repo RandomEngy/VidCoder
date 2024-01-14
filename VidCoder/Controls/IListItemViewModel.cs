@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoder.Controls
+namespace VidCoder.Controls;
+
+public interface IListItemViewModel
 {
-	public interface IListItemViewModel
-	{
-		bool IsSelected { get; set; }
-	}
+	bool IsSelected { get; set; }
 }

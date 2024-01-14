@@ -16,119 +16,118 @@ using VidCoder.Model;
 using VidCoder.ViewModel.DataModels;
 using VidCoderCommon;
 
-namespace VidCoder.Services
+namespace VidCoder.Services;
+
+public class LogCoordinator : ReactiveObject
 {
-	public class LogCoordinator : ReactiveObject
+	private readonly IAppLogger allAppLogger = StaticResolver.Resolve<AllAppLogger>();
+
+	public LogCoordinator()
 	{
-		private readonly IAppLogger allAppLogger = StaticResolver.Resolve<AllAppLogger>();
-
-		public LogCoordinator()
+		var generalAppLogger = new LogViewModel(StaticResolver.Resolve<IAppLogger>())
 		{
-			var generalAppLogger = new LogViewModel(StaticResolver.Resolve<IAppLogger>())
-			{
-				OperationType = LogOperationType.General
-			};
+			OperationType = LogOperationType.General
+		};
 
-			this.Logs.Add(generalAppLogger);
+		this.Logs.Add(generalAppLogger);
 
-			this.Logs.Connect().Bind(this.LogsBindable).Subscribe();
+		this.Logs.Connect().Bind(this.LogsBindable).Subscribe();
 
-			this.selectedLog = generalAppLogger;
+		this.selectedLog = generalAppLogger;
 
-			if (!CustomConfig.UseWorkerProcess)
-			{
-				// The central logger always listens for messages when encoding locally
-				HandBrakeUtils.MessageLogged += this.OnMessageLoggedLocal;
-				HandBrakeUtils.ErrorLogged += this.OnErrorLoggedLocal;
-			}
+		if (!CustomConfig.UseWorkerProcess)
+		{
+			// The central logger always listens for messages when encoding locally
+			HandBrakeUtils.MessageLogged += this.OnMessageLoggedLocal;
+			HandBrakeUtils.ErrorLogged += this.OnErrorLoggedLocal;
 		}
+	}
 
-		public SourceList<LogViewModel> Logs { get; } = new SourceList<LogViewModel>();
-		public IObservableCollection<LogViewModel> LogsBindable { get; } = new ObservableCollectionExtended<LogViewModel>();
+	public SourceList<LogViewModel> Logs { get; } = new SourceList<LogViewModel>();
+	public IObservableCollection<LogViewModel> LogsBindable { get; } = new ObservableCollectionExtended<LogViewModel>();
 
-		private LogViewModel selectedLog;
-		public LogViewModel SelectedLog
+	private LogViewModel selectedLog;
+	public LogViewModel SelectedLog
+	{
+		get => this.selectedLog;
+		set => this.RaiseAndSetIfChanged(ref this.selectedLog, value);
+	}
+
+	private ReactiveCommand<Unit, Unit> openLogFolder;
+	public ICommand OpenLogFolder
+	{
+		get
 		{
-			get => this.selectedLog;
-			set => this.RaiseAndSetIfChanged(ref this.selectedLog, value);
-		}
-
-		private ReactiveCommand<Unit, Unit> openLogFolder;
-		public ICommand OpenLogFolder
-		{
-			get
-			{
-				return this.openLogFolder ?? (this.openLogFolder = ReactiveCommand.Create(
-					       () =>
-					       {
-						       string logFolder = CommonUtilities.LogsFolder;
-
-						       if (Directory.Exists(logFolder))
-						       {
-							       FileService.Instance.LaunchFile(logFolder);
-						       }
-					       },
-					       MvvmUtilities.CreateConstantObservable(Directory.Exists(CommonUtilities.LogsFolder))));
-			}
-		}
-
-		private ReactiveCommand<Unit, Unit> clear;
-		public ICommand Clear
-		{
-			get
-			{
-				return this.clear ?? (this.clear = ReactiveCommand.Create(() =>
+			return this.openLogFolder ?? (this.openLogFolder = ReactiveCommand.Create(
+				() =>
 				{
-					this.Logs.Edit(logsInnerList =>
-					{
-						for (int i = logsInnerList.Count - 1; i > 0; i--)
-						{
-							if (logsInnerList[i].Logger.Closed)
-							{
-								logsInnerList.RemoveAt(i);
-							}
-						}
-					});
+					string logFolder = CommonUtilities.LogsFolder;
 
-					if (this.SelectedLog == null)
+					if (Directory.Exists(logFolder))
 					{
-						this.SelectedLog = this.Logs.Items.First();
+						FileService.Instance.LaunchFile(logFolder);
 					}
-				}));
-			}
+				},
+				MvvmUtilities.CreateConstantObservable(Directory.Exists(CommonUtilities.LogsFolder))));
 		}
+	}
 
-		public void AddLogger(IAppLogger logger, LogOperationType logOperationType, string operationPath)
+	private ReactiveCommand<Unit, Unit> clear;
+	public ICommand Clear
+	{
+		get
 		{
-			DispatchUtilities.BeginInvoke(() =>
+			return this.clear ?? (this.clear = ReactiveCommand.Create(() =>
 			{
-				this.Logs.Add(
-					new LogViewModel(logger) { OperationPath = operationPath, OperationType = logOperationType });
-			});
-		}
+				this.Logs.Edit(logsInnerList =>
+				{
+					for (int i = logsInnerList.Count - 1; i > 0; i--)
+					{
+						if (logsInnerList[i].Logger.Closed)
+						{
+							logsInnerList.RemoveAt(i);
+						}
+					}
+				});
 
-		private void OnMessageLoggedLocal(object sender, MessageLoggedEventArgs e)
+				if (this.SelectedLog == null)
+				{
+					this.SelectedLog = this.Logs.Items.First();
+				}
+			}));
+		}
+	}
+
+	public void AddLogger(IAppLogger logger, LogOperationType logOperationType, string operationPath)
+	{
+		DispatchUtilities.BeginInvoke(() =>
 		{
-			var entry = new LogEntry
-			{
-				LogType = LogType.Message,
-				Source = LogSource.HandBrake,
-				Text = e.Message
-			};
+			this.Logs.Add(
+				new LogViewModel(logger) { OperationPath = operationPath, OperationType = logOperationType });
+		});
+	}
 
-			this.allAppLogger.AddEntry(entry);
-		}
-
-		private void OnErrorLoggedLocal(object sender, MessageLoggedEventArgs e)
+	private void OnMessageLoggedLocal(object sender, MessageLoggedEventArgs e)
+	{
+		var entry = new LogEntry
 		{
-			var entry = new LogEntry
-			{
-				LogType = LogType.Error,
-				Source = LogSource.HandBrake,
-				Text = "ERROR: " + e.Message
-			};
+			LogType = LogType.Message,
+			Source = LogSource.HandBrake,
+			Text = e.Message
+		};
 
-			this.allAppLogger.AddEntry(entry);
-		}
+		this.allAppLogger.AddEntry(entry);
+	}
+
+	private void OnErrorLoggedLocal(object sender, MessageLoggedEventArgs e)
+	{
+		var entry = new LogEntry
+		{
+			LogType = LogType.Error,
+			Source = LogSource.HandBrake,
+			Text = "ERROR: " + e.Message
+		};
+
+		this.allAppLogger.AddEntry(entry);
 	}
 }

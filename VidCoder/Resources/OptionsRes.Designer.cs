@@ -88,6 +88,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application.
+        /// </summary>
+        public static string ApplicationSection {
+            get {
+                return ResourceManager.GetString("ApplicationSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Apply update.
         /// </summary>
         public static string ApplyUpdateButton {
@@ -174,6 +183,15 @@ namespace VidCoder.Resources {
         public static string BetaUpdatesNonBetaWarning {
             get {
                 return ResourceManager.GetString("BetaUpdatesNonBetaWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cap simultaneous NVEnc encodes. Removing this requires a custom NVidia driver patch..
+        /// </summary>
+        public static string CapNVEncCheckBox {
+            get {
+                return ResourceManager.GetString("CapNVEncCheckBox", resourceCulture);
             }
         }
         
@@ -313,6 +331,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Nvidia NVDec to decode video when using an NVEnc encoder and the hardware is available.
+        /// </summary>
+        public static string EnableNVDecCheckBox {
+            get {
+                return ResourceManager.GetString("EnableNVDecCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number of encode retries:.
         /// </summary>
         public static string EncodeRetriesLabel {
@@ -327,6 +354,33 @@ namespace VidCoder.Resources {
         public static string EncodingBatchOfFiles {
             get {
                 return ResourceManager.GetString("EncodingBatchOfFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoding settings include codec, bitrate, picture size and filters. This will affect how the video looks and sounds, the file size and which players support it. (HOW to encode).
+        /// </summary>
+        public static string EncodingSettingsDescription {
+            get {
+                return ResourceManager.GetString("EncodingSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoding settings.
+        /// </summary>
+        public static string EncodingSettingsSection {
+            get {
+                return ResourceManager.GetString("EncodingSettingsSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit encoding settings.
+        /// </summary>
+        public static string EncodingSettingsShortcutButton {
+            get {
+                return ResourceManager.GetString("EncodingSettingsShortcutButton", resourceCulture);
             }
         }
         
@@ -351,18 +405,18 @@ namespace VidCoder.Resources {
         /// <summary>
         ///   Looks up a localized string similar to General.
         /// </summary>
-        public static string GeneralSection {
+        public static string GeneralTab {
             get {
-                return ResourceManager.GetString("GeneralSection", resourceCulture);
+                return ResourceManager.GetString("GeneralTab", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to General.
+        ///   Looks up a localized string similar to Hardware encoding.
         /// </summary>
-        public static string GeneralTab {
+        public static string HardwareEncodingSection {
             get {
-                return ResourceManager.GetString("GeneralTab", resourceCulture);
+                return ResourceManager.GetString("HardwareEncodingSection", resourceCulture);
             }
         }
         
@@ -489,6 +543,33 @@ namespace VidCoder.Resources {
         public static string OutputFolderSection {
             get {
                 return ResourceManager.GetString("OutputFolderSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Picker chooses an output file location, audio tracks and subtitles. Customize the Picker to automatically add the tracks you want and to pick the file name and the destination folder. (WHAT to encode).
+        /// </summary>
+        public static string PickerDescription {
+            get {
+                return ResourceManager.GetString("PickerDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output location, track selection.
+        /// </summary>
+        public static string PickerSettingsSection {
+            get {
+                return ResourceManager.GetString("PickerSettingsSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Picker settings.
+        /// </summary>
+        public static string PickerShortcutButton {
+            get {
+                return ResourceManager.GetString("PickerShortcutButton", resourceCulture);
             }
         }
         
@@ -813,6 +894,34 @@ namespace VidCoder.Resources {
         public static string VideoPlayerFilePickTitle {
             get {
                 return ResourceManager.GetString("VideoPlayerFilePickTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Watcher mode:.
+        /// </summary>
+        public static string WatcherModeLabel {
+            get {
+                return ResourceManager.GetString("WatcherModeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System watcher: Uses the operating system to notify VidCoder of new files. It&apos;s the fastest and uses minimal CPU and disk resources.
+        ///Polling: Periodically checks the contents of the folders. Uses significant CPU and disk resources. Use only if the system watcher is not working..
+        /// </summary>
+        public static string WatcherModelToolTip {
+            get {
+                return ResourceManager.GetString("WatcherModelToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Poll interval (seconds):.
+        /// </summary>
+        public static string WatcherPollIntervalLabel {
+            get {
+                return ResourceManager.GetString("WatcherPollIntervalLabel", resourceCulture);
             }
         }
         

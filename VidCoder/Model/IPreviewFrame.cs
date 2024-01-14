@@ -1,10 +1,9 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace VidCoder.Model
+namespace VidCoder.Model;
+
+public interface IPreviewFrame
 {
-	public interface IPreviewFrame
-	{
-		Grid Holder { get; }
-	}
+	Grid Holder { get; }
 }

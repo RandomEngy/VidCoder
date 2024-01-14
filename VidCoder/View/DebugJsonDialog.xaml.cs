@@ -12,26 +12,25 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace VidCoder.View
+namespace VidCoder.View;
+
+/// <summary>
+/// Interaction logic for DebugJsonDialog.xaml
+/// </summary>
+public partial class DebugJsonDialog : Window
 {
-	/// <summary>
-	/// Interaction logic for DebugJsonDialog.xaml
-	/// </summary>
-	public partial class DebugJsonDialog : Window
+	public DebugJsonDialog(string title)
 	{
-		public DebugJsonDialog(string title)
-		{
-			this.InitializeComponent();
+		this.InitializeComponent();
 
-			this.Title = title;
-		}
+		this.Title = title;
+	}
 
-		public string Json { get; set; }
+	public string Json { get; set; }
 
-		private void OnOKClick(object sender, RoutedEventArgs e)
-		{
-			this.Json = this.textBox.Text;
-			this.Close();
-		}
+	private void OnOKClick(object sender, RoutedEventArgs e)
+	{
+		this.Json = this.textBox.Text;
+		this.Close();
 	}
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VidCoder.Resources {
+namespace VidCoder.Resources; 
     using System;
     
     
@@ -115,6 +115,15 @@ namespace VidCoder.Resources {
         public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
             }
         }
         
@@ -667,4 +676,3 @@ namespace VidCoder.Resources {
             }
         }
     }
-}

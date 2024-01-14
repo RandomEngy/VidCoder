@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GeneralTab" xml:space="preserve">
     <value>General</value>
@@ -331,9 +331,6 @@
   <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
     <value>This is how many simultaneous encode jobs are allowed. Useful for machines with many CPU cores.</value>
   </data>
-  <data name="GeneralSection" xml:space="preserve">
-    <value>General</value>
-  </data>
   <data name="ThemeLabel" xml:space="preserve">
     <value>Theme</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
@@ -381,5 +378,45 @@
   <data name="UpdateModeLabel" xml:space="preserve">
     <value>Update mode:</value>
     <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
+  </data>
+  <data name="WatcherModeLabel" xml:space="preserve">
+    <value>Watcher mode:</value>
+  </data>
+  <data name="WatcherModelToolTip" xml:space="preserve">
+    <value>System watcher: Uses the operating system to notify VidCoder of new files. It's the fastest and uses minimal CPU and disk resources.
+Polling: Periodically checks the contents of the folders. Uses significant CPU and disk resources. Use only if the system watcher is not working.</value>
+  </data>
+  <data name="WatcherPollIntervalLabel" xml:space="preserve">
+    <value>Poll interval (seconds):</value>
+  </data>
+  <data name="ApplicationSection" xml:space="preserve">
+    <value>Application</value>
+  </data>
+  <data name="EncodingSettingsDescription" xml:space="preserve">
+    <value>Encoding settings include codec, bitrate, picture size and filters. This will affect how the video looks and sounds, the file size and which players support it. (HOW to encode)</value>
+  </data>
+  <data name="EncodingSettingsSection" xml:space="preserve">
+    <value>Encoding settings</value>
+  </data>
+  <data name="EncodingSettingsShortcutButton" xml:space="preserve">
+    <value>Edit encoding settings</value>
+  </data>
+  <data name="PickerDescription" xml:space="preserve">
+    <value>The Picker chooses an output file location, audio tracks and subtitles. Customize the Picker to automatically add the tracks you want and to pick the file name and the destination folder. (WHAT to encode)</value>
+  </data>
+  <data name="PickerSettingsSection" xml:space="preserve">
+    <value>Output location, track selection</value>
+  </data>
+  <data name="PickerShortcutButton" xml:space="preserve">
+    <value>Edit Picker settings</value>
+  </data>
+  <data name="EnableNVDecCheckBox" xml:space="preserve">
+    <value>Use Nvidia NVDec to decode video when using an NVEnc encoder and the hardware is available</value>
+  </data>
+  <data name="HardwareEncodingSection" xml:space="preserve">
+    <value>Hardware encoding</value>
+  </data>
+  <data name="CapNVEncCheckBox" xml:space="preserve">
+    <value>Cap simultaneous NVEnc encodes. Removing this requires a custom NVidia driver patch.</value>
   </data>
 </root>

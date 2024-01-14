@@ -117,4 +117,88 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivateWatcherButton" xml:space="preserve">
+    <value>Activar Vigilante de Archivos</value>
+  </data>
+  <data name="AddFolderToWatch" xml:space="preserve">
+    <value>Añadir carpeta para vigilar</value>
+  </data>
+  <data name="CancelMenuItem" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="DeactivateWatcherButton" xml:space="preserve">
+    <value>Desactivar Vigilante de Archivos</value>
+  </data>
+  <data name="OpenContainingFolderMenuItem" xml:space="preserve">
+    <value>Abrir carpeta contenedora</value>
+  </data>
+  <data name="PathColumnHeader" xml:space="preserve">
+    <value>Ruta</value>
+  </data>
+  <data name="PickerLabel" xml:space="preserve">
+    <value>Selector:</value>
+  </data>
+  <data name="PickWatchedFolderDialogDescription" xml:space="preserve">
+    <value>Seleccionar la carpeta para vigilar</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>Ajuste preestablecido de codificación:</value>
+  </data>
+  <data name="RemoveWatchedFolder" xml:space="preserve">
+    <value>Eliminar carpeta vigilada</value>
+  </data>
+  <data name="RetryMenuItem" xml:space="preserve">
+    <value>Reintentar</value>
+  </data>
+  <data name="RunWhenClosedCheckBox" xml:space="preserve">
+    <value>Ejecutar cuando VidCoder está cerrado</value>
+  </data>
+  <data name="ServiceInstallError" xml:space="preserve">
+    <value>No se pudo instalar el servicio de vigilancia de archivos.</value>
+  </data>
+  <data name="ServiceUninstallError" xml:space="preserve">
+    <value>No se pudo desinstalar el servicio de vigilancia de archivos.</value>
+  </data>
+  <data name="StatusCanceledToolTip" xml:space="preserve">
+    <value>La codificación fue cancelada eliminándola de la cola.</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="StatusFailedToolTip" xml:space="preserve">
+    <value>La codificación falló.</value>
+  </data>
+  <data name="StatusOutputToolTip" xml:space="preserve">
+    <value>El archivo fue codificado por VidCoder.</value>
+  </data>
+  <data name="StatusQueuedToolTip" xml:space="preserve">
+    <value>El archivo fuente está en la cola.</value>
+  </data>
+  <data name="StatusSkippedToolTip" xml:space="preserve">
+    <value>La codificación fue omitida debido a condiciones establecidas en el selector (como por ejemplo un tamaño de archivo demasiado pequeño).</value>
+  </data>
+  <data name="StatusSucceededToolTip" xml:space="preserve">
+    <value>La codificación se completó con éxito.</value>
+  </data>
+  <data name="WatchedFilesHeader" xml:space="preserve">
+    <value>Archivos</value>
+  </data>
+  <data name="WatchedFoldersHeader" xml:space="preserve">
+    <value>Vigilar carpetas</value>
+  </data>
+  <data name="WatchedFolderTextBoxLabel" xml:space="preserve">
+    <value>Carpeta:</value>
+  </data>
+  <data name="WatcherAddDialogTitle" xml:space="preserve">
+    <value>Añadir carpeta vigilada</value>
+  </data>
+  <data name="WatcherEditDialogTitle" xml:space="preserve">
+    <value>Editar carpeta vigilada</value>
+  </data>
+  <data name="WatcherIntroText" xml:space="preserve">
+    <value>Puede configurar el Vigilante para supervisar carpetas y que automáticamente se codifiquen los vídeos que se muestren en ellas. El proceso de vigilante se ejecutará cuando VidCoder esté cerrado y se inicie para codificar archivos.</value>
+  </data>
+  <data name="WatcherWindowTitle" xml:space="preserve">
+    <value>Vigilante</value>
+  </data>
 </root>

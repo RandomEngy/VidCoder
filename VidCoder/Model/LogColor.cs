@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoder.Model
+namespace VidCoder.Model;
+
+public enum LogColor
 {
-	public enum LogColor
-	{
-		Error,
-		VidCoder,
-		VidCoderWorker,
-		Normal
-	}
+	Error,
+	VidCoder,
+	VidCoderWorker,
+	Normal,
+	NoChange,
 }

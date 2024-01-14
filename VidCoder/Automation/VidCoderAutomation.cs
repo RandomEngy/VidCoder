@@ -11,100 +11,125 @@ using VidCoder.ViewModel;
 using VidCoderCommon.Model;
 using VidCoderCommon.Services;
 
-namespace VidCoder.Automation
+namespace VidCoder.Automation;
+
+public class VidCoderAutomation : IVidCoderAutomation
 {
-	public class VidCoderAutomation : IVidCoderAutomation
+	private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
+
+	public void Encode(string source, string destination, string preset, string picker)
 	{
-		private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
-
-		public void Encode(string source, string destination, string preset, string picker)
+		this.logger.Log("Processing Encode request");
+		var processingService = StaticResolver.Resolve<ProcessingService>();
+		DispatchUtilities.Invoke(() =>
 		{
-			this.logger.Log("Processing Encode request");
-			var processingService = StaticResolver.Resolve<ProcessingService>();
-			DispatchUtilities.Invoke(() =>
+			processingService.QueueAndStartFromNames(source, destination, preset, picker);
+		});
+	}
+
+	public void EncodeWatchedFiles(string watchedFolderPath, string[] sourcePaths, string preset, string picker)
+	{
+		this.logger.Log("Processing file watcher queue request");
+		var processingService = StaticResolver.Resolve<ProcessingService>();
+		DispatchUtilities.Invoke(() =>
+		{
+			processingService.QueueFromFileWatcher(watchedFolderPath, sourcePaths, preset, picker);
+		});
+	}
+
+	public void NotifyRemovedFiles(string[] removedFiles)
+	{
+		this.logger.Log("Processing file removal notification");
+		var processingService = StaticResolver.Resolve<ProcessingService>();
+		DispatchUtilities.Invoke(() =>
+		{
+			processingService.NotifyWatchedFilesRemoved();
+		});
+	}
+
+	public void Scan(string source)
+	{
+		this.logger.Log("Processing Scan request");
+		var mainVM = StaticResolver.Resolve<MainViewModel>();
+		DispatchUtilities.Invoke(() =>
+		{
+			mainVM.ScanFromAutoplay(source);
+		});
+	}
+
+	public void ImportPreset(string filePath)
+	{
+		this.logger.Log("Processing Import Preset request");
+		var presetImporter = StaticResolver.Resolve<IPresetImportExport>();
+		DispatchUtilities.Invoke(() =>
+		{
+			try
 			{
-				processingService.QueueAndStartFromNames(source, destination, preset, picker);
-			});
-		}
-
-		public void EncodeWatchedFiles(string watchedFolderPath, string[] sourcePaths, string preset, string picker)
-		{
-			this.logger.Log("Processing file watcher queue request");
-			var processingService = StaticResolver.Resolve<ProcessingService>();
-			DispatchUtilities.Invoke(() =>
+				Preset preset = presetImporter.ImportPreset(filePath);
+				this.ShowMessage(string.Format(MainRes.PresetImportSuccessMessage, preset.Name));
+			}
+			catch (Exception)
 			{
-				processingService.QueueFromFileWatcher(watchedFolderPath, sourcePaths, preset, picker);
-			});
-		}
+				this.ShowMessage(MainRes.PresetImportErrorMessage);
+				throw;
+			}
+		});
+	}
 
-		public void NotifyRemovedFiles(string[] removedFiles)
+	public void ImportQueue(string filePath)
+	{
+		this.logger.Log("Processing Import Queue request");
+		var queueImporter = StaticResolver.Resolve<IQueueImportExport>();
+		DispatchUtilities.Invoke(() =>
 		{
-			this.logger.Log("Processing file removal notification");
-			var processingService = StaticResolver.Resolve<ProcessingService>();
-			DispatchUtilities.Invoke(() =>
+			try
 			{
-				processingService.NotifyWatchedFilesRemoved();
-			});
-		}
-
-		public void Scan(string source)
-		{
-			this.logger.Log("Processing Scan request");
-			var mainVM = StaticResolver.Resolve<MainViewModel>();
-			DispatchUtilities.Invoke(() =>
+				queueImporter.Import(filePath);
+				this.ShowMessage(MainRes.QueueImportSuccessMessage);
+			}
+			catch (Exception)
 			{
-				mainVM.ScanFromAutoplay(source);
-			});
-		}
+				this.ShowMessage(MainRes.QueueImportErrorMessage);
+				throw;
+			}
+		});
+	}
 
-		public void ImportPreset(string filePath)
+	public void Pause()
+	{
+		this.logger.Log("Processing Pause request");
+		var processingService = StaticResolver.Resolve<ProcessingService>();
+		DispatchUtilities.Invoke(() =>
 		{
-			this.logger.Log("Processing Import Preset request");
-			var presetImporter = StaticResolver.Resolve<IPresetImportExport>();
-			DispatchUtilities.Invoke(() =>
+			if (processingService.Encoding && !processingService.Paused)
 			{
-				try
-				{
-					Preset preset = presetImporter.ImportPreset(filePath);
-					this.ShowMessage(string.Format(MainRes.PresetImportSuccessMessage, preset.Name));
-				}
-				catch (Exception)
-				{
-					this.ShowMessage(MainRes.PresetImportErrorMessage);
-					throw;
-				}
-			});
-		}
+				processingService.Pause.Execute(null);
+			}
+		});
+	}
 
-		public void ImportQueue(string filePath)
+	public void Resume()
+	{
+		this.logger.Log("Processing Resume request");
+		var processingService = StaticResolver.Resolve<ProcessingService>();
+		DispatchUtilities.Invoke(() =>
 		{
-			this.logger.Log("Processing Import Queue request");
-			var queueImporter = StaticResolver.Resolve<IQueueImportExport>();
-			DispatchUtilities.Invoke(() =>
+			if (processingService.Encoding && processingService.Paused)
 			{
-				try
-				{
-					queueImporter.Import(filePath);
-					this.ShowMessage(MainRes.QueueImportSuccessMessage);
-				}
-				catch (Exception)
-				{
-					this.ShowMessage(MainRes.QueueImportErrorMessage);
-					throw;
-				}
-			});
-		}
+				processingService.Encode.Execute(null);
+			}
+		});
+	}
 
-		public void BringToForeground()
-		{
-			this.logger.Log("Processing Bring to Foreground request");
-			StaticResolver.Resolve<Main>().EnsureVisible();
-		}
+	public void BringToForeground()
+	{
+		this.logger.Log("Processing Bring to Foreground request");
+		StaticResolver.Resolve<Main>().EnsureVisible();
+	}
 
-		private void ShowMessage(string message)
-		{
-			StaticResolver.Resolve<StatusService>().Show(message);
-			StaticResolver.Resolve<IWindowManager>().Activate(StaticResolver.Resolve<MainViewModel>());
-		}
+	private void ShowMessage(string message)
+	{
+		StaticResolver.Resolve<StatusService>().Show(message);
+		StaticResolver.Resolve<IWindowManager>().Activate(StaticResolver.Resolve<MainViewModel>());
 	}
 }

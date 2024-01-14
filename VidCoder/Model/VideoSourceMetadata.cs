@@ -1,7 +1,9 @@
-﻿namespace VidCoder.Model
+﻿namespace VidCoder.Model;
+
+public class VideoSourceMetadata
 {
-	public class VideoSourceMetadata
-	{
-		public DriveInformation DriveInfo { get; set; }
-	}
+	/// <summary>
+	/// Gets or set the drive information. <c>null</c> if this video source is not a disc.
+	/// </summary>
+	public DriveInformation DriveInfo { get; set; }
 }

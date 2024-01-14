@@ -396,4 +396,13 @@
   <data name="WatchedFileStatusLive_Output" xml:space="preserve">
     <value>Output</value>
   </data>
+  <data name="WatcherMode_FileSystemWatcher" xml:space="preserve">
+    <value>System watcher</value>
+  </data>
+  <data name="WatcherMode_Polling" xml:space="preserve">
+    <value>Polling</value>
+  </data>
+  <data name="EncodeCompleteActionType_Restart" xml:space="preserve">
+    <value>Restart</value>
+  </data>
 </root>

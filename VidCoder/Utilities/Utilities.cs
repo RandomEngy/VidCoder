@@ -24,643 +24,642 @@ using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
 using Windows.Foundation.Metadata;
 
-namespace VidCoder
+namespace VidCoder;
+
+public static class Utilities
 {
-	public static class Utilities
+	public const int CurrentDatabaseVersion = 47;
+	public const int LastUpdatedEncodingProfileDatabaseVersion = 44;
+	public const int LastUpdatedPickerDatabaseVersion = 47;
+
+	public const string SquirrelUpdateUrlBeta = "https://f001.backblazeb2.com/file/vidcoder-squirrel-beta";
+	public const string SquirrelUpdateUrlStable = "https://f001.backblazeb2.com/file/vidcoder-squirrel-stable";
+
+	public const string FileWatcherExecutableName = "VidCoderFileWatcher";
+
+	public static readonly string FileWatcherFullPath = Path.Combine(CommonUtilities.ProgramFolder, FileWatcherExecutableName + ".exe");
+
+	static Utilities()
 	{
-		public const int CurrentDatabaseVersion = 47;
-		public const int LastUpdatedEncodingProfileDatabaseVersion = 44;
-		public const int LastUpdatedPickerDatabaseVersion = 47;
+		InstallType = VidCoderInstallType.Zip;
 
-		public const string SquirrelUpdateUrlBeta = "https://f001.backblazeb2.com/file/vidcoder-squirrel-beta";
-		public const string SquirrelUpdateUrlStable = "https://f001.backblazeb2.com/file/vidcoder-squirrel-stable";
-
-		public const string FileWatcherExecutableName = "VidCoderFileWatcher";
-
-		public static readonly string FileWatcherFullPath = Path.Combine(CommonUtilities.ProgramFolder, FileWatcherExecutableName + ".exe");
-
-		static Utilities()
+		var tempFolderPath = Environment.GetEnvironmentVariable("temp");
+		if (tempFolderPath != null)
 		{
-			InstallType = VidCoderInstallType.Zip;
+			DirectoryInfo tempFolderInfo = new DirectoryInfo(tempFolderPath);
+			DirectoryInfo currentDirectoryInfo = new DirectoryInfo(Directory.GetCurrentDirectory());
 
-			var tempFolderPath = Environment.GetEnvironmentVariable("temp");
-			if (tempFolderPath != null)
+			if (currentDirectoryInfo.FullName.StartsWith(tempFolderInfo.FullName, StringComparison.OrdinalIgnoreCase))
 			{
-				DirectoryInfo tempFolderInfo = new DirectoryInfo(tempFolderPath);
-				DirectoryInfo currentDirectoryInfo = new DirectoryInfo(Directory.GetCurrentDirectory());
-
-				if (currentDirectoryInfo.FullName.StartsWith(tempFolderInfo.FullName, StringComparison.OrdinalIgnoreCase))
-				{
-					InstallType = VidCoderInstallType.Portable;
-					return;
-				}
-			}
-
-			var updateManager = new UpdateManager(SquirrelUpdateUrl);
-			if (updateManager.IsInstalledApp)
-			{
-				InstallType = VidCoderInstallType.SquirrelInstaller;
+				InstallType = VidCoderInstallType.Portable;
+				return;
 			}
 		}
 
-		public static Version CurrentVersion
+		var updateManager = new UpdateManager(SquirrelUpdateUrl);
+		if (updateManager.IsInstalledApp)
 		{
-			get { return Assembly.GetExecutingAssembly().GetName().Version; }
+			InstallType = VidCoderInstallType.SquirrelInstaller;
 		}
+	}
 
-		public static bool DebugLogging
-		{
-			get => Config.LogVerbosity >= 2;
-		}
+	public static Version CurrentVersion
+	{
+		get { return Assembly.GetExecutingAssembly().GetName().Version; }
+	}
 
-		/// <summary>
-		/// Displays version number with optional Beta marker.
-		/// </summary>
-		public static string VersionString
+	public static bool DebugLogging
+	{
+		get => Config.LogVerbosity >= 2;
+	}
+
+	/// <summary>
+	/// Displays version number with optional Beta marker.
+	/// </summary>
+	public static string VersionString
+	{
+		get
 		{
-			get
+			if (CommonUtilities.Beta)
 			{
-				if (CommonUtilities.Beta)
-				{
-					return string.Format(MiscRes.BetaVersionFormat2, CurrentVersion.ToShortString());
-				}
-				else
-				{
-					return CurrentVersion.ToShortString();
-				}
+				return string.Format(MiscRes.BetaVersionFormat2, CurrentVersion.ToShortString());
+			}
+			else
+			{
+				return CurrentVersion.ToShortString();
 			}
 		}
+	}
 
-		public static VidCoderInstallType InstallType { get; }
+	public static VidCoderInstallType InstallType { get; }
 
-		public static bool UwpApisAvailable
+	public static bool UwpApisAvailable
+	{
+		get
 		{
-			get
+			try
 			{
-				try
-				{
-					return IsApiContractPresent();
-				}
-				catch (Exception)
-				{
-					// The method call will throw if ApiInformation type is not found, which means we are not on Windows 10.
-					return false;
-				}
+				return IsApiContractPresent();
 			}
-		}
-
-		private static bool IsApiContractPresent()
-		{
-			if (System.Environment.OSVersion.Version.Major < 10)
+			catch (Exception)
 			{
-				return false;
-			}
-
-			return ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 1, 0);
-		}
-
-		[System.Runtime.InteropServices.DllImport("user32.dll")]
-		private static extern IntPtr GetForegroundWindow();
-
-		public static bool IsInForeground
-		{
-			get
-			{
-				IntPtr foregroundWindow = GetForegroundWindow();
-
-				foreach (var window in Application.Current.Windows.OfType<Window>())
-				{
-					if (foregroundWindow == new WindowInteropHelper(window).Handle)
-					{
-						return true;
-					}
-				}
-
+				// The method call will throw if ApiInformation type is not found, which means we are not on Windows 10.
 				return false;
 			}
 		}
+	}
 
-		public static string SquirrelUpdateUrl
+	private static bool IsApiContractPresent()
+	{
+		if (System.Environment.OSVersion.Version.Major < 10)
 		{
-			get
+			return false;
+		}
+
+		return ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 1, 0);
+	}
+
+	[System.Runtime.InteropServices.DllImport("user32.dll")]
+	private static extern IntPtr GetForegroundWindow();
+
+	public static bool IsInForeground
+	{
+		get
+		{
+			IntPtr foregroundWindow = GetForegroundWindow();
+
+			foreach (var window in Application.Current.Windows.OfType<Window>())
 			{
-				return CommonUtilities.Beta ? SquirrelUpdateUrlBeta : SquirrelUpdateUrlStable;
+				if (foregroundWindow == new WindowInteropHelper(window).Handle)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+	}
+
+	public static string SquirrelUpdateUrl
+	{
+		get
+		{
+			return CommonUtilities.Beta ? SquirrelUpdateUrlBeta : SquirrelUpdateUrlStable;
+		}
+	}
+
+	public static bool SupportsUpdates => InstallType == VidCoderInstallType.SquirrelInstaller && CurrentVersion != new Version(1, 0, 0, 0);
+
+	public static bool WatcherSupportedAndEnabled
+	{
+		get
+		{
+			return InstallType != VidCoderInstallType.Portable && Config.WatcherEnabled;
+		}
+	}
+
+	public static bool IsDesigner
+	{
+		get
+		{
+			return DesignerProperties.GetIsInDesignMode(new DependencyObject());
+		}
+	}
+
+	public static int CompareVersions(string versionA, string versionB)
+	{
+		string[] stringPartsA = versionA.Split('.');
+		string[] stringPartsB = versionB.Split('.');
+
+		int[] intPartsA = new int[stringPartsA.Length];
+		int[] intPartsB = new int[stringPartsB.Length];
+
+		for (int i = 0; i < intPartsA.Length; i++)
+		{
+			intPartsA[i] = int.Parse(stringPartsA[i], CultureInfo.InvariantCulture);
+		}
+
+		for (int i = 0; i < intPartsB.Length; i++)
+		{
+			intPartsB[i] = int.Parse(stringPartsB[i], CultureInfo.InvariantCulture);
+		}
+
+		int compareLength = Math.Min(intPartsA.Length, intPartsB.Length);
+
+		for (int i = 0; i < compareLength; i++)
+		{
+			if (intPartsA[i] > intPartsB[i])
+			{
+				return 1;
+			}
+			else if (intPartsA[i] < intPartsB[i])
+			{
+				return -1;
 			}
 		}
 
-		public static bool SupportsUpdates => InstallType == VidCoderInstallType.SquirrelInstaller && CurrentVersion != new Version(1, 0, 0, 0);
-
-		public static bool WatcherSupportedAndEnabled
+		if (intPartsA.Length > intPartsB.Length)
 		{
-			get
+			for (int i = compareLength; i < intPartsA.Length; i++)
 			{
-				return InstallType != VidCoderInstallType.Portable && Config.WatcherEnabled;
-			}
-		}
-
-		public static bool IsDesigner
-		{
-			get
-			{
-				return DesignerProperties.GetIsInDesignMode(new DependencyObject());
-			}
-		}
-
-		public static int CompareVersions(string versionA, string versionB)
-		{
-			string[] stringPartsA = versionA.Split('.');
-			string[] stringPartsB = versionB.Split('.');
-
-			int[] intPartsA = new int[stringPartsA.Length];
-			int[] intPartsB = new int[stringPartsB.Length];
-
-			for (int i = 0; i < intPartsA.Length; i++)
-			{
-				intPartsA[i] = int.Parse(stringPartsA[i], CultureInfo.InvariantCulture);
-			}
-
-			for (int i = 0; i < intPartsB.Length; i++)
-			{
-				intPartsB[i] = int.Parse(stringPartsB[i], CultureInfo.InvariantCulture);
-			}
-
-			int compareLength = Math.Min(intPartsA.Length, intPartsB.Length);
-
-			for (int i = 0; i < compareLength; i++)
-			{
-				if (intPartsA[i] > intPartsB[i])
+				if (intPartsA[i] > 0)
 				{
 					return 1;
 				}
-				else if (intPartsA[i] < intPartsB[i])
+			}
+		}
+
+		if (intPartsA.Length < intPartsB.Length)
+		{
+			for (int i = compareLength; i < intPartsB.Length; i++)
+			{
+				if (intPartsB[i] > 0)
 				{
-					return -1;
+					return 1;
 				}
 			}
+		}
 
-			if (intPartsA.Length > intPartsB.Length)
+		return 0;
+	}
+
+	public static string GetChangelogUrl(Version version, bool beta)
+	{
+		string betaPortion = beta ? "-beta" : "";
+
+		return $"https://github.com/RandomEngy/VidCoder/releases/tag/v{version.Major}.{version.Minor}{betaPortion}";
+	}
+
+	public static string GetFilePickerFilter(string extension)
+	{
+		if (extension.StartsWith("."))
+		{
+			extension = extension.Substring(1);
+		}
+
+		return string.Format(CommonRes.FilePickerExtTemplate, extension.ToUpperInvariant()) + "|*." + extension.ToLowerInvariant();
+	}
+
+	public static int CurrentProcessInstances
+	{
+		get
+		{
+			Process[] processList = Process.GetProcessesByName("VidCoder");
+			return processList.Length;
+		}
+	}
+
+	public static string WorkerLogsFolder
+	{
+		get
+		{
+			return Path.Combine(Path.GetTempPath(), "VidCoderWorkerLogs");
+		}
+	}
+
+	public static string UpdatesFolder
+	{
+		get
+		{
+			string updatesFolder = Path.Combine(CommonUtilities.AppFolder, "Updates");
+			if (!Directory.Exists(updatesFolder))
 			{
-				for (int i = compareLength; i < intPartsA.Length; i++)
+				Directory.CreateDirectory(updatesFolder);
+			}
+
+			return updatesFolder;
+		}
+	}
+
+	public static string ImageCacheFolder
+	{
+		get
+		{
+			string imageCacheFolder = Path.Combine(CommonUtilities.AppFolder, "ImageCache");
+			if (!Directory.Exists(imageCacheFolder))
+			{
+				Directory.CreateDirectory(imageCacheFolder);
+			}
+
+			return imageCacheFolder;
+		}
+	}
+
+	public static Dictionary<string, double> DefaultQueueColumnSizes { get; } = new Dictionary<string, double>
+	{
+		{"Source", 200},
+		{"Title", 35},
+		{"Range", 60},
+		{"Destination", 200},
+		{"VideoEncoder", 100},
+		{"VideoQuality", 80},
+		{"Cropping", 90},
+		{"OutputSize", 104},
+		{"AudioEncoder", 100},
+		{"AudioQuality", 80},
+		{"AudioTracks", 120},
+		{"SubtitleTracks", 120},
+		{"Duration", 60},
+		{"Preset", 120}
+	};
+
+	public static bool IsValidQueueColumn(string columnId)
+	{
+		return DefaultQueueColumnSizes.ContainsKey(columnId);
+	}
+
+	public static IEncodeProxy CreateEncodeProxy()
+	{
+		if (CustomConfig.UseWorkerProcess)
+		{
+			return new RemoteEncodeProxy();
+		}
+		else
+		{
+			return new LocalEncodeProxy();
+		}
+	}
+
+
+	public static IScanProxy CreateScanProxy()
+	{
+		if (CustomConfig.UseWorkerProcess)
+		{
+			return new RemoteScanProxy();
+		}
+		else
+		{
+			return new LocalScanProxy();
+		}
+	}
+
+
+
+	/// <summary>
+	/// Parse a size list in the format {column id 1}:{width 1}|{column id 2}:{width 2}|...
+	/// </summary>
+	/// <param name="listString">The string to parse.</param>
+	/// <returns>The parsed list of sizes.</returns>
+	public static List<Tuple<string, double>> ParseQueueColumnList(string listString)
+	{
+		var resultList = new List<Tuple<string, double>>();
+
+		string[] columnSettings = listString.Split('|');
+		foreach (string columnSetting in columnSettings)
+		{
+			if (!string.IsNullOrWhiteSpace(columnSetting))
+			{
+				string[] settingParts = columnSetting.Split(':');
+				if (settingParts.Length == 2)
 				{
-					if (intPartsA[i] > 0)
+					double columnWidth;
+					string columnId = settingParts[0];
+
+					if (columnId == "Chapters")
 					{
-						return 1;
+						columnId = "Range";
+					}
+
+					if (IsValidQueueColumn(columnId) && double.TryParse(settingParts[1], out columnWidth))
+					{
+						resultList.Add(new Tuple<string, double>(columnId, columnWidth));
 					}
 				}
 			}
-
-			if (intPartsA.Length < intPartsB.Length)
-			{
-				for (int i = compareLength; i < intPartsB.Length; i++)
-				{
-					if (intPartsB[i] > 0)
-					{
-						return 1;
-					}
-				}
-			}
-
-			return 0;
 		}
 
-		public static string GetChangelogUrl(Version version, bool beta)
-		{
-			string betaPortion = beta ? "-beta" : "";
+		return resultList;
+	}
 
-			return $"https://github.com/RandomEngy/VidCoder/releases/tag/v{version.Major}.{version.Minor}{betaPortion}";
+	public static string FormatFileSize(long bytes)
+	{
+		if (bytes < 1024)
+		{
+			return bytes.ToString(CultureInfo.InvariantCulture) + " bytes";
 		}
 
-		public static string GetFilePickerFilter(string extension)
+		if (bytes < 1048576)
 		{
-			if (extension.StartsWith("."))
-			{
-				extension = extension.Substring(1);
-			}
+			double kilobytes = ((double)bytes) / 1024;
 
-			return string.Format(CommonRes.FilePickerExtTemplate, extension.ToUpperInvariant()) + "|*." + extension.ToLowerInvariant();
+			return kilobytes.ToString(GetFormatForFilesize(kilobytes)) + " KB";
 		}
 
-		public static int CurrentProcessInstances
+		if (bytes < 1073741824)
 		{
-			get
-			{
-				Process[] processList = Process.GetProcessesByName("VidCoder");
-				return processList.Length;
-			}
+			double megabytes = ((double)bytes) / 1048576;
+
+			return megabytes.ToString(GetFormatForFilesize(megabytes)) + " MB";
 		}
 
-		public static string WorkerLogsFolder
+		double gigabytes = ((double)bytes) / 1073741824;
+
+		return gigabytes.ToString(GetFormatForFilesize(gigabytes)) + " GB";
+	}
+
+	private static string GetFormatForFilesize(double size)
+	{
+		int digits = 0;
+		double num = size;
+
+		while (num > 1.0)
 		{
-			get
-			{
-				return Path.Combine(Path.GetTempPath(), "VidCoderWorkerLogs");
-			}
+			num /= 10;
+			digits++;
 		}
 
-		public static string UpdatesFolder
-		{
-			get
-			{
-				string updatesFolder = Path.Combine(CommonUtilities.AppFolder, "Updates");
-				if (!Directory.Exists(updatesFolder))
-				{
-					Directory.CreateDirectory(updatesFolder);
-				}
+		int decimalPlaces = Math.Max(0, Math.Min(2, 3 - digits));
 
-				return updatesFolder;
-			}
+		return "F" + decimalPlaces;
+	}
+
+	public static IMessageBoxService MessageBox
+	{
+		get
+		{
+			return StaticResolver.Resolve<IMessageBoxService>();
+		}
+	}
+
+	public static bool IsValidFullPath(string path)
+	{
+		if (string.IsNullOrWhiteSpace(path))
+		{
+			return false;
 		}
 
-		public static string ImageCacheFolder
-		{
-			get
-			{
-				string imageCacheFolder = Path.Combine(CommonUtilities.AppFolder, "ImageCache");
-				if (!Directory.Exists(imageCacheFolder))
-				{
-					Directory.CreateDirectory(imageCacheFolder);
-				}
+		char[] invalidPathChars = Path.GetInvalidPathChars();
 
-				return imageCacheFolder;
+		foreach (char c in path)
+		{
+			if (invalidPathChars.Contains(c))
+			{
+				return false;
 			}
 		}
 
-		public static Dictionary<string, double> DefaultQueueColumnSizes { get; } = new Dictionary<string, double>
-		{
-			{"Source", 200},
-			{"Title", 35},
-			{"Range", 60},
-			{"Destination", 200},
-			{"VideoEncoder", 100},
-			{"VideoQuality", 80},
-			{"Cropping", 90},
-			{"OutputSize", 104},
-			{"AudioEncoder", 100},
-			{"AudioQuality", 80},
-			{"AudioTracks", 120},
-			{"SubtitleTracks", 120},
-			{"Duration", 60},
-			{"Preset", 120}
-		};
+		string fileName = Path.GetFileName(path);
+		char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
 
-		public static bool IsValidQueueColumn(string columnId)
+		foreach (char c in fileName)
 		{
-			return DefaultQueueColumnSizes.ContainsKey(columnId);
+			if (invalidFileNameChars.Contains(c))
+			{
+				return false;
+			}
 		}
 
-		public static IEncodeProxy CreateEncodeProxy()
+		if (!Path.IsPathRooted(path))
 		{
-			if (CustomConfig.UseWorkerProcess)
+			return false;
+		}
+
+		if (string.IsNullOrEmpty(Path.GetFileName(path)))
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	public static SourceTitle GetFeatureTitle(List<SourceTitle> titles, int hbFeatureTitle)
+	{
+		// If the feature title is supplied, find it in the list.
+		if (hbFeatureTitle > 0)
+		{
+			SourceTitle featureTitle = titles.FirstOrDefault(title => title.Index == hbFeatureTitle);
+			if (featureTitle != null)
 			{
-				return new RemoteEncodeProxy();
+				return featureTitle;
+			}
+		}
+
+		// Select the first title within 80% of the duration of the longest title.
+		double maxSeconds = titles.Max(title => title.Duration.ToSpan().TotalSeconds);
+		foreach (SourceTitle title in titles)
+		{
+			if (title.Duration.ToSpan().TotalSeconds >= maxSeconds * .8)
+			{
+				return title;
+			}
+		}
+
+		return titles[0];
+	}
+
+	// Assumes the hashset has a comparer of StringComparer.OrdinalIgnoreCase
+	public static FileQueueCheckResult FileExistsOnDiskOrInQueue(string path, HashSet<string> queuedPaths)
+	{
+		if (queuedPaths.Contains(path))
+		{
+			return FileQueueCheckResult.InQueue;
+		}
+
+		if (File.Exists(path))
+		{
+			return FileQueueCheckResult.OnDisk;
+		}
+
+		return FileQueueCheckResult.NotFound;
+	}
+
+	public static SourceType GetSourceType(string sourcePath)
+	{
+		FileAttributes attributes = File.GetAttributes(sourcePath);
+		if ((attributes & FileAttributes.Directory) == FileAttributes.Directory)
+		{
+			var driveService = StaticResolver.Resolve<IDriveService>();
+			if (driveService.PathIsDrive(sourcePath))
+			{
+				return SourceType.Disc;
 			}
 			else
 			{
-				return new LocalEncodeProxy();
+				return SourceType.DiscVideoFolder;
 			}
 		}
-
-
-		public static IScanProxy CreateScanProxy()
+		else
 		{
-			if (CustomConfig.UseWorkerProcess)
-			{
-				return new RemoteScanProxy();
-			}
-			else
-			{
-				return new LocalScanProxy();
-			}
+			return SourceType.File;
 		}
+	}
 
-
-
-		/// <summary>
-		/// Parse a size list in the format {column id 1}:{width 1}|{column id 2}:{width 2}|...
-		/// </summary>
-		/// <param name="listString">The string to parse.</param>
-		/// <returns>The parsed list of sizes.</returns>
-		public static List<Tuple<string, double>> ParseQueueColumnList(string listString)
+	public static string GetSourceName(string sourcePath)
+	{
+		switch (GetSourceType(sourcePath))
 		{
-			var resultList = new List<Tuple<string, double>>();
-
-			string[] columnSettings = listString.Split('|');
-			foreach (string columnSetting in columnSettings)
-			{
-				if (!string.IsNullOrWhiteSpace(columnSetting))
-				{
-					string[] settingParts = columnSetting.Split(':');
-					if (settingParts.Length == 2)
-					{
-						double columnWidth;
-						string columnId = settingParts[0];
-
-						if (columnId == "Chapters")
-						{
-							columnId = "Range";
-						}
-
-						if (IsValidQueueColumn(columnId) && double.TryParse(settingParts[1], out columnWidth))
-						{
-							resultList.Add(new Tuple<string, double>(columnId, columnWidth));
-						}
-					}
-				}
-			}
-
-			return resultList;
-		}
-
-		public static string FormatFileSize(long bytes)
-		{
-			if (bytes < 1024)
-			{
-				return bytes.ToString(CultureInfo.InvariantCulture) + " bytes";
-			}
-
-			if (bytes < 1048576)
-			{
-				double kilobytes = ((double)bytes) / 1024;
-
-				return kilobytes.ToString(GetFormatForFilesize(kilobytes)) + " KB";
-			}
-
-			if (bytes < 1073741824)
-			{
-				double megabytes = ((double)bytes) / 1048576;
-
-				return megabytes.ToString(GetFormatForFilesize(megabytes)) + " MB";
-			}
-
-			double gigabytes = ((double)bytes) / 1073741824;
-
-			return gigabytes.ToString(GetFormatForFilesize(gigabytes)) + " GB";
-		}
-
-		private static string GetFormatForFilesize(double size)
-		{
-			int digits = 0;
-			double num = size;
-
-			while (num > 1.0)
-			{
-				num /= 10;
-				digits++;
-			}
-
-			int decimalPlaces = Math.Max(0, Math.Min(2, 3 - digits));
-
-			return "F" + decimalPlaces;
-		}
-
-		public static IMessageBoxService MessageBox
-		{
-			get
-			{
-				return StaticResolver.Resolve<IMessageBoxService>();
-			}
-		}
-
-		public static bool IsValidFullPath(string path)
-		{
-			if (string.IsNullOrWhiteSpace(path))
-			{
-				return false;
-			}
-
-			char[] invalidPathChars = Path.GetInvalidPathChars();
-
-			foreach (char c in path)
-			{
-				if (invalidPathChars.Contains(c))
-				{
-					return false;
-				}
-			}
-
-			string fileName = Path.GetFileName(path);
-			char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
-
-			foreach (char c in fileName)
-			{
-				if (invalidFileNameChars.Contains(c))
-				{
-					return false;
-				}
-			}
-
-			if (!Path.IsPathRooted(path))
-			{
-				return false;
-			}
-
-			if (string.IsNullOrEmpty(Path.GetFileName(path)))
-			{
-				return false;
-			}
-
-			return true;
-		}
-
-		public static SourceTitle GetFeatureTitle(List<SourceTitle> titles, int hbFeatureTitle)
-		{
-			// If the feature title is supplied, find it in the list.
-			if (hbFeatureTitle > 0)
-			{
-				SourceTitle featureTitle = titles.FirstOrDefault(title => title.Index == hbFeatureTitle);
-				if (featureTitle != null)
-				{
-					return featureTitle;
-				}
-			}
-
-			// Select the first title within 80% of the duration of the longest title.
-			double maxSeconds = titles.Max(title => title.Duration.ToSpan().TotalSeconds);
-			foreach (SourceTitle title in titles)
-			{
-				if (title.Duration.ToSpan().TotalSeconds >= maxSeconds * .8)
-				{
-					return title;
-				}
-			}
-
-			return titles[0];
-		}
-
-		// Assumes the hashset has a comparer of StringComparer.OrdinalIgnoreCase
-		public static FileQueueCheckResult FileExistsOnDiskOrInQueue(string path, HashSet<string> queuedPaths)
-		{
-			if (queuedPaths.Contains(path))
-			{
-				return FileQueueCheckResult.InQueue;
-			}
-
-			if (File.Exists(path))
-			{
-				return FileQueueCheckResult.OnDisk;
-			}
-
-			return FileQueueCheckResult.NotFound;
-		}
-
-		public static SourceType GetSourceType(string sourcePath)
-		{
-			FileAttributes attributes = File.GetAttributes(sourcePath);
-			if ((attributes & FileAttributes.Directory) == FileAttributes.Directory)
-			{
+			case SourceType.DiscVideoFolder:
+				return GetSourceNameFolder(sourcePath);
+			case SourceType.Disc:
 				var driveService = StaticResolver.Resolve<IDriveService>();
-				if (driveService.PathIsDrive(sourcePath))
+				DriveInformation info = driveService.GetDriveInformationFromPath(sourcePath);
+				if (info != null)
 				{
-					return SourceType.Disc;
+					return info.VolumeLabel;
 				}
 				else
 				{
-					return SourceType.DiscVideoFolder;
-				}
-			}
-			else
-			{
-				return SourceType.File;
-			}
-		}
-
-		public static string GetSourceName(string sourcePath)
-		{
-			switch (GetSourceType(sourcePath))
-			{
-				case SourceType.DiscVideoFolder:
-					return GetSourceNameFolder(sourcePath);
-				case SourceType.Disc:
-					var driveService = StaticResolver.Resolve<IDriveService>();
-					DriveInformation info = driveService.GetDriveInformationFromPath(sourcePath);
-					if (info != null)
-					{
-						return info.VolumeLabel;
-					}
-					else
-					{
-						return GetSourceNameFile(sourcePath);
-					}
-				default:
 					return GetSourceNameFile(sourcePath);
-			}
-		}
-
-		public static string GetSourceNameFile(string videoFile)
-		{
-			return Path.GetFileNameWithoutExtension(videoFile);
-		}
-
-		public static string GetSourceNameFolder(string videoFolder)
-		{
-			// If the directory is not VIDEO_TS, take its name for the source name (user picked root directory)
-			var videoDirectory = new DirectoryInfo(videoFolder);
-			if (videoDirectory.Name != "VIDEO_TS")
-			{
-				if (videoDirectory.Root.FullName == videoDirectory.FullName)
-				{
-					return "VideoFolder";
 				}
-				else
-				{
-					return videoDirectory.Name;
-				}
-			}
+			default:
+				return GetSourceNameFile(sourcePath);
+		}
+	}
 
-			// If the directory is named VIDEO_TS, take the source name from the parent folder (user picked VIDEO_TS folder on DVD)
-			DirectoryInfo parentDirectory = videoDirectory.Parent;
-			if (parentDirectory == null || parentDirectory.Root.FullName == parentDirectory.FullName)
+	public static string GetSourceNameFile(string videoFile)
+	{
+		return Path.GetFileNameWithoutExtension(videoFile);
+	}
+
+	public static string GetSourceNameFolder(string videoFolder)
+	{
+		// If the directory is not VIDEO_TS, take its name for the source name (user picked root directory)
+		var videoDirectory = new DirectoryInfo(videoFolder);
+		if (videoDirectory.Name != "VIDEO_TS")
+		{
+			if (videoDirectory.Root.FullName == videoDirectory.FullName)
 			{
 				return "VideoFolder";
 			}
 			else
 			{
-				return parentDirectory.Name;
+				return videoDirectory.Name;
 			}
 		}
 
-		public static bool IsDvdFolder(string directory)
+		// If the directory is named VIDEO_TS, take the source name from the parent folder (user picked VIDEO_TS folder on DVD)
+		DirectoryInfo parentDirectory = videoDirectory.Parent;
+		if (parentDirectory == null || parentDirectory.Root.FullName == parentDirectory.FullName)
 		{
-			return Path.GetFileName(directory) == "VIDEO_TS" || Directory.Exists(Path.Combine(directory, "VIDEO_TS"));
+			return "VideoFolder";
 		}
-
-		public static string Wow64RegistryKey
+		else
 		{
-			get
-			{
-				if (IntPtr.Size == 8 || !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("PROCESSOR_ARCHITEW6432")))
-				{
-					return @"SOFTWARE\Wow6432Node";
-				}
-
-				return @"SOFTWARE";
-			}
+			return parentDirectory.Name;
 		}
+	}
 
-		public static string ProgramFilesx86()
+	public static bool IsDvdFolder(string directory)
+	{
+		return Path.GetFileName(directory) == "VIDEO_TS" || Directory.Exists(Path.Combine(directory, "VIDEO_TS"));
+	}
+
+	public static string Wow64RegistryKey
+	{
+		get
 		{
 			if (IntPtr.Size == 8 || !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("PROCESSOR_ARCHITEW6432")))
 			{
-				return Environment.GetEnvironmentVariable("ProgramFiles(x86)");
+				return @"SOFTWARE\Wow6432Node";
 			}
 
-			return Environment.GetEnvironmentVariable("ProgramFiles");
+			return @"SOFTWARE";
+		}
+	}
+
+	public static string ProgramFilesx86()
+	{
+		if (IntPtr.Size == 8 || !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("PROCESSOR_ARCHITEW6432")))
+		{
+			return Environment.GetEnvironmentVariable("ProgramFiles(x86)");
 		}
 
-		public static void SetDragIcon(DragEventArgs e)
+		return Environment.GetEnvironmentVariable("ProgramFiles");
+	}
+
+	public static void SetDragIcon(DragEventArgs e)
+	{
+		var data = e.Data as DataObject;
+		if (data != null && data.ContainsFileDropList())
 		{
-			var data = e.Data as DataObject;
-			if (data != null && data.ContainsFileDropList())
+			e.Effects = DragDropEffects.Copy;
+			e.Handled = true;
+		}
+	}
+
+	public static List<string> GetFiles(string directory)
+	{
+		var files = new List<string>();
+		var accessErrors = new List<string>();
+		GetFilesRecursive(directory, files, accessErrors);
+
+		if (accessErrors.Count > 0)
+		{
+			var messageBuilder = new StringBuilder(CommonRes.CouldNotAccessDirectoriesError + Environment.NewLine);
+			foreach (string accessError in accessErrors)
 			{
-				e.Effects = DragDropEffects.Copy;
-				e.Handled = true;
+				messageBuilder.AppendLine(accessError);
 			}
+
+			MessageBox.Show(messageBuilder.ToString());
 		}
 
-		public static List<string> GetFiles(string directory)
+		return files;
+	}
+
+	private static void GetFilesRecursive(string directory, List<string> files, List<string> accessErrors)
+	{
+		try
 		{
-			var files = new List<string>();
-			var accessErrors = new List<string>();
-			GetFilesRecursive(directory, files, accessErrors);
-
-			if (accessErrors.Count > 0)
+			string[] subdirectories = Directory.GetDirectories(directory);
+			foreach (string subdirectory in subdirectories)
 			{
-				var messageBuilder = new StringBuilder(CommonRes.CouldNotAccessDirectoriesError + Environment.NewLine);
-				foreach (string accessError in accessErrors)
-				{
-					messageBuilder.AppendLine(accessError);
-				}
-
-				MessageBox.Show(messageBuilder.ToString());
+				GetFilesRecursive(subdirectory, files, accessErrors);
 			}
-
-			return files;
+		}
+		catch (UnauthorizedAccessException)
+		{
+			accessErrors.Add(directory);
 		}
 
-		private static void GetFilesRecursive(string directory, List<string> files, List<string> accessErrors)
+		try
 		{
-			try
-			{
-				string[] subdirectories = Directory.GetDirectories(directory);
-				foreach (string subdirectory in subdirectories)
-				{
-					GetFilesRecursive(subdirectory, files, accessErrors);
-				}
-			}
-			catch (UnauthorizedAccessException)
-			{
-				accessErrors.Add(directory);
-			}
-
-			try
-			{
-				string[] files2 = Directory.GetFiles(directory);
-				files.AddRange(files2);
-			}
-			catch (UnauthorizedAccessException)
-			{
-				accessErrors.Add(directory);
-			}
+			string[] files2 = Directory.GetFiles(directory);
+			files.AddRange(files2);
+		}
+		catch (UnauthorizedAccessException)
+		{
+			accessErrors.Add(directory);
 		}
 	}
 }

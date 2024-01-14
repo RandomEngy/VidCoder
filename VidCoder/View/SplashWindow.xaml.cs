@@ -12,16 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace VidCoder.View
+namespace VidCoder.View;
+
+/// <summary>
+/// Interaction logic for SplashWindow.xaml
+/// </summary>
+public partial class SplashWindow : Window
 {
-	/// <summary>
-	/// Interaction logic for SplashWindow.xaml
-	/// </summary>
-	public partial class SplashWindow : Window
+	public SplashWindow()
 	{
-		public SplashWindow()
-		{
-			InitializeComponent();
-		}
+		InitializeComponent();
 	}
 }

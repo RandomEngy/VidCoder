@@ -12,81 +12,80 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace VidCoder.Controls
+namespace VidCoder.Controls;
+
+using System.Collections.ObjectModel;
+using System.Windows.Controls.Primitives;
+
+/// <summary>
+/// Interaction logic for SplitButton.xaml
+/// </summary>
+public partial class SplitButton : UserControl
 {
-	using System.Collections.ObjectModel;
-	using System.Windows.Controls.Primitives;
+	private Button button;
 
-	/// <summary>
-	/// Interaction logic for SplitButton.xaml
-	/// </summary>
-	public partial class SplitButton : UserControl
+	public SplitButton()
 	{
-		private Button button;
-
-		public SplitButton()
-		{
-			this.InitializeComponent();
+		this.InitializeComponent();
 
             this.SetValue(MenuItemsSourceProperty, new Collection<object>());
-		}
+	}
 
-	    public static readonly DependencyProperty MenuItemsSourceProperty = DependencyProperty.Register(
-	        "MenuItemsSource",
-	        typeof (Collection<object>),
-	        typeof (SplitButton),
-	        new UIPropertyMetadata(null));
+    public static readonly DependencyProperty MenuItemsSourceProperty = DependencyProperty.Register(
+        "MenuItemsSource",
+        typeof (Collection<object>),
+        typeof (SplitButton),
+        new UIPropertyMetadata(null));
 
-	    public Collection<object> MenuItemsSource
-	    {
-	        get { return (Collection<object>)this.GetValue(MenuItemsSourceProperty); }
-	        set { this.SetValue(MenuItemsSourceProperty, value); }
-	    }
+    public Collection<object> MenuItemsSource
+    {
+        get { return (Collection<object>)this.GetValue(MenuItemsSourceProperty); }
+        set { this.SetValue(MenuItemsSourceProperty, value); }
+    }
 
-		public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
-			"Command",
-			typeof (ICommand),
-			typeof (SplitButton),
-			new UIPropertyMetadata(null, OnCommandChanged));
+	public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
+		"Command",
+		typeof (ICommand),
+		typeof (SplitButton),
+		new UIPropertyMetadata(null, OnCommandChanged));
 
-		public ICommand Command
+	public ICommand Command
+	{
+		get { return (ICommand)this.GetValue(CommandProperty); }
+		set { this.SetValue(CommandProperty, value); }
+	}
+
+	private static void OnCommandChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+	{
+		if (eventArgs.NewValue != eventArgs.OldValue)
 		{
-			get { return (ICommand)this.GetValue(CommandProperty); }
-			set { this.SetValue(CommandProperty, value); }
-		}
+			var splitButton = dependencyObject as SplitButton;
 
-		private static void OnCommandChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
-		{
-			if (eventArgs.NewValue != eventArgs.OldValue)
+			if (splitButton.button != null)
 			{
-				var splitButton = dependencyObject as SplitButton;
-
-				if (splitButton.button != null)
-				{
-					splitButton.button.Command = eventArgs.NewValue as ICommand;
-				}
+				splitButton.button.Command = eventArgs.NewValue as ICommand;
 			}
 		}
-		
-		private void OnArrowClick(object sender, RoutedEventArgs e)
-		{
-			var buttonMenu = ContextMenuService.GetContextMenu(this.button);
+	}
+	
+	private void OnArrowClick(object sender, RoutedEventArgs e)
+	{
+		var buttonMenu = ContextMenuService.GetContextMenu(this.button);
 
             if (this.MenuItemsSource.Count > 0 && buttonMenu != null)
-			{
-				buttonMenu.IsOpen = !buttonMenu.IsOpen;
-				buttonMenu.PlacementTarget = this.button;
-				buttonMenu.Placement = PlacementMode.Bottom;
-			}
-		}
-
-		private void SplitButton_OnLoaded(object sender, RoutedEventArgs e)
 		{
-			this.button = this.Template.FindName("mainButton", this) as Button;
-			if (this.Command != null)
-			{
-				this.button.Command = this.Command;
-			}
+			buttonMenu.IsOpen = !buttonMenu.IsOpen;
+			buttonMenu.PlacementTarget = this.button;
+			buttonMenu.Placement = PlacementMode.Bottom;
+		}
+	}
+
+	private void SplitButton_OnLoaded(object sender, RoutedEventArgs e)
+	{
+		this.button = this.Template.FindName("mainButton", this) as Button;
+		if (this.Command != null)
+		{
+			this.button.Command = this.Command;
 		}
 	}
 }

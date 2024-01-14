@@ -9,50 +9,49 @@ using ReactiveUI;
 using VidCoder.ViewModel;
 using VidCoderCommon.Model;
 
-namespace VidCoder.Services
+namespace VidCoder.Services;
+
+public class OutputSizeService : ReactiveObject
 {
-	public class OutputSizeService : ReactiveObject
+	private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
+
+	public OutputSizeService()
 	{
-		private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
+		this.Refresh();
 
-		public OutputSizeService()
-		{
-			this.Refresh();
-
-			this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile)
-				.Skip(1)
-				.Subscribe(_ =>
-				{
-					this.Refresh();
-				});
-		}
-
-		private OutputSizeInfo size;
-		public OutputSizeInfo Size
-		{
-			get { return this.size; }
-			set { this.RaiseAndSetIfChanged(ref this.size, value); }
-		}
-
-		public void Refresh()
-		{
-			MainViewModel mainViewModel = StaticResolver.Resolve<MainViewModel>();
-
-			if (mainViewModel.SelectedTitle != null)
+		this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile)
+			.Skip(1)
+			.Subscribe(_ =>
 			{
-				var profile = this.presetsService.SelectedPreset.Preset.EncodingProfile;
+				this.Refresh();
+			});
+	}
 
-				OutputSizeInfo outputSizeInfo = JsonEncodeFactory.GetOutputSize(profile, mainViewModel.SelectedTitle.Title);
+	private OutputSizeInfo size;
+	public OutputSizeInfo Size
+	{
+		get { return this.size; }
+		set { this.RaiseAndSetIfChanged(ref this.size, value); }
+	}
 
-				if (this.Size == null || !outputSizeInfo.Equals(this.Size))
-				{
-					this.Size = outputSizeInfo;
-				}
-			}
-			else
+	public void Refresh()
+	{
+		MainViewModel mainViewModel = StaticResolver.Resolve<MainViewModel>();
+
+		if (mainViewModel.SelectedTitle != null)
+		{
+			var profile = this.presetsService.SelectedPreset.Preset.EncodingProfile;
+
+			OutputSizeInfo outputSizeInfo = JsonEncodeFactory.GetOutputSize(profile, mainViewModel.SelectedTitle.Title);
+
+			if (this.Size == null || !outputSizeInfo.Equals(this.Size))
 			{
-				this.Size = null;
+				this.Size = outputSizeInfo;
 			}
+		}
+		else
+		{
+			this.Size = null;
 		}
 	}
 }

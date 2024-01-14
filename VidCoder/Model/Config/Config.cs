@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using VidCoder.Model;
+using VidCoderCommon.Model;
 
 namespace VidCoder
 {
@@ -83,16 +84,21 @@ namespace VidCoder
 			cache.Add("EncodingListPaneOpen", DatabaseConfig.Get("EncodingListPaneOpen", true, connection));
 			cache.Add("EncodingListPaneWidth", DatabaseConfig.Get("EncodingListPaneWidth", 150.0, connection));
 			cache.Add("LogListPaneWidth", DatabaseConfig.Get("LogListPaneWidth", 150.0, connection));
+			cache.Add("WatcherMode", DatabaseConfig.Get("WatcherMode", "FileSystemWatcher", connection));
+			cache.Add("WatcherPollIntervalSeconds", DatabaseConfig.Get("WatcherPollIntervalSeconds", 5, connection));
 			cache.Add("WorkerProcessPriority", DatabaseConfig.Get("WorkerProcessPriority", "BelowNormal", connection));
 			cache.Add("LogVerbosity", DatabaseConfig.Get("LogVerbosity", 1, connection));
+			cache.Add("EnableNVDec", DatabaseConfig.Get("EnableNVDec", true, connection));
 			cache.Add("CopyLogToOutputFolder", DatabaseConfig.Get("CopyLogToOutputFolder", false, connection));
 			cache.Add("CopyLogToCustomFolder", DatabaseConfig.Get("CopyLogToCustomFolder", false, connection));
 			cache.Add("LogCustomFolder", DatabaseConfig.Get("LogCustomFolder", "", connection));
 			cache.Add("AutoPauseLowBattery", DatabaseConfig.Get("AutoPauseLowBattery", true, connection));
 			cache.Add("AutoPauseLowDiskSpace", DatabaseConfig.Get("AutoPauseLowDiskSpace", true, connection));
 			cache.Add("AutoPauseLowDiskSpaceGb", DatabaseConfig.Get("AutoPauseLowDiskSpaceGb", 1, connection));
+			cache.Add("AutoPauseProcessesEnabled", DatabaseConfig.Get("AutoPauseProcessesEnabled", true, connection));
 			cache.Add("AutoPauseProcesses", DatabaseConfig.Get("AutoPauseProcesses", "", connection));
 			cache.Add("MaxSimultaneousEncodes", DatabaseConfig.Get("MaxSimultaneousEncodes", 1, connection));
+			cache.Add("CapNVEnc", DatabaseConfig.Get("CapNVEnc", true, connection));
 			cache.Add("PreviewCount", DatabaseConfig.Get("PreviewCount", 10, connection));
 			cache.Add("PreviewDisplay", DatabaseConfig.Get("PreviewDisplay", "FitToWindow", connection));
 			cache.Add("UseCustomPreviewFolder", DatabaseConfig.Get("UseCustomPreviewFolder", false, connection));
@@ -140,7 +146,7 @@ namespace VidCoder
 		public static void Set<T>(string key, T value)
 		{
 			cache[key] = value;
-			DatabaseConfig.Set(key, value);
+			DatabaseConfig.Set(key, value, Database.Connection);
 
 			NotifyObservable(key, value);
 		}
@@ -148,7 +154,7 @@ namespace VidCoder
 		public static void SetLegacy<T>(string key, T value)
 		{
 			cache[key] = value;
-			DatabaseConfig.SetLegacy(key, value);
+			DatabaseConfig.SetLegacy(key, value, Database.Connection);
 
 			NotifyObservable(key, value);
 		}
@@ -433,6 +439,16 @@ namespace VidCoder
 			get { return (double)cache["LogListPaneWidth"]; }
 			set { Set("LogListPaneWidth", value); }
 		}
+		public static string WatcherMode
+		{
+			get { return (string)cache["WatcherMode"]; }
+			set { Set("WatcherMode", value); }
+		}
+		public static int WatcherPollIntervalSeconds
+		{
+			get { return (int)cache["WatcherPollIntervalSeconds"]; }
+			set { Set("WatcherPollIntervalSeconds", value); }
+		}
 		public static string WorkerProcessPriority
 		{
 			get { return (string)cache["WorkerProcessPriority"]; }
@@ -442,6 +458,11 @@ namespace VidCoder
 		{
 			get { return (int)cache["LogVerbosity"]; }
 			set { Set("LogVerbosity", value); }
+		}
+		public static bool EnableNVDec
+		{
+			get { return (bool)cache["EnableNVDec"]; }
+			set { Set("EnableNVDec", value); }
 		}
 		public static bool CopyLogToOutputFolder
 		{
@@ -473,6 +494,11 @@ namespace VidCoder
 			get { return (int)cache["AutoPauseLowDiskSpaceGb"]; }
 			set { Set("AutoPauseLowDiskSpaceGb", value); }
 		}
+		public static bool AutoPauseProcessesEnabled
+		{
+			get { return (bool)cache["AutoPauseProcessesEnabled"]; }
+			set { Set("AutoPauseProcessesEnabled", value); }
+		}
 		public static string AutoPauseProcesses
 		{
 			get { return (string)cache["AutoPauseProcesses"]; }
@@ -482,6 +508,11 @@ namespace VidCoder
 		{
 			get { return (int)cache["MaxSimultaneousEncodes"]; }
 			set { Set("MaxSimultaneousEncodes", value); }
+		}
+		public static bool CapNVEnc
+		{
+			get { return (bool)cache["CapNVEnc"]; }
+			set { Set("CapNVEnc", value); }
 		}
 		public static int PreviewCount
 		{
@@ -724,16 +755,21 @@ namespace VidCoder
 			public static IObservable<bool> EncodingListPaneOpen => GetObservable<bool>("EncodingListPaneOpen");
 			public static IObservable<double> EncodingListPaneWidth => GetObservable<double>("EncodingListPaneWidth");
 			public static IObservable<double> LogListPaneWidth => GetObservable<double>("LogListPaneWidth");
+			public static IObservable<string> WatcherMode => GetObservable<string>("WatcherMode");
+			public static IObservable<int> WatcherPollIntervalSeconds => GetObservable<int>("WatcherPollIntervalSeconds");
 			public static IObservable<string> WorkerProcessPriority => GetObservable<string>("WorkerProcessPriority");
 			public static IObservable<int> LogVerbosity => GetObservable<int>("LogVerbosity");
+			public static IObservable<bool> EnableNVDec => GetObservable<bool>("EnableNVDec");
 			public static IObservable<bool> CopyLogToOutputFolder => GetObservable<bool>("CopyLogToOutputFolder");
 			public static IObservable<bool> CopyLogToCustomFolder => GetObservable<bool>("CopyLogToCustomFolder");
 			public static IObservable<string> LogCustomFolder => GetObservable<string>("LogCustomFolder");
 			public static IObservable<bool> AutoPauseLowBattery => GetObservable<bool>("AutoPauseLowBattery");
 			public static IObservable<bool> AutoPauseLowDiskSpace => GetObservable<bool>("AutoPauseLowDiskSpace");
 			public static IObservable<int> AutoPauseLowDiskSpaceGb => GetObservable<int>("AutoPauseLowDiskSpaceGb");
+			public static IObservable<bool> AutoPauseProcessesEnabled => GetObservable<bool>("AutoPauseProcessesEnabled");
 			public static IObservable<string> AutoPauseProcesses => GetObservable<string>("AutoPauseProcesses");
 			public static IObservable<int> MaxSimultaneousEncodes => GetObservable<int>("MaxSimultaneousEncodes");
+			public static IObservable<bool> CapNVEnc => GetObservable<bool>("CapNVEnc");
 			public static IObservable<int> PreviewCount => GetObservable<int>("PreviewCount");
 			public static IObservable<string> PreviewDisplay => GetObservable<string>("PreviewDisplay");
 			public static IObservable<bool> UseCustomPreviewFolder => GetObservable<bool>("UseCustomPreviewFolder");

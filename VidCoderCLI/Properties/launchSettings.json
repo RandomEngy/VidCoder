@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "VidCoderCLI": {
+      "commandName": "Project",
+      "commandLineArgs": "pause"
+    }
+  }
+}

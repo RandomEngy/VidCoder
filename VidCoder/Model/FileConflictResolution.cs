@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VidCoder.Model
+namespace VidCoder.Model;
+
+public enum FileConflictResolution
 {
-	public enum FileConflictResolution
-	{
-		Cancel,
-		Overwrite,
-		AutoRename
-	}
+	Cancel,
+	Overwrite,
+	AutoRename
 }

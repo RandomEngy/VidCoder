@@ -154,7 +154,7 @@
     <value>სხვა წყაროს ტიტრი გადაფარავს კოდირებულ ტიტრს.</value>
   </data>
   <data name="ForeignAudioScan" xml:space="preserve">
-    <value>სხვა წყაროს აუდიოს სკანირება</value>
+    <value>სხვა წყაროს ენის სკანირება</value>
   </data>
   <data name="SubtitleFilePickerText" xml:space="preserve">
     <value>ტიტრის ფაილის დამატება</value>

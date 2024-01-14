@@ -12,16 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace VidCoder.View
+namespace VidCoder.View;
+
+/// <summary>
+/// Interaction logic for QueueColumnsDialog.xaml
+/// </summary>
+public partial class QueueColumnsDialog : Window
 {
-	/// <summary>
-	/// Interaction logic for QueueColumnsDialog.xaml
-	/// </summary>
-	public partial class QueueColumnsDialog : Window
+	public QueueColumnsDialog()
 	{
-		public QueueColumnsDialog()
-		{
-			InitializeComponent();
-		}
+		InitializeComponent();
 	}
 }

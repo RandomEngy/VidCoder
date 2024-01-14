@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using HandBrake.Interop.Interop.Interfaces.Model.Encoders;
 
-namespace VidCoderCommon.Model
-{
+namespace VidCoderCommon.Model;
+
     /// <summary>
     /// Intermediate type for holding information about a non-passthrough output audio track.
     /// </summary>
@@ -30,4 +30,3 @@ namespace VidCoderCommon.Model
 
         public double Gain { get; set; }
     }
-}

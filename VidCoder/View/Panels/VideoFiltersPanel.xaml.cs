@@ -12,16 +12,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace VidCoder.View
+namespace VidCoder.View;
+
+/// <summary>
+/// Interaction logic for VideoFiltersPanel.xaml
+/// </summary>
+public partial class VideoFiltersPanel : UserControl
 {
-	/// <summary>
-	/// Interaction logic for VideoFiltersPanel.xaml
-	/// </summary>
-	public partial class VideoFiltersPanel : UserControl
+	public VideoFiltersPanel()
 	{
-		public VideoFiltersPanel()
-		{
-			InitializeComponent();
-		}
+		InitializeComponent();
 	}
 }

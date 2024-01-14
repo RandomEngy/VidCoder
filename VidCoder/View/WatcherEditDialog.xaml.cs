@@ -12,16 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace VidCoder.View
+namespace VidCoder.View;
+
+/// <summary>
+/// Interaction logic for WatcherAddDialog.xaml
+/// </summary>
+public partial class WatcherEditDialog : Window
 {
-	/// <summary>
-	/// Interaction logic for WatcherAddDialog.xaml
-	/// </summary>
-	public partial class WatcherEditDialog : Window
+	public WatcherEditDialog()
 	{
-		public WatcherEditDialog()
-		{
-			InitializeComponent();
-		}
+		InitializeComponent();
 	}
 }

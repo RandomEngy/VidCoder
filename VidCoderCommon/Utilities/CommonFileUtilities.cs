@@ -6,136 +6,155 @@ using System.Text;
 using System.Threading.Tasks;
 using VidCoderCommon.Model;
 
-namespace VidCoderCommon.Utilities
+namespace VidCoderCommon.Utilities;
+
+public static class CommonFileUtilities
 {
-	public static class CommonFileUtilities
+	public static (List<SourcePathWithType> paths, List<string> inacessibleDirectories) GetFilesOrVideoFolders(string directory, PickerFileFilter fileFilter)
 	{
-		public static (List<SourcePathWithType> paths, List<string> inacessibleDirectories) GetFilesOrVideoFolders(string directory, PickerFileFilter fileFilter)
+		var paths = new List<SourcePathWithType>();
+		var inacessibleDirectories = new List<string>();
+
+		try
 		{
-			var paths = new List<SourcePathWithType>();
-			var inacessibleDirectories = new List<string>();
-
-			try
-			{
-				DirectoryInfo directoryInfo = new DirectoryInfo(directory);
-				GetFilesOrVideoFoldersRecursive(directoryInfo, paths, inacessibleDirectories, fileFilter);
-			}
-			catch
-			{
-				inacessibleDirectories.Add(directory);
-			}
-
-			return (paths, inacessibleDirectories);
+			DirectoryInfo directoryInfo = new DirectoryInfo(directory);
+			GetFilesOrVideoFoldersRecursive(directoryInfo, paths, inacessibleDirectories, fileFilter);
+		}
+		catch
+		{
+			inacessibleDirectories.Add(directory);
 		}
 
-		public static ISet<string> ParseVideoExtensionList(string videoExtensionString)
+		return (paths, inacessibleDirectories);
+	}
+
+	public static ISet<string> ParseVideoExtensionList(string videoExtensionString)
+	{
+		var videoExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+		string[] rawExtensions = videoExtensionString.Split(',', ';');
+		foreach (string rawExtension in rawExtensions)
 		{
-			var videoExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-			string[] rawExtensions = videoExtensionString.Split(',', ';');
-			foreach (string rawExtension in rawExtensions)
+			string extension = rawExtension.Trim();
+			if (extension.Length > 0)
 			{
-				string extension = rawExtension.Trim();
-				if (extension.Length > 0)
+				if (!extension.StartsWith("."))
 				{
-					if (!extension.StartsWith("."))
-					{
-						extension = "." + extension;
-					}
-
-					videoExtensions.Add(extension);
-				}
-			}
-
-			return videoExtensions;
-		}
-
-		public static bool IsDirectory(string filePath)
-		{
-			var fileAttributes = File.GetAttributes(filePath);
-			return (fileAttributes & FileAttributes.Directory) == FileAttributes.Directory;
-		}
-
-		private static void GetFilesOrVideoFoldersRecursive(DirectoryInfo directory, List<SourcePathWithType> paths, List<string> inacessibleDirectories, PickerFileFilter fileFilter)
-		{
-			if (IsDiscFolder(directory.FullName))
-			{
-				paths.Add(new SourcePathWithType { Path = EnsureVideoTsFolder(directory.FullName), SourceType = SourceType.DiscVideoFolder });
-				return;
-			}
-
-			try
-			{
-				DirectoryInfo[] subdirectories = directory.GetDirectories();
-				Array.Sort(subdirectories, (a, b) => a.Name.CompareTo(b.Name));
-				foreach (DirectoryInfo subdirectory in subdirectories)
-				{
-					GetFilesOrVideoFoldersRecursive(subdirectory, paths, inacessibleDirectories, fileFilter);
+					extension = "." + extension;
 				}
 
-				FileInfo[] files = directory.GetFiles();
-				Array.Sort(files, (a, b) => a.Name.CompareTo(b.Name));
-				paths.AddRange(files
-					.Where(file =>
-					{
-						return FilePassesPickerFilter(file, fileFilter);
-					})
-					.Select(path => new SourcePathWithType { Path = path.FullName, SourceType = SourceType.File }));
-			}
-			catch (Exception)
-			{
-				inacessibleDirectories.Add(directory.FullName);
+				videoExtensions.Add(extension);
 			}
 		}
 
-		public static bool FilePassesPickerFilter(FileInfo file, PickerFileFilter filter)
+		return videoExtensions;
+	}
+
+	public static bool IsDirectory(string filePath)
+	{
+		var fileAttributes = File.GetAttributes(filePath);
+		return (fileAttributes & FileAttributes.Directory) == FileAttributes.Directory;
+	}
+
+	public static bool IsFileLocked(string filePath)
+	{
+		FileStream stream = null;
+
+		try
 		{
-			return filter.Extensions.Contains(file.Extension)
-				&& !Path.GetFileNameWithoutExtension(file.Name).EndsWith(".part")
-				&& file.Length >= filter.IgnoreFilesBelowMb * 1024 * 1024;
+			stream = File.OpenRead(filePath);
+		}
+		catch (Exception)
+		{
+			return true;
+		}
+		finally
+		{
+			stream?.Close();
 		}
 
-		public static FolderType GetFolderType(string directory)
+		return false;
+	}
+
+	private static void GetFilesOrVideoFoldersRecursive(DirectoryInfo directory, List<SourcePathWithType> paths, List<string> inacessibleDirectories, PickerFileFilter fileFilter)
+	{
+		if (IsDiscFolder(directory.FullName))
 		{
-			try
+			paths.Add(new SourcePathWithType { Path = EnsureVideoTsFolder(directory.FullName), SourceType = SourceType.DiscVideoFolder });
+			return;
+		}
+
+		try
+		{
+			DirectoryInfo[] subdirectories = directory.GetDirectories();
+			Array.Sort(subdirectories, (a, b) => a.Name.CompareTo(b.Name));
+			foreach (DirectoryInfo subdirectory in subdirectories)
 			{
-				var directoryInfo = new DirectoryInfo(directory);
-				if (!directoryInfo.Exists)
+				GetFilesOrVideoFoldersRecursive(subdirectory, paths, inacessibleDirectories, fileFilter);
+			}
+
+			FileInfo[] files = directory.GetFiles();
+			Array.Sort(files, (a, b) => a.Name.CompareTo(b.Name));
+			paths.AddRange(files
+				.Where(file =>
 				{
-					return FolderType.NonExistent;
-				}
-
-				if (File.Exists(Path.Combine(directory, @"VIDEO_TS.IFO")) || File.Exists(Path.Combine(directory, @"VIDEO_TS\VIDEO_TS.IFO")))
-				{
-					return FolderType.Dvd;
-				}
-
-				if (Directory.Exists(Path.Combine(directory, "BDMV")))
-				{
-					return FolderType.BluRay;
-				}
-			}
-			catch
-			{
-			}
-
-			return FolderType.VideoFiles;
+					return FilePassesPickerFilter(file, fileFilter);
+				})
+				.Select(path => new SourcePathWithType { Path = path.FullName, SourceType = SourceType.File }));
 		}
-
-		public static bool IsDiscFolder(string directory)
+		catch (Exception)
 		{
-			FolderType folderType = GetFolderType(directory);
-			return folderType == FolderType.Dvd || folderType == FolderType.BluRay;
+			inacessibleDirectories.Add(directory.FullName);
 		}
+	}
 
-		public static string EnsureVideoTsFolder(string directory)
+	public static bool FilePassesPickerFilter(FileInfo file, PickerFileFilter filter)
+	{
+		return filter.Extensions.Contains(file.Extension)
+			&& !Path.GetFileNameWithoutExtension(file.Name).EndsWith(".part")
+			&& file.Length >= filter.IgnoreFilesBelowMb * 1024 * 1024;
+	}
+
+	public static FolderType GetFolderType(string directory)
+	{
+		try
 		{
-			string videoTsPath = Path.Combine(directory, "VIDEO_TS");
-			if (Directory.Exists(videoTsPath))
+			var directoryInfo = new DirectoryInfo(directory);
+			if (!directoryInfo.Exists)
 			{
-				return videoTsPath;
+				return FolderType.NonExistent;
 			}
 
-			return directory;
+			if (File.Exists(Path.Combine(directory, @"VIDEO_TS.IFO")) || File.Exists(Path.Combine(directory, @"VIDEO_TS\VIDEO_TS.IFO")))
+			{
+				return FolderType.Dvd;
+			}
+
+			if (Directory.Exists(Path.Combine(directory, "BDMV")))
+			{
+				return FolderType.BluRay;
+			}
 		}
+		catch
+		{
+		}
+
+		return FolderType.VideoFiles;
+	}
+
+	public static bool IsDiscFolder(string directory)
+	{
+		FolderType folderType = GetFolderType(directory);
+		return folderType == FolderType.Dvd || folderType == FolderType.BluRay;
+	}
+
+	public static string EnsureVideoTsFolder(string directory)
+	{
+		string videoTsPath = Path.Combine(directory, "VIDEO_TS");
+		if (Directory.Exists(videoTsPath))
+		{
+			return videoTsPath;
+		}
+
+		return directory;
 	}
 }

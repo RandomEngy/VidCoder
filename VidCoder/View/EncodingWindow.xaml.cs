@@ -22,89 +22,99 @@ using VidCoder.DragDropUtils;
 using VidCoder.Services.Windows;
 using VidCoder.ViewModel.DataModels;
 
-namespace VidCoder.View
+namespace VidCoder.View;
+
+using System.Data.SQLite;
+using System.Windows.Interop;
+using Model;
+
+/// <summary>
+/// Interaction logic for EncodingWindow.xaml
+/// </summary>
+public partial class EncodingWindow : Window
 {
-	using System.Data.SQLite;
-	using System.Windows.Interop;
-	using Model;
+	private EncodingWindowViewModel viewModel;
+	private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
 
-	/// <summary>
-	/// Interaction logic for EncodingWindow.xaml
-	/// </summary>
-	public partial class EncodingWindow : Window
+	public EncodingWindow()
 	{
-		private EncodingWindowViewModel viewModel;
+		this.InitializeComponent();
+		this.listColumn.Width = new GridLength(Config.EncodingListPaneWidth);
 
-		public EncodingWindow()
+		this.DataContextChanged += this.OnDataContextChanged;
+	}
+
+	private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+	{
+		this.viewModel = e.NewValue as EncodingWindowViewModel;
+
+		if (this.viewModel != null)
 		{
-			this.InitializeComponent();
-			this.listColumn.Width = new GridLength(Config.EncodingListPaneWidth);
+			this.SetPanelOpenState(this.viewModel.PresetPanelOpen);
+			this.viewModel.PropertyChanged += this.OnPropertyChanged;
+		}
+	}
 
-			this.DataContextChanged += this.OnDataContextChanged;
+	private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+	{
+		if (this.viewModel != null && e.PropertyName == nameof(this.viewModel.PresetPanelOpen))
+		{
+			this.SetPanelOpenState(this.viewModel.PresetPanelOpen);
+		}
+	}
+
+	private void SetPanelOpenState(bool panelOpen)
+	{
+		if (panelOpen)
+		{
+			Grid.SetColumn(this.mainGrid, 1);
+			Grid.SetColumnSpan(this.mainGrid, 1);
+		}
+		else
+		{
+			Grid.SetColumn(this.mainGrid, 0);
+			Grid.SetColumnSpan(this.mainGrid, 2);
+		}
+	}
+
+	private void Window_Closing(object sender, CancelEventArgs e)
+	{
+		using (SQLiteTransaction transaction = Database.Connection.BeginTransaction())
+		{
+			Config.EncodingDialogLastTab = this.tabControl.SelectedIndex;
+			Config.EncodingListPaneWidth = this.listColumn.ActualWidth;
+
+			transaction.Commit();
+		}
+	}
+
+	private void ToolBar_Loaded(object sender, RoutedEventArgs e)
+	{
+		UIUtilities.HideOverflowGrid(sender as ToolBar);
+	}
+
+	private void Window_Closed(object sender, EventArgs e)
+	{
+		if (this.viewModel != null)
+		{
+			this.viewModel.PropertyChanged -= this.OnPropertyChanged;
 		}
 
-		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-		{
-			this.viewModel = e.NewValue as EncodingWindowViewModel;
+		this.DataContext = null;
+	}
 
-			if (this.viewModel != null)
-			{
-				this.SetPanelOpenState(this.viewModel.PresetPanelOpen);
-				this.viewModel.PropertyChanged += this.OnPropertyChanged;
-			}
-		}
+	private void OnPresetTreeKeyDown(object sender, KeyEventArgs e)
+	{
+		StaticResolver.Resolve<PresetsService>().HandleKey(e);
+	}
 
-		private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			if (this.viewModel != null && e.PropertyName == nameof(this.viewModel.PresetPanelOpen))
-			{
-				this.SetPanelOpenState(this.viewModel.PresetPanelOpen);
-			}
-		}
+	private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+	{
+		this.windowManager.LastEncodingWindowReize = DateTimeOffset.UtcNow;
+    }
 
-		private void SetPanelOpenState(bool panelOpen)
-		{
-			if (panelOpen)
-			{
-				Grid.SetColumn(this.mainGrid, 1);
-				Grid.SetColumnSpan(this.mainGrid, 1);
-			}
-			else
-			{
-				Grid.SetColumn(this.mainGrid, 0);
-				Grid.SetColumnSpan(this.mainGrid, 2);
-			}
-		}
-
-		private void Window_Closing(object sender, CancelEventArgs e)
-		{
-			using (SQLiteTransaction transaction = Database.Connection.BeginTransaction())
-			{
-				Config.EncodingDialogLastTab = this.tabControl.SelectedIndex;
-				Config.EncodingListPaneWidth = this.listColumn.ActualWidth;
-
-				transaction.Commit();
-			}
-		}
-
-		private void ToolBar_Loaded(object sender, RoutedEventArgs e)
-		{
-			UIUtilities.HideOverflowGrid(sender as ToolBar);
-		}
-
-		private void Window_Closed(object sender, EventArgs e)
-		{
-			if (this.viewModel != null)
-			{
-				this.viewModel.PropertyChanged -= this.OnPropertyChanged;
-			}
-
-			this.DataContext = null;
-		}
-
-		private void OnPresetTreeKeyDown(object sender, KeyEventArgs e)
-		{
-			StaticResolver.Resolve<PresetsService>().HandleKey(e);
-		}
+	private void Window_LocationChanged(object sender, EventArgs e)
+	{
+		this.windowManager.LastEncodingWindowMove = DateTimeOffset.UtcNow;
 	}
 }

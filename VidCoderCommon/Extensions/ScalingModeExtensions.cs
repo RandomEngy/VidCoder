@@ -6,29 +6,28 @@ using System.Text;
 using System.Threading.Tasks;
 using VidCoderCommon.Model;
 
-namespace VidCoderCommon.Extensions
+namespace VidCoderCommon.Extensions;
+
+public static class ScalingModeExtensions
 {
-	public static class ScalingModeExtensions
+	public static bool UpscalingAllowed(this VCScalingMode scalingMode)
 	{
-		public static bool UpscalingAllowed(this VCScalingMode scalingMode)
+		return scalingMode != VCScalingMode.DownscaleOnly;
+	}
+
+	public static int UpscalingMultipleCap(this VCScalingMode scalingMode)
+	{
+		if (scalingMode == VCScalingMode.DownscaleOnly)
 		{
-			return scalingMode != VCScalingMode.DownscaleOnly;
+			return 1;
 		}
 
-		public static int UpscalingMultipleCap(this VCScalingMode scalingMode)
+		string enumString = scalingMode.ToString();
+		if (!enumString.EndsWith("X"))
 		{
-			if (scalingMode == VCScalingMode.DownscaleOnly)
-			{
-				return 1;
-			}
-
-			string enumString = scalingMode.ToString();
-			if (!enumString.EndsWith("X"))
-			{
-				return 0;
-			}
-
-			return int.Parse(enumString.Substring(enumString.Length - 2, 1), CultureInfo.InvariantCulture);
+			return 0;
 		}
+
+		return int.Parse(enumString.Substring(enumString.Length - 2, 1), CultureInfo.InvariantCulture);
 	}
 }

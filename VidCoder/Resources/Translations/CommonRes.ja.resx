@@ -344,4 +344,8 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="Enabled" xml:space="preserve">
     <value>有効</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>閉じる</value>
+    <comment>Label to close a window or item.</comment>
+  </data>
 </root>

@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VidCoder.ViewModel
+namespace VidCoder.ViewModel;
+
+public class InterfaceLanguage
 {
-	public class InterfaceLanguage
-	{
-		public string CultureCode { get; set; }
+	public string CultureCode { get; set; }
 
-		public string Display { get; set; }
+	public string Display { get; set; }
 
-	    public override string ToString()
-	    {
-	        return this.Display;
-	    }
-	}
+    public override string ToString()
+    {
+        return this.Display;
+    }
 }

@@ -1,11 +1,10 @@
 ﻿using System;
 
-namespace VidCoder.ViewModel
+namespace VidCoder.ViewModel;
+
+public interface IPreviewView
 {
-	public interface IPreviewView
-	{
-		void RefreshImageSize();
-		void RefreshViewModelFromMediaElement();
-		void SeekToViewModelPosition(TimeSpan position);
-	}
+	void RefreshImageSize();
+	void RefreshViewModelFromMediaElement();
+	void SeekToViewModelPosition(TimeSpan position);
 }

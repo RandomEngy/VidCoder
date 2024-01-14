@@ -4,36 +4,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoderCommon.Model
+namespace VidCoderCommon.Model;
+
+/// <summary>
+/// Represents a folder being watched for source files.
+/// </summary>
+public class WatchedFolder
 {
 	/// <summary>
-	/// Represents a folder being watched for source files.
+	/// The path of the folder to watch.
 	/// </summary>
-	public class WatchedFolder
+	public string Path { get; set; } = string.Empty;
+
+	/// <summary>
+	/// The name of the picker to use.
+	/// </summary>
+	public string Picker { get; set; }
+
+	/// <summary>
+	/// The name of the encoding preset to use.
+	/// </summary>
+	public string Preset { get; set; }
+
+	public WatchedFolder Clone()
 	{
-		/// <summary>
-		/// The path of the folder to watch.
-		/// </summary>
-		public string Path { get; set; } = string.Empty;
-
-		/// <summary>
-		/// The name of the picker to use.
-		/// </summary>
-		public string Picker { get; set; }
-
-		/// <summary>
-		/// The name of the encoding preset to use.
-		/// </summary>
-		public string Preset { get; set; }
-
-		public WatchedFolder Clone()
+		return new WatchedFolder
 		{
-			return new WatchedFolder
-			{
-				Path = this.Path,
-				Picker = this.Picker,
-				Preset = this.Preset
-			};
-		}
+			Path = this.Path,
+			Picker = this.Picker,
+			Preset = this.Preset
+		};
 	}
 }

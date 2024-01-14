@@ -5,14 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using VidCoderCommon.Model;
 
-namespace VidCoderCommon
+namespace VidCoderCommon;
+
+public interface IHandBrakeEncodeWorkerCallback : IHandBrakeWorkerCallback
 {
-	public interface IHandBrakeEncodeWorkerCallback : IHandBrakeWorkerCallback
-	{
-		void OnEncodeStarted();
+	void OnEncodeStarted();
 
-		void OnEncodeProgress(float averageFrameRate, float currentFrameRate, TimeSpan estimatedTimeLeft, float fractionComplete, int passId, int pass, int passCount, string stateCode);
+	void OnEncodeProgress(float averageFrameRate, float currentFrameRate, TimeSpan estimatedTimeLeft, float fractionComplete, int passId, int pass, int passCount, string stateCode);
 
-		void OnEncodeComplete(VCEncodeResultCode result);
-	}
+	void OnEncodeComplete(VCEncodeResultCode result);
 }

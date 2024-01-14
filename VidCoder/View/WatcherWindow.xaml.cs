@@ -12,66 +12,65 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace VidCoder.View
+namespace VidCoder.View;
+
+/// <summary>
+/// Interaction logic for WatcherWindow.xaml
+/// </summary>
+public partial class WatcherWindow : Window
 {
-	/// <summary>
-	/// Interaction logic for WatcherWindow.xaml
-	/// </summary>
-	public partial class WatcherWindow : Window
+	public WatcherWindow()
 	{
-		public WatcherWindow()
+		this.InitializeComponent();
+
+		this.LoadFileColumnWidths();
+
+		this.Closing += OnClosing;
+	}
+
+	private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
+	{
+		this.SaveFileColumnWidths();
+	}
+
+	public void LoadFileColumnWidths()
+	{
+		string columnWidthsString = Config.WatcherFileColumnWidths;
+
+		if (string.IsNullOrEmpty(columnWidthsString))
 		{
-			this.InitializeComponent();
-
-			this.LoadFileColumnWidths();
-
-			this.Closing += OnClosing;
+			return;
 		}
 
-		private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
+		string[] columnWidths = columnWidthsString.Split('|');
+		for (int i = 0; i < this.filesGridView.Columns.Count; i++)
 		{
-			this.SaveFileColumnWidths();
-		}
-
-		public void LoadFileColumnWidths()
-		{
-			string columnWidthsString = Config.WatcherFileColumnWidths;
-
-			if (string.IsNullOrEmpty(columnWidthsString))
+			if (i < columnWidths.Length)
 			{
-				return;
-			}
+				double width = 0;
+				double.TryParse(columnWidths[i], out width);
 
-			string[] columnWidths = columnWidthsString.Split('|');
-			for (int i = 0; i < this.filesGridView.Columns.Count; i++)
-			{
-				if (i < columnWidths.Length)
+				if (width > 0)
 				{
-					double width = 0;
-					double.TryParse(columnWidths[i], out width);
-
-					if (width > 0)
-					{
-						this.filesGridView.Columns[i].Width = width;
-					}
+					this.filesGridView.Columns[i].Width = width;
 				}
 			}
 		}
+	}
 
-		private void SaveFileColumnWidths()
+	private void SaveFileColumnWidths()
+	{
+		var columnsBuilder = new StringBuilder();
+		for (int i = 0; i < this.filesGridView.Columns.Count; i++)
 		{
-			var columnsBuilder = new StringBuilder();
-			for (int i = 0; i < this.filesGridView.Columns.Count; i++)
+			columnsBuilder.Append(this.filesGridView.Columns[i].ActualWidth);
+
+			if (i != this.filesGridView.Columns.Count - 1)
 			{
-				columnsBuilder.Append(this.filesGridView.Columns[i].ActualWidth);
-
-				if (i != this.filesGridView.Columns.Count - 1)
-				{
-					columnsBuilder.Append("|");
-				}
+				columnsBuilder.Append("|");
 			}
-
-			Config.WatcherFileColumnWidths = columnsBuilder.ToString();
 		}
+
+		Config.WatcherFileColumnWidths = columnsBuilder.ToString();
 	}
 }

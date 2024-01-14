@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VidCoder
+namespace VidCoder;
+
+public interface IDialog
 {
-	public interface IDialog
-	{
-		bool? ShowDialog();
-	}
+	bool? ShowDialog();
 }

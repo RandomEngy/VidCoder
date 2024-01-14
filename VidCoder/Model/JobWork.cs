@@ -8,41 +8,40 @@ using VidCoder.Services;
 using VidCoder.ViewModel;
 using VidCoderCommon.Model;
 
-namespace VidCoder.Model
+namespace VidCoder.Model;
+
+/// <summary>
+/// Tracks all properties needed for overall work tracking on the queue.
+/// </summary>
+public class JobWork
 {
-	/// <summary>
-	/// Tracks all properties needed for overall work tracking on the queue.
-	/// </summary>
-	public class JobWork
+	private readonly bool isTwoPass;
+	private readonly bool hasScanPass;
+
+	public JobWork(TimeSpan jobVideoLength, bool isTwoPass, bool hasScanPass)
 	{
-		private readonly bool isTwoPass;
-		private readonly bool hasScanPass;
+		this.JobVideoLength = jobVideoLength;
+		this.isTwoPass = isTwoPass;
+		this.hasScanPass = hasScanPass;
 
-		public JobWork(TimeSpan jobVideoLength, bool isTwoPass, bool hasScanPass)
+		this.Cost = jobVideoLength.TotalSeconds;
+		if (isTwoPass)
 		{
-			this.JobVideoLength = jobVideoLength;
-			this.isTwoPass = isTwoPass;
-			this.hasScanPass = hasScanPass;
-
-			this.Cost = jobVideoLength.TotalSeconds;
-			if (isTwoPass)
-			{
-				this.Cost += jobVideoLength.TotalSeconds;
-			}
-
-			if (hasScanPass)
-			{
-				this.Cost += jobVideoLength.TotalSeconds / EncodeJobViewModel.SubtitleScanCostFactor;
-			}
+			this.Cost += jobVideoLength.TotalSeconds;
 		}
 
-		public TimeSpan JobVideoLength { get; }
-
-		/// <summary>
-		/// The cost of the job, where the units are seconds of video to convert, multiplied by pass count.
-		/// </summary>
-		public double Cost { get; }
-
-		public double CompletedWork { get; set; }
+		if (hasScanPass)
+		{
+			this.Cost += jobVideoLength.TotalSeconds / EncodeJobViewModel.SubtitleScanCostFactor;
+		}
 	}
+
+	public TimeSpan JobVideoLength { get; }
+
+	/// <summary>
+	/// The cost of the job, where the units are seconds of video to convert, multiplied by pass count.
+	/// </summary>
+	public double Cost { get; }
+
+	public double CompletedWork { get; set; }
 }

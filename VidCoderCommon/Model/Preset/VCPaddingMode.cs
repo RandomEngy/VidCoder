@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VidCoderCommon.Model
+namespace VidCoderCommon.Model;
+
+public enum VCPaddingMode
 {
-	public enum VCPaddingMode
-	{
-		None,
-		Fill,
-		Width,
-		Height,
-		Custom,
-	}
+	None,
+	Fill,
+	Width,
+	Height,
+	Custom,
 }

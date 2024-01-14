@@ -5,41 +5,40 @@ using System.Text;
 using ReactiveUI;
 using VidCoder.Model;
 
-namespace VidCoder.ViewModel.DataModels
-{
+namespace VidCoder.ViewModel.DataModels;
+
     public class PickerViewModel : ReactiveObject
     {
         public PickerViewModel(Picker picker)
         {
             this.picker = picker;
 
-	        this.WhenAnyValue(x => x.Picker.IsModified, x => x.Picker.DisplayName, (isModified, displayName) =>
-	        {
-				string name = displayName;
-				if (isModified)
-				{
-					name += " *";
-				}
+        this.WhenAnyValue(x => x.Picker.IsModified, x => x.Picker.DisplayName, (isModified, displayName) =>
+        {
+			string name = displayName;
+			if (isModified)
+			{
+				name += " *";
+			}
 
-				return name;
-	        }).ToProperty(this, x => x.DisplayNameWithStar, out this.displayNameWithStar);
+			return name;
+        }).ToProperty(this, x => x.DisplayNameWithStar, out this.displayNameWithStar);
         }
 
-	    private Picker picker;
-	    public Picker Picker
-	    {
-		    get { return this.picker; }
-		    set { this.RaiseAndSetIfChanged(ref this.picker, value); }
-	    }
+    private Picker picker;
+    public Picker Picker
+    {
+	    get { return this.picker; }
+	    set { this.RaiseAndSetIfChanged(ref this.picker, value); }
+    }
 
         public Picker OriginalPicker { get; set; }
 
-	    private ObservableAsPropertyHelper<string> displayNameWithStar;
-	    public string DisplayNameWithStar => this.displayNameWithStar.Value;
+    private ObservableAsPropertyHelper<string> displayNameWithStar;
+    public string DisplayNameWithStar => this.displayNameWithStar.Value;
 
-	    public override string ToString()
-	    {
-		    return this.picker.DisplayName;
-	    }
+    public override string ToString()
+    {
+	    return this.picker.DisplayName;
     }
-}
+    }

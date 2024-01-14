@@ -2,31 +2,30 @@
 using VidCoder.Resources;
 using VidCoderCommon.Model;
 
-namespace VidCoder.Extensions
+namespace VidCoder.Extensions;
+
+public static class PresetExtensions
 {
-	public static class PresetExtensions
+	private static ResourceManager manager = new ResourceManager(typeof(MainRes));
+
+	public static string GetDisplayName(this Preset preset)
 	{
-		private static ResourceManager manager = new ResourceManager(typeof(MainRes));
+		return GetDisplayName(preset.Name, preset.IsBuiltIn);
+	}
 
-		public static string GetDisplayName(this Preset preset)
+	public static string GetDisplayName(string name, bool isBuiltIn)
+	{
+		if (!isBuiltIn)
 		{
-			return GetDisplayName(preset.Name, preset.IsBuiltIn);
+			return name;
 		}
 
-		public static string GetDisplayName(string name, bool isBuiltIn)
+		string displayName = manager.GetString("Preset_" + name);
+		if (displayName == null)
 		{
-			if (!isBuiltIn)
-			{
-				return name;
-			}
-
-			string displayName = manager.GetString("Preset_" + name);
-			if (displayName == null)
-			{
-				return name;
-			}
-
-			return displayName;
+			return name;
 		}
+
+		return displayName;
 	}
 }

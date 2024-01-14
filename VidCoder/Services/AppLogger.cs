@@ -7,201 +7,202 @@ using HandBrake.Interop.Interop;
 using Microsoft.AnyContainer;
 using VidCoder.Model;
 using VidCoderCommon;
+using VidCoder.Extensions;
 
-namespace VidCoder.Services
+namespace VidCoder.Services;
+
+public class AppLogger : IAppLogger
 {
-	public class AppLogger : IAppLogger
+	private FileStream logFileStream;
+	private readonly IAppLogger parent;
+	private readonly object disposeLock = new object();
+
+	public event EventHandler<EventArgs<LoggedEntry>> EntryLogged;
+
+	public AppLogger(IAppLogger parent, string baseFileName)
 	{
-		private StreamWriter logFileWriter;
-		private readonly IAppLogger parent;
-		private readonly object disposeLock = new object();
+		this.parent = parent;
 
-		public event EventHandler<EventArgs<LogEntry>> EntryLogged;
+		string logFolder = CommonUtilities.LogsFolder;
 
-		public AppLogger(IAppLogger parent, string baseFileName)
+		string logFileNameAffix;
+		if (baseFileName != null)
 		{
-			this.parent = parent;
+			logFileNameAffix = baseFileName;
+		}
+		else
+		{
+			logFileNameAffix = "Combined";
+		}
 
-			string logFolder = CommonUtilities.LogsFolder;
+		this.LogPath = Path.Combine(logFolder, DateTimeOffset.Now.ToString("yyyy-MM-dd HH.mm.ss ") + logFileNameAffix + ".txt");
 
-			string logFileNameAffix;
-			if (baseFileName != null)
-			{
-				logFileNameAffix = baseFileName;
-			}
-			else
-			{
-				logFileNameAffix = "Combined";
-			}
+		this.TryCreateLogFileWriter();
 
-			this.LogPath = Path.Combine(logFolder, DateTimeOffset.Now.ToString("yyyy-MM-dd HH.mm.ss ") + logFileNameAffix + ".txt");
+		var initialEntry = new LogEntry
+		{
+			LogType = LogType.Message,
+			Source = LogSource.VidCoder,
+			Text = "VidCoder " + Utilities.VersionString
+		};
 
+		this.AddEntry(initialEntry, logParent: false);
+	}
+
+	private void TryCreateLogFileWriter()
+	{
+		try
+		{
+			this.logFileStream = new FileStream(this.LogPath, FileMode.Append, FileAccess.Write);
+		}
+		catch (PathTooLongException)
+		{
+			this.parent?.LogError("Could not create logger for encode. File path was too long.");
+			// We won't have an underlying log file.
+		}
+		catch (IOException exception)
+		{
+			this.LogError("Could not open file for logger." + Environment.NewLine + exception);
+		}
+	}
+
+	public string LogPath { get; set; }
+
+	public object LogLock { get; } = new object();
+
+	/// <summary>
+	/// Suspends the file writer. Should be called while holding the LogLock
+	/// </summary>
+	public void SuspendWriter()
+	{
+		this.logFileStream?.Close();
+		this.logFileStream = null;
+	}
+
+	/// <summary>
+	/// Resumes the file writer. Should be called while holding the LogLock
+	/// </summary>
+	public void ResumeWriter()
+	{
+		if (!this.Closed)
+		{
 			this.TryCreateLogFileWriter();
-
-			var initialEntry = new LogEntry
-			{
-				LogType = LogType.Message,
-				Source = LogSource.VidCoder,
-				Text = "# VidCoder " + Utilities.VersionString
-			};
-
-			this.AddEntry(initialEntry, logParent: false);
 		}
+	}
 
-		private void TryCreateLogFileWriter()
+	public void Log(string message)
+	{
+		var entry = new LogEntry
 		{
-			try
-			{
-				this.logFileWriter = new StreamWriter(new FileStream(this.LogPath, FileMode.Append, FileAccess.Write));
-			}
-			catch (PathTooLongException)
-			{
-				this.parent?.LogError("Could not create logger for encode. File path was too long.");
-				// We won't have an underlying log file.
-			}
-			catch (IOException exception)
-			{
-				this.LogError("Could not open file for logger." + Environment.NewLine + exception);
-			}
-		}
+		    LogType = LogType.Message,
+			Source = LogSource.VidCoder,
+			Text = message
+		};
 
-		public string LogPath { get; set; }
+		this.AddEntry(entry);
+	}
 
-		public object LogLock { get; } = new object();
-
-		/// <summary>
-		/// Suspends the file writer. Should be called while holding the LogLock
-		/// </summary>
-		public void SuspendWriter()
+	public void Log(IEnumerable<LogEntry> entries)
+	{
+		foreach (var entry in entries)
 		{
-			this.logFileWriter?.Close();
-			this.logFileWriter = null;
+			this.AddEntry(entry);
 		}
+	}
 
-		/// <summary>
-		/// Resumes the file writer. Should be called while holding the LogLock
-		/// </summary>
-		public void ResumeWriter()
+	public void LogDebug(string message)
+	{
+		if (Utilities.DebugLogging)
+		{
+			this.Log(message);
+		}
+	}
+
+	public void LogError(string message)
+	{
+		var entry = new LogEntry
+		{
+			LogType = LogType.Error,
+			Source = LogSource.VidCoder,
+			Text = message
+		};
+
+		this.AddEntry(entry);
+	}
+
+	public void LogWorker(string message, bool isError)
+	{
+		var logType = isError ? LogType.Error : LogType.Message;
+
+		var entry = new LogEntry
+		{
+			LogType = logType,
+			Source = LogSource.VidCoderWorker,
+			Text = message
+		};
+
+		this.AddEntry(entry);
+	}
+
+	public void ShowStatus(string message)
+	{
+		StaticResolver.Resolve<StatusService>().Show(message);
+	}
+
+	protected virtual void Dispose(bool disposing)
+	{
+		lock (this.disposeLock)
+		lock (this.LogLock)
 		{
 			if (!this.Closed)
 			{
-				this.TryCreateLogFileWriter();
-			}
-		}
-
-		public void Log(string message)
-		{
-			string prefix = string.IsNullOrEmpty(message) ? string.Empty : "# ";
-
-			var entry = new LogEntry
-			{
-			    LogType = LogType.Message,
-				Source = LogSource.VidCoder,
-				Text = prefix + message
-			};
-
-			this.AddEntry(entry);
-		}
-
-		public void Log(IEnumerable<LogEntry> entries)
-		{
-			foreach (var entry in entries)
-			{
-				this.AddEntry(entry);
-			}
-		}
-
-		public void LogDebug(string message)
-		{
-			if (Utilities.DebugLogging)
-			{
-				this.Log(message);
-			}
-		}
-
-		public void LogError(string message)
-		{
-			var entry = new LogEntry
-			{
-				LogType = LogType.Error,
-				Source = LogSource.VidCoder,
-				Text = "ERROR: " + message
-			};
-
-			this.AddEntry(entry);
-		}
-
-		public void LogWorker(string message, bool isError)
-		{
-			var logType = isError ? LogType.Error : LogType.Message;
-
-			var entry = new LogEntry
-			{
-				LogType = logType,
-				Source = LogSource.VidCoderWorker,
-				Text = LogEntryClassificationUtilities.GetEntryPrefix(logType, LogSource.VidCoderWorker) + message
-			};
-
-			this.AddEntry(entry);
-		}
-
-		public void ShowStatus(string message)
-		{
-			StaticResolver.Resolve<StatusService>().Show(message);
-		}
-
-		protected virtual void Dispose(bool disposing)
-		{
-			lock (this.disposeLock)
-			lock (this.LogLock)
-			{
-				if (!this.Closed)
+				this.Closed = true;
+				if (disposing)
 				{
-					this.Closed = true;
-					if (disposing)
-					{
-						this.logFileWriter?.Dispose();
-						this.logFileWriter = null;
-					}
+					this.logFileStream?.Dispose();
+					this.logFileStream = null;
 				}
 			}
 		}
+	}
 
-		public void Dispose()
+	public void Dispose()
+	{
+		this.Dispose(true);
+		GC.SuppressFinalize(this);
+	}
+
+	public bool Closed { get; private set; }
+
+	public void AddEntry(LogEntry entry, bool logParent = true)
+	{
+		lock (this.disposeLock)
 		{
-			this.Dispose(true);
-			GC.SuppressFinalize(this);
+			if (this.Closed)
+			{
+				return;
+			}
 		}
 
-		public bool Closed { get; private set; }
-
-		public void AddEntry(LogEntry entry, bool logParent = true)
+		lock (this.LogLock)
 		{
-			lock (this.disposeLock)
+			string logText = entry.FormatMessage() + Environment.NewLine;
+			byte[] logBytes = Encoding.UTF8.GetBytes(logText);
+
+			this.EntryLogged?.Invoke(this, new EventArgs<LoggedEntry>(new LoggedEntry { Entry = entry, ByteCount = logBytes.LongLength }));
+
+			try
 			{
-				if (this.Closed)
+				this.logFileStream?.Write(logBytes);
+				this.logFileStream?.Flush();
+
+				if (this.parent != null && logParent)
 				{
-					return;
+					this.parent.AddEntry(entry);
 				}
 			}
-
-			lock (this.LogLock)
+			catch (ObjectDisposedException)
 			{
-				this.EntryLogged?.Invoke(this, new EventArgs<LogEntry>(entry));
-
-				try
-				{
-					this.logFileWriter?.WriteLine(entry.Text);
-					this.logFileWriter?.Flush();
-
-					if (this.parent != null && logParent)
-					{
-						this.parent.AddEntry(entry);
-					}
-				}
-				catch (ObjectDisposedException)
-				{
-				}
 			}
 		}
 	}

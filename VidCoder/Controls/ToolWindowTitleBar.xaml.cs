@@ -13,95 +13,94 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace VidCoder.Controls
+namespace VidCoder.Controls;
+
+/// <summary>
+/// Interaction logic for ToolWindowTitleBar.xaml
+/// </summary>
+public partial class ToolWindowTitleBar : UserControl
 {
-	/// <summary>
-	/// Interaction logic for ToolWindowTitleBar.xaml
-	/// </summary>
-	public partial class ToolWindowTitleBar : UserControl
+	public ToolWindowTitleBar()
 	{
-		public ToolWindowTitleBar()
+		InitializeComponent();
+	}
+
+	private void OnCloseButtonClick(object sender, RoutedEventArgs e)
+	{
+		UIUtilities.FindVisualParent<Window>(this).Close();
+	}
+
+	public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(
+		"Title",
+		typeof(string),
+		typeof(ToolWindowTitleBar),
+		new PropertyMetadata(new PropertyChangedCallback(OnTitleChanged)));
+	public string Title
+	{
+		get
 		{
-			InitializeComponent();
+			return (string)GetValue(TitleProperty);
 		}
 
-		private void OnCloseButtonClick(object sender, RoutedEventArgs e)
+		set
 		{
-			UIUtilities.FindVisualParent<Window>(this).Close();
+			SetValue(TitleProperty, value);
+		}
+	}
+
+	private static void OnTitleChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+	{
+		var toolWindowTitleBar = dependencyObject as ToolWindowTitleBar;
+		string newText = (string)eventArgs.NewValue;
+
+		toolWindowTitleBar.titleTextBlock.Text = newText;
+	}
+
+	public static readonly DependencyProperty IconProperty = DependencyProperty.Register(
+		"Icon",
+		typeof(ImageSource),
+		typeof(ToolWindowTitleBar),
+		new PropertyMetadata(null, new PropertyChangedCallback(OnIconChanged)));
+
+	public ImageSource Icon
+	{
+		get
+		{
+			return (ImageSource)GetValue(IconProperty);
 		}
 
-		public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(
-			"Title",
-			typeof(string),
-			typeof(ToolWindowTitleBar),
-			new PropertyMetadata(new PropertyChangedCallback(OnTitleChanged)));
-		public string Title
+		set
 		{
-			get
-			{
-				return (string)GetValue(TitleProperty);
-			}
-
-			set
-			{
-				SetValue(TitleProperty, value);
-			}
+			SetValue(IconProperty, value);
 		}
+	}
 
-		private static void OnTitleChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
-		{
-			var toolWindowTitleBar = dependencyObject as ToolWindowTitleBar;
-			string newText = (string)eventArgs.NewValue;
+	private static void OnIconChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+	{
+		var toolWindowTitleBar = dependencyObject as ToolWindowTitleBar;
+		ImageSource newImageSource = (ImageSource)eventArgs.NewValue;
 
-			toolWindowTitleBar.titleTextBlock.Text = newText;
-		}
+		toolWindowTitleBar.iconImage.Source = newImageSource;
+		toolWindowTitleBar.iconImage.Visibility = Visibility.Visible;
+	}
 
-		public static readonly DependencyProperty IconProperty = DependencyProperty.Register(
-			"Icon",
-			typeof(ImageSource),
-			typeof(ToolWindowTitleBar),
-			new PropertyMetadata(null, new PropertyChangedCallback(OnIconChanged)));
+	public static readonly DependencyProperty IsActiveProperty = DependencyProperty.Register(
+		"IsActive",
+		typeof(bool),
+		typeof(ToolWindowTitleBar),
+		new PropertyMetadata(false, new PropertyChangedCallback(OnIsActiveChanged)));
 
-		public ImageSource Icon
-		{
-			get
-			{
-				return (ImageSource)GetValue(IconProperty);
-			}
+	public bool IsActive
+	{
+		get => (bool)GetValue(IsActiveProperty);
+		set => SetValue(IsActiveProperty, value);
+	}
 
-			set
-			{
-				SetValue(IconProperty, value);
-			}
-		}
+	private static void OnIsActiveChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+	{
+		var toolWindowTitleBar = dependencyObject as ToolWindowTitleBar;
+		bool newIsActiveValue = (bool)eventArgs.NewValue;
 
-		private static void OnIconChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
-		{
-			var toolWindowTitleBar = dependencyObject as ToolWindowTitleBar;
-			ImageSource newImageSource = (ImageSource)eventArgs.NewValue;
-
-			toolWindowTitleBar.iconImage.Source = newImageSource;
-			toolWindowTitleBar.iconImage.Visibility = Visibility.Visible;
-		}
-
-		public static readonly DependencyProperty IsActiveProperty = DependencyProperty.Register(
-			"IsActive",
-			typeof(bool),
-			typeof(ToolWindowTitleBar),
-			new PropertyMetadata(false, new PropertyChangedCallback(OnIsActiveChanged)));
-
-		public bool IsActive
-		{
-			get => (bool)GetValue(IsActiveProperty);
-			set => SetValue(IsActiveProperty, value);
-		}
-
-		private static void OnIsActiveChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
-		{
-			var toolWindowTitleBar = dependencyObject as ToolWindowTitleBar;
-			bool newIsActiveValue = (bool)eventArgs.NewValue;
-
-			toolWindowTitleBar.titleBarGrid.SetResourceReference(Panel.BackgroundProperty, newIsActiveValue ? "WindowBrush" : "WindowTitleBarInactiveBackground");
-		}
+		toolWindowTitleBar.titleBarGrid.SetResourceReference(Panel.BackgroundProperty, newIsActiveValue ? "WindowBrush" : "WindowTitleBarInactiveBackground");
 	}
 }

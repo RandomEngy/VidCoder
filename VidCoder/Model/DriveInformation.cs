@@ -4,40 +4,39 @@ using System.Linq;
 using System.Text;
 using ReactiveUI;
 
-namespace VidCoder.Model
+namespace VidCoder.Model;
+
+public enum DiscType
 {
-	public enum DiscType
+	Dvd,
+	BluRay
+}
+
+public class DriveInformation : ReactiveObject
+{
+	private bool empty;
+	public bool Empty
 	{
-		Dvd,
-		BluRay
+		get { return this.empty; }
+		set { this.RaiseAndSetIfChanged(ref this.empty, value); }
 	}
 
-	public class DriveInformation : ReactiveObject
+	public string RootDirectory { get; set; }
+	public string VolumeLabel { get; set; }
+	public DiscType DiscType { get; set; }
+
+	public string DisplayText
 	{
-		private bool empty;
-		public bool Empty
+		get
 		{
-			get { return this.empty; }
-			set { this.RaiseAndSetIfChanged(ref this.empty, value); }
-		}
+			string prefix = this.RootDirectory + " - ";
 
-		public string RootDirectory { get; set; }
-		public string VolumeLabel { get; set; }
-		public DiscType DiscType { get; set; }
-
-		public string DisplayText
-		{
-			get
+			if (this.Empty)
 			{
-				string prefix = this.RootDirectory + " - ";
-
-				if (this.Empty)
-				{
-					return prefix + "(Empty)";
-				}
-
-				return prefix + this.VolumeLabel;
+				return prefix + "(Empty)";
 			}
+
+			return prefix + this.VolumeLabel;
 		}
 	}
 }

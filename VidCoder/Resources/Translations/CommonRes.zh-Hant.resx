@@ -344,4 +344,8 @@
   <data name="Enabled" xml:space="preserve">
     <value>已啟用</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>關閉</value>
+    <comment>Label to close a window or item.</comment>
+  </data>
 </root>

@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DefaultCheckBox" xml:space="preserve">
     <value>По умолчанию</value>
@@ -234,7 +234,7 @@
 </comment>
   </data>
   <data name="DurationFilterCheckBoxAutomationName" xml:space="preserve">
-    <value>Фильтровать заголовки по продолжительности</value>
+    <value>Фильтр заголовков по продолжительности</value>
     <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
   </data>
   <data name="ChangeCaptializationLabel" xml:space="preserve">
@@ -395,5 +395,29 @@
   <data name="SourceFileRemovalLabel" xml:space="preserve">
     <value>Удаление исходного файла после успешного кодирования:</value>
     <comment>Label for the option to automatically delete source files on completion.</comment>
+  </data>
+  <data name="HeightFilterCheckBox" xml:space="preserve">
+    <value>Выбирать только заголовки с высотой</value>
+    <comment>Label before the UI to pick the title height limitation. For example, it might read "Pick only titles with height [ &gt; ] [ 480 ]"</comment>
+  </data>
+  <data name="HeightFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>Фильтр заголовков по высоте</value>
+    <comment>Screen reader text for the height filter checkbox</comment>
+  </data>
+  <data name="HeightFilterValueAutomationName" xml:space="preserve">
+    <value>Значение фильтра высоты</value>
+    <comment>Screen reader text for the height filter value</comment>
+  </data>
+  <data name="WidthFilterCheckBox" xml:space="preserve">
+    <value>Выбирать только заголовки с шириной</value>
+    <comment>Label before the UI to pick the title width limitation. For example, it might read "Pick only titles with width [ &gt; ] [ 640 ]"</comment>
+  </data>
+  <data name="WidthFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>Фильтр заголовков по ширине</value>
+    <comment>Screen reader text for the width filter checkbox</comment>
+  </data>
+  <data name="WidthFilterValueAutomationName" xml:space="preserve">
+    <value>Значение фильтра ширины</value>
+    <comment>Screen reader text for the width filter value</comment>
   </data>
 </root>

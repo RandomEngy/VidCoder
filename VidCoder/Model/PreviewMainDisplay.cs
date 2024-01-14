@@ -1,14 +1,13 @@
-﻿namespace VidCoder.Model
+﻿namespace VidCoder.Model;
+
+/// <summary>
+/// Determines what template is displayed in the main area of the preview window.
+/// </summary>
+public enum PreviewMainDisplay
 {
-	/// <summary>
-	/// Determines what template is displayed in the main area of the preview window.
-	/// </summary>
-	public enum PreviewMainDisplay
-	{
-		None,
+	None,
         Default,
-		FitToWindow,
+	FitToWindow,
         OneToOne,
         StillCorners
-	}
 }

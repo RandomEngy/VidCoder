@@ -12,16 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace VidCoder.View
+namespace VidCoder.View;
+
+/// <summary>
+/// Interaction logic for CustomMessageDialog.xaml
+/// </summary>
+public partial class CustomMessageDialog : Window
 {
-	/// <summary>
-	/// Interaction logic for CustomMessageDialog.xaml
-	/// </summary>
-	public partial class CustomMessageDialog : Window
+	public CustomMessageDialog()
 	{
-		public CustomMessageDialog()
-		{
-			InitializeComponent();
-		}
+		InitializeComponent();
 	}
 }

@@ -3,7 +3,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Clowd.Squirrel" Version="2.9.42" />
+    <PackageVersion Include="Clowd.Squirrel" Version="2.11.1" />
     <PackageVersion Include="ControlzEx" Version="5.0.1" />
     <PackageVersion Include="Fluent.Ribbon" Version="9.0.4" />
     <PackageVersion Include="Microsoft.AnyContainer" Version="1.0.0-beta201808141" />
@@ -12,7 +12,7 @@
     <PackageVersion Include="Microsoft.Extensions.Hosting.WindowsServices" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.0.0-preview5" />
     <PackageVersion Include="Ookii.Dialogs.Wpf" Version="3.1.0" />
-    <PackageVersion Include="PipeMethodCalls" Version="3.0.2" />
+    <PackageVersion Include="PipeMethodCalls" Version="4.0.0" />
     <PackageVersion Include="PipeMethodCalls.NetJson" Version="3.0.0" />
     <PackageVersion Include="ReactiveUI" Version="13.1.1" />
     <PackageVersion Include="ReactiveUI.WPF" Version="13.1.1" />
