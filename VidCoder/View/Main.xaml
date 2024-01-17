@@ -1067,7 +1067,10 @@
 							<ColumnDefinition Width="Auto" />
 						</Grid.ColumnDefinitions>
 
-						<Grid Grid.Column="0" Margin="16 3 10 0">
+						<Grid
+							Name="videoDetailGrid"
+							Grid.Column="0"
+							Margin="16 3 10 0">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
@@ -1274,6 +1277,7 @@
 								x:Name="miniPreviewFrame"
 								Width="200"
 								HorizontalAlignment="Stretch"
+								VerticalAlignment="Stretch"
 								Source="{Binding PreviewImageServiceClient.PreviewImage}" />
 
 							<Button

@@ -445,8 +445,17 @@ public partial class Main : Window, IMainView
 					double aspectRatio = size.OutputAspectRatio;
 					aspectRatio = Math.Min(aspectRatio, 3.0);
 
-					double desiredWidth = this.miniPreviewFrame.ActualHeight * aspectRatio;
-					this.miniPreviewFrame.Width = Math.Max(0, desiredWidth);
+					// Delay to allow some layout
+					DispatchUtilities.BeginInvoke(() =>
+					{
+						double desiredWidth = this.videoDetailGrid.ActualHeight * aspectRatio;
+						if (desiredWidth <= 0)
+						{
+							desiredWidth = 200;
+						}
+
+						this.miniPreviewFrame.Width = desiredWidth;
+					}, System.Windows.Threading.DispatcherPriority.Background);
 				}
 			});
 

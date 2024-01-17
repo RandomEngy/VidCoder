@@ -564,11 +564,6 @@
 				HorizontalAlignment="Left"
 				Content="{x:Static res:EncodingRes.GrayscaleCheckBox}"
 				IsChecked="{Binding Grayscale}" />
-
-			<Button
-				Grid.Row="8"
-				Command="{Binding RefreshThing}"
-				Content="Refresh the thing" />
 		</Grid>
 	</Grid>
 </UserControl>

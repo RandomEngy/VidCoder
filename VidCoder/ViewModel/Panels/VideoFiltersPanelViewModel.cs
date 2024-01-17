@@ -774,22 +774,6 @@ public class VideoFiltersPanelViewModel : PanelViewModel, INotifyPropertyChanged
 		set => this.UpdateProfileProperty(nameof(this.Profile.Grayscale), value);
 	}
 
-
-
-
-	private ReactiveCommand<Unit, Unit> refreshThing;
-	public ICommand RefreshThing
-	{
-		get
-		{
-			return this.refreshThing ?? (this.refreshThing = ReactiveCommand.Create(
-				() =>
-				{
-					this.ForceRefreshDenoiseAndDeinterlacePresets();
-				}));
-		}
-	}
-
 	private void ForceRefreshDenoiseAndDeinterlacePresets()
 	{
 		if (this.DenoisePresetVisible)
