@@ -512,6 +512,12 @@
 									VerticalAlignment="Center"
 									Content="{x:Static res:OptionsRes.TriggerWhenDoneWithFailedJobsCheckBox}"
 									IsChecked="{Binding TriggerEncodeCompleteActionWithErrors}" />
+								<CheckBox
+									Margin="0 6 0 0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									Content="{x:Static res:OptionsRes.ShowProgressInWindowTitleCheckBox}"
+									IsChecked="{Binding ShowProgressInWindowTitle}" />
 								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
 									<TextBlock
 										Name="encodeRetriesLabel"

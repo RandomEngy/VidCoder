@@ -419,4 +419,7 @@ Polling: Periodically checks the contents of the folders. Uses significant CPU a
   <data name="CapNVEncCheckBox" xml:space="preserve">
     <value>Cap simultaneous NVEnc encodes. Removing this requires a custom NVidia driver patch.</value>
   </data>
+  <data name="ShowProgressInWindowTitleCheckBox" xml:space="preserve">
+    <value>Show encode progress in window title</value>
+  </data>
 </root>

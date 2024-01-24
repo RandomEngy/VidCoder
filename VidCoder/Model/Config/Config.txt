@@ -105,6 +105,7 @@ MinimumTitleLengthSeconds|int|10
 PreserveModifyTimeFiles|bool|false
 ResumeEncodingOnRestart|bool|false
 KeepFailedFiles|bool|false
+ShowProgressInWindowTitle|bool|true
 UseWorkerProcess|bool|true
 RememberPreviousFiles|bool|true
 PreferredPlayer|string|"vlc"

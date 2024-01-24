@@ -727,6 +727,16 @@ public class OptionsDialogViewModel : ReactiveObject
 		}
 	}
 
+	public bool ShowProgressInWindowTitle
+	{
+		get => Config.ShowProgressInWindowTitle;
+		set
+		{
+			Config.ShowProgressInWindowTitle = value;
+			this.RaisePropertyChanged();
+		}
+	}
+
 	public bool UseWorkerProcess
 	{
 		get => Config.UseWorkerProcess;

@@ -736,6 +736,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show encode progress in window title.
+        /// </summary>
+        public static string ShowProgressInWindowTitleCheckBox {
+            get {
+                return ResourceManager.GetString("ShowProgressInWindowTitleCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sound.
         /// </summary>
         public static string SoundSection {
