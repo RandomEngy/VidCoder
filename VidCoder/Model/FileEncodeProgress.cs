@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace VidCoder.Model;
 
-    public class FileEncodeProgress
-    {
+public class FileEncodeProgress
+{
 	public string FileName { get; set; }
 
     public double ProgressFraction { get; set; }
