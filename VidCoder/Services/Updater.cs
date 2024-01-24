@@ -3,7 +3,7 @@ using System.IO;
 using VidCoder.Model;
 using Microsoft.AnyContainer;
 using ReactiveUI;
-using Squirrel;
+using Velopack;
 
 namespace VidCoder.Services;
 
@@ -41,7 +41,9 @@ public class Updater : ReactiveObject, IUpdater
 
 				if (updateConfirmation.Accepted)
 				{
-					UpdateManager.RestartApp();
+					var updateManager = new UpdateManager(Utilities.VelopackUpdateUrl);
+					updateManager.ApplyUpdatesAndRestart();
+
 					return true;
 				}
 			}
@@ -85,23 +87,21 @@ public class Updater : ReactiveObject, IUpdater
 
 		try
 		{
+			// TODO: Removed UpdateCheckProgressPercent if we don't find where it's exposed in Velopack
 			this.UpdateCheckProgressPercent = 0;
 			this.State = UpdateState.Checking;
 
-			using var updateManager = new UpdateManager(Utilities.SquirrelUpdateUrl);
-			ReleaseEntry releaseEntry = await updateManager.UpdateApp(progressNumber =>
-			{
-				this.UpdateCheckProgressPercent = progressNumber;
-			});
+			var updateManager = new UpdateManager(Utilities.VelopackUpdateUrl);
+			Velopack.UpdateInfo updateInfo = await updateManager.CheckForUpdatesAsync();
 
-			if (releaseEntry == null)
+			if (updateInfo == null)
 			{
 				this.State = UpdateState.UpToDate;
 			}
 			else
 			{
 				// Save latest version (just major and minor)
-				this.LatestVersion = new Version(releaseEntry.Version.Version.Major, releaseEntry.Version.Version.Minor);
+				this.LatestVersion = new Version(updateInfo.TargetFullRelease.Version.Major, updateInfo.TargetFullRelease.Version.Minor);
 				this.State = UpdateState.UpdateReady;
 
 				if (CustomConfig.UpdateMode == UpdateMode.PromptApplyImmediately && !isManualCheck)

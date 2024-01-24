@@ -38,7 +38,7 @@ public static class CommonUtilities
 		}
 	}
 
-	public static string SquirrelAppId => Beta ? "VidCoder.Beta" : "VidCoder.Stable";
+	public static string VelopackAppId => Beta ? "VidCoder.Beta" : "VidCoder.Stable";
 
 	public static string LocalAppFolder
 	{
@@ -46,7 +46,7 @@ public static class CommonUtilities
 		{
 			return Path.Combine(
 				Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-				SquirrelAppId);
+				VelopackAppId);
 		}
 	}
 

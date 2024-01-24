@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using HandBrake.Interop.Interop;
 using HandBrake.Interop.Utilities;
 using Microsoft.AnyContainer;
-using Squirrel;
 using VidCoder.Extensions;
 using VidCoder.Resources;
 using VidCoder.Services;

@@ -226,9 +226,9 @@ public static class RegistryUtilities
 			if (!CommonUtilities.DebugMode)
 			{
 				string fileWatcherPath;
-				if (Utilities.InstallType == VidCoderInstallType.SquirrelInstaller)
+				if (Utilities.InstallType == VidCoderInstallType.VelopackInstaller)
 				{
-					// For Squirrel installer, use the "stable" path in the local app data folder that is not specific to a version.
+					// For Velopack installer, use the "stable" path in the local app data folder that is not specific to a version.
 					fileWatcherPath = Path.Combine(CommonUtilities.LocalAppFolder, Utilities.FileWatcherExecutableName + ".exe");
 				}
 				else

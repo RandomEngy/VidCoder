@@ -20,11 +20,11 @@ using VidCoder.Services.Windows;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoderCommon;
-using Squirrel;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using VidCoderCommon.Model;
+using Velopack;
 
 namespace VidCoder.ViewModel;
 
@@ -989,7 +989,8 @@ public class OptionsDialogViewModel : ReactiveObject
 			return this.applyUpdate ?? (this.applyUpdate = ReactiveCommand.Create(
 				() =>
 				{
-					UpdateManager.RestartApp();
+					var updateManager = new UpdateManager(Utilities.VelopackUpdateUrl);
+					updateManager.ApplyUpdatesAndRestart();
 				}));
 		}
 	}

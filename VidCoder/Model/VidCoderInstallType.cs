@@ -8,7 +8,7 @@ namespace VidCoder.Model;
 
 public enum VidCoderInstallType
 {
-	SquirrelInstaller,
+	VelopackInstaller,
 	Portable,
 	Zip
 }

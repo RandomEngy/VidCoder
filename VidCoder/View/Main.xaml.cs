@@ -32,7 +32,6 @@ using HandBrake.Interop.Interop.Json.Encode;
 using HandBrake.Interop.Interop.Json.Scan;
 using Microsoft.AnyContainer;
 using ReactiveUI;
-using Squirrel;
 using VidCoder.Controls;
 using VidCoder.Extensions;
 using VidCoder.Model;

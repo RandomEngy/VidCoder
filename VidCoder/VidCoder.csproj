@@ -22,7 +22,6 @@
     <DefineConstants>DEBUG</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Clowd.Squirrel" />
     <PackageReference Include="ControlzEx" />
     <PackageReference Include="Fluent.Ribbon" />
     <PackageReference Include="Microsoft.AnyContainer" />
@@ -37,6 +36,7 @@
     <PackageReference Include="System.Runtime.InteropServices" />
     <PackageReference Include="UTF.Unknown" />
     <PackageReference Include="valueinjecter" />
+    <PackageReference Include="Velopack" />
     <PackageReference Include="WinCopies.WindowsAPICodePack.Shell" />
   </ItemGroup>
   <ItemGroup>
@@ -284,7 +284,6 @@
   <ItemGroup>
     <ProjectReference Include="..\VidCoderCLI\VidCoderCLI.csproj" />
     <ProjectReference Include="..\VidCoderCommon\VidCoderCommon.csproj" />
-    <ProjectReference Include="..\VidCoderElevatedSetup\VidCoderElevatedSetup.csproj" />
     <ProjectReference Include="..\VidCoderFileWatcher\VidCoderFileWatcher.csproj" />
     <ProjectReference Include="..\VidCoderWindowlessCLI\VidCoderWindowlessCLI.csproj" />
     <ProjectReference Include="..\VidCoderWorker\VidCoderWorker.csproj" />
