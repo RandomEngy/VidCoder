@@ -3,6 +3,8 @@
 
 - title: "documentation"
   subcategories:
+    - subtitle: "Install Options"
+      subhref: "/Documentation/Installation.html"
     - subtitle: "Ripping DVDs or Blu-rays"
       subhref: "/Documentation/RippingDiscs.html"
     - subtitle: "Video Quality Options"
