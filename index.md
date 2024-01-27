@@ -108,7 +108,7 @@ VidCoder includes English, Spanish, German, French, Italian, Portuguese, Brazili
 Interested in translating VidCoder to your own language? [Help out on Crowdin](http://crowdin.net/project/vidcoder).
 
 ## Donations
-VidCoder is free software. If you like VidCoder and want to express your appreciation, please [donate the GiveWell Maximum Impact Fund](https://www.givewell.org/maximum-impact-fund). It's the most effective charity in the world.
+VidCoder is free software. If you like VidCoder and want to express your appreciation, please [donate the GiveWell Top Charities Fund](https://www.givewell.org/top-charities-fund). It's the most effective charity in the world.
 
 ## Other info
 VidCoder is built on .NET 6/WPF in C#.
