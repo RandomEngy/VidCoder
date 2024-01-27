@@ -142,7 +142,7 @@ vpk pack `
     --framework net6.0.2-x64
 
 ExitIfFailed;
-Move-Item -Path ("$releaseDir\" + $packId + "-win-Setup.exe") -Destination ".\Installer\BuiltInstallers\$binaryNameBase.exe" -Force
+Copy-Item -Path ("$releaseDir\" + $packId + "-win-Setup.exe") -Destination ".\Installer\BuiltInstallers\$binaryNameBase.exe" -Force
 
 WriteSuccess
 

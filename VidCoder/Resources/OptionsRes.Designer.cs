@@ -304,6 +304,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Downloading version {0}....
+        /// </summary>
+        public static string DownloadingUpdateStatus {
+            get {
+                return ResourceManager.GetString("DownloadingUpdateStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Drag and drop scan order:.
         /// </summary>
         public static string DragDropScanOrderLabel {

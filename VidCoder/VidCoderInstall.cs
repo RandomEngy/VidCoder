@@ -15,20 +15,11 @@ namespace VidCoder;
 
 public static class VidCoderInstall
 {
-	public static void SetUpVelopack()
-	{
-		VelopackApp.Build()
-			.WithFirstRun(OnInitialInstall)
-			.WithAfterUpdateFastCallback(OnAppUpdate)
-			.WithBeforeUninstallFastCallback(OnAppUninstall)
-			.Run();
-	}
-
 	/// <summary>
 	/// Called when the app first installs. Will run this code and exit.
 	/// </summary>
 	/// <param name="version">The app version.</param>
-	private static void OnInitialInstall(SemanticVersion version)
+	public static void OnInitialInstall(SemanticVersion version)
 	{
 		var logger = new SupportLogger("Install");
 		logger.Log("Running initial install actions...");
@@ -51,7 +42,7 @@ public static class VidCoderInstall
 		}
 	}
 
-	private static void OnAppUpdate(SemanticVersion version)
+	public static void OnAppUpdate(SemanticVersion version)
 	{
 		// Check if we have new reg keys. If not, we need to get rid of old ones and swap to new ones.
 		// We should be able to remove this code after a while as everyone has updated far past 8.4 Beta (July 2022).
@@ -73,7 +64,7 @@ public static class VidCoderInstall
 	/// Called when the app is uninstalled. Will run this code and exit.
 	/// </summary>
 	/// <param name="version">The app version.</param>
-	private static void OnAppUninstall(SemanticVersion version)
+	public static void OnAppUninstall(SemanticVersion version)
 	{
 		var logger = new SupportLogger("Uninstall");
 		logger.Log("Running uninstall actions...");

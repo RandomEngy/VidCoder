@@ -19,7 +19,7 @@ public class Updater : ReactiveObject, IUpdater
 	}
 
 	private int updateCheckProgressPercent;
-	public int UpdateCheckProgressPercent
+	public int UpdateDownloadProgressPercent
 	{
 		get { return this.updateCheckProgressPercent; }
 		set { this.RaiseAndSetIfChanged(ref this.updateCheckProgressPercent, value); }
@@ -87,8 +87,7 @@ public class Updater : ReactiveObject, IUpdater
 
 		try
 		{
-			// TODO: Removed UpdateCheckProgressPercent if we don't find where it's exposed in Velopack
-			this.UpdateCheckProgressPercent = 0;
+			this.UpdateDownloadProgressPercent = 0;
 			this.State = UpdateState.Checking;
 
 			var updateManager = new UpdateManager(Utilities.VelopackUpdateUrl);
@@ -102,6 +101,13 @@ public class Updater : ReactiveObject, IUpdater
 			{
 				// Save latest version (just major and minor)
 				this.LatestVersion = new Version(updateInfo.TargetFullRelease.Version.Major, updateInfo.TargetFullRelease.Version.Minor);
+
+				this.State = UpdateState.Downloading;
+				await updateManager.DownloadUpdatesAsync(updateInfo, (progressPercent) =>
+				{
+					this.UpdateDownloadProgressPercent = progressPercent;
+				});
+
 				this.State = UpdateState.UpdateReady;
 
 				if (CustomConfig.UpdateMode == UpdateMode.PromptApplyImmediately && !isManualCheck)

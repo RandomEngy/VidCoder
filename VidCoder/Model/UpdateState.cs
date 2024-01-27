@@ -9,6 +9,7 @@ public enum UpdateState
 {
 	NotStarted,
 	Checking,
+	Downloading,
 	UpToDate,
 	UpdateReady,
 	Failed

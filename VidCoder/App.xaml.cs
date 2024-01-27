@@ -22,6 +22,7 @@ using Microsoft.Toolkit.Uwp.Notifications;
 using VidCoder.Automation;
 using System.IO;
 using VidCoderCommon.Model;
+using Velopack;
 
 namespace VidCoder;
 
@@ -76,11 +77,6 @@ public partial class App : Application
 		Delay.PseudoLocalizer.Enable(typeof(ChapterMarkersRes));
 		Delay.PseudoLocalizer.Enable(typeof(MiscRes));
 #endif
-
-		if (Utilities.InstallType == VidCoderInstallType.VelopackInstaller)
-		{
-			VidCoderInstall.SetUpVelopack();
-		}
 
 		// If we get here we know we are actually trying to launch the app (and this isn't part of a Velopack update process.
 		// Enforce single-instance restrictions.

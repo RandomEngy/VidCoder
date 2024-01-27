@@ -68,6 +68,8 @@ public class OptionsDialogViewModel : ReactiveObject
 						return string.Empty;
 					case UpdateState.Checking:
 						return OptionsRes.CheckingForUpdateStatus;
+					case UpdateState.Downloading:
+						return string.Format(OptionsRes.DownloadingUpdateStatus, this.Updater.LatestVersion);
 					case UpdateState.UpToDate:
 						return OptionsRes.UpToDateStatus;
 					case UpdateState.UpdateReady:
@@ -80,15 +82,15 @@ public class OptionsDialogViewModel : ReactiveObject
 			})
 			.ToProperty(this, x => x.UpdateStatus, out this.updateStatus, scheduler: Scheduler.Immediate);
 
-		// UpdateDownloading
+		// DownloadingUpdate
 		this.Updater
 			.WhenAnyValue(x => x.State)
-			.Select(state => state == UpdateState.Checking)
-			.ToProperty(this, x => x.CheckingForUpdate, out this.checkingForUpdate);
+			.Select(state => state == UpdateState.Downloading)
+			.ToProperty(this, x => x.DownloadingUpdate, out this.downloadingUpdate);
 
 		// UpdateProgressPercent
 		this.Updater
-			.WhenAnyValue(x => x.UpdateCheckProgressPercent)
+			.WhenAnyValue(x => x.UpdateDownloadProgressPercent)
 			.ToProperty(this, x => x.UpdateProgressPercent, out this.updateProgressPercent);
 
 		// CpuThrottlingDisplay
@@ -350,8 +352,8 @@ public class OptionsDialogViewModel : ReactiveObject
 	private ObservableAsPropertyHelper<string> updateStatus;
 	public string UpdateStatus => this.updateStatus.Value;
 
-	private ObservableAsPropertyHelper<bool> checkingForUpdate;
-	public bool CheckingForUpdate => this.checkingForUpdate.Value;
+	private ObservableAsPropertyHelper<bool> downloadingUpdate;
+	public bool DownloadingUpdate => this.downloadingUpdate.Value;
 
 	private ObservableAsPropertyHelper<int> updateProgressPercent;
 	public int UpdateProgressPercent => this.updateProgressPercent.Value;

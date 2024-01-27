@@ -15,5 +15,5 @@ public interface IUpdater
 
 	UpdateState State { get; }
 	Version LatestVersion { get; }
-	int UpdateCheckProgressPercent { get; set; }
+	int UpdateDownloadProgressPercent { get; set; }
 }

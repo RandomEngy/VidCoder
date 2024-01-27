@@ -17,6 +17,7 @@
     <Platforms>x64</Platforms>
     <ValidateExecutableReferencesMatchSelfContained>false</ValidateExecutableReferencesMatchSelfContained>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <StartupObject>VidCoder.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <DefineConstants>DEBUG</DefineConstants>
