@@ -118,305 +118,308 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DefaultCheckBox" xml:space="preserve">
-    <value>Varsayılan</value>
+    <value>Per defecte</value>
   </data>
   <data name="LanguagesRadioButton" xml:space="preserve">
-    <value>Dil(ler)</value>
+    <value>Idiomes</value>
   </data>
   <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Ses dilinden farklı bir dil varsa</value>
+    <value>Només si l'idioma és diferent que el de l'àudio</value>
     <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>Seçici: {0}</value>
+    <value>Selector: {0}</value>
   </data>
   <data name="PickerButtonFormat" xml:space="preserve">
-    <value>Seçici: {0}</value>
+    <value>Selector {0}</value>
     <comment>{0} is the name of the picker. This string shows up on the picker split button.</comment>
   </data>
   <data name="OutputLocation" xml:space="preserve">
-    <value>Çıktı Konumu</value>
+    <value>Ubicació de sortida</value>
   </data>
   <data name="OverrideDirectoryCheckBox" xml:space="preserve">
-    <value>Klasörü Geçersiz Kıl:</value>
+    <value>Substitueix la carpeta:</value>
   </data>
   <data name="PickerHelpText" xml:space="preserve">
-    <value>Başlıkları, sesleri, altyazıları ve hedefi otomatik olarak seç</value>
+    <value>Tria automàticament els títols, l'audio, els subtítols i la destinació</value>
   </data>
   <data name="AutoQueueOnScanCheckBox" xml:space="preserve">
-    <value>İncelemeden sonra otomatik olarak kuyruğa ekle</value>
+    <value>Posa a la cua automàticament després de l'anàlisi</value>
   </data>
   <data name="AutoEncodeOnScanCheckBox" xml:space="preserve">
-    <value>İncelemeden sonra kodlamayı başlat</value>
+    <value>Comença la codificació després de l'anàlisi</value>
   </data>
   <data name="UseGlobalSettingToolTip" xml:space="preserve">
-    <value>Genel ayarı kullan</value>
+    <value>Fes servir la configuració global</value>
     <comment>Label for the "indeterminate" checkbox state that lets the user know that this will fall back to the global setting</comment>
   </data>
   <data name="PresetOverrideToolTip" xml:space="preserve">
-    <value>Bu, ana pencerede seçilen ön ayarı geçersiz kılar.</value>
+    <value>Aquesta acció substituirà els valors predefinits que hàgiu seleccionat a la finestra principal.</value>
   </data>
   <data name="EncodingSection" xml:space="preserve">
-    <value>Kodlama</value>
+    <value>Codificació</value>
     <comment>The header for the Encoding section in the Picker window.</comment>
   </data>
   <data name="PostEncodingSection" xml:space="preserve">
-    <value>Kodlama sonrası</value>
+    <value>Postcodificació</value>
     <comment>Header for the post-encoding section in the picker window.</comment>
   </data>
   <data name="SendFileToLabel" xml:space="preserve">
-    <value>Dosyayı gönder:</value>
+    <value>Envia el fitxer a:</value>
     <comment>Label for the option to run a program after encoding each file.</comment>
   </data>
   <data name="PostEncodeArgumentsLabel" xml:space="preserve">
-    <value>Değişkenler:</value>
+    <value>Arguments:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
   <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>Programa iletilecek değişkenler. Dosya çıktı yolu için {file}, klasör yolu veya {title} ve {date} gibi diğer yol seçeneklerini içeren {folder} kullanın (bkz. Adlandırma Formatı).</value>
+    <value>Els arguments que es passaran al programa. Feu servir {file} per al camí de sortida dels fitxers, {folder} per al camí de la carpeta contenidora o altres opcions del camí, com ara {title} i {date} (vegeu el Format de nomenclatura).</value>
     <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
   </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
-    <value>Seçici, kodlama ön ayarını belirledi.</value>
+    <value>El selector ha especificat els valors de codificació predefinits.</value>
   </data>
   <data name="AddLanguageButton" xml:space="preserve">
-    <value>Dil Ekle</value>
+    <value>Afegeix un idioma</value>
   </data>
   <data name="AllTracksForTheseLanguagesRadioButton" xml:space="preserve">
-    <value>Bu diller için tüm parçalar</value>
+    <value>Totes les pistes d'aquests idiomes</value>
   </data>
   <data name="AllTracksForThisLanguageRadioButton" xml:space="preserve">
-    <value>Bu dil için tüm parçalar</value>
+    <value>Totes les pistes d'aquest idioma</value>
   </data>
   <data name="FirstTrackOfEachLanguageRadioButton" xml:space="preserve">
-    <value>Her dilin ilk parçası</value>
+    <value>La primera pista de cada idioma</value>
   </data>
   <data name="FirstTrackRadioButton" xml:space="preserve">
-    <value>İlk parça</value>
+    <value>La primera pista</value>
   </data>
   <data name="SingleSubtitleDefaultToolTip" xml:space="preserve">
-    <value>Bir altyazıyı varsayılan olarak işaretleyin, böylece video oynatılırken otomatik olarak gösterilecektir.</value>
+    <value>Marca la pista de subtítols com a opció per defecte perquè es mostri automàticament en reproduir el vídeo.</value>
   </data>
   <data name="MultipleSubtitleDefaultToolTip" xml:space="preserve">
-    <value>İlk altyazıyı varsayılan olarak işaretleyin, böylece video oynatılırken otomatik olarak gösterilecektir.</value>
+    <value>Marca la primera pista de subtítols com a opció per defecte perquè es mostri automàticament en reproduir el vídeo.</value>
   </data>
   <data name="FirstAsDefaultCheckBox" xml:space="preserve">
-    <value>İlk altyazıyı varsayılan olarak işaretle</value>
+    <value>Marca la primera com a opció per defecte</value>
     <comment>Label for checkbox to mark the first subtitle as default.</comment>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>Önayar kullan:</value>
+    <value>Utilitza els valors predefinits:</value>
   </data>
   <data name="RemoveLanguageToolTip" xml:space="preserve">
-    <value>Bu dili kaldır.</value>
+    <value>Elimina aquest idioma.</value>
   </data>
   <data name="SortLanguagesLabel" xml:space="preserve">
-    <value>Dil(leri) en üste sırala:</value>
+    <value>Ordena els idiomes en ordre ascendent:</value>
   </data>
   <data name="ForcedOnlyCheckBox" xml:space="preserve">
-    <value>Sadece Zorlanmış</value>
+    <value>Només els forçats</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
   <data name="LastSelectedRadioButton" xml:space="preserve">
-    <value>Son seçilen</value>
+    <value>Seleccionada per últim cop</value>
   </data>
   <data name="OverrideNameFormatLabel" xml:space="preserve">
-    <value>Kullanılabilir seçenekler: {0}</value>
+    <value>Opcions disponibles: {0}</value>
   </data>
   <data name="DurationFilterStartAutomationName" xml:space="preserve">
-    <value>Süre filtresi başlangıcı</value>
+    <value>Inici del filtre de duració (minuts)</value>
     <comment>Screen reader text for number box that represents the start of the filter range in minutes. The number chosen in this box represents the minimum title length in minutes that will be chosen.
 </comment>
   </data>
   <data name="DurationFilterEndAutomationName" xml:space="preserve">
-    <value>Süre filtresi bitişi</value>
+    <value>Finalització del filtre de duració (minuts)</value>
     <comment>Screen reader text for number box that represents the end of the filter range in minutes. The number chosen in this box represents the maximum title length in minutes that will be chosen.
 </comment>
   </data>
   <data name="DurationFilterCheckBoxAutomationName" xml:space="preserve">
-    <value>Başlıkları süreye göre filtrele</value>
+    <value>Filtra els títols per duració</value>
     <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
   </data>
   <data name="ChangeCaptializationLabel" xml:space="preserve">
-    <value>İlk harfi büyük harfe çevirmeyi değiştir</value>
+    <value>Canvia les majúscules a</value>
   </data>
   <data name="TimeRangeStartAutomationName" xml:space="preserve">
-    <value>Zaman aralığı başlangıcı</value>
+    <value>Inici de l'interval de temps</value>
   </data>
   <data name="TimeRangeEndAutomationName" xml:space="preserve">
-    <value>Zaman aralığı sonu</value>
+    <value>Finalització de l'interval de temps</value>
   </data>
   <data name="ByIndexRadioButton" xml:space="preserve">
-    <value>Dizine göre</value>
+    <value>Segons l'índex</value>
     <comment>Label for the choice to choose audio or subtitle tracks by index</comment>
   </data>
   <data name="SelectTracksLabel" xml:space="preserve">
-    <value>Parça seçin:</value>
+    <value>Selecciona les pistes:</value>
   </data>
   <data name="SelectTracksHelpText" xml:space="preserve">
-    <value>Virgülle ayrılmış - ör. 2,5</value>
+    <value>Separat per comes: p. e., 2,5</value>
   </data>
   <data name="ChapterRangeEndAutomationName" xml:space="preserve">
-    <value>Bölüm aralığı sonu</value>
+    <value>Finalització de l'interval del capítol</value>
   </data>
   <data name="ChapterRangeStartAutomationName" xml:space="preserve">
-    <value>Bölüm aralığı başlangıcı</value>
+    <value>Inici de l'interval del capítol</value>
   </data>
   <data name="DestinationSection" xml:space="preserve">
-    <value>Hedef</value>
+    <value>Destinació</value>
   </data>
   <data name="OutputFolder" xml:space="preserve">
-    <value>Çıktı klasörü</value>
+    <value>Carpeta de sortida</value>
     <comment>Label for the output folder.</comment>
   </data>
   <data name="UseCustomFileNameFormatCheckBox" xml:space="preserve">
-    <value>Özel dosya adlandırma biçimi kullan:</value>
+    <value>Utilitza el format de nomenclatura de fitxers personalitzat:</value>
   </data>
   <data name="WhenFileExistsBatch" xml:space="preserve">
-    <value>Dosya zaten varken (Toplu iş):</value>
+    <value>Si el fitxer ja existeix (en lot):</value>
   </data>
   <data name="WhenFileExistsSingle" xml:space="preserve">
-    <value>Dosya zaten varken (Tek iş):</value>
+    <value>Si el fitxer ja existeix (únic):</value>
   </data>
   <data name="CustomPickerNameTemplate" xml:space="preserve">
-    <value>Özel {0}</value>
+    <value>Personalitzat {0}</value>
     <comment>The name for a custom auto-created picker. {0} is a number like 2, or 3 or 4 to differentiate it</comment>
   </data>
   <data name="OutputFileNameFormatAutomationName" xml:space="preserve">
-    <value>Dosya adı formatı</value>
+    <value>Format del nom dels fitxers</value>
     <comment>Name for screen readers for the output file name format text box</comment>
   </data>
   <data name="OnlyChangeCapitalizationIfAllSameLabel" xml:space="preserve">
-    <value>Sadece tümü küçük veya büyük harf ise ilk harfi büyük harfe çevir</value>
+    <value>Canvia les majúscules i minúscules només si tot és en majúscula o en minúscula.</value>
   </data>
   <data name="WordBreakCharacterAutomationNameFormat" xml:space="preserve">
-    <value>Kelime sonu karakteri - {0}</value>
+    <value>Caràcter de divisió de mot: {0}</value>
     <comment>Screen reader format for word break checkboxes. These will determine if a character will be used to separate words.</comment>
   </data>
   <data name="WordBreakCharactersLabel" xml:space="preserve">
-    <value>Tanınan sözcük sonu karakterleri:</value>
+    <value>Caràcters de divisió de mot reconeguts:</value>
   </data>
   <data name="WordBreakCharacter_Dot" xml:space="preserve">
-    <value>Nokta</value>
+    <value>Punt</value>
   </data>
   <data name="WordBreakCharacter_Space" xml:space="preserve">
-    <value>Boşluk</value>
+    <value>Espai</value>
   </data>
   <data name="WordBreakCharacter_Underscore" xml:space="preserve">
-    <value>Altını çiz</value>
+    <value>Guió baix</value>
   </data>
   <data name="ChangeWordSeparatorLabel" xml:space="preserve">
-    <value>Sözcük ayırıcıyı değiştir</value>
+    <value>Canvia el separador de mots per</value>
   </data>
   <data name="SourceCleanupPreviewLabel" xml:space="preserve">
-    <value>Önizleme:</value>
+    <value>Previsualització:</value>
   </data>
   <data name="SourceNameCleanupSection" xml:space="preserve">
-    <value>Kaynak adı temizle</value>
+    <value>Neteja del nom del fitxer d'origen</value>
   </data>
   <data name="AddAudioTrackNameButton" xml:space="preserve">
-    <value>Ses parçası adı ekle</value>
+    <value>Afegeix un nom a la pista d'àudio</value>
     <comment>Button to add another name to the list of audio track names in the Picker.</comment>
   </data>
   <data name="AddSubtitleTrackNameButton" xml:space="preserve">
-    <value>Altyazı adı ekle</value>
+    <value>Afegeix un nom a la pista de subtítols</value>
     <comment>Button to add another name to the list of subtitle track names in the Picker.</comment>
   </data>
   <data name="CustomTrackNamesCheckBox" xml:space="preserve">
-    <value>Özel parça adları</value>
+    <value>Noms de pista personalitzats</value>
     <comment>Checkbox label to use custom audio or subtitle track names</comment>
   </data>
   <data name="TrackAutomationFormat" xml:space="preserve">
-    <value>Parça {0}</value>
+    <value>Pista {0}</value>
     <comment>Screen reader format for track names in the Picker.</comment>
   </data>
   <data name="BurnInLabel" xml:space="preserve">
-    <value>Gömülü</value>
+    <value>Incrusta:</value>
   </data>
   <data name="PickerAudioSectionName" xml:space="preserve">
-    <value>Ses</value>
+    <value>Àudio</value>
   </data>
   <data name="PickerForeignAudioCheckBox" xml:space="preserve">
-    <value>'Yabancı ses taraması' parça ekle</value>
+    <value>Afegeix una pista amb «Anàlisi d'àudio extern»</value>
   </data>
   <data name="PickerSubtitleSectionName" xml:space="preserve">
-    <value>Altyazılar</value>
+    <value>Subtítols</value>
   </data>
   <data name="SubtitleSelectionMode_ForeignAudioSearch" xml:space="preserve">
-    <value>Yabancı ses taraması</value>
+    <value>Anàlisi d'àudio extern</value>
   </data>
   <data name="TrackSelectionLabel" xml:space="preserve">
-    <value>Parça seçimi:</value>
+    <value>Selecció de pistes:</value>
     <comment>Label for track selection mode for audio or subtitle tracks.</comment>
   </data>
   <data name="AudioSelectionModeToolTip" xml:space="preserve">
-    <value>Son seçilen - Bir eşleşme bulunursa son seçilen ses parçasını seçer, aksi takdirde ilkini seçer.
-İlk - Yalnızca ilk ses parçasını ekler.
-Dizine göre - Parça dizinine göre seçer (1-tabanlı)
-Dil(ler) - Dile göre seçer
-Tümü - Tüm ses parçalarını dahil eder.</value>
+    <value>Seleccionada per últim cop: tria l'última pista d'àudio que s'ha seleccionat si troba una coincidència; si no, tria la primera.
+La primera pista: inclou la primera pista d'àudio i prou.
+Segons l'índex: fa la tria segons l'índex de pistes (basat en 1).
+Idiomes: fa la tria segons l'idioma.
+Totes: inclou totes les pistes d'àudio.
+</value>
   </data>
   <data name="SubtitleSelectionModeToolTip" xml:space="preserve">
-    <value>Son seçilen - Bir eşleşme bulunursa son seçilen altyazıyı seçer, aksi takdirde ilkini seçer.
-İlk - Yalnızca ilk altyazıyı ekler.
-Dizine göre - Parça dizinine göre seçer (1-tabanlı)
-Dil(ler) - Dile göre seçer
-Tümü - Tüm altyazıları dahil eder.</value>
+    <value>Seleccionada per últim cop: tria l'última pista de subtítols que s'ha seleccionat si troba una coincidència; si no, no en tria cap.
+Cap: no tria cap pista de subtítols.
+La primera pista: inclou la primera pista de subtítols i prou.
+Segons l'índex: fa la tria segons l'índex de pistes (basat en 1).
+Idiomes: fa la tria segons l'idioma.
+Totes: inclou totes les pistes de subtítols.
+</value>
   </data>
   <data name="IgnoreFilesBelowCheckBox" xml:space="preserve">
-    <value>Aşağıdaki dosyaları yoksay</value>
+    <value>Ignora els fitxers següents</value>
     <comment>A number box follows this string: Ignore files below [ 10 ] MB</comment>
   </data>
   <data name="TimeRangeLabel" xml:space="preserve">
-    <value>Zaman aralığı:</value>
+    <value>Interval de temps:</value>
   </data>
   <data name="VideoSelectionSection" xml:space="preserve">
-    <value>Vidyo seçimi</value>
+    <value>Selecció de vídeo</value>
   </data>
   <data name="MetadataSection" xml:space="preserve">
-    <value>Üstveri</value>
+    <value>Metadades</value>
   </data>
   <data name="PassThroughMetadataCheckBox" xml:space="preserve">
-    <value>Vidyo üstverilerini direkt geçir (yönetmen, çıkış tarihi, aktörler vb.)</value>
+    <value>Copia directament les metadades del vídeo (director, data de llançament, actors, etc.)</value>
   </data>
   <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Video'ya göm</value>
+    <value>Incrusta</value>
   </data>
   <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
-    <value>Giriş video dosyasıyla aynı ada sahip harici altyazıları ({0}) ekle</value>
+    <value>Afegeix fitxers de subtítols externs ({0}) amb el mateix nom que el fitxer de vídeo d'entrada</value>
   </data>
   <data name="LanguageLabel" xml:space="preserve">
-    <value>Dil:</value>
+    <value>Idioma:</value>
   </data>
   <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
-    <value>Kaldırmadan önce onaylayın</value>
+    <value>Confirma abans d'eliminar</value>
   </data>
   <data name="SourceFileRemovalLabel" xml:space="preserve">
-    <value>Başarılı kodlamadan sonra kaynak dosya kaldırma:</value>
+    <value>Eliminació del fitxer d'origen si es codifica correctament:</value>
     <comment>Label for the option to automatically delete source files on completion.</comment>
   </data>
   <data name="HeightFilterCheckBox" xml:space="preserve">
-    <value>Sadece yüksekliği olan başlıkları seç</value>
+    <value>Tria només els títols amb l'alçada</value>
     <comment>Label before the UI to pick the title height limitation. For example, it might read "Pick only titles with height [ &gt; ] [ 480 ]"</comment>
   </data>
   <data name="HeightFilterCheckBoxAutomationName" xml:space="preserve">
-    <value>Başlıkları yüksekliğe göre filtrele</value>
+    <value>Filtra els títols per alçada</value>
     <comment>Screen reader text for the height filter checkbox</comment>
   </data>
   <data name="HeightFilterValueAutomationName" xml:space="preserve">
-    <value>Yükseklik filtre değeri</value>
+    <value>Valor del filtre d'alçada</value>
     <comment>Screen reader text for the height filter value</comment>
   </data>
   <data name="WidthFilterCheckBox" xml:space="preserve">
-    <value>Saddece genişliği olan başlıkları seç</value>
+    <value>Tria només els títols amb l'amplada</value>
     <comment>Label before the UI to pick the title width limitation. For example, it might read "Pick only titles with width [ &gt; ] [ 640 ]"</comment>
   </data>
   <data name="WidthFilterCheckBoxAutomationName" xml:space="preserve">
-    <value>Başlıkları genişliğe göre filtrele</value>
+    <value>Filtra els títols per amplada</value>
     <comment>Screen reader text for the width filter checkbox</comment>
   </data>
   <data name="WidthFilterValueAutomationName" xml:space="preserve">
-    <value>Genişlik filtre değeri</value>
+    <value>Valor del filtre d'amplada</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
 </root>

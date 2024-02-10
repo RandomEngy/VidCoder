@@ -112,93 +112,94 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActivateWatcherButton" xml:space="preserve">
-    <value>Dosya İzleyiciyi Etkinleştir</value>
+  <data name="PlaySourceButton" xml:space="preserve">
+    <value>Reprodueix el fitxer d'origen</value>
   </data>
-  <data name="AddFolderToWatch" xml:space="preserve">
-    <value>İzlemek için klasör ekle</value>
+  <data name="EncodePreviewClipButton" xml:space="preserve">
+    <value>Codifica el clip amb la previsualització</value>
   </data>
-  <data name="CancelMenuItem" xml:space="preserve">
-    <value>İptal</value>
+  <data name="EncodePreviewClipToolTip" xml:space="preserve">
+    <value>Codifica i reprodueix un petit clip amb la previsualització de l'escena seleccionada. Fa servir la configuració de codificació actual.</value>
   </data>
-  <data name="DeactivateWatcherButton" xml:space="preserve">
-    <value>Dosya İzleyicisini Devre Dışı Bırak</value>
+  <data name="GeneratingPreview" xml:space="preserve">
+    <value>S'està generant la previsualització...</value>
   </data>
-  <data name="OpenContainingFolderMenuItem" xml:space="preserve">
-    <value>İçeren klasörü aç</value>
+  <data name="PlaySourceDisabledBluRayToolTip" xml:space="preserve">
+    <value>Encara no s'admet la previsualització del fitxer d'origen per a Blu-ray.</value>
   </data>
-  <data name="PathColumnHeader" xml:space="preserve">
-    <value>Yol</value>
+  <data name="PlaySourceDisabledNoPlayerToolTip" xml:space="preserve">
+    <value>No s'ha trobat cap reproductor de DVD compatible. Instal·leu el VLC o l'MPC-HC per a utilitzar aquesta característica.</value>
   </data>
-  <data name="PickerLabel" xml:space="preserve">
-    <value>Seçici:</value>
+  <data name="PlaySourceToolTip" xml:space="preserve">
+    <value>Reprodueix el vídeo d'origen.</value>
   </data>
-  <data name="PickWatchedFolderDialogDescription" xml:space="preserve">
-    <value>İzlemek için klasörü seçin</value>
+  <data name="PreviewClipGenerationFailedMessage" xml:space="preserve">
+    <value>S'ha produït un problema en generar el clip de la previsualització. Vegeu la finestra Registre per a obtenir més detalls.</value>
   </data>
-  <data name="PresetLabel" xml:space="preserve">
-    <value>Kodlama önayarı:</value>
+  <data name="PreviewClipGenerationFailedTitle" xml:space="preserve">
+    <value>S'ha produït un problema en generar el clip de la previsualització</value>
   </data>
-  <data name="RemoveWatchedFolder" xml:space="preserve">
-    <value>İzlenen klasörü kaldır</value>
+  <data name="PreviewWindowTitleSimple" xml:space="preserve">
+    <value>Previsualitzció: {0}x{1} </value>
   </data>
-  <data name="RetryMenuItem" xml:space="preserve">
-    <value>Tekrar dene</value>
+  <data name="PreviewWindowTitleComplex" xml:space="preserve">
+    <value>Previsualització: Mostra {0}x{1} - Emmagatzematge {2}x{3}</value>
   </data>
-  <data name="RunWhenClosedCheckBox" xml:space="preserve">
-    <value>VidCoder kapatıldığında çalıştır</value>
+  <data name="NoVideoSourceTitle" xml:space="preserve">
+    <value>Previsualització: no hi ha cap font de vídeo</value>
   </data>
-  <data name="ServiceInstallError" xml:space="preserve">
-    <value>Dosya izleyici hizmeti yüklenemedi.</value>
+  <data name="Seconds" xml:space="preserve">
+    <value>segons</value>
   </data>
-  <data name="ServiceUninstallError" xml:space="preserve">
-    <value>Dosya izleyici hizmeti kaldırılamadı.</value>
+  <data name="PreviewDisplay_Corners" xml:space="preserve">
+    <value>Cantonades</value>
   </data>
-  <data name="StatusCanceledToolTip" xml:space="preserve">
-    <value>Kodlama işlemi kuyruktan çıkarılarak iptal edildi.</value>
+  <data name="PreviewDisplay_FitToWindow" xml:space="preserve">
+    <value>Ajusta a la finestra</value>
   </data>
-  <data name="StatusColumnHeader" xml:space="preserve">
-    <value>Durum</value>
+  <data name="PreviewDisplay_OneToOne" xml:space="preserve">
+    <value>1:1</value>
   </data>
-  <data name="StatusFailedToolTip" xml:space="preserve">
-    <value>Kodlama başarısız oldu.</value>
+  <data name="ViewLabel" xml:space="preserve">
+    <value>Visualització:</value>
   </data>
-  <data name="StatusOutputToolTip" xml:space="preserve">
-    <value>VidCoder tarafından kodlandı.</value>
+  <data name="TopMargin" xml:space="preserve">
+    <value>Marge superior</value>
   </data>
-  <data name="StatusQueuedToolTip" xml:space="preserve">
-    <value>Kaynak dosya kuyrukta.</value>
+  <data name="LeftMargin" xml:space="preserve">
+    <value>Marge esquerre</value>
   </data>
-  <data name="StatusSkippedToolTip" xml:space="preserve">
-    <value>Kodlama, seçicide ayarlanan koşullar nedeniyle atlandı (dosya boyutunun çok küçük olması gibi).</value>
+  <data name="RightMargin" xml:space="preserve">
+    <value>Marge dret</value>
   </data>
-  <data name="StatusSucceededToolTip" xml:space="preserve">
-    <value>Kodlama başarıyla tamamlandı.</value>
+  <data name="BottomMargin" xml:space="preserve">
+    <value>Marge inferior</value>
   </data>
-  <data name="WatchedFilesHeader" xml:space="preserve">
-    <value>Dosyalar</value>
+  <data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
+    <value>No s'ha trobat el fitxer d'origen.</value>
   </data>
-  <data name="WatchedFoldersHeader" xml:space="preserve">
-    <value>Klasörleri izle</value>
+  <data name="CloseVideoButton" xml:space="preserve">
+    <value>Tanca el vídeo</value>
+    <comment>Button to close the preview video clip.</comment>
   </data>
-  <data name="WatchedFolderTextBoxLabel" xml:space="preserve">
-    <value>Klasör:</value>
+  <data name="OpenInSystemPlayerButton" xml:space="preserve">
+    <value>Obre al reproductor del sistema</value>
   </data>
-  <data name="WatcherAddDialogTitle" xml:space="preserve">
-    <value>İzlenen klasör ekle</value>
+  <data name="VolumeSliderLabel" xml:space="preserve">
+    <value>Volum</value>
   </data>
-  <data name="WatcherEditDialogTitle" xml:space="preserve">
-    <value>İzlenen klasörü düzenle</value>
+  <data name="ReplayPreviewButton" xml:space="preserve">
+    <value>Torna a reproduir la previsualització</value>
   </data>
-  <data name="WatcherIntroText" xml:space="preserve">
-    <value>İzleyici'yi klasörleri gözlemleyecek ve klasörlerde görünen videoları otomatik olarak kodlayacak şekilde ayarlayabilirsiniz. İzleyici işlemi, VidCoder kapatıldığında çalışacak ve dosyaları kodlamak için başlatacaktır.</value>
+  <data name="VideoErrorMessage" xml:space="preserve">
+    <value>No s'ha pogut reproduir el vídeo amb el reproductor integrat. Voleu obrir-lo amb el reproductor del sistema?</value>
   </data>
-  <data name="WatcherWindowTitle" xml:space="preserve">
-    <value>İzleyici - {0}</value>
+  <data name="VideoErrorTitle" xml:space="preserve">
+    <value>Error de vídeo</value>
   </data>
 </root>

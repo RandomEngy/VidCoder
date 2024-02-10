@@ -609,7 +609,7 @@
     <value>Aplicar definições de codificação atuais</value>
   </data>
   <data name="OpenSourceFolderOption" xml:space="preserve">
-    <value>Pasta de código aberto</value>
+    <value>Pasta de Origem</value>
     <comment>Menu option to open the folder of the source file in the queue</comment>
   </data>
   <data name="WithCurrentJobsFormat" xml:space="preserve">
@@ -748,7 +748,7 @@ Este aviso será exibido duas vezes.</value>
     <value>Copiar registro e relatar problemas</value>
   </data>
   <data name="WatcherMenuItem" xml:space="preserve">
-    <value>Espectador</value>
+    <value>Monitorar Pastas</value>
   </data>
   <data name="QueueProgressLabel" xml:space="preserve">
     <value>Enfileirando {0}/{1}:</value>

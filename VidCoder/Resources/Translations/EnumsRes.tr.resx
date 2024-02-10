@@ -357,20 +357,52 @@
   <data name="UpdateMode_SilentNextLaunch" xml:space="preserve">
     <value>Sessiz (Bir sonraki açılışta uygula)</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="Deinterlace_Bwdif" xml:space="preserve">
+    <value>Bwdif</value>
+  </data>
+  <data name="WatcherProcessStatus_Disabled" xml:space="preserve">
+    <value>Devre Dışı</value>
+  </data>
+  <data name="WatcherProcessStatus_Running" xml:space="preserve">
+    <value>Çalışıyor</value>
+  </data>
+  <data name="WatcherProcessStatus_Starting" xml:space="preserve">
+    <value>Başlatılıyor...</value>
+  </data>
+  <data name="WatcherProcessStatus_Stopped" xml:space="preserve">
+    <value>Durduruldu</value>
+  </data>
+  <data name="WatchedFileStatusLive_Canceled" xml:space="preserve">
+    <value>İptal Edildi</value>
+  </data>
+  <data name="WatchedFileStatusLive_Encoding" xml:space="preserve">
+    <value>Kodlanıyor</value>
+  </data>
+  <data name="WatchedFileStatusLive_Failed" xml:space="preserve">
+    <value>Başarısız</value>
+  </data>
+  <data name="WatchedFileStatusLive_Planned" xml:space="preserve">
+    <value>Planlandı</value>
+  </data>
+  <data name="WatchedFileStatusLive_Queued" xml:space="preserve">
+    <value>Sıraya Alındı</value>
+  </data>
+  <data name="WatchedFileStatusLive_Skipped" xml:space="preserve">
+    <value>Atlandı</value>
+  </data>
+  <data name="WatchedFileStatusLive_Succeeded" xml:space="preserve">
+    <value>Başarılı</value>
+  </data>
+  <data name="WatchedFileStatusLive_Output" xml:space="preserve">
+    <value>Çıktı</value>
+  </data>
+  <data name="WatcherMode_FileSystemWatcher" xml:space="preserve">
+    <value>Sistem İzleyici</value>
+  </data>
+  <data name="WatcherMode_Polling" xml:space="preserve">
+    <value>Yoklanıyor</value>
+  </data>
+  <data name="EncodeCompleteActionType_Restart" xml:space="preserve">
+    <value>Yeniden Başlat</value>
+  </data>
 </root>

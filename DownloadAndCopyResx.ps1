@@ -38,6 +38,7 @@ function CopyLanguage($languageDir, $language) {
 
 CopyLanguage "ar" "ar"
 CopyLanguage "bs" "bs"
+CopyLanguage "ca" "ca"
 CopyLanguage "cs" "cs"
 CopyLanguage "de" "de"
 CopyLanguage "el" "el"

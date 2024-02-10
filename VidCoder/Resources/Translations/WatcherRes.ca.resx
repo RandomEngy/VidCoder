@@ -118,87 +118,87 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ActivateWatcherButton" xml:space="preserve">
-    <value>Dosya İzleyiciyi Etkinleştir</value>
+    <value>Activa el vigilant de fitxers</value>
   </data>
   <data name="AddFolderToWatch" xml:space="preserve">
-    <value>İzlemek için klasör ekle</value>
+    <value>Afegeix una carpeta per vigilar</value>
   </data>
   <data name="CancelMenuItem" xml:space="preserve">
-    <value>İptal</value>
+    <value>Cancel·la</value>
   </data>
   <data name="DeactivateWatcherButton" xml:space="preserve">
-    <value>Dosya İzleyicisini Devre Dışı Bırak</value>
+    <value>Desactiva el vigilant de fitxers</value>
   </data>
   <data name="OpenContainingFolderMenuItem" xml:space="preserve">
-    <value>İçeren klasörü aç</value>
+    <value>Obre la carpeta contenidora</value>
   </data>
   <data name="PathColumnHeader" xml:space="preserve">
-    <value>Yol</value>
+    <value>Camí d'accés</value>
   </data>
   <data name="PickerLabel" xml:space="preserve">
-    <value>Seçici:</value>
+    <value>Selector:</value>
   </data>
   <data name="PickWatchedFolderDialogDescription" xml:space="preserve">
-    <value>İzlemek için klasörü seçin</value>
+    <value>Trieu la carpeta que cal vigilar</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>Kodlama önayarı:</value>
+    <value>Valors de codificació predefinits:</value>
   </data>
   <data name="RemoveWatchedFolder" xml:space="preserve">
-    <value>İzlenen klasörü kaldır</value>
+    <value>Elimina la carpeta vigilada</value>
   </data>
   <data name="RetryMenuItem" xml:space="preserve">
-    <value>Tekrar dene</value>
+    <value>Torna-ho a intentar</value>
   </data>
   <data name="RunWhenClosedCheckBox" xml:space="preserve">
-    <value>VidCoder kapatıldığında çalıştır</value>
+    <value>Executa el VidCoder quan estigui tancat</value>
   </data>
   <data name="ServiceInstallError" xml:space="preserve">
-    <value>Dosya izleyici hizmeti yüklenemedi.</value>
+    <value>No s'ha pogut instal·lar el servei del vigilant de fitxers.</value>
   </data>
   <data name="ServiceUninstallError" xml:space="preserve">
-    <value>Dosya izleyici hizmeti kaldırılamadı.</value>
+    <value>No s'ha pogut instal·lar el servei del vigilant de fitxers.</value>
   </data>
   <data name="StatusCanceledToolTip" xml:space="preserve">
-    <value>Kodlama işlemi kuyruktan çıkarılarak iptal edildi.</value>
+    <value>S'ha cancel·lat la codificació en eliminar-la de la cua.</value>
   </data>
   <data name="StatusColumnHeader" xml:space="preserve">
-    <value>Durum</value>
+    <value>Estat</value>
   </data>
   <data name="StatusFailedToolTip" xml:space="preserve">
-    <value>Kodlama başarısız oldu.</value>
+    <value>S'ha produït un error en la codificació.</value>
   </data>
   <data name="StatusOutputToolTip" xml:space="preserve">
-    <value>VidCoder tarafından kodlandı.</value>
+    <value>El fitxer s'ha codificat amb el VidCoder.</value>
   </data>
   <data name="StatusQueuedToolTip" xml:space="preserve">
-    <value>Kaynak dosya kuyrukta.</value>
+    <value>El fitxer d'origen és a la cua.</value>
   </data>
   <data name="StatusSkippedToolTip" xml:space="preserve">
-    <value>Kodlama, seçicide ayarlanan koşullar nedeniyle atlandı (dosya boyutunun çok küçük olması gibi).</value>
+    <value>S'ha omès la codificació per condicions definides al selector (com ara un fitxer que és massa petit).</value>
   </data>
   <data name="StatusSucceededToolTip" xml:space="preserve">
-    <value>Kodlama başarıyla tamamlandı.</value>
+    <value>La codificació s'ha completat correctament.</value>
   </data>
   <data name="WatchedFilesHeader" xml:space="preserve">
-    <value>Dosyalar</value>
+    <value>Fitxers</value>
   </data>
   <data name="WatchedFoldersHeader" xml:space="preserve">
-    <value>Klasörleri izle</value>
+    <value>Vigila les carpetes</value>
   </data>
   <data name="WatchedFolderTextBoxLabel" xml:space="preserve">
-    <value>Klasör:</value>
+    <value>Carpeta:</value>
   </data>
   <data name="WatcherAddDialogTitle" xml:space="preserve">
-    <value>İzlenen klasör ekle</value>
+    <value>Afegeix una carpeta vigilada</value>
   </data>
   <data name="WatcherEditDialogTitle" xml:space="preserve">
-    <value>İzlenen klasörü düzenle</value>
+    <value>Edita la carpeta vigilada</value>
   </data>
   <data name="WatcherIntroText" xml:space="preserve">
-    <value>İzleyici'yi klasörleri gözlemleyecek ve klasörlerde görünen videoları otomatik olarak kodlayacak şekilde ayarlayabilirsiniz. İzleyici işlemi, VidCoder kapatıldığında çalışacak ve dosyaları kodlamak için başlatacaktır.</value>
+    <value>Podeu configurar el vigilant perquè observi les carpetes i codifiqui automàticament els vídeos que hi apareguin. El procés del vigilant s'executarà quan el VidCoder estigui tancat i l'iniciarà per codificar fitxers.</value>
   </data>
   <data name="WatcherWindowTitle" xml:space="preserve">
-    <value>İzleyici - {0}</value>
+    <value>Vigilant: {0}</value>
   </data>
 </root>

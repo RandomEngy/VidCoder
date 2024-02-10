@@ -749,6 +749,12 @@ Bu uyarı yalnızca iki kez görüntülenir.</value>
   <data name="CopyLogAndReportMenuItem" xml:space="preserve">
     <value>Günlüğü kopyala ve sorunu bildir</value>
   </data>
-  
-  
+  <data name="WatcherMenuItem" xml:space="preserve">
+    <value>İzleyici</value>
+  </data>
+  <data name="QueueProgressLabel" xml:space="preserve">
+    <value>Kuyruklanıyor {0}/{1}:</value>
+    <comment>{0} is the current job number for scanning and adding an item to the queue
+{1} is the total number of scanned items this session</comment>
+  </data>
 </root>

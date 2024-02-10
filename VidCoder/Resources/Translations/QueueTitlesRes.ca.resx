@@ -112,93 +112,42 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActivateWatcherButton" xml:space="preserve">
-    <value>Dosya İzleyiciyi Etkinleştir</value>
+  <data name="OverrideTitleNumberToolTip" xml:space="preserve">
+    <value>Si trieu aquesta opció, se substituirà el títol normal per crear el nom del fitxer de sortida. Per exemple, amb els títols 2, 3 i 4 i una substitució de 7, s'etiquetaran com a 7, 8 i 9. Pot ser útil per ripejar un disc d'una sèrie de televisió.</value>
   </data>
-  <data name="AddFolderToWatch" xml:space="preserve">
-    <value>İzlemek için klasör ekle</value>
+  <data name="QueueTitlesWindowHeader" xml:space="preserve">
+    <value>Trieu diversos títols per afegir-los a la cua.</value>
   </data>
-  <data name="CancelMenuItem" xml:space="preserve">
-    <value>İptal</value>
+  <data name="PlaySourceToolTip" xml:space="preserve">
+    <value>Si s'instal·la un reproductor compatible (VLC o Media Player Classic Home Cinema), podeu previsualitzar cada títol del DVD.</value>
   </data>
-  <data name="DeactivateWatcherButton" xml:space="preserve">
-    <value>Dosya İzleyicisini Devre Dışı Bırak</value>
+  <data name="PlaySourceButton" xml:space="preserve">
+    <value>Reprodueix el fitxer d'origen</value>
   </data>
-  <data name="OpenContainingFolderMenuItem" xml:space="preserve">
-    <value>İçeren klasörü aç</value>
+  <data name="LengthRangePre" xml:space="preserve">
+    <value>Tria únicament els títols de</value>
+    <comment>Goes before the first number box in the length range specification.</comment>
   </data>
-  <data name="PathColumnHeader" xml:space="preserve">
-    <value>Yol</value>
+  <data name="LengthRangeMid" xml:space="preserve">
+    <value>a</value>
+    <comment>Goes in between the two number boxes in the length range specification.</comment>
   </data>
-  <data name="PickerLabel" xml:space="preserve">
-    <value>Seçici:</value>
+  <data name="LengthRangePost" xml:space="preserve">
+    <value>minuts</value>
+    <comment>Goes after the second number box in the length range specification.</comment>
   </data>
-  <data name="PickWatchedFolderDialogDescription" xml:space="preserve">
-    <value>İzlemek için klasörü seçin</value>
+  <data name="OverrideTitleCheckBox" xml:space="preserve">
+    <value>Substitueix el títol #: comença a</value>
   </data>
-  <data name="PresetLabel" xml:space="preserve">
-    <value>Kodlama önayarı:</value>
+  <data name="QueueTitlesDialogTitle" xml:space="preserve">
+    <value>Posa a la cua diversos títols</value>
   </data>
-  <data name="RemoveWatchedFolder" xml:space="preserve">
-    <value>İzlenen klasörü kaldır</value>
-  </data>
-  <data name="RetryMenuItem" xml:space="preserve">
-    <value>Tekrar dene</value>
-  </data>
-  <data name="RunWhenClosedCheckBox" xml:space="preserve">
-    <value>VidCoder kapatıldığında çalıştır</value>
-  </data>
-  <data name="ServiceInstallError" xml:space="preserve">
-    <value>Dosya izleyici hizmeti yüklenemedi.</value>
-  </data>
-  <data name="ServiceUninstallError" xml:space="preserve">
-    <value>Dosya izleyici hizmeti kaldırılamadı.</value>
-  </data>
-  <data name="StatusCanceledToolTip" xml:space="preserve">
-    <value>Kodlama işlemi kuyruktan çıkarılarak iptal edildi.</value>
-  </data>
-  <data name="StatusColumnHeader" xml:space="preserve">
-    <value>Durum</value>
-  </data>
-  <data name="StatusFailedToolTip" xml:space="preserve">
-    <value>Kodlama başarısız oldu.</value>
-  </data>
-  <data name="StatusOutputToolTip" xml:space="preserve">
-    <value>VidCoder tarafından kodlandı.</value>
-  </data>
-  <data name="StatusQueuedToolTip" xml:space="preserve">
-    <value>Kaynak dosya kuyrukta.</value>
-  </data>
-  <data name="StatusSkippedToolTip" xml:space="preserve">
-    <value>Kodlama, seçicide ayarlanan koşullar nedeniyle atlandı (dosya boyutunun çok küçük olması gibi).</value>
-  </data>
-  <data name="StatusSucceededToolTip" xml:space="preserve">
-    <value>Kodlama başarıyla tamamlandı.</value>
-  </data>
-  <data name="WatchedFilesHeader" xml:space="preserve">
-    <value>Dosyalar</value>
-  </data>
-  <data name="WatchedFoldersHeader" xml:space="preserve">
-    <value>Klasörleri izle</value>
-  </data>
-  <data name="WatchedFolderTextBoxLabel" xml:space="preserve">
-    <value>Klasör:</value>
-  </data>
-  <data name="WatcherAddDialogTitle" xml:space="preserve">
-    <value>İzlenen klasör ekle</value>
-  </data>
-  <data name="WatcherEditDialogTitle" xml:space="preserve">
-    <value>İzlenen klasörü düzenle</value>
-  </data>
-  <data name="WatcherIntroText" xml:space="preserve">
-    <value>İzleyici'yi klasörleri gözlemleyecek ve klasörlerde görünen videoları otomatik olarak kodlayacak şekilde ayarlayabilirsiniz. İzleyici işlemi, VidCoder kapatıldığında çalışacak ve dosyaları kodlamak için başlatacaktır.</value>
-  </data>
-  <data name="WatcherWindowTitle" xml:space="preserve">
-    <value>İzleyici - {0}</value>
+  <data name="TitleFormat" xml:space="preserve">
+    <value>Títol {0}</value>
   </data>
 </root>
