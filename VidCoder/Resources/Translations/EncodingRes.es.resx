@@ -740,7 +740,13 @@ Reemplaza las demás configuraciones.</value>
   <data name="DeblockToolTip" xml:space="preserve">
     <value>Reduce los artefactos de bloque causado por la compresión de vídeo de baja calidad.</value>
   </data>
-  
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>Desentrelazar elimina los residuos de entrelazado de la imagen.
+
+Bwdif y Yadif son dos filtros de desentrelazado populares y rápidos,
+
+Desomb alterna entre múltiples algoritmos de interpolación para una mayor velocidad y calidad.</value>
+  </data>
   <data name="DenoiseToolTip" xml:space="preserve">
     <value>Denoise reduce o elimina la apariencia de ruido y grano, mejorando la compresión y consiguiente un video de mayor calidad a un tamaño menor.
 Aplicar un fuerte Denoise puede llevar a una perdida de calidad de imagen.
@@ -851,5 +857,7 @@ Lapsharp funciona usando núcleos de circunvolución que se aproximan a los filt
   <data name="MinimumCroppingToolTip" xml:space="preserve">
     <value>Si el recorte automático es menor que éste valor, desactiva el recorte para ese borde. Útil para prevenir el remuestreo de pequeños cortes.</value>
   </data>
-  
+  <data name="CroppingType_Conservative" xml:space="preserve">
+    <value>Conservador</value>
+  </data>
 </root>

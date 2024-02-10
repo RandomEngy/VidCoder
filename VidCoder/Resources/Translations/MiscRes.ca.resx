@@ -118,158 +118,158 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddButton" xml:space="preserve">
-    <value>Ekle</value>
+    <value>Afegeix</value>
   </data>
   <data name="RefreshButton" xml:space="preserve">
-    <value>Yenile</value>
+    <value>Actualitza</value>
   </data>
   <data name="ChooseFromProcessesLabel" xml:space="preserve">
-    <value>Mevcut işlemlerden seç:</value>
+    <value>Tria entre els processos existents:</value>
   </data>
   <data name="AddAutoPauseProcessDialogTitle" xml:space="preserve">
-    <value>Otomatik Duraklatma İşlemi Ekle</value>
+    <value>Afegeix un procés de pausa automàtica</value>
   </data>
   <data name="ProcessNameLabel" xml:space="preserve">
-    <value>İşlem Adı:</value>
+    <value>Nom del procés:</value>
   </data>
   <data name="ExceptionDialogMainText" xml:space="preserve">
-    <value>VidCoder beklenmeyen bir hatayla karşılaştı.</value>
+    <value>El VidCoder ha tingut un error inesperat.</value>
   </data>
   <data name="ExceptionDialogSubText" xml:space="preserve">
-    <value>Hatanın düzeltilebilmesi için lütfen bunu bildirin.</value>
+    <value>Informeu-nos-en perquè ho puguem solucionar en les properes versions.</value>
   </data>
   <data name="ExceptionWindowTitle" xml:space="preserve">
-    <value>İstisna</value>
+    <value>Excepció</value>
   </data>
   <data name="FileConflictDialogTitle" xml:space="preserve">
-    <value>Dosya Çakışması</value>
+    <value>Conflicte de fitxers</value>
   </data>
   <data name="OverwriteButton" xml:space="preserve">
-    <value>Üzerine Yaz</value>
+    <value>Substitueix</value>
   </data>
   <data name="AutoRenameButton" xml:space="preserve">
-    <value>Otomatik Adlandır</value>
+    <value>Canvia'n el nom automàticament</value>
   </data>
   <data name="FileConflictWarning" xml:space="preserve">
-    <value>Dosya zaten var {0}. Üzerine yazabilir, otomatik olarak adlandırabilir veya işlemi iptal edebilirsiniz.</value>
+    <value>Ja hi ha un fitxer a {0}. Voleu substituir el fitxer, cercar automàticament un camí de sortida nou per a la tasca de codificació o cancel·lar l'operació?</value>
   </data>
   <data name="QueueFileConflictWarning" xml:space="preserve">
-    <value>Dosya zaten var {0}. Üzerine yazabilir, otomatik olarak adlandırabilir veya işlemi iptal edebilirsiniz.</value>
+    <value>Ja hi ha una tasca a la cua que té un camí de sortida a {0}. Voleu substituir la tasca de la cua, cercar automàticament un camí de sortida nou per a la tasca de codificació o cancel·lar l'operació?</value>
   </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Kuyruk Sütunları</value>
+    <value>Columnes de la cua</value>
   </data>
   <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Sütun eklemek, kaldırmak veya srıalamak için sürükleyip ve bırakın.</value>
+    <value>Arrossegueu i deixeu anar per a afegir, eliminar o reordenar les columnes.</value>
   </data>
   <data name="UnusedColumns" xml:space="preserve">
-    <value>Kullanılmayan sütunlar</value>
+    <value>Columnes que no es fan servir</value>
   </data>
   <data name="UsedColumns" xml:space="preserve">
-    <value>Kullanılan sütunlar</value>
+    <value>Columnes que es fan servir</value>
   </data>
   <data name="ScanMultipleWindowTitle" xml:space="preserve">
-    <value>İnceleniyor...</value>
+    <value>S'està analitzant...</value>
   </data>
   <data name="AboutVidCoderDialogTitle" xml:space="preserve">
-    <value>VidCoder Hakkında</value>
+    <value>Quant al VidCoder</value>
   </data>
   <data name="LicenseLabel" xml:space="preserve">
-    <value>Lisans:</value>
+    <value>Llicència:</value>
   </data>
   <data name="Version" xml:space="preserve">
-    <value>Sürüm</value>
+    <value>Versió</value>
   </data>
   <data name="BasedOnHandBrake" xml:space="preserve">
-    <value>HandBrake Sürüm Tabanı ({0})</value>
+    <value>Basat en el HandBrake ({0})</value>
   </data>
   <data name="Copyright" xml:space="preserve">
-    <value>© {0} VidCoder Geliştiricileri</value>
+    <value>© {0} Desenvolupadors del VidCoder</value>
   </data>
   <data name="BetaVersionFormat2" xml:space="preserve">
     <value>{0} Beta</value>
     <comment>{0} is a placeholder for version. For example: 1.4.2 Beta</comment>
   </data>
   <data name="NameDialogTitle" xml:space="preserve">
-    <value>Adı</value>
+    <value>Nom</value>
     <comment>Title for dialog when  naming a preset or  picker</comment>
   </data>
   <data name="ChooseNamePreset" xml:space="preserve">
-    <value>Önayar için ad seçin:</value>
+    <value>Trieu un nom per als valors predefinits:</value>
   </data>
   <data name="ApplyUpdateDialogTitle" xml:space="preserve">
-    <value>Güncelleme Uygulansın mı?</value>
+    <value>Voleu aplicar l'actualització?</value>
   </data>
   <data name="ApplyUpdateDialogMessage" xml:space="preserve">
-    <value>Güncelleme indirildi. Şimdi uygulamak ister misiniz?</value>
+    <value>S'ha baixat una actualització. La voleu aplicar ara?</value>
   </data>
   <data name="ViewFullChangelog" xml:space="preserve">
-    <value>Tüm değişiklikleri göster</value>
+    <value>Mostra tot el registre de canvis</value>
   </data>
   <data name="DisableUpdatesButton" xml:space="preserve">
-    <value>Güncellemeleri Devre Dışı Bırak</value>
+    <value>Desactiva les actualitzacions</value>
   </data>
   <data name="NoticeMessageTitle" xml:space="preserve">
-    <value>Uyarı</value>
+    <value>Avís</value>
   </data>
   <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder işletim sisteminizde desteklenmiyor, Windows XP ve Server 2003 artık çalışmıyor. Lütfen VidCoder 1.4'ü kurun veya işletim sisteminizi yükseltin.</value>
+    <value>El VidCoder no és compatible amb el vostre sistema operatiu. El Windows XP i el Server 2003 ja no funcionen. Instal·leu el VidCoder 1.5 o actualitzeu el sistema operatiu.</value>
   </data>
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
-    <value>Bilgisayar Uyku Moduna geçecek</value>
+    <value>El sistema està a punt d'aturar-se temporalment</value>
   </data>
   <data name="EncodeCompleteWarning_LogOffTitle" xml:space="preserve">
-    <value>Oturum kapatılacak</value>
+    <value>La sessió està a punt de tancar-se</value>
   </data>
   <data name="EncodeCompleteWarning_ShutdownTitle" xml:space="preserve">
-    <value>Bilgisayar kapatılacak</value>
+    <value>L'equip està a punt d'apagar-se</value>
   </data>
   <data name="EncodeCompleteWarning_SleepMessage" xml:space="preserve">
-    <value>Bilgisayar {0} saniye içinde Uyku Moduna geçecek.</value>
+    <value>El sistema s'aturarà temporalment d'aquí a {0} segons.</value>
   </data>
   <data name="EncodeCompleteWarning_LogOffMessage" xml:space="preserve">
-    <value>Oturumunuz {0} saniye içinde kapatılacak.</value>
+    <value>Es tancarà la sessió d'aquí a {0} segons.</value>
   </data>
   <data name="EncodeCompleteWarning_ShutdownMessage" xml:space="preserve">
-    <value>Bilgisayar {0} saniye içinde kapatılacak.</value>
+    <value>S'apagarà el sistema d'aquí a {0} segons.</value>
   </data>
   <data name="EncodeCompleteWarning_Title" xml:space="preserve">
-    <value>Kodlama tamamladı.</value>
+    <value>S'ha completat la codificació.</value>
   </data>
   <data name="CouldNotFindVideoPlayerError" xml:space="preserve">
-    <value>{0} için video oynatıcı bulunamadı.</value>
+    <value>No s'ha pogut trobar el reproductor de vídeo de {0}.</value>
   </data>
   <data name="ErrorPlayingSource" xml:space="preserve">
-    <value>Kaynak oynatılırken hata oluştu.</value>
+    <value>S'ha produït un error en reproduir el fitxer d'origen.</value>
   </data>
   <data name="EncodeCompleteWarning_HibernateMessage" xml:space="preserve">
-    <value>Bilgisayar {0} saniye içinde Hazırda Beklemeye geçecek.</value>
+    <value>El sistema es posarà en hibernació d'aquí a {0} segons.</value>
   </data>
   <data name="EncodeCompleteWarning_HibernateTitle" xml:space="preserve">
-    <value>Bilgisayar Bekleme Moduna geçecek</value>
+    <value>El sistema està a punt de posar-se en hibernació.</value>
   </data>
   <data name="ChooseNamePicker" xml:space="preserve">
-    <value>Seçici için bir ad girin:</value>
+    <value>Trieu un nom per al selector:</value>
   </data>
   <data name="ExceptionDialogSubTextReported" xml:space="preserve">
-    <value>Programın kapanacak ve hata otomatik olarak bildirilecek.</value>
+    <value>Cal tancar el programa, però s'informarà de l'error automàticament.</value>
   </data>
   <data name="DownloadInstallerButton" xml:space="preserve">
-    <value>Karşıdan indir</value>
+    <value>Baixa l'instal·lador</value>
   </data>
   <data name="ReplaceJobButton" xml:space="preserve">
-    <value>İşi değiştir</value>
+    <value>Substituex la tasca</value>
   </data>
   <data name="CopyAndReportIssueButton" xml:space="preserve">
-    <value>Sorunu kopyala ve bildir</value>
+    <value>Copia el problema i informa'n</value>
   </data>
   <data name="OneTimeInstallerCleanup" xml:space="preserve">
-    <value>Eski kurulumu bir kerelik temizlememiz gerekiyor. Vidcoder'ın eski sürümünü kaldırmak için bir sonraki istemde 'Evet'i seçin.</value>
+    <value>Hem de fer una neteja de l'instal·lador antic. Trieu «Sí» a la sol·licitud següent per a eliminar l'antiga versió del VidCoder.</value>
   </data>
   <data name="EncodeCompleteWarning_RestartTitle" xml:space="preserve">
-    <value>Yeniden başlatma yaklaşıyor</value>
+    <value>Reinici imminent</value>
   </data>
   <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
-    <value>Sistem {0} saniye içinde yeniden başlayacak.</value>
+    <value>El sistema es reiniciarà d'aquí a {0} segons.</value>
   </data>
 </root>

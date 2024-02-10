@@ -117,88 +117,62 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActivateWatcherButton" xml:space="preserve">
-    <value>Dosya İzleyiciyi Etkinleştir</value>
+  <data name="SubtitlesFromSourceLabel" xml:space="preserve">
+    <value>Subtítols del fitxer d'origen:</value>
   </data>
-  <data name="AddFolderToWatch" xml:space="preserve">
-    <value>İzlemek için klasör ekle</value>
+  <data name="QuickTimeSubtitlesWarning" xml:space="preserve">
+    <value>Pot ser que els subtítols de text no apareguin a la Vista ràpida si no es fa servir l'extensió .m4v.</value>
   </data>
-  <data name="CancelMenuItem" xml:space="preserve">
-    <value>İptal</value>
+  <data name="NameColumn" xml:space="preserve">
+    <value>Nom</value>
   </data>
-  <data name="DeactivateWatcherButton" xml:space="preserve">
-    <value>Dosya İzleyicisini Devre Dışı Bırak</value>
+  <data name="DefaultColumn" xml:space="preserve">
+    <value>Per defecte</value>
   </data>
-  <data name="OpenContainingFolderMenuItem" xml:space="preserve">
-    <value>İçeren klasörü aç</value>
+  <data name="ForcedOnlyColumn" xml:space="preserve">
+    <value>Només forçats</value>
   </data>
-  <data name="PathColumnHeader" xml:space="preserve">
-    <value>Yol</value>
+  <data name="BurnedInColumn" xml:space="preserve">
+    <value>Incrusta</value>
   </data>
-  <data name="PickerLabel" xml:space="preserve">
-    <value>Seçici:</value>
+  <data name="ExternalSubtitlesLabel" xml:space="preserve">
+    <value>Subtítols externs:</value>
   </data>
-  <data name="PickWatchedFolderDialogDescription" xml:space="preserve">
-    <value>İzlemek için klasörü seçin</value>
+  <data name="FileColumn" xml:space="preserve">
+    <value>Fitxer</value>
   </data>
-  <data name="PresetLabel" xml:space="preserve">
-    <value>Kodlama önayarı:</value>
+  <data name="LanguageColumn" xml:space="preserve">
+    <value>Idioma</value>
   </data>
-  <data name="RemoveWatchedFolder" xml:space="preserve">
-    <value>İzlenen klasörü kaldır</value>
+  <data name="CharCodeColumn" xml:space="preserve">
+    <value>Codi dels caràcters</value>
   </data>
-  <data name="RetryMenuItem" xml:space="preserve">
-    <value>Tekrar dene</value>
+  <data name="OffsetColumn" xml:space="preserve">
+    <value>Desplaçament (ms)</value>
   </data>
-  <data name="RunWhenClosedCheckBox" xml:space="preserve">
-    <value>VidCoder kapatıldığında çalıştır</value>
+  <data name="BurnedOverlapWarning" xml:space="preserve">
+    <value>Les altres pistes de subtítols s'encavalcaran amb els subtítols incrustats.</value>
   </data>
-  <data name="ServiceInstallError" xml:space="preserve">
-    <value>Dosya izleyici hizmeti yüklenemedi.</value>
+  <data name="ForeignAudioScan" xml:space="preserve">
+    <value>Anàlisi d'àudio extern</value>
   </data>
-  <data name="ServiceUninstallError" xml:space="preserve">
-    <value>Dosya izleyici hizmeti kaldırılamadı.</value>
+  <data name="SubtitleFilePickerText" xml:space="preserve">
+    <value>Afegeix un fitxer de subtítols</value>
   </data>
-  <data name="StatusCanceledToolTip" xml:space="preserve">
-    <value>Kodlama işlemi kuyruktan çıkarılarak iptal edildi.</value>
+  <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
+    <value>No s'ha pogut detectar la codificació del fitxer de subtítols. Torneu a guardar el fitxer amb la codificació UTF-8 per assegurar-vos que els subtítols es mostren correctament.</value>
   </data>
-  <data name="StatusColumnHeader" xml:space="preserve">
-    <value>Durum</value>
+  <data name="NoSubtitlesText" xml:space="preserve">
+    <value>No s'han trobat subtítols al fitxer d'origen.</value>
   </data>
-  <data name="StatusFailedToolTip" xml:space="preserve">
-    <value>Kodlama başarısız oldu.</value>
+  <data name="ExternalSubtitlesSummaryFormat" xml:space="preserve">
+    <value>Externs: {0}</value>
+    <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
   </data>
-  <data name="StatusOutputToolTip" xml:space="preserve">
-    <value>VidCoder tarafından kodlandı.</value>
+  <data name="ImportSubtitleButton" xml:space="preserve">
+    <value>Importa des d'un fitxer...</value>
   </data>
-  <data name="StatusQueuedToolTip" xml:space="preserve">
-    <value>Kaynak dosya kuyrukta.</value>
-  </data>
-  <data name="StatusSkippedToolTip" xml:space="preserve">
-    <value>Kodlama, seçicide ayarlanan koşullar nedeniyle atlandı (dosya boyutunun çok küçük olması gibi).</value>
-  </data>
-  <data name="StatusSucceededToolTip" xml:space="preserve">
-    <value>Kodlama başarıyla tamamlandı.</value>
-  </data>
-  <data name="WatchedFilesHeader" xml:space="preserve">
-    <value>Dosyalar</value>
-  </data>
-  <data name="WatchedFoldersHeader" xml:space="preserve">
-    <value>Klasörleri izle</value>
-  </data>
-  <data name="WatchedFolderTextBoxLabel" xml:space="preserve">
-    <value>Klasör:</value>
-  </data>
-  <data name="WatcherAddDialogTitle" xml:space="preserve">
-    <value>İzlenen klasör ekle</value>
-  </data>
-  <data name="WatcherEditDialogTitle" xml:space="preserve">
-    <value>İzlenen klasörü düzenle</value>
-  </data>
-  <data name="WatcherIntroText" xml:space="preserve">
-    <value>İzleyici'yi klasörleri gözlemleyecek ve klasörlerde görünen videoları otomatik olarak kodlayacak şekilde ayarlayabilirsiniz. İzleyici işlemi, VidCoder kapatıldığında çalışacak ve dosyaları kodlamak için başlatacaktır.</value>
-  </data>
-  <data name="WatcherWindowTitle" xml:space="preserve">
-    <value>İzleyici - {0}</value>
+  <data name="FilePickerDescription" xml:space="preserve">
+    <value>Fitxers de subtítols</value>
   </data>
 </root>

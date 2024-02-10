@@ -118,567 +118,569 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
-    <value>Título:</value>
+    <value>Títol:</value>
   </data>
   <data name="AddToQueueLabel" xml:space="preserve">
-    <value>Añadir a la Cola</value>
+    <value>Afegeix a la cua</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
-    <value>Añadir múltiples títulos a cola...</value>
+    <value>Afegeix diversos títols a la cua...</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
-    <value>Abrir archivo de vídeo...</value>
+    <value>Obre un fitxer de vídeo...</value>
   </data>
   <data name="OpenDiscFolder" xml:space="preserve">
-    <value>Abrir Carpeta de DVD/Blu-ray...</value>
+    <value>Obre una carpeta de DVD/Blu-ray...</value>
   </data>
   <data name="EnqueueMultipleFiles" xml:space="preserve">
-    <value>Poner en cola múltiples archivos...</value>
+    <value>Afegeix diversos fitxers a la cua...</value>
   </data>
   <data name="ToolsMenu" xml:space="preserve">
-    <value>Herramientas</value>
+    <value>Eines</value>
   </data>
   <data name="ImportPreset" xml:space="preserve">
-    <value>Importar Preset...</value>
+    <value>Importa valors predefinits...</value>
   </data>
   <data name="ExportPreset" xml:space="preserve">
-    <value>Exportar Preset...</value>
+    <value>Exporta valors predefinits...</value>
   </data>
   <data name="Play" xml:space="preserve">
-    <value>Reproducir</value>
+    <value>Reprodueix</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Editar</value>
+    <value>Edita</value>
   </data>
   <data name="OpenContainingFolder" xml:space="preserve">
-    <value>Abrir Carpeta Contenedora</value>
+    <value>Obre la carpeta dels fitxers</value>
   </data>
   <data name="ClearCompleted" xml:space="preserve">
-    <value>Limpiar Finalizados</value>
+    <value>Neteja les tasques completades</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
-    <value>Mostrar</value>
+    <value>Finestres</value>
     <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
-    <value>Ajustes de Codificacion</value>
+    <value>Configuració de codificació</value>
   </data>
   <data name="PreviewMenuItem" xml:space="preserve">
-    <value>Vista previa</value>
+    <value>Previsualització</value>
   </data>
   <data name="LogMenuItem" xml:space="preserve">
-    <value>Log</value>
+    <value>Registre</value>
   </data>
   <data name="HelpMenu" xml:space="preserve">
-    <value>Ayuda</value>
+    <value>Ajuda</value>
   </data>
   <data name="VidCoderHomepageMenuItem" xml:space="preserve">
-    <value>Pagina Oficial de VidCoder</value>
+    <value>Pàgina principal del VidCoder</value>
   </data>
   <data name="ReportABugMenuItem" xml:space="preserve">
-    <value>Notificar un error</value>
+    <value>Informa d'un error</value>
   </data>
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
-    <value>Acerca de VidCoder...</value>
+    <value>Quant al VidCoder...</value>
   </data>
   <data name="Recent" xml:space="preserve">
-    <value>Reciente</value>
+    <value>Recent</value>
   </data>
   <data name="DragFilesHereLabel" xml:space="preserve">
-    <value>(O arrastre aquí los archivos de vídeo o carpetas)</value>
+    <value>(O arrossegueu fitxers de vídeo o carpetes aquí)</value>
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
-    <value>Se ha producido un error durante el análisis.</value>
+    <value>S'ha produït un error en analitzar.</value>
   </data>
   <data name="ChapterMarkersLabel" xml:space="preserve">
-    <value>Marcadores de capítulos:</value>
+    <value>Marcadors de capítols:</value>
   </data>
   <data name="EditButton" xml:space="preserve">
-    <value>Editar...</value>
+    <value>Edita...</value>
   </data>
   <data name="DestinationLabel" xml:space="preserve">
-    <value>Destino:</value>
+    <value>Destinació:</value>
   </data>
   <data name="DestinationToolTip" xml:space="preserve">
-    <value>Haga clic para editar la ruta y el nombre del archivo final.</value>
+    <value>Feu clic aquí per editar la destinació de la codificació.</value>
   </data>
   <data name="Stop" xml:space="preserve">
-    <value>Detener</value>
+    <value>Atura</value>
   </data>
   <data name="Pause" xml:space="preserve">
-    <value>Pausar</value>
+    <value>Pausa</value>
   </data>
   <data name="MoveToTopMenuItem" xml:space="preserve">
-    <value>Mover al Principio</value>
+    <value>Mou al capdamunt</value>
   </data>
   <data name="MoveToBottomMenuItem" xml:space="preserve">
-    <value>Mover al Final</value>
+    <value>Mou al capdavall</value>
   </data>
   <data name="CustomizeColumnsMenuItem" xml:space="preserve">
-    <value>Personalizar columnas...</value>
+    <value>Personalitza les columnes...</value>
   </data>
   <data name="CurrentFpsLabel" xml:space="preserve">
-    <value>FPS actual:</value>
+    <value>FPS actuals:</value>
   </data>
   <data name="AverageFpsLabel" xml:space="preserve">
-    <value>FPS promedio:</value>
+    <value>Mitjana d'FPS:</value>
   </data>
   <data name="PickDiscFolderHelpText" xml:space="preserve">
-    <value>Elige una carpeta de DVD o Blu-ray.</value>
+    <value>Trieu una carpeta de DVD o Blu-ray.</value>
   </data>
   <data name="EncodesInProgressExitWarning" xml:space="preserve">
-    <value>Hay codificaciones en progreso. ¿Estás seguro que quieres salir?</value>
+    <value>Hi ha codificacions en curs. Esteu segur que voleu sortir?</value>
   </data>
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
-    <value>Codificaciones en progreso</value>
+    <value>Codificacions en curs</value>
   </data>
   <data name="NoneParen" xml:space="preserve">
-    <value>(Ninguno)</value>
+    <value>(Cap)</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
-    <value>¿Quieres guardar los cambios en tu preset actual?</value>
+    <value>Voleu desar els canvis de l'actual fitxer definit prèviament?</value>
   </data>
   <data name="SaveChangesPresetTitle" xml:space="preserve">
-    <value>¿Quieres guardar el preset actual?</value>
+    <value>Voleu desar els valors predefinits actuals?</value>
   </data>
   <data name="DiscNotInDriveError" xml:space="preserve">
-    <value>No se puede cargar para su edición. El disco ya no está en la unidad.</value>
+    <value>No es pot carregar per a l'edició. El disc ja no és a la unitat.</value>
   </data>
   <data name="PresetNameRestoredFromQueue" xml:space="preserve">
-    <value>Restaurado de cola</value>
+    <value>S'ha restablert de la cua</value>
   </data>
   <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
-    <value>Restaurado desde Completados</value>
+    <value>S'ha restablert dels fitxers completats</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
-    <value>Destino</value>
+    <value>Destinació</value>
   </data>
   <data name="StatusColumnHeader" xml:space="preserve">
-    <value>Estado</value>
+    <value>Estat</value>
   </data>
   <data name="ElapsedTimeColumnHeader" xml:space="preserve">
-    <value>Tiempo transcurrido</value>
+    <value>Temps transcorregut</value>
   </data>
   <data name="PlayingVideoMessage" xml:space="preserve">
-    <value>Reproduciendo vídeo...</value>
+    <value>Vídeo en reproducció...</value>
   </data>
   <data name="FileDoesNotExist" xml:space="preserve">
-    <value>{0} no existe.</value>
+    <value>{0} no existeix.</value>
   </data>
   <data name="AngleLabel" xml:space="preserve">
-    <value>Ángulo:</value>
+    <value>Angle:</value>
   </data>
   <data name="ChaptersSummary" xml:space="preserve">
     <value>de {0}</value>
   </data>
   <data name="Queued" xml:space="preserve">
-    <value>En cola</value>
+    <value>A la cua</value>
   </data>
   <data name="QueuedWithTotal" xml:space="preserve">
-    <value>En cola ({0})</value>
+    <value>A la cua ({0})</value>
   </data>
   <data name="CompletedWithTotal" xml:space="preserve">
-    <value>Terminado ({0})</value>
+    <value>Completats ({0})</value>
   </data>
   <data name="StoppedEncoding" xml:space="preserve">
-    <value>La codificación se ha detenido.</value>
+    <value>S'ha aturat la codificació.</value>
   </data>
   <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>¿Seguro que quieres borrar {0} {1} archivo(s)/carpeta(s) fuente ?</value>
+    <value>Esteu segur que voleu {0} {1} carpetes o fitxers d'origen?</value>
     <comment>{0} is the verb, can be "recycle" or "delete"
 {1} is the number of files that will be removed</comment>
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
-    <value>Confirma para borrar</value>
+    <value>Confirma la supressió</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
-    <value>Error al analizar el(los) archivo(s) de vídeo</value>
+    <value>S'ha produït un error en analitzar els fitxers de vídeo</value>
   </data>
   <data name="StartedEncoding" xml:space="preserve">
-    <value>Codificación iniciada.</value>
+    <value>S'ha iniciat la codificació.</value>
   </data>
   <data name="DirectoryCreateErrorMessage" xml:space="preserve">
-    <value>No se pudo crear el directorio de salida. Detalles del error: {0}</value>
+    <value>No s'ha pogut crear la carpeta de sortida. Detalls de l'error:
+
+{0}</value>
   </data>
   <data name="EncodeCompleted" xml:space="preserve">
-    <value>Codificación completada.</value>
+    <value>S'ha completat la codificació.</value>
   </data>
   <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
-    <value>Codificación completada</value>
+    <value>S'ha completat la codificació</value>
   </data>
   <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
-    <value>VidCoder ha terminado todos los trabajos en cola.</value>
+    <value>El VidCoder ha completat totes les feines de codificació de la cua.</value>
   </data>
   <data name="OutputPathNotValidMessage" xml:space="preserve">
-    <value>La ruta de salida no es valida.</value>
+    <value>El camí de sortida no és vàlid.</value>
   </data>
   <data name="OutputPathNotValidTitle" xml:space="preserve">
-    <value>La ruta no es valida</value>
+    <value>El camí no és vàlid</value>
   </data>
   <data name="Encode" xml:space="preserve">
-    <value>Codificar</value>
+    <value>Codifica</value>
   </data>
   <data name="Resume" xml:space="preserve">
-    <value>Reanudar</value>
+    <value>Reprèn</value>
   </data>
   <data name="EtaLabel" xml:space="preserve">
-    <value>ETA:</value>
+    <value>Temps restant aproximat:</value>
   </data>
   <data name="WhenDoneLabel" xml:space="preserve">
-    <value>Al terminar</value>
+    <value>Quan hagi acabat</value>
   </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
-    <value>Archivo de vídeo...</value>
+    <value>Fitxer de vídeo...</value>
   </data>
   <data name="SourceOption_DiscFolder" xml:space="preserve">
     <value>Carpeta de DVD/Blu-ray...</value>
   </data>
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
-    <value>La versión {0} está disponible. La descarga de la actualización ha comenzado.</value>
+    <value>La versió {0} està disponible. S'ha iniciat la baixada de l'actualització.</value>
   </data>
   <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>La versión {0} ha terminado de descargar y se instalará al salir.</value>
+    <value>La versió {0} s'ha baixat i s'instal·larà en sortir.</value>
   </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
-    <value>La actualización no se aplicó. Si no la cancelaste, trata de instalarla manualmente.</value>
+    <value>No s'ha aplicat l'actualització. Si no l'heu cancel·lada, proveu d'instal·lar-la manualment.</value>
   </data>
   <data name="CouldNotLoadPresetMessage" xml:space="preserve">
-    <value>No se pudo cargar el preset: </value>
+    <value>No s'han pogut carregar els valors predefinits: </value>
   </data>
   <data name="CouldNotSavePresetMessage" xml:space="preserve">
-    <value>No se pudo guardar el preset '{0}': {1} {2}</value>
+    <value>No s'han pogut desar els valors predefinits «{0}»:{1}{2}</value>
   </data>
   <data name="CouldNotCopyTextError" xml:space="preserve">
-    <value>No se pudo copiar el texto.</value>
+    <value>No s'ha pogut copiar el text</value>
   </data>
   <data name="LaunchUrlError" xml:space="preserve">
-    <value>Error al abrir URL: {0}</value>
+    <value>S'ha produït un error en iniciar l'adreça URL: {0}</value>
   </data>
   <data name="PresetImportErrorMessage" xml:space="preserve">
-    <value>Ocurrió un error al importar el Preset. Revise el archivo log para mayor referencia.</value>
+    <value>No s'han pogut importar els valors predefinits. Comproveu el registre per veure'n els detalls.</value>
   </data>
   <data name="ImportErrorTitle" xml:space="preserve">
-    <value>Error al importar</value>
+    <value>Error d'importació</value>
   </data>
   <data name="PresetImportSuccessMessage" xml:space="preserve">
-    <value>El Preset se ha importado con éxito {0}.</value>
+    <value>Els valors predefinits {0} s'han importat correctament</value>
   </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
-    <value>El Preset se ha exportado con éxito {0}</value>
+    <value>Els valors predefinits s'han exportat correctament a {0}</value>
   </data>
   <data name="ExportPresetFilePickerText" xml:space="preserve">
-    <value>Exportar Preset</value>
+    <value>Exporta el fitxer definit prèviament</value>
   </data>
   <data name="SaveChangesPickerMessage" xml:space="preserve">
-    <value>¿Quieres guardar los cambios a tu selección actual?</value>
+    <value>Voleu desar els canvis al selector actual?</value>
   </data>
   <data name="SaveChangesPickerTitle" xml:space="preserve">
-    <value>¿Guardar selección actual?</value>
+    <value>Voleu desar el selector actual?</value>
   </data>
   <data name="RevertConfirmMessage" xml:space="preserve">
-    <value>¿Deseas descartar todos los cambios realizados?</value>
+    <value>Esteu segur que voleu desfer tots els canvis que no s'ha desat?</value>
   </data>
   <data name="RevertConfirmTitle" xml:space="preserve">
-    <value>Deshacer</value>
+    <value>Desfés</value>
   </data>
   <data name="RemoveConfirmMessage" xml:space="preserve">
-    <value>¿Estás seguro de eliminar esto?</value>
+    <value>Esteu segur que ho voleu eliminar?</value>
   </data>
   <data name="RemoveConfirmTitle" xml:space="preserve">
-    <value>Quitar</value>
+    <value>Elimina</value>
   </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
-    <value>Elije el directorio de salida para archivos codificados.</value>
+    <value>Trieu la carpeta de sortida dels fitxers de vídeo codificats.</value>
   </data>
   <data name="LengthPreviewLabel" xml:space="preserve">
     <value>({0})</value>
   </data>
   <data name="ModifiedAffix" xml:space="preserve">
-    <value>(Modificado)</value>
+    <value>(Modificat)</value>
   </data>
   <data name="PlayingVideoStatus" xml:space="preserve">
-    <value>Reproduciendo vídeo...</value>
+    <value>S'està reproduint el vídeo...</value>
   </data>
   <data name="OpeningFolderStatus" xml:space="preserve">
-    <value>Abriendo carpeta...</value>
+    <value>S'està obrint la carpeta...</value>
   </data>
   <data name="CloseVideoSourceToolTip" xml:space="preserve">
-    <value>Cerrar vídeo</value>
+    <value>Tanca l'origen del vídeo</value>
   </data>
   <data name="UpdatesMenuItem" xml:space="preserve">
-    <value>Actualizaciones...</value>
+    <value>S'està actualitzant...</value>
   </data>
   <data name="CbrAuto" xml:space="preserve">
-    <value>CBR Auto</value>
+    <value>CBR automàtic</value>
   </data>
   <data name="RangeBarToolTip" xml:space="preserve">
-    <value>Pulse Click izquierdo para establecer el tiempo de inicio y click derecho para establecer el tiempo final.</value>
+    <value>Feu clic amb el botó esquerre per definir el moment d'inici i amb el clic dret per definir el temps d'acabament.</value>
   </data>
   <data name="QueueFormat_Chapters" xml:space="preserve">
-    <value>Ch {0}</value>
+    <value>Cap. {0}</value>
   </data>
   <data name="QueueFormat_Frames" xml:space="preserve">
     <value>Fr {0}-{1}</value>
   </data>
   <data name="QueueRangeAll" xml:space="preserve">
-    <value>Todo</value>
+    <value>Tots</value>
   </data>
   <data name="CouldNotCopyLogError" xml:space="preserve">
-    <value>No se pudo copiar el log: {0} {0} {1}</value>
+    <value>No s'ha pogut copiar el registre:{0}{0}{1}</value>
   </data>
   <data name="OpenLog" xml:space="preserve">
-    <value>Abrir Log</value>
+    <value>Obre el registre</value>
   </data>
   <data name="CopyLog" xml:space="preserve">
-    <value>Copiar Log</value>
+    <value>Copia el registre</value>
   </data>
   <data name="PresetDiscardConfirmMessage" xml:space="preserve">
-    <value>Vas a cambiar de preset. ¿Estás seguro de descartar los cambios no guardados?</value>
+    <value>Teniu canvis sense desar. Esteu segur que voleu descartar aquests canvis i canviar a un altre fitxer definit prèviament?</value>
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
-    <value>¿Quieres descartar los cambios?</value>
+    <value>Voleu descartar els canvis?</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
-    <value>Quitar de la cola</value>
+    <value>Elimina-ho de la cua</value>
   </data>
   <data name="CouldNotSaveQueueMessage" xml:space="preserve">
-    <value>No se pudo guardar la cola: {0} {1}</value>
+    <value>No s'ha pogut desar la cua:{0}{1}</value>
   </data>
   <data name="ExportQueue" xml:space="preserve">
-    <value>Exportar cola...</value>
+    <value>Exporta la cua...</value>
   </data>
   <data name="ExportQueueFilePickerText" xml:space="preserve">
-    <value>Exportar cola</value>
+    <value>Exporta la cua</value>
   </data>
   <data name="QueueImportErrorMessage" xml:space="preserve">
-    <value>Ocurrió un error al importar la cola. Revise el archivo log para mayor referencia.</value>
+    <value>No s'ha pogut importar la cua. Comproveu el registre per veure'n els detalls.</value>
   </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
-    <value>Importar preset</value>
+    <value>Importa un fitxer definit prèviament</value>
   </data>
   <data name="ImportQueueFilePickerTitle" xml:space="preserve">
-    <value>Importar cola</value>
+    <value>Importa un fitxer de la cua</value>
   </data>
   <data name="ImportQueue" xml:space="preserve">
-    <value>Importar cola...</value>
+    <value>Importa la cua...</value>
   </data>
   <data name="QueueExportSuccessMessage" xml:space="preserve">
-    <value>Cola exportada con éxito a {0}</value>
+    <value>La cua s'ha exportat correctament a {0}</value>
   </data>
   <data name="QueueImportSuccessMessage" xml:space="preserve">
-    <value>Cola importada con éxito.</value>
+    <value>La cua s'ha importat correctament.</value>
   </data>
   <data name="StopEncodeConfirmationTitle" xml:space="preserve">
-    <value>¿Detener codificación?</value>
+    <value>Voleu aturar la codificació?</value>
   </data>
   <data name="StopEncodeConfirmationMessage" xml:space="preserve">
-    <value>¿Estás seguro de detener la codificación?</value>
+    <value>Esteu segur que voleu aturar la codificació?</value>
   </data>
   <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
-    <value>¿Cerrar el archivo actual y abrir el disco?</value>
+    <value>Voleu tancar el fitxer actual i obrir el disc?</value>
   </data>
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
-    <value>Detalles de la codificación</value>
+    <value>Detalls de la codificació</value>
   </data>
   <data name="RenameDatabaseFileLine2" xml:space="preserve">
-    <value>¿Quieres renombrar el archivo existente y empezar con uno nuevo?</value>
+    <value>Voleu canviar el nom del fitxer existent i començar amb un de nou?</value>
   </data>
   <data name="RenameDatabaseFileLine1" xml:space="preserve">
-    <value>No puede leer la versión {0} de la base de datos de archivos. La versión más actual reconocida por VidCoder {1} es {2}</value>
+    <value>No es pot llegir el fitxer de base de dades amb la versió {0}. La versió més alta compatible amb el VidCode {1} és {2}</value>
     <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
   </data>
   <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
-    <value>Archivo de base de datos incompatible</value>
+    <value>El fitxer de base de dades no és compatible</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
   <data name="PickerMenuItem" xml:space="preserve">
     <value>Selector</value>
   </data>
   <data name="CouldNotLoadPickerMessage" xml:space="preserve">
-    <value>No se pudo cargar el selector: </value>
+    <value>No s'ha pogut carregar el selector: </value>
   </data>
   <data name="SimilarTitlesToolTip" xml:space="preserve">
-    <value>{0} otros títulos tienen una duración similar a éste.</value>
+    <value>Hi ha {0} títols més que tenen una duració semblant a aquesta.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
   <data name="UseBackupDatabaseLine" xml:space="preserve">
-    <value>Tienes una copia de archivo de versión {0}. ¿Quieres utilizarlo?</value>
+    <value>Teniu una còpia de seguretat d'un fitxer amb versió {0}. La voleu fer servir?</value>
     <comment>{0} is the version of the database file you have a backup for.</comment>
   </data>
   <data name="VideoPlayError" xml:space="preserve">
-    <value>Error al reproducir el vídeo.</value>
+    <value>S'ha produït un error en reproduir el vídeo.</value>
   </data>
   <data name="CustomVideoPlayerError" xml:space="preserve">
-    <value>El reproductor de vídeo personalizado no se encuentra en {0}.</value>
+    <value>No s'ha pogut trobar el reproductor de vídeo personalitzat a {0}.</value>
     <comment>{0} is the path to the custom video player.</comment>
   </data>
   <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
-    <value>Poner carpeta de archivos de vídeo en cola...</value>
+    <value>Afegeix la carpeta dels fitxers de vídeo a la cua...</value>
   </data>
   <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>Hubo errores de análisis en algunos archivos y no fueron agregados a la cola:{0}</value>
+    <value>S'han produït errors en escanejar alguns fitxers i no s'han afegit a la cua:</value>
   </data>
   <data name="FileSizeColumnHeader" xml:space="preserve">
-    <value>Tamaño</value>
+    <value>Mida</value>
     <comment>Used on the "completed encodes" tab, to label the column that shows the final output file size.</comment>
   </data>
   <data name="OpenAppDataFolder" xml:space="preserve">
-    <value>Abrir carpeta de datos de la App</value>
+    <value>Obre la carpeta amb les dades de l'aplicació</value>
     <comment>Menu choice for opening the application data folder (that holds the VidCoder database file, logs, etc)</comment>
   </data>
   <data name="RibbonEncodingGroupLabel" xml:space="preserve">
-    <value>Codificación</value>
+    <value>Codificació</value>
   </data>
   <data name="RibbonSettingsGroupLabel" xml:space="preserve">
-    <value>Ajustes</value>
+    <value>Configuració</value>
   </data>
   <data name="GlobalOptionsLabel" xml:space="preserve">
-    <value>Opciones globales</value>
+    <value>Opcions globals</value>
   </data>
   <data name="EncodingSettingsButton" xml:space="preserve">
-    <value>Ajustes de Codificacion: {0}</value>
+    <value>Configuració de codificació: {0}</value>
     <comment>{0} is a placeholder for the name of the encoding preset currently selected.</comment>
   </data>
   <data name="EncodingSettingsButtonToolTip" xml:space="preserve">
-    <value>Codecs de video y audio, tamaño, filtros, contenedor</value>
+    <value>Còdecs de vídeo i àudio, redimensionament, filtres, contenidor</value>
   </data>
   <data name="OpenSourceRibbonButton" xml:space="preserve">
-    <value>Abrir...</value>
+    <value>Codi obert</value>
   </data>
   <data name="ImportExportRibbonButton" xml:space="preserve">
-    <value>Importar/Exportar</value>
+    <value>Importa/exporta</value>
     <comment>Label for ribbon button to import or export presets or queues</comment>
   </data>
   <data name="AddedSubtitleFromFile" xml:space="preserve">
-    <value>Subtítulo añadido con éxito desde archivo {0}</value>
+    <value>S'han afegit correctament subtítols del fitxer {0}</value>
   </data>
   <data name="OpenFormat" xml:space="preserve">
-    <value>Abrir {0}</value>
+    <value>Obre {0}</value>
     <comment>Format for opening a source. For example: "Open E:\ - THE_INCREDIBLES"</comment>
   </data>
   <data name="NoAudioDescription" xml:space="preserve">
-    <value>Sin audio en la fuente.</value>
+    <value>No s'ha trobat àudio al fitxer d'origen.</value>
   </data>
   <data name="NoAudioSummary" xml:space="preserve">
-    <value>Sin audio</value>
+    <value>No hi ha àudio</value>
     <comment>Summary text for when no audio tracks are found on the source</comment>
   </data>
   <data name="NoSubtitlesSummary" xml:space="preserve">
-    <value>Sin subtitulos</value>
+    <value>No hi ha subtítols</value>
     <comment>Summary text for when no subtitle tracks are found on the source and no external subtitles have been added</comment>
   </data>
   <data name="DataTooOldRunVidCoderVersion" xml:space="preserve">
-    <value>Sus datos son demasiado antiguos para actualizar. Ejecute VidCoder {0} una vez para actualizarlos a una versión compatible y vuelva a intentarlo con esta versión.</value>
+    <value>Les dades són massa antigues per actualitzar. Executeu el VidCoder {0} un cop per actualitzar-lo a una versió compatible i, a continuació, torneu a provar aquesta versió.</value>
     <comment>This is shown on app start when old data is detected.</comment>
   </data>
   <data name="BitrateColumn" xml:space="preserve">
-    <value>Bitrate</value>
+    <value>Taxa de bits</value>
   </data>
   <data name="SampleRateColumn" xml:space="preserve">
-    <value>Frecuencia de muestreo</value>
+    <value>Freqüència de mostra</value>
   </data>
   <data name="ClearRecentFilesButtonToolTip" xml:space="preserve">
-    <value>Limpiar archivos recientes</value>
+    <value>Esborra els fitxers recents</value>
   </data>
   <data name="OpenSourceLabel" xml:space="preserve">
-    <value>Abrir</value>
+    <value>Obre</value>
     <comment>Label on top of the different options for opening video source on the startup screen.</comment>
   </data>
   <data name="ScanningSourceLabelFormat" xml:space="preserve">
-    <value>Escaneando {0}...</value>
+    <value>Analitzant {0}...</value>
     <comment>{0} is the name of the source being scanned.</comment>
   </data>
   <data name="RetryFailedItemsMenuItem" xml:space="preserve">
-    <value>Reintentar todos los fallos</value>
+    <value>Torna a intentar totes les tasques amb errors</value>
   </data>
   <data name="StartChapterAutomationName" xml:space="preserve">
-    <value>Capítulo inicial</value>
+    <value>Capítol inicial</value>
     <comment>Narrator label for the chapter start combo box</comment>
   </data>
   <data name="EndChapterAutomationName" xml:space="preserve">
-    <value>Capítulo final</value>
+    <value>Capítol final</value>
     <comment>Narrator label for the end chapter combo box</comment>
   </data>
   <data name="EditChaptersButtonAutomationName" xml:space="preserve">
-    <value>Editar capítulos</value>
+    <value>Edita els capítols</value>
     <comment>Help text for screen readers for the Edit chapters button</comment>
   </data>
   <data name="ApplyCurrentEncodingSettings" xml:space="preserve">
-    <value>Aplicar ajustes de codificación actuales</value>
+    <value>Aplica la configuració de codificació actual</value>
   </data>
   <data name="OpenSourceFolderOption" xml:space="preserve">
-    <value>Abrir carpeta fuente</value>
+    <value>Obre la carpeta del fitxer d'origen</value>
     <comment>Menu option to open the folder of the source file in the queue</comment>
   </data>
   <data name="WithCurrentJobsFormat" xml:space="preserve">
-    <value>con trabajo(s) actual(es): {0}</value>
+    <value>amb les feines actuals: {0}</value>
     <comment>Shown as options for the "When done" combo box for actions that trigger when currently encoding job(s) complete. This string is only used when there are multiple items queued.
 {0} is the encode complete action, ex "Shut down"</comment>
   </data>
   <data name="WithQueueFormat" xml:space="preserve">
-    <value>con trabajo(s) en cola: {0}</value>
+    <value>amb tasques a la cua: {0}</value>
     <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion. This string is only used when there are multiple items queued.
 {0} is the encode complete action, ex "Shut down"</comment>
   </data>
   <data name="VideoEncodingOptionsToolTip" xml:space="preserve">
-    <value>Opciones de codificación de vídeo</value>
+    <value>Opcions de codificació de vídeo</value>
   </data>
   <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
-    <value>Opciones de codificación de audio</value>
+    <value>Opcions de codificació d'àudio</value>
   </data>
   <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
-    <value>La versión {0} se ha descargado.</value>
+    <value>S'ha acabat de baixar la versió {0}.</value>
   </data>
   <data name="RemoveFromQueueMenuItem" xml:space="preserve">
-    <value>Quitar de la cola</value>
+    <value>Elimina-ho de la cua</value>
   </data>
   <data name="ClearSucceededMenuItem" xml:space="preserve">
-    <value>Quitar trabajos concluidos de forma exitosa</value>
+    <value>Esborra les tasques completades correctament</value>
   </data>
   <data name="ClearFailedMenuItem" xml:space="preserve">
-    <value>Quitar trabajos inconclusos</value>
+    <value>Esborra les tasques amb errors</value>
   </data>
   <data name="ClearQueueConfirmationMessage" xml:space="preserve">
-    <value>¿Deseas eliminar todos los elementos de la cola?</value>
+    <value>Esteu segur que voleu suprimir tots els elements de la cua?</value>
   </data>
   <data name="RemoveAllFomQueueMenuItem" xml:space="preserve">
-    <value>Limpiar todos los trabajos en cola</value>
+    <value>Elimina-ho tot de la cua</value>
   </data>
   <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
-    <value>Acción post codificación no ejecutada, debido a errores en la lista de salida</value>
+    <value>No s'ha executat l'acció «Quan hagi acabat» a causa d'errors en la llista de resultats de codificació.</value>
   </data>
   <data name="AudioPickerButtonToolTip" xml:space="preserve">
-    <value>Seleccionar automáticamente pistas de audio...</value>
+    <value>Tria les pistes d'àudio automàticament...</value>
   </data>
   <data name="SubtitlePickerButtonToolTip" xml:space="preserve">
-    <value>Seleccionar automáticamente las pistas de subtítulos...</value>
+    <value>Tria les pistes de subtítols automàticament...</value>
   </data>
   <data name="AudioSubtitleTrackColumnHeader" xml:space="preserve">
     <value>Pista</value>
     <comment>Column header for the audio or subtitle track summary. This is an an auto-generated summary that includes language, format, etc.</comment>
   </data>
   <data name="AudioTrackNameAutomationName" xml:space="preserve">
-    <value>Nombre de pista de audio</value>
+    <value>Nom de la pista d'àudio</value>
     <comment>Narrator label for the audio track name text box.</comment>
   </data>
   <data name="SubtitleNameAutomationName" xml:space="preserve">
-    <value>Nombre de subtítulo</value>
+    <value>Nom dels subtítols</value>
     <comment>Narrator label for the subtitle name text box.</comment>
   </data>
   <data name="CouldNotRecycleFile" xml:space="preserve">
-    <value>Error al enviar archivos a la papelera.</value>
+    <value>S'ha produït un error en enviar els fitxers a la Paperera de reciclatge.</value>
   </data>
   <data name="DestinationAutomaticToolTip" xml:space="preserve">
-    <value>El destino se establece automáticamente. Haz clic para editar la configuración.</value>
+    <value>La destinació es defineix automàticament. Feu clic aquí per editar la configuració.</value>
   </data>
   <data name="DestinationManualToolTip" xml:space="preserve">
-    <value>El destino se establece manualmente. Haz clic para volver al modo automático.</value>
+    <value>La destinació es defineix manualment. Feu clic aquí per tornar al mode automàtic.</value>
   </data>
   <data name="CompareAgainstOriginal" xml:space="preserve">
-    <value>Comparar con el original</value>
+    <value>Compara-ho amb l'original</value>
   </data>
   <data name="CompareEncodedLabel" xml:space="preserve">
-    <value>Codificado</value>
+    <value>Codificat</value>
     <comment>Label for the encoded video when comparing original vs encoded</comment>
   </data>
   <data name="CompareOriginalLabel" xml:space="preserve">
@@ -686,70 +688,70 @@
     <comment>Label for the original video when comparing original vs encoded</comment>
   </data>
   <data name="CompareWindowHelpText" xml:space="preserve">
-    <value>Haz clic o mantén pulsada la tecla Ctrl para mostrar la versión codificada.</value>
+    <value>Feu clic o mantingueu premut Ctrl per mostrar la versió codificada.</value>
   </data>
   <data name="CompareWindowTitleFormat" xml:space="preserve">
-    <value>Comparación de vídeo: {0} - {1}</value>
+    <value>Comparació de vídeo: {0} - {1}</value>
     <comment>Title for the Video compare window.
 {0} is a string indicating if it's original or encoded.
 {1} is the file name, e.g. MyFile.mkv</comment>
   </data>
   <data name="MuteAutomationName" xml:space="preserve">
-    <value>Silenciar</value>
+    <value>Silencia</value>
     <comment>Text for screen readers for the mute button on video playback</comment>
   </data>
   <data name="UnmuteAutomationName" xml:space="preserve">
-    <value>Activar sonido</value>
+    <value>Activa el so</value>
     <comment>Text for screen readers for the unmute button on video playback</comment>
   </data>
   <data name="AutoPauseLowBattery" xml:space="preserve">
-    <value>Poner en pausa automáticamente si la batería está baja.</value>
+    <value>Pausa automàtica perquè hi ha poca bateria.</value>
   </data>
   <data name="AutoPauseLowDiskSpace" xml:space="preserve">
-    <value>Poner en pausa automáticamente si el espacio libre en disco es inferior a {0}GB.</value>
+    <value>Pausa automàtica perquè l'espai lliure és inferior a {0} GB.</value>
     <comment>{0} is the disk space threshold for auto-pause in GB</comment>
   </data>
   <data name="AutoPauseProcessDetected" xml:space="preserve">
-    <value>Pausa automática, proceso detectado: {0}</value>
+    <value>Pausa automàtica; s'ha detectat un procés: {0}</value>
     <comment>{0} is the name of the process we were waiting for to pause</comment>
   </data>
   <data name="AutoPauseResumeBattery" xml:space="preserve">
-    <value>Reanudación automática, conectado a la corriente AC.</value>
+    <value>Pausa automàtica; s'ha connectat a una alimentació de CA.</value>
   </data>
   <data name="AutoPauseResumeDiskSpace" xml:space="preserve">
-    <value>Reanudando automáticamente, el disco ya tiene espacio libre.</value>
+    <value>Represa automàtica; el disc té espai lliure.</value>
   </data>
   <data name="AutoPauseResumeProcess" xml:space="preserve">
-    <value>Reanudación automática, los procesos ya no están activos.</value>
+    <value>Represa automàtica; ja no hi ha els processos.</value>
   </data>
   <data name="Win7DeprecationWarning" xml:space="preserve">
-    <value>VidCoder ya no es compatible con Windows 7 u 8.
+    <value>El VidCoder ja no s'admet al Windows 7 ni 8.
 
-Puedes seguir usando VidCoder bajo tu propio riesgo. Algunas características no son funcionales y puede haber otros problemas desconocidos. No hay soporte disponible cuando estos problemas ocurren.
+Podeu continuar utilitzant-lo sota la vostra responsabilitat. Algunes característiques no funcionaran i hi pot haver més problemes desconeguts. Ja no s'ofereix assistència tècnica per a aquests problemes.
 
-La v5 fue la última versión probada para Windows 7/8.
+La darrera versió provada per al Windows 7 i 8 és la versió 5.
 
-Esta advertencia solo se mostrará un par de veces.</value>
+Aquest avís només es mostrarà dos cops.</value>
   </data>
   <data name="RemoveSourceFiles_Delete" xml:space="preserve">
-    <value>Borrar</value>
+    <value>elimina</value>
     <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
   </data>
   <data name="RemoveSourceFiles_Recycle" xml:space="preserve">
-    <value>Reciclar</value>
+    <value>recicla</value>
     <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
   </data>
   <data name="RequestFeatureMenuItem" xml:space="preserve">
-    <value>Sugerir una característica</value>
+    <value>Sol·liciteu una característica</value>
   </data>
   <data name="CopyLogAndReportMenuItem" xml:space="preserve">
-    <value>Copiar el registro de informe y reportar el problema</value>
+    <value>Copia el registre i notifica el problema</value>
   </data>
   <data name="WatcherMenuItem" xml:space="preserve">
-    <value>Observadores</value>
+    <value>Vigilant</value>
   </data>
   <data name="QueueProgressLabel" xml:space="preserve">
-    <value>En cola {0}/{1}:</value>
+    <value>Afegint a la cua {0}/{1}:</value>
     <comment>{0} is the current job number for scanning and adding an item to the queue
 {1} is the total number of scanned items this session</comment>
   </data>

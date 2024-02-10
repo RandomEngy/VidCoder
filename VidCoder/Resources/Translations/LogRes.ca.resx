@@ -112,93 +112,27 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActivateWatcherButton" xml:space="preserve">
-    <value>Dosya İzleyiciyi Etkinleştir</value>
+  <data name="LogWindowTitle" xml:space="preserve">
+    <value>Registre</value>
   </data>
-  <data name="AddFolderToWatch" xml:space="preserve">
-    <value>İzlemek için klasör ekle</value>
+  <data name="GeneralLogLabel" xml:space="preserve">
+    <value>General</value>
   </data>
-  <data name="CancelMenuItem" xml:space="preserve">
-    <value>İptal</value>
+  <data name="LogVerbosity_Minimized" xml:space="preserve">
+    <value>Minimitzat</value>
   </data>
-  <data name="DeactivateWatcherButton" xml:space="preserve">
-    <value>Dosya İzleyicisini Devre Dışı Bırak</value>
+  <data name="LogVerbosity_Standard" xml:space="preserve">
+    <value>Estàndard</value>
   </data>
-  <data name="OpenContainingFolderMenuItem" xml:space="preserve">
-    <value>İçeren klasörü aç</value>
+  <data name="LogVerbosity_Extended" xml:space="preserve">
+    <value>Ampliat</value>
   </data>
-  <data name="PathColumnHeader" xml:space="preserve">
-    <value>Yol</value>
-  </data>
-  <data name="PickerLabel" xml:space="preserve">
-    <value>Seçici:</value>
-  </data>
-  <data name="PickWatchedFolderDialogDescription" xml:space="preserve">
-    <value>İzlemek için klasörü seçin</value>
-  </data>
-  <data name="PresetLabel" xml:space="preserve">
-    <value>Kodlama önayarı:</value>
-  </data>
-  <data name="RemoveWatchedFolder" xml:space="preserve">
-    <value>İzlenen klasörü kaldır</value>
-  </data>
-  <data name="RetryMenuItem" xml:space="preserve">
-    <value>Tekrar dene</value>
-  </data>
-  <data name="RunWhenClosedCheckBox" xml:space="preserve">
-    <value>VidCoder kapatıldığında çalıştır</value>
-  </data>
-  <data name="ServiceInstallError" xml:space="preserve">
-    <value>Dosya izleyici hizmeti yüklenemedi.</value>
-  </data>
-  <data name="ServiceUninstallError" xml:space="preserve">
-    <value>Dosya izleyici hizmeti kaldırılamadı.</value>
-  </data>
-  <data name="StatusCanceledToolTip" xml:space="preserve">
-    <value>Kodlama işlemi kuyruktan çıkarılarak iptal edildi.</value>
-  </data>
-  <data name="StatusColumnHeader" xml:space="preserve">
-    <value>Durum</value>
-  </data>
-  <data name="StatusFailedToolTip" xml:space="preserve">
-    <value>Kodlama başarısız oldu.</value>
-  </data>
-  <data name="StatusOutputToolTip" xml:space="preserve">
-    <value>VidCoder tarafından kodlandı.</value>
-  </data>
-  <data name="StatusQueuedToolTip" xml:space="preserve">
-    <value>Kaynak dosya kuyrukta.</value>
-  </data>
-  <data name="StatusSkippedToolTip" xml:space="preserve">
-    <value>Kodlama, seçicide ayarlanan koşullar nedeniyle atlandı (dosya boyutunun çok küçük olması gibi).</value>
-  </data>
-  <data name="StatusSucceededToolTip" xml:space="preserve">
-    <value>Kodlama başarıyla tamamlandı.</value>
-  </data>
-  <data name="WatchedFilesHeader" xml:space="preserve">
-    <value>Dosyalar</value>
-  </data>
-  <data name="WatchedFoldersHeader" xml:space="preserve">
-    <value>Klasörleri izle</value>
-  </data>
-  <data name="WatchedFolderTextBoxLabel" xml:space="preserve">
-    <value>Klasör:</value>
-  </data>
-  <data name="WatcherAddDialogTitle" xml:space="preserve">
-    <value>İzlenen klasör ekle</value>
-  </data>
-  <data name="WatcherEditDialogTitle" xml:space="preserve">
-    <value>İzlenen klasörü düzenle</value>
-  </data>
-  <data name="WatcherIntroText" xml:space="preserve">
-    <value>İzleyici'yi klasörleri gözlemleyecek ve klasörlerde görünen videoları otomatik olarak kodlayacak şekilde ayarlayabilirsiniz. İzleyici işlemi, VidCoder kapatıldığında çalışacak ve dosyaları kodlamak için başlatacaktır.</value>
-  </data>
-  <data name="WatcherWindowTitle" xml:space="preserve">
-    <value>İzleyici - {0}</value>
+  <data name="ClearFinishedButton" xml:space="preserve">
+    <value>Neteja les tasques acabades</value>
   </data>
 </root>
