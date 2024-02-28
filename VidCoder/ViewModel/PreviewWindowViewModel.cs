@@ -572,7 +572,11 @@ public class PreviewWindowViewModel : ReactiveObject, IClosableWindow
 								else
 								{
 									var previewFileInfo = new FileInfo(this.previewFilePath);
-									this.logger.Log("Finished preview clip generation. Size: " + Utilities.FormatFileSize(previewFileInfo.Length));
+									long estimatedBytes = (long)(previewFileInfo.Length * ((double)this.job.Length.TotalSeconds / this.PreviewSeconds));
+
+									this.logger.Log("Finished preview clip generation.");
+									this.logger.Log("  Size: " + Utilities.FormatFileSize(previewFileInfo.Length));
+									this.logger.Log($"  Estimated encode size: {Utilities.FormatFileSize(estimatedBytes)} (May be inaccurate since video complexity varies depending on the sample)");
 
 									this.PlayPreview();
 								}
