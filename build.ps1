@@ -2,7 +2,6 @@
 Param(
   [Parameter(Mandatory=$True)]
   [string]$versionShort,
-  [string]$p,
   [switch]$beta,
   [switch]$debugBuild = $false
 )
@@ -34,7 +33,7 @@ function Publish($folderNameSuffix, $publishProfileName, $version4part, $product
 }
 
 function SignExe($filePath) {
-    & signtool sign /f D:\certs\ComodoIndividualCertv2.pfx /p $p /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 $filePath
+    & signtool sign /a /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 $filePath
 }
 
 if ($debugBuild) {
@@ -129,6 +128,8 @@ if ($beta) {
 $releaseDir = ".\Installer\Releases-$releaseDirSuffix"
 
 vpk pack `
+    -x `
+    -y `
     --packId $packId `
     --packTitle "$productName" `
     --packVersion ($versionShort + ".0") `
@@ -138,7 +139,7 @@ vpk pack `
     --icon .\Installer\VidCoder_Setup.ico `
     --outputDir $releaseDir `
     --splashImage .\Installer\InstallerSplash.png `
-    --signParams "/f D:\certs\ComodoIndividualCertv2.pfx /p $p /fd SHA256 /tr http://timestamp.digicert.com /td SHA256" `
+    --signParams "/a /fd SHA256 /tr http://timestamp.digicert.com /td SHA256" `
     --framework net6.0.2-x64
 
 ExitIfFailed;
