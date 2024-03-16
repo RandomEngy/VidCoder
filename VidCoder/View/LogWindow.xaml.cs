@@ -56,6 +56,7 @@ public partial class LogWindow : Window
 	private int loadedChunkCount = 0;
 	private double averageLineHeight = 0;
 
+	private bool fileLoadFailed = false;
 	private bool suppressScrollListener = false;
 
 	private readonly Dictionary<LogColor, Brush> logColorBrushMapping = new Dictionary<LogColor, Brush>();
@@ -107,6 +108,7 @@ public partial class LogWindow : Window
 
 	private void ConnectToLogger(IAppLogger newLogger)
 	{
+		this.fileLoadFailed = false;
 		this.logger = newLogger;
 		lock (this.logger.LogLock)
 		{
@@ -117,6 +119,15 @@ public partial class LogWindow : Window
 				this.PopulateLogEntryChunks();
 				this.ShowInitialTextRuns();
 				newLogger.EntryLogged += this.OnEntryLogged;
+			}
+			catch (Exception exception)
+			{
+				this.fileLoadFailed = true;
+				this.logTextBox.Margin = new Thickness(0, 0, 0, 0);
+				this.logParagraph.Inlines.Clear();
+				var errorRun = new Run(exception.ToString());
+				errorRun.Foreground = this.logColorBrushMapping[LogColor.Error];
+				this.logParagraph.Inlines.Add(errorRun);
 			}
 			finally
 			{
@@ -311,8 +322,11 @@ public partial class LogWindow : Window
 			// If not, we need to run a dispatcher job and try again.
 			this.Dispatcher.BeginInvoke(() =>
 			{
-				this.MeasureLoadedChunks();
-				this.CalculateAverageLineHeightAndAdjustPlaceholders();
+				if (!this.fileLoadFailed)
+				{
+					this.MeasureLoadedChunks();
+					this.CalculateAverageLineHeightAndAdjustPlaceholders();
+				}
 			});
 		}
 	}
@@ -662,7 +676,7 @@ public partial class LogWindow : Window
 
 	private void OnScrollChanged(object sender, ScrollChangedEventArgs e)
 	{
-		if (this.suppressScrollListener)
+		if (this.suppressScrollListener || this.fileLoadFailed)
 		{
 			return;
 		}
