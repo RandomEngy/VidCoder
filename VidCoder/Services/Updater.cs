@@ -27,6 +27,8 @@ public class Updater : ReactiveObject, IUpdater
 
 	public Version LatestVersion { get; set; }
 
+	public VelopackAsset LatestAsset { get; set; }
+
 	public bool PromptToApplyUpdate()
 	{
 		if (Utilities.SupportsUpdates)
@@ -42,7 +44,7 @@ public class Updater : ReactiveObject, IUpdater
 				if (updateConfirmation.Accepted)
 				{
 					var updateManager = new UpdateManager(Utilities.VelopackUpdateUrl);
-					updateManager.ApplyUpdatesAndRestart(null, null);
+					updateManager.ApplyUpdatesAndRestart(this.LatestAsset);
 
 					return true;
 				}
@@ -101,6 +103,7 @@ public class Updater : ReactiveObject, IUpdater
 			{
 				// Save latest version (just major and minor)
 				this.LatestVersion = new Version(updateInfo.TargetFullRelease.Version.Major, updateInfo.TargetFullRelease.Version.Minor);
+				this.LatestAsset = updateInfo.TargetFullRelease;
 
 				this.State = UpdateState.Downloading;
 				await updateManager.DownloadUpdatesAsync(updateInfo, (progressPercent) =>
