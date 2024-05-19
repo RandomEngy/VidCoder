@@ -140,7 +140,7 @@ vpk pack `
     --outputDir $releaseDir `
     --splashImage .\Installer\InstallerSplash.png `
     --signParams "/a /fd SHA256 /tr http://timestamp.digicert.com /td SHA256" `
-    --framework net6.0.2-x64
+    --framework net8.0.5-x64
 
 ExitIfFailed;
 Copy-Item -Path ("$releaseDir\" + $packId + "-win-Setup.exe") -Destination ".\Installer\BuiltInstallers\$binaryNameBase.exe" -Force
