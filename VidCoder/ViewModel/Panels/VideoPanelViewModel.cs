@@ -148,7 +148,7 @@ public class VideoPanelViewModel : PanelViewModel
 		{
 			if (selectedEncoder != null)
 			{
-				if (!HandBrakeEncoderHelpers.VideoEncoderSupportsMultiPass(selectedEncoder.Encoder.Id))
+				if (!HandBrakeEncoderHelpers.VideoEncoderSupportsMultiPass(selectedEncoder.Encoder.Id, videoEncodeRateType == VCVideoEncodeRateType.ConstantQuality))
 				{
 					return false;
 				}
@@ -450,7 +450,9 @@ public class VideoPanelViewModel : PanelViewModel
 	{
 		this.RegisterProfileProperty(nameof(this.Profile.VideoEncoder), () =>
 		{
-			if (!HandBrakeEncoderHelpers.VideoEncoderSupportsMultiPass(HandBrakeEncoderHelpers.GetVideoEncoder(this.Profile.VideoEncoder).Id))
+			if (!HandBrakeEncoderHelpers.VideoEncoderSupportsMultiPass(HandBrakeEncoderHelpers.GetVideoEncoder(
+				this.Profile.VideoEncoder).Id,
+				this.Profile.VideoEncodeRateType == VCVideoEncodeRateType.ConstantQuality))
 			{
 				this.TwoPass = false;
 				this.TurboFirstPass = false;
