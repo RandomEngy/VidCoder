@@ -192,6 +192,12 @@ public partial class App : Application
 		this.MainWindow = StaticResolver.Resolve<IWindowManager>().OpenWindow(mainVM);
 		mainVM.OnLoaded();
 
+		// Start the watcher process if it's not already running.
+		if (Utilities.WatcherSupportedAndEnabled && !RegistryUtilities.IsFileWatcherAutoStart())
+		{
+			StaticResolver.Resolve<WatcherProcessManager>();
+		}
+
 		if (e.Args.Length > 0)
 		{
 			if (!e.Args[0].StartsWith("-", StringComparison.Ordinal))
