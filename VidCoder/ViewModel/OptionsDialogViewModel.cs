@@ -993,7 +993,7 @@ public class OptionsDialogViewModel : ReactiveObject
 				() =>
 				{
 					var updateManager = new UpdateManager(Utilities.VelopackUpdateUrl);
-					updateManager.ApplyUpdatesAndRestart();
+					updateManager.ApplyUpdatesAndRestart(null, null);
 				}));
 		}
 	}

@@ -21,7 +21,7 @@
     <PackageVersion Include="System.Text.Json" Version="8.0.3" />
     <PackageVersion Include="UTF.Unknown" Version="2.3.0" />
     <PackageVersion Include="valueinjecter" Version="3.2.0" />
-    <PackageVersion Include="Velopack" Version="0.0.320" />
+    <PackageVersion Include="Velopack" Version="0.0.359" />
     <PackageVersion Include="WinCopies.WindowsAPICodePack.Shell" Version="2.1.1" />
     <PackageVersion Include="Castle.Core" Version="4.4.1" />
     <PackageVersion Include="NSubstitute" Version="4.2.2" />

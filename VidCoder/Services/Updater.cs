@@ -42,7 +42,7 @@ public class Updater : ReactiveObject, IUpdater
 				if (updateConfirmation.Accepted)
 				{
 					var updateManager = new UpdateManager(Utilities.VelopackUpdateUrl);
-					updateManager.ApplyUpdatesAndRestart();
+					updateManager.ApplyUpdatesAndRestart(null, null);
 
 					return true;
 				}
