@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Microsoft.AnyContainer;
+using System;
 using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Windows;
+using VidCoder.Services;
+using Windows.UI.Popups;
 
 namespace VidCoder;
 
@@ -199,9 +202,27 @@ public static class WindowPlacement
 			closestMonitorInfo.cbSize = Marshal.SizeOf(typeof (MONITORINFO));
 			bool getInfoSucceeded = GetMonitorInfo(closestMonitorPtr, ref closestMonitorInfo);
 
-			if (getInfoSucceeded && !RectanglesIntersect(placement.normalPosition, closestMonitorInfo.rcMonitor))
+			if (Utilities.DebugLogging)
 			{
-				placement.normalPosition = PlaceOnScreen(closestMonitorInfo.rcMonitor, placement.normalPosition);
+				DebugLog($"Applying placement: {placementJson}");
+			}
+
+			if (getInfoSucceeded)
+			{
+				if (Utilities.DebugLogging)
+				{
+					DebugLog($"closestMonitorInfo - rcMonitor: {JsonSerializer.Serialize(new RectClass(closestMonitorInfo.rcMonitor))}, rcWork: {JsonSerializer.Serialize(new RectClass(closestMonitorInfo.rcWork))}");
+				}
+
+				if (!RectanglesIntersect(placement.normalPosition, closestMonitorInfo.rcWork))
+				{
+					placement.normalPosition = PlaceOnScreen(closestMonitorInfo.rcWork, placement.normalPosition);
+
+					if (Utilities.DebugLogging)
+					{
+						DebugLog($"Monitor was off screen. Adjusting to: {JsonSerializer.Serialize(new RectClass(placement.normalPosition))}");
+					}
+				}
 			}
 
 			SetWindowPlacement(windowHandle, ref placement);
@@ -210,6 +231,11 @@ public static class WindowPlacement
 		{
 			// Parsing placement JSON failed. Fail silently.
 		}
+	}
+
+	private static void DebugLog(string message)
+	{
+		StaticResolver.Resolve<IAppLogger>().LogDebug(message);
 	}
 
 	public static WINDOWPLACEMENT ParsePlacementJson(string placementJson)
