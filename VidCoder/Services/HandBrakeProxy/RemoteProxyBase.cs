@@ -298,13 +298,13 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 			return;
 		}
 
-		await this.ProcessLock.WaitAsync();
+		await this.ProcessLock.WaitAsync().ConfigureAwait(false);
 		try
 		{
 			await this.ExecuteProxyOperationAsync(async () =>
 			{
-				await this.Client.InvokeAsync(actionExpression);
-			}, "Invoke");
+				await this.Client.InvokeAsync(actionExpression).ConfigureAwait(false);
+			}, "Invoke").ConfigureAwait(false);
 		}
 		finally
 		{
@@ -459,7 +459,7 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 
 	protected async Task ExecuteWorkerCallAsync(Expression<Action<TWork>> action, string operationName)
 	{
-		await this.ProcessLock.WaitAsync();
+		await this.ProcessLock.WaitAsync().ConfigureAwait(false);
 		try
 		{
 			if (this.Client != null)
