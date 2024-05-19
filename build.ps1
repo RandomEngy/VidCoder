@@ -20,7 +20,12 @@ function Publish($folderNameSuffix, $publishProfileName, $version4part, $product
     }
 
     # Publish to VidCoder\bin\publish
-    & dotnet publish .\VidCoder.sln /p:PublishProfile=$publishProfileName /p:Version=$version4part "/p:Product=$productName" -c $configuration
+    $publishProjects = @('VidCoder','VidCoderWorker')
+
+    foreach ($publishProject in $publishProjects)
+    {
+        & dotnet publish .\$publishProject\$publishProject.csproj /p:PublishProfile=$publishProfileName /p:Version=$version4part "/p:Product=$productName" -c $configuration
+    }
 
     # Copy some extra files for the installer
     $extraFiles = @(
@@ -31,6 +36,7 @@ function Publish($folderNameSuffix, $publishProfileName, $version4part, $product
         copy $extraFile $mainPublishFolderPath; ExitIfFailed
     }
 }
+
 
 function SignExe($filePath) {
     & signtool sign /a /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 $filePath
