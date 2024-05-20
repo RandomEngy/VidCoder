@@ -33,7 +33,7 @@ public class AboutDialogViewModel : OkCancelDialogViewModel
 	{
 		get
 		{
-			return string.Format(MiscRes.Copyright, "2010-2022");
+			return string.Format(MiscRes.Copyright, "2010-2024");
 		}
 	}
 }
