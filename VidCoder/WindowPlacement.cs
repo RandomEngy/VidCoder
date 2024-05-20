@@ -182,6 +182,8 @@ public static class WindowPlacement
 	private const uint MONITOR_DEFAULTTOPRIMARY = 0x00000001;
 	private const uint MONITOR_DEFAULTTONEAREST = 0x00000002;
 
+	private const int minOverlap = 10;
+
 	public static void SetPlacement(IntPtr windowHandle, string placementJson)
 	{
 		if (string.IsNullOrEmpty(placementJson))
@@ -204,7 +206,7 @@ public static class WindowPlacement
 
 			if (Utilities.DebugLogging)
 			{
-				DebugLog($"Applying placement: {placementJson}");
+				DebugLog($"SetPlacement callsed with: {placementJson}");
 			}
 
 			if (getInfoSucceeded)
@@ -227,9 +229,10 @@ public static class WindowPlacement
 
 			SetWindowPlacement(windowHandle, ref placement);
 		}
-		catch (Exception)
+		catch (Exception exception)
 		{
-			// Parsing placement JSON failed. Fail silently.
+			// Parsing placement JSON failed.
+			DebugLog("SetPlacement failed: " + exception.ToString());
 		}
 	}
 
@@ -256,12 +259,12 @@ public static class WindowPlacement
 
 	private static bool RectanglesIntersect(RECT a, RECT b)
 	{
-		if (a.Left > b.Right || a.Right < b.Left)
+		if (a.Left > b.Right - minOverlap || a.Right < b.Left + minOverlap)
 		{
 			return false;
 		}
 
-		if (a.Top > b.Bottom || a.Bottom < b.Top)
+		if (a.Top > b.Bottom - minOverlap || a.Bottom < b.Top + minOverlap)
 		{
 			return false;
 		}
@@ -274,7 +277,7 @@ public static class WindowPlacement
 		int monitorWidth = monitorRect.Right - monitorRect.Left;
 		int monitorHeight = monitorRect.Bottom - monitorRect.Top;
 
-		if (windowRect.Right < monitorRect.Left)
+		if (windowRect.Right < monitorRect.Left + minOverlap)
 		{
 			// Off left side
 			int width = windowRect.Right - windowRect.Left;
@@ -286,7 +289,7 @@ public static class WindowPlacement
 			windowRect.Left = monitorRect.Left;
 			windowRect.Right = windowRect.Left + width;
 		}
-		else if (windowRect.Left > monitorRect.Right)
+		else if (windowRect.Left > monitorRect.Right - minOverlap)
 		{
 			// Off right side
 			int width = windowRect.Right - windowRect.Left;
@@ -299,7 +302,7 @@ public static class WindowPlacement
 			windowRect.Left = windowRect.Right - width;
 		}
 
-		if (windowRect.Bottom < monitorRect.Top)
+		if (windowRect.Bottom < monitorRect.Top + minOverlap)
 		{
 			// Off top
 			int height = windowRect.Bottom - windowRect.Top;
@@ -311,7 +314,7 @@ public static class WindowPlacement
 			windowRect.Top = monitorRect.Top;
 			windowRect.Bottom = windowRect.Top + height;
 		}
-		else if (windowRect.Top > monitorRect.Bottom)
+		else if (windowRect.Top > monitorRect.Bottom - minOverlap)
 		{
 			// Off bottom
 			int height = windowRect.Bottom - windowRect.Top;
