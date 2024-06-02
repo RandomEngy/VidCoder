@@ -4,12 +4,15 @@ using VidCoder.Model;
 using Microsoft.AnyContainer;
 using ReactiveUI;
 using Velopack;
+using VidCoder.Resources;
 
 namespace VidCoder.Services;
 
 public class Updater : ReactiveObject, IUpdater
 {
 	private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
+
+	private StatusService statusService = StaticResolver.Resolve<StatusService>();
 
 	private UpdateState state = UpdateState.NotStarted;
 	public UpdateState State
@@ -104,14 +107,21 @@ public class Updater : ReactiveObject, IUpdater
 				// Save latest version (just major and minor)
 				this.LatestVersion = new Version(updateInfo.TargetFullRelease.Version.Major, updateInfo.TargetFullRelease.Version.Minor);
 				this.LatestAsset = updateInfo.TargetFullRelease;
+				string versionShort = this.LatestVersion.ToString(2);
 
 				this.State = UpdateState.Downloading;
+				this.statusService.Show(string.Format(MainRes.NewVersionDownloadStartedStatus, versionShort));
+
 				await updateManager.DownloadUpdatesAsync(updateInfo, (progressPercent) =>
 				{
 					this.UpdateDownloadProgressPercent = progressPercent;
 				});
 
 				this.State = UpdateState.UpdateReady;
+				if (CustomConfig.UpdateMode == UpdateMode.SilentNextLaunch)
+				{
+					this.statusService.Show(string.Format(MainRes.NewVersionDownloadFinishedSilentStatus, versionShort));
+				}
 
 				if (CustomConfig.UpdateMode == UpdateMode.PromptApplyImmediately && !isManualCheck)
 				{

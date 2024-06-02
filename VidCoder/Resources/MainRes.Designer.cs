@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VidCoder.Resources; 
+namespace VidCoder.Resources {
     using System;
     
     
@@ -945,20 +945,11 @@ namespace VidCoder.Resources;
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Version {0} has finished downloading..
+        ///   Looks up a localized string similar to Version {0} has finished downloading and will apply on next launch..
         /// </summary>
-        public static string NewVersionDownloadFinishedOnLaunchStatus {
+        public static string NewVersionDownloadFinishedSilentStatus {
             get {
-                return ResourceManager.GetString("NewVersionDownloadFinishedOnLaunchStatus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Version {0} has finished downloading and will install on exit..
-        /// </summary>
-        public static string NewVersionDownloadFinishedStatus {
-            get {
-                return ResourceManager.GetString("NewVersionDownloadFinishedStatus", resourceCulture);
+                return ResourceManager.GetString("NewVersionDownloadFinishedSilentStatus", resourceCulture);
             }
         }
         
@@ -1834,3 +1825,4 @@ namespace VidCoder.Resources;
             }
         }
     }
+}

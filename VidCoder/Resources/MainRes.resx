@@ -338,9 +338,6 @@
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>Version {0} is available. Update download has started.</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>Version {0} has finished downloading and will install on exit.</value>
-  </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
     <value>The update was not applied. If you did not cancel it, try installing it manually.</value>
   </data>
@@ -630,9 +627,6 @@
   <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
     <value>Audio encoding options</value>
   </data>
-  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
-    <value>Version {0} has finished downloading.</value>
-  </data>
   <data name="RemoveFromQueueMenuItem" xml:space="preserve">
     <value>Remove from queue</value>
   </data>
@@ -756,5 +750,8 @@ This warning will only display twice.</value>
     <value>Queuing {0}/{1}:</value>
     <comment>{0} is the current job number for scanning and adding an item to the queue
 {1} is the total number of scanned items this session</comment>
+  </data>
+  <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
+    <value>Version {0} has finished downloading and will apply on next launch.</value>
   </data>
 </root>
