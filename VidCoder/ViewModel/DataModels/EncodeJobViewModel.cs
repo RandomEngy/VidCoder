@@ -338,7 +338,7 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 			throw new InvalidOperationException("Encoding profile cannot be null.");
 		}
 
-		this.work = new JobWork(jobLength, profile.VideoEncodeRateType != VCVideoEncodeRateType.ConstantQuality && profile.TwoPass, this.SubtitleScan);
+		this.work = new JobWork(jobLength, profile.VideoEncodeRateType != VCVideoEncodeRateType.ConstantQuality && profile.MultiPass, this.SubtitleScan);
 	}
 
 	public TimeSpan EncodeTime

@@ -186,7 +186,8 @@ public static class PresetStorage
 
 		List<EncodingProfileUpgrade> upgrades = new List<EncodingProfileUpgrade>
 		{
-			new EncodingProfileUpgrade(44, UpgradeEncodingProfileTo44)
+			new EncodingProfileUpgrade(44, UpgradeEncodingProfileTo44),
+			new EncodingProfileUpgrade(48, UpgradeEncodingProfileTo48),
 		};
 
 		foreach (EncodingProfileUpgrade upgrade in upgrades)
@@ -217,6 +218,11 @@ public static class PresetStorage
 		}
 
 		profile.ColorspacePreset = "off";
+	}
+
+	private static void UpgradeEncodingProfileTo48(VCProfile profile)
+	{
+		profile.MultiPass = profile.TwoPass;
 	}
 
 	private static void ErrorCheckPresets(List<Preset> presets)

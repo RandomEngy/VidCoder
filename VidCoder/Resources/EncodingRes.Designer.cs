@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VidCoder.Resources; 
+namespace VidCoder.Resources {
     using System;
     
     
@@ -1019,6 +1019,15 @@ namespace VidCoder.Resources;
         public static string MoreSettingsLabel {
             get {
                 return ResourceManager.GetString("MoreSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multi-pass encoding.
+        /// </summary>
+        public static string MultiPassEncodingCheckBox {
+            get {
+                return ResourceManager.GetString("MultiPassEncodingCheckBox", resourceCulture);
             }
         }
         
@@ -2198,3 +2207,4 @@ namespace VidCoder.Resources;
             }
         }
     }
+}

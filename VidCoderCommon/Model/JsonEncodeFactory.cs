@@ -959,12 +959,12 @@ public class JsonEncodeFactory
 		{
 			case VCVideoEncodeRateType.TargetSize:
 				video.Bitrate = this.CalculateBitrate(job, title, profile.TargetSize, previewLengthSeconds);
-				video.MultiPass = profile.TwoPass;
+				video.MultiPass = profile.MultiPass;
 				video.Turbo = profile.TurboFirstPass;
 				break;
 			case VCVideoEncodeRateType.AverageBitrate:
 				video.Bitrate = profile.VideoBitrate;
-				video.MultiPass = profile.TwoPass;
+				video.MultiPass = profile.MultiPass;
 				video.Turbo = profile.TurboFirstPass;
 				break;
 			case VCVideoEncodeRateType.ConstantQuality:
