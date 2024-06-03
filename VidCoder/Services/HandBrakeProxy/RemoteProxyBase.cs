@@ -95,7 +95,6 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 	public void Dispose()
 	{
 		this.CleanUpWorkerProcess();
-		this.pingTimer?.Dispose();
 		this.processPrioritySubscription?.Dispose();
 		this.cpuThrottlingSubscription?.Dispose();
 	}
@@ -205,6 +204,9 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 		}
 
 		this.worker = null;
+
+		this.pingTimer?.Dispose();
+		this.pingTimer = null;
 	}
 
 	private async Task<bool> ConnectToPipeAsync()
@@ -333,6 +335,8 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 		this.worker = Process.Start(startInfo);
 		this.worker.PriorityClass = CustomConfig.WorkerProcessPriority;
 
+		Process workerOnStart = this.worker;
+
 		// When the process writes out a line, its pipe server is ready and can be contacted for
 		// work. Reading line blocks until this happens.
 		this.Logger.Log("Worker ready: " + this.worker.StandardOutput.ReadLine());
@@ -415,7 +419,11 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 #else
 				catch (Exception exception)
 				{
-					this.HandlePingError(exception);
+					// Only clear out the worker if the worker that errored is the one we're currently using.
+					if (workerOnStart == this.worker)
+					{
+						this.HandlePingError(exception);
+					}
 				}
 #endif
 			}
