@@ -16,8 +16,9 @@ jobs:
         uses: crowdin/github-action@v2
         with:
           upload_sources: true
-          upload_sources_args: '--source /VidCoder/Resources/*.resx --translation /VidCoder/Resources/Translations/%file_name%.%osx_locale%.resx'
           upload_translations: false
+          source: VidCoder/Resources/*.resx
+          translation: VidCoder/Resources/Translations/%file_name%.%osx_locale%.resx
           download_translations: false
           localization_branch_name: l10n_crowdin_translations
           create_pull_request: true
