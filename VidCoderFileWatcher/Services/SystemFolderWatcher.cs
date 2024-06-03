@@ -26,7 +26,7 @@ public class SystemFolderWatcher : IDisposable
 	private readonly WatchedFolder watchedFolder;
 	private readonly IBasicLogger logger;
 
-	private readonly SemaphoreSlim sync = new SemaphoreSlim(1, 1);
+	private static readonly SemaphoreSlim sync = new SemaphoreSlim(1, 1);
 
 	private Timer? pendingCheckTimer;
 
@@ -49,7 +49,7 @@ public class SystemFolderWatcher : IDisposable
 
 	private async void OnFileCreated(object sender, FileSystemEventArgs e)
 	{
-		await this.sync.WaitAsync().ConfigureAwait(false);
+		await sync.WaitAsync().ConfigureAwait(false);
 		try
 		{
 			this.logger.Log("Detected new file/folder: " + e.FullPath);
@@ -57,7 +57,7 @@ public class SystemFolderWatcher : IDisposable
 		}
 		finally
 		{
-			this.sync.Release();
+			sync.Release();
 		}
 	}
 
@@ -65,7 +65,7 @@ public class SystemFolderWatcher : IDisposable
 
 	private async void OnFileRenamed(object sender, RenamedEventArgs e)
 	{
-		await this.sync.WaitAsync().ConfigureAwait(false);
+		await sync.WaitAsync().ConfigureAwait(false);
 		try
 		{
 			this.logger.Log($"File/folder renamed from {e.OldFullPath} to {e.FullPath}");
@@ -74,13 +74,13 @@ public class SystemFolderWatcher : IDisposable
 		}
 		finally
 		{
-			this.sync.Release();
+			sync.Release();
 		}
 	}
 
 	private async void OnFileDeleted(object sender, FileSystemEventArgs e)
 	{
-		await this.sync.WaitAsync().ConfigureAwait(false);
+		await sync.WaitAsync().ConfigureAwait(false);
 		try
 		{
 			this.logger.Log("Detected file/folder removed: " + e.FullPath);
@@ -88,7 +88,7 @@ public class SystemFolderWatcher : IDisposable
 		}
 		finally
 		{
-			this.sync.Release();
+			sync.Release();
 		}
 	}
 
@@ -182,7 +182,7 @@ public class SystemFolderWatcher : IDisposable
 
 	private async void OnPendingCheckTimerElapsed(object? sender, System.Timers.ElapsedEventArgs e)
 	{
-		await this.sync.WaitAsync().ConfigureAwait(false);
+		await sync.WaitAsync().ConfigureAwait(false);
 		try
 		{
 			this.logger.Log("Checking lock for files pending write complete");
@@ -233,7 +233,7 @@ public class SystemFolderWatcher : IDisposable
 		}
 		finally
 		{
-			this.sync.Release();
+			sync.Release();
 		}
 	}
 

@@ -106,7 +106,7 @@ public class FolderEnumerator
 					this.logger.Log("    " + sourcePath.Path);
 				}
 
-				files.Add(
+				files.TryAdd(
 					sourcePath.Path,
 					new ExistingFile(sourcePath.Path, folder));
 			}
