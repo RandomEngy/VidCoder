@@ -173,7 +173,7 @@
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
   <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>The arguments to pass to the program. Use {file} for the file output path, {folder} as containing folder path or other path options like {title} and {date} (see Naming Format).</value>
+    <value>The arguments to pass to the program. Use {file} for the file output path, {folder} for containing folder path, {sourcepath} for the full source path, or other path options like {title} and {date} (see Naming Format).</value>
     <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
   </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
