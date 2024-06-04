@@ -860,4 +860,5 @@ Lapsharp funciona usando núcleos de circunvolución que se aproximan a los filt
   <data name="CroppingType_Conservative" xml:space="preserve">
     <value>Conservador</value>
   </data>
+  
 </root>

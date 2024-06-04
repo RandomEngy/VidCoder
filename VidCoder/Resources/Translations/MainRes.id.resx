@@ -336,9 +336,6 @@
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>Versi {0} tersedia. Update download telah dimulai.</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>Versi {0} telah selesai men-download dan akan menginstal saat keluar.</value>
-  </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
     <value>Pembaruan tidak diterapkan. Jika Anda tidak membatalkan itu, coba instal secara manual.</value>
   </data>
@@ -626,9 +623,6 @@
   <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
     <value>Pilihan pengkodean Suara</value>
   </data>
-  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
-    <value>Versi {0} sudah selesai diunduh.</value>
-  </data>
   <data name="RemoveFromQueueMenuItem" xml:space="preserve">
     <value>Hapus dari antrian</value>
   </data>
@@ -753,4 +747,5 @@ Peringatan ini hanya akan muncul dua kali.</value>
     <comment>{0} is the current job number for scanning and adding an item to the queue
 {1} is the total number of scanned items this session</comment>
   </data>
+  
 </root>

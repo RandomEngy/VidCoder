@@ -336,9 +336,6 @@
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>Phiên bản {0} có sẵn. Đã bắt đầu tải xuống bản cập nhật.</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>Phiên bản {0} đã hoàn tất tải xuống và sẽ cài đặt khi thoát.</value>
-  </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
     <value>Bản cập nhật không được áp dụng. Nếu bạn không thể huỷ, hãy thử cài đặt theo cách thủ công.</value>
   </data>
@@ -626,9 +623,6 @@
   <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
     <value>Tùy chọn mã hóa âm thanh</value>
   </data>
-  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
-    <value>Phiên bản {0} đã hoàn tất tải xuống.</value>
-  </data>
   <data name="RemoveFromQueueMenuItem" xml:space="preserve">
     <value>Xóa khỏi hàng đợi</value>
   </data>
@@ -745,6 +739,7 @@ Cảnh báo này sẽ chỉ hiển thị hai lần.</value>
   <data name="CopyLogAndReportMenuItem" xml:space="preserve">
     <value>Sao chép nhật ký và báo cáo sự cố</value>
   </data>
+  
   
   
 </root>

@@ -172,10 +172,7 @@
     <value>Argumen:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>Parameter yang diberikan ke program. Gunakan {file} untuk path berkas keluaran, {folder} sebagai wadah path folder atau pilihan path lain seperti {title} dan {date} (lihat Format Penamaan).</value>
-    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
-  </data>
+  
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>Picker telah ditentukan dengan preset encoding.</value>
   </data>

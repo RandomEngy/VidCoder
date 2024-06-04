@@ -172,10 +172,7 @@
     <value>Argumenti:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>Argumenti koji će biti proslijeđeni programu. Koristi {file} za putanju izlazne datoteke, {folder} za putanju do mape ili druge opcije putanje kao {title} i {date} (pogledaj format nazivanja).</value>
-    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
-  </data>
+  
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>Birač je odredio predložak kodiranja.</value>
   </data>

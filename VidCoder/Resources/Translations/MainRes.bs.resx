@@ -332,9 +332,6 @@
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>Verzija {0} je dostupna. Preuzimanje ažuriranja je započeto.</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>Verzija {0} je preuzeta i biti će instalirana prilikom izlaska.</value>
-  </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
     <value>Ažuriranje nije uspješno primjenjeno. Ukoliko ga niste sami otkazali, pokušajte instalirati ručno.</value>
   </data>
@@ -624,9 +621,6 @@
   <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
     <value>Opcije audio enkodiranja</value>
   </data>
-  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
-    <value>Verzija {0} je završila preuzimanje.</value>
-  </data>
   <data name="RemoveFromQueueMenuItem" xml:space="preserve">
     <value>Ukloni iz reda</value>
   </data>
@@ -645,6 +639,7 @@
   <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
     <value>Akcija završeno enkodiranje nije pokrenuta zbog greški u listi rezultata enkodiranja.</value>
   </data>
+  
   
   
   

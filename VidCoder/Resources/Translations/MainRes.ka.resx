@@ -338,9 +338,6 @@
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>ხელმისაწვდომია {0} ვერსია. აქტუალიზირების ჩამოტვირთვა დაწყებულია.</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>{0} ვერსიის ჩამოტვირთვა დასრულებულია, აქტუალიზირდება პროგრამიდან გასვლის შემდეგ.</value>
-  </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
     <value>აქტუალიზირება წარუმატებელია. თუ თვითონ არ შეწყვიტეთ, სინჯეთ ხელახლა თქვენთითონ.</value>
   </data>
@@ -630,9 +627,6 @@
   <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
     <value>აუდიო კოდირების პარამეტრები</value>
   </data>
-  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
-    <value>{0} ვერსია ჩამოტვირთულია.</value>
-  </data>
   <data name="RemoveFromQueueMenuItem" xml:space="preserve">
     <value>სამუშაო სიიდან წაშლა</value>
   </data>
@@ -757,4 +751,5 @@ v5 ბოლო შემოწმებული ვერსიაა Windows 
     <comment>{0} is the current job number for scanning and adding an item to the queue
 {1} is the total number of scanned items this session</comment>
   </data>
+  
 </root>

@@ -850,4 +850,5 @@ Lapsharp actua usando núcleos de convolução próximos dos filtro de bordo Lap
   <data name="CroppingType_Conservative" xml:space="preserve">
     <value>Conservador</value>
   </data>
+  
 </root>

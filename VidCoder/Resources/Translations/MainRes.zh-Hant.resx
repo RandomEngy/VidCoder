@@ -336,9 +336,6 @@
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>版本 {0} 可使用，已開始下載更新檔。</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>版本 {0} 已下載完成，將於程式離開時安裝。</value>
-  </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
     <value>更新並未套用，若您非手動取消更新，請嘗試手動安裝更新。</value>
   </data>
@@ -628,9 +625,6 @@
   <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
     <value>音訊編碼選項</value>
   </data>
-  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
-    <value>版本 {0} 下載已完成。</value>
-  </data>
   <data name="RemoveFromQueueMenuItem" xml:space="preserve">
     <value>由佇列移除</value>
   </data>
@@ -755,4 +749,5 @@ v5 為在 Windows 7/8 上測試過的最新版本。
     <comment>{0} is the current job number for scanning and adding an item to the queue
 {1} is the total number of scanned items this session</comment>
   </data>
+  
 </root>

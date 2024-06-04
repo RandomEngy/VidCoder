@@ -172,10 +172,7 @@
     <value>Argumentuak:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>Programari igarotzeko argumentuak. Erabilai {file} agiri irteera helbururako, {folder} edukiontzi agiritegi helbururako edo beste helburu aukerak {title} eta {date} (ikusi Izendatze Heuskarria).</value>
-    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
-  </data>
+  
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>Hautatzaileak adierazi du kodeaketa aurrezarpena.</value>
   </data>

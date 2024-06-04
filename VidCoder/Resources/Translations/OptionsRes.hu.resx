@@ -419,4 +419,6 @@ Lekérdezés: Rendszeresen ellenőrzi a mappák tartalmát. Jelentős processzor
   <data name="CapNVEncCheckBox" xml:space="preserve">
     <value>Egyidejű NVEnc-kódolás korlátozása. Ennek eltávolítása egyedi NVidia illesztőprogram-javítást igényel.</value>
   </data>
+  
+  
 </root>

@@ -858,4 +858,5 @@ Lapsharp izoštrava pomoću konvolucijskih zrna koja približavaju laplacijskim 
   <data name="CroppingType_Conservative" xml:space="preserve">
     <value>Konzervativno</value>
   </data>
+  
 </root>

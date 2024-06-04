@@ -1,0 +1,465 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Save" xml:space="preserve">
+    <value>ذخیره</value>
+  </data>
+  <data name="SaveAs" xml:space="preserve">
+    <value>ذخیره به نام...</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>برگشت</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <data name="ExtensionLabel" xml:space="preserve">
+    <value>ضمیمه:</value>
+  </data>
+  
+  
+  
+  
+  <data name="TabHeader_VideoFilters" xml:space="preserve">
+    <value>فیلترهای تصویری</value>
+  </data>
+  <data name="TabHeader_VideoEncoding" xml:space="preserve">
+    <value>انکود تصویری</value>
+  </data>
+  <data name="TabHeader_AudioEncoding" xml:space="preserve">
+    <value>انکود صوتی</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>تغییرنام</value>
+  </data>
+  <data name="Input" xml:space="preserve">
+    <value>ورودی</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  <data name="WidthLabel" xml:space="preserve">
+    <value>عرض:</value>
+  </data>
+  <data name="HeightLabel" xml:space="preserve">
+    <value>طول:</value>
+  </data>
+  
+  
+  <data name="OutputLabel" xml:space="preserve">
+    <value>خروجی</value>
+  </data>
+  <data name="CroppingLabel" xml:space="preserve">
+    <value>برداشت</value>
+  </data>
+  
+  
+  
+  
+  
+  <data name="TypeLabel" xml:space="preserve">
+    <value>نوع:</value>
+  </data>
+  
+  <data name="CodecLabel" xml:space="preserve">
+    <value>کدک:</value>
+  </data>
+  
+  
+  <data name="Quality" xml:space="preserve">
+    <value>کیفیت</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <data name="Tune_film" xml:space="preserve">
+    <value>فیلم</value>
+  </data>
+  <data name="Tune_animation" xml:space="preserve">
+    <value>انیمیشن</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  <data name="FpsFormat" xml:space="preserve">
+    <value>{0:0.###} فریم بر ثانیه</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  <data name="HighQuality" xml:space="preserve">
+    <value>کیفیت بالا</value>
+  </data>
+  <data name="LowQuality" xml:space="preserve">
+    <value>کیفیت پایین</value>
+  </data>
+  
+  <data name="AddAudioEncodingButton" xml:space="preserve">
+    <value>اضافه کردن انکود صوتی</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  <data name="NameLabel" xml:space="preserve">
+    <value>نام:</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <data name="Mixdown_mono" xml:space="preserve">
+    <value>مونو</value>
+  </data>
+  
+  <data name="Mixdown_stereo" xml:space="preserve">
+    <value>استریو</value>
+  </data>
+  <data name="Bitrate" xml:space="preserve">
+    <value>بیت ریت</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <data name="Track" xml:space="preserve">
+    <value>ترک</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>منبع</value>
+  </data>
+  <data name="Encoder" xml:space="preserve">
+    <value>انکدر</value>
+  </data>
+  
+  <data name="SampleRate" xml:space="preserve">
+    <value>سرعت نمونه</value>
+  </data>
+  <data name="Modifiers" xml:space="preserve">
+    <value>دستکاری شده</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <data name="QsvPreset_Speed" xml:space="preserve">
+    <value>سرعت</value>
+  </data>
+  <data name="QsvPreset_Balanced" xml:space="preserve">
+    <value>متعادل شد</value>
+  </data>
+  <data name="QsvPreset_Quality" xml:space="preserve">
+    <value>کیفیت</value>
+  </data>
+  
+  
+  <data name="Passthrough_auto" xml:space="preserve">
+    <value>خودکار</value>
+  </data>
+  
+  
+  
+  
+  
+  <data name="Rotation_180" xml:space="preserve">
+    <value>180°</value>
+  </data>
+  
+  
+  
+  
+  
+  <data name="RotationLabel" xml:space="preserve">
+    <value>چرخش</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <data name="ModeLabel" xml:space="preserve">
+    <value>حالت:</value>
+    <comment>Label for the sizing or padding mode.</comment>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <data name="ResolutionLabel" xml:space="preserve">
+    <value>رزولوشن:</value>
+    <comment>Label for a video resolution in pixels.</comment>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  <data name="AudioEncoder_none" xml:space="preserve">
+    <value>هیچ</value>
+    <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  <data name="PresetFolder_Custom" xml:space="preserve">
+    <value>سفارشی</value>
+  </data>
+  <data name="PresetFolder_BuiltIn" xml:space="preserve">
+    <value>داخلی</value>
+  </data>
+  
+  <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
+    <value>تغییر نام پوشه</value>
+  </data>
+  <data name="PresetFolderRemoveFolderMenuItem" xml:space="preserve">
+    <value>حذف پوشه</value>
+  </data>
+  <data name="DefaultPresetFolderName" xml:space="preserve">
+    <value>پوشه جديد</value>
+  </data>
+  
+  
+  <data name="NVEncPreset_ll" xml:space="preserve">
+    <value>تاخیر کم</value>
+  </data>
+  <data name="NVEncPreset_hq" xml:space="preserve">
+    <value>کیفیت بالا</value>
+  </data>
+  
+  <data name="Bottom" xml:space="preserve">
+    <value>پایین</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>چپ</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>راست</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>بالا</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <data name="MinimumCroppingLabel" xml:space="preserve">
+    <value>حداقل:</value>
+  </data>
+  
+  <data name="CroppingType_Conservative" xml:space="preserve">
+    <value>محافظه کار</value>
+  </data>
+  
+</root>

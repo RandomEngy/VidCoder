@@ -856,4 +856,5 @@ Lapsharp menajamkan menggunakan kernel konvolusi dengan mengaproksimasi filter p
   <data name="CroppingType_Conservative" xml:space="preserve">
     <value>Konservatif</value>
   </data>
+  
 </root>

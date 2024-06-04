@@ -336,9 +336,6 @@
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>Versão {0} está disponível. O download da actualização foi iniciado.</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>O download da versão {0} terminou e vai ser instalado quando sair do programa.</value>
-  </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
     <value>A actualização não foi aplicada. Se não a cancelou, tente instalá-la manualmente.</value>
   </data>
@@ -626,9 +623,6 @@
   <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
     <value>Opções de codificação de áudio</value>
   </data>
-  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
-    <value>A transferência da versão {0} terminou.</value>
-  </data>
   <data name="RemoveFromQueueMenuItem" xml:space="preserve">
     <value>Remover da lista de tarefas</value>
   </data>
@@ -753,4 +747,5 @@ Este aviso só será exibido duas vezes.</value>
     <comment>{0} is the current job number for scanning and adding an item to the queue
 {1} is the total number of scanned items this session</comment>
   </data>
+  
 </root>

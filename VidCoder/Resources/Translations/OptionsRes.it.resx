@@ -419,4 +419,6 @@ Interrogazione: controlla periodicamente il contenuto delle cartelle. Utilizza r
   <data name="CapNVEncCheckBox" xml:space="preserve">
     <value>Limita le codifiche NVEnc simultanee. Questo richiede una modifica personalizzata dei driver NVidia.</value>
   </data>
+  
+  
 </root>

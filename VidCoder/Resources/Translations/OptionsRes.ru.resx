@@ -419,4 +419,6 @@
   <data name="CapNVEncCheckBox" xml:space="preserve">
     <value>Ограничение одновременного кодирования NVEnc. Для снятия ограничения требуется модификация драйвера NVidia пользователем.</value>
   </data>
+  
+  
 </root>

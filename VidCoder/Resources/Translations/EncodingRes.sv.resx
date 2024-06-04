@@ -1,0 +1,654 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Save" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="SaveAs" xml:space="preserve">
+    <value>Spara Som...</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>Gå tillbaka</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <data name="ContainerLabel" xml:space="preserve">
+    <value>Behållarformat:</value>
+  </data>
+  <data name="ExtensionLabel" xml:space="preserve">
+    <value>Tillägg:</value>
+  </data>
+  <data name="WebOptimizedCheckBox" xml:space="preserve">
+    <value>Optimerad för Webben</value>
+  </data>
+  <data name="Ipod5GSupportCheckBox" xml:space="preserve">
+    <value>iPod 5G support</value>
+  </data>
+  <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
+    <value>Inkluderar kapitelmarkörer</value>
+  </data>
+  <data name="TabHeader_Sizing" xml:space="preserve">
+    <value>Storlektsanpassning</value>
+  </data>
+  <data name="TabHeader_VideoFilters" xml:space="preserve">
+    <value>Video Filter</value>
+  </data>
+  <data name="TabHeader_VideoEncoding" xml:space="preserve">
+    <value>Videokodning</value>
+  </data>
+  <data name="TabHeader_AudioEncoding" xml:space="preserve">
+    <value>Ljudkodning</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Döp om</value>
+  </data>
+  <data name="Input" xml:space="preserve">
+    <value>Indata</value>
+  </data>
+  <data name="AutoCaption" xml:space="preserve">
+    <value>(auto)</value>
+  </data>
+  <data name="NoneCaption" xml:space="preserve">
+    <value>(ingen)</value>
+  </data>
+  <data name="StorageResolutionLabel" xml:space="preserve">
+    <value>Lagrings upplösning:</value>
+  </data>
+  <data name="PixelAspectRatioLabel" xml:space="preserve">
+    <value>Pixelproportioner:</value>
+  </data>
+  <data name="DisplayResolutionLabel" xml:space="preserve">
+    <value>Visa upplösning:</value>
+  </data>
+  <data name="SizingLabel" xml:space="preserve">
+    <value>Storlektsanpassning</value>
+  </data>
+  <data name="WidthLabel" xml:space="preserve">
+    <value>Bredd:</value>
+  </data>
+  <data name="HeightLabel" xml:space="preserve">
+    <value>Höjd:</value>
+  </data>
+  <data name="MaxWidthLabel" xml:space="preserve">
+    <value>Maximal bredd:</value>
+  </data>
+  <data name="MaxHeightLabel" xml:space="preserve">
+    <value>Maximal höjd:</value>
+  </data>
+  <data name="OutputLabel" xml:space="preserve">
+    <value>Utdata</value>
+  </data>
+  <data name="CroppingLabel" xml:space="preserve">
+    <value>Beskärning</value>
+  </data>
+  <data name="DetelecineLabel" xml:space="preserve">
+    <value>Detelecine:</value>
+  </data>
+  <data name="DeinterlaceLabel" xml:space="preserve">
+    <value>Deinterlace:</value>
+  </data>
+  <data name="DenoiseLabel" xml:space="preserve">
+    <value>Denoise:</value>
+  </data>
+  <data name="DeblockLabel" xml:space="preserve">
+    <value>Deblock:</value>
+  </data>
+  <data name="GrayscaleCheckBox" xml:space="preserve">
+    <value>Gråskalekodning</value>
+  </data>
+  <data name="TypeLabel" xml:space="preserve">
+    <value>Typ:</value>
+  </data>
+  <data name="ShortFramerateLabel" xml:space="preserve">
+    <value>Bildhastighet:</value>
+  </data>
+  <data name="CodecLabel" xml:space="preserve">
+    <value>Codec:</value>
+  </data>
+  <data name="FramerateLabel" xml:space="preserve">
+    <value>Bildfrekvens (FPS):</value>
+  </data>
+  <data name="ConstantFramerateRadioButton" xml:space="preserve">
+    <value>Konstant bildfrekvens</value>
+  </data>
+  <data name="Quality" xml:space="preserve">
+    <value>Kvalitet</value>
+  </data>
+  <data name="TwoPassEncodingCheckBox" xml:space="preserve">
+    <value>2-pass Kodning</value>
+  </data>
+  <data name="TurboFirstPassCheckBox" xml:space="preserve">
+    <value>Turbo första passet</value>
+  </data>
+  <data name="TargetSizeRadioButton" xml:space="preserve">
+    <value>Målstorlek (MB)</value>
+  </data>
+  <data name="AverageBitrateRadioButton" xml:space="preserve">
+    <value>Medel Bitrate (kbps)</value>
+  </data>
+  <data name="ConstantQualityRadioButton" xml:space="preserve">
+    <value>Konstant Kvalitet</value>
+  </data>
+  <data name="ProfileLabel" xml:space="preserve">
+    <value>Profil:</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>Förval:</value>
+  </data>
+  
+  
+  
+  <data name="Profile_high" xml:space="preserve">
+    <value>Hög</value>
+  </data>
+  <data name="Preset_UltraFast" xml:space="preserve">
+    <value>Ultra Fort</value>
+  </data>
+  <data name="Preset_SuperFast" xml:space="preserve">
+    <value>Supersnabbt</value>
+  </data>
+  <data name="Preset_VeryFast" xml:space="preserve">
+    <value>Mycket snabb</value>
+  </data>
+  <data name="Preset_Faster" xml:space="preserve">
+    <value>Snabbare</value>
+  </data>
+  <data name="Preset_Fast" xml:space="preserve">
+    <value>Snabb</value>
+  </data>
+  <data name="Preset_Medium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="Preset_Slow" xml:space="preserve">
+    <value>Långsam</value>
+  </data>
+  <data name="Preset_Slower" xml:space="preserve">
+    <value>Långsammare</value>
+  </data>
+  <data name="Preset_VerySlow" xml:space="preserve">
+    <value>Mycket Långsam</value>
+  </data>
+  <data name="Preset_Placebo" xml:space="preserve">
+    <value>Placebo</value>
+  </data>
+  <data name="Tune_film" xml:space="preserve">
+    <value>Film</value>
+  </data>
+  <data name="Tune_animation" xml:space="preserve">
+    <value>Animation</value>
+  </data>
+  <data name="Tune_grain" xml:space="preserve">
+    <value>Kornighet</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <data name="VfrChoice" xml:space="preserve">
+    <value>Variabel Bildfrekvens</value>
+  </data>
+  
+  
+  
+  
+  
+  <data name="NoTracksPlaceholder" xml:space="preserve">
+    <value>(inga spår)</value>
+  </data>
+  
+  
+  <data name="SampleRateLabel" xml:space="preserve">
+    <value>Samplingsfrekvens:</value>
+  </data>
+  <data name="BitrateLabel" xml:space="preserve">
+    <value>Bitrate:</value>
+  </data>
+  <data name="CompressionLabel" xml:space="preserve">
+    <value>Komprimering:</value>
+  </data>
+  <data name="GainLabel" xml:space="preserve">
+    <value>Förstärkning (dB):</value>
+  </data>
+  <data name="DrcLabel" xml:space="preserve">
+    <value>DRC:</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Namn:</value>
+  </data>
+  <data name="AscendingQualityToolTip" xml:space="preserve">
+    <value>Höga värden betyder hög kvalitet.</value>
+  </data>
+  <data name="DescendingQualityToolTip" xml:space="preserve">
+    <value>Låga värden betyder hög kvalitet.</value>
+  </data>
+  <data name="AudioQualityToolTip" xml:space="preserve">
+    <value>Målet för audio kvalitet. {0} giltiga värden är från {1} till {2}.</value>
+  </data>
+  <data name="AscendingCompressionToolTip" xml:space="preserve">
+    <value>Höga värden innebär hög komprimering: bättre kvalitet/mindre storlek men längre kodningstid.</value>
+  </data>
+  <data name="DescendingCompressionToolTip" xml:space="preserve">
+    <value>Låga värden innebär hög komprimering: bättre kvalitet/mindre storlek men längre kodningstid.</value>
+  </data>
+  <data name="AudioCompressionToolTip" xml:space="preserve">
+    <value>Mängden komprimering att tillämpa. {0} giltiga värden är från {1} till {2}.</value>
+  </data>
+  <data name="AudioEncoder_faac" xml:space="preserve">
+    <value>AAC (FAAC)</value>
+    <comment>Leaving this blank will mean we rely on the friendly name from HandBrake. The short name is used for the key (: gets replaced by _)</comment>
+  </data>
+  <data name="AudioEncoder_av_aac" xml:space="preserve">
+    <value>AAC (avcodec)</value>
+  </data>
+  <data name="AudioEncoder_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="AudioEncoder_flac16" xml:space="preserve">
+    <value>FLAC 16-bitars</value>
+  </data>
+  <data name="AudioEncoder_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="AudioEncoder_vorbis" xml:space="preserve">
+    <value>Vorbis</value>
+  </data>
+  <data name="Mixdown_5point1" xml:space="preserve">
+    <value>5.1 Kanaler</value>
+  </data>
+  <data name="Mixdown_5_2_lfe" xml:space="preserve">
+    <value>7.1 (5F/2R/LFE)</value>
+  </data>
+  <data name="Mixdown_dpl1" xml:space="preserve">
+    <value>Dolby Surround</value>
+  </data>
+  <data name="Mixdown_dpl2" xml:space="preserve">
+    <value>Dolby Pro Logic II</value>
+  </data>
+  <data name="Mixdown_left_only" xml:space="preserve">
+    <value>Mono (Vänster Bara)</value>
+  </data>
+  <data name="Mixdown_mono" xml:space="preserve">
+    <value>Mono</value>
+  </data>
+  <data name="Mixdown_right_only" xml:space="preserve">
+    <value>Mono (Höger Bara)</value>
+  </data>
+  <data name="Mixdown_stereo" xml:space="preserve">
+    <value>Stereo</value>
+  </data>
+  <data name="Bitrate" xml:space="preserve">
+    <value>Bitrate</value>
+  </data>
+  
+  
+  
+  
+  <data name="VideoEncoder_ffmpeg2" xml:space="preserve">
+    <value>MPEG-2 (Libav)</value>
+  </data>
+  <data name="VideoEncoder_ffmpeg4" xml:space="preserve">
+    <value>MPEG-4 (Libav)</value>
+  </data>
+  <data name="VideoEncoder_x264" xml:space="preserve">
+    <value>H.264 (x264)</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="LevelLabel" xml:space="preserve">
+    <value>Nivå: </value>
+  </data>
+  <data name="MoreSettingsLabel" xml:space="preserve">
+    <value>Fler inställningar:</value>
+  </data>
+  <data name="Track" xml:space="preserve">
+    <value>Spår</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Källa</value>
+  </data>
+  <data name="Encoder" xml:space="preserve">
+    <value>Enkoder</value>
+  </data>
+  <data name="ChannelLayout" xml:space="preserve">
+    <value>Kanal Layout</value>
+  </data>
+  <data name="SampleRate" xml:space="preserve">
+    <value>Samplingsfrekvens</value>
+  </data>
+  <data name="Modifiers" xml:space="preserve">
+    <value>Modifierare</value>
+  </data>
+  <data name="AudioEncoder_flac24" xml:space="preserve">
+    <value>FLAC 24-bitar</value>
+  </data>
+  <data name="VideoEncoder_mpeg2" xml:space="preserve">
+    <value>MPEG-2</value>
+  </data>
+  <data name="VideoEncoder_mpeg4" xml:space="preserve">
+    <value>MPEG-4</value>
+  </data>
+  <data name="VideoEncoder_theora" xml:space="preserve">
+    <value>Theora</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <data name="Rotation_Counterclockwise90" xml:space="preserve">
+    <value>Moturs 90°</value>
+  </data>
+  <data name="Rotation_180" xml:space="preserve">
+    <value>180°</value>
+  </data>
+  <data name="RotationToolTip" xml:space="preserve">
+    <value>Rotera bilden. Detta tillämpas efter all dimensionering och beskärning.</value>
+  </data>
+  
+  
+  
+  
+  <data name="RotationLabel" xml:space="preserve">
+    <value>Rotation </value>
+  </data>
+  
+  
+  <data name="DefaultChapterName" xml:space="preserve">
+    <value>Kapitel {0}</value>
+    <comment>What a chapter will be named when not given a custom name. {0} is the chapter number.</comment>
+  </data>
+  <data name="PassthroughSettingsLabel" xml:space="preserve">
+    <value>Genomströmning inställningar</value>
+  </data>
+  <data name="PassthroughMaskLabel" xml:space="preserve">
+    <value>Tillåta genomströmning för:</value>
+  </data>
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  <data name="Passthrough_eac3" xml:space="preserve">
+    <value>E-AC3</value>
+  </data>
+  <data name="Passthrough_flac" xml:space="preserve">
+    <value>FLAC</value>
+  </data>
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="Passthrough_truehd" xml:space="preserve">
+    <value>TrueHD</value>
+  </data>
+  <data name="InterlaceDetectionLabel" xml:space="preserve">
+    <value>Interlacesökning:</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>Läge:</value>
+    <comment>Label for the sizing or padding mode.</comment>
+  </data>
+  <data name="AnamorphicCheckbox" xml:space="preserve">
+    <value>Använd anamorfisk</value>
+  </data>
+  <data name="SizingModeManual" xml:space="preserve">
+    <value>Manual</value>
+    <comment>Choice for the user to enter all sizing information manually.</comment>
+  </data>
+  <data name="UpscaleMaxFormat" xml:space="preserve">
+    <value>Upskala {0}x max</value>
+    <comment>Label for scaling option to allow upscaling, but only to a particular multiple of the source resolution. {0} is the multiple, e.g. 2, 3 or 4</comment>
+  </data>
+  <data name="ScalingMode_DownscaleOnly" xml:space="preserve">
+    <value>Endast nerskalning</value>
+  </data>
+  <data name="ScalingMode_Fill" xml:space="preserve">
+    <value>Skala upp/ner till mål</value>
+  </data>
+  <data name="ScalingModeLabel" xml:space="preserve">
+    <value>Skalningsläget:</value>
+  </data>
+  <data name="PaddingMode_Fill" xml:space="preserve">
+    <value>Fyll</value>
+  </data>
+  <data name="PaddingMode_Width" xml:space="preserve">
+    <value>Bredd</value>
+  </data>
+  <data name="PaddingMode_Height" xml:space="preserve">
+    <value>Höjd</value>
+  </data>
+  <data name="TargetWidthLabel" xml:space="preserve">
+    <value>Målets bredd:</value>
+  </data>
+  <data name="TargetHeightLabel" xml:space="preserve">
+    <value>Målets höjd:</value>
+  </data>
+  <data name="PadColorLabel" xml:space="preserve">
+    <value>Färg:</value>
+  </data>
+  <data name="AnamorphicToolTip" xml:space="preserve">
+    <value>Med anamorfisk aktiverad, är icke-fyrkantiga pixlar tillåtna. Detta kan leda till effektivare lagring, men inte alla spelare stöder detta.</value>
+  </data>
+  <data name="ResolutionLabel" xml:space="preserve">
+    <value>Upplösning:</value>
+    <comment>Label for a video resolution in pixels.</comment>
+  </data>
+  <data name="CustomFilterToolTipFormatPart" xml:space="preserve">
+    <value>Format: key1 = value1:key2 = värde2:...</value>
+    <comment>The "format" portion of the custom filter tooltip. When translating, keep the = and : the same and only replace "key1", "value2", etc.</comment>
+  </data>
+  <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
+    <value>Nycklar:</value>
+    <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
+  </data>
+  <data name="PaddingLabel" xml:space="preserve">
+    <value>Utfyllnad</value>
+  </data>
+  <data name="AlignAVStartCheckBox" xml:space="preserve">
+    <value>Anpassa A / V Start</value>
+  </data>
+  <data name="AlignAVStartCheckBoxToolTip" xml:space="preserve">
+    <value>Justerar den inledande tidsstämplar av alla ljud- och videoströmmar genom att infoga tomma ramar eller släppa ramar. Kan förbättra ljud/video sync för trasiga spelare som inte hedrar MP4 redigerade listor.</value>
+  </data>
+  <data name="TabHeader_Container" xml:space="preserve">
+    <value>Behållare</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Kodnings förinställning: {0}</value>
+    <comment>Label for the encoding settings window.</comment>
+  </data>
+  <data name="AudioEncoder_none" xml:space="preserve">
+    <value>Ingen</value>
+    <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
+  </data>
+  <data name="SizingModeToolTip" xml:space="preserve">
+    <value>Automatisk kommer välja storlek för dig baserat på angivna begränsningar. Manuell gör att du kan ange en specifik storlek och pixel bildförhållande.</value>
+  </data>
+  <data name="SharpenLabel" xml:space="preserve">
+    <value>Skärp</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</root>

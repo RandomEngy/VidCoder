@@ -1,0 +1,428 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TitleLabel" xml:space="preserve">
+    <value>Titl:</value>
+  </data>
+  <data name="AddToQueueLabel" xml:space="preserve">
+    <value>Lakaat ouzhpenn o c'hortoz el lost</value>
+  </data>
+  <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
+    <value>Lakaat titloù ouzhpenn da c'hortoz el lost...</value>
+  </data>
+  <data name="OpenVideoFile" xml:space="preserve">
+    <value>Digeriñ ur fichennaoueg video...</value>
+  </data>
+  <data name="OpenDiscFolder" xml:space="preserve">
+    <value>Digeriñ an doser DVD/Blu-Ray...</value>
+  </data>
+  <data name="EnqueueMultipleFiles" xml:space="preserve">
+    <value>Lakaat meur a fichennaoueg ouzhpenn...</value>
+  </data>
+  <data name="ToolsMenu" xml:space="preserve">
+    <value>Benvigi</value>
+  </data>
+  <data name="ImportPreset" xml:space="preserve">
+    <value>Emporzhiañ ur rak-reoliñ...</value>
+  </data>
+  <data name="ExportPreset" xml:space="preserve">
+    <value>Esporzhiañ ur rak-reoliñ...</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Lenn</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Kemm</value>
+  </data>
+  <data name="OpenContainingFolder" xml:space="preserve">
+    <value>Digeriñ an doser</value>
+  </data>
+  <data name="ClearCompleted" xml:space="preserve">
+    <value>O paouez diverkañ emañ</value>
+  </data>
+  <data name="WindowsMenu" xml:space="preserve">
+    <value>Prenestroù</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
+  </data>
+  <data name="EncodingSettingsMenuItem" xml:space="preserve">
+    <value>Parametroù an enkodaj</value>
+  </data>
+  <data name="PreviewMenuItem" xml:space="preserve">
+    <value>Damsell</value>
+  </data>
+  <data name="LogMenuItem" xml:space="preserve">
+    <value>Log</value>
+  </data>
+  <data name="HelpMenu" xml:space="preserve">
+    <value>Skoazell</value>
+  </data>
+  <data name="VidCoderHomepageMenuItem" xml:space="preserve">
+    <value>Degemer VidCoder</value>
+  </data>
+  <data name="ReportABugMenuItem" xml:space="preserve">
+    <value>Sinaliñ ur Bug</value>
+  </data>
+  <data name="AboutVidCoderMenuItem" xml:space="preserve">
+    <value>Diwar-benn VidCoder...</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>A-nevez</value>
+  </data>
+  <data name="DragFilesHereLabel" xml:space="preserve">
+    <value>(Pe lamprit (drag) an doserioù pe fichennaoueg amañ)</value>
+  </data>
+  <data name="ScanErrorLabel" xml:space="preserve">
+    <value>Ur fazi zo bet e-pad an analiz.</value>
+  </data>
+  <data name="ChapterMarkersLabel" xml:space="preserve">
+    <value>Merkerioù ar pennad:</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Kemm...</value>
+  </data>
+  <data name="DestinationLabel" xml:space="preserve">
+    <value>Penn an hent:</value>
+  </data>
+  <data name="DestinationToolTip" xml:space="preserve">
+    <value>Klikañ evit kemm penn hent an enkodaj.</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Paouez</value>
+  </data>
+  <data name="MoveToTopMenuItem" xml:space="preserve">
+    <value>Diblasañ etrezek uhel ar skramm</value>
+  </data>
+  <data name="MoveToBottomMenuItem" xml:space="preserve">
+    <value>Diblasañ etrezek traoñ ar skramm</value>
+  </data>
+  <data name="CustomizeColumnsMenuItem" xml:space="preserve">
+    <value>Personelañ ar vannoù...</value>
+  </data>
+  <data name="CurrentFpsLabel" xml:space="preserve">
+    <value>FPS a-vremañ:</value>
+  </data>
+  <data name="AverageFpsLabel" xml:space="preserve">
+    <value>Krenn FPS:</value>
+  </data>
+  <data name="PickDiscFolderHelpText" xml:space="preserve">
+    <value>Dibab un doser DVD/Blu-ray.</value>
+  </data>
+  <data name="EncodesInProgressExitWarning" xml:space="preserve">
+    <value>Oc'h enbonegañ emañ. Sur oc'h hag ho peus c'hoant kuitaat ?</value>
+  </data>
+  <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
+    <value>Oc'h enbonegañ</value>
+  </data>
+  <data name="NoneParen" xml:space="preserve">
+    <value>(Netra)</value>
+  </data>
+  <data name="SaveChangesPresetMessage" xml:space="preserve">
+    <value>Kontrollañ ar c'hemmadennoù (digaset gant ho rak-reoliñ a-vremañ) a fell deoc'h ?</value>
+  </data>
+  <data name="SaveChangesPresetTitle" xml:space="preserve">
+    <value>Kontrollañ ar rak-reoliñ a-vremañ ?</value>
+  </data>
+  <data name="DiscNotInDriveError" xml:space="preserve">
+    <value>Dibosubl kargañ evit an embannadur. Ar bladenn n'eo ket el lenner ken.</value>
+  </data>
+  <data name="PresetNameRestoredFromQueue" xml:space="preserve">
+    <value>Renevezet d'al lostennad</value>
+  </data>
+  <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
+    <value>Renevezet adalek an Echuet</value>
+  </data>
+  <data name="DestinationColumnHeader" xml:space="preserve">
+    <value>Penn an hent</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>Stad</value>
+  </data>
+  <data name="ElapsedTimeColumnHeader" xml:space="preserve">
+    <value>Amzer a zo tremenet</value>
+  </data>
+  <data name="PlayingVideoMessage" xml:space="preserve">
+    <value>O lenn ar video...</value>
+  </data>
+  <data name="FileDoesNotExist" xml:space="preserve">
+    <value>{0} N'eo ket bet.</value>
+  </data>
+  <data name="AngleLabel" xml:space="preserve">
+    <value>Kogn:</value>
+  </data>
+  <data name="ChaptersSummary" xml:space="preserve">
+    <value>war {0}</value>
+  </data>
+  <data name="Queued" xml:space="preserve">
+    <value>El lostennad</value>
+  </data>
+  <data name="QueuedWithTotal" xml:space="preserve">
+    <value>O c'hortoz el lostennad ({0})</value>
+  </data>
+  <data name="CompletedWithTotal" xml:space="preserve">
+    <value>Echuet ({0})</value>
+  </data>
+  <data name="StoppedEncoding" xml:space="preserve">
+    <value>Paouez an enbonegañ.</value>
+  </data>
+  
+  <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
+    <value>Kadarniñ an distrujadur</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</root>

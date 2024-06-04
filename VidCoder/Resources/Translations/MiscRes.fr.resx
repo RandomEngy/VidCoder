@@ -266,6 +266,10 @@
   <data name="OneTimeInstallerCleanup" xml:space="preserve">
     <value>Nous devons faire un nettoyage ponctuel de l'ancien installateur. Choisissez 'Oui' à l'invite suivante pour supprimer l'ancienne version de VidCoder.</value>
   </data>
-  
-  
+  <data name="EncodeCompleteWarning_RestartTitle" xml:space="preserve">
+    <value>Redémarrage imminent</value>
+  </data>
+  <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
+    <value>Le système va redémarrer dans {0} secondes.</value>
+  </data>
 </root>

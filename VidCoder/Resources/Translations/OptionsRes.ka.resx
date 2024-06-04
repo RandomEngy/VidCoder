@@ -421,4 +421,6 @@
   <data name="CapNVEncCheckBox" xml:space="preserve">
     <value>იყენებს მრავალჯერად NVEnc-ის კოდირებას. დეაქტივირების შემთხვევაში საჭიროებს პერსონალიზირებულ NVidia-ს დრაივერს.</value>
   </data>
+  
+  
 </root>

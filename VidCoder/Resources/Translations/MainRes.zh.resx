@@ -334,9 +334,6 @@
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>版本 {0} 已上线。开始下载更新。</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>版本 {0} 已下载完成，将在程序退出时安装。</value>
-  </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
     <value>未应用更新。若您并非手动取消更新，请尝试手动安装。</value>
   </data>

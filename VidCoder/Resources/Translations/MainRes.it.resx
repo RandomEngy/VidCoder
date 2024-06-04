@@ -336,9 +336,6 @@
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>È disponibile la versione {0}. Avviato il prelievo dell'aggiornamento.</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>Versione {0} finita di scaricare e installare sull'uscita.</value>
-  </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
     <value>L'aggiornamento non è stato applicato. Se non l'hai cancellato, prova ad installarlo manualmente.</value>
   </data>
@@ -628,9 +625,6 @@
   <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
     <value>Opzioni di codifica audio</value>
   </data>
-  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
-    <value>Completato il prelievo della versione {0}.</value>
-  </data>
   <data name="RemoveFromQueueMenuItem" xml:space="preserve">
     <value>Rimuovi dalla coda</value>
   </data>
@@ -755,4 +749,5 @@ Questo avviso verrà visualizzato solo due volte.</value>
     <comment>{0} is the current job number for scanning and adding an item to the queue
 {1} is the total number of scanned items this session</comment>
   </data>
+  
 </root>

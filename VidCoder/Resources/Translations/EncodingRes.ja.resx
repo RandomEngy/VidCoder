@@ -855,4 +855,5 @@ Lapsharpはラプラシアン輪郭フィルターを近似する畳込みカー
   <data name="CroppingType_Conservative" xml:space="preserve">
     <value>控え目</value>
   </data>
+  
 </root>
