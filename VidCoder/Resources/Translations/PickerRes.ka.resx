@@ -172,10 +172,7 @@
     <value>არგუმენტები:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>პროგრამის სამოქმედო არგუმენტებისთვის გამოიყენეთ {file} დასამახსოვრებელი ფაილისთვის, {folder} დასამახსოვრებელი ფოლდერისთვის ან სხვა პარამეტრები, როგორიცაა {title} და {date} (იხილეთ სახელის ფორმატები).</value>
-    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
-  </data>
+  
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>კოდირების შაბლონი დადგენილია ამომრჩევის მიერ.</value>
   </data>

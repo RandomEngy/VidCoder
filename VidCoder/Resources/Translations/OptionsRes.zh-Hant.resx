@@ -419,4 +419,6 @@
   <data name="CapNVEncCheckBox" xml:space="preserve">
     <value>限制同時處理的 NVEnc 編碼數量，移除此選項需要自訂 Nvidia 驅動程式補釘。</value>
   </data>
+  
+  
 </root>

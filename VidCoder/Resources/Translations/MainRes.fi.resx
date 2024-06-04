@@ -1,0 +1,552 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TitleLabel" xml:space="preserve">
+    <value>Nimike:</value>
+  </data>
+  <data name="AddToQueueLabel" xml:space="preserve">
+    <value>Lisää jonoon</value>
+  </data>
+  <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
+    <value>Lisää useita nimikkeitä jonoon...</value>
+  </data>
+  <data name="OpenVideoFile" xml:space="preserve">
+    <value>Avaa videotiedosto...</value>
+  </data>
+  <data name="OpenDiscFolder" xml:space="preserve">
+    <value>Avaa DVD- tai Blu-ray-kansio...</value>
+  </data>
+  <data name="EnqueueMultipleFiles" xml:space="preserve">
+    <value>Lisää useita tiedostoja...</value>
+  </data>
+  <data name="ToolsMenu" xml:space="preserve">
+    <value>Työkalut</value>
+  </data>
+  <data name="ImportPreset" xml:space="preserve">
+    <value>Tuo asetus...</value>
+  </data>
+  <data name="ExportPreset" xml:space="preserve">
+    <value>Vie asetus...</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Toista</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Muokkaa</value>
+  </data>
+  <data name="OpenContainingFolder" xml:space="preserve">
+    <value>Avaa tallennuskansio</value>
+  </data>
+  <data name="ClearCompleted" xml:space="preserve">
+    <value>Tyhjennä valmistuneet</value>
+  </data>
+  <data name="WindowsMenu" xml:space="preserve">
+    <value>Windows</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
+  </data>
+  <data name="EncodingSettingsMenuItem" xml:space="preserve">
+    <value>Koodauksen asetukset</value>
+  </data>
+  <data name="PreviewMenuItem" xml:space="preserve">
+    <value>Esikatselu</value>
+  </data>
+  <data name="LogMenuItem" xml:space="preserve">
+    <value>Loki</value>
+  </data>
+  <data name="HelpMenu" xml:space="preserve">
+    <value>Apua</value>
+  </data>
+  <data name="VidCoderHomepageMenuItem" xml:space="preserve">
+    <value>VidCoderin kotisivu</value>
+  </data>
+  <data name="ReportABugMenuItem" xml:space="preserve">
+    <value>Ilmoita virheestä</value>
+  </data>
+  <data name="AboutVidCoderMenuItem" xml:space="preserve">
+    <value>Tietoja VidCoderista...</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>Viimeisimmät</value>
+  </data>
+  <data name="DragFilesHereLabel" xml:space="preserve">
+    <value>(Tai vedä videotiedostoja tai -kansioita tähän)</value>
+  </data>
+  <data name="ScanErrorLabel" xml:space="preserve">
+    <value>Tarkistus epäonnistui.</value>
+  </data>
+  <data name="ChapterMarkersLabel" xml:space="preserve">
+    <value>Kappalemerkit:</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Muokkaa...</value>
+  </data>
+  <data name="DestinationLabel" xml:space="preserve">
+    <value>Kohde:</value>
+  </data>
+  <data name="DestinationToolTip" xml:space="preserve">
+    <value>Napsauta muuttaaksesi tallennussijaintia.</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Pysäytä</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Tauko</value>
+  </data>
+  <data name="MoveToTopMenuItem" xml:space="preserve">
+    <value>Siirrä ylös</value>
+  </data>
+  <data name="MoveToBottomMenuItem" xml:space="preserve">
+    <value>Siirrä alas</value>
+  </data>
+  <data name="CustomizeColumnsMenuItem" xml:space="preserve">
+    <value>Mukauta sarakkeita...</value>
+  </data>
+  <data name="CurrentFpsLabel" xml:space="preserve">
+    <value>Nykyinen FPS:</value>
+  </data>
+  <data name="AverageFpsLabel" xml:space="preserve">
+    <value>Keskimääräinen FPS:</value>
+  </data>
+  <data name="PickDiscFolderHelpText" xml:space="preserve">
+    <value>Valitse DVD- tai Blu-ray-kansio.</value>
+  </data>
+  <data name="EncodesInProgressExitWarning" xml:space="preserve">
+    <value>Muunnoksia on käynnissä. Haluatko varmasti lopettaa?</value>
+  </data>
+  <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
+    <value>Muunnoksia käynnissä</value>
+  </data>
+  <data name="NoneParen" xml:space="preserve">
+    <value>(Ei mitään)</value>
+  </data>
+  <data name="SaveChangesPresetMessage" xml:space="preserve">
+    <value>Haluatko tallentaa muutokset nykyiseen esiasetukseen?</value>
+  </data>
+  <data name="SaveChangesPresetTitle" xml:space="preserve">
+    <value>Tallenna esiasetukseksi?</value>
+  </data>
+  <data name="DiscNotInDriveError" xml:space="preserve">
+    <value>Asemassa ei levyä.</value>
+  </data>
+  <data name="PresetNameRestoredFromQueue" xml:space="preserve">
+    <value>Jonosta palautetut</value>
+  </data>
+  <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
+    <value>Valmistuneista palautetut</value>
+  </data>
+  <data name="DestinationColumnHeader" xml:space="preserve">
+    <value>Kohde</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>Tila</value>
+  </data>
+  <data name="ElapsedTimeColumnHeader" xml:space="preserve">
+    <value>Kulunut aika</value>
+  </data>
+  <data name="PlayingVideoMessage" xml:space="preserve">
+    <value>Toistaa videota...</value>
+  </data>
+  <data name="FileDoesNotExist" xml:space="preserve">
+    <value>{0} ei ole.</value>
+  </data>
+  <data name="AngleLabel" xml:space="preserve">
+    <value>Kulma:</value>
+  </data>
+  <data name="ChaptersSummary" xml:space="preserve">
+    <value>of {0}</value>
+  </data>
+  <data name="Queued" xml:space="preserve">
+    <value>Jonossa</value>
+  </data>
+  <data name="QueuedWithTotal" xml:space="preserve">
+    <value>Jonossa ({0})</value>
+  </data>
+  <data name="CompletedWithTotal" xml:space="preserve">
+    <value>Valmistunut ({0})</value>
+  </data>
+  <data name="StoppedEncoding" xml:space="preserve">
+    <value>Muunnos päättynyt.</value>
+  </data>
+  
+  <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
+    <value>Vahvista poistaminen</value>
+  </data>
+  <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
+    <value>Virhe videotiedosto(j)a skannattaessa</value>
+  </data>
+  <data name="StartedEncoding" xml:space="preserve">
+    <value>Muunnos aloitettu.</value>
+  </data>
+  <data name="DirectoryCreateErrorMessage" xml:space="preserve">
+    <value>Kohdetiedostoa ei voitu luoda. Virhetiedot: {0}</value>
+  </data>
+  <data name="EncodeCompleted" xml:space="preserve">
+    <value>Muunnos valmistunut.</value>
+  </data>
+  <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
+    <value>Muunnokset valmistuneet</value>
+  </data>
+  <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
+    <value>VidCoder on suorittanut kaikki listan tehtävät.</value>
+  </data>
+  <data name="OutputPathNotValidMessage" xml:space="preserve">
+    <value>Ulostulo ei ole kelvollinen.</value>
+  </data>
+  <data name="OutputPathNotValidTitle" xml:space="preserve">
+    <value>Polku ei kelpaa</value>
+  </data>
+  <data name="Encode" xml:space="preserve">
+    <value>Muunna</value>
+  </data>
+  <data name="Resume" xml:space="preserve">
+    <value>Jatka</value>
+  </data>
+  <data name="EtaLabel" xml:space="preserve">
+    <value>Valmistuu:</value>
+  </data>
+  
+  <data name="SourceOption_VideoFile" xml:space="preserve">
+    <value>Videotiedosto...</value>
+  </data>
+  <data name="SourceOption_DiscFolder" xml:space="preserve">
+    <value>DVD/Blu-ray-kansio...</value>
+  </data>
+  <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
+    <value>Versio {0} on saatavilla. Päivityksen lataus on alkanut.</value>
+  </data>
+  <data name="UpdateNotAppliedError" xml:space="preserve">
+    <value>Päivitystä ei otettu käyttöön. Voit halutessasi asentaa sen manuaalisesti.</value>
+  </data>
+  <data name="CouldNotLoadPresetMessage" xml:space="preserve">
+    <value>Ei voitu ladata asetusta: </value>
+  </data>
+  <data name="CouldNotSavePresetMessage" xml:space="preserve">
+    <value>Ei voitu tallentaa asetusta {0}: {1} {2}</value>
+  </data>
+  <data name="CouldNotCopyTextError" xml:space="preserve">
+    <value>Tekstiä ei voitu kopioida.</value>
+  </data>
+  <data name="LaunchUrlError" xml:space="preserve">
+    <value>Virhe käynnistettäessä URL: {0}</value>
+  </data>
+  <data name="PresetImportErrorMessage" xml:space="preserve">
+    <value>Asetusten tuonti epäonnistui. Saat lisätietoja lokista.</value>
+  </data>
+  <data name="ImportErrorTitle" xml:space="preserve">
+    <value>Virhe</value>
+  </data>
+  <data name="PresetImportSuccessMessage" xml:space="preserve">
+    <value>Asetuksen {0} tuonti onnistui.</value>
+  </data>
+  <data name="PresetExportSuccessMessage" xml:space="preserve">
+    <value>Asetuksen vienti {0} onnistui</value>
+  </data>
+  <data name="ExportPresetFilePickerText" xml:space="preserve">
+    <value>Vie asetus</value>
+  </data>
+  <data name="SaveChangesPickerMessage" xml:space="preserve">
+    <value>Haluatko tallentaa muutokset?</value>
+  </data>
+  <data name="SaveChangesPickerTitle" xml:space="preserve">
+    <value>Tallenna tämänhetkinen poimija?</value>
+  </data>
+  <data name="RevertConfirmMessage" xml:space="preserve">
+    <value>Haluatko varmasti palauttaa kaikki tallentamattomat muutokset?</value>
+  </data>
+  <data name="RevertConfirmTitle" xml:space="preserve">
+    <value>Palauta</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Haluatko varmasti poistaa tämän?</value>
+  </data>
+  <data name="RemoveConfirmTitle" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="OutputDirectoryPickerText" xml:space="preserve">
+    <value>Valitse tallennushakemisto koodatuille videotiedostoille.</value>
+  </data>
+  <data name="LengthPreviewLabel" xml:space="preserve">
+    <value>({0})</value>
+  </data>
+  <data name="ModifiedAffix" xml:space="preserve">
+    <value>(Muokattu)</value>
+  </data>
+  <data name="PlayingVideoStatus" xml:space="preserve">
+    <value>Toistetaan videota...</value>
+  </data>
+  <data name="OpeningFolderStatus" xml:space="preserve">
+    <value>Avataan kansio...</value>
+  </data>
+  <data name="CloseVideoSourceToolTip" xml:space="preserve">
+    <value>Sulje videolähde</value>
+  </data>
+  <data name="UpdatesMenuItem" xml:space="preserve">
+    <value>Päivitykset...</value>
+  </data>
+  <data name="CbrAuto" xml:space="preserve">
+    <value>CBR Auto</value>
+  </data>
+  <data name="RangeBarToolTip" xml:space="preserve">
+    <value>Hiiren vasen klikkaus alkamisajan ja oikea klikkaus päättymisajan asettamiseksi.</value>
+  </data>
+  <data name="QueueFormat_Chapters" xml:space="preserve">
+    <value>Ch {0}</value>
+  </data>
+  <data name="QueueFormat_Frames" xml:space="preserve">
+    <value>Fr {0}-{1}</value>
+  </data>
+  <data name="QueueRangeAll" xml:space="preserve">
+    <value>Kaikki</value>
+  </data>
+  <data name="CouldNotCopyLogError" xml:space="preserve">
+    <value>Ei voitu kopioida loki: {0} {0} {1}</value>
+  </data>
+  <data name="OpenLog" xml:space="preserve">
+    <value>Avaa loki</value>
+  </data>
+  <data name="CopyLog" xml:space="preserve">
+    <value>Kopioloki</value>
+  </data>
+  <data name="PresetDiscardConfirmMessage" xml:space="preserve">
+    <value>Sinulla on tallentamattomia muutoksia. Oletko varma, että haluat poistaa nämä muutokset?</value>
+  </data>
+  <data name="PresetDiscardConfirmTitle" xml:space="preserve">
+    <value>Hylkää muutokset?</value>
+  </data>
+  <data name="RemoveFromQueueToolTip" xml:space="preserve">
+    <value>Poista jonosta</value>
+  </data>
+  <data name="CouldNotSaveQueueMessage" xml:space="preserve">
+    <value>Tallennus epäonnistui:{0}{1}</value>
+  </data>
+  <data name="ExportQueue" xml:space="preserve">
+    <value>Viedään...</value>
+  </data>
+  <data name="ExportQueueFilePickerText" xml:space="preserve">
+    <value>Vie</value>
+  </data>
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>Tapahtui virhe. Saat lisätietoja lokista.</value>
+  </data>
+  <data name="ImportPresetFilePickerTitle" xml:space="preserve">
+    <value>Tuo tiedosto</value>
+  </data>
+  <data name="ImportQueueFilePickerTitle" xml:space="preserve">
+    <value>Tuo jonotiedosto</value>
+  </data>
+  <data name="ImportQueue" xml:space="preserve">
+    <value>Tuo jonotiedosto...</value>
+  </data>
+  <data name="QueueExportSuccessMessage" xml:space="preserve">
+    <value>Tiedoston vienti kohteeseen {0} onnistui</value>
+  </data>
+  <data name="QueueImportSuccessMessage" xml:space="preserve">
+    <value>Tiedoston vienti onnistui.</value>
+  </data>
+  <data name="StopEncodeConfirmationTitle" xml:space="preserve">
+    <value>Lopeta koodaus?</value>
+  </data>
+  <data name="StopEncodeConfirmationMessage" xml:space="preserve">
+    <value>Haluatko varmasti lopettaa koodauksen?</value>
+  </data>
+  <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
+    <value>Sulje nykyinen tiedosto ja avaa levy?</value>
+  </data>
+  <data name="EncodeDetailsMenuItem" xml:space="preserve">
+    <value>Koodauksen tiedot</value>
+  </data>
+  <data name="RenameDatabaseFileLine2" xml:space="preserve">
+    <value>Haluatko nimetä uudelleen aiemmin luodun tiedoston ja aloittaa uuden?</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</root>

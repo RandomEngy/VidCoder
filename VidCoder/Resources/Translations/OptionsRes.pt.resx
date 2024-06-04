@@ -419,4 +419,6 @@ Pesquisa: Verifica periodicamente o conteúdo das pastas. Usa recursos significa
   <data name="CapNVEncCheckBox" xml:space="preserve">
     <value>Limitar codificações simultâneas NVEnc. Remover isto requer uma correcção personalizada do controlador NVidia.</value>
   </data>
+  
+  
 </root>

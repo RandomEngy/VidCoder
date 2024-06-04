@@ -330,9 +330,6 @@
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>Verze {0} je k dispozici. Stahování aktualizace bylo zahájeno.</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>Stahování verze {0} bylo dokončeno a nainstaluje se při ukončení aplikace.</value>
-  </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
     <value>Aktualizace nebyla uskutečněna. Pokud jste ji nezrušili tak ji můžete nainstalovat manuálně.</value>
   </data>

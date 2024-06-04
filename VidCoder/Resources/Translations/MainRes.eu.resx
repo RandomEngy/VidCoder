@@ -334,9 +334,6 @@
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>{0} bertsioa eskuragarri dago. Eguneraketa jeisketa hasi da.</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>{0} bertsioak amaitu du jeisketa eta irtetzerakoan ezarriko da.</value>
-  </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
     <value>Eguneraketa ez da ezarri. Ez baduzu zeuk ezeztatu, saiatu eskuz ezartzen.</value>
   </data>
@@ -626,9 +623,6 @@
   <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
     <value>Audio kodeaketa aukerak</value>
   </data>
-  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
-    <value>{0} bertsio amaitu da jeisteaz.</value>
-  </data>
   <data name="RemoveFromQueueMenuItem" xml:space="preserve">
     <value>Kendu lerrotik</value>
   </data>
@@ -731,6 +725,7 @@ v5 da Windows 7/8-rako dagoen azken bertsioa.
 
 Kontuz-ohar hau bi aldiz bakarrik erakutsiko da.</value>
   </data>
+  
   
   
   

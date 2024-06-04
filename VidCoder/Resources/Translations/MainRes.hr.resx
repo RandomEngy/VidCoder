@@ -336,9 +336,6 @@
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>Verzija {0} je dostupna. Preuzimanje ažuriranja je započeto.</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>Verzija {0} je preuzeta i bit će instalirana prilikom izlaska.</value>
-  </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
     <value>Ažuriranje nije uspješno primjenjeno. Ukoliko ga niste sami otkazali, pokušajte instalirati ručno.</value>
   </data>
@@ -628,9 +625,6 @@
   <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
     <value>Mogućnosti audio kodiranja</value>
   </data>
-  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
-    <value>Verzija {0} je završila preuzimanje.</value>
-  </data>
   <data name="RemoveFromQueueMenuItem" xml:space="preserve">
     <value>Ukloni iz reda čekanja</value>
   </data>
@@ -755,4 +749,5 @@ Ovo će se upozorenje prikazati samo dva puta.</value>
     <comment>{0} is the current job number for scanning and adding an item to the queue
 {1} is the total number of scanned items this session</comment>
   </data>
+  
 </root>

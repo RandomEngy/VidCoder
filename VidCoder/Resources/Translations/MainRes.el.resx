@@ -336,9 +336,6 @@
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>Η έκδοση {0} δεν είναι διαθέσιμη. Η μεταφόρτωση της αναβάθμισης έχει ξεκινήσει.</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>Η μεταφόρτωση της έκδοσης {0} έχει ολοκληρωθεί και θα εγκατασταθεί στην έξοδο.</value>
-  </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
     <value>Η αναβάθμιση δεν έγινε. Αν δεν την σταματήσατε, εγκαταστήσετε την χειροκίνητα.</value>
   </data>
@@ -626,9 +623,6 @@
   <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
     <value>Επιλογές κωδικοποίησης ήχου</value>
   </data>
-  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
-    <value>Η έκδοση {0} μόλις κατέβηκε.</value>
-  </data>
   <data name="RemoveFromQueueMenuItem" xml:space="preserve">
     <value>Αφαίρεση από την ουρά</value>
   </data>
@@ -753,4 +747,5 @@
     <comment>{0} is the current job number for scanning and adding an item to the queue
 {1} is the total number of scanned items this session</comment>
   </data>
+  
 </root>

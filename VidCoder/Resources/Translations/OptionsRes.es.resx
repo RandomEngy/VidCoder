@@ -419,4 +419,6 @@ Sondeador: Comprueba periódicamente el contenido de las carpetas. Utiliza signi
   <data name="CapNVEncCheckBox" xml:space="preserve">
     <value>Limitar codificaciones NVEnc simultáneas. Configurar esto requiere un parche personalizado para el driver de NVidia.</value>
   </data>
+  
+  
 </root>

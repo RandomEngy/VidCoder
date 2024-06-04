@@ -172,10 +172,7 @@
     <value>Değişkenler:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>Programa iletilecek değişkenler. Dosya çıktı yolu için {file}, klasör yolu veya {title} ve {date} gibi diğer yol seçeneklerini içeren {folder} kullanın (bkz. Adlandırma Formatı).</value>
-    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
-  </data>
+  
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>Seçici, kodlama ön ayarını belirledi.</value>
   </data>

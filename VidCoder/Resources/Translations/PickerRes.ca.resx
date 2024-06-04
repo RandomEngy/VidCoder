@@ -172,10 +172,7 @@
     <value>Arguments:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>Els arguments que es passaran al programa. Feu servir {file} per al camí de sortida dels fitxers, {folder} per al camí de la carpeta contenidora o altres opcions del camí, com ara {title} i {date} (vegeu el Format de nomenclatura).</value>
-    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
-  </data>
+  
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>El selector ha especificat els valors de codificació predefinits.</value>
   </data>

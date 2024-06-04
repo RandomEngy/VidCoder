@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Anamorphic_Custom" xml:space="preserve">
+    <value>سفارشی</value>
+  </data>
+  
+  <data name="Anamorphic_None" xml:space="preserve">
+    <value>هیچکدام</value>
+  </data>
+  <data name="Anamorphic_Strict" xml:space="preserve">
+    <value>سخت</value>
+  </data>
+  
+  <data name="AppThemeChoice_Dark" xml:space="preserve">
+    <value>تاریک</value>
+  </data>
+  <data name="AppThemeChoice_Light" xml:space="preserve">
+    <value>روشن</value>
+  </data>
+  <data name="CombDetect_fast" xml:space="preserve">
+    <value>سریع</value>
+  </data>
+  <data name="CombDetect_permissive" xml:space="preserve">
+    <value>حساسیت کمتر</value>
+    <comment>This mode allows higher levels of combing before triggering.</comment>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>سفارشی</value>
+  </data>
+  
+  <data name="Decomb_Fast" xml:space="preserve">
+    <value>سریع</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>پیش فرض</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  <data name="DenoisePreset_light" xml:space="preserve">
+    <value>روشن</value>
+  </data>
+  <data name="DenoisePreset_medium" xml:space="preserve">
+    <value>متوسط</value>
+  </data>
+  <data name="DenoisePreset_strong" xml:space="preserve">
+    <value>قوی</value>
+  </data>
+  <data name="DenoisePreset_ultralight" xml:space="preserve">
+    <value>فوق سبک</value>
+  </data>
+  <data name="DenoiseTune_animation" xml:space="preserve">
+    <value>انیمیشن</value>
+  </data>
+  <data name="DenoiseTune_film" xml:space="preserve">
+    <value>فیلم</value>
+  </data>
+  
+  
+  
+  
+  
+  <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
+    <value>هیچ کاری نکن</value>
+  </data>
+  
+  
+  
+  <data name="EncodeCompleteActionType_Shutdown" xml:space="preserve">
+    <value>خاموش کردن سیستم</value>
+  </data>
+  <data name="EncodeCompleteActionType_Sleep" xml:space="preserve">
+    <value>حالت خواب</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>خاموش</value>
+  </data>
+  
+  
+  <data name="TitleType_Bluray" xml:space="preserve">
+    <value>Blu-ray</value>
+    <comment>What to display when the source is a Blu-ray</comment>
+  </data>
+  <data name="TitleType_Dvd" xml:space="preserve">
+    <value>DVD</value>
+    <comment>What to display when the source is a DVD</comment>
+  </data>
+  <data name="TitleType_Stream" xml:space="preserve">
+    <value>فایل</value>
+    <comment>What to display when the source is a file</comment>
+  </data>
+  <data name="VideoRangeType_Chapters" xml:space="preserve">
+    <value>فصل</value>
+  </data>
+  <data name="VideoRangeType_Frames" xml:space="preserve">
+    <value>فریم</value>
+  </data>
+  <data name="VideoRangeType_Seconds" xml:space="preserve">
+    <value>مدت زمان</value>
+  </data>
+  <data name="TitleCapitalizationChoice_EveryWord" xml:space="preserve">
+    <value>هر کلمه ای</value>
+    <comment>This will make Blu-ray and DVD titles capitalize every word</comment>
+  </data>
+  <data name="TitleCapitalizationChoice_FirstWord" xml:space="preserve">
+    <value>اولین کلمه</value>
+    <comment>This will make Blu-ray and DVD titles capitalize only the first word</comment>
+  </data>
+  <data name="EncodeCompleteActionType_StopEncoding" xml:space="preserve">
+    <value>توقف انکدینگ</value>
+  </data>
+  
+  
+  <data name="LogOperationType_Encode" xml:space="preserve">
+    <value>انکد</value>
+  </data>
+  <data name="LogOperationType_Scan" xml:space="preserve">
+    <value>اسکن</value>
+  </data>
+  <data name="PickerTimeRangeMode_Chapters" xml:space="preserve">
+    <value>فصل ها</value>
+  </data>
+  <data name="PickerTimeRangeMode_Time" xml:space="preserve">
+    <value>بازه زمانی</value>
+  </data>
+  
+  <data name="WhenFileExists_Overwrite" xml:space="preserve">
+    <value>جایگزینی</value>
+  </data>
+  <data name="WhenFileExists_Prompt" xml:space="preserve">
+    <value>بپرس</value>
+  </data>
+  <data name="DenoiseTune_medium" xml:space="preserve">
+    <value>متوسط</value>
+  </data>
+  <data name="DenoiseTune_none" xml:space="preserve">
+    <value>هیچ</value>
+  </data>
+  <data name="DenoiseTune_small" xml:space="preserve">
+    <value>کوچک</value>
+  </data>
+  <data name="DenoiseTune_tiny" xml:space="preserve">
+    <value>ریز</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</root>

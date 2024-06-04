@@ -332,9 +332,6 @@
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>새 버전 {0}이 나왔습니다. 업데이트 다운로드를 시작했습니다.</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>{0} 버전의 다운로드를 완료하고 종료시 설치할 것입니다.</value>
-  </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
     <value>업데이트가 적용되지 않았습니다. 직접 취소한 것이 아니면, 수동으로 설치해 보세요.</value>
   </data>

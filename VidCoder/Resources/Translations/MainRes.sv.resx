@@ -1,0 +1,587 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TitleLabel" xml:space="preserve">
+    <value>Titel:</value>
+  </data>
+  <data name="AddToQueueLabel" xml:space="preserve">
+    <value>Lägg till i kön</value>
+  </data>
+  <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
+    <value>Lägg till flera titlar till kön...</value>
+  </data>
+  <data name="OpenVideoFile" xml:space="preserve">
+    <value>Öppna videofil...</value>
+  </data>
+  <data name="OpenDiscFolder" xml:space="preserve">
+    <value>Öppna DVD/Blu-ray mapp...</value>
+  </data>
+  <data name="EnqueueMultipleFiles" xml:space="preserve">
+    <value>Koda flera filer...</value>
+  </data>
+  <data name="ToolsMenu" xml:space="preserve">
+    <value>Verktyg</value>
+  </data>
+  <data name="ImportPreset" xml:space="preserve">
+    <value>Importera förinställda...</value>
+  </data>
+  <data name="ExportPreset" xml:space="preserve">
+    <value>Exportera förval...</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Spela</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Redigera</value>
+  </data>
+  <data name="OpenContainingFolder" xml:space="preserve">
+    <value>Öppna Innehållande mapp</value>
+  </data>
+  <data name="ClearCompleted" xml:space="preserve">
+    <value>Rensa slutförda</value>
+  </data>
+  <data name="WindowsMenu" xml:space="preserve">
+    <value>Fönster</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
+  </data>
+  <data name="EncodingSettingsMenuItem" xml:space="preserve">
+    <value>Kodningsinställningar</value>
+  </data>
+  <data name="PreviewMenuItem" xml:space="preserve">
+    <value>Förhandsgranskning</value>
+  </data>
+  <data name="LogMenuItem" xml:space="preserve">
+    <value>Logg</value>
+  </data>
+  <data name="HelpMenu" xml:space="preserve">
+    <value>Hjälp</value>
+  </data>
+  <data name="VidCoderHomepageMenuItem" xml:space="preserve">
+    <value>VidCoder hemsida</value>
+  </data>
+  <data name="ReportABugMenuItem" xml:space="preserve">
+    <value>Rapportera en bugg</value>
+  </data>
+  <data name="AboutVidCoderMenuItem" xml:space="preserve">
+    <value>Om VidCoder...</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>Senaste</value>
+  </data>
+  <data name="DragFilesHereLabel" xml:space="preserve">
+    <value>(Eller dra filer eller mappar här)</value>
+  </data>
+  <data name="ScanErrorLabel" xml:space="preserve">
+    <value>Ett fel inträffade vid skanning.</value>
+  </data>
+  <data name="ChapterMarkersLabel" xml:space="preserve">
+    <value>Kapitel markeringar:</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Redigera...</value>
+  </data>
+  <data name="DestinationLabel" xml:space="preserve">
+    <value>Destination:</value>
+  </data>
+  <data name="DestinationToolTip" xml:space="preserve">
+    <value>Klicka för att redigera kodade destinationen.</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Paus</value>
+  </data>
+  <data name="MoveToTopMenuItem" xml:space="preserve">
+    <value>Flytta längst upp</value>
+  </data>
+  <data name="MoveToBottomMenuItem" xml:space="preserve">
+    <value>Flytta längst ned</value>
+  </data>
+  <data name="CustomizeColumnsMenuItem" xml:space="preserve">
+    <value>Anpassa kolumner...</value>
+  </data>
+  <data name="CurrentFpsLabel" xml:space="preserve">
+    <value>Nuvarande FPS:</value>
+  </data>
+  <data name="AverageFpsLabel" xml:space="preserve">
+    <value>Genomsnittlig FPS:</value>
+  </data>
+  <data name="PickDiscFolderHelpText" xml:space="preserve">
+    <value>Välj en DVD eller Blu-ray mapp.</value>
+  </data>
+  <data name="EncodesInProgressExitWarning" xml:space="preserve">
+    <value>Det finns pågående kodningar. Är du säker på att du vill avsluta?</value>
+  </data>
+  <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
+    <value>Pågående kodningar</value>
+  </data>
+  <data name="NoneParen" xml:space="preserve">
+    <value>(Ingen)</value>
+  </data>
+  <data name="SaveChangesPresetMessage" xml:space="preserve">
+    <value>Vill du spara ändringar i ditt aktuella förvalet?</value>
+  </data>
+  <data name="SaveChangesPresetTitle" xml:space="preserve">
+    <value>Spara aktuella förvalet?</value>
+  </data>
+  <data name="DiscNotInDriveError" xml:space="preserve">
+    <value>Inte ladda för redigering. Skivan är inte längre i enheten.</value>
+  </data>
+  <data name="PresetNameRestoredFromQueue" xml:space="preserve">
+    <value>Återställd från kö</value>
+  </data>
+  <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
+    <value>Återställd från avslutade</value>
+  </data>
+  <data name="DestinationColumnHeader" xml:space="preserve">
+    <value>Destination</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ElapsedTimeColumnHeader" xml:space="preserve">
+    <value>Förfluten tid</value>
+  </data>
+  <data name="PlayingVideoMessage" xml:space="preserve">
+    <value>Spela video...</value>
+  </data>
+  <data name="FileDoesNotExist" xml:space="preserve">
+    <value>{0} finns inte.</value>
+  </data>
+  <data name="AngleLabel" xml:space="preserve">
+    <value>Vinkel:</value>
+  </data>
+  <data name="ChaptersSummary" xml:space="preserve">
+    <value>av {0}</value>
+  </data>
+  <data name="Queued" xml:space="preserve">
+    <value>I kö</value>
+  </data>
+  <data name="QueuedWithTotal" xml:space="preserve">
+    <value>Köade ({0})</value>
+  </data>
+  <data name="CompletedWithTotal" xml:space="preserve">
+    <value>Slutförda ({0})</value>
+  </data>
+  <data name="StoppedEncoding" xml:space="preserve">
+    <value>Slutat koda.</value>
+  </data>
+  
+  <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
+    <value>Bekräfta borttagning</value>
+  </data>
+  <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
+    <value>Fel skanning av video fil(er)</value>
+  </data>
+  <data name="StartedEncoding" xml:space="preserve">
+    <value>Börjat kodning.</value>
+  </data>
+  <data name="DirectoryCreateErrorMessage" xml:space="preserve">
+    <value>Gick inte att skapa utdatakatalogen. Felinformation:
+
+{0}</value>
+  </data>
+  <data name="EncodeCompleted" xml:space="preserve">
+    <value>Kodning slutförd.</value>
+  </data>
+  <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
+    <value>Kodningen klar</value>
+  </data>
+  <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
+    <value>VidCoder har avslutat alla kodningsjobb i kön.</value>
+  </data>
+  <data name="OutputPathNotValidMessage" xml:space="preserve">
+    <value>Resultatmapps väg är inte giltig.</value>
+  </data>
+  <data name="OutputPathNotValidTitle" xml:space="preserve">
+    <value>Sökvägen inte giltigt</value>
+  </data>
+  <data name="Encode" xml:space="preserve">
+    <value>Koda</value>
+  </data>
+  <data name="Resume" xml:space="preserve">
+    <value>Återuppta</value>
+  </data>
+  <data name="EtaLabel" xml:space="preserve">
+    <value>ETA:</value>
+  </data>
+  
+  <data name="SourceOption_VideoFile" xml:space="preserve">
+    <value>Videofil...</value>
+  </data>
+  <data name="SourceOption_DiscFolder" xml:space="preserve">
+    <value>DVD/Blu-ray mapp...</value>
+  </data>
+  <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
+    <value>Version {0} är tillgänglig. Nedladdning av uppdateringen har börjat.</value>
+  </data>
+  <data name="UpdateNotAppliedError" xml:space="preserve">
+    <value>Uppdateringen har inte installerats. Om du inte avbröt den, prova att installera det manuellt.</value>
+  </data>
+  <data name="CouldNotLoadPresetMessage" xml:space="preserve">
+    <value>Kunde inte ladda förinställda: </value>
+  </data>
+  <data name="CouldNotSavePresetMessage" xml:space="preserve">
+    <value>Kunde inte spara förinställda '{0}':{1}{2}</value>
+  </data>
+  <data name="CouldNotCopyTextError" xml:space="preserve">
+    <value>Kunde inte kopiera text.</value>
+  </data>
+  <data name="LaunchUrlError" xml:space="preserve">
+    <value>Fel lansera URL: {0}</value>
+  </data>
+  <data name="PresetImportErrorMessage" xml:space="preserve">
+    <value>Det gick inte att importera förinställning. Kontrollera loggen för detaljer.</value>
+  </data>
+  <data name="ImportErrorTitle" xml:space="preserve">
+    <value>Fel vid import</value>
+  </data>
+  <data name="PresetImportSuccessMessage" xml:space="preserve">
+    <value>Lyckad Import förinställning {0}</value>
+  </data>
+  <data name="PresetExportSuccessMessage" xml:space="preserve">
+    <value>Lyckad export förinställning {0}</value>
+  </data>
+  <data name="ExportPresetFilePickerText" xml:space="preserve">
+    <value>Exportera förinställning</value>
+  </data>
+  <data name="SaveChangesPickerMessage" xml:space="preserve">
+    <value>Vill du spara ändringar i din nuvarande väljare?</value>
+  </data>
+  <data name="SaveChangesPickerTitle" xml:space="preserve">
+    <value>Spara aktuella väljare?</value>
+  </data>
+  <data name="RevertConfirmMessage" xml:space="preserve">
+    <value>Är du säker på att du vill återställa alla osparade ändringar?</value>
+  </data>
+  <data name="RevertConfirmTitle" xml:space="preserve">
+    <value>Återställ</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Är du säker på att du vill ta bort detta?</value>
+  </data>
+  <data name="RemoveConfirmTitle" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="OutputDirectoryPickerText" xml:space="preserve">
+    <value>Välj utdatakatalogen för kodade videofiler.</value>
+  </data>
+  <data name="LengthPreviewLabel" xml:space="preserve">
+    <value>({0})</value>
+  </data>
+  <data name="ModifiedAffix" xml:space="preserve">
+    <value>Ändrad</value>
+  </data>
+  <data name="PlayingVideoStatus" xml:space="preserve">
+    <value>Spela video...</value>
+  </data>
+  <data name="OpeningFolderStatus" xml:space="preserve">
+    <value>Öppna mapp...</value>
+  </data>
+  <data name="CloseVideoSourceToolTip" xml:space="preserve">
+    <value>Välj en video källa</value>
+  </data>
+  <data name="UpdatesMenuItem" xml:space="preserve">
+    <value>Uppdateringar...</value>
+  </data>
+  <data name="CbrAuto" xml:space="preserve">
+    <value>CBR Auto</value>
+  </data>
+  <data name="RangeBarToolTip" xml:space="preserve">
+    <value>Vänsterklicka för att ange starttid och högerklicka för att ange sluttiden.</value>
+  </data>
+  <data name="QueueFormat_Chapters" xml:space="preserve">
+    <value>Ch {0}</value>
+  </data>
+  <data name="QueueFormat_Frames" xml:space="preserve">
+    <value>Fr {0}-{1}</value>
+  </data>
+  <data name="QueueRangeAll" xml:space="preserve">
+    <value>Alla</value>
+  </data>
+  <data name="CouldNotCopyLogError" xml:space="preserve">
+    <value>Kunde inte kopiera loggen:{0}{0}{1}</value>
+  </data>
+  <data name="OpenLog" xml:space="preserve">
+    <value>Öppen logg</value>
+  </data>
+  <data name="CopyLog" xml:space="preserve">
+    <value>Kopiera logg</value>
+  </data>
+  <data name="PresetDiscardConfirmMessage" xml:space="preserve">
+    <value>Du har osparade ändringar. Är du säker du vill ignorera ändringarna genom att byta till en annan förinställning?</value>
+  </data>
+  <data name="PresetDiscardConfirmTitle" xml:space="preserve">
+    <value>Ignorera ändringar?</value>
+  </data>
+  <data name="RemoveFromQueueToolTip" xml:space="preserve">
+    <value>Ta bort från kö</value>
+  </data>
+  <data name="CouldNotSaveQueueMessage" xml:space="preserve">
+    <value>Kunde inte Spara kö:{0}{1}</value>
+  </data>
+  <data name="ExportQueue" xml:space="preserve">
+    <value>Exportera kö...</value>
+  </data>
+  <data name="ExportQueueFilePickerText" xml:space="preserve">
+    <value>Export kö</value>
+  </data>
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>Det gick inte att importera kö. Kontrollera loggen för detaljer.</value>
+  </data>
+  <data name="ImportPresetFilePickerTitle" xml:space="preserve">
+    <value>Importera förinställningar</value>
+  </data>
+  <data name="ImportQueueFilePickerTitle" xml:space="preserve">
+    <value>Importera förinställningar</value>
+  </data>
+  <data name="ImportQueue" xml:space="preserve">
+    <value>Importera kö...</value>
+  </data>
+  <data name="QueueExportSuccessMessage" xml:space="preserve">
+    <value>Framgångsrikt exporterad kö till {0}</value>
+  </data>
+  <data name="QueueImportSuccessMessage" xml:space="preserve">
+    <value>Lyckad Importering av kö.</value>
+  </data>
+  <data name="StopEncodeConfirmationTitle" xml:space="preserve">
+    <value>Stoppa kodning?</value>
+  </data>
+  <data name="StopEncodeConfirmationMessage" xml:space="preserve">
+    <value>Är du säker på att du vill stoppa kodningen?</value>
+  </data>
+  <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
+    <value>Stängden aktuella filen och öppna skivan?</value>
+  </data>
+  <data name="EncodeDetailsMenuItem" xml:space="preserve">
+    <value>Koda Detaljer</value>
+  </data>
+  <data name="RenameDatabaseFileLine2" xml:space="preserve">
+    <value>Vill du byta namn på den befintliga filen och börja med en ny?</value>
+  </data>
+  <data name="RenameDatabaseFileLine1" xml:space="preserve">
+    <value>Kan inte läsa version {0} databasfilen. Den högsta versionen känns igen av VidCoder {1} är {2}</value>
+    <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
+  </data>
+  <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+    <value>Inkompatibel databasfil</value>
+    <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
+  </data>
+  <data name="PickerMenuItem" xml:space="preserve">
+    <value>Väljare</value>
+  </data>
+  <data name="CouldNotLoadPickerMessage" xml:space="preserve">
+    <value>Kunde inte ladda väljaren: </value>
+  </data>
+  <data name="SimilarTitlesToolTip" xml:space="preserve">
+    <value>{0} andra titlar har en varaktighet nära den här.</value>
+    <comment>{0} is the number of titles that have a similar duration.</comment>
+  </data>
+  <data name="UseBackupDatabaseLine" xml:space="preserve">
+    <value>Du har en säkerhetskopierad version {0} fil. Vill du använda den?</value>
+    <comment>{0} is the version of the database file you have a backup for.</comment>
+  </data>
+  <data name="VideoPlayError" xml:space="preserve">
+    <value>Fel vid uppspelning av video.</value>
+  </data>
+  <data name="CustomVideoPlayerError" xml:space="preserve">
+    <value>Anpassade videospelare kunde inte hittas på {0}.</value>
+    <comment>{0} is the path to the custom video player.</comment>
+  </data>
+  <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
+    <value>Tilläggsköns mapp av videofiler...</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>Det fanns fel vid skanningen av vissa filer och de har inte lagts till i kön:
+
+{0}</value>
+  </data>
+  <data name="FileSizeColumnHeader" xml:space="preserve">
+    <value>Storlek</value>
+    <comment>Used on the "completed encodes" tab, to label the column that shows the final output file size.</comment>
+  </data>
+  <data name="OpenAppDataFolder" xml:space="preserve">
+    <value>Öppen App Data mapp</value>
+    <comment>Menu choice for opening the application data folder (that holds the VidCoder database file, logs, etc)</comment>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</root>

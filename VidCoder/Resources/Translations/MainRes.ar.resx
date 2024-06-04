@@ -332,9 +332,6 @@
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>يتوفر الإصدار {0}. تم بدء تنزيل التحديث.</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>وقد انتهي الإصدار {0} من التحميل سيتم تثبيت عند الخروج.</value>
-  </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
     <value>لم يتم تطبيق التحديث. اذا لم تقم بإلغائه ، فحاول تثبيته يدويا.</value>
   </data>
@@ -624,9 +621,6 @@
   <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
     <value>خيارات تشفير الصوت</value>
   </data>
-  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
-    <value>تم الانتهاء من تنزيل الإصدار {0}.</value>
-  </data>
   <data name="RemoveFromQueueMenuItem" xml:space="preserve">
     <value>أزاله من قائمه الانتظار</value>
   </data>
@@ -645,6 +639,7 @@
   <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
     <value>تشفير الاجراء الكامل لم يتم تنفيذه بسبب وجود أخطاء في قائمه نتائج التشفير.</value>
   </data>
+  
   
   
   

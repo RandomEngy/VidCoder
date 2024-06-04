@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DefaultCheckBox" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="LanguagesRadioButton" xml:space="preserve">
+    <value>Sprog</value>
+  </data>
+  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
+    <value>Kun hvis forskelligt fra lydspor</value>
+    <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Vælger: {0}</value>
+  </data>
+  <data name="PickerButtonFormat" xml:space="preserve">
+    <value>Vælger: {0}</value>
+    <comment>{0} is the name of the picker. This string shows up on the picker split button.</comment>
+  </data>
+  <data name="OutputLocation" xml:space="preserve">
+    <value>Output placering</value>
+  </data>
+  <data name="OverrideDirectoryCheckBox" xml:space="preserve">
+    <value>Overskriv mappe:</value>
+  </data>
+  <data name="PickerHelpText" xml:space="preserve">
+    <value>Vælg automatisk titler, lyd, undertekster og destination</value>
+  </data>
+  <data name="AutoQueueOnScanCheckBox" xml:space="preserve">
+    <value>Tilføj automatisk til køen efter scanning</value>
+  </data>
+  <data name="AutoEncodeOnScanCheckBox" xml:space="preserve">
+    <value>Start kodning efter scanning</value>
+  </data>
+  <data name="UseGlobalSettingToolTip" xml:space="preserve">
+    <value>Brug global indstilling</value>
+    <comment>Label for the "indeterminate" checkbox state that lets the user know that this will fall back to the global setting</comment>
+  </data>
+  <data name="PresetOverrideToolTip" xml:space="preserve">
+    <value>Dette vil tilsidesætte enhver forudindstilling, der er valgt i hovedvinduet.</value>
+  </data>
+  <data name="EncodingSection" xml:space="preserve">
+    <value>Kodning</value>
+    <comment>The header for the Encoding section in the Picker window.</comment>
+  </data>
+  <data name="PostEncodingSection" xml:space="preserve">
+    <value>Efter-kodning</value>
+    <comment>Header for the post-encoding section in the picker window.</comment>
+  </data>
+  <data name="SendFileToLabel" xml:space="preserve">
+    <value>Send fil til:</value>
+    <comment>Label for the option to run a program after encoding each file.</comment>
+  </data>
+  <data name="PostEncodeArgumentsLabel" xml:space="preserve">
+    <value>Argumenter:</value>
+    <comment>The label for the arguments to pass to the post-encode executable.</comment>
+  </data>
+  
+  
+  <data name="AddLanguageButton" xml:space="preserve">
+    <value>Tilføj Sprog</value>
+  </data>
+  
+  <data name="AllTracksForThisLanguageRadioButton" xml:space="preserve">
+    <value>Alle spor for dette sprog</value>
+  </data>
+  <data name="FirstTrackOfEachLanguageRadioButton" xml:space="preserve">
+    <value>Første spor af hvert sprog</value>
+  </data>
+  <data name="FirstTrackRadioButton" xml:space="preserve">
+    <value>Første spor</value>
+  </data>
+  
+  
+  <data name="FirstAsDefaultCheckBox" xml:space="preserve">
+    <value>Markér først som standard</value>
+    <comment>Label for checkbox to mark the first subtitle as default.</comment>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>Brug forudindstilling:</value>
+  </data>
+  <data name="RemoveLanguageToolTip" xml:space="preserve">
+    <value>Fjern dette sprog.</value>
+  </data>
+  <data name="SortLanguagesLabel" xml:space="preserve">
+    <value>Sortér sprog øverst:</value>
+  </data>
+  <data name="ForcedOnlyCheckBox" xml:space="preserve">
+    <value>Kun tvungne</value>
+    <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
+  </data>
+  <data name="LastSelectedRadioButton" xml:space="preserve">
+    <value>Sidst valgte</value>
+  </data>
+  <data name="OverrideNameFormatLabel" xml:space="preserve">
+    <value>Tilgængelige muligheder: {0}</value>
+  </data>
+  
+  
+  
+  
+  <data name="TimeRangeStartAutomationName" xml:space="preserve">
+    <value>Tidsinterval start</value>
+  </data>
+  <data name="TimeRangeEndAutomationName" xml:space="preserve">
+    <value>Tidsinterval slut </value>
+  </data>
+  <data name="ByIndexRadioButton" xml:space="preserve">
+    <value>Efter indeks</value>
+    <comment>Label for the choice to choose audio or subtitle tracks by index</comment>
+  </data>
+  <data name="SelectTracksLabel" xml:space="preserve">
+    <value>Vælg spor:</value>
+  </data>
+  <data name="SelectTracksHelpText" xml:space="preserve">
+    <value>Komma separeret - ex. 2,5</value>
+  </data>
+  
+  
+  <data name="DestinationSection" xml:space="preserve">
+    <value>Destination</value>
+  </data>
+  
+  
+  
+  
+  <data name="CustomPickerNameTemplate" xml:space="preserve">
+    <value>Tilpasset {0}</value>
+    <comment>The name for a custom auto-created picker. {0} is a number like 2, or 3 or 4 to differentiate it</comment>
+  </data>
+  
+  
+  
+  
+  <data name="WordBreakCharacter_Dot" xml:space="preserve">
+    <value>Prik</value>
+  </data>
+  <data name="WordBreakCharacter_Space" xml:space="preserve">
+    <value>Mellemrum</value>
+  </data>
+  <data name="WordBreakCharacter_Underscore" xml:space="preserve">
+    <value>Understregning</value>
+  </data>
+  <data name="ChangeWordSeparatorLabel" xml:space="preserve">
+    <value>Skift ordseparator til</value>
+  </data>
+  <data name="SourceCleanupPreviewLabel" xml:space="preserve">
+    <value>Forhåndsvisning:</value>
+  </data>
+  
+  
+  
+  
+  <data name="TrackAutomationFormat" xml:space="preserve">
+    <value>Spor {0}</value>
+    <comment>Screen reader format for track names in the Picker.</comment>
+  </data>
+  <data name="BurnInLabel" xml:space="preserve">
+    <value>Brænd:</value>
+  </data>
+  <data name="PickerAudioSectionName" xml:space="preserve">
+    <value>Lyd</value>
+  </data>
+  
+  <data name="PickerSubtitleSectionName" xml:space="preserve">
+    <value>Undertekster</value>
+  </data>
+  
+  <data name="TrackSelectionLabel" xml:space="preserve">
+    <value>Valg af spor:</value>
+    <comment>Label for track selection mode for audio or subtitle tracks.</comment>
+  </data>
+  <data name="AudioSelectionModeToolTip" xml:space="preserve">
+    <value>Sidst valgt - Vælger det sidst markerede lydspor hvis en match findes, ellers vælger du det første.
+Først - Medtag kun det første lydspor.
+Efter indeks - Vælg efter sporindeks (nummer-baseret)
+Sprog - Vælg efter sprog
+Alle - Inkluder alle lydspor.</value>
+  </data>
+  <data name="SubtitleSelectionModeToolTip" xml:space="preserve">
+    <value>Sidst valgt - Markerer det sidst valgte undertekstspor hvis en match findes, ellers vælges ingen spor.
+Ingen - Ingen undertekster inkluderes.
+Først - Inkludér kun den første undertekst.
+Efter indeks - Vælg efter sporindeks (1-baseret)
+Sprog - Vælg efter sprog
+Alle - Inkluder alle undertekster.</value>
+  </data>
+  
+  
+  <data name="VideoSelectionSection" xml:space="preserve">
+    <value>Valg af video</value>
+  </data>
+  <data name="MetadataSection" xml:space="preserve">
+    <value>Metadata</value>
+  </data>
+  
+  
+  
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Sprog:</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+</root>

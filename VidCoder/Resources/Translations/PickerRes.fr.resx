@@ -172,10 +172,7 @@
     <value>Arguments :</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>Les arguments à passer au programme. Utiliser {file} pour le chemin de sortie du fichier, {folder} contient le chemin du dossier ou d'autres options de chemin comme {title} et {date} (voir format de nommage).</value>
-    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
-  </data>
+  
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>Sélecteur a spécifié le préréglage de codage.</value>
   </data>
@@ -396,10 +393,28 @@ Tout - Inclure toutes les pistes de sous-titres.</value>
     <value>Suppression du fichier source après la réussite de l'encodage :</value>
     <comment>Label for the option to automatically delete source files on completion.</comment>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="HeightFilterCheckBox" xml:space="preserve">
+    <value>Choisir uniquement les titres avec une hauteur</value>
+    <comment>Label before the UI to pick the title height limitation. For example, it might read "Pick only titles with height [ &gt; ] [ 480 ]"</comment>
+  </data>
+  <data name="HeightFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>Filtrer les titres par hauteur</value>
+    <comment>Screen reader text for the height filter checkbox</comment>
+  </data>
+  <data name="HeightFilterValueAutomationName" xml:space="preserve">
+    <value>Valeur du filtre de hauteur</value>
+    <comment>Screen reader text for the height filter value</comment>
+  </data>
+  <data name="WidthFilterCheckBox" xml:space="preserve">
+    <value>Choisir uniquement les titres avec une largeur</value>
+    <comment>Label before the UI to pick the title width limitation. For example, it might read "Pick only titles with width [ &gt; ] [ 640 ]"</comment>
+  </data>
+  <data name="WidthFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>Filtrer les titres par largeur</value>
+    <comment>Screen reader text for the width filter checkbox</comment>
+  </data>
+  <data name="WidthFilterValueAutomationName" xml:space="preserve">
+    <value>Valeur du filtre de largeur</value>
+    <comment>Screen reader text for the width filter value</comment>
+  </data>
 </root>

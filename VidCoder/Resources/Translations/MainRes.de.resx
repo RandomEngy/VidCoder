@@ -336,9 +336,6 @@
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>Version {0} steht zur Verfügung. Das Update wird bereits heruntergeladen.</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>Version {0} wurde vollständig herunterladen und wird beim Schließen installiert.</value>
-  </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
     <value>Das Update wurde nicht angewendet. Wenn Sie es nicht abgebrochen haben, versuchen Sie es manuell zu installieren.</value>
   </data>
@@ -628,9 +625,6 @@
   <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
     <value>Audio-Encodierungsoptionen</value>
   </data>
-  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
-    <value>Version {0} wurde erfolgreich heruntergeladen.</value>
-  </data>
   <data name="RemoveFromQueueMenuItem" xml:space="preserve">
     <value>Aus der Warteschlange entfernen</value>
   </data>
@@ -739,4 +733,5 @@ Diese Warnung wird nur zweimal angezeigt.</value>
     <comment>{0} is the current job number for scanning and adding an item to the queue
 {1} is the total number of scanned items this session</comment>
   </data>
+  
 </root>

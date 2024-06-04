@@ -418,4 +418,6 @@
   <data name="CapNVEncCheckBox" xml:space="preserve">
     <value>Limita les codificacions NVEnc simultànies. Si ho elimineu, caldrà un pedaç personalitzat per al controlador de Nvidia.</value>
   </data>
+  
+  
 </root>

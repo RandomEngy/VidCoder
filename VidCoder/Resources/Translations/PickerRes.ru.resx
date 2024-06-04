@@ -172,10 +172,7 @@
     <value>Аргументы:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>Аргументы для передачи в программу. Используйте {file} для указания выходного пути файла, {folder} содержит путь к папке или другие параметры, такие как {title} и {date} (см. Формат именования).</value>
-    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
-  </data>
+  
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>Выбор задал предустановку кодирования.</value>
   </data>

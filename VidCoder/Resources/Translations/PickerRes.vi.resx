@@ -172,10 +172,7 @@
     <value>Đối số:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>Các đối số để chuyển đến chương trình. Sử dụng {file} cho đường dẫn xuất tệp, {folder} để chứa đường dẫn thư mục hoặc các tùy chọn đường dẫn khác như {title} và {date} (xem định dạng đặt tên).</value>
-    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
-  </data>
+  
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>Bộ chọn đã chỉ định giá trị đặt trước mã hóa.</value>
   </data>

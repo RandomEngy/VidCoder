@@ -172,10 +172,7 @@
     <value>引数：</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>プログラムに渡すパラメーター。{file} で出力ファイルのパス、{folder} でフォルダーのパス、 {title} や {date} が使えます。（名前規則を参照）</value>
-    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
-  </data>
+  
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>ピッカーはエンコードのプリセットを指定しています。</value>
   </data>

@@ -1,0 +1,511 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Save" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="SaveAs" xml:space="preserve">
+    <value>Tallenna nimellä...</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>Palauta</value>
+  </data>
+  <data name="Audio_DrcToolTip" xml:space="preserve">
+    <value>Äänen dynamiikan vaimennus. Käytettävissä ovat arvot 0-4.
+
+Vaimennus "kompressoi" dynamiikaltaan laaja-alaisia äänilähdetiedostoja voimistamalla heikkoja ja heikentämällä voimakkaita osuuksia.</value>
+  </data>
+  <data name="Audio_GainToolTip" xml:space="preserve">
+    <value>Vahvista tai vaimenna ääntä ennen muunnosta. Käytettävissä olevat arvot ovat -20 ... +20 dB.</value>
+  </data>
+  <data name="IncludeChapterMarkersToolTip" xml:space="preserve">
+    <value>Sisällytä lähdetiedoston kappalemerkinnät muunnettuun videoon.</value>
+  </data>
+  <data name="IPod5GSupportToolTip" xml:space="preserve">
+    <value>Sisällyttää tiedostoon merkinnän, jonka avulla vanhemmat iPod-laitteet toistavat H264-videon oikein synkronisoituna.</value>
+  </data>
+  
+  <data name="Video_QualityTargetToolTip" xml:space="preserve">
+    <value>Määritä haluamasi laatutekijä. Videokooderien käyttämät asteikot poikkeavat toisistaan.</value>
+  </data>
+  
+  
+  <data name="X264TuneToolTip" xml:space="preserve">
+    <value>Hienosäädä asetuksia lähteeseesi sopiviksi. Tietyn hienosäädön valintoja sovelletaan esiasetuksen jälkeen, mutta ennen kaikkia muita säätöjä.</value>
+  </data>
+  <data name="ContainerLabel" xml:space="preserve">
+    <value>Säilö:</value>
+  </data>
+  <data name="ExtensionLabel" xml:space="preserve">
+    <value>Tunniste (pääte):</value>
+  </data>
+  <data name="WebOptimizedCheckBox" xml:space="preserve">
+    <value>Verkkoon optimoitu</value>
+  </data>
+  <data name="Ipod5GSupportCheckBox" xml:space="preserve">
+    <value>iPod 5G-tuki</value>
+  </data>
+  <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
+    <value>Sisällytä kappalemerkinnät</value>
+  </data>
+  <data name="TabHeader_Sizing" xml:space="preserve">
+    <value>Mitoitus</value>
+  </data>
+  <data name="TabHeader_VideoFilters" xml:space="preserve">
+    <value>Videosuodattimet</value>
+  </data>
+  <data name="TabHeader_VideoEncoding" xml:space="preserve">
+    <value>Videon koodaus</value>
+  </data>
+  <data name="TabHeader_AudioEncoding" xml:space="preserve">
+    <value>Audio koodaus</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Nimeä Uudelleen</value>
+  </data>
+  <data name="Input" xml:space="preserve">
+    <value>Lähde</value>
+  </data>
+  <data name="AutoCaption" xml:space="preserve">
+    <value>(auto)</value>
+  </data>
+  <data name="NoneCaption" xml:space="preserve">
+    <value>(ei mitään)</value>
+  </data>
+  <data name="StorageResolutionLabel" xml:space="preserve">
+    <value>Tallennuksen resoluutio:</value>
+  </data>
+  <data name="PixelAspectRatioLabel" xml:space="preserve">
+    <value>Pikselin kuvasuhde:</value>
+  </data>
+  <data name="DisplayResolutionLabel" xml:space="preserve">
+    <value>Näytön tarkkuus:</value>
+  </data>
+  <data name="SizingLabel" xml:space="preserve">
+    <value>Mitoitus</value>
+  </data>
+  <data name="WidthLabel" xml:space="preserve">
+    <value>Leveys:</value>
+  </data>
+  <data name="HeightLabel" xml:space="preserve">
+    <value>Korkeus:</value>
+  </data>
+  <data name="MaxWidthLabel" xml:space="preserve">
+    <value>Max leveys:</value>
+  </data>
+  <data name="MaxHeightLabel" xml:space="preserve">
+    <value>Max korkeus:</value>
+  </data>
+  <data name="OutputLabel" xml:space="preserve">
+    <value>Ulostulo</value>
+  </data>
+  <data name="CroppingLabel" xml:space="preserve">
+    <value>Rajaus</value>
+  </data>
+  
+  
+  
+  
+  <data name="GrayscaleCheckBox" xml:space="preserve">
+    <value>Mustavalkoinen koodaus</value>
+  </data>
+  <data name="TypeLabel" xml:space="preserve">
+    <value>Tyyppi:</value>
+  </data>
+  <data name="ShortFramerateLabel" xml:space="preserve">
+    <value>Kuvataajuus:</value>
+  </data>
+  <data name="CodecLabel" xml:space="preserve">
+    <value>Koodekki:</value>
+  </data>
+  <data name="FramerateLabel" xml:space="preserve">
+    <value>Kuvataajuus (FPS):</value>
+  </data>
+  <data name="ConstantFramerateRadioButton" xml:space="preserve">
+    <value>Vakio kuvataajuus</value>
+  </data>
+  <data name="Quality" xml:space="preserve">
+    <value>Laatu</value>
+  </data>
+  <data name="TwoPassEncodingCheckBox" xml:space="preserve">
+    <value>Kaksivaiheinen koodaus</value>
+  </data>
+  <data name="TurboFirstPassCheckBox" xml:space="preserve">
+    <value>Turbo ensivaihe</value>
+  </data>
+  <data name="TargetSizeRadioButton" xml:space="preserve">
+    <value>Tavoitekoko (Mt)</value>
+  </data>
+  <data name="AverageBitrateRadioButton" xml:space="preserve">
+    <value>Keskim. bittinopeus (kb/s)</value>
+  </data>
+  <data name="ConstantQualityRadioButton" xml:space="preserve">
+    <value>Vakio laatu</value>
+  </data>
+  <data name="ProfileLabel" xml:space="preserve">
+    <value>Profiili:</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>Asetus:</value>
+  </data>
+  <data name="TuneLabel" xml:space="preserve">
+    <value>Hienosäätö:</value>
+  </data>
+  
+  
+  
+  <data name="Preset_UltraFast" xml:space="preserve">
+    <value>Ultranopea</value>
+  </data>
+  <data name="Preset_SuperFast" xml:space="preserve">
+    <value>Supernopea</value>
+  </data>
+  <data name="Preset_VeryFast" xml:space="preserve">
+    <value>Hyvin nopea</value>
+  </data>
+  <data name="Preset_Faster" xml:space="preserve">
+    <value>Nopeampi</value>
+  </data>
+  <data name="Preset_Fast" xml:space="preserve">
+    <value>Nopea</value>
+  </data>
+  
+  <data name="Preset_Slow" xml:space="preserve">
+    <value>Hidas</value>
+  </data>
+  <data name="Preset_Slower" xml:space="preserve">
+    <value>Hitaampi</value>
+  </data>
+  <data name="Preset_VerySlow" xml:space="preserve">
+    <value>Hyvin hidas</value>
+  </data>
+  
+  
+  <data name="Tune_animation" xml:space="preserve">
+    <value>Animaatio</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  <data name="CfrSameAsSourceToolTip" xml:space="preserve">
+    <value>Käyttää lähdetiedoston kuvataajuutta jatkuvana kuvataajuutena.</value>
+  </data>
+  <data name="CfrToolTip" xml:space="preserve">
+    <value>Käyttää jatkuvaa kuvataajuutta.</value>
+  </data>
+  <data name="VfrSameAsSourceToolTip" xml:space="preserve">
+    <value>Salli vaihteleva kuvataajuus. Jos lähteessä on vaihteleva kuvataajuus, sitä käytetään. Huomaa, että kaikki laitteet eivät toista videota, jonka kuvataajuus on vaihteleva.</value>
+  </data>
+  <data name="VfrPeakFramerateToolTip" xml:space="preserve">
+    <value>Salli vaihteleva kuvataajuus ja käytä määrättyä taajuutta maksimina. Jos lähteessä on muuttuva ku-
+vataajuus, sitä käytetään. Huomaa, että jotkin toistimet eivät tue vaihtelevaa kuvataajuutta.</value>
+  </data>
+  <data name="VfrChoice" xml:space="preserve">
+    <value>Vaihteleva kuvataajuus</value>
+  </data>
+  <data name="VfrPeakChoice" xml:space="preserve">
+    <value>Kuvataajuuden huippu (VFR)</value>
+  </data>
+  <data name="HighQuality" xml:space="preserve">
+    <value>Korkea laatu</value>
+  </data>
+  <data name="LowQuality" xml:space="preserve">
+    <value>Heikko laatu</value>
+  </data>
+  <data name="SameAsSource" xml:space="preserve">
+    <value>Sama kuin lähde</value>
+  </data>
+  <data name="AddAudioEncodingButton" xml:space="preserve">
+    <value>Lisää äänenkoodaus</value>
+  </data>
+  <data name="NoTracksPlaceholder" xml:space="preserve">
+    <value>(Ei raitaa)</value>
+  </data>
+  <data name="TargetStream" xml:space="preserve">
+    <value>Tavoite stream</value>
+  </data>
+  
+  <data name="SampleRateLabel" xml:space="preserve">
+    <value>Näytetaajuus:</value>
+  </data>
+  <data name="BitrateLabel" xml:space="preserve">
+    <value>Bittinopeus:</value>
+  </data>
+  <data name="CompressionLabel" xml:space="preserve">
+    <value>Pakkaus:</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <data name="Video" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  
+  <data name="MoreSettingsLabel" xml:space="preserve">
+    <value>Lisää asetuksia:</value>
+  </data>
+  <data name="Track" xml:space="preserve">
+    <value>Raita</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Lähde</value>
+  </data>
+  
+  
+  <data name="SampleRate" xml:space="preserve">
+    <value>Näytetaajuus</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</root>

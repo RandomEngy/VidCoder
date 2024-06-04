@@ -856,4 +856,5 @@ Lapsharp améliore la netteté en utilisant des noyaux de convolution approchant
   <data name="CroppingType_Conservative" xml:space="preserve">
     <value>Conservateur</value>
   </data>
+  
 </root>

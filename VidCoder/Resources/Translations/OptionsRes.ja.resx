@@ -419,4 +419,6 @@
   <data name="CapNVEncCheckBox" xml:space="preserve">
     <value>同時NVEnc エンコードをキャップします。これを削除するには、カスタム NVidia ドライバーパッチが必要です。</value>
   </data>
+  
+  
 </root>
