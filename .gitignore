@@ -13,3 +13,4 @@ Import/*
 *.suo
 *.csproj.user
 *.user
+/crowdin.yml
