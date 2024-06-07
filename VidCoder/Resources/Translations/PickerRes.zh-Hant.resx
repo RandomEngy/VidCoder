@@ -172,7 +172,10 @@
     <value>參數:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  
+  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
+    <value>要傳遞給程式的參數，使用 {file} 作為檔案輸出路徑，{folder} 作為資料夾路徑，{sourcepath} 作為來源路徑，或其他路徑選項如 {title} 及 {date} (請參見命名格式)。</value>
+    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>選取器已指定預設編碼。</value>
   </data>

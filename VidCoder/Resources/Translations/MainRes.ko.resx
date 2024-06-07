@@ -559,23 +559,71 @@
   
   
   
+  <data name="CompareOriginalLabel" xml:space="preserve">
+    <value>원본</value>
+    <comment>Label for the original video when comparing original vs encoded</comment>
+  </data>
+  <data name="CompareWindowHelpText" xml:space="preserve">
+    <value>Ctrl을 클릭하거나 길게 누르면 인코딩된 버전이 표시됩니다.</value>
+  </data>
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="UnmuteAutomationName" xml:space="preserve">
+    <value>음소거 해제</value>
+    <comment>Text for screen readers for the unmute button on video playback</comment>
+  </data>
+  <data name="AutoPauseLowBattery" xml:space="preserve">
+    <value>배터리 부족으로 인해 자동으로 일시 정지합니다.</value>
+  </data>
+  <data name="AutoPauseLowDiskSpace" xml:space="preserve">
+    <value>{0}GB 미만의 사용 가능한 디스크 공간으로 인해 자동으로 일시 중지됩니다.</value>
+    <comment>{0} is the disk space threshold for auto-pause in GB</comment>
+  </data>
+  <data name="AutoPauseProcessDetected" xml:space="preserve">
+    <value>자동 일시 중지, 프로세스 감지됨: {0}</value>
+    <comment>{0} is the name of the process we were waiting for to pause</comment>
+  </data>
+  <data name="AutoPauseResumeBattery" xml:space="preserve">
+    <value>자동으로 재개되며 AC 전원에 연결됩니다.</value>
+  </data>
+  <data name="AutoPauseResumeDiskSpace" xml:space="preserve">
+    <value>자동으로 재개되며 디스크에 여유 공간이 있습니다.</value>
+  </data>
+  <data name="AutoPauseResumeProcess" xml:space="preserve">
+    <value>자동으로 재개되고 프로세스가 사라집니다.</value>
+  </data>
+  <data name="Win7DeprecationWarning" xml:space="preserve">
+    <value>VidCoder는 Windows 7 또는 8에서 더 이상 지원되지 않습니다.
+
+VidCoder를 계속 사용할 수 있습니다. 일부 기능은 작동하지 않으며 알 수 없는 다른 문제가 있을 수 있습니다. 이러한 문제가 발생하면 지원되지 않습니다.
+
+v5는 Windows 7/8용으로 테스트된 마지막 버전이었습니다.
+
+이 경고는 두 번만 표시됩니다.</value>
+  </data>
+  <data name="RemoveSourceFiles_Delete" xml:space="preserve">
+    <value>삭제</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RemoveSourceFiles_Recycle" xml:space="preserve">
+    <value>재활용</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RequestFeatureMenuItem" xml:space="preserve">
+    <value>기능 요청</value>
+  </data>
+  <data name="CopyLogAndReportMenuItem" xml:space="preserve">
+    <value>로그 복사 및 문제 보고</value>
+  </data>
+  <data name="WatcherMenuItem" xml:space="preserve">
+    <value>관찰자</value>
+  </data>
+  <data name="QueueProgressLabel" xml:space="preserve">
+    <value>대기 중 {0}/{1}:</value>
+    <comment>{0} is the current job number for scanning and adding an item to the queue
+{1} is the total number of scanned items this session</comment>
+  </data>
+  <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
+    <value>버전 {0} 다운로드가 완료되었으며 다음 실행 시 적용됩니다.</value>
+  </data>
 </root>

@@ -858,5 +858,7 @@ Lapsharp verscherpt middels plooikernen die Laplaciaanse randfilters benaderen e
   <data name="CroppingType_Conservative" xml:space="preserve">
     <value>Conservatief</value>
   </data>
-  
+  <data name="MultiPassEncodingCheckBox" xml:space="preserve">
+    <value>Meervoudige codering</value>
+  </data>
 </root>
