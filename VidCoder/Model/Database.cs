@@ -126,8 +126,7 @@ public static class Database
 				Environment.NewLine,
 				messageLine2);
 
-			var messageService = StaticResolver.Resolve<IMessageBoxService>();
-			if (messageService.Show(
+			if (MessageBox.Show(
 				message,
 				MainRes.IncompatibleDatabaseFileTitle,
 				MessageBoxButton.YesNo) == MessageBoxResult.Yes)
@@ -163,8 +162,7 @@ public static class Database
 				Environment.NewLine,
 				messageLine2);
 
-			var messageService = StaticResolver.Resolve<IMessageBoxService>();
-			if (messageService.Show(
+			if (MessageBox.Show(
 				message,
 				MainRes.IncompatibleDatabaseFileTitle,
 				MessageBoxButton.YesNo) == MessageBoxResult.Yes)
