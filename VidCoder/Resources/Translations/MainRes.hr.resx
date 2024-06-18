@@ -749,5 +749,7 @@ Ovo će se upozorenje prikazati samo dva puta.</value>
     <comment>{0} is the current job number for scanning and adding an item to the queue
 {1} is the total number of scanned items this session</comment>
   </data>
-  
+  <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
+    <value>Verzija {0} je preuzeta i primijenit će se pri sljedećem pokretanju.</value>
+  </data>
 </root>
