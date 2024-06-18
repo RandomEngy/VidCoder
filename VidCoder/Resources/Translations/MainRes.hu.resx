@@ -751,5 +751,7 @@ Ez a figyelmeztetés csak kétszer jelenik meg.</value>
     <comment>{0} is the current job number for scanning and adding an item to the queue
 {1} is the total number of scanned items this session</comment>
   </data>
-  
+  <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
+    <value>{0} verzió letöltődött és a következő indításkor telepítésre kerül.</value>
+  </data>
 </root>

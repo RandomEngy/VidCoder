@@ -419,6 +419,12 @@ Peiling: Periodieke controle van de inhoud van de mappen. Gebruikt aanzienlijke 
   <data name="CapNVEncCheckBox" xml:space="preserve">
     <value>Gelijktijdige NVEnc codering beperken. Uitschakeling hiervan vereist een aangepast NVidia stuurprogramma.</value>
   </data>
-  
-  
+  <data name="ShowProgressInWindowTitleCheckBox" xml:space="preserve">
+    <value>Coderingsvoortgang in venstertitel weergeven</value>
+  </data>
+  <data name="DownloadingUpdateStatus" xml:space="preserve">
+    <value>Versie {0} downloaden…</value>
+    <comment>Shown when downloading an update.
+{0} is the update version, for example 10.4</comment>
+  </data>
 </root>

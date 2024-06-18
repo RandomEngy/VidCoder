@@ -172,7 +172,10 @@
     <value>Argumentumok:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  
+  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
+    <value>A programnak továbbítandó változók. {file} a fájl kimeneti útvonalához, {folder} a tartalmazó mappaútvonalhoz, {sourcepath} a teljes forrásútvonalhoz vagy egyéb opciók mint {title} és {date} (lásd elnevezési formátumot).</value>
+    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>A kiválasztó meghatározta a kódolási sémát.</value>
   </data>

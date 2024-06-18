@@ -749,5 +749,7 @@ Questo avviso verrà visualizzato solo due volte.</value>
     <comment>{0} is the current job number for scanning and adding an item to the queue
 {1} is the total number of scanned items this session</comment>
   </data>
-  
+  <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
+    <value>La versione {0} è stata scaricata e verrà installata alla chiusura del programma.</value>
+  </data>
 </root>

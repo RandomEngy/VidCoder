@@ -858,5 +858,7 @@ Lapsharp — усиливает резкость, используя  ядра �
   <data name="CroppingType_Conservative" xml:space="preserve">
     <value>Консервативная</value>
   </data>
-  
+  <data name="MultiPassEncodingCheckBox" xml:space="preserve">
+    <value>Многопроходное кодирование</value>
+  </data>
 </root>
