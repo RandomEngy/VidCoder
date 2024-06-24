@@ -309,8 +309,15 @@ public partial class Main : Window, IMainView
 	{
 		DispatchUtilities.BeginInvoke(() =>
 		{
-			this.Show();
-			this.WindowState = this.RestoredWindowState;
+			try
+			{
+				this.Show();
+				this.WindowState = this.RestoredWindowState;
+			}
+			catch (Exception exception)
+			{
+				StaticResolver.Resolve<IAppLogger>().LogError("Could not restore window." + Environment.NewLine + exception);
+			}
 		});
 	}
 
