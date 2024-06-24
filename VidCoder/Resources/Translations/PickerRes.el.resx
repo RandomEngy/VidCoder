@@ -172,7 +172,10 @@
     <value>Μεταβλητές:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  
+  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
+    <value>Οι μεταβλητές που πρέπει να θέσετε στο πρόγραμμα. Χρησιμοποιήστε {file} για τη διαδρομή εξόδου του αρχείου, {folder} για τη διαδρομή φακέλου εξόδου,{sourcepath} για την πλήρη διαδρομή του αρχικού αρχείου ή άλλες επιλογές διαδρομής όπως {title} και {date} (ανατρέξτε στην ενότητα Μορφή ονομασίας).</value>
+    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>Ο επιλογέας έχει καθορίσει την προκαθορισμένη κωδικοποίηση.</value>
   </data>

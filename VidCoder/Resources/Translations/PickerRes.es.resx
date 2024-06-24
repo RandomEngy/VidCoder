@@ -172,7 +172,10 @@
     <value>Argumentos:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  
+  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
+    <value>Los argumentos a pasar al programa. Utilice {file} para la ruta de salida del archivo, {folder} para la ruta de la carpeta contenedora, {sourcepath} para la ruta completa de la fuente, u otras opciones de ruta como {title} y {date} (ver Formato de Nomenclatura).</value>
+    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>El selector ha especificado el preset de codificación.</value>
   </data>
