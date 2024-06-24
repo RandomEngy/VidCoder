@@ -56,6 +56,7 @@ public class JsonEncodeFactory
 		SourceTitle title,
 		string defaultChapterNameFormat,
 		bool enableNVDec,
+		bool isEncode,
 		int previewNumber = -1,
 		int previewSeconds = 0,
 		int previewCount = 0)
@@ -88,7 +89,7 @@ public class JsonEncodeFactory
 			PAR = outputSize.Par,
 			Source = this.CreateSource(job, title, previewNumber, previewSeconds, previewCount),
 			Subtitle = this.CreateSubtitles(job, title),
-			Video = this.CreateVideo(job, title, enableNVDec, previewSeconds)
+			Video = this.CreateVideo(job, title, enableNVDec, previewSeconds, isEncode)
 		};
 
 		return encode;
@@ -928,7 +929,7 @@ public class JsonEncodeFactory
 		return subtitles;
 	}
 
-	private Video CreateVideo(VCJob job, SourceTitle title, bool enableNVDec, int previewLengthSeconds)
+	private Video CreateVideo(VCJob job, SourceTitle title, bool enableNVDec, int previewLengthSeconds, bool isEncode)
 	{
 		Video video = new Video();
 		VCProfile profile = job.EncodingProfile;
@@ -942,10 +943,10 @@ public class JsonEncodeFactory
 		video.Encoder = videoEncoder.ShortName;
 		video.QSV = new QSV
 		{
-			Decode = profile.QsvDecode
+			Decode = profile.QsvDecode && isEncode
 		};
 
-		if (enableNVDec)
+		if (enableNVDec && isEncode)
 		{
 			video.HardwareDecode = (int)NativeConstants.HB_DECODE_SUPPORT_NVDEC;
 		}
