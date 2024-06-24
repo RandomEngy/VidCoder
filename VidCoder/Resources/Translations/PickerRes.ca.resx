@@ -385,9 +385,6 @@ Totes: inclou totes les pistes de subtítols.
   <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
     <value>Afegeix fitxers de subtítols externs ({0}) amb el mateix nom que el fitxer de vídeo d'entrada</value>
   </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>Idioma:</value>
-  </data>
   <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
     <value>Confirma abans d'eliminar</value>
   </data>
@@ -419,4 +416,7 @@ Totes: inclou totes les pistes de subtítols.
     <value>Valor del filtre d'amplada</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
+  
+  
+  
 </root>

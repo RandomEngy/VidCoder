@@ -386,9 +386,6 @@
   <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
     <value>입력 비디오 파일과 동일한 이름의 외부 자막 파일 ({0}) 추가</value>
   </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>언어:</value>
-  </data>
   <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
     <value>제거하기 전에 확인</value>
   </data>
@@ -420,4 +417,7 @@
     <value>너비 필터 값</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
+  
+  
+  
 </root>

@@ -383,9 +383,6 @@
   <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
     <value>გარე ტიტრის დამატება ({0}) იგივე სახელით, რაც ვიდეო ფაილია</value>
   </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>ენა:</value>
-  </data>
   <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
     <value>ფაილის წაშლისას დათანხმება</value>
   </data>
@@ -417,4 +414,7 @@
     <value>სიგანის გაფილტრვა</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
+  
+  
+  
 </root>

@@ -386,9 +386,6 @@ Tutte: includi tutte le tracce dei sottotitoli.</value>
   <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
     <value>Aggiungi ({0})  tracce dei sottotitoli provenienti da file esterni che hanno lo stesso nome del file video in elaborazione</value>
   </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>Lingua:</value>
-  </data>
   <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
     <value>Conferma prima di rimuovere</value>
   </data>
@@ -420,4 +417,7 @@ Tutte: includi tutte le tracce dei sottotitoli.</value>
     <value>Valore della larghezza per il filtro</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
+  
+  
+  
 </root>

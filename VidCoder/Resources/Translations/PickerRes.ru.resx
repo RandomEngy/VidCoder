@@ -386,9 +386,6 @@
   <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
     <value>Добавить внешние файлы субтитров ({0}) с тем же именем, что и входной видеофайл</value>
   </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>Язык:</value>
-  </data>
   <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
     <value>Подтвердить перед удалением</value>
   </data>
@@ -420,4 +417,7 @@
     <value>Значение фильтра ширины</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
+  
+  
+  
 </root>
