@@ -382,9 +382,6 @@ Tümü - Tüm altyazıları dahil eder.</value>
   <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
     <value>Giriş video dosyasıyla aynı ada sahip harici altyazıları ({0}) ekle</value>
   </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>Dil:</value>
-  </data>
   <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
     <value>Kaldırmadan önce onaylayın</value>
   </data>
@@ -416,4 +413,7 @@ Tümü - Tüm altyazıları dahil eder.</value>
     <value>Genişlik filtre değeri</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
+  
+  
+  
 </root>

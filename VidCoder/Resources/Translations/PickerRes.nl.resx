@@ -386,9 +386,6 @@ Alle - Bevat alle ondertitels.</value>
   <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
     <value>Externe ondertitelingsbestanden toevoegen ({0}) met dezelfde naam als invoer videobestand</value>
   </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>Taal:</value>
-  </data>
   <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
     <value>Bevestigen voor verwijderen</value>
   </data>
@@ -420,4 +417,7 @@ Alle - Bevat alle ondertitels.</value>
     <value>Breedte filterwaarde</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
+  
+  
+  
 </root>
