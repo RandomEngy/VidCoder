@@ -257,7 +257,9 @@
   <data name="ChapterRangeStartAutomationName" xml:space="preserve">
     <value>Anfangskapitel</value>
   </data>
-  
+  <data name="DestinationSection" xml:space="preserve">
+    <value>Bestimmungsort</value>
+  </data>
   <data name="OutputFolder" xml:space="preserve">
     <value>Speicherort:</value>
     <comment>Label for the output folder.</comment>
@@ -266,13 +268,20 @@
   
   
   
+  <data name="OutputFileNameFormatAutomationName" xml:space="preserve">
+    <value>Format des Dateinamens</value>
+    <comment>Name for screen readers for the output file name format text box</comment>
+  </data>
   
   
   
+  <data name="WordBreakCharacter_Dot" xml:space="preserve">
+    <value>Punkt</value>
+  </data>
   
-  
-  
-  
+  <data name="WordBreakCharacter_Underscore" xml:space="preserve">
+    <value>Unterstrich</value>
+  </data>
   
   <data name="SourceCleanupPreviewLabel" xml:space="preserve">
     <value>Vorschau:</value>
@@ -294,7 +303,10 @@
   
   
   
-  
+  <data name="IgnoreFilesBelowCheckBox" xml:space="preserve">
+    <value>Dateien unten ignorieren</value>
+    <comment>A number box follows this string: Ignore files below [ 10 ] MB</comment>
+  </data>
   
   <data name="VideoSelectionSection" xml:space="preserve">
     <value>Videoauswahl</value>
@@ -307,10 +319,15 @@
     <value>Einbrennen</value>
   </data>
   
+  <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
+    <value>Vor dem Entfernen bestätigen</value>
+  </data>
   
   
-  
-  
+  <data name="HeightFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>Titel nach Höhe filtern</value>
+    <comment>Screen reader text for the height filter checkbox</comment>
+  </data>
   
   
   
