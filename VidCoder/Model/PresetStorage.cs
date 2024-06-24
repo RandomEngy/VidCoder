@@ -179,7 +179,6 @@ public static class PresetStorage
 
 	public static void UpgradeEncodingProfile(VCProfile profile, int oldDatabaseVersion, int? targetDatabaseVersion = null)
 	{
-		// test
 		if (oldDatabaseVersion >= Utilities.CurrentDatabaseVersion)
 		{
 			return;
