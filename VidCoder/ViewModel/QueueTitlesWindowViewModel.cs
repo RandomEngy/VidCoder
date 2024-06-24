@@ -90,7 +90,8 @@ public class QueueTitlesWindowViewModel : OkCancelDialogViewModel
 				job,
 				title,
 				EncodingRes.DefaultChapterName,
-				Config.EnableNVDec);
+				enableNVDec: Config.EnableNVDec,
+				isEncode: false);
 
 			this.PreviewImage = BitmapUtilities.ConvertToBitmapImage(BitmapUtilities.ConvertByteArrayToBitmap(this.main.ScanInstance.GetPreview(jsonEncodeObject, 2)));
 			this.RaisePropertyChanged(nameof(this.TitleText));

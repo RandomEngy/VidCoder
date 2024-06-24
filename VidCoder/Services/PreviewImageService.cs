@@ -484,17 +484,11 @@ namespace VidCoder.Services;
 					imageJob.Job,
 					imageJob.Title,
 					EncodingRes.DefaultChapterName,
-					Config.EnableNVDec);
+					enableNVDec: Config.EnableNVDec,
+					isEncode: false);
 
 				// Make a HandBrake call to get the image
 				imageSource = BitmapUtilities.ConvertToBitmapImage(BitmapUtilities.ConvertByteArrayToBitmap(imageJob.ScanInstance.GetPreview(jsonEncodeObject, imageJob.PreviewIndex)));
-
-			    //// Transform the image as per rotation and reflection settings
-			    //VCProfile profile = imageJob.Job.EncodingProfile;
-			    //if (profile.FlipHorizontal || profile.FlipVertical || profile.Rotation != VCPictureRotation.None)
-			    //{
-				   // imageSource = CreateTransformedBitmap(imageSource, profile);
-			    //}
 
 			    // Start saving the image file in the background and continue to process the queue.
 			    ThreadPool.QueueUserWorkItem(this.BackgroundFileSave, new SaveImageJob

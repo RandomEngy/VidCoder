@@ -61,6 +61,7 @@ public class HandBrakeEncodeWorker : HandBrakeWorkerBase<IHandBrakeEncodeWorkerC
 						encodeTitle,
 						defaultChapterNameFormat,
 						enableNVDec,
+						true,
 						previewNumber,
 						previewSeconds,
 						this.PassedPreviewCount);
