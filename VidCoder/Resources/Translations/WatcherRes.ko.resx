@@ -117,4 +117,88 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivateWatcherButton" xml:space="preserve">
+    <value>파일 감시기 활성화</value>
+  </data>
+  <data name="AddFolderToWatch" xml:space="preserve">
+    <value>감시할 폴더 추가</value>
+  </data>
+  <data name="CancelMenuItem" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="DeactivateWatcherButton" xml:space="preserve">
+    <value>파일 감시기 비활성화</value>
+  </data>
+  <data name="OpenContainingFolderMenuItem" xml:space="preserve">
+    <value>포함된 폴더 열기</value>
+  </data>
+  <data name="PathColumnHeader" xml:space="preserve">
+    <value>경로</value>
+  </data>
+  <data name="PickerLabel" xml:space="preserve">
+    <value>선택기:</value>
+  </data>
+  <data name="PickWatchedFolderDialogDescription" xml:space="preserve">
+    <value>시청할 폴더 선택</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>인코딩 프리셋</value>
+  </data>
+  <data name="RemoveWatchedFolder" xml:space="preserve">
+    <value>시청한 폴더 제거</value>
+  </data>
+  <data name="RetryMenuItem" xml:space="preserve">
+    <value>다시 시도</value>
+  </data>
+  <data name="RunWhenClosedCheckBox" xml:space="preserve">
+    <value>VidCoder가 닫혀 있을 때 실행</value>
+  </data>
+  <data name="ServiceInstallError" xml:space="preserve">
+    <value>파일 감시 서비스를 설치할 수 없습니다.</value>
+  </data>
+  <data name="ServiceUninstallError" xml:space="preserve">
+    <value>파일 감시 서비스를 제거할 수 없습니다.</value>
+  </data>
+  <data name="StatusCanceledToolTip" xml:space="preserve">
+    <value>인코딩이 대기열에서 제거되어 취소되었습니다.</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>상태</value>
+  </data>
+  <data name="StatusFailedToolTip" xml:space="preserve">
+    <value>인코딩에 실패했습니다.</value>
+  </data>
+  <data name="StatusOutputToolTip" xml:space="preserve">
+    <value>파일은 VidCoder로 인코딩되었습니다.</value>
+  </data>
+  <data name="StatusQueuedToolTip" xml:space="preserve">
+    <value>소스 파일이 대기열에 있습니다.</value>
+  </data>
+  <data name="StatusSkippedToolTip" xml:space="preserve">
+    <value>선택기에 설정된 조건 (예: 파일 크기가 너무 작음)으로 인해 인코딩을 건너뛰었습니다.</value>
+  </data>
+  <data name="StatusSucceededToolTip" xml:space="preserve">
+    <value>인코딩이 성공적으로 완료되었습니다.</value>
+  </data>
+  <data name="WatchedFilesHeader" xml:space="preserve">
+    <value>파일</value>
+  </data>
+  <data name="WatchedFoldersHeader" xml:space="preserve">
+    <value>시청 폴더</value>
+  </data>
+  <data name="WatchedFolderTextBoxLabel" xml:space="preserve">
+    <value>폴더:</value>
+  </data>
+  <data name="WatcherAddDialogTitle" xml:space="preserve">
+    <value>시청한 폴더 추가</value>
+  </data>
+  <data name="WatcherEditDialogTitle" xml:space="preserve">
+    <value>시청한 폴더 편집</value>
+  </data>
+  <data name="WatcherIntroText" xml:space="preserve">
+    <value>폴더를 관찰하고 폴더에 표시되는 동영상을 자동으로 인코딩하도록 Watcher를 설정할 수 있습니다. VidCoder가 닫히면 Watcher 프로세스가 실행되고 파일을 인코딩하기 위해 실행됩니다.</value>
+  </data>
+  <data name="WatcherWindowTitle" xml:space="preserve">
+    <value>감시 - {0}</value>
+  </data>
 </root>
