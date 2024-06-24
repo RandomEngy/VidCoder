@@ -383,9 +383,9 @@ Guztiak - Barneratu azpidatzi bide guztiak.</value>
   <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
     <value>Gehitu sarrera bideo agiriak duen izen bereko kanpoko azpidatzi agiriak {0}</value>
   </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>Hizkuntza:</value>
-  </data>
+  
+  
+  
   
   
   

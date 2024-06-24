@@ -386,9 +386,6 @@
   <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
     <value>Προσθήκη εξωτερικών αρχείων υποτίτλων ({0}) με το ίδιο όνομα όπως το εισαγόμενο βίντεο</value>
   </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>Γλώσσα:</value>
-  </data>
   <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
     <value>Επιβεβαίωση πριν την αφαίρεση</value>
   </data>
@@ -420,4 +417,7 @@
     <value>Τιμή του φίλτρου πλάτους</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
+  
+  
+  
 </root>

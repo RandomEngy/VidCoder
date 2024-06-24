@@ -386,9 +386,6 @@ Sve - Uključi sve podnaslove.</value>
   <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
     <value>Dodavanje vanjskih datoteka s podnaslovima ({0}) istog naziva kao ulazna videodatoteka</value>
   </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>Jezik:</value>
-  </data>
   <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
     <value>Potvrdi prije uklanjanja</value>
   </data>
@@ -420,4 +417,7 @@ Sve - Uključi sve podnaslove.</value>
     <value>Vrijednost filtra širine</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
+  
+  
+  
 </root>
