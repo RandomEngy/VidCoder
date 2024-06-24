@@ -67,7 +67,7 @@ VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application
 * Multi-threaded
 * MP4, MKV containers
 * Completely integrated encoding pipeline: everything is in one process and no huge intermediate temporary files
-* H.264, H.265, MPEG-4, MPEG-2, VP8, Theora video
+* AV1, H.265, H.264, MPEG-4, MPEG-2, VP8, Theora video
 * Hardware-accelerated encoding with AMD VCE, Nvidia NVENC and Intel QuickSync
 * AAC, MP3, Vorbis, AC3, FLAC audio encoding and AAC/AC3/MP3/DTS/DTS-HD passthrough
 * Target bitrate, size or quality for video
