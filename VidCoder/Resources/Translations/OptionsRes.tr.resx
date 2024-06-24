@@ -419,4 +419,6 @@ Sorgulama: Klasörlerin içeriğini periyodik olarak kontrol eder. Önemli CPU v
   <data name="CapNVEncCheckBox" xml:space="preserve">
     <value>Eşzamanlı NVEnc kodlamalarını kapsar. Bunu kaldırmak için özel bir NVidia sürücü yaması gerekir.</value>
   </data>
+  
+  
 </root>

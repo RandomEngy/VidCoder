@@ -858,4 +858,5 @@ LapSharp verwendet Faltungsmatrizen, welche Laplace-Kanten-Filter annähern, zum
   <data name="CroppingType_Conservative" xml:space="preserve">
     <value>Konservativ</value>
   </data>
+  
 </root>

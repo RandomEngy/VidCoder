@@ -304,6 +304,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Downloading version {0}....
+        /// </summary>
+        public static string DownloadingUpdateStatus {
+            get {
+                return ResourceManager.GetString("DownloadingUpdateStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Drag and drop scan order:.
         /// </summary>
         public static string DragDropScanOrderLabel {
@@ -732,6 +741,15 @@ namespace VidCoder.Resources {
         public static string ScanningSection {
             get {
                 return ResourceManager.GetString("ScanningSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show encode progress in window title.
+        /// </summary>
+        public static string ShowProgressInWindowTitleCheckBox {
+            get {
+                return ResourceManager.GetString("ShowProgressInWindowTitleCheckBox", resourceCulture);
             }
         }
         

@@ -173,7 +173,7 @@
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
   <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>De argumenten om door te geven aan het programma. Gebruik {file} voor de uitvoerpad van het bestand, {folder} voor de bevattende map of andere pad opties zoals {title} en {date} (Zie Naamgeving formaat).</value>
+    <value>De argumenten om door te geven aan het programma. Gebruik {file} voor het uitvoerpad van het bestand, {folder} voor het bevatten van het mappad, {sourcepath} voor het volledige bronpad of andere pad opties zoals {title} en {date} (Zie Naamformaat).</value>
     <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
   </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">

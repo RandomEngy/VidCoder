@@ -159,7 +159,9 @@
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>이전에 사용한 파일 및 폴더를 기억합니다</value>
   </data>
-  
+  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
+    <value>LibDVDNav 활성화 (변경 시 프로그램 재시작 필요. 여러 각도를 지원하려면 필요)</value>
+  </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>로깅의 자세한 정도:</value>
   </data>
@@ -187,7 +189,9 @@
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>업데이트를 더 자주 받아보려면 베타 트랙에 가입하세요</value>
   </data>
-  
+  <data name="UpdateReadyStatus" xml:space="preserve">
+    <value>{0} 업데이트가 준비되었습니다.</value>
+  </data>
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder가 최신 버전입니다.</value>
   </data>
@@ -311,43 +315,116 @@
   <data name="ProcessOptionsLabel" xml:space="preserve">
     <value>프로세스 옵션</value>
   </data>
-  
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>CPU 스로틀링 - 허용된 코어:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use. It labels a slider that controls the percentage of allowed cores, where the max is 100%.</comment>
+  </data>
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>인코딩시 VidCoder가 사용할 프로세스 코어 개수를 제한하려면 CPU 쓰로틀링을 사용합니다.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>미리 보기에 내장된 재생기를 사용합니다</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="MaxSimultaneousEncodesLabel" xml:space="preserve">
+    <value>최대 동시 인코딩 작업:</value>
+  </data>
+  <data name="MaxSimultaneousEncodesToolTip" xml:space="preserve">
+    <value>허용되는 동시 인코딩 작업 수입니다. CPU 코어가 많은 머신에 유용합니다.</value>
+  </data>
+  <data name="ThemeLabel" xml:space="preserve">
+    <value>테마</value>
+    <comment>Label for the app theme (auto, light, dark)</comment>
+  </data>
+  <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
+    <value>작업자 프로세스 옵션은 VidCoder를 종료하고 다시 시작하면 적용됩니다.</value>
+  </data>
+  <data name="CopyLogToCustomFolderLabel" xml:space="preserve">
+    <value>인코딩 로그를 사용자 지정 폴더에 복사</value>
+  </data>
+  <data name="KeepFailedFilesCheckBox" xml:space="preserve">
+    <value>인코딩 실패 또는 중지된 파일 유지</value>
+  </data>
+  <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
+    <value>실패한 인코딩 작업이 있을 때 '완료되면' 작업 트리거하기</value>
+  </data>
+  <data name="AutoPauseLowBatteryCheckbox" xml:space="preserve">
+    <value>배터리가 부족할 때 일시 중지</value>
+  </data>
+  <data name="AutoPauseLowDiskSpaceCheckbox" xml:space="preserve">
+    <value>디스크 공간이 아래로 떨어지면 일시 중지합니다:</value>
+  </data>
+  <data name="AutoPauseSectionLabel" xml:space="preserve">
+    <value>자동 일시 중지</value>
+  </data>
   <data name="FileNameFormatOptions" xml:space="preserve">
     <value>사용 가능한 옵션: {0}</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="LowDiskSpaceThresholdAutomationName" xml:space="preserve">
+    <value>낮은 디스크 공간 임계값 (기가바이트)</value>
+    <comment>Screen reader name for the low disk space threshold number box</comment>
+  </data>
+  <data name="DragDropScanOrderLabel" xml:space="preserve">
+    <value>스캔 순서를 끌어다 놓기:</value>
+  </data>
+  <data name="EncodeRetriesLabel" xml:space="preserve">
+    <value>인코딩 재시도 횟수:</value>
+  </data>
+  <data name="ApplyUpdateButton" xml:space="preserve">
+    <value>업데이트 적용</value>
+  </data>
+  <data name="CheckingForUpdateStatus" xml:space="preserve">
+    <value>업데이트 확인 중...</value>
+  </data>
+  <data name="UpdateModeLabel" xml:space="preserve">
+    <value>업데이트 모드:</value>
+    <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
+  </data>
+  <data name="WatcherModeLabel" xml:space="preserve">
+    <value>감시자 모드:</value>
+  </data>
+  <data name="WatcherModelToolTip" xml:space="preserve">
+    <value>시스템 감시자: 운영 체제를 사용하여 VidCoder에 새 파일을 알립니다. 가장 빠르며 최소한의 CPU 및 디스크 리소스를 사용합니다.
+폴링: 폴더의 내용을 주기적으로 확인합니다. 상당한 CPU 및 디스크 리소스를 사용합니다. 시스템 감시가 작동하지 않는 경우에만 사용하십시오.</value>
+  </data>
+  <data name="WatcherPollIntervalLabel" xml:space="preserve">
+    <value>폴링 간격 (초):</value>
+  </data>
+  <data name="ApplicationSection" xml:space="preserve">
+    <value>응용 프로그램</value>
+  </data>
+  <data name="EncodingSettingsDescription" xml:space="preserve">
+    <value>인코딩 설정에는 코덱, 비트 전송률, 사진 크기 및 필터가 포함됩니다. 이는 동영상의 모양과 소리, 파일 크기 및 지원하는 플레이어에 영향을 미칩니다. (인코딩 방법)</value>
+  </data>
+  <data name="EncodingSettingsSection" xml:space="preserve">
+    <value>인코딩 설정</value>
+  </data>
+  <data name="EncodingSettingsShortcutButton" xml:space="preserve">
+    <value>인코딩 설정 편집</value>
+  </data>
+  <data name="PickerDescription" xml:space="preserve">
+    <value>선택기는 출력 파일 위치, 오디오 트랙 및 자막을 선택합니다. 원하는 트랙을 자동으로 추가하고 파일 이름과 대상 폴더를 선택하도록 선택기를 사용자 지정합니다. (인코딩할 내용)</value>
+  </data>
+  <data name="PickerSettingsSection" xml:space="preserve">
+    <value>출력 위치, 트랙 선택</value>
+  </data>
+  <data name="PickerShortcutButton" xml:space="preserve">
+    <value>선택기 설정 편집</value>
+  </data>
+  <data name="EnableNVDecCheckBox" xml:space="preserve">
+    <value>NVEnc 인코더를 사용 중이고 하드웨어를 사용할 수 있는 경우 Nvidia NVDec을 사용하여 비디오를 디코딩합니다.</value>
+  </data>
+  <data name="HardwareEncodingSection" xml:space="preserve">
+    <value>하드웨어 인코딩</value>
+  </data>
+  <data name="CapNVEncCheckBox" xml:space="preserve">
+    <value>캡 동시 NVEnc 인코딩. 이 기능을 제거하려면 커스텀 NVidia 드라이버 패치가 필요합니다.</value>
+  </data>
+  <data name="ShowProgressInWindowTitleCheckBox" xml:space="preserve">
+    <value>창 제목에 인코딩 진행률 표시</value>
+  </data>
+  <data name="DownloadingUpdateStatus" xml:space="preserve">
+    <value>버전 {0} 다운로드 중...</value>
+    <comment>Shown when downloading an update.
+{0} is the update version, for example 10.4</comment>
+  </data>
 </root>

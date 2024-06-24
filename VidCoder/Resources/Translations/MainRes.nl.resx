@@ -338,9 +338,6 @@
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>Versie {0} is beschikbaar. Download van de update is gestart.</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>Versie {0} is gedownload en zal installeren bij afsluiten.</value>
-  </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
     <value>De update is niet toegepast. Als u niet heeft geannuleerd probeer het dan handmatig te installeren.</value>
   </data>
@@ -630,9 +627,6 @@
   <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
     <value>Opties voor codering van audio</value>
   </data>
-  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
-    <value>Versie {0} is gedownload.</value>
-  </data>
   <data name="RemoveFromQueueMenuItem" xml:space="preserve">
     <value>Verwijderen uit wachtrij</value>
   </data>
@@ -756,5 +750,8 @@ Deze waarschuwing wordt slechts twee keer weergegeven.</value>
     <value>Wachtrij {0}/{1}:</value>
     <comment>{0} is the current job number for scanning and adding an item to the queue
 {1} is the total number of scanned items this session</comment>
+  </data>
+  <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
+    <value>Versie {0} is gedownload en is bij de volgende opstart actief.</value>
   </data>
 </root>

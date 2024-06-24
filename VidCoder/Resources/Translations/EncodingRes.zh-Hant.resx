@@ -855,4 +855,7 @@ Lapsharp 銳利化使用卷積核預估拉普拉斯邊緣濾波器，有時可�
   <data name="CroppingType_Conservative" xml:space="preserve">
     <value>保守</value>
   </data>
+  <data name="MultiPassEncodingCheckBox" xml:space="preserve">
+    <value>多遍編碼</value>
+  </data>
 </root>

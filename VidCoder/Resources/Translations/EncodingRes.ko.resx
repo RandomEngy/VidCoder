@@ -309,7 +309,9 @@
   <data name="Preset_Fast" xml:space="preserve">
     <value>빠르게</value>
   </data>
-  
+  <data name="Preset_Medium" xml:space="preserve">
+    <value>중간</value>
+  </data>
   <data name="Preset_Slow" xml:space="preserve">
     <value>느리게</value>
   </data>
@@ -707,47 +709,156 @@
     <value>키:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="PaddingLabel" xml:space="preserve">
+    <value>간격</value>
+  </data>
+  <data name="AlignAVStartCheckBox" xml:space="preserve">
+    <value>A/V 시작 정렬</value>
+  </data>
+  <data name="AlignAVStartCheckBoxToolTip" xml:space="preserve">
+    <value>빈 프레임을 삽입하거나 프레임을 삭제하여 모든 오디오 및 비디오 스트림의 초기 타임스탬프를 정렬합니다. MP4 편집 목록을 존중하지 않는 깨진 플레이어를 위해 오디오/비디오 동기화를 개선할 수 있습니다.</value>
+  </data>
+  <data name="TabHeader_Container" xml:space="preserve">
+    <value>컨테이너</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>인코딩 프리셋: {0}</value>
+    <comment>Label for the encoding settings window.</comment>
+  </data>
+  <data name="AudioEncoder_none" xml:space="preserve">
+    <value>없음</value>
+    <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
+  </data>
+  <data name="SizingModeToolTip" xml:space="preserve">
+    <value>자동은 제공된 제약 조건에 따라 크기를 선택합니다. 수동은 특정 크기와 픽셀 종횡비를 입력할 수 있습니다.</value>
+  </data>
+  <data name="SharpenLabel" xml:space="preserve">
+    <value>선명하게</value>
+  </data>
+  <data name="DeblockToolTip" xml:space="preserve">
+    <value>디블록은 낮은 품질의 비디오 압축으로 인해 발생하는 블록성 아티팩트를 줄여줍니다.</value>
+  </data>
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>디인터레이스는 사진에서 빗살 아티팩트를 제거합니다.
+
+Bwdif와 Yadif는 인기 있고 빠른 디인터라커입니다.
+
+속도와 품질을 위해 여러 보간 알고리즘 간에 디콤브를 전환합니다.</value>
+  </data>
+  <data name="DenoiseToolTip" xml:space="preserve">
+    <value>노이즈 제거는 노이즈와 입자의 모양을 줄이거나 제거합니다. 이렇게 하면 압축 효율이 향상되고 더 작은 파일 크기로 더 높은 품질의 동영상을 만들 수 있습니다. 
+노이즈 제거를 지나치게 강하게 설정하면 디테일이 사라져 화질이 손상될 수 있습니다.
+         
+NLMeans는 속도 대비 비용이 높은 고품질 노이즈 제거 필터입니다. 속도보다 품질이 더 중요한 경우에 사용하세요.
+         
+HQDN3D는 적응형 저역 통과 필터로, NLMeans보다 빠르지만 미세한 디테일을 보존하는 데는 덜 효과적입니다.</value>
+  </data>
+  <data name="DetelecineToolTip" xml:space="preserve">
+    <value>이 필터는 텔레캐닝의 결과인 '콤빙' 아티팩트를 제거합니다.
+
+Telecining은 24fps인 필름 프레임 속도를 30fps인 NTSC 비디오 프레임 속도로 조정하는 프로세스입니다.</value>
+  </data>
+  <data name="SharpenToolTip" xml:space="preserve">
+    <value>샤프닝은 디테일, 특히 가장자리의 외관을 향상시킵니다. 지나치게 강한 샤프닝 설정은 울리는 아티팩트를 생성하고 노이즈를 강화하여 사진 품질을 손상시킬 수 있으며, 이는 압축 효율을 저하시킬 수 있습니다.
+
+언샤프는 범용 언샤프 마스킹 필터입니다. 블러링을 한 다음 블러링된 사진과 원본의 차이를 계산하여 날카롭게 만듭니다.
+
+Lapsharp는 Laplacian 에지 필터에 근사하는 컨볼루션 커널을 사용하여 선명하게 표시되며, 때로는 선명하지 않은 마스킹보다 더 높은 품질의 결과를 생성합니다.</value>
+  </data>
+  <data name="PresetFolder_Custom" xml:space="preserve">
+    <value>사용자 지정</value>
+  </data>
+  <data name="PresetFolder_BuiltIn" xml:space="preserve">
+    <value>내장</value>
+  </data>
+  <data name="PresetFolderCreateSubfolderMenuItem" xml:space="preserve">
+    <value>하위 폴더 만들기</value>
+  </data>
+  <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
+    <value>폴더 이름 바꾸기</value>
+  </data>
+  <data name="PresetFolderRemoveFolderMenuItem" xml:space="preserve">
+    <value>폴더 제거</value>
+  </data>
+  <data name="DefaultPresetFolderName" xml:space="preserve">
+    <value>새 폴더</value>
+  </data>
+  <data name="ChooseNameSubfolder" xml:space="preserve">
+    <value>하위 폴더의 이름을 선택합니다:</value>
+  </data>
+  <data name="ChooseNewFolderName" xml:space="preserve">
+    <value>폴더의 새 이름을 선택합니다:</value>
+  </data>
+  <data name="NVEncPreset_ll" xml:space="preserve">
+    <value>낮은 대기 시간</value>
+  </data>
+  <data name="NVEncPreset_hq" xml:space="preserve">
+    <value>높은 품질</value>
+  </data>
+  <data name="NVEncPreset_hp" xml:space="preserve">
+    <value>높은 성능</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>하단</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>왼쪽</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>오른쪽</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>상단</value>
+  </data>
+  <data name="PixelAspectRatioNumeratorAutomationName" xml:space="preserve">
+    <value>픽셀 종횡비 분자</value>
+    <comment>Name for the pixel aspect ratio numerator box for screen readers</comment>
+  </data>
+  <data name="PixelAspectRatioDenominatorAutomationName" xml:space="preserve">
+    <value>픽셀 종횡비 분모</value>
+    <comment>Name for the pixel aspect ratio denominator box for screen readers</comment>
+  </data>
+  <data name="ApplyToQueueButton" xml:space="preserve">
+    <value>대기열에 적용</value>
+  </data>
+  <data name="FullEncoderParameterLabel" xml:space="preserve">
+    <value>전체 매개 변수 목록:</value>
+  </data>
+  <data name="MoreOptionsToolTip" xml:space="preserve">
+    <value>비디오 인코더에 전달할 추가 고급 인수입니다.</value>
+  </data>
+  <data name="CannotSwitchEncodingPresetDueToPicker" xml:space="preserve">
+    <value>인코딩 사전 설정을 전환할 수 없습니다. Picker 창에서 잠겨 있습니다.</value>
+    <comment>Message to show when the user is blocked from switching an encoding preset due to a Picker setting.</comment>
+  </data>
+  <data name="PadColorTextToolTip" xml:space="preserve">
+    <value>형식: FFFFFF</value>
+  </data>
+  <data name="ChromaSmoothLabel" xml:space="preserve">
+    <value>크로마 스무스:</value>
+  </data>
+  <data name="ColorspaceLabel" xml:space="preserve">
+    <value>색 공간:</value>
+  </data>
+  <data name="ChromaSmoothToolTip" xml:space="preserve">
+    <value>크로마 노이즈, 무지개 및 기타 눈에 띄는 시각적 아티팩트를 줄입니다. 특히 아날로그 소스의 낮은 해상도 콘텐츠(예: 품질이 좋지 않은 DVD 및 VHS 소스)에서 다양한 색상 관련 문제를 해결하는 데 유용합니다. 블러링/스무딩 알고리즘은 언샤프 필터에서 사용되는 것과 동일합니다.</value>
+  </data>
+  <data name="ConstrainToOneAxisCheckBox" xml:space="preserve">
+    <value>한 축으로 제한</value>
+  </data>
+  <data name="ConstrainToOneAxisToolTip" xml:space="preserve">
+    <value>이 옵션을 사용하면 탐지된 총 크롭이 가장 많은 축만 크롭됩니다. 예를 들어, 상단+하단 = 32이고 왼쪽+오른쪽 = 6인 경우, 왼쪽과 오른쪽의 크롭은 0으로 설정됩니다.</value>
+  </data>
+  <data name="MinimumCroppingLabel" xml:space="preserve">
+    <value>최소:</value>
+  </data>
+  <data name="MinimumCroppingToolTip" xml:space="preserve">
+    <value>자동 자르기가 한 면에 대해 이 양보다 작으면 해당 면에 대한 자르기를 비활성화합니다. 작은 자르기 양에서 재샘플링을 방지하는 데 유용합니다.</value>
+  </data>
+  <data name="CroppingType_Conservative" xml:space="preserve">
+    <value>보수적인</value>
+  </data>
+  <data name="MultiPassEncodingCheckBox" xml:space="preserve">
+    <value>멀티패스 인코딩</value>
+  </data>
 </root>

@@ -419,4 +419,12 @@
   <data name="CapNVEncCheckBox" xml:space="preserve">
     <value>Ограничение одновременного кодирования NVEnc. Для снятия ограничения требуется модификация драйвера NVidia пользователем.</value>
   </data>
+  <data name="ShowProgressInWindowTitleCheckBox" xml:space="preserve">
+    <value>Показывать прогресс кодирования в заголовке окна</value>
+  </data>
+  <data name="DownloadingUpdateStatus" xml:space="preserve">
+    <value>Загрузка версии {0}...</value>
+    <comment>Shown when downloading an update.
+{0} is the update version, for example 10.4</comment>
+  </data>
 </root>

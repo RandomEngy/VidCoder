@@ -120,9 +120,19 @@
   <data name="LogWindowTitle" xml:space="preserve">
     <value>로그</value>
   </data>
-  
-  
-  
-  
-  
+  <data name="GeneralLogLabel" xml:space="preserve">
+    <value>일반</value>
+  </data>
+  <data name="LogVerbosity_Minimized" xml:space="preserve">
+    <value>최소화</value>
+  </data>
+  <data name="LogVerbosity_Standard" xml:space="preserve">
+    <value>표준</value>
+  </data>
+  <data name="LogVerbosity_Extended" xml:space="preserve">
+    <value>확장</value>
+  </data>
+  <data name="ClearFinishedButton" xml:space="preserve">
+    <value>완료 지우기</value>
+  </data>
 </root>

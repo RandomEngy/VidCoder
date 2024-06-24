@@ -512,6 +512,12 @@
 									VerticalAlignment="Center"
 									Content="{x:Static res:OptionsRes.TriggerWhenDoneWithFailedJobsCheckBox}"
 									IsChecked="{Binding TriggerEncodeCompleteActionWithErrors}" />
+								<CheckBox
+									Margin="0 6 0 0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									Content="{x:Static res:OptionsRes.ShowProgressInWindowTitleCheckBox}"
+									IsChecked="{Binding ShowProgressInWindowTitle}" />
 								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
 									<TextBlock
 										Name="encodeRetriesLabel"
@@ -824,7 +830,7 @@
 										Grid.Column="1"
 										Height="20"
 										Margin="0 0 0 0"
-										Visibility="{Binding CheckingForUpdate,
+										Visibility="{Binding DownloadingUpdate,
 										                     Converter={StaticResource VisibilityConverter}}"
 										Value="{Binding UpdateProgressPercent,
 										                Mode=OneWay}" />

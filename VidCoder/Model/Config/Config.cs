@@ -123,6 +123,7 @@ namespace VidCoder
 			cache.Add("PreserveModifyTimeFiles", DatabaseConfig.Get("PreserveModifyTimeFiles", false, connection));
 			cache.Add("ResumeEncodingOnRestart", DatabaseConfig.Get("ResumeEncodingOnRestart", false, connection));
 			cache.Add("KeepFailedFiles", DatabaseConfig.Get("KeepFailedFiles", false, connection));
+			cache.Add("ShowProgressInWindowTitle", DatabaseConfig.Get("ShowProgressInWindowTitle", true, connection));
 			cache.Add("UseWorkerProcess", DatabaseConfig.Get("UseWorkerProcess", true, connection));
 			cache.Add("RememberPreviousFiles", DatabaseConfig.Get("RememberPreviousFiles", true, connection));
 			cache.Add("PreferredPlayer", DatabaseConfig.Get("PreferredPlayer", "vlc", connection));
@@ -634,6 +635,11 @@ namespace VidCoder
 			get { return (bool)cache["KeepFailedFiles"]; }
 			set { Set("KeepFailedFiles", value); }
 		}
+		public static bool ShowProgressInWindowTitle
+		{
+			get { return (bool)cache["ShowProgressInWindowTitle"]; }
+			set { Set("ShowProgressInWindowTitle", value); }
+		}
 		public static bool UseWorkerProcess
 		{
 			get { return (bool)cache["UseWorkerProcess"]; }
@@ -794,6 +800,7 @@ namespace VidCoder
 			public static IObservable<bool> PreserveModifyTimeFiles => GetObservable<bool>("PreserveModifyTimeFiles");
 			public static IObservable<bool> ResumeEncodingOnRestart => GetObservable<bool>("ResumeEncodingOnRestart");
 			public static IObservable<bool> KeepFailedFiles => GetObservable<bool>("KeepFailedFiles");
+			public static IObservable<bool> ShowProgressInWindowTitle => GetObservable<bool>("ShowProgressInWindowTitle");
 			public static IObservable<bool> UseWorkerProcess => GetObservable<bool>("UseWorkerProcess");
 			public static IObservable<bool> RememberPreviousFiles => GetObservable<bool>("RememberPreviousFiles");
 			public static IObservable<string> PreferredPlayer => GetObservable<string>("PreferredPlayer");

@@ -336,9 +336,6 @@
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>Доступна версия {0}. Обновление уже загружено.</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>Версия {0} полностью загружена и будет установлена при закрытии.</value>
-  </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
     <value>Обновление не было установлено. Если вы не отмените его, попробуйте установить его вручную.</value>
   </data>
@@ -626,9 +623,6 @@
   <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
     <value>Настройки кодирования аудио</value>
   </data>
-  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
-    <value>Загрузка версии {0} завершена.</value>
-  </data>
   <data name="RemoveFromQueueMenuItem" xml:space="preserve">
     <value>Удалить из очереди</value>
   </data>
@@ -752,5 +746,8 @@
     <value>Очередь {0}/{1}:</value>
     <comment>{0} is the current job number for scanning and adding an item to the queue
 {1} is the total number of scanned items this session</comment>
+  </data>
+  <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
+    <value>Версия {0} полностью загружена и будет использоваться со следующего запуска.</value>
   </data>
 </root>

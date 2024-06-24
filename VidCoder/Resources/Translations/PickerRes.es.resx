@@ -173,7 +173,7 @@
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
   <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>Son los parámetros que el programa necesita. Usa {file} para indicar la ruta del archivo de salida,{folder} como la ruta de salida u otras opciones como son {title} y {date} (ver Nomenclatura de Nombres).</value>
+    <value>Los argumentos a pasar al programa. Utilice {file} para la ruta de salida del archivo, {folder} para la ruta de la carpeta contenedora, {sourcepath} para la ruta completa de la fuente, u otras opciones de ruta como {title} y {date} (ver Formato de Nomenclatura).</value>
     <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
   </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">

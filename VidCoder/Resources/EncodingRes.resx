@@ -858,4 +858,7 @@ Lapsharp sharpens using convolution kernels approximating Laplacian edge filters
   <data name="CroppingType_Conservative" xml:space="preserve">
     <value>Conservative</value>
   </data>
+  <data name="MultiPassEncodingCheckBox" xml:space="preserve">
+    <value>Multi-pass encoding</value>
+  </data>
 </root>

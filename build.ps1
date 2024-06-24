@@ -2,7 +2,6 @@
 Param(
   [Parameter(Mandatory=$True)]
   [string]$versionShort,
-  [string]$p,
   [switch]$beta,
   [switch]$debugBuild = $false
 )
@@ -21,7 +20,12 @@ function Publish($folderNameSuffix, $publishProfileName, $version4part, $product
     }
 
     # Publish to VidCoder\bin\publish
-    & dotnet publish .\VidCoder.sln /p:PublishProfile=$publishProfileName /p:Version=$version4part "/p:Product=$productName" -c $configuration
+    $publishProjects = @('VidCoder','VidCoderWorker')
+
+    foreach ($publishProject in $publishProjects)
+    {
+        & dotnet publish .\$publishProject\$publishProject.csproj /p:PublishProfile=$publishProfileName /p:Version=$version4part "/p:Product=$productName" -c $configuration
+    }
 
     # Copy some extra files for the installer
     $extraFiles = @(
@@ -33,8 +37,9 @@ function Publish($folderNameSuffix, $publishProfileName, $version4part, $product
     }
 }
 
+
 function SignExe($filePath) {
-    & signtool sign /f D:\certs\ComodoIndividualCertv2.pfx /p $p /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 $filePath
+    & signtool sign /a /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 $filePath
 }
 
 if ($debugBuild) {
@@ -117,8 +122,7 @@ DeleteFileIfExists $zipFilePath
 
 & $winRarExe a -afzip -ep1 -r $zipFilePath .\VidCoder\bin\publish-installer\
 
-# Build Squirrel installer
-Set-Alias Squirrel ($env:USERPROFILE + "\.nuget\packages\clowd.squirrel\2.11.1\tools\Squirrel.exe")
+# Build Velopack installer
 if ($beta) {
     $packId = "VidCoder.Beta"
     $releaseDirSuffix = "Beta"
@@ -129,20 +133,23 @@ if ($beta) {
 
 $releaseDir = ".\Installer\Releases-$releaseDirSuffix"
 
-Squirrel pack `
+vpk pack `
+    -x `
+    -y `
     --packId $packId `
     --packTitle "$productName" `
     --packVersion ($versionShort + ".0") `
     --packAuthors RandomEngy `
-    --packDirectory .\VidCoder\bin\publish-installer `
+    --packDir .\VidCoder\bin\publish-installer `
+    --mainExe VidCoder.exe `
     --icon .\Installer\VidCoder_Setup.ico `
-    --releaseDir $releaseDir `
+    --outputDir $releaseDir `
     --splashImage .\Installer\InstallerSplash.png `
-    --signParams "/f D:\certs\ComodoIndividualCertv2.pfx /p $p /fd SHA256 /tr http://timestamp.digicert.com /td SHA256" `
-    --framework net6.0.2-x64
+    --signParams "/a /fd SHA256 /tr http://timestamp.digicert.com /td SHA256" `
+    --framework net8.0.5-x64
 
 ExitIfFailed;
-Move-Item -Path ("$releaseDir\" + $packId + "Setup.exe") -Destination ".\Installer\BuiltInstallers\$binaryNameBase.exe" -Force
+Copy-Item -Path ("$releaseDir\" + $packId + "-win-Setup.exe") -Destination ".\Installer\BuiltInstallers\$binaryNameBase.exe" -Force
 
 WriteSuccess
 

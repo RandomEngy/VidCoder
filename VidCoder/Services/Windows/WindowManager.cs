@@ -30,6 +30,8 @@ public class WindowManager : ReactiveObject, IWindowManager
 	private object mainViewModel;
 	private Dictionary<object, Window> openWindows;
 
+	private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
+
 	static WindowManager()
 	{
 		Definitions = new List<WindowDefinition>
@@ -539,6 +541,7 @@ public class WindowManager : ReactiveObject, IWindowManager
 						}
 					}
 
+					this.logger.LogDebug("Placing " + viewModel.GetType().ToString());
 					windowToOpen.PlaceDynamic(placementJson);
 				}
 			}

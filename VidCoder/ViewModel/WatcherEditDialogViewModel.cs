@@ -50,16 +50,6 @@ public class WatcherEditDialogViewModel : OkCancelDialogViewModel
 						return false;
 					}
 
-					foreach (string existingPath in existingWatchedFolders)
-					{
-						if (path.StartsWith(existingPath + "\\", StringComparison.OrdinalIgnoreCase)
-						|| existingPath.StartsWith(path + "\\", StringComparison.OrdinalIgnoreCase)
-						|| path.Equals(existingPath, StringComparison.OrdinalIgnoreCase))
-						{
-							return false;
-						}
-					}
-
 					return true;
 				}
 				catch

@@ -852,4 +852,7 @@ Lapsharp atua usando núcleos de convolução próximos dos filtro de borda Lapl
   <data name="CroppingType_Conservative" xml:space="preserve">
     <value>Conservador</value>
   </data>
+  <data name="MultiPassEncodingCheckBox" xml:space="preserve">
+    <value>Codificação em 2 passos</value>
+  </data>
 </root>

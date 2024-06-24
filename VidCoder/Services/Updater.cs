@@ -3,13 +3,16 @@ using System.IO;
 using VidCoder.Model;
 using Microsoft.AnyContainer;
 using ReactiveUI;
-using Squirrel;
+using Velopack;
+using VidCoder.Resources;
 
 namespace VidCoder.Services;
 
 public class Updater : ReactiveObject, IUpdater
 {
 	private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
+
+	private StatusService statusService = StaticResolver.Resolve<StatusService>();
 
 	private UpdateState state = UpdateState.NotStarted;
 	public UpdateState State
@@ -19,13 +22,15 @@ public class Updater : ReactiveObject, IUpdater
 	}
 
 	private int updateCheckProgressPercent;
-	public int UpdateCheckProgressPercent
+	public int UpdateDownloadProgressPercent
 	{
 		get { return this.updateCheckProgressPercent; }
 		set { this.RaiseAndSetIfChanged(ref this.updateCheckProgressPercent, value); }
 	}
 
 	public Version LatestVersion { get; set; }
+
+	public VelopackAsset LatestAsset { get; set; }
 
 	public bool PromptToApplyUpdate()
 	{
@@ -41,7 +46,9 @@ public class Updater : ReactiveObject, IUpdater
 
 				if (updateConfirmation.Accepted)
 				{
-					UpdateManager.RestartApp();
+					var updateManager = new UpdateManager(Utilities.VelopackUpdateUrl);
+					updateManager.ApplyUpdatesAndRestart(this.LatestAsset);
+
 					return true;
 				}
 			}
@@ -85,24 +92,36 @@ public class Updater : ReactiveObject, IUpdater
 
 		try
 		{
-			this.UpdateCheckProgressPercent = 0;
+			this.UpdateDownloadProgressPercent = 0;
 			this.State = UpdateState.Checking;
 
-			using var updateManager = new UpdateManager(Utilities.SquirrelUpdateUrl);
-			ReleaseEntry releaseEntry = await updateManager.UpdateApp(progressNumber =>
-			{
-				this.UpdateCheckProgressPercent = progressNumber;
-			});
+			var updateManager = new UpdateManager(Utilities.VelopackUpdateUrl);
+			Velopack.UpdateInfo updateInfo = await updateManager.CheckForUpdatesAsync();
 
-			if (releaseEntry == null)
+			if (updateInfo == null)
 			{
 				this.State = UpdateState.UpToDate;
 			}
 			else
 			{
 				// Save latest version (just major and minor)
-				this.LatestVersion = new Version(releaseEntry.Version.Version.Major, releaseEntry.Version.Version.Minor);
+				this.LatestVersion = new Version(updateInfo.TargetFullRelease.Version.Major, updateInfo.TargetFullRelease.Version.Minor);
+				this.LatestAsset = updateInfo.TargetFullRelease;
+				string versionShort = this.LatestVersion.ToString(2);
+
+				this.State = UpdateState.Downloading;
+				this.statusService.Show(string.Format(MainRes.NewVersionDownloadStartedStatus, versionShort));
+
+				await updateManager.DownloadUpdatesAsync(updateInfo, (progressPercent) =>
+				{
+					this.UpdateDownloadProgressPercent = progressPercent;
+				});
+
 				this.State = UpdateState.UpdateReady;
+				if (CustomConfig.UpdateMode == UpdateMode.SilentNextLaunch)
+				{
+					this.statusService.Show(string.Format(MainRes.NewVersionDownloadFinishedSilentStatus, versionShort));
+				}
 
 				if (CustomConfig.UpdateMode == UpdateMode.PromptApplyImmediately && !isManualCheck)
 				{

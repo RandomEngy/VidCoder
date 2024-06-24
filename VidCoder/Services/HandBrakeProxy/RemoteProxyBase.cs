@@ -95,7 +95,6 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 	public void Dispose()
 	{
 		this.CleanUpWorkerProcess();
-		this.pingTimer?.Dispose();
 		this.processPrioritySubscription?.Dispose();
 		this.cpuThrottlingSubscription?.Dispose();
 	}
@@ -205,6 +204,9 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 		}
 
 		this.worker = null;
+
+		this.pingTimer?.Dispose();
+		this.pingTimer = null;
 	}
 
 	private async Task<bool> ConnectToPipeAsync()
@@ -298,13 +300,13 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 			return;
 		}
 
-		await this.ProcessLock.WaitAsync();
+		await this.ProcessLock.WaitAsync().ConfigureAwait(false);
 		try
 		{
 			await this.ExecuteProxyOperationAsync(async () =>
 			{
-				await this.Client.InvokeAsync(actionExpression);
-			}, "Invoke");
+				await this.Client.InvokeAsync(actionExpression).ConfigureAwait(false);
+			}, "Invoke").ConfigureAwait(false);
 		}
 		finally
 		{
@@ -327,12 +329,13 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 			FileName = "VidCoderWorker.exe",
 			Arguments = Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture) + " " + this.pipeName + " " + this.Action + " " + Utilities.DebugLogging,
 			RedirectStandardOutput = true,
-			RedirectStandardError = true,
 			UseShellExecute = false,
 			CreateNoWindow = true
 		};
 		this.worker = Process.Start(startInfo);
 		this.worker.PriorityClass = CustomConfig.WorkerProcessPriority;
+
+		Process workerOnStart = this.worker;
 
 		// When the process writes out a line, its pipe server is ready and can be contacted for
 		// work. Reading line blocks until this happens.
@@ -416,7 +419,11 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 #else
 				catch (Exception exception)
 				{
-					this.HandlePingError(exception);
+					// Only clear out the worker if the worker that errored is the one we're currently using.
+					if (workerOnStart == this.worker)
+					{
+						this.HandlePingError(exception);
+					}
 				}
 #endif
 			}
@@ -459,7 +466,7 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 
 	protected async Task ExecuteWorkerCallAsync(Expression<Action<TWork>> action, string operationName)
 	{
-		await this.ProcessLock.WaitAsync();
+		await this.ProcessLock.WaitAsync().ConfigureAwait(false);
 		try
 		{
 			if (this.Client != null)

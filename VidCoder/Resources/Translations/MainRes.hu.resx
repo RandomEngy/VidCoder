@@ -338,9 +338,6 @@
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>{0} verzió elérhető. A frissítés letöltése elkezdődött.</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>{0} verzió letöltődött és kilépéskor telepítésre kerül.</value>
-  </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
     <value>A frissítés nem került telepítésrre. Ha nem szakítottad meg, próbáld meg manuálisan telepíteni.</value>
   </data>
@@ -630,9 +627,6 @@
   <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
     <value>Hangkódolási beállítások</value>
   </data>
-  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
-    <value>{0} verzió letöltése befejeződött.</value>
-  </data>
   <data name="RemoveFromQueueMenuItem" xml:space="preserve">
     <value>Eltávolítás a várólistából</value>
   </data>
@@ -756,5 +750,8 @@ Ez a figyelmeztetés csak kétszer jelenik meg.</value>
     <value>{0}/{1} sorbaállítása:</value>
     <comment>{0} is the current job number for scanning and adding an item to the queue
 {1} is the total number of scanned items this session</comment>
+  </data>
+  <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
+    <value>{0} verzió letöltődött és a következő indításkor telepítésre kerül.</value>
   </data>
 </root>

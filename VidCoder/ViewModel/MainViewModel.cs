@@ -331,7 +331,7 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 				titleBuilder.Append(" Beta");
 			}
 
-			if (encoding)
+			if (encoding && Config.ShowProgressInWindowTitle)
 			{
 				titleBuilder.Append($" - {progressPercent:F1}%");
 			}

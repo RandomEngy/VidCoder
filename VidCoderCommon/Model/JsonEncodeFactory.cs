@@ -779,15 +779,14 @@ public class JsonEncodeFactory
 				framerateDenominator));
 	}
 
-	private Metadata CreateMetadata(VCJob job, SourceTitle title)
+	private Dictionary<string, string> CreateMetadata(VCJob job, SourceTitle title)
 	{
-		var metadata = new Metadata();
 		if (job.PassThroughMetadata && title.MetaData != null)
 		{
-			metadata.InjectFrom<CloneInjection>(title.MetaData);
+			return new Dictionary<string, string>(title.MetaData);
 		}
 
-		return metadata;
+		return new Dictionary<string, string>();
 	}
 
 	/// <summary>
@@ -960,12 +959,12 @@ public class JsonEncodeFactory
 		{
 			case VCVideoEncodeRateType.TargetSize:
 				video.Bitrate = this.CalculateBitrate(job, title, profile.TargetSize, previewLengthSeconds);
-				video.MultiPass = profile.TwoPass;
+				video.MultiPass = profile.MultiPass;
 				video.Turbo = profile.TurboFirstPass;
 				break;
 			case VCVideoEncodeRateType.AverageBitrate:
 				video.Bitrate = profile.VideoBitrate;
-				video.MultiPass = profile.TwoPass;
+				video.MultiPass = profile.MultiPass;
 				video.Turbo = profile.TurboFirstPass;
 				break;
 			case VCVideoEncodeRateType.ConstantQuality:

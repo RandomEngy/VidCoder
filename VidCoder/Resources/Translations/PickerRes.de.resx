@@ -172,10 +172,7 @@
     <value>Argumente:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>Die Argumente, die dem Programm übergeben werden. Verwende {file} für den Ausgabepfad, {folder} als Pfad des Ordners, der die Datei enthält, oder weitere Pfadoptionen wie {title} und {date} (siehe Namensformatierung).</value>
-    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
-  </data>
+  
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>Der Auswähler hat eine Encodierungsvoreinstellung festgelegt.</value>
   </data>

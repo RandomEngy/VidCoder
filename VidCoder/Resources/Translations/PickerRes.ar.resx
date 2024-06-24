@@ -172,10 +172,7 @@
     <value>الوسيطات:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>الحجج لتمريرها إلى البرنامج. استخدم {ملف} لمسار إخراج الملف ، {مجلد} باعتباره يحتوي على مسار المجلد أو خيارات المسار الأخرى مثل {عنوان} و {تاريخ} (راجع تسمية التسمية).</value>
-    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
-  </data>
+  
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>قام المنتقي بتحديد الجاهز للتشفير.</value>
   </data>

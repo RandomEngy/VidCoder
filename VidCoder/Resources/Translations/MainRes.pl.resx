@@ -330,9 +330,6 @@
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>Wersja {0} jest dostępny. Rozpoczęto pobieranie aktualizacji.</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>Zakończono pobieranie wersji {0}. Zostanie zainstalowana po wyjściu z programu.,</value>
-  </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
     <value>Nie zainstalowano aktualizacji. Jeśli nie została anulowana, spróbuj zainstalować ją ręcznie.</value>
   </data>

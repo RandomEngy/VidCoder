@@ -195,7 +195,7 @@ public class VCProfile : ReactiveObject
 
 	public int VideoBitrate { get; set; }
 
-	public bool TwoPass { get; set; }
+	public bool MultiPass { get; set; }
 
 	public bool TurboFirstPass { get; set; }
 
@@ -228,6 +228,9 @@ public class VCProfile : ReactiveObject
 	}
 
 	public string AudioEncoderFallback { get; set; }
+
+	// Obsolete. Use MultiPass instead.
+	public bool TwoPass { get; set; }
 
 	public VCProfile Clone()
 	{

@@ -20,9 +20,9 @@ using Microsoft.AnyContainer;
 using ControlzEx.Theming;
 using Microsoft.Toolkit.Uwp.Notifications;
 using VidCoder.Automation;
-using Squirrel;
 using System.IO;
 using VidCoderCommon.Model;
+using Velopack;
 
 namespace VidCoder;
 
@@ -78,16 +78,7 @@ public partial class App : Application
 		Delay.PseudoLocalizer.Enable(typeof(MiscRes));
 #endif
 
-		if (Utilities.InstallType == VidCoderInstallType.SquirrelInstaller)
-		{
-			// Let Squirrel set the AppUserModelID. This will allow any pinned shortcut on the taskbar to be updated properly.
-			var updateManager = new UpdateManager(Utilities.SquirrelUpdateUrl);
-			updateManager.SetProcessAppUserModelId();
-
-			VidCoderInstall.HandleSquirrelEvents();
-		}
-
-		// If we get here we know we are actually trying to launch the app (and this isn't part of a Squirrel update process.
+		// If we get here we know we are actually trying to launch the app (and this isn't part of a Velopack update process.
 		// Enforce single-instance restrictions.
 		string mutexName = CommonUtilities.Beta ? "VidCoderBetaInstanceMutex" : "VidCoderInstanceMutex";
 		bool createdNew = true;
@@ -144,7 +135,7 @@ public partial class App : Application
 
 		Database.InitErrors.Clear();
 
-		if (Utilities.InstallType == VidCoderInstallType.SquirrelInstaller && !string.IsNullOrEmpty(Config.UninstallerPath))
+		if (Utilities.InstallType == VidCoderInstallType.VelopackInstaller && !string.IsNullOrEmpty(Config.UninstallerPath))
 		{
 			if (File.Exists(Config.UninstallerPath))
 			{
@@ -200,6 +191,12 @@ public partial class App : Application
 		var mainVM = new MainViewModel();
 		this.MainWindow = StaticResolver.Resolve<IWindowManager>().OpenWindow(mainVM);
 		mainVM.OnLoaded();
+
+		// Start the watcher process if it's not already running.
+		if (Utilities.WatcherSupportedAndEnabled && !RegistryUtilities.IsFileWatcherAutoStart())
+		{
+			StaticResolver.Resolve<WatcherProcessManager>();
+		}
 
 		if (e.Args.Length > 0)
 		{

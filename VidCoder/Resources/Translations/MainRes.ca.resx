@@ -338,9 +338,6 @@
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>La versió {0} està disponible. S'ha iniciat la baixada de l'actualització.</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>La versió {0} s'ha baixat i s'instal·larà en sortir.</value>
-  </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
     <value>No s'ha aplicat l'actualització. Si no l'heu cancel·lada, proveu d'instal·lar-la manualment.</value>
   </data>
@@ -628,9 +625,6 @@
   <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
     <value>Opcions de codificació d'àudio</value>
   </data>
-  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
-    <value>S'ha acabat de baixar la versió {0}.</value>
-  </data>
   <data name="RemoveFromQueueMenuItem" xml:space="preserve">
     <value>Elimina-ho de la cua</value>
   </data>
@@ -755,4 +749,5 @@ Aquest avís només es mostrarà dos cops.</value>
     <comment>{0} is the current job number for scanning and adding an item to the queue
 {1} is the total number of scanned items this session</comment>
   </data>
+  
 </root>

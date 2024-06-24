@@ -6,6 +6,7 @@ using System.Text;
 namespace VidCoder.Services;
 
 using Model;
+using Velopack;
 
 public interface IUpdater
 {
@@ -15,5 +16,7 @@ public interface IUpdater
 
 	UpdateState State { get; }
 	Version LatestVersion { get; }
-	int UpdateCheckProgressPercent { get; set; }
+	VelopackAsset LatestAsset { get; }
+
+	int UpdateDownloadProgressPercent { get; set; }
 }

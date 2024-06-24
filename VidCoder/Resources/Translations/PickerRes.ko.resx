@@ -172,7 +172,10 @@
     <value>인수:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  
+  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
+    <value>프로그램에 전달할 인수입니다. 파일 출력 경로에는 {file}, 포함 폴더 경로에는 {folder}, 전체 소스 경로에는 {sourcepath} 또는 {title} 및 {date}와 같은 기타 경로 옵션을 사용합니다 (명명 형식 참조).</value>
+    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>선택기에서 인코딩 프리셋을 지정했습니다.</value>
   </data>
@@ -214,63 +217,207 @@
     <value>강제 출력만</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="LastSelectedRadioButton" xml:space="preserve">
+    <value>마지막 선택</value>
+  </data>
+  <data name="OverrideNameFormatLabel" xml:space="preserve">
+    <value>사용 가능한 옵션: {0}</value>
+  </data>
+  <data name="DurationFilterStartAutomationName" xml:space="preserve">
+    <value>기간 필터 시작 시간</value>
+    <comment>Screen reader text for number box that represents the start of the filter range in minutes. The number chosen in this box represents the minimum title length in minutes that will be chosen.
+</comment>
+  </data>
+  <data name="DurationFilterEndAutomationName" xml:space="preserve">
+    <value>기간 필터 종료 분</value>
+    <comment>Screen reader text for number box that represents the end of the filter range in minutes. The number chosen in this box represents the maximum title length in minutes that will be chosen.
+</comment>
+  </data>
+  <data name="DurationFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>기간별로 제목 필터링</value>
+    <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
+  </data>
+  <data name="ChangeCaptializationLabel" xml:space="preserve">
+    <value>대문자를 다음과 같이 변경</value>
+  </data>
+  <data name="TimeRangeStartAutomationName" xml:space="preserve">
+    <value>시간 범위 시작</value>
+  </data>
+  <data name="TimeRangeEndAutomationName" xml:space="preserve">
+    <value>시간 범위 끝</value>
+  </data>
+  <data name="ByIndexRadioButton" xml:space="preserve">
+    <value>인덱스별</value>
+    <comment>Label for the choice to choose audio or subtitle tracks by index</comment>
+  </data>
+  <data name="SelectTracksLabel" xml:space="preserve">
+    <value>트랙 선택:</value>
+  </data>
+  <data name="SelectTracksHelpText" xml:space="preserve">
+    <value>쉼표로 구분 - 예: 2,5</value>
+  </data>
+  <data name="ChapterRangeEndAutomationName" xml:space="preserve">
+    <value>챕터 범위 끝</value>
+  </data>
+  <data name="ChapterRangeStartAutomationName" xml:space="preserve">
+    <value>챕터 범위 시작</value>
+  </data>
+  <data name="DestinationSection" xml:space="preserve">
+    <value>대상</value>
+  </data>
+  <data name="OutputFolder" xml:space="preserve">
+    <value>출력 폴더:</value>
+    <comment>Label for the output folder.</comment>
+  </data>
+  <data name="UseCustomFileNameFormatCheckBox" xml:space="preserve">
+    <value>사용자 지정 파일 명명 형식 사용:</value>
+  </data>
+  <data name="WhenFileExistsBatch" xml:space="preserve">
+    <value>파일이 이미 있는 경우 (일괄):</value>
+  </data>
+  <data name="WhenFileExistsSingle" xml:space="preserve">
+    <value>파일이 이미 있는 경우 (단일):</value>
+  </data>
+  <data name="CustomPickerNameTemplate" xml:space="preserve">
+    <value>사용자 지정 {0}</value>
+    <comment>The name for a custom auto-created picker. {0} is a number like 2, or 3 or 4 to differentiate it</comment>
+  </data>
+  <data name="OutputFileNameFormatAutomationName" xml:space="preserve">
+    <value>파일 이름 형식</value>
+    <comment>Name for screen readers for the output file name format text box</comment>
+  </data>
+  <data name="OnlyChangeCapitalizationIfAllSameLabel" xml:space="preserve">
+    <value>모두 소문자 또는 모두 대문자인 경우에만 대문자를 변경</value>
+  </data>
+  <data name="WordBreakCharacterAutomationNameFormat" xml:space="preserve">
+    <value>단어 구분 문자 - {0}</value>
+    <comment>Screen reader format for word break checkboxes. These will determine if a character will be used to separate words.</comment>
+  </data>
+  <data name="WordBreakCharactersLabel" xml:space="preserve">
+    <value>인식되는 단어 구분 문자:</value>
+  </data>
+  <data name="WordBreakCharacter_Dot" xml:space="preserve">
+    <value>점</value>
+  </data>
+  <data name="WordBreakCharacter_Space" xml:space="preserve">
+    <value>공백</value>
+  </data>
+  <data name="WordBreakCharacter_Underscore" xml:space="preserve">
+    <value>밑줄</value>
+  </data>
+  <data name="ChangeWordSeparatorLabel" xml:space="preserve">
+    <value>단어 구분자를 다음으로 변경합니다</value>
+  </data>
+  <data name="SourceCleanupPreviewLabel" xml:space="preserve">
+    <value>미리보기:</value>
+  </data>
+  <data name="SourceNameCleanupSection" xml:space="preserve">
+    <value>소스 이름 정리</value>
+  </data>
+  <data name="AddAudioTrackNameButton" xml:space="preserve">
+    <value>Add audio track name</value>
+    <comment>Button to add another name to the list of audio track names in the Picker.</comment>
+  </data>
+  <data name="AddSubtitleTrackNameButton" xml:space="preserve">
+    <value>자막 트랙 이름 추가</value>
+    <comment>Button to add another name to the list of subtitle track names in the Picker.</comment>
+  </data>
+  <data name="CustomTrackNamesCheckBox" xml:space="preserve">
+    <value>사용자 지정 트랙 이름</value>
+    <comment>Checkbox label to use custom audio or subtitle track names</comment>
+  </data>
+  <data name="TrackAutomationFormat" xml:space="preserve">
+    <value>트랙 {0}</value>
+    <comment>Screen reader format for track names in the Picker.</comment>
+  </data>
+  <data name="BurnInLabel" xml:space="preserve">
+    <value>굽기:</value>
+  </data>
+  <data name="PickerAudioSectionName" xml:space="preserve">
+    <value>오디오</value>
+  </data>
+  <data name="PickerForeignAudioCheckBox" xml:space="preserve">
+    <value>'외국 오디오 검색' 트랙 추가</value>
+  </data>
+  <data name="PickerSubtitleSectionName" xml:space="preserve">
+    <value>자막</value>
+  </data>
+  <data name="SubtitleSelectionMode_ForeignAudioSearch" xml:space="preserve">
+    <value>외국 오디오 검색</value>
+  </data>
+  <data name="TrackSelectionLabel" xml:space="preserve">
+    <value>트랙 선택:</value>
+    <comment>Label for track selection mode for audio or subtitle tracks.</comment>
+  </data>
+  <data name="AudioSelectionModeToolTip" xml:space="preserve">
+    <value>마지막 선택 - 일치하는 항목이 발견되면 마지막으로 선택한 오디오 트랙을 선택하고, 그렇지 않으면 첫 번째 오디오 트랙을 선택합니다.
+첫 번째 - 첫 번째 오디오 트랙만 포함합니다.
+인덱스별 - 트랙 인덱스별로 선택(1 기준)
+언어 - 언어별로 선택
+모두 - 모든 오디오 트랙을 포함합니다.</value>
+  </data>
+  <data name="SubtitleSelectionModeToolTip" xml:space="preserve">
+    <value>마지막 선택 - 일치하는 트랙이 발견되면 마지막으로 선택한 자막 트랙을 선택하고, 그렇지 않으면 트랙을 선택하지 않습니다.
+없음 - 자막을 포함하지 않습니다.
+첫 번째 - 첫 번째 자막만 포함합니다.
+인덱스별 - 트랙 인덱스별로 선택(1 기준)
+언어 - 언어별로 선택
+모두 - 모든 자막을 포함합니다.</value>
+  </data>
+  <data name="IgnoreFilesBelowCheckBox" xml:space="preserve">
+    <value>아래 파일 무시</value>
+    <comment>A number box follows this string: Ignore files below [ 10 ] MB</comment>
+  </data>
+  <data name="TimeRangeLabel" xml:space="preserve">
+    <value>시간 범위</value>
+  </data>
+  <data name="VideoSelectionSection" xml:space="preserve">
+    <value>비디오 선택</value>
+  </data>
+  <data name="MetadataSection" xml:space="preserve">
+    <value>메타데이터</value>
+  </data>
+  <data name="PassThroughMetadataCheckBox" xml:space="preserve">
+    <value>동영상 메타데이터 (감독, 개봉일, 배우 등)를 전달</value>
+  </data>
   <data name="BurnInCheckBox" xml:space="preserve">
     <value>입히기</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
+    <value>입력 비디오 파일과 동일한 이름의 외부 자막 파일 ({0}) 추가</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>언어:</value>
+  </data>
+  <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
+    <value>제거하기 전에 확인</value>
+  </data>
+  <data name="SourceFileRemovalLabel" xml:space="preserve">
+    <value>인코딩 성공 후 소스 파일 제거:</value>
+    <comment>Label for the option to automatically delete source files on completion.</comment>
+  </data>
+  <data name="HeightFilterCheckBox" xml:space="preserve">
+    <value>높이가 있는 제목만 선택</value>
+    <comment>Label before the UI to pick the title height limitation. For example, it might read "Pick only titles with height [ &gt; ] [ 480 ]"</comment>
+  </data>
+  <data name="HeightFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>높이별로 제목 필터링</value>
+    <comment>Screen reader text for the height filter checkbox</comment>
+  </data>
+  <data name="HeightFilterValueAutomationName" xml:space="preserve">
+    <value>높이 필터 값</value>
+    <comment>Screen reader text for the height filter value</comment>
+  </data>
+  <data name="WidthFilterCheckBox" xml:space="preserve">
+    <value>너비가 있는 제목만 선택</value>
+    <comment>Label before the UI to pick the title width limitation. For example, it might read "Pick only titles with width [ &gt; ] [ 640 ]"</comment>
+  </data>
+  <data name="WidthFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>너비별로 제목 필터링</value>
+    <comment>Screen reader text for the width filter checkbox</comment>
+  </data>
+  <data name="WidthFilterValueAutomationName" xml:space="preserve">
+    <value>너비 필터 값</value>
+    <comment>Screen reader text for the width filter value</comment>
+  </data>
 </root>

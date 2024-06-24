@@ -15,17 +15,17 @@ namespace VidCoder.Model;
 /// </summary>
 public class JobWork
 {
-	private readonly bool isTwoPass;
+	private readonly bool isMultiPass;
 	private readonly bool hasScanPass;
 
-	public JobWork(TimeSpan jobVideoLength, bool isTwoPass, bool hasScanPass)
+	public JobWork(TimeSpan jobVideoLength, bool isMultiPass, bool hasScanPass)
 	{
 		this.JobVideoLength = jobVideoLength;
-		this.isTwoPass = isTwoPass;
+		this.isMultiPass = isMultiPass;
 		this.hasScanPass = hasScanPass;
 
 		this.Cost = jobVideoLength.TotalSeconds;
-		if (isTwoPass)
+		if (isMultiPass)
 		{
 			this.Cost += jobVideoLength.TotalSeconds;
 		}

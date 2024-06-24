@@ -12,7 +12,7 @@ using System.Windows;
 using System.Windows.Interop;
 using HandBrake.Interop.Interop.Json.Scan;
 using Microsoft.AnyContainer;
-using Squirrel;
+using Velopack;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -28,12 +28,12 @@ namespace VidCoder;
 
 public static class Utilities
 {
-	public const int CurrentDatabaseVersion = 47;
-	public const int LastUpdatedEncodingProfileDatabaseVersion = 44;
+	public const int CurrentDatabaseVersion = 48;
+	public const int LastUpdatedEncodingProfileDatabaseVersion = 48;
 	public const int LastUpdatedPickerDatabaseVersion = 47;
 
-	public const string SquirrelUpdateUrlBeta = "https://f001.backblazeb2.com/file/vidcoder-squirrel-beta";
-	public const string SquirrelUpdateUrlStable = "https://f001.backblazeb2.com/file/vidcoder-squirrel-stable";
+	public const string VelopackUpdateUrlBeta = "https://f001.backblazeb2.com/file/vidcoder-squirrel-beta";
+	public const string VelopackUpdateUrlStable = "https://f001.backblazeb2.com/file/vidcoder-squirrel-stable";
 
 	public const string FileWatcherExecutableName = "VidCoderFileWatcher";
 
@@ -56,10 +56,11 @@ public static class Utilities
 			}
 		}
 
-		var updateManager = new UpdateManager(SquirrelUpdateUrl);
-		if (updateManager.IsInstalledApp)
+		bool hasVeloCommandLine = Environment.GetCommandLineArgs().Any(arg => arg == "--veloapp-version");
+		var updateManager = new UpdateManager(VelopackUpdateUrl);
+		if (hasVeloCommandLine || updateManager.IsInstalled)
 		{
-			InstallType = VidCoderInstallType.SquirrelInstaller;
+			InstallType = VidCoderInstallType.VelopackInstaller;
 		}
 	}
 
@@ -140,15 +141,15 @@ public static class Utilities
 		}
 	}
 
-	public static string SquirrelUpdateUrl
+	public static string VelopackUpdateUrl
 	{
 		get
 		{
-			return CommonUtilities.Beta ? SquirrelUpdateUrlBeta : SquirrelUpdateUrlStable;
+			return CommonUtilities.Beta ? VelopackUpdateUrlBeta : VelopackUpdateUrlStable;
 		}
 	}
 
-	public static bool SupportsUpdates => InstallType == VidCoderInstallType.SquirrelInstaller && CurrentVersion != new Version(1, 0, 0, 0);
+	public static bool SupportsUpdates => InstallType == VidCoderInstallType.VelopackInstaller && CurrentVersion != new Version(1, 0, 0, 0);
 
 	public static bool WatcherSupportedAndEnabled
 	{

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
     <UseWPF>true</UseWPF>
     <CsWinRTWindowsMetadata>10.0.19041.0</CsWinRTWindowsMetadata>
     <ApplicationIcon>VidCoder_icon.ico</ApplicationIcon>
@@ -17,12 +17,12 @@
     <Platforms>x64</Platforms>
     <ValidateExecutableReferencesMatchSelfContained>false</ValidateExecutableReferencesMatchSelfContained>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <StartupObject>VidCoder.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <DefineConstants>DEBUG</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Clowd.Squirrel" />
     <PackageReference Include="ControlzEx" />
     <PackageReference Include="Fluent.Ribbon" />
     <PackageReference Include="Microsoft.AnyContainer" />
@@ -37,6 +37,7 @@
     <PackageReference Include="System.Runtime.InteropServices" />
     <PackageReference Include="UTF.Unknown" />
     <PackageReference Include="valueinjecter" />
+    <PackageReference Include="Velopack" />
     <PackageReference Include="WinCopies.WindowsAPICodePack.Shell" />
   </ItemGroup>
   <ItemGroup>
@@ -284,7 +285,6 @@
   <ItemGroup>
     <ProjectReference Include="..\VidCoderCLI\VidCoderCLI.csproj" />
     <ProjectReference Include="..\VidCoderCommon\VidCoderCommon.csproj" />
-    <ProjectReference Include="..\VidCoderElevatedSetup\VidCoderElevatedSetup.csproj" />
     <ProjectReference Include="..\VidCoderFileWatcher\VidCoderFileWatcher.csproj" />
     <ProjectReference Include="..\VidCoderWindowlessCLI\VidCoderWindowlessCLI.csproj" />
     <ProjectReference Include="..\VidCoderWorker\VidCoderWorker.csproj" />
@@ -292,7 +292,4 @@
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /y /d &quot;$(SolutionDir)Lib\System.Diagnostics.EventLog.dll&quot; &quot;$(TargetDir)runtimes\win\lib\net6.0\*&quot;" />
-  </Target>
 </Project>

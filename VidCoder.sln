@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VidCoderCommon", "VidCoderC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VidCoderCommon.Tests", "VidCoderCommon.Tests\VidCoderCommon.Tests.csproj", "{22F8AC83-97D5-46AC-BE76-0BAA5B393790}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VidCoderElevatedSetup", "VidCoderElevatedSetup\VidCoderElevatedSetup.csproj", "{E1B25764-A86E-4BA5-8407-B45F95A1F3CA}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6898F0BA-7567-400A-8607-E16BCF311946}"
 	ProjectSection(SolutionItems) = preProject
 		Directory.Packages.props = Directory.Packages.props
@@ -132,22 +130,6 @@ Global
 		{22F8AC83-97D5-46AC-BE76-0BAA5B393790}.Release-Beta|Any CPU.Build.0 = Release|x64
 		{22F8AC83-97D5-46AC-BE76-0BAA5B393790}.Release-Beta|x64.ActiveCfg = Release|x64
 		{22F8AC83-97D5-46AC-BE76-0BAA5B393790}.Release-Beta|x64.Build.0 = Release|x64
-		{E1B25764-A86E-4BA5-8407-B45F95A1F3CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E1B25764-A86E-4BA5-8407-B45F95A1F3CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E1B25764-A86E-4BA5-8407-B45F95A1F3CA}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{E1B25764-A86E-4BA5-8407-B45F95A1F3CA}.Debug|x64.Build.0 = Debug|Any CPU
-		{E1B25764-A86E-4BA5-8407-B45F95A1F3CA}.Debug-Beta|Any CPU.ActiveCfg = Debug|Any CPU
-		{E1B25764-A86E-4BA5-8407-B45F95A1F3CA}.Debug-Beta|Any CPU.Build.0 = Debug|Any CPU
-		{E1B25764-A86E-4BA5-8407-B45F95A1F3CA}.Debug-Beta|x64.ActiveCfg = Debug|Any CPU
-		{E1B25764-A86E-4BA5-8407-B45F95A1F3CA}.Debug-Beta|x64.Build.0 = Debug|Any CPU
-		{E1B25764-A86E-4BA5-8407-B45F95A1F3CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E1B25764-A86E-4BA5-8407-B45F95A1F3CA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E1B25764-A86E-4BA5-8407-B45F95A1F3CA}.Release|x64.ActiveCfg = Release|Any CPU
-		{E1B25764-A86E-4BA5-8407-B45F95A1F3CA}.Release|x64.Build.0 = Release|Any CPU
-		{E1B25764-A86E-4BA5-8407-B45F95A1F3CA}.Release-Beta|Any CPU.ActiveCfg = Release|Any CPU
-		{E1B25764-A86E-4BA5-8407-B45F95A1F3CA}.Release-Beta|Any CPU.Build.0 = Release|Any CPU
-		{E1B25764-A86E-4BA5-8407-B45F95A1F3CA}.Release-Beta|x64.ActiveCfg = Release|Any CPU
-		{E1B25764-A86E-4BA5-8407-B45F95A1F3CA}.Release-Beta|x64.Build.0 = Release|Any CPU
 		{5B08120E-EC23-41A0-91AD-17EE596875C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5B08120E-EC23-41A0-91AD-17EE596875C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B08120E-EC23-41A0-91AD-17EE596875C0}.Debug|x64.ActiveCfg = Debug|Any CPU

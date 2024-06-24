@@ -849,4 +849,7 @@ NitidezzaCircolare rende più nitida l'immagine utilizzando il filtro con "nocci
   <data name="CroppingType_Conservative" xml:space="preserve">
     <value>Conservativo</value>
   </data>
+  <data name="MultiPassEncodingCheckBox" xml:space="preserve">
+    <value>Codifica a più passaggi</value>
+  </data>
 </root>

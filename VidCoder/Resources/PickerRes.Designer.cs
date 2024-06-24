@@ -524,7 +524,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The arguments to pass to the program. Use {file} for the file output path, {folder} as containing folder path or other path options like {title} and {date} (see Naming Format)..
+        ///   Looks up a localized string similar to The arguments to pass to the program. Use {file} for the file output path, {folder} for containing folder path, {sourcepath} for the full source path, or other path options like {title} and {date} (see Naming Format)..
         /// </summary>
         public static string PostEncodeArgumentsToolTip {
             get {

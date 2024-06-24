@@ -858,4 +858,7 @@ Telecining είναι μια διαδικασία που προσαρμόζει 
   <data name="CroppingType_Conservative" xml:space="preserve">
     <value>Συντηρητικό</value>
   </data>
+  <data name="MultiPassEncodingCheckBox" xml:space="preserve">
+    <value>Κωδικοποίηση πολλαπλών περασμάτων</value>
+  </data>
 </root>

@@ -143,24 +143,24 @@ public class VideoPanelViewModel : PanelViewModel
 			}
 		}).ToProperty(this, x => x.VfrChoiceText, out this.vfrChoiceText);
 
-		// TwoPassVisible
+		// MultiPassVisible
 		this.WhenAnyValue(x => x.VideoEncodeRateType, x => x.SelectedEncoder, (videoEncodeRateType, selectedEncoder) =>
 		{
 			if (selectedEncoder != null)
 			{
-				if (!HandBrakeEncoderHelpers.VideoEncoderSupportsMultiPass(selectedEncoder.Encoder.Id))
+				if (!HandBrakeEncoderHelpers.VideoEncoderSupportsMultiPass(selectedEncoder.Encoder.Id, videoEncodeRateType == VCVideoEncodeRateType.ConstantQuality))
 				{
 					return false;
 				}
 			}
 
 			return videoEncodeRateType != VCVideoEncodeRateType.ConstantQuality;
-		}).ToProperty(this, x => x.TwoPassVisible, out this.twoPassVisible);
+		}).ToProperty(this, x => x.MultiPassVisible, out this.multiPassVisible);
 
 		// TurboFirstPassEnabled
-		this.WhenAnyValue(x => x.VideoEncodeRateType, x => x.TwoPass, (videoEncodeRateType, twoPass) =>
+		this.WhenAnyValue(x => x.VideoEncodeRateType, x => x.MultiPass, (videoEncodeRateType, multiPass) =>
 		{
-			return videoEncodeRateType != VCVideoEncodeRateType.ConstantQuality && twoPass;
+			return videoEncodeRateType != VCVideoEncodeRateType.ConstantQuality && multiPass;
 		}).ToProperty(this, x => x.TurboFirstPassEnabled, out this.turboFirstPassEnabled);
 
 		// TurboFirstPassVisible
@@ -450,18 +450,20 @@ public class VideoPanelViewModel : PanelViewModel
 	{
 		this.RegisterProfileProperty(nameof(this.Profile.VideoEncoder), () =>
 		{
-			if (!HandBrakeEncoderHelpers.VideoEncoderSupportsMultiPass(HandBrakeEncoderHelpers.GetVideoEncoder(this.Profile.VideoEncoder).Id))
+			if (!HandBrakeEncoderHelpers.VideoEncoderSupportsMultiPass(HandBrakeEncoderHelpers.GetVideoEncoder(
+				this.Profile.VideoEncoder).Id,
+				this.Profile.VideoEncodeRateType == VCVideoEncodeRateType.ConstantQuality))
 			{
-				this.TwoPass = false;
+				this.MultiPass = false;
 				this.TurboFirstPass = false;
 			}
 		});
 
 		this.RegisterProfileProperty(nameof(this.Profile.Framerate));
 		this.RegisterProfileProperty(nameof(this.Profile.ConstantFramerate));
-		this.RegisterProfileProperty(nameof(this.Profile.TwoPass), () =>
+		this.RegisterProfileProperty(nameof(this.Profile.MultiPass), () =>
 		{
-			if (!this.TwoPass && this.TurboFirstPass)
+			if (!this.MultiPass && this.TurboFirstPass)
 			{
 				this.TurboFirstPass = false;
 			}
@@ -477,7 +479,7 @@ public class VideoPanelViewModel : PanelViewModel
 				this.SetDefaultQuality();
 
 				// Disable two-pass options
-				this.TwoPass = false;
+				this.MultiPass = false;
 				this.TurboFirstPass = false;
 			}
 
@@ -634,14 +636,14 @@ public class VideoPanelViewModel : PanelViewModel
 	private ObservableAsPropertyHelper<string> vfrChoiceText;
 	public string VfrChoiceText => this.vfrChoiceText.Value;
 
-	public bool TwoPass
+	public bool MultiPass
 	{
-		get { return this.Profile.TwoPass; }
-		set { this.UpdateProfileProperty(nameof(this.Profile.TwoPass), value); }
+		get { return this.Profile.MultiPass; }
+		set { this.UpdateProfileProperty(nameof(this.Profile.MultiPass), value); }
 	}
 
-	private ObservableAsPropertyHelper<bool> twoPassVisible;
-	public bool TwoPassVisible => this.twoPassVisible.Value;
+	private ObservableAsPropertyHelper<bool> multiPassVisible;
+	public bool MultiPassVisible => this.multiPassVisible.Value;
 
 	public bool TurboFirstPass
 	{

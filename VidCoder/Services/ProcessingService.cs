@@ -2411,7 +2411,8 @@ public class ProcessingService : ReactiveObject
 					{
 						string arguments = this.outputPathService.ReplaceArguments(picker.PostEncodeArguments, picker, finishedJobViewModel)
 							.Replace("{file}", finalOutputPath)
-							.Replace("{folder}", Path.GetDirectoryName(finalOutputPath));
+							.Replace("{folder}", Path.GetDirectoryName(finalOutputPath))
+							.Replace("{sourcepath}", finishedJobViewModel.Job.SourcePath);
 
 						try
 						{

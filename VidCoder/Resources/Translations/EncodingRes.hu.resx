@@ -856,4 +856,7 @@ A lapsharp konvolúciós kernelek használatával élesít, megközelítve a Lap
   <data name="CroppingType_Conservative" xml:space="preserve">
     <value>Konzervatív</value>
   </data>
+  <data name="MultiPassEncodingCheckBox" xml:space="preserve">
+    <value>Többmenetes kódolás</value>
+  </data>
 </root>

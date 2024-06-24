@@ -93,7 +93,7 @@ public class QueueAdderService : ReactiveObject
 		this.currentScan = this.pendingScans.Dequeue();
 
 		// Workaround to fix hang when scanning too many items at once
-		if (this.scansDoneOnCurrentScanProxy > 35)
+		if (this.scansDoneOnCurrentScanProxy > 200)
 		{
 			this.scanProxy.Dispose();
 			this.scanProxy = null;
@@ -165,9 +165,7 @@ public class QueueAdderService : ReactiveObject
 
 					this.scansCompletedThisSession++;
 					this.currentJobProgress = 0;
-					this.UpdateProgress();
 					this.scanLogger.Dispose();
-
 
 					if (this.pendingScans.Count == 0)
 					{
@@ -191,6 +189,8 @@ public class QueueAdderService : ReactiveObject
 						this.scansDoneOnCurrentScanProxy++;
 						this.ScanNextJob();
 					}
+
+					this.UpdateProgress();
 				}
 			};
 		}

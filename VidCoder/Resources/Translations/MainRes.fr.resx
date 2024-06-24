@@ -338,9 +338,6 @@
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>La version {0} est disponible. Le téléchargement de la mise à jour a commencé.</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>La version {0} est téléchargée et va s'installer.</value>
-  </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
     <value>La mise à jour n'a pas été appliquée. Si vous n'annulez pas, essayez de l'installer manuellement.</value>
   </data>
@@ -630,9 +627,6 @@
   <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
     <value>Options d'encodage audio</value>
   </data>
-  <data name="NewVersionDownloadFinishedOnLaunchStatus" xml:space="preserve">
-    <value>La version {0} a terminé de télécharger.</value>
-  </data>
   <data name="RemoveFromQueueMenuItem" xml:space="preserve">
     <value>Supprimer de la file d'attente</value>
   </data>
@@ -757,4 +751,5 @@ Cette alerte ne s'affichera que deux fois.</value>
     <comment>{0} is the current job number for scanning and adding an item to the queue
 {1} is the total number of scanned items this session</comment>
   </data>
+  
 </root>
