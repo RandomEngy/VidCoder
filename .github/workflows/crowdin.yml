@@ -4,9 +4,6 @@ on:
   push:
     branches: [ beta ]
   workflow_dispatch:
-  repository_dispatch:
-    types:
-      - file-updated
 
 jobs:
   synchronize-with-crowdin:
