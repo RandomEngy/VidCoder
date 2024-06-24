@@ -281,6 +281,33 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Also recognizes fileName.lng.ext, where lng is the ISO language name and ext is the subtitle file extension..
+        /// </summary>
+        public static string ExternalSubtitleImportToolTip {
+            get {
+                return ResourceManager.GetString("ExternalSubtitleImportToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fallback language:.
+        /// </summary>
+        public static string FallbackLanguageLabel {
+            get {
+                return ResourceManager.GetString("FallbackLanguageLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If the language is not identified in the subtitle file name, like myVideo.srt, assume it is this language..
+        /// </summary>
+        public static string FallbackLanguageToolTip {
+            get {
+                return ResourceManager.GetString("FallbackLanguageToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mark first as default.
         /// </summary>
         public static string FirstAsDefaultCheckBox {
@@ -349,15 +376,6 @@ namespace VidCoder.Resources {
         public static string IgnoreFilesBelowCheckBox {
             get {
                 return ResourceManager.GetString("IgnoreFilesBelowCheckBox", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Language:.
-        /// </summary>
-        public static string LanguageLabel {
-            get {
-                return ResourceManager.GetString("LanguageLabel", resourceCulture);
             }
         }
         

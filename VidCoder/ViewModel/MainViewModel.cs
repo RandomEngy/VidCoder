@@ -1514,8 +1514,8 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 			{
 				fileSubtitlesInnerList.Clear();
 
-				FileSubtitle fileSubtitle = ProcessingService.FindSubtitleFile(this.SourcePath, picker, openDialogOnMissingCharCode: true);
-				if (fileSubtitle != null)
+				List<FileSubtitle> fileSubtitles = ProcessingService.FindSubtitleFiles(this.SourcePath, picker, openDialogOnMissingCharCode: true);
+				foreach (FileSubtitle fileSubtitle in fileSubtitles)
 				{
 					fileSubtitlesInnerList.Add(new FileSubtitleViewModel(this, fileSubtitle));
 				}

@@ -43,6 +43,7 @@ using VidCoderCommon.Utilities.Injection;
 using VidCoderCommon;
 using HandBrake.Interop.Interop.Interfaces.Model;
 using VidCoderCommon.Utilities;
+using System.Text.RegularExpressions;
 
 namespace VidCoder.Services;
 
@@ -3327,8 +3328,8 @@ public class ProcessingService : ReactiveObject
 
 		if (picker.EnableExternalSubtitleImport && job.SourceType == SourceType.File)
 		{
-			FileSubtitle fileSubtitle = FindSubtitleFile(job.SourcePath, picker, openDialogOnMissingCharCode);
-			if (fileSubtitle != null)
+			List<FileSubtitle> fileSubtitles = FindSubtitleFiles(job.SourcePath, picker, openDialogOnMissingCharCode);
+			foreach (FileSubtitle fileSubtitle in fileSubtitles)
 			{
 				job.Subtitles.FileSubtitles.Add(fileSubtitle);
 			}
@@ -3535,35 +3536,70 @@ public class ProcessingService : ReactiveObject
 	}
 
 	/// <summary>
-	/// Finds the file subtitle for the given path and picker.
+	/// Finds the file subtitles for the given path and picker. This will find files that match sourcePath.ext or sourcePath.lng.ext,
+	/// where lng is a 3-letter ISO language code and ext is a valid subtitle extension.
 	/// </summary>
 	/// <param name="sourcePath">The source path to check.</param>
 	/// <param name="picker">The picker settings to use.</param>
 	/// <param name="openDialogOnMissingCharCode">Open a dialog if the char code for the file cannot be determined.</param>
 	/// <returns></returns>
-	public static FileSubtitle FindSubtitleFile(string sourcePath, Picker picker, bool openDialogOnMissingCharCode)
+	public static List<FileSubtitle> FindSubtitleFiles(string sourcePath, Picker picker, bool openDialogOnMissingCharCode)
 	{
-		if (!picker.EnableExternalSubtitleImport)
+		// Enumerate the files in the directory and use regex to find the subtitle files
+		// Use FileUtilities.SubtitleExtensions to get the list of valid subtitle extensions
+
+		string extensionList = string.Join("|", FileUtilities.SubtitleExtensions.Select(ext => ext.Substring(1)));
+
+		string languageRegexPattern = "^.+\\.(?<language>[a-zA-Z]{3})\\.(?:" + extensionList + ")$";
+		Regex langaugeRegex = new Regex(languageRegexPattern, RegexOptions.IgnoreCase);
+
+		string noLanguageRegexPattern = "^.+\\.(?:" + extensionList + ")$";
+		Regex noLanguageRegex = new Regex(noLanguageRegexPattern, RegexOptions.IgnoreCase);
+
+		string directory = Path.GetDirectoryName(sourcePath);
+		string fileName = Path.GetFileNameWithoutExtension(sourcePath);
+
+		List<FileSubtitle> result = new List<FileSubtitle>();
+
+		if (!Directory.Exists(directory))
 		{
-			return null;
+			return result;
 		}
 
-		string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(sourcePath);
-		string pathWithoutExtension = Path.Combine(Path.GetDirectoryName(sourcePath), fileNameWithoutExtension);
-		foreach (string subtitleExtension in FileUtilities.SubtitleExtensions)
+		foreach (string file in Directory.GetFiles(directory, fileName + ".*"))
 		{
-			string potentialSubtitlePath = pathWithoutExtension + subtitleExtension;
-			if (File.Exists(potentialSubtitlePath))
-			{
-				FileSubtitle fileSubtitle = StaticResolver.Resolve<SubtitlesService>().LoadSubtitleFile(potentialSubtitlePath, picker.ExternalSubtitleImportLanguage, openDialogOnMissingCharCode);
-				fileSubtitle.Default = picker.ExternalSubtitleImportDefault;
-				fileSubtitle.BurnedIn = picker.ExternalSubtitleImportBurnIn;
+			string candidateFileName = Path.GetFileName(file);
+			Match languageMatch = langaugeRegex.Match(candidateFileName);
 
-				return fileSubtitle;
+			bool matchedLanguage = false;
+			if (languageMatch.Success)
+			{
+				string languageCode = languageMatch.Groups["language"].Value;
+				if (HandBrakeLanguagesHelper.AllLanguagesDict.ContainsKey(languageCode))
+				{
+					FileSubtitle fileSubtitle = StaticResolver.Resolve<SubtitlesService>().LoadSubtitleFile(file, languageCode, openDialogOnMissingCharCode);
+					fileSubtitle.Default = picker.ExternalSubtitleImportDefault;
+					fileSubtitle.BurnedIn = picker.ExternalSubtitleImportBurnIn;
+					result.Add(fileSubtitle);
+
+					matchedLanguage = true;
+				}
+			}
+
+			if (!matchedLanguage)
+			{
+				Match nonLanguageMatch = noLanguageRegex.Match(candidateFileName);
+				if (nonLanguageMatch.Success)
+				{
+					FileSubtitle fileSubtitle = StaticResolver.Resolve<SubtitlesService>().LoadSubtitleFile(file, picker.ExternalSubtitleImportLanguage, openDialogOnMissingCharCode);
+					fileSubtitle.Default = picker.ExternalSubtitleImportDefault;
+					fileSubtitle.BurnedIn = picker.ExternalSubtitleImportBurnIn;
+					result.Add(fileSubtitle);
+				}
 			}
 		}
 
-		return null;
+		return result;
 	}
 
 	/// <summary>
