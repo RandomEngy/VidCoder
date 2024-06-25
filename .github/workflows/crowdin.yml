@@ -8,6 +8,10 @@ on:
 jobs:
   synchronize-with-crowdin:
     runs-on: ubuntu-latest
+    
+    concurrency:
+      group: crowdin
+      cancel-in-progress: true
 
     steps:
       - name: Checkout
