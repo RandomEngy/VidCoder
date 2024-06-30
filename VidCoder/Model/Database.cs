@@ -76,6 +76,11 @@ public static class Database
 				UpgradeDatabaseTo47();
 			}
 
+			if (databaseVersion < 49)
+			{
+				UpgradeDatabaseTo49();
+			}
+
 			// Update encoding profiles if we need to. Everything is at least 28 now from the JSON upgrade.
 			int oldDatabaseVersion = Math.Max(databaseVersion, 28);
 			if (oldDatabaseVersion < Utilities.LastUpdatedEncodingProfileDatabaseVersion)
@@ -331,6 +336,14 @@ public static class Database
 			"path TEXT COLLATE NOCASE PRIMARY KEY, " +
 			"status TEXT NOT NULL, " +
 			"reason TEXT)", Connection);
+	}
+
+	private static void UpgradeDatabaseTo49()
+	{
+		if (Utilities.InstallType == VidCoderInstallType.VelopackInstaller)
+		{
+			RegistryUtilities.RefreshFileAssociations(new StubLogger());
+		}
 	}
 
 #pragma warning restore CS0618 // Type or member is obsolete

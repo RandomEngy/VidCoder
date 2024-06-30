@@ -26,8 +26,6 @@ public static class VidCoderInstall
 
 		try
 		{
-			CopyIconFilesToRoot(logger);
-
 			RegistryUtilities.Install(logger);
 			logger.Log("Initial install actions complete.");
 		}
@@ -82,32 +80,6 @@ public static class VidCoderInstall
 		finally
 		{
 			logger.Close();
-		}
-	}
-
-	/// <summary>
-	/// Copies some icon files to the root local app data folder so they can be in a stable location for file associations.
-	/// </summary>
-	/// <param name="logger">The logger to use.</param>
-	private static void CopyIconFilesToRoot(SupportLogger logger)
-	{
-		try
-		{
-			const string presetIconFileName = "VidCoderPreset.ico";
-			const string queueIconFileName = "VidCoderQueue.ico";
-
-			string presetIconSourcePath = Path.Combine(CommonUtilities.ProgramFolder, presetIconFileName);
-			string queueIconSourcePath = Path.Combine(CommonUtilities.ProgramFolder, queueIconFileName);
-
-			string presetIconDestinationPath = Path.Combine(CommonUtilities.LocalAppFolder, presetIconFileName);
-			string queueIconDestinationPath = Path.Combine(CommonUtilities.LocalAppFolder, queueIconFileName);
-
-			File.Copy(presetIconSourcePath, presetIconDestinationPath, overwrite: true);
-			File.Copy(queueIconSourcePath, queueIconDestinationPath, overwrite: true);
-		}
-		catch (Exception exception)
-		{
-			logger.Log(exception.ToString());
 		}
 	}
 }
