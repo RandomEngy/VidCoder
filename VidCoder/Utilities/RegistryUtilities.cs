@@ -15,7 +15,7 @@ public static class RegistryUtilities
 {
 	private static readonly bool IsBeta = CommonUtilities.Beta;
 	private static readonly string LocalAppFolder = CommonUtilities.LocalAppFolder;
-	private static readonly string WindowlessCliExePath = Path.Combine(LocalAppFolder, "VidCoderWindowlessCLI.exe");
+	private static readonly string WindowlessCliExePath = Path.Combine(LocalAppFolder, "current", "VidCoderWindowlessCLI.exe");
 
 	private const string EventHandlersKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\EventHandlers";
 
@@ -61,6 +61,15 @@ public static class RegistryUtilities
 		RemoveFileAssociations(logger);
 		RemoveFileWatcherAutoStart(logger);
 		logger.Log("Finished uninstalling registry keys.");
+	}
+
+	// Only needed to fix file associations when upgrading to v49
+	public static void RefreshFileAssociations(IBasicLogger logger)
+	{
+		logger.Log("Refreshing file associations...");
+		RemoveFileAssociations(logger);
+		AddFileAssociations(logger);
+		logger.Log("Finished refreshing file associations.");
 	}
 
 	public static bool AreRegKeysInstalled()
@@ -162,7 +171,7 @@ public static class RegistryUtilities
 			presetKey.SetValue(null, PresetProgId);
 			presetKey.Close();
 
-			string presetIconPath = Path.Combine(CommonUtilities.LocalAppFolder, "VidCoderPreset.ico");
+			string presetIconPath = Path.Combine(CommonUtilities.LocalAppFolder, "current", "VidCoderPreset.ico");
 
 			RegistryKey presetIconKey = Registry.CurrentUser.CreateSubKey($@"{PresetClassesKeyPath}\DefaultIcon");
 			presetIconKey.SetValue(null, $"\"{presetIconPath}\"");
@@ -177,7 +186,7 @@ public static class RegistryUtilities
 			queueKey.SetValue(null, QueueProgId);
 			queueKey.Close();
 
-			string queueIconPath = Path.Combine(CommonUtilities.LocalAppFolder, "VidCoderQueue.ico");
+			string queueIconPath = Path.Combine(CommonUtilities.LocalAppFolder, "current", "VidCoderQueue.ico");
 
 			RegistryKey queueIconKey = Registry.CurrentUser.CreateSubKey($@"{QueueClassesKeyPath}\DefaultIcon");
 			queueIconKey.SetValue(null, $"\"{queueIconPath}\"");

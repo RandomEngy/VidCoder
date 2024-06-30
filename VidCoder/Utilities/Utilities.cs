@@ -28,7 +28,7 @@ namespace VidCoder;
 
 public static class Utilities
 {
-	public const int CurrentDatabaseVersion = 48;
+	public const int CurrentDatabaseVersion = 49;
 	public const int LastUpdatedEncodingProfileDatabaseVersion = 48;
 	public const int LastUpdatedPickerDatabaseVersion = 47;
 
