@@ -1528,23 +1528,30 @@ public class ProcessingService : ReactiveObject
 
 			string extension = this.outputPathService.GetOutputExtension();
 			string queueOutputPath = this.outputPathService.BuildOutputPath(queueOutputFileName, extension, sourcePath: null, outputFolder: outputFolder);
+			string finalOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, this.main.SourcePath, isBatch: true, picker, allowConflictDialog: false, allowQueueRemoval: true);
 
-			job.FinalOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, this.main.SourcePath, isBatch: true, picker, allowConflictDialog: false, allowQueueRemoval: true);
+			if (finalOutputPath != null)
+			{
+				job.FinalOutputPath = finalOutputPath;
 
-			var jobVM = new EncodeJobViewModel(
-				job,
-				this.main.SourceData,
-				this.main.GetVideoSourceMetadata(),
-				sourceParentFolder: null,
-				manualOutputPath: false,
-				nameFormatOverride: nameFormatOverride,
-				presetName: this.presetsService.SelectedPreset.DisplayName,
-				pickerName: picker.Name);
+				var jobVM = new EncodeJobViewModel(
+					job,
+					this.main.SourceData,
+					this.main.GetVideoSourceMetadata(),
+					sourceParentFolder: null,
+					manualOutputPath: false,
+					nameFormatOverride: nameFormatOverride,
+					presetName: this.presetsService.SelectedPreset.DisplayName,
+					pickerName: picker.Name);
 
-			jobsToAdd.Add(jobVM);
+				jobsToAdd.Add(jobVM);
+			}
 		}
 
-		this.QueueMultipleJobs(jobsToAdd);
+		if (jobsToAdd.Count > 0)
+		{
+			this.QueueMultipleJobs(jobsToAdd);
+		}
 	}
 
 	private void RetryJobIfNeeded(EncodeJobViewModel encodeJobViewModel)
@@ -1715,8 +1722,6 @@ public class ProcessingService : ReactiveObject
 							presetName: preset.Name,
 							pickerName: picker.Name);
 
-						itemsToQueue.Add(jobVM);
-
 						var titles = jobVM.VideoSource.Titles;
 
 						SourceTitle title = titles.Single(t => t.Index == job.Title);
@@ -1755,20 +1760,25 @@ public class ProcessingService : ReactiveObject
 							allowConflictDialog: !scanResult.JobInstructions.IsBatch,
 							allowQueueRemoval: true);
 
-						if (Utilities.IsValidFullPath(queueOutputPath))
+						if (queueOutputPath != null)
 						{
-							job.FinalOutputPath = queueOutputPath;
+							itemsToQueue.Add(jobVM);
 
-							queuedOutputFiles.Add(queueOutputPath);
-						}
-						else
-						{
-							this.logger.LogError($"Could not add \"{queueOutputPath}\" to queue; it is not a valid full file path.");
-						}
+							if (Utilities.IsValidFullPath(queueOutputPath))
+							{
+								job.FinalOutputPath = queueOutputPath;
 
-						if (scanResults.Count == 1 && !string.IsNullOrWhiteSpace(scanResult.JobInstructions.DestinationOverride))
-						{
-							job.FinalOutputPath = scanResult.JobInstructions.DestinationOverride;
+								queuedOutputFiles.Add(queueOutputPath);
+							}
+							else
+							{
+								this.logger.LogError($"Could not add \"{queueOutputPath}\" to queue; it is not a valid full file path.");
+							}
+
+							if (scanResults.Count == 1 && !string.IsNullOrWhiteSpace(scanResult.JobInstructions.DestinationOverride))
+							{
+								job.FinalOutputPath = scanResult.JobInstructions.DestinationOverride;
+							}
 						}
 					}
 				}

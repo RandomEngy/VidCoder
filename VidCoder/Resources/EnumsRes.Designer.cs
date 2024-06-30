@@ -887,5 +887,14 @@ namespace VidCoder.Resources {
                 return ResourceManager.GetString("WhenFileExists_Prompt", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip.
+        /// </summary>
+        public static string WhenFileExists_Skip {
+            get {
+                return ResourceManager.GetString("WhenFileExists_Skip", resourceCulture);
+            }
+        }
     }
 }
