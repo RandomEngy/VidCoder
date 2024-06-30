@@ -117,4 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CancelMenuItem" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="PathColumnHeader" xml:space="preserve">
+    <value>Polku</value>
+  </data>
+  <data name="PickerLabel" xml:space="preserve">
+    <value>Valitsija</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>Koodauksen esiasetus:</value>
+  </data>
+  <data name="RetryMenuItem" xml:space="preserve">
+    <value>Yritä uudelleen</value>
+  </data>
+  <data name="RunWhenClosedCheckBox" xml:space="preserve">
+    <value>Suorita kun VidCoder on suljettu</value>
+  </data>
+  <data name="StatusCanceledToolTip" xml:space="preserve">
+    <value>Koodaus peruutettiin poistamalla se jonosta.</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>Tila</value>
+  </data>
+  <data name="StatusFailedToolTip" xml:space="preserve">
+    <value>Koodaus epäonnistui.</value>
+  </data>
+  <data name="StatusOutputToolTip" xml:space="preserve">
+    <value>Tiedosto oli VidCoderin koodaama.</value>
+  </data>
+  <data name="StatusQueuedToolTip" xml:space="preserve">
+    <value>Lähdetiedosto on jonossa.</value>
+  </data>
+  <data name="StatusSucceededToolTip" xml:space="preserve">
+    <value>Koodaus suoritettu onnistuneesti.</value>
+  </data>
+  <data name="WatchedFilesHeader" xml:space="preserve">
+    <value>Tiedostot</value>
+  </data>
+  <data name="WatchedFoldersHeader" xml:space="preserve">
+    <value>Tarkkaile kansioita</value>
+  </data>
+  <data name="WatchedFolderTextBoxLabel" xml:space="preserve">
+    <value>Kansio:</value>
+  </data>
 </root>

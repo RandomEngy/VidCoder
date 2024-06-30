@@ -401,4 +401,5 @@
   <data name="EncodeCompleteActionType_Restart" xml:space="preserve">
     <value>Redémarrer</value>
   </data>
+  
 </root>

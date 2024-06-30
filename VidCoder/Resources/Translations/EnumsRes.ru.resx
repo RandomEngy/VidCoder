@@ -405,4 +405,5 @@
   <data name="EncodeCompleteActionType_Restart" xml:space="preserve">
     <value>Перезагрузка</value>
   </data>
+  
 </root>

@@ -320,7 +320,9 @@
   <data name="EtaLabel" xml:space="preserve">
     <value>Valmistuu:</value>
   </data>
-  
+  <data name="WhenDoneLabel" xml:space="preserve">
+    <value>Kun valmis:</value>
+  </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>Videotiedosto...</value>
   </data>
@@ -476,6 +478,89 @@
   </data>
   
   
+  <data name="PickerMenuItem" xml:space="preserve">
+    <value>Valitsija</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  <data name="FileSizeColumnHeader" xml:space="preserve">
+    <value>Koko</value>
+    <comment>Used on the "completed encodes" tab, to label the column that shows the final output file size.</comment>
+  </data>
+  
+  <data name="RibbonEncodingGroupLabel" xml:space="preserve">
+    <value>Koodaus</value>
+  </data>
+  <data name="RibbonSettingsGroupLabel" xml:space="preserve">
+    <value>Asetukset</value>
+  </data>
+  
+  <data name="EncodingSettingsButton" xml:space="preserve">
+    <value>Koodauksen asetukset</value>
+    <comment>{0} is a placeholder for the name of the encoding preset currently selected.</comment>
+  </data>
+  
+  <data name="OpenSourceRibbonButton" xml:space="preserve">
+    <value>Avaa lähde</value>
+  </data>
+  <data name="ImportExportRibbonButton" xml:space="preserve">
+    <value>Tuo/Vie</value>
+    <comment>Label for ribbon button to import or export presets or queues</comment>
+  </data>
+  
+  <data name="OpenFormat" xml:space="preserve">
+    <value>Avaa {0}</value>
+    <comment>Format for opening a source. For example: "Open E:\ - THE_INCREDIBLES"</comment>
+  </data>
+  <data name="NoAudioDescription" xml:space="preserve">
+    <value>Ääntä ei löytynyt lähteestä.</value>
+  </data>
+  <data name="NoAudioSummary" xml:space="preserve">
+    <value/>
+    <comment>Summary text for when no audio tracks are found on the source</comment>
+  </data>
+  <data name="NoSubtitlesSummary" xml:space="preserve">
+    <value>Ei tekstityksiä</value>
+    <comment>Summary text for when no subtitle tracks are found on the source and no external subtitles have been added</comment>
+  </data>
+  
+  <data name="BitrateColumn" xml:space="preserve">
+    <value>Bittinopeus</value>
+  </data>
+  <data name="SampleRateColumn" xml:space="preserve">
+    <value>Näytetaajuus</value>
+  </data>
+  
+  <data name="OpenSourceLabel" xml:space="preserve">
+    <value>Avaa</value>
+    <comment>Label on top of the different options for opening video source on the startup screen.</comment>
+  </data>
+  
+  
+  
+  
+  
+  
+  <data name="OpenSourceFolderOption" xml:space="preserve">
+    <value>Avaa lähdekansio</value>
+    <comment>Menu option to open the folder of the source file in the queue</comment>
+  </data>
+  
+  
+  <data name="VideoEncodingOptionsToolTip" xml:space="preserve">
+    <value>Videon koodausasetukset</value>
+  </data>
+  <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
+    <value>Äänen koodausasetukset</value>
+  </data>
+  <data name="RemoveFromQueueMenuItem" xml:space="preserve">
+    <value>Poista jonosta</value>
+  </data>
   
   
   
@@ -484,53 +569,26 @@
   
   
   
+  <data name="AudioTrackNameAutomationName" xml:space="preserve">
+    <value>Ääniraidan nimi</value>
+    <comment>Narrator label for the audio track name text box.</comment>
+  </data>
+  <data name="SubtitleNameAutomationName" xml:space="preserve">
+    <value>Tekstityksen nimi</value>
+    <comment>Narrator label for the subtitle name text box.</comment>
+  </data>
   
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="CompareEncodedLabel" xml:space="preserve">
+    <value>Koodattu</value>
+    <comment>Label for the encoded video when comparing original vs encoded</comment>
+  </data>
+  <data name="CompareOriginalLabel" xml:space="preserve">
+    <value>Alkuperäinen</value>
+    <comment>Label for the original video when comparing original vs encoded</comment>
+  </data>
   
   
   

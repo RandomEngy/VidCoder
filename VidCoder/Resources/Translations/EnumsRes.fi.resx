@@ -129,10 +129,19 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>Tiukka</value>
   </data>
-  
-  
-  
-  
+  <data name="AppThemeChoice_Auto" xml:space="preserve">
+    <value>Käytä käyttöjärjestelmän teemaa</value>
+    <comment>Windows 10 you can choose Light or Dark for the app theme. This will cause VidCoder to respect that choice.</comment>
+  </data>
+  <data name="AppThemeChoice_Dark" xml:space="preserve">
+    <value>Tumma</value>
+  </data>
+  <data name="AppThemeChoice_Light" xml:space="preserve">
+    <value>Vaalea</value>
+  </data>
+  <data name="CombDetect_fast" xml:space="preserve">
+    <value>Nopea</value>
+  </data>
   
   <data name="Custom" xml:space="preserve">
     <value>Mukauta</value>
@@ -213,6 +222,7 @@
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>Aikaväli</value>
   </data>
+  
   
   
   

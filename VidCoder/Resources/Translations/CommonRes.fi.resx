@@ -281,22 +281,48 @@ A full copy of the GNU General Public License has been included along with this 
     <value>Ensimmäinen</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
+  <data name="DuplicateTrack" xml:space="preserve">
+    <value>Monista tämä raita</value>
+    <comment>Tip to duplicate the audio or subtitle track.</comment>
+  </data>
+  <data name="RemoveTrack" xml:space="preserve">
+    <value>Poista tämä raita</value>
+    <comment>Tip for button to remove the audio or subtitle track.</comment>
+  </data>
+  
+  
+  <data name="NumberBoxIncreaseButtonAutomationTextFormat" xml:space="preserve">
+    <value>Kasvata {0}</value>
+    <comment>Automation text for the increase button on the number box.
+{0} - The name of the value the control is changing, for example "width"</comment>
+  </data>
+  <data name="NumberBoxDecreaseButtonAutomationTextFormat" xml:space="preserve">
+    <value>Pienennä {0}</value>
+    <comment>Automation text for the decrease button on the number box.
+{0} - The name of the value the control is changing, for example "width"</comment>
+  </data>
+  
+  <data name="Unknown" xml:space="preserve">
+    <value>Tuntematon</value>
+    <comment>Used when a value is not known.</comment>
+  </data>
+  <data name="DefaultLabel" xml:space="preserve">
+    <value>Oletus</value>
+  </data>
+  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
+    <value>Ääniraidat</value>
+  </data>
+  <data name="QueueColumnNameCropping" xml:space="preserve">
+    <value>Rajaus</value>
+  </data>
   
   
   
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="Close" xml:space="preserve">
+    <value>Sulje</value>
+    <comment>Label to close a window or item.</comment>
+  </data>
 </root>
