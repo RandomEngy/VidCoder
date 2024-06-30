@@ -377,7 +377,9 @@ vataajuus, sitä käytetään. Huomaa, että jotkin toistimet eivät tue vaihtel
   
   
   
-  
+  <data name="Bitrate" xml:space="preserve">
+    <value>Bittinopeus</value>
+  </data>
   
   
   

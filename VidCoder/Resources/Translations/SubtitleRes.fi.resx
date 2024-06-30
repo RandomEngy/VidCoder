@@ -154,12 +154,23 @@
     <value>Muut tekstitystiedostot voivat limittyä poltettujen tekstitysten kanssa.</value>
   </data>
   
-  
+  <data name="SubtitleFilePickerText" xml:space="preserve">
+    <value>Lisää tekstitystiedosto</value>
+  </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
     <value>Tekstitystiedoston muunto epäonnistui. Varmistaaksesi, että nämä tekstitykset näkyvät oikein, tallenna tiedosto UTF-8-formaatissa.</value>
   </data>
-  
-  
-  
-  
+  <data name="NoSubtitlesText" xml:space="preserve">
+    <value>Tekstityksiä ei löytynyt lähteestä.</value>
+  </data>
+  <data name="ExternalSubtitlesSummaryFormat" xml:space="preserve">
+    <value>{0} ulkoinen</value>
+    <comment>{0} is the number of external subtitle tracks included. e.g. "5 external"</comment>
+  </data>
+  <data name="ImportSubtitleButton" xml:space="preserve">
+    <value>Tuo tiedostosta...</value>
+  </data>
+  <data name="FilePickerDescription" xml:space="preserve">
+    <value>Tekstitystiedostot</value>
+  </data>
 </root>

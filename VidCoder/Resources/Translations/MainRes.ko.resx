@@ -590,14 +590,14 @@
     <comment>{0} is the name of the source being scanned.</comment>
   </data>
   <data name="RetryFailedItemsMenuItem" xml:space="preserve">
-    <value>실패한 모든 작업 다시 시도</value>
+    <value>실패한 모든 작업 재시도</value>
   </data>
   <data name="StartChapterAutomationName" xml:space="preserve">
     <value>시작 챕터</value>
     <comment>Narrator label for the chapter start combo box</comment>
   </data>
   <data name="EndChapterAutomationName" xml:space="preserve">
-    <value>챕터 끝</value>
+    <value>끝 챕터</value>
     <comment>Narrator label for the end chapter combo box</comment>
   </data>
   <data name="EditChaptersButtonAutomationName" xml:space="preserve">
@@ -734,7 +734,7 @@ v5는 Windows 7/8용으로 테스트된 마지막 버전이었습니다.
     <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
   </data>
   <data name="RemoveSourceFiles_Recycle" xml:space="preserve">
-    <value>재활용</value>
+    <value>휴지통</value>
     <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
   </data>
   <data name="RequestFeatureMenuItem" xml:space="preserve">

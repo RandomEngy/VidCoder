@@ -417,7 +417,14 @@ Alle - Bevat alle ondertitels.</value>
     <value>Breedte filterwaarde</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
-  
-  
-  
+  <data name="ExternalSubtitleImportToolTip" xml:space="preserve">
+    <value>Herkent ook fileName.lng.ext, waarbij lng de ISO-taalnaam is en ext de ondertitelbestandsextensie.</value>
+  </data>
+  <data name="FallbackLanguageLabel" xml:space="preserve">
+    <value>Terugval-taal:</value>
+    <comment>Label for an option of what language to mark a subtitle track as when it doesn't have the language identified in the file name. For example, if you have myVideo.mp4 and myVideo.srt, what language should we mark that as when we pick it up?</comment>
+  </data>
+  <data name="FallbackLanguageToolTip" xml:space="preserve">
+    <value>Als de taal niet geïdentificeerd is in de bestandsnaam van het ondertitel, zoals myVideo.srt, neem dan aan dat het deze taal is.</value>
+  </data>
 </root>
