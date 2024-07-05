@@ -52,7 +52,7 @@ public static class Database
 			if (databaseVersion < 35)
 			{
 				string message = string.Format(CultureInfo.CurrentCulture, MainRes.DataTooOldRunVidCoderVersion, "3.15");
-				StaticResolver.Resolve<IMessageBoxService>().Show(message);
+				MessageBox.Show(message);
 				throw new InvalidOperationException("Database too old");
 			}
 
