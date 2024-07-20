@@ -857,5 +857,7 @@ Keskinleştir (Lapsharp), Laplacian kenar filtrelerine yakın olan kıvrım tane
   <data name="CroppingType_Conservative" xml:space="preserve">
     <value>Ölçülü</value>
   </data>
-  
+  <data name="MultiPassEncodingCheckBox" xml:space="preserve">
+    <value>Çok geçişli kodlama</value>
+  </data>
 </root>

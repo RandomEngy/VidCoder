@@ -683,7 +683,7 @@
     <value>Нажмите или удерживайте Ctrl, чтобы показать закодированную версию.</value>
   </data>
   <data name="CompareWindowTitleFormat" xml:space="preserve">
-    <value>Сравнение видео: {0} - {1}</value>
+    <value>Сравнение видео: {0} — {1}</value>
     <comment>Title for the Video compare window.
 {0} is a string indicating if it's original or encoded.
 {1} is the file name, e.g. MyFile.mkv</comment>

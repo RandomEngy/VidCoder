@@ -290,7 +290,7 @@
     <value>Изменять регистр букв только в том случае, если все строчные или все прописные</value>
   </data>
   <data name="WordBreakCharacterAutomationNameFormat" xml:space="preserve">
-    <value>Символ разрыва слов - {0}</value>
+    <value>Символ разрыва слов — {0}</value>
     <comment>Screen reader format for word break checkboxes. These will determine if a character will be used to separate words.</comment>
   </data>
   <data name="WordBreakCharactersLabel" xml:space="preserve">
@@ -417,7 +417,14 @@
     <value>Значение фильтра ширины</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
-  
-  
-  
+  <data name="ExternalSubtitleImportToolTip" xml:space="preserve">
+    <value>Также распознаётся «имя_файла.lng.ext», где lng — это название языка в стандарте ISO, а ext — расширение файла субтитров.</value>
+  </data>
+  <data name="FallbackLanguageLabel" xml:space="preserve">
+    <value>Неуказанный язык:</value>
+    <comment>Label for an option of what language to mark a subtitle track as when it doesn't have the language identified in the file name. For example, if you have myVideo.mp4 and myVideo.srt, what language should we mark that as when we pick it up?</comment>
+  </data>
+  <data name="FallbackLanguageToolTip" xml:space="preserve">
+    <value>Если язык не указан в названии файла субтитров, например, «MyVideo.srt», будет считаться, что это именно этот язык.</value>
+  </data>
 </root>
