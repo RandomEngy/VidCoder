@@ -18,7 +18,7 @@
     <PackageVersion Include="System.Data.SQLite.Core" Version="1.0.118" />
     <PackageVersion Include="System.Management" Version="5.0.0" />
     <PackageVersion Include="System.Runtime.InteropServices" Version="4.3.0" />
-    <PackageVersion Include="System.Text.Json" Version="8.0.3" />
+    <PackageVersion Include="System.Text.Json" Version="8.0.4" />
     <PackageVersion Include="UTF.Unknown" Version="2.3.0" />
     <PackageVersion Include="valueinjecter" Version="3.2.0" />
     <PackageVersion Include="Velopack" Version="0.0.359" />
