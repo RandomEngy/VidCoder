@@ -316,7 +316,7 @@
     <value>Настройка процессов</value>
   </data>
   <data name="CpuThrottlingLabel" xml:space="preserve">
-    <value>Пропуск тактов ЦП - доступные ядра:</value>
+    <value>Пропуск тактов ЦП — доступные ядра:</value>
     <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use. It labels a slider that controls the percentage of allowed cores, where the max is 100%.</comment>
   </data>
   <data name="CpuThrottlingToolTip" xml:space="preserve">

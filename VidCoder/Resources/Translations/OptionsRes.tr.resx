@@ -419,6 +419,12 @@ Sorgulama: Klasörlerin içeriğini periyodik olarak kontrol eder. Önemli CPU v
   <data name="CapNVEncCheckBox" xml:space="preserve">
     <value>Eşzamanlı NVEnc kodlamalarını kapsar. Bunu kaldırmak için özel bir NVidia sürücü yaması gerekir.</value>
   </data>
-  
-  
+  <data name="ShowProgressInWindowTitleCheckBox" xml:space="preserve">
+    <value>Kodlama ilerlemesini pencere başlığında göster</value>
+  </data>
+  <data name="DownloadingUpdateStatus" xml:space="preserve">
+    <value>Sürüm {0} indiriliyor...</value>
+    <comment>Shown when downloading an update.
+{0} is the update version, for example 10.4</comment>
+  </data>
 </root>

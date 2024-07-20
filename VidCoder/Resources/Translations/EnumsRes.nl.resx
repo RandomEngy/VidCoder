@@ -405,5 +405,7 @@
   <data name="EncodeCompleteActionType_Restart" xml:space="preserve">
     <value>Opnieuw starten</value>
   </data>
-  
+  <data name="WhenFileExists_Skip" xml:space="preserve">
+    <value>Overslaan</value>
+  </data>
 </root>
