@@ -172,7 +172,10 @@
     <value>Değişkenler:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  
+  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
+    <value>Programa iletilecek değişkenler. Dosya çıktı yolu için {file}, klasör yolu veya {title} ve {date} gibi diğer yol seçeneklerini içeren {folder} kullanın (bkz. Adlandırma Formatı).</value>
+    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>Seçici, kodlama ön ayarını belirledi.</value>
   </data>
@@ -413,7 +416,14 @@ Tümü - Tüm altyazıları dahil eder.</value>
     <value>Genişlik filtre değeri</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
-  
-  
-  
+  <data name="ExternalSubtitleImportToolTip" xml:space="preserve">
+    <value>Ayrıca fileName.lng.ext dosyasını da tanır; burada lng ISO dil adı ve ext altyazı dosya uzantısıdır.</value>
+  </data>
+  <data name="FallbackLanguageLabel" xml:space="preserve">
+    <value>Geri dönüş dili</value>
+    <comment>Label for an option of what language to mark a subtitle track as when it doesn't have the language identified in the file name. For example, if you have myVideo.mp4 and myVideo.srt, what language should we mark that as when we pick it up?</comment>
+  </data>
+  <data name="FallbackLanguageToolTip" xml:space="preserve">
+    <value>Altyazı dosyası adında myVideo.srt gibi bir dil belirtilmemişse, bu dil olduğunu varsayın.</value>
+  </data>
 </root>
