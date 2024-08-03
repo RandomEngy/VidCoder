@@ -571,11 +571,19 @@ public class PreviewWindowViewModel : ReactiveObject, IClosableWindow
 								}
 								else
 								{
-									var previewFileInfo = new FileInfo(this.previewFilePath);
-									this.logger.Log("Finished preview clip generation.");
-									this.logger.Log("  Size: " + Utilities.FormatFileSize(previewFileInfo.Length));
+									try
+									{
+										this.logger.Log("Finished preview clip generation.");
 
-									this.PlayPreview();
+										var previewFileInfo = new FileInfo(this.previewFilePath);
+										this.logger.Log("  Size: " + Utilities.FormatFileSize(previewFileInfo.Length));
+
+										this.PlayPreview();
+									}
+									catch (Exception ex)
+									{
+										this.logger.Log("Error playing preview clip: " + ex);
+									}
 								}
 							}
 						});
