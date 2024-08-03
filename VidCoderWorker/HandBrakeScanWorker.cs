@@ -46,6 +46,7 @@ public class HandBrakeScanWorker : HandBrakeWorkerBase<IHandBrakeScanWorkerCallb
 			minDuration: TimeSpan.FromSeconds(this.PassedMinTitleDurationSeconds),
 			titleIndex: 0,
 			excludedExtensions: new List<string>(),
-			hwDecode: 0);
+			hwDecode: 0,
+			keepDuplicateTitles: false);
 	}
 }

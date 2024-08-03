@@ -178,7 +178,8 @@ public class HandBrakeEncodeWorker : HandBrakeWorkerBase<IHandBrakeEncodeWorkerC
 				minDuration: TimeSpan.FromSeconds(this.PassedMinTitleDurationSeconds),
 				titleIndex: titleNumber,
 				excludedExtensions: new List<string>(),
-				hwDecode: 0);
+				hwDecode: 0,
+				keepDuplicateTitles: false);
 			this.state = EncodeState.Scanning;
 		}
 		catch (Exception exception)

@@ -34,7 +34,8 @@ public class LocalScanProxy : IScanProxy
 			minDuration: TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds),
 			titleIndex: 0,
 			excludedExtensions: new List<string>(),
-			hwDecode: 0);
+			hwDecode: 0,
+			keepDuplicateTitles: false);
     }
 
 	public void Dispose()

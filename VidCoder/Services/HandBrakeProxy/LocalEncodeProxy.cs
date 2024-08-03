@@ -160,7 +160,8 @@ public class LocalEncodeProxy : IEncodeProxy
 			minDuration: TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds),
 			titleIndex: titleNumber,
 			excludedExtensions: new List<string>(),
-			hwDecode: 0);
+			hwDecode: 0,
+			keepDuplicateTitles: false);
 
 		this.encoding = true;
 	}
