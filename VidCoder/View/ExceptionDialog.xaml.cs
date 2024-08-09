@@ -53,7 +53,8 @@ public partial class ExceptionDialog : Window
 
 	private void copyButton_Click(object sender, RoutedEventArgs e)
 	{
-		StaticResolver.Resolve<ClipboardService>().SetText(this.exceptionDetails);
+		var clipboardService = new ClipboardService();
+		clipboardService.SetText(this.exceptionDetails);
 		try
 		{
 			string issueTitle = $"{this.exception.GetType().FullName}: {this.exception.Message}";
