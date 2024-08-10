@@ -57,7 +57,7 @@ public partial class App : Application
 		}
 
 		OperatingSystem OS = Environment.OSVersion;
-		if (OS.Version.Major <= 5)
+		if (OS.Version.Major < 10)
 		{
 			MessageBox.Show(MiscRes.UnsupportedOSError, MiscRes.NoticeMessageTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
 			this.Shutdown();
