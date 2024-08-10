@@ -198,9 +198,7 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>Varsel</value>
   </data>
-  <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder støttes ikke på operativsystemet. Windows XP og Server 2003 fungerer ikke lenger. Installer VidCoder 1.4 eller oppgradere operativsystemet.</value>
-  </data>
+  
   
   
   

@@ -207,9 +207,7 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>Huomautus</value>
   </data>
-  <data name="UnsupportedOSError" xml:space="preserve">
-    <value>Käyttöjärjestelmäsi ei tue VidCoderia. Windows XP ja Server 2003 eivät ole enää tuettuja. Asenna VidCoder 1.4 tai päivitä käyttöjärjestelmäsi.</value>
-  </data>
+  
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>Järjestelmä menee pian lepotilaan</value>
   </data>

@@ -212,9 +212,7 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>გაფრთხილება</value>
   </data>
-  <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder-ის თქვენი ოპერატუილი სისტემის მხარდაჭერა შეწყვეტილია. Windows XP და Server 2003-ზე დიდი ხანია არ მუშაობს. დააყენეთ VidCoder-ის 1.4 ვესია, ან განაახლეთ ოპერატუილი სისტემა.</value>
-  </data>
+  
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>სისტემის პროგრამირებული ძილის რეჟიმი</value>
   </data>

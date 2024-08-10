@@ -212,9 +212,7 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>お知らせ</value>
   </data>
-  <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoderはお使いのOSに対応していません。Windows XPとServer 2003では動作しません。バージョン1.4をインストールするかOSをアップグレードしてください。</value>
-  </data>
+  
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>まもなくスリープになります</value>
   </data>

@@ -210,9 +210,7 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>Mitteilung</value>
   </data>
-  <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder wird von Ihrem Betriebssystem nicht unterstützt. Windows XP und Server 2003 funktionieren nicht länger. Bitte installieren Sie VidCoder 1.4 oder spendieren Sie Ihrem Betriebssystem ein Upgrade.</value>
-  </data>
+  
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>Umschalten in den Standby-Modus steht unmittelbar bevor</value>
   </data>
