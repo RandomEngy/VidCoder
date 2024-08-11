@@ -212,9 +212,7 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>Catatan</value>
   </data>
-  <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder tidak didukung pada sistem operasi Anda. Windows XP dan Server 2003 tidak lagi bekerja. Silakan instal VidCoder 1.4 atau upgrade sistem operasi Anda.</value>
-  </data>
+  
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>Sistem tidur segera</value>
   </data>

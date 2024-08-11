@@ -212,9 +212,7 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>¡Aviso!</value>
   </data>
-  <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder no es compatible con tú sistema operativo. Vidcoder no funciona en Windows XP y Server 2003 . Por favor Instala VidCoder 1.4 o actualiza tú sistema operativo.</value>
-  </data>
+  
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>Hibernacion del sistema inminente</value>
   </data>
