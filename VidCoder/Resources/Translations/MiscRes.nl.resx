@@ -212,7 +212,9 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>Kennisgeving</value>
   </data>
-  
+  <data name="UnsupportedOSError" xml:space="preserve">
+    <value>VidCoder wordt niet ondersteund op dit besturingssysteem. Windows 10 of hoger is vereist voor deze versie. Upgrade het OS of installeer een oudere versie van VidCoder. De laatste compatibele versie voor Windows XP is VidCoder 1.4. De meest recente compatibele versie voor Windows 7 is 5.21.</value>
+  </data>
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>Het systeem gaat binnenkort in slaapstand</value>
   </data>
