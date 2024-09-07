@@ -153,7 +153,9 @@
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>Muut tekstitystiedostot voivat limittyä poltettujen tekstitysten kanssa.</value>
   </data>
-  
+  <data name="ForeignAudioScan" xml:space="preserve">
+    <value>Vieraiden äänitiedostojen haku</value>
+  </data>
   <data name="SubtitleFilePickerText" xml:space="preserve">
     <value>Lisää tekstitystiedosto</value>
   </data>
