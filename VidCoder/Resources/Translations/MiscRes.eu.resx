@@ -212,9 +212,7 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>Oharra</value>
   </data>
-  <data name="UnsupportedOSError" xml:space="preserve">
-    <value>Zure sistemak ez du VidCoder sostengatzen. Windows XP eta Server 2003-k ez dute lan egiten. Mesedez ezarri VidCoder 1.4 edo eguneratu zure sistema eragilea.</value>
-  </data>
+  
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>Berehalako sistema lotaratzea</value>
   </data>

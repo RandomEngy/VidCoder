@@ -212,9 +212,7 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>Chú ý</value>
   </data>
-  <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder không được hỗ trợ trên hệ điều hành của bạn. Windows XP và Server 2003 không còn hoạt động. Vui lòng cài đặt VidCoder 1.4 hoặc nâng cấp hệ điều hành của bạn.</value>
-  </data>
+  
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>Hệ thống sắp ngủ</value>
   </data>

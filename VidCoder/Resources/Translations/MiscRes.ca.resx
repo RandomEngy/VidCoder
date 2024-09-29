@@ -212,9 +212,7 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>Avís</value>
   </data>
-  <data name="UnsupportedOSError" xml:space="preserve">
-    <value>El VidCoder no és compatible amb el vostre sistema operatiu. El Windows XP i el Server 2003 ja no funcionen. Instal·leu el VidCoder 1.5 o actualitzeu el sistema operatiu.</value>
-  </data>
+  
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>El sistema està a punt d'aturar-se temporalment</value>
   </data>

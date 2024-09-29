@@ -173,9 +173,7 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>הערה</value>
   </data>
-  <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder אינה נתמכת במערכת ההפעלה שלכם. Windows XP, Server 2003 לא יפעלו עוד. בבקשה להתקין VidCoder 1.4 או לשדרג את מערכת ההפעלה.</value>
-  </data>
+  
   
   
   

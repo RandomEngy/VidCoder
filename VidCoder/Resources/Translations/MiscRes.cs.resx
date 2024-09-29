@@ -207,9 +207,7 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>Upozornění</value>
   </data>
-  <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder nefunguje na vašem operačním systému. Windows XP a Server 2003 již nejsou podporovány. Nainstalujte si prosím VidCoder 1.4 a nebo inovujte operační systém.</value>
-  </data>
+  
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>Systém bezprostředně přejde do režimu spánku</value>
   </data>

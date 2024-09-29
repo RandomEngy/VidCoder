@@ -212,9 +212,7 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>通知</value>
   </data>
-  <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder 不支援您的作業系統，Windows XP 及 Server 2003 無法使用，請安裝 VidCoder 1.4 或升級您的作業系統。</value>
-  </data>
+  
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>立即休眠</value>
   </data>

@@ -418,7 +418,7 @@ Alle - Bevat alle ondertitels.</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
   <data name="ExternalSubtitleImportToolTip" xml:space="preserve">
-    <value>Herkent ook fileName.lng.ext, waarbij lng de ISO-taalnaam is en ext de ondertitelbestandsextensie.</value>
+    <value>Herkent ook fileName.lng.ext, waarbij lng de ISO-taalnaam is en ext de extensie van het ondertitelbestand.</value>
   </data>
   <data name="FallbackLanguageLabel" xml:space="preserve">
     <value>Terugval-taal:</value>

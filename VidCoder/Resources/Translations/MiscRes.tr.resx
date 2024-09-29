@@ -212,9 +212,7 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>Uyarı</value>
   </data>
-  <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder işletim sisteminizde desteklenmiyor, Windows XP ve Server 2003 artık çalışmıyor. Lütfen VidCoder 1.4'ü kurun veya işletim sisteminizi yükseltin.</value>
-  </data>
+  
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>Bilgisayar Uyku Moduna geçecek</value>
   </data>

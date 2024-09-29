@@ -212,9 +212,7 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>Important</value>
   </data>
-  <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder n'est pas pris en charge sur votre système d'exploitation. Windows XP et Server 2003 ne fonctionnent plus. S'il vous plaît installer VidCoder 1.4, ou mettez votre système d'exploitation à niveau.</value>
-  </data>
+  
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>Prochaine mise en veille</value>
   </data>

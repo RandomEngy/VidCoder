@@ -212,9 +212,7 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>Bemærk</value>
   </data>
-  <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder understøttes ikke på dit operativsystem. Windows XP og Server 2003 fungerer ikke længere. Venligst installer VidCoder 1.4 eller opgrader dit operativsystem.</value>
-  </data>
+  
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>System standby overhængende</value>
   </data>
