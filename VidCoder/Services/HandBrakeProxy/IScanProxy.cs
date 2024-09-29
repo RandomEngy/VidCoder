@@ -11,15 +11,15 @@ namespace VidCoder.Services.HandBrakeProxy;
 /// </summary>
 public interface IScanProxy : IDisposable
 {
-        /// <summary>
-        /// Fires when the scan progress is updated.
-        /// </summary>
-    event EventHandler<EventArgs<float>> ScanProgress;
+	/// <summary>
+	/// Fires when the scan progress is updated.
+	/// </summary>
+	event EventHandler<EventArgs<float>> ScanProgress;
 
-        /// <summary>
-        /// Fires when a scan has completed.
-        /// </summary>
-        event EventHandler<EventArgs<string>> ScanCompleted;
+	/// <summary>
+	/// Fires when a scan has completed.
+	/// </summary>
+	event EventHandler<EventArgs<string>> ScanCompleted;
 
-        void StartScan(string path, IAppLogger logger);
+	void StartScan(string path, IAppLogger logger);
 }
