@@ -212,7 +212,9 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>Уведомление</value>
   </data>
-  
+  <data name="UnsupportedOSError" xml:space="preserve">
+    <value>VidCoder не может работать в вашей операционной системе. Для актуальной версии требуется Windows 10 и новее. Пожалуйста, обновите ОС или установите более раннюю версию VidCoder. Последняя версия для Windows XP — VidCoder 1.4. Последняя версия для Windows 7 — 5.21.</value>
+  </data>
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>Предстоящий сон системы</value>
   </data>
