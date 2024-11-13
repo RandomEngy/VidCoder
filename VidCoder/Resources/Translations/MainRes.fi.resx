@@ -476,35 +476,64 @@
   <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>Haluatko nimetä uudelleen aiemmin luodun tiedoston ja aloittaa uuden?</value>
   </data>
-  
-  
+  <data name="RenameDatabaseFileLine1" xml:space="preserve">
+    <value>{0} tietokantatiedostoa ei voi lukea. VidCoderin {1} tunnistama korkein versio on {2}</value>
+    <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
+  </data>
+  <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+    <value>Yhteensopimaton tietokantatiedosto</value>
+    <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
+  </data>
   <data name="PickerMenuItem" xml:space="preserve">
     <value>Valitsija</value>
   </data>
+  <data name="CouldNotLoadPickerMessage" xml:space="preserve">
+    <value>Ei voitu ladata poimijaa: </value>
+  </data>
   
-  
-  
-  
-  
-  
-  
+  <data name="UseBackupDatabaseLine" xml:space="preserve">
+    <value>Sinulla on varmuuskopioitu versio {0} -tiedosto. Haluatko käyttää sitä?</value>
+    <comment>{0} is the version of the database file you have a backup for.</comment>
+  </data>
+  <data name="VideoPlayError" xml:space="preserve">
+    <value>Virhe videon toistossa.</value>
+  </data>
+  <data name="CustomVideoPlayerError" xml:space="preserve">
+    <value>Videosoitintasi ei löytynyt kohteesta {0}.</value>
+    <comment>{0} is the path to the custom video player.</comment>
+  </data>
+  <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
+    <value>Lisää jonoon videotiedostojen kansio...</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>Joidenkin tiedostojen skannauksessa tapahtui virheitä ja tiedostoja ei lisätty jonoon:
+
+{0}</value>
+  </data>
   <data name="FileSizeColumnHeader" xml:space="preserve">
     <value>Koko</value>
     <comment>Used on the "completed encodes" tab, to label the column that shows the final output file size.</comment>
   </data>
-  
+  <data name="OpenAppDataFolder" xml:space="preserve">
+    <value>Avaa sovellustietokansio</value>
+    <comment>Menu choice for opening the application data folder (that holds the VidCoder database file, logs, etc)</comment>
+  </data>
   <data name="RibbonEncodingGroupLabel" xml:space="preserve">
     <value>Koodaus</value>
   </data>
   <data name="RibbonSettingsGroupLabel" xml:space="preserve">
     <value>Asetukset</value>
   </data>
-  
+  <data name="GlobalOptionsLabel" xml:space="preserve">
+    <value>Yleiset asetukset</value>
+  </data>
   <data name="EncodingSettingsButton" xml:space="preserve">
     <value>Koodauksen asetukset</value>
     <comment>{0} is a placeholder for the name of the encoding preset currently selected.</comment>
   </data>
-  
+  <data name="EncodingSettingsButtonToolTip" xml:space="preserve">
+    <value>Video- ja audiokoodekit, mitoitus, suodattimet, säilö</value>
+  </data>
   <data name="OpenSourceRibbonButton" xml:space="preserve">
     <value>Avaa lähde</value>
   </data>
@@ -512,7 +541,9 @@
     <value>Tuo/Vie</value>
     <comment>Label for ribbon button to import or export presets or queues</comment>
   </data>
-  
+  <data name="AddedSubtitleFromFile" xml:space="preserve">
+    <value>Tekstitys lisätty onnistuneesti tiedostosta {0}</value>
+  </data>
   <data name="OpenFormat" xml:space="preserve">
     <value>Avaa {0}</value>
     <comment>Format for opening a source. For example: "Open E:\ - THE_INCREDIBLES"</comment>
@@ -535,17 +566,35 @@
   <data name="SampleRateColumn" xml:space="preserve">
     <value>Näytetaajuus</value>
   </data>
-  
+  <data name="ClearRecentFilesButtonToolTip" xml:space="preserve">
+    <value>Tyhjennä viimeaikaiset tiedostot</value>
+  </data>
   <data name="OpenSourceLabel" xml:space="preserve">
     <value>Avaa</value>
     <comment>Label on top of the different options for opening video source on the startup screen.</comment>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="ScanningSourceLabelFormat" xml:space="preserve">
+    <value>Skannataan...</value>
+    <comment>{0} is the name of the source being scanned.</comment>
+  </data>
+  <data name="RetryFailedItemsMenuItem" xml:space="preserve">
+    <value>Yritä uudelleen kaikki epäonnistuneet työt</value>
+  </data>
+  <data name="StartChapterAutomationName" xml:space="preserve">
+    <value>Aloita luku</value>
+    <comment>Narrator label for the chapter start combo box</comment>
+  </data>
+  <data name="EndChapterAutomationName" xml:space="preserve">
+    <value>Lopeta luku</value>
+    <comment>Narrator label for the end chapter combo box</comment>
+  </data>
+  <data name="EditChaptersButtonAutomationName" xml:space="preserve">
+    <value>Muokkaa lukuja</value>
+    <comment>Help text for screen readers for the Edit chapters button</comment>
+  </data>
+  <data name="ApplyCurrentEncodingSettings" xml:space="preserve">
+    <value>Käytä nykyisiä koodausasetuksia</value>
+  </data>
   <data name="OpenSourceFolderOption" xml:space="preserve">
     <value>Avaa lähdekansio</value>
     <comment>Menu option to open the folder of the source file in the queue</comment>
@@ -561,14 +610,31 @@
   <data name="RemoveFromQueueMenuItem" xml:space="preserve">
     <value>Poista jonosta</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="ClearSucceededMenuItem" xml:space="preserve">
+    <value>Tyhjennys onnistui</value>
+  </data>
+  <data name="ClearFailedMenuItem" xml:space="preserve">
+    <value>Tyhjennys epäonnistui</value>
+  </data>
+  <data name="ClearQueueConfirmationMessage" xml:space="preserve">
+    <value>Oletko varma, että haluat poistaa kaikki kohteet jonosta?</value>
+  </data>
+  <data name="RemoveAllFomQueueMenuItem" xml:space="preserve">
+    <value>Poista kaikki jonosta</value>
+  </data>
+  <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
+    <value>Koodauksen ei suoritettu täydellisesti koodaustulosluettelossa olevien virheiden vuoksi.</value>
+  </data>
+  <data name="AudioPickerButtonToolTip" xml:space="preserve">
+    <value>Valitse ääniraitoja automaattisesti...</value>
+  </data>
+  <data name="SubtitlePickerButtonToolTip" xml:space="preserve">
+    <value>Valitse tekstitykset automaattisesti...</value>
+  </data>
+  <data name="AudioSubtitleTrackColumnHeader" xml:space="preserve">
+    <value>Raita</value>
+    <comment>Column header for the audio or subtitle track summary. This is an an auto-generated summary that includes language, format, etc.</comment>
+  </data>
   <data name="AudioTrackNameAutomationName" xml:space="preserve">
     <value>Ääniraidan nimi</value>
     <comment>Narrator label for the audio track name text box.</comment>
@@ -577,10 +643,18 @@
     <value>Tekstityksen nimi</value>
     <comment>Narrator label for the subtitle name text box.</comment>
   </data>
-  
-  
-  
-  
+  <data name="CouldNotRecycleFile" xml:space="preserve">
+    <value>Virhe lähetettäessä tiedostoja roskakoriin.</value>
+  </data>
+  <data name="DestinationAutomaticToolTip" xml:space="preserve">
+    <value>Kohde on asetettu automaattisesti. Klikkaa muokataksesi asetuksia.</value>
+  </data>
+  <data name="DestinationManualToolTip" xml:space="preserve">
+    <value>Määränpää on asetettu manuaalisesti. Klikkaa muuttaaksesi automaattiseksi.</value>
+  </data>
+  <data name="CompareAgainstOriginal" xml:space="preserve">
+    <value>Vertaa alkuperäiseen</value>
+  </data>
   <data name="CompareEncodedLabel" xml:space="preserve">
     <value>Koodattu</value>
     <comment>Label for the encoded video when comparing original vs encoded</comment>
@@ -589,22 +663,58 @@
     <value>Alkuperäinen</value>
     <comment>Label for the original video when comparing original vs encoded</comment>
   </data>
+  <data name="CompareWindowHelpText" xml:space="preserve">
+    <value>Napsauta tai pidä Ctrl pohjassa nähdäksesi koodatun version.</value>
+  </data>
+  <data name="CompareWindowTitleFormat" xml:space="preserve">
+    <value>Videovertailu: {0} - {1}</value>
+    <comment>Title for the Video compare window.
+{0} is a string indicating if it's original or encoded.
+{1} is the file name, e.g. MyFile.mkv</comment>
+  </data>
+  <data name="MuteAutomationName" xml:space="preserve">
+    <value>Mykistä</value>
+    <comment>Text for screen readers for the mute button on video playback</comment>
+  </data>
+  <data name="UnmuteAutomationName" xml:space="preserve">
+    <value>Poista mykistys</value>
+    <comment>Text for screen readers for the unmute button on video playback</comment>
+  </data>
   
   
   
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="Win7DeprecationWarning" xml:space="preserve">
+    <value>VidCoder ei ole enää tuettu Windows 7 tai 8:ssa.
+Voit jatkaa VidCoderin käyttöä omalla vastuullasi. Tietyt ominaisuudet eivät toimi ja niihin saattaa liittyä muita ongelmia. Nämä eivät ole saatavilla näiden ongelmien ilmetessä.
+Versio 5 oli viimeinen Windows 7/8 testattu versio.
+Tämä varoitus näkyy vain kahdesti.</value>
+  </data>
+  <data name="RemoveSourceFiles_Delete" xml:space="preserve">
+    <value>Poista</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RemoveSourceFiles_Recycle" xml:space="preserve">
+    <value>kierrätä</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RequestFeatureMenuItem" xml:space="preserve">
+    <value>Pyydä ominaisuutta</value>
+  </data>
+  <data name="CopyLogAndReportMenuItem" xml:space="preserve">
+    <value>Kopioi loki ja raportoi ongelma</value>
+  </data>
+  <data name="WatcherMenuItem" xml:space="preserve">
+    <value>Tarkkailija</value>
+  </data>
+  <data name="QueueProgressLabel" xml:space="preserve">
+    <value>Jonossa {0}/{1}:</value>
+    <comment>{0} is the current job number for scanning and adding an item to the queue
+{1} is the total number of scanned items this session</comment>
+  </data>
+  <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
+    <value>Versio {0} on ladattu ja asennetaan poistuttaessa.</value>
+  </data>
 </root>
