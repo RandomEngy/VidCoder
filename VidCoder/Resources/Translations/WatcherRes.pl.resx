@@ -117,4 +117,88 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivateWatcherButton" xml:space="preserve">
+    <value>Włącz Obserwator Plików</value>
+  </data>
+  <data name="AddFolderToWatch" xml:space="preserve">
+    <value>Dodaj folder do obserwowania</value>
+  </data>
+  <data name="CancelMenuItem" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="DeactivateWatcherButton" xml:space="preserve">
+    <value>Wyłącz obserwator plików</value>
+  </data>
+  <data name="OpenContainingFolderMenuItem" xml:space="preserve">
+    <value>Otwórz folder zawierający</value>
+  </data>
+  <data name="PathColumnHeader" xml:space="preserve">
+    <value>Ścieżka</value>
+  </data>
+  <data name="PickerLabel" xml:space="preserve">
+    <value>Wybierz:</value>
+  </data>
+  <data name="PickWatchedFolderDialogDescription" xml:space="preserve">
+    <value>Wybierz folder do obserwowania</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>Profil kodowania</value>
+  </data>
+  <data name="RemoveWatchedFolder" xml:space="preserve">
+    <value>Usuń obserwowany folder</value>
+  </data>
+  <data name="RetryMenuItem" xml:space="preserve">
+    <value>Ponów</value>
+  </data>
+  <data name="RunWhenClosedCheckBox" xml:space="preserve">
+    <value>Uruchom po zamknięciu VidCoder</value>
+  </data>
+  <data name="ServiceInstallError" xml:space="preserve">
+    <value>Nie można zainstalować usługi obserwatora plików.</value>
+  </data>
+  <data name="ServiceUninstallError" xml:space="preserve">
+    <value>Nie można odinstalować usługi obserwatora plików.</value>
+  </data>
+  <data name="StatusCanceledToolTip" xml:space="preserve">
+    <value>Kodowanie zostało anulowane przez usunięcie z kolejki.</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="StatusFailedToolTip" xml:space="preserve">
+    <value>Kodowanie nie powiodło się.</value>
+  </data>
+  <data name="StatusOutputToolTip" xml:space="preserve">
+    <value>Plik został zakodowany przez VidCoder.</value>
+  </data>
+  <data name="StatusQueuedToolTip" xml:space="preserve">
+    <value>Plik źródłowy jest w kolejce.</value>
+  </data>
+  <data name="StatusSkippedToolTip" xml:space="preserve">
+    <value>Kodowanie zostało pominięte z powodu warunków ustawionych w selektorze (takich jak zbyt mały rozmiar pliku).</value>
+  </data>
+  <data name="StatusSucceededToolTip" xml:space="preserve">
+    <value>Kodowanie zakończone pomyślnie.</value>
+  </data>
+  <data name="WatchedFilesHeader" xml:space="preserve">
+    <value>Pliki</value>
+  </data>
+  <data name="WatchedFoldersHeader" xml:space="preserve">
+    <value>Obserwuj foldery</value>
+  </data>
+  <data name="WatchedFolderTextBoxLabel" xml:space="preserve">
+    <value>Folder:</value>
+  </data>
+  <data name="WatcherAddDialogTitle" xml:space="preserve">
+    <value>Dodaj obserwowany folder</value>
+  </data>
+  <data name="WatcherEditDialogTitle" xml:space="preserve">
+    <value>Edytuj obserwowany folder</value>
+  </data>
+  <data name="WatcherIntroText" xml:space="preserve">
+    <value>Możesz skonfigurować Obserwator, aby obserwował foldery i automatycznie kodował filmy, które się w nich pojawiają. Proces Obserwatora pozostanie uruchomiony po zamknięciu VidCoder i uruchomi go automatycznie w celu kodowania plików.</value>
+  </data>
+  <data name="WatcherWindowTitle" xml:space="preserve">
+    <value>Obserwator - {0}</value>
+  </data>
 </root>
