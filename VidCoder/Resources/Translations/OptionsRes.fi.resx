@@ -161,21 +161,33 @@
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Asetukset</value>
   </data>
-  
+  <data name="ProcessTab" xml:space="preserve">
+    <value>Prosessi</value>
+  </data>
   <data name="AdvancedTab" xml:space="preserve">
     <value>Lisäasetukset</value>
   </data>
   
   
   
-  
-  
+  <data name="UpToDateStatus" xml:space="preserve">
+    <value>VidCoder on ajan tasalla.</value>
+  </data>
+  <data name="ChooseDefaultOutputFolder" xml:space="preserve">
+    <value>Valitse oletustallennuskansio koodatuille videotiedostoille.</value>
+  </data>
   <data name="InterfaceLanguageLabel" xml:space="preserve">
     <value>Käyttöliittymän kieli:</value>
   </data>
-  
-  
-  
+  <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
+    <value>Uusi kieli tulee voimaan, kun poistut ja käynnistät VidCoderin uudelleen.</value>
+  </data>
+  <data name="UseOSLanguage" xml:space="preserve">
+    <value>Käytä käyttöjärjestelmän kieltä</value>
+  </data>
+  <data name="UpdatesTab" xml:space="preserve">
+    <value>Päivitykset</value>
+  </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
     <value>Päivityksen tarkistus epäonnistui.</value>
   </data>
@@ -184,23 +196,43 @@
     <value>Nykyinen versio: {0}</value>
   </data>
   
+  <data name="PlayersSection" xml:space="preserve">
+    <value>Soittimet</value>
+  </data>
+  <data name="SoundSection" xml:space="preserve">
+    <value>Ääni</value>
+  </data>
+  <data name="SystemTraySection" xml:space="preserve">
+    <value>Ilmaisinalue</value>
+  </data>
+  <data name="OutputFolderSection" xml:space="preserve">
+    <value>Kohdekansio</value>
+  </data>
+  <data name="AdvancedOptionsSection" xml:space="preserve">
+    <value>Lisäasetukset</value>
+  </data>
+  <data name="ScanningSection" xml:space="preserve">
+    <value>Skannataan...</value>
+  </data>
   
   
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="UpdatesSection" xml:space="preserve">
+    <value>Päivitykset</value>
+  </data>
+  <data name="UpdateStatusSection" xml:space="preserve">
+    <value>Tila</value>
+  </data>
   
   
   <data name="CheckNowButton" xml:space="preserve">
     <value>Tarkista nyt</value>
   </data>
-  
-  
+  <data name="UseSystemPlayer" xml:space="preserve">
+    <value>Käytä järjestelmäsoitinta</value>
+  </data>
+  <data name="VideoFilesLabel" xml:space="preserve">
+    <value>Videotiedostot</value>
+  </data>
   
   
   
@@ -230,13 +262,18 @@
   
   
   
+  <data name="ProcessOptionsLabel" xml:space="preserve">
+    <value>Prosessiasetukset</value>
+  </data>
   
   
   
   
   
-  
-  
+  <data name="ThemeLabel" xml:space="preserve">
+    <value>Teema</value>
+    <comment>Label for the app theme (auto, light, dark)</comment>
+  </data>
   
   
   
@@ -250,9 +287,16 @@
   
   
   
-  
-  
-  
+  <data name="ApplyUpdateButton" xml:space="preserve">
+    <value>Käytä päivitystä</value>
+  </data>
+  <data name="CheckingForUpdateStatus" xml:space="preserve">
+    <value>Tarkistetaan päivitystä...</value>
+  </data>
+  <data name="UpdateModeLabel" xml:space="preserve">
+    <value>Päivityksen tila:</value>
+    <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
+  </data>
   
   
   

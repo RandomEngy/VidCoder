@@ -407,9 +407,7 @@ public static class Database
 
 	private static void HandleCriticalFileError(Exception exception)
 	{
-		var messageService = StaticResolver.Resolve<IMessageBoxService>();
-
-		messageService.Show(CommonRes.FileFailureErrorMessage + Environment.NewLine + Environment.NewLine + exception.ToString(), CommonRes.FileFailureErrorTitle, MessageBoxButton.OK);
+		MessageBox.Show(CommonRes.FileFailureErrorMessage + Environment.NewLine + Environment.NewLine + exception.ToString(), CommonRes.FileFailureErrorTitle, MessageBoxButton.OK);
 		Environment.Exit(1);
 	}
 

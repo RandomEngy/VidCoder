@@ -158,9 +158,11 @@ public class LocalEncodeProxy : IEncodeProxy
 			paths: new List<string> { scanPath },
 			previewCount: Config.PreviewCount,
 			minDuration: TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds),
+			maxDuration: TimeSpan.Zero,
 			titleIndex: titleNumber,
 			excludedExtensions: new List<string>(),
-			hwDecode: 0);
+			hwDecode: 0,
+			keepDuplicateTitles: false);
 
 		this.encoding = true;
 	}

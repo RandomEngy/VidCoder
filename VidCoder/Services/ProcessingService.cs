@@ -43,6 +43,7 @@ using VidCoderCommon.Utilities.Injection;
 using VidCoderCommon;
 using HandBrake.Interop.Interop.Interfaces.Model;
 using VidCoderCommon.Utilities;
+using System.Text.RegularExpressions;
 
 namespace VidCoder.Services;
 
@@ -1527,23 +1528,30 @@ public class ProcessingService : ReactiveObject
 
 			string extension = this.outputPathService.GetOutputExtension();
 			string queueOutputPath = this.outputPathService.BuildOutputPath(queueOutputFileName, extension, sourcePath: null, outputFolder: outputFolder);
+			string finalOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, this.main.SourcePath, isBatch: true, picker, allowConflictDialog: false, allowQueueRemoval: true);
 
-			job.FinalOutputPath = this.outputPathService.ResolveOutputPathConflicts(queueOutputPath, this.main.SourcePath, isBatch: true, picker, allowConflictDialog: false, allowQueueRemoval: true);
+			if (finalOutputPath != null)
+			{
+				job.FinalOutputPath = finalOutputPath;
 
-			var jobVM = new EncodeJobViewModel(
-				job,
-				this.main.SourceData,
-				this.main.GetVideoSourceMetadata(),
-				sourceParentFolder: null,
-				manualOutputPath: false,
-				nameFormatOverride: nameFormatOverride,
-				presetName: this.presetsService.SelectedPreset.DisplayName,
-				pickerName: picker.Name);
+				var jobVM = new EncodeJobViewModel(
+					job,
+					this.main.SourceData,
+					this.main.GetVideoSourceMetadata(),
+					sourceParentFolder: null,
+					manualOutputPath: false,
+					nameFormatOverride: nameFormatOverride,
+					presetName: this.presetsService.SelectedPreset.DisplayName,
+					pickerName: picker.Name);
 
-			jobsToAdd.Add(jobVM);
+				jobsToAdd.Add(jobVM);
+			}
 		}
 
-		this.QueueMultipleJobs(jobsToAdd);
+		if (jobsToAdd.Count > 0)
+		{
+			this.QueueMultipleJobs(jobsToAdd);
+		}
 	}
 
 	private void RetryJobIfNeeded(EncodeJobViewModel encodeJobViewModel)
@@ -1714,8 +1722,6 @@ public class ProcessingService : ReactiveObject
 							presetName: preset.Name,
 							pickerName: picker.Name);
 
-						itemsToQueue.Add(jobVM);
-
 						var titles = jobVM.VideoSource.Titles;
 
 						SourceTitle title = titles.Single(t => t.Index == job.Title);
@@ -1754,20 +1760,25 @@ public class ProcessingService : ReactiveObject
 							allowConflictDialog: !scanResult.JobInstructions.IsBatch,
 							allowQueueRemoval: true);
 
-						if (Utilities.IsValidFullPath(queueOutputPath))
+						if (queueOutputPath != null)
 						{
-							job.FinalOutputPath = queueOutputPath;
+							itemsToQueue.Add(jobVM);
 
-							queuedOutputFiles.Add(queueOutputPath);
-						}
-						else
-						{
-							this.logger.LogError($"Could not add \"{queueOutputPath}\" to queue; it is not a valid full file path.");
-						}
+							if (Utilities.IsValidFullPath(queueOutputPath))
+							{
+								job.FinalOutputPath = queueOutputPath;
 
-						if (scanResults.Count == 1 && !string.IsNullOrWhiteSpace(scanResult.JobInstructions.DestinationOverride))
-						{
-							job.FinalOutputPath = scanResult.JobInstructions.DestinationOverride;
+								queuedOutputFiles.Add(queueOutputPath);
+							}
+							else
+							{
+								this.logger.LogError($"Could not add \"{queueOutputPath}\" to queue; it is not a valid full file path.");
+							}
+
+							if (scanResults.Count == 1 && !string.IsNullOrWhiteSpace(scanResult.JobInstructions.DestinationOverride))
+							{
+								job.FinalOutputPath = scanResult.JobInstructions.DestinationOverride;
+							}
 						}
 					}
 				}
@@ -3327,8 +3338,8 @@ public class ProcessingService : ReactiveObject
 
 		if (picker.EnableExternalSubtitleImport && job.SourceType == SourceType.File)
 		{
-			FileSubtitle fileSubtitle = FindSubtitleFile(job.SourcePath, picker, openDialogOnMissingCharCode);
-			if (fileSubtitle != null)
+			List<FileSubtitle> fileSubtitles = FindSubtitleFiles(job.SourcePath, picker, openDialogOnMissingCharCode);
+			foreach (FileSubtitle fileSubtitle in fileSubtitles)
 			{
 				job.Subtitles.FileSubtitles.Add(fileSubtitle);
 			}
@@ -3373,7 +3384,7 @@ public class ProcessingService : ReactiveObject
 					{
 						TrackNumber = 1,
 						BurnedIn = picker.SubtitleBurnInSelection.FirstTrackIncluded()
-							|| !HandBrakeEncoderHelpers.SubtitleCanPassthrough(title.SubtitleList[0].Source, containerId),
+							|| !HandBrakeEncoderHelpers.SubtitleCanPassthru(title.SubtitleList[0].Source, containerId),
 						ForcedOnly = picker.SubtitleForcedOnly,
 						Default = picker.SubtitleDefault
 					});
@@ -3391,7 +3402,7 @@ public class ProcessingService : ReactiveObject
 				{
 					for (int i = subtitleIndicesThatPointToRealTracks.Count - 1; i >= 0; i--)
 					{
-						if (!HandBrakeEncoderHelpers.SubtitleCanPassthrough(title.SubtitleList[subtitleIndicesThatPointToRealTracks[i] - 1].Source, containerId))
+						if (!HandBrakeEncoderHelpers.SubtitleCanPassthru(title.SubtitleList[subtitleIndicesThatPointToRealTracks[i] - 1].Source, containerId))
 						{
 							subtitleIndicesThatPointToRealTracks.RemoveAt(i);
 						}
@@ -3428,7 +3439,7 @@ public class ProcessingService : ReactiveObject
 					result.Add(new ChosenSourceSubtitle
 					{
 						TrackNumber = subtitleIndicesThatPointToRealTracks[0],
-						BurnedIn = picker.SubtitleBurnInSelection.FirstTrackIncluded() || !HandBrakeEncoderHelpers.SubtitleCanPassthrough(title.SubtitleList[subtitleIndicesThatPointToRealTracks[0] - 1].Source, containerId),
+						BurnedIn = picker.SubtitleBurnInSelection.FirstTrackIncluded() || !HandBrakeEncoderHelpers.SubtitleCanPassthru(title.SubtitleList[subtitleIndicesThatPointToRealTracks[0] - 1].Source, containerId),
 						ForcedOnly = picker.SubtitleForcedOnly,
 						Default = defaultSubtitleIndex != null && defaultSubtitleIndex.Value == subtitleIndicesThatPointToRealTracks[0]
 					});
@@ -3535,35 +3546,83 @@ public class ProcessingService : ReactiveObject
 	}
 
 	/// <summary>
-	/// Finds the file subtitle for the given path and picker.
+	/// Finds the file subtitles for the given path and picker. This will find files that match sourcePath.ext or sourcePath.lng.ext,
+	/// where lng is a 3-letter ISO language code and ext is a valid subtitle extension.
 	/// </summary>
 	/// <param name="sourcePath">The source path to check.</param>
 	/// <param name="picker">The picker settings to use.</param>
 	/// <param name="openDialogOnMissingCharCode">Open a dialog if the char code for the file cannot be determined.</param>
-	/// <returns></returns>
-	public static FileSubtitle FindSubtitleFile(string sourcePath, Picker picker, bool openDialogOnMissingCharCode)
+	/// <returns>A list of file subtitles to add.</returns>
+	public static List<FileSubtitle> FindSubtitleFiles(string sourcePath, Picker picker, bool openDialogOnMissingCharCode)
 	{
-		if (!picker.EnableExternalSubtitleImport)
-		{
-			return null;
-		}
+		// Enumerate the files in the directory and use regex to find the subtitle files
+		// Use FileUtilities.SubtitleExtensions to get the list of valid subtitle extensions
 
-		string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(sourcePath);
-		string pathWithoutExtension = Path.Combine(Path.GetDirectoryName(sourcePath), fileNameWithoutExtension);
-		foreach (string subtitleExtension in FileUtilities.SubtitleExtensions)
+		List<FileSubtitle> result = new List<FileSubtitle>();
+
+		try
 		{
-			string potentialSubtitlePath = pathWithoutExtension + subtitleExtension;
-			if (File.Exists(potentialSubtitlePath))
+			string extensionList = string.Join("|", FileUtilities.SubtitleExtensions.Select(ext => ext.Substring(1)));
+
+			string languageRegexPattern = "^.+\\.(?<language>[a-zA-Z]{3})\\.(?:" + extensionList + ")$";
+			Regex langaugeRegex = new Regex(languageRegexPattern, RegexOptions.IgnoreCase);
+
+			string noLanguageRegexPattern = "^.+\\.(?:" + extensionList + ")$";
+			Regex noLanguageRegex = new Regex(noLanguageRegexPattern, RegexOptions.IgnoreCase);
+
+			string directory = Path.GetDirectoryName(sourcePath);
+			string fileName = Path.GetFileNameWithoutExtension(sourcePath);
+
+
+			if (!Directory.Exists(directory))
 			{
-				FileSubtitle fileSubtitle = StaticResolver.Resolve<SubtitlesService>().LoadSubtitleFile(potentialSubtitlePath, picker.ExternalSubtitleImportLanguage, openDialogOnMissingCharCode);
-				fileSubtitle.Default = picker.ExternalSubtitleImportDefault;
-				fileSubtitle.BurnedIn = picker.ExternalSubtitleImportBurnIn;
+				return result;
+			}
 
-				return fileSubtitle;
+			foreach (string file in Directory.GetFiles(directory, fileName + ".*"))
+			{
+				string candidateFileName = Path.GetFileName(file);
+				if (candidateFileName == null)
+				{
+					continue;
+				}
+
+				Match languageMatch = langaugeRegex.Match(candidateFileName);
+
+				bool matchedLanguage = false;
+				if (languageMatch.Success)
+				{
+					string languageCode = languageMatch.Groups["language"].Value;
+					if (HandBrakeLanguagesHelper.AllLanguagesDict.ContainsKey(languageCode))
+					{
+						FileSubtitle fileSubtitle = StaticResolver.Resolve<SubtitlesService>().LoadSubtitleFile(file, languageCode, openDialogOnMissingCharCode);
+						fileSubtitle.Default = picker.ExternalSubtitleImportDefault;
+						fileSubtitle.BurnedIn = picker.ExternalSubtitleImportBurnIn;
+						result.Add(fileSubtitle);
+
+						matchedLanguage = true;
+					}
+				}
+
+				if (!matchedLanguage)
+				{
+					Match nonLanguageMatch = noLanguageRegex.Match(candidateFileName);
+					if (nonLanguageMatch.Success)
+					{
+						FileSubtitle fileSubtitle = StaticResolver.Resolve<SubtitlesService>().LoadSubtitleFile(file, picker.ExternalSubtitleImportLanguage, openDialogOnMissingCharCode);
+						fileSubtitle.Default = picker.ExternalSubtitleImportDefault;
+						fileSubtitle.BurnedIn = picker.ExternalSubtitleImportBurnIn;
+						result.Add(fileSubtitle);
+					}
+				}
 			}
 		}
+		catch (Exception ex)
+		{
+			StaticResolver.Resolve<IAppLogger>().LogError("Error finding subtitle files" + Environment.NewLine + ex);
+		}
 
-		return null;
+		return result;
 	}
 
 	/// <summary>
@@ -3597,7 +3656,7 @@ public class ProcessingService : ReactiveObject
 	{
 		// Do we have the right options here?
 		// You might only be able to burn and you might only be able to pass through
-		return sourceSubtitleList.Where(s => HandBrakeEncoderHelpers.SubtitleCanPassthrough(s.Source, containerId)).ToList();
+		return sourceSubtitleList.Where(s => HandBrakeEncoderHelpers.SubtitleCanPassthru(s.Source, containerId)).ToList();
 	}
 
 	private static IList<SourceSubtitleTrack> ChooseSubtitlesFromLanguages(IList<SourceSubtitleTrack> sourceSubtitleTracks, IList<SourceAudioTrack> sourceAudioTracks, int chosenAudioTrack, IList<string> languageCodes, bool includeAllTracks, bool onlyIfDifferentFromAudio)

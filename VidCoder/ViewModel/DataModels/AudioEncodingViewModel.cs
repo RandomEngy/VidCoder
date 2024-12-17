@@ -111,7 +111,7 @@ public class AudioEncodingViewModel : ReactiveObject, IDisposable
 			audioEncoding.Encoder = hbAudioEncoder.ShortName;
 		}
 
-		if (hbAudioEncoder.IsPassthrough)
+		if (hbAudioEncoder.IsPassthru)
 		{
 			this.selectedAudioEncoder = this.audioEncoders[0];
 			this.selectedPassthrough = audioEncoding.Encoder;
@@ -179,7 +179,7 @@ public class AudioEncodingViewModel : ReactiveObject, IDisposable
 				return false;
 			}
 
-			return !GetHBAudioEncoder(audioEncoder, passthrough).IsPassthrough;
+			return !GetHBAudioEncoder(audioEncoder, passthrough).IsPassthru;
 		}).ToProperty(this, x => x.EncoderSettingsVisible, out this.encoderSettingsVisible);
 
 		// AudioCompressionVisible
@@ -427,7 +427,7 @@ public class AudioEncodingViewModel : ReactiveObject, IDisposable
 
 			newAudioEncoding.Name = this.Name;
 
-			if (!this.HBAudioEncoder.IsPassthrough)
+			if (!this.HBAudioEncoder.IsPassthru)
 			{
 				newAudioEncoding.Mixdown = this.SelectedMixdown.Mixdown.ShortName;
 				newAudioEncoding.SampleRateRaw = this.SampleRate;
@@ -915,7 +915,7 @@ public class AudioEncodingViewModel : ReactiveObject, IDisposable
 				return false;
 			}
 
-			return audioEncoder.IsPassthrough || this.SelectedMixdown != null && this.SelectedBitrate != null && this.SelectedAudioEncoder != null;
+			return audioEncoder.IsPassthru || this.SelectedMixdown != null && this.SelectedBitrate != null && this.SelectedAudioEncoder != null;
 		}
 	}
 
@@ -998,7 +998,7 @@ public class AudioEncodingViewModel : ReactiveObject, IDisposable
 		{
 			if ((encoder.CompatibleContainers & container.Id) > 0)
 			{
-				if (encoder.IsPassthrough)
+				if (encoder.IsPassthru)
 				{
 					if (encoder.ShortName.Contains(":"))
 					{

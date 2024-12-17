@@ -386,9 +386,6 @@ Tutte: includi tutte le tracce dei sottotitoli.</value>
   <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
     <value>Aggiungi ({0})  tracce dei sottotitoli provenienti da file esterni che hanno lo stesso nome del file video in elaborazione</value>
   </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>Lingua:</value>
-  </data>
   <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
     <value>Conferma prima di rimuovere</value>
   </data>
@@ -419,5 +416,15 @@ Tutte: includi tutte le tracce dei sottotitoli.</value>
   <data name="WidthFilterValueAutomationName" xml:space="preserve">
     <value>Valore della larghezza per il filtro</value>
     <comment>Screen reader text for the width filter value</comment>
+  </data>
+  <data name="ExternalSubtitleImportToolTip" xml:space="preserve">
+    <value>Riconosce anche il  file con nome "NomeFile.lin.est", dove lin è il nome della lingua ISO e est è l'estensione del file dei sottotitoli.</value>
+  </data>
+  <data name="FallbackLanguageLabel" xml:space="preserve">
+    <value>Lingua predefinita:</value>
+    <comment>Label for an option of what language to mark a subtitle track as when it doesn't have the language identified in the file name. For example, if you have myVideo.mp4 and myVideo.srt, what language should we mark that as when we pick it up?</comment>
+  </data>
+  <data name="FallbackLanguageToolTip" xml:space="preserve">
+    <value>Se la lingua non è specificata nel nome del file dei sottotitoli, come mioVideo.srt, si suppone voglia utilizzare questa lingua.</value>
   </data>
 </root>

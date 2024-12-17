@@ -210,9 +210,7 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>اشعار</value>
   </data>
-  <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder غير معتمد علي نظام التشغيل الخاص بك. لم يعد يعمل Windows XP و Server 2003. الرجاء تثبيت VidCoder 1.4 أو ترقيه نظام التشغيل الخاص بك.</value>
-  </data>
+  
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>نظام النوم الوشيك</value>
   </data>

@@ -386,9 +386,6 @@ Nyelv(ek) - Nyelv alapján
   <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
     <value>Külső feliratfájlok ({0}) hozzáadása a bemeneti videófájllal azonos névvel</value>
   </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>Nyelv:</value>
-  </data>
   <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
     <value>Megerősítés az eltávolítás előtt</value>
   </data>
@@ -420,4 +417,7 @@ Nyelv(ek) - Nyelv alapján
     <value>Szélességszűrő értéke</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
+  
+  
+  
 </root>

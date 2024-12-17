@@ -385,9 +385,6 @@
   <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
     <value>入力ビデオファイルと同じ名前の外部字幕ファイル（{0}）を追加</value>
   </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>言語:</value>
-  </data>
   <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
     <value>削除する前に確認する</value>
   </data>
@@ -419,4 +416,7 @@
     <value>幅フィルターの値</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
+  
+  
+  
 </root>

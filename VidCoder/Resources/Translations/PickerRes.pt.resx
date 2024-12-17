@@ -383,9 +383,6 @@ Todas - Inclui todas as legendas.</value>
   <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
     <value>Adicionar ficheiros de legenda externos ({0}) com o mesmo nome do ficheiro de vídeo de entrada</value>
   </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>Idioma:</value>
-  </data>
   <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
     <value>Confirmar antes de remover</value>
   </data>
@@ -417,4 +414,7 @@ Todas - Inclui todas as legendas.</value>
     <value>Valor do filtro de largura</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
+  
+  
+  
 </root>

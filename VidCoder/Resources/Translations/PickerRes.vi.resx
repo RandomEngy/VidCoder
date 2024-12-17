@@ -383,9 +383,6 @@ Tất cả - Bao gồm tất cả phụ đề.</value>
   <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
     <value>Thêm tệp phụ đề bên ngoài ({0}) có cùng tên với tệp video đầu vào</value>
   </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>Ngôn ngữ:</value>
-  </data>
   <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
     <value>Xác nhận trước khi xóa</value>
   </data>
@@ -393,6 +390,9 @@ Tất cả - Bao gồm tất cả phụ đề.</value>
     <value>Loại bỏ tệp nguồn sau khi mã hóa thành công:</value>
     <comment>Label for the option to automatically delete source files on completion.</comment>
   </data>
+  
+  
+  
   
   
   

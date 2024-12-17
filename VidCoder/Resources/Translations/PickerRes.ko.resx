@@ -386,9 +386,6 @@
   <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
     <value>입력 비디오 파일과 동일한 이름의 외부 자막 파일 ({0}) 추가</value>
   </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>언어:</value>
-  </data>
   <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
     <value>제거하기 전에 확인</value>
   </data>
@@ -419,5 +416,15 @@
   <data name="WidthFilterValueAutomationName" xml:space="preserve">
     <value>너비 필터 값</value>
     <comment>Screen reader text for the width filter value</comment>
+  </data>
+  <data name="ExternalSubtitleImportToolTip" xml:space="preserve">
+    <value>또한 fileName.lng.ext를 인식합니다. 여기서 lng는 ISO 언어 이름이고 ext는 자막 파일 확장자입니다.</value>
+  </data>
+  <data name="FallbackLanguageLabel" xml:space="preserve">
+    <value>폴백 언어:</value>
+    <comment>Label for an option of what language to mark a subtitle track as when it doesn't have the language identified in the file name. For example, if you have myVideo.mp4 and myVideo.srt, what language should we mark that as when we pick it up?</comment>
+  </data>
+  <data name="FallbackLanguageToolTip" xml:space="preserve">
+    <value>자막 파일 이름에 myVideo.srt와 같은 언어가 식별되지 않으면 이 언어인 것으로 간주합니다.</value>
   </data>
 </root>

@@ -40,7 +40,7 @@ public class SourceSubtitleViewModel : ReactiveObject
 				return true;
 			}
 
-			return HandBrakeEncoderHelpers.SubtitleCanPassthrough(this.inputSubtitle.Source, HandBrakeEncoderHelpers.GetContainer(containerName).Id);
+			return HandBrakeEncoderHelpers.SubtitleCanPassthru(this.inputSubtitle.Source, HandBrakeEncoderHelpers.GetContainer(containerName).Id);
 		}).ToProperty(this, x => x.CanPass, out this.canPass, scheduler: Scheduler.Immediate);
 
 		// DefaultEnabled

@@ -9,5 +9,6 @@ public enum WhenFileExists
 {
 	Prompt,
 	Overwrite,
-	AutoRename
+	AutoRename,
+	Skip
 }

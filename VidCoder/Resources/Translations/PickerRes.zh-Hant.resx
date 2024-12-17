@@ -386,9 +386,6 @@
   <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
     <value>新增與輸入視訊檔同檔名的外部字幕檔 ({0})</value>
   </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>語言:</value>
-  </data>
   <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
     <value>移除前確認</value>
   </data>
@@ -420,4 +417,7 @@
     <value>寬度過濾值</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
+  
+  
+  
 </root>

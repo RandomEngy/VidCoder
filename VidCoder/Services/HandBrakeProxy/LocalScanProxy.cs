@@ -32,9 +32,11 @@ public class LocalScanProxy : IScanProxy
 			paths: new List<string> { path },
 			previewCount: Config.PreviewCount,
 			minDuration: TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds),
+			maxDuration: TimeSpan.Zero,
 			titleIndex: 0,
 			excludedExtensions: new List<string>(),
-			hwDecode: 0);
+			hwDecode: 0,
+			keepDuplicateTitles: false);
     }
 
 	public void Dispose()

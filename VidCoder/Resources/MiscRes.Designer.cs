@@ -475,7 +475,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to VidCoder is not supported on your operating system. Windows XP and Server 2003 no longer work. Please install VidCoder 1.4 or upgrade your operating system..
+        ///   Looks up a localized string similar to VidCoder is not supported on your operating system. Windows 10 or later is required for this version. Please upgrade your OS or install an earlier version of VidCoder. The latest compatible version for Windows XP is VidCoder 1.4. The latest compatible version for Windows 7 is 5.21..
         /// </summary>
         public static string UnsupportedOSError {
             get {

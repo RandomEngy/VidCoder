@@ -634,6 +634,7 @@ public class PickerWindowViewModel : ReactiveObject
 	{
 		new ComboChoice<WhenFileExists>(WhenFileExists.Overwrite, EnumsRes.WhenFileExists_Overwrite),
 		new ComboChoice<WhenFileExists>(WhenFileExists.AutoRename, EnumsRes.WhenFileExists_AutoRename),
+		new ComboChoice<WhenFileExists>(WhenFileExists.Skip, EnumsRes.WhenFileExists_Skip),
 	};
 
 	public WhenFileExists WhenFileExistsBatch

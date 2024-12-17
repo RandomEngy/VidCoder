@@ -213,7 +213,7 @@
     <value>공지</value>
   </data>
   <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder는 사용 중인 운영 체계에서 지원되지 않습니다. 윈도우 XP와 서버 2003에서는 더 이상 동작하지 않습니다. VidCoder 1.4를 설치하거나 운영 체계를 업그레이드하세요.</value>
+    <value>VidCoder는 운영 체제에서 지원되지 않습니다. 이 버전에는 Windows 10 이상이 필요합니다. OS를 업그레이드하거나 이전 버전의 VidCoder를 설치하세요. Windows XP의 최신 호환 버전은 VidCoder 1.4입니다. Windows 7의 최신 호환 버전은 5.21입니다.</value>
   </data>
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>곧 절전모드로 전환합니다</value>

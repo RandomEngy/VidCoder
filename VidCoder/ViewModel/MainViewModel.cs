@@ -1514,8 +1514,8 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 			{
 				fileSubtitlesInnerList.Clear();
 
-				FileSubtitle fileSubtitle = ProcessingService.FindSubtitleFile(this.SourcePath, picker, openDialogOnMissingCharCode: true);
-				if (fileSubtitle != null)
+				List<FileSubtitle> fileSubtitles = ProcessingService.FindSubtitleFiles(this.SourcePath, picker, openDialogOnMissingCharCode: true);
+				foreach (FileSubtitle fileSubtitle in fileSubtitles)
 				{
 					fileSubtitlesInnerList.Add(new FileSubtitleViewModel(this, fileSubtitle));
 				}
@@ -3252,9 +3252,11 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 			paths: new List<string> { path },
 			previewCount: Config.PreviewCount,
 			minDuration: TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds),
+			maxDuration: TimeSpan.Zero,
 			titleIndex: 0,
 			excludedExtensions: new List<string>(),
-			hwDecode: 0);
+			hwDecode: 0,
+			keepDuplicateTitles: false);
 
 		oldInstance?.Dispose();
 	}

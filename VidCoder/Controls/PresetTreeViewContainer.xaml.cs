@@ -186,28 +186,34 @@ namespace VidCoder.Controls;
 
     private void OnPresetTreeItemMouseMove(object sender, MouseEventArgs e)
     {
-	    if (e.LeftButton == MouseButtonState.Pressed)
-	    {
-		    Point currentPosition = e.GetPosition(this.presetTreeView);
-			var timeSinceLastResize = DateTimeOffset.UtcNow - this.windowManager.LastEncodingWindowReize;
-			var timeSinceLastMove = DateTimeOffset.UtcNow - this.windowManager.LastEncodingWindowMove;
+		try
+		{
+			if (e.LeftButton == MouseButtonState.Pressed)
+			{
+				Point currentPosition = e.GetPosition(this.presetTreeView);
+				var timeSinceLastResize = DateTimeOffset.UtcNow - this.windowManager.LastEncodingWindowReize;
+				var timeSinceLastMove = DateTimeOffset.UtcNow - this.windowManager.LastEncodingWindowMove;
 
-			// For some reason there is a hang on DoDragDrop if we are resizing or moving the encode settings window on top of another window.
-			// Suppress drag drop in this case.
-		    if (timeSinceLastResize > TimeSpan.FromMilliseconds(500)
-				&& timeSinceLastMove > TimeSpan.FromMilliseconds(500)
-				&& DragDropUtilities.IsMovementBigEnough(this.lastPresetTreeViewMouseDown, currentPosition))
-		    {
-			    this.draggedPreset = this.presetTreeView.SelectedItem as PresetViewModel;
+				// For some reason there is a hang on DoDragDrop if we are resizing or moving the encode settings window on top of another window.
+				// Suppress drag drop in this case.
+				if (timeSinceLastResize > TimeSpan.FromMilliseconds(500)
+					&& timeSinceLastMove > TimeSpan.FromMilliseconds(500)
+					&& DragDropUtilities.IsMovementBigEnough(this.lastPresetTreeViewMouseDown, currentPosition))
+				{
+					this.draggedPreset = this.presetTreeView.SelectedItem as PresetViewModel;
 
-			    if (this.draggedPreset != null)
-			    {
-				    this.windowManager.SuspendDropOnWindows();
-				    DragDrop.DoDragDrop((DependencyObject)sender, this.presetTreeView.SelectedItem, DragDropEffects.Move);
-				    this.windowManager.ResumeDropOnWindows();
-			    }
-		    }
-	    }
+					if (this.draggedPreset != null)
+					{
+						this.windowManager.SuspendDropOnWindows();
+						DragDrop.DoDragDrop((DependencyObject)sender, this.presetTreeView.SelectedItem, DragDropEffects.Move);
+						this.windowManager.ResumeDropOnWindows();
+					}
+				}
+			}
+		} catch (Exception exception)
+		{
+			StaticResolver.Resolve<IAppLogger>().LogError("Error processing mouse move on preset tree:" + Environment.NewLine + exception);
+		}
     }
 
     private void ShowFolderMoveAdorner(TreeViewItem item)

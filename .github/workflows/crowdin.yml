@@ -3,10 +3,15 @@ name: Crowdin Action
 on:
   push:
     branches: [ beta ]
+  workflow_dispatch:
 
 jobs:
   synchronize-with-crowdin:
     runs-on: ubuntu-latest
+    
+    concurrency:
+      group: crowdin
+      cancel-in-progress: true
 
     steps:
       - name: Checkout

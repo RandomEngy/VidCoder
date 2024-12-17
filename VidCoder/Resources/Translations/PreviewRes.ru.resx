@@ -148,7 +148,7 @@
     <value>Предпросмотр: {0}x{1}</value>
   </data>
   <data name="PreviewWindowTitleComplex" xml:space="preserve">
-    <value>Предпросмотр: дисплей {0}x{1} - хранение {2}x{3}</value>
+    <value>Предпросмотр: дисплей {0}x{1} — хранение {2}x{3}</value>
   </data>
   <data name="NoVideoSourceTitle" xml:space="preserve">
     <value>Предпросмотр: нет исходного видео</value>

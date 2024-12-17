@@ -213,7 +213,9 @@
     <value>Obavijest</value>
   </data>
   <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder nije podržan na vašem operativnom sustavu. Windows XP i Server 2003 više ne rade. Molimo instalirajte VidCoder 1.4 ili ažurirajte vaš operativni sistem.</value>
+    <value>Evo prijevoda na hrvatski:
+
+VidCoder nije podržan na vašem operativnom sustavu. Potreban je Windows 10 ili noviji za ovu verziju. Molimo vas da nadogradite svoj OS ili instalirate raniju verziju VidCodera. Najnovija kompatibilna verzija za Windows XP je VidCoder 1.4. Najnovija kompatibilna verzija za Windows 7 je 5.21.</value>
   </data>
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>Slijedi mirovanje</value>

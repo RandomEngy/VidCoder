@@ -383,9 +383,6 @@ Semua - Menyertakan semua subtitle.</value>
   <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
     <value>Menambahkan file subtitle eksternal ({0}) dengan nama yang sama dengan file video input</value>
   </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>Bahasa:</value>
-  </data>
   <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
     <value>Konfirmasikan sebelum menghapus</value>
   </data>
@@ -393,6 +390,9 @@ Semua - Menyertakan semua subtitle.</value>
     <value>Penghapusan file sumber setelah penyandian berhasil:</value>
     <comment>Label for the option to automatically delete source files on completion.</comment>
   </data>
+  
+  
+  
   
   
   

@@ -386,9 +386,6 @@ Sve - Uključi sve podnaslove.</value>
   <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
     <value>Dodavanje vanjskih datoteka s podnaslovima ({0}) istog naziva kao ulazna videodatoteka</value>
   </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>Jezik:</value>
-  </data>
   <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
     <value>Potvrdi prije uklanjanja</value>
   </data>
@@ -419,5 +416,15 @@ Sve - Uključi sve podnaslove.</value>
   <data name="WidthFilterValueAutomationName" xml:space="preserve">
     <value>Vrijednost filtra širine</value>
     <comment>Screen reader text for the width filter value</comment>
+  </data>
+  <data name="ExternalSubtitleImportToolTip" xml:space="preserve">
+    <value>Također prepoznaje fileName.lng.ext, gdje je lng ISO naziv jezika, a ext je ekstenzija datoteke s podnaslovima.</value>
+  </data>
+  <data name="FallbackLanguageLabel" xml:space="preserve">
+    <value>Jezik za zamjenu:</value>
+    <comment>Label for an option of what language to mark a subtitle track as when it doesn't have the language identified in the file name. For example, if you have myVideo.mp4 and myVideo.srt, what language should we mark that as when we pick it up?</comment>
+  </data>
+  <data name="FallbackLanguageToolTip" xml:space="preserve">
+    <value>Ako jezik nije identificiran u nazivu datoteke s podnaslovima, kao što je `myVideo.srt`, pretpostavite da je to ovaj jezik.</value>
   </data>
 </root>

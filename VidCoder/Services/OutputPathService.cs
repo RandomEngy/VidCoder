@@ -209,6 +209,9 @@ public class OutputPathService : ReactiveObject
 		{
 			case WhenFileExists.Prompt:
 				break;
+			case WhenFileExists.Skip:
+				StaticResolver.Resolve<IAppLogger>().Log("Skipping job, output file already exists: " + initialOutputPath);
+				return null;
 			case WhenFileExists.Overwrite:
 				if (checkResult == FileQueueCheckResult.InQueue && allowQueueRemoval)
 				{

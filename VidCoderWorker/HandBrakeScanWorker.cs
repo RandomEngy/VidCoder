@@ -44,8 +44,10 @@ public class HandBrakeScanWorker : HandBrakeWorkerBase<IHandBrakeScanWorkerCallb
 			paths: new List<string> { path },
 			previewCount: this.PassedPreviewCount,
 			minDuration: TimeSpan.FromSeconds(this.PassedMinTitleDurationSeconds),
+			maxDuration: TimeSpan.Zero,
 			titleIndex: 0,
 			excludedExtensions: new List<string>(),
-			hwDecode: 0);
+			hwDecode: 0,
+			keepDuplicateTitles: false);
 	}
 }

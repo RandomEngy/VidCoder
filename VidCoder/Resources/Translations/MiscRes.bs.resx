@@ -210,9 +210,7 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>Obavijest</value>
   </data>
-  <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder nije podržan na vašem operativnom sistemu. Windows XP i Server 2003 više ne rade. Molimo instalirajte VidCoder 1.4 ili ažurirajte vaš operativni sistem.</value>
-  </data>
+  
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>Slijedi spavanje</value>
   </data>

@@ -386,9 +386,6 @@ Todas: incluye todos los subtítulos.</value>
   <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
     <value>Añadir archivos de subtítulos externos ({0}) con el mismo nombre que el archivo de vídeo de entrada</value>
   </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>Idioma:</value>
-  </data>
   <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
     <value>Confirmar antes de eliminar</value>
   </data>
@@ -420,4 +417,7 @@ Todas: incluye todos los subtítulos.</value>
     <value>Valor de filtro de anchura</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
+  
+  
+  
 </root>

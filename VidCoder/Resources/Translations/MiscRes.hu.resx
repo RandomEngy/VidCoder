@@ -212,9 +212,7 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>Figyelmeztetés</value>
   </data>
-  <data name="UnsupportedOSError" xml:space="preserve">
-    <value>Az operációs rendszered nem támogatja a VidCodert. A Windows XP és Server 2003 már nem támogatott. Kérlek telepítsd a VidCoder 1.4-et vagy frissítsd az operációs rendszeredet.</value>
-  </data>
+  
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>Rendszer alvás következik</value>
   </data>
