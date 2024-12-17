@@ -3384,7 +3384,7 @@ public class ProcessingService : ReactiveObject
 					{
 						TrackNumber = 1,
 						BurnedIn = picker.SubtitleBurnInSelection.FirstTrackIncluded()
-							|| !HandBrakeEncoderHelpers.SubtitleCanPassthrough(title.SubtitleList[0].Source, containerId),
+							|| !HandBrakeEncoderHelpers.SubtitleCanPassthru(title.SubtitleList[0].Source, containerId),
 						ForcedOnly = picker.SubtitleForcedOnly,
 						Default = picker.SubtitleDefault
 					});
@@ -3402,7 +3402,7 @@ public class ProcessingService : ReactiveObject
 				{
 					for (int i = subtitleIndicesThatPointToRealTracks.Count - 1; i >= 0; i--)
 					{
-						if (!HandBrakeEncoderHelpers.SubtitleCanPassthrough(title.SubtitleList[subtitleIndicesThatPointToRealTracks[i] - 1].Source, containerId))
+						if (!HandBrakeEncoderHelpers.SubtitleCanPassthru(title.SubtitleList[subtitleIndicesThatPointToRealTracks[i] - 1].Source, containerId))
 						{
 							subtitleIndicesThatPointToRealTracks.RemoveAt(i);
 						}
@@ -3439,7 +3439,7 @@ public class ProcessingService : ReactiveObject
 					result.Add(new ChosenSourceSubtitle
 					{
 						TrackNumber = subtitleIndicesThatPointToRealTracks[0],
-						BurnedIn = picker.SubtitleBurnInSelection.FirstTrackIncluded() || !HandBrakeEncoderHelpers.SubtitleCanPassthrough(title.SubtitleList[subtitleIndicesThatPointToRealTracks[0] - 1].Source, containerId),
+						BurnedIn = picker.SubtitleBurnInSelection.FirstTrackIncluded() || !HandBrakeEncoderHelpers.SubtitleCanPassthru(title.SubtitleList[subtitleIndicesThatPointToRealTracks[0] - 1].Source, containerId),
 						ForcedOnly = picker.SubtitleForcedOnly,
 						Default = defaultSubtitleIndex != null && defaultSubtitleIndex.Value == subtitleIndicesThatPointToRealTracks[0]
 					});
@@ -3656,7 +3656,7 @@ public class ProcessingService : ReactiveObject
 	{
 		// Do we have the right options here?
 		// You might only be able to burn and you might only be able to pass through
-		return sourceSubtitleList.Where(s => HandBrakeEncoderHelpers.SubtitleCanPassthrough(s.Source, containerId)).ToList();
+		return sourceSubtitleList.Where(s => HandBrakeEncoderHelpers.SubtitleCanPassthru(s.Source, containerId)).ToList();
 	}
 
 	private static IList<SourceSubtitleTrack> ChooseSubtitlesFromLanguages(IList<SourceSubtitleTrack> sourceSubtitleTracks, IList<SourceAudioTrack> sourceAudioTracks, int chosenAudioTrack, IList<string> languageCodes, bool includeAllTracks, bool onlyIfDifferentFromAudio)

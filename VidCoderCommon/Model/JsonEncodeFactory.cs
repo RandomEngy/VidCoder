@@ -132,7 +132,7 @@ public class JsonEncodeFactory
 			resolvedAudio.CopyMask = HandBrakeEncoderHelpers.AudioEncoders
 				.Where(e =>
 				{
-					if (!e.IsPassthrough || !e.ShortName.Contains(":"))
+					if (!e.IsPassthru || !e.ShortName.Contains(":"))
 					{
 						return false;
 					}
@@ -155,7 +155,7 @@ public class JsonEncodeFactory
 			var copyCodecs = new List<string>();
 			foreach (var audioEncoder in HandBrakeEncoderHelpers.AudioEncoders)
 			{
-				if (audioEncoder.IsPassthrough && audioEncoder.ShortName.Contains(":"))
+				if (audioEncoder.IsPassthru && audioEncoder.ShortName.Contains(":"))
 				{
 					copyCodecs.Add(audioEncoder.ShortName);
 				}
@@ -254,12 +254,12 @@ public class JsonEncodeFactory
 			HBAudioEncoder inputCodec = HandBrakeEncoderHelpers.GetAudioEncoder(sourceTrack.Codec);
 
 			uint outputCodec = (uint)encoder.Id;
-			bool isPassthrough = encoder.IsPassthrough;
+			bool isPassthrough = encoder.IsPassthru;
 
 			int passMask = 0;
 			foreach (var audioEncoder in HandBrakeEncoderHelpers.AudioEncoders)
 			{
-				if (audioEncoder.IsPassthrough && audioEncoder.ShortName.Contains(":"))
+				if (audioEncoder.IsPassthru && audioEncoder.ShortName.Contains(":"))
 				{
 					passMask |= audioEncoder.Id;
 				}
@@ -1151,7 +1151,7 @@ public class JsonEncodeFactory
 			this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Encoder: {encoderString}");
 			int sampleRate = outputTrack.Samplerate == 0 ? sourceTrack.SampleRate : outputTrack.Samplerate;
 
-			if (encoder.IsPassthrough)
+			if (encoder.IsPassthru)
 			{
 			    if (encoder.ShortName == "copy")
 			    {
@@ -1265,7 +1265,7 @@ public class JsonEncodeFactory
             HBContainer container = HandBrakeEncoderHelpers.GetContainer(profile.ContainerName);
         foreach (HBAudioEncoder encoder in HandBrakeEncoderHelpers.AudioEncoders)
         {
-            if ((encoder.CompatibleContainers & container.Id) > 0 && !encoder.IsPassthrough)
+            if ((encoder.CompatibleContainers & container.Id) > 0 && !encoder.IsPassthru)
             {
                 return encoder;
             }

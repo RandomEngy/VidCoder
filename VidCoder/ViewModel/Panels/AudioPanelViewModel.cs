@@ -144,7 +144,7 @@ public class AudioPanelViewModel : PanelViewModel
 					HBContainer container = HandBrakeEncoderHelpers.GetContainer(this.EncodingWindowViewModel.Profile.ContainerName);
 					foreach (HBAudioEncoder encoder in HandBrakeEncoderHelpers.AudioEncoders)
 					{
-						if ((encoder.CompatibleContainers & container.Id) > 0 && encoder.IsPassthrough && encoder.ShortName != AudioEncodingViewModel.AutoPassthroughEncoder)
+						if ((encoder.CompatibleContainers & container.Id) > 0 && encoder.IsPassthru && encoder.ShortName != AudioEncodingViewModel.AutoPassthroughEncoder)
 						{
 							bool enabled = true;
 							string codec = encoder.ShortName.Substring(5);
@@ -283,7 +283,7 @@ public class AudioPanelViewModel : PanelViewModel
 
 		foreach (HBAudioEncoder encoder in HandBrakeEncoderHelpers.AudioEncoders)
 		{
-			if ((encoder.CompatibleContainers & container.Id) > 0 && !encoder.IsPassthrough)
+			if ((encoder.CompatibleContainers & container.Id) > 0 && !encoder.IsPassthru)
 			{
 				this.FallbackEncoderChoices.Add(new AudioEncoderViewModel { Encoder = encoder });
 			}
@@ -312,7 +312,7 @@ public class AudioPanelViewModel : PanelViewModel
 			HBContainer container = HandBrakeEncoderHelpers.GetContainer(this.EncodingWindowViewModel.Profile.ContainerName);
 			foreach (HBAudioEncoder encoder in HandBrakeEncoderHelpers.AudioEncoders)
 			{
-				if ((encoder.CompatibleContainers & container.Id) > 0 && encoder.IsPassthrough && encoder.ShortName != AudioEncodingViewModel.AutoPassthroughEncoder)
+				if ((encoder.CompatibleContainers & container.Id) > 0 && encoder.IsPassthru && encoder.ShortName != AudioEncodingViewModel.AutoPassthroughEncoder)
 				{
 					bool enabled = true;
 					string codec = encoder.ShortName.Substring(5);
@@ -391,7 +391,7 @@ public class AudioPanelViewModel : PanelViewModel
 			Encoder = encoder.DisplayName
 		};
 
-		if (encoder.IsPassthrough)
+		if (encoder.IsPassthru)
 		{
 			// For passthrough encodes, we need to make sure the input track is of the right type
 			if (!HandBrakeEncoderHelpers.AudioEncoderIsCompatible(inputTrack.Codec, encoder) && encoder.ShortName != "copy")
@@ -415,7 +415,7 @@ public class AudioPanelViewModel : PanelViewModel
 
 			if (this.Profile.AudioEncoderFallback == null)
 			{
-				encoder = HandBrakeEncoderHelpers.AudioEncoders.First(a => !a.IsPassthrough);
+				encoder = HandBrakeEncoderHelpers.AudioEncoders.First(a => !a.IsPassthru);
 			}
 			else
 			{

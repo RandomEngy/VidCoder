@@ -591,7 +591,7 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 			var bitrateParts = new List<string>();
 			foreach (AudioEncoding audioEncoding in this.Profile.AudioEncodings)
 			{
-				if (!HandBrakeEncoderHelpers.GetAudioEncoder(audioEncoding.Encoder).IsPassthrough)
+				if (!HandBrakeEncoderHelpers.GetAudioEncoder(audioEncoding.Encoder).IsPassthru)
 				{
 					if (audioEncoding.EncodeRateType == AudioEncodeRateType.Bitrate)
 					{
