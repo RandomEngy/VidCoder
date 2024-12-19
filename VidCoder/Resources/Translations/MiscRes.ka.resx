@@ -212,7 +212,9 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>გაფრთხილება</value>
   </data>
-  
+  <data name="UnsupportedOSError" xml:space="preserve">
+    <value>VidCoder-ი შეუფარდებადია თქვენ ოპერატიულ სისტემაზე. Windows 10 ან უფრო მაღალი ვერსია ესაჭიროება ამ ვერსიას. გთხოვთ განაახლოდ თქვენი ოპერატიული სისტემა ან დააყენოთ VidCoder - ის ძველი ვერსია. Windows XP - ისთვის VidCoder 1.4. Windows 7 - ისთვის VidCoder 5.21.</value>
+  </data>
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>სისტემის პროგრამირებული ძილის რეჟიმი</value>
   </data>
