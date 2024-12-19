@@ -858,5 +858,7 @@ HQDN3D-ი ადაპტური დაბალი ხარისხის 
   <data name="CroppingType_Conservative" xml:space="preserve">
     <value>შენარჩუნებადი</value>
   </data>
-  
+  <data name="MultiPassEncodingCheckBox" xml:space="preserve">
+    <value>2-ჯერადი კოდირება</value>
+  </data>
 </root>
