@@ -172,7 +172,10 @@
     <value>არგუმენტები:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  
+  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
+    <value>პროგრამის სამოქმედო არგუმენტებისთვის გამოიყენეთ {file} დასამახსოვრებელი ფაილისთვის, {folder} დასამახსოვრებელი ფოლდერისთვის ან სხვა პარამეტრები, როგორიცაა {title} და {date} (იხილეთ სახელის ფორმატები).</value>
+    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>კოდირების შაბლონი დადგენილია ამომრჩევის მიერ.</value>
   </data>
@@ -414,7 +417,14 @@
     <value>სიგანის გაფილტრვა</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
-  
-  
-  
+  <data name="ExternalSubtitleImportToolTip" xml:space="preserve">
+    <value>აგრეთვე აღიქვავს "fileName.lng.ext", სადაც "lng" არის ISO ენის სახელი და "ext" არის ტიტრის ფაილის გაფართოება.</value>
+  </data>
+  <data name="FallbackLanguageLabel" xml:space="preserve">
+    <value>კონტაქტირების ენა</value>
+    <comment>Label for an option of what language to mark a subtitle track as when it doesn't have the language identified in the file name. For example, if you have myVideo.mp4 and myVideo.srt, what language should we mark that as when we pick it up?</comment>
+  </data>
+  <data name="FallbackLanguageToolTip" xml:space="preserve">
+    <value>თუ ენა არ არის ამოცნობილი ტიტრის სახელით, როგორც "myVideo.srt", სავარაუდოდ ესაა ტიტრის ენა.</value>
+  </data>
 </root>
