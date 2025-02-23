@@ -1044,13 +1044,13 @@ public class ProcessingService : ReactiveObject
 
 		if (itemsToRecycle.Count > 0)
 		{
-			List<string> recycleCandidates = this.GetRemovalCandidates(itemsToRecycle);
+			List<string> recycleCandidates = this.GetRemovalCandidates(itemsToRecycle, this.logger);
 			clearItems = this.PromptAndRemoveSourceFiles(recycleCandidates, requireConfirmation, SourceFileRemoval.Recycle);
 		}
 
 		if (itemsToDelete.Count > 0)
 		{
-			List<string> deletionCandidates = this.GetRemovalCandidates(itemsToDelete);
+			List<string> deletionCandidates = this.GetRemovalCandidates(itemsToDelete, this.logger);
 			if (!this.PromptAndRemoveSourceFiles(deletionCandidates, requireConfirmation, SourceFileRemoval.Delete))
 			{
 				clearItems = false;
@@ -1065,7 +1065,7 @@ public class ProcessingService : ReactiveObject
 	/// </summary>
 	/// <param name="completedItems">The completed items to examine.</param>
 	/// <returns>The list of file paths to recycle/delete.</returns>
-	private List<string> GetRemovalCandidates(IEnumerable<EncodeResultViewModel> completedItems)
+	private List<string> GetRemovalCandidates(IEnumerable<EncodeResultViewModel> completedItems, IAppLogger encodeLogger)
 	{
 		var deletionCandidates = new List<string>();
 
@@ -1160,7 +1160,7 @@ public class ProcessingService : ReactiveObject
 			builder.Append("Skipped due to file being currently scanned: " + itemsCurrentlyScanned);
 		}
 
-		this.logger.Log(builder.ToString());
+		encodeLogger.Log(builder.ToString());
 
 		return deletionCandidates;
 	}
@@ -2363,7 +2363,7 @@ public class ProcessingService : ReactiveObject
 				var picker = this.pickersService.GetPickerByName(finishedJobViewModel.PickerName).Picker;
 				if (status == EncodeResultStatus.Succeeded && picker.SourceFileRemoval != SourceFileRemoval.Disabled && picker.SourceFileRemovalTiming == SourceFileRemovalTiming.Immediately)
 				{
-					List<string> deletionCandidates = this.GetRemovalCandidates(new List<EncodeResultViewModel> { addedResult });
+					List<string> deletionCandidates = this.GetRemovalCandidates(new List<EncodeResultViewModel> { addedResult }, encodeLogger);
 					if (RemoveSourceFiles(deletionCandidates, picker.SourceFileRemoval, encodeLogger) > 0)
 					{
 						addedResult.SourceFileExists = false;

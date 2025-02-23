@@ -421,6 +421,12 @@
   <data name="CapNVEncCheckBox" xml:space="preserve">
     <value>იყენებს მრავალჯერად NVEnc-ის კოდირებას. დეაქტივირების შემთხვევაში საჭიროებს პერსონალიზირებულ NVidia-ს დრაივერს.</value>
   </data>
-  
-  
+  <data name="ShowProgressInWindowTitleCheckBox" xml:space="preserve">
+    <value>ფანჯრის სახელზე კოდირების პროგრესის  ჩვენება</value>
+  </data>
+  <data name="DownloadingUpdateStatus" xml:space="preserve">
+    <value>აქტუალიზირება {0} იტვირთება:</value>
+    <comment>Shown when downloading an update.
+{0} is the update version, for example 10.4</comment>
+  </data>
 </root>
