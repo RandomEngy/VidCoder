@@ -281,21 +281,19 @@ public class JsonEncodeFactory
 				Encoder = HandBrakeEncoderHelpers.GetAudioEncoder((int)outputCodec).ShortName,
 			};
 
-			if (!string.IsNullOrEmpty(chosenTrack.Name) && chosenTrack.Name != sourceTrack.Name)
+			string trackName = chosenTrack.Name;
+
+			if (trackName == null)
 			{
-				// If we have picked a name different from the source, use it.
-				outputTrack.Name = chosenTrack.Name;
+				trackName = sourceTrack.Name;
 			}
-			else if (!string.IsNullOrEmpty(encoding.Name))
+
+			if (trackName == "")
 			{
-				// If the encoding has a name associated with it, use it.
-				outputTrack.Name = encoding.Name;
+				trackName = null;
 			}
-			else if (!string.IsNullOrEmpty(sourceTrack.Name))
-			{
-				// Else fall back to the name from the source.
-				outputTrack.Name = sourceTrack.Name;
-			}
+
+			outputTrack.Name = trackName;
 
 			if (isPassthrough && fallbackEncoder != null)
 			{
@@ -885,10 +883,15 @@ public class JsonEncodeFactory
 					SourceSubtitleTrack sourceSubtitleTrack = title.SubtitleList[sourceSubtitle.TrackNumber - 1];
 					forcedOnly = forcedOnly && HandBrakeEncoderHelpers.SubtitleCanSetForcedOnly(sourceSubtitleTrack.Source);
 
-					if (string.IsNullOrEmpty(name))
+					if (name == null)
 					{
 						name = sourceSubtitleTrack.Name;
 					}
+				}
+
+				if (name == "")
+				{
+					name = null;
 				}
 
 				SubtitleTrack track = new SubtitleTrack
