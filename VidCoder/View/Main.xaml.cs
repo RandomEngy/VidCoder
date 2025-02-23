@@ -114,8 +114,8 @@ public partial class Main : Window, IMainView
 		{
 			DispatchUtilities.BeginInvoke(async () =>
 			{
-				// Need to yield here for some reason, otherwise the activation is blocked.
-				await Task.Yield();
+				// Need to delay here for some reason, otherwise the activation is blocked.
+				await Task.Delay(500);
 				this.toastNotificationService.Clear();
 			});
 		};
