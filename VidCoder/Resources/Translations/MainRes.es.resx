@@ -750,4 +750,5 @@ Esta advertencia solo se mostrará un par de veces.</value>
   <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
     <value>La versión {0} ha terminado de descargarse y se aplicará en el próximo inicio.</value>
   </data>
+  
 </root>

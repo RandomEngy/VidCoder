@@ -717,4 +717,5 @@ Tämä varoitus näkyy vain kahdesti.</value>
   <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
     <value>Versio {0} on ladattu ja asennetaan poistuttaessa.</value>
   </data>
+  
 </root>

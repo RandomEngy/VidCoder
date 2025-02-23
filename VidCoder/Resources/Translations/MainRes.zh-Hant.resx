@@ -752,4 +752,5 @@ v5 為在 Windows 7/8 上測試過的最新版本。
   <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
     <value>版本 {0} 已下載完成，將於下次啟動時套用。</value>
   </data>
+  
 </root>
