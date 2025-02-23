@@ -550,6 +550,20 @@ public class ProcessingService : ReactiveObject
 		}
 	}
 
+	private ReactiveCommand<Unit, Unit> addToTopOfQueue;
+	public ICommand AddToTopOfQueue
+	{
+		get
+		{
+			return this.addToTopOfQueue ?? (this.addToTopOfQueue = ReactiveCommand.Create(
+				() =>
+				{
+					this.TryQueue(true);
+				},
+				this.main.WhenAnyValue(x => x.HasVideoSource)));
+		}
+	}
+
 	private ReactiveCommand<Unit, Unit> queueFiles;
 	public ICommand QueueFiles
 	{
@@ -1447,7 +1461,7 @@ public class ProcessingService : ReactiveObject
 		this.WatchedFilesRemoved?.Invoke(this, new EventArgs());
 	}
 
-	public bool TryQueue()
+	public bool TryQueue(bool addToTop = false)
 	{
 		if (!this.EnsureValidOutputPath())
 		{
@@ -1465,7 +1479,7 @@ public class ProcessingService : ReactiveObject
 
 		newEncodeJobVM.Job.FinalOutputPath = resolvedOutputPath;
 
-		this.QueueJob(newEncodeJobVM);
+		this.QueueJob(newEncodeJobVM, addToTop);
 		return true;
 	}
 
@@ -1473,9 +1487,10 @@ public class ProcessingService : ReactiveObject
 	/// Queues the given Job. Assumed that the job has a populated Length.
 	/// </summary>
 	/// <param name="encodeJobViewModel">The job to add.</param>
-	public void QueueJob(EncodeJobViewModel encodeJobViewModel)
+	/// <param name="addToTop">True to add the items to the top of the queue.</param>
+	public void QueueJob(EncodeJobViewModel encodeJobViewModel, bool addToTop = false)
 	{
-		this.QueueMultipleJobs(new[] { encodeJobViewModel });
+		this.QueueMultipleJobs(new[] { encodeJobViewModel }, addToTop: addToTop);
 	}
 
 	public void QueueTitles(List<SourceTitle> titles, int titleStartOverride, string nameFormatOverride)
@@ -1570,7 +1585,7 @@ public class ProcessingService : ReactiveObject
 		}
 	}
 
-	public void QueueMultipleJobs(IEnumerable<EncodeJobViewModel> encodeJobViewModels, bool allowPickerProfileOverride = true)
+	public void QueueMultipleJobs(IEnumerable<EncodeJobViewModel> encodeJobViewModels, bool allowPickerProfileOverride = true, bool addToTop = false)
 	{
 		var encodeJobList = encodeJobViewModels.ToList();
 		if (encodeJobList.Count == 0)
@@ -1606,8 +1621,23 @@ public class ProcessingService : ReactiveObject
 					encodeJobViewModel.PresetName = picker.EncodingPreset;
 				}
 
-				encodeQueueInnerList.Add(encodeJobViewModel);
+				//encodeQueueInnerList.Add(encodeJobViewModel);
 			}
+
+			int insertPosition = 0;
+			if (addToTop)
+			{
+				while (insertPosition < encodeQueueInnerList.Count && encodeQueueInnerList[insertPosition].Encoding)
+				{
+					insertPosition++;
+				}
+			}
+			else
+			{
+				insertPosition = encodeQueueInnerList.Count;
+			}
+
+			encodeQueueInnerList.InsertRange(encodeJobList, insertPosition);
 		});
 
 		// Fire events for the jobs added

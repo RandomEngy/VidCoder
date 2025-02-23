@@ -97,6 +97,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to top of Queue.
+        /// </summary>
+        public static string AddToTopOfQueueLabel {
+            get {
+                return ResourceManager.GetString("AddToTopOfQueueLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Angle:.
         /// </summary>
         public static string AngleLabel {

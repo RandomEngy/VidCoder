@@ -754,4 +754,7 @@ This warning will only display twice.</value>
   <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
     <value>Version {0} has finished downloading and will apply on next launch.</value>
   </data>
+  <data name="AddToTopOfQueueLabel" xml:space="preserve">
+    <value>Add to top of Queue</value>
+  </data>
 </root>

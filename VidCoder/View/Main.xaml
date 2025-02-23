@@ -663,25 +663,19 @@
 							Command="{Binding ProcessingService.AddToQueue}"
 							Header="{x:Static res:MainRes.AddToQueueLabel}"
 							LargeIcon="/Icons/AddToQueue.png"
-							SizeDefinition="Large"
-							Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
-							                     Converter={StaticResource VisibilityConverter}}">
+							SizeDefinition="Large">
 							<fluent:MenuItem
 								Command="{Binding ProcessingService.AddToQueue}"
 								Header="{x:Static res:MainRes.AddToQueueLabel}"
 								InputGestureText="Ctrl+Q" />
+							<fluent:MenuItem Command="{Binding ProcessingService.AddToTopOfQueue}" Header="{x:Static res:MainRes.AddToTopOfQueueLabel}" />
 							<fluent:MenuItem
 								Command="{Binding ProcessingService.QueueTitlesAction}"
 								Header="{x:Static res:MainRes.AddMultipleTitlesToQueueLabel}"
-								InputGestureText="Ctrl+T" />
+								InputGestureText="Ctrl+T"
+								Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
+								                     Converter={StaticResource VisibilityConverter}}" />
 						</fluent:SplitButton>
-						<fluent:Button
-							Command="{Binding ProcessingService.AddToQueue}"
-							Header="{x:Static res:MainRes.AddToQueueLabel}"
-							LargeIcon="/Icons/AddToQueue.png"
-							SizeDefinition="Large"
-							Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
-							                     Converter={StaticResource InverseVisibilityConverter}}" />
 						<fluent:Button
 							Command="{Binding ProcessingService.Encode}"
 							Header="{Binding ProcessingService.EncodeButtonText}"
