@@ -417,7 +417,14 @@
     <value>寬度過濾值</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
-  
-  
-  
+  <data name="ExternalSubtitleImportToolTip" xml:space="preserve">
+    <value>也識別 fileName.lng.ext，其中 lng 是 ISO 語言名稱，ext 是字幕檔案副檔名。</value>
+  </data>
+  <data name="FallbackLanguageLabel" xml:space="preserve">
+    <value>後備語言:</value>
+    <comment>Label for an option of what language to mark a subtitle track as when it doesn't have the language identified in the file name. For example, if you have myVideo.mp4 and myVideo.srt, what language should we mark that as when we pick it up?</comment>
+  </data>
+  <data name="FallbackLanguageToolTip" xml:space="preserve">
+    <value>如果字幕檔名稱中未標識語言（例如 myVideo.srt），則假定是該語言。</value>
+  </data>
 </root>

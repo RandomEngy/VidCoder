@@ -752,4 +752,5 @@ Ovo će se upozorenje prikazati samo dva puta.</value>
   <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
     <value>Verzija {0} je preuzeta i primijenit će se pri sljedećem pokretanju.</value>
   </data>
+  
 </root>

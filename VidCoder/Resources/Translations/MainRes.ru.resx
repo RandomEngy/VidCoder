@@ -750,4 +750,5 @@
   <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
     <value>Версия {0} полностью загружена и будет использоваться со следующего запуска.</value>
   </data>
+  
 </root>
