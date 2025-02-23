@@ -2317,7 +2317,7 @@ public class ProcessingService : ReactiveObject
 				else if (!directOutputFileInfo.Exists)
 				{
 					status = EncodeResultStatus.Failed;
-					encodeLogger.LogError("Encode failed. HandBrake reported no error but the expected output file was not found.");
+					encodeLogger.LogError($"Encode failed. HandBrake reported no error but the expected output file at {finishedJobViewModel.Job.InProgressOutputPath} was not found.");
 				}
 				else
 				{
