@@ -10,22 +10,23 @@ using Microsoft.AnyContainer;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Model;
+using VidCoder.ViewModel;
 
 namespace VidCoder.Services;
 
 /// <summary>
 /// Tracks work for the purposes of generating overall queue encode progress and ETA.
 /// </summary>
-    public class QueueWorkTracker : ReactiveObject
-    {
-    private double completedQueueWork;
-    private double totalQueueCost;
+public class QueueWorkTracker : ReactiveObject
+{
+	private double completedQueueWork;
+	private double totalQueueCost;
 	private Stopwatch elapsedQueueEncodeTime;
-    private long pollCount;
-    private TimeSpan overallEtaSpan;
-    private bool diagnosticsLogged;
-    private long completedItems;
-    private readonly object trackerLock = new object();
+	private long pollCount;
+	private bool diagnosticsLogged;
+	private long completedItems;
+	private readonly object trackerLock = new object();
+	private const int EtaSimulationJobCount = 10;
 
 	private BehaviorSubject<long> completedItemsSubject = new BehaviorSubject<long>(0);
 
@@ -34,37 +35,40 @@ namespace VidCoder.Services;
 	/// </summary>
 	private readonly List<JobWork> queuedWork = new List<JobWork>();
 
+	/// <summary>
+	/// The overall work completion rate in cost units per second.
+	/// </summary>
 	public double OverallWorkCompletionRate { get; private set; }
 
-    public bool CanShowEta { get; private set; }
+	public bool CanShowEta { get; private set; }
 
-    private double overallEncodeProgressFraction;
-    public double OverallEncodeProgressFraction
-    {
-	    get { return this.overallEncodeProgressFraction; }
-	    set { this.RaiseAndSetIfChanged(ref this.overallEncodeProgressFraction, value); }
-    }
+	private double overallEncodeProgressFraction;
+	public double OverallEncodeProgressFraction
+	{
+		get { return this.overallEncodeProgressFraction; }
+		set { this.RaiseAndSetIfChanged(ref this.overallEncodeProgressFraction, value); }
+	}
 
-    private string estimatedTimeRemaining;
-    public string EstimatedTimeRemaining
-    {
-	    get { return this.estimatedTimeRemaining; }
-	    set { this.RaiseAndSetIfChanged(ref this.estimatedTimeRemaining, value); }
-    }
+	private string estimatedTimeRemaining;
+	public string EstimatedTimeRemaining
+	{
+		get { return this.estimatedTimeRemaining; }
+		set { this.RaiseAndSetIfChanged(ref this.estimatedTimeRemaining, value); }
+	}
 
-    private TimeSpan overallEncodeTime;
-    public TimeSpan OverallEncodeTime
-    {
-	    get { return this.overallEncodeTime; }
-	    set { this.RaiseAndSetIfChanged(ref this.overallEncodeTime, value); }
-    }
+	private TimeSpan overallEncodeTime;
+	public TimeSpan OverallEncodeTime
+	{
+		get { return this.overallEncodeTime; }
+		set { this.RaiseAndSetIfChanged(ref this.overallEncodeTime, value); }
+	}
 
-    private TimeSpan overallEta;
-    public TimeSpan OverallEta
-    {
-	    get { return this.overallEta; }
-	    set { this.RaiseAndSetIfChanged(ref this.overallEta, value); }
-    }
+	private TimeSpan overallEta;
+	public TimeSpan OverallEta
+	{
+		get { return this.overallEta; }
+		set { this.RaiseAndSetIfChanged(ref this.overallEta, value); }
+	}
 
 	public IObservable<long> CompletedItemsObservable => this.completedItemsSubject;
 
@@ -101,49 +105,49 @@ namespace VidCoder.Services;
 	/// Reports encode stop (does NOT fire for pausing)
 	/// </summary>
 	public void ReportEncodeStop()
-    {
+	{
 		lock (this.trackerLock)
 		{
-			this.elapsedQueueEncodeTime.Stop(); 
+			this.elapsedQueueEncodeTime.Stop();
 		}
-    }
+	}
 
-    public void ReportEncodePause()
-    {
+	public void ReportEncodePause()
+	{
 		lock (this.trackerLock)
 		{
-			this.elapsedQueueEncodeTime?.Stop(); 
+			this.elapsedQueueEncodeTime?.Stop();
 		}
-    }
+	}
 
-    public void ReportEncodeResume()
-    {
+	public void ReportEncodeResume()
+	{
 		lock (this.trackerLock)
 		{
-			this.elapsedQueueEncodeTime?.Start(); 
+			this.elapsedQueueEncodeTime?.Start();
 		}
-    }
+	}
 
 	public void ReportAddedToQueue(JobWork work)
-    {
+	{
 		lock (this.trackerLock)
 		{
 			this.totalQueueCost += work.Cost;
-			this.queuedWork.Add(work); 
+			this.queuedWork.Add(work);
 		}
 	}
 
 	public void ReportRemovedFromQueue(JobWork work)
-    {
+	{
 		lock (this.trackerLock)
 		{
 			this.totalQueueCost -= work.Cost;
-			this.queuedWork.Remove(work); 
+			this.queuedWork.Remove(work);
 		}
 	}
 
 	public void ReportFinished(JobWork work)
-    {
+	{
 		lock (this.trackerLock)
 		{
 			this.completedQueueWork += work.Cost;
@@ -152,8 +156,8 @@ namespace VidCoder.Services;
 		}
 	}
 
-	public void CalculateOverallEncodeProgress(double inProgressJobsCompletedWork)
-    {
+	public void CalculateOverallEncodeProgress(double inProgressJobsCompletedWork, IList<EncodeJobViewModel> queue)
+	{
 		lock (this.trackerLock)
 		{
 			double totalCompletedWork = this.completedQueueWork + inProgressJobsCompletedWork;
@@ -173,30 +177,44 @@ namespace VidCoder.Services;
 
 				if (this.CanShowEta)
 				{
-					if (this.OverallEncodeProgressFraction == 1)
+					TimeSpan overallEtaLocal = TimeSpan.Zero;
+					TimeSpan simulatedEta = TimeSpan.Zero;
+					bool simulatedEtaIsAuthoritative = false;
+					if (Config.MaxSimultaneousEncodes > 1)
 					{
-						this.EstimatedTimeRemaining = TimeSpan.Zero.FormatFriendly();
+						simulatedEta = this.SimulateEta(queue);
+						if (queue.Count <= EtaSimulationJobCount)
+						{
+							simulatedEtaIsAuthoritative = true;
+						}
+					}
+
+					if (simulatedEtaIsAuthoritative)
+					{
+						overallEtaLocal = simulatedEta;
+					}
+					else if (this.OverallEncodeProgressFraction == 1)
+					{
+						overallEtaLocal = TimeSpan.Zero;
 					}
 					else if (this.OverallEncodeProgressFraction >= 0 && this.OverallEncodeProgressFraction <= 1.01)
 					{
 						if (this.OverallEncodeProgressFraction == 0)
 						{
-							this.overallEtaSpan = TimeSpan.MaxValue;
+							overallEtaLocal = TimeSpan.MaxValue;
 						}
 						else
 						{
 							try
 							{
-								this.overallEtaSpan =
+								overallEtaLocal =
 									TimeSpan.FromSeconds((long)(((1.0 - this.OverallEncodeProgressFraction) * queueElapsedSeconds) / this.OverallEncodeProgressFraction));
 							}
 							catch (OverflowException)
 							{
-								this.overallEtaSpan = TimeSpan.MaxValue;
+								overallEtaLocal = TimeSpan.MaxValue;
 							}
 						}
-
-						this.EstimatedTimeRemaining = this.overallEtaSpan.FormatFriendly();
 					}
 					else
 					{
@@ -219,13 +237,92 @@ namespace VidCoder.Services;
 							this.diagnosticsLogged = true;
 						}
 
-						this.EstimatedTimeRemaining = TimeSpan.Zero.FormatFriendly();
+						overallEtaLocal = TimeSpan.Zero;
 					}
+
+					if (simulatedEta > overallEtaLocal)
+					{
+						overallEtaLocal = simulatedEta;
+					}
+
+					this.EstimatedTimeRemaining = overallEtaLocal.FormatFriendly();
+					this.OverallEta = overallEtaLocal;
 				}
 			}
 
 			this.OverallEncodeTime = this.elapsedQueueEncodeTime.Elapsed;
-			this.OverallEta = this.overallEtaSpan; 
 		}
 	}
-    }
+
+	private TimeSpan SimulateEta(IList<EncodeJobViewModel> queue)
+	{
+		var inProgressJobs = new List<JobWithSimulatedEta>();
+		var unstartedJobs = new Queue<JobWithSimulatedEta>();
+
+		foreach (var job in queue.Take(EtaSimulationJobCount))
+		{
+			if (job.Encoding)
+			{
+				inProgressJobs.Add(new JobWithSimulatedEta(job, this.OverallWorkCompletionRate));
+			}
+			else
+			{
+				unstartedJobs.Enqueue(new JobWithSimulatedEta(job, this.OverallWorkCompletionRate));
+			}
+		}
+
+		TimeSpan currentTime = TimeSpan.Zero;
+		while (inProgressJobs.Count > 0)
+		{
+			// Find next job to complete
+			TimeSpan minEta = TimeSpan.MaxValue;
+			JobWithSimulatedEta nextJobToComplete = null;
+			foreach (var job in inProgressJobs)
+			{
+				if (job.SimulatedEta < minEta)
+				{
+					minEta = job.SimulatedEta;
+					nextJobToComplete = job;
+				}
+			}
+
+			// Simulate time passing and completion of the job
+			currentTime += minEta;
+			inProgressJobs.Remove(nextJobToComplete);
+			foreach (var job in inProgressJobs)
+			{
+				job.SimulatedEta -= minEta;
+			}
+
+			while (unstartedJobs.Count > 0 && inProgressJobs.Count < Config.MaxSimultaneousEncodes)
+			{
+				inProgressJobs.Add(unstartedJobs.Dequeue());
+			}
+		}
+
+		return currentTime;
+	}
+
+	private class JobWithSimulatedEta
+	{
+		public JobWithSimulatedEta(EncodeJobViewModel job, double overallWorkCompletionRate)
+		{
+			this.Job = job;
+			if (job.Encoding)
+			{
+				this.SimulatedEta = job.Eta;
+			}
+			else if (overallWorkCompletionRate == 0)
+			{
+				this.SimulatedEta = TimeSpan.MaxValue;
+			}
+			else
+			{
+				this.SimulatedEta = TimeSpan.FromSeconds(job.Work.Cost / overallWorkCompletionRate);
+			}
+		}
+
+		public EncodeJobViewModel Job { get; }
+		public TimeSpan SimulatedEta { get; set; }
+	}
+}

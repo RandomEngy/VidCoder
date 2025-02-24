@@ -2278,7 +2278,7 @@ public class ProcessingService : ReactiveObject
 			inProgressJobsCompletedWork += job.Work.CompletedWork;
 		});
 
-		this.WorkTracker.CalculateOverallEncodeProgress(inProgressJobsCompletedWork);
+		this.WorkTracker.CalculateOverallEncodeProgress(inProgressJobsCompletedWork, this.EncodeQueue.Items.ToList());
 
 		double currentFps = 0;
 		double averageFps = 0;
