@@ -754,4 +754,5 @@ v5 ბოლო შემოწმებული ვერსიაა Windows 
   <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
     <value>{0} ვერსიის ჩამოტვირთვა დასრულებულია, აქტუალიზირდება პროგრამიდან გასვლის შემდეგ.</value>
   </data>
+  
 </root>

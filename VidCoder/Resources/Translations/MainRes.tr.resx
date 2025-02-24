@@ -754,4 +754,5 @@ Bu uyarı yalnızca iki kez görüntülenir.</value>
   <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
     <value>Sürüm {0} indirildi ve bir sonraki başlatmada uygulanacak.</value>
   </data>
+  
 </root>

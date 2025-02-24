@@ -212,7 +212,9 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>通知</value>
   </data>
-  
+  <data name="UnsupportedOSError" xml:space="preserve">
+    <value>您的作業系統不支援 VidCoder。此版本需要 Windows 10 或更高版本。請升級您的作業系統或安裝早期版本的 VidCoder。 Windows XP 的最新相容版本是 VidCoder 1.4。 Windows 7 的最新相容版本是 5.21。</value>
+  </data>
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>立即休眠</value>
   </data>

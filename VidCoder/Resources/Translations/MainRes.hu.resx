@@ -754,4 +754,5 @@ Ez a figyelmeztetés csak kétszer jelenik meg.</value>
   <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
     <value>{0} verzió letöltődött és a következő indításkor telepítésre kerül.</value>
   </data>
+  
 </root>

@@ -212,7 +212,9 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>¡Aviso!</value>
   </data>
-  
+  <data name="UnsupportedOSError" xml:space="preserve">
+    <value>VidCoder no es compatible con su sistema operativo. Se requiere Windows 10 o posterior para esta versión. Actualice su sistema operativo o instale una versión anterior de VidCoder. La última versión compatible para Windows XP es VidCoder 1.4. La última versión compatible para Windows 7 es 5.21.</value>
+  </data>
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>Hibernacion del sistema inminente</value>
   </data>

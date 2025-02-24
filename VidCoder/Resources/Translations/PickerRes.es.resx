@@ -417,7 +417,14 @@ Todas: incluye todos los subtítulos.</value>
     <value>Valor de filtro de anchura</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
-  
-  
-  
+  <data name="ExternalSubtitleImportToolTip" xml:space="preserve">
+    <value>También reconoce la nomenclatura "nombreArchivo.lng.ext", donde "lng" es el código de 3 letras del idioma que ISO define y "ext" es la extensión del subtítulos.</value>
+  </data>
+  <data name="FallbackLanguageLabel" xml:space="preserve">
+    <value>Idioma predeterminado:</value>
+    <comment>Label for an option of what language to mark a subtitle track as when it doesn't have the language identified in the file name. For example, if you have myVideo.mp4 and myVideo.srt, what language should we mark that as when we pick it up?</comment>
+  </data>
+  <data name="FallbackLanguageToolTip" xml:space="preserve">
+    <value>Si el idioma no se identifica en el nombre subtítulos, como en myVideo.srt, se asume este idioma como predeterminado.</value>
+  </data>
 </root>
