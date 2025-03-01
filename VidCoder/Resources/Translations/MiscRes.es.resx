@@ -156,12 +156,8 @@
   <data name="QueueFileConflictWarning" xml:space="preserve">
     <value>Un trabajo en cola ya tiene una ruta de salida en {0}. ¿Quieres reemplazar el trabajo en cola, encontrar automáticamente una nueva ruta de salida para el trabajo de codificación o cancelar la operación?</value>
   </data>
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Columnas de cola</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Arrastrar y soltar para agregar, eliminar o reordenar las columnas.</value>
-  </data>
+  
+  
   <data name="UnusedColumns" xml:space="preserve">
     <value>Columnas sin usar</value>
   </data>
@@ -272,4 +268,5 @@
   <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
     <value>El sistema se reiniciará en {0} segundos.</value>
   </data>
+  
 </root>

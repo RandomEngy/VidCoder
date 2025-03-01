@@ -154,12 +154,8 @@
     <value>Det finns redan en fil vid {0}. Vill du skriva över filen, automatiskt hitta en ny väg för arbetet eller avbryta?</value>
   </data>
   
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Kö kolumner</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Dra och släpp för att lägga till, ta bort eller ordna om kolumner.</value>
-  </data>
+  
+  
   <data name="UnusedColumns" xml:space="preserve">
     <value>Oanvända kolumner</value>
   </data>
@@ -247,6 +243,7 @@
   <data name="ExceptionDialogSubTextReported" xml:space="preserve">
     <value>Programmet måste avslutas, men felet rapporteras automatiskt.</value>
   </data>
+  
   
   
   

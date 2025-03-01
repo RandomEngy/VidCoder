@@ -154,12 +154,8 @@
     <value>Unter {0} ist bereits eine Datei mit diesem Namen vorhanden. Möchten Sie die Datei überschreiben, automatisch einen neuen Ausgabepfad für den Encodierungsauftrag finden oder den Vorgang abbrechen?</value>
   </data>
   
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Warteschlange: Spalten</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Spalten per Drag &amp; Drop hinzufügen, entfernen oder neu anordnen.</value>
-  </data>
+  
+  
   <data name="UnusedColumns" xml:space="preserve">
     <value>Ungenutzte Spalten</value>
   </data>
@@ -250,6 +246,7 @@
   <data name="ExceptionDialogSubTextReported" xml:space="preserve">
     <value>Das Programm muss geschlossen werden, aber der Error wird automatisch gemeldet werden.</value>
   </data>
+  
   
   
   

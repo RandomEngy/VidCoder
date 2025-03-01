@@ -154,12 +154,8 @@
     <value>{0} 已有同名文件，您想要覆盖该文件、自动变更编码作业输出路径，还是取消操作?</value>
   </data>
   
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>队列栏目</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>拖拽以新增、移除或重排字段。</value>
-  </data>
+  
+  
   <data name="UnusedColumns" xml:space="preserve">
     <value>未使用的列</value>
   </data>
@@ -250,6 +246,7 @@
   <data name="ExceptionDialogSubTextReported" xml:space="preserve">
     <value>本程序需关闭，错误将被自动报告。</value>
   </data>
+  
   
   
   

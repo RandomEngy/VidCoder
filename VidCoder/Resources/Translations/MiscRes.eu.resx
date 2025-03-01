@@ -156,12 +156,8 @@
   <data name="QueueFileConflictWarning" xml:space="preserve">
     <value>Lerroko lan bat jadanik badago irteera helburuan hemen: {0}. Lerrokatutako agiria ordeztea, kodeaketa lanarentzat irteera helburu berri bat berezgaitasunez bilatu edo eragiketa hau ezeztatzea nahi duzu?</value>
   </data>
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Lerro Zutabeak</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Arrasatu eta askatu gehitzeko, kendu edo birrantolatu zutabeak.</value>
-  </data>
+  
+  
   <data name="UnusedColumns" xml:space="preserve">
     <value>Zutabe ezerabiliak</value>
   </data>
@@ -258,6 +254,7 @@
   <data name="ReplaceJobButton" xml:space="preserve">
     <value>Ordeztu lana</value>
   </data>
+  
   
   
   

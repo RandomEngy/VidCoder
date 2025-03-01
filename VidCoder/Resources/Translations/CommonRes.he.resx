@@ -134,9 +134,7 @@
   
   
   
-  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
-    <value>איכות וידאו</value>
-  </data>
+  
   
   <data name="QueueColumnNameDuration" xml:space="preserve">
     <value>משך זמן</value>
@@ -231,6 +229,12 @@
     <value>ראשון</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
+  
+  
+  
+  
+  
+  
   
   
   

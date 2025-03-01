@@ -150,18 +150,10 @@ En komplet kopi af GNU General Public Licensen er inkluderet med dette program.<
     <value>Titel</value>
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
-  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
-    <value>Lydkvalitet</value>
-  </data>
-  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>Lyd kodning</value>
-  </data>
-  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Video Kodning</value>
-  </data>
-  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
-    <value>Videokvalitet</value>
-  </data>
+  
+  
+  
+  
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>Anslået tid tilbage for færdiggørelsen af alle job i køen.</value>
   </data>
@@ -318,16 +310,12 @@ En komplet kopi af GNU General Public Licensen er inkluderet med dette program.<
   <data name="DefaultLabel" xml:space="preserve">
     <value>Standard:</value>
   </data>
-  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
-    <value>Lydspor</value>
-  </data>
+  
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>Beskæring</value>
   </data>
   
-  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
-    <value>Undertekst Spor</value>
-  </data>
+  
   <data name="Manual" xml:space="preserve">
     <value>Manuel</value>
     <comment>Shown when something has been set manually</comment>
@@ -339,6 +327,12 @@ En komplet kopi af GNU General Public Licensen er inkluderet med dette program.<
     <value>MB</value>
     <comment>Abbreviation for megabytes</comment>
   </data>
+  
+  
+  
+  
+  
+  
   
   
 </root>

@@ -150,18 +150,10 @@ A full copy of the GNU General Public License has been included along with this 
     <value>Cím</value>
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
-  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
-    <value>Hangminőség</value>
-  </data>
-  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>Hangkódoló</value>
-  </data>
-  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Videókódoló</value>
-  </data>
-  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
-    <value>Videóminőség</value>
-  </data>
+  
+  
+  
+  
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>A sorban található műveletek befejezésének becsült ideje.</value>
   </data>
@@ -318,18 +310,12 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="DefaultLabel" xml:space="preserve">
     <value>Alapértelmezett:</value>
   </data>
-  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
-    <value>Hangsávok</value>
-  </data>
+  
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>Levágás</value>
   </data>
-  <data name="QueueColumnNameOutputSize" xml:space="preserve">
-    <value>Kimeneti méret</value>
-  </data>
-  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
-    <value>Feliratsávok</value>
-  </data>
+  
+  
   <data name="Manual" xml:space="preserve">
     <value>Kézi</value>
     <comment>Shown when something has been set manually</comment>
@@ -348,4 +334,10 @@ A full copy of the GNU General Public License has been included along with this 
     <value>Bezárás</value>
     <comment>Label to close a window or item.</comment>
   </data>
+  
+  
+  
+  
+  
+  
 </root>

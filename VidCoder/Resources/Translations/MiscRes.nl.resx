@@ -156,12 +156,8 @@
   <data name="QueueFileConflictWarning" xml:space="preserve">
     <value>Een wachtrijtaak heeft al een uitvoerpad op {0}. Wil je de taak in de wachtrij vervangen, automatisch een nieuw uitvoerpad vinden voor de coderingsopdracht of de bewerking annuleren?</value>
   </data>
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Wachtrij kolommen</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Sleep om kolommen toe te voegen, te verwijderen of te herschikken.</value>
-  </data>
+  
+  
   <data name="UnusedColumns" xml:space="preserve">
     <value>Ongebruikte kolommen</value>
   </data>
@@ -272,4 +268,5 @@
   <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
     <value>Het systeem wordt over {0} seconden opnieuw opgestart.</value>
   </data>
+  
 </root>

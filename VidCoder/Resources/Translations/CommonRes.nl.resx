@@ -150,18 +150,10 @@ Een volledige kopie van de GNU General Public License is opgenomen bij dit progr
     <value>Titel</value>
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
-  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
-    <value>Geluidskwaliteit</value>
-  </data>
-  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>Audio Encoder</value>
-  </data>
-  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Video Encoder</value>
-  </data>
-  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
-    <value>Beeldkwaliteit</value>
-  </data>
+  
+  
+  
+  
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>Geschatte tijd om alle taken in de wachtrij verder te voltooien.</value>
   </data>
@@ -318,18 +310,12 @@ Een volledige kopie van de GNU General Public License is opgenomen bij dit progr
   <data name="DefaultLabel" xml:space="preserve">
     <value>Standaard:</value>
   </data>
-  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
-    <value>Audiosporen</value>
-  </data>
+  
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>Bijsnijden</value>
   </data>
-  <data name="QueueColumnNameOutputSize" xml:space="preserve">
-    <value>Uitvoergrootte</value>
-  </data>
-  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
-    <value>Ondertitelingssporen</value>
-  </data>
+  
+  
   <data name="Manual" xml:space="preserve">
     <value>Handmatig</value>
     <comment>Shown when something has been set manually</comment>
@@ -348,4 +334,10 @@ Een volledige kopie van de GNU General Public License is opgenomen bij dit progr
     <value>Sluiten</value>
     <comment>Label to close a window or item.</comment>
   </data>
+  
+  
+  
+  
+  
+  
 </root>

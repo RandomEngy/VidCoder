@@ -148,18 +148,10 @@ GNU General Public License এর একটি পূর্ণ সংস্ক�
     <value>শিরোনাম</value>
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
-  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
-    <value>অডিও'র মান</value>
-  </data>
-  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>অডিও Encoder</value>
-  </data>
-  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>ভিডিও Encoder</value>
-  </data>
-  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
-    <value>ভিডিও'র মান</value>
-  </data>
+  
+  
+  
+  
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>সমস্ত বাকি কাজ সম্পন্ন হবার আনুমানিক সময়।</value>
   </data>
@@ -251,6 +243,12 @@ GNU General Public License এর একটি পূর্ণ সংস্ক�
   <data name="FileFailureErrorTitle" xml:space="preserve">
     <value>ফাইল ক্রিয়াকলাপে গোলযোগ</value>
   </data>
+  
+  
+  
+  
+  
+  
   
   
   

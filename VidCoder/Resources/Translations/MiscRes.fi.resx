@@ -154,12 +154,8 @@
     <value>Kohteessa {0} on jo tiedosto. Haluatko korvata tiedoston, etsiä automaattisesti uuden tallennussijainnin vai peruuttaa toiminnon?</value>
   </data>
   
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Jonon sarakkeet</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Vedä ja pudota lisätäksesi, poistaaksesi tai uudelleenjärjestääksesi sarakkeet.</value>
-  </data>
+  
+  
   <data name="UnusedColumns" xml:space="preserve">
     <value>Käyttämättömät sarakkeet</value>
   </data>
@@ -244,6 +240,7 @@
   <data name="ChooseNamePicker" xml:space="preserve">
     <value>Valitse poimijan nii:</value>
   </data>
+  
   
   
   
