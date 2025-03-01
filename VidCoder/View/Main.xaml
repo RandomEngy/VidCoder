@@ -262,6 +262,9 @@
 		<DataTemplate x:Key="CompletedTemplateSize" DataType="viewmodel:EncodeResultViewModel">
 			<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding OutputFileSize}" />
 		</DataTemplate>
+		<DataTemplate x:Key="CompletedTemplateSourceSize" DataType="viewModel:EncodeResultViewModel">
+			<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding SourceFileSize}" />
+		</DataTemplate>
 		<DataTemplate x:Key="CompletedTemplatePercentOfSource" DataType="viewmodel:EncodeResultViewModel">
 			<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding PercentOfSourceDisplay}" />
 		</DataTemplate>

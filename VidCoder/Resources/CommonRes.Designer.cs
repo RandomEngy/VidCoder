@@ -164,6 +164,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Source size.
+        /// </summary>
+        public static string CompletedColumnNameSourceSize {
+            get {
+                return ResourceManager.GetString("CompletedColumnNameSourceSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string CompletedColumnNameStatus {

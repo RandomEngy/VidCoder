@@ -365,4 +365,7 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="CompletedColumnNamePercentOfSource" xml:space="preserve">
     <value>% of source</value>
   </data>
+  <data name="CompletedColumnNameSourceSize" xml:space="preserve">
+    <value>Source size</value>
+  </data>
 </root>

@@ -309,6 +309,7 @@ public static class Utilities
 		{"Destination", 290},
 		{"Status", 120},
 		{"ElapsedTime", 90},
+		{"SourceSize", 80},
 		{"Size", 80},
 		{"PercentOfSource", 90},
 	};

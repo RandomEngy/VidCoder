@@ -74,6 +74,8 @@ public class EncodeResultViewModel : ReactiveObject
 		}
 	}
 
+	public string SourceFileSize => this.job.SourceSizeBytes > 0 ? Utilities.FormatFileSize(this.job.SourceSizeBytes) : string.Empty;
+
 	public string OutputFileSize => Utilities.FormatFileSize(this.encodeResult.SizeBytes);
 
 	public string PercentOfSourceDisplay
