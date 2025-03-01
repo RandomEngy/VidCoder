@@ -156,12 +156,8 @@
   <data name="QueueFileConflictWarning" xml:space="preserve">
     <value>У задания в очереди уже есть путь вывода в {0}. Вы хотите изменить запланированное задание, автоматически найти новый путь вывода для работы кодирования или отменить операцию?</value>
   </data>
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Столбцы очереди</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Перетащите, чтобы добавить, удалить или изменить порядок столбцов.</value>
-  </data>
+  
+  
   <data name="UnusedColumns" xml:space="preserve">
     <value>Неиспользуемые столбцы</value>
   </data>
@@ -272,4 +268,5 @@
   <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
     <value>Система будет перезагружена через {0} сек.</value>
   </data>
+  
 </root>

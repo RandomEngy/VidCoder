@@ -156,12 +156,8 @@
   <data name="QueueFileConflictWarning" xml:space="preserve">
     <value>Μια εργασία στην ουρά έχει ήδη μια διαδρομή εξόδου στο {0}. Θέλετε να αντικαταστήσετε την εργασία στην ουρά, να βρείτε αυτόματα μια νέα διαδρομή εξόδου για την εργασία κωδικοποίησης ή να ακυρώσετε τη διαδικασία;</value>
   </data>
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Στήλες Ουράς</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Σύρισμο και εναπόθεση για προσθήκη, αφαίρεση ή αναδιάταξη στηλών.</value>
-  </data>
+  
+  
   <data name="UnusedColumns" xml:space="preserve">
     <value>Αχρησιμοποίητες στήλες</value>
   </data>
@@ -270,4 +266,5 @@
   <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
     <value>Το σύστημα θα θα επανεκκινήσει σε {0} δευτερόλεπτα.</value>
   </data>
+  
 </root>

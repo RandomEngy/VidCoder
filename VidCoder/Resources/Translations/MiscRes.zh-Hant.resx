@@ -156,12 +156,8 @@
   <data name="QueueFileConflictWarning" xml:space="preserve">
     <value>工作佇列中已有輸出路徑於 {0}，您想要為佇列的工作自動尋找新輸出路徑，或是取消作業？</value>
   </data>
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>佇列欄位</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>拖拉以新增、移除或移動欄位。</value>
-  </data>
+  
+  
   <data name="UnusedColumns" xml:space="preserve">
     <value>未使用欄位</value>
   </data>
@@ -272,4 +268,5 @@
   <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
     <value>系統將於 {0} 秒後重啟。</value>
   </data>
+  
 </root>

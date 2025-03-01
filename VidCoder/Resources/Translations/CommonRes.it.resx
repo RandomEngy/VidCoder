@@ -146,18 +146,10 @@
     <value>Titolo</value>
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
-  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
-    <value>Qualità audio</value>
-  </data>
-  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>Codifica audio</value>
-  </data>
-  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Codifica video</value>
-  </data>
-  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
-    <value>Qualità video</value>
-  </data>
+  
+  
+  
+  
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>Tempo stimato rimanente per tutti i lavori in coda da completare.</value>
   </data>
@@ -314,18 +306,12 @@
   <data name="DefaultLabel" xml:space="preserve">
     <value>Predefinito:</value>
   </data>
-  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
-    <value>Tracce audio</value>
-  </data>
+  
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>Ritaglio</value>
   </data>
-  <data name="QueueColumnNameOutputSize" xml:space="preserve">
-    <value>Dimensione finale del file</value>
-  </data>
-  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
-    <value>Tracce sottotitoli</value>
-  </data>
+  
+  
   <data name="Manual" xml:space="preserve">
     <value>Manuale</value>
     <comment>Shown when something has been set manually</comment>
@@ -344,4 +330,10 @@
     <value>Chiudi</value>
     <comment>Label to close a window or item.</comment>
   </data>
+  
+  
+  
+  
+  
+  
 </root>

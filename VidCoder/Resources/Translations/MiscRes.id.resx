@@ -156,12 +156,8 @@
   <data name="QueueFileConflictWarning" xml:space="preserve">
     <value>Pekerjaan antrian yang sudah memiliki jalur output di {0}. Apakah Anda ingin menimpa file, secara otomatis menemukan jalur output baru untuk pekerjaan encode atau membatalkan pengoperasian?</value>
   </data>
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Antrian kolom</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Drag dan drop untuk menambahkan, menghapus atau menyusun ulang kolom.</value>
-  </data>
+  
+  
   <data name="UnusedColumns" xml:space="preserve">
     <value>Kolom yang tidak terpakai</value>
   </data>
@@ -264,6 +260,7 @@
   <data name="OneTimeInstallerCleanup" xml:space="preserve">
     <value>Kita perlu melakukan pembersihan satu kali pada penginstal lama. Pilih 'Ya' pada prompt berikutnya untuk menghapus versi lama VidCoder.</value>
   </data>
+  
   
   
 </root>

@@ -154,12 +154,8 @@
     <value>Soubor již existuje v {0}. Chcete soubor přepsat, automaticky najít novou výstupní cestu pro enkódování a nebo operaci zrušit?</value>
   </data>
   
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Sloupce fronty</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Přetažením přidat, odebrat nebo změnit pořadí sloupců.</value>
-  </data>
+  
+  
   <data name="UnusedColumns" xml:space="preserve">
     <value>Nepoužité sloupce</value>
   </data>
@@ -244,6 +240,7 @@
   <data name="ChooseNamePicker" xml:space="preserve">
     <value>Zvolte název pro selektor:</value>
   </data>
+  
   
   
   

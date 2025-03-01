@@ -156,12 +156,8 @@
   <data name="QueueFileConflictWarning" xml:space="preserve">
     <value>Egy sorba rendezett művelet már rendelkezik kimeneti útvonallal a(z) {0} helyen. Szeretnéd lecserélni a sorba rendezett műveletet, automatikusan új kimeneti útvonalat találni a kódolási műveletnek vagy megszakaítani a műveletet?</value>
   </data>
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Oszlopsorrend</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Húzd és vidd az oszlopok hozzáadásához, eltávolításához vagy átrendezéséhez.</value>
-  </data>
+  
+  
   <data name="UnusedColumns" xml:space="preserve">
     <value>Nem használt oszlopok</value>
   </data>
@@ -270,4 +266,5 @@
   <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
     <value>A rendszer {0} másodperc múlva újraindul.</value>
   </data>
+  
 </root>

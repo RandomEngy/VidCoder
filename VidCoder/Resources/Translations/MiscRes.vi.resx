@@ -156,12 +156,8 @@
   <data name="QueueFileConflictWarning" xml:space="preserve">
     <value>Công việc hàng đợi đã có một đường dẫn đầu ra tại {0}. Bạn muốn thay thế công việc đã được xếp hàng đợi, tự động tìm đường dẫn đầu ra mới cho công việc mã hóa hay hủy thao tác?</value>
   </data>
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Các cột hàng đợi</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Kéo và thả để thêm, xóa hoặc sắp xếp lại các cột.</value>
-  </data>
+  
+  
   <data name="UnusedColumns" xml:space="preserve">
     <value>Cột không sử dụng</value>
   </data>
@@ -264,6 +260,7 @@
   <data name="OneTimeInstallerCleanup" xml:space="preserve">
     <value>Chúng tôi cần thực hiện một số lần dọn dẹp trình cài đặt cũ. Chọn 'Có' trên lời nhắc tiếp theo để xóa phiên bản cũ của VidCoder.</value>
   </data>
+  
   
   
 </root>

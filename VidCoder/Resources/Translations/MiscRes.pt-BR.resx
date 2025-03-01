@@ -156,12 +156,8 @@
   <data name="QueueFileConflictWarning" xml:space="preserve">
     <value>Já existe uma tarefa na fila de saída em {0}. Deseja substituir a tarefa, procurar automaticamente um novo caminho para ela ou cancelar a operação?</value>
   </data>
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Colunas da lista de Tarefas</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Arrastar e solte para adicionar, remover ou reordenar colunas.</value>
-  </data>
+  
+  
   <data name="UnusedColumns" xml:space="preserve">
     <value>Colunas não utilizadas</value>
   </data>
@@ -270,4 +266,5 @@
   <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
     <value>O sistema irá reiniciar em {0} segundos.</value>
   </data>
+  
 </root>

@@ -150,18 +150,10 @@ S'ha inclòs una còpia completa de la Llicència Pública General GNU juntament
     <value>Títol</value>
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
-  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
-    <value>Qualitat d'àudio</value>
-  </data>
-  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>Codificador d'àudio</value>
-  </data>
-  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Codificador de vídeo</value>
-  </data>
-  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
-    <value>Qualitat de vídeo</value>
-  </data>
+  
+  
+  
+  
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>Temps estimat que falta per acabar totes les tasques de la cua.</value>
   </data>
@@ -318,18 +310,12 @@ S'ha inclòs una còpia completa de la Llicència Pública General GNU juntament
   <data name="DefaultLabel" xml:space="preserve">
     <value>Per defecte:</value>
   </data>
-  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
-    <value>Pistes d'àudio</value>
-  </data>
+  
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>Escapça</value>
   </data>
-  <data name="QueueColumnNameOutputSize" xml:space="preserve">
-    <value>Mida del fitxer de sortida</value>
-  </data>
-  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
-    <value>Pistes de subtítols</value>
-  </data>
+  
+  
   <data name="Manual" xml:space="preserve">
     <value>Manual</value>
     <comment>Shown when something has been set manually</comment>
@@ -348,4 +334,10 @@ S'ha inclòs una còpia completa de la Llicència Pública General GNU juntament
     <value>Tanca</value>
     <comment>Label to close a window or item.</comment>
   </data>
+  
+  
+  
+  
+  
+  
 </root>

@@ -156,12 +156,8 @@
   <data name="QueueFileConflictWarning" xml:space="preserve">
     <value>Dosya zaten var {0}. Üzerine yazabilir, otomatik olarak adlandırabilir veya işlemi iptal edebilirsiniz.</value>
   </data>
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Kuyruk Sütunları</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Sütun eklemek, kaldırmak veya srıalamak için sürükleyip ve bırakın.</value>
-  </data>
+  
+  
   <data name="UnusedColumns" xml:space="preserve">
     <value>Kullanılmayan sütunlar</value>
   </data>
@@ -270,4 +266,5 @@
   <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
     <value>Sistem {0} saniye içinde yeniden başlayacak.</value>
   </data>
+  
 </root>

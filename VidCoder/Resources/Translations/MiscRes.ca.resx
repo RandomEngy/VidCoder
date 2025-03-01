@@ -156,12 +156,8 @@
   <data name="QueueFileConflictWarning" xml:space="preserve">
     <value>Ja hi ha una tasca a la cua que té un camí de sortida a {0}. Voleu substituir la tasca de la cua, cercar automàticament un camí de sortida nou per a la tasca de codificació o cancel·lar l'operació?</value>
   </data>
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Columnes de la cua</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Arrossegueu i deixeu anar per a afegir, eliminar o reordenar les columnes.</value>
-  </data>
+  
+  
   <data name="UnusedColumns" xml:space="preserve">
     <value>Columnes que no es fan servir</value>
   </data>
@@ -270,4 +266,5 @@
   <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
     <value>El sistema es reiniciarà d'aquí a {0} segons.</value>
   </data>
+  
 </root>
