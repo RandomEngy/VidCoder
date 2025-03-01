@@ -30,6 +30,7 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 	public const double SubtitleScanCostFactor = 5.0;
 	private ProcessingService processingService;
 	private Stopwatch encodeTimeStopwatch;
+	private Stopwatch pauseTimeStopwatch;
 
 	public EncodeJobViewModel(
 		VCJob job,
@@ -351,6 +352,19 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 			}
 
 			return this.encodeTimeStopwatch.Elapsed;
+		}
+	}
+
+	public TimeSpan PauseTime
+	{
+		get
+		{
+			if (this.pauseTimeStopwatch == null)
+			{
+				return TimeSpan.Zero;
+			}
+
+			return this.pauseTimeStopwatch.Elapsed;
 		}
 	}
 
@@ -854,24 +868,28 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 		this.InitializeForEncoding();
 		this.Encoding = true;
 		this.encodeTimeStopwatch = Stopwatch.StartNew();
+		this.pauseTimeStopwatch = new Stopwatch();
 	}
 
 	public void ReportEncodePause()
 	{
 		this.IsPaused = true;
 		this.encodeTimeStopwatch.Stop();
+		this.pauseTimeStopwatch.Start();
 	}
 
 	public void ReportEncodeResume()
 	{
 		this.IsPaused = false;
 		this.encodeTimeStopwatch.Start();
+		this.pauseTimeStopwatch.Stop();
 	}
 
 	public void ReportEncodeEnd()
 	{
 		this.Encoding = false;
 		this.encodeTimeStopwatch?.Stop();
+		this.pauseTimeStopwatch?.Stop();
 	}
 
 	public override string ToString()

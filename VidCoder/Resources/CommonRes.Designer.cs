@@ -137,11 +137,20 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Elapsed time.
+        ///   Looks up a localized string similar to Encode time.
         /// </summary>
         public static string CompletedColumnNameElapsedTime {
             get {
                 return ResourceManager.GetString("CompletedColumnNameElapsedTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pause time.
+        /// </summary>
+        public static string CompletedColumnNamePauseTime {
+            get {
+                return ResourceManager.GetString("CompletedColumnNamePauseTime", resourceCulture);
             }
         }
         
@@ -178,6 +187,15 @@ namespace VidCoder.Resources {
         public static string CompletedColumnNameStatus {
             get {
                 return ResourceManager.GetString("CompletedColumnNameStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video duration.
+        /// </summary>
+        public static string CompletedColumnNameVideoDuration {
+            get {
+                return ResourceManager.GetString("CompletedColumnNameVideoDuration", resourceCulture);
             }
         }
         

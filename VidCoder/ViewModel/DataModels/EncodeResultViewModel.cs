@@ -58,6 +58,8 @@ public class EncodeResultViewModel : ReactiveObject
 
 	public string TimeDisplay => this.encodeResult.EncodeTime.FormatShort();
 
+	public string PauseTimeDisplay => this.encodeResult.PauseTime > TimeSpan.Zero ? this.encodeResult.PauseTime.FormatShort() : string.Empty;
+
 	public string StatusImage
 	{
 		get

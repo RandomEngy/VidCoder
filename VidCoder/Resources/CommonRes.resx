@@ -357,7 +357,7 @@ A full copy of the GNU General Public License has been included along with this 
     <comment>The header for the status column for completed jobs (succeeded/failed)</comment>
   </data>
   <data name="CompletedColumnNameElapsedTime" xml:space="preserve">
-    <value>Elapsed time</value>
+    <value>Encode time</value>
   </data>
   <data name="CompletedColumnNameSize" xml:space="preserve">
     <value>Size</value>
@@ -367,5 +367,11 @@ A full copy of the GNU General Public License has been included along with this 
   </data>
   <data name="CompletedColumnNameSourceSize" xml:space="preserve">
     <value>Source size</value>
+  </data>
+  <data name="CompletedColumnNameVideoDuration" xml:space="preserve">
+    <value>Video duration</value>
+  </data>
+  <data name="CompletedColumnNamePauseTime" xml:space="preserve">
+    <value>Pause time</value>
   </data>
 </root>
