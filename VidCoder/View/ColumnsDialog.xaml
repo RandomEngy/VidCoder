@@ -1,12 +1,12 @@
 ﻿<Window
-	x:Class="VidCoder.View.QueueColumnsDialog"
+	x:Class="VidCoder.View.ColumnsDialog"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:VidCoderDragDrop="clr-namespace:VidCoder.DragDropUtils"
 	xmlns:controls="clr-namespace:VidCoder.Controls"
 	xmlns:prop="clr-namespace:VidCoder.Properties"
 	xmlns:res="clr-namespace:VidCoder.Resources"
-	Title="{x:Static res:MiscRes.QueueColumnsDialogTitle}"
+	Title="{Binding Title}"
 	Width="436"
 	Height="411"
 	ResizeMode="NoResize"
@@ -22,7 +22,7 @@
 		<DataTemplate x:Key="ColumnDragTemplate">
 			<TextBlock Text="{Binding Title}" />
 		</DataTemplate>
-		<Style x:Key="QueueColumnListViewTextBlockStyle" TargetType="TextBlock">
+		<Style x:Key="ColumnListViewTextBlockStyle" TargetType="TextBlock">
 			<Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
 			<Style.Triggers>
 				<DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
@@ -39,7 +39,7 @@
 				<RowDefinition Height="Auto" />
 			</Grid.RowDefinitions>
 			<controls:ToolWindowTitleBar
-				Title="{x:Static res:MiscRes.QueueColumnsDialogTitle}"
+				Title="{Binding Title}"
 				Grid.Row="0"
 				IsActive="{Binding IsActive,
 				                   RelativeSource={RelativeSource AncestorType=Window}}" />
@@ -53,7 +53,7 @@
 					Margin="15 10 0 0"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Top"
-					Text="{x:Static res:MiscRes.QueueColumnsDialogHeaderText}" />
+					Text="{x:Static res:MiscRes.ColumnsDialogHeaderText}" />
 
 				<TextBlock
 					Margin="0 39 0 0"
@@ -84,7 +84,7 @@
 					ItemsSource="{Binding UsedColumns}">
 					<ListView.ItemTemplate>
 						<DataTemplate>
-							<TextBlock Style="{StaticResource QueueColumnListViewTextBlockStyle}" Text="{Binding Title}" />
+							<TextBlock Style="{StaticResource ColumnListViewTextBlockStyle}" Text="{Binding Title}" />
 						</DataTemplate>
 					</ListView.ItemTemplate>
 				</ListView>

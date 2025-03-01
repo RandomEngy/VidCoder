@@ -55,8 +55,8 @@ ApplicationVersion|string|""
 
 QueueColumns|string|"Source:200|Title:35|Range:106|Destination:200"
 QueueLastColumnWidth|double|75.0
+CompletedColumns|string|"Destination:290|Status:120|ElapsedTime:90|Size:80|PercentOfSource:90"
 
-CompletedColumnWidths|string|""
 WatcherFileColumnWidths|string|""
 
 SourcePaneHeightStar|double|2.0

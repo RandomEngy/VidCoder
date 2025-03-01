@@ -76,6 +76,20 @@ public class EncodeResultViewModel : ReactiveObject
 
 	public string OutputFileSize => Utilities.FormatFileSize(this.encodeResult.SizeBytes);
 
+	public string PercentOfSourceDisplay
+	{
+		get
+		{
+			if (this.encodeResult.SizeBytes == 0 || this.job.SourceSizeBytes == 0)
+			{
+				return string.Empty;
+			}
+
+			double percent = (double)this.encodeResult.SizeBytes / this.job.SourceSizeBytes * 100;
+			return string.Format(CultureInfo.CurrentCulture, "{0:0.00}%", percent);
+		}
+	}
+
 	private ReactiveCommand<Unit, Unit> play;
 	public ICommand Play
 	{

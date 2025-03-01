@@ -241,6 +241,30 @@
 					                Mode=OneWay}" />
 			</Grid>
 		</DataTemplate>
+		<DataTemplate x:Key="CompletedTemplateDestination" DataType="viewmodel:EncodeResultViewModel">
+			<controls:PathTextBlock Style="{StaticResource ListViewPathText}" Text="{Binding EncodeResult.Destination}" />
+		</DataTemplate>
+		<DataTemplate x:Key="CompletedTemplateStatus" DataType="viewmodel:EncodeResultViewModel">
+			<StackPanel Orientation="Horizontal">
+				<Image
+					Width="16"
+					Height="16"
+					Source="{Binding StatusImage}" />
+				<TextBlock
+					Margin="4 0 0 0"
+					Style="{DynamicResource TextBlockBaseStyle}"
+					Text="{Binding StatusText}" />
+			</StackPanel>
+		</DataTemplate>
+		<DataTemplate x:Key="CompletedTemplateElapsedTime" DataType="viewmodel:EncodeResultViewModel">
+			<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding TimeDisplay}" />
+		</DataTemplate>
+		<DataTemplate x:Key="CompletedTemplateSize" DataType="viewmodel:EncodeResultViewModel">
+			<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding OutputFileSize}" />
+		</DataTemplate>
+		<DataTemplate x:Key="CompletedTemplatePercentOfSource" DataType="viewmodel:EncodeResultViewModel">
+			<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding PercentOfSourceDisplay}" />
+		</DataTemplate>
 		<ContextMenu x:Key="CompletedItemContextMenu" d:DataContext="{d:DesignInstance viewmodel:EncodeResultViewModel}">
 			<MenuItem Command="{Binding Play}" Header="{x:Static res:MainRes.Play}">
 				<MenuItem.Icon>
@@ -2303,50 +2327,12 @@
 									ItemContainerStyle="{StaticResource CompletedItemStyle}"
 									ItemsSource="{Binding ProcessingService.CompletedJobsBindable}">
 									<ListView.View>
-										<GridView x:Name="completedGridView">
-											<GridView.Columns>
-												<GridViewColumn Width="300" Header="{x:Static res:MainRes.DestinationColumnHeader}">
-													<GridViewColumn.CellTemplate>
-														<DataTemplate>
-															<controls:PathTextBlock Style="{StaticResource ListViewPathText}" Text="{Binding EncodeResult.Destination}" />
-														</DataTemplate>
-													</GridViewColumn.CellTemplate>
-												</GridViewColumn>
-												<GridViewColumn Width="120" Header="{x:Static res:MainRes.StatusColumnHeader}">
-													<GridViewColumn.CellTemplate>
-														<DataTemplate>
-															<StackPanel Orientation="Horizontal">
-																<Image
-																	Width="16"
-																	Height="16"
-																	Source="{Binding StatusImage}" />
-																<TextBlock
-																	Margin="4 0 0 0"
-																	Style="{DynamicResource TextBlockBaseStyle}"
-																	Text="{Binding StatusText}" />
-															</StackPanel>
-														</DataTemplate>
-													</GridViewColumn.CellTemplate>
-												</GridViewColumn>
-												<GridViewColumn Width="90" Header="{x:Static res:MainRes.ElapsedTimeColumnHeader}">
-													<GridViewColumn.CellTemplate>
-														<DataTemplate>
-															<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding TimeDisplay}" />
-														</DataTemplate>
-													</GridViewColumn.CellTemplate>
-												</GridViewColumn>
-												<GridViewColumn Width="80" Header="{x:Static res:MainRes.FileSizeColumnHeader}">
-													<GridViewColumn.CellTemplate>
-														<DataTemplate>
-															<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding OutputFileSize}" />
-														</DataTemplate>
-													</GridViewColumn.CellTemplate>
-												</GridViewColumn>
-											</GridView.Columns>
-										</GridView>
+										<GridView x:Name="completedGridView" />
 									</ListView.View>
 									<ListView.ContextMenu>
 										<ContextMenu>
+											<MenuItem Command="{Binding CustomizeCompletedColumns}" Header="{x:Static res:MainRes.CustomizeColumnsMenuItem}" />
+											<Separator />
 											<MenuItem
 												Command="{Binding ProcessingService.RetryFailed}"
 												Header="{x:Static res:MainRes.RetryFailedItemsMenuItem}"

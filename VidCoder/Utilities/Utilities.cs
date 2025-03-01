@@ -28,7 +28,7 @@ namespace VidCoder;
 
 public static class Utilities
 {
-	public const int CurrentDatabaseVersion = 49;
+	public const int CurrentDatabaseVersion = 50;
 	public const int LastUpdatedEncodingProfileDatabaseVersion = 48;
 	public const int LastUpdatedPickerDatabaseVersion = 47;
 
@@ -304,10 +304,14 @@ public static class Utilities
 		{"Preset", 120}
 	};
 
-	public static bool IsValidQueueColumn(string columnId)
+	public static Dictionary<string, double> DefaultCompletedColumnSizes { get; } = new Dictionary<string, double>
 	{
-		return DefaultQueueColumnSizes.ContainsKey(columnId);
-	}
+		{"Destination", 290},
+		{"Status", 120},
+		{"ElapsedTime", 90},
+		{"Size", 80},
+		{"PercentOfSource", 90},
+	};
 
 	public static IEncodeProxy CreateEncodeProxy()
 	{
@@ -338,12 +342,35 @@ public static class Utilities
 
 	/// <summary>
 	/// Parse a size list in the format {column id 1}:{width 1}|{column id 2}:{width 2}|...
+	/// Only keep columns valid for the queue.
 	/// </summary>
 	/// <param name="listString">The string to parse.</param>
 	/// <returns>The parsed list of sizes.</returns>
-	public static List<Tuple<string, double>> ParseQueueColumnList(string listString)
+	public static List<(string columnId, double width)> ParseQueueColumnList(string listString)
 	{
-		var resultList = new List<Tuple<string, double>>();
+		return ParseColumnList(listString, DefaultQueueColumnSizes);
+	}
+
+	/// <summary>
+	/// Parse a size list in the format {column id 1}:{width 1}|{column id 2}:{width 2}|...
+	/// Only keep columns valid for the completed list.
+	/// </summary>
+	/// <param name="listString"></param>
+	/// <returns>The parsed list of sizes.</returns>
+	public static List<(string columnId, double width)> ParseCompletedColumnList(string listString)
+	{
+		return ParseColumnList(listString, DefaultCompletedColumnSizes);
+	}
+
+	/// <summary>
+	/// Parse a size list in the format {column id 1}:{width 1}|{column id 2}:{width 2}|...
+	/// </summary>
+	/// <param name="listString">The string to parse.</param>
+	/// <param name="sizes">The dictionary of valid column sizes.</param>
+	/// <returns>The parsed list of sizes.</returns>
+	public static List<(string columnId, double width)> ParseColumnList(string listString, Dictionary<string, double> sizes)
+	{
+		var resultList = new List<(string columnId, double width)>();
 
 		string[] columnSettings = listString.Split('|');
 		foreach (string columnSetting in columnSettings)
@@ -356,14 +383,9 @@ public static class Utilities
 					double columnWidth;
 					string columnId = settingParts[0];
 
-					if (columnId == "Chapters")
+					if (sizes.ContainsKey(columnId) && double.TryParse(settingParts[1], out columnWidth))
 					{
-						columnId = "Range";
-					}
-
-					if (IsValidQueueColumn(columnId) && double.TryParse(settingParts[1], out columnWidth))
-					{
-						resultList.Add(new Tuple<string, double>(columnId, columnWidth));
+						resultList.Add((columnId, columnWidth));
 					}
 				}
 			}

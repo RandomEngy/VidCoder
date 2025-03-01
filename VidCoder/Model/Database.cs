@@ -81,6 +81,11 @@ public static class Database
 				UpgradeDatabaseTo49();
 			}
 
+			if (databaseVersion < 50)
+			{
+				UpgradeDatabaseTo50();
+			}
+
 			// Update encoding profiles if we need to. Everything is at least 28 now from the JSON upgrade.
 			int oldDatabaseVersion = Math.Max(databaseVersion, 28);
 			if (oldDatabaseVersion < Utilities.LastUpdatedEncodingProfileDatabaseVersion)
@@ -343,6 +348,21 @@ public static class Database
 		if (Utilities.InstallType == VidCoderInstallType.VelopackInstaller)
 		{
 			RegistryUtilities.RefreshFileAssociations(new StubLogger());
+		}
+	}
+
+	private static void UpgradeDatabaseTo50()
+	{
+		string completedColumnWidths = DatabaseConfig.Get<string>("CompletedColumnWidths", string.Empty, Connection);
+		if (!string.IsNullOrEmpty(completedColumnWidths))
+		{
+			string[] columnWidths = completedColumnWidths.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+
+			if (columnWidths.Length == 4)
+			{
+				string completedColumns = $"Destination:{columnWidths[0]}|Status:{columnWidths[1]}|ElapsedTime:{columnWidths[2]}|Size:{columnWidths[3]}|PercentOfSource:90";
+				DatabaseConfig.Set<string>("CompletedColumns", completedColumns, Connection);
+			}
 		}
 	}
 

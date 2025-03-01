@@ -693,7 +693,7 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 
 		// Call to view to save column widths
 		this.view.SaveQueueColumns();
-		this.view.SaveCompletedColumnWidths();
+		this.view.SaveCompletedColumns();
 
 		// If we're quitting, see if the encode is still going.
 		if (this.ProcessingService.Encoding)
@@ -2643,7 +2643,7 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 				this.View.SaveQueueColumns();
 
 				// Show the queue columns dialog
-				var queueDialog = new QueueColumnsDialogViewModel();
+				var queueDialog = new ColumnsDialogViewModel(Config.QueueColumns, Utilities.DefaultQueueColumnSizes, "Queue", MiscRes.QueueColumnsDialogTitle);
 				this.windowManager.OpenDialog(queueDialog);
 
 				if (queueDialog.DialogResult)
@@ -2651,6 +2651,28 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 					// Apply new columns
 					Config.QueueColumns = queueDialog.NewColumns;
 					this.View.ApplyQueueColumns();
+				}
+			}));
+		}
+	}
+
+	private ReactiveCommand<Unit, Unit> customizeCompletedColumns;
+	public ICommand CustomizeCompletedColumns
+	{
+		get
+		{
+			return this.customizeCompletedColumns ?? (this.customizeCompletedColumns = ReactiveCommand.Create(() =>
+			{
+				// Send a request that the view save the column sizes
+				this.View.SaveCompletedColumns();
+				// Show the completed columns dialog
+				var completedDialog = new ColumnsDialogViewModel(Config.CompletedColumns, Utilities.DefaultCompletedColumnSizes, "Completed", MiscRes.CompletedColumnsDialogTitle);
+				this.windowManager.OpenDialog(completedDialog);
+				if (completedDialog.DialogResult)
+				{
+					// Apply new columns
+					Config.CompletedColumns = completedDialog.NewColumns;
+					this.View.ApplyCompletedColumns();
 				}
 			}));
 		}

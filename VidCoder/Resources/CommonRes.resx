@@ -151,16 +151,16 @@ A full copy of the GNU General Public License has been included along with this 
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
   <data name="QueueColumnNameAudioQuality" xml:space="preserve">
-    <value>Audio Quality</value>
+    <value>Audio quality</value>
   </data>
   <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>Audio Encoder</value>
+    <value>Audio encoder</value>
   </data>
   <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Video Encoder</value>
+    <value>Video encoder</value>
   </data>
   <data name="QueueColumnNameVideoQuality" xml:space="preserve">
-    <value>Video Quality</value>
+    <value>Video quality</value>
   </data>
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>Estimated time remaining for all jobs in the queue to complete.</value>
@@ -319,16 +319,16 @@ A full copy of the GNU General Public License has been included along with this 
     <value>Default:</value>
   </data>
   <data name="QueueColumnNameAudioTracks" xml:space="preserve">
-    <value>Audio Tracks</value>
+    <value>Audio tracks</value>
   </data>
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>Cropping</value>
   </data>
   <data name="QueueColumnNameOutputSize" xml:space="preserve">
-    <value>Output Size</value>
+    <value>Output size</value>
   </data>
   <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
-    <value>Subtitle Tracks</value>
+    <value>Subtitle tracks</value>
   </data>
   <data name="Manual" xml:space="preserve">
     <value>Manual</value>
@@ -347,5 +347,22 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="Close" xml:space="preserve">
     <value>Close</value>
     <comment>Label to close a window or item.</comment>
+  </data>
+  <data name="CompletedColumnNameDestination" xml:space="preserve">
+    <value>Destination</value>
+    <comment>Column header for the destination file path</comment>
+  </data>
+  <data name="CompletedColumnNameStatus" xml:space="preserve">
+    <value>Status</value>
+    <comment>The header for the status column for completed jobs (succeeded/failed)</comment>
+  </data>
+  <data name="CompletedColumnNameElapsedTime" xml:space="preserve">
+    <value>Elapsed time</value>
+  </data>
+  <data name="CompletedColumnNameSize" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="CompletedColumnNamePercentOfSource" xml:space="preserve">
+    <value>% of source</value>
   </data>
 </root>

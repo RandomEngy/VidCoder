@@ -413,6 +413,41 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 
 	public bool ShowPassProgress => this.SubtitleScan || this.Profile.VideoEncodeRateType != VCVideoEncodeRateType.ConstantQuality;
 
+	private long GetSourceSizeBytes()
+	{
+		if (this.Job.SourceType == SourceType.File)
+		{
+			try
+			{
+				FileInfo fileInfo = new FileInfo(this.Job.SourcePath);
+				if (fileInfo.Exists)
+				{
+					return fileInfo.Length;
+				}
+			}
+			catch (Exception exception)
+			{
+				this.Logger.LogError("Could not get source size:" + Environment.NewLine + exception);
+			}
+		}
+
+		return 0;
+	}
+
+	private long? sourceSizeBytes = null;
+	public long SourceSizeBytes
+	{
+		get
+		{
+			if (this.sourceSizeBytes == null)
+			{
+				this.sourceSizeBytes = this.GetSourceSizeBytes();
+			}
+
+			return (long)this.sourceSizeBytes;
+		}
+	}
+
 	private long fileSizeBytes;
 
 	/// <summary>

@@ -76,7 +76,7 @@ namespace VidCoder
 			cache.Add("ApplicationVersion", DatabaseConfig.Get("ApplicationVersion", "", connection));
 			cache.Add("QueueColumns", DatabaseConfig.Get("QueueColumns", "Source:200|Title:35|Range:106|Destination:200", connection));
 			cache.Add("QueueLastColumnWidth", DatabaseConfig.Get("QueueLastColumnWidth", 75.0, connection));
-			cache.Add("CompletedColumnWidths", DatabaseConfig.Get("CompletedColumnWidths", "", connection));
+			cache.Add("CompletedColumns", DatabaseConfig.Get("CompletedColumns", "Destination:290|Status:120|ElapsedTime:90|Size:80|PercentOfSource:90", connection));
 			cache.Add("WatcherFileColumnWidths", DatabaseConfig.Get("WatcherFileColumnWidths", "", connection));
 			cache.Add("SourcePaneHeightStar", DatabaseConfig.Get("SourcePaneHeightStar", 2.0, connection));
 			cache.Add("QueuePaneHeightStar", DatabaseConfig.Get("QueuePaneHeightStar", 1.0, connection));
@@ -400,10 +400,10 @@ namespace VidCoder
 			get { return (double)cache["QueueLastColumnWidth"]; }
 			set { Set("QueueLastColumnWidth", value); }
 		}
-		public static string CompletedColumnWidths
+		public static string CompletedColumns
 		{
-			get { return (string)cache["CompletedColumnWidths"]; }
-			set { Set("CompletedColumnWidths", value); }
+			get { return (string)cache["CompletedColumns"]; }
+			set { Set("CompletedColumns", value); }
 		}
 		public static string WatcherFileColumnWidths
 		{
@@ -753,7 +753,7 @@ namespace VidCoder
 			public static IObservable<string> ApplicationVersion => GetObservable<string>("ApplicationVersion");
 			public static IObservable<string> QueueColumns => GetObservable<string>("QueueColumns");
 			public static IObservable<double> QueueLastColumnWidth => GetObservable<double>("QueueLastColumnWidth");
-			public static IObservable<string> CompletedColumnWidths => GetObservable<string>("CompletedColumnWidths");
+			public static IObservable<string> CompletedColumns => GetObservable<string>("CompletedColumns");
 			public static IObservable<string> WatcherFileColumnWidths => GetObservable<string>("WatcherFileColumnWidths");
 			public static IObservable<double> SourcePaneHeightStar => GetObservable<double>("SourcePaneHeightStar");
 			public static IObservable<double> QueuePaneHeightStar => GetObservable<double>("QueuePaneHeightStar");
