@@ -21,9 +21,8 @@ public class EncodeResult
 
 	public TimeSpan EncodeTime { get; set; }
 
-	public TimeSpan PauseTime { get; set; }
-
 	public string LogPath { get; set; }
+
 	public long SizeBytes { get; set; }
 
 	public bool Succeeded

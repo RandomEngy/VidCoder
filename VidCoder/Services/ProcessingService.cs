@@ -2375,7 +2375,6 @@ public class ProcessingService : ReactiveObject
 						Destination = finalOutputPath,
 						Status = status,
 						EncodeTime = finishedJobViewModel.EncodeTime,
-						PauseTime = finishedJobViewModel.PauseTime,
 						LogPath = encodeLogger.LogPath,
 						SizeBytes = outputFileLength,
 					},

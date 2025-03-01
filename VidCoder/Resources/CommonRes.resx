@@ -374,4 +374,7 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="CompletedColumnNamePauseTime" xml:space="preserve">
     <value>Pause time</value>
   </data>
+  <data name="CompletedColumnNameAverageFps" xml:space="preserve">
+    <value>Average FPS</value>
+  </data>
 </root>

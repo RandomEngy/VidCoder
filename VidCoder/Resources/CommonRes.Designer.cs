@@ -128,6 +128,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Average FPS.
+        /// </summary>
+        public static string CompletedColumnNameAverageFps {
+            get {
+                return ResourceManager.GetString("CompletedColumnNameAverageFps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Destination.
         /// </summary>
         public static string CompletedColumnNameDestination {

@@ -58,7 +58,9 @@ public class EncodeResultViewModel : ReactiveObject
 
 	public string TimeDisplay => this.encodeResult.EncodeTime.FormatShort();
 
-	public string PauseTimeDisplay => this.encodeResult.PauseTime > TimeSpan.Zero ? this.encodeResult.PauseTime.FormatShort() : string.Empty;
+	public string PauseTimeDisplay => this.Job.PauseTime > TimeSpan.Zero ? this.Job.PauseTime.FormatShort() : string.Empty;
+
+	public string AverageFpsDisplay => this.Job.AverageFps > 0 ? this.Job.AverageFps.ToString("0.0", CultureInfo.CurrentCulture) : string.Empty;
 
 	public string StatusImage
 	{
