@@ -718,6 +718,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remember the last selected &quot;When done&quot; action on restart.
+        /// </summary>
+        public static string RememberLastSelectedWhenDoneCheckBox {
+            get {
+                return ResourceManager.GetString("RememberLastSelectedWhenDoneCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remember previously used files and folders.
         /// </summary>
         public static string RememberPreviousFilesCheckBox {

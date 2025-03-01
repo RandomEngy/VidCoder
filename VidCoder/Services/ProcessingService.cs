@@ -471,7 +471,15 @@ public class ProcessingService : ReactiveObject
 	public EncodeCompleteAction EncodeCompleteAction
 	{
 		get { return this.encodeCompleteAction; }
-		set { this.RaiseAndSetIfChanged(ref this.encodeCompleteAction, value); }
+		set
+		{
+			this.RaiseAndSetIfChanged(ref this.encodeCompleteAction, value);
+
+			if (value != null)
+			{
+				CustomConfig.LastEncodeCompleteAction = value.ToPersisted();
+			}
+		}
 	}
 
 	private double currentFps;
@@ -2870,6 +2878,11 @@ public class ProcessingService : ReactiveObject
 		}
 
 		EncodeCompleteAction oldCompleteAction = this.EncodeCompleteAction;
+		if (oldCompleteAction == null && Config.RememberLastSelectedEncodeCompleteAction)
+		{
+			EncodeCompleteActionPersisted lastAction = CustomConfig.LastEncodeCompleteAction;
+			oldCompleteAction = new EncodeCompleteAction { ActionType = lastAction.ActionType, DriveLetter = lastAction.DriveLetter, Trigger = EncodeCompleteTrigger.DoneWithQueue };
+		}
 
 		if (this.EncodeQueue.Items.Any(j => !j.Encoding))
 		{

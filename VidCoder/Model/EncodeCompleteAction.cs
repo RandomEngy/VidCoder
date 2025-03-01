@@ -17,7 +17,16 @@ public class EncodeCompleteAction
 
 	public string DriveLetter { get; set; }
 
-    public override string ToString()
+	public EncodeCompleteActionPersisted ToPersisted()
+	{
+		return new EncodeCompleteActionPersisted
+		{
+			ActionType = this.ActionType,
+			DriveLetter = this.DriveLetter
+		};
+	}
+
+	public override string ToString()
     {
         var converter = new EnumStringConverter<EncodeCompleteActionType>();
         string actionDisplayString = converter.Convert(this.ActionType);

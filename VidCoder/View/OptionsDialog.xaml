@@ -492,6 +492,12 @@
 									Margin="0 6 0 0"
 									HorizontalAlignment="Left"
 									VerticalAlignment="Center"
+									Content="{x:Static res:OptionsRes.RememberLastSelectedWhenDoneCheckBox}"
+									IsChecked="{Binding RememberLastSelectedEncodeCompleteAction}" />
+								<CheckBox
+									Margin="0 6 0 0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
 									Content="{x:Static res:OptionsRes.PreserveModifyTimeFilesCheckBox}"
 									IsChecked="{Binding PreserveModifyTimeFiles}" />
 								<CheckBox

@@ -670,6 +670,16 @@ public class OptionsDialogViewModel : ReactiveObject
 		} 
 	}
 
+	public bool RememberLastSelectedEncodeCompleteAction
+	{
+		get => Config.RememberLastSelectedEncodeCompleteAction;
+		set
+		{
+			Config.RememberLastSelectedEncodeCompleteAction = value;
+			this.RaisePropertyChanged();
+		}
+	}
+
 	public bool EnableNVDec
 	{
 		get => Config.EnableNVDec;

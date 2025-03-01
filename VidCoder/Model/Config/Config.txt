@@ -108,6 +108,8 @@ KeepFailedFiles|bool|false
 ShowProgressInWindowTitle|bool|true
 UseWorkerProcess|bool|true
 RememberPreviousFiles|bool|true
+RememberLastSelectedEncodeCompleteAction|bool|false
+LastEncodeCompleteAction|string|""
 PreferredPlayer|string|"vlc"
 BetaUpdates|bool|false
 InterfaceLanguageCode|string|""

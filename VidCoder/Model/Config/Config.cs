@@ -126,6 +126,8 @@ namespace VidCoder
 			cache.Add("ShowProgressInWindowTitle", DatabaseConfig.Get("ShowProgressInWindowTitle", true, connection));
 			cache.Add("UseWorkerProcess", DatabaseConfig.Get("UseWorkerProcess", true, connection));
 			cache.Add("RememberPreviousFiles", DatabaseConfig.Get("RememberPreviousFiles", true, connection));
+			cache.Add("RememberLastSelectedEncodeCompleteAction", DatabaseConfig.Get("RememberLastSelectedEncodeCompleteAction", false, connection));
+			cache.Add("LastEncodeCompleteAction", DatabaseConfig.Get("LastEncodeCompleteAction", "", connection));
 			cache.Add("PreferredPlayer", DatabaseConfig.Get("PreferredPlayer", "vlc", connection));
 			cache.Add("BetaUpdates", DatabaseConfig.Get("BetaUpdates", false, connection));
 			cache.Add("InterfaceLanguageCode", DatabaseConfig.Get("InterfaceLanguageCode", "", connection));
@@ -650,6 +652,16 @@ namespace VidCoder
 			get { return (bool)cache["RememberPreviousFiles"]; }
 			set { Set("RememberPreviousFiles", value); }
 		}
+		public static bool RememberLastSelectedEncodeCompleteAction
+		{
+			get { return (bool)cache["RememberLastSelectedEncodeCompleteAction"]; }
+			set { Set("RememberLastSelectedEncodeCompleteAction", value); }
+		}
+		public static string LastEncodeCompleteAction
+		{
+			get { return (string)cache["LastEncodeCompleteAction"]; }
+			set { Set("LastEncodeCompleteAction", value); }
+		}
 		public static string PreferredPlayer
 		{
 			get { return (string)cache["PreferredPlayer"]; }
@@ -803,6 +815,8 @@ namespace VidCoder
 			public static IObservable<bool> ShowProgressInWindowTitle => GetObservable<bool>("ShowProgressInWindowTitle");
 			public static IObservable<bool> UseWorkerProcess => GetObservable<bool>("UseWorkerProcess");
 			public static IObservable<bool> RememberPreviousFiles => GetObservable<bool>("RememberPreviousFiles");
+			public static IObservable<bool> RememberLastSelectedEncodeCompleteAction => GetObservable<bool>("RememberLastSelectedEncodeCompleteAction");
+			public static IObservable<string> LastEncodeCompleteAction => GetObservable<string>("LastEncodeCompleteAction");
 			public static IObservable<string> PreferredPlayer => GetObservable<string>("PreferredPlayer");
 			public static IObservable<bool> BetaUpdates => GetObservable<bool>("BetaUpdates");
 			public static IObservable<string> InterfaceLanguageCode => GetObservable<string>("InterfaceLanguageCode");

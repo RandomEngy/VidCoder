@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using VidCoder.Model;
 using VidCoderCommon.Model;
 
@@ -86,6 +87,21 @@ public static class CustomConfig
 	{
 		get => (WatcherMode)Enum.Parse(typeof(WatcherMode), Config.WatcherMode);
 		set => Config.WatcherMode = value.ToString();
+	}
+
+	public static EncodeCompleteActionPersisted LastEncodeCompleteAction
+	{
+		get
+		{
+			string lastActionString = Config.LastEncodeCompleteAction;
+			if (string.IsNullOrEmpty(lastActionString))
+			{
+				return new EncodeCompleteActionPersisted { ActionType = EncodeCompleteActionType.DoNothing };
+			}
+
+			return JsonSerializer.Deserialize<EncodeCompleteActionPersisted>(Config.LastEncodeCompleteAction);
+		}
+		set => Config.LastEncodeCompleteAction = JsonSerializer.Serialize(value);
 	}
 
 	public static ProcessPriorityClass WorkerProcessPriority
