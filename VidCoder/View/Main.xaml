@@ -274,8 +274,11 @@
 		<DataTemplate x:Key="CompletedTemplateVideoDuration" DataType="viewmodel:EncodeResultViewModel">
 			<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding Job.DurationDisplay}" />
 		</DataTemplate>
-		<DataTemplate x:Key="CompletedTemplateAverageFps" DataType="viewmodel:EncodeResultViewMode">
+		<DataTemplate x:Key="CompletedTemplateAverageFps" DataType="viewmodel:EncodeResultViewModel">
 			<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding AverageFpsDisplay}" />
+		</DataTemplate>
+		<DataTemplate x:Key="CompletedTemplatePreset" DataType="viewmodel:EncodeResultViewModel">
+			<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding Job.PresetName}" />
 		</DataTemplate>
 		<ContextMenu x:Key="CompletedItemContextMenu" d:DataContext="{d:DesignInstance viewmodel:EncodeResultViewModel}">
 			<MenuItem Command="{Binding Play}" Header="{x:Static res:MainRes.Play}">

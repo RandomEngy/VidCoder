@@ -377,4 +377,7 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="CompletedColumnNameAverageFps" xml:space="preserve">
     <value>Average FPS</value>
   </data>
+  <data name="CompletedColumnNamePreset" xml:space="preserve">
+    <value>Preset</value>
+  </data>
 </root>

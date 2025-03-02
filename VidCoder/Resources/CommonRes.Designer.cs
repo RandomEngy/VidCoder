@@ -173,6 +173,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Preset.
+        /// </summary>
+        public static string CompletedColumnNamePreset {
+            get {
+                return ResourceManager.GetString("CompletedColumnNamePreset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Size.
         /// </summary>
         public static string CompletedColumnNameSize {

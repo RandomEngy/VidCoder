@@ -315,6 +315,7 @@ public static class Utilities
 		{"PercentOfSource", 90},
 		{"VideoDuration", 90},
 		{"AverageFps", 80},
+		{"Preset", 120},
 	};
 
 	public static IEncodeProxy CreateEncodeProxy()
