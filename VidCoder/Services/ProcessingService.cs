@@ -973,7 +973,7 @@ public class ProcessingService : ReactiveObject
 					}
 				});
 
-				this.QueueMultipleJobs(itemsToQueue);
+				this.QueueMultipleJobs(itemsToQueue, allowPickerProfileOverride: false);
 
 				this.HasFailedItems = false;
 
