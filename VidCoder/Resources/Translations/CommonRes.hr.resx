@@ -150,10 +150,18 @@ Kompletna kopija GNU Opće javne licence dolazi s ovim programom.</value>
     <value>Naslov</value>
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
-  
-  
-  
-  
+  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
+    <value>Kvaliteta zvuka</value>
+  </data>
+  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
+    <value>Kodiranje zvuka</value>
+  </data>
+  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
+    <value>Kodiranje videa</value>
+  </data>
+  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
+    <value>Kvaliteta videa</value>
+  </data>
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>Predviđeno preostalo vrijeme za završetak svih poslova u redu.</value>
   </data>
@@ -310,12 +318,18 @@ Kompletna kopija GNU Opće javne licence dolazi s ovim programom.</value>
   <data name="DefaultLabel" xml:space="preserve">
     <value>Zadano:</value>
   </data>
-  
+  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
+    <value>Zapisi zvuka</value>
+  </data>
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>Obrezivanje</value>
   </data>
-  
-  
+  <data name="QueueColumnNameOutputSize" xml:space="preserve">
+    <value>Izlazna veličina</value>
+  </data>
+  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
+    <value>Zapisi podnaslova</value>
+  </data>
   <data name="Manual" xml:space="preserve">
     <value>Ručno</value>
     <comment>Shown when something has been set manually</comment>
@@ -334,14 +348,36 @@ Kompletna kopija GNU Opće javne licence dolazi s ovim programom.</value>
     <value>Zatvaranje</value>
     <comment>Label to close a window or item.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="CompletedColumnNameDestination" xml:space="preserve">
+    <value>Odredište</value>
+    <comment>Column header for the destination file path</comment>
+  </data>
+  <data name="CompletedColumnNameStatus" xml:space="preserve">
+    <value>Stanje</value>
+    <comment>The header for the status column for completed jobs (succeeded/failed)</comment>
+  </data>
+  <data name="CompletedColumnNameElapsedTime" xml:space="preserve">
+    <value>Vrijeme kodiranja</value>
+  </data>
+  <data name="CompletedColumnNameSize" xml:space="preserve">
+    <value>Veličina</value>
+  </data>
+  <data name="CompletedColumnNamePercentOfSource" xml:space="preserve">
+    <value>% izvornog</value>
+  </data>
+  <data name="CompletedColumnNameSourceSize" xml:space="preserve">
+    <value>Veličina izvornog sadržaja</value>
+  </data>
+  <data name="CompletedColumnNameVideoDuration" xml:space="preserve">
+    <value>Trajanje videa</value>
+  </data>
+  <data name="CompletedColumnNamePauseTime" xml:space="preserve">
+    <value>Vrijeme pauze</value>
+  </data>
+  <data name="CompletedColumnNameAverageFps" xml:space="preserve">
+    <value>Prosječni FPS</value>
+  </data>
+  <data name="CompletedColumnNamePreset" xml:space="preserve">
+    <value>Predložak</value>
+  </data>
 </root>

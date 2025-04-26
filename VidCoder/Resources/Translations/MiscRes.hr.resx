@@ -156,8 +156,12 @@
   <data name="QueueFileConflictWarning" xml:space="preserve">
     <value>Red čekanja već ima izlaznu putanju u {0}. Želiš li pisati preko datoteke, automatski naći novu izlaznu putanju za ovaj posao kodiranja ili otkazati operaciju?</value>
   </data>
-  
-  
+  <data name="QueueColumnsDialogTitle" xml:space="preserve">
+    <value>Stupci reda čekanja</value>
+  </data>
+  <data name="ColumnsDialogHeaderText" xml:space="preserve">
+    <value>Povuci i ispusti za dodavanje, uklanjanje ili promjenu redoslijeda stupaca.</value>
+  </data>
   <data name="UnusedColumns" xml:space="preserve">
     <value>Neiskorišteni stupci</value>
   </data>
@@ -270,5 +274,7 @@ VidCoder nije podržan na vašem operativnom sustavu. Potreban je Windows 10 ili
   <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
     <value>Sustav će se ponovno pokrenuti za {0} sekundi.</value>
   </data>
-  
+  <data name="CompletedColumnsDialogTitle" xml:space="preserve">
+    <value>Dovršeni stupci</value>
+  </data>
 </root>
