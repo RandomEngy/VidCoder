@@ -150,10 +150,18 @@ GNU 일반 공중 사용 허가서의 사본이 이 프로그램에 포함되어
     <value>제목</value>
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
-  
-  
-  
-  
+  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
+    <value>오디오 품질</value>
+  </data>
+  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
+    <value>오디오 인코더</value>
+  </data>
+  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
+    <value>비디오 인코더</value>
+  </data>
+  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
+    <value>비디오 품질</value>
+  </data>
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>대기열의 모든 작업을 완료하는데 남은 예상 시간</value>
   </data>
@@ -310,12 +318,18 @@ GNU 일반 공중 사용 허가서의 사본이 이 프로그램에 포함되어
   <data name="DefaultLabel" xml:space="preserve">
     <value>기본값:</value>
   </data>
-  
+  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
+    <value>오디오 트랙</value>
+  </data>
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>잘라내기</value>
   </data>
-  
-  
+  <data name="QueueColumnNameOutputSize" xml:space="preserve">
+    <value>출력 크기</value>
+  </data>
+  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
+    <value>자막 트랙</value>
+  </data>
   <data name="Manual" xml:space="preserve">
     <value>설명서</value>
     <comment>Shown when something has been set manually</comment>
@@ -334,14 +348,32 @@ GNU 일반 공중 사용 허가서의 사본이 이 프로그램에 포함되어
     <value>닫기</value>
     <comment>Label to close a window or item.</comment>
   </data>
+  <data name="CompletedColumnNameDestination" xml:space="preserve">
+    <value>대상</value>
+    <comment>Column header for the destination file path</comment>
+  </data>
+  <data name="CompletedColumnNameStatus" xml:space="preserve">
+    <value>상태</value>
+    <comment>The header for the status column for completed jobs (succeeded/failed)</comment>
+  </data>
+  <data name="CompletedColumnNameElapsedTime" xml:space="preserve">
+    <value>인코딩 시간</value>
+  </data>
+  <data name="CompletedColumnNameSize" xml:space="preserve">
+    <value>크기</value>
+  </data>
   
+  <data name="CompletedColumnNameSourceSize" xml:space="preserve">
+    <value>소스 크기</value>
+  </data>
+  <data name="CompletedColumnNameVideoDuration" xml:space="preserve">
+    <value>비디오 길이</value>
+  </data>
   
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="CompletedColumnNameAverageFps" xml:space="preserve">
+    <value>평균 FPS</value>
+  </data>
+  <data name="CompletedColumnNamePreset" xml:space="preserve">
+    <value>프리셋</value>
+  </data>
 </root>

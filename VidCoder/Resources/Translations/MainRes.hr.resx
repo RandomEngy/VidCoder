@@ -752,5 +752,7 @@ Ovo će se upozorenje prikazati samo dva puta.</value>
   <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
     <value>Verzija {0} je preuzeta i primijenit će se pri sljedećem pokretanju.</value>
   </data>
-  
+  <data name="AddToTopOfQueueLabel" xml:space="preserve">
+    <value>Dodaj na vrh reda čekanja</value>
+  </data>
 </root>
