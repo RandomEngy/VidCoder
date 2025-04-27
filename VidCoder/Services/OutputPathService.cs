@@ -694,36 +694,6 @@ public class OutputPathService : ReactiveObject
 	}
 
 	/// <summary>
-	/// Replace arguments with the currently loaded source.
-	/// </summary>
-	/// <param name="nameFormat">The name format to use.</param>
-	/// <param name="preset">The job preset.</param>
-	/// <param name="picker">The picker.</param>
-	/// <returns>The new name with arguments replaced.</returns>
-	public string ReplaceArguments(string nameFormat, JobPreset preset = null, Picker picker = null)
-	{
-		MainViewModel main = this.mainViewModel.Value;
-
-		return this.ReplaceArguments(
-			main.SourcePath,
-			this.CleanUpSourceName(picker),
-			main.SelectedTitle.Index,
-			main.SelectedTitle.Duration,
-			main.RangeType,
-			main.SelectedStartChapter.ChapterNumber,
-			main.SelectedEndChapter.ChapterNumber,
-			main.SelectedTitle.ChapterList.Count,
-			main.TimeRangeStart,
-			main.TimeRangeEnd,
-			main.FramesRangeStart,
-			main.FramesRangeEnd,
-			nameFormat,
-			multipleTitlesOnSource: main.ScanInstance.Titles.TitleList.Count > 1,
-			preset: preset,
-			picker: picker);
-	}
-
-	/// <summary>
 	/// Replace arguments with the given job information.
 	/// </summary>
 	/// <param name="nameFormat">The name format to use.</param>
