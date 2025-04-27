@@ -448,16 +448,20 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 		return 0;
 	}
 
+	public void PopulateSourceSizeBytes()
+	{
+		if (this.sourceSizeBytes == null)
+		{
+			this.sourceSizeBytes = this.GetSourceSizeBytes();
+		}
+	}
+
 	private long? sourceSizeBytes = null;
 	public long SourceSizeBytes
 	{
 		get
 		{
-			if (this.sourceSizeBytes == null)
-			{
-				this.sourceSizeBytes = this.GetSourceSizeBytes();
-			}
-
+			this.PopulateSourceSizeBytes();
 			return (long)this.sourceSizeBytes;
 		}
 	}

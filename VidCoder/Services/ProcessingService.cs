@@ -2396,6 +2396,9 @@ public class ProcessingService : ReactiveObject
 					}
 				}
 
+				// Also before deletion we need to check the source file size
+				finishedJobViewModel.PopulateSourceSizeBytes();
+
 				// Delete source files if successful and configured to do so immediately. This way if the destination was the same as source we can clear the way for swapping in the newly encoded file.
 				// This needs to run after removing from the encode queue, otherwise the logic will bail when seeing the finished job's output path as part of the encode queue.
 				var picker = this.pickersService.GetPickerByName(finishedJobViewModel.PickerName).Picker;
