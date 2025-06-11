@@ -156,8 +156,12 @@
   <data name="QueueFileConflictWarning" xml:space="preserve">
     <value>დავალების სია არსებობს {0}. შეგიძლიათ გადააწეროთ ან ავტომატურად შეარჩევინოთ ახალი სახელი და ადგილი, აგრეთვე შეწყვეტოთ ოპერაცია.</value>
   </data>
-  
-  
+  <data name="QueueColumnsDialogTitle" xml:space="preserve">
+    <value>დავალების სიის მწკრივები</value>
+  </data>
+  <data name="ColumnsDialogHeaderText" xml:space="preserve">
+    <value>დაამატეთ, წაშალეთ ან განალეგეთ მწკრივები.</value>
+  </data>
   <data name="UnusedColumns" xml:space="preserve">
     <value>გამოუყენებელი მწკრივები</value>
   </data>
@@ -268,5 +272,7 @@
   <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
     <value>სისტემა გადაიტვირთება {0} წამში.</value>
   </data>
-  
+  <data name="CompletedColumnsDialogTitle" xml:space="preserve">
+    <value>გამოყენებული მწკრივები</value>
+  </data>
 </root>
