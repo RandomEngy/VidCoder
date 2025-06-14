@@ -90,7 +90,7 @@ You *do not* need to install HandBrake for VidCoder to work.
 
 **Blu-rays and DVDs**
 VidCoder can rip Blu-rays and DVDs but does not defeat the encryption found on commercial discs. You've got several options to remove it:
-* [AnyDVD HD](https://www.redfox.bz/en/anydvdhd.html) ($122, supports Blu-ray and DVD, good support for all discs)
+* [Xreveal](https://www.xreveal.com/) ($45, supports Blu-ray and DVD, good support for all discs)
 * [Passkey for Blu-ray/DVD](https://www.dvdfab.cn/passkey-for-blu-ray.htm) ($168, supports Blu-ray and DVD, good support for all discs)
 * [MakeMKV](http://www.makemkv.com/) (Free, supports Blu-ray and DVD)
 * [Passkey Lite](https://www.dvdfab.cn/passkey-lite.htm) (Free, supports Blu-ray and DVD, does *not* support all discs)
