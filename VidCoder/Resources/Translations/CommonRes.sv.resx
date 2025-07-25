@@ -146,10 +146,14 @@
     <value>Titelnamn</value>
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
+  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
+    <value>Ljudkvalitet</value>
+  </data>
   
   
-  
-  
+  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
+    <value>Videokvalitet</value>
+  </data>
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>Beräknad återstående tid för att slutföra alla jobb i kön.</value>
   </data>
@@ -306,7 +310,9 @@
   <data name="DefaultLabel" xml:space="preserve">
     <value>Standardinställning:</value>
   </data>
-  
+  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
+    <value>Ljudspår</value>
+  </data>
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>Beskärning</value>
   </data>
@@ -323,16 +329,28 @@
     <value>MB</value>
     <comment>Abbreviation for megabytes</comment>
   </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Aktiverat</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Stäng</value>
+    <comment>Label to close a window or item.</comment>
+  </data>
+  
+  <data name="CompletedColumnNameStatus" xml:space="preserve">
+    <value>Status</value>
+    <comment>The header for the status column for completed jobs (succeeded/failed)</comment>
+  </data>
+  
+  <data name="CompletedColumnNameSize" xml:space="preserve">
+    <value>Storlek</value>
+  </data>
   
   
   
   
   
-  
-  
-  
-  
-  
-  
-  
+  <data name="CompletedColumnNamePreset" xml:space="preserve">
+    <value>Förval</value>
+  </data>
 </root>

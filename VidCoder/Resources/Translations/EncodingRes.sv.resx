@@ -303,12 +303,16 @@
   <data name="Tune_grain" xml:space="preserve">
     <value>Kornighet</value>
   </data>
+  <data name="Tune_stillimage" xml:space="preserve">
+    <value>Stillbild</value>
+  </data>
   
   
   
   
-  
-  
+  <data name="FpsFormat" xml:space="preserve">
+    <value>{0:0.###} FPS</value>
+  </data>
   
   
   
@@ -317,9 +321,15 @@
     <value>Variabel Bildfrekvens</value>
   </data>
   
-  
-  
-  
+  <data name="HighQuality" xml:space="preserve">
+    <value>Hög kvalitet</value>
+  </data>
+  <data name="LowQuality" xml:space="preserve">
+    <value>Låg kvalitet</value>
+  </data>
+  <data name="SameAsSource" xml:space="preserve">
+    <value>Samma som källa</value>
+  </data>
   
   <data name="NoTracksPlaceholder" xml:space="preserve">
     <value>(inga spår)</value>
@@ -430,12 +440,20 @@
   
   
   
+  <data name="QsvPreset_Speed" xml:space="preserve">
+    <value>Hastighet</value>
+  </data>
+  <data name="QsvPreset_Balanced" xml:space="preserve">
+    <value>Balanserad</value>
+  </data>
+  <data name="QsvPreset_Quality" xml:space="preserve">
+    <value>Kvalitet</value>
+  </data>
   
   
-  
-  
-  
-  
+  <data name="Passthrough_auto" xml:space="preserve">
+    <value>Auto</value>
+  </data>
   
   
   
@@ -559,20 +577,38 @@
   
   
   
+  <data name="PresetFolder_Custom" xml:space="preserve">
+    <value>Anpassad</value>
+  </data>
+  <data name="PresetFolder_BuiltIn" xml:space="preserve">
+    <value>Inbyggd</value>
+  </data>
+  <data name="PresetFolderCreateSubfolderMenuItem" xml:space="preserve">
+    <value>Skapa undermapp</value>
+  </data>
+  <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
+    <value>Döp om mapp</value>
+  </data>
+  <data name="PresetFolderRemoveFolderMenuItem" xml:space="preserve">
+    <value>Ta bort mapp</value>
+  </data>
+  <data name="DefaultPresetFolderName" xml:space="preserve">
+    <value>Ny mapp</value>
+  </data>
   
   
   
+  <data name="NVEncPreset_hq" xml:space="preserve">
+    <value>Hög kvalitet</value>
+  </data>
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="Left" xml:space="preserve">
+    <value>Vänster</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Höger</value>
+  </data>
   
   
   

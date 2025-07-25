@@ -430,4 +430,7 @@
   <data name="RememberLastSelectedWhenDoneCheckBox" xml:space="preserve">
     <value>Запоминать последнее действие «Когда сделано» при перезапуске</value>
   </data>
+  
+  
+  
 </root>

@@ -279,45 +279,82 @@
   </data>
   
   
+  <data name="PickerTimeRangeMode_Chapters" xml:space="preserve">
+    <value>Kapitel</value>
+  </data>
+  
+  
+  <data name="WhenFileExists_Overwrite" xml:space="preserve">
+    <value>Skriv över</value>
+  </data>
+  <data name="WhenFileExists_Prompt" xml:space="preserve">
+    <value>Fråga</value>
+  </data>
+  
+  <data name="DenoiseTune_none" xml:space="preserve">
+    <value>Ingen</value>
+  </data>
+  <data name="DenoiseTune_small" xml:space="preserve">
+    <value>Liten</value>
+  </data>
+  
+  <data name="DenoiseTune_verywide" xml:space="preserve">
+    <value>Mycket bred</value>
+  </data>
+  <data name="DenoiseTune_wide" xml:space="preserve">
+    <value>Bred</value>
+  </data>
+  
+  <data name="DragDropOrder_Alphabetical" xml:space="preserve">
+    <value>Alfabetisk</value>
+    <comment>Label for the option to order dragged files alphabetically</comment>
+  </data>
+  
+  
+  
+  
+  <data name="SubtitleBurnInSelection_None" xml:space="preserve">
+    <value>Ingen</value>
+  </data>
+  
+  
+  
+  <data name="SourceFileRemoval_Recycle" xml:space="preserve">
+    <value>Återvinn</value>
+  </data>
+  
+  
+  
+  <data name="WatcherProcessStatus_Disabled" xml:space="preserve">
+    <value>Inaktiverad</value>
+  </data>
+  
+  <data name="WatcherProcessStatus_Starting" xml:space="preserve">
+    <value>Startar...</value>
+  </data>
+  <data name="WatcherProcessStatus_Stopped" xml:space="preserve">
+    <value>Stoppad</value>
+  </data>
+  <data name="WatchedFileStatusLive_Canceled" xml:space="preserve">
+    <value>Avbruten</value>
+  </data>
+  
+  <data name="WatchedFileStatusLive_Failed" xml:space="preserve">
+    <value>Misslyckades</value>
+  </data>
+  <data name="WatchedFileStatusLive_Planned" xml:space="preserve">
+    <value>Planerad</value>
+  </data>
+  <data name="WatchedFileStatusLive_Queued" xml:space="preserve">
+    <value>Köad</value>
+  </data>
   
   
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="EncodeCompleteActionType_Restart" xml:space="preserve">
+    <value>Starta om</value>
+  </data>
   
 </root>
