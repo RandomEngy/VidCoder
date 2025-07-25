@@ -172,6 +172,12 @@ public class OptionsDialogViewModel : ReactiveObject
 				new ComboChoice("Idle", OptionsRes.Priority_Idle),
 			};
 
+		this.PartFileNamingChoices = new List<ComboChoice<PartFileNaming>>
+			{
+				new ComboChoice<PartFileNaming>(PartFileNaming.PartInMiddle, OptionsRes.PartFileNaming_PartInMiddle),
+				new ComboChoice<PartFileNaming>(PartFileNaming.PartAtEnd, OptionsRes.PartFileNaming_PartAtEnd),
+			};
+
 		this.PlayerChoices = Players.All;
 
 		int tabIndex = Config.OptionsDialogLastTab;
@@ -272,6 +278,8 @@ public class OptionsDialogViewModel : ReactiveObject
 	public List<InterfaceLanguage> LanguageChoices { get; }
 
 	public List<ComboChoice<AppThemeChoice>> AppThemeChoices { get; }
+
+	public List<ComboChoice<PartFileNaming>> PartFileNamingChoices { get; }
 
 	public AppThemeChoice AppTheme
 	{
@@ -832,6 +840,11 @@ public class OptionsDialogViewModel : ReactiveObject
 	private ObservableAsPropertyHelper<string> cpuThrottlingDisplay;
 	public string CpuThrottlingDisplay => this.cpuThrottlingDisplay.Value;
 
+	public PartFileNaming PartFileNaming
+	{
+		get => CustomConfig.PartFileNaming;
+		set => CustomConfig.PartFileNaming = value;
+	}
 
 	private ReactiveCommand<Unit, Unit> browseVideoPlayer;
 	public ICommand BrowseVideoPlayer

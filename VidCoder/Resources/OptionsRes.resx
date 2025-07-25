@@ -430,4 +430,13 @@ Polling: Periodically checks the contents of the folders. Uses significant CPU a
   <data name="RememberLastSelectedWhenDoneCheckBox" xml:space="preserve">
     <value>Remember the last selected "When done" action on restart</value>
   </data>
+  <data name="PartFileNamingLabel" xml:space="preserve">
+    <value>Partial file naming:</value>
+  </data>
+  <data name="PartFileNaming_PartInMiddle" xml:space="preserve">
+    <value>name.part.ext</value>
+  </data>
+  <data name="PartFileNaming_PartAtEnd" xml:space="preserve">
+    <value>name.ext.part</value>
+  </data>
 </root>

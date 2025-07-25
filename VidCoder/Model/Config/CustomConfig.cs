@@ -89,6 +89,12 @@ public static class CustomConfig
 		set => Config.WatcherMode = value.ToString();
 	}
 
+	public static PartFileNaming PartFileNaming
+	{
+		get => (PartFileNaming)Enum.Parse(typeof(PartFileNaming), Config.PartFileNaming);
+		set => Config.PartFileNaming = value.ToString();
+	}
+
 	public static EncodeCompleteActionPersisted LastEncodeCompleteAction
 	{
 		get

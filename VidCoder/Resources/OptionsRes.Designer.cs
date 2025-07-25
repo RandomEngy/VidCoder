@@ -556,6 +556,33 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to name.ext.part.
+        /// </summary>
+        public static string PartFileNaming_PartAtEnd {
+            get {
+                return ResourceManager.GetString("PartFileNaming_PartAtEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to name.part.ext.
+        /// </summary>
+        public static string PartFileNaming_PartInMiddle {
+            get {
+                return ResourceManager.GetString("PartFileNaming_PartInMiddle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Partial file naming:.
+        /// </summary>
+        public static string PartFileNamingLabel {
+            get {
+                return ResourceManager.GetString("PartFileNamingLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Picker chooses an output file location, audio tracks and subtitles. Customize the Picker to automatically add the tracks you want and to pick the file name and the destination folder. (WHAT to encode).
         /// </summary>
         public static string PickerDescription {

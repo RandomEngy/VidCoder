@@ -92,6 +92,7 @@ namespace VidCoder
 			cache.Add("CopyLogToOutputFolder", DatabaseConfig.Get("CopyLogToOutputFolder", false, connection));
 			cache.Add("CopyLogToCustomFolder", DatabaseConfig.Get("CopyLogToCustomFolder", false, connection));
 			cache.Add("LogCustomFolder", DatabaseConfig.Get("LogCustomFolder", "", connection));
+			cache.Add("PartFileNaming", DatabaseConfig.Get("PartFileNaming", "PartInMiddle", connection));
 			cache.Add("AutoPauseLowBattery", DatabaseConfig.Get("AutoPauseLowBattery", true, connection));
 			cache.Add("AutoPauseLowDiskSpace", DatabaseConfig.Get("AutoPauseLowDiskSpace", true, connection));
 			cache.Add("AutoPauseLowDiskSpaceGb", DatabaseConfig.Get("AutoPauseLowDiskSpaceGb", 1, connection));
@@ -482,6 +483,11 @@ namespace VidCoder
 			get { return (string)cache["LogCustomFolder"]; }
 			set { Set("LogCustomFolder", value); }
 		}
+		public static string PartFileNaming
+		{
+			get { return (string)cache["PartFileNaming"]; }
+			set { Set("PartFileNaming", value); }
+		}
 		public static bool AutoPauseLowBattery
 		{
 			get { return (bool)cache["AutoPauseLowBattery"]; }
@@ -781,6 +787,7 @@ namespace VidCoder
 			public static IObservable<bool> CopyLogToOutputFolder => GetObservable<bool>("CopyLogToOutputFolder");
 			public static IObservable<bool> CopyLogToCustomFolder => GetObservable<bool>("CopyLogToCustomFolder");
 			public static IObservable<string> LogCustomFolder => GetObservable<string>("LogCustomFolder");
+			public static IObservable<string> PartFileNaming => GetObservable<string>("PartFileNaming");
 			public static IObservable<bool> AutoPauseLowBattery => GetObservable<bool>("AutoPauseLowBattery");
 			public static IObservable<bool> AutoPauseLowDiskSpace => GetObservable<bool>("AutoPauseLowDiskSpace");
 			public static IObservable<int> AutoPauseLowDiskSpaceGb => GetObservable<int>("AutoPauseLowDiskSpaceGb");

@@ -584,6 +584,25 @@
 									</StackPanel>
 
 								</StackPanel>
+
+								<!--  Part file naming  -->
+								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
+									<TextBlock
+										Name="partFileNamingLabel"
+										VerticalAlignment="Center"
+										Text="{x:Static res:OptionsRes.PartFileNamingLabel}" />
+									<ComboBox
+										Height="23"
+										MinWidth="140"
+										Margin="6 0 0 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										AutomationProperties.LabeledBy="{Binding ElementName=partFileNamingLabel}"
+										DisplayMemberPath="Display"
+										ItemsSource="{Binding PartFileNamingChoices}"
+										SelectedValue="{Binding PartFileNaming}"
+										SelectedValuePath="Value" />
+								</StackPanel>
 							</StackPanel>
 
 							<!--  Scanning  -->

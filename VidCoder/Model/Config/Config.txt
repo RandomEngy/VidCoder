@@ -74,6 +74,7 @@ EnableNVDec|bool|true
 CopyLogToOutputFolder|bool|false
 CopyLogToCustomFolder|bool|false
 LogCustomFolder|string|""
+PartFileNaming|string|"PartInMiddle"
 AutoPauseLowBattery|bool|true
 AutoPauseLowDiskSpace|bool|true
 AutoPauseLowDiskSpaceGb|int|1

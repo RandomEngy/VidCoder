@@ -3103,7 +3103,15 @@ public class ProcessingService : ReactiveObject
 		string extension = Path.GetExtension(outputFilePath);
 		string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(outputFilePath);
 
-		string partPath = Path.Combine(directory, fileNameWithoutExtension + ".part" + extension);
+		string partPath;
+		if (CustomConfig.PartFileNaming == PartFileNaming.PartAtEnd)
+		{
+			partPath = Path.Combine(directory, fileNameWithoutExtension + extension + ".part");
+		}
+		else
+		{
+			partPath = Path.Combine(directory, fileNameWithoutExtension + ".part" + extension);
+		}
 
 		// This will throw if the path is too long.
 		partPath = Path.GetFullPath(partPath);
