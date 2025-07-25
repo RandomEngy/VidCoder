@@ -269,7 +269,7 @@
     <value>კუთხე:</value>
   </data>
   <data name="ChaptersSummary" xml:space="preserve">
-    <value>{0}-იდან</value>
+    <value>{0}-ამდე</value>
   </data>
   <data name="Queued" xml:space="preserve">
     <value>სიაშია</value>
@@ -754,5 +754,7 @@ v5 ბოლო შემოწმებული ვერსიაა Windows 
   <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
     <value>{0} ვერსიის ჩამოტვირთვა დასრულებულია, აქტუალიზირდება პროგრამიდან გასვლის შემდეგ.</value>
   </data>
-  
+  <data name="AddToTopOfQueueLabel" xml:space="preserve">
+    <value>დავალების დამატება</value>
+  </data>
 </root>
