@@ -522,6 +522,67 @@
     <comment>Menu choice for opening the application data folder (that holds the VidCoder database file, logs, etc)</comment>
   </data>
   
+  <data name="RibbonSettingsGroupLabel" xml:space="preserve">
+    <value>Inställningar</value>
+  </data>
+  
+  
+  
+  <data name="OpenSourceRibbonButton" xml:space="preserve">
+    <value>Öppen källkod</value>
+  </data>
+  
+  
+  
+  
+  <data name="NoAudioSummary" xml:space="preserve">
+    <value>Inget ljud</value>
+    <comment>Summary text for when no audio tracks are found on the source</comment>
+  </data>
+  <data name="NoSubtitlesSummary" xml:space="preserve">
+    <value>Inga undertexter</value>
+    <comment>Summary text for when no subtitle tracks are found on the source and no external subtitles have been added</comment>
+  </data>
+  
+  
+  
+  
+  <data name="OpenSourceLabel" xml:space="preserve">
+    <value>Öppna</value>
+    <comment>Label on top of the different options for opening video source on the startup screen.</comment>
+  </data>
+  
+  
+  
+  
+  <data name="EditChaptersButtonAutomationName" xml:space="preserve">
+    <value>Redigera kapitel</value>
+    <comment>Help text for screen readers for the Edit chapters button</comment>
+  </data>
+  
+  
+  
+  <data name="WithQueueFormat" xml:space="preserve">
+    <value>med kö: {0}</value>
+    <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion. This string is only used when there are multiple items queued.
+{0} is the encode complete action, ex "Shut down"</comment>
+  </data>
+  
+  
+  <data name="RemoveFromQueueMenuItem" xml:space="preserve">
+    <value>Ta bort från kö</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  <data name="AudioSubtitleTrackColumnHeader" xml:space="preserve">
+    <value>Spår</value>
+    <comment>Column header for the audio or subtitle track summary. This is an an auto-generated summary that includes language, format, etc.</comment>
+  </data>
   
   
   
@@ -532,6 +593,10 @@
   
   
   
+  <data name="MuteAutomationName" xml:space="preserve">
+    <value>Tysta</value>
+    <comment>Text for screen readers for the mute button on video playback</comment>
+  </data>
   
   
   
@@ -540,44 +605,10 @@
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="RemoveSourceFiles_Delete" xml:space="preserve">
+    <value>radera</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
   
   
   
