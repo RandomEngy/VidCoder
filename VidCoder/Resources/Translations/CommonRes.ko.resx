@@ -362,14 +362,18 @@ GNU 일반 공중 사용 허가서의 사본이 이 프로그램에 포함되어
   <data name="CompletedColumnNameSize" xml:space="preserve">
     <value>크기</value>
   </data>
-  
+  <data name="CompletedColumnNamePercentOfSource" xml:space="preserve">
+    <value>소스의 %</value>
+  </data>
   <data name="CompletedColumnNameSourceSize" xml:space="preserve">
     <value>소스 크기</value>
   </data>
   <data name="CompletedColumnNameVideoDuration" xml:space="preserve">
     <value>비디오 길이</value>
   </data>
-  
+  <data name="CompletedColumnNamePauseTime" xml:space="preserve">
+    <value>일시 정지 시간</value>
+  </data>
   <data name="CompletedColumnNameAverageFps" xml:space="preserve">
     <value>평균 FPS</value>
   </data>
