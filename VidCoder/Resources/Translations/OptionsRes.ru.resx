@@ -430,7 +430,13 @@
   <data name="RememberLastSelectedWhenDoneCheckBox" xml:space="preserve">
     <value>Запоминать последнее действие «Когда сделано» при перезапуске</value>
   </data>
-  
-  
-  
+  <data name="PartFileNamingLabel" xml:space="preserve">
+    <value>Именование частей файла:</value>
+  </data>
+  <data name="PartFileNaming_PartInMiddle" xml:space="preserve">
+    <value>name.part.ext</value>
+  </data>
+  <data name="PartFileNaming_PartAtEnd" xml:space="preserve">
+    <value>name.ext.part</value>
+  </data>
 </root>

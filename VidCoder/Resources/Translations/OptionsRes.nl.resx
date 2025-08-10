@@ -430,7 +430,13 @@ Peiling: Periodieke controle van de inhoud van de mappen. Gebruikt aanzienlijke 
   <data name="RememberLastSelectedWhenDoneCheckBox" xml:space="preserve">
     <value>De laatst geselecteerde actie "Wanneer klaar" onthouden</value>
   </data>
-  
-  
-  
+  <data name="PartFileNamingLabel" xml:space="preserve">
+    <value>Bestandsnaam in delen:</value>
+  </data>
+  <data name="PartFileNaming_PartInMiddle" xml:space="preserve">
+    <value>naam.part.ext</value>
+  </data>
+  <data name="PartFileNaming_PartAtEnd" xml:space="preserve">
+    <value>naam.ext.part</value>
+  </data>
 </root>

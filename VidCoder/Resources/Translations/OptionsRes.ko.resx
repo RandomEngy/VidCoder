@@ -427,8 +427,16 @@
     <comment>Shown when downloading an update.
 {0} is the update version, for example 10.4</comment>
   </data>
-  
-  
-  
-  
+  <data name="RememberLastSelectedWhenDoneCheckBox" xml:space="preserve">
+    <value>재시작 시 마지막으로 선택한 "완료 시" 작업 기억</value>
+  </data>
+  <data name="PartFileNamingLabel" xml:space="preserve">
+    <value>부분 파일 이름 지정:</value>
+  </data>
+  <data name="PartFileNaming_PartInMiddle" xml:space="preserve">
+    <value>name.part.ext</value>
+  </data>
+  <data name="PartFileNaming_PartAtEnd" xml:space="preserve">
+    <value>name.ext.part</value>
+  </data>
 </root>
