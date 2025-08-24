@@ -41,7 +41,7 @@
 				<Grid Visibility="{Binding HasSourceData, Converter={StaticResource VisibilityConverter}}">
 					<Border
 						MinWidth="230"
-						Margin="10,3,0,6"
+						Margin="10 3 0 6"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Top"
 						Background="{DynamicResource InputBrush}"
@@ -55,7 +55,7 @@
 							<TextBlock
 								Grid.Column="0"
 								Height="21"
-								Margin="2,0,10,0"
+								Margin="2 0 10 0"
 								HorizontalAlignment="Left"
 								VerticalAlignment="Top"
 								Style="{StaticResource SectionHeader}"
@@ -104,13 +104,13 @@
 				<!--  Main settings  -->
 				<Grid Row="1">
 					<TextBlock
-						Margin="7,4,0,0"
+						Margin="7 4 0 0"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Top"
 						Style="{StaticResource SectionHeader}"
 						Text="{x:Static res:EncodingRes.Video}" />
 					<Grid
-						Margin="16,22,0,0"
+						Margin="16 22 0 0"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Top">
 						<Grid.RowDefinitions>
@@ -135,7 +135,7 @@
 							Grid.Column="1"
 							Height="23"
 							MinWidth="122"
-							Margin="5,2,0,2"
+							Margin="5 2 0 2"
 							HorizontalAlignment="Left"
 							VerticalAlignment="Top"
 							VerticalContentAlignment="Center"
@@ -154,7 +154,7 @@
 							Grid.Column="1"
 							Height="23"
 							MinWidth="122"
-							Margin="5,2,0,4"
+							Margin="5 2 0 4"
 							HorizontalAlignment="Left"
 							VerticalAlignment="Top"
 							VerticalContentAlignment="Center"
@@ -171,7 +171,7 @@
 							Grid.Row="2"
 							Grid.Column="1"
 							Height="16"
-							Margin="5,0,0,7"
+							Margin="5 0 0 7"
 							HorizontalAlignment="Left"
 							VerticalAlignment="Top"
 							Content="{x:Static res:EncodingRes.ConstantFramerateRadioButton}"
@@ -184,7 +184,7 @@
 						<RadioButton
 							Grid.Row="3"
 							Grid.Column="1"
-							Margin="5,0,0,7"
+							Margin="5 0 0 7"
 							HorizontalAlignment="Left"
 							VerticalAlignment="Top"
 							Content="{Binding VfrChoiceText}"
@@ -201,13 +201,13 @@
 			<!--  Quality  -->
 			<Grid Grid.Column="1">
 				<TextBlock
-					Margin="10,4,0,0"
+					Margin="10 4 0 0"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Top"
 					Style="{StaticResource SectionHeader}"
 					Text="{x:Static res:EncodingRes.Quality}" />
 				<Grid
-					Margin="20,22,0,0"
+					Margin="20 22 0 0"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Top">
 					<Grid.ColumnDefinitions>
@@ -238,7 +238,7 @@
 							Grid.Column="1"
 							Width="62"
 							Height="23"
-							Margin="8,0,0,0"
+							Margin="8 0 0 0"
 							HorizontalAlignment="Left"
 							VerticalAlignment="Center"
 							AllowEmpty="False"
@@ -264,7 +264,7 @@
 							Grid.Column="1"
 							Width="62"
 							Height="23"
-							Margin="8,0,0,0"
+							Margin="8 0 0 0"
 							HorizontalAlignment="Left"
 							VerticalAlignment="Center"
 							AllowEmpty="False"
@@ -296,7 +296,7 @@
 							<controls:NumberBox
 								Width="49"
 								Height="23"
-								Margin="8,0,0,0"
+								Margin="8 0 0 0"
 								HorizontalAlignment="Left"
 								VerticalAlignment="Center"
 								AllowEmpty="False"
@@ -310,7 +310,7 @@
 								</controls:NumberBox.ToolTip>
 							</controls:NumberBox>
 							<TextBlock
-								Margin="6,0,0,0"
+								Margin="6 0 0 0"
 								VerticalAlignment="Center"
 								Text="{Binding QualityName}" />
 						</StackPanel>
@@ -318,7 +318,7 @@
 
 					<CheckBox
 						Grid.Column="1"
-						Margin="15,5,0,0"
+						Margin="15 5 0 0"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Top"
 						Content="{x:Static res:EncodingRes.MultiPassEncodingCheckBox}"
@@ -326,7 +326,7 @@
 						Visibility="{Binding MultiPassVisible, Converter={StaticResource VisibilityConverter}}" />
 					<CheckBox
 						Grid.Column="1"
-						Margin="36,26,0,0"
+						Margin="36 26 0 0"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Top"
 						Content="{x:Static res:EncodingRes.TurboFirstPassCheckBox}"
@@ -338,7 +338,7 @@
 
 				<Slider
 					Height="22"
-					Margin="20,104,6,0"
+					Margin="20 104 6 0"
 					VerticalAlignment="Top"
 					AutomationProperties.Name="{x:Static res:EncodingRes.ConstantQualityRadioButton}"
 					IsSnapToTickEnabled="True"
@@ -354,7 +354,7 @@
 				</Slider>
 				<TextBlock
 					Height="21"
-					Margin="20,132,0,0"
+					Margin="20 132 0 0"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Top"
 					Text="{Binding QualitySliderLeftText}"
@@ -362,7 +362,7 @@
 					Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static model:VCVideoEncodeRateType.ConstantQuality}}" />
 				<TextBlock
 					Height="21"
-					Margin="0,132,6,0"
+					Margin="0 132 6 0"
 					HorizontalAlignment="Right"
 					VerticalAlignment="Top"
 					Text="{Binding QualitySliderRightText}"
@@ -375,7 +375,7 @@
 		<!--  Encoder settings  -->
 		<Grid
 			Grid.Row="1"
-			Margin="0,12,0,0"
+			Margin="0 12 0 0"
 			Style="{StaticResource LongToolTipHolder}">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
@@ -383,13 +383,13 @@
 			</Grid.RowDefinitions>
 			<TextBlock
 				Grid.Row="0"
-				Margin="7,7,0,0"
+				Margin="7 7 0 0"
 				HorizontalAlignment="Left"
 				VerticalAlignment="Top"
 				Style="{StaticResource SectionHeader}"
 				Text="{x:Static res:EncodingRes.EncoderSettings}" />
 
-			<Grid Grid.Row="1" Margin="16,0,8,6">
+			<Grid Grid.Row="1" Margin="16 0 8 6">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 					<RowDefinition />
@@ -397,7 +397,7 @@
 				<!--  Preset  -->
 				<Grid
 					Grid.Row="0"
-					Margin="0,7,10,0"
+					Margin="0 7 10 0"
 					HorizontalAlignment="Stretch"
 					VerticalAlignment="Top"
 					Visibility="{Binding PresetVisible, Converter={StaticResource VisibilityConverter}}">
@@ -439,7 +439,7 @@
 					<StackPanel Grid.Column="0" Orientation="Vertical">
 						<!--  Tune  -->
 						<StackPanel
-							Margin="0,4,10,0"
+							Margin="0 4 10 0"
 							HorizontalAlignment="Left"
 							VerticalAlignment="Top"
 							Orientation="Horizontal"
@@ -456,7 +456,7 @@
 							<ComboBox
 								Height="23"
 								MinWidth="120"
-								Margin="6,0,0,0"
+								Margin="6 0 0 0"
 								VerticalContentAlignment="Center"
 								AutomationProperties.LabeledBy="{Binding ElementName=tuneLabel}"
 								ItemsSource="{Binding TuneChoices}"
@@ -466,7 +466,7 @@
 
 						<!--  Profile  -->
 						<StackPanel
-							Margin="0,4,10,0"
+							Margin="0 4 10 0"
 							HorizontalAlignment="Left"
 							VerticalAlignment="Top"
 							Orientation="Horizontal"
@@ -483,7 +483,7 @@
 							<ComboBox
 								Height="23"
 								MinWidth="120"
-								Margin="6,0,0,0"
+								Margin="6 0 0 0"
 								VerticalContentAlignment="Center"
 								AutomationProperties.LabeledBy="{Binding ElementName=profileLabel}"
 								ItemsSource="{Binding ProfileChoices}"
@@ -493,7 +493,7 @@
 
 						<!--  Level  -->
 						<StackPanel
-							Margin="0,4,10,0"
+							Margin="0 4 10 0"
 							HorizontalAlignment="Left"
 							VerticalAlignment="Top"
 							Orientation="Horizontal"
@@ -510,7 +510,7 @@
 							<ComboBox
 								Height="23"
 								MinWidth="120"
-								Margin="6,0,0,0"
+								Margin="6 0 0 0"
 								VerticalContentAlignment="Center"
 								AutomationProperties.LabeledBy="{Binding ElementName=levelLabel}"
 								ItemContainerStyle="{StaticResource GrayNonCompatible}"
@@ -534,7 +534,7 @@
 							Orientation="Horizontal">
 							<CheckBox
 								MinWidth="120"
-								Margin="0,8,0,0"
+								Margin="0 8 0 0"
 								VerticalAlignment="Top"
 								Content="{x:Static res:EncodingRes.Tune_fastdecode}"
 								IsChecked="{Binding FastDecode}"
@@ -545,7 +545,7 @@
 						<!--  Additional options string  -->
 						<Grid
 							Grid.Row="1"
-							Margin="0,8,0,0"
+							Margin="0 8 0 0"
 							HorizontalAlignment="Stretch"
 							VerticalAlignment="Stretch">
 							<Grid.RowDefinitions>
@@ -559,7 +559,7 @@
 
 							<TextBlock
 								Name="moreSettingsLabel"
-								Margin="0,0,6,0"
+								Margin="0 0 6 0"
 								HorizontalAlignment="Left"
 								VerticalAlignment="Center"
 								Text="{x:Static res:EncodingRes.MoreSettingsLabel}" />
@@ -574,14 +574,14 @@
 							<TextBlock
 								Grid.Row="1"
 								Grid.Column="0"
-								Margin="0,4,6,0"
+								Margin="0 4 6 0"
 								VerticalAlignment="Center"
 								Text="{x:Static res:EncodingRes.FullEncoderParameterLabel}"
 								Visibility="{Binding X264SettingsVisible, Converter={StaticResource VisibilityConverter}}" />
 							<TextBox
 								Grid.Row="1"
 								Grid.Column="1"
-								Margin="0,4,0,0"
+								Margin="0 4 0 0"
 								Background="{DynamicResource AlternateBackgroundBrush}"
 								IsReadOnly="True"
 								Text="{Binding FullParameterList, Mode=OneWay}"
