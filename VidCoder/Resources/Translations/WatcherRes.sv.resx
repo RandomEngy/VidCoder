@@ -117,4 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CancelMenuItem" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="PathColumnHeader" xml:space="preserve">
+    <value>Sökväg</value>
+  </data>
+  <data name="RetryMenuItem" xml:space="preserve">
+    <value>Försök igen</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="WatchedFilesHeader" xml:space="preserve">
+    <value>Filer</value>
+  </data>
+  <data name="WatchedFolderTextBoxLabel" xml:space="preserve">
+    <value>Mapp:</value>
+  </data>
 </root>
