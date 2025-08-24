@@ -544,7 +544,6 @@ public class VideoPanelViewModel : PanelViewModel
 		this.RegisterProfileProperty(nameof(this.Profile.VideoLevel));
 		this.RegisterProfileProperty(nameof(this.Profile.VideoPreset));
 		this.RegisterProfileProperty(nameof(this.Profile.VideoOptions));
-		this.RegisterProfileProperty(nameof(this.Profile.QsvDecode));
 		this.RegisterProfileProperty(nameof(this.Profile.TargetSize), () =>
 		{
 			this.RaisePropertyChanged(nameof(this.VideoBitrate));
@@ -864,12 +863,6 @@ public class VideoPanelViewModel : PanelViewModel
 			this.WriteTuneListToProfile();
 			this.RaisePropertyChanged();
 		}
-	}
-
-	public bool QsvDecode
-	{
-		get { return this.Profile.QsvDecode; }
-		set { this.UpdateProfileProperty(nameof(this.Profile.QsvDecode), value); }
 	}
 
 	private List<string> presets;

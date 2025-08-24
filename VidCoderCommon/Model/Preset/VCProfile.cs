@@ -185,8 +185,6 @@ public class VCProfile : ReactiveObject
 		set { this.RaiseAndSetIfChanged(ref this.videoTunes, value); }
 	}
 
-	public bool QsvDecode { get; set; }
-
 	public VCVideoEncodeRateType VideoEncodeRateType { get; set; }
 
 	public decimal Quality { get; set; }

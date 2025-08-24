@@ -944,14 +944,10 @@ public class JsonEncodeFactory
 		}
 
 		video.Encoder = videoEncoder.ShortName;
-		video.QSV = new QSV
-		{
-			Decode = profile.QsvDecode && isEncode
-		};
 
 		if (enableNVDec && isEncode)
 		{
-			video.HardwareDecode = (int)NativeConstants.HB_DECODE_SUPPORT_NVDEC;
+			video.HardwareDecode = NativeConstants.HB_DECODE_NVDEC;
 		}
 
 		video.Level = profile.VideoLevel ?? "auto";
