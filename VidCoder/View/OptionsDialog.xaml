@@ -478,6 +478,7 @@
 									<TextBlock Text="{Binding QsvEncoders}" />
 
 									<CheckBox
+										Margin="0 6 0 0"
 										HorizontalAlignment="Left"
 										VerticalAlignment="Center"
 										Content="{x:Static res:OptionsRes.EnableQuickSyncHyperEncodeCheckBox}"
