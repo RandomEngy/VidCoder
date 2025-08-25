@@ -84,11 +84,15 @@ namespace VidCoder
 			cache.Add("EncodingListPaneOpen", DatabaseConfig.Get("EncodingListPaneOpen", true, connection));
 			cache.Add("EncodingListPaneWidth", DatabaseConfig.Get("EncodingListPaneWidth", 150.0, connection));
 			cache.Add("LogListPaneWidth", DatabaseConfig.Get("LogListPaneWidth", 150.0, connection));
+			cache.Add("EnableQuickSyncDecoding", DatabaseConfig.Get("EnableQuickSyncDecoding", true, connection));
+			cache.Add("EnableQuickSyncHyperEncode", DatabaseConfig.Get("EnableQuickSyncHyperEncode", false, connection));
+			cache.Add("UseQsvDecodeForNonQsvEncodes", DatabaseConfig.Get("UseQsvDecodeForNonQsvEncodes", false, connection));
+			cache.Add("EnableNVDec", DatabaseConfig.Get("EnableNVDec", true, connection));
+			cache.Add("EnableDirectXDecoding", DatabaseConfig.Get("EnableDirectXDecoding", true, connection));
 			cache.Add("WatcherMode", DatabaseConfig.Get("WatcherMode", "FileSystemWatcher", connection));
 			cache.Add("WatcherPollIntervalSeconds", DatabaseConfig.Get("WatcherPollIntervalSeconds", 5, connection));
 			cache.Add("WorkerProcessPriority", DatabaseConfig.Get("WorkerProcessPriority", "BelowNormal", connection));
 			cache.Add("LogVerbosity", DatabaseConfig.Get("LogVerbosity", 1, connection));
-			cache.Add("EnableNVDec", DatabaseConfig.Get("EnableNVDec", true, connection));
 			cache.Add("CopyLogToOutputFolder", DatabaseConfig.Get("CopyLogToOutputFolder", false, connection));
 			cache.Add("CopyLogToCustomFolder", DatabaseConfig.Get("CopyLogToCustomFolder", false, connection));
 			cache.Add("LogCustomFolder", DatabaseConfig.Get("LogCustomFolder", "", connection));
@@ -443,6 +447,31 @@ namespace VidCoder
 			get { return (double)cache["LogListPaneWidth"]; }
 			set { Set("LogListPaneWidth", value); }
 		}
+		public static bool EnableQuickSyncDecoding
+		{
+			get { return (bool)cache["EnableQuickSyncDecoding"]; }
+			set { Set("EnableQuickSyncDecoding", value); }
+		}
+		public static bool EnableQuickSyncHyperEncode
+		{
+			get { return (bool)cache["EnableQuickSyncHyperEncode"]; }
+			set { Set("EnableQuickSyncHyperEncode", value); }
+		}
+		public static bool UseQsvDecodeForNonQsvEncodes
+		{
+			get { return (bool)cache["UseQsvDecodeForNonQsvEncodes"]; }
+			set { Set("UseQsvDecodeForNonQsvEncodes", value); }
+		}
+		public static bool EnableNVDec
+		{
+			get { return (bool)cache["EnableNVDec"]; }
+			set { Set("EnableNVDec", value); }
+		}
+		public static bool EnableDirectXDecoding
+		{
+			get { return (bool)cache["EnableDirectXDecoding"]; }
+			set { Set("EnableDirectXDecoding", value); }
+		}
 		public static string WatcherMode
 		{
 			get { return (string)cache["WatcherMode"]; }
@@ -462,11 +491,6 @@ namespace VidCoder
 		{
 			get { return (int)cache["LogVerbosity"]; }
 			set { Set("LogVerbosity", value); }
-		}
-		public static bool EnableNVDec
-		{
-			get { return (bool)cache["EnableNVDec"]; }
-			set { Set("EnableNVDec", value); }
 		}
 		public static bool CopyLogToOutputFolder
 		{
@@ -779,11 +803,15 @@ namespace VidCoder
 			public static IObservable<bool> EncodingListPaneOpen => GetObservable<bool>("EncodingListPaneOpen");
 			public static IObservable<double> EncodingListPaneWidth => GetObservable<double>("EncodingListPaneWidth");
 			public static IObservable<double> LogListPaneWidth => GetObservable<double>("LogListPaneWidth");
+			public static IObservable<bool> EnableQuickSyncDecoding => GetObservable<bool>("EnableQuickSyncDecoding");
+			public static IObservable<bool> EnableQuickSyncHyperEncode => GetObservable<bool>("EnableQuickSyncHyperEncode");
+			public static IObservable<bool> UseQsvDecodeForNonQsvEncodes => GetObservable<bool>("UseQsvDecodeForNonQsvEncodes");
+			public static IObservable<bool> EnableNVDec => GetObservable<bool>("EnableNVDec");
+			public static IObservable<bool> EnableDirectXDecoding => GetObservable<bool>("EnableDirectXDecoding");
 			public static IObservable<string> WatcherMode => GetObservable<string>("WatcherMode");
 			public static IObservable<int> WatcherPollIntervalSeconds => GetObservable<int>("WatcherPollIntervalSeconds");
 			public static IObservable<string> WorkerProcessPriority => GetObservable<string>("WorkerProcessPriority");
 			public static IObservable<int> LogVerbosity => GetObservable<int>("LogVerbosity");
-			public static IObservable<bool> EnableNVDec => GetObservable<bool>("EnableNVDec");
 			public static IObservable<bool> CopyLogToOutputFolder => GetObservable<bool>("CopyLogToOutputFolder");
 			public static IObservable<bool> CopyLogToCustomFolder => GetObservable<bool>("CopyLogToCustomFolder");
 			public static IObservable<string> LogCustomFolder => GetObservable<string>("LogCustomFolder");

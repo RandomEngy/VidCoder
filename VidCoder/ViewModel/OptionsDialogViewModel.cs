@@ -1,36 +1,38 @@
-﻿using System;
+﻿using HandBrake.Interop.Interop;
+using HandBrake.Interop.Interop.Interfaces.Model.Encoders;
+using Microsoft.AnyContainer;
+using ReactiveUI;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Reactive;
 using System.Reactive.Concurrency;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Resources;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Microsoft.AnyContainer;
+using Velopack;
+using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
-using ReactiveUI;
-using VidCoder.Extensions;
 using VidCoderCommon;
-using System.Net.Http;
-using System.Text;
-using System.Text.RegularExpressions;
 using VidCoderCommon.Model;
-using Velopack;
 
 namespace VidCoder.ViewModel;
 
 public class OptionsDialogViewModel : ReactiveObject
 {
-	public const int UpdatesTabIndex = 3;
+	public const int UpdatesTabIndex = 4;
 
 	private IWindowManager windowManager = StaticResolver.Resolve<IWindowManager>();
 
@@ -49,12 +51,13 @@ public class OptionsDialogViewModel : ReactiveObject
 		{
 			OptionsRes.GeneralTab,			// 0
 			OptionsRes.ProcessTab,			// 1
-			OptionsRes.AdvancedTab,			// 2
+			OptionsRes.HardwareTab,         // 2
+			OptionsRes.AdvancedTab,			// 3
 		};
 
 		if (Utilities.SupportsUpdates)
 		{
-			this.Tabs.Add(OptionsRes.UpdatesTab); // 3
+			this.Tabs.Add(OptionsRes.UpdatesTab); // 4
 		}
 
 		// UpdateStatus
@@ -688,12 +691,83 @@ public class OptionsDialogViewModel : ReactiveObject
 		}
 	}
 
+	public bool IsQuickSyncAvailable { get; } = HandBrakeHardwareEncoderHelper.IsQsvAvailable;
+
+	public bool IsQuickSyncHyperEncodeAvailable { get; } = HandBrakeHardwareEncoderHelper.IsQsvHyperEncodeAvailable;
+
+	public bool IsVceAvailable { get; } = HandBrakeHardwareEncoderHelper.IsVceH264Available;
+
+	public bool IsNvencAvailable { get; } = HandBrakeHardwareEncoderHelper.IsNVEncH264Available;
+
+	public bool IsDirectXAvailable { get; } = HandBrakeHardwareEncoderHelper.IsDirectXAvailable;
+
+	public bool IsUseQsvDecAvailable => this.IsQuickSyncAvailable && this.EnableQuickSyncDecoding;
+
+	public bool IsNvdecAvailable => HandBrakeHardwareEncoderHelper.IsNVDecAvailable;
+
+	private static string GetEncodersByPrefix(List<HBVideoEncoder> encoders, string prefix)
+	{
+		var codecs = encoders.Where(e => e.ShortName.StartsWith(prefix)).Select(e => {
+			return VideoCodecUtilities.GetCodecFromDisplayName(e.DisplayName);
+		});
+
+		return string.Format(OptionsRes.CodecsLabel, string.Join(", ", codecs));
+	}
+
+	public string QsvEncoders => GetEncodersByPrefix(HandBrakeEncoderHelpers.VideoEncoders, "qsv_");
+
+	public string NvEncoders => GetEncodersByPrefix(HandBrakeEncoderHelpers.VideoEncoders, "nvenc_");
+
+	public string VceEncoders => GetEncodersByPrefix(HandBrakeEncoderHelpers.VideoEncoders, "vce_");
+
+	public string MFEncoders => GetEncodersByPrefix(HandBrakeEncoderHelpers.VideoEncoders, "mf_");
+
+	public bool EnableQuickSyncDecoding
+	{
+		get => Config.EnableQuickSyncDecoding;
+		set
+		{
+			Config.EnableQuickSyncDecoding = value;
+			this.RaisePropertyChanged();
+		}
+	}
+
+	public bool EnableQuickSyncHyperEncode
+	{
+		get => Config.EnableQuickSyncHyperEncode;
+		set
+		{
+			Config.EnableQuickSyncHyperEncode = value;
+			this.RaisePropertyChanged();
+		}
+	}
+
+	public bool UseQsvDecodeForNonQsvEncodes
+	{
+		get => Config.UseQsvDecodeForNonQsvEncodes;
+		set
+		{
+			Config.UseQsvDecodeForNonQsvEncodes = value;
+			this.RaisePropertyChanged();
+		}
+	}
+
 	public bool EnableNVDec
 	{
 		get => Config.EnableNVDec;
 		set
 		{
 			Config.EnableNVDec = value;
+			this.RaisePropertyChanged();
+		}
+	}
+
+	public bool EnableDirectXDecoding
+	{
+		get => Config.EnableDirectXDecoding;
+		set
+		{
+			Config.EnableDirectXDecoding = value;
 			this.RaisePropertyChanged();
 		}
 	}

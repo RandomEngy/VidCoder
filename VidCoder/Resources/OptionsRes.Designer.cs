@@ -88,6 +88,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AMD VCN.
+        /// </summary>
+        public static string AmdVcnSection {
+            get {
+                return ResourceManager.GetString("AmdVcnSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Application.
         /// </summary>
         public static string ApplicationSection {
@@ -223,6 +232,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Supported codecs: {0}.
+        /// </summary>
+        public static string CodecsLabel {
+            get {
+                return ResourceManager.GetString("CodecsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pick the .wav file you want to use for the completion sound..
         /// </summary>
         public static string CompletionWavFilePickTitle {
@@ -331,6 +349,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allow use of DirectX Decoding..
+        /// </summary>
+        public static string EnableDirectXDecodingCheckBox {
+            get {
+                return ResourceManager.GetString("EnableDirectXDecodingCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enable LibDVDNav (Change requires program restart. Required to support multiple angles).
         /// </summary>
         public static string EnableLibDvdNavCheckBox {
@@ -345,6 +372,24 @@ namespace VidCoder.Resources {
         public static string EnableNVDecCheckBox {
             get {
                 return ResourceManager.GetString("EnableNVDecCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prefer Intel QuickSync for decoding video when using the QuickSync encoder..
+        /// </summary>
+        public static string EnableQuickSyncDecodingCheckBox {
+            get {
+                return ResourceManager.GetString("EnableQuickSyncDecodingCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Deep Link Hyper Encode.
+        /// </summary>
+        public static string EnableQuickSyncHyperEncodeCheckBox {
+            get {
+                return ResourceManager.GetString("EnableQuickSyncHyperEncodeCheckBox", resourceCulture);
             }
         }
         
@@ -430,6 +475,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hardware.
+        /// </summary>
+        public static string HardwareTab {
+            get {
+                return ResourceManager.GetString("HardwareTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Intel QuickSync.
+        /// </summary>
+        public static string IntelQuickSyncSection {
+            get {
+                return ResourceManager.GetString("IntelQuickSyncSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Interface Language:.
         /// </summary>
         public static string InterfaceLanguageLabel {
@@ -493,6 +556,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Media Foundation (ARM Devices).
+        /// </summary>
+        public static string MediaFoundationSection {
+            get {
+                return ResourceManager.GetString("MediaFoundationSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Minimize to system tray.
         /// </summary>
         public static string MinimizeToSystemTrayRadioButton {
@@ -525,6 +597,15 @@ namespace VidCoder.Resources {
         public static string NewLanguageRestartDialogMessage {
             get {
                 return ResourceManager.GetString("NewLanguageRestartDialogMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NVIDIA NVENC.
+        /// </summary>
+        public static string NvidiaNvencSection {
+            get {
+                return ResourceManager.GetString("NvidiaNvencSection", resourceCulture);
             }
         }
         
@@ -912,6 +993,15 @@ namespace VidCoder.Resources {
         public static string UseOSLanguage {
             get {
                 return ResourceManager.GetString("UseOSLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Also use QuickSync decoding when not using a QuickSync encoder..
+        /// </summary>
+        public static string UseQsvDecodeForNonQsvEncodesCheckBox {
+            get {
+                return ResourceManager.GetString("UseQsvDecodeForNonQsvEncodesCheckBox", resourceCulture);
             }
         }
         

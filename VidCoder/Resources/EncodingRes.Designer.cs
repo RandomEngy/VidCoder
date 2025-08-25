@@ -1493,15 +1493,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to QSV Decoding.
-        /// </summary>
-        public static string QsvDecodingLabel {
-            get {
-                return ResourceManager.GetString("QsvDecodingLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Balanced.
         /// </summary>
         public static string QsvPreset_Balanced {

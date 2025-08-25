@@ -15,6 +15,7 @@ using HandBrake.Interop.Interop.Json.Shared;
 using Microsoft.AnyContainer;
 using Omu.ValueInjecter;
 using VidCoderCommon.Extensions;
+using VidCoderCommon.Model.Job;
 using VidCoderCommon.Services;
 using VidCoderCommon.Utilities;
 using VidCoderCommon.Utilities.Injection;
@@ -55,7 +56,7 @@ public class JsonEncodeFactory
 		VCJob job,
 		SourceTitle title,
 		string defaultChapterNameFormat,
-		bool enableNVDec,
+		JobConfiguration jobConfiguration,
 		bool isEncode,
 		int previewNumber = -1,
 		int previewSeconds = 0,
@@ -89,7 +90,12 @@ public class JsonEncodeFactory
 			PAR = outputSize.Par,
 			Source = this.CreateSource(job, title, previewNumber, previewSeconds, previewCount),
 			Subtitle = this.CreateSubtitles(job, title),
-			Video = this.CreateVideo(job, title, enableNVDec, previewSeconds, isEncode)
+			Video = this.CreateVideo(
+				job,
+				title,
+				jobConfiguration,
+				previewLengthSeconds: previewSeconds,
+				isEncode: isEncode)
 		};
 
 		return encode;
@@ -932,7 +938,12 @@ public class JsonEncodeFactory
 		return subtitles;
 	}
 
-	private Video CreateVideo(VCJob job, SourceTitle title, bool enableNVDec, int previewLengthSeconds, bool isEncode)
+	private Video CreateVideo(
+		VCJob job,
+		SourceTitle title,
+		JobConfiguration jobConfiguration,
+		int previewLengthSeconds,
+		bool isEncode)
 	{
 		Video video = new Video();
 		VCProfile profile = job.EncodingProfile;
@@ -945,10 +956,32 @@ public class JsonEncodeFactory
 
 		video.Encoder = videoEncoder.ShortName;
 
-		if (enableNVDec && isEncode)
+		if (isEncode)
 		{
-			video.HardwareDecode = NativeConstants.HB_DECODE_NVDEC;
+			if (videoEncoder.IsQuickSync)
+			{
+				video.HardwareDecode = HandBrakeHardwareEncoderHelper.IsQsvAvailable && jobConfiguration.EnableQuickSyncDecoding ?
+					 NativeConstants.HB_DECODE_QSV | NativeConstants.HB_DECODE_FORCE_HW : 0;
+			}
+
+			// Allow use of the QSV decoder is configurable for non QSV encoders.
+			if (!videoEncoder.IsHardwareEncoder && jobConfiguration.UseQsvDecodeForNonQsvEncodes && jobConfiguration.EnableQuickSyncDecoding)
+			{
+				video.HardwareDecode = HandBrakeHardwareEncoderHelper.IsQsvAvailable ?
+					NativeConstants.HB_DECODE_QSV | NativeConstants.HB_DECODE_FORCE_HW : 0;
+			}
+
+			if (jobConfiguration.EnableNVDec)
+			{
+				video.HardwareDecode = NativeConstants.HB_DECODE_NVDEC;
+			}
+
+			if (HandBrakeHardwareEncoderHelper.IsDirectXAvailable && jobConfiguration.EnableDirectXDecoding)
+			{
+				video.HardwareDecode = NativeConstants.HB_DECODE_MF | NativeConstants.HB_DECODE_FORCE_HW;
+			}
 		}
+
 
 		video.Level = profile.VideoLevel ?? "auto";
 		video.Options = profile.VideoOptions?.Trim();

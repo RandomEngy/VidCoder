@@ -11,6 +11,7 @@ using HandBrake.Interop.Interop.Json.Scan;
 using PipeMethodCalls;
 using VidCoderCommon;
 using VidCoderCommon.Model;
+using VidCoderCommon.Model.Job;
 using VidCoderCommon.Utilities;
 
 namespace VidCoderWorker;
@@ -44,7 +45,7 @@ public class HandBrakeEncodeWorker : HandBrakeWorkerBase<IHandBrakeEncodeWorkerC
 		int previewNumber,
 		int previewSeconds,
 		string defaultChapterNameFormat,
-		bool enableNVDec)
+		JobConfiguration jobConfiguration)
 	{
 		this.StartEncodeInternal(
 			job.SourcePath,
@@ -60,7 +61,7 @@ public class HandBrakeEncodeWorker : HandBrakeWorkerBase<IHandBrakeEncodeWorkerC
 						job,
 						encodeTitle,
 						defaultChapterNameFormat,
-						enableNVDec,
+						jobConfiguration,
 						true,
 						previewNumber,
 						previewSeconds,

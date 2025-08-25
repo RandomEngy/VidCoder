@@ -66,11 +66,16 @@ EncodingListPaneOpen|bool|true
 EncodingListPaneWidth|double|150.0
 LogListPaneWidth|double|150.0
 
+EnableQuickSyncDecoding|bool|true
+EnableQuickSyncHyperEncode|bool|false
+UseQsvDecodeForNonQsvEncodes|bool|false
+EnableNVDec|bool|true
+EnableDirectXDecoding|bool|true
+
 WatcherMode|string|"FileSystemWatcher"
 WatcherPollIntervalSeconds|int|5
 WorkerProcessPriority|string|"BelowNormal"
 LogVerbosity|int|1
-EnableNVDec|bool|true
 CopyLogToOutputFolder|bool|false
 CopyLogToCustomFolder|bool|false
 LogCustomFolder|string|""

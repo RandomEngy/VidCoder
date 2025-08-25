@@ -53,7 +53,7 @@ public class RemoteEncodeProxy : RemoteProxyBase<IHandBrakeEncodeWorker, IHandBr
 				preview ? previewNumber : -1,
 				previewSeconds,
 				EncodingRes.DefaultChapterName,
-				Config.EnableNVDec)
+				VideoCodecUtilities.CreateJobConfiguration())
 		);
 	}
 

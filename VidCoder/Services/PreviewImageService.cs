@@ -484,7 +484,7 @@ namespace VidCoder.Services;
 					imageJob.Job,
 					imageJob.Title,
 					EncodingRes.DefaultChapterName,
-					enableNVDec: Config.EnableNVDec,
+					VideoCodecUtilities.CreateJobConfiguration(),
 					isEncode: false);
 
 				// Make a HandBrake call to get the image

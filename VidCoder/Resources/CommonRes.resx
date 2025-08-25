@@ -380,4 +380,10 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="CompletedColumnNamePreset" xml:space="preserve">
     <value>Preset</value>
   </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Not available</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Available</value>
+  </data>
 </root>
