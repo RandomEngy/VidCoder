@@ -485,6 +485,7 @@ namespace VidCoder.Services;
 					imageJob.Title,
 					EncodingRes.DefaultChapterName,
 					VideoCodecUtilities.CreateJobConfiguration(),
+					qsvGpu: -1,
 					isEncode: false);
 
 				// Make a HandBrake call to get the image

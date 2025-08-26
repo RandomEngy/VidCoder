@@ -10,6 +10,7 @@ namespace VidCoderCommon.Model.Job
 	{
 		public bool EnableQuickSyncDecoding { get; set; }
 		public bool UseQsvDecodeForNonQsvEncodes { get; set; }
+		public bool EnableQuickSyncHyperEncode { get; set; }
 		public bool EnableNVDec { get; set; }
 		public bool EnableDirectXDecoding { get; set; }
 	}

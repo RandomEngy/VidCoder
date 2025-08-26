@@ -808,6 +808,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to QSV Encoder Cores: {0}.
+        /// </summary>
+        public static string QsvEncoderCount {
+            get {
+                return ResourceManager.GetString("QsvEncoderCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recognized Extensions:.
         /// </summary>
         public static string RecognizedExtensionsLabel {

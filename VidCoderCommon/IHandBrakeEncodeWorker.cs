@@ -15,7 +15,8 @@ public interface IHandBrakeEncodeWorker : IHandBrakeWorker
 		int previewNumber,
 		int previewSeconds,
 		string defaultChapterNameFormat,
-		JobConfiguration jobConfiguration);
+		JobConfiguration jobConfiguration,
+		int qsvGpu);
 
 	/// <summary>
 	/// Starts an encode with the given encode JSON.

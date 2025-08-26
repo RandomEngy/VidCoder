@@ -475,7 +475,8 @@
 
 								<StackPanel Orientation="Vertical" Visibility="{Binding IsQuickSyncAvailable, Converter={StaticResource VisibilityConverter}}">
 									<controls:AvailabilityIndicator />
-									<TextBlock Text="{Binding QsvEncoders}" />
+									<TextBlock Margin="0 2 0 0" Text="{Binding QsvEncoders}" />
+									<TextBlock Margin="0 2 0 0" Text="{Binding QsvEncoderCount}" />
 
 									<CheckBox
 										Margin="0 6 0 0"

@@ -47,7 +47,9 @@ public class JsonEncodeFactory
 	/// <param name="job">The encode job to convert.</param>
 	/// <param name="title">The source title.</param>
 	/// <param name="defaultChapterNameFormat">The format for a default chapter name.</param>
-	/// <param name="enableNVDec">True to enable NVDec decoding.</param>
+	/// <param name="jobConfiguration">Values from user configuration.</param>
+	/// <param name="qsvGpu">The specific GPU to use for the QSV encode, or -1 if no specific GPU is chosen.</param>
+	/// <param name="isEncode">True if this is being created for an encode job. False for an image preview.</param>
 	/// <param name="previewNumber">The preview number to start at (0-based). Leave off for a normal encode.</param>
 	/// <param name="previewSeconds">The number of seconds long to make the preview.</param>
 	/// <param name="previewCount">The total number of previews.</param>
@@ -57,6 +59,7 @@ public class JsonEncodeFactory
 		SourceTitle title,
 		string defaultChapterNameFormat,
 		JobConfiguration jobConfiguration,
+		int qsvGpu,
 		bool isEncode,
 		int previewNumber = -1,
 		int previewSeconds = 0,
@@ -94,6 +97,7 @@ public class JsonEncodeFactory
 				job,
 				title,
 				jobConfiguration,
+				qsvGpu,
 				previewLengthSeconds: previewSeconds,
 				isEncode: isEncode)
 		};
@@ -942,6 +946,7 @@ public class JsonEncodeFactory
 		VCJob job,
 		SourceTitle title,
 		JobConfiguration jobConfiguration,
+		int qsvGpu,
 		int previewLengthSeconds,
 		bool isEncode)
 	{
@@ -955,6 +960,7 @@ public class JsonEncodeFactory
 		}
 
 		video.Encoder = videoEncoder.ShortName;
+		string videoOptions = profile.VideoOptions?.Trim() ?? string.Empty;
 
 		if (isEncode)
 		{
@@ -962,6 +968,11 @@ public class JsonEncodeFactory
 			{
 				video.HardwareDecode = HandBrakeHardwareEncoderHelper.IsQsvAvailable && jobConfiguration.EnableQuickSyncDecoding ?
 					 NativeConstants.HB_DECODE_QSV | NativeConstants.HB_DECODE_FORCE_HW : 0;
+
+				if (qsvGpu >= 0 && !videoOptions.Contains("gpu="))
+				{
+					videoOptions = AdvancedOptionUtilities.Prepend($"gpu={qsvGpu}", videoOptions);
+				}
 			}
 
 			// Allow use of the QSV decoder is configurable for non QSV encoders.
@@ -969,6 +980,11 @@ public class JsonEncodeFactory
 			{
 				video.HardwareDecode = HandBrakeHardwareEncoderHelper.IsQsvAvailable ?
 					NativeConstants.HB_DECODE_QSV | NativeConstants.HB_DECODE_FORCE_HW : 0;
+			}
+
+			if (jobConfiguration.EnableQuickSyncHyperEncode && HandBrakeHardwareEncoderHelper.IsQsvAvailable)
+			{
+				videoOptions = AdvancedOptionUtilities.Prepend("hyperencode=adaptive", videoOptions);
 			}
 
 			if (jobConfiguration.EnableNVDec)
@@ -982,9 +998,8 @@ public class JsonEncodeFactory
 			}
 		}
 
-
 		video.Level = profile.VideoLevel ?? "auto";
-		video.Options = profile.VideoOptions?.Trim();
+		video.Options = videoOptions;
 		video.Preset = profile.VideoPreset;
 		video.Profile = profile.VideoProfile ?? "auto";
 

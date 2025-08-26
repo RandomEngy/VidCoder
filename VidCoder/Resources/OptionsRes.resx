@@ -470,4 +470,9 @@ Polling: Periodically checks the contents of the folders. Uses significant CPU a
     <value>Supported codecs: {0}</value>
     <comment>Format string for codec lists. {0} is replaced with comma-separated list of codecs.</comment>
   </data>
+  <data name="QsvEncoderCount" xml:space="preserve">
+    <value>QSV Encoder Cores: {0}</value>
+    <comment>Indicator for how many QSV cores are available on the system.
+{0} is the number of cores, for example "2"</comment>
+  </data>
 </root>

@@ -91,6 +91,7 @@ public class QueueTitlesWindowViewModel : OkCancelDialogViewModel
 				title,
 				EncodingRes.DefaultChapterName,
 				VideoCodecUtilities.CreateJobConfiguration(),
+				qsvGpu: -1,
 				isEncode: false);
 
 			this.PreviewImage = BitmapUtilities.ConvertToBitmapImage(BitmapUtilities.ConvertByteArrayToBitmap(this.main.ScanInstance.GetPreview(jsonEncodeObject, 2)));

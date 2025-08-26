@@ -39,13 +39,14 @@ public class HandBrakeEncodeWorker : HandBrakeWorkerBase<IHandBrakeEncodeWorkerC
 	/// <param name="previewNumber">The preview number to run.</param>
 	/// <param name="previewSeconds">The number of seconds the preview should be.</param>
 	/// <param name="defaultChapterNameFormat">The default format for chapter names.</param>
-	/// <param name="enableNVDec">Enable the NVDec hardware decoder.</param>
+	/// <param name="jobConfiguration">Values from user configuration.</param>
 	public void StartEncode(
 		VCJob job,
 		int previewNumber,
 		int previewSeconds,
 		string defaultChapterNameFormat,
-		JobConfiguration jobConfiguration)
+		JobConfiguration jobConfiguration,
+		int qsvGpu)
 	{
 		this.StartEncodeInternal(
 			job.SourcePath,
@@ -62,6 +63,7 @@ public class HandBrakeEncodeWorker : HandBrakeWorkerBase<IHandBrakeEncodeWorkerC
 						encodeTitle,
 						defaultChapterNameFormat,
 						jobConfiguration,
+						qsvGpu,
 						true,
 						previewNumber,
 						previewSeconds,

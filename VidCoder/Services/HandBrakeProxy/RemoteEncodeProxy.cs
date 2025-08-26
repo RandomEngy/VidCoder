@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using HandBrake.Interop.Interop.Interfaces.EventArgs;
+using Microsoft.AnyContainer;
 using PipeMethodCalls;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -34,6 +35,8 @@ public class RemoteEncodeProxy : RemoteProxyBase<IHandBrakeEncodeWorker, IHandBr
 	private SemaphoreSlim encodeStartEvent;
 	private SemaphoreSlim encodeEndEvent;
 
+	private QsvLoadBalancingService qsvLoadBalancingService = StaticResolver.Resolve<QsvLoadBalancingService>();
+
 	public async Task StartEncodeAsync(
 		VCJob job,
 		IAppLogger logger,
@@ -53,7 +56,8 @@ public class RemoteEncodeProxy : RemoteProxyBase<IHandBrakeEncodeWorker, IHandBr
 				preview ? previewNumber : -1,
 				previewSeconds,
 				EncodingRes.DefaultChapterName,
-				VideoCodecUtilities.CreateJobConfiguration())
+				VideoCodecUtilities.CreateJobConfiguration(),
+				qsvLoadBalancingService.GetQsvGpu(job))
 		);
 	}
 
