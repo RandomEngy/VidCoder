@@ -476,14 +476,15 @@
 								<StackPanel Orientation="Vertical" Visibility="{Binding IsQuickSyncAvailable, Converter={StaticResource VisibilityConverter}}">
 									<controls:AvailabilityIndicator />
 									<TextBlock Margin="0 2 0 0" Text="{Binding QsvEncoders}" />
-									<TextBlock Margin="0 2 0 0" Text="{Binding QsvEncoderCount}" />
+									<TextBlock Margin="0 2 0 0" Text="{Binding QsvMediaEngineCount}" />
 
 									<CheckBox
 										Margin="0 6 0 0"
 										HorizontalAlignment="Left"
 										VerticalAlignment="Center"
 										Content="{x:Static res:OptionsRes.EnableQuickSyncHyperEncodeCheckBox}"
-										IsChecked="{Binding EnableQuickSyncHyperEncode}" />
+										IsChecked="{Binding EnableQuickSyncHyperEncode}"
+										ToolTip="{x:Static res:OptionsRes.EnableQuickSyncHyperEncodeToolTip}" />
 									<CheckBox
 										Margin="0 6 0 0"
 										HorizontalAlignment="Left"

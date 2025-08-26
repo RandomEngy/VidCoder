@@ -394,6 +394,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use multiple media engines to speed up a single encode where supported. Disable to allow load balancing multiple parallel encodes across media engines..
+        /// </summary>
+        public static string EnableQuickSyncHyperEncodeToolTip {
+            get {
+                return ResourceManager.GetString("EnableQuickSyncHyperEncodeToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number of encode retries:.
         /// </summary>
         public static string EncodeRetriesLabel {
@@ -808,11 +817,11 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to QSV Encoder Cores: {0}.
+        ///   Looks up a localized string similar to Media Engines: {0}.
         /// </summary>
-        public static string QsvEncoderCount {
+        public static string QsvMediaEngineCount {
             get {
-                return ResourceManager.GetString("QsvEncoderCount", resourceCulture);
+                return ResourceManager.GetString("QsvMediaEngineCount", resourceCulture);
             }
         }
         

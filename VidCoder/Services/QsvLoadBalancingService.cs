@@ -35,6 +35,11 @@ public class QsvLoadBalancingService
 			return -1;
 		}
 
+		if (this.qsvGpus.Count <= 1)
+		{
+			return -1;
+		}
+
 		this.currentGpuIndex++;
 
 		return this.qsvGpus[this.currentGpuIndex % this.qsvGpus.Count];
