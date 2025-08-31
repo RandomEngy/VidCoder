@@ -211,6 +211,32 @@
     <value>Järjestele kielet:</value>
   </data>
   
+  <data name="LastSelectedRadioButton" xml:space="preserve">
+    <value>Viimeksi valittu</value>
+  </data>
+  <data name="OverrideNameFormatLabel" xml:space="preserve">
+    <value>Vaihtoehdot: {0}</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  <data name="SelectTracksLabel" xml:space="preserve">
+    <value>Valitse kappaleet:</value>
+  </data>
+  
+  
+  
+  <data name="DestinationSection" xml:space="preserve">
+    <value>Kohde</value>
+  </data>
+  <data name="OutputFolder" xml:space="preserve">
+    <value>Kohdekansio</value>
+    <comment>Label for the output folder.</comment>
+  </data>
   
   
   
@@ -225,43 +251,54 @@
   
   
   
+  <data name="AddAudioTrackNameButton" xml:space="preserve">
+    <value>Lisää ääniraidan nimi</value>
+    <comment>Button to add another name to the list of audio track names in the Picker.</comment>
+  </data>
+  <data name="AddSubtitleTrackNameButton" xml:space="preserve">
+    <value>Lisää tekstityskappaleen nimi</value>
+    <comment>Button to add another name to the list of subtitle track names in the Picker.</comment>
+  </data>
+  <data name="CustomTrackNamesCheckBox" xml:space="preserve">
+    <value>Mukautetut kappaleiden nimet</value>
+    <comment>Checkbox label to use custom audio or subtitle track names</comment>
+  </data>
+  <data name="TrackAutomationFormat" xml:space="preserve">
+    <value>Kappale {0}</value>
+    <comment>Screen reader format for track names in the Picker.</comment>
+  </data>
+  
+  <data name="PickerAudioSectionName" xml:space="preserve">
+    <value>Ääni</value>
+  </data>
+  
+  <data name="PickerSubtitleSectionName" xml:space="preserve">
+    <value>Tekstitys</value>
+  </data>
+  <data name="SubtitleSelectionMode_ForeignAudioSearch" xml:space="preserve">
+    <value>Vieraiden äänitiedostojen haku</value>
+  </data>
   
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="TimeRangeLabel" xml:space="preserve">
+    <value>Aikaväli</value>
+  </data>
+  <data name="VideoSelectionSection" xml:space="preserve">
+    <value>Videon valinta</value>
+  </data>
+  <data name="MetadataSection" xml:space="preserve">
+    <value>Metatiedot</value>
+  </data>
   
   <data name="BurnInCheckBox" xml:space="preserve">
     <value>Polta tekstitykset</value>
   </data>
   
-  
+  <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
+    <value>Vahvista ennen poistamista</value>
+  </data>
   
   
   

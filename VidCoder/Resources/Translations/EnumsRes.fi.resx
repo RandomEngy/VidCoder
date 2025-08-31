@@ -224,6 +224,14 @@
   </data>
   
   
+  <data name="EncodeCompleteActionType_StopEncoding" xml:space="preserve">
+    <value>Lopeta koodaus</value>
+  </data>
+  
+  
+  <data name="LogOperationType_Encode" xml:space="preserve">
+    <value>Koodaa</value>
+  </data>
   
   
   
@@ -250,24 +258,48 @@
   
   
   
+  <data name="WatcherProcessStatus_Disabled" xml:space="preserve">
+    <value>Pois käytöstä</value>
+  </data>
+  <data name="WatcherProcessStatus_Running" xml:space="preserve">
+    <value>Käynnissä</value>
+  </data>
+  <data name="WatcherProcessStatus_Starting" xml:space="preserve">
+    <value>Käynnistetään...</value>
+  </data>
+  <data name="WatcherProcessStatus_Stopped" xml:space="preserve">
+    <value>Pysäytetty</value>
+  </data>
+  <data name="WatchedFileStatusLive_Canceled" xml:space="preserve">
+    <value>Peruttu</value>
+  </data>
+  <data name="WatchedFileStatusLive_Encoding" xml:space="preserve">
+    <value>Koodaus</value>
+  </data>
+  <data name="WatchedFileStatusLive_Failed" xml:space="preserve">
+    <value>Epäonnistui</value>
+  </data>
+  <data name="WatchedFileStatusLive_Planned" xml:space="preserve">
+    <value>Suunniteltu</value>
+  </data>
+  <data name="WatchedFileStatusLive_Queued" xml:space="preserve">
+    <value>Jonossa</value>
+  </data>
+  <data name="WatchedFileStatusLive_Skipped" xml:space="preserve">
+    <value>Ohitettu</value>
+  </data>
+  <data name="WatchedFileStatusLive_Succeeded" xml:space="preserve">
+    <value>Onnistui</value>
+  </data>
+  <data name="WatchedFileStatusLive_Output" xml:space="preserve">
+    <value>Ulostulo</value>
+  </data>
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="EncodeCompleteActionType_Restart" xml:space="preserve">
+    <value>Käynnistä uudelleen</value>
+  </data>
+  <data name="WhenFileExists_Skip" xml:space="preserve">
+    <value>Ohita</value>
+  </data>
 </root>

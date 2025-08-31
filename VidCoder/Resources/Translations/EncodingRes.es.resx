@@ -511,9 +511,6 @@ Reemplaza las demás configuraciones.</value>
   <data name="EncoderSettings" xml:space="preserve">
     <value>Configuración del codificador</value>
   </data>
-  <data name="QsvDecodingLabel" xml:space="preserve">
-    <value>Decodificación QSV</value>
-  </data>
   <data name="ScaleMethod_Lanczos" xml:space="preserve">
     <value>Lanczos</value>
   </data>

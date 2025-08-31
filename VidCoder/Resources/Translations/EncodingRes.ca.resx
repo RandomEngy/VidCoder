@@ -509,9 +509,6 @@ Substitueix totes les altres opcions de configuració.</value>
   <data name="EncoderSettings" xml:space="preserve">
     <value>Configuració del codificador</value>
   </data>
-  <data name="QsvDecodingLabel" xml:space="preserve">
-    <value>Descodificació QSV</value>
-  </data>
   <data name="ScaleMethod_Lanczos" xml:space="preserve">
     <value>Lanczos</value>
   </data>

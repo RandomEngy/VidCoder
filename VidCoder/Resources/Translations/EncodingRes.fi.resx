@@ -452,6 +452,45 @@ vataajuus, sitä käytetään. Huomaa, että jotkin toistimet eivät tue vaihtel
   
   
   
+  <data name="SharpenLabel" xml:space="preserve">
+    <value>Terävöitä</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  <data name="PresetFolderCreateSubfolderMenuItem" xml:space="preserve">
+    <value>Luo alikansio</value>
+  </data>
+  <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
+    <value>Nimeä kansio uudelleen</value>
+  </data>
+  <data name="PresetFolderRemoveFolderMenuItem" xml:space="preserve">
+    <value>Poista kansio</value>
+  </data>
+  <data name="DefaultPresetFolderName" xml:space="preserve">
+    <value>Uusi kansio</value>
+  </data>
+  
+  
+  
+  
+  
+  <data name="Bottom" xml:space="preserve">
+    <value>Alaosa</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Vasen</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Oikea</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Yläosa</value>
+  </data>
   
   
   
@@ -468,36 +507,34 @@ vataajuus, sitä käytetään. Huomaa, että jotkin toistimet eivät tue vaihtel
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  <data name="Passthrough_eac3" xml:space="preserve">
+    <value>E-AC3</value>
+  </data>
+  <data name="Passthrough_flac" xml:space="preserve">
+    <value>FLAC</value>
+  </data>
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="Passthrough_truehd" xml:space="preserve">
+    <value>TrueHD</value>
+  </data>
+  <data name="Passthrough_opus" xml:space="preserve">
+    <value>Opus</value>
+  </data>
+  <data name="Passthrough_alac" xml:space="preserve">
+    <value>ALAC</value>
+  </data>
 </root>

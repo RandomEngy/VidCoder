@@ -507,9 +507,6 @@ Remplace tous les autres réglages.</value>
   <data name="EncoderSettings" xml:space="preserve">
     <value>Paramètres de l'encodeur</value>
   </data>
-  <data name="QsvDecodingLabel" xml:space="preserve">
-    <value>Décodage QSV</value>
-  </data>
   <data name="ScaleMethod_Lanczos" xml:space="preserve">
     <value>Lanczos</value>
   </data>
