@@ -509,9 +509,6 @@ Negeert alle andere instellingen.</value>
   <data name="EncoderSettings" xml:space="preserve">
     <value>Coderingsinstellingen</value>
   </data>
-  <data name="QsvDecodingLabel" xml:space="preserve">
-    <value>QSV-decodering</value>
-  </data>
   <data name="ScaleMethod_Lanczos" xml:space="preserve">
     <value>Lanczos</value>
   </data>

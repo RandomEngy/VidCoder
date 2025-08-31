@@ -507,9 +507,6 @@ Anda akan dijamin aliran yang kompatibel. Anda harus menyetel ini jika anda tahu
   <data name="EncoderSettings" xml:space="preserve">
     <value>Pengaturan encoder</value>
   </data>
-  <data name="QsvDecodingLabel" xml:space="preserve">
-    <value>QSV Decoding</value>
-  </data>
   <data name="ScaleMethod_Lanczos" xml:space="preserve">
     <value>Lanczos</value>
   </data>

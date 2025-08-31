@@ -508,9 +508,6 @@ Odbacuje sva ostala podešavanja.</value>
   <data name="EncoderSettings" xml:space="preserve">
     <value>Postavke kodera</value>
   </data>
-  <data name="QsvDecodingLabel" xml:space="preserve">
-    <value>QSV Dekodiranje</value>
-  </data>
   <data name="ScaleMethod_Lanczos" xml:space="preserve">
     <value>Lanczos</value>
   </data>

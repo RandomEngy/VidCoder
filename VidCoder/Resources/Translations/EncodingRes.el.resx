@@ -509,9 +509,6 @@
   <data name="EncoderSettings" xml:space="preserve">
     <value>Ρυθμίσεις κωδικοποιητή</value>
   </data>
-  <data name="QsvDecodingLabel" xml:space="preserve">
-    <value>Αποκωδικοποίηση QSV</value>
-  </data>
   <data name="ScaleMethod_Lanczos" xml:space="preserve">
     <value>Lanczos</value>
   </data>

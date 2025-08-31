@@ -507,9 +507,6 @@ Powinieneś to ustawić jeśli wiesz, że urządzenie do odtwarzania obsługuje 
   <data name="EncoderSettings" xml:space="preserve">
     <value>Ustawienia enkodera</value>
   </data>
-  <data name="QsvDecodingLabel" xml:space="preserve">
-    <value>Dekodowanie QSV</value>
-  </data>
   <data name="ScaleMethod_Lanczos" xml:space="preserve">
     <value>Lanczos</value>
   </data>

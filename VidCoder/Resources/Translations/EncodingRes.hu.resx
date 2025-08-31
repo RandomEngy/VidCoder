@@ -507,9 +507,6 @@ Felülírja az összes többi beállítást.</value>
   <data name="EncoderSettings" xml:space="preserve">
     <value>Kódoló beállításai</value>
   </data>
-  <data name="QsvDecodingLabel" xml:space="preserve">
-    <value>QSV dekódolás</value>
-  </data>
   <data name="ScaleMethod_Lanczos" xml:space="preserve">
     <value>Lanczos</value>
   </data>

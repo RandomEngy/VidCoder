@@ -509,9 +509,6 @@ Ghi đè tất cả các cài đặt khác.</value>
   <data name="EncoderSettings" xml:space="preserve">
     <value>Cài đặt mã hóa</value>
   </data>
-  <data name="QsvDecodingLabel" xml:space="preserve">
-    <value>Giải mã QSV</value>
-  </data>
   <data name="ScaleMethod_Lanczos" xml:space="preserve">
     <value>Lanczos</value>
   </data>

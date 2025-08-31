@@ -505,9 +505,6 @@
   <data name="EncoderSettings" xml:space="preserve">
     <value>Encoder Settings</value>
   </data>
-  <data name="QsvDecodingLabel" xml:space="preserve">
-    <value>QSVでデコードする</value>
-  </data>
   <data name="ScaleMethod_Lanczos" xml:space="preserve">
     <value>Lanczos</value>
   </data>
