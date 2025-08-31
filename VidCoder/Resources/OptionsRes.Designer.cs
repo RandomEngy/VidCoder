@@ -817,11 +817,11 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Media Engines: {0}.
+        ///   Looks up a localized string similar to Adapters: {0}.
         /// </summary>
-        public static string QsvMediaEngineCount {
+        public static string QsvAdapterCount {
             get {
-                return ResourceManager.GetString("QsvMediaEngineCount", resourceCulture);
+                return ResourceManager.GetString("QsvAdapterCount", resourceCulture);
             }
         }
         

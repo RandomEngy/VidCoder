@@ -184,7 +184,7 @@ public class OptionsDialogViewModel : ReactiveObject
 		this.PlayerChoices = Players.All;
 
 		int qsvCount = HandBrakeEncoderHelpers.GetQsvAdaptorList().Count();
-		this.QsvMediaEngineCount = string.Format(OptionsRes.QsvMediaEngineCount, qsvCount);
+		this.QsvAdapterCount = string.Format(OptionsRes.QsvAdapterCount, qsvCount);
 
 		int tabIndex = Config.OptionsDialogLastTab;
 		if (tabIndex >= this.Tabs.Count)
@@ -725,7 +725,7 @@ public class OptionsDialogViewModel : ReactiveObject
 
 	public string MFEncoders => GetEncodersByPrefix(HandBrakeEncoderHelpers.VideoEncoders, "mf_");
 
-	public string QsvMediaEngineCount { get; }
+	public string QsvAdapterCount { get; }
 
 	public bool EnableQuickSyncDecoding
 	{
