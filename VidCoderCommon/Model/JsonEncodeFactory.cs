@@ -990,7 +990,7 @@ public class JsonEncodeFactory
 				videoOptions = AdvancedOptionUtilities.Prepend("hyperencode=adaptive", videoOptions);
 			}
 
-			if (!setHardwareDecoder && HandBrakeHardwareEncoderHelper.IsNVDecAvailable && jobConfiguration.EnableNVDec)
+			if (!setHardwareDecoder && HandBrakeHardwareEncoderHelper.IsNVDecAvailable && videoEncoder.IsNVEnc && jobConfiguration.EnableNVDec)
 			{
 				setHardwareDecoder = true;
 				video.HardwareDecode = NativeConstants.HB_DECODE_NVDEC;
