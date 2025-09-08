@@ -432,19 +432,52 @@
   <data name="RememberLastSelectedWhenDoneCheckBox" xml:space="preserve">
     <value>ბოლოს გამოყენებულის დამახსოვრება "დასრულებისას" გადატვირთვის შემდეგ</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="PartFileNamingLabel" xml:space="preserve">
+    <value>ნაწილობრივი სახელის დარქმევა:</value>
+  </data>
+  <data name="PartFileNaming_PartInMiddle" xml:space="preserve">
+    <value>სახელი.ნაწილი.გაფართოება</value>
+  </data>
+  <data name="PartFileNaming_PartAtEnd" xml:space="preserve">
+    <value>სახელი.გაფართოება.ნაწილი</value>
+  </data>
+  <data name="HardwareTab" xml:space="preserve">
+    <value>ხელსაწყო</value>
+  </data>
+  <data name="IntelQuickSyncSection" xml:space="preserve">
+    <value>Intel QuickSync</value>
+  </data>
+  <data name="NvidiaNvencSection" xml:space="preserve">
+    <value>NVIDIA NVENC</value>
+  </data>
+  <data name="AmdVcnSection" xml:space="preserve">
+    <value>AMD VCN</value>
+  </data>
+  <data name="MediaFoundationSection" xml:space="preserve">
+    <value>Media Foundation (ARM ხელსაწყოები)</value>
+  </data>
+  <data name="EnableQuickSyncHyperEncodeCheckBox" xml:space="preserve">
+    <value>Deep Link Hyper Encode - ს აქტივირება</value>
+  </data>
+  <data name="EnableQuickSyncDecodingCheckBox" xml:space="preserve">
+    <value>Intel QuickSync - ის უპირატესობა ვიდეოს დეკოდირებისთვის QuickSync კოდირების გამოყენებისას.</value>
+  </data>
+  <data name="UseQsvDecodeForNonQsvEncodesCheckBox" xml:space="preserve">
+    <value>აგრეთვე QuickSync - ის გამოყენება დეკოდირებისას თუ QuickSync კოდირება არ გამოიყენება..</value>
+  </data>
+  <data name="EnableDirectXDecodingCheckBox" xml:space="preserve">
+    <value>DirectX დეკოდირების გამოყენება.</value>
+  </data>
+  <data name="CodecsLabel" xml:space="preserve">
+    <value>მხარდაჭერილი კოდეკები:</value>
+    <comment>Format string for codec lists. {0} is replaced with comma-separated list of codecs.</comment>
+  </data>
+  <data name="QsvAdapterCount" xml:space="preserve">
+    <value>ადაპტერები: {0}</value>
+    <comment>Indicator for how many QSV adapters are available on the system.
+{0} is the number of adapters, for example "2"</comment>
+  </data>
+  <data name="EnableQuickSyncHyperEncodeToolTip" xml:space="preserve">
+    <value>მხარდაჭერის შემთხვევაში, მრავალი მოტორის გამოყენება ერთი ვიდეოს კოდირების დასაჩქარებლად. დეააქტიურეთ თუ მრავალი ფაილის ერთდროულად კოდირება გსურთ.</value>
+  </data>
 </root>
