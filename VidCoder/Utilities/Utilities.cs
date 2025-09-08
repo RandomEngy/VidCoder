@@ -46,8 +46,8 @@ public static class Utilities
 		var tempFolderPath = Environment.GetEnvironmentVariable("temp");
 		if (tempFolderPath != null)
 		{
-			DirectoryInfo tempFolderInfo = new DirectoryInfo(tempFolderPath);
-			DirectoryInfo currentDirectoryInfo = new DirectoryInfo(Directory.GetCurrentDirectory());
+			DirectoryInfo tempFolderInfo = new(tempFolderPath);
+			DirectoryInfo currentDirectoryInfo = new(Directory.GetCurrentDirectory());
 
 			if (currentDirectoryInfo.FullName.StartsWith(tempFolderInfo.FullName, StringComparison.OrdinalIgnoreCase))
 			{

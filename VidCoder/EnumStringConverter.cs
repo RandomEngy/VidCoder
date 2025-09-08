@@ -41,7 +41,7 @@ public class EnumStringConverter<T>
 
 		if (displayAttribute.ResourceType != null)
 		{
-			ResourceManager resourceManager = new ResourceManager(displayAttribute.ResourceType);
+			ResourceManager resourceManager = new(displayAttribute.ResourceType);
 			return resourceManager.GetString(displayAttribute.Name);
 		}
 

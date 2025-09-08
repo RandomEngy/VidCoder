@@ -18,7 +18,7 @@ public class HardwareResourceService
 	/// <summary>
 	/// Global lock for all hardware resource actions. All operations should be fast so there should be minimal lock contention.
 	/// </summary>
-	private readonly object lockObject = new object();
+	private readonly object lockObject = new();
 
 	private readonly IDisposable simultaneousJobsSubscription;
 	private readonly IDisposable capNVEncSubscription;
@@ -34,7 +34,7 @@ public class HardwareResourceService
 	/// <summary>
 	/// Pools representing DVD/Blu-ray drives. Key is the root directory.
 	/// </summary>
-	private readonly Dictionary<string, HardwarePool> discDrivePools = new Dictionary<string, HardwarePool>();
+	private readonly Dictionary<string, HardwarePool> discDrivePools = new();
 
 	public HardwareResourceService()
 	{

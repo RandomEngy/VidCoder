@@ -83,7 +83,7 @@ public static class FileCleanup
 
 	public static void CleanHandBrakeTempFiles()
 	{
-		DirectoryInfo tempDirectoryInfo = new DirectoryInfo(Path.GetTempPath());
+		DirectoryInfo tempDirectoryInfo = new(Path.GetTempPath());
 		DirectoryInfo[] handBrakeTempDirectories = tempDirectoryInfo.GetDirectories("hb.*");
 
 		if (handBrakeTempDirectories.Length == 0)

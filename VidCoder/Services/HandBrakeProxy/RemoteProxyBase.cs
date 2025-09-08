@@ -170,7 +170,7 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 				await clientToCleanUp.InvokeAsync(x => x.TearDownWorker()).ConfigureAwait(false);
 
 				// Wait a bit for the pipe to close
-				using (CancellationTokenSource cts = new CancellationTokenSource(TimeSpan.FromSeconds(3)))
+				using (CancellationTokenSource cts = new(TimeSpan.FromSeconds(3)))
 				{
 					await clientToCleanUp.WaitForRemotePipeCloseAsync(cts.Token).ConfigureAwait(false);
 				}
@@ -399,7 +399,7 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 			{
 				try
 				{
-					CancellationTokenSource cancellationTokenSource = new CancellationTokenSource(10000);
+					CancellationTokenSource cancellationTokenSource = new(10000);
 					await this.Client.InvokeAsync(x => x.Ping(), cancellationTokenSource.Token);
 
 					await this.ProcessLock.WaitAsync().ConfigureAwait(false);

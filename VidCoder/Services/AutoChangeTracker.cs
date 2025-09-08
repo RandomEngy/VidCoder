@@ -9,7 +9,7 @@ namespace VidCoder.Services;
 public class AutoChangeTracker
 {
 	private readonly HashSet<Guid> pendingGuids;
-	private readonly object sync = new object();
+	private readonly object sync = new();
 
 	public AutoChangeTracker()
 	{

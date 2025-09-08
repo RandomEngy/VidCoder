@@ -10,7 +10,7 @@ using System.IO;
 
 public static class WorkerErrorLogger
 {
-	private static object logLock = new object();
+	private static object logLock = new();
 	private static bool initialized;
 
 	public static void LogError(string message, bool isError)

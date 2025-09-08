@@ -433,7 +433,7 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 		{
 			try
 			{
-				FileInfo fileInfo = new FileInfo(this.Job.SourcePath);
+				FileInfo fileInfo = new(this.Job.SourcePath);
 				if (fileInfo.Exists)
 				{
 					return fileInfo.Length;
@@ -727,7 +727,7 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 
 				if (selectedCount > 0 && selectedCount <= 3)
 				{
-					List<string> trackSummaries = new List<string>();
+					List<string> trackSummaries = new();
 					foreach (ChosenSourceSubtitle subtitle in chosenSourceSubtitles)
 					{
 						if (subtitle.Name == null)
@@ -760,7 +760,7 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 
 				if (fileSubtitles.Count <= 3)
 				{
-					List<string> trackSummaries = new List<string>();
+					List<string> trackSummaries = new();
 					foreach (FileSubtitle subtitle in fileSubtitles)
 					{
 						trackSummaries.Add(HandBrakeLanguagesHelper.GetByCode(subtitle.LanguageCode).Display);

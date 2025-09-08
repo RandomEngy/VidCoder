@@ -25,15 +25,15 @@ public class QueueWorkTracker : ReactiveObject
 	private long pollCount;
 	private bool diagnosticsLogged;
 	private long completedItems;
-	private readonly object trackerLock = new object();
+	private readonly object trackerLock = new();
 	private const int EtaSimulationJobCount = 10;
 
-	private BehaviorSubject<long> completedItemsSubject = new BehaviorSubject<long>(0);
+	private BehaviorSubject<long> completedItemsSubject = new(0);
 
 	/// <summary>
 	/// All work since starting encoding that has finished or is still in the queue.
 	/// </summary>
-	private readonly List<JobWork> queuedWork = new List<JobWork>();
+	private readonly List<JobWork> queuedWork = new();
 
 	/// <summary>
 	/// The overall work completion rate in cost units per second.

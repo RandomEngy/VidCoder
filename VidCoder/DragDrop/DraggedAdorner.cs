@@ -69,7 +69,7 @@ public class DraggedAdorner : Adorner
 
 	public override GeneralTransform GetDesiredTransform(GeneralTransform transform)
 	{
-		GeneralTransformGroup result = new GeneralTransformGroup();
+		GeneralTransformGroup result = new();
 		result.Children.Add(base.GetDesiredTransform(transform));
 		result.Children.Add(new TranslateTransform(this.left, this.top));
 

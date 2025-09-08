@@ -48,7 +48,7 @@ public class ColumnsDialogViewModel : OkCancelDialogViewModel
 	{
 		get
 		{
-			Dictionary<string, double> oldColumnSizeDict = new Dictionary<string, double>();
+			Dictionary<string, double> oldColumnSizeDict = new();
 			foreach ((string columnId, double width) oldColumn in this.oldColumns)
 			{
 				oldColumnSizeDict.Add(oldColumn.columnId, oldColumn.width);

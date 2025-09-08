@@ -15,7 +15,7 @@ public class AppLogger : IAppLogger
 {
 	private FileStream logFileStream;
 	private readonly IAppLogger parent;
-	private readonly object disposeLock = new object();
+	private readonly object disposeLock = new();
 
 	public event EventHandler<EventArgs<LoggedEntry>> EntryLogged;
 

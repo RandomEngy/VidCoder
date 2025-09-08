@@ -83,7 +83,7 @@ public class JsonEncodeFactory
 			throw new ArgumentException("job must have encoding profile.", nameof(job));
 		}
 		
-		JsonEncodeObject encode = new JsonEncodeObject
+		JsonEncodeObject encode = new()
 		{
 			SequenceID = 0,
 			Audio = this.CreateAudio(job, title),
@@ -109,7 +109,7 @@ public class JsonEncodeFactory
 	{
 		ResolvedAudio resolvedAudio = ResolveAudio(job, title);
 
-		Audio audio = new Audio
+		Audio audio = new()
 		{
 			FallbackEncoder = resolvedAudio.FallbackEncoder?.ShortName,
 			CopyMask = resolvedAudio.CopyMask,
@@ -445,7 +445,7 @@ public class JsonEncodeFactory
 
 	private Filters CreateFilters(VCProfile profile, SourceTitle title, OutputSizeInfo outputSizeInfo)
 	{
-		Filters filters = new Filters
+		Filters filters = new()
 		{
 			FilterList = new List<Filter>(),
 		};
@@ -456,7 +456,7 @@ public class JsonEncodeFactory
 			string settingsString = profile.Detelecine == "custom" ? profile.CustomDetelecine : null;
 			string presetString = profile.Detelecine == "custom" ? "custom" : "default";
 
-			Filter filterItem = new Filter
+			Filter filterItem = new()
 			{
 				ID = (int)hb_filter_ids.HB_FILTER_DETELECINE,
 				Settings = this.GetFilterSettingsPresetOnly(hb_filter_ids.HB_FILTER_DETELECINE, presetString, settingsString)
@@ -481,7 +481,7 @@ public class JsonEncodeFactory
 
 			if (settings != null)
 			{
-				Filter filterItem = new Filter { ID = (int)filterId, Settings = settings };
+				Filter filterItem = new() { ID = (int)filterId, Settings = settings };
 				filters.FilterList.Add(filterItem); 
 			}
 		}
@@ -501,7 +501,7 @@ public class JsonEncodeFactory
 
 			if (settings != null)
 			{
-				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_COMB_DETECT, Settings = settings };
+				Filter filterItem = new() { ID = (int)hb_filter_ids.HB_FILTER_COMB_DETECT, Settings = settings };
 				filters.FilterList.Add(filterItem);
 			}
 		}
@@ -539,7 +539,7 @@ public class JsonEncodeFactory
 					HandBrakeUnitConversionHelpers.FramerateToVrate(profile.Framerate));
 			}
 
-			Filter framerateShaper = new Filter { ID = (int)hb_filter_ids.HB_FILTER_VFR, Settings = framerateSettings };
+			Filter framerateShaper = new() { ID = (int)hb_filter_ids.HB_FILTER_VFR, Settings = framerateSettings };
 			filters.FilterList.Add(framerateShaper);
 		}
 
@@ -560,7 +560,7 @@ public class JsonEncodeFactory
 
 			if (settings != null)
 			{
-				Filter filterItem = new Filter { ID = (int)filterId, Settings = settings };
+				Filter filterItem = new() { ID = (int)filterId, Settings = settings };
 				filters.FilterList.Add(filterItem);
 			}
 		}
@@ -580,7 +580,7 @@ public class JsonEncodeFactory
 
 			if (settings != null)
 			{
-				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_CHROMA_SMOOTH, Settings = settings };
+				Filter filterItem = new() { ID = (int)hb_filter_ids.HB_FILTER_CHROMA_SMOOTH, Settings = settings };
 				filters.FilterList.Add(filterItem);
 			}
 		}
@@ -602,7 +602,7 @@ public class JsonEncodeFactory
 
 			if (settings != null)
 			{
-				Filter filterItem = new Filter { ID = (int)filterId, Settings = settings };
+				Filter filterItem = new() { ID = (int)filterId, Settings = settings };
 				filters.FilterList.Add(filterItem);
 			}
 		}
@@ -622,7 +622,7 @@ public class JsonEncodeFactory
 
 			if (settings != null)
 			{
-				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_DEBLOCK, Settings = settings };
+				Filter filterItem = new() { ID = (int)hb_filter_ids.HB_FILTER_DEBLOCK, Settings = settings };
 				filters.FilterList.Add(filterItem);
 			}
 		}
@@ -642,7 +642,7 @@ public class JsonEncodeFactory
 
 			if (settings != null)
 			{
-				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_COLORSPACE, Settings = settings };
+				Filter filterItem = new() { ID = (int)hb_filter_ids.HB_FILTER_COLORSPACE, Settings = settings };
 				filters.FilterList.Add(filterItem);
 			}
 		}
@@ -661,7 +661,7 @@ public class JsonEncodeFactory
 				cropping.Left,
 				cropping.Right));
 
-		Filter cropScale = new Filter
+		Filter cropScale = new()
 		{
 			ID = (int)hb_filter_ids.HB_FILTER_CROP_SCALE,
 			Settings = cropFilterSettings
@@ -696,7 +696,7 @@ public class JsonEncodeFactory
 					rotateDegrees,
 					flipHorizontal ? 1 : 0));
 
-			Filter rotateFilter = new Filter
+			Filter rotateFilter = new()
 			{
 				ID = (int)hb_filter_ids.HB_FILTER_ROTATE,
 				Settings = rotateSettings
@@ -707,7 +707,7 @@ public class JsonEncodeFactory
 		// Grayscale
 		if (profile.Grayscale)
 		{
-			Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_GRAYSCALE, Settings = null };
+			Filter filterItem = new() { ID = (int)hb_filter_ids.HB_FILTER_GRAYSCALE, Settings = null };
 			filters.FilterList.Add(filterItem);
 		}
 
@@ -722,7 +722,7 @@ public class JsonEncodeFactory
 
 			if (padColor.Length == 3)
 			{
-				StringBuilder builder = new StringBuilder();
+				StringBuilder builder = new();
 				foreach (char c in padColor)
 				{
 					builder.Append(c);
@@ -735,7 +735,7 @@ public class JsonEncodeFactory
 			JsonDocument padSettings = this.GetFilterSettingsCustom(
 				hb_filter_ids.HB_FILTER_PAD,
 				FormattableString.Invariant($"width={outputSizeInfo.OutputWidth}:height={outputSizeInfo.OutputHeight}:x={outputSizeInfo.Padding.Left}:y={outputSizeInfo.Padding.Top}:color=0x{padColor}"));
-			Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_PAD, Settings = padSettings };
+			Filter filterItem = new() { ID = (int)hb_filter_ids.HB_FILTER_PAD, Settings = padSettings };
 			filters.FilterList.Add(filterItem);
 		}
 
@@ -860,7 +860,7 @@ public class JsonEncodeFactory
 
 	private Subtitles CreateSubtitles(VCJob job, SourceTitle title)
 	{
-		Subtitles subtitles = new Subtitles
+		Subtitles subtitles = new()
 		{
 			Search =
 				new SubtitleSearch
@@ -904,7 +904,7 @@ public class JsonEncodeFactory
 					name = null;
 				}
 
-				SubtitleTrack track = new SubtitleTrack
+				SubtitleTrack track = new()
 				{
 					Burn = sourceSubtitle.BurnedIn,
 					Default = sourceSubtitle.Default,
@@ -919,7 +919,7 @@ public class JsonEncodeFactory
 
 		foreach (FileSubtitle fileSubtitle in job.Subtitles.FileSubtitles)
 		{
-			SubtitleTrack track = new SubtitleTrack
+			SubtitleTrack track = new()
 			{
 				Track = -1, // Indicates SRT
 				Name = fileSubtitle.Name,
@@ -950,7 +950,7 @@ public class JsonEncodeFactory
 		int previewLengthSeconds,
 		bool isEncode)
 	{
-		Video video = new Video();
+		Video video = new();
 		VCProfile profile = job.EncodingProfile;
 
 		HBVideoEncoder videoEncoder = HandBrakeEncoderHelpers.GetVideoEncoder(profile.VideoEncoder);

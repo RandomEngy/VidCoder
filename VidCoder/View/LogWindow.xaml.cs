@@ -45,13 +45,13 @@ public partial class LogWindow : Window
 	private readonly IAppThemeService appThemeService = StaticResolver.Resolve<IAppThemeService>();
 	private readonly LogCoordinator logCoordinator = StaticResolver.Resolve<LogCoordinator>();
 
-	private readonly Queue<LoggedEntry> pendingEntries = new Queue<LoggedEntry>();
+	private readonly Queue<LoggedEntry> pendingEntries = new();
 	private bool workerRunning;
-	private readonly object pendingEntriesLock = new object();
+	private readonly object pendingEntriesLock = new();
 
 	private IAppLogger logger;
 
-	private readonly List<LogChunk> chunks = new List<LogChunk>();
+	private readonly List<LogChunk> chunks = new();
 	private int loadedChunkStart = 0;
 	private int loadedChunkCount = 0;
 	private double averageLineHeight = 0;
@@ -59,7 +59,7 @@ public partial class LogWindow : Window
 	private bool fileLoadFailed = false;
 	private bool suppressScrollListener = false;
 
-	private readonly Dictionary<LogColor, Brush> logColorBrushMapping = new Dictionary<LogColor, Brush>();
+	private readonly Dictionary<LogColor, Brush> logColorBrushMapping = new();
 
 	public LogWindow()
 	{
@@ -631,7 +631,7 @@ public partial class LogWindow : Window
 
 	private Run CreateLogGroupRun(ColoredLogGroup group)
 	{
-		StringBuilder runText = new StringBuilder();
+		StringBuilder runText = new();
 
 		foreach (string entry in group.Entries)
 		{

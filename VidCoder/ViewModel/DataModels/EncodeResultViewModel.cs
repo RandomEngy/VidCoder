@@ -177,7 +177,7 @@ public class EncodeResultViewModel : ReactiveObject
 					long inputFileSizeBytes = 0;
 					try
 					{
-						FileInfo inputFileInfo = new FileInfo(this.Job.Job.SourcePath);
+						FileInfo inputFileInfo = new(this.Job.Job.SourcePath);
 						if (!inputFileInfo.Exists)
 						{
 							StaticResolver.Resolve<IMessageBoxService>().Show(this.main, CommonRes.FileNoLongerExists);

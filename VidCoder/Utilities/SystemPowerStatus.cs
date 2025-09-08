@@ -11,7 +11,7 @@ public static class SystemPowerStatus
 {
 	public static PowerState GetPowerState()
 	{
-		PowerState state = new PowerState();
+		PowerState state = new();
 		if (GetSystemPowerStatusRef(state))
 		{
 			return state;
@@ -35,7 +35,7 @@ public static class SystemPowerStatus
 
 		public static PowerState GetPowerState()
 		{
-			PowerState state = new PowerState();
+			PowerState state = new();
 			if (GetSystemPowerStatusRef(state))
 			{
 				return state;

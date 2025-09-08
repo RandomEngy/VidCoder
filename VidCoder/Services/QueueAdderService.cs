@@ -26,12 +26,12 @@ public class QueueAdderService : ReactiveObject
 	/// </summary>
 	private const int QueueAddChunkSize = 5;
 
-	private readonly Queue<PendingScan> pendingScans = new Queue<PendingScan>();
-	private readonly List<ScanResult> scanResults = new List<ScanResult>();
-	private readonly List<string> failedFiles = new List<string>();
+	private readonly Queue<PendingScan> pendingScans = new();
+	private readonly List<ScanResult> scanResults = new();
+	private readonly List<string> failedFiles = new();
 	private int scansCompletedThisSession = 0;
 	private float currentJobProgress;
-	private object sync = new object();
+	private object sync = new();
 	private IScanProxy scanProxy;
 	private IAppLogger scanLogger;
 	private int scansDoneOnCurrentScanProxy;

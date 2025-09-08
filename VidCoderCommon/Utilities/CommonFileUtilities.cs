@@ -17,7 +17,7 @@ public static class CommonFileUtilities
 
 		try
 		{
-			DirectoryInfo directoryInfo = new DirectoryInfo(directory);
+			DirectoryInfo directoryInfo = new(directory);
 			GetFilesOrVideoFoldersRecursive(directoryInfo, paths, inacessibleDirectories, fileFilter);
 		}
 		catch

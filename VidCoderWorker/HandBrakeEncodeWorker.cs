@@ -23,7 +23,7 @@ public class HandBrakeEncodeWorker : HandBrakeWorkerBase<IHandBrakeEncodeWorkerC
 	// This is the pass ID we last set CPU affinity for.
 	private int lastSetAffinityPassId = -2;
 
-	private readonly object encodeLock = new object();
+	private readonly object encodeLock = new();
 	private EncodeState state = EncodeState.NotStarted;
 
 	public HandBrakeEncodeWorker(IPipeInvoker<IHandBrakeEncodeWorkerCallback> callback)
@@ -56,7 +56,7 @@ public class HandBrakeEncodeWorker : HandBrakeWorkerBase<IHandBrakeEncodeWorkerC
 				SourceTitle encodeTitle = scanObject.TitleList.FirstOrDefault(title => title.Index == job.Title);
 				if (encodeTitle != null)
 				{
-					JsonEncodeFactory factory = new JsonEncodeFactory(this.Logger);
+					JsonEncodeFactory factory = new(this.Logger);
 
 					JsonEncodeObject encodeObject = factory.CreateJsonObject(
 						job,

@@ -16,20 +16,20 @@ public class EnumDisplayer : IValueConverter
 	private Type type;
 	private IDictionary displayValues;
 	private IDictionary reverseValues;
-	private static Dictionary<string, string> overriddenDisplayEntries = new Dictionary<string, string>
+	private static Dictionary<string, string> overriddenDisplayEntries = new()
 	{
 		{ "Off", EnumsRes.Off },
 		{ "Default", EnumsRes.Default },
 		{ "Custom", EnumsRes.Custom },
 	};
-	private static Dictionary<string, string> resourceAliases = new Dictionary<string, string>
+	private static Dictionary<string, string> resourceAliases = new()
 	{
 		{ "VCAnamorphic", "Anamorphic" },
 		{ "VCDeinterlace", "Deinterlace" },
 		{ "VCDecomb", "Decomb" },
 	};
 
-	private static ResourceManager enumResourceManager = new ResourceManager(typeof(EnumsRes));
+	private static ResourceManager enumResourceManager = new(typeof(EnumsRes));
 
 	public EnumDisplayer()
 	{
@@ -107,7 +107,7 @@ public class EnumDisplayer : IValueConverter
 		DisplayAttribute displayAttribute = attributes[0];
 		if (displayAttribute.ResourceType != null)
 		{
-			ResourceManager resourceManager = new ResourceManager(displayAttribute.ResourceType);
+			ResourceManager resourceManager = new(displayAttribute.ResourceType);
 			return resourceManager.GetString(displayAttribute.Name);
 		}
 

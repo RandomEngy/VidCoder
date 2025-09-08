@@ -76,12 +76,12 @@ public class ProcessingService : ReactiveObject
 	private bool selectedQueueItemModifyable = true;
 	private BehaviorSubject<bool> selectedQueueItemModifyableSubject;
 	private IDisposable simultaneousJobsSubscription;
-	private TaskCompletionSource queueReadyTcs = new TaskCompletionSource();
+	private TaskCompletionSource queueReadyTcs = new();
 
 	/// <summary>
 	/// Recently succeeded jobs. Used by the Watcher to determine if a recently detected file should be enqueued or marked as an output file.
 	/// </summary>
-	private Dictionary<string, DateTimeOffset> recentlySucceeded = new Dictionary<string, DateTimeOffset>(StringComparer.OrdinalIgnoreCase);
+	private Dictionary<string, DateTimeOffset> recentlySucceeded = new(StringComparer.OrdinalIgnoreCase);
 
 	public ProcessingService()
 	{
@@ -332,7 +332,7 @@ public class ProcessingService : ReactiveObject
 
 	public ObservableCollectionExtended<EncodeJobViewModel> EncodeQueueBindable { get; } = new ObservableCollectionExtended<EncodeJobViewModel>();
 
-	private readonly SourceList<EncodeJobViewModel> encodingJobList = new SourceList<EncodeJobViewModel>();
+	private readonly SourceList<EncodeJobViewModel> encodingJobList = new();
 
 	public IEnumerable<EncodeJobViewModel> EncodingJobs
 	{
@@ -1335,7 +1335,7 @@ public class ProcessingService : ReactiveObject
 			throw new ArgumentException("Cannot find preset: " + presetName);
 		}
 
-		JobPreset preset = new JobPreset
+		JobPreset preset = new()
 		{
 			Name = presetName,
 			Profile = profile
@@ -1372,7 +1372,7 @@ public class ProcessingService : ReactiveObject
 			return;
 		}
 
-		JobPreset preset = new JobPreset
+		JobPreset preset = new()
 		{
 			Name = presetName,
 			Profile = profile,
@@ -2165,7 +2165,7 @@ public class ProcessingService : ReactiveObject
 		await this.queueReadyTcs.Task.ConfigureAwait(false);
 	}
 
-	private BehaviorSubject<bool> canPauseOrStopSubject = new BehaviorSubject<bool>(false);
+	private BehaviorSubject<bool> canPauseOrStopSubject = new(false);
 
 	private void OnEncodeStarted(EncodeJobViewModel jobViewModel)
 	{
@@ -2894,20 +2894,20 @@ public class ProcessingService : ReactiveObject
 			this.encodeCompleteActions =
 				new List<EncodeCompleteAction>
 				{
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.DoNothing, Trigger = EncodeCompleteTrigger.None },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.CloseProgram, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Sleep, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.LogOff, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Hibernate, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Shutdown, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Restart, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.StopEncoding, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.CloseProgram, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Sleep, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.LogOff, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Hibernate, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Shutdown, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Restart, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.DoNothing, Trigger = EncodeCompleteTrigger.None },
+					new() { ActionType = EncodeCompleteActionType.CloseProgram, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.Sleep, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.LogOff, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.Hibernate, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.Shutdown, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.Restart, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.StopEncoding, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.CloseProgram, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.Sleep, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.LogOff, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.Hibernate, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.Shutdown, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.Restart, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
 				};
 		}
 		else
@@ -2917,13 +2917,13 @@ public class ProcessingService : ReactiveObject
 			this.encodeCompleteActions =
 				new List<EncodeCompleteAction>
 				{
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.DoNothing },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.CloseProgram, Trigger = EncodeCompleteTrigger.DoneWithQueue },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Sleep, Trigger = EncodeCompleteTrigger.DoneWithQueue },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.LogOff, Trigger = EncodeCompleteTrigger.DoneWithQueue },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Hibernate, Trigger = EncodeCompleteTrigger.DoneWithQueue },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Shutdown, Trigger = EncodeCompleteTrigger.DoneWithQueue },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Restart, Trigger = EncodeCompleteTrigger.DoneWithQueue },
+					new() { ActionType = EncodeCompleteActionType.DoNothing },
+					new() { ActionType = EncodeCompleteActionType.CloseProgram, Trigger = EncodeCompleteTrigger.DoneWithQueue },
+					new() { ActionType = EncodeCompleteActionType.Sleep, Trigger = EncodeCompleteTrigger.DoneWithQueue },
+					new() { ActionType = EncodeCompleteActionType.LogOff, Trigger = EncodeCompleteTrigger.DoneWithQueue },
+					new() { ActionType = EncodeCompleteActionType.Hibernate, Trigger = EncodeCompleteTrigger.DoneWithQueue },
+					new() { ActionType = EncodeCompleteActionType.Shutdown, Trigger = EncodeCompleteTrigger.DoneWithQueue },
+					new() { ActionType = EncodeCompleteActionType.Restart, Trigger = EncodeCompleteTrigger.DoneWithQueue },
 				};
 		}
 
@@ -3612,17 +3612,17 @@ public class ProcessingService : ReactiveObject
 		// Enumerate the files in the directory and use regex to find the subtitle files
 		// Use FileUtilities.SubtitleExtensions to get the list of valid subtitle extensions
 
-		List<FileSubtitle> result = new List<FileSubtitle>();
+		List<FileSubtitle> result = new();
 
 		try
 		{
 			string extensionList = string.Join("|", FileUtilities.SubtitleExtensions.Select(ext => ext.Substring(1)));
 
 			string languageRegexPattern = "^.+\\.(?<language>[a-zA-Z]{3})\\.(?:" + extensionList + ")$";
-			Regex langaugeRegex = new Regex(languageRegexPattern, RegexOptions.IgnoreCase);
+			Regex langaugeRegex = new(languageRegexPattern, RegexOptions.IgnoreCase);
 
 			string noLanguageRegexPattern = "^.+\\.(?:" + extensionList + ")$";
-			Regex noLanguageRegex = new Regex(noLanguageRegexPattern, RegexOptions.IgnoreCase);
+			Regex noLanguageRegex = new(noLanguageRegexPattern, RegexOptions.IgnoreCase);
 
 			string directory = Path.GetDirectoryName(sourcePath);
 			string fileName = Path.GetFileNameWithoutExtension(sourcePath);

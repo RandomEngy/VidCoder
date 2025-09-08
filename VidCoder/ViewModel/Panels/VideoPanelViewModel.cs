@@ -25,9 +25,9 @@ public class VideoPanelViewModel : PanelViewModel
 	private const int DefaultVideoBitrateKbps = 900;
 	private const int DefaultTargetSizeMB = 700;
 
-	private static readonly HashSet<string> CheckBoxTunes = new HashSet<string> { "fastdecode", "zerolatency" }; 
+	private static readonly HashSet<string> CheckBoxTunes = new() { "fastdecode", "zerolatency" }; 
 
-	private ResourceManager resourceManager = new ResourceManager(typeof(EncodingRes));
+	private ResourceManager resourceManager = new(typeof(EncodingRes));
 
 	private OutputPathService outputPathService = StaticResolver.Resolve<OutputPathService>();
 	private MainViewModel main = StaticResolver.Resolve<MainViewModel>();
@@ -670,7 +670,7 @@ public class VideoPanelViewModel : PanelViewModel
 			{
 				if (this.MainViewModel.HasVideoSource && this.MainViewModel.JobCreationAvailable && this.VideoBitrate > 0)
 				{
-					JsonEncodeFactory factory = new JsonEncodeFactory(new StubLogger());
+					JsonEncodeFactory factory = new(new StubLogger());
 
 					double estimatedSizeBytes = factory.CalculateFileSize(this.MainViewModel.EncodeJob, this.MainViewModel.SelectedTitle.Title, this.VideoBitrate);
 					this.displayTargetSize = Math.Round(estimatedSizeBytes, 1);
@@ -705,7 +705,7 @@ public class VideoPanelViewModel : PanelViewModel
 			{
 				if (this.MainViewModel.HasVideoSource && this.MainViewModel.JobCreationAvailable && this.TargetSize > 0)
 				{
-					JsonEncodeFactory factory = new JsonEncodeFactory(new StubLogger());
+					JsonEncodeFactory factory = new(new StubLogger());
 					this.displayVideoBitrate = factory.CalculateBitrate(this.MainViewModel.EncodeJob, this.MainViewModel.SelectedTitle.Title, this.TargetSize);
 				}
 				else
@@ -1219,7 +1219,7 @@ public class VideoPanelViewModel : PanelViewModel
 		{
 			this.profileChoices = new List<ComboChoice>
 			{
-				new ComboChoice(null, CommonRes.Automatic)
+				new(null, CommonRes.Automatic)
 			};
 
 			foreach (string profile in profiles)
@@ -1255,7 +1255,7 @@ public class VideoPanelViewModel : PanelViewModel
 		{
 			this.tuneChoices = new List<ComboChoice>
 			{
-				new ComboChoice(null, CommonRes.None)
+				new(null, CommonRes.None)
 			};
 
 			foreach (string tune in tunes)
@@ -1291,7 +1291,7 @@ public class VideoPanelViewModel : PanelViewModel
 		{
 			this.levelChoices = new List<LevelChoiceViewModel>
 			{
-				new LevelChoiceViewModel(null, CommonRes.Automatic)
+				new(null, CommonRes.Automatic)
 			};
 
 			foreach (string level in levels.Skip(1))

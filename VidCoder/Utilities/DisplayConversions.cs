@@ -5,7 +5,7 @@ namespace VidCoder;
 
 public static class DisplayConversions
 {
-	private static EnumStringConverter<TitleType> titleTypeConverter = new EnumStringConverter<TitleType>();
+	private static EnumStringConverter<TitleType> titleTypeConverter = new();
 
 	public static string DisplayTitleType(TitleType titleType)
 	{

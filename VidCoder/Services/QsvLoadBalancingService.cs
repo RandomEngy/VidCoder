@@ -10,7 +10,7 @@ namespace VidCoder.Services;
 
 public class QsvLoadBalancingService
 {
-	private List<int> qsvGpus = new List<int>();
+	private List<int> qsvGpus = new();
 	private int currentGpuIndex = -1;
 
 	public QsvLoadBalancingService()

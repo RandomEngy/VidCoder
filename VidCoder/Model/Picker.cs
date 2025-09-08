@@ -78,7 +78,7 @@ namespace VidCoder.Model;
 	/// </summary>
 	public string WordSeparator { get; set; } = " ";
 
-	private List<string> wordBreakCharacters = new List<string> { " ", "_" };
+	private List<string> wordBreakCharacters = new() { " ", "_" };
 
 	/// <summary>
 	/// The characters to use to separate words in titles.

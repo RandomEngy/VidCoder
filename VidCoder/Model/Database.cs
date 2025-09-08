@@ -23,11 +23,11 @@ public static class Database
 {
 	private const string BackupFolderName = "Backups";
 
-	private static ThreadLocal<SQLiteConnection> threadLocalConnection = new ThreadLocal<SQLiteConnection>(trackAllValues: true);
+	private static ThreadLocal<SQLiteConnection> threadLocalConnection = new(trackAllValues: true);
 
 	private static long mainThreadId;
 
-	private static Lazy<string> lazyDatabaseFile = new Lazy<string>(GetDatabaseFilePath);
+	private static Lazy<string> lazyDatabaseFile = new(GetDatabaseFilePath);
 
 	public static void Initialize()
 	{
@@ -231,14 +231,14 @@ public static class Database
 	/// <returns>The best version match.</returns>
 	private static int FindBackupDatabaseFile()
 	{
-		DirectoryInfo backupDirectoryInfo = new DirectoryInfo(BackupDatabaseFolder);
+		DirectoryInfo backupDirectoryInfo = new(BackupDatabaseFolder);
 		if (!backupDirectoryInfo.Exists)
 		{
 			return -1;
 		}
 
 		FileInfo[] backupFiles = backupDirectoryInfo.GetFiles();
-		Regex regex = new Regex(@"^VidCoder-v(?<version>\d+)\.sqlite$");
+		Regex regex = new(@"^VidCoder-v(?<version>\d+)\.sqlite$");
 
 		int bestCandidate = -1;
 		foreach (FileInfo backupFile in backupFiles)

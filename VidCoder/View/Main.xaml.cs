@@ -68,7 +68,7 @@ public partial class Main : Window, IMainView
 
 	private bool tabsVisible = false;
 
-	private readonly List<IDisposable> discOpenCommands = new List<IDisposable>();
+	private readonly List<IDisposable> discOpenCommands = new();
 
 	public static System.Windows.Threading.Dispatcher TheDispatcher;
 
@@ -143,7 +143,7 @@ public partial class Main : Window, IMainView
 		var loadScanFromJsonItem = new Fluent.MenuItem {Header = "Load scan from JSON..."};
 		loadScanFromJsonItem.Click += (sender, args) =>
 		{
-			DebugJsonDialog dialog = new DebugJsonDialog("Debug Scan JSON");
+			DebugJsonDialog dialog = new("Debug Scan JSON");
 			dialog.ShowDialog();
 			if (!string.IsNullOrWhiteSpace(dialog.Json))
 			{
@@ -170,7 +170,7 @@ public partial class Main : Window, IMainView
 			}
 
 			EncodeJobViewModel jobViewModel = this.viewModel.CreateEncodeJobVM();
-			DebugJsonDialog dialog = new DebugJsonDialog("Debug Encode JSON");
+			DebugJsonDialog dialog = new("Debug Encode JSON");
 			dialog.ShowDialog();
 
 			if (!string.IsNullOrWhiteSpace(dialog.Json))

@@ -15,7 +15,7 @@ public class SupportLogger : IBasicLogger
 {
 	private StreamWriter logWriter;
 
-	private object sync = new object();
+	private object sync = new();
 
 	public SupportLogger(string type)
 	{

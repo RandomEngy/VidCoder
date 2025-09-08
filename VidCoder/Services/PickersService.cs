@@ -42,7 +42,7 @@ public class PickersService : ReactiveObject
 		Picker modifiedPicker = storedPickers.FirstOrDefault(picker => picker.IsModified);
 		int modifiedPickerIndex = -1;
 
-		Picker nonePicker = new Picker
+		Picker nonePicker = new()
 		{
 			IsDefault = true,
 			Name = string.Empty
@@ -303,7 +303,7 @@ public class PickersService : ReactiveObject
 
 	public void AutoCreatePicker()
 	{
-		Picker newPicker = new Picker();
+		Picker newPicker = new();
 		newPicker.Name = PickerStorage.CreateCustomPickerName(this.Pickers.Select(p => p.Picker).ToList());
 
 		var newPickerVM = new PickerViewModel(newPicker);
@@ -338,7 +338,7 @@ public class PickersService : ReactiveObject
 
 	public void SavePickersToStorage()
 	{
-		List<Picker> storagePickers = new List<Picker>();
+		List<Picker> storagePickers = new();
 		foreach (PickerViewModel pickerVM in this.pickers)
 		{
 			if (!pickerVM.Picker.IsDefault)

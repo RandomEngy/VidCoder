@@ -21,11 +21,11 @@ public class HandBrakeWorkerBase<TCallback> : IHandBrakeWorker
 	private double currentCpuThrottlingFraction;
 
 	// Batch log messages so the pipe messaging back to UI process is less chatty
-	private readonly List<string> logMessageList = new List<string>();
+	private readonly List<string> logMessageList = new();
 
 	private bool logMessageSendScheduled;
 
-	private readonly object logListLock = new object();
+	private readonly object logListLock = new();
 
 	public HandBrakeWorkerBase(IPipeInvoker<TCallback> callback)
 	{

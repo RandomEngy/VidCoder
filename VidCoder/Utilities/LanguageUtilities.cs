@@ -12,7 +12,7 @@ namespace VidCoder;
 
 public static class LanguageUtilities
 {
-	private static List<string> popularLanguages = new List<string>
+	private static List<string> popularLanguages = new()
 	{
 		"eng",
 		"zho",

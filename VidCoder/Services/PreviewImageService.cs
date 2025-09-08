@@ -34,7 +34,7 @@ namespace VidCoder.Services;
 	private int previewCount;
 	private DateTime lastImageRefreshTime;
     private System.Timers.Timer previewImageRefreshTimer;
-    private Queue<PreviewImageJob> previewImageWorkQueue = new Queue<PreviewImageJob>();
+    private Queue<PreviewImageJob> previewImageWorkQueue = new();
 	private bool previewImageQueueProcessing;
     private BitmapSource[] previewImageCache;
     private bool waitingOnRefresh;
@@ -42,9 +42,9 @@ namespace VidCoder.Services;
 
     private IDisposable presetsSubscription;
 
-	private readonly SourceList<PreviewImageServiceClient> clients = new SourceList<PreviewImageServiceClient>();
+	private readonly SourceList<PreviewImageServiceClient> clients = new();
 
-	private object imageSync = new object();
+	private object imageSync = new();
     private List<object> imageFileSync;
 
 	private readonly OutputSizeService outputSizeService = StaticResolver.Resolve<OutputSizeService>();
@@ -478,7 +478,7 @@ namespace VidCoder.Services;
 		    if (imageSource == null && !imageJob.ScanInstance.IsDisposed)
 		    {
 				// Create the JsonEncodeObject
-				JsonEncodeFactory factory = new JsonEncodeFactory(new StubLogger());
+				JsonEncodeFactory factory = new(new StubLogger());
 
 				JsonEncodeObject jsonEncodeObject = factory.CreateJsonObject(
 					imageJob.Job,

@@ -129,56 +129,56 @@ public class OptionsDialogViewModel : ReactiveObject
 		this.LanguageChoices =
 			new List<InterfaceLanguage>
 				{
-					new InterfaceLanguage { CultureCode = string.Empty, Display = OptionsRes.UseOSLanguage },
-					new InterfaceLanguage { CultureCode = "en-US", Display = "English" },
-					new InterfaceLanguage { CultureCode = "id-ID", Display = "Bahasa Indonesia / Indonesian" },
-					new InterfaceLanguage { CultureCode = "bs-Latn-BA", Display = "bosanski (Bosna i Hercegovina) / Bosnian (Latin)" },
-					new InterfaceLanguage { CultureCode = "ca-ES", Display = "català / Catalan" },
-					new InterfaceLanguage { CultureCode = "cs-CZ", Display = "čeština / Czech" },
-					new InterfaceLanguage { CultureCode = "de-DE", Display = "Deutsch / German" },
-					new InterfaceLanguage { CultureCode = "es-ES", Display = "Español / Spanish" },
-					new InterfaceLanguage { CultureCode = "eu-ES", Display = "Euskara / Basque" },
-					new InterfaceLanguage { CultureCode = "fr-FR", Display = "Français / French" },
-					new InterfaceLanguage { CultureCode = "it-IT", Display = "italiano / Italian" },
-					new InterfaceLanguage { CultureCode = "hr-HR", Display = "hrvatski / Croatian" },
-					new InterfaceLanguage { CultureCode = "hu-HU", Display = "Magyar / Hungarian" },
-					new InterfaceLanguage { CultureCode = "nl-BE", Display = "Nederlands / Dutch" },
-					new InterfaceLanguage { CultureCode = "pl-PL", Display = "polski / Polish" },
-					new InterfaceLanguage { CultureCode = "pt-PT", Display = "Português / Portuguese" },
-					new InterfaceLanguage { CultureCode = "pt-BR", Display = "Português (Brasil) / Portuguese (Brazil)" },
-					new InterfaceLanguage { CultureCode = "tr-TR", Display = "Türkçe / Turkish" },
-					new InterfaceLanguage { CultureCode = "vi-VN", Display = "Tiếng Việt / Vietnamese" },
-					new InterfaceLanguage { CultureCode = "ar-EG", Display = "العربية‏ / Arabic" },
-					new InterfaceLanguage { CultureCode = "ka-GE", Display = "ქართული / Georgian" },
-					new InterfaceLanguage { CultureCode = "el-GR", Display = "ελληνικά / Greek" },
-					new InterfaceLanguage { CultureCode = "ru-RU", Display = "русский / Russian" },
-					new InterfaceLanguage { CultureCode = "ko-KO", Display = "한국어 / Korean" },
-					new InterfaceLanguage { CultureCode = "zh-Hans", Display = "中文(简体) / Chinese (Simplified)" },
-					new InterfaceLanguage { CultureCode = "zh-Hant", Display = "中文(繁體) / Chinese (Traditional)" },
-					new InterfaceLanguage { CultureCode =  "ja-JP", Display = "日本語 / Japanese" },
+					new() { CultureCode = string.Empty, Display = OptionsRes.UseOSLanguage },
+					new() { CultureCode = "en-US", Display = "English" },
+					new() { CultureCode = "id-ID", Display = "Bahasa Indonesia / Indonesian" },
+					new() { CultureCode = "bs-Latn-BA", Display = "bosanski (Bosna i Hercegovina) / Bosnian (Latin)" },
+					new() { CultureCode = "ca-ES", Display = "català / Catalan" },
+					new() { CultureCode = "cs-CZ", Display = "čeština / Czech" },
+					new() { CultureCode = "de-DE", Display = "Deutsch / German" },
+					new() { CultureCode = "es-ES", Display = "Español / Spanish" },
+					new() { CultureCode = "eu-ES", Display = "Euskara / Basque" },
+					new() { CultureCode = "fr-FR", Display = "Français / French" },
+					new() { CultureCode = "it-IT", Display = "italiano / Italian" },
+					new() { CultureCode = "hr-HR", Display = "hrvatski / Croatian" },
+					new() { CultureCode = "hu-HU", Display = "Magyar / Hungarian" },
+					new() { CultureCode = "nl-BE", Display = "Nederlands / Dutch" },
+					new() { CultureCode = "pl-PL", Display = "polski / Polish" },
+					new() { CultureCode = "pt-PT", Display = "Português / Portuguese" },
+					new() { CultureCode = "pt-BR", Display = "Português (Brasil) / Portuguese (Brazil)" },
+					new() { CultureCode = "tr-TR", Display = "Türkçe / Turkish" },
+					new() { CultureCode = "vi-VN", Display = "Tiếng Việt / Vietnamese" },
+					new() { CultureCode = "ar-EG", Display = "العربية‏ / Arabic" },
+					new() { CultureCode = "ka-GE", Display = "ქართული / Georgian" },
+					new() { CultureCode = "el-GR", Display = "ελληνικά / Greek" },
+					new() { CultureCode = "ru-RU", Display = "русский / Russian" },
+					new() { CultureCode = "ko-KO", Display = "한국어 / Korean" },
+					new() { CultureCode = "zh-Hans", Display = "中文(简体) / Chinese (Simplified)" },
+					new() { CultureCode = "zh-Hant", Display = "中文(繁體) / Chinese (Traditional)" },
+					new() { CultureCode =  "ja-JP", Display = "日本語 / Japanese" },
 				};
 
 		this.AppThemeChoices = 
 			new List<ComboChoice<AppThemeChoice>>
 			{
-				new ComboChoice<AppThemeChoice>(AppThemeChoice.Auto, EnumsRes.AppThemeChoice_Auto),
-				new ComboChoice<AppThemeChoice>(AppThemeChoice.Light, EnumsRes.AppThemeChoice_Light),
-				new ComboChoice<AppThemeChoice>(AppThemeChoice.Dark, EnumsRes.AppThemeChoice_Dark),
+				new(AppThemeChoice.Auto, EnumsRes.AppThemeChoice_Auto),
+				new(AppThemeChoice.Light, EnumsRes.AppThemeChoice_Light),
+				new(AppThemeChoice.Dark, EnumsRes.AppThemeChoice_Dark),
 			};
 
 		this.PriorityChoices = new List<ComboChoice>
 			{
-				new ComboChoice("High", OptionsRes.Priority_High),
-				new ComboChoice("AboveNormal", OptionsRes.Priority_AboveNormal),
-				new ComboChoice("Normal", OptionsRes.Priority_Normal),
-				new ComboChoice("BelowNormal", OptionsRes.Priority_BelowNormal),
-				new ComboChoice("Idle", OptionsRes.Priority_Idle),
+				new("High", OptionsRes.Priority_High),
+				new("AboveNormal", OptionsRes.Priority_AboveNormal),
+				new("Normal", OptionsRes.Priority_Normal),
+				new("BelowNormal", OptionsRes.Priority_BelowNormal),
+				new("Idle", OptionsRes.Priority_Idle),
 			};
 
 		this.PartFileNamingChoices = new List<ComboChoice<PartFileNaming>>
 			{
-				new ComboChoice<PartFileNaming>(PartFileNaming.PartInMiddle, OptionsRes.PartFileNaming_PartInMiddle),
-				new ComboChoice<PartFileNaming>(PartFileNaming.PartAtEnd, OptionsRes.PartFileNaming_PartAtEnd),
+				new(PartFileNaming.PartInMiddle, OptionsRes.PartFileNaming_PartInMiddle),
+				new(PartFileNaming.PartAtEnd, OptionsRes.PartFileNaming_PartAtEnd),
 			};
 
 		this.PlayerChoices = Players.All;
@@ -229,7 +229,7 @@ public class OptionsDialogViewModel : ReactiveObject
 	{
 		try
 		{
-			HttpClient client = new HttpClient();
+			HttpClient client = new();
 			string updateText = await client.GetStringAsync("https://engy.us/VidCoder/Squirrel-Beta/RELEASES");
 
 			using var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(updateText));
@@ -318,8 +318,8 @@ public class OptionsDialogViewModel : ReactiveObject
 
 	public List<ComboChoice<DragDropOrder>> DragDropOrderChoices { get; } = new List<ComboChoice<DragDropOrder>>
 	{
-		new ComboChoice<DragDropOrder>(DragDropOrder.Alphabetical, EnumsRes.DragDropOrder_Alphabetical),
-		new ComboChoice<DragDropOrder>(DragDropOrder.Selected, EnumsRes.DragDropOrder_Selected)
+		new(DragDropOrder.Alphabetical, EnumsRes.DragDropOrder_Alphabetical),
+		new(DragDropOrder.Selected, EnumsRes.DragDropOrder_Selected)
 	};
 
 	public DragDropOrder DragDropOrder
@@ -350,8 +350,8 @@ public class OptionsDialogViewModel : ReactiveObject
 
 	public List<ComboChoice<UpdateMode>> UpdateModeChoices { get; } = new List<ComboChoice<UpdateMode>>
 	{
-		new ComboChoice<UpdateMode>(UpdateMode.SilentNextLaunch, EnumsRes.UpdateMode_SilentNextLaunch),
-		new ComboChoice<UpdateMode>(UpdateMode.PromptApplyImmediately, EnumsRes.UpdateMode_PromptApplyImmediately),
+		new(UpdateMode.SilentNextLaunch, EnumsRes.UpdateMode_SilentNextLaunch),
+		new(UpdateMode.PromptApplyImmediately, EnumsRes.UpdateMode_PromptApplyImmediately),
 	};
 
 	public UpdateMode UpdateMode
@@ -495,8 +495,8 @@ public class OptionsDialogViewModel : ReactiveObject
 
 	public List<ComboChoice<WatcherMode>> WatcherModeChoices { get; } = new List<ComboChoice<WatcherMode>>
 	{
-		new ComboChoice<WatcherMode>(WatcherMode.FileSystemWatcher, EnumsRes.WatcherMode_FileSystemWatcher),
-		new ComboChoice<WatcherMode>(WatcherMode.Polling, EnumsRes.WatcherMode_Polling),
+		new(WatcherMode.FileSystemWatcher, EnumsRes.WatcherMode_FileSystemWatcher),
+		new(WatcherMode.Polling, EnumsRes.WatcherMode_Polling),
 	};
 
 	public WatcherMode WatcherMode
@@ -536,9 +536,9 @@ public class OptionsDialogViewModel : ReactiveObject
 
 	public List<ComboChoice<int>> LogVerbosityChoices { get; } = new List<ComboChoice<int>>
 	{
-		new ComboChoice<int>(0, LogRes.LogVerbosity_Minimized),
-		new ComboChoice<int>(1, LogRes.LogVerbosity_Standard),
-		new ComboChoice<int>(2, LogRes.LogVerbosity_Extended),
+		new(0, LogRes.LogVerbosity_Minimized),
+		new(1, LogRes.LogVerbosity_Standard),
+		new(2, LogRes.LogVerbosity_Extended),
 	};
 
 	public int LogVerbosity

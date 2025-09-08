@@ -23,7 +23,7 @@ public class LocalEncodeProxy : IEncodeProxy
 
 	// Instance and lock only used when doing in-process encode (for debugging)
 	private HandBrakeInstance instance;
-	private readonly object encoderLock = new object();
+	private readonly object encoderLock = new();
 
 	private ManualResetEventSlim encodeStartEvent;
 	private ManualResetEventSlim encodeEndEvent;
@@ -54,7 +54,7 @@ public class LocalEncodeProxy : IEncodeProxy
 				SourceTitle encodeTitle = scanObject.TitleList.FirstOrDefault(title => title.Index == job.Title);
 				if (encodeTitle != null)
 				{
-					JsonEncodeFactory factory = new JsonEncodeFactory(logger);
+					JsonEncodeFactory factory = new(logger);
 
 					JsonEncodeObject jsonEncodeObject = factory.CreateJsonObject(
 						job,

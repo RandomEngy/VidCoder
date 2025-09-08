@@ -10,7 +10,7 @@ namespace VidCoder.ViewModel;
 
 public class MixdownViewModel
 {
-	private static ResourceManager manager = new ResourceManager(typeof (EncodingRes));
+	private static ResourceManager manager = new(typeof (EncodingRes));
 
 	public HBMixdown Mixdown { get; set; }
 

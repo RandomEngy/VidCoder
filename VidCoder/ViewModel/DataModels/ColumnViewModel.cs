@@ -12,7 +12,7 @@ using Resources;
 
 public class ColumnViewModel : ReactiveObject
 {
-	private static ResourceManager resources = new ResourceManager("VidCoder.Resources.CommonRes", typeof(CommonRes).Assembly);
+	private static ResourceManager resources = new("VidCoder.Resources.CommonRes", typeof(CommonRes).Assembly);
 
 	public ColumnViewModel(string id, string type)
 	{

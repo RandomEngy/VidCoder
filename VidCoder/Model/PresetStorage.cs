@@ -32,7 +32,7 @@ public static class PresetStorage
 
 	private static readonly string UserPresetsFolder = Path.Combine(CommonUtilities.AppFolder, "UserPresets");
 	private static readonly string BuiltInPresetsPath = "BuiltInPresets.json";
-	private static object userPresetSync = new object();
+	private static object userPresetSync = new();
 
 	// This field holds the copy of the preset list that has been most recently queued for saving.
 	private static volatile List<Preset> pendingSavePresetList;
@@ -64,7 +64,7 @@ public static class PresetStorage
 		{
 			var clonedList = value.Select(p =>
 			{
-				Preset newPreset = new Preset();
+				Preset newPreset = new();
 				newPreset.InjectFrom<CloneInjection>(p);
 
 				return newPreset;
@@ -184,7 +184,7 @@ public static class PresetStorage
 			return;
 		}
 
-		List<EncodingProfileUpgrade> upgrades = new List<EncodingProfileUpgrade>
+		List<EncodingProfileUpgrade> upgrades = new()
 		{
 			new EncodingProfileUpgrade(44, UpgradeEncodingProfileTo44),
 			new EncodingProfileUpgrade(48, UpgradeEncodingProfileTo48),

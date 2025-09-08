@@ -26,7 +26,7 @@ public class AutoPause : IAutoPause
 	private AutoPauseReason autoPauseReason;
 	private bool lowDiskSpaceCheckFailureLogged = false;
 
-	private object syncLock = new object();
+	private object syncLock = new();
 
 	private enum AutoPauseState
 	{
@@ -230,7 +230,7 @@ public class AutoPause : IAutoPause
 		{
 			try
 			{
-				DriveInfo driveInfo = new DriveInfo(drive);
+				DriveInfo driveInfo = new(drive);
 				if (driveInfo.AvailableFreeSpace < (long)Config.AutoPauseLowDiskSpaceGb * 1024 * 1024 * 1024)
 				{
 					return true;

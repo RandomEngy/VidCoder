@@ -63,7 +63,7 @@ public partial class ExceptionDialog : Window
 				issueTitle = issueTitle.Substring(0, 1000) + "...";
 			}
 
-			Process process = new Process();
+			Process process = new();
 			process.StartInfo.UseShellExecute = true;
 			process.StartInfo.FileName = "https://github.com/RandomEngy/VidCoder/issues/new?labels=crash&template=crash_report.yml&title=" + Uri.EscapeDataString(issueTitle);
 			process.Start();

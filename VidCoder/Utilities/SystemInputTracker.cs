@@ -17,7 +17,7 @@ public static class SystemInputTracker
 		int systemUptime = Environment.TickCount,
 			idleTicks = 0;
 
-		LASTINPUTINFO lastInputInfo = new LASTINPUTINFO();
+		LASTINPUTINFO lastInputInfo = new();
 		lastInputInfo.cbSize = (uint)Marshal.SizeOf(lastInputInfo);
 		lastInputInfo.dwTime = 0;
 

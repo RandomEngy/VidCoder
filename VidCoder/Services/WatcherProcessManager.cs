@@ -32,7 +32,7 @@ public class WatcherProcessManager : ReactiveObject
 	private IProcesses processes;
 	private readonly IAppLogger logger;
 
-	private readonly object sync = new object();
+	private readonly object sync = new();
 
 	/// <summary>
 	/// The watcher process. Will be null iff the status is Stopped.

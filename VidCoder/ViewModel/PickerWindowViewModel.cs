@@ -31,7 +31,7 @@ public class PickerWindowViewModel : ReactiveObject
 	private const string NameTokenList = "{source} {title} {range} {preset} {date} {time} {quality} {parent} {titleduration}";
 	private readonly OutputPathService outputPathService = StaticResolver.Resolve<OutputPathService>();
 
-	private AutoChangeTracker autoChangeTracker = new AutoChangeTracker();
+	private AutoChangeTracker autoChangeTracker = new();
 
 	private Dictionary<string, Action> pickerProperties;
 	private bool userModifyingOutputDirectory;
@@ -76,9 +76,9 @@ public class PickerWindowViewModel : ReactiveObject
 				{
 					this.WordBreakCharacterChoices = new List<WordBreakCharacterChoice>
 					{
-						new WordBreakCharacterChoice(this, wordBreakCharacters.Contains(" ")) { Character = " ", CharacterWord = PickerRes.WordBreakCharacter_Space, DisplayUsingWord = true  },
-						new WordBreakCharacterChoice(this, wordBreakCharacters.Contains("_")) { Character = "_", CharacterWord = PickerRes.WordBreakCharacter_Underscore },
-						new WordBreakCharacterChoice(this, wordBreakCharacters.Contains(".")) { Character = ".", CharacterWord = PickerRes.WordBreakCharacter_Dot }
+						new(this, wordBreakCharacters.Contains(" ")) { Character = " ", CharacterWord = PickerRes.WordBreakCharacter_Space, DisplayUsingWord = true  },
+						new(this, wordBreakCharacters.Contains("_")) { Character = "_", CharacterWord = PickerRes.WordBreakCharacter_Underscore },
+						new(this, wordBreakCharacters.Contains(".")) { Character = ".", CharacterWord = PickerRes.WordBreakCharacter_Dot }
 					};
 				}
 			});
@@ -619,9 +619,9 @@ public class PickerWindowViewModel : ReactiveObject
 
 	public List<ComboChoice<WhenFileExists>> WhenFileExistsSingleChoices { get; } = new List<ComboChoice<WhenFileExists>>
 	{
-		new ComboChoice<WhenFileExists>(WhenFileExists.Prompt, EnumsRes.WhenFileExists_Prompt),
-		new ComboChoice<WhenFileExists>(WhenFileExists.Overwrite, EnumsRes.WhenFileExists_Overwrite),
-		new ComboChoice<WhenFileExists>(WhenFileExists.AutoRename, EnumsRes.WhenFileExists_AutoRename),
+		new(WhenFileExists.Prompt, EnumsRes.WhenFileExists_Prompt),
+		new(WhenFileExists.Overwrite, EnumsRes.WhenFileExists_Overwrite),
+		new(WhenFileExists.AutoRename, EnumsRes.WhenFileExists_AutoRename),
 	};
 
 	public WhenFileExists WhenFileExistsSingle
@@ -632,9 +632,9 @@ public class PickerWindowViewModel : ReactiveObject
 
 	public List<ComboChoice<WhenFileExists>> WhenFileExistsBatchChoices { get; } = new List<ComboChoice<WhenFileExists>>
 	{
-		new ComboChoice<WhenFileExists>(WhenFileExists.Overwrite, EnumsRes.WhenFileExists_Overwrite),
-		new ComboChoice<WhenFileExists>(WhenFileExists.AutoRename, EnumsRes.WhenFileExists_AutoRename),
-		new ComboChoice<WhenFileExists>(WhenFileExists.Skip, EnumsRes.WhenFileExists_Skip),
+		new(WhenFileExists.Overwrite, EnumsRes.WhenFileExists_Overwrite),
+		new(WhenFileExists.AutoRename, EnumsRes.WhenFileExists_AutoRename),
+		new(WhenFileExists.Skip, EnumsRes.WhenFileExists_Skip),
 	};
 
 	public WhenFileExists WhenFileExistsBatch
@@ -663,9 +663,9 @@ public class PickerWindowViewModel : ReactiveObject
 
 	public List<ComboChoice> WordSeparatorChoices { get; } = new List<ComboChoice>
 	{
-		new ComboChoice(" ", PickerRes.WordBreakCharacter_Space),
-		new ComboChoice("_", "_"),
-		new ComboChoice(".", ".")
+		new(" ", PickerRes.WordBreakCharacter_Space),
+		new("_", "_"),
+		new(".", ".")
 	};
 
 	public string WordSeparator
@@ -682,8 +682,8 @@ public class PickerWindowViewModel : ReactiveObject
 
 	public List<ComboChoice<TitleCapitalizationChoice>> TitleCaptializationChoices { get; } = new List<ComboChoice<TitleCapitalizationChoice>>
 	{
-		new ComboChoice<TitleCapitalizationChoice>(TitleCapitalizationChoice.EveryWord, EnumsRes.TitleCapitalizationChoice_EveryWord),
-		new ComboChoice<TitleCapitalizationChoice>(TitleCapitalizationChoice.FirstWord, EnumsRes.TitleCapitalizationChoice_FirstWord),
+		new(TitleCapitalizationChoice.EveryWord, EnumsRes.TitleCapitalizationChoice_EveryWord),
+		new(TitleCapitalizationChoice.FirstWord, EnumsRes.TitleCapitalizationChoice_FirstWord),
 	};
 
 	public TitleCapitalizationChoice TitleCapitalization
@@ -761,9 +761,9 @@ public class PickerWindowViewModel : ReactiveObject
 
 	public List<ComboChoice<PickerTimeRangeMode>> PickerTimeRangeChoices { get; } = new List<ComboChoice<PickerTimeRangeMode>>
 	{
-		new ComboChoice<PickerTimeRangeMode>(PickerTimeRangeMode.All, CommonRes.All),
-		new ComboChoice<PickerTimeRangeMode>(PickerTimeRangeMode.Chapters, EnumsRes.PickerTimeRangeMode_Chapters),
-		new ComboChoice<PickerTimeRangeMode>(PickerTimeRangeMode.Time, EnumsRes.PickerTimeRangeMode_Time),
+		new(PickerTimeRangeMode.All, CommonRes.All),
+		new(PickerTimeRangeMode.Chapters, EnumsRes.PickerTimeRangeMode_Chapters),
+		new(PickerTimeRangeMode.Time, EnumsRes.PickerTimeRangeMode_Time),
 	};
 
 	public PickerTimeRangeMode PickerTimeRangeMode
@@ -816,8 +816,8 @@ public class PickerWindowViewModel : ReactiveObject
 
 	public List<ComboChoice<bool>> DimensionFilterDirectionChoices { get; } = new List<ComboChoice<bool>>
 	{
-		new ComboChoice<bool>(false, "<"),
-		new ComboChoice<bool>(true, ">")
+		new(false, "<"),
+		new(true, ">")
 	};
 
 	public bool WidthFilterEnabled
@@ -870,12 +870,12 @@ public class PickerWindowViewModel : ReactiveObject
 
 	public List<ComboChoice<AudioSelectionMode>> AudioSelectionModeChoices { get; } = new List<ComboChoice<AudioSelectionMode>>
 	{
-		new ComboChoice<AudioSelectionMode>(AudioSelectionMode.Disabled, PickerRes.LastSelectedRadioButton),
-		new ComboChoice<AudioSelectionMode>(AudioSelectionMode.None, CommonRes.None),
-		new ComboChoice<AudioSelectionMode>(AudioSelectionMode.First, CommonRes.First),
-		new ComboChoice<AudioSelectionMode>(AudioSelectionMode.ByIndex, PickerRes.ByIndexRadioButton),
-		new ComboChoice<AudioSelectionMode>(AudioSelectionMode.Language, PickerRes.LanguagesRadioButton),
-		new ComboChoice<AudioSelectionMode>(AudioSelectionMode.All, CommonRes.All)
+		new(AudioSelectionMode.Disabled, PickerRes.LastSelectedRadioButton),
+		new(AudioSelectionMode.None, CommonRes.None),
+		new(AudioSelectionMode.First, CommonRes.First),
+		new(AudioSelectionMode.ByIndex, PickerRes.ByIndexRadioButton),
+		new(AudioSelectionMode.Language, PickerRes.LanguagesRadioButton),
+		new(AudioSelectionMode.All, CommonRes.All)
 	};
 
 	public AudioSelectionMode AudioSelectionMode
@@ -890,7 +890,7 @@ public class PickerWindowViewModel : ReactiveObject
 		set => this.UpdatePickerProperty(nameof(this.Picker.AudioIndices), value);
 	}
 
-	private readonly SourceList<LanguageViewModel> audioLanguages = new SourceList<LanguageViewModel>();
+	private readonly SourceList<LanguageViewModel> audioLanguages = new();
 	public ObservableCollectionExtended<LanguageViewModel> AudioLanguagesBindable { get; } = new ObservableCollectionExtended<LanguageViewModel>();
 
 	private ObservableAsPropertyHelper<bool> hasMultipleAudioLanguages;
@@ -917,17 +917,17 @@ public class PickerWindowViewModel : ReactiveObject
 		set => this.UpdatePickerProperty(nameof(this.Picker.UseCustomAudioTrackNames), value);
 	}
 
-	private readonly SourceList<TrackNameViewModel> audioTrackNames = new SourceList<TrackNameViewModel>();
+	private readonly SourceList<TrackNameViewModel> audioTrackNames = new();
 	public ObservableCollectionExtended<TrackNameViewModel> AudioTrackNamesBindable { get; } = new ObservableCollectionExtended<TrackNameViewModel>();
 
 	public List<ComboChoice<SubtitleSelectionMode>> SubtitleSelectionModeChoices { get; } = new List<ComboChoice<SubtitleSelectionMode>>
 	{
-		new ComboChoice<SubtitleSelectionMode>(SubtitleSelectionMode.Disabled, PickerRes.LastSelectedRadioButton),
-		new ComboChoice<SubtitleSelectionMode>(SubtitleSelectionMode.None, CommonRes.None),
-		new ComboChoice<SubtitleSelectionMode>(SubtitleSelectionMode.First, CommonRes.First),
-		new ComboChoice<SubtitleSelectionMode>(SubtitleSelectionMode.ByIndex, PickerRes.ByIndexRadioButton),
-		new ComboChoice<SubtitleSelectionMode>(SubtitleSelectionMode.Language, PickerRes.LanguagesRadioButton),
-		new ComboChoice<SubtitleSelectionMode>(SubtitleSelectionMode.All, CommonRes.All)
+		new(SubtitleSelectionMode.Disabled, PickerRes.LastSelectedRadioButton),
+		new(SubtitleSelectionMode.None, CommonRes.None),
+		new(SubtitleSelectionMode.First, CommonRes.First),
+		new(SubtitleSelectionMode.ByIndex, PickerRes.ByIndexRadioButton),
+		new(SubtitleSelectionMode.Language, PickerRes.LanguagesRadioButton),
+		new(SubtitleSelectionMode.All, CommonRes.All)
 	};
 
 	public SubtitleSelectionMode SubtitleSelectionMode
@@ -948,7 +948,7 @@ public class PickerWindowViewModel : ReactiveObject
 		set => this.UpdatePickerProperty(nameof(this.Picker.SubtitleDefaultIndex), value);
 	}
 
-	private readonly SourceList<LanguageViewModel> subtitleLanguages = new SourceList<LanguageViewModel>();
+	private readonly SourceList<LanguageViewModel> subtitleLanguages = new();
 	public ObservableCollectionExtended<LanguageViewModel> SubtitleLanguagesBindable { get; } = new ObservableCollectionExtended<LanguageViewModel>();
 
 	private ObservableAsPropertyHelper<bool> hasMultipleSubtitleLanguages;
@@ -1029,7 +1029,7 @@ public class PickerWindowViewModel : ReactiveObject
 		this.RaisePropertyChanged(nameof(this.SubtitleBurnInChoices));
 	}
 
-	private List<ComboChoice<SubtitleBurnInSelection>> subtitleBurnInChoices = new List<ComboChoice<SubtitleBurnInSelection>>();
+	private List<ComboChoice<SubtitleBurnInSelection>> subtitleBurnInChoices = new();
 	public List<ComboChoice<SubtitleBurnInSelection>> SubtitleBurnInChoices => this.subtitleBurnInChoices;
 
 	public SubtitleBurnInSelection SubtitleBurnInSelection
@@ -1044,7 +1044,7 @@ public class PickerWindowViewModel : ReactiveObject
 		set => this.UpdatePickerProperty(nameof(this.Picker.UseCustomSubtitleTrackNames), value);
 	}
 
-	private readonly SourceList<TrackNameViewModel> subtitleTrackNames = new SourceList<TrackNameViewModel>();
+	private readonly SourceList<TrackNameViewModel> subtitleTrackNames = new();
 	public ObservableCollectionExtended<TrackNameViewModel> SubtitleTrackNamesBindable { get; } = new ObservableCollectionExtended<TrackNameViewModel>();
 
 	public bool EnableExternalSubtitleImport
@@ -1154,9 +1154,9 @@ public class PickerWindowViewModel : ReactiveObject
 
 	public List<ComboChoice<SourceFileRemoval>> SourceFileRemovalChoices { get; } = new List<ComboChoice<SourceFileRemoval>>
 	{
-		new ComboChoice<SourceFileRemoval>(SourceFileRemoval.Disabled, CommonRes.Disabled),
-		new ComboChoice<SourceFileRemoval>(SourceFileRemoval.Recycle, EnumsRes.SourceFileRemoval_Recycle),
-		new ComboChoice<SourceFileRemoval>(SourceFileRemoval.Delete, EnumsRes.SourceFileRemoval_Delete),
+		new(SourceFileRemoval.Disabled, CommonRes.Disabled),
+		new(SourceFileRemoval.Recycle, EnumsRes.SourceFileRemoval_Recycle),
+		new(SourceFileRemoval.Delete, EnumsRes.SourceFileRemoval_Delete),
 	};
 
 	public SourceFileRemoval SourceFileRemoval
@@ -1167,8 +1167,8 @@ public class PickerWindowViewModel : ReactiveObject
 
 	public List<ComboChoice<SourceFileRemovalTiming>> SourceFileRemovalTimingChoices { get; } = new List<ComboChoice<SourceFileRemovalTiming>>
 	{
-		new ComboChoice<SourceFileRemovalTiming>(SourceFileRemovalTiming.AfterClearingCompletedItems, EnumsRes.SourceFileRemovalTiming_AfterClearingCompletedItems),
-		new ComboChoice<SourceFileRemovalTiming>(SourceFileRemovalTiming.Immediately, EnumsRes.SourceFileRemovalTiming_Immediately),
+		new(SourceFileRemovalTiming.AfterClearingCompletedItems, EnumsRes.SourceFileRemovalTiming_AfterClearingCompletedItems),
+		new(SourceFileRemovalTiming.Immediately, EnumsRes.SourceFileRemovalTiming_Immediately),
 	};
 
 	public SourceFileRemovalTiming SourceFileRemovalTiming
@@ -1508,7 +1508,7 @@ public class PickerWindowViewModel : ReactiveObject
 			else if (!this.Picker.IsModified)
 			{
 				// Clone the picker so we modify a different copy.
-				Picker newPicker = new Picker();
+				Picker newPicker = new();
 				newPicker.InjectFrom<CloneInjection>(this.Picker);
 
 				if (!newPicker.IsModified)

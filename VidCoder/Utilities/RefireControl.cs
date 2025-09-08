@@ -14,13 +14,13 @@ public class RefireControl
 	private const int StageDurationMsec = 900;
 
 	// At each stage the refire rate increases.
-	private static readonly List<int> Delays = new List<int> {500, 200, 100, 50, 20};
+	private static readonly List<int> Delays = new() { 500, 200, 100, 50, 20};
 
 	private Action refireAction;
 	private Timer refireTimer;
 
 	private Stopwatch stopwatch;
-	private object refireSync = new object();
+	private object refireSync = new();
 	private bool running = false;
 
 	public RefireControl(Action refireAction)

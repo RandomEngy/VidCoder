@@ -62,7 +62,7 @@ public static class FileUtilities
 		}
 	}
 
-	private static readonly List<string> DisallowedCharacters = new List<string> { "\\", "/", "\"", ":", "*", "?", "<", ">", "|" };
+	private static readonly List<string> DisallowedCharacters = new() { "\\", "/", "\"", ":", "*", "?", "<", ">", "|" };
 
 	public static IList<string> SubtitleExtensions = new List<string> { ".srt", ".ssa", ".ass" };
 

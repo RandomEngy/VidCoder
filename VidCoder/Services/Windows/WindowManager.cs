@@ -30,14 +30,13 @@ public class WindowManager : ReactiveObject, IWindowManager
 	private object mainViewModel;
 	private Dictionary<object, Window> openWindows;
 
-	private Lazy<IAppLogger> logger = new Lazy<IAppLogger>(() => StaticResolver.Resolve<IAppLogger>());
+	private Lazy<IAppLogger> logger = new(() => StaticResolver.Resolve<IAppLogger>());
 
 	static WindowManager()
 	{
 		Definitions = new List<WindowDefinition>
 		{
-			new WindowDefinition
-			{
+			new() {
 				ViewModelType = typeof(MainViewModel), 
 				PlacementConfigKey = "MainWindowPlacement",
 				InitialSizeOverride = () =>
@@ -53,8 +52,7 @@ public class WindowManager : ReactiveObject, IWindowManager
 				}
 			},
 
-			new WindowDefinition
-			{
+			new() {
 				ViewModelType = typeof(EncodingWindowViewModel), 
 				InMenu = true,
 				PlacementConfigKey = "EncodingDialogPlacement",
@@ -63,8 +61,7 @@ public class WindowManager : ReactiveObject, IWindowManager
 				MenuLabel = MainRes.EncodingSettingsMenuItem
 			},
 
-			new WindowDefinition
-			{
+			new() {
 				ViewModelType = typeof(PreviewWindowViewModel), 
 				InMenu = true,
 				PlacementConfigKey = "PreviewWindowPlacement",
@@ -74,8 +71,7 @@ public class WindowManager : ReactiveObject, IWindowManager
 				MenuLabel = MainRes.PreviewMenuItem
 			},
 
-			new WindowDefinition
-			{
+			new() {
 				ViewModelType = typeof(PickerWindowViewModel), 
 				InMenu = true,
 				PlacementConfigKey = "PickerWindowPlacement",
@@ -84,8 +80,7 @@ public class WindowManager : ReactiveObject, IWindowManager
 				MenuLabel = MainRes.PickerMenuItem
 			},
 
-			new WindowDefinition
-			{
+			new() {
 				ViewModelType = typeof(LogWindowViewModel), 
 				InMenu = true,
 				PlacementConfigKey = "LogWindowPlacement",
@@ -94,8 +89,7 @@ public class WindowManager : ReactiveObject, IWindowManager
 				MenuLabel = MainRes.LogMenuItem
 			},
 
-			new WindowDefinition
-			{
+			new() {
 				ViewModelType = typeof(EncodeDetailsWindowViewModel), 
 				InMenu = true,
 				PlacementConfigKey = "EncodeDetailsWindowPlacement",
@@ -104,38 +98,32 @@ public class WindowManager : ReactiveObject, IWindowManager
 				CanOpen = () => StaticResolver.Resolve<ProcessingService>().WhenAnyValue(x => x.Encoding)
 			},
 
-			new WindowDefinition
-			{
+			new() {
 				ViewModelType = typeof(ChapterMarkersDialogViewModel),
 				PlacementConfigKey = "ChapterMarkersDialogPlacement"
 			},
 
-			new WindowDefinition
-			{
+			new() {
 				ViewModelType = typeof(QueueTitlesWindowViewModel),
 				PlacementConfigKey = "QueueTitlesDialogPlacement2"
 			},
 
-			new WindowDefinition
-			{
+			new() {
 				ViewModelType = typeof(CompareWindowViewModel),
 				PlacementConfigKey = "CompareWindowPlacement"
 			},
 
-			new WindowDefinition
-			{
+			new() {
 				ViewModelType = typeof(AddAutoPauseProcessDialogViewModel),
 				PlacementConfigKey = "AddAutoPauseProcessDialogPlacement"
 			},
 
-			new WindowDefinition
-			{
+			new() {
 				ViewModelType = typeof(OptionsDialogViewModel),
 				PlacementConfigKey = "OptionsDialogPlacement"
 			},
 
-			new WindowDefinition
-			{
+			new() {
 				ViewModelType = typeof(WatcherEditDialogViewModel),
 				PlacementConfigKey = "WatcherEditDialogPlacement"
 			}

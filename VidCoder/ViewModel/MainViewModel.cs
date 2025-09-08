@@ -351,15 +351,15 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 
 		this.sourceOptions = new ObservableCollection<SourceOptionViewModel>
 		{
-			new SourceOptionViewModel(new SourceOption { Type = SourceType.File }),
-			new SourceOptionViewModel(new SourceOption { Type = SourceType.DiscVideoFolder })
+			new(new SourceOption { Type = SourceType.File }),
+			new(new SourceOption { Type = SourceType.DiscVideoFolder })
 		};
 
 		this.rangeTypeChoices = new List<ComboChoice<VideoRangeType>>
 			{
-				new ComboChoice<VideoRangeType>(VideoRangeType.Chapters, EnumsRes.VideoRangeType_Chapters),
-				new ComboChoice<VideoRangeType>(VideoRangeType.Seconds, EnumsRes.VideoRangeType_Seconds),
-				new ComboChoice<VideoRangeType>(VideoRangeType.Frames, EnumsRes.VideoRangeType_Frames),
+				new(VideoRangeType.Chapters, EnumsRes.VideoRangeType_Chapters),
+				new(VideoRangeType.Seconds, EnumsRes.VideoRangeType_Seconds),
+				new(VideoRangeType.Frames, EnumsRes.VideoRangeType_Frames),
 			};
 
 		this.recentSourceOptions = new ObservableCollection<SourceOptionViewModel>();
@@ -1091,7 +1091,7 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 		Subtitles = 4
 	}
 
-	private static readonly List<SourceSection> SourceSectionPriority = new List<SourceSection>
+	private static readonly List<SourceSection> SourceSectionPriority = new()
 	{
 		SourceSection.Video,
 		SourceSection.Audio,
@@ -1381,7 +1381,7 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 
 			if (selectedCount > 0 && selectedCount <= 3)
 			{
-				List<string> trackSummaries = new List<string>();
+				List<string> trackSummaries = new();
 				foreach (AudioTrackViewModel track in selectedTracks)
 				{
 					if (this.SelectedTitle.AudioList != null && track.TrackNumber <= this.SelectedTitle.AudioList.Count)
@@ -1842,7 +1842,7 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 
 			if (selectedCount > 0 && selectedCount <= 3)
 			{
-				List<string> trackSummaries = new List<string>();
+				List<string> trackSummaries = new();
 				foreach (SourceSubtitleViewModel subtitle in selectedSubtitles)
 				{
 					if (subtitle.TrackNumber == 0)
@@ -1867,7 +1867,7 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 
 			if (this.FileSubtitles.Count <= 3)
 			{
-				List<string> trackSummaries = new List<string>();
+				List<string> trackSummaries = new();
 				foreach (FileSubtitleViewModel subtitle in this.FileSubtitles.Items)
 				{
 					trackSummaries.Add(HandBrakeLanguagesHelper.GetByCode(subtitle.LanguageCode).Display);
@@ -3050,7 +3050,7 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 			// We need to reconstruct the source metadata since we've closed the scan since queuing.
 			var videoSourceMetadata = new VideoSourceMetadata();
 
-			SourceOption sourceOption = new SourceOption { Type = job.SourceType };
+			SourceOption sourceOption = new() { Type = job.SourceType };
 			if (job.SourceType == SourceType.Disc)
 			{
 				DriveInformation driveInfo = this.DriveCollection.FirstOrDefault(d => string.Compare(d.RootDirectory, jobRoot, StringComparison.OrdinalIgnoreCase) == 0);
