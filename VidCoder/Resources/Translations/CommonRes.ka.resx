@@ -378,6 +378,10 @@
   <data name="CompletedColumnNamePreset" xml:space="preserve">
     <value>შაბლონი</value>
   </data>
-  
-  
+  <data name="NotAvailable" xml:space="preserve">
+    <value>ხელმიუწვდომელია</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>ხელმისაწვდომია</value>
+  </data>
 </root>
