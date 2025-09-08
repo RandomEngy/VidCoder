@@ -964,8 +964,10 @@ public class JsonEncodeFactory
 
 		if (isEncode)
 		{
+			bool setHardwareDecoder = false;
 			if (videoEncoder.IsQuickSync)
 			{
+				setHardwareDecoder = true;
 				video.HardwareDecode = HandBrakeHardwareEncoderHelper.IsQsvAvailable && jobConfiguration.EnableQuickSyncDecoding ?
 					 NativeConstants.HB_DECODE_QSV | NativeConstants.HB_DECODE_FORCE_HW : 0;
 
@@ -976,8 +978,9 @@ public class JsonEncodeFactory
 			}
 
 			// Allow use of the QSV decoder is configurable for non QSV encoders.
-			if (!videoEncoder.IsHardwareEncoder && jobConfiguration.UseQsvDecodeForNonQsvEncodes && jobConfiguration.EnableQuickSyncDecoding)
+			if (!setHardwareDecoder && !videoEncoder.IsHardwareEncoder && jobConfiguration.UseQsvDecodeForNonQsvEncodes && jobConfiguration.EnableQuickSyncDecoding)
 			{
+				setHardwareDecoder = true;
 				video.HardwareDecode = HandBrakeHardwareEncoderHelper.IsQsvAvailable ?
 					NativeConstants.HB_DECODE_QSV | NativeConstants.HB_DECODE_FORCE_HW : 0;
 			}
@@ -987,13 +990,15 @@ public class JsonEncodeFactory
 				videoOptions = AdvancedOptionUtilities.Prepend("hyperencode=adaptive", videoOptions);
 			}
 
-			if (jobConfiguration.EnableNVDec)
+			if (!setHardwareDecoder && HandBrakeHardwareEncoderHelper.IsNVDecAvailable && jobConfiguration.EnableNVDec)
 			{
+				setHardwareDecoder = true;
 				video.HardwareDecode = NativeConstants.HB_DECODE_NVDEC;
 			}
 
-			if (HandBrakeHardwareEncoderHelper.IsDirectXAvailable && jobConfiguration.EnableDirectXDecoding)
+			if (!setHardwareDecoder && HandBrakeHardwareEncoderHelper.IsDirectXAvailable && jobConfiguration.EnableDirectXDecoding)
 			{
+				setHardwareDecoder = true;
 				video.HardwareDecode = NativeConstants.HB_DECODE_MF | NativeConstants.HB_DECODE_FORCE_HW;
 			}
 		}
