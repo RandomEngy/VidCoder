@@ -3390,9 +3390,12 @@ public class ProcessingService : ReactiveObject
 			job.Subtitles.SourceSubtitles[i].Name = GetPickerSubtitleName(picker, i);
 		}
 
+		bool hasBurnedIn = job.Subtitles.SourceSubtitles.Any(s => s.BurnedIn);
+		bool hasDefault = job.Subtitles.SourceSubtitles.Any(s => s.Default);
+
 		if (picker.EnableExternalSubtitleImport && job.SourceType == SourceType.File)
 		{
-			List<FileSubtitle> fileSubtitles = FindSubtitleFiles(job.SourcePath, picker, openDialogOnMissingCharCode);
+			List<FileSubtitle> fileSubtitles = FindSubtitleFiles(job.SourcePath, picker, openDialogOnMissingCharCode, hasBurnedIn: hasBurnedIn, hasDefault: hasDefault);
 			foreach (FileSubtitle fileSubtitle in fileSubtitles)
 			{
 				job.Subtitles.FileSubtitles.Add(fileSubtitle);
@@ -3606,8 +3609,15 @@ public class ProcessingService : ReactiveObject
 	/// <param name="sourcePath">The source path to check.</param>
 	/// <param name="picker">The picker settings to use.</param>
 	/// <param name="openDialogOnMissingCharCode">Open a dialog if the char code for the file cannot be determined.</param>
+	/// <param name="hasBurnedIn">True if a burned-in subtitle is already present.</param>
+	/// <param name="hasDefault">True if a default subtitle is already present.</param>
 	/// <returns>A list of file subtitles to add.</returns>
-	public static List<FileSubtitle> FindSubtitleFiles(string sourcePath, Picker picker, bool openDialogOnMissingCharCode)
+	public static List<FileSubtitle> FindSubtitleFiles(
+		string sourcePath,
+		Picker picker,
+		bool openDialogOnMissingCharCode,
+		bool hasBurnedIn,
+		bool hasDefault)
 	{
 		// Enumerate the files in the directory and use regex to find the subtitle files
 		// Use FileUtilities.SubtitleExtensions to get the list of valid subtitle extensions
@@ -3650,9 +3660,19 @@ public class ProcessingService : ReactiveObject
 					if (HandBrakeLanguagesHelper.AllLanguagesDict.ContainsKey(languageCode))
 					{
 						FileSubtitle fileSubtitle = StaticResolver.Resolve<SubtitlesService>().LoadSubtitleFile(file, languageCode, openDialogOnMissingCharCode);
-						fileSubtitle.Default = picker.ExternalSubtitleImportDefault;
-						fileSubtitle.BurnedIn = picker.ExternalSubtitleImportBurnIn;
+						fileSubtitle.Default = !hasDefault && picker.ExternalSubtitleImportDefault;
+						fileSubtitle.BurnedIn = !hasBurnedIn && picker.ExternalSubtitleImportBurnIn;
 						result.Add(fileSubtitle);
+
+						if (picker.ExternalSubtitleImportDefault)
+						{
+							hasDefault = true;
+						}
+
+						if (picker.ExternalSubtitleImportBurnIn)
+						{
+							hasBurnedIn = true;
+						}
 
 						matchedLanguage = true;
 					}
@@ -3664,9 +3684,19 @@ public class ProcessingService : ReactiveObject
 					if (nonLanguageMatch.Success)
 					{
 						FileSubtitle fileSubtitle = StaticResolver.Resolve<SubtitlesService>().LoadSubtitleFile(file, picker.ExternalSubtitleImportLanguage, openDialogOnMissingCharCode);
-						fileSubtitle.Default = picker.ExternalSubtitleImportDefault;
-						fileSubtitle.BurnedIn = picker.ExternalSubtitleImportBurnIn;
+						fileSubtitle.Default = !hasDefault && picker.ExternalSubtitleImportDefault;
+						fileSubtitle.BurnedIn = !hasBurnedIn && picker.ExternalSubtitleImportBurnIn;
 						result.Add(fileSubtitle);
+
+						if (picker.ExternalSubtitleImportDefault)
+						{
+							hasDefault = true;
+						}
+
+						if (picker.ExternalSubtitleImportBurnIn)
+						{
+							hasBurnedIn = true;
+						}
 					}
 				}
 			}
