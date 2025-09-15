@@ -439,16 +439,43 @@ Peiling: Periodieke controle van de inhoud van de mappen. Gebruikt aanzienlijke 
   <data name="PartFileNaming_PartAtEnd" xml:space="preserve">
     <value>naam.ext.part</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="HardwareTab" xml:space="preserve">
+    <value>Hardware</value>
+  </data>
+  <data name="IntelQuickSyncSection" xml:space="preserve">
+    <value>Intel QuickSync</value>
+  </data>
+  <data name="NvidiaNvencSection" xml:space="preserve">
+    <value>NVIDIA NVENC</value>
+  </data>
+  <data name="AmdVcnSection" xml:space="preserve">
+    <value>AMD VCN</value>
+  </data>
+  <data name="MediaFoundationSection" xml:space="preserve">
+    <value>Media Foundation (ARM apparaten)</value>
+  </data>
+  <data name="EnableQuickSyncHyperEncodeCheckBox" xml:space="preserve">
+    <value>Deep Link Hyper Encode inschakelen</value>
+  </data>
+  <data name="EnableQuickSyncDecodingCheckBox" xml:space="preserve">
+    <value>Voorkeur aan Intel QuickSync voor het decoderen van video wanneer de QuickSync encoder wordt gebruikt.</value>
+  </data>
+  <data name="UseQsvDecodeForNonQsvEncodesCheckBox" xml:space="preserve">
+    <value>Ook QuickSync decodering toepassen wanneer geen gebruik wordt gemaakt van een QuickSync encoder.</value>
+  </data>
+  <data name="EnableDirectXDecodingCheckBox" xml:space="preserve">
+    <value>Gebruik van DirectX Decoding toestaan.</value>
+  </data>
+  <data name="CodecsLabel" xml:space="preserve">
+    <value>Ondersteunde codecs: {0}</value>
+    <comment>Format string for codec lists. {0} is replaced with comma-separated list of codecs.</comment>
+  </data>
+  <data name="QsvAdapterCount" xml:space="preserve">
+    <value>Adapters: {0}</value>
+    <comment>Indicator for how many QSV adapters are available on the system.
+{0} is the number of adapters, for example "2"</comment>
+  </data>
+  <data name="EnableQuickSyncHyperEncodeToolTip" xml:space="preserve">
+    <value>Gebruik meerdere media-engines om een enkele codering te versnellen waar dit wordt ondersteund. Uitschakelen om het laden van meerdere parallelle coderingen tussen media-engines mogelijk te maken.</value>
+  </data>
 </root>

@@ -380,6 +380,10 @@ Een volledige kopie van de GNU General Public License is opgenomen bij dit progr
   <data name="CompletedColumnNamePreset" xml:space="preserve">
     <value>Voorinstelling</value>
   </data>
-  
-  
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Niet beschikbaar</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Beschikbaar</value>
+  </data>
 </root>
