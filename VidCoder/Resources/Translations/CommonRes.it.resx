@@ -146,10 +146,18 @@
     <value>Titolo</value>
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
-  
-  
-  
-  
+  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
+    <value>Qualità audio</value>
+  </data>
+  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
+    <value>Codifica audio</value>
+  </data>
+  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
+    <value>Codifica video</value>
+  </data>
+  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
+    <value>Qualità video</value>
+  </data>
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>Tempo stimato rimanente per tutti i lavori in coda da completare.</value>
   </data>
@@ -306,12 +314,18 @@
   <data name="DefaultLabel" xml:space="preserve">
     <value>Predefinito:</value>
   </data>
-  
+  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
+    <value>Tracce audio</value>
+  </data>
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>Ritaglio</value>
   </data>
-  
-  
+  <data name="QueueColumnNameOutputSize" xml:space="preserve">
+    <value>Dimensione finale del file</value>
+  </data>
+  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
+    <value>Tracce sottotitoli</value>
+  </data>
   <data name="Manual" xml:space="preserve">
     <value>Manuale</value>
     <comment>Shown when something has been set manually</comment>
@@ -330,16 +344,42 @@
     <value>Chiudi</value>
     <comment>Label to close a window or item.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="CompletedColumnNameDestination" xml:space="preserve">
+    <value>Destinazione</value>
+    <comment>Column header for the destination file path</comment>
+  </data>
+  <data name="CompletedColumnNameStatus" xml:space="preserve">
+    <value>Stato</value>
+    <comment>The header for the status column for completed jobs (succeeded/failed)</comment>
+  </data>
+  <data name="CompletedColumnNameElapsedTime" xml:space="preserve">
+    <value>Tempo di codifica</value>
+  </data>
+  <data name="CompletedColumnNameSize" xml:space="preserve">
+    <value>Dimensione</value>
+  </data>
+  <data name="CompletedColumnNamePercentOfSource" xml:space="preserve">
+    <value>% del sorgente</value>
+  </data>
+  <data name="CompletedColumnNameSourceSize" xml:space="preserve">
+    <value>Dimensione sorgente</value>
+  </data>
+  <data name="CompletedColumnNameVideoDuration" xml:space="preserve">
+    <value>Durata video</value>
+  </data>
+  <data name="CompletedColumnNamePauseTime" xml:space="preserve">
+    <value>Durata pausa</value>
+  </data>
+  <data name="CompletedColumnNameAverageFps" xml:space="preserve">
+    <value>Media FPS</value>
+  </data>
+  <data name="CompletedColumnNamePreset" xml:space="preserve">
+    <value>Preimpostazione</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Non disponibile</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Disponibile</value>
+  </data>
 </root>

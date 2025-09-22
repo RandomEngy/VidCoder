@@ -752,5 +752,7 @@ Questo avviso verrà visualizzato solo due volte.</value>
   <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
     <value>La versione {0} è stata scaricata e verrà installata alla chiusura del programma.</value>
   </data>
-  
+  <data name="AddToTopOfQueueLabel" xml:space="preserve">
+    <value>Metti alla prima posizione della coda</value>
+  </data>
 </root>
