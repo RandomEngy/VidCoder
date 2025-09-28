@@ -351,15 +351,15 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 
 		this.sourceOptions = new ObservableCollection<SourceOptionViewModel>
 		{
-			new SourceOptionViewModel(new SourceOption { Type = SourceType.File }),
-			new SourceOptionViewModel(new SourceOption { Type = SourceType.DiscVideoFolder })
+			new(new SourceOption { Type = SourceType.File }),
+			new(new SourceOption { Type = SourceType.DiscVideoFolder })
 		};
 
 		this.rangeTypeChoices = new List<ComboChoice<VideoRangeType>>
 			{
-				new ComboChoice<VideoRangeType>(VideoRangeType.Chapters, EnumsRes.VideoRangeType_Chapters),
-				new ComboChoice<VideoRangeType>(VideoRangeType.Seconds, EnumsRes.VideoRangeType_Seconds),
-				new ComboChoice<VideoRangeType>(VideoRangeType.Frames, EnumsRes.VideoRangeType_Frames),
+				new(VideoRangeType.Chapters, EnumsRes.VideoRangeType_Chapters),
+				new(VideoRangeType.Seconds, EnumsRes.VideoRangeType_Seconds),
+				new(VideoRangeType.Frames, EnumsRes.VideoRangeType_Frames),
 			};
 
 		this.recentSourceOptions = new ObservableCollection<SourceOptionViewModel>();
@@ -693,7 +693,7 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 
 		// Call to view to save column widths
 		this.view.SaveQueueColumns();
-		this.view.SaveCompletedColumnWidths();
+		this.view.SaveCompletedColumns();
 
 		// If we're quitting, see if the encode is still going.
 		if (this.ProcessingService.Encoding)
@@ -1091,7 +1091,7 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 		Subtitles = 4
 	}
 
-	private static readonly List<SourceSection> SourceSectionPriority = new List<SourceSection>
+	private static readonly List<SourceSection> SourceSectionPriority = new()
 	{
 		SourceSection.Video,
 		SourceSection.Audio,
@@ -1381,7 +1381,7 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 
 			if (selectedCount > 0 && selectedCount <= 3)
 			{
-				List<string> trackSummaries = new List<string>();
+				List<string> trackSummaries = new();
 				foreach (AudioTrackViewModel track in selectedTracks)
 				{
 					if (this.SelectedTitle.AudioList != null && track.TrackNumber <= this.SelectedTitle.AudioList.Count)
@@ -1514,7 +1514,12 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 			{
 				fileSubtitlesInnerList.Clear();
 
-				List<FileSubtitle> fileSubtitles = ProcessingService.FindSubtitleFiles(this.SourcePath, picker, openDialogOnMissingCharCode: true);
+				List<FileSubtitle> fileSubtitles = ProcessingService.FindSubtitleFiles(
+					this.SourcePath,
+					picker,
+					openDialogOnMissingCharCode: true,
+					hasBurnedIn: this.SourceSubtitles.Items.Any(sourceSubtitle => sourceSubtitle.BurnedIn),
+					hasDefault: this.SourceSubtitles.Items.Any(sourceSubtitle => sourceSubtitle.Default));
 				foreach (FileSubtitle fileSubtitle in fileSubtitles)
 				{
 					fileSubtitlesInnerList.Add(new FileSubtitleViewModel(this, fileSubtitle));
@@ -1842,7 +1847,7 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 
 			if (selectedCount > 0 && selectedCount <= 3)
 			{
-				List<string> trackSummaries = new List<string>();
+				List<string> trackSummaries = new();
 				foreach (SourceSubtitleViewModel subtitle in selectedSubtitles)
 				{
 					if (subtitle.TrackNumber == 0)
@@ -1867,7 +1872,7 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 
 			if (this.FileSubtitles.Count <= 3)
 			{
-				List<string> trackSummaries = new List<string>();
+				List<string> trackSummaries = new();
 				foreach (FileSubtitleViewModel subtitle in this.FileSubtitles.Items)
 				{
 					trackSummaries.Add(HandBrakeLanguagesHelper.GetByCode(subtitle.LanguageCode).Display);
@@ -2643,7 +2648,7 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 				this.View.SaveQueueColumns();
 
 				// Show the queue columns dialog
-				var queueDialog = new QueueColumnsDialogViewModel();
+				var queueDialog = new ColumnsDialogViewModel(Config.QueueColumns, Utilities.DefaultQueueColumnSizes, "Queue", MiscRes.QueueColumnsDialogTitle);
 				this.windowManager.OpenDialog(queueDialog);
 
 				if (queueDialog.DialogResult)
@@ -2651,6 +2656,28 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 					// Apply new columns
 					Config.QueueColumns = queueDialog.NewColumns;
 					this.View.ApplyQueueColumns();
+				}
+			}));
+		}
+	}
+
+	private ReactiveCommand<Unit, Unit> customizeCompletedColumns;
+	public ICommand CustomizeCompletedColumns
+	{
+		get
+		{
+			return this.customizeCompletedColumns ?? (this.customizeCompletedColumns = ReactiveCommand.Create(() =>
+			{
+				// Send a request that the view save the column sizes
+				this.View.SaveCompletedColumns();
+				// Show the completed columns dialog
+				var completedDialog = new ColumnsDialogViewModel(Config.CompletedColumns, Utilities.DefaultCompletedColumnSizes, "Completed", MiscRes.CompletedColumnsDialogTitle);
+				this.windowManager.OpenDialog(completedDialog);
+				if (completedDialog.DialogResult)
+				{
+					// Apply new columns
+					Config.CompletedColumns = completedDialog.NewColumns;
+					this.View.ApplyCompletedColumns();
 				}
 			}));
 		}
@@ -3028,7 +3055,7 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 			// We need to reconstruct the source metadata since we've closed the scan since queuing.
 			var videoSourceMetadata = new VideoSourceMetadata();
 
-			SourceOption sourceOption = new SourceOption { Type = job.SourceType };
+			SourceOption sourceOption = new() { Type = job.SourceType };
 			if (job.SourceType == SourceType.Disc)
 			{
 				DriveInformation driveInfo = this.DriveCollection.FirstOrDefault(d => string.Compare(d.RootDirectory, jobRoot, StringComparison.OrdinalIgnoreCase) == 0);

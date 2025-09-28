@@ -150,18 +150,10 @@ Pełna kopia licencji GNU General Public została dołączona do tego programu.<
     <value>Tytuł</value>
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
-  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
-    <value>Jakość dźwięku</value>
-  </data>
-  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>Audio Encoder</value>
-  </data>
-  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Video Encoder</value>
-  </data>
-  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
-    <value>Jakość Wideo</value>
-  </data>
+  
+  
+  
+  
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>Szacowany czas pozostały dla wykonania wszystkich zadań w kolejce.</value>
   </data>
@@ -335,18 +327,12 @@ Replace the with
   <data name="DefaultLabel" xml:space="preserve">
     <value>Domyślny:</value>
   </data>
-  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
-    <value>Ścieżki audio</value>
-  </data>
+  
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>Przycinanie</value>
   </data>
-  <data name="QueueColumnNameOutputSize" xml:space="preserve">
-    <value>Rozmiar wyjściowy</value>
-  </data>
-  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
-    <value>Ścieżki napisów</value>
-  </data>
+  
+  
   <data name="Manual" xml:space="preserve">
     <value>Instrukcja obsługi</value>
     <comment>Shown when something has been set manually</comment>
@@ -361,5 +347,17 @@ Replace the with
   <data name="Enabled" xml:space="preserve">
     <value>Włączony</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
 </root>

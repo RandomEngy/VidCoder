@@ -26,7 +26,7 @@ namespace VidCoder.ViewModel;
 
 public class VideoFiltersPanelViewModel : PanelViewModel, INotifyPropertyChanged
 {
-	private static readonly ResourceManager EnumResourceManager = new ResourceManager(typeof(EnumsRes));
+	private static readonly ResourceManager EnumResourceManager = new(typeof(EnumsRes));
 
 	private PreviewUpdateService previewUpdateService = StaticResolver.Resolve<PreviewUpdateService>();
 
@@ -45,19 +45,19 @@ public class VideoFiltersPanelViewModel : PanelViewModel, INotifyPropertyChanged
 
 		this.DeinterlaceChoices = new List<ComboChoice<VCDeinterlace>>
 		{
-			new ComboChoice<VCDeinterlace>(VCDeinterlace.Off, CommonRes.Off),
-			new ComboChoice<VCDeinterlace>(VCDeinterlace.Yadif, EnumsRes.Deinterlace_Yadif),
-			new ComboChoice<VCDeinterlace>(VCDeinterlace.Bwdif, EnumsRes.Deinterlace_Bwdif),
-			new ComboChoice<VCDeinterlace>(VCDeinterlace.Decomb, EnumsRes.Deinterlace_Decomb),
+			new(VCDeinterlace.Off, CommonRes.Off),
+			new(VCDeinterlace.Yadif, EnumsRes.Deinterlace_Yadif),
+			new(VCDeinterlace.Bwdif, EnumsRes.Deinterlace_Bwdif),
+			new(VCDeinterlace.Decomb, EnumsRes.Deinterlace_Decomb),
 		};
 
 		this.CombDetectChoices = this.GetFilterPresetChoices(hb_filter_ids.HB_FILTER_COMB_DETECT, "CombDetect_");
 
             this.DenoiseChoices = new List<ComboChoice<VCDenoise>>
             {
-                new ComboChoice<VCDenoise>(VCDenoise.Off, CommonRes.Off),
-                new ComboChoice<VCDenoise>(VCDenoise.hqdn3d, EnumsRes.Denoise_HQDN3D),
-                new ComboChoice<VCDenoise>(VCDenoise.NLMeans, EnumsRes.Denoise_NLMeans)
+                new(VCDenoise.Off, CommonRes.Off),
+                new(VCDenoise.hqdn3d, EnumsRes.Denoise_HQDN3D),
+                new(VCDenoise.NLMeans, EnumsRes.Denoise_NLMeans)
             };
 
 		this.ChromaSmoothChoices = this.GetFilterPresetChoices(hb_filter_ids.HB_FILTER_CHROMA_SMOOTH);
@@ -65,9 +65,9 @@ public class VideoFiltersPanelViewModel : PanelViewModel, INotifyPropertyChanged
 
 		this.SharpenChoices = new List<ComboChoice<VCSharpen>>
 		{
-			new ComboChoice<VCSharpen>(VCSharpen.Off, CommonRes.Off),
-			new ComboChoice<VCSharpen>(VCSharpen.UnSharp, EnumsRes.Sharpen_UnSharp),
-			new ComboChoice<VCSharpen>(VCSharpen.LapSharp, EnumsRes.Sharpen_LapSharp),
+			new(VCSharpen.Off, CommonRes.Off),
+			new(VCSharpen.UnSharp, EnumsRes.Sharpen_UnSharp),
+			new(VCSharpen.LapSharp, EnumsRes.Sharpen_LapSharp),
 		};
 
 		this.DeblockChoices = this.GetFilterPresetChoices(hb_filter_ids.HB_FILTER_DEBLOCK);
@@ -854,7 +854,7 @@ public class VideoFiltersPanelViewModel : PanelViewModel, INotifyPropertyChanged
 	private static string GetDefaultCustomFilterString(hb_filter_ids filter)
 	{
 		IDictionary<string, object> customDictionary = HandBrakeFilterHelpers.GetDefaultCustomSettings((int)filter);
-		List<string> keyValuePairList = new List<string>();
+		List<string> keyValuePairList = new();
 		foreach (KeyValuePair<string, object> keyValuePair in customDictionary)
 		{
 			keyValuePairList.Add(keyValuePair.Key + "=" + keyValuePair.Value);

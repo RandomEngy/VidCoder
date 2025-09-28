@@ -30,42 +30,42 @@ public class SizingPanelViewModel : PanelViewModel
 
 		this.RotationChoices = new List<RotationViewModel>
 		{
-			new RotationViewModel { Rotation = VCPictureRotation.None, Display = CommonRes.None, Image = "/Icons/Empty.png", ShowImage = false },
-			new RotationViewModel { Rotation = VCPictureRotation.Clockwise90, Display = EncodingRes.Rotation_Clockwise90, Image = "/Icons/rotate_90_cw.png"},
-			new RotationViewModel { Rotation = VCPictureRotation.Clockwise270, Display = EncodingRes.Rotation_Counterclockwise90, Image = "/Icons/rotate_90_ccw.png" },
-			new RotationViewModel { Rotation = VCPictureRotation.Clockwise180, Display = EncodingRes.Rotation_180, Image = "/Icons/rotate_180.png" }
+			new() { Rotation = VCPictureRotation.None, Display = CommonRes.None, Image = "/Icons/Empty.png", ShowImage = false },
+			new() { Rotation = VCPictureRotation.Clockwise90, Display = EncodingRes.Rotation_Clockwise90, Image = "/Icons/rotate_90_cw.png"},
+			new() { Rotation = VCPictureRotation.Clockwise270, Display = EncodingRes.Rotation_Counterclockwise90, Image = "/Icons/rotate_90_ccw.png" },
+			new() { Rotation = VCPictureRotation.Clockwise180, Display = EncodingRes.Rotation_180, Image = "/Icons/rotate_180.png" }
 		};
 
 		this.CroppingTypeChoices = new List<ComboChoice<VCCroppingType>>
 		{
-			new ComboChoice<VCCroppingType>(VCCroppingType.Automatic, CommonRes.Automatic),
-			new ComboChoice<VCCroppingType>(VCCroppingType.Loose, EncodingRes.CroppingType_Conservative),
-			new ComboChoice<VCCroppingType>(VCCroppingType.None, CommonRes.None),
-			new ComboChoice<VCCroppingType>(VCCroppingType.Custom, CommonRes.Custom),
+			new(VCCroppingType.Automatic, CommonRes.Automatic),
+			new(VCCroppingType.Loose, EncodingRes.CroppingType_Conservative),
+			new(VCCroppingType.None, CommonRes.None),
+			new(VCCroppingType.Custom, CommonRes.Custom),
 		};
 
 		this.SizingModeChoices = new List<ComboChoice<VCSizingMode>>
 		{
-			new ComboChoice<VCSizingMode>(VCSizingMode.Automatic, CommonRes.Automatic),
-			new ComboChoice<VCSizingMode>(VCSizingMode.Manual, EncodingRes.SizingModeManual),
+			new(VCSizingMode.Automatic, CommonRes.Automatic),
+			new(VCSizingMode.Manual, EncodingRes.SizingModeManual),
 		};
 
 		this.ScalingModeChoices = new List<ComboChoice<VCScalingMode>>
 		{
-			new ComboChoice<VCScalingMode>(VCScalingMode.DownscaleOnly, EncodingRes.ScalingMode_DownscaleOnly),
-			new ComboChoice<VCScalingMode>(VCScalingMode.UpscaleFill, EncodingRes.ScalingMode_Fill),
-			new ComboChoice<VCScalingMode>(VCScalingMode.Upscale2X, string.Format(EncodingRes.UpscaleMaxFormat, 2)),
-			new ComboChoice<VCScalingMode>(VCScalingMode.Upscale3X, string.Format(EncodingRes.UpscaleMaxFormat, 3)),
-			new ComboChoice<VCScalingMode>(VCScalingMode.Upscale4X, string.Format(EncodingRes.UpscaleMaxFormat, 4)),
+			new(VCScalingMode.DownscaleOnly, EncodingRes.ScalingMode_DownscaleOnly),
+			new(VCScalingMode.UpscaleFill, EncodingRes.ScalingMode_Fill),
+			new(VCScalingMode.Upscale2X, string.Format(EncodingRes.UpscaleMaxFormat, 2)),
+			new(VCScalingMode.Upscale3X, string.Format(EncodingRes.UpscaleMaxFormat, 3)),
+			new(VCScalingMode.Upscale4X, string.Format(EncodingRes.UpscaleMaxFormat, 4)),
 		};
 
 		this.PaddingModeChoices = new List<ComboChoice<VCPaddingMode>>
 		{
-			new ComboChoice<VCPaddingMode>(VCPaddingMode.None, CommonRes.None),
-			new ComboChoice<VCPaddingMode>(VCPaddingMode.Fill, EncodingRes.PaddingMode_Fill),
-			new ComboChoice<VCPaddingMode>(VCPaddingMode.Width, EncodingRes.PaddingMode_Width),
-			new ComboChoice<VCPaddingMode>(VCPaddingMode.Height, EncodingRes.PaddingMode_Height),
-			new ComboChoice<VCPaddingMode>(VCPaddingMode.Custom, CommonRes.Custom),
+			new(VCPaddingMode.None, CommonRes.None),
+			new(VCPaddingMode.Fill, EncodingRes.PaddingMode_Fill),
+			new(VCPaddingMode.Width, EncodingRes.PaddingMode_Width),
+			new(VCPaddingMode.Height, EncodingRes.PaddingMode_Height),
+			new(VCPaddingMode.Custom, CommonRes.Custom),
 		};
 
 		this.RegisterProfileProperties();

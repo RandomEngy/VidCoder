@@ -76,7 +76,7 @@ namespace VidCoder
 			cache.Add("ApplicationVersion", DatabaseConfig.Get("ApplicationVersion", "", connection));
 			cache.Add("QueueColumns", DatabaseConfig.Get("QueueColumns", "Source:200|Title:35|Range:106|Destination:200", connection));
 			cache.Add("QueueLastColumnWidth", DatabaseConfig.Get("QueueLastColumnWidth", 75.0, connection));
-			cache.Add("CompletedColumnWidths", DatabaseConfig.Get("CompletedColumnWidths", "", connection));
+			cache.Add("CompletedColumns", DatabaseConfig.Get("CompletedColumns", "Destination:290|Status:120|ElapsedTime:90|Size:80|PercentOfSource:90", connection));
 			cache.Add("WatcherFileColumnWidths", DatabaseConfig.Get("WatcherFileColumnWidths", "", connection));
 			cache.Add("SourcePaneHeightStar", DatabaseConfig.Get("SourcePaneHeightStar", 2.0, connection));
 			cache.Add("QueuePaneHeightStar", DatabaseConfig.Get("QueuePaneHeightStar", 1.0, connection));
@@ -84,14 +84,19 @@ namespace VidCoder
 			cache.Add("EncodingListPaneOpen", DatabaseConfig.Get("EncodingListPaneOpen", true, connection));
 			cache.Add("EncodingListPaneWidth", DatabaseConfig.Get("EncodingListPaneWidth", 150.0, connection));
 			cache.Add("LogListPaneWidth", DatabaseConfig.Get("LogListPaneWidth", 150.0, connection));
+			cache.Add("EnableQuickSyncDecoding", DatabaseConfig.Get("EnableQuickSyncDecoding", true, connection));
+			cache.Add("EnableQuickSyncHyperEncode", DatabaseConfig.Get("EnableQuickSyncHyperEncode", false, connection));
+			cache.Add("UseQsvDecodeForNonQsvEncodes", DatabaseConfig.Get("UseQsvDecodeForNonQsvEncodes", false, connection));
+			cache.Add("EnableNVDec", DatabaseConfig.Get("EnableNVDec", true, connection));
+			cache.Add("EnableDirectXDecoding", DatabaseConfig.Get("EnableDirectXDecoding", true, connection));
 			cache.Add("WatcherMode", DatabaseConfig.Get("WatcherMode", "FileSystemWatcher", connection));
 			cache.Add("WatcherPollIntervalSeconds", DatabaseConfig.Get("WatcherPollIntervalSeconds", 5, connection));
 			cache.Add("WorkerProcessPriority", DatabaseConfig.Get("WorkerProcessPriority", "BelowNormal", connection));
 			cache.Add("LogVerbosity", DatabaseConfig.Get("LogVerbosity", 1, connection));
-			cache.Add("EnableNVDec", DatabaseConfig.Get("EnableNVDec", true, connection));
 			cache.Add("CopyLogToOutputFolder", DatabaseConfig.Get("CopyLogToOutputFolder", false, connection));
 			cache.Add("CopyLogToCustomFolder", DatabaseConfig.Get("CopyLogToCustomFolder", false, connection));
 			cache.Add("LogCustomFolder", DatabaseConfig.Get("LogCustomFolder", "", connection));
+			cache.Add("PartFileNaming", DatabaseConfig.Get("PartFileNaming", "PartInMiddle", connection));
 			cache.Add("AutoPauseLowBattery", DatabaseConfig.Get("AutoPauseLowBattery", true, connection));
 			cache.Add("AutoPauseLowDiskSpace", DatabaseConfig.Get("AutoPauseLowDiskSpace", true, connection));
 			cache.Add("AutoPauseLowDiskSpaceGb", DatabaseConfig.Get("AutoPauseLowDiskSpaceGb", 1, connection));
@@ -126,6 +131,8 @@ namespace VidCoder
 			cache.Add("ShowProgressInWindowTitle", DatabaseConfig.Get("ShowProgressInWindowTitle", true, connection));
 			cache.Add("UseWorkerProcess", DatabaseConfig.Get("UseWorkerProcess", true, connection));
 			cache.Add("RememberPreviousFiles", DatabaseConfig.Get("RememberPreviousFiles", true, connection));
+			cache.Add("RememberLastSelectedEncodeCompleteAction", DatabaseConfig.Get("RememberLastSelectedEncodeCompleteAction", false, connection));
+			cache.Add("LastEncodeCompleteAction", DatabaseConfig.Get("LastEncodeCompleteAction", "", connection));
 			cache.Add("PreferredPlayer", DatabaseConfig.Get("PreferredPlayer", "vlc", connection));
 			cache.Add("BetaUpdates", DatabaseConfig.Get("BetaUpdates", false, connection));
 			cache.Add("InterfaceLanguageCode", DatabaseConfig.Get("InterfaceLanguageCode", "", connection));
@@ -400,10 +407,10 @@ namespace VidCoder
 			get { return (double)cache["QueueLastColumnWidth"]; }
 			set { Set("QueueLastColumnWidth", value); }
 		}
-		public static string CompletedColumnWidths
+		public static string CompletedColumns
 		{
-			get { return (string)cache["CompletedColumnWidths"]; }
-			set { Set("CompletedColumnWidths", value); }
+			get { return (string)cache["CompletedColumns"]; }
+			set { Set("CompletedColumns", value); }
 		}
 		public static string WatcherFileColumnWidths
 		{
@@ -440,6 +447,31 @@ namespace VidCoder
 			get { return (double)cache["LogListPaneWidth"]; }
 			set { Set("LogListPaneWidth", value); }
 		}
+		public static bool EnableQuickSyncDecoding
+		{
+			get { return (bool)cache["EnableQuickSyncDecoding"]; }
+			set { Set("EnableQuickSyncDecoding", value); }
+		}
+		public static bool EnableQuickSyncHyperEncode
+		{
+			get { return (bool)cache["EnableQuickSyncHyperEncode"]; }
+			set { Set("EnableQuickSyncHyperEncode", value); }
+		}
+		public static bool UseQsvDecodeForNonQsvEncodes
+		{
+			get { return (bool)cache["UseQsvDecodeForNonQsvEncodes"]; }
+			set { Set("UseQsvDecodeForNonQsvEncodes", value); }
+		}
+		public static bool EnableNVDec
+		{
+			get { return (bool)cache["EnableNVDec"]; }
+			set { Set("EnableNVDec", value); }
+		}
+		public static bool EnableDirectXDecoding
+		{
+			get { return (bool)cache["EnableDirectXDecoding"]; }
+			set { Set("EnableDirectXDecoding", value); }
+		}
 		public static string WatcherMode
 		{
 			get { return (string)cache["WatcherMode"]; }
@@ -460,11 +492,6 @@ namespace VidCoder
 			get { return (int)cache["LogVerbosity"]; }
 			set { Set("LogVerbosity", value); }
 		}
-		public static bool EnableNVDec
-		{
-			get { return (bool)cache["EnableNVDec"]; }
-			set { Set("EnableNVDec", value); }
-		}
 		public static bool CopyLogToOutputFolder
 		{
 			get { return (bool)cache["CopyLogToOutputFolder"]; }
@@ -479,6 +506,11 @@ namespace VidCoder
 		{
 			get { return (string)cache["LogCustomFolder"]; }
 			set { Set("LogCustomFolder", value); }
+		}
+		public static string PartFileNaming
+		{
+			get { return (string)cache["PartFileNaming"]; }
+			set { Set("PartFileNaming", value); }
 		}
 		public static bool AutoPauseLowBattery
 		{
@@ -650,6 +682,16 @@ namespace VidCoder
 			get { return (bool)cache["RememberPreviousFiles"]; }
 			set { Set("RememberPreviousFiles", value); }
 		}
+		public static bool RememberLastSelectedEncodeCompleteAction
+		{
+			get { return (bool)cache["RememberLastSelectedEncodeCompleteAction"]; }
+			set { Set("RememberLastSelectedEncodeCompleteAction", value); }
+		}
+		public static string LastEncodeCompleteAction
+		{
+			get { return (string)cache["LastEncodeCompleteAction"]; }
+			set { Set("LastEncodeCompleteAction", value); }
+		}
 		public static string PreferredPlayer
 		{
 			get { return (string)cache["PreferredPlayer"]; }
@@ -753,7 +795,7 @@ namespace VidCoder
 			public static IObservable<string> ApplicationVersion => GetObservable<string>("ApplicationVersion");
 			public static IObservable<string> QueueColumns => GetObservable<string>("QueueColumns");
 			public static IObservable<double> QueueLastColumnWidth => GetObservable<double>("QueueLastColumnWidth");
-			public static IObservable<string> CompletedColumnWidths => GetObservable<string>("CompletedColumnWidths");
+			public static IObservable<string> CompletedColumns => GetObservable<string>("CompletedColumns");
 			public static IObservable<string> WatcherFileColumnWidths => GetObservable<string>("WatcherFileColumnWidths");
 			public static IObservable<double> SourcePaneHeightStar => GetObservable<double>("SourcePaneHeightStar");
 			public static IObservable<double> QueuePaneHeightStar => GetObservable<double>("QueuePaneHeightStar");
@@ -761,14 +803,19 @@ namespace VidCoder
 			public static IObservable<bool> EncodingListPaneOpen => GetObservable<bool>("EncodingListPaneOpen");
 			public static IObservable<double> EncodingListPaneWidth => GetObservable<double>("EncodingListPaneWidth");
 			public static IObservable<double> LogListPaneWidth => GetObservable<double>("LogListPaneWidth");
+			public static IObservable<bool> EnableQuickSyncDecoding => GetObservable<bool>("EnableQuickSyncDecoding");
+			public static IObservable<bool> EnableQuickSyncHyperEncode => GetObservable<bool>("EnableQuickSyncHyperEncode");
+			public static IObservable<bool> UseQsvDecodeForNonQsvEncodes => GetObservable<bool>("UseQsvDecodeForNonQsvEncodes");
+			public static IObservable<bool> EnableNVDec => GetObservable<bool>("EnableNVDec");
+			public static IObservable<bool> EnableDirectXDecoding => GetObservable<bool>("EnableDirectXDecoding");
 			public static IObservable<string> WatcherMode => GetObservable<string>("WatcherMode");
 			public static IObservable<int> WatcherPollIntervalSeconds => GetObservable<int>("WatcherPollIntervalSeconds");
 			public static IObservable<string> WorkerProcessPriority => GetObservable<string>("WorkerProcessPriority");
 			public static IObservable<int> LogVerbosity => GetObservable<int>("LogVerbosity");
-			public static IObservable<bool> EnableNVDec => GetObservable<bool>("EnableNVDec");
 			public static IObservable<bool> CopyLogToOutputFolder => GetObservable<bool>("CopyLogToOutputFolder");
 			public static IObservable<bool> CopyLogToCustomFolder => GetObservable<bool>("CopyLogToCustomFolder");
 			public static IObservable<string> LogCustomFolder => GetObservable<string>("LogCustomFolder");
+			public static IObservable<string> PartFileNaming => GetObservable<string>("PartFileNaming");
 			public static IObservable<bool> AutoPauseLowBattery => GetObservable<bool>("AutoPauseLowBattery");
 			public static IObservable<bool> AutoPauseLowDiskSpace => GetObservable<bool>("AutoPauseLowDiskSpace");
 			public static IObservable<int> AutoPauseLowDiskSpaceGb => GetObservable<int>("AutoPauseLowDiskSpaceGb");
@@ -803,6 +850,8 @@ namespace VidCoder
 			public static IObservable<bool> ShowProgressInWindowTitle => GetObservable<bool>("ShowProgressInWindowTitle");
 			public static IObservable<bool> UseWorkerProcess => GetObservable<bool>("UseWorkerProcess");
 			public static IObservable<bool> RememberPreviousFiles => GetObservable<bool>("RememberPreviousFiles");
+			public static IObservable<bool> RememberLastSelectedEncodeCompleteAction => GetObservable<bool>("RememberLastSelectedEncodeCompleteAction");
+			public static IObservable<string> LastEncodeCompleteAction => GetObservable<string>("LastEncodeCompleteAction");
 			public static IObservable<string> PreferredPlayer => GetObservable<string>("PreferredPlayer");
 			public static IObservable<bool> BetaUpdates => GetObservable<bool>("BetaUpdates");
 			public static IObservable<string> InterfaceLanguageCode => GetObservable<string>("InterfaceLanguageCode");

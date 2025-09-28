@@ -55,8 +55,8 @@ ApplicationVersion|string|""
 
 QueueColumns|string|"Source:200|Title:35|Range:106|Destination:200"
 QueueLastColumnWidth|double|75.0
+CompletedColumns|string|"Destination:290|Status:120|ElapsedTime:90|Size:80|PercentOfSource:90"
 
-CompletedColumnWidths|string|""
 WatcherFileColumnWidths|string|""
 
 SourcePaneHeightStar|double|2.0
@@ -66,14 +66,20 @@ EncodingListPaneOpen|bool|true
 EncodingListPaneWidth|double|150.0
 LogListPaneWidth|double|150.0
 
+EnableQuickSyncDecoding|bool|true
+EnableQuickSyncHyperEncode|bool|false
+UseQsvDecodeForNonQsvEncodes|bool|false
+EnableNVDec|bool|true
+EnableDirectXDecoding|bool|true
+
 WatcherMode|string|"FileSystemWatcher"
 WatcherPollIntervalSeconds|int|5
 WorkerProcessPriority|string|"BelowNormal"
 LogVerbosity|int|1
-EnableNVDec|bool|true
 CopyLogToOutputFolder|bool|false
 CopyLogToCustomFolder|bool|false
 LogCustomFolder|string|""
+PartFileNaming|string|"PartInMiddle"
 AutoPauseLowBattery|bool|true
 AutoPauseLowDiskSpace|bool|true
 AutoPauseLowDiskSpaceGb|int|1
@@ -108,6 +114,8 @@ KeepFailedFiles|bool|false
 ShowProgressInWindowTitle|bool|true
 UseWorkerProcess|bool|true
 RememberPreviousFiles|bool|true
+RememberLastSelectedEncodeCompleteAction|bool|false
+LastEncodeCompleteAction|string|""
 PreferredPlayer|string|"vlc"
 BetaUpdates|bool|false
 InterfaceLanguageCode|string|""

@@ -164,60 +164,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AC3.
-        /// </summary>
-        public static string AudioEncoder_ac3 {
-            get {
-                return ResourceManager.GetString("AudioEncoder_ac3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AAC (avcodec).
-        /// </summary>
-        public static string AudioEncoder_av_aac {
-            get {
-                return ResourceManager.GetString("AudioEncoder_av_aac", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AAC (FAAC).
-        /// </summary>
-        public static string AudioEncoder_faac {
-            get {
-                return ResourceManager.GetString("AudioEncoder_faac", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to FLAC 16-bit.
-        /// </summary>
-        public static string AudioEncoder_flac16 {
-            get {
-                return ResourceManager.GetString("AudioEncoder_flac16", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to FLAC 24-bit.
-        /// </summary>
-        public static string AudioEncoder_flac24 {
-            get {
-                return ResourceManager.GetString("AudioEncoder_flac24", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to MP3.
-        /// </summary>
-        public static string AudioEncoder_mp3 {
-            get {
-                return ResourceManager.GetString("AudioEncoder_mp3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to None.
         /// </summary>
         public static string AudioEncoder_none {
@@ -1176,6 +1122,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ALAC.
+        /// </summary>
+        public static string Passthrough_alac {
+            get {
+                return ResourceManager.GetString("Passthrough_alac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Auto.
         /// </summary>
         public static string Passthrough_auto {
@@ -1226,6 +1181,15 @@ namespace VidCoder.Resources {
         public static string Passthrough_mp3 {
             get {
                 return ResourceManager.GetString("Passthrough_mp3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opus.
+        /// </summary>
+        public static string Passthrough_opus {
+            get {
+                return ResourceManager.GetString("Passthrough_opus", resourceCulture);
             }
         }
         
@@ -1525,15 +1489,6 @@ namespace VidCoder.Resources {
         public static string ProfileToolTip {
             get {
                 return ResourceManager.GetString("ProfileToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to QSV Decoding.
-        /// </summary>
-        public static string QsvDecodingLabel {
-            get {
-                return ResourceManager.GetString("QsvDecodingLabel", resourceCulture);
             }
         }
         
@@ -2105,60 +2060,6 @@ namespace VidCoder.Resources {
         public static string VideoCodecLabel {
             get {
                 return ResourceManager.GetString("VideoCodecLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to MPEG-2 (Libav).
-        /// </summary>
-        public static string VideoEncoder_ffmpeg2 {
-            get {
-                return ResourceManager.GetString("VideoEncoder_ffmpeg2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to MPEG-4 (Libav).
-        /// </summary>
-        public static string VideoEncoder_ffmpeg4 {
-            get {
-                return ResourceManager.GetString("VideoEncoder_ffmpeg4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to MPEG-2.
-        /// </summary>
-        public static string VideoEncoder_mpeg2 {
-            get {
-                return ResourceManager.GetString("VideoEncoder_mpeg2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to MPEG-4.
-        /// </summary>
-        public static string VideoEncoder_mpeg4 {
-            get {
-                return ResourceManager.GetString("VideoEncoder_mpeg4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Theora.
-        /// </summary>
-        public static string VideoEncoder_theora {
-            get {
-                return ResourceManager.GetString("VideoEncoder_theora", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to H.264 (x264).
-        /// </summary>
-        public static string VideoEncoder_x264 {
-            get {
-                return ResourceManager.GetString("VideoEncoder_x264", resourceCulture);
             }
         }
         

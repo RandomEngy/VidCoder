@@ -320,7 +320,10 @@
   </data>
   
   
-  
+  <data name="ThemeLabel" xml:space="preserve">
+    <value>Tema</value>
+    <comment>Label for the app theme (auto, light, dark)</comment>
+  </data>
   
   
   
@@ -331,6 +334,27 @@
   <data name="FileNameFormatOptions" xml:space="preserve">
     <value>Tillgängliga alternativ: {0}</value>
   </data>
+  
+  
+  
+  
+  <data name="CheckingForUpdateStatus" xml:space="preserve">
+    <value>Söker efter uppdatering …</value>
+  </data>
+  <data name="UpdateModeLabel" xml:space="preserve">
+    <value>Uppdateringsläge:</value>
+    <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

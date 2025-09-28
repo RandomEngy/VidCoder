@@ -200,7 +200,7 @@ public static class WindowPlacement
 			placement.showCmd = placement.showCmd == SW_SHOWMINIMIZED ? SW_SHOWNORMAL : placement.showCmd;
 
 			IntPtr closestMonitorPtr = MonitorFromRect(ref placement.normalPosition, MONITOR_DEFAULTTONEAREST);
-			MONITORINFO closestMonitorInfo = new MONITORINFO();
+			MONITORINFO closestMonitorInfo = new();
 			closestMonitorInfo.cbSize = Marshal.SizeOf(typeof (MONITORINFO));
 			bool getInfoSucceeded = GetMonitorInfo(closestMonitorPtr, ref closestMonitorInfo);
 
@@ -249,10 +249,10 @@ public static class WindowPlacement
 
 	public static string GetPlacement(IntPtr windowHandle)
 	{
-		WINDOWPLACEMENT placement = new WINDOWPLACEMENT();
+		WINDOWPLACEMENT placement = new();
 		GetWindowPlacement(windowHandle, out placement);
 
-		WindowPlacementClass placementClass = new WindowPlacementClass(placement);
+		WindowPlacementClass placementClass = new(placement);
 
 		return JsonSerializer.Serialize(placementClass);
 	}
@@ -372,7 +372,7 @@ public static class WindowPlacement
 
 				if (monitor != IntPtr.Zero)
 				{
-					MONITORINFO monitorInfo = new MONITORINFO();
+					MONITORINFO monitorInfo = new();
 					monitorInfo.cbSize = Marshal.SizeOf(typeof(MONITORINFO));
 					GetMonitorInfo(monitor, ref monitorInfo);
 					RECT rcWorkArea = monitorInfo.rcWork;

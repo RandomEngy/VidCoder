@@ -10,7 +10,7 @@ namespace VidCoder.ViewModel;
 
 public class VideoEncoderViewModel
 {
-	private static ResourceManager manager = new ResourceManager(typeof(EncodingRes));
+	private static ResourceManager manager = new(typeof(EncodingRes));
 
 	public HBVideoEncoder Encoder { get; set; }
 

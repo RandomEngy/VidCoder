@@ -9,8 +9,8 @@ namespace VidCoder.Model;
 public class ConfigObservable<T> : IObservable<T>
 {
 	private string key;
-	private List<IObserver<T>> observers = new List<IObserver<T>>();
-	private readonly object disposeLock = new object();
+	private List<IObserver<T>> observers = new();
+	private readonly object disposeLock = new();
 
 	public ConfigObservable(string key)
 	{

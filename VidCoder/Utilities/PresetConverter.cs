@@ -77,7 +77,6 @@ public static class PresetConverter
 		profile.TurboFirstPass = hbPreset.VideoTurboMultiPass;
 		profile.Quality = (decimal)hbPreset.VideoQualitySlider;
 		profile.VideoBitrate = hbPreset.VideoAvgBitrate ?? 0;
-		profile.QsvDecode = false;
 		switch (hbPreset.VideoQualityType)
 		{
 			case 0:

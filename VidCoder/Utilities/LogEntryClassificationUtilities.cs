@@ -9,7 +9,8 @@ namespace VidCoder;
 
 public static class LogEntryClassificationUtilities
 {
-	private static readonly Dictionary<string, LogSource> SourcePrefixes = new Dictionary<string, LogSource> {
+	private static readonly Dictionary<string, LogSource> SourcePrefixes = new()
+	{
 		{ "VC ", LogSource.VidCoder },
 		{ "VW ", LogSource.VidCoderWorker },
 		{ "HB ", LogSource.HandBrake },

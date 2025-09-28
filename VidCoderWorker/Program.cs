@@ -95,7 +95,7 @@ class Program
 			if (action == HandBrakeWorkerAction.Encode)
 			{
 				PipeServerWithCallback<IHandBrakeEncodeWorkerCallback, IHandBrakeEncodeWorker> encodeServer = null;
-				Lazy<IHandBrakeEncodeWorker> lazyEncodeWorker = new Lazy<IHandBrakeEncodeWorker>(() => new HandBrakeEncodeWorker(encodeServer.Invoker));
+				Lazy<IHandBrakeEncodeWorker> lazyEncodeWorker = new(() => new HandBrakeEncodeWorker(encodeServer.Invoker));
 				encodeServer = new PipeServerWithCallback<IHandBrakeEncodeWorkerCallback, IHandBrakeEncodeWorker>(new NetJsonPipeSerializer(), PipeName, () => lazyEncodeWorker.Value);
 
 				if (debugLogging)
@@ -109,7 +109,7 @@ class Program
 			else if (action == HandBrakeWorkerAction.Scan)
 			{
 				PipeServerWithCallback<IHandBrakeScanWorkerCallback, IHandBrakeScanWorker> scanServer = null;
-				Lazy<IHandBrakeScanWorker> lazyScanWorker = new Lazy<IHandBrakeScanWorker>(() => new HandBrakeScanWorker(scanServer.Invoker));
+				Lazy<IHandBrakeScanWorker> lazyScanWorker = new(() => new HandBrakeScanWorker(scanServer.Invoker));
 				scanServer = new PipeServerWithCallback<IHandBrakeScanWorkerCallback, IHandBrakeScanWorker>(new NetJsonPipeSerializer(), PipeName, () => lazyScanWorker.Value);
 
 				if (debugLogging)

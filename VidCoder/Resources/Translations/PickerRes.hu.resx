@@ -417,7 +417,14 @@ Nyelv(ek) - Nyelv alapján
     <value>Szélességszűrő értéke</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
-  
-  
-  
+  <data name="ExternalSubtitleImportToolTip" xml:space="preserve">
+    <value>Felismeri a fileName.lng.ext fájlt is, ahol az lng az ISO nyelv neve, az ext pedig a felirat fájlkiterjesztés.</value>
+  </data>
+  <data name="FallbackLanguageLabel" xml:space="preserve">
+    <value>Tartalék nyelv:</value>
+    <comment>Label for an option of what language to mark a subtitle track as when it doesn't have the language identified in the file name. For example, if you have myVideo.mp4 and myVideo.srt, what language should we mark that as when we pick it up?</comment>
+  </data>
+  <data name="FallbackLanguageToolTip" xml:space="preserve">
+    <value>Ha a nyelv nem szerepel a feliratfájl nevében, például myVideo.srt, tételezzük fel, hogy ez a nyelve.</value>
+  </data>
 </root>

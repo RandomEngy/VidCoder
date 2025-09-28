@@ -120,9 +120,17 @@
   <data name="LogWindowTitle" xml:space="preserve">
     <value>Logga</value>
   </data>
-  
-  
-  
-  
+  <data name="GeneralLogLabel" xml:space="preserve">
+    <value>Allmänt</value>
+  </data>
+  <data name="LogVerbosity_Minimized" xml:space="preserve">
+    <value>Minimerad</value>
+  </data>
+  <data name="LogVerbosity_Standard" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="LogVerbosity_Extended" xml:space="preserve">
+    <value>Utökad</value>
+  </data>
   
 </root>

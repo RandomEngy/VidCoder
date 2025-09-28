@@ -7,7 +7,7 @@ namespace VidCoder.ViewModel;
 
     public class AudioEncoderViewModel : ReactiveObject
 {
-	private static ResourceManager manager = new ResourceManager(typeof(EncodingRes));
+	private static ResourceManager manager = new(typeof(EncodingRes));
 
 	public HBAudioEncoder Encoder { get; set; }
 

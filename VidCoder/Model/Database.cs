@@ -23,11 +23,11 @@ public static class Database
 {
 	private const string BackupFolderName = "Backups";
 
-	private static ThreadLocal<SQLiteConnection> threadLocalConnection = new ThreadLocal<SQLiteConnection>(trackAllValues: true);
+	private static ThreadLocal<SQLiteConnection> threadLocalConnection = new(trackAllValues: true);
 
 	private static long mainThreadId;
 
-	private static Lazy<string> lazyDatabaseFile = new Lazy<string>(GetDatabaseFilePath);
+	private static Lazy<string> lazyDatabaseFile = new(GetDatabaseFilePath);
 
 	public static void Initialize()
 	{
@@ -79,6 +79,11 @@ public static class Database
 			if (databaseVersion < 49)
 			{
 				UpgradeDatabaseTo49();
+			}
+
+			if (databaseVersion < 50)
+			{
+				UpgradeDatabaseTo50();
 			}
 
 			// Update encoding profiles if we need to. Everything is at least 28 now from the JSON upgrade.
@@ -226,14 +231,14 @@ public static class Database
 	/// <returns>The best version match.</returns>
 	private static int FindBackupDatabaseFile()
 	{
-		DirectoryInfo backupDirectoryInfo = new DirectoryInfo(BackupDatabaseFolder);
+		DirectoryInfo backupDirectoryInfo = new(BackupDatabaseFolder);
 		if (!backupDirectoryInfo.Exists)
 		{
 			return -1;
 		}
 
 		FileInfo[] backupFiles = backupDirectoryInfo.GetFiles();
-		Regex regex = new Regex(@"^VidCoder-v(?<version>\d+)\.sqlite$");
+		Regex regex = new(@"^VidCoder-v(?<version>\d+)\.sqlite$");
 
 		int bestCandidate = -1;
 		foreach (FileInfo backupFile in backupFiles)
@@ -343,6 +348,21 @@ public static class Database
 		if (Utilities.InstallType == VidCoderInstallType.VelopackInstaller)
 		{
 			RegistryUtilities.RefreshFileAssociations(new StubLogger());
+		}
+	}
+
+	private static void UpgradeDatabaseTo50()
+	{
+		string completedColumnWidths = DatabaseConfig.Get<string>("CompletedColumnWidths", string.Empty, Connection);
+		if (!string.IsNullOrEmpty(completedColumnWidths))
+		{
+			string[] columnWidths = completedColumnWidths.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+
+			if (columnWidths.Length == 4)
+			{
+				string completedColumns = $"Destination:{columnWidths[0]}|Status:{columnWidths[1]}|ElapsedTime:{columnWidths[2]}|Size:{columnWidths[3]}|PercentOfSource:90";
+				DatabaseConfig.Set<string>("CompletedColumns", completedColumns, Connection);
+			}
 		}
 	}
 

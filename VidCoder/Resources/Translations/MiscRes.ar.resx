@@ -154,12 +154,8 @@
     <value>يوجد ملف بالفعل في {0}. هل تريد الكتابة فوق الملف ، والعثور تلقائيا علي مسار ناتج جديد لمهمة التشفير أو إلغاء العملية ؟</value>
   </data>
   
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>أعمده قائمه الانتظار</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>اسحب واسقط لأضافه اعمده او ازالتها او اعاده ترتيبها.</value>
-  </data>
+  
+  
   <data name="UnusedColumns" xml:space="preserve">
     <value>اعمده غير مستخدمة</value>
   </data>
@@ -250,6 +246,7 @@
   <data name="ExceptionDialogSubTextReported" xml:space="preserve">
     <value>يحتاج البرنامج إلى إغلاق ، ولكن سيتم الإبلاغ عن الخطا تلقائيا.</value>
   </data>
+  
   
   
   

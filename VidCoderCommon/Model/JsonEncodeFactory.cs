@@ -15,6 +15,7 @@ using HandBrake.Interop.Interop.Json.Shared;
 using Microsoft.AnyContainer;
 using Omu.ValueInjecter;
 using VidCoderCommon.Extensions;
+using VidCoderCommon.Model.Job;
 using VidCoderCommon.Services;
 using VidCoderCommon.Utilities;
 using VidCoderCommon.Utilities.Injection;
@@ -46,7 +47,9 @@ public class JsonEncodeFactory
 	/// <param name="job">The encode job to convert.</param>
 	/// <param name="title">The source title.</param>
 	/// <param name="defaultChapterNameFormat">The format for a default chapter name.</param>
-	/// <param name="enableNVDec">True to enable NVDec decoding.</param>
+	/// <param name="jobConfiguration">Values from user configuration.</param>
+	/// <param name="qsvGpu">The specific GPU to use for the QSV encode, or -1 if no specific GPU is chosen.</param>
+	/// <param name="isEncode">True if this is being created for an encode job. False for an image preview.</param>
 	/// <param name="previewNumber">The preview number to start at (0-based). Leave off for a normal encode.</param>
 	/// <param name="previewSeconds">The number of seconds long to make the preview.</param>
 	/// <param name="previewCount">The total number of previews.</param>
@@ -55,7 +58,8 @@ public class JsonEncodeFactory
 		VCJob job,
 		SourceTitle title,
 		string defaultChapterNameFormat,
-		bool enableNVDec,
+		JobConfiguration jobConfiguration,
+		int qsvGpu,
 		bool isEncode,
 		int previewNumber = -1,
 		int previewSeconds = 0,
@@ -79,7 +83,7 @@ public class JsonEncodeFactory
 			throw new ArgumentException("job must have encoding profile.", nameof(job));
 		}
 		
-		JsonEncodeObject encode = new JsonEncodeObject
+		JsonEncodeObject encode = new()
 		{
 			SequenceID = 0,
 			Audio = this.CreateAudio(job, title),
@@ -89,7 +93,13 @@ public class JsonEncodeFactory
 			PAR = outputSize.Par,
 			Source = this.CreateSource(job, title, previewNumber, previewSeconds, previewCount),
 			Subtitle = this.CreateSubtitles(job, title),
-			Video = this.CreateVideo(job, title, enableNVDec, previewSeconds, isEncode)
+			Video = this.CreateVideo(
+				job,
+				title,
+				jobConfiguration,
+				qsvGpu,
+				previewLengthSeconds: previewSeconds,
+				isEncode: isEncode)
 		};
 
 		return encode;
@@ -99,7 +109,7 @@ public class JsonEncodeFactory
 	{
 		ResolvedAudio resolvedAudio = ResolveAudio(job, title);
 
-		Audio audio = new Audio
+		Audio audio = new()
 		{
 			FallbackEncoder = resolvedAudio.FallbackEncoder?.ShortName,
 			CopyMask = resolvedAudio.CopyMask,
@@ -281,21 +291,19 @@ public class JsonEncodeFactory
 				Encoder = HandBrakeEncoderHelpers.GetAudioEncoder((int)outputCodec).ShortName,
 			};
 
-			if (!string.IsNullOrEmpty(chosenTrack.Name) && chosenTrack.Name != sourceTrack.Name)
+			string trackName = chosenTrack.Name;
+
+			if (trackName == null)
 			{
-				// If we have picked a name different from the source, use it.
-				outputTrack.Name = chosenTrack.Name;
+				trackName = sourceTrack.Name;
 			}
-			else if (!string.IsNullOrEmpty(encoding.Name))
+
+			if (trackName == "")
 			{
-				// If the encoding has a name associated with it, use it.
-				outputTrack.Name = encoding.Name;
+				trackName = null;
 			}
-			else if (!string.IsNullOrEmpty(sourceTrack.Name))
-			{
-				// Else fall back to the name from the source.
-				outputTrack.Name = sourceTrack.Name;
-			}
+
+			outputTrack.Name = trackName;
 
 			if (isPassthrough && fallbackEncoder != null)
 			{
@@ -437,7 +445,7 @@ public class JsonEncodeFactory
 
 	private Filters CreateFilters(VCProfile profile, SourceTitle title, OutputSizeInfo outputSizeInfo)
 	{
-		Filters filters = new Filters
+		Filters filters = new()
 		{
 			FilterList = new List<Filter>(),
 		};
@@ -448,7 +456,7 @@ public class JsonEncodeFactory
 			string settingsString = profile.Detelecine == "custom" ? profile.CustomDetelecine : null;
 			string presetString = profile.Detelecine == "custom" ? "custom" : "default";
 
-			Filter filterItem = new Filter
+			Filter filterItem = new()
 			{
 				ID = (int)hb_filter_ids.HB_FILTER_DETELECINE,
 				Settings = this.GetFilterSettingsPresetOnly(hb_filter_ids.HB_FILTER_DETELECINE, presetString, settingsString)
@@ -473,7 +481,7 @@ public class JsonEncodeFactory
 
 			if (settings != null)
 			{
-				Filter filterItem = new Filter { ID = (int)filterId, Settings = settings };
+				Filter filterItem = new() { ID = (int)filterId, Settings = settings };
 				filters.FilterList.Add(filterItem); 
 			}
 		}
@@ -493,7 +501,7 @@ public class JsonEncodeFactory
 
 			if (settings != null)
 			{
-				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_COMB_DETECT, Settings = settings };
+				Filter filterItem = new() { ID = (int)hb_filter_ids.HB_FILTER_COMB_DETECT, Settings = settings };
 				filters.FilterList.Add(filterItem);
 			}
 		}
@@ -531,7 +539,7 @@ public class JsonEncodeFactory
 					HandBrakeUnitConversionHelpers.FramerateToVrate(profile.Framerate));
 			}
 
-			Filter framerateShaper = new Filter { ID = (int)hb_filter_ids.HB_FILTER_VFR, Settings = framerateSettings };
+			Filter framerateShaper = new() { ID = (int)hb_filter_ids.HB_FILTER_VFR, Settings = framerateSettings };
 			filters.FilterList.Add(framerateShaper);
 		}
 
@@ -552,7 +560,7 @@ public class JsonEncodeFactory
 
 			if (settings != null)
 			{
-				Filter filterItem = new Filter { ID = (int)filterId, Settings = settings };
+				Filter filterItem = new() { ID = (int)filterId, Settings = settings };
 				filters.FilterList.Add(filterItem);
 			}
 		}
@@ -572,7 +580,7 @@ public class JsonEncodeFactory
 
 			if (settings != null)
 			{
-				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_CHROMA_SMOOTH, Settings = settings };
+				Filter filterItem = new() { ID = (int)hb_filter_ids.HB_FILTER_CHROMA_SMOOTH, Settings = settings };
 				filters.FilterList.Add(filterItem);
 			}
 		}
@@ -594,7 +602,7 @@ public class JsonEncodeFactory
 
 			if (settings != null)
 			{
-				Filter filterItem = new Filter { ID = (int)filterId, Settings = settings };
+				Filter filterItem = new() { ID = (int)filterId, Settings = settings };
 				filters.FilterList.Add(filterItem);
 			}
 		}
@@ -614,7 +622,7 @@ public class JsonEncodeFactory
 
 			if (settings != null)
 			{
-				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_DEBLOCK, Settings = settings };
+				Filter filterItem = new() { ID = (int)hb_filter_ids.HB_FILTER_DEBLOCK, Settings = settings };
 				filters.FilterList.Add(filterItem);
 			}
 		}
@@ -634,7 +642,7 @@ public class JsonEncodeFactory
 
 			if (settings != null)
 			{
-				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_COLORSPACE, Settings = settings };
+				Filter filterItem = new() { ID = (int)hb_filter_ids.HB_FILTER_COLORSPACE, Settings = settings };
 				filters.FilterList.Add(filterItem);
 			}
 		}
@@ -653,7 +661,7 @@ public class JsonEncodeFactory
 				cropping.Left,
 				cropping.Right));
 
-		Filter cropScale = new Filter
+		Filter cropScale = new()
 		{
 			ID = (int)hb_filter_ids.HB_FILTER_CROP_SCALE,
 			Settings = cropFilterSettings
@@ -688,7 +696,7 @@ public class JsonEncodeFactory
 					rotateDegrees,
 					flipHorizontal ? 1 : 0));
 
-			Filter rotateFilter = new Filter
+			Filter rotateFilter = new()
 			{
 				ID = (int)hb_filter_ids.HB_FILTER_ROTATE,
 				Settings = rotateSettings
@@ -699,7 +707,7 @@ public class JsonEncodeFactory
 		// Grayscale
 		if (profile.Grayscale)
 		{
-			Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_GRAYSCALE, Settings = null };
+			Filter filterItem = new() { ID = (int)hb_filter_ids.HB_FILTER_GRAYSCALE, Settings = null };
 			filters.FilterList.Add(filterItem);
 		}
 
@@ -714,7 +722,7 @@ public class JsonEncodeFactory
 
 			if (padColor.Length == 3)
 			{
-				StringBuilder builder = new StringBuilder();
+				StringBuilder builder = new();
 				foreach (char c in padColor)
 				{
 					builder.Append(c);
@@ -727,7 +735,7 @@ public class JsonEncodeFactory
 			JsonDocument padSettings = this.GetFilterSettingsCustom(
 				hb_filter_ids.HB_FILTER_PAD,
 				FormattableString.Invariant($"width={outputSizeInfo.OutputWidth}:height={outputSizeInfo.OutputHeight}:x={outputSizeInfo.Padding.Left}:y={outputSizeInfo.Padding.Top}:color=0x{padColor}"));
-			Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_PAD, Settings = padSettings };
+			Filter filterItem = new() { ID = (int)hb_filter_ids.HB_FILTER_PAD, Settings = padSettings };
 			filters.FilterList.Add(filterItem);
 		}
 
@@ -852,7 +860,7 @@ public class JsonEncodeFactory
 
 	private Subtitles CreateSubtitles(VCJob job, SourceTitle title)
 	{
-		Subtitles subtitles = new Subtitles
+		Subtitles subtitles = new()
 		{
 			Search =
 				new SubtitleSearch
@@ -885,13 +893,18 @@ public class JsonEncodeFactory
 					SourceSubtitleTrack sourceSubtitleTrack = title.SubtitleList[sourceSubtitle.TrackNumber - 1];
 					forcedOnly = forcedOnly && HandBrakeEncoderHelpers.SubtitleCanSetForcedOnly(sourceSubtitleTrack.Source);
 
-					if (string.IsNullOrEmpty(name))
+					if (name == null)
 					{
 						name = sourceSubtitleTrack.Name;
 					}
 				}
 
-				SubtitleTrack track = new SubtitleTrack
+				if (name == "")
+				{
+					name = null;
+				}
+
+				SubtitleTrack track = new()
 				{
 					Burn = sourceSubtitle.BurnedIn,
 					Default = sourceSubtitle.Default,
@@ -906,7 +919,7 @@ public class JsonEncodeFactory
 
 		foreach (FileSubtitle fileSubtitle in job.Subtitles.FileSubtitles)
 		{
-			SubtitleTrack track = new SubtitleTrack
+			SubtitleTrack track = new()
 			{
 				Track = -1, // Indicates SRT
 				Name = fileSubtitle.Name,
@@ -929,9 +942,15 @@ public class JsonEncodeFactory
 		return subtitles;
 	}
 
-	private Video CreateVideo(VCJob job, SourceTitle title, bool enableNVDec, int previewLengthSeconds, bool isEncode)
+	private Video CreateVideo(
+		VCJob job,
+		SourceTitle title,
+		JobConfiguration jobConfiguration,
+		int qsvGpu,
+		int previewLengthSeconds,
+		bool isEncode)
 	{
-		Video video = new Video();
+		Video video = new();
 		VCProfile profile = job.EncodingProfile;
 
 		HBVideoEncoder videoEncoder = HandBrakeEncoderHelpers.GetVideoEncoder(profile.VideoEncoder);
@@ -941,18 +960,51 @@ public class JsonEncodeFactory
 		}
 
 		video.Encoder = videoEncoder.ShortName;
-		video.QSV = new QSV
-		{
-			Decode = profile.QsvDecode && isEncode
-		};
+		string videoOptions = profile.VideoOptions?.Trim() ?? string.Empty;
 
-		if (enableNVDec && isEncode)
+		if (isEncode)
 		{
-			video.HardwareDecode = (int)NativeConstants.HB_DECODE_SUPPORT_NVDEC;
+			bool setHardwareDecoder = false;
+			if (videoEncoder.IsQuickSync)
+			{
+				setHardwareDecoder = true;
+				video.HardwareDecode = HandBrakeHardwareEncoderHelper.IsQsvAvailable && jobConfiguration.EnableQuickSyncDecoding ?
+					 NativeConstants.HB_DECODE_QSV | NativeConstants.HB_DECODE_FORCE_HW : 0;
+
+				if (qsvGpu >= 0 && !videoOptions.Contains("gpu="))
+				{
+					videoOptions = AdvancedOptionUtilities.Prepend($"gpu={qsvGpu}", videoOptions);
+				}
+			}
+
+			// Allow use of the QSV decoder is configurable for non QSV encoders.
+			if (!setHardwareDecoder && !videoEncoder.IsHardwareEncoder && jobConfiguration.UseQsvDecodeForNonQsvEncodes && jobConfiguration.EnableQuickSyncDecoding)
+			{
+				setHardwareDecoder = true;
+				video.HardwareDecode = HandBrakeHardwareEncoderHelper.IsQsvAvailable ?
+					NativeConstants.HB_DECODE_QSV | NativeConstants.HB_DECODE_FORCE_HW : 0;
+			}
+
+			if (jobConfiguration.EnableQuickSyncHyperEncode && HandBrakeHardwareEncoderHelper.IsQsvAvailable)
+			{
+				videoOptions = AdvancedOptionUtilities.Prepend("hyperencode=adaptive", videoOptions);
+			}
+
+			if (!setHardwareDecoder && HandBrakeHardwareEncoderHelper.IsNVDecAvailable && videoEncoder.IsNVEnc && jobConfiguration.EnableNVDec)
+			{
+				setHardwareDecoder = true;
+				video.HardwareDecode = NativeConstants.HB_DECODE_NVDEC;
+			}
+
+			if (!setHardwareDecoder && HandBrakeHardwareEncoderHelper.IsDirectXAvailable && jobConfiguration.EnableDirectXDecoding)
+			{
+				setHardwareDecoder = true;
+				video.HardwareDecode = NativeConstants.HB_DECODE_MF | NativeConstants.HB_DECODE_FORCE_HW;
+			}
 		}
 
 		video.Level = profile.VideoLevel ?? "auto";
-		video.Options = profile.VideoOptions?.Trim();
+		video.Options = videoOptions;
 		video.Preset = profile.VideoPreset;
 		video.Profile = profile.VideoProfile ?? "auto";
 

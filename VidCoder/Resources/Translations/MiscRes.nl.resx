@@ -159,7 +159,7 @@
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>Wachtrij kolommen</value>
   </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
+  <data name="ColumnsDialogHeaderText" xml:space="preserve">
     <value>Sleep om kolommen toe te voegen, te verwijderen of te herschikken.</value>
   </data>
   <data name="UnusedColumns" xml:space="preserve">
@@ -271,5 +271,8 @@
   </data>
   <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
     <value>Het systeem wordt over {0} seconden opnieuw opgestart.</value>
+  </data>
+  <data name="CompletedColumnsDialogTitle" xml:space="preserve">
+    <value>Afgeronde kolommen</value>
   </data>
 </root>

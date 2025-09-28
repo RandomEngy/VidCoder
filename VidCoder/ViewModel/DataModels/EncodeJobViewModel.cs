@@ -30,6 +30,7 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 	public const double SubtitleScanCostFactor = 5.0;
 	private ProcessingService processingService;
 	private Stopwatch encodeTimeStopwatch;
+	private Stopwatch pauseTimeStopwatch;
 
 	public EncodeJobViewModel(
 		VCJob job,
@@ -354,6 +355,19 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 		}
 	}
 
+	public TimeSpan PauseTime
+	{
+		get
+		{
+			if (this.pauseTimeStopwatch == null)
+			{
+				return TimeSpan.Zero;
+			}
+
+			return this.pauseTimeStopwatch.Elapsed;
+		}
+	}
+
 	private readonly ObservableAsPropertyHelper<string> encodeTimeDisplay;
 	public string EncodeTimeDisplay => this.encodeTimeDisplay.Value;
 
@@ -412,6 +426,45 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 	public double PassProgressPercent => this.passProgressPercent.Value;
 
 	public bool ShowPassProgress => this.SubtitleScan || this.Profile.VideoEncodeRateType != VCVideoEncodeRateType.ConstantQuality;
+
+	private long GetSourceSizeBytes()
+	{
+		if (this.Job.SourceType == SourceType.File)
+		{
+			try
+			{
+				FileInfo fileInfo = new(this.Job.SourcePath);
+				if (fileInfo.Exists)
+				{
+					return fileInfo.Length;
+				}
+			}
+			catch (Exception exception)
+			{
+				this.Logger.LogError("Could not get source size:" + Environment.NewLine + exception);
+			}
+		}
+
+		return 0;
+	}
+
+	public void PopulateSourceSizeBytes()
+	{
+		if (this.sourceSizeBytes == null)
+		{
+			this.sourceSizeBytes = this.GetSourceSizeBytes();
+		}
+	}
+
+	private long? sourceSizeBytes = null;
+	public long SourceSizeBytes
+	{
+		get
+		{
+			this.PopulateSourceSizeBytes();
+			return (long)this.sourceSizeBytes;
+		}
+	}
 
 	private long fileSizeBytes;
 
@@ -674,7 +727,7 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 
 				if (selectedCount > 0 && selectedCount <= 3)
 				{
-					List<string> trackSummaries = new List<string>();
+					List<string> trackSummaries = new();
 					foreach (ChosenSourceSubtitle subtitle in chosenSourceSubtitles)
 					{
 						if (subtitle.Name == null)
@@ -707,7 +760,7 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 
 				if (fileSubtitles.Count <= 3)
 				{
-					List<string> trackSummaries = new List<string>();
+					List<string> trackSummaries = new();
 					foreach (FileSubtitle subtitle in fileSubtitles)
 					{
 						trackSummaries.Add(HandBrakeLanguagesHelper.GetByCode(subtitle.LanguageCode).Display);
@@ -819,24 +872,28 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 		this.InitializeForEncoding();
 		this.Encoding = true;
 		this.encodeTimeStopwatch = Stopwatch.StartNew();
+		this.pauseTimeStopwatch = new Stopwatch();
 	}
 
 	public void ReportEncodePause()
 	{
 		this.IsPaused = true;
 		this.encodeTimeStopwatch.Stop();
+		this.pauseTimeStopwatch.Start();
 	}
 
 	public void ReportEncodeResume()
 	{
 		this.IsPaused = false;
 		this.encodeTimeStopwatch.Start();
+		this.pauseTimeStopwatch.Stop();
 	}
 
 	public void ReportEncodeEnd()
 	{
 		this.Encoding = false;
 		this.encodeTimeStopwatch?.Stop();
+		this.pauseTimeStopwatch?.Stop();
 	}
 
 	public override string ToString()

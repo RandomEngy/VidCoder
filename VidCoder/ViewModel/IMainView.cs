@@ -10,9 +10,11 @@ public interface IMainView
 
 	void SaveQueueColumns();
 
-	void SaveCompletedColumnWidths();
+	void SaveCompletedColumns();
 
 	void ApplyQueueColumns();
+
+	void ApplyCompletedColumns();
 
 	IList<EncodeJobViewModel> SelectedJobs { get; }
 

@@ -15,7 +15,7 @@ public class HardwarePool
 	/// <summary>
 	/// The jobs that are currently using this hardware.
 	/// </summary>
-	private readonly List<EncodeJobViewModel> jobs = new List<EncodeJobViewModel>();
+	private readonly List<EncodeJobViewModel> jobs = new();
 
 	public HardwarePool(string name, int slotCount)
 	{

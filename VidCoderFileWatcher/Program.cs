@@ -13,7 +13,7 @@ try
 {
 	var service = new WatcherService(logger);
 	await service.RefreshFromWatchedFoldersAsync().ConfigureAwait(false);
-	CancellationTokenSource tokenSource = new CancellationTokenSource();
+	CancellationTokenSource tokenSource = new();
 
 	bool firstLineWritten = false;
 

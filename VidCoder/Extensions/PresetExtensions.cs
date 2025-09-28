@@ -6,7 +6,7 @@ namespace VidCoder.Extensions;
 
 public static class PresetExtensions
 {
-	private static ResourceManager manager = new ResourceManager(typeof(MainRes));
+	private static ResourceManager manager = new(typeof(MainRes));
 
 	public static string GetDisplayName(this Preset preset)
 	{

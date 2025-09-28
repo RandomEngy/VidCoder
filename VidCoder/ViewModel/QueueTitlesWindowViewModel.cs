@@ -27,7 +27,7 @@ public class QueueTitlesWindowViewModel : OkCancelDialogViewModel
 
 	private MainViewModel main;
 
-	private List<IDisposable> subscriptions = new List<IDisposable>();
+	private List<IDisposable> subscriptions = new();
 
 	public QueueTitlesWindowViewModel()
 	{
@@ -84,13 +84,14 @@ public class QueueTitlesWindowViewModel : OkCancelDialogViewModel
 			// Do preview
 			VCJob job = this.main.EncodeJob;
 			job.Title = title.Index;
-			JsonEncodeFactory factory = new JsonEncodeFactory(new StubLogger());
+			JsonEncodeFactory factory = new(new StubLogger());
 
 			JsonEncodeObject jsonEncodeObject = factory.CreateJsonObject(
 				job,
 				title,
 				EncodingRes.DefaultChapterName,
-				enableNVDec: Config.EnableNVDec,
+				VideoCodecUtilities.CreateJobConfiguration(),
+				qsvGpu: -1,
 				isEncode: false);
 
 			this.PreviewImage = BitmapUtilities.ConvertToBitmapImage(BitmapUtilities.ConvertByteArrayToBitmap(this.main.ScanInstance.GetPreview(jsonEncodeObject, 2)));
@@ -172,7 +173,7 @@ public class QueueTitlesWindowViewModel : OkCancelDialogViewModel
 	{
 		get
 		{
-			List<SourceTitle> checkedTitles = new List<SourceTitle>();
+			List<SourceTitle> checkedTitles = new();
 			foreach (TitleSelectionViewModel titleVM in this.Titles)
 			{
 				if (titleVM.Selected)

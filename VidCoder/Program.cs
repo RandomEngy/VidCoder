@@ -14,9 +14,9 @@ public static class Program
 	{
 		// Should be a no-op when not called with Velopack command line arguments.
 		VelopackApp.Build()
-			.WithFirstRun(VidCoderInstall.OnInitialInstall)
-			.WithAfterUpdateFastCallback(VidCoderInstall.OnAppUpdate)
-			.WithBeforeUninstallFastCallback(VidCoderInstall.OnAppUninstall)
+			.OnFirstRun(VidCoderInstall.OnInitialInstall)
+			.OnAfterUpdateFastCallback(VidCoderInstall.OnAppUpdate)
+			.OnBeforeUninstallFastCallback(VidCoderInstall.OnAppUninstall)
 			.Run();
 
 		var application = new App();

@@ -427,4 +427,55 @@ Polling: Periodically checks the contents of the folders. Uses significant CPU a
     <comment>Shown when downloading an update.
 {0} is the update version, for example 10.4</comment>
   </data>
+  <data name="RememberLastSelectedWhenDoneCheckBox" xml:space="preserve">
+    <value>Remember the last selected "When done" action on restart</value>
+  </data>
+  <data name="PartFileNamingLabel" xml:space="preserve">
+    <value>Partial file naming:</value>
+  </data>
+  <data name="PartFileNaming_PartInMiddle" xml:space="preserve">
+    <value>name.part.ext</value>
+  </data>
+  <data name="PartFileNaming_PartAtEnd" xml:space="preserve">
+    <value>name.ext.part</value>
+  </data>
+  <data name="HardwareTab" xml:space="preserve">
+    <value>Hardware</value>
+  </data>
+  <data name="IntelQuickSyncSection" xml:space="preserve">
+    <value>Intel QuickSync</value>
+  </data>
+  <data name="NvidiaNvencSection" xml:space="preserve">
+    <value>NVIDIA NVENC</value>
+  </data>
+  <data name="AmdVcnSection" xml:space="preserve">
+    <value>AMD VCN</value>
+  </data>
+  <data name="MediaFoundationSection" xml:space="preserve">
+    <value>Media Foundation (ARM Devices)</value>
+  </data>
+  <data name="EnableQuickSyncHyperEncodeCheckBox" xml:space="preserve">
+    <value>Enable Deep Link Hyper Encode</value>
+  </data>
+  <data name="EnableQuickSyncDecodingCheckBox" xml:space="preserve">
+    <value>Prefer Intel QuickSync for decoding video when using the QuickSync encoder.</value>
+  </data>
+  <data name="UseQsvDecodeForNonQsvEncodesCheckBox" xml:space="preserve">
+    <value>Also use QuickSync decoding when not using a QuickSync encoder.</value>
+  </data>
+  <data name="EnableDirectXDecodingCheckBox" xml:space="preserve">
+    <value>Allow use of DirectX Decoding.</value>
+  </data>
+  <data name="CodecsLabel" xml:space="preserve">
+    <value>Supported codecs: {0}</value>
+    <comment>Format string for codec lists. {0} is replaced with comma-separated list of codecs.</comment>
+  </data>
+  <data name="QsvAdapterCount" xml:space="preserve">
+    <value>Adapters: {0}</value>
+    <comment>Indicator for how many QSV adapters are available on the system.
+{0} is the number of adapters, for example "2"</comment>
+  </data>
+  <data name="EnableQuickSyncHyperEncodeToolTip" xml:space="preserve">
+    <value>Use multiple media engines to speed up a single encode where supported. Disable to allow load balancing multiple parallel encodes across media engines.</value>
+  </data>
 </root>

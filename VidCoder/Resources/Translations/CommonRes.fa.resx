@@ -150,18 +150,10 @@
     <value>عنوان</value>
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
-  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
-    <value>کیفیت صدا</value>
-  </data>
-  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>انکودر صوتی</value>
-  </data>
-  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>انکودر تصویری</value>
-  </data>
-  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
-    <value>کیفیت تصویر</value>
-  </data>
+  
+  
+  
+  
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>تخمین زمان باقی مانده تا تکمیل تمام عملیات در صف.</value>
   </data>
@@ -318,18 +310,12 @@
   <data name="DefaultLabel" xml:space="preserve">
     <value>پیش فرض:</value>
   </data>
-  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
-    <value>آهنگ های صوتی</value>
-  </data>
+  
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>برداشت</value>
   </data>
-  <data name="QueueColumnNameOutputSize" xml:space="preserve">
-    <value>حجم خروجی</value>
-  </data>
-  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
-    <value>زیرنویس ترک ها</value>
-  </data>
+  
+  
   <data name="Manual" xml:space="preserve">
     <value>دستی</value>
     <comment>Shown when something has been set manually</comment>
@@ -344,5 +330,17 @@
   <data name="Enabled" xml:space="preserve">
     <value>فعال‌شده</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
 </root>

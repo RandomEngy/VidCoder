@@ -150,18 +150,10 @@ GNU Genel Kamu Lisansının tam kopyası bu programla birlikte verilmiştir.</va
     <value>Başlık</value>
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
-  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
-    <value>Ses Kalitesi</value>
-  </data>
-  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>Ses Kodlayıcı</value>
-  </data>
-  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Video Kodlayıcı</value>
-  </data>
-  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
-    <value>Video Kalitesi</value>
-  </data>
+  
+  
+  
+  
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>Kuyruktaki tüm işler için kalan tahmini süre.</value>
   </data>
@@ -318,18 +310,12 @@ GNU Genel Kamu Lisansının tam kopyası bu programla birlikte verilmiştir.</va
   <data name="DefaultLabel" xml:space="preserve">
     <value>Varsayılan:</value>
   </data>
-  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
-    <value>Ses Parçaları</value>
-  </data>
+  
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>Kırpma</value>
   </data>
-  <data name="QueueColumnNameOutputSize" xml:space="preserve">
-    <value>Çıktı Boyutu</value>
-  </data>
-  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
-    <value>Altyazı Parçaları</value>
-  </data>
+  
+  
   <data name="Manual" xml:space="preserve">
     <value>Elle</value>
     <comment>Shown when something has been set manually</comment>
@@ -348,4 +334,16 @@ GNU Genel Kamu Lisansının tam kopyası bu programla birlikte verilmiştir.</va
     <value>Kapat</value>
     <comment>Label to close a window or item.</comment>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

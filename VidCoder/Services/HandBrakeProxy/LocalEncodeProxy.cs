@@ -13,6 +13,7 @@ using HandBrake.Interop.Interop.Json.Scan;
 using VidCoderCommon.Utilities;
 using HandBrake.Interop.Interop.Interfaces.EventArgs;
 using System.Text.Json;
+using Microsoft.AnyContainer;
 
 namespace VidCoder;
 
@@ -22,10 +23,12 @@ public class LocalEncodeProxy : IEncodeProxy
 
 	// Instance and lock only used when doing in-process encode (for debugging)
 	private HandBrakeInstance instance;
-	private readonly object encoderLock = new object();
+	private readonly object encoderLock = new();
 
 	private ManualResetEventSlim encodeStartEvent;
 	private ManualResetEventSlim encodeEndEvent;
+
+	private QsvLoadBalancingService qsvLoadBalancingService = StaticResolver.Resolve<QsvLoadBalancingService>();
 
 	private bool encoding;
 
@@ -51,13 +54,14 @@ public class LocalEncodeProxy : IEncodeProxy
 				SourceTitle encodeTitle = scanObject.TitleList.FirstOrDefault(title => title.Index == job.Title);
 				if (encodeTitle != null)
 				{
-					JsonEncodeFactory factory = new JsonEncodeFactory(logger);
+					JsonEncodeFactory factory = new(logger);
 
 					JsonEncodeObject jsonEncodeObject = factory.CreateJsonObject(
 						job,
 						encodeTitle,
 						EncodingRes.DefaultChapterName,
-						Config.EnableNVDec,
+						VideoCodecUtilities.CreateJobConfiguration(),
+						this.qsvLoadBalancingService.GetQsvGpu(job),
 						true,
 						preview ? previewNumber : -1,
 						previewSeconds,

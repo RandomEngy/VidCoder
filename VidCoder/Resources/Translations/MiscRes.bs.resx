@@ -154,12 +154,8 @@
     <value>Fajl već postoji u {0}. Da li želite pisati preko fajla, automatski naći novu izlaznu putanju za ovaj posao enkodiranja ili otkazati operaciju?</value>
   </data>
   
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Kolone Reda</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Prevucite i pustite da bi dodali, uklonili ili presložili kolone.</value>
-  </data>
+  
+  
   <data name="UnusedColumns" xml:space="preserve">
     <value>Neiskorištene kolone</value>
   </data>
@@ -250,6 +246,7 @@
   <data name="ExceptionDialogSubTextReported" xml:space="preserve">
     <value>Program se mora zatvoriti, ali će greška biti automatski prijavljena.</value>
   </data>
+  
   
   
   

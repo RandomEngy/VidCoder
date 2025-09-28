@@ -160,6 +160,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Drag and drop to add, remove or reorder columns..
+        /// </summary>
+        public static string ColumnsDialogHeaderText {
+            get {
+                return ResourceManager.GetString("ColumnsDialogHeaderText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Completed columns.
+        /// </summary>
+        public static string CompletedColumnsDialogTitle {
+            get {
+                return ResourceManager.GetString("CompletedColumnsDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy and report issue.
         /// </summary>
         public static string CopyAndReportIssueButton {
@@ -421,16 +439,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Drag and drop to add, remove or reorder columns..
-        /// </summary>
-        public static string QueueColumnsDialogHeaderText {
-            get {
-                return ResourceManager.GetString("QueueColumnsDialogHeaderText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Queue Columns.
+        ///   Looks up a localized string similar to Queue columns.
         /// </summary>
         public static string QueueColumnsDialogTitle {
             get {

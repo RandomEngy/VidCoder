@@ -117,7 +117,7 @@ public class PresetsService : ReactiveObject
 					}
 
 					Preset builtInPreset = PresetConverter.ConvertHandBrakePresetToVC(handbrakePreset);
-					PresetViewModel builtInPresetViewModel = new PresetViewModel(builtInPreset);
+					PresetViewModel builtInPresetViewModel = new(builtInPreset);
 
 					this.AllPresets.Add(builtInPresetViewModel);
 					builtInSubfolder.AddItem(builtInPresetViewModel);
@@ -748,7 +748,7 @@ public class PresetsService : ReactiveObject
 
 	public void SaveUserPresets()
 	{
-		List<Preset> userPresets = new List<Preset>();
+		List<Preset> userPresets = new();
 
 		foreach (PresetViewModel presetVM in this.AllPresets)
 		{

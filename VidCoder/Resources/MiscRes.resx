@@ -157,9 +157,9 @@
     <value>A queue job already has an output path at {0}. Do you want to replace the queued job, automatically find a new output path for the encode job or cancel the operation?</value>
   </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Queue Columns</value>
+    <value>Queue columns</value>
   </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
+  <data name="ColumnsDialogHeaderText" xml:space="preserve">
     <value>Drag and drop to add, remove or reorder columns.</value>
   </data>
   <data name="UnusedColumns" xml:space="preserve">
@@ -271,5 +271,8 @@
   </data>
   <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
     <value>The system will restart in {0} seconds.</value>
+  </data>
+  <data name="CompletedColumnsDialogTitle" xml:space="preserve">
+    <value>Completed columns</value>
   </data>
 </root>

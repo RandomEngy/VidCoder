@@ -76,12 +76,12 @@ public class ProcessingService : ReactiveObject
 	private bool selectedQueueItemModifyable = true;
 	private BehaviorSubject<bool> selectedQueueItemModifyableSubject;
 	private IDisposable simultaneousJobsSubscription;
-	private TaskCompletionSource queueReadyTcs = new TaskCompletionSource();
+	private TaskCompletionSource queueReadyTcs = new();
 
 	/// <summary>
 	/// Recently succeeded jobs. Used by the Watcher to determine if a recently detected file should be enqueued or marked as an output file.
 	/// </summary>
-	private Dictionary<string, DateTimeOffset> recentlySucceeded = new Dictionary<string, DateTimeOffset>(StringComparer.OrdinalIgnoreCase);
+	private Dictionary<string, DateTimeOffset> recentlySucceeded = new(StringComparer.OrdinalIgnoreCase);
 
 	public ProcessingService()
 	{
@@ -332,7 +332,7 @@ public class ProcessingService : ReactiveObject
 
 	public ObservableCollectionExtended<EncodeJobViewModel> EncodeQueueBindable { get; } = new ObservableCollectionExtended<EncodeJobViewModel>();
 
-	private readonly SourceList<EncodeJobViewModel> encodingJobList = new SourceList<EncodeJobViewModel>();
+	private readonly SourceList<EncodeJobViewModel> encodingJobList = new();
 
 	public IEnumerable<EncodeJobViewModel> EncodingJobs
 	{
@@ -471,7 +471,15 @@ public class ProcessingService : ReactiveObject
 	public EncodeCompleteAction EncodeCompleteAction
 	{
 		get { return this.encodeCompleteAction; }
-		set { this.RaiseAndSetIfChanged(ref this.encodeCompleteAction, value); }
+		set
+		{
+			this.RaiseAndSetIfChanged(ref this.encodeCompleteAction, value);
+
+			if (value != null)
+			{
+				CustomConfig.LastEncodeCompleteAction = value.ToPersisted();
+			}
+		}
 	}
 
 	private double currentFps;
@@ -545,6 +553,20 @@ public class ProcessingService : ReactiveObject
 				() =>
 				{
 					this.TryQueue();
+				},
+				this.main.WhenAnyValue(x => x.HasVideoSource)));
+		}
+	}
+
+	private ReactiveCommand<Unit, Unit> addToTopOfQueue;
+	public ICommand AddToTopOfQueue
+	{
+		get
+		{
+			return this.addToTopOfQueue ?? (this.addToTopOfQueue = ReactiveCommand.Create(
+				() =>
+				{
+					this.TryQueue(true);
 				},
 				this.main.WhenAnyValue(x => x.HasVideoSource)));
 		}
@@ -951,7 +973,7 @@ public class ProcessingService : ReactiveObject
 					}
 				});
 
-				this.QueueMultipleJobs(itemsToQueue);
+				this.QueueMultipleJobs(itemsToQueue, allowPickerProfileOverride: false);
 
 				this.HasFailedItems = false;
 
@@ -1074,7 +1096,6 @@ public class ProcessingService : ReactiveObject
 		int notExistItems = 0;
 		int readOnlyItems = 0;
 		int itemsInEncodeQueue = 0;
-		int itemsCurrentlyScanned = 0;
 
 		foreach (var itemToClear in completedItems)
 		{
@@ -1096,14 +1117,7 @@ public class ProcessingService : ReactiveObject
 						bool sourceInEncodeQueue = this.EncodeQueue.Items.Any(job => string.Compare(job.Job.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) == 0);
 						if (!sourceInEncodeQueue)
 						{
-							if (!this.main.HasVideoSource || string.Compare(this.main.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) != 0)
-							{
-								deletionCandidates.Add(sourcePath);
-							}
-							else
-							{
-								itemsCurrentlyScanned++;
-							}
+							deletionCandidates.Add(sourcePath);
 						}
 						else
 						{
@@ -1152,12 +1166,6 @@ public class ProcessingService : ReactiveObject
 		{
 			builder.AppendLine();
 			builder.Append("Skipped due to file(s) existing in encode queue: " + itemsInEncodeQueue);
-		}
-
-		if (itemsCurrentlyScanned > 0)
-		{
-			builder.AppendLine();
-			builder.Append("Skipped due to file being currently scanned: " + itemsCurrentlyScanned);
 		}
 
 		encodeLogger.Log(builder.ToString());
@@ -1212,8 +1220,19 @@ public class ProcessingService : ReactiveObject
 	/// <param name="removalMode">The removal mode to use.</param>
 	/// <param name="operationLogger">The logger to use for the operation.</param>
 	/// <returns>The number of files removed.</returns>
-	private static int RemoveSourceFiles(IList<string> filesToRemove, SourceFileRemoval removalMode, IAppLogger operationLogger)
+	private int RemoveSourceFiles(IList<string> filesToRemove, SourceFileRemoval removalMode, IAppLogger operationLogger)
 	{
+		// Close any currently scanned file
+		foreach (string file in filesToRemove)
+		{
+			if (this.main.HasVideoSource
+				&& string.Compare(this.main.SourcePath, file, StringComparison.OrdinalIgnoreCase) == 0
+				&& this.main.CloseVideoSource.CanExecute(null))
+			{
+				this.main.CloseVideoSource.Execute(null);
+			}
+		}
+
 		int filesRemoved = 0;
 		switch (removalMode)
 		{
@@ -1313,7 +1332,7 @@ public class ProcessingService : ReactiveObject
 			throw new ArgumentException("Cannot find preset: " + presetName);
 		}
 
-		JobPreset preset = new JobPreset
+		JobPreset preset = new()
 		{
 			Name = presetName,
 			Profile = profile
@@ -1350,7 +1369,7 @@ public class ProcessingService : ReactiveObject
 			return;
 		}
 
-		JobPreset preset = new JobPreset
+		JobPreset preset = new()
 		{
 			Name = presetName,
 			Profile = profile,
@@ -1447,7 +1466,7 @@ public class ProcessingService : ReactiveObject
 		this.WatchedFilesRemoved?.Invoke(this, new EventArgs());
 	}
 
-	public bool TryQueue()
+	public bool TryQueue(bool addToTop = false)
 	{
 		if (!this.EnsureValidOutputPath())
 		{
@@ -1465,7 +1484,7 @@ public class ProcessingService : ReactiveObject
 
 		newEncodeJobVM.Job.FinalOutputPath = resolvedOutputPath;
 
-		this.QueueJob(newEncodeJobVM);
+		this.QueueJob(newEncodeJobVM, addToTop);
 		return true;
 	}
 
@@ -1473,9 +1492,10 @@ public class ProcessingService : ReactiveObject
 	/// Queues the given Job. Assumed that the job has a populated Length.
 	/// </summary>
 	/// <param name="encodeJobViewModel">The job to add.</param>
-	public void QueueJob(EncodeJobViewModel encodeJobViewModel)
+	/// <param name="addToTop">True to add the items to the top of the queue.</param>
+	public void QueueJob(EncodeJobViewModel encodeJobViewModel, bool addToTop = false)
 	{
-		this.QueueMultipleJobs(new[] { encodeJobViewModel });
+		this.QueueMultipleJobs(new[] { encodeJobViewModel }, addToTop: addToTop);
 	}
 
 	public void QueueTitles(List<SourceTitle> titles, int titleStartOverride, string nameFormatOverride)
@@ -1570,7 +1590,7 @@ public class ProcessingService : ReactiveObject
 		}
 	}
 
-	public void QueueMultipleJobs(IEnumerable<EncodeJobViewModel> encodeJobViewModels, bool allowPickerProfileOverride = true)
+	public void QueueMultipleJobs(IEnumerable<EncodeJobViewModel> encodeJobViewModels, bool allowPickerProfileOverride = true, bool addToTop = false)
 	{
 		var encodeJobList = encodeJobViewModels.ToList();
 		if (encodeJobList.Count == 0)
@@ -1606,8 +1626,23 @@ public class ProcessingService : ReactiveObject
 					encodeJobViewModel.PresetName = picker.EncodingPreset;
 				}
 
-				encodeQueueInnerList.Add(encodeJobViewModel);
+				//encodeQueueInnerList.Add(encodeJobViewModel);
 			}
+
+			int insertPosition = 0;
+			if (addToTop)
+			{
+				while (insertPosition < encodeQueueInnerList.Count && encodeQueueInnerList[insertPosition].Encoding)
+				{
+					insertPosition++;
+				}
+			}
+			else
+			{
+				insertPosition = encodeQueueInnerList.Count;
+			}
+
+			encodeQueueInnerList.InsertRange(encodeJobList, insertPosition);
 		});
 
 		// Fire events for the jobs added
@@ -2127,7 +2162,7 @@ public class ProcessingService : ReactiveObject
 		await this.queueReadyTcs.Task.ConfigureAwait(false);
 	}
 
-	private BehaviorSubject<bool> canPauseOrStopSubject = new BehaviorSubject<bool>(false);
+	private BehaviorSubject<bool> canPauseOrStopSubject = new(false);
 
 	private void OnEncodeStarted(EncodeJobViewModel jobViewModel)
 	{
@@ -2248,7 +2283,7 @@ public class ProcessingService : ReactiveObject
 			inProgressJobsCompletedWork += job.Work.CompletedWork;
 		});
 
-		this.WorkTracker.CalculateOverallEncodeProgress(inProgressJobsCompletedWork);
+		this.WorkTracker.CalculateOverallEncodeProgress(inProgressJobsCompletedWork, this.EncodeQueue.Items.ToList());
 
 		double currentFps = 0;
 		double averageFps = 0;
@@ -2357,6 +2392,9 @@ public class ProcessingService : ReactiveObject
 						}
 					}
 				}
+
+				// Also before deletion we need to check the source file size
+				finishedJobViewModel.PopulateSourceSizeBytes();
 
 				// Delete source files if successful and configured to do so immediately. This way if the destination was the same as source we can clear the way for swapping in the newly encoded file.
 				// This needs to run after removing from the encode queue, otherwise the logic will bail when seeing the finished job's output path as part of the encode queue.
@@ -2499,9 +2537,9 @@ public class ProcessingService : ReactiveObject
 					{
 						encodeQueueInnerList.Remove(finishedJobViewModel);
 						encodeQueueInnerList.Insert(Math.Min(Config.MaxSimultaneousEncodes, encodeQueueInnerList.Count - 1), finishedJobViewModel);
-
-						this.EncodeNextJobs();
 					});
+
+					this.EncodeNextJobs();
 
 					stopMessage = "Encoding stopped for " + finalOutputPath;
 				}
@@ -2840,6 +2878,11 @@ public class ProcessingService : ReactiveObject
 		}
 
 		EncodeCompleteAction oldCompleteAction = this.EncodeCompleteAction;
+		if (oldCompleteAction == null && Config.RememberLastSelectedEncodeCompleteAction)
+		{
+			EncodeCompleteActionPersisted lastAction = CustomConfig.LastEncodeCompleteAction;
+			oldCompleteAction = new EncodeCompleteAction { ActionType = lastAction.ActionType, DriveLetter = lastAction.DriveLetter, Trigger = EncodeCompleteTrigger.DoneWithQueue };
+		}
 
 		if (this.EncodeQueue.Items.Any(j => !j.Encoding))
 		{
@@ -2848,20 +2891,20 @@ public class ProcessingService : ReactiveObject
 			this.encodeCompleteActions =
 				new List<EncodeCompleteAction>
 				{
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.DoNothing, Trigger = EncodeCompleteTrigger.None },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.CloseProgram, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Sleep, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.LogOff, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Hibernate, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Shutdown, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Restart, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.StopEncoding, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.CloseProgram, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Sleep, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.LogOff, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Hibernate, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Shutdown, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Restart, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.DoNothing, Trigger = EncodeCompleteTrigger.None },
+					new() { ActionType = EncodeCompleteActionType.CloseProgram, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.Sleep, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.LogOff, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.Hibernate, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.Shutdown, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.Restart, Trigger = EncodeCompleteTrigger.DoneWithQueue, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.StopEncoding, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.CloseProgram, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.Sleep, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.LogOff, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.Hibernate, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.Shutdown, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
+					new() { ActionType = EncodeCompleteActionType.Restart, Trigger = EncodeCompleteTrigger.DoneWithCurrentJobs, ShowTriggerInDisplay = true },
 				};
 		}
 		else
@@ -2871,13 +2914,13 @@ public class ProcessingService : ReactiveObject
 			this.encodeCompleteActions =
 				new List<EncodeCompleteAction>
 				{
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.DoNothing },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.CloseProgram, Trigger = EncodeCompleteTrigger.DoneWithQueue },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Sleep, Trigger = EncodeCompleteTrigger.DoneWithQueue },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.LogOff, Trigger = EncodeCompleteTrigger.DoneWithQueue },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Hibernate, Trigger = EncodeCompleteTrigger.DoneWithQueue },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Shutdown, Trigger = EncodeCompleteTrigger.DoneWithQueue },
-					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Restart, Trigger = EncodeCompleteTrigger.DoneWithQueue },
+					new() { ActionType = EncodeCompleteActionType.DoNothing },
+					new() { ActionType = EncodeCompleteActionType.CloseProgram, Trigger = EncodeCompleteTrigger.DoneWithQueue },
+					new() { ActionType = EncodeCompleteActionType.Sleep, Trigger = EncodeCompleteTrigger.DoneWithQueue },
+					new() { ActionType = EncodeCompleteActionType.LogOff, Trigger = EncodeCompleteTrigger.DoneWithQueue },
+					new() { ActionType = EncodeCompleteActionType.Hibernate, Trigger = EncodeCompleteTrigger.DoneWithQueue },
+					new() { ActionType = EncodeCompleteActionType.Shutdown, Trigger = EncodeCompleteTrigger.DoneWithQueue },
+					new() { ActionType = EncodeCompleteActionType.Restart, Trigger = EncodeCompleteTrigger.DoneWithQueue },
 				};
 		}
 
@@ -3057,7 +3100,15 @@ public class ProcessingService : ReactiveObject
 		string extension = Path.GetExtension(outputFilePath);
 		string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(outputFilePath);
 
-		string partPath = Path.Combine(directory, fileNameWithoutExtension + ".part" + extension);
+		string partPath;
+		if (CustomConfig.PartFileNaming == PartFileNaming.PartAtEnd)
+		{
+			partPath = Path.Combine(directory, fileNameWithoutExtension + extension + ".part");
+		}
+		else
+		{
+			partPath = Path.Combine(directory, fileNameWithoutExtension + ".part" + extension);
+		}
 
 		// This will throw if the path is too long.
 		partPath = Path.GetFullPath(partPath);
@@ -3336,9 +3387,12 @@ public class ProcessingService : ReactiveObject
 			job.Subtitles.SourceSubtitles[i].Name = GetPickerSubtitleName(picker, i);
 		}
 
+		bool hasBurnedIn = job.Subtitles.SourceSubtitles.Any(s => s.BurnedIn);
+		bool hasDefault = job.Subtitles.SourceSubtitles.Any(s => s.Default);
+
 		if (picker.EnableExternalSubtitleImport && job.SourceType == SourceType.File)
 		{
-			List<FileSubtitle> fileSubtitles = FindSubtitleFiles(job.SourcePath, picker, openDialogOnMissingCharCode);
+			List<FileSubtitle> fileSubtitles = FindSubtitleFiles(job.SourcePath, picker, openDialogOnMissingCharCode, hasBurnedIn: hasBurnedIn, hasDefault: hasDefault);
 			foreach (FileSubtitle fileSubtitle in fileSubtitles)
 			{
 				job.Subtitles.FileSubtitles.Add(fileSubtitle);
@@ -3552,23 +3606,30 @@ public class ProcessingService : ReactiveObject
 	/// <param name="sourcePath">The source path to check.</param>
 	/// <param name="picker">The picker settings to use.</param>
 	/// <param name="openDialogOnMissingCharCode">Open a dialog if the char code for the file cannot be determined.</param>
+	/// <param name="hasBurnedIn">True if a burned-in subtitle is already present.</param>
+	/// <param name="hasDefault">True if a default subtitle is already present.</param>
 	/// <returns>A list of file subtitles to add.</returns>
-	public static List<FileSubtitle> FindSubtitleFiles(string sourcePath, Picker picker, bool openDialogOnMissingCharCode)
+	public static List<FileSubtitle> FindSubtitleFiles(
+		string sourcePath,
+		Picker picker,
+		bool openDialogOnMissingCharCode,
+		bool hasBurnedIn,
+		bool hasDefault)
 	{
 		// Enumerate the files in the directory and use regex to find the subtitle files
 		// Use FileUtilities.SubtitleExtensions to get the list of valid subtitle extensions
 
-		List<FileSubtitle> result = new List<FileSubtitle>();
+		List<FileSubtitle> result = new();
 
 		try
 		{
 			string extensionList = string.Join("|", FileUtilities.SubtitleExtensions.Select(ext => ext.Substring(1)));
 
 			string languageRegexPattern = "^.+\\.(?<language>[a-zA-Z]{3})\\.(?:" + extensionList + ")$";
-			Regex langaugeRegex = new Regex(languageRegexPattern, RegexOptions.IgnoreCase);
+			Regex langaugeRegex = new(languageRegexPattern, RegexOptions.IgnoreCase);
 
 			string noLanguageRegexPattern = "^.+\\.(?:" + extensionList + ")$";
-			Regex noLanguageRegex = new Regex(noLanguageRegexPattern, RegexOptions.IgnoreCase);
+			Regex noLanguageRegex = new(noLanguageRegexPattern, RegexOptions.IgnoreCase);
 
 			string directory = Path.GetDirectoryName(sourcePath);
 			string fileName = Path.GetFileNameWithoutExtension(sourcePath);
@@ -3596,9 +3657,19 @@ public class ProcessingService : ReactiveObject
 					if (HandBrakeLanguagesHelper.AllLanguagesDict.ContainsKey(languageCode))
 					{
 						FileSubtitle fileSubtitle = StaticResolver.Resolve<SubtitlesService>().LoadSubtitleFile(file, languageCode, openDialogOnMissingCharCode);
-						fileSubtitle.Default = picker.ExternalSubtitleImportDefault;
-						fileSubtitle.BurnedIn = picker.ExternalSubtitleImportBurnIn;
+						fileSubtitle.Default = !hasDefault && picker.ExternalSubtitleImportDefault;
+						fileSubtitle.BurnedIn = !hasBurnedIn && picker.ExternalSubtitleImportBurnIn;
 						result.Add(fileSubtitle);
+
+						if (picker.ExternalSubtitleImportDefault)
+						{
+							hasDefault = true;
+						}
+
+						if (picker.ExternalSubtitleImportBurnIn)
+						{
+							hasBurnedIn = true;
+						}
 
 						matchedLanguage = true;
 					}
@@ -3610,9 +3681,19 @@ public class ProcessingService : ReactiveObject
 					if (nonLanguageMatch.Success)
 					{
 						FileSubtitle fileSubtitle = StaticResolver.Resolve<SubtitlesService>().LoadSubtitleFile(file, picker.ExternalSubtitleImportLanguage, openDialogOnMissingCharCode);
-						fileSubtitle.Default = picker.ExternalSubtitleImportDefault;
-						fileSubtitle.BurnedIn = picker.ExternalSubtitleImportBurnIn;
+						fileSubtitle.Default = !hasDefault && picker.ExternalSubtitleImportDefault;
+						fileSubtitle.BurnedIn = !hasBurnedIn && picker.ExternalSubtitleImportBurnIn;
 						result.Add(fileSubtitle);
+
+						if (picker.ExternalSubtitleImportDefault)
+						{
+							hasDefault = true;
+						}
+
+						if (picker.ExternalSubtitleImportBurnIn)
+						{
+							hasBurnedIn = true;
+						}
 					}
 				}
 			}

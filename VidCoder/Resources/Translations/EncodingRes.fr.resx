@@ -424,22 +424,6 @@ Vous devez définir ceci, si vous savez que votre appareil de lecture prend uniq
   <data name="AudioCompressionToolTip" xml:space="preserve">
     <value>Le taux de compression à appliquer. Les valeurs valides de {0} sont de {1} à {2}.</value>
   </data>
-  <data name="AudioEncoder_faac" xml:space="preserve">
-    <value>AAC (FAAC)</value>
-    <comment>Leaving this blank will mean we rely on the friendly name from HandBrake. The short name is used for the key (: gets replaced by _)</comment>
-  </data>
-  <data name="AudioEncoder_av_aac" xml:space="preserve">
-    <value>AAC (avcodec)</value>
-  </data>
-  <data name="AudioEncoder_ac3" xml:space="preserve">
-    <value>AC3</value>
-  </data>
-  <data name="AudioEncoder_flac16" xml:space="preserve">
-    <value>FLAC 16-bit</value>
-  </data>
-  <data name="AudioEncoder_mp3" xml:space="preserve">
-    <value>MP3</value>
-  </data>
   <data name="AudioEncoder_vorbis" xml:space="preserve">
     <value>Vorbis</value>
   </data>
@@ -484,15 +468,6 @@ Remplace tous les autres réglages.</value>
   <data name="VideoCodecLabel" xml:space="preserve">
     <value>Codec vidéo :</value>
   </data>
-  <data name="VideoEncoder_ffmpeg2" xml:space="preserve">
-    <value>MPEG-2 (Libav)</value>
-  </data>
-  <data name="VideoEncoder_ffmpeg4" xml:space="preserve">
-    <value>MPEG-4 (Libav)</value>
-  </data>
-  <data name="VideoEncoder_x264" xml:space="preserve">
-    <value>H.264 (x 264)</value>
-  </data>
   <data name="Video" xml:space="preserve">
     <value>Vidéo</value>
   </data>
@@ -520,18 +495,6 @@ Remplace tous les autres réglages.</value>
   <data name="Modifiers" xml:space="preserve">
     <value>Modificateurs</value>
   </data>
-  <data name="AudioEncoder_flac24" xml:space="preserve">
-    <value>FLAC 24-bit</value>
-  </data>
-  <data name="VideoEncoder_mpeg2" xml:space="preserve">
-    <value>MPEG-2</value>
-  </data>
-  <data name="VideoEncoder_mpeg4" xml:space="preserve">
-    <value>MPEG-4</value>
-  </data>
-  <data name="VideoEncoder_theora" xml:space="preserve">
-    <value>Theora</value>
-  </data>
   <data name="RemoveAudioEncodingToolTip" xml:space="preserve">
     <value>Enlever l'encodage audio</value>
   </data>
@@ -543,9 +506,6 @@ Remplace tous les autres réglages.</value>
   </data>
   <data name="EncoderSettings" xml:space="preserve">
     <value>Paramètres de l'encodeur</value>
-  </data>
-  <data name="QsvDecodingLabel" xml:space="preserve">
-    <value>Décodage QSV</value>
   </data>
   <data name="ScaleMethod_Lanczos" xml:space="preserve">
     <value>Lanczos</value>
@@ -622,30 +582,6 @@ Remplace tous les autres réglages.</value>
   </data>
   <data name="PassthroughMaskLabel" xml:space="preserve">
     <value>Autoriser le relais pour :</value>
-  </data>
-  <data name="Passthrough_aac" xml:space="preserve">
-    <value>AAC</value>
-  </data>
-  <data name="Passthrough_ac3" xml:space="preserve">
-    <value>AC3</value>
-  </data>
-  <data name="Passthrough_dts" xml:space="preserve">
-    <value>DTS</value>
-  </data>
-  <data name="Passthrough_dtshd" xml:space="preserve">
-    <value>DTS-HD</value>
-  </data>
-  <data name="Passthrough_eac3" xml:space="preserve">
-    <value>E-AC3</value>
-  </data>
-  <data name="Passthrough_flac" xml:space="preserve">
-    <value>FLAC</value>
-  </data>
-  <data name="Passthrough_mp3" xml:space="preserve">
-    <value>MP3</value>
-  </data>
-  <data name="Passthrough_truehd" xml:space="preserve">
-    <value>TrueHD</value>
   </data>
   <data name="InterlaceDetectionLabel" xml:space="preserve">
     <value>Détection d'entrelacement :</value>
@@ -856,5 +792,31 @@ Lapsharp améliore la netteté en utilisant des noyaux de convolution approchant
   <data name="CroppingType_Conservative" xml:space="preserve">
     <value>Conservateur</value>
   </data>
+  
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  <data name="Passthrough_eac3" xml:space="preserve">
+    <value>E-AC3</value>
+  </data>
+  <data name="Passthrough_flac" xml:space="preserve">
+    <value>FLAC</value>
+  </data>
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="Passthrough_truehd" xml:space="preserve">
+    <value>TrueHD</value>
+  </data>
+  
   
 </root>

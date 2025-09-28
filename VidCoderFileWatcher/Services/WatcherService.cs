@@ -14,16 +14,16 @@ public class WatcherService : IWatcherCommands
 {
 	private readonly IBasicLogger logger;
 	private Dictionary<string, StrippedPicker>? pickers;
-	private readonly Dictionary<string, PickerFileFilter> pickerFileFilters = new Dictionary<string, PickerFileFilter>();
-	private static readonly StrippedPicker DefaultPicker = new StrippedPicker
+	private readonly Dictionary<string, PickerFileFilter> pickerFileFilters = new();
+	private static readonly StrippedPicker DefaultPicker = new()
 	{
 		Name = "Default",
 		IgnoreFilesBelowMbEnabled = false,
 		VideoFileExtensions = PickerDefaults.VideoFileExtensions
 	};
 
-	private readonly SemaphoreSlim sync = new SemaphoreSlim(1, 1);
-	private readonly SemaphoreSlim processCommunicationSync = new SemaphoreSlim(1, 1);
+	private readonly SemaphoreSlim sync = new(1, 1);
+	private readonly SemaphoreSlim processCommunicationSync = new(1, 1);
 
 	private readonly IList<IDisposable> folderWatchers = new List<IDisposable>();
 

@@ -151,16 +151,16 @@ Een volledige kopie van de GNU General Public License is opgenomen bij dit progr
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
   <data name="QueueColumnNameAudioQuality" xml:space="preserve">
-    <value>Geluidskwaliteit</value>
+    <value>Audiokwaliteit</value>
   </data>
   <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>Audio Encoder</value>
+    <value>Audio encoder</value>
   </data>
   <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Video Encoder</value>
+    <value>Video encoder</value>
   </data>
   <data name="QueueColumnNameVideoQuality" xml:space="preserve">
-    <value>Beeldkwaliteit</value>
+    <value>Videokwaliteit</value>
   </data>
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>Geschatte tijd om alle taken in de wachtrij verder te voltooien.</value>
@@ -325,7 +325,7 @@ Een volledige kopie van de GNU General Public License is opgenomen bij dit progr
     <value>Bijsnijden</value>
   </data>
   <data name="QueueColumnNameOutputSize" xml:space="preserve">
-    <value>Uitvoergrootte</value>
+    <value>Grootte van de uitvoer</value>
   </data>
   <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
     <value>Ondertitelingssporen</value>
@@ -347,5 +347,43 @@ Een volledige kopie van de GNU General Public License is opgenomen bij dit progr
   <data name="Close" xml:space="preserve">
     <value>Sluiten</value>
     <comment>Label to close a window or item.</comment>
+  </data>
+  <data name="CompletedColumnNameDestination" xml:space="preserve">
+    <value>Doelmap</value>
+    <comment>Column header for the destination file path</comment>
+  </data>
+  <data name="CompletedColumnNameStatus" xml:space="preserve">
+    <value>Status</value>
+    <comment>The header for the status column for completed jobs (succeeded/failed)</comment>
+  </data>
+  <data name="CompletedColumnNameElapsedTime" xml:space="preserve">
+    <value>Coderingstijd</value>
+  </data>
+  <data name="CompletedColumnNameSize" xml:space="preserve">
+    <value>Grootte</value>
+  </data>
+  <data name="CompletedColumnNamePercentOfSource" xml:space="preserve">
+    <value>% van bron</value>
+  </data>
+  <data name="CompletedColumnNameSourceSize" xml:space="preserve">
+    <value>Grootte van de bron</value>
+  </data>
+  <data name="CompletedColumnNameVideoDuration" xml:space="preserve">
+    <value>Duur van de video</value>
+  </data>
+  <data name="CompletedColumnNamePauseTime" xml:space="preserve">
+    <value>Pauzetijd</value>
+  </data>
+  <data name="CompletedColumnNameAverageFps" xml:space="preserve">
+    <value>Gemiddelde FPS</value>
+  </data>
+  <data name="CompletedColumnNamePreset" xml:space="preserve">
+    <value>Voorinstelling</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Niet beschikbaar</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Beschikbaar</value>
   </data>
 </root>

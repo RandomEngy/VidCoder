@@ -156,12 +156,8 @@
   <data name="QueueFileConflictWarning" xml:space="preserve">
     <value>Zadanie w kolejce ma już ścieżkę wyjściową w {0}. Czy chcesz zastąpić zadanie w kolejce, automatycznie znaleźć nową ścieżkę wyjściową dla zadania kodowania lub anulować operację?</value>
   </data>
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Kolumny kolejki</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Przeciągnij i upuść, aby dodać, usunąć lub zmienić kolejność kolumn.</value>
-  </data>
+  
+  
   <data name="UnusedColumns" xml:space="preserve">
     <value>Nieużywane kolumny</value>
   </data>
@@ -264,6 +260,7 @@
   <data name="OneTimeInstallerCleanup" xml:space="preserve">
     <value>Musimy zrobić jednorazowe czyszczenie starego instalatora. Wybierz "Tak" w następnym monicie, aby usunąć starą wersję VidCodera.</value>
   </data>
+  
   
   
 </root>

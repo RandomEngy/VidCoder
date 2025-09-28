@@ -426,22 +426,6 @@
   <data name="AudioCompressionToolTip" xml:space="preserve">
     <value>적용할 압축의 양입니다. {0} 유효한 값은 {1}에서 {2}입니다.</value>
   </data>
-  <data name="AudioEncoder_faac" xml:space="preserve">
-    <value>AAC (FAAC)</value>
-    <comment>Leaving this blank will mean we rely on the friendly name from HandBrake. The short name is used for the key (: gets replaced by _)</comment>
-  </data>
-  <data name="AudioEncoder_av_aac" xml:space="preserve">
-    <value>AAC (avcodec)</value>
-  </data>
-  <data name="AudioEncoder_ac3" xml:space="preserve">
-    <value>AC3</value>
-  </data>
-  <data name="AudioEncoder_flac16" xml:space="preserve">
-    <value>FLAC 16 비트</value>
-  </data>
-  <data name="AudioEncoder_mp3" xml:space="preserve">
-    <value>MP3</value>
-  </data>
   <data name="AudioEncoder_vorbis" xml:space="preserve">
     <value>Vorbis</value>
   </data>
@@ -486,15 +470,6 @@
   <data name="VideoCodecLabel" xml:space="preserve">
     <value>비디오 코덱:</value>
   </data>
-  <data name="VideoEncoder_ffmpeg2" xml:space="preserve">
-    <value>MPEG-2 (Libav)</value>
-  </data>
-  <data name="VideoEncoder_ffmpeg4" xml:space="preserve">
-    <value>MPEG-4 (Libav)</value>
-  </data>
-  <data name="VideoEncoder_x264" xml:space="preserve">
-    <value>H.264 (x264)</value>
-  </data>
   <data name="Video" xml:space="preserve">
     <value>비디오</value>
   </data>
@@ -522,18 +497,6 @@
   <data name="Modifiers" xml:space="preserve">
     <value>변경자</value>
   </data>
-  <data name="AudioEncoder_flac24" xml:space="preserve">
-    <value>FLAC 24 비트</value>
-  </data>
-  <data name="VideoEncoder_mpeg2" xml:space="preserve">
-    <value>MPEG-2</value>
-  </data>
-  <data name="VideoEncoder_mpeg4" xml:space="preserve">
-    <value>MPEG-4</value>
-  </data>
-  <data name="VideoEncoder_theora" xml:space="preserve">
-    <value>Theora</value>
-  </data>
   <data name="RemoveAudioEncodingToolTip" xml:space="preserve">
     <value>오디오 인코딩 제거</value>
   </data>
@@ -545,9 +508,6 @@
   </data>
   <data name="EncoderSettings" xml:space="preserve">
     <value>인코딩 설정</value>
-  </data>
-  <data name="QsvDecodingLabel" xml:space="preserve">
-    <value>QSV 디코딩</value>
   </data>
   <data name="ScaleMethod_Lanczos" xml:space="preserve">
     <value>Lanczos</value>
@@ -624,30 +584,6 @@
   </data>
   <data name="PassthroughMaskLabel" xml:space="preserve">
     <value>패스쓰루 허용:</value>
-  </data>
-  <data name="Passthrough_aac" xml:space="preserve">
-    <value>AAC</value>
-  </data>
-  <data name="Passthrough_ac3" xml:space="preserve">
-    <value>AC3</value>
-  </data>
-  <data name="Passthrough_dts" xml:space="preserve">
-    <value>DTS</value>
-  </data>
-  <data name="Passthrough_dtshd" xml:space="preserve">
-    <value>DTS-HD</value>
-  </data>
-  <data name="Passthrough_eac3" xml:space="preserve">
-    <value>E-AC3</value>
-  </data>
-  <data name="Passthrough_flac" xml:space="preserve">
-    <value>FLAC</value>
-  </data>
-  <data name="Passthrough_mp3" xml:space="preserve">
-    <value>MP3</value>
-  </data>
-  <data name="Passthrough_truehd" xml:space="preserve">
-    <value>TrueHD</value>
   </data>
   <data name="InterlaceDetectionLabel" xml:space="preserve">
     <value>인터레이스 감지:</value>
@@ -860,5 +796,35 @@ Lapsharp는 Laplacian 에지 필터에 근사하는 컨볼루션 커널을 사�
   </data>
   <data name="MultiPassEncodingCheckBox" xml:space="preserve">
     <value>멀티패스 인코딩</value>
+  </data>
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  <data name="Passthrough_eac3" xml:space="preserve">
+    <value>E-AC3</value>
+  </data>
+  <data name="Passthrough_flac" xml:space="preserve">
+    <value>FLAC</value>
+  </data>
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="Passthrough_truehd" xml:space="preserve">
+    <value>TrueHD</value>
+  </data>
+  <data name="Passthrough_opus" xml:space="preserve">
+    <value>Opus</value>
+  </data>
+  <data name="Passthrough_alac" xml:space="preserve">
+    <value>ALAC</value>
   </data>
 </root>

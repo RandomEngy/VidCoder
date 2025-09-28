@@ -68,7 +68,7 @@ public partial class Main : Window, IMainView
 
 	private bool tabsVisible = false;
 
-	private readonly List<IDisposable> discOpenCommands = new List<IDisposable>();
+	private readonly List<IDisposable> discOpenCommands = new();
 
 	public static System.Windows.Threading.Dispatcher TheDispatcher;
 
@@ -135,7 +135,7 @@ public partial class Main : Window, IMainView
 		}
 
 		this.RefreshQueueColumns();
-		this.LoadCompletedColumnWidths();
+		this.RefreshCompletedColumns();
 
 #if DEBUG
 		var debugDropDown = new DropDownButton { Header = "Debug" };
@@ -143,7 +143,7 @@ public partial class Main : Window, IMainView
 		var loadScanFromJsonItem = new Fluent.MenuItem {Header = "Load scan from JSON..."};
 		loadScanFromJsonItem.Click += (sender, args) =>
 		{
-			DebugJsonDialog dialog = new DebugJsonDialog("Debug Scan JSON");
+			DebugJsonDialog dialog = new("Debug Scan JSON");
 			dialog.ShowDialog();
 			if (!string.IsNullOrWhiteSpace(dialog.Json))
 			{
@@ -170,7 +170,7 @@ public partial class Main : Window, IMainView
 			}
 
 			EncodeJobViewModel jobViewModel = this.viewModel.CreateEncodeJobVM();
-			DebugJsonDialog dialog = new DebugJsonDialog("Debug Encode JSON");
+			DebugJsonDialog dialog = new("Debug Encode JSON");
 			dialog.ShowDialog();
 
 			if (!string.IsNullOrWhiteSpace(dialog.Json))
@@ -183,8 +183,6 @@ public partial class Main : Window, IMainView
 					encodeObject.Source.Path = jobViewModel.Job.SourcePath;
 
 					jobViewModel.DebugEncodeJsonOverride = JsonSerializer.Serialize(encodeObject, new JsonSerializerOptions { DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull });
-					//jobViewModel.Job.FinalOutputPath = encodeObject.Destination.File;
-					//jobViewModel.Job.SourcePath = encodeObject.Source.Path;
 
 					this.processingService.QueueJob(jobViewModel);
 				}
@@ -481,48 +479,30 @@ public partial class Main : Window, IMainView
 
 	void IMainView.SaveQueueColumns()
 	{
-		this.SaveQueueColumns();
+		List<(string columnId, double width)> columns = Utilities.ParseQueueColumnList(Config.QueueColumns);
+		Config.QueueColumns = GetNewColumnsString(columns, this.queueGridView);
 	}
 
-	private void SaveQueueColumns()
-	{
-		var queueColumnsBuilder = new StringBuilder();
-		List<Tuple<string, double>> columns = Utilities.ParseQueueColumnList(Config.QueueColumns);
-		for (int i = 0; i < columns.Count; i++)
-		{
-			queueColumnsBuilder.Append(columns[i].Item1);
-			queueColumnsBuilder.Append(":");
-			queueColumnsBuilder.Append(this.queueGridView.Columns[i].ActualWidth);
-
-			if (i != columns.Count - 1)
-			{
-				queueColumnsBuilder.Append("|");
-			}
-		}
-
-		Config.QueueColumns = queueColumnsBuilder.ToString();
-	}
+	public IList<EncodeJobViewModel> SelectedJobs => this.queueView.SelectedItems.Cast<EncodeJobViewModel>().ToList();
 
 	void IMainView.ApplyQueueColumns()
 	{
 		this.RefreshQueueColumns();
 	}
 
-	public IList<EncodeJobViewModel> SelectedJobs => this.queueView.SelectedItems.Cast<EncodeJobViewModel>().ToList();
-
 	private void RefreshQueueColumns()
 	{
 		this.queueGridView.Columns.Clear();
 		var resources = new ResourceManager("VidCoder.Resources.CommonRes", typeof(CommonRes).Assembly);
 
-		List<Tuple<string, double>> columns = Utilities.ParseQueueColumnList(Config.QueueColumns);
-		foreach (Tuple<string, double> column in columns)
+		List<(string columnId, double width)> columns = Utilities.ParseQueueColumnList(Config.QueueColumns);
+		foreach ((string columnId, double width) column in columns)
 		{
 			var queueColumn = new GridViewColumn
 			{
-				Header = resources.GetString("QueueColumnName" + column.Item1),
-				CellTemplate = this.Resources["QueueTemplate" + column.Item1] as DataTemplate,
-				Width = column.Item2
+				Header = resources.GetString("QueueColumnName" + column.columnId),
+				CellTemplate = this.Resources["QueueTemplate" + column.columnId] as DataTemplate,
+				Width = column.width
 			};
 
 			this.queueGridView.Columns.Add(queueColumn);
@@ -536,45 +516,51 @@ public partial class Main : Window, IMainView
 		this.queueGridView.Columns.Add(lastColumn);
 	}
 
-	private void LoadCompletedColumnWidths()
+	void IMainView.SaveCompletedColumns()
 	{
-		string columnWidthsString = Config.CompletedColumnWidths;
-
-		if (string.IsNullOrEmpty(columnWidthsString))
-		{
-			return;
-		}
-
-		string[] columnWidths = columnWidthsString.Split('|');
-		for (int i = 0; i < this.completedGridView.Columns.Count; i++)
-		{
-			if (i < columnWidths.Length)
-			{
-				double width = 0;
-				double.TryParse(columnWidths[i], out width);
-
-				if (width > 0)
-				{
-					this.completedGridView.Columns[i].Width = width;
-				}
-			}
-		}
+		List<(string columnId, double width)> columns = Utilities.ParseCompletedColumnList(Config.CompletedColumns);
+		Config.CompletedColumns = GetNewColumnsString(columns, this.completedGridView);
 	}
 
-	void IMainView.SaveCompletedColumnWidths()
+	private string GetNewColumnsString(List<(string columnId, double width)> columns, GridView gridView)
 	{
-		var completedColumnsBuilder = new StringBuilder();
-		for (int i = 0; i < this.completedGridView.Columns.Count; i++)
+		var columnsBuilder = new StringBuilder();
+		for (int i = 0; i < columns.Count; i++)
 		{
-			completedColumnsBuilder.Append(this.completedGridView.Columns[i].ActualWidth);
+			columnsBuilder.Append(columns[i].columnId);
+			columnsBuilder.Append(":");
+			columnsBuilder.Append(gridView.Columns[i].ActualWidth);
 
-			if (i != this.completedGridView.Columns.Count - 1)
+			if (i != columns.Count - 1)
 			{
-				completedColumnsBuilder.Append("|");
+				columnsBuilder.Append("|");
 			}
 		}
 
-		Config.CompletedColumnWidths = completedColumnsBuilder.ToString();
+		string newColumns = columnsBuilder.ToString();
+		return newColumns;
+	}
+
+	void IMainView.ApplyCompletedColumns()
+	{
+		this.RefreshCompletedColumns();
+	}
+
+	private void RefreshCompletedColumns()
+	{
+		this.completedGridView.Columns.Clear();
+		var resources = new ResourceManager("VidCoder.Resources.CommonRes", typeof(CommonRes).Assembly);
+		List<(string columnId, double width)> columns = Utilities.ParseCompletedColumnList(Config.CompletedColumns);
+		foreach ((string columnId, double width) column in columns)
+		{
+			var completedColumn = new GridViewColumn
+			{
+				Header = resources.GetString("CompletedColumnName" + column.columnId),
+				CellTemplate = this.Resources["CompletedTemplate" + column.columnId] as DataTemplate,
+				Width = column.width
+			};
+			this.completedGridView.Columns.Add(completedColumn);
+		}
 	}
 
 	private void RefreshQueueTabs()

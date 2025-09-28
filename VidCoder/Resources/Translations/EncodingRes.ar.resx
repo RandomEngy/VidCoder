@@ -424,22 +424,6 @@
   <data name="AudioCompressionToolTip" xml:space="preserve">
     <value>مقدار الضغط الذي سيتم تطبيقه. {0} القيم الصالحة من {1} إلى {2}.</value>
   </data>
-  <data name="AudioEncoder_faac" xml:space="preserve">
-    <value>AAC (FAAC)</value>
-    <comment>Leaving this blank will mean we rely on the friendly name from HandBrake. The short name is used for the key (: gets replaced by _)</comment>
-  </data>
-  <data name="AudioEncoder_av_aac" xml:space="preserve">
-    <value>AAC (avcodec)</value>
-  </data>
-  <data name="AudioEncoder_ac3" xml:space="preserve">
-    <value>AC3</value>
-  </data>
-  <data name="AudioEncoder_flac16" xml:space="preserve">
-    <value>FLAC 16-bit</value>
-  </data>
-  <data name="AudioEncoder_mp3" xml:space="preserve">
-    <value>MP3</value>
-  </data>
   <data name="AudioEncoder_vorbis" xml:space="preserve">
     <value>Vorbis</value>
   </data>
@@ -484,15 +468,6 @@
   <data name="VideoCodecLabel" xml:space="preserve">
     <value>تشفير الفلم:</value>
   </data>
-  <data name="VideoEncoder_ffmpeg2" xml:space="preserve">
-    <value>MPEG-2 (Libav)</value>
-  </data>
-  <data name="VideoEncoder_ffmpeg4" xml:space="preserve">
-    <value>MPEG-4 (Libav)</value>
-  </data>
-  <data name="VideoEncoder_x264" xml:space="preserve">
-    <value>H.264 (x264)</value>
-  </data>
   <data name="Video" xml:space="preserve">
     <value>فلم</value>
   </data>
@@ -520,18 +495,6 @@
   <data name="Modifiers" xml:space="preserve">
     <value>معدلات</value>
   </data>
-  <data name="AudioEncoder_flac24" xml:space="preserve">
-    <value>FLAC 24-bit</value>
-  </data>
-  <data name="VideoEncoder_mpeg2" xml:space="preserve">
-    <value>MPEG-2</value>
-  </data>
-  <data name="VideoEncoder_mpeg4" xml:space="preserve">
-    <value>MPEG-4</value>
-  </data>
-  <data name="VideoEncoder_theora" xml:space="preserve">
-    <value>Theora</value>
-  </data>
   <data name="RemoveAudioEncodingToolTip" xml:space="preserve">
     <value>ازاله تشفير الصوت</value>
   </data>
@@ -543,9 +506,6 @@
   </data>
   <data name="EncoderSettings" xml:space="preserve">
     <value>إعدادات المشفر</value>
-  </data>
-  <data name="QsvDecodingLabel" xml:space="preserve">
-    <value>QSV فك التشفير</value>
   </data>
   <data name="ScaleMethod_Lanczos" xml:space="preserve">
     <value>Lanczos</value>
@@ -622,30 +582,6 @@
   </data>
   <data name="PassthroughMaskLabel" xml:space="preserve">
     <value>السماح بالعبور ل:</value>
-  </data>
-  <data name="Passthrough_aac" xml:space="preserve">
-    <value>AACE</value>
-  </data>
-  <data name="Passthrough_ac3" xml:space="preserve">
-    <value>AC3</value>
-  </data>
-  <data name="Passthrough_dts" xml:space="preserve">
-    <value>DTS</value>
-  </data>
-  <data name="Passthrough_dtshd" xml:space="preserve">
-    <value>DTS-HD</value>
-  </data>
-  <data name="Passthrough_eac3" xml:space="preserve">
-    <value>E-AC3</value>
-  </data>
-  <data name="Passthrough_flac" xml:space="preserve">
-    <value>FLAC</value>
-  </data>
-  <data name="Passthrough_mp3" xml:space="preserve">
-    <value>MP3</value>
-  </data>
-  <data name="Passthrough_truehd" xml:space="preserve">
-    <value>TrueHD</value>
   </data>
   <data name="InterlaceDetectionLabel" xml:space="preserve">
     <value>كشف التشابك:</value>
@@ -828,6 +764,32 @@ HQDN3D هو فلتر التكيف منخفضه التمرير ، أسرع من N
   
   
   
+  
+  
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AACE</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  <data name="Passthrough_eac3" xml:space="preserve">
+    <value>E-AC3</value>
+  </data>
+  <data name="Passthrough_flac" xml:space="preserve">
+    <value>FLAC</value>
+  </data>
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="Passthrough_truehd" xml:space="preserve">
+    <value>TrueHD</value>
+  </data>
   
   
 </root>

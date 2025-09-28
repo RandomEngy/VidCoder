@@ -241,6 +241,45 @@
 					                Mode=OneWay}" />
 			</Grid>
 		</DataTemplate>
+		<DataTemplate x:Key="CompletedTemplateDestination" DataType="viewmodel:EncodeResultViewModel">
+			<controls:PathTextBlock Style="{StaticResource ListViewPathText}" Text="{Binding EncodeResult.Destination}" />
+		</DataTemplate>
+		<DataTemplate x:Key="CompletedTemplateStatus" DataType="viewmodel:EncodeResultViewModel">
+			<StackPanel Orientation="Horizontal">
+				<Image
+					Width="16"
+					Height="16"
+					Source="{Binding StatusImage}" />
+				<TextBlock
+					Margin="4 0 0 0"
+					Style="{DynamicResource TextBlockBaseStyle}"
+					Text="{Binding StatusText}" />
+			</StackPanel>
+		</DataTemplate>
+		<DataTemplate x:Key="CompletedTemplateElapsedTime" DataType="viewmodel:EncodeResultViewModel">
+			<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding TimeDisplay}" />
+		</DataTemplate>
+		<DataTemplate x:Key="CompletedTemplatePauseTime" DataType="viewmodel:EncodeResultViewModel">
+			<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding PauseTimeDisplay}" />
+		</DataTemplate>
+		<DataTemplate x:Key="CompletedTemplateSize" DataType="viewmodel:EncodeResultViewModel">
+			<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding OutputFileSize}" />
+		</DataTemplate>
+		<DataTemplate x:Key="CompletedTemplateSourceSize" DataType="viewModel:EncodeResultViewModel">
+			<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding SourceFileSize}" />
+		</DataTemplate>
+		<DataTemplate x:Key="CompletedTemplatePercentOfSource" DataType="viewmodel:EncodeResultViewModel">
+			<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding PercentOfSourceDisplay}" />
+		</DataTemplate>
+		<DataTemplate x:Key="CompletedTemplateVideoDuration" DataType="viewmodel:EncodeResultViewModel">
+			<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding Job.DurationDisplay}" />
+		</DataTemplate>
+		<DataTemplate x:Key="CompletedTemplateAverageFps" DataType="viewmodel:EncodeResultViewModel">
+			<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding AverageFpsDisplay}" />
+		</DataTemplate>
+		<DataTemplate x:Key="CompletedTemplatePreset" DataType="viewmodel:EncodeResultViewModel">
+			<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding Job.PresetName}" />
+		</DataTemplate>
 		<ContextMenu x:Key="CompletedItemContextMenu" d:DataContext="{d:DesignInstance viewmodel:EncodeResultViewModel}">
 			<MenuItem Command="{Binding Play}" Header="{x:Static res:MainRes.Play}">
 				<MenuItem.Icon>
@@ -663,25 +702,19 @@
 							Command="{Binding ProcessingService.AddToQueue}"
 							Header="{x:Static res:MainRes.AddToQueueLabel}"
 							LargeIcon="/Icons/AddToQueue.png"
-							SizeDefinition="Large"
-							Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
-							                     Converter={StaticResource VisibilityConverter}}">
+							SizeDefinition="Large">
 							<fluent:MenuItem
 								Command="{Binding ProcessingService.AddToQueue}"
 								Header="{x:Static res:MainRes.AddToQueueLabel}"
 								InputGestureText="Ctrl+Q" />
+							<fluent:MenuItem Command="{Binding ProcessingService.AddToTopOfQueue}" Header="{x:Static res:MainRes.AddToTopOfQueueLabel}" />
 							<fluent:MenuItem
 								Command="{Binding ProcessingService.QueueTitlesAction}"
 								Header="{x:Static res:MainRes.AddMultipleTitlesToQueueLabel}"
-								InputGestureText="Ctrl+T" />
+								InputGestureText="Ctrl+T"
+								Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
+								                     Converter={StaticResource VisibilityConverter}}" />
 						</fluent:SplitButton>
-						<fluent:Button
-							Command="{Binding ProcessingService.AddToQueue}"
-							Header="{x:Static res:MainRes.AddToQueueLabel}"
-							LargeIcon="/Icons/AddToQueue.png"
-							SizeDefinition="Large"
-							Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
-							                     Converter={StaticResource InverseVisibilityConverter}}" />
 						<fluent:Button
 							Command="{Binding ProcessingService.Encode}"
 							Header="{Binding ProcessingService.EncodeButtonText}"
@@ -2309,50 +2342,12 @@
 									ItemContainerStyle="{StaticResource CompletedItemStyle}"
 									ItemsSource="{Binding ProcessingService.CompletedJobsBindable}">
 									<ListView.View>
-										<GridView x:Name="completedGridView">
-											<GridView.Columns>
-												<GridViewColumn Width="300" Header="{x:Static res:MainRes.DestinationColumnHeader}">
-													<GridViewColumn.CellTemplate>
-														<DataTemplate>
-															<controls:PathTextBlock Style="{StaticResource ListViewPathText}" Text="{Binding EncodeResult.Destination}" />
-														</DataTemplate>
-													</GridViewColumn.CellTemplate>
-												</GridViewColumn>
-												<GridViewColumn Width="120" Header="{x:Static res:MainRes.StatusColumnHeader}">
-													<GridViewColumn.CellTemplate>
-														<DataTemplate>
-															<StackPanel Orientation="Horizontal">
-																<Image
-																	Width="16"
-																	Height="16"
-																	Source="{Binding StatusImage}" />
-																<TextBlock
-																	Margin="4 0 0 0"
-																	Style="{DynamicResource TextBlockBaseStyle}"
-																	Text="{Binding StatusText}" />
-															</StackPanel>
-														</DataTemplate>
-													</GridViewColumn.CellTemplate>
-												</GridViewColumn>
-												<GridViewColumn Width="90" Header="{x:Static res:MainRes.ElapsedTimeColumnHeader}">
-													<GridViewColumn.CellTemplate>
-														<DataTemplate>
-															<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding TimeDisplay}" />
-														</DataTemplate>
-													</GridViewColumn.CellTemplate>
-												</GridViewColumn>
-												<GridViewColumn Width="80" Header="{x:Static res:MainRes.FileSizeColumnHeader}">
-													<GridViewColumn.CellTemplate>
-														<DataTemplate>
-															<TextBlock Style="{DynamicResource TextBlockBaseStyle}" Text="{Binding OutputFileSize}" />
-														</DataTemplate>
-													</GridViewColumn.CellTemplate>
-												</GridViewColumn>
-											</GridView.Columns>
-										</GridView>
+										<GridView x:Name="completedGridView" />
 									</ListView.View>
 									<ListView.ContextMenu>
 										<ContextMenu>
+											<MenuItem Command="{Binding CustomizeCompletedColumns}" Header="{x:Static res:MainRes.CustomizeColumnsMenuItem}" />
+											<Separator />
 											<MenuItem
 												Command="{Binding ProcessingService.RetryFailed}"
 												Header="{x:Static res:MainRes.RetryFailedItemsMenuItem}"

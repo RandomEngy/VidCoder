@@ -754,4 +754,7 @@ Deze waarschuwing wordt slechts twee keer weergegeven.</value>
   <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
     <value>Versie {0} is gedownload en is bij de volgende opstart actief.</value>
   </data>
+  <data name="AddToTopOfQueueLabel" xml:space="preserve">
+    <value>Toevoegen bovenaan de wachtrij</value>
+  </data>
 </root>

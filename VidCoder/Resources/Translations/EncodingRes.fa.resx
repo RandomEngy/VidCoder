@@ -270,11 +270,6 @@
   
   
   
-  
-  
-  
-  
-  
   <data name="Mixdown_mono" xml:space="preserve">
     <value>مونو</value>
   </data>
@@ -285,9 +280,6 @@
   <data name="Bitrate" xml:space="preserve">
     <value>بیت ریت</value>
   </data>
-  
-  
-  
   
   
   
@@ -311,11 +303,6 @@
   <data name="Modifiers" xml:space="preserve">
     <value>دستکاری شده</value>
   </data>
-  
-  
-  
-  
-  
   
   
   
@@ -352,14 +339,6 @@
   <data name="RotationLabel" xml:space="preserve">
     <value>چرخش</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
   
   
   
@@ -461,5 +440,15 @@
   <data name="CroppingType_Conservative" xml:space="preserve">
     <value>محافظه کار</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
 </root>

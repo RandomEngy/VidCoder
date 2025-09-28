@@ -158,7 +158,7 @@
     <value>ვიდეო კოდიფიკადორი</value>
   </data>
   <data name="QueueColumnNameVideoQuality" xml:space="preserve">
-    <value>ვიდეო ხარისხი</value>
+    <value>ვიდეოს ხარისხი</value>
   </data>
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>ყველა დავალების სავარაუდო დასრულების დრო.</value>
@@ -345,5 +345,43 @@
   <data name="Close" xml:space="preserve">
     <value>დახურვა</value>
     <comment>Label to close a window or item.</comment>
+  </data>
+  <data name="CompletedColumnNameDestination" xml:space="preserve">
+    <value>შენახვის ადგილი</value>
+    <comment>Column header for the destination file path</comment>
+  </data>
+  <data name="CompletedColumnNameStatus" xml:space="preserve">
+    <value>სტატუსი</value>
+    <comment>The header for the status column for completed jobs (succeeded/failed)</comment>
+  </data>
+  <data name="CompletedColumnNameElapsedTime" xml:space="preserve">
+    <value>გამოყენებული დრო</value>
+  </data>
+  <data name="CompletedColumnNameSize" xml:space="preserve">
+    <value>ზომა</value>
+  </data>
+  <data name="CompletedColumnNamePercentOfSource" xml:space="preserve">
+    <value>წყაროს %</value>
+  </data>
+  <data name="CompletedColumnNameSourceSize" xml:space="preserve">
+    <value>წყაროს ზომა</value>
+  </data>
+  <data name="CompletedColumnNameVideoDuration" xml:space="preserve">
+    <value>ვიდეოს ხანგრძლივობა</value>
+  </data>
+  <data name="CompletedColumnNamePauseTime" xml:space="preserve">
+    <value>შეჩერებული დრო</value>
+  </data>
+  <data name="CompletedColumnNameAverageFps" xml:space="preserve">
+    <value>ცვლადი კადრი:</value>
+  </data>
+  <data name="CompletedColumnNamePreset" xml:space="preserve">
+    <value>შაბლონი</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>ხელმიუწვდომელია</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>ხელმისაწვდომია</value>
   </data>
 </root>

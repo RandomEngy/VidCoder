@@ -159,8 +159,8 @@
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>Столбцы очереди</value>
   </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Перетащите, чтобы добавить, удалить или изменить порядок столбцов.</value>
+  <data name="ColumnsDialogHeaderText" xml:space="preserve">
+    <value>Добавление, удаление или сортировка столбцов выполняется перетаскиванием.</value>
   </data>
   <data name="UnusedColumns" xml:space="preserve">
     <value>Неиспользуемые столбцы</value>
@@ -271,5 +271,8 @@
   </data>
   <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
     <value>Система будет перезагружена через {0} сек.</value>
+  </data>
+  <data name="CompletedColumnsDialogTitle" xml:space="preserve">
+    <value>Завершённые столбцы</value>
   </data>
 </root>

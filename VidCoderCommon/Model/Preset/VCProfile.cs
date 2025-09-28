@@ -185,8 +185,6 @@ public class VCProfile : ReactiveObject
 		set { this.RaiseAndSetIfChanged(ref this.videoTunes, value); }
 	}
 
-	public bool QsvDecode { get; set; }
-
 	public VCVideoEncodeRateType VideoEncodeRateType { get; set; }
 
 	public decimal Quality { get; set; }
@@ -216,7 +214,7 @@ public class VCProfile : ReactiveObject
 		set { this.RaiseAndSetIfChanged(ref this.audioEncodings, value); }
 	}
 
-	private List<CopyMaskChoice> audioCopyMask = new List<CopyMaskChoice>();
+	private List<CopyMaskChoice> audioCopyMask = new();
 
 	/// <summary>
 	/// Gets or sets the codecs that can be passed through for auto passthrough.

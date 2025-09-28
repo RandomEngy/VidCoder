@@ -159,7 +159,7 @@
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>დავალების სიის მწკრივები</value>
   </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
+  <data name="ColumnsDialogHeaderText" xml:space="preserve">
     <value>დაამატეთ, წაშალეთ ან განალეგეთ მწკრივები.</value>
   </data>
   <data name="UnusedColumns" xml:space="preserve">
@@ -271,5 +271,8 @@
   </data>
   <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
     <value>სისტემა გადაიტვირთება {0} წამში.</value>
+  </data>
+  <data name="CompletedColumnsDialogTitle" xml:space="preserve">
+    <value>გამოყენებული მწკრივები</value>
   </data>
 </root>

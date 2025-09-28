@@ -16,7 +16,7 @@ namespace VidCoderFileWatcher.Model;
 /// </summary>
 public static class WatcherDatabase
 {
-	private static ThreadLocal<SQLiteConnection> threadLocalConnection = new ThreadLocal<SQLiteConnection>(trackAllValues: true);
+	private static ThreadLocal<SQLiteConnection> threadLocalConnection = new(trackAllValues: true);
 
 	public static SQLiteConnection? Connection
 	{

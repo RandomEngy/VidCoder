@@ -178,10 +178,10 @@ public class AudioPanelViewModel : PanelViewModel
 
 	public bool SuppressProfileEdits { get; set; }
 
-	private readonly SourceList<AudioEncodingViewModel> audioEncodings = new SourceList<AudioEncodingViewModel>();
+	private readonly SourceList<AudioEncodingViewModel> audioEncodings = new();
 	public ObservableCollectionExtended<AudioEncodingViewModel> AudioEncodingsBindable { get; } = new ObservableCollectionExtended<AudioEncodingViewModel>();
 
-	private readonly SourceList<AudioOutputPreview> audioOutputPreviews = new SourceList<AudioOutputPreview>();
+	private readonly SourceList<AudioOutputPreview> audioOutputPreviews = new();
 	public ObservableCollectionExtended<AudioOutputPreview> AudioOutputPreviewsBindable { get; } = new ObservableCollectionExtended<AudioOutputPreview>();
 
 	public List<AudioEncoderViewModel> FallbackEncoderChoices
@@ -223,7 +223,7 @@ public class AudioPanelViewModel : PanelViewModel
 		}
 	}
 
-	private readonly SourceList<CopyMaskChoiceViewModel> copyMaskChoices = new SourceList<CopyMaskChoiceViewModel>();
+	private readonly SourceList<CopyMaskChoiceViewModel> copyMaskChoices = new();
 	public ObservableCollectionExtended<CopyMaskChoiceViewModel> CopyMaskChoicesBindable { get; } = new ObservableCollectionExtended<CopyMaskChoiceViewModel>();
 
 	private readonly ObservableAsPropertyHelper<bool> hasAudioTracks;
@@ -303,7 +303,7 @@ public class AudioPanelViewModel : PanelViewModel
 
 	private void RefreshCopyMaskChoices()
 	{
-		List<CopyMaskChoiceViewModel> oldChoices = new List<CopyMaskChoiceViewModel>(this.copyMaskChoices.Items);
+		List<CopyMaskChoiceViewModel> oldChoices = new(this.copyMaskChoices.Items);
 
 		this.copyMaskChoices.Edit(copyMaskChoicesInnerList =>
 		{

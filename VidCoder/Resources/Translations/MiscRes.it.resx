@@ -157,10 +157,10 @@
     <value>Un lavoro in coda ha già come percorso di destinazione {0}. Vuoi sostituire il lavoro in coda, trovare automaticamente un nuovo percorso di destinazione per il lavoro di codifica o annullare l'operazione?</value>
   </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Colonne di coda</value>
+    <value>Colonne della coda</value>
   </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Drag &amp; drop per aggiungere, rimuovere o riordinare le colonne.</value>
+  <data name="ColumnsDialogHeaderText" xml:space="preserve">
+    <value>Trascina e rilascia per aggiungere, rimuovere o riordinare le colonne.</value>
   </data>
   <data name="UnusedColumns" xml:space="preserve">
     <value>Colonne disponibili</value>
@@ -271,5 +271,8 @@
   </data>
   <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
     <value>Il sistema si riavvierà tra {0} secondi.</value>
+  </data>
+  <data name="CompletedColumnsDialogTitle" xml:space="preserve">
+    <value>Colonne completate</value>
   </data>
 </root>

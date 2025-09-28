@@ -26,7 +26,7 @@ public class WindowPlacer
 		double width = window.Width;
 		double height = window.Height;
 
-		Size size = new Size(width, height);
+		Size size = new(width, height);
 
 		List<WindowPosition> openedWindowPositions = this.windowManager.GetOpenedWindowPositions(excludeWindow: window);
 		List<WindowPosition> savedWindowPositions = GetSavedWindowPositions();
@@ -162,28 +162,28 @@ public class WindowPlacer
 		double height = size.Height;
 		foreach (var pos in existingWindows)
 		{
-			Rect leftTopPosition = new Rect(pos.Left - width - Spacing, pos.Top, width, height);
+			Rect leftTopPosition = new(pos.Left - width - Spacing, pos.Top, width, height);
 			AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Left, Alignment = Side.Top, Position = leftTopPosition, AnchorPosition = pos }, candidates, existingWindows);
 
-			Rect leftBottomPosition = new Rect(pos.Left - width - Spacing, pos.Bottom - height, width, height);
+			Rect leftBottomPosition = new(pos.Left - width - Spacing, pos.Bottom - height, width, height);
 			AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Left, Alignment = Side.Bottom, Position = leftBottomPosition, AnchorPosition = pos }, candidates, existingWindows);
 
-			Rect rightTopPosition = new Rect(pos.Right + Spacing, pos.Top, width, height);
+			Rect rightTopPosition = new(pos.Right + Spacing, pos.Top, width, height);
 			AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Right, Alignment = Side.Top, Position = rightTopPosition, AnchorPosition = pos }, candidates, existingWindows);
 
-			Rect rightBottomPosition = new Rect(pos.Left + Spacing, pos.Bottom - height, width, height);
+			Rect rightBottomPosition = new(pos.Left + Spacing, pos.Bottom - height, width, height);
 			AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Right, Alignment = Side.Bottom, Position = rightBottomPosition, AnchorPosition = pos }, candidates, existingWindows);
 
-			Rect topLeftPosition = new Rect(pos.Left, pos.Top - height - Spacing, width, height);
+			Rect topLeftPosition = new(pos.Left, pos.Top - height - Spacing, width, height);
 			AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Top, Alignment = Side.Left, Position = topLeftPosition, AnchorPosition = pos }, candidates, existingWindows);
 
-			Rect topRightPosition = new Rect(pos.Right - width, pos.Top - height - Spacing, width, height);
+			Rect topRightPosition = new(pos.Right - width, pos.Top - height - Spacing, width, height);
 			AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Top, Alignment = Side.Right, Position = topRightPosition, AnchorPosition = pos }, candidates, existingWindows);
 
-			Rect bottomLeftPosition = new Rect(pos.Left, pos.Bottom + Spacing, width, height);
+			Rect bottomLeftPosition = new(pos.Left, pos.Bottom + Spacing, width, height);
 			AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Bottom, Alignment = Side.Left, Position = bottomLeftPosition, AnchorPosition = pos }, candidates, existingWindows);
 
-			Rect bottomRightPosition = new Rect(pos.Right - width, pos.Bottom + Spacing, width, height);
+			Rect bottomRightPosition = new(pos.Right - width, pos.Bottom + Spacing, width, height);
 			AddIfValid(new WindowPlacerLocation { AnchorSide = Side.Bottom, Alignment = Side.Right, Position = bottomRightPosition, AnchorPosition = pos }, candidates, existingWindows);
 		}
 

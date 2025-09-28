@@ -26,7 +26,7 @@ public class SystemFolderWatcher : IDisposable
 	private readonly WatchedFolder watchedFolder;
 	private readonly IBasicLogger logger;
 
-	private static readonly SemaphoreSlim sync = new SemaphoreSlim(1, 1);
+	private static readonly SemaphoreSlim sync = new(1, 1);
 
 	private Timer? pendingCheckTimer;
 

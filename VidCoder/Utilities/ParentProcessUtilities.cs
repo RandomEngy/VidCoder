@@ -49,7 +49,7 @@ public struct ParentProcessUtilities
 	/// <returns>An instance of the Process class.</returns>
 	public static Process GetParentProcess(IntPtr handle)
 	{
-		ParentProcessUtilities pbi = new ParentProcessUtilities();
+		ParentProcessUtilities pbi = new();
 		int returnLength;
 		int status = NtQueryInformationProcess(handle, 0, ref pbi, Marshal.SizeOf(pbi), out returnLength);
 		if (status != 0)

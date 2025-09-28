@@ -133,7 +133,7 @@ public class FileService : IFileService
 
 	public void LaunchFile(string fileName)
 	{
-		Process process = new Process();
+		Process process = new();
 		process.StartInfo.UseShellExecute = true;
 		process.StartInfo.FileName = fileName;
 		process.Start();
@@ -143,7 +143,7 @@ public class FileService : IFileService
 	{
 		try
 		{
-			Process process = new Process();
+			Process process = new();
 			process.StartInfo.UseShellExecute = true;
 			process.StartInfo.FileName = url;
 			process.Start();

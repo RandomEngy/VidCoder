@@ -58,6 +58,10 @@ public class EncodeResultViewModel : ReactiveObject
 
 	public string TimeDisplay => this.encodeResult.EncodeTime.FormatShort();
 
+	public string PauseTimeDisplay => this.Job.PauseTime > TimeSpan.Zero ? this.Job.PauseTime.FormatShort() : string.Empty;
+
+	public string AverageFpsDisplay => this.Job.AverageFps > 0 ? this.Job.AverageFps.ToString("0.0", CultureInfo.CurrentCulture) : string.Empty;
+
 	public string StatusImage
 	{
 		get
@@ -74,7 +78,23 @@ public class EncodeResultViewModel : ReactiveObject
 		}
 	}
 
+	public string SourceFileSize => this.job.SourceSizeBytes > 0 ? Utilities.FormatFileSize(this.job.SourceSizeBytes) : string.Empty;
+
 	public string OutputFileSize => Utilities.FormatFileSize(this.encodeResult.SizeBytes);
+
+	public string PercentOfSourceDisplay
+	{
+		get
+		{
+			if (this.encodeResult.SizeBytes == 0 || this.job.SourceSizeBytes == 0)
+			{
+				return string.Empty;
+			}
+
+			double percent = (double)this.encodeResult.SizeBytes / this.job.SourceSizeBytes * 100;
+			return string.Format(CultureInfo.CurrentCulture, "{0:0.00}%", percent);
+		}
+	}
 
 	private ReactiveCommand<Unit, Unit> play;
 	public ICommand Play
@@ -157,7 +177,7 @@ public class EncodeResultViewModel : ReactiveObject
 					long inputFileSizeBytes = 0;
 					try
 					{
-						FileInfo inputFileInfo = new FileInfo(this.Job.Job.SourcePath);
+						FileInfo inputFileInfo = new(this.Job.Job.SourcePath);
 						if (!inputFileInfo.Exists)
 						{
 							StaticResolver.Resolve<IMessageBoxService>().Show(this.main, CommonRes.FileNoLongerExists);

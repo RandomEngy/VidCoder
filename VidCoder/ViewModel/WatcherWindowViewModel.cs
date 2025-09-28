@@ -37,12 +37,12 @@ public class WatcherWindowViewModel : ReactiveObject, IClosableWindow
 	/// Maps file path directly to WatchedFileViewModel.
 	/// This contains all files and is not filtered, so does not need to be rebuilt when changing filters.
 	/// </summary>
-	private Dictionary<string, WatchedFileViewModel> fileMap = new Dictionary<string, WatchedFileViewModel>(StringComparer.OrdinalIgnoreCase);
+	private Dictionary<string, WatchedFileViewModel> fileMap = new(StringComparer.OrdinalIgnoreCase);
 
 	private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
 	private ProcessingService processingService = StaticResolver.Resolve<ProcessingService>();
 
-	private readonly Dictionary<WatchedFileStatusLive, bool> statusFilters = new Dictionary<WatchedFileStatusLive, bool>();
+	private readonly Dictionary<WatchedFileStatusLive, bool> statusFilters = new();
 
 	public WatcherWindowViewModel()
 	{

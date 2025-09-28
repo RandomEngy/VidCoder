@@ -156,12 +156,8 @@
   <data name="QueueFileConflictWarning" xml:space="preserve">
     <value>Et job i køen anvender allerede stien {0}. Vil du overskrive jobbet i køen, finde en ny sti automatisk eller annullere operationen?</value>
   </data>
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Kø Kolonner</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Træk og slip for at tilføje, fjerne eller omrokere kolonner.</value>
-  </data>
+  
+  
   <data name="UnusedColumns" xml:space="preserve">
     <value>Ubrugte kolonner</value>
   </data>
@@ -258,6 +254,7 @@
   <data name="ReplaceJobButton" xml:space="preserve">
     <value>Erstat job</value>
   </data>
+  
   
   
   

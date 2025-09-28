@@ -154,12 +154,8 @@
     <value>Kohteessa {0} on jo tiedosto. Haluatko korvata tiedoston, etsiä automaattisesti uuden tallennussijainnin vai peruuttaa toiminnon?</value>
   </data>
   
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Jonon sarakkeet</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Vedä ja pudota lisätäksesi, poistaaksesi tai uudelleenjärjestääksesi sarakkeet.</value>
-  </data>
+  
+  
   <data name="UnusedColumns" xml:space="preserve">
     <value>Käyttämättömät sarakkeet</value>
   </data>
@@ -245,10 +241,23 @@
     <value>Valitse poimijan nii:</value>
   </data>
   
+  <data name="DownloadInstallerButton" xml:space="preserve">
+    <value>Lataa asennusohjelma</value>
+  </data>
+  <data name="ReplaceJobButton" xml:space="preserve">
+    <value>Korvaa työ</value>
+  </data>
+  <data name="CopyAndReportIssueButton" xml:space="preserve">
+    <value>Kopioi ja raportoi ongelma</value>
+  </data>
   
-  
-  
-  
-  
-  
+  <data name="EncodeCompleteWarning_RestartTitle" xml:space="preserve">
+    <value>Käynnistä välittömästi uudelleen</value>
+  </data>
+  <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
+    <value>Järjestelmä käynnistyy uudelleen {0} sekunnin kuluttua.</value>
+  </data>
+  <data name="CompletedColumnsDialogTitle" xml:space="preserve">
+    <value>Valmiit sarakkeet</value>
+  </data>
 </root>

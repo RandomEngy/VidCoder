@@ -13,7 +13,7 @@ namespace VidCoder.ViewModel.DataModels;
 
 public class CopyMaskChoiceViewModel : ReactiveObject
 {
-	private static ResourceManager resourceManager = new ResourceManager(typeof(EncodingRes));
+	private static ResourceManager resourceManager = new(typeof(EncodingRes));
 
 	public CopyMaskChoiceViewModel(string codec, bool enabled)
 	{

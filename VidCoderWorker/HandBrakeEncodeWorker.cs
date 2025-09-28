@@ -11,6 +11,7 @@ using HandBrake.Interop.Interop.Json.Scan;
 using PipeMethodCalls;
 using VidCoderCommon;
 using VidCoderCommon.Model;
+using VidCoderCommon.Model.Job;
 using VidCoderCommon.Utilities;
 
 namespace VidCoderWorker;
@@ -22,7 +23,7 @@ public class HandBrakeEncodeWorker : HandBrakeWorkerBase<IHandBrakeEncodeWorkerC
 	// This is the pass ID we last set CPU affinity for.
 	private int lastSetAffinityPassId = -2;
 
-	private readonly object encodeLock = new object();
+	private readonly object encodeLock = new();
 	private EncodeState state = EncodeState.NotStarted;
 
 	public HandBrakeEncodeWorker(IPipeInvoker<IHandBrakeEncodeWorkerCallback> callback)
@@ -38,13 +39,14 @@ public class HandBrakeEncodeWorker : HandBrakeWorkerBase<IHandBrakeEncodeWorkerC
 	/// <param name="previewNumber">The preview number to run.</param>
 	/// <param name="previewSeconds">The number of seconds the preview should be.</param>
 	/// <param name="defaultChapterNameFormat">The default format for chapter names.</param>
-	/// <param name="enableNVDec">Enable the NVDec hardware decoder.</param>
+	/// <param name="jobConfiguration">Values from user configuration.</param>
 	public void StartEncode(
 		VCJob job,
 		int previewNumber,
 		int previewSeconds,
 		string defaultChapterNameFormat,
-		bool enableNVDec)
+		JobConfiguration jobConfiguration,
+		int qsvGpu)
 	{
 		this.StartEncodeInternal(
 			job.SourcePath,
@@ -54,13 +56,14 @@ public class HandBrakeEncodeWorker : HandBrakeWorkerBase<IHandBrakeEncodeWorkerC
 				SourceTitle encodeTitle = scanObject.TitleList.FirstOrDefault(title => title.Index == job.Title);
 				if (encodeTitle != null)
 				{
-					JsonEncodeFactory factory = new JsonEncodeFactory(this.Logger);
+					JsonEncodeFactory factory = new(this.Logger);
 
 					JsonEncodeObject encodeObject = factory.CreateJsonObject(
 						job,
 						encodeTitle,
 						defaultChapterNameFormat,
-						enableNVDec,
+						jobConfiguration,
+						qsvGpu,
 						true,
 						previewNumber,
 						previewSeconds,

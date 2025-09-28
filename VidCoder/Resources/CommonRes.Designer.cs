@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VidCoder.Resources; 
+namespace VidCoder.Resources {
     using System;
     
     
@@ -92,6 +92,15 @@ namespace VidCoder.Resources;
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Available.
+        /// </summary>
+        public static string Available {
+            get {
+                return ResourceManager.GetString("Available", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Browse….
         /// </summary>
         public static string Browse {
@@ -124,6 +133,96 @@ namespace VidCoder.Resources;
         public static string Close {
             get {
                 return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Average FPS.
+        /// </summary>
+        public static string CompletedColumnNameAverageFps {
+            get {
+                return ResourceManager.GetString("CompletedColumnNameAverageFps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Destination.
+        /// </summary>
+        public static string CompletedColumnNameDestination {
+            get {
+                return ResourceManager.GetString("CompletedColumnNameDestination", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encode time.
+        /// </summary>
+        public static string CompletedColumnNameElapsedTime {
+            get {
+                return ResourceManager.GetString("CompletedColumnNameElapsedTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pause time.
+        /// </summary>
+        public static string CompletedColumnNamePauseTime {
+            get {
+                return ResourceManager.GetString("CompletedColumnNamePauseTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to % of source.
+        /// </summary>
+        public static string CompletedColumnNamePercentOfSource {
+            get {
+                return ResourceManager.GetString("CompletedColumnNamePercentOfSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preset.
+        /// </summary>
+        public static string CompletedColumnNamePreset {
+            get {
+                return ResourceManager.GetString("CompletedColumnNamePreset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Size.
+        /// </summary>
+        public static string CompletedColumnNameSize {
+            get {
+                return ResourceManager.GetString("CompletedColumnNameSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source size.
+        /// </summary>
+        public static string CompletedColumnNameSourceSize {
+            get {
+                return ResourceManager.GetString("CompletedColumnNameSourceSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string CompletedColumnNameStatus {
+            get {
+                return ResourceManager.GetString("CompletedColumnNameStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video duration.
+        /// </summary>
+        public static string CompletedColumnNameVideoDuration {
+            get {
+                return ResourceManager.GetString("CompletedColumnNameVideoDuration", resourceCulture);
             }
         }
         
@@ -344,6 +443,15 @@ namespace VidCoder.Resources;
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not available.
+        /// </summary>
+        public static string NotAvailable {
+            get {
+                return ResourceManager.GetString("NotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Decrease {0}.
         /// </summary>
         public static string NumberBoxDecreaseButtonAutomationTextFormat {
@@ -452,7 +560,7 @@ namespace VidCoder.Resources;
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Audio Encoder.
+        ///   Looks up a localized string similar to Audio encoder.
         /// </summary>
         public static string QueueColumnNameAudioEncoder {
             get {
@@ -461,7 +569,7 @@ namespace VidCoder.Resources;
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Audio Quality.
+        ///   Looks up a localized string similar to Audio quality.
         /// </summary>
         public static string QueueColumnNameAudioQuality {
             get {
@@ -470,7 +578,7 @@ namespace VidCoder.Resources;
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Audio Tracks.
+        ///   Looks up a localized string similar to Audio tracks.
         /// </summary>
         public static string QueueColumnNameAudioTracks {
             get {
@@ -506,7 +614,7 @@ namespace VidCoder.Resources;
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Output Size.
+        ///   Looks up a localized string similar to Output size.
         /// </summary>
         public static string QueueColumnNameOutputSize {
             get {
@@ -542,7 +650,7 @@ namespace VidCoder.Resources;
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Subtitle Tracks.
+        ///   Looks up a localized string similar to Subtitle tracks.
         /// </summary>
         public static string QueueColumnNameSubtitleTracks {
             get {
@@ -560,7 +668,7 @@ namespace VidCoder.Resources;
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Video Encoder.
+        ///   Looks up a localized string similar to Video encoder.
         /// </summary>
         public static string QueueColumnNameVideoEncoder {
             get {
@@ -569,7 +677,7 @@ namespace VidCoder.Resources;
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Video Quality.
+        ///   Looks up a localized string similar to Video quality.
         /// </summary>
         public static string QueueColumnNameVideoQuality {
             get {
@@ -676,3 +784,4 @@ namespace VidCoder.Resources;
             }
         }
     }
+}

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VidCoderCommon.Model;
+using VidCoderCommon.Model.Job;
 
 namespace VidCoderCommon;
 
@@ -14,7 +15,8 @@ public interface IHandBrakeEncodeWorker : IHandBrakeWorker
 		int previewNumber,
 		int previewSeconds,
 		string defaultChapterNameFormat,
-		bool enableNVDec);
+		JobConfiguration jobConfiguration,
+		int qsvGpu);
 
 	/// <summary>
 	/// Starts an encode with the given encode JSON.

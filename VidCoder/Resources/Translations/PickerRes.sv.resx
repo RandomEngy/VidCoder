@@ -227,6 +227,21 @@
   
   
   
+  <data name="SelectTracksLabel" xml:space="preserve">
+    <value>Välj spår:</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  <data name="CustomPickerNameTemplate" xml:space="preserve">
+    <value>Anpassad {0}</value>
+    <comment>The name for a custom auto-created picker. {0} is a number like 2, or 3 or 4 to differentiate it</comment>
+  </data>
   
   
   
@@ -242,6 +257,13 @@
   
   
   
+  <data name="PickerAudioSectionName" xml:space="preserve">
+    <value>Ljud</value>
+  </data>
+  
+  <data name="PickerSubtitleSectionName" xml:space="preserve">
+    <value>Undertexter</value>
+  </data>
   
   
   
@@ -249,20 +271,9 @@
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="MetadataSection" xml:space="preserve">
+    <value>Metadata</value>
+  </data>
   
   <data name="BurnInCheckBox" xml:space="preserve">
     <value>Bränna In</value>

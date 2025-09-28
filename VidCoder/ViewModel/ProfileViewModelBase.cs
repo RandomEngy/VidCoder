@@ -122,7 +122,7 @@ public class ProfileViewModelBase : ReactiveObject
 			if (!this.Preset.IsModified)
 			{
 				// Clone the profile so we modify a different copy.
-				VCProfile newProfile = new VCProfile();
+				VCProfile newProfile = new();
 				newProfile.InjectFrom<CloneInjection>(this.Profile);
 
 				if (!this.Preset.IsModified)
@@ -185,7 +185,7 @@ public class ProfileViewModelBase : ReactiveObject
 			if (!this.Preset.IsModified)
 			{
 				// Clone the profile so we modify a different copy.
-				VCProfile newProfile = new VCProfile();
+				VCProfile newProfile = new();
 				newProfile.InjectFrom<CloneInjection>(this.Profile);
 
 				if (!this.Preset.IsModified)

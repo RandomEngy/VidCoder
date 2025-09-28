@@ -754,4 +754,7 @@ v5는 Windows 7/8용으로 테스트된 마지막 버전이었습니다.
   <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
     <value>버전 {0} 다운로드가 완료되었으며 다음 실행 시 적용됩니다.</value>
   </data>
+  <data name="AddToTopOfQueueLabel" xml:space="preserve">
+    <value>대기열 상단에 추가</value>
+  </data>
 </root>

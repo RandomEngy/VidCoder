@@ -18,7 +18,7 @@ public class HardwareResourceService
 	/// <summary>
 	/// Global lock for all hardware resource actions. All operations should be fast so there should be minimal lock contention.
 	/// </summary>
-	private readonly object lockObject = new object();
+	private readonly object lockObject = new();
 
 	private readonly IDisposable simultaneousJobsSubscription;
 	private readonly IDisposable capNVEncSubscription;
@@ -34,11 +34,21 @@ public class HardwareResourceService
 	/// <summary>
 	/// Pools representing DVD/Blu-ray drives. Key is the root directory.
 	/// </summary>
-	private readonly Dictionary<string, HardwarePool> discDrivePools = new Dictionary<string, HardwarePool>();
+	private readonly Dictionary<string, HardwarePool> discDrivePools = new();
 
 	public HardwareResourceService()
 	{
-		this.qsvPool = new HardwarePool("QSV", HandBrakeEncoderHelpers.GetQsvAdaptorList().Count() * 2); // Two instances per GPU
+		int qsvCount;
+		if (Config.EnableQuickSyncHyperEncode)
+		{
+			qsvCount = 1;
+		}
+		else
+		{
+			qsvCount = HandBrakeEncoderHelpers.GetQsvAdaptorList().Count() * 2; // Two instances per GPU
+		}
+
+		this.qsvPool = new HardwarePool("QSV", qsvCount);
 		this.nvencPool = new HardwarePool("NVEnc", GetNVEncSlotCount(Config.CapNVEnc));
 		this.vcePool = new HardwarePool("VCE", 3);
 		this.mfPool = new HardwarePool("MF", 1);
@@ -63,7 +73,7 @@ public class HardwareResourceService
 
 	private static int GetNVEncSlotCount(bool capped)
 	{
-		return capped ? 3 : 1000;
+		return capped ? 5 : 1000;
 	}
 
 	/// <summary>

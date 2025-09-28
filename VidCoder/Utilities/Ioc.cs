@@ -64,6 +64,7 @@ public static class Ioc
 		container.RegisterSingleton<StatusService>();
 		container.RegisterSingleton<PreviewUpdateService>();
 		container.RegisterSingleton<PreviewImageService>();
+		container.RegisterSingleton<QsvLoadBalancingService>();
 		container.RegisterSingleton<ClipboardService>();
 		container.RegisterSingleton<TrayService>();
 		container.RegisterSingleton<AppLoggerFactory>();

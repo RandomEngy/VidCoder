@@ -149,12 +149,8 @@
   <data name="QueueColumnNameAudioQuality" xml:space="preserve">
     <value>Ljudkvalitet</value>
   </data>
-  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>Ljudkodaren</value>
-  </data>
-  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Videokodare</value>
-  </data>
+  
+  
   <data name="QueueColumnNameVideoQuality" xml:space="preserve">
     <value>Videokvalitet</value>
   </data>
@@ -320,12 +316,8 @@
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>Beskärning</value>
   </data>
-  <data name="QueueColumnNameOutputSize" xml:space="preserve">
-    <value>Utdatastorlek</value>
-  </data>
-  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
-    <value>Undertextspår</value>
-  </data>
+  
+  
   <data name="Manual" xml:space="preserve">
     <value>Manual</value>
     <comment>Shown when something has been set manually</comment>
@@ -336,6 +328,30 @@
   <data name="MegabytesAbbreviation" xml:space="preserve">
     <value>MB</value>
     <comment>Abbreviation for megabytes</comment>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Aktiverat</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Stäng</value>
+    <comment>Label to close a window or item.</comment>
+  </data>
+  
+  <data name="CompletedColumnNameStatus" xml:space="preserve">
+    <value>Status</value>
+    <comment>The header for the status column for completed jobs (succeeded/failed)</comment>
+  </data>
+  
+  <data name="CompletedColumnNameSize" xml:space="preserve">
+    <value>Storlek</value>
+  </data>
+  
+  
+  
+  
+  
+  <data name="CompletedColumnNamePreset" xml:space="preserve">
+    <value>Förval</value>
   </data>
   
   

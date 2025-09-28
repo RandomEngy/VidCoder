@@ -133,15 +133,9 @@
     <value>Tittel</value>
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
-  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
-    <value>Lydkvalitet</value>
-  </data>
-  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>Lyd Encoder</value>
-  </data>
-  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Video Encoder</value>
-  </data>
+  
+  
+  
   
   
   
@@ -230,6 +224,18 @@
     <value>Første</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

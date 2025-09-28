@@ -14,12 +14,9 @@ using System.Windows.Shapes;
 
 namespace VidCoder.View;
 
-/// <summary>
-/// Interaction logic for QueueColumnsDialog.xaml
-/// </summary>
-public partial class QueueColumnsDialog : Window
+public partial class ColumnsDialog : Window
 {
-	public QueueColumnsDialog()
+	public ColumnsDialog()
 	{
 		InitializeComponent();
 	}

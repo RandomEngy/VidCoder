@@ -157,10 +157,10 @@
     <value>Egy sorba rendezett művelet már rendelkezik kimeneti útvonallal a(z) {0} helyen. Szeretnéd lecserélni a sorba rendezett műveletet, automatikusan új kimeneti útvonalat találni a kódolási műveletnek vagy megszakaítani a műveletet?</value>
   </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Oszlopsorrend</value>
+    <value>Várólista oszlopok</value>
   </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Húzd és vidd az oszlopok hozzáadásához, eltávolításához vagy átrendezéséhez.</value>
+  <data name="ColumnsDialogHeaderText" xml:space="preserve">
+    <value>Húzással adhat hozzá, távolíthat el vagy rendezhet át oszlopokat.</value>
   </data>
   <data name="UnusedColumns" xml:space="preserve">
     <value>Nem használt oszlopok</value>
@@ -212,7 +212,9 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>Figyelmeztetés</value>
   </data>
-  
+  <data name="UnsupportedOSError" xml:space="preserve">
+    <value>A VidCoder nem támogatott az operációs rendszeren. Ehhez a verzióhoz Windows 10 vagy újabb szükséges. Kérjük, frissítse operációs rendszerét, vagy telepítse a VidCoder korábbi verzióját. A Windows XP legújabb kompatibilis verziója a VidCoder 1.4. A Windows 7 legújabb kompatibilis verziója az 5.21.</value>
+  </data>
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>Rendszer alvás következik</value>
   </data>
@@ -269,5 +271,8 @@
   </data>
   <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
     <value>A rendszer {0} másodperc múlva újraindul.</value>
+  </data>
+  <data name="CompletedColumnsDialogTitle" xml:space="preserve">
+    <value>Kitöltött oszlopok</value>
   </data>
 </root>

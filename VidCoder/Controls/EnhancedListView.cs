@@ -11,7 +11,7 @@ namespace VidCoder.Controls;
 
 public class EnhancedListView : ListView
 {
-	private readonly List<IListItemViewModel> selectedItems = new List<IListItemViewModel>();
+	private readonly List<IListItemViewModel> selectedItems = new();
 
 	protected override void OnSelectionChanged(SelectionChangedEventArgs e)
 	{

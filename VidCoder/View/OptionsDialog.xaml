@@ -46,8 +46,7 @@
 				Grid.Row="0"
 				Grid.ColumnSpan="2"
 				Icon="/Icons/Options.png"
-				IsActive="{Binding IsActive,
-				                   RelativeSource={RelativeSource AncestorType=Window}}" />
+				IsActive="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" />
 
 			<Grid
 				Grid.Row="1"
@@ -88,9 +87,7 @@
 						<StackPanel
 							VerticalAlignment="Top"
 							Orientation="Vertical"
-							Visibility="{Binding SelectedTabIndex,
-							                     Converter={StaticResource IntVisibilityConverter},
-							                     ConverterParameter=0}">
+							Visibility="{Binding SelectedTabIndex, Converter={StaticResource IntVisibilityConverter}, ConverterParameter=0}">
 
 							<!--  Encoding settings shortcut  -->
 							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.EncodingSettingsSection}" />
@@ -217,8 +214,7 @@
 										HorizontalAlignment="Left"
 										Content="{x:Static res:OptionsRes.UseSystemPlayer}"
 										GroupName="customVideo1"
-										IsChecked="{Binding UseCustomVideoPlayer,
-										                    Converter={StaticResource InverseBoolConverter}}" />
+										IsChecked="{Binding UseCustomVideoPlayer, Converter={StaticResource InverseBoolConverter}}" />
 									<Grid
 										Margin="20 6 0 0"
 										HorizontalAlignment="Stretch"
@@ -307,8 +303,7 @@
 									HorizontalAlignment="Left"
 									Content="{x:Static res:OptionsRes.MinimizeToTaskBarRadioButton}"
 									GroupName="minimize1"
-									IsChecked="{Binding MinimizeToTray,
-									                    Converter={StaticResource InverseBoolConverter}}" />
+									IsChecked="{Binding MinimizeToTray, Converter={StaticResource InverseBoolConverter}}" />
 								<RadioButton
 									HorizontalAlignment="Left"
 									Content="{x:Static res:OptionsRes.MinimizeToSystemTrayRadioButton}"
@@ -322,9 +317,7 @@
 						<StackPanel
 							VerticalAlignment="Top"
 							Orientation="Vertical"
-							Visibility="{Binding SelectedTabIndex,
-							                     Converter={StaticResource IntVisibilityConverter},
-							                     ConverterParameter=1}">
+							Visibility="{Binding SelectedTabIndex, Converter={StaticResource IntVisibilityConverter}, ConverterParameter=1}">
 							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.ProcessOptionsLabel}" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}">
 								<CheckBox
@@ -344,8 +337,7 @@
 										Margin="6 0 0 0"
 										AutomationProperties.LabeledBy="{Binding ElementName=workerProcessPriorityLabel}"
 										ItemsSource="{Binding PriorityChoices}"
-										SelectedValue="{Binding WorkerProcessPriority,
-										                        Mode=TwoWay}"
+										SelectedValue="{Binding WorkerProcessPriority, Mode=TwoWay}"
 										SelectedValuePath="Value" />
 								</StackPanel>
 
@@ -366,8 +358,7 @@
 										AutomationProperties.LabeledBy="{Binding ElementName=maxSimultaneousEncodesLabel}"
 										Maximum="16"
 										Minimum="1"
-										Number="{Binding MaxSimultaneousEncodes,
-										                 Mode=TwoWay}" />
+										Number="{Binding MaxSimultaneousEncodes, Mode=TwoWay}" />
 								</StackPanel>
 
 								<CheckBox Margin="0 6 0 0" IsChecked="{Binding CapNVEnc}">
@@ -428,8 +419,7 @@
 										IsEnabled="{Binding AutoPauseLowDiskSpace}"
 										Minimum="1"
 										Modulus="1"
-										Number="{Binding AutoPauseLowDiskSpaceGb,
-										                 Mode=TwoWay}"
+										Number="{Binding AutoPauseLowDiskSpaceGb, Mode=TwoWay}"
 										ShowIncrementButtons="False" />
 
 									<TextBlock
@@ -473,13 +463,95 @@
 							</StackPanel>
 						</StackPanel>
 
+						<!--  Hardware  -->
+						<StackPanel
+							VerticalAlignment="Top"
+							Orientation="Vertical"
+							Visibility="{Binding SelectedTabIndex, Converter={StaticResource IntVisibilityConverter}, ConverterParameter=2}">
+							<!--  QSV  -->
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.IntelQuickSyncSection}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<TextBlock Text="{x:Static res:CommonRes.NotAvailable}" Visibility="{Binding IsQuickSyncAvailable, Converter={StaticResource InverseVisibilityConverter}}" />
+
+								<StackPanel Orientation="Vertical" Visibility="{Binding IsQuickSyncAvailable, Converter={StaticResource VisibilityConverter}}">
+									<controls:AvailabilityIndicator />
+									<TextBlock Margin="0 2 0 0" Text="{Binding QsvEncoders}" />
+									<TextBlock Margin="0 2 0 0" Text="{Binding QsvAdapterCount}" />
+
+									<CheckBox
+										Margin="0 6 0 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										Content="{x:Static res:OptionsRes.EnableQuickSyncHyperEncodeCheckBox}"
+										IsChecked="{Binding EnableQuickSyncHyperEncode}"
+										ToolTip="{x:Static res:OptionsRes.EnableQuickSyncHyperEncodeToolTip}" />
+									<CheckBox
+										Margin="0 6 0 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										Content="{x:Static res:OptionsRes.EnableQuickSyncDecodingCheckBox}"
+										IsChecked="{Binding EnableQuickSyncDecoding}" />
+									<CheckBox
+										Margin="0 6 0 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										Content="{x:Static res:OptionsRes.UseQsvDecodeForNonQsvEncodesCheckBox}"
+										IsChecked="{Binding UseQsvDecodeForNonQsvEncodes}" />
+								</StackPanel>
+							</StackPanel>
+
+							<!--  NVENC  -->
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.NvidiaNvencSection}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<TextBlock Text="{x:Static res:CommonRes.NotAvailable}" Visibility="{Binding IsNvencAvailable, Converter={StaticResource InverseVisibilityConverter}}" />
+								<StackPanel Orientation="Vertical" Visibility="{Binding IsNvencAvailable, Converter={StaticResource VisibilityConverter}}">
+									<controls:AvailabilityIndicator />
+									<TextBlock Text="{Binding NvEncoders}" />
+
+									<CheckBox
+										Margin="0 6 0 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										Content="{x:Static res:OptionsRes.EnableNVDecCheckBox}"
+										IsChecked="{Binding EnableNVDec}"
+										Visibility="{Binding IsNvencAvailable, Converter={StaticResource VisibilityConverter}}" />
+								</StackPanel>
+							</StackPanel>
+
+							<!--  AMD VCN  -->
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.AmdVcnSection}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<TextBlock Text="{x:Static res:CommonRes.NotAvailable}" Visibility="{Binding IsVceAvailable, Converter={StaticResource InverseVisibilityConverter}}" />
+								<StackPanel Orientation="Vertical" Visibility="{Binding IsVceAvailable, Converter={StaticResource VisibilityConverter}}">
+									<controls:AvailabilityIndicator />
+									<TextBlock Text="{Binding VceEncoders}" />
+								</StackPanel>
+
+							</StackPanel>
+
+							<!--  Media Foundation  -->
+							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.MediaFoundationSection}" />
+							<StackPanel Style="{StaticResource ConfigSectionStack}">
+								<TextBlock Text="{x:Static res:CommonRes.NotAvailable}" Visibility="{Binding IsDirectXAvailable, Converter={StaticResource InverseVisibilityConverter}}" />
+								<StackPanel Orientation="Vertical" Visibility="{Binding IsDirectXAvailable, Converter={StaticResource VisibilityConverter}}">
+									<controls:AvailabilityIndicator />
+									<TextBlock Text="{Binding MFEncoders}" />
+									<CheckBox
+										Margin="0 6 0 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										Content="{x:Static res:OptionsRes.EnableDirectXDecodingCheckBox}"
+										IsChecked="{Binding EnableDirectXDecoding}" />
+								</StackPanel>
+
+							</StackPanel>
+						</StackPanel>
+
 						<!--  Advanced  -->
 						<StackPanel
 							VerticalAlignment="Top"
 							Orientation="Vertical"
-							Visibility="{Binding SelectedTabIndex,
-							                     Converter={StaticResource IntVisibilityConverter},
-							                     ConverterParameter=2}">
+							Visibility="{Binding SelectedTabIndex, Converter={StaticResource IntVisibilityConverter}, ConverterParameter=3}">
 							<!--  Advanced options  -->
 							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.AdvancedOptionsSection}" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}">
@@ -488,6 +560,12 @@
 									VerticalAlignment="Center"
 									Content="{x:Static res:OptionsRes.RememberPreviousFilesCheckBox}"
 									IsChecked="{Binding RememberPreviousFiles}" />
+								<CheckBox
+									Margin="0 6 0 0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									Content="{x:Static res:OptionsRes.RememberLastSelectedWhenDoneCheckBox}"
+									IsChecked="{Binding RememberLastSelectedEncodeCompleteAction}" />
 								<CheckBox
 									Margin="0 6 0 0"
 									HorizontalAlignment="Left"
@@ -532,8 +610,7 @@
 										AutomationProperties.LabeledBy="{Binding ElementName=encodeRetriesLabel}"
 										Maximum="5"
 										Minimum="0"
-										Number="{Binding EncodeRetries,
-										                 Mode=TwoWay}" />
+										Number="{Binding EncodeRetries, Mode=TwoWay}" />
 								</StackPanel>
 								<StackPanel
 									Margin="0 6 0 0"
@@ -559,9 +636,7 @@
 									<StackPanel
 										Margin="10 0 0 0"
 										Orientation="Horizontal"
-										Visibility="{Binding WatcherMode,
-										                     Converter={StaticResource EnumVisibilityConverter},
-										                     ConverterParameter={x:Static commonModel:WatcherMode.Polling}}">
+										Visibility="{Binding WatcherMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static commonModel:WatcherMode.Polling}}">
 										<TextBlock
 											Name="watcherPollIntervalLabel"
 											VerticalAlignment="Center"
@@ -573,10 +648,28 @@
 											AllowEmpty="False"
 											Maximum="3600"
 											Minimum="1"
-											Number="{Binding WatcherPollIntervalSeconds,
-											                 Mode=TwoWay}" />
+											Number="{Binding WatcherPollIntervalSeconds, Mode=TwoWay}" />
 									</StackPanel>
 
+								</StackPanel>
+
+								<!--  Part file naming  -->
+								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">
+									<TextBlock
+										Name="partFileNamingLabel"
+										VerticalAlignment="Center"
+										Text="{x:Static res:OptionsRes.PartFileNamingLabel}" />
+									<ComboBox
+										Height="23"
+										MinWidth="140"
+										Margin="6 0 0 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										AutomationProperties.LabeledBy="{Binding ElementName=partFileNamingLabel}"
+										DisplayMemberPath="Display"
+										ItemsSource="{Binding PartFileNamingChoices}"
+										SelectedValue="{Binding PartFileNaming}"
+										SelectedValuePath="Value" />
 								</StackPanel>
 							</StackPanel>
 
@@ -598,8 +691,7 @@
 										AllowEmpty="False"
 										AutomationProperties.LabeledBy="{Binding ElementName=minScanLengthLabel}"
 										Minimum="0"
-										Number="{Binding MinimumTitleLengthSeconds,
-										                 Mode=TwoWay}" />
+										Number="{Binding MinimumTitleLengthSeconds, Mode=TwoWay}" />
 								</StackPanel>
 								<StackPanel
 									Margin="0 6 0 0"
@@ -762,9 +854,7 @@
 						<StackPanel
 							VerticalAlignment="Top"
 							Orientation="Vertical"
-							Visibility="{Binding SelectedTabIndex,
-							                     Converter={StaticResource IntVisibilityConverter},
-							                     ConverterParameter=3}">
+							Visibility="{Binding SelectedTabIndex, Converter={StaticResource IntVisibilityConverter}, ConverterParameter=4}">
 
 							<!--  Updates  -->
 							<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.UpdatesSection}" />
@@ -785,8 +875,7 @@
 										Margin="16 0 0 0"
 										VerticalAlignment="Center"
 										Text="{x:Static res:OptionsRes.UpdateModeLabel}"
-										Visibility="{Binding UpdatesEnabledConfig,
-										                     Converter={StaticResource VisibilityConverter}}" />
+										Visibility="{Binding UpdatesEnabledConfig, Converter={StaticResource VisibilityConverter}}" />
 									<ComboBox
 										Margin="6 0 0 0"
 										VerticalAlignment="Center"
@@ -795,8 +884,7 @@
 										ItemsSource="{Binding UpdateModeChoices}"
 										SelectedValue="{Binding UpdateMode}"
 										SelectedValuePath="Value"
-										Visibility="{Binding UpdatesEnabledConfig,
-										                     Converter={StaticResource VisibilityConverter}}" />
+										Visibility="{Binding UpdatesEnabledConfig, Converter={StaticResource VisibilityConverter}}" />
 								</StackPanel>
 
 								<Button
@@ -804,8 +892,7 @@
 									HorizontalAlignment="Left"
 									Command="{Binding CheckUpdate}"
 									Content="{x:Static res:OptionsRes.CheckNowButton}"
-									Visibility="{Binding SupportsUpdates,
-									                     Converter={StaticResource VisibilityConverter}}" />
+									Visibility="{Binding SupportsUpdates, Converter={StaticResource VisibilityConverter}}" />
 							</StackPanel>
 
 							<!--  Status  -->
@@ -822,18 +909,14 @@
 											Padding="10 4"
 											Command="{Binding ApplyUpdate}"
 											Content="{x:Static res:OptionsRes.ApplyUpdateButton}"
-											Visibility="{Binding Updater.State,
-											                     Converter={StaticResource EnumVisibilityConverter},
-											                     ConverterParameter={x:Static model:UpdateState.UpdateReady}}" />
+											Visibility="{Binding Updater.State, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static model:UpdateState.UpdateReady}}" />
 									</StackPanel>
 									<ProgressBar
 										Grid.Column="1"
 										Height="20"
 										Margin="0 0 0 0"
-										Visibility="{Binding DownloadingUpdate,
-										                     Converter={StaticResource VisibilityConverter}}"
-										Value="{Binding UpdateProgressPercent,
-										                Mode=OneWay}" />
+										Visibility="{Binding DownloadingUpdate, Converter={StaticResource VisibilityConverter}}"
+										Value="{Binding UpdateProgressPercent, Mode=OneWay}" />
 								</StackPanel>
 							</StackPanel>
 
@@ -841,8 +924,7 @@
 							<TextBlock
 								Style="{StaticResource ConfigSectionHeader}"
 								Text="{x:Static res:OptionsRes.BetaSection}"
-								Visibility="{Binding BetaSectionVisible,
-								                     Converter={StaticResource VisibilityConverter}}" />
+								Visibility="{Binding BetaSectionVisible, Converter={StaticResource VisibilityConverter}}" />
 							<StackPanel Style="{StaticResource ConfigSectionStack}" Visibility="{Binding BetaSectionVisible, Converter={StaticResource VisibilityConverter}}">
 								<TextBlock TextWrapping="Wrap" Visibility="{Binding IsBeta, Source={x:Static vidCoder:XamlStatics.Instance}, Converter={StaticResource InverseVisibilityConverter}}">
 									<Hyperlink NavigateUri="{Binding BetaChangelogUrl}" RequestNavigate="Hyperlink_OnRequestNavigate">
@@ -852,15 +934,11 @@
 								<TextBlock
 									Text="{x:Static res:OptionsRes.BetaUpdatesNonBetaWarning}"
 									TextWrapping="Wrap"
-									Visibility="{Binding IsBeta,
-									                     Source={x:Static vidCoder:XamlStatics.Instance},
-									                     Converter={StaticResource InverseVisibilityConverter}}" />
+									Visibility="{Binding IsBeta, Source={x:Static vidCoder:XamlStatics.Instance}, Converter={StaticResource InverseVisibilityConverter}}" />
 								<TextBlock
 									Text="{x:Static res:OptionsRes.BetaUpdatesInBeta}"
 									TextWrapping="Wrap"
-									Visibility="{Binding IsBeta,
-									                     Source={x:Static vidCoder:XamlStatics.Instance},
-									                     Converter={StaticResource VisibilityConverter}}" />
+									Visibility="{Binding IsBeta, Source={x:Static vidCoder:XamlStatics.Instance}, Converter={StaticResource VisibilityConverter}}" />
 							</StackPanel>
 						</StackPanel>
 					</Grid>
