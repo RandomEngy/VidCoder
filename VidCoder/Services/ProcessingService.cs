@@ -1096,7 +1096,6 @@ public class ProcessingService : ReactiveObject
 		int notExistItems = 0;
 		int readOnlyItems = 0;
 		int itemsInEncodeQueue = 0;
-		int itemsCurrentlyScanned = 0;
 
 		foreach (var itemToClear in completedItems)
 		{
@@ -1118,14 +1117,7 @@ public class ProcessingService : ReactiveObject
 						bool sourceInEncodeQueue = this.EncodeQueue.Items.Any(job => string.Compare(job.Job.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) == 0);
 						if (!sourceInEncodeQueue)
 						{
-							if (!this.main.HasVideoSource || string.Compare(this.main.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) != 0)
-							{
-								deletionCandidates.Add(sourcePath);
-							}
-							else
-							{
-								itemsCurrentlyScanned++;
-							}
+							deletionCandidates.Add(sourcePath);
 						}
 						else
 						{
@@ -1174,12 +1166,6 @@ public class ProcessingService : ReactiveObject
 		{
 			builder.AppendLine();
 			builder.Append("Skipped due to file(s) existing in encode queue: " + itemsInEncodeQueue);
-		}
-
-		if (itemsCurrentlyScanned > 0)
-		{
-			builder.AppendLine();
-			builder.Append("Skipped due to file being currently scanned: " + itemsCurrentlyScanned);
 		}
 
 		encodeLogger.Log(builder.ToString());
@@ -1234,8 +1220,19 @@ public class ProcessingService : ReactiveObject
 	/// <param name="removalMode">The removal mode to use.</param>
 	/// <param name="operationLogger">The logger to use for the operation.</param>
 	/// <returns>The number of files removed.</returns>
-	private static int RemoveSourceFiles(IList<string> filesToRemove, SourceFileRemoval removalMode, IAppLogger operationLogger)
+	private int RemoveSourceFiles(IList<string> filesToRemove, SourceFileRemoval removalMode, IAppLogger operationLogger)
 	{
+		// Close any currently scanned file
+		foreach (string file in filesToRemove)
+		{
+			if (this.main.HasVideoSource
+				&& string.Compare(this.main.SourcePath, file, StringComparison.OrdinalIgnoreCase) == 0
+				&& this.main.CloseVideoSource.CanExecute(null))
+			{
+				this.main.CloseVideoSource.Execute(null);
+			}
+		}
+
 		int filesRemoved = 0;
 		switch (removalMode)
 		{
