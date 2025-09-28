@@ -427,20 +427,55 @@ Lekérdezés: Rendszeresen ellenőrzi a mappák tartalmát. Jelentős processzor
     <comment>Shown when downloading an update.
 {0} is the update version, for example 10.4</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="RememberLastSelectedWhenDoneCheckBox" xml:space="preserve">
+    <value>Emlékezzen az utoljára kiválasztott "Ha kész" műveletre újraindításkor</value>
+  </data>
+  <data name="PartFileNamingLabel" xml:space="preserve">
+    <value>Részleges fájlelnevezés:</value>
+  </data>
+  <data name="PartFileNaming_PartInMiddle" xml:space="preserve">
+    <value>név.rész.ext</value>
+  </data>
+  <data name="PartFileNaming_PartAtEnd" xml:space="preserve">
+    <value>név.ext.rész</value>
+  </data>
+  <data name="HardwareTab" xml:space="preserve">
+    <value>Hardver</value>
+  </data>
+  <data name="IntelQuickSyncSection" xml:space="preserve">
+    <value>Intel QuickSync</value>
+  </data>
+  <data name="NvidiaNvencSection" xml:space="preserve">
+    <value>NVIDIA NVENC</value>
+  </data>
+  <data name="AmdVcnSection" xml:space="preserve">
+    <value>AMD VCN</value>
+  </data>
+  <data name="MediaFoundationSection" xml:space="preserve">
+    <value>Media Foundation (ARM-eszközök)</value>
+  </data>
+  <data name="EnableQuickSyncHyperEncodeCheckBox" xml:space="preserve">
+    <value>Deep Link Hyper Encode engedélyezése</value>
+  </data>
+  <data name="EnableQuickSyncDecodingCheckBox" xml:space="preserve">
+    <value>Előnyben részesítse az Intel QuickSync funkciót a videó dekódolásához a QuickSync kódoló használatakor.</value>
+  </data>
+  <data name="UseQsvDecodeForNonQsvEncodesCheckBox" xml:space="preserve">
+    <value>Akkor is használja a QuickSync dekódolást, ha nem használ QuickSync kódolót.</value>
+  </data>
+  <data name="EnableDirectXDecodingCheckBox" xml:space="preserve">
+    <value>Engedélyezze a DirectX dekódolás használatát.</value>
+  </data>
+  <data name="CodecsLabel" xml:space="preserve">
+    <value>Támogatott kodekek: {0}</value>
+    <comment>Format string for codec lists. {0} is replaced with comma-separated list of codecs.</comment>
+  </data>
+  <data name="QsvAdapterCount" xml:space="preserve">
+    <value>Adapterek: {0}</value>
+    <comment>Indicator for how many QSV adapters are available on the system.
+{0} is the number of adapters, for example "2"</comment>
+  </data>
+  <data name="EnableQuickSyncHyperEncodeToolTip" xml:space="preserve">
+    <value>Használjon több médiamotort egyetlen kódolás felgyorsításához, ahol támogatott. Tiltsa le, ha több párhuzamos kódolást szeretne engedélyezni a médiamotorok között.</value>
+  </data>
 </root>
