@@ -2540,9 +2540,9 @@ public class ProcessingService : ReactiveObject
 					{
 						encodeQueueInnerList.Remove(finishedJobViewModel);
 						encodeQueueInnerList.Insert(Math.Min(Config.MaxSimultaneousEncodes, encodeQueueInnerList.Count - 1), finishedJobViewModel);
-
-						this.EncodeNextJobs();
 					});
+
+					this.EncodeNextJobs();
 
 					stopMessage = "Encoding stopped for " + finalOutputPath;
 				}
