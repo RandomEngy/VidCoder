@@ -380,6 +380,10 @@
   <data name="CompletedColumnNamePreset" xml:space="preserve">
     <value>Конфигурация</value>
   </data>
-  
-  
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Недоступно</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Доступно</value>
+  </data>
 </root>
