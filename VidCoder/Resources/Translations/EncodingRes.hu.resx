@@ -820,9 +820,9 @@ A lapsharp konvolúciós kernelek használatával élesít, megközelítve a Lap
     <value>TrueHD</value>
   </data>
   <data name="Passthrough_opus" xml:space="preserve">
-    <value>Opus</value>
+    <value>Opus kódoló</value>
   </data>
   <data name="Passthrough_alac" xml:space="preserve">
-    <value>ALAC</value>
+    <value>ALAC kódoló</value>
   </data>
 </root>
