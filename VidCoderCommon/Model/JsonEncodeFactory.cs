@@ -291,9 +291,17 @@ public class JsonEncodeFactory
 				Encoder = HandBrakeEncoderHelpers.GetAudioEncoder((int)outputCodec).ShortName,
 			};
 
+			// First priority: Chosen track name in the UI
 			string trackName = chosenTrack.Name;
 
-			if (trackName == null)
+			// Second priority name set in Audio Encoding
+			if (string.IsNullOrEmpty(trackName) && !string.IsNullOrEmpty(encoding.Name))
+			{
+				trackName = encoding.Name;
+			}
+
+			// Last priority: Source track name
+			if (string.IsNullOrEmpty(trackName) && !string.IsNullOrEmpty(sourceTrack.Name))
 			{
 				trackName = sourceTrack.Name;
 			}

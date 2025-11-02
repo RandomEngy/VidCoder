@@ -3143,8 +3143,14 @@ public class ProcessingService : ReactiveObject
 		});
 	}
 
-	// Automatically pick the correct audio on the given job.
-	// Only relies on input from settings and the current title.
+	/// <summary>
+	/// Automatically pick the correct audio on the given job.
+	/// Only relies on input from settings and the current title.
+	/// </summary>
+	/// <param name="job">The current encoding job.</param>
+	/// <param name="title">The source title.</param>
+	/// <param name="useCurrentContext">True to use the currently selected tracks to influence the choice.</param>
+	/// <param name="picker">The Picker to use.</param>
 	private void AutoPickAudio(VCJob job, SourceTitle title, bool useCurrentContext = false, Picker picker = null)
 	{
 		if (picker == null)

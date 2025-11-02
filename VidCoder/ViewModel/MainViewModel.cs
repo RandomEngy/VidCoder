@@ -1287,13 +1287,35 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 			// Fill in rest of unselected audio tracks
 			this.FillInUnselectedAudioTracks(audioTracksInnerList);
 
-			// Apply subtitle names from the Picker.
+			// Apply audio names from the Picker and Audio Encoding settings.
 			int outputIndex = 0;
 			foreach (AudioTrackViewModel audioTrackViewModel in audioTracksInnerList)
 			{
-				if (audioTrackViewModel.Selected)
+				audioTrackViewModel.Name = ProcessingService.GetPickerAudioName(picker, outputIndex++);
+			}
+
+			VCProfile profile = this.PresetsService.SelectedPreset.Preset.EncodingProfile;
+			if (profile.AudioEncodings != null)
+			{
+				foreach (AudioEncoding audioEncoding in profile.AudioEncodings)
 				{
-					audioTrackViewModel.Name = ProcessingService.GetPickerAudioName(picker, outputIndex++);
+					if (string.IsNullOrEmpty(audioEncoding.Name))
+					{
+						continue;
+					}
+
+					if (audioEncoding.InputNumber == 0)
+					{
+						foreach (AudioTrackViewModel audioTrackViewModel in audioTracksInnerList)
+						{
+							audioTrackViewModel.Name = audioEncoding.Name;
+						}
+					}
+					else if (audioEncoding.InputNumber <= audioTracksInnerList.Count)
+					{
+						AudioTrackViewModel audioTrackViewModel = audioTracksInnerList[audioEncoding.InputNumber - 1];
+						audioTrackViewModel.Name = audioEncoding.Name;
+					}
 				}
 			}
 		});
