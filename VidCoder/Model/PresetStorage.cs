@@ -271,19 +271,21 @@ public static class PresetStorage
 			}
 		}
 
-		if (profile.AudioEncodings != null)
+		if (profile.AudioEncodings == null)
 		{
-			foreach (var audioEncoding in profile.AudioEncodings)
+			profile.AudioEncodings = new List<AudioEncoding>();
+		}
+
+		foreach (var audioEncoding in profile.AudioEncodings)
+		{
+			if (audioEncoding.Encoder == "fdk_aac")
 			{
-				if (audioEncoding.Encoder == "fdk_aac")
+				// Make sure this version of VidCoder recognizes the encoder
+				HBAudioEncoder encoder = HandBrakeEncoderHelpers.GetAudioEncoder(audioEncoding.Encoder);
+				if (encoder == null)
 				{
-					// Make sure this version of VidCoder recognizes the encoder
-					HBAudioEncoder encoder = HandBrakeEncoderHelpers.GetAudioEncoder(audioEncoding.Encoder);
-					if (encoder == null)
-					{
-						audioEncoding.Encoder = "av_aac";
-						StaticResolver.Resolve<IAppLogger>().Log("Preset specified fdk_aac but it is not supported in this build of VidCoder. Fell back to av_aac.");
-					}
+					audioEncoding.Encoder = "av_aac";
+					StaticResolver.Resolve<IAppLogger>().Log("Preset specified fdk_aac but it is not supported in this build of VidCoder. Fell back to av_aac.");
 				}
 			}
 		}
