@@ -1284,40 +1284,15 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 					.Select(track => new AudioTrackViewModel(this, track, new ChosenAudioTrack { TrackNumber = track.TrackNumber }) { Selected = true }));
 			}
 
-			// Fill in rest of unselected audio tracks
-			this.FillInUnselectedAudioTracks(audioTracksInnerList);
-
-			// Apply audio names from the Picker and Audio Encoding settings.
+			// Apply audio names from the Picker.
 			int outputIndex = 0;
 			foreach (AudioTrackViewModel audioTrackViewModel in audioTracksInnerList)
 			{
 				audioTrackViewModel.Name = ProcessingService.GetPickerAudioName(picker, outputIndex++);
 			}
 
-			VCProfile profile = this.PresetsService.SelectedPreset.Preset.EncodingProfile;
-			if (profile.AudioEncodings != null)
-			{
-				foreach (AudioEncoding audioEncoding in profile.AudioEncodings)
-				{
-					if (string.IsNullOrEmpty(audioEncoding.Name))
-					{
-						continue;
-					}
-
-					if (audioEncoding.InputNumber == 0)
-					{
-						foreach (AudioTrackViewModel audioTrackViewModel in audioTracksInnerList)
-						{
-							audioTrackViewModel.Name = audioEncoding.Name;
-						}
-					}
-					else if (audioEncoding.InputNumber <= audioTracksInnerList.Count)
-					{
-						AudioTrackViewModel audioTrackViewModel = audioTracksInnerList[audioEncoding.InputNumber - 1];
-						audioTrackViewModel.Name = audioEncoding.Name;
-					}
-				}
-			}
+			// Fill in rest of unselected audio tracks
+			this.FillInUnselectedAudioTracks(audioTracksInnerList);
 		});
 	}
 

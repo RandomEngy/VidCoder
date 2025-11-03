@@ -291,7 +291,7 @@ public class JsonEncodeFactory
 				Encoder = HandBrakeEncoderHelpers.GetAudioEncoder((int)outputCodec).ShortName,
 			};
 
-			// First priority: Chosen track name in the UI
+			// First priority: Chosen track name in the UI / Picker
 			string trackName = chosenTrack.Name;
 
 			// Second priority name set in Audio Encoding
