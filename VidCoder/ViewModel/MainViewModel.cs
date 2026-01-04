@@ -3683,23 +3683,78 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 		this.RaisePropertyChanged(nameof(this.RangePreviewLengthText));
 	}
 
-	private void RefreshRecentSourceOptions()
+	private async void RefreshRecentSourceOptions()
 	{
-		this.recentSourceOptions.Clear();
-
-		List<string> sourceHistory = SourceHistory.GetHistory();
-		foreach (string recentSourcePath in sourceHistory)
+		try
 		{
-			if (File.Exists(recentSourcePath))
+			var entries = await Task.Run(() =>
 			{
-				this.recentSourceOptions.Add(new SourceOptionViewModel(new SourceOption { Type = SourceType.File }, recentSourcePath));
+				var list = new List<(string Path, bool IsFile)>();
+
+				List<string> sourceHistory;
+				try
+				{
+					sourceHistory = SourceHistory.GetHistory() ?? new List<string>();
+				}
+				catch
+				{
+					// If getting history fails, return empty list.
+					return list;
+				}
+
+				foreach (string path in sourceHistory)
+				{
+					try
+					{
+						if (File.Exists(path))
+						{
+							list.Add((path, true));
+						}
+						else if (Directory.Exists(path))
+						{
+							list.Add((path, false));
+						}
+					}
+					catch
+					{
+						// Ignore individual path errors.
+					}
+				}
+
+				return list;
+			});
+
+			// Update UI on UI thread without re-checking file system.
+			DispatchUtilities.BeginInvoke(() =>
+			{
+				this.recentSourceOptions.Clear();
+
+				foreach (var entry in entries)
+				{
+					if (entry.IsFile)
+					{
+						this.recentSourceOptions.Add(new SourceOptionViewModel(new SourceOption { Type = SourceType.File }, entry.Path));
+					}
+					else
+					{
+						this.recentSourceOptions.Add(new SourceOptionViewModel(new SourceOption { Type = SourceType.DiscVideoFolder }, entry.Path));
+					}
+				}
+
+				this.RaisePropertyChanged(nameof(this.RecentSourcesVisible));
+			});
+		}
+		catch (Exception ex)
+		{
+			// Ensure async void exceptions are observed and logged.
+			try
+			{
+				this.logger.LogError("RefreshRecentSourceOptions failed: " + ex.ToString());
 			}
-			else if (Directory.Exists(recentSourcePath))
+			catch
 			{
-				this.recentSourceOptions.Add(new SourceOptionViewModel(new SourceOption { Type = SourceType.DiscVideoFolder }, recentSourcePath));
+				// Swallow if logger fails.
 			}
 		}
-
-		this.RaisePropertyChanged(nameof(this.RecentSourcesVisible));
 	}
 }
