@@ -1,28 +1,29 @@
-﻿using System;
+﻿using ControlzEx.Theming;
+using HandBrake.Interop.Interop;
+using Microsoft.AnyContainer;
+using Microsoft.Toolkit.Uwp.Notifications;
+using Splat;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows;
+using System.Windows.Media;
+using Velopack;
+using VidCoder.Automation;
 using VidCoder.Model;
+using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
-using VidCoder.ViewModel;
-using System.Windows.Media;
-using HandBrake.Interop.Interop;
 using VidCoder.View;
+using VidCoder.ViewModel;
 using VidCoderCommon;
-using System.Threading;
-using System.Runtime.InteropServices;
-using VidCoder.Resources;
-using VidCoderCommon.Services;
-using System.Globalization;
-using Microsoft.AnyContainer;
-using ControlzEx.Theming;
-using Microsoft.Toolkit.Uwp.Notifications;
-using VidCoder.Automation;
-using System.IO;
 using VidCoderCommon.Model;
-using Velopack;
+using VidCoderCommon.Services;
 
 namespace VidCoder;
 
@@ -248,7 +249,43 @@ public partial class App : Application
 
 	private void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
 	{
-		var exceptionDialog = new ExceptionDialog(e.Exception);
+		// The crash occurs in PresentationFramework.dll, not necessarily when the Runner UI is visible, originating from this line:
+		// https://github.com/dotnet/wpf/blob/3439f20fb8c685af6d9247e8fd2978cac42e74ac/src/Microsoft.DotNet.Wpf/src/PresentationFramework/System/Windows/Shell/WindowChromeWorker.cs#L1005
+		// Many bug reports because users see the "Report problem UI" after "the" crash with System.Runtime.InteropServices.COMException 0xD0000701 or 0x80263001.
+		// However, displaying this "Report problem UI" during WPF crashes, especially when DWM composition is changing, is not ideal; some users reported it hangs for up to a minute before the "Report problem UI" appears.
+		// This change modifies the behavior to log the exception instead of showing the "Report problem UI".
+		// See https://github.com/microsoft/PowerToys/pull/39918/files for more information.
+		if (IsDwmCompositionException(e.Exception as COMException))
+		{
+			var logger = StaticResolver.Resolve<IAppLogger>();
+			logger.Log("A COMException occurred due to DWM composition changes. This exception is being ignored to prevent application crashes during DWM state changes." + Environment.NewLine + e.Exception);
+		}
+		else
+		{
+			ReportException(e.Exception);
+		}
+	}
+
+	private static bool IsDwmCompositionException(COMException comException)
+	{
+		if (comException == null)
+		{
+			return false;
+		}
+
+		var stackTrace = comException.StackTrace;
+		if (string.IsNullOrEmpty(stackTrace))
+		{
+			return false;
+		}
+
+		// Check for common DWM composition changed patterns in the stack trace
+		return stackTrace.Contains("DwmCompositionChanged");
+	}
+
+	private static void ReportException(Exception ex)
+	{
+		var exceptionDialog = new ExceptionDialog(ex);
 		exceptionDialog.ShowDialog();
 	}
 }
