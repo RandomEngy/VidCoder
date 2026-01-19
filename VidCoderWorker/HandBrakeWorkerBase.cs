@@ -144,7 +144,7 @@ public class HandBrakeWorkerBase<TCallback> : IHandBrakeWorker
 		{
 			try
 			{
-				await this.CallbackInvoker.InvokeAsync(c => c.OnMessageLogged(messages));
+				await this.CallbackInvoker.InvokeAsync(c => c.OnMessageLogged(messages)).ConfigureAwait(false);
 			}
 			catch (Exception)
 			{
@@ -157,7 +157,7 @@ public class HandBrakeWorkerBase<TCallback> : IHandBrakeWorker
 	{
 		try
 		{
-			await this.CallbackInvoker.InvokeAsync(c => c.OnErrorLogged(errorMessage));
+			await this.CallbackInvoker.InvokeAsync(c => c.OnErrorLogged(errorMessage)).ConfigureAwait(false);
 		}
 		catch (Exception)
 		{
