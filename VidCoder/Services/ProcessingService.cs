@@ -2532,14 +2532,27 @@ public class ProcessingService : ReactiveObject
 				string stopMessage;
 				if (completeReason == EncodeCompleteReason.ManualStopSingle)
 				{
+					int newIndex = 0;
+
 					// If we're stopping just this job, we need to push it down the queue and start up the next job in line
 					this.EncodeQueue.Edit(encodeQueueInnerList =>
 					{
 						encodeQueueInnerList.Remove(finishedJobViewModel);
-						encodeQueueInnerList.Insert(Math.Min(Config.MaxSimultaneousEncodes, encodeQueueInnerList.Count - 1), finishedJobViewModel);
+
+						newIndex = Math.Min(Config.MaxSimultaneousEncodes, encodeQueueInnerList.Count);
+						encodeQueueInnerList.Insert(newIndex, finishedJobViewModel);
 					});
 
-					this.EncodeNextJobs();
+					// If the stopped job was moved down the list and would no longer be restarted, we need to try to start the next jobs in the queue.
+					if (newIndex >= Config.MaxSimultaneousEncodes)
+					{
+						this.EncodeNextJobs();
+					}
+					else
+					{
+						// Rebuild the encoding jobs list to reflect that a job has stopped.
+						this.RebuildEncodingJobsList();
+					}
 
 					stopMessage = "Encoding stopped for " + finalOutputPath;
 				}
