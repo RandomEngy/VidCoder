@@ -1,11 +1,12 @@
-﻿using System;
+﻿using HandBrake.Interop.Interop;
+using PipeMethodCalls;
+using PipeMethodCalls.NetJson;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using PipeMethodCalls;
-using PipeMethodCalls.NetJson;
 using VidCoderCommon;
 using VidCoderCommon.Model;
 using VidCoderCommon.Services;
@@ -74,6 +75,8 @@ class Program
 				};
 
 			parentCheckTimer.Start();
+
+			HandBrakeUtils.EnsureGlobalInit(initNoHardwareMode: false);
 
 			StartService(action, debugLogging);
 
