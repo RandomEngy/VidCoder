@@ -1988,16 +1988,25 @@ public class ProcessingService : ReactiveObject
 		this.logger.ShowStatus(MainRes.StoppedEncoding);
 	}
 
-	public void Stop(EncodeJobViewModel jobViewModel)
+	public void StopSelected()
 	{
-		if (this.encodingJobList.Count == 1)
+		IList<EncodeJobViewModel> selectedJobs = this.main.SelectedJobs.Where(job => job.Encoding).ToList();
+		if (selectedJobs.Count == 0)
 		{
-			this.Stop();
+			return;
 		}
-		else if (this.encodingJobList.Count > 1)
+
+		if (selectedJobs.Count >= this.encodingJobList.Count)
 		{
-			jobViewModel.CompleteReason = EncodeCompleteReason.ManualStopSingle;
-			this.StartEncodeProxyAction(jobViewModel.EncodeProxy, encodeProxy => encodeProxy.StopEncodeAsync(), "Stop");
+			// If all encoding jobs are selected, stop all.
+			this.Stop();
+			return;
+		}
+
+		foreach (var selectedJob in selectedJobs)
+		{
+			selectedJob.CompleteReason = EncodeCompleteReason.ManualStopSingle;
+			this.StartEncodeProxyAction(selectedJob.EncodeProxy, encodeProxy => encodeProxy.StopEncodeAsync(), "Stop");
 		}
 	}
 
@@ -2041,25 +2050,62 @@ public class ProcessingService : ReactiveObject
 		}
 
 		// Make sure we've started encoding the correct number of simultaneous jobs.
-		var encodeQueueList = this.EncodeQueue.Items.ToList();
-		for (int i = 0; i < this.EncodeQueue.Count; i++)
+		this.EncodeQueue.Edit(encodeQueueInnerList =>
 		{
-			EncodeJobViewModel jobViewModel = encodeQueueList[i];
-			if (!jobViewModel.Encoding)
+			// Holds jobs we've skipped because they were recently stopped.
+			var recentlyStoppedJobs = new List<EncodeJobViewModel>();
+
+			for (int i = 0; i < encodeQueueInnerList.Count; i++)
 			{
-				if (this.hardwareResourceService.TryAcquireSlot(jobViewModel))
+				EncodeJobViewModel jobViewModel = encodeQueueInnerList[i];
+				if (!jobViewModel.Encoding)
 				{
-					// We acquired all the hardware we need, so we can start the encode.
-					this.TaskNumber++;
-					this.StartEncode(jobViewModel);
-				}
-				else
-				{
-					// If we couldn't acquire a hardware slot, bail.
-					break;
+					if (jobViewModel.IsRecentlyCompleted)
+					{
+						recentlyStoppedJobs.Add(jobViewModel);
+						continue;
+					}
+
+					if (this.hardwareResourceService.TryAcquireSlot(jobViewModel))
+					{
+						// We acquired all the hardware we need, so we can start the encode.
+						this.TaskNumber++;
+						this.StartEncode(jobViewModel);
+					}
+					else
+					{
+						// If we couldn't acquire a hardware slot, bail.
+						break;
+					}
 				}
 			}
-		}
+
+			// Move the skipped, recently stopped jobs to just after the last encoding job.
+			if (recentlyStoppedJobs.Count > 0)
+			{
+				foreach (var recentlyStoppedJob in recentlyStoppedJobs)
+				{
+					encodeQueueInnerList.Remove(recentlyStoppedJob);
+				}
+
+				int lastEncodingJobIndex = -1;
+				for (int i = 0; i < encodeQueueInnerList.Count; i++)
+				{
+					if (encodeQueueInnerList[i].Encoding)
+					{
+						lastEncodingJobIndex = i;
+					}
+				}
+
+				int insertIndex = lastEncodingJobIndex + 1;
+				foreach (var recentlyStoppedJob in recentlyStoppedJobs)
+				{
+					encodeQueueInnerList.Insert(insertIndex, recentlyStoppedJob);
+					insertIndex++;
+				}
+			}
+		});
+
 
 		this.RebuildEncodingJobsList();
 		this.RefreshEncodeCompleteActions();
@@ -2312,6 +2358,7 @@ public class ProcessingService : ReactiveObject
 		finishedJobViewModel.EncodeProxy?.Dispose();
 
 		EncodeCompleteReason completeReason = finishedJobViewModel.CompleteReason;
+		finishedJobViewModel.CompleteTime = DateTimeOffset.Now;
 
 		DispatchUtilities.BeginInvoke(() =>
 		{
@@ -2532,27 +2579,7 @@ public class ProcessingService : ReactiveObject
 				string stopMessage;
 				if (completeReason == EncodeCompleteReason.ManualStopSingle)
 				{
-					int newIndex = 0;
-
-					// If we're stopping just this job, we need to push it down the queue and start up the next job in line
-					this.EncodeQueue.Edit(encodeQueueInnerList =>
-					{
-						encodeQueueInnerList.Remove(finishedJobViewModel);
-
-						newIndex = Math.Min(Config.MaxSimultaneousEncodes, encodeQueueInnerList.Count);
-						encodeQueueInnerList.Insert(newIndex, finishedJobViewModel);
-					});
-
-					// If the stopped job was moved down the list and would no longer be restarted, we need to try to start the next jobs in the queue.
-					if (newIndex >= Config.MaxSimultaneousEncodes)
-					{
-						this.EncodeNextJobs();
-					}
-					else
-					{
-						// Rebuild the encoding jobs list to reflect that a job has stopped.
-						this.RebuildEncodingJobsList();
-					}
+					this.EncodeNextJobs();
 
 					stopMessage = "Encoding stopped for " + finalOutputPath;
 				}

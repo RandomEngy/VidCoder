@@ -295,6 +295,21 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 
 	public EncodeCompleteReason CompleteReason { get; set; } = EncodeCompleteReason.Finished;
 
+	public DateTimeOffset CompleteTime { get; set; }
+
+	public bool IsRecentlyCompleted
+	{
+		get
+		{
+			if (this.CompleteTime == DateTimeOffset.MinValue)
+			{
+				return false;
+			}
+
+			return (DateTimeOffset.Now - this.CompleteTime) < TimeSpan.FromSeconds(5);
+		}
+	}
+
 	/// <summary>
 	/// Returns true if a subtitle scan will be performed on this job.
 	/// </summary>
@@ -791,7 +806,7 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 			return this.stop ?? (this.stop = ReactiveCommand.Create(
 				() =>
 				{
-					this.ProcessingService.Stop(this);
+					this.ProcessingService.StopSelected();
 				}));
 		}
 	}
