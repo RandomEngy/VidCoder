@@ -259,7 +259,14 @@ public class DragDropHelper
 				this.topWindow.DragOver += this.TopWindow_DragOver;
 				this.topWindow.DragLeave += this.TopWindow_DragLeave;
 				
-				DragDrop.DoDragDrop((DependencyObject)sender, data, DragDropEffects.Move);
+				try
+				{
+					DragDrop.DoDragDrop((DependencyObject)sender, data, DragDropEffects.Move);
+				}
+				catch (Exception exception)
+				{
+					StaticResolver.Resolve<IAppLogger>().LogError("Error during drag operation:" + Environment.NewLine + exception);
+				}
 
 				// Without this call, there would be a bug in the following scenario: Click on a data item, and drag
 				// the mouse very fast outside of the window. When doing this really fast, for some reason I don't get 
