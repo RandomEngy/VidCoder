@@ -486,7 +486,8 @@ namespace VidCoder.Services;
 					EncodingRes.DefaultChapterName,
 					VideoCodecUtilities.CreateJobConfiguration(),
 					qsvGpu: -1,
-					isEncode: false);
+					isEncode: false,
+					hwDecode: HwDecodeUtilities.GetHwDecode());
 
 				// Make a HandBrake call to get the image
 				imageSource = BitmapUtilities.ConvertToBitmapImage(BitmapUtilities.ConvertByteArrayToBitmap(imageJob.ScanInstance.GetPreview(jsonEncodeObject, imageJob.PreviewIndex)));

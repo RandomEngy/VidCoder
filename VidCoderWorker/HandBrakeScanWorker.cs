@@ -47,7 +47,7 @@ public class HandBrakeScanWorker : HandBrakeWorkerBase<IHandBrakeScanWorkerCallb
 			maxDuration: TimeSpan.Zero,
 			titleIndex: 0,
 			excludedExtensions: new List<string>(),
-			hwDecode: 0,
+			hwDecode: this.PassedHwDecode,
 			keepDuplicateTitles: false);
 	}
 }

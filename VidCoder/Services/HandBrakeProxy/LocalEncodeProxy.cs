@@ -63,6 +63,7 @@ public class LocalEncodeProxy : IEncodeProxy
 						VideoCodecUtilities.CreateJobConfiguration(),
 						this.qsvLoadBalancingService.GetQsvGpu(job),
 						true,
+						HwDecodeUtilities.GetHwDecode(),
 						preview ? previewNumber : -1,
 						previewSeconds,
 						Config.PreviewCount);
@@ -165,7 +166,7 @@ public class LocalEncodeProxy : IEncodeProxy
 			maxDuration: TimeSpan.Zero,
 			titleIndex: titleNumber,
 			excludedExtensions: new List<string>(),
-			hwDecode: 0,
+			hwDecode: HwDecodeUtilities.GetHwDecode(),
 			keepDuplicateTitles: false);
 
 		this.encoding = true;

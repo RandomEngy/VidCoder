@@ -42,11 +42,14 @@ public class HandBrakeWorkerBase<TCallback> : IHandBrakeWorker
 
 	protected int PassedPreviewCount { get; set; }
 
+	protected int PassedHwDecode { get; set; }
+
 	protected double PassedMinTitleDurationSeconds { get; set; }
 
 	public void SetUpWorker(
 		int verbosity,
 		int previewCount,
+		int hwDecode,
 		bool useDvdNav,
 		double minTitleDurationSeconds,
 		double cpuThrottlingFraction,
@@ -58,6 +61,7 @@ public class HandBrakeWorkerBase<TCallback> : IHandBrakeWorker
 
 		this.PassedVerbosity = verbosity;
 		this.PassedPreviewCount = previewCount;
+		this.PassedHwDecode = hwDecode;
 		this.PassedMinTitleDurationSeconds = minTitleDurationSeconds;
 		this.currentCpuThrottlingFraction = cpuThrottlingFraction;
 

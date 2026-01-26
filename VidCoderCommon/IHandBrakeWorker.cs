@@ -10,6 +10,7 @@ public interface IHandBrakeWorker
 	void SetUpWorker(
 		int verbosity,
 		int previewCount,
+		int hwDecode,
 		bool useDvdNav,
 		double minTitleDurationSeconds,
 		double cpuThrottlingFraction,

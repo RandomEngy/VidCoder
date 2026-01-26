@@ -76,6 +76,7 @@ class Program
 
 			parentCheckTimer.Start();
 
+			// This should not strictly be necessary, as the HandBrake instance should also call this.
 			HandBrakeUtils.EnsureGlobalInit(initNoHardwareMode: false);
 
 			StartService(action, debugLogging);

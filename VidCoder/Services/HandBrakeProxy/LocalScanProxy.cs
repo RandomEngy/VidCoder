@@ -35,7 +35,7 @@ public class LocalScanProxy : IScanProxy
 			maxDuration: TimeSpan.Zero,
 			titleIndex: 0,
 			excludedExtensions: new List<string>(),
-			hwDecode: 0,
+			hwDecode: HwDecodeUtilities.GetHwDecode(),
 			keepDuplicateTitles: false);
     }
 

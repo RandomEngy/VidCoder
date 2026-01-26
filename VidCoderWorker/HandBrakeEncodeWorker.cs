@@ -65,6 +65,7 @@ public class HandBrakeEncodeWorker : HandBrakeWorkerBase<IHandBrakeEncodeWorkerC
 						jobConfiguration,
 						qsvGpu,
 						true,
+						this.PassedHwDecode,
 						previewNumber,
 						previewSeconds,
 						this.PassedPreviewCount);
@@ -182,7 +183,7 @@ public class HandBrakeEncodeWorker : HandBrakeWorkerBase<IHandBrakeEncodeWorkerC
 				maxDuration: TimeSpan.Zero,
 				titleIndex: titleNumber,
 				excludedExtensions: new List<string>(),
-				hwDecode: 0,
+				hwDecode: this.PassedHwDecode,
 				keepDuplicateTitles: false);
 			this.state = EncodeState.Scanning;
 		}

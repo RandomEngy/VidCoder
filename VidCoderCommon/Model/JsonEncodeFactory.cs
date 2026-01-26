@@ -50,6 +50,7 @@ public class JsonEncodeFactory
 	/// <param name="jobConfiguration">Values from user configuration.</param>
 	/// <param name="qsvGpu">The specific GPU to use for the QSV encode, or -1 if no specific GPU is chosen.</param>
 	/// <param name="isEncode">True if this is being created for an encode job. False for an image preview.</param>
+	/// <param name="hwDecode">The hardware decode flags.</param>
 	/// <param name="previewNumber">The preview number to start at (0-based). Leave off for a normal encode.</param>
 	/// <param name="previewSeconds">The number of seconds long to make the preview.</param>
 	/// <param name="previewCount">The total number of previews.</param>
@@ -61,6 +62,7 @@ public class JsonEncodeFactory
 		JobConfiguration jobConfiguration,
 		int qsvGpu,
 		bool isEncode,
+		int hwDecode,
 		int previewNumber = -1,
 		int previewSeconds = 0,
 		int previewCount = 0)
@@ -91,7 +93,7 @@ public class JsonEncodeFactory
 			Filters = this.CreateFilters(profile, title, outputSize),
 			Metadata = this.CreateMetadata(job, title),
 			PAR = outputSize.Par,
-			Source = this.CreateSource(job, title, previewNumber, previewSeconds, previewCount),
+			Source = this.CreateSource(job, title, hwDecode, previewNumber, previewSeconds, previewCount),
 			Subtitle = this.CreateSubtitles(job, title),
 			Video = this.CreateVideo(
 				job,
@@ -811,11 +813,12 @@ public class JsonEncodeFactory
 	/// </summary>
 	/// <param name="job">The encoding job.</param>
 	/// <param name="title">The title being encoded.</param>
+	/// <param name="hwDecode">The hardware decode flags.</param>
 	/// <param name="previewNumber">The preview number (0-based) to use. -1 for a normal encode.</param>
 	/// <param name="previewSeconds">The number of seconds long to make the preview.</param>
 	/// <param name="previewCount">The total number of previews.</param>
 	/// <returns>The source sub-object</returns>
-	private Source CreateSource(VCJob job, SourceTitle title, int previewNumber, int previewSeconds, int previewCount)
+	private Source CreateSource(VCJob job, SourceTitle title, int hwDecode, int previewNumber, int previewSeconds, int previewCount)
 	{
 		var range = new HandBrake.Interop.Interop.Json.Encode.Range();
 
@@ -860,7 +863,8 @@ public class JsonEncodeFactory
 			Title = job.Title,
 			Angle = job.Angle,
 			Path = job.SourcePath,
-			Range = range
+			Range = range,
+			HWDecode = hwDecode,
 		};
 
 		return source;

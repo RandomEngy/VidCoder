@@ -357,6 +357,7 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 				await this.Client.InvokeAsync(x => x.SetUpWorker(
 					Config.LogVerbosity,
 					Config.PreviewCount,
+					HwDecodeUtilities.GetHwDecode(),
 					Config.EnableLibDvdNav,
 					Config.MinimumTitleLengthSeconds,
 					Config.CpuThrottlingFraction,
