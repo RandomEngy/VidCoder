@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
     <UseWPF>true</UseWPF>
     <CsWinRTWindowsMetadata>10.0.19041.0</CsWinRTWindowsMetadata>
     <ApplicationIcon>VidCoder_icon.ico</ApplicationIcon>
@@ -34,7 +34,6 @@
     <PackageReference Include="ReactiveUI.WPF" />
     <PackageReference Include="System.Data.SQLite.Core" />
     <PackageReference Include="System.Management" />
-    <PackageReference Include="System.Runtime.InteropServices" />
     <PackageReference Include="UTF.Unknown" />
     <PackageReference Include="valueinjecter" />
     <PackageReference Include="Velopack" />

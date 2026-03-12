@@ -37,7 +37,7 @@ namespace VidCoderCommon;
                 result.CompressionLevel = HandBrakeEncoderHelpers.GetDefaultAudioCompression(encoder);
             }
 
-            HBMixdown mixdown = HandBrakeEncoderHelpers.GetDefaultMixdown(encoder, (ulong)source.ChannelLayout);
+            HBMixdown mixdown = HandBrakeEncoderHelpers.GetDefaultMixdown(encoder, source.ChannelLayout);
             result.Mixdown = mixdown;
 
             // For some reason HB does not honor Quality when falling back to an encoder during auto-passthrough.

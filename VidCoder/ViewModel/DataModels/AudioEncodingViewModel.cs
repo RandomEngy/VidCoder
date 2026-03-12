@@ -1087,7 +1087,7 @@ public class AudioEncodingViewModel : ReactiveObject, IDisposable
 					SourceAudioTrack track = this.GetTargetAudioTrack();
 					if (track != null)
 					{
-						isCompatible = HandBrakeEncoderHelpers.MixdownHasRemixSupport(mixdown, (ulong)track.ChannelLayout);
+						isCompatible = HandBrakeEncoderHelpers.MixdownIsSupported(mixdown, hbAudioEncoder, track.ChannelLayout);
 					}
 				}
 
@@ -1137,7 +1137,7 @@ public class AudioEncodingViewModel : ReactiveObject, IDisposable
 				HBMixdown mixdownLimits = this.SelectedMixdown.Mixdown;
 				if (mixdownLimits.ShortName == "none" || string.IsNullOrEmpty(mixdownLimits.ShortName))
 				{
-					mixdownLimits = HandBrakeEncoderHelpers.SanitizeMixdown(mixdownLimits, this.HBAudioEncoder, (ulong)track.ChannelLayout);
+					mixdownLimits = HandBrakeEncoderHelpers.SanitizeMixdown(mixdownLimits, this.HBAudioEncoder, track.ChannelLayout);
 				}
 
 				bitrateLimits = HandBrakeEncoderHelpers.GetBitrateLimits(this.HBAudioEncoder, sampleRateLimits, mixdownLimits);

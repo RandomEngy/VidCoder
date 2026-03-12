@@ -1286,7 +1286,7 @@ public class JsonEncodeFactory
 					outputBitrate = HandBrakeEncoderHelpers.GetDefaultBitrate(
 						encoder,
 						sampleRate,
-						HandBrakeEncoderHelpers.SanitizeMixdown(HandBrakeEncoderHelpers.GetMixdown(outputTrack.Mixdown), encoder, (ulong)sourceTrack.ChannelLayout));
+						HandBrakeEncoderHelpers.SanitizeMixdown(HandBrakeEncoderHelpers.GetMixdown(outputTrack.Mixdown), encoder, sourceTrack.ChannelLayout));
 
 					this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Output bitrate is Auto, will be {outputBitrate} kbps");
 				}

@@ -437,7 +437,7 @@ public class AudioPanelViewModel : PanelViewModel
 		else
 		{
 		    HBMixdown previewMixdown;
-		    previewMixdown = HandBrakeEncoderHelpers.SanitizeMixdown(HandBrakeEncoderHelpers.GetMixdown(handBrakeOutputTrack.Mixdown), encoder, (ulong)inputTrack.ChannelLayout);
+		    previewMixdown = HandBrakeEncoderHelpers.SanitizeMixdown(HandBrakeEncoderHelpers.GetMixdown(handBrakeOutputTrack.Mixdown), encoder, inputTrack.ChannelLayout);
 
 		    int previewSampleRate = handBrakeOutputTrack.Samplerate;
 		    if (previewSampleRate == 0)

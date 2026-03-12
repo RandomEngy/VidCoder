@@ -64,13 +64,13 @@ public class EnumDisplayer : IValueConverter
 			this.reverseValues = (IDictionary)Activator.CreateInstance(reverseValuesType);
 
 			var fields = type.GetFields(BindingFlags.Public | BindingFlags.Static);
-			foreach (var field in fields)
+			foreach (var @field in fields)
 			{
 				DisplayAttribute[] a = (DisplayAttribute[])
-											field.GetCustomAttributes(typeof(DisplayAttribute), false);
+											@field.GetCustomAttributes(typeof(DisplayAttribute), false);
 
 				string displayString = GetAttributeDisplayString(a);
-				object enumValue = field.GetValue(null);
+				object enumValue = @field.GetValue(null);
 				string enumValueString = null;
 
 				if (displayString == null)
