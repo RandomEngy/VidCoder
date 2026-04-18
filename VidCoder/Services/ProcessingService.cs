@@ -688,7 +688,8 @@ public class ProcessingService : ReactiveObject
 			return this.stopEncode ?? (this.stopEncode = ReactiveCommand.Create(
 				() =>
 				{
-					if (this.EncodeQueue.Items.First().EncodeTime > TimeSpan.FromMinutes(StopWarningThresholdMinutes))
+					var firstItem = this.EncodeQueue.Items.FirstOrDefault();
+					if (firstItem != null && firstItem.EncodeTime > TimeSpan.FromMinutes(StopWarningThresholdMinutes))
 					{
 						MessageBoxResult dialogResult = Utilities.MessageBox.Show(
 							MainRes.StopEncodeConfirmationMessage,
