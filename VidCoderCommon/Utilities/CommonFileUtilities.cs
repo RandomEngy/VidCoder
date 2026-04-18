@@ -57,22 +57,20 @@ public static class CommonFileUtilities
 
 	public static bool IsFileLocked(string filePath)
 	{
-		FileStream stream = null;
-
 		try
 		{
-			stream = File.OpenRead(filePath);
+			// FileMode.Open: Open existing file
+			// FileAccess.Read: Request read access
+			// FileShare.None: Request exclusive access (no sharing)
+			using (FileStream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.None))
+			{
+				return false; // Not locked
+			}
 		}
-		catch (Exception)
+		catch
 		{
-			return true;
+			return true; // Locked because it's being written to or opened elsewhere
 		}
-		finally
-		{
-			stream?.Close();
-		}
-
-		return false;
 	}
 
 	private static void GetFilesOrVideoFoldersRecursive(DirectoryInfo directory, List<SourcePathWithType> paths, List<string> inacessibleDirectories, PickerFileFilter fileFilter)
