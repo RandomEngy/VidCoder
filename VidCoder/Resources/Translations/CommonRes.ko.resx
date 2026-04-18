@@ -380,6 +380,10 @@ GNU 일반 공중 사용 허가서의 사본이 이 프로그램에 포함되어
   <data name="CompletedColumnNamePreset" xml:space="preserve">
     <value>프리셋</value>
   </data>
-  
-  
+  <data name="NotAvailable" xml:space="preserve">
+    <value>사용 불가</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>사용 가능</value>
+  </data>
 </root>

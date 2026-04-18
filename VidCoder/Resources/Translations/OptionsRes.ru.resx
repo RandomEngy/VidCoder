@@ -439,16 +439,43 @@
   <data name="PartFileNaming_PartAtEnd" xml:space="preserve">
     <value>name.ext.part</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="HardwareTab" xml:space="preserve">
+    <value>Оборудование</value>
+  </data>
+  <data name="IntelQuickSyncSection" xml:space="preserve">
+    <value>Intel QuickSync</value>
+  </data>
+  <data name="NvidiaNvencSection" xml:space="preserve">
+    <value>NVIDIA NVENC</value>
+  </data>
+  <data name="AmdVcnSection" xml:space="preserve">
+    <value>AMD VCN</value>
+  </data>
+  <data name="MediaFoundationSection" xml:space="preserve">
+    <value>Media Foundation (устройства ARM)</value>
+  </data>
+  <data name="EnableQuickSyncHyperEncodeCheckBox" xml:space="preserve">
+    <value>Включить кодирование Deep Link Hyper</value>
+  </data>
+  <data name="EnableQuickSyncDecodingCheckBox" xml:space="preserve">
+    <value>Предпочитать Intel QuickSync для декодирования видео при использовании кодировщика QuickSync.</value>
+  </data>
+  <data name="UseQsvDecodeForNonQsvEncodesCheckBox" xml:space="preserve">
+    <value>Также использовать декодирование QuickSync, когда не используется кодировщик QuickSync.</value>
+  </data>
+  <data name="EnableDirectXDecodingCheckBox" xml:space="preserve">
+    <value>Использовать декодирование DirectX.</value>
+  </data>
+  <data name="CodecsLabel" xml:space="preserve">
+    <value>Поддерживаемые кодеки: {0}</value>
+    <comment>Format string for codec lists. {0} is replaced with comma-separated list of codecs.</comment>
+  </data>
+  <data name="QsvAdapterCount" xml:space="preserve">
+    <value>Адаптеры: {0}</value>
+    <comment>Indicator for how many QSV adapters are available on the system.
+{0} is the number of adapters, for example "2"</comment>
+  </data>
+  <data name="EnableQuickSyncHyperEncodeToolTip" xml:space="preserve">
+    <value>Если включено, по возможности будут использоваться несколько медиадвижков для ускорения одиночного кодирования. Если отключено, нагрузка будет распределяться между несколькими параллельно работающими кодировщиками.</value>
+  </data>
 </root>
