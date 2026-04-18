@@ -1134,29 +1134,6 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 		{
 			if (!userCollapsedSections.HasFlag(newSection))
 			{
-				SourceSection sectionsWithNewExpansion = sections | newSection;
-				if (this.GetTotalHeight(sectionsWithNewExpansion) > availableHeight)
-				{
-					// Failed to open section. Bail with current list.
-					return sections;
-				}
-
-				sections = sections | newSection;
-			}
-		}
-
-		// Second pass see if we can open more sections.
-		foreach (SourceSection newSection in SourceSectionPriority)
-		{
-			if (userCollapsedSections.HasFlag(newSection))
-			{
-				SourceSection sectionsWithNewExpansion = sections | newSection;
-				if (this.GetTotalHeight(sectionsWithNewExpansion) > availableHeight)
-				{
-					// Failed to open section. Bail with current list.
-					return sections;
-				}
-
 				sections = sections | newSection;
 			}
 		}
@@ -1183,39 +1160,6 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 		}
 
 		return sections;
-	}
-
-	private double GetTotalHeight(SourceSection expandedSections)
-	{
-		double height = 98;
-
-		if (expandedSections.HasFlag(SourceSection.Video))
-		{
-			height += 110;
-		}
-
-		int audioCount = this.SelectedTitle.AudioList.Count;
-		if (audioCount > 0 && expandedSections.HasFlag(SourceSection.Audio))
-		{
-			height += 24;
-			height += audioCount * 27;
-		}
-
-		int subtitleCount = this.SelectedTitle.SubtitleList.Count;
-		if (subtitleCount > 0 && expandedSections.HasFlag(SourceSection.Subtitles))
-		{
-			height += 24;
-			height += subtitleCount * 27;
-		}
-
-		if (this.PresetsService.SelectedPreset.Preset.EncodingProfile.IncludeChapterMarkers 
-			&& this.SelectedTitle.ChapterList != null 
-			&& this.SelectedTitle.ChapterList.Count > 0)
-		{
-			height += 31;
-		}
-
-		return height;
 	}
 
 	private bool videoExpanded;
