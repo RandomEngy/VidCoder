@@ -22,14 +22,14 @@ public class RemoteScanProxy : RemoteProxyBase<IHandBrakeScanWorker, IHandBrakeS
 		await this.RunOperationAsync(worker => worker.StartScan(path));
 	}
 
-        public void OnScanProgress(float fractionComplete)
-        {
-            this.ScanProgress?.Invoke(this, new EventArgs<float>(fractionComplete));
-        }
+    public void OnScanProgress(float fractionComplete)
+    {
+		this.ScanProgress?.Invoke(this, new EventArgs<float>(fractionComplete));
+    }
 
-        public void OnScanComplete(string scanJson)
-        {
-            this.result = scanJson;
+	public void OnScanComplete(string scanJson)
+	{
+		this.result = scanJson;
 
 		Task.Run(async () =>
 		{
@@ -43,7 +43,7 @@ public class RemoteScanProxy : RemoteProxyBase<IHandBrakeScanWorker, IHandBrakeS
 				this.ProcessLock.Release();
 			}
 		});
-        }
+	}
 
 	protected override HandBrakeWorkerAction Action => HandBrakeWorkerAction.Scan;
 
@@ -52,5 +52,5 @@ public class RemoteScanProxy : RemoteProxyBase<IHandBrakeScanWorker, IHandBrakeS
 	protected override void OnOperationEnd(VCEncodeResultCode result)
 	{
             this.ScanCompleted?.Invoke(this, new EventArgs<string>(this.result));
-        }
+	}
 }

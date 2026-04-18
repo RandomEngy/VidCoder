@@ -41,6 +41,7 @@ public class WatcherWindowViewModel : ReactiveObject, IClosableWindow
 
 	private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
 	private ProcessingService processingService = StaticResolver.Resolve<ProcessingService>();
+	private QueueAdderService queueAdderService = StaticResolver.Resolve<QueueAdderService>();
 
 	private readonly Dictionary<WatchedFileStatusLive, bool> statusFilters = new();
 
@@ -338,6 +339,7 @@ public class WatcherWindowViewModel : ReactiveObject, IClosableWindow
 
 	private void SubscribeToJobEvents()
 	{
+		this.queueAdderService.ScanFailed += this.OnScanFailed;
 		this.processingService.JobQueued += this.OnJobQueued;
 		this.processingService.JobQueueSkipped += this.OnJobQueueSkipped;
 		this.processingService.JobRemovedFromQueue += this.OnJobRemovedFromQueue;
@@ -349,6 +351,7 @@ public class WatcherWindowViewModel : ReactiveObject, IClosableWindow
 
 	private void UnsubscribeFromJobEvents()
 	{
+		this.queueAdderService.ScanFailed -= this.OnScanFailed;
 		this.processingService.JobQueued -= this.OnJobQueued;
 		this.processingService.JobQueueSkipped -= this.OnJobQueueSkipped;
 		this.processingService.JobRemovedFromQueue -= this.OnJobRemovedFromQueue;
@@ -356,6 +359,15 @@ public class WatcherWindowViewModel : ReactiveObject, IClosableWindow
 		this.processingService.JobCompleted -= this.OnJobCompleted;
 		this.processingService.JobsAddedFromWatcher -= this.OnJobsAddedFromWatcher;
 		this.processingService.WatchedFilesRemoved -= this.OnWatchedFilesRemoved;
+	}
+
+	private void OnScanFailed(object sender, EventArgs<string> e)
+	{
+		WatchedFileViewModel watchedFile = this.GetWatchedFileForSourcePath(e.Value);
+		if (watchedFile != null)
+		{
+			watchedFile.Status = WatchedFileStatusLive.Failed;
+		}
 	}
 
 	private void OnJobQueued(object sender, EventArgs<EncodeJobViewModel> e)

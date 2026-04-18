@@ -39,6 +39,11 @@ public class QueueAdderService : ReactiveObject
 	private bool isCanceled = false;
 	private bool startPending = false;
 
+	/// <summary>
+	/// Fires when a scan failed because there are no titles.
+	/// </summary>
+	public event EventHandler<EventArgs<string>> ScanFailed;
+
 	public double Progress
 	{
 		get
@@ -136,9 +141,15 @@ public class QueueAdderService : ReactiveObject
 						return;
 					}
 
+					bool scanFoundTitle = true;
 					if (args.Value != null)
 					{
 						JsonScanObject scanObject = JsonSerializer.Deserialize<JsonScanObject>(args.Value, JsonOptions.Plain);
+						if (scanObject.TitleList.Count == 0)
+						{
+							scanFoundTitle = false;
+						}
+
 						this.scanResults.Add(
 							new ScanResult
 							{
@@ -161,6 +172,13 @@ public class QueueAdderService : ReactiveObject
 					{
 						// Add to list of failed files, pop a dialog at the end
 						this.failedFiles.Add(this.currentScan.SourcePath.Path);
+
+						scanFoundTitle = false;
+					}
+
+					if (!scanFoundTitle)
+					{
+						this.ScanFailed.Invoke(this, new EventArgs<string>(this.currentScan.SourcePath.Path));
 					}
 
 					this.scansCompletedThisSession++;

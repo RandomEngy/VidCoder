@@ -17,12 +17,14 @@ namespace VidCoder.Services;
 public class WatchedFileStatusTracker
 {
 	private ProcessingService processingService;
+	private QueueAdderService queueAdderService;
 
 	private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
 
-	public WatchedFileStatusTracker(ProcessingService processingService)
+	public WatchedFileStatusTracker(ProcessingService processingService, QueueAdderService queueAdderService)
 	{
 		this.processingService = processingService;
+		this.queueAdderService = queueAdderService;
 	}
 
 	public void Start()
@@ -30,6 +32,7 @@ public class WatchedFileStatusTracker
 		this.processingService.JobCompleted += this.OnJobCompleted;
 		this.processingService.JobRemovedFromQueue += this.OnJobRemovedFromQueue;
 		this.processingService.JobQueueSkipped += this.OnJobQueueSkipped;
+		this.queueAdderService.ScanFailed += this.OnScanFailed;
 
 		SQLiteConnection connection = Database.Connection;
 
@@ -85,5 +88,13 @@ public class WatchedFileStatusTracker
 			Database.Connection,
 			e.Value,
 			WatchedFileStatus.Skipped);
+	}
+
+	private void OnScanFailed(object sender, EventArgs<string> e)
+	{
+		WatcherStorage.UpdateEntryStatus(
+			Database.Connection,
+			e.Value,
+			WatchedFileStatus.Failed);
 	}
 }
