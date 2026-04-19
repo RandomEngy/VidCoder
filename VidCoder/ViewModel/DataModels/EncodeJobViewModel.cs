@@ -612,6 +612,20 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 		}
 	}
 
+	public string SourceDimensionsDisplay
+	{
+		get
+		{
+			SourceTitle title = this.SourceTitle;
+			if (title == null)
+			{
+				return string.Empty;
+			}
+
+			return DisplayConversions.DisplayDimensions(title.Geometry);
+		}
+	}
+
 	public string OutputSizeDisplay
 	{
 		get
@@ -623,18 +637,7 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 			}
 
 			OutputSizeInfo outputSizeInfo = JsonEncodeFactory.GetOutputSize(this.Profile, this.SourceTitle);
-			string storageDimensionDisplay = $"{outputSizeInfo.OutputWidth}x{outputSizeInfo.OutputHeight}";
-
-			int parNum = outputSizeInfo.Par.Num;
-			int parDen = outputSizeInfo.Par.Den;
-			if (parNum == parDen)
-			{
-				return storageDimensionDisplay;
-			}
-
-			double par = (double)parNum / parDen;
-
-			return $"{storageDimensionDisplay} PAR {par:F2}";
+			return DisplayConversions.DisplayDimensions(outputSizeInfo);
 		}
 	}
 

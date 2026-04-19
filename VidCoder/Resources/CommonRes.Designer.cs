@@ -19,7 +19,7 @@ namespace VidCoder.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class CommonRes {
@@ -155,6 +155,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dimensions.
+        /// </summary>
+        public static string CompletedColumnNameDimensions {
+            get {
+                return ResourceManager.GetString("CompletedColumnNameDimensions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Encode time.
         /// </summary>
         public static string CompletedColumnNameElapsedTime {
@@ -191,7 +200,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Size.
+        ///   Looks up a localized string similar to File size.
         /// </summary>
         public static string CompletedColumnNameSize {
             get {
@@ -200,7 +209,16 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Source size.
+        ///   Looks up a localized string similar to Source dimensions.
+        /// </summary>
+        public static string CompletedColumnNameSourceDimensions {
+            get {
+                return ResourceManager.GetString("CompletedColumnNameSourceDimensions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source file size.
         /// </summary>
         public static string CompletedColumnNameSourceSize {
             get {
@@ -614,7 +632,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Output size.
+        ///   Looks up a localized string similar to Dimensions.
         /// </summary>
         public static string QueueColumnNameOutputSize {
             get {
@@ -646,6 +664,15 @@ namespace VidCoder.Resources {
         public static string QueueColumnNameSource {
             get {
                 return ResourceManager.GetString("QueueColumnNameSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source dimensions.
+        /// </summary>
+        public static string QueueColumnNameSourceDimensions {
+            get {
+                return ResourceManager.GetString("QueueColumnNameSourceDimensions", resourceCulture);
             }
         }
         

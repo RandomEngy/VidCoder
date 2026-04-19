@@ -1,5 +1,7 @@
-﻿using System.Globalization;
+﻿using HandBrake.Interop.Interop.Json.Shared;
+using System.Globalization;
 using VidCoder.Model;
+using VidCoderCommon.Model;
 
 namespace VidCoder;
 
@@ -51,5 +53,26 @@ public static class DisplayConversions
 		}
 
 		return sampleRate.ToString(CultureInfo.InvariantCulture);
+	}
+
+	public static string DisplayDimensions(int width, int height, int parNum, int parDen)
+	{
+		string dimensionDisplay = $"{width}x{height}";
+		if (parNum != parDen)
+		{
+			double par = (double)parNum / parDen;
+			dimensionDisplay += $" PAR {par:F2}";
+		}
+		return dimensionDisplay;
+	}
+
+	public static string DisplayDimensions(OutputSizeInfo outputSizeInfo)
+	{
+		return DisplayDimensions(outputSizeInfo.OutputWidth, outputSizeInfo.OutputHeight, outputSizeInfo.Par.Num, outputSizeInfo.Par.Den);
+	}
+
+	public static string DisplayDimensions(Geometry geometry)
+	{
+		return DisplayDimensions(geometry.Width, geometry.Height, geometry.PAR.Num, geometry.PAR.Den);
 	}
 }

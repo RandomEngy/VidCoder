@@ -78,6 +78,17 @@ public class EncodeResultViewModel : ReactiveObject
 		}
 	}
 
+	public string SourceDimensionsDisplay => DisplayConversions.DisplayDimensions(this.Job.SourceTitle.Geometry);
+
+	public string DimensionsDisplay
+	{
+		get
+		{
+			OutputSizeInfo outputSizeInfo = JsonEncodeFactory.GetOutputSize(this.Job.Profile, this.Job.SourceTitle);
+			return DisplayConversions.DisplayDimensions(outputSizeInfo);
+		}
+	}
+
 	public string SourceFileSize => this.job.SourceSizeBytes > 0 ? Utilities.FormatFileSize(this.job.SourceSizeBytes) : string.Empty;
 
 	public string OutputFileSize => Utilities.FormatFileSize(this.encodeResult.SizeBytes);

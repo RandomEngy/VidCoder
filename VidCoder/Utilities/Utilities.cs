@@ -295,7 +295,8 @@ public static class Utilities
 		{"VideoEncoder", 100},
 		{"VideoQuality", 80},
 		{"Cropping", 90},
-		{"OutputSize", 104},
+		{"SourceDimensions", 110},
+		{"OutputSize", 104}, // Dimensions
 		{"AudioEncoder", 100},
 		{"AudioQuality", 80},
 		{"AudioTracks", 120},
@@ -310,6 +311,8 @@ public static class Utilities
 		{"Status", 120},
 		{"ElapsedTime", 90},
 		{"PauseTime", 90},
+		{"SourceDimensions", 110},
+		{"Dimensions", 104},
 		{"SourceSize", 80},
 		{"Size", 80},
 		{"PercentOfSource", 90},

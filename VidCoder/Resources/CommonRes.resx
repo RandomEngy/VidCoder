@@ -325,7 +325,7 @@ A full copy of the GNU General Public License has been included along with this 
     <value>Cropping</value>
   </data>
   <data name="QueueColumnNameOutputSize" xml:space="preserve">
-    <value>Output size</value>
+    <value>Dimensions</value>
   </data>
   <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
     <value>Subtitle tracks</value>
@@ -360,13 +360,13 @@ A full copy of the GNU General Public License has been included along with this 
     <value>Encode time</value>
   </data>
   <data name="CompletedColumnNameSize" xml:space="preserve">
-    <value>Size</value>
+    <value>File size</value>
   </data>
   <data name="CompletedColumnNamePercentOfSource" xml:space="preserve">
     <value>% of source</value>
   </data>
   <data name="CompletedColumnNameSourceSize" xml:space="preserve">
-    <value>Source size</value>
+    <value>Source file size</value>
   </data>
   <data name="CompletedColumnNameVideoDuration" xml:space="preserve">
     <value>Video duration</value>
@@ -385,5 +385,14 @@ A full copy of the GNU General Public License has been included along with this 
   </data>
   <data name="Available" xml:space="preserve">
     <value>Available</value>
+  </data>
+  <data name="CompletedColumnNameSourceDimensions" xml:space="preserve">
+    <value>Source dimensions</value>
+  </data>
+  <data name="CompletedColumnNameDimensions" xml:space="preserve">
+    <value>Dimensions</value>
+  </data>
+  <data name="QueueColumnNameSourceDimensions" xml:space="preserve">
+    <value>Source dimensions</value>
   </data>
 </root>
