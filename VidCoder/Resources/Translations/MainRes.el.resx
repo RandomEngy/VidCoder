@@ -750,5 +750,4 @@
   <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
     <value>Η λήψη της νέας έκδοσης {0} έχει ολοκληρωθεί και θα εγκατασταθεί κατά την επόμενη εκκίνηση.</value>
   </data>
-  
 </root>

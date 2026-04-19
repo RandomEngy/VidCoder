@@ -126,7 +126,6 @@
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
     <value>Merkañ linenn an istitl-mañ dre-voaz. Gwelet e vo e-pad al lenn betek ma vefe choazet ul linenn all.</value>
   </data>
-  
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>Pegement a amzer evit lakaat da vont war-raok pe war-gil gwelidigezh an istitloù kinniget.</value>
   </data>
@@ -144,10 +143,6 @@
     <value>Titl</value>
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
-  
-  
-  
-  
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>Amzer hag a chomfe evit echuiñ an holl labourioù o c'hortoz.</value>
   </data>
@@ -239,42 +234,4 @@
   <data name="FileFailureErrorTitle" xml:space="preserve">
     <value>Fazi oberadur ar fichennaoueg</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>

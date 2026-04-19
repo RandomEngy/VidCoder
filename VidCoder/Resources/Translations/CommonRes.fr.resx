@@ -152,10 +152,6 @@ Traduit en Français par TheCrazyRabbit...</value>
     <value>Titre</value>
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
-  
-  
-  
-  
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>Temps restant estimé pour terminer tous les travaux de la file d'attente.</value>
   </data>
@@ -312,12 +308,9 @@ Traduit en Français par TheCrazyRabbit...</value>
   <data name="DefaultLabel" xml:space="preserve">
     <value>Défaut :</value>
   </data>
-  
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>Recadrage</value>
   </data>
-  
-  
   <data name="Manual" xml:space="preserve">
     <value>Manuel</value>
     <comment>Shown when something has been set manually</comment>
@@ -332,17 +325,4 @@ Traduit en Français par TheCrazyRabbit...</value>
   <data name="Enabled" xml:space="preserve">
     <value>Activé</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>

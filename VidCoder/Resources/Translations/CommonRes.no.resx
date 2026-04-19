@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  
-  
-  
-  
-  
-  
   <data name="QueueColumnNameDestination" xml:space="preserve">
     <value>Destinasjon</value>
   </data>
@@ -133,22 +127,6 @@
     <value>Tittel</value>
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <data name="Ok" xml:space="preserve">
     <value>Ok</value>
   </data>
@@ -170,7 +148,6 @@
   <data name="No" xml:space="preserve">
     <value>Nei</value>
   </data>
-  
   <data name="None" xml:space="preserve">
     <value>Ingen</value>
   </data>
@@ -204,7 +181,6 @@
   <data name="OutputToSourceDirCheckBox" xml:space="preserve">
     <value>Utdata til kildemappen hvis mulig</value>
   </data>
-  
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
     <value>Hvis du koder en katalog full av filer vil de kodede versjonene bli satt i undermapper tilsvarer katalogstrukturen kilde.</value>
   </data>
@@ -224,34 +200,4 @@
     <value>Første</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>

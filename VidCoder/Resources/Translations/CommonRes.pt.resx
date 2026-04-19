@@ -146,10 +146,6 @@
     <value>Título</value>
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
-  
-  
-  
-  
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>Tempo estimado para finalizar todas as tarefas.</value>
   </data>
@@ -306,12 +302,9 @@
   <data name="DefaultLabel" xml:space="preserve">
     <value>Padrão:</value>
   </data>
-  
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>Corte</value>
   </data>
-  
-  
   <data name="Manual" xml:space="preserve">
     <value>Manualmente</value>
     <comment>Shown when something has been set manually</comment>
@@ -330,16 +323,4 @@
     <value>Fechar</value>
     <comment>Label to close a window or item.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>

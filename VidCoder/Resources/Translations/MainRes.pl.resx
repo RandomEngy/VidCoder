@@ -283,7 +283,6 @@
   <data name="StoppedEncoding" xml:space="preserve">
     <value>Enkodowanie zatrzymane.</value>
   </data>
-  
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Potwierdź usunięcie</value>
   </data>
@@ -320,7 +319,6 @@
   <data name="EtaLabel" xml:space="preserve">
     <value>ETA:</value>
   </data>
-  
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>Plik wideo...</value>
   </data>
@@ -360,8 +358,6 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Eksportuj Ustawienia</value>
   </data>
-  
-  
   <data name="RevertConfirmMessage" xml:space="preserve">
     <value>Czy na pewno chcesz odrzucić wszystkie zmiany?</value>
   </data>
@@ -478,8 +474,6 @@
     <value>Niekompatybilny plik bazy danych</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
-  
-  
   <data name="SimilarTitlesToolTip" xml:space="preserve">
     <value>{0} inne tytuły mają długość zbliżoną to tego.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
@@ -495,72 +489,4 @@
     <value>Nie można odnaleźć odtwarzacza wideo w {0}.</value>
     <comment>{0} is the path to the custom video player.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>

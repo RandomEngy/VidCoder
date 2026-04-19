@@ -117,21 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  
-  
-  
   <data name="OpenVideoFile" xml:space="preserve">
     <value>פתח את קובץ הווידאו...</value>
   </data>
   <data name="OpenDiscFolder" xml:space="preserve">
     <value>פתח את תיקיית ה-DVD/Blu-ray...</value>
   </data>
-  
   <data name="ToolsMenu" xml:space="preserve">
     <value>כלים</value>
   </data>
-  
-  
   <data name="Play" xml:space="preserve">
     <value>נגן</value>
   </data>
@@ -144,7 +138,6 @@
   <data name="ClearCompleted" xml:space="preserve">
     <value>נקה שהושלמו</value>
   </data>
-  
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
     <value>הגדרות קידוד</value>
   </data>
@@ -175,12 +168,9 @@
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>אירעה שגיאה בעת סריקה.</value>
   </data>
-  
   <data name="EditButton" xml:space="preserve">
     <value>עריכה...</value>
   </data>
-  
-  
   <data name="Stop" xml:space="preserve">
     <value>עצור</value>
   </data>
@@ -196,171 +186,10 @@
   <data name="CustomizeColumnsMenuItem" xml:space="preserve">
     <value>התאמה אישית של עמודות...</value>
   </data>
-  
-  
   <data name="PickDiscFolderHelpText" xml:space="preserve">
     <value>בחר תיקיית ה-DVD וידאו או Blu-ray.</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <data name="Resume" xml:space="preserve">
     <value>המשך</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>

@@ -307,7 +307,6 @@ A full copy of the GNU General Public License has been included along with this 
     <comment>Automation text for the decrease button on the number box.
 {0} - The name of the value the control is changing, for example "width"</comment>
   </data>
-  
   <data name="Unknown" xml:space="preserve">
     <value>Tuntematon</value>
     <comment>Used when a value is not known.</comment>
@@ -321,17 +320,12 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>Rajaus</value>
   </data>
-  <data name="QueueColumnNameOutputSize" xml:space="preserve">
-    <value>Ulostulon koko</value>
-  </data>
   <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
     <value>Tekstitysraidat</value>
   </data>
-  
   <data name="FileNoLongerExists" xml:space="preserve">
     <value>Tiedostoa ei enää ole olemassa.</value>
   </data>
-  
   <data name="Enabled" xml:space="preserve">
     <value>Käytössä</value>
   </data>
@@ -350,14 +344,8 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="CompletedColumnNameElapsedTime" xml:space="preserve">
     <value>Koodauksen aika</value>
   </data>
-  <data name="CompletedColumnNameSize" xml:space="preserve">
-    <value>Koko</value>
-  </data>
   <data name="CompletedColumnNamePercentOfSource" xml:space="preserve">
     <value>% lähteestä</value>
-  </data>
-  <data name="CompletedColumnNameSourceSize" xml:space="preserve">
-    <value>Lähteen koko</value>
   </data>
   <data name="CompletedColumnNameVideoDuration" xml:space="preserve">
     <value>Videon kesto</value>

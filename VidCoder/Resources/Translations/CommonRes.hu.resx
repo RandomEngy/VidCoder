@@ -325,7 +325,7 @@ A full copy of the GNU General Public License has been included along with this 
     <value>Levágás</value>
   </data>
   <data name="QueueColumnNameOutputSize" xml:space="preserve">
-    <value>Kimeneti méret</value>
+    <value>Méretek</value>
   </data>
   <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
     <value>Feliratsávok</value>
@@ -360,13 +360,13 @@ A full copy of the GNU General Public License has been included along with this 
     <value>Kódolási idő</value>
   </data>
   <data name="CompletedColumnNameSize" xml:space="preserve">
-    <value>Méret</value>
+    <value>Fájlméret</value>
   </data>
   <data name="CompletedColumnNamePercentOfSource" xml:space="preserve">
     <value>A forrás %-a</value>
   </data>
   <data name="CompletedColumnNameSourceSize" xml:space="preserve">
-    <value>Forrás mérete</value>
+    <value>Forrásfájl mérete</value>
   </data>
   <data name="CompletedColumnNameVideoDuration" xml:space="preserve">
     <value>Videó hossza</value>
@@ -385,5 +385,14 @@ A full copy of the GNU General Public License has been included along with this 
   </data>
   <data name="Available" xml:space="preserve">
     <value>Elérhető</value>
+  </data>
+  <data name="CompletedColumnNameSourceDimensions" xml:space="preserve">
+    <value>Forrásméretek</value>
+  </data>
+  <data name="CompletedColumnNameDimensions" xml:space="preserve">
+    <value>Méretek</value>
+  </data>
+  <data name="QueueColumnNameSourceDimensions" xml:space="preserve">
+    <value>Forrásméretek</value>
   </data>
 </root>

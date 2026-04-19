@@ -324,9 +324,6 @@ Kompletna kopija GNU Opće javne licence dolazi s ovim programom.</value>
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>Obrezivanje</value>
   </data>
-  <data name="QueueColumnNameOutputSize" xml:space="preserve">
-    <value>Izlazna veličina</value>
-  </data>
   <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
     <value>Zapisi podnaslova</value>
   </data>
@@ -359,14 +356,8 @@ Kompletna kopija GNU Opće javne licence dolazi s ovim programom.</value>
   <data name="CompletedColumnNameElapsedTime" xml:space="preserve">
     <value>Vrijeme kodiranja</value>
   </data>
-  <data name="CompletedColumnNameSize" xml:space="preserve">
-    <value>Veličina</value>
-  </data>
   <data name="CompletedColumnNamePercentOfSource" xml:space="preserve">
     <value>% izvornog</value>
-  </data>
-  <data name="CompletedColumnNameSourceSize" xml:space="preserve">
-    <value>Veličina izvornog sadržaja</value>
   </data>
   <data name="CompletedColumnNameVideoDuration" xml:space="preserve">
     <value>Trajanje videa</value>
@@ -380,6 +371,4 @@ Kompletna kopija GNU Opće javne licence dolazi s ovim programom.</value>
   <data name="CompletedColumnNamePreset" xml:space="preserve">
     <value>Predložak</value>
   </data>
-  
-  
 </root>
