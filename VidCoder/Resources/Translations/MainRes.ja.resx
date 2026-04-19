@@ -752,5 +752,4 @@
   <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
     <value>バージョン {0} のダウンロードが完了しました。終了時にインストールされます。</value>
   </data>
-  
 </root>

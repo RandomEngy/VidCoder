@@ -172,7 +172,10 @@
     <value>参数：</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  
+  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
+    <value>传递给程序的参数。使用 {file} 表示文件输出路径，使用 {folder} 表示包含文件夹路径，使用 {sourcepath} 表示完整源路径，或者使用其他路径选项，例如 {title} 和 {date}（请参阅命名格式）。</value>
+    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>选择器已指定编码预设。</value>
   </data>
@@ -234,7 +237,9 @@
     <value>持续筛选标题</value>
     <comment>Name for screen readers for the checkbox to filter titles by a given duration range.</comment>
   </data>
-  
+  <data name="ChangeCaptializationLabel" xml:space="preserve">
+    <value>更改大小为</value>
+  </data>
   <data name="TimeRangeStartAutomationName" xml:space="preserve">
     <value>时间范围起始</value>
   </data>
@@ -251,54 +256,175 @@
   <data name="SelectTracksHelpText" xml:space="preserve">
     <value>逗号分隔 - 例如 2,5</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="ChapterRangeEndAutomationName" xml:space="preserve">
+    <value>章节范围结束</value>
+  </data>
+  <data name="ChapterRangeStartAutomationName" xml:space="preserve">
+    <value>章节范围开始</value>
+  </data>
+  <data name="DestinationSection" xml:space="preserve">
+    <value>目标位置</value>
+  </data>
+  <data name="OutputFolder" xml:space="preserve">
+    <value>输出文件夹：</value>
+    <comment>Label for the output folder.</comment>
+  </data>
+  <data name="UseCustomFileNameFormatCheckBox" xml:space="preserve">
+    <value>使用自定义文件命名格式：</value>
+  </data>
+  <data name="WhenFileExistsBatch" xml:space="preserve">
+    <value>文件已存在时（批量处理）：</value>
+  </data>
+  <data name="WhenFileExistsSingle" xml:space="preserve">
+    <value>文件已存在时（单个）：</value>
+  </data>
+  <data name="CustomPickerNameTemplate" xml:space="preserve">
+    <value>自定义 {0}</value>
+    <comment>The name for a custom auto-created picker. {0} is a number like 2, or 3 or 4 to differentiate it</comment>
+  </data>
+  <data name="OutputFileNameFormatAutomationName" xml:space="preserve">
+    <value>文件名格式</value>
+    <comment>Name for screen readers for the output file name format text box</comment>
+  </data>
+  <data name="OnlyChangeCapitalizationIfAllSameLabel" xml:space="preserve">
+    <value>仅当全部为小写或全部为大写时才更改大小写。</value>
+  </data>
+  <data name="WordBreakCharacterAutomationNameFormat" xml:space="preserve">
+    <value>断字字符 - {0}</value>
+    <comment>Screen reader format for word break checkboxes. These will determine if a character will be used to separate words.</comment>
+  </data>
+  <data name="WordBreakCharactersLabel" xml:space="preserve">
+    <value>识别出的断词字符：</value>
+  </data>
+  <data name="WordBreakCharacter_Dot" xml:space="preserve">
+    <value>点</value>
+  </data>
+  <data name="WordBreakCharacter_Space" xml:space="preserve">
+    <value>空格</value>
+  </data>
+  <data name="WordBreakCharacter_Underscore" xml:space="preserve">
+    <value>下划线</value>
+  </data>
+  <data name="ChangeWordSeparatorLabel" xml:space="preserve">
+    <value>单词分隔符更改为</value>
+  </data>
+  <data name="SourceCleanupPreviewLabel" xml:space="preserve">
+    <value>预览：</value>
+  </data>
+  <data name="SourceNameCleanupSection" xml:space="preserve">
+    <value>清理源名称</value>
+  </data>
+  <data name="AddAudioTrackNameButton" xml:space="preserve">
+    <value>添加音频轨道名称</value>
+    <comment>Button to add another name to the list of audio track names in the Picker.</comment>
+  </data>
+  <data name="AddSubtitleTrackNameButton" xml:space="preserve">
+    <value>添加字幕轨道名称</value>
+    <comment>Button to add another name to the list of subtitle track names in the Picker.</comment>
+  </data>
+  <data name="CustomTrackNamesCheckBox" xml:space="preserve">
+    <value>自定义轨道名称</value>
+    <comment>Checkbox label to use custom audio or subtitle track names</comment>
+  </data>
+  <data name="TrackAutomationFormat" xml:space="preserve">
+    <value>轨道 {0}</value>
+    <comment>Screen reader format for track names in the Picker.</comment>
+  </data>
+  <data name="BurnInLabel" xml:space="preserve">
+    <value>刻录在：</value>
+  </data>
+  <data name="PickerAudioSectionName" xml:space="preserve">
+    <value>音频</value>
+  </data>
+  <data name="PickerForeignAudioCheckBox" xml:space="preserve">
+    <value>添加“外语音频扫描”音轨</value>
+  </data>
+  <data name="PickerSubtitleSectionName" xml:space="preserve">
+    <value>字幕</value>
+  </data>
+  <data name="SubtitleSelectionMode_ForeignAudioSearch" xml:space="preserve">
+    <value>搜索外语音频</value>
+  </data>
+  <data name="TrackSelectionLabel" xml:space="preserve">
+    <value>轨道选择：</value>
+    <comment>Label for track selection mode for audio or subtitle tracks.</comment>
+  </data>
+  <data name="AudioSelectionModeToolTip" xml:space="preserve">
+    <value>上次选择 - 如果找到匹配项，则选择上次选择的音轨；否则选择第一个音轨。
+第一个 - 仅包含第一个音轨。
+按索引 - 按音轨索引（从 1 开始）选择。
+语言 - 按语言选择。
+全部 - 包含所有音轨。</value>
+  </data>
+  <data name="SubtitleSelectionModeToolTip" xml:space="preserve">
+    <value>上次选择 - 如果找到匹配项，则选择上次选择的字幕轨道；否则，不选择任何轨道。
+无 - 不包含任何字幕。
+第一个 - 仅包含第一个字幕。
+按索引 - 按轨道索引（从 1 开始）选择。
+语言 - 按语言选择。
+全部 - 包含所有字幕。</value>
+  </data>
+  <data name="IgnoreFilesBelowCheckBox" xml:space="preserve">
+    <value>忽略下面的文件</value>
+    <comment>A number box follows this string: Ignore files below [ 10 ] MB</comment>
+  </data>
+  <data name="TimeRangeLabel" xml:space="preserve">
+    <value>时间范围：</value>
+  </data>
+  <data name="VideoSelectionSection" xml:space="preserve">
+    <value>视频选择</value>
+  </data>
+  <data name="MetadataSection" xml:space="preserve">
+    <value>元数据</value>
+  </data>
+  <data name="PassThroughMetadataCheckBox" xml:space="preserve">
+    <value>传递视频元数据（导演、发行日期、演员等）</value>
+  </data>
   <data name="BurnInCheckBox" xml:space="preserve">
     <value>嵌入</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="ExternalSubtitleImportCheckBox" xml:space="preserve">
+    <value>添加与输入视频文件相同的外部字幕文件 ({0})</value>
+  </data>
+  <data name="SourceFileRemovalConfirmationCheckBox" xml:space="preserve">
+    <value>删除前确认</value>
+  </data>
+  <data name="SourceFileRemovalLabel" xml:space="preserve">
+    <value>成功编码后删除源文件：</value>
+    <comment>Label for the option to automatically delete source files on completion.</comment>
+  </data>
+  <data name="HeightFilterCheckBox" xml:space="preserve">
+    <value>只选择高度的标题</value>
+    <comment>Label before the UI to pick the title height limitation. For example, it might read "Pick only titles with height [ &gt; ] [ 480 ]"</comment>
+  </data>
+  <data name="HeightFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>按高度筛选标题</value>
+    <comment>Screen reader text for the height filter checkbox</comment>
+  </data>
+  <data name="HeightFilterValueAutomationName" xml:space="preserve">
+    <value>高度筛选值</value>
+    <comment>Screen reader text for the height filter value</comment>
+  </data>
+  <data name="WidthFilterCheckBox" xml:space="preserve">
+    <value>仅选择宽度合适的标题</value>
+    <comment>Label before the UI to pick the title width limitation. For example, it might read "Pick only titles with width [ &gt; ] [ 640 ]"</comment>
+  </data>
+  <data name="WidthFilterCheckBoxAutomationName" xml:space="preserve">
+    <value>按宽度筛选标题</value>
+    <comment>Screen reader text for the width filter checkbox</comment>
+  </data>
+  <data name="WidthFilterValueAutomationName" xml:space="preserve">
+    <value>宽度筛选值</value>
+    <comment>Screen reader text for the width filter value</comment>
+  </data>
+  <data name="ExternalSubtitleImportToolTip" xml:space="preserve">
+    <value>还可以识别 fileName.lng.ext，其中 lng 是 ISO 语言名称，ext 是字幕文件扩展名。</value>
+  </data>
+  <data name="FallbackLanguageLabel" xml:space="preserve">
+    <value>备用语言：</value>
+    <comment>Label for an option of what language to mark a subtitle track as when it doesn't have the language identified in the file name. For example, if you have myVideo.mp4 and myVideo.srt, what language should we mark that as when we pick it up?</comment>
+  </data>
+  <data name="FallbackLanguageToolTip" xml:space="preserve">
+    <value>如果字幕文件名中没有明确标明语言，例如 myVideo.srt，则假定字幕语言为该语言。</value>
+  </data>
 </root>

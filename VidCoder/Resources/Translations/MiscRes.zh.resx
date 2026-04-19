@@ -153,9 +153,15 @@
   <data name="FileConflictWarning" xml:space="preserve">
     <value>{0} 已有同名文件，您想要覆盖该文件、自动变更编码作业输出路径，还是取消操作?</value>
   </data>
-  
-  
-  
+  <data name="QueueFileConflictWarning" xml:space="preserve">
+    <value>队列中的作业已在 {0} 处有输出路径。您是要替换队列中的作业、自动为编码作业寻找新的输出路径，还是取消操作？</value>
+  </data>
+  <data name="QueueColumnsDialogTitle" xml:space="preserve">
+    <value>队列列表</value>
+  </data>
+  <data name="ColumnsDialogHeaderText" xml:space="preserve">
+    <value>拖放即可添加、删除或重新排列列。</value>
+  </data>
   <data name="UnusedColumns" xml:space="preserve">
     <value>未使用的列</value>
   </data>
@@ -206,7 +212,9 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>通知</value>
   </data>
-  
+  <data name="UnsupportedOSError" xml:space="preserve">
+    <value>您的操作系统不支持 VidCoder。此版本需要 Windows 10 或更高版本。请升级您的操作系统或安装早期版本的 VidCoder。Windows XP 的最新兼容版本是 VidCoder 1.4。Windows 7 的最新兼容版本是 5.21。</value>
+  </data>
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>立即睡眠</value>
   </data>
@@ -246,11 +254,25 @@
   <data name="ExceptionDialogSubTextReported" xml:space="preserve">
     <value>本程序需关闭，错误将被自动报告。</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
+  <data name="DownloadInstallerButton" xml:space="preserve">
+    <value>下载安装程序</value>
+  </data>
+  <data name="ReplaceJobButton" xml:space="preserve">
+    <value>替换任务</value>
+  </data>
+  <data name="CopyAndReportIssueButton" xml:space="preserve">
+    <value>复制并报告问题</value>
+  </data>
+  <data name="OneTimeInstallerCleanup" xml:space="preserve">
+    <value>我们需要对旧版安装程序进行一次性清理。请在下一个提示中选择“是”以删除旧版本的 VidCoder。</value>
+  </data>
+  <data name="EncodeCompleteWarning_RestartTitle" xml:space="preserve">
+    <value>即将重启</value>
+  </data>
+  <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
+    <value>系统将在 {0} 秒后重新启动。</value>
+  </data>
+  <data name="CompletedColumnsDialogTitle" xml:space="preserve">
+    <value>已完成的列</value>
+  </data>
 </root>

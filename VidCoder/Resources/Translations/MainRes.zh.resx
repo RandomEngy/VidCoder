@@ -283,7 +283,11 @@
   <data name="StoppedEncoding" xml:space="preserve">
     <value>停止编码。</value>
   </data>
-  
+  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
+    <value>您确定要选择 {0} {1} 个源文件/文件夹吗？</value>
+    <comment>{0} is the verb, can be "recycle" or "delete"
+{1} is the number of files that will be removed</comment>
+  </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>确认删除</value>
   </data>
@@ -615,42 +619,140 @@
     <comment>Shown as options for the "When done" combo box for actions that trigger on queue completion. This string is only used when there are multiple items queued.
 {0} is the encode complete action, ex "Shut down"</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="VideoEncodingOptionsToolTip" xml:space="preserve">
+    <value>视频编码选项</value>
+  </data>
+  <data name="AudioEncodingOptionsToolTip" xml:space="preserve">
+    <value>音频编码选项</value>
+  </data>
+  <data name="RemoveFromQueueMenuItem" xml:space="preserve">
+    <value>从队列中移除</value>
+  </data>
+  <data name="ClearSucceededMenuItem" xml:space="preserve">
+    <value>清除成功</value>
+  </data>
+  <data name="ClearFailedMenuItem" xml:space="preserve">
+    <value>清除失败</value>
+  </data>
+  <data name="ClearQueueConfirmationMessage" xml:space="preserve">
+    <value>您确定要从队列中移除所有项目吗？</value>
+  </data>
+  <data name="RemoveAllFomQueueMenuItem" xml:space="preserve">
+    <value>从队列中移除全部</value>
+  </data>
+  <data name="EncodeCompleteActionAbortedDueToErrorsMessage" xml:space="preserve">
+    <value>由于编码结果列表中存在错误，编码完整操作未执行。</value>
+  </data>
+  <data name="AudioPickerButtonToolTip" xml:space="preserve">
+    <value>自动选择音轨...</value>
+  </data>
+  <data name="SubtitlePickerButtonToolTip" xml:space="preserve">
+    <value>自动选择字幕轨道…</value>
+  </data>
+  <data name="AudioSubtitleTrackColumnHeader" xml:space="preserve">
+    <value>轨道</value>
+    <comment>Column header for the audio or subtitle track summary. This is an an auto-generated summary that includes language, format, etc.</comment>
+  </data>
+  <data name="AudioTrackNameAutomationName" xml:space="preserve">
+    <value>音轨名称</value>
+    <comment>Narrator label for the audio track name text box.</comment>
+  </data>
+  <data name="SubtitleNameAutomationName" xml:space="preserve">
+    <value>字幕名称</value>
+    <comment>Narrator label for the subtitle name text box.</comment>
+  </data>
+  <data name="CouldNotRecycleFile" xml:space="preserve">
+    <value>向回收站发送文件时出错。</value>
+  </data>
+  <data name="DestinationAutomaticToolTip" xml:space="preserve">
+    <value>目标位置已自动设置。点击即可编辑设置。</value>
+  </data>
+  <data name="DestinationManualToolTip" xml:space="preserve">
+    <value>目标位置已手动设置。点击可恢复为自动设置。</value>
+  </data>
+  <data name="CompareAgainstOriginal" xml:space="preserve">
+    <value>与原始比较</value>
+  </data>
+  <data name="CompareEncodedLabel" xml:space="preserve">
+    <value>已编码</value>
+    <comment>Label for the encoded video when comparing original vs encoded</comment>
+  </data>
+  <data name="CompareOriginalLabel" xml:space="preserve">
+    <value>原始</value>
+    <comment>Label for the original video when comparing original vs encoded</comment>
+  </data>
+  <data name="CompareWindowHelpText" xml:space="preserve">
+    <value>单击或按住 Ctrl 键可显示编码版本。</value>
+  </data>
+  <data name="CompareWindowTitleFormat" xml:space="preserve">
+    <value>视频对比：{0} - {1}</value>
+    <comment>Title for the Video compare window.
+{0} is a string indicating if it's original or encoded.
+{1} is the file name, e.g. MyFile.mkv</comment>
+  </data>
+  <data name="MuteAutomationName" xml:space="preserve">
+    <value>静音</value>
+    <comment>Text for screen readers for the mute button on video playback</comment>
+  </data>
+  <data name="UnmuteAutomationName" xml:space="preserve">
+    <value>取消静音</value>
+    <comment>Text for screen readers for the unmute button on video playback</comment>
+  </data>
+  <data name="AutoPauseLowBattery" xml:space="preserve">
+    <value>因电量不足，自动暂停。</value>
+  </data>
+  <data name="AutoPauseLowDiskSpace" xml:space="preserve">
+    <value>由于可用磁盘空间低于 {0}GB，自动暂停。</value>
+    <comment>{0} is the disk space threshold for auto-pause in GB</comment>
+  </data>
+  <data name="AutoPauseProcessDetected" xml:space="preserve">
+    <value>自动暂停，检测到进程：{0}</value>
+    <comment>{0} is the name of the process we were waiting for to pause</comment>
+  </data>
+  <data name="AutoPauseResumeBattery" xml:space="preserve">
+    <value>自动恢复，连接到交流电源。</value>
+  </data>
+  <data name="AutoPauseResumeDiskSpace" xml:space="preserve">
+    <value>自动恢复，磁盘有可用空间。</value>
+  </data>
+  <data name="AutoPauseResumeProcess" xml:space="preserve">
+    <value>自动恢复，进程已消失。</value>
+  </data>
+  <data name="Win7DeprecationWarning" xml:space="preserve">
+    <value>VidCoder 已停止支持 Windows 7 和 8 系统。
+
+您可以自行承担风险继续使用 VidCoder。某些功能可能无法正常使用，并且可能存在其他未知问题。出现这些问题时，我们将不提供任何支持。
+
+v5 是最后一个经过 Windows 7/8 系统测试的版本。
+
+此警告仅显示两次。</value>
+  </data>
+  <data name="RemoveSourceFiles_Delete" xml:space="preserve">
+    <value>删除</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RemoveSourceFiles_Recycle" xml:space="preserve">
+    <value>回收</value>
+    <comment>Plugged into DeleteSourceFilesConfirmationMessage when talking about deleting or recycling files.</comment>
+  </data>
+  <data name="RequestFeatureMenuItem" xml:space="preserve">
+    <value>请求一个功能</value>
+  </data>
+  <data name="CopyLogAndReportMenuItem" xml:space="preserve">
+    <value>复制日志并报告问题</value>
+  </data>
+  <data name="WatcherMenuItem" xml:space="preserve">
+    <value>监视器</value>
+  </data>
+  <data name="QueueProgressLabel" xml:space="preserve">
+    <value>正在队列 {0}/{1}:</value>
+    <comment>{0} is the current job number for scanning and adding an item to the queue
+{1} is the total number of scanned items this session</comment>
+  </data>
+  <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
+    <value>版本 {0} 已完成下载，将在下次启动时应用。</value>
+  </data>
+  <data name="AddToTopOfQueueLabel" xml:space="preserve">
+    <value>添加到队列顶部</value>
+  </data>
 </root>

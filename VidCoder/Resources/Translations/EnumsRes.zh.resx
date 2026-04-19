@@ -277,47 +277,135 @@
   <data name="UpdatePromptTiming_OnLaunch" xml:space="preserve">
     <value>启动时</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="LogOperationType_Encode" xml:space="preserve">
+    <value>编码器</value>
+  </data>
+  <data name="LogOperationType_Scan" xml:space="preserve">
+    <value>扫描</value>
+  </data>
+  <data name="PickerTimeRangeMode_Chapters" xml:space="preserve">
+    <value>章节</value>
+  </data>
+  <data name="PickerTimeRangeMode_Time" xml:space="preserve">
+    <value>时间范围</value>
+  </data>
+  <data name="WhenFileExists_AutoRename" xml:space="preserve">
+    <value>自动重命名</value>
+  </data>
+  <data name="WhenFileExists_Overwrite" xml:space="preserve">
+    <value>覆盖</value>
+  </data>
+  <data name="WhenFileExists_Prompt" xml:space="preserve">
+    <value>询问</value>
+  </data>
+  <data name="DenoiseTune_medium" xml:space="preserve">
+    <value>中等</value>
+  </data>
+  <data name="DenoiseTune_none" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="DenoiseTune_small" xml:space="preserve">
+    <value>小</value>
+  </data>
+  <data name="DenoiseTune_tiny" xml:space="preserve">
+    <value>超小</value>
+  </data>
+  <data name="DenoiseTune_verywide" xml:space="preserve">
+    <value>非常宽</value>
+  </data>
+  <data name="DenoiseTune_wide" xml:space="preserve">
+    <value>宽</value>
+  </data>
+  <data name="Denoise_ChromaSmooth" xml:space="preserve">
+    <value>色彩平滑</value>
+  </data>
+  <data name="DragDropOrder_Alphabetical" xml:space="preserve">
+    <value>按字母顺序排列</value>
+    <comment>Label for the option to order dragged files alphabetically</comment>
+  </data>
+  <data name="DragDropOrder_Selected" xml:space="preserve">
+    <value>已选择</value>
+    <comment>Label for the option to order dragged files as they had been selected in File explorer</comment>
+  </data>
+  <data name="SubtitleBurnInSelection_First" xml:space="preserve">
+    <value>首先</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrack" xml:space="preserve">
+    <value>外语音轨</value>
+  </data>
+  <data name="SubtitleBurnInSelection_ForeignAudioTrackElseFirst" xml:space="preserve">
+    <value>外语音轨，否则第一</value>
+  </data>
+  <data name="SubtitleBurnInSelection_None" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="SourceFileRemovalTiming_AfterClearingCompletedItems" xml:space="preserve">
+    <value>清除已完成项目后</value>
+  </data>
+  <data name="SourceFileRemovalTiming_Immediately" xml:space="preserve">
+    <value>编码完成后立即</value>
+  </data>
+  <data name="SourceFileRemoval_Delete" xml:space="preserve">
+    <value>⚠️删除（不可逆）⚠️</value>
+  </data>
+  <data name="SourceFileRemoval_Recycle" xml:space="preserve">
+    <value>回收</value>
+  </data>
+  <data name="UpdateMode_PromptApplyImmediately" xml:space="preserve">
+    <value>提示在右侧应用</value>
+  </data>
+  <data name="UpdateMode_SilentNextLaunch" xml:space="preserve">
+    <value>静音（下次启动时应用）</value>
+  </data>
+  <data name="Deinterlace_Bwdif" xml:space="preserve">
+    <value>Bwdif</value>
+  </data>
+  <data name="WatcherProcessStatus_Disabled" xml:space="preserve">
+    <value>已禁用</value>
+  </data>
+  <data name="WatcherProcessStatus_Running" xml:space="preserve">
+    <value>正在运行</value>
+  </data>
+  <data name="WatcherProcessStatus_Starting" xml:space="preserve">
+    <value>正在启动...</value>
+  </data>
+  <data name="WatcherProcessStatus_Stopped" xml:space="preserve">
+    <value>已停止</value>
+  </data>
+  <data name="WatchedFileStatusLive_Canceled" xml:space="preserve">
+    <value>已取消</value>
+  </data>
+  <data name="WatchedFileStatusLive_Encoding" xml:space="preserve">
+    <value>正在编码</value>
+  </data>
+  <data name="WatchedFileStatusLive_Failed" xml:space="preserve">
+    <value>已失败</value>
+  </data>
+  <data name="WatchedFileStatusLive_Planned" xml:space="preserve">
+    <value>已计划</value>
+  </data>
+  <data name="WatchedFileStatusLive_Queued" xml:space="preserve">
+    <value>已加入队列</value>
+  </data>
+  <data name="WatchedFileStatusLive_Skipped" xml:space="preserve">
+    <value>已跳过</value>
+  </data>
+  <data name="WatchedFileStatusLive_Succeeded" xml:space="preserve">
+    <value>已成功</value>
+  </data>
+  <data name="WatchedFileStatusLive_Output" xml:space="preserve">
+    <value>输出</value>
+  </data>
+  <data name="WatcherMode_FileSystemWatcher" xml:space="preserve">
+    <value>系统监视器</value>
+  </data>
+  <data name="WatcherMode_Polling" xml:space="preserve">
+    <value>正在轮询</value>
+  </data>
+  <data name="EncodeCompleteActionType_Restart" xml:space="preserve">
+    <value>重新开始</value>
+  </data>
+  <data name="WhenFileExists_Skip" xml:space="preserve">
+    <value>跳过</value>
+  </data>
 </root>
