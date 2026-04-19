@@ -120,9 +120,19 @@
   <data name="LogWindowTitle" xml:space="preserve">
     <value>日志</value>
   </data>
-  
-  
-  
-  
-  
+  <data name="GeneralLogLabel" xml:space="preserve">
+    <value>常规</value>
+  </data>
+  <data name="LogVerbosity_Minimized" xml:space="preserve">
+    <value>最小化</value>
+  </data>
+  <data name="LogVerbosity_Standard" xml:space="preserve">
+    <value>标准</value>
+  </data>
+  <data name="LogVerbosity_Extended" xml:space="preserve">
+    <value>扩展</value>
+  </data>
+  <data name="ClearFinishedButton" xml:space="preserve">
+    <value>清除完成</value>
+  </data>
 </root>
