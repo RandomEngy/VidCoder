@@ -283,7 +283,6 @@
   <data name="StoppedEncoding" xml:space="preserve">
     <value>Muunnos päättynyt.</value>
   </data>
-  
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Vahvista poistaminen</value>
   </data>
@@ -490,7 +489,6 @@
   <data name="CouldNotLoadPickerMessage" xml:space="preserve">
     <value>Ei voitu ladata poimijaa: </value>
   </data>
-  
   <data name="UseBackupDatabaseLine" xml:space="preserve">
     <value>Sinulla on varmuuskopioitu versio {0} -tiedosto. Haluatko käyttää sitä?</value>
     <comment>{0} is the version of the database file you have a backup for.</comment>
@@ -559,7 +557,6 @@
     <value>Ei tekstityksiä</value>
     <comment>Summary text for when no subtitle tracks are found on the source and no external subtitles have been added</comment>
   </data>
-  
   <data name="BitrateColumn" xml:space="preserve">
     <value>Bittinopeus</value>
   </data>
@@ -599,8 +596,6 @@
     <value>Avaa lähdekansio</value>
     <comment>Menu option to open the folder of the source file in the queue</comment>
   </data>
-  
-  
   <data name="VideoEncodingOptionsToolTip" xml:space="preserve">
     <value>Videon koodausasetukset</value>
   </data>
@@ -680,12 +675,6 @@
     <value>Poista mykistys</value>
     <comment>Text for screen readers for the unmute button on video playback</comment>
   </data>
-  
-  
-  
-  
-  
-  
   <data name="Win7DeprecationWarning" xml:space="preserve">
     <value>VidCoder ei ole enää tuettu Windows 7 tai 8:ssa.
 Voit jatkaa VidCoderin käyttöä omalla vastuullasi. Tietyt ominaisuudet eivät toimi ja niihin saattaa liittyä muita ongelmia. Nämä eivät ole saatavilla näiden ongelmien ilmetessä.
@@ -717,5 +706,4 @@ Tämä varoitus näkyy vain kahdesti.</value>
   <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
     <value>Versio {0} on ladattu ja asennetaan poistuttaessa.</value>
   </data>
-  
 </root>

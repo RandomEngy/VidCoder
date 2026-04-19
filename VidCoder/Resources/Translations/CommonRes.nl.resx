@@ -324,9 +324,6 @@ Een volledige kopie van de GNU General Public License is opgenomen bij dit progr
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>Bijsnijden</value>
   </data>
-  <data name="QueueColumnNameOutputSize" xml:space="preserve">
-    <value>Grootte van de uitvoer</value>
-  </data>
   <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
     <value>Ondertitelingssporen</value>
   </data>
@@ -359,14 +356,8 @@ Een volledige kopie van de GNU General Public License is opgenomen bij dit progr
   <data name="CompletedColumnNameElapsedTime" xml:space="preserve">
     <value>Coderingstijd</value>
   </data>
-  <data name="CompletedColumnNameSize" xml:space="preserve">
-    <value>Grootte</value>
-  </data>
   <data name="CompletedColumnNamePercentOfSource" xml:space="preserve">
     <value>% van bron</value>
-  </data>
-  <data name="CompletedColumnNameSourceSize" xml:space="preserve">
-    <value>Grootte van de bron</value>
   </data>
   <data name="CompletedColumnNameVideoDuration" xml:space="preserve">
     <value>Duur van de video</value>

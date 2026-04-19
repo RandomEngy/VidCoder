@@ -117,15 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  
   <data name="BurnedSubtitleToolTip" xml:space="preserve">
     <value>Scrie subtitrarea pe imagine. Cu subtitrarea pe imagine, ea nu mai poate fi dezactivată în timpul redării.</value>
   </data>
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
     <value>Marchează această subtitrare ca implicită. Aceastaă va apărea automat în timpul vizionării până când este selectată alta.</value>
   </data>
-  
-  
   <data name="QueueColumnNameRange" xml:space="preserve">
     <value>Interval</value>
     <comment>The label for the queue column that specifies what portion of the video to encode. (Like 25:23 - 37:50)</comment>
@@ -140,18 +137,9 @@
     <value>Titlu</value>
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
-  
-  
-  
-  
-  
   <data name="QueueColumnNameDuration" xml:space="preserve">
     <value>Durată</value>
   </data>
-  
-  
-  
-  
   <data name="Delete" xml:space="preserve">
     <value>Șterge</value>
   </data>
@@ -165,61 +153,4 @@
     <value>Dezactivat</value>
     <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>

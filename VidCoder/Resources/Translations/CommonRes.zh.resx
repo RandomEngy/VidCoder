@@ -324,9 +324,6 @@
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>裁剪中</value>
   </data>
-  <data name="QueueColumnNameOutputSize" xml:space="preserve">
-    <value>输出大小</value>
-  </data>
   <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
     <value>字幕轨道</value>
   </data>
@@ -359,14 +356,8 @@
   <data name="CompletedColumnNameElapsedTime" xml:space="preserve">
     <value>编码时间</value>
   </data>
-  <data name="CompletedColumnNameSize" xml:space="preserve">
-    <value>大小</value>
-  </data>
   <data name="CompletedColumnNamePercentOfSource" xml:space="preserve">
     <value>% 来源</value>
-  </data>
-  <data name="CompletedColumnNameSourceSize" xml:space="preserve">
-    <value>来源大小</value>
   </data>
   <data name="CompletedColumnNameVideoDuration" xml:space="preserve">
     <value>视频持续时间</value>

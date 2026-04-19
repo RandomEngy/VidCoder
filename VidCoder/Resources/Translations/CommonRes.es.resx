@@ -150,10 +150,6 @@ Se ha incluido una copia completa de la Licencia Pública General de GNU junto c
     <value>Título</value>
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
-  
-  
-  
-  
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>Tiempo estimado restante para concluir todos los trabajos en cola.</value>
   </data>
@@ -310,12 +306,9 @@ Se ha incluido una copia completa de la Licencia Pública General de GNU junto c
   <data name="DefaultLabel" xml:space="preserve">
     <value>Predeterminado:</value>
   </data>
-  
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>Recortando</value>
   </data>
-  
-  
   <data name="Manual" xml:space="preserve">
     <value>Manual</value>
     <comment>Shown when something has been set manually</comment>
@@ -334,16 +327,4 @@ Se ha incluido una copia completa de la Licencia Pública General de GNU junto c
     <value>Cerrar</value>
     <comment>Label to close a window or item.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>

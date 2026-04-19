@@ -747,6 +747,4 @@ Peringatan ini hanya akan muncul dua kali.</value>
     <comment>{0} is the current job number for scanning and adding an item to the queue
 {1} is the total number of scanned items this session</comment>
   </data>
-  
-  
 </root>

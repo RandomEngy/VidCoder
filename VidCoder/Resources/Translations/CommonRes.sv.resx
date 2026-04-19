@@ -149,8 +149,6 @@
   <data name="QueueColumnNameAudioQuality" xml:space="preserve">
     <value>Ljudkvalitet</value>
   </data>
-  
-  
   <data name="QueueColumnNameVideoQuality" xml:space="preserve">
     <value>Videokvalitet</value>
   </data>
@@ -316,8 +314,6 @@
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>Beskärning</value>
   </data>
-  
-  
   <data name="Manual" xml:space="preserve">
     <value>Manual</value>
     <comment>Shown when something has been set manually</comment>
@@ -336,23 +332,11 @@
     <value>Stäng</value>
     <comment>Label to close a window or item.</comment>
   </data>
-  
   <data name="CompletedColumnNameStatus" xml:space="preserve">
     <value>Status</value>
     <comment>The header for the status column for completed jobs (succeeded/failed)</comment>
   </data>
-  
-  <data name="CompletedColumnNameSize" xml:space="preserve">
-    <value>Storlek</value>
-  </data>
-  
-  
-  
-  
-  
   <data name="CompletedColumnNamePreset" xml:space="preserve">
     <value>Förval</value>
   </data>
-  
-  
 </root>

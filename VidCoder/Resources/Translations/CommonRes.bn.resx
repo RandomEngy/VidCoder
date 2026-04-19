@@ -130,7 +130,6 @@ GNU General Public License এর একটি পূর্ণ সংস্ক�
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
     <value>এই সাবটাইটেলটিকে পূর্ব-নির্ধারিত হিসেবে চিহ্নিত করুন। অন্য কোন সাবটাইটেল বেছে নেবার আগ পর্যন্ত এটি প্রদর্শিত হবে।</value>
   </data>
-  
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>সাবটাইটেল প্রদর্শনের সময় যতটুকু এগিয়ে বা পিছিয়ে দেয়া হয়েছে।</value>
   </data>
@@ -148,10 +147,6 @@ GNU General Public License এর একটি পূর্ণ সংস্ক�
     <value>শিরোনাম</value>
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
-  
-  
-  
-  
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>সমস্ত বাকি কাজ সম্পন্ন হবার আনুমানিক সময়।</value>
   </data>
@@ -243,42 +238,4 @@ GNU General Public License এর একটি পূর্ণ সংস্ক�
   <data name="FileFailureErrorTitle" xml:space="preserve">
     <value>ফাইল ক্রিয়াকলাপে গোলযোগ</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>
