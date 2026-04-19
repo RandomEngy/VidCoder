@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
@@ -84,6 +85,11 @@ public static class Database
 			if (databaseVersion < 50)
 			{
 				UpgradeDatabaseTo50();
+			}
+
+			if (databaseVersion < 51)
+			{
+				UpgradeDatabaseTo51();
 			}
 
 			// Update encoding profiles if we need to. Everything is at least 28 now from the JSON upgrade.
@@ -364,6 +370,60 @@ public static class Database
 				DatabaseConfig.Set<string>("CompletedColumns", completedColumns, Connection);
 			}
 		}
+	}
+
+	private static void UpgradeDatabaseTo51()
+	{
+		// Update ChannelLayout on video sources
+		string oldEncodeJobs = DatabaseConfig.Get<string>("EncodeJobs2", "[]", Connection);
+
+		string upgradedEncodeJobs;
+		try
+		{
+			JsonNode? root = JsonNode.Parse(oldEncodeJobs);
+			if (root is JsonArray jobsArray)
+			{
+				foreach (JsonNode? jobNode in jobsArray)
+				{
+					if (jobNode is JsonObject jobObj)
+					{
+						if (jobObj["VideoSource"] is JsonObject videoSource)
+						{
+							if (videoSource["Titles"] is JsonArray titles)
+							{
+								foreach (JsonNode? titleNode in titles)
+								{
+									if (titleNode is JsonObject titleObj && titleObj["AudioList"] is JsonArray audioList)
+									{
+										foreach (JsonNode? audioNode in audioList)
+										{
+                                           if (audioNode is JsonObject audioObj)
+											{
+												JsonNode? layoutNameNode = audioObj["ChannelLayoutName"];
+												if (layoutNameNode != null)
+												{
+													audioObj["ChannelLayout"] = JsonNode.Parse(layoutNameNode.ToJsonString());
+													audioObj.Remove("ChannelLayoutName");
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			upgradedEncodeJobs = root?.ToJsonString() ?? oldEncodeJobs;
+		}
+		catch
+		{
+			// If parsing fails, leave as-is.
+			upgradedEncodeJobs = oldEncodeJobs;
+		}
+
+		DatabaseConfig.Set<string>("EncodeJobs2", upgradedEncodeJobs, Connection);
 	}
 
 #pragma warning restore CS0618 // Type or member is obsolete
