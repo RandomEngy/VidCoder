@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using VidCoderCommon.Model;
+using VidCoderCommon.Utilities;
 
 namespace VidCoderCommon.Services;
 
@@ -38,7 +39,8 @@ public class AutomationClient
 				betaString = "Beta";
 			}
 
-			using (var client = new PipeClient<IVidCoderAutomation>(new NetJsonPipeSerializer(), "VidCoderAutomation" + betaString))
+			string pipeName = "VidCoderAutomation" + betaString + PipeUtilities.UserPipeSuffix;
+			using (var client = new PipeClient<IVidCoderAutomation>(new NetJsonPipeSerializer(), pipeName))
 			{
 				await client.ConnectAsync().ConfigureAwait(false);
 				await client.InvokeAsync(action).ConfigureAwait(false);

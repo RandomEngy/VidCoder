@@ -1,14 +1,15 @@
-﻿using System;
+﻿using PipeMethodCalls;
+using PipeMethodCalls.NetJson;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using PipeMethodCalls;
-using PipeMethodCalls.NetJson;
 using VidCoderCommon;
 using VidCoderCommon.Services;
+using VidCoderCommon.Utilities;
 
 namespace VidCoder.Automation;
 
@@ -25,9 +26,10 @@ public static class AutomationHost
 		{
 			while (true)
 			{
+				string pipeName = "VidCoderAutomation" + (CommonUtilities.Beta ? "Beta" : string.Empty) + PipeUtilities.UserPipeSuffix;
 				using (server = new PipeServer<IVidCoderAutomation>(
 					new NetJsonPipeSerializer(),
-					"VidCoderAutomation" + (CommonUtilities.Beta ? "Beta" : string.Empty),
+					pipeName,
 					() => new VidCoderAutomation()))
 				{
 					await server.WaitForConnectionAsync().ConfigureAwait(false);
