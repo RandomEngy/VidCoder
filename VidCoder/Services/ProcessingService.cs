@@ -55,6 +55,8 @@ public class ProcessingService : ReactiveObject
 	public const int QueuedTabIndex = 0;
 	public const int CompletedTabIndex = 1;
 
+	private static HashSet<string> subtitleTokens = new HashSet<string> { "cc", "forced", "foreign", "sdh", "hi", "default" };
+
 	private const double StopWarningThresholdMinutes = 5;
 
 	private IAppLogger logger = StaticResolver.Resolve<IAppLogger>();
@@ -3647,8 +3649,9 @@ public class ProcessingService : ReactiveObject
 	}
 
 	/// <summary>
-	/// Finds the file subtitles for the given path and picker. This will find files that match sourcePath.ext or sourcePath.lng.ext,
-	/// where lng is a 3-letter ISO language code and ext is a valid subtitle extension.
+	/// Finds the file subtitles for the given path and picker. This will find files that match sourcePath.ext or sourcePath[.token].ext.
+	/// token is a 3-letter ISO language code or tag like forced, cc, or sdh.
+	/// ext is a valid subtitle extension.
 	/// </summary>
 	/// <param name="sourcePath">The source path to check.</param>
 	/// <param name="picker">The picker settings to use.</param>
@@ -3672,11 +3675,8 @@ public class ProcessingService : ReactiveObject
 		{
 			string extensionList = string.Join("|", FileUtilities.SubtitleExtensions.Select(ext => ext.Substring(1)));
 
-			string languageRegexPattern = "^.+\\.(?<language>[a-zA-Z]{3})\\.(?:" + extensionList + ")$";
-			Regex langaugeRegex = new(languageRegexPattern, RegexOptions.IgnoreCase);
-
-			string noLanguageRegexPattern = "^.+\\.(?:" + extensionList + ")$";
-			Regex noLanguageRegex = new(noLanguageRegexPattern, RegexOptions.IgnoreCase);
+			string regexPattern = "^.+\\.(?:" + extensionList + ")$";
+			Regex regex = new(regexPattern, RegexOptions.IgnoreCase);
 
 			string directory = Path.GetDirectoryName(sourcePath);
 			string fileName = Path.GetFileNameWithoutExtension(sourcePath);
@@ -3695,52 +3695,52 @@ public class ProcessingService : ReactiveObject
 					continue;
 				}
 
-				Match languageMatch = langaugeRegex.Match(candidateFileName);
+				// Subtitle file naming convention is to add extra tokens after the main file name
+				// For example:
+				// Movie.mp4
+				// Movie.srt
+				// Movie.eng.srt
+				// Movie.forced.eng.srt
+				// Movie.deu.srt
+				//
+				// We examine all the tokens to see if a language or subtitle name should be applied
+				string restOfFile = file.Substring(fileName.Length + 1);
+				string[] tokens = restOfFile.Split(".");
 
-				bool matchedLanguage = false;
-				if (languageMatch.Success)
+				Match nonLanguageMatch = regex.Match(candidateFileName);
+				if (nonLanguageMatch.Success)
 				{
-					string languageCode = languageMatch.Groups["language"].Value;
-					if (HandBrakeLanguagesHelper.AllLanguagesDict.ContainsKey(languageCode))
+					string languageCode = picker.ExternalSubtitleImportLanguage;
+					string name = null;
+
+					// Skip last token, it's the extension
+					for (int i = 0; i < tokens.Length - 1; i++)
 					{
-						FileSubtitle fileSubtitle = StaticResolver.Resolve<SubtitlesService>().LoadSubtitleFile(file, languageCode, openDialogOnMissingCharCode);
-						fileSubtitle.Default = !hasDefault && picker.ExternalSubtitleImportDefault;
-						fileSubtitle.BurnedIn = !hasBurnedIn && picker.ExternalSubtitleImportBurnIn;
-						result.Add(fileSubtitle);
-
-						if (picker.ExternalSubtitleImportDefault)
+						string token = tokens[i];
+						if (token.Length == 3 && HandBrakeLanguagesHelper.AllLanguagesDict.ContainsKey(token))
 						{
-							hasDefault = true;
+							languageCode = token;
 						}
-
-						if (picker.ExternalSubtitleImportBurnIn)
+						else if (subtitleTokens.Contains(token))
 						{
-							hasBurnedIn = true;
+							name = token;
 						}
-
-						matchedLanguage = true;
 					}
-				}
 
-				if (!matchedLanguage)
-				{
-					Match nonLanguageMatch = noLanguageRegex.Match(candidateFileName);
-					if (nonLanguageMatch.Success)
+					FileSubtitle fileSubtitle = StaticResolver.Resolve<SubtitlesService>().LoadSubtitleFile(file, languageCode, openDialogOnMissingCharCode);
+					fileSubtitle.Default = !hasDefault && picker.ExternalSubtitleImportDefault;
+					fileSubtitle.BurnedIn = !hasBurnedIn && picker.ExternalSubtitleImportBurnIn;
+					fileSubtitle.Name = name;
+					result.Add(fileSubtitle);
+
+					if (picker.ExternalSubtitleImportDefault)
 					{
-						FileSubtitle fileSubtitle = StaticResolver.Resolve<SubtitlesService>().LoadSubtitleFile(file, picker.ExternalSubtitleImportLanguage, openDialogOnMissingCharCode);
-						fileSubtitle.Default = !hasDefault && picker.ExternalSubtitleImportDefault;
-						fileSubtitle.BurnedIn = !hasBurnedIn && picker.ExternalSubtitleImportBurnIn;
-						result.Add(fileSubtitle);
+						hasDefault = true;
+					}
 
-						if (picker.ExternalSubtitleImportDefault)
-						{
-							hasDefault = true;
-						}
-
-						if (picker.ExternalSubtitleImportBurnIn)
-						{
-							hasBurnedIn = true;
-						}
+					if (picker.ExternalSubtitleImportBurnIn)
+					{
+						hasBurnedIn = true;
 					}
 				}
 			}
