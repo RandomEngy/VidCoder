@@ -74,7 +74,7 @@ public class EncodeJobViewModel : ReactiveObject, IDragItem, IListItemViewModel
 				return null;
 			}
 
-			return "Job ETA: " + eta.FormatFriendly();
+			return string.Format(MainRes.JobProgressToolTip, eta.FormatFriendly());
 		}).ToProperty(this, x => x.ProgressToolTip, out this.progressToolTip);
 
 		// ShowQueueEditButtons
