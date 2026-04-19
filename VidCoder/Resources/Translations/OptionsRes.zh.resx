@@ -159,7 +159,9 @@
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>记忆曾用文件和文件夹</value>
   </data>
-  
+  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
+    <value>启用 LibDVDNav（更改后需要重启程序。支持多角度观看功能时需要启用此功能）</value>
+  </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>日志详细度：</value>
   </data>
@@ -187,7 +189,9 @@
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>加入 Beta 渠道以获得更多更新</value>
   </data>
-  
+  <data name="UpdateReadyStatus" xml:space="preserve">
+    <value>更新 {0} 已准备就绪。</value>
+  </data>
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder 已是最新版本。</value>
   </data>
@@ -331,51 +335,147 @@
     <value>主题</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
+  <data name="WorkerProcessRestartDialogMessage" xml:space="preserve">
+    <value>退出并重新启动 VidCoder 后，工作进程选项才会生效。</value>
+  </data>
+  <data name="CopyLogToCustomFolderLabel" xml:space="preserve">
+    <value>复制编码日志到自定义文件夹</value>
+  </data>
+  <data name="KeepFailedFilesCheckBox" xml:space="preserve">
+    <value>保存文件从失败或停止的编码</value>
+  </data>
+  <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
+    <value>当编码作业失败时，触发“完成时”操作</value>
+  </data>
+  <data name="AutoPauseLowBatteryCheckbox" xml:space="preserve">
+    <value>电池电量低时暂停</value>
+  </data>
+  <data name="AutoPauseLowDiskSpaceCheckbox" xml:space="preserve">
+    <value>当磁盘空间低于以下值时暂停：</value>
+  </data>
+  <data name="AutoPauseSectionLabel" xml:space="preserve">
+    <value>自动暂停</value>
+  </data>
   <data name="FileNameFormatOptions" xml:space="preserve">
     <value>可用选项：{0}</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="LowDiskSpaceThresholdAutomationName" xml:space="preserve">
+    <value>磁盘空间不足阈值（以千兆字节为单位）</value>
+    <comment>Screen reader name for the low disk space threshold number box</comment>
+  </data>
+  <data name="DragDropScanOrderLabel" xml:space="preserve">
+    <value>拖放扫描顺序：</value>
+  </data>
+  <data name="EncodeRetriesLabel" xml:space="preserve">
+    <value>编码检索次数：</value>
+  </data>
+  <data name="ApplyUpdateButton" xml:space="preserve">
+    <value>应用更新</value>
+  </data>
+  <data name="CheckingForUpdateStatus" xml:space="preserve">
+    <value>正在检查更新...</value>
+  </data>
+  <data name="UpdateModeLabel" xml:space="preserve">
+    <value>更新模式：</value>
+    <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
+  </data>
+  <data name="WatcherModeLabel" xml:space="preserve">
+    <value>监视器模式：</value>
+  </data>
+  <data name="WatcherModelToolTip" xml:space="preserve">
+    <value>系统监视器：利用操作系统通知 VidCoder 有新文件。速度最快，占用 CPU 和磁盘资源最少。
+轮询：定期检查文件夹内容。占用大量 CPU 和磁盘资源。仅当系统监视器无法正常工作时才使用。</value>
+  </data>
+  <data name="WatcherPollIntervalLabel" xml:space="preserve">
+    <value>轮询间隔（秒）：</value>
+  </data>
+  <data name="ApplicationSection" xml:space="preserve">
+    <value>应用程序</value>
+  </data>
+  <data name="EncodingSettingsDescription" xml:space="preserve">
+    <value>编码设置包括编解码器、比特率、画面尺寸和滤镜。这些设置会影响视频的画面和声音效果、文件大小以及支持的播放器。（如何编码）</value>
+  </data>
+  <data name="EncodingSettingsSection" xml:space="preserve">
+    <value>编码设置</value>
+  </data>
+  <data name="EncodingSettingsShortcutButton" xml:space="preserve">
+    <value>编辑编码设置</value>
+  </data>
+  <data name="PickerDescription" xml:space="preserve">
+    <value>选择器用于选择输出文件位置、音轨和字幕。您可以自定义选择器，使其自动添加所需的音轨，并选择文件名和目标文件夹。（要编码的内容）</value>
+  </data>
+  <data name="PickerSettingsSection" xml:space="preserve">
+    <value>输出位置，轨道选择</value>
+  </data>
+  <data name="PickerShortcutButton" xml:space="preserve">
+    <value>编辑选取器设置</value>
+  </data>
+  <data name="EnableNVDecCheckBox" xml:space="preserve">
+    <value>当使用 NVEnc 编码器且硬件可用时，请使用 Nvidia NVDec 解码视频。</value>
+  </data>
+  <data name="HardwareEncodingSection" xml:space="preserve">
+    <value>硬件编码</value>
+  </data>
+  <data name="CapNVEncCheckBox" xml:space="preserve">
+    <value>限制同时进行的 NVEnc 编码数量。解除此限制需要使用自定义的 NVIDIA 驱动程序补丁。</value>
+  </data>
+  <data name="ShowProgressInWindowTitleCheckBox" xml:space="preserve">
+    <value>在窗口标题中显示编码进度</value>
+  </data>
+  <data name="DownloadingUpdateStatus" xml:space="preserve">
+    <value>正在下载版本 {0}...</value>
+    <comment>Shown when downloading an update.
+{0} is the update version, for example 10.4</comment>
+  </data>
+  <data name="RememberLastSelectedWhenDoneCheckBox" xml:space="preserve">
+    <value>重启时记住上次选择的“完成后”操作</value>
+  </data>
+  <data name="PartFileNamingLabel" xml:space="preserve">
+    <value>部分文件命名：</value>
+  </data>
+  <data name="PartFileNaming_PartInMiddle" xml:space="preserve">
+    <value>name.part.ext</value>
+  </data>
+  <data name="PartFileNaming_PartAtEnd" xml:space="preserve">
+    <value>name.ext.part</value>
+  </data>
+  <data name="HardwareTab" xml:space="preserve">
+    <value>硬件</value>
+  </data>
+  <data name="IntelQuickSyncSection" xml:space="preserve">
+    <value>Intel QuickSync</value>
+  </data>
+  <data name="NvidiaNvencSection" xml:space="preserve">
+    <value>NVIDIA NVENC</value>
+  </data>
+  <data name="AmdVcnSection" xml:space="preserve">
+    <value>AMD VCN</value>
+  </data>
+  <data name="MediaFoundationSection" xml:space="preserve">
+    <value>媒体基金会（ARM 设备）</value>
+  </data>
+  <data name="EnableQuickSyncHyperEncodeCheckBox" xml:space="preserve">
+    <value>启用深度链接超编码</value>
+  </data>
+  <data name="EnableQuickSyncDecodingCheckBox" xml:space="preserve">
+    <value>使用 QuickSync 编码器时，建议优先选择 Intel QuickSync 进行视频解码。</value>
+  </data>
+  <data name="UseQsvDecodeForNonQsvEncodesCheckBox" xml:space="preserve">
+    <value>即使不使用 QuickSync 编码器，也请使用 QuickSync 解码。</value>
+  </data>
+  <data name="EnableDirectXDecodingCheckBox" xml:space="preserve">
+    <value>允许使用 DirectX 解码。</value>
+  </data>
+  <data name="CodecsLabel" xml:space="preserve">
+    <value>支持的编解码器: {0}</value>
+    <comment>Format string for codec lists. {0} is replaced with comma-separated list of codecs.</comment>
+  </data>
+  <data name="QsvAdapterCount" xml:space="preserve">
+    <value>适配器: {0}</value>
+    <comment>Indicator for how many QSV adapters are available on the system.
+{0} is the number of adapters, for example "2"</comment>
+  </data>
+  <data name="EnableQuickSyncHyperEncodeToolTip" xml:space="preserve">
+    <value>在支持的情况下，使用多个媒体引擎来加速单个编码过程。禁用此功能可实现跨媒体引擎的并行编码负载均衡。</value>
+  </data>
 </root>

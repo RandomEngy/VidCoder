@@ -818,6 +818,4 @@ Lapsharpはラプラシアン輪郭フィルターを近似する畳込みカー
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
   </data>
-  
-  
 </root>

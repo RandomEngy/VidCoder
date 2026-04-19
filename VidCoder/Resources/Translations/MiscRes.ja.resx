@@ -156,8 +156,9 @@
   <data name="QueueFileConflictWarning" xml:space="preserve">
     <value>キュージョブは既に{0}に出力先が設定されています。ファイルを上書きするか、エンコードジョブの新しい出力先を自動的に見つけるか、あるいは処理を中断しますか？</value>
   </data>
-  
-  
+  <data name="QueueColumnsDialogTitle" xml:space="preserve">
+    <value>キューの列</value>
+  </data>
   <data name="UnusedColumns" xml:space="preserve">
     <value>未使用の列</value>
   </data>
@@ -208,7 +209,6 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>お知らせ</value>
   </data>
-  
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>まもなくスリープになります</value>
   </data>
@@ -266,5 +266,4 @@
   <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
     <value>システムは {0} 秒後に再起動します。</value>
   </data>
-  
 </root>

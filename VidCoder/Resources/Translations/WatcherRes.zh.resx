@@ -117,4 +117,88 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivateWatcherButton" xml:space="preserve">
+    <value>激活文件监视器</value>
+  </data>
+  <data name="AddFolderToWatch" xml:space="preserve">
+    <value>添加要监视的文件夹</value>
+  </data>
+  <data name="CancelMenuItem" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="DeactivateWatcherButton" xml:space="preserve">
+    <value>停用文件监视器</value>
+  </data>
+  <data name="OpenContainingFolderMenuItem" xml:space="preserve">
+    <value>打开所在文件夹</value>
+  </data>
+  <data name="PathColumnHeader" xml:space="preserve">
+    <value>路径</value>
+  </data>
+  <data name="PickerLabel" xml:space="preserve">
+    <value>拾取器：</value>
+  </data>
+  <data name="PickWatchedFolderDialogDescription" xml:space="preserve">
+    <value>选择要观看的文件夹</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>编码预设：</value>
+  </data>
+  <data name="RemoveWatchedFolder" xml:space="preserve">
+    <value>移除监视文件夹</value>
+  </data>
+  <data name="RetryMenuItem" xml:space="preserve">
+    <value>重试</value>
+  </data>
+  <data name="RunWhenClosedCheckBox" xml:space="preserve">
+    <value>VidCoder 关闭时运行</value>
+  </data>
+  <data name="ServiceInstallError" xml:space="preserve">
+    <value>文件监视器服务安装失败。</value>
+  </data>
+  <data name="ServiceUninstallError" xml:space="preserve">
+    <value>无法卸载文件监视器服务。</value>
+  </data>
+  <data name="StatusCanceledToolTip" xml:space="preserve">
+    <value>编码操作已通过从队列中移除而取消。</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="StatusFailedToolTip" xml:space="preserve">
+    <value>编码失败。</value>
+  </data>
+  <data name="StatusOutputToolTip" xml:space="preserve">
+    <value>该文件由 VidCoder 编码。</value>
+  </data>
+  <data name="StatusQueuedToolTip" xml:space="preserve">
+    <value>源文件已在队列中。</value>
+  </data>
+  <data name="StatusSkippedToolTip" xml:space="preserve">
+    <value>由于选择器中设置的条件（例如文件大小太小），因此跳过了编码。</value>
+  </data>
+  <data name="StatusSucceededToolTip" xml:space="preserve">
+    <value>编码成功完成。</value>
+  </data>
+  <data name="WatchedFilesHeader" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="WatchedFoldersHeader" xml:space="preserve">
+    <value>监视文件夹</value>
+  </data>
+  <data name="WatchedFolderTextBoxLabel" xml:space="preserve">
+    <value>文件夹：</value>
+  </data>
+  <data name="WatcherAddDialogTitle" xml:space="preserve">
+    <value>添加监视文件夹</value>
+  </data>
+  <data name="WatcherEditDialogTitle" xml:space="preserve">
+    <value>编辑监视文件夹</value>
+  </data>
+  <data name="WatcherIntroText" xml:space="preserve">
+    <value>您可以设置监视器来监视文件夹，并自动编码其中出现的视频。监视器进程会在 VidCoder 关闭时运行，并启动 VidCoder 来编码文件。</value>
+  </data>
+  <data name="WatcherWindowTitle" xml:space="preserve">
+    <value>监视器 - {0}</value>
+  </data>
 </root>
