@@ -55,7 +55,14 @@ public class ProcessingService : ReactiveObject
 	public const int QueuedTabIndex = 0;
 	public const int CompletedTabIndex = 1;
 
-	private static HashSet<string> subtitleTokens = new HashSet<string> { "cc", "forced", "foreign", "sdh", "hi", "default" };
+	private const string SubtitleTokenCC = "cc";
+	private const string SubtitleTokenForced = "forced";
+	private const string SubtitleTokenForeign = "foreign";
+	private const string SubtitleTokenSDH = "sdh";
+	private const string SubtitleTokenHI = "hi";
+	private const string SubtitleTokenDefault = "default";
+
+	private static HashSet<string> subtitleTokens = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { SubtitleTokenCC, SubtitleTokenForced, SubtitleTokenForeign, SubtitleTokenSDH, SubtitleTokenHI, SubtitleTokenDefault };
 
 	private const double StopWarningThresholdMinutes = 5;
 
@@ -3723,7 +3730,7 @@ public class ProcessingService : ReactiveObject
 						}
 						else if (subtitleTokens.Contains(token))
 						{
-							name = token;
+							name = ConvertSubtitleTokenToName(token);
 						}
 					}
 
@@ -3751,6 +3758,27 @@ public class ProcessingService : ReactiveObject
 		}
 
 		return result;
+	}
+
+	private static string ConvertSubtitleTokenToName(string token)
+	{
+		switch (token)
+		{
+			case SubtitleTokenForced:
+				return "Forced";
+			case SubtitleTokenForeign:
+				return "Foreign";
+			case SubtitleTokenDefault:
+				return "Default";
+			case SubtitleTokenCC:
+				return "CC";
+			case SubtitleTokenSDH:
+				return "SDH";
+			case SubtitleTokenHI:
+				return "HI";
+			default:
+				return token;
+		}
 	}
 
 	/// <summary>
