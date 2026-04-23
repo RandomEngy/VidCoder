@@ -427,20 +427,55 @@ Verificador: checa periodicamente o conteúdo das pastas. Usa recursos significa
     <comment>Shown when downloading an update.
 {0} is the update version, for example 10.4</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="RememberLastSelectedWhenDoneCheckBox" xml:space="preserve">
+    <value>Lembrar a última ação "Quando terminado" selecionada ao reiniciar</value>
+  </data>
+  <data name="PartFileNamingLabel" xml:space="preserve">
+    <value>Nome parcial do arquivo:</value>
+  </data>
+  <data name="PartFileNaming_PartInMiddle" xml:space="preserve">
+    <value>nome.parte.ext</value>
+  </data>
+  <data name="PartFileNaming_PartAtEnd" xml:space="preserve">
+    <value>nome.ext.parte</value>
+  </data>
+  <data name="HardwareTab" xml:space="preserve">
+    <value>Hardware</value>
+  </data>
+  <data name="IntelQuickSyncSection" xml:space="preserve">
+    <value>Intel QuickSync</value>
+  </data>
+  <data name="NvidiaNvencSection" xml:space="preserve">
+    <value>NVIDIA NVENC</value>
+  </data>
+  <data name="AmdVcnSection" xml:space="preserve">
+    <value>AMD VCN</value>
+  </data>
+  <data name="MediaFoundationSection" xml:space="preserve">
+    <value>Media Foundation (dispositivos ARM)</value>
+  </data>
+  <data name="EnableQuickSyncHyperEncodeCheckBox" xml:space="preserve">
+    <value>Habilitar Codificação Deep Link Hyper</value>
+  </data>
+  <data name="EnableQuickSyncDecodingCheckBox" xml:space="preserve">
+    <value>Preferir Intel QuickSync para decodificação de vídeo quando estiver usando o codificador QuickSync.</value>
+  </data>
+  <data name="UseQsvDecodeForNonQsvEncodesCheckBox" xml:space="preserve">
+    <value>Também usar a decodificação QuickSync quando não estiver usando um codificador QuickSync.</value>
+  </data>
+  <data name="EnableDirectXDecodingCheckBox" xml:space="preserve">
+    <value>Permitir o uso de decodificação DirectX.</value>
+  </data>
+  <data name="CodecsLabel" xml:space="preserve">
+    <value>Codecs suportados: {0}</value>
+    <comment>Format string for codec lists. {0} is replaced with comma-separated list of codecs.</comment>
+  </data>
+  <data name="QsvAdapterCount" xml:space="preserve">
+    <value>Adaptadores: {0}</value>
+    <comment>Indicator for how many QSV adapters are available on the system.
+{0} is the number of adapters, for example "2"</comment>
+  </data>
+  <data name="EnableQuickSyncHyperEncodeToolTip" xml:space="preserve">
+    <value>Use vários mecanismos de mídia para acelerar um único código, quando suportado. Desative para permitir o equilíbrio de carga entre vários códigos paralelos entre mecanismos de mídia.</value>
+  </data>
 </root>

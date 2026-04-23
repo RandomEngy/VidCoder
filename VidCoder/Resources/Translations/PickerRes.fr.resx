@@ -172,7 +172,10 @@
     <value>Arguments :</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  
+  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
+    <value>Les arguments à passer au programme. Utiliser {file} pour le chemin de sortie du fichier, {folder} contient le chemin du dossier ou d'autres options de chemin comme {title} et {date} (voir format de nommage).</value>
+    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>Sélecteur a spécifié le préréglage de codage.</value>
   </data>
@@ -414,7 +417,7 @@ Tout - Inclure toutes les pistes de sous-titres.</value>
     <value>Valeur du filtre de largeur</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
-  
-  
-  
+  <data name="ExternalSubtitleImportToolTip" xml:space="preserve">
+    <value>Reconnaît également nomFichier.lng.ext, où lng est le nom de la langue ISO et ext est l'extension du fichier de sous-titres.</value>
+  </data>
 </root>

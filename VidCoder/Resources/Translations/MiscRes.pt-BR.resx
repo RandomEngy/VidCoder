@@ -156,8 +156,12 @@
   <data name="QueueFileConflictWarning" xml:space="preserve">
     <value>Já existe uma tarefa na fila de saída em {0}. Deseja substituir a tarefa, procurar automaticamente um novo caminho para ela ou cancelar a operação?</value>
   </data>
-  
-  
+  <data name="QueueColumnsDialogTitle" xml:space="preserve">
+    <value>Colunas da fila</value>
+  </data>
+  <data name="ColumnsDialogHeaderText" xml:space="preserve">
+    <value>Arraste e solte para adicionar, remover ou reordenar colunas.</value>
+  </data>
   <data name="UnusedColumns" xml:space="preserve">
     <value>Colunas não utilizadas</value>
   </data>
@@ -208,7 +212,9 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>Aviso</value>
   </data>
-  
+  <data name="UnsupportedOSError" xml:space="preserve">
+    <value>O VidCoder não é suportado no seu sistema operacional. O Windows 10 ou superior é necessário para esta versão. Por favor, atualize seu sistema operacional ou instale uma versão anterior do VidCoder. A última versão compatível para Windows XP é o VidCoder 1.4. A última versão compatível para Windows 7 é a 5.21.</value>
+  </data>
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>Sistema de hibernação iminente</value>
   </data>
@@ -266,5 +272,7 @@
   <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
     <value>O sistema irá reiniciar em {0} segundos.</value>
   </data>
-  
+  <data name="CompletedColumnsDialogTitle" xml:space="preserve">
+    <value>Colunas concluídas</value>
+  </data>
 </root>

@@ -417,7 +417,14 @@ Todas - Incluir todas as legendas.</value>
     <value>Valor do filtro de largura</value>
     <comment>Screen reader text for the width filter value</comment>
   </data>
-  
-  
-  
+  <data name="ExternalSubtitleImportToolTip" xml:space="preserve">
+    <value>Também reconhece nomeArquivo.lng.ext, onde lng é o nome da linguagem ISO e ext é a extensão do arquivo de legenda.</value>
+  </data>
+  <data name="FallbackLanguageLabel" xml:space="preserve">
+    <value>Idioma de reserva:</value>
+    <comment>Label for an option of what language to mark a subtitle track as when it doesn't have the language identified in the file name. For example, if you have myVideo.mp4 and myVideo.srt, what language should we mark that as when we pick it up?</comment>
+  </data>
+  <data name="FallbackLanguageToolTip" xml:space="preserve">
+    <value>Se a linguagem não for identificada no nome do arquivo da legenda, como myVideo.srt, assuma que é essa linguagem.</value>
+  </data>
 </root>
