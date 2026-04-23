@@ -379,35 +379,96 @@
     <value>Mode de mise à jour :</value>
     <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="WatcherModeLabel" xml:space="preserve">
+    <value>Mode observateur :</value>
+  </data>
+  <data name="ApplicationSection" xml:space="preserve">
+    <value>Application</value>
+  </data>
+  <data name="EncodingSettingsDescription" xml:space="preserve">
+    <value>Les paramètres d'encodage incluent le codec, le débit, la taille de l'image et les filtres. Cela affectera l'apparence et le son de la vidéo, la taille du fichier et les lecteurs qui le supportent. (HOW encoder)</value>
+  </data>
+  <data name="EncodingSettingsSection" xml:space="preserve">
+    <value>Paramètres d'encodage</value>
+  </data>
+  <data name="EncodingSettingsShortcutButton" xml:space="preserve">
+    <value>Modifier les paramètres d'encodage</value>
+  </data>
+  <data name="PickerDescription" xml:space="preserve">
+    <value>Le sélecteur choisit un emplacement de fichier de sortie, des pistes audio et des sous-titres. Personnalisez le sélecteur pour ajouter automatiquement les pistes que vous voulez et pour choisir le nom du fichier et le dossier de destination. (QUI encoder)</value>
+  </data>
+  <data name="PickerSettingsSection" xml:space="preserve">
+    <value>Emplacement de sortie, sélection de la piste</value>
+  </data>
+  <data name="PickerShortcutButton" xml:space="preserve">
+    <value>Modifier les paramètres du sélecteur</value>
+  </data>
+  <data name="EnableNVDecCheckBox" xml:space="preserve">
+    <value>Utilisez Nvidia NVDec pour décoder la vidéo lorsque vous utilisez un encodeur NVEnc et que le matériel est disponible</value>
+  </data>
+  <data name="HardwareEncodingSection" xml:space="preserve">
+    <value>Encodage matériel</value>
+  </data>
+  <data name="CapNVEncCheckBox" xml:space="preserve">
+    <value>Encodage NVEnc simultané. La suppression nécessite un correctif de pilote Nvidia personnalisé.</value>
+  </data>
+  <data name="ShowProgressInWindowTitleCheckBox" xml:space="preserve">
+    <value>Afficher la progression de l'encodage dans le titre de la fenêtre</value>
+  </data>
+  <data name="DownloadingUpdateStatus" xml:space="preserve">
+    <value>Téléchargement de la version {0}...</value>
+    <comment>Shown when downloading an update.
+{0} is the update version, for example 10.4</comment>
+  </data>
+  <data name="RememberLastSelectedWhenDoneCheckBox" xml:space="preserve">
+    <value>Se souvenir de la dernière action sélectionnée au redémarrage</value>
+  </data>
+  <data name="PartFileNamingLabel" xml:space="preserve">
+    <value>Nom partiel du fichier :</value>
+  </data>
+  <data name="PartFileNaming_PartInMiddle" xml:space="preserve">
+    <value>nom.part.ext</value>
+  </data>
+  <data name="PartFileNaming_PartAtEnd" xml:space="preserve">
+    <value>nom.ext.part</value>
+  </data>
+  <data name="HardwareTab" xml:space="preserve">
+    <value>Matériel</value>
+  </data>
+  <data name="IntelQuickSyncSection" xml:space="preserve">
+    <value>QuickSync Intel</value>
+  </data>
+  <data name="NvidiaNvencSection" xml:space="preserve">
+    <value>NVIDIA NVENC</value>
+  </data>
+  <data name="AmdVcnSection" xml:space="preserve">
+    <value>VCN AMD</value>
+  </data>
+  <data name="MediaFoundationSection" xml:space="preserve">
+    <value>Media Foundation (Appareils ARM)</value>
+  </data>
+  <data name="EnableQuickSyncHyperEncodeCheckBox" xml:space="preserve">
+    <value>Activer l'encodage de Deep Link Hyper</value>
+  </data>
+  <data name="EnableQuickSyncDecodingCheckBox" xml:space="preserve">
+    <value>Préférez Intel QuickSync pour le décodage de la vidéo lors de l'utilisation de l'encodeur QuickSync.</value>
+  </data>
+  <data name="UseQsvDecodeForNonQsvEncodesCheckBox" xml:space="preserve">
+    <value>Utilisez également le décodage QuickSync lorsque vous n'utilisez pas d'encodeur QuickSync.</value>
+  </data>
+  <data name="EnableDirectXDecodingCheckBox" xml:space="preserve">
+    <value>Autoriser l'utilisation du décodage DirectX.</value>
+  </data>
+  <data name="CodecsLabel" xml:space="preserve">
+    <value>Codecs pris en charge : {0}</value>
+    <comment>Format string for codec lists. {0} is replaced with comma-separated list of codecs.</comment>
+  </data>
+  <data name="QsvAdapterCount" xml:space="preserve">
+    <value>Adaptateurs : {0}</value>
+    <comment>Indicator for how many QSV adapters are available on the system.
+{0} is the number of adapters, for example "2"</comment>
+  </data>
+  <data name="EnableQuickSyncHyperEncodeToolTip" xml:space="preserve">
+    <value>Utilisez plusieurs moteurs multimédias pour accélérer un seul encodage lorsque pris en charge. Désactivez pour permettre l’équilibrage de charge de plusieurs encodes parallèles entre les moteurs de média.</value>
+  </data>
 </root>
