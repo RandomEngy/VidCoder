@@ -751,4 +751,10 @@ Cette alerte ne s'affichera que deux fois.</value>
     <comment>{0} is the current job number for scanning and adding an item to the queue
 {1} is the total number of scanned items this session</comment>
   </data>
+  <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
+    <value>La version {0} a été téléchargée et s'appliquera au prochain lancement.</value>
+  </data>
+  <data name="AddToTopOfQueueLabel" xml:space="preserve">
+    <value>Ajouter en haut de la file d'attente</value>
+  </data>
 </root>

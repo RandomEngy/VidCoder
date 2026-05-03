@@ -189,7 +189,6 @@
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>الانضمام إلى المسار بيتا للحصول على مزيد من التحديثات المتكررة</value>
   </data>
-  
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder هو حتى الآن.</value>
   </data>
@@ -345,47 +344,7 @@
   <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
     <value>تشغيل "عند الانتهاء" الإجراء عندما تكون هناك وظائف تشفير فاشلة</value>
   </data>
-  
-  
-  
   <data name="FileNameFormatOptions" xml:space="preserve">
     <value>الخيارات المتاحة: {0}</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>

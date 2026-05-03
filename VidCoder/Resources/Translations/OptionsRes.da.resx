@@ -144,28 +144,21 @@
   <data name="EncodingSingleFile" xml:space="preserve">
     <value>Kodning enkelt fil:</value>
   </data>
-  
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Automatisk pause af kodning når nogen af disse processer:</value>
   </data>
   <data name="AddEllipsesButton" xml:space="preserve">
     <value>Tilføj...</value>
   </data>
-  
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>Husk tidligere anvendte filer og mapper</value>
   </data>
-  
-  
-  
   <data name="RecognizedExtensionsLabel" xml:space="preserve">
     <value>Anerkendte udvidelser:</value>
   </data>
-  
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Valgmuligheder</value>
   </data>
-  
   <data name="AdvancedTab" xml:space="preserve">
     <value>Avanceret</value>
   </data>
@@ -175,15 +168,12 @@
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Deltag i Beta opdateringer og få hyppige opdateringer</value>
   </data>
-  
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder er opdateret.</value>
   </data>
-  
   <data name="InterfaceLanguageLabel" xml:space="preserve">
     <value>Grænsefladesprog:</value>
   </data>
-  
   <data name="UseOSLanguage" xml:space="preserve">
     <value>Anvend OS sprog</value>
   </data>
@@ -193,7 +183,6 @@
   <data name="UpdateFailedStatus" xml:space="preserve">
     <value>Opdateringskontrol mislykkedes.</value>
   </data>
-  
   <data name="CurrentVersionLabel" xml:space="preserve">
     <value>Nuværende Version: {0}</value>
   </data>
@@ -209,7 +198,6 @@
   <data name="SystemTraySection" xml:space="preserve">
     <value>System bakke</value>
   </data>
-  
   <data name="AdvancedOptionsSection" xml:space="preserve">
     <value>Avancerede indstillinger</value>
   </data>
@@ -264,83 +252,32 @@
   <data name="Priority_BelowNormal" xml:space="preserve">
     <value>Under Normal</value>
   </data>
-  
   <data name="Priority_Idle" xml:space="preserve">
     <value>Lav</value>
   </data>
-  
   <data name="OpenLogFolderButton" xml:space="preserve">
     <value>Åbn log mappe</value>
   </data>
   <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
     <value>Genoptag kodning ved genstart</value>
   </data>
-  
-  
   <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Brugerdefineret mappe for forhåndsvisning:</value>
   </data>
-  
-  
-  
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Anvend indbygget afspiller ved forhåndsvisning</value>
   </data>
-  
-  
   <data name="ThemeLabel" xml:space="preserve">
     <value> Tema</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
-  
-  
-  
-  
-  
-  
   <data name="AutoPauseSectionLabel" xml:space="preserve">
     <value>Automatisk pause</value>
   </data>
   <data name="FileNameFormatOptions" xml:space="preserve">
     <value>Tilgængelige indstillinger: {0}</value>
   </data>
-  
   <data name="DragDropScanOrderLabel" xml:space="preserve">
     <value>Skanningsrækkefølge for træk og slip</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>

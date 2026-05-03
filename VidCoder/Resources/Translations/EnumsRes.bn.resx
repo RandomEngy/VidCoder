@@ -129,11 +129,6 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>Strict</value>
   </data>
-  
-  
-  
-  
-  
   <data name="Custom" xml:space="preserve">
     <value>পছন্দসই</value>
   </data>
@@ -146,34 +141,18 @@
   <data name="Default" xml:space="preserve">
     <value>পূর্ব-নির্ধারিত</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <data name="Denoise_HQDN3D" xml:space="preserve">
     <value>hqdn3d</value>
   </data>
   <data name="Denoise_NLMeans" xml:space="preserve">
     <value>NL-Means</value>
   </data>
-  
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
     <value>কিছুই করবে না</value>
   </data>
   <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
     <value>{0} বের করুন:</value>
   </data>
-  
   <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
     <value>লগ অফ করুন</value>
   </data>
@@ -186,11 +165,6 @@
   <data name="Off" xml:space="preserve">
     <value>বন্ধ</value>
   </data>
-  
-  
-  
-  
-  
   <data name="VideoRangeType_Chapters" xml:space="preserve">
     <value>অধ্যায়</value>
   </data>
@@ -200,52 +174,4 @@
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>সময় সীমা</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>

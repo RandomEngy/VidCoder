@@ -129,9 +129,6 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>Striktní</value>
   </data>
-  
-  
-  
   <data name="CombDetect_fast" xml:space="preserve">
     <value>Rychlé</value>
   </data>
@@ -224,8 +221,6 @@
   <data name="Off" xml:space="preserve">
     <value>Vypnuto</value>
   </data>
-  
-  
   <data name="TitleType_Bluray" xml:space="preserve">
     <value>Blu-ray</value>
     <comment>What to display when the source is a Blu-ray</comment>
@@ -247,52 +242,4 @@
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>Časový rozsah</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>

@@ -129,11 +129,6 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>Strizh</value>
   </data>
-  
-  
-  
-  
-  
   <data name="Custom" xml:space="preserve">
     <value>Personelet</value>
   </data>
@@ -146,34 +141,18 @@
   <data name="Default" xml:space="preserve">
     <value>Dre-voaz</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <data name="Denoise_HQDN3D" xml:space="preserve">
     <value>hqdn3d</value>
   </data>
   <data name="Denoise_NLMeans" xml:space="preserve">
     <value>NL-Means</value>
   </data>
-  
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
     <value>Ober netra</value>
   </data>
   <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
     <value>Strinkañ e-maez {0}:</value>
   </data>
-  
   <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
     <value>Serriñ an dalc'h</value>
   </data>
@@ -186,11 +165,6 @@
   <data name="Off" xml:space="preserve">
     <value>Dioberiant</value>
   </data>
-  
-  
-  
-  
-  
   <data name="VideoRangeType_Chapters" xml:space="preserve">
     <value>Pennadoù</value>
   </data>
@@ -200,52 +174,4 @@
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>Koulzad an amzer</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>

@@ -757,4 +757,8 @@ Ez a figyelmeztetés csak kétszer jelenik meg.</value>
   <data name="AddToTopOfQueueLabel" xml:space="preserve">
     <value>Hozzáadás a várólista tetejére</value>
   </data>
+  <data name="JobProgressToolTip" xml:space="preserve">
+    <value>Várható befejezési idő: {0}</value>
+    <comment>{0} is the estimated remaining time for that job to complete.</comment>
+  </data>
 </root>

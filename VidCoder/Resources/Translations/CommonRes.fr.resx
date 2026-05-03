@@ -152,6 +152,18 @@ Traduit en Français par TheCrazyRabbit...</value>
     <value>Titre</value>
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
+  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
+    <value>Qualité audio</value>
+  </data>
+  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
+    <value>Encodeur audio</value>
+  </data>
+  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
+    <value>Encodeur vidéo</value>
+  </data>
+  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
+    <value>Qualité vidéo</value>
+  </data>
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>Temps restant estimé pour terminer tous les travaux de la file d'attente.</value>
   </data>
@@ -308,8 +320,17 @@ Traduit en Français par TheCrazyRabbit...</value>
   <data name="DefaultLabel" xml:space="preserve">
     <value>Défaut :</value>
   </data>
+  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
+    <value>Pistes audio</value>
+  </data>
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>Recadrage</value>
+  </data>
+  <data name="QueueColumnNameOutputSize" xml:space="preserve">
+    <value>Dimensions</value>
+  </data>
+  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
+    <value>Pistes de sous-titres</value>
   </data>
   <data name="Manual" xml:space="preserve">
     <value>Manuel</value>
@@ -324,5 +345,56 @@ Traduit en Français par TheCrazyRabbit...</value>
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>Activé</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Fermer</value>
+    <comment>Label to close a window or item.</comment>
+  </data>
+  <data name="CompletedColumnNameDestination" xml:space="preserve">
+    <value>Destination</value>
+    <comment>Column header for the destination file path</comment>
+  </data>
+  <data name="CompletedColumnNameStatus" xml:space="preserve">
+    <value>Statut</value>
+    <comment>The header for the status column for completed jobs (succeeded/failed)</comment>
+  </data>
+  <data name="CompletedColumnNameElapsedTime" xml:space="preserve">
+    <value>Temps d'encodage</value>
+  </data>
+  <data name="CompletedColumnNameSize" xml:space="preserve">
+    <value>Taille du fichier</value>
+  </data>
+  <data name="CompletedColumnNamePercentOfSource" xml:space="preserve">
+    <value>% de la source</value>
+  </data>
+  <data name="CompletedColumnNameSourceSize" xml:space="preserve">
+    <value>Taille du fichier source</value>
+  </data>
+  <data name="CompletedColumnNameVideoDuration" xml:space="preserve">
+    <value>Durée de la vidéo</value>
+  </data>
+  <data name="CompletedColumnNamePauseTime" xml:space="preserve">
+    <value>Temps de pause</value>
+  </data>
+  <data name="CompletedColumnNameAverageFps" xml:space="preserve">
+    <value>Moyenne FPS</value>
+  </data>
+  <data name="CompletedColumnNamePreset" xml:space="preserve">
+    <value>Pré-réglage</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Non disponible</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Disponible</value>
+  </data>
+  <data name="CompletedColumnNameSourceDimensions" xml:space="preserve">
+    <value>Dimensions source</value>
+  </data>
+  <data name="CompletedColumnNameDimensions" xml:space="preserve">
+    <value>Dimensions</value>
+  </data>
+  <data name="QueueColumnNameSourceDimensions" xml:space="preserve">
+    <value>Dimensions source</value>
   </data>
 </root>

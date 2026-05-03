@@ -156,8 +156,12 @@
   <data name="QueueFileConflictWarning" xml:space="preserve">
     <value>Un travail en file d'attente a déjà un chemin de sortie vers {0}. Voulez-vous remplacer le travail en file d'attente, trouver automatiquement un nouveau répertoire de sortie pour le travail d'encodage ou annuler l'opération ?</value>
   </data>
-  
-  
+  <data name="QueueColumnsDialogTitle" xml:space="preserve">
+    <value>Colonnes de la file d'attente</value>
+  </data>
+  <data name="ColumnsDialogHeaderText" xml:space="preserve">
+    <value>Glisser/Déposer pour ajouter, supprimer ou réorganiser les colonnes.</value>
+  </data>
   <data name="UnusedColumns" xml:space="preserve">
     <value>Colonnes inutilisées</value>
   </data>
@@ -208,7 +212,9 @@
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>Important</value>
   </data>
-  
+  <data name="UnsupportedOSError" xml:space="preserve">
+    <value>VidCoder n'est pas pris en charge sur votre système d'exploitation. Windows 10 ou ultérieur est requis pour cette version. Veuillez mettre à jour votre système d'exploitation ou installer une version antérieure de VidCoder. La dernière version compatible pour Windows XP est VidCoder 1.4. La dernière version compatible pour Windows 7 est 5.21.</value>
+  </data>
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>Prochaine mise en veille</value>
   </data>
@@ -266,5 +272,7 @@
   <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
     <value>Le système va redémarrer dans {0} secondes.</value>
   </data>
-  
+  <data name="CompletedColumnsDialogTitle" xml:space="preserve">
+    <value>Colonnes terminées</value>
+  </data>
 </root>

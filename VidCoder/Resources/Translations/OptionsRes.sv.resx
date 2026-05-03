@@ -159,7 +159,6 @@
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>Kom ihåg tidigare använda filer och mappar</value>
   </data>
-  
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Logga mångordighet:</value>
   </data>
@@ -187,7 +186,6 @@
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Gå med i Beta spåret för att få mer frekventa uppdateringar</value>
   </data>
-  
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder är uppdaterad.</value>
   </data>
@@ -311,33 +309,19 @@
   <data name="ProcessOptionsLabel" xml:space="preserve">
     <value>Processalternativ</value>
   </data>
-  
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>Använda Processorbegränsning för att begränsa antalet processorkärnor som VidCoder kan använda vid kodning.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Använd inbyggd spelare för förhandsvisningar</value>
   </data>
-  
-  
   <data name="ThemeLabel" xml:space="preserve">
     <value>Tema</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
   <data name="FileNameFormatOptions" xml:space="preserve">
     <value>Tillgängliga alternativ: {0}</value>
   </data>
-  
-  
-  
-  
   <data name="CheckingForUpdateStatus" xml:space="preserve">
     <value>Söker efter uppdatering …</value>
   </data>
@@ -345,35 +329,4 @@
     <value>Uppdateringsläge:</value>
     <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>

@@ -120,14 +120,12 @@
   <data name="Anamorphic_Custom" xml:space="preserve">
     <value>سفارشی</value>
   </data>
-  
   <data name="Anamorphic_None" xml:space="preserve">
     <value>هیچکدام</value>
   </data>
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>سخت</value>
   </data>
-  
   <data name="AppThemeChoice_Dark" xml:space="preserve">
     <value>تاریک</value>
   </data>
@@ -144,19 +142,12 @@
   <data name="Custom" xml:space="preserve">
     <value>سفارشی</value>
   </data>
-  
   <data name="Decomb_Fast" xml:space="preserve">
     <value>سریع</value>
   </data>
   <data name="Default" xml:space="preserve">
     <value>پیش فرض</value>
   </data>
-  
-  
-  
-  
-  
-  
   <data name="DenoisePreset_light" xml:space="preserve">
     <value>روشن</value>
   </data>
@@ -175,17 +166,9 @@
   <data name="DenoiseTune_film" xml:space="preserve">
     <value>فیلم</value>
   </data>
-  
-  
-  
-  
-  
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
     <value>هیچ کاری نکن</value>
   </data>
-  
-  
-  
   <data name="EncodeCompleteActionType_Shutdown" xml:space="preserve">
     <value>خاموش کردن سیستم</value>
   </data>
@@ -195,8 +178,6 @@
   <data name="Off" xml:space="preserve">
     <value>خاموش</value>
   </data>
-  
-  
   <data name="TitleType_Bluray" xml:space="preserve">
     <value>Blu-ray</value>
     <comment>What to display when the source is a Blu-ray</comment>
@@ -229,8 +210,6 @@
   <data name="EncodeCompleteActionType_StopEncoding" xml:space="preserve">
     <value>توقف انکدینگ</value>
   </data>
-  
-  
   <data name="LogOperationType_Encode" xml:space="preserve">
     <value>انکد</value>
   </data>
@@ -243,7 +222,6 @@
   <data name="PickerTimeRangeMode_Time" xml:space="preserve">
     <value>بازه زمانی</value>
   </data>
-  
   <data name="WhenFileExists_Overwrite" xml:space="preserve">
     <value>جایگزینی</value>
   </data>
@@ -262,36 +240,4 @@
   <data name="DenoiseTune_tiny" xml:space="preserve">
     <value>ریز</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>
