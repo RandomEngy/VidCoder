@@ -142,7 +142,6 @@
   <data name="CombDetect_fast" xml:space="preserve">
     <value>Nopea</value>
   </data>
-  
   <data name="Custom" xml:space="preserve">
     <value>Mukauta</value>
   </data>
@@ -155,20 +154,6 @@
   <data name="Default" xml:space="preserve">
     <value>Oletus</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <data name="Denoise_HQDN3D" xml:space="preserve">
     <value>hqdn3d</value>
   </data>
@@ -199,8 +184,6 @@
   <data name="Off" xml:space="preserve">
     <value>Pois</value>
   </data>
-  
-  
   <data name="TitleType_Bluray" xml:space="preserve">
     <value>Blu-Ray</value>
     <comment>What to display when the source is a Blu-ray</comment>
@@ -222,42 +205,12 @@
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>Aikaväli</value>
   </data>
-  
-  
   <data name="EncodeCompleteActionType_StopEncoding" xml:space="preserve">
     <value>Lopeta koodaus</value>
   </data>
-  
-  
   <data name="LogOperationType_Encode" xml:space="preserve">
     <value>Koodaa</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <data name="WatcherProcessStatus_Disabled" xml:space="preserve">
     <value>Pois käytöstä</value>
   </data>
@@ -294,8 +247,6 @@
   <data name="WatchedFileStatusLive_Output" xml:space="preserve">
     <value>Ulostulo</value>
   </data>
-  
-  
   <data name="EncodeCompleteActionType_Restart" xml:space="preserve">
     <value>Käynnistä uudelleen</value>
   </data>

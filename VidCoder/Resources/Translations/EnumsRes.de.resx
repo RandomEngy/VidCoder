@@ -298,13 +298,6 @@
   <data name="WhenFileExists_Prompt" xml:space="preserve">
     <value>Fragen</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
   <data name="DragDropOrder_Alphabetical" xml:space="preserve">
     <value>Alphabetisch</value>
     <comment>Label for the option to order dragged files alphabetically</comment>
@@ -313,7 +306,6 @@
     <value>Ausgewählt</value>
     <comment>Label for the option to order dragged files as they had been selected in File explorer</comment>
   </data>
-  
   <data name="SubtitleBurnInSelection_ForeignAudioTrack" xml:space="preserve">
     <value>Fremdsprachige Dialoge extrahieren</value>
   </data>
@@ -323,7 +315,6 @@
   <data name="SubtitleBurnInSelection_None" xml:space="preserve">
     <value>Keine</value>
   </data>
-  
   <data name="SourceFileRemovalTiming_Immediately" xml:space="preserve">
     <value>Sofort nach der Encodierung</value>
   </data>
@@ -333,23 +324,4 @@
   <data name="SourceFileRemoval_Recycle" xml:space="preserve">
     <value>Papierkorb</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>

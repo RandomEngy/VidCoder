@@ -189,7 +189,6 @@
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Batu Beta bidera eguneraketak sarriago lortzeko</value>
   </data>
-  
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder eguneratuta dago.</value>
   </data>
@@ -367,38 +366,4 @@
   <data name="EncodeRetriesLabel" xml:space="preserve">
     <value>Kodeaketa bersaiatze zenbatekoa:</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>

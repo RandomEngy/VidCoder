@@ -189,7 +189,6 @@
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Pridružite se Beta kanalu da bi dobijali češća ažuriranja</value>
   </data>
-  
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder je ažuran.</value>
   </data>
@@ -345,47 +344,7 @@
   <data name="TriggerWhenDoneWithFailedJobsCheckBox" xml:space="preserve">
     <value>Pokreni "Kada bude gotovo" akciju ukoliko bude neuspjelih enkodiranja</value>
   </data>
-  
-  
-  
   <data name="FileNameFormatOptions" xml:space="preserve">
     <value>Dostupne opcije: {0}</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>

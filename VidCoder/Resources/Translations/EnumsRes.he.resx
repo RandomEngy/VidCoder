@@ -120,34 +120,21 @@
   <data name="Anamorphic_Custom" xml:space="preserve">
     <value>מותאם אישית</value>
   </data>
-  
   <data name="Anamorphic_None" xml:space="preserve">
     <value>אין</value>
   </data>
-  
-  
-  
-  
   <data name="CombDetect_fast" xml:space="preserve">
     <value>מהר</value>
   </data>
-  
   <data name="Custom" xml:space="preserve">
     <value>מותאם אישית</value>
   </data>
-  
   <data name="Decomb_Fast" xml:space="preserve">
     <value>מהר</value>
   </data>
   <data name="Default" xml:space="preserve">
     <value>ברירת מחדל</value>
   </data>
-  
-  
-  
-  
-  
-  
   <data name="DenoisePreset_light" xml:space="preserve">
     <value>קל</value>
   </data>
@@ -157,33 +144,21 @@
   <data name="DenoisePreset_strong" xml:space="preserve">
     <value>חזק</value>
   </data>
-  
   <data name="DenoiseTune_animation" xml:space="preserve">
     <value>אנימציה</value>
   </data>
   <data name="DenoiseTune_film" xml:space="preserve">
     <value>סרט</value>
   </data>
-  
   <data name="DenoiseTune_highmotion" xml:space="preserve">
     <value>תנועה גבוהה</value>
   </data>
-  
-  
-  
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
     <value>אל תעשה דבר</value>
   </data>
-  
   <data name="EncodeCompleteActionType_Hibernate" xml:space="preserve">
     <value>מצב שינה</value>
   </data>
-  
-  
-  
-  
-  
-  
   <data name="TitleType_Bluray" xml:space="preserve">
     <value>Blu-ray</value>
     <comment>What to display when the source is a Blu-ray</comment>
@@ -199,56 +174,7 @@
   <data name="VideoRangeType_Chapters" xml:space="preserve">
     <value>פרקים</value>
   </data>
-  
   <data name="VideoRangeType_Seconds" xml:space="preserve">
     <value>טווח הזמן</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>

@@ -158,14 +158,9 @@
   <data name="Default" xml:space="preserve">
     <value>Domyślne</value>
   </data>
-  
-  
-  
   <data name="DeinterlacePreset_skipspatial" xml:space="preserve">
     <value>Pomiń sprawdzenie przestrzenne</value>
   </data>
-  
-  
   <data name="DenoisePreset_light" xml:space="preserve">
     <value>Jasność</value>
   </data>
@@ -220,8 +215,6 @@
   <data name="Off" xml:space="preserve">
     <value>Wyłącz</value>
   </data>
-  
-  
   <data name="TitleType_Bluray" xml:space="preserve">
     <value>Blu-ray</value>
     <comment>What to display when the source is a Blu-ray</comment>
@@ -317,7 +310,6 @@
   <data name="SubtitleBurnInSelection_ForeignAudioTrack" xml:space="preserve">
     <value>Ścieżka audio obcego</value>
   </data>
-  
   <data name="SubtitleBurnInSelection_None" xml:space="preserve">
     <value>Żadne</value>
   </data>
@@ -333,23 +325,4 @@
   <data name="SourceFileRemoval_Recycle" xml:space="preserve">
     <value>Kosz</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>

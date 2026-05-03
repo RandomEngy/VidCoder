@@ -159,7 +159,6 @@
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>Pamatovat dříve použité soubory a složky</value>
   </data>
-  
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Úroveň logování:</value>
   </data>
@@ -187,7 +186,6 @@
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Připojte se k testování Beta verzí s vyšší frekvencí aktualizací</value>
   </data>
-  
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder je aktualizován.</value>
   </data>
@@ -311,61 +309,13 @@
   <data name="ProcessOptionsLabel" xml:space="preserve">
     <value>Možnosti procesu</value>
   </data>
-  
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>Použít řízení výkonu CPU k omezení počtu procesorových jader který může VidCoder použít při enkódování.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>Použít vestavěný přehrávač pro náhledy</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <data name="FileNameFormatOptions" xml:space="preserve">
     <value>Dostupné možnosti: {0}</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>

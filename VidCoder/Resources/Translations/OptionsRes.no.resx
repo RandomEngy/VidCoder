@@ -120,9 +120,6 @@
   <data name="GeneralTab" xml:space="preserve">
     <value>Generelt</value>
   </data>
-  
-  
-  
   <data name="PreferredDvdPlayerLabel" xml:space="preserve">
     <value>Foretrukket DVD-spiller:</value>
   </data>
@@ -138,7 +135,6 @@
   <data name="EncodingSingleFile" xml:space="preserve">
     <value>Koding enkel fil:</value>
   </data>
-  
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Automatisk pause når noen av disse prosessene kjører:</value>
   </data>
@@ -151,15 +147,9 @@
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>Husk tidligere brukte filer og mapper</value>
   </data>
-  
-  
-  
-  
-  
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Instillinger</value>
   </data>
-  
   <data name="AdvancedTab" xml:space="preserve">
     <value>Avansert</value>
   </data>
@@ -169,11 +159,9 @@
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Bli med på Beta sporet for å få nyere oppdateringer</value>
   </data>
-  
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder er oppdatert.</value>
   </data>
-  
   <data name="InterfaceLanguageLabel" xml:space="preserve">
     <value>Grensesnitt språk:</value>
   </data>
@@ -189,19 +177,15 @@
   <data name="UpdateFailedStatus" xml:space="preserve">
     <value>Oppdatering sjekk mislykkes.</value>
   </data>
-  
   <data name="CurrentVersionLabel" xml:space="preserve">
     <value>Gjeldende versjon: {0}</value>
   </data>
-  
   <data name="PlayersSection" xml:space="preserve">
     <value>Spillere</value>
   </data>
   <data name="SoundSection" xml:space="preserve">
     <value>Lyd</value>
   </data>
-  
-  
   <data name="AdvancedOptionsSection" xml:space="preserve">
     <value>Avanserte alternativer</value>
   </data>
@@ -256,7 +240,6 @@
   <data name="Priority_BelowNormal" xml:space="preserve">
     <value>Under Normal</value>
   </data>
-  
   <data name="Priority_Idle" xml:space="preserve">
     <value>Lav</value>
   </data>
@@ -266,66 +249,13 @@
   <data name="OpenLogFolderButton" xml:space="preserve">
     <value>Åpne loggmappen</value>
   </data>
-  
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Bruk arbeidsprosess til å kode</value>
   </data>
-  
   <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Egendefinert mappe for forhåndsvisninger:</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <data name="FileNameFormatOptions" xml:space="preserve">
     <value>Tilgjengelige alternativer: {0}</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>

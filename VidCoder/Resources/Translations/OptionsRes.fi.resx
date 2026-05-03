@@ -153,15 +153,9 @@
   <data name="AddEllipsesButton" xml:space="preserve">
     <value>Lisää...</value>
   </data>
-  
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>Muista aiemmin käytetyt tiedostot ja kansiot</value>
   </data>
-  
-  
-  
-  
-  
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Asetukset</value>
   </data>
@@ -171,9 +165,6 @@
   <data name="AdvancedTab" xml:space="preserve">
     <value>Lisäasetukset</value>
   </data>
-  
-  
-  
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder on ajan tasalla.</value>
   </data>
@@ -195,11 +186,9 @@
   <data name="UpdateFailedStatus" xml:space="preserve">
     <value>Päivityksen tarkistus epäonnistui.</value>
   </data>
-  
   <data name="CurrentVersionLabel" xml:space="preserve">
     <value>Nykyinen versio: {0}</value>
   </data>
-  
   <data name="PlayersSection" xml:space="preserve">
     <value>Soittimet</value>
   </data>
@@ -218,16 +207,12 @@
   <data name="ScanningSection" xml:space="preserve">
     <value>Skannataan...</value>
   </data>
-  
-  
   <data name="UpdatesSection" xml:space="preserve">
     <value>Päivitykset</value>
   </data>
   <data name="UpdateStatusSection" xml:space="preserve">
     <value>Tila</value>
   </data>
-  
-  
   <data name="CheckNowButton" xml:space="preserve">
     <value>Tarkista nyt</value>
   </data>
@@ -237,10 +222,6 @@
   <data name="VideoFilesLabel" xml:space="preserve">
     <value>Videotiedostot</value>
   </data>
-  
-  
-  
-  
   <data name="Priority_AboveNormal" xml:space="preserve">
     <value>Korkea</value>
   </data>
@@ -262,35 +243,16 @@
   <data name="OpenLogFolderButton" xml:space="preserve">
     <value>Avaa loki-kansio</value>
   </data>
-  
-  
-  
-  
   <data name="ProcessOptionsLabel" xml:space="preserve">
     <value>Prosessiasetukset</value>
   </data>
-  
-  
-  
-  
-  
   <data name="ThemeLabel" xml:space="preserve">
     <value>Teema</value>
     <comment>Label for the app theme (auto, light, dark)</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
   <data name="FileNameFormatOptions" xml:space="preserve">
     <value>Vaihtoehdot: {0}</value>
   </data>
-  
-  
-  
   <data name="ApplyUpdateButton" xml:space="preserve">
     <value>Käytä päivitystä</value>
   </data>
@@ -301,41 +263,17 @@
     <value>Päivityksen tila:</value>
     <comment>Label for a dropdown to control whether app updates are applied immediately or delayed until next program launch.</comment>
   </data>
-  
-  
-  
-  
-  
   <data name="EncodingSettingsSection" xml:space="preserve">
     <value>Koodauksen asetukset</value>
   </data>
   <data name="EncodingSettingsShortcutButton" xml:space="preserve">
     <value>Muokkaa koodausasetuksia</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
   <data name="DownloadingUpdateStatus" xml:space="preserve">
     <value>Ladataan versiota {0}...</value>
     <comment>Shown when downloading an update.
 {0} is the update version, for example 10.4</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <data name="EnableDirectXDecodingCheckBox" xml:space="preserve">
     <value>Salli DirectX-dekoodauksen käyttö.</value>
   </data>
@@ -343,6 +281,4 @@
     <value>Tuetut koodekit: {0}</value>
     <comment>Format string for codec lists. {0} is replaced with comma-separated list of codecs.</comment>
   </data>
-  
-  
 </root>

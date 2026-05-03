@@ -150,6 +150,18 @@ Uma cópia completa da Licença Pública Geral GNU foi incluída neste programa.
     <value>Título</value>
     <comment>The label for the queue column that shows the title number. For DVDs or Blu-rays this identifies which title on the disc will be encoded. For files this is usually 1.</comment>
   </data>
+  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
+    <value>Qualidade do áudio</value>
+  </data>
+  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
+    <value>Codificador de áudio</value>
+  </data>
+  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
+    <value>Codificador de vídeo</value>
+  </data>
+  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
+    <value>Qualidade do vídeo</value>
+  </data>
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>Tempo estimado restante para completar todos os trabalhos da fila.</value>
   </data>
@@ -306,8 +318,17 @@ Uma cópia completa da Licença Pública Geral GNU foi incluída neste programa.
   <data name="DefaultLabel" xml:space="preserve">
     <value>Padrão:</value>
   </data>
+  <data name="QueueColumnNameAudioTracks" xml:space="preserve">
+    <value>Faixas de áudio</value>
+  </data>
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>Cortando</value>
+  </data>
+  <data name="QueueColumnNameOutputSize" xml:space="preserve">
+    <value>Dimensões</value>
+  </data>
+  <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
+    <value>Faixas de legenda</value>
   </data>
   <data name="Manual" xml:space="preserve">
     <value>Manual</value>
@@ -326,5 +347,52 @@ Uma cópia completa da Licença Pública Geral GNU foi incluída neste programa.
   <data name="Close" xml:space="preserve">
     <value>Fechar</value>
     <comment>Label to close a window or item.</comment>
+  </data>
+  <data name="CompletedColumnNameDestination" xml:space="preserve">
+    <value>Destino</value>
+    <comment>Column header for the destination file path</comment>
+  </data>
+  <data name="CompletedColumnNameStatus" xml:space="preserve">
+    <value>Status</value>
+    <comment>The header for the status column for completed jobs (succeeded/failed)</comment>
+  </data>
+  <data name="CompletedColumnNameElapsedTime" xml:space="preserve">
+    <value>Tempo de codificação</value>
+  </data>
+  <data name="CompletedColumnNameSize" xml:space="preserve">
+    <value>Tamanho do arquivo</value>
+  </data>
+  <data name="CompletedColumnNamePercentOfSource" xml:space="preserve">
+    <value>% da origem</value>
+  </data>
+  <data name="CompletedColumnNameSourceSize" xml:space="preserve">
+    <value>Tamanho do arquivo de origem</value>
+  </data>
+  <data name="CompletedColumnNameVideoDuration" xml:space="preserve">
+    <value>Duração do vídeo</value>
+  </data>
+  <data name="CompletedColumnNamePauseTime" xml:space="preserve">
+    <value>Tempo de pausa</value>
+  </data>
+  <data name="CompletedColumnNameAverageFps" xml:space="preserve">
+    <value>Taxa média de quadros</value>
+  </data>
+  <data name="CompletedColumnNamePreset" xml:space="preserve">
+    <value>Predefinição</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Não disponível</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Disponível</value>
+  </data>
+  <data name="CompletedColumnNameSourceDimensions" xml:space="preserve">
+    <value>Dimensões de origem</value>
+  </data>
+  <data name="CompletedColumnNameDimensions" xml:space="preserve">
+    <value>Dimensões</value>
+  </data>
+  <data name="QueueColumnNameSourceDimensions" xml:space="preserve">
+    <value>Dimensões de origem</value>
   </data>
 </root>

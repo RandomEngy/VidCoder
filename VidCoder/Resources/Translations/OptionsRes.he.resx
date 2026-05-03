@@ -117,137 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  
-  
-  
-  
   <data name="PreferredDvdPlayerLabel" xml:space="preserve">
     <value>נגן DVD המועדף:</value>
   </data>
-  
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
     <value>עדכונים אוטומטיים</value>
   </data>
-  
-  
-  
-  
   <data name="AddEllipsesButton" xml:space="preserve">
     <value>להוסיף...</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>אפשרויות</value>
   </data>
-  
   <data name="AdvancedTab" xml:space="preserve">
     <value>‫מתקדם‬</value>
   </data>
-  
-  
-  
-  
-  
   <data name="InterfaceLanguageLabel" xml:space="preserve">
     <value>שפת ממשק:</value>
   </data>
-  
-  
-  
   <data name="UpdateFailedStatus" xml:space="preserve">
     <value>בדיקת עדכון נכשלה.</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
   <data name="AdvancedOptionsSection" xml:space="preserve">
     <value>אפשרויות מתקדמות</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>
