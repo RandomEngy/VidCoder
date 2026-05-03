@@ -478,4 +478,7 @@ Polling: Periodically checks the contents of the folders. Uses significant CPU a
   <data name="EnableQuickSyncHyperEncodeToolTip" xml:space="preserve">
     <value>Use multiple media engines to speed up a single encode where supported. Disable to allow load balancing multiple parallel encodes across media engines.</value>
   </data>
+  <data name="WatcherStabilityIntervalLabel" xml:space="preserve">
+    <value>File stability wait interval (seconds):</value>
+  </data>
 </root>

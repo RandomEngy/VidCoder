@@ -68,9 +68,9 @@ public static class WatcherStorage
 		return GetFileEntries(connection, "SELECT * FROM watchedFiles");
 	}
 
-	public static Dictionary<string, WatchedFile> GetPlannedFiles(SQLiteConnection connection)
+	public static Dictionary<string, WatchedFile> GetFilesWithStatus(SQLiteConnection connection, WatchedFileStatus status)
 	{
-		return GetFileEntries(connection, "SELECT * FROM watchedFiles WHERE status = 'Planned'");
+		return GetFileEntries(connection, $"SELECT * FROM watchedFiles WHERE status = '{status}'");
 	}
 
 	public static List<string> GetFileEntriesUnderFolder(SQLiteConnection connection, string folderPath)
@@ -171,7 +171,8 @@ public static class WatcherStorage
 	{
 		using (var transaction = connection.BeginTransaction())
 		{
-			using (var addCommand = new SQLiteCommand("INSERT INTO watchedFiles (path, status) VALUES (@path, 'Planned') ON CONFLICT(path) DO UPDATE SET status = 'Planned'", connection))
+			// Insert the entry, but don't clobber an existing entry if it's already there. We don't want to reset the status back to Found if it's already further down the pipeline.
+			using (var addCommand = new SQLiteCommand("INSERT INTO watchedFiles (path, status) VALUES (@path, 'Found') ON CONFLICT(path) DO NOTHING", connection))
 			{
 				SQLiteParameter pathParameter = addCommand.Parameters.Add("@path", DbType.String);
 
@@ -193,6 +194,25 @@ public static class WatcherStorage
 			updateCommand.Parameters.AddWithValue("@status", status.ToString());
 			updateCommand.Parameters.AddWithValue("@path", path);
 			updateCommand.ExecuteNonQuery();
+		}
+	}
+
+	public static void UpdateEntryStatus(SQLiteConnection connection, IEnumerable<string> paths, WatchedFileStatus status)
+	{
+		using (var transaction = connection.BeginTransaction())
+		{
+			using (var updateCommand = new SQLiteCommand("UPDATE watchedFiles SET status = @status WHERE path = @path", connection))
+			{
+				SQLiteParameter statusParameter = updateCommand.Parameters.Add("@status", DbType.String);
+				SQLiteParameter pathParameter = updateCommand.Parameters.Add("@path", DbType.String);
+				statusParameter.Value = status.ToString();
+				foreach (string path in paths)
+				{
+					pathParameter.Value = path;
+					updateCommand.ExecuteNonQuery();
+				}
+			}
+			transaction.Commit();
 		}
 	}
 }

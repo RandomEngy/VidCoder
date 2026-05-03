@@ -10,6 +10,11 @@ using VidCoderFileWatcher.Model;
 
 namespace VidCoderFileWatcher.Services;
 
+/// <summary>
+/// Looks over everything in a watched folder.
+/// Used from both the PollingFolderWatcher as the sole discovery mechanism and by SystemFolderWatcher to look for any missed files
+/// on startup.
+/// </summary>
 public class FolderEnumerator
 {
 	private readonly IEnumerable<WatchedFolder> folders;
@@ -77,7 +82,7 @@ public class FolderEnumerator
 
 		foreach (KeyValuePair<WatchedFolder, List<string>> pair in filesToEnqueue)
 		{
-			await this.watcherService.QueueInMainProcess(pair.Key, pair.Value).ConfigureAwait(false);
+			this.watcherService.MarkFound(pair.Key, pair.Value);
 		}
 	}
 

@@ -516,6 +516,16 @@ public class OptionsDialogViewModel : ReactiveObject
 		}
 	}
 
+	public double WatcherStabilityIntervalSeconds
+	{
+		get => Config.WatcherStabilityCheckIntervalSeconds;
+		set
+		{
+			Config.WatcherStabilityCheckIntervalSeconds = value;
+			this.RaisePropertyChanged();
+		}
+	}
+
 	public int WatcherPollIntervalSeconds
 	{
 		get => Config.WatcherPollIntervalSeconds;

@@ -12,7 +12,12 @@ namespace VidCoderCommon.Model;
 public enum WatchedFileStatus
 {
 	/// <summary>
-	/// VidCoder is planning on encoding this file but hasn't finished it yet.
+	/// VidCoder has found the file, but is waiting for it to be fully written before trying to encode it.
+	/// </summary>
+	Found,
+
+	/// <summary>
+	/// VidCoder is has determined the file is stable and ready to be encoded, but has not yet started encoding it.
 	/// </summary>
 	Planned,
 

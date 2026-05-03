@@ -91,6 +91,7 @@ namespace VidCoder
 			cache.Add("EnableDirectXDecoding", DatabaseConfig.Get("EnableDirectXDecoding", true, connection));
 			cache.Add("WatcherMode", DatabaseConfig.Get("WatcherMode", "FileSystemWatcher", connection));
 			cache.Add("WatcherPollIntervalSeconds", DatabaseConfig.Get("WatcherPollIntervalSeconds", 5, connection));
+			cache.Add("WatcherStabilityCheckIntervalSeconds", DatabaseConfig.Get("WatcherStabilityCheckIntervalSeconds", 1.0, connection));
 			cache.Add("WorkerProcessPriority", DatabaseConfig.Get("WorkerProcessPriority", "BelowNormal", connection));
 			cache.Add("LogVerbosity", DatabaseConfig.Get("LogVerbosity", 1, connection));
 			cache.Add("CopyLogToOutputFolder", DatabaseConfig.Get("CopyLogToOutputFolder", false, connection));
@@ -482,6 +483,11 @@ namespace VidCoder
 			get { return (int)cache["WatcherPollIntervalSeconds"]; }
 			set { Set("WatcherPollIntervalSeconds", value); }
 		}
+		public static double WatcherStabilityCheckIntervalSeconds
+		{
+			get { return (double)cache["WatcherStabilityCheckIntervalSeconds"]; }
+			set { Set("WatcherStabilityCheckIntervalSeconds", value); }
+		}
 		public static string WorkerProcessPriority
 		{
 			get { return (string)cache["WorkerProcessPriority"]; }
@@ -810,6 +816,7 @@ namespace VidCoder
 			public static IObservable<bool> EnableDirectXDecoding => GetObservable<bool>("EnableDirectXDecoding");
 			public static IObservable<string> WatcherMode => GetObservable<string>("WatcherMode");
 			public static IObservable<int> WatcherPollIntervalSeconds => GetObservable<int>("WatcherPollIntervalSeconds");
+			public static IObservable<double> WatcherStabilityCheckIntervalSeconds => GetObservable<double>("WatcherStabilityCheckIntervalSeconds");
 			public static IObservable<string> WorkerProcessPriority => GetObservable<string>("WorkerProcessPriority");
 			public static IObservable<int> LogVerbosity => GetObservable<int>("LogVerbosity");
 			public static IObservable<bool> CopyLogToOutputFolder => GetObservable<bool>("CopyLogToOutputFolder");

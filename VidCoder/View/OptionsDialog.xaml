@@ -632,9 +632,29 @@
 										ItemsSource="{Binding WatcherModeChoices}"
 										SelectedValue="{Binding WatcherMode}"
 										SelectedValuePath="Value" />
+								</StackPanel>
+
+								<StackPanel Margin="12 6 0 0" Orientation="Vertical">
+
+
+									<StackPanel Margin="0 0 0 0" Orientation="Horizontal">
+										<TextBlock
+											Name="watcherStabilityIntervalLabel"
+											VerticalAlignment="Center"
+											Text="{x:Static res:OptionsRes.WatcherStabilityIntervalLabel}" />
+
+										<controls:NumberBox
+											Width="45"
+											Height="20"
+											Margin="6 0 0 0"
+											AllowEmpty="False"
+											Maximum="3600"
+											Minimum="0.5"
+											Number="{Binding WatcherStabilityIntervalSeconds, Mode=TwoWay}" />
+									</StackPanel>
 
 									<StackPanel
-										Margin="10 0 0 0"
+										Margin="0 6 0 0"
 										Orientation="Horizontal"
 										Visibility="{Binding WatcherMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static commonModel:WatcherMode.Polling}}">
 										<TextBlock
@@ -650,8 +670,8 @@
 											Minimum="1"
 											Number="{Binding WatcherPollIntervalSeconds, Mode=TwoWay}" />
 									</StackPanel>
-
 								</StackPanel>
+
 
 								<!--  Part file naming  -->
 								<StackPanel Margin="0 6 0 0" Orientation="Horizontal">

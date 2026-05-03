@@ -13,6 +13,7 @@ try
 {
 	var service = new WatcherService(logger);
 	await service.RefreshFromWatchedFoldersAsync().ConfigureAwait(false);
+	service.RestoreFoundFiles();
 	CancellationTokenSource tokenSource = new();
 
 	bool firstLineWritten = false;
@@ -41,6 +42,7 @@ try
 		}
 		finally
 		{
+			logger.Log("Closing pipe");
 			pipeServer.Dispose();
 		}
 	}

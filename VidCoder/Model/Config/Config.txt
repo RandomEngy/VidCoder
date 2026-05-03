@@ -74,6 +74,7 @@ EnableDirectXDecoding|bool|true
 
 WatcherMode|string|"FileSystemWatcher"
 WatcherPollIntervalSeconds|int|5
+WatcherStabilityCheckIntervalSeconds|double|1.0
 WorkerProcessPriority|string|"BelowNormal"
 LogVerbosity|int|1
 CopyLogToOutputFolder|bool|false

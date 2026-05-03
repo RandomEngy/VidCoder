@@ -12,6 +12,11 @@ namespace VidCoder.Model;
 public enum WatchedFileStatusLive
 {
 	/// <summary>
+	/// VidCoder has found the file, but is waiting for it to be fully written before trying to encode it.
+	/// </summary>
+	Found,
+
+	/// <summary>
 	/// VidCoder has planned to encode this file but it has not yet been added to the queue. It should only be in this state as long as it takes to scan the item.
 	/// </summary>
 	Planned,

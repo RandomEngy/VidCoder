@@ -14,6 +14,8 @@ public static class WatchedFileStatusExtensions
 	{
 		switch (status)
 		{
+			case WatchedFileStatus.Found:
+				return WatchedFileStatusLive.Found;
 			case WatchedFileStatus.Planned:
 				return WatchedFileStatusLive.Planned;
 			case WatchedFileStatus.Canceled:

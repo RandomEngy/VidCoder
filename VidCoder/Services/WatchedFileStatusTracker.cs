@@ -37,7 +37,7 @@ public class WatchedFileStatusTracker
 		SQLiteConnection connection = Database.Connection;
 
 		// Queue up anything that hasn't been encoded yet
-		Dictionary<string, WatchedFile> plannedFiles = WatcherStorage.GetPlannedFiles(connection);
+		Dictionary<string, WatchedFile> plannedFiles = WatcherStorage.GetFilesWithStatus(connection, WatchedFileStatus.Planned);
 		this.logger.LogDebug($"Starting WatchedFileStatusTracker. Found {plannedFiles.Count} planned files.");
 
 		foreach (var job in this.processingService.EncodeQueue.Items)

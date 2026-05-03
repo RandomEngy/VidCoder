@@ -19,7 +19,6 @@ public class SystemFolderWatcher : IDisposable
 
 	private FileSystemWatcher watcher;
 
-	private readonly IList<string> filesPendingWriteComplete = new List<string>();
 	private readonly IList<string> filesPendingSend = new List<string>();
 	private readonly IList<string> filesPendingRemoveEntry = new List<string>();
 	private readonly WatcherService watcherService;
@@ -140,18 +139,15 @@ public class SystemFolderWatcher : IDisposable
 	{
 		if (this.watcherService.FilePassesPicker(this.watchedFolder, path))
 		{
+			// The FolderWatcher's job is to find new files, mark them as such in the database, and send them
+			// for stability monitoring. If it's already in the DB, then another stage will handle it.
 			WatchedFile entry = WatcherStorage.GetFileEntry(WatcherDatabase.Connection, path);
-			if (entry != null && entry.Status != WatchedFileStatus.Planned)
+			if (entry != null)
 			{
 				return;
 			}
 
-			if (this.filesPendingWriteComplete.Contains(path))
-			{
-				return;
-			}
-
-			this.filesPendingWriteComplete.Add(path);
+			this.filesPendingSend.Add(path);
 			this.SetUpPendingTimer();
 		}
 	}
@@ -185,19 +181,6 @@ public class SystemFolderWatcher : IDisposable
 		await sync.WaitAsync().ConfigureAwait(false);
 		try
 		{
-			this.logger.Log("Checking lock for files pending write complete");
-
-			for (int i = this.filesPendingWriteComplete.Count - 1; i >= 0; i--)
-			{
-				string file = this.filesPendingWriteComplete[i];
-				if (!CommonFileUtilities.IsFileLocked(file))
-				{
-					this.logger.Log(file + " is no longer locked");
-					this.filesPendingWriteComplete.RemoveAt(i);
-					this.filesPendingSend.Add(file);
-				}
-			}
-
 			if (this.filesPendingRemoveEntry.Count > 0)
 			{
 				await this.watcherService.NotifyMainProcessOfFilesRemoved(this.filesPendingRemoveEntry).ConfigureAwait(false);
@@ -206,25 +189,14 @@ public class SystemFolderWatcher : IDisposable
 
 			if (this.filesPendingSend.Count > 0)
 			{
-				await this.watcherService.QueueInMainProcess(this.watchedFolder, this.filesPendingSend).ConfigureAwait(false);
+				this.watcherService.MarkFound(this.watchedFolder, this.filesPendingSend);
 				this.filesPendingSend.Clear();
 			}
 
-			if (this.filesPendingWriteComplete.Count == 0)
+			if (this.pendingCheckTimer != null)
 			{
-				if (this.pendingCheckTimer != null)
-				{
-					this.pendingCheckTimer.Dispose();
-					this.pendingCheckTimer = null;
-				}
-			}
-			else
-			{
-				if (this.pendingCheckTimer != null)
-				{
-					this.pendingCheckTimer.Interval = 1000;
-					this.pendingCheckTimer.Start();
-				}
+				this.pendingCheckTimer.Dispose();
+				this.pendingCheckTimer = null;
 			}
 		}
 		catch (Exception exception)
