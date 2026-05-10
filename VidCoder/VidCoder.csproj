@@ -13,14 +13,19 @@
     <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <OutputPath>bin/$(Configuration)</OutputPath>
-    <Platforms>x64</Platforms>
+    <Platforms>x64;ARM64</Platforms>
     <ValidateExecutableReferencesMatchSelfContained>false</ValidateExecutableReferencesMatchSelfContained>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <StartupObject>VidCoder.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <DefineConstants>DEBUG</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'ARM64'">
+    <HbDllPath>..\Lib\arm64\hb.dll</HbDllPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'x64'">
+    <HbDllPath>..\Lib\x64\hb.dll</HbDllPath>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ControlzEx" />
@@ -208,7 +213,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Lib\hb.dll">
+    <Content Include="$(HbDllPath)">
       <Link>hb.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -6,7 +6,7 @@
     <Configurations>Debug;Release;Debug-Beta;Release-Beta</Configurations>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <OutputPath>bin/$(Configuration)</OutputPath>
-    <Platforms>x64</Platforms>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <DefineConstants>DEBUG</DefineConstants>

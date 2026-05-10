@@ -10,7 +10,7 @@
     <Product>VidCoderCommon.Tests</Product>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <OutputPath>bin/$(Configuration)</OutputPath>
-    <Platforms>x64</Platforms>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <ItemGroup>

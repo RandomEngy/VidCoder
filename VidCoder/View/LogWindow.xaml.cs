@@ -454,7 +454,7 @@ public partial class LogWindow : Window
 			byte[] buffer = new byte[totalBytes];
 
 			stream.Position = this.chunks[chunkStartIndex].BytePosition;
-			stream.Read(buffer, 0, (int)totalBytes);
+			stream.ReadExactly(buffer, 0, (int)totalBytes);
 
 			string logs = Encoding.UTF8.GetString(buffer);
 			return logs.Split(

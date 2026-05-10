@@ -380,10 +380,10 @@ public static class Database
 		string upgradedEncodeJobs;
 		try
 		{
-			JsonNode? root = JsonNode.Parse(oldEncodeJobs);
+			JsonNode root = JsonNode.Parse(oldEncodeJobs);
 			if (root is JsonArray jobsArray)
 			{
-				foreach (JsonNode? jobNode in jobsArray)
+				foreach (JsonNode jobNode in jobsArray)
 				{
 					if (jobNode is JsonObject jobObj)
 					{
@@ -391,15 +391,15 @@ public static class Database
 						{
 							if (videoSource["Titles"] is JsonArray titles)
 							{
-								foreach (JsonNode? titleNode in titles)
+								foreach (JsonNode titleNode in titles)
 								{
 									if (titleNode is JsonObject titleObj && titleObj["AudioList"] is JsonArray audioList)
 									{
-										foreach (JsonNode? audioNode in audioList)
+										foreach (JsonNode audioNode in audioList)
 										{
                                            if (audioNode is JsonObject audioObj)
 											{
-												JsonNode? layoutNameNode = audioObj["ChannelLayoutName"];
+												JsonNode layoutNameNode = audioObj["ChannelLayoutName"];
 												if (layoutNameNode != null)
 												{
 													audioObj["ChannelLayout"] = JsonNode.Parse(layoutNameNode.ToJsonString());
