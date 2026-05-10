@@ -478,4 +478,7 @@
   <data name="EnableQuickSyncHyperEncodeToolTip" xml:space="preserve">
     <value>在支持的情况下，使用多个媒体引擎来加速单个编码过程。禁用此功能可实现跨媒体引擎的并行编码负载均衡。</value>
   </data>
+  <data name="WatcherStabilityIntervalLabel" xml:space="preserve">
+    <value>文件稳定性等待间隔（秒）：</value>
+  </data>
 </root>

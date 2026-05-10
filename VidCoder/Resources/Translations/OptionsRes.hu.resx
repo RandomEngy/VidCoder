@@ -478,4 +478,7 @@ Lekérdezés: Rendszeresen ellenőrzi a mappák tartalmát. Jelentős processzor
   <data name="EnableQuickSyncHyperEncodeToolTip" xml:space="preserve">
     <value>Használjon több médiamotort egyetlen kódolás felgyorsításához, ahol támogatott. Tiltsa le, ha több párhuzamos kódolást szeretne engedélyezni a médiamotorok között.</value>
   </data>
+  <data name="WatcherStabilityIntervalLabel" xml:space="preserve">
+    <value>Fájlstabilitási várakozási idő (másodperc):</value>
+  </data>
 </root>
