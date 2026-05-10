@@ -83,48 +83,54 @@ public static class FileCleanup
 
 	public static void CleanHandBrakeTempFiles()
 	{
-		DirectoryInfo tempDirectoryInfo = new(Path.GetTempPath());
-		DirectoryInfo[] handBrakeTempDirectories = tempDirectoryInfo.GetDirectories("hb.*");
-
-		if (handBrakeTempDirectories.Length == 0)
+		try
 		{
-			return;
-		}
+			DirectoryInfo tempDirectoryInfo = new(Path.GetTempPath());
+			DirectoryInfo[] handBrakeTempDirectories = tempDirectoryInfo.GetDirectories("hb.*");
 
-
-		foreach (DirectoryInfo handBrakeTempDirectory in handBrakeTempDirectories)
-		{
-			bool deleteFolder = false;
-			try
+			if (handBrakeTempDirectories.Length == 0)
 			{
-				string processIdString = handBrakeTempDirectory.Name.Substring(3);
-				var process = Process.GetProcessById(int.Parse(processIdString, CultureInfo.InvariantCulture));
-				if (process.HasExited)
-				{
-					deleteFolder = true;
-				}
-			}
-			catch (ArgumentException)
-			{
-				// If there is no process with that ID running anymore, attempt cleanup on the temp files.
-				deleteFolder = true;
-			}
-			catch (Exception)
-			{
-				// Do not attempt cleanup.
+				return;
 			}
 
-			if (deleteFolder)
+			foreach (DirectoryInfo handBrakeTempDirectory in handBrakeTempDirectories)
 			{
+				bool deleteFolder = false;
 				try
 				{
-					FileUtilities.DeleteDirectory(handBrakeTempDirectory.FullName);
+					string processIdString = handBrakeTempDirectory.Name.Substring(3);
+					var process = Process.GetProcessById(int.Parse(processIdString, CultureInfo.InvariantCulture));
+					if (process.HasExited)
+					{
+						deleteFolder = true;
+					}
+				}
+				catch (ArgumentException)
+				{
+					// If there is no process with that ID running anymore, attempt cleanup on the temp files.
+					deleteFolder = true;
 				}
 				catch (Exception)
 				{
-					// If cleanup fails, will be attempted next time.
+					// Do not attempt cleanup.
+				}
+
+				if (deleteFolder)
+				{
+					try
+					{
+						FileUtilities.DeleteDirectory(handBrakeTempDirectory.FullName);
+					}
+					catch (Exception)
+					{
+						// If cleanup fails, will be attempted next time.
+					}
 				}
 			}
+		}
+		catch (Exception)
+		{
+			// If cleanup fails, will be attempted next time.
 		}
 	}
 }
