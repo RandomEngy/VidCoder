@@ -212,7 +212,7 @@ public class SizingPanelViewModel : PanelViewModel
 				this.UpdateProfileProperty(
 					() => this.Profile.Cropping,
 					nameof(this.Profile.Cropping.Top),
-					nameof(this.CropTop), 
+					nameof(this.CropTop),
 					cropTop,
 					raisePropertyChanged: false);
 			});
@@ -286,7 +286,7 @@ public class SizingPanelViewModel : PanelViewModel
 		this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile)
 			.Subscribe(_ =>
 			{
-				if (this.PresetsService.SelectedPreset.Preset.EncodingProfile.CroppingType == VCCroppingType.Custom)
+				if (this.PresetsService.SelectedPreset.Preset.EncodingProfile.CroppingType == VCCroppingType.Custom && !this.PresetsService.MarkingPresetModified)
 				{
 					bool oldAutoValue = this.AutomaticChange;
 					this.AutomaticChange = true;
@@ -382,6 +382,7 @@ public class SizingPanelViewModel : PanelViewModel
 				}
 				else if (x.sizingMode == VCSizingMode.Automatic && x.paddingMode != VCPaddingMode.Custom)
 				{
+					this.AutomaticChange = true;
 					if (x.selectedTitle == null)
 					{
 						this.PadTop = 0;
