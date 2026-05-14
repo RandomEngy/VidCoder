@@ -480,4 +480,7 @@
   <data name="EnableQuickSyncHyperEncodeToolTip" xml:space="preserve">
     <value>მხარდაჭერის შემთხვევაში, მრავალი მოტორის გამოყენება ერთი ვიდეოს კოდირების დასაჩქარებლად. დეააქტიურეთ თუ მრავალი ფაილის ერთდროულად კოდირება გსურთ.</value>
   </data>
+  <data name="WatcherStabilityIntervalLabel" xml:space="preserve">
+    <value>ფაილის სტაბილურობის ლოდინის ინტერვალი (წამებში):</value>
+  </data>
 </root>

@@ -324,6 +324,9 @@
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>Обрезка</value>
   </data>
+  <data name="QueueColumnNameOutputSize" xml:space="preserve">
+    <value>Размеры</value>
+  </data>
   <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
     <value>Субтитры</value>
   </data>
@@ -356,8 +359,14 @@
   <data name="CompletedColumnNameElapsedTime" xml:space="preserve">
     <value>Время кодирования</value>
   </data>
+  <data name="CompletedColumnNameSize" xml:space="preserve">
+    <value>Размер файла</value>
+  </data>
   <data name="CompletedColumnNamePercentOfSource" xml:space="preserve">
     <value>% исходника</value>
+  </data>
+  <data name="CompletedColumnNameSourceSize" xml:space="preserve">
+    <value>Размер исходного файла</value>
   </data>
   <data name="CompletedColumnNameVideoDuration" xml:space="preserve">
     <value>Длительность видео</value>
@@ -376,5 +385,14 @@
   </data>
   <data name="Available" xml:space="preserve">
     <value>Доступно</value>
+  </data>
+  <data name="CompletedColumnNameSourceDimensions" xml:space="preserve">
+    <value>Размеры исходника</value>
+  </data>
+  <data name="CompletedColumnNameDimensions" xml:space="preserve">
+    <value>Размеры</value>
+  </data>
+  <data name="QueueColumnNameSourceDimensions" xml:space="preserve">
+    <value>Размеры исходника</value>
   </data>
 </root>

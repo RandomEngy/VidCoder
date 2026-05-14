@@ -322,6 +322,9 @@
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>შემოჭრა</value>
   </data>
+  <data name="QueueColumnNameOutputSize" xml:space="preserve">
+    <value>განზომილება</value>
+  </data>
   <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
     <value>ტიტრის წყაროები</value>
   </data>
@@ -354,8 +357,14 @@
   <data name="CompletedColumnNameElapsedTime" xml:space="preserve">
     <value>გამოყენებული დრო</value>
   </data>
+  <data name="CompletedColumnNameSize" xml:space="preserve">
+    <value>ფაილის ზომა</value>
+  </data>
   <data name="CompletedColumnNamePercentOfSource" xml:space="preserve">
     <value>წყაროს %</value>
+  </data>
+  <data name="CompletedColumnNameSourceSize" xml:space="preserve">
+    <value>წყაროს ზომა</value>
   </data>
   <data name="CompletedColumnNameVideoDuration" xml:space="preserve">
     <value>ვიდეოს ხანგრძლივობა</value>
@@ -374,5 +383,14 @@
   </data>
   <data name="Available" xml:space="preserve">
     <value>ხელმისაწვდომია</value>
+  </data>
+  <data name="CompletedColumnNameSourceDimensions" xml:space="preserve">
+    <value>წყაროს გაზომილება</value>
+  </data>
+  <data name="CompletedColumnNameDimensions" xml:space="preserve">
+    <value>განზომილება</value>
+  </data>
+  <data name="QueueColumnNameSourceDimensions" xml:space="preserve">
+    <value>წყაროს გაზომილება</value>
   </data>
 </root>
