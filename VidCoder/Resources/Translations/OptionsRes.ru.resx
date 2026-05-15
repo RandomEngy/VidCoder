@@ -478,4 +478,7 @@
   <data name="EnableQuickSyncHyperEncodeToolTip" xml:space="preserve">
     <value>Если включено, по возможности будут использоваться несколько медиадвижков для ускорения одиночного кодирования. Если отключено, нагрузка будет распределяться между несколькими параллельно работающими кодировщиками.</value>
   </data>
+  <data name="WatcherStabilityIntervalLabel" xml:space="preserve">
+    <value>Интервал ожидания стабильности файла (сек.):</value>
+  </data>
 </root>
