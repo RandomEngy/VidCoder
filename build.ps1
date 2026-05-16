@@ -38,21 +38,34 @@ function GetPublishFolderPath($projectName, $folderNameSuffix) {
 	".\$projectName\bin\publish-$folderNameSuffix"
 }
 
-function PlatformToBuildPlatform($platform) {
+function PlatformToBuildPlatform(
+    [ValidateSet('x64', 'arm64')]
+    [string]$platform) {
     if ($platform -ieq "x64") { return "x64" }
     elseif ($platform -ieq "arm64") { return "ARM64" }
     else { ExitWithError "Unknown platform: $platform" }
 }
 
 # Basic clear and publish for a specific project and publish profile
-function Publish($projectName, $platform, $installerType, $publishProfileName) {
+function Publish(
+    $projectName,
+    [ValidateSet('x64', 'arm64')]
+    [string]$platform,
+    [ValidateSet('installer', 'portable')]
+    [string]$installerType,
+    [string]$publishProfileName) {
 	$folderNameSuffix = "$installerType-$platform"
 	$buildPlatform = PlatformToBuildPlatform $platform
 	
 	PublishRaw $projectName $buildPlatform $folderNameSuffix $publishProfileName
 }
 
-function PublishRaw($projectName, $buildPlatform, $folderNameSuffix, $publishProfileName) {
+function PublishRaw(
+    $projectName,
+    [ValidateSet('x64', 'ARM64', 'AnyCPU')]
+    [string]$buildPlatform,
+    [string]$folderNameSuffix,
+    [string]$publishProfileName) {
 	Write-Host "Publishing $folderNameSuffix on project $projectName for $buildPlatform..."
     $publishFolderPath = GetPublishFolderPath $projectName $folderNameSuffix
     if (Test-Path -Path $publishFolderPath) {
@@ -69,12 +82,17 @@ function PublishRaw($projectName, $buildPlatform, $folderNameSuffix, $publishPro
 }
 
 # Publish an installer and copy extra files for it
-function PublishInstaller($platform, $publishProfileName) {
+function PublishInstaller(
+    [ValidateSet('x64', 'arm64')]
+    [string]$platform,
+    [string]$publishProfileName) {
 	Publish "VidCoder" $platform "installer" $publishProfileName
 	CopyInstallerExtraFiles $platform
 }
 
-function CopyInstallerExtraFiles($platform) {
+function CopyInstallerExtraFiles(
+    [ValidateSet('x64', 'arm64')]
+    [string]$platform) {
 	$extraFiles = @(
         ".\VidCoder\Icons\File\VidCoderPreset.ico",
         ".\VidCoder\Icons\File\VidCoderQueue.ico")
@@ -124,7 +142,9 @@ if ($debugBuild) {
 
 $winRarExe = "c:\Program Files\WinRar\WinRAR.exe"
 
-function BuildPortable($platform) {
+function BuildPortable(
+    [ValidateSet('x64', 'arm64')]
+    [string]$platform) {
 	Write-Host "Creating portable exe for $platform..."
 	New-Item -ItemType Directory -Force -Path ".\$builtInstallerFolder"
 
@@ -142,7 +162,9 @@ function BuildPortable($platform) {
 BuildPortable "x64"
 BuildPortable "arm64"
 
-function BuildZip($platform) {
+function BuildZip(
+    [ValidateSet('x64', 'arm64')]
+    [string]$platform) {
 	# Sign executables in publish-installer, for inclusion in the .zip Release
 	$publishedExes = Get-ChildItem -Path .\VidCoder\bin\publish-installer-$platform\ -Filter *.exe
 	foreach ($exeFile in $publishedExes) {
@@ -171,7 +193,13 @@ if ($beta) {
 
 $releaseDir = ".\Installer\Releases-$releaseDirSuffix"
 
-function Velopack($packId, $channel, $releaseDir, $platform) {
+function Velopack(
+    [string]$packId,
+    [ValidateSet('win', 'win-arm64')]
+    [string]$channel,
+    [string]$releaseDir,
+    [ValidateSet('x64', 'arm64')]
+    [string]$platform) {
 	Write-Host "Building Velopack for $platform"
 	vpk pack `
 		-x `
