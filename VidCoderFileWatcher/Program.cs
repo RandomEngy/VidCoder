@@ -12,8 +12,8 @@ IBasicLogger logger = new SupportLogger("Watcher");
 try
 {
 	var service = new WatcherService(logger);
-	await service.RefreshFromWatchedFoldersAsync().ConfigureAwait(false);
 	service.RestoreFoundFiles();
+	await service.RefreshFromWatchedFoldersAsync().ConfigureAwait(false);
 	CancellationTokenSource tokenSource = new();
 
 	bool firstLineWritten = false;

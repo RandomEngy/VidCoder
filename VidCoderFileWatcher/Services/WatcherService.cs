@@ -175,8 +175,18 @@ public class WatcherService : IWatcherCommands
 
 	private void StartMonitoringFoundFiles(WatchedFolder watchedFolder, IList<string> files)
 	{
-		var batch = new WatchedFileBatch(watchedFolder, files);
-		foreach (string file in files)
+		var pendingFiles = new HashSet<string>(
+			this.pendingStability.SelectMany(b => b.Files),
+			StringComparer.OrdinalIgnoreCase);
+
+		var filesToMonitor = files.Where(file => !pendingFiles.Contains(file)).ToList();
+		if (filesToMonitor.Count == 0)
+		{
+			return;
+		}
+
+		var batch = new WatchedFileBatch(watchedFolder, filesToMonitor);
+		foreach (string file in filesToMonitor)
 		{
 			try
 			{
