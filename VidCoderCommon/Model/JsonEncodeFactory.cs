@@ -315,7 +315,7 @@ public class JsonEncodeFactory
 
 			outputTrack.Name = trackName;
 
-			if (isPassthrough && fallbackEncoder != null)
+			if (isPassthrough && fallbackEncoder != null && fallbackEncoder != HandBrakeEncoderHelpers.NoneAudioEncoder)
 			{
 				// If it's passthrough, find the settings for the fallback encoder and apply those, since they will be picked up if the passthrough doesn't work
 				OutputAudioTrackInfo fallbackSettings = AudioUtilities.GetDefaultSettings(sourceTrack, fallbackEncoder);

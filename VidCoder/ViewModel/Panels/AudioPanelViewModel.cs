@@ -428,101 +428,101 @@ public class AudioPanelViewModel : PanelViewModel
 				encoder = HandBrakeEncoderHelpers.GetAudioEncoder(this.Profile.AudioEncoderFallback);
 			}
 
-                // Get the default output values for the input track and encoder
-		    var defaultSettings = AudioUtilities.GetDefaultSettings(inputTrack, encoder);
+			// Get the default output values for the input track and encoder
+			var defaultSettings = AudioUtilities.GetDefaultSettings(inputTrack, encoder);
 
-                // Apply the output values to the preview object
-                UpdateAudioPreviewTrack(outputPreviewTrack, defaultSettings);
+			// Apply the output values to the preview object
+			UpdateAudioPreviewTrack(outputPreviewTrack, defaultSettings);
 		}
 		else
 		{
-		    HBMixdown previewMixdown;
-		    previewMixdown = HandBrakeEncoderHelpers.SanitizeMixdown(HandBrakeEncoderHelpers.GetMixdown(handBrakeOutputTrack.Mixdown), encoder, inputTrack.ChannelLayout);
+			HBMixdown previewMixdown;
+			previewMixdown = HandBrakeEncoderHelpers.SanitizeMixdown(HandBrakeEncoderHelpers.GetMixdown(handBrakeOutputTrack.Mixdown), encoder, inputTrack.ChannelLayout);
 
-		    int previewSampleRate = handBrakeOutputTrack.Samplerate;
-		    if (previewSampleRate == 0)
-		    {
-		        previewSampleRate = inputTrack.SampleRate;
-		    }
+			int previewSampleRate = handBrakeOutputTrack.Samplerate;
+			if (previewSampleRate == 0)
+			{
+				previewSampleRate = inputTrack.SampleRate;
+			}
 
 			AudioEncodeRateType encodeRateType = handBrakeOutputTrack.Quality != null ? AudioEncodeRateType.Quality : AudioEncodeRateType.Bitrate;
 
 			// Collect the output values in the AudioTrack object
 			var outputTrackInfo = new OutputAudioTrackInfo
-                {
-                    Encoder = encoder,
-                    Mixdown = previewMixdown,
-                    SampleRate = HandBrakeEncoderHelpers.SanitizeSampleRate(encoder, previewSampleRate),
-                    EncodeRateType = encodeRateType
+			{
+				Encoder = encoder,
+				Mixdown = previewMixdown,
+				SampleRate = HandBrakeEncoderHelpers.SanitizeSampleRate(encoder, previewSampleRate),
+				EncodeRateType = encodeRateType
 			};
 
-		    if (encodeRateType == AudioEncodeRateType.Bitrate)
-		    {
-		        int previewBitrate = handBrakeOutputTrack.Bitrate.Value;
-		        if (previewBitrate == 0)
-		        {
-		            previewBitrate = HandBrakeEncoderHelpers.GetDefaultBitrate(encoder, previewSampleRate, previewMixdown);
-		        }
-		        else
-		        {
-		            previewBitrate = HandBrakeEncoderHelpers.SanitizeAudioBitrate(previewBitrate, encoder, previewSampleRate, previewMixdown);
-		        }
+			if (encodeRateType == AudioEncodeRateType.Bitrate)
+			{
+				int previewBitrate = handBrakeOutputTrack.Bitrate.Value;
+				if (previewBitrate == 0)
+				{
+					previewBitrate = HandBrakeEncoderHelpers.GetDefaultBitrate(encoder, previewSampleRate, previewMixdown);
+				}
+				else
+				{
+					previewBitrate = HandBrakeEncoderHelpers.SanitizeAudioBitrate(previewBitrate, encoder, previewSampleRate, previewMixdown);
+				}
 
-		        outputTrackInfo.Bitrate = previewBitrate;
-		    }
-		    else
-		    {
-		        outputTrackInfo.Quality = handBrakeOutputTrack.Quality.Value;
-		    }
+				outputTrackInfo.Bitrate = previewBitrate;
+			}
+			else
+			{
+				outputTrackInfo.Quality = handBrakeOutputTrack.Quality.Value;
+			}
 
-		    outputTrackInfo.Gain = handBrakeOutputTrack.Gain;
-		    outputTrackInfo.Drc = handBrakeOutputTrack.DRC;
+			outputTrackInfo.Gain = handBrakeOutputTrack.Gain;
+			outputTrackInfo.Drc = handBrakeOutputTrack.DRC;
 
-                // Apply the output values to the preview object 
-		    UpdateAudioPreviewTrack(outputPreviewTrack, outputTrackInfo);
+			// Apply the output values to the preview object 
+			UpdateAudioPreviewTrack(outputPreviewTrack, outputTrackInfo);
 		}
 
 		return outputPreviewTrack;
 	}
 
-        // Applies values from an AudioTrack output to the preview object
-    private static void UpdateAudioPreviewTrack(AudioOutputPreview outputPreviewTrack, OutputAudioTrackInfo outputTrack)
-    {
-            // Change from AudioTrack to custom object and remove dependency on JSON model?
+	// Applies values from an AudioTrack output to the preview object
+	private static void UpdateAudioPreviewTrack(AudioOutputPreview outputPreviewTrack, OutputAudioTrackInfo outputTrack)
+	{
+		// Change from AudioTrack to custom object and remove dependency on JSON model?
 
-        outputPreviewTrack.Encoder = outputTrack.Encoder.DisplayName;
+		outputPreviewTrack.Encoder = outputTrack.Encoder.DisplayName;
 
-        outputPreviewTrack.Mixdown = outputTrack.Mixdown.DisplayName;
-        outputPreviewTrack.SampleRate = DisplayConversions.DisplaySampleRate(outputTrack.SampleRate);
-        if (outputTrack.EncodeRateType == AudioEncodeRateType.Bitrate)
-        {
-            if (outputTrack.Bitrate >= 0)
-            {
-                outputPreviewTrack.Quality = outputTrack.Bitrate + " kbps";
-            }
-            else
-            {
-                outputPreviewTrack.Quality = string.Empty;
-            }
-            }
-            else
-        {
-            outputPreviewTrack.Quality = "CQ " + outputTrack.Quality;
-        }
+		outputPreviewTrack.Mixdown = outputTrack.Mixdown.DisplayName;
+		outputPreviewTrack.SampleRate = DisplayConversions.DisplaySampleRate(outputTrack.SampleRate);
+		if (outputTrack.EncodeRateType == AudioEncodeRateType.Bitrate)
+		{
+			if (outputTrack.Bitrate >= 0)
+			{
+				outputPreviewTrack.Quality = outputTrack.Bitrate + " kbps";
+			}
+			else
+			{
+				outputPreviewTrack.Quality = string.Empty;
+			}
+		}
+		else
+		{
+			outputPreviewTrack.Quality = "CQ " + outputTrack.Quality;
+		}
 
-        var modifiers = new List<string>();
-        if (outputTrack.Gain != 0)
-        {
-            modifiers.Add(string.Format("{0}{1} dB", outputTrack.Gain > 0 ? "+" : string.Empty, outputTrack.Gain));
-        }
+		var modifiers = new List<string>();
+		if (outputTrack.Gain != 0)
+		{
+			modifiers.Add(string.Format("{0}{1} dB", outputTrack.Gain > 0 ? "+" : string.Empty, outputTrack.Gain));
+		}
 
-        if (outputTrack.Drc != 0)
-        {
-            modifiers.Add("DRC " + outputTrack.Drc.ToString(CultureInfo.CurrentCulture));
-        }
+		if (outputTrack.Drc != 0)
+		{
+			modifiers.Add("DRC " + outputTrack.Drc.ToString(CultureInfo.CurrentCulture));
+		}
 
-        outputPreviewTrack.Modifiers = string.Join(", ", modifiers);
-        }
+		outputPreviewTrack.Modifiers = string.Join(", ", modifiers);
+	}
 
 	public void UpdateAudioEncodings()
 	{
