@@ -65,9 +65,9 @@ VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application
 ## Feature List
 
 * MP4, MKV containers
-* AV1, H.265, H.264, MPEG-4, MPEG-2, VP8, Theora video
+* AV1, H.265, H.264, MPEG-4, MPEG-2, VP9, VP8, Theora video
 * Hardware-accelerated encoding with AMD VCE, Nvidia NVENC and Intel QuickSync
-* AAC, MP3, Vorbis, AC3, FLAC audio encoding and AAC/AC3/MP3/DTS/DTS-HD passthrough
+* AAC, MP3, Vorbis, AC3, TrueHD, Opus, FLAC, ALAC audio encoding with passthrough support
 * Completely integrated encoding pipeline: everything is in one process and no huge intermediate temporary files
 * Target bitrate, size or quality for video
 * Multi-pass encoding
@@ -84,7 +84,9 @@ VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application
 ![Encoding settings]({{ site.baseurl }}/images/encoding_settings.png)
 
 ## Prerequisites
-You'll need the [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/8.0). If you don't have it, VidCoder will prompt you to download and install it. The Portable version is self-contained and does not require any .NET Runtime to be installed.
+The installer and portable versions have no prequisites.
+
+If you use the Zip version, you'll need to install the [.NET 10 Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/10.0).
 
 You *do not* need to install HandBrake for VidCoder to work.
 
@@ -111,7 +113,7 @@ Interested in translating VidCoder to your own language? [Help out on Crowdin](h
 VidCoder is free software. If you like VidCoder and want to express your appreciation, please [donate the GiveWell Top Charities Fund](https://www.givewell.org/top-charities-fund). It's the most effective charity in the world.
 
 ## Other info
-VidCoder is built on .NET 8/WPF in C#.
+VidCoder is built on .NET/WPF in C#.
 It runs on the 64-bit versions of Windows 10 and 11.
 
 The VidCoder UI (and C# interop) is written by RandomEngy.
