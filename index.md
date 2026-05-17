@@ -1,7 +1,7 @@
 ---
 layout: home
 title: Home
-version: 297
+version: 298
 ---
 
 VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application for Windows. It uses [HandBrake](http://handbrake.fr/) as its encoding engine.
@@ -30,8 +30,8 @@ VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application
 {% endif %}
 {% endfor %}
 {% assign betaVersion = betaTag | remove: "v" | remove: "-beta" %}
-{% capture betaInstallerUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ betaTag }}/VidCoder-{{ betaVersion }}-Beta.exe{% endcapture %}
-{% capture betaPortableUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ betaTag }}/VidCoder-{{ betaVersion }}-Beta-Portable.exe{% endcapture %}
+{% capture betaInstallerUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ betaTag }}/VidCoder-{{ betaVersion }}-Beta-x64.exe{% endcapture %}
+{% capture betaPortableUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ betaTag }}/VidCoder-{{ betaVersion }}-Beta-x64-Portable.exe{% endcapture %}
 {% capture betaNotesUrl %}https://github.com/RandomEngy/VidCoder/releases/tag/{{ betaTag }}{% endcapture %}
 
 <table class="releasesTable">
