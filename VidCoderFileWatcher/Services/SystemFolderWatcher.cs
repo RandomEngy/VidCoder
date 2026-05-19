@@ -93,19 +93,31 @@ public class SystemFolderWatcher : IDisposable
 
 	private void HandleAndFilterNewFileOrFolder(string path)
 	{
-		if (CommonFileUtilities.IsDirectory(path))
+		try
 		{
-			this.logger.Log("Path is a folder. Searching for video sources inside.");
-			List<SourcePathWithType> paths = this.watcherService.GetPathsInWatchedFolder(path, this.watchedFolder);
-			foreach (var sourcePath in paths)
+			if (CommonFileUtilities.IsDirectory(path))
 			{
-				this.logger.Log("Found new source: " + sourcePath.Path);
-				this.HandleAndFilterNewFile(sourcePath.Path);
+				this.logger.Log("Path is a folder. Searching for video sources inside.");
+				List<SourcePathWithType> paths = this.watcherService.GetPathsInWatchedFolder(path, this.watchedFolder);
+				foreach (var sourcePath in paths)
+				{
+					this.logger.Log("Found new source: " + sourcePath.Path);
+					this.HandleAndFilterNewFile(sourcePath.Path);
+				}
+			}
+			else
+			{
+				this.HandleAndFilterNewFile(path);
 			}
 		}
-		else
+		catch (FileNotFoundException)
 		{
-			this.HandleAndFilterNewFile(path);
+			// File was deleted before we could handle it, just skip it
+		}
+		catch (Exception exception)
+		{
+			// The file may be deleted or inaccessible, log and skip
+			this.logger.Log($"Error occurred while handling new file/folder {path}:{Environment.NewLine}{exception}");
 		}
 	}
 
