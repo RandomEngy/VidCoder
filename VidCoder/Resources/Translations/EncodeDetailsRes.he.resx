@@ -120,20 +120,8 @@
   <data name="EncodeDetailsWindowTitle" xml:space="preserve">
     <value>פרטי קידוד</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <data name="FileSizeLabel" xml:space="preserve">
     <value>גודל קובץ:</value>
     <comment>Label for current file size on encode details window.</comment>
   </data>
-  
-  
 </root>
