@@ -11,7 +11,8 @@
   <ItemGroup>
     <PackageReference Include="PipeMethodCalls" />
     <PackageReference Include="PipeMethodCalls.NetJson" />
-    <PackageReference Include="System.Data.SQLite.Core" />
+    <PackageReference Include="SourceGear.sqlite3" />
+    <PackageReference Include="System.Data.SQLite" />
   </ItemGroup>
 
   <ItemGroup>

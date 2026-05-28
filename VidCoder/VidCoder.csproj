@@ -37,7 +37,8 @@
     <PackageReference Include="PipeMethodCalls" />
     <PackageReference Include="PipeMethodCalls.NetJson" />
     <PackageReference Include="ReactiveUI.WPF" />
-    <PackageReference Include="System.Data.SQLite.Core" />
+    <PackageReference Include="SourceGear.sqlite3" />
+    <PackageReference Include="System.Data.SQLite" />
     <PackageReference Include="System.Management" />
     <PackageReference Include="UTF.Unknown" />
     <PackageReference Include="valueinjecter" />
