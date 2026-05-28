@@ -117,17 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  
-  
-  
-  
-  
-  
   <data name="LengthRangePost" xml:space="preserve">
     <value>‫דקות‬</value>
     <comment>Goes after the second number box in the length range specification.</comment>
   </data>
-  
-  
-  
 </root>
