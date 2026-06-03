@@ -87,8 +87,113 @@ public class SystemOperations : ISystemOperations
 		bool bRebootAfterShutdown,
 		ShutdownReason dwReason);
 
+	private const string ShutdownPrivilegeName = "SeShutdownPrivilege";
+
+	private const uint TokenAdjustPrivileges = 0x20;
+	private const uint TokenQuery = 0x8;
+	private const uint SePrivilegeEnabled = 0x2;
+
+	[StructLayout(LayoutKind.Sequential)]
+	private struct Luid
+	{
+		public uint LowPart;
+		public int HighPart;
+	}
+
+	[StructLayout(LayoutKind.Sequential)]
+	private struct LuidAndAttributes
+	{
+		public Luid Luid;
+		public uint Attributes;
+	}
+
+	[StructLayout(LayoutKind.Sequential)]
+	private struct TokenPrivileges
+	{
+		public uint PrivilegeCount;
+		public LuidAndAttributes Privileges;
+	}
+
+	[DllImport("advapi32.dll", SetLastError = true)]
+	private static extern bool OpenProcessToken(IntPtr processHandle, uint desiredAccess, out IntPtr tokenHandle);
+
+	[DllImport("advapi32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+	private static extern bool LookupPrivilegeValue(string lpSystemName, string lpName, out Luid lpLuid);
+
+	[DllImport("advapi32.dll", SetLastError = true)]
+	private static extern bool AdjustTokenPrivileges(
+		IntPtr tokenHandle,
+		bool disableAllPrivileges,
+		ref TokenPrivileges newState,
+		uint bufferLength,
+		IntPtr previousState,
+		IntPtr returnLength);
+
+	[DllImport("kernel32.dll")]
+	private static extern IntPtr GetCurrentProcess();
+
+	[DllImport("kernel32.dll", SetLastError = true)]
+	[return: MarshalAs(UnmanagedType.Bool)]
+	private static extern bool CloseHandle(IntPtr hObject);
+
 	[DllImport("winmm.dll")]
 	static extern Int32 mciSendString(String command, StringBuilder buffer, Int32 bufferSize, IntPtr hwndCallback);
+
+	private static bool TryEnableShutdownPrivilege(out string failureMessage)
+	{
+		failureMessage = null;
+
+		if (!OpenProcessToken(GetCurrentProcess(), TokenAdjustPrivileges | TokenQuery, out IntPtr token))
+		{
+			failureMessage = new Win32Exception().Message;
+			return false;
+		}
+
+		try
+		{
+			if (!LookupPrivilegeValue(null, ShutdownPrivilegeName, out Luid luid))
+			{
+				failureMessage = new Win32Exception().Message;
+				return false;
+			}
+
+			TokenPrivileges tokenPrivileges = new TokenPrivileges
+			{
+				PrivilegeCount = 1,
+				Privileges = new LuidAndAttributes
+				{
+					Luid = luid,
+					Attributes = SePrivilegeEnabled,
+				},
+			};
+
+			if (!AdjustTokenPrivileges(token, false, ref tokenPrivileges, 0, IntPtr.Zero, IntPtr.Zero))
+			{
+				failureMessage = new Win32Exception().Message;
+				return false;
+			}
+
+			if (Marshal.GetLastWin32Error() == 1300) // ERROR_NOT_ALL_ASSIGNED
+			{
+				failureMessage = "The process does not hold the shutdown privilege.";
+				return false;
+			}
+
+			return true;
+		}
+		finally
+		{
+			CloseHandle(token);
+		}
+	}
+
+	private static void TryEnableShutdownPrivilegeAndLog()
+	{
+		if (!TryEnableShutdownPrivilege(out string failureMessage))
+		{
+			logger.LogError("Could not enable shutdown privilege: " + failureMessage);
+		}
+	}
 
 	public void Sleep()
 	{
@@ -99,24 +204,32 @@ public class SystemOperations : ISystemOperations
 	public void LogOff()
 	{
 		logger.Log("Logging off.");
+		TryEnableShutdownPrivilegeAndLog();
 		ExitWindowsEx(ExitWindows.LogOff, ShutdownReason.MajorOther | ShutdownReason.MinorOther | ShutdownReason.FlagPlanned);
 	}
 
 	public void ShutDown()
 	{
 		logger.Log("Shutting down.");
-		InitiateSystemShutdownEx(
-			null, 
-			null, 
+		TryEnableShutdownPrivilegeAndLog();
+
+		if (!InitiateSystemShutdownEx(
+			null,
+			null,
 			0,
-			true, 
-			false, 
-			ShutdownReason.MajorOther | ShutdownReason.MinorOther | ShutdownReason.FlagPlanned);
+			true,
+			false,
+			ShutdownReason.MajorOther | ShutdownReason.MinorOther | ShutdownReason.FlagPlanned))
+		{
+			var error = new Win32Exception();
+			logger.LogError($"System shutdown failed: {error.Message}");
+		}
 	}
 
 	public void Restart()
 	{
 		logger.Log("Restarting.");
+		TryEnableShutdownPrivilegeAndLog();
 		ExitWindowsEx(ExitWindows.Reboot, ShutdownReason.MajorOther | ShutdownReason.MinorOther | ShutdownReason.FlagPlanned);
 	}
 
