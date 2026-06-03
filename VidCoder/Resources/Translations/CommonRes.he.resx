@@ -207,4 +207,8 @@
     <value>ראשון</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
+  <data name="MegabytesAbbreviation" xml:space="preserve">
+    <value>מ"ב</value>
+    <comment>Abbreviation for megabytes</comment>
+  </data>
 </root>
