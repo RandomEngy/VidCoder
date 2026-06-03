@@ -123,7 +123,6 @@
   <data name="EncodePreviewClipButton" xml:space="preserve">
     <value>קדד תצוגה מקדימה של הסרטון</value>
   </data>
-  
   <data name="GeneratingPreview" xml:space="preserve">
     <value>יציר תצוגה מקדימה...</value>
   </data>
@@ -139,14 +138,9 @@
   <data name="PreviewClipGenerationFailedMessage" xml:space="preserve">
     <value>יצירת סרטון תצוגה מקדימה נכשלה. ראה את חלון היומן לפרטים.</value>
   </data>
-  
-  
-  
-  
   <data name="Seconds" xml:space="preserve">
     <value>שניות</value>
   </data>
-  
   <data name="PreviewDisplay_FitToWindow" xml:space="preserve">
     <value>התאם לחלון</value>
   </data>
@@ -156,20 +150,12 @@
   <data name="ViewLabel" xml:space="preserve">
     <value>תצוגה:</value>
   </data>
-  
-  
-  
-  
   <data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
     <value>לא היתה אפשרות למצוא את קובץ המקור.</value>
   </data>
-  
-  
   <data name="VolumeSliderLabel" xml:space="preserve">
     <value>עוצמת קול</value>
   </data>
-  
-  
   <data name="VideoErrorTitle" xml:space="preserve">
     <value>שגיאת וידאו</value>
   </data>

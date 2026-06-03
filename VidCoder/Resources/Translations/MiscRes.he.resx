@@ -123,9 +123,6 @@
   <data name="RefreshButton" xml:space="preserve">
     <value>רענן</value>
   </data>
-  
-  
-  
   <data name="ExceptionDialogMainText" xml:space="preserve">
     <value>VidCoder נתקל בשגיאה לא צפויה.</value>
   </data>
@@ -135,63 +132,26 @@
   <data name="ExceptionWindowTitle" xml:space="preserve">
     <value>יוצא מן הכלל</value>
   </data>
-  
-  
   <data name="AutoRenameButton" xml:space="preserve">
     <value>שינוי שם אוטומטי</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <data name="Version" xml:space="preserve">
     <value>גירסה</value>
   </data>
-  
-  
-  
   <data name="NameDialogTitle" xml:space="preserve">
     <value>שם</value>
     <comment>Title for dialog when  naming a preset or  picker</comment>
   </data>
-  
   <data name="ApplyUpdateDialogTitle" xml:space="preserve">
     <value>החלת עדכון?</value>
   </data>
   <data name="ApplyUpdateDialogMessage" xml:space="preserve">
     <value>העדכון הורד. האם ברצונך להתקין אותה עכשיו?</value>
   </data>
-  
   <data name="DisableUpdatesButton" xml:space="preserve">
     <value>בטל עדכונים</value>
   </data>
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>הערה</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </root>
