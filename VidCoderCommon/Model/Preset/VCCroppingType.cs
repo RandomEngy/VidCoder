@@ -1,9 +1,9 @@
 ﻿namespace VidCoderCommon.Model;
 
-    public enum VCCroppingType
-    {
-        Automatic = 0,
+public enum VCCroppingType
+{
+	Automatic = 0,
 	Loose = 1,
-        None = 2,
-        Custom = 3
-    }
+	None = 2,
+	Custom = 3
+}

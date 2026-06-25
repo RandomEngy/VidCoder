@@ -65,6 +65,12 @@ public class VCJob
 
 	public VCProfile EncodingProfile { get; set; }
 
+	/// <summary>
+	/// Temporary encode setting overrides that apply on top of EncodingProfile.
+	/// Null when no overrides are active.
+	/// </summary>
+	public VCJobEncodeSettingOverrides Overrides { get; set; }
+
 	// The length of video to encode.
 	public TimeSpan Length { get; set; }
 }

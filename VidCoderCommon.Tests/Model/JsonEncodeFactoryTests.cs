@@ -508,6 +508,34 @@ public class JsonEncodeFactoryTests
 	}
 
 	[TestMethod]
+	public void GetOutputSize_AutomaticWithCroppingOverride()
+	{
+		// Arrange
+		var profile = new VCProfile
+		{
+			SizingMode = VCSizingMode.Automatic,
+			Width = 0,
+			Height = 0,
+			CroppingType = VCCroppingType.Automatic,
+			UseAnamorphic = false
+		};
+
+		var sourceTitle = this.CreateNonAnamorphicTitle();
+		var overrides = new VCJobEncodeSettingOverrides
+		{
+			Cropping = new VCCropping(50, 50, 0, 0)
+		};
+
+		// Act
+		OutputSizeInfo outputSize = JsonEncodeFactory.GetOutputSize(profile, sourceTitle, overrides);
+
+		// Assert
+		AssertResolution(outputSize, 1920, 980);
+		AssertNormalPar(outputSize);
+		AssertZeroPadding(outputSize);
+	}
+
+	[TestMethod]
 	public void GetOutputSize_NonAnamorphicToNonAnamorphicWithLooseCropping()
 	{
 		// Arrange

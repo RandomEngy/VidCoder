@@ -77,7 +77,7 @@ public class JsonEncodeFactory
 			throw new ArgumentNullException(nameof(title));
 		}
 
-		OutputSizeInfo outputSize = GetOutputSize(job.EncodingProfile, title);
+		OutputSizeInfo outputSize = GetOutputSize(job.EncodingProfile, title, job.Overrides);
 		VCProfile profile = job.EncodingProfile;
 
 		if (profile == null)
@@ -90,7 +90,7 @@ public class JsonEncodeFactory
 			SequenceID = 0,
 			Audio = this.CreateAudio(job, title),
 			Destination = this.CreateDestination(job, title, defaultChapterNameFormat),
-			Filters = this.CreateFilters(profile, title, outputSize),
+			Filters = this.CreateFilters(profile, title, outputSize, job.Overrides?.Cropping),
 			Metadata = this.CreateMetadata(job, title),
 			PAR = outputSize.Par,
 			Source = this.CreateSource(job, title, hwDecode, previewNumber, previewSeconds, previewCount),
@@ -453,7 +453,7 @@ public class JsonEncodeFactory
 			chapterNumber);
 	}
 
-	private Filters CreateFilters(VCProfile profile, SourceTitle title, OutputSizeInfo outputSizeInfo)
+	private Filters CreateFilters(VCProfile profile, SourceTitle title, OutputSizeInfo outputSizeInfo, VCCropping cropping = null)
 	{
 		Filters filters = new()
 		{
@@ -658,7 +658,7 @@ public class JsonEncodeFactory
 		}
 
 		// CropScale Filter
-		VCCropping cropping = GetCropping(profile, title);
+		VCCropping croppingValues = GetCropping(profile, title, cropping);
 		JsonDocument cropFilterSettings = this.GetFilterSettingsCustom(
 			hb_filter_ids.HB_FILTER_CROP_SCALE,
 			string.Format(
@@ -666,10 +666,10 @@ public class JsonEncodeFactory
 				"width={0}:height={1}:crop-top={2}:crop-bottom={3}:crop-left={4}:crop-right={5}",
 				outputSizeInfo.ScaleWidth,
 				outputSizeInfo.ScaleHeight,
-				cropping.Top,
-				cropping.Bottom,
-				cropping.Left,
-				cropping.Right));
+				croppingValues.Top,
+				croppingValues.Bottom,
+				croppingValues.Left,
+				croppingValues.Right));
 
 		Filter cropScale = new()
 		{
@@ -1389,7 +1389,7 @@ public class JsonEncodeFactory
 		return 1536;
 	}
 
-	public static OutputSizeInfo GetOutputSize(VCProfile profile, SourceTitle title)
+	public static OutputSizeInfo GetOutputSize(VCProfile profile, SourceTitle title, VCJobEncodeSettingOverrides overrides = null)
 	{
 		if (profile.SizingMode == VCSizingMode.Manual)
 		{
@@ -1431,7 +1431,7 @@ public class JsonEncodeFactory
 			sourceParHeight = temp;
 		}
 
-		VCCropping cropping = GetCropping(profile, title);
+		VCCropping cropping = GetCropping(profile, title, overrides?.Cropping);
 		int croppedSourceWidth = sourceWidth - cropping.Left - cropping.Right;
 		int croppedSourceHeight = sourceHeight - cropping.Top - cropping.Bottom;
 
@@ -1736,8 +1736,13 @@ public class JsonEncodeFactory
 		};
 	}
 
-	public static VCCropping GetCropping(VCProfile profile, SourceTitle title)
+	public static VCCropping GetCropping(VCProfile profile, SourceTitle title, VCCropping cropping = null)
 	{
+		if (cropping != null)
+		{
+			return new VCCropping(cropping);
+		}
+
 		switch (profile.CroppingType)
 		{
 			case VCCroppingType.Automatic:

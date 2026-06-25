@@ -14,6 +14,7 @@ namespace VidCoder.Services;
 public class OutputSizeService : ReactiveObject
 {
 	private PresetsService presetsService = StaticResolver.Resolve<PresetsService>();
+	private EncodeSettingOverrideService encodeSettingOverrideService = StaticResolver.Resolve<EncodeSettingOverrideService>();
 
 	public OutputSizeService()
 	{
@@ -25,6 +26,15 @@ public class OutputSizeService : ReactiveObject
 			{
 				this.Refresh();
 			});
+
+		this.encodeSettingOverrideService.WhenAnyValue(x => x.HasCroppingOverride)
+			.Skip(1)
+			.Subscribe(_ =>
+			{
+				this.Refresh();
+			});
+
+		this.encodeSettingOverrideService.OverridesCleared += (_, _) => this.Refresh();
 	}
 
 	private OutputSizeInfo size;
@@ -42,7 +52,11 @@ public class OutputSizeService : ReactiveObject
 		{
 			var profile = this.presetsService.SelectedPreset.Preset.EncodingProfile;
 
-			OutputSizeInfo outputSizeInfo = JsonEncodeFactory.GetOutputSize(profile, mainViewModel.SelectedTitle.Title);
+			VCJobEncodeSettingOverrides overrides = this.encodeSettingOverrideService.ToJobOverrides(profile);
+			OutputSizeInfo outputSizeInfo = JsonEncodeFactory.GetOutputSize(
+				profile,
+				mainViewModel.SelectedTitle.Title,
+				overrides);
 
 			if (this.Size == null || !outputSizeInfo.Equals(this.Size))
 			{

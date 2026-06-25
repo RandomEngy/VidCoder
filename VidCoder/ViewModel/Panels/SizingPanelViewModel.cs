@@ -22,6 +22,7 @@ public class SizingPanelViewModel : PanelViewModel
 
 	private OutputSizeService outputSizeService = StaticResolver.Resolve<OutputSizeService>();
 	private PreviewUpdateService previewUpdateService = StaticResolver.Resolve<PreviewUpdateService>();
+	private EncodeSettingOverrideService encodeSettingOverrideService = StaticResolver.Resolve<EncodeSettingOverrideService>();
 
 	public SizingPanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
 		: base(encodingWindowViewModel)
@@ -140,7 +141,7 @@ public class SizingPanelViewModel : PanelViewModel
 			{
 				case VCPaddingMode.None:
 				case VCPaddingMode.Custom:
-					return scalingMode != VCScalingMode.UpscaleFill;;
+					return scalingMode != VCScalingMode.UpscaleFill; ;
 				default:
 					return false;
 			}
@@ -200,62 +201,92 @@ public class SizingPanelViewModel : PanelViewModel
 		// CroppingUIEnabled
 		this.WhenAnyValue(x => x.CroppingType, croppingType =>
 		{
-			return croppingType == VCCroppingType.Custom;
+			return croppingType != VCCroppingType.None;
 		}).ToProperty(this, x => x.CroppingUIEnabled, out this.croppingUIEnabled);
 
 		// Update the underlying profile when our local Crop properties change. This only applies for
-		// CroppingType.Custom
+		// CroppingType.Custom; Automatic/Loose edits go to the encode setting override service.
 		this.WhenAnyValue(x => x.CropTop)
 			.Skip(1)
 			.Subscribe(cropTop =>
 			{
-				this.UpdateProfileProperty(
-					() => this.Profile.Cropping,
-					nameof(this.Profile.Cropping.Top),
-					nameof(this.CropTop),
-					cropTop,
-					raisePropertyChanged: false);
+				if (this.CroppingType == VCCroppingType.Custom)
+				{
+					this.UpdateProfileProperty(
+						() => this.Profile.Cropping,
+						nameof(this.Profile.Cropping.Top),
+						nameof(this.CropTop),
+						cropTop,
+						raisePropertyChanged: false);
+				}
+				else
+				{
+					this.PersistCroppingOverride();
+				}
 			});
 		this.WhenAnyValue(x => x.CropBottom)
 			.Skip(1)
 			.Subscribe(cropBottom =>
 			{
-				this.UpdateProfileProperty(
-					() => this.Profile.Cropping,
-					nameof(this.Profile.Cropping.Bottom),
-					nameof(this.CropBottom),
-					cropBottom,
-					raisePropertyChanged: false);
+				if (this.CroppingType == VCCroppingType.Custom)
+				{
+					this.UpdateProfileProperty(
+						() => this.Profile.Cropping,
+						nameof(this.Profile.Cropping.Bottom),
+						nameof(this.CropBottom),
+						cropBottom,
+						raisePropertyChanged: false);
+				}
+				else
+				{
+					this.PersistCroppingOverride();
+				}
 			});
 		this.WhenAnyValue(x => x.CropLeft)
 			.Skip(1)
 			.Subscribe(cropLeft =>
 			{
-				this.UpdateProfileProperty(
-					() => this.Profile.Cropping,
-					nameof(this.Profile.Cropping.Left),
-					nameof(this.CropLeft),
-					cropLeft,
-					raisePropertyChanged: false);
+				if (this.CroppingType == VCCroppingType.Custom)
+				{
+					this.UpdateProfileProperty(
+						() => this.Profile.Cropping,
+						nameof(this.Profile.Cropping.Left),
+						nameof(this.CropLeft),
+						cropLeft,
+						raisePropertyChanged: false);
+				}
+				else
+				{
+					this.PersistCroppingOverride();
+				}
 			});
 		this.WhenAnyValue(x => x.CropRight)
 			.Skip(1)
 			.Subscribe(cropRight =>
 			{
-				this.UpdateProfileProperty(
-					() => this.Profile.Cropping,
-					nameof(this.Profile.Cropping.Right),
-					nameof(this.CropRight),
-					cropRight,
-					raisePropertyChanged: false);
+				if (this.CroppingType == VCCroppingType.Custom)
+				{
+					this.UpdateProfileProperty(
+						() => this.Profile.Cropping,
+						nameof(this.Profile.Cropping.Right),
+						nameof(this.CropRight),
+						cropRight,
+						raisePropertyChanged: false);
+				}
+				else
+				{
+					this.PersistCroppingOverride();
+				}
 			});
+
+		this.encodeSettingOverrideService.OverridesCleared += (_, _) => this.RefreshCropping();
 
 		// Auto-fill the cropping properties when type is Auto or None
 		this.WhenAnyValue(
 			x => x.CroppingType,
 			x => x.CroppingMinimum,
 			x => x.CroppingConstrainToOneAxis,
-			x => x.MainViewModel.SelectedTitle, 
+			x => x.MainViewModel.SelectedTitle,
 			(croppingType, croppingMinimum, constrainToOneAxis, selectedTitle) =>
 			{
 				return new { croppingType, croppingMinimum, constrainToOneAxis, selectedTitle };
@@ -276,7 +307,10 @@ public class SizingPanelViewModel : PanelViewModel
 				{
 					this.AutomaticChange = true;
 
-					this.RefreshCropping();
+					if (!this.encodeSettingOverrideService.HasCroppingOverride)
+					{
+						this.RefreshCropping();
+					}
 				}
 
 				this.AutomaticChange = oldAutoValue;
@@ -393,7 +427,10 @@ public class SizingPanelViewModel : PanelViewModel
 					else
 					{
 						// Calculate the correct padding from input variables
-						OutputSizeInfo outputSize = JsonEncodeFactory.GetOutputSize(this.Profile, x.selectedTitle.Title);
+						OutputSizeInfo outputSize = JsonEncodeFactory.GetOutputSize(
+							this.Profile,
+							x.selectedTitle.Title,
+							this.encodeSettingOverrideService.ToJobOverrides(this.Profile));
 						this.PadTop = outputSize.Padding.Top;
 						this.PadBottom = outputSize.Padding.Bottom;
 						this.PadLeft = outputSize.Padding.Left;
@@ -476,15 +513,18 @@ public class SizingPanelViewModel : PanelViewModel
 		this.RegisterProfileProperty(nameof(this.CropBottom), this.RefreshOutputSize);
 		this.RegisterProfileProperty(nameof(this.CropLeft), this.RefreshOutputSize);
 		this.RegisterProfileProperty(nameof(this.CropRight), this.RefreshOutputSize);
-		this.RegisterProfileProperty(nameof(this.Rotation), () => {
+		this.RegisterProfileProperty(nameof(this.Rotation), () =>
+		{
 			this.RefreshOutputSize();
 			this.RefreshCropping();
 		});
-		this.RegisterProfileProperty(nameof(this.FlipHorizontal), () => {
+		this.RegisterProfileProperty(nameof(this.FlipHorizontal), () =>
+		{
 			this.previewUpdateService.RefreshPreview();
 			this.RefreshCropping();
 		});
-		this.RegisterProfileProperty(nameof(this.FlipVertical), () => {
+		this.RegisterProfileProperty(nameof(this.FlipVertical), () =>
+		{
 			this.previewUpdateService.RefreshPreview();
 			this.RefreshCropping();
 		});
@@ -642,7 +682,12 @@ public class SizingPanelViewModel : PanelViewModel
 	public VCCroppingType CroppingType
 	{
 		get => this.Profile.CroppingType;
-		set => this.UpdateProfileProperty(nameof(this.Profile.CroppingType), value);
+		set
+		{
+			// Clear the cropping override if we've changed the cropping mode
+			this.encodeSettingOverrideService.ClearCropping();
+			this.UpdateProfileProperty(nameof(this.Profile.CroppingType), value);
+		}
 	}
 
 	public int CroppingMinimum
@@ -736,6 +781,11 @@ public class SizingPanelViewModel : PanelViewModel
 			return;
 		}
 
+		if (this.encodeSettingOverrideService.HasCroppingOverride)
+		{
+			return;
+		}
+
 		bool oldAutoValue = this.AutomaticChange;
 		this.AutomaticChange = true;
 
@@ -765,6 +815,16 @@ public class SizingPanelViewModel : PanelViewModel
 		}
 
 		this.AutomaticChange = oldAutoValue;
+	}
+
+	private void PersistCroppingOverride()
+	{
+		if (this.CroppingType == VCCroppingType.Automatic || this.CroppingType == VCCroppingType.Loose)
+		{
+			this.encodeSettingOverrideService.SetCropping(
+				new VCCropping(this.CropTop, this.CropBottom, this.CropLeft, this.CropRight));
+			this.previewUpdateService.RefreshPreview();
+		}
 	}
 
 	private void EnsureResolutionPopulatedIfRequired()

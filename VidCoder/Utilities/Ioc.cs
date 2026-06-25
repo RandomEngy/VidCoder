@@ -56,6 +56,7 @@ public static class Ioc
 
 		container.RegisterSingleton<OutputPathService>();
 		container.RegisterSingleton<OutputSizeService>();
+		container.RegisterSingleton<EncodeSettingOverrideService>();
 		container.RegisterSingleton<PresetsService>();
 		container.RegisterSingleton<PickersService>();
 		container.RegisterSingleton<ProcessingService>();

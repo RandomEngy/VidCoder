@@ -2929,6 +2929,8 @@ public class MainViewModel : ReactiveObject, IClosableWindow
 					throw new ArgumentOutOfRangeException();
 			}
 
+			job.Overrides = StaticResolver.Resolve<EncodeSettingOverrideService>().ToJobOverrides(encodingProfile);
+
 			return job;
 		}
 	}
