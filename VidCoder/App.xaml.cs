@@ -285,6 +285,16 @@ public partial class App : Application
 
 	private static void ReportException(Exception ex)
 	{
+		try
+		{
+			var logger = StaticResolver.Resolve<IAppLogger>();
+			logger.LogError(ex.ToString());
+		}
+		catch
+		{
+			// If logging fails, we don't want to crash the application, so we silently ignore any exceptions here.
+		}
+
 		var exceptionDialog = new ExceptionDialog(ex);
 		exceptionDialog.ShowDialog();
 	}
