@@ -84,7 +84,7 @@ public class JsonEncodeFactory
 		{
 			throw new ArgumentException("job must have encoding profile.", nameof(job));
 		}
-		
+
 		JsonEncodeObject encode = new()
 		{
 			SequenceID = 0,
@@ -492,7 +492,7 @@ public class JsonEncodeFactory
 			if (settings != null)
 			{
 				Filter filterItem = new() { ID = (int)filterId, Settings = settings };
-				filters.FilterList.Add(filterItem); 
+				filters.FilterList.Add(filterItem);
 			}
 		}
 
@@ -1217,53 +1217,53 @@ public class JsonEncodeFactory
 
 			if (encoder.IsPassthru)
 			{
-			    if (encoder.ShortName == "copy")
-			    {
-                        // Auto-passthrough
+				if (encoder.ShortName == "copy")
+				{
+					// Auto-passthrough
 
-			        if (TrackIsEligibleForPassthrough(sourceTrack, copyMask))
-			        {
-			            // Input bitrate is in bits/second.
-			            audioBitrate = sourceTrack.BitRate / 8;
+					if (TrackIsEligibleForPassthrough(sourceTrack, copyMask))
+					{
+						// Input bitrate is in bits/second.
+						audioBitrate = sourceTrack.BitRate / 8;
 
-			            this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is auto passthrough. {audioBitrate} bytes/second");
-			        }
-			        else
-			        {
-			            OutputAudioTrackInfo outputTrackInfo = AudioUtilities.GetDefaultSettings(sourceTrack, resolvedAudio.FallbackEncoder);
-			            if (outputTrackInfo.EncodeRateType == AudioEncodeRateType.Quality)
-			            {
-			                audioBitrate = 0;
+						this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is auto passthrough. {audioBitrate} bytes/second");
+					}
+					else
+					{
+						OutputAudioTrackInfo outputTrackInfo = AudioUtilities.GetDefaultSettings(sourceTrack, resolvedAudio.FallbackEncoder);
+						if (outputTrackInfo.EncodeRateType == AudioEncodeRateType.Quality)
+						{
+							audioBitrate = 0;
 
-					        this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Fallback track for auto-passthrough is quality targeted. Assuming 0 byte size.");
-			            }
-                            else
-			            {
-			                audioBitrate = outputTrackInfo.Bitrate;
+							this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Fallback track for auto-passthrough is quality targeted. Assuming 0 byte size.");
+						}
+						else
+						{
+							audioBitrate = outputTrackInfo.Bitrate;
 
-					        this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Fallback track for auto-passthrough has {audioBitrate} bytes/second");
-			            }
-                        }
-			    }
-			    else
-			    {
-                        // Passthrough for specific codec
+							this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Fallback track for auto-passthrough has {audioBitrate} bytes/second");
+						}
+					}
+				}
+				else
+				{
+					// Passthrough for specific codec
 
-			        if (HandBrakeEncoderHelpers.AudioEncoderIsCompatible(sourceTrack.Codec, encoder))
-			        {
-			            // Input bitrate is in bits/second.
-			            audioBitrate = sourceTrack.BitRate / 8;
+					if (HandBrakeEncoderHelpers.AudioEncoderIsCompatible(sourceTrack.Codec, encoder))
+					{
+						// Input bitrate is in bits/second.
+						audioBitrate = sourceTrack.BitRate / 8;
 
-			            this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is passthrough via {encoder.ShortName}. {audioBitrate} bytes/second");
-			        }
-			        else
-			        {
-			            // Track will be dropped
-			            audioBitrate = 0;
+						this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is passthrough via {encoder.ShortName}. {audioBitrate} bytes/second");
+					}
+					else
+					{
+						// Track will be dropped
+						audioBitrate = 0;
 
-					    this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track will be dropped due to non compatible passthrough.");
-                        }
-                    }
+						this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track will be dropped due to non compatible passthrough.");
+					}
+				}
 			}
 			else if (outputTrack.Quality != null)
 			{
@@ -1313,51 +1313,51 @@ public class JsonEncodeFactory
 		return audioBytes;
 	}
 
-    private static HBAudioEncoder GetFallbackAudioEncoder(VCProfile profile)
-    {
-        if (!string.IsNullOrEmpty(profile.AudioEncoderFallback))
-        {
-            HBAudioEncoder audioEncoder = HandBrakeEncoderHelpers.GetAudioEncoder(profile.AudioEncoderFallback);
-            if (audioEncoder == null)
-            {
-                throw new ArgumentException("Unrecognized fallback audio encoder: " + profile.AudioEncoderFallback);
-            }
+	private static HBAudioEncoder GetFallbackAudioEncoder(VCProfile profile)
+	{
+		if (!string.IsNullOrEmpty(profile.AudioEncoderFallback))
+		{
+			HBAudioEncoder audioEncoder = HandBrakeEncoderHelpers.GetAudioEncoder(profile.AudioEncoderFallback);
+			if (audioEncoder == null)
+			{
+				throw new ArgumentException("Unrecognized fallback audio encoder: " + profile.AudioEncoderFallback);
+			}
 
-            return audioEncoder;
-        }
+			return audioEncoder;
+		}
 
-            HBContainer container = HandBrakeEncoderHelpers.GetContainer(profile.ContainerName);
-        foreach (HBAudioEncoder encoder in HandBrakeEncoderHelpers.AudioEncoders)
-        {
-            if ((encoder.CompatibleContainers & container.Id) > 0 && !encoder.IsPassthru)
-            {
-                return encoder;
-            }
-        }
+		HBContainer container = HandBrakeEncoderHelpers.GetContainer(profile.ContainerName);
+		foreach (HBAudioEncoder encoder in HandBrakeEncoderHelpers.AudioEncoders)
+		{
+			if ((encoder.CompatibleContainers & container.Id) > 0 && !encoder.IsPassthru)
+			{
+				return encoder;
+			}
+		}
 
-            throw new ArgumentException("Cannot find fallback audio encoder for profile.");
-        }
+		throw new ArgumentException("Cannot find fallback audio encoder for profile.");
+	}
 
-    private static bool TrackIsEligibleForPassthrough(SourceAudioTrack track, List<CopyMaskChoice> copyMask)
-    {
-	    if (copyMask == null || !copyMask.Any())
-	    {
-		    return true;
-	    }
+	private static bool TrackIsEligibleForPassthrough(SourceAudioTrack track, List<CopyMaskChoice> copyMask)
+	{
+		if (copyMask == null || !copyMask.Any())
+		{
+			return true;
+		}
 
-        foreach (CopyMaskChoice maskChoice in copyMask)
-        {
-            if (maskChoice.Enabled)
-            {
-                if ((HandBrakeEncoderHelpers.GetAudioEncoder("copy:" + maskChoice.Codec).Id & track.Codec) > 0)
-                {
-                    return true;
-                }
-                }
-        }
+		foreach (CopyMaskChoice maskChoice in copyMask)
+		{
+			if (maskChoice.Enabled)
+			{
+				if ((HandBrakeEncoderHelpers.GetAudioEncoder("copy:" + maskChoice.Codec).Id & track.Codec) > 0)
+				{
+					return true;
+				}
+			}
+		}
 
-        return false;
-    }
+		return false;
+	}
 
 	/// <summary>
 	/// Gets the number of audio samples used per frame for the given audio encoder.
@@ -1832,7 +1832,8 @@ public class JsonEncodeFactory
 			if (vertical > horizontal)
 			{
 				left = right = 0;
-			} else
+			}
+			else
 			{
 				top = bottom = 0;
 			}
