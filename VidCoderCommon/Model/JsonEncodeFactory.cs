@@ -315,7 +315,7 @@ public class JsonEncodeFactory
 
 			outputTrack.Name = trackName;
 
-			if (isPassthrough && fallbackEncoder != null)
+			if (isPassthrough && fallbackEncoder != null && fallbackEncoder.ShortName != "none")
 			{
 				// If it's passthrough, find the settings for the fallback encoder and apply those, since they will be picked up if the passthrough doesn't work
 				OutputAudioTrackInfo fallbackSettings = AudioUtilities.GetDefaultSettings(sourceTrack, fallbackEncoder);
@@ -1227,6 +1227,11 @@ public class JsonEncodeFactory
 						audioBitrate = sourceTrack.BitRate / 8;
 
 						this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is auto passthrough. {audioBitrate} bytes/second");
+					}
+					else if (resolvedAudio.FallbackEncoder.ShortName == "none")
+					{
+						audioBitrate = 0;
+						this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is auto passthrough, but not eligible for passthrough and no fallback encoder. Assuming 0 byte size.");
 					}
 					else
 					{
