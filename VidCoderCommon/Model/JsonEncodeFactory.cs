@@ -1226,14 +1226,19 @@ public class JsonEncodeFactory
 			            // Input bitrate is in bits/second.
 			            audioBitrate = sourceTrack.BitRate / 8;
 
-			            this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is auto passthrough. {audioBitrate} bytes/second");
-			        }
-			        else
-			        {
-			            OutputAudioTrackInfo outputTrackInfo = AudioUtilities.GetDefaultSettings(sourceTrack, resolvedAudio.FallbackEncoder);
-			            if (outputTrackInfo.EncodeRateType == AudioEncodeRateType.Quality)
-			            {
-			                audioBitrate = 0;
+						this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is auto passthrough. {audioBitrate} bytes/second");
+					}
+					else if (resolvedAudio.FallbackEncoder.ShortName == "none")
+					{
+						audioBitrate = 0;
+						this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is auto passthrough, but not eligible for passthrough and no fallback encoder. Assuming 0 byte size.");
+					}
+					else
+					{
+						OutputAudioTrackInfo outputTrackInfo = AudioUtilities.GetDefaultSettings(sourceTrack, resolvedAudio.FallbackEncoder);
+						if (outputTrackInfo.EncodeRateType == AudioEncodeRateType.Quality)
+						{
+							audioBitrate = 0;
 
 					        this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Fallback track for auto-passthrough is quality targeted. Assuming 0 byte size.");
 			            }
