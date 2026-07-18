@@ -415,7 +415,7 @@ public class AudioPanelViewModel : PanelViewModel
 
 			if (this.Profile.AudioEncoderFallback == null)
 			{
-				encoder = HandBrakeEncoderHelpers.AudioEncoders.First(a => !a.IsPassthru);
+				encoder = HandBrakeEncoderHelpers.AudioEncoders.First(a => !a.IsPassthru && a.ShortName != "none");
 			}
 			else
 			{
