@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DefaultCheckBox" xml:space="preserve">
-    <value>デフォルト</value>
+    <value>既定</value>
   </data>
   <data name="LanguagesRadioButton" xml:space="preserve">
     <value>言語</value>
@@ -415,5 +415,15 @@
   <data name="WidthFilterValueAutomationName" xml:space="preserve">
     <value>幅フィルターの値</value>
     <comment>Screen reader text for the width filter value</comment>
+  </data>
+  <data name="ExternalSubtitleImportToolTip" xml:space="preserve">
+    <value>また、fileName.lng.extを認識します。lngはISO言語名で、extは字幕ファイル拡張子です。</value>
+  </data>
+  <data name="FallbackLanguageLabel" xml:space="preserve">
+    <value>フォールバック言語:</value>
+    <comment>Label for an option of what language to mark a subtitle track as when it doesn't have the language identified in the file name. For example, if you have myVideo.mp4 and myVideo.srt, what language should we mark that as when we pick it up?</comment>
+  </data>
+  <data name="FallbackLanguageToolTip" xml:space="preserve">
+    <value>言語が字幕ファイル名で識別されていない場合は、myVideo.srt のように、この言語であると仮定します。</value>
   </data>
 </root>

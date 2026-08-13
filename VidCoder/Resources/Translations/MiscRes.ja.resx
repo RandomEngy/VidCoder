@@ -121,7 +121,7 @@
     <value>追加</value>
   </data>
   <data name="RefreshButton" xml:space="preserve">
-    <value>再読み込み</value>
+    <value>更新</value>
   </data>
   <data name="ChooseFromProcessesLabel" xml:space="preserve">
     <value>既存のプロセスから選択：</value>
@@ -158,6 +158,9 @@
   </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>キューの列</value>
+  </data>
+  <data name="ColumnsDialogHeaderText" xml:space="preserve">
+    <value>ドラッグアンドドロップして追加、削除あるいは列を並び替えます。</value>
   </data>
   <data name="UnusedColumns" xml:space="preserve">
     <value>未使用の列</value>
@@ -208,6 +211,9 @@
   </data>
   <data name="NoticeMessageTitle" xml:space="preserve">
     <value>お知らせ</value>
+  </data>
+  <data name="UnsupportedOSError" xml:space="preserve">
+    <value>お使いのオペレーティングシステムではVidCoderはサポートされていません。このバージョンではWindows 10以降が必要です。 OSをアップグレードするか、以前のバージョンのVidCoderをインストールしてください。 Windows XPの最新互換バージョンはVidCoder 1.4です。Windows 7の最新互換バージョンは5.21です。</value>
   </data>
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>まもなくスリープになります</value>
@@ -265,5 +271,8 @@
   </data>
   <data name="EncodeCompleteWarning_RestartMessage" xml:space="preserve">
     <value>システムは {0} 秒後に再起動します。</value>
+  </data>
+  <data name="CompletedColumnsDialogTitle" xml:space="preserve">
+    <value>完了した列</value>
   </data>
 </root>
