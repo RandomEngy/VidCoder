@@ -427,4 +427,58 @@
     <comment>Shown when downloading an update.
 {0} is the update version, for example 10.4</comment>
   </data>
+  <data name="RememberLastSelectedWhenDoneCheckBox" xml:space="preserve">
+    <value>再起動時に最後に選択した「終了時」アクションを記憶する</value>
+  </data>
+  <data name="PartFileNamingLabel" xml:space="preserve">
+    <value>部分的なファイル名:</value>
+  </data>
+  <data name="PartFileNaming_PartInMiddle" xml:space="preserve">
+    <value>name.part.ext</value>
+  </data>
+  <data name="PartFileNaming_PartAtEnd" xml:space="preserve">
+    <value>name.ext.part</value>
+  </data>
+  <data name="HardwareTab" xml:space="preserve">
+    <value>ハードウェア</value>
+  </data>
+  <data name="IntelQuickSyncSection" xml:space="preserve">
+    <value>Intel QuickSync</value>
+  </data>
+  <data name="NvidiaNvencSection" xml:space="preserve">
+    <value>NVIDIA NVENC</value>
+  </data>
+  <data name="AmdVcnSection" xml:space="preserve">
+    <value>AMD VCN</value>
+  </data>
+  <data name="MediaFoundationSection" xml:space="preserve">
+    <value>Media Foundation (ARM Devices)</value>
+  </data>
+  <data name="EnableQuickSyncHyperEncodeCheckBox" xml:space="preserve">
+    <value>ディープリンクハイパーエンコードを有効にする</value>
+  </data>
+  <data name="EnableQuickSyncDecodingCheckBox" xml:space="preserve">
+    <value>QuickSync エンコーダーを使用する場合、ビデオのデコードに Intel QuickSync を使用します。</value>
+  </data>
+  <data name="UseQsvDecodeForNonQsvEncodesCheckBox" xml:space="preserve">
+    <value>QuickSync エンコーダーを使用していない場合にも、QuickSync デコードを使用します。</value>
+  </data>
+  <data name="EnableDirectXDecodingCheckBox" xml:space="preserve">
+    <value>DirectX Decodingの使用を許可します。</value>
+  </data>
+  <data name="CodecsLabel" xml:space="preserve">
+    <value>サポートされているコーデック: {0}</value>
+    <comment>Format string for codec lists. {0} is replaced with comma-separated list of codecs.</comment>
+  </data>
+  <data name="QsvAdapterCount" xml:space="preserve">
+    <value>アダプター： {0}</value>
+    <comment>Indicator for how many QSV adapters are available on the system.
+{0} is the number of adapters, for example "2"</comment>
+  </data>
+  <data name="EnableQuickSyncHyperEncodeToolTip" xml:space="preserve">
+    <value>複数のメディアエンジンを使用すると、サポートされている 1 つのエンコードを高速化できます。無効にすると、メディアエンジン間で複数の並列エンコードをロードできるようになります。</value>
+  </data>
+  <data name="WatcherStabilityIntervalLabel" xml:space="preserve">
+    <value>ファイル安定性の待機間隔 (秒):</value>
+  </data>
 </root>

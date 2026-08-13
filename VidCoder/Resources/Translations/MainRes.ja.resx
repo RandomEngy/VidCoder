@@ -752,4 +752,11 @@
   <data name="NewVersionDownloadFinishedSilentStatus" xml:space="preserve">
     <value>バージョン {0} のダウンロードが完了しました。終了時にインストールされます。</value>
   </data>
+  <data name="AddToTopOfQueueLabel" xml:space="preserve">
+    <value>キューの上部に追加</value>
+  </data>
+  <data name="JobProgressToolTip" xml:space="preserve">
+    <value>ジョブ終了時間: {0}</value>
+    <comment>{0} is the estimated remaining time for that job to complete.</comment>
+  </data>
 </root>
