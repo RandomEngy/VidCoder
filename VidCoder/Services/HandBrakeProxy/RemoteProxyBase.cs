@@ -114,7 +114,8 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 		VCEncodeResultCode result;
 		if (!this.crashLogged)
 		{
-			if (this.worker.HasExited)
+			Process currentWorker = this.worker;
+			if (currentWorker != null && currentWorker.HasExited)
 			{
 				List<LogEntry> logs = this.GetWorkerMessages();
 				this.ClearWorkerMessages();
@@ -128,7 +129,7 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 				}
 				else
 				{
-					this.Logger.LogError($"Operation '{operationName}' failed. Worker process exited unexpectedly with code " + this.worker.ExitCode + ". This may be due to a HandBrake engine crash.");
+					this.Logger.LogError($"Operation '{operationName}' failed. Worker process exited unexpectedly with code " + currentWorker.ExitCode + ". This may be due to a HandBrake engine crash.");
 				}
 
 				result = VCEncodeResultCode.ErrorHandBrakeProcessCrashed;
@@ -236,7 +237,7 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 			{
 			}
 
-			if (this.worker.HasExited)
+			if (this.worker == null || this.worker.HasExited)
 			{
 				List<LogEntry> logs = this.GetWorkerMessages();
 				int errors = logs.Count(l => l.LogType == LogType.Error);
@@ -333,14 +334,30 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 			CreateNoWindow = true
 		};
 		this.worker = Process.Start(startInfo);
-		this.worker.PriorityClass = CustomConfig.WorkerProcessPriority;
+		if (this.worker == null)
+		{
+			this.Logger.LogError(
+				"Failed to start VidCoderWorker.exe (Process.Start returned null). " +
+				$"Path='{startInfo.FileName}', Cwd='{Environment.CurrentDirectory}'.");
+			this.EndOperation(VCEncodeResultCode.ErrorProcessCommunication);
+			return false;
+		}
+
+		try
+		{
+			this.worker.PriorityClass = CustomConfig.WorkerProcessPriority;
+		}
+		catch (Exception exception)
+		{
+			this.Logger.LogError("Could not set worker process priority: " + exception);
+		}
 
 		Process workerOnStart = this.worker;
 
 		// When the process writes out a line, its pipe server is ready and can be contacted for
 		// work. Reading line blocks until this happens.
 		this.Logger.Log("Worker ready: " + this.worker.StandardOutput.ReadLine());
-		bool connectionSucceeded = false;
+		bool prepareSucceeded = false;
 
 		this.Logger.Log("Connecting to process " + this.worker.Id + " on pipe " + this.pipeName);
 		await this.ProcessLock.WaitAsync().ConfigureAwait(false);
@@ -348,7 +365,7 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 		{
 			await this.ExecuteProxyOperationAsync(async () =>
 			{
-				connectionSucceeded = await this.ConnectToPipeAsync();
+				bool connectionSucceeded = await this.ConnectToPipeAsync();
 				if (!connectionSucceeded)
 				{
 					return;
@@ -362,6 +379,10 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 					Config.MinimumTitleLengthSeconds,
 					Config.CpuThrottlingFraction,
 					FileUtilities.OverrideTempFolder ? FileUtilities.TempFolderOverride : null));
+
+				// Only treat prepare as successful after both connect and SetUpWorker complete.
+				// If SetUpWorker throws, ExecuteProxyOperationAsync cleans up and this flag stays false.
+				prepareSucceeded = true;
 			}, "Connect");
 		}
 		finally
@@ -369,7 +390,7 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 			this.ProcessLock.Release();
 		}
 
-		if (!connectionSucceeded)
+		if (!prepareSucceeded)
 		{
 			this.EndOperation(VCEncodeResultCode.ErrorProcessCommunication);
 			return false;
@@ -396,7 +417,7 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 				this.ProcessLock.Release();
 			}
 
-			if (this.Running)
+			if (this.Running && this.Client != null)
 			{
 				try
 				{
@@ -489,7 +510,13 @@ public abstract class RemoteProxyBase<TWork, TCallback> : IHandBrakeWorkerCallba
 	{
 		var messages = new List<LogEntry>();
 
-		string workerLogFile = Path.Combine(Utilities.WorkerLogsFolder, worker.Id + ".txt");
+		Process currentWorker = this.worker;
+		if (currentWorker == null)
+		{
+			return messages;
+		}
+
+		string workerLogFile = Path.Combine(Utilities.WorkerLogsFolder, currentWorker.Id + ".txt");
 
 		if (File.Exists(workerLogFile))
 		{
