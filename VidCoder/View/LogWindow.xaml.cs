@@ -649,7 +649,15 @@ public partial class LogWindow : Window
 		for (int i = runs.Count - 1; i >= 0; i--)
 		{
 			Run run = runs[i];
-			this.logParagraph.Inlines.InsertBefore(this.logParagraph.Inlines.FirstInline, run);
+			var firstInline = this.logParagraph.Inlines.FirstInline;
+			if (firstInline == null)
+			{
+				this.logParagraph.Inlines.Add(run);
+			}
+			else
+			{
+				this.logParagraph.Inlines.InsertBefore(firstInline, run);
+			}
 		}
 	}
 
