@@ -114,6 +114,7 @@ ResumeEncodingOnRestart|bool|false
 KeepFailedFiles|bool|false
 ShowProgressInWindowTitle|bool|true
 UseWorkerProcess|bool|true
+KeepDisplayOnWhenEncoding|bool|false
 RememberPreviousFiles|bool|true
 RememberLastSelectedEncodeCompleteAction|bool|false
 LastEncodeCompleteAction|string|""

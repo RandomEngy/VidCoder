@@ -365,6 +365,14 @@
 									<TextBlock Text="{x:Static res:OptionsRes.CapNVEncCheckBox}" TextWrapping="Wrap" />
 								</CheckBox>
 
+								<CheckBox
+									Margin="0 6 0 0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									Content="{x:Static res:OptionsRes.KeepDisplayOnWhenEncodingCheckBox}"
+									IsChecked="{Binding KeepDisplayOnWhenEncoding}"
+									ToolTip="{x:Static res:OptionsRes.KeepDisplayOnWhenEncodingToolTip}" />
+
 								<Grid Margin="0 6 0 0" ToolTip="{x:Static res:OptionsRes.CpuThrottlingToolTip}">
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="Auto" />

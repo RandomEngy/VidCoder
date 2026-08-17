@@ -26,7 +26,13 @@ public static class SystemSleepManagement
 	{
 		DispatchUtilities.BeginInvoke(() =>
 		{
-			SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS | EXECUTION_STATE.ES_SYSTEM_REQUIRED);
+			EXECUTION_STATE state = EXECUTION_STATE.ES_CONTINUOUS | EXECUTION_STATE.ES_SYSTEM_REQUIRED;
+			if (Config.KeepDisplayOnWhenEncoding)
+			{
+				state |= EXECUTION_STATE.ES_DISPLAY_REQUIRED;
+			}
+
+			SetThreadExecutionState(state);
 		});
 	}
 

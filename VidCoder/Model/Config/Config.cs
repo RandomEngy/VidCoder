@@ -131,6 +131,7 @@ namespace VidCoder
 			cache.Add("KeepFailedFiles", DatabaseConfig.Get("KeepFailedFiles", false, connection));
 			cache.Add("ShowProgressInWindowTitle", DatabaseConfig.Get("ShowProgressInWindowTitle", true, connection));
 			cache.Add("UseWorkerProcess", DatabaseConfig.Get("UseWorkerProcess", true, connection));
+			cache.Add("KeepDisplayOnWhenEncoding", DatabaseConfig.Get("KeepDisplayOnWhenEncoding", false, connection));
 			cache.Add("RememberPreviousFiles", DatabaseConfig.Get("RememberPreviousFiles", true, connection));
 			cache.Add("RememberLastSelectedEncodeCompleteAction", DatabaseConfig.Get("RememberLastSelectedEncodeCompleteAction", false, connection));
 			cache.Add("LastEncodeCompleteAction", DatabaseConfig.Get("LastEncodeCompleteAction", "", connection));
@@ -683,6 +684,11 @@ namespace VidCoder
 			get { return (bool)cache["UseWorkerProcess"]; }
 			set { Set("UseWorkerProcess", value); }
 		}
+		public static bool KeepDisplayOnWhenEncoding
+		{
+			get { return (bool)cache["KeepDisplayOnWhenEncoding"]; }
+			set { Set("KeepDisplayOnWhenEncoding", value); }
+		}
 		public static bool RememberPreviousFiles
 		{
 			get { return (bool)cache["RememberPreviousFiles"]; }
@@ -856,6 +862,7 @@ namespace VidCoder
 			public static IObservable<bool> KeepFailedFiles => GetObservable<bool>("KeepFailedFiles");
 			public static IObservable<bool> ShowProgressInWindowTitle => GetObservable<bool>("ShowProgressInWindowTitle");
 			public static IObservable<bool> UseWorkerProcess => GetObservable<bool>("UseWorkerProcess");
+			public static IObservable<bool> KeepDisplayOnWhenEncoding => GetObservable<bool>("KeepDisplayOnWhenEncoding");
 			public static IObservable<bool> RememberPreviousFiles => GetObservable<bool>("RememberPreviousFiles");
 			public static IObservable<bool> RememberLastSelectedEncodeCompleteAction => GetObservable<bool>("RememberLastSelectedEncodeCompleteAction");
 			public static IObservable<string> LastEncodeCompleteAction => GetObservable<string>("LastEncodeCompleteAction");

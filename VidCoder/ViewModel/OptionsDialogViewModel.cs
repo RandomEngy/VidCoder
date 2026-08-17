@@ -926,6 +926,22 @@ public class OptionsDialogViewModel : ReactiveObject
 		}
 	}
 
+	public bool KeepDisplayOnWhenEncoding
+	{
+		get => Config.KeepDisplayOnWhenEncoding;
+		set
+		{
+			Config.KeepDisplayOnWhenEncoding = value;
+			this.RaisePropertyChanged();
+
+			ProcessingService processingService = StaticResolver.Resolve<ProcessingService>();
+			if (processingService.Encoding && !processingService.Paused)
+			{
+				SystemSleepManagement.PreventSleep();
+			}
+		}
+	}
+
 	private ObservableAsPropertyHelper<string> cpuThrottlingDisplay;
 	public string CpuThrottlingDisplay => this.cpuThrottlingDisplay.Value;
 

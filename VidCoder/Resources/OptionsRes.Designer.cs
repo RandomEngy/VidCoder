@@ -511,6 +511,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Keep display on when encoding.
+        /// </summary>
+        public static string KeepDisplayOnWhenEncodingCheckBox {
+            get {
+                return ResourceManager.GetString("KeepDisplayOnWhenEncodingCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Some systems require the display to be on to prevent sleep. Check this if you have trouble with encodes being stopped by system sleep..
+        /// </summary>
+        public static string KeepDisplayOnWhenEncodingToolTip {
+            get {
+                return ResourceManager.GetString("KeepDisplayOnWhenEncodingToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Keep files from failed or stopped encodes.
         /// </summary>
         public static string KeepFailedFilesCheckBox {

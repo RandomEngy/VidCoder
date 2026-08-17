@@ -306,6 +306,9 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Use worker process to encode</value>
   </data>
+  <data name="KeepDisplayOnWhenEncodingCheckBox" xml:space="preserve">
+    <value>Keep display on when encoding</value>
+  </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Preserve Created and Modified time when converting files</value>
   </data>
@@ -480,5 +483,8 @@ Polling: Periodically checks the contents of the folders. Uses significant CPU a
   </data>
   <data name="WatcherStabilityIntervalLabel" xml:space="preserve">
     <value>File stability wait interval (seconds):</value>
+  </data>
+  <data name="KeepDisplayOnWhenEncodingToolTip" xml:space="preserve">
+    <value>Some systems require the display to be on to prevent sleep. Check this if you have trouble with encodes being stopped by system sleep.</value>
   </data>
 </root>
