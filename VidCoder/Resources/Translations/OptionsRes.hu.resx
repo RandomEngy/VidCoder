@@ -306,6 +306,9 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Munkavégző folyamat használata a kódoláshoz</value>
   </data>
+  <data name="KeepDisplayOnWhenEncodingCheckBox" xml:space="preserve">
+    <value>Kódolás közben tartsa bekapcsolva a kijelzőt</value>
+  </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Fájlok Létrehozva és Módosítva értékeinek megőrzése a konvertálás során</value>
   </data>
@@ -480,5 +483,8 @@ Lekérdezés: Rendszeresen ellenőrzi a mappák tartalmát. Jelentős processzor
   </data>
   <data name="WatcherStabilityIntervalLabel" xml:space="preserve">
     <value>Fájlstabilitási várakozási idő (másodperc):</value>
+  </data>
+  <data name="KeepDisplayOnWhenEncodingToolTip" xml:space="preserve">
+    <value>Egyes rendszerek megkövetelik, hogy a kijelző be legyen kapcsolva, hogy megakadályozza az alvást. Jelölje be, ha problémái vannak a kódolások leállításával a rendszer alvó állapota miatt.</value>
   </data>
 </root>

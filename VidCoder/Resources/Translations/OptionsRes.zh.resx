@@ -306,6 +306,9 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>使用工作进程进行编码</value>
   </data>
+  <data name="KeepDisplayOnWhenEncodingCheckBox" xml:space="preserve">
+    <value>当编码时保持显示</value>
+  </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>转换文件时保留创建和修改时间</value>
   </data>
@@ -480,5 +483,8 @@
   </data>
   <data name="WatcherStabilityIntervalLabel" xml:space="preserve">
     <value>文件稳定性等待间隔（秒）：</value>
+  </data>
+  <data name="KeepDisplayOnWhenEncodingToolTip" xml:space="preserve">
+    <value>某些系统需要保持屏幕开启，以防止进入睡眠状态。如果遇到编码被系统睡眠停止的问题，请检查此设置。</value>
   </data>
 </root>
