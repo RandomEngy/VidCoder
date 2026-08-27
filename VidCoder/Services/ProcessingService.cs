@@ -2288,9 +2288,12 @@ public class ProcessingService : ReactiveObject
 
 		if (this.WorkTracker.CanShowEta)
 		{
-			double jobRemainingWork = jobViewModel.Work.Cost - jobCompletedWork;
+			this.WorkTracker.ReportConcurrentEncodes(this.JobsEncodingCount);
 
-			if (this.WorkTracker.OverallWorkCompletionRate == 0)
+			double jobRemainingWork = jobViewModel.Work.Cost - jobCompletedWork;
+			double jobWorkCompletionRate = this.WorkTracker.OverallWorkCompletionRate / this.WorkTracker.MaxConcurrentEncodesDuringRun;
+
+			if (jobWorkCompletionRate == 0)
 			{
 				jobViewModel.Eta = TimeSpan.MaxValue;
 			}
@@ -2298,7 +2301,7 @@ public class ProcessingService : ReactiveObject
 			{
 				try
 				{
-					jobViewModel.Eta = TimeSpan.FromSeconds(jobRemainingWork / this.WorkTracker.OverallWorkCompletionRate);
+					jobViewModel.Eta = TimeSpan.FromSeconds(jobRemainingWork / jobWorkCompletionRate);
 				}
 				catch (OverflowException)
 				{

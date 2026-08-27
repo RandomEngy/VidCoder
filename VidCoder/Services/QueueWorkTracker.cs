@@ -25,6 +25,7 @@ public class QueueWorkTracker : ReactiveObject
 	private long pollCount;
 	private bool diagnosticsLogged;
 	private long completedItems;
+	private int maxConcurrentEncodesDuringRun;
 	private readonly object trackerLock = new();
 	private const int EtaSimulationJobCount = 10;
 
@@ -39,6 +40,20 @@ public class QueueWorkTracker : ReactiveObject
 	/// The overall work completion rate in cost units per second.
 	/// </summary>
 	public double OverallWorkCompletionRate { get; private set; }
+
+	/// <summary>
+	/// The peak number of jobs encoding at once during the current queue run.
+	/// </summary>
+	public int MaxConcurrentEncodesDuringRun
+	{
+		get
+		{
+			lock (this.trackerLock)
+			{
+				return Math.Max(this.maxConcurrentEncodesDuringRun, 1);
+			}
+		}
+	}
 
 	public bool CanShowEta { get; private set; }
 
@@ -88,6 +103,7 @@ public class QueueWorkTracker : ReactiveObject
 			this.completedQueueWork = 0.0;
 			this.completedItems = 0;
 			this.completedItemsSubject.OnNext(0);
+			this.maxConcurrentEncodesDuringRun = 0;
 
 			this.totalQueueCost = 0.0;
 
@@ -156,10 +172,20 @@ public class QueueWorkTracker : ReactiveObject
 		}
 	}
 
+	public void ReportConcurrentEncodes(int concurrentEncodes)
+	{
+		lock (this.trackerLock)
+		{
+			this.UpdateMaxConcurrentEncodes(concurrentEncodes);
+		}
+	}
+
 	public void CalculateOverallEncodeProgress(double inProgressJobsCompletedWork, IList<EncodeJobViewModel> queue)
 	{
 		lock (this.trackerLock)
 		{
+			this.UpdateMaxConcurrentEncodes(queue.Count(job => job.Encoding));
+
 			double totalCompletedWork = this.completedQueueWork + inProgressJobsCompletedWork;
 
 			this.OverallEncodeProgressFraction = this.totalQueueCost > 0 ? totalCompletedWork / this.totalQueueCost : 0;
@@ -256,18 +282,21 @@ public class QueueWorkTracker : ReactiveObject
 
 	private TimeSpan SimulateEta(IList<EncodeJobViewModel> queue)
 	{
+		var jobsToSimulate = queue.Take(EtaSimulationJobCount).ToList();
+		double workCompletionRate = this.OverallWorkCompletionRate / Math.Max(this.maxConcurrentEncodesDuringRun, 1);
+
 		var inProgressJobs = new List<JobWithSimulatedEta>();
 		var unstartedJobs = new Queue<JobWithSimulatedEta>();
 
-		foreach (var job in queue.Take(EtaSimulationJobCount))
+		foreach (var job in jobsToSimulate)
 		{
 			if (job.Encoding)
 			{
-				inProgressJobs.Add(new JobWithSimulatedEta(job, this.OverallWorkCompletionRate));
+				inProgressJobs.Add(new JobWithSimulatedEta(job, workCompletionRate));
 			}
 			else
 			{
-				unstartedJobs.Enqueue(new JobWithSimulatedEta(job, this.OverallWorkCompletionRate));
+				unstartedJobs.Enqueue(new JobWithSimulatedEta(job, workCompletionRate));
 			}
 		}
 
@@ -303,22 +332,27 @@ public class QueueWorkTracker : ReactiveObject
 		return currentTime;
 	}
 
+	private void UpdateMaxConcurrentEncodes(int concurrentEncodes)
+	{
+		if (concurrentEncodes > this.maxConcurrentEncodesDuringRun)
+		{
+			this.maxConcurrentEncodesDuringRun = concurrentEncodes;
+		}
+	}
+
 	private class JobWithSimulatedEta
 	{
-		public JobWithSimulatedEta(EncodeJobViewModel job, double overallWorkCompletionRate)
+		public JobWithSimulatedEta(EncodeJobViewModel job, double workCompletionRate)
 		{
 			this.Job = job;
-			if (job.Encoding)
-			{
-				this.SimulatedEta = job.Eta;
-			}
-			else if (overallWorkCompletionRate == 0)
+			double remainingWork = job.Work.Cost - job.Work.CompletedWork;
+			if (workCompletionRate == 0)
 			{
 				this.SimulatedEta = TimeSpan.MaxValue;
 			}
 			else
 			{
-				this.SimulatedEta = TimeSpan.FromSeconds(job.Work.Cost / overallWorkCompletionRate);
+				this.SimulatedEta = TimeSpan.FromSeconds(remainingWork / workCompletionRate);
 			}
 		}
 
