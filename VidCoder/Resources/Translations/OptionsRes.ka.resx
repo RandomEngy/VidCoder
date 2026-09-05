@@ -306,6 +306,9 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>კოდირებისთვის სამუშაო პროცესის გამოყენება</value>
   </data>
+  <data name="KeepDisplayOnWhenEncodingCheckBox" xml:space="preserve">
+    <value>კოდირებისას ეკრანის არ გათიშვა</value>
+  </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>შექმნის და მოდიფიცირების დროის შენარჩუნება კოდირებისას</value>
   </data>
@@ -482,5 +485,8 @@
   </data>
   <data name="WatcherStabilityIntervalLabel" xml:space="preserve">
     <value>ფაილის სტაბილურობის ლოდინის ინტერვალი (წამებში):</value>
+  </data>
+  <data name="KeepDisplayOnWhenEncodingToolTip" xml:space="preserve">
+    <value>ზოგიერთი სისტემა საჭიროებს ეკრანის არ გათიშვას ძილის რეჟიმის თავის ასარიდებლად. შეამოწმეთ თუ გაქვთ კოდირების პრობლემა სისტემის ძილის რეჟიმში.</value>
   </data>
 </root>
