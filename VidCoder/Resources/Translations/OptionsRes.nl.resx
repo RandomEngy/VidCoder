@@ -306,6 +306,9 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Werkproces gebruiken om te coderen</value>
   </data>
+  <data name="KeepDisplayOnWhenEncodingCheckBox" xml:space="preserve">
+    <value>Scherm aan houden bij het coderen</value>
+  </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Gemaakte en gewijzigde tijd behouden bij het converteren van bestanden</value>
   </data>
@@ -480,5 +483,8 @@ Peiling: Periodieke controle van de inhoud van de mappen. Gebruikt aanzienlijke 
   </data>
   <data name="WatcherStabilityIntervalLabel" xml:space="preserve">
     <value>Interval wachttijd voor bestandsstabiliteit (sec.):</value>
+  </data>
+  <data name="KeepDisplayOnWhenEncodingToolTip" xml:space="preserve">
+    <value>Sommige systemen vereisen dat het scherm ingeschakeld is om slaapstand te voorkomen. Selecteer deze optie als u problemen ondervindt met de onderbreking van coderingen door de slaapmodus.</value>
   </data>
 </root>

@@ -306,6 +306,9 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Использовать рабочий процесс для кодирования</value>
   </data>
+  <data name="KeepDisplayOnWhenEncodingCheckBox" xml:space="preserve">
+    <value>Держать экран включённым при кодировании</value>
+  </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Сохранять время создания и изменения при конвертации файлов</value>
   </data>
@@ -480,5 +483,8 @@
   </data>
   <data name="WatcherStabilityIntervalLabel" xml:space="preserve">
     <value>Интервал ожидания стабильности файла (сек.):</value>
+  </data>
+  <data name="KeepDisplayOnWhenEncodingToolTip" xml:space="preserve">
+    <value>Для некоторых систем необходим включённый экран, чтобы предотвратить переход в спящий режим. Попробуйте эту функцию, если у вас возникают проблемы с остановкой кодирования из-за ухода системы в сон.</value>
   </data>
 </root>
