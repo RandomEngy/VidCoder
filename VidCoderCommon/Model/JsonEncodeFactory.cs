@@ -968,7 +968,18 @@ public class JsonEncodeFactory
 		HBVideoEncoder videoEncoder = HandBrakeEncoderHelpers.GetVideoEncoder(profile.VideoEncoder);
 		if (videoEncoder == null)
 		{
-			throw new ArgumentException("Video encoder " + profile.VideoEncoder + " not recognized.");
+			HBContainer container = HandBrakeEncoderHelpers.GetContainer(profile.ContainerName);
+			int fallbackVideoEncoderId = HandBrakeEncoderHelpers.GetDefaultVideoEncoder(container.Id);
+			videoEncoder = HandBrakeEncoderHelpers.VideoEncoders.FirstOrDefault(e => e.Id == fallbackVideoEncoderId);
+
+			if (videoEncoder == null)
+			{
+				throw new ArgumentException($"Video encoder {profile.VideoEncoder} not recognized, and fallback encoder {fallbackVideoEncoderId} not found.");
+			}
+			else
+			{
+				this.logger.LogError($"Could not find video encoder {profile.VideoEncoder}, falling back to default {videoEncoder.ShortName} for container {profile.ContainerName}");
+			}
 		}
 
 		video.Encoder = videoEncoder.ShortName;
