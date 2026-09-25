@@ -408,4 +408,7 @@
   <data name="WhenFileExists_Skip" xml:space="preserve">
     <value>Ignora</value>
   </data>
+  <data name="WatchedFileStatusLive_Found" xml:space="preserve">
+    <value>Trovato</value>
+  </data>
 </root>
