@@ -306,6 +306,9 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Utilizza il processo di lavoro per la codifica</value>
   </data>
+  <data name="KeepDisplayOnWhenEncodingCheckBox" xml:space="preserve">
+    <value>Mantieni lo schermo acceso durante la codifica</value>
+  </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Preservare l'orario originale di Creazione e Modifica quando si converte un file</value>
   </data>
@@ -477,5 +480,11 @@ Interrogazione: controlla periodicamente il contenuto delle cartelle. Utilizza r
   </data>
   <data name="EnableQuickSyncHyperEncodeToolTip" xml:space="preserve">
     <value>Usa più motori di codifica in parallelo per velocizzare una singola codifica, dove supportato. Disabilita per consentire il bilanciamento del carico dei motori di codifica nel caso di più codifiche parallele.</value>
+  </data>
+  <data name="WatcherStabilityIntervalLabel" xml:space="preserve">
+    <value>Intervallo di attesa per stabilità file (secondi):</value>
+  </data>
+  <data name="KeepDisplayOnWhenEncodingToolTip" xml:space="preserve">
+    <value>Alcuni sistemi richiedono che lo schermo rimanga acceso per evitare la sospensione. Attiva questa opzione se la codifica viene interrotta dalla sospensione del PC.</value>
   </data>
 </root>
