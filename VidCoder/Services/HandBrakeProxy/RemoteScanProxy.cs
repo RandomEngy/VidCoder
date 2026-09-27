@@ -18,6 +18,7 @@ public class RemoteScanProxy : RemoteProxyBase<IHandBrakeScanWorker, IHandBrakeS
     public async void StartScan(string path, IAppLogger logger)
 	{
 		this.Logger = logger;
+		this.result = null;
 
 		await this.RunOperationAsync(worker => worker.StartScan(path));
 	}

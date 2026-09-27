@@ -178,7 +178,7 @@ public class QueueAdderService : ReactiveObject
 
 					if (!scanFoundTitle)
 					{
-						this.ScanFailed.Invoke(this, new EventArgs<string>(this.currentScan.SourcePath.Path));
+						this.ScanFailed?.Invoke(this, new EventArgs<string>(this.currentScan.SourcePath.Path));
 					}
 
 					this.scansCompletedThisSession++;
