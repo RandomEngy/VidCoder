@@ -320,6 +320,9 @@
   <data name="QueueColumnNameCropping" xml:space="preserve">
     <value>Ritaglio</value>
   </data>
+  <data name="QueueColumnNameOutputSize" xml:space="preserve">
+    <value>Dimensioni</value>
+  </data>
   <data name="QueueColumnNameSubtitleTracks" xml:space="preserve">
     <value>Tracce sottotitoli</value>
   </data>
@@ -352,8 +355,14 @@
   <data name="CompletedColumnNameElapsedTime" xml:space="preserve">
     <value>Tempo di codifica</value>
   </data>
+  <data name="CompletedColumnNameSize" xml:space="preserve">
+    <value>Dimensione file</value>
+  </data>
   <data name="CompletedColumnNamePercentOfSource" xml:space="preserve">
     <value>% del sorgente</value>
+  </data>
+  <data name="CompletedColumnNameSourceSize" xml:space="preserve">
+    <value>Dimensione file sorgente</value>
   </data>
   <data name="CompletedColumnNameVideoDuration" xml:space="preserve">
     <value>Durata video</value>
@@ -372,5 +381,14 @@
   </data>
   <data name="Available" xml:space="preserve">
     <value>Disponibile</value>
+  </data>
+  <data name="CompletedColumnNameSourceDimensions" xml:space="preserve">
+    <value>Dimensione sorgenti</value>
+  </data>
+  <data name="CompletedColumnNameDimensions" xml:space="preserve">
+    <value>Dimensioni</value>
+  </data>
+  <data name="QueueColumnNameSourceDimensions" xml:space="preserve">
+    <value>Dimensione sorgenti</value>
   </data>
 </root>
