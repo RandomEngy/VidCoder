@@ -755,4 +755,8 @@ Questo avviso verrà visualizzato solo due volte.</value>
   <data name="AddToTopOfQueueLabel" xml:space="preserve">
     <value>Metti alla prima posizione della coda</value>
   </data>
+  <data name="JobProgressToolTip" xml:space="preserve">
+    <value>Stima durata operazione: {0}</value>
+    <comment>{0} is the estimated remaining time for that job to complete.</comment>
+  </data>
 </root>
