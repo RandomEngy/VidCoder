@@ -162,11 +162,26 @@ public class QueueWorkTracker : ReactiveObject
 		}
 	}
 
-	public void ReportFinished(JobWork work)
+	/// <summary>
+	/// Reports a job that has finished running.
+	/// </summary>
+	/// <param name="work">The work for the job.</param>
+	/// <param name="succeeded">True if the encode ran to completion. If false, only the work actually completed is counted and the rest is dropped from the total queue cost.</param>
+	public void ReportFinished(JobWork work, bool succeeded)
 	{
 		lock (this.trackerLock)
 		{
-			this.completedQueueWork += work.Cost;
+			if (succeeded)
+			{
+				this.completedQueueWork += work.Cost;
+			}
+			else
+			{
+				double completedWork = Math.Clamp(work.CompletedWork, 0, work.Cost);
+				this.completedQueueWork += completedWork;
+				this.totalQueueCost -= work.Cost - completedWork;
+			}
+
 			this.completedItems++;
 			this.completedItemsSubject.OnNext(this.completedItems);
 		}

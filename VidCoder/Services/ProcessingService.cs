@@ -1589,6 +1589,7 @@ public class ProcessingService : ReactiveObject
 		if (encodeJobViewModel.FailedTries < Config.EncodeRetries)
 		{
 			encodeJobViewModel.FailedTries++;
+			encodeJobViewModel.Work.CompletedWork = 0;
 
 			int encodingItemCount = this.EncodeQueue.Items.Count(i => i.Encoding);
 			this.EncodeQueue.Insert(encodingItemCount, encodeJobViewModel);
@@ -1596,6 +1597,7 @@ public class ProcessingService : ReactiveObject
 			if (this.Encoding)
 			{
 				this.TotalTasks++;
+				this.WorkTracker.ReportAddedToQueue(encodeJobViewModel.Work);
 			}
 		}
 	}
@@ -1625,15 +1627,16 @@ public class ProcessingService : ReactiveObject
 		{
 			foreach (var encodeJobViewModel in encodeJobList)
 			{
-				if (this.Encoding)
-				{
-					this.WorkTracker.ReportAddedToQueue(encodeJobViewModel.Work);
-				}
-
 				if (overridePresetViewModel != null)
 				{
 					encodeJobViewModel.Job.EncodingProfile = overridePresetViewModel.Preset.EncodingProfile.Clone();
 					encodeJobViewModel.PresetName = picker.EncodingPreset;
+					encodeJobViewModel.CalculateWork();
+				}
+
+				if (this.Encoding)
+				{
+					this.WorkTracker.ReportAddedToQueue(encodeJobViewModel.Work);
 				}
 
 				//encodeQueueInnerList.Add(encodeJobViewModel);
@@ -1877,7 +1880,7 @@ public class ProcessingService : ReactiveObject
 				string jobSourcePath = jobViewModel.Job.SourcePath;
 				if (pathSet.Contains(jobSourcePath))
 				{
-					this.JobRemovedFromQueue?.Invoke(this, new EventArgs<EncodeJobViewModel>(jobViewModel));
+					this.ReportJobRemovedFromQueue(jobViewModel);
 					encodeQueueInnerList.RemoveAt(i);
 				}
 			}
@@ -2400,8 +2403,6 @@ public class ProcessingService : ReactiveObject
 			if (completeReason == EncodeCompleteReason.Finished)
 			{
 				// If the encode finished naturally (Not stopped by user)
-				this.WorkTracker.ReportFinished(finishedJobViewModel.Work);
-
 				long outputFileLength = 0;
 
 				if (result != VCEncodeResultCode.Succeeded)
@@ -2423,6 +2424,8 @@ public class ProcessingService : ReactiveObject
 						encodeLogger.LogError("Encode failed. HandBrake reported no error but the output file was empty.");
 					}
 				}
+
+				this.WorkTracker.ReportFinished(finishedJobViewModel.Work, succeeded: status == EncodeResultStatus.Succeeded);
 
 				this.EncodeQueue.Remove(finishedJobViewModel);
 
