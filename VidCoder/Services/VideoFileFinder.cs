@@ -81,6 +81,11 @@ public class VideoFileFinder
 			// Now add all files
 			foreach (string file in files)
 			{
+				if (IsSubtitleFile(file))
+				{
+					continue;
+				}
+
 				// Path is a file
 				pathList.Add(new SourcePathWithMetadata { Path = file, SourceType = SourceType.File });
 			}
@@ -96,7 +101,7 @@ public class VideoFileFinder
 					{
 						AddDirectoryToPathList(item, pathList, fileFilter);
 					}
-					else
+					else if (!IsSubtitleFile(item))
 					{
 						// Path is a file
 						pathList.Add(new SourcePathWithMetadata { Path = item, SourceType = SourceType.File });
@@ -110,6 +115,12 @@ public class VideoFileFinder
 		}
 
 		return pathList;
+	}
+
+	private static bool IsSubtitleFile(string path)
+	{
+		string extension = Path.GetExtension(path);
+		return !string.IsNullOrEmpty(extension) && FileUtilities.SubtitleExtensions.Contains(extension.ToLowerInvariant());
 	}
 
 	/// <summary>

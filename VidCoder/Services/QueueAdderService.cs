@@ -141,43 +141,45 @@ public class QueueAdderService : ReactiveObject
 						return;
 					}
 
-					bool scanFoundTitle = true;
-					if (args.Value != null)
+					bool scanFoundTitle = false;
+					try
 					{
-						JsonScanObject scanObject = JsonSerializer.Deserialize<JsonScanObject>(args.Value, JsonOptions.Plain);
-						if (scanObject.TitleList.Count == 0)
+						if (args.Value != null)
 						{
-							scanFoundTitle = false;
-						}
-
-						this.scanResults.Add(
-							new ScanResult
+							JsonScanObject scanObject = JsonSerializer.Deserialize<JsonScanObject>(args.Value, JsonOptions.Plain);
+							if (scanObject?.TitleList != null && scanObject.TitleList.Count > 0)
 							{
-								SourcePath = this.currentScan.SourcePath,
-								VideoSource = scanObject.ToVideoSource(),
-								JobInstructions = this.currentScan.JobInstructions
-							});
+								scanFoundTitle = true;
 
-						if (this.currentScan.JobInstructions.Start)
-						{
-							this.startPending = true;
-						}
+								this.scanResults.Add(
+									new ScanResult
+									{
+										SourcePath = this.currentScan.SourcePath,
+										VideoSource = scanObject.ToVideoSource(),
+										JobInstructions = this.currentScan.JobInstructions
+									});
 
-						if (this.scanResults.Count >= QueueAddChunkSize)
-						{
-							this.AddResultsToQueue();
+								if (this.currentScan.JobInstructions.Start)
+								{
+									this.startPending = true;
+								}
+
+								if (this.scanResults.Count >= QueueAddChunkSize)
+								{
+									this.AddResultsToQueue();
+								}
+							}
 						}
 					}
-					else
+					catch (Exception exception)
 					{
-						// Add to list of failed files, pop a dialog at the end
-						this.failedFiles.Add(this.currentScan.SourcePath.Path);
-
-						scanFoundTitle = false;
+						StaticResolver.Resolve<IAppLogger>().LogError($"Could not process scan result for {this.currentScan.SourcePath.Path}: {exception}");
 					}
 
 					if (!scanFoundTitle)
 					{
+						// Add to list of failed files, pop a dialog at the end
+						this.failedFiles.Add(this.currentScan.SourcePath.Path);
 						this.ScanFailed?.Invoke(this, new EventArgs<string>(this.currentScan.SourcePath.Path));
 					}
 
