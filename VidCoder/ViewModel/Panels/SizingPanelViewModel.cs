@@ -402,44 +402,7 @@ public class SizingPanelViewModel : PanelViewModel
 			{
 				return new { sizingMode, scalingMode, paddingMode, width, height, selectedTitle };
 			})
-			.Subscribe(x =>
-			{
-				bool oldAutoValue = this.AutomaticChange;
-
-				if (x.sizingMode == VCSizingMode.Automatic && x.paddingMode == VCPaddingMode.None)
-				{
-					this.AutomaticChange = true;
-					this.PadTop = 0;
-					this.PadBottom = 0;
-					this.PadLeft = 0;
-					this.PadRight = 0;
-				}
-				else if (x.sizingMode == VCSizingMode.Automatic && x.paddingMode != VCPaddingMode.Custom)
-				{
-					this.AutomaticChange = true;
-					if (x.selectedTitle == null)
-					{
-						this.PadTop = 0;
-						this.PadBottom = 0;
-						this.PadLeft = 0;
-						this.PadRight = 0;
-					}
-					else
-					{
-						// Calculate the correct padding from input variables
-						OutputSizeInfo outputSize = JsonEncodeFactory.GetOutputSize(
-							this.Profile,
-							x.selectedTitle.Title,
-							this.encodeSettingOverrideService.ToJobOverrides(this.Profile));
-						this.PadTop = outputSize.Padding.Top;
-						this.PadBottom = outputSize.Padding.Bottom;
-						this.PadLeft = outputSize.Padding.Left;
-						this.PadRight = outputSize.Padding.Right;
-					}
-				}
-
-				this.AutomaticChange = oldAutoValue;
-			});
+			.Subscribe(_ => this.RefreshAutomaticPadding());
 
 		// When the preset changes, update the local pad values.
 		this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile)
@@ -823,8 +786,43 @@ public class SizingPanelViewModel : PanelViewModel
 		{
 			this.encodeSettingOverrideService.SetCropping(
 				new VCCropping(this.CropTop, this.CropBottom, this.CropLeft, this.CropRight));
-			this.previewUpdateService.RefreshPreview();
+			this.RefreshAutomaticPadding();
+			this.RefreshOutputSize();
 		}
+	}
+
+	private void RefreshAutomaticPadding()
+	{
+		if (this.SizingMode != VCSizingMode.Automatic || this.PaddingMode == VCPaddingMode.Custom)
+		{
+			return;
+		}
+
+		bool oldAutoValue = this.AutomaticChange;
+		this.AutomaticChange = true;
+
+		SourceTitleViewModel selectedTitle = this.MainViewModel.SelectedTitle;
+		if (this.PaddingMode == VCPaddingMode.None || selectedTitle == null)
+		{
+			this.PadTop = 0;
+			this.PadBottom = 0;
+			this.PadLeft = 0;
+			this.PadRight = 0;
+		}
+		else
+		{
+			// Calculate the correct padding from input variables
+			OutputSizeInfo outputSize = JsonEncodeFactory.GetOutputSize(
+				this.Profile,
+				selectedTitle.Title,
+				this.encodeSettingOverrideService.ToJobOverrides(this.Profile));
+			this.PadTop = outputSize.Padding.Top;
+			this.PadBottom = outputSize.Padding.Bottom;
+			this.PadLeft = outputSize.Padding.Left;
+			this.PadRight = outputSize.Padding.Right;
+		}
+
+		this.AutomaticChange = oldAutoValue;
 	}
 
 	private void EnsureResolutionPopulatedIfRequired()
